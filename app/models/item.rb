@@ -281,9 +281,12 @@ class Item < ActiveRecord::Base
         columns = [
           ['item_identifier','activerecord.attributes.item.item_identifier'],
           ['acquired_at', 'activerecord.attributes.item.acquired_at'],
+          [:created_at, 'activerecord.attributes.item.created_at'],
+          [:call_number, 'activerecord.attributes.item.call_number'],
           [:original_title,'activerecord.attributes.manifestation.original_title'],
-          ['removed_at', 'activerecord.attributes.item.removed_at'],
-          ['price', 'activerecord.attributes.item.price'],
+          ['removed_at', 'activerecord.models.remove_reason'],
+          [:removed_reason, 'activerecord.attributes.item.remove_reason'],
+#          ['price', 'activerecord.attributes.item.price'],
           [:patron_publisher,'patron.publisher'], 
           [:patron_creator, 'patron.creator'],
           [:date_of_publication, 'activerecord.attributes.manifestation.date_of_publication'],
@@ -308,8 +311,14 @@ class Item < ActiveRecord::Base
                 row << item.removed_at.strftime("%Y/%m/%d") rescue ""
               when "acquired at"
                 row << item.acquired_at.strftime("%Y/%m/%d") rescue ""
+              when :created_at
+                row << item.created_at.strftime("%Y/%m/%d") rescue ""
               when :original_title
                 row << item.manifestation.original_title
+              when :removed_reason
+                row << item.try(:remove_reason).try(:display_name) || "" rescue ""
+              when :call_number
+                row << item.call_number || "" rescue ""
               when :date_of_publication
                 if item.manifestation.date_of_publication.nil?
                   row << ""
@@ -348,17 +357,20 @@ class Item < ActiveRecord::Base
               unless item.acquired_at.nil?
                 row.item(:acquired_at).value(item.acquired_at.strftime("%Y/%m/%d"))
               end
+              row.item(:created_at).value(item.created_at.strftime("%Y/%m/%d")) if item.created_at
+              row.item(:call_number).value(item.call_number)
               unless item.removed_at.nil?
                 row.item(:removed_at).value(item.removed_at.strftime("%Y/%m/%d"))
               end
+              row.item(:removed_reason).value(item.remove_reason.display_name) if item.remove_reason
               row.item(:title).value(item.manifestation.original_title)
               unless item.manifestation.date_of_publication.nil?
                 #row.item(:date_of_publication).value(item.manifestation.date_of_publication.strftime("%Y/%m/%d"))
               end
-              row.item(:price).value(to_format(item.price))
+              # row.item(:price).value(to_format(item.price))
               row.item(:patron_creator).value(patrons_list(item.manifestation.creators))
               row.item(:patron_publisher).value(patrons_list(item.manifestation.publishers))
-              row.item(:date_of_publication).value(item.manifestation.date_of_publication.strftime("%Y/%m/%d")) rescue nil
+              row.item(:date_of_publication).value(item.manifestation.date_of_publication.strftime("%Y/%m")) rescue nil
              end
           end
         end
