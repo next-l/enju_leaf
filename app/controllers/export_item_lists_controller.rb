@@ -83,24 +83,22 @@ class ExportItemListsController < ApplicationController
       when 2
         @items = Item.find(:all, 
           :joins => [:manifestation, :shelf => :library], 
-          :conditions => {:shelves => {:libraries => {:id => @selected_library}}, 
-          :manifestations => {:carrier_type_id => @selected_carrier_type}}, 
+          :conditions => ["libraries.id in (?) AND manifestations.carrier_type_id in (?)", @selected_library, @selected_carrier_type],
           :order => 'items.call_number')
         filename = t('item_list.call_number_list')
       when 3
         @items = Item.find(:all, 
           :joins => [:manifestation, :circulation_status, :shelf => :library], 
-          :conditions => {:shelves => {:libraries => {:id => @selected_library}}, 
-          :manifestations => {:carrier_type_id => @selected_carrier_type}, 
-          :items => {:circulation_statuses => {:name => "Removed"}}}, 
+          :conditions => ["libraries.id in (?) AND manifestations.carrier_type_id in (?) AND circulation_statuses.name = ?",
+                         @selected_library, @selected_carrier_type, 'Removed'],
           :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier, manifestations.original_title')
         filename = t('item_list.removed_list')
       when 4
         checkouts = Checkout.select(:item_id).map(&:item_id).uniq
         @items = Item.find(:all, 
           :joins => [:manifestation, :shelf => :library], 
-          :conditions => {:shelves => {:libraries => {:id => @selected_library}}, 
-          :manifestations => {:carrier_type_id => @selected_carrier_type}}, 
+          :conditions => ["libraries.id in (?) AND manifestations.carrier_type_id in (?)",
+                          @selected_library, @selected_carrier_type],
           :order => 'libraries.id, manifestations.carrier_type_id, items.shelf_id, items.item_identifier')
         @items.delete_if{|item|checkouts.include?(item.id)} if checkouts
         filename = t('item_list.unused_list')
@@ -250,16 +248,17 @@ class ExportItemListsController < ApplicationController
           when 2
             list_size = Item.count(:all, 
               :joins => [:manifestation, :shelf => :library], 
-              :conditions => {:shelves => {:libraries => {:id => libraries}}, :manifestations => {:carrier_type_id => carrier_types}})
+              :conditions => ["libraries.id in (?) AND manifestations.carrier_type_id in (?)", libraries, carrier_types])
           when 3
             list_size = Item.count(:all, 
               :joins => [:manifestation, :circulation_status, :shelf => :library], 
-              :conditions => {:shelves => {:libraries => {:id => libraries}}, :manifestations => {:carrier_type_id => carrier_types}, :items => {:circulation_statuses => {:name => "Removed"}}})
+              :conditions => ["libraries.id in (?) AND manifestations.carrier_type_id in (?) AND circulation_statuses.name = ?",
+                              libraries, carrier_types, 'Removed'])
           when 4
             checkouts = Checkout.select(:item_id).map(&:item_id).uniq
             items = Item.find(:all, 
               :joins => [:manifestation, :shelf => :library], 
-              :conditions => {:shelves => {:libraries => {:id => libraries}}, :manifestations => {:carrier_type_id => carrier_types}})
+              :conditions => ["libraries.id in (?) AND manifestations.carrier_type_id in (?)", libraries, carrier_types])
             items.delete_if{|item|checkouts.include?(item.id)} if checkouts
             list_size = items.size
           when 5
@@ -271,6 +270,7 @@ class ExportItemListsController < ApplicationController
             @items = []
             manifestations = SeriesStatement.latest_issues
             manifestations.each do |manifestation|
+              next unless manifestation.items
               manifestation.items.each do |item|
                 if libraries.include?(item.shelf.library.id)
                   if all_bookstore == "true"
@@ -306,7 +306,9 @@ class ExportItemListsController < ApplicationController
 
       render :json => {:success => 1, :list_size => list_size, :page => page}
     end
-  end 
+    rescue Exception => e
+      logger.error e
+  end
 
   private
   def get_query(ndcs, libraries, carrier_types)
@@ -323,7 +325,7 @@ class ExportItemListsController < ApplicationController
     series_statements.each do |series_statement|
       series_statement.manifestations.each do |manifestation|
         manifestation.items.each do |item|
-          if libraries.include?(item.shelf.library.id)
+          if libraries.include?(item.shelf.library_id)
             if all_bookstore == "true"
               unless acquired_at.blank?
                 @items << item if item.acquired_at >= acquired_at
@@ -343,6 +345,7 @@ class ExportItemListsController < ApplicationController
         end
       end
     end
+    logger.error @items.size
     return @items
   end
 

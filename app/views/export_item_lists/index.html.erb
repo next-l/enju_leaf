@@ -164,11 +164,14 @@
       <%= text_field_tag :acquired_at, @acquired_at , :placeholder => "#{t('page.example')}: 2011-04-12"-%>
     </div>
 
+<%- if false -%>
     <div id="item_list_ndc">
       <%= t('item_list.ndc') -%> <%= t('item_list.ndc_message') -%><br />
       <%= text_field_tag :ndc, @ndc rescue "" -%>
     </div>
+<%- end -%>
     <br style="clear: both;" />
+
   </div>
 
   <div>

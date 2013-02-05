@@ -619,7 +619,7 @@ ja:
         set_status: 紛失処理を実行
         will_loss_item: 資料の貸出状態を紛失扱いにし、自動返却を行いますか。
         fail_update_loss_item: 紛失処理に失敗しました。
-        created_at: 作成日
+        created_at: 登録日
         removed_at: 除籍日
         items_number: 所蔵数
         rank: 正本区分
@@ -852,7 +852,7 @@ ja:
         checkouts_count: 貸出回数(累計/今期/前期)
         reserves_count:  予約回数(累計/今期/前期)
         last_checkout_datetime: 最終利用年月日
-        ndc: NDC
+        ndc: 分類記号
         exinfo_1: 拡張情報１
         exinfo_2: 拡張情報２
         exinfo_3: 拡張情報３

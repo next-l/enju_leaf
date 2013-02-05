@@ -53,7 +53,7 @@ class SeriesStatement < ActiveRecord::Base
     manifestations = []
     series_statements = SeriesStatement.all
     series_statements.each do |series|
-      manifestations << series.last_issue
+      manifestations << series.last_issue if series.last_issue
     end
     return manifestations
   end
