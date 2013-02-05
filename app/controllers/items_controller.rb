@@ -129,19 +129,18 @@ class ItemsController < ApplicationController
     end
     @item = Item.new
     @item.manifestation_id = @manifestation.id
-    @circulation_statuses = CirculationStatus.order(:position).all # where(:name => ['In Process', 'Available For Pickup', 'Available On Shelf', 'Claimed Returned Or Never Borrowed', 'Not Available']).order(:position)
-    @item.circulation_status = CirculationStatus.where(:name => 'In Process').first
-    if @manifestation.try(:manifestation_type).try(:is_article?)
-      @item.checkout_type = CheckoutType.where(:name => 'article').first
-    else
+    unless @manifestation.article?
+      @circulation_statuses = CirculationStatus.order(:position)
+      @item.circulation_status = CirculationStatus.where(:name => 'In Process').first
       @item.checkout_type = @manifestation.carrier_type.checkout_types.first
-    end
-    @item.use_restriction_id = UseRestriction.where(:name => 'Limited Circulation, Normal Loan Period').select(:id).first.id
-    if @manifestation.article?
-      @item.shelf = @library.article_shelf
-    else
+      @item.use_restriction_id = UseRestriction.where(:name => 'Limited Circulation, Normal Loan Period').select(:id).first.id
       @item.shelf = @library.shelves.first
-    end  
+    else
+      @item.circulation_status = CirculationStatus.where(:name => 'Not Available').first
+      @item.checkout_type = CheckoutType.where(:name => 'article').first
+      @item.use_restriction_id = UseRestriction.where(:name => 'Not For Loan').select(:id).first.id
+      @item.shelf = @library.article_shelf
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -160,14 +159,10 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(params[:item])
     @manifestation = Manifestation.find(@item.manifestation_id)
-
     respond_to do |format|
       if @item.save
         @item.manifestation = @manifestation 
         Item.transaction do
-          #if @item.shelf
-          #  @item.shelf.library.patron.items << @item
-          #end
           if @item.manifestation.next_reserve
             #ReservationNotifier.deliver_reserved(@item.manifestation.next_reservation.user)
             flash[:message] = t('item.this_item_is_reserved')
