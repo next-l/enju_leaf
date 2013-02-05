@@ -2,9 +2,13 @@ class ExportItemRegistersController < ApplicationController
   before_filter :check_librarian
 
   def initialize
-    @list_types = [[t('item_register.item_register'), 1],
+    @list_types = [[t('item_register.item_register_all'), 1],
                    [t('item_register.removing_list'), 2],
-                   [t('item_register.audio_list'), 3]
+                   [t('item_register.audio_list'), 3],
+                   [t('item_register.item_register_book'),4],
+                   [t('item_register.item_register_series'),5],
+                   [t('item_register.item_register_article'),6],
+                   [t('item_register.item_register_other'),7],
                   ]
     super
   end
@@ -33,15 +37,27 @@ class ExportItemRegistersController < ApplicationController
   
       logger.error "SQL start at #{Time.now}"
       case list_type.to_i
-      when 1 # item register
+      when 1 # all item register
         file_name = "item_register"
-        Item.export_item_register(out_dir, file_type)
+        Item.export_item_register('all', out_dir, file_type)
       when 2 # removing list
         file_name = "removing_list"
         Item.export_removing_list(out_dir, file_type)
       when 3 # audio list
         file_name = "audio_list"
         Item.export_audio_list(out_dir, file_type)
+      when 4 # book register
+        file_name = "item_register_book"
+        Item.export_item_register('book', out_dir, file_type)
+      when 5 # series register
+        file_name = "item_register_series"
+        Item.export_item_register('series', out_dir, file_type)
+      when 6 # article register
+        file_name = "item_register_article"
+        Item.export_item_register('article', out_dir, file_type)
+      when 7 # other register
+        file_name = "item_register_exinfo"
+        Item.export_item_register('exinfo', out_dir, file_type)
       end
       send_file "#{out_dir}#{file_name}.#{file_type}"
       logger.error "created report: #{Time.now}"
@@ -64,16 +80,25 @@ class ExportItemRegistersController < ApplicationController
         when 3 # audio list
           carrier_type_ids = CarrierType.audio.inject([]){|ids, c| ids << c.id}
           list_size = Item.count(:all, :joins => :manifestation, :conditions => ["manifestations.carrier_type_id IN (?)", carrier_type_ids]) 
-        when 4
-          checkouts = Checkout.select(:item_id).map(&:item_id).uniq!
-          items = Item.find(:all, :joins => [:manifestation, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => libraries}}, :manifestations => {:carrier_type_id => carrier_types}})
-          items.delete_if{|item|checkouts.include?(item.id)}
-          list_size = items.size
-        when 5
-          query = get_query(ndcs, libraries, carrier_types)
-          list_size = Item.recent.count(:all, :joins => [:manifestation, :shelf => :library], :conditions => query)
+        when 4 # item register book
+          list_size = Item.count(:all, :joins => :manifestation, :conditions => ["manifestations.manifestation_type_id in (?)", ManifestationType.type_ids('book')])
+        when 5 # item register series
+          list_size = Item.count(:all, :joins => :manifestation, :conditions => ["manifestations.manifestation_type_id in (?)", ManifestationType.type_ids('series')])
+        when 6 # item register article
+          list_size = Item.count(:all, :joins => :manifestation, :conditions => ["manifestations.manifestation_type_id in (?)", ManifestationType.type_ids('article')])
+        when 7 # item register other
+          list_size = Item.count(:all, :joins => :manifestation, :conditions => ["manifestations.manifestation_type_id in (?)", ManifestationType.type_ids('exinfo')])
+#        when 4
+#          checkouts = Checkout.select(:item_id).map(&:item_id).uniq!
+#          items = Item.find(:all, :joins => [:manifestation, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => libraries}}, :manifestations => {:carrier_type_id => carrier_types}})
+#          items.delete_if{|item|checkouts.include?(item.id)}
+#          list_size = items.size
+#        when 5
+#          query = get_query(ndcs, libraries, carrier_types)
+#          list_size = Item.recent.count(:all, :joins => [:manifestation, :shelf => :library], :conditions => query)
         end
-      rescue
+      rescue Exception => e
+        logger.error e
         list_size = 0
       end
 

@@ -2298,6 +2298,7 @@ ja:
     loan_library: 貸借図書館
     corporate_name: 団体名
     department_name: 部署名
+    manifestation_type: 資料区分
     option: オプション
     condition: ""
     day_0: 日曜日
@@ -2350,9 +2351,13 @@ ja:
     tsv: TSV
     list_number: 件数
     page_number: ページ数
-    item_register: 図書原簿
+    item_register_all: 図書原簿(全て)
     removing_list: 除籍原簿
     audio_list: 視聴覚資料目録
+    item_register_book: 図書原簿
+    item_register_series: 雑誌原簿
+    item_register_article: 文献原簿
+    item_register_other: その他原簿
   library_report:
     checkouts: 貸出数(冊)
     ndc: "(NDC:%{ndc})" 

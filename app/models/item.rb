@@ -367,19 +367,23 @@ class Item < ActiveRecord::Base
     end  #end of method
   end
 
-  def self.export_item_register(out_dir, file_type = nil) 
+  def self.export_item_register(type, out_dir, file_type = nil) 
     raise "invalid parameter: no path" if out_dir.nil? || out_dir.length < 1
-    tsv_file = out_dir + "item_register.tsv"
-    pdf_file = out_dir + "item_register.pdf"
-    logger.info "output item_register tsv: #{tsv_file} pdf: #{pdf_file}"
+    tsv_file = out_dir + "item_register_#{type}.tsv"
+    pdf_file = out_dir + "item_register_#{type}.pdf"
+    logger.info "output item_register_#{type} tsv: #{tsv_file} pdf: #{pdf_file}"
     # create output path
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     # get item
-    @items = Item.order("bookstore_id DESC, acquired_at ASC, item_identifier ASC").all
+    if type == 'all'
+      @items = Item.order("bookstore_id DESC, acquired_at ASC, item_identifier ASC").all
+    else  
+      @items = Item.joins(:manifestation).where(["manifestations.manifestation_type_id in (?)", ManifestationType.type_ids(type)]).order("items.bookstore_id DESC, items.acquired_at ASC, items.item_identifier ASC").all
+    end
     # make tsv
     make_item_register_tsv(tsv_file, @items) if file_type.nil? || file_type == "tsv"
     # make pdf
-    make_item_register_pdf(pdf_file, @items) if file_type.nil? || file_type == "pdf"
+    make_item_register_pdf(pdf_file, @items, "item_register_#{type}") if file_type.nil? || file_type == "pdf"
   end
 
   def self.export_audio_list(out_dir, file_type = nil)
@@ -519,18 +523,19 @@ class Item < ActiveRecord::Base
     end
   end
 
-  def self.make_item_register_pdf(pdf_file, items)
-    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'libcheck_items.tlf') 
+  def self.make_item_register_pdf(pdf_file, items, list_title = nil)
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'item_register.tlf') 
     report.events.on :page_create do |e|
       e.page.item(:page).value(e.page.no)
     end
     report.events.on :generate do |e|
       e.pages.each do |page|
         page.item(:total).value(e.report.page_count)
+        page.item(:list_title).value(I18n.t("item_register.#{list_title}"))
       end
     end
 
-    bookstore_ids = items.inject([]){|ids, item| ids << item.bookstore_id; ids}.uniq! 
+    bookstore_ids = [nil] + items.inject([]){|ids, item| ids << item.bookstore_id; ids}.uniq!  rescue [nil]
     if bookstore_ids
       bookstore_ids.each do |bookstore_id|
         report.start_new_page do |page|
@@ -765,7 +770,7 @@ class Item < ActiveRecord::Base
         row.item(:library).value(item.shelf.library.display_name.localize) if item.shelf && item.shelf.library
         row.item(:carrier_type).value(item.manifestation.carrier_type.display_name.localize) if item.manifestation && item.manifestation.carrier_type
         row.item(:shelf).value(item.shelf.display_name) if item.shelf
-        row.item(:ndc).value(item.manifestation.ndc) if item.manifestation
+        row.item(:remove_reason).value(item.remove_reason.display_name) if item.removed_reason
         row.item(:item_identifier).value(item.item_identifier)
         row.item(:call_number).value(call_numberformat(item))
         row.item(:removed_at).value(item.removed_at.strftime("%Y/%m/%d")) if item.removed_at
@@ -784,6 +789,7 @@ class Item < ActiveRecord::Base
       [:carrier_type, 'activerecord.models.carrier_type'],
       [:shelf, 'activerecord.models.shelf'],
       [:ndc, 'activerecord.attributes.manifestation.ndc'],
+      [:remove_reason, 'activererecord.attributes.item.remove_reason'],
       ['item_identifier', 'activerecord.attributes.item.item_identifier'],
       [:call_number, 'activerecord.attributes.item.call_number'],
       [:removed_at, 'activerecord.attributes.item.removed_at'],
