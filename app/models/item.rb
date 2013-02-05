@@ -285,11 +285,11 @@ class Item < ActiveRecord::Base
           [:call_number, 'activerecord.attributes.item.call_number'],
           [:original_title,'activerecord.attributes.manifestation.original_title'],
           ['removed_at', 'activerecord.models.remove_reason'],
-          [:removed_reason, 'activerecord.attributes.item.remove_reason'],
 #          ['price', 'activerecord.attributes.item.price'],
           [:patron_publisher,'patron.publisher'], 
           [:patron_creator, 'patron.creator'],
           [:date_of_publication, 'activerecord.attributes.manifestation.date_of_publication'],
+          [:removed_reason, 'activerecord.models.remove_reason'],
           ['note', 'activerecord.attributes.item.note']
         ]
         File.open(tsv_file, "w") do |output|
