@@ -782,7 +782,7 @@ class Item < ActiveRecord::Base
         row.item(:library).value(item.shelf.library.display_name.localize) if item.shelf && item.shelf.library
         row.item(:carrier_type).value(item.manifestation.carrier_type.display_name.localize) if item.manifestation && item.manifestation.carrier_type
         row.item(:shelf).value(item.shelf.display_name) if item.shelf
-        row.item(:remove_reason).value(item.remove_reason.display_name) if item.removed_reason
+        row.item(:remove_reason).value(item.remove_reason.display_name) if item.remove_reason
         row.item(:item_identifier).value(item.item_identifier)
         row.item(:call_number).value(call_numberformat(item))
         row.item(:removed_at).value(item.removed_at.strftime("%Y/%m/%d")) if item.removed_at
@@ -801,7 +801,7 @@ class Item < ActiveRecord::Base
       [:carrier_type, 'activerecord.models.carrier_type'],
       [:shelf, 'activerecord.models.shelf'],
       [:ndc, 'activerecord.attributes.manifestation.ndc'],
-      [:remove_reason, 'activererecord.attributes.item.remove_reason'],
+      [:remove_reason, 'activerecord.models.remove_reason'],
       ['item_identifier', 'activerecord.attributes.item.item_identifier'],
       [:call_number, 'activerecord.attributes.item.call_number'],
       [:removed_at, 'activerecord.attributes.item.removed_at'],
@@ -827,9 +827,11 @@ class Item < ActiveRecord::Base
         when :title
           row << item.manifestation.original_title
         when :removed_at
-          row << item.removed_at.strftime("%Y/%m/%d") if item.removed_at
+          row << item.removed_at.strftime("%Y/%m/%d") rescue ""
+        when :remove_reason
+          row << item.try(:remove_reason).try(:display_name) || "" rescue ""
         when :call_number
-          row << coll_numberformat(item)
+          row << item.call_number || ""
         else
           row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
         end
@@ -979,19 +981,19 @@ class Item < ActiveRecord::Base
         when :library
           row << item.shelf.library.display_name.localize 
         when :acquired_at
-          row << item.acquired_at.strftime("%Y/%m/%d") if item.acquired_at
+          row << item.acquired_at.strftime("%Y/%m/%d") || "" rescue ""
         when :bookstore
           bookstore = ""
           bookstore = item.bookstore.name if item.bookstore and item.bookstore.name
           row << bookstore
         when :volume_number_string
-          row << item.manifestation.volume_number_string
+          row << item.manifestation.volume_number_string || "" rescue ""
         when :issue_number_string
-          row << item.manifestation.issue_number_string
+          row << item.manifestation.issue_number_string || "" rescue ""
         when :serial_number_string
-          row << item.manifestation.serial_number_string
+          row << item.manifestation.serial_number_string || "" rescue ""
         when :title
-          row << item.manifestation.original_title
+          row << item.manifestation.original_title || "" rescue ""
         else
           row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
         end

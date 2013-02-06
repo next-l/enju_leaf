@@ -97,7 +97,8 @@ class ReminderList < ActiveRecord::Base
           page.list(:list).add_row do |row|
             row.item(:checkout_id).value(reminder_list.checkout.id)
             row.item(:title).value(reminder_list.checkout.item.manifestation.original_title)
-            row.item(:user).value(reminder_list.checkout.user.patron.full_name + "(" + reminder_list.checkout.user_username + ")")
+            row.item(:call_number).value(reminder_list.checkout.try(:item).try(:call_number))
+            row.item(:user).value(reminder_list.try(:checkout).try(:user).try(:patron).try(:full_name) + "(" + reminder_list.try(:checkout).try(:user_username) + ")") rescue nil
             row.item(:state).value(reminder_list.status_name)
             row.item(:due_date).value(reminder_list.checkout.due_date)
             row.item(:number_of_day_overdue).value(reminder_list.checkout.day_of_overdue)
@@ -111,8 +112,9 @@ class ReminderList < ActiveRecord::Base
 
   def self.output_reminder_list_tsv(reminder_lists)
     columns = [
-      [:chekout_id, 'activerecord.attributes.reminder_list.checkout_id'],
+      [:checkout_id, 'activerecord.attributes.reminder_list.checkout_id'],
       [:title, 'activerecord.attributes.reminder_list.original_title'],
+      [:call_number, 'activerecord.attributes.item.call_number'],
       [:user, 'activerecord.attributes.reminder_list.user_name'],
       [:state, 'activerecord.attributes.reminder_list.status'],
       [:due_date, 'activerecord.attributes.reminder_list.due_date'],
@@ -134,19 +136,21 @@ class ReminderList < ActiveRecord::Base
         columns.each do |column|
           case column[0]
           when :checkout_id
-            row << reminder_list.checkout.id
+            row << reminder_list.checkout.id || "" rescue ""
           when :title
-            row << reminder_list.checkout.item.manifestation.original_title
+            row << reminder_list.try(:checkout).try(:item).try(:manifestation).try(:original_title) || "" rescue ""
+          when :call_number
+            row << reminder_list.try(:checkout).try(:item).try(:call_number) || "" rescue ""
           when :user
-            row << reminder_list.checkout.user.patron.full_name + "(" + reminder_list.checkout.user_username + ")"
+            row << (reminder_list.try(:checkout).try(:user).try(:patron).try(:full_name) + "(" + reminder_list.try(:checkout).try(:user_username) + ")" || "" rescue "")
           when :state
-            row << reminder_list.status_name
-          when :due_date
-            row << reminder_list.checkout.due_date
+            row << reminder_list.try(:status_name) || "" rescue ""
+          when :due_date 
+            row << reminder_list.try(:checkout).try(:due_date) || "" rescue ""
           when :number_of_day_overdue
-            row << reminder_list.checkout.day_of_overdue
+            row << reminder_list.try(:checkout).try(:day_of_overdue) || "" rescue ""
           when :library
-            row << reminder_list.checkout.item.shelf.library.display_name.localize
+            row << reminder_list.try(:checkout).try(:item).try(:shelf).try(:library).try(:display_name).try(:localize) || "" rescue ""
           end
         end
         data << '"'+row.join("\"\t\"")+"\"\n"
