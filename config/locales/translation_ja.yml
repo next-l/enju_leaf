@@ -2174,16 +2174,16 @@ ja:
     message:
       read_sheet: "シート『%{sheet}』の読み取りを開始します。"
     error:
-      blank_sheet: "%{sheet}の読み取りに失敗しました。データが記述されていません。"
-      overlap: "%{sheet}の読み取りに失敗しました。ヘッダーのフィールド名に重複したものがあります。"
+      blank_sheet: "シート『%{sheet}』の読み取りに失敗しました。データが記述されていません。"
+      overlap: "シート『%{sheet}』の読み取りに失敗しました。ヘッダーのフィールド名に重複したものがあります。"
       wrong_data: "指定の%{field}は不正です。 %{field}: %{data}"
       failed_delete_not_find: "対象の資料が見つからなかったため削除を実行できませんでした。"
       series:
-        head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目にはシリーズ名またはISSN,またタイトルまたはISBNが必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
+        head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目にはシリーズ名またはISSN,またタイトルまたはISBNが必須です。\r\nシート『%{sheet}』を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "シリーズ名またはISSN,タイトルまたはISBNを指定してください。"
         wrong_issn: "指定のISSNは不正です。"
       book:
-        head_is_blank: "%{sheet}の読み取りに失敗しました。\r\n1行目にはタイトルまたはISBNが必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
+        head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目にはタイトルまたはISBNが必須です。\r\nシート『%{sheet}』を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "タイトルまたはISBNを指定してください。"
         only_integer: "%{field}には整数以外の値を指定しないでください。 %{field}: %{data}"
         only_numeric: "%{field}には数値以外の値を指定しないでください。 %{field}: %{data}"
@@ -2194,8 +2194,9 @@ ja:
         wrong_isbn: "指定のISBNは不正です。"
         not_delete: "タイトルを空白登録することはできません。"
         has_original: "既に正本登録済みの資料に、正本資料の追加はできません。"
+        has_not_shelf: "図書館が保持していない本棚が指定されています。"
       article:
-        head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目には表題が必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
+        head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目には表題が必須です。\r\nシート『%{sheet}』を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "表題を指定してください。"
   resource_import_textresult:
     show_error_list: "エラー行のみ表示"

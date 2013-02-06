@@ -76,6 +76,11 @@ $(function(){
   </div>
 
   <div class="actions">
+    <%= f.hidden_field :checkout_type_id, :value => CheckoutType.where(:name => 'article').first.id %>
+    <%= f.hidden_field :circulation_status_id, :value =>  CirculationStatus.where(:name => 'Not Available').first.id %>
+    <%= f.hidden_field :item_identifier, :value => Numbering.do_numbering('article') unless @item.item_identifier %>
+    <%= f.hidden_field :use_restriction_id, :value => UseRestriction.where(:name => 'Not For Loan').first.id %>
+    <%= f.hidden_field :rank, :value => 0.to_i %>
     <%= f.submit :disable_with => t('page.wait') %>
   </div>
   <%= javascript_tag("$('#item_retention_period_id').focus()") %>
