@@ -628,3 +628,10 @@ system_configuration_00089:
   typename: Text	
   description: "フッターの表示内容"
   category: 'general'
+system_configuration_00090:
+  id: 90
+  keyname: internal_server
+  v: "true"
+  typename: Boolean
+  description: "業務サーバとして利用する"
+  category: 'general'

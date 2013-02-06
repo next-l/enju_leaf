@@ -230,6 +230,8 @@ defaults: &defaults
   # 督促情報表のファイル名
   reminder_list_print_pdf:
     filename: "reminder_list.pdf"
+  # 自動で督促メールを送る延滞日数
+  auto_reminder_period: 5
 
   # 督促情報表のファイル名
   reminder_list_print_tsv:
