@@ -48,6 +48,7 @@ class Item < ActiveRecord::Base
   has_many :answers, :through => :answer_has_items
   has_one :resource_import_result
   has_many :libcheck_tmp_items
+  has_many :libcheck_notfound_items
   has_many :expenses
   has_many :binding_items, :class_name => 'Item', :foreign_key => 'bookbinder_id'
   belongs_to :binder_item, :class_name => 'Item', :foreign_key => 'bookbinder_id'

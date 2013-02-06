@@ -1,4 +1,5 @@
 class LibcheckNotfoundItem < ActiveRecord::Base
+  belongs_to :item
 
   # CONSTANT
   STS_NORMAL          = 0b00000000
@@ -34,7 +35,8 @@ class LibcheckNotfoundItem < ActiveRecord::Base
 
     columns = [
       ['item_identifier','activerecord.attributes.item.item_identifier'],
-      [:status_checkout, 'activerecord.attributes.libcheck_notfound_item.status_checkout'],
+#      [:status_checkout, 'activerecord.attributes.libcheck_notfound_item.status_checkout'],
+      [:circulation_status, 'activerecord.models.circulation_status']
     ]
 
     File.open(tsvfile, "w") do |output|
@@ -58,6 +60,8 @@ class LibcheckNotfoundItem < ActiveRecord::Base
             case column[0]
             when :status_checkout
               row << conv_flg(item.status, STS_CHECKOUT)
+            when :circulation_status
+              row << item.try(:item).try(:circulation_status).try(:display_name).try(:localize) || "" rescue ""
             else
               row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
             end # end of case column[0]
@@ -101,7 +105,8 @@ class LibcheckNotfoundItem < ActiveRecord::Base
           page.list(:list).add_row do |row|
             row.item(:item_identifier).value(item.item_identifier)
             row.item(:title).value(Item.find(item.item_id).manifestation.original_title) rescue nil
-            row.item(:on_loan).value(conv_flg(item.status, STS_CHECKOUT))
+#            row.item(:on_loan).value(conv_flg(item.status, STS_CHECKOUT))
+            row.item(:on_loan).value(item.try(:item).try(:circulation_status).try(:display_name).try(:localize))
           end
         end
       end
