@@ -140,6 +140,7 @@ module EnjuTrunk
           Rails.logger.info("FAIL[sheet:#{sheet} #{row} #{$@}")
           num[:failed] += 1
         end
+
         import_textresult.save!
         if row % 50 == 0
           Sunspot.commit
@@ -178,7 +179,7 @@ module EnjuTrunk
       pub_date             = datas[@field[I18n.t('resource_import_textfile.excel.book.pub_date')]]
       place_of_publication = datas[@field[I18n.t('resource_import_textfile.excel.book.place_of_publication')]]
       language             = set_data(datas, Language, 'language', { :default => 'Japanese' })
-      edition              = check_data_is_integer(datas[@field[I18n.t('resource_import_textfile.excel.book.edition')]], 'edition')
+      edition              = datas[@field[I18n.t('resource_import_textfile.excel.book.edition_display_value')]]
       volume_number_string = datas[@field[I18n.t('resource_import_textfile.excel.book.volume_number_string')]]
       issue_number_string  = datas[@field[I18n.t('resource_import_textfile.excel.book.issue_number_string')]]
       issn                 = datas[@field[I18n.t('resource_import_textfile.excel.series.issn')]]
@@ -199,6 +200,7 @@ module EnjuTrunk
       description          = datas[@field[I18n.t('resource_import_textfile.excel.book.description')]]
       supplement           = datas[@field[I18n.t('resource_import_textfile.excel.book.supplement')]]
       note                 = datas[@field[I18n.t('resource_import_textfile.excel.book.note')]]
+      missing_issue        = set_missing_issue(datas[@field[I18n.t('resource_import_textfile.excel.book.missing_issue')]])
 
       manifestation.manifestation_type   = @manifestation_type
       manifestation.original_title       = original_title.to_s       unless original_title.nil?
@@ -209,7 +211,7 @@ module EnjuTrunk
       manifestation.pub_date             = pub_date.to_s             unless pub_date.nil?
       manifestation.place_of_publication = place_of_publication.to_s unless place_of_publication.nil?
       manifestation.language             = language                  unless language.nil?
-      manifestation.edition              = edition                   unless edition.nil?
+      manifestation.edition_display_value= edition                   unless edition.nil?
       manifestation.volume_number_string = volume_number_string.to_s unless volume_number_string.nil?
       manifestation.issue_number_string  = issue_number_string.to_s  unless issue_number_string.nil?
       manifestation.isbn                 = isbn.to_s                 unless isbn.nil?
@@ -242,6 +244,13 @@ module EnjuTrunk
           manifestation.end_page = nil
         else
           manifestation.end_page = end_page.to_s
+        end
+      end
+      unless missing_issue.nil?
+        if missing_issue.blank?
+          manifestation.missing_issue = nil
+        else
+          manifestation.missing_issue = missing_issue.to_i
         end
       end
       manifestation.save!
@@ -439,7 +448,7 @@ module EnjuTrunk
         end
 
         # rank
-        rank = fix_rank(datas[@field[I18n.t('resource_import_textfile.excel.book.rank')]], manifestation, @mode_item)
+        rank = fix_rank(datas[@field[I18n.t('resource_import_textfile.excel.book.rank')]], manifestation, {:mode => @mode_item})
         if rank == 0 and item.item_identifier.nil? and item_identifier.nil?#@mode_item == 'create' and rank == 0 and item_identifier.nil?
           item_identifier = Numbering.do_numbering('book')
         end
@@ -527,7 +536,7 @@ module EnjuTrunk
       return UseRestriction.where(:name => 'Not For Loan').first
     end
 
-    def fix_rank(cell, manifestation, mode)
+    def fix_rank(cell, manifestation, options = {:mode => 'create'})
       case cell
       when I18n.t('item.original')
         #if manifestation.items.map{ |i| i.rank.to_i }.compact.include?(0)
@@ -539,8 +548,8 @@ module EnjuTrunk
         return 1
       when I18n.t('item.spare')
         return 2
-      when nil
-        if mode == 'create'
+      when nil, ""
+        if options[:mode] == 'create'
           if manifestation.items.size > 0
             if manifestation.items.map{ |i| i.rank.to_i }.compact.include?(0)
               return 1
@@ -657,6 +666,22 @@ module EnjuTrunk
       end
     end
 
+    def set_missing_issue(missing_issue, options = {:mode => 'create'})
+      return nil if missing_issue.nil?
+      missing_issue = missing_issue.to_s.strip
+      if missing_issue == I18n.t('missing_issue.no_request')
+        return 1
+      elsif missing_issue == I18n.t('missing_issue.requested')
+        return 2
+      elsif missing_issue == I18n.t('missing_issue.received')
+        return 3
+      elsif missing_issue.blank?
+        return options[:mode] == 'delete' ? nil : ""
+      else
+        raise I18n.t('resource_import_textfile.error.book.wrong_missing_issue', :data => missing_issue)
+      end
+    end
+
     def delete_data(datas) 
       ActiveRecord::Base.transaction do
         begin
@@ -716,7 +741,7 @@ p "@@@@@@"
       title_alternative    = datas[@field[I18n.t('resource_import_textfile.excel.book.title_alternative')]]
       pub_date             = datas[@field[I18n.t('resource_import_textfile.excel.book.pub_date')]]
       place_of_publication = datas[@field[I18n.t('resource_import_textfile.excel.book.place_of_publication')]]
-      edition              = check_data_is_integer(datas[@field[I18n.t('resource_import_textfile.excel.book.edition')]], 'edition')
+      edition              = datas[@field[I18n.t('resource_import_textfile.excel.book.edition_display_value')]]
       volume_number_string = datas[@field[I18n.t('resource_import_textfile.excel.book.volume_number_string')]]
       issue_number_string  = datas[@field[I18n.t('resource_import_textfile.excel.book.issue_number_string')]]
       isbn                 = datas[@field[I18n.t('resource_import_textfile.excel.book.isbn')]]
@@ -741,6 +766,7 @@ p "@@@@@@"
       frequency            = set_data(datas, Frequency, 'frequency', { :default => '不明', :check_column => :display_name, :can_blank => true })
       language             = set_data(datas, Language, 'language', { :default => 'Japanese', :can_blank => true })
       required_role        = set_data(datas, Role, 'required_role', { :default => 'Guest', :can_blank => true })
+      missing_issue        = set_missing_issue(datas[@field[I18n.t('resource_import_textfile.excel.book.missing_issue')]], {:mode => 'delete'})
       # item
       acquired_at          = check_data_is_date(datas[@field[I18n.t('resource_import_textfile.excel.book.acquired_at')]], 'acquired_at')      
       call_number          = datas[@field[I18n.t('resource_import_textfile.excel.book.call_number')]]
@@ -759,6 +785,7 @@ p "@@@@@@"
       retention_period     = set_data(datas, RetentionPeriod, 'retention_period', { :default => '永年', :check_column => :display_name, :can_blank => true })
       item_required_role   = set_data(datas, Role, 'required_role', { :default => 'Guest', :can_blank => true })
       remove_reason        = set_data(datas, RemoveReason, 'remove_reason', { :can_blank => true, :check_column => :display_name, :can_blank => true })
+      rank                 = fix_rank(datas[@field[I18n.t('resource_import_textfile.excel.book.rank')]], manifestation, {:mode => 'delete'})
 
       conditions = []
       # series_statements
@@ -774,8 +801,8 @@ p "@@@@@@"
       conditions << "(manifestations).frequency_id = #{frequency.id}"                                            unless frequency.nil?
       conditions << "(manifestations).pub_date = \'#{pub_date.gsub("'", "''")}\'"                                unless pub_date.nil?
       conditions << "(manifestations).place_of_publication = \'#{place_of_publication.gsub("'", "''")}\'"        unless place_of_publication.nil?
-      conditions << "(manifestations).language_id = \'#{language.id}\'"                          unless language.nil?
-      conditions << "(manifestations).edition = #{edition.gsub("'", "''")}"                                      unless edition.nil?
+      conditions << "(manifestations).language_id = \'#{language.id}\'"                                          unless language.nil?
+      conditions << "(manifestations).edition_display_value = \'#{edition.gsub("'", "''")}\'"                    unless edition.nil?
       conditions << "(manifestations).volume_number_string = \'#{volume_number_string.gsub("'", "''")}\'"        unless volume_number_string.nil?
       conditions << "(manifestations).issue_number_string = \'#{issue_number_string.gsub("'", "''")}\'"          unless issue_number_string.nil?
       conditions << "(manifestations).issn = \'#{isbn.gsub("'", "''")}\'"                                        unless isbn.nil?
@@ -797,6 +824,7 @@ p "@@@@@@"
       conditions << "(manifestations).description = \'#{description.gsub("'", "''")}\'"                          unless description.nil?
       conditions << "(manifestations).supplement = \'#{supplement.gsub("'", "''")}\'"                            unless supplement.nil?
       conditions << "(manifestations).note = \'#{note.gsub("'", "''")}\'"                                        unless note.nil?
+      conditions << "(manifestations).missing_issue = #{missing_issue}"                                          unless missing_issue.nil?
       # item
       conditions << "(items).acquired_at = \'#{acquired_at}\'"                                                   unless acquired_at.nil?
       conditions << "(items).call_number = \'#{call_number.gsub("'", "''")}\'"                                   unless call_number.nil?
@@ -812,6 +840,7 @@ p "@@@@@@"
       conditions << "(items).required_role_id = #{item_required_role.id}"                                        unless item_required_role.nil?
       conditions << "(items).remove_reason_id = #{remove_reason.id}"                                             unless remove_reason.nil?
       conditions << "(items).non_searchable = \'#{non_searchable}\'"                                             unless non_searchable.nil?
+      conditions << "(items).rank = #{rank}"                                                                     unless rank.nil?
       conditions << "(libraries).id = #{library.id}"                                                             unless library.nil?
       conditions << "(shelves).id = #{shelf.id}"                                                                 unless shelf.nil?
       conditions << "(use_restrictions).id = #{use_restriction.id}"                                              unless use_restriction.nil?

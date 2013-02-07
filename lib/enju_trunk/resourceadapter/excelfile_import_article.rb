@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 module EnjuTrunk
   module ExcelfileImportArticle
+
     def import_article(filename, id, extraparams)
       @manifestation_type = ManifestationType.find(extraparams['manifestation_type'].to_i)
       @textfile_id = id

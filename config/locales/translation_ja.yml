@@ -2121,7 +2121,7 @@ ja:
         pub_date: 出版日
         place_of_publication: 出版地
         language: 言語
-        edition: 版（数字）
+        edition_display_value: 版表示
         volume_number_string: 巻
         issue_number_string: 号
         start_page: 最初のページ
@@ -2160,6 +2160,7 @@ ja:
         item_identifier: 所蔵情報ID
         remove_reason: 除籍理由
         non_searchable: 検索対象から除外
+        missing_issue: 欠号管理
         del_flg: 削除フラグ
       article: 
         creator: 著者
@@ -2192,6 +2193,7 @@ ja:
         not_exsit_library: "指定の図書館は存在しません。 図書館: %{library}"
         wrong_rank: "指定の正本区分は不正です。 正本区分: %{data}"
         wrong_isbn: "指定のISBNは不正です。"
+        wrong_missing_issue: "指定の欠号管理は不正です。 欠号管理: %{data}"
         not_delete: "タイトルを空白登録することはできません。"
         has_original: "既に正本登録済みの資料に、正本資料の追加はできません。"
         has_not_shelf: "図書館が保持していない本棚が指定されています。"

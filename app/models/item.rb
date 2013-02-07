@@ -192,7 +192,6 @@ class Item < ActiveRecord::Base
   def check_remove_item
     if self.circulation_status_id == CirculationStatus.find(:first, :conditions => ["name = ?", 'Removed']).id
       self.removed_at = Time.zone.now if self.removed_at.nil?
-
       manifestation = nil
       if self.manifestation
         manifestation = self.manifestation
