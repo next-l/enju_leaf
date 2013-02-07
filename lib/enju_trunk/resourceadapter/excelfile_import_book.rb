@@ -297,24 +297,22 @@ module EnjuTrunk
       creators          = creators_string.nil? ? nil : creators_string.to_s.split(';')
       publishers_string = datas[@field[I18n.t('resource_import_textfile.excel.book.publisher')]]
       publishers        = publishers_string.nil? ? nil : publishers_string.to_s.split(';')
+      series_title      = series_statement.original_title if @manifestation_type.is_series?
       if manifestation
         original_title = manifestation.original_title.to_s                if original_title.nil?
         pub_date       = manifestation.pub_date.to_s                      if pub_date.nil?
         creators       = manifestation.creators.map{ |c| c.full_name }    if creators.nil?
         publishers     = manifestation.publishers.map{ |p| p.full_name }  if publishers.nil?
       end
-      series_title   = series_statement.original_title if series_statement
-
       return manifestation if original_title.nil? or original_title.blank?
       return manifestation if pub_date.nil? or pub_date.blank?
-      if @manifestation_type.is_series?
-        return series_title  if series_title.nil? or series_title.blank?
-      end
+      return manifestation if creators.size == 0
+      return manifestation if publishers.size ==0
 
       conditions = []
       conditions << "(manifestations).original_title = \'#{original_title.to_s.gsub("'","''")}\'" 
       conditions << "(manifestations).pub_date = \'#{pub_date.to_s.gsub("'", "''")}\'"
-      conditions << "(series_statements).original_title = \'#{series_title.to_s.gsub("'", "''")}\'" if @manifestation_type.is_series?
+      conditions << "(series_statements).original_title = \'#{series_title.to_s.gsub("'", "''")}\'" unless @manifestation_type.is_series?
       conditions << "creates.id is not null"
       conditions << "produces.id is not null"
       conditions = conditions.join(' and ')
@@ -384,7 +382,7 @@ module EnjuTrunk
 
     def import_series_statement(datas, manifestation)
       series_statement = nil
-      series_statement = manifestation.series_statement if manifestation
+      series_statement = manifestation.series_statement if manifestation and manifestation.series_statement
 
       issn = datas[@field[I18n.t('resource_import_textfile.excel.series.issn')]]
       if issn
@@ -394,17 +392,20 @@ module EnjuTrunk
           raise I18n.t('resource_import_textfile.error.series.wrong_issn')
         end
       end
-      series_statement = SeriesStatement.where(:issn => issn).first
+      series_statement = SeriesStatement.where(:issn => issn).first unless series_statement
+
       original_title      = datas[@field[I18n.t('resource_import_textfile.excel.series.original_title')]]
       title_transcription = datas[@field[I18n.t('resource_import_textfile.excel.series.title_transcription')]]
+      periodical          = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.series.periodical')]])
       series_identifier   = datas[@field[I18n.t('resource_import_textfile.excel.series.series_statement_identifier')]]
       unless series_statement.nil?
         original_title      = series_statement.original_title              if original_title.nil?
         title_transcription = series_statement.title_transcription         if title_transcription.nil?
         periodical          = series_statement.periodical                  if periodical.nil?
         series_identifier   = series_statement.series_statement_identifier if series_identifier.nil?
+        issn                = series_statement.issn                        if issn.nil?
       end
-      series_statement = SeriesStatement.where(:original_title => original_title.to_s, :periodical => periodical).first
+      series_statement = SeriesStatement.where(:original_title => original_title.to_s).first
       series_statement = SeriesStatement.new unless series_statement
 
       series_statement.original_title              = original_title.to_s      unless original_title.nil?

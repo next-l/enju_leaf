@@ -47,7 +47,7 @@ class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
   end
 
   def fix_boolean(cell)
-    return nil unless cell
+    return false unless cell
     cell = cell.to_s.strip
 
     if cell.nil? or cell.blank? or cell.upcase == 'FALSE' or cell == ''
