@@ -35,8 +35,8 @@
         <tr>
           <td><%= t('page.number') -%>:</td>
           <td>
-            <%- if manifestation.edition? -%>
-              <%= t('activerecord.attributes.manifestation.edition') -%>: <%= manifestation.edition -%>
+            <%- if manifestation.edition_display_value? -%>
+              <%= t('activerecord.attributes.manifestation.edition_display_value') -%>: <%= manifestation.edition_display_value -%>
             <%- end -%>
             <%- unless manifestation.volume_number_string.blank? -%>
               <%= t('activerecord.attributes.manifestation.volume_number_string') -%>: <%= manifestation.volume_number_string -%>
