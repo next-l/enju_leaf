@@ -46,8 +46,14 @@ class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
     end
   end
 
-  def fix_boolean(cell)
-    return false unless cell
+  def fix_boolean(cell, options = {:mode => 'create'})
+    unless cell
+      if options[:mode] == 'delete'
+        return nil
+      else
+        return false
+      end
+    end
     cell = cell.to_s.strip
 
     if cell.nil? or cell.blank? or cell.upcase == 'FALSE' or cell == ''

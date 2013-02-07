@@ -527,6 +527,9 @@ module EnjuTrunk
     end
 
     def fix_use_restriction(cell, options = {:mode => 'input'})
+      if options[:mode] == 'delete'
+        return nil if cell.nil? or cell.blank?
+      end
       if cell.nil? or cell.blank? or cell.upcase == 'FALSE' or cell == ''
         if options[:mode] == 'input'
           return UseRestriction.where(:name => 'Limited Circulation, Normal Loan Period').first
@@ -590,7 +593,10 @@ module EnjuTrunk
       return obj
     end
 
-    def check_data_is_integer(cell, field_name)
+    def check_data_is_integer(cell, field_name, options = {:mode => 'create'})
+      if options[:mode] == "delete"
+        return nil if cell.nil? or cell.blank?
+      end
       return nil unless cell
       cell = cell.to_s.strip
       if cell.match(/^\d*$/)
@@ -603,7 +609,10 @@ module EnjuTrunk
       end
     end
 
-    def check_data_is_numeric(cell, field_name)
+    def check_data_is_numeric(cell, field_name, options = {:mode => 'create'})
+      if options[:mode] == "delete" 
+        return nil if cell.nil? or cell.blank?
+      end
       return nil unless cell
       cell = cell.to_s.strip
       if cell.match(/^\d*$/)
@@ -618,7 +627,10 @@ module EnjuTrunk
       end
     end
 
-    def check_data_is_date(cell, field_name)
+    def check_data_is_date(cell, field_name, options = {:mode => 'create'})
+      if options[:mode] == "delete"
+        return nil if cell.nil? or cell.blank?
+      end
       return nil unless cell
       cell = cell.to_s.strip
       unless cell.blank?
@@ -734,14 +746,17 @@ p "@@@@@@"
       #series_issn         = datas[@field[I18n.t('resource_import_textfile.excel.series.issn')]]
       series_title         = datas[@field[I18n.t('resource_import_textfile.excel.series.original_title')]]
       series_transcription = datas[@field[I18n.t('resource_import_textfile.excel.series.title_transcription')]]
-      series_periodical    = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.series.periodical')]])
+      series_periodical    = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.series.periodical')]], {:mode => 'delete'})
       series_identifier    = datas[@field[I18n.t('resource_import_textfile.excel.series.series_statement_identifier')]]
       # manifestation
       original_title       = datas[@field[I18n.t('resource_import_textfile.excel.book.original_title')]]
       title_transcription  = datas[@field[I18n.t('resource_import_textfile.excel.book.title_transcription')]]
       title_alternative    = datas[@field[I18n.t('resource_import_textfile.excel.book.title_alternative')]]
+      carrier_type         = set_data(datas, CarrierType, 'carrier_type', { :default => 'print', :can_blank => true })
+      frequency            = set_data(datas, Frequency, 'frequency', { :default => '不明', :check_column => :display_name, :can_blank => true })
       pub_date             = datas[@field[I18n.t('resource_import_textfile.excel.book.pub_date')]]
       place_of_publication = datas[@field[I18n.t('resource_import_textfile.excel.book.place_of_publication')]]
+      language             = set_data(datas, Language, 'language', { :default => 'Japanese', :can_blank => true })
       edition              = datas[@field[I18n.t('resource_import_textfile.excel.book.edition_display_value')]]
       volume_number_string = datas[@field[I18n.t('resource_import_textfile.excel.book.volume_number_string')]]
       issue_number_string  = datas[@field[I18n.t('resource_import_textfile.excel.book.issue_number_string')]]
@@ -752,38 +767,35 @@ p "@@@@@@"
       ndc                  = datas[@field[I18n.t('resource_import_textfile.excel.book.ndc')]]
       start_page           = datas[@field[I18n.t('resource_import_textfile.excel.book.start_page')]]
       end_page             = datas[@field[I18n.t('resource_import_textfile.excel.book.end_page')]]
-      height               = check_data_is_numeric(datas[@field[I18n.t('resource_import_textfile.excel.book.height')]], 'height')
-      width                = check_data_is_numeric(datas[@field[I18n.t('resource_import_textfile.excel.book.width')]], 'width') 
-      depth                = check_data_is_numeric(datas[@field[I18n.t('resource_import_textfile.excel.book.depth')]], 'depth')
-      price                = check_data_is_integer(datas[@field[I18n.t('resource_import_textfile.excel.book.price')]], 'price')
+      height               = check_data_is_numeric(datas[@field[I18n.t('resource_import_textfile.excel.book.height')]], 'height', {:mode => 'delete'})
+      width                = check_data_is_numeric(datas[@field[I18n.t('resource_import_textfile.excel.book.width')]], 'width', {:mode => 'delete'}) 
+      depth                = check_data_is_numeric(datas[@field[I18n.t('resource_import_textfile.excel.book.depth')]], 'depth', {:mode => 'delete'})
+      price                = check_data_is_integer(datas[@field[I18n.t('resource_import_textfile.excel.book.price')]], 'price', {:mode => 'delete'})
       access_address       = datas[@field[I18n.t('resource_import_textfile.excel.book.access_address')]]
       acceptance_number    = check_data_is_integer(datas[@field[I18n.t('resource_import_textfile.excel.acceptance_number')]], 'acceptance_number')
-      repository_content   = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.repository_content')]])
-      except_recent        = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.except_recent')]])
+      repository_content   = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.repository_content')]], {:mode => 'delete'})
+      except_recent        = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.except_recent')]], {:mode => 'delete'})
       description          = datas[@field[I18n.t('resource_import_textfile.excel.book.description')]]
       supplement           = datas[@field[I18n.t('resource_import_textfile.excel.book.supplement')]]
       note                 = datas[@field[I18n.t('resource_import_textfile.excel.book.note')]]
-      carrier_type         = set_data(datas, CarrierType, 'carrier_type', { :default => 'print', :can_blank => true })
-      frequency            = set_data(datas, Frequency, 'frequency', { :default => '不明', :check_column => :display_name, :can_blank => true })
-      language             = set_data(datas, Language, 'language', { :default => 'Japanese', :can_blank => true })
       required_role        = set_data(datas, Role, 'required_role', { :default => 'Guest', :can_blank => true })
       missing_issue        = set_missing_issue(datas[@field[I18n.t('resource_import_textfile.excel.book.missing_issue')]], {:mode => 'delete'})
       # item
-      acquired_at          = check_data_is_date(datas[@field[I18n.t('resource_import_textfile.excel.book.acquired_at')]], 'acquired_at')      
-      call_number          = datas[@field[I18n.t('resource_import_textfile.excel.book.call_number')]]
-      item_price           = check_data_is_integer(datas[@field[I18n.t('resource_import_textfile.excel.book.item_price')]], 'item_price')
-      url                  = datas[@field[I18n.t('resource_import_textfile.excel.book.url')]]
-      include_supplements  = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.include_supplements')]])
-      use_restriction      = fix_use_restriction(datas[@field[I18n.t('resource_import_textfile.excel.book.use_restriction')]])
-      item_note            = datas[@field[I18n.t('resource_import_textfile.excel.book.item_note')]]
-      item_identifier      = datas[@field[I18n.t('resource_import_textfile.excel.book.item_identifier')]]
-      non_searchable       = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.non_searchable')]])
       accept_type          = set_data(datas, AcceptType, 'accept_type', { :can_blank => true, :check_column => :display_name, :can_blank => true })
+      acquired_at          = check_data_is_date(datas[@field[I18n.t('resource_import_textfile.excel.book.acquired_at')]], 'acquired_at', {:mode => 'delete'})      
       library              = set_library(datas[@field[I18n.t('resource_import_textfile.excel.book.shelf')]], import_textfile.user, {:mode => 'delete'})
       shelf                = set_shelf(datas[@field[I18n.t('resource_import_textfile.excel.book.shelf')]], import_textfile.user, library, {:mode => 'delete'})
-      checkout_type        = set_data(datas, CheckoutType, 'checkout_type', { :default => 'book', :can_blank => true })
       circulation_status   = set_data(datas, CirculationStatus, 'circulation_status', { :default => 'In Process', :can_blank => true })
+      checkout_type        = set_data(datas, CheckoutType, 'checkout_type', { :default => 'book', :can_blank => true })
+      call_number          = datas[@field[I18n.t('resource_import_textfile.excel.book.call_number')]]
       retention_period     = set_data(datas, RetentionPeriod, 'retention_period', { :default => '永年', :check_column => :display_name, :can_blank => true })
+      item_price           = check_data_is_integer(datas[@field[I18n.t('resource_import_textfile.excel.book.item_price')]], 'item_price', {:mode => 'delete'})
+      url                  = datas[@field[I18n.t('resource_import_textfile.excel.book.url')]]
+      include_supplements  = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.include_supplements')]], {:mode => 'delete'})
+      use_restriction      = fix_use_restriction(datas[@field[I18n.t('resource_import_textfile.excel.book.use_restriction')]], {:mode => 'delete'})
+      item_note            = datas[@field[I18n.t('resource_import_textfile.excel.book.item_note')]]
+      item_identifier      = datas[@field[I18n.t('resource_import_textfile.excel.book.item_identifier')]]
+      non_searchable       = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.non_searchable')]], {:mode => 'delete'})
       item_required_role   = set_data(datas, Role, 'required_role', { :default => 'Guest', :can_blank => true })
       remove_reason        = set_data(datas, RemoveReason, 'remove_reason', { :can_blank => true, :check_column => :display_name, :can_blank => true })
       rank                 = fix_rank(datas[@field[I18n.t('resource_import_textfile.excel.book.rank')]], manifestation, {:mode => 'delete'})
