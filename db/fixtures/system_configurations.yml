@@ -635,3 +635,10 @@ system_configuration_00090:
   typename: Boolean
   description: "業務サーバとして利用する"
   category: 'general'
+system_configuration_00091:
+  id: 91
+  keyname: checkout.auto_checkin
+  v: "true"
+  typename: Boolean
+  description: "未返却資料を貸出処理読み込んだ場合、再貸出可能にする"
+  category: 'checkout'
