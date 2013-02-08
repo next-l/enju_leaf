@@ -18,7 +18,11 @@ class MyAccountsController < ApplicationController
     prepare_options
 
     respond_to do |format|
-      format.html
+      if defined?(EnjuCustomize)
+        format.html { render :file => "page/#{EnjuCustomize.render_dir}/index", :layout => EnjuCustomize.render_layout}
+      else
+        format.html
+      end
       format.json { render :json => @user }
     end
   end
