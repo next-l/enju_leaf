@@ -138,7 +138,7 @@ module EnjuTrunk
 
       if item
         manifestation = item.manifestation
-        @mode == 'create'
+        @mode = 'edit'
       else
         isbn = datas[@field[I18n.t('resource_import_textfile.excel.book.isbn')]].to_s
         manifestation = import_isbn(isbn)
@@ -278,6 +278,7 @@ module EnjuTrunk
       publishers_string = datas[@field[I18n.t('resource_import_textfile.excel.book.publisher')]]
       publishers        = publishers_string.nil? ? nil : publishers_string.to_s.split(';')
       series_title      = series_statement.original_title if @manifestation_type.is_series?
+logger.info "##############"
       if manifestation
         original_title = manifestation.original_title.to_s                if original_title.nil?
         pub_date       = manifestation.pub_date.to_s                      if pub_date.nil?
@@ -288,11 +289,10 @@ module EnjuTrunk
       return manifestation if pub_date.nil? or pub_date.blank?
       return manifestation if creators.size == 0
       return manifestation if publishers.size ==0
-
       conditions = []
       conditions << "(manifestations).original_title = \'#{original_title.to_s.gsub("'","''")}\'" 
       conditions << "(manifestations).pub_date = \'#{pub_date.to_s.gsub("'", "''")}\'"
-      conditions << "(series_statements).original_title = \'#{series_title.to_s.gsub("'", "''")}\'" unless @manifestation_type.is_series?
+      conditions << "(series_statements).original_title = \'#{series_title.to_s.gsub("'", "''")}\'" if @manifestation_type.is_series?
       conditions << "creates.id is not null"
       conditions << "produces.id is not null"
       conditions = conditions.join(' and ')
@@ -327,7 +327,8 @@ module EnjuTrunk
         :first,
         :readonly => false,
         :include => [:series_statement, :creators, :publishers],
-        :conditions => conditions
+        :conditions => conditions,
+        :order => "manifestations.created_at"
       )
       if book
         if book.creators.map{ |c| c.full_name }.sort == creators.sort and book.publishers.map{ |s| s.full_name }.sort == publishers.sort
