@@ -34,9 +34,18 @@ class ResourceImportTextfilesController < ApplicationController
     @resource_import_textfile = ResourceImportTextfile.new(params[:resource_import_textfile])
     @resource_import_textfile.user = current_user
     extraparams = params[:extraparams]
-    extraparams = extraparams.to_hash
-  
-    @resource_import_textfile.extraparams = extraparams.to_s
+    sheets = []
+    manifestation_types = []
+    extraparams.each do |e, value|
+      if value["sheet"]
+        sheets << value["sheet"]
+        manifestation_types << value["manifestation_type"]
+      end
+    end
+    params = Hash::new
+    params["sheet"] = sheets
+    params["manifestation_type"] = manifestation_types
+    @resource_import_textfile.extraparams = params.to_s
 
     respond_to do |format|
       if @resource_import_textfile.save
@@ -75,24 +84,11 @@ class ResourceImportTextfilesController < ApplicationController
 
   def inherent_view
     a = EnjuTrunk::ResourceAdapter::Base.find_by_classname(params[:name])
-    if params[:name] == 'Excelfile_Adapter'
-      unless a.respond_to?(:template_filename_select_manifestation_type)
-        logger.debug "no method template_filename_select_manifestation_type"
-        render :nothing => true, :status => 404 and return
-      end
-      manifestation_types = ManifestationType.all
-      @manifestation_book_types = manifestation_types.map{ |m| m if m.is_book? }.compact
-      @manifestation_article_types = manifestation_types.map{ |m| m if m.is_article? }.compact
-      @manifestation_series_types = manifestation_types.map{ |m| m if m.is_series? }.compact
-      @manifestation_exinfo_types = manifestation_types.map{ |m| m if m.is_exinfo? }.compact
-      templatename = a.template_filename_select_manifestation_type
-    else
-      unless a.respond_to?(:template_filename_edit)
-        logger.debug "no method template_filename_edit" 
-        render :nothing => true, :status => 404 and return
-      end
-      templatename = a.template_filename_edit
+    unless a.respond_to?(:template_filename_edit)
+      logger.debug "no method template_filename_edit" 
+      render :nothing => true, :status => 404 and return
     end
+    templatename = a.template_filename_edit
     filename = "lib/enju_trunk/resourceadapter/views/#{templatename}"
     logger.debug "filename=#{filename}"
     render :layout => false, :file => filename
@@ -110,7 +106,8 @@ class ResourceImportTextfilesController < ApplicationController
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     File.open(path, "wb"){ |f| f.write(file.read) }
     @oo = Excelx.new(path)
-    data = "lib/enju_trunk/resourceadapter/views/excelsheets_checkbox.html.erb"
+    @manifestation_types = ManifestationType.all
+    data = "lib/enju_trunk/resourceadapter/views/excelfile_select.html.erb"
     render :layout => false, :file => data
   end
 end

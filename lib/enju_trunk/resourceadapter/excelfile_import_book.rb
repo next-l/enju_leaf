@@ -1,42 +1,22 @@
 # -*- encoding: utf-8 -*-
 module EnjuTrunk
   module ExcelfileImportBook
-    def import_book(filename, id, extraparams)
-      @manifestation_type = ManifestationType.find(extraparams['manifestation_type'].to_i)
-      @textfile_id = id
-      @oo = Excelx.new(filename)
-      errors = []
-
-      extraparams["sheet"].each_with_index do |sheet, i|
-        logger.info "num=#{i}  sheet=#{sheet}"
-        @oo.default_sheet = sheet
-
-        error_msg = check_header_field(sheet)
-        unless error_msg
-          import_textresult = ResourceImportTextresult.new(
-            :resource_import_textfile_id => @textfile_id,
-            :extraparams                 => "{'sheet'=>'#{sheet}'}",
-            :body                        => @field.keys.join("\t"),
-            :error_msg                   => I18n.t('resource_import_textfile.message.read_sheet', :sheet => sheet),
-            :failed                      => true
-          )
-          import_textresult.save! 
-          import_book_data(sheet)
-        else
-          errors << { :msg => error_msg, :sheet => sheet }
-        end
+    def import_book(sheet, errors)
+      error_msg = check_header_field(sheet)
+      unless error_msg
+        import_textresult = ResourceImportTextresult.new(
+          :resource_import_textfile_id => @textfile_id,
+          :extraparams                 => "{'sheet'=>'#{sheet}'}",
+          :body                        => @field.keys.join("\t"),
+          :error_msg                   => I18n.t('resource_import_textfile.message.read_sheet', :sheet => sheet),
+          :failed                      => true
+        )
+        import_textresult.save! 
+        import_book_data(sheet)
+      else
+        errors << { :msg => error_msg, :sheet => sheet }
       end
-      if errors.size > 0
-        errors.each do |error|
-          import_textresult = ResourceImportTextresult.new(
-            :resource_import_textfile_id => @textfile_id,
-            :extraparams                 => "{'sheet'=>'#{error[:sheet]}', 'wrong_sheet' => true, 'filename' => '#{filename}' }",
-            :error_msg                   => error[:msg], 
-            :failed                      => true
-           )
-          import_textresult.save!
-        end
-      end
+      return errors
     end 
 
     def check_header_field(sheet)

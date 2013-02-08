@@ -20,11 +20,32 @@ class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
     Benchmark.bm do |x|
       x.report { 
         extraparams = eval(extraparams)
-        manifestation_type = ManifestationType.find(extraparams['manifestation_type'])
-        if manifestation_type.is_article?
-          import_article(filename, id, extraparams)
-        else
-          import_book(filename, id, extraparams)
+        manifestation_types = extraparams["manifestation_type"]
+        @textfile_id = id
+        @oo = Excelx.new(filename)
+        errors = []
+        
+        extraparams["sheet"].each_with_index do |sheet, i|
+          @manifestation_type = ManifestationType.find(manifestation_types[i].to_i)
+          @oo.default_sheet = sheet
+          logger.info "num=#{i}  sheet=#{sheet} manifestation_type=#{@manifestation_type.display_name}"
+
+          if @manifestation_type.is_article?
+            import_article(sheet, errors)
+          else
+            import_book(sheet, errors)
+          end
+        end
+        if errors.size > 0
+          errors.each do |error|
+            import_textresult = ResourceImportTextresult.new(
+              :resource_import_textfile_id => @textfile_id,
+              :extraparams                 => "{'sheet'=>'#{error[:sheet]}', 'wrong_sheet' => true, 'filename' => '#{filename}' }",
+              :error_msg                   => error[:msg],
+              :failed                      => true
+             )
+            import_textresult.save!
+          end
         end
       }
     end
