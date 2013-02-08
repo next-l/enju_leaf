@@ -297,32 +297,7 @@ logger.info "##############"
       conditions << "produces.id is not null"
       conditions = conditions.join(' and ')
       book = nil
-=begin
-      if @manifestation_type.is_series?
-        book = Manifestation.find(
-          :first,
-          :readonly => false,
-          :joins => :series_statement,
-          :include => [:creators, :publishers],
-          :conditions =>
-            "(manifestations).original_title = \'#{original_title}\'
-              and (manifestations).pub_date = \'#{pub_date}\'
-              and (series_statements).original_title = \'#{series_title}\'
-              and creates.id is not null
-              and produces.id is not null"
-        )
-      else
-        book = Manifestation.find(
-          :first,
-          :include => [:creators, :publishers],
-          :conditions => 
-            "original_title = \'#{original_title}\'
-              and pub_date = \'#{pub_date}\' 
-              and creates.id is not null 
-              and produces.id is not null"
-        )
-      end
-=end
+
       book = Manifestation.find(
         :first,
         :readonly => false,
