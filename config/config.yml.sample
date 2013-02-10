@@ -403,6 +403,11 @@ defaults: &defaults
 
   # 利用者番号とユーザ名を同じ値にする
   auto_user_number: true
+
+  # 書誌リストの各種フォーマット出力でレコード件数が500より多ければバックグラウンド処理とする
+  background_job:
+    threshold:
+      export: 500
  
 development:
   <<: *defaults

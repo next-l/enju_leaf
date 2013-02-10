@@ -21,53 +21,53 @@ class ExportItemRegistersController < ApplicationController
   end
 
   def create
-    flash[:message] = ""
-
-    unless flash[:message].blank?
-      @selected_list_type = params[:export_item_register][:list_type].to_i || 1 rescue nil
-      @items_size = 0
-      @page = 1
-      render :index; return false
-    else
-      list_type = params[:export_item_register][:list_type]
-      file_type = params[:export_item_register][:file_type]
-      out_dir = "#{Rails.root}/private/system/item_registers/"
-      # clear the out_dir
-      Dir.foreach(out_dir){|file| File.delete(out_dir + file) rescue nil} rescue nil
-  
-      logger.error "SQL start at #{Time.now}"
-      case list_type.to_i
-      when 1 # all item register
-        file_name = "item_register"
-        Item.export_item_register('all', out_dir, file_type)
-      when 2 # removing list
-        file_name = "removing_list"
-        Item.export_removing_list(out_dir, file_type)
-      when 3 # audio list
-        file_name = "audio_list"
-        Item.export_audio_list(out_dir, file_type)
-      when 4 # book register
-        file_name = "item_register_book"
-        Item.export_item_register('book', out_dir, file_type)
-      when 5 # series register
-        file_name = "item_register_series"
-        Item.export_item_register('series', out_dir, file_type)
-      when 6 # article register
-        file_name = "item_register_article"
-        Item.export_item_register('article', out_dir, file_type)
-      when 7 # other register
-        file_name = "item_register_exinfo"
-        Item.export_item_register('exinfo', out_dir, file_type)
-      end
-      send_file "#{out_dir}#{file_name}.#{file_type}"
-      logger.error "created report: #{Time.now}"
-      return true
+    list_type = params[:export_item_register][:list_type]
+    file_type = params[:export_item_register][:file_type]
+    unless %w(pdf tsv).include?(file_type)
+      flash[:message] = t('item_register.invalid_file_type')
+      render :index
+      return false
     end
+
+    method = 'export_item_register'
+    args = []
+
+    case list_type.to_i
+    when 1 # all item register
+      file_name = 'item_register_all'
+      args << 'all'
+    when 2 # removing list
+      file_name = 'removing_list'
+      method = 'export_removing_list'
+    when 3 # audio list
+      file_name = 'audio_list'
+      method = 'export_audio_list'
+    when 4 # book register
+      file_name = 'item_register_book'
+      args << 'book'
+    when 5 # series register
+      file_name = 'item_register_series'
+      args << 'series'
+    when 6 # article register
+      file_name = 'item_register_article'
+      args << 'article'
+    when 7 # other register
+      file_name = 'item_register_exinfo'
+      args << 'exinfo'
+    end
+
+    job_name = Item.make_export_register_job(file_name, file_type, method, args, current_user)
+    flash[:message] = t('item_register.export_job_queued', :job_name => job_name)
+    redirect_to export_item_registers_path
+    return true
   end
 
   def get_list_size
-    return nil unless request.xhr?
-    unless params[:list_type].blank?
+    if !request.xhr? || params[:list_type].blank?
+      render :nothing => true, :status => :not_found
+      return
+
+    else
       list_type = params[:list_type]
       list_size = 0
 
@@ -88,14 +88,6 @@ class ExportItemRegistersController < ApplicationController
           list_size = Item.count(:all, :joins => :manifestation, :conditions => ["manifestations.manifestation_type_id in (?)", ManifestationType.type_ids('article')])
         when 7 # item register other
           list_size = Item.count(:all, :joins => :manifestation, :conditions => ["manifestations.manifestation_type_id in (?)", ManifestationType.type_ids('exinfo')])
-#        when 4
-#          checkouts = Checkout.select(:item_id).map(&:item_id).uniq!
-#          items = Item.find(:all, :joins => [:manifestation, :shelf => :library], :conditions => {:shelves => {:libraries => {:id => libraries}}, :manifestations => {:carrier_type_id => carrier_types}})
-#          items.delete_if{|item|checkouts.include?(item.id)}
-#          list_size = items.size
-#        when 5
-#          query = get_query(ndcs, libraries, carrier_types)
-#          list_size = Item.recent.count(:all, :joins => [:manifestation, :shelf => :library], :conditions => query)
         end
       rescue Exception => e
         logger.error e
@@ -109,13 +101,4 @@ class ExportItemRegistersController < ApplicationController
       render :json => {:success => 1, :list_size => list_size, :page => page}
     end
   end 
-
-  private
-  def get_query(ndcs, libraries, carrier_types)
-    query = ""
-    ndcs.each {|ndc| query += "manifestations.ndc LIKE '#{ndc}%' OR "} if !ndcs.blank? and ndcs.length != 0
-    query.gsub!(/OR\s$/, "AND ")
-    query += "libraries.id IN (#{libraries.join(',')}) AND manifestations.carrier_type_id IN (#{carrier_types.join(',')})"
-    return query
-  end
 end

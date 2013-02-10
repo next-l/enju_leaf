@@ -1421,6 +1421,11 @@ en:
     attachment_file: "Attachment file"
     question: "Question"
     add_derivation: "Add a derivation"
+    output_job_queued: "Will be notified later when ready [ID: %{job_name}]"
+    output_job_success_subject: "Requested file ready [ID: %{job_name})"
+    output_job_success_body: "The requested file (ID: %{job_name}) is now ready for download. You can obtain the file from the following address.\n%{url}"
+    output_job_error_subject: "Failed to generate the requested file [ID: %{job_name}]"
+    output_job_error_body: "The requested file (ID: %{job_name}) couldn't get generated because of the following error:\n%{message}"
   item:
     current_checkout: "Current checkout"
     donor: "Donors"
@@ -1694,6 +1699,19 @@ en:
   item_list:
     list_condition: List Condition
     no_list_condition: Check list condition
+    invalid_file_type: "Invalid file type specified."
+    export_job_queued: "Will be notified later when ready [ID: %{job_name}]"
+    export_job_success_subject: "Requested file ready [ID: %{job_name})"
+    export_job_success_body: "The requested file (ID: %{job_name}) is now ready for download. You can obtain the file from the following address.\n%{url}"
+    export_job_error_subject: "Failed to generate the requested file [ID: %{job_name}]"
+    export_job_error_body: "The requested file (ID: %{job_name}) couldn't get generated because of the following error:\n%{message}"
+  item_register:
+    invalid_file_type: "Invalid file type specified."
+    export_job_queued: "Will be notified later when ready [ID: %{job_name}]"
+    export_job_success_subject: "Requested file ready [ID: %{job_name})"
+    export_job_success_body: "The requested file (ID: %{job_name}) is now ready for download. You can obtain the file from the following address.\n%{url}"
+    export_job_error_subject: "Failed to generate the requested file [ID: %{job_name}]"
+    export_job_error_body: "The requested file (ID: %{job_name}) couldn't get generated because of the following error:\n%{message}"
   system_configuration:
     general: General
     user: User

@@ -18,6 +18,33 @@ class Item < ActiveRecord::Base
   scope :on_web, where(:shelf_id => 1)
   scope :for_retain_from_own, lambda{|library| where('shelf_id IN (?)', library.excludescope_shelf_ids).order('created_at ASC')}
   scope :for_retain_from_others, lambda{|library| where('shelf_id NOT IN (?)', library.excludescope_shelf_ids).order('created_at ASC')}
+  scope :series_statements_item, lambda {|library_ids, bookstore_ids, acquired_at|
+    s = joins(:manifestation => :series_statement, :shelf => :library).
+      where(['libraries.id in (?)', library_ids])
+    s = s.where(['items.bookstore_id in (?)', bookstore_ids]) if bookstore_ids != :all
+    s = s.where(['items.acquired_at >= ?', acquired_at]) if acquired_at.present?
+    s
+  }
+  scope :where_ndcs_libraries_carrier_types, lambda {|ndcs, library_ids, carrier_type_ids|
+    tm = Manifestation.arel_table
+    tl = Library.arel_table
+
+    ndcs_cond = nil
+    (ndcs || []).each do |ndc|
+      like = tm[:ndc].matches("#{ndc}%")
+      if ndcs_cond.nil?
+        ndcs_cond = like
+      else
+        ndcs_cond = ndcs_cond.or(like)
+      end
+    end
+
+    s = joins(:manifestation, :shelf => :library)
+    s = s.where(tl[:id].in(library_ids).to_sql)
+    s = s.where(tm[:carrier_type_id].in(carrier_type_ids).to_sql)
+    s = s.where(ndcs_cond.to_sql) if ndcs_cond
+    s
+  }
   has_many :checkouts
   has_many :reserves
   has_many :reserved_patrons, :through => :reserves, :class_name => 'Patron'
@@ -1108,6 +1135,100 @@ class Item < ActiveRecord::Base
       data << '"'+row.join("\"\t\"")+"\"\n"
     end
     return data
+  end
+
+  def self.make_export_item_list_job(file_name, file_type, method, dumped_query, args, user)
+    job_name = GenerateItemListJob.generate_job_name
+    Delayed::Job.enqueue GenerateItemListJob.new(job_name, file_name, file_type, method, dumped_query, args, user)
+    job_name
+  end
+
+  class GenerateItemListJob < Struct.new(:job_name, :file_name, :file_type, :method, :dumped_query, :args, :user)
+    include Rails.application.routes.url_helpers
+    include BackgroundJobUtils
+
+    def perform
+      user_file = UserFile.new(user)
+
+      # get data
+      query = Marshal.load(dumped_query)
+      logger.info "SQL start at #{Time.now}"
+      items = query.all
+      logger.info "SQL end at #{Time.now}\nfound #{items.length rescue 0} records"
+      logger.info "list_type=#{file_name} file_type=#{file_type}"
+
+      data = Item.__send__("#{method}_#{file_type}", items, *args)
+      if file_type == 'pdf'
+        raise I18n.t('item_list.no_record') unless data
+        data = data.generate
+      end
+
+      io, info = user_file.create(:item_list, "#{file_name}.#{file_type}")
+      begin
+        io.print data
+      ensure
+        io.close
+      end
+
+      url = my_account_url(:filename => info[:filename], :category => info[:category], :random => info[:random])
+      message(
+        user,
+        I18n.t('item_list.export_job_success_subject', :job_name => job_name),
+        I18n.t('item_list.export_job_success_body', :job_name => job_name, :url => url))
+
+    rescue => exception
+      message(
+        user,
+        I18n.t('item_list.export_job_error_subject', :job_name => job_name),
+        I18n.t('item_list.export_job_error_body', :job_name => job_name, :message => exception.message))
+    end
+  end
+
+  def self.make_export_register_job(file_name, file_type, method, args, user)
+    job_name = GenerateItemRegisterJob.generate_job_name
+    Delayed::Job.enqueue GenerateItemRegisterJob.new(job_name, file_name, file_type, method, args, user)
+    job_name
+  end
+
+  class GenerateItemRegisterJob < Struct.new(:job_name, :file_name, :file_type, :method, :args, :user)
+    include Rails.application.routes.url_helpers
+    include BackgroundJobUtils
+
+    def perform
+      fn = "#{file_name}.#{file_type}"
+      user_file = UserFile.new(user)
+      url = nil
+
+      logger.error "SQL start at #{Time.now}"
+
+      Dir.mktmpdir do |tmpdir|
+        Item.__send__(method, *args, tmpdir + '/', file_type)
+
+        o, info = user_file.create(:item_register, fn)
+        begin
+          open(File.join(tmpdir, fn)) do |i|
+            FileUtils.copy_stream(i, o)
+          end
+        ensure
+          o.close
+        end
+
+        url = my_account_url(:filename => info[:filename], :category => info[:category], :random => info[:random])
+      end
+
+      message(
+        user,
+        I18n.t('item_register.export_job_success_subject', :job_name => job_name),
+        I18n.t('item_register.export_job_success_body', :job_name => job_name, :url => url))
+
+      logger.error "created report: #{Time.now}"
+
+    rescue => exception
+      message(
+        user,
+        I18n.t('item_register.export_job_error_subject', :job_name => job_name),
+        I18n.t('item_register.export_job_error_body', :job_name => job_name, :message => exception.message))
+    end
   end
 end
 
