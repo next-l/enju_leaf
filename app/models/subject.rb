@@ -39,6 +39,7 @@ class Subject < ActiveRecord::Base
           :term => s.to_s.strip,
           :subject_type_id => 1,
         )
+        subject.required_role = Role.where(:name => 'Guest').first
         subject.save
       end
       list << subject

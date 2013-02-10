@@ -1,5 +1,5 @@
 class ResourceImportTextresult < ActiveRecord::Base
-  attr_accessible :resource_import_textfile_id, :body, :error_msg, :extraparams
+  attr_accessible :resource_import_textfile_id, :body, :error_msg, :extraparams, :failed
 
   default_scope :order => 'resource_import_textresults.id DESC'
   scope :file_id, proc{|file_id| where(:resource_import_textfile_id => file_id)}
@@ -63,35 +63,53 @@ class ResourceImportTextresult < ActiveRecord::Base
       wb.styles do |s|
         default_style = s.add_style :font_name => Setting.manifestation_list_print_excelx.fontname
 
-
         extraprams_list.each do |extraparams|
           wb.add_worksheet(:name => eval(extraparams)['sheet']) do |sheet|
-            results = resource_import_textresults.where(:extraparams => extraparams)
-            results.sort.each do |result|
-              row = result.body.split(/\t/)
-              sheet.add_row row, :style => Array.new(columns.size).fill(default_style)
+            if eval(extraparams)['wrong_sheet']
+              oo = Excelx.new(eval(extraparams)['filename'])
+              oo.default_sheet = eval(extraparams)['sheet']
               begin
-                item = Item.find(result.item_id) rescue nil
-                if item
-                  if item.manifestation.article?
-                    if item.reserve
-                      item.reserve.revert_request rescue nil
+                oo.first_row.upto(oo.last_row) do |row|
+                  datas = []
+                  oo.first_column.upto(oo.last_column) do |column|
+                    datas << oo.cell(row, column).to_s.strip
+                  end
+                  sheet.add_row datas, :style => Array.new(columns.size).fill(default_style)
+                end 
+              rescue
+                  sheet.add_row [], :style => Array.new(columns.size).fill(default_style)
+                next
+              end
+            else
+              results = resource_import_textresults.where(:extraparams => extraparams)
+              results.sort.each do |result|
+                unless result.body.nil?
+                  row = result.body.split(/\t/)
+                  sheet.add_row row, :style => Array.new(columns.size).fill(default_style)
+                  begin
+                    item = Item.find(result.item_id) rescue nil
+                    if item
+                      if item.manifestation.article?
+                        if item.reserve
+                          item.reserve.revert_request rescue nil
+                        end
+                        item.destroy
+                        result.item_id = nil
+                      end
                     end
-                    item.destroy
-                    result.item_id = nil
+                    manifestation = Manifestation.find(result.manifestation_id) rescue nil
+                    if manifestation
+                      if manifestation.items.size == 0
+                        manifestation.destroy
+                        result.manifestation_id = nil
+                      end
+                    end
+                    result.save!
+                  rescue => e
+                    logger.info "failed to destroy item: #{result.item_id}"
+                    logger.info e.message
                   end
                 end
-                manifestation = Manifestation.find(result.manifestation_id) rescue nil
-                if manifestation
-                  if manifestation.items.size == 0
-                    manifestation.destroy
-                    result.manifestation_id = nil
-                  end
-                end
-                result.save!
-              rescue => e
-                logger.info "failed to destroy item: #{result.item_id}"
-                logger.info e.message
               end
             end
           end

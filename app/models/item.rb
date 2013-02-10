@@ -57,8 +57,8 @@ class Item < ActiveRecord::Base
   validates_presence_of :circulation_status, :checkout_type, :retention_period, :rank
   validate :is_original?
   before_validation :set_circulation_status, :on => :create
-  before_save :set_use_restriction, :check_remove_item, :set_retention_period, :except => :delete
-  after_save :check_price, :except => :delete
+  before_save :set_use_restriction, :set_retention_period, :except => :delete
+  after_save :check_price, :check_remove_item, :except => :delete
   after_save :reindex
 
   #enju_union_catalog
@@ -192,6 +192,15 @@ class Item < ActiveRecord::Base
   def check_remove_item
     if self.circulation_status_id == CirculationStatus.find(:first, :conditions => ["name = ?", 'Removed']).id
       self.removed_at = Time.zone.now if self.removed_at.nil?
+      manifestation = nil
+      if self.manifestation
+        manifestation = self.manifestation
+      else
+        manifestation = Manifestation.find(self.manifestation_id)
+      end      
+      unless manifestation.article?
+        self.rank = 1 if self.rank == 0
+      end
     else
       self.removed_at = nil
     end
@@ -238,13 +247,17 @@ class Item < ActiveRecord::Base
 
   def is_original?
     if self.rank == 0
-      errors[:base] << I18n.t('item.original_item_require_item_identidier') unless self.item_identifier
+      manifestation = nil
+      if self.manifestation
+        manifestation = self.manifestation
+      else
+        manifestation = Manifestation.find(self.manifestation_id) rescue nil
+      end
+      return true if manifestation.nil?
+      return errors[:base] << I18n.t('item.original_item_require_item_identidier') unless self.item_identifier
 
-      manifestation = Manifestation.find(self.manifestation_id) rescue nil
-      return true unless manifestation
-
-      item_ranks = manifestation.items.inject([]){ |list, i| list << i.rank.to_i }
-      errors[:base] << I18n.t('item.already_original_item_created') if item_ranks.include?(0)
+      ranks = manifestation.items.map { |i| i.rank unless i == self }.compact.uniq
+      return errors[:base] << I18n.t('item.already_original_item_created') if ranks.include?(0)
     end
   end
 

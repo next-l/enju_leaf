@@ -20,99 +20,67 @@ class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
     Benchmark.bm do |x|
       x.report { 
         extraparams = eval(extraparams)
-        manifestation_type = ManifestationType.find(extraparams['manifestation_type'])
-        if manifestation_type.is_article?
-          import_article(filename, id, extraparams)
-        else
-          import_book(filename, id, extraparams)
+        manifestation_types = extraparams["manifestation_type"]
+        @textfile_id = id
+        @oo = Excelx.new(filename)
+        errors = []
+        
+        extraparams["sheet"].each_with_index do |sheet, i|
+          @manifestation_type = ManifestationType.find(manifestation_types[i].to_i)
+          @oo.default_sheet = sheet
+          logger.info "num=#{i}  sheet=#{sheet} manifestation_type=#{@manifestation_type.display_name}"
+
+          if @manifestation_type.is_article?
+            import_article(sheet, errors)
+          else
+            import_book(sheet, errors)
+          end
+        end
+        if errors.size > 0
+          errors.each do |error|
+            import_textresult = ResourceImportTextresult.new(
+              :resource_import_textfile_id => @textfile_id,
+              :extraparams                 => "{'sheet'=>'#{error[:sheet]}', 'wrong_sheet' => true, 'filename' => '#{filename}' }",
+              :error_msg                   => error[:msg],
+              :failed                      => true
+             )
+            import_textresult.save!
+          end
         end
       }
     end
     logger.info "#{Time.now} end import #{self.class.display_name}"
   end
 
-  def import_item(manifestation, options)
-    item = Item.new(options)
-    item.manifestation = manifestation
-    if item.save!
-      item.patrons << options[:shelf].library.patron
-    end
-    return item
-  end
-
-  def select_item_shelf(input_shelf, user)
-    if input_shelf.blank?
-      shelf = user.library.in_process_shelf
-    else
-      shelf = Shelf.where(:display_name => input_shelf, :library_id => user.library.id).first rescue nil
-      if shelf.nil?
-        raise I18n.t('resource_import_textfile.error.book.not_exsit_shelf', :shelf => input_shelf)
-      end
-    end
-    return shelf
-  end
-
-  def set_data(model, cell, can_blank, field_name, default, check_column = :name)
-    if cell.blank?
-      unless can_blank
-        obj = model.where(check_column => default).first
-      else
-        obj = nil
-      end
-    else
-      obj = model.where(check_column => cell).first rescue nil
-      if obj.nil?
-        raise I18n.t('resource_import_textfile.error.book.wrong_data',
-           :field => I18n.t("resource_import_textfile.excel.book.#{field_name}"), :data => cell)
-      end
-    end
-    return obj
-  end
-
-  def check_data_is_integer(cell, field_name)
-    if cell.match(/^\d*$/)
-      return cell
-    elsif cell.match(/^[0-9]+\.0$/)
-      return cell.to_i
-    elsif cell.match(/\D/)
-      raise I18n.t('resource_import_textfile.error.book.only_integer',
-        :field => I18n.t("resource_import_textfile.excel.book.#{field_name}"), :data => cell)
-    end
-  end
-
-  def check_data_is_numeric(cell, field_name)
-    if cell.match(/^\d*$/)
-      return cell
-    elsif cell.match(/^[0-9]+\.0$/)
-      return cell.to_i
-    elsif cell.match(/^[0-9]*\.[0-9]*$/)
-      return cell
-    else
-      raise I18n.t('resource_import_textfile.error.book.only_numeric',
-        :field => I18n.t("resource_import_textfile.excel.book.#{field_name}"), :data => cell)
-    end
-  end
-
-  def check_data_is_date(cell, field_name)
-    time = Time.zone.parse(cell) rescue nil
-    unless cell.blank?
-      if time.nil?
-        raise I18n.t('resource_import_textfile.error.book.only_integer',
-          :field => I18n.t("resource_import_textfile.excel.book.#{field_name}"), :data => cell)
-      end
-    end
-    return time
-  end
-
   def fix_data(cell)
-    # when data is number, fix its type from float to integer
-    data = cell.match(/^[0-9]+.0$/) ? cell.to_i : cell
-    return data
+    return nil unless cell
+    cell = cell.to_s.strip
+
+    if cell.match(/^[0-9]+.0$/)
+      return cell.to_i
+    elsif cell == 'delete'
+      return ''
+    elsif cell.blank? or cell.nil?
+      return nil
+    else
+      return cell.to_s
+    end
   end
 
-  def fix_boolean(cell)
-    return true unless cell.size == 0 or cell.upcase == 'FALSE'
-    false
+  def fix_boolean(cell, options = {:mode => 'create'})
+    unless cell
+      if options[:mode] == 'delete'
+        return nil
+      else
+        return false
+      end
+    end
+    cell = cell.to_s.strip
+
+    if cell.nil? or cell.blank? or cell.upcase == 'FALSE' or cell == ''
+      return false
+    end
+    return true
   end
 end
 

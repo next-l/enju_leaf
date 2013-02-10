@@ -34,20 +34,27 @@
 </p>
 
 <% if @resource_import_textfile.adapter_name == 'Excelfile_Adapter' %>
-  <p>
-    <strong><%= t('activerecord.models.manifestation_type') %>:</strong>
-    <%= get_manifestation_type_name(eval(@resource_import_textfile.extraparams)["manifestation_type"]) %>
-  </p>
-
-  <p>
-    <strong><%= t('activerecord.attributes.resource_import_textfile.sheet') %>:</strong><br />
-    <% sheets = eval(@resource_import_textfile.extraparams)["sheet"] %>
-      <% if sheets.present? %>
-        <% sheets.each do |sheet| %>
-        &nbsp;&nbsp;<%= sheet %><br />
-      <% end %>
+  <br />
+  <% sheets = eval(@resource_import_textfile.extraparams)["sheet"] %>
+  <% manifestation_types = eval(@resource_import_textfile.extraparams)["manifestation_type"] %>
+  <% if sheets.present? %>
+    <table style="border: 0px;">
+      <tr>
+        <td style="border:0px; border-bottom: 1px solid #aaa;">
+          <strong><%= t('activerecord.attributes.resource_import_textfile.sheet') %></strong>
+        </td>
+        <td style="border:0px; border-bottom: 1px solid #aaa;">
+          <strong><%= t('activerecord.models.manifestation_type') %></strong>
+        </td>
+      </tr>
+      <% sheets.each_with_index do |sheet, i| %>
+        <tr>
+          <td style="border:0px; border-bottom: 1px solid #aaa;"><%= sheet %></td>
+          <td style="border:0px; border-bottom: 1px solid #aaa;"><%= ManifestationType.find(manifestation_types[i]).display_name rescue nil%></td>
     <% end %>
-  </p>
+    </table>
+  <% end %>
+  <br />
 <% end %>
 
 <p>

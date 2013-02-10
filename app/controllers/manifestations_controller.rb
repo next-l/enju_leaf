@@ -123,11 +123,12 @@ class ManifestationsController < ApplicationController
       @index_patron = patron
 
       split_by_type = SystemConfiguration.get("manifestations.split_by_type")
+      with_article = SystemConfiguration.get('internal_server')
 
       searchs = [ search_all ]
       if split_by_type
         searchs << search_book
-        searchs << search_article
+        searchs << search_article if with_article
       end
 
       searchs.each do |s|
@@ -306,7 +307,7 @@ class ManifestationsController < ApplicationController
         search_result = search_all.execute
 	if split_by_type
           search_book_result = search_book.execute
-          search_article_result = search_article.execute
+          search_article_result = search_article.execute if with_article
 	end
       rescue Exception => e
         flash[:message] = t('manifestation.invalid_query')
@@ -323,7 +324,7 @@ class ManifestationsController < ApplicationController
         max_count = @count[:query_result]
 	if split_by_type
           max_book_count = search_book_result.total
-          max_article_count = search_article_result.total
+          max_article_count = search_article_result.total if with_article
 	end
       end
       @manifestations = Kaminari.paginate_array(
@@ -334,10 +335,13 @@ class ManifestationsController < ApplicationController
         @manifestations_book = Kaminari.paginate_array(
           search_book_result.results, :total_count => max_book_count
         ).page(page).per(per_page)
-        @manifestations_article = Kaminari.paginate_array(
-          search_article_result.results, :total_count => max_article_count
-        ).page(page_article).per(per_page)
-        @manifestations_all = [ @manifestations_book, @manifestations_article ]
+        @manifestations_all = [@manifestations_book]
+        if with_article
+          @manifestations_article = Kaminari.paginate_array(
+            search_article_result.results, :total_count => max_article_count
+          ).page(page_article).per(per_page)
+          @manifestations_all << @manifestations_article
+        end
 	@split_by_type = split_by_type
       end
       get_libraries

@@ -1,0 +1,18 @@
+<br />
+<div>
+  <strong><%= t('activerecord.attributes.resource_import_textfile.sheet') %></strong>
+  <br/>
+  <table style="border: 0px;">
+    <% @oo.sheets.each_with_index do |name, i| %>
+    <tr>
+      <td style="border:0px; border-bottom: 1px solid #aaa;">
+        <%= check_box_tag "extraparams[#{i}][sheet]", name, :selected => true %>
+        <%= name.to_s %>
+      </td>
+      <td style="border:0px; border-bottom: 1px solid #aaa;">
+        <%= select_tag "extraparams[#{i}][manifestation_type]", options_for_select(@manifestation_types.collect{|m| [m.display_name.localize, m.id]}) %>
+      </td>
+    </tr>
+  <% end %>
+  </table>  
+</div>

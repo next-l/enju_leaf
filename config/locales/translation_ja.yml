@@ -1619,7 +1619,7 @@ ja:
     library_check: "蔵書点検"
     access_logs: アクセス件数
     search_results: "資料の検索結果"
-    search_article_results: "論文資料の検索結果"
+    search_article_results: "文献資料の検索結果"
 
     exstatistics:
       ranknumber: 順位
@@ -2106,20 +2106,22 @@ ja:
         issn: ISSN
         original_title: シリーズ名
         title_transcription: シリーズ名（ヨミ）
-        periodical: 定期刊行物 
-        frequency: シリーズ発行頻度
+        periodical: 定期刊行物
+        series_statement_identifier: シリーズ識別子
       book:
         original_title: タイトル
         title_transcription: タイトル（ヨミ）
         title_alternative: 代替タイトル
         isbn: ISBN
         lccn: LCCN
+        marc_number: MARC番号
+        ndc: NDC
         carrier_type: 資料の形態
         frequency: 発行頻度
         pub_date: 出版日
         place_of_publication: 出版地
         language: 言語
-        edition: 版（数字）
+        edition_display_value: 版表示
         volume_number_string: 巻
         issue_number_string: 号
         start_page: 最初のページ
@@ -2143,6 +2145,7 @@ ja:
         accept_type: 受入区分
         acquired_at: 受入日
         bookstore: 寄贈・購入先
+        library: 図書館
         shelf: 本棚
         checkout_type: 貸出区分
         circulation_status: 貸出状態
@@ -2154,6 +2157,11 @@ ja:
         use_restriction: 利用制限
         item_note: 所蔵注記
         rank: 正本区分
+        item_identifier: 所蔵情報ID
+        remove_reason: 除籍理由
+        non_searchable: 検索対象から除外
+        missing_issue: 欠号管理
+        del_flg: 削除フラグ
       article: 
         creator: 著者
         original_title: 表題
@@ -2164,26 +2172,34 @@ ja:
         call_number: 請求記号 
         url: ＵＲＬ
         subject: 件名 
+    message:
+      read_sheet: "シート『%{sheet}』の読み取りを開始します。"
     error:
+      blank_sheet: "シート『%{sheet}』の読み取りに失敗しました。データが記述されていません。"
+      overlap: "シート『%{sheet}』の読み取りに失敗しました。ヘッダーのフィールド名に重複したものがあります。"
+      wrong_data: "指定の%{field}は不正です。 %{field}: %{data}"
+      failed_delete_not_find: "対象の資料が見つからなかったため削除を実行できませんでした。"
       series:
-        head_is_blank: "%{sheet}の読み取りに失敗しました。\r\n1行目にはシリーズ名またはISSN,またタイトルまたはISBNが必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
+        head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目にはシリーズ名またはISSN,またタイトルまたはISBNが必須です。\r\nシート『%{sheet}』を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "シリーズ名またはISSN,タイトルまたはISBNを指定してください。"
-        exist_same_book: "既にシリーズ名、タイトル、著者、出版年、出版者が同一の資料が登録されています。"
         wrong_issn: "指定のISSNは不正です。"
       book:
-        head_is_blank: "%{sheet}の読み取りに失敗しました。\r\n1行目にはタイトルまたはISBNが必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
+        head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目にはタイトルまたはISBNが必須です。\r\nシート『%{sheet}』を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "タイトルまたはISBNを指定してください。"
-        wrong_data: "指定の%{field}は不正です。 %{field}: %{data}"
         only_integer: "%{field}には整数以外の値を指定しないでください。 %{field}: %{data}"
         only_numeric: "%{field}には数値以外の値を指定しないでください。 %{field}: %{data}"
+        only_date: "%{field}には日時以外の値を指定しないでください。 %{field}: %{data}"
         not_exsit_shelf: "指定の本棚は存在しません。 本棚: %{shelf}"
+        not_exsit_library: "指定の図書館は存在しません。 図書館: %{library}"
         wrong_rank: "指定の正本区分は不正です。 正本区分: %{data}"
         wrong_isbn: "指定のISBNは不正です。"
-        exist_same_book: "既にタイトル、著者、出版年、出版者が同一の資料が登録されています。"
+        wrong_missing_issue: "指定の欠号管理は不正です。 欠号管理: %{data}"
+        not_delete: "タイトルを空白登録することはできません。"
+        has_original: "既に正本登録済みの資料に、正本資料の追加はできません。"
+        has_not_shelf: "図書館が保持していない本棚が指定されています。"
       article:
-        head_is_blank: "%{sheet}の読み取りに失敗しました。\r\n1行目には表題が必須です。\r\n%{sheet}を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
+        head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目には表題が必須です。\r\nシート『%{sheet}』を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "表題を指定してください。"
-        exist_same_article: "既に表題、誌名、著者、件名、請求記号、年が同一の文献が登録されています。"
   resource_import_textresult:
     show_error_list: "エラー行のみ表示"
     show_all_list: "全ての行を表示"
