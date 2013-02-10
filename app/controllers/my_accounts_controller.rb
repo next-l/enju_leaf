@@ -3,6 +3,12 @@ class MyAccountsController < ApplicationController
 
   def show
     @user = current_user
+
+    if params[:filename]
+      find_and_send_user_file
+      return
+    end
+
     session[:user_return_to] = nil
     unless @user.patron
       redirect_to new_user_patron_url(@user); return
@@ -106,4 +112,34 @@ class MyAccountsController < ApplicationController
     end
     @departments = Department.all
   end
+
+  private
+
+    def find_and_send_user_file
+      category = params[:category].try(:to_sym)
+      unless category && params[:random]
+        render nothing: true, status: :not_found
+        return
+      end
+
+      filename = params[:filename]
+      paths = UserFile.new(@user).find(category, filename, params[:random])
+      @user_file = paths.last
+
+      unless @user_file
+        render nothing: true, status: :not_found
+        return
+      end
+
+      extname = File.extname(filename).sub(/\A\./, '') # "foo.pdf" #=> "pdf"
+      mime_type = Mime::Type.lookup_by_extension(extname) || Mime::Type.lookup('application/octet-stream')
+
+      if force_mime_type = UserFile.category[category][:mime_type]
+        mime_type = force_mime_type
+      end
+
+      send_file @user_file,
+        filename: filename,
+        type: mime_type
+    end
 end

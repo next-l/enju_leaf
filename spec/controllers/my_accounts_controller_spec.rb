@@ -22,6 +22,46 @@ describe MyAccountsController do
         response.should redirect_to(new_user_session_url)
       end
     end
+
+    describe "When filename parameter was passed" do
+      before(:each) do
+        @tmpdir = Dir.mktmpdir
+        @save_base_dir = UserFile.base_dir
+        UserFile.base_dir = @tmpdir
+
+        user = User.find('admin')
+        @filename = 'foobar.pdf'
+        @file, @info = UserFile.new(user).create(:manifestation_list, @filename)
+        sign_in user
+      end
+
+      after(:each) do
+        UserFile.base_dir = @save_base_dir
+        FileUtils.remove_entry_secure(@tmpdir)
+      end
+
+      it "finds files with specified conditions and assigns the path of found file as @user_file" do
+        get :show, :filename => @info[:filename], :category => @info[:category], :random => @info[:random]
+        assigns(:user_file).should be_present
+        assigns(:user_file).should == @file.path
+        response.should be_success
+      end
+
+      it "send_file @user_file" do
+        controller.
+          should_receive(:send_file).
+          with(@file.path, :filename => @filename, :type => Mime::Type.lookup("application/pdf")).
+          and_return { controller.render :nothing => true }
+        get :show, :filename => @info[:filename], :category => @info[:category], :random => @info[:random]
+        response.should be_success
+      end
+
+      it "assigns nil as @user_file if parameters were wrong" do
+        get :show, :filename => @info[:filename], :category => @info[:category], :random => @info[:random].reverse
+        assigns(:user_file).should be_blank
+        response.should be_not_found
+      end
+    end
   end
 
   describe "GET edit" do

@@ -1736,6 +1736,11 @@ ja:
     binding_status: "製本雑誌"
     undo_binding: "製本解除"
     missing: "[欠号]"
+    output_job_queued: "ファイル出力結果はメッセージでお知らせします。(お知らせIDは%{job_name})"
+    output_job_success_subject: "ファイル出力が完了しました [ID: %{job_name}]"
+    output_job_success_body: "お知らせID「%{job_name}」のファイル出力が完了しました。次のアドレスからファイルを取得してください。\n%{url}"
+    output_job_error_subject: "ファイル出力できませんでした [ID: %{job_name}]"
+    output_job_error_body: "お知らせID「%{job_name}」のファイル出力を完了できませんでした。理由は次の通りです。\n%{message}"
   missing_issue:
     no_request: 未請求
     requested: 請求済
@@ -2359,9 +2364,15 @@ ja:
     ndc: NDC
     ndc_message: "(入力すると該当資料のみ出力します。)"
     invalid_ndc: "不正なNDCが指定されています。\nXXX3桁の英数字を指定してください。"
+    invalid_file_type: "不正なファイル種別が指定されています。"
     no_record: "該当する図書が見つかりませんでした。"
     no_list_condition: "抽出条件を指定してください。"
     acquired_at_invalid: "受入日が不正な値です。例: 2011-04-12"
+    export_job_queued: "ファイル出力結果はメッセージでお知らせします。(お知らせIDは%{job_name})"
+    export_job_success_subject: "ファイル出力が完了しました [ID: %{job_name}]"
+    export_job_success_body: "お知らせID「%{job_name}」のファイル出力が完了しました。次のアドレスからファイルを取得してください。\n%{url}"
+    export_job_error_subject: "ファイル出力できませんでした [ID: %{job_name}]"
+    export_job_error_body: "お知らせID「%{job_name}」のファイル出力を完了できませんでした。理由は次の通りです。\n%{message}"
   item_register:
     pdf: PDF
     tsv: TSV
@@ -2374,6 +2385,12 @@ ja:
     item_register_series: 雑誌原簿
     item_register_article: 文献原簿
     item_register_other: その他原簿
+    invalid_file_type: "不正なファイル種別が指定されています。"
+    export_job_queued: "ファイル出力結果はメッセージでお知らせします。(お知らせIDは%{job_name})"
+    export_job_success_subject: "ファイル出力が完了しました [ID: %{job_name}]"
+    export_job_success_body: "お知らせID「%{job_name}」のファイル出力が完了しました。次のアドレスからファイルを取得してください。\n%{url}"
+    export_job_error_subject: "ファイル出力できませんでした [ID: %{job_name}]"
+    export_job_error_body: "お知らせID「%{job_name}」のファイル出力を完了できませんでした。理由は次の通りです。\n%{message}"
   library_report:
     checkouts: 貸出数(冊)
     ndc: "(NDC:%{ndc})" 
