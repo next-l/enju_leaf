@@ -321,6 +321,11 @@ class Manifestation < ActiveRecord::Base
     string :exinfo_3
     string :exinfo_4
     string :exinfo_5
+    text :extext_1
+    text :extext_2
+    text :extext_3
+    text :extext_4
+    text :extext_5
     integer :bookbinder_id, :multiple => true do
       items.collect(&:bookbinder_id).compact
     end
