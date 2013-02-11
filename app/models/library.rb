@@ -3,7 +3,7 @@ class Library < ActiveRecord::Base
   attr_accessible :name, :display_name, :short_display_name, :zip_code, :street,
     :locality, :region, :telephone_number_1, :telephone_number_2, :fax_number,
     :note, :call_number_rows, :call_number_delimiter, :library_group_id,
-    :country_id, :opening_hour, :isil, :position
+    :country_id, :opening_hour, :isil, :position, :patron_id
 
   include MasterModel
   default_scope :order => 'libraries.position'
@@ -25,6 +25,8 @@ class Library < ActiveRecord::Base
   friendly_id :name
   geocoded_by :address
   #enju_calil_library
+
+  has_paper_trail
 
   searchable do
     text :name, :display_name, :note, :address

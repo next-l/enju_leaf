@@ -1,9 +1,10 @@
 <div class="header_and_footer">
   <div id="footer">
     <%= raw SystemConfiguration.get("footer_message") %>
-    <a href="https://github.com/nakamura-akifumi/enju_trunk">Next-L Enju Trunk <%= EnjuLeaf.version %></a>,
-    <%= t('page.open_source_integrated_library_system') -%> |
-    <%= link_to t('page.about_this_system'), page_about_path -%> 
-    <br />
+    <%- if SystemConfiguration.get("footer_message").blank? %>
+      <a href="https://github.com/nakamura-akifumi/enju_trunk">Next-L Enju Trunk <%= EnjuLeaf.version %></a>,
+      <%= t('page.open_source_integrated_library_system') -%> |
+      <%= link_to t('page.about_this_system'), page_about_path -%> 
+    <%- end -%>
   </div>
 </div>

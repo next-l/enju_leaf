@@ -18,6 +18,33 @@ class Item < ActiveRecord::Base
   scope :on_web, where(:shelf_id => 1)
   scope :for_retain_from_own, lambda{|library| where('shelf_id IN (?)', library.excludescope_shelf_ids).order('created_at ASC')}
   scope :for_retain_from_others, lambda{|library| where('shelf_id NOT IN (?)', library.excludescope_shelf_ids).order('created_at ASC')}
+  scope :series_statements_item, lambda {|library_ids, bookstore_ids, acquired_at|
+    s = joins(:manifestation => :series_statement, :shelf => :library).
+      where(['libraries.id in (?)', library_ids])
+    s = s.where(['items.bookstore_id in (?)', bookstore_ids]) if bookstore_ids != :all
+    s = s.where(['items.acquired_at >= ?', acquired_at]) if acquired_at.present?
+    s
+  }
+  scope :where_ndcs_libraries_carrier_types, lambda {|ndcs, library_ids, carrier_type_ids|
+    tm = Manifestation.arel_table
+    tl = Library.arel_table
+
+    ndcs_cond = nil
+    (ndcs || []).each do |ndc|
+      like = tm[:ndc].matches("#{ndc}%")
+      if ndcs_cond.nil?
+        ndcs_cond = like
+      else
+        ndcs_cond = ndcs_cond.or(like)
+      end
+    end
+
+    s = joins(:manifestation, :shelf => :library)
+    s = s.where(tl[:id].in(library_ids).to_sql)
+    s = s.where(tm[:carrier_type_id].in(carrier_type_ids).to_sql)
+    s = s.where(ndcs_cond.to_sql) if ndcs_cond
+    s
+  }
   has_many :checkouts
   has_many :reserves
   has_many :reserved_patrons, :through => :reserves, :class_name => 'Patron'
@@ -48,6 +75,7 @@ class Item < ActiveRecord::Base
   has_many :answers, :through => :answer_has_items
   has_one :resource_import_result
   has_many :libcheck_tmp_items
+  has_many :libcheck_notfound_items
   has_many :expenses
   has_many :binding_items, :class_name => 'Item', :foreign_key => 'bookbinder_id'
   belongs_to :binder_item, :class_name => 'Item', :foreign_key => 'bookbinder_id'
@@ -56,8 +84,8 @@ class Item < ActiveRecord::Base
   validates_presence_of :circulation_status, :checkout_type, :retention_period, :rank
   validate :is_original?
   before_validation :set_circulation_status, :on => :create
-  before_save :set_use_restriction, :check_remove_item, :set_retention_period, :except => :delete
-  after_save :check_price, :except => :delete
+  before_save :set_use_restriction, :set_retention_period, :except => :delete
+  after_save :check_price, :check_remove_item, :except => :delete
   after_save :reindex
 
   #enju_union_catalog
@@ -191,6 +219,15 @@ class Item < ActiveRecord::Base
   def check_remove_item
     if self.circulation_status_id == CirculationStatus.find(:first, :conditions => ["name = ?", 'Removed']).id
       self.removed_at = Time.zone.now if self.removed_at.nil?
+      manifestation = nil
+      if self.manifestation
+        manifestation = self.manifestation
+      else
+        manifestation = Manifestation.find(self.manifestation_id)
+      end      
+      unless manifestation.article?
+        self.rank = 1 if self.rank == 0
+      end
     else
       self.removed_at = nil
     end
@@ -237,13 +274,17 @@ class Item < ActiveRecord::Base
 
   def is_original?
     if self.rank == 0
-      errors[:base] << I18n.t('item.original_item_require_item_identidier') unless self.item_identifier
+      manifestation = nil
+      if self.manifestation
+        manifestation = self.manifestation
+      else
+        manifestation = Manifestation.find(self.manifestation_id) rescue nil
+      end
+      return true if manifestation.nil?
+      return errors[:base] << I18n.t('item.original_item_require_item_identidier') unless self.item_identifier
 
-      manifestation = Manifestation.find(self.manifestation_id) rescue nil
-      return true unless manifestation
-
-      item_ranks = manifestation.items.inject([]){ |list, i| list << i.rank.to_i }
-      errors[:base] << I18n.t('item.already_original_item_created') if item_ranks.include?(0)
+      ranks = manifestation.items.map { |i| i.rank unless i == self }.compact.uniq
+      return errors[:base] << I18n.t('item.already_original_item_created') if ranks.include?(0)
     end
   end
 
@@ -281,12 +322,15 @@ class Item < ActiveRecord::Base
         columns = [
           ['item_identifier','activerecord.attributes.item.item_identifier'],
           ['acquired_at', 'activerecord.attributes.item.acquired_at'],
+          [:created_at, 'activerecord.attributes.item.created_at'],
+          [:call_number, 'activerecord.attributes.item.call_number'],
           [:original_title,'activerecord.attributes.manifestation.original_title'],
-          ['removed_at', 'activerecord.attributes.item.removed_at'],
-          ['price', 'activerecord.attributes.item.price'],
+          ['removed_at', 'activerecord.models.remove_reason'],
+#          ['price', 'activerecord.attributes.item.price'],
           [:patron_publisher,'patron.publisher'], 
           [:patron_creator, 'patron.creator'],
           [:date_of_publication, 'activerecord.attributes.manifestation.date_of_publication'],
+          [:removed_reason, 'activerecord.models.remove_reason'],
           ['note', 'activerecord.attributes.item.note']
         ]
         File.open(tsv_file, "w") do |output|
@@ -308,8 +352,14 @@ class Item < ActiveRecord::Base
                 row << item.removed_at.strftime("%Y/%m/%d") rescue ""
               when "acquired at"
                 row << item.acquired_at.strftime("%Y/%m/%d") rescue ""
+              when :created_at
+                row << item.created_at.strftime("%Y/%m/%d") rescue ""
               when :original_title
                 row << item.manifestation.original_title
+              when :removed_reason
+                row << item.try(:remove_reason).try(:display_name) || "" rescue ""
+              when :call_number
+                row << item.call_number || "" rescue ""
               when :date_of_publication
                 if item.manifestation.date_of_publication.nil?
                   row << ""
@@ -348,17 +398,20 @@ class Item < ActiveRecord::Base
               unless item.acquired_at.nil?
                 row.item(:acquired_at).value(item.acquired_at.strftime("%Y/%m/%d"))
               end
+              row.item(:created_at).value(item.created_at.strftime("%Y/%m/%d")) if item.created_at
+              row.item(:call_number).value(item.call_number)
               unless item.removed_at.nil?
                 row.item(:removed_at).value(item.removed_at.strftime("%Y/%m/%d"))
               end
+              row.item(:removed_reason).value(item.remove_reason.display_name) if item.remove_reason
               row.item(:title).value(item.manifestation.original_title)
               unless item.manifestation.date_of_publication.nil?
                 #row.item(:date_of_publication).value(item.manifestation.date_of_publication.strftime("%Y/%m/%d"))
               end
-              row.item(:price).value(to_format(item.price))
+              # row.item(:price).value(to_format(item.price))
               row.item(:patron_creator).value(patrons_list(item.manifestation.creators))
               row.item(:patron_publisher).value(patrons_list(item.manifestation.publishers))
-              row.item(:date_of_publication).value(item.manifestation.date_of_publication.strftime("%Y/%m/%d")) rescue nil
+              row.item(:date_of_publication).value(item.manifestation.date_of_publication.strftime("%Y/%m")) rescue nil
              end
           end
         end
@@ -367,19 +420,23 @@ class Item < ActiveRecord::Base
     end  #end of method
   end
 
-  def self.export_item_register(out_dir, file_type = nil) 
+  def self.export_item_register(type, out_dir, file_type = nil) 
     raise "invalid parameter: no path" if out_dir.nil? || out_dir.length < 1
-    tsv_file = out_dir + "item_register.tsv"
-    pdf_file = out_dir + "item_register.pdf"
-    logger.info "output item_register tsv: #{tsv_file} pdf: #{pdf_file}"
+    tsv_file = out_dir + "item_register_#{type}.tsv"
+    pdf_file = out_dir + "item_register_#{type}.pdf"
+    logger.info "output item_register_#{type} tsv: #{tsv_file} pdf: #{pdf_file}"
     # create output path
     FileUtils.mkdir_p(out_dir) unless FileTest.exist?(out_dir)
     # get item
-    @items = Item.order("bookstore_id DESC, acquired_at ASC, item_identifier ASC").all
+    if type == 'all'
+      @items = Item.order("bookstore_id DESC, acquired_at ASC, item_identifier ASC").all
+    else  
+      @items = Item.joins(:manifestation).where(["manifestations.manifestation_type_id in (?)", ManifestationType.type_ids(type)]).order("items.bookstore_id DESC, items.acquired_at ASC, items.item_identifier ASC").all
+    end
     # make tsv
     make_item_register_tsv(tsv_file, @items) if file_type.nil? || file_type == "tsv"
     # make pdf
-    make_item_register_pdf(pdf_file, @items) if file_type.nil? || file_type == "pdf"
+    make_item_register_pdf(pdf_file, @items, "item_register_#{type}") if file_type.nil? || file_type == "pdf"
   end
 
   def self.export_audio_list(out_dir, file_type = nil)
@@ -519,18 +576,19 @@ class Item < ActiveRecord::Base
     end
   end
 
-  def self.make_item_register_pdf(pdf_file, items)
-    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'libcheck_items.tlf') 
+  def self.make_item_register_pdf(pdf_file, items, list_title = nil)
+    report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'item_register.tlf') 
     report.events.on :page_create do |e|
       e.page.item(:page).value(e.page.no)
     end
     report.events.on :generate do |e|
       e.pages.each do |page|
         page.item(:total).value(e.report.page_count)
+        page.item(:list_title).value(I18n.t("item_register.#{list_title}"))
       end
     end
 
-    bookstore_ids = items.inject([]){|ids, item| ids << item.bookstore_id; ids}.uniq! 
+    bookstore_ids = [nil] + items.inject([]){|ids, item| ids << item.bookstore_id; ids}.uniq!  rescue [nil]
     if bookstore_ids
       bookstore_ids.each do |bookstore_id|
         report.start_new_page do |page|
@@ -765,7 +823,7 @@ class Item < ActiveRecord::Base
         row.item(:library).value(item.shelf.library.display_name.localize) if item.shelf && item.shelf.library
         row.item(:carrier_type).value(item.manifestation.carrier_type.display_name.localize) if item.manifestation && item.manifestation.carrier_type
         row.item(:shelf).value(item.shelf.display_name) if item.shelf
-        row.item(:ndc).value(item.manifestation.ndc) if item.manifestation
+        row.item(:remove_reason).value(item.remove_reason.display_name) if item.remove_reason
         row.item(:item_identifier).value(item.item_identifier)
         row.item(:call_number).value(call_numberformat(item))
         row.item(:removed_at).value(item.removed_at.strftime("%Y/%m/%d")) if item.removed_at
@@ -784,6 +842,7 @@ class Item < ActiveRecord::Base
       [:carrier_type, 'activerecord.models.carrier_type'],
       [:shelf, 'activerecord.models.shelf'],
       [:ndc, 'activerecord.attributes.manifestation.ndc'],
+      [:remove_reason, 'activerecord.models.remove_reason'],
       ['item_identifier', 'activerecord.attributes.item.item_identifier'],
       [:call_number, 'activerecord.attributes.item.call_number'],
       [:removed_at, 'activerecord.attributes.item.removed_at'],
@@ -809,9 +868,11 @@ class Item < ActiveRecord::Base
         when :title
           row << item.manifestation.original_title
         when :removed_at
-          row << item.removed_at.strftime("%Y/%m/%d") if item.removed_at
+          row << item.removed_at.strftime("%Y/%m/%d") rescue ""
+        when :remove_reason
+          row << item.try(:remove_reason).try(:display_name) || "" rescue ""
         when :call_number
-          row << coll_numberformat(item)
+          row << item.call_number || ""
         else
           row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
         end
@@ -961,19 +1022,19 @@ class Item < ActiveRecord::Base
         when :library
           row << item.shelf.library.display_name.localize 
         when :acquired_at
-          row << item.acquired_at.strftime("%Y/%m/%d") if item.acquired_at
+          row << item.acquired_at.strftime("%Y/%m/%d") || "" rescue ""
         when :bookstore
           bookstore = ""
           bookstore = item.bookstore.name if item.bookstore and item.bookstore.name
           row << bookstore
         when :volume_number_string
-          row << item.manifestation.volume_number_string
+          row << item.manifestation.volume_number_string || "" rescue ""
         when :issue_number_string
-          row << item.manifestation.issue_number_string
+          row << item.manifestation.issue_number_string || "" rescue ""
         when :serial_number_string
-          row << item.manifestation.serial_number_string
+          row << item.manifestation.serial_number_string || "" rescue ""
         when :title
-          row << item.manifestation.original_title
+          row << item.manifestation.original_title || "" rescue ""
         else
           row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
         end
@@ -1074,6 +1135,18 @@ class Item < ActiveRecord::Base
       data << '"'+row.join("\"\t\"")+"\"\n"
     end
     return data
+  end
+
+  def self.make_export_item_list_job(file_name, file_type, method, dumped_query, args, user)
+    job_name = GenerateItemListJob.generate_job_name
+    Delayed::Job.enqueue GenerateItemListJob.new(job_name, file_name, file_type, method, dumped_query, args, user)
+    job_name
+  end
+
+  def self.make_export_register_job(file_name, file_type, method, args, user)
+    job_name = GenerateItemRegisterJob.generate_job_name
+    Delayed::Job.enqueue GenerateItemRegisterJob.new(job_name, file_name, file_type, method, args, user)
+    job_name
   end
 end
 

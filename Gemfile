@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby "1.9.3"
+
 gem 'rails', '3.2.11'
 
 gem 'cocaine', '0.4.2'
@@ -17,7 +19,7 @@ gem "enju_ndl", "0.1.0.pre8"
 #gem 'enju_question', :git => 'git://github.com/nabeta/enju_question.git'
 gem 'enju_event', :git => 'git://github.com/shinozuka/enju_trunk_event.git'
 #gem 'enju_bookmark', :git => 'git://github.com/nabeta/enju_bookmark'
-gem 'enju_bookmark', :git => 'git://github.com/shinozuka/enju_bookmark.git'
+#gem 'enju_bookmark', :git => 'git://github.com/shinozuka/enju_bookmark.git'
 gem 'enju_subject', '~> 0.1.0.pre4'
 
 gem "jpp_customercode_transfer", "~> 0.0.2"
@@ -161,8 +163,7 @@ gem 'jquery-rails'
 gem 'enju_trunk_frbr', :git => 'git://github.com/emiko/enju_trunk_frbr.git'
 
 group :operation do
-  gem 'enju_trunk_circulation', :tag => 'v0.9.2.1', :git => 'git://github.com/emiko/enju_trunk_circulation.git'
+  gem 'enju_trunk_circulation', :git => 'git://github.com/emiko/enju_trunk_circulation.git'
   gem 'enju_trunk_ill', :git => 'git://github.com/emiko/enju_trunk_ill.git'
   gem 'enju_trunk_statistics', :git => 'git://github.com/emiko/enju_trunk_statistics.git'
 end
-

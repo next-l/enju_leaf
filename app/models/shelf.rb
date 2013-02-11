@@ -16,6 +16,8 @@ class Shelf < ActiveRecord::Base
 
   acts_as_list :scope => :library
 
+  has_paper_trail
+
   searchable do
     string :library do
       library.name

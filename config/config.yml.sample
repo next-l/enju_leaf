@@ -230,6 +230,8 @@ defaults: &defaults
   # 督促情報表のファイル名
   reminder_list_print_pdf:
     filename: "reminder_list.pdf"
+  # 自動で督促メールを送る延滞日数
+  auto_reminder_period: 5
 
   # 督促情報表のファイル名
   reminder_list_print_tsv:
@@ -401,6 +403,11 @@ defaults: &defaults
 
   # 利用者番号とユーザ名を同じ値にする
   auto_user_number: true
+
+  # 書誌リストの各種フォーマット出力でレコード件数が500より多ければバックグラウンド処理とする
+  background_job:
+    threshold:
+      export: 500
  
 development:
   <<: *defaults

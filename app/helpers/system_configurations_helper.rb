@@ -241,6 +241,9 @@ module SystemConfigurationsHelper
      when 'reserves.able_for_not_item'
        string << t('system_configuration.boolean_reserve_able_for_not_item') if state == 'true'
        string << t('system_configuration.boolean_reserve_not_able_for_not_item') if state == 'false'
+     when 'internal_server'
+       string << t('system_configuration.boolean_yes') if state == 'true'
+       string << t('system_configuration.boolean_no_opac') if state == 'false'       
      end
 
      string << "<br />" if state == 'true'

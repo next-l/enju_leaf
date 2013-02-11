@@ -2,6 +2,8 @@ class PatronType < ActiveRecord::Base
   include MasterModel
   default_scope :order => "patron_types.position"
   has_many :patrons
+
+  has_paper_trail
 end
 
 # == Schema Information

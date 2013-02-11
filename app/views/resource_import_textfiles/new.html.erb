@@ -8,9 +8,11 @@
         if(name == "") name="0";
         $("#inherent").html("");
         //jQuery.get('/enju_reiko/resource_import_textfiles/adapters/' + name, function(data){
-        jQuery.get('/resource_import_textfiles/adapters/' + name, function(data){
-          $("#inherent").html(data);
+        if(name == 'Tsvfile_Adapter') {
+          jQuery.get('/resource_import_textfiles/adapters/' + name, function(data){
+            $("#inherent").html(data);
           })
+        }
         return false;
       });
 

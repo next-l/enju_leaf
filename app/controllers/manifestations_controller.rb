@@ -103,10 +103,10 @@ class ManifestationsController < ApplicationController
 
       includes = [:carrier_type, :required_role, :items, :creators, :contributors, :publishers]
       includes << :bookmarks if defined?(EnjuBookmark)
-      search = Manifestation.search(:include => includes)
-      search_all = Manifestation.search(:include => includes)
-      search_book = Manifestation.search(:include => includes)
-      search_article = Manifestation.search(:include => includes)
+      search = Sunspot.new_search(Manifestation)
+      search_all = Sunspot.new_search(Manifestation)
+      search_book = Sunspot.new_search(Manifestation)
+      search_article = Sunspot.new_search(Manifestation)
       role = current_user.try(:role) || Role.default_role
       oai_search = true if params[:format] == 'oai'
       case @reservable
@@ -123,11 +123,12 @@ class ManifestationsController < ApplicationController
       @index_patron = patron
 
       split_by_type = SystemConfiguration.get("manifestations.split_by_type")
+      with_article = SystemConfiguration.get('internal_server')
 
       searchs = [ search_all ]
       if split_by_type
         searchs << search_book
-        searchs << search_article
+        searchs << search_article if with_article
       end
 
       searchs.each do |s|
@@ -144,6 +145,7 @@ class ManifestationsController < ApplicationController
           with(:publisher_ids).equal_to patron[:publisher].id if patron[:publisher]
           with(:original_manifestation_ids).equal_to manifestation.id if manifestation
         end
+        search.data_accessor_for(Manifestation).include = includes
       end
 
       removed = @removed = true if params[:removed_from].present? or params[:removed_to].present? or params[:removed]
@@ -179,11 +181,11 @@ class ManifestationsController < ApplicationController
         facet :reservable
         with(:bookbinder_id).equal_to binder.id if params[:mode] != 'add' && binder
         without(:id, binder.manifestation.id) if binder
-	if s.equal?(search_book)
-	  with(:is_article).equal_to false
-	elsif s.equal?(search_article)
-	  without(:is_article).equal_to false
-	end
+        if s.equal?(search_book)
+          with(:is_article).equal_to false
+        elsif s.equal?(search_article)
+          without(:is_article).equal_to false
+        end
       end
       search = make_internal_query(search)
       search.data_accessor_for(Manifestation).select = [
@@ -234,21 +236,29 @@ class ManifestationsController < ApplicationController
 
       # output
       if params[:output_pdf] or params[:output_tsv] or params[:output_excelx] or params[:output_request]
-        manifestations_for_output = search.build do
-          paginate :page => 1, :per_page => all_result.total
-        end.execute.results
-        if params[:output_pdf]
-          data = Manifestation.get_manifestation_list_pdf(manifestations_for_output, current_user)
-          send_data data.generate, :filename => Setting.manifestation_list_print_pdf.filename
-        elsif params[:output_tsv]
-          data = Manifestation.get_manifestation_list_tsv(manifestations_for_output, current_user)
-          send_data data, :filename => Setting.manifestation_list_print_tsv.filename
-        elsif params[:output_excelx]
-          excel_filename = Manifestation.get_manifestation_list_excelx(manifestations_for_output, current_user)
-          send_file excel_filename, :filename => Setting.manifestation_list_print_excelx.filename, :type => 'application/octet-stream'
-        elsif params[:output_request]
-          data = Manifestation.get_missing_issue_list_pdf(manifestations_for_output, current_user)
-          send_data data.generate, :filename => Setting.missing_list_print_pdf.filename
+        output_type =
+          case
+          when params[:output_pdf]; :pdf
+          when params[:output_tsv]; :tsv
+          when params[:output_excelx]; :excelx
+          when params[:output_request]; :request
+          end
+        Manifestation.generate_manifestation_list(search, output_type, current_user) do |output|
+          send_opts = {
+            :filename => output.filename,
+            :type => output.mime_type || 'application/octet-stream',
+          }
+          case output.result_type
+          when :path
+            send_file output.path, send_opts
+          when :data
+            send_data output.data, send_opts
+          when :delayed
+            flash[:message] = t('manifestation.output_job_queued', :job_name => output.job_name)
+            redirect_to manifestations_path(params.dup.tap {|h| h.delete_if {|k, v| /\Aoutput_/ =~ k} })
+          else
+            raise 'unknown result type (bug?)'
+          end
         end
         return 
       end
@@ -280,7 +290,7 @@ class ManifestationsController < ApplicationController
         search.query.start_record(params[:startRecord] || 1, params[:maximumRecords] || 200)
       else
         searchs.each do |s|
-	search = s
+        search = s
         search.build do
           facet :reservable
           facet :carrier_type
@@ -289,25 +299,25 @@ class ManifestationsController < ApplicationController
           facet :subject_ids
           facet :manifestation_type
           facet :missing_issue
-	  if s == search_article
+          if s == search_article
             paginate :page => page_article.to_i, :per_page => per_page unless request.xhr?
-	  else
+          else
             paginate :page => page.to_i, :per_page => per_page unless request.xhr?
-	  end
+          end
           if params[:format].blank? or params[:format] == 'html'
             spellcheck :collate => 3, :q => params[:query]
           end
+          end
         end
-	end
-	search = search_all
+        search = search_all
       end
       # catch query error 
       begin
         search_result = search_all.execute
-	if split_by_type
+        if split_by_type
           search_book_result = search_book.execute
-          search_article_result = search_article.execute
-	end
+          search_article_result = search_article.execute if with_article
+        end
       rescue Exception => e
         flash[:message] = t('manifestation.invalid_query')
         logger.error "query error: #{e}"
@@ -315,16 +325,17 @@ class ManifestationsController < ApplicationController
       end
       if @count[:query_result] > SystemConfiguration.get("max_number_of_results")
         max_count = SystemConfiguration.get("max_number_of_results")
-	if split_by_type
-	  max_book_count = max_count
-	  max_article_count = max_count
-	end
+        if split_by_type
+          max_book_count = max_count
+          max_article_count = max_count
+        end
       else
         max_count = @count[:query_result]
-	if split_by_type
+        if split_by_type
           max_book_count = search_book_result.total
+          max_article_count = search_article_result.total if with_article
           max_article_count = search_article_result.total
-	end
+        end
       end
       @manifestations = Kaminari.paginate_array(
         search_result.results, :total_count => max_count
@@ -334,10 +345,13 @@ class ManifestationsController < ApplicationController
         @manifestations_book = Kaminari.paginate_array(
           search_book_result.results, :total_count => max_book_count
         ).page(page).per(per_page)
-        @manifestations_article = Kaminari.paginate_array(
-          search_article_result.results, :total_count => max_article_count
-        ).page(page_article).per(per_page)
-        @manifestations_all = [ @manifestations_book, @manifestations_article ]
+        @manifestations_all = [@manifestations_book]
+        if with_article
+          @manifestations_article = Kaminari.paginate_array(
+            search_article_result.results, :total_count => max_article_count
+          ).page(page_article).per(per_page)
+          @manifestations_all << @manifestations_article
+        end
 	@split_by_type = split_by_type
       end
       get_libraries

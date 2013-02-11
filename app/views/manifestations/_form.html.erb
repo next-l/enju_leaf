@@ -139,8 +139,8 @@ function displayArticleTitle(article_title) {
     <%= render :partial => 'manifestations/serial_form', :locals => {:f => f, :manifestation => @manifestation} -%>
   <%- else -%>
     <div class="field">
-      <%= f.label :edition -%>
-      <%= f.text_field :edition, :class => 'resource_integer' -%>
+      <%= f.label :edition_display_value -%>
+      <%= f.text_field :edition_display_value, :class => 'resource_integer' -%>
       <%= f.label :volume_number_string -%>
       <%= f.text_field :volume_number_string, :class => 'resource_integer' -%>
       <%= f.label :issue_number_string -%>

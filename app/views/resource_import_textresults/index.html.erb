@@ -23,6 +23,9 @@
 <% @resource_import_textresults.each do |r| %>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
+      <% if r.manifestation and r.manifestation.series_statement %>
+      [<%= link_to r.manifestation.series_statement.original_title, r.manifestation.series_statement %>]<br/>
+      <% end %>
       <%= link_to r.manifestation.original_title, r.manifestation if r.manifestation %>
       <% if r.item %>
         <br />

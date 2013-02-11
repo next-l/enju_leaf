@@ -634,6 +634,7 @@ class User < ActiveRecord::Base
     end
     report.events.on :generate do |e|
       e.pages.each do |page|
+        page.item(:list_title).value(I18n.t('page.listing', :model => I18n.t('activerecord.models.user')))
         page.item(:total).value(e.report.page_count)
       end
     end
@@ -642,14 +643,18 @@ class User < ActiveRecord::Base
       page.item(:date).value(Time.now)
       users.each do |user|
         page.list(:list).add_row do |row|
-          row.item(:full_name).value(user.patron.full_name)
-          row.item(:username).value(user.username)
+          row.item(:full_name).value(user.try(:patron).try(:full_name))
+#          row.item(:username).value(user.username)
+          row.item(:department).value(user.try(:department).try(:display_name))
           row.item(:user_number).value(user.user_number)
-          row.item(:tel1).value(user.patron.telephone_number_1) if user.patron.telephone_number_1
-          row.item(:tel2).value(user.patron.telephone_number_2) if user.patron.telephone_number_2
+          row.item(:tel1).value(user.try(:patron).try(:telephone_number_1)) if user.try(:patron).try(:telephone_number_1)
+          row.item(:e_mail).value(user.try(:patron).try(:email)) if user.try(:patron).try(:email)
           row.item(:created_at).value(user.created_at)
-          row.item(:locked).value(I18n.t('activerecord.attributes.user.locked_yes')) if user.active_for_authentication?
-          row.item(:locked).value(I18n.t('activerecord.attributes.user.locked_no')) unless user.active_for_authentication?
+          if user.active_for_authentication?
+            row.item(:user_status).value(user.try(:user_status).try(:display_name))
+          else
+            row.item(:user_status).value(user.try(:user_status).try(:display_name) + "#{I18n.t('activerecord.attributes.user.locked_no')}")
+          end
           row.item(:unable).value(I18n.t('activerecord.attributes.user.unable_yes')) unless user.unable
           row.item(:unable).value(I18n.t('activerecord.attributes.user.unable_no')) if user.unable
         end
@@ -711,13 +716,13 @@ class User < ActiveRecord::Base
       columns.each do |column|
         case column[0]
         when :full_name
-          row << user.patron.full_name
+          row << user.try(:patron).try(:full_name)
         when :full_name_transcription
-          row << user.patron.full_name_transcription
+          row << user.try(:patron).try(:full_name_transcription)
         when :full_name_alternative
-          row << user.patron.full_name_alternative
+          row << user.try(:patron).try(:full_name_alternative)
         when :library
-          row << user.library.display_name
+          row << user.try(:library).try(:display_name)
         when :expired_at
           expired_at = ""
           if user.expired_at
@@ -734,56 +739,56 @@ class User < ActiveRecord::Base
           row << I18n.t('activerecord.attributes.user.unable_yes') unless user.unable
           row << I18n.t('activerecord.attributes.user.unable_no') if user.unable
         when :patron_type
-          row << user.patron.patron_type.display_name.localize
+          row << user.try(:patron).try(:patron_type).try(:display_name).try(:localize)
         when :email
-          row << user.patron.email
+          row << user.try(:patron).try(:email)
         when :url
-          row << user.patron.url
+          row << user.try(:patron).try(:url)
         when :other_designation
-          row << user.patron.other_designation
+          row << user.try(:patron).try(:other_designation)
         when :place
-          row << user.patron.place
+          row << user.try(:patron).try(:place)
         when :language
-          row << user.patron.language.display_name.localize
+          row << user.try(:patron).try(:language).try(:display_name).try(:localize)
         when :zip_code_1
-          row << user.patron.zip_code_1
+          row << user.try(:patron).try(:zip_code_1)
         when :address_1
-          row << user.patron.address_1
+          row << user.try(:patron).try(:address_1)
         when :telephone_number_1
-          telephone_number_1 = user.patron.telephone_number_1
-          telephone_number_1 += ' (' + I18n.t(i18n_telephone_type(user.patron.telephone_number_1_type_id).strip_tags) +')' unless user.patron.telephone_number_1.blank?
+          telephone_number_1 = user.try(:patron).try(:telephone_number_1)
+          telephone_number_1 += ' (' + I18n.t(i18n_telephone_type(user.try(:patron).try(:telephone_number_1_type_id)).strip_tags) +')' unless user.try(:patron).try(:telephone_number_1).blank?
           row << telephone_number_1 
         when :extelephone_number_1
-          extelephone_number_1 = user.patron.extelephone_number_1
-          extelephone_number_1 += ' (' + I18n.t(i18n_telephone_type(user.patron.extelephone_number_1_type_id).strip_tags) +')' unless user.patron.extelephone_number_1.blank?
+          extelephone_number_1 = user.try(:patron).try(:extelephone_number_1)
+          extelephone_number_1 += ' (' + I18n.t(i18n_telephone_type(user.patron.extelephone_number_1_type_id).strip_tags) +')' unless user.try(:patron).try(:extelephone_number_1).blank?
           row << extelephone_number_1 
         when :fax_number_1
-          fax_number_1 = user.patron.fax_number_1
-          fax_number_1 += ' (' + I18n.t(i18n_telephone_type(user.patron.fax_number_1_type_id).strip_tags) +')' unless user.patron.fax_number_1.blank?
+          fax_number_1 = user.try(:patron).try(:fax_number_1)
+          fax_number_1 += ' (' + I18n.t(i18n_telephone_type(user.patron.fax_number_1_type_id).strip_tags) +')' unless user.try(:patron).try(:fax_number_1).blank?
           row << fax_number_1 
         when :address_1_note
-          row << user.patron.address_1_note 
+          row << user.try(:patron).try(:address_1_note )
         when :zip_code_2
-          row << user.patron.zip_code_2
+          row << user.try(:patron).try(:zip_code_2)
         when :address_2
-          row << user.patron.address_2
+          row << user.try(:patron).try(:address_2)
         when :telephone_number_2
-          telephone_number_2 = user.patron.telephone_number_2
-          telephone_number_2 += ' (' + I18n.t(i18n_telephone_type(user.patron.telephone_number_2_type_id).strip_tags) +')' unless user.patron.telephone_number_2.blank?
+          telephone_number_2 = user.try(:patron).try(:telephone_number_2)
+          telephone_number_2 += ' (' + I18n.t(i18n_telephone_type(user.patron.telephone_number_2_type_id).strip_tags) +')' unless user.try(:patron).try(:telephone_number_2).blank?
           row << telephone_number_2
         when :extelephone_number_2
-          extelephone_number_2 = user.patron.extelephone_number_2
-          extelephone_number_2 += ' (' + I18n.t(i18n_telephone_type(user.patron.extelephone_number_2_type_id).strip_tags) +')' unless user.patron.extelephone_number_2.blank?
+          extelephone_number_2 = user.try(:patron).try(:extelephone_number_2)
+          extelephone_number_2 += ' (' + I18n.t(i18n_telephone_type(user.patron.extelephone_number_2_type_id).strip_tags) +')' unless user.try(:patron).try(:extelephone_number_2).blank?
           row << extelephone_number_2
         when :fax_number_2
-          fax_number_2 = user.patron.fax_number_2
-          fax_number_2 += ' (' + I18n.t(i18n_telephone_type(user.patron.fax_number_2_type_id).strip_tags) +')' unless user.patron.fax_number_2.blank?
+          fax_number_2 = user.try(:patron).try(:fax_number_2)
+          fax_number_2 += ' (' + I18n.t(i18n_telephone_type(user.patron.fax_number_2_type_id).strip_tags) +')' unless user.try(:patron).try(:fax_number_2).blank?
           row << fax_number_2 
         when :address_2_note
-          row << user.patron.address_2_note
+          row << user.try(:patron).try(:address_2_note)
         when :date_of_birth
           date_of_birth = ""
-          if user.patron.date_of_birth
+          if user.try(:patron).try(:date_of_birth)
             year = user.patron.date_of_birth.strftime("%Y")
             month = user.patron.date_of_birth.strftime("%m")
             date = user.patron.date_of_birth.strftime("%d")
@@ -792,7 +797,7 @@ class User < ActiveRecord::Base
           row << date_of_birth
         when :date_of_death
           date_of_death = ""
-          if user.patron.date_of_death
+          if user.try(:patron).try(:date_of_death)
             year = user.patron.date_of_death.strftime("%Y")
             month = user.patron.date_of_death.strftime("%m")
             date = user.patron.date_of_death.strftime("%d")
@@ -800,14 +805,14 @@ class User < ActiveRecord::Base
           end
           row << date_of_death
         when :note
-          row << user.patron.note
+          row << user.try(:patron).try(:note)
         when :note_update_at
-          note_update = user.patron.note_update_at.strftime("%Y/%m/%d %H:%M:%S") if user.patron.note_update_at
-          note_update += ' ' + I18n.t('patron.last_update_by') + ':' + user.patron.note_update_by if user.patron.note_update_by
-          note_update += '(' + user.patron.note_update_library + ')' if user.patron.note_update_library
+          note_update = user.patron.note_update_at.strftime("%Y/%m/%d %H:%M:%S") if user.try(:patron).try(:note_update_at)
+          note_update += ' ' + I18n.t('patron.last_update_by') + ':' + user.try(:patron).try(:note_update_by) if user.try(:patron).try(:note_update_by)
+          note_update += '(' + user.patron.note_update_library + ')' if user.try(:patron).try(:note_update_library)
           row << note_update
         when :patron_identifier
-          row << user.patron.patron_identifier
+          row << user.try(:patron).try(:patron_identifier)
         when :created_at
           row << user.created_at.strftime("%Y/%m/%d %H:%M:%S")
         when :updated_at

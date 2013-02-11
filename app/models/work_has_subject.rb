@@ -13,6 +13,8 @@ class WorkHasSubject < ActiveRecord::Base
 
   paginates_per 10
 
+  has_paper_trail
+
   def reindex
     work.try(:index)
     subject.try(:index)

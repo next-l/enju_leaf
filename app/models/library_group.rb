@@ -17,6 +17,8 @@ class LibraryGroup < ActiveRecord::Base
   validates :url, :presence => true, :url => true
   after_save :clear_site_config_cache
 
+  has_paper_trail
+
   def clear_site_config_cache
     Rails.cache.delete('library_site_config')
   end

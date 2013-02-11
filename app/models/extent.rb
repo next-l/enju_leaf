@@ -2,6 +2,8 @@ class Extent < ActiveRecord::Base
   include MasterModel
   default_scope :order => 'position'
   has_many :manifestations
+
+  has_paper_trail
 end
 
 # == Schema Information

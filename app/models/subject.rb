@@ -12,6 +12,8 @@ class Subject < ActiveRecord::Base
   validates_associated :subject_type
   validates_presence_of :term, :subject_type
 
+  has_paper_trail
+
   attr_accessor :classification_id, :subject_heading_type_id
 
   searchable do
@@ -37,6 +39,7 @@ class Subject < ActiveRecord::Base
           :term => s.to_s.strip,
           :subject_type_id => 1,
         )
+        subject.required_role = Role.where(:name => 'Guest').first
         subject.save
       end
       list << subject
