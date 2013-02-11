@@ -13,7 +13,7 @@ namespace :enju_trunk do
     task :init => :environment do
       sh "cd #{::Rails.root}; git log -1 > GitLastLog"
 
-      archives = "Gemfile Gemfile.lock GitLastLog Rakefile app/ config/ config.ru db/ lib/ public/ report/ script/ solr/ spec/ vendor/fonts vendor/plugins/ vendor/cache/"
+      archives = "Gemfile Gemfile.lock GitLastLog Rakefile app/ config/ config.ru db/ lib/ public/ report/ script/ solr/ spec/ vendor/fonts vendor/cache/"
 
       package_name = "#{packprefix}_pack_staging_init_#{Time.now.strftime('%Y%m%d%H%M%S')}.tar.bz2"
       packagefile = "#{package_dir}#{package_name}"
@@ -27,7 +27,7 @@ namespace :enju_trunk do
     desc 'Packaging for staging server'
     task :staging => :environment do
       sh "cd #{::Rails.root}; git log -1 > GitLastLog"
-      archives = "Gemfile Gemfile.lock GitLastLog Rakefile app/ config/ db/ lib/ public/ report/ script/ spec/ vendor/fonts vendor/plugins/ vendor/cache/"
+      archives = "Gemfile Gemfile.lock GitLastLog Rakefile app/ config/locales/ config/routes.rb db/ lib/ public/ script/ vendor/fonts vendor/cache/"
       excludes = "*.sample"
 
       package_name = "#{packprefix}_pack_staging_#{Time.now.strftime('%Y%m%d%H%M%S')}.tar.bz2"
