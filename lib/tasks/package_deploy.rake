@@ -13,12 +13,12 @@ namespace :enju_trunk do
     task :init => :environment do
       sh "cd #{::Rails.root}; git log -1 > GitLastLog"
 
-      archives = "Gemfile Gemfile.lock GitLastLog Rakefile app/ config/ config.ru db/ lib/ public/ report/ script/ spec/ vendor/fonts vendor/plugins/ vendor/cache/"
+      archives = "Gemfile Gemfile.lock GitLastLog Rakefile app/ config/ config.ru db/ lib/ public/ report/ script/ solr/ spec/ vendor/fonts vendor/plugins/ vendor/cache/"
 
       package_name = "#{packprefix}_pack_staging_init_#{Time.now.strftime('%Y%m%d%H%M%S')}.tar.bz2"
       packagefile = "#{package_dir}#{package_name}"
-      excludes = ".gitkeep *.sample"
-      exclude_from = "exclude"
+      #excludes = ".gitkeep *.sample"
+      exclude_from = "script/exclude_init"
      
       #packing
       sh "cd #{::Rails.root}; tar cjvf #{packagefile} #{archives} -X #{exclude_from}"
