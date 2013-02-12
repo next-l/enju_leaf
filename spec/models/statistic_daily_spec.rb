@@ -3,14 +3,17 @@ require 'spec_helper'
 require 'database_cleaner'
 
 describe Statistic do
-  fixtures :patron_types, :countries, :languages, :checkout_types, :circulation_statuses, :carrier_types, :roles, :user_groups, :user_group_has_checkout_types, :request_status_types, :carrier_type_has_checkout_types
+  fixtures :all
+#  fixtures :patron_types, :countries, :languages, :checkout_types, :circulation_statuses, :carrier_types, :roles, 
+#           :user_groups, :user_group_has_checkout_types, :request_status_types, :carrier_type_has_checkout_types, 
+#           :retention_periods, :manifestation_types, :user_statuses
   now = Time.now
   date = now.strftime("%Y%m%d")
   month = now.strftime("%Y%m")
   time_num = now.hour
 
-  DatabaseCleaner.strategy = :truncation, {:except => %w[patron_types countries languages checkout_types circulation_statuses carrier_types roles user_groups user_group_has_checkout_types request_status_types carrier_type_has_checkout_types]}
-  DatabaseCleaner.clean_with :truncation, {:except => %w[patron_types countries languages checkout_types circulation_statuses carrier_types roles user_groups user_group_has_checkout_types request_status_types carrier_type_has_checkout_types]}
+  DatabaseCleaner.strategy = :truncation, {:except => %w[patron_types countries languages checkout_types circulation_statuses carrier_types roles user_groups user_group_has_checkout_types request_status_types carrier_type_has_checkout_types retention_periods manifestation_types user_statuses]}
+  DatabaseCleaner.clean_with :truncation, {:except => %w[patron_types countries languages checkout_types circulation_statuses carrier_types roles user_groups user_group_has_checkout_types request_status_types carrier_type_has_checkout_types retention_periods manifestatioy_types user_statuses]}
 
   libraryA = FactoryGirl.create(:libraryA)
   libraryB = FactoryGirl.create(:libraryB)

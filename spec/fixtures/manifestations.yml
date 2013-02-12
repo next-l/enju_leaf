@@ -17,6 +17,7 @@ manifestation_00001:
   start_page: 1
   end_page: 100
   repository_content: true
+  manifestation_type_id: 1
 manifestation_00002: 
   carrier_type_id: 1
   language_id: 1
@@ -33,6 +34,7 @@ manifestation_00002:
   width: 
   created_at: 2007-11-19 16:59:00.991512 +09:00
   repository_content: false
+  manifestation_type_id: 1
 manifestation_00003: 
   carrier_type_id: 1
   language_id: 1
@@ -51,6 +53,7 @@ manifestation_00003:
   height: 
   width: 
   created_at: 2007-11-19 16:59:01.618359 +09:00
+  manifestation_type_id: 1
 manifestation_00004: 
   carrier_type_id: 1
   language_id: 1
@@ -66,6 +69,7 @@ manifestation_00004:
   height: 
   width: 
   created_at: 2007-11-19 16:59:02.275738 +09:00
+  manifestation_type_id: 1
 manifestation_00005: 
   carrier_type_id: 1
   language_id: 1
@@ -83,6 +87,7 @@ manifestation_00005:
   height: 
   width: 
   created_at: 2007-11-19 16:58:54.333183 +09:00
+  manifestation_type_id: 1
 manifestation_00006: 
   carrier_type_id: 1
   language_id: 1
@@ -100,6 +105,7 @@ manifestation_00006:
   height: 
   width: 
   created_at: 2007-11-19 16:58:56.255684 +09:00
+  manifestation_type_id: 1
 manifestation_00007: 
   carrier_type_id: 1
   language_id: 1
@@ -115,6 +121,7 @@ manifestation_00007:
   height: 
   width: 
   created_at: 2007-11-19 16:58:56.892741 +09:00
+  manifestation_type_id: 1
 manifestation_00008: 
   carrier_type_id: 1
   language_id: 1

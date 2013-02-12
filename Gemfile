@@ -163,7 +163,9 @@ gem 'jquery-rails'
 gem 'enju_trunk_frbr', :git => 'git://github.com/emiko/enju_trunk_frbr.git'
 
 group :operation do
-  gem 'enju_trunk_circulation', :git => 'git://github.com/emiko/enju_trunk_circulation.git'
+  gem 'enju_trunk_circulation', :path => '/home/emiko/app/enju_trunk_circulation/' # :tag => 'v0.9.2.1', :git => 'git://github.com/emiko/enju_trunk_circulation.git'
   gem 'enju_trunk_ill', :git => 'git://github.com/emiko/enju_trunk_ill.git'
-  gem 'enju_trunk_statistics', :git => 'git://github.com/emiko/enju_trunk_statistics.git'
+  gem 'enju_trunk_statistics', :path => '/home/emiko/app/enju_trunk_statistics/' # :git => 'git://github.com/emiko/enju_trunk_statistics.git'
 end
+
+gem 'enju_jma', :path => '/home/emiko/app/enju_jma/'

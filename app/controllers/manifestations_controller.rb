@@ -158,7 +158,9 @@ class ManifestationsController < ApplicationController
         with(:subject_ids).equal_to subject.id if subject
         unless removed
           unless missing_issue
-            without(:non_searchable).equal_to true unless params[:all_manifestations]
+            if SystemConfiguration.get('manifestation.manage_item_rank')
+              without(:non_searchable).equal_to true unless params[:all_manifestations]
+            end
           end
         else
           with(:has_removed).equal_to true
@@ -334,7 +336,7 @@ class ManifestationsController < ApplicationController
         if split_by_type
           max_book_count = search_book_result.total
           max_article_count = search_article_result.total if with_article
-          max_article_count = search_article_result.total
+          max_article_count = search_article_result.total if with_article
         end
       end
       @manifestations = Kaminari.paginate_array(

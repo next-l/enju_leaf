@@ -11,6 +11,7 @@ FactoryGirl.define do
     f.required_role {Role.find_by_name('User')}
     f.locale 'ja'
     f.patron {FactoryGirl.create(:patron)}
+    f.user_status {UserStatus.first || FactoryGirl.create(:user_status)}
   end
 
   factory :librarian, :class => User do |f|
@@ -25,6 +26,7 @@ FactoryGirl.define do
     f.required_role {Role.find_by_name('User')}
     f.locale 'ja'
     f.patron {FactoryGirl.create(:patron)}
+    f.user_status {UserStatus.first || FactoryGirl.create(:user_status)}
   end
 
   factory :user, :class => User do |f|
@@ -40,6 +42,7 @@ FactoryGirl.define do
     f.locale 'ja'
     f.sequence(:user_number){|n| "user_number_#{n}"}
     f.patron {FactoryGirl.create(:patron)}
+    f.user_status {UserStatus.first || FactoryGirl.create(:user_status)}
   end
 
   factory :invalid_user, :class => User do |f|
@@ -120,6 +123,7 @@ FactoryGirl.define do
     f.locale 'ja'
     f.patron {FactoryGirl.create(:adult_patron)}
     f.sequence(:user_number){|n| "adult_user_#{n}"}
+    f.user_status {UserStatus.first || FactoryGirl.create(:user_status)}
   end
 
   factory :student_user, :class => User do |f|
@@ -150,6 +154,7 @@ FactoryGirl.define do
     f.locale 'ja'
     f.patron {FactoryGirl.create(:juniors_patron)}
     f.sequence(:user_number){|n| "juniors_user_#{n}"}
+    f.user_status {UserStatus.first || FactoryGirl.create(:user_status)}
   end
 
   factory :elements_user, :class => User do |f|
@@ -165,6 +170,7 @@ FactoryGirl.define do
     f.locale 'ja'
     f.patron {FactoryGirl.create(:elements_patron)}
     f.sequence(:user_number){|n| "elements_user_#{n}"}
+    f.user_status {UserStatus.first || FactoryGirl.create(:user_status)}
   end
 
   factory :children_user, :class => User do |f|
@@ -180,6 +186,7 @@ FactoryGirl.define do
     f.locale 'ja'
     f.patron {FactoryGirl.create(:children_patron)}
     f.sequence(:user_number){|n| "children_user_#{n}"}
+    f.user_status {UserStatus.first || FactoryGirl.create(:user_status)}
   end
 
 end

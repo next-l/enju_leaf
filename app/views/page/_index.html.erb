@@ -21,6 +21,11 @@ $(document).FunctionKeys(
       <% end %>
     </h2>
     <div id="user_search_form">
+      <% if current_user %>
+        <% unless current_user.own_password %>
+          <div style="color: red;"><b><%= simple_format(t('activerecord.errors.messages.user.auto_generated_password')) %></b></div>
+        <% end %>
+      <% end %>
       <p id="notice"><%= notice %></p>
 
       <%= render 'page/search_form' -%>

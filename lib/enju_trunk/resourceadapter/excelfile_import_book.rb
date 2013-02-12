@@ -278,7 +278,7 @@ module EnjuTrunk
       publishers_string = datas[@field[I18n.t('resource_import_textfile.excel.book.publisher')]]
       publishers        = publishers_string.nil? ? nil : publishers_string.to_s.split(';')
       series_title      = series_statement.original_title if @manifestation_type.is_series?
-logger.info "##############"
+
       if manifestation
         original_title = manifestation.original_title.to_s                if original_title.nil?
         pub_date       = manifestation.pub_date.to_s                      if pub_date.nil?
@@ -303,14 +303,16 @@ logger.info "##############"
         :readonly => false,
         :include => [:series_statement, :creators, :publishers],
         :conditions => conditions,
-        :order => "manifestations.created_at"
+        :order => "manifestations.created_at asc"
       )
       if book
         if book.creators.map{ |c| c.full_name }.sort == creators.sort and book.publishers.map{ |s| s.full_name }.sort == publishers.sort
+          p "editing manifestation"
           @mode = 'edit'
           return book
         end
       end
+      p "make new manifestation"
       return manifestation
     end
 
@@ -397,7 +399,7 @@ logger.info "##############"
 
         unless item
           if manifestation.items.size > 0
-            item = manifestation.items.first if item_identifier.nil?
+            item = manifestation.items.order('created_at asc').first if item_identifier.nil?
           else
             item = Item.new
             @mode_item = 'create'
@@ -441,6 +443,11 @@ logger.info "##############"
           item.removed_at = Time.zone.now
         end
 
+        if @mode_item == 'create'
+          p "make new item"
+        else
+          p "editing item: #{item.item_identifier}"
+        end
         item.save!
         item.patrons << shelf.library.patron if @mode_item == 'create'
         item.manifestation = manifestation
@@ -531,10 +538,12 @@ logger.info "##############"
 
       cell = datas[@field[I18n.t("resource_import_textfile.excel.book.#{field_name}")]]
       if cell.nil?
-        unless options[:can_blank]#@mode =='create' and can_blank
-          obj = model.where(options[:check_column] => options[:default]).first 
-        else
+        if options[:can_blank]
           obj = nil
+        elsif @mode != 'create'
+          obj = nil
+        else
+          obj = model.where(options[:check_column] => options[:default]).first 
         end
       elsif options[:can_blank] == true and cell.blank?
         obj = nil
@@ -663,7 +672,7 @@ logger.info "##############"
               :shelf => [:library]
             ],
             :conditions => set_conditions(datas),
-            :order => "items.created_at"
+            :order => "items.created_at asc"
           )
           raise I18n.t('resource_import_textfile.error.failed_delete_not_find') unless item
 p "@@@@@@"
