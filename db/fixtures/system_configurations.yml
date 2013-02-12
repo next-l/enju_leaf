@@ -642,6 +642,8 @@ system_configuration_00091:
   typename: Boolean
   description: "未返却資料を貸出処理読み込んだ場合、再貸出可能にする"
   category: 'checkout'
+system_configuration_00092:
+  id: 92
   keyname: manifestation.manage_item_rank
   v: "true"
   typename: Boolean
