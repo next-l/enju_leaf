@@ -40,6 +40,11 @@
   <%= @series_statement.series_statement_identifier %>
 </p>
 
+<p>
+  <strong><%= t('activerecord.attributes.series_statement.note') -%>:</strong>
+  <%= raw simple_format(h(@series_statement.note)) -%>
+</p>
+
   <%= render 'manifestation_list' -%>
 </div>
 </div>
