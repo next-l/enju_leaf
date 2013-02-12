@@ -14,7 +14,9 @@ describe Reserve do
   end
 
   it "should cancel reservation" do
-    reserves(:reserve_00001).cancel
+    p "p #{reserves(:reserve_00001)}"
+    reserves(:reserve_00001).sm_cancel!
+    p reserves(:reserve_00001).canceled_at
     reserves(:reserve_00001).canceled_at.should be_true
     reserves(:reserve_00001).request_status_type.name.should eq 'Cannot Fulfill Request'
   end

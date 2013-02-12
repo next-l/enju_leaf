@@ -26,6 +26,7 @@ admin:
   required_role_id: 4
   user_number: "00001"
   locale: "ja"
+  user_status_id: 1
 librarian1: 
   password_salt: $2a$10$9O2VuTccN4gHq36ARg0QRe
   questions_count: 0
@@ -53,6 +54,7 @@ librarian1:
   required_role_id: 1
   user_number: "00002"
   locale: "ja"
+  user_status_id: 1
 user1: 
   password_salt: $2a$10$JthS59A0BNkDOoFpCXM0V.
   questions_count: 0
@@ -81,6 +83,7 @@ user1:
   checkout_icalendar_token: e3e0277cbba03183c3a12d2b740f3eabebd7df0d
   user_number: "00003"
   locale: "ja"
+  user_status_id: 1
 librarian2: 
   password_salt: $2a$10$YmmTGrYQ1Ir6oc7wXnp.Gu
   questions_count: 0
@@ -108,6 +111,7 @@ librarian2:
   required_role_id: 1
   user_number: "00004"
   locale: "ja"
+  user_status_id: 1
 user2: 
   password_salt: $2a$10$i7UjJhLVrJM/J7qaTwW39O
   questions_count: 0
@@ -135,6 +139,7 @@ user2:
   required_role_id: 2
 #  user_number: '00005'
   locale: "ja"
+  user_status_id: 1
 user3: 
   password_salt: CnM9OO2zUsKFIi-b3mpA
   questions_count: 0
@@ -162,6 +167,7 @@ user3:
   checkout_icalendar_token: 
   user_number: "00006"
   locale: "ja"
+  user_status_id: 1
 user4: 
   password_salt: CnM9OO2zUsKFIi-b3mpA
   questions_count: 0
@@ -190,6 +196,7 @@ user4:
   checkout_icalendar_token: 
   user_number: "00007"
   locale: "ja"
+  user_status_id: 1
 user5: 
   password_salt: $2a$10$JthS59A0BNkDOoFpCXM0V.
   questions_count: 0
@@ -218,6 +225,7 @@ user5:
   checkout_icalendar_token: e3e0277cbba03183c3a12d2b740f3eabebd7df0d
   user_number: "00008"
   locale: "ja"
+  user_status_id: 1
 
 # == Schema Information
 #

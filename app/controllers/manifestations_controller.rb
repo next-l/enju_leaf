@@ -334,7 +334,7 @@ class ManifestationsController < ApplicationController
         if split_by_type
           max_book_count = search_book_result.total
           max_article_count = search_article_result.total if with_article
-          max_article_count = search_article_result.total
+          max_article_count = search_article_result.total if with_article
         end
       end
       @manifestations = Kaminari.paginate_array(
