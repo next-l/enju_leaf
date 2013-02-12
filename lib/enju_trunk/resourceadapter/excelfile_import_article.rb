@@ -212,7 +212,7 @@ module EnjuTrunk
         item = Item.new
         @mode_item = 'create'
       else
-        item = manifestation.items.first
+        item = manifestation.items.order('created_at asc').first
       end
       shelf = nil
       unless item.shelf.nil?
