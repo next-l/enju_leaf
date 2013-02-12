@@ -538,10 +538,12 @@ module EnjuTrunk
 
       cell = datas[@field[I18n.t("resource_import_textfile.excel.book.#{field_name}")]]
       if cell.nil?
-        unless options[:can_blank]#@mode =='create' and can_blank
-          obj = model.where(options[:check_column] => options[:default]).first 
-        else
+        if options[:can_blank]
           obj = nil
+        elsif @mode != 'create'
+          obj = nil
+        else
+          obj = model.where(options[:check_column] => options[:default]).first 
         end
       elsif options[:can_blank] == true and cell.blank?
         obj = nil
