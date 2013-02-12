@@ -313,8 +313,10 @@ class Manifestation < ActiveRecord::Base
       end
     end
     boolean :except_recent
-    boolean :non_searchable do
-      non_searchable?
+		if SystemConfiguration.get('manifestation.manage_item_rank')
+	    boolean :non_searchable do
+  	    non_searchable?
+			end
     end
     string :exinfo_1
     string :exinfo_2
