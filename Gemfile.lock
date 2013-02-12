@@ -55,7 +55,7 @@ GEM
       builder
       mime-types
       xml-simple
-    aws-sdk (1.8.1.2)
+    aws-sdk (1.8.1.3)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
@@ -520,6 +520,7 @@ DEPENDENCIES
   jruby-openssl
   kgio
   mobile-fu
+  nested_form
   paper_trail (~> 2.7)
   paperclip-meta (~> 0.4.3)
   parallel_tests (~> 0.9)
