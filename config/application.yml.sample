@@ -29,6 +29,10 @@ defaults: &defaults
   uploaded_file:
     storage: :local
 
+  manifestation:
+    facet:
+      pub_year_range_interval: 10
+
 development:
   <<: *defaults
 

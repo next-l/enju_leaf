@@ -13,3 +13,4 @@
 //= require event_calendar
 //= require rails.validations
 //= require jquery.powertip
+//= require jquery_nested_form

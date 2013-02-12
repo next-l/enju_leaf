@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 
 ruby '1.9.3'
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.12'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'enju_core', '~> 0.1.1.pre2'
-gem 'enju_biblio', '~> 0.1.0.pre13'
+gem 'enju_biblio', '~> 0.1.0.pre15'
 gem 'enju_library', '~> 0.1.0.pre6'
 #gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'

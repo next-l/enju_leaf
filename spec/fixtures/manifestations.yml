@@ -1755,7 +1755,7 @@ manifestation_00205:
   price:
   manifestation_identifier:
   depth:
-  date_of_publication:
+  date_of_publication: 2000-01-01 00:00:00 +09:00
   access_address:
   id: 205
   height:
@@ -1770,7 +1770,7 @@ manifestation_00206:
   price:
   manifestation_identifier:
   depth:
-  date_of_publication:
+  date_of_publication: 2010-01-01 00:00:00 +09:00
   access_address:
   id: 206
   height:
