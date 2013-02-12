@@ -40,7 +40,7 @@ end
 #  gem 'simplecov', '~> 0.6', :require => false, :group => :test
 #end
 
-gem 'roo'
+gem 'roo', "= 1.10.1"
 gem 'axlsx'
 
 gem 'spinjs-rails'
