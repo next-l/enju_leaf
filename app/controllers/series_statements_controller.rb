@@ -104,9 +104,9 @@ class SeriesStatementsController < ApplicationController
             )
             manifestation.periodical_master = true
             @series_statement.root_manifestation = manifestation
-            @series_statement.manifestations << manifestation if manifestation
           end
           @series_statement.save!
+          @series_statement.manifestations << manifestation if manifestation
           format.html { redirect_to @series_statement,
             :notice => t('controller.successfully_created', :model => t('activerecord.models.series_statement')) }
           format.json { render :json => @series_statement, :status => :created, :location => @series_statement }
