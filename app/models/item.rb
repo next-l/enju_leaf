@@ -231,6 +231,7 @@ class Item < ActiveRecord::Base
     else
       self.removed_at = nil
     end
+    self.save
   end
 
   def check_price
