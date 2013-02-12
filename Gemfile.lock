@@ -117,10 +117,6 @@ GEM
       validates_timeliness
     enju_book_jacket (0.1.0.pre3)
       rails (~> 3.2)
-    enju_bookmark (0.1.2.pre7)
-      acts-as-taggable-on (~> 2.3)
-      rails (~> 3.2)
-      state_machine
     enju_circulation (0.1.0.pre10)
       enju_event (~> 0.1.17.pre5)
       enju_message (~> 0.1.14.pre)
@@ -490,7 +486,6 @@ DEPENDENCIES
   dynamic_form
   enju_biblio (~> 0.1.0.pre15)
   enju_book_jacket (~> 0.1.0.pre3)
-  enju_bookmark (~> 0.1.2.pre7)
   enju_circulation (~> 0.1.0.pre10)
   enju_core (~> 0.1.1.pre2)
   enju_event (~> 0.1.17.pre6)
