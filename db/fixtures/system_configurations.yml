@@ -649,3 +649,10 @@ system_configuration_00092:
   typename: Boolean
   description: "正副本管理をする"
   category: 'manifestation'
+system_configuration_00093:
+  id: 93
+  keyname: use_inter_library_loan
+  v: "true"
+  typename: Boolean
+  description: "相互貸借機能を利用する"
+  category: 'checkout'
