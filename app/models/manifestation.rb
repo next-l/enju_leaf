@@ -28,6 +28,9 @@ class Manifestation < ActiveRecord::Base
     text :title, :default_boost => 2 do
       titles
     end
+    text :spellcheck do
+      titles
+    end
     text :fulltext, :note, :contributor, :description, :article_title
     text :creator do
       if series_statement.try(:periodical)  # 雑誌の場合
@@ -1204,9 +1207,17 @@ class Manifestation < ActiveRecord::Base
     return report 
   end
 
-  class GenerateManifestationListJob < Struct.new(:name, :fileinfo, :output_type, :user)
+  class GenerateManifestationListJob
     include Rails.application.routes.url_helpers
     include BackgroundJobUtils
+
+    def initialize(name, fileinfo, output_type, user)
+      @name = name
+      @fileinfo = fileinfo
+      @output_type = output_type
+      @user = user
+    end
+    attr_accessor :name, :fileinfo, :output_type, :user
 
     def perform
       user_file = UserFile.new(user)

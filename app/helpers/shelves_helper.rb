@@ -3,10 +3,12 @@ module ShelvesHelper
     case open_access.to_i
     when 0
       t('activerecord.attributes.shelf.open')
+    when 1
+      t('activerecord.attributes.shelf.closed')
+    when 2
+      t('activerecord.attributes.shelf.stock')
     when 9
       t('activerecord.attributes.shelf.in_process')
-    else
-      t('activerecord.attributes.shelf.closed')
     end
   end
 

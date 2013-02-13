@@ -1,87 +1,105 @@
 require 'digest/sha1'
 
-INIT_BUCKET = "/opt/enju_trunk/script/tools/sync/init-bucket.pl"
-SEND_BUCKET = "/opt/enju_trunk/script/tools/sync/send-bucket.pl"
+SCRIPT_ROOT = "#{Rails.root.to_s}/script/enjusync"
+INIT_BUCKET = "#{SCRIPT_ROOT}/init-bucket.pl"
+SEND_BUCKET = "#{SCRIPT_ROOT}/send-bucket.pl"
+RECV_BUCKET = "#{SCRIPT_ROOT}/recv-bucket.pl"
+GET_STATUS_FILE = "#{SCRIPT_ROOT}/get-statusfile.pl"
+
 DUMPFILE_PREFIX = "/var/enjusync"
 PERLBIN = "/usr/bin/perl"
+STATUS_FILE = "#{DUMPFILE_PREFIX}/work"
 
-def taglogger(head, tag, msg)
-  Rails.logger.info "#{head} #{tag} #{msg}"
+$enju_log_head = ""
+$enju_log_tag = ""
+
+def taglogger(msg)
+  Rails.logger.info "#{$enju_log_head} #{$enju_log_tag} #{msg}"
+  puts "#{$enju_log_head} #{$enju_log_tag} #{msg}"
 end
 
 def ftpsyncpush(last_id)
-  taglogger head, tag, "call task [init_backet] start"
+  taglogger "call task [init_backet] start"
   sh "#{PERLBIN} #{INIT_BUCKET} #{last_id}"
-  taglogger head, tag, "call task [init_backet] end"
+  taglogger "call task [init_backet] end"
 
-  taglogger head, tag, "call task [send_backet] start"
+  taglogger "call task [send_backet] start"
   sh "#{PERLBIN} #{SEND_BUCKET}"
-  taglogger head, tag, "call task [send_backet] end"
+  taglogger "call task [send_backet] end"
 end
 
 namespace :enju_trunk do
   namespace :sync do
     desc 'Initial sync'
     task :init => :environment do
-      head = "sync::init"
-      tag = Digest::SHA1.hexdigest(Time.now.strftime('%s'))[-5, 5]
+      $enju_log_head = "sync::init"
+      $enju_log_tag = Digest::SHA1.hexdigest(Time.now.strftime('%s'))[-5, 5]
 
-      taglogger head, tag, "start #{Time.now}"
-      taglogger head, tag, "init_bucket=#{INIT_BUCKET}"
-      taglogger head, tag, "send_bucket=#{SEND_BUCKET}"
+      taglogger "start #{Time.now}"
+      taglogger "init_bucket=#{INIT_BUCKET}"
+      taglogger "send_bucket=#{SEND_BUCKET}"
 
       last_id = Version.last.id
       dumpfiledir = "#{DUMPFILE_PREFIX}/#{last_id}"
       dumpfile = "#{dumpfiledir}/enjudump.yml"
 
-      taglogger head, tag, "last_id=#{last_id} "
-      taglogger head, tag, "dumpfiledir=#{dumpfiledir} "
-      taglogger head, tag, "dumpfile=#{dumpfile} "
+      taglogger "last_id=#{last_id} "
+      taglogger "dumpfiledir=#{dumpfiledir} "
+      taglogger "dumpfile=#{dumpfile} "
 
-      taglogger head, tag, "mkdir_p begin"
+      taglogger "mkdir_p begin"
       FileUtils.mkdir_p(dumpfiledir)
-      taglogger head, tag, "mkdir_p end"
+      taglogger "mkdir_p end"
 
-      taglogger head, tag, "call task [enju::sync::export] start"
+      taglogger "call task [enju::sync::export] start"
 
-      Rake::Task["enju:sync:export"].invoke("DUMP_FILE=#{dumpfile} EXPORT_FROM=#{last_id}")
+      ENV['EXPORT_FROM'] = last_id.to_s
+      ENV['DUMP_FILE'] = dumpfile
+      Rake::Task["enju:sync:export"].invoke
 
-      taglogger head, tag, "call task [enju::sync::export] end"
+      taglogger "call task [enju::sync::export] end"
 
+      Dir::chdir(SCRIPT_ROOT)  
       ftpsyncpush(last_id) 
 
-      taglogger head, tag, "end (NormalEnd)"
+      taglogger "end (NormalEnd)"
     end
 
     desc 'Scheduled process'
     task :scheduled_export => :environment do
-      head = "sync::scheduled_export"
-      tag = Digest::SHA1.hexdigest(Time.now.strftime('%s'))[-5, 5]
+      $enju_head = "sync::scheduled_export"
+      $enju_tag = Digest::SHA1.hexdigest(Time.now.strftime('%s'))[-5, 5]
 
-      taglogger head, tag, "start #{Time.now}"
-      taglogger head, tag, "init_bucket=#{INIT_BUCKET}"
-      taglogger head, tag, "send_bucket=#{SEND_BUCKET}"
+      taglogger "start #{Time.now}"
+      taglogger "init_bucket=#{INIT_BUCKET}"
+      taglogger "send_bucket=#{SEND_BUCKET}"
 
       last_id = Version.last.id
       dumpfiledir = "#{DUMPFILE_PREFIX}/#{last_id}"
       dumpfile = "#{dumpfiledir}/enjudump.yml"
 
       # a.業務側からWebOPAC側に接続し、5)のstatusfileを取得
-      # TODO
-      
+      Dir::chdir(SCRIPT_ROOT)  
+      taglogger "call task [get_status_file] start"
+      sh "#{PERLBIN} #{GET_STATUS_FILE}"
+      taglogger "call task [get_status_file] end"
+
       # b.同期番号取得
       last_id = Version.last.id
 
       # c.同期データを出力
-      Rake::Task["enju:sync:export"].invoke("DUMP_FILE=#{dumpfile} STATUSFILE=#{statusfile}")
+      ENV['STATUS_FILE'] = STATUS_FILE
+      ENV['DUMP_FILE'] = dumpfile
+      Rake::Task["enju:sync:export"].invoke
 
       # d.バケット作成, e.データ転送
+      Dir::chdir(SCRIPT_ROOT)  
       ftpsyncpush(last_id) 
     end
 
     desc 'Scheduled process'
     task :scheduled_import => :enviroment do
-      # rake enju:sync:import DUMP_FILE=path/to/dumpfile.yml STATUS_FILE=path/to/statusfile.yml
+      Rake::Task["enju:sync:import"].invoke
     end
   end
 end

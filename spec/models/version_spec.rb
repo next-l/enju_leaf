@@ -88,9 +88,25 @@ describe Version do
   #
   # * LibraryGroup
 
+  # レコード比較の一部として属性を比較する際に
+  # 同値をとれれない属性について無視または
+  # 一定程度の整調をする
+  def round(attributes)
+    attributes.dup.tap do |h|
+      h.delete('lock_version')
+      h.each_key do |k|
+        h[k] = h[k].strftime('%Y-%m-%d %H:%M:%S') if h[k].is_a?(Time) # 秒まで同じことを検査
+      end
+    end
+  end
+
+  def latest_version_id
+    Version.last.try(:id) || 0
+  end
+
   describe '.export_for_incremental_synchronizationは' do
     it '指定した日時以降の変動と、最新の状態をエクスポートできること' do
-      time = Time.now
+      vid = latest_version_id
       sleep 1
 
       # create
@@ -98,28 +114,28 @@ describe Version do
         name: 'test_role',
         display_name: 'test1')
 
-      dump = Version.export_for_incremental_synchronization(time)
+      dump = Version.export_for_incremental_synchronization(vid)
       dump[:versions].should have(1).item
       dump[:versions].map(&:event).should == %w(create)
       dump[:latest]['Role'].should be_a(Hash)
       dump[:latest]['Role'][role.id].should be_a(Hash)
-      dump[:latest]['Role'][role.id].should == role.attributes
+      round(dump[:latest]['Role'][role.id]).should == round(role.attributes)
 
       # update
       role.display_name = 'test2'
       role.save!
 
-      dump = Version.export_for_incremental_synchronization(time)
+      dump = Version.export_for_incremental_synchronization(vid)
       dump[:versions].should have(2).item
       dump[:versions].map(&:event).should == %w(create update)
       dump[:latest]['Role'].should be_a(Hash)
       dump[:latest]['Role'][role.id].should be_a(Hash)
-      dump[:latest]['Role'][role.id].should == role.attributes
+      round(dump[:latest]['Role'][role.id]).should == round(role.attributes)
 
       # destroy
       role.destroy
 
-      dump = Version.export_for_incremental_synchronization(time)
+      dump = Version.export_for_incremental_synchronization(vid)
       dump[:versions].should have(3).item
       dump[:versions].map(&:event).should == %w(create update destroy)
       dump[:latest]['Role'].should be_a(Hash)
@@ -134,7 +150,7 @@ describe Version do
         required_role_id required_score
         patron_identifier exclude_state
       )
-      time = Time.now
+      vid = latest_version_id
 
       attributes = Patron.column_names.
         reject {|name| /\Aid\z|_(id|at)\z|\Adate_of_|\Alock_version\z/ =~ name }.
@@ -167,11 +183,11 @@ describe Version do
       patron2.reload
       attributes2 = patron2.attributes
 
-      dump1 = Version.export_for_incremental_synchronization(time)
+      dump1 = Version.export_for_incremental_synchronization(vid)
 
       patron1.destroy
       patron2.destroy
-      dump2 = Version.export_for_incremental_synchronization(time)
+      dump2 = Version.export_for_incremental_synchronization(vid)
 
       [dump1, dump2].inject([]) do |all, dump|
         dump[:versions].inject(all) {|ary, ver| ary << ver }
@@ -243,7 +259,7 @@ describe Version do
     end
 
     def make_change(history, name)
-      now = Time.now
+      vid = latest_version_id
 
       sleep 1
       ret = yield
@@ -252,18 +268,18 @@ describe Version do
       history ||= []
       history << {
         name: name,
-        time: now,
+        vid: vid,
         class: ret.class,
         attributes: ret.attributes,
-        dump: Version.export_for_incremental_synchronization(now)
+        dump: Version.export_for_incremental_synchronization(vid)
       }
 
       ret
     end
 
     def replay_changes(history, record)
-      initial_time = history.first[:time]
-      dump_all = Version.export_for_incremental_synchronization(initial_time)
+      initial_vid = history.first[:vid]
+      dump_all = Version.export_for_incremental_synchronization(initial_vid)
 
       # 一工程ごとに戻していく
       history.each do |state|
@@ -289,11 +305,7 @@ describe Version do
           reverted.should be_present
           reverted.should be_a(model_class)
 
-          reverted.attributes.dup.tap {|h|
-            h.delete('lock_version')
-          }.should == attributes.dup.tap {|h|
-            h.delete('lock_version')
-          }
+          round(reverted.attributes).should == round(attributes)
         else
           lambda {
             model_class.find(record.id)
@@ -600,7 +612,7 @@ describe Version do
       let(:model_class) { Patron }
 
       it '復元できること' do
-        time = Time.now
+        vid = latest_version_id
         patron = patron_id = dump = nil
 
         ActiveRecord::Base.transaction do
@@ -612,7 +624,7 @@ describe Version do
             user: users(:user5))
           patron_id = patron.id
 
-          dump = Version.export_for_incremental_synchronization(time)
+          dump = Version.export_for_incremental_synchronization(vid)
           raise ActiveRecord::Rollback
         end
 
@@ -833,41 +845,49 @@ describe Version do
     describe 'イベント処理で' do
       before do
         @time = []
+        @vid = []
 
         @role = Role.create!(name: 'test', display_name: 'test')
         @role_id = @role.id
 
         ActiveRecord::Base.transaction do
           @time << Time.now
+          @vid << latest_version_id
           sleep 1
 
+          # イベント#0: 時刻=@time[0]...@time[1] id=@vid[1]
           @role.display_name = 'test2'
           @role.save!
 
           sleep 1
           @time << Time.now
+          @vid << latest_version_id
           sleep 1
 
+          # イベント#1: 時刻=@time[1]...@time[2] id=@vid[2]
           @role.display_name = 'test3'
           @role.save!
 
           sleep 1
           @time << Time.now
+          @vid << latest_version_id
           sleep 1
 
+          # イベント#2: 時刻=@time[2]...@time[1] id=@vid[3]
           @role.display_name = 'test4'
           @role.save!
 
           sleep 1
           @time << Time.now
-          sync_export(@time.first)
+          @vid << latest_version_id
+          sync_export(@vid.first)
 
           raise ActiveRecord::Rollback
         end
       end
 
-      def sync_export(time)
-        @dump = Version.export_for_incremental_synchronization(time)
+      def sync_export(vid)
+        @dump = Version.export_for_incremental_synchronization(vid)
       end
 
       def sync_import!
@@ -891,9 +911,11 @@ describe Version do
           sync_import!
         end
 
-        it '最後に処理したイベントの時刻を返すこと' do
+        it '最後に処理したイベントの時刻とidを返すこと' do
           @status[:last_event_time].should be_present
           @status[:last_event_time].should satisfy {|t| (@time[-2]...@time[-1]).cover?(t) }
+          @status[:last_event_id].should be_present
+          @status[:last_event_id].should == @vid[-1]
         end
 
         it 'trueを返すこと' do
@@ -903,12 +925,13 @@ describe Version do
 
       context '処理するものがなかったとき' do
         before do
-          sync_export(Time.now)
+          sync_export(latest_version_id)
           sync_import!
         end
 
-        it '処理したイベントの時刻を返さないこと' do
+        it '処理したイベントの時刻とidを返さないこと' do
           @status[:last_event_time].should be_nil
+          @status[:last_event_id].should be_nil
         end
 
         it 'trueを返すこと' do
@@ -922,14 +945,18 @@ describe Version do
           sync_import!
         end
 
-        it '最後に正常に処理できたイベントの時刻を返すこと' do
+        it '最後に正常に処理できたイベントの時刻とidを返すこと' do
           @status[:last_event_time].should be_present
           @status[:last_event_time].should satisfy {|t| (@time[0]...@time[1]).cover?(t) }
+          @status[:last_event_id].should be_present
+          @status[:last_event_id].should == @vid[1]
         end
 
-        it '例外が発生したイベントの時刻を返すこと' do
+        it '例外が発生したイベントの時刻とidを返すこと' do
           @status[:failed_event_time].should be_present
           @status[:failed_event_time].should satisfy {|t| (@time[1]...@time[2]).cover?(t) }
+          @status[:failed_event_id].should be_present
+          @status[:failed_event_id].should == @vid[2]
         end
 
         it '発生した例外を返すこと' do
@@ -948,13 +975,16 @@ describe Version do
           sync_import!
         end
 
-        it '処理したイベントの時刻を返さないこと' do
+        it '処理したイベントの時刻とidを返さないこと' do
           @status[:last_event_time].should be_nil
+          @status[:last_event_id].should be_nil
         end
 
-        it '例外が発生したイベントの時刻を返すこと' do
+        it '例外が発生したイベントの時刻とidを返すこと' do
           @status[:failed_event_time].should be_present
           @status[:failed_event_time].should satisfy {|t| (@time[0]...@time[1]).cover?(t) }
+          @status[:failed_event_id].should be_present
+          @status[:failed_event_id].should == @vid[1]
         end
 
         it '発生した例外を返すこと' do
