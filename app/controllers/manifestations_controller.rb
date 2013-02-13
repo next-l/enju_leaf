@@ -356,7 +356,7 @@ class ManifestationsController < ApplicationController
         end
 	@split_by_type = split_by_type
       end
-      get_libraries
+      @libraries = Library.real.all
 
       if params[:format].blank? or params[:format] == 'html'
         @carrier_type_facet = search_result.facet(:carrier_type).rows
