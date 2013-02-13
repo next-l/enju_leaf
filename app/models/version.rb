@@ -2,11 +2,11 @@ require 'paper_trail'
 
 class Version < ActiveRecord::Base
   class << self
-    def export_for_incremental_synchronization(time)
-      raise ArgmentError, 'no time given' if time.blank?
+    def export_for_incremental_synchronization(version_id)
+      raise ArgmentError, 'no version id given' if version_id.blank?
 
-      versions = where(arel_table[:created_at].gt(time)).
-        order(:created_at).
+      versions = where(arel_table[:id].gt(version_id)).
+        order(:id).
         readonly.
         all
 
@@ -109,20 +109,26 @@ class Version < ActiveRecord::Base
         success: true,
         exception: nil,
         last_event_time: last_processed.try(:created_at),
+        last_event_id: last_processed.try(:id),
         failed_event_time: nil,
+        failed_event_id: nil,
       }
     rescue => ex
+      failed_event = {
+        event_type: current_proccessing.event,
+        item_type: current_proccessing.item_type,
+        item_id: current_proccessing.item_id,
+        item_attributes: item_attributes,
+      }
+      logger.warn "import failed on \"#{failed_event[:event_type]} #{failed_event[:item_type]}\##{failed_event[:item_id]}\" (Version\##{current_proccessing.id}): #{ex.message} (#{ex.class})"
       {
         success: false,
         exception: ex,
         last_event_time: last_processed.try(:created_at),
+        last_event_id: last_processed.try(:id),
         failed_event_time: current_proccessing.created_at,
-        failed_event: {
-          event_type: current_proccessing.event,
-          item_type: current_proccessing.event,
-          item_id: current_proccessing.event,
-          item_attributes: item_attributes,
-        },
+        failed_event_id: current_proccessing.id,
+        failed_event: failed_event,
       }
     end
 
