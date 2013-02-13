@@ -1430,6 +1430,7 @@ ja:
     search: "検索"
     search_term: "検索語"
     search_result: "検索結果"
+    search_clear: クリア
     number_of_manifestations: "%{numdocs} 件の資料があります。"
     number_of_unread_messages: "%{numdocs} 件の未読メッセージがあります。"
     number_of_search_results: "%{count} 件の資料が %{numdocs} 件の資料から %{seconds} 秒で見つかりました。"
