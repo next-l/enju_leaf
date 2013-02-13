@@ -210,7 +210,7 @@ module EnjuTrunk
       manifestation.except_recent        = except_recent             unless except_recent.nil?
       manifestation.description          = description.to_s          unless description.nil?
       manifestation.supplement           = supplement.to_s           unless supplement.nil?
-      manifestation.note                 = note.to_s                 unless note.blank?
+      manifestation.note                 = note.to_s                 unless note.nil?
       manifestation.during_import        = true
       unless start_page.nil?
         if start_page.to_s.blank?
