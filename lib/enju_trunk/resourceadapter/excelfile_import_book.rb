@@ -142,9 +142,9 @@ module EnjuTrunk
       else
         isbn = datas[@field[I18n.t('resource_import_textfile.excel.book.isbn')]].to_s
         manifestation = import_isbn(isbn)
-        series_statement = @manifestation_type.is_series? ? import_series_statement(datas, manifestation) : nil
-
+        series_statement = find_series_statement(datas, manifestation)
         manifestation = exist_same_book?(datas, manifestation, series_statement) 
+        series_statement = create_series_statement(datas, manifestation, series_statement)
       end
       unless manifestation
         manifestation = Manifestation.new
@@ -277,7 +277,7 @@ module EnjuTrunk
       creators          = creators_string.nil? ? nil : creators_string.to_s.split(';')
       publishers_string = datas[@field[I18n.t('resource_import_textfile.excel.book.publisher')]]
       publishers        = publishers_string.nil? ? nil : publishers_string.to_s.split(';')
-      series_title      = series_statement.original_title if @manifestation_type.is_series?
+      series_title      = datas[@field[I18n.t('resource_import_textfile.excel.series.original_title')]]
 
       if manifestation
         original_title = manifestation.original_title.to_s                if original_title.nil?
@@ -285,10 +285,13 @@ module EnjuTrunk
         creators       = manifestation.creators.map{ |c| c.full_name }    if creators.nil?
         publishers     = manifestation.publishers.map{ |p| p.full_name }  if publishers.nil?
       end
+      if series_statement
+        series_title   = series_statement.original_title.to_s             if series_title.nil?
+      end
       return manifestation if original_title.nil? or original_title.blank?
       return manifestation if pub_date.nil? or pub_date.blank?
       return manifestation if creators.nil? or creators.size == 0
-      return manifestation if publishers.nil? or publishers.size ==0
+      return manifestation if publishers.nil? or publishers.size == 0
       conditions = []
       conditions << "(manifestations).original_title = \'#{original_title.to_s.gsub("'","''")}\'" 
       conditions << "(manifestations).pub_date = \'#{pub_date.to_s.gsub("'", "''")}\'"
@@ -338,40 +341,74 @@ module EnjuTrunk
       return manifestation
     end
 
-    def import_series_statement(datas, manifestation)
+    def find_series_statement(datas, manifestation)
+      return nil unless @manifestation_type.is_series?
       series_statement = nil
       series_statement = manifestation.series_statement if manifestation and manifestation.series_statement
-
-      issn = datas[@field[I18n.t('resource_import_textfile.excel.series.issn')]]
-      if issn
-        begin
-          issn = Lisbn.new(issn.to_s)
-        rescue
-          raise I18n.t('resource_import_textfile.error.series.wrong_issn')
+      unless series_statement
+        issn = datas[@field[I18n.t('resource_import_textfile.excel.series.issn')]]
+        if issn
+          begin
+            issn = Lisbn.new(issn.to_s)
+          rescue
+            raise I18n.t('resource_import_textfile.error.series.wrong_issn')
+          end
         end
+        series_statement = SeriesStatement.where(:issn => issn).first unless series_statement
       end
-      series_statement = SeriesStatement.where(:issn => issn).first unless series_statement
+      return series_statement
+    end
 
+    def create_series_statement(datas, manifestation, series_statement)
       original_title      = datas[@field[I18n.t('resource_import_textfile.excel.series.original_title')]]
       title_transcription = datas[@field[I18n.t('resource_import_textfile.excel.series.title_transcription')]]
       periodical          = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.series.periodical')]])
       series_identifier   = datas[@field[I18n.t('resource_import_textfile.excel.series.series_statement_identifier')]]
-      unless series_statement.nil?
-        original_title      = series_statement.original_title              if original_title.nil?
-        title_transcription = series_statement.title_transcription         if title_transcription.nil?
-        periodical          = series_statement.periodical                  if periodical.nil?
-        series_identifier   = series_statement.series_statement_identifier if series_identifier.nil?
-        issn                = series_statement.issn                        if issn.nil?
+      issn                = datas[@field[I18n.t('resource_import_textfile.excel.series.issn')]]
+      note                = datas[@field[I18n.t('resource_import_textfile.excel.series.note')]]
+      
+      unless series_statement
+        conditions = []
+        conditions << "original_title = \'#{original_title.to_s.gsub("'","''")}\'" unless original_title.nil? or original_title.blank?
+        conditions << "title_transcription = \'#{title_transcription.to_s.gsub("'","''")}\'" unless title_transcription.nil? or title_transcription.blank?
+        conditions << "periodical = #{periodical}" unless periodical.nil? or periodical.blank?
+        conditions << "series_identifier = \'#{series_identifier.to_s.gsub("'","''")}\'" unless series_identifier.nil? or series_identifier.blank?
+        conditions << "issn = \'#{issn.to_s.gsub("'","''")}\'" unless issn.nil? or issn.blank?
+        conditions << "note = \'#{note.to_s.gsub("'","''")}\'" unless note.nil? or note.blank?
+        exist_series = SeriesStatement.find(
+          :first,
+          :readonly => false,
+          :conditions => conditions,
+          :order => "created_at asc"
+        )
+        unless exist_series.nil?
+          if manifestation and manifestation.series_statement
+            if manifestation.series_statement == exist_series
+              series_statement = manifestation.series_statement
+            else
+              raise I18n.t('resource_import_textfile.error.series.exist_same_series')
+            end
+          else
+            series_statement = exist_series
+          end
+        end
       end
-      series_statement = SeriesStatement.where(:original_title => original_title.to_s).first
-      series_statement = SeriesStatement.new unless series_statement
+
+      unless series_statement
+        p "make new series_statement"
+        series_statement = SeriesStatement.new
+      else
+        p "edit series_statement name:#{series_statement.original_title}"
+      end
 
       series_statement.original_title              = original_title.to_s      unless original_title.nil?
       series_statement.title_transcription         = title_transcription.to_s unless title_transcription.nil?
       series_statement.periodical                  = periodical               unless periodical.nil?
       series_statement.series_statement_identifier = series_identifier.to_s   unless series_identifier.nil?
       series_statement.issn                        = issn.to_s                unless issn.nil?
+      series_statement.note                        = note.to_s                unless note.nil?
       series_statement.save! 
+      series_statement.index
       return series_statement
     end
 
@@ -399,7 +436,7 @@ module EnjuTrunk
 
         unless item
           if manifestation.items and manifestation.items.size > 0
-            item = manifestation.items.order('created_at asc').first if item_identifier.nil?
+            item = manifestation.items.order('created_at asc').first #if item_identifier.nil?
           else
             item = Item.new
             @mode_item = 'create'
@@ -407,14 +444,35 @@ module EnjuTrunk
         end
 
         # rank
-        rank = fix_rank(datas[@field[I18n.t('resource_import_textfile.excel.book.rank')]], manifestation, {:mode => @mode_item})
+        rank = fix_rank(datas[@field[I18n.t('resource_import_textfile.excel.book.rank')]], { :manifestation => manifestation, :mode => @mode_item})
         if rank == 0 and item.item_identifier.nil? and item_identifier.nil?#@mode_item == 'create' and rank == 0 and item_identifier.nil?
           item_identifier = Numbering.do_numbering('book')
         end
-
+        unless rank.nil?
+          item.rank = rank
+        else
+          item.rank = '' if datas[@field[I18n.t('resource_import_textfile.excel.book.rank')]] == ''
+        end
+        # accept_type
+        unless accept_type.nil?
+          item.accept_type = accept_type
+        else
+          item.accept_type = nil if datas[@field[I18n.t('resource_import_textfile.excel.book.accept_type')]] == ''
+        end
+        # acquired_at
+        unless acquired_at.nil?
+          item.acquired_at = acquired_at 
+        else
+          item.acquired_at = nil if datas[@field[I18n.t('resource_import_textfile.excel.book.acquired_at')]] == ''
+        end
+        # use_restriction
+        unless use_restriction.nil?
+          item.use_restriction_id = use_restriction.id
+        else
+          item.use_restriction_id = item.use_restriction.id if item.use_restriction
+        end
         item.manifestation_id    = manifestation.id
-        item.accept_type         = accept_type          unless accept_type.nil?
-        item.acquired_at         = acquired_at          unless acquired_at.nil?
+        item.library_id          = library.id           unless library.nil?
         item.shelf               = shelf                unless shelf.nil?
         item.checkout_type       = checkout_type        unless checkout_type.nil?
         item.circulation_status  = circulation_status   unless circulation_status.nil?
@@ -423,24 +481,32 @@ module EnjuTrunk
         item.price               = price                unless price.nil?
         item.url                 = url.to_s             unless url.nil?
         item.include_supplements = include_supplements  unless include_supplements.nil?
-        item.use_restriction_id  = use_restriction.id   unless use_restriction.nil?
         item.note                = note.to_s            unless note.nil?
         item.required_role       = required_role        unless required_role.nil?
         item.item_identifier     = item_identifier.to_s unless item_identifier.nil?
         item.non_searchable      = non_searchable       unless non_searchable.nil?
-        item.remove_reason       = remove_reason        unless remove_reason.nil?
-        item.rank                = rank                 unless rank.nil?
 
         # bookstore
         bookstore_name = datas[@field[I18n.t('resource_import_textfile.excel.book.bookstore')]]
-        bookstore = Bookstore.import_bookstore(bookstore_name) rescue nil unless bookstore_name == ""
-        unless bookstore.nil?
-          item.bookstore = bookstore == "" ? nil : bookstore
+        if bookstore_name == ""
+          item.bookstore = nil
+        else
+          bookstore = Bookstore.import_bookstore(bookstore_name) rescue nil
+          unless bookstore.nil?
+            item.bookstore = bookstore == "" ? nil : bookstore
+          end
         end
         # if removed?
-        unless item.remove_reason.nil?
+        item.remove_reason       = remove_reason        unless remove_reason.nil?
+        unless remove_reason.nil?
+          item.remove_reason = remove_reason
           item.circulation_status = CirculationStatus.where(:name => "Removed").first
           item.removed_at = Time.zone.now
+        else
+          if datas[@field[I18n.t('resource_import_textfile.excel.book.remove_reason')]] == ''
+            item.circulation_status = CirculationStatus.where(:name => "In Process").first if circulation_status.nil?
+            item.remove_reason = nil
+          end
         end
 
         if @mode_item == 'create'
@@ -490,7 +556,7 @@ module EnjuTrunk
     end
 
     def fix_use_restriction(cell, options = {:mode => 'input'})
-      if options[:mode] == 'delete'
+      if options[:mode] == 'delete' or @mode_item == 'edit'
         return nil if cell.nil? or cell.blank?
       end
       if cell.nil? or cell.blank? or cell.upcase == 'FALSE' or cell == ''
@@ -503,7 +569,7 @@ module EnjuTrunk
       return UseRestriction.where(:name => 'Not For Loan').first
     end
 
-    def fix_rank(cell, manifestation, options = {:mode => 'create'})
+    def fix_rank(cell, options = {:manifestation => nil, :mode => 'create'})
       case cell
       when I18n.t('item.original')
         #if manifestation.items.map{ |i| i.rank.to_i }.compact.include?(0)
@@ -515,7 +581,9 @@ module EnjuTrunk
         return 1
       when I18n.t('item.spare')
         return 2
-      when nil, ""
+      when ""
+        return nil
+      when nil
         if options[:mode] == 'create'
           if manifestation.items and manifestation.items.size > 0
             if manifestation.items.map{ |i| i.rank.to_i }.compact.include?(0)
@@ -616,7 +684,7 @@ module EnjuTrunk
           return nil
         end  
       else
-        library = Library.where(:display_name => input_library.to_s).first rescue nil
+        library = Library.where(:display_name => input_library.to_s).first
         if library.nil?
           raise I18n.t('resource_import_textfile.error.book.not_exsit_library', :library => input_library)
         else
@@ -628,12 +696,21 @@ module EnjuTrunk
     def set_shelf(input_shelf, user, library, options = {:mode => 'input'})
       if input_shelf.nil?
         if options[:mode] == 'input' 
-          return user.library.in_process_shelf
+          if library.nil?
+            return user.library.in_process_shelf
+          else
+            return library.in_process_shelf
+          end
         else
           return nil
         end
       else
-        shelf = Shelf.where(:display_name => input_shelf, :library_id => user.library.id).first rescue nil
+        shelf = nil
+        if library.nil?
+          shelf = Shelf.where(:display_name => input_shelf, :library_id => user.library.id).first rescue nil
+        else
+          shelf = Shelf.where(:display_name => input_shelf, :library_id => library.id).first rescue nil
+        end
         if shelf.nil?
           raise I18n.t('resource_import_textfile.error.book.not_exsit_shelf', :shelf => input_shelf)
         elsif !library.shelves.include?(shelf) 
@@ -661,6 +738,7 @@ module EnjuTrunk
     end
 
     def delete_data(datas) 
+p "!!!!!"
       ActiveRecord::Base.transaction do
         begin
           item = Item.find(
@@ -687,17 +765,19 @@ p "@@@@@@"
           subjects_string     = datas[@field[I18n.t('resource_import_textfile.excel.book.subjects')]]
           subjects            = subjects_string.nil? ? [] : subjects_string.to_s.split(';')
           raise I18n.t('resource_import_textfile.error.failed_delete_not_find') unless item.manifestation.creators.map{ |c| c.full_name }.sort == creators.sort
-          raise I18n.t('resource_import_textfile.error.failed_delete_not_find') unless item.manifestation.publishers.map{ |p| c.full_name }.sort == publishers.sort
+          raise I18n.t('resource_import_textfile.error.failed_delete_not_find') unless item.manifestation.publishers.map{ |p| p.full_name }.sort == publishers.sort
           raise I18n.t('resource_import_textfile.error.failed_delete_not_find') unless item.manifestation.contributors.map{ |c| c.full_name }.sort == contributors.sort
-          raise I18n.t('resource_import_textfile.error.failed_delete_not_find') unless item.manifestation.subjects.map{ |s| c.full_name }.sort == subjects.sort
+          raise I18n.t('resource_import_textfile.error.failed_delete_not_find') unless item.manifestation.subjects.map{ |s| s.full_name }.sort == subjects.sort
 
           if item.reserve
             item.reserve.revert_request rescue nil
           end
 
           manifestation = item.manifestation
+          series_statement = manifestation.series_statement
           item.delete
           manifestation.delete if manifestation.items.blank? or manifestation.items.size == 0 
+          series_statement.delete if series_statement.manifestations.blank? or series_statement.manifestations.size == 0
         rescue Exception => e
           p "error at fetch_new: #{e.message}"
           raise e
@@ -713,6 +793,8 @@ p "@@@@@@"
       series_transcription = datas[@field[I18n.t('resource_import_textfile.excel.series.title_transcription')]]
       series_periodical    = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.series.periodical')]], {:mode => 'delete'})
       series_identifier    = datas[@field[I18n.t('resource_import_textfile.excel.series.series_statement_identifier')]]
+      series_issn          = datas[@field[I18n.t('resource_import_textfile.excel.series.issn')]]
+      series_note          = datas[@field[I18n.t('resource_import_textfile.excel.series.note')]]
       # manifestation
       original_title       = datas[@field[I18n.t('resource_import_textfile.excel.book.original_title')]]
       title_transcription  = datas[@field[I18n.t('resource_import_textfile.excel.book.title_transcription')]]
@@ -763,53 +845,55 @@ p "@@@@@@"
       non_searchable       = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.non_searchable')]], {:mode => 'delete'})
       item_required_role   = set_data(datas, Role, 'required_role', { :default => 'Guest', :can_blank => true })
       remove_reason        = set_data(datas, RemoveReason, 'remove_reason', { :can_blank => true, :check_column => :display_name, :can_blank => true })
-      rank                 = fix_rank(datas[@field[I18n.t('resource_import_textfile.excel.book.rank')]], manifestation, {:mode => 'delete'})
+      rank                 = fix_rank(datas[@field[I18n.t('resource_import_textfile.excel.book.rank')]], {:mode => 'delete'})
 
       conditions = []
       # series_statements
       conditions << "(series_statements).original_title = \'#{series_title.gsub("'", "''")}\'"                   unless series_title.nil?
       conditions << "(series_statements).title_transcription = \'#{series_transcription.gsub("'", "''")}\'"      unless series_transcription.nil? 
-      conditions << "(series_statements).periodical = \'#{periodical}\'"                                         unless series_periodical.nil?
+      conditions << "(series_statements).periodical = \'#{series_periodical}\'"                                  unless series_periodical.nil?
       conditions << "(series_statements).series_statement_identifier = \'#{series_identifier.gsub("'", "''")}\'" unless series_identifier.nil?
+      conditions << "(series_statements).issn = \'#{series_issn.to_s.gsub("'","''")}\'"                          unless series_issn.nil?
+      conditions << "(series_statements).note = \'#{series_note.to_s.gsub("'","''")}\'"                          unless series_note.nil? 
       # manifestation
-      conditions << "(manifestations).original_title = \'#{original_title.gsub("'", "''")}\'"                    unless original_title.nil?
-      conditions << "(manifestations).title_transcription = \'#{title_transcription.gsub("'", "''")}\'"          unless title_transcription.nil?
-      conditions << "(manifestations).title_alternative = \'#{title_alternative.gsub("'", "''")}\'"              unless title_alternative.nil?
+      conditions << "(manifestations).original_title = \'#{original_title.to_s.gsub("'", "''")}\'"                    unless original_title.nil?
+      conditions << "(manifestations).title_transcription = \'#{title_transcription.to_s.gsub("'", "''")}\'"          unless title_transcription.nil?
+      conditions << "(manifestations).title_alternative = \'#{title_alternative.to_s.gsub("'", "''")}\'"              unless title_alternative.nil?
       conditions << "(manifestations).carrier_type_id = #{carrier_type.id.to_i}"                                 unless carrier_type.nil?
       conditions << "(manifestations).frequency_id = #{frequency.id}"                                            unless frequency.nil?
-      conditions << "(manifestations).pub_date = \'#{pub_date.gsub("'", "''")}\'"                                unless pub_date.nil?
-      conditions << "(manifestations).place_of_publication = \'#{place_of_publication.gsub("'", "''")}\'"        unless place_of_publication.nil?
+      conditions << "(manifestations).pub_date = \'#{pub_date.to_s.gsub("'", "''")}\'"                                unless pub_date.nil?
+      conditions << "(manifestations).place_of_publication = \'#{place_of_publication.to_s.gsub("'", "''")}\'"        unless place_of_publication.nil?
       conditions << "(manifestations).language_id = \'#{language.id}\'"                                          unless language.nil?
-      conditions << "(manifestations).edition_display_value = \'#{edition.gsub("'", "''")}\'"                    unless edition.nil?
-      conditions << "(manifestations).volume_number_string = \'#{volume_number_string.gsub("'", "''")}\'"        unless volume_number_string.nil?
-      conditions << "(manifestations).issue_number_string = \'#{issue_number_string.gsub("'", "''")}\'"          unless issue_number_string.nil?
-      conditions << "(manifestations).issn = \'#{isbn.gsub("'", "''")}\'"                                        unless isbn.nil?
-      conditions << "(manifestations).issn = \'#{issn.gsub("'", "''")}\'"                                        unless issn.nil?
-      conditions << "(manifestations).lccn = \'#{lccn.gsub("'", "''")}\'"                                        unless lccn.nil?
-      conditions << "(manifestations).marc_number = \'#{marc_number.gsub("'", "''")}\'"                          unless marc_number.nil?
-      conditions << "(manifestations).ndc = \'#{ndc.gsub("'", "''")}\'"                                          unless ndc.nil?
-      conditions << "(manifestations).start_page = \'#{start_page.gsub("'", "''")}\'"                            unless start_page.nil?
-      conditions << "(manifestations).end_page = \'#{end_page.gsub("'", "''")}\'"                                unless end_page.nil?
+      conditions << "(manifestations).edition_display_value = \'#{edition.to_s.gsub("'", "''")}\'"                    unless edition.nil?
+      conditions << "(manifestations).volume_number_string = \'#{volume_number_string.to_s.gsub("'", "''")}\'"        unless volume_number_string.nil?
+      conditions << "(manifestations).issue_number_string = \'#{issue_number_string.to_s.gsub("'", "''")}\'"          unless issue_number_string.nil?
+      conditions << "(manifestations).issn = \'#{isbn.to_s.gsub("'", "''")}\'"                                        unless isbn.nil?
+      conditions << "(manifestations).issn = \'#{issn.to_sn.gsub("'", "''")}\'"                                        unless issn.nil?
+      conditions << "(manifestations).lccn = \'#{lccn.to_s.gsub("'", "''")}\'"                                        unless lccn.nil?
+      conditions << "(manifestations).marc_number = \'#{marc_number.to_s.gsub("'", "''")}\'"                          unless marc_number.nil?
+      conditions << "(manifestations).ndc = \'#{ndc.to_s.gsub("'", "''")}\'"                                          unless ndc.nil?
+      conditions << "(manifestations).start_page = \'#{start_page.to_s.gsub("'", "''")}\'"                            unless start_page.nil?
+      conditions << "(manifestations).end_page = \'#{end_page.to_s.gsub("'", "''")}\'"                                unless end_page.nil?
       conditions << "(manifestations).height = #{height}"                                                        unless height.nil?
       conditions << "(manifestations).width = #{width}"                                                          unless width.nil?
       conditions << "(manifestations).depth = #{depth}"                                                          unless depth.nil?
       conditions << "(manifestations).price = #{price}"                                                          unless price.nil?
-      conditions << "(manifestations).access_address = \'#{access_address}\'"                                    unless access_address.nil?
-      conditions << "(manifestations).acceptance_number = \'#{acceptance_number}\'"                              unless acceptance_number.nil?
+      conditions << "(manifestations).access_address = \'#{access_address.to_s.gsub("'", "''")}\'"                                    unless access_address.nil?
+      conditions << "(manifestations).acceptance_number = \'#{acceptance_number.to_s.gsub("'", "''")}\'"                              unless acceptance_number.nil?
       conditions << "(manifestations).repository_content = \'#{repository_content}\'"                            unless repository_content.nil?
       conditions << "(manifestations).required_role_id = #{required_role.id}"                                    unless required_role.nil?
-      conditions << "(manifestations).except_recent = \'#{except_recent}\'"                                      unless except_recent.nil?
-      conditions << "(manifestations).description = \'#{description.gsub("'", "''")}\'"                          unless description.nil?
-      conditions << "(manifestations).supplement = \'#{supplement.gsub("'", "''")}\'"                            unless supplement.nil?
-      conditions << "(manifestations).note = \'#{note.gsub("'", "''")}\'"                                        unless note.nil?
+      conditions << "(manifestations).except_recent = \'#{except_recent.to_s.gsub("'", "''")}\'"                                      unless except_recent.nil?
+      conditions << "(manifestations).description = \'#{description.to_s.gsub("'", "''")}\'"                          unless description.nil?
+      conditions << "(manifestations).supplement = \'#{supplement.to_s.gsub("'", "''")}\'"                            unless supplement.nil?
+      conditions << "(manifestations).note = \'#{note.to_s.gsub("'", "''")}\'"                                        unless note.nil?
       conditions << "(manifestations).missing_issue = #{missing_issue}"                                          unless missing_issue.nil?
       # item
       conditions << "(items).acquired_at = \'#{acquired_at}\'"                                                   unless acquired_at.nil?
-      conditions << "(items).call_number = \'#{call_number.gsub("'", "''")}\'"                                   unless call_number.nil?
+      conditions << "(items).call_number = \'#{call_number.to_s.gsub("'", "''")}\'"                                   unless call_number.nil?
       conditions << "(items).price = \'#{item_price}\     '"                                                     unless item_price.nil?
-      conditions << "(items).url = \'#{url.gsub("'", "''")}\'"                                                   unless url.nil?
+      conditions << "(items).url = \'#{url.to_s.gsub("'", "''")}\'"                                                   unless url.nil?
       conditions << "(items).include_supplements = \'#{include_supplements}\'"                                   unless include_supplements.nil?
-      conditions << "(items).note = \'#{item_note.gsub("'", "''")}\'"                                            unless item_note.nil?
+      conditions << "(items).note = \'#{item_note.to_s.gsub("'", "''")}\'"                                            unless item_note.nil?
       conditions << "(items).item_identifier = \'#{item_identifier}\'"                                           unless item_identifier.nil?
       conditions << "(items).accept_type_id = #{accept_type.id}"                                                 unless accept_type.nil?
       conditions << "(items).checkout_type_id = #{checkout_type.id}"                                             unless checkout_type.nil?
