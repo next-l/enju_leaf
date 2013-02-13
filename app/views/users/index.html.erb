@@ -22,7 +22,8 @@ $(function(){
 </script>
 <%= form_for :users, :url => users_path, :html => {:method => 'get', :id => 'form'} do -%>
   <p>
-    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%><br />
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+    <% if !@query.empty? %><input type="button" value="<%= t('page.search_clear') -%>" onclick="$('#search_form_top').val('')"><% end %><br />
     <%= t('activerecord.attributes.user.birth_date') -%>: <%= text_field_tag 'birth_date', @date_of_birth, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011-04-12" -%>
     <%= t('activerecord.attributes.user.adddress') -%>: <%= text_field_tag 'address', @address, :class => 'search_form' -%>
     <br />
