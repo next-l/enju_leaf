@@ -7,6 +7,7 @@
       <%= render 'page/add' %>
     <% end %>
     <%= submit_tag t('page.search') -%>
+    <% if !@query.empty? %><input type="button" value="<%= t('page.search_clear') -%>" onclick="$('#search_form_top').val('')"><% end %>
     <br />
     <%= link_to t('page.advanced_search'), page_advanced_search_path -%>
     <br />

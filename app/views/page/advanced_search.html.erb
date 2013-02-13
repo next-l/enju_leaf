@@ -22,10 +22,12 @@ $(function(){
         <%= t('advanced_search.help_query') -%>
       </td>
     </tr>
-    <tr>
-      <td><label><%= t('page.tag') -%>:</label></td>
-      <td><%= text_field_tag 'tag' -%></td>
-    </tr>
+    <% if defined?(EnjuBookmark) %>
+      <tr>
+        <td><label><%= t('page.tag') -%>:</label></td>
+        <td><%= text_field_tag 'tag' -%></td>
+      </tr>
+    <%- end -%>
     <tr>
       <td><label><%= t('patron.creator') -%>:</label></td>
       <td><%= text_field_tag 'creator' -%></td>
