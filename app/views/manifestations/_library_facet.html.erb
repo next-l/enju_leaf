@@ -1,3 +1,4 @@
+<%- if @libraries.size > 1 -%>
 <h4><%= t('activerecord.models.library') -%></h4>
 <ul>
   <%- libraries = params[:library].to_s.split -%>
@@ -14,3 +15,4 @@
     <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:library => nil, :page => nil, :view => nil)) -%></li>
   <%- end -%>
 </ul>
+<%- end -%>
