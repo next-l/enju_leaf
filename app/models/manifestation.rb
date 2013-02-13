@@ -28,6 +28,9 @@ class Manifestation < ActiveRecord::Base
     text :title, :default_boost => 2 do
       titles
     end
+    text :spellcheck do
+      titles
+    end
     text :fulltext, :note, :contributor, :description, :article_title
     text :creator do
       if series_statement.try(:periodical)  # 雑誌の場合
