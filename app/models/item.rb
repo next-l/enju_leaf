@@ -84,8 +84,8 @@ class Item < ActiveRecord::Base
   validates_presence_of :circulation_status, :checkout_type, :retention_period, :rank
   validate :is_original?
   before_validation :set_circulation_status, :on => :create
-  before_save :set_use_restriction, :set_retention_period, :except => :delete
-  after_save :check_price, :check_remove_item, :except => :delete
+  before_save :set_use_restriction, :set_retention_period, :check_remove_item, :except => :delete
+  after_save :check_price, :except => :delete
   after_save :reindex
 
   #enju_union_catalog
@@ -231,7 +231,6 @@ class Item < ActiveRecord::Base
     else
       self.removed_at = nil
     end
-    self.save
   end
 
   def check_price
