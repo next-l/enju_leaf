@@ -288,7 +288,7 @@ module EnjuTrunk
       return manifestation if original_title.nil? or original_title.blank?
       return manifestation if pub_date.nil? or pub_date.blank?
       return manifestation if creators.nil? or creators.size == 0
-      return manifestation if publishers.nil? or publishers.size ==0
+      return manifestation if publishers.nil? or publishers.size == 0
       conditions = []
       conditions << "(manifestations).original_title = \'#{original_title.to_s.gsub("'","''")}\'" 
       conditions << "(manifestations).pub_date = \'#{pub_date.to_s.gsub("'", "''")}\'"
@@ -411,10 +411,20 @@ module EnjuTrunk
         if rank == 0 and item.item_identifier.nil? and item_identifier.nil?#@mode_item == 'create' and rank == 0 and item_identifier.nil?
           item_identifier = Numbering.do_numbering('book')
         end
-
+        # accept_type
+        unless accept_type.nil?
+          item.accept_type = accept_type
+        else
+          item.accept_type = nil if datas[@field[I18n.t('resource_import_textfile.excel.book.accept_type')]] == ''
+        end
+        # acquired_at
+        unless acquired_at.nil?
+          item.acquired_at = acquired_at 
+        else
+          item.acquired_at = nil if datas[@field[I18n.t('resource_import_textfile.excel.book.acquired_at')]] == ''
+        end
         item.manifestation_id    = manifestation.id
-        item.accept_type         = accept_type          unless accept_type.nil?
-        item.acquired_at         = acquired_at          unless acquired_at.nil?
+        item.library_id          = library.id           unless library.nil?
         item.shelf               = shelf                unless shelf.nil?
         item.checkout_type       = checkout_type        unless checkout_type.nil?
         item.circulation_status  = circulation_status   unless circulation_status.nil?
@@ -433,9 +443,13 @@ module EnjuTrunk
 
         # bookstore
         bookstore_name = datas[@field[I18n.t('resource_import_textfile.excel.book.bookstore')]]
-        bookstore = Bookstore.import_bookstore(bookstore_name) rescue nil unless bookstore_name == ""
-        unless bookstore.nil?
-          item.bookstore = bookstore == "" ? nil : bookstore
+        if bookstore_name == ""
+          item.bookstore = nil
+        else
+          bookstore = Bookstore.import_bookstore(bookstore_name) rescue nil
+          unless bookstore.nil?
+            item.bookstore = bookstore == "" ? nil : bookstore
+          end
         end
         # if removed?
         unless item.remove_reason.nil?
@@ -616,7 +630,7 @@ module EnjuTrunk
           return nil
         end  
       else
-        library = Library.where(:display_name => input_library.to_s).first rescue nil
+        library = Library.where(:display_name => input_library.to_s).first
         if library.nil?
           raise I18n.t('resource_import_textfile.error.book.not_exsit_library', :library => input_library)
         else
@@ -628,12 +642,21 @@ module EnjuTrunk
     def set_shelf(input_shelf, user, library, options = {:mode => 'input'})
       if input_shelf.nil?
         if options[:mode] == 'input' 
-          return user.library.in_process_shelf
+          if library.nil?
+            return user.library.in_process_shelf
+          else
+            return library.in_process_shelf
+          end
         else
           return nil
         end
       else
-        shelf = Shelf.where(:display_name => input_shelf, :library_id => user.library.id).first rescue nil
+        shelf = nil
+        if library.nil?
+          shelf = Shelf.where(:display_name => input_shelf, :library_id => user.library.id).first rescue nil
+        else
+          shelf = Shelf.where(:display_name => input_shelf, :library_id => library.id).first rescue nil
+        end
         if shelf.nil?
           raise I18n.t('resource_import_textfile.error.book.not_exsit_shelf', :shelf => input_shelf)
         elsif !library.shelves.include?(shelf) 
