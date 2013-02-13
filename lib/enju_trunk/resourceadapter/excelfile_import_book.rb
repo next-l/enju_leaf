@@ -287,8 +287,8 @@ module EnjuTrunk
       end
       return manifestation if original_title.nil? or original_title.blank?
       return manifestation if pub_date.nil? or pub_date.blank?
-      return manifestation if creators.size == 0
-      return manifestation if publishers.size ==0
+      return manifestation if creators.nil? or creators.size == 0
+      return manifestation if publishers.nil? or publishers.size ==0
       conditions = []
       conditions << "(manifestations).original_title = \'#{original_title.to_s.gsub("'","''")}\'" 
       conditions << "(manifestations).pub_date = \'#{pub_date.to_s.gsub("'", "''")}\'"
@@ -398,7 +398,7 @@ module EnjuTrunk
         non_searchable      = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.non_searchable')]])
 
         unless item
-          if manifestation.items.size > 0
+          if manifestation.items and manifestation.items.size > 0
             item = manifestation.items.order('created_at asc').first if item_identifier.nil?
           else
             item = Item.new
@@ -517,7 +517,7 @@ module EnjuTrunk
         return 2
       when nil, ""
         if options[:mode] == 'create'
-          if manifestation.items.size > 0
+          if manifestation.items and manifestation.items.size > 0
             if manifestation.items.map{ |i| i.rank.to_i }.compact.include?(0)
               return 1
             end
@@ -697,7 +697,7 @@ p "@@@@@@"
 
           manifestation = item.manifestation
           item.delete
-          manifestation.delete if manifestation.items.size == 0 
+          manifestation.delete if manifestation.items.blank? or manifestation.items.size == 0 
         rescue Exception => e
           p "error at fetch_new: #{e.message}"
           raise e
