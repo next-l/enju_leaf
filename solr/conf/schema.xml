@@ -64,7 +64,7 @@
         <!--
         <charFilter class="solr.MappingCharFilterFactory" mapping="mapping.txt"/>
         -->
-        <charFilter class="solr.MappingCharFilterFactory" mapping="synonym-mapping-user.txt,htdic-mapping.txt,mapping-kana.txt"/>
+        <charFilter class="solr.MappingCharFilterFactory" mapping="mapping.txt"/>
         <tokenizer class="solr.CJKTokenizerFactory"/>
         <filter class="solr.StandardFilterFactory"/>
         <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
