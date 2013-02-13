@@ -2114,6 +2114,7 @@ ja:
         title_transcription: シリーズ名（ヨミ）
         periodical: 定期刊行物
         series_statement_identifier: シリーズ識別子
+        note: 雑誌注記
       book:
         original_title: タイトル
         title_transcription: タイトル（ヨミ）
@@ -2189,6 +2190,7 @@ ja:
         head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目にはシリーズ名またはISSN,またタイトルまたはISBNが必須です。\r\nシート『%{sheet}』を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "シリーズ名またはISSN,タイトルまたはISBNを指定してください。"
         wrong_issn: "指定のISSNは不正です。"
+        exist_same_series: "更新しようとしている内容と同一のシリーズ情報が既に存在しています。資料の編集画面より更新する資料のシリーズ情報を付け替えてください。"
       book:
         head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目にはタイトルまたはISBNが必須です。\r\nシート『%{sheet}』を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "タイトルまたはISBNを指定してください。"
