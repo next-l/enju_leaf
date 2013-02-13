@@ -78,8 +78,8 @@ class BookbindingsController < ApplicationController
         item.circulation_status_id = 5 # In Process
         item.save!
       end
-      binder_item.destroy!
-      binder_manifestation.destroy! if binder_manifestation.items.blank?
+      binder_item.destroy
+      binder_manifestation.destroy if binder_manifestation.items.blank?
       flash[:message] = t('bookbinding.unbinded')
     end  
     # TODO when cannot unbind

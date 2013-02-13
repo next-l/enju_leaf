@@ -178,7 +178,7 @@ class User < ActiveRecord::Base
     end
     time :confirmed_at
     string :library do
-      library.name
+      library.try(:name)
     end
     string :role do
       role.display_name
