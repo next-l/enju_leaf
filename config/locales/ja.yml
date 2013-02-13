@@ -122,6 +122,7 @@ ja:
       non_exist_user: に存在しない利用者が指定されています。
       invalid_content_type: が不正です。text/csv, text/plain, text/tab-separated-values いずれかの形式でアップロードしてください。
       not_selected: が選択されていません。
+      en_expected: は半角英数字で入力してください。
     template:
       body: 次の項目を確認してください。
       header:
