@@ -69,7 +69,7 @@ class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
 
   def fix_boolean(cell, options = {:mode => 'create'})
     unless cell
-      if options[:mode] == 'delete'
+      if options[:mode] == 'delete' or @mode == 'edit' or @mode_item == 'edit'
         return nil
       else
         return false
