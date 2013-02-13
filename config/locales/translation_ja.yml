@@ -555,8 +555,9 @@ ja:
         position: 位置
         deleted_at: 削除時刻
         open_access: 開架区分
-        open: 開架 
-        closed: 閉架
+        open: 閲覧室 # 開架 
+        closed: 書庫 # 閉架
+        stock: 保存
         in_process: 受入手続き中
       advertisement:
         title: タイトル
