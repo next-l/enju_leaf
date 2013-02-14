@@ -3,7 +3,7 @@ require 'paper_trail'
 class Version < ActiveRecord::Base
   class << self
     def export_for_incremental_synchronization(version_id)
-      raise ArgmentError, 'no version id given' if version_id.blank?
+      raise ArgumentError, 'no version id given' if version_id.blank?
 
       versions = where(arel_table[:id].gt(version_id)).
         order(:id).
