@@ -633,6 +633,7 @@ describe Manifestation, :solr => true do
             spec.each do |s|
               item = Item.new(
                 :item_identifier => s[:item_identifier],
+                :manifestation => manifestation,
                 :shelf => shelf,
                 :circulation_status => circulation_status,
                 :retention_period => retention_period
@@ -640,8 +641,8 @@ describe Manifestation, :solr => true do
               item.acquired_at = s[:acquired_at]
               item.removed_at = s[:removed_at]
               item.save!
-              manifestation.items << item
             end
+            manifestation.index # itemsが変化しているのをsolrに伝える
           end
         end
 
