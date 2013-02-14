@@ -104,12 +104,14 @@ class SeriesStatement < ActiveRecord::Base
   end
 
   # XLSX形式でのエクスポートのための値を生成する
-  def excel_worksheet_value(ws_col)
+  # ws_type: ワークシートの種別
+  # ws_col: ワークシートでのカラム名
+  def excel_worksheet_value(ws_type, ws_col)
     val = nil
 
     case ws_col
     when 'periodical'
-      val = (series_statment.try(ws_col) || false).to_s
+      val = (periodical || false).to_s
     else
       val = __send__(ws_col) || ''
     end
