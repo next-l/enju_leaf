@@ -30,20 +30,25 @@ end
 
 namespace :enju_trunk do
   namespace :sync do
-    desc 'Initial sync'
-    task :init => :environment do
-      $enju_log_head = "sync::init"
+    desc 'sync first'
+    task :first => :environment do
+      $enju_log_head = "sync::first"
       $enju_log_tag = Digest::SHA1.hexdigest(Time.now.strftime('%s'))[-5, 5]
 
       taglogger "start #{Time.now}"
       taglogger "init_bucket=#{INIT_BUCKET}"
       taglogger "send_bucket=#{SEND_BUCKET}"
 
-      last_id = Version.last.id
-      dumpfiledir = "#{DUMPFILE_PREFIX}/#{last_id}"
+      if ENV['EXPORT_FROM']
+        last_event_id = Integer(ENV['EXPORT_FROM'])
+      else
+        fail 'please specify EXPORT_FROM=N'
+      end
+
+      dumpfiledir = "#{DUMPFILE_PREFIX}/#{last_event_id}"
       dumpfile = "#{dumpfiledir}/enjudump.yml"
 
-      taglogger "last_id=#{last_id} "
+      taglogger "last_id=#{last_event_id} "
       taglogger "dumpfiledir=#{dumpfiledir} "
       taglogger "dumpfile=#{dumpfile} "
 
@@ -53,14 +58,14 @@ namespace :enju_trunk do
 
       taglogger "call task [enju::sync::export] start"
 
-      ENV['EXPORT_FROM'] = last_id.to_s
+      ENV['EXPORT_FROM'] = last_event_id.to_s
       ENV['DUMP_FILE'] = dumpfile
       Rake::Task["enju:sync:export"].invoke
 
       taglogger "call task [enju::sync::export] end"
 
       Dir::chdir(SCRIPT_ROOT)  
-      ftpsyncpush(last_id) 
+      ftpsyncpush(last_event_id) 
 
       taglogger "end (NormalEnd)"
     end
@@ -84,15 +89,12 @@ namespace :enju_trunk do
       sh "#{PERLBIN} #{GET_STATUS_FILE}"
       taglogger "call task [get_status_file] end"
 
-      # b.同期番号取得
-      last_id = Version.last.id
-
-      # c.同期データを出力
+      # b.同期データを出力
       ENV['STATUS_FILE'] = STATUS_FILE
       ENV['DUMP_FILE'] = dumpfile
       Rake::Task["enju:sync:export"].invoke
 
-      # d.バケット作成, e.データ転送
+      # c.バケット作成, d.データ転送
       Dir::chdir(SCRIPT_ROOT)  
       ftpsyncpush(last_id) 
     end
