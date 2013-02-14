@@ -121,7 +121,7 @@ class Manifestation < ActiveRecord::Base
           where(['series_statements.id = ?', self.series_statement.id]).
           collect(&:item_identifier).compact
       else
-        items.collect(&:item_identifier)
+        items(true).collect(&:item_identifier)
       end
     end
     string :removed_at, :multiple => true do
@@ -131,7 +131,7 @@ class Manifestation < ActiveRecord::Base
           where(['series_statements.id = ?', self.series_statement.id]).
           collect(&:removed_at).compact
       else
-        items.collect(&:removed_at)
+        items(true).collect(&:removed_at)
       end
     end
     boolean :has_removed do
