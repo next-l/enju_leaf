@@ -646,7 +646,7 @@ describe Version do
         proc do
           create_record(
             term: 'testrecord',
-            subject_type: subject_types(:subject_type_00004))
+            subject_type_id: subject_types(:subject_type_00004).id)
         end
       end
 
@@ -654,7 +654,7 @@ describe Version do
         proc do |record, i|
           update_record(
             record,
-            subject_type: subject_types(:"subject_type_0000#{i}"),
+            subject_type_id: subject_types(:"subject_type_0000#{i}").id,
             term: "updated#{i}")
         end
       end
@@ -780,7 +780,7 @@ describe Version do
         proc do
           @subject = Subject.create(
             term: 'testrecord',
-            subject_type: subject_types(:subject_type_00004))
+            subject_type_id: subject_types(:subject_type_00004).id)
 
           @manifestation.subjects << @subject
           @manifestation.work_has_subjects.where(:subject_id => @subject).first
@@ -961,7 +961,7 @@ describe Version do
 
         it '発生した例外を返すこと' do
           @status[:exception].should be_present
-          @status[:exception].should be_a(ActiveRecord::RecordInvalid)
+          @status[:exception][:class].should == ActiveRecord::RecordInvalid
         end
 
         it 'falseを返すこと' do
@@ -989,7 +989,7 @@ describe Version do
 
         it '発生した例外を返すこと' do
           @status[:exception].should be_present
-          @status[:exception].should be_a(ActiveRecord::RecordInvalid)
+          @status[:exception][:class].should == ActiveRecord::RecordInvalid
         end
 
         it 'falseを返すこと' do
