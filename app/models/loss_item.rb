@@ -8,6 +8,7 @@ class LossItem < ActiveRecord::Base
   validate :check_user_number
 
   attr_accessor :user_number
+  attr_accessible :item_id, :user_id, :note
 
   # consts
   UnPaid=0
