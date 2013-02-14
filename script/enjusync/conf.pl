@@ -1,14 +1,14 @@
 #
-# ¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó
+# ã‚³ãƒ³ãƒ•ã‚£ã‚°ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³
 #
-$BucketDir   = "/var/enjusync_snd";
-$RecvDir     = "/var/enjusync_rcv";
+$BucketDir   = "/var/enjusync";
+$RecvDir     = "/var/enjusync";
 $StatFileDir = "$BucketDir/work";
 $TarFileName = "dumpfiles";
 $LockFile    = "__lock__";
 $MaxRetryCnt = 3;
 
-# syslog´ØÏ¢
+# syslogé–¢é€£
 #
 $ModuleName  = "EnjuSync";
 $Facility    = 'local1';
