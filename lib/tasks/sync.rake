@@ -71,7 +71,7 @@ namespace :enju do
 
       unless status[:success]
         failed_event = status[:failed_event]
-        fail "import failed on \"#{failed_event[:event_type]} #{failed_event[:item_type]}\##{failed_event[:item_id]}\" (Version\##{status[:failed_event_id]}): #{status[:exception].message} (#{status[:exception].class})"
+        fail "import failed on \"#{failed_event[:event_type]} #{failed_event[:item_type]}\##{failed_event[:item_id]}\" (Version\##{status[:failed_event_id]}): #{status[:exception][:message]} (#{status[:exception][:class].name})"
       end
     end
   end

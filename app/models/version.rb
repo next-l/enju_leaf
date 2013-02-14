@@ -103,6 +103,8 @@ class Version < ActiveRecord::Base
 
           last_processed = current_proccessing
         end # case event
+
+        Sunspot.commit
       end # dump[:versions].each
 
       {
@@ -120,16 +122,22 @@ class Version < ActiveRecord::Base
         item_id: current_proccessing.item_id,
         item_attributes: item_attributes,
       }
-      logger.warn "import failed on \"#{failed_event[:event_type]} #{failed_event[:item_type]}\##{failed_event[:item_id]}\" (Version\##{current_proccessing.id}): #{ex.message} (#{ex.class})"
+      logger.warn "import failed on \"#{failed_event[:event_type]} #{failed_event[:item_type]}\##{failed_event[:item_id]}\" (Version\##{current_proccessing.id}): #{ex.try(:message)} (#{ex.class})"
       {
         success: false,
-        exception: ex,
+        exception: {
+          class: ex.class,
+          message: ex.try(:message),
+          backtrace: ex.try(:backtrace),
+        },
         last_event_time: last_processed.try(:created_at),
         last_event_id: last_processed.try(:id),
         failed_event_time: current_proccessing.created_at,
         failed_event_id: current_proccessing.id,
         failed_event: failed_event,
       }
+    ensure
+      Sunspot.commit
     end
 
     private
