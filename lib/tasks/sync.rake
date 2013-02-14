@@ -5,8 +5,12 @@ namespace :enju do
     desc 'export for synchronization'
     task :export => :environment do
       if ENV['STATUS_FILE']
-        status = YAML.load_file(ENV['STATUS_FILE'])
+        Dir.glob(Rails.root.join('app/models/**/*.rb')).each { |path| require path }
+        status = Marshal.load(File.read(ENV['STATUS_FILE']))
         last_event_id = status[:last_event_id]
+        unless last_event_id
+          fail 'no id in the status file, please specify STATUS_FILE=path/to/previous_file or EXPORT_FROM=N'
+        end
       elsif ENV['EXPORT_FROM']
         last_event_id = Integer(ENV['EXPORT_FROM'])
       else
@@ -27,7 +31,7 @@ namespace :enju do
           unless io.flock(File::LOCK_EX|File::LOCK_NB)
             fail "another process is writing to #{ENV['DUMP_FILE']}"
           end
-          YAML.dump(dump, io)
+          Marshal.dump(dump, io)
         end
       end
     end
@@ -49,7 +53,7 @@ namespace :enju do
           fail "another process is writing to #{ENV['DUMP_FILE']}"
         end
 
-        dump = YAML.load(df)
+        dump = Marshal.load(File.read(df))
 
         if dump[:versions].empty?
           $stderr.puts "no changes found"
@@ -60,7 +64,7 @@ namespace :enju do
               fail "another process is writing to #{ENV['STATUS_FILE']}"
             end
             status = Version.import_for_incremental_synchronization!(dump)
-            YAML.dump(status, io)
+            Marshal.dump(status, io)
           end
         end
       end
