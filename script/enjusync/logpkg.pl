@@ -2,10 +2,10 @@ sub wrt_log {
 
 use vars qw/$ModuleName $Facility/;
 
-# ƒ‚ƒWƒ…[ƒ‹‚Ì“Ç‚İ‚İ
+# ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ã®èª­ã¿è¾¼ã¿
 use Sys::Syslog;
 
-# ˆø”
+# å¼•æ•°
 my $prog_name = $_[0];
 my $priority = $_[1];
 my $message = $_[2];
