@@ -735,7 +735,7 @@ class Manifestation < ActiveRecord::Base
   #  output.data: 生成結果のデータ(result_typeが:dataのとき)
   #  output.path: 生成結果のパス名(result_typeが:pathのとき)
   #  output.job_name: 後で処理する際のジョブ名(result_typeが:delayedのとき)
-  def self.generate_manifestation_list(solr_search, output_type, current_user, threshold = nil, &block)
+  def self.generate_manifestation_list(solr_search, output_type, current_user, cols=[], threshold = nil, &block)
     get_total = proc do
       solr_search.execute.total
     end
@@ -770,10 +770,10 @@ class Manifestation < ActiveRecord::Base
 
     manifestation_ids = get_all_ids.call
 
-    generate_manifestation_list_internal(manifestation_ids, output_type, current_user, &block)
+    generate_manifestation_list_internal(manifestation_ids, output_type, current_user, cols, &block)
   end
 
-  def self.generate_manifestation_list_internal(manifestation_ids, output_type, current_user, &block)
+  def self.generate_manifestation_list_internal(manifestation_ids, output_type, current_user, cols, &block)
     output = OpenStruct.new
     output.result_type = :data
 
@@ -791,9 +791,14 @@ class Manifestation < ActiveRecord::Base
     filename_method = method.sub(/\Aget_(.*)(_[^_]+)\z/) { "#{$1}_print#{$2}" }
     output.filename = Setting.__send__(filename_method).filename
 
-    manifestations = self.where(:id => manifestation_ids).all
-    result = output.__send__("#{output.result_type}=",
+    if output_type == :excelx
+      result = output.__send__("#{output.result_type}=",
+                      self.__send__(method, manifestation_ids, current_user, cols))
+    else
+      manifestations = self.where(:id => manifestation_ids).all
+      result = output.__send__("#{output.result_type}=",
                              self.__send__(method, manifestations, current_user))
+    end
     if output.result_type == :path
       output.path, output.data = result
     else
@@ -802,185 +807,246 @@ class Manifestation < ActiveRecord::Base
     block.call(output)
   end
 
-  def self.get_manifestation_list_excelx(manifestations, current_user)
+  # NOTE: resource_import_textfile.excelとの整合性を維持すること
+  BOOK_COLUMNS = %w(
+    original_title title_transcription title_alternative isbn lccn
+    marc_number ndc carrier_type frequency pub_date place_of_publication
+    language edition_display_value volume_number_string issue_number_string
+    start_page end_page height width depth price access_address
+    repository_content required_role except_recent acceptance_number
+    description supplement note creator contributor publisher subject
+    accept_type acquired_at bookstore library shelf checkout_type
+    circulation_status retention_period call_number item_price url
+    include_supplements use_restriction item_note rank item_identifier
+    remove_reason non_searchable missing_issue del_flg
+  )
+  SERIES_COLUMNS = %w(
+    issn original_title title_transcription periodical
+    series_statement_identifier
+  )
+  ARTICLE_COLUMNS = %w(
+    creator original_title title volume_number_string number_of_page pub_date
+    call_number url subject
+  )
+  ALL_COLUMNS =
+    BOOK_COLUMNS.map {|c| "book.#{c}" } +
+    SERIES_COLUMNS.map {|c| "series.#{c}" } +
+    ARTICLE_COLUMNS.map {|c| "article.#{c}" }
+
+  def self.get_manifestation_list_excelx(manifestation_ids, current_user, selected_column = [])
     user_file = UserFile.new(current_user)
-    excel_filepath, excel_fileinfo = user_file.create(:manifestation_list, Setting.manifestation_list_print_excelx)
+    excel_filepath, excel_fileinfo = user_file.create(:manifestation_list, Setting.manifestation_list_print_excelx.filename)
 
-    logger.info "get_manifestation_list_excelx filepath=#{excel_filepath}"
-    
     require 'axlsx'
-    Axlsx::Package.new do |p|
-      wb = p.workbook
-      wb.styles do |s|
-        default_style = s.add_style :font_name => Setting.manifestation_list_print_excelx.fontname
+    pkg = Axlsx::Package.new
+    wb = pkg.workbook
+    sty = wb.styles.add_style :font_name => Setting.manifestation_list_print_excelx.fontname
 
-        wb.add_worksheet(:name => "item_list") do |sheet|
-          # header line
-          columns = [
-            [:shelf, 'activerecord.models.shelf'],
-            [:item_identifier, 'activerecord.attributes.item.item_identifier'],
-            [:title, 'activerecord.attributes.manifestation.original_title'],
-            [:series, 'activerecord.attributes.series_statement.original_title'],
-            [:edition, 'activerecord.attributes.manifestation.edition'],
-            [:volume_number, 'activerecord.attributes.manifestation.volume_number_string'],
-            [:issue_number, 'activerecord.attributes.manifestation.issue_number_string'],
-            [:serial_number, 'activerecord.attributes.manifestation.serial_number_string'],
-            [:carrier_type, 'page.form'],
-            [:creator, 'patron.creator'],
-            [:contributor, 'patron.contributor'],
-            [:publisher, 'patron.publisher'],
-            [:pub_date, 'activerecord.attributes.manifestation.pub_date'],
-            [:acquired_at, 'activerecord.attributes.item.acquired_at'],
-            [:isbn, 'activerecord.attributes.manifestation.isbn'],
-            [:call_number, 'activerecord.attributes.item.call_number'],
-            [:circulation_status, 'activerecord.models.circulation_status'],
-          ]
+    column = { # 書誌のタイプごとの出力すべきカラムのリスト
+      'book' => [],
+      'series' => [],
+      'article' => [],
+    }
+    selected_column.each do |type_col|
+      next unless ALL_COLUMNS.include?(type_col)
+      next unless /\A([^.]+)\.([^.]+)\z/ =~ type_col
+      column[$1] << [$1, $2]
+      column['series'] << [$1, $2] if $1 == 'book' # NOTE: 雑誌の行は雑誌向けカラム+一般書誌向けカラム(参照: resource_import_textfile.excel)
+    end
 
-          # title column
-          row = columns.map{|column| I18n.t(column[1])}
-          sheet.add_row row, :style => Array.new(columns.size).fill(default_style)
+    # 必要となりそうなワークシートの初期化
+    worksheet = {}
+    style = {}
+    column.keys.each do |type|
+      if column[type].blank?
+        column.delete(type)
+        next
+      end
+      worksheet[type] = wb.add_worksheet(:name => "#{type}_list") do |sheet|
+        row = column[type].map {|(t, c)| I18n.t("resource_import_textfile.excel.#{t}.#{c}") }
+        style[type] = [sty]*row.size
+        sheet.add_row row, :style => style[type]
+      end
+    end
 
-          # data lines
-          manifestations.each do |manifestation|
+    # ワークシート用の値を生成する
+    # 引数: 対象とするmanifestation、対象とするitem、ワークシート上のカラム名([type,name]の形式)
+    get_value = proc do |m, i, (t, c)|
+      val = nil
+      case c
+      when 'pub_date'
+        if t == 'article'
+          val = m.pub_date.try(:match, /(\d+)/).try(:[], 1) || '' # 年のみ
+        end
 
-            item_size = manifestation.items.size rescue 0 
-            series_statement = manifestation.series_statement
+      when 'title'
+        if t == 'article'
+          val = m.excel_worksheet_value('article_title')
+        end
 
-            #logger.debug "@@0 item_size=#{item_size}"
-            #logger.debug "@@01 title=#{manifestation.original_title}"
-
-            if series_statement.nil? || series_statement && series_statement.periodical == false
-              #logger.debug "@@1"
-              series_title = series_statement.original_title rescue ""
-              if item_size > 0
-                manifestation.items.map { |item|
-                  row = []
-                  row.concat(get_excel_row(manifestation, series_title, item))
-
-                  sheet.add_row row, :style => Array.new(row.size).fill(default_style)
-                }
-              else
-                # manifestation only
-                row = []
-                row.concat(get_excel_row(manifestation, series_title))
-
-                sheet.add_row row, :style => Array.new(row.size).fill(default_style)
-              end
-            else
-              #logger.debug "@@3"
-              if series_statement
-                series_title = series_statement.original_title
-                series_statement.manifestations.each do |m| 
-                  item_size = m.items.size rescue 0
-                  if item_size > 0
-                    m.items.each do |item|
-                      row = []
-                      row.concat(get_excel_row(m, series_title, item))
-
-                      sheet.add_row row, :style => Array.new(row.size).fill(default_style)
-                    end
-                  else 
-                    # skip?
-                    next if series_statement.manifestations.size > 1 && m.periodical_master
-
-                    if series_statement.manifestations.size == 1 && m.periodical_master
-                      # manifestation only or periodical only
-                      mt = Manifestation.new
-                      ms = series_title
-                    elsif series_statement.periodical == false
-                      mt = m
-                      ms = series_title
-                    else
-                      mt = m
-                      ms = manifestation.original_title
-                    end
-                    row = []
-                    row.concat(get_excel_row(mt, ms))
-
-                    sheet.add_row row, :style => Array.new(row.size).fill(default_style)
-                  end
-
-                  break if series_statement.manifestations.size == 1 && m.periodical_master
-                end
-              else
-                # manifestation only
-                row = []
-                row.concat(get_excel_row(manifestation))
-
-                sheet.add_row row, :style => Array.new(row.size).fill(default_style)
-              end
-           end
+      when 'creator'
+        if t == 'article'
+          if m.manifestation_type.try(:name) == 'japanese_article'
+            sep = ';'
+          else
+            sep = ' '
           end
-          p.serialize(excel_filepath)
+          val = m.creators.map(&:name).join(sep)
+        end
+
+      when 'subject'
+        if t == 'article'
+          if m.manifestation_type.try(:name) == 'japanese_article'
+            sep = ';'
+          else
+            sep = '*'
+          end
+          val = m.subjects.map(&:term).join(sep)
+        end
+
+      when 'original_title', 'title_transcription', 'series_statement_identifier', 'periodical', 'issn'
+        if t == 'series'
+          val = m.series_statment.excel_worksheet_value(c)
         end
       end
 
-      return [excel_filepath, excel_fileinfo]
+      val = m.excel_worksheet_value(c, i) unless val
+      val
     end
+
+    logger.debug "begin export manifestations"
+    where(:id => manifestation_ids).
+        includes(
+          :carrier_type, :language, :required_role,
+          :frequency, :creators, :contributors,
+          :publishers, :subjects, :manifestation_type,
+          :series_statement,
+          :items => [
+            :bookstore, :checkout_type,
+            :circulation_status, :required_role,
+            :accept_type, :retention_period,
+            :use_restriction,
+            :shelf => :library,
+          ]
+         ).
+        find_in_batches do |manifestations|
+      logger.debug "begin a batch set"
+      manifestations.each do |manifestation|
+        if manifestation.article? # 文献
+          type = 'article'
+          target = [manifestation]
+        elsif manifestation.series_statement.try(:periodical) # 雑誌
+          type = 'series'
+          target = manifestation.series_statement.manifestations # XXX: manifestationの重複(検索結果由来とseries_statment由来)の可能性
+        else # 一般書誌
+          type = 'book'
+          target = [manifestation]
+        end
+        next if column[type].blank? # 出力すべきカラムがない
+
+        target.each do |m|
+          if m.items.blank?
+            items = [nil]
+          else
+            items = m.items
+          end
+          items.each do |i|
+            row = []
+            column[type].each do |(t, c)|
+              row << get_value.call(m, i, [t, c])
+            end
+            worksheet[type].add_row row, :style => style[type]
+          end
+        end
+      end
+      logger.debug "end a batch set"
+    end
+    logger.debug "end export manifestations"
+
+    # 空のワークシートを削除
+    worksheet.each_pair do |type, ws|
+      next if ws.rows.size > 1
+      wb.worksheets.delete(ws) # 見出し行以外ない
+    end
+
+    pkg.serialize(excel_filepath)
+
+    [excel_filepath, excel_fileinfo]
   end
 
-  def self.get_excel_row(manifestation, series_title = '', item = nil)
-    creator = manifestation.creators.map{|patron| patron.full_name}
-    contributor = manifestation.contributors.map{|patron| patron.full_name}
-    publisher = manifestation.publishers.map{|patron| patron.full_name}
+  # XLSX形式でのエクスポートのための値を生成する
+  def excel_worksheet_value(ws_col, item = nil)
+    helper = Object.new
+    helper.extend(ManifestationsHelper)
+    val = nil
 
-    row = []
-    row << (item.shelf.display_name.localize rescue "")
-    row << (item.item_identifier rescue "")
-    row << manifestation.original_title
-    row << series_title
-    row << (manifestation.isbn rescue "")
-    row << (manifestation.edition rescue "")
-    row << (manifestation.volume_number_string rescue "")
-    row << manifestation.issue_number_string
-    row << manifestation.serial_number_string
-    row << creator.join(',')
-    row << contributor.join(',')
-    row << publisher.join(',')
-    row << manifestation.pub_date
-    row << (item.acquired_at.strftime("%Y-%m-%d") rescue "")
-    row << (manifestation.isbn rescue "")
-    row << (item.call_number rescue "")
-    row << (item.circulation_status.display_name.localize rescue "")
+    case ws_col
+    when 'volume_number_string'
+      if volume_number_string.present? && issue_number_string.present?
+        val = "#{volume_number_string}*#{issue_number_string}"
+      elsif volume_number_string.present?
+        val = volume_number_string.to_s
+      else
+        val = ''
+      end
 
-    return row
+    when 'number_of_page'
+      if start_page.present? && end_page.present?
+        val = "#{start_page}-#{end_page}"
+      elsif start_page
+        val = start_page.to_s
+      else
+        val = ''
+      end
+
+    when 'carrier_type', 'language', 'required_role'
+      val = __send__(ws_col).try(:name) || ''
+
+    when 'frequency'
+      val = __send__(ws_col).try(:display_name) || ''
+
+    when 'creator', 'contributor', 'publisher'
+      val = __send__("#{ws_col}s").map(&:name).join(';')
+
+    when 'subject'
+      val = __send__(:subjects).map(&:term).join(';')
+
+    when 'missing_issue'
+      val = helper.missing_status(missing_issue) || ''
+
+    when 'del_flg'
+      val = '' # モデルには格納されない情報
+
+    else
+      # その他の項目はitemまたはmanifestationの
+      # 同名属性からそのまま転記する
+      if item
+        if /\Aitem_/ =~ ws_col
+          begin
+            val = item.excel_worksheet_value($') || ''
+          rescue NoMethodError
+          end
+        end
+
+        if val.nil?
+          begin
+            val = item.excel_worksheet_value(ws_col) || ''
+          rescue NoMethodError
+          end
+        end
+      end
+
+      if val.nil?
+        begin
+          val = __send__(ws_col) || ''
+        rescue NoMethodError
+          val = ''
+        end
+      end
+    end
+ 
+    val
   end
-
-  def self.get_item_basic(item)
-    row = []
-
-    row << item.item_identifier
-    row << item.call_number
-    row << (item.acquired_at.strftime("%Y-%m-%d") rescue "")
-    row << item.shelf.library.display_name.localize
-    row << item.shelf.display_name.localize
-    row << item.circulation_status.display_name.localize
-
-    return row
-  end
-
-  def self.get_basic(manifestation)
-    creator = manifestation.creators.map{|patron| patron.full_name}
-    contributor = manifestation.contributors.map{|patron| patron.full_name}
-    publisher = manifestation.publishers.map{|patron| patron.full_name}
-
-    row = []
-    row << manifestation.id
-    row << manifestation.original_title
-    row << (manifestation.isbn rescue "")
-    row << (manifestation.edition rescue "")
-    row << (manifestation.volume_number_string rescue "")
-    row << manifestation.issue_number_string
-    row << manifestation.serial_number_string
-    row << manifestation.carrier_type.display_name.localize
-    row << manifestation.language.display_name.localize
-    row << creator.join(',')
-    row << contributor.join(',')
-    row << publisher.join(',')
-    row << manifestation.pub_date
-
-    return row
-  end 
 
   def self.get_missing_issue_list_pdf(manifestations, current_user)
     manifestations.each do |m|

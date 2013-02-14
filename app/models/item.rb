@@ -307,6 +307,33 @@ class Item < ActiveRecord::Base
     end
   end
 
+  # XLSX形式でのエクスポートのための値を生成する
+  def excel_worksheet_value(ws_col)
+    helper = Object.new
+    helper.extend(ItemsHelper)
+    helper.instance_eval { def t(*a) I18n.t(*a) end } # NOTE: ItemsHelper#i18n_rankの中でtを呼び出しているが、ヘルパーを直接利用しようとするとRedCloth由来のtが見えてしまうため、その回避策
+    val = nil
+
+    case ws_col
+    when 'bookstore', 'shelf', 'checkout_type', 'circulation_status', 'required_role', 'use_restriction'
+      val = __send__(ws_col).try(:name) || ''
+
+    when 'accept_type', 'retention_period'
+      val = __send__(ws_col).try(:display_name) || ''
+
+    when 'acquired_at'
+      val = __send__(ws_col).try(:strftime, '%Y-%m-%d') || ''
+
+    when 'rank'
+      val = helper.i18n_rank(rank) || ''
+
+    else
+      val = __send__(ws_col) || ''
+    end
+
+    val
+  end
+
   def self.export_removing_list(out_dir, file_type = nil)
     raise "invalid parameter: no path" if out_dir.nil? || out_dir.length < 1
     tsv_file = out_dir + "removing_list.tsv"

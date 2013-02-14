@@ -102,6 +102,20 @@ class SeriesStatement < ActiveRecord::Base
       manifestations.map { |manifestation| [manifestation.original_title, manifestation.title_transcription] }
     ].flatten.compact
   end
+
+  # XLSX形式でのエクスポートのための値を生成する
+  def excel_worksheet_value(ws_col)
+    val = nil
+
+    case ws_col
+    when 'periodical'
+      val = (series_statment.try(ws_col) || false).to_s
+    else
+      val = __send__(ws_col) || ''
+    end
+
+    val
+  end
 end
 
 # == Schema Information
