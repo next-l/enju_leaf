@@ -30,7 +30,7 @@ require "./logpkg.pl";
 my $cur_dir = Cwd::cwd();	# カレントディレクトリ
 my $snd_bucket = "";
 my $ctrl_file = "";
-my $snd_host = "localhost";
+my $snd_host = "webopac";
 my $ftp_user = "ftpenju";
 my $ftp_pass = "gota2k12nda";
 my $exec_date = "";
