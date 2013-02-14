@@ -22,7 +22,7 @@ class Bookbinding < ActiveRecord::Base
           binding_item.item.bookbinder_id = binder.id
           binding_item.item.circulation_status = CirculationStatus.where(:name => 'Binded').first
           binding_item.item.save!
-          binding_item.item.manifestation.index
+          Manifestation.find(binding_item.item.manifestation.id).index
         end
         BindingItem.destroy_all(:bookbinding_id => self.id)
         return binder
