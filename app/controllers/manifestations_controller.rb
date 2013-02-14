@@ -245,7 +245,7 @@ class ManifestationsController < ApplicationController
           when params[:output_excelx]; :excelx
           when params[:output_request]; :request
           end
-        Manifestation.generate_manifestation_list(search, output_type, current_user) do |output|
+        Manifestation.generate_manifestation_list(search, output_type, current_user, params[:cols]) do |output|
           send_opts = {
             :filename => output.filename,
             :type => output.mime_type || 'application/octet-stream',
