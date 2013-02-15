@@ -8,6 +8,7 @@
 
 <%= form_for :remider_list, :url => {:action => :send_reminder} do %>
 <div id='reminder_send'><%= submit_tag t('reminder_list.send') %></div>
+<br style="clear: both;"/>
 <table class="index">
   <tr>
     <th><%= t('activerecord.attributes.reminder_list.checkout_id')-%></th>
