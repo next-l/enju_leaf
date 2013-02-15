@@ -27,6 +27,7 @@
     <div class="parent">
       <%= check_box_tag "all_state", true, @selected_state.size == @reminder_list_statuses.size ? true : false, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.state')) -%><br />
       &nbsp;
+      <%= t('activerecord.attributes.reminder_list.status')-%>
       <%- @reminder_list_statuses.each do |state| -%>
         <%= check_box_tag "state[]", state[:id], @selected_state.index(state[:id]) != nil ? true : false, :class=>'check-child' -%><%= state[:display_name] -%>
       <%- end -%>
