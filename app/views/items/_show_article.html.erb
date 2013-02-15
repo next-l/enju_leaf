@@ -135,8 +135,14 @@
     <% end %>
     <%- if @item.inter_library_loans.empty? -%>
       <%- if user_signed_in? and current_user.has_role?('Librarian') -%>
-        <li><%= link_to t('item.add_new_copy'), new_manifestation_item_path(@item.manifestation) -%></li>
-      <%- end -%>
+        <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
+          <% unless @item.manifestation.items.map{ |item| item.rank.to_i }.compact.include?(0) %>
+            <li><%= link_to t('item.add_new_copy'), new_manifestation_item_path(@item.manifestation) -%></li>
+          <% end %>
+        <% else %>
+          <li><%= link_to t('item.add_new_copy'), new_manifestation_item_path(@item.manifestation) -%></li>
+        <%- end -%>
+      <% end %>
     <%- end -%>
     <%- if @item.manifestation.bookbinder && -%>
       <li><%= link_to(t('manifestation.undo_binding'), {:controller => 'bookbindings', :action => 'bind_undo', :item_id => @item.id}, :confirm => t('page.are_you_sure')) -%></li>

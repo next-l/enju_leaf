@@ -1,22 +1,27 @@
 <script type="text/javascript">
   jQuery(function($) {
       $("#resource_import_textfile_adapter_name").change(function() {
-        $("#resource_import_textfile_resource_import_text").val('');
+        $("#resource_import_textfile_resource_import_text").empty('');//val('');
         $(".excel_sheets").html('')
+        $(':file').replaceWith($(':file').clone())
+        $("#inherent").html("");
         // make a POST call and replace the content
         var name = $('select#resource_import_textfile_adapter_name :selected').val();
-        if(name == "") name="0";
-        $("#inherent").html("");
-        //jQuery.get('/enju_reiko/resource_import_textfiles/adapters/' + name, function(data){
-        if(name == 'Tsvfile_Adapter') {
-          jQuery.get('/resource_import_textfiles/adapters/' + name, function(data){
-            $("#inherent").html(data);
-          })
+        if(name == "") {
+          $('#select_file').hide();
+          name="0";
+        } else {
+          $('#select_file').show();
+          if(name == 'Tsvfile_Adapter') {
+            //jQuery.get('/enju_reiko/resource_import_textfiles/adapters/' + name, function(data){
+            jQuery.get('/resource_import_textfiles/adapters/' + name, function(data){
+              $("#inherent").html(data);
+            })
+          }
         }
-        return false;
       });
 
-      $("#resource_import_textfile_resource_import_text").change(function(){  
+      $("#resource_import_textfile_resource_import_text").live("change", function(){
         var name = $('select#resource_import_textfile_adapter_name :selected').val();
         $(".excel_sheets").html("")
         if(name == 'Excelfile_Adapter') {
@@ -56,13 +61,13 @@
   </div>
 
   <div id="inherent"> </div>
- 
-  <div class="field">
+
+  <div class="field" id="select_file" style="display: none">
     <%= f.label t('page.file') -%><br />
     <%= f.file_field :resource_import_text %>
-    <div class="spinner"></div>
-    <div class="excel_sheets"></div>
   </div>
+  <div class="spinner"></div>
+  <div class="excel_sheets"></div>
 
   <div class="actions">
     <%= f.submit %>

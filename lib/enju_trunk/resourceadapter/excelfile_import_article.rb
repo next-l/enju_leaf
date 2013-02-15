@@ -249,8 +249,10 @@ module EnjuTrunk
         unless num.to_s.match(/\*/)
           volume_number_string, issue_number_string =  '', num 
         else
-          volume_number_string = num.split('*')[0] rescue nil
-          issue_number_string = num.split('*')[1] rescue nil
+          volume_number_string = num.split('*')[0] rescue ''
+          issue_number_string = num.split('*')[1] rescue ''
+          volume_number_string = "" if volume_number_string.nil?
+          issue_number_string = "" if issue_number_string.nil?
         end
       end
       return volume_number_string, issue_number_string
