@@ -1,6 +1,6 @@
 <%- if @crd_results -%>
   <h4><%= link_to t('question.crd'), "http://crd.ndl.go.jp/" -%></h4>
-  <p><%= t('question.number_of_search_results', :count => @crd_results.total_entries) -%><br />
+  <p><%= t('question.number_of_search_results', :count => @crd_results.total_count) -%><br />
   <ul>
     <%- @crd_results.each do |result| -%>
       <li><%= link_to h(truncate(result[:question])), result[:url] -%></li>
