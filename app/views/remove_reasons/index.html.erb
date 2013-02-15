@@ -26,7 +26,7 @@
         <%= link_to t('page.edit'), edit_remove_reason_path(remove_reason) %>
       <% end %>
       <% if can? :destroy, remove_reason %>
-      <%= link_to t('page.destroy'), remove_reason, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to t('page.destroy'), remove_reason, method: :delete, data: { confirm: t('page.are_you_sure') } %>
       <% end %>
     </td>
   </tr>
