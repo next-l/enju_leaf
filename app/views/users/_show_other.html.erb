@@ -84,7 +84,9 @@
           <li><%= link_to t('user.update_user_number'), edit_user_number_user_path(user) -%></li>
         <%- end -%>
       <% end %>
-      <li><%= link_to t('message.send'), new_message_path(:recipient => user.username) -%></li>
+      <%- if can? :create, Message %>
+        <li><%= link_to t('message.send'), new_message_path(:recipient => user.username) -%></li>
+      <%- end -%>
       <%- if can? :create, user -%>
         <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
         <%- if user.patron.patron_type_id == 1 -%>
