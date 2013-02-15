@@ -76,10 +76,14 @@
   <ul>
     <%- if can?(:create, Item) and @manifestation -%>
       <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
+        <% create_item = true %>
         <% if @manifestation.article? %>
-          <% unless @manifestation.items.map{ |item| item.rank.to_i }.compact.include?(0) %>
-            <li><%= link_to t('page.new', :model => t('activerecord.models.item')), new_manifestation_item_path(@manifestation) -%></li>
+          <% if @manifestation.items and @manifestation.items.size > 0 %>
+            <% create_item = false if @manifestation.items.map{ |item| item.rank.to_i }.compact.include?(0) %>
           <% end %>
+        <% end %>
+        <% if create_item %>
+          <li><%= link_to t('page.new', :model => t('activerecord.models.item')), new_manifestation_item_path(@manifestation) %></li>
         <% end %>
       <% else %>
         <li><%= link_to t('page.new', :model => t('activerecord.models.item')), new_manifestation_item_path(@manifestation) -%></li>

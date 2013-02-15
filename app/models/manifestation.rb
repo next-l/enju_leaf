@@ -356,6 +356,7 @@ class Manifestation < ActiveRecord::Base
   validates_presence_of :carrier_type, :language, :manifestation_type, :country_of_publication
   validates_associated :carrier_type, :language, :manifestation_type, :country_of_publication
   validates_numericality_of :acceptance_number, :allow_nil => true
+  validate :check_rank
   before_validation :set_language, :if => :during_import
   before_validation :uniq_options
   before_validation :set_manifestation_type, :set_country_of_publication
@@ -404,6 +405,16 @@ class Manifestation < ActiveRecord::Base
         self.bookmarks.tag_counts
       else
         []
+      end
+    end
+  end
+
+  def check_rank
+    if self.manifestation_type.is_article?
+      if self.items and self.items.size > 0
+        unless self.items.map{ |item| item.rank.to_i }.compact.include?(0)
+          errors[:base] << I18n.t('manifestation.not_has_original')
+        end
       end
     end
   end

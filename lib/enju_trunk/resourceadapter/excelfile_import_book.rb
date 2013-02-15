@@ -485,7 +485,7 @@ module EnjuTrunk
         item.required_role       = required_role        unless required_role.nil?
         item.item_identifier     = item_identifier.to_s unless item_identifier.nil?
         item.non_searchable      = non_searchable       unless non_searchable.nil?
-p "dddd"
+
         # bookstore
         bookstore_name = datas[@field[I18n.t('resource_import_textfile.excel.book.bookstore')]]
         if bookstore_name == ""
