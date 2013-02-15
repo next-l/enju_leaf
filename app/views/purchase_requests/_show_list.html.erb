@@ -61,10 +61,12 @@
   <%= @purchase_request.note %>
 </p>
 
-<p>
-  <strong><%= t('activerecord.attributes.order_list.ordered_at') %>:</strong>
-  <%= l(@purchase_request.order_list.ordered_at) if @purchase_request.order_list rescue nil %>
-</p>
+<% if SystemConfiguration.get("use_order_lists") %>
+  <p>
+    <strong><%= t('activerecord.attributes.order_list.ordered_at') %>:</strong>
+    <%= l(@purchase_request.order_list.ordered_at) if @purchase_request.order_list rescue nil %>
+  </p>
+<% end %>
 
 <p>
 <strong><%= t('page.created_at') %>:</strong>

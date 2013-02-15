@@ -6,7 +6,6 @@
         <% if SystemConfiguration.get("use_order_lists") %>
           <li><%= link_to t('activerecord.models.order_list'), order_lists_path -%></li>
         <% end %>
-        <li><%= link_to t('activerecord.models.term'), terms_path -%></li>
         <li><%= link_to t('activerecord.models.budget_type'), budget_types_path -%></li>
         <li><%= link_to t('activerecord.models.budget'), budgets_path -%></li>
         <li><%= link_to t('activerecord.models.expense'), expenses_path -%></li>

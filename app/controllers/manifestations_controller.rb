@@ -536,11 +536,12 @@ class ManifestationsController < ApplicationController
     elsif @expression
       @manifestation.original_title = @expression.original_title
       @manifestation.title_transcription = @expression.title_transcription
+    elsif @series_statement
+      @manifestation.series_statement = @series_statement
     end
     @manifestation.language = Language.where(:iso_639_1 => @locale).first
     @manifestation = @manifestation.set_serial_number if params[:mode] == 'new_issue'
     @original_manifestation = original_manifestation if params[:mode] == 'add'
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @manifestation }

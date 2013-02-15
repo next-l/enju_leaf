@@ -60,6 +60,8 @@
       <li><%= link_to t('page.destroy'), @question, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
     <%- end -%>
     <li><%= link_to t('page.back'), questions_path -%></li>
-    <%- if false %><li><%= link_to 'レファレンス協同データベース用XMLファイル', question_path(@question, :mode => 'crd', :format => 'xml') -%></li><%- end -%>
+    <% if false %>
+    <li><%= link_to 'レファレンス協同データベース用XMLファイル', question_path(@question, :mode => 'crd', :format => 'xml') -%></li>
+    <% end %>
   </ul>
 </div>
