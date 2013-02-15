@@ -25,7 +25,7 @@ class ResourceImportTextfilesController < ApplicationController
       format.html # show.html.erb
       format.json { render :json => @resource_import_textfile }
       format.download {
-        send_file file, :filename => @resource_import_textfile.resource_import_text_file_name, :type => 'application/octet-stream'
+        send_file file, :filename => @resource_import_textfile.resource_import_text_file_name.encode("cp932"), :type => 'application/octet-stream'
       }
     end
   end
