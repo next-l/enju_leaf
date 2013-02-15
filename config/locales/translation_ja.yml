@@ -2131,6 +2131,7 @@ ja:
         carrier_type: 資料の形態
         frequency: 発行頻度
         pub_date: 出版日
+        country_of_publication: 出版国
         place_of_publication: 出版地
         language: 言語
         edition_display_value: 版表示

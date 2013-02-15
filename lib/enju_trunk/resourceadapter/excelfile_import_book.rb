@@ -151,67 +151,69 @@ module EnjuTrunk
       end
 
       manifestation.series_statement = series_statement if series_statement
-      original_title       = datas[@field[I18n.t('resource_import_textfile.excel.book.original_title')]]
-      title_transcription  = datas[@field[I18n.t('resource_import_textfile.excel.book.title_transcription')]]
-      title_alternative    = datas[@field[I18n.t('resource_import_textfile.excel.book.title_alternative')]]
-      carrier_type         = set_data(datas, CarrierType, 'carrier_type', { :default => 'print' })
-      frequency            = set_data(datas, Frequency, 'frequency', { :default => '不明', :check_column => :display_name })
-      pub_date             = datas[@field[I18n.t('resource_import_textfile.excel.book.pub_date')]]
-      place_of_publication = datas[@field[I18n.t('resource_import_textfile.excel.book.place_of_publication')]]
-      language             = set_data(datas, Language, 'language', { :default => 'Japanese' })
-      edition              = datas[@field[I18n.t('resource_import_textfile.excel.book.edition_display_value')]]
-      volume_number_string = datas[@field[I18n.t('resource_import_textfile.excel.book.volume_number_string')]]
-      issue_number_string  = datas[@field[I18n.t('resource_import_textfile.excel.book.issue_number_string')]]
-      issn                 = datas[@field[I18n.t('resource_import_textfile.excel.series.issn')]]
-      lccn                 = datas[@field[I18n.t('resource_import_textfile.excel.book.lccn')]]
-      marc_number          = datas[@field[I18n.t('resource_import_textfile.excel.book.marc_number')]]
-      ndc                  = datas[@field[I18n.t('resource_import_textfile.excel.book.ndc')]]
-      start_page           = datas[@field[I18n.t('resource_import_textfile.excel.book.start_page')]]
-      end_page             = datas[@field[I18n.t('resource_import_textfile.excel.book.end_page')]]
-      height               = check_data_is_numeric(datas[@field[I18n.t('resource_import_textfile.excel.book.height')]], 'height')
-      width                = check_data_is_numeric(datas[@field[I18n.t('resource_import_textfile.excel.book.width')]], 'width') 
-      depth                = check_data_is_numeric(datas[@field[I18n.t('resource_import_textfile.excel.book.depth')]], 'depth')
-      price                = check_data_is_integer(datas[@field[I18n.t('resource_import_textfile.excel.book.price')]], 'price')
-      access_address       = datas[@field[I18n.t('resource_import_textfile.excel.book.access_address')]]
-      acceptance_number    = check_data_is_integer(datas[@field[I18n.t('resource_import_textfile.excel.book.acceptance_number')]], 'acceptance_number')
-      repository_content   = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.repository_content')]])
-      required_role        = set_data(datas, Role, 'required_role', { :default => 'Guest' })
-      except_recent        = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.except_recent')]])
-      description          = datas[@field[I18n.t('resource_import_textfile.excel.book.description')]]
-      supplement           = datas[@field[I18n.t('resource_import_textfile.excel.book.supplement')]]
-      note                 = datas[@field[I18n.t('resource_import_textfile.excel.book.note')]]
-      missing_issue        = set_missing_issue(datas[@field[I18n.t('resource_import_textfile.excel.book.missing_issue')]])
+      original_title         = datas[@field[I18n.t('resource_import_textfile.excel.book.original_title')]]
+      title_transcription    = datas[@field[I18n.t('resource_import_textfile.excel.book.title_transcription')]]
+      title_alternative      = datas[@field[I18n.t('resource_import_textfile.excel.book.title_alternative')]]
+      carrier_type           = set_data(datas, CarrierType, 'carrier_type', { :default => 'print' })
+      frequency              = set_data(datas, Frequency, 'frequency', { :default => '不明', :check_column => :display_name })
+      country_of_publication = set_data(datas, Country, 'country_of_publication', { :default => 'unknown' }) 
+      pub_date               = datas[@field[I18n.t('resource_import_textfile.excel.book.pub_date')]]
+      place_of_publication   = datas[@field[I18n.t('resource_import_textfile.excel.book.place_of_publication')]]
+      language               = set_data(datas, Language, 'language', { :default => 'Japanese' })
+      edition                = datas[@field[I18n.t('resource_import_textfile.excel.book.edition_display_value')]]
+      volume_number_string   = datas[@field[I18n.t('resource_import_textfile.excel.book.volume_number_string')]]
+      issue_number_string    = datas[@field[I18n.t('resource_import_textfile.excel.book.issue_number_string')]]
+      issn                   = datas[@field[I18n.t('resource_import_textfile.excel.series.issn')]]
+      lccn                   = datas[@field[I18n.t('resource_import_textfile.excel.book.lccn')]]
+      marc_number            = datas[@field[I18n.t('resource_import_textfile.excel.book.marc_number')]]
+      ndc                    = datas[@field[I18n.t('resource_import_textfile.excel.book.ndc')]]
+      start_page             = datas[@field[I18n.t('resource_import_textfile.excel.book.start_page')]]
+      end_page               = datas[@field[I18n.t('resource_import_textfile.excel.book.end_page')]]
+      height                 = check_data_is_numeric(datas[@field[I18n.t('resource_import_textfile.excel.book.height')]], 'height')
+      width                  = check_data_is_numeric(datas[@field[I18n.t('resource_import_textfile.excel.book.width')]], 'width') 
+      depth                  = check_data_is_numeric(datas[@field[I18n.t('resource_import_textfile.excel.book.depth')]], 'depth')
+      price                  = check_data_is_integer(datas[@field[I18n.t('resource_import_textfile.excel.book.price')]], 'price')
+      access_address         = datas[@field[I18n.t('resource_import_textfile.excel.book.access_address')]]
+      acceptance_number      = check_data_is_integer(datas[@field[I18n.t('resource_import_textfile.excel.book.acceptance_number')]], 'acceptance_number')
+      repository_content     = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.repository_content')]])
+      required_role          = set_data(datas, Role, 'required_role', { :default => 'Guest' })
+      except_recent          = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.except_recent')]])
+      description            = datas[@field[I18n.t('resource_import_textfile.excel.book.description')]]
+      supplement             = datas[@field[I18n.t('resource_import_textfile.excel.book.supplement')]]
+      note                   = datas[@field[I18n.t('resource_import_textfile.excel.book.note')]]
+      missing_issue          = set_missing_issue(datas[@field[I18n.t('resource_import_textfile.excel.book.missing_issue')]])
 
-      manifestation.manifestation_type   = @manifestation_type
-      manifestation.original_title       = original_title.to_s       unless original_title.nil?
-      manifestation.title_transcription  = title_transcription.to_s  unless title_transcription.nil?
-      manifestation.title_alternative    = title_alternative.to_s    unless title_alternative.nil?
-      manifestation.carrier_type         = carrier_type              unless carrier_type.nil?
-      manifestation.frequency            = frequency                 unless frequency.nil?
-      manifestation.pub_date             = pub_date.to_s             unless pub_date.nil?
-      manifestation.place_of_publication = place_of_publication.to_s unless place_of_publication.nil?
-      manifestation.language             = language                  unless language.nil?
-      manifestation.edition_display_value= edition                   unless edition.nil?
-      manifestation.volume_number_string = volume_number_string.to_s unless volume_number_string.nil?
-      manifestation.issue_number_string  = issue_number_string.to_s  unless issue_number_string.nil?
-      manifestation.isbn                 = isbn.to_s                 unless isbn.nil?
-      manifestation.issn                 = issn.to_s                 unless issn.nil?
-      manifestation.lccn                 = lccn.to_s                 unless lccn.nil?
-      manifestation.marc_number          = marc_number.to_s          unless marc_number.nil?
-      manifestation.ndc                  = ndc.to_s                  unless ndc.nil?
-      manifestation.height               = height                    unless height.nil?
-      manifestation.width                = width                     unless width.nil?
-      manifestation.depth                = depth                     unless depth.nil?
-      manifestation.price                = price                     unless price.nil?
-      manifestation.access_address       = access_address.to_s       unless access_address.nil?
-      manifestation.acceptance_number    = acceptance_number         unless acceptance_number.nil?
-      manifestation.repository_content   = repository_content        unless repository_content.nil?
-      manifestation.required_role        = required_role             unless required_role.nil?
-      manifestation.except_recent        = except_recent             unless except_recent.nil?
-      manifestation.description          = description.to_s          unless description.nil?
-      manifestation.supplement           = supplement.to_s           unless supplement.nil?
-      manifestation.note                 = note.to_s                 unless note.nil?
-      manifestation.during_import        = true
+      manifestation.manifestation_type        = @manifestation_type
+      manifestation.original_title            = original_title.to_s       unless original_title.nil?
+      manifestation.title_transcription       = title_transcription.to_s  unless title_transcription.nil?
+      manifestation.title_alternative         = title_alternative.to_s    unless title_alternative.nil?
+      manifestation.carrier_type              = carrier_type              unless carrier_type.nil?
+      manifestation.frequency                 = frequency                 unless frequency.nil?
+      manifestation.pub_date                  = pub_date.to_s             unless pub_date.nil?
+      manifestation.country_of_publication_id = country_of_publication.id unless country_of_publication.nil? 
+      manifestation.place_of_publication      = place_of_publication.to_s unless place_of_publication.nil?
+      manifestation.language                  = language                  unless language.nil?
+      manifestation.edition_display_value     = edition                   unless edition.nil?
+      manifestation.volume_number_string      = volume_number_string.to_s unless volume_number_string.nil?
+      manifestation.issue_number_string       = issue_number_string.to_s  unless issue_number_string.nil?
+      manifestation.isbn                      = isbn.to_s                 unless isbn.nil?
+      manifestation.issn                      = issn.to_s                 unless issn.nil?
+      manifestation.lccn                      = lccn.to_s                 unless lccn.nil?
+      manifestation.marc_number               = marc_number.to_s          unless marc_number.nil?
+      manifestation.ndc                       = ndc.to_s                  unless ndc.nil?
+      manifestation.height                    = height                    unless height.nil?
+      manifestation.width                     = width                     unless width.nil?
+      manifestation.depth                     = depth                     unless depth.nil?
+      manifestation.price                     = price                     unless price.nil?
+      manifestation.access_address            = access_address.to_s       unless access_address.nil?
+      manifestation.acceptance_number         = acceptance_number         unless acceptance_number.nil?
+      manifestation.repository_content        = repository_content        unless repository_content.nil?
+      manifestation.required_role             = required_role             unless required_role.nil?
+      manifestation.except_recent             = except_recent             unless except_recent.nil?
+      manifestation.description               = description.to_s          unless description.nil?
+      manifestation.supplement                = supplement.to_s           unless supplement.nil?
+      manifestation.note                      = note.to_s                 unless note.nil?
+      manifestation.during_import             = true
       unless start_page.nil?
         if start_page.to_s.blank?
           manifestation.start_page = nil
@@ -234,7 +236,6 @@ module EnjuTrunk
         end
       end
       manifestation.save!
-
       # creator
       creators_string = datas[@field[I18n.t('resource_import_textfile.excel.book.creator')]]
       creators        = creators_string.nil? ? nil : creators_string.to_s.split(';')
@@ -266,7 +267,6 @@ module EnjuTrunk
         subjects = Subject.import_subjects (subjects_list)
         manifestation.subjects = subjects
       end
-
       return manifestation
     end
 
@@ -360,6 +360,7 @@ module EnjuTrunk
     end
 
     def create_series_statement(datas, manifestation, series_statement)
+      return nil unless @manifestation_type.is_series?
       original_title      = datas[@field[I18n.t('resource_import_textfile.excel.series.original_title')]]
       title_transcription = datas[@field[I18n.t('resource_import_textfile.excel.series.title_transcription')]]
       periodical          = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.series.periodical')]])
@@ -442,7 +443,6 @@ module EnjuTrunk
             @mode_item = 'create'
           end
         end
-
         # rank
         rank = fix_rank(datas[@field[I18n.t('resource_import_textfile.excel.book.rank')]], { :manifestation => manifestation, :mode => @mode_item})
         if rank == 0 and item.item_identifier.nil? and item_identifier.nil?#@mode_item == 'create' and rank == 0 and item_identifier.nil?
@@ -485,7 +485,7 @@ module EnjuTrunk
         item.required_role       = required_role        unless required_role.nil?
         item.item_identifier     = item_identifier.to_s unless item_identifier.nil?
         item.non_searchable      = non_searchable       unless non_searchable.nil?
-
+p "dddd"
         # bookstore
         bookstore_name = datas[@field[I18n.t('resource_import_textfile.excel.book.bookstore')]]
         if bookstore_name == ""
@@ -585,8 +585,8 @@ module EnjuTrunk
         return nil
       when nil
         if options[:mode] == 'create'
-          if manifestation.items and manifestation.items.size > 0
-            if manifestation.items.map{ |i| i.rank.to_i }.compact.include?(0)
+          if options[:manifestation].items and options[:manifestation].items.size > 0
+            if options[:manifestation].items.map{ |i| i.rank.to_i }.compact.include?(0)
               return 1
             end
           end
@@ -802,6 +802,7 @@ p "@@@@@@"
       carrier_type         = set_data(datas, CarrierType, 'carrier_type', { :default => 'print', :can_blank => true })
       frequency            = set_data(datas, Frequency, 'frequency', { :default => '不明', :check_column => :display_name, :can_blank => true })
       pub_date             = datas[@field[I18n.t('resource_import_textfile.excel.book.pub_date')]]
+      country              = set_data(datas, Country, 'country_of_publication', { :default => 'unknown', :can_blank => true })
       place_of_publication = datas[@field[I18n.t('resource_import_textfile.excel.book.place_of_publication')]]
       language             = set_data(datas, Language, 'language', { :default => 'Japanese', :can_blank => true })
       edition              = datas[@field[I18n.t('resource_import_textfile.excel.book.edition_display_value')]]
@@ -862,6 +863,8 @@ p "@@@@@@"
       conditions << "(manifestations).carrier_type_id = #{carrier_type.id.to_i}"                                 unless carrier_type.nil?
       conditions << "(manifestations).frequency_id = #{frequency.id}"                                            unless frequency.nil?
       conditions << "(manifestations).pub_date = \'#{pub_date.to_s.gsub("'", "''")}\'"                                unless pub_date.nil?
+      conditions << "(manifestations).pub_date = \'#{pub_date.to_s.gsub("'", "''")}\'"                                unless pub_date.nil?
+      conditions << "(manifestations).country_of_publication_id = #{country.id}"        unless country.nil?
       conditions << "(manifestations).place_of_publication = \'#{place_of_publication.to_s.gsub("'", "''")}\'"        unless place_of_publication.nil?
       conditions << "(manifestations).language_id = \'#{language.id}\'"                                          unless language.nil?
       conditions << "(manifestations).edition_display_value = \'#{edition.to_s.gsub("'", "''")}\'"                    unless edition.nil?
