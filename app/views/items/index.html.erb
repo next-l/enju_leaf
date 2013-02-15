@@ -75,7 +75,15 @@
   <%= render 'manifestations/book_jacket', :manifestation => @manifestation if @manifestation -%>
   <ul>
     <%- if can?(:create, Item) and @manifestation -%>
-      <li><%= link_to t('page.new', :model => t('activerecord.models.item')), new_manifestation_item_path(@manifestation) -%></li>
+      <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
+        <% if @manifestation.article? %>
+          <% unless @manifestation.items.map{ |item| item.rank.to_i }.compact.include?(0) %>
+            <li><%= link_to t('page.new', :model => t('activerecord.models.item')), new_manifestation_item_path(@manifestation) -%></li>
+          <% end %>
+        <% end %>
+      <% else %>
+        <li><%= link_to t('page.new', :model => t('activerecord.models.item')), new_manifestation_item_path(@manifestation) -%></li>
+      <% end %>
     <%- end -%>
   </ul>
 </div>
