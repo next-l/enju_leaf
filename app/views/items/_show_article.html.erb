@@ -33,12 +33,6 @@
   <%= link_to @item.retention_period.display_name.localize, @item.retention_period if @item.retention_period -%>
 </p>
 
-<p>
-  <% if @item.manifestation.series_statement && @item.manifestation == @item.manifestation.series_statement.last_issue %>
-    <%= t('item.new_serial') %>
-  <% end %>
-</p>
-
 <% if @item.remove_reason %>
   <p>
     <strong><%= t('activerecord.models.remove_reason') %>:</strong>
