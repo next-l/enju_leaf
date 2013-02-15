@@ -1747,6 +1747,7 @@ ja:
     output_job_success_body: "お知らせID「%{job_name}」のファイル出力が完了しました。次のアドレスからファイルを取得してください。\n%{url}"
     output_job_error_subject: "ファイル出力できませんでした [ID: %{job_name}]"
     output_job_error_body: "お知らせID「%{job_name}」のファイル出力を完了できませんでした。理由は次の通りです。\n%{message}"
+    not_has_original: "文献登録するには所蔵が正本である必要があります。登録済みの所蔵の正本区分を修正してください。"
   missing_issue:
     no_request: 未請求
     requested: 請求済
