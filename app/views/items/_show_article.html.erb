@@ -28,24 +28,9 @@
   (<%= link_to @item.shelf.library.display_name.localize, @item.shelf.library -%>)
 </p>
 
-<% if SystemConfiguration.get('manifestation.manage_item_rank') %> 
-<% if user_signed_in? and current_user.has_role?('Librarian') %>
-  <p>
-    <strong><%= t('activerecord.attributes.item.rank') -%>:</strong>
-    <%= i18n_rank(@item.rank) if @item.rank %>
-  </p>
-<% end %>
-<% end %>
-
 <p>
   <strong><%= t('activerecord.attributes.item.retention_period') -%>:</strong>
   <%= link_to @item.retention_period.display_name.localize, @item.retention_period if @item.retention_period -%>
-</p>
-
-<p>
-  <% if @item.manifestation.series_statement && @item.manifestation == @item.manifestation.series_statement.last_issue %>
-    <%= t('item.new_serial') %>
-  <% end %>
 </p>
 
 <% if @item.remove_reason %>
