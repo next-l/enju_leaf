@@ -13,6 +13,7 @@
 
 <table class="index">
   <tr>
+    <th><%= t('activerecord.attributes.manifestation.original_title') -%></th>
     <th><%= t('activerecord.models.library') -%></th>
     <th><%= t('activerecord.models.shelf') -%></th>
     <th><%= t('activerecord.attributes.item.call_number') -%></th>
@@ -26,6 +27,9 @@
   </tr>
   <%- @items.each do |item| -%>
     <tr>
+      <td>
+        <%= link_to item.manifestation.original_title, item.manifestation %>
+      </td>
       <td>
         <%= link_to item.shelf.library.display_name.localize, item.shelf.library %>
       </td>
