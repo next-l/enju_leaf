@@ -184,6 +184,7 @@ module EnjuTrunk
       missing_issue          = set_missing_issue(datas[@field[I18n.t('resource_import_textfile.excel.book.missing_issue')]])
 
       manifestation.manifestation_type        = @manifestation_type
+      manifestation.periodical                = true                      if manifestation.series_statement and manifestation.series_statement.periodical
       manifestation.original_title            = original_title.to_s       unless original_title.nil?
       manifestation.title_transcription       = title_transcription.to_s  unless title_transcription.nil?
       manifestation.title_alternative         = title_alternative.to_s    unless title_alternative.nil?
