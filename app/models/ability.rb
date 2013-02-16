@@ -466,6 +466,13 @@ class Ability
       can :show, Patron do |patron|
         patron.required_role_id == 1 #name == 'Guest'
       end
+      can :index, Question
+      can :show, Question do |question|
+        question.user == user or question.shared
+      end
+      can :read, Manifestation do |manifestation|
+        manifestation.required_role_id <= 1
+      end
       can [:index, :create, :show], PurchaseRequest
       can :read, [
         CarrierType,
@@ -486,7 +493,6 @@ class Ability
         Library,
         LibraryGroup,
         License,
-        Manifestation,
         ManifestationCheckoutStat,
         ManifestationRelationship,
         ManifestationRelationshipType,

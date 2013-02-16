@@ -5,6 +5,7 @@
     <%= link_to manifestation.original_title, manifestation, :itemprop => 'name' -%>
     <%= link_to form_icon(manifestation.carrier_type), manifestation -%>
   </h2>
+  <p style="margin: -12px 0 0 0; font-size: 90%"><%=  manifestation.title_transcription %></p>
   <p>
     <%- unless manifestation.creators.readable_by(current_user).empty? -%>
       <%= t('patron.creator') -%>: <%= patrons_list(manifestation.creators.readable_by(current_user), :itemprop => 'author') -%>

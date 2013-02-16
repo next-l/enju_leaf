@@ -163,6 +163,9 @@ class ItemsController < ApplicationController
       if @item.save
         @item.manifestation = @manifestation 
         Item.transaction do
+          if @item.shelf
+            @item.shelf.library.patron.items << @item
+          end
           if @item.manifestation.next_reserve
             #ReservationNotifier.deliver_reserved(@item.manifestation.next_reservation.user)
             flash[:message] = t('item.this_item_is_reserved')
