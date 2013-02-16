@@ -291,6 +291,8 @@ defaults: &defaults
     display_checkouts_count: true
     display_reserves_count: true
     display_last_checkout_datetime: true
+    # 正副本管理をするか
+    manage_item_rank: true
 
   # 利用者一覧の色別表示
   user:
