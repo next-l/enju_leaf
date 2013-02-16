@@ -28,7 +28,7 @@ frequency_00004:
   freq_string: "15"
 frequency_00005: 
   name: bimonthly
-  display_name: 隔月刊
+  display_name: 隔月
   id: 5
   position: 5
   freq_string: "60"
