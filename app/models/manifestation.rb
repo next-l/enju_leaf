@@ -326,6 +326,11 @@ class Manifestation < ActiveRecord::Base
     string :exinfo_3
     string :exinfo_4
     string :exinfo_5
+    string :exinfo_6_
+    string :exinfo_7
+    string :exinfo_8
+    string :exinfo_9
+    string :exinfo_10
     text :extext_1
     text :extext_2
     text :extext_3
