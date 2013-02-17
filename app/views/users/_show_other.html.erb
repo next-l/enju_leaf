@@ -80,9 +80,11 @@
     <% if user_signed_in? %>
       <% if can? :update, user %>
         <li><%= link_to t('page.edit'), edit_user_path(user) -%></li>
-        <%- if current_user.has_role?('Librarian') -%>
-          <li><%= link_to t('user.update_user_number'), edit_user_number_user_path(user) -%></li>
-        <%- end -%>
+        <% if SystemConfiguration.get("patron.check_duplicate_user") %>
+          <%- if current_user.has_role?('Librarian') -%>
+            <li><%= link_to t('user.update_user_number'), edit_user_number_user_path(user) -%></li>
+          <%- end -%>
+        <% end %>
       <% end %>
       <%- if can? :create, Message %>
         <li><%= link_to t('message.send'), new_message_path(:recipient => user.username) -%></li>
