@@ -84,7 +84,9 @@ module EnjuTrunk
         begin
           ActiveRecord::Base.transaction do
             if fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.del_flg')]])
+logger.info "aaaaaaaaaa"
               delete_data(datas) 
+              import_textresult.error_msg = "削除完了"
             else
               item = nil
               item_identifier = datas[@field[I18n.t('resource_import_textfile.excel.book.item_identifier')]]
@@ -739,14 +741,13 @@ module EnjuTrunk
     end
 
     def delete_data(datas) 
-p "!!!!!"
       ActiveRecord::Base.transaction do
         begin
           item = Item.find(
             :first,
             :readonly => false,
             :include => [
-              :manifestation => [:series_statement, :creators, :publishers, :contributors, :subjects],
+              :manifestation => [ :creators, :publishers, :contributors, :subjects],
               :item_has_use_restriction => [:use_restriction],
               :shelf => [:library]
             ],
@@ -757,18 +758,34 @@ p "!!!!!"
 p "@@@@@@"
 p set_conditions(datas)
 p "@@@@@@"
-          creators_string     = datas[@field[I18n.t('resource_import_textfile.excel.book.creator')]]
-          creators            = creators_string.nil? ? [] : creators_string.to_s.split(';')
-          publishers_string   = datas[@field[I18n.t('resource_import_textfile.excel.book.publisher')]]
-          publishers          = publishers_string.nil? ? [] : publishers_string.to_s.split(';')
+          creators_string = datas[@field[I18n.t('resource_import_textfile.excel.book.creator')]]
+          unless creators_string.nil? or creators_string.blank? 
+            creators  = creators_string.to_s.split(';')
+            unless item.manifestation.creators.map{ |c| c.full_name }.sort == creators.sort
+              raise I18n.t('resource_import_textfile.error.failed_delete_not_find')
+            end
+          end
+          publishers_string = datas[@field[I18n.t('resource_import_textfile.excel.book.publisher')]]
+          unless publishers_string.nil? or publishers_string.blank?
+            publishers = publishers_string.to_s.split(';')
+            unless item.manifestation.publishers.map{ |p| p.full_name }.sort == publishers.sort
+              raise I18n.t('resource_import_textfile.error.failed_delete_not_find')
+            end 
+          end 
           contributors_string = datas[@field[I18n.t('resource_import_textfile.excel.book.contributors')]]
-          contributors        = contributors_string.nil? ? [] : contributors_string.to_s.split(';')
-          subjects_string     = datas[@field[I18n.t('resource_import_textfile.excel.book.subjects')]]
-          subjects            = subjects_string.nil? ? [] : subjects_string.to_s.split(';')
-          raise I18n.t('resource_import_textfile.error.failed_delete_not_find') unless item.manifestation.creators.map{ |c| c.full_name }.sort == creators.sort
-          raise I18n.t('resource_import_textfile.error.failed_delete_not_find') unless item.manifestation.publishers.map{ |p| p.full_name }.sort == publishers.sort
-          raise I18n.t('resource_import_textfile.error.failed_delete_not_find') unless item.manifestation.contributors.map{ |c| c.full_name }.sort == contributors.sort
-          raise I18n.t('resource_import_textfile.error.failed_delete_not_find') unless item.manifestation.subjects.map{ |s| s.full_name }.sort == subjects.sort
+          unless contributors_string.nil? or contributors_string.blank?
+            contributors  = contributors_string.to_s.split(';')
+            unless item.manifestation.contributors.map{ |c| c.full_name }.sort == contributors.sort
+              raise I18n.t('resource_import_textfile.error.failed_delete_not_find')
+            end
+          end
+          subjects_string = datas[@field[I18n.t('resource_import_textfile.excel.book.subjects')]]
+          unless subjects_string.nil? or subjects_string.blank?
+            subjects = subjects_string.to_s.split(';')
+            unless item.manifestation.subjects.map{ |s| s.full_name }.sort == subjects.sort
+              raise I18n.t('resource_import_textfile.error.failed_delete_not_find')
+            end
+          end
 
           if item.reserve
             item.reserve.revert_request rescue nil
