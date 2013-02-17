@@ -570,16 +570,16 @@ class Ability
         can [:update], Message do |message|
           message.sender == user
         end
-        can [:show, :destroy], Message do |message|
+        can [:show, :destroy, :destroy_selected], Message do |message|
           message.receiver == user
         end
         can [:read, :update, :destroy], MessageRequest
         can :read, MessageTemplate
       when 'User'
-        can [:read, :destroy], Message do |message|
+        can [:read, :destroy, :destroy_selected], Message do |message|
           message.receiver == user
         end
-        can :index, Message
+        can [:index, :create], Message
         can :show, Message do |message|
           message.receiver == user
         end

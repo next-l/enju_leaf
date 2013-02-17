@@ -1636,6 +1636,7 @@ ja:
       invalid_input_date: "入力年月日が正しくありません。"
       over_end_date: "検索終了日は検索開始日以降を指定してください。"
 
+
   tooltip:
     icons_info: アイコンの説明
     message: メッセージ
@@ -2339,6 +2340,7 @@ ja:
     day_4: 木曜日
     day_5: 金曜日
     day_6: 土曜日
+    all: 全て
   ndl_report:
     invalid_term: "対象年度の指定が不正です。"
     term_not_found: "対象年度の情報が収集されていません。"

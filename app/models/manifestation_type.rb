@@ -7,7 +7,7 @@ class ManifestationType < ActiveRecord::Base
   scope :book, where(["name = ? OR name =? OR name like ?", 'japanese_book', 'foreign_book', '%monograph'])
   scope :series, where(["name like ? OR name like ?", '%magazine', '%serial_book'])
   scope :article, where(["name like ?", '%article'])
-  scope :exinfo, where(["name like ? OR name like ?", 'unkown', 'exinfo%'])
+  scope :exinfo, where(["name like ? OR name like ?", 'unknown', 'exinfo%'])
 
   has_paper_trail
 
