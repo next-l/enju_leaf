@@ -22,7 +22,7 @@ frequency_00003:
   nii_code: "m"
 frequency_00004: 
   name: biweekly
-  display_name: 半月刊
+  display_name: 半月
   id: 4
   position: 4
   freq_string: "15"
