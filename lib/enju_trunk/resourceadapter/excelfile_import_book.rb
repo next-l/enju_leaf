@@ -84,9 +84,8 @@ module EnjuTrunk
         begin
           ActiveRecord::Base.transaction do
             if fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.del_flg')]])
-logger.info "aaaaaaaaaa"
               delete_data(datas) 
-              import_textresult.error_msg = "削除完了"
+              import_textresult.error_msg = I18n.t('resource_import_textfile.message.deleted')
             else
               item = nil
               item_identifier = datas[@field[I18n.t('resource_import_textfile.excel.book.item_identifier')]]
@@ -795,7 +794,9 @@ p "@@@@@@"
           series_statement = manifestation.series_statement
           item.delete
           manifestation.delete if manifestation.items.blank? or manifestation.items.size == 0 
-          series_statement.delete if series_statement.manifestations.blank? or series_statement.manifestations.size == 0
+          if series_statement
+            series_statement.delete if series_statement.manifestations.blank? or series_statement.manifestations.size == 0
+          end
         rescue Exception => e
           p "error at fetch_new: #{e.message}"
           raise e
