@@ -2194,6 +2194,7 @@ ja:
         subject: 件名 
     message:
       read_sheet: "シート『%{sheet}』の読み取りを開始します。"
+      deleted: "削除完了"
     error:
       blank_sheet: "シート『%{sheet}』の読み取りに失敗しました。データが記述されていません。"
       overlap: "シート『%{sheet}』の読み取りに失敗しました。ヘッダーのフィールド名に重複したものがあります。"
