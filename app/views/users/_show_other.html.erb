@@ -86,8 +86,10 @@
           <%- end -%>
         <% end %>
       <% end %>
-      <%- if can? :create, Message %>
-        <li><%= link_to t('message.send'), new_message_path(:recipient => user.username) -%></li>
+      <%- unless current_user == user %>
+        <%- if can? :create, Message %>
+          <li><%= link_to t('message.send'), new_message_path(:recipient => user.username) -%></li>
+        <%- end -%>
       <%- end -%>
       <%- if can? :create, user -%>
         <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
