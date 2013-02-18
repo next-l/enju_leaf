@@ -47,6 +47,8 @@
 
 <div id="submenu" class="ui-corner-all">
   <li><%= link_to t('page.new', :model => t('activerecord.models.reminder_list')), new_reminder_list_path -%></li>
-  <li><%= link_to t('page.output', :model => t('page.reminder_postal_card')), {:action => :reminder_postal_card}, {:method => :post} -%></li>
-  <li><%= link_to t('page.output', :model => t('page.reminder_letter')), {:action => :reminder_letter}, {:method => :post} -%></li>
+  <%- if false -%>
+    <li><%= link_to t('page.output', :model => t('page.reminder_postal_card')), {:action => :reminder_postal_card}, {:method => :post} -%></li>
+    <li><%= link_to t('page.output', :model => t('page.reminder_letter')), {:action => :reminder_letter}, {:method => :post} -%></li>
+  <%- end -%>
 </div>
