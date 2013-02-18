@@ -1785,3 +1785,6 @@ en:
     top_access: Top access
     manifestations_index: Manifestations index
     materials_show: Materials show
+  breadcrumb:
+    lib_top: "Top Page"
+    search_manifestations: "Catalog search"
