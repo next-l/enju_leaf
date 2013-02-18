@@ -29,6 +29,7 @@
   <p>
     <%= t('page.search_term') -%>:
     <%= search_field_tag 'query', nil, :class => 'search_form_short', :placeholder => t('page.search_term') -%>
+    <%= hidden_field :all_manifestations, true %>
     <%= submit_tag t('page.search') -%><br />
   </p>
   <div id="manifestations">

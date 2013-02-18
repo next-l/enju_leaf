@@ -32,7 +32,9 @@
     <td style="white-space: nowrap;"><%= series_statement.issn %></td>
     <td style="white-space: nowrap;"><%= series_statement.series_statement_identifier %></td>
     <td style="white-space: nowrap;">
-      <%= link_to t('page.new', :model => t('activerecord.models.manifestation')), new_series_statement_manifestation_path(series_statement) -%>
+      <%- if can? :create, series_statement %>
+        <%= link_to t('page.new', :model => t('activerecord.models.manifestation')), new_series_statement_manifestation_path(series_statement) -%>
+      <%- end -%>
     </td>
     <td style="white-space: nowrap;">
       <%= link_to t('page.edit'), edit_series_statement_path(series_statement) if can? :update, series_statement -%>
@@ -49,6 +51,6 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.new', :model => t('activerecord.models.series_statement')), new_series_statement_path -%></li>
+    <%- if can? :create, SeriesStatement %><li><%= link_to t('page.new', :model => t('activerecord.models.series_statement')), new_series_statement_path -%></li><%- end -%>
   </ul>
 </div>

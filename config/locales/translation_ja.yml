@@ -859,6 +859,11 @@ ja:
         exinfo_3: 拡張情報３
         exinfo_4: 拡張情報４
         exinfo_5: 拡張情報５
+        exinfo_6: 拡張情報６
+        exinfo_7: 拡張情報７
+        exinfo_8: 拡張情報８
+        exinfo_9: 拡張情報９
+        exinfo_10: 拡張情報１０
         edition_display_value: 版表示
         reserves_number: 予約数
         detail: 資料確認票

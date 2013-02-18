@@ -209,6 +209,67 @@
             <%= raw simple_format(h(manifestation.note)) -%>
           </td>
         </tr>
+        <%- if manifestation.exinfo_1 -%>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.exinfo_1') -%>:</td>
+            <td><%= manifestation.exinfo_1 -%></td>
+          </tr>
+        <%- end -%>
+        <%- if manifestation.exinfo_2 -%>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.exinfo_2') -%>:</td>
+            <td><%= manifestation.exinfo_2 -%></td>
+          </tr>
+        <%- end -%>
+        <%- if manifestation.exinfo_3 -%>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.exinfo_3') -%>:</td>
+            <td><%= manifestation.exinfo_3 -%></td>
+          </tr>
+        <%- end -%>
+        <%- if manifestation.exinfo_4 -%>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.exinfo_4') -%>:</td>
+            <td><%= manifestation.exinfo_4 -%></td>
+          </tr>
+        <%- end -%>
+        <%- if manifestation.exinfo_5 -%>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.exinfo_5') -%>:</td>
+            <td><%= manifestation.exinfo_5 -%></td>
+          </tr>
+        <%- end -%>
+        <%- if manifestation.exinfo_6 -%>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.exinfo_6') -%>:</td>
+            <td><%= manifestation.exinfo_6 -%></td>
+          </tr>
+        <%- end -%>
+        <%- if manifestation.exinfo_7 -%>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.exinfo_7') -%>:</td>
+            <td><%= manifestation.exinfo_7 -%></td>
+          </tr>
+        <%- end -%>
+        <%- if manifestation.exinfo_8 -%>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.exinfo_8') -%>:</td>
+            <td><%= manifestation.exinfo_8 -%></td>
+          </tr>
+        <%- end -%>
+        <%- if manifestation.exinfo_9 -%>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.exinfo_9') -%>:</td>
+            <td><%= manifestation.exinfo_9 -%></td>
+          </tr>
+        <%- end -%>
+        <%- if manifestation.exinfo_10 -%>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.exinfo_10') -%>:</td>
+            <td><%= manifestation.exinfo_10 -%></td>
+          </tr>
+        <%- end -%>
+       
         <%- if SystemConfiguration.get("manifestation.display_checkouts_count") && Setting.operation -%>
         <tr>
           <td><%= t('activerecord.attributes.manifestation.checkouts_count') -%>:</td>

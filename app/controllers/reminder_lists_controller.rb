@@ -72,6 +72,7 @@ class ReminderListsController < ApplicationController
       flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.reminder_list'))
       redirect_to(@reminder_list) 
     else
+      @reminder_list.checkout_id = nil
       render :action => "new" 
     end
   end

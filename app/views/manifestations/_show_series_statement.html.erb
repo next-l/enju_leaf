@@ -15,11 +15,11 @@
     <td><%= t('activerecord.attributes.series_statement.series_statement_identifier') -%></td>
     <td><%= @series_statement.series_statement_identifier %></td>
   </tr>
-  <%- if current_user.has_role?('Librarian') -%>  
-  <tr class="line<%= cycle("0", "1") %>">
-    <td><%= t('activerecord.attributes.series_statement.note') -%></td>
-    <td><%= raw simple_format(h(@series_statement.note)) %></td>
-  </tr>
+  <%- if current_user && current_user.has_role?('Librarian') -%>  
+    <tr class="line<%= cycle("0", "1") %>">
+      <td><%= t('activerecord.attributes.series_statement.note') -%></td>
+      <td><%= raw simple_format(h(@series_statement.note)) %></td>
+    </tr>
   <%- end -%>
 
 </table>

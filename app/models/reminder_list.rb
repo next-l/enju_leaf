@@ -4,7 +4,9 @@ class ReminderList < ActiveRecord::Base
   default_scope :order => 'reminder_lists.id DESC'
 
   validates_presence_of :checkout_id, :status
+  validates_uniqueness_of :checkout_id
   validate :check_checkout_id
+  validate :check_due_date
   attr_accessor :item_identifier
 
   belongs_to :checkout
@@ -25,6 +27,10 @@ class ReminderList < ActiveRecord::Base
       checkout = Checkout.find(self.checkout_id)
       errors[:base] << I18n.t('checkout.no_checkout') unless checkout
     end
+  end
+   
+  def check_due_date
+    errors[:base] << I18n.t('activerecord.errors.messages.reminder_list.not_overdue') unless checkout.overdue?
   end
 
   def status_name
