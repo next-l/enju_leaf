@@ -20,8 +20,10 @@ class BookstoresController < InheritedResources::Base
     return nil unless request.xhr?
     exist = true
     unless params[:input].blank?
+      query = params[:input]
+      query = "*#{query}*" if query.size == 1
       bookstores = Bookstore.search do
-        fulltext "name_text:*#{params[:input]}*"
+        fulltext query
       end.results rescue nil
       exist = false if bookstores.size == 0
     end
