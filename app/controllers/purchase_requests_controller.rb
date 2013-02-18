@@ -107,12 +107,10 @@ class PurchaseRequestsController < ApplicationController
   def edit
     check_can_access_purchase_request
 
-    if @user
-      @purchase_request = @user.purchase_requests.find(params[:id])
-      if current_user.has_role?('Librarian')
-        if @purchase_request.state == "pending" || @purchase_request.state == "rejected"
-          @states = [[t('purchase_request.accept'), "accept"], [t('purchase_request.reject'), "reject"]]
-        end
+    @purchase_request = PurchaseRequest.find(params[:id])
+    if current_user.has_role?('Librarian')
+      if @purchase_request.state == "pending" || @purchase_request.state == "rejected"
+        @states = [[t('purchase_request.accept'), "accept"], [t('purchase_request.reject'), "reject"]]
       end
     end
   end
