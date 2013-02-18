@@ -13,7 +13,7 @@ class Bookstore < ActiveRecord::Base
   paginates_per 10
 
   searchable do
-    text :name, :address, :note
+    text :name, :address, :note, :name_transcription
     string :zip_code
     string :telephone_number
     string :fax_number
