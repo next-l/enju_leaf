@@ -7,8 +7,9 @@ RECV_BUCKET = "#{SCRIPT_ROOT}/recv-bucket.pl"
 GET_STATUS_FILE = "#{SCRIPT_ROOT}/get-statusfile.pl"
 
 DUMPFILE_PREFIX = "/var/enjusync"
+DUMPFILE_NAME = "enjudump.marshal"
 PERLBIN = "/usr/bin/perl"
-STATUS_FILE = "#{DUMPFILE_PREFIX}/work"
+STATUS_FILE = "#{DUMPFILE_PREFIX}/work/status.marshal"
 
 $enju_log_head = ""
 $enju_log_tag = ""
@@ -46,7 +47,7 @@ namespace :enju_trunk do
       end
 
       dumpfiledir = "#{DUMPFILE_PREFIX}/#{last_event_id}"
-      dumpfile = "#{dumpfiledir}/enjudump.yml"
+      dumpfile = "#{dumpfiledir}/#{DUMPFILE_NAME}"
 
       taglogger "last_id=#{last_event_id} "
       taglogger "dumpfiledir=#{dumpfiledir} "
@@ -81,13 +82,18 @@ namespace :enju_trunk do
 
       last_id = Version.last.id
       dumpfiledir = "#{DUMPFILE_PREFIX}/#{last_id}"
-      dumpfile = "#{dumpfiledir}/enjudump.yml"
+      dumpfile = "#{dumpfiledir}/#{DUMPFILE_NAME}"
 
       # a.業務側からWebOPAC側に接続し、5)のstatusfileを取得
       Dir::chdir(SCRIPT_ROOT)  
       taglogger "call task [get_status_file] start"
       sh "#{PERLBIN} #{GET_STATUS_FILE}"
       taglogger "call task [get_status_file] end"
+
+      #
+      taglogger "mkdir_p begin"
+      FileUtils.mkdir_p(dumpfiledir)
+      taglogger "mkdir_p end"
 
       # b.同期データを出力
       ENV['STATUS_FILE'] = STATUS_FILE
