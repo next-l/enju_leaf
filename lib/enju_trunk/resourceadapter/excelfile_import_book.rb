@@ -563,7 +563,7 @@ module EnjuTrunk
     end
 
     def fix_use_restriction(cell, options = {:mode => 'input'})
-      if options[:mode] == 'delete' or @mode_item == 'edit'
+      if options[:mode] == 'delete'
         return nil if cell.nil? or cell.blank?
       end
       if cell.nil? or cell.blank? or cell.upcase == 'FALSE' or cell == ''
