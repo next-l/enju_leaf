@@ -170,6 +170,7 @@ ja:
       manifestation_exstat: 拡張統計
       statistic_report: 利用統計の帳票
       ndl_report: 支部図書館業務年報の出力
+      ndl_statistic: 支部図書館業務年報の出力
       print_label: 利用者ラベル
       export_item_list: 図書リスト
       export_item_register: 図書原簿
