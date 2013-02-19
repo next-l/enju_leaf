@@ -448,7 +448,12 @@ module EnjuTrunk
         # rank
         rank = fix_rank(datas[@field[I18n.t('resource_import_textfile.excel.book.rank')]], { :manifestation => manifestation, :mode => @mode_item})
         if rank == 0 and item.item_identifier.nil? and item_identifier.nil?#@mode_item == 'create' and rank == 0 and item_identifier.nil?
-          item_identifier = Numbering.do_numbering('book')
+          item_identifier = nil
+          while item_identifier.nil? 
+            create_item_identifier = Numbering.do_numbering('book')
+            exit_item_identifier = Item.where(:item_identifier => create_item_identifier).first
+            item_identifier = create_item_identifier unless exit_item_identifier
+          end
         end
         unless rank.nil?
           item.rank = rank

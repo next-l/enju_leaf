@@ -54,6 +54,7 @@ class LibrariesController < ApplicationController
       search.query.paginate(page.to_i, Event.default_per_page)
       @events = search.execute!.results
     end
+    @shelves = @library.shelves.page(params[:page])
 
     respond_to do |format|
       format.html # show.html.erb

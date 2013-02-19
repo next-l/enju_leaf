@@ -237,7 +237,13 @@ module EnjuTrunk
       item.shelf_id           = shelf.id        unless shelf.nil?
       item.call_number        = call_number     unless call_number.nil?
       item.url                = url             unless url.nil?
-      item.item_identifier    = Numbering.do_numbering('article') if item.item_identifier.nil?
+      if item.item_identifier.nil?
+        while item.item_identifier.nil?
+          create_item_identifier = Numbering.do_numbering('article')
+          exit_item_identifier = Item.where(:item_identifier => create_item_identifier).first
+          item.item_identifier = create_item_identifier unless exit_item_identifier
+        end
+      end
       item.save!
       item.patrons << import_textfile.user.library.patron if @mode_item == 'create'
       return item

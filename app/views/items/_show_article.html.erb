@@ -145,7 +145,7 @@
       <% end %>
     <%- end -%>
     <%- if @item.manifestation.bookbinder && -%>
-      <li><%= link_to(t('manifestation.undo_binding'), {:controller => 'bookbindings', :action => 'bind_undo', :item_id => @item.id}, :confirm => t('page.are_you_sure')) -%></li>
+      <li><%= link_to(t('manifestation.undo_binding'), {:controller => 'bookbindings', :action => 'bind_undo', :item_id => @item.id}, :confirm => t('page.undo_binding')) -%></li>
     <%- end -%>
   </ul>
 </div>
