@@ -13,7 +13,11 @@
     <%= hidden_field_tag 'removed', true if @removed %>
     <%= submit_tag t('page.search') -%>
     <% if !@query.empty? %><input type="button" value="<%= t('page.search_clear') -%>" onclick="$('#search_form_top').val('')"><% end %>
-    <br />
+    <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
+      <% if user_signed_in? and current_user.has_role?('Librarian') %>
+        <%= check_box_tag 'all_manifestations', true %><%= t('advanced_search.all_manifestations') %><br />
+      <% end %>
+    <% end %>
     <%= link_to t('page.advanced_search'), page_advanced_search_path(:user_id => params[:user_id]) -%>
     <br />
     <%= hidden_field_tag 'carrier_type', params[:carrier_type] if params[:carrier_type] -%>
