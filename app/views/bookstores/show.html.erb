@@ -55,6 +55,8 @@
   <ul>
     <li><%= link_to t('page.edit'), edit_bookstore_path(@bookstore) -%></li>
     <li><%= link_to t('page.back'), bookstores_path -%></li>
-    <li><%= link_to t('activerecord.models.order_list'), bookstore_order_lists_path(@bookstore) -%></li>
+    <% if SystemConfiguration.get("use_order_lists") %>
+      <li><%= link_to t('activerecord.models.order_list'), bookstore_order_lists_path(@bookstore) -%></li>
+    <% end %>
   </ul>
 </div>
