@@ -1,0 +1,25 @@
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.shelf') -%></th>
+    <th><%= t('library.number_of_item') -%></th>
+    <th><%= t('activerecord.attributes.shelf.note') -%></th>
+  </tr>
+  <%- @shelves.each do |shelf| -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td>
+        <%= link_to shelf.display_name.localize, library_shelf_path(@library, shelf) -%>
+        <%- shelf.picture_files.each do |picture_file| -%>
+          <%= link_to image_tag('icons/picture.png', :size => '16x16', :alt => t('page.picture'), :title => t('tooltip.picture')), picture_file_path(picture_file, :format => FileWrapper.get_mime(picture_file.picture.path).split('/')[1]), :rel => "shelf_#{h(shelf.id)}" if File.exist?(picture_file.picture.path) -%>
+        <%- end -%>
+        <script type="text/javascript">
+          $(document).ready(function(){
+             $("a[rel='shelf_<%= shelf.id -%>']").colorbox({transition:"none"});
+          })
+        </script>
+      </td>
+      <td><%= shelf.items_count -%></td>
+      <td><%= shelf.note -%></td>
+    </tr>
+  <%- end -%>
+</table>
+<%= paginate(@shelves, :remote => true) -%>

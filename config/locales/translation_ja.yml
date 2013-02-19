@@ -170,6 +170,7 @@ ja:
       manifestation_exstat: 拡張統計
       statistic_report: 利用統計の帳票
       ndl_report: 支部図書館業務年報の出力
+      ndl_statistic: 支部図書館業務年報の出力
       print_label: 利用者ラベル
       export_item_list: 図書リスト
       export_item_register: 図書原簿
@@ -672,7 +673,7 @@ ja:
         note: 注記
         lock_version: ロックバージョン
         deleted_at: 削除時刻
-        parent_of_series: シリーズの親
+        parent_of_series: 継続前
       purchase_request:
         title: タイトル
         author: 著者
@@ -1257,8 +1258,8 @@ ja:
         title_transcription: シリーズ名（ヨミ）
         note: 注記
       series_statement_relationship:
-        parent_id: 親
-        child_id: 子
+        parent_id: 継続前
+        child_id: 継続後
       import_request:
         isbn: ISBN
         state: 状態
@@ -1470,6 +1471,7 @@ ja:
     roles_confirm: "実行しますか？"
     send_email_confirm: "実行しますか？"
     inter_library_loans_confirm: "実行しますか？"
+    undo_binding: "解除しますか？"
     file: "ファイル"
     cancel: "取消"
     feed: "フィード"
@@ -1625,7 +1627,7 @@ ja:
     reminder_letter: "催告書"
     extensions: "Enju_trunk 拡張機能"
     budgets: "予算"
-    add_child: "子を追加"
+    add_child: "継続後シリーズ情報の登録"
     extensions_1: "その他の機能"
     library_check: "蔵書点検"
     access_logs: アクセス件数

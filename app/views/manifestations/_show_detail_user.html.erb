@@ -11,9 +11,11 @@
           <tr>
             <td style="width: 200px"><%= t('manifestation.serial') -%>:</td>
             <td style="width: 490px"><%= link_to manifestation.series_statement.original_title, manifestation.series_statement -%>
-            <%- if manifestation == manifestation.series_statement.last_issue -%>
-              <%= t('manifestation.new_serial') -%>
-            <%- end -%>
+            <% unless manifestation.article? %>
+              <%- if manifestation == manifestation.series_statement.last_issue -%>
+                <%= t('manifestation.new_serial') -%>
+              <%- end -%>
+            <% end %>
             <%- if manifestation.issn.present? -%>
               (<%= t('activerecord.attributes.manifestation.issn') -%>: <%= manifestation.issn -%>)
             <%- end -%>

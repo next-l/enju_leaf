@@ -1,0 +1,15 @@
+#!/bin/sh
+: ${RAILS_ENV:=production}
+
+SCRIPT_DIR=${0%/*}
+SCRIPT_DIR=${SCRIPT_DIR-.}
+SCRIPT_NAME=${0##*/}
+
+if [ ! -e ${SCRIPT_DIR}/${SCRIPT_NAME}.rb ]
+then
+  echo "$0: unknown script: #{SCRIPT_NAME} (setup error)" >&2
+  exit 101
+fi
+
+export RAILS_ENV
+exec ${SCRIPT_DIR}/rails runner ${SCRIPT_DIR}/${SCRIPT_NAME}.rb -- "$@"
