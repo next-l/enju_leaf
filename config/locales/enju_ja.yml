@@ -34,6 +34,8 @@ ja:
           not_overdue: "この資料の貸出は延滞していません。"
         user:
           auto_generated_password: "仮パスワードが登録されています。\nパスワードを変更してください。"
+        bookbinding:
+          bookbinding_nil: "製本対象資料が選択されていません。"
       models:
         inter_library_loan:
           attributes:
