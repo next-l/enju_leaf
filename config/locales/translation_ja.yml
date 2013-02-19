@@ -1471,6 +1471,7 @@ ja:
     roles_confirm: "実行しますか？"
     send_email_confirm: "実行しますか？"
     inter_library_loans_confirm: "実行しますか？"
+    undo_binding: "解除しますか？"
     file: "ファイル"
     cancel: "取消"
     feed: "フィード"
