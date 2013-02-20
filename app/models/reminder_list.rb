@@ -108,7 +108,7 @@ class ReminderList < ActiveRecord::Base
             row.item(:state).value(reminder_list.status_name)
             row.item(:due_date).value(reminder_list.checkout.due_date)
             row.item(:number_of_day_overdue).value(reminder_list.checkout.day_of_overdue)
-            row.item(:library).value(reminder_list.checkout.item.shelf.library.display_name.localize)
+#            row.item(:library).value(reminder_list.checkout.item.shelf.library.display_name.localize)
           end
         end
       end
@@ -125,7 +125,7 @@ class ReminderList < ActiveRecord::Base
       [:state, 'activerecord.attributes.reminder_list.status'],
       [:due_date, 'activerecord.attributes.reminder_list.due_date'],
       [:number_of_day_overdue, 'activerecord.attributes.reminder_list.number_of_day_overdue'],
-      [:library, 'activerecord.attributes.reminder_list.library'],
+#      [:library, 'activerecord.attributes.reminder_list.library'],
     ]
 
     data = String.new
