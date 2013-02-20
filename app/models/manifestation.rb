@@ -316,10 +316,10 @@ class Manifestation < ActiveRecord::Base
       end
     end
     boolean :except_recent
-		if SystemConfiguration.get('manifestation.manage_item_rank')
-	    boolean :non_searchable do
-  	    non_searchable?
-			end
+    if SystemConfiguration.get('manifestation.manage_item_rank')
+      boolean :non_searchable do
+        non_searchable?
+      end
     end
     string :exinfo_1
     string :exinfo_2
@@ -446,6 +446,14 @@ class Manifestation < ActiveRecord::Base
 
   def article?
     self.try(:manifestation_type).try(:is_article?)
+  end
+
+  def japanese_article?
+    self.try(:manifestation_type).try(:is_japanese_article?)
+  end
+
+  def series?
+    self.try(:manifestation_type).try(:is_series?)
   end
 
   def non_searchable?
@@ -685,7 +693,7 @@ class Manifestation < ActiveRecord::Base
     return sum
   end
 
- def checkout_count(type)
+  def checkout_count(type)
     sum = 0
     case type
     when nil
@@ -730,7 +738,6 @@ class Manifestation < ActiveRecord::Base
   end
 
   def add_subject(terms)
-    subjects = []
     terms.to_s.split(';').each do |s|
       subject = Subject.where(:term => s.to_s.strip).first
       unless subject
@@ -825,20 +832,20 @@ class Manifestation < ActiveRecord::Base
 
   # NOTE: resource_import_textfile.excelとの整合性を維持すること
   BOOK_COLUMNS = %w(
-    original_title title_transcription title_alternative isbn lccn
-    marc_number ndc carrier_type frequency pub_date place_of_publication
-    language edition_display_value volume_number_string issue_number_string
-    start_page end_page height width depth price access_address
-    repository_content required_role except_recent acceptance_number
-    description supplement note creator contributor publisher subject
-    accept_type acquired_at bookstore library shelf checkout_type
+    isbn original_title title_transcription title_alternative carrier_type
+    frequency pub_date country_of_publication place_of_publication language
+    edition_display_value volume_number_string issue_number_string lccn
+    marc_number ndc start_page end_page height width depth price
+    acceptance_number access_address repository_content required_role
+    except_recent description supplement note creator contributor publisher
+    subject accept_type acquired_at bookstore library shelf checkout_type
     circulation_status retention_period call_number item_price url
     include_supplements use_restriction item_note rank item_identifier
     remove_reason non_searchable missing_issue del_flg
   )
   SERIES_COLUMNS = %w(
     issn original_title title_transcription periodical
-    series_statement_identifier
+    series_statement_identifier note
   )
   ARTICLE_COLUMNS = %w(
     creator original_title title volume_number_string number_of_page pub_date
@@ -848,6 +855,11 @@ class Manifestation < ActiveRecord::Base
     BOOK_COLUMNS.map {|c| "book.#{c}" } +
     SERIES_COLUMNS.map {|c| "series.#{c}" } +
     ARTICLE_COLUMNS.map {|c| "article.#{c}" }
+
+  INVALID_COLUMNS = 
+    [%w(book manifestation_type)] +
+    BOOK_COLUMNS.map {|c| ['book', c] } +
+    SERIES_COLUMNS.map {|c| ['series', c] }
 
   def self.get_manifestation_list_excelx(manifestation_ids, current_user, selected_column = [])
     user_file = UserFile.new(current_user)
@@ -859,9 +871,10 @@ class Manifestation < ActiveRecord::Base
     sty = wb.styles.add_style :font_name => Setting.manifestation_list_print_excelx.fontname
 
     column = { # 書誌のタイプごとの出力すべきカラムのリスト
-      'book' => [],
-      'series' => [],
-      'article' => [],
+      'book' => [], # 一般書誌(manifestation_type.is_{series,article}?がfalse)
+      'series' => [], # 雑誌(manifestation_type.is_series?がtrue)
+      'article' => [], # 文献(manifestation_type.is_article?がtrue)
+      'invalid' => INVALID_COLUMNS, # 区分が間違っている書誌
     }
     selected_column.each do |type_col|
       next unless ALL_COLUMNS.include?(type_col)
@@ -869,6 +882,13 @@ class Manifestation < ActiveRecord::Base
       column[$1] << [$1, $2]
       column['series'] << [$1, $2] if $1 == 'book' # NOTE: 雑誌の行は雑誌向けカラム+一般書誌向けカラム(参照: resource_import_textfile.excel)
     end
+
+    sheet_name = {
+      'book' => 'book_list',
+      'series' => 'series_list',
+      'article' => 'article_list',
+      'invalid' => '区別不正',
+    }
 
     # 必要となりそうなワークシートの初期化
     worksheet = {}
@@ -878,105 +898,91 @@ class Manifestation < ActiveRecord::Base
         column.delete(type)
         next
       end
-      worksheet[type] = wb.add_worksheet(:name => "#{type}_list") do |sheet|
+      worksheet[type] = wb.add_worksheet(:name => sheet_name[type]) do |sheet|
         row = column[type].map {|(t, c)| I18n.t("resource_import_textfile.excel.#{t}.#{c}") }
         style[type] = [sty]*row.size
         sheet.add_row row, :style => style[type]
       end
     end
 
-    # ワークシート用の値を生成する
-    # 引数: 対象とするmanifestation、対象とするitem、ワークシート上のカラム名([type,name]の形式)
-    get_value = proc do |m, i, (t, c)|
-      val = nil
-      case c
-      when 'pub_date'
-        if t == 'article'
-          val = m.pub_date.try(:match, /(\d+)/).try(:[], 1) || '' # 年のみ
-        end
-
-      when 'title'
-        if t == 'article'
-          val = m.excel_worksheet_value('article_title')
-        end
-
-      when 'creator'
-        if t == 'article'
-          if m.manifestation_type.try(:name) == 'japanese_article'
-            sep = ';'
-          else
-            sep = ' '
-          end
-          val = m.creators.map(&:name).join(sep)
-        end
-
-      when 'subject'
-        if t == 'article'
-          if m.manifestation_type.try(:name) == 'japanese_article'
-            sep = ';'
-          else
-            sep = '*'
-          end
-          val = m.subjects.map(&:term).join(sep)
-        end
-
-      when 'original_title', 'title_transcription', 'series_statement_identifier', 'periodical', 'issn'
-        if t == 'series'
-          val = m.series_statment.excel_worksheet_value(c)
-        end
-      end
-
-      val = m.excel_worksheet_value(c, i) unless val
-      val
-    end
-
     logger.debug "begin export manifestations"
-    where(:id => manifestation_ids).
-        includes(
-          :carrier_type, :language, :required_role,
-          :frequency, :creators, :contributors,
-          :publishers, :subjects, :manifestation_type,
-          :series_statement,
-          :items => [
-            :bookstore, :checkout_type,
-            :circulation_status, :required_role,
-            :accept_type, :retention_period,
-            :use_restriction,
-            :shelf => :library,
-          ]
-         ).
-        find_in_batches do |manifestations|
-      logger.debug "begin a batch set"
-      manifestations.each do |manifestation|
-        if manifestation.article? # 文献
-          type = 'article'
-          target = [manifestation]
-        elsif manifestation.series_statement.try(:periodical) # 雑誌
-          type = 'series'
-          target = manifestation.series_statement.manifestations # XXX: manifestationの重複(検索結果由来とseries_statment由来)の可能性
-        else # 一般書誌
-          type = 'book'
-          target = [manifestation]
-        end
-        next if column[type].blank? # 出力すべきカラムがない
+    transaction do
+      where(:id => manifestation_ids).
+          includes(
+            :carrier_type, :language, :required_role,
+            :frequency, :creators, :contributors,
+            :publishers, :subjects, :manifestation_type,
+            :series_statement,
+            :items => [
+              :bookstore, :checkout_type,
+              :circulation_status, :required_role,
+              :accept_type, :retention_period,
+              :use_restriction,
+              :shelf => :library,
+            ]
+          ).
+          find_in_batches do |manifestations|
+        logger.debug "begin a batch set"
+        manifestations.each do |manifestation|
+          if manifestation.article?
+            type = 'article'
+            target = [manifestation]
+          elsif manifestation.series?
+            type = 'series'
+            target = manifestation.series_statement.manifestations # XXX: 検索結果由来とseries_statement由来とでmanifestationレコードに重複が生じる可能性があることに注意(32b51f2c以前のコードをそのまま残した)
+          else # 一般書誌
+            type = 'book'
+            target = [manifestation]
+          end
 
-        target.each do |m|
-          if m.items.blank?
-            items = [nil]
-          else
-            items = m.items
+          # シリーズ情報を持っているにも関わらずmanifestation_typeが雑誌以外
+          # 資料区分が雑誌にもかかわらずシリーズ情報が存在しない
+          if type == 'series' && manifestation.series_statement.blank? ||
+              type != 'series' && manifestation.series_statement.present?
+            # データの登録不正を気付かないままとなってしまうので、
+            # 「エクスポート例(不正)」の形式で「区別不正」というシート名で出力
+            type = 'invalid'
           end
-          items.each do |i|
-            row = []
-            column[type].each do |(t, c)|
-              row << get_value.call(m, i, [t, c])
+
+          # 出力すべきカラムがない場合はスキップ
+          next if column[type].blank?
+
+          target.each do |m|
+            if m.items.blank?
+              items = [nil]
+            else
+              items = m.items
             end
-            worksheet[type].add_row row, :style => style[type]
-          end
-        end
-      end
-      logger.debug "end a batch set"
-    end
+
+            items.each do |i|
+              row = []
+              column[type].each do |(t, c)|
+                row << m.excel_worksheet_value(t, c, i)
+              end
+              worksheet[type].add_row row, :style => style[type]
+
+              # 文献をエクスポート時にはその文献情報を削除する
+              # copied from app/models/resource_import_textresult.rb:92-98
+              if i && type == 'article' && m.article?
+                if i.reserve
+                  i.reserve.revert_request rescue nil
+                end
+                i.destroy
+              end
+            end
+
+            # 文献をエクスポート時にはその文献情報を削除する
+            # copied from app/models/resource_import_textresult.rb:102-105
+            if type == 'article' && m.article?
+              if manifestation.items.count == 0
+                manifestation.destroy
+              end
+            end
+          end # target.each
+        end # manifestations.each
+        logger.debug "end a batch set"
+      end # find_in_batches
+    end # transaction
     logger.debug "end export manifestations"
 
     # 空のワークシートを削除
@@ -991,14 +997,31 @@ class Manifestation < ActiveRecord::Base
   end
 
   # XLSX形式でのエクスポートのための値を生成する
-  def excel_worksheet_value(ws_col, item = nil)
+  # ws_type: ワークシートの種別
+  # ws_col: ワークシートでのカラム名
+  # item: 対象とするItemレコード
+  def excel_worksheet_value(ws_type, ws_col, item = nil)
     helper = Object.new
     helper.extend(ManifestationsHelper)
     val = nil
 
     case ws_col
+    when 'manifestation_type'
+      val = manifestation_type.try(:display_name) || ''
+
+    when 'original_title', 'title_transcription', 'series_statement_identifier', 'periodical', 'issn'
+      if ws_type == 'series'
+        val = series_statement.excel_worksheet_value(ws_type, ws_col)
+      end
+
+    when 'title'
+      if ws_type == 'article'
+        val = article_title.to_s
+      end
+
     when 'volume_number_string'
-      if volume_number_string.present? && issue_number_string.present?
+      if ws_type == 'article' &&
+          volume_number_string.present? && issue_number_string.present?
         val = "#{volume_number_string}*#{issue_number_string}"
       elsif volume_number_string.present?
         val = volume_number_string.to_s
@@ -1018,46 +1041,56 @@ class Manifestation < ActiveRecord::Base
     when 'carrier_type', 'language', 'required_role'
       val = __send__(ws_col).try(:name) || ''
 
-    when 'frequency'
+    when 'frequency', 'country_of_publication'
       val = __send__(ws_col).try(:display_name) || ''
 
     when 'creator', 'contributor', 'publisher'
-      val = __send__("#{ws_col}s").map(&:name).join(';')
+      sep = ';'
+      if ws_col == 'creator' &&
+          ws_type == 'article' && !japanese_article?
+        sep = ' '
+      end
+      val = __send__("#{ws_col}s").map(&:name).join(sep)
 
     when 'subject'
-      val = __send__(:subjects).map(&:term).join(';')
+      sep = ';'
+      if ws_type == 'article' && !japanese_article?
+        sep = '*'
+      end
+      val = __send__(:subjects).map(&:term).join(sep)
 
     when 'missing_issue'
       val = helper.missing_status(missing_issue) || ''
 
     when 'del_flg'
       val = '' # モデルには格納されない情報
+    end
+    return val unless val.nil?
 
-    else
-      # その他の項目はitemまたはmanifestationの
-      # 同名属性からそのまま転記する
-      if item
-        if /\Aitem_/ =~ ws_col
-          begin
-            val = item.excel_worksheet_value($') || ''
-          rescue NoMethodError
-          end
-        end
+    # その他の項目はitemまたはmanifestationの
+    # 同名属性からそのまま転記する
 
-        if val.nil?
-          begin
-            val = item.excel_worksheet_value(ws_col) || ''
-          rescue NoMethodError
-          end
+    if item
+      if /\Aitem_/ =~ ws_col
+        begin
+          val = item.excel_worksheet_value(ws_type, $') || ''
+        rescue NoMethodError
         end
       end
 
       if val.nil?
         begin
-          val = __send__(ws_col) || ''
+          val = item.excel_worksheet_value(ws_type, ws_col) || ''
         rescue NoMethodError
-          val = ''
         end
+      end
+    end
+
+    if val.nil?
+      begin
+        val = __send__(ws_col) || ''
+      rescue NoMethodError
+        val = ''
       end
     end
  
