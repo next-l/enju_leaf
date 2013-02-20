@@ -355,8 +355,8 @@ module EnjuTrunk
           rescue
             raise I18n.t('resource_import_textfile.error.series.wrong_issn')
           end
+          series_statement = SeriesStatement.where(:issn => issn).first unless series_statement
         end
-        series_statement = SeriesStatement.where(:issn => issn).first unless series_statement
       end
       return series_statement
     end
@@ -369,7 +369,6 @@ module EnjuTrunk
       series_identifier   = datas[@field[I18n.t('resource_import_textfile.excel.series.series_statement_identifier')]]
       issn                = datas[@field[I18n.t('resource_import_textfile.excel.series.issn')]]
       note                = datas[@field[I18n.t('resource_import_textfile.excel.series.note')]]
-      
       unless series_statement
         conditions = []
         conditions << "original_title = \'#{original_title.to_s.gsub("'","''")}\'" unless original_title.nil? or original_title.blank?
@@ -410,7 +409,13 @@ module EnjuTrunk
       series_statement.series_statement_identifier = series_identifier.to_s   unless series_identifier.nil?
       series_statement.issn                        = issn.to_s                unless issn.nil?
       series_statement.note                        = note.to_s                unless note.nil?
+      if series_statement.periodical == true and series_statement.root_manifestation.nil?
+        root_manifestation = Manifestation.new(:original_title => series_statement.original_title)
+        root_manifestation.periodical_master = true
+        series_statement.root_manifestation = root_manifestation
+      end
       series_statement.save! 
+      series_statement.manifestations << root_manifestation if root_manifestation
       series_statement.index
       return series_statement
     end
