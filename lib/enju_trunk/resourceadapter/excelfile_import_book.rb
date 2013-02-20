@@ -504,10 +504,12 @@ module EnjuTrunk
           end
         end
         # if removed?
-        item.remove_reason       = remove_reason        unless remove_reason.nil?
+        item.remove_reason = remove_reason unless remove_reason.nil?
         unless remove_reason.nil?
           item.remove_reason = remove_reason
-          item.circulation_status = CirculationStatus.where(:name => "Removed").first
+          if datas[@field[I18n.t('resource_import_textfile.excel.book.circulation_status')]].nil?
+            item.circulation_status = CirculationStatus.where(:name => "Removed").first
+          end
           item.removed_at = Time.zone.now
         else
           if datas[@field[I18n.t('resource_import_textfile.excel.book.remove_reason')]] == ''
@@ -563,7 +565,7 @@ module EnjuTrunk
     end
 
     def fix_use_restriction(cell, options = {:mode => 'input'})
-      if options[:mode] == 'delete' or @mode_item == 'edit'
+      if options[:mode] == 'delete'
         return nil if cell.nil? or cell.blank?
       end
       if cell.nil? or cell.blank? or cell.upcase == 'FALSE' or cell == ''
