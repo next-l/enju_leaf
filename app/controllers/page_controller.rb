@@ -6,9 +6,9 @@ class PageController < ApplicationController
   add_breadcrumb "I18n.t('page.advanced_search')", 'page_import_path', :only => [:advanced_search]
   before_filter :redirect_user, :only => :index
   before_filter :clear_search_sessions, :only => [:index, :advanced_search]
-  before_filter :store_location, :only => [:advanced_search, :about, :add_on, :msie_acceralator, :statistics]
-  before_filter :authenticate_user!, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics, :routing_error]
-  before_filter :check_librarian, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics, :routing_error]
+  before_filter :store_location, :only => [:advanced_search, :about, :add_on, :msie_acceralator]
+  before_filter :authenticate_user!, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :routing_error]
+  before_filter :check_librarian, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :routing_error]
   helper_method :get_libraries
 
   def index
@@ -44,10 +44,6 @@ class PageController < ApplicationController
   def advanced_search
     get_libraries
     @title = t('page.advanced_search')
-  end
-
-  def statistics
-    @title = t('page.statistics')
   end
 
   def exstatistics

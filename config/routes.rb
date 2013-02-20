@@ -514,7 +514,6 @@ EnjuLeaf::Application.routes.draw do
   match '/page/import' => 'page#import'
   match '/page/msie_acceralator' => 'page#msie_acceralator'
   match '/page/opensearch' => 'page#opensearch'
-  match '/page/statistics' => 'page#statistics'
   match '/page/exstatistics' => 'page#exstatistics'
   match '/page/routing_error' => 'page#routing_error'
   match '/page/extensions' => 'page#extensions'
