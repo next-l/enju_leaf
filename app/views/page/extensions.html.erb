@@ -1,29 +1,21 @@
 <div class="column" id="col1">
-  <div class="portlet" id="library">
-    <h2 class="title"><%= t('page.extensions_1') -%></h2>
+  <div class="portlet" id="other">
+    <h2 class="title"><%= t('page.library_reports') -%></h2>
     <div class="config_box">
       <ul>
-        <li><%= link_to t('activerecord.models.inter_library_loan'), inter_library_loans_path -%></li>
-      </ul>
-      <br />
-      <ul>
-        <li><%= link_to t('exstatistics.checkout_report'), checkoutlists_path -%></li>
-        <li><%= link_to t('exstatistics.reserve_report'), reservelists_path -%></li>
-        <li><%= link_to t('exstatistics.statistic_report'), statistic_reports_path -%></li>
         <li><%= link_to t('exstatistics.library_report'), library_reports_path -%></li>
         <li><%= link_to t('exstatistics.ndl_report'), ndl_statistics_path -%></li>
-      </ul>
-      <br />
-      <ul>
-        <li><%= link_to t('page.best_reader'), manifestation_exstats_bestreader_path -%></li>
-        <li><%= link_to t('page.best_request'), manifestation_exstats_bestrequest_path -%></li>
-      </ul>
-      <br />
-      <ul>
         <li><%= link_to t('activerecord.models.export_item_list'), export_item_lists_path -%></li>
         <li><%= link_to t('activerecord.models.export_item_register'), export_item_registers_path -%></li>
+        <li><%= link_to t('exstatistics.checkout_report'), checkoutlists_path -%></li>
+        <li><%= link_to t('exstatistics.reserve_report'), reservelists_path -%></li>
       </ul>
-      <br />
+    </div>
+  </div>
+
+  <div class="portlet" id="other">
+    <h2 class="title"><%= t('page.extensions_1') -%></h2>
+    <div class="config_box">
       <ul>
         <li><%= link_to t('activerecord.models.sheet'), sheets_path -%></li>
         <li><%= link_to t('activerecord.models.barcode_list'), barcode_lists_path -%></li>

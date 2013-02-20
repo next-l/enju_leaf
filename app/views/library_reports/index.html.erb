@@ -36,6 +36,7 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.new', :model => t('library_report.daily')), new_library_report_path -%></li>
+    <li><%= link_to t('page.back'), page_extensions_path %>
   </ul>
   <%= render 'monthly_report' %>
   <%= render 'daily_report' %>

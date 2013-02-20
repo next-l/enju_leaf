@@ -1633,6 +1633,7 @@ ja:
     access_logs: アクセス件数
     search_results: "資料の検索結果"
     search_article_results: "文献資料の検索結果"
+    library_reports: "報告書・帳票"
 
     exstatistics:
       ranknumber: 順位
