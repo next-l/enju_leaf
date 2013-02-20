@@ -101,6 +101,7 @@
     </div>
 
     <%- @manifestations_all.each do |m| -%>
+      <%- next if @binder && m == @manifestations_article %>
       <div class="search_results_header"><strong>
         <%- if m == @manifestations_article -%>
 	  <%= t('page.search_article_results') %>
