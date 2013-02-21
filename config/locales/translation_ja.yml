@@ -2131,6 +2131,7 @@ ja:
         series_statement_identifier: シリーズ識別子
         note: 雑誌注記
       book:
+        manifestation_type: 資料区分
         original_title: タイトル
         title_transcription: タイトル（ヨミ）
         title_alternative: 代替タイトル

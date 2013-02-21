@@ -605,7 +605,7 @@ class ManifestationsController < ApplicationController
           @manifestation.creators = Patron.add_patrons(@creator) unless @creator.blank?
           @manifestation.contributors = Patron.add_patrons(@contributor) unless @contributor.blank?
           @manifestation.publishers = Patron.add_patrons(@publisher) unless @publisher.blank?
-          @manifestation.add_subject(@subject) unless @subject.blank?
+          @manifestation.subjects = Subject.import_subjects(@subject.gsub('；', ';').split(';')) unless @subject.blank?
           @manifestation.save
         end
 
@@ -629,7 +629,7 @@ class ManifestationsController < ApplicationController
     @manifestation.creators = Patron.add_patrons(@creator) unless @creator.blank?
     @manifestation.contributors = Patron.add_patrons(@contributor) unless @contributor.blank?
     @manifestation.publishers = Patron.add_patrons(@publisher) unless @publisher.blank?
-    @manifestation.add_subject(@subject) unless @subject.blank?
+    @manifestation.subjects = Subject.import_subjects(@subject.gsub('；', ';').split(';')) unless @subject.blank?
     respond_to do |format|
       if @manifestation.update_attributes(params[:manifestation])
         if @manifestation.series_statement and @manifestation.series_statement.periodical

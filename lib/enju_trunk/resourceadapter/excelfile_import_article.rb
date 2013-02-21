@@ -280,13 +280,26 @@ module EnjuTrunk
 
     def set_article_creatos(cell)
       return nil if cell.nil?
-      creators = @manifestation_type.name == 'japanese_article' ? cell.split(';') : cell.split(' ')
+      creators = []
+      if @manifestation_type.name == 'japanese_article'
+        cell = cell.gsub('；', ';')
+        creators = cell.split(';')
+      else
+        creators = cell.split(' ')
+      end
       return creators
     end
 
     def set_article_subjects(cell)
       return nil if cell.nil?
-      subjects = @manifestation_type.name == 'japanese_article' ? cell.split(';') : cell.split('*')
+      subjects = []
+      if @manifestation_type.name == 'japanese_article'
+        cell = cell.gsub('；', ';')
+        creators = cell.split(';')
+      else
+        #cell = cell.gsub('＊', '*')
+        subjects = cell.split('*')
+      end
       return subjects
     end
   end

@@ -308,17 +308,22 @@ class Item < ActiveRecord::Base
   end
 
   # XLSX形式でのエクスポートのための値を生成する
-  def excel_worksheet_value(ws_col)
+  # ws_type: ワークシートの種別
+  # ws_col: ワークシートでのカラム名
+  def excel_worksheet_value(ws_type, ws_col)
     helper = Object.new
     helper.extend(ItemsHelper)
     helper.instance_eval { def t(*a) I18n.t(*a) end } # NOTE: ItemsHelper#i18n_rankの中でtを呼び出しているが、ヘルパーを直接利用しようとするとRedCloth由来のtが見えてしまうため、その回避策
     val = nil
 
     case ws_col
-    when 'bookstore', 'shelf', 'checkout_type', 'circulation_status', 'required_role', 'use_restriction'
+    when 'library'
+      val = shelf.library.display_name || ''
+
+    when 'bookstore', 'checkout_type', 'circulation_status', 'required_role'
       val = __send__(ws_col).try(:name) || ''
 
-    when 'accept_type', 'retention_period'
+    when 'accept_type', 'retention_period', 'remove_reason', 'shelf'
       val = __send__(ws_col).try(:display_name) || ''
 
     when 'acquired_at'
@@ -326,6 +331,9 @@ class Item < ActiveRecord::Base
 
     when 'rank'
       val = helper.i18n_rank(rank) || ''
+
+    when 'use_restriction'
+      val = not_for_loan? ? 'TRUE' : ''
 
     else
       val = __send__(ws_col) || ''
