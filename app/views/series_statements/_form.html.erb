@@ -6,61 +6,35 @@ jQuery(function(){
   $("input[type=submit]").click(function(){
     $(".spinner").spin();
   });
+ 
+  if ("<%= @series_statement.periodical%>" != "" || "<%= @series_statement.periodical%>" != "false") {
+    if ("<%= @series_statement.periodical%>" == "true") {
+      $("#series_statement_periodical").attr('checked', true);
+      $("#root_manifestation_field").show();
+    } else {
+      $("#series_statement_periodical").attr('checked', false);
+      $("#root_manifestation_field").hide();
+    }
+  }
+
+  $("#series_statement_periodical").click(function() {
+    if ($("#series_statement_periodical").attr('checked') == "checked" ) {
+      $("#root_manifestation_field").show();
+      "<% @series_statement.periodical = nil%>";
+    } else {
+      $("#root_manifestation_field").hide();
+    }
+  });
 })
 </script>
 
 <%= form_for(@series_statement) do |f| %>
-  <%= f.error_messages %>
+  <%= error_messages_for @series_statement,  @series_statement.root_manifestation %>　
+  <%= render 'form_series_statement', :f => f %>
 
-  <%- if !@series_statement.new_record? and @manifestation -%>
-    <div class="field">
-      <%= link_to @manifestation.original_title, @manifestation -%>
-      <%= f.hidden_field :manifestation_id %>
-    </div>
-  <%- end -%>
-
-  <div class="field">
-    <%= f.label :original_title %><br />
-    <%= f.text_field :original_title %>
-  </div>
-  <div class="field">
-    <%= f.label :title_transcription %><br />
-    <%= f.text_field :title_transcription %>
-  </div>
-  <div class="field">
-    <%= f.label :periodical %><br />
-    <%= f.check_box :periodical %>
-  </div>
-  <div class="spinner"></div>
-  <div class="field">
-    <%= f.label :issn %><br />
-    <%= f.text_field :issn %>
-  </div>
-  <!--
-  <div class="field">
-    <%= f.label :numbering %><br />
-    <%= f.text_field :numbering %>
-  </div>
-  <div class="field">
-    <%= f.label :title_subseries %><br />
-    <%= f.text_field :title_subseries %>
-  </div>
-  <div class="field">
-    <%= f.label :numbering_subseries -%><br />
-    <%= f.text_field :numbering_subseries %>
-  </div>
-  -->
-  <div class="field">
-    <%= f.label :series_statement_identifier -%><br />
-    <%= f.text_field :series_statement_identifier, :class => 'resource_item_identifier' %>
-  </div>
-
-  <div class="field">
-    <%= f.label :note -%><br />
-    <%= f.text_area :note, :class => 'resource_textarea' -%>
-  </div>
-
-  <div class="actions">
-    <%= f.submit :disable_with => t('page.wait') %>
+  <div id="root_manifestation_field" style="display: none">
+    <%= fields_for @series_statement.root_manifestation do |f_m| %>
+      <%= render 'form_manifestation', :f_m => f_m %>
+    <% end %>
   </div>
 <% end %>

@@ -1,6 +1,30 @@
 <h2 class="resource_title">
   [S]
   <%= link_to @series_statement.original_title, @series_statement, :itemprop => 'name' -%>
+  <% if @series_statement.periodical %>
+    <p>
+    <%- unless @series_statement.root_manifestation.creators.readable_by(current_user).empty? -%>
+      <%= t('patron.creator') -%>: <%= patrons_list(@series_statement.root_manifestation.creators.readable_by(current_user), :itemprop => 'author') -%>
+    <%- end -%>
+    <%- unless @series_statement.root_manifestation.contributors.readable_by(current_user).empty? -%>
+      <%= t('patron.contributor') -%>: <%= patrons_list(@series_statement.root_manifestation.contributors.readable_by(current_user), :itemprop => 'editor') -%>
+    <%- end -%>
+    <%- unless @series_statement.root_manifestation.publishers.readable_by(current_user).empty? -%>
+      <%= t('patron.publisher') -%>: <%= patrons_list(@series_statement.root_manifestation.publishers.readable_by(current_user), :itemprop => 'publisher') -%>
+    <% end %>
+    <%- if @series_statement.root_manifestation.pub_date.present? -%>
+      <meta itemprop="publishDate" content="<%= @series_statement.root_manifestation.try(:date_of_publication).try(:iso8601) %>" />
+      (<%= t('activerecord.attributes.manifestation.pub_date') %>: <%= @series_statement.root_manifestation.pub_date -%>)
+    <%- end -%>
+    <%- if SystemConfiguration.get('internal_server') -%>
+      <%- unless @series_statement.root_manifestation.access_address.blank? -%>
+        <br />
+        <%= link_to @series_statement.root_manifestation.access_address, @series_statement.root_manifestation.access_address -%>
+        <%= link_to image_tag('icons/world_go.png', :size => '16x16', :alt => ('Web'), :title => t('tooltip.web')), @series_statement.root_manifestation.access_address -%>
+      <%- end -%>
+    <%- end -%>
+    </p>
+  <% end %>
 </h2>
 
 <%= form_for :manifestations, :url => series_statement_manifestations_path(@series_statement), :html => {:method => 'get'} do -%>

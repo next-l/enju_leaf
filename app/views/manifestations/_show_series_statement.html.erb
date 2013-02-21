@@ -21,5 +21,14 @@
       <td><%= raw simple_format(h(@series_statement.note)) %></td>
     </tr>
   <%- end -%>
-
 </table>
+<% if @series_statement.periodical and @series_statement.root_manifestation %>
+  <div><%= link_to_function t('page.more_information'), "$('#more_information').toggle()" -%></div>
+  <div id="more_information" style="display: none">
+    <% if current_user.try(:has_role?, 'Librarian') %>
+      <%= render 'manifestations/show_detail_librarian', :manifestation => @series_statement.root_manifestation %>
+    <% else %>
+      <%= render 'manifestations/show_detail_user', :manifestation => @series_statement.root_manifestation %>
+    <% end %>
+  </div>
+<% end %>
