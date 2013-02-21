@@ -9,7 +9,7 @@ my $pname = $0; $pname =~ s/.*\/(.*)/$1/s; # プログラム名取得
 
 use strict;
 use vars qw/$opt_d/;
-use vars qw/$RecvDir $TarFileName $LockFile/;
+use vars qw/$ProgHome $RecvDir $TarFileName $LockFile/;
 
 use Getopt::Std;
 use Archive::Tar;
@@ -76,7 +76,7 @@ if ( @rdir_lst ) { # 受信バケットが存在するか
 #
 # 受信バケットに移動
 unless (chdir "$RecvDir/$rcv_bucket") {
-	wrt_log($pname, 'err', "Can not change $RecvDir/$rcv_bucket:$!");
+	wrt_log($pname, 'err', "Can not change $RecvDir/$rcv_bucket 1:$!");
 	exit 2;
 }
 
@@ -124,7 +124,7 @@ my $chk_sum = $1;   # md5sumの値を分離
 
 if ( $ctrl_sz != $file_sz || $ctrl_md5sum ne $chk_sum ) {
 	# ファイルサイズとチェックサムが一致していない
-	wrt_log($pname, 'err', "Does not match file size or checksum: sz=$file_sz chksum=$chk_sum\n");
+	wrt_log($pname, 'err', "Does not match file size or checksum: sz=$file_sz chksum=$chk_sum");
 	close(LCK);
 	exit 2;
 }
@@ -135,17 +135,34 @@ if ( -f "$TarFileName.tar.gz" ) {
 	$tar->read("$TarFileName.tar.gz");
 	$tar->extract;
 } else {
-	wrt_log($pname, 'err', "Not found $TarFileName.tar.gz\n");
+	wrt_log($pname, 'err', "Not found $TarFileName.tar.gz");
 	close(LCK);
 	exit 2;
 }
 
 # WebOPAC上のデータベースに反映する更新プログラムを実行
 #
-# rake enju:sync:import DUMP_FILE=./dumpfile.yml STATUS_FILE=./statusfile.yml
-# エラー処理
-if ($debug) {print "rake enju:sync:import DUMP_FILE=./dumpfile.yml STATUS_FILE=./statusfile.yml\n";}
+# プログラムホーム (enju_trunk) に移動
+unless (chdir "$ProgHome") {
+	wrt_log($pname, 'err', "Can not change $ProgHome:$!");
+	exit 2;
+}
+
+# 更新プログラム起動
+# enju_trunkで実行しないといけない
+if ($debug) {print "rake enju:sync:import DUMP_FILE=$RecvDir/$rcv_bucket/enjudump.marshal STATUS_FILE=$RecvDir/$rcv_bucket/status.marshal\n";}
 #
+unless (system("rake enju:sync:import DUMP_FILE=$RecvDir/$rcv_bucket/enjudump.marshal STATUS_FILE=$RecvDir/$rcv_bucket/status.marshal")) {
+	wrt_log($pname, 'err', "Failed import dumpfile: see also /opt/enju_trunk/logs/production.log");
+	close(LCK);
+	exit 2;
+}
+
+# 受信バケットに再移動
+unless (chdir "$RecvDir/$rcv_bucket") {
+	wrt_log($pname, 'err', "Can not change $RecvDir/$rcv_bucket 2:$!");
+	exit 2;
+}
 
 #コントロールファイルのステータスを "IMP" にする
 my $rslt_file = $ctrl_file;
