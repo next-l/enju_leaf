@@ -186,6 +186,9 @@ class User < ActiveRecord::Base
     string :patron_type do
       patron.patron_type.name if patron
     end
+    string :user_status do
+      user_status.name
+    end
     boolean :unable
   end
 
@@ -347,6 +350,8 @@ class User < ActiveRecord::Base
       request.save_message_body(options)
       request.sm_send_message!
     end
+    rescue Exception => e
+      logger.error "Failed to send message: #{e}"
   end
 
   def owned_tags_by_solr

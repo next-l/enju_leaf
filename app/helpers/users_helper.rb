@@ -72,4 +72,13 @@ module UsersHelper
     string << "</strong>" if current
     string.html_safe
   end
+
+  def user_status_facet(user_status, current_user_statuses, facet)
+    string = ''
+    current = true if current_user_statuses.include?(user_status.name)
+    string << "<strong>" if current
+    string << link_to("#{user_status.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:page => nil, :user_status => (current_user_statuses << user_status.name).uniq.join(' '), :view => nil)))
+    string << "</strong>" if current
+    string.html_safe
+  end
 end

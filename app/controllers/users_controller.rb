@@ -34,11 +34,13 @@ class UsersController < ApplicationController
       with(:role).equal_to params[:role] if params[:role]
       with(:patron_type).equal_to params[:patron_type] if params[:patron_type]
       with(:required_role_id).less_than role.id
+      with(:user_status).equal_to params[:user_status] if params[:user_status]
       order_by sort[:sort_by], sort[:order]
       if params[:format] == 'html' or params[:format].nil?
         facet :library
         facet :role
         facet :patron_type
+        facet :user_status
         paginate :page => page.to_i, :per_page => User.default_per_page
       end
     end
