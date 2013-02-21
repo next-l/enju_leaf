@@ -46,17 +46,29 @@ if ( $debug ) {print "arg1 = '$bkt_dir'\n";}
 # 
 # 送信バケットを準備する
 # 
+my $exec_date = strftime "%Y%m%d", localtime;	# 実行日の取得
 
 # 送信バケットへ移動
 unless (chdir "$BucketDir/$bkt_dir") {
 	wrt_log($pname, 'err', "Can not change $BucketDir/$bkt_dir:$!");
 	exit 2;
 }
-
 # 送信バケットにコマンドファイルをアーカイブ＋圧縮ファイル生成
 # 
-my @cmdfile_lst = glob("*.yml");
+# コマンドファイルがあるかチェックする 
+my @cmdfile_lst = glob("*.marshal");
 if ($debug) {foreach my $cmdfile (@cmdfile_lst) { print "$cmdfile\n"; }}
+
+unless ( @cmdfile_lst ) {
+	# コマンドファイルが無い場合、ステータスEND、exit3で終了
+	my $Ctl_File = "$exec_date-END-0.ctl";
+	unless (open(OUT, "> $Ctl_File")) {
+		wrt_log($pname, 'err', "Can not open $BucketDir/$bkt_dir/$Ctl_File (no update):$!");
+		exit 2;
+	}
+	wrt_log($pname, 'info', "No update:$BucketDir/$bkt_dir");
+	exit 3;
+}
 
 # tarにてアーカイブ＋圧縮、送信バケットへ移動してコピー
 my $tar = Archive::Tar->new;
@@ -64,7 +76,6 @@ $tar->add_files(@cmdfile_lst);
 $tar->write("$BucketDir/$bkt_dir/$TarFileName.tar.gz", 6);
 
 # コントロールファイル生成 (ステータスを"RDY"にする)
-my $exec_date = strftime "%Y%m%d", localtime;
 my $Ctl_File = "$exec_date-RDY-0.ctl";
 unless (open(OUT, "> $Ctl_File")) {
 	wrt_log($pname, 'err', "Can not open $BucketDir/$bkt_dir/$Ctl_File:$!");
