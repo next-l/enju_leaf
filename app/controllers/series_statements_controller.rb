@@ -109,6 +109,16 @@ class SeriesStatementsController < ApplicationController
           manifestation.title_alternative = params[:series_statement][:title_alternative] if params[:series_statement][:title_alternative]
           manifestation.periodical_master = true
           manifestation.save!
+          item = Item.new
+          item.manifestation = manifestation
+          item.rank = 0
+          while item.item_identifier.nil?
+            item_identifier =  Numbering.do_numbering('article')
+            exit_item_identifier = Item.where(:item_identifier => item_identifier).first
+            item.item_identifier = item_identifier unless exit_item_identifier
+          end
+          item.save!
+          manifestation.items << item
           @creator = params[:manifestation][:creator]
           @publisher = params[:manifestation][:publisher]
           @contributor = params[:manifestation][:contributor]
@@ -165,17 +175,23 @@ class SeriesStatementsController < ApplicationController
               manifestation.title_alternative = params[:series_statement][:title_alternative] if params[:series_statement][:title_alternative]
               manifestation.periodical_master = true
               manifestation.save!
+              item = Item.new
+              item.manifestation = manifestation
+              item.rank = 0
+              while item.item_identifier.nil?
+                item_identifier =  Numbering.do_numbering('article')
+                exit_item_identifier = Item.where(:item_identifier => item_identifier).first
+                item.item_identifier = item_identifier unless exit_item_identifier
+              end
+              item.save!
+              manifestation.items << item
               @series_statement.manifestations << manifestation
             end
-logger.info "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
             manifestation.creators     = Patron.add_patrons(@creator) unless @creator.blank?
-logger.info "1111"
             manifestation.contributors = Patron.add_patrons(@contributor) unless @contributor.blank?
-logger.info "222"
             manifestation.publishers   = Patron.add_patrons(@publisher) unless @publisher.blank?
             manifestation.subjects     = Subject.import_subjects(@subject.gsub('；', ';').split(';')) unless @subject.blank?
             manifestation.save!
-logger.info "_______________________________"
           else
             if @series_statement.root_manifestation
               manifestation = Manifestation.find(@series_statement.root_manifestation_id)
@@ -183,7 +199,6 @@ logger.info "_______________________________"
             end
             @series_statement.root_manifestation_id = nil
             @series_statement.periodical = false
-logger.info "aaaaaaaaaaaaaaaaaaaaaaaaaaa"
           end
           @series_statement.update_attributes!(params[:series_statement])
           @series_statement.manifestations.map { |manifestation| manifestation.index } if @series_statement.manifestations
