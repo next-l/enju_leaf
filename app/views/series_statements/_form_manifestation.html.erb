@@ -1,0 +1,264 @@
+<script>
+jQuery(function(){
+  var article_title = "<%= @series_statement.root_manifestation.article_title %>"
+  displayArticleTitle(article_title);
+  $('#manifestation_manifestation_type_id').change(function () {
+    article_title = ""
+    displayArticleTitle(article_title);
+  });
+})
+
+function toggle_upload(){
+  if ($('#manifestation_delete_attachment').attr('checked')){
+    $('#manifestation_attachment').attr("disabled", true);
+  } else {
+    $('#manifestation_attachment').removeAttr("disabled");
+  }
+}
+
+function displayArticleTitle(article_title) {
+  var manifestation_type = $('#manifestation_manifestation_type_id').val();
+  var series_list = ['9', '10'];
+  if($.inArray(manifestation_type, series_list) != -1) {
+    var data = "<label class='text optional' for='manifestation_article_title'>"
+             + "<%= t('activerecord.attributes.manifestation.article_title') %>"
+             + "</label>"
+             + "<br />"
+             + "<input class='resource_title' id='manifestation_article_title' name='manifestation[article_title]' size='30' type='text'"
+             + " value=" + article_title
+             + ">"
+    $("#article_title_field").html(data);
+  } else {
+    $("#article_title_field").html("");
+  }
+}
+</script>
+
+<% if false %>
+  <div class="field">
+    <%= f_m.label :original_title -%><br />
+    <%= f_m.text_field :original_title, :class => 'resource_title' -%>
+  </div>
+  <div class="field">
+    <%= f_m.label :title_transcription -%><br />
+    <%= f_m.text_field :title_transcription, :class => 'resource_title' -%>
+  </div>
+  <div class="field">
+    <%= f_m.label :title_alternative -%><br />
+    <%= f_m.text_field :title_alternative, :class => 'resource_title' -%>
+  </div>
+<% end %>
+  <div class="field" id="article_title_field">
+    <%= f_m.label :article_title %><br />
+    <%= f_m.text_field :article_title, :class => 'resource_title' %>
+  </div>
+
+  <div class="field">
+    <%= f_m.label :creator -%><%= t('manifestation.delim_semicolon') -%><br />
+    <%= f_m.text_field :creator, :value => @creator -%>
+  </div>
+  <div class="field">
+    <%= f_m.label :contributor -%><%= t('manifestation.delim_semicolon') -%><br />
+    <%= f_m.text_field :contributor, :value => @contributor -%>
+  </div>
+  <div class="field">
+    <%= f_m.label :publisher -%><%= t('manifestation.delim_semicolon') -%><br />
+    <%= f_m.text_field :publisher, :value => @publisher -%>
+  </div>
+
+  <div class="field">
+    <%= f_m.label t('page.file') -%><br />
+    <%= f_m.file_field :attachment -%>
+    <%- unless @series_statement.root_manifestation.attachment_file_name.blank? -%>
+        <%= f_m.check_box :delete_attachment, :onClick => "toggle_upload()" -%><%= t('manifestation.delete_attachment') -%>
+        <%= render 'manifestations/attachment_file', :manifestation => @series_statement.root_manifestation -%>
+    <%- end -%>
+  </div>
+  <div class="field">
+    <%= f_m.label t('activerecord.models.carrier_type') -%>
+    <%= f_m.select(:carrier_type_id, @carrier_types.collect{|m| [m.display_name.localize, m.id]}) -%>
+    <!-- TODO: Formの切り替え時に入力項目をAjaxで書き換える -->
+  </div>
+
+  <div class="field">
+    <%= f_m.label t('activerecord.models.manifestation_type') -%>
+    <%= f_m.select(:manifestation_type_id, @manifestation_types.collect{|m| [m.display_name.localize, m.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f_m.label t('activerecord.models.frequency') -%>
+    <%= f_m.select(:frequency_id, @frequencies.collect{|frequency| [frequency.display_name.localize, frequency.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f_m.label :pub_date -%>
+    <%= f_m.text_field :pub_date, :class => 'date_field', :placeholder => "#{t('page.example')}: 2011, 2011-04-12"-%>
+  </div>
+
+  <div class="field">
+    <%= f_m.label t('activerecord.attributes.manifestation.country_of_publication') -%>
+    <%= f_m.select(:country_of_publication_id, @countries.collect{|country| [country.display_name.localize, country.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f_m.label t('activerecord.attributes.manifestation.place_of_publication') -%>
+    <%= f_m.text_field :place_of_publication %>
+  </div>
+
+  <div class="field">
+    <%= f_m.label t('activerecord.models.language') -%>
+    <%= f_m.select(:language_id, @languages.collect{|language| [language.display_name.localize, language.id]}) -%>
+  </div>
+
+  <%- if @series_statement.root_manifestation.series_statement -%>
+    <%= render :partial => 'manifestations/serial_form', :locals => {:f => f_m, :manifestation => @series_statement.root_manifestation} -%>
+  <%- else -%>
+    <div class="field">
+      <%= f_m.label :edition_display_value -%>
+      <%= f_m.text_field :edition_display_value, :class => 'resource_integer' -%>
+      <%= f_m.label :volume_number_string -%>
+      <%= f_m.text_field :volume_number_string, :class => 'resource_integer' -%>
+      <%= f_m.label :issue_number_string -%>
+      <%= f_m.text_field :issue_number_string, :class => 'resource_integer' -%>
+    </div>
+
+    <div class="field">
+      <%= f_m.label :isbn -%>
+      <%= f_m.text_field :isbn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
+      <%= link_to_function t('activerecord.attributes.manifestation.wrong_isbn'), "$('#manifestation_wrong_isbn').toggle()" -%>
+      <%= f_m.text_field :wrong_isbn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled; display: none' -%>
+    </div>
+    <div class="field">
+      <%= f_m.label :lccn -%>
+      <%= f_m.text_field :lccn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
+    </div>
+    <div class="field">
+      <%= f_m.label :marc_number -%>
+      <%= f_m.text_field :marc_number, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
+    </div>
+    <div class="field">
+      <%= f_m.label :ndc -%>
+      <%= f_m.text_field :ndc, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
+    </div>
+  <%- end -%>
+<% if false %>
+  <div class="field">
+    <%= f_m.label :start_page -%>
+    <%= f_m.text_field :start_page, :class => 'resource_integer' -%>
+    <%= f_m.label :end_page -%>
+    <%= f_m.text_field :end_page, :class => 'resource_integer' -%>
+  </div>
+
+  <div class="field">
+    <%= f_m.label :height -%>(cm)
+    <%= f_m.text_field :height, :class => 'resource_integer' -%>
+    <%= f_m.label :width -%>(cm)
+    <%= f_m.text_field :width, :class => 'resource_integer' -%>
+    <%= f_m.label :depth -%>(cm)
+    <%= f_m.text_field :depth, :class => 'resource_integer' -%>
+  </div>
+<% end %>
+  <div class="field">
+    <%= f_m.label :price -%>
+    <%= f_m.text_field :price, :class => 'resource_integer' -%>
+  </div>
+
+  <div class="field">
+    <%= f_m.label :access_address -%><br />
+    <%= f_m.url_field :access_address, :class => 'resource_url' -%>
+  </div>
+
+  <div class="field">
+    <%= f_m.label :repository_content -%>
+    <%= f_m.check_box :repository_content -%>
+  </div>
+
+  <div class="field">
+    <%= f_m.label t('role.required_role') -%>
+    <%= f_m.select(:required_role_id, @roles.collect{|r| [r.display_name.localize, r.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f_m.label :except_recent -%>
+    <%= f_m.check_box :except_recent -%>
+  </div>
+
+  <div class="field">
+    <%= f_m.label :description -%><br />
+    <%= f_m.text_area :description, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f_m.label :supplement -%><br />
+    <%= f_m.text_area :supplement, :class => 'resource_textarea' -%>
+  </div>
+<% if false %>
+  <div class="field">
+    <%= f_m.label :note -%><br />
+    <%= f_m.text_area :note, :class => 'resource_textarea' -%>
+  </div>
+<% end %>
+  <div class="field">
+    <%= f_m.label :subject -%><%= t('manifestation.delim_semicolon') -%><br />
+    <%= f_m.text_field :subject, :value => @subject -%>
+  </div>
+<% if false %>
+  <div class="field">
+    <%= f_m.label t('activerecord.attributes.manifestation.missing_issue') -%>
+    <%= f_m.select :missing_issue, missing_issue_statuses, :include_blank => true -%>
+  </div>
+
+  <div class="field">
+    <%= f_m.label t('activerecord.attributes.manifestation.acceptance_number') %>
+    <%= f_m.text_field :acceptance_number, :class => "resource_integer" %>
+  </div>
+<% end %>
+  <div class="field">
+    <%= f_m.label t('activerecord.attributes.manifestation.exinfo_1') %>
+    <%= f_m.text_field :exinfo_1, :class => "resource_integer" %>
+  </div>
+
+  <div class="field">
+    <%= f_m.label t('activerecord.attributes.manifestation.exinfo_2') %>
+    <%= f_m.text_field :exinfo_2, :class => "resource_integer" %>
+  </div>
+
+  <div class="field">
+    <%= f_m.label t('activerecord.attributes.manifestation.exinfo_3') %>
+    <%= f_m.text_field :exinfo_3, :class => "resource_integer" %>
+  </div>
+
+  <div class="field">
+    <%= f_m.label t('activerecord.attributes.manifestation.exinfo_4') %>
+    <%= f_m.text_field :exinfo_4, :class => "resource_integer" %>
+  </div>
+
+  <div class="field">
+    <%= f_m.label t('activerecord.attributes.manifestation.exinfo_5') %>
+    <%= f_m.text_field :exinfo_5, :class => "resource_integer" %>
+  </div>
+
+  <div class="field">
+    <%= f_m.label t('activerecord.attributes.manifestation.exinfo_6') %>
+    <%= f_m.text_field :exinfo_6, :class => "resource_integer" %>
+  </div>
+
+  <div class="field">
+    <%= f_m.label t('activerecord.attributes.manifestation.exinfo_7') %>
+    <%= f_m.text_field :exinfo_7, :class => "resource_integer" %>
+  </div>
+
+  <div class="field">
+    <%= f_m.label t('activerecord.attributes.manifestation.exinfo_8') %>
+    <%= f_m.text_field :exinfo_8, :class => "resource_integer" %>
+  </div>
+
+  <div class="actions">
+    <%= hidden_field_tag :patron_id, @patron.id if @patron -%>
+    <%= hidden_field_tag :manifestation_id, @original_manifestation.id if @original_manifestation -%>
+    <%= hidden_field_tag :creators, @creators if @creators -%>
+    <%= hidden_field_tag :contributors, @contributors if @contributors -%>
+    <%= hidden_field_tag :publishers, @publishers if @publishers -%>
+    <%= hidden_field_tag :subjects, @subjects if @subjects -%>
+    <%= f_m.submit :disable_with => t('page.wait') %>
+  </div>

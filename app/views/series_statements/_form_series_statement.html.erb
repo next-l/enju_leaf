@@ -1,0 +1,54 @@
+  <%- if !@series_statement.new_record? and @manifestation -%>
+    <div class="field">
+      <%= link_to @manifestation.original_title, @manifestation -%>
+      <%= f.hidden_field :manifestation_id %>
+    </div>
+  <%- end -%>
+
+  <div class="field">
+    <%= f.label :original_title %><br />
+    <%= f.text_field :original_title %>
+  </div>
+  <div class="field">
+    <%= f.label :title_transcription %><br />
+    <%= f.text_field :title_transcription %>
+  </div>
+  <div class="field">
+    <%= f.label :periodical %><br />
+    <% if false %>
+      <input id="series_statement_periodical" name="series_statement[periodical]" type="checkbox" value=true>
+    <% end %>
+    <%= f.check_box :periodical, :checked => true %>
+  </div>
+  <div class="spinner"></div>
+  <div class="field">
+    <%= f.label :issn %><br />
+    <%= f.text_field :issn %>
+  </div>
+  <!--
+  <div class="field">
+    <%= f.label :numbering %><br />
+    <%= f.text_field :numbering %>
+  </div>
+  <div class="field">
+    <%= f.label :title_subseries %><br />
+    <%= f.text_field :title_subseries %>
+  </div>
+  <div class="field">
+    <%= f.label :numbering_subseries -%><br />
+    <%= f.text_field :numbering_subseries %>
+  </div>
+  -->
+  <div class="field">
+    <%= f.label :series_statement_identifier -%><br />
+    <%= f.text_field :series_statement_identifier, :class => 'resource_item_identifier' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit :disable_with => t('page.wait') %>
+  </div>
