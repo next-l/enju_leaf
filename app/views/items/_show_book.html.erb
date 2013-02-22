@@ -181,7 +181,6 @@
         <li><%= link_to t('page.edit'), edit_item_path(@item) -%></li>
       <%- end -%>
     <%- end -%>
-    <li><%= link_to t('page.listing', :model => t('activerecord.models.inter_library_loan')), item_inter_library_loans_path(@item) -%></li>
     <li><%= link_to t('page.back'), items_path -%></li>
     <%- if @item.circulation_status.name != "Removed" -%>
       <li><%= link_to t('page.remove'), remove_item_path(@item) -%></li>
