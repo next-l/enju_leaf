@@ -262,7 +262,7 @@ class Patron < ActiveRecord::Base
 
   def self.import_patrons(patron_lists)
     list = []
-    patron_lists.each do |patron_list|
+    patron_lists.uniq.compact.each do |patron_list|
       patron = Patron.where(:full_name => patron_list[:full_name]).first
       unless patron
         patron = Patron.new(
@@ -284,9 +284,9 @@ class Patron < ActiveRecord::Base
   end
 
   def self.add_patrons(patron_names)
-    names = patron_names.split(/;/)
+    names = patron_names.gsub('；', ';').split(/;/)
     list = []
-    names.each do |name|
+    names.uniq.compact.each do |name|
       name.strip!
       next if name.empty?
       patron = Patron.find(:first, :conditions => ["full_name=?", name])

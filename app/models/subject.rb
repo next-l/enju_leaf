@@ -4,7 +4,7 @@ class Subject < ActiveRecord::Base
 
   def self.import_subjects(subject_lists)
     list = []
-    subject_lists.each do |s|
+    subject_lists.compact.uniq.each do |s|
       subject = Subject.where(:term => s.to_s.strip).first
       unless subject
         # TODO: Subject typeの設定
