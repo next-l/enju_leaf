@@ -75,9 +75,9 @@ if ($debug) {printf "current dir = %s\n", $ftp->pwd();}
 
 # 受信開始
 # 
-wrt_log($pname, 'info', "START receive statusfile.yml");
+wrt_log($pname, 'info', "START receive status.marshal");
 
-# 該当する statusfile.yml を検索
+# 該当する status.marshal を検索
 
 my @file_lst = $ftp->ls('*');
 my @imp_lst = grep(/^\d*\/\d+.*-IMP-\d+\.ctl/, @file_lst);
@@ -104,15 +104,15 @@ if ($debug) {print "get_bucket = $get_bucket\n";}
 $ftp->cwd("$get_bucket");
 if ($debug) {printf "current dir = %s\n", $ftp->pwd();}
 
-# statusfile.yml を取得
-unless ( $ftp->get("statusfile.yml") ) {
-	wrt_log($pname, 'err', "Can not receive statusfile.yml:" . $ftp->message);
+# status.marshal を取得
+unless ( $ftp->get("status.marshal") ) {
+	wrt_log($pname, 'err', "Can not receive status.marshal:" . $ftp->message);
 	$ftp->quit;
 	exit 2;
 }
 
 $ftp->quit;
 
-wrt_log($pname, 'info', "END receive statusfile.yml");
+wrt_log($pname, 'info', "END receive status.marshal");
 
 exit;

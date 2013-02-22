@@ -1,6 +1,7 @@
 #
 # コンフィグレーション
 #
+$ProgHome    = "/opt/enju_trunk";
 $BucketDir   = "/var/enjusync";
 $RecvDir     = "/var/enjusync";
 $StatFileDir = "$BucketDir/work";
