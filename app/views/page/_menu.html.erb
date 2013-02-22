@@ -35,9 +35,9 @@
         <% end %>
       </ul>
     </li>
-    <li>
-      <a href="#acquisition_menu"><%= t('page.acquisition') -%></a>
-      <%- if user_signed_in? -%>
+    <%- if user_signed_in? -%>
+      <li>
+        <a href="#acquisition_menu"><%= t('page.acquisition') -%></a>
         <ul>
           <%- if current_user.has_role?('Librarian') -%>
             <li><%= link_to t('import_request.enter_isbn'), new_import_request_path -%></li>
@@ -57,14 +57,8 @@
             <% end %>
           <%- end -%>
         </ul>
-      <%- else -%>
-        <ul>
-          <% if defined?(EnjuBookmark) %>
-            <li><%= link_to t('page.listing', :model => t('activerecord.models.bookmark')), bookmarks_path -%></li>
-          <% end %>
-        </ul>
-      <%- end -%>
-    </li>
+      </li>
+    <% end %>
     <li>
       <a href="#request_menu"><%= t('page.request') -%></a>
       <ul>
