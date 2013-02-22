@@ -5,6 +5,33 @@ describe ManifestationsController do
   fixtures :all
 
   describe "GET index", :solr => true do
+    shared_examples_for 'index can load records' do
+      [
+        # param name, expected record, ivar name
+        [:patron_id, Patron, :patron],
+        [:series_statement_id, SeriesStatement, :series_statement],
+        [:manifestation_id, Manifestation, :manifestation],
+        [:subject_id, Subject, :subject],
+        [:patron_id, Patron, :index_patron, :patron],
+        [:creator_id, Patron, :index_patron, :creator],
+        [:contributor_id, Patron, :index_patron, :contributor],
+        [:publisher_id, Patron, :index_patron, :publisher],
+      ].each do |psym, cls, *dst|
+        ivar, idx = dst
+        it "should load a #{cls.name} record specifed by #{psym} param" do
+          expected = cls.first
+          get :index, psym => expected.id.to_s
+          response.should be_success
+          assigns(ivar).should be_present
+          if idx
+            assigns(ivar)[idx].should eq(expected)
+          else
+            assigns(ivar).should eq(expected)
+          end
+        end
+      end
+    end
+
     shared_examples_for 'index can get a collation' do
       describe "When no record found" do
         let(:exact_title) { "RailsによるアジャイルWebアプリケーション開発" }
@@ -190,6 +217,7 @@ describe ManifestationsController do
         assigns(:manifestations).should_not be_nil
       end
 
+      include_examples 'index can load records'
       include_examples 'index can get a collation'
       include_examples 'index can get manifestations according to search parameters'
     end
