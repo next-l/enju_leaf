@@ -4,6 +4,30 @@ class UserRequestLog < ActiveRecord::Base
 
   paginates_per 50
 
+  def self.search_fields_and(params, sort = {:sort_by => 'id', :order => 'desc'})
+    t = self.arel_table
+    user_request_logs = self.order("#{sort[:sort_by]} #{sort[:order]}")
+    if params[:user_id].present?
+      user_request_logs = user_request_logs.where(:user_id => params[:user_id])
+    end
+    if params[:controller_name].present?
+      user_request_logs = user_request_logs.where(t[:controller].matches(params[:controller_name]))
+    end
+    if params[:action_name].present?
+      user_request_logs = user_request_logs.where(t[:action].matches(params[:action_name]))
+    end
+    if params[:remote_ip].present?
+      user_request_logs = user_request_logs.where(t[:remote_ip].matches(params[:remote_ip]))
+    end
+    if params[:created_at_start].present?
+      user_request_logs = user_request_logs.where("created_at >= ?", params[:created_at_start])
+    end
+    if params[:created_at_end].present?
+      user_request_logs = user_request_logs.where("created_at <= ?", params[:created_at_end])
+    end
+    return user_request_logs
+  end
+
   class Subscriber < ActiveSupport::LogSubscriber
     def process_action(event)
       payload = event.payload

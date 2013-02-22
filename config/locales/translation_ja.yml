@@ -201,8 +201,8 @@ ja:
         created_at: 操作日時
         created_at_start: 操作日時(開始)
         created_at_end: 操作日時(終了)
-        search_note: "コントローラ名、アクション名、IPアドレスは前方一致で検索します。"
-        created_sort_note: "操作日時は次の順序で並べる"
+        search_note: "コントローラ名、アクション名、IPアドレスは正規表現が利用できます。"
+        created_sort_note: "次の順序で操作日時を並べる"
         data: "リクエストパラメータ"
       enju_terminal:
         ipaddr: IPアドレス
