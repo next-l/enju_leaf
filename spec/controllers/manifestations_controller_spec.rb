@@ -167,7 +167,7 @@ describe ManifestationsController do
           end
         end
 
-        describe 'subject is not exists term' do
+        describe 'subject is not-exists-term' do
           before do
             @expected = create_manifestation({}, 'available_item')
             @not_expected = create_manifestation({}, 'foobar_subject', 'available_item')

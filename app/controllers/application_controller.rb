@@ -410,7 +410,7 @@ class ApplicationController < ActionController::Base
           end
         end
         unless subject.blank?
-          with(:subject).equal_to subject_by_term.term
+          with(:subject).equal_to subject_by_term.try(:term)
         end
         unless missing_status.blank?
           with(:missing_issue).equal_to missing_status
