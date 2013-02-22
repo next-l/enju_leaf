@@ -8,7 +8,7 @@ class SeriesHasManifestationsController < ApplicationController
   # GET /series_has_manifestations
   # GET /series_has_manifestations.json
   def index
-    @series_has_manifestations = SeriesHasManifestation.paginate(:page => params[:page])
+    @series_has_manifestations = SeriesHasManifestation.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

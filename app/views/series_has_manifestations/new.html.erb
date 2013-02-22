@@ -9,6 +9,6 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.back'), series_has_manifestations_path %></li>
+    <li><%= link_to t('page.back'), series_statements_path(:manifestation_id => params[:manifestation_id]) %></li>
   </ul>
 </div>
