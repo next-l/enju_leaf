@@ -129,7 +129,7 @@ class Ability
         Produce,
         ProduceType,
         PurchaseRequest,
-        Question,
+#        Question,
         Realize,
         RealizeType,
         ReserveStatHasManifestation,
@@ -458,22 +458,14 @@ class Ability
         WorkHasSubject
       ]
     else
-      can :index, Answer
-      can :show, Answer do |answer|
-        answer.user == user or answer.shared
-      end
       can :index, Patron
       can :show, Patron do |patron|
         patron.required_role_id == 1 #name == 'Guest'
       end
-      can :index, Question
-      can :show, Question do |question|
-        question.user == user or question.shared
-      end
       can :read, Manifestation do |manifestation|
         manifestation.required_role_id <= 1
       end
-      can [:index, :create, :show], PurchaseRequest
+      can [:index, :create, :show], PurchaseRequest if SystemConfiguration.get('internal_server')
       can :read, [
         CarrierType,
         CirculationStatus,
