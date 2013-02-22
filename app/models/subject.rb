@@ -1,5 +1,7 @@
 require EnjuSubject::Engine.root.join('app', 'models', 'subject')
 class Subject < ActiveRecord::Base
+  has_paper_trail
+
   def self.import_subjects(subject_lists)
     list = []
     subject_lists.each do |s|

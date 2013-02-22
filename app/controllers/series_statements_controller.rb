@@ -9,6 +9,7 @@ class SeriesStatementsController < ApplicationController
   before_filter :get_work, :only => [:index, :new, :edit]
   before_filter :get_manifestation, :only => [:index, :new, :edit]
   before_filter :get_parent_and_child, :only => [:index, :new, :edit]
+  before_filter :prepare_options, :only => [:new, :edit]
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
 
@@ -75,6 +76,8 @@ class SeriesStatementsController < ApplicationController
   # GET /series_statements/new.json
   def new
     @series_statement = SeriesStatement.new
+    @manifestation = @series_statement.root_manifestation
+    @series_statement.root_manifestation = Manifestation.new
     @series_statement.parent = @parent_series_statement if @parent_series_statement
 
     respond_to do |format|
@@ -87,31 +90,57 @@ class SeriesStatementsController < ApplicationController
   def edit
     @series_statement.work = @work if @work
     @series_statement.parent = @parent_series_statement if @parent_series_statement
+    @series_statement.root_manifestation = Manifestation.new unless @series_statement.root_manifestation
   end
 
   # POST /series_statements
   # POST /series_statements.json
   def create
     @series_statement = SeriesStatement.new(params[:series_statement])
-    #manifestation = Manifestation.find(@series_statement.manifestation_id) rescue nil
-
-    respond_to do |format|
-      begin
-        SeriesStatement.transaction do
-          unless params[:series_statement][:periodical] == 0.to_s
-            manifestation = Manifestation.new(
-              :original_title => @series_statement.original_title,
-            )
-            manifestation.periodical_master = true
-            @series_statement.root_manifestation = manifestation
+    @series_statement.root_manifestation = Manifestation.new
+    manifestation = nil
+    begin
+      SeriesStatement.transaction do
+        if params[:series_statement][:periodical]
+          manifestation = Manifestation.create(params[:manifestation])
+          @series_statement.root_manifestation = manifestation
+          manifestation.original_title = params[:series_statement][:original_title] if  params[:series_statement][:original_title]
+          manifestation.title_transcription = params[:series_statement][:title_transcription] if params[:series_statement][:title_transcription]
+          manifestation.title_alternative = params[:series_statement][:title_alternative] if params[:series_statement][:title_alternative]
+          manifestation.periodical_master = true
+          manifestation.save!
+          item = Item.new
+          item.manifestation = manifestation
+          item.rank = 0
+          while item.item_identifier.nil?
+            item_identifier =  Numbering.do_numbering('article')
+            exit_item_identifier = Item.where(:item_identifier => item_identifier).first
+            item.item_identifier = item_identifier unless exit_item_identifier
           end
-          @series_statement.save!
-          @series_statement.manifestations << manifestation if manifestation
+          item.save!
+          manifestation.items << item
+          @creator = params[:manifestation][:creator]
+          @publisher = params[:manifestation][:publisher]
+          @contributor = params[:manifestation][:contributor]
+          @subject = params[:manifestation][:subject]
+          manifestation.creators     = Patron.add_patrons(@creator) unless @creator.blank?
+          manifestation.contributors = Patron.add_patrons(@contributor) unless @contributor.blank?
+          manifestation.publishers   = Patron.add_patrons(@publisher) unless @publisher.blank?
+          manifestation.subjects     = Subject.import_subject(@subject) unless @subject.blank?
+        end
+        @series_statement.save!
+        @series_statement.manifestations << manifestation if manifestation
+        respond_to do |format|
           format.html { redirect_to @series_statement,
             :notice => t('controller.successfully_created', :model => t('activerecord.models.series_statement')) }
           format.json { render :json => @series_statement, :status => :created, :location => @series_statement }
         end
-      rescue
+      end
+    rescue
+      prepare_options
+      @series_statement = SeriesStatement.create(params[:series_statement])
+      @series_statement.root_manifestation = manifestation || Manifestation.new
+      respond_to do |format|
         format.html { render :action => "new" }
         format.json { render :json => @series_statement.errors, :status => :unprocessable_entity }
       end
@@ -129,26 +158,57 @@ class SeriesStatementsController < ApplicationController
     respond_to do |format|
       begin
         SeriesStatement.transaction do
-          unless params[:series_statement][:periodical] == 0.to_s
-            unless @series_statement.root_manifestation
-              manifestation = Manifestation.new(
-                :original_title => @series_statement.original_title,
-              )
-              manifestation.periodical_master = true
+          manifestation = nil
+          @creator = params[:manifestation][:creator]
+          @publisher = params[:manifestation][:publisher]
+          @contributor = params[:manifestation][:contributor]
+          @subject = params[:manifestation][:subject]
+          if params[:series_statement][:periodical]
+            if @series_statement.root_manifestation
+              manifestation = Manifestation.find(@series_statement.root_manifestation_id)
+              manifestation.update_attributes!(params[:manifestation])
+            else
+              manifestation = Manifestation.new(params[:manifestation])
               @series_statement.root_manifestation = manifestation
+              manifestation.original_title = params[:series_statement][:original_title] if params[:series_statement][:original_title]
+              manifestation.title_transcription = params[:series_statement][:title_transcription] if params[:series_statement][:title_transcription]
+              manifestation.title_alternative = params[:series_statement][:title_alternative] if params[:series_statement][:title_alternative]
+              manifestation.periodical_master = true
+              manifestation.save!
+              item = Item.new
+              item.manifestation = manifestation
+              item.rank = 0
+              while item.item_identifier.nil?
+                item_identifier =  Numbering.do_numbering('article')
+                exit_item_identifier = Item.where(:item_identifier => item_identifier).first
+                item.item_identifier = item_identifier unless exit_item_identifier
+              end
+              item.save!
+              manifestation.items << item
               @series_statement.manifestations << manifestation
             end
+            manifestation.creators     = Patron.add_patrons(@creator) unless @creator.blank?
+            manifestation.contributors = Patron.add_patrons(@contributor) unless @contributor.blank?
+            manifestation.publishers   = Patron.add_patrons(@publisher) unless @publisher.blank?
+            manifestation.subjects     = Subject.import_subjects(@subject.gsub('；', ';').split(';')) unless @subject.blank?
+            manifestation.save!
           else
-            @series_statement.manifestations.collect{ |manifestation| manifestation.destroy if manifestation.periodical_master }
+            if @series_statement.root_manifestation
+              manifestation = Manifestation.find(@series_statement.root_manifestation_id)
+              manifestation.destroy if manifestation
+            end
             @series_statement.root_manifestation_id = nil
+            @series_statement.periodical = false
           end
-
           @series_statement.update_attributes!(params[:series_statement])
-          @series_statement.manifestations.map { |manifestation| manifestation.index }
+          @series_statement.manifestations.map { |manifestation| manifestation.index } if @series_statement.manifestations
           format.html { redirect_to @series_statement, :notice => t('controller.successfully_updated', :model => t('activerecord.models.series_statement')) }
           format.json { head :no_content }
         end
-      rescue 
+      rescue
+        prepare_options
+        @series_statement = SeriesStatement.create(params[:series_statement])
+        @series_statement.root_manifestation = Manifestation.new unless @series_statement.root_manifestation_id
         format.html { render :action => "edit" }
         format.json { render :json => @series_statement.errors, :status => :unprocessable_entity }
       end
@@ -163,7 +223,10 @@ class SeriesStatementsController < ApplicationController
         SeriesStatement.transaction do
           if @series_statement.manifestations
             if @series_statement.manifestations.size == 1
-               @series_statement.manifestations.first.destroy   
+               manifestation = @series_statement.manifestations.first
+               if manifestation == @series_statement.root_manifestation  
+                 manifestation.destroy   
+               end
             end
           end
           @series_statement.destroy
@@ -181,5 +244,14 @@ class SeriesStatementsController < ApplicationController
   def get_parent_and_child
     @parent = SeriesStatement.find(params[:parent_id]) if params[:parent_id]
     @child = SeriesStatement.find(params[:child_id]) if params[:child_id]
+  end
+
+  def prepare_options
+    @carrier_types = CarrierType.all
+    @manifestation_types = ManifestationType.all
+    @frequencies = Frequency.all
+    @countries = Country.all
+    @languages = Language.all_cache
+    @roles = Role.all
   end
 end
