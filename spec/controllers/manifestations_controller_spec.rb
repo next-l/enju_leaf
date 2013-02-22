@@ -40,6 +40,146 @@ describe ManifestationsController do
       end
     end
 
+    shared_examples_for 'index can get manifestations according to search parameters' do
+      describe 'With parameter' do
+        let(:removed_status) do
+          CirculationStatus.find_by_name('Removed')
+        end
+
+        let(:available_status) do
+          CirculationStatus.find_by_name('Available On Shelf')
+        end
+
+        let(:japanese_book) do
+          FactoryGirl.create(
+            :manifestation_type,
+            name: 'japanese_book')
+        end
+
+        let(:retention_period) do
+          FactoryGirl.create(:retention_period).tap do |r|
+            r.non_searchable = false
+            r.save!
+          end
+        end
+
+        def create_manifestation(args, *rel_defs)
+          manifestation = FactoryGirl.create(
+            :manifestation, {
+              manifestation_type_id: japanese_book.id,
+            }.merge(args))
+
+          rel_defs.each do |rel_def|
+            item_args = {
+              manifestation: manifestation,
+              rank: 0,
+              retention_period: retention_period,
+              circulation_status_id: available_status.id,
+              item_identifier: "manifestation#{manifestation.id}_item#{manifestation.items.count + 1}",
+            }
+            subj_args = {}
+
+            case rel_def
+            when 'removed_item'
+              item_args[:circulation_status_id] = removed_status.id
+            when 'available_item'
+              # noop
+            when /\A(.*)_subject\z/
+              subj_args[:term] = $1
+            end
+
+            case rel_def
+            when /item\z/
+              FactoryGirl.create(:item, item_args)
+            when /subject\z/
+              subj = FactoryGirl.create(:subject, subj_args)
+              manifestation.subjects << subj
+            end
+          end
+
+          yield(manifestation) if block_given?
+
+          Sunspot.commit
+
+          manifestation
+        end
+
+        def try_to_get_index(opts)
+          get :index, opts
+          response.should be_success
+          assigns(:manifestations).should be_present
+          assigns(:manifestations).should include(@expected)
+          assigns(:manifestations).should_not include(@not_expected)
+        end
+
+        describe 'removed is true' do
+          before do
+            @expected = create_manifestation({}, 'removed_item')
+            @not_expected = create_manifestation({}, 'available_item')
+          end
+
+          it 'should return non searchable manifestations' do
+            try_to_get_index removed: 'true'
+          end
+        end
+
+        describe 'removed is not true' do
+          before do
+            @expected = create_manifestation({}, 'available_item')
+            @not_expected = create_manifestation({}, 'removed_item')
+          end
+
+          it 'should return searchable manifestations' do
+            try_to_get_index removed: nil
+          end
+        end
+
+        describe 'reservable is true' do
+          before do
+            @expected = create_manifestation({}, 'available_item')
+            @not_expected = create_manifestation({periodical_master: true}, 'available_item')
+          end
+
+          it 'should return searchable manifestations' do
+            try_to_get_index reservable: 'true'
+          end
+        end
+
+        describe 'reservable is false' do
+          before do
+            @expected = create_manifestation({periodical_master: true}, 'available_item')
+            @not_expected = create_manifestation({}, 'available_item')
+          end
+
+          it 'should return searchable manifestations' do
+            try_to_get_index reservable: 'false'
+          end
+        end
+
+        describe 'subject is foobar' do
+          before do
+            @expected = create_manifestation({}, 'foobar_subject', 'available_item')
+            @not_expected = create_manifestation({}, 'barbaz_subject', 'available_item')
+          end
+
+          it 'should return searchable manifestations' do
+            try_to_get_index subject: 'foobar'
+          end
+        end
+
+        describe 'subject is not exists term' do
+          before do
+            @expected = create_manifestation({}, 'available_item')
+            @not_expected = create_manifestation({}, 'foobar_subject', 'available_item')
+          end
+
+          it 'should return searchable manifestations' do
+            try_to_get_index subject: 'bazfoo'
+          end
+        end
+      end
+    end
+
     describe "When logged in as Administrator" do
       before(:each) do
         sign_in FactoryGirl.create(:admin)
@@ -51,6 +191,7 @@ describe ManifestationsController do
       end
 
       include_examples 'index can get a collation'
+      include_examples 'index can get manifestations according to search parameters'
     end
 
     describe "When logged in as Librarian" do
