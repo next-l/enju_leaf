@@ -1,7 +1,10 @@
 # -*- encoding: utf-8 -*-
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  require_dependency 'language'
+  include Mobylette::RespondToMobileRequests
+  mobylette_config do |config|
+    config[:skip_xhr_requests] = false
+  end
 
   rescue_from CanCan::AccessDenied, :with => :render_403
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
@@ -11,9 +14,8 @@ class ApplicationController < ActionController::Base
 
   enju_biblio
   enju_library
-  before_filter :get_library_group, :set_locale, :set_available_languages, :set_mobile_request
-  has_mobile_fu
-  before_filter :set_request_format
+  before_filter :get_library_group, :set_locale, :set_available_languages,
+    :set_mobile_request
 
   enju_question
   enju_subject
@@ -247,21 +249,16 @@ class ApplicationController < ActionController::Base
 
   def set_mobile_request
     if params[:mobile_view]
-      if params[:mobile_view] == 'false'
-        session[:mobile_view] = false
-      else
-        session[:mobile_view] = true
+      case params[:mobile_view]
+      when 'true'
+        session[:mobylette_override] = :force_mobile
+        request.format = :mobile
+      when 'false'
+        session[:mobylette_override] = :ignore_mobile
+        request.format = :html
       end
     else
-      if is_mobile_device?
-        session[:mobile_view] = true
-      end
-    end
-  end
-
-  def set_request_format
-    if session[:mobile_view]
-      request.format = :mobile if is_mobile_device?
+      session[:mobylette_override] = nil
     end
   end
 

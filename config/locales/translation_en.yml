@@ -1,104 +1,19 @@
 en:
   activerecord:
     models:
-      library: Library
       user: User
-      shelf: Shelf
       donate: Donate
       role: Role
-      subscribe: Subscribe
-      request_status_type: Request status type
       search_engine: Search engine
       user_group: User group
-      subscription: Subscription
-      library_group: Library group
       attachment_file: Attachment file
-      bookstore: Bookstore
-      country: Country
-      request_type: Request type
       participate: Participate
       user_has_role: User and roles
-      budget_type: Budget type
       session: Login
-      accept: Accept
       work: Work
       expression: Expression
 
     attributes:
-      library:
-        name: Name
-        display_name: Display name
-        short_display_name: Short display name
-        zip_code: Zip code
-        region: Region
-        locality: Locality
-        street: Street
-        telephone_number_1: Telephone number 1
-        telephone_number_2: Telephone number 2
-        fax_number: Fax number
-        lat: Lat
-        lng: Lng
-        note: Note
-        call_number_rows: Call number rows
-        call_number_delimiter: Call number delimiter
-        position: Position
-        deleted_at: Deleted at
-        opening_hour: Opening hour
-        isil: ISIL
-      patron_import_file:
-        patron_import_file_name: Filename
-        patron_import_content_type: Content type
-        patron_import_file_size: Size
-        patron_import_fingerprint: File hash
-        note: Note
-        executed_at: Executed at
-        patron_import_updated_at: Updated at
-        state: State
-        edit_mode: Edit mode
-        error_message: Error message
-      patron:
-        last_name: Last name
-        middle_name: Middle name
-        first_name: Name
-        last_name_transcription: Last name transcription
-        middle_name_transcription: Middle name transcription
-        first_name_transcription: First name transcription
-        corporate_name: Corporate name
-        corporate_name_transcription: Corporate name transcription
-        full_name: Full name
-        full_name_transcription: Full name transcription
-        full_name_alternative: Full name alternative
-        deleted_at: Deleted at
-        zip_code_1: Zip code 1
-        zip_code_2: Zip code 2
-        address_1: Address 1
-        address_2: Address 2
-        address_1_note: Address 1 note
-        address_2_note: Address 2 note
-        telephone_number_1: Telephone number 1
-        telephone_number_2: Telephone number 2
-        fax_number_1: Fax number 1
-        fax_number_2: Fax number 2
-        other_designation: Other designation
-        place: Place
-        date_of_birth: Date of birth
-        date_of_death: Date of death
-        lock_version: Lock version
-        note: Note
-        country: Country
-        patron_type: Patron type
-        language: Language
-        email: Email
-        url: URL
-      language:
-        name: Name
-        native_name: Native name
-        display_name: Display name
-        iso_639_1: ISO 639 1
-        iso_639_2: ISO 639 2
-        iso_639_3: ISO 639 3
-        note: Note
-        position: Position
       user:
         login: Login
         username: Username
@@ -133,79 +48,11 @@ en:
         current_password: Current password
         locale: Locale
         password_confirmation: Password confirmation
-      picture_file:
-        picture_attachable_type: Picture attachable type
-        picture_file_size: Size
-        picture_content_type: Content type
-        title: Title
-        picture_file_name: Filename
-        height: Height
-        width: Width
-        thumbnail: Thumbnail
-        picture_fingerprint: File hash
-        picture_updated_at: Updated at
-      form_of_work:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      exemplify:
-        position: Position
-      own:
-        position: Position
-      shelf:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-        deleted_at: Deleted at
-        closed: Closed
       donate:
-      produce:
-        position: Position
       role:
         name: Name
         display_name: Display name
         score: Score
-        note: Note
-        position: Position
-      subscribe:
-        started_on: Start on
-        ended_on: End on
-      item:
-        call_number: Call number
-        item_identifier: Item identifier
-        deleted_at: Deleted at
-        include_supplements: Include supplements
-        note: Note
-        url: URL
-        price: Price
-        lock_version: Lock version
-        checkout_type: Checkout type
-        acquired_at: Acquired at
-        donation: Donation
-      realize:
-        position: Position
-      frequency:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      content_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      patron_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      embody:
-        position: Position
-      request_status_type:
-        name: Name
-        display_name: Display name
         note: Note
         position: Position
       search_engine:
@@ -217,50 +64,6 @@ en:
         additional_param: Additional param
         note: Note
         position: Position
-      create:
-        position: Position
-      carrier_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      manifestation:
-        original_title: Original title
-        title_alternative: Titlte alternative
-        title_transcription: Title transcription
-        classification_number: Classification number
-        manifestation_identifier: Manifestation identifier
-        date_of_publication: Date of publication
-        pub_date: Date of publication
-        deleted_at: Deleted at
-        access_address: Access address
-        start_page: Start page
-        end_page: End page
-        height: Height
-        width: Width
-        depth: Depth
-        isbn: ISBN
-        isbn10: ISBN 10
-        wrong_isbn: Wrong ISBN
-        nbn: NBN
-        price: Price
-        volume_number: Volume number (integer)
-        volume_number_string: Volume number
-        issue_number: Issue number (integer)
-        issue_number_string: Issue number
-        serial_number: Serial number
-        serial_number_string: Serial number (string)
-        edition: Edition (integer)
-        edition_string: Edition
-        note: Note
-        repository_content: Repository content
-        lock_version: Lock version
-        carrier_type: Manifestation form
-        language: Language
-        lccn: LCCN
-        issn: ISSN
-        subscription_master: Subscription master
-        description: Description
       user_group:
         name: Name
         display_name: Display name
@@ -271,135 +74,6 @@ en:
         number_of_day_to_notify_due_date: Number of day to notify due date
         number_of_day_to_notify_overdue: Number of day to notify overdue
         number_of_time_to_notify_overdue: Number of time to notify overdue
-      resource_import_file:
-        resource_import_file_name: Filename
-        resource_import_content_type: Content type
-        resource_import_file_size: Size
-        resource_import_fingerprint: File hash
-        note: Note
-        executed_at: Executed at
-        resource_import_updated_at: Updated at
-        state: State
-        edit_mode: Edit mode
-        error_message: Error message
-      subscription:
-        title: Title
-        note: Note
-        deleted_at: Deleted at
-        subscribes_count: Count
-      library_group:
-        name: Name
-        display_name: Display name
-        short_name: Short name
-        email: Email
-        my_networks: My networks
-        admin_networks: Admin networks
-        note: Note
-        login_banner: Login banner
-        post_to_union_catalog: Post to union catalog
-      bookstore:
-        name: Name
-        zip_code: Zip code
-        address: Address
-        note: Note
-        telephone_number: Telephone number
-        fax_number: Fax number
-        url: URL
-        position: Position
-        deleted_at: Deleted at
-      country:
-        name: Name
-        display_name: Display name
-        alpha_2: Alpha 2
-        alpha_3: Alpha 3
-        numeric_3: Numeric 3
-        note: Note
-        position: Position
-      request_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      medium_of_performance:
-        name: Name
-        display_name: Displayname
-        note: Note
-        position: Position
-      content_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      extent:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      content_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      patron_relationship_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      manifestation_relationship_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      license:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      series_statement:
-        original_title: Title
-        numbering: Numbering
-        title_subseries: Title subseries
-        title_subseries_transcription: Title subseries transcription
-        numbering_subseries: Numbering subseries
-        work: Work
-        series_statement_identifier: Series statement identifier
-        issn: ISSN
-        periodical: Periodical
-        title_transcription: Title transcription
-        note: Note
-      import_request:
-        isbn: ISBN
-        state: State
-      patron_relationship:
-        parent_id: Parent
-        child_id: Child
-        patron_relationship_type_id: Patron relationship type
-      manifestation_relationship:
-        parent_id: Parent
-        child_id: Child
-        manifestation_relationship_type_id: Manifestation relationship type
-      resource_import_result:
-        body: Body
-      patron_import_result:
-        body: Body
-      create_type:
-        name: Name
-        display_name: Display name
-        note: Note
-      realize_type:
-        name: Name
-        display_name: Display name
-        note: Note
-      produce_type:
-        name: Name
-        display_name: Display name
-        note: Note
-      budget_type:
-        name: Name
-        display_name: Display name
-        note: Note
-      accept:
-        item_id: Item
 
   page:
     user_title: "Welcome %{login_name}"

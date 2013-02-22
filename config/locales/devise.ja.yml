@@ -1,20 +1,11 @@
 ja:
-  errors:
-    messages:
-      expired: "有効期限が切れています。新しく登録してください。"
-      not_found: "not found"
-      already_confirmed: "was already confirmed, please try signing in"
-      not_locked: "was not locked"
-      not_saved:
-        one: "%{resource} を保存するときに1つのエラーが発生しました:"
-        other: "%{resource} を保存するときに%{count}つのエラーが発生しました:"
-
   devise:
     failure:
       already_authenticated: 'すでにログインしています。'
       unauthenticated: '操作を続けるにはログインが必要です。'
       unconfirmed: '操作を続けるにはアカウントの確認が必要です。'
       locked: 'アカウントは停止されています。'
+      not_found_in_database: 'ユーザ名かパスワードが正しくありません。'
       invalid: 'ユーザ名かパスワードが正しくありません。'
       invalid_token: 'Invalid authentication token.'
       timeout: 'Your session expired, please sign in again to continue.'
@@ -53,3 +44,12 @@ ja:
         subject: 'Reset password instructions'
       unlock_instructions:
         subject: 'Unlock Instructions'
+  errors:
+    messages:
+      expired: "有効期限が切れています。新しく登録してください。"
+      not_found: "not found"
+      already_confirmed: "was already confirmed, please try signing in"
+      not_locked: "was not locked"
+      not_saved:
+        one: "%{resource} を保存するときに1つのエラーが発生しました:"
+        other: "%{resource} を保存するときに%{count}つのエラーが発生しました:"
