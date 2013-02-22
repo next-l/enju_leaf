@@ -9,7 +9,8 @@ then
 	OPTION="$*"
 fi
 
-$SCRPT_PATH/recv-bucket.pl $OPTION
+cd $SCRPT_PATH
+./recv-bucket.pl $OPTION
 STATUS=$?
 
 if [ $STATUS -ne 0 ]
