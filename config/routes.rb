@@ -1,4 +1,5 @@
 EnjuLeaf::Application.routes.draw do
+  resources :user_request_logs
   resources :enju_terminals
 
   resources :numberings

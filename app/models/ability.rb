@@ -182,7 +182,8 @@ class Ability
       can :read, [
         PatronImportResult,
         ResourceImportResult,
-        ResourceImportTextresult
+        ResourceImportTextresult,
+        UserRequestLog
       ]
     when 'Librarian'
       can [:read, :create, :update], Budget
@@ -351,7 +352,8 @@ class Ability
         EnjuTerminal,
         UseRestriction,
         UserGroup,
-        UserGroupHasCheckoutType
+        UserGroupHasCheckoutType,
+        UserRequestLog
       ]
     when 'User'
       can [:index, :create], Answer

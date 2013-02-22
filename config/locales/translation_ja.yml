@@ -1,6 +1,7 @@
 ja:
   activerecord:
     models:
+      user_request_log: 利用者操作履歴
       library: 図書館
       question: 質問（レファレンス）
       patron_import_file: 人物・団体のインポート用ファイル
@@ -192,6 +193,17 @@ ja:
       enju_terminal: 端末設定
 
     attributes:
+      user_request_log:
+        user_id: 利用者ID
+        controller: コントローラ名
+        action: アクション名
+        remote_ip: IPアドレス
+        created_at: 操作日時
+        created_at_start: 操作日時(開始)
+        created_at_end: 操作日時(終了)
+        search_note: "コントローラ名、アクション名、IPアドレスは前方一致で検索します。"
+        created_sort_note: "操作日時は次の順序で並べる"
+        data: "リクエストパラメータ"
       enju_terminal:
         ipaddr: IPアドレス
         name: ホスト名

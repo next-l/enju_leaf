@@ -2,6 +2,8 @@ class UserRequestLog < ActiveRecord::Base
   attr_accessible :action, :controller, :data, :remote_ip, :user_id
   serialize :data
 
+  paginates_per 50
+
   class Subscriber < ActiveSupport::LogSubscriber
     def process_action(event)
       payload = event.payload

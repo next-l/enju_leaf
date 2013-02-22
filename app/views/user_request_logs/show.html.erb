@@ -1,0 +1,47 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.user_request_log')) %></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_request_log.id') %>:</strong>
+  <%= @user_request_log.id %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_request_log.user_id') %>:</strong>
+  <%= @user_request_log.user_id %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_request_log.controller') %>:</strong>
+  <%= @user_request_log.controller %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_request_log.action') %>:</strong>
+  <%= @user_request_log.action %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_request_log.created_at') %>:</strong>
+  <%=l @user_request_log.created_at %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_request_log.data') %>:</strong>
+  <%= @user_request_log.data %>
+</p>
+
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <% if can? :update, @remove_reason %>
+      <li><%= link_to t('page.edit'), edit_remove_reason_path(@remove_reason) %></li>
+      <li><%= link_to t('page.back'), remove_reasons_path %></li>
+    <% end %>
+  </ul>
+</div>
