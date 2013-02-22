@@ -85,9 +85,9 @@
         <% end %>
       </ul>
     </li>
-    <li>
-      <a href="#event_menu"><%= t('activerecord.models.event') -%></a>
-      <% if defined?(EnjuEvent) %>
+    <% if defined?(EnjuEvent) %>
+      <li>
+        <a href="#event_menu"><%= t('activerecord.models.event') -%></a>
         <ul>
           <%- unless @library_group.real_libraries.empty? -%>
             <li><%= link_to t('page.calendar'), calendar_path -%></li>
@@ -98,10 +98,10 @@
             <%- if can? :create, Event -%>
               <li><%= link_to t('page.import'), new_event_import_file_path -%></li>
             <%- end -%>
-          </ul>
-        <%- end -%>
-      <% end %>
-    </li>
+          <%- end -%>
+        </ul>
+      </li>
+    <% end %>
     <li>
       <a href="#configuration_menu">
         <% if current_user.try(:has_role?, 'Librarian') %>
@@ -123,7 +123,9 @@
               <li><%= link_to t('activerecord.models.order_list'), order_lists_path -%></li>
             <% end %>
             <li><%= link_to t('page.statistics'), page_statistics_path -%></li>
-            <li><%= link_to t('activerecord.models.search_history'), search_histories_path -%></li>
+            <% if defined?(EnjuSearchLog) %>
+              <li><%= link_to t('activerecord.models.search_history'), search_histories_path %></li>
+            <% end %>
             <% if Setting.enju.erms_url %>
               <li><%= link_to t('page.electronic_resource_management'), Setting.enju.erms_url -%></li>
             <% end %>
