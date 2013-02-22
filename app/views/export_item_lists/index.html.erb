@@ -92,10 +92,9 @@
     var bookstores = new Array;
     var all_bookstore = $("input#all_bookstore:checked").val();
  
-    $("input#library_:checked").map(function() { libraries.push($(this).val()); });
-    $("input#carrier_type_:checked").map(function() { carrier_types.push($(this).val()); });
-    $("input#bookstore_:checked").map(function() { bookstores.push($(this).val()); });
-
+    $("[name='library[]']:checked").map(function() { libraries.push($(this).val()); });
+    $("[name='carrier_type[]']:checked").map(function() { carrier_types.push($(this).val()); });
+    $("[name='bookstore[]']:checked").map(function() { bookstores.push($(this).val()); });
     $.ajax({
       type: "GET",
       url: "<%= url_for(:controller => :export_item_lists, :action => :get_list_size)-%>",
