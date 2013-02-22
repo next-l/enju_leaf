@@ -138,6 +138,7 @@ class MyAccountsController < ApplicationController
         mime_type = force_mime_type
       end
 
+      filename = ERB::Util.url_encode(filename)
       send_file @user_file,
         filename: filename,
         type: mime_type
