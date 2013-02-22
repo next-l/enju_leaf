@@ -898,7 +898,7 @@ class ManifestationsController < ApplicationController
       date[:to] = "*"
     else
       date[:to] = Time.zone.parse(date_to).end_of_day.utc.iso8601 rescue nil
-      date[:to] = Time.zone.parse(Time.mktime(date_to).to_s).beginning_of_day.utc.iso8601 unless date[:to] 
+      date[:to] = Time.zone.parse(Time.mktime(date_to).to_s).end_of_year.utc.iso8601 unless date[:to]
     end
     return "#{column}_sm:[#{date[:from]} TO #{date[:to]}]"
   end
