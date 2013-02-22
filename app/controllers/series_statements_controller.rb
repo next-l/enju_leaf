@@ -101,7 +101,7 @@ class SeriesStatementsController < ApplicationController
     manifestation = nil
     begin
       SeriesStatement.transaction do
-        if params[:series_statement][:periodical]
+        if params[:series_statement][:periodical].to_s == "1"
           manifestation = Manifestation.create(params[:manifestation])
           @series_statement.root_manifestation = manifestation
           manifestation.original_title = params[:series_statement][:original_title] if  params[:series_statement][:original_title]
@@ -119,7 +119,7 @@ class SeriesStatementsController < ApplicationController
           manifestation.subjects     = Subject.import_subject(@subject) unless @subject.blank?
         end
         @series_statement.save!
-        @series_statement.manifestations << manifestation if manifestation
+        @series_statement.manifestations << manifestation if @series_statement.periodical and manifestation
         respond_to do |format|
           format.html { redirect_to @series_statement,
             :notice => t('controller.successfully_created', :model => t('activerecord.models.series_statement')) }
@@ -153,7 +153,7 @@ class SeriesStatementsController < ApplicationController
           @publisher = params[:manifestation][:publisher]
           @contributor = params[:manifestation][:contributor]
           @subject = params[:manifestation][:subject]
-          if params[:series_statement][:periodical]
+          if params[:series_statement][:periodical].to_s == "1"
             if @series_statement.root_manifestation
               manifestation = Manifestation.find(@series_statement.root_manifestation_id)
               manifestation.update_attributes!(params[:manifestation])
@@ -165,7 +165,7 @@ class SeriesStatementsController < ApplicationController
               manifestation.title_alternative = params[:series_statement][:title_alternative] if params[:series_statement][:title_alternative]
               manifestation.periodical_master = true
               manifestation.save!
-              @series_statement.manifestations << manifestation
+              @series_statement.manifestations << manifestation 
             end
             manifestation.creators     = Patron.add_patrons(@creator) unless @creator.blank?
             manifestation.contributors = Patron.add_patrons(@contributor) unless @contributor.blank?
@@ -177,7 +177,7 @@ class SeriesStatementsController < ApplicationController
               manifestation = Manifestation.find(@series_statement.root_manifestation_id)
               manifestation.destroy if manifestation
             end
-            @series_statement.root_manifestation_id = nil
+            @series_statement.root_manifestation = nil
             @series_statement.periodical = false
           end
           @series_statement.update_attributes!(params[:series_statement])
