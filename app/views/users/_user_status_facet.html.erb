@@ -1,0 +1,14 @@
+<h4><%= t('activerecord.models.user_status') -%></h4>
+<ul>
+  <%- user_statuses = params[:user_status].to_s.split -%>
+  <%- @search.facet(:user_status).rows.each do |facet| -%>
+    <%- current_user_statuses = user_statuses.dup -%>
+    <%- user_status = UserStatus.where(:name => facet.value).select([:name, :display_name]).first -%>
+    <%- if user_status -%>
+      <li><%= user_status_facet(user_status, current_user_statuses, facet) %></li>
+    <%- end -%>
+  <%- end -%>
+  <%- if params[:user_status] -%>
+    <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:role => nil, :page => nil, :view => nil, :user_status => nil )) -%></li>
+  <%- end -%>
+</ul>

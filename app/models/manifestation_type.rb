@@ -26,6 +26,13 @@ class ManifestationType < ActiveRecord::Base
     false
   end
 
+  def is_japanese_article?
+    if ['japanese_article'].include?(self.name)
+      return true
+    end
+    false
+  end
+
   def is_series?
     if ['japanese_magazine', 'foreign_magazine',
       'japanese_serial_book', 'foreign_serial_book'].include?(self.name)

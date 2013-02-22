@@ -1634,6 +1634,7 @@ ja:
     search_results: "資料の検索結果"
     search_article_results: "文献資料の検索結果"
     library_reports: "報告書・帳票"
+    more_information: "詳細情報を表示"
 
     exstatistics:
       ranknumber: 順位
@@ -2131,6 +2132,7 @@ ja:
         series_statement_identifier: シリーズ識別子
         note: 雑誌注記
       book:
+        manifestation_type: 資料区分
         original_title: タイトル
         title_transcription: タイトル（ヨミ）
         title_alternative: 代替タイトル
@@ -2191,7 +2193,7 @@ ja:
         title: 誌名
         volume_number_string: 巻号
         number_of_page: ページ
-        pub_date: 年
+        pub_date: 刊行年
         call_number: 請求記号 
         url: ＵＲＬ
         subject: 件名 

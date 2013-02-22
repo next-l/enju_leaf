@@ -391,6 +391,8 @@ class ManifestationsController < ApplicationController
     end
     store_location # before_filter ではファセット検索のURLを記憶してしまう
 
+    @all_manifestations = params[:all_manifestations] if params[:all_manifestations]
+
     respond_to do |format|
       if params[:opac]
         if @manifestations.size > 0

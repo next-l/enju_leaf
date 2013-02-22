@@ -7,7 +7,7 @@
                   </div>
                 <%- end -%>
               <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'show_list', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
-                <%- unless manifestation.items.empty? -%>
+                <%- unless manifestation.periodical_master? or manifestation.items.empty? -%>
                   (<%= link_to_function t('page.holding'), "$('#holding_#{manifestation.id}').toggle()" -%>)
                 <%- end -%>
                 <% if user_signed_in? and current_user.has_role?('Librarian') %>

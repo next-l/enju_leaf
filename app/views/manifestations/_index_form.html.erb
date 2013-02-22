@@ -9,13 +9,17 @@
     <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
     <%= hidden_field_tag 'reservable', h(@reservable) if @reservable -%>
     <%= hidden_field_tag 'user_id', params[:user_id] if params[:user_id] -%>
-    <%= hidden_field_tag 'all_manifestations', params[:all_manifestations] if params[:all_manifestations] %>
     <%= hidden_field_tag 'removed', true if @removed %>
     <%= submit_tag t('page.search') -%>
     <% if !@query.empty? %><input type="button" value="<%= t('page.search_clear') -%>" onclick="$('#search_form_top').val('')"><% end %>
     <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
       <% if user_signed_in? and current_user.has_role?('Librarian') %>
-        <%= check_box_tag 'all_manifestations', true %><%= t('advanced_search.all_manifestations') %><br />
+        <%- if @all_manifestations %>
+          <%= check_box_tag 'all_manifestations', true, true %>
+        <%- else -%>
+          <%= check_box_tag 'all_manifestations', true %>
+        <%- end -%>
+        <%= t('advanced_search.all_manifestations') %><br />
       <% end %>
     <% end %>
     <%= link_to t('page.advanced_search'), page_advanced_search_path(:user_id => params[:user_id]) -%>
@@ -65,9 +69,6 @@ $(function(){
     $('#chkbox2_article_creator').attr('disabled', 'disabled')
     $('#chkbox2_article_original_title').attr('disabled', 'disabled')
     $('#chkbox2_article_title').attr('disabled', 'disabled')
-    $('#chkbox2_article_pub_date').attr('disabled', 'disabled')
-    $('#chkbox2_article_call_number').attr('disabled', 'disabled')
-    $('#chkbox2_article_subject').attr('disabled', 'disabled')
     $('#chkbox2_series_original_title').attr('disabled', 'disabled')
 
     <%- ['book','article'].each do |t| -%>

@@ -463,6 +463,13 @@ class ApplicationController < ActionController::Base
       return
     end
   end
+
+  def append_info_to_payload(payload)
+    super
+    payload[:current_user] = current_user rescue nil
+    payload[:session_id] = request.session_options[:id] rescue nil
+    payload[:remote_ip] = request.remote_ip
+  end
 end
 
 class InvalidLocaleError < StandardError
