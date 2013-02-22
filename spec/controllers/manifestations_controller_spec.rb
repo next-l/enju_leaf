@@ -26,14 +26,15 @@ describe ManifestationsController do
         end
 
         it "assings a collation as @collation" do
-          get :index, :query => typo_title
+          get :index, :query => typo_title, :all_manifestations => 'true'
           assigns(:manifestations).should be_empty
           assigns(:collation).should be_present
-          assigns(:collation).should == exact_title
+          assigns(:collation).should == [exact_title]
         end
 
         it "doesn't assing @collation" do
-          get :index, :query => exact_title
+          get :index, :query => exact_title, :all_manifestations => 'true'
+          assigns(:manifestations).should be_present
           assigns(:collation).should be_blank
         end
       end
