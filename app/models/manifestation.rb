@@ -457,6 +457,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def non_searchable?
+    return false if periodical_master
     items.each do |i|
       if i.rank == 0 and !i.retention_period.non_searchable and i.circulation_status.name != "Removed" and !i.non_searchable
         return false
