@@ -152,10 +152,14 @@ unless (chdir "$ProgHome") {
 # enju_trunkで実行しないといけない
 if ($debug) {print "rake enju:sync:import DUMP_FILE=$RecvDir/$rcv_bucket/enjudump.marshal STATUS_FILE=$RecvDir/$rcv_bucket/status.marshal\n";}
 #
-unless (system("rake enju:sync:import DUMP_FILE=$RecvDir/$rcv_bucket/enjudump.marshal STATUS_FILE=$RecvDir/$rcv_bucket/status.marshal")) {
-	wrt_log($pname, 'err', "Failed import dumpfile: see also /opt/enju_trunk/logs/production.log");
-	close(LCK);
-	exit 2;
+# unless (system("rake enju:sync:import DUMP_FILE=$RecvDir/$rcv_bucket/enjudump.marshal STATUS_FILE=$RecvDir/$rcv_bucket/status.marshal")) {
+# 	wrt_log($pname, 'err', "Failed import dumpfile: see also /opt/enju_trunk/log/production.log");
+# 	close(LCK);
+# 	exit 2;
+# }
+my $r_stat = system("rake enju:sync:import DUMP_FILE=$RecvDir/$rcv_bucket/enjudump.marshal STATUS_FILE=$RecvDir/$rcv_bucket/status.marshal");
+if ( $r_stat != 0 ) {
+ 	wrt_log($pname, 'err', "Failed import dumpfile:status=$r_stat:see also /opt/enju_trunk/log/production.log");
 }
 
 # 受信バケットに再移動
