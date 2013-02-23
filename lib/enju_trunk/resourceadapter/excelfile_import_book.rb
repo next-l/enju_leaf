@@ -83,22 +83,24 @@ module EnjuTrunk
           :body => datas.values.join("\t"),
           :extraparams => "{'sheet'=>'#{sheet}'}"
         )
-        ############################
-        #next unless has_necessary_cell?(datas, sheet, row, import_textresult)
         begin
           ActiveRecord::Base.transaction do
+            item = nil
             item_identifier = datas[@field[I18n.t('resource_import_textfile.excel.book.item_identifier')]]
+            item = Item.where(:item_identifier => item_identifier.to_s).order("created_at asc").first unless item_identifier.nil? or item_identifier.blank?
             if fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.del_flg')]])
-              delete_data(item_identifier, import_textresult)
+              delete_data(item_identifier, item, import_textresult)
             else
-              item = nil
-              item = Item.where(:item_identifier => item_identifier.to_s).first unless item_identifier.nil? or item_identifier.to_s == ""
+              unless item
+                next unless has_necessary_cell?(datas, sheet, row, import_textresult)
+              end
               manifestation = fetch_book(datas, item)
               if manifestation.valid?
                 item = create_book_item(datas, manifestation, item)
                 import_textresult.manifestation = manifestation
                 import_textresult.item = item
                 manifestation.index
+                manifestation.series_statement.index if manifestation.series_statement
                 num[:manifestation_imported] += 1 if import_textresult.manifestation
                 num[:item_imported] += 1 if import_textresult.item
                 if import_textresult.item.manifestation.next_reserve
@@ -146,10 +148,11 @@ module EnjuTrunk
       else
         isbn = datas[@field[I18n.t('resource_import_textfile.excel.book.isbn')]].to_s
         manifestation = import_isbn(isbn)
-        series_statement = find_series_statement(datas, manifestation)
-        manifestation = exist_same_book?(datas, manifestation, series_statement) 
-        series_statement = create_series_statement(datas, manifestation, series_statement)
       end
+      series_statement = find_series_statement(datas, manifestation)
+      manifestation = exist_same_book?(datas, manifestation, series_statement) 
+      series_statement = create_series_statement(datas, manifestation, series_statement)
+
       unless manifestation
         manifestation = Manifestation.new
       end
@@ -241,6 +244,11 @@ module EnjuTrunk
         end
       end
       manifestation.save!
+      if @mode == "create"
+        p "make new manifestation"
+      else
+        p "edit manifestation title:#{manifestation.original_title}"
+      end
       # creator
       creators_string = datas[@field[I18n.t('resource_import_textfile.excel.book.creator')]]
       creators        = creators_string.nil? ? nil : creators_string.to_s.split(';')
@@ -403,7 +411,7 @@ module EnjuTrunk
         p "make new series_statement"
         series_statement = SeriesStatement.new
       else
-        p "edit series_statement name:#{series_statement.original_title}"
+        p "edit series_statement name:#{original_title}"
       end
 
       series_statement.original_title              = original_title.to_s      unless original_title.nil?
@@ -753,15 +761,9 @@ module EnjuTrunk
       end
     end
 
-    def delete_data(item_identifier, import_textresult) 
-      if item_identifier.nil? or item_identifier.blank?
-        raise I18n.t('resource_import_textfile.error.delete_requre_item_identifier')
-      end
-      item_identifier = item_identifier.to_s
-      item = Item.where(:item_identifier => item_identifier).order("created_at asc").first
-      unless item
-        raise I18n.t('resource_import_textfile.error.failed_delete_not_find')
-      end
+    def delete_data(item_identifier, item, import_textresult) 
+      raise I18n.t('resource_import_textfile.error.delete_requre_item_identifier') if item_identifier.nil? or item_identifier.blank?
+      raise I18n.t('resource_import_textfile.error.failed_delete_not_find') unless item
       ActiveRecord::Base.transaction do
         begin
           deleted_manifestation          = false
