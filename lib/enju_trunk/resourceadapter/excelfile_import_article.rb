@@ -160,6 +160,11 @@ module EnjuTrunk
         end
       end
       manifestation.save!
+      if @mode == "create"
+        p "created manifestation id:#{manifestation.id}"
+      else
+        p "edited manifestation id:#{manifestation.id}"
+      end
 
       creators_cell   = datas[@field[I18n.t('resource_import_textfile.excel.article.creator')]]
       creators        = set_article_creatos(creators_cell)
@@ -245,6 +250,11 @@ module EnjuTrunk
         end
       end
       item.save!
+      if @mode_item == "create"
+        p "created item item_identifer: #{item.item_identifier}"
+      else
+        p "edited item item_identifer: #{item.item_identifier}"
+      end
       item.patrons << import_textfile.user.library.patron if @mode_item == 'create'
       return item
     end
