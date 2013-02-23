@@ -245,14 +245,14 @@ describe ManifestationsController do
           Sunspot.commit
         end
 
-        it "assings a collation as @collation" do
+        it "assigns a collation as @collation" do
           get :index, :query => typo_title, :all_manifestations => 'true'
           assigns(:manifestations).should be_empty
           assigns(:collation).should be_present
           assigns(:collation).should == [exact_title]
         end
 
-        it "doesn't assing @collation" do
+        it "doesn't assign @collation" do
           get :index, :query => exact_title, :all_manifestations => 'true'
           assigns(:manifestations).should be_present
           assigns(:collation).should be_blank
@@ -372,18 +372,21 @@ describe ManifestationsController do
       it "assigns all manifestations as @manifestations in oai format without verb" do
         get :index, :format => 'oai'
         assigns(:manifestations).should_not be_nil
+        assigns(:oai).should be_present
         response.should render_template("manifestations/index")
       end
 
       it "assigns all manifestations as @manifestations in oai format with ListRecords" do
         get :index, :format => 'oai', :verb => 'ListRecords'
         assigns(:manifestations).should_not be_nil
+        assigns(:oai).should be_present
         response.should render_template("manifestations/list_records")
       end
 
       it "assigns all manifestations as @manifestations in oai format with ListIdentifiers" do
         get :index, :format => 'oai', :verb => 'ListIdentifiers'
         assigns(:manifestations).should_not be_nil
+        assigns(:oai).should be_present
         response.should render_template("manifestations/list_identifiers")
       end
 
@@ -391,6 +394,7 @@ describe ManifestationsController do
         get :index, :format => 'oai', :verb => 'GetRecord'
         assigns(:manifestations).should be_nil
         assigns(:manifestation).should be_nil
+        assigns(:oai).should be_present
         response.should render_template('manifestations/index')
       end
 
@@ -398,6 +402,7 @@ describe ManifestationsController do
         get :index, :format => 'oai', :verb => 'GetRecord', :identifier => 'oai:localhost:manifestations-1'
         assigns(:manifestations).should be_nil
         assigns(:manifestation).should_not be_nil
+        assigns(:oai).should be_present
         response.should render_template('manifestations/show')
       end
     end
