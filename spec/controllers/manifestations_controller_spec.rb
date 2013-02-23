@@ -5,7 +5,7 @@ describe ManifestationsController do
   fixtures :all
 
   describe "GET index", :solr => true do
-    shared_examples_for 'index can set search conditions according to params' do
+    shared_examples_for 'manifestation search conditions' do
       before do
         # with(:foo).equal_to(:bar)のような呼び出しを追跡する
         #
@@ -33,34 +33,60 @@ describe ManifestationsController do
         end
       end
 
-      after do
-        if @expected_call.present?
-          method_str = "#{@expected_call[0]}(#{@expected_call[1].inspect})"
-          if @expected_call[2]
-            method_str << ".#{@expected_call[2]}"
-            method_str << "(#{@expected_call[3..-1].map(&:inspect).join(', ')})" if @expected_call[3]
-          end
-
-          # @expected_callに対応するメソッド呼び出しが
-          # 少なくとも一回はあったことを検査する
-          main_cond = @expected_call[0 .. 1]
-          if @expected_call.size > 2
-            # with(:foo).equal_to(:bar)が期待されたときの
-            # equal_to(:bar)に対するチェック項目
-            subs_check = proc {|subs| subs.any? {|sub| sub == @expected_call[2 .. -1] } }
-          else
-            # with(:foo)が期待されたときの
-            # with()以降に何もきてないことに対するチェック項目
-            subs_check = proc {|subs| subs == [] }
-          end
-          @called.should be_any {|cond, field, *subs|
-            [cond, field] == main_cond && subs_check.call(subs)
-          }, "\"#{method_str}\" did not call"
+      # foo(bar)が呼び出されたことをチェックする場合: check_called(:foo, bar)
+      # foo(bar).baz(quux)が呼び出されたことをチェックする場合: check_called(:foo, bar, :baz, quux)
+      # foo(bar)が呼びだされたことだけをチェックし、それに続くメソッド呼び出しがあったかどうかはチェックしない場合: check_called(:foo, bar, :*)
+      def check_called0(*expected_call)
+        # expected_callに対応するメソッド呼び出しが
+        # 少なくとも一回はあったことを検査する
+        main_cond = expected_call[0 .. 1]
+        if expected_call.size == 3 && expected_call[2] == :*
+          # with(:foo)がとにかく呼ばれたことだけを期待するとき
+          # with(:foo)以降についてはチェックを行わない
+          subs_check = proc {|subs| true }
+        elsif expected_call.size > 2
+          # with(:foo).equal_to(:bar)が期待されたときの
+          # equal_to(:bar)に対するチェック
+          subs_check = proc {|subs| subs.any? {|sub| sub == expected_call[2 .. -1] } }
+        else
+          # with(:foo)が期待されたときの
+          # with()以降に何もきてないことに対するチェック
+          subs_check = proc {|subs| subs == [] }
         end
+
+        @called.any? {|cond, field, *subs|
+          [cond, field] == main_cond && subs_check.call(subs)
+        }
+      end
+
+      def check_called(*expected_call)
+        method_str = check_called_method_str(*expected_call)
+        check_called0(*expected_call).should be_true, "\"#{method_str}\" did not call"
+      end
+
+      def check_not_called(*expected_call)
+        method_str = check_called_method_str(*expected_call)
+        check_called0(*expected_call).should be_false, "\"#{method_str}\" called"
+      end
+
+      def self.check_called_method_str(*expected_call)
+        method_str = "#{expected_call[0]}(#{expected_call[1].inspect})"
+        if expected_call[2] && expected_call[2] != :*
+          method_str << ".#{expected_call[2]}"
+          method_str << "(#{expected_call[3..-1].map(&:inspect).join(', ')})" if expected_call[3]
+        end
+        method_str
+      end
+      def check_called_method_str(*expected_call)
+        self.class.check_called_method_str(*expected_call)
+      end
+
+      after do
+        check_called(*@expected_call) if @expected_call.present?
       end
     end
 
-    shared_examples_for 'index can load records' do
+    shared_examples_for 'index should load records' do
       [
         # param name, expected record, ivar name, [search condition spec]
         [:patron_id, Patron, :patron,
@@ -83,7 +109,7 @@ describe ManifestationsController do
         ivar, idx = dst
 
         context "When #{psym} param is specified" do
-          include_examples 'index can set search conditions according to params'
+          include_examples 'manifestation search conditions'
 
           it "should load a #{cls.name} record as @#{ivar} and use it as a solr search condition" do
             expected = cls.first
@@ -108,7 +134,7 @@ describe ManifestationsController do
       end
 
       context "When bookbinder_id param is specified" do
-        include_examples 'index can set search conditions according to params'
+        include_examples 'manifestation search conditions'
 
         it 'should load first Item record of a Manifestation record and use it as a solr search condition' do
           manifestation = Manifestation.first
@@ -120,6 +146,76 @@ describe ManifestationsController do
           response.should be_success
           assigns(:binder).should be_present
           assigns(:binder).should eq(expected)
+        end
+      end
+    end
+
+    shared_examples_for 'index should set search conditions according to params' do
+      [
+        ['removed', [
+          ['true', :check_called,     [:with, :has_removed, :equal_to, true]],
+          ['true', :check_not_called, [:without, :non_searchable, :*]],
+          [nil,    :check_not_called, [:with, :has_removed, :*]],
+        ]],
+        ['removed_from', [
+          ['2013', :check_called,     [:with, :has_removed, :equal_to, true]],
+          [nil,    :check_not_called, [:with, :has_removed, :*]],
+        ]],
+        ['removed_to', [
+          ['2013', :check_called,     [:with, :has_removed, :equal_to, true]],
+          [nil,    :check_not_called, [:with, :has_removed, :*]],
+        ]],
+        ['reservable', [
+          ['true',  :check_called,     [:with, :reservable, :equal_to, true]],
+          ['false', :check_called,     [:with, :reservable, :equal_to, false]],
+          [nil,     :check_not_called, [:with, :reservable, :*]],
+        ]],
+        ['carrier_type', [
+          ['foo', :check_called,     [:with, :carrier_type, :equal_to, 'foo']],
+          [nil,   :check_not_called, [:with, :carrier_type, :*]],
+        ]],
+        ['library', [
+          ['foo',     :check_called,     [:with, :library, :equal_to, 'foo']],
+          ['foo bar', :check_called,     [:with, :library, :equal_to, 'foo'],
+                                         [:with, :library, :equal_to, 'bar']],
+          [nil,       :check_not_called, [:with, :library, :*]],
+        ]],
+        ['language', [
+          ['foo',     :check_called,     [:with, :language, :equal_to, 'foo']],
+          ['foo bar', :check_called,     [:with, :language, :equal_to, 'foo'],
+                                         [:with, :language, :equal_to, 'bar']],
+          [nil,       :check_not_called, [:with, :language, :*]],
+        ]],
+        ['missing_issue', [
+          ['1', :check_called,     [:with, :missing_issue, :equal_to, '1']], # XXX: 意味合いとしては1が正しそう
+          [nil, :check_not_called, [:with, :missing_issue, :*]],
+          [nil, :check_called,     [:without, :non_searchable, :equal_to, true]],
+        ]],
+        ['all_manifestations', [
+          ['true', :check_not_called, [:without, :non_searchable, :*]],
+          [nil,    :check_called,     [:without, :non_searchable, :equal_to, true]],
+        ]],
+        ['series_statement_id', [
+          ['1', :check_called,     [:with, :periodical_master, :equal_to, false]],
+          ['1', :check_not_called, [:with, :periodical, :*]],
+          [nil, :check_not_called, [:with, :periodical_master, :*]],
+          [nil, :check_called,     [:with, :periodical, :equal_to, false]],
+        ]],
+      ].each do |param, specs|
+        specs.each do |pvalue, check, *check_args|
+          t = pvalue.nil? ? "no #{param}" : "#{param}=#{pvalue.to_s}"
+          context "When #{t} is specified" do
+            include_examples 'manifestation search conditions'
+            t1 = check == :check_not_called ? 'not call' : 'call'
+            check_args.each do |ca|
+              t2 = check_called_method_str(*ca)
+              it "should #{t1} #{t2}" do
+                get :index, param => pvalue
+                response.should be_success
+                __send__(check, *ca)
+              end
+            end
+          end
         end
       end
     end
@@ -299,6 +395,18 @@ describe ManifestationsController do
       end
     end
 
+    shared_examples_for 'index should set is_article search conditions' do
+      describe 'For split-by-type search' do
+        include_examples 'manifestation search conditions'
+
+        it 'should search with/without is_article' do
+          get :index
+          check_called(:with,    :is_article, :equal_to, false)
+          check_called(:without, :is_article, :equal_to, false)
+        end
+      end
+    end
+
     describe "When logged in as Administrator" do
       before(:each) do
         sign_in FactoryGirl.create(:admin)
@@ -309,9 +417,11 @@ describe ManifestationsController do
         assigns(:manifestations).should_not be_nil
       end
 
-      include_examples 'index can load records'
+      include_examples 'index should load records'
+      include_examples 'index should set search conditions according to params'
       include_examples 'index can get a collation'
       include_examples 'index can get manifestations according to search parameters'
+      include_examples 'index should set is_article search conditions'
     end
 
     describe "When logged in as Librarian" do
