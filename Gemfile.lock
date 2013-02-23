@@ -8,12 +8,12 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 60b75abb1d604dae1a991e4f8679c12dfb816faa
+  revision: f4d7db5ae5b57a8f0b2aa539f3ae660e9a87b45b
   specs:
-    enju_biblio (0.1.0.pre15)
+    enju_biblio (0.1.0.pre17)
       aws-sdk
       dynamic_form
-      enju_core (~> 0.1.1.pre2)
+      enju_core (~> 0.1.1.pre3)
       has_scope
       inherited_resources
       library_stdnums
@@ -31,16 +31,16 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_book_jacket.git
-  revision: ce803288cad1de39300205440c60271ced3f3206
+  revision: d0db7588850191665d4e5002df70aec32be353ba
   specs:
-    enju_book_jacket (0.1.0.pre3)
+    enju_book_jacket (0.1.0.pre4)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_circulation.git
-  revision: b18f6915060574558b6f94fd1cc68edf8af41dfe
+  revision: d4e27c191c9432fb1f72566f177b0f3c2896178d
   specs:
-    enju_circulation (0.1.0.pre10)
+    enju_circulation (0.1.0.pre11)
       enju_event (~> 0.1.17.pre5)
       enju_message (~> 0.1.14.pre)
       inherited_resources
@@ -51,9 +51,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_core.git
-  revision: 64d2a0b2c103f635dddeada1e657e1e846f427f2
+  revision: be0fff65402dbf52e77e0b69f922aa92dcc52597
   specs:
-    enju_core (0.1.1.pre2)
+    enju_core (0.1.1.pre3)
       acts_as_list
       addressable
       attribute_normalizer (~> 1.1)
@@ -62,7 +62,6 @@ GIT
       devise
       friendly_id (~> 4.0)
       kaminari
-      mobile-fu
       rails (~> 3.2)
       resque
       settingslogic
@@ -70,10 +69,10 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_event.git
-  revision: 607673660d3e11a2f525b1d452bf67bf967f6794
+  revision: f09f5ecfe0904acd847b6b93f70249986d0fc7f1
   specs:
-    enju_event (0.1.17.pre6)
-      enju_core (~> 0.1.1.pre)
+    enju_event (0.1.17.pre7)
+      enju_core (~> 0.1.1.pre3)
       enju_message (~> 0.1.14.pre3)
       event-calendar (~> 2.3.3)
       has_scope
@@ -115,13 +114,12 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 26abc87e47024901448b306765d257358e3d6f3a
+  revision: 58c53f3b4c7f187ce1c968554c329fead2661711
   specs:
-    enju_library (0.1.0.pre6)
-      enju_core (~> 0.1.1.pre)
+    enju_library (0.1.0.pre8)
+      enju_core (~> 0.1.1.pre3)
       geocoder
       inherited_resources
-      rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_manifestation_viewer.git
@@ -151,19 +149,18 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_oai.git
-  revision: 9dd680849e95469547d006df32a2bd088b42b3b1
+  revision: 9d74b9080ed247bcc9e72235dcf0c56ae8a5d534
   specs:
-    enju_oai (0.1.0.pre6)
-      mobile-fu
+    enju_oai (0.1.0.pre7)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_resource_merge.git
-  revision: e6c0f1911a11d82bec3b7260c4940237e4544453
+  revision: 8c6ba06c69c5d1918bcede6c557ce6060cbceeda
   specs:
     enju_resource_merge (0.1.0.pre5)
       dynamic_form
-      enju_biblio (~> 0.1.0.pre13)
+      enju_biblio (~> 0.1.0.pre17)
       inherited_resources
       rails (~> 3.2)
 
@@ -177,11 +174,11 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_subject.git
-  revision: 0b6cba91c1d3a8aae4e1bf2521d68a5f9d48630a
+  revision: c5f01908bb517d6ac20f0f24ef51cc8d9f0d330e
   specs:
     enju_subject (0.1.0.pre4)
       dynamic_form
-      enju_core
+      enju_core (~> 0.1.1.pre3)
       inherited_resources
       rails (~> 3.2)
 
@@ -217,7 +214,7 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     acts_as_list (0.1.9)
-    addressable (2.3.2)
+    addressable (2.3.3)
     annotate (2.5.0)
       rake
     arel (3.0.2)
@@ -226,13 +223,13 @@ GEM
       cloudfiles
       net-sftp
     attribute_normalizer (1.1.0)
-    awesome_nested_set (2.1.5)
+    awesome_nested_set (2.1.6)
       activerecord (>= 3.0.0)
     aws-s3 (0.6.3)
       builder
       mime-types
       xml-simple
-    aws-sdk (1.8.1.3)
+    aws-sdk (1.8.3.1)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
@@ -251,11 +248,14 @@ GEM
       ffi (~> 1.0, >= 1.0.11)
     choice (0.1.6)
     chronic (0.9.0)
-    client_side_validations (3.2.1)
+    client_side_validations (3.2.2)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
     cloudfiles (1.5.0.1)
       json
-    cocaine (0.4.2)
-    coderay (1.0.8)
+    cocaine (0.5.1)
+      climate_control (>= 0.0.3, < 1.0)
+    coderay (1.0.9)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -295,7 +295,7 @@ GEM
       railties (>= 3.0.0)
     fakeweb (1.3.0)
     fattr (2.2.1)
-    ffi (1.3.1)
+    ffi (1.4.0)
     foreigner (1.3.0)
       activerecord (>= 3.0.0)
     friendly_id (4.0.9)
@@ -306,7 +306,7 @@ GEM
       pry (>= 0.9.10)
       terminal-table (>= 1.4.3)
       thor (>= 0.14.6)
-    guard-rspec (2.4.0)
+    guard-rspec (2.4.1)
       guard (>= 1.1)
       rspec (~> 2.11)
     has_scope (0.5.1)
@@ -353,7 +353,7 @@ GEM
     mobile-fu (1.1.1)
       rack-mobile-detect
       rails
-    multi_json (1.6.0)
+    multi_json (1.6.1)
     nested_form (0.3.1)
     net-sftp (2.1.1)
       net-ssh (>= 2.6.5)
@@ -363,19 +363,19 @@ GEM
     options (2.3.0)
       fattr
     orm_adapter (0.4.0)
-    paper_trail (2.7.0)
+    paper_trail (2.7.1)
       activerecord (~> 3.0)
       railties (~> 3.0)
-    paperclip (3.4.0)
+    paperclip (3.4.1)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
-      cocaine (~> 0.4.0)
+      cocaine (~> 0.5.0)
       mime-types
     paperclip-meta (0.4.3)
       paperclip
     parallel (0.6.2)
-    parallel_tests (0.9.3)
+    parallel_tests (0.10.0)
       parallel
     pg (0.14.1)
     polyglot (0.3.3)
@@ -471,7 +471,7 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    selenium-webdriver (2.29.0)
+    selenium-webdriver (2.30.0)
       childprocess (>= 0.2.5)
       multi_json (~> 1.0)
       rubyzip
@@ -504,11 +504,11 @@ GEM
     steak (2.0.0)
       capybara (>= 1.0.0)
       rspec-rails (>= 2.5.0)
-    strong_parameters (0.1.6)
+    strong_parameters (0.2.0)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
       railties (~> 3.0)
-    strongbox (0.6.0)
+    strongbox (0.7.0)
       activerecord
     sunspot (2.0.0.pre.130115)
       pr_geohash (~> 1.0)
@@ -527,7 +527,7 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
-    twitter-bootstrap-rails (2.2.3)
+    twitter-bootstrap-rails (2.2.4)
       actionpack (>= 3.1)
       execjs
       railties (>= 3.1)
