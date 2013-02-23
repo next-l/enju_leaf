@@ -2,12 +2,9 @@ en:
   activerecord:
     models:
       user: User
-      donate: Donate
       role: Role
-      search_engine: Search engine
       user_group: User group
       attachment_file: Attachment file
-      participate: Participate
       user_has_role: User and roles
       session: Login
       work: Work
@@ -48,20 +45,10 @@ en:
         current_password: Current password
         locale: Locale
         password_confirmation: Password confirmation
-      donate:
       role:
         name: Name
         display_name: Display name
         score: Score
-        note: Note
-        position: Position
-      search_engine:
-        name: Name
-        url: URL
-        base_url: Base URL
-        http_method: HTTP method
-        query_param: Query param
-        additional_param: Additional param
         note: Note
         position: Position
       user_group:

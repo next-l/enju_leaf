@@ -55,7 +55,7 @@ GEM
       builder
       mime-types
       xml-simple
-    aws-sdk (1.8.3)
+    aws-sdk (1.8.3.1)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
@@ -76,9 +76,12 @@ GEM
     choice (0.1.6)
     chronic (0.9.0)
     client_side_validations (3.2.2)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
     cloudfiles (1.5.0.1)
       json
-    cocaine (0.4.2)
+    cocaine (0.5.1)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.0.9)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -287,11 +290,11 @@ GEM
     paper_trail (2.7.1)
       activerecord (~> 3.0)
       railties (~> 3.0)
-    paperclip (3.4.0)
+    paperclip (3.4.1)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
-      cocaine (~> 0.4.0)
+      cocaine (~> 0.5.0)
       mime-types
     paperclip-meta (0.4.3)
       paperclip

@@ -4,10 +4,7 @@ ja:
       user: 利用者
       role: 権限
       user_group: 利用者グループ
-      donate: 寄贈
-      search_engine: 検索エンジン
       attachment_file: 添付ファイル
-      participate: 参加
       user_has_role: 利用者と権限
       session: ログイン
       work: 著作
@@ -48,20 +45,10 @@ ja:
         current_password: 現在のパスワード
         locale: 言語
         password_confirmation: パスワード（確認）
-      donate:
       role:
         name: 名前
         display_name: 表示名
         score: 点数
-        note: 注記
-        position: 位置
-      search_engine:
-        name: 名前
-        url: URL
-        base_url: ベースURL
-        http_method: HTTPメソッド
-        query_param: クエリパラメータ
-        additional_param: 追加のパラメータ
         note: 注記
         position: 位置
       user_group:
