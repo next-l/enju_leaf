@@ -189,6 +189,9 @@ class Manifestation < ActiveRecord::Base
     boolean :reservable do
       self.reservable?
     end
+    boolean :in_process do
+      self.in_process?
+    end
     integer :series_statement_id do
       series_has_manifestation.try(:series_statement_id)
     end
@@ -567,6 +570,11 @@ class Manifestation < ActiveRecord::Base
     end
     return false if self.periodical_master?
     true
+  end
+
+  def in_process?
+    return true if items.map{ |i| i.shelf.try(:open_access)}.include?(9)
+    false
   end
 
   def checkouts(start_date, end_date)

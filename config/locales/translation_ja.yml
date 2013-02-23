@@ -572,6 +572,7 @@ ja:
         closed: 書庫 # 閉架
         stock: 保存
         in_process: 受入手続き中
+        other: その他
       advertisement:
         title: タイトル
         url: URL
