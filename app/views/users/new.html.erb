@@ -73,7 +73,7 @@
     <%= f.submit t('user.sign_up') -%>
   </div>
 <%- end -%>
-<%= javascript_tag("$('#user_username').focus()") -%>
+<%= javascript_tag("$(function(){$('#user_username').focus()})") %>
 </div>
 </div>
 

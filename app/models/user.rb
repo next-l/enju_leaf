@@ -33,9 +33,9 @@ class User < ActiveRecord::Base
   #has_one :patron_import_result
   accepts_nested_attributes_for :user_has_role
 
-  validates :username, :presence => true, :uniqueness => true
+  validates :username, :presence => true, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z][0-9A-Za-z_\-]+[0-9A-Za-z]\Z/}, :allow_blank => true
   validates_uniqueness_of :email, :scope => authentication_keys[1..-1], :case_sensitive => false, :allow_blank => true
-  validates :email, :format => {:with => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i}, :allow_blank => true
+  validates :email, :format => {:with => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\Z/i}, :allow_blank => true
   validates_date :expired_at, :allow_blank => true
 
   with_options :if => :password_required? do |v|
@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
   validates_presence_of     :email, :email_confirmation, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
   validates_associated :user_group, :library #, :patron
   validates_presence_of :user_group, :library, :locale #, :user_number
-  validates :user_number, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z_]+\Z/}, :allow_blank => true
+  validates :user_number, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z][0-9A-Za-zi_\-]+[0-9A-Za-z]\Z/}, :allow_blank => true
   validates_confirmation_of :email, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
 
   before_validation :set_role_and_patron, :on => :create

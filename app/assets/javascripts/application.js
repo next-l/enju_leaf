@@ -5,13 +5,13 @@
 //= require jquery.highlight
 //= require jquery.shortcut
 //= require jquery.cookie
+//= require rails.validations
 //= require jquery.ui.menubar
 //= require menu.enju
 //= require select_locale
 //= require portlets
 //= require tab_view
 //= require event_calendar
-//= require rails.validations
 //= require jquery.powertip
 //= require jquery_nested_form
 //= require jquery.modal

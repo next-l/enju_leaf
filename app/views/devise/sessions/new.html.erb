@@ -29,7 +29,7 @@
 
   <p><%= f.submit t('page.sign_in') %></p>
 
-<%= javascript_tag("$('#user_username').focus().select();") -%>
+<%= javascript_tag("$(function(){$('#user_username').focus()})") %>
 
 <%= render "devise/shared/links" %>
 

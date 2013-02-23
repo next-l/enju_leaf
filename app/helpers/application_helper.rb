@@ -102,6 +102,6 @@ module ApplicationHelper
   end
 
   def set_focus_on_search_form
-    javascript_tag("$('#search_form').focus()") if @query.blank?
+    javascript_tag("$(function(){$('#search_form').focus()})") if @query.blank?
   end
 end

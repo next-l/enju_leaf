@@ -57,8 +57,6 @@ Spork.prefork do
     end
 
     config.extend ControllerMacros, :type => :controller
-
-    config.extend VCR::RSpec::Macros
   end
 end
 

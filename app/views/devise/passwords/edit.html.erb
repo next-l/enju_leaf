@@ -15,7 +15,7 @@
   <p><%= f.submit t('user.change_my_password') %></p>
 <% end %>
 
-<%= javascript_tag("$('#user_password').focus()") -%>
+  <%= javascript_tag("$(function(){$('#user_password').focus()})") %>
 </div>
 </div>
 
