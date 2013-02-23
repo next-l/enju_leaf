@@ -2199,11 +2199,14 @@ ja:
         subject: 件名 
     message:
       read_sheet: "シート『%{sheet}』の読み取りを開始します。"
-      deleted: "削除完了"
+      deleted: "削除完了  所蔵情報ID: %{item_identifier}"
+      deleted_manifestation: "タイトル：%{original_title}"
+      deleted_series_statement: "シリーズタイトル：%{series_original_title}"
     error:
       blank_sheet: "シート『%{sheet}』の読み取りに失敗しました。データが記述されていません。"
       overlap: "シート『%{sheet}』の読み取りに失敗しました。ヘッダーのフィールド名に重複したものがあります。"
       wrong_data: "指定の%{field}は不正です。 %{field}: %{data}"
+      delete_requre_item_identifier: "所蔵情報IDが入力されていないため削除を実行できませんでした。"
       failed_delete_not_find: "対象の資料が見つからなかったため削除を実行できませんでした。"
       series:
         head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目にはシリーズ名またはISSN,またタイトルまたはISBNが必須です。\r\nシート『%{sheet}』を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
