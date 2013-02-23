@@ -5,39 +5,122 @@ describe ManifestationsController do
   fixtures :all
 
   describe "GET index", :solr => true do
-    shared_examples_for 'index can load records' do
-      [
-        # param name, expected record, ivar name
-        [:patron_id, Patron, :patron],
-        [:series_statement_id, SeriesStatement, :series_statement],
-        [:manifestation_id, Manifestation, :manifestation],
-        [:subject_id, Subject, :subject],
-        [:patron_id, Patron, :index_patron, :patron],
-        [:creator_id, Patron, :index_patron, :creator],
-        [:contributor_id, Patron, :index_patron, :contributor],
-        [:publisher_id, Patron, :index_patron, :publisher],
-      ].each do |psym, cls, *dst|
-        ivar, idx = dst
-        it "should load a #{cls.name} record specified by #{psym} param" do
-          expected = cls.first
-          get :index, psym => expected.id.to_s
-          response.should be_success
-          assigns(ivar).should be_present
-          if idx
-            assigns(ivar)[idx].should eq(expected)
-          else
-            assigns(ivar).should eq(expected)
+    shared_examples_for 'index can set search conditions according to params' do
+      before do
+        # with(:foo).equal_to(:bar)のような呼び出しを追跡する
+        #
+        # たとえば
+        #
+        #   with(:foo); with(:bar).equal_to(:baz); with(:bar)
+        #
+        # と呼び出しがあったとき、@calledは
+        #
+        #   [[:with, :foo],
+        #    [:with, :bar, [:baz]],
+        #    [:with, :bar]]
+        #
+        # となる
+        @called = []
+        [:with, :without].each do |sym|
+          Sunspot::DSL::Search.any_instance.stub(sym) do |stub_arg|
+            sub = [sym, stub_arg]
+            def sub.method_missing(*args)
+              self << args
+            end
+            @called << sub
+            sub
           end
         end
       end
 
-      it 'should load first Item record of a Manifestation record specified by bookbinder_id' do
-        manifestation = Manifestation.first
-        expected = manifestation.items.first
-        get :index, :bookbinder_id => manifestation.id.to_s
-        response.should be_success
-        assigns(:binder).should be_present
-        assigns(:binder).should eq(expected)
+      after do
+        if @expected_call.present?
+          method_str = "#{@expected_call[0]}(#{@expected_call[1].inspect})"
+          if @expected_call[2]
+            method_str << ".#{@expected_call[2]}"
+            method_str << "(#{@expected_call[3..-1].map(&:inspect).join(', ')})" if @expected_call[3]
+          end
+
+          # @expected_callに対応するメソッド呼び出しが
+          # 少なくとも一回はあったことを検査する
+          main_cond = @expected_call[0 .. 1]
+          if @expected_call.size > 2
+            # with(:foo).equal_to(:bar)が期待されたときの
+            # equal_to(:bar)に対するチェック項目
+            subs_check = proc {|subs| subs.any? {|sub| sub == @expected_call[2 .. -1] } }
+          else
+            # with(:foo)が期待されたときの
+            # with()以降に何もきてないことに対するチェック項目
+            subs_check = proc {|subs| subs == [] }
+          end
+          @called.should be_any {|cond, field, *subs|
+            [cond, field] == main_cond && subs_check.call(subs)
+          }, "\"#{method_str}\" did not call"
+        end
+      end
+    end
+
+    shared_examples_for 'index can load records' do
+      [
+        # param name, expected record, ivar name, [search condition spec]
+        [:patron_id, Patron, :patron,
+          [:with, :publisher_ids, :equal_to, :id]],
+        [:series_statement_id, SeriesStatement, :series_statement,
+          [:with, :series_statement_id, :equal_to, :id]],
+        [:manifestation_id, Manifestation, :manifestation,
+          [:with, :original_manifestation_ids, :equal_to, :id]],
+        [:subject_id, Subject, :subject,
+          [:with, :subject_ids, :equal_to, :id]],
+        [:patron_id, Patron, :index_patron, :patron],
+        [:creator_id, Patron, :index_patron, :creator,
+          [:with, :creator_ids, :equal_to, :id]],
+        [:contributor_id, Patron, :index_patron, :contributor,
+          [:with, :contributor_ids, :equal_to, :id]],
+        [:publisher_id, Patron, :index_patron, :publisher,
+          [:with, :publisher_ids, :equal_to, :id]],
+      ].each do |psym, cls, *dst|
+        expected_call_base = dst.pop if dst.last.is_a?(Array)
+        ivar, idx = dst
+
+        context "When #{psym} param is specified" do
+          include_examples 'index can set search conditions according to params'
+
+          it "should load a #{cls.name} record as @#{ivar} and use it as a solr search condition" do
+            expected = cls.first
+            if expected_call_base.blank?
+              @expected_call = nil
+            else
+              sym = expected_call_base.pop
+              @expected_call = expected_call_base + [expected.__send__(sym)]
+            end
+
+            get :index, psym => expected.id.to_s
+
+            response.should be_success
+            assigns(ivar).should be_present
+            if idx
+              assigns(ivar)[idx].should eq(expected)
+            else
+              assigns(ivar).should eq(expected)
+            end
+          end
+        end
+      end
+
+      context "When bookbinder_id param is specified" do
+        include_examples 'index can set search conditions according to params'
+
+        it 'should load first Item record of a Manifestation record and use it as a solr search condition' do
+          manifestation = Manifestation.first
+          expected = manifestation.items.first
+          @expected_call = [:with, :bookbinder_id, :equal_to, expected.id]
+
+          get :index, :bookbinder_id => manifestation.id.to_s
+
+          response.should be_success
+          assigns(:binder).should be_present
+          assigns(:binder).should eq(expected)
+        end
       end
     end
 
