@@ -182,6 +182,7 @@ class ManifestationsController < ApplicationController
 #          with(:missing_issue)
 #        end
         facet :reservable
+        with(:in_process).equal_to params[:in_ptocess] == 'true' ? true : false if params[:in_process]  #TODO:
         with(:bookbinder_id).equal_to binder.id if params[:mode] != 'add' && binder
         without(:id, binder.manifestation.id) if binder
         if s.equal?(search_book)
@@ -302,6 +303,7 @@ class ManifestationsController < ApplicationController
           facet :subject_ids
           facet :manifestation_type
           facet :missing_issue
+          facet :in_process
           if s == search_article
             paginate :page => page_article.to_i, :per_page => per_page unless request.xhr?
           else
@@ -365,6 +367,7 @@ class ManifestationsController < ApplicationController
         @library_facet = search_result.facet(:library).rows
         @manifestation_type_facet = search_result.facet(:manifestation_type).rows
         @missing_issue_facet = search_result.facet(:missing_issue).rows
+        @in_process_facet = search_result.facet(:in_process).rows
       end
 
       @search_engines = Rails.cache.fetch('search_engine_all'){SearchEngine.all}
