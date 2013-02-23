@@ -18,7 +18,7 @@ describe ManifestationsController do
         [:publisher_id, Patron, :index_patron, :publisher],
       ].each do |psym, cls, *dst|
         ivar, idx = dst
-        it "should load a #{cls.name} record specifed by #{psym} param" do
+        it "should load a #{cls.name} record specified by #{psym} param" do
           expected = cls.first
           get :index, psym => expected.id.to_s
           response.should be_success
@@ -29,6 +29,15 @@ describe ManifestationsController do
             assigns(ivar).should eq(expected)
           end
         end
+      end
+
+      it 'should load first Item record of a Manifestation record specified by bookbinder_id' do
+        manifestation = Manifestation.first
+        expected = manifestation.items.first
+        get :index, :bookbinder_id => manifestation.id.to_s
+        response.should be_success
+        assigns(:binder).should be_present
+        assigns(:binder).should eq(expected)
       end
     end
 
