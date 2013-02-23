@@ -656,3 +656,11 @@ system_configuration_00093:
   typename: Boolean
   description: "相互貸借機能を利用する"
   category: 'checkout'
+system_configuration_00094:
+  id: 94
+  keyname: special_ip_address_list
+  v: ""
+  typename: String
+  description: "特別なIPアドレス"
+  category: 'general'
+

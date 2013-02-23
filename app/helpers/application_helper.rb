@@ -288,4 +288,10 @@ module ApplicationHelper
     return nil unless Date.valid_date?(year, month, day)
     date = Time.zone.parse(date)
   end
+
+  def clinet_is_special_ip?
+    special_ip_address_list = SystemConfiguration.get("special_ip_address_list").split(",") rescue [""]
+    remote_ip = request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip
+    special_ip_address_list.include?(remote_ip)
+  end
 end

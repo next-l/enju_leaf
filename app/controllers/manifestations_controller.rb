@@ -124,7 +124,7 @@ class ManifestationsController < ApplicationController
       @index_patron = patron
 
       split_by_type = SystemConfiguration.get("manifestations.split_by_type")
-      with_article = SystemConfiguration.get('internal_server')
+      with_article = SystemConfiguration.get('internal_server') || clinet_is_special_ip?
 
       searchs = [ search_all ]
       if split_by_type
