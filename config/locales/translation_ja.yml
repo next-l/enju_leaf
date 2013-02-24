@@ -1478,6 +1478,7 @@ ja:
     operated_at: "実施年月"
     checkout: "貸出"
     checkin: "返却"
+    recheckout: "再貸出"
     name: "名前"
     are_you_sure: "削除しますか？"
     cancel_confirm: "取消しますか？"

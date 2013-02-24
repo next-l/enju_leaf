@@ -2,10 +2,11 @@
   <div id="shortcut">
       <div class="function_key"><h4>F2: <%= t('page.checkout') %></h4></div>
       <div class="function_key"><h4>F3: <%= t('page.checkin') %></h4></div>
-      <% if SystemConfiguration.get("use_order_lists") %>
-        <div class="function_key"><h4>F4: <%= t('activerecord.models.order_list') %></h4></div>
-      <% end %>
+      <div class="function_key"><h4>F4: <%= t('page.recheckout') %></h4></div>
       <div class="function_key"><h4>F6: <%= t('page.catalog_search') %></h4></div>
+      <% if SystemConfiguration.get("use_order_lists") %>
+        <div class="function_key"><h4>F7: <%= t('activerecord.models.order_list') %></h4></div>
+      <% end %>
       <br style="clear:both;">
   </div>
 <% end %>
@@ -16,11 +17,12 @@
     $(document).FunctionKeys(
     {
        F2:function(obj,s,c,a){document.location = '<%= new_basket_path%>';} 
-       ,F3:function(obj,s,c,a){document.location = '<%= checkins_path %>';}
+      ,F3:function(obj,s,c,a){document.location = '<%= checkins_path %>';}
+      ,F4:function(obj,s,c,a){document.location = '<%= extend_checkouts_path %>';}
+      ,F6:function(obj,s,c,a){document.location = '<%= root_path %>';}
        <% if SystemConfiguration.get("use_order_lists") %>
-         ,F4:function(obj,s,c,a){document.location = '<%= order_lists_path %>';}
+      ,F7:function(obj,s,c,a){document.location = '<%= order_lists_path %>';}
        <% end %>
-       ,F6:function(obj,s,c,a){document.location = '<%= root_path %>';}
      });
   <% end %>
 
