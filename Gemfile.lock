@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: f4d7db5ae5b57a8f0b2aa539f3ae660e9a87b45b
+  revision: 043e92dc634ae9579cf3929c265e58411ce89e68
   specs:
-    enju_biblio (0.1.0.pre17)
+    enju_biblio (0.1.0.pre18)
       aws-sdk
       dynamic_form
       enju_core (~> 0.1.1.pre3)
@@ -31,14 +31,14 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_book_jacket.git
-  revision: d0db7588850191665d4e5002df70aec32be353ba
+  revision: 2627c1574518d2cca57db767dc3c7d96b9d6fee3
   specs:
     enju_book_jacket (0.1.0.pre4)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_circulation.git
-  revision: d4e27c191c9432fb1f72566f177b0f3c2896178d
+  revision: bf0166d6c1295103414e1787091d846e4d5e972f
   specs:
     enju_circulation (0.1.0.pre11)
       enju_event (~> 0.1.17.pre5)
@@ -84,11 +84,10 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_export.git
-  revision: 3d315e1e3793bce9625f696d6b09e3d315bb353d
+  revision: 8cd4090c5cb311f87e3fe5a318e93b28379a64bc
   specs:
     enju_export (0.1.1.pre2)
-      enju_biblio (~> 0.1.0.pre13)
-      paperclip (~> 3.3)
+      enju_biblio (~> 0.1.0.pre18)
       rails (~> 3.2)
       simple_form
       state_machine
@@ -114,9 +113,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 58c53f3b4c7f187ce1c968554c329fead2661711
+  revision: 31b3c3bb946d691a939d19682c88f5573ee9fbf6
   specs:
-    enju_library (0.1.0.pre8)
+    enju_library (0.1.0.pre9)
       enju_core (~> 0.1.1.pre3)
       geocoder
       inherited_resources
@@ -130,7 +129,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_ndl.git
-  revision: c5cf763a189f44c4f2e7b5b98d28d26ffff02f1c
+  revision: 532d743f1f88582473d5237f2c84527eb35ac5f3
   specs:
     enju_ndl (0.1.0.pre8)
       library_stdnums
@@ -140,11 +139,11 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_nii.git
-  revision: 320300ddfc7f0e90c07eab89fb9556e2679fc46d
+  revision: 4cfa157daff66205c2cdc365391d870dd6ab5bc7
   specs:
     enju_nii (0.1.0.pre3)
       attribute_normalizer
-      enju_biblio (~> 0.1.0.pre13)
+      enju_biblio (~> 0.1.0.pre17)
       rails (~> 3.2)
 
 GIT
@@ -272,7 +271,7 @@ GEM
       warden (~> 1.2.1)
     devise-encryptable (0.1.1)
       devise (>= 2.1.0.rc)
-    diff-lcs (1.1.3)
+    diff-lcs (1.2.1)
     dynamic_form (1.1.4)
     enju_message (0.1.14.pre3)
       awesome_nested_set (~> 2.1)
@@ -341,7 +340,7 @@ GEM
     lisbn (0.1.3)
       nokogiri
       nori (~> 2.0)
-    listen (0.7.2)
+    listen (0.7.3)
     lumberjack (1.0.2)
     mail (2.4.4)
       i18n (>= 0.4.0)
@@ -445,28 +444,28 @@ GEM
     ri_cal (0.8.8)
     rsolr (1.0.8)
       builder (>= 2.1.2)
-    rspec (2.12.0)
-      rspec-core (~> 2.12.0)
-      rspec-expectations (~> 2.12.0)
-      rspec-mocks (~> 2.12.0)
-    rspec-core (2.12.2)
-    rspec-expectations (2.12.1)
-      diff-lcs (~> 1.1.3)
-    rspec-mocks (2.12.2)
-    rspec-rails (2.12.2)
+    rspec (2.13.0)
+      rspec-core (~> 2.13.0)
+      rspec-expectations (~> 2.13.0)
+      rspec-mocks (~> 2.13.0)
+    rspec-core (2.13.0)
+    rspec-expectations (2.13.0)
+      diff-lcs (>= 1.1.3, < 2.0)
+    rspec-mocks (2.13.0)
+    rspec-rails (2.13.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
-      rspec-core (~> 2.12.0)
-      rspec-expectations (~> 2.12.0)
-      rspec-mocks (~> 2.12.0)
+      rspec-core (~> 2.13.0)
+      rspec-expectations (~> 2.13.0)
+      rspec-mocks (~> 2.13.0)
     ruby-graphviz (1.0.8)
     rubyzip (0.9.9)
     rufus-scheduler (2.0.17)
       tzinfo (>= 0.3.23)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
-    sass (3.2.5)
+    sass (3.2.6)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
