@@ -30,7 +30,7 @@ gem 'enju_book_jacket', '~> 0.1.0.pre4'
 gem 'enju_manifestation_viewer', '~> 0.1.0.pre3'
 gem 'enju_export', '~> 0.1.1.pre2'
 
-platforms :mri do
+platforms :mri_19 do
   gem 'pg'
   #gem 'mysql2', '~> 0.3'
   #gem 'sqlite3'
@@ -88,7 +88,7 @@ end
 
 group :development, :test do
   gem 'simplecov', '~> 0.7', :require => false
-  gem 'ruby-prof', :platforms => :mri
+  gem 'ruby-prof', :platforms => :mri_19
   gem 'rspec-rails', '~> 2.13'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 4.2'
