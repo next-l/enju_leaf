@@ -20,10 +20,24 @@ class Numbering < ActiveRecord::Base
   end
 
   def self.do_numbering(name, is_save = true)
+    counter = 10
     n = nil
     number = ''
     Numbering.transaction do
-      n = Numbering.find_by_name(name, :lock => 'FOR UPDATE NOWAIT')
+      begin
+        #n = Numbering.find_by_name(name, :lock => 'FOR UPDATE NOWAIT')
+        n = Numbering.find_by_name(name, :lock => true)
+      rescue ActiveRecord::StatementInvalid => e
+        # TODO : PG::Error: ERROR:  could not obtain lock on row in relation "numberings"
+        puts $!
+        if counter < 1
+          raise EnjuTrunkNumberingError, "NumberingType lock error record. name=#{name}"
+        end
+        counter = counter - 1
+        logger.info "lock record detected. sleep 0.3s remain count=#{counter}"
+        sleep 0.3
+        retry
+      end
       unless n
         raise EnjuTrunkNumberingError, "NumberingType no record. name=#{name}"
       end
@@ -32,6 +46,7 @@ class Numbering < ActiveRecord::Base
       number = number + 1
       n.update_attribute :last_number, number.to_s
       #puts "number=#{number}"
+      #pp number
     end
 
     prefix = (n.prefix.blank?)?(""):(n.prefix)

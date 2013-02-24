@@ -56,9 +56,33 @@ describe Numbering do
       numbering = Numbering.do_numbering('book')
       numbering.should == "100000002"
     end
+  end
 
-    it '競合チェック' do
+  describe '競合チェック' do
+    it '同時実行で取得できること' do
+      t1 = Thread.new do
+        20.times do
+          numbering = Numbering.do_numbering('book')
+          numbering.should_not be_nil
+          #puts "test1 =#{numbering}"
+          sleep 0.3
+        end
+      end
+      t2 = Thread.new do
+        20.times do
+          numbering = Numbering.do_numbering('book')
+          numbering.should_not be_nil
+          #puts "test2 =#{numbering}"
+          sleep 0.2
+        end
+      end
 
+      t1.join
+      t2.join
+
+      numbering = Numbering.do_numbering('book')
+      numbering.should == "100000041"
     end
   end
+
 end
