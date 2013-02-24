@@ -118,7 +118,7 @@ GEM
       simple_form
       state_machine
       validates_timeliness
-    enju_book_jacket (0.1.0.pre4)
+    enju_book_jacket (0.1.0.pre5)
       rails (~> 3.2)
     enju_circulation (0.1.0.pre11)
       enju_event (~> 0.1.17.pre5)
@@ -487,7 +487,7 @@ DEPENDENCIES
   devise-encryptable
   dynamic_form
   enju_biblio (~> 0.1.0.pre19)
-  enju_book_jacket (~> 0.1.0.pre4)
+  enju_book_jacket (~> 0.1.0.pre5)
   enju_circulation (~> 0.1.0.pre11)
   enju_event (~> 0.1.17.pre6)
   enju_export (~> 0.1.1.pre2)
