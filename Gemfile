@@ -6,7 +6,7 @@ gem 'rails', '3.2.12'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'enju_biblio', '~> 0.1.0.pre18'
+gem 'enju_biblio', '~> 0.1.0.pre19'
 gem 'enju_library', '~> 0.1.0.pre9'
 #gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
@@ -30,7 +30,7 @@ gem 'enju_book_jacket', '~> 0.1.0.pre4'
 gem 'enju_manifestation_viewer', '~> 0.1.0.pre3'
 gem 'enju_export', '~> 0.1.1.pre2'
 
-platforms :mri_19 do
+platforms :mri do
   gem 'pg'
   #gem 'mysql2', '~> 0.3'
   #gem 'sqlite3'
@@ -88,7 +88,7 @@ end
 
 group :development, :test do
   gem 'simplecov', '~> 0.7', :require => false
-  gem 'ruby-prof', :platforms => :mri_19
+  gem 'ruby-prof', :platforms => :mri
   gem 'rspec-rails', '~> 2.13'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 4.2'
