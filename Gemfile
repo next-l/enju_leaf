@@ -60,8 +60,6 @@ gem 'paper_trail', '~> 2.7'
 gem 'RedCloth', '>= 4.2.9'
 gem 'devise-encryptable'
 #gem 'devise_security_extension'
-gem 'addressable'
-gem 'paperclip-meta', '~> 0.4.3'
 gem 'aws-sdk'
 gem 'whenever', :require => false
 gem 'astrails-safe'

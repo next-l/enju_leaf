@@ -474,7 +474,6 @@ PLATFORMS
 DEPENDENCIES
   RedCloth (>= 4.2.9)
   activerecord-jdbcpostgresql-adapter
-  addressable
   annotate (~> 2.5)
   astrails-safe
   awesome_nested_set (~> 2.1)
@@ -517,7 +516,6 @@ DEPENDENCIES
   mobylette
   nested_form
   paper_trail (~> 2.7)
-  paperclip-meta (~> 0.4.3)
   parallel_tests (~> 0.9)
   pg
   progress_bar
