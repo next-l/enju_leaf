@@ -89,9 +89,9 @@ end
 group :development, :test do
   gem 'simplecov', '~> 0.7', :require => false
   gem 'ruby-prof', :platforms => :mri_19
-  gem 'rspec-rails', '~> 2.12'
+  gem 'rspec-rails', '~> 2.13'
   gem 'guard-rspec'
-  gem 'factory_girl_rails', '~> 4.1'
+  gem 'factory_girl_rails', '~> 4.2'
   gem 'spork-rails'
   gem 'timecop'
   gem 'sunspot-rails-tester', :git => 'git://github.com/justinko/sunspot-rails-tester.git'

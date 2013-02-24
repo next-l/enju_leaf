@@ -13,6 +13,9 @@
     <% end %>
   <% end %>
   <%= book_jacket_header(Setting.book_jacket.source) %>
+  <% if controller.controller_name == 'page' %>
+    <%= render 'page/portlets' %>
+  <% end %>
 </head>
 <body itemscope itemtype="http://schema.org/WebPage">
 
