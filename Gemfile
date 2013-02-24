@@ -6,8 +6,8 @@ gem 'rails', '3.2.12'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'enju_biblio', '~> 0.1.0.pre17'
-gem 'enju_library', '~> 0.1.0.pre8'
+gem 'enju_biblio', '~> 0.1.0.pre18'
+gem 'enju_library', '~> 0.1.0.pre9'
 #gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
 gem 'enju_ndl', '~> 0.1.0.pre7'
