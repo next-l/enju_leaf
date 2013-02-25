@@ -39,6 +39,10 @@ every 1.day, :at => '1:00 am' do
   runner "UserCheckoutStat.calculate_stat; UserReserveStat.calculate_stat; ManifestationCheckoutStat.calculate_stat; ManifestationReserveStat.calculate_stat; BookmarkStat.calculate_stat"
 end
 
+every 1.day, :at => '4:30 am' do
+  runner "Checkout.apend_to_reminder_list"
+end
+
 every '30 0 1 * *' do
   runner 'Statistic.calc_sum_prev_month'
 end
