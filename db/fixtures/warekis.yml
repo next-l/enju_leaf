@@ -1,0 +1,29 @@
+---
+wareki_00001:
+  id: 1
+  display_name: '明治'
+  short_name: 'M'
+  year_from: 1868
+  year_to: 1912
+  note: '明治元年は1/1から。明治６年以降は太陽暦'
+wareki_00002:
+  id: 2
+  display_name: '大正'
+  short_name: 'T'
+  year_from: 1912
+  year_to: 1926
+  note: ''
+wareki_00003:
+  id: 3
+  display_name: '昭和'
+  short_name: 'S'
+  year_from: 1926
+  year_to: 1989
+  note: '昭和６４年は１月７日まで'
+wareki_00004:
+  id: 4
+  display_name: '平成'
+  short_name: 'H'
+  year_from: 1989
+  year_to: 9999
+  note: ''

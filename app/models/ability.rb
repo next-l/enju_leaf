@@ -157,6 +157,7 @@ class Ability
         UserHasRole,
         UserReserveStat,
         UserStatus,
+        Wareki,
         WorkHasSubject
       ]
       can [:read, :update], [
@@ -353,7 +354,8 @@ class Ability
         UseRestriction,
         UserGroup,
         UserGroupHasCheckoutType,
-        UserRequestLog
+        UserRequestLog,
+        Wareki
       ]
     when 'User'
       can [:index, :create], Answer
@@ -457,6 +459,7 @@ class Ability
         UserReserveStat,
         UserStatus,
         UserGroup,
+        Wareki,
         WorkHasSubject
       ]
     else
@@ -510,6 +513,7 @@ class Ability
         UserCheckoutStat,
         UserGroup,
         UserReserveStat,
+        Wareki,
         WorkHasSubject
       ]
     end

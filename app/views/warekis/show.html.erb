@@ -1,0 +1,35 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.wareki')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.wareki.display_name') -%>:</strong>
+  <%= @wareki.display_name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.wareki.short_name') -%>:</strong>
+  <%= @wareki.short_name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.wareki.year_from') -%>:</strong>
+  <%= @wareki.year_from -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.wareki.note') -%>:</strong>
+  <%= @wareki.note -%>
+</p>
+
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_wareki_path(@wareki) -%></li>
+    <li><%= link_to t('page.back'), warekis_path -%></li>
+  </ul>
+</div>

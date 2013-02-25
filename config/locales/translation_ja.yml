@@ -1,6 +1,7 @@
 ja:
   activerecord:
     models:
+      wareki: 和暦
       user_request_log: 利用者操作履歴
       library: 図書館
       question: 質問（レファレンス）
@@ -193,6 +194,12 @@ ja:
       enju_terminal: 端末設定
 
     attributes:
+      wareki:
+        display_name: 表示名
+        short_name: 短縮名
+        year_from: 西暦開始
+        year_to: 西暦終了
+        note: 注記
       user_request_log:
         user_id: 利用者ID
         controller: コントローラ名
