@@ -674,10 +674,11 @@ ja:
         output_item_identifiers: 所蔵IDを昇順に出力します。
         sp_start_number: 開始コード
         sp_end_number: 終了コード
-        generated_from: "1:パターンから作成,2:利用者番号から作成,3:所蔵IDから作成"
+        generated_from: "1:パターンから作成,2:利用者番号から作成,3:所蔵IDから作成,4:カスタムバーコードを作成"
         label_note: "ラベル注記"
         print_label: "印刷"
         print_label_2: "印刷する"
+        custom_barcode: "カスタムバーコード"
       work:
         original_title: タイトル # 原題
         title_transcription: タイトル（ヨミ）
