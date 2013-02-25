@@ -8,6 +8,7 @@ gem 'rails', '3.2.12'
 
 gem 'enju_biblio', '~> 0.1.0.pre19'
 gem 'enju_library', '~> 0.1.0.pre9'
+gem 'enju_flower', '~> 0.1.0.pre'
 #gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
 gem 'enju_ndl', '~> 0.1.0.pre7'

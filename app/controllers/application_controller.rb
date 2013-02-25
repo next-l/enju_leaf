@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   mobylette_config do |config|
     config[:skip_xhr_requests] = false
   end
+  require_dependency 'language'
 
   rescue_from CanCan::AccessDenied, :with => :render_403
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404

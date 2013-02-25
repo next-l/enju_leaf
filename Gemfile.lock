@@ -157,6 +157,8 @@ GEM
       rails (~> 3.2)
       simple_form
       state_machine
+    enju_flower (0.1.0.pre)
+      rails (~> 3.2.12)
     enju_inter_library_loan (0.1.0.pre5)
       enju_biblio (~> 0.1.0.pre13)
       rails (~> 3.2)
@@ -490,6 +492,7 @@ DEPENDENCIES
   enju_circulation (~> 0.1.0.pre11)
   enju_event (~> 0.1.17.pre6)
   enju_export (~> 0.1.1.pre2)
+  enju_flower (~> 0.1.0.pre)
   enju_inter_library_loan (~> 0.1.0.pre5)
   enju_inventory (~> 0.1.11.pre5)
   enju_library (~> 0.1.0.pre9)
