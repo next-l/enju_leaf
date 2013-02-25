@@ -1,0 +1,15 @@
+<h4><%= t('activerecord.attributes.shelf.in_process') -%></h4>
+<ul>
+  <%- @in_process_facet.each do |facet| -%>
+    <li>
+      <%- if params[:in_process] == facet.value.to_s -%><strong><%- end -%>
+      <%= link_to localized_boolean(facet.value), url_for(params.merge(:page => nil, :in_process => facet.value.to_s, :view => nil)) -%>
+      (<%= facet.count -%>)
+      <%- if params[:in_process] == facet.value.to_s -%></strong><%- end -%>
+    </li>
+  <%- end -%>
+
+<%- unless params[:in_process].nil? -%>
+    <li><%= link_to t('page.remove_this_facet'), params.merge(:in_process => nil, :page => nil, :view => nil) -%></li>
+  <%- end -%>
+</ul>
