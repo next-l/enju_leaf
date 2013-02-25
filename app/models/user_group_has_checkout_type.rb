@@ -1,4 +1,7 @@
 class UserGroupHasCheckoutType < ActiveRecord::Base
+  attr_accessible :checkout_type, :user_group, :user_group_id, :checkout_type_id, :checkout_limit,
+                  :checkout_period, :checkout_renewal_limit, :reservation_limit, :reservation_expired_period,
+                  :set_due_date_before_closing_day, :note
   scope :available_for_item, lambda{|item| where(:checkout_type_id => item.checkout_type.id)}
   scope :available_for_carrier_type, lambda{|carrier_type| {:include => {:checkout_type => :carrier_types}, :conditions => ['carrier_types.id = ?', carrier_type.id]}}
 
