@@ -1887,6 +1887,7 @@ ja:
     help_name: "半角英数字で入力してください。"
   shelf:
     cannot_delete: "この本棚は削除できません。"
+    other: その他
   import:
     from_file: "ファイルから"
     from_isbn: "ISBNから"

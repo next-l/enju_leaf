@@ -125,7 +125,7 @@ group :development, :test do
   #gem 'rcov', '0.9.11'
   #gem 'metric_fu', '~> 2.1'
   gem 'timecop'
-  gem 'sunspot-rails-tester', :git => 'git://github.com/nabeta/sunspot-rails-tester.git'
+  #gem 'sunspot-rails-tester', :git => 'git://github.com/nabeta/sunspot-rails-tester.git'
   gem 'vcr', '~> 2.0.0.rc2'
   gem 'fakeweb'
   #gem 'churn', '0.0.13'

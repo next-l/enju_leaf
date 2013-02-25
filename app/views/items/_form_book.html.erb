@@ -10,6 +10,8 @@
   <div class="field">
     <%= f.label t('activerecord.models.library') -%><strong> / <%= t('activerecord.models.shelf') -%></strong><br />
     <%= f.select :library_id, @libraries.map{|l| [l.display_name.localize, l.id]} %>
+    <%#= f.select :shelf_id, @shelves.map{|s| [s.display_name.localize, s.id]} %>
+    <%= select_tag :shelf_category, options_for_select(@shelf_categories.map{|c|[i18n_shelf_category(c),c]}) %>
     <%= f.select :shelf_id, @shelves.map{|s| [s.display_name.localize, s.id]} %>
     <%= render 'observe_field' %>
   </div>

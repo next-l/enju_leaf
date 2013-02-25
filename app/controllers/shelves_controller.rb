@@ -17,11 +17,25 @@ class ShelvesController < ApplicationController
 
     # when create a item 
     if params[:mode] == 'select'
-      library = Library.find(params[:library_id]) rescue nil
-      if library
-        @shelves = library.shelves
-      else
-        @shelves = Shelf.real
+      if params[:library_id]
+        library = Library.find(params[:library_id]) rescue nil
+        if library
+          @shelves = library.shelves
+        else
+          @shelves = Shelf.real
+        end
+      elsif params[:shelf_category]
+        if params[:shelf_category] == 'other'
+          sql = ""
+          Shelf.categories.each do |c|
+            next if c == 'other'
+            sql << " AND " unless Shelf.categories.first == c
+            sql << "display_name not like '#{c}%'"
+          end
+          @shelves = Shelf.where(sql)
+        else
+          @shelves = Shelf.where(["display_name like ?", params[:shelf_category] + '%'])
+        end
       end
       render :partial => 'select_form'
       return
@@ -42,7 +56,6 @@ class ShelvesController < ApplicationController
     end
     @shelves = search_result.results
     @count[:query_result] = @shelves.total_entries
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @shelves }

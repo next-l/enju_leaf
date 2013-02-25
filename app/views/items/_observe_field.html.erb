@@ -1,7 +1,10 @@
 <script type="text/javascript">
-  function displayVals() {
-    var libraryValue = $("#item_library_id").val();
-    $("#item_shelf_id").load('<%= shelves_path %>?mode=select&library_id=' + libraryValue);
+  function displayShelves() {
+    var shelfValue = $("#shelf_category").val();
+    $("#item_shelf_id").load('<%= shelves_path %>?mode=select&shelf_category=' + shelfValue);
   }
-  $("#item_library_id").change(displayVals);
+  $("#shelf_category").change(displayShelves);  
+  $(document).ready(function(){
+    displayShelves();
+  });
 </script>

@@ -122,6 +122,7 @@ class ItemsController < ApplicationController
       redirect_to libraries_url
       return
     end
+    @shelf_categories = Shelf.categories
     unless @manifestation
       flash[:notice] = t('item.specify_manifestation')
       redirect_to manifestations_url
@@ -134,7 +135,7 @@ class ItemsController < ApplicationController
       @item.circulation_status = CirculationStatus.where(:name => 'In Process').first
       @item.checkout_type = @manifestation.carrier_type.checkout_types.first
       @item.use_restriction_id = UseRestriction.where(:name => 'Limited Circulation, Normal Loan Period').select(:id).first.id
-      @item.shelf = @library.shelves.first
+#      @item.shelf = @library.shelves.first
     else
       @item.circulation_status = CirculationStatus.where(:name => 'Not Available').first
       @item.checkout_type = CheckoutType.where(:name => 'article').first
@@ -152,6 +153,7 @@ class ItemsController < ApplicationController
   def edit
     @item.library_id = @item.shelf.library_id
     @item.use_restriction_id = @item.use_restriction.id if @item.use_restriction
+    @shelf_categories = Shelf.categories
   end
 
   # POST /items
@@ -280,9 +282,9 @@ class ItemsController < ApplicationController
     if @item.new_record?
       @library = Library.real.first(:order => :position, :include => :shelves)
     else
-      @library = @item.shelf.library
+      @library = @item.shelf.library rescue nil
     end
-    @shelves = @library.shelves
+    @shelves = [] # @library.shelves
     @circulation_statuses = CirculationStatus.all
     @circulation_statuses.reject!{|cs| cs.name == "Removed"}
     @accept_types = AcceptType.all
