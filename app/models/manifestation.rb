@@ -25,13 +25,31 @@ class Manifestation < ActiveRecord::Base
   belongs_to :country_of_publication, :class_name => 'Country', :foreign_key => 'country_of_publication_id'
 
   searchable do
+    text :fulltext, :contributor, :article_title
     text :title, :default_boost => 2 do
       titles
     end
     text :spellcheck do
       titles
     end
-    text :fulltext, :note, :contributor, :description, :article_title
+    text :note do
+      if series_statement.try(:periodical)  # 雑誌の場合
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          map(&:note).compact
+      else
+        note
+      end
+    end
+    text :description do
+      if series_statement.try(:periodical)  # 雑誌の場合
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          map(&:description).compact
+      else
+        description
+      end
+    end
     text :creator do
       if series_statement.try(:periodical)  # 雑誌の場合
         # 同じ雑誌の全号の著者のリストを取得する
