@@ -18,7 +18,7 @@ jQuery(function(){
   }
 
   $("#series_statement_periodical").click(function() {
-    if ($("#series_statement_periodical").attr('checked') == "checked" ) {
+    if ($("#series_statement_periodical").is(':checked')) {
       $("#root_manifestation_field").show();
       "<% @series_statement.periodical = nil%>";
     } else {
