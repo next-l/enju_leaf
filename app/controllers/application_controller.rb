@@ -1,6 +1,10 @@
 # -*- encoding: utf-8 -*-
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  include Mobylette::RespondToMobileRequests
+  mobylette_config do |config|
+    config[:skip_xhr_requests] = false
+  end
   require_dependency 'language'
 
   rescue_from CanCan::AccessDenied, :with => :render_403

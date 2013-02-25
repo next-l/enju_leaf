@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 043e92dc634ae9579cf3929c265e58411ce89e68
+  revision: 7c61ef82b3fcf33255b0c2cc680fdf1fe83297b9
   specs:
-    enju_biblio (0.1.0.pre18)
+    enju_biblio (0.1.0.pre19)
       aws-sdk
       dynamic_form
       enju_core (~> 0.1.1.pre3)
@@ -31,9 +31,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_book_jacket.git
-  revision: 2627c1574518d2cca57db767dc3c7d96b9d6fee3
+  revision: 656fd28c53b18861044f4cc042a3a71ffd1c508f
   specs:
-    enju_book_jacket (0.1.0.pre4)
+    enju_book_jacket (0.1.0.pre5)
       rails (~> 3.2)
 
 GIT
