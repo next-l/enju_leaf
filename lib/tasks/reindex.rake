@@ -32,7 +32,7 @@ module Sunspot
             ths = []
             find_in_batches(find_in_batch_options) do |records|
               while tcount < 1 do
-                sleep 5
+                sleep 2
               end
 	      mutex.synchronize {tcount -= 1}
               solr_benchmark options[:batch_size], batch_counter do
@@ -41,6 +41,7 @@ module Sunspot
                   Sunspot.index(records.select { |r| r.indexable? })
                   Sunspot.commit if options[:batch_commit]
                   mutex.synchronize {tcount += 1}
+                  GC.start
                   Thread.exit
                 end
                 # track progress
