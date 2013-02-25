@@ -534,6 +534,8 @@ en:
         start_number: Start Number
         print_sheet: Print sheet
         error: input 0 or more numerical values.
+        generated_from: "1:Generate from patterns,2:Generate from user numbers,3:Generate from item IDs,4:Generate custom barcodes"
+        custom_barcode: Custom barcode
       work:
         original_title: Original title
         title_transcription: Title transcription

@@ -3,10 +3,11 @@ class BarcodeList < ActiveRecord::Base
                   :barcode_suffix, :label_note, :printed_number
 
   default_scope :order => 'barcode_prefix'
-  BARCODE_TYPES = ["Code128B","NW-7"]
+  BARCODE_TYPES = ["Code128A","Code128B","NW-7"]
   GENERATED_FROM = (I18n.t('activerecord.attributes.barcode_list.generated_from')).split(",")
 
   attr_accessor :start_number, :end_number
+  attr_accessor :custom_barcodes
 
   belongs_to :sheet
 
@@ -105,6 +106,43 @@ class BarcodeList < ActiveRecord::Base
         digit = start_number.to_i + i 
         #@code_words << prefix + sprintf('%0'+digit_number.to_s+'d',digit.to_s) + suffix
         @code_words << sprintf('%0'+digit_number.to_s+'d',digit.to_s) 
+      end
+
+puts @code_words
+
+      sheet = BarcodeSheet.new
+      sheet.path = dir_base
+      sheet.code_type = type
+      sheet.create_pdf_new(self, filename, @code_words)
+      return dir_base + filename
+    rescue => exc
+      logger.error("barcode pdf sheet create failed: " + dir_base + filename)
+      logger.info(exc)
+      logger.info($@.join("\n"))
+      return
+  end
+ 
+  def create_pdf_sheet_custom(custom_barcodes)
+      dir_base = "#{Rails.root}/private/system/barcode_list/#{self.id}/original/"
+      FileUtils.mkdir_p(dir_base) unless FileTest.exist?(dir_base)
+      #filename = "barcode#{Time.now.strftime('%s')}.pdf"
+      filename = "barcode.pdf"
+      File.delete(dir_base+filename) if File.exist?(dir_base+filename)
+
+      barcode_sheet = self.sheet
+      digit_number = 3
+      digit_number = self.printed_number unless self.printed_number.blank?
+      type = self.barcode_type unless self.barcode_type.blank?
+      prefix = self.barcode_prefix unless self.barcode_prefix.blank?
+      suffix = self.barcode_suffix unless self.barcode_suffix.blank?
+      digit_number = self.printed_number unless self.printed_number.blank?
+
+      # delete null elements (ie custom barcode not entered)
+      custom_barcodes.delete("")
+
+      @code_words = []
+      custom_barcodes.each do |x|
+        @code_words << x
       end
 
 puts @code_words

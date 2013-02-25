@@ -41,14 +41,37 @@
 <br />
 
 <%= form_for @barcode_list, :url => {:action => 'exec_print'}, :method => 'post',  :html => { :class => "barcode_list", :id => @barcode_list.id }  do |f|%>
+  <%- if @barcode_list.usage_type == "4" -%>
+  <p>
+    <strong><%= t('activerecord.attributes.barcode_list.custom_barcode') -%> 1:</strong>
+    <%= text_field_tag 'custom_barcodes[]' -%>
+  </p>
+  <p>
+    <strong><%= t('activerecord.attributes.barcode_list.custom_barcode') -%> 2:</strong>
+    <%= text_field_tag 'custom_barcodes[]' -%>
+  </p>
+  <p>
+    <strong><%= t('activerecord.attributes.barcode_list.custom_barcode') -%> 3:</strong>
+    <%= text_field_tag 'custom_barcodes[]' -%>
+  </p>
+  <p>
+    <strong><%= t('activerecord.attributes.barcode_list.custom_barcode') -%> 4:</strong>
+    <%= text_field_tag 'custom_barcodes[]' -%>
+  </p>
+  <p>
+    <strong><%= t('activerecord.attributes.barcode_list.custom_barcode') -%> 5:</strong>
+    <%= text_field_tag 'custom_barcodes[]' -%>
+  </p>
+  <%- else -%>
   <p>
     <strong><%= t('activerecord.attributes.barcode_list.start_number') -%>:</strong>
-    <%= f. text_field :start_number -%>
+    <%= f.text_field :start_number -%>
   </p>
   <p>
     <strong><%= t('activerecord.attributes.barcode_list.end_number') -%>:</strong>
     <%= f.text_field :end_number -%>
   </p>
+  <%- end -%>
   <%= hidden_field_tag :"barcode_list[:usage_type]", 1 -%>
   <br />
   <br />
