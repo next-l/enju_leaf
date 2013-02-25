@@ -12,6 +12,7 @@ module ManifestationsHelper
 
   def back_to_manifestation_index
     if session[:params]
+      session[:params][:output_pdf], session[:params][:output_tsv], session[:params][:output_excelx], session[:params][:output_request] = nil,nil,nil,nil
       params = session[:params].merge(:view => nil, :controller => :manifestations)
       link_to t('page.back_to_search_results'), url_for(params)
     else
