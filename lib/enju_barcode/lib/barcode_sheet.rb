@@ -171,9 +171,9 @@ class BarcodeSheet
       # - here's the hack to unescape the backslashes
       barcode = Barby::Code128A.new(eval "\"#{code_word}\"")
     when "CODE128B"
-      barcode = Barby::Code128B.new(code_word)
+      barcode = Barby::Code128B.new(eval "\"#{code_word}\"")
     when "CODE128C"
-      barcode = Barby::Code128C.new(code_word)      
+      barcode = Barby::Code128C.new(eval "\"#{code_word}\"")
     when "NW-7"
       doc = RGhost::Document.new # :paper => ['15 cm', '1cm']
       #doc.barcode_rationalizedCodabar(code_word,{:x => 0, :y => 0, :width => to_pt(25), :height => to_pt(12)})
