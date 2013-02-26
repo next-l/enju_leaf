@@ -263,6 +263,7 @@ class Patron < ActiveRecord::Base
   def self.import_patrons(patron_lists)
     list = []
     patron_lists.uniq.compact.each do |patron_list|
+      next if patron_list[:full_name] == ""
       patron = Patron.where(:full_name => patron_list[:full_name]).first
       unless patron
         patron = Patron.new(
