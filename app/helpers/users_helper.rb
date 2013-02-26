@@ -33,6 +33,8 @@ module UsersHelper
       t('activerecord.attributes.patron.company_phone')
     when 5
       t('activerecord.attributes.patron.extension')
+    else
+      t('activerecord.attributes.patron.no_key') 
     end
   end
 

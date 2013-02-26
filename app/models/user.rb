@@ -761,15 +761,15 @@ class User < ActiveRecord::Base
           row << user.try(:patron).try(:address_1)
         when :telephone_number_1
           telephone_number_1 = user.try(:patron).try(:telephone_number_1)
-          telephone_number_1 += ' (' + I18n.t(i18n_telephone_type(user.try(:patron).try(:telephone_number_1_type_id)).strip_tags) +')' unless user.try(:patron).try(:telephone_number_1).blank?
+          telephone_number_1 += ' (' + I18n.t(i18n_telephone_type(user.try(:patron).try(:telephone_number_1_type_id)).try(:strip_tags)) +')' unless user.try(:patron).try(:telephone_number_1).blank?
           row << telephone_number_1 
         when :extelephone_number_1
           extelephone_number_1 = user.try(:patron).try(:extelephone_number_1)
-          extelephone_number_1 += ' (' + I18n.t(i18n_telephone_type(user.patron.extelephone_number_1_type_id).strip_tags) +')' unless user.try(:patron).try(:extelephone_number_1).blank?
+          extelephone_number_1 += ' (' + I18n.t(i18n_telephone_type(user.patron.extelephone_number_1_type_id).try(:strip_tags)) +')' unless user.try(:patron).try(:extelephone_number_1).blank?
           row << extelephone_number_1 
         when :fax_number_1
           fax_number_1 = user.try(:patron).try(:fax_number_1)
-          fax_number_1 += ' (' + I18n.t(i18n_telephone_type(user.patron.fax_number_1_type_id).strip_tags) +')' unless user.try(:patron).try(:fax_number_1).blank?
+          fax_number_1 += ' (' + I18n.t(i18n_telephone_type(user.patron.fax_number_1_type_id).try(:strip_tags)) +')' unless user.try(:patron).try(:fax_number_1).blank?
           row << fax_number_1 
         when :address_1_note
           row << user.try(:patron).try(:address_1_note )
@@ -779,15 +779,15 @@ class User < ActiveRecord::Base
           row << user.try(:patron).try(:address_2)
         when :telephone_number_2
           telephone_number_2 = user.try(:patron).try(:telephone_number_2)
-          telephone_number_2 += ' (' + I18n.t(i18n_telephone_type(user.patron.telephone_number_2_type_id).strip_tags) +')' unless user.try(:patron).try(:telephone_number_2).blank?
+          telephone_number_2 += ' (' + I18n.t(i18n_telephone_type(user.patron.telephone_number_2_type_id).try(:strip_tags)) +')' unless user.try(:patron).try(:telephone_number_2).blank?
           row << telephone_number_2
         when :extelephone_number_2
           extelephone_number_2 = user.try(:patron).try(:extelephone_number_2)
-          extelephone_number_2 += ' (' + I18n.t(i18n_telephone_type(user.patron.extelephone_number_2_type_id).strip_tags) +')' unless user.try(:patron).try(:extelephone_number_2).blank?
+          extelephone_number_2 += ' (' + I18n.t(i18n_telephone_type(user.patron.extelephone_number_2_type_id).try(:strip_tags)) +')' unless user.try(:patron).try(:extelephone_number_2).blank?
           row << extelephone_number_2
         when :fax_number_2
           fax_number_2 = user.try(:patron).try(:fax_number_2)
-          fax_number_2 += ' (' + I18n.t(i18n_telephone_type(user.patron.fax_number_2_type_id).strip_tags) +')' unless user.try(:patron).try(:fax_number_2).blank?
+          fax_number_2 += ' (' + I18n.t(i18n_telephone_type(user.patron.fax_number_2_type_id).try(:strip_tags)) +')' unless user.try(:patron).try(:fax_number_2).blank?
           row << fax_number_2 
         when :address_2_note
           row << user.try(:patron).try(:address_2_note)
