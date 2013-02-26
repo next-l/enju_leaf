@@ -663,4 +663,10 @@ system_configuration_00094:
   typename: String
   description: "特別なIPアドレス"
   category: 'general'
-
+system_configuration_00095:
+  id: 95
+  keyname: notice_receiver
+  v: ""
+  typename: Text	
+  description: "通知を受け取る利用者(ライブラリアン)"
+  category: 'general'
