@@ -139,13 +139,27 @@ describe ManifestationsController do
         it 'should load first Item record of a Manifestation record and use it as a solr search condition' do
           manifestation = Manifestation.first
           expected = manifestation.items.first
-          @expected_call = [:with, :bookbinder_id, :equal_to, expected.id]
 
           get :index, :bookbinder_id => manifestation.id.to_s
 
           response.should be_success
           assigns(:binder).should be_present
           assigns(:binder).should eq(expected)
+
+          check_called(:with, :bookbinder_id, :equal_to, expected.id)
+          check_called(:without, :id, :equal_to, manifestation.id)
+        end
+
+        it 'should set nil to @binder and not touch solr search conditions if bookbinder_id is invalid' do
+          invalid_id = Manifestation.last.id + 100
+
+          get :index, :bookbinder_id => invalid_id.to_s
+
+          response.should be_success
+          assigns(:binder).should be_nil
+
+          check_not_called(:with, :bookbinder_id, :*)
+          check_not_called(:without, :id, :*)
         end
       end
     end
