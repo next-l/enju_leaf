@@ -251,7 +251,7 @@ module EnjuTrunk
       end
       # creator
       creators_string = datas[@field[I18n.t('resource_import_textfile.excel.book.creator')]]
-      creators        = creators_string.nil? ? nil : creators_string.to_s.split(';')
+      creators        = creators_string.nil? ? nil : creators_string.to_s.gsub('；', ';').split(';')
       unless creators.nil?
         creators_list   = creators.inject([]){ |list, creator| list << {:full_name => creator.to_s.strip, :full_name_transcription => "" } }
         creator_patrons = Patron.import_patrons(creators_list)
@@ -259,7 +259,7 @@ module EnjuTrunk
       end
       # publisher
       publishers_string = datas[@field[I18n.t('resource_import_textfile.excel.book.publisher')]]
-      publishers        = publishers_string.nil? ? nil : publishers_string.to_s.split(';')
+      publishers        = publishers_string.nil? ? nil : publishers_string.to_s.gsub('；', ';').split(';')
       unless publishers.nil?
         publishers_list   = publishers.inject([]){ |list, publisher| list << {:full_name => publisher.to_s.strip, :full_name_transcription => "" } }
         publisher_patrons = Patron.import_patrons(publishers_list)
@@ -267,7 +267,7 @@ module EnjuTrunk
       end
       # contributor
       contributors_string = datas[@field[I18n.t('resource_import_textfile.excel.book.contributor')]]
-      contributors        = contributors_string.nil? ? nil : contributors_string.to_s.split(';')
+      contributors        = contributors_string.nil? ? nil : contributors_string.to_s.gsub('；', ';').split(';')
       unless contributors.nil?
         contributors_list   = contributors.inject([]){ |list, contributor| list << {:full_name => contributor.to_s.strip, :full_name_transcription => "" } }
         contributor_patrons = Patron.import_patrons(contributors_list)
@@ -275,7 +275,7 @@ module EnjuTrunk
       end
       # subject
       subjects_list_string = datas[@field[I18n.t('resource_import_textfile.excel.article.subject')]]
-      subjects_list        = subjects_list_string.nil? ? nil : subjects_list_string.to_s.split(';')
+      subjects_list        = subjects_list_string.nil? ? nil : subjects_list_string.to_s.gsub('；', ';').split(';')
       unless subjects_list.nil?
         subjects = Subject.import_subjects (subjects_list)
         manifestation.subjects = subjects
@@ -287,9 +287,9 @@ module EnjuTrunk
       original_title    = datas[@field[I18n.t('resource_import_textfile.excel.book.original_title')]]
       pub_date          = datas[@field[I18n.t('resource_import_textfile.excel.book.pub_date')]]
       creators_string   = datas[@field[I18n.t('resource_import_textfile.excel.book.creator')]]
-      creators          = creators_string.nil? ? nil : creators_string.to_s.split(';')
+      creators          = creators_string.nil? ? nil : creators_string.to_s.gsub('；', ';').split(';')
       publishers_string = datas[@field[I18n.t('resource_import_textfile.excel.book.publisher')]]
-      publishers        = publishers_string.nil? ? nil : publishers_string.to_s.split(';')
+      publishers        = publishers_string.nil? ? nil : publishers_string.to_s.gsub('；', ';').split(';')
       series_title      = datas[@field[I18n.t('resource_import_textfile.excel.series.original_title')]]
 
       if manifestation
