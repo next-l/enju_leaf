@@ -175,7 +175,7 @@ class BarcodeSheet
     when "CODE128C"
       barcode = Barby::Code128C.new(eval "\"#{code_word}\"")
     when "NW-7"
-      doc = RGhost::Document.new # :paper => ['15 cm', '1cm']
+      doc = RGhost::Document.new :paper => ['5cm', '2.1cm'], :rows_per_page => 1, :row_height => 0.9, :row_padding => 0.1
       #doc.barcode_rationalizedCodabar(code_word,{:x => 0, :y => 0, :width => to_pt(25), :height => to_pt(12)})
       #doc.barcode_rationalizedCodabar(code_word, {:text=>{:size=>8}, :enable=>[:text, :checkintext, :check]})
       doc.barcode_rationalizedCodabar(code_word, {:height => to_pt(12)})
