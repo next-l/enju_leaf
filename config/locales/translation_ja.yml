@@ -369,6 +369,7 @@ ja:
         fax: ファックス
         extension: 内線
         other_designation: 他の指定
+        no_key: 不明
         place: 場所
         date_of_birth: 生年月日
         birth_date: 生年月日
@@ -681,10 +682,11 @@ ja:
         output_item_identifiers: 所蔵IDを昇順に出力します。
         sp_start_number: 開始コード
         sp_end_number: 終了コード
-        generated_from: "1:パターンから作成,2:利用者番号から作成,3:所蔵IDから作成"
+        generated_from: "1:パターンから作成,2:利用者番号から作成,3:所蔵IDから作成,4:カスタムバーコードを作成"
         label_note: "ラベル注記"
         print_label: "印刷"
         print_label_2: "印刷する"
+        custom_barcode: "カスタムバーコード"
       work:
         original_title: タイトル # 原題
         title_transcription: タイトル（ヨミ）
@@ -1718,6 +1720,33 @@ ja:
     help_isbn: "半角英数字で入力してください。ハイフン（-）の入力は不要です。"
     help_issn: "半角英数字で入力してください。ハイフン（-）の入力は不要です。"
     all_manifestations: "検索非対象資料も表示"
+    description: "
+      <h5>検索方法:</h5>
+      <strong>[AND]検索</strong><br />
+      キーワードとキーワードの間に「AND」あるいは「空白文字」が入力されているとき、入力された全てのキーワードを含む情報を検索します<br />
+      
+      使用例：<br />
+      book1 AND book2<br />
+      book1 book2<br />
+      <br />
+      <strong>[OR]検索</strong><br />
+      キーワードとキーワードの間に「OR」が入力されているとき、入力されたいずれかのキーワードを含む情報を検索します<br />
+      使用例：<br />
+      book1 OR book2<br />
+      <br />
+      <strong>[NOT]検索</strong><br />
+      キーワードの前に「NOT」が入力されているとき、それに続いて入力されたキーワードを検索非対象とします<br />
+      使用例：<br />
+      NOT book1<br />
+      <br />
+      <strong>完全一致検索</strong><br />
+      タイトルと著者は完全一致検索を行えます<br />
+      タイトルを完全一致検索するときは「title_sm:」の後にタイトル名を、著者を完全一致検索するときは「creator_sm:」の後に著者名を入力してください<br />
+      使用例：<br />
+      title_sm:吾輩は猫である<br />
+      creator_sm:夏目漱石
+
+      "
   worki:
     patron_work: "%{patron_name} の書いた資料"
     library_group_work: "%{library_group_name} にある書いた資料"

@@ -2,19 +2,21 @@ class AccessLog < ActiveRecord::Base
   validates_uniqueness_of :date, :scope => [:log_type]
 
   def self.calc(date = Time.now.to_s)
-    #log_file = "#{Rails.root}/log/development.log"
+    # log_file = "#{Rails.root}/log/development.log"
     log_file = "#{Rails.root}/log/production.log"
 
     require "time"
     date = Time.parse(date).strftime("%Y-%m-%d")
 
-    puts "start calcu for a access log: #{date}"
+    puts "start calc for a access log: #{date}"
     # TOP page
     str = "Processing by PageController#index as HTML"
     access_log = AccessLog.new
     access_log.date = date
     access_log.log_type = "top_access"
-    access_log.value = grep_num(date, str, log_file)
+    value = grep_num(date, str, log_file)
+    str = "Processing by MyAccountsController#show as HTML"
+    access_log.value = value + grep_num(date, str, log_file)
     access_log.save
 
     # Manifestations index

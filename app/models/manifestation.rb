@@ -25,13 +25,31 @@ class Manifestation < ActiveRecord::Base
   belongs_to :country_of_publication, :class_name => 'Country', :foreign_key => 'country_of_publication_id'
 
   searchable do
+    text :fulltext, :contributor, :article_title
     text :title, :default_boost => 2 do
       titles
     end
     text :spellcheck do
       titles
     end
-    text :fulltext, :note, :contributor, :description, :article_title
+    text :note do
+      if series_statement.try(:periodical)  # 雑誌の場合
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          map(&:note).compact
+      else
+        note
+      end
+    end
+    text :description do
+      if series_statement.try(:periodical)  # 雑誌の場合
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          map(&:description).compact
+      else
+        description
+      end
+    end
     text :creator do
       if series_statement.try(:periodical)  # 雑誌の場合
         # 同じ雑誌の全号の著者のリストを取得する
@@ -865,11 +883,6 @@ class Manifestation < ActiveRecord::Base
     SERIES_COLUMNS.map {|c| "series.#{c}" } +
     ARTICLE_COLUMNS.map {|c| "article.#{c}" }
 
-  INVALID_COLUMNS = 
-    [%w(book manifestation_type)] +
-    BOOK_COLUMNS.map {|c| ['book', c] } +
-    SERIES_COLUMNS.map {|c| ['series', c] }
-
   def self.get_manifestation_list_excelx(manifestation_ids, current_user, selected_column = [])
     user_file = UserFile.new(current_user)
     excel_filepath, excel_fileinfo = user_file.create(:manifestation_list, Setting.manifestation_list_print_excelx.filename)
@@ -881,9 +894,8 @@ class Manifestation < ActiveRecord::Base
 
     column = { # 書誌のタイプごとの出力すべきカラムのリスト
       'book' => [], # 一般書誌(manifestation_type.is_{series,article}?がfalse)
-      'series' => [], # 雑誌(manifestation_type.is_series?がtrue)
+      'series' => SERIES_COLUMNS.map {|c| ["series", c] }, # 雑誌(manifestation_type.is_series?がtrue)
       'article' => [], # 文献(manifestation_type.is_article?がtrue)
-      'invalid' => INVALID_COLUMNS, # 区分が間違っている書誌
     }
     selected_column.each do |type_col|
       next unless ALL_COLUMNS.include?(type_col)
@@ -891,12 +903,10 @@ class Manifestation < ActiveRecord::Base
       column[$1] << [$1, $2]
       column['series'] << [$1, $2] if $1 == 'book' # NOTE: 雑誌の行は雑誌向けカラム+一般書誌向けカラム(参照: resource_import_textfile.excel)
     end
-
     sheet_name = {
       'book' => 'book_list',
       'series' => 'series_list',
       'article' => 'article_list',
-      'invalid' => '区別不正',
     }
 
     # 必要となりそうなワークシートの初期化
@@ -913,6 +923,7 @@ class Manifestation < ActiveRecord::Base
         sheet.add_row row, :style => style[type]
       end
     end
+
 
     logger.debug "begin export manifestations"
     transaction do
@@ -938,25 +949,20 @@ class Manifestation < ActiveRecord::Base
             target = [manifestation]
           elsif manifestation.series?
             type = 'series'
-            target = manifestation.series_statement.manifestations # XXX: 検索結果由来とseries_statement由来とでmanifestationレコードに重複が生じる可能性があることに注意(32b51f2c以前のコードをそのまま残した)
+#            target = manifestation.series_statement.manifestations # XXX: 検索結果由来とseries_statement由来とでmanifestationレコードに重複が生じる可能性があることに注意(32b51f2c以前のコードをそのまま残した) #TODO:重複はさせない
+             target = [manifestation]
           else # 一般書誌
             type = 'book'
             target = [manifestation]
-          end
-
-          # シリーズ情報を持っているにも関わらずmanifestation_typeが雑誌以外
-          # 資料区分が雑誌にもかかわらずシリーズ情報が存在しない
-          if type == 'series' && manifestation.series_statement.blank? ||
-              type != 'series' && manifestation.series_statement.present?
-            # データの登録不正を気付かないままとなってしまうので、
-            # 「エクスポート例(不正)」の形式で「区別不正」というシート名で出力
-            type = 'invalid'
           end
 
           # 出力すべきカラムがない場合はスキップ
           next if column[type].blank?
 
           target.each do |m|
+            # root_manifestationならばスキップ
+            next if m.periodical_master
+
             if m.items.blank?
               items = [nil]
             else
@@ -1059,8 +1065,7 @@ class Manifestation < ActiveRecord::Base
           ws_type == 'article' && !japanese_article?
         sep = ' '
       end
-      val = __send__("#{ws_col}s").map(&:name).join(sep)
-
+      val = __send__("#{ws_col}s").map(&:full_name).join(sep)
     when 'subject'
       sep = ';'
       if ws_type == 'article' && !japanese_article?

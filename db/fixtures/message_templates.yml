@@ -152,3 +152,10 @@ message_template_00016:
   body: "以下の取置き済であった予約資料の状態を受付済みに戻しました。\n\n<%= manifestations %>"
   position: 16
   locale: ja
+message_template_00017:
+  id: 17
+  status: user_reserved_a_book
+  title: "資料が予約されました。"
+  body: "利用者が資料を予約しました。\n\n<%= manifestations %>"
+  position: 17
+  locale: ja

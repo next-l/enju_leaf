@@ -47,20 +47,24 @@
                 </td>
                 <td id="edit_icons">
                   <%- if can? :update, manifestation -%>
-                    <%= link_to image_tag('icons/book_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_manifestation_path(manifestation) -%>
-                    <% case %>
-                    <% when @index_patron[:creator] %>
-                      <%= link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add_derivation')), new_patron_create_path(@index_patron[:creator], :work_id => manifestation.id) unless manifestation.creators.include?(@index_patron[:creator]) -%>
-                    <% when @index_patron[:contributor] %>
-                      <%= link_to link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add_derivation')), new_patron_realize_path(@index_patron[:contributor], :expression_id => manifestation.id) unless manifestation.contributors.include?(@index_patron[:contributor]) -%>
-                    <% when @index_patron[:publisher] %>
-                      <%= link_to link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add_derivation')), new_patron_produce_path(@index_patron[:publisher], :manifestation_id => manifestation.id) unless manifestation.publishers.include?(@index_patron[:publisher]) -%>
-                    <% when @series_statement %>
-                      <%= link_to link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add')), edit_series_statement_manifestation_path(@series_statement, manifestation) -%>
-                    <% when @manifestation %>
-                      <%= link_to link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add_derivation')), new_manifestation_manifestation_relationship_path(@manifestation, :child_id => manifestation.id) unless @manifestation.derived_manifestations.include?(manifestation) or @manifestation == manifestation -%>
+                    <% if manifestation.periodical_master %>
+                      <%= link_to image_tag('icons/book_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_series_statement_path(manifestation.series_statement) -%>
                     <% else %>
-                      <%= link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('manifestation.add_derivation'), :title => t('tooltip.add_derivation')), manifestation_manifestations_path(manifestation, :mode => 'add') -%>
+                      <%= link_to image_tag('icons/book_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_manifestation_path(manifestation) -%>
+                      <% case %>
+                      <% when @index_patron[:creator] %>
+                        <%= link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add_derivation')), new_patron_create_path(@index_patron[:creator], :work_id => manifestation.id) unless manifestation.creators.include?(@index_patron[:creator]) -%>
+                      <% when @index_patron[:contributor] %>
+                        <%= link_to link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add_derivation')), new_patron_realize_path(@index_patron[:contributor], :expression_id => manifestation.id) unless manifestation.contributors.include?(@index_patron[:contributor]) -%>
+                      <% when @index_patron[:publisher] %>
+                        <%= link_to link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add_derivation')), new_patron_produce_path(@index_patron[:publisher], :manifestation_id => manifestation.id) unless manifestation.publishers.include?(@index_patron[:publisher]) -%>
+                      <% when @series_statement %>
+                        <%= link_to link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add')), edit_series_statement_manifestation_path(@series_statement, manifestation) -%>
+                      <% when @manifestation %>
+                        <%= link_to link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add_derivation')), new_manifestation_manifestation_relationship_path(@manifestation, :child_id => manifestation.id) unless @manifestation.derived_manifestations.include?(manifestation) or @manifestation == manifestation -%>
+                      <% else %>
+                        <%= link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('manifestation.add_derivation'), :title => t('tooltip.add_derivation')), manifestation_manifestations_path(manifestation, :mode => 'add') -%>
+                      <% end %>
                     <% end %>
                   <%- end -%>
                 </td>

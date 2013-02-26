@@ -91,6 +91,13 @@ class SeriesStatementsController < ApplicationController
     @series_statement.work = @work if @work
     @series_statement.parent = @parent_series_statement if @parent_series_statement
     @series_statement.root_manifestation = Manifestation.new unless @series_statement.root_manifestation
+    if @series_statement.root_manifestation
+      manifestation = @series_statement.root_manifestation 
+      @creator = manifestation.creators.collect(&:full_name).flatten.join(';')
+      @contributor = manifestation.contributors.collect(&:full_name).flatten.join(';')
+      @publisher = manifestation.publishers.collect(&:full_name).flatten.join(';')
+      @subject = manifestation.subjects.collect(&:term).join(';')
+    end
   end
 
   # POST /series_statements
@@ -167,10 +174,10 @@ class SeriesStatementsController < ApplicationController
               manifestation.save!
               @series_statement.manifestations << manifestation 
             end
-            manifestation.creators     = Patron.add_patrons(@creator) unless @creator.blank?
-            manifestation.contributors = Patron.add_patrons(@contributor) unless @contributor.blank?
-            manifestation.publishers   = Patron.add_patrons(@publisher) unless @publisher.blank?
-            manifestation.subjects     = Subject.import_subjects(@subject.gsub('；', ';').split(';')) unless @subject.blank?
+            manifestation.creators     = Patron.add_patrons(@creator)
+            manifestation.contributors = Patron.add_patrons(@contributor)
+            manifestation.publishers   = Patron.add_patrons(@publisher) 
+            manifestation.subjects     = Subject.import_subjects(@subject.gsub('；', ';').split(';')) 
             manifestation.save!
           else
             if @series_statement.root_manifestation
@@ -228,7 +235,7 @@ class SeriesStatementsController < ApplicationController
 
   def prepare_options
     @carrier_types = CarrierType.all
-    @manifestation_types = ManifestationType.all
+    @manifestation_types = ManifestationType.where(:name => ['japanese_magazine', 'foreign_magazine', 'japanese_serial_book', 'foreign_serial_book'])
     @frequencies = Frequency.all
     @countries = Country.all
     @languages = Language.all_cache

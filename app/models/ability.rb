@@ -129,7 +129,7 @@ class Ability
         Produce,
         ProduceType,
         PurchaseRequest,
-#        Question,
+        Question,
         Realize,
         RealizeType,
         ReserveStatHasManifestation,

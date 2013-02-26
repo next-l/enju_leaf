@@ -589,7 +589,7 @@ class ManifestationsController < ApplicationController
     end
     if params[:series_statement_id]
       series_statement = SeriesStatement.find(params[:series_statement_id])
-      @manifestation.series_statement = series_statement id series_statement
+      @manifestation.series_statement = series_statement if  series_statement
     end
     @creator = params[:manifestation][:creator]
     @publisher = params[:manifestation][:publisher]
@@ -629,10 +629,10 @@ class ManifestationsController < ApplicationController
     @publisher = params[:manifestation][:publisher]
     @contributor = params[:manifestation][:contributor]
     @subject = params[:manifestation][:subject]
-    @manifestation.creators = Patron.add_patrons(@creator) unless @creator.blank?
-    @manifestation.contributors = Patron.add_patrons(@contributor) unless @contributor.blank?
-    @manifestation.publishers = Patron.add_patrons(@publisher) unless @publisher.blank?
-    @manifestation.subjects = Subject.import_subjects(@subject.gsub('；', ';').split(';')) unless @subject.blank?
+    @manifestation.creators = Patron.add_patrons(@creator) 
+    @manifestation.contributors = Patron.add_patrons(@contributor) 
+    @manifestation.publishers = Patron.add_patrons(@publisher)
+    @manifestation.subjects = Subject.import_subjects(@subject.gsub('；', ';').split(';')) 
     respond_to do |format|
       if @manifestation.update_attributes(params[:manifestation])
         if @manifestation.series_statement and @manifestation.series_statement.periodical
