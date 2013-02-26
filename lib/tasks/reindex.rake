@@ -5,8 +5,6 @@ module Sunspot
     module Searchable
       module ActsAsMethods									
 	def solr_index_parallel(opts={})
-          require 'parallel'
-          require 'benchmark'
           
           options = {
             :batch_size => Sunspot.config.indexing.default_batch_size,
@@ -32,17 +30,20 @@ module Sunspot
             ths = []
             find_in_batches(find_in_batch_options) do |records|
               while tcount < 1 do
-                sleep 2
+		            Thread.pass
               end
 	      mutex.synchronize {tcount -= 1}
               solr_benchmark options[:batch_size], batch_counter do
                 ths << Thread.start do
-                  #puts "Thread #{tcount} of #{exec_processor_size}"
-                  Sunspot.index(records.select { |r| r.indexable? })
-                  Sunspot.commit if options[:batch_commit]
-                  mutex.synchronize {tcount += 1}
-                  GC.start
-                  Thread.exit
+                  begin
+                    #puts "Thread #{tcount} of #{exec_processor_size}"
+                    Sunspot.index(records.select { |r| r.indexable? })
+                    Sunspot.commit if options[:batch_commit]
+                  ensure
+                    mutex.synchronize {tcount += 1}
+                    GC.start
+                    Thread.exit
+                  end
                 end
                 # track progress
                 progress_bar.increment!(records.length) if progress_bar
@@ -80,7 +81,7 @@ namespace :enju_trunk do
       end
 
       puts "#{Parallel.processor_count} procesor(s)"
-      puts "reindex using #{reindex_options[:exec_processor_size]} procesor(s)"
+      puts "reindex using #{reindex_options[:exec_processor_size]} thread(s)"
 
       Dir.glob(Rails.root.join('app/models/**/*.rb')).each { |path| require path }
       sunspot_models = Sunspot.searchable
