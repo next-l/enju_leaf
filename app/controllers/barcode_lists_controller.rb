@@ -142,6 +142,16 @@ class BarcodeListsController < ApplicationController
           #@barcode_list.errors.add_to_base t('activerecord.attributes.barcode_list.error')
           format.html { render :action => "print" }
         end
+
+      when "4"
+        custom_barcodes = params[:custom_barcodes]
+        pdf = @barcode_list.create_pdf_sheet_custom(custom_barcodes)
+        if @barcode_list.save && pdf
+          format.html { redirect_to :action => "show_pdf", :id => @barcode_list, :status => 301 }
+        else
+          format.html { render :action => "print" }
+        end
+
       end
     end
  

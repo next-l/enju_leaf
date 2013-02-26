@@ -1,5 +1,6 @@
 class BarcodeSheet
   require "prawn/measurement_extensions"
+  require "cgi"
   attr_accessor :path, :code_type
 
   def initialization
@@ -86,7 +87,8 @@ class BarcodeSheet
     unless File::directory?(img_dir)
       Dir::mkdir(img_dir)
     end
-    img_path = img_dir + code_word + "_" + @code_type + ".jpg"
+    # escaping code word just in case it contains control codes or sth
+    img_path = img_dir + CGI.escape(code_word) + "_" + @code_type + ".jpg"
     begin
       img = encode(code_word)    
     rescue => exc
@@ -127,7 +129,10 @@ class BarcodeSheet
       code_words.each_with_index do |code_word, index|
         barcode = create_jpgs_new(code_word)
         if File.exist?(barcode)
-          contents[index] = pdf.make_table([[{:image => barcode, :fit => [b_width, b_height], :vposition => 5, :position => :center, :height => 30}], 
+          # TODO: setting the height to 30 causes short barcodes
+          #       not to appear on the pdf sheet - temporarily set
+          #       the height to 60 here...
+          contents[index] = pdf.make_table([[{:image => barcode, :fit => [b_width, b_height], :vposition => 5, :position => :center, :height => 60}], 
                                             [code_word], [barcode_list.label_note]],
                                             :width => cell.x+space.x, :cell_style => {:width => cell.x+space.x, :border_width => [0,0,0,0]})
         else
@@ -162,13 +167,15 @@ class BarcodeSheet
   def encode(code_word)
     case @code_type.upcase
     when "CODE128A"
-      barcode = Barby::Code128A.new(code_word)
+      # backslashes in the form fields are being escaped
+      # - here's the hack to unescape the backslashes
+      barcode = Barby::Code128A.new(eval "\"#{code_word}\"")
     when "CODE128B"
-      barcode = Barby::Code128B.new(code_word)
+      barcode = Barby::Code128B.new(eval "\"#{code_word}\"")
     when "CODE128C"
-      barcode = Barby::Code128C.new(code_word)      
+      barcode = Barby::Code128C.new(eval "\"#{code_word}\"")
     when "NW-7"
-      doc = RGhost::Document.new # :paper => ['15 cm', '1cm']
+      doc = RGhost::Document.new :paper => ['5cm', '2.1cm'], :rows_per_page => 1, :row_height => 0.9, :row_padding => 0.1
       #doc.barcode_rationalizedCodabar(code_word,{:x => 0, :y => 0, :width => to_pt(25), :height => to_pt(12)})
       #doc.barcode_rationalizedCodabar(code_word, {:text=>{:size=>8}, :enable=>[:text, :checkintext, :check]})
       doc.barcode_rationalizedCodabar(code_word, {:height => to_pt(12)})
