@@ -450,6 +450,47 @@ describe ManifestationsController do
 
         search_called.should be_false
       end
+
+      describe 'result order' do
+        [
+          ['title', %w(sort_title asc)],
+          ['pub_date', %w(date_of_publication desc)],
+          ['carrier_type', %w(carrier_type desc)],
+          ['author', %w(author asc)],
+          [nil, %w(created_at desc)]
+        ].each do |param, order_args|
+          ['asc', 'desc', nil].each do |dir|
+            expected_args = [order_args[0], dir ? dir : order_args[1]]
+            it "should be \"#{order_args.join(' ')}\" with sort_by=#{param.inspect} and order=#{dir.inspect}" do
+              called = []
+              expected = [expected_args, [:created_at, :desc]]*3
+              Sunspot::DSL::Search.any_instance.stub(:order_by) do |*args|
+                called << args
+              end
+
+              get :index, sort_by: param.to_s, order: dir.to_s
+
+              unexpected = called - expected
+              unexpected.should be_blank, "unexpected order_by call: #{unexpected.map {|x| x.join(' ') }.join(', ')}"
+              called.should eq(expected)
+            end
+          end
+        end
+
+        it 'should be done by and updated_at in oai format' do
+          called = []
+          expected = [[:updated_at, :desc]]*3
+          Sunspot::DSL::Search.any_instance.stub(:order_by) do |*args|
+            called << args
+          end
+
+          get :index, format: 'oai'
+
+          unexpected = called - expected
+          unexpected.should be_blank, "unexpected order_by call: #{unexpected.map {|x| x.join(' ') }.join(', ')}"
+          called.should eq(expected)
+        end
+      end
     end
   end
 
