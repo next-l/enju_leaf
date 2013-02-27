@@ -21,7 +21,7 @@
       <% next if hide_item?(params[:all_manifestations], item) %>
       <tr>
         <td>
-          <%= link_to item.shelf.library.display_name.localize, item.shelf.library if item.shelf.library %>
+          <%= link_to item.shelf.library.display_name.localize, item.shelf.library if item.try(:shelf).try(:library) %>
         </td>
         <td>
           <%= link_to item.shelf.display_name.localize, item.shelf if item.shelf %>
