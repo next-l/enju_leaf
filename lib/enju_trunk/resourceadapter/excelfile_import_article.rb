@@ -304,8 +304,7 @@ module EnjuTrunk
       return nil if cell.nil?
       subjects = []
       if @manifestation_type.name == 'japanese_article'
-        cell = cell.gsub('；', ';')
-        creators = cell.split(';')
+        subjects = cell.gsub('；', ';').split(';')
       else
         #cell = cell.gsub('＊', '*')
         subjects = cell.split('*')
