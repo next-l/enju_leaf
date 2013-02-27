@@ -312,12 +312,26 @@ describe ManifestationsController do
 
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in FactoryGirl.create(:admin)
+        @admin = FactoryGirl.create(:admin)
+        sign_in @admin
       end
 
       it "assigns all manifestations as @manifestations" do
         get :index
         assigns(:manifestations).should_not be_nil
+      end
+
+      it 'should assign the current user as @reserve_user' do
+        get :index
+        response.should be_success
+        assigns(:reserve_user).should eq(@admin)
+      end
+
+      it 'should assign an User specified :user_id as @reserve_user' do
+        user = FactoryGirl.create(:user)
+        get :index, user_id: user.id.to_s
+        response.should be_success
+        assigns(:reserve_user).should eq(user)
       end
 
       include_examples 'index should load records'
@@ -328,7 +342,8 @@ describe ManifestationsController do
 
     describe "When logged in as Librarian" do
       before(:each) do
-        sign_in FactoryGirl.create(:librarian)
+        @librarian = FactoryGirl.create(:librarian)
+        sign_in @librarian
       end
 
       it "assigns all manifestations as @manifestations" do
@@ -341,11 +356,25 @@ describe ManifestationsController do
         response.should be_success
         assigns(:add).should be_true
       end
+
+      it 'should assign the current user as @reserve_user' do
+        get :index
+        response.should be_success
+        assigns(:reserve_user).should eq(@librarian)
+      end
+
+      it 'should assign an User specified :user_id as @reserve_user' do
+        user = FactoryGirl.create(:user)
+        get :index, user_id: user.id.to_s
+        response.should be_success
+        assigns(:reserve_user).should eq(user)
+      end
     end
 
     describe "When logged in as User" do
       before(:each) do
-        sign_in FactoryGirl.create(:user)
+        @user = FactoryGirl.create(:user)
+        sign_in @user
       end
 
       it "assigns all manifestations as @manifestations" do
@@ -357,6 +386,19 @@ describe ManifestationsController do
         get :index, mode: 'add'
         response.should be_forbidden
         assigns(:add).should be_blank
+      end
+
+      it 'should assign the current user as @reserve_user' do
+        get :index
+        response.should be_success
+        assigns(:reserve_user).should eq(@user)
+      end
+
+      it 'should assign the current user as @reserve_user even if specified :user_id' do
+        user = FactoryGirl.create(:user)
+        get :index, user_id: user.id.to_s
+        response.should be_success
+        assigns(:reserve_user).should eq(@user)
       end
     end
 
@@ -446,7 +488,7 @@ describe ManifestationsController do
         response.should render_template("manifestations/list_identifiers")
       end
 
-      it "assigns all manifestations as @manifestations in oai format with GetRecord without identifier" do
+      it "should not assign @manifestations in oai format with GetRecord without identifier" do
         search_called = false
         Manifestation.stub(:search) { search_called = true }
         Sunspot.stub(:new_search) { search_called = true }
@@ -460,7 +502,7 @@ describe ManifestationsController do
         search_called.should be_false
       end
 
-      it "assigns all manifestations as @manifestations in oai format with GetRecord with identifier" do
+      it "assigns a manifestation as @manifestation in oai format with GetRecord with identifier" do
         search_called = false
         Manifestation.stub(:search) { search_called = true }
         Sunspot.stub(:new_search) { search_called = true }
@@ -472,6 +514,61 @@ describe ManifestationsController do
         response.should render_template('manifestations/show')
 
         search_called.should be_false
+      end
+
+      it "should render 'manifestations/index' with idDoesNotExist error in oai format if GetRecord and invalid identifier" do
+        search_called = false
+        Manifestation.stub(:search) { search_called = true }
+        Sunspot.stub(:new_search) { search_called = true }
+
+        max_id = Manifestation.last.id
+        get :index, :format => 'oai', :verb => 'GetRecord', :identifier => "oai:localhost:manifestations-#{max_id + 100}"
+        assigns(:manifestations).should be_nil
+        assigns(:manifestation).should be_nil
+        assigns(:oai).should be_present
+        assigns(:oai)[:errors].should include('idDoesNotExist')
+        response.should render_template('manifestations/index')
+
+        search_called.should be_false
+      end
+
+      it 'should set page number according to resumptionToken in oai format' do
+        controller.stub(:get_resumption_token).and_return(cursor: 500)
+        get :index, format: 'oai', resumptionToken: 'dummy'
+        response.should be_success
+        manifestations = assigns(:manifestations)
+        manifestations.should_not be_nil
+        manifestations.extend Kaminari::PageScopeMethods # NOTE: current_pageを使えるようにする
+        manifestations.current_page.should eq(4)
+      end
+
+      it 'should push badResumptionToken in @oai[:errors] if resumptionToken is invalid in oai format' do
+        ManifestationsController.stub(:get_resumption_token).and_return(nil)
+        get :index, format: 'oai', resumptionToken: 'dummy'
+        response.should be_success
+        assigns(:oai)[:errors].should include('badResumptionToken')
+      end
+
+      it 'should store resumptionToken to cache in oai format' do
+        Manifestation.reindex
+        Sunspot.commit
+
+        controller.should_receive(:set_resumption_token)
+        get :index, format: 'oai', all_manifestations: 'true'
+        response.should be_success
+      end
+
+      it 'should assign nil as @reserve_user' do
+        get :index
+        response.should be_success
+        assigns(:reserve_user).should be_nil
+      end
+
+      it 'should assign nil as @reserve_user even if specified :user_id' do
+        user = FactoryGirl.create(:user)
+        get :index, user_id: user.id.to_s
+        response.should be_success
+        assigns(:reserve_user).should be_nil
       end
 
       describe 'With more than two query texts' do
@@ -567,6 +664,37 @@ describe ManifestationsController do
           unexpected = called - expected
           unexpected.should be_blank, "unexpected order_by call: #{unexpected.map {|x| x.join(' ') }.join(', ')}"
           called.should eq(expected)
+        end
+      end
+
+      it 'should show error when invalid query string is specified' do
+        get :index, query: '{!foo}'
+        response.should be_success
+        response.should render_template('manifestations/index')
+        assigns(:manifestations).should be_blank
+        flash[:message].should eq(I18n.t('manifestation.invalid_query'))
+      end
+
+      it 'should clear session data related index query when query condition is changed' do
+        controller.should_receive(:clear_search_sessions)
+        session[:search_params] = 'dummy'
+        get :index
+      end
+
+      it 'should clear session data related index query on first request' do
+        controller.should_receive(:clear_search_sessions)
+        get :index
+      end
+
+      {
+        output_pdf: :pdf, output_tsv: :tsv,
+        output_excelx: :excelx, output_request: :request,
+      }.each do |param, output_type|
+        it "should send manifestation list file if #{param} is specified" do
+          Manifestation.should_receive(:generate_manifestation_list) do |*args|
+            args[1].should eq(output_type)
+          end
+          get :index, param => 'true'
         end
       end
     end
