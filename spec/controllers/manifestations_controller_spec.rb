@@ -25,27 +25,7 @@ describe ManifestationsController do
     end
 
     before do
-      # キャッシュによる意図しない動作の回避のため
-      # ManifestationsController#indexで使用している
-      # SystemConfigurationを改めて設定しておく
-      update_system_configuration('manifestation.manage_item_rank', true)
-      update_system_configuration('manifestations.split_by_type', true)
-      update_system_configuration('internal_server', true)
-      update_system_configuration('max_number_of_results.use_and', 500)
-      update_system_configuration('search.use_and', true)
-      update_system_configuration('advanced_search.use_and', true)
-      update_system_configuration('write_search_log_to_file', true)
-
-      # searchブロックでエラーにならないよう
-      # solrスキーマが最新状態すべくインデックスを更新しておく
-      Sunspot.remove_all!
-      Manifestation.first.index
-      Sunspot.commit
-    end
-
-    after do
-      Sunspot.remove_all!
-      Rails.cache.clear
+      Rails.cache.clear # SystemConfiguration由来の値が不定になるのを避けるため
     end
 
     shared_examples_for 'manifestation search conditions' do
@@ -496,8 +476,7 @@ describe ManifestationsController do
 
       describe 'With more than two query texts' do
         before do
-          Sunspot.remove_all!
-          Manifestation.all.map(&:index)
+          Manifestation.reindex
           Sunspot.commit
         end
 
