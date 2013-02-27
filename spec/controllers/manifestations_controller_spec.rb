@@ -451,6 +451,69 @@ describe ManifestationsController do
         search_called.should be_false
       end
 
+      describe 'With more than two query texts' do
+        before do
+          Sunspot.remove_all!
+          Manifestation.all.map(&:index)
+          Sunspot.commit
+        end
+
+        def update_system_configuration(key, value)
+          Rails.cache.clear
+          sc = SystemConfiguration.find_by_keyname(key)
+          sc.v = value
+          sc.save!
+        end
+
+        it 'should search manifestations that satisfies all parameters when search.use_and is true' do
+          update_system_configuration('search.use_and', 'true')
+
+          get :index, query: 'creator_text:Librarian1 publisher_text:Administrator', all_manifestations: 'true'
+          response.should be_success
+          assigns(:manifestations).should have(1).item
+          assigns(:manifestations).should include(manifestations(:manifestation_00001))
+        end
+
+        it 'should search manifestations that satisfies any parameters when search.use_and is false' do
+          update_system_configuration('search.use_and', 'false')
+
+          get :index, query: 'creator_text:Librarian1 publisher_text:Administrator', all_manifestations: 'true'
+          response.should be_success
+          assigns(:manifestations).should have(4).items
+          assigns(:manifestations).should include(manifestations(:manifestation_00001))
+          assigns(:manifestations).should include(manifestations(:manifestation_00002))
+          assigns(:manifestations).should include(manifestations(:manifestation_00004))
+          assigns(:manifestations).should include(manifestations(:manifestation_00005))
+        end
+
+        it 'should search manifestations that satisfies all parameters when advanced_search.use_and is true' do
+          update_system_configuration('advanced_search.use_and', 'true')
+
+          get :index, creator: 'Librarian1', publisher: 'Administrator', all_manifestations: 'true'
+          response.should be_success
+          assigns(:manifestations).should have(1).item
+          assigns(:manifestations).should include(manifestations(:manifestation_00001))
+        end
+
+        it 'should search manifestations that satisfies any parameters when advanced_search.use_and is false' do
+          update_system_configuration('advanced_search.use_and', 'false')
+
+          get :index, creator: 'Librarian1', publisher: 'Administrator', all_manifestations: 'true'
+          response.should be_success
+          assigns(:manifestations).should have(4).items
+          assigns(:manifestations).should include(manifestations(:manifestation_00001))
+          assigns(:manifestations).should include(manifestations(:manifestation_00002))
+          assigns(:manifestations).should include(manifestations(:manifestation_00004))
+          assigns(:manifestations).should include(manifestations(:manifestation_00005))
+        end
+
+        it 'should search manifestations that satisifes parameters including white-spaces' do
+          get :index, creator: 'Librarian1 Administrator', all_manifestations: 'true'
+          response.should be_success
+          assigns(:manifestations).should have(0).items
+        end
+      end
+
       describe 'result order' do
         [
           ['title', %w(sort_title asc)],
