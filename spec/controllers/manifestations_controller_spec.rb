@@ -22,7 +22,7 @@ describe ManifestationsController do
         # となる
         @called = []
         [:with, :without].each do |sym|
-          Sunspot::DSL::Search.any_instance.stub(sym) do |stub_arg|
+          Sunspot::DSL::Search.any_instance.stub(sym) do |*stub_arg|
             sub = [sym, stub_arg]
             def sub.method_missing(*args)
               self << args
@@ -33,13 +33,14 @@ describe ManifestationsController do
         end
       end
 
-      # foo(bar)が呼び出されたことをチェックする場合: check_called(:foo, bar)
+      # foo(bar)が呼び出されたことをチェックする場合: check_called(:foo, bar) (または check_called(:foo, [bar]))
+      # foo(bar, baz)が呼び出されたことをチェックする場合: check_called(:foo, [bar, baz])
       # foo(bar).baz(quux)が呼び出されたことをチェックする場合: check_called(:foo, bar, :baz, quux)
       # foo(bar)が呼びだされたことだけをチェックし、それに続くメソッド呼び出しがあったかどうかはチェックしない場合: check_called(:foo, bar, :*)
       def check_called0(*expected_call)
         # expected_callに対応するメソッド呼び出しが
         # 少なくとも一回はあったことを検査する
-        main_cond = expected_call[0 .. 1]
+        main_cond = [expected_call[0], [expected_call[1]].flatten]
         if expected_call.size == 3 && expected_call[2] == :*
           # with(:foo)がとにかく呼ばれたことだけを期待するとき
           # with(:foo)以降についてはチェックを行わない
@@ -147,7 +148,7 @@ describe ManifestationsController do
           assigns(:binder).should eq(expected)
 
           check_called(:with, :bookbinder_id, :equal_to, expected.id)
-          check_called(:without, :id, :equal_to, manifestation.id)
+          check_called(:without, [:id, manifestation.id])
         end
 
         it 'should set nil to @binder and not touch solr search conditions if bookbinder_id is invalid' do
@@ -311,6 +312,12 @@ describe ManifestationsController do
         get :index
         assigns(:manifestations).should_not be_nil
       end
+
+      it "should set true to @add if mode parameter is 'add'" do
+        get :index, mode: 'add'
+        response.should be_success
+        assigns(:add).should be_true
+      end
     end
 
     describe "When logged in as User" do
@@ -322,6 +329,12 @@ describe ManifestationsController do
         get :index
         assigns(:manifestations).should_not be_nil
       end
+
+      it "should be deny access if mode parameter is 'add'" do
+        get :index, mode: 'add'
+        response.should be_forbidden
+        assigns(:add).should be_blank
+      end
     end
 
     describe "When not logged in" do
@@ -331,10 +344,16 @@ describe ManifestationsController do
       end
 
       it "assigns all manifestations as @manifestations in sru format without operation" do
+        search_called = false
+        Manifestation.stub(:search) { search_called = true }
+        Sunspot.stub(:new_search) { search_called = true }
+
         get :index, :format => 'sru'
         assert_response :success
         assigns(:manifestations).should be_nil
         response.should render_template('manifestations/explain')
+
+        search_called.should be_false
       end
 
       it "assigns all manifestations as @manifestations in sru format with operation" do
@@ -405,19 +424,31 @@ describe ManifestationsController do
       end
 
       it "assigns all manifestations as @manifestations in oai format with GetRecord without identifier" do
+        search_called = false
+        Manifestation.stub(:search) { search_called = true }
+        Sunspot.stub(:new_search) { search_called = true }
+
         get :index, :format => 'oai', :verb => 'GetRecord'
         assigns(:manifestations).should be_nil
         assigns(:manifestation).should be_nil
         assigns(:oai).should be_present
         response.should render_template('manifestations/index')
+
+        search_called.should be_false
       end
 
       it "assigns all manifestations as @manifestations in oai format with GetRecord with identifier" do
+        search_called = false
+        Manifestation.stub(:search) { search_called = true }
+        Sunspot.stub(:new_search) { search_called = true }
+
         get :index, :format => 'oai', :verb => 'GetRecord', :identifier => 'oai:localhost:manifestations-1'
         assigns(:manifestations).should be_nil
         assigns(:manifestation).should_not be_nil
         assigns(:oai).should be_present
         response.should render_template('manifestations/show')
+
+        search_called.should be_false
       end
     end
   end
