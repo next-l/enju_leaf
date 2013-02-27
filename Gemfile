@@ -84,7 +84,7 @@ gem 'acts_as_list'
 
 group :development do
   gem 'annotate', '~> 2.5'
-  gem 'sunspot_solr', '~> 2.0.0.pre.130115'
+  gem 'sunspot_solr', '~> 2.0.0'
   gem 'rails-erd'
   gem 'immigrant'
 end
@@ -92,7 +92,7 @@ end
 group :development, :test do
   gem 'simplecov', '~> 0.7', :require => false
 #  gem 'ruby-prof', :platforms => :mri_20
-  gem 'rspec-rails', '~> 2.12'
+  gem 'rspec-rails', '~> 2.13'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 4.1'
   gem 'spork-rails'

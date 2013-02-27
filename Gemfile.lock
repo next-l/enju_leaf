@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 7c61ef82b3fcf33255b0c2cc680fdf1fe83297b9
+  revision: 3385d5a6403b98f8e464c4a3647ff3b32a2eaafd
   specs:
-    enju_biblio (0.1.0.pre19)
+    enju_biblio (0.1.0.pre20)
       aws-sdk
       dynamic_form
       enju_core (~> 0.1.1.pre3)
@@ -31,14 +31,14 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_book_jacket.git
-  revision: 656fd28c53b18861044f4cc042a3a71ffd1c508f
+  revision: 55a6cb9d0d3a7a94bf25215ebb2fd9bfa3ec42eb
   specs:
-    enju_book_jacket (0.1.0.pre5)
+    enju_book_jacket (0.1.0.pre6)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_circulation.git
-  revision: bf0166d6c1295103414e1787091d846e4d5e972f
+  revision: ac1338be75d3e8db7da4eb5443f088c25d7da02f
   specs:
     enju_circulation (0.1.0.pre11)
       enju_event (~> 0.1.17.pre5)
@@ -51,7 +51,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_core.git
-  revision: be0fff65402dbf52e77e0b69f922aa92dcc52597
+  revision: 18734059176cf56059b7cefb132f6e7bff2068ee
   specs:
     enju_core (0.1.1.pre3)
       acts_as_list
@@ -65,11 +65,11 @@ GIT
       rails (~> 3.2)
       resque
       settingslogic
-      sunspot_rails (~> 2.0.0.pre.130115)
+      sunspot_rails (~> 2.0.0)
 
 GIT
   remote: git://github.com/next-l/enju_event.git
-  revision: f09f5ecfe0904acd847b6b93f70249986d0fc7f1
+  revision: bec25263c769300a2ce05dc5c4a11bcf738c72f3
   specs:
     enju_event (0.1.17.pre7)
       enju_core (~> 0.1.1.pre3)
@@ -94,26 +94,25 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_inter_library_loan.git
-  revision: fca5341843cd97b643f15a91c2bc9c6627c840da
+  revision: 43f8b7d4d28b2541f42afb80825ab2fa4ef9fdd0
   specs:
     enju_inter_library_loan (0.1.0.pre5)
-      enju_biblio (~> 0.1.0.pre13)
+      enju_biblio (~> 0.1.0.pre19)
       rails (~> 3.2)
       state_machine
 
 GIT
   remote: git://github.com/next-l/enju_inventory.git
-  revision: f8767d4b33950aa98e9f9232c849ab44a6806033
+  revision: 95c023639f386d8b66e9e96f19605cead5121f93
   specs:
     enju_inventory (0.1.11.pre5)
-      enju_biblio (~> 0.1.0.pre13)
+      enju_biblio (~> 0.1.0.pre19)
       inherited_resources
-      paperclip (~> 3.3)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 31b3c3bb946d691a939d19682c88f5573ee9fbf6
+  revision: dfac333efa1448b1fbf5b26972d6505d832e5483
   specs:
     enju_library (0.1.0.pre9)
       enju_core (~> 0.1.1.pre3)
@@ -129,7 +128,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_ndl.git
-  revision: 532d743f1f88582473d5237f2c84527eb35ac5f3
+  revision: 37140f93a755223abf7059101db15ade0d827d01
   specs:
     enju_ndl (0.1.0.pre8)
       library_stdnums
@@ -139,7 +138,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_nii.git
-  revision: 4cfa157daff66205c2cdc365391d870dd6ab5bc7
+  revision: 2161888413a6f181a3aade8866c6a1628eb0129e
   specs:
     enju_nii (0.1.0.pre3)
       attribute_normalizer
@@ -148,32 +147,32 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_oai.git
-  revision: 9d74b9080ed247bcc9e72235dcf0c56ae8a5d534
+  revision: b693735376b06cecd11928ba07c2e9e2b4376c8e
   specs:
     enju_oai (0.1.0.pre7)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_resource_merge.git
-  revision: 8c6ba06c69c5d1918bcede6c557ce6060cbceeda
+  revision: df18b9e26fe12153adf720fd42820bfe3a2c62b6
   specs:
     enju_resource_merge (0.1.0.pre5)
       dynamic_form
-      enju_biblio (~> 0.1.0.pre17)
+      enju_biblio (~> 0.1.0.pre19)
       inherited_resources
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_search_log.git
-  revision: 67215e96f6e397fcb920abee4c9c677e59eaa6e0
+  revision: 8ab740ac73c9a8dc0a5e1716607dcce612d51aac
   specs:
     enju_search_log (0.1.0.pre3)
-      enju_biblio (~> 0.1.0.pre13)
+      enju_biblio (~> 0.1.0.pre19)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_subject.git
-  revision: c5f01908bb517d6ac20f0f24ef51cc8d9f0d330e
+  revision: e67cef335cf227274bb2028b66810041d1abcb77
   specs:
     enju_subject (0.1.0.pre4)
       dynamic_form
@@ -246,7 +245,7 @@ GEM
     childprocess (0.3.8)
       ffi (~> 1.0, >= 1.0.11)
     choice (0.1.6)
-    chronic (0.9.0)
+    chronic (0.9.1)
     client_side_validations (3.2.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -261,7 +260,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.4.0)
+    coffee-script-source (1.5.0)
     commonjs (0.2.6)
     dalli (2.6.2)
     devise (2.2.3)
@@ -295,7 +294,7 @@ GEM
     fakeweb (1.3.0)
     fattr (2.2.1)
     ffi (1.4.0)
-    foreigner (1.3.0)
+    foreigner (1.4.0)
       activerecord (>= 3.0.0)
     friendly_id (4.0.9)
     geocoder (1.1.6)
@@ -311,7 +310,7 @@ GEM
     has_scope (0.5.1)
     highline (1.6.15)
     hike (1.2.1)
-    i18n (0.6.1)
+    i18n (0.6.2)
     immigrant (0.1.4)
       activerecord (>= 3.0)
       foreigner (>= 1.2.1)
@@ -358,7 +357,7 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (2.6.5)
     nokogiri (1.5.6)
-    nori (2.0.3)
+    nori (2.0.4)
     options (2.3.0)
       fattr
     orm_adapter (0.4.0)
@@ -420,7 +419,7 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     rake (10.0.3)
-    rdoc (3.12.1)
+    rdoc (3.12.2)
       json (~> 1.4)
     redis (3.0.2)
     redis-namespace (1.2.1)
@@ -476,14 +475,14 @@ GEM
       rubyzip
       websocket (~> 1.0.4)
     settingslogic (2.0.9)
-    simple_form (2.0.4)
+    simple_form (2.1.0)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
     simplecov-html (0.7.1)
-    sinatra (1.3.4)
+    sinatra (1.3.5)
       rack (~> 1.4)
       rack-protection (~> 1.3)
       tilt (~> 1.3, >= 1.3.3)
@@ -509,13 +508,13 @@ GEM
       railties (~> 3.0)
     strongbox (0.7.0)
       activerecord
-    sunspot (2.0.0.pre.130115)
+    sunspot (2.0.0)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
-    sunspot_rails (2.0.0.pre.130115)
+    sunspot_rails (2.0.0)
       nokogiri
-      sunspot (= 2.0.0.pre.130115)
-    sunspot_solr (2.0.0.pre.130115)
+      sunspot (= 2.0.0)
+    sunspot_solr (2.0.0)
     terminal-table (1.4.5)
     therubyracer (0.10.2)
       libv8 (~> 3.3.10)
@@ -611,7 +610,7 @@ DEPENDENCIES
   resque-scheduler (~> 2.0.0)
   resque_spec
   ri_cal
-  rspec-rails (~> 2.12)
+  rspec-rails (~> 2.13)
   rubyzip
   sanitize
   sass-rails (~> 3.2.3)
@@ -624,7 +623,7 @@ DEPENDENCIES
   strong_parameters
   strongbox
   sunspot-rails-tester!
-  sunspot_solr (~> 2.0.0.pre.130115)
+  sunspot_solr (~> 2.0.0)
   therubyracer (= 0.10.2)
   therubyrhino
   timecop
