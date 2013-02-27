@@ -530,3 +530,5 @@ div.book_jacket{
 div.search_form{
   margin-bottom: 10px;
 }
+
+.hidden {display: none;}
