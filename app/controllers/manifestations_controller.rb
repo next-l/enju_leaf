@@ -744,21 +744,20 @@ class ManifestationsController < ApplicationController
       queries << "item_identifier_sm:#{options[:item_identifier]}"
     end
     unless options[:number_of_pages_at_least].blank? and options[:number_of_pages_at_most].blank?
-      number_of_pages = {}
-      number_of_pages[:at_least] = options[:number_of_pages_at_least].to_i
-      number_of_pages[:at_most] = options[:number_of_pages_at_most].to_i
-      number_of_pages[:at_least] = "*" if number_of_pages[:at_least] == 0
-      number_of_pages[:at_most] = "*" if number_of_pages[:at_most] == 0
-      queries << "number_of_pages_sm:[#{number_of_pages[:at_least]} TO #{number_of_pages[:at_most]}]"
+      q = num_range_query('number_of_pages', options[:number_of_pages_at_least], options[:number_of_pages_at_most])
+      queries << q if q
     end
     unless options[:pub_date_from].blank? and options[:pub_date_to].blank?
-      queries << set_date('pub_date', options[:pub_date_from], options[:pub_date_to])
+      q = date_range_query('pub_date', options[:pub_date_from], options[:pub_date_to])
+      queries << q if q
     end
     unless options[:acquired_from].blank? and options[:acquired_to].blank?
-      queries << set_date('acquired_at', options[:acquired_from], options[:acquired_to])
+      q = date_range_query('acquired_at', options[:acquired_from], options[:acquired_to])
+      queries << q if q
     end
     unless options[:removed_from].blank? and options[:removed_to].blank?
-      queries << set_date('removed_at', options[:removed_from], options[:removed_to])
+      q = date_range_query('removed_at', options[:removed_from], options[:removed_to])
+      queries << q if q
     end
     unless options[:manifestation_type].blank?
       queries << "manifestation_type_sm:#{options[:manifestation_type]}"
@@ -886,22 +885,90 @@ class ManifestationsController < ApplicationController
     end
   end
 
-  def set_date(column, date_from, date_to)
-    date_from.to_s.gsub!(/\D/, '')
-    date_to.to_s.gsub!(/\D/, '')
-    date = {}
-    if date_from.blank?
-      date[:from] = "*"
+  # "*_sm"フィールドに対する自然数の範囲条件を指定する
+  # solrクエリー文字列を返す
+  def num_range_query(field_base, num_from, num_to)
+    n1 = n2 = nil
+    num_regex = /\A0*[1-9]\d*/
+
+    n1 = $&.to_i if num_regex =~ num_from
+    n2 = $&.to_i if num_regex =~ num_to
+
+    n1, n2 = n2, n1 if n1 && n2 && n1 > n2
+
+    block = proc {|n| n < 1 }
+    r_begin = (n1.nil? || block.call(n1)) ? '*' : n1.to_s
+    r_end   = (n2.nil? || block.call(n2)) ? '*' : n2.to_s
+
+    return nil if r_begin == '*' && r_end == '*'
+    "#{field_base}_sm:[#{r_begin} TO #{r_end}]"
+  end
+
+  # "*_sm"フィールドに対する日時範囲条件を指定する
+  # solrクエリー文字列を返す。
+  def date_range_query(field_base, date_from, date_to)
+    d1, g1 = parse_date(date_from)
+    d2, g2 = parse_date(date_to)
+
+    d1, g1, d2, g2 = d2, g2, d1, g1 if d1 && d2 && d1 > d2
+
+    if d1
+      r_begin = d1.beginning_of_day.utc.iso8601
     else
-      date[:from] = Time.zone.parse(date_from).beginning_of_day.utc.iso8601 rescue nil
-      date[:from] = Time.zone.parse(Time.mktime(date_from).to_s).beginning_of_day.utc.iso8601 unless date[:from]
+      r_begin = '*'
     end
-    if date_to.blank?
-      date[:to] = "*"
+
+    case g2
+    when :day
+      d2 = d2.end_of_day
+    when :month
+      d2 = d2.end_of_month
+    when :year
+      d2 = d2.end_of_year
+    end
+
+    if d2
+      r_end = d2.utc.iso8601 if d2
     else
-      date[:to] = Time.zone.parse(date_to).end_of_day.utc.iso8601 rescue nil
-      date[:to] = Time.zone.parse(Time.mktime(date_to).to_s).end_of_year.utc.iso8601 unless date[:to]
+      r_end = '*'
     end
-    return "#{column}_sm:[#{date[:from]} TO #{date[:to]}]"
+
+    return nil if r_begin == '*' && r_end == '*'
+    "#{field_base}_sm:[#{r_begin} TO #{r_end}]"
+  end
+
+  # 日時を示す文字列を解析して
+  # 解析できた時刻とそのレベル(:day、:month、:year)を返す
+  def parse_date(date_str)
+    return [nil, nil] if date_str.blank?
+
+    begin
+      time = Time.zone.parse(date_str)
+      return [time, time ? :day : nil]
+    rescue ArgumentError
+    end
+
+    dary = date_str.scan(/\d+/)[0, 3].compact # 先頭から三つの数字のかたまりを抽出
+    return [nil, nil] if dary.blank?
+
+    if dary.size == 1
+      # 数字のかたまりが一つだけの場合「YYYYMMDD」の形式を検討する
+      m = dary.first.match(/(\d{1,4})(\d{2})?(\d{2})?/)
+      dary = [m[1], m[2], m[3]].compact
+    end
+
+    case dary.size
+    when 1
+      guess = :year
+      time = Time.zone.local(dary.first.to_i)
+    when 2
+      guess = :month
+      time = Time.zone.local(*dary.map(&:to_i))
+    when 3
+      guess = :day
+      time = Time.zone.local(*dary.map(&:to_i))
+    end
+
+    [time, guess]
   end
 end

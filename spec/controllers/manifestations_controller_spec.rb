@@ -438,18 +438,6 @@ describe ManifestationsController do
         assigns(:manifestations).should_not be_nil
       end
 
-      it "assigns all manifestations as @manifestations when pub_date_from and pub_date_to are specified" do
-        get :index, :pub_date_from => '2000', :pub_date_to => '2007'
-        assigns(:query).should eq "pub_date_sm:[#{Time.zone.parse('2000-01-01').utc.iso8601} TO #{Time.zone.parse('2007-12-31').end_of_year.utc.iso8601}]"
-        assigns(:manifestations).should_not be_nil
-      end
-
-      it "assigns all manifestations as @manifestations when acquired_from and pub_date_to are specified" do
-        get :index, :acquired_from => '2000', :acquired_to => '2007'
-        assigns(:query).should eq "acquired_at_sm:[#{Time.zone.parse('2000-01-01').utc.iso8601} TO #{Time.zone.parse('2007-12-31').end_of_day.utc.iso8601}]"
-        assigns(:manifestations).should_not be_nil
-      end
-
       it "assigns all manifestations as @manifestations when number_of_pages_at_least and number_of_pages_at_most are specified" do
         get :index, :number_of_pages_at_least => '100', :number_of_pages_at_least => '200'
         assigns(:manifestations).should_not be_nil
@@ -699,11 +687,13 @@ describe ManifestationsController do
             {from:'2013-01-01', to:'2013-01-02',
               expect:'2012-12-31T15:00:00Z TO 2013-01-02T14:59:59Z'},
             {from:'2013-01', to:'2013-01',
-              expect:'201300-12-31T15:00:00Z TO 201301-12-31T14:59:59Z'}, # XXX: 2012-12-31T15:00:00Z TO 2013-01-31T14:59:59Z
+              expect:'2012-12-31T15:00:00Z TO 2013-01-31T14:59:59Z'},
             {from:'2013', to:'2013',
               expect:'2012-12-31T15:00:00Z TO 2013-12-31T14:59:59Z'},
-            {from:'*', to:'any',
-              expect:'* TO *'},
+            {from:'*', to:'2013-01-02 12:00:00',
+              expect:'* TO 2013-01-02T14:59:59Z'},
+            {from:'any', to:'2013-01-02 12:00:00',
+              expect:'* TO 2013-01-02T14:59:59Z'},
             {from:'2013-01-01 12:00:00',
               expect:'2012-12-31T15:00:00Z TO *'},
             {to:'2013-01-02 12:00:00',
@@ -712,9 +702,10 @@ describe ManifestationsController do
             {from:nil, to:''},
             {from:'', to:nil},
             {from:nil, to:nil},
+            {from:'*', to:'*'},
             {from:'2013-01-02 12:00:00',
               to:'2013-01-01 12:00:00',
-              expect:'2013-01-01T15:00:00Z TO 2013-01-01T14:59:59Z'}, # XXX: 2012-12-31T15:00:00:00Z TO 2013-01-02T14:59:59Z
+              expect:'2012-12-31T15:00:00Z TO 2013-01-02T14:59:59Z'},
           ].each do |cond|
             if cond[:from] || cond[:to]
               t1 = ""
@@ -742,10 +733,12 @@ describe ManifestationsController do
           {from:'10', to:nil, expect:'10 TO *'},
           {from:nil, to:nil},
           # abnormal params
-          {from:'-10', to:'20', expect:'-10 TO 20'}, # XXX: * TO 20
-          {from:'10', to:'-20', expect:'10 TO -20'}, # XXX: 10 to *
-          {from:'20', to:'10', expect:'20 TO 10'}, # XXX: 10 to 20
-          {from:'-20', to:'-10', expect:'-20 TO -10'}, # XXX: nil
+          {from:'-10', to:'20', expect:'* TO 20'},
+          {from:'10', to:'-20', expect:'10 TO *'},
+          {from:'20', to:'10', expect:'10 TO 20'},
+          {from:'-20', to:'-10'},
+          {from:'-10', to:'-20'},
+          {from:'a', to:'b'},
         ].each do |cond|
           parambase = 'number_of_pages_at_'
           if cond[:from] || cond[:to]
