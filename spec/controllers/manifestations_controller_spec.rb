@@ -626,6 +626,145 @@ describe ManifestationsController do
         end
       end
 
+      describe 'advanced search' do
+        [
+          %w(tag tag_sm),
+          %w(creator creator_text),
+          %w(contributor contributor_text),
+          %w(publisher publisher_text),
+          %w(isbn isbn_sm), %w(nbn nbn_s),
+          %w(item_identifier item_identifier_sm),
+          %w(manifestation_type manifestation_type_sm),
+        ].each do |param, field|
+          it "should search from #{field} field when #{param} param is specified" do
+            found = false
+            Sunspot::DSL::Search.any_instance.stub(:fulltext) do |qs, *opts|
+              found = true if /\b#{Regexp.quote(field)}:foobar\b/ =~ qs
+            end
+            get :index, param => 'foobar'
+            response.should be_success
+            found.should be_true
+          end
+        end
+
+        def it_should_set_range_query(field_name, from_param, to_param, cond)
+          field_regex = Regexp.quote(field_name)
+          expect_regex = Regexp.quote(cond[:expect]) if cond[:expect]
+
+          called = false
+          found = nil
+          query_strings = []
+
+          Sunspot::DSL::Search.any_instance.stub(:fulltext) do |qs, *opts|
+            if /\b#{field_regex}:/ =~ qs
+              called = true
+              if expect_regex &&
+                  /\b#{field_regex}:\[#{expect_regex}\]/ =~ qs
+                found = true if found.nil?
+              else
+                found = false
+              end
+            end
+            query_strings << qs
+          end
+
+          get :index, from_param.to_sym => cond[:from], to_param.to_sym => cond[:to]
+
+          response.should be_success
+          if expect_regex
+            found.should be_true,
+              "expected: #{field_name}:[#{cond[:expect]}]\n     got: #{query_strings.join("\n          ")}"
+          else
+            found.should be_false,
+              "fulltext should not be called with \"#{field_name}:\", but called with: #{query_strings.join(', ')}"
+          end
+          if expect_regex
+            called.should be_true,
+              "fulltext should be called"
+          else
+            called.should be_false,
+              "fulltext should not be called, but called with: #{query_strings.join(', ')}"
+          end
+        end
+
+        [
+          %w(pub_date pub_date),
+          %w(acquired acquired_at),
+          %w(removed removed_at),
+        ].each do |parambase, fieldbase|
+          [
+            {from:'2013-01-01 12:00:00',
+              to:'2013-01-02 12:00:00',
+              expect:'2012-12-31T15:00:00Z TO 2013-01-02T14:59:59Z'},
+            {from:'2013-01-01', to:'2013-01-02',
+              expect:'2012-12-31T15:00:00Z TO 2013-01-02T14:59:59Z'},
+            {from:'2013-01', to:'2013-01',
+              expect:'201300-12-31T15:00:00Z TO 201301-12-31T14:59:59Z'}, # XXX: 2012-12-31T15:00:00Z TO 2013-01-31T14:59:59Z
+            {from:'2013', to:'2013',
+              expect:'2012-12-31T15:00:00Z TO 2013-12-31T14:59:59Z'},
+            {from:'*', to:'any',
+              expect:'* TO *'},
+            {from:'2013-01-01 12:00:00',
+              expect:'2012-12-31T15:00:00Z TO *'},
+            {to:'2013-01-02 12:00:00',
+              expect:'* TO 2013-01-02T14:59:59Z'},
+            {from:'', to:''},
+            {from:nil, to:''},
+            {from:'', to:nil},
+            {from:nil, to:nil},
+            {from:'2013-01-02 12:00:00',
+              to:'2013-01-01 12:00:00',
+              expect:'2013-01-01T15:00:00Z TO 2013-01-01T14:59:59Z'}, # XXX: 2012-12-31T15:00:00:00Z TO 2013-01-02T14:59:59Z
+          ].each do |cond|
+            if cond[:from] || cond[:to]
+              t1 = ""
+              t2 = "#{parambase}_from=#{cond[:from].inspect} and #{parambase}_to=#{cond[:to].inspect}"
+            else
+              t1 = "not "
+              t2 = "no #{parambase}_from and no #{parambase}_to"
+            end
+            it "should #{t1}search from #{parambase}_sm when #{t2} are specified" do
+              it_should_set_range_query(
+                "#{fieldbase}_sm",
+                "#{parambase}_from",
+                "#{parambase}_to",
+                cond)
+            end
+          end
+        end
+
+        [
+          # nomal params
+          {from:'10', to:'20', expect:'10 TO 20'},
+          {from:'0', to:'20', expect:'* TO 20'},
+          {from:nil, to:'20', expect:'* TO 20'},
+          {from:'10', to:'0', expect:'10 TO *'},
+          {from:'10', to:nil, expect:'10 TO *'},
+          {from:nil, to:nil},
+          # abnormal params
+          {from:'-10', to:'20', expect:'-10 TO 20'}, # XXX: * TO 20
+          {from:'10', to:'-20', expect:'10 TO -20'}, # XXX: 10 to *
+          {from:'20', to:'10', expect:'20 TO 10'}, # XXX: 10 to 20
+          {from:'-20', to:'-10', expect:'-20 TO -10'}, # XXX: nil
+        ].each do |cond|
+          parambase = 'number_of_pages_at_'
+          if cond[:from] || cond[:to]
+            t1 = ""
+            t2 = "#{parambase}least=#{cond[:from].inspect} and #{parambase}most=#{cond[:to].inspect}"
+          else
+            t1 = "not "
+            t2 = "no #{parambase}_least and no #{parambase}_most"
+          end
+          it "should #{t1}search from number_of_pages when #{t2} are specified" do
+            it_should_set_range_query(
+              'number_of_pages_sm',
+              'number_of_pages_at_least',
+              'number_of_pages_at_most',
+              cond)
+          end
+        end
+      end
+
       describe 'result order' do
         [
           ['title', %w(sort_title asc)],
