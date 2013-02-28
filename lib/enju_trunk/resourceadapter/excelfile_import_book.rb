@@ -311,6 +311,7 @@ module EnjuTrunk
       conditions << "(series_statements).original_title = \'#{series_title.to_s.gsub("'", "''")}\'" if @manifestation_type.is_series?
       conditions << "creates.id is not null"
       conditions << "produces.id is not null"
+      conditions << "manifestations.id != #{manifestation.id}" if manifestation.try(:id)
       conditions = conditions.join(' and ')
       book = nil
 
@@ -351,6 +352,7 @@ module EnjuTrunk
           raise I18n.t('resource_import_textfile.error.book.wrong_isbn')
         end
       end
+      manifestation.external_catalog = 1 if manifestation
       return manifestation
     end
 

@@ -7,6 +7,12 @@
     <%# cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
       <table id="resource_detail">
         <%= embed_content(manifestation) -%>
+        <%- if manifestation.external_catalog > 0 -%>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.external_catalog') %>:</td>
+            <td><%= t('external_catalog.ndl') %></td>
+          </tr>
+        <%- end -%>
         <% if manifestation.bookbinder %>
           <tr>
             <td><%= t('bookbinding.status') -%>:</td>

@@ -899,6 +899,7 @@ ja:
         missing_issue: 欠号管理
         acceptance_number: 受入部数
         printout_in_progress: 資料確認票の印刷を開始しました
+        external_catalog: 目録作成機関
       user_group:
         name: 名前
         display_name: 表示名
@@ -2584,6 +2585,8 @@ ja:
     series: "雑誌・新聞"
     article: "文献"
     exinfo: "その他"
+  external_catalog:
+    ndl: NDL
 
   opac:
     finish: 終わる

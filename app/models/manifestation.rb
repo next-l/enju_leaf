@@ -950,7 +950,12 @@ class Manifestation < ActiveRecord::Base
           elsif manifestation.series?
             type = 'series'
 #            target = manifestation.series_statement.manifestations # XXX: 検索結果由来とseries_statement由来とでmanifestationレコードに重複が生じる可能性があることに注意(32b51f2c以前のコードをそのまま残した) #TODO:重複はさせない
-             target = [manifestation]
+             if manifestation.periodical_master
+               #target = manifestation.series_statement.manifestaitions
+               target = manifestation.series_statement.manifestations.map{ |m| m unless m.periodical_master }.compact
+             else 
+               target = [manifestation]
+             end
           else # 一般書誌
             type = 'book'
             target = [manifestation]
@@ -960,9 +965,6 @@ class Manifestation < ActiveRecord::Base
           next if column[type].blank?
 
           target.each do |m|
-            # root_manifestationならばスキップ
-            next if m.periodical_master
-
             if m.items.blank?
               items = [nil]
             else
@@ -1001,10 +1003,10 @@ class Manifestation < ActiveRecord::Base
     logger.debug "end export manifestations"
 
     # 空のワークシートを削除
-    worksheet.each_pair do |type, ws|
-      next if ws.rows.size > 1
-      wb.worksheets.delete(ws) # 見出し行以外ない
-    end
+    #worksheet.each_pair do |type, ws|
+    #  next if ws.rows.size > 1
+    #  wb.worksheets.delete(ws) # 見出し行以外ない
+    #end
 
     pkg.serialize(excel_filepath)
 
@@ -1024,7 +1026,7 @@ class Manifestation < ActiveRecord::Base
     when 'manifestation_type'
       val = manifestation_type.try(:display_name) || ''
 
-    when 'original_title', 'title_transcription', 'series_statement_identifier', 'periodical', 'issn'
+    when 'original_title', 'title_transcription', 'series_statement_identifier', 'periodical', 'issn', 'note'
       if ws_type == 'series'
         val = series_statement.excel_worksheet_value(ws_type, ws_col)
       end
