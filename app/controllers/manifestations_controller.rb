@@ -135,7 +135,9 @@ class ManifestationsController < ApplicationController
       searchs.each do |s|
       search = s
 
-      @binder = binder = Manifestation.find(params[:bookbinder_id]).try(:items).try(:first) if params[:bookbinder_id]
+      if params[:bookbinder_id]
+        @binder = binder = Manifestation.find(params[:bookbinder_id]).try(:items).try(:first) rescue nil
+      end
       unless params[:mode] == 'add'
         manifestation = @manifestation if @manifestation
         subject = @subject if @subject
