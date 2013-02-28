@@ -97,7 +97,7 @@ describe ManifestationsController do
         method_str = "#{expected_call[0]}(#{expected_call[1].inspect})"
         if expected_call[2] && expected_call[2] != :*
           method_str << ".#{expected_call[2]}"
-          method_str << "(#{expected_call[3..-1].map(&:inspect).join(', ')})" if expected_call[3]
+          method_str << "(#{expected_call[3..-1].map(&:inspect).join(', ')})" unless expected_call[3].nil?
         end
         method_str
       end
@@ -171,7 +171,7 @@ describe ManifestationsController do
           assigns(:binder).should eq(expected)
 
           check_called(:with, :bookbinder_id, :equal_to, expected.id)
-          check_called(:without, [:id, manifestation.id])
+          check_called(:without, :id, :equal_to, manifestation.id)
         end
 
         it 'should set nil to @binder and not touch solr search conditions if bookbinder_id is invalid' do
@@ -246,7 +246,7 @@ describe ManifestationsController do
         ]],
       ].each do |param, specs|
         specs.each do |pvalue, check, *check_args|
-          t = pvalue.nil? ? "no #{param}" : "#{param}=#{pvalue.to_s}"
+          t = pvalue.nil? ? "no #{param}" : "#{param}=#{pvalue.inspect}"
           context "When #{t} is specified" do
             include_examples 'manifestation search conditions'
             t1 = check == :check_not_called ? 'not call' : 'call'
@@ -304,8 +304,8 @@ describe ManifestationsController do
 
         it 'should search with/without is_article' do
           get :index
-          check_called(:with,    :is_article, :equal_to, false)
-          check_called(:without, :is_article, :equal_to, false)
+          check_called(:with, :is_article, :equal_to, false)
+          check_called(:with, :is_article, :equal_to, true)
         end
       end
     end
@@ -610,7 +610,8 @@ describe ManifestationsController do
         it 'should search manifestations that satisifes parameters including white-spaces' do
           get :index, creator: 'Librarian1 Administrator', all_manifestations: 'true'
           response.should be_success
-          assigns(:manifestations).should have(0).items
+          assigns(:manifestations).should have(1).items
+          assigns(:manifestations).should include(manifestations(:manifestation_00001))
         end
       end
 
@@ -786,7 +787,7 @@ describe ManifestationsController do
 
         it 'should be done by and updated_at in oai format' do
           called = []
-          expected = [[:updated_at, :desc]]*3
+          expected = [[:updated_at, :desc]]
           Sunspot::DSL::Search.any_instance.stub(:order_by) do |*args|
             called << args
           end
