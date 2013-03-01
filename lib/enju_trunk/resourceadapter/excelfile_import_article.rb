@@ -244,7 +244,7 @@ module EnjuTrunk
       item.url                = url             unless url.nil?
       if item.item_identifier.nil?
         while item.item_identifier.nil?
-          create_item_identifier = Numbering.do_numbering('article')
+          create_item_identifier = Numbering.do_numbering(@numbering.name)
           exit_item_identifier = Item.where(:item_identifier => create_item_identifier).first
           item.item_identifier = create_item_identifier unless exit_item_identifier
         end

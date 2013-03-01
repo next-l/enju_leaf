@@ -36,15 +36,18 @@ class ResourceImportTextfilesController < ApplicationController
     extraparams = params[:extraparams]
     sheets = []
     manifestation_types = []
+    numberings = []
     extraparams.each do |e, value|
       if value["sheet"]
         sheets << value["sheet"]
         manifestation_types << value["manifestation_type"]
+        numberings << value["numbering"]
       end
     end
     params = Hash::new
     params["sheet"] = sheets
     params["manifestation_type"] = manifestation_types
+    params["numbering"] = numberings
     @resource_import_textfile.extraparams = params.to_s
 
     respond_to do |format|
@@ -107,6 +110,7 @@ class ResourceImportTextfilesController < ApplicationController
     File.open(path, "wb"){ |f| f.write(file.read) }
     @oo = Excelx.new(path)
     @manifestation_types = ManifestationType.all
+    @numberings = Numbering.all
     data = "lib/enju_trunk/resourceadapter/views/excelfile_select.html.erb"
     render :layout => false, :file => data
   end
