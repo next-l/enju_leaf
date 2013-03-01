@@ -39,6 +39,14 @@ every 1.day, :at => '1:00 am' do
   runner "UserCheckoutStat.calculate_stat; UserReserveStat.calculate_stat; ManifestationCheckoutStat.calculate_stat; ManifestationReserveStat.calculate_stat; BookmarkStat.calculate_stat"
 end
 
+every 1.day, :at => '2:00 am' do
+  rake "enju_trunk:sync:scheduled_export"
+end
+
+every 1.day, :at => '2:30 am' do
+  command "#{path}/script/enjusync/imp-dumpfile.sh"
+end
+
 every 1.day, :at => '4:30 am' do
   runner "Checkout.apend_to_reminder_list"
 end
