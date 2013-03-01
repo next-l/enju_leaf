@@ -123,7 +123,7 @@ $(function(){
   <ul>
     <%- if user_signed_in? && current_user.has_role?('Librarian') -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
-      <li><%= link_to t('user.manage_family'), families_path -%></li>
+      <%- if SystemConfiguration.get('use_family') %><li><%= link_to t('user.manage_family'), families_path -%></li><%- end -%>
       <li><%= link_to t('page.listing', :model => t('activerecord.models.unablelist')), unablelist_path -%></li>
       <li><%= link_to t('page.import_from_file'), new_patron_import_file_path -%></li>
       <li><%= link_to t('activerecord.models.checkin'), checkins_path -%>

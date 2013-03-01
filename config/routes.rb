@@ -370,6 +370,7 @@ EnjuLeaf::Application.routes.draw do
     resource :exemplify
     get :remove, :on => :member
     get :restore, :on => :member
+    get :numbering, :on => :collection
   end
 
   resources :owns

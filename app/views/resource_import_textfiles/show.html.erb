@@ -37,20 +37,20 @@
   <br />
   <% sheets = eval(@resource_import_textfile.extraparams)["sheet"] %>
   <% manifestation_types = eval(@resource_import_textfile.extraparams)["manifestation_type"] %>
+  <% numberings = eval(@resource_import_textfile.extraparams)["numbering"] %>
   <% if sheets.present? %>
     <table style="border: 0px;">
       <tr>
-        <td style="border:0px; border-bottom: 1px solid #aaa;">
-          <strong><%= t('activerecord.attributes.resource_import_textfile.sheet') %></strong>
-        </td>
-        <td style="border:0px; border-bottom: 1px solid #aaa;">
-          <strong><%= t('activerecord.models.manifestation_type') %></strong>
-        </td>
+        <th style="border:0px; border-bottom: 1px solid #aaa;"><%= t('activerecord.attributes.resource_import_textfile.sheet') %></th>
+        <th style="border:0px; border-bottom: 1px solid #aaa;"><%= t('activerecord.models.manifestation_type') %></th>
+        <th style="border:0px; border-bottom: 1px solid #aaa;"><%= t('activerecord.models.numbering') %></th>
       </tr>
       <% sheets.each_with_index do |sheet, i| %>
         <tr>
           <td style="border:0px; border-bottom: 1px solid #aaa;"><%= sheet %></td>
           <td style="border:0px; border-bottom: 1px solid #aaa;"><%= ManifestationType.find(manifestation_types[i]).display_name rescue nil%></td>
+          <td style="border:0px; border-bottom: 1px solid #aaa;"><%= Numbering.where(:name => numberings[i]).first.display_name rescue nil%></td>
+        </tr>
     <% end %>
     </table>
   <% end %>

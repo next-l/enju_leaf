@@ -43,6 +43,7 @@ class ImportRequest < ActiveRecord::Base
       manifestation = self.class.import_isbn!(isbn)
       if manifestation
         self.manifestation = manifestation
+        manifestation.update_attributes(:external_catalog => 1)
         sm_complete!
         manifestation.index!
       else

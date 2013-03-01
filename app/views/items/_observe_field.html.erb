@@ -7,4 +7,15 @@
   $(document).ready(function(){
     displayShelves();
   });
+  function numbering() {
+    var type = $("#numbering_type").val();
+    $.ajax({
+      type: "Get",
+      url: "<%= numbering_items_path%>",
+      data: {type: type},
+      success: function(obj) {
+        $("#item_item_identifier").val(obj.item_identifier);
+      }
+    });
+  }
 </script>
