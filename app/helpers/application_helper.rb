@@ -288,4 +288,35 @@ module ApplicationHelper
     return nil unless Date.valid_date?(year, month, day)
     date = Time.zone.parse(date)
   end
+
+  ADVANCED_SEARCH_PARAMS = [
+    :tag, :creator, :publisher, :isbn, :issn, :item_identifier,
+    :pub_date_from, :pub_date_to, :acquired_from, :acquired_to,
+    :removed_from, :removed_to, :number_of_pages_at_least,
+    :number_of_pages_at_most, :advanced_search,
+  ]
+
+  def link_to_advanced_search(link_title = nil)
+    link_title ||= t('page.advanced_search')
+    url_params = params.dup
+
+    [:controller, :commit, :utf8].each {|k| url_params.delete(k) }
+    link_to link_title, page_advanced_search_path(url_params)
+  end
+
+  def link_to_normal_search(link_title = nil)
+    return '' if ADVANCED_SEARCH_PARAMS.all? {|k| params[k].blank? }
+
+    link_title ||= t('page.normal_search')
+    url_params = params.dup
+    [:controller, :commit, :utf8].each {|k| url_params.delete(k) }
+    ADVANCED_SEARCH_PARAMS.each {|k| url_params.delete(k) }
+    link_to link_title, manifestations_path(url_params)
+  end
+
+  def hidden_advanced_search_field_tags
+    ADVANCED_SEARCH_PARAMS.map do |name|
+      hidden_field_tag(name.to_s, params[name])
+    end.join('').html_safe
+  end
 end
