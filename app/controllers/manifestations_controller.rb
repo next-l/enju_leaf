@@ -664,8 +664,23 @@ class ManifestationsController < ApplicationController
     end
 
     # advanced search
+    exact_match = []
+    if params[:title].present? && params[:exact_title].present?
+      exact_match << :title
+      t = params[:title].gsub(/"/, '\\"')
+      qwords << %Q[title_sm:"#{t}"]
+    end
+
+    if params[:creator].present? && params[:exact_creator].present?
+      exact_match << :creator
+      t = params[:creator].gsub(/\s/, '') # インデックス登録時の値に合わせて空白を除去しておく
+      t = t.gsub(/"/, '\\"')
+      qwords << %Q[creator_sm:"#{t}"]
+    end
+
     [
       [:tag, 'tag_sm'],
+      [:title, 'title_text'],
       [:creator, 'creator_text'],
       [:contributor, 'contributor_text'],
       [:isbn, 'isbn_sm'],
@@ -676,6 +691,8 @@ class ManifestationsController < ApplicationController
       [:item_identifier, 'item_identifier_sm'],
       [:manifestation_type, 'manifestation_type_sm'],
     ].each do |key, field|
+      next if exact_match.include?(key)
+
       value = params[key]
       next if value.blank?
 

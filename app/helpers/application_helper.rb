@@ -294,6 +294,7 @@ module ApplicationHelper
     :pub_date_from, :pub_date_to, :acquired_from, :acquired_to,
     :removed_from, :removed_to, :number_of_pages_at_least,
     :number_of_pages_at_most, :advanced_search,
+    :title, :exact_title, :exact_creator,
   ]
 
   def link_to_advanced_search(link_title = nil)

@@ -1159,6 +1159,8 @@ en:
     advanced_search: "Advanced search"
     advanced_search: "Normal search"
     title: "Title"
+    exact_title: "Exact match"
+    exact_creator: "Exact match"
     note: "Note"
     back: "Back"
     show: "Show"

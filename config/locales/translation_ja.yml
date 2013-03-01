@@ -1448,6 +1448,8 @@ ja:
     advanced_search: "条件を詳しく指定して検索"
     normal_search: "詳細条件を解除して検索"
     title: "タイトル"
+    exact_title: "完全一致"
+    exact_creator: "完全一致"
     note: "注記"
     back: "戻る"
     show: "表示"

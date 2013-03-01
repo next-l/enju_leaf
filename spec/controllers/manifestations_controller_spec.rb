@@ -618,6 +618,7 @@ describe ManifestationsController do
       describe 'advanced search' do
         [
           %w(tag tag_sm),
+          %w(title title_text),
           %w(creator creator_text),
           %w(contributor contributor_text),
           %w(publisher publisher_text),
@@ -631,6 +632,21 @@ describe ManifestationsController do
               found = true if /\b#{Regexp.quote(field)}:foobar\b/ =~ qs
             end
             get :index, param => 'foobar'
+            response.should be_success
+            found.should be_true
+          end
+        end
+
+        [
+          %w(title exact_title title_sm),
+          %w(creator exact_creator creator_sm),
+        ].each do |param, eparam, field|
+          it "should execute exact match search from #{field} field when #{param} and #{eparam} are specified" do
+            found = false
+            Sunspot::DSL::Search.any_instance.stub(:fulltext) do |qs, *opts|
+              found = true if /\b#{Regexp.quote(field)}:"foobar"/ =~ qs
+            end
+            get :index, param => 'foobar', eparam => 'true'
             response.should be_success
             found.should be_true
           end

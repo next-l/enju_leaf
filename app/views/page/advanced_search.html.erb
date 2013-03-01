@@ -17,7 +17,7 @@ $(function(){
 <%= form_tag({:controller => 'manifestations'}, {:method => 'get'}) do -%>
   <table style="width: 100%">
     <tr>
-      <td><label><%= t('page.title') -%>:</label></td>
+      <td><label><%= t('page.search_term') -%>:</label></td>
       <td><%= search_field_tag 'query', params[:query], :class => 'search_form_short', :placeholder => t('page.search_term') -%><br />
         <%= t('advanced_search.help_query') -%>
       </td>
@@ -29,8 +29,18 @@ $(function(){
       </tr>
     <%- end -%>
     <tr>
+      <td><label><%= t('page.title') -%>:</label></td>
+      <td><%= search_field_tag 'title', params[:title] -%>
+        <%= check_box_tag 'exact_title', true, params[:exact_title].present? %>
+        <%= t('page.exact_title') %>
+      </td>
+    </tr>
+    <tr>
       <td><label><%= t('patron.creator') -%>:</label></td>
-      <td><%= text_field_tag 'creator', params[:creator] -%></td>
+      <td><%= text_field_tag 'creator', params[:creator] -%>
+        <%= check_box_tag 'exact_creator', true, params[:exact_creator].present? %>
+        <%= t('page.exact_creator') %>
+      </td>
     </tr>
     <tr>
       <td><label><%= t('patron.publisher') -%>:</label></td>
