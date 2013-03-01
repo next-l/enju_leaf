@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.item'))", 'new_item_path', :only => [:new, :create]
   add_breadcrumb "I18n.t('page.editing', :model => I18n.t('activerecord.models.item'))", 'edit_item_path(params[:id])', :only => [:edit, :update]
   include NotificationSound
-  load_and_authorize_resource 
+  load_and_authorize_resource :except => :numbering
   before_filter :get_user
   before_filter :get_patron, :get_manifestation, :get_inventory_file
   helper_method :get_shelf
@@ -273,6 +273,11 @@ class ItemsController < ApplicationController
       end
     end
   end
+ 
+  def numbering
+    item_identifier = Numbering.do_numbering(params[:type])
+    render :json => {:success => 1, :item_identifier => item_identifier}
+  end
 
   private
   def prepare_options
@@ -298,6 +303,7 @@ class ItemsController < ApplicationController
       @checkout_types = CheckoutType.all
     end
     @roles = Role.all
+    @numberings = Numbering.all
   end
 
   def check_status

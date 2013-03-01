@@ -106,6 +106,8 @@ $(function(){
 
   <div class="field">
     <%= f.label :item_identifier -%><br />
+    <%= select :numbering, :type, @numberings.map{|n| [n.display_name, n.name]}, :include_blank => true %>
+    <%= link_to t('activerecord.models.numbering'), {}, :onClick => "numbering();false", :remote => true %>
     <%= f.text_field :item_identifier, :class => 'resource_item_identifier' -%>
   </div>
 
