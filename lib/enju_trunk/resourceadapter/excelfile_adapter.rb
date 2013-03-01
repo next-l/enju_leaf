@@ -21,12 +21,24 @@ class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
       x.report { 
         extraparams = eval(extraparams)
         manifestation_types = extraparams["manifestation_type"]
+        numberings = extraparams["numbering"]
         @textfile_id = id
         @oo = Excelx.new(filename)
         errors = []
         
         extraparams["sheet"].each_with_index do |sheet, i|
           @manifestation_type = ManifestationType.find(manifestation_types[i].to_i)
+          @numbering = Numbering.where(:name => numberings[i]).first rescue nil
+          unless @numbering
+            case 
+            when @manifestation_type.is_book?
+              @numbering = Numbering.where(:name => 'book').first
+            when @manifestation_type.is_article?
+              @numbering = Numbering.where(:name => 'article').first
+            else 
+              @numbering = Numbering.where(:name => 'book').first
+            end
+          end
           @oo.default_sheet = sheet
           logger.info "num=#{i}  sheet=#{sheet} manifestation_type=#{@manifestation_type.display_name}"
 
