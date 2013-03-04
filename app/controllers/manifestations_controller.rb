@@ -128,6 +128,7 @@ class ManifestationsController < ApplicationController
       set_reservable
       get_manifestation
       get_subject
+      set_in_process
       @index_patron = get_index_patron
       @query = params[:query] # main query string
       @all_manifestations = params[:all_manifestations] if params[:all_manifestations]
@@ -284,6 +285,9 @@ class ManifestationsController < ApplicationController
             facet :subject_ids
             facet :manifestation_type
             facet :missing_issue
+            facet :in_process
+            facet :circulation_status_in_process
+            facet :circulation_status_in_factory
 
             unless request.xhr?
               if s == search_article
@@ -346,6 +350,9 @@ class ManifestationsController < ApplicationController
         @library_facet = search_all_result.facet(:library).rows
         @manifestation_type_facet = search_all_result.facet(:manifestation_type).rows
         @missing_issue_facet = search_all_result.facet(:missing_issue).rows
+        @in_process_facet = search_all_result.facet(:in_process).rows
+        @circulation_status_in_process_facet = search_all_result.facet(:circulation_status_in_process).rows
+        @circulation_status_in_factory_facet = search_all_result.facet(:circulation_status_in_factory).rows
       end
 
       # TODO: 検索結果が少ない場合にも表示させる
@@ -759,6 +766,9 @@ class ManifestationsController < ApplicationController
     with << [:periodical_master, :equal_to, false] if @series_statement
     with << [:carrier_type, :equal_to, params[:carrier_type]] if params[:carrier_type]
     with << [:missing_issue, :equal_to, params[:missing_issue]] if params[:missing_issue]
+    with << [:in_process, :equal_to, @in_process] unless @in_process.nil?
+    with << [:circulation_status_in_process, :equal_to, params[:circulation_status_in_process]] if params[:circulation_status_in_process]
+    with << [:circulation_status_in_factory, :equal_to, params[:circulation_status_in_factory]] if params[:circulation_status_in_factory]
 
     [
       [:publisher_ids, @patron],
@@ -908,6 +918,17 @@ class ManifestationsController < ApplicationController
       @reservable = false
     else
       @reservable = nil
+    end
+  end
+
+  def set_in_process
+    case params[:in_process].to_s
+    when 'true'
+      @in_process = true
+    when 'false'
+      @in_process = false
+    else
+      @in_process = nil
     end
   end
 

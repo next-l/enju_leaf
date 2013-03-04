@@ -362,6 +362,12 @@ class Manifestation < ActiveRecord::Base
     end
     integer :id
     integer :missing_issue
+    boolean :circulation_status_in_process do
+      true if items.collect(&:circulation_status_id).include?(CirculationStatus.find_by_name('In Process').id)
+    end
+    boolean :circulation_status_in_factory do
+      true if items.collect(&:circulation_status_id).include?(CirculationStatus.find_by_name('In Factory').id)
+    end
   end
 
   enju_manifestation_viewer
