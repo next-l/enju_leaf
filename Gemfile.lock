@@ -61,7 +61,7 @@ GEM
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
     bcrypt-ruby (3.0.1)
-    bigdecimal (1.1.0)
+    bigdecimal (1.2.0)
     builder (3.0.4)
     cancan (1.6.9)
     capybara (2.0.2)
