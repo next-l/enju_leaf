@@ -16,7 +16,7 @@
 <%- @import_requests.each do |import_request| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to import_request.id, import_request -%></td>
-    <td><%= link_to import_request.user.username, import_request.user -%></td>
+    <td><%= link_to import_request.try(:user).try(:username), import_request.try(:user) -%></td>
     <td><%= import_request.isbn -%></td>
     <td><%=l import_request.created_at -%></td>
     <td><%= localized_state(import_request.state) -%></td>
