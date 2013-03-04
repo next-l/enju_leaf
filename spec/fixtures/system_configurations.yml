@@ -375,6 +375,27 @@ system_configuration_00062:
   v: "true"
   typename: Boolean
   description: "資料の詳細検索時、各項目に関しANDで検索を行うか。trueのときAND検索、falseのときOR検索。"
+system_configuration_00074:
+  id: 74
+  keyname: manifestations.split_by_type
+  v: "true"
+  typename: Boolean
+  description: "資料区分で検索結果を分離するか？"
+  category: 'manifestation'
+system_configuration_00090:
+  id: 90
+  keyname: internal_server
+  v: "true"
+  typename: Boolean
+  description: "業務サーバとして利用する"
+  category: 'general'
+system_configuration_00092:
+  id: 92
+  keyname: manifestation.manage_item_rank
+  v: "true"
+  typename: Boolean
+  description: "正副本管理をする"
+  category: 'manifestation'
 
 # == Schema Information
 #

@@ -371,55 +371,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def make_internal_query(search)
-    # 内部的なクエリ
-    set_role_query(current_user, search)
-
-    unless params[:mode] == "add"
-      expression = @expression
-      patron = @patron
-      manifestation = @manifestation
-      reservable = @reservable
-      carrier_type = params[:carrier_type]
-      library = params[:library]
-      language = params[:language]
-      subject = params[:subject]
-      subject_by_term = Subject.where(:term => params[:subject]).first
-      @subject_by_term = subject_by_term
-      missing_status = params[:missing_issue]
-
-      search.build do
-        with(:publisher_ids).equal_to patron.id if patron
-        with(:original_manifestation_ids).equal_to manifestation.id if manifestation
-        with(:reservable).equal_to reservable unless reservable.nil?
-        unless carrier_type.blank?
-          with(:carrier_type).equal_to carrier_type
-          with(:carrier_type).equal_to carrier_type
-        end
-        unless library.blank?
-          library_list = library.split.uniq
-          library_list.each do |library|
-            with(:library).equal_to library
-          end
-          #search.query.keywords = "#{search.query.to_params[:q]} library_s:(#{library_list})"
-        end
-        unless language.blank?
-          language_list = language.split.uniq
-          language_list.each do |language|
-            with(:language).equal_to language
-          end
-        end
-        unless subject.blank?
-          with(:subject).equal_to subject_by_term.term
-        end
-        unless missing_status.blank?
-          with(:missing_issue).equal_to missing_status
-        end
-      end
-    end
-    return search
-  end
-
   def solr_commit
     Sunspot.commit
   end

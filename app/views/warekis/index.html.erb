@@ -9,7 +9,7 @@
     <th><%= t('activerecord.attributes.wareki.short_name') -%></th>
     <th><%= t('activerecord.attributes.wareki.year_from') -%></th>
     <th><%= t('activerecord.attributes.wareki.year_to') -%></th>
-    <th id="edit_icons"></th>
+    <th>&nbsp;</th>
   </tr>
 
 <%- @warekis.each_with_index do |wareki, i| -%>
@@ -24,10 +24,10 @@
     <td><%= wareki.year_to -%></td>
     <td>
       <%- if can? :update, wareki -%>
-        <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_wareki_path(wareki) -%>
+        <%= link_to t('page.edit'), edit_wareki_path(wareki) -%>
       <% end %>
       <%- if can? :destroy, wareki -%>
-        <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')), wareki, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to t('page.destroy'), wareki, :confirm => t('page.are_you_sure'), :method => :delete -%>
       <%- end -%>
     </td>
   </tr>

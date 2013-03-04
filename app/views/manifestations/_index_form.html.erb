@@ -10,8 +10,9 @@
     <%= hidden_field_tag 'reservable', h(@reservable) if @reservable -%>
     <%= hidden_field_tag 'user_id', params[:user_id] if params[:user_id] -%>
     <%= hidden_field_tag 'removed', true if @removed %>
+    <%= hidden_advanced_search_field_tags -%>
     <%= submit_tag t('page.search') -%>
-    <% if !@query.empty? %><input type="button" value="<%= t('page.search_clear') -%>" onclick="$('#search_form_top').val('')"><% end %>
+    <% if @query.present? %><input type="button" value="<%= t('page.search_clear') -%>" onclick="$('#search_form_top').val('')"><% end %>
     <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
       <% if user_signed_in? and current_user.has_role?('Librarian') %>
         <%- if @all_manifestations %>
@@ -22,7 +23,7 @@
         <%= t('advanced_search.all_manifestations') %><br />
       <% end %>
     <% end %>
-    <%= link_to t('page.advanced_search'), page_advanced_search_path(:user_id => params[:user_id]) -%>
+    <%= link_to_advanced_search -%> <%= link_to_normal_search -%> <%= advanced_search_condition_summary -%>
     <br />
     <%= hidden_field_tag 'carrier_type', params[:carrier_type] if params[:carrier_type] -%>
     <%= hidden_field_tag 'language', params[:language] if params[:language] -%>

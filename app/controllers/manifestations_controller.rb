@@ -30,224 +30,188 @@ class ManifestationsController < ApplicationController
     else
       @reserve_user = current_user
     end
-    if params[:mode] == 'add'
-      unless current_user.has_role?('Librarian')
-        access_denied; return 
-      end
-      @add = true
-    end
 
-    per_page = per_pages[0] if per_pages
+    search_opts = {}
+
     @seconds = Benchmark.realtime do
-      @oai = check_oai_params(params)
-      next if @oai[:need_not_to_search]
-      if params[:format] == 'oai'
-        from_and_until_times = set_from_and_until(Manifestation, params[:from], params[:until])
-        from_time = @from_time = from_and_until_times[:from]
-        until_time = @until_time = from_and_until_times[:until]
-        # OAI-PMHのデフォルトの件数
-        per_page = 200
-        if params[:resumptionToken]
-          if current_token = get_resumption_token(params[:resumptionToken])
-            page = (current_token[:cursor].to_i + per_page).div(per_page) + 1
-          else
-            @oai[:errors] << 'badResumptionToken'
-          end
-        else
-        end
-        page ||= 1
-
-        if params[:verb] == 'GetRecord' and params[:identifier]
-          begin
-            @manifestation = Manifestation.find_by_oai_identifier(params[:identifier])
-          rescue ActiveRecord::RecordNotFound
-            @oai[:errors] << "idDoesNotExist"
-            render :template => 'manifestations/index', :formats => :oai, :layout => false
-            return
-          end
-          render :template => 'manifestations/show', :formats => :oai, :layout => false
+      # prepare: mode
+      if params[:mode] == 'add'
+        search_opts[:add_mode] = true
+        unless current_user.has_role?('Librarian')
+          access_denied
           return
         end
+        @add = true
       end
 
-      set_reservable
-
-      manifestations, sort, @count = {}, {}, {}
-      query = ""
-
-      per_page = 65534 if params[:format] == 'csv'
-
-      if params[:format] == 'sru'
-        if params[:operation] == 'searchRetrieve'
-          sru = Sru.new(params)
-          query = sru.cql.to_sunspot
-          sort = sru.sort_by
-        else
+      case params[:format]
+      when 'oai'
+        search_opts[:oai_mode] = true
+        @oai = check_oai_params(params)
+        next if @oai[:need_not_to_search]
+      when 'sru'
+        search_opts[:sru_mode] = true
+        unless params[:operation] == 'searchRetrieve'
           render :template => 'manifestations/explain', :layout => false
           return
         end
-      else
-        if params[:api] == 'openurl'
-          openurl = Openurl.new(params)
-          @manifestations = openurl.search
-          query = openurl.query_text
-          sort = set_search_result_order(params[:sort_by], params[:order])
-        else
-          query = make_query(params[:query], params)
-          sort = set_search_result_order(params[:sort_by], params[:order])
-        end
       end
 
-      # 絞り込みを行わない状態のクエリ
-      @query = query.dup
-      query = query.gsub('　', ' ')
-
-      includes = [:carrier_type, :required_role, :items, :creators, :contributors, :publishers]
-      includes << :bookmarks if defined?(EnjuBookmark)
-      search = Sunspot.new_search(Manifestation)
-      search_all = Sunspot.new_search(Manifestation)
-      search_book = Sunspot.new_search(Manifestation)
-      search_article = Sunspot.new_search(Manifestation)
-      role = current_user.try(:role) || Role.default_role
-      oai_search = true if params[:format] == 'oai'
-      case @reservable
-      when 'true'
-        reservable = true
-      when 'false'
-        reservable = false
-      else
-        reservable = nil
+      if params[:api] == 'openurl'
+        search_opts[:openurl_mode] = true
       end
 
-      get_manifestation; get_subject
-      patron = get_index_patron
-      @index_patron = patron
-
-      split_by_type = SystemConfiguration.get("manifestations.split_by_type")
-      with_article = SystemConfiguration.get('internal_server') || clinet_is_special_ip?
-
-      searchs = [ search_all ]
-      if split_by_type
-        searchs << search_book
-        searchs << search_article if with_article
-      end
-
-      searchs.each do |s|
-      search = s
-
-      @binder = binder = Manifestation.find(params[:bookbinder_id]).try(:items).try(:first) if params[:bookbinder_id]
-      unless params[:mode] == 'add'
-        manifestation = @manifestation if @manifestation
-        subject = @subject if @subject
-        series_statement = @series_statement if @series_statement
-        search.build do
-          with(:creator_ids).equal_to patron[:creator].id if patron[:creator]
-          with(:contributor_ids).equal_to patron[:contributor].id if patron[:contributor]
-          with(:publisher_ids).equal_to patron[:publisher].id if patron[:publisher]
-          with(:original_manifestation_ids).equal_to manifestation.id if manifestation
-        end
-        search.data_accessor_for(Manifestation).include = includes
-      end
-
-      removed = @removed = true if params[:removed_from].present? or params[:removed_to].present? or params[:removed]
-      missing_issue = true if params[:missing_issue]
-      search.build do
-        fulltext query unless query.blank?
-        order_by sort[:sort_by], sort[:order] unless oai_search
-        order_by :created_at, :desc unless oai_search
-        order_by :updated_at, :desc if oai_search
-        with(:subject_ids).equal_to subject.id if subject
-        unless removed
-          unless missing_issue
-            if SystemConfiguration.get('manifestation.manage_item_rank')
-              without(:non_searchable).equal_to true unless params[:all_manifestations]
-            end
-          end
-        else
-          with(:has_removed).equal_to true
-        end
-        if series_statement
-          with(:series_statement_id).equal_to series_statement.id
-          #if series_statement.periodical?
-            #with(:periodical).equal_to true
-            with(:periodical_master).equal_to false
-          #else
-          #  with(:periodical).equal_to false
-          #end
-        else
-          with(:periodical).equal_to false
-        end
-#TODO search missing issue
-#        if missing_issue
-#          with(:missing_issue)
-#        end
-        facet :reservable
-        with(:in_process).equal_to params[:in_ptocess] == 'true' ? true : false if params[:in_process]  #TODO:
-        with(:bookbinder_id).equal_to binder.id if params[:mode] != 'add' && binder
-        without(:id, binder.manifestation.id) if binder
-        if s.equal?(search_book)
-          with(:is_article).equal_to false
-        elsif s.equal?(search_article)
-          without(:is_article).equal_to false
-        end
-      end
-      search = make_internal_query(search)
-      search.data_accessor_for(Manifestation).select = [
-        :id,
-        :original_title,
-        :title_transcription,
-        :required_role_id,
-        :manifestation_type_id,
-        :carrier_type_id,
-        :access_address,
-        :volume_number_string,
-        :issue_number_string,
-        :serial_number_string,
-        :date_of_publication,
-        :pub_date,
-        :periodical_master,
-        :language_id,
-        :carrier_type_id,
-        :created_at,
-        :note,
-        :missing_issue
-      ] if (params[:format] == 'html' or params[:format].nil?) && params[:missing_issue].nil?
-      end
-
-      search = search_all
-
-      # catch query error 
-      begin
-        all_result = search.execute
-        @count[:query_result] = all_result.total
-        @reservable_facet = all_result.facet(:reservable).rows
-      rescue Exception => e
-        flash[:message] = t('manifestation.invalid_query')
-        logger.error "query error: #{e}"
-        return
-      end	
-
-      if session[:search_params]
-        unless search.query.to_params == session[:search_params]
-          clear_search_sessions
-        end
-      else
-        clear_search_sessions
-        session[:params] = params
-        session[:search_params] == search.query.to_params
-        session[:query] = @query
-      end
-
-      # output
-      if params[:output_pdf] or params[:output_tsv] or params[:output_excelx] or params[:output_request]
-        output_type =
+      if params[:output_pdf] || params[:output_tsv] ||
+          params[:output_excelx] || params[:output_request]
+        search_opts[:output_mode] = true
+        search_opts[:output_type] =
           case
           when params[:output_pdf]; :pdf
           when params[:output_tsv]; :tsv
           when params[:output_excelx]; :excelx
           when params[:output_request]; :request
           end
-        Manifestation.generate_manifestation_list(search, output_type, current_user, params[:cols]) do |output|
+      end
+
+      if params[:format].blank? || params[:format] == 'html'
+        search_opts[:html_mode] = true
+      end
+
+      if defined?(EnjuBookmark) && params[:view] == 'tag_cloud'
+        search_opts[:tag_cloud_mode] = true
+      end
+
+      # prepare: split option
+      if [:oai_mode, :tag_cloud_mode, :sru_mode, :output_mode].all? {|m| !search_opts[m] }
+        search_opts[:split_by_type] = SystemConfiguration.get('manifestations.split_by_type')
+      end
+      if search_opts[:split_by_type]
+        search_opts[:with_article] = SystemConfiguration.get('internal_server')
+      end
+
+      # action: oai GetRecord
+      if search_opts[:oai_mode] &&
+          params[:verb] == 'GetRecord' and params[:identifier]
+        begin
+          @manifestation = Manifestation.find_by_oai_identifier(params[:identifier])
+          render :template => 'manifestations/show', :formats => :oai, :layout => false
+        rescue ActiveRecord::RecordNotFound
+          @oai[:errors] << "idDoesNotExist"
+          render :template => 'manifestations/index', :formats => :oai, :layout => false
+        end
+        return
+      end
+
+      # prepare: per_page
+      if params[:format] == 'csv'
+        per_page = 65534
+      elsif per_pages
+        per_page = per_pages[0]
+      end
+      per_page = cookies[:per_page] if cookies[:per_page] # XXX: セッションデータに格納してはダメ?
+      per_page = params[:per_page] if params[:per_page]#Manifestation.per_page
+
+      cookies.permanent[:per_page] = { :value => per_page } # XXX: セッションデータに格納してはダメ?
+      search_opts[:per_page] = per_page
+      @per_page = per_page
+
+      # prepare: page
+      if search_opts[:oai_mode]
+        page = next_page_number_for_oai_search
+      else
+        page = params[:page].try(:to_i) || 1
+        page_article = params[:page_article].try(:to_i) || 1
+      end
+
+      # prepare: initialize ivars
+      @count = {}
+      set_reservable
+      get_manifestation
+      get_subject
+      @index_patron = get_index_patron
+      @query = params[:query] # main query string
+      @all_manifestations = params[:all_manifestations] if params[:all_manifestations]
+
+      @libraries = Library.real.all
+      @search_engines = Rails.cache.fetch('search_engine_all') { SearchEngine.all }
+
+      if params[:bookbinder_id]
+        @binder = Manifestation.find(params[:bookbinder_id]).try(:items).try(:first) rescue nil
+      end
+
+      if params[:removed_from].present? || params[:removed_to].present? || params[:removed]
+        @removed = true
+      end
+
+      # action in the following:
+
+      # setup solr query
+      if search_opts[:sru_mode]
+        sru = Sru.new(params)
+        query = sru.cql.to_sunspot
+        sort = sru.sort_by
+      elsif search_opts[:openurl_mode]
+        openurl = Openurl.new(params)
+        query = openurl.query_text
+        sort = search_result_order(params[:sort_by], params[:order])
+      else
+        query = make_query_string
+        sort = search_result_order(params[:sort_by], params[:order])
+      end
+
+      with_filter, without_filter = make_query_filter(search_opts)
+
+      # build search
+      searchs = []
+      searchs << search_all = Sunspot.new_search(Manifestation)
+      if search_opts[:split_by_type]
+        searchs << search_book = Sunspot.new_search(Manifestation).tap do |s|
+          s.build { with(:is_article).equal_to false }
+        end
+        if search_opts[:with_article]
+          searchs << search_article = Sunspot.new_search(Manifestation).tap do |s|
+            s.build { with(:is_article).equal_to true }
+          end
+        end
+      end
+
+      searchs.each do |s|
+        Manifestation.build_search_for_manifestations_list(s, query, with_filter, without_filter)
+
+        unless search_opts[:add_mode]
+          includes = [
+            :carrier_type, :required_role, :items, :creators, :contributors,
+            :publishers,
+          ]
+          includes << :bookmarks if defined?(EnjuBookmark)
+          s.data_accessor_for(Manifestation).include = includes
+        end
+
+        s.build do
+          if search_opts[:oai_mode]
+            order_by :updated_at, :desc
+          else
+            order_by sort[:sort_by], sort[:order]
+            order_by :created_at, :desc
+          end
+          facet :reservable
+        end
+
+        if search_opts[:html_mode] && params[:missing_issue].nil?
+          s.data_accessor_for(Manifestation).select = [
+            :id, :original_title, :title_transcription, :required_role_id,
+            :manifestation_type_id, :carrier_type_id, :access_address,
+            :volume_number_string, :issue_number_string, :serial_number_string,
+            :date_of_publication, :pub_date, :periodical_master, :language_id,
+            :carrier_type_id, :created_at, :note, :missing_issue,
+          ]
+        end
+      end
+
+      # file output
+      if search_opts[:output_mode]
+        # TODO: 第一引数にparamsまたは生成した検索語、フィルタ指定を渡すようにして、バックグラウンドファイル生成で一時ファイルを作らなくて済むようにする
+        Manifestation.generate_manifestation_list(search_all, search_opts[:output_type], current_user, params[:cols]) do |output|
           send_opts = {
             :filename => output.filename,
             :type => output.mime_type || 'application/octet-stream',
@@ -266,135 +230,132 @@ class ManifestationsController < ApplicationController
         end
         return 
       end
-      unless session[:manifestation_ids]
-        manifestation_ids = search.build do
-          paginate :page => 1, :per_page => SystemConfiguration.get("max_number_of_results")
-        end.execute.raw_results.collect(&:primary_key).map{|id| id.to_i}
-        session[:manifestation_ids] = manifestation_ids
-      end
 
-      if session[:manifestation_ids]
-        if defined?(EnjuBookmark)
-          if params[:view] == 'tag_cloud'
-            bookmark_ids = Bookmark.where(:manifestation_id => session[:manifestation_ids]).limit(1000).select(:id).collect(&:id)
-            @tags = Tag.bookmarked(bookmark_ids)
-            render :partial => 'manifestations/tag_cloud'
-            #session[:manifestation_ids] = nil
-            return
-          end
-        end
-      end
-      page ||= params[:page] || 1
-      page_article ||= params[:page_article] || 1
-      per_page = cookies[:per_page] if cookies[:per_page]
-      per_page = params[:per_page] if params[:per_page]#Manifestation.per_page
-      @per_page = per_page
-      cookies.permanent[:per_page] = { :value => per_page }
-      if params[:format] == 'sru'
-        search.query.start_record(params[:startRecord] || 1, params[:maximumRecords] || 200)
-      else
-        searchs.each do |s|
-        search = s
-        search.build do
-          facet :reservable
-          facet :carrier_type
-          facet :library
-          facet :language
-          facet :subject_ids
-          facet :manifestation_type
-          facet :missing_issue
-          facet :in_process
-          if s == search_article
-            paginate :page => page_article.to_i, :per_page => per_page unless request.xhr?
-          else
-            paginate :page => page.to_i, :per_page => per_page unless request.xhr?
-          end
-          if params[:format].blank? or params[:format] == 'html'
-            spellcheck :collate => 3, :q => params[:query]
-          end
-          end
-        end
-        search = search_all
-      end
-      # catch query error 
+      # search for facet pane
       begin
-        search_result = search_all.execute
-        if split_by_type
-          search_book_result = search_book.execute
-          search_article_result = search_article.execute if with_article
-        end
+        all_result = search_all.execute
       rescue Exception => e
         flash[:message] = t('manifestation.invalid_query')
         logger.error "query error: #{e}"
         return
       end
-      if @count[:query_result] > SystemConfiguration.get("max_number_of_results")
-        max_count = SystemConfiguration.get("max_number_of_results")
-        if split_by_type
-          max_book_count = max_count
-          max_article_count = max_count
+      @reservable_facet = all_result.facet(:reservable).rows
+
+      if session[:search_params]
+        unless search_all.query.to_params == session[:search_params]
+          clear_search_sessions
         end
       else
-        max_count = @count[:query_result]
-        if split_by_type
-          max_book_count = search_book_result.total
-          max_article_count = search_article_result.total if with_article
-          max_article_count = search_article_result.total if with_article
-        end
-      end
-      @manifestations = Kaminari.paginate_array(
-        search_result.results, :total_count => max_count
-      ).page(page).per(per_page)
-      @manifestations_all = [ @manifestations ]
-      if split_by_type
-        @manifestations_book = Kaminari.paginate_array(
-          search_book_result.results, :total_count => max_book_count
-        ).page(page).per(per_page)
-        @manifestations_all = [@manifestations_book]
-        if with_article
-          @manifestations_article = Kaminari.paginate_array(
-            search_article_result.results, :total_count => max_article_count
-          ).page(page_article).per(per_page)
-          @manifestations_all << @manifestations_article
-        end
-	@split_by_type = split_by_type
-      end
-      @libraries = Library.real.all
-
-      if params[:format].blank? or params[:format] == 'html'
-        @carrier_type_facet = search_result.facet(:carrier_type).rows
-        @language_facet = search_result.facet(:language).rows
-        @library_facet = search_result.facet(:library).rows
-        @manifestation_type_facet = search_result.facet(:manifestation_type).rows
-        @missing_issue_facet = search_result.facet(:missing_issue).rows
-        @in_process_facet = search_result.facet(:in_process).rows
+        clear_search_sessions
+        session[:params] = params
+        session[:search_params] = search_all.query.to_params
+        session[:query] = @query
       end
 
-      @search_engines = Rails.cache.fetch('search_engine_all'){SearchEngine.all}
+      unless session[:manifestation_ids]
+        # FIXME?
+        # session[:manifestation_ids]は検索結果の書誌情報を次々と見るのに使われている
+        # (manifestations/index→manifestations/show→manifestations/show→...)。
+        # よって文献とその他を分ける場合には、このデータも分けて取りまわす必要があるはず。
+        manifestation_ids = search_all.build do
+          paginate :page => 1, :per_page => SystemConfiguration.get("max_number_of_results")
+        end.execute.raw_results.map {|r| r.primary_key.to_i }
+        session[:manifestation_ids] = manifestation_ids
+      end
 
-      # TODO: 検索結果が少ない場合にも表示させる
-      if manifestation_ids.blank?
-        if defined?(EnjuBookmark)
-          if query.respond_to?(:suggest_tags)
-            @suggested_tag = query.suggest_tags.first
+      if search_opts[:tag_cloud_mode] && session[:manifestation_ids]
+        bookmark_ids = Bookmark.where(:manifestation_id => session[:manifestation_ids]).limit(1000).select(:id).collect(&:id)
+        @tags = Tag.bookmarked(bookmark_ids)
+        render :partial => 'manifestations/tag_cloud'
+        #session[:manifestation_ids] = nil
+        return
+      end
+
+      if search_opts[:sru_mode]
+        search_all.query.start_record(params[:startRecord] || 1, params[:maximumRecords] || 200)
+
+      else
+        searchs.each do |s|
+          s.build do
+            facet :reservable
+            facet :carrier_type
+            facet :library
+            facet :language
+            facet :subject_ids
+            facet :manifestation_type
+            facet :missing_issue
+
+            unless request.xhr?
+              if s == search_article
+                paginate :page => page_article, :per_page => per_page
+              else
+                paginate :page => page, :per_page => per_page
+              end
+            end
           end
         end
-        @collation = search_result.collation
+
+        search_all.build do
+          spellcheck :collate => 3, :q => params[:query] if search_opts[:html_mode]
+        end
       end
+
+      # execute search
+      begin
+        search_all_result = search_all.execute
+        search_book_result = search_book.try(:execute)
+        search_article_result = search_article.try(:execute)
+      rescue Exception => e
+        flash[:message] = t('manifestation.invalid_query')
+        logger.error "query error: #{e}"
+        return
+      end
+
+      @count[:query_result] = search_all_result.total
+      @collation = search_all_result.collation if @count[:query_result] == 0
+
+      @manifestations = Kaminari.paginate_array(
+        search_all_result.results,
+        :total_count => total_search_result_count(search_all_result)
+      ).page(page).per(per_page)
 
       save_search_history(query, @manifestations.limit_value, @count[:query_result], current_user)
 
-      if params[:format] == 'oai'
-        unless @manifestations.empty?
-          set_resumption_token(params[:resumptionToken], @from_time || Manifestation.last.updated_at, @until_time || Manifestation.first.updated_at)
-        else
-          @oai[:errors] << 'noRecordsMatch'
-        end
+      if search_book_result.blank? && search_article_result.blank?
+        @manifestations_all = [@manifestations]
+
+      elsif search_book_result
+        @manifestations_book = Kaminari.paginate_array(
+          search_book_result.results,
+          :total_count => total_search_result_count(search_book_result)
+        ).page(page).per(per_page)
+        @manifestations_all = [@manifestations_book]
+      end
+
+      if search_article_result
+        @manifestations_article = Kaminari.paginate_array(
+          search_article_result.results,
+          :total_count => total_search_result_count(search_article_result)
+        ).page(page_article).per(per_page)
+        @manifestations_all << @manifestations_article
+      end
+
+      if search_opts[:html_mode]
+        @carrier_type_facet = search_all_result.facet(:carrier_type).rows
+        @language_facet = search_all_result.facet(:language).rows
+        @library_facet = search_all_result.facet(:library).rows
+        @manifestation_type_facet = search_all_result.facet(:manifestation_type).rows
+        @missing_issue_facet = search_all_result.facet(:missing_issue).rows
+      end
+
+      # TODO: 検索結果が少ない場合にも表示させる
+      if manifestation_ids.blank? &&
+          defined?(EnjuBookmark) &&
+          query.respond_to?(:suggest_tags)
+        @suggested_tag = query.suggest_tags.first
       end
     end
     store_location # before_filter ではファセット検索のURLを記憶してしまう
-
-    @all_manifestations = params[:all_manifestations] if params[:all_manifestations]
 
     respond_to do |format|
       if params[:opac]
@@ -414,6 +375,15 @@ class ManifestationsController < ApplicationController
       format.rdf  { render :layout => false }
       format.atom
       format.oai {
+        if @manifestations.blank?
+          @oai[:errors] << 'noRecordsMatch'
+        else
+          from_and_until_times = set_from_and_until(Manifestation, params[:from], params[:until])
+          from_time = from_and_until_times[:from] || Manifestation.last.updated_at
+          until_time = from_and_until_times[:until] || Manifestation.first.updated_at
+          set_resumption_token(params[:resumptionToken], from_time, until_time)
+        end
+
         case params[:verb]
         when 'Identify'
           render :template => 'manifestations/identify'
@@ -488,7 +458,7 @@ class ManifestationsController < ApplicationController
 
     if @manifestation.attachment.path
       if Setting.uploaded_file.storage == :s3
-        data = open(@manifestation.attachment.url).read.force_encoding('UTF-8')
+        data = open(@manifestation.attachment.url) {|io| io.read }.force_encoding('UTF-8')
       else
         file = @manifestation.attachment.path
       end
@@ -671,115 +641,169 @@ class ManifestationsController < ApplicationController
   end
 
   private
-  def make_query(query, options = {})
-    # TODO: integerやstringもqfに含める
-    # query
-    query = query.to_s.strip
-    if query.size == 1
-      query = "#{query}*"
-    end
+
+  # solrに送信するqパラメータ文字列を構成する
+  # TODO: integerやstringもqfに含める
+  # TODO: このメソッドをManifestationに移動する
+  def make_query_string
+    qwords = []
+
+    # main query
+    query = params[:query].to_s.dup
+    query = query.gsub(/[　\s]+/, ' ')
     query = query.strip
-    if query == '[* TO *]'
-      #  unless params[:advanced_search]
-      query = ''
-      #  end
-    end
 
-    query = query.gsub(/[ 　\s]+/," ")
-    query_words = query.split(' ')
-    fix_query = ""
-    query_words.each_with_index do |q, i|
-      unless i == 0
-        unless q =~ /^AND$|^OR$|^NOT$|^TO$|^\(|\)$|^\[|\]$/ or query_words[i - 1] =~ /^AND$|^OR$|^NOT$|^\(|\)$|^TO$|^\[|\]$/ 
-          if SystemConfiguration.get("search.use_and")
-            fix_query = "#{fix_query} AND "
-          else
-            fix_query = "#{fix_query} OR "
-          end
-        end
+    query = "#{query}*" if query.size == 1
+    query = '' if query == '[* TO *]'
+
+    if query.present?
+      qws = each_query_word(query)
+      if qws.size == 1 || SystemConfiguration.get("search.use_and")
+        qwords << qws.join(' AND ')
+      else
+        qwords << '(' + qws.join(' OR ') + ')'
       end
-      fix_query = fix_query + "#{q} "
-    end
-    query = fix_query
-
-    # advanced_search
-    queries = []
-    #unless options[:carrier_type].blank?
-    #  queries << "carrier_type_s:#{options[:carrier_type]}"
-    #end
-    #unless options[:library].blank?
-    #  library_list = options[:library].split.uniq.join(' and ')
-    #  queries << "library_sm:#{library_list}"
-    #end
-    #unless options[:language].blank?
-    #  queries << "language_sm:#{options[:language]}"
-    #end
-    #unless options[:subject].blank?
-    #  queries << "subject_sm:#{options[:subject]}"
-    #end
-    unless options[:tag].blank?
-      queries << "tag_sm:#{options[:tag]}"
-    end
-    unless options[:creator].blank?
-      queries << "creator_text:#{options[:creator]}"
-    end
-    unless options[:contributor].blank?
-      queries << "contributor_text:#{options[:contributor]}"
-    end
-    unless options[:isbn].blank?
-      queries << "isbn_sm:#{options[:isbn]}"
-    end
-    unless options[:issn].blank?
-      queries << "issn_sm:#{options[:issn]}"
-    end
-    unless options[:lccn].blank?
-      queries << "lccn_s:#{options[:lccn]}"
-    end
-    unless options[:nbn].blank?
-      queries << "nbn_s:#{options[:nbn]}"
-    end
-    unless options[:publisher].blank?
-      queries << "publisher_text:#{options[:publisher]}"
-    end
-    unless options[:item_identifier].blank?
-      queries << "item_identifier_sm:#{options[:item_identifier]}"
-    end
-    unless options[:number_of_pages_at_least].blank? and options[:number_of_pages_at_most].blank?
-      number_of_pages = {}
-      number_of_pages[:at_least] = options[:number_of_pages_at_least].to_i
-      number_of_pages[:at_most] = options[:number_of_pages_at_most].to_i
-      number_of_pages[:at_least] = "*" if number_of_pages[:at_least] == 0
-      number_of_pages[:at_most] = "*" if number_of_pages[:at_most] == 0
-      queries << "number_of_pages_sm:[#{number_of_pages[:at_least]} TO #{number_of_pages[:at_most]}]"
-    end
-    unless options[:pub_date_from].blank? and options[:pub_date_to].blank?
-      queries << set_date('pub_date', options[:pub_date_from], options[:pub_date_to])
-    end
-    unless options[:acquired_from].blank? and options[:acquired_to].blank?
-      queries << set_date('acquired_at', options[:acquired_from], options[:acquired_to])
-    end
-    unless options[:removed_from].blank? and options[:removed_to].blank?
-      queries << set_date('removed_at', options[:removed_from], options[:removed_to])
-    end
-    unless options[:manifestation_type].blank?
-      queries << "manifestation_type_sm:#{options[:manifestation_type]}"
-    end
-    
-    if SystemConfiguration.get("advanced_search.use_and")
-
-      advanced_query = queries.join(' AND ')
-      query = query + " AND " unless query
-      query = query + advanced_query unless advanced_query.blank?
-    else
-      advanced_query = queries.join(' OR ')
-      query = query + " OR " unless query
-      query = query + advanced_query unless advanced_query.blank?
     end
 
-    return query
+    # advanced search
+    exact_match = []
+    if params[:title].present? && params[:exact_title].present?
+      exact_match << :title
+      t = params[:title].gsub(/"/, '\\"')
+      qwords << %Q[title_sm:"#{t}"]
+    end
+
+    if params[:creator].present? && params[:exact_creator].present?
+      exact_match << :creator
+      t = params[:creator].gsub(/\s/, '') # インデックス登録時の値に合わせて空白を除去しておく
+      t = t.gsub(/"/, '\\"')
+      qwords << %Q[creator_sm:"#{t}"]
+    end
+
+    [
+      [:tag, 'tag_sm'],
+      [:title, 'title_text'],
+      [:creator, 'creator_text'],
+      [:contributor, 'contributor_text'],
+      [:isbn, 'isbn_sm'],
+      [:issn, 'issn_sm'],
+      [:lccn, 'lccn_s'],
+      [:nbn, 'nbn_s'],
+      [:publisher, 'publisher_text'],
+      [:item_identifier, 'item_identifier_sm'],
+      [:manifestation_type, 'manifestation_type_sm'],
+    ].each do |key, field|
+      next if exact_match.include?(key)
+
+      value = params[key]
+      next if value.blank?
+
+      each_query_word(value) do |word|
+        qwords << "#{field}:#{word}"
+      end
+    end
+
+    [
+      [:number_of_pages_at_least, :number_of_pages_at_most,
+        :num_range_query, 'number_of_pages'],
+      [:pub_date_from, :pub_date_to,
+        :date_range_query, 'pub_date'],
+      [:acquired_from, :acquired_to,
+        :date_range_query, 'acquired_at'],
+      [:removed_from, :removed_to,
+        :date_range_query, 'removed_at'],
+    ].each do |p1, p2, conv_method, field_base|
+      next unless params[p1] || params[p2]
+      q = __send__(conv_method, field_base, params[p1], params[p2])
+      qwords << q if q
+    end
+
+    op = SystemConfiguration.get("advanced_search.use_and") ? 'AND' : 'OR'
+    qwords.join(" #{op} ")
   end
 
-  def set_search_result_order(sort_by, order)
+  # solr searchのためのfilter指定を構成する
+  # TODO: このメソッドをManifestationに移動する
+  def make_query_filter(options)
+    with = []
+    without = []
+
+    #
+    # params['mode']に関係なく設定するフィルタ
+    #
+
+    with << [
+      :required_role_id, :less_than_or_equal_to,
+      (current_user.try(:role) || Role.default_role).id
+    ]
+
+    if @removed
+      with << [:has_removed, :equal_to, true]
+    elsif !params[:missing_issue] &&
+        SystemConfiguration.get('manifestation.manage_item_rank') &&
+        @all_manifestations.blank?
+      without << [:non_searchable, :equal_to, true]
+    end
+
+    without << [:id, :equal_to, @binder.manifestation.id] if @binder
+
+    with << [:periodical, :equal_to, false] if options[:add_mode] || @series_statement.blank?
+
+    return [with, without] if options[:add_mode]
+
+    #
+    # params['mode']が'add'でないときだけ設定するフィルタ
+    #
+
+    with << [:reservable, :equal_to, @reservable] unless @reservable.nil?
+    with << [:periodical_master, :equal_to, false] if @series_statement
+    with << [:carrier_type, :equal_to, params[:carrier_type]] if params[:carrier_type]
+    with << [:missing_issue, :equal_to, params[:missing_issue]] if params[:missing_issue]
+
+    [
+      [:publisher_ids, @patron],
+      [:creator_ids, @index_patron[:creator]],
+      [:contributor_ids, @index_patron[:contributor]],
+      [:publisher_ids, @index_patron[:publisher]],
+      [:original_manifestation_ids, @manifestation],
+      [:subject_ids, @subject],
+      [:bookbinder_id, @binder],
+      [:series_statement_id, @series_statement],
+    ].each do |field, record|
+      with << [field, :equal_to, record.id] if record
+    end
+
+    if params[:subject]
+      subject = Subject.where(term: params[:subject]).first
+      with << [:subject, :equal_to, subject.try(:term)]
+    end
+
+    unless params[:library].blank?
+      params[:library].split.uniq.each do |library|
+        with << [:library, :equal_to, library]
+      end
+    end
+
+    unless params[:language].blank?
+      params[:language].split.uniq.each do |language|
+        with << [:language, :equal_to, language]
+      end
+    end
+
+    [with, without]
+  end
+
+  # 空白を含まない文字列、"〜"、'〜'を抽出する
+  def each_query_word(str)
+    ary = []
+    str.scan(/([^"'\s]\S*|(["'])(?:(?:\\\\)+|\\\2|.)*?\2)/) do
+      ary << $1
+      yield($1) if block_given?
+    end
+    ary
+  end
+
+  def search_result_order(sort_by, order)
     sort = {}
     # TODO: ページ数や大きさでの並べ替え
     case sort_by
@@ -853,7 +877,7 @@ class ManifestationsController < ApplicationController
     if SystemConfiguration.get("write_search_log_to_file")
       write_search_log(query, total, user)
     else
-      history = SearchHistory.create(:query => query, :user => user, :start_record => offset + 1, :maximum_records => nil, :number_of_records => total)
+      SearchHistory.create(:query => query, :user => user, :start_record => offset + 1, :maximum_records => nil, :number_of_records => total)
     end
   end
 
@@ -887,22 +911,109 @@ class ManifestationsController < ApplicationController
     end
   end
 
-  def set_date(column, date_from, date_to)
-    date_from.to_s.gsub!(/\D/, '')
-    date_to.to_s.gsub!(/\D/, '')
-    date = {}
-    if date_from.blank?
-      date[:from] = "*"
+  # "*_sm"フィールドに対する自然数の範囲条件を指定する
+  # solrクエリー文字列を返す
+  def num_range_query(field_base, num_from, num_to)
+    n1 = n2 = nil
+    num_regex = /\A0*[1-9]\d*/
+
+    n1 = $&.to_i if num_regex =~ num_from
+    n2 = $&.to_i if num_regex =~ num_to
+
+    n1, n2 = n2, n1 if n1 && n2 && n1 > n2
+
+    block = proc {|n| n < 1 }
+    r_begin = (n1.nil? || block.call(n1)) ? '*' : n1.to_s
+    r_end   = (n2.nil? || block.call(n2)) ? '*' : n2.to_s
+
+    return nil if r_begin == '*' && r_end == '*'
+    "#{field_base}_sm:[#{r_begin} TO #{r_end}]"
+  end
+
+  # "*_sm"フィールドに対する日時範囲条件を指定する
+  # solrクエリー文字列を返す。
+  def date_range_query(field_base, date_from, date_to)
+    d1, g1 = parse_date(date_from)
+    d2, g2 = parse_date(date_to)
+
+    d1, g1, d2, g2 = d2, g2, d1, g1 if d1 && d2 && d1 > d2
+
+    if d1
+      r_begin = d1.beginning_of_day.utc.iso8601
     else
-      date[:from] = Time.zone.parse(date_from).beginning_of_day.utc.iso8601 rescue nil
-      date[:from] = Time.zone.parse(Time.mktime(date_from).to_s).beginning_of_day.utc.iso8601 unless date[:from]
+      r_begin = '*'
     end
-    if date_to.blank?
-      date[:to] = "*"
+
+    case g2
+    when :day
+      d2 = d2.end_of_day
+    when :month
+      d2 = d2.end_of_month
+    when :year
+      d2 = d2.end_of_year
+    end
+
+    if d2
+      r_end = d2.utc.iso8601 if d2
     else
-      date[:to] = Time.zone.parse(date_to).end_of_day.utc.iso8601 rescue nil
-      date[:to] = Time.zone.parse(Time.mktime(date_to).to_s).beginning_of_day.utc.iso8601 unless date[:to] 
+      r_end = '*'
     end
-    return "#{column}_sm:[#{date[:from]} TO #{date[:to]}]"
+
+    return nil if r_begin == '*' && r_end == '*'
+    "#{field_base}_sm:[#{r_begin} TO #{r_end}]"
+  end
+
+  # 日時を示す文字列を解析して
+  # 解析できた時刻とそのレベル(:day、:month、:year)を返す
+  def parse_date(date_str)
+    return [nil, nil] if date_str.blank?
+
+    begin
+      time = Time.zone.parse(date_str)
+      return [time, time ? :day : nil]
+    rescue ArgumentError
+    end
+
+    dary = date_str.scan(/\d+/)[0, 3].compact # 先頭から三つの数字のかたまりを抽出
+    return [nil, nil] if dary.blank?
+
+    if dary.size == 1
+      # 数字のかたまりが一つだけの場合「YYYYMMDD」の形式を検討する
+      m = dary.first.match(/(\d{1,4})(\d{2})?(\d{2})?/)
+      dary = [m[1], m[2], m[3]].compact
+    end
+
+    case dary.size
+    when 1
+      guess = :year
+      time = Time.zone.local(dary.first.to_i)
+    when 2
+      guess = :month
+      time = Time.zone.local(*dary.map(&:to_i))
+    when 3
+      guess = :day
+      time = Time.zone.local(*dary.map(&:to_i))
+    end
+
+    [time, guess]
+  end
+
+  def next_page_number_for_oai_search
+    return 1 unless params[:resumptionToken]
+
+    current_token = get_resumption_token(params[:resumptionToken])
+    unless current_token
+      @oai[:errors] << 'badResumptionToken'
+      return 1
+    end
+
+    per_page = 200 # OAI-PMHのデフォルトの件数
+    (current_token[:cursor].to_i + per_page).div(per_page) + 1
+  end
+
+  def total_search_result_count(result)
+    max_count = SystemConfiguration.get("max_number_of_results")
+    total = result.total
+    total > max_count ? max_count : total
   end
 end

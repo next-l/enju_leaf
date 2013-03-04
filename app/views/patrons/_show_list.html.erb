@@ -42,6 +42,10 @@
           <td><%= @patron.user.library.display_name unless @patron.user.library_id.blank? -%></td>
         </tr>
         <tr>
+          <td><strong><%= t('activerecord.attributes.user.user_group') -%>:</strong></td>
+          <td><%= @patron.user.user_group.display_name -%></td>
+        </tr>
+        <tr>
           <td><strong><%= t('activerecord.attributes.user.department') -%>:</strong></td>
           <td><%= @patron.user.department.display_name unless @patron.user.department_id.blank? -%></td>
         </tr>
