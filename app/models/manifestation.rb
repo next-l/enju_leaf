@@ -337,8 +337,8 @@ class Manifestation < ActiveRecord::Base
       end
     end
     boolean :except_recent
-    if SystemConfiguration.get('manifestation.manage_item_rank')
-      boolean :non_searchable do
+    boolean :non_searchable do
+      if SystemConfiguration.get('manifestation.manage_item_rank')
         non_searchable?
       end
     end
@@ -774,6 +774,19 @@ class Manifestation < ActiveRecord::Base
     end
   end
 
+  def self.build_search_for_manifestations_list(search, query, with_filter, without_filter)
+    search.build do
+      fulltext query unless query.blank?
+      with_filter.each do |field, op, value|
+        with(field).__send__(op, value)
+      end
+      without_filter.each do |field, op, value|
+        without(field).__send__(op, value)
+      end
+    end
+
+    search
+  end
 
   # 要求された書式で書誌リストを生成する。
   # 生成結果を構造体で返す。構造体がoutputのとき:

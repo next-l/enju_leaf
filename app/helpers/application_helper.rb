@@ -294,4 +294,132 @@ module ApplicationHelper
     remote_ip = request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip
     special_ip_address_list.include?(remote_ip)
   end
+
+  ADVANCED_SEARCH_PARAMS = [
+    :tag, :title, :creator, :publisher, :isbn, :issn, :item_identifier,
+    :pub_date_from, :pub_date_to, :acquired_from, :acquired_to,
+    :removed_from, :removed_to, :number_of_pages_at_least,
+    :number_of_pages_at_most, :advanced_search,
+    :exact_title, :exact_creator,
+  ]
+
+  ADVANCED_SEARCH_LABEL_IDS = {
+    tag: 'page.tag',
+    title: 'page.title',
+    creator: 'patron.creator',
+    publisher: 'patron.publisher',
+    isbn: 'activerecord.attributes.manifestation.isbn',
+    issn: 'activerecord.attributes.manifestation.issn',
+    item_identifier: 'activerecord.attributes.item.item_identifier',
+    pub_date: 'activerecord.attributes.manifestation.date_of_publication',
+    acquired: 'activerecord.attributes.item.acquired_at',
+    removed: 'activerecord.attributes.item.removed_at',
+    number_of_pages: 'page.number_of_pages',
+    exact_title: 'page.exact_title',
+    exact_creator: 'page.exact_creator',
+    query: 'page.search_term',
+  }
+
+  def advanced_search_label(key)
+    I18n.t(ADVANCED_SEARCH_LABEL_IDS[key])
+  end
+
+  def link_to_advanced_search(link_title = nil)
+    link_title ||= t('page.advanced_search')
+    url_params = params.dup
+
+    [:controller, :commit, :utf8].each {|k| url_params.delete(k) }
+    link_to link_title, page_advanced_search_path(url_params)
+  end
+
+  def link_to_normal_search(link_title = nil)
+    return '' if ADVANCED_SEARCH_PARAMS.all? {|k| params[k].blank? }
+
+    link_title ||= t('page.normal_search')
+    url_params = params.dup
+    [:controller, :commit, :utf8].each {|k| url_params.delete(k) }
+    ADVANCED_SEARCH_PARAMS.each {|k| url_params.delete(k) }
+    link_to link_title, manifestations_path(url_params)
+  end
+
+  def hidden_advanced_search_field_tags
+    ADVANCED_SEARCH_PARAMS.map do |name|
+      hidden_field_tag(name.to_s, params[name])
+    end.join('').html_safe
+  end
+
+  def advanced_search_condition_summary(opts = {})
+    summary_ary = []
+    special = {
+      title: nil,
+      creator: nil,
+      pub_date: nil,
+      acquired: nil,
+      removed: nil,
+      number_of_pages: nil,
+    }
+    range_delimiter = '-'
+
+    ADVANCED_SEARCH_PARAMS.each do |key|
+      next if key == :advanced_search
+      next unless params[key]
+
+      case key
+      when :pub_date_from, :pub_date_to,
+          :acquired_from, :acquired_to,
+          :removed_from, :removed_to,
+          :number_of_pages_at_least, :number_of_pages_at_most
+        t = key.to_s.sub(/_(from|to|at_least|at_most)\z/, '').to_sym
+        i = ($1 == 'from' || $1 == 'at_least') ? 0 : 2
+
+        if params[key].present? && special[t].nil?
+          special[t] = ['', range_delimiter, '']
+          summary_ary << [t, special[t]]
+        end
+        special[t][i] = params[key] if special[t]
+
+      when :title, :creator, :exact_title, :exact_creator
+        t = key.to_s.sub(/\A(exact_)?/, '').to_sym
+        v = nil
+        if $1
+          i = 1
+          v = "[#{advanced_search_label(key)}]" if params[t].present?
+        else
+          i = 0
+          v = params[key] if params[key].present?
+        end
+
+        if v && special[t].nil?
+          special[t] = ['', '']
+          summary_ary << [t, special[t]]
+        end
+        special[t][i] = v if special[t]
+
+      else
+        summary_ary << [key, params[key]] if params[key].present?
+      end
+    end
+
+    return '' if summary_ary.blank?
+
+    omission = ''
+    if opts[:length] && summary_ary.size > opts[:length]
+      summary_ary = summary_ary[0, opts[:length]]
+      omission = opts[:omission] if opts[:omission]
+    end
+
+    '(' + summary_ary.map do |label_id, data|
+      if data.is_a?(Array)
+        if data.any?(&:present?)
+          data = data.join('')
+        else
+          data = nil
+        end
+      else
+        data = data.to_s
+      end
+
+      "#{advanced_search_label(label_id)}: #{data}"
+    end.join(I18n.t('page.advanced_search_summary_delimiter')) + omission + ')'
+  end
 end
