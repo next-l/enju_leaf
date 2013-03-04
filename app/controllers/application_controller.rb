@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
     return if performed?
     respond_to do |format|
       format.html {render :template => 'page/404', :status => 404}
-      format.mobile {render :template => 'page/404', :status => 404}
+      format.mobile {render :template => 'page/404', :status => 404, :formats => [:html]}
       format.xml {render :template => 'page/404', :status => 404}
       format.json { render :text => '{"error": "not_found"}' }
     end
@@ -63,7 +63,7 @@ class ApplicationController < ActionController::Base
 
   def render_404_invalid_format
     return if performed?
-    render :file => "#{Rails.root}/public/404.html"
+    render :file => "#{Rails.root}/public/404", :formats => [:html]
   end
 
   def render_500
@@ -71,8 +71,8 @@ class ApplicationController < ActionController::Base
     return if performed?
     #flash[:notice] = t('page.connection_failed')
     respond_to do |format|
-      format.html {render :file => "#{Rails.root.to_s}/public/500.html", :layout => false, :status => 500}
-      format.mobile {render :file => "#{Rails.root.to_s}/public/500.html", :layout => false, :status => 500}
+      format.html {render :file => "#{Rails.root.to_s}/public/500", :layout => false, :status => 500}
+      format.mobile {render :file => "#{Rails.root.to_s}/public/500", :layout => false, :status => 500, :formats => [:html]}
       format.xml {render :template => 'page/500', :status => 500}
       format.json { render :text => '{"error": "server_error"}' }
     end
