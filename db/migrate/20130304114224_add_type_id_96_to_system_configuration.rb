@@ -3,7 +3,7 @@ class AddTypeId96ToSystemConfiguration < ActiveRecord::Migration
   def change
   end
 
-  s = SystemConfiguration.find_or_initialize_by_keyname("manifestation_has_one_item")
+  s = SystemConfiguration.find_or_initialize_by_keyname("manifestation.has_one_item")
   s.update_attributes(
     :v => "false",
     :typename => "Boolean",
