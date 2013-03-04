@@ -93,7 +93,7 @@
       <%- end -%>
       <%- if can? :create, user -%>
         <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
-        <%- if user.patron.patron_type_id == 1 -%>
+        <%- if user.patron.patron_type_id == 1 && SystemConfiguration.get('use_family') -%>
           <li><%= link_to t('user.create_family_user'), new_user_path(:family_user_id => user.id) -%></li>        
         <%- end -%>
       <% end %>

@@ -10,7 +10,46 @@ $(document).FunctionKeys(
 <% end %>
 // -->
 </script>
-
+<% if SystemConfiguration.get('view.top_query_detail') %>
+  <div class="portlet" id="search" style="width:915px">
+    <h2 class="title">
+      <% if user_signed_in? %>
+        <%= t('page.user_title', :login_name => current_user.username) -%>
+      <% else %>
+        <%= t('page.catalog_search') -%>
+      <% end %>
+    </h2>
+    <div id="user_search_form">
+      <% if current_user %>
+        <% unless current_user.own_password %>
+          <div style="color: red;"><b><%= simple_format(t('activerecord.errors.messages.user.auto_generated_password')) %></b></div>
+        <% end %>
+      <% end %>
+      <p id="notice"><%= notice %></p>
+      <%= render 'page/search_form_detail' -%>
+      <p><%= t('page.number_of_manifestations', :numdocs => Manifestation.cached_numdocs, :count => Manifestation.cached_numdocs) -%></p>
+      <h3 style="display: inline"><%= link_to t('page.new_resource'), manifestations_path(:mode => 'recent') -%></h3>
+      <% if defined?(EnjuBookmark) %>
+        <% if user_signed_in? %>
+          <h4 style="display: inline"><%= link_to t('activerecord.models.bookmark'), user_bookmarks_path(current_user) %></h4>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <% if user_signed_in? && !current_user.has_role?('Librarian') -%>
+    <div class="portlet" id="my_basket">
+      <h3 class="title"><%= t('basket.my_status') -%></h3>
+      <div id="my_basket_box">
+        <%= render 'page/my_basket' -%>
+      </div>
+    </div>
+    <div class="portlet" id="easy_tools">
+      <div id="easy_tools_box">
+        <%= render 'page/easy_tools' -%>
+      </div>
+    </div>
+  <%- end -%>
+<% else %>
 <div class="column" id="col1">
   <div class="portlet" id="search">
     <h2 class="title">
@@ -27,13 +66,7 @@ $(document).FunctionKeys(
         <% end %>
       <% end %>
       <p id="notice"><%= notice %></p>
-
-  <% if SystemConfiguration.get('view.top_query_detail') %>
-      <%= render 'page/search_form_detail' -%>
-  <% else %>
       <%= render 'page/search_form' -%>
-  <% end %>
-
       <p><%= t('page.number_of_manifestations', :numdocs => Manifestation.cached_numdocs, :count => Manifestation.cached_numdocs) -%></p>
       <h3 style="display: inline"><%= link_to t('page.new_resource'), manifestations_path(:mode => 'recent') -%></h3>
       <% if defined?(EnjuBookmark) %>
@@ -112,4 +145,5 @@ $(document).FunctionKeys(
       </div>
     </div>
   </div>
+<% end %>
 <% end %>
