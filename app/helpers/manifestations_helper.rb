@@ -118,6 +118,25 @@ module ManifestationsHelper
     string.html_safe
   end
 
+  def circulation_status_facet(type, facet)
+    string = ''
+    current = false
+    case type
+    when 'in_process'
+      current = true if params[:circulation_status_in_process]
+      string << "<strong>" if current
+      c = CirculationStatus.find_by_name('In Process')
+      string << link_to("#{c.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:circulation_status_in_process => true, :circulation_statua_in_factory => nil, :page => nil, :view => nil)))
+    when 'in_factory'
+      current = true if params[:circulation_status_in_factory]
+      string << "<strong>" if current
+      c = CirculationStatus.find_by_name('In Factory')
+      string << link_to("#{c.display_name.localize} (" + facet.count.to_s + ")", url_for(params.merge(:circulation_status_in_factory => true, :circulation_status_in_process => nil, :page => nil, :view => nil)))
+    end
+    string << "</strong>" if current
+    string.html_safe
+  end
+
   def per_pages
     pages = []
     per_pages = SystemConfiguration.get("manifestations.per_page").split(',')  
