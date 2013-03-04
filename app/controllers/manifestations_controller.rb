@@ -210,6 +210,7 @@ class ManifestationsController < ApplicationController
 
       # file output
       if search_opts[:output_mode]
+        # TODO: 第一引数にparamsまたは生成した検索語、フィルタ指定を渡すようにして、バックグラウンドファイル生成で一時ファイルを作らなくて済むようにする
         Manifestation.generate_manifestation_list(search_all, search_opts[:output_type], current_user, params[:cols]) do |output|
           send_opts = {
             :filename => output.filename,
@@ -643,6 +644,7 @@ class ManifestationsController < ApplicationController
 
   # solrに送信するqパラメータ文字列を構成する
   # TODO: integerやstringもqfに含める
+  # TODO: このメソッドをManifestationに移動する
   def make_query_string
     qwords = []
 
@@ -721,6 +723,7 @@ class ManifestationsController < ApplicationController
   end
 
   # solr searchのためのfilter指定を構成する
+  # TODO: このメソッドをManifestationに移動する
   def make_query_filter(options)
     with = []
     without = []

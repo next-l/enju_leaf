@@ -1447,6 +1447,7 @@ ja:
     has_relationships: "関連あり"
     advanced_search: "条件を詳しく指定して検索"
     normal_search: "詳細条件を解除して検索"
+    advanced_search_summary_delimiter: "、"
     title: "タイトル"
     exact_title: "完全一致"
     exact_creator: "完全一致"

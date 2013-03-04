@@ -20,7 +20,7 @@
         <%= t('advanced_search.all_manifestations') %><br />
       <% end %>
     <% end %>
-    <%= link_to_advanced_search -%> <%= link_to_normal_search -%>
+    <%= link_to_advanced_search -%> <%= link_to_normal_search -%> <%= advanced_search_condition_summary -%>
     <br />
     <%= hidden_field_tag 'carrier_type', params[:carrier_type] if params[:carrier_type] -%>
     <%= hidden_field_tag 'language', params[:language] if params[:language] -%>
