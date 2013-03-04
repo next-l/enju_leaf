@@ -1,26 +1,26 @@
 source 'https://rubygems.org'
 
 ruby '1.9.3'
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13.rc1'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'enju_biblio', '~> 0.1.0.pre20'
-gem 'enju_library', '~> 0.1.0.pre9'
+gem 'enju_biblio', '~> 0.1.0.pre21'
+gem 'enju_library', '~> 0.1.0.pre10'
 gem 'enju_flower', '~> 0.1.0.pre'
 #gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
-gem 'enju_ndl', '~> 0.1.0.pre7'
+gem 'enju_ndl', '~> 0.1.0.pre9'
 #gem 'enju_nii', '~> 0.1.0.pre2'
 gem 'enju_oai', '~> 0.1.0.pre7'
 #gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
-gem 'enju_subject', '~> 0.1.0.pre4'
+gem 'enju_subject', '~> 0.1.0.pre5'
 gem 'enju_purchase_request', '~> 0.1.0.pre5'
 gem 'enju_question', '~> 0.1.0.pre4'
 #gem 'enju_bookmark', '~> 0.1.2.pre7'
 gem 'enju_resource_merge', '~> 0.1.0.pre5'
-gem 'enju_circulation', '~> 0.1.0.pre11'
+gem 'enju_circulation', '~> 0.1.0.pre12'
 gem 'enju_message', '~> 0.1.14.pre2'
 gem 'enju_inter_library_loan', '~> 0.1.0.pre5'
 gem 'enju_inventory', '~> 0.1.11.pre5'
@@ -31,7 +31,7 @@ gem 'enju_book_jacket', '~> 0.1.0.pre6'
 gem 'enju_manifestation_viewer', '~> 0.1.0.pre3'
 gem 'enju_export', '~> 0.1.1.pre2'
 
-platforms :mri_19 do
+platforms :mri do
   gem 'pg'
   #gem 'mysql2', '~> 0.3'
   #gem 'sqlite3'
@@ -88,7 +88,7 @@ end
 
 group :development, :test do
   gem 'simplecov', '~> 0.7', :require => false
-  gem 'ruby-prof', :platforms => :mri_19
+  gem 'ruby-prof', :platforms => :mri
   gem 'rspec-rails', '~> 2.13'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 4.2'

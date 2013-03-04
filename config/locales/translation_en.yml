@@ -249,6 +249,7 @@ en:
     not_logged_in: "Not logged in"
     add_child: "Add a child"
     electronic_resource_management: "Electronic resource management"
+    continue: "Continue?"
   title:
     index: "index"
     show: "show"

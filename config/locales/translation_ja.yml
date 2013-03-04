@@ -233,6 +233,7 @@ ja:
     not_logged_in: "ログインしていません"
     add_child: "子を追加"
     electronic_resource_management: 電子リソース管理
+    continue: "続行しますか？"
   title:
     index: "一覧"
     show: "表示"
