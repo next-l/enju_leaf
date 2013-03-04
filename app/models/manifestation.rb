@@ -436,7 +436,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def check_rank
-    if self.manifestation_type.is_article?
+    if self.manifestation_type && self.manifestation_type.is_article?
       if self.items and self.items.size > 0
         unless self.items.map{ |item| item.rank.to_i }.compact.include?(0)
           errors[:base] << I18n.t('manifestation.not_has_original')
