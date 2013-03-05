@@ -1,7 +1,11 @@
 <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'show_index', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
   <strong>
     <%- if [1, 2].include?(manifestation.missing_issue) %><%= t('manifestation.missing') %><%- end %>
-    <%= link_to manifestation.original_title, manifestation_path(manifestation) -%>
+    <% if manifestation.periodical_master and params[:all_manifestations] %>
+      <%= link_to manifestation.original_title, manifestation_path(manifestation, :all_manifestations => true)%>
+    <% else %>
+      <%= link_to manifestation.original_title, manifestation_path(manifestation) -%>
+    <% end %>
   </strong>
   <% if manifestation.serial? %>
     <%= manifestation.volume_number_string %>
