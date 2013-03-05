@@ -455,6 +455,8 @@ class ManifestationsController < ApplicationController
     if @manifestation.periodical_master?
       if params[:opac]
         redirect_to series_statement_manifestations_url(@manifestation.series_statement, :opac => true)
+      elsif params[:all_manifestations]
+        redirect_to series_statement_manifestations_url(@manifestation.series_statement, :all_manifestations => true)
       else
         redirect_to series_statement_manifestations_url(@manifestation.series_statement)
       end
