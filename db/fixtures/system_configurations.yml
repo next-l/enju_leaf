@@ -670,3 +670,18 @@ system_configuration_00095:
   typename: Text	
   description: "通知を受け取る利用者(ライブラリアン)"
   category: 'general'
+system_configuration_00096:
+  id: 96
+  keyname: manifestation.has_one_item
+  v: "false"
+  typename: Boolean	
+  description: "書誌と所蔵を１：１で管理する"
+  category: 'manifestation'
+system_configuration_00097:
+  id: 97
+  keyname: manifestation.isbn_unique
+  v: "true"
+  typename: Boolean	
+  description: "ISBNは重複しない"
+  category: 'manifestation'
+
