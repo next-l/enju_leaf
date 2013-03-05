@@ -148,6 +148,8 @@ class PurchaseRequest < ActiveRecord::Base
         raise 'status to send message not defined'
       end
     end
+    rescue Exception => e
+      logger.error "Failed to send message: #{e}"
   end
 
   def self.get_purchase_requests_tsv(purchase_requests)
