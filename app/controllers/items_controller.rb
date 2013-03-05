@@ -122,7 +122,6 @@ class ItemsController < ApplicationController
       redirect_to libraries_url
       return
     end
-    @shelf_categories = Shelf.categories
     unless @manifestation
       flash[:notice] = t('item.specify_manifestation')
       redirect_to manifestations_url
@@ -153,7 +152,6 @@ class ItemsController < ApplicationController
   def edit
     @item.library_id = @item.shelf.library_id
     @item.use_restriction_id = @item.use_restriction.id if @item.use_restriction
-    @shelf_categories = Shelf.categories
   end
 
   # POST /items
@@ -304,6 +302,7 @@ class ItemsController < ApplicationController
     end
     @roles = Role.all
     @numberings = Numbering.all
+    @shelf_categories = Shelf.categories
   end
 
   def check_status
