@@ -79,11 +79,13 @@ $(function(){
         </td>
       </tr>
     <% end %>
+<% if false %>
     <tr>
       <td><label><%= advanced_search_label(:number_of_pages) -%>:</label></td>
         <td><%= t('advanced_search.from') -%> <%= text_field_tag 'number_of_pages_at_least', params[:number_of_pages_at_least], :size => 5 -%>
           <%= t('advanced_search.to') -%> <%= text_field_tag 'number_of_pages_at_most', params[:number_of_pages_at_most], :size => 5 -%></td>
     </tr>
+<% end %>
     <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
       <% if user_signed_in? and current_user.has_role?('Librarian') %>
         <tr>
