@@ -48,8 +48,8 @@
       <% sheets.each_with_index do |sheet, i| %>
         <tr>
           <td style="border:0px; border-bottom: 1px solid #aaa;"><%= sheet %></td>
-          <td style="border:0px; border-bottom: 1px solid #aaa;"><%= ManifestationType.find(manifestation_types[i]).display_name rescue nil%></td>
-          <td style="border:0px; border-bottom: 1px solid #aaa;"><%= Numbering.where(:name => numberings[i]).first.display_name rescue nil%></td>
+          <td style="border:0px; border-bottom: 1px solid #aaa;"><%= get_manifestation_type_name(manifestation_types[i]) rescue nil%></td>
+          <td style="border:0px; border-bottom: 1px solid #aaa;"><%= get_numbering_display_name(numberings[i], manifestation_types[i]) %></td>
         </tr>
     <% end %>
     </table>
