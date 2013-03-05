@@ -15,7 +15,7 @@ $(document).FunctionKeys(
   <div class="portlet" id="search">
     <h2 class="title">
       <% if user_signed_in? %>
-        <%= t('page.user_title', :login_name => current_user.username) -%>
+        <%= t('page.user_title', :login_name => current_user.try(:patron).try(:full_name)) -%>
       <% else %>
         <%= t('page.catalog_search') -%>
       <% end %>

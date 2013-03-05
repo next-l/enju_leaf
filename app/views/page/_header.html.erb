@@ -11,7 +11,7 @@
   <div id="header_right">
     <div id="user_account">
       <% if user_signed_in? %>
-        <%= t('page.logged_in_as', :login_name => current_user.username) -%>
+        <%= t('page.logged_in_as', :login_name => current_user.try(:patron).try(:full_name)) -%>
         <br />
         <%= link_to image_tag('icons/email.png', :size => '16x16', :alt => t('activerecord.models.message'), :title => t('tooltip.message')), messages_path %>
         <% if current_user.received_messages.unread.size > 0 %>
