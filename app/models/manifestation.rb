@@ -25,9 +25,12 @@ class Manifestation < ActiveRecord::Base
   belongs_to :country_of_publication, :class_name => 'Country', :foreign_key => 'country_of_publication_id'
 
   searchable do
-    text :fulltext, :contributor, :article_title
+    text :fulltext, :contributor, :article_title, :series_title
     text :title, :default_boost => 2 do
       titles
+    end
+    text :series_title do
+      series_statement.try(:original_title)
     end
     text :spellcheck do
       titles
