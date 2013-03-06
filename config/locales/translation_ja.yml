@@ -4,11 +4,7 @@ ja:
       user: 利用者
       role: 権限
       user_group: 利用者グループ
-      attachment_file: 添付ファイル
       user_has_role: 利用者と権限
-      session: ログイン
-      work: 著作
-      expression: 表現
 
     attributes:
       user:
@@ -233,7 +229,6 @@ ja:
     not_logged_in: "ログインしていません"
     add_child: "子を追加"
     electronic_resource_management: 電子リソース管理
-    continue: "続行しますか？"
   title:
     index: "一覧"
     show: "表示"

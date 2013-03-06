@@ -515,11 +515,6 @@ describe UsersController do
         delete :destroy, :id => users(:librarian1).username
         response.should be_forbidden
       end
-
-      it "should not destroy user who has items not checked in" do
-        delete :destroy, :id => users(:user1).username
-        response.should be_forbidden
-      end
     end
 
     describe "When logged in as User" do

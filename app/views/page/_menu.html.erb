@@ -1,15 +1,15 @@
 <div id="navibar">
   <ul id="bar1" class="menubar">
-    <li>
-      <a href="#circulation_menu">
-        <% if current_user.try(:has_role?, 'Librarian') %>
-          <%= t('page.librarian_circulation') -%>
-        <% else %>
-          <%= t('page.user_circulation') -%>
-        <% end %>
-      </a>
-      <ul>
-        <% if defined?(EnjuCirculation) %>
+    <% if defined?(EnjuCirculation) %>
+      <li>
+        <a href="#circulation_menu">
+          <% if current_user.try(:has_role?, 'Librarian') %>
+            <%= t('page.librarian_circulation') -%>
+          <% else %>
+            <%= t('page.user_circulation') -%>
+          <% end %>
+        </a>
+        <ul>
           <%- if user_signed_in? -%>
             <%- if current_user.has_role?('Librarian') -%>
               <li><%= link_to t('page.checkout'), new_basket_path -%></li>
@@ -19,21 +19,15 @@
               <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%>
             </li>
             <%- if current_user.has_role?('Librarian') -%>
-              <% if defined?(EnjuInterLibraryLoan) %>
-                <li><%= link_to t('activerecord.models.inter_library_loan'), inter_library_loans_path -%></li>
-              <% end %>
+              <li><%= link_to t('activerecord.models.inter_library_loan'), inter_library_loans_path -%></li>
             <%- end -%>
-            <% if defined?(EnjuCirculation) %>
-              <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
-            <% end %>
+            <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
           <%- else -%>
-            <% if defined?(EnjuCirculation) %>
-              <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
-              <li><%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%></li>
-            <% end %>
+            <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
+            <li><%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%></li>
           <%- end -%>
-        <% end %>
-      </ul>
+        </ul>
+      <% end %>
     </li>
     <%- if user_signed_in? -%>
       <li>
@@ -59,26 +53,28 @@
         </ul>
       </li>
     <% end %>
-    <li>
-      <a href="#request_menu"><%= t('page.request') -%></a>
-      <ul>
-        <%- if user_signed_in? -%>
-          <% if defined?(EnjuPurchaseRequest) %>
-            <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
+    <% if defined?(EnjuPurchaseRequest) or defined?(EnjuQuestion) %>
+      <li>
+        <a href="#request_menu"><%= t('page.request') -%></a>
+        <ul>
+          <%- if user_signed_in? -%>
+            <% if defined?(EnjuPurchaseRequest) %>
+              <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
+            <% end %>
+            <% if defined?(EnjuQuestion) %>
+              <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
+            <% end %>
+          <%- else -%>
+            <% if defined?(EnjuPurchaseRequest) %>
+              <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
+            <% end %>
+            <% if defined?(EnjuQuestion) %>
+              <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
+            <% end %>
           <% end %>
-          <% if defined?(EnjuQuestion) %>
-            <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
-          <% end %>
-        <%- else -%>
-          <% if defined?(EnjuPurchaseRequest) %>
-            <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
-          <% end %>
-          <% if defined?(EnjuQuestion) %>
-            <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
-          <% end %>
-        <% end %>
-      </ul>
-    </li>
+        </ul>
+      </li>
+    <% end %>
     <% if defined?(EnjuEvent) %>
       <li>
         <a href="#event_menu"><%= t('activerecord.models.event') -%></a>

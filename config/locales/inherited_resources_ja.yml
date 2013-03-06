@@ -1,7 +1,0 @@
-ja:
-  flash:
-    actions:
-      create:
-        notice: "%{resource_name}は正常に作成されました。"
-      update:
-        notice: "%{resource_name}は正常に更新されました。"
