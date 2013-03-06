@@ -4,7 +4,7 @@
 <div id="content_list">
   <%= f.error_messages -%>
 
-  <%= raw sanitize(textilize(h(@library_group.login_banner))) %>
+  <%= markdown_helper(@library_group.login_banner) %>
 
 </div>
 </div>

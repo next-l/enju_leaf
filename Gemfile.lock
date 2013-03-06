@@ -9,7 +9,6 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    RedCloth (4.2.9)
     actionmailer (3.2.13.rc1)
       actionpack (= 3.2.13.rc1)
       mail (~> 2.5.3)
@@ -61,7 +60,6 @@ GEM
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
     bcrypt-ruby (3.0.1)
-    bigdecimal (1.2.0)
     builder (3.0.4)
     cancan (1.6.9)
     capybara (2.0.2)
@@ -90,7 +88,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.5.0)
+    coffee-script-source (1.6.1)
     dalli (2.6.2)
     devise (2.2.3)
       bcrypt-ruby (~> 3.0)
@@ -169,7 +167,7 @@ GEM
       inherited_resources
       paperclip (~> 3.3)
       rails (~> 3.2)
-    enju_library (0.1.0.pre10)
+    enju_library (0.1.0.pre11)
       enju_core (~> 0.1.1.pre3)
       geocoder
       inherited_resources
@@ -348,6 +346,7 @@ GEM
     rake (10.0.3)
     rdoc (3.12.2)
       json (~> 1.4)
+    redcarpet (2.2.2)
     redis (3.0.3)
     redis-namespace (1.2.1)
       redis (~> 3.0.0)
@@ -367,7 +366,6 @@ GEM
     resque_spec (0.13.0)
       resque (>= 1.19.0)
       rspec (>= 2.5.0)
-    ri_cal (0.8.8)
     rsolr (1.0.8)
       builder (>= 2.1.2)
     rspec (2.13.0)
@@ -388,7 +386,7 @@ GEM
     ruby-graphviz (1.0.8)
     ruby-prof (0.12.2)
     rubyzip (0.9.9)
-    rufus-scheduler (2.0.17)
+    rufus-scheduler (2.0.18)
       tzinfo (>= 0.3.23)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
@@ -476,13 +474,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  RedCloth (>= 4.2.9)
   activerecord-jdbcpostgresql-adapter
   annotate (~> 2.5)
   astrails-safe
   awesome_nested_set (~> 2.1)
   aws-sdk
-  bigdecimal
   charlock_holmes
   client_side_validations (~> 3.2)
   coffee-rails (~> 3.2.1)
@@ -529,9 +525,9 @@ DEPENDENCIES
   rails (= 3.2.13.rc1)
   rails-erd
   rails_autolink
+  redcarpet
   resque-scheduler (~> 2.0.0)
   resque_spec
-  ri_cal
   rspec-rails (~> 2.13)
   ruby-prof
   rubyzip

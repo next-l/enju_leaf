@@ -104,4 +104,18 @@ module ApplicationHelper
   def set_focus_on_search_form
     javascript_tag("$(function(){$('#search_form').focus()})") if @query.blank?
   end
+
+  def markdown_helper(string)
+    return unless string
+    if defined?(JRUBY_VERSION)
+      string
+    #  Kramdown::Document.new(string.to_s).to_html.html_safe
+    else
+      markdown = Redcarpet::Markdown.new(
+        Redcarpet::Render::HTML,
+        :autolink => true, :safe_links_only => true
+      )
+      markdown.render(string.to_s).html_safe
+    end
+  end
 end

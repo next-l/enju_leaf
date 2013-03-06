@@ -38,7 +38,7 @@ platforms :mri do
   gem 'zipruby'
   gem 'kgio'
   gem 'charlock_holmes'
-  gem 'bigdecimal'
+  gem 'redcarpet'
 end
 
 platforms :jruby do
@@ -47,6 +47,7 @@ platforms :jruby do
   #gem 'activerecord-jdbcmysql-adapter'
   gem 'rubyzip'
   gem 'trinidad', :require => false
+  #gem 'kramdown'
 end
 
 gem 'exception_notification', '~> 3.0'
@@ -56,9 +57,7 @@ gem 'inherited_resources', '~> 1.3'
 gem 'strongbox'
 gem 'dalli', '~> 2.6'
 gem 'sitemap_generator', '~> 3.4'
-gem 'ri_cal'
 gem 'paper_trail', '~> 2.7'
-gem 'RedCloth', '>= 4.2.9'
 gem 'devise-encryptable'
 #gem 'devise_security_extension'
 gem 'aws-sdk'
