@@ -1,4 +1,5 @@
 require "enju_leaf/engine"
+require "enju_leaf/version"
 require "enju_leaf/controller"
 require "enju_leaf/helper"
 
