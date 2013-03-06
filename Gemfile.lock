@@ -99,7 +99,7 @@ GEM
       devise (>= 2.1.0.rc)
     diff-lcs (1.2.1)
     dynamic_form (1.1.4)
-    enju_biblio (0.1.0.pre21)
+    enju_biblio (0.1.0.pre22)
       aws-sdk
       dynamic_form
       enju_core (~> 0.1.1.pre3)
@@ -119,7 +119,7 @@ GEM
       validates_timeliness
     enju_book_jacket (0.1.0.pre6)
       rails (~> 3.2)
-    enju_circulation (0.1.0.pre12)
+    enju_circulation (0.1.0.pre13)
       enju_event (~> 0.1.17.pre5)
       enju_message (~> 0.1.14.pre)
       inherited_resources
@@ -485,9 +485,9 @@ DEPENDENCIES
   dalli (~> 2.6)
   devise-encryptable
   dynamic_form
-  enju_biblio (~> 0.1.0.pre21)
+  enju_biblio (~> 0.1.0.pre22)
   enju_book_jacket (~> 0.1.0.pre6)
-  enju_circulation (~> 0.1.0.pre12)
+  enju_circulation (~> 0.1.0.pre13)
   enju_event (~> 0.1.17.pre6)
   enju_export (~> 0.1.1.pre2)
   enju_flower (~> 0.1.0.pre)
