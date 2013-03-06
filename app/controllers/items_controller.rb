@@ -9,7 +9,6 @@ class ItemsController < ApplicationController
   before_filter :get_patron, :get_manifestation, :get_inventory_file
   helper_method :get_shelf
   helper_method :get_library
-  helper_method :get_item
   before_filter :prepare_options, :only => [:new, :edit]
   before_filter :get_version, :only => [:show]
   before_filter :check_status, :only => [:edit]
@@ -127,6 +126,7 @@ class ItemsController < ApplicationController
       redirect_to manifestations_url
       return
     end
+    original_item = Item.find(params[:item_id]) if params[:item_id]
     @item = Item.new
     @item.manifestation_id = @manifestation.id
     unless @manifestation.article?
@@ -135,6 +135,7 @@ class ItemsController < ApplicationController
       @item.checkout_type = @manifestation.carrier_type.checkout_types.first
       @item.use_restriction_id = UseRestriction.where(:name => 'Limited Circulation, Normal Loan Period').select(:id).first.id
 #      @item.shelf = @library.shelves.first
+      @item.call_number = @manifestation.items.where(:rank => 0).first.call_number rescue nil
     else
       @item.circulation_status = CirculationStatus.where(:name => 'Not Available').first
       @item.checkout_type = CheckoutType.where(:name => 'article').first
