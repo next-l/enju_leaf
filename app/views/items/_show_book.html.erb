@@ -32,7 +32,8 @@
 <% if user_signed_in? and current_user.has_role?('Librarian') %>
   <p>
     <strong><%= t('activerecord.attributes.item.rank') -%>:</strong>
-    <%= i18n_rank(@item.rank) if @item.rank %>
+    <%= @item.rank %>
+    <%# = i18n_rank(@item.rank) if @item.rank %>
   </p>
 <% end %>
 <% end %>
