@@ -287,7 +287,6 @@ class ItemsController < ApplicationController
     else
       @library = @item.shelf.library rescue nil
     end
-    @shelves = [] # @library.shelves
     @circulation_statuses = CirculationStatus.all
     @circulation_statuses.reject!{|cs| cs.name == "Removed"}
     @accept_types = AcceptType.all
@@ -302,7 +301,12 @@ class ItemsController < ApplicationController
     end
     @roles = Role.all
     @numberings = Numbering.all
-    @shelf_categories = Shelf.categories
+    @shelf_categories = Shelf.try(:categories) rescue nil
+    if @shelf_categories
+      @shelves = []
+    else
+      @shelves = @library.shelves
+    end
   end
 
   def check_status

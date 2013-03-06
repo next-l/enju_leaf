@@ -40,8 +40,10 @@
         </ul>
       <%- end -%>
     <%- else -%>
-      <ul>
-        <li><%= link_to t('page.sign_in'), new_user_session_path -%></li>
-      </ul>
+      <%- if SystemConfiguration.get('internal_server') %>
+        <ul>
+          <li><%= link_to t('page.sign_in'), new_user_session_path -%></li>
+        </ul>
+      <%- end -%>
     <%- end -%>
   </div>

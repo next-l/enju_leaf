@@ -24,7 +24,9 @@
         <br />
       <% else %>
         <% unless controller_name == 'sessions' %>
-          <%= link_to t('page.sign_in'), new_user_session_path -%>
+          <%- if SystemConfiguration.get('internal_server') %>
+            <%= link_to t('page.sign_in'), new_user_session_path -%>
+          <%- end -%>
         <% end %>
       <% end %>
     </div>
