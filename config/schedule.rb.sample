@@ -43,6 +43,10 @@ every 1.day, :at => '2:00 am' do
   command "#{path}/script/tools/postgres_backup.sh"
 end
 
+every 1.day, :at => '2:10 am' do
+#  command "#{path}/script/tools/deletefile.sh"
+end
+
 every 1.day, :at => '2:15 am' do
   rake "enju_trunk:sync:scheduled_export"
 end
