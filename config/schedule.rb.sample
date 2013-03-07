@@ -19,7 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 
-set :path, '/path/to/enju_trunk'
+set :path, '/opt/enju_trunk'
 set :environment, :production
 set :output, "#{path}/log/cron_log.log"
 
@@ -40,6 +40,10 @@ every 1.day, :at => '1:00 am' do
 end
 
 every 1.day, :at => '2:00 am' do
+  command "#{path}/script/tools/postgres_backup.sh"
+end
+
+every 1.day, :at => '2:15 am' do
   rake "enju_trunk:sync:scheduled_export"
 end
 
@@ -69,10 +73,10 @@ every 1.hour do
   runner "ResourceImportTextfile.import; ResourceImportTextfile.expire"
 end
 
-every 1.day, :at => '3:00 am' do
-  rake "sunspot:reindex"
+#every 1.day, :at => '3:00 am' do
+#  rake "sunspot:reindex"
 #  rake "sitemap:refresh:no_ping"
-end
+#end
 
 #every 1.day, :at => '5:00 am' do
 #  runner "Checkout.send_due_date_notification; Checkout.send_overdue_notification; Checkout.apend_to_reminder_list"
