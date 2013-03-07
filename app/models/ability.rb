@@ -210,7 +210,7 @@ class Ability
       can [:read, :create, :update], SeriesStatement
       can :destroy, SeriesStatement do |series_statement|
         if series_statement.periodical
-          series_statement.manifestations.size == 1 and series_statement.manifestations[0].periodical_master == false
+          series_statement.manifestations.size == 1 and series_statement.manifestations[0].periodical_master
         else
           series_statement.manifestations.empty?
         end
