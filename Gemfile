@@ -77,6 +77,7 @@ gem 'strong_parameters'
 gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
 gem 'nested_form'
 gem 'paperclip-meta'
+gem 'redis-rails'
 
 group :development do
   gem 'annotate', '~> 2.5'
