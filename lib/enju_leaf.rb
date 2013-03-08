@@ -1,6 +1,7 @@
 require "enju_leaf/engine"
 require "enju_leaf/version"
 require "enju_leaf/controller"
+require "enju_leaf/user"
 require "enju_leaf/helper"
 
 require 'csv'
@@ -272,4 +273,5 @@ module EnjuLeaf
   end
 end
 
+ActiveRecord::Base.send(:include, EnjuLeaf::User)
 ActionController::Base.send(:include, EnjuLeaf)
