@@ -24,6 +24,8 @@ class Manifestation < ActiveRecord::Base
   belongs_to :manifestation_content_type, :class_name => 'ContentType', :foreign_key => 'content_type_id'
   belongs_to :country_of_publication, :class_name => 'Country', :foreign_key => 'country_of_publication_id'
 
+  scope :without_master, where(:periodical_master => false)
+
   searchable do
     text :fulltext, :contributor, :article_title, :series_title
     text :title, :default_boost => 2 do
