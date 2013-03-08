@@ -19,7 +19,12 @@
     <% end %>
     <%- if manifestation.pub_date.present? -%>
       <meta itemprop="publishDate" content="<%= manifestation.try(:date_of_publication).try(:iso8601) %>" />
-      (<%= t('activerecord.attributes.manifestation.pub_date') %>: <%= manifestation.pub_date -%>)
+      (<%- if manifestation.article? -%>
+         <%= t('activerecord.attributes.manifestation.pub_date_article') %>
+       <%- else -%>
+         <%= t('activerecord.attributes.manifestation.pub_date') %>
+       <%- end -%>
+       : <%= manifestation.pub_date -%>)
     <%- end -%>
     <%- if SystemConfiguration.get('internal_server') -%>
       <%- unless manifestation.access_address.blank? -%>
