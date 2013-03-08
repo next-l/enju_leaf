@@ -82,11 +82,11 @@ class SeriesStatement < ActiveRecord::Base
   end
 
   def first_issue
-    manifestations.order(:date_of_publication).first
+    manifestations.without_master.order(:date_of_publication).first
   end
 
   def latest_issue
-    manifestations.order(:date_of_publication).last
+    manifestations.without_master.order(:date_of_publication).last
   end
 
   def manifestation_included(manifestation)
