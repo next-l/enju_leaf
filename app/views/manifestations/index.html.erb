@@ -102,17 +102,16 @@
 
     <%- @manifestations_all.each do |m| -%>
       <%- next if @binder && m == @manifestations_article %>
-      <%- if current_user && current_user.has_role?('Librarian') %>
-        <div class="search_results_header"><strong>
+      <div class="search_results_header"><strong>
+  	<%= m == @manifestations_article ? t('page.search_article_results') :  t('page.search_results') %>
+        <%- if current_user && current_user.has_role?('Librarian') %>
           <%- if m == @manifestations_article -%>
-  	    <%= t('page.search_article_results') %>
             &nbsp; <button id="excelx_article_dialog_opener"><%= t('page.output_excelx', :model => t('page.search_result')) -%></button>
   	  <%- else -%>
-            <%= t('page.search_results') %>
             &nbsp; <button id="excelx_book_dialog_opener"><%= t('page.output_excelx', :model => t('page.search_result')) -%></button>
           <%- end -%>
-        </strong></div>
-      <%- end -%>
+        <%- end -%>
+      </strong></div>
       <%- if m && (m.count > 0) -%>
         <div class="autopagerize_page_element" id="list">
         <%= render 'manifestations/list', :manifestations => m -%>
