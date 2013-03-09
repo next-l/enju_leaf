@@ -285,6 +285,7 @@ class ApplicationController < ActionController::Base
 
   def get_series_statement
     @series_statement = SeriesStatement.find(params[:series_statement_id]) if params[:series_statement_id]
+    @periodical_master = @series_statement.try(:root_manifestation) if @series_statement
   end
 
   def get_reserve_states

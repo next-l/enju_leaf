@@ -836,6 +836,7 @@ ja:
         identifier: 識別子
         date_of_publication: 出版日
         pub_date: 出版日
+        pub_date_article: 刊行年
         country_of_publication: 出版国
         place_of_publication: 出版地
         pub_year: 版年
@@ -1805,6 +1806,7 @@ ja:
     output_job_error_subject: "ファイル出力できませんでした [ID: %{job_name}]"
     output_job_error_body: "お知らせID「%{job_name}」のファイル出力を完了できませんでした。理由は次の通りです。\n%{message}"
     not_has_original: "文献登録するには所蔵が正本である必要があります。登録済みの所蔵の正本区分を修正してください。"
+    format_numbers: "%{volume}巻%{issue}号 %{serial}"
   missing_issue:
     no_request: 未請求
     requested: 請求済

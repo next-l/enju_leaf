@@ -1437,6 +1437,7 @@ en:
     output_job_success_body: "The requested file (ID: %{job_name}) is now ready for download. You can obtain the file from the following address.\n%{url}"
     output_job_error_subject: "Failed to generate the requested file [ID: %{job_name}]"
     output_job_error_body: "The requested file (ID: %{job_name}) couldn't get generated because of the following error:\n%{message}"
+    format_numbers: "%{volume} (%{issue}) %{serial}"
   item:
     current_checkout: "Current checkout"
     donor: "Donors"

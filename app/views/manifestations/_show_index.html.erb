@@ -7,12 +7,10 @@
       <%= link_to manifestation.original_title, manifestation_path(manifestation) -%>
     <% end %>
   </strong>
-  <% if manifestation.serial? %>
-    <%= manifestation.volume_number_string %>
-    <% if manifestation.issue_number_string.present? %>
-      (<%= manifestation.issue_number_string %>)
-    <% end %>
-    <%= manifestation.serial_number_string %>
+  <% if manifestation.try(:series_statement).try(:periodical) %>
+    <%= t('manifestation.format_numbers', :volume => manifestation.volume_number_string,
+                            :issue => manifestation.issue_number_string,
+                            :serial => manifestation.serial_number_string) %>
   <% end %>
   <% if manifestation.periodical_master? %>
     <%- if manifestation.series_statement.try(:first_issue) and manifestation.series_statement.try(:latest_issue) -%>
