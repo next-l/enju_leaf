@@ -2,7 +2,6 @@ module EnjuLeaf
   module User
     def self.included(base)
       base.extend ClassMethods
-#      base.send :include, AttributeNormalizer
     end
 
     module ClassMethods
@@ -66,6 +65,7 @@ module EnjuLeaf
         extend FriendlyId
         friendly_id :username
         has_paper_trail
+        normalize_attributes :username, :user_number
   
         searchable do
           text :username, :email, :note, :user_number
