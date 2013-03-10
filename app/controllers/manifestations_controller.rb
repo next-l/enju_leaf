@@ -727,6 +727,16 @@ class ManifestationsController < ApplicationController
       qwords << q if q
     end
 
+    # 詳細検索からの資料区分 ファセット選択時は無効とする
+    if params[:manifestation_types].present? && params[:manifestation_type].blank?
+      types_ary = []
+      params[:manifestation_types].each_key do |key|
+        manifestation_type = ManifestationType.find(key)
+        types_ary << "manifestation_type_sm:#{manifestation_type.name}" if manifestation_type.present?
+      end
+      qwords << types_ary.join(" OR ") if types_ary.present?
+    end
+
     op = SystemConfiguration.get("advanced_search.use_and") ? 'AND' : 'OR'
     qwords.join(" #{op} ")
   end
@@ -805,7 +815,7 @@ class ManifestationsController < ApplicationController
     [with, without]
   end
 
-  # 空白を含まない文字列、"〜"、'〜'を抽出する
+  # 空白を含まない文字列、"?"、'?'を抽出する
   def each_query_word(str)
     ary = []
     str.scan(/([^"'\s]\S*|(["'])(?:(?:\\\\)+|\\\2|.)*?\2)/) do
