@@ -23,7 +23,7 @@ class MyAccountsController < ApplicationController
     @manifestation = Manifestation.pickup(@user.keyword_list.to_s.split.sort_by{rand}.first) rescue nil
     prepare_options
     
-    # Ž‘—¿‹æ•ª
+    # è³‡æ–™åŒºåˆ†
     get_manifestation_types
     
     respond_to do |format|
