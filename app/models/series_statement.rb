@@ -41,12 +41,14 @@ class SeriesStatement < ActiveRecord::Base
   paginates_per 10
 
   def last_issue
-    manifestations.where('serial_number IS NOT NULL').order('serial_number DESC').first || manifestations.first
+    return nil unless self.periodical
+    manifestations.where('serial_number IS NOT NULL').order('serial_number DESC').first # || manifestations.first
 #    manifestations.where('date_of_publication IS NOT NULL').order('date_of_publication DESC').first || manifestations.first
   end
 
   def last_issue_with_issue_number
-    manifestations.where('issue_number IS NOT NULL').order('volume_number DESC').order('issue_number DESC').first || manifestations.first
+    return nil unless self.periodical
+    manifestations.where('issue_number IS NOT NULL').order('volume_number DESC').order('issue_number DESC').first # || manifestations.first
   end
 
   def self.latest_issues
