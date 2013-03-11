@@ -62,7 +62,7 @@ gem 'devise-encryptable'
 #gem 'devise_security_extension'
 gem 'aws-sdk'
 gem 'whenever', :require => false
-gem 'astrails-safe'
+#gem 'astrails-safe'
 gem 'dynamic_form'
 gem 'sanitize'
 gem 'mobylette'
