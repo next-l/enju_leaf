@@ -187,6 +187,10 @@ class Ability
         UserRequestLog
       ]
     when 'Librarian'
+      can [:read, :create, :update], Bookstore
+      can :destroy, Bookstore do |bookstore|
+        bookstore.order_lists.empty?
+      end
       can [:read, :create, :update], Budget
       can :destroy, Budget do |budget|
         budget.expenses.empty?
@@ -311,7 +315,6 @@ class Ability
       ]
       can :read, [
         AcceptType,
-        Bookstore,
         CarrierType,
         CarrierTypeHasCheckoutType,
         CheckoutType,
