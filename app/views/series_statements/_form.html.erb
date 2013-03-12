@@ -1,6 +1,7 @@
 <script>
 jQuery(function(){
   $('#series_statement_original_title').auto_ruby($('#series_statement_title_transcription'))
+  $('#series_statement_title_transcription').val("<%= @series_statement.title_transcription %>");//初回遷移時対策
 
   // Shows the default spinner
   $("input[type=submit]").click(function(){
