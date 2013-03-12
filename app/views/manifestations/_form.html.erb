@@ -13,21 +13,26 @@ jQuery(function(){
 
 function displayArticleTitle(article_title) {
   var manifestation_type = $('#manifestation_manifestation_type_id').val();
-  var series_list = ['9', '10'];
-  if($.inArray(manifestation_type, series_list) != -1) {
-    var data = "<label class='text optional' for='manifestation_article_title'>"
-             + "<%= t('activerecord.attributes.manifestation.article_title') %>"
-             + "</label>"
-             + "<br />"
-             + "<input class='resource_title' id='manifestation_article_title' name='manifestation[article_title]' size='30' type='text'"
-             + " value=" + article_title
-             + ">"
-    $("#article_title_field").html(data);
-    $(".pub_date").html("<label class='pub_date' for='manifestation_pub_date'><%= t('activerecord.attributes.manifestation.pub_date_article')%></label>")
+  var series  = ['3', '4', '5', '6']; 
+  var article = ['9', '10'];
+  var pub_data_field = "<label class='pub_date' for='manifestation_pub_date'><%= t('activerecord.attributes.manifestation.pub_date')%></label>";
+
+  if($.inArray(manifestation_type, article) != -1) {
+    $("#article_title_field").show();
+    pub_data_field = "<label class='pub_date' for='manifestation_pub_date'><%= t('activerecord.attributes.manifestation.pub_date_article')%></label>"
+    $("#frequency_field").hide();
+    $("#manifestation_frequency_id").val("17");
+  } else if($.inArray(manifestation_type, series) != -1) {
+    $("#frequency_field").show(); 
+    $("#article_title_field").hide();
+    $("#manifestation_article_title").val("");
   } else {
-    $("#article_title_field").html("");
-    $(".pub_date").html("<label class='pub_date' for='manifestation_pub_date'><%= t('activerecord.attributes.manifestation.pub_date')%></label>")
+    $("#frequency_field").hide();
+    $("#manifestation_frequency_id").val("17");
+    $("#article_title_field").hide();
+    $("#manifestation_article_title").val("");
   }
+  $(".pub_date").html(pub_data_field);
 }
 </script>
 
@@ -113,7 +118,8 @@ function displayArticleTitle(article_title) {
     <%= f.select(:manifestation_type_id, @manifestation_types.collect{|m| [m.display_name.localize, m.id]}) -%>
   </div>
 
-  <div class="field">
+  
+  <div class="field" id="frequency_field">
     <%= f.label t('activerecord.models.frequency') -%>
     <%= f.select(:frequency_id, @frequencies.collect{|frequency| [frequency.display_name.localize, frequency.id]}) -%>
   </div>
