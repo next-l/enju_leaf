@@ -3,11 +3,11 @@ require EnjuTrunkFrbr::Engine.root.join('app', 'models', 'manifestation')
 require EnjuTrunkCirculation::Engine.root.join('app', 'models', 'manifestation') if Setting.operation
 class Manifestation < ActiveRecord::Base
   self.extend ItemsHelper
-  has_many :creators, :through => :creates, :source => :patron
-  has_many :contributors, :through => :realizes, :source => :patron
-  has_many :publishers, :through => :produces, :source => :patron
+  has_many :creators, :through => :creates, :source => :patron, :order => :position
+  has_many :contributors, :through => :realizes, :source => :patron, :order => :position
+  has_many :publishers, :through => :produces, :source => :patron, :order => :position
   has_many :work_has_subjects, :foreign_key => 'work_id', :dependent => :destroy
-  has_many :subjects, :through => :work_has_subjects
+  has_many :subjects, :through => :work_has_subjects, :order => :position
   has_many :reserves, :foreign_key => :manifestation_id, :order => :position
   has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
   belongs_to :language

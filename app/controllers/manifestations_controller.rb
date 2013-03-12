@@ -588,7 +588,6 @@ class ManifestationsController < ApplicationController
           @manifestation.contributors = Patron.add_patrons(@contributor) unless @contributor.blank?
           @manifestation.publishers = Patron.add_patrons(@publisher) unless @publisher.blank?
           @manifestation.subjects = Subject.import_subjects(@subject.gsub('；', ';').split(';')) unless @subject.blank?
-          @manifestation.save
         end
 
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_created', :model => t('activerecord.models.manifestation')) }
@@ -608,15 +607,15 @@ class ManifestationsController < ApplicationController
     @publisher = params[:manifestation][:publisher]
     @contributor = params[:manifestation][:contributor]
     @subject = params[:manifestation][:subject]
-    @manifestation.creators = Patron.add_patrons(@creator) 
-    @manifestation.contributors = Patron.add_patrons(@contributor) 
-    @manifestation.publishers = Patron.add_patrons(@publisher)
-    @manifestation.subjects = Subject.import_subjects(@subject.gsub('；', ';').split(';')) 
     respond_to do |format|
       if @manifestation.update_attributes(params[:manifestation])
         if @manifestation.series_statement and @manifestation.series_statement.periodical
           Manifestation.find(@manifestation.series_statement.root_manifestation_id).index
         end
+        @manifestation.creators = Patron.add_patrons(@creator) 
+        @manifestation.contributors = Patron.add_patrons(@contributor) 
+        @manifestation.publishers = Patron.add_patrons(@publisher)
+        @manifestation.subjects = Subject.import_subjects(@subject.gsub('；', ';').split(';')) 
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_updated', :model => t('activerecord.models.manifestation')) }
         format.json { head :no_content }
       else
