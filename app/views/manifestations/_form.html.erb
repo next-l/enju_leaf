@@ -22,8 +22,10 @@ function displayArticleTitle(article_title) {
              + " value=" + article_title
              + ">"
     $("#article_title_field").html(data);
+    $(".pub_date").html("<label class='pub_date' for='manifestation_pub_date'><%= t('activerecord.attributes.manifestation.pub_date_article')%></label>")
   } else {
     $("#article_title_field").html("");
+    $(".pub_date").html("<label class='pub_date' for='manifestation_pub_date'><%= t('activerecord.attributes.manifestation.pub_date')%></label>")
   }
 }
 </script>
@@ -116,7 +118,7 @@ function displayArticleTitle(article_title) {
   </div>
 
   <div class="field">
-    <%= f.label :pub_date -%>
+    <%= f.label :pub_date, :class => 'pub_date' -%>
     <%= f.text_field :pub_date, :class => 'date_field', :placeholder => "#{t('page.example')}: 2011, 2011-04-12"-%>
   </div>
 
