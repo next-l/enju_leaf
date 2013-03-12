@@ -1844,6 +1844,8 @@ ja:
     binding_status: 製本ステータス
     binding_item: 製本雑誌
     not_found: "資料が見つかりません"
+    search_bookstore: "寄贈・購入先検索フォーム"
+    search_bookstore_description: "絞り込みを行いたい寄贈・購入先を入力してください"
   patron:
     library_group_patron: "%{library_group_name} の人物・団体"
     work_patron: "%{work_title} の著作者"
