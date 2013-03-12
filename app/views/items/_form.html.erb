@@ -1,6 +1,6 @@
 <script>
   $(document).ready( function() {
-    $('#search_bookstore_input').change(function() {
+    $('.search_bookstore_button').click(function() {
       var input = $('#search_bookstore_input').val().replace(/^\s+|\s+$/g, "");
       $.ajax({
         type: "Get",
@@ -22,6 +22,7 @@
           }
         }
       });
+      return false;
     });
   });
 </script>

@@ -35,6 +35,8 @@
     <br />
     <strong><%= t('item.search_bookstore') %></strong>
     <%= text_field :search_bookstore, :input %>
+    <%= submit_tag t('page.search'), :class => 'search_bookstore_button' %>
+    <br />
     <font style="font-size: 90%"><%= t('item.search_bookstore_description') %></font>
     <br /><span id="error" style="color: red"></span>
   </div>
