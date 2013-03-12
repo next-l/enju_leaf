@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 87c23f067d34fc7ea02f495fdfbacd9e27405381
+  revision: 55f5b2599ea84b47cf1a3cd1ee15b443a9281c8f
   specs:
     enju_biblio (0.1.0.pre22)
       aws-sdk
@@ -112,7 +112,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_inventory.git
-  revision: a2df2fca32dd8e578981e77b9ba32fd9a7837435
+  revision: 3d86a7fa677a91ac3129ae47635bd804cdc8a15b
   specs:
     enju_inventory (0.1.11.pre5)
       enju_biblio (~> 0.1.0.pre22)
@@ -121,7 +121,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 9b67bf2f66f04d021369fa3019b43e247e25800b
+  revision: 3365c696de2b6e657903365872a93f33248d372c
   specs:
     enju_library (0.1.0.pre11)
       enju_core (~> 0.1.1.pre3)
@@ -177,7 +177,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_question.git
-  revision: 801ae3557058f98dfa604b491e67afe8c0eb1b26
+  revision: b80bbab5821111d5d238523b0492274716100869
   specs:
     enju_question (0.1.0.pre5)
       acts-as-taggable-on (~> 2.3)
@@ -254,7 +254,7 @@ GEM
     attribute_normalizer (1.1.0)
     awesome_nested_set (2.1.6)
       activerecord (>= 3.0.0)
-    aws-sdk (1.8.3.1)
+    aws-sdk (1.8.4)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
@@ -548,12 +548,12 @@ GEM
     terminal-table (1.4.5)
     thor (0.17.0)
     tilt (1.3.5)
-    timecop (0.6.0)
+    timecop (0.6.1)
     timeliness (0.3.7)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.36)
+    tzinfo (0.3.37)
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
