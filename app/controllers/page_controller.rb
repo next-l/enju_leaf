@@ -22,7 +22,9 @@ class PageController < ApplicationController
       @events = Event.order('start_at DESC').limit(5)
     end
     @manifestation = Manifestation.pickup rescue nil
-
+    get_libraries
+    get_manifestation_types
+ 
     respond_to do |format|
       if defined?(EnjuCustomize)
         format.html { render :file => "page/#{EnjuCustomize.render_dir}/index", :layout => EnjuCustomize.render_layout}
