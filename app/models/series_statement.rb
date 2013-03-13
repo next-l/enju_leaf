@@ -22,7 +22,7 @@ class SeriesStatement < ActiveRecord::Base
     text :title do
       original_title
     end
-    text :numbering, :title_subseries, :numbering_subseries
+    text :numbering, :title_subseries, :numbering_subseries, :issn, :series_statement_identifier
     integer :manifestation_ids, :multiple => true do
       manifestations.collect(&:id)
     end
