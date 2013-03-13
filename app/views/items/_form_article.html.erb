@@ -30,15 +30,13 @@
   </div>
 
   <div class="field">
-    <%= f.label t('activerecord.models.bookstore') %>
-    <%= f.select(:bookstore_id, @bookstores.collect{|b| [b.name, b.id]}, :include_blank => true) %>
-    <br />
     <strong><%= t('item.search_bookstore') %></strong>
     <%= text_field :search_bookstore, :input %>
     <%= submit_tag t('page.search'), :class => 'search_bookstore_button' %>
-    <br />
-    <font style="font-size: 90%"><%= t('item.search_bookstore_description') %></font>
-    <br /><span id="error" style="color: red"></span>
+    <div id="error" style="color: red"></div>
+    <div style="font-size: 90%; padding-bottom: 10px;"><%= t('item.search_bookstore_description') %></div>
+    <%= f.label t('activerecord.models.bookstore') %>
+    <%= f.select(:bookstore_id, @bookstores.collect{|b| [b.name, b.id]}, :include_blank => true) %>
   </div>
 
   <div class="field">

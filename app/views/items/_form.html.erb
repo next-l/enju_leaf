@@ -10,7 +10,7 @@
           if (obj.success) {
             var message = "";
             if (obj["exist"] == false)
-              message = "<%= t('bookstore.not_found') %>"
+              message = "<%= t('bookstore.not_found') %><br />"
 
             $('#item_bookstore_id').html("");
             $('#item_bookstore_id').append($('<option>').attr({}).text(""));
@@ -18,7 +18,7 @@
               $('#item_bookstore_id').append($('<option>').attr({ value: this["bookstore"]["id"]}).text(this["bookstore"]["name"]));
             });
             
-            $("span#error").html(message); 
+            $("div#error").html(message); 
           }
         }
       });
