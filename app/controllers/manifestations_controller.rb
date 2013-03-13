@@ -729,12 +729,6 @@ class ManifestationsController < ApplicationController
     # 詳細検索からの資料区分 ファセット選択時は無効とする
     if params[:manifestation_types].present? && params[:manifestation_type].blank?
       types_ary = []
-logger.info "_____________________________________________________"
-logger.info "1_#{params[:manifestation_types]}"
-logger.info "1_#{params[:manifestation_types].class}"
-logger.info params[:manifestation_types].class == String
-#logger.info "2_#{eval(params[:manifestation_types])}"
-#logger.info "3_#{eval(params[:manifestation_types]).class}"
       manifestation_types = params[:manifestation_types].class == String ? eval(params[:manifestation_types]) : params[:manifestation_types]
       manifestation_types.each_key do |key|
         manifestation_type = ManifestationType.find(key)

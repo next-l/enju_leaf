@@ -398,12 +398,14 @@ module ApplicationHelper
 
       when :manifestation_types #資料区分
         display_name_ary = []
-        manifestation_types = params[:manifestation_types].class == String ? eval(params[:manifestation_types]) : params[:manifestation_types]
-        manifestation_types.each_key do |manifestation_type_id|
+        if params[:manifestation_types].present?
+          manifestation_types = params[:manifestation_types].class == String ? eval(params[:manifestation_types]) : params[:manifestation_types]
+          manifestation_types.each_key do |manifestation_type_id|
             manifestation_type = ManifestationType.find(manifestation_type_id)
             display_name_ary << manifestation_type.display_name if manifestation_type.present?
-        end
-        summary_ary << [:manifestation_types, display_name_ary.join(", ")] if display_name_ary.present?
+          end
+       end
+       summary_ary << [:manifestation_types, display_name_ary.join(", ")] if display_name_ary.present?
         
       else
         summary_ary << [key, params[key]] if params[key].present?
