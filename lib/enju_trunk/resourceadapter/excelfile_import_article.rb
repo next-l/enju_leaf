@@ -134,6 +134,7 @@ module EnjuTrunk
       original_title = datas[@field[I18n.t('resource_import_textfile.excel.article.original_title')]]
       article_title  = datas[@field[I18n.t('resource_import_textfile.excel.article.title')]]
       pub_date       = datas[@field[I18n.t('resource_import_textfile.excel.article.pub_date')]]
+      access_address = datas[@field[I18n.t('resource_import_textfile.excel.article.url')]]
 
       start_page, end_page        = set_page(datas[@field[I18n.t('resource_import_textfile.excel.article.number_of_page')]])
       volume_number, issue_number = set_number(datas[@field[I18n.t('resource_import_textfile.excel.article.volume_number_string')]])
@@ -144,6 +145,7 @@ module EnjuTrunk
       manifestation.pub_date             = pub_date.to_s       unless pub_date.nil?
       manifestation.volume_number_string = volume_number.to_s  unless volume_number.nil?      
       manifestation.issue_number_string  = issue_number.to_s   unless issue_number.nil?
+      manifestation.access_address       = access_address.to_s unless access_address.nil?
 
       unless start_page.nil?
         if start_page.to_s.blank?
@@ -232,7 +234,6 @@ module EnjuTrunk
       shelf = import_textfile.user.library.article_shelf
 
       call_number = datas[@field[I18n.t('resource_import_textfile.excel.article.call_number')]]
-      url         = datas[@field[I18n.t('resource_import_textfile.excel.article.url')]]
 
       item.manifestation_id   = manifestation.id
       item.circulation_status = CirculationStatus.where(:name => 'Not Available').first
@@ -241,7 +242,6 @@ module EnjuTrunk
       item.rank               = 0
       item.shelf_id           = shelf.id        unless shelf.nil?
       item.call_number        = call_number     unless call_number.nil?
-      item.url                = url             unless url.nil?
       if item.item_identifier.nil?
         while item.item_identifier.nil?
           create_item_identifier = Numbering.do_numbering(@numbering.name)
