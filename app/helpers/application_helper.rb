@@ -358,6 +358,8 @@ module ApplicationHelper
   end
 
   def advanced_search_condition_summary(opts = {})
+    return '' if params[:solr_commit].present?
+
     summary_ary = []
     special = {
       title: nil,

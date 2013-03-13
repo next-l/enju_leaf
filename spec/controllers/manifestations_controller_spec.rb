@@ -559,6 +559,33 @@ describe ManifestationsController do
         assigns(:reserve_user).should be_nil
       end
 
+      describe 'solr query' do
+        it 'should assign constructed solr query string as @solr_query when solr_commit parameter is not presented' do
+          get :index, query: 'foobar', title: 'barbaz'
+          response.should be_success
+          assigns(:solr_query).should be_present
+          assigns(:solr_query).should match(/\bfoobar\b/)
+          assigns(:solr_query).should match(/\btitle_text:barbaz\b/)
+        end
+
+        it 'should assign solr_query parameter value as @solr_query when solr_commit parameter is presented' do
+          get :index, query: 'foobar', solr_query: 'barbaz', solr_commit: 'true'
+          response.should be_success
+          assigns(:solr_query).should be_present
+          assigns(:solr_query).should eq('barbaz')
+        end
+
+        it 'should execute search with solr_query parameter value when solr_commit parameter is presented' do
+          found = false
+          Sunspot::DSL::Search.any_instance.stub(:fulltext) do |qs, *opts|
+            found = true if qs == 'barbaz'
+          end
+          get :index, query: 'foobar', solr_query: 'barbaz', solr_commit: 'true'
+          response.should be_success
+          found.should be_true
+        end
+      end
+
       describe 'With more than two query texts' do
         before do
           Manifestation.reindex

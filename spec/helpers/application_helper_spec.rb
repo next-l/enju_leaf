@@ -134,6 +134,7 @@ describe ApplicationHelper do
     end
 
     it '指定内容を表示すること' do
+      params[:query] = 'query'
       params[:tag] = ''
       params[:title_merge] = 'exact'
       params.delete(:creator_merge)
@@ -211,6 +212,7 @@ describe ApplicationHelper do
     it '表示項目数と省略文字が指定されていたら、省略があったときにそれを表示すること' do
       keys = params.keys[0, 4]
       params.delete_if {|k, v| !keys.include?(k) }
+      params[:query] = 'query'
 
       html = helper.advanced_search_condition_summary(:length => 3, :omission => '、他')
       html.should match(/、他\)\z/)
@@ -220,6 +222,11 @@ describe ApplicationHelper do
 
       html = helper.advanced_search_condition_summary(:omission => '、他')
       html.should_not match(/、他/)
+    end
+
+    it 'solr_commitが指定されていたら何も表示しないこと' do
+      params[:solr_commit] = true
+      helper.advanced_search_condition_summary.should be_blank
     end
   end
 

@@ -75,6 +75,7 @@ class ManifestationsController < ApplicationController
 
       if params[:format].blank? || params[:format] == 'html'
         search_opts[:html_mode] = true
+        search_opts[:solr_query_mode] = true if params[:solr_commit].present?
       end
 
       if defined?(EnjuBookmark) && params[:view] == 'tag_cloud'
@@ -131,6 +132,7 @@ class ManifestationsController < ApplicationController
       set_in_process
       @index_patron = get_index_patron
       @query = params[:query] # main query string
+      @solr_query = params[:solr_query]
       @all_manifestations = params[:all_manifestations] if params[:all_manifestations]
 
       @libraries = Library.real.all
@@ -156,7 +158,12 @@ class ManifestationsController < ApplicationController
         query = openurl.query_text
         sort = search_result_order(params[:sort_by], params[:order])
       else
-        query = make_query_string
+        if search_opts[:solr_query_mode]
+          query = @solr_query
+        else
+          query = make_query_string
+          @solr_query ||= query
+        end
         sort = search_result_order(params[:sort_by], params[:order])
       end
 
@@ -250,7 +257,7 @@ class ManifestationsController < ApplicationController
         clear_search_sessions
         session[:params] = params
         session[:search_params] = search_all.query.to_params
-        session[:query] = @query
+        session[:query] = search_opts[:solr_query_mode] ? @solr_query : @query
       end
 
       unless session[:manifestation_ids]
