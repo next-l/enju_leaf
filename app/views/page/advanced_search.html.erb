@@ -89,9 +89,13 @@ $(function(){
     <tr>
       <td><label><%= advanced_search_label(:manifestation_types) -%>:</label></td>
       <td>
-      <%- @manifestation_types.each do |manifestation_type| -%>
-        <%= check_box 'manifestation_types', manifestation_type.id, {:checked => params[:manifestation_types] && params[:manifestation_types].has_key?(manifestation_type.id.to_s)}, true, false %><%= manifestation_type.display_name -%>
-      <%- end -%>
+        <% @manifestation_types.each do |manifestation_type| %>
+          <% if params[:manifestation_types] %>
+            <% manifestation_types = params[:manifestation_types].class == String ? eval(params[:manifestation_types]) : params[:manifestation_types] %>
+            <%= check_box 'manifestation_types', manifestation_type.id, {:checked => manifestation_types.has_key?(manifestation_type.id.to_s)}, true, false %>
+            <%= manifestation_type.display_name -%> 
+          <% end %>
+        <% end %>
       </td>
     </tr>
     <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
