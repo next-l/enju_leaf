@@ -28,14 +28,25 @@
       <%- if can? :create, SeriesHasManifestation -%>
         <%- if params[:mode] == 'add' -%>
           <% if @manifestation.series_has_manifestation %>
-            <% unless @manifestation.series_statement == series_statement %>
-              <%= link_to t('page.select'), edit_series_has_manifestation_path(@manifestation.series_has_manifestation, :series_statement_id => series_statement.id) -%>
+            <% unless @manifestation.series_statement.id == series_statement.id %>
+              <%= link_to t('page.select'),
+                { :controller => 'series_has_manifestations',
+                  :action => 'update',
+                  :id => @manifestation.series_has_manifestation.id,
+                  :mode => 'edit_manifestation',
+                  :series_has_manifestation => { :series_statement_id => series_statement.id, :manifestation_id => @manifestation.id } },
+                { :method => 'put' } %>
             <% end %>
           <% else %>
-            <%= link_to t('page.select'), new_series_has_manifestation_path(:series_statement_id => series_statement.id, :manifestation_id => @manifestation.id) -%>
+            <%= link_to t('page.select'),
+              { :controller => 'series_has_manifestations',
+                :action => 'create',
+                :mode => 'edit_manifestation',
+                :series_has_manifestation => { :series_statement_id => series_statement.id, :manifestation_id => @manifestation.id } },
+              { :method => 'post' } %>
           <% end %>
         <%- else -%>
-          <%= link_to t('page.destroy'), manifestation_series_has_manifestation_path(@manifestation, series_statement.manifestation_included(@manifestation)), :confirm => t('page.are_you_sure'), :method => :delete if series_statement.manifestation_included(@manifestation) -%>
+          <%= link_to t('page.destroy'), manifestation_series_has_manifestation_path(@manifestation, series_statement.manifestation_included(@manifestation), :mode => 'edit_manifestation'), :confirm => t('page.are_you_sure'), :method => :delete if series_statement.manifestation_included(@manifestation) -%>
         <%- end -%>
       <%- end -%>
     </td>
