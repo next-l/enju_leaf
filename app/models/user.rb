@@ -84,7 +84,8 @@ class User < ActiveRecord::Base
   validates_associated :patron, :user_group, :library
   validates_presence_of :user_group, :library, :locale #, :user_number
   validates :user_number, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z_]+\Z/}, :allow_blank => true
-  validates_confirmation_of :email #, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
+  validates_confirmation_of :email, :on => :create#, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
+  validates_confirmation_of :email, :on => :update, :if => Proc.new { |user| user.email != User.find(user.id).email }
   before_validation :set_role_and_patron, :on => :create
   before_validation :set_lock_information
   before_validation :set_user_number, :on => :create
