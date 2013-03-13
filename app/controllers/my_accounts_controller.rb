@@ -22,7 +22,10 @@ class MyAccountsController < ApplicationController
     end
     @manifestation = Manifestation.pickup(@user.keyword_list.to_s.split.sort_by{rand}.first) rescue nil
     prepare_options
-
+    
+    # 資料区分
+    get_manifestation_types
+    
     respond_to do |format|
       if defined?(EnjuCustomize)
         format.html { render :file => "page/#{EnjuCustomize.render_dir}/index", :layout => EnjuCustomize.render_layout}

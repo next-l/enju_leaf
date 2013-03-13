@@ -300,7 +300,7 @@ module ApplicationHelper
     :pub_date_from, :pub_date_to, :acquired_from, :acquired_to,
     :removed_from, :removed_to, :number_of_pages_at_least,
     :number_of_pages_at_most, :advanced_search,
-    :exact_title, :exact_creator,
+    :exact_title, :exact_creator, :types, :manifestation_types,
   ]
 
   ADVANCED_SEARCH_LABEL_IDS = {
@@ -318,6 +318,7 @@ module ApplicationHelper
     exact_title: 'page.exact_title',
     exact_creator: 'page.exact_creator',
     query: 'page.search_term',
+    manifestation_types: 'activerecord.models.manifestation_type',
   }
 
   def advanced_search_label(key)
@@ -395,6 +396,15 @@ module ApplicationHelper
         end
         special[t][i] = v if special[t]
 
+      when :manifestation_types #資料区分
+        display_name_ary = []
+        manifestation_types = params[:manifestation_types].class == String ? eval(params[:manifestation_types]) : params[:manifestation_types]
+        manifestation_types.each_key do |manifestation_type_id|
+            manifestation_type = ManifestationType.find(manifestation_type_id)
+            display_name_ary << manifestation_type.display_name if manifestation_type.present?
+        end
+        summary_ary << [:manifestation_types, display_name_ary.join(", ")] if display_name_ary.present?
+        
       else
         summary_ary << [key, params[key]] if params[key].present?
       end
