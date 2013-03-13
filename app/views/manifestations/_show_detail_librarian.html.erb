@@ -33,6 +33,26 @@
             <%- end -%>
             </td>
           </tr>
+          <%- if manifestation.periodical_master %>
+            <%- if manifestation.exinfo_3 -%>
+              <tr>
+                <td><%= t('activerecord.attributes.manifestation.exinfo_3_r') -%>:</td>
+                <td><%= manifestation.exinfo_3 -%></td>
+              </tr>
+            <%- end -%>
+            <%- if manifestation.exinfo_4 -%>
+              <tr>
+                <td><%= t('activerecord.attributes.manifestation.exinfo_4_r') -%>:</td>
+                <td><%= manifestation.exinfo_4 -%></td>
+              </tr>
+            <%- end -%>
+            <%- if manifestation.exinfo_5 -%>
+              <tr>
+                <td><%= t('activerecord.attributes.manifestation.exinfo_5_r') -%>:</td>
+                <td><%= manifestation.exinfo_5 -%></td>
+              </tr>
+            <%- end -%>
+          <%- end -%>
         <% end %>
         <% if manifestation.article? %>
           <tr>
@@ -229,23 +249,25 @@
             <td><%= manifestation.exinfo_2 -%></td>
           </tr>
         <%- end -%>
-        <%- if manifestation.exinfo_3 -%>
-          <tr>
-            <td><%= t('activerecord.attributes.manifestation.exinfo_3') -%>:</td>
-            <td><%= manifestation.exinfo_3 -%></td>
-          </tr>
-        <%- end -%>
-        <%- if manifestation.exinfo_4 -%>
-          <tr>
-            <td><%= t('activerecord.attributes.manifestation.exinfo_4') -%>:</td>
-            <td><%= manifestation.exinfo_4 -%></td>
-          </tr>
-        <%- end -%>
-        <%- if manifestation.exinfo_5 -%>
-          <tr>
-            <td><%= t('activerecord.attributes.manifestation.exinfo_5') -%>:</td>
-            <td><%= manifestation.exinfo_5 -%></td>
-          </tr>
+        <%- unless manifestation.periodical_master %>
+          <%- if manifestation.exinfo_3 -%>
+            <tr>
+              <td><%= t('activerecord.attributes.manifestation.exinfo_3') -%>:</td>
+              <td><%= manifestation.exinfo_3 -%></td>
+            </tr>
+          <%- end -%>
+          <%- if manifestation.exinfo_4 -%>
+            <tr>
+              <td><%= t('activerecord.attributes.manifestation.exinfo_4') -%>:</td>
+              <td><%= manifestation.exinfo_4 -%></td>
+            </tr>
+          <%- end -%>
+          <%- if manifestation.exinfo_5 -%>
+            <tr>
+              <td><%= t('activerecord.attributes.manifestation.exinfo_5') -%>:</td>
+              <td><%= manifestation.exinfo_5 -%></td>
+            </tr>
+          <%- end -%>
         <%- end -%>
         <%- if manifestation.exinfo_6 -%>
           <tr>
