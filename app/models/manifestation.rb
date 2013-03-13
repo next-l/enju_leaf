@@ -1060,6 +1060,11 @@ class Manifestation < ActiveRecord::Base
         val = article_title.to_s
       end
 
+    when 'url'
+      if ws_type == 'article'
+        val = access_address.to_s
+      end
+
     when 'volume_number_string'
       if ws_type == 'article' &&
           volume_number_string.present? && issue_number_string.present?
