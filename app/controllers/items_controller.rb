@@ -305,6 +305,7 @@ class ItemsController < ApplicationController
     @shelf_categories = Shelf.try(:categories) rescue nil
     if @shelf_categories
       @shelves = []
+      @shelves << @item.shelf if @item
     else
       @shelves = @library.shelves
     end
