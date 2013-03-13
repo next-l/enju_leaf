@@ -637,18 +637,59 @@ describe ManifestationsController do
           end
         end
 
-        [
-          %w(title exact_title title_sm),
-          %w(creator exact_creator creator_sm),
-        ].each do |param, eparam, field|
-          it "should execute exact match search from #{field} field when #{param} and #{eparam} are specified" do
-            found = false
-            Sunspot::DSL::Search.any_instance.stub(:fulltext) do |qs, *opts|
-              found = true if /\b#{Regexp.quote(field)}:"foobar"/ =~ qs
+        describe 'exact-match' do
+          [
+            %w(title title_sm),
+            %w(creator creator_sm),
+          ].each do |param, field|
+            it "should search records that have specified #{field} value when #{param}_merge is \"exact\"" do
+              found = false
+              Sunspot::DSL::Search.any_instance.stub(:fulltext) do |qs, *opts|
+                found = true if /\b#{Regexp.quote(field)}:"foobar"/ =~ qs
+              end
+              get :index, param => 'foobar', "#{param}_merge" => 'exact'
+              response.should be_success
+              found.should be_true
             end
-            get :index, param => 'foobar', eparam => 'true'
-            response.should be_success
-            found.should be_true
+          end
+        end
+
+        describe 'or-search' do
+          [
+            %w(query),
+            %w(title title_text),
+            %w(creator creator_text),
+          ].each do |param, field|
+            it "should search records that match any words of the query string when #{param}_merge is \"any\"" do
+              found = false
+              Sunspot::DSL::Search.any_instance.stub(:fulltext) do |qs, *opts|
+                t = "#{Regexp.quote(field)}:" if field
+                found = true if /\(#{t}foobar OR #{t}barbaz\)/ =~ qs
+              end
+              get :index, param => 'foobar barbaz', "#{param}_merge" => 'any'
+              response.should be_success
+              found.should be_true
+            end
+          end
+        end
+
+        describe 'not-search' do
+          [
+            %w(query),
+            %w(title title_text),
+            %w(creator creator_text),
+            %w(publisher publisher_text),
+          ].each do |param, field|
+            it "should search records that dont match all words of the except_#{param}" do
+              found = false
+              Sunspot::DSL::Search.any_instance.stub(:fulltext) do |qs, *opts|
+                t = "#{Regexp.quote(field)}:" if field
+                found = true if /\b#{t}foobar\b/ =~ qs && /-#{t}barbaz\b/ =~ qs
+              end
+              get :index, param => 'foobar', "except_#{param}" => 'barbaz'
+              response.should be_success
+              found.should be_true
+            end
           end
         end
 

@@ -656,7 +656,10 @@ class ManifestationsController < ApplicationController
   def make_query_string
     qwords = []
 
-    # main query
+    #
+    # basic search
+    #
+
     query = params[:query].to_s.dup
     query = query.gsub(/[　\s]+/, ' ')
     query = query.strip
@@ -666,28 +669,35 @@ class ManifestationsController < ApplicationController
 
     if query.present?
       qws = each_query_word(query)
-      if qws.size == 1 || SystemConfiguration.get("search.use_and")
+      if qws.size == 1
+        qwords << qws
+      elsif params[:query_merge] == 'all' || params[:query_merge] != 'any' && SystemConfiguration.get("search.use_and")
         qwords << qws.join(' AND ')
       else
         qwords << '(' + qws.join(' OR ') + ')'
       end
     end
 
+    #
     # advanced search
+    #
+
+    # exact match
     exact_match = []
-    if params[:title].present? && params[:exact_title].present?
+    if params[:title].present? && params[:title_merge] == 'exact'
       exact_match << :title
       t = params[:title].gsub(/"/, '\\"')
       qwords << %Q[title_sm:"#{t}"]
     end
 
-    if params[:creator].present? && params[:exact_creator].present?
+    if params[:creator].present? && params[:creator_merge] == 'exact'
       exact_match << :creator
       t = params[:creator].gsub(/\s/, '') # インデックス登録時の値に合わせて空白を除去しておく
       t = t.gsub(/"/, '\\"')
       qwords << %Q[creator_sm:"#{t}"]
     end
 
+    # other attributes
     [
       [:tag, 'tag_sm'],
       [:title, 'title_text'],
@@ -700,17 +710,30 @@ class ManifestationsController < ApplicationController
       [:publisher, 'publisher_text'],
       [:item_identifier, 'item_identifier_sm'],
       [:manifestation_type, 'manifestation_type_sm'],
+      [:except_query, nil],
+      [:except_title, 'title_text'],
+      [:except_creator, 'creator_text'],
+      [:except_publisher, 'publisher_text'],
     ].each do |key, field|
       next if exact_match.include?(key)
 
       value = params[key]
       next if value.blank?
 
+      qws = []
+      flg = /\Aexcept_/ =~ key.to_s ? '-' : ''
+      tag = "#{field}:" if field
       each_query_word(value) do |word|
-        qwords << "#{field}:#{word}"
+        qws << "#{flg}#{tag}#{word}"
+      end
+      if qws.size > 1 && params[:"#{key}_merge"] == 'any'
+        qwords.push "(#{qws.join(' OR ')})"
+      else
+        qwords.push qws.join(' AND ')
       end
     end
 
+    # range
     [
       [:number_of_pages_at_least, :number_of_pages_at_most,
         :num_range_query, 'number_of_pages'],
@@ -726,6 +749,7 @@ class ManifestationsController < ApplicationController
       qwords << q if q
     end
 
+    # merge basic and advanced
     op = SystemConfiguration.get("advanced_search.use_and") ? 'AND' : 'OR'
     qwords.join(" #{op} ")
   end

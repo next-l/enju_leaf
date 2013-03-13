@@ -296,11 +296,11 @@ module ApplicationHelper
   end
 
   ADVANCED_SEARCH_PARAMS = [
-    :tag, :title, :creator, :publisher, :isbn, :issn, :item_identifier,
-    :pub_date_from, :pub_date_to, :acquired_from, :acquired_to,
-    :removed_from, :removed_to, :number_of_pages_at_least,
-    :number_of_pages_at_most, :advanced_search,
-    :exact_title, :exact_creator,
+    :except_query, :tag, :title, :except_title, :creator, :except_creator,
+    :publisher, :isbn, :issn, :item_identifier, :pub_date_from,
+    :pub_date_to, :acquired_from, :acquired_to, :removed_from, :removed_to,
+    :number_of_pages_at_least, :number_of_pages_at_most, :advanced_search,
+    :title_merge, :creator_merge, :query_merge,
   ]
 
   ADVANCED_SEARCH_LABEL_IDS = {
@@ -316,8 +316,17 @@ module ApplicationHelper
     removed: 'activerecord.attributes.item.removed_at',
     number_of_pages: 'page.number_of_pages',
     exact_title: 'page.exact_title',
+    all_title: 'page.all_title',
+    any_title: 'page.any_title',
+    except_title: 'page.except_title',
     exact_creator: 'page.exact_creator',
+    all_creator: 'page.all_creator',
+    any_creator: 'page.any_creator',
+    except_creator: 'page.except_creator',
     query: 'page.search_term',
+    all_query: 'page.all_search_term',
+    any_query: 'page.any_search_term',
+    except_query: 'page.except_search_term',
   }
 
   def advanced_search_label(key)
@@ -378,12 +387,14 @@ module ApplicationHelper
         end
         special[t][i] = params[key] if special[t]
 
-      when :title, :creator, :exact_title, :exact_creator
-        t = key.to_s.sub(/\A(exact_)?/, '').to_sym
+      when :title, :creator, :title_merge, :creator_merge, :query_merge
+        t = key.to_s.sub(/(_merge)?\z/, '').to_sym
         v = nil
         if $1
           i = 1
-          v = "[#{advanced_search_label(key)}]" if params[t].present?
+          if params[t].present? && /\A(?:all|any|exact)\z/ =~ params[key].to_s
+            v = "[#{advanced_search_label(:"#{params[key]}_#{t}")}]"
+          end
         else
           i = 0
           v = params[key] if params[key].present?
@@ -394,6 +405,13 @@ module ApplicationHelper
           summary_ary << [t, special[t]]
         end
         special[t][i] = v if special[t]
+
+      when :except_query, :except_title, :except_creator, :except_publisher
+        k = key.to_s.sub(/\Aexcept_/, '').to_sym
+
+        if params[key].present? && params[k].present?
+          summary_ary << ["#{advanced_search_label(key)}#{advanced_search_label(k)}", params[key]]
+        end
 
       else
         summary_ary << [key, params[key]] if params[key].present?
@@ -419,7 +437,38 @@ module ApplicationHelper
         data = data.to_s
       end
 
-      "#{advanced_search_label(label_id)}: #{data}"
+      label = label_id.is_a?(Symbol) ? advanced_search_label(label_id) : label_id
+      "#{label}: #{data}"
     end.join(I18n.t('page.advanced_search_summary_delimiter')) + omission + ')'
+  end
+
+  def advanced_search_merge_tag(name)
+    pname = :"#{name}_merge"
+    all = any = exact = false
+
+    case params[pname]
+    when 'any'
+      any = true
+    when 'exact'
+      if name == 'query'
+        all = true
+      else
+        exact = true
+      end
+    else
+      all = true
+    end
+
+    (if name == 'query'
+        ''
+      else
+        radio_button_tag(pname, 'exact', exact) +
+        advanced_search_label(:"exact_#{name}") + ' '
+      end +
+      radio_button_tag(pname, 'all', all) +
+      advanced_search_label(:"all_#{name}") + ' ' +
+      radio_button_tag(pname, 'any', any) +
+      advanced_search_label(:"any_#{name}") + ' '
+    ).html_safe
   end
 end
