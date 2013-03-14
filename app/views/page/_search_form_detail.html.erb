@@ -53,6 +53,10 @@ $(function(){
       <td><%= text_field_tag 'item_identifier', params[:item_identifier] -%></td>
     </tr>
     <tr>
+      <td><label><%= advanced_search_label(:call_number) -%>:</label></td>
+      <td><%= text_field_tag 'call_number', params[:call_number] -%></td>
+    </tr>
+    <tr>
       <td><label><%= advanced_search_label(:pub_date) -%>:</label></td>
       <td><%= t('advanced_search.from') -%> <%= text_field_tag 'pub_date_from', params[:pub_date_from], :class => 'date_text_field', :placeholder => "#{t('page.example')}: 1978, 1978-04-12" -%>
         <%= t('advanced_search.to') -%> <%= text_field_tag 'pub_date_to', params[:pub_date_to], :class => 'date_text_field', :placeholder => "#{t('page.example')}: 2011, 2011-04-12"-%></td>
@@ -80,6 +84,14 @@ $(function(){
           <%= t('advanced_search.to') -%> <%= text_field_tag 'number_of_pages_at_most', params[:number_of_pages_at_most], :size => 5 -%></td>
     </tr>
 <% end %>
+    <tr>
+      <td><label><%= advanced_search_label(:manifestation_types) -%>:</label></td>
+      <td>
+      <%- @manifestation_types.each do |manifestation_type| -%>
+        <%= check_box 'manifestation_types', manifestation_type.id, {:checked => true}, true, false %><%= manifestation_type.display_name -%>
+      <%- end -%>
+      </td>
+    </tr>
     <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
       <% if user_signed_in? and current_user.has_role?('Librarian') %>
         <tr>

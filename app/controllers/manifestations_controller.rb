@@ -589,7 +589,6 @@ class ManifestationsController < ApplicationController
           @manifestation.contributors = Patron.add_patrons(@contributor) unless @contributor.blank?
           @manifestation.publishers = Patron.add_patrons(@publisher) unless @publisher.blank?
           @manifestation.subjects = Subject.import_subjects(@subject.gsub('；', ';').split(';')) unless @subject.blank?
-          @manifestation.save
         end
 
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_created', :model => t('activerecord.models.manifestation')) }
@@ -609,15 +608,15 @@ class ManifestationsController < ApplicationController
     @publisher = params[:manifestation][:publisher]
     @contributor = params[:manifestation][:contributor]
     @subject = params[:manifestation][:subject]
-    @manifestation.creators = Patron.add_patrons(@creator) 
-    @manifestation.contributors = Patron.add_patrons(@contributor) 
-    @manifestation.publishers = Patron.add_patrons(@publisher)
-    @manifestation.subjects = Subject.import_subjects(@subject.gsub('；', ';').split(';')) 
     respond_to do |format|
       if @manifestation.update_attributes(params[:manifestation])
         if @manifestation.series_statement and @manifestation.series_statement.periodical
           Manifestation.find(@manifestation.series_statement.root_manifestation_id).index
         end
+        @manifestation.creators = Patron.add_patrons(@creator) 
+        @manifestation.contributors = Patron.add_patrons(@contributor) 
+        @manifestation.publishers = Patron.add_patrons(@publisher)
+        @manifestation.subjects = Subject.import_subjects(@subject.gsub('；', ';').split(';')) 
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_updated', :model => t('activerecord.models.manifestation')) }
         format.json { head :no_content }
       else
@@ -728,6 +727,17 @@ class ManifestationsController < ApplicationController
       qwords << q if q
     end
 
+    # 詳細検索からの資料区分 ファセット選択時は無効とする
+    if params[:manifestation_types].present? && params[:manifestation_type].blank?
+      types_ary = []
+      manifestation_types = params[:manifestation_types].class == String ? eval(params[:manifestation_types]) : params[:manifestation_types]
+      manifestation_types.each_key do |key|
+        manifestation_type = ManifestationType.find(key)
+        types_ary << "manifestation_type_sm:#{manifestation_type.name}" if manifestation_type.present?
+      end
+      qwords << types_ary.join(" OR ") if types_ary.present?
+    end
+
     op = SystemConfiguration.get("advanced_search.use_and") ? 'AND' : 'OR'
     qwords.join(" #{op} ")
   end
@@ -806,7 +816,7 @@ class ManifestationsController < ApplicationController
     [with, without]
   end
 
-  # 空白を含まない文字列、"〜"、'〜'を抽出する
+  # 空白を含まない文字列、"?"、'?'を抽出する
   def each_query_word(str)
     ary = []
     str.scan(/([^"'\s]\S*|(["'])(?:(?:\\\\)+|\\\2|.)*?\2)/) do

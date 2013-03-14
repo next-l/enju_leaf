@@ -422,6 +422,11 @@ class ApplicationController < ActionController::Base
     payload[:session_id] = request.session_options[:id] rescue nil
     payload[:remote_ip] = request.remote_ip
   end
+
+  def get_manifestation_types
+    @manifestation_types = ManifestationType.all
+  end
+
 end
 
 class InvalidLocaleError < StandardError

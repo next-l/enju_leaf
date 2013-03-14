@@ -22,7 +22,9 @@ class PageController < ApplicationController
       @events = Event.order('start_at DESC').limit(5)
     end
     @manifestation = Manifestation.pickup rescue nil
-
+    get_libraries
+    get_manifestation_types
+ 
     respond_to do |format|
       if defined?(EnjuCustomize)
         format.html { render :file => "page/#{EnjuCustomize.render_dir}/index", :layout => EnjuCustomize.render_layout}
@@ -44,6 +46,14 @@ class PageController < ApplicationController
   def advanced_search
     get_libraries
     @title = t('page.advanced_search')
+    # 資料区分
+    get_manifestation_types
+    if params[:manifestation_types].blank?
+      params[:manifestation_types] = {}
+      @manifestation_types.each do |manifestation_type|
+        params[:manifestation_types].store(manifestation_type.id.to_s, "true")
+      end
+    end
   end
 
   def exstatistics
