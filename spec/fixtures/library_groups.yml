@@ -8,6 +8,7 @@ one:
   note: 
   my_networks: 0.0.0.0/0
   url: "http://localhost:3000/"
+  admin_networks: 0.0.0.0/0
 
 
 # == Schema Information

@@ -6,8 +6,8 @@
   <h2 class="resource_title">
     [U]
     <%= @user.username -%>
-    <% if can? :show, @user.patron %>
-      (<%= link_to @user.patron.full_name, @user.patron %>)
+    <% if @user.full_name %>
+      (<%= @user.full_name %>)
     <% end %>
   </h2>
 

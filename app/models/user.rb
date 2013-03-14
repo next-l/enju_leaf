@@ -65,12 +65,12 @@ class User < ActiveRecord::Base
   has_paper_trail
   normalize_attributes :username, :user_number #, :email
 
-  enju_circulation_user if defined?(EnjuCirculation)
-  enju_question_user if defined?(EnjuQuestion)
-  enju_purchase_request_user if defined?(EnjuPurchaseRequest)
-  enju_bookmark_user if defined?(EnjuBookmark)
-  enju_message_user if defined?(EnjuMessage)
-  enju_search_log_user if defined?(EnjuSearchLog)
+  enju_circulation_user_model if defined?(EnjuCirculation)
+  enju_question_user_model if defined?(EnjuQuestion)
+  enju_purchase_request_user_model if defined?(EnjuPurchaseRequest)
+  enju_bookmark_user_model if defined?(EnjuBookmark)
+  enju_message_user_model if defined?(EnjuMessage)
+  enju_search_log_user_model if defined?(EnjuSearchLog)
 
   searchable do
     text :username, :email, :note, :user_number
@@ -231,14 +231,6 @@ class User < ActiveRecord::Base
       true
     else
       false
-    end
-  end
-
-  def deletable?
-    if defined?(EnjuCirculation)
-      true if checkouts.not_returned.empty? and id != 1
-    else
-      true if id != 1
     end
   end
 
