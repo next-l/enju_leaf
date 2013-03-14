@@ -43,7 +43,7 @@ describe UsersController do
 
       it "assigns all users as @users" do
         get :index
-        assigns(:users).should be_empty
+        assigns(:users).should be_nil
         response.should be_forbidden
       end
     end
@@ -51,7 +51,7 @@ describe UsersController do
     describe "When not logged in" do
       it "assigns all users as @users" do
         get :index
-        assigns(:users).should be_empty
+        assigns(:users).should be_nil
         response.should redirect_to(new_user_session_url)
       end
     end

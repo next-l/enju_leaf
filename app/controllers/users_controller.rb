@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 class UsersController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource :except => :index
+  authorize_resource :only => :index
   before_filter :get_patron, :only => :new
   before_filter :store_location, :only => [:index]
   before_filter :clear_search_sessions, :only => [:show]

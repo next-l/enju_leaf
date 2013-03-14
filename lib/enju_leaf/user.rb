@@ -1,13 +1,14 @@
 module EnjuLeaf
-  module User
+  module EnjuUser
     def self.included(base)
       base.extend ClassMethods
     end
-
+  
     module ClassMethods
-      def enju_user
+      def enju_user_model
         include InstanceMethods
 
+        # Setup accessible (or protected) attributes for your model
         attr_accessible :email, :password, :password_confirmation, :current_password,
           :remember_me, :email_confirmation, :library_id, :locale,
           :keyword_list, :auto_generated_password
@@ -41,12 +42,12 @@ module EnjuLeaf
         validates_date :expired_at, :allow_blank => true
   
         with_options :if => :password_required? do |v|
-          v.validates_presence_of         :password
+          v.validates_presence_of     :password
           v.validates_confirmation_of :password
-          v.validates_length_of           :password, :within => 6..64, :allow_blank => true
+          v.validates_length_of       :password, :within => 6..64, :allow_blank => true
         end
   
-        validates_presence_of         :email, :email_confirmation, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
+        validates_presence_of     :email, :email_confirmation, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
         validates_associated :user_group, :library #, :patron
         validates_presence_of :user_group, :library, :locale #, :user_number
         validates :user_number, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z_]+\Z/}, :allow_blank => true
@@ -59,18 +60,23 @@ module EnjuLeaf
         before_create :set_expired_at
         after_destroy :remove_from_index
         after_create :set_confirmation
-        #after_save :index_patron
-        #after_destroy :index_patron
   
         extend FriendlyId
         friendly_id :username
         has_paper_trail
-        normalize_attributes :username, :user_number
+        normalize_attributes :username, :user_number #, :email
+  
+        enju_circulation_user_model if defined?(EnjuCirculation)
+        enju_question_user_model if defined?(EnjuQuestion)
+        enju_purchase_request_user_model if defined?(EnjuPurchaseRequest)
+        enju_bookmark_user_model if defined?(EnjuBookmark)
+        enju_message_user_model if defined?(EnjuMessage)
+        enju_search_log_user_model if defined?(EnjuSearchLog)
   
         searchable do
           text :username, :email, :note, :user_number
           text :name do
-                #patron.name if patron
+            #patron.name if patron
           end
           string :username
           string :email
@@ -79,7 +85,7 @@ module EnjuLeaf
           time :created_at
           time :updated_at
           boolean :active do
-                active_for_authentication?
+            active_for_authentication?
           end
           time :confirmed_at
         end
@@ -95,12 +101,12 @@ module EnjuLeaf
         paginates_per 10
       end
     end
-
+  
     module InstanceMethods
       def password_required?
         !persisted? || !password.nil? || !password_confirmation.nil?
       end
-
+  
       def has_role?(role_in_question)
         return false unless role
         return true if role.name == role_in_question
@@ -113,7 +119,7 @@ module EnjuLeaf
           false
         end
       end
-
+  
       def set_role_and_patron
         self.required_role = Role.where(:name => 'Librarian').first
         self.locale = I18n.default_locale.to_s
@@ -121,7 +127,7 @@ module EnjuLeaf
         #  self.patron = Patron.create(:full_name => self.username) if self.username
         #end
       end
-
+  
       def set_lock_information
         if locked == '1' and self.active_for_authentication?
           lock_access!
@@ -137,12 +143,6 @@ module EnjuLeaf
         end
       end
   
-      def index_patron
-        if self.patron
-          self.patron.index
-        end
-      end
-  
       def check_expiration
         return if self.has_role?('Administrator')
         if expired_at
@@ -151,62 +151,62 @@ module EnjuLeaf
           end
         end
       end
-
+  
       def check_role_before_destroy
         if self.has_role?('Administrator')
           raise 'This is the last administrator in this system.' if Role.where(:name => 'Administrator').first.users.size == 1
         end
       end
-
+  
       def set_auto_generated_password
         password = Devise.friendly_token[0..7]
         self.password = password
         self.password_confirmation = password
       end
-
+  
       def self.lock_expired_users
         User.find_each do |user|
           user.lock_access! if user.expired? and user.active_for_authentication?
         end
       end
-
+  
       def expired?
         if expired_at
           true if expired_at.beginning_of_day < Time.zone.now.beginning_of_day
         end
       end
-
+  
       def is_admin?
         true if self.has_role?('Administrator')
       end
-
+  
       def last_librarian?
         if self.has_role?('Librarian')
           role = Role.where(:name => 'Librarian').first
           true if role.users.size == 1
         end
       end
-
+  
       def send_confirmation_instructions
         unless self.operator
           Devise::Mailer.confirmation_instructions(self).deliver if self.email.present?
         end
       end
-
+  
       def set_expired_at
         if self.user_group.valid_period_for_new_user > 0
           self.expired_at = self.user_group.valid_period_for_new_user.days.from_now.end_of_day
         end
       end
-
+  
       def deletable_by(current_user)
         if defined?(EnjuCirculation)
-        # 未返却の資料のあるユーザを削除しようとした
+          # 未返却の資料のあるユーザを削除しようとした
           if checkouts.count > 0
             errors[:base] << I18n.t('user.this_user_has_checked_out_item')
           end
         end
-
+  
         if has_role?('Librarian')
           # 管理者以外のユーザが図書館員を削除しようとした。図書館員の削除は管理者しかできない
           unless current_user.has_role?('Administrator')
@@ -217,7 +217,7 @@ module EnjuLeaf
             errors[:base] << I18n.t('user.last_librarian')
           end
         end
-
+  
         # 最後の管理者を削除しようとした
         if has_role?('Administrator')
           if Role.where(:name => 'Administrator').first.users.size == 1
@@ -231,22 +231,61 @@ module EnjuLeaf
           false
         end
       end
-
-      def deletable?
-        if defined?(EnjuCirculation)
-          true if checkouts.not_returned.empty? and id != 1
-        else
-          true if id != 1
-        end
-      end
-
-      def patron
-        LocalPatron.new({:username => username})
-      end
-
+  
+      #def patron
+      #  LocalPatron.new({:username => username})
+      #end
+  
       def full_name
         username
       end
     end
   end
 end
+  
+  
+# == Schema Information
+#
+# Table name: users
+#
+#  id                       :integer         not null, primary key
+#  email                    :string(255)     default(""), not null
+#  encrypted_password       :string(255)     default(""), not null
+#  reset_password_token     :string(255)
+#  reset_password_sent_at   :datetime
+#  remember_created_at      :datetime
+#  sign_in_count            :integer         default(0)
+#  current_sign_in_at       :datetime
+#  last_sign_in_at          :datetime
+#  current_sign_in_ip       :string(255)
+#  last_sign_in_ip          :string(255)
+#  password_salt            :string(255)
+#  confirmation_token       :string(255)
+#  confirmed_at             :datetime
+#  confirmation_sent_at     :datetime
+#  unconfirmed_email        :string(255)
+#  failed_attempts          :integer         default(0)
+#  unlock_token             :string(255)
+#  locked_at                :datetime
+#  authentication_token     :string(255)
+#  created_at               :datetime        not null
+#  updated_at               :datetime        not null
+#  deleted_at               :datetime
+#  username                 :string(255)     not null
+#  library_id               :integer         default(1), not null
+#  user_group_id            :integer         default(1), not null
+#  expired_at               :datetime
+#  required_role_id         :integer         default(1), not null
+#  note                     :text
+#  keyword_list             :text
+#  user_number              :string(255)
+#  state                    :string(255)
+#  locale                   :string(255)
+#  enju_access_key          :string(255)
+#  save_checkout_history    :boolean
+#  checkout_icalendar_token :string(255)
+#  share_bookmarks          :boolean
+#  save_search_history      :boolean
+#  answer_feed_token        :string(255)
+#
+  
