@@ -1,7 +1,11 @@
             <tr class="line<% unless checkedout_original_book?(manifestation) %><%= cycle("0", "1") %><% else %>2<% end%>">
               <td style="480px">
-                <%= render 'manifestations/show_index', :manifestation => manifestation -%>
-                <%- if SystemConfiguration.get('internal_server') %>
+                <%- if manifestation.article? %>
+                  <%= render 'manifestations/show_index_article', :manifestation => manifestation -%>
+                <%- else -%>
+                  <%= render 'manifestations/show_index', :manifestation => manifestation -%>
+                <%- end -%>
+                <%- if SystemConfiguration.get('internal_server') && !manifestation.article? %> 
                   <div class="access_address">
                     <%= link_to manifestation.access_address, manifestation.access_address if manifestation.access_address.present? -%>
                   </div>

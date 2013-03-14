@@ -204,7 +204,8 @@ class ManifestationsController < ApplicationController
             :manifestation_type_id, :carrier_type_id, :access_address,
             :volume_number_string, :issue_number_string, :serial_number_string,
             :date_of_publication, :pub_date, :periodical_master, :language_id,
-            :carrier_type_id, :created_at, :note, :missing_issue,
+            :carrier_type_id, :created_at, :note, :missing_issue, :article_title,
+            :start_page, :end_page
           ]
         end
       end

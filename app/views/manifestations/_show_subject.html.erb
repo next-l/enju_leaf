@@ -1,0 +1,5 @@
+<div class="subject" id="subject_<%= manifestation.id -%>" style="display: none">
+  <%- manifestation.subjects.each do |s| -%>
+    <%= link_to s.term, manifestations_path(:subject => s.term) -%>
+  <%- end -%>
+</div>

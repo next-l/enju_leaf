@@ -8,9 +8,9 @@
     <% end %>
   </strong>
   <% if manifestation.try(:series_statement).try(:periodical) %>
-    <%= t('manifestation.format_numbers', :volume => manifestation.volume_number_string,
-                            :issue => manifestation.issue_number_string,
-                            :serial => manifestation.serial_number_string) %>
+    <%- if manifestation.pub_date.present? -%><%= t('manifestation.format_year', :year => manifestation.pub_date) -%><%- end -%>
+    <%- unless manifestation.volume_number_string.blank? %><%= t('manifestation.format_volume', :volume => manifestation.volume_number_string) %><%- end -%>
+    <%- unless manifestation.issue_number_string.blank? %><%= t('manifestation.format_issue', :issue => manifestation.issue_number_string) %><%- end -%>
   <% end %>
   <% if manifestation.periodical_master? %>
     <%- if manifestation.series_statement.try(:first_issue) and manifestation.series_statement.try(:latest_issue) -%>

@@ -215,4 +215,17 @@ module ManifestationsHelper
       nil
     end
   end
+  
+  def page_format(start_page, end_page)
+    if start_page == end_page
+      start_page
+    elsif !start_page.blank? && !end_page.blank?
+      "#{start_page} - #{end_page}"
+    elsif start_page.blank?
+      end_page
+    elsif end_page.blank?
+      start_page
+    end
+  end
+
 end

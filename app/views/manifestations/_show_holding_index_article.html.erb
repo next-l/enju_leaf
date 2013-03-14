@@ -1,0 +1,22 @@
+<% if manifestation.items.exists? %>
+<div id="holding">
+<table class="holding">
+  <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'holding', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
+    <tr>
+      <th><%= t('activerecord.attributes.item.call_number') %></th>
+      <th><%= t('activerecord.models.subject') %></th>
+    </tr>
+    <tr>
+      <td>
+        <%= call_numberformat(manifestation.items.first) %>
+      </td>
+      <td>
+        <%- manifestation.subjects.each do |s| -%>
+          <%= link_to s.term, manifestations_path(:subject => s.term) -%>
+        <%- end -%>
+      </td>
+    </tr>
+  <% end %>
+</table>
+</div>
+<% end %>

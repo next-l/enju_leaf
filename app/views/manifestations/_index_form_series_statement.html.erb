@@ -7,9 +7,9 @@
   [S]
   <%= link_to @series_statement.original_title, @series_statement, :itemprop => 'name' -%>
   <% if @series_statement.periodical %>
-    <%= t('manifestation.format_numbers', :volume => @periodical_master.volume_number_string,
-                            :issue => @periodical_master.issue_number_string,
-                            :serial => @periodical_master.serial_number_string) %>
+    <%- unless @series_statement.root_manifestation.volume_number_string.blank? %><%= t('manifestation.format_volume', :volume => @series_statement.root_manifestation.volume_number_string) %><%- end -%>
+    <%- unless @series_statement.root_manifestation.issue_number_string.blank? %><%= t('manifestation.format_issue', :issue => @series_statement.root_manifestation.issue_number_string) %><%- end -%>
+    <%- @series_statement.root_manifestation.serial_number_string %>
     <p>
     <%- unless @series_statement.root_manifestation.creators.readable_by(current_user).empty? -%>
       <%= t('patron.creator') -%>: <%= patrons_list(@series_statement.root_manifestation.creators.readable_by(current_user), :itemprop => 'author') -%>
