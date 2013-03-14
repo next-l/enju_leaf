@@ -311,6 +311,7 @@ module ApplicationHelper
     isbn: 'activerecord.attributes.manifestation.isbn',
     issn: 'activerecord.attributes.manifestation.issn',
     item_identifier: 'activerecord.attributes.item.item_identifier',
+    call_number: 'activerecord.attributes.item.call_number',
     pub_date: 'activerecord.attributes.manifestation.date_of_publication',
     acquired: 'activerecord.attributes.item.acquired_at',
     removed: 'activerecord.attributes.item.removed_at',
