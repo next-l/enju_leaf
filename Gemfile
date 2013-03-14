@@ -20,7 +20,7 @@ gem "enju_ndl", "0.1.0.pre8"
 gem 'enju_trunk_event', :git => 'git://github.com/shinozuka/enju_trunk_event.git', :require => 'enju_event'
 #gem 'enju_bookmark', :git => 'git://github.com/nabeta/enju_bookmark'
 #gem 'enju_bookmark', :git => 'git://github.com/shinozuka/enju_bookmark.git'
-gem 'enju_subject', '~> 0.1.0.pre4'
+gem 'enju_subject', '0.1.0.pre5'
 
 gem "jpp_customercode_transfer", "~> 0.0.2"
 
