@@ -9,7 +9,7 @@
   <div>
     <%= manifestation.article_title %>
     <%- if manifestation.pub_date.present? -%><%= t('manifestation.format_year', :year => manifestation.pub_date) -%><%- end -%>
-TEST    <%- unless manifestation.volume_number_string.blank? %><%= t('manifestation.format_volume', :volume => manifestation.volume_number_string) %><%- end -%>
+    <%- unless manifestation.volume_number_string.blank? %><%= t('manifestation.format_volume', :volume => manifestation.volume_number_string) %><%- end -%>
     <%- unless manifestation.issue_number_string.blank? %><%= t('manifestation.format_issue', :issue => manifestation.issue_number_string) %><%- end -%>
     <%= manifestation.serial_number_string %>
     <%- if manifestation.start_page || manifestation.end_page %>(<%= page_format(manifestation.start_page, manifestation.end_page) -%>)<%- end -%>
