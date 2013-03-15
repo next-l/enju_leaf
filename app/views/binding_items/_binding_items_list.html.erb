@@ -1,4 +1,4 @@
-<div style="color: red"><%= flash[:message].try(:join) -%></div>
+<div id='message' style="color: red"><%= flash[:message].try(:join) -%></div>
 
 <% form_for @binding_item, :html => {:method => :post}, :url => bookbinding_binding_items_path(@bookbinding, :mode => 'list'), :remote => true do |f| -%>
   <%= f.error_messages -%>

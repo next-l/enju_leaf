@@ -2567,6 +2567,7 @@ ja:
     bind: "上記の資料を製本する"
     add: "追加"
     search_items: "製本対象資料を検索してください。"
+    no_item_identifier: "所蔵情報IDが設定されていません。"
   bookbinding:
     bookbinding_completed: "製本処理が完了しました。"
     unbinded: "製本を解除しました。"
