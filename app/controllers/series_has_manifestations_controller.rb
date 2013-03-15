@@ -66,7 +66,9 @@ class SeriesHasManifestationsController < ApplicationController
   # PUT /series_has_manifestations/1.json
   def update
     respond_to do |format|
+      old_series_statement = @series_has_manifestation.series_statement
       if @series_has_manifestation.update_attributes(params[:series_has_manifestation])
+        old_series_statement.index
         if params[:mode] == 'edit_manifestation'
           format.html { redirect_to edit_manifestation_path(@series_has_manifestation.manifestation) }
         else
