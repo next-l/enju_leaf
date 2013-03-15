@@ -26,12 +26,28 @@
         $(".excel_sheets").html("")
         if(name == 'Excelfile_Adapter') {
           if (this.value.match(/.xlsx$/)){
+            var data = "<p style='color: green'><br />"
+                     + "<%= t('resource_import_textfile.importing_please_wait') %>"
+                     + "<br /><br /></p>";
+            $(".excel_sheets").html(data);
             $(".spinner").spin();
             var csrf_token = $("meta[name=csrf-token]").attr("content");
             $(this).upload('upload', { "authenticity_token": csrf_token }, function (data) {
               $(".excel_sheets").html(data)
+              $(".spinner").spin(false);
+              // re-enable select/fileinput/button after the upload is complete
+              $("#resource_import_textfile_adapter_name").removeAttr("disabled");
+              $("#resource_import_textfile_resource_import_text").removeAttr("disabled");
+              $("#button_resource_input_create").removeAttr("disabled");
             }, 'text');
-            $(".spinner").spin(false);
+            // disable ESC keypress while uploading
+            $(document).keydown(function(e) {
+              if (e.keyCode == 27) return false;
+            });
+            // disable select/fileinput/button while uploading
+            $("#resource_import_textfile_adapter_name").attr("disabled","disabled");
+            $("#resource_import_textfile_resource_import_text").attr("disabled","disabled");
+            $("#button_resource_input_create").attr("disabled","disabled");
           } else {
             var path = this.value.split('\\');
             var fileName = path.pop();
@@ -70,7 +86,7 @@
   <div class="excel_sheets"></div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :id => "button_resource_input_create" %>
   </div>
 <%- end -%>
 

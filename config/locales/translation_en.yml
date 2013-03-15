@@ -1708,6 +1708,10 @@ en:
   merge_list:
     successfully_merged: "%{model} were merged successfully."
     specify_id: "Specify %{model} ID."
+  resource_import_textfile:
+    wrong_file: "can not be imported."
+    wrong_extention: "Only files with xlsx extension can be imported."
+    importing_please_wait: "Now importing Excel file. Please wait..."
   item_list:
     list_condition: List Condition
     no_list_condition: Check list condition
