@@ -739,9 +739,9 @@ class ManifestationsController < ApplicationController
       manifestation_types = params[:manifestation_types].class == String ? eval(params[:manifestation_types]) : params[:manifestation_types]
       manifestation_types.each_key do |key|
         manifestation_type = ManifestationType.find(key)
-        types_ary << "manifestation_type_sm:#{manifestation_type.name}" if manifestation_type.present?
+        types_ary << manifestation_type.name if manifestation_type.present?
       end
-      qwords << types_ary.join(" OR ") if types_ary.present?
+      qwords << "manifestation_type_sm:(" + types_ary.join(" OR ") + ")" if types_ary.present?
     end
 
     op = SystemConfiguration.get("advanced_search.use_and") ? 'AND' : 'OR'
