@@ -1,0 +1,25 @@
+--- 
+library_00001: 
+  name: web
+  short_display_name: Web
+  display_name: World Wide Web
+  fax_number: 
+  telephone_number_1: 
+  telephone_number_2: 
+  id: 1
+  region: 
+  library_group_id: 1
+  call_number_delimiter: "|"
+  position: 1
+library_00002: 
+  name: yours
+  short_display_name: your_library
+  display_name: Your Library
+  fax_number: 
+  telephone_number_1: 
+  telephone_number_2: 
+  id: 2
+  region: somewhere
+  library_group_id: 1
+  call_number_delimiter: "|"
+  position: 2

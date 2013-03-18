@@ -1,0 +1,22 @@
+--- 
+content_type_00001:
+  id: 1
+  name: text  
+  display_name: "en: text\r\n\
+    ja: 文字"
+  note: 
+  position: 1
+content_type_00002:
+  id: 2
+  name: audio  
+  display_name: "en: audio\r\n\
+    ja: 音声"
+  note: 
+  position: 2
+content_type_00003:
+  id: 3
+  name: video  
+  display_name: "en: video\r\n\
+    ja: 映像"
+  note: 
+  position: 3
