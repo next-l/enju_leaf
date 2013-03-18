@@ -11,7 +11,6 @@
       <%= link_to manifestation.original_title, manifestation_path(manifestation) -%>
     <% end %>
   </strong>
-  <%- if manifestation.pub_date.present? -%><%= t('manifestation.format_year', :year => manifestation.pub_date) -%><%- end -%>
   <%- unless manifestation.volume_number_string.blank? %><%= t('manifestation.format_volume', :volume => manifestation.volume_number_string) %><%- end -%>
   <%- unless manifestation.issue_number_string.blank? %><%= t('manifestation.format_issue', :issue => manifestation.issue_number_string) %><%- end -%>
   <% if manifestation.periodical_master? %>

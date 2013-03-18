@@ -86,7 +86,11 @@ class ManifestationsController < ApplicationController
         search_opts[:split_by_type] = SystemConfiguration.get('manifestations.split_by_type')
       end
       if search_opts[:split_by_type]
-        search_opts[:with_article] = SystemConfiguration.get('internal_server')
+        if params[:without_article]
+          search_opts[:with_article] = false
+        else
+          search_opts[:with_article] = SystemConfiguration.get('internal_server')
+        end
       end
 
       # action: oai GetRecord
@@ -160,6 +164,7 @@ class ManifestationsController < ApplicationController
         sort = search_result_order(params[:sort_by], params[:order])
       end
 
+      search_opts[:with_periodical_item] = params[:with_periodical_item]
       with_filter, without_filter = make_query_filter(search_opts)
 
       # build search
@@ -315,6 +320,7 @@ class ManifestationsController < ApplicationController
         logger.error "query error: #{e}"
         return
       end
+
 
       @count[:query_result] = search_all_result.total
       @collation = search_all_result.collation if @count[:query_result] == 0
@@ -767,7 +773,9 @@ class ManifestationsController < ApplicationController
 
     without << [:id, :equal_to, @binder.manifestation.id] if @binder
 
-    with << [:periodical, :equal_to, false] if options[:add_mode] || @series_statement.blank?
+    unless options[:with_periodical_item]
+      with << [:periodical, :equal_to, false] if options[:add_mode] || @series_statement.blank?
+    end 
 
     return [with, without] if options[:add_mode]
 

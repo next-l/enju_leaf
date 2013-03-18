@@ -551,7 +551,7 @@ class Manifestation < ActiveRecord::Base
         self.serial_number_string = m.serial_number_string.to_i + 1
         unless m.issue_number_string.blank?
 #          self.issue_number = m.issue_number.split.last.to_i + 1
-          self.issue_number_string = m.issue_number_string.last.to_i + 1
+          self.issue_number_string = m.issue_number_string.to_i + 1
         else
           self.issue_number_string = m.issue_number_string
         end
