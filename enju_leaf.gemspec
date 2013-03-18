@@ -17,12 +17,14 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", "~> 3.2.13.rc2"
-  s.add_dependency "enju_biblio", "~> 0.1.0.pre25"
+  s.add_dependency "enju_biblio", "~> 0.1.0.pre26"
   s.add_dependency "enju_library", "~> 0.1.0.pre13"
   s.add_dependency "enju_book_jacket", "~> 0.1.0.pre5"
   s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre3"
   s.add_dependency "redcarpet"
   s.add_dependency "mobylette"
+  s.add_dependency "jquery-ui-rails"
+  s.add_dependency "jquery-modal-rails"
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"
