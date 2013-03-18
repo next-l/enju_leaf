@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 class UsersController < ApplicationController
-  load_and_authorize_resource :except => :index
-  authorize_resource :only => :index
-  before_filter :get_patron, :only => :new
+  load_and_authorize_resource :except => [:index, :create]
+  authorize_resource :only => [:index, :create]
+  #before_filter :get_patron, :only => :new
   before_filter :store_location, :only => [:index]
   before_filter :clear_search_sessions, :only => [:show]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
@@ -80,12 +80,12 @@ class UsersController < ApplicationController
     @user = User.new
     prepare_options
     @user_groups = UserGroup.all
-    if @patron.try(:user)
-      flash[:notice] = t('page.already_activated')
-      redirect_to @patron
-      return
-    end
-    @user.patron_id = @patron.id if @patron
+    #if @patron.try(:user)
+    #  flash[:notice] = t('page.already_activated')
+    #  redirect_to @patron
+    #  return
+    #end
+    #@user.patron_id = @patron.id if @patron
     @user.library = current_user.library
     @user.locale = current_user.locale
   end

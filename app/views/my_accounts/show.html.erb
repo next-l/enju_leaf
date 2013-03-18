@@ -6,9 +6,6 @@
   <h2 class="resource_title">
     [U]
     <%= current_user.username -%>
-    <% if can? :show, current_user.patron %>
-      (<%= link_to current_user.patron.full_name, current_user.patron %>)
-    <% end %>
   </h2>
 
   <p><%= t('activerecord.attributes.user.user_number') %>: <%= current_user.user_number %></p>
