@@ -1,6 +1,5 @@
 namespace :enju_leaf do
   desc "Copy config files"
-
   config_files = [
     "config/application.yml",
     "db/seeds.rb"
@@ -16,6 +15,7 @@ namespace :enju_leaf do
 
   fixture_dir = "#{Rails.root.to_s}/db/fixtures"
   directory fixture_dir
+  desc "Copy fixture files"
   task :copy_fixture_files => fixture_dir do
     cp Dir[File.dirname(__FILE__) + '/../../db/fixtures/*.yml'], fixture_dir
   end

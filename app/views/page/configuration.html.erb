@@ -20,11 +20,11 @@
         <% end %>
         <% if defined?(EnjuEvent) %>
           <li><%= link_to t('activerecord.models.event_category'), event_categories_path -%>
+            <ul>
+              <li><%= link_to t('page.new', :model => t('activerecord.models.event_import_file')), new_event_import_file_path %></li>
+            </ul>
+          </li>
         <% end %>
-        <ul>
-          <li><%= link_to t('page.new', :model => t('activerecord.models.event_import_file')), new_event_import_file_path %></li>
-        </ul>
-        </li>
         <li><%= link_to t('activerecord.models.budget_type'), budget_types_path -%></li>
         <li><%= link_to t('activerecord.models.bookstore'), bookstores_path -%></li>
         <% if defined?(EnjuMessage) %>
@@ -92,14 +92,14 @@
       <ul>
         <li><%= link_to t('activerecord.models.form_of_work'), form_of_works_path -%></li>
         <li><%= link_to t('activerecord.models.carrier_type'), carrier_types_path -%></li>
+        <li><%= link_to t('activerecord.models.content_type'), content_types_path -%></li>
         <% if defined?(EnjuCirculation) %>
-          <li><%= link_to t('activerecord.models.content_type'), content_types_path -%></li>
           <li><%= link_to t('activerecord.models.circulation_status'), circulation_statuses_path -%></li>
+          <li><%= link_to t('activerecord.models.use_restriction'), use_restrictions_path -%></li>
         <% end %>
         <li><%= link_to t('activerecord.models.patron_type'), patron_types_path -%></li>
         <li><%= link_to t('activerecord.models.language'), languages_path -%></li>
         <li><%= link_to t('activerecord.models.country'), countries_path -%></li>
-        <li><%= link_to t('activerecord.models.use_restriction'), use_restrictions_path -%></li>
         <li><%= link_to t('activerecord.models.frequency'), frequencies_path -%></li>
         <li><%= link_to t('activerecord.models.patron_relationship_type'), patron_relationship_types_path -%></li>
         <li><%= link_to t('activerecord.models.manifestation_relationship_type'), manifestation_relationship_types_path -%></li>
