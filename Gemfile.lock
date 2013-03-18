@@ -95,31 +95,6 @@ GIT
       state_machine
 
 GIT
-  remote: git://github.com/next-l/enju_flower.git
-  revision: 3bba0466c031f938e350614c08bd9cb815825a39
-  specs:
-    enju_flower (0.1.0.pre2)
-      rails (~> 3.2.13.rc2)
-
-GIT
-  remote: git://github.com/next-l/enju_inter_library_loan.git
-  revision: a463e79ca972c9bb329fcf60068d4fc84bb806c5
-  specs:
-    enju_inter_library_loan (0.1.0.pre7)
-      enju_biblio (~> 0.1.0.pre25)
-      rails (~> 3.2)
-      state_machine
-
-GIT
-  remote: git://github.com/next-l/enju_inventory.git
-  revision: a3df17958203dc81abc5786d02e111ba443f06a1
-  specs:
-    enju_inventory (0.1.11.pre6)
-      enju_biblio (~> 0.1.0.pre23)
-      inherited_resources
-      rails (~> 3.2)
-
-GIT
   remote: git://github.com/next-l/enju_library.git
   revision: a608921113b3fa9e2746016361619fdbf606704b
   specs:
@@ -167,43 +142,6 @@ GIT
       rails (~> 3.2)
 
 GIT
-  remote: git://github.com/next-l/enju_purchase_request.git
-  revision: 0ee8463e425264a7723106a0209142215d720bd6
-  specs:
-    enju_purchase_request (0.1.0.pre6)
-      enju_bookmark (~> 0.1.2.pre8)
-      rails (~> 3.2)
-      state_machine
-
-GIT
-  remote: git://github.com/next-l/enju_question.git
-  revision: c5ad4ca92f2245b2d0f4d4364914509e1ccbd1e0
-  specs:
-    enju_question (0.1.0.pre7)
-      acts-as-taggable-on (~> 2.3)
-      enju_core (~> 0.1.1.pre3)
-      rails (~> 3.2)
-      simple_form
-
-GIT
-  remote: git://github.com/next-l/enju_resource_merge.git
-  revision: 94d8956e2ab55c220868dcde734bbed3b40d296c
-  specs:
-    enju_resource_merge (0.1.0.pre6)
-      dynamic_form
-      enju_biblio (~> 0.1.0.pre25)
-      inherited_resources
-      rails (~> 3.2)
-
-GIT
-  remote: git://github.com/next-l/enju_search_log.git
-  revision: 7524ccefcce86b463a78d5725e561e5bb28b10eb
-  specs:
-    enju_search_log (0.1.0.pre4)
-      enju_biblio (~> 0.1.0.pre23)
-      rails (~> 3.2)
-
-GIT
   remote: git://github.com/next-l/enju_subject.git
   revision: 1f21dc61b284e056e93771674cb2be96dbab2cd1
   specs:
@@ -212,6 +150,12 @@ GIT
       enju_core (~> 0.1.1.pre3)
       inherited_resources
       rails (~> 3.2)
+
+PATH
+  remote: ../enju_flower
+  specs:
+    enju_flower (0.1.0.pre2)
+      rails (~> 3.2.13.rc2)
 
 GEM
   remote: https://rubygems.org/
@@ -243,8 +187,6 @@ GEM
     activesupport (3.2.13.rc2)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
-    acts-as-taggable-on (2.3.3)
-      rails (~> 3.0)
     acts_as_list (0.2.0)
       activerecord (>= 3.0)
     addressable (2.3.3)
@@ -296,10 +238,6 @@ GEM
       devise (>= 2.1.0.rc)
     diff-lcs (1.2.1)
     dynamic_form (1.1.4)
-    enju_bookmark (0.1.2.pre8)
-      acts-as-taggable-on (~> 2.3)
-      rails (~> 3.2)
-      state_machine
     erubis (2.7.0)
     event-calendar (2.3.3)
     exception_notification (3.0.1)
@@ -594,17 +532,11 @@ DEPENDENCIES
   enju_event!
   enju_export!
   enju_flower!
-  enju_inter_library_loan!
-  enju_inventory!
   enju_library!
   enju_manifestation_viewer!
   enju_message!
   enju_ndl!
   enju_oai!
-  enju_purchase_request!
-  enju_question!
-  enju_resource_merge!
-  enju_search_log!
   enju_subject!
   exception_notification (~> 3.0)
   factory_girl_rails (~> 4.2)
