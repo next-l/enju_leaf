@@ -6,7 +6,7 @@ gem 'rails', '3.2.13.rc2'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'enju_biblio', '~> 0.1.0.pre25'
+gem 'enju_biblio', '~> 0.1.0.pre26'
 gem 'enju_library', '0.1.0.pre13'
 gem 'enju_flower', '~> 0.1.0.pre2'
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
@@ -76,7 +76,6 @@ gem 'rails_autolink'
 gem 'foreigner'
 gem 'strong_parameters'
 gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
-gem 'nested_form'
 gem 'paperclip-meta'
 gem 'redis-rails'
 

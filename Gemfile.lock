@@ -87,7 +87,7 @@ GEM
       devise (>= 2.1.0.rc)
     diff-lcs (1.2.1)
     dynamic_form (1.1.4)
-    enju_biblio (0.1.0.pre25)
+    enju_biblio (0.1.0.pre26)
       aws-sdk
       dynamic_form
       enju_core (~> 0.1.1.pre3)
@@ -96,7 +96,6 @@ GEM
       library_stdnums
       lisbn
       marc
-      nested_form
       paper_trail
       paperclip (~> 3.4)
       paperclip-meta
@@ -115,7 +114,7 @@ GEM
       simple_form
       state_machine
       validates_timeliness
-    enju_core (0.1.1.pre3)
+    enju_core (0.1.1.pre4)
       acts_as_list
       addressable
       attribute_normalizer (~> 1.1)
@@ -124,10 +123,11 @@ GEM
       devise
       friendly_id (~> 4.0)
       kaminari
+      nested_form
       rails (~> 3.2)
       resque
       settingslogic
-      sunspot_rails (~> 2.0.0.pre.130115)
+      sunspot_rails (~> 2.0.0)
     enju_event (0.1.17.pre7)
       enju_core (~> 0.1.1.pre3)
       enju_message (~> 0.1.14.pre4)
@@ -450,7 +450,7 @@ DEPENDENCIES
   dalli (~> 2.6)
   devise-encryptable
   dynamic_form
-  enju_biblio (~> 0.1.0.pre25)
+  enju_biblio (~> 0.1.0.pre26)
   enju_book_jacket (~> 0.1.0.pre6)
   enju_circulation (~> 0.1.0.pre16)
   enju_flower (~> 0.1.0.pre2)
@@ -471,7 +471,6 @@ DEPENDENCIES
   jruby-openssl
   kgio
   mobylette
-  nested_form
   paper_trail (~> 2.7)
   paperclip-meta
   parallel_tests (~> 0.9)
