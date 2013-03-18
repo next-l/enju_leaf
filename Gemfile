@@ -100,7 +100,7 @@ group :development, :test do
   gem 'vcr', '~> 2.4'
   gem 'steak'
   gem 'resque_spec'
-  gem 'parallel_tests', '~> 0.9'
+  gem 'parallel_tests', '~> 0.10'
 end
 
 # Gems used only for assets and not required

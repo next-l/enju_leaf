@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: c49047a4ddae401409653ce81ea9360a1e999129
+  revision: fb88b9050cfb994ef5d4df89b4f9934578ececde
   specs:
-    enju_biblio (0.1.0.pre24)
+    enju_biblio (0.1.0.pre25)
       aws-sdk
       dynamic_form
       enju_core (~> 0.1.1.pre3)
@@ -51,7 +51,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_core.git
-  revision: 1ff688c9cfd08cf3c2f71f1ff43eaa1161b181c5
+  revision: 72f61cbe24e4f040803693c7fffe9f301abb0770
   specs:
     enju_core (0.1.1.pre3)
       acts_as_list
@@ -86,27 +86,27 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_export.git
-  revision: fa548e28472ab3f6d70f86491377cbd72f4752ce
+  revision: 6d7ea8cfa5ae3a925a6a043f857c5b0bf3c15a13
   specs:
-    enju_export (0.1.1.pre2)
-      enju_biblio (~> 0.1.0.pre18)
+    enju_export (0.1.1.pre3)
+      enju_biblio (~> 0.1.0.pre25)
       rails (~> 3.2)
       simple_form
       state_machine
 
 GIT
   remote: git://github.com/next-l/enju_flower.git
-  revision: 40f84c2337ed2e83ac68dd28a009ed6cdf7f807b
+  revision: 3bba0466c031f938e350614c08bd9cb815825a39
   specs:
     enju_flower (0.1.0.pre2)
       rails (~> 3.2.13.rc2)
 
 GIT
   remote: git://github.com/next-l/enju_inter_library_loan.git
-  revision: 3ff2b1d8e1e4b4cb4cc297297e23f047d40db061
+  revision: a463e79ca972c9bb329fcf60068d4fc84bb806c5
   specs:
-    enju_inter_library_loan (0.1.0.pre6)
-      enju_biblio (~> 0.1.0.pre23)
+    enju_inter_library_loan (0.1.0.pre7)
+      enju_biblio (~> 0.1.0.pre25)
       rails (~> 3.2)
       state_machine
 
@@ -161,25 +161,25 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_oai.git
-  revision: 8ee66e1e027d250691380e93ac407d61df07e0a6
+  revision: edc7be8a0d1c471ce02ad7628042bae937207e00
   specs:
     enju_oai (0.1.0.pre8)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_purchase_request.git
-  revision: 86e4761009ab474eb2c0027c21dbf839d758e251
+  revision: 0ee8463e425264a7723106a0209142215d720bd6
   specs:
-    enju_purchase_request (0.1.0.pre5)
+    enju_purchase_request (0.1.0.pre6)
       enju_bookmark (~> 0.1.2.pre8)
       rails (~> 3.2)
       state_machine
 
 GIT
   remote: git://github.com/next-l/enju_question.git
-  revision: 49ad59169b9d4b4ff5d9aae99268f84a4d465645
+  revision: c5ad4ca92f2245b2d0f4d4364914509e1ccbd1e0
   specs:
-    enju_question (0.1.0.pre6)
+    enju_question (0.1.0.pre7)
       acts-as-taggable-on (~> 2.3)
       enju_core (~> 0.1.1.pre3)
       rails (~> 3.2)
@@ -187,11 +187,11 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_resource_merge.git
-  revision: 0d2b674002fbafe33fc2f4f96d63662c46b07adb
+  revision: 94d8956e2ab55c220868dcde734bbed3b40d296c
   specs:
     enju_resource_merge (0.1.0.pre6)
       dynamic_form
-      enju_biblio (~> 0.1.0.pre23)
+      enju_biblio (~> 0.1.0.pre25)
       inherited_resources
       rails (~> 3.2)
 
@@ -205,7 +205,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_subject.git
-  revision: f6ca18bf0e6ed829a274fff90231e65bef9822e1
+  revision: 1f21dc61b284e056e93771674cb2be96dbab2cd1
   specs:
     enju_subject (0.1.0.pre7)
       dynamic_form
@@ -327,7 +327,7 @@ GEM
       guard (>= 1.1)
       rspec (~> 2.11)
     has_scope (0.5.1)
-    highline (1.6.15)
+    highline (1.6.16)
     hike (1.2.1)
     i18n (0.6.1)
     immigrant (0.1.4)
@@ -345,7 +345,7 @@ GEM
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (4.0.1)
+    jquery-ui-rails (4.0.2)
       jquery-rails
       railties (>= 3.1.0)
     json (1.7.7)
@@ -368,7 +368,7 @@ GEM
     mime-types (1.21)
     mobylette (3.3.2)
       actionpack (>= 3.0)
-    multi_json (1.6.1)
+    multi_json (1.7.0)
     nested_form (0.3.1)
     nokogiri (1.5.6)
     nori (2.0.4)
@@ -387,12 +387,12 @@ GEM
     paperclip-meta (0.4.3)
       paperclip
     parallel (0.6.2)
-    parallel_tests (0.10.0)
+    parallel_tests (0.10.1)
       parallel
     pg (0.14.1)
     polyglot (0.3.3)
     pr_geohash (1.0.0)
-    progress_bar (0.4.0)
+    progress_bar (1.0.0)
       highline (~> 1.6.1)
       options (~> 2.3.0)
     pry (0.9.12)
@@ -512,7 +512,7 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
     simplecov-html (0.7.1)
-    sinatra (1.3.5)
+    sinatra (1.3.6)
       rack (~> 1.4)
       rack-protection (~> 1.3)
       tilt (~> 1.3, >= 1.3.3)
@@ -547,7 +547,7 @@ GEM
     sunspot_solr (2.0.0)
     terminal-table (1.4.5)
     thor (0.17.0)
-    tilt (1.3.5)
+    tilt (1.3.6)
     timecop (0.6.1)
     timeliness (0.3.7)
     treetop (1.4.12)
@@ -621,7 +621,7 @@ DEPENDENCIES
   nested_form
   paper_trail (~> 2.7)
   paperclip-meta
-  parallel_tests (~> 0.9)
+  parallel_tests (~> 0.10)
   pg
   progress_bar
   rack-protection
