@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -107,7 +107,7 @@ gem 'foreigner'
 
 group :development do
   gem 'annotate', '~> 2.5'
-  gem 'sunspot_solr', '~> 2.0.0.pre.120720'
+  gem 'sunspot_solr', '~> 2.0.0.pre.120925'
   gem 'rails-erd'
   gem 'immigrant'
 end
