@@ -1726,6 +1726,7 @@ ja:
     help_isbn: "半角英数字で入力してください。ハイフン（-）の入力は不要です。"
     help_issn: "半角英数字で入力してください。ハイフン（-）の入力は不要です。"
     all_manifestations: "検索非対象資料も表示"
+    clear_query: "検索条件をクリア"
     description: "
       <h5>検索方法:</h5>
       <strong>[AND]検索</strong><br />

@@ -15,7 +15,7 @@ $(function(){
 
 <%#- cache :controller => 'page', :action => 'advanced_search', :locale => @locale do -%>
 <%= form_tag({:controller => 'manifestations'}, {:method => 'get'}) do -%>
-  <table style="width: 100%">
+  <table style="width: 100%" id="advanced_search">
     <tr>
       <td><label><%= advanced_search_label(:query) -%>:</label></td>
       <td><%= search_field_tag 'query', params[:query], :class => 'search_form_short', :placeholder => t('page.search_term') -%><br />
@@ -130,6 +130,7 @@ $(function(){
         <%= hidden_field_tag 'advanced_search', 'true' -%>
         <%= hidden_field_tag 'user_id', params[:user_id] if params[:user_id] -%>
         <%= submit_tag t('page.search') -%>
+        <%= button_to_function t('advanced_search.clear_query'), "clear_all()" %>
       </td>
     </tr>
   </table>
