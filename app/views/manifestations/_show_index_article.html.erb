@@ -1,6 +1,10 @@
 <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'show_index', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
   <strong>
-    <%= link_to manifestation.original_title, manifestation.access_address -%>
+    <%- if manifestation.access_address %>
+      <%= link_to manifestation.original_title, manifestation.access_address -%>
+    <%- else -%>
+      <%= manifestation.original_title %>
+    <%- end -%>
   </strong>
   <br />
   <div id="creator_list_<%= manifestation.id -%>">
