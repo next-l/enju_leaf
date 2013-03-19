@@ -27,7 +27,7 @@ class Manifestation < ActiveRecord::Base
   scope :without_master, where(:periodical_master => false)
 
   searchable do
-    text :fulltext, :contributor, :article_title, :series_title
+    text :fulltext, :contributor, :article_title, :series_title, :exinfo_1, :exinfo_6
     text :title, :default_boost => 2 do
       titles
     end
@@ -1097,6 +1097,10 @@ class Manifestation < ActiveRecord::Base
         sep = ' '
       end
       val = __send__("#{ws_col}s").map(&:full_name).join(sep)
+      if ws_col == 'creator' &&
+          ws_type == 'article' && japanese_article? && !val.blank?
+        val += sep
+      end
     when 'subject'
       sep = ';'
       if ws_type == 'article' && !japanese_article?
