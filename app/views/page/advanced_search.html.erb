@@ -88,15 +88,17 @@ $(function(){
 <% end %>
     <tr>
       <td><label><%= advanced_search_label(:manifestation_types) -%>:</label></td>
-      <td>
-        <% @manifestation_types.each do |manifestation_type| %>
+      <td><div class='parent'>
+        <%= check_box_tag 'all_manifestation_types', true, @selected_manifestation_types.size == @manifestation_types.size ? true : false, :class => 'check-parent' %><%= t('advanced_search.all', :model => t('activerecord.models.manifestation_type')) %><br />
+        <% @manifestation_types.each_with_index do |manifestation_type, i| %>
           <% if params[:manifestation_types] %>
             <% manifestation_types = params[:manifestation_types].class == String ? eval(params[:manifestation_types]) : params[:manifestation_types] %>
-            <%= check_box 'manifestation_types', manifestation_type.id, {:checked => manifestation_types.has_key?(manifestation_type.id.to_s)}, true, false %>
+            <%= check_box 'manifestation_types', manifestation_type.id, {:checked => manifestation_types.has_key?(manifestation_type.id.to_s), :class => 'check-child'}, true, false %>
             <%= manifestation_type.display_name -%> 
+            <%- if [5,9].include?(i) %><br /><%- end -%>
           <% end %>
         <% end %>
-      </td>
+      </div></td>
     </tr>
     <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
       <% if user_signed_in? and current_user.has_role?('Librarian') %>
