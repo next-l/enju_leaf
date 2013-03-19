@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: fb88b9050cfb994ef5d4df89b4f9934578ececde
+  revision: 086e5388b7545d0a5d9f334ac39b4b8609af2616
   specs:
-    enju_biblio (0.1.0.pre25)
+    enju_biblio (0.1.0.pre26)
       aws-sdk
       dynamic_form
       enju_core (~> 0.1.1.pre3)
@@ -19,7 +19,6 @@ GIT
       library_stdnums
       lisbn
       marc
-      nested_form
       paper_trail
       paperclip (~> 3.4)
       paperclip-meta
@@ -31,29 +30,29 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_book_jacket.git
-  revision: 71ca01328d30e7b63823b86e8717302ba658b801
+  revision: 45c7e40a5f67681f0dda099255ddd99f9ae3819e
   specs:
     enju_book_jacket (0.1.0.pre6)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_circulation.git
-  revision: cdd60b7e145f6aa15bfd3cc00a62632f9927e670
+  revision: b48bbf29642c71a0c1f18f29113b0780d205d05a
   specs:
     enju_circulation (0.1.0.pre16)
-      enju_event (~> 0.1.17.pre6)
-      enju_message (~> 0.1.14.pre4)
+      enju_core (~> 0.1.0.pre4)
+      enju_event (~> 0.1.17.pre7)
+      enju_message (~> 0.1.14.pre5)
       inherited_resources
-      rails (~> 3.2.13.rc2)
       simple_form
       state_machine
       validates_timeliness
 
 GIT
   remote: git://github.com/next-l/enju_core.git
-  revision: 72f61cbe24e4f040803693c7fffe9f301abb0770
+  revision: e4a0b451b9932fd3dbb50813ad29190f69c2ab89
   specs:
-    enju_core (0.1.1.pre3)
+    enju_core (0.1.1.pre4)
       acts_as_list
       addressable
       attribute_normalizer (~> 1.1)
@@ -63,17 +62,17 @@ GIT
       friendly_id (~> 4.0)
       kaminari
       nested_form
-      rails (~> 3.2)
+      rails (~> 3.2.13)
       resque
       settingslogic
       sunspot_rails (~> 2.0.0)
 
 GIT
   remote: git://github.com/next-l/enju_event.git
-  revision: fece878d52b601385013cce9466055116188bc1b
+  revision: eecff4b333c96699a73b3190cd657f36d1086dfc
   specs:
     enju_event (0.1.17.pre7)
-      enju_core (~> 0.1.1.pre3)
+      enju_core (~> 0.1.1.pre4)
       enju_message (~> 0.1.14.pre5)
       event-calendar (~> 2.3.3)
       has_scope
@@ -86,47 +85,51 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_export.git
-  revision: 6d7ea8cfa5ae3a925a6a043f857c5b0bf3c15a13
+  revision: 8551bfddd4a8d2d45861c5e06b7cf3691d41e1bb
   specs:
     enju_export (0.1.1.pre3)
-      enju_biblio (~> 0.1.0.pre25)
-      rails (~> 3.2)
+      enju_biblio (~> 0.1.0.pre26)
       simple_form
       state_machine
 
 GIT
-  remote: git://github.com/next-l/enju_library.git
-  revision: a608921113b3fa9e2746016361619fdbf606704b
+  remote: git://github.com/next-l/enju_flower.git
+  revision: 6ff78c6f1c781506357c79fb83334625a38ce129
   specs:
-    enju_library (0.1.0.pre13)
-      enju_core (~> 0.1.1.pre3)
+    enju_flower (0.1.0.pre2)
+      rails (~> 3.2)
+
+GIT
+  remote: git://github.com/next-l/enju_library.git
+  revision: 8bacbf8412c4c3974d40fd6dcdc35c90a5da77f1
+  specs:
+    enju_library (0.1.0.pre14)
+      enju_core (~> 0.1.1.pre4)
       geocoder
       inherited_resources
-      rails (~> 3.2.13.rc2)
 
 GIT
   remote: git://github.com/next-l/enju_manifestation_viewer.git
-  revision: ce14210a6c3d6706d92c55f26bf903ff09e7a5da
+  revision: 8538f420f3aa1bb37282d7ae3f5831d2db477e1a
   specs:
     enju_manifestation_viewer (0.1.0.pre4)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_message.git
-  revision: 4fbbd3f0affefef8cb69ca72c3fb26d2e24e8fe0
+  revision: ad40f0b7ede7a85b59f5552e4255475498c4b603
   specs:
     enju_message (0.1.14.pre5)
       awesome_nested_set (~> 2.1)
-      enju_core (~> 0.1.1.pre3)
+      enju_core (~> 0.1.1.pre4)
       inherited_resources
-      rails (~> 3.2)
       resque_mailer
       simple_form
       state_machine
 
 GIT
   remote: git://github.com/next-l/enju_ndl.git
-  revision: 5fbcf481dd9f82b558aa275043598e19e009c26b
+  revision: 571f5cd4381c8e19f92d09d6ffc9e2489999a86d
   specs:
     enju_ndl (0.1.0.pre10)
       library_stdnums
@@ -136,36 +139,29 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_oai.git
-  revision: edc7be8a0d1c471ce02ad7628042bae937207e00
+  revision: 8f7edbb8212e0a395ab56385d11fe31f4cb05b9f
   specs:
-    enju_oai (0.1.0.pre8)
+    enju_oai (0.1.0.pre9)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_subject.git
-  revision: 1f21dc61b284e056e93771674cb2be96dbab2cd1
+  revision: 4e187594f44f104a763096c727ab84f3ec356d72
   specs:
     enju_subject (0.1.0.pre7)
       dynamic_form
-      enju_core (~> 0.1.1.pre3)
+      enju_core (~> 0.1.1.pre4)
       inherited_resources
-      rails (~> 3.2)
-
-PATH
-  remote: ../enju_flower
-  specs:
-    enju_flower (0.1.0.pre2)
-      rails (~> 3.2.13.rc2)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    actionmailer (3.2.13.rc2)
-      actionpack (= 3.2.13.rc2)
+    actionmailer (3.2.13)
+      actionpack (= 3.2.13)
       mail (~> 2.5.3)
-    actionpack (3.2.13.rc2)
-      activemodel (= 3.2.13.rc2)
-      activesupport (= 3.2.13.rc2)
+    actionpack (3.2.13)
+      activemodel (= 3.2.13)
+      activesupport (= 3.2.13)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
       journey (~> 1.0.4)
@@ -173,18 +169,18 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    activemodel (3.2.13.rc2)
-      activesupport (= 3.2.13.rc2)
+    activemodel (3.2.13)
+      activesupport (= 3.2.13)
       builder (~> 3.0.0)
-    activerecord (3.2.13.rc2)
-      activemodel (= 3.2.13.rc2)
-      activesupport (= 3.2.13.rc2)
+    activerecord (3.2.13)
+      activemodel (= 3.2.13)
+      activesupport (= 3.2.13)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activeresource (3.2.13.rc2)
-      activemodel (= 3.2.13.rc2)
-      activesupport (= 3.2.13.rc2)
-    activesupport (3.2.13.rc2)
+    activeresource (3.2.13)
+      activemodel (= 3.2.13)
+      activesupport (= 3.2.13)
+    activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
     acts_as_list (0.2.0)
@@ -306,9 +302,9 @@ GEM
     mime-types (1.21)
     mobylette (3.3.2)
       actionpack (>= 3.0)
-    multi_json (1.7.0)
+    multi_json (1.7.1)
     nested_form (0.3.1)
-    nokogiri (1.5.6)
+    nokogiri (1.5.7)
     nori (2.0.4)
     options (2.3.0)
       fattr
@@ -346,14 +342,14 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails (3.2.13.rc2)
-      actionmailer (= 3.2.13.rc2)
-      actionpack (= 3.2.13.rc2)
-      activerecord (= 3.2.13.rc2)
-      activeresource (= 3.2.13.rc2)
-      activesupport (= 3.2.13.rc2)
+    rails (3.2.13)
+      actionmailer (= 3.2.13)
+      actionpack (= 3.2.13)
+      activerecord (= 3.2.13)
+      activeresource (= 3.2.13)
+      activesupport (= 3.2.13)
       bundler (~> 1.0)
-      railties (= 3.2.13.rc2)
+      railties (= 3.2.13)
     rails-erd (1.1.0)
       activerecord (>= 3.0)
       activesupport (>= 3.0)
@@ -361,9 +357,9 @@ GEM
       ruby-graphviz (~> 1.0.4)
     rails_autolink (1.0.9)
       rails (~> 3.1)
-    railties (3.2.13.rc2)
-      actionpack (= 3.2.13.rc2)
-      activesupport (= 3.2.13.rc2)
+    railties (3.2.13)
+      actionpack (= 3.2.13)
+      activesupport (= 3.2.13)
       rack-ssl (~> 1.3.2)
       rake (>= 0.8.7)
       rdoc (~> 3.4)
@@ -557,7 +553,7 @@ DEPENDENCIES
   pg
   progress_bar
   rack-protection
-  rails (= 3.2.13.rc2)
+  rails (= 3.2.13)
   rails-erd
   rails_autolink
   redcarpet
