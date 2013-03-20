@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 3.2.13"
   s.add_dependency "enju_biblio", "~> 0.1.0.pre26"
-  s.add_dependency "enju_library", "~> 0.1.0.pre13"
+  s.add_dependency "enju_library", "~> 0.1.0.pre14"
   s.add_dependency "enju_book_jacket", "~> 0.1.0.pre6"
   s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre4"
   s.add_dependency "redcarpet"
