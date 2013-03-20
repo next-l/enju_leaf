@@ -76,7 +76,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.6.1)
+    coffee-script-source (1.6.2)
     dalli (2.6.2)
     devise (2.2.3)
       bcrypt-ruby (~> 3.0)
@@ -141,11 +141,10 @@ GEM
       state_machine
     enju_flower (0.1.0.pre2)
       rails (~> 3.2.13.rc2)
-    enju_library (0.1.0.pre13)
-      enju_core (~> 0.1.1.pre3)
+    enju_library (0.1.0.pre14)
+      enju_core (~> 0.1.1.pre4)
       geocoder
       inherited_resources
-      rails (~> 3.2.13.rc2)
     enju_manifestation_viewer (0.1.0.pre4)
       rails (~> 3.2)
     enju_message (0.1.14.pre5)
@@ -221,7 +220,7 @@ GEM
       nokogiri
       nori (~> 2.0)
     listen (0.7.3)
-    lumberjack (1.0.2)
+    lumberjack (1.0.3)
     mail (2.5.3)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -233,7 +232,7 @@ GEM
       actionpack (>= 3.0)
     multi_json (1.7.1)
     nested_form (0.3.1)
-    nokogiri (1.5.7)
+    nokogiri (1.5.8)
     nori (2.0.4)
     options (2.3.0)
       fattr
@@ -249,8 +248,8 @@ GEM
       mime-types
     paperclip-meta (0.4.3)
       paperclip
-    parallel (0.6.2)
-    parallel_tests (0.10.1)
+    parallel (0.6.3)
+    parallel_tests (0.10.3)
       parallel
     pg (0.14.1)
     polyglot (0.3.3)
@@ -454,7 +453,7 @@ DEPENDENCIES
   enju_book_jacket (~> 0.1.0.pre6)
   enju_circulation (~> 0.1.0.pre16)
   enju_flower (~> 0.1.0.pre2)
-  enju_library (= 0.1.0.pre13)
+  enju_library (~> 0.1.0.pre13)
   enju_manifestation_viewer (~> 0.1.0.pre4)
   enju_message (~> 0.1.4.pre15)
   enju_ndl (~> 0.1.0.pre10)
