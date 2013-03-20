@@ -6,6 +6,20 @@ $(function(){
   $('#acquired_to').setCalendar({src:'/assets/calendar.png'});
   $('#removed_from').setCalendar({src:'/assets/calendar.png'});
   $('#removed_to').setCalendar({src:'/assets/calendar.png'});
+
+  $('#tabs').tabs();
+  $('#tabs-1').find('input').removeAttr("disabled");
+  $('#tabs-2').find('input').attr("disabled","disabled");
+
+  $('#tabs').bind("tabsselect", function(event, ui) {
+    if ( ui.panel.id == "tabs-1" ) {
+      $('#tabs-1').find('input').removeAttr("disabled");
+      $('#tabs-2').find('input').attr("disabled","disabled");
+    } else {
+      $('#tabs-2').find('input').removeAttr("disabled");
+      $('#tabs-1').find('input').attr("disabled","disabled");
+    }
+  });
 });
 </script>
 
@@ -15,6 +29,12 @@ $(function(){
 
 <%- cache :controller => 'page', :action => 'advanced_search', :locale => @locale do -%>
 <%= form_tag({:controller => 'manifestations'}, {:method => 'get'}) do -%>
+  <div id="tabs">
+    <ul>
+      <li><a href="#tabs-1"><%= t('advanced_search.advanced') -%></a></li>
+      <li><a href="#tabs-2"><%= t('advanced_search.solr_search') -%></a></li>
+    </ul>
+  <div id="tabs-1">
   <table style="width: 100%">
     <tr>
       <td><label><%= advanced_search_label(:query) -%>:</label></td>
@@ -120,6 +140,22 @@ $(function(){
       </td>
     </tr>
   </table>
+  </div>
+  <div id="tabs-2">
+  <table style="width: 100%">
+    <tr>
+      <td><label><%= advanced_search_label(:solr_query) -%>:</label></td>
+      <td><%= text_field_tag 'solr_query', params[:solr_query], :class => 'search_form' -%><br /><%= t('advanced_search.help_solr_query') -%></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <%= submit_tag t('page.search'), :name => 'solr_commit' -%>
+      </td>
+    </tr>
+  </table>
+  </div>
+  </div>
 <%- end -%>
 <%= javascript_tag("$('#query').focus()") -%>
 <%- end -%>

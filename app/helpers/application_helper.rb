@@ -327,6 +327,7 @@ module ApplicationHelper
     all_query: 'page.all_search_term',
     any_query: 'page.any_search_term',
     except_query: 'page.except_search_term',
+    solr_query: 'page.solr_query',
   }
 
   def advanced_search_label(key)
