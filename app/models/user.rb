@@ -67,6 +67,7 @@ class User < ActiveRecord::Base
   has_many :barcode_lists, :foreign_key => 'created_by'
   belongs_to :user_status
   belongs_to :department
+  has_many :copy_requests
 
   validates :username, :presence => true, :format => {:with => /\A[0-9A-Za-z_]+\Z/, :message => I18n.t('errors.messages.en_expected')} #, :uniqueness => true
   validates_uniqueness_of :username, :unless => proc{|user| SystemConfiguration.get('auto_user_number')}, :allow_blank => true

@@ -1,0 +1,30 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.copy_request')) -%></h1>
+<div id="content_list">
+<p id="notice" style="color: green"><%= raw notice %></p>
+<div style="color: red"><%= raw flash[:message] -%></div>
+
+<p>
+  <strong><%= t('activerecord.attributes.copy_request.user') -%>:</strong>
+  <%= link_to @copy_request.user.username, @copy_request.user -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.copy_request.body') -%>:</strong>
+  <%= raw textilize(h @copy_request.body) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.copy_request.created_at') -%>:</strong>
+  <%= l @copy_request.created_at -%>
+</p>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.copy_request')), copy_requests_path -%></li>
+    <li><%= link_to t('page.edit'), edit_copy_request_path(@copy_request) -%></li>
+    <li><%= link_to t('page.destroy'), @copy_request, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+  </ul>
+</div>

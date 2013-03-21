@@ -96,6 +96,7 @@ class Ability
         CheckoutType,
         Classification,
         Classmark,
+        CopyRequest,
         Create,
         CreateType,
         Department,
@@ -265,9 +266,10 @@ class Ability
         Bookbinding,
         Checkoutlist,
         Classmark,
+        CopyRequest,
         Create,
         CreateType,
-	      Department,
+	Department,
         Donate,
         Exemplify,
         Expense,
@@ -417,6 +419,10 @@ class Ability
       can :show, User
       can :update, User do |u|
         u == user
+      end
+      can :create, CopyRequest
+      can [:read, :update, :destroy], CopyRequest do |copy_request|
+        copy_request.user == user
       end
       can :read, [
         AcceptType,

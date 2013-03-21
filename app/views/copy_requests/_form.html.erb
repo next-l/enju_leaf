@@ -1,0 +1,21 @@
+<%= form_for(@copy_request) do |f| %>
+  <%= f.error_messages %>
+  <div style="color: red"><%= raw flash[:message] -%></div>
+
+  <div><%= raw t('copy_request.message') %></div><br />
+
+  <div class="field">
+    <%= f.label :user -%><br />
+    <%= current_user.username -%>
+    <%= f.hidden_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :body -%><br />
+    <%= f.text_area :body-%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
