@@ -206,7 +206,7 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 1.0.0)
-    charlock_holmes (0.6.9.1)
+    charlock_holmes (0.6.9.2)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
     choice (0.1.6)
@@ -223,7 +223,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.6.1)
+    coffee-script-source (1.6.2)
     dalli (2.6.2)
     devise (2.2.3)
       bcrypt-ruby (~> 3.0)
@@ -246,7 +246,7 @@ GEM
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
     fattr (2.2.1)
-    ffi (1.4.0)
+    ffi (1.5.0)
     foreigner (1.4.0)
       activerecord (>= 3.0.0)
     friendly_id (4.0.9)
@@ -292,7 +292,7 @@ GEM
       nokogiri
       nori (~> 2.0)
     listen (0.7.3)
-    lumberjack (1.0.2)
+    lumberjack (1.0.3)
     mail (2.5.3)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -304,7 +304,7 @@ GEM
       actionpack (>= 3.0)
     multi_json (1.7.1)
     nested_form (0.3.1)
-    nokogiri (1.5.7)
+    nokogiri (1.5.8)
     nori (2.0.4)
     options (2.3.0)
       fattr
@@ -320,8 +320,8 @@ GEM
       mime-types
     paperclip-meta (0.4.3)
       paperclip
-    parallel (0.6.2)
-    parallel_tests (0.10.1)
+    parallel (0.6.3)
+    parallel_tests (0.10.3)
       parallel
     pg (0.14.1)
     polyglot (0.3.3)
