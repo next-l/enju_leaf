@@ -134,26 +134,32 @@ describe ApplicationHelper do
     end
 
     it '指定内容を表示すること' do
+      params[:query] = 'query'
       params[:tag] = ''
-      params.delete(:exact_creator)
+      params[:title_merge] = 'exact'
+      params.delete(:creator_merge)
+      params.delete(:except_publisher)
 
       html = helper.advanced_search_condition_summary
 
       html.should match(/\A\(.+\)\z/)
       html.should_not include('tag')
       [
-        ['page.title', "title[#{t('page.exact_title')}]"],
-        ['patron.creator', "creator"],
-        ['patron.publisher', 'publisher'],
-        ['activerecord.attributes.manifestation.isbn', 'isbn'],
-        ['activerecord.attributes.manifestation.issn', 'issn'],
-        ['activerecord.attributes.item.item_identifier', 'item_identifier'],
-        ['activerecord.attributes.manifestation.date_of_publication', 'pub_date_from-pub_date_to'],
-        ['activerecord.attributes.item.acquired_at', 'acquired_from-acquired_to'],
-        ['activerecord.attributes.item.removed_at', 'removed_from-removed_to'],
-        ['page.number_of_pages', 'number_of_pages_at_least-number_of_pages_at_most'],
-      ].each do |label_id, value|
-        html.should include("#{t(label_id)}: #{value}")
+        [t('page.title'), "title[#{t('page.exact_title')}]"],
+        [t('patron.creator'), "creator"],
+        [t('patron.publisher'), 'publisher'],
+        [t('activerecord.attributes.manifestation.isbn'), 'isbn'],
+        [t('activerecord.attributes.manifestation.issn'), 'issn'],
+        [t('activerecord.attributes.item.item_identifier'), 'item_identifier'],
+        [t('activerecord.attributes.manifestation.date_of_publication'), 'pub_date_from-pub_date_to'],
+        [t('activerecord.attributes.item.acquired_at'), 'acquired_from-acquired_to'],
+        [t('activerecord.attributes.item.removed_at'), 'removed_from-removed_to'],
+        [t('page.number_of_pages'), 'number_of_pages_at_least-number_of_pages_at_most'],
+        ["#{t('page.except_search_term')}#{t('page.search_term')}", "except_query"],
+        ["#{t('page.except_title')}#{t('page.title')}", "except_title"],
+        ["#{t('page.except_creator')}#{t('patron.creator')}", "except_creator"],
+      ].each do |label, value|
+        html.should include("#{label}: #{value}")
       end
     end
 
@@ -206,6 +212,7 @@ describe ApplicationHelper do
     it '表示項目数と省略文字が指定されていたら、省略があったときにそれを表示すること' do
       keys = params.keys[0, 4]
       params.delete_if {|k, v| !keys.include?(k) }
+      params[:query] = 'query'
 
       html = helper.advanced_search_condition_summary(:length => 3, :omission => '、他')
       html.should match(/、他\)\z/)
@@ -215,6 +222,57 @@ describe ApplicationHelper do
 
       html = helper.advanced_search_condition_summary(:omission => '、他')
       html.should_not match(/、他/)
+    end
+
+    it 'solr_commitが指定されていたら何も表示しないこと' do
+      params[:solr_commit] = true
+      helper.advanced_search_condition_summary.should be_blank
+    end
+  end
+
+  describe '#advanced_search_merge_tagは' do
+    let(:params) { {} }
+
+    before do
+      helper.stub(:params).and_return(params)
+    end
+
+    [
+      ['title', %w(exact all any)],
+      ['creator', %w(exact all any)],
+      ['publisher', %w(exact all any)],
+      ['query', %w(all any)],
+    ].each do |name, values|
+      values.each do |pvalue|
+        pname = "#{name}_merge"
+        it "#{pname}パラメータが#{pvalue}のときname=#{pname} value=#{pvalue}のボタンをチェックした状態で表示すること" do
+          params[pname.to_sym] = pvalue
+
+          html = helper.advanced_search_merge_tag(name)
+
+          found = false
+          html.scan(/<input(.+?)>/) do
+            n = t = v = c = nil
+            $1.scan(/(\S+)="(.+?)"/) do
+              case $1.downcase
+              when 'name'; n = $2
+              when 'type'; t = $2
+              when 'value'; v = $2
+              when 'checked'; c = true
+              end
+            end
+            next unless n == pname
+            found = true
+
+            if v == pvalue
+              c.should be_true, "expected <input type=\"#{t}\" name=\"#{n}\" value=\"#{v}\" checked>, but not checked"
+            else
+              c.should be_false, "expected <input type=\"#{t}\" name=\"#{n}\" value=\"#{v}\">, but checked"
+            end
+          end
+          found.should be_true, "expected <input name=\"#{pname}\" value=\"#{pvalue}\" checked>, but not found"
+        end
+      end
     end
   end
 end

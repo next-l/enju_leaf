@@ -1465,6 +1465,9 @@ ja:
     catalog_search: "資料の検索"
     search: "検索"
     search_term: "検索語"
+    all_search_term: "すべて"
+    any_search_term: "いずれか"
+    except_search_term: "除外"
     search_result: "検索結果"
     search_clear: クリア
     number_of_manifestations: "%{numdocs} 件の資料があります。"
@@ -1479,7 +1482,18 @@ ja:
     advanced_search_summary_delimiter: "、"
     title: "タイトル"
     exact_title: "完全一致"
+    all_title: "すべて"
+    any_title: "いずれか"
+    except_title: "除外"
     exact_creator: "完全一致"
+    all_creator: "すべて"
+    any_creator: "いずれか"
+    except_creator: "除外"
+    exact_publisher: "完全一致"
+    all_publisher: "すべて"
+    any_publisher: "いずれか"
+    except_publisher: "除外"
+    solr_query: "Solr 検索式"
     note: "注記"
     back: "戻る"
     show: "表示"
@@ -1751,6 +1765,11 @@ ja:
       使用例：<br />
       NOT book1<br />
       "
+    help_solr_query: "
+      solr 検索式を直接入力します
+      "
+    advanced: "詳細検索"
+    solr_search: "solr検索式による詳細検索"
   worki:
     patron_work: "%{patron_name} の書いた資料"
     library_group_work: "%{library_group_name} にある書いた資料"
