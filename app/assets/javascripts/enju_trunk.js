@@ -30,3 +30,13 @@ function push_submit(format) {
     o.action = url;
   o.submit();
 }
+
+// clear all options for advanced search
+function clear_all(){
+   $('form').find("input[type=text], input[type=search]").val("");
+   $('#exact_title').attr("checked", false);
+   $('#exact_creator').attr("checked", false);
+   $('#all_manifestations').attr("checked", false);
+   $('#all_manifestation_types').attr("checked", true);
+   $('#all_manifestation_types').parents("div.parent").find('input.check-child').attr('checked', true);
+}

@@ -192,6 +192,7 @@ ja:
       produce_type: 体現の関係
       realize_type: 表現の関係
       enju_terminal: 端末設定
+      copy_request: 文献複写依頼
 
     attributes:
       wareki:
@@ -1446,6 +1447,10 @@ ja:
         rank: 順位
         keyword: 検索ワード
         count: 検索回数
+      copy_request:
+        user: 利用者
+        body: 本文
+        created_at: 登録日
 
   page:
     user_title: "ようこそ %{login_name} さん"
@@ -1460,6 +1465,9 @@ ja:
     catalog_search: "資料の検索"
     search: "検索"
     search_term: "検索語"
+    all_search_term: "すべて"
+    any_search_term: "いずれか"
+    except_search_term: "除外"
     search_result: "検索結果"
     search_clear: クリア
     number_of_manifestations: "%{numdocs} 件の資料があります。"
@@ -1474,7 +1482,18 @@ ja:
     advanced_search_summary_delimiter: "、"
     title: "タイトル"
     exact_title: "完全一致"
+    all_title: "すべて"
+    any_title: "いずれか"
+    except_title: "除外"
     exact_creator: "完全一致"
+    all_creator: "すべて"
+    any_creator: "いずれか"
+    except_creator: "除外"
+    exact_publisher: "完全一致"
+    all_publisher: "すべて"
+    any_publisher: "いずれか"
+    except_publisher: "除外"
+    solr_query: "Solr 検索式"
     note: "注記"
     back: "戻る"
     show: "表示"
@@ -1726,6 +1745,7 @@ ja:
     help_isbn: "半角英数字で入力してください。ハイフン（-）の入力は不要です。"
     help_issn: "半角英数字で入力してください。ハイフン（-）の入力は不要です。"
     all_manifestations: "検索非対象資料も表示"
+    clear_query: "検索条件をクリア"
     description: "
       <h5>検索方法:</h5>
       <strong>[AND]検索</strong><br />
@@ -1745,6 +1765,11 @@ ja:
       使用例：<br />
       NOT book1<br />
       "
+    help_solr_query: "
+      solr 検索式を直接入力します
+      "
+    advanced: "詳細検索"
+    solr_search: "solr検索式による詳細検索"
   worki:
     patron_work: "%{patron_name} の書いた資料"
     library_group_work: "%{library_group_name} にある書いた資料"
@@ -2591,6 +2616,14 @@ ja:
     exinfo: "その他"
   external_catalog:
     ndl: NDL
+  copy_request:
+    message: "地方官署に勤務する職員のための郵送による文献複写サービスです。<br />
+              以下に名前・所属・送付先住所と複写を希望する文献（入力項目：①表題，②著者名，③誌名（刊行年、巻号、ページ），④請求記号[分かる場合]）を入力し、登録するボタンを押してください。<br />
+              未入力事項等がある場合は、受け付けられない場合があります。<br />
+              また、メールでの依頼を希望される方は、文献係の利用の手引をご覧ください。<br /><br />
+              ※本庁、管区気象台等から送付している刊行物については、自官署にあるものを御利用ください。<br />
+              ※２つ以上の文献を希望される方は、上のような要領で必要な数だけ列記してください。<br />
+              なお、連絡事項等がある場合は、最下行に記入してください。"
 
   opac:
     finish: 終わる

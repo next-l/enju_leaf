@@ -1,0 +1,36 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.copy_request')) -%></h1>
+<div id="content_list">
+<div style="color: green"><%= flash[:message] -%></div>
+
+<table class="index">
+  <tr>
+    <th></th>
+    <th><%= t('activerecord.attributes.copy_request.user')-%></th>
+    <th><%= t('activerecord.attributes.copy_request.body') -%></th>
+    <th><%= t('activerecord.attributes.copy_request.created_at')-%></th>
+    <th></th>
+  </tr>
+
+<%- @copy_requests.each_with_index do |copy_request, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to copy_request.id, copy_request %></td>
+    <td><nobr><%= link_to copy_request.user.username, copy_request.user -%></nobr></td>
+    <td><%= raw textilize(h copy_request.body) %></td>
+    <td><nobr><%= copy_request.try(:created_at).try(:strftime, "%Y/%m/%d") -%></nobr></td>
+    <td>
+      <nobr><%= link_to t('page.edit'), edit_copy_request_path(copy_request) -%></nobr>
+      <nobr><%= link_to t('page.destroy'), copy_request, :confirm => t('page.are_you_sure'), :method => :delete -%></nobr>
+    </td>    
+  </tr>
+<%- end -%>
+</table>
+
+<br />
+<%= paginate(@copy_requests) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <li><%= link_to t('page.new', :model => t('activerecord.models.copy_request')), new_copy_request_path -%></li>
+</div>

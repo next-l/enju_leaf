@@ -9,6 +9,10 @@ class Devise::SessionsController < ApplicationController
   def new
     resource = build_resource
     clean_up_passwords(resource)
+    unless SystemConfiguration.get('internal_server')
+      render :template => 'page/403', :status => 403
+      return
+    end
     if params[:opac]
       respond_with_navigational(resource, stub_options(resource)){render  :template => 'opac/devise/sessions/new'} 
     else

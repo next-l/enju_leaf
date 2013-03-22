@@ -5,6 +5,7 @@
   </a>
 
   <div id="request_menu" class="hidden">
+    <%- if SystemConfiguration.get('internal_server') %>
     <ul>
       <% if can_use_purchase_request? %>
         <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path %></li>
@@ -12,6 +13,10 @@
       <% if SystemConfiguration.get("user_show_questions") or (user_signed_in? and current_user.has_role?('Librarian')) %>
         <li><%= link_to t('activerecord.models.question'), questions_path %></li>
       <% end %>
+      <%- if can? :read, CopyRequest -%>
+        <li><%= link_to t('activerecord.models.copy_request'), copy_requests_path %></li>
+      <%- end -%>
     </ul>
+    <%- end -%>
   </div>
 <% end %>

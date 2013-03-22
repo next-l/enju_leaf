@@ -54,6 +54,7 @@ class PageController < ApplicationController
         params[:manifestation_types].store(manifestation_type.id.to_s, "true")
       end
     end
+    @selected_manifestation_types = params[:manifestation_types]
   end
 
   def exstatistics
