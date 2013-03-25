@@ -2202,6 +2202,7 @@ ja:
     exinfo: その他
     wrong_file: "はインポートできません。"
     wrong_extention: "拡張子がxlsx形式のファイルのみインポート可能です。"
+    wrong_content_type: "にはTSVファイルまたはXLSXファイル以外を指定しないでください。"
     importing_please_wait: "エクセルファイルを読み込み中です。しばらくお待ちください。。。"
     excel:
       series:

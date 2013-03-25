@@ -1,5 +1,15 @@
 <script type="text/javascript">
   jQuery(function($) {
+      if ($("#resource_import_textfile_adapter_name").val != null) {
+        var name = $('select#resource_import_textfile_adapter_name :selected').val();
+        if(name == 'Tsvfile_Adapter') {
+          jQuery.get('/resource_import_textfiles/adapters/' + name, function(data){
+            $("#inherent").html(data);
+          })
+        }
+        $('#select_file').show();
+      }
+
       $("#resource_import_textfile_adapter_name").change(function() {
         $("#resource_import_textfile_resource_import_text").empty('');//val('');
         $(".excel_sheets").html('')
