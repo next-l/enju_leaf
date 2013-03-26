@@ -427,6 +427,9 @@ class ApplicationController < ActionController::Base
     @manifestation_types = ManifestationType.all
   end
 
+  def get_carrier_types
+    @carrier_types = CarrierType.all
+  end
 end
 
 class InvalidLocaleError < StandardError
