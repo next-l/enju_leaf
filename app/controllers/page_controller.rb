@@ -24,6 +24,7 @@ class PageController < ApplicationController
     @manifestation = Manifestation.pickup rescue nil
     get_libraries
     get_manifestation_types
+    get_carrier_types
  
     respond_to do |format|
       if defined?(EnjuCustomize)
