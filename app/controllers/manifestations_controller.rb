@@ -90,7 +90,7 @@ class ManifestationsController < ApplicationController
         if params[:without_article]
           search_opts[:with_article] = false
         else
-          search_opts[:with_article] = SystemConfiguration.get('internal_server')
+          search_opts[:with_article] = SystemConfiguration.get('internal_server') || clinet_is_special_ip?
         end
       end
 
