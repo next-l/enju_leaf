@@ -25,6 +25,7 @@ class MyAccountsController < ApplicationController
     
     # 資料区分
     get_manifestation_types
+    get_carrier_types
     
     respond_to do |format|
       if defined?(EnjuCustomize)
