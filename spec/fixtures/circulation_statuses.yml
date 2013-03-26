@@ -119,6 +119,14 @@ circulation_status_00015:
   note: ""
   created_at: 2008-02-15 17:31:35.786404 +09:00
   position: 15
+circulation_status_00016:
+  name: In Factory
+  display_name: "In Factory"
+  id: 16
+  position: 16
+  updated_at: 2008-02-15 17:31:35.786404 +09:00
+  created_at: 2008-02-15 17:31:35.786404 +09:00
+  note: ""
 
 # == Schema Information
 #

@@ -7,7 +7,10 @@ class ResourceImportTextfile < ActiveRecord::Base
 
   has_attached_file :resource_import_text, :path => ":rails_root/private:url"
 
-  validates_attachment_content_type :resource_import_text, :content_type => ['text/plain', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/octet-stream']
+  validates_attachment_content_type :resource_import_text,
+    :content_type => %w(text/plain application/vnd.openxmlformats-officedocument.spreadsheetml.sheet),
+    #:content_type => %w(text/plain application/vnd.openxmlformats-officedocument.spreadsheetml.sheet application/octet-stream),
+    :message => I18n.t('resource_import_textfile.wrong_content_type')
   validates_attachment_presence :resource_import_text
   belongs_to :user, :validate => true
   has_many :resource_import_textresults
@@ -53,12 +56,12 @@ class ResourceImportTextfile < ActiveRecord::Base
   end
 
   def import_start
-    sm_start!
+#    sm_start!
     adapter = EnjuTrunk::ResourceAdapter::Base.find_by_classname(self.adapter_name)
     adapter.logger = logger
     logger.info "adapter=#{adapter.to_s}"
     adapter.new.import(self.id, self.resource_import_text.path, self.user_id, self.extraparams)
     self.update_attribute(:imported_at, Time.zone.now)
-    sm_complete!
+#    sm_complete!
   end
 end

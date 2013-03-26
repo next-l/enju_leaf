@@ -6,6 +6,20 @@ $(function(){
   $('#acquired_to').setCalendar({src:'/assets/calendar.png'});
   $('#removed_from').setCalendar({src:'/assets/calendar.png'});
   $('#removed_to').setCalendar({src:'/assets/calendar.png'});
+
+  $('#tabs').tabs();
+  $('#tabs-1').find('input').removeAttr("disabled");
+  $('#tabs-2').find('input').attr("disabled","disabled");
+
+  $('#tabs').bind("tabsselect", function(event, ui) {
+    if ( ui.panel.id == "tabs-1" ) {
+      $('#tabs-1').find('input').removeAttr("disabled");
+      $('#tabs-2').find('input').attr("disabled","disabled");
+    } else {
+      $('#tabs-2').find('input').removeAttr("disabled");
+      $('#tabs-1').find('input').attr("disabled","disabled");
+    }
+  });
 });
 </script>
 
@@ -15,10 +29,17 @@ $(function(){
 
 <%#- cache :controller => 'page', :action => 'advanced_search', :locale => @locale do -%>
 <%= form_tag({:controller => 'manifestations'}, {:method => 'get'}) do -%>
+  <div id="tabs">
+    <ul>
+      <li><a href="#tabs-1"><%= t('advanced_search.advanced') -%></a></li>
+      <li><a href="#tabs-2"><%= t('advanced_search.solr_search') -%></a></li>
+    </ul>
+  <div id="tabs-1">
   <table style="width: 100%" id="advanced_search">
     <tr>
       <td><label><%= advanced_search_label(:query) -%>:</label></td>
-      <td><%= search_field_tag 'query', params[:query], :class => 'search_form_short', :placeholder => t('page.search_term') -%><br />
+      <td><%= search_field_tag 'query', params[:query], :class => 'search_form_short', :placeholder => t('page.search_term') -%> <%=advanced_search_merge_tag('query') -%>
+        <label><%= advanced_search_label(:except_query) %></label><%= text_field_tag 'except_query', params[:except_query] -%><br />
         <%= t('advanced_search.help_query') -%>
       </td>
     </tr>
@@ -31,15 +52,15 @@ $(function(){
     <tr>
       <td><label><%= advanced_search_label(:title) -%>:</label></td>
       <td><%= search_field_tag 'title', params[:title] -%>
-        <%= check_box_tag 'exact_title', true, params[:exact_title].present? %>
-        <%= advanced_search_label(:exact_title) %>
+        <%= advanced_search_merge_tag('title') %>
+        <label><%= advanced_search_label(:except_title) %></label><%= text_field_tag 'except_title', params[:except_title] -%>
       </td>
     </tr>
     <tr>
       <td><label><%= advanced_search_label(:creator) -%>:</label></td>
       <td><%= text_field_tag 'creator', params[:creator] -%>
-        <%= check_box_tag 'exact_creator', true, params[:exact_creator].present? %>
-        <%= advanced_search_label(:exact_creator) %>
+        <%= advanced_search_merge_tag('creator') %>
+        <label><%= advanced_search_label(:except_creator) %></label><%= text_field_tag 'except_creator', params[:except_creator] -%>
       </td>
     </tr>
     <tr>
@@ -134,6 +155,22 @@ $(function(){
       </td>
     </tr>
   </table>
+  </div>
+  <div id="tabs-2">
+  <table style="width: 100%">
+    <tr>
+      <td><label><%= advanced_search_label(:solr_query) -%>:</label></td>
+      <td><%= text_field_tag 'solr_query', params[:solr_query], :class => 'search_form' -%><br /><%= t('advanced_search.help_solr_query') -%></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <%= submit_tag t('page.search'), :name => 'solr_commit' -%>
+      </td>
+    </tr>
+  </table>
+  </div>
+  </div>
 <%#- end -%>
 <%= javascript_tag("$('#query').focus()") -%>
 <%- end -%>
