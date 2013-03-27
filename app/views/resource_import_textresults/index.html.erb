@@ -32,7 +32,7 @@
         (<%= link_to r.item.item_identifier, r.item %>)
       <% end %>
     </td>
-    <td><%= r.error_msg %></td>
+    <td><%= raw r.error_msg %></td>
   </tr>
 <% end %>
 </table>

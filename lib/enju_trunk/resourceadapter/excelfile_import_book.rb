@@ -1,6 +1,72 @@
 # -*- encoding: utf-8 -*-
 module EnjuTrunk
   module ExcelfileImportBook
+    SERIES_COLUMNS = %w(
+      issn
+      original_title 
+      title_transcription
+      periodical 
+      series_statement_identifier 
+      note
+    )
+    BOOK_COLUMNS = %w(
+      manifestation_type
+      original_title
+      title_transcription
+      title_alternative
+      isbn
+      lccn
+      marc_number
+      ndc
+      carrier_type
+      frequency
+      pub_date
+      country_of_publication
+      place_of_publicatio
+      language
+      edition_display_value
+      volume_number_string
+      issue_number_string
+      start_page
+      end_page
+      height
+      width
+      depth
+      price
+      access_address
+      repository_content
+      required_role
+      except_recent
+      acceptance_number
+      description
+      supplement
+      note
+      creator
+      contributor
+      publisher
+      subject
+      accept_type
+      acquired_at
+      bookstore
+      library
+      shelf
+      checkout_type
+      circulation_status
+      retention_period
+      call_number
+      item_price
+      url
+      include_supplements
+      use_restriction
+      item_note
+      rank
+      item_identifier
+      remove_reason
+      non_searchable
+      missing_issue
+      del_flg
+    )
+
     def import_book(sheet, errors)
       error_msg = check_header_field(sheet)
       unless error_msg
@@ -11,6 +77,8 @@ module EnjuTrunk
           :error_msg                   => I18n.t('resource_import_textfile.message.read_sheet', :sheet => sheet),
           :failed                      => true
         )
+        msg = book_header_has_out_of_manage?(sheet)
+        import_textresult.error_msg += msg if msg
         import_textresult.save! 
         import_book_data(sheet)
       else
@@ -58,6 +126,23 @@ module EnjuTrunk
         end
       end
       return nil
+    end
+
+    def book_header_has_out_of_manage?(sheet)
+      msg = nil
+      unknown_columns = []
+      columns = []
+      columns << BOOK_COLUMNS.map { |c| I18n.t("resource_import_textfile.excel.book.#{c}") }
+      columns << SERIES_COLUMNS.map { |c| I18n.t("resource_import_textfile.excel.series.#{c}") }
+      columns.flatten!
+      @field.each_key do |key|
+        unknown_columns << key unless columns.include?(key)
+      end
+      unless unknown_columns.blank?
+        msg = I18n.t('resource_import_textfile.message.out_of_manage', :columns => unknown_columns.join(', '))
+        puts " header has column that is out of manage "
+      end
+      return msg
     end
 
     def import_book_data(sheet)

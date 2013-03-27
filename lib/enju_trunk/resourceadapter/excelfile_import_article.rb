@@ -1,6 +1,18 @@
 # -*- encoding: utf-8 -*-
 module EnjuTrunk
   module ExcelfileImportArticle
+    ARTICLE_COLUMNS = %w(
+      creator 
+      original_title 
+      title 
+      volume_number_string 
+      number_of_page
+      pub_date
+      call_number
+      url
+      subject
+    )
+
     def import_article(sheet, errors)
       error_msg = check_article_header_field(sheet)
       unless error_msg
@@ -11,6 +23,8 @@ module EnjuTrunk
           :error_msg                   => I18n.t('resource_import_textfile.message.read_sheet', :sheet => sheet),
           :failed                      => true
         )
+        msg = article_header_has_out_of_manage?(sheet)
+        import_textresult.error_msg += msg if msg
         import_textresult.save!
         import_article_data(sheet)
       else
@@ -46,6 +60,20 @@ module EnjuTrunk
         return I18n.t('resource_import_textfile.error.article.head_is_blank', :sheet => sheet)
       end
       return nil
+    end
+
+    def article_header_has_out_of_manage?(sheet)
+      msg = nil
+      columns = []
+      article_columns = ARTICLE_COLUMNS.map { |c| I18n.t("resource_import_textfile.excel.article.#{c}") }
+      @field.each_key do |key|
+        columns << key unless article_columns.include?(key)
+      end
+      unless columns.blank?
+        msg = I18n.t('resource_import_textfile.message.out_of_manage', :columns => columns.join(', '))
+        puts " header has column that is out of manage "
+      end
+      return msg
     end
 
     def import_article_data(sheet)
