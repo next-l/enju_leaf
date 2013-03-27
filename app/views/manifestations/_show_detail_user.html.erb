@@ -75,7 +75,7 @@
             <%- if manifestation.number_of_pages -%>
               <span itemprop="numPages"><%= manifestation.number_of_pages -%></span> p.
             <%- end -%>
-              (<%= manifestation.start_page -%> - <%= manifestation.end_page -%>)
+            <%= manifestation_page(manifestation) %>
             <!-- TODO: センチメートル以外の単位 -->
             <%- if manifestation.height -%>
               <%= manifestation.height -%> cm.
