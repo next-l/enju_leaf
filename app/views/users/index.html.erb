@@ -99,8 +99,10 @@ $(function(){
     <td><%= link_to t('activerecord.models.reserve'), user_reserves_path(user) unless user.user_number.blank? -%></td>
     <td>
       <%= link_to t('page.edit'), edit_user_path(user) -%><br />
-      <% if user.patron and user.patron.patron_type_id == 1 %>
-        <%= link_to t('user.create_family'), new_user_path(:family_user_id => user.id) -%>
+      <% if SystemConfiguration.get("use_family") -%>
+        <% if user.patron and user.patron.patron_type_id == 1 %>
+          <%= link_to t('user.create_family'), new_user_path(:family_user_id => user.id) -%>
+        <% end %>
       <% end %>
     </td>
   </tr>
