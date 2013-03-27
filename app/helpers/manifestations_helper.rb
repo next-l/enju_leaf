@@ -77,6 +77,16 @@ module ManifestationsHelper
     end
   end
 
+  def manifestation_page(manifestation)
+    page = ""
+    if manifestation.start_page and manifestation.start_page.present? and manifestation.end_page and manifestation.end_page.present?
+      page = "(#{manifestation.start_page} - #{manifestation.end_page})"
+    elsif (manifestation.start_page and manifestation.start_page.present?) or (manifestation.end_page and manifestation.end_page.present?)
+      page = "(#{manifestation.try(:start_page)}#{manifestation.try(:end_page)})"
+    end 
+    page
+  end
+
   def language_facet(language, current_languages, facet)
     string = ''
     languages = current_languages.dup

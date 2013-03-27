@@ -282,7 +282,7 @@ module EnjuTrunk
         elsif page.blank?
          start_page, end_page = "", ""
         else
-          start_page, end_page = page, page
+          start_page, end_page = page, ""
         end
       end
       return start_page, end_page
