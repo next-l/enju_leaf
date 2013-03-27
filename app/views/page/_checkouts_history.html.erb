@@ -1,0 +1,28 @@
+<h3><%= t('checked_item.history') -%></h3>
+<table class="index">
+  <tr>
+    <%- if SystemConfiguration.get("checked_items.disp_title") -%>
+      <th class="checked_item_title"><%= t('page.title') -%></th>
+    <%- end -%>
+    <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
+    <th><%= t('activerecord.attributes.item.note') -%></th>
+    <th><%= t('activerecord.attributes.checkout.due_date') -%></th>
+  </tr>
+
+  <%- user.checkouts.each_with_index do |checkout, i| -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <%- if SystemConfiguration.get("checked_items.disp_title") -%>
+        <td>
+          <%= render 'manifestations/show_index', :manifestation => checkout.item.manifestation -%>
+          <%#= render 'manifestations/holding', :manifestation => checkout.item.manifestation -%>
+        </td>
+      <%- end -%>
+      <td><%= link_to checkout.item.item_identifier, checkout.item -%></td>
+      <td><%= checkout.item.note -%></td>
+      <td>
+        <%= l(checkout.due_date, :format => :only_date) -%><br />
+        <%- if current_user.has_role?('Librarian') %><%= link_to t('activerecord.attributes.item.loss_item'), {:controller => 'loss_items', :action => 'new', :item_id => checkout.item.id, :user_id => checkout.user.id} -%><%- end -%>
+      </td>
+    </tr>
+  <%- end -%>
+</table>

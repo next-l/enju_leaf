@@ -2087,6 +2087,7 @@ ja:
     reserved_item_included: "予約されている資料が含まれています！"
     excessed_checkout_limit: "貸出数の上限を超えています。"
     in_transcation: "貸出処理中です。"
+    history: "貸出履歴"
     previous_checkout: "現在貸出中の資料"
     previous_checkout_family: "現在家族に貸出中の資料"
     previous_reserve: "現在予約中の資料"
