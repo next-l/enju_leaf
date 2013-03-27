@@ -34,20 +34,6 @@ function displayArticleTitle(article_title) {
 }
 </script>
 
-<% if false %>
-  <div class="field">
-    <%= f_m.label :original_title -%><br />
-    <%= f_m.text_field :original_title, :class => 'resource_title' -%>
-  </div>
-  <div class="field">
-    <%= f_m.label :title_transcription -%><br />
-    <%= f_m.text_field :title_transcription, :class => 'resource_title' -%>
-  </div>
-  <div class="field">
-    <%= f_m.label :title_alternative -%><br />
-    <%= f_m.text_field :title_alternative, :class => 'resource_title' -%>
-  </div>
-<% end %>
   <div class="field" id="article_title_field">
     <%= f_m.label :article_title %><br />
     <%= f_m.text_field :article_title, :class => 'resource_title' %>
@@ -110,54 +96,15 @@ function displayArticleTitle(article_title) {
     <%= f_m.select(:language_id, @languages.collect{|language| [language.display_name.localize, language.id]}) -%>
   </div>
 
-  <%- if @series_statement.root_manifestation.series_statement -%>
-    <%= render :partial => 'manifestations/serial_form', :locals => {:f => f_m, :manifestation => @series_statement.root_manifestation} -%>
-  <%- else -%>
-    <div class="field">
-      <%= f_m.label :edition_display_value -%>
-      <%= f_m.text_field :edition_display_value, :class => 'resource_integer' -%>
-      <%= f_m.label :volume_number_string -%>
-      <%= f_m.text_field :volume_number_string, :class => 'resource_integer' -%>
-      <%= f_m.label :issue_number_string -%>
-      <%= f_m.text_field :issue_number_string, :class => 'resource_integer' -%>
-    </div>
-
-    <div class="field">
-      <%= f_m.label :isbn -%>
-      <%= f_m.text_field :isbn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
-      <%= link_to_function t('activerecord.attributes.manifestation.wrong_isbn'), "$('#manifestation_wrong_isbn').toggle()" -%>
-      <%= f_m.text_field :wrong_isbn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled; display: none' -%>
-    </div>
-    <div class="field">
-      <%= f_m.label :lccn -%>
-      <%= f_m.text_field :lccn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
-    </div>
-    <div class="field">
-      <%= f_m.label :marc_number -%>
-      <%= f_m.text_field :marc_number, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
-    </div>
-    <div class="field">
-      <%= f_m.label :ndc -%>
-      <%= f_m.text_field :ndc, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
-    </div>
-  <%- end -%>
-<% if false %>
   <div class="field">
-    <%= f_m.label :start_page -%>
-    <%= f_m.text_field :start_page, :class => 'resource_integer' -%>
-    <%= f_m.label :end_page -%>
-    <%= f_m.text_field :end_page, :class => 'resource_integer' -%>
+    <%= f_m.label :edition_display_value -%>
+    <%= f_m.text_field :edition_display_value, :class => 'resource_integer' -%>
+    <%= f_m.label :volume_number_string -%>
+    <%= f_m.text_field :volume_number_string, :class => 'resource_integer' -%>
+    <%= f_m.label :issue_number_string -%>
+    <%= f_m.text_field :issue_number_string, :class => 'resource_integer' -%>
   </div>
 
-  <div class="field">
-    <%= f_m.label :height -%>(cm)
-    <%= f_m.text_field :height, :class => 'resource_integer' -%>
-    <%= f_m.label :width -%>(cm)
-    <%= f_m.text_field :width, :class => 'resource_integer' -%>
-    <%= f_m.label :depth -%>(cm)
-    <%= f_m.text_field :depth, :class => 'resource_integer' -%>
-  </div>
-<% end %>
   <div class="field">
     <%= f_m.label :price -%>
     <%= f_m.text_field :price, :class => 'resource_integer' -%>
@@ -192,27 +139,12 @@ function displayArticleTitle(article_title) {
     <%= f_m.label :supplement -%><br />
     <%= f_m.text_area :supplement, :class => 'resource_textarea' -%>
   </div>
-<% if false %>
-  <div class="field">
-    <%= f_m.label :note -%><br />
-    <%= f_m.text_area :note, :class => 'resource_textarea' -%>
-  </div>
-<% end %>
+
   <div class="field">
     <%= f_m.label :subject -%><%= t('manifestation.delim_semicolon') -%><br />
     <%= f_m.text_field :subject, :value => @subject -%>
   </div>
-<% if false %>
-  <div class="field">
-    <%= f_m.label t('activerecord.attributes.manifestation.missing_issue') -%>
-    <%= f_m.select :missing_issue, missing_issue_statuses, :include_blank => true -%>
-  </div>
 
-  <div class="field">
-    <%= f_m.label t('activerecord.attributes.manifestation.acceptance_number') %>
-    <%= f_m.text_field :acceptance_number, :class => "resource_integer" %>
-  </div>
-<% end %>
   <div class="field">
     <%= f_m.label t('activerecord.attributes.manifestation.exinfo_1') %>
     <%= f_m.text_field :exinfo_1, :class => "resource_integer" %>
