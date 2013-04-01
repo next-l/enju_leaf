@@ -32,7 +32,7 @@ every 1.day, :at => '0:00 am' do
 end
 
 every 1.day, :at => '0:10 am' do
-  runner "KeywordCount.calc; Statistic.calc_sum"
+  runner "KeywordCount.calc; Statistic.calc_sum; AccessLog.calc_sum_yesterday"
 end
 
 every 1.day, :at => '1:00 am' do
