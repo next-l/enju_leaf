@@ -528,21 +528,26 @@ class Item < ActiveRecord::Base
           columns.each do |column|
             case column[0]
             when :bookstore
-              row << item.bookstore.name if item.bookstore
+              row << item.try(:bookstore).try(:name) || ""
             when :creator
-              row << item.manifestation.creators.inject([]){|names, creator| names << creator.full_name if creator.full_name; names}.join("\t")
+              creators = item.manifestation.creators.inject([]){|names, creator| names << creator.full_name if creator.full_name; names}.join("\t")
+              row << creators || ""
             when :original_title
-              row << item.manifestation.original_title if item.manifestation
+              row << item.try(:manifestation).try(:original_title) || "" 
             when :pub_year
-              row << item.manifestation.date_of_publication.strftime("%Y") if item.manifestation.date_of_publication
+              pub_year = item.try(:manifestation).try(:date_of_publication).strftime("%Y") rescue nil
+              row << pub_year || ""
             when :publisher
-              row << item.publisher.delete_if{|p|p.blank?}.join("\t") if item.publisher
+              publishers = item.publisher.delete_if{ |p|p.blank? }.join("\t") if item.publisher
+              row << publishers || ""
             when :price
-              row << item.manifestation.price if item.manifestation.price
+              row << item.try(:manifestation).try(:price) || ""
             when :marc_number
-              row << item.manifestation.marc_number[0, 10] if item.manifestation.marc_number
+              marc_number = item.try(:manifestation).try(:marc_number)[0, 10] rescue nil
+              row << marc_number || ""
             when :call_number
-              row << call_numberformat(item) if item.call_number
+              call_number = call_numberformat(item)
+              row << call_numberformat(item) || ""
             else
               row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
             end
@@ -586,21 +591,23 @@ class Item < ActiveRecord::Base
           columns.each do |column|
             case column[0]
             when :library
-              row << item.shelf.library.display_name.localize if item.shelf && item.shelf.library
+              row << item.try(:shelf).try(:library).try(:display_name).localize || ""
             when :creator
               row << item.manifestation.creators.inject([]){|names, creator| names << creator.full_name if creator.full_name; names}.join("\t") if item.manifestation.creators
             when :original_title
-              row << item.manifestation.original_title if item.manifestation
+              row << item.try(:manifestation).try(:original_title)
             when :pub_year
-              row << item.manifestation.date_of_publication.strftime("%Y") if item.manifestation.date_of_publication
+              pub_year = item.manifestation.date_of_publication.strftime("%Y") rescue nil
+              row << pub_year || ""
             when :publisher
               row << item.publisher.delete_if{|p|p.blank?}.join("\t") if item.publisher
             when :carrier_type
-              row << item.manifestation.carrier_type.display_name.localize if item.manifestation.carrier_type
+              row << item.try(:manifestation).try(:carrier_type).display_name.localize || ""
             when :shelf
-              row << item.shelf.display_name.localize if item.shelf
+              row << item.try(:shelf).display_name.localize || ""
             when :call_number
-              row << call_numberformat(item)
+              call_number = call_numberformat(item)
+              row << call_number || ""
             else
               row << get_object_method(item, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
             end
