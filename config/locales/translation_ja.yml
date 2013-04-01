@@ -2284,6 +2284,7 @@ ja:
       deleted: "削除完了  所蔵情報ID: %{item_identifier}"
       deleted_manifestation: "タイトル：%{original_title}"
       deleted_series_statement: "シリーズタイトル：%{series_original_title}"
+      out_of_manage: "<br />ヘッダーに管理外のカラム名が存在しています: %{columns}"
     error:
       blank_sheet: "シート『%{sheet}』の読み取りに失敗しました。データが記述されていません。"
       overlap: "シート『%{sheet}』の読み取りに失敗しました。ヘッダーのフィールド名に重複したものがあります。"
