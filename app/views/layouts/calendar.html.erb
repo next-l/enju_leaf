@@ -15,6 +15,16 @@
 <body>
 
 <%= render 'page/header' -%>
+
+<%- unless session[:breadcrumbs].nil? || session[:breadcrumbs].empty? -%>
+  <div id="breadcrumb">
+    <% session[:breadcrumbs].to_a[0..-2].each do |txt, url| %>
+      <%= link_to(txt, url) %> >
+    <% end %>
+    <%= h(session[:breadcrumbs].to_a.last.first) if session[:breadcrumbs].to_a.last%>
+  </div>
+<%- end -%>
+
 <%= render 'page/menu' -%>
 
 <div id="content">
