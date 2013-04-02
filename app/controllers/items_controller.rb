@@ -281,7 +281,7 @@ class ItemsController < ApplicationController
   end
  
   def numbering
-    item_identifier = Numbering.do_numbering(params[:type])
+    item_identifier = params[:type].present? ? Numbering.do_numbering(params[:type]) : nil
     render :json => {:success => 1, :item_identifier => item_identifier}
   end
 
