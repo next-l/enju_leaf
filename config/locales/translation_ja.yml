@@ -1993,7 +1993,7 @@ ja:
     already_in_family: "家族登録済みです。"
     overdue_item: "%{user} さんの貸出期限がすぎている資料が %{count} 冊あります。"
     retained_reserve: "%{user} さんの予約資料が %{count} 冊用意されています。" 
-    not_connect: "%{user}さんが登録している連絡先は不正です。"
+    not_connect: "%{user}さんは連絡不能にチェックがされています。"
     create_family: "家族の作成"
     create_family_user: "家族を新規作成"
     manage_family: "家族情報の管理"
