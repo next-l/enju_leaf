@@ -32,11 +32,12 @@ every 1.day, :at => '0:00 am' do
 end
 
 every 1.day, :at => '0:10 am' do
-  runner "KeywordCount.calc; Statistic.calc_sum; AccessLog.calc_sum_yesterday"
+  runner "KeywordCount.calc; Statistic.calc_sum"
 end
 
 every 1.day, :at => '1:00 am' do
   runner "UserCheckoutStat.calculate_stat; UserReserveStat.calculate_stat; ManifestationCheckoutStat.calculate_stat; ManifestationReserveStat.calculate_stat; BookmarkStat.calculate_stat"
+  runner "AccessLog.calc_sum_yesterday"
 end
 
 every 1.day, :at => '2:00 am' do
