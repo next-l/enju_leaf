@@ -155,7 +155,7 @@
         <% unless manifestation.periodical_master %>
           <%- unless manifestation.serial? -%>
             <tr>
-              <td>aa<%= t('page.identifier') -%>:</td>
+              <td><%= t('page.identifier') -%>:</td>
               <td>
                 <%- if manifestation.isbn.present? -%>
                   ISBN: <span itemprop="isbn"><%= manifestation.isbn -%></span>

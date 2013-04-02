@@ -813,12 +813,12 @@ class ManifestationsController < ApplicationController
     #
     # params['mode']が'add'でないときだけ設定するフィルタ
     #
-
     with << [:reservable, :equal_to, @reservable] unless @reservable.nil?
     with << [:periodical_master, :equal_to, false] if @series_statement
     with << [:carrier_type, :equal_to, params[:carrier_type]] if params[:carrier_type]
     with << [:missing_issue, :equal_to, params[:missing_issue]] if params[:missing_issue]
     with << [:in_process, :equal_to, @in_process] unless @in_process.nil?
+    with << [:manifestation_type, :equal_to, params[:manifestation_type]] if params[:manifestation_type]
     with << [:circulation_status_in_process, :equal_to, params[:circulation_status_in_process]] if params[:circulation_status_in_process]
     with << [:circulation_status_in_factory, :equal_to, params[:circulation_status_in_factory]] if params[:circulation_status_in_factory]
 
