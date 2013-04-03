@@ -1,3 +1,8 @@
+<%- cols_book = Manifestation::BOOK_COLUMNS.map{|c| "book.#{c}"} -%>
+<%- cols_series = Manifestation::SERIES_COLUMNS.map{|c| "series.#{c}"} -%>
+<%- cols_article = Manifestation::ARTICLE_COLUMNS.map{|c| "article.#{c}"} -%>
+<%- cols_all = Manifestation::ALL_COLUMNS -%>
+
 <%= form_for :manifestations, :url => contributor_manifestations_path(@index_patron[:contributor]), :html => {:method => 'get'} do -%>
   <p>
     <%= t('page.search_term') -%>:
@@ -22,14 +27,131 @@
     <% end %>
     <%= link_to_advanced_search -%> <%= link_to_normal_search -%> <%= advanced_search_condition_summary -%>
     <br />
-    <%= hidden_field_tag 'carrier_type', params[:carrier_type] if params[:carrier_type] -%>
-    <%= hidden_field_tag 'language', params[:language] if params[:language] -%>
-    <%= hidden_field_tag 'library', params[:library] if params[:library] -%>
     <%= hidden_field_tag 'reservable', params[:reservable] if params[:reservable] -%>
+    <%= hidden_field_tag 'carrier_type', params[:carrier_type] if params[:carrier_type] -%>
+    <%= hidden_field_tag 'library', params[:library] if params[:library] -%>
+    <%= hidden_field_tag 'in_process', params[:in_process] if params[:in_process] -%>
+    <%= hidden_field_tag 'language', params[:language] if params[:language] -%>
+    <%= hidden_field_tag 'manifestation_type', params[:manifestation_type] if params[:manifestation_type] -%>
+    <%= hidden_field_tag 'missing_issue', params[:missing_issue] if params[:missing_issue] -%>
+    <%= hidden_field_tag 'circulation_status_in_process', params[:circulation_status_in_process] if params[:circulation_status_in_process] -%>
+    <%= hidden_field_tag 'circulation_status_in_factory', params[:circulation_status_in_factory] if params[:circulation_status_in_factory] -%>
     <%= hidden_field_tag 'sort_by', params[:sort_by] if params[:sort_by] -%>
     <%- if SystemConfiguration.get("manifestations.users_show_output_button") or (user_signed_in? and current_user.has_role?('Librarian')) -%>
+      <!-- start hidden checkboxes for selecting excel columns -->
+<%- Manifestation::ALL_COLUMNS.each do |x| -%>
+<%= check_box_tag 'cols[]', x, false, :id => "chkbox_#{x.gsub('.','_')}", :style => "display: none;" -%>
+<%- end -%>
+      <!-- end hidden checkboxes for selecting excel columns -->
       <%= submit_tag t('page.output_pdf', :model => t('page.search_result')), :name => 'output_pdf' -%>
       <%= submit_tag t('page.output_tsv', :model => t('page.search_result')), :name => 'output_tsv'-%>
+      <%= submit_tag t('page.output_excelx', :model => t('page.search_result')), :name => 'output_excelx', :id => 'output_excelx', :style => "display: none;" -%>
+<script>
+<!--
+$(function(){
+    // set the dialog box default properties
+    $('#excelx_book_dialog').dialog({
+        autoOpen: false,
+        modal: true,
+        width: Math.floor($(window).width() * 0.70),
+    });
+    $('#excelx_article_dialog').dialog({
+        autoOpen: false,
+        modal: true,
+        width: Math.floor($(window).width() * 0.5),
+    });
+
+    // make sure to set all the checkboxes to checked by default
+    <%- cols_all.each do |x| -%>
+      $('#chkbox_<%= x.gsub('.','_') -%>').attr('checked', false);
+      $('#chkbox2_<%= x.gsub('.','_') -%>').attr('checked', true);
+      $('#chkbox2_<%= x.gsub('.','_') -%>').removeAttr('disabled');
+    <%- end -%>
+
+    // hide default columns (i.e. always enabled)
+    $('#chkbox2_book_original_title').attr('disabled', 'disabled')
+    $('#chkbox2_book_creator').attr('disabled', 'disabled')
+    $('#chkbox2_book_pub_date').attr('disabled', 'disabled')
+    $('#chkbox2_book_publisher').attr('disabled', 'disabled')
+    $('#chkbox2_article_creator').attr('disabled', 'disabled')
+    $('#chkbox2_article_original_title').attr('disabled', 'disabled')
+    $('#chkbox2_article_title').attr('disabled', 'disabled')
+    $('#chkbox2_series_original_title').attr('disabled', 'disabled')
+
+    <%- ['book','article'].each do |t| -%>
+    // function to open the dialog
+    $('#excelx_<%= t -%>_dialog_opener').click( function() {
+        $('#excelx_<%= t -%>_dialog').dialog('open');
+        return false;
+    });
+
+    // trigger function to submit the form itself
+    $('#excelx_<%= t -%>_trigger').click( function() {
+        // make sure the statuses of all the hidden checkboxes
+        <%- eval("cols_#{t}").each do |x| -%>
+          $('#chkbox_<%= x.gsub('.','_') -%>').attr('checked', $('#chkbox2_<%= x.gsub('.','_') -%>').is(':checked'));
+        <%- end -%>
+        // close the dialog before we go
+        $('#excelx_<%= t -%>_dialog').dialog('close');
+        // submit the form itself
+        $('#output_excelx').click();
+        // make sure all the checkboxes are unchecked again
+        <%- cols_all.each do |x| -%>
+          $('#chkbox_<%= x.gsub('.','_') -%>').attr('checked', false);
+        <%- end -%>
+        return false;
+    });
+    <%- end -%>
+});
+// -->
+</script>
+<!--
+      <button id="excelx_book_dialog_opener"><%= t('page.output_excelx', :model => t('page.search_result')) -%></button>
+      <button id="excelx_article_dialog_opener"><%= t('page.output_excelx', :model => t('page.search_result')) -%></button>
+-->
+      <% if params[:missing_issue] %><%= submit_tag t('page.output_request', :model => t('page.search_result')), :name => 'output_request'-%><% end %>
     <%- end -%>
   </p>
 <%- end -%>
+
+<!-- start dialog for selecting excel columns -->
+<%- if SystemConfiguration.get("manifestations.users_show_output_button") or (user_signed_in? and current_user.has_role?('Librarian')) -%>
+
+<div id="excelx_book_dialog" title="<%= t('page.output_excelx_dialog') -%>" style="display:none;">
+<div style="width: 33%; float: left;">
+<%- cols_book[0, cols_book.length / 2].each do |x| -%>
+<%= check_box_tag '', '', true, :id => "chkbox2_#{x.gsub('.','_')}" -%><%= t("resource_import_textfile.excel.#{x}") -%><br />
+<%- end -%>
+</div>
+<div style="width: 34%; float: left;">
+<%- cols_book[cols_book.length / 2, cols_book.length - (cols_book.length / 2)].each do |x| -%>
+<%= check_box_tag '', '', true, :id => "chkbox2_#{x.gsub('.','_')}" -%><%= t("resource_import_textfile.excel.#{x}") -%><br />
+<%- end -%>
+</div>
+<div style="width: 33%; float: left;">
+<%- cols_series.each do |x| -%>
+<%= check_box_tag '', '', true, :id => "chkbox2_#{x.gsub('.','_')}" -%><%= t("resource_import_textfile.excel.#{x}") -%><br />
+<%- end -%>
+</div>
+<div style="clear: left;">
+<br />
+<br />
+<button id="excelx_book_trigger"><%= t('page.output_excelx_detail') -%></button>
+</div>
+</div>
+
+<div id="excelx_article_dialog" title="<%= t('page.output_excelx_dialog') -%>" style="display:none;">
+<div>
+<%- cols_article.each do |x| -%>
+<%= check_box_tag '', '', true, :id => "chkbox2_#{x.gsub('.','_')}" -%><%= t("resource_import_textfile.excel.#{x}") -%><br />
+<%- end -%>
+</div>
+<div>
+<br />
+<br />
+<button id="excelx_article_trigger"><%= t('page.output_excelx_detail') -%></button>
+</div>
+</div>
+
+<%- end -%>
+<!-- end dialog for selecting excel columns -->

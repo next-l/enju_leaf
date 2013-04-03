@@ -49,6 +49,11 @@ class AccessLog < ActiveRecord::Base
     return datas
   end
 
+  def self.calc_sum_yesterday
+    date = Time.now.yesterday.strftime("%Y%m%d")
+    calc(date)
+  end
+
   private
   def self.grep_num(date, str, filename)
     num = 0

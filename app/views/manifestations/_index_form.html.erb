@@ -25,12 +25,16 @@
     <% end %>
     <%= link_to_advanced_search -%> <%= link_to_normal_search -%> <%= advanced_search_condition_summary -%>
     <br />
-    <%= hidden_field_tag 'carrier_type', params[:carrier_type] if params[:carrier_type] -%>
-    <%= hidden_field_tag 'language', params[:language] if params[:language] -%>
-    <%= hidden_field_tag 'library', params[:library] if params[:library] -%>
     <%= hidden_field_tag 'reservable', params[:reservable] if params[:reservable] -%>
-    <%= hidden_field_tag 'sort_by', params[:sort_by] if params[:sort_by] -%>
+    <%= hidden_field_tag 'carrier_type', params[:carrier_type] if params[:carrier_type] -%>
+    <%= hidden_field_tag 'library', params[:library] if params[:library] -%>
+    <%= hidden_field_tag 'in_process', params[:in_process] if params[:in_process] -%>
+    <%= hidden_field_tag 'language', params[:language] if params[:language] -%>
+    <%= hidden_field_tag 'manifestation_type', params[:manifestation_type] if params[:manifestation_type] -%>
     <%= hidden_field_tag 'missing_issue', params[:missing_issue] if params[:missing_issue] -%>
+    <%= hidden_field_tag 'circulation_status_in_process', params[:circulation_status_in_process] if params[:circulation_status_in_process] -%>
+    <%= hidden_field_tag 'circulation_status_in_factory', params[:circulation_status_in_factory] if params[:circulation_status_in_factory] -%>
+    <%= hidden_field_tag 'sort_by', params[:sort_by] if params[:sort_by] -%>
     <%- if SystemConfiguration.get("manifestations.users_show_output_button") or (user_signed_in? and current_user.has_role?('Librarian')) -%>
       <!-- start hidden checkboxes for selecting excel columns -->
 <%- Manifestation::ALL_COLUMNS.each do |x| -%>

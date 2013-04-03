@@ -149,11 +149,11 @@ function displayArticleTitle(article_title) {
   <%- else -%>
     <div class="field">
       <%= f.label :edition_display_value -%>
-      <%= f.text_field :edition_display_value, :class => 'resource_integer' -%>
+      <%= f.text_field :edition_display_value, :size=>"10" -%>
       <%= f.label :volume_number_string -%>
-      <%= f.text_field :volume_number_string, :class => 'resource_integer' -%>
+      <%= f.text_field :volume_number_string, :size=>"10" -%>
       <%= f.label :issue_number_string -%>
-      <%= f.text_field :issue_number_string, :class => 'resource_integer' -%>
+      <%= f.text_field :issue_number_string, :size=>"10" -%>
     </div>
 
     <div class="field">
