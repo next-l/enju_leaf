@@ -1743,7 +1743,7 @@ ja:
     library: "図書館"
     help_query: "タイトル、著者、出版者、シリーズ名、注記等を対象に検索を行います。"
     help_isbn: "半角英数字で入力してください。ハイフン（-）の入力は不要です。"
-    help_issn: "半角英数字で入力してください。ハイフン（-）の入力は不要です。"
+    help_issn: "半角英数字で入力してください。"
     all_manifestations: "検索非対象資料も表示"
     clear_query: "検索条件をクリア"
     description: "
@@ -1751,23 +1751,83 @@ ja:
       <strong>[AND]検索</strong><br />
       キーワードとキーワードの間に「AND」あるいは「空白文字」が入力されているとき、入力された全てのキーワードを含む情報を検索します<br />
       
-      使用例：<br />
+      例：<br />
       book1 AND book2<br />
       book1 book2<br />
       <br />
       <strong>[OR]検索</strong><br />
       キーワードとキーワードの間に「OR」が入力されているとき、入力されたいずれかのキーワードを含む情報を検索します<br />
-      使用例：<br />
+      例：<br />
       book1 OR book2<br />
       <br />
       <strong>[NOT]検索</strong><br />
       キーワードの前に「NOT」が入力されているとき、それに続いて入力されたキーワードを検索非対象とします<br />
-      使用例：<br />
+      例：<br />
       NOT book1<br />
       "
     help_solr_query: "
       solr 検索式を直接入力します
       "
+    solr_query_format:
+      format: "検索式の記述方法"
+      exsample: "例"
+      word: "単語による検索"
+      word_description: "入力された単語で検索を行います。"
+      word_ex: "気象"
+      wild: "ワイルドカード検索"
+      wild_description: "「任意の文字」に置き換えて検索を行います。「*」が任意の複数文字、「?」が任意の１文字を表します。"
+      wild_ex: "title: 天気??<br / >title: 天気*"
+      field: "フィールド指定検索"
+      field_description: "指定されたフィールドに対して検索を行います。"
+      field_detail:
+        target: "検索対象"
+        format: "検索式"
+        title_format: "title_text:"
+        title_ex: "title_text:気候"
+        creator_format: "creator_text:"
+        creator_ex: "creator_text:山田太郎"
+        publisher_format: "publisher_text:"
+        publisher_ex: "publisher_text:新潮社"
+        contributor_format: "contributor_text:"
+        contributor_ex: "contributor_text:鈴木花子"
+        isbn_format: "isbn_sm:"
+        isbn_ex: "isbn_sm:4167113058"
+        issn_format: "issn_sm:"
+        issn_ex: "issn_sm:00280836"
+        item_identifier_format: "item_identifier_sm:"
+        item_identifier_ex: "item_identifier_sm:10000001"
+        pub_date_format: "pub_date_sm:[ TO ]"
+        pub_date_ex: "pub_date_sm:[2012-01-01 TO 2013-12-31]"
+        acquired_format: "acquired_at_sm:[ TO ]"
+        acquired_ex: "acquired_at_sm:[2012-01-01 TO 2013-12-31]"
+        removed_foramt: "removed_at_sm:[ TO ]"
+        removed_ex: "removed_at_sm:[2012-01-01 TO 2013-12-31]"
+        manifestation_type_format: "manifestation_type_sm:"
+        manifestation_type_ex: "manifestation_type_sm:japanese_book"
+        carrier_type_format: "carrier_type_s:"
+        carrier_type_ex: "carrier_type_s:print"
+        volume_number_format: "volume_number_im:"
+        volume_number_ex: "volume_number_im:1"
+        issue_number_format: "issue_number_im:"
+        issue_number_ex: "issue_number_im:1"
+        serial_number_format: "serial_number_im:"
+        serial_number_ex: "serial_number_im:1"
+        description_format: "description_text:"
+        description_ex: "description_text:特集"
+        note_format: "note_text:"
+        note_ex: "note_text:新装版"
+        subject_format: "subject_sm:"
+        subject_ex: "subject_sm:刊行"
+        exinfo_1_format: "exinfo_1_text:"
+        exinfo_1_ex: "exinfo_1_text:1"
+        exinfo_6_format: "exinfo_6_text:"
+        exinfo_6_ex: "exinfo_6_text:1"
+        library_format: "library_sm:"
+        library_ex: "libray_sm:gotanda"
+        shelf_format: "shelf_sm:"
+        shelf_ex: "shelf_sm:honkan01"
+        series_title_format: "series_title_text:"
+        series_title_ex: "series_title_text:nature"
     advanced: "詳細検索"
     solr_search: "solr検索式による詳細検索"
   worki:

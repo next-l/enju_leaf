@@ -14,15 +14,15 @@
     <tr class="line<%= cycle("0", "1") -%>">
       <%- if SystemConfiguration.get("checked_items.disp_title") -%>
         <td>
-          <%= render 'manifestations/show_index', :manifestation => checkout.item.manifestation -%>
-          <%= render 'manifestations/holding', :manifestation => checkout.item.manifestation -%>
+          <%= render 'manifestations/show_index', :manifestation => checkout.try(:item).try(:manifestation) if checkout.try(:item).try(:manifestation) -%>
+          <%= render 'manifestations/holding', :manifestation => checkout.try(:item).try(:manifestation) if checkout.try(:item).try(:manifestation) -%>
         </td>
       <%- end -%>
-      <td><%= link_to checkout.item.item_identifier, checkout.item -%></td>
-      <td><%= checkout.item.note -%></td>
+      <td><%= link_to checkout.try(:item).try(:item_identifier), checkout.try(:item) if checkout.try(:item) -%></td>
+      <td><%= checkout.try(:item).try(:note) -%></td>
       <td>
         <%= l(checkout.due_date, :format => :only_date) -%><br />
-        <%- if current_user.has_role?('Librarian') %><%= link_to t('activerecord.attributes.item.loss_item'), {:controller => 'loss_items', :action => 'new', :item_id => checkout.item.id, :user_id => checkout.user.id} -%><%- end -%>
+        <%- if current_user.has_role?('Librarian') %><%= link_to t('activerecord.attributes.item.loss_item'), {:controller => 'loss_items', :action => 'new', :item_id => checkout.item_id, :user_id => checkout.user.id} -%><%- end -%>
       </td>
     </tr>
   <%- end -%>

@@ -216,3 +216,22 @@ table #system_configurations-key {
 div#reminder_send {
   float: right;
 }
+
+table#solr_query_format {
+  border: none;
+  width: 100%;
+}
+
+table#solr_query_format table {
+  border: none;
+  width: 100%;
+}
+
+table#solr_query_format td, table#solr_query_format th {
+  border: 0px;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  padding: 5px;
+  vertical-align: top;
+  word-break : break-all;
+}
