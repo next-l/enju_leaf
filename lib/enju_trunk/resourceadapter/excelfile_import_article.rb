@@ -156,6 +156,7 @@ module EnjuTrunk
           :language       => Language.where(:name => 'Japanese').first,
           :frequency      => Frequency.where(:name => 'unknown').first,
           :required_role  => Role.find('Guest'),
+          :except_recent  => true,
           :during_import  => true,
         )
       end
@@ -174,7 +175,7 @@ module EnjuTrunk
       manifestation.volume_number_string = volume_number.to_s  unless volume_number.nil?      
       manifestation.issue_number_string  = issue_number.to_s   unless issue_number.nil?
       manifestation.access_address       = access_address.to_s unless access_address.nil?
-
+p logger.info manifestation.except_recent
       unless start_page.nil?
         if start_page.to_s.blank?
           manifestation.start_page = nil
