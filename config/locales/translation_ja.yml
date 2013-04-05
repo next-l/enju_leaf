@@ -1742,7 +1742,7 @@ ja:
     to_date: "検索終了日"
     library: "図書館"
     help_query: "タイトル、著者、出版者、シリーズ名、注記等を対象に検索を行います。"
-    help_isbn: "半角英数字で入力してください。ハイフン（-）の入力は不要です。"
+    help_isbn: "半角英数字で入力してください。"
     help_issn: "半角英数字で入力してください。"
     all_manifestations: "検索非対象資料も表示"
     clear_query: "検索条件をクリア"
