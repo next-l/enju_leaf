@@ -1,6 +1,6 @@
 <div id="note_<%= manifestation.id %>" style="display: none">
   <div>
     <br />
-    <%= manifestation.note%>
+    <%= simple_format hbr(manifestation.note) %>
   </div>
 </div>
