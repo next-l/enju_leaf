@@ -104,11 +104,14 @@ class Manifestation < ActiveRecord::Base
     string :issn, :multiple => true do
       if root_of_series? # 雑誌の場合
         # 同じ雑誌の全号のISSNのリストを取得する
-        Manifestation.joins(:series_statement).
+        issns = []
+        issns << series_statement.try(:issn)
+        issns << Manifestation.joins(:series_statement).
           where(['series_statements.id = ?', self.series_statement.id]).
           map(&:issn).compact
+        issns.flatten
       else
-        issn
+        [issn, series_statement.try(:issn)]
       end
     end
     string :marc_number
@@ -262,11 +265,14 @@ class Manifestation < ActiveRecord::Base
     text :issn do  # 前方一致検索のためtext指定を追加
       if root_of_series? # 雑誌の場合
         # 同じ雑誌の全号のISSNのリストを取得する
-        Manifestation.joins(:series_statement).
+        issns = []
+        issns << series_statement.try(:issn)
+        issns << Manifestation.joins(:series_statement).
           where(['series_statements.id = ?', self.series_statement.id]).
           map(&:issn).compact
+        issns.flatten
       else
-        issn  
+        [issn, series_statement.try(:issn)]
       end
     end
     text :ndl_jpno do

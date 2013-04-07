@@ -476,4 +476,9 @@ module ApplicationHelper
       advanced_search_label(:"any_#{name}") + ' '
     ).html_safe
   end
+
+  def hbr(target)
+    target = html_escape(target)
+    target.gsub(/\r\n|\r|\n/, "<br />")
+  end
 end

@@ -151,7 +151,7 @@
           <tr>
             <td><%= t('activerecord.attributes.manifestation.description') -%>:</td>
             <td>
-              <%= raw simple_format(h(manifestation.description)) -%>
+              <%= simple_format(hbr(manifestation.description)) %>
             </td>
           </tr>
         <% end %>
@@ -162,7 +162,7 @@
           <tr>
             <td><%= t('activerecord.attributes.manifestation.supplement') -%>:</td>
             <td>
-              <%= raw simple_format(h(manifestation.supplement)) -%>
+              <%= simple_format(hbr(manifestation.supplement)) %>
             </td>
           </tr>
         <% end %>
@@ -171,7 +171,7 @@
             <tr>
               <td><%= t('activerecord.attributes.manifestation.note') -%>:</td>
               <td>
-                <%= raw simple_format(h(manifestation.note)) -%>
+                <%= simple_format(hbr(manifestation.note)) %>
               </td>
             </tr>
           <% end %>

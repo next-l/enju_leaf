@@ -156,6 +156,7 @@ module EnjuTrunk
           :language       => Language.where(:name => 'Japanese').first,
           :frequency      => Frequency.where(:name => 'unknown').first,
           :required_role  => Role.find('Guest'),
+          :except_recent  => true,
           :during_import  => true,
         )
       end

@@ -1742,7 +1742,7 @@ ja:
     to_date: "検索終了日"
     library: "図書館"
     help_query: "タイトル、著者、出版者、シリーズ名、注記等を対象に検索を行います。"
-    help_isbn: "半角英数字で入力してください。ハイフン（-）の入力は不要です。"
+    help_isbn: "半角英数字で入力してください。"
     help_issn: "半角英数字で入力してください。"
     all_manifestations: "検索非対象資料も表示"
     clear_query: "検索条件をクリア"
@@ -1776,7 +1776,7 @@ ja:
       word_ex: "気象"
       wild: "ワイルドカード検索"
       wild_description: "「任意の文字」に置き換えて検索を行います。「*」が任意の複数文字、「?」が任意の１文字を表します。"
-      wild_ex: "title: 天気??<br / >title: 天気*"
+      wild_ex: "title:天気??<br / >title:天気*"
       field: "フィールド指定検索"
       field_description: "指定されたフィールドに対して検索を行います。"
       field_detail:
