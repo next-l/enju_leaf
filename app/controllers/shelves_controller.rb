@@ -33,6 +33,8 @@ class ShelvesController < ApplicationController
             sql << "display_name not like '#{c}%'"
           end
           @shelves = Shelf.where(sql)
+        elsif params[:shelf_category] == 'jma'
+          @shelves = Shelf.jma
         else
           @shelves = Shelf.where(["display_name like ?", params[:shelf_category] + '%'])
         end
