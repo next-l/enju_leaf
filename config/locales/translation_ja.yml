@@ -860,7 +860,7 @@ ja:
         issue_number: 号（数字）
         issue_number_string: 号
         serial_number: 通号
-        serial_number_string: 通号（文字）
+        serial_number_string: 通号
         edition: 版（数字）
         edition_string: 版
         note: 注記
@@ -1883,7 +1883,7 @@ ja:
     question: "この資料で調べた質問"
     add_derivation: "派生資料を追加"
     delete_attachment: "添付ファイルを削除(アップロード不可)"
-    delim_semicolon: "(セミコロン;で区切ると複数指定できます。)"
+    delim_semicolon: "(セミコロン;で区切ると複数入力できます。)"
     binding_status: "製本雑誌"
     undo_binding: "製本解除"
     missing: "[欠号]"
