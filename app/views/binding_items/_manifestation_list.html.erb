@@ -1,4 +1,3 @@
-<br /> 
 <%- if @manifestations -%>
   <div style="color: green"><%= flash[:message] -%></div>
     <table class="index">
@@ -22,5 +21,6 @@
         <%- end -%>
       <%- end -%>
     </table>
+    <%= paginate(@manifestations, :remote => true) -%>
   </div>
 <%- end -%>

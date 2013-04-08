@@ -302,12 +302,10 @@ class ManifestationsController < ApplicationController
             facet :circulation_status_in_process
             facet :circulation_status_in_factory
 
-            unless request.xhr?
-              if s == search_article
-                paginate :page => page_article, :per_page => per_page
-              else
-                paginate :page => page, :per_page => per_page
-              end
+            if s == search_article
+              paginate :page => page_article, :per_page => per_page
+            else
+              paginate :page => page, :per_page => per_page
             end
           end
         end

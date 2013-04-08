@@ -61,12 +61,20 @@ class SeriesStatementsController < ApplicationController
 
     respond_to do |format|
       format.html { # show.html.erb
-        redirect_to series_statement_manifestations_url(@series_statement)
+        if user_signed_in? and current_user.has_role?('Librarian')
+          redirect_to series_statement_manifestations_url(@series_statement, :all_manifestations => true)
+        else
+          redirect_to series_statement_manifestations_url(@series_statement)
+        end 
       }
       format.json { render :json => @series_statement }
       #format.js
       format.mobile {
-        redirect_to series_statement_manifestations_url(@series_statement)
+        if user_signed_in? and current_user.has_role?('Librarian')
+          redirect_to series_statement_manifestations_url(@series_statement, :all_manifestations => true)
+        else
+          redirect_to series_statement_manifestations_url(@series_statement)
+        end
       }
     end
 
