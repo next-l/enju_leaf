@@ -87,10 +87,10 @@ GEM
       devise (>= 2.1.0.rc)
     diff-lcs (1.2.2)
     dynamic_form (1.1.4)
-    enju_biblio (0.1.0.pre26)
+    enju_biblio (0.1.0.pre27)
       aws-sdk
       dynamic_form
-      enju_core (~> 0.1.1.pre3)
+      enju_core (~> 0.1.1.pre4)
       has_scope
       inherited_resources
       library_stdnums
@@ -99,7 +99,6 @@ GEM
       paper_trail
       paperclip (~> 3.4)
       paperclip-meta
-      rails (~> 3.2.13.rc2)
       resque_mailer
       simple_form
       state_machine
@@ -155,7 +154,7 @@ GEM
       resque_mailer
       simple_form
       state_machine
-    enju_ndl (0.1.0.pre10)
+    enju_ndl (0.1.0.pre11)
       library_stdnums
       lisbn
       nokogiri
@@ -175,7 +174,7 @@ GEM
       railties (>= 3.0.0)
     fattr (2.2.1)
     ffi (1.6.0)
-    foreigner (1.4.0)
+    foreigner (1.4.1)
       activerecord (>= 3.0.0)
     formatador (0.2.4)
     friendly_id (4.0.9)
@@ -451,14 +450,14 @@ DEPENDENCIES
   dalli (~> 2.6)
   devise-encryptable
   dynamic_form
-  enju_biblio (~> 0.1.0.pre26)
+  enju_biblio (~> 0.1.0.pre27)
   enju_book_jacket (~> 0.1.0.pre6)
   enju_circulation (~> 0.1.0.pre16)
   enju_flower (~> 0.1.0.pre2)
   enju_library (~> 0.1.0.pre14)
   enju_manifestation_viewer (~> 0.1.0.pre4)
   enju_message (~> 0.1.4.pre15)
-  enju_ndl (~> 0.1.0.pre10)
+  enju_ndl (~> 0.1.0.pre11)
   enju_oai (~> 0.1.0.pre8)
   exception_notification (~> 3.0)
   factory_girl_rails (~> 4.2)
@@ -474,7 +473,7 @@ DEPENDENCIES
   mobylette
   paper_trail (~> 2.7)
   paperclip-meta
-  parallel_tests (~> 0.9)
+  parallel_tests (~> 0.10)
   pg
   progress_bar
   rack-protection

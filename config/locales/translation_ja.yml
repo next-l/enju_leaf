@@ -321,9 +321,6 @@ ja:
     all_publication: "全ての出版物"
     other_address: "他の住所"
     add_derivation: "派生人物・団体を追加"
-    creator: "著者"
-    contributor: "協力者・編者"
-    publisher: "出版者"
     owner: "所有者"
   library:
     map: "地図"

@@ -6,13 +6,13 @@ gem 'rails', '3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'enju_biblio', '~> 0.1.0.pre26'
+gem 'enju_biblio', '~> 0.1.0.pre27'
 gem 'enju_library', '~> 0.1.0.pre14'
 gem 'enju_flower', '~> 0.1.0.pre2'
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
 #gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
-gem 'enju_ndl', '~> 0.1.0.pre10'
+gem 'enju_ndl', '~> 0.1.0.pre11'
 #gem 'enju_nii', '~> 0.1.0.pre4'
 gem 'enju_oai', '~> 0.1.0.pre8'
 #gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
@@ -98,7 +98,7 @@ group :development, :test do
   gem 'vcr', '~> 2.4'
   gem 'steak'
   gem 'resque_spec'
-  gem 'parallel_tests', '~> 0.9'
+  gem 'parallel_tests', '~> 0.10'
 end
 
 # Gems used only for assets and not required

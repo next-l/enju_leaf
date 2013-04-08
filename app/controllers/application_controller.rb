@@ -273,7 +273,7 @@ class ApplicationController < ActionController::Base
         request.format = :mobile
       when 'false'
         session[:mobylette_override] = :ignore_mobile
-        request.format = :html
+        request.format = :html if request.format == :mobile
       end
     else
       session[:mobylette_override] = nil
