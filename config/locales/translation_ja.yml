@@ -1828,6 +1828,8 @@ ja:
         shelf_ex: "shelf_sm:honkan01"
         series_title_format: "series_title_text:"
         series_title_ex: "series_title_text:nature"
+        article_title_format: "article_title_text:"
+        article_title_ex: "article_title_text:nature"
     advanced: "詳細検索"
     solr_search: "solr検索式による詳細検索"
   worki:

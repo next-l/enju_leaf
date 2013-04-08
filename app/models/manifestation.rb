@@ -840,7 +840,7 @@ class Manifestation < ActiveRecord::Base
       end
 
       job_name = GenerateManifestationListJob.generate_job_name
-      Delayed::Job.enqueue GenerateManifestationListJob.new(job_name, info, output_type, current_user)
+      Delayed::Job.enqueue GenerateManifestationListJob.new(job_name, info, output_type, current_user, cols)
       output = OpenStruct.new
       output.result_type = :delayed
       output.job_name = job_name
@@ -1381,20 +1381,21 @@ class Manifestation < ActiveRecord::Base
     include Rails.application.routes.url_helpers
     include BackgroundJobUtils
 
-    def initialize(name, fileinfo, output_type, user)
+    def initialize(name, fileinfo, output_type, user, cols)
       @name = name
       @fileinfo = fileinfo
       @output_type = output_type
       @user = user
+      @cols = cols
     end
-    attr_accessor :name, :fileinfo, :output_type, :user
+    attr_accessor :name, :fileinfo, :output_type, :user, :cols
 
     def perform
       user_file = UserFile.new(user)
       path, = user_file.find(fileinfo[:category], fileinfo[:filename], fileinfo[:random])
       manifestation_ids = open(path, 'r') {|io| Marshal.load(io) }
 
-      Manifestation.generate_manifestation_list_internal(manifestation_ids, output_type, user) do |output|
+      Manifestation.generate_manifestation_list_internal(manifestation_ids, output_type, user, cols) do |output|
         io, info = user_file.create(:manifestation_list, output.filename)
         if output.result_type == :path
           open(output.path) {|io2| FileUtils.copy_stream(io2, io) }
@@ -1414,7 +1415,8 @@ class Manifestation < ActiveRecord::Base
       message(
         user,
         I18n.t('manifestation.output_job_error_subject', :job_name => name),
-        I18n.t('manifestation.output_job_error_body', :job_name => name, :message => exception.message))
+        #I18n.t('manifestation.output_job_error_body', :job_name => name, :message => exception.message))
+        I18n.t('manifestation.output_job_error_body', :job_name => name, :message => exception.backtrace))
     end
   end
 end
