@@ -249,6 +249,7 @@ module EnjuLeaf
       @current_ability.merge(EnjuNews::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuNews)
       @current_ability.merge(EnjuSearchLog::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuSearchLog)
       @current_ability.merge(EnjuExport::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuExport)
+      @current_ability
     end
 
     def get_top_page_content
@@ -267,7 +268,7 @@ module EnjuLeaf
           request.format = :mobile
         when 'false'
           session[:mobylette_override] = :ignore_mobile
-          request.format = :html
+          request.format = :html if request.format == :mobile
         end
       else
         session[:mobylette_override] = nil
