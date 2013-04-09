@@ -3,16 +3,21 @@ class EnjuTrunkNumberingError < StandardError ; end
 class EnjuTrunkNumberingConflictError < StandardError ; end
 
 class Numbering < ActiveRecord::Base
-  attr_accessible :checkdigit, :display_name, :last_number, :name, :padding, :padding_number, :prefix, :suffix
+  attr_accessible :checkdigit, :display_name, :last_number, :name, :padding, :padding_number, :padding_character, :prefix, :suffix
 
   validates_presence_of :name, :display_name
   validates_numericality_of :last_number, :allow_blank => true
   validates_numericality_of :padding_number, :allow_blank => true
   validates_uniqueness_of :name
+  before_save :set_padding_character 
 
   include GenerateCheckdigit
   class << self
     include GenerateCheckdigit
+  end
+
+  def set_padding_character
+    self.padding_character = 0 unless padding_character
   end
 
   def padding?
