@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130409235720) do
+ActiveRecord::Schema.define(:version => 20130221154434) do
 
   create_table "accepts", :force => true do |t|
     t.integer  "basket_id"
@@ -772,24 +772,6 @@ ActiveRecord::Schema.define(:version => 20130409235720) do
   add_index "user_has_roles", ["user_id"], :name => "index_user_has_roles_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "username"
-    t.datetime "deleted_at"
-    t.integer  "library_id",             :default => 1,  :null => false
-    t.integer  "user_group_id",          :default => 1,  :null => false
-    t.datetime "expired_at"
-    t.integer  "required_role_id",       :default => 1,  :null => false
-    t.integer  "integer",                :default => 1,  :null => false
-    t.text     "note"
-    t.text     "keyword_list"
-    t.string   "user_number"
-    t.string   "state"
-    t.string   "locale"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-    t.integer  "failed_attempts"
-    t.string   "unlock_token"
-    t.datetime "locked_at"
-    t.datetime "confirmed_at"
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
@@ -800,6 +782,23 @@ ActiveRecord::Schema.define(:version => 20130409235720) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.string   "username"
+    t.string   "user_number"
+    t.string   "state"
+    t.string   "locale"
+    t.datetime "deleted_at"
+    t.datetime "expired_at"
+    t.integer  "library_id",             :default => 1,  :null => false
+    t.integer  "required_role_id",       :default => 1,  :null => false
+    t.integer  "user_group_id",          :default => 1,  :null => false
+    t.text     "note"
+    t.text     "keyword_list"
+    t.integer  "failed_attempts"
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+    t.datetime "confirmed_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
