@@ -18,9 +18,11 @@
             <li>
               <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%>
             </li>
-            <%- if current_user.has_role?('Librarian') -%>
-              <li><%= link_to t('activerecord.models.inter_library_loan'), inter_library_loans_path -%></li>
-            <%- end -%>
+            <% if defined?(EnjuInterLibraryLoan) %>
+              <% if current_user.has_role?('Librarian') -%>
+                <li><%= link_to t('activerecord.models.inter_library_loan'), inter_library_loans_path -%></li>
+              <% end %>
+            <% end %>
             <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
           <%- else -%>
             <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
