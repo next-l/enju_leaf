@@ -16,6 +16,10 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
     gsub_file 'config/environments/production.rb',
       /# config.assets.precompile \+= %w\( search.js \)$/,
       "config.assets.precompile += %w( mobile.js mobile.css print.css )"
+    inject_into_file 'app/controllers/application_controller.rb',
+      'enju_circulation', :after => 'enju_library\n'
+    inject_into_file 'app/controllers/application_controller.rb',
+      'enju_subject', :after => 'enju_library\n'
     rake("db:migrate")
     rake("enju_leaf:setup")
     rake("enju_circulation:setup")
