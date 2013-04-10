@@ -4,13 +4,27 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
   desc "Create a setup file for Next-L Enju"
 
   def copy_setup_files
-    directory("db/fixtures", "db/fixtures")
+    directory("db/fixtures", "db/fixtures/enju_leaf")
     directory("solr", "solr")
     copy_file("config/application.yml", "config/application.yml")
-    remove_file "db/seeds.rb"
-    copy_file("db/seeds.rb", "db/seeds.rb")
+    copy_file("config/resque.yml", "config/resque.yml")
+    copy_file("config/schedule.rb", "config/schedule.rb")
+    gsub_file 'config/application.rb', /# config.i18n.default_locale = :de$/,
+      "config.i18n.default_locale = :ja"
+    gsub_file 'config/application.rb', /# config.time_zone = 'Central Time \(US & Canada\)'$/,
+      "config.time_zone = 'Tokyo'"
+    gsub_file 'config/schedule.rb', /\/path\/to\/enju_leaf/, Rails.root.to_s
+    append_to_file("Rakefile", "require 'resque/tasks'")
+    append_to_file("db/seeds.rb", File.open(File.expand_path('../templates', __FILE__) + '/db/seeds.rb').read)
+    append_to_file 'config/initializers/inflections.rb',  <<EOS
+ActiveSupport::Inflector.inflections do |inflect|
+  inflect.irregular 'reserve', 'reserves'
+end
+EOS
     generate("devise:install")
     generate("devise", "User")
+    generate("enju_biblio:setup")
+    generate("enju_library:setup")
     rake("enju_leaf_engine:install:migrations")
     rake("enju_biblio_engine:install:migrations")
     rake("enju_library_engine:install:migrations")
