@@ -1,0 +1,16 @@
+--- 
+patron_type_00001:
+  id: 1
+  name: Person  
+  display_name: "en: Person\r\n\
+    ja: 個人"
+  note: 
+  position: 1
+
+patron_type_00002:
+  id: 2
+  name: CorporateBody  
+  display_name: "en: CorporateBody\r\n\
+    ja: 団体"
+  note: 
+  position: 2

@@ -10,5 +10,4 @@ Mime::Type.register "application/xml",  :sru
 Mime::Type.register "application/xml",  :mods
 Mime::Type.register "application/rdf+xml",  :rdf
 Mime::Type.register_alias "text/xml",  :oai
-Mime::Type.register_alias "text/html", :mobile
 Mime::Type.register "application/svg+xml",  :svg

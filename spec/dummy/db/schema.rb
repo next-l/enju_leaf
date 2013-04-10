@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121119153944) do
+ActiveRecord::Schema.define(:version => 20130409235720) do
 
   create_table "accepts", :force => true do |t|
     t.integer  "basket_id"
@@ -246,19 +246,20 @@ ActiveRecord::Schema.define(:version => 20121119153944) do
   add_index "libraries", ["name"], :name => "index_libraries_on_name", :unique => true
 
   create_table "library_groups", :force => true do |t|
-    t.string   "name",                                                 :null => false
+    t.string   "name",                                                            :null => false
     t.text     "display_name"
-    t.string   "short_name",                                           :null => false
+    t.string   "short_name",                                                      :null => false
     t.string   "email"
     t.text     "my_networks"
     t.text     "login_banner"
     t.text     "note"
+    t.integer  "valid_period_for_new_user", :default => 365,                      :null => false
     t.integer  "country_id"
     t.integer  "position"
-    t.datetime "created_at",                                           :null => false
-    t.datetime "updated_at",                                           :null => false
+    t.datetime "created_at",                                                      :null => false
+    t.datetime "updated_at",                                                      :null => false
     t.text     "admin_networks"
-    t.string   "url",            :default => "http://localhost:3000/"
+    t.string   "url",                       :default => "http://localhost:3000/"
   end
 
   add_index "library_groups", ["short_name"], :name => "index_library_groups_on_short_name"
@@ -771,6 +772,24 @@ ActiveRecord::Schema.define(:version => 20121119153944) do
   add_index "user_has_roles", ["user_id"], :name => "index_user_has_roles_on_user_id"
 
   create_table "users", :force => true do |t|
+    t.string   "username"
+    t.datetime "deleted_at"
+    t.integer  "library_id",             :default => 1,  :null => false
+    t.integer  "user_group_id",          :default => 1,  :null => false
+    t.datetime "expired_at"
+    t.integer  "required_role_id",       :default => 1,  :null => false
+    t.integer  "integer",                :default => 1,  :null => false
+    t.text     "note"
+    t.text     "keyword_list"
+    t.string   "user_number"
+    t.string   "state"
+    t.string   "locale"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.integer  "failed_attempts"
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+    t.datetime "confirmed_at"
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
@@ -781,32 +800,8 @@ ActiveRecord::Schema.define(:version => 20121119153944) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "password_salt"
-    t.string   "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",        :default => 0
-    t.string   "unlock_token"
-    t.datetime "locked_at"
-    t.string   "authentication_token"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-    t.datetime "deleted_at"
-    t.string   "username",                               :null => false
-    t.integer  "library_id",             :default => 1,  :null => false
-    t.integer  "user_group_id",          :default => 1,  :null => false
-    t.datetime "expired_at"
-    t.integer  "required_role_id",       :default => 1,  :null => false
-    t.text     "note"
-    t.text     "keyword_list"
-    t.string   "user_number"
-    t.string   "state"
-    t.string   "locale"
   end
 
-  add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
-  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true

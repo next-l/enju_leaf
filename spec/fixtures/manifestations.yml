@@ -1,3 +1,74 @@
+# == Schema Information
+#
+# Table name: manifestations
+#
+#  id                              :integer          not null, primary key
+#  original_title                  :text             not null
+#  title_alternative               :text
+#  title_transcription             :text
+#  classification_number           :string(255)
+#  manifestation_identifier        :string(255)
+#  date_of_publication             :datetime
+#  date_copyrighted                :datetime
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
+#  deleted_at                      :datetime
+#  access_address                  :string(255)
+#  language_id                     :integer          default(1), not null
+#  carrier_type_id                 :integer          default(1), not null
+#  extent_id                       :integer          default(1), not null
+#  start_page                      :integer
+#  end_page                        :integer
+#  height                          :integer
+#  width                           :integer
+#  depth                           :integer
+#  isbn                            :string(255)
+#  isbn10                          :string(255)
+#  wrong_isbn                      :string(255)
+#  nbn                             :string(255)
+#  lccn                            :string(255)
+#  oclc_number                     :string(255)
+#  issn                            :string(255)
+#  price                           :integer
+#  fulltext                        :text
+#  volume_number_string            :string(255)
+#  issue_number_string             :string(255)
+#  serial_number_string            :string(255)
+#  edition                         :integer
+#  note                            :text
+#  repository_content              :boolean          default(FALSE), not null
+#  lock_version                    :integer          default(0), not null
+#  required_role_id                :integer          default(1), not null
+#  state                           :string(255)
+#  required_score                  :integer          default(0), not null
+#  frequency_id                    :integer          default(1), not null
+#  subscription_master             :boolean          default(FALSE), not null
+#  attachment_file_name            :string(255)
+#  attachment_content_type         :string(255)
+#  attachment_file_size            :integer
+#  attachment_updated_at           :datetime
+#  title_alternative_transcription :text
+#  description                     :text
+#  abstract                        :text
+#  available_at                    :datetime
+#  valid_until                     :datetime
+#  date_submitted                  :datetime
+#  date_accepted                   :datetime
+#  date_caputured                  :datetime
+#  pub_date                        :string(255)
+#  edition_string                  :string(255)
+#  volume_number                   :integer
+#  issue_number                    :integer
+#  serial_number                   :integer
+#  ndc                             :string(255)
+#  content_type_id                 :integer          default(1)
+#  year_of_publication             :integer
+#  attachment_meta                 :text
+#  month_of_publication            :integer
+#  fulltext_content                :boolean
+#  doi                             :string(255)
+#
+
 --- 
 manifestation_00001: 
   carrier_type_id: 1
@@ -1947,76 +2018,4 @@ manifestation_00216:
 
 
 
-
-
-# == Schema Information
-#
-# Table name: manifestations
-#
-#  id                              :integer         not null, primary key
-#  original_title                  :text            not null
-#  title_alternative               :text
-#  title_transcription             :text
-#  classification_number           :string(255)
-#  manifestation_identifier        :string(255)
-#  date_of_publication             :datetime
-#  date_copyrighted                :datetime
-#  created_at                      :datetime        not null
-#  updated_at                      :datetime        not null
-#  deleted_at                      :datetime
-#  access_address                  :string(255)
-#  language_id                     :integer         default(1), not null
-#  carrier_type_id                 :integer         default(1), not null
-#  extent_id                       :integer         default(1), not null
-#  start_page                      :integer
-#  end_page                        :integer
-#  height                          :integer
-#  width                           :integer
-#  depth                           :integer
-#  isbn                            :string(255)
-#  isbn10                          :string(255)
-#  wrong_isbn                      :string(255)
-#  nbn                             :string(255)
-#  lccn                            :string(255)
-#  oclc_number                     :string(255)
-#  issn                            :string(255)
-#  price                           :integer
-#  fulltext                        :text
-#  volume_number_string            :string(255)
-#  issue_number_string             :string(255)
-#  serial_number_string            :string(255)
-#  edition                         :integer
-#  note                            :text
-#  repository_content              :boolean         default(FALSE), not null
-#  lock_version                    :integer         default(0), not null
-#  required_role_id                :integer         default(1), not null
-#  state                           :string(255)
-#  required_score                  :integer         default(0), not null
-#  frequency_id                    :integer         default(1), not null
-#  subscription_master             :boolean         default(FALSE), not null
-#  attachment_file_name            :string(255)
-#  attachment_content_type         :string(255)
-#  attachment_file_size            :integer
-#  attachment_updated_at           :datetime
-#  title_alternative_transcription :text
-#  description                     :text
-#  abstract                        :text
-#  available_at                    :datetime
-#  valid_until                     :datetime
-#  date_submitted                  :datetime
-#  date_accepted                   :datetime
-#  date_caputured                  :datetime
-#  ndl_bib_id                      :string(255)
-#  pub_date                        :string(255)
-#  edition_string                  :string(255)
-#  volume_number                   :integer
-#  issue_number                    :integer
-#  serial_number                   :integer
-#  ndc                             :string(255)
-#  content_type_id                 :integer         default(1)
-#  year_of_publication             :integer
-#  attachment_fingerprint          :string(255)
-#  attachment_meta                 :text
-#  month_of_publication            :integer
-#
 
