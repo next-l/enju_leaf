@@ -20,8 +20,8 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
     rake("enju_leaf:setup")
     rake("enju_circulation:setup")
     rake("enju_subject:setup")
-    rake("sunspot:solr:start")
-    rake("db:seed")
-    rake("assets:precompile")
+    #rake("sunspot:solr:start")
+    #rake("db:seed")
+    #rake("assets:precompile")
   end
 end
