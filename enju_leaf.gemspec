@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids}/*"]
 
   s.add_dependency "rails", "~> 3.2.13"
-  s.add_dependency "enju_biblio", "~> 0.1.0.pre29"
+  s.add_dependency "enju_biblio", "~> 0.1.0.pre30"
   s.add_dependency "enju_library", "~> 0.1.0.pre17"
   s.add_dependency "enju_book_jacket", "~> 0.1.0.pre6"
   s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre5"
@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
-  s.add_development_dependency "enju_message", "~> 0.1.14.pre6"
+  s.add_development_dependency "enju_message", "~> 0.1.14.pre7"
   s.add_development_dependency "vcr"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "factory_girl_rails"

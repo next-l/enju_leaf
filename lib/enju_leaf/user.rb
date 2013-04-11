@@ -67,13 +67,6 @@ module EnjuLeaf
         has_paper_trail
         normalize_attributes :username, :user_number #, :email
 
-        enju_circulation_user_model if defined?(EnjuCirculation)
-        enju_question_user_model if defined?(EnjuQuestion)
-        enju_purchase_request_user_model if defined?(EnjuPurchaseRequest)
-        enju_bookmark_user_model if defined?(EnjuBookmark)
-        enju_message_user_model if defined?(EnjuMessage)
-        enju_search_log_user_model if defined?(EnjuSearchLog)
-
         searchable do
           text :username, :email, :note, :user_number
           text :name do
