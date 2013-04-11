@@ -846,8 +846,18 @@ class Manifestation < ActiveRecord::Base
   #  output.path: 生成結果のパス名(result_typeが:pathのとき)
   #  output.job_name: 後で処理する際のジョブ名(result_typeが:delayedのとき)
   def self.generate_manifestation_list(solr_search, output_type, current_user, cols=[], threshold = nil, &block)
+#    get_total = proc do
+#      solr_search.execute.total
+#    end
     get_total = proc do
-      solr_search.execute.total
+      get_periodical_master_ids = Sunspot.new_search(Manifestation).build {
+          with(:periodical_master).equal_to true
+          paginate :page => 1, :per_page => Manifestation.count
+        }.execute.raw_results.map(&:primary_key)
+      series_statements_total = Manifestation.where(:id => get_periodical_master_ids).all.inject(0) do |total, m|
+          total += m.series_statement.manifestations.size
+        end rescue 0
+      solr_search.execute.total - get_periodical_master_ids.size + series_statements_total
     end
 
     get_all_ids = proc do
