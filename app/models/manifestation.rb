@@ -198,6 +198,36 @@ class Manifestation < ActiveRecord::Base
     integer :volume_number, :multiple => true
     integer :issue_number, :multiple => true
     integer :serial_number, :multiple => true
+    string :volume_number_string, :multiple => true do
+      if root_of_series? # 雑誌の場合
+        # 同じ雑誌の全号の出版日のリストを取得する
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          map(&:volume_number_string).compact
+      else
+        volume_number_string 
+      end
+    end
+    string :issue_number_string, :multiple => true do
+      if root_of_series? # 雑誌の場合
+        # 同じ雑誌の全号の出版日のリストを取得する
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          map(&:issue_number_string).compact
+      else
+        issue_number_string 
+      end
+    end
+    string :serial_number_string, :multiple => true do
+      if root_of_series? # 雑誌の場合
+        # 同じ雑誌の全号の出版日のリストを取得する
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          map(&:serial_number_string).compact
+      else
+        serial_number_string 
+      end
+    end
     string :start_page
     string :end_page
     integer :number_of_pages
@@ -816,8 +846,18 @@ class Manifestation < ActiveRecord::Base
   #  output.path: 生成結果のパス名(result_typeが:pathのとき)
   #  output.job_name: 後で処理する際のジョブ名(result_typeが:delayedのとき)
   def self.generate_manifestation_list(solr_search, output_type, current_user, cols=[], threshold = nil, &block)
+#    get_total = proc do
+#      solr_search.execute.total
+#    end
     get_total = proc do
-      solr_search.execute.total
+      get_periodical_master_ids = Sunspot.new_search(Manifestation).build {
+          with(:periodical_master).equal_to true
+          paginate :page => 1, :per_page => Manifestation.count
+        }.execute.raw_results.map(&:primary_key)
+      series_statements_total = Manifestation.where(:id => get_periodical_master_ids).all.inject(0) do |total, m|
+          total += m.series_statement.manifestations.size
+        end rescue 0
+      solr_search.execute.total - get_periodical_master_ids.size + series_statements_total
     end
 
     get_all_ids = proc do
