@@ -34,6 +34,9 @@ function displayArticleTitle(article_title) {
   }
   $(".pub_date").html(pub_data_field);
 }
+$(document).keydown(function(e) {
+  if (e.keyCode == 13) return false;
+});
 </script>
 
 <%= render 'page/required_field' %>

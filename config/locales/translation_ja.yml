@@ -1844,7 +1844,7 @@ ja:
     specify_work: "書いた資料を指定してください。"
     specify_manifestation: "資料を指定してください。"
   manifestation:
-    date_of_acquisition: "受入日"
+    date_of_acquisition: 登録日 # "受入日"
     physical_description: "ページ数と大きさ"
     add_next_issue: "次の号を追加"
     copy: "コピーして新規"

@@ -169,6 +169,7 @@ $(function(){
       <td></td>
       <td>
         <%= submit_tag t('page.search'), :name => 'solr_commit' -%>
+        <%= button_to_function t('advanced_search.clear_query'), "clear_all()" %>
       </td>
     </tr>
   </table>
