@@ -198,6 +198,36 @@ class Manifestation < ActiveRecord::Base
     integer :volume_number, :multiple => true
     integer :issue_number, :multiple => true
     integer :serial_number, :multiple => true
+    string :volume_number_string, :multiple => true do
+      if root_of_series? # 雑誌の場合
+        # 同じ雑誌の全号の出版日のリストを取得する
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          map(&:volume_number_string).compact
+      else
+        volume_number_string 
+      end
+    end
+    string :issue_number_string, :multiple => true do
+      if root_of_series? # 雑誌の場合
+        # 同じ雑誌の全号の出版日のリストを取得する
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          map(&:issue_number_string).compact
+      else
+        issue_number_string 
+      end
+    end
+    string :serial_number_string, :multiple => true do
+      if root_of_series? # 雑誌の場合
+        # 同じ雑誌の全号の出版日のリストを取得する
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          map(&:serial_number_string).compact
+      else
+        serial_number_string 
+      end
+    end
     string :start_page
     string :end_page
     integer :number_of_pages
