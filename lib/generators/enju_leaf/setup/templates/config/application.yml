@@ -33,6 +33,10 @@ defaults: &defaults
     facet:
       pub_year_range_interval: 10
 
+  news_post:
+    number:
+      top_page: 3
+
 development:
   <<: *defaults
 

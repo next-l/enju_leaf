@@ -255,7 +255,7 @@ module EnjuLeaf
     def get_top_page_content
       if defined?(EnjuNews)
         @news_feeds = Rails.cache.fetch('news_feed_all'){NewsFeed.all}
-        @news_posts = NewsPost.limit(3)
+        @news_posts = NewsPost.limit(Setting.news_post.number.top_page)
       end
       @libraries = Library.real
     end
