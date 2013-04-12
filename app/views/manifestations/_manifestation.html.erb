@@ -5,7 +5,7 @@
                 <%- else -%>
                   <%= render 'manifestations/show_index', :manifestation => manifestation -%>
                 <%- end -%>
-                <%- if SystemConfiguration.get('internal_server') && !manifestation.article? %> 
+                <% unless SystemConfiguration.isWebOPAC %> 
                   <div class="access_address">
                     <%= link_to manifestation.access_address, manifestation.access_address if manifestation.access_address.present? -%>
                   </div>

@@ -38,7 +38,7 @@
       <li><%= link_to t('page.checkout_history'), user_checkouts_path(current_user) -%></li>
       <li><%= link_to t('activerecord.models.checkout_history'), checkout_histories_path -%></li>
     </ul>
-  <%- elsif SystemConfiguration.get('internal_server') -%>
+  <%- elsif !SystemConfiguration.isWebOPAC -%>
     <ul>
       <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
       <li><%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%></li>

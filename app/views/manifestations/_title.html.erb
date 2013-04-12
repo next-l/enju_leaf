@@ -26,7 +26,7 @@
        <%- end -%>
        : <%= manifestation.pub_date -%>)
     <%- end -%>
-    <%- if SystemConfiguration.get('internal_server') -%>
+    <%- unless SystemConfiguration.isWebOPAC -%>
       <%- unless manifestation.access_address.blank? -%>
         <br />
         <%= link_to manifestation.access_address, manifestation.access_address -%>

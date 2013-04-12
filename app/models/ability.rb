@@ -479,7 +479,7 @@ class Ability
       can :read, Manifestation do |manifestation|
         manifestation.required_role_id <= 1
       end
-      can [:index, :create, :show], PurchaseRequest if SystemConfiguration.get('internal_server')
+      can [:index, :create, :show], PurchaseRequest unless SystemConfiguration.isWebOPAC
       can :read, [
         CarrierType,
         CirculationStatus,

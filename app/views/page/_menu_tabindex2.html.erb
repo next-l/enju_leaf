@@ -5,7 +5,7 @@
   </a>
 
   <div id="request_menu" class="hidden">
-    <%- if SystemConfiguration.get('internal_server') %>
+    <% unless SystemConfiguration.isWebOPAC %>
     <ul>
       <% if can_use_purchase_request? %>
         <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path %></li>
