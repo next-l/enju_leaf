@@ -5,7 +5,6 @@
 //= require jquery.highlight
 //= require jquery.shortcut
 //= require jquery.cookie
-//= require rails.validations
 //= require jquery.ui.menubar
 //= require menu.enju
 //= require select_locale
