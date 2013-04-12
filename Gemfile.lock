@@ -8,13 +8,12 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: a5adebe6e9c12caa3e8f56bbc380d345c5d20ba9
+  revision: 8710c340f8f1c932f6a9aa2d8f9269b66e84e0fc
   specs:
-    enju_biblio (0.1.0.pre29)
+    enju_biblio (0.1.0.pre30)
       aws-sdk
       dynamic_form
       enju_core (~> 0.1.1.pre4)
-      has_scope
       inherited_resources
       library_stdnums
       lisbn
@@ -29,19 +28,19 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_book_jacket.git
-  revision: f1c3af65b4380c4a9e277022d6544e3ed786e78b
+  revision: f3577ab4e6391bf5d3693dc01d45df756b0907f6
   specs:
     enju_book_jacket (0.1.0.pre7)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_circulation.git
-  revision: 760eafe5cb0584a9e6c3fb7e7789095ad819d500
+  revision: 4f073977ad64785ef5699570e973d7beffb194ce
   specs:
-    enju_circulation (0.1.0.pre18)
+    enju_circulation (0.1.0.pre19)
       enju_core (~> 0.1.0.pre4)
-      enju_event (~> 0.1.17.pre9)
-      enju_message (~> 0.1.14.pre6)
+      enju_event (~> 0.1.17.pre11)
+      enju_message (~> 0.1.14.pre7)
       inherited_resources
       simple_form
       state_machine
@@ -68,11 +67,11 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_event.git
-  revision: 83cb39ad5ed424e7106c66faad0834f0a8e8830e
+  revision: 5d77c28c7d286234ea703371b69e407915f9d371
   specs:
-    enju_event (0.1.17.pre9)
+    enju_event (0.1.17.pre11)
       enju_core (~> 0.1.1.pre4)
-      enju_message (~> 0.1.14.pre6)
+      enju_message (~> 0.1.14.pre7)
       event-calendar (~> 2.3.3)
       has_scope
       inherited_resources
@@ -84,40 +83,40 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_export.git
-  revision: 0250d7d90b4aec6340389aaa7e0e108c4382045c
+  revision: 0b4a1c3dfd6b49766898d4d1ef0a35ce3fc60a6b
   specs:
     enju_export (0.1.1.pre3)
-      enju_biblio (~> 0.1.0.pre28)
+      enju_biblio (~> 0.1.0.pre30)
       state_machine
 
 GIT
   remote: git://github.com/next-l/enju_flower.git
-  revision: 30c5d1b25271eaa8fe9bf5f0cdbe6531010ce2cd
+  revision: 7efb58b2bfc646111df1ce780dd82d87701b1872
   specs:
     enju_flower (0.1.0.pre3)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: c11db0aa9a26c1f4afaa2b36f126cd7b62cde904
+  revision: faf343167b574039d2720b20e7fd00624cd49fd6
   specs:
-    enju_library (0.1.0.pre17)
+    enju_library (0.1.0.pre20)
       enju_core (~> 0.1.1.pre4)
       geocoder
       inherited_resources
 
 GIT
   remote: git://github.com/next-l/enju_manifestation_viewer.git
-  revision: 9ee64e997e22424855c6ef2154b8622e8ff1304e
+  revision: a288fd1a845242d0aef86101d89fe8983f9ec1d7
   specs:
-    enju_manifestation_viewer (0.1.0.pre5)
+    enju_manifestation_viewer (0.1.0.pre6)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_message.git
-  revision: bd2fe524c1a40de2c8e8ab0aa634350adb33a591
+  revision: 236d5e20faa86b0359c01fff0b27a0cf7e773d79
   specs:
-    enju_message (0.1.14.pre6)
+    enju_message (0.1.14.pre7)
       awesome_nested_set (~> 2.1)
       enju_core (~> 0.1.1.pre4)
       inherited_resources
@@ -127,9 +126,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_ndl.git
-  revision: fcfe4e65bbc83a63b30d8be9432185237f17e047
+  revision: 33bd452bf5d579574abf43c19bb3a4d669bc3ca7
   specs:
-    enju_ndl (0.1.0.pre13)
+    enju_ndl (0.1.0.pre14)
       library_stdnums
       lisbn
       nokogiri
@@ -137,16 +136,16 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_oai.git
-  revision: 9d504fe43bb684460a17f521fb018cc5f32a4316
+  revision: 94d852f18320ecd00aed35ac3b294e8a71f95ced
   specs:
     enju_oai (0.1.0.pre9)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_subject.git
-  revision: 816b55670a406df7c3e847c47299b5e99ec1a6d9
+  revision: d36b8b6e9f6429c06e0bdca0695c167b24d8db14
   specs:
-    enju_subject (0.1.0.pre10)
+    enju_subject (0.1.0.pre11)
       dynamic_form
       enju_core (~> 0.1.1.pre4)
       inherited_resources
@@ -227,7 +226,7 @@ GEM
       warden (~> 1.2.1)
     devise-encryptable (0.1.1)
       devise (>= 2.1.0.rc)
-    diff-lcs (1.2.2)
+    diff-lcs (1.2.3)
     dynamic_form (1.1.4)
     erubis (2.7.0)
     event-calendar (2.3.3)
@@ -252,7 +251,7 @@ GEM
       lumberjack (>= 1.0.2)
       pry (>= 0.9.10)
       thor (>= 0.14.6)
-    guard-rspec (2.5.2)
+    guard-rspec (2.5.3)
       guard (>= 1.1)
       rspec (~> 2.11)
     has_scope (0.5.1)
