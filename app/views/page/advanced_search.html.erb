@@ -84,8 +84,8 @@ $(function(){
     </tr>
     <tr>
       <td><label><%= advanced_search_label(:pub_date) -%>:</label></td>
-      <td><%= t('advanced_search.from') -%> <%= search_field_tag 'pub_date_from', params[:pub_date_from], :class => 'date_text_field', :placeholder => "#{t('page.example')}: 1978, 1978-04-12" -%>
-        <%= t('advanced_search.to') -%> <%= search_field_tag 'pub_date_to', params[:pub_date_to], :class => 'date_text_field', :placeholder => "#{t('page.example')}: 2011, 2011-04-12"-%></td>
+      <td><%= t('advanced_search.from') -%> <%= search_field_tag 'pub_date_from', params[:pub_date_from], :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 1978, 1978-04-12" -%>
+        <%= t('advanced_search.to') -%> <%= search_field_tag 'pub_date_to', params[:pub_date_to], :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011, 2011-04-12"-%></td>
     </tr>
     <tr>
       <td><label><%= advanced_search_label(:acquired) -%>:</label></td>

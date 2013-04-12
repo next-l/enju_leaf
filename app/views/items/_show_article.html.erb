@@ -59,12 +59,12 @@
   <%= @item.price %>
 </p>
 
-<%- if SystemConfiguration.get('internal_server') %>
+<% unless SystemConfiguration.isWebOPAC %>
   <p>
     <strong><%= t('activerecord.attributes.item.url') %>:</strong>
     <%= @item.url %>
   </p>
-<%- end -%>
+<% end %>
 
 <p>
   <strong><%= t('activerecord.attributes.item.include_supplements') %>:</strong>

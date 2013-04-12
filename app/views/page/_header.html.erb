@@ -24,7 +24,7 @@
         <br />
       <% else %>
         <% unless controller_name == 'sessions' %>
-          <%- if SystemConfiguration.get('internal_server') %>
+          <%- unless SystemConfiguration.isWebOPAC %>
             <%= link_to t('page.sign_in'), new_user_session_path -%>
           <%- end -%>
         <% end %>

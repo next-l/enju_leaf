@@ -41,7 +41,7 @@
       <%- end -%>
     <%- else -%>
         <ul>
-        <%- if SystemConfiguration.get('internal_server') %>
+        <%- unless SystemConfiguration.isWebOPAC %>
           <li><%= link_to t('page.sign_in'), new_user_session_path -%></li>
         <%- end -%>
         </ul>
