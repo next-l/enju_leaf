@@ -1,3 +1,4 @@
+# coding: utf-8
 class Wareki < ActiveRecord::Base
   attr_accessible :display_name, :note, :short_name, :year_from, :year_to
 
@@ -27,6 +28,7 @@ class Wareki < ActiveRecord::Base
 
     datestr.strip!
     #puts "datestr=#{datestr}"
+    datestr.delete!("[", "]") 
  
     i = GENGOUS.keys.index(datestr[0, 2])
     if i.present?
@@ -54,6 +56,8 @@ class Wareki < ActiveRecord::Base
       yyyymmdd_from = dfrom.strftime("%Y%m%d") if dfrom.present?
       yyyymmdd_to = dto.strftime("%Y%m%d") if dto.present?
     elsif datestr.match(/^\d{4}/)
+      datestr.gsub!("年", "/")
+      datestr.gsub!("月", "/")
       # 西暦
       if datestr.match(/^(\d{4})$/)
         #puts "matchy1 #{datestr} 1=#{$1} 2=#{$2} 3=#{$3}"
