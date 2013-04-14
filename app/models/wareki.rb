@@ -26,28 +26,28 @@ class Wareki < ActiveRecord::Base
     dto = nil
 
     datestr.strip!
-    puts "datestr=#{datestr}"
+    #puts "datestr=#{datestr}"
  
     i = GENGOUS.keys.index(datestr[0, 2])
     if i.present?
       # 和暦
       if datestr.match(/(#{GENGOUS.keys[i]})(\d{1,2})年$/)
-        puts "match1 #{datestr} 1=#{$1} 2=#{$2} 3=#{$3} 4=#{$4}"
+        #puts "match1 #{datestr} 1=#{$1} 2=#{$2} 3=#{$3} 4=#{$4}"
         syyyy = wareki2yyyy($1, $2)
         dfrom = Date.new(syyyy)
         dto = Date.new(syyyy).end_of_year
-        puts "match1 dfrom=#{dfrom} dto=#{dto}"
+        #puts "match1 dfrom=#{dfrom} dto=#{dto}"
       elsif datestr.match(/(#{GENGOUS.keys[i]})(\d{1,2})年(\d{1,2})月$/)
-        puts "match2 #{datestr} 1=#{$1} 2=#{$2} 3=#{$3} 4=#{$4}"
+        #puts "match2 #{datestr} 1=#{$1} 2=#{$2} 3=#{$3} 4=#{$4}"
         syyyy = wareki2yyyy($1, $2)
         dfrom = Date.new(syyyy, $3.to_i)
         dto = Date.new(syyyy, $3.to_i).end_of_month
-        puts "match2 dfrom=#{dfrom} dto=#{dto}"
+        #puts "match2 dfrom=#{dfrom} dto=#{dto}"
       elsif datestr.match(/(#{GENGOUS.keys[i]})(\d{1,2})年(\d{1,2})月(\d{1,2})日$/)
-        puts "match3 #{datestr} 1=#{$1} 2=#{$2} 3=#{$3} 4=#{$4}"
+        #puts "match3 #{datestr} 1=#{$1} 2=#{$2} 3=#{$3} 4=#{$4}"
         syyyy = wareki2yyyy($1, $2.to_i)
         dfrom = dto = Date.new(syyyy, $3.to_i, $4.to_i)
-        puts "match3 dfrom=#{dfrom} dto=#{dto}"
+        #puts "match3 dfrom=#{dfrom} dto=#{dto}"
       else
         puts "format error (2) #{datestr}"
       end
@@ -56,19 +56,19 @@ class Wareki < ActiveRecord::Base
     elsif datestr.match(/^\d{4}/)
       # 西暦
       if datestr.match(/^(\d{4})$/)
-        puts "matchy1 #{datestr} 1=#{$1} 2=#{$2} 3=#{$3}"
+        #puts "matchy1 #{datestr} 1=#{$1} 2=#{$2} 3=#{$3}"
         dfrom = Date.new($1.to_i)
         dto = Date.new($1.to_i).end_of_year
-        puts "matchy1 dfrom=#{dfrom} dto=#{dto}"
+        #puts "matchy1 dfrom=#{dfrom} dto=#{dto}"
       elsif datestr.match(/^(\d{4})\/(\d{1,2})$/)
-        puts "matchy2 #{datestr} 1=#{$1} 2=#{$2} 3=#{$3}"
+        #puts "matchy2 #{datestr} 1=#{$1} 2=#{$2} 3=#{$3}"
         dfrom = Date.new($1.to_i, $2.to_i)
         dto = Date.new($1.to_i, $2.to_i).end_of_month
-        puts "matchy2 dfrom=#{dfrom} dto=#{dto}"
+        #puts "matchy2 dfrom=#{dfrom} dto=#{dto}"
       elsif datestr.match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/)
-        puts "matchy3 #{datestr} 1=#{$1} 2=#{$2} 3=#{$3}"
+        #puts "matchy3 #{datestr} 1=#{$1} 2=#{$2} 3=#{$3}"
         dfrom = dto = Date.new($1.to_i, $2.to_i, $3.to_i)
-        puts "matchy3 dfrom=#{dfrom} dto=#{dto}"
+        #puts "matchy3 dfrom=#{dfrom} dto=#{dto}"
       else
         puts "format error (3) #{datestr}"
       end
@@ -97,7 +97,7 @@ class Wareki < ActiveRecord::Base
     from0, to0, from1, to1 = nil, nil, nil, nil
 
     datestrs = datestr.split('-')
-    puts "datestr0=#{datestrs[0]} datestr1=#{datestrs[1]}"
+    #puts "datestr0=#{datestrs[0]} datestr1=#{datestrs[1]}"
     from0, to0 = hiduke2yyyymmdd_sub(datestrs[0])
     from1, to1 = hiduke2yyyymmdd_sub(datestrs[1]) if datestrs[1].present?
 
