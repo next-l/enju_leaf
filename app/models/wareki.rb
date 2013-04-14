@@ -28,8 +28,8 @@ class Wareki < ActiveRecord::Base
 
     datestr.strip!
     #puts "datestr=#{datestr}"
-    datestr.delete!("[", "]") 
- 
+    datestr.delete!("[", "]", "?", "？") 
+
     i = GENGOUS.keys.index(datestr[0, 2])
     if i.present?
       # 和暦
@@ -56,8 +56,16 @@ class Wareki < ActiveRecord::Base
       yyyymmdd_from = dfrom.strftime("%Y%m%d") if dfrom.present?
       yyyymmdd_to = dto.strftime("%Y%m%d") if dto.present?
     elsif datestr.match(/^\d{4}/)
-      datestr.gsub!("年", "/")
-      datestr.gsub!("月", "/")
+      if datestr[-1] == "年"
+        datestr.gsub!("年", "")
+      elsif datestr[-1] == "月"
+        datestr.gsub!("年", "/")
+        datestr.gsub!("月", "")
+      else
+        datestr.gsub!("年", "/")
+        datestr.gsub!("月", "/")
+        datestr.gsub!("日", "")
+      end
       # 西暦
       if datestr.match(/^(\d{4})$/)
         #puts "matchy1 #{datestr} 1=#{$1} 2=#{$2} 3=#{$3}"
@@ -100,6 +108,7 @@ class Wareki < ActiveRecord::Base
     yyyymmdd_to = nil 
     from0, to0, from1, to1 = nil, nil, nil, nil
 
+    datestr.gsub!('－', '-')
     datestrs = datestr.split('-')
     #puts "datestr0=#{datestrs[0]} datestr1=#{datestrs[1]}"
     from0, to0 = hiduke2yyyymmdd_sub(datestrs[0])
