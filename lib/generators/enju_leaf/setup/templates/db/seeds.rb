@@ -4,13 +4,14 @@ password = 'adminpassword'
 
 # Don't edit!
 
-unless solr = Sunspot.commit rescue nil
-  raise "Solr is not running."
-end
+Sunspot.session = StubSessionProxy.new(Sunspot.session)
+#unless solr = Sunspot.commit rescue nil
+#  raise "Solr is not running."
+#end
 
-Patron.reindex
-Library.reindex
-Shelf.reindex
+#Patron.reindex
+#Library.reindex
+#Shelf.reindex
 
 system_user = User.new
 system_user.username = 'system'

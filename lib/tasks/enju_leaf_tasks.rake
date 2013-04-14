@@ -1,6 +1,6 @@
 require 'active_record/fixtures'
-desc "create initial records for enju_leaf"
 namespace :enju_leaf do
+  desc "create initial records for enju_leaf"
   task :setup => :environment do
     Dir.glob(Rails.root.to_s + '/db/fixtures/enju_leaf/*.yml').each do |file|
       ActiveRecord::Fixtures.create_fixtures('db/fixtures/enju_leaf', File.basename(file, '.*'))
@@ -10,5 +10,14 @@ namespace :enju_leaf do
     Rake::Task['enju_library:setup'].invoke
 
     puts 'initial fixture files loaded.'
+  end
+
+  desc "create initial index"
+  task :create_initial_index => :environment do
+    Library.reindex
+    Shelf.reindex
+    User.reindex
+
+    puts 'indexing completed.'
   end
 end
