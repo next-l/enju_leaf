@@ -4,7 +4,7 @@ password = 'adminpassword'
 
 # Don't edit!
 
-Sunspot.session = StubSessionProxy.new(Sunspot.session)
+Sunspot.session = Sunspot::Rails::StubSessionProxy.new(Sunspot.session)
 #unless solr = Sunspot.commit rescue nil
 #  raise "Solr is not running."
 #end
