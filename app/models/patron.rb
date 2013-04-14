@@ -284,16 +284,23 @@ class Patron < ActiveRecord::Base
     return ['他', 'et-al.']
   end
 
-  def self.add_patrons(patron_names)
+  def self.add_patrons(patron_names, patron_transcriptions = nil)
+    return [] if patron_names.blank?
     names = patron_names.gsub('；', ';').split(/;/)
+    transcriptions = []
+    if patron_transcriptions.present?
+      transcriptions = patron_transcriptions.gsub('；', ';').split(/;/) 
+      transcriptions = transcriptions.uniq.compact
+    end
     list = []
-    names.uniq.compact.each do |name|
+    names.uniq.compact.each_with_index do |name, i|
       name.strip!
       next if name.empty?
       patron = Patron.find(:first, :conditions => ["full_name=?", name])
       if patron.nil?
         patron = Patron.new
         patron.full_name = name
+        patron.full_name_transcription = transcriptions[i].strip rescue nil
         patron.save
       end
       list << patron

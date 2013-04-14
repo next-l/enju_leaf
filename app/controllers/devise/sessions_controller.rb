@@ -9,7 +9,7 @@ class Devise::SessionsController < ApplicationController
   def new
     resource = build_resource
     clean_up_passwords(resource)
-    unless SystemConfiguration.get('internal_server')
+    if SystemConfiguration.isWebOPAC
       render :template => 'page/403', :status => 403
       return
     end

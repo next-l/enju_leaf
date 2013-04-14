@@ -51,6 +51,11 @@ class SystemConfiguration < ActiveRecord::Base
     end
   end
 
+  def self.isWebOPAC
+    return true if ENV['ENJU_WEB_OPAC'] or !SystemConfiguration.get('internal_server')
+    false
+  end
+
   private  
   def value_by_typename_is_valid
     case typename
