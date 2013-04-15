@@ -28,7 +28,7 @@ class Wareki < ActiveRecord::Base
 
     datestr.strip!
     #puts "datestr=#{datestr}"
-    datestr.delete!("[", "]", "?", "？") 
+    datestr.delete!("[]?？") 
 
     i = GENGOUS.keys.index(datestr[0, 2])
     if i.present?
