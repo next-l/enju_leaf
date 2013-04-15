@@ -30,6 +30,11 @@ describe Wareki do
       r.should == ["19740101", "19791231"]
       r = Wareki.hiduke2yyyymmdd("昭和49年3月9日 - 昭和54年8月4日")
       r.should == ["19740309", "19790804"]
+      r = Wareki.hiduke2yyyymmdd("明治12年7月 － 明治14年11月")
+      r.should == ["18790701", "18811130"]
+
+      r = Wareki.hiduke2yyyymmdd("[昭和18?年 － 昭和20?年]")
+      r.should == ["19430101", "19451231"]
 
       # 西暦
       r = Wareki.hiduke2yyyymmdd("1974")
@@ -40,6 +45,11 @@ describe Wareki do
       r.should == ["19740309","19740309"]
       r = Wareki.hiduke2yyyymmdd("1974/3/9 - 1979/8/4")
       r.should == ["19740309", "19790804"]
+
+      r = Wareki.hiduke2yyyymmdd("[1914年 － 1915年]")
+      r.should == ["19140101", "19151231"]
+      r = Wareki.hiduke2yyyymmdd("[1914年3月 － 1915年4月12日]")
+      r.should == ["19140301", "19150412"]
 
       # mix
       r = Wareki.hiduke2yyyymmdd("1974/3/9 - 昭和54年8月4日")
