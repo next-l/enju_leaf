@@ -43,8 +43,6 @@ GEM
       rake
     arel (3.0.2)
     attribute_normalizer (1.1.0)
-    awesome_nested_set (2.1.6)
-      activerecord (>= 3.0.0)
     aws-sdk (1.8.5)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -101,14 +99,6 @@ GEM
       validates_timeliness
     enju_book_jacket (0.1.0.pre6)
       rails (~> 3.2)
-    enju_circulation (0.1.0.pre20)
-      enju_core (~> 0.1.0.pre4)
-      enju_event (~> 0.1.17.pre11)
-      enju_message (~> 0.1.14.pre7)
-      inherited_resources
-      simple_form
-      state_machine
-      validates_timeliness
     enju_core (0.1.1.pre4)
       acts_as_list
       addressable
@@ -123,17 +113,6 @@ GEM
       resque
       settingslogic
       sunspot_rails (~> 2.0.0)
-    enju_event (0.1.17.pre11)
-      enju_core (~> 0.1.1.pre4)
-      enju_message (~> 0.1.14.pre7)
-      event-calendar (~> 2.3.3)
-      has_scope
-      inherited_resources
-      paperclip
-      rails (~> 3.2)
-      ri_cal
-      simple_form
-      state_machine
     enju_flower (0.1.0.pre3)
       rails (~> 3.2)
     enju_leaf (1.1.0.pre3)
@@ -152,13 +131,6 @@ GEM
       inherited_resources
     enju_manifestation_viewer (0.1.0.pre5)
       rails (~> 3.2)
-    enju_message (0.1.14.pre7)
-      awesome_nested_set (~> 2.1)
-      enju_core (~> 0.1.1.pre4)
-      inherited_resources
-      resque_mailer
-      simple_form
-      state_machine
     enju_ndl (0.1.0.pre14)
       library_stdnums
       lisbn
@@ -167,7 +139,6 @@ GEM
     enju_oai (0.1.0.pre8)
       rails (~> 3.2)
     erubis (2.7.0)
-    event-calendar (2.3.3)
     exception_notification (3.0.1)
       actionmailer (>= 3.0.4)
     execjs (1.4.0)
@@ -337,7 +308,6 @@ GEM
     resque_spec (0.13.0)
       resque (>= 1.19.0)
       rspec (>= 2.5.0)
-    ri_cal (0.8.8)
     rsolr (1.0.9)
       builder (>= 2.1.2)
     rspec (2.13.0)
@@ -444,11 +414,9 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise-encryptable
   enju_book_jacket (~> 0.1.0.pre6)
-  enju_circulation (~> 0.1.0.pre20)
   enju_flower (~> 0.1.0.pre3)
   enju_leaf (~> 1.1.0.beta3)
   enju_manifestation_viewer (~> 0.1.0.pre5)
-  enju_message (~> 0.1.4.pre7)
   enju_ndl (~> 0.1.0.pre14)
   enju_oai (~> 0.1.0.pre8)
   exception_notification (~> 3.0)
