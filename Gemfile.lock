@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/justinko/sunspot-rails-tester.git
-  revision: cd3c0e85834389a27c6809eeeab8dd2cb0a724f0
+  revision: 5daf0a01335f7d9f1eca76d7c89eec8aac7acfab
   specs:
     sunspot-rails-tester (0.0.4)
       sunspot_rails (>= 1.2)
@@ -457,6 +457,7 @@ DEPENDENCIES
   guard-rspec
   immigrant
   jquery-modal-rails
+  jquery-rails
   jruby-openssl
   kgio
   parallel_tests (~> 0.10)
