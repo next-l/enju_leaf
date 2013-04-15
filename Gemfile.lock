@@ -82,13 +82,12 @@ GEM
       warden (~> 1.2.1)
     devise-encryptable (0.1.1)
       devise (>= 2.1.0.rc)
-    diff-lcs (1.2.2)
+    diff-lcs (1.2.3)
     dynamic_form (1.1.4)
-    enju_biblio (0.1.0.pre29)
+    enju_biblio (0.1.0.pre30)
       aws-sdk
       dynamic_form
       enju_core (~> 0.1.1.pre4)
-      has_scope
       inherited_resources
       library_stdnums
       lisbn
@@ -102,10 +101,10 @@ GEM
       validates_timeliness
     enju_book_jacket (0.1.0.pre6)
       rails (~> 3.2)
-    enju_circulation (0.1.0.pre18)
+    enju_circulation (0.1.0.pre20)
       enju_core (~> 0.1.0.pre4)
-      enju_event (~> 0.1.17.pre9)
-      enju_message (~> 0.1.14.pre6)
+      enju_event (~> 0.1.17.pre11)
+      enju_message (~> 0.1.14.pre7)
       inherited_resources
       simple_form
       state_machine
@@ -124,9 +123,9 @@ GEM
       resque
       settingslogic
       sunspot_rails (~> 2.0.0)
-    enju_event (0.1.17.pre9)
+    enju_event (0.1.17.pre11)
       enju_core (~> 0.1.1.pre4)
-      enju_message (~> 0.1.14.pre6)
+      enju_message (~> 0.1.14.pre7)
       event-calendar (~> 2.3.3)
       has_scope
       inherited_resources
@@ -137,20 +136,30 @@ GEM
       state_machine
     enju_flower (0.1.0.pre3)
       rails (~> 3.2)
-    enju_library (0.1.0.pre17)
+    enju_leaf (1.1.0.pre3)
+      enju_biblio (~> 0.1.0.pre30)
+      enju_book_jacket (~> 0.1.0.pre6)
+      enju_library (~> 0.1.0.pre20)
+      enju_manifestation_viewer (~> 0.1.0.pre5)
+      jquery-modal-rails
+      jquery-ui-rails
+      mobylette
+      rails (~> 3.2.13)
+      redcarpet
+    enju_library (0.1.0.pre20)
       enju_core (~> 0.1.1.pre4)
       geocoder
       inherited_resources
     enju_manifestation_viewer (0.1.0.pre5)
       rails (~> 3.2)
-    enju_message (0.1.14.pre6)
+    enju_message (0.1.14.pre7)
       awesome_nested_set (~> 2.1)
       enju_core (~> 0.1.1.pre4)
       inherited_resources
       resque_mailer
       simple_form
       state_machine
-    enju_ndl (0.1.0.pre13)
+    enju_ndl (0.1.0.pre14)
       library_stdnums
       lisbn
       nokogiri
@@ -180,11 +189,11 @@ GEM
       lumberjack (>= 1.0.2)
       pry (>= 0.9.10)
       thor (>= 0.14.6)
-    guard-rspec (2.5.2)
+    guard-rspec (2.5.3)
       guard (>= 1.1)
       rspec (~> 2.11)
     has_scope (0.5.1)
-    highline (1.6.16)
+    highline (1.6.17)
     hike (1.2.2)
     i18n (0.6.1)
     immigrant (0.1.4)
@@ -245,7 +254,7 @@ GEM
     paperclip-meta (0.4.3)
       paperclip
     parallel (0.6.4)
-    parallel_tests (0.10.4)
+    parallel_tests (0.11.0)
       parallel
     pg (0.15.1)
     polyglot (0.3.3)
@@ -430,37 +439,26 @@ PLATFORMS
 DEPENDENCIES
   activerecord-jdbcpostgresql-adapter
   annotate (~> 2.5)
-  awesome_nested_set (~> 2.1)
-  aws-sdk
   charlock_holmes
   client_side_validations (~> 3.2)
   coffee-rails (~> 3.2.1)
-  dalli (~> 2.6)
   devise-encryptable
-  dynamic_form
-  enju_biblio (~> 0.1.0.pre29)
   enju_book_jacket (~> 0.1.0.pre6)
-  enju_circulation (~> 0.1.0.pre18)
+  enju_circulation (~> 0.1.0.pre20)
   enju_flower (~> 0.1.0.pre3)
-  enju_library (~> 0.1.0.pre17)
+  enju_leaf (~> 1.1.0.beta3)
   enju_manifestation_viewer (~> 0.1.0.pre5)
-  enju_message (~> 0.1.4.pre16)
-  enju_ndl (~> 0.1.0.pre13)
+  enju_message (~> 0.1.4.pre7)
+  enju_ndl (~> 0.1.0.pre14)
   enju_oai (~> 0.1.0.pre8)
   exception_notification (~> 3.0)
   factory_girl_rails (~> 4.2)
   foreigner
   guard-rspec
   immigrant
-  inherited_resources (~> 1.3)
   jquery-modal-rails
-  jquery-rails
-  jquery-ui-rails
   jruby-openssl
   kgio
-  mobylette
-  paper_trail (~> 2.7)
-  paperclip-meta
   parallel_tests (~> 0.10)
   pg
   progress_bar
@@ -489,7 +487,6 @@ DEPENDENCIES
   timecop
   trinidad
   uglifier (>= 1.0.3)
-  validates_timeliness
   vcr (~> 2.4)
   whenever
   zipruby
