@@ -8,19 +8,21 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_leaf.git
-  revision: d8ce633ac023b366e7eafdf3b28f0402a5181997
+  revision: ab461c36c4d81d9184e6785807fa828406d1d977
   branch: gem
   specs:
     enju_leaf (1.1.0.beta3)
+      devise-encryptable
       enju_biblio (~> 0.1.0.pre30)
       enju_book_jacket (~> 0.1.0.pre6)
       enju_library (~> 0.1.0.pre20)
       enju_manifestation_viewer (~> 0.1.0.pre5)
       jquery-modal-rails
-      jquery-ui-rails
       mobylette
       rails (~> 3.2.13)
       redcarpet
+      redis-rails
+      sitemap_generator
 
 GIT
   remote: git://github.com/next-l/enju_book_jacket.git
@@ -31,9 +33,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_circulation.git
-  revision: b7f20c6bbf74a26c19ebccf3a60f5dd6d30adbdf
+  revision: 4c20699c3cd7ef23b83af7936c8fba799fb53f3f
   specs:
-    enju_circulation (0.1.0.pre20)
+    enju_circulation (0.1.0.pre21)
       enju_core (~> 0.1.0.pre4)
       enju_event (~> 0.1.17.pre11)
       enju_message (~> 0.1.14.pre7)
@@ -173,8 +175,6 @@ GEM
       xpath (~> 2.0)
     charlock_holmes (0.6.9.4)
     choice (0.1.6)
-    chronic (0.9.1)
-    client_side_validations (3.2.5)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.1)
@@ -232,8 +232,6 @@ GEM
       inherited_resources
     erubis (2.7.0)
     event-calendar (2.3.3)
-    exception_notification (3.0.1)
-      actionmailer (>= 3.0.4)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.2.0)
@@ -392,10 +390,6 @@ GEM
       redis-namespace (~> 1.2)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
-    resque-scheduler (2.0.1)
-      redis (>= 2.0.1)
-      resque (>= 1.20.0)
-      rufus-scheduler
     resque_mailer (2.2.3)
       actionmailer (~> 3.0)
     resque_spec (0.13.0)
@@ -421,8 +415,6 @@ GEM
       rspec-mocks (~> 2.13.0)
     ruby-graphviz (1.0.8)
     ruby-prof (0.13.0)
-    rufus-scheduler (2.0.18)
-      tzinfo (>= 0.3.23)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
     sass (3.2.7)
@@ -490,9 +482,6 @@ GEM
       rack (>= 1.0.0)
     warden (1.2.1)
       rack (>= 1.0)
-    whenever (0.8.2)
-      activesupport (>= 2.3.4)
-      chronic (>= 0.6.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
     zipruby (0.3.6)
@@ -504,9 +493,7 @@ DEPENDENCIES
   activerecord-jdbcpostgresql-adapter
   annotate (~> 2.5)
   charlock_holmes
-  client_side_validations (~> 3.2)
   coffee-rails (~> 3.2.1)
-  devise-encryptable
   enju_book_jacket!
   enju_circulation!
   enju_event!
@@ -518,7 +505,6 @@ DEPENDENCIES
   enju_ndl!
   enju_oai!
   enju_subject!
-  exception_notification (~> 3.0)
   factory_girl_rails (~> 4.2)
   foreigner
   guard-rspec
@@ -530,12 +516,9 @@ DEPENDENCIES
   parallel_tests (~> 0.10)
   pg
   progress_bar
-  rack-protection
   rails (= 3.2.13)
   rails-erd
   redcarpet
-  redis-rails
-  resque-scheduler (~> 2.0.0)
   resque_spec
   rspec-rails (~> 2.13)
   ruby-prof
@@ -543,7 +526,6 @@ DEPENDENCIES
   sanitize
   sass-rails (~> 3.2.3)
   simplecov (~> 0.7)
-  sitemap_generator (~> 3.4)
   spork-rails
   steak
   strong_parameters
@@ -554,5 +536,4 @@ DEPENDENCIES
   trinidad
   uglifier (>= 1.0.3)
   vcr (~> 2.4)
-  whenever
   zipruby
