@@ -1330,53 +1330,10 @@ class Manifestation < ActiveRecord::Base
           row.item(:label).show
           row.item(:data).show
           row.item(:dot_line).hide
-          row.item(:description).hide
           row.item(:label).value(label.to_s + ":")
           row.item(:data).value(data)
         end
       }
-
-      # set description
-      if manifestation.description
-        # make space
-        page.list(:list).add_row do |row|
-          row.item(:label).hide
-          row.item(:data).hide
-          row.item(:dot_line).hide
-          row.item(:description).hide
-        end
-        # set
-        max_column = 20
-        cnt, str_num = 0.0, 0
-        str = manifestation.description
-        while str.length > max_column
-          str.length.times do |i|
-            cnt += 0.5 if str[i] =~ /^[\s0-9A-Za-z]+$/
-            cnt += 1 unless str[i] =~ /^[\s0-9A-Za-z]+$/
-            if cnt.to_f >= max_column or str[i+1].nil? or str[i] =~ /^[\n]+$/
-              str_num = i + 1 if cnt.to_f == max_column or str[i+1].nil? or str[i] =~ /^[\n]+$/
-              str_num = i if cnt.to_f > max_column
-              page.list(:list).add_row do |row|
-                row.item(:label).hide
-                row.item(:data).hide
-                row.item(:dot_line).hide
-                row.item(:description).show
-                row.item(:description).value(str[0...str_num].chomp)
-              end
-              str = str[str_num...str.length]
-              cnt, str_num = 0.0, 0
-              break
-            end
-          end
-        end
-        page.list(:list).add_row do |row|
-          row.item(:label).hide
-          row.item(:data).hide
-          row.item(:dot_line).hide
-          row.item(:description).show
-          row.item(:description).value(str)
-        end
-      end
 
       # set item_information
       manifestation.items.each do |item|
@@ -1386,7 +1343,6 @@ class Manifestation < ActiveRecord::Base
             row.item(:label).show
             row.item(:data).show
             row.item(:dot_line).hide
-            row.item(:description).hide
             case i
             when 0
               row.item(:label).hide
