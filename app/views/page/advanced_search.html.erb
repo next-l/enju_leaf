@@ -84,8 +84,8 @@ $(function(){
     </tr>
     <tr>
       <td><label><%= advanced_search_label(:pub_date) -%>:</label></td>
-      <td><%= t('advanced_search.from') -%> <%= search_field_tag 'pub_date_from', params[:pub_date_from], :class => 'date_text_field', :placeholder => "#{t('page.example')}: 1978, 1978-04-12" -%>
-        <%= t('advanced_search.to') -%> <%= search_field_tag 'pub_date_to', params[:pub_date_to], :class => 'date_text_field', :placeholder => "#{t('page.example')}: 2011, 2011-04-12"-%></td>
+      <td><%= t('advanced_search.from') -%> <%= search_field_tag 'pub_date_from', params[:pub_date_from], :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 1978, 1978-04-12" -%>
+        <%= t('advanced_search.to') -%> <%= search_field_tag 'pub_date_to', params[:pub_date_to], :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011, 2011-04-12"-%></td>
     </tr>
     <tr>
       <td><label><%= advanced_search_label(:acquired) -%>:</label></td>
@@ -203,7 +203,7 @@ $(function(){
           <table>
             <tr>
               <th style="width:100px;"><%= t('advanced_search.solr_query_format.field_detail.target') %></th>
-              <th style="width:160px;"><%= t('advanced_search.solr_query_format.field_detail.format') %></th>
+              <th style="width:180px;"><%= t('advanced_search.solr_query_format.field_detail.format') %></th>
               <th><%= t('advanced_search.solr_query_format.exsample') %></th>
             </tr>
             <% if defined?(EnjuBookmark) %>
@@ -275,18 +275,18 @@ $(function(){
             </tr>
             <tr>
               <td><%= t('activerecord.attributes.manifestation.volume_number_string') %></td>
-              <td><%= t('advanced_search.solr_query_format.field_detail.volume_number_format') %></td>
-              <td><%= t('advanced_search.solr_query_format.field_detail.volume_number_ex') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.volume_number_string_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.volume_number_string_ex') %></td>
             </tr>
             <tr>
               <td><%= t('activerecord.attributes.manifestation.issue_number_string') %></td>
-              <td><%= t('advanced_search.solr_query_format.field_detail.issue_number_format') %></td>
-              <td><%= t('advanced_search.solr_query_format.field_detail.issue_number_ex') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.issue_number_string_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.issue_number_string_ex') %></td>
             </tr>
             <tr>
               <td><%= t('activerecord.attributes.manifestation.serial_number_string') %></td>
-              <td><%= t('advanced_search.solr_query_format.field_detail.serial_number_format') %></td>
-              <td><%= t('advanced_search.solr_query_format.field_detail.serial_number_ex') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.serial_number_string_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.serial_number_string_ex') %></td>
             </tr>
             <tr>
               <td><%= t('activerecord.attributes.manifestation.description') %></td>

@@ -24,7 +24,7 @@
       <meta itemprop="publishDate" content="<%= @series_statement.root_manifestation.try(:date_of_publication).try(:iso8601) %>" />
       (<%= t('activerecord.attributes.manifestation.pub_date_article') %>: <%= @series_statement.root_manifestation.pub_date -%>)
     <%- end -%>
-    <%- if SystemConfiguration.get('internal_server') -%>
+    <%- unless SystemConfiguration.isWebOPAC -%>
       <%- unless @series_statement.root_manifestation.access_address.blank? -%>
         <br />
         <%= link_to @series_statement.root_manifestation.access_address, @series_statement.root_manifestation.access_address -%>

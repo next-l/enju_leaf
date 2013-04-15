@@ -198,6 +198,36 @@ class Manifestation < ActiveRecord::Base
     integer :volume_number, :multiple => true
     integer :issue_number, :multiple => true
     integer :serial_number, :multiple => true
+    string :volume_number_string, :multiple => true do
+      if root_of_series? # 雑誌の場合
+        # 同じ雑誌の全号の出版日のリストを取得する
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          map(&:volume_number_string).compact
+      else
+        volume_number_string 
+      end
+    end
+    string :issue_number_string, :multiple => true do
+      if root_of_series? # 雑誌の場合
+        # 同じ雑誌の全号の出版日のリストを取得する
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          map(&:issue_number_string).compact
+      else
+        issue_number_string 
+      end
+    end
+    string :serial_number_string, :multiple => true do
+      if root_of_series? # 雑誌の場合
+        # 同じ雑誌の全号の出版日のリストを取得する
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id]).
+          map(&:serial_number_string).compact
+      else
+        serial_number_string 
+      end
+    end
     string :start_page
     string :end_page
     integer :number_of_pages
@@ -816,8 +846,18 @@ class Manifestation < ActiveRecord::Base
   #  output.path: 生成結果のパス名(result_typeが:pathのとき)
   #  output.job_name: 後で処理する際のジョブ名(result_typeが:delayedのとき)
   def self.generate_manifestation_list(solr_search, output_type, current_user, cols=[], threshold = nil, &block)
+#    get_total = proc do
+#      solr_search.execute.total
+#    end
     get_total = proc do
-      solr_search.execute.total
+      get_periodical_master_ids = Sunspot.new_search(Manifestation).build {
+          with(:periodical_master).equal_to true
+          paginate :page => 1, :per_page => Manifestation.count
+        }.execute.raw_results.map(&:primary_key)
+      series_statements_total = Manifestation.where(:id => get_periodical_master_ids).all.inject(0) do |total, m|
+          total += m.series_statement.manifestations.size
+        end rescue 0
+      solr_search.execute.total - get_periodical_master_ids.size + series_statements_total
     end
 
     get_all_ids = proc do
@@ -1290,53 +1330,10 @@ class Manifestation < ActiveRecord::Base
           row.item(:label).show
           row.item(:data).show
           row.item(:dot_line).hide
-          row.item(:description).hide
           row.item(:label).value(label.to_s + ":")
           row.item(:data).value(data)
         end
       }
-
-      # set description
-      if manifestation.description
-        # make space
-        page.list(:list).add_row do |row|
-          row.item(:label).hide
-          row.item(:data).hide
-          row.item(:dot_line).hide
-          row.item(:description).hide
-        end
-        # set
-        max_column = 20
-        cnt, str_num = 0.0, 0
-        str = manifestation.description
-        while str.length > max_column
-          str.length.times do |i|
-            cnt += 0.5 if str[i] =~ /^[\s0-9A-Za-z]+$/
-            cnt += 1 unless str[i] =~ /^[\s0-9A-Za-z]+$/
-            if cnt.to_f >= max_column or str[i+1].nil? or str[i] =~ /^[\n]+$/
-              str_num = i + 1 if cnt.to_f == max_column or str[i+1].nil? or str[i] =~ /^[\n]+$/
-              str_num = i if cnt.to_f > max_column
-              page.list(:list).add_row do |row|
-                row.item(:label).hide
-                row.item(:data).hide
-                row.item(:dot_line).hide
-                row.item(:description).show
-                row.item(:description).value(str[0...str_num].chomp)
-              end
-              str = str[str_num...str.length]
-              cnt, str_num = 0.0, 0
-              break
-            end
-          end
-        end
-        page.list(:list).add_row do |row|
-          row.item(:label).hide
-          row.item(:data).hide
-          row.item(:dot_line).hide
-          row.item(:description).show
-          row.item(:description).value(str)
-        end
-      end
 
       # set item_information
       manifestation.items.each do |item|
@@ -1346,7 +1343,6 @@ class Manifestation < ActiveRecord::Base
             row.item(:label).show
             row.item(:data).show
             row.item(:dot_line).hide
-            row.item(:description).hide
             case i
             when 0
               row.item(:label).hide
