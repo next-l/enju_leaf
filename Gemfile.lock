@@ -7,129 +7,97 @@ GIT
       sunspot_solr (>= 1.2)
 
 GIT
-  remote: git://github.com/next-l/enju_biblio.git
-  revision: a5adebe6e9c12caa3e8f56bbc380d345c5d20ba9
+  remote: git://github.com/nabeta/enju_leaf.git
+  revision: d8ce633ac023b366e7eafdf3b28f0402a5181997
+  branch: gem
   specs:
-    enju_biblio (0.1.0.pre29)
-      aws-sdk
-      dynamic_form
-      enju_core (~> 0.1.1.pre4)
-      has_scope
-      inherited_resources
-      library_stdnums
-      lisbn
-      marc
-      paper_trail
-      paperclip (~> 3.4)
-      paperclip-meta
-      resque_mailer
-      simple_form
-      state_machine
-      validates_timeliness
+    enju_leaf (1.1.0.beta3)
+      enju_biblio (~> 0.1.0.pre30)
+      enju_book_jacket (~> 0.1.0.pre6)
+      enju_library (~> 0.1.0.pre20)
+      enju_manifestation_viewer (~> 0.1.0.pre5)
+      jquery-modal-rails
+      jquery-ui-rails
+      mobylette
+      rails (~> 3.2.13)
+      redcarpet
 
 GIT
   remote: git://github.com/next-l/enju_book_jacket.git
-  revision: f1c3af65b4380c4a9e277022d6544e3ed786e78b
+  revision: f3577ab4e6391bf5d3693dc01d45df756b0907f6
   specs:
     enju_book_jacket (0.1.0.pre7)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_circulation.git
-  revision: 760eafe5cb0584a9e6c3fb7e7789095ad819d500
+  revision: b7f20c6bbf74a26c19ebccf3a60f5dd6d30adbdf
   specs:
-    enju_circulation (0.1.0.pre18)
+    enju_circulation (0.1.0.pre20)
       enju_core (~> 0.1.0.pre4)
-      enju_event (~> 0.1.17.pre9)
-      enju_message (~> 0.1.14.pre6)
+      enju_event (~> 0.1.17.pre11)
+      enju_message (~> 0.1.14.pre7)
       inherited_resources
       simple_form
       state_machine
       validates_timeliness
 
 GIT
-  remote: git://github.com/next-l/enju_core.git
-  revision: e4a0b451b9932fd3dbb50813ad29190f69c2ab89
-  specs:
-    enju_core (0.1.1.pre4)
-      acts_as_list
-      addressable
-      attribute_normalizer (~> 1.1)
-      cancan
-      dalli
-      devise
-      friendly_id (~> 4.0)
-      kaminari
-      nested_form
-      rails (~> 3.2.13)
-      resque
-      settingslogic
-      sunspot_rails (~> 2.0.0)
-
-GIT
   remote: git://github.com/next-l/enju_event.git
-  revision: 83cb39ad5ed424e7106c66faad0834f0a8e8830e
+  revision: ec90a64ad89bb02c89d0121381a8b7b467abd24e
   specs:
-    enju_event (0.1.17.pre9)
+    enju_event (0.1.17.pre12)
       enju_core (~> 0.1.1.pre4)
-      enju_message (~> 0.1.14.pre6)
+      enju_message (~> 0.1.14.pre7)
       event-calendar (~> 2.3.3)
-      has_scope
       inherited_resources
       paperclip
       rails (~> 3.2)
+      rails_autolink
       ri_cal
       simple_form
       state_machine
 
 GIT
   remote: git://github.com/next-l/enju_export.git
-  revision: 0250d7d90b4aec6340389aaa7e0e108c4382045c
+  revision: 0b4a1c3dfd6b49766898d4d1ef0a35ce3fc60a6b
   specs:
     enju_export (0.1.1.pre3)
-      enju_biblio (~> 0.1.0.pre28)
+      enju_biblio (~> 0.1.0.pre30)
       state_machine
 
 GIT
   remote: git://github.com/next-l/enju_flower.git
-  revision: 30c5d1b25271eaa8fe9bf5f0cdbe6531010ce2cd
+  revision: 7efb58b2bfc646111df1ce780dd82d87701b1872
   specs:
     enju_flower (0.1.0.pre3)
       rails (~> 3.2)
 
 GIT
-  remote: git://github.com/next-l/enju_library.git
-  revision: c11db0aa9a26c1f4afaa2b36f126cd7b62cde904
-  specs:
-    enju_library (0.1.0.pre17)
-      enju_core (~> 0.1.1.pre4)
-      geocoder
-      inherited_resources
-
-GIT
   remote: git://github.com/next-l/enju_manifestation_viewer.git
-  revision: 9ee64e997e22424855c6ef2154b8622e8ff1304e
+  revision: a288fd1a845242d0aef86101d89fe8983f9ec1d7
   specs:
-    enju_manifestation_viewer (0.1.0.pre5)
+    enju_manifestation_viewer (0.1.0.pre6)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_message.git
-  revision: bd2fe524c1a40de2c8e8ab0aa634350adb33a591
+  revision: b323a5996e6329f8559f24b993d0df13dadb0f04
   specs:
-    enju_message (0.1.14.pre6)
+    enju_message (0.1.14.pre8)
       awesome_nested_set (~> 2.1)
       enju_core (~> 0.1.1.pre4)
       inherited_resources
+      rails_autolink
       resque_mailer
       simple_form
       state_machine
 
 GIT
   remote: git://github.com/next-l/enju_ndl.git
-  revision: fcfe4e65bbc83a63b30d8be9432185237f17e047
+  revision: 33bd452bf5d579574abf43c19bb3a4d669bc3ca7
   specs:
-    enju_ndl (0.1.0.pre13)
+    enju_ndl (0.1.0.pre14)
       library_stdnums
       lisbn
       nokogiri
@@ -137,16 +105,16 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_oai.git
-  revision: 9d504fe43bb684460a17f521fb018cc5f32a4316
+  revision: 94d852f18320ecd00aed35ac3b294e8a71f95ced
   specs:
     enju_oai (0.1.0.pre9)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_subject.git
-  revision: 816b55670a406df7c3e847c47299b5e99ec1a6d9
+  revision: d36b8b6e9f6429c06e0bdca0695c167b24d8db14
   specs:
-    enju_subject (0.1.0.pre10)
+    enju_subject (0.1.0.pre11)
       dynamic_form
       enju_core (~> 0.1.1.pre4)
       inherited_resources
@@ -227,8 +195,41 @@ GEM
       warden (~> 1.2.1)
     devise-encryptable (0.1.1)
       devise (>= 2.1.0.rc)
-    diff-lcs (1.2.2)
+    diff-lcs (1.2.3)
     dynamic_form (1.1.4)
+    enju_biblio (0.1.0.pre30)
+      aws-sdk
+      dynamic_form
+      enju_core (~> 0.1.1.pre4)
+      inherited_resources
+      library_stdnums
+      lisbn
+      marc
+      paper_trail
+      paperclip (~> 3.4)
+      paperclip-meta
+      resque_mailer
+      simple_form
+      state_machine
+      validates_timeliness
+    enju_core (0.1.1.pre4)
+      acts_as_list
+      addressable
+      attribute_normalizer (~> 1.1)
+      cancan
+      dalli
+      devise
+      friendly_id (~> 4.0)
+      kaminari
+      nested_form
+      rails (~> 3.2)
+      resque
+      settingslogic
+      sunspot_rails (~> 2.0.0)
+    enju_library (0.1.0.pre20)
+      enju_core (~> 0.1.1.pre4)
+      geocoder
+      inherited_resources
     erubis (2.7.0)
     event-calendar (2.3.3)
     exception_notification (3.0.1)
@@ -252,11 +253,11 @@ GEM
       lumberjack (>= 1.0.2)
       pry (>= 0.9.10)
       thor (>= 0.14.6)
-    guard-rspec (2.5.2)
+    guard-rspec (2.5.3)
       guard (>= 1.1)
       rspec (~> 2.11)
     has_scope (0.5.1)
-    highline (1.6.16)
+    highline (1.6.17)
     hike (1.2.2)
     i18n (0.6.1)
     immigrant (0.1.4)
@@ -317,7 +318,7 @@ GEM
     paperclip-meta (0.4.3)
       paperclip
     parallel (0.6.4)
-    parallel_tests (0.10.4)
+    parallel_tests (0.11.0)
       parallel
     pg (0.15.1)
     polyglot (0.3.3)
@@ -453,7 +454,7 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    state_machine (1.1.2)
+    state_machine (1.2.0)
     steak (2.0.0)
       capybara (>= 1.0.0)
       rspec-rails (>= 2.5.0)
@@ -502,22 +503,16 @@ PLATFORMS
 DEPENDENCIES
   activerecord-jdbcpostgresql-adapter
   annotate (~> 2.5)
-  awesome_nested_set (~> 2.1)
-  aws-sdk
   charlock_holmes
   client_side_validations (~> 3.2)
   coffee-rails (~> 3.2.1)
-  dalli (~> 2.6)
   devise-encryptable
-  dynamic_form
-  enju_biblio!
   enju_book_jacket!
   enju_circulation!
-  enju_core!
   enju_event!
   enju_export!
   enju_flower!
-  enju_library!
+  enju_leaf!
   enju_manifestation_viewer!
   enju_message!
   enju_ndl!
@@ -528,23 +523,16 @@ DEPENDENCIES
   foreigner
   guard-rspec
   immigrant
-  inherited_resources (~> 1.3)
   jquery-modal-rails
   jquery-rails
-  jquery-ui-rails
   jruby-openssl
   kgio
-  mobylette
-  nested_form
-  paper_trail (~> 2.7)
-  paperclip-meta
   parallel_tests (~> 0.10)
   pg
   progress_bar
   rack-protection
   rails (= 3.2.13)
   rails-erd
-  rails_autolink
   redcarpet
   redis-rails
   resque-scheduler (~> 2.0.0)
@@ -557,7 +545,6 @@ DEPENDENCIES
   simplecov (~> 0.7)
   sitemap_generator (~> 3.4)
   spork-rails
-  state_machine (~> 1.1.2)
   steak
   strong_parameters
   strongbox
@@ -566,7 +553,6 @@ DEPENDENCIES
   timecop
   trinidad
   uglifier (>= 1.0.3)
-  validates_timeliness
   vcr (~> 2.4)
   whenever
   zipruby

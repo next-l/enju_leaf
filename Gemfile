@@ -6,9 +6,7 @@ gem 'rails', '3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'enju_core', :git => 'git://github.com/next-l/enju_core.git'
-gem 'enju_biblio', :git => 'git://github.com/next-l/enju_biblio.git'
-gem 'enju_library', :git => 'git://github.com/next-l/enju_library.git'
+gem 'enju_leaf', :git => 'git://github.com/nabeta/enju_leaf.git', :branch => 'gem'
 gem 'enju_flower', :git => 'git://github.com/next-l/enju_flower.git'
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
 #gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
@@ -52,34 +50,14 @@ platforms :jruby do
   #gem 'kramdown'
 end
 
-gem 'exception_notification', '~> 3.0'
-gem 'state_machine', '~> 1.1.2'
 gem 'progress_bar'
-gem 'inherited_resources', '~> 1.3'
 gem 'strongbox'
-gem 'dalli', '~> 2.6'
-gem 'sitemap_generator', '~> 3.4'
-gem 'paper_trail', '~> 2.7'
-gem 'devise-encryptable'
 #gem 'devise_security_extension'
-gem 'aws-sdk'
-gem 'whenever', :require => false
 #gem 'astrails-safe'
-gem 'dynamic_form'
 gem 'sanitize'
-gem 'mobylette'
-gem 'client_side_validations', '~> 3.2'
-gem 'validates_timeliness'
-gem 'rack-protection'
-gem 'awesome_nested_set', '~> 2.1'
-gem 'rails_autolink'
 #gem 'oink', '>= 0.10'
 gem 'foreigner'
 gem 'strong_parameters'
-gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
-gem 'nested_form'
-gem 'paperclip-meta'
-gem 'redis-rails'
 
 group :development do
   gem 'annotate', '~> 2.5'
@@ -117,7 +95,6 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
