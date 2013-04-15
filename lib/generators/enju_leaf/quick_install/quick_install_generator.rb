@@ -2,7 +2,7 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
   def quick_install
-    environment = ENV['RAILS_ENV'] ||= 'development'
+    environment = ENV['ENJU_ENV'] || 'development'
     generate("enju_circulation:setup")
     generate("enju_subject:setup")
     gsub_file 'config/schedule.rb', /^set :environment, :development$/,
@@ -16,12 +16,10 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
     gsub_file 'config/environments/production.rb',
       /# config.assets.precompile \+= %w\( search.js \)$/,
       "config.assets.precompile += %w( mobile.js mobile.css print.css )"
-    rake("db:migrate")
-    rake("enju_leaf:setup")
-    rake("enju_circulation:setup")
-    rake("enju_subject:setup")
-    #rake("sunspot:solr:start")
-    #rake("db:seed")
+    rake("db:migrate", :env => environment)
+    rake("enju_leaf:setup", :env => environment)
+    rake("enju_circulation:setup", :env => environment)
+    rake("enju_subject:setup", :env => environment)
     rake("assets:precompile") if environment == 'production'
   end
 end

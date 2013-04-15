@@ -23,8 +23,10 @@ Gem::Specification.new do |s|
   s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre5"
   s.add_dependency "redcarpet"
   s.add_dependency "mobylette"
-  s.add_dependency "jquery-ui-rails"
   s.add_dependency "jquery-modal-rails"
+  s.add_dependency "sitemap_generator"
+  s.add_dependency "devise-encryptable"
+  s.add_dependency "redis-rails"
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"
