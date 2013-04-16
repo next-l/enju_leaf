@@ -65,6 +65,9 @@ describe Wareki do
 
       r = Wareki.hiduke2yyyymmdd("平成")
       r.should == ["19890108", "20991231"]
+      
+      r = Wareki.hiduke2yyyymmdd("明治27年ー昭和12年")
+      r.should == ["18940101", "19371231"]
 
       # 西暦
       r = Wareki.hiduke2yyyymmdd("1974")

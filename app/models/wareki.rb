@@ -136,6 +136,7 @@ class Wareki < ActiveRecord::Base
     from0, to0, from1, to1 = nil, nil, nil, nil
 
     datestr.gsub!('－', '-')
+    datestr.gsub!('ー', '-')
     datestrs = datestr.split('-')
     #puts "datestr0=#{datestrs[0]} datestr1=#{datestrs[1]}"
     from0, to0 = hiduke2yyyymmdd_sub(datestrs[0])
