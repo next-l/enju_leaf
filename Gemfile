@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
-gem 'rails', '3.2.12'
+#ruby '2.0.0'
+gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'enju_core', :git => 'git://github.com/next-l/enju_core.git'
+gem 'enju_leaf', :git => 'git://github.com/nabeta/enju_leaf.git', :branch => 'gem'
 gem 'enju_biblio', :git => 'git://github.com/next-l/enju_biblio.git'
 gem 'enju_library', :git => 'git://github.com/next-l/enju_library.git'
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
@@ -32,7 +32,7 @@ gem 'enju_book_jacket', :git => 'git://github.com/next-l/enju_book_jacket.git'
 gem 'enju_manifestation_viewer', :git => 'git://github.com/next-l/enju_manifestation_viewer.git'
 gem 'enju_export', :git => 'git://github.com/next-l/enju_export.git'
 
-platforms :mri_20 do
+platforms :mri do
   gem 'pg'
   #gem 'mysql2', '~> 0.3'
   #gem 'sqlite3'
@@ -50,37 +50,17 @@ platforms :jruby do
 end
 
 gem 'exception_notification', '~> 3.0.0'
-gem 'state_machine', '~> 1.1.2'
 gem 'progress_bar'
-gem 'inherited_resources', '~> 1.3'
 gem 'strongbox'
-gem 'dalli', '~> 2.6'
-gem 'sitemap_generator', '~> 3.4'
-gem 'ri_cal'
-gem 'paper_trail', '~> 2.7'
-gem 'RedCloth', '>= 4.2.9'
-gem 'devise-encryptable'
 #gem 'devise_security_extension'
-gem 'addressable'
-gem 'paperclip-meta', '~> 0.4.3'
-gem 'aws-sdk'
 gem 'whenever', :require => false
-gem 'astrails-safe'
-gem 'dynamic_form'
+#gem 'astrails-safe'
 gem 'sanitize'
-gem 'mobile-fu'
-gem 'geocoder'
-gem 'client_side_validations', '~> 3.2'
-gem 'simple_form', '~> 2.0'
-gem 'validates_timeliness'
 gem 'rack-protection'
-gem 'awesome_nested_set', '~> 2.1'
-gem 'rails_autolink'
 #gem 'oink', '>= 0.9.3'
 gem 'foreigner'
 gem 'strong_parameters'
 gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
-gem 'acts_as_list'
 
 group :development do
   gem 'annotate', '~> 2.5'
@@ -91,18 +71,18 @@ end
 
 group :development, :test do
   gem 'simplecov', '~> 0.7', :require => false
-#  gem 'ruby-prof', :platforms => :mri_20
+#  gem 'ruby-prof', :platforms => :mri
   gem 'rspec-rails', '~> 2.13'
   gem 'guard-rspec'
-  gem 'factory_girl_rails', '~> 4.1'
+  gem 'factory_girl_rails', '~> 4.2'
   gem 'spork-rails'
   gem 'timecop'
   gem 'sunspot-rails-tester', :git => 'git://github.com/justinko/sunspot-rails-tester.git'
-  gem 'vcr', '~> 2.2'
+  gem 'vcr', '~> 2.4'
   gem 'fakeweb'
   gem 'steak'
   gem 'resque_spec'
-  gem 'parallel_tests', '~> 0.8'
+  gem 'parallel_tests', '~> 0.10'
 end
 
 # Gems used only for assets and not required
@@ -121,7 +101,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
+gem 'jquery-modal-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
