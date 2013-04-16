@@ -24,8 +24,12 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
     rake("enju_subject:setup", :env => environment)
     rake("assets:precompile") if environment == 'production'
     rake("db:seed", :env => environment)
-    rake("sunspot:solr:start", :env => environment)
-    rake("enju_leaf:create_initial_index", :env => environment)
-    rake("sunspot:solr:stop", :env => environment)
+    if ENV['OS'] == 'Windows_NT'
+      rake("sunspot:solr:run", :env => environment)
+    else
+      rake("sunspot:solr:start", :env => environment)
+      rake("enju_leaf:create_initial_index", :env => environment)
+      rake("sunspot:solr:stop", :env => environment)
+    end
   end
 end
