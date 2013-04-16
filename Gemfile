@@ -51,7 +51,6 @@ platforms :jruby do
 end
 
 gem 'exception_notification', '~> 3.0'
-gem 'state_machine', '~> 1.1.2'
 gem 'progress_bar'
 gem 'strongbox'
 gem 'sitemap_generator', '~> 3.4'
@@ -86,6 +85,7 @@ group :development, :test do
   gem 'timecop'
   gem 'sunspot-rails-tester', :git => 'git://github.com/justinko/sunspot-rails-tester.git'
   gem 'vcr', '~> 2.4'
+  gem 'fakeweb'
   gem 'steak'
   gem 'resque_spec'
   gem 'parallel_tests', '~> 0.10'
