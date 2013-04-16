@@ -39,6 +39,7 @@ platforms :mri do
   gem 'zipruby'
   gem 'kgio'
   gem 'charlock_holmes'
+  gem 'redcarpet'
 end
 
 platforms :jruby do
@@ -46,10 +47,11 @@ platforms :jruby do
   gem 'activerecord-jdbcpostgresql-adapter'
   #gem 'activerecord-jdbcmysql-adapter'
   gem 'rubyzip'
-  gem 'trinidad'
+  gem 'trinidad', :require => false
+  #gem 'kramdown'
 end
 
-gem 'exception_notification', '~> 3.0.0'
+gem 'exception_notification', '~> 3.0'
 gem 'progress_bar'
 gem 'strongbox'
 #gem 'devise_security_extension'
@@ -57,10 +59,12 @@ gem 'whenever', :require => false
 #gem 'astrails-safe'
 gem 'sanitize'
 gem 'rack-protection'
-#gem 'oink', '>= 0.9.3'
+gem 'rails_autolink'
+#gem 'oink', '>= 0.10'
 gem 'foreigner'
 gem 'strong_parameters'
 gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
+gem 'redis-rails'
 
 group :development do
   gem 'annotate', '~> 2.5'
@@ -71,7 +75,7 @@ end
 
 group :development, :test do
   gem 'simplecov', '~> 0.7', :require => false
-#  gem 'ruby-prof', :platforms => :mri
+  gem 'ruby-prof', :platforms => :mri
   gem 'rspec-rails', '~> 2.13'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 4.2'

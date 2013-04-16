@@ -463,6 +463,7 @@ GEM
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
     ruby-graphviz (1.0.8)
+    ruby-prof (0.13.0)
     rufus-scheduler (2.0.18)
       tzinfo (>= 0.3.23)
     sanitize (2.0.3)
@@ -569,7 +570,7 @@ DEPENDENCIES
   enju_resource_merge!
   enju_search_log!
   enju_subject!
-  exception_notification (~> 3.0.0)
+  exception_notification (~> 3.0)
   factory_girl_rails (~> 4.2)
   fakeweb
   foreigner
@@ -586,9 +587,13 @@ DEPENDENCIES
   rack-protection
   rails (= 3.2.13)
   rails-erd
+  rails_autolink
+  redcarpet
+  redis-rails
   resque-scheduler (~> 2.0.0)
   resque_spec
   rspec-rails (~> 2.13)
+  ruby-prof
   rubyzip
   sanitize
   sass-rails (~> 3.2.3)
