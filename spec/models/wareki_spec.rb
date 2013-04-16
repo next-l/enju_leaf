@@ -36,6 +36,36 @@ describe Wareki do
       r = Wareki.hiduke2yyyymmdd("[昭和18?年 － 昭和20?年]")
       r.should == ["19430101", "19451231"]
 
+      r = Wareki.hiduke2yyyymmdd("昭和１２年１１月")
+      r.should == ["19371101", "19371130"]
+
+      r = Wareki.hiduke2yyyymmdd("昭和１２年１０月１０日")
+      r.should == ["19371010", "19371010"]
+
+      r = Wareki.hiduke2yyyymmdd("昭和１８年６月") 
+      r.should == ["19430601", "19430630"]
+
+      r = Wareki.hiduke2yyyymmdd("安政4年")
+      r.should == ["18580101", "18581231"]
+
+      r = Wareki.hiduke2yyyymmdd("寛政1年")
+      r.should == ["17890101", "17891231"]
+
+      r = Wareki.hiduke2yyyymmdd("文政10年")
+      r.should == ["18270101", "18271231"]
+
+      r = Wareki.hiduke2yyyymmdd("明治")
+      r.should == ["18681023", "19120730"]
+
+      r = Wareki.hiduke2yyyymmdd("大正")
+      r.should == ["19120730", "19261225"]
+
+      r = Wareki.hiduke2yyyymmdd("昭和")
+      r.should == ["19261225", "19890107"]
+
+      r = Wareki.hiduke2yyyymmdd("平成")
+      r.should == ["19890108", "20991231"]
+
       # 西暦
       r = Wareki.hiduke2yyyymmdd("1974")
       r.should == ["19740101","19741231"]
@@ -58,7 +88,10 @@ describe Wareki do
       # 和暦 invalid format
       r = Wareki.hiduke2yyyymmdd("昭和年")
       r.should == [nil, nil]
- 
+
+      r = Wareki.hiduke2yyyymmdd("平成aa")
+      r.should == [nil, nil]
+
     end
   end
 end

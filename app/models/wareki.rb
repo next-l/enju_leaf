@@ -1,4 +1,5 @@
 # coding: utf-8
+require 'ostruct'
 class Wareki < ActiveRecord::Base
   attr_accessible :display_name, :note, :short_name, :year_from, :year_to
 
@@ -7,7 +8,25 @@ class Wareki < ActiveRecord::Base
   validates :year_from, :numericality => {:only_integer => true}, :allow_blank => false
   validates :year_to, :numericality => {:only_integer => true}, :allow_blank => true
 
-  GENGOUS = {"明治"=>1868,"大正"=>1912,"昭和"=>1926,"平成"=>1989}
+  #see: http://ja.wikipedia.org/wiki/%E5%85%83%E5%8F%B7%E4%B8%80%E8%A6%A7_(%E6%97%A5%E6%9C%AC)
+  GENGOUS = {"寛政" => OpenStruct.new({:from=>'17890219', :to=>'18010319'}),
+             "享和" => OpenStruct.new({:from=>'18010319', :to=>'18040322'}),
+             "文化" => OpenStruct.new({:from=>'18040322', :to=>'18180526'}),
+             "文政" => OpenStruct.new({:from=>'18180526', :to=>'18310123'}),
+             "天保" => OpenStruct.new({:from=>'18310123', :to=>'18450109'}),
+             "弘化" => OpenStruct.new({:from=>'18440109', :to=>'18480401'}),
+             "嘉永" => OpenStruct.new({:from=>'18480401', :to=>'18550115'}),
+             "安政" => OpenStruct.new({:from=>'18550115', :to=>'18600408'}),
+             "万延" => OpenStruct.new({:from=>'18600408', :to=>'18610329'}),
+             "文久" => OpenStruct.new({:from=>'18610329', :to=>'18640327'}),
+             "元治" => OpenStruct.new({:from=>'18640327', :to=>'18650501'}),
+             "慶応" => OpenStruct.new({:from=>'18650501', :to=>'18681023'}),
+             "明治" => OpenStruct.new({:from=>'18681023', :to=>'19120730'}),
+             "大正" => OpenStruct.new({:from=>'19120730', :to=>'19261225'}),
+             "昭和" => OpenStruct.new({:from=>'19261225', :to=>'19890107'}),
+             "平成" => OpenStruct.new({:from=>'19890108', :to=>'20991231'}),
+            }
+
   def self.wareki2yyyy(gengou, yy)
     return nil unless GENGOUS.key?(gengou)
     if yy.class == String
@@ -17,7 +36,7 @@ class Wareki < ActiveRecord::Base
     end
     #FIXME : なんかうまいこと３項演算子がつかえない
     #return (GENGOUS[gengou].to_i - 1 + (yy.class == String)?(yy.to_i):(yy)) 
-    return GENGOUS[gengou].to_i - 1 + yyi
+    return (GENGOUS[gengou].from[0..3].to_i) - 1 + yyi
   end
 
   def self.hiduke2yyyymmdd_sub(datestr)
@@ -29,6 +48,7 @@ class Wareki < ActiveRecord::Base
     datestr.strip!
     #puts "datestr=#{datestr}"
     datestr.delete!("[]?？") 
+    datestr = NKF.nkf('-m0Z1 -w', datestr) #全角数字を半角に変換
 
     i = GENGOUS.keys.index(datestr[0, 2])
     if i.present?
@@ -51,10 +71,16 @@ class Wareki < ActiveRecord::Base
         dfrom = dto = Date.new(syyyy, $3.to_i, $4.to_i)
         #puts "match3 dfrom=#{dfrom} dto=#{dto}"
       else
-        puts "format error (2) #{datestr}"
+        i = GENGOUS.keys.index(datestr)
+        if i.present?
+          dfrom = Date.strptime(GENGOUS[datestr].from, '%Y%m%d')
+          dto = Date.strptime(GENGOUS[datestr].to, '%Y%m%d')
+        else
+          puts "format error (2) #{datestr}"
+        end
       end
-      yyyymmdd_from = dfrom.strftime("%Y%m%d") if dfrom.present?
-      yyyymmdd_to = dto.strftime("%Y%m%d") if dto.present?
+      yyyymmdd_from = dfrom.strftime("%Y%m%d") if dfrom
+      yyyymmdd_to = dto.strftime("%Y%m%d") if dto
     elsif datestr.match(/^\d{4}/)
       if datestr[-1] == "年"
         datestr.gsub!("年", "")
@@ -84,8 +110,8 @@ class Wareki < ActiveRecord::Base
       else
         puts "format error (3) #{datestr}"
       end
-      yyyymmdd_from = dfrom.strftime("%Y%m%d") if dfrom.present?
-      yyyymmdd_to = dto.strftime("%Y%m%d") if dto.present?
+      yyyymmdd_from = dfrom.strftime("%Y%m%d") if dfrom
+      yyyymmdd_to = dto.strftime("%Y%m%d") if dto
     else
       puts "format error (1) #{datestr}"
     end
