@@ -92,6 +92,7 @@ class Wareki < ActiveRecord::Base
         datestr.gsub!("月", "/")
         datestr.gsub!("日", "")
       end
+      datestr.gsub!(".", "/")
       # 西暦
       if datestr.match(/^(\d{4})$/)
         #puts "matchy1 #{datestr} 1=#{$1} 2=#{$2} 3=#{$3}"

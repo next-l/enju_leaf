@@ -81,6 +81,9 @@ describe Wareki do
       r = Wareki.hiduke2yyyymmdd("[1914年3月 － 1915年4月12日]")
       r.should == ["19140301", "19150412"]
 
+      r = Wareki.hiduke2yyyymmdd("1885.05.01")
+      r.should == ["18850501", "18850501"]
+
       # mix
       r = Wareki.hiduke2yyyymmdd("1974/3/9 - 昭和54年8月4日")
       r.should == ["19740309", "19790804"]
@@ -92,6 +95,8 @@ describe Wareki do
       r = Wareki.hiduke2yyyymmdd("平成aa")
       r.should == [nil, nil]
 
+      r = Wareki.hiduke2yyyymmdd("明治27年514月")
+      r.should == [nil, nil]
     end
   end
 end
