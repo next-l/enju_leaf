@@ -150,7 +150,7 @@ GEM
       enju_core (~> 0.1.1.pre4)
       geocoder
       inherited_resources
-    enju_manifestation_viewer (0.1.0.pre5)
+    enju_manifestation_viewer (0.1.0.pre6)
       rails (~> 3.2)
     enju_message (0.1.14.pre7)
       awesome_nested_set (~> 2.1)
@@ -444,11 +444,10 @@ DEPENDENCIES
   client_side_validations (~> 3.2)
   coffee-rails (~> 3.2.1)
   devise-encryptable
-  enju_book_jacket (~> 0.1.0.pre6)
   enju_circulation (~> 0.1.0.pre20)
   enju_flower (~> 0.1.0.pre3)
   enju_leaf (~> 1.1.0.beta3)
-  enju_manifestation_viewer (~> 0.1.0.pre5)
+  enju_manifestation_viewer (~> 0.1.0.pre6)
   enju_message (~> 0.1.14.pre7)
   enju_ndl (~> 0.1.0.pre14)
   enju_oai (~> 0.1.0.pre8)

@@ -27,8 +27,7 @@ gem 'enju_message', '~> 0.1.14.pre7'
 #gem 'enju_event', '~> 0.1.17.pre7'
 #gem 'enju_news', '~> 0.1.0.pre3'
 #gem 'enju_search_log', '~> 0.1.0.pre4'
-gem 'enju_book_jacket', '~> 0.1.0.pre6'
-gem 'enju_manifestation_viewer', '~> 0.1.0.pre5'
+gem 'enju_manifestation_viewer', '~> 0.1.0.pre6'
 #gem 'enju_export', '~> 0.1.1.pre3'
 
 platforms :mri do
