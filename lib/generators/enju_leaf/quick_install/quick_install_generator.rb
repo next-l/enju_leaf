@@ -3,6 +3,8 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
 
   def quick_install
     environment = ENV['ENJU_ENV'] || 'development'
+    rake("db:create:all")
+    rake("db:migrate", :env => environment)
     generate("enju_circulation:setup")
     generate("enju_subject:setup")
     gsub_file 'config/schedule.rb', /^set :environment, :development$/,
@@ -21,5 +23,9 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
     rake("enju_circulation:setup", :env => environment)
     rake("enju_subject:setup", :env => environment)
     rake("assets:precompile") if environment == 'production'
+    rake("db:seed", :env => environment)
+    rake("sunspot:solr:start", :env => environment)
+    rake("enju_leaf:create_initial_index", :env => environment)
+    rake("sunspot:solr:stop", :env => environment)
   end
 end

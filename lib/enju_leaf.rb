@@ -268,10 +268,12 @@ module EnjuLeaf
           request.format = :mobile
         when 'false'
           session[:mobylette_override] = :ignore_mobile
-          request.format = :html if request.format == :mobile
+          unless params[:format]
+            request.format = :html if request.format == :mobile
+          end
         end
-      else
-        session[:mobylette_override] = nil
+      #else
+      #  session[:mobylette_override] = nil
       end
     end
 
