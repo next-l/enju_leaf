@@ -48,6 +48,7 @@ class Wareki < ActiveRecord::Base
     datestr.strip!
     #puts "datestr=#{datestr}"
     datestr.delete!("[]?？") 
+    datestr.delete!(" ") 
     datestr = NKF.nkf('-m0Z1 -w', datestr) #全角数字を半角に変換
 
     i = GENGOUS.keys.index(datestr[0, 2])
