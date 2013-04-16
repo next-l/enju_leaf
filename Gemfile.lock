@@ -8,15 +8,14 @@ GIT
 
 GIT
   remote: git://github.com/nabeta/enju_leaf.git
-  revision: ab461c36c4d81d9184e6785807fa828406d1d977
+  revision: a38a160e1e3d618d15627c1b390fb70979660f92
   branch: gem
   specs:
-    enju_leaf (1.1.0.beta3)
+    enju_leaf (1.1.0.rc1)
       devise-encryptable
       enju_biblio (~> 0.1.0.pre30)
-      enju_book_jacket (~> 0.1.0.pre6)
       enju_library (~> 0.1.0.pre20)
-      enju_manifestation_viewer (~> 0.1.0.pre5)
+      enju_manifestation_viewer (~> 0.1.0.pre6)
       jquery-modal-rails
       mobylette
       rails (~> 3.2.13)
@@ -25,15 +24,8 @@ GIT
       sitemap_generator
 
 GIT
-  remote: git://github.com/next-l/enju_book_jacket.git
-  revision: f3577ab4e6391bf5d3693dc01d45df756b0907f6
-  specs:
-    enju_book_jacket (0.1.0.pre7)
-      rails (~> 3.2)
-
-GIT
   remote: git://github.com/next-l/enju_circulation.git
-  revision: 4c20699c3cd7ef23b83af7936c8fba799fb53f3f
+  revision: b33c451381ff3ed358a8e3026bbaea429e7836b6
   specs:
     enju_circulation (0.1.0.pre21)
       enju_core (~> 0.1.0.pre4)
@@ -77,7 +69,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_manifestation_viewer.git
-  revision: a288fd1a845242d0aef86101d89fe8983f9ec1d7
+  revision: 24e687ab27906ae66e7f44b43e7d6b0ee29a19e2
   specs:
     enju_manifestation_viewer (0.1.0.pre6)
       rails (~> 3.2)
@@ -114,7 +106,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_subject.git
-  revision: d36b8b6e9f6429c06e0bdca0695c167b24d8db14
+  revision: e58e4f0658e3988bdf9b14473aeb80c21322777b
   specs:
     enju_subject (0.1.0.pre11)
       dynamic_form
@@ -153,7 +145,7 @@ GEM
       multi_json (~> 1.0)
     acts_as_list (0.2.0)
       activerecord (>= 3.0)
-    addressable (2.3.3)
+    addressable (2.3.4)
     annotate (2.5.0)
       rake
     arel (3.0.2)
@@ -255,7 +247,7 @@ GEM
       guard (>= 1.1)
       rspec (~> 2.11)
     has_scope (0.5.1)
-    highline (1.6.17)
+    highline (1.6.18)
     hike (1.2.2)
     i18n (0.6.1)
     immigrant (0.1.4)
@@ -494,7 +486,6 @@ DEPENDENCIES
   annotate (~> 2.5)
   charlock_holmes
   coffee-rails (~> 3.2.1)
-  enju_book_jacket!
   enju_circulation!
   enju_event!
   enju_export!
