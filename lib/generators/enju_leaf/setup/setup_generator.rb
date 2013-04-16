@@ -48,7 +48,6 @@ EOS
       <<"EOS"
   include EnjuLeaf::EnjuLeafHelper
   include EnjuBiblio::BiblioHelper if defined?(EnjuBiblio)
-  include EnjuBookJacket::BookJacketHelper if defined?(EnjuBookJacket)
   include EnjuManifestationViewer::ManifestationViewerHelper if defined?(EnjuManifestationViewer)
 EOS
     end
