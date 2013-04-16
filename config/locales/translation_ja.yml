@@ -241,6 +241,7 @@ ja:
   advanced_search:
     from: "ここから"
     to: "ここまで"
+    from_to: "から"
     all_libraries: "全ての図書館"
   work:
     patron_work: "%{patron_name} の書いた資料"

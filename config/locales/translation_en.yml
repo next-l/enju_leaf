@@ -262,6 +262,7 @@ en:
   advanced_search:
     from: "from"
     to: "to"
+    from_to: "-"
     all_libraries: "All libraries"
   work:
     patrons_work: "%{patron_name}'s works"
