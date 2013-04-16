@@ -2,8 +2,6 @@
 item_00001: 
   updated_at: 2007-08-24 23:46:00.484813 +09:00
   item_identifier: '00001'
-  circulation_status_id: 2
-  checkout_type_id: 1
   shelf_id: 1
   call_number: 
   id: 1
@@ -12,8 +10,6 @@ item_00001:
 item_00002: 
   updated_at: 2007-08-24 23:46:01.641413 +09:00
   item_identifier: '00002'
-  circulation_status_id: 2
-  checkout_type_id: 1
   shelf_id: 1
   call_number: 
   id: 2
@@ -22,8 +18,6 @@ item_00002:
 item_00003: 
   updated_at: 2007-08-24 23:46:02.502569 +09:00
   item_identifier: '00003'
-  circulation_status_id: 2
-  checkout_type_id: 2
   shelf_id: 1
   call_number: 
   id: 3
@@ -32,8 +26,6 @@ item_00003:
 item_00004: 
   updated_at: 2007-08-24 23:46:03.520781 +09:00
   item_identifier: '00004'
-  circulation_status_id: 2
-  checkout_type_id: 1
   shelf_id: 1
   call_number: 
   id: 4
@@ -42,8 +34,6 @@ item_00004:
 item_00005: 
   updated_at: 2007-08-24 23:46:04.538073 +09:00
   item_identifier: '00005'
-  circulation_status_id: 2
-  checkout_type_id: 2
   shelf_id: 1
   call_number: 
   id: 5
@@ -52,8 +42,6 @@ item_00005:
 item_00006: 
   updated_at: 2007-08-24 23:46:05.555353 +09:00
   item_identifier: '00006'
-  circulation_status_id: 2
-  checkout_type_id: 2
   shelf_id: 1
   call_number: 
   id: 6
@@ -62,8 +50,6 @@ item_00006:
 item_00007: 
   updated_at: 2007-08-24 23:46:06.572631 +09:00
   item_identifier: '00007'
-  circulation_status_id: 2
-  checkout_type_id: 1
   shelf_id: 1
   call_number: 
   id: 7
@@ -72,8 +58,6 @@ item_00007:
 item_00008: 
   updated_at: 2007-08-24 23:46:07.589909 +09:00
   item_identifier: '00008'
-  circulation_status_id: 2
-  checkout_type_id: 2
   shelf_id: 1
   call_number: 
   id: 8
@@ -82,8 +66,6 @@ item_00008:
 item_00009: 
   updated_at: 2007-08-24 23:46:08.607081 +09:00
   item_identifier: '00009'
-  circulation_status_id: 2
-  checkout_type_id: 1
   shelf_id: 4
   call_number: 
   id: 9
@@ -92,8 +74,6 @@ item_00009:
 item_00010: 
   updated_at: 2007-08-24 23:46:09.624281 +09:00
   item_identifier: '00010'
-  circulation_status_id: 2
-  checkout_type_id: 2
   shelf_id: 1
   call_number: 
   id: 10
@@ -102,8 +82,6 @@ item_00010:
 item_00011: 
   updated_at: 2007-08-24 23:46:10.484813 +09:00
   item_identifier: '00011'
-  circulation_status_id: 2
-  checkout_type_id: 1
   shelf_id: 1
   call_number: 
   id: 11
@@ -112,8 +90,6 @@ item_00011:
 item_00012: 
   updated_at: 2007-08-24 23:46:11.484813 +09:00
   item_identifier: '00012'
-  circulation_status_id: 3
-  checkout_type_id: 2
   shelf_id: 1
   call_number: 
   id: 12
@@ -122,8 +98,6 @@ item_00012:
 item_00013: 
   updated_at: 2007-08-24 23:46:12.484813 +09:00
   item_identifier: '00013'
-  circulation_status_id: 10
-  checkout_type_id: 1
   shelf_id: 1
   call_number: 
   id: 13
@@ -132,8 +106,6 @@ item_00013:
 item_00014: 
   updated_at: 2007-08-24 23:46:13.484813 +09:00
   item_identifier: '00014'
-  circulation_status_id: 10
-  checkout_type_id: 2
   shelf_id: 1
   call_number: 
   id: 14
@@ -142,8 +114,6 @@ item_00014:
 item_00015: 
   updated_at: 2007-08-24 23:46:14.484813 +09:00
   item_identifier: '00015'
-  circulation_status_id: 10
-  checkout_type_id: 3
   shelf_id: 1
   call_number: 
   id: 15
@@ -152,8 +122,6 @@ item_00015:
 item_00016: 
   updated_at: 2007-08-24 23:46:15.484813 +09:00
   item_identifier: '00016'
-  circulation_status_id: 10
-  checkout_type_id: 2
   shelf_id: 1
   call_number: 
   id: 16
@@ -162,8 +130,6 @@ item_00016:
 item_00017: 
   updated_at: 2007-08-24 23:46:16.484813 +09:00
   item_identifier: '00017'
-  circulation_status_id: 10
-  checkout_type_id: 3
   shelf_id: 1
   call_number: 
   id: 17
@@ -172,8 +138,6 @@ item_00017:
 item_00018: 
   updated_at: 2007-08-24 23:46:17.484813 +09:00
   item_identifier: '00018'
-  circulation_status_id: 10
-  checkout_type_id: 3
   shelf_id: 1
   call_number: 
   id: 18
@@ -182,8 +146,6 @@ item_00018:
 item_00019: 
   updated_at: 2007-08-24 23:46:18.484813 +09:00
   item_identifier: '00019'
-  circulation_status_id: 2
-  checkout_type_id: 3
   shelf_id: 1
   call_number: 
   id: 19
@@ -192,8 +154,6 @@ item_00019:
 item_00020: 
   updated_at: 2007-08-24 23:46:19.484813 +09:00
   item_identifier: '00020'
-  circulation_status_id: 13
-  checkout_type_id: 3
   shelf_id: 1
   call_number: 
   id: 20
@@ -202,8 +162,6 @@ item_00020:
 item_00021: 
   updated_at: 2007-08-24 23:46:20.484813 +09:00
   item_identifier: '00021'
-  circulation_status_id: 2
-  checkout_type_id: 3
   shelf_id: 1
   call_number: 
   id: 21
@@ -212,8 +170,6 @@ item_00021:
 item_00022: 
   updated_at: 2007-08-24 23:46:20.484813 +09:00
   item_identifier: '00022'
-  circulation_status_id: 2
-  checkout_type_id: 3
   shelf_id: 1
   call_number: 
   id: 22
@@ -222,8 +178,6 @@ item_00022:
 item_00023: 
   updated_at: 2007-08-24 23:46:20.484813 +09:00
   item_identifier: '00023'
-  circulation_status_id: 15
-  checkout_type_id: 3
   shelf_id: 2
   call_number: 
   id: 23
@@ -238,14 +192,11 @@ item_00023:
 #  id                    :integer         not null, primary key
 #  call_number           :string(255)
 #  item_identifier       :string(255)
-#  circulation_status_id :integer         default(5), not null
-#  checkout_type_id      :integer         default(1), not null
 #  created_at            :datetime        not null
 #  updated_at            :datetime        not null
 #  deleted_at            :datetime
 #  shelf_id              :integer         default(1), not null
 #  include_supplements   :boolean         default(FALSE), not null
-#  checkouts_count       :integer         default(0), not null
 #  owns_count            :integer         default(0), not null
 #  note                  :text
 #  url                   :string(255)
