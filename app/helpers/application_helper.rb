@@ -1,7 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   include PictureFilesHelper if defined?(EnjuLibrary)
-  include EnjuBookJacket::BookJacketHelper if defined?(EnjuBookJacket)
   include EnjuManifestationViewer::ManifestationViewerHelper if defined?(EnjuManifestationViewer)
   include EnjuBiblio::BiblioHelper if defined?(EnjuBiblio)
   include EnjuBookmark::BookmarkHelper if defined?(EnjuBookmark)
