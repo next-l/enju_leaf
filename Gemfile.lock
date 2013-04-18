@@ -1,36 +1,27 @@
 GIT
-  remote: git://github.com/justinko/sunspot-rails-tester.git
-  revision: 5daf0a01335f7d9f1eca76d7c89eec8aac7acfab
-  specs:
-    sunspot-rails-tester (0.0.4)
-      sunspot_rails (>= 1.2)
-      sunspot_solr (>= 1.2)
-
-GIT
   remote: git://github.com/nabeta/enju_leaf.git
-  revision: a38a160e1e3d618d15627c1b390fb70979660f92
+  revision: 4ffd71567935e64868692864160fa8fe57002d97
   branch: gem
   specs:
     enju_leaf (1.1.0.rc1)
       devise-encryptable
-      enju_biblio (~> 0.1.0.pre30)
-      enju_library (~> 0.1.0.pre20)
-      enju_manifestation_viewer (~> 0.1.0.pre6)
+      enju_biblio (~> 0.1.0.pre31)
+      enju_library (~> 0.1.0.pre21)
+      enju_manifestation_viewer (~> 0.1.0.pre7)
       jquery-modal-rails
       mobylette
-      rails (~> 3.2.13)
       redcarpet
       redis-rails
       sitemap_generator
 
 GIT
   remote: git://github.com/next-l/enju_circulation.git
-  revision: b33c451381ff3ed358a8e3026bbaea429e7836b6
+  revision: eaba180bef14406b77e6903286a4bf41957764a2
   specs:
-    enju_circulation (0.1.0.pre21)
+    enju_circulation (0.1.0.pre22)
       enju_core (~> 0.1.0.pre4)
-      enju_event (~> 0.1.17.pre11)
-      enju_message (~> 0.1.14.pre7)
+      enju_event (~> 0.1.17.pre12)
+      enju_message (~> 0.1.14.pre8)
       inherited_resources
       simple_form
       state_machine
@@ -38,11 +29,11 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_event.git
-  revision: ec90a64ad89bb02c89d0121381a8b7b467abd24e
+  revision: f5a0d29ec4be2390358ec1a4b0343b4b606d8b81
   specs:
     enju_event (0.1.17.pre12)
       enju_core (~> 0.1.1.pre4)
-      enju_message (~> 0.1.14.pre7)
+      enju_message (~> 0.1.14.pre8)
       event-calendar (~> 2.3.3)
       inherited_resources
       paperclip
@@ -54,29 +45,29 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_export.git
-  revision: 0b4a1c3dfd6b49766898d4d1ef0a35ce3fc60a6b
+  revision: 29a975ca707efbe7be8d6fefe25dc199703bb4c6
   specs:
-    enju_export (0.1.1.pre3)
-      enju_biblio (~> 0.1.0.pre30)
+    enju_export (0.1.1.pre4)
+      enju_biblio (~> 0.1.0.pre31)
       state_machine
 
 GIT
   remote: git://github.com/next-l/enju_flower.git
-  revision: 7efb58b2bfc646111df1ce780dd82d87701b1872
+  revision: f68adcbfea9e8f916bb3e7eb6537691345559b26
   specs:
-    enju_flower (0.1.0.pre3)
+    enju_flower (0.1.0.pre4)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_manifestation_viewer.git
-  revision: 24e687ab27906ae66e7f44b43e7d6b0ee29a19e2
+  revision: 35e3c89ca682fabb012769db1e9ffd00ec96513d
   specs:
-    enju_manifestation_viewer (0.1.0.pre6)
+    enju_manifestation_viewer (0.1.0.pre7)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_message.git
-  revision: b323a5996e6329f8559f24b993d0df13dadb0f04
+  revision: 462ab689e68f0729c545d368707bd091c86f3c27
   specs:
     enju_message (0.1.14.pre8)
       awesome_nested_set (~> 2.1)
@@ -89,9 +80,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_ndl.git
-  revision: 33bd452bf5d579574abf43c19bb3a4d669bc3ca7
+  revision: da084ce1e45e5f8118b6dfdfeda95ea26994695d
   specs:
-    enju_ndl (0.1.0.pre14)
+    enju_ndl (0.1.0.pre15)
       library_stdnums
       lisbn
       nokogiri
@@ -99,16 +90,16 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_oai.git
-  revision: 94d852f18320ecd00aed35ac3b294e8a71f95ced
+  revision: f9cf9a9cad3e070e8611b0c07c3a15b5eb02365d
   specs:
     enju_oai (0.1.0.pre9)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_subject.git
-  revision: e58e4f0658e3988bdf9b14473aeb80c21322777b
+  revision: 2347faf604b276ce0893ebcfb5aff8f18b1aa518
   specs:
-    enju_subject (0.1.0.pre11)
+    enju_subject (0.1.0.pre12)
       dynamic_form
       enju_core (~> 0.1.1.pre4)
       inherited_resources
@@ -189,7 +180,7 @@ GEM
       devise (>= 2.1.0.rc)
     diff-lcs (1.2.3)
     dynamic_form (1.1.4)
-    enju_biblio (0.1.0.pre30)
+    enju_biblio (0.1.0.pre32)
       aws-sdk
       dynamic_form
       enju_core (~> 0.1.1.pre4)
@@ -218,7 +209,7 @@ GEM
       resque
       settingslogic
       sunspot_rails (~> 2.0.0)
-    enju_library (0.1.0.pre20)
+    enju_library (0.1.0.pre21)
       enju_core (~> 0.1.1.pre4)
       geocoder
       inherited_resources
@@ -451,6 +442,9 @@ GEM
     sunspot (2.0.0)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
+    sunspot-rails-tester (1.0.0)
+      sunspot_rails (>= 1.2)
+      sunspot_solr (>= 1.2)
     sunspot_rails (2.0.0)
       nokogiri
       sunspot (= 2.0.0)
@@ -504,7 +498,7 @@ DEPENDENCIES
   jquery-rails
   jruby-openssl
   kgio
-  parallel_tests (~> 0.10)
+  parallel_tests (~> 0.11)
   pg
   progress_bar
   rails (= 3.2.13)
@@ -521,7 +515,7 @@ DEPENDENCIES
   steak
   strong_parameters
   strongbox
-  sunspot-rails-tester!
+  sunspot-rails-tester
   sunspot_solr (~> 2.0.0)
   timecop
   trinidad
