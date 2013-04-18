@@ -1,11 +1,3 @@
-GIT
-  remote: git://github.com/justinko/sunspot-rails-tester.git
-  revision: 2e8d20a7d56641475de57afc69bdc6fb278214b4
-  specs:
-    sunspot-rails-tester (1.0.0)
-      sunspot_rails (>= 1.2)
-      sunspot_solr (>= 1.2)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -84,7 +76,7 @@ GEM
       devise (>= 2.1.0.rc)
     diff-lcs (1.2.3)
     dynamic_form (1.1.4)
-    enju_biblio (0.1.0.pre31)
+    enju_biblio (0.1.0.pre32)
       aws-sdk
       dynamic_form
       enju_core (~> 0.1.1.pre4)
@@ -99,9 +91,7 @@ GEM
       simple_form
       state_machine
       validates_timeliness
-    enju_book_jacket (0.1.0.pre6)
-      rails (~> 3.2)
-    enju_circulation (0.1.0.pre21)
+    enju_circulation (0.1.0.pre22)
       enju_core (~> 0.1.0.pre4)
       enju_event (~> 0.1.17.pre12)
       enju_message (~> 0.1.14.pre8)
@@ -136,16 +126,16 @@ GEM
       state_machine
     enju_flower (0.1.0.pre4)
       rails (~> 3.2)
-    enju_leaf (1.1.0.pre3)
-      enju_biblio (~> 0.1.0.pre30)
-      enju_book_jacket (~> 0.1.0.pre6)
-      enju_library (~> 0.1.0.pre20)
-      enju_manifestation_viewer (~> 0.1.0.pre5)
+    enju_leaf (1.1.0.rc1)
+      devise-encryptable
+      enju_biblio (~> 0.1.0.pre31)
+      enju_library (~> 0.1.0.pre21)
+      enju_manifestation_viewer (~> 0.1.0.pre7)
       jquery-modal-rails
-      jquery-ui-rails
       mobylette
-      rails (~> 3.2.13)
       redcarpet
+      redis-rails
+      sitemap_generator
     enju_library (0.1.0.pre21)
       enju_core (~> 0.1.1.pre4)
       geocoder
@@ -405,6 +395,9 @@ GEM
     sunspot (2.0.0)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
+    sunspot-rails-tester (1.0.0)
+      sunspot_rails (>= 1.2)
+      sunspot_solr (>= 1.2)
     sunspot_rails (2.0.0)
       nokogiri
       sunspot (= 2.0.0)
@@ -445,9 +438,9 @@ DEPENDENCIES
   client_side_validations (~> 3.2)
   coffee-rails (~> 3.2.1)
   devise-encryptable
-  enju_circulation (~> 0.1.0.pre21)
+  enju_circulation (~> 0.1.0.pre22)
   enju_flower (~> 0.1.0.pre4)
-  enju_leaf (~> 1.1.0.beta3)
+  enju_leaf (~> 1.1.0.rc1)
   enju_manifestation_viewer (~> 0.1.0.pre7)
   enju_message (~> 0.1.14.pre8)
   enju_ndl (~> 0.1.0.pre15)
@@ -462,7 +455,7 @@ DEPENDENCIES
   jquery-rails
   jruby-openssl
   kgio
-  parallel_tests (~> 0.10)
+  parallel_tests (~> 0.11)
   pg
   progress_bar
   rack-protection
@@ -484,7 +477,7 @@ DEPENDENCIES
   steak
   strong_parameters
   strongbox
-  sunspot-rails-tester!
+  sunspot-rails-tester
   sunspot_solr (~> 2.0.0)
   timecop
   trinidad

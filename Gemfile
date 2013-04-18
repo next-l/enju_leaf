@@ -6,7 +6,7 @@ gem 'rails', '3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'enju_leaf', '~> 1.1.0.beta3'
+gem 'enju_leaf', '~> 1.1.0.rc1'
 gem 'enju_flower', '~> 0.1.0.pre4'
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
 #gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
@@ -20,7 +20,7 @@ gem 'enju_oai', '~> 0.1.0.pre9'
 #gem 'enju_question', '~> 0.1.0.pre7'
 #gem 'enju_bookmark', '~> 0.1.2.pre9'
 #gem 'enju_resource_merge', '~> 0.1.0.pre6'
-gem 'enju_circulation', '~> 0.1.0.pre21'
+gem 'enju_circulation', '~> 0.1.0.pre22'
 gem 'enju_message', '~> 0.1.14.pre8'
 #gem 'enju_inter_library_loan', '~> 0.1.0.pre6'
 #gem 'enju_inventory', '~> 0.1.1.pre6'
@@ -82,12 +82,12 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.2'
   gem 'spork-rails'
   gem 'timecop'
-  gem 'sunspot-rails-tester', :git => 'git://github.com/justinko/sunspot-rails-tester.git'
+  gem 'sunspot-rails-tester'
   gem 'vcr', '~> 2.4'
   gem 'fakeweb'
   gem 'steak'
   gem 'resque_spec'
-  gem 'parallel_tests', '~> 0.10'
+  gem 'parallel_tests', '~> 0.11'
 end
 
 # Gems used only for assets and not required
