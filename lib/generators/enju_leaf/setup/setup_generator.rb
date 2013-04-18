@@ -48,7 +48,10 @@ EOS
       <<"EOS"
   include EnjuLeaf::EnjuLeafHelper
   include EnjuBiblio::BiblioHelper if defined?(EnjuBiblio)
-  include EnjuManifestationViewer::ManifestationViewerHelper if defined?(EnjuManifestationViewer)
+  if defined?(EnjuManifestationViewer)
+    include EnjuManifestationViewer::BookJacketHelper
+    include EnjuManifestationViewer::ManifestationViewerHelper
+  end
 EOS
     end
     inject_into_file "app/assets/javascripts/application.js", :after => /\/\/= require jquery_ujs$\n/ do
