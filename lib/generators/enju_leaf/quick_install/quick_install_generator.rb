@@ -3,7 +3,6 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
 
   def quick_install
     environment = ENV['ENJU_ENV'] || 'development'
-    rake("db:create:all")
     rake("db:migrate", :env => environment)
     generate("enju_circulation:setup")
     generate("enju_subject:setup")
