@@ -1601,7 +1601,7 @@ ja:
     output_csv: "%{model}の出力(CSV)"
     output_tsv: "%{model}の出力(TSV)"
     output_excelx: "%{model}の出力(Excel 2007以降)"
-    output_excelx_dialog: "出力対象コラムを選択"
+    output_excelx_dialog: "出力対象カラムを選択"
     output_excelx_detail: "チェックした項目を出力"
     output_excelx_default_checked: "(デフォルト)"
     output_request: "欠号未請求リストの出力(PDF)"
