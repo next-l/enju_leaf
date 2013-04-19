@@ -74,10 +74,10 @@ class ResourceImportTextresult < ActiveRecord::Base
                   oo.first_column.upto(oo.last_column) do |column|
                     datas << oo.cell(row, column).to_s.strip
                   end
-                  sheet.add_row datas, :style => Array.new(columns.size).fill(default_style)
+                  sheet.add_row datas, :types => :string, :style => Array.new(columns.size).fill(default_style)
                 end 
               rescue
-                  sheet.add_row [], :style => Array.new(columns.size).fill(default_style)
+                  sheet.add_row [], :types => :string, :style => Array.new(columns.size).fill(default_style)
                 next
               end
             else

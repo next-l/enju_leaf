@@ -990,7 +990,7 @@ class Manifestation < ActiveRecord::Base
       worksheet[type] = wb.add_worksheet(:name => sheet_name[type]) do |sheet|
         row = column[type].map {|(t, c)| I18n.t("resource_import_textfile.excel.#{t}.#{c}") }
         style[type] = [sty]*row.size
-        sheet.add_row row, :style => style[type]
+        sheet.add_row row, :types => :string, :style => style[type]
       end
     end
 
@@ -1046,7 +1046,7 @@ class Manifestation < ActiveRecord::Base
               column[type].each do |(t, c)|
                 row << m.excel_worksheet_value(t, c, i)
               end
-              worksheet[type].add_row row, :style => style[type]
+              worksheet[type].add_row row, :types => :string, :style => style[type]
 
               # 文献をエクスポート時にはその文献情報を削除する
               # copied from app/models/resource_import_textresult.rb:92-98
