@@ -536,7 +536,7 @@ class ManifestationsController < ApplicationController
     elsif @series_statement
       @manifestation.series_statement = @series_statement
     end
-    @manifestation.language = Language.where(:iso_639_1 => @locale).first
+    @manifestation.language = Language.where(:iso_639_1 => @locale).first unless original_manifestation
     @manifestation = @manifestation.set_serial_number if params[:mode] == 'new_issue'
     @original_manifestation = original_manifestation if params[:mode] == 'add'
     respond_to do |format|
