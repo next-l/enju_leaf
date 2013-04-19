@@ -931,7 +931,7 @@ class Manifestation < ActiveRecord::Base
   BOOK_COLUMNS = %w(
     isbn original_title title_transcription title_alternative carrier_type
     frequency pub_date country_of_publication place_of_publication language
-    edition_display_value volume_number_string issue_number_string lccn
+    edition_display_value volume_number_string issue_number_string serial_number_string lccn
     marc_number ndc start_page end_page height width depth price
     acceptance_number access_address repository_content required_role
     except_recent description supplement note creator contributor publisher

@@ -27,6 +27,7 @@ module EnjuTrunk
       edition_display_value
       volume_number_string
       issue_number_string
+      serial_number_string
       start_page
       end_page
       height
@@ -255,6 +256,7 @@ module EnjuTrunk
       edition                = datas[@field[I18n.t('resource_import_textfile.excel.book.edition_display_value')]]
       volume_number_string   = datas[@field[I18n.t('resource_import_textfile.excel.book.volume_number_string')]]
       issue_number_string    = datas[@field[I18n.t('resource_import_textfile.excel.book.issue_number_string')]]
+      serial_number_string   = datas[@field[I18n.t('resource_import_textfile.excel.book.serial_number_string')]]
       issn                   = datas[@field[I18n.t('resource_import_textfile.excel.series.issn')]]
       lccn                   = datas[@field[I18n.t('resource_import_textfile.excel.book.lccn')]]
       marc_number            = datas[@field[I18n.t('resource_import_textfile.excel.book.marc_number')]]
@@ -289,6 +291,7 @@ module EnjuTrunk
       manifestation.edition_display_value     = edition                   unless edition.nil?
       manifestation.volume_number_string      = volume_number_string.to_s unless volume_number_string.nil?
       manifestation.issue_number_string       = issue_number_string.to_s  unless issue_number_string.nil?
+      manifestation.serial_number_string      = serial_number_string.to_s unless serial_number_string.nil?
       manifestation.isbn                      = isbn.to_s                 unless isbn.nil?
       manifestation.issn                      = issn.to_s                 unless issn.nil?
       manifestation.lccn                      = lccn.to_s                 unless lccn.nil?

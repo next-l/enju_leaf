@@ -2293,6 +2293,7 @@ ja:
         edition_display_value: 版表示
         volume_number_string: 巻
         issue_number_string: 号
+        serial_number_string: 通号
         start_page: 最初のページ
         end_page: 最後のページ
         height: 高さ(cm) 
