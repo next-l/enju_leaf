@@ -22,7 +22,7 @@ module EnjuTrunk
       frequency
       pub_date
       country_of_publication
-      place_of_publicatio
+      place_of_publication
       language
       edition_display_value
       volume_number_string
