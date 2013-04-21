@@ -1,0 +1,92 @@
+worker_processes 1;
+
+# user nobody nogroup; # for systems with a "nogroup"
+# user nobody nobody; # for systems with "nobody" as a group instead
+
+# Feel free to change all paths to suite your needs here, of course
+pid /tmp/nginx.pid;
+error_log /opt/nginx/logs/nginx.error.log;
+
+events {
+  worker_connections 1024; # increase if you have lots of clients
+  accept_mutex off; # "on" if nginx worker_processes > 1
+  # use epoll; # enable for Linux 2.6+
+  # use kqueue; # enable for FreeBSD, OSX
+}
+
+http {
+  include mime.types;
+
+  # fallback in case we can't determine a type
+  default_type application/octet-stream;
+
+  access_log /opt/nginx/logs/nginx.access.log combined;
+
+  # you generally want to serve static files with nginx since neither
+  # Unicorn nor Rainbows! is optimized for it at the moment
+  sendfile on;
+
+  tcp_nopush on; # off may be better for *some* Comet/long-poll stuff
+  tcp_nodelay off; # on may be better for some Comet/long-poll stuff
+
+  gzip on;
+  gzip_http_version 1.0;
+  gzip_proxied any;
+  gzip_min_length 500;
+  gzip_disable "MSIE [1-6]\.";
+  gzip_types text/plain text/html text/xml text/css
+             text/comma-separated-values
+             text/javascript application/x-javascript
+             application/atom+xml;
+
+  # this can be any application server, not just Unicorn/Rainbows!
+  upstream app_server {
+    server unix:/tmp/unicorn_enju_trunk.sock fail_timeout=0;
+
+    # for TCP setups, point these to your backend servers
+    #server localhost:3000 fail_timeout=0;
+  }
+
+  server {
+    listen 443;
+    server_name _;
+
+    ssl             on;
+    ssl_certificate         /opt/nginx/merima.crt;
+    ssl_certificate_key     /opt/nginx/server.key;
+    ssl_session_timeout     10m;
+    ssl_protocols   SSLv3 TLSv1;
+    ssl_ciphers  ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+    ssl_prefer_server_ciphers   on;
+
+    client_max_body_size 1G;
+
+    keepalive_timeout 5;
+
+    #try_files $uri/index.html $uri.html $uri @app;
+
+    location / {
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+
+      # pass the Host: header from the client right along so redirects
+      # can be set properly within the Rack application
+      proxy_set_header Host $http_host;
+      proxy_redirect off;
+
+      # per-response basis.
+      # proxy_buffering off;
+      #auth_basic            "Local Security";
+      #auth_basic_user_file  "/opt/enju_trunk/.htpasswd";
+ 
+      proxy_pass http://app_server;
+
+   }
+
+    # Rails error pages
+    error_page 500 502 503 504 /500.html;
+    location = /500.html {
+      root /opt/enju_trunk/public;
+    }
+  }
+}
