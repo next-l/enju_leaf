@@ -5,12 +5,13 @@ class Subject < ActiveRecord::Base
   def self.import_subjects(subject_lists)
     list = []
     subject_lists.compact.uniq.each do |s|
-      next if s.to_s.strip == ""
-      subject = Subject.where(:term => s.to_s.strip).first
+      s = s.to_s.exstrip_with_full_size_space
+      next if s == ""
+      subject = Subject.where(:term => s).first
       unless subject
         # TODO: Subject typeの設定
         subject = Subject.new(
-          :term => s.to_s.strip,
+          :term => s,
           :subject_type_id => 1,
         )
         subject.required_role = Role.where(:name => 'Guest').first

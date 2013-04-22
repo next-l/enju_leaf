@@ -814,9 +814,10 @@ class Manifestation < ActiveRecord::Base
 
   def add_subject(terms)
     terms.to_s.split(';').each do |s|
-      subject = Subject.where(:term => s.to_s.strip).first
+      s = s.to_s.exstrip_with_full_size_space
+      subject = Subject.where(:term => s).first
       unless subject
-        subject = Subject.create(:term => s.to_s.strip, :subject_type_id => 1)
+        subject = Subject.create(:term => s, :subject_type_id => 1)
       end
       self.subjects << subject unless self.subjects.include?(subject)
     end

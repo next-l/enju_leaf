@@ -267,11 +267,11 @@ class Patron < ActiveRecord::Base
       patron = Patron.where(:full_name => patron_list[:full_name]).first
       unless patron
         patron = Patron.new(
-          :full_name => patron_list[:full_name],
-          :full_name_transcription => patron_list[:full_name_transcription],
+          :full_name => patron_list[:full_name].exstrip_with_full_size_space,
+          :full_name_transcription => patron_list[:full_name_transcription].exstrip_with_full_size_space,
           :language_id => 1
         )
-        patron.exclude_state = 1 if Patron.exclude_patrons.include?(patron_list[:full_name])
+        patron.exclude_state = 1 if Patron.exclude_patrons.include?(patron_list[:full_name].exstrip_with_full_size_space)
         patron.required_role = Role.where(:name => 'Guest').first
         patron.save
       end
@@ -294,13 +294,13 @@ class Patron < ActiveRecord::Base
     end
     list = []
     names.uniq.compact.each_with_index do |name, i|
-      name.strip!
+      name = name.exstrip_with_full_size_space
       next if name.empty?
       patron = Patron.find(:first, :conditions => ["full_name=?", name])
       if patron.nil?
         patron = Patron.new
         patron.full_name = name
-        patron.full_name_transcription = transcriptions[i].strip rescue nil
+        patron.full_name_transcription = transcriptions[i].exstrip_with_full_size_space rescue nil
         patron.save
       end
       list << patron
