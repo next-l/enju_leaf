@@ -6,7 +6,8 @@ gem 'rails', '3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'enju_leaf', :git => 'git://github.com/nabeta/enju_leaf.git', :branch => 'gem'
+gem 'enju_biblio', :git => 'git://github.com/next-l/enju_biblio.git'
+gem 'enju_library', :git => 'git://github.com/next-l/enju_library.git'
 gem 'enju_flower', :git => 'git://github.com/next-l/enju_flower.git'
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
 #gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
@@ -51,12 +52,14 @@ end
 
 gem 'progress_bar'
 gem 'strongbox'
-#gem 'devise_security_extension'
-#gem 'astrails-safe'
+gem 'devise-encryptable'
+gem 'sitemap_generator'
 gem 'sanitize'
-#gem 'oink', '>= 0.10'
 gem 'foreigner'
 gem 'strong_parameters'
+gem 'redis-rails'
+gem 'rails_autolink'
+gem 'mobylette'
 
 group :development do
   gem 'annotate', '~> 2.5'
