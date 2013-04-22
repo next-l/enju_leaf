@@ -458,6 +458,7 @@ DEPENDENCIES
   immigrant
   jquery-modal-rails
   jquery-rails
+  jquery-ui-rails
   jruby-openssl
   kgio
   mobylette
