@@ -29,13 +29,13 @@ end
 #
 # Table name: roles
 #
-#  id           :integer         not null, primary key
-#  name         :string(255)     not null
+#  id           :integer          not null, primary key
+#  name         :string(255)      not null
 #  display_name :string(255)
 #  note         :text
 #  created_at   :datetime
 #  updated_at   :datetime
-#  score        :integer         default(0), not null
+#  score        :integer          default(0), not null
 #  position     :integer
 #
 

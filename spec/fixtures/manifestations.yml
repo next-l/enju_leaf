@@ -1942,32 +1942,25 @@ manifestation_00216:
   required_role_id: 1
   repository_content: false
 
-
-
-
-
-
-
-
 # == Schema Information
 #
 # Table name: manifestations
 #
-#  id                              :integer         not null, primary key
-#  original_title                  :text            not null
+#  id                              :integer          not null, primary key
+#  original_title                  :text             not null
 #  title_alternative               :text
 #  title_transcription             :text
 #  classification_number           :string(255)
 #  manifestation_identifier        :string(255)
 #  date_of_publication             :datetime
 #  date_copyrighted                :datetime
-#  created_at                      :datetime        not null
-#  updated_at                      :datetime        not null
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
 #  deleted_at                      :datetime
 #  access_address                  :string(255)
-#  language_id                     :integer         default(1), not null
-#  carrier_type_id                 :integer         default(1), not null
-#  extent_id                       :integer         default(1), not null
+#  language_id                     :integer          default(1), not null
+#  carrier_type_id                 :integer          default(1), not null
+#  extent_id                       :integer          default(1), not null
 #  start_page                      :integer
 #  end_page                        :integer
 #  height                          :integer
@@ -1987,13 +1980,13 @@ manifestation_00216:
 #  serial_number_string            :string(255)
 #  edition                         :integer
 #  note                            :text
-#  repository_content              :boolean         default(FALSE), not null
-#  lock_version                    :integer         default(0), not null
-#  required_role_id                :integer         default(1), not null
+#  repository_content              :boolean          default(FALSE), not null
+#  lock_version                    :integer          default(0), not null
+#  required_role_id                :integer          default(1), not null
 #  state                           :string(255)
-#  required_score                  :integer         default(0), not null
-#  frequency_id                    :integer         default(1), not null
-#  subscription_master             :boolean         default(FALSE), not null
+#  required_score                  :integer          default(0), not null
+#  frequency_id                    :integer          default(1), not null
+#  subscription_master             :boolean          default(FALSE), not null
 #  attachment_file_name            :string(255)
 #  attachment_content_type         :string(255)
 #  attachment_file_size            :integer
@@ -2013,10 +2006,13 @@ manifestation_00216:
 #  issue_number                    :integer
 #  serial_number                   :integer
 #  ndc                             :string(255)
-#  content_type_id                 :integer         default(1)
+#  content_type_id                 :integer          default(1)
 #  year_of_publication             :integer
 #  attachment_fingerprint          :string(255)
 #  attachment_meta                 :text
 #  month_of_publication            :integer
+#  online_isbn                     :string(255)
+#  fulltext_content                :boolean
+#  doi                             :string(255)
 #
 
