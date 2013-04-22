@@ -693,12 +693,12 @@ ActiveRecord::Schema.define(:version => 20130221154434) do
     t.string   "series_statement_identifier"
     t.string   "issn"
     t.boolean  "periodical",                    :default => false, :null => false
-    t.integer  "root_manifestation_id"
+    t.integer  "manifestation_id"
     t.text     "note"
     t.text     "title_subseries_transcription"
   end
 
-  add_index "series_statements", ["root_manifestation_id"], :name => "index_series_statements_on_manifestation_id"
+  add_index "series_statements", ["manifestation_id"], :name => "index_series_statements_on_manifestation_id"
   add_index "series_statements", ["series_statement_identifier"], :name => "index_series_statements_on_series_statement_identifier"
 
   create_table "shelves", :force => true do |t|
