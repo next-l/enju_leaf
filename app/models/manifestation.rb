@@ -242,6 +242,7 @@ class Manifestation < ActiveRecord::Base
       end
     end
     float :price
+    string :price_string
     boolean :reservable do
       self.reservable?
     end

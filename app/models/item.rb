@@ -3,7 +3,7 @@ require EnjuTrunkFrbr::Engine.root.join('app', 'models', 'item')
 require EnjuTrunkCirculation::Engine.root.join('app', 'models', 'item') if Setting.operation
 class Item < ActiveRecord::Base
   attr_accessible :library_id, :shelf_id, :checkout_type_id, :circulation_status_id,
-                  :retention_period_id, :call_number, :bookstore_id, :price, :url, 
+                  :retention_period_id, :call_number, :bookstore_id, :price, :price_string, :url, 
                   :include_supplements, :use_restriction_id, :required_role_id, 
                   :acquired_at, :note, :item_identifier, :rank, :remove_reason_id,
                   :use_restriction, :manifestation_id, :manifestation,
