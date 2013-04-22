@@ -50,15 +50,20 @@ platforms :jruby do
   #gem 'kramdown'
 end
 
+gem 'exception_notification', '~> 3.0'
 gem 'progress_bar'
 gem 'strongbox'
+gem 'sitemap_generator', '~> 3.4'
 gem 'devise-encryptable'
-gem 'sitemap_generator'
+gem 'whenever', :require => false
 gem 'sanitize'
+gem 'client_side_validations', '~> 3.2'
+gem 'rack-protection'
+gem 'rails_autolink'
 gem 'foreigner'
 gem 'strong_parameters'
+gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
 gem 'redis-rails'
-gem 'rails_autolink'
 gem 'mobylette'
 
 group :development do
@@ -78,6 +83,7 @@ group :development, :test do
   gem 'timecop'
   gem 'sunspot-rails-tester'
   gem 'vcr', '~> 2.4'
+  gem 'fakeweb'
   gem 'steak'
   gem 'resque_spec'
   gem 'parallel_tests', '~> 0.11'
