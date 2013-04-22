@@ -506,9 +506,9 @@ class ManifestationsController < ApplicationController
       format.download {
         if @manifestation.attachment.path
           if Setting.uploaded_file.storage == :s3
-            send_data @manifestation.attachment.data, :filename => @manifestation.attachment_file_name, :type => 'application/octet-stream'
+            send_data @manifestation.attachment.data, :filename => @manifestation.attachment_file_name.encode("cp932"), :type => 'application/octet-stream'
           else
-            send_file file, :filename => @manifestation.attachment_file_name, :type => 'application/octet-stream'
+            send_file file, :filename => @manifestation.attachment_file_name.encode("cp932"), :type => 'application/octet-stream'
           end
         else
           render :template => 'page/404', :status => 404
