@@ -684,4 +684,11 @@ system_configuration_00097:
   typename: Boolean	
   description: "ISBNは重複しない"
   category: 'manifestation'
+system_configuration_00098:
+  id: 98
+  keyname: offline_client_crypt_password
+  v: ""
+  typename: String
+  description: "オフラインクライアント暗号化パスワード"
+  category: 'general'
 
