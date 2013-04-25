@@ -22,9 +22,13 @@ class Wareki < ActiveRecord::Base
              "元治" => OpenStruct.new({:from=>'18640327', :to=>'18650501'}),
              "慶応" => OpenStruct.new({:from=>'18650501', :to=>'18681023'}),
              "明治" => OpenStruct.new({:from=>'18681023', :to=>'19120730'}),
+             "M"    => OpenStruct.new({:from=>'18681023', :to=>'19120730'}),
              "大正" => OpenStruct.new({:from=>'19120730', :to=>'19261225'}),
+             "T"    => OpenStruct.new({:from=>'19120730', :to=>'19261225'}),
              "昭和" => OpenStruct.new({:from=>'19261225', :to=>'19890107'}),
+             "S"    => OpenStruct.new({:from=>'19261225', :to=>'19890107'}),
              "平成" => OpenStruct.new({:from=>'19890108', :to=>'20991231'}),
+             "H"    => OpenStruct.new({:from=>'19890108', :to=>'20991231'}),
             }
 
   def self.wareki2yyyy(gengou, yy)
@@ -51,10 +55,11 @@ class Wareki < ActiveRecord::Base
                    } 
 
     datestr.strip!
-    datestr.delete!("[]?？") 
+    datestr.delete!("[]?？()（）") 
     datestr.delete!(" 　")                  # 半角全角スペースを削除 
     datestr = NKF.nkf('-m0Z1 -w', datestr)  # 全角数字を半角に変換
     datestr.gsub!(/[一二三四五六七八九〇元]/, pattern_hash) # 漢数字を半角数字に変換
+    datestr.upcase!                         # アルファベット半角小文字を半角大文字に変換
 
     begin
       i = GENGOUS.keys.index(datestr[0, 2])
