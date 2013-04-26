@@ -1446,9 +1446,12 @@ Calendar.prototype.showAtElement = function (el, opts) {
 		var br = Calendar.getAbsolutePos(cp);
 		document.body.removeChild(cp);
 		if (Calendar.is_ie) {
-			br.y += document.body.scrollTop;
-			br.x += document.body.scrollLeft;
-		} else {
+      //bit modified by Akifumi NAKAMURA (nakamura.akifumi@miraitsystems.jp)
+      //br.y += document.body.scrollTop;
+      //br.x += document.body.scrollLeft;
+      br.y += document.body.document.documentElement.scrollTop;
+      br.x += document.body.document.documentElement.scrollLeft;
+    } else {
 			br.y += window.scrollY;
 			br.x += window.scrollX;
 		}
