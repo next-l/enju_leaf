@@ -263,14 +263,16 @@ class Patron < ActiveRecord::Base
   def self.import_patrons(patron_lists)
     list = []
     patron_lists.uniq.compact.each do |patron_list|
-      next if patron_list[:full_name] == ""
+      next if patron_list[:full_name].blank?
       patron = Patron.where(:full_name => patron_list[:full_name]).first
       unless patron
         patron = Patron.new(
           :full_name => patron_list[:full_name].exstrip_with_full_size_space,
-          :full_name_transcription => patron_list[:full_name_transcription].exstrip_with_full_size_space,
           :language_id => 1
         )
+        if patron_list[:full_name_transcription].present?
+          patron.full_name_transcription = patron_list[:full_name_transcription].exstrip_with_full_size_space
+        end
         patron.exclude_state = 1 if Patron.exclude_patrons.include?(patron_list[:full_name].exstrip_with_full_size_space)
         patron.required_role = Role.where(:name => 'Guest').first
         patron.save
