@@ -35,7 +35,14 @@ function displayArticleTitle(article_title) {
   $(".pub_date").html(pub_data_field);
 }
 $(document).keydown(function(e) {
-  if (e.keyCode == 13) return false;
+  $("input[type=text]").keypress(function(ev) {
+   if ((ev.which && ev.which === 13) ||
+        (ev.keyCode && ev.keyCode === 13)) {
+      return false;
+    } else {
+      return true;
+    }
+  });
 });
 </script>
 
