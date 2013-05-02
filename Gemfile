@@ -6,7 +6,7 @@ gem 'rails', '3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'enju_biblio', '~> 0.1.0.pre34'
+gem 'enju_biblio', '~> 0.1.0.pre36'
 gem 'enju_library', '~> 0.1.0.pre21'
 gem 'enju_flower', '~> 0.1.0.pre5'
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
@@ -79,7 +79,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.13'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 4.2'
-  gem 'spork-rails'
+  gem 'spring'
   gem 'timecop'
   gem 'sunspot-rails-tester'
   gem 'vcr', '~> 2.4'
