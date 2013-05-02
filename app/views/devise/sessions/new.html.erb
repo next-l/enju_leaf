@@ -17,7 +17,7 @@
 
   <p>
     <%= f.label t('activerecord.attributes.user.password') %><br />
-    <%= f.password_field :password, :class => 'login_password' %>
+    <%= f.password_field :password, :class => 'login_password', :autocomplete => 'off' %>
   </p>
 
   <p id="notice"><%= notice %></p>
