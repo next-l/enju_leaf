@@ -87,6 +87,8 @@ class UserGroupsController < ApplicationController
 
   private
   def prepare_options
-    @checkout_types = CheckoutType.select([:id, :display_name, :position])
+    if defined?(EnjuCirculation)
+      @checkout_types = CheckoutType.select([:id, :display_name, :position])
+    end
   end
 end
