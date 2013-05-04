@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 class UserGroupsController < ApplicationController
   load_and_authorize_resource
+  before_filter :prepare_options, :only => [:new, :edit]
 
   # GET /user_groups
   # GET /user_groups.json
@@ -46,6 +47,7 @@ class UserGroupsController < ApplicationController
         format.html { redirect_to @user_group, :notice => t('controller.successfully_created', :model => t('activerecord.models.user_group')) }
         format.json { render :json => @user_group, :status => :created, :location => @user_group }
       else
+        prepare_options
         format.html { render :action => "new" }
         format.json { render :json => @user_group.errors, :status => :unprocessable_entity }
       end
@@ -65,6 +67,7 @@ class UserGroupsController < ApplicationController
         format.html { redirect_to @user_group, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user_group')) }
         format.json { head :no_content }
       else
+        prepare_options
         format.html { render :action => "edit" }
         format.json { render :json => @user_group.errors, :status => :unprocessable_entity }
       end
@@ -80,5 +83,10 @@ class UserGroupsController < ApplicationController
       format.html { redirect_to user_groups_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def prepare_options
+    @checkout_types = CheckoutType.select([:id, :display_name, :position])
   end
 end
