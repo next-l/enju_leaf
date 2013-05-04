@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   before_filter :get_library_group, :set_locale, :set_available_languages,
     :set_mobile_request
 
-  #enju_subject
+  enju_subject
   #enju_purchase_request
   #enju_question
   #enju_resource_merge
