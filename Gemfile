@@ -53,7 +53,7 @@ end
 gem 'exception_notification', '~> 3.0'
 gem 'progress_bar'
 gem 'strongbox'
-gem 'sitemap_generator', '~> 3.4'
+gem 'sitemap_generator', '~> 4.0'
 gem 'devise-encryptable'
 gem 'whenever', :require => false
 gem 'sanitize'
