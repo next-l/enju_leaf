@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 240c4d32c57fb2d54f78cc01b0afdc0568b7cb4e
+  revision: dacf945f48639da0b199718e19bc3f5eaba58d4b
   specs:
     enju_biblio (0.1.0.pre37)
       aws-sdk
@@ -93,7 +93,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_ndl.git
-  revision: 2225b93cb8d1dc9c34ba832906c30b3cb9a07fb8
+  revision: 1ca76e99ddbc52b015df45fc9dd4fada1eb73d53
   specs:
     enju_ndl (0.1.0.pre15)
       library_stdnums
@@ -110,9 +110,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_subject.git
-  revision: 2df6227f61041cc7de9f0b6cf7883bc1bd157007
+  revision: c3f93fff610f1444424bd7c585d96f86d6b838fd
   specs:
-    enju_subject (0.1.0.pre12)
+    enju_subject (0.1.0.pre13)
       dynamic_form
       enju_core (~> 0.1.1.pre4)
       inherited_resources
