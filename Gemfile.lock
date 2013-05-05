@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 9628aeebd135d9f28212ca8465eb783e1ea95bfb
+  revision: 51825c1cd2e08ff7f24a7430ef9f8af9578a5170
   specs:
-    enju_biblio (0.1.0.pre37)
+    enju_biblio (0.1.0.pre38)
       aws-sdk
       dynamic_form
       enju_core (~> 0.1.1.pre4)
@@ -20,9 +20,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_circulation.git
-  revision: f8dfbe7864a5dabf995ce89b0ccff8efcc2caf6e
+  revision: dc24724ef9a06d2caee5319e412e1e4988079ba4
   specs:
-    enju_circulation (0.1.0.pre24)
+    enju_circulation (0.1.0.pre25)
       enju_core (~> 0.1.0.pre4)
       enju_event (~> 0.1.17.pre12)
       enju_message (~> 0.1.14.pre8)
@@ -93,7 +93,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_ndl.git
-  revision: 0d8bb7a1161a1cae778db9c5eadf613b1b2a9277
+  revision: 3d00b012f1fb096e4215801e83efb58cdf2cf634
   specs:
     enju_ndl (0.1.0.pre17)
       library_stdnums
@@ -110,9 +110,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_subject.git
-  revision: 64c1f0219124bc635b0382f7883519b43a50e882
+  revision: d42fc77cd9002f8bbd83b056f6cc003b00da027d
   specs:
-    enju_subject (0.1.0.pre13)
+    enju_subject (0.1.0.pre14)
       dynamic_form
       enju_core (~> 0.1.1.pre4)
       inherited_resources
@@ -302,7 +302,7 @@ GEM
     paperclip-meta (0.4.3)
       paperclip
     parallel (0.6.4)
-    parallel_tests (0.11.5)
+    parallel_tests (0.11.6)
       parallel
     pg (0.15.1)
     polyglot (0.3.3)
