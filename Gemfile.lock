@@ -91,7 +91,7 @@ GEM
       simple_form
       state_machine
       validates_timeliness
-    enju_circulation (0.1.0.pre24)
+    enju_circulation (0.1.0.pre25)
       enju_core (~> 0.1.0.pre4)
       enju_event (~> 0.1.17.pre12)
       enju_message (~> 0.1.14.pre8)
@@ -147,7 +147,7 @@ GEM
       rails (~> 3.2)
     enju_oai (0.1.0.pre9)
       rails (~> 3.2)
-    enju_subject (0.1.0.pre13)
+    enju_subject (0.1.0.pre14)
       dynamic_form
       enju_core (~> 0.1.1.pre4)
       inherited_resources
@@ -244,7 +244,7 @@ GEM
     paperclip-meta (0.4.3)
       paperclip
     parallel (0.6.4)
-    parallel_tests (0.11.5)
+    parallel_tests (0.11.6)
       parallel
     pg (0.15.1)
     polyglot (0.3.3)
@@ -439,14 +439,14 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise-encryptable
   enju_biblio (~> 0.1.0.pre37)
-  enju_circulation (~> 0.1.0.pre24)
+  enju_circulation (~> 0.1.0.pre25)
   enju_flower (~> 0.1.0.pre7)
   enju_library (~> 0.1.0.pre22)
   enju_manifestation_viewer (~> 0.1.0.pre7)
   enju_message (~> 0.1.14.pre8)
   enju_ndl (~> 0.1.0.pre17)
   enju_oai (~> 0.1.0.pre9)
-  enju_subject (~> 0.1.0.pre13)
+  enju_subject (~> 0.1.0.pre14)
   exception_notification (~> 3.0)
   factory_girl_rails (~> 4.2)
   fakeweb
