@@ -43,6 +43,18 @@ class Wareki < ActiveRecord::Base
     return (GENGOUS[gengou].from[0..3].to_i) - 1 + yyi
   end
 
+  def self.generate_merge_range(pub_date_from_str, pub_date_to_str)
+    if pub_date_from_str.present?
+      from4, to4 = Wareki.hiduke2yyyymmdd_sub(pub_date_from_str)
+    end
+    if pub_date_to_str.present?
+      from5, to5 = Wareki.hiduke2yyyymmdd_sub(pub_date_to_str)
+    end
+    from0 = from4
+    to0 = (to5.present?)?(to5):(to4)
+    return from0, to0
+  end
+
   def self.hiduke2yyyymmdd_sub(datestr)
     yyyymmdd_from = nil 
     yyyymmdd_to = nil 
