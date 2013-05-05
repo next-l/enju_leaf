@@ -1,3 +1,10 @@
+require 'spec_helper'
+
+describe UserGroup do
+  #pending "add some examples to (or delete) #{__FILE__}"
+
+end
+
 # == Schema Information
 #
 # Table name: user_groups
@@ -17,10 +24,3 @@
 #  number_of_time_to_notify_overdue :integer          default(3), not null
 #
 
-# -*- encoding: utf-8 -*-
-require 'spec_helper'
-
-describe UserGroup do
-  #pending "add some examples to (or delete) #{__FILE__}"
-
-end
