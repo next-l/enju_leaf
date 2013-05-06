@@ -16,7 +16,7 @@ gem 'enju_ndl', '~> 0.1.0.pre17'
 #gem 'enju_nii', '~> 0.1.0.pre4'
 gem 'enju_oai', '~> 0.1.0.pre9'
 #gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
-gem 'enju_subject', '~> 0.1.0.pre14'
+gem 'enju_subject', '~> 0.1.0.pre15'
 #gem 'enju_purchase_request', '~> 0.1.0.pre6'
 #gem 'enju_question', '~> 0.1.0.pre7'
 #gem 'enju_bookmark', '~> 0.1.2.pre9'
@@ -86,7 +86,7 @@ group :development, :test do
   gem 'fakeweb'
   gem 'steak'
   gem 'resque_spec'
-  gem 'parallel_tests', '~> 0.11'
+  gem 'parallel_tests', '~> 0.12'
 end
 
 # Gems used only for assets and not required

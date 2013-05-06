@@ -244,8 +244,8 @@ ja:
     successfully_updated: "%{model}は正常に更新されました。"
     successfully_deleted: "%{model}は正常に削除されました。"
   advanced_search:
-    from: "ここから"
-    to: "ここまで"
+    from: ""
+    to: "から"
     all_libraries: "全ての図書館"
   work:
     patron_work: "%{patron_name} の書いた資料"
