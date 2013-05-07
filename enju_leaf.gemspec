@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "enju_library", "~> 0.1.0.pre22"
   s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre7"
   s.add_dependency "redcarpet"
-  s.add_dependency "mobylette"
+  s.add_dependency "mobylette", '~> 3.3.2'
   s.add_dependency "jquery-modal-rails"
   s.add_dependency "sitemap_generator"
   s.add_dependency "devise-encryptable"
