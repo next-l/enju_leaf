@@ -430,6 +430,16 @@ class ManifestationsController < ApplicationController
   # GET /manifestations/1
   # GET /manifestations/1.json
   def show
+    can_show = true
+    unless user_signed_in?
+      can_show = false if @manifestation.non_searchable?
+    else
+      can_show = false if !current_user.has_role?('Librarian') and @manifestation.non_searchable?
+    end
+    unless can_show
+      access_denied; return
+    end
+
     if params[:isbn]
       if @manifestation = Manifestation.find_by_isbn(params[:isbn])
         redirect_to @manifestation

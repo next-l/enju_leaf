@@ -380,9 +380,7 @@ class Manifestation < ActiveRecord::Base
     end
     boolean :except_recent
     boolean :non_searchable do
-      if SystemConfiguration.get('manifestation.manage_item_rank')
-        non_searchable?
-      end
+      non_searchable?
     end
     string :exinfo_1
     string :exinfo_2
@@ -528,8 +526,13 @@ class Manifestation < ActiveRecord::Base
   def non_searchable?
     return false if periodical_master
     items.each do |i|
-      if i.rank == 0 and !i.retention_period.non_searchable and i.circulation_status.name != "Removed" and !i.non_searchable
+      if !i.retention_period.non_searchable and i.circulation_status.name != "Removed" and !i.non_searchable
         return false
+      end
+      if SystemConfiguration.get('manifestation.manage_item_rank')
+        if i.rank == 0
+          return false
+        end
       end
     end
     true
