@@ -9,7 +9,6 @@ require 'sitemap_generator'
 require 'redis-rails'
 require 'jquery-rails'
 require 'jquery-ui-rails'
-require 'jquery-modal-rails'
 
 module EnjuLeaf
   class Engine < ::Rails::Engine
