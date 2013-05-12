@@ -14,4 +14,3 @@
 //= require event_calendar
 //= require jquery.powertip
 //= require jquery_nested_form
-//= require jquery.modal
