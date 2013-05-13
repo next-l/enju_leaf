@@ -147,7 +147,9 @@ Calendar.is_ie5 = ( Calendar.is_ie && /msie 5\.0/i.test(navigator.userAgent) );
 
 // start modified by Akifumi NAKAMURA (nakamura.akifumi@miraitsystems.jp)
 Calendar.is_ie8 = ( Calendar.is_ie && /msie 8\.0/i.test(navigator.userAgent) );
+Calendar.is_ie_compatible = ( Calendar.is_ie && /msie 7\.0/i.test(navigator.userAgent) && /Trident/i.test(navigator.userAgent));
 Calendar.is_ie9 = ( Calendar.is_ie && /msie 9\.0/i.test(navigator.userAgent) );
+Calendar.is_winxp = /windows nt 5.1/i.test(navigator.userAgent);
 // end   modified by Akifumi NAKAMURA (nakamura.akifumi@miraitsystems.jp)
 
 /// detect Opera browser
@@ -1452,7 +1454,11 @@ Calendar.prototype.showAtElement = function (el, opts) {
 		document.body.removeChild(cp);
 
     //bit modified by Akifumi NAKAMURA (nakamura.akifumi@miraitsystems.jp)
-    if (Calendar.is_ie8 || Calendar.is_ie9) {
+    //alert(navigator.userAgent);
+    if (Calendar.is_ie_compatible) {
+      br.y += document.body.document.documentElement.scrollTop;
+      br.x += document.body.document.documentElement.scrollLeft;
+    }else if (Calendar.is_ie8 || Calendar.is_ie9) {
       br.y += window.scrollY;
       br.x += window.scrollX;
     }else if (Calendar.is_ie) {
