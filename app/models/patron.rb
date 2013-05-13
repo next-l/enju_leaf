@@ -299,11 +299,17 @@ class Patron < ActiveRecord::Base
       name = name.exstrip_with_full_size_space
       next if name.empty?
       patron = Patron.find(:first, :conditions => ["full_name=?", name])
+      full_name_transcription = transcriptions[i].exstrip_with_full_size_space rescue nil
       if patron.nil?
         patron = Patron.new
         patron.full_name = name
-        patron.full_name_transcription = transcriptions[i].exstrip_with_full_size_space rescue nil
+        patron.full_name_transcription = full_name_transcription
         patron.save
+      else
+        if full_name_transcription
+          patron.full_name_transcription = full_name_transcription
+          patron.save
+        end
       end
       list << patron
     end
@@ -351,11 +357,13 @@ private
     return false if chash.empty?
   
     patrons = Patron.find(:all, :conditions => chash)
- 
+
     patrons.delete_if {|p| p.id == self.id} if p
- 
-    if patrons && patrons.size > 0
-      errors.add_to_base(I18n.t('patron.duplicate_user'))
+
+    if self.new_record? 
+      if patrons && patrons.size > 0
+        errors.add_to_base(I18n.t('patron.duplicate_user'))
+      end
     end
     #logger.info errors.inspect
   end
