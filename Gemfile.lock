@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 2ebe999169b5f19bf92ba835eb82b83205eb2d87
+  revision: 55638d554ea9842f8d85919d95783a7e3b9bf34d
   specs:
-    enju_biblio (0.1.0.pre39)
+    enju_biblio (0.1.0.pre40)
       aws-sdk
       dynamic_form
       enju_core (~> 0.1.1.pre4)
@@ -56,7 +56,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_flower.git
-  revision: 5e076812e50e213bf597fc2e1063821a1a73c2e5
+  revision: eb311e85fe127cb53167a01cdd5c55b3a73d330d
   specs:
     enju_flower (0.1.0.pre8)
       rails (~> 3.2)
@@ -92,9 +92,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_ndl.git
-  revision: fa465c62054bf9afc6379df67a5caa778d5fed22
+  revision: d166de2b442ab21883302dcc0a38fdbe247033b4
   specs:
-    enju_ndl (0.1.0.pre21)
+    enju_ndl (0.1.0.pre22)
       library_stdnums
       lisbn
       nokogiri
@@ -109,9 +109,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_subject.git
-  revision: c987fefbc999396c067ed0c43c7084b5bc8f25cb
+  revision: 197bb124c0e35f5603bebc66358bcc5d5cb5408c
   specs:
-    enju_subject (0.1.0.pre18)
+    enju_subject (0.1.0.pre19)
       dynamic_form
       enju_core (~> 0.1.1.pre4)
       inherited_resources
@@ -237,7 +237,7 @@ GEM
       guard (>= 1.8)
       rspec (~> 2.13)
     has_scope (0.5.1)
-    highline (1.6.18)
+    highline (1.6.19)
     hike (1.2.2)
     i18n (0.6.1)
     immigrant (0.1.4)
@@ -253,7 +253,7 @@ GEM
     jquery-ui-rails (4.0.2)
       jquery-rails
       railties (>= 3.1.0)
-    json (1.7.7)
+    json (1.8.0)
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -267,8 +267,7 @@ GEM
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
     lumberjack (1.0.3)
-    mail (2.5.3)
-      i18n (>= 0.4.0)
+    mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     marc (0.5.0)
@@ -296,7 +295,7 @@ GEM
     paperclip-meta (0.4.3)
       paperclip
     parallel (0.6.4)
-    parallel_tests (0.12.3)
+    parallel_tests (0.12.4)
       parallel
     pg (0.15.1)
     polyglot (0.3.3)
