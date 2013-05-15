@@ -163,9 +163,19 @@ module ManifestationsHelper
 
   def checkedout_original_book?(manifestation)
     if manifestation.items
-      original_item = manifestation.items.find_by_rank(0)
-      if original_item 
-        return true if original_item.try(:circulation_status).try(:name) == ('On Loan')
+      if SystemConfiguration.get('manifestation.manage_item_rank')
+        original_item = manifestation.items.find_by_rank(0)
+        if original_item
+          return true if original_item.try(:circulation_status).try(:name) == 'On Loan'
+        end
+      elsif
+        checkout_all = true
+        manifestation.items.each do |item|
+          unless item.try(:circulation_status).try(:name) == 'On Loan'
+            checkout_all = false; break
+          end
+        end
+        return true if checkout_all
       end
     end
     false
