@@ -1,0 +1,39 @@
+--- 
+subject_heading_type_00001: 
+  name: unknown
+  display_name: unknown
+  updated_at: 2008-03-03 00:44:49.850140 +09:00
+  id: 1
+  note: ""
+  created_at: 2008-03-03 00:44:34.260739 +09:00
+  position: 1
+subject_heading_type_00002: 
+  name: ndlsh
+  display_name: NDLSH
+  updated_at: 2008-03-03 00:44:49.850140 +09:00
+  id: 2
+  note: ""
+  created_at: 2008-03-03 00:44:34.260739 +09:00
+  position: 2
+subject_heading_type_00003: 
+  name: bsh
+  display_name: BSH
+  updated_at: 2008-03-03 00:44:58.685360 +09:00
+  id: 3
+  note: ""
+  created_at: 2008-03-03 00:44:58.685360 +09:00
+  position: 3
+
+# == Schema Information
+#
+# Table name: subject_heading_types
+#
+#  id           :integer          not null, primary key
+#  name         :string(255)      not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+

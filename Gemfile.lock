@@ -121,13 +121,13 @@ GEM
       ri_cal
       simple_form
       state_machine
-    enju_flower (0.1.0.pre8)
+    enju_flower (0.1.0.pre9)
       rails (~> 3.2)
     enju_library (0.1.0.pre23)
       enju_core (~> 0.1.1.pre4)
       geocoder
       inherited_resources
-    enju_manifestation_viewer (0.1.0.pre9)
+    enju_manifestation_viewer (0.1.0.pre11)
       rails (~> 3.2)
     enju_message (0.1.14.pre8)
       awesome_nested_set (~> 2.1)
