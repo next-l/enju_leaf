@@ -102,10 +102,12 @@ $(document).keydown(function(e) {
   <div class="field">
     <%= f.label t('page.file') -%><br />
     <%= f.file_field :attachment -%>
-    <%- unless @manifestation.attachment_file_name.blank? -%>
+    <% unless @manifestation.new_record? %>
+      <%- unless @manifestation.attachment_file_name.blank? -%>
         <%= f.check_box :delete_attachment, :onClick => "toggle_upload()" -%><%= t('manifestation.delete_attachment') -%>
         <%= render 'manifestations/attachment_file', :manifestation => @manifestation -%>
-    <%- end -%>
+      <%- end -%>
+    <% end %>
   </div>
 
   <script type="text/javascript">

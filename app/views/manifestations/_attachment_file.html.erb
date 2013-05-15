@@ -1,12 +1,6 @@
 <%- if can? :show, manifestation -%>
   <tr>
     <td><%= t('manifestation.attachment_file') -%>:</td>
-    <td>
-      <% if params[:manifestation_id] %>
-        <%= link_to manifestation.attachment_file_name, manifestation_path(params[:manifestation_id], :format => :download) -%>
-      <% else %>
-        <%= link_to manifestation.attachment_file_name, manifestation_path(:format => :download) -%>
-      <% end %>
-    </td>
+    <td><%= link_to manifestation.attachment_file_name, manifestation_path(:format => :download) -%></td>
   </tr>
 <%- end -%>
