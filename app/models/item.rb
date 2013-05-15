@@ -82,9 +82,10 @@ class Item < ActiveRecord::Base
 
   validates_associated :circulation_status, :shelf, :bookstore, :checkout_type, :retention_period
   validates_presence_of :circulation_status, :checkout_type, :retention_period, :rank
-  validate :is_original?
+  validate :is_original?, :if => proc{ SystemConfiguration.get("manifestation.manage_item_rank") }
   before_validation :set_circulation_status, :on => :create
   before_save :set_use_restriction, :set_retention_period, :check_remove_item, :except => :delete
+  before_save :set_rank, :unless => proc{ SystemConfiguration.get("manifestation.manage_item_rank") }
   after_save :check_price, :except => :delete
   after_save :reindex
 
@@ -292,6 +293,10 @@ class Item < ActiveRecord::Base
     unless self.retention_period
       self.retention_period = RetentionPeriod.find(1)
     end
+  end
+
+  def set_rank
+    self.rank = 0
   end
 
   def item_bind(bookbinder_id)
