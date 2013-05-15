@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "enju_biblio", "~> 0.1.0.pre40"
   s.add_dependency "enju_library", "~> 0.1.0.pre23"
-  s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre9"
+  s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre10"
   s.add_dependency "redcarpet"
   s.add_dependency "mobylette", '~> 3.3.2'
   s.add_dependency "sitemap_generator"
