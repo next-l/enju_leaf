@@ -42,6 +42,7 @@ EOS
   enju_biblio
   enju_library
 
+  private
   def mobylette_options
     @mobylette_options ||= ApplicationController.send(:mobylette_options).merge(
       {
