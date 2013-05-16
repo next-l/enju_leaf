@@ -864,11 +864,14 @@ class ManifestationsController < ApplicationController
   end
 
   # 空白を含まない文字列、"?"、'?'を抽出する
+  # ただし単独のAND、ORは"AND"、"OR"に変換して返す
   def each_query_word(str)
     ary = []
     str.scan(/([^"'\s]\S*|(["'])(?:(?:\\\\)+|\\\2|.)*?\2)/) do
-      ary << $1
-      yield($1) if block_given?
+      word = $1
+      word = "\"#{word}\"" if /\A(?:and|or)\z/io =~ word
+      ary << word
+      yield(word) if block_given?
     end
     ary
   end
