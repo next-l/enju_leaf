@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe Wareki do
-  describe 'wareki2yyyyは' do
+ describe 'wareki2yyyyは' do
     it '和暦を西暦年に変換すること' do
       r = Wareki.wareki2yyyy("明治", 9)
       r.should == 1876
@@ -15,6 +15,16 @@ describe Wareki do
       r = Wareki.wareki2yyyy("平成", "25")
       r.should == 2013
     end
+  end
+
+  describe 'メソッドhiduke2yyyymmddは' do
+    it '空からnilを与えた場合は、nilを返すこと' do
+      r = Wareki.hiduke2yyyymmdd(nil)
+      r.should == [nil, nil]
+
+      r = Wareki.hiduke2yyyymmdd("")
+      r.should == [nil, nil]
+    end 
   end
 
   describe 'メソッドhiduke2yyyymmddは' do
@@ -104,6 +114,22 @@ describe Wareki do
 
       r = Wareki.hiduke2yyyymmdd("1885.05.01")
       r.should == ["18850501", "18850501"]
+
+      # 省略形
+      r = Wareki.hiduke2yyyymmdd("H") 
+      r.should == ["19890108", "20991231"]
+      r = Wareki.hiduke2yyyymmdd("S") 
+      r.should == ["19261225", "19890107"]
+      r = Wareki.hiduke2yyyymmdd("T") 
+      r.should == ["19120730", "19261225"]
+      r = Wareki.hiduke2yyyymmdd("M") 
+      r.should == ["18681023", "19120730"]
+
+      r = Wareki.hiduke2yyyymmdd("S49.3.9")
+      r.should == ["19740309", "19740309"]
+ 
+      r = Wareki.hiduke2yyyymmdd("M27年ーS12年")
+      r.should == ["18940101", "19371231"]
 
       # mix
       r = Wareki.hiduke2yyyymmdd("1974/3/9 - 昭和54年8月4日")

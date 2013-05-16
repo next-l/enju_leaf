@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+#copy to /etc/rc.d/rc5.d/S99zlocal
+ENJUUSER=enju
+ENJUHOME=/opt/enju_trunk
+echo start delayed_job
+su - $ENJUUSER -c "cd $ENJUHOME ; RAILS_ENV=production script/delayed_job start"

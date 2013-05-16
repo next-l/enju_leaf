@@ -225,7 +225,7 @@ class ManifestationsController < ApplicationController
       # file output
       if search_opts[:output_mode]
         # TODO: 第一引数にparamsまたは生成した検索語、フィルタ指定を渡すようにして、バックグラウンドファイル生成で一時ファイルを作らなくて済むようにする
-        Manifestation.generate_manifestation_list(search_all, search_opts[:output_type], current_user, params[:cols]) do |output|
+        Manifestation.generate_manifestation_list(search_all, search_opts[:output_type], current_user, advanced_search_condition_summary, params[:cols]) do |output|
           send_opts = {
             :filename => output.filename,
             :type => output.mime_type || 'application/octet-stream',
@@ -430,6 +430,16 @@ class ManifestationsController < ApplicationController
   # GET /manifestations/1
   # GET /manifestations/1.json
   def show
+    can_show = true
+    unless user_signed_in?
+      can_show = false if @manifestation.non_searchable?
+    else
+      can_show = false if !current_user.has_role?('Librarian') and @manifestation.non_searchable?
+    end
+    unless can_show
+      access_denied; return
+    end
+
     if params[:isbn]
       if @manifestation = Manifestation.find_by_isbn(params[:isbn])
         redirect_to @manifestation
@@ -506,9 +516,9 @@ class ManifestationsController < ApplicationController
       format.download {
         if @manifestation.attachment.path
           if Setting.uploaded_file.storage == :s3
-            send_data @manifestation.attachment.data, :filename => @manifestation.attachment_file_name, :type => 'application/octet-stream'
+            send_data @manifestation.attachment.data, :filename => @manifestation.attachment_file_name.encode("cp932"), :type => 'application/octet-stream'
           else
-            send_file file, :filename => @manifestation.attachment_file_name, :type => 'application/octet-stream'
+            send_file file, :filename => @manifestation.attachment_file_name.encode("cp932"), :type => 'application/octet-stream'
           end
         else
           render :template => 'page/404', :status => 404
@@ -854,11 +864,14 @@ class ManifestationsController < ApplicationController
   end
 
   # 空白を含まない文字列、"?"、'?'を抽出する
+  # ただし単独のAND、ORは"AND"、"OR"に変換して返す
   def each_query_word(str)
     ary = []
     str.scan(/([^"'\s]\S*|(["'])(?:(?:\\\\)+|\\\2|.)*?\2)/) do
-      ary << $1
-      yield($1) if block_given?
+      word = $1
+      word = "\"#{word}\"" if /\A(?:and|or)\z/io =~ word
+      ary << word
+      yield(word) if block_given?
     end
     ary
   end

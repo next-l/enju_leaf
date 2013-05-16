@@ -20,7 +20,7 @@
 
   $(document).ready(function(){
     if ($("#errorExplanation").length > 0)
-       playSound('<%= root_path -%><%= Setting.sounds.errors.default -%>');
+       playSound('<%= root_path -%><%= SystemConfiguration.get("sounds.basedir") %><%= SystemConfiguration.get("sounds.errors.default") %>');
   });
 </script>
 <%= render 'page/header' %>

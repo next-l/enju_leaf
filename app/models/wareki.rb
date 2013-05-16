@@ -22,9 +22,13 @@ class Wareki < ActiveRecord::Base
              "元治" => OpenStruct.new({:from=>'18640327', :to=>'18650501'}),
              "慶応" => OpenStruct.new({:from=>'18650501', :to=>'18681023'}),
              "明治" => OpenStruct.new({:from=>'18681023', :to=>'19120730'}),
+             "M"    => OpenStruct.new({:from=>'18681023', :to=>'19120730'}),
              "大正" => OpenStruct.new({:from=>'19120730', :to=>'19261225'}),
+             "T"    => OpenStruct.new({:from=>'19120730', :to=>'19261225'}),
              "昭和" => OpenStruct.new({:from=>'19261225', :to=>'19890107'}),
+             "S"    => OpenStruct.new({:from=>'19261225', :to=>'19890107'}),
              "平成" => OpenStruct.new({:from=>'19890108', :to=>'20991231'}),
+             "H"    => OpenStruct.new({:from=>'19890108', :to=>'20991231'}),
             }
 
   def self.wareki2yyyy(gengou, yy)
@@ -39,11 +43,27 @@ class Wareki < ActiveRecord::Base
     return (GENGOUS[gengou].from[0..3].to_i) - 1 + yyi
   end
 
+  def self.generate_merge_range(pub_date_from_str, pub_date_to_str)
+    if pub_date_from_str.present?
+      from4, to4 = Wareki.hiduke2yyyymmdd_sub(pub_date_from_str)
+    end
+    if pub_date_to_str.present?
+      from5, to5 = Wareki.hiduke2yyyymmdd_sub(pub_date_to_str)
+    end
+    from0 = from4
+    to0 = (to5.present?)?(to5):(to4)
+    return from0, to0
+  end
+
   def self.hiduke2yyyymmdd_sub(datestr)
     yyyymmdd_from = nil 
     yyyymmdd_to = nil 
     dfrom = nil 
     dto = nil
+
+    return nil, nil if datestr.blank?
+
+    orgstr = datestr.dup
 
     pattern_hash = {"一"=>'1', "二"=>'2', "三"=>'3', "四"=>'4', "五"=>'5',
                     "六"=>'6', "七"=>'7', "八"=>'8', "九"=>'9', "〇"=>'0',
@@ -51,26 +71,40 @@ class Wareki < ActiveRecord::Base
                    } 
 
     datestr.strip!
-    datestr.delete!("[]?？") 
+    datestr.delete!("[]?？()（）") 
     datestr.delete!(" 　")                  # 半角全角スペースを削除 
     datestr = NKF.nkf('-m0Z1 -w', datestr)  # 全角数字を半角に変換
     datestr.gsub!(/[一二三四五六七八九〇元]/, pattern_hash) # 漢数字を半角数字に変換
+    datestr.upcase!                         # アルファベット半角小文字を半角大文字に変換
+    datestr.gsub!(".", "/")
 
     begin
-      i = GENGOUS.keys.index(datestr[0, 2])
+      #i = GENGOUS.keys.index(datestr[0, 2])
+      headstr = datestr[0, 2]
+      i = nil
+      GENGOUS.each_with_index do |a, index|
+       if headstr.index(a[0]) == 0
+         i = index ; break 
+       end
+      end
+
       if i.present?
         #puts "i=#{i} key=#{GENGOUS.keys[i]} datestr=#{datestr}"
+        datestr.gsub!("年", "/")
+        datestr.gsub!("月", "/")
+        datestr.gsub!("日", "/")
+ 
         # 和暦
-        if datestr.match(/^(#{GENGOUS.keys[i]})(\d{1,2})年(\d{1,2})月(\d{1,2})日/)
+        if datestr.match(/^(#{GENGOUS.keys[i]})(\d{1,2})\/(\d{1,2})\/(\d{1,2})/)
           #puts "match1 1=#{$1} 2=#{$2} 3=#{$3} 4=#{$4}"
           syyyy = wareki2yyyy($1, $2.to_i)
           dfrom = dto = Date.new(syyyy, $3.to_i, $4.to_i)
-        elsif datestr.match(/(#{GENGOUS.keys[i]})(\d{1,2})年(\d{1,2})月/)
+        elsif datestr.match(/(#{GENGOUS.keys[i]})(\d{1,2})\/(\d{1,2})/)
           #puts "match1 1=#{$1} 2=#{$2} 3=#{$3} 4=#{$4}"
           syyyy = wareki2yyyy($1, $2)
           dfrom = Date.new(syyyy, $3.to_i)
           dto = Date.new(syyyy, $3.to_i).end_of_month
-        elsif datestr.match(/(#{GENGOUS.keys[i]})(\d{1,2})年/)
+        elsif datestr.match(/(#{GENGOUS.keys[i]})(\d{1,2})/)
           #puts "match1 1=#{$1} 2=#{$2} 3=#{$3} 4=#{$4}"
           syyyy = wareki2yyyy($1, $2)
           dfrom = Date.new(syyyy)
@@ -90,7 +124,6 @@ class Wareki < ActiveRecord::Base
         datestr.gsub!("年", "/")
         datestr.gsub!("月", "/")
         datestr.gsub!("日", "/")
-        datestr.gsub!(".", "/")
         #puts "datestr=#{datestr}"
         # 西暦
         if datestr.match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})/)

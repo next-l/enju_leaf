@@ -635,6 +635,7 @@ ja:
         note: 注記
         url: URL
         price: 価格
+        price_string: 価格
         lock_version: ロックバージョン
         checkout_type: 貸出区分
         retention_period: 保存種別
@@ -855,6 +856,7 @@ ja:
         wrong_isbn: 間違ったISBN
         nbn: NBN
         price: 価格
+        price_string: 価格
         volume_number: 巻（数字）
         volume_number_string: 巻
         issue_number: 号（数字）
@@ -1480,7 +1482,12 @@ ja:
     advanced_search: "条件を詳しく指定して検索"
     normal_search: "詳細条件を解除して検索"
     advanced_search_summary_delimiter: "、"
+    created_at: "登録日"
+    pub_date: "出版日"
     title: "タイトル"
+    author: "著者"
+    carrier_type: "資料形態"
+    item_identifier: "所蔵情報ID"
     exact_title: "完全一致"
     all_title: "すべて"
     any_title: "いずれか"
@@ -2300,6 +2307,7 @@ ja:
         width: 幅(cm) 
         depth: 奥行き(cm)
         price: 価格
+        price_string: 価格
         access_address: アクセスアドレス
         repository_content: リポジトリのコンテンツ
         required_role: 参照に必要な権限
@@ -2322,6 +2330,7 @@ ja:
         retention_period: 保存種別
         call_number: 請求記号
         item_price: 購入価格
+        item_price_string: 購入価格
         url: URL
         include_supplements: 付録を含む
         use_restriction: 利用制限

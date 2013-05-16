@@ -684,4 +684,18 @@ system_configuration_00097:
   typename: Boolean	
   description: "ISBNは重複しない"
   category: 'manifestation'
+system_configuration_00098:
+  id: 98
+  keyname: offline_client_crypt_password
+  v: ""
+  typename: String
+  description: "オフラインクライアント暗号化パスワード"
+  category: 'general'
+system_configuration_00099:
+  id: 99
+  keyname: user_change_department
+  v: "true"
+  typename: Boolean
+  description: "自分自身で利用者の部課の変更が出来るか？"
+  category: 'user'
 
