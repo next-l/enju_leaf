@@ -850,7 +850,7 @@ class Manifestation < ActiveRecord::Base
   #  output.data: 生成結果のデータ(result_typeが:dataのとき)
   #  output.path: 生成結果のパス名(result_typeが:pathのとき)
   #  output.job_name: 後で処理する際のジョブ名(result_typeが:delayedのとき)
-  def self.generate_manifestation_list(solr_search, output_type, current_user, cols=[], threshold = nil, &block)
+  def self.generate_manifestation_list(solr_search, output_type, current_user, search_condition_summary, cols=[], threshold = nil, &block)
 #    get_total = proc do
 #      solr_search.execute.total
 #    end
@@ -885,7 +885,7 @@ class Manifestation < ActiveRecord::Base
       end
 
       job_name = GenerateManifestationListJob.generate_job_name
-      Delayed::Job.enqueue GenerateManifestationListJob.new(job_name, info, output_type, current_user, cols)
+      Delayed::Job.enqueue GenerateManifestationListJob.new(job_name, info, output_type, current_user, search_condition_summary, cols)
       output = OpenStruct.new
       output.result_type = :delayed
       output.job_name = job_name
@@ -895,10 +895,10 @@ class Manifestation < ActiveRecord::Base
 
     manifestation_ids = get_all_ids.call
 
-    generate_manifestation_list_internal(manifestation_ids, output_type, current_user, cols, &block)
+    generate_manifestation_list_internal(manifestation_ids, output_type, current_user, search_condition_summary, cols, &block)
   end
 
-  def self.generate_manifestation_list_internal(manifestation_ids, output_type, current_user, cols, &block)
+  def self.generate_manifestation_list_internal(manifestation_ids, output_type, current_user, search_condition_summary, cols, &block)
     output = OpenStruct.new
     output.result_type = :data
 
@@ -921,8 +921,13 @@ class Manifestation < ActiveRecord::Base
                       self.__send__(method, manifestation_ids, current_user, cols))
     else
       manifestations = self.where(:id => manifestation_ids).all
-      result = output.__send__("#{output.result_type}=",
+      if output_type == :pdf
+        result = output.__send__("#{output.result_type}=",
+                             self.__send__(method, manifestations, current_user, search_condition_summary))
+      else
+        result = output.__send__("#{output.result_type}=",
                              self.__send__(method, manifestations, current_user))
+      end
     end
     if output.result_type == :path
       output.path, output.data = result
@@ -1205,7 +1210,7 @@ class Manifestation < ActiveRecord::Base
     get_manifestation_list_pdf(manifestations, current_user)
   end
 
-  def self.get_manifestation_list_pdf(manifestations, current_user)
+  def self.get_manifestation_list_pdf(manifestations, current_user, search_condition_summary)
     report = ThinReports::Report.new :layout => File.join(Rails.root, 'report', 'searchlist.tlf')
 
     # set page_num
@@ -1220,6 +1225,7 @@ class Manifestation < ActiveRecord::Base
 
     report.start_new_page do |page|
       page.item(:date).value(Time.now)
+      page.item(:query).value(search_condition_summary)
       manifestations.each do |manifestation|
         page.list(:list).add_row do |row|
           # modified data format
@@ -1382,21 +1388,22 @@ class Manifestation < ActiveRecord::Base
     include Rails.application.routes.url_helpers
     include BackgroundJobUtils
 
-    def initialize(name, fileinfo, output_type, user, cols)
+    def initialize(name, fileinfo, output_type, user, search_condition_summary, cols)
       @name = name
       @fileinfo = fileinfo
       @output_type = output_type
       @user = user
+      @search_condition_summary = search_condition_summary
       @cols = cols
     end
-    attr_accessor :name, :fileinfo, :output_type, :user, :cols
+    attr_accessor :name, :fileinfo, :output_type, :user, :search_condition_summary, :cols
 
     def perform
       user_file = UserFile.new(user)
       path, = user_file.find(fileinfo[:category], fileinfo[:filename], fileinfo[:random])
       manifestation_ids = open(path, 'r') {|io| Marshal.load(io) }
 
-      Manifestation.generate_manifestation_list_internal(manifestation_ids, output_type, user, cols) do |output|
+      Manifestation.generate_manifestation_list_internal(manifestation_ids, output_type, user, search_condition_summary, cols) do |output|
         io, info = user_file.create(:manifestation_list, output.filename)
         if output.result_type == :path
           open(output.path) {|io2| FileUtils.copy_stream(io2, io) }
