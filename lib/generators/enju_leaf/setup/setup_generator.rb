@@ -41,6 +41,15 @@ EOS
   enju_leaf
   enju_biblio
   enju_library
+
+  def mobylette_options
+    @mobylette_options ||= ApplicationController.send(:mobylette_options).merge(
+      {
+        :skip_xhr_requests => false
+      }
+    )
+  end
+
 EOS
     end
     #inject_into_class "app/models/user.rb", User, "  enju_user_model\n"
