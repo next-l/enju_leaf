@@ -65,11 +65,6 @@ describe UsersController do
         get :show, :id => 'admin'
         assigns(:user).should eq(User.find('admin'))
       end
-
-      it "should not show missing user" do
-        get :show, :id => 'missing'
-        response.should be_missing
-      end
     end
 
     describe "When logged in as Librarian" do
@@ -156,11 +151,6 @@ describe UsersController do
         user = FactoryGirl.create(:user)
         get :edit, :id => user.id
         assigns(:user).should eq(user)
-      end
-
-      it "should not edit missing user" do
-        get :edit, :id => 'missing'
-        response.should be_missing
       end
     end
 
