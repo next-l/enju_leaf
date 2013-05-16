@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :admin, :class => User do |f|
+  factory :admin, :class => 'User' do |f|
     f.sequence(:username){|n| "admin_#{n}"}
     f.sequence(:email){|n| "admin_#{n}@example.jp"}
     f.email_confirmation{|u| u.email}
@@ -14,7 +14,7 @@ FactoryGirl.define do
     f.user_status {UserStatus.first || FactoryGirl.create(:user_status)}
   end
 
-  factory :librarian, :class => User do |f|
+  factory :librarian, :class => 'User' do |f|
     f.sequence(:username){|n| "librarian_#{n}"}
     f.sequence(:email){|n| "librarian_#{n}@example.jp"}
     f.email_confirmation{|u| u.email}
@@ -29,7 +29,7 @@ FactoryGirl.define do
     f.user_status {UserStatus.first || FactoryGirl.create(:user_status)}
   end
 
-  factory :user, :class => User do |f|
+  factory :user, :class => 'User' do |f|
     f.sequence(:username){|n| "user_#{n}"}
     f.sequence(:email){|n| "user_#{n}@example.jp"}
     f.email_confirmation{|u| u.email}
@@ -45,10 +45,10 @@ FactoryGirl.define do
     f.user_status {UserStatus.first || FactoryGirl.create(:user_status)}
   end
 
-  factory :invalid_user, :class => User do |f|
+  factory :invalid_user, :class => 'User' do |f|
   end
 
-  factory :locked_user, :class => User do |f|
+  factory :locked_user, :class => 'User' do |f|
     f.sequence(:username){|n| "locked_user_#{n}"}
     f.sequence(:email){|n| "locked_user_#{n}@example.jp"}
     f.email_confirmation{|u| u.email}
@@ -64,7 +64,7 @@ FactoryGirl.define do
     f.locked_at {1.week.ago}
   end
 
-  factory :unable_user, :class => User do |f|
+  factory :unable_user, :class => 'User' do |f|
     f.sequence(:username){|n| "locked_user_#{n}"}
     f.sequence(:email){|n| "locked_user_#{n}@example.jp"}
     f.email_confirmation{|u| u.email}
@@ -80,7 +80,7 @@ FactoryGirl.define do
     f.unable true
   end
 
-  factory :expired_at_is_over_user, :class => User do |f|
+  factory :expired_at_is_over_user, :class => 'User' do |f|
     f.sequence(:username){|n| "expired_at_is_over_user_#{n}"}
     f.sequence(:email){|n| "expired_at_is_over_user_#{n}@example.jp"}
     f.email_confirmation{|u| u.email}
@@ -96,7 +96,7 @@ FactoryGirl.define do
     f.expired_at {1.week.ago}
   end
 
-  factory :has_not_user_number_user, :class => User do |f|
+  factory :has_not_user_number_user, :class => 'User' do |f|
     f.sequence(:username){|n| "has_not_user_number_user_#{n}"}
     f.sequence(:email){|n| "has_not_user_number_user_#{n}@example.jp"}
     f.email_confirmation{|u| u.email}
@@ -110,7 +110,7 @@ FactoryGirl.define do
     f.patron {FactoryGirl.create(:patron)}
   end
 
-  factory :adult_user, :class => User do |f|
+  factory :adult_user, :class => 'User' do |f|
     f.sequence(:username){|n| "adult_#{n}"}
     f.sequence(:email){|n| "adult_#{n}@example.jp"}
     f.email_confirmation{|u| u.email}
@@ -126,7 +126,7 @@ FactoryGirl.define do
     f.user_status {UserStatus.first || FactoryGirl.create(:user_status)}
   end
 
-  factory :student_user, :class => User do |f|
+  factory :student_user, :class => 'User' do |f|
     f.sequence(:username){|n| "student_#{n}"}
     f.sequence(:email){|n| "student_#{n}@example.jp"}
     f.email_confirmation{|u| u.email}
@@ -141,7 +141,7 @@ FactoryGirl.define do
     f.sequence(:user_number){|n| "student_user_#{n}"}
   end
 
-  factory :juniors_user, :class => User do |f|
+  factory :juniors_user, :class => 'User' do |f|
     f.sequence(:username){|n| "juniors_#{n}"}
     f.sequence(:email){|n| "juniors_#{n}@example.jp"}
     f.email_confirmation{|u| u.email}
@@ -157,7 +157,7 @@ FactoryGirl.define do
     f.user_status {UserStatus.first || FactoryGirl.create(:user_status)}
   end
 
-  factory :elements_user, :class => User do |f|
+  factory :elements_user, :class => 'User' do |f|
     f.sequence(:username){|n| "elements_#{n}"}
     f.sequence(:email){|n| "elements_#{n}@example.jp"}
     f.email_confirmation{|u| u.email}
@@ -173,7 +173,7 @@ FactoryGirl.define do
     f.user_status {UserStatus.first || FactoryGirl.create(:user_status)}
   end
 
-  factory :children_user, :class => User do |f|
+  factory :children_user, :class => 'User' do |f|
     f.sequence(:username){|n| "children_#{n}"}
     f.sequence(:email){|n| "children_#{n}@example.jp"}
     f.email_confirmation{|u| u.email}
