@@ -27,7 +27,8 @@ class ApplicationController < ActionController::Base
   def mobylette_options
     @mobylette_options ||= ApplicationController.send(:mobylette_options).merge(
       {
-        :skip_xhr_requests => false
+        :skip_xhr_requests => false,
+        :skip_user_agents => Setting.enju.skip_mobile_agents.map{|a| a.to_sym}
       }
     )
   end
