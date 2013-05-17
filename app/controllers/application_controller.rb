@@ -2,9 +2,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   include Mobylette::RespondToMobileRequests
-  mobylette_config do |config|
-    config[:skip_xhr_requests] = false
-  end
   require_dependency 'language'
 
   rescue_from CanCan::AccessDenied, :with => :render_403
@@ -27,6 +24,14 @@ class ApplicationController < ActionController::Base
   #enju_event
 
   private
+  def mobylette_options
+    @mobylette_options ||= ApplicationController.send(:mobylette_options).merge(
+      {
+        :skip_xhr_requests => false
+      }
+    )
+  end
+
   def after_sign_in_path_for(resource)
     session[:locale] = nil
     super
