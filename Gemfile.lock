@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 55638d554ea9842f8d85919d95783a7e3b9bf34d
+  revision: 4dbf804c88ecae1cd4fd876a00f9557995052fbd
   specs:
-    enju_biblio (0.1.0.pre40)
-      aws-sdk
+    enju_biblio (0.1.0.pre41)
+      aws-sdk (~> 1.9.5)
       dynamic_form
       enju_core (~> 0.1.1.pre4)
       inherited_resources
@@ -20,16 +20,13 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_circulation.git
-  revision: ae57304a0ceb604e4e478c896e55a390456e9302
+  revision: a9ce5915c45739c4eadfc5eec1b5a2dbda274c58
   specs:
-    enju_circulation (0.1.0.pre26)
-      enju_core (~> 0.1.0.pre4)
+    enju_circulation (0.1.0.pre27)
+      enju_biblio (~> 0.1.0.pre40)
       enju_event (~> 0.1.17.pre12)
+      enju_library (~> 0.1.0.pre23)
       enju_message (~> 0.1.14.pre8)
-      inherited_resources
-      simple_form
-      state_machine
-      validates_timeliness
 
 GIT
   remote: git://github.com/next-l/enju_event.git
@@ -56,25 +53,25 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_flower.git
-  revision: eb311e85fe127cb53167a01cdd5c55b3a73d330d
+  revision: 53e5d2b94c6b247e450cebeda5bee3850e7c4bea
   specs:
-    enju_flower (0.1.0.pre8)
+    enju_flower (0.1.0.pre9)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: ce2305e035c9ca671c46bec18a938087c66a3db9
+  revision: 481cdf7ddf2328b79ebd5f98873a5482124140ba
   specs:
-    enju_library (0.1.0.pre22)
+    enju_library (0.1.0.pre23)
       enju_core (~> 0.1.1.pre4)
       geocoder
       inherited_resources
 
 GIT
   remote: git://github.com/next-l/enju_manifestation_viewer.git
-  revision: 1589d5dbc9567f49901a062bbdc15d66a37b31d3
+  revision: 5028e89d2b06a19ad48a4aae94283baf84a0b1ee
   specs:
-    enju_manifestation_viewer (0.1.0.pre9)
+    enju_manifestation_viewer (0.1.0.pre11)
       rails (~> 3.2)
 
 GIT
@@ -92,9 +89,9 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_ndl.git
-  revision: d166de2b442ab21883302dcc0a38fdbe247033b4
+  revision: ed1b3e04f924fcd10becfef8b8753506eec656fb
   specs:
-    enju_ndl (0.1.0.pre22)
+    enju_ndl (0.1.0.pre24)
       library_stdnums
       lisbn
       nokogiri
@@ -262,7 +259,7 @@ GEM
     lisbn (0.1.3)
       nokogiri
       nori (~> 2.0)
-    listen (1.1.0)
+    listen (1.1.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
@@ -294,7 +291,7 @@ GEM
       mime-types
     paperclip-meta (0.4.3)
       paperclip
-    parallel (0.6.4)
+    parallel (0.6.5)
     parallel_tests (0.12.4)
       parallel
     pg (0.15.1)
@@ -426,7 +423,7 @@ GEM
       tilt (~> 1.3, >= 1.3.3)
     sitemap_generator (4.0.1)
       builder
-    slop (3.4.4)
+    slop (3.4.5)
     spork (1.0.0rc3)
     spork-rails (3.2.1)
       rails (>= 3.0.0, < 3.3.0)

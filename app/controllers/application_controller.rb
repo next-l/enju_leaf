@@ -27,6 +27,14 @@ class ApplicationController < ActionController::Base
   enju_event
 
   private
+  def mobylette_options
+    @mobylette_options ||= ApplicationController.send(:mobylette_options).merge(
+      {
+        :skip_xhr_requests => false
+      }
+    )
+  end
+
   def after_sign_in_path_for(resource)
     session[:locale] = nil
     super
