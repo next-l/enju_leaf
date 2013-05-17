@@ -64,7 +64,7 @@ gem 'foreigner'
 gem 'strong_parameters'
 gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
 gem 'redis-rails'
-gem 'mobylette', '~> 3.3.2'
+gem 'mobylette', '~> 3.4'
 
 group :development do
   gem 'annotate', '~> 2.5'
