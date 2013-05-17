@@ -20,6 +20,12 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'reserve', 'reserves'
 end
 EOS
+    inject_into_file 'config/environments/development.rb',
+      " config.action_mailer.default_url_options = {:host => 'localhost:3000'}\n",
+      :after => "::Application.configure do\n"
+    inject_into_file 'config/environments/production.rb',
+      " config.action_mailer.default_url_options = {:host => 'localhost:3000'}\n",
+      :after => "::Application.configure do\n"
     generate("devise:install")
     generate("devise", "User")
     generate("enju_biblio:setup")
