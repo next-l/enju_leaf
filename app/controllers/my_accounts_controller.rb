@@ -68,6 +68,8 @@ class MyAccountsController < ApplicationController
         # update user
         if current_user.has_role?('Librarian')
           saved = current_user.update_with_password(params[:user], :as => :admin)
+        elsif SystemConfiguration.get('user_change_department')
+          saved = current_user.update_with_password(params[:user], :as => :user_change_department)
         else
           saved = current_user.update_with_password(params[:user])
         end

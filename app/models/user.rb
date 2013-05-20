@@ -13,7 +13,11 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :current_password,
     :remember_me, :email_confirmation, :library_id, :locale,
     :keyword_list, :auto_generated_password, :expired_at, :user_group_id, :role_id, 
-    :username, :own_password, :user_status_id, :department_id
+    :username, :own_password, :user_status_id
+  attr_accessible :email, :password, :password_confirmation, :current_password,
+    :remember_me, :email_confirmation, :library_id, :locale,
+    :keyword_list, :auto_generated_password, :expired_at, :user_group_id, :role_id, 
+    :username, :own_password, :user_status_id, :department_id, :as => :user_change_department
   attr_accessible :email, :password, :password_confirmation, :username,
     :current_password, :user_number, :remember_me,
     :email_confirmation, :note, :user_group_id, :library_id, :locale,

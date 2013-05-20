@@ -1,7 +1,6 @@
 <script>
 jQuery(function(){
-  $('#manifestation_original_title').auto_ruby($('#manifestation_title_transcription'))
-  $('#manifestation_title_transcription').val("<%= @manifestation.title_transcription %>");//初回遷移時対策 
+  new AutoKana('manifestation_original_title', 'manifestation_title_transcription', { katakana:true, toggle:false });
 
   var article_title = "<%= @manifestation.article_title %>"
   displayArticleTitle(article_title);
