@@ -63,23 +63,5 @@ retention_period_00011:
   id: 11
   name: unknown
   display_name: "未分類"
-  note:
+  note: "NDLからのインポートで設定"
   position: 11
-retention_period_00012:
-  id: 12
-  name: exinfo1
-  display_name: "未使用種別1"
-  note:
-  position: 12
-retention_period_00013:
-  id: 13
-  name: exinfo2
-  display_name: "未使用種別2"
-  note:
-  position: 13
-retention_period_00014:
-  id: 14
-  name: exinfo3
-  display_name: "未使用種別3"
-  note:
-  position: 14
