@@ -31,22 +31,7 @@
   <div style="color: green"><%= flash[:message] -%></div> 
   <%= render 'manifestations/title', :manifestation => @manifestation if @manifestation -%>
 
-  <% case %>
-  <% when @index_patron[:creator] %>
-    <%= render 'index_form_creator' %>
-  <% when @index_patron[:contributor] %>
-    <%= render 'index_form_contributor' %>
-  <% when @index_patron[:publisher] %>
-    <%= render 'index_form_publisher' %>
-  <% when @manifestation %>
-    <%= render 'index_form_manifestation' %>
-  <% when @series_statement %>
-    <%= render 'index_form_series_statement' %>
-  <% when @binder %>
-    <%= render 'index_form_bookbinding' %> 
-  <% else %>
-    <%= render 'index_form' %>
-  <% end %>
+  <%= render 'index_form' %>
 
   <% if @series_statement %>
     <%= render 'show_series_statement' %>

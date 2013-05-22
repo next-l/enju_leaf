@@ -15,17 +15,6 @@
 
 <div>
   <%- if manifestations and manifestations.size > @manifestations.limit_value.div(2) -%>
-    <%= form_for :manifestations, :url => manifestations_path, :html => {:method => 'get'} do -%>
-      <p>
-      <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_bottom', :class => 'search_form', :placeholder => t('page.search_term')} -%>
-        <%= submit_tag t('page.search') -%>
-        <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
-          <% if user_signed_in? and current_user.has_role?('Librarian') %>
-            <%= check_box_tag 'all_manifestations', true %><%= t('advanced_search.all_manifestations') %><br />
-          <% end %>
-        <% end %>
-        <%= link_to t('page.advanced_search'), page_advanced_search_path -%>
-      </p>
-    <%- end -%>
+    <%= render 'index_form', :form_pos => :bottom %>
   <%- end -%>
 </div>
