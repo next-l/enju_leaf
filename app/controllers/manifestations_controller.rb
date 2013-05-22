@@ -225,7 +225,9 @@ class ManifestationsController < ApplicationController
       # file output
       if search_opts[:output_mode]
         # TODO: 第一引数にparamsまたは生成した検索語、フィルタ指定を渡すようにして、バックグラウンドファイル生成で一時ファイルを作らなくて済むようにする
-        Manifestation.generate_manifestation_list(search_all, search_opts[:output_type], current_user, advanced_search_condition_summary, params[:cols]) do |output|
+        summary = @query.present? ? "#{@query} " : ""
+        summary += advanced_search_condition_summary
+        Manifestation.generate_manifestation_list(search_all, search_opts[:output_type], current_user, summary, params[:cols]) do |output|
           send_opts = {
             :filename => output.filename,
             :type => output.mime_type || 'application/octet-stream',
