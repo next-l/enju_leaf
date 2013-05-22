@@ -1,0 +1,38 @@
+ development:
+   gw_account:
+     cat_user_id: 'Your CAT GATEWAY User ID'
+     cat_password: 'Your CAT GATEWAY Password'
+     ill_user_id: 'Your ILL GATEWAY User ID'
+     ill_password: 'Your ILL GATEWAY Password'
+     cat_gw_url: 'http://your.cat.gateway:3000/cat/gateway.yaml'
+     ill_gw_url: 'http://your.ill.gateway:3000/ill/gateway.yaml'
+     ill_gw_status_url: 'http://your.ill.gateway:3000/ill/status.yaml'
+     ill_gw_search_url: 'http://your.ill.gateway:3000/ill/search.yaml'
+     cat_ssl_verify: 'yes'
+     ill_ssl_verify: 'yes'
+
+ test:
+   gw_account:
+     cat_user_id: 'Your CAT GATEWAY User ID'
+     cat_password: 'Your CAT GATEWAY Password'
+     ill_user_id: 'Your ILL GATEWAY User ID'
+     ill_password: 'Your ILL GATEWAY Password'
+     cat_gw_url: 'http://your.cat.gateway:3000/cat/gateway.yaml'
+     ill_gw_url: 'http://your.ill.gateway:3000/ill/gateway.yaml'
+     ill_gw_status_url: 'http://your.ill.gateway:3000/ill/status.yaml'
+     ill_gw_search_url: 'http://your.ill.gateway:3000/ill/search.yaml'
+     cat_ssl_verify: 'yes'
+     ill_ssl_verify: 'yes'
+
+ production:
+   gw_account:
+     cat_user_id: 'Your CAT GATEWAY User ID'
+     cat_password: 'Your CAT GATEWAY Password'
+     ill_user_id: 'Your ILL GATEWAY User ID'
+     ill_password: 'Your ILL GATEWAY Password'
+     cat_gw_url: 'http://your.cat.gateway:3000/cat/gateway.yaml'
+     ill_gw_url: 'http://your.ill.gateway:3000/ill/gateway.yaml'
+     ill_gw_status_url: 'http://your.ill.gateway:3000/ill/status.yaml'
+     ill_gw_search_url: 'http://your.ill.gateway:3000/ill/search.yaml'
+     cat_ssl_verify: 'yes'
+     ill_ssl_verify: 'yes'
