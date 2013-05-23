@@ -106,9 +106,10 @@ module EnjuTrunk
             if require_cell.reject{ |field| field.to_s.strip == "" }.empty?
               raise I18n.t('resource_import_textfile.error.article.cell_is_blank')
             end
-            manifestation = fetch_article(datas)
+            item = exist_same_article?(datas)
+            manifestation = fetch_article(datas, item)
             if manifestation.valid?
-              item = create_article_item(datas, manifestation)
+              item = create_article_item(datas, manifestation, item)
               item.manifestation = manifestation
               import_textresult.manifestation = manifestation
               import_textresult.item = item
@@ -144,9 +145,9 @@ module EnjuTrunk
       return num
     end
 
-    def fetch_article(datas)
+    def fetch_article(datas, item)
       @mode = 'create'
-      manifestation = exist_same_article?(datas)
+      manifestation = item.manifestation rescue nil
 
       unless manifestation.nil?
         @mode = 'edit'
@@ -160,6 +161,7 @@ module EnjuTrunk
           :during_import  => true,
         )
       end
+
       original_title = datas[@field[I18n.t('resource_import_textfile.excel.article.original_title')]]
       article_title  = datas[@field[I18n.t('resource_import_textfile.excel.article.title')]]
       pub_date       = datas[@field[I18n.t('resource_import_textfile.excel.article.pub_date')]]
@@ -214,41 +216,98 @@ module EnjuTrunk
     end
 
     def exist_same_article?(datas)
-      original_title = datas[@field[I18n.t('resource_import_textfile.excel.article.original_title')]]
-      article_title  = datas[@field[I18n.t('resource_import_textfile.excel.article.title')]]
-      creators       = set_article_creatos(datas[@field[I18n.t('resource_import_textfile.excel.article.creator')]])
+      original_title       = datas[@field[I18n.t('resource_import_textfile.excel.article.original_title')]]
+      article_title        = datas[@field[I18n.t('resource_import_textfile.excel.article.title')]]
+      pub_date             = datas[@field[I18n.t('resource_import_textfile.excel.article.pub_date')]]
+      access_address       = datas[@field[I18n.t('resource_import_textfile.excel.article.url')]]
+      creators             = set_article_creatos(datas[@field[I18n.t('resource_import_textfile.excel.article.creator')]])
+      subjects             = set_article_subjects(datas[@field[I18n.t('resource_import_textfile.excel.article.subject')]])
+      call_number          = datas[@field[I18n.t('resource_import_textfile.excel.article.call_number')]]
+      volume_number, issue_number = set_number(datas[@field[I18n.t('resource_import_textfile.excel.article.volume_number_string')]])
+      start_page, end_page        = set_page(datas[@field[I18n.t('resource_import_textfile.excel.article.number_of_page')]])
+
+p "____________________________________________________________"
+p "original_title: #{original_title}"
+p "article_title:  #{article_title}"
+p "pub_date:       #{pub_date}"
+p "access_address: #{access_address}"
+p "creators:       #{creators}"
+p "subjects:       #{subjects}"
+p "call_number:    #{call_number}"
+p "volume_number:  #{volume_number}"
+p "issue_number:   #{issue_number}"
+p "start_page:     #{start_page}"
+p "end_page:       #{end_page}"
+
       return nil if original_title.nil? or original_title.blank?
       return nil if article_title.nil? or article_title.blank?
+      return nil if pub_date.nil? or pub_date.blank?
+      return nil if access_address.nil? or access_address.blank?
+      #return nil if volume_number.nil? or volume_number.blank?
+      #return nil if issue_number.nil? or issue_number.blank?
+      return nil if start_page.nil? or start_page.blank?
+      #return nil if end_page.nil? or end_page.blank?
+      return nil if call_number.nil? or call_number.blank?
       return nil if creators.nil?
+      return nil if subjects.nil?
 
       conditions = []
-      conditions << "original_title = \'#{original_title.gsub("'", "''")}\'"
-      conditions << "article_title = \'#{article_title.gsub("'", "''")}\'"
+      conditions << "(manifestations).original_title = \'#{original_title.gsub("'", "''")}\'"
+      conditions << "(manifestations).article_title = \'#{article_title.gsub("'", "''")}\'"
+      conditions << "(manifestations).pub_date= \'#{pub_date.gsub("'", "''")}\'"
+      conditions << "(manifestations).access_address = \'#{access_address.gsub("'", "''")}\'"
+      conditions << "(manifestations).start_page = \'#{start_page}\'"
+      conditions << "(manifestations).end_page = \'#{end_page}\'" unless end_page
+      conditions << "(items).call_number = \'#{call_number.to_s.gsub("'", "''")}\'" 
       conditions << "creates.id is not null"
+      conditions << "subjects.id is not null"
+
+      if volume_number.nil? or volume_number.blank?
+        conditions << "((manifestations).volume_number_string is null or (manifestations).volume_number_string = '')" 
+      else
+        conditions << "(manifestations).volume_number_string = \'#{volume_number.gsub("'", "''")}\'"
+      end
+      if issue_number.nil? or issue_number.blank?
+        conditions << "((manifestations).issue_number_string is null or (manifestations).issue_number_string = '')" 
+      else
+        conditions << "(manifestations).issue_number_string = \'#{issue_number.gsub("'", "''")}\'"
+      end
+
       conditions = conditions.join(' and ')
 
-      article =  Manifestation.find(
+      #article =  Manifestation.find(
+      p "@@@@@@@@@@@@@"
+      p conditions
+
+      article = Item.find(
         :first,
-        :include => [:creators],
-        :conditions => conditions
+        :include => [
+          :manifestation => [:creators, :subjects]
+        ],
+        :conditions => conditions,
+        :order => "items.created_at asc"
       )
       if article
-        if article.creators.map{ |c| c.full_name }.sort == creators.sort
-          return article
+        if article.manifestation.creators.map{ |c| c.full_name }.sort == creators.sort
+          if article.manifestation.subjects.map{ |s| s.term }.sort == subjects.sort
+            return article
+          end
         end
       end
       return nil
     end
 
-    def create_article_item(datas, manifestation)
+    def create_article_item(datas, manifestation, item)
       @mode_item = 'edit'
       import_textfile = ResourceImportTextfile.find(@textfile_id)
-      item = nil
-      unless manifestation.items.size > 0
-        item = Item.new
-        @mode_item = 'create'
-      else
-        item = manifestation.items.order('created_at asc').first
+
+      unless item
+        unless manifestation.items.size > 0
+          item = Item.new
+          @mode_item = 'create'
+        else
+          item = manifestation.items.order('created_at asc').first
+        end
       end
       shelf = nil
       unless item.shelf.nil?
