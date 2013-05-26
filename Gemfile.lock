@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 44b904ba85b6f3975dc420e32939338359942976
+  revision: 6f28d95f45f2ba764e37b2f12978bfadd733d51d
   specs:
     enju_biblio (0.1.0.pre42)
       aws-sdk
@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_circulation.git
-  revision: a9ce5915c45739c4eadfc5eec1b5a2dbda274c58
+  revision: e3e7569c7a03f87acc22a7244305f5495c705dba
   specs:
     enju_circulation (0.1.0.pre27)
       enju_biblio (~> 0.1.0.pre40)
@@ -60,7 +60,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 481cdf7ddf2328b79ebd5f98873a5482124140ba
+  revision: 374c891ec58e940906896884dcab59c249cf709a
   specs:
     enju_library (0.1.0.pre23)
       enju_core (~> 0.1.1.pre4)
@@ -107,7 +107,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_subject.git
-  revision: 197bb124c0e35f5603bebc66358bcc5d5cb5408c
+  revision: 53425e8822ac6c43456cb0c94379e4e41af9363f
   specs:
     enju_subject (0.1.0.pre19)
       dynamic_form
@@ -256,11 +256,11 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.8.0)
-    library_stdnums (1.2.0)
+    library_stdnums (1.3.0)
     lisbn (0.1.3)
       nokogiri
       nori (~> 2.0)
-    listen (1.1.2)
+    listen (1.1.3)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
@@ -281,7 +281,7 @@ GEM
     options (2.3.0)
       fattr
     orm_adapter (0.4.0)
-    paper_trail (2.7.1)
+    paper_trail (2.7.2)
       activerecord (~> 3.0)
       railties (~> 3.0)
     paperclip (3.4.2)
@@ -293,7 +293,7 @@ GEM
     paperclip-meta (0.4.3)
       paperclip
     parallel (0.6.5)
-    parallel_tests (0.13.1)
+    parallel_tests (0.13.3)
       parallel
     pg (0.15.1)
     polyglot (0.3.3)
@@ -344,7 +344,7 @@ GEM
       ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
-    redcarpet (2.2.2)
+    redcarpet (2.3.0)
     redis (3.0.4)
     redis-actionpack (3.2.3)
       actionpack (~> 3.2.3)
