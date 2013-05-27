@@ -252,4 +252,17 @@ module ManifestationsHelper
     end
   end
 
+  # @highlightに設定された正規表現に基きspanタグを挿入する
+  # html_safeを適用した文字列を返す
+  def highlight(str)
+    html = ''
+    str = str.dup
+    while @highlight =~ str
+      html << escape_once($`)
+      html << content_tag(:span, :class => 'highlight') { $& }
+      str = $'
+    end
+    html << escape_once(str)
+    html.html_safe
+  end
 end
