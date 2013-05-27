@@ -698,4 +698,10 @@ system_configuration_00099:
   typename: Boolean
   description: "自分自身で利用者の部課の変更が出来るか？"
   category: 'user'
-
+system_configuration_00100:
+  id: 100
+  keyname: use_copy_request
+  v: "false"
+  typename: Boolean
+  description: "文献複写依頼を使用するか"
+  category: 'copy_request'

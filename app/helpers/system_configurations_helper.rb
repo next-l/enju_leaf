@@ -10,6 +10,7 @@ module SystemConfigurationsHelper
       'purchase_request',
       'question', 
       'order_list',
+      'copy_request',
       'reminder', 
       'statistics', 
       'sound', 
@@ -38,6 +39,8 @@ module SystemConfigurationsHelper
       t('system_configuration.question')
     when 'order_list'
       t('system_configuration.order_list')
+    when 'copy_request'
+      t('system_configuration.copy_request')
     when 'reminder'
       t('system_configuration.reminder')
     when 'statistics'
@@ -206,6 +209,7 @@ module SystemConfigurationsHelper
        string << t('system_configuration.boolean_not_send') if state == 'false'
      # => use
      when 'use_order_lists',
+          'use_copy_request',
           'nacsis.can_use'
        string << t('system_configuration.boolean_use') if state == 'true'
        string << t('system_configuration.boolean_not_use') if state == 'false'
