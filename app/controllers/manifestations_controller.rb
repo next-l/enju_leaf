@@ -165,8 +165,9 @@ class ManifestationsController < ApplicationController
         if search_opts[:solr_query_mode]
           query = @solr_query
         else
-          query = make_query_string
+          query, highlight = make_query_string_and_hl_pattern
           @solr_query ||= query
+          @highlight = /(#{Regexp.union(highlight)})/
         end
         sort = search_result_order(params[:sort_by], params[:order])
       end
@@ -677,8 +678,9 @@ class ManifestationsController < ApplicationController
   # solrに送信するqパラメータ文字列を構成する
   # TODO: integerやstringもqfに含める
   # TODO: このメソッドをManifestationに移動する
-  def make_query_string
+  def make_query_string_and_hl_pattern
     qwords = []
+    highlight = []
 
     #
     # basic search
@@ -692,7 +694,10 @@ class ManifestationsController < ApplicationController
     query = '' if query == '[* TO *]'
 
     if query.present?
-      qws = each_query_word(query)
+      qws = each_query_word(query) do |qw|
+        highlight << /#{highlight_pattern(qw)}/
+      end
+
       if qws.size == 1
         qwords << qws
       elsif params[:query_merge] == 'all' || params[:query_merge] != 'any' && SystemConfiguration.get("search.use_and")
@@ -710,15 +715,16 @@ class ManifestationsController < ApplicationController
     exact_match = []
     if params[:title].present? && params[:title_merge] == 'exact'
       exact_match << :title
-      t = params[:title].gsub(/"/, '\\"')
-      qwords << %Q[title_sm:"#{t}"]
+      t = params[:title]
+      highlight << /\A#{highlight_pattern(t)}\z/
+      qwords << %Q[title_sm:"#{t.gsub(/"/, '\\"')}"]
     end
 
     if params[:creator].present? && params[:creator_merge] == 'exact'
       exact_match << :creator
       t = params[:creator].gsub(/\s/, '') # インデックス登録時の値に合わせて空白を除去しておく
-      t = t.gsub(/"/, '\\"')
-      qwords << %Q[creator_sm:"#{t}"]
+      highlight << /\A#{highlight_pattern(t)}\z/
+      qwords << %Q[creator_sm:"#{t.gsub(/"/, '\\"')}"]
     end
 
     # other attributes
@@ -745,15 +751,25 @@ class ManifestationsController < ApplicationController
       next if value.blank?
 
       qws = []
+      hls = []
+
+      merge_type = params[:"#{key}_merge"]
       flg = /\Aexcept_/ =~ key.to_s ? '-' : ''
       tag = "#{field}:" if field
       each_query_word(value) do |word|
         qws << "#{flg}#{tag}#{word}"
+        hls << word
       end
-      if qws.size > 1 && params[:"#{key}_merge"] == 'any'
+
+      if qws.size > 1 && merge_type == 'any'
         qwords.push "(#{qws.join(' OR ')})"
       else
         qwords.push qws.join(' AND ')
+      end
+
+      if (key == :title || key == :creator) &&
+          flg!= '-' && !hls.blank? && merge_type != 'exact'
+        highlight.concat hls.map {|t| /#{highlight_pattern(t)}/ }
       end
     end
 
@@ -786,7 +802,12 @@ class ManifestationsController < ApplicationController
 
     # merge basic and advanced
     op = SystemConfiguration.get("advanced_search.use_and") ? 'AND' : 'OR'
-    qwords.join(" #{op} ")
+    [qwords.join(" #{op} "), highlight]
+  end
+
+  def highlight_pattern(str)
+    str = $2 if /\A(['"])(.*)\1\z/ =~ str
+    str.split(/\s+/).map {|s| Regexp.quote(s) }.join('(?>\\s+)')
   end
 
   # solr searchのためのfilter指定を構成する
@@ -865,8 +886,9 @@ class ManifestationsController < ApplicationController
     [with, without]
   end
 
-  # 空白を含まない文字列、"?"、'?'を抽出する
+  # 空白を含まない文字列、"..."、'...'を抽出する
   # ただし単独のAND、ORは"AND"、"OR"に変換して返す
+  # ブロックが与えられていれば抽出した文字列に適用する
   def each_query_word(str)
     ary = []
     str.scan(/([^"'\s]\S*|(["'])(?:(?:\\\\)+|\\\2|.)*?\2)/) do

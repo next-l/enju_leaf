@@ -95,9 +95,9 @@ module ApplicationHelper
     patrons.each do |patron|
       unless Patron.exclude_patrons.include?(patron.full_name)
         if options[:nolink]
-          patrons_list << patron.full_name
+          patrons_list << highlight(patron.full_name)
         else
-          patrons_list << link_to(patron.full_name, patron, options)
+          patrons_list << link_to(highlight(patron.full_name), patron, options)
         end
       else
         has_extra_patron = true
