@@ -168,7 +168,7 @@ module ManifestationsHelper
         if original_item
           return true if original_item.try(:circulation_status).try(:name) == 'On Loan'
         end
-      elsif
+      else
         checkout_all = true
         manifestation.items.each do |item|
           unless item.try(:circulation_status).try(:name) == 'On Loan'
