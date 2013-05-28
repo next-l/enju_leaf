@@ -20,7 +20,7 @@
           )
         ) %>
     <% else %>
-      <%= link_to manifestation.original_title, manifestation_path(manifestation) -%>
+      <%= link_to highlight(manifestation.original_title), manifestation_path(manifestation) -%>
     <% end %>
   </strong>
   <%- unless manifestation.volume_number_string.blank? %><%= t('manifestation.format_volume', :volume => manifestation.volume_number_string) %><%- end -%>

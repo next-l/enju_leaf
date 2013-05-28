@@ -1,5 +1,6 @@
 class CopyRequestsController < ApplicationController
   load_and_authorize_resource
+  before_filter :use_copy_request?
 
   def index
     if current_user.has_role?('Librarian')
@@ -46,11 +47,16 @@ class CopyRequestsController < ApplicationController
     end
   end
 
-   def destroy
+  def destroy
     @copy_request = CopyRequest.find(params[:id])
     @copy_request.destroy
     respond_to do |format|
       format.html { redirect_to(copy_requests_url) }
     end
   end 
+
+  private
+  def use_copy_request?
+    access_denied unless SystemConfiguration.get('use_copy_request')
+  end
 end
