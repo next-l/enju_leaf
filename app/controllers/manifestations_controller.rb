@@ -143,7 +143,7 @@ class ManifestationsController < ApplicationController
       @search_engines = Rails.cache.fetch('search_engine_all') { SearchEngine.all }
 
       if params[:bookbinder_id]
-        @binder = Manifestation.find(params[:bookbinder_id]).try(:items).try(:first) rescue nil
+        @binder = Item.find(params[:bookbinder_id]) rescue nil
       end
 
       if params[:removed_from].present? || params[:removed_to].present? || params[:removed]
@@ -836,7 +836,9 @@ class ManifestationsController < ApplicationController
     without << [:id, :equal_to, @binder.manifestation.id] if @binder
 
     unless options[:with_periodical_item]
-      with << [:periodical, :equal_to, false] if options[:add_mode] || @series_statement.blank?
+      unless @binder
+        with << [:periodical, :equal_to, false] if options[:add_mode] || @series_statement.blank?
+      end
     end 
 
     return [with, without] if options[:add_mode]
@@ -882,7 +884,6 @@ class ManifestationsController < ApplicationController
         with << [:language, :equal_to, language]
       end
     end
-
     [with, without]
   end
 
