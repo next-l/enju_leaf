@@ -498,6 +498,10 @@ class ManifestationsController < ApplicationController
       end
     end
 
+    if @manifestation.bookbinder
+      @binder = @manifestation.items.where(:bookbinder => true).first rescue nil
+    end
+
     respond_to do |format|
       format.html { render :template => 'opac/manifestations/show', :layout => 'opac' } if params[:opac]
       format.html # show.html.erb

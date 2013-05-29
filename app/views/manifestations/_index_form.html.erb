@@ -36,7 +36,7 @@
     need_to_render_add_mode_tags = true if can?(:update, Manifestation)
   when @binder
     form_type = :bookbinding
-    form_opts = {:url => {:controller => 'manifestations', :action => 'index', :bookbinder_id => @binder.manifestation.id}}
+    form_opts = {:url => {:controller => 'manifestations', :action => 'index', :bookbinder_id => @binder.id}}
     form_sub_header = "index_form_#{form_type}_header"
     need_to_render_add_mode_tags = true if can?(:update, Manifestation)
   else
