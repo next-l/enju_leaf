@@ -7,6 +7,12 @@
     <%# cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
       <table id="resource_detail">
         <%= embed_content(manifestation) -%>
+        <% if manifestation.bookbinder %>
+          <tr>
+            <td><%= t('bookbinding.status') -%>:</td>
+            <td><%= t('bookbinding.binder') -%> (<%= link_to t('bookbinding.binding_items'), {:controller => 'manifestations', :action => 'index', :bookbinder_id => @binder.id} %>)</td>
+          </tr>
+        <% end %>
         <%- if manifestation.series_statement -%>
           <% unless manifestation.periodical_master %>
             <tr>

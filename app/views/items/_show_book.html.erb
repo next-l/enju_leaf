@@ -17,7 +17,7 @@
 <%- elsif @item.bookbinder -%>
   <p>
     <strong><%= t('bookbinding.binder') %>: </strong>
-    <%= link_to t('bookbinding.binding_items'), {:controller => 'manifestations', :action => 'index', :bookbinder_id => @item.manifestation.id} %>
+    <%= link_to t('bookbinding.binding_items'), {:controller => 'manifestations', :action => 'index', :bookbinder_id => @item.id} %>
   </p>
 <%- end -%>
 
