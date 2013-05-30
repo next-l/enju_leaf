@@ -22,6 +22,7 @@ class PurchaseRequest < ActiveRecord::Base
   after_save :index!
   after_destroy :index!
   before_save :set_date_of_publication
+  after_create :send_notice
   attr_protected :user
   attr_accessor :next_state, :reason
   normalize_attributes :url, :pub_date
@@ -150,6 +151,10 @@ class PurchaseRequest < ActiveRecord::Base
     end
     rescue Exception => e
       logger.error "Failed to send message: #{e}"
+  end
+
+  def send_notice
+    MessageRequest.send_notice_to_librarians('user_create_a_purchase_request', {:purchase_request => Array[self]})
   end
 
   def self.get_purchase_requests_tsv(purchase_requests)

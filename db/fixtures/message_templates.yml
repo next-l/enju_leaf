@@ -159,3 +159,10 @@ message_template_00017:
   body: "利用者が資料を予約しました。\n\n<%= manifestations %>"
   position: 17
   locale: ja
+message_template_00018:
+  id: 18
+  status: user_create_a_purchase_request
+  title: "購入リクエストが作成されました。"
+  body: "購入リクエストが作成されました。\n\n<%= purchase_request %>"
+  position: 18
+  locale: ja
