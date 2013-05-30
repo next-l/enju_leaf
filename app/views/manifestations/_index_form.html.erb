@@ -64,7 +64,7 @@
       <%= render 'page/add' %>
     <%- end -%>
     <%= submit_tag t('page.search') -%>
-    <% if @query.present? %><input type="button" value="<%= t('page.search_clear') -%>" onclick="$("\#search_form_#{form_pos}").val('')"><% end %>
+    <% if @query.present? %><input type="button" value="<%= t('page.search_clear') -%>" onclick='<%= "$(" + "'#search_form_#{form_pos}" + "').val('')" %>' ><% end %>
     <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
       <% if user_signed_in? and current_user.has_role?('Librarian') %>
         <%- if @all_manifestations %>
