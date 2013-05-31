@@ -616,7 +616,7 @@ class ManifestationsController < ApplicationController
           @manifestation.creators = Patron.add_patrons(@creator) unless @creator.blank?
           @manifestation.contributors = Patron.add_patrons(@contributor) unless @contributor.blank?
           @manifestation.publishers = Patron.add_patrons(@publisher) unless @publisher.blank?
-          @manifestation.subjects = Subject.import_subjects(@subject.gsub('；', ';').split(';')) unless @subject.blank?
+          @manifestation.subjects = Subject.import_subjects(@subject) unless @subject.blank?
         end
 
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_created', :model => t('activerecord.models.manifestation')) }
@@ -644,7 +644,7 @@ class ManifestationsController < ApplicationController
         @manifestation.creators = Patron.add_patrons(@creator) 
         @manifestation.contributors = Patron.add_patrons(@contributor) 
         @manifestation.publishers = Patron.add_patrons(@publisher)
-        @manifestation.subjects = Subject.import_subjects(@subject.gsub('；', ';').split(';')) 
+        @manifestation.subjects = Subject.import_subjects(@subject) 
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_updated', :model => t('activerecord.models.manifestation')) }
         format.json { head :no_content }
       else

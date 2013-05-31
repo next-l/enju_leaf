@@ -389,13 +389,15 @@ p "end_page:       #{end_page}"
     end
 
     def set_article_subjects(cell)
-      return nil if cell.nil?
-      subjects = []
+#      return nil if cell.nil?
+#      subjects = []
       if @manifestation_type.name == 'japanese_article'
-        subjects = cell.gsub('；', ';').split(';')
+#        subjects = cell.gsub('；', ';').split(';')
+        subjects = cell
       else
-        #cell = cell.gsub('＊', '*')
-        subjects = cell.split('*')
+#        #cell = cell.gsub('＊', '*')
+#        subjects = cell.split('*')
+        subjects = cell.gsub(/\*|＊/, ';')
       end
       return subjects
     end

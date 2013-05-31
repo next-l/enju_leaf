@@ -185,7 +185,7 @@ class SeriesStatementsController < ApplicationController
             manifestation.creators     = Patron.add_patrons(@creator)
             manifestation.contributors = Patron.add_patrons(@contributor)
             manifestation.publishers   = Patron.add_patrons(@publisher) 
-            manifestation.subjects     = Subject.import_subjects(@subject.gsub('；', ';').split(';')) 
+            manifestation.subjects     = Subject.import_subjects(@subject) 
             manifestation.save!
           else
             if @series_statement.root_manifestation
