@@ -36,9 +36,10 @@ platforms :ruby do
   gem 'kgio'
 end
 
-#platforms :ruby_19 do
-#  gem 'simplecov', '~> 0.6', :require => false, :group => :test
-#end
+platforms :ruby_19 do
+  gem 'simplecov', '~> 0.6', :require => false, :group => :test
+  gem 'simplecov-rcov', :require => false, :group => :test
+end
 
 gem 'roo', "= 1.10.1"
 gem 'spreadsheet', '0.7.9'
