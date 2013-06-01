@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 6f28d95f45f2ba764e37b2f12978bfadd733d51d
+  revision: 4eecc0021e28b0e8d32629e798fca3b2029e69d5
   specs:
     enju_biblio (0.1.0.pre42)
       aws-sdk
@@ -20,21 +20,21 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_circulation.git
-  revision: e3e7569c7a03f87acc22a7244305f5495c705dba
+  revision: 8eef29e6087ed0e44f8c57be9928a4eaa5cc41e1
   specs:
-    enju_circulation (0.1.0.pre27)
-      enju_biblio (~> 0.1.0.pre40)
+    enju_circulation (0.1.0.pre28)
+      enju_biblio (~> 0.1.0.pre41)
       enju_event (~> 0.1.17.pre12)
       enju_library (~> 0.1.0.pre23)
       enju_message (~> 0.1.14.pre8)
 
 GIT
   remote: git://github.com/next-l/enju_event.git
-  revision: fb052cae95a9c25ad6f2a47da99dc9ec4ca1ac00
+  revision: e02e30c5f014959a19c74e7f7ac8d1a262036890
   specs:
-    enju_event (0.1.17.pre12)
+    enju_event (0.1.17.pre13)
       enju_core (~> 0.1.1.pre4)
-      enju_message (~> 0.1.14.pre8)
+      enju_message (~> 0.1.14.pre9)
       event-calendar (~> 2.3.3)
       inherited_resources
       paperclip
@@ -45,40 +45,40 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_export.git
-  revision: d3d0bba613e98ecfa5f2b72edfc1ad2a38f93b0e
+  revision: 1b8cb6a2ce507d845bcfcad06011ec9addb140f6
   specs:
     enju_export (0.1.1.pre5)
-      enju_biblio (~> 0.1.0.pre35)
+      enju_biblio (~> 0.1.0.pre42)
       state_machine
 
 GIT
   remote: git://github.com/next-l/enju_flower.git
-  revision: 0ea0d22f8df41852f645a7a1540a900b94e4676f
+  revision: 56499a0c1a006dcccc56bc258640b5aefb99ec87
   specs:
-    enju_flower (0.1.0.pre9)
+    enju_flower (0.1.0.pre10)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 374c891ec58e940906896884dcab59c249cf709a
+  revision: 559bdc5a6cf445243ffddcdc11f97b4ce33726e8
   specs:
-    enju_library (0.1.0.pre23)
+    enju_library (0.1.0.pre24)
       enju_core (~> 0.1.1.pre4)
       geocoder
       inherited_resources
 
 GIT
   remote: git://github.com/next-l/enju_manifestation_viewer.git
-  revision: 5028e89d2b06a19ad48a4aae94283baf84a0b1ee
+  revision: 5e5efccf10cc1093497f9983cd2941521a6d4ab9
   specs:
     enju_manifestation_viewer (0.1.0.pre11)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_message.git
-  revision: 462ab689e68f0729c545d368707bd091c86f3c27
+  revision: f0ece813ebe021a71bb90d2c81b97223c8952769
   specs:
-    enju_message (0.1.14.pre8)
+    enju_message (0.1.14.pre9)
       awesome_nested_set (~> 2.1)
       enju_core (~> 0.1.1.pre4)
       inherited_resources
@@ -89,7 +89,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_ndl.git
-  revision: d21dfe7e8393f2f226cb6905e3be0ae48da977d1
+  revision: 3df8a8a548eec5b09e0e2f6160619e482fa8d115
   specs:
     enju_ndl (0.1.0.pre25)
       enju_subject (~> 0.1.0.pre19)
@@ -100,16 +100,16 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_oai.git
-  revision: 51fac55d9b52da0d8af3138b3e2af2e8201cf138
+  revision: cdf1937e33e89357acfa68a6fd0f05de133c1a1f
   specs:
-    enju_oai (0.1.0.pre11)
+    enju_oai (0.1.0.pre10)
       rails (~> 3.2)
 
 GIT
   remote: git://github.com/next-l/enju_subject.git
-  revision: 53425e8822ac6c43456cb0c94379e4e41af9363f
+  revision: b1d5778867f4ea3d26f3dbd1e39a3f3293895276
   specs:
-    enju_subject (0.1.0.pre19)
+    enju_subject (0.1.0.pre20)
       dynamic_form
       enju_core (~> 0.1.1.pre4)
       inherited_resources
