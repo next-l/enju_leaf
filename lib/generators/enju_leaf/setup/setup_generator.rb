@@ -72,7 +72,7 @@ EOS
     inject_into_file "app/assets/stylesheets/application.css", :after => / *= require_self$\n/ do
       " *= require enju_leaf\n"
     end
-    inject_into_file "config.ru", :after => /require ::File.expand_path('..\/config\/environment',  __FILE__)$\n/ do
+    inject_into_file "config.ru", :after => /require ::File.expand_path\(\'..\/config\/environment\',  __FILE__\)$\n/ do
       <<"EOS"
   require 'rack/protection'
   use Rack::Protection, :except => [:escaped_params, :json_csrf, :http_origin, :session_hijacking, :remote_token]
