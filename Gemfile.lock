@@ -37,7 +37,7 @@ GEM
     attribute_normalizer (1.1.0)
     awesome_nested_set (2.1.6)
       activerecord (>= 3.0.0)
-    aws-sdk (1.9.5)
+    aws-sdk (1.11.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
@@ -76,8 +76,8 @@ GEM
       devise (>= 2.1.0)
     diff-lcs (1.2.4)
     dynamic_form (1.1.4)
-    enju_biblio (0.1.0.pre41)
-      aws-sdk (~> 1.9.5)
+    enju_biblio (0.1.0.pre42)
+      aws-sdk
       dynamic_form
       enju_core (~> 0.1.1.pre4)
       inherited_resources
@@ -91,8 +91,8 @@ GEM
       simple_form
       state_machine
       validates_timeliness
-    enju_circulation (0.1.0.pre27)
-      enju_biblio (~> 0.1.0.pre40)
+    enju_circulation (0.1.0.pre28)
+      enju_biblio (~> 0.1.0.pre41)
       enju_event (~> 0.1.17.pre12)
       enju_library (~> 0.1.0.pre23)
       enju_message (~> 0.1.14.pre8)
@@ -121,15 +121,15 @@ GEM
       ri_cal
       simple_form
       state_machine
-    enju_flower (0.1.0.pre9)
+    enju_flower (0.1.0.pre10)
       rails (~> 3.2)
-    enju_library (0.1.0.pre23)
+    enju_library (0.1.0.pre24)
       enju_core (~> 0.1.1.pre4)
       geocoder
       inherited_resources
     enju_manifestation_viewer (0.1.0.pre11)
       rails (~> 3.2)
-    enju_message (0.1.14.pre8)
+    enju_message (0.1.14.pre9)
       awesome_nested_set (~> 2.1)
       enju_core (~> 0.1.1.pre4)
       inherited_resources
@@ -142,9 +142,9 @@ GEM
       lisbn
       nokogiri
       rails (~> 3.2)
-    enju_oai (0.1.0.pre9)
+    enju_oai (0.1.0.pre10)
       rails (~> 3.2)
-    enju_subject (0.1.0.pre19)
+    enju_subject (0.1.0.pre20)
       dynamic_form
       enju_core (~> 0.1.1.pre4)
       inherited_resources
@@ -434,15 +434,15 @@ DEPENDENCIES
   client_side_validations (~> 3.2)
   coffee-rails (~> 3.2.1)
   devise-encryptable
-  enju_biblio (~> 0.1.0.pre41)
-  enju_circulation (~> 0.1.0.pre25)
-  enju_flower (~> 0.1.0.pre9)
-  enju_library (~> 0.1.0.pre22)
-  enju_manifestation_viewer (~> 0.1.0.pre7)
-  enju_message (~> 0.1.14.pre8)
+  enju_biblio (~> 0.1.0.pre42)
+  enju_circulation (~> 0.1.0.pre28)
+  enju_flower (~> 0.1.0.pre10)
+  enju_library (~> 0.1.0.pre24)
+  enju_manifestation_viewer (~> 0.1.0.pre11)
+  enju_message (~> 0.1.14.pre9)
   enju_ndl (~> 0.1.0.pre24)
-  enju_oai (~> 0.1.0.pre9)
-  enju_subject (~> 0.1.0.pre19)
+  enju_oai (~> 0.1.0.pre10)
+  enju_subject (~> 0.1.0.pre20)
   exception_notification (~> 3.0)
   factory_girl_rails (~> 4.2)
   fakeweb
