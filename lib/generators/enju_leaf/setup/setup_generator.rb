@@ -74,8 +74,8 @@ EOS
     end
     inject_into_file "config.ru", :after => /require ::File.expand_path\(\'..\/config\/environment\',  __FILE__\)$\n/ do
       <<"EOS"
-  require 'rack/protection'
-  use Rack::Protection, :except => [:escaped_params, :json_csrf, :http_origin, :session_hijacking, :remote_token]
+require 'rack/protection'
+use Rack::Protection, :except => [:escaped_params, :json_csrf, :http_origin, :session_hijacking, :remote_token]
 EOS
     end
     generate("sunspot_rails:install")
