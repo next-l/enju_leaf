@@ -45,8 +45,6 @@ EOS
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
   enju_leaf
-  enju_biblio
-  enju_library
 
   mobylette_config do |config|
     config[:skip_xhr_requests] = false
