@@ -7,6 +7,17 @@ describe Subject do
   it "should get term" do
     subjects(:subject_00001).term.should be_true
   end
+
+  it "should get or create term" do
+    subject = "件名1;test5"
+    subject_transcription = "けんめいいち;てすとご"
+    list = Subject.import_subjects(subject, subject_transcription)
+    list[0].term.should eq "件名1"
+    list[0].term_transcription.should eq "けんめいいち"
+    list[1].term.should eq "test5"
+    list[1].term_transcription.should eq "てすとご"
+    list[1].id.should eq 5
+  end
 end
 
 # == Schema Information
