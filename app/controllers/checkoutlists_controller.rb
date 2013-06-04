@@ -3,32 +3,31 @@ class CheckoutlistsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @displist = []
-    dispList = Struct.new(:circulation_status, :items)
-    @circulation_status = CirculationStatus.all
-
-    if params[:format] == 'pdf' or params[:format] == 'tsv'
-      @selected_circulation_status = params[:circulation_status] || []
+    @selected_circulation_ids = params[:circulation_status].map{|s| s.to_i} if params[:circulation_status]
+    if params[:pdf] || params[:tsv]
+      @displist = []
       if params[:circulation_status].blank?
-        @circulation_status.each do |c|
-          items = Item.find(:all, :joins => [:manifestation, :circulation_status, :shelf => :library], :conditions => { :circulation_status_id => c }, :order => 'libraries.id, items.shelf_id, items.item_identifier')
-          @displist << dispList.new(CirculationStatus.find(c).display_name.localize, items)
-        end
         flash[:notice] = t('item_list.no_list_condition')
-        render :index, :formats => 'html'; return
+        return
       end
+      send_data Checkoutlist.get_checkoutlist('pdf', @selected_circulation_ids).generate, :filename => Setting.checkoutlist_report_pdf.filename if params[:pdf]
+      send_data Checkoutlist.get_checkoutlist('tsv', @selected_circulation_ids), :filename => Setting.checkoutlist_report_tsv.filename if params[:tsv]
     else
-      @selected_circulation_status = @circulation_status.map{ |c| c.id }
-    end
-    @selected_circulation_status.each do |c|
-      items = Item.find(:all, :joins => [:manifestation, :circulation_status, :shelf => :library], :conditions => { :circulation_status_id => c }, :order => 'libraries.id, items.shelf_id, items.item_identifier')
-      @displist << dispList.new(CirculationStatus.find(c).display_name.localize, items)
-    end
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.pdf { send_data Checkout.get_checkoutlists_pdf(@displist).generate, :filename => Setting.checkoutlist_report_pdf.filename }
-      format.tsv { send_data Checkout.get_checkoutlists_tsv(@displist), :filename => Setting.checkoutlist_report_tsv.filename }
+      @circulation_status = CirculationStatus.all
+      @item_nums = Hash.new
+      selected_circulation_ids = @selected_circulation_ids ||= @circulation_status.map(&:id)
+      @circulation_status.each do |c|
+        @item_nums[c.display_name.localize] = Item.count_by_sql(["select count(*) from items where circulation_status_id = ?", c.id])
+      end
+      search = Sunspot.new_search(Item) #.include([:shelf => :library])
+      per_page = Item.default_per_page
+      set_role_query(current_user, search)
+      search.build do
+        with(:circulation_status_id).any_of selected_circulation_ids if selected_circulation_ids
+        order_by(:circulation_status_id, :asc)
+      end
+      @items = search.execute.results
     end
   end
 end
+

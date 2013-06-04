@@ -1,0 +1,19 @@
+<table class="index">
+  <tr>
+    <th><nobr><%= t('activerecord.models.circulation_status') %></nobr></th>
+    <th><%= t('activerecord.attributes.manifestation.original_title') %></th>
+    <th><%= t('activerecord.models.shelf') %></th>
+    <th><%= t('activerecord.attributes.item.call_number') %></th>
+    <th><%= t('activerecord.attributes.item.item_identifier') %></th>
+  </tr>
+  <% @items.each do |item| %>
+    <tr class="line<%= cycle("0", "1") %>">
+      <td><%= item.circulation_status.display_name.localize %></td>
+      <td><%= link_to item.manifestation.original_title, item.manifestation %></td>
+      <td><nobr><%= link_to item.shelf.display_name.localize, item.shelf %></nobr></td>
+      <td><nobr><%= call_numberformat(item) if item.call_number %></nobr></td>
+      <td><nobr><%= link_to item.item_identifier, item if item.item_identifier %></nobr></td>
+    </tr>
+  <% end %>
+</table>
+<%= paginate(@items) -%>

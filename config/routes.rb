@@ -454,6 +454,7 @@ EnjuLeaf::Application.routes.draw do
 
   resources :copy_requests
 
+  resources :checkoutlists
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -549,7 +550,6 @@ EnjuLeaf::Application.routes.draw do
   match '/batch_checkin' => 'checkins#batchexec' , :via => :post
   match '/batch_checkout' => 'checkouts#batchexec' , :via => :post
 
-  match '/checkoutlists' => 'checkoutlists#index'
   match '/reservelists' => 'reservelists#index'
   match '/unablelist' => 'unablelist#index'
   match '/retained_manifestations' => 'retained_manifestations#index'
