@@ -436,7 +436,8 @@ class Manifestation < ActiveRecord::Base
 
   after_save :index_series_statement
   after_destroy :index_series_statement
-  attr_accessor :during_import, :creator, :contributor, :publisher, :subject
+  attr_accessor :during_import, :creator, :contributor, :publisher, :subject, 
+                :creator_transcription, :publisher_transcription, :contributor_transcription, :subject_transcription
 
   paginates_per 10
 
@@ -526,7 +527,7 @@ class Manifestation < ActiveRecord::Base
   def non_searchable?
     return false if periodical_master
     items.each do |i|
-      if !i.retention_period.non_searchable and i.circulation_status.name != "Removed" and !i.non_searchable
+      if !i.try(:retention_period).try(:non_searchable) and i.circulation_status.name != "Removed" and !i.non_searchable
         return false
       end
       if SystemConfiguration.get('manifestation.manage_item_rank')

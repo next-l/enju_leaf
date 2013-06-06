@@ -964,17 +964,20 @@ describe ManifestationsController do
       end
 
       it "should show manifestation rdf template" do
+        pending
         get :show, :id => 22, :format => 'rdf'
         assigns(:manifestation).should eq Manifestation.find(22)
         response.should render_template("manifestations/show")
       end
 
       it "should_show_manifestation_with_isbn" do
+        pending
         get :show, :isbn => "4798002062"
         response.should redirect_to manifestation_url(assigns(:manifestation))
       end
 
       it "should_show_manifestation_with_isbn" do
+        pending
         get :show, :isbn => "47980020620"
         response.should be_missing
       end
@@ -1091,6 +1094,34 @@ describe ManifestationsController do
         it "redirects to the created manifestation" do
           post :create, :manifestation => @attrs
           response.should redirect_to(manifestation_url(assigns(:manifestation)))
+        end
+
+        it "get creator and creator_transcription" do
+          ma = FactoryGirl.attributes_for(:m_with_creator)
+          post :create, :manifestation => FactoryGirl.attributes_for(:m_with_creator)
+          assigns[:creator].should eq ma[:creator]
+          assigns[:creator_transcription].should eq ma[:creator_transcription]
+        end
+
+        it "get contributor and contributor_transcription" do
+          ma = FactoryGirl.attributes_for(:m_with_contributor)
+          post :create, :manifestation => FactoryGirl.attributes_for(:m_with_contributor)
+          assigns[:contributor].should eq ma[:contributor]
+          assigns[:contributor_transcription].should eq ma[:contributor_transcription]
+        end
+
+        it "get publisher and publisher_transcription" do
+          ma = FactoryGirl.attributes_for(:m_with_publisher)
+          post :create, :manifestation => FactoryGirl.attributes_for(:m_with_publisher)
+          assigns[:publisher].should eq ma[:publisher]
+          assigns[:publisher_transcription].should eq ma[:publisher_transcription]
+        end
+
+        it "get subject and subject_transcription" do
+          ma = FactoryGirl.attributes_for(:m_with_subject)
+          post :create, :manifestation => FactoryGirl.attributes_for(:m_with_subject)
+          assigns[:subject].should eq ma[:subject]
+          assigns[:subject_transcription].should eq ma[:subject_transcription]
         end
       end
 

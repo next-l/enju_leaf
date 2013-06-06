@@ -1903,6 +1903,10 @@ ja:
     format_volume: "%{volume}巻"
     format_issue: "%{issue}号"
     format_year: "%{year}年"
+    creator_transcription: 著者(ヨミ)
+    contributor_transcription: 協力者・編者(ヨミ)
+    publisher_transcription: 出版者(ヨミ)
+    subject_transcription: 件名(ヨミ)
   missing_issue:
     no_request: 未請求
     requested: 請求済

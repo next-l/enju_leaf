@@ -40,6 +40,20 @@ describe Patron do
   it "should not be publisher" do
     patrons(:patron_00010).publisher?(manifestations(:manifestation_00001)).should be_false
   end
+
+  it "should get or create patron" do
+    creator = "著者1;著者2;出版社テスト;試験用会社"
+    creator_transcription = "ちょしゃいち;ちょしゃに;;しけんようかいしゃ"
+    list = Patron.add_patrons(creator, creator_transcription)
+    list[0].full_name.should eq "著者1"
+    list[0].full_name_transcription.should eq"ちょしゃいち"
+    list[1].full_name.should eq "著者2"
+    list[1].full_name_transcription.should eq "ちょしゃに"
+    list[2].id.should eq 102
+    list[3].id.should eq 104
+    list[3].full_name.should eq "試験用会社"
+    list[3].full_name_transcription.should eq "しけんようかいしゃ"
+  end
 end
 
 # == Schema Information
