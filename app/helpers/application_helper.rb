@@ -13,9 +13,9 @@ module ApplicationHelper
     when 'print'
       image_tag('icons/book.png', :size => '16x16', :alt => carrier_type.display_name.localize, :title => carrier_type.display_name.localize)
     when 'CD'
-      image_tag('icons/cd.png', :size => '16x16', :alt => carrier_type.display_name.localizei, :title => carrier_type.display_name.localize)
+      image_tag('icons/cd.png', :size => '16x16', :alt => carrier_type.display_name.localize, :title => carrier_type.display_name.localize)
     when 'DVD'
-      image_tag('icons/dvd.png', :size => '16x16', :alt => carrier_type.display_name.localizei, :title => carrier_type.display_name.localize)
+      image_tag('icons/dvd.png', :size => '16x16', :alt => carrier_type.display_name.localize, :title => carrier_type.display_name.localize)
     when 'file'
       image_tag('icons/monitor.png', :size => '16x16', :alt => carrier_type.display_name.localize, :title => carrier_type.display_name.localize)
     else
