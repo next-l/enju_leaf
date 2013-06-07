@@ -88,27 +88,22 @@ module ApplicationHelper
     html.html_safe
   end
 
-  def patrons_list(patrons = [], options = {})
+  def patrons_list(patrons = [], options = {}, mode = 'html')
     return nil if patrons.blank?
     patrons_list = []
     has_extra_patron = false
     patrons.each do |patron|
       unless Patron.exclude_patrons.include?(patron.full_name)
         if options[:nolink]
-          patrons_list << highlight(patron.full_name)
+          patron = mode == 'html' ? highlight(patron.full_name) : patron.full_name
+          patrons_list << patron
         else
-          patrons_list << link_to(highlight(patron.full_name), patron, options)
+          patron = mode == 'html' ? link_to(highlight(patron.full_name), patron, options) : link_to(patron.full_name, patron, options)
+          patrons_list << patron
         end
-      else
-        has_extra_patron = true
       end
     end
     patrons_list << I18n.t('page.et_al') if has_extra_patron
-#    if options[:nolink]
-#      patrons_list = patrons.map{|patron| patron.full_name}
-#    else
-#      #patrons_list = patrons.map{|patron| link_to(patron.full_name, patron, options)}
-#    end
     patrons_list.join(" ").html_safe
   end
 
@@ -495,5 +490,19 @@ module ApplicationHelper
   def hbr(target)
     target = html_escape(target)
     target.gsub(/\r\n|\r|\n/, "<br />")
+  end
+
+  # @highlightに設定された正規表現に基きspanタグを挿入する
+  # html_safeを適用した文字列を返す
+  def highlight(str)
+    html = ''
+    str = str.dup
+    while @highlight =~ str
+      html << escape_once($`)
+      html << content_tag(:span, :class => 'highlight') { $& }
+      str = $'
+    end
+    html << escape_once(str)
+    html.html_safe
   end
 end
