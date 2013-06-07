@@ -152,9 +152,10 @@ module EnjuTrunk
       unless manifestation.nil?
         @mode = 'edit'
       else       
+        lang = @manifestation_type == 'japanese_article' ? Language.where(:name => 'Japanese').first : Language.where(:name => 'unknown').first
         manifestation = Manifestation.new(
           :carrier_type   => CarrierType.where(:name => 'print').first,
-          :language       => Language.where(:name => 'Japanese').first,
+          :language       => lang,
           :frequency      => Frequency.where(:name => 'unknown').first,
           :required_role  => Role.find('Guest'),
           :except_recent  => true,
@@ -389,8 +390,8 @@ p "end_page:       #{end_page}"
     end
 
     def set_article_subjects(cell)
-#      return nil if cell.nil?
-#      subjects = []
+      return nil if cell.nil?
+      subjects = []
       if @manifestation_type.name == 'japanese_article'
 #        subjects = cell.gsub('；', ';').split(';')
         subjects = cell

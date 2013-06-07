@@ -8,8 +8,9 @@ module ItemsHelper
           call_number.slice!(0, 1)
         end
       end
-    end   
-    return call_number
+    end
+    results = call_number.gsub(/\s/, delimiter) rescue nil
+    return results
   end
 
   def item_ranks
@@ -26,4 +27,5 @@ module ItemsHelper
       t('item.spare')
     end
   end
+
 end
