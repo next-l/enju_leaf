@@ -171,7 +171,6 @@ class ManifestationsController < ApplicationController
         end
         sort = search_result_order(params[:sort_by], params[:order])
       end
-
       search_opts[:with_periodical_item] = params[:with_periodical_item]
       with_filter, without_filter = make_query_filter(search_opts)
 
@@ -378,7 +377,6 @@ class ManifestationsController < ApplicationController
       end
     end
     store_location # before_filter ではファセット検索のURLを記憶してしまう
-
     respond_to do |format|
       if params[:opac]
         if @manifestations.size > 0
@@ -703,8 +701,9 @@ class ManifestationsController < ApplicationController
     query = query.strip
 
     query = "#{query}*" if query.size == 1
-    query = '' if query == '[* TO *]'
 
+
+    query = '' if query == '[* TO *]'
     if query.present?
       qws = each_query_word(query) do |qw|
         highlight << /#{highlight_pattern(qw)}/
@@ -718,6 +717,8 @@ class ManifestationsController < ApplicationController
         qwords << '(' + qws.join(' OR ') + ')'
       end
     end
+    # recent manifestations
+    qwords << "created_at_d:[NOW-1MONTH TO NOW] AND except_recent_b:false" if params[:mode] == 'recent'
 
     #
     # advanced search
@@ -804,7 +805,7 @@ class ManifestationsController < ApplicationController
     # 詳細検索からの資料区分 ファセット選択時は無効とする
     if params[:manifestation_types].present? && params[:manifestation_type].blank?
       types_ary = []
-      manifestation_types = params[:manifestation_types].class == String ? eval(params[:manifestation_types]) : params[:manifestation_types]
+      manifestation_types = params[:manifestation_types]
       manifestation_types.each_key do |key|
         manifestation_type = ManifestationType.find(key)
         types_ary << manifestation_type.name if manifestation_type.present?

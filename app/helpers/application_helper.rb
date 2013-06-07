@@ -301,7 +301,7 @@ module ApplicationHelper
     :publisher, :isbn, :issn, :item_identifier, :pub_date_from,
     :pub_date_to, :acquired_from, :acquired_to, :removed_from, :removed_to,
     :number_of_pages_at_least, :number_of_pages_at_most, :advanced_search,
-    :title_merge, :creator_merge, :query_merge,
+    :title_merge, :creator_merge, :query_merge, :manifestation_types 
   ]
 
   ADVANCED_SEARCH_LABEL_IDS = {
@@ -357,9 +357,18 @@ module ApplicationHelper
   end
 
   def hidden_advanced_search_field_tags
+    array = []
     ADVANCED_SEARCH_PARAMS.map do |name|
-      hidden_field_tag(name.to_s, params[name])
-    end.join('').html_safe
+      if name == :manifestation_types
+        next unless params[name]
+        params[name].keys.each do |key|
+          array << hidden_field_tag("#{name.to_s}[#{key}]", true)
+        end
+      else
+        array << hidden_field_tag(name.to_s, params[name])
+      end
+    end
+    array.join('').html_safe
   end
 
   def advanced_search_condition_summary(opts = {})
@@ -419,6 +428,10 @@ module ApplicationHelper
         if params[key].present? && params[k].present?
           summary_ary << ["#{advanced_search_label(key)}#{advanced_search_label(k)}", params[key]]
         end
+
+      when :manifestation_types
+        ks = ManifestationType.where(["id in (?)", params[key].keys]).map(&:display_name)
+        summary_ary << [key, ks.join(', ')] if params[key].present?
 
       else
         summary_ary << [key, params[key]] if params[key].present?
