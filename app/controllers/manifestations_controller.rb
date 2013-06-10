@@ -187,6 +187,7 @@ class ManifestationsController < ApplicationController
           end
         end
       end
+      logger.debug "  SOLR Query string:<#{query}>"
 
       searchs.each do |s|
         Manifestation.build_search_for_manifestations_list(s, query, with_filter, without_filter)
@@ -695,10 +696,7 @@ class ManifestationsController < ApplicationController
     #
     # basic search
     #
-
-    query = params[:query].to_s.dup
-    query = query.gsub(/[　\s]+/, ' ')
-    query = query.strip
+    query = fixup_query_string(params[:query])
 
     query = "#{query}*" if query.size == 1
 
@@ -770,14 +768,14 @@ class ManifestationsController < ApplicationController
       flg = /\Aexcept_/ =~ key.to_s ? '-' : ''
       tag = "#{field}:" if field
       each_query_word(value) do |word|
-        qws << "#{flg}#{tag}#{word}"
-        hls << word
+        qws << "#{flg}#{word}"
+        hls << word if flg.blank?
       end
 
       if qws.size > 1 && merge_type == 'any'
-        qwords.push "(#{qws.join(' OR ')})"
+        qwords.push "#{tag}(#{qws.join(' OR ')})"
       else
-        qwords.push qws.join(' AND ')
+        qwords.push "#{tag}(#{qws.join(' AND ')})"
       end
 
       if (key == :title || key == :creator) &&
@@ -900,11 +898,21 @@ class ManifestationsController < ApplicationController
     [with, without]
   end
 
+  # Solr検索式を生成するための
+  # 以下の前処理を加えた新しい文字列を返す
+  #  * いわゆる全角空白文字をASCII空白文字("\x20")に変換する
+  #  * 連続する空白文字を一つの空白文字に変換する
+  #  * 文字列の先頭と末尾の空白文字を削除する
+  def fixup_query_string(str)
+    str.to_s.gsub(/[　\s]+/, ' ').strip
+  end
+
   # 空白を含まない文字列、"..."、'...'を抽出する
   # ただし単独のAND、ORは"AND"、"OR"に変換して返す
   # ブロックが与えられていれば抽出した文字列に適用する
   def each_query_word(str)
     ary = []
+    str = fixup_query_string(str)
     str.scan(/([^"'\s]\S*|(["'])(?:(?:\\\\)+|\\\2|.)*?\2)/) do
       word = $1
       word = "\"#{word}\"" if /\A(?:and|or)\z/io =~ word
