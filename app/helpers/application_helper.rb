@@ -101,6 +101,8 @@ module ApplicationHelper
           patron = mode == 'html' ? link_to(highlight(patron.full_name), patron, options) : link_to(patron.full_name, patron, options)
           patrons_list << patron
         end
+      else
+        has_extra_patron = true
       end
     end
     patrons_list << I18n.t('page.et_al') if has_extra_patron
