@@ -1234,14 +1234,15 @@ class Manifestation < ActiveRecord::Base
           creator = manifestation.creators.readable_by(current_user).map{|patron| patron.full_name}
           contributor = manifestation.contributors.readable_by(current_user).map{|patron| patron.full_name}
           publisher = manifestation.publishers.readable_by(current_user).map{|patron| patron.full_name}
+          reserves = Reserve.waiting.where(:manifestation_id => manifestation.id, :checked_out_at => nil)
           # set list
           row.item(:title).value(manifestation.original_title)
-          row.item(:item_identifier).value(item_identifiers.join(','))
-          row.item(:creator).value(creator.join(','))
-          row.item(:contributor).value(contributor.join(','))
-          row.item(:publisher).value(publisher.join(','))
+          row.item(:item_identifier).value(item_identifiers.join(',')) unless item_identifiers.empty?
+          row.item(:creator).value(creator.join(',')) unless creator.empty?
+          row.item(:contributor).value(contributor.join(',')) unless contributor.empty?
+          row.item(:publisher).value(publisher.join(',')) unless publisher.empty?
           row.item(:pub_date).value(manifestation.pub_date)
-          row.item(:reserves_num).value(Reserve.waiting.where(:manifestation_id => manifestation.id, :checked_out_at => nil).count)
+#          row.item(:reserves_num).value(reserves.count)
         end
       end
     end
@@ -1274,20 +1275,20 @@ class Manifestation < ActiveRecord::Base
           row << manifestation.original_title 
         when :item_identifier
           item_identifiers = manifestation.items.map{|item| item.item_identifier}
-          row << item_identifiers.join(',')
+          row << item_identifiers.join(',') rescue ''
         when :creator
           creator = manifestation.creators.readable_by(current_user).map{|patron| patron.full_name}
-          row << creator.join(',')
+          row << creator.join(',') rescue ''
         when :contributor
           contributor = manifestation.contributors.readable_by(current_user).map{|patron| patron.full_name}
-          row << contributor.join(',')
+          row << contributor.join(',') rescue ''
         when :publisher
           publisher = manifestation.publishers.readable_by(current_user).map{|patron| patron.full_name}
-          row << publisher.join(',')
+          row << publisher.join(',') rescue ''
         when :pub_date
           row << manifestation.pub_date
         when :reserves_num
-          row << Reserve.waiting.where(:manifestation_id => manifestation.id, :checked_out_at => nil).count
+          row << Reserve.waiting.where(:manifestation_id => manifestation.id, :checked_out_at => nil).count rescue 0
         end
       end
       data << '"' + row.join("\"\t\"") +"\"\n"

@@ -13,9 +13,9 @@ module ApplicationHelper
     when 'print'
       image_tag('icons/book.png', :size => '16x16', :alt => carrier_type.display_name.localize, :title => carrier_type.display_name.localize)
     when 'CD'
-      image_tag('icons/cd.png', :size => '16x16', :alt => carrier_type.display_name.localizei, :title => carrier_type.display_name.localize)
+      image_tag('icons/cd.png', :size => '16x16', :alt => carrier_type.display_name.localize, :title => carrier_type.display_name.localize)
     when 'DVD'
-      image_tag('icons/dvd.png', :size => '16x16', :alt => carrier_type.display_name.localizei, :title => carrier_type.display_name.localize)
+      image_tag('icons/dvd.png', :size => '16x16', :alt => carrier_type.display_name.localize, :title => carrier_type.display_name.localize)
     when 'file'
       image_tag('icons/monitor.png', :size => '16x16', :alt => carrier_type.display_name.localize, :title => carrier_type.display_name.localize)
     else
@@ -88,27 +88,24 @@ module ApplicationHelper
     html.html_safe
   end
 
-  def patrons_list(patrons = [], options = {})
+  def patrons_list(patrons = [], options = {}, mode = 'html')
     return nil if patrons.blank?
     patrons_list = []
     has_extra_patron = false
     patrons.each do |patron|
       unless Patron.exclude_patrons.include?(patron.full_name)
         if options[:nolink]
-          patrons_list << highlight(patron.full_name)
+          patron = mode == 'html' ? highlight(patron.full_name) : patron.full_name
+          patrons_list << patron
         else
-          patrons_list << link_to(highlight(patron.full_name), patron, options)
+          patron = mode == 'html' ? link_to(highlight(patron.full_name), patron, options) : link_to(patron.full_name, patron, options)
+          patrons_list << patron
         end
       else
         has_extra_patron = true
       end
     end
     patrons_list << I18n.t('page.et_al') if has_extra_patron
-#    if options[:nolink]
-#      patrons_list = patrons.map{|patron| patron.full_name}
-#    else
-#      #patrons_list = patrons.map{|patron| link_to(patron.full_name, patron, options)}
-#    end
     patrons_list.join(" ").html_safe
   end
 
@@ -301,7 +298,7 @@ module ApplicationHelper
     :publisher, :isbn, :issn, :item_identifier, :pub_date_from,
     :pub_date_to, :acquired_from, :acquired_to, :removed_from, :removed_to,
     :number_of_pages_at_least, :number_of_pages_at_most, :advanced_search,
-    :title_merge, :creator_merge, :query_merge,
+    :title_merge, :creator_merge, :query_merge, :manifestation_types 
   ]
 
   ADVANCED_SEARCH_LABEL_IDS = {
@@ -357,9 +354,18 @@ module ApplicationHelper
   end
 
   def hidden_advanced_search_field_tags
+    array = []
     ADVANCED_SEARCH_PARAMS.map do |name|
-      hidden_field_tag(name.to_s, params[name])
-    end.join('').html_safe
+      if name == :manifestation_types
+        next unless params[name]
+        params[name].keys.each do |key|
+          array << hidden_field_tag("#{name.to_s}[#{key}]", true)
+        end
+      else
+        array << hidden_field_tag(name.to_s, params[name])
+      end
+    end
+    array.join('').html_safe
   end
 
   def advanced_search_condition_summary(opts = {})
@@ -419,6 +425,10 @@ module ApplicationHelper
         if params[key].present? && params[k].present?
           summary_ary << ["#{advanced_search_label(key)}#{advanced_search_label(k)}", params[key]]
         end
+
+      when :manifestation_types
+        ks = ManifestationType.where(["id in (?)", params[key].keys]).map(&:display_name)
+        summary_ary << [key, ks.join(', ')] if params[key].present?
 
       else
         summary_ary << [key, params[key]] if params[key].present?
@@ -482,5 +492,19 @@ module ApplicationHelper
   def hbr(target)
     target = html_escape(target)
     target.gsub(/\r\n|\r|\n/, "<br />")
+  end
+
+  # @highlightに設定された正規表現に基きspanタグを挿入する
+  # html_safeを適用した文字列を返す
+  def highlight(str)
+    html = ''
+    str = str.dup
+    while @highlight =~ str
+      html << escape_once($`)
+      html << content_tag(:span, :class => 'highlight') { $& }
+      str = $'
+    end
+    html << escape_once(str)
+    html.html_safe
   end
 end

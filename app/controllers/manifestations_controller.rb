@@ -171,7 +171,6 @@ class ManifestationsController < ApplicationController
         end
         sort = search_result_order(params[:sort_by], params[:order])
       end
-
       search_opts[:with_periodical_item] = params[:with_periodical_item]
       with_filter, without_filter = make_query_filter(search_opts)
 
@@ -188,6 +187,7 @@ class ManifestationsController < ApplicationController
           end
         end
       end
+      logger.debug "  SOLR Query string:<#{query}>"
 
       searchs.each do |s|
         Manifestation.build_search_for_manifestations_list(s, query, with_filter, without_filter)
@@ -378,7 +378,6 @@ class ManifestationsController < ApplicationController
       end
     end
     store_location # before_filter ではファセット検索のURLを記憶してしまう
-
     respond_to do |format|
       if params[:opac]
         if @manifestations.size > 0
@@ -697,14 +696,12 @@ class ManifestationsController < ApplicationController
     #
     # basic search
     #
-
-    query = params[:query].to_s.dup
-    query = query.gsub(/[　\s]+/, ' ')
-    query = query.strip
+    query = fixup_query_string(params[:query])
 
     query = "#{query}*" if query.size == 1
-    query = '' if query == '[* TO *]'
 
+
+    query = '' if query == '[* TO *]'
     if query.present?
       qws = each_query_word(query) do |qw|
         highlight << /#{highlight_pattern(qw)}/
@@ -718,6 +715,8 @@ class ManifestationsController < ApplicationController
         qwords << '(' + qws.join(' OR ') + ')'
       end
     end
+    # recent manifestations
+    qwords << "created_at_d:[NOW-1MONTH TO NOW] AND except_recent_b:false" if params[:mode] == 'recent'
 
     #
     # advanced search
@@ -769,14 +768,14 @@ class ManifestationsController < ApplicationController
       flg = /\Aexcept_/ =~ key.to_s ? '-' : ''
       tag = "#{field}:" if field
       each_query_word(value) do |word|
-        qws << "#{flg}#{tag}#{word}"
-        hls << word
+        qws << "#{flg}#{word}"
+        hls << word if flg.blank?
       end
 
       if qws.size > 1 && merge_type == 'any'
-        qwords.push "(#{qws.join(' OR ')})"
+        qwords.push "#{tag}(#{qws.join(' OR ')})"
       else
-        qwords.push qws.join(' AND ')
+        qwords.push "#{tag}(#{qws.join(' AND ')})"
       end
 
       if (key == :title || key == :creator) &&
@@ -804,7 +803,7 @@ class ManifestationsController < ApplicationController
     # 詳細検索からの資料区分 ファセット選択時は無効とする
     if params[:manifestation_types].present? && params[:manifestation_type].blank?
       types_ary = []
-      manifestation_types = params[:manifestation_types].class == String ? eval(params[:manifestation_types]) : params[:manifestation_types]
+      manifestation_types = params[:manifestation_types]
       manifestation_types.each_key do |key|
         manifestation_type = ManifestationType.find(key)
         types_ary << manifestation_type.name if manifestation_type.present?
@@ -899,11 +898,21 @@ class ManifestationsController < ApplicationController
     [with, without]
   end
 
+  # Solr検索式を生成するための
+  # 以下の前処理を加えた新しい文字列を返す
+  #  * いわゆる全角空白文字をASCII空白文字("\x20")に変換する
+  #  * 連続する空白文字を一つの空白文字に変換する
+  #  * 文字列の先頭と末尾の空白文字を削除する
+  def fixup_query_string(str)
+    str.to_s.gsub(/[　\s]+/, ' ').strip
+  end
+
   # 空白を含まない文字列、"..."、'...'を抽出する
   # ただし単独のAND、ORは"AND"、"OR"に変換して返す
   # ブロックが与えられていれば抽出した文字列に適用する
   def each_query_word(str)
     ary = []
+    str = fixup_query_string(str)
     str.scan(/([^"'\s]\S*|(["'])(?:(?:\\\\)+|\\\2|.)*?\2)/) do
       word = $1
       word = "\"#{word}\"" if /\A(?:and|or)\z/io =~ word
