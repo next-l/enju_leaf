@@ -1,4 +1,4 @@
-<% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'show_index', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
+<%# cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'show_index', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
   <strong>
     <%- if [1, 2].include?(manifestation.missing_issue) %><%= t('manifestation.missing') %><%- end %>
     <% if manifestation.root_of_series? %>
@@ -43,4 +43,4 @@
   <div id="creator_list_<%= manifestation.id -%>">
     <%= render 'manifestations/show_creators', :manifestation => manifestation -%>
   </div>
-<% end %>
+<%# end %>
