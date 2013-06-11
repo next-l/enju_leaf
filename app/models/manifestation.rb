@@ -1350,6 +1350,14 @@ class Manifestation < ActiveRecord::Base
 
       # set item_information
       manifestation.items.each do |item|
+        if SystemConfiguration.get('manifestation.manage_item_rank')
+          if current_user.nil? or !current_user.has_role?('Librarian')
+            next unless item.rank == 0
+            next if item.retention_period.non_searchable
+            next if item.circulation_status.name == "Removed"
+            next if item.non_searchable
+          end
+        end
         6.times { |i|
           label, data = "", ""
           page.list(:list).add_row do |row|
