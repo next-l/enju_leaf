@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 class SystemConfigurationsController < ApplicationController
   include SystemConfigurationsHelper
   before_filter :check_client_ip_address
@@ -17,8 +18,19 @@ class SystemConfigurationsController < ApplicationController
     params[:system_configurations].each do |id, value|
       begin
         system_configuration = SystemConfiguration.find(id.to_i)
+
+        # for exclude_patrons
+        old_exclude_patrons, new_exclude_patrons = nil, nil
+        if system_configuration.keyname == 'exclude_patrons'
+          old_exclude_patrons = system_configuration.v.split(',').inject([]){ |list, word| list << word.gsub(/^[　\s]*(.*?)[　\s]*$/, '\1') }
+          new_exclude_patrons = value.split(',').inject([]){ |list, word| list << word.gsub(/^[　\s]*(.*?)[　\s]*$/, '\1') }
+        end
+
         system_configuration.v = value
         system_configuration.save!
+
+        # for exclude_patrons
+        set_exclude_patrons(old_exclude_patrons, new_exclude_patrons) if system_configuration.keyname == 'exclude_patrons'
       rescue Exception => e
         @errors << error.new(id, e, value)
         logger.error "system_configurations update error: #{e}"
@@ -37,5 +49,30 @@ class SystemConfigurationsController < ApplicationController
         format.json { render :json => @system_configurations.errors, :status => :unprocessable_entity }
       end
     end    
+  end
+
+  private
+  def set_exclude_patrons(old_exclude_patrons, new_exclude_patrons)
+    old_exclude_patrons.each do |p|
+      next if new_exclude_patrons.include?(p)
+      patron = Patron.where(:full_name => p).first
+      if patron
+        if patron.manifestations.size == 0 && patron.works.size == 0 && patron.expressions.size == 0
+          patron.destroy
+        else
+          patron.exclude_state = 0
+          patron.save!
+        end
+      end
+    end
+    new_exclude_patrons.each do |p|
+      patron = Patron.where(:full_name => p).first
+      unless patron
+        patron = Patron.new
+        patron.full_name = p
+      end
+      patron.exclude_state = 1
+      patron.save!
+    end
   end
 end
