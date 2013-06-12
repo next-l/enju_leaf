@@ -708,7 +708,7 @@ system_configuration_00100:
 system_configuration_00101:
   id: 101
   keyname: exclude_patrons
-  v: "他,ほか,et-al"
+  v: "他,ほか,et-al."
   typename: String
   description: "著者、協力者・編者、協力者・編者で指定時に人物・団体として扱わないワード"
   category: 'manifestation'
