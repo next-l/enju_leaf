@@ -86,9 +86,9 @@ module SystemConfigurationsHelper
         string << "<input type='text' "
         string << "name=system_configurations[#{ system_configuration.id }] "
         if error
-          string << "value=#{ error.v } "
+          string << "value='#{ error.v }' "
         else
-          string << "value=#{ system_configuration.v } "
+          string << "value='#{ system_configuration.v }' "
         end
         string << "style='background-color:pink;'" if error
         string << ">"

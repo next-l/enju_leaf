@@ -1540,7 +1540,6 @@ ja:
     search_resource: "%{model}を検索"
     show_all: "全てを表示"
     hide: "隠す"
-    et_al: "他"
     overdue: "延滞"
     number_of_reservations: "%{count} 人の予約待ち"
     back_to_search_results: "検索結果の一覧に戻る"
