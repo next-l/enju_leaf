@@ -1,5 +1,5 @@
-package_dir = "/home/enju/jma/pack/"
-packprefix = "enju_jma"
+package_dir = "/home/enju/customer/pack/"
+packprefix = "enju_production"
 root = "#{::Rails.root}"
 
 def packing(packagefile, archives, excludes = "")
