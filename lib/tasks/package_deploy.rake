@@ -15,7 +15,8 @@ namespace :enju_trunk do
 
       archives = "Gemfile Gemfile.lock GitLastLog Rakefile app/ config/ config.ru db/ lib/ public/ report/ script/ solr/ spec/ vendor/fonts vendor/cache/ vendor/assets/"
 
-      package_name = "#{packprefix}_pack_staging_init_#{Time.now.strftime('%Y%m%d%H%M%S')}.tar.bz2"
+      #package_name = "#{packprefix}_pack_staging_init_#{Time.now.strftime('%Y%m%d%H%M%S')}.tar.bz2"
+      package_name = "#{packprefix}_pack_staging_init.tar.bz2"
       packagefile = "#{package_dir}#{package_name}"
       #excludes = ".gitkeep *.sample"
       exclude_from = "script/exclude_init"
