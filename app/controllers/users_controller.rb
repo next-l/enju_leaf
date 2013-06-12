@@ -42,6 +42,8 @@ class UsersController < ApplicationController
         facet :patron_type
         facet :user_status
         paginate :page => page.to_i, :per_page => User.default_per_page
+      else
+        paginate :page => 1, :per_page => User.count
       end
     end
     @users = @search.execute!.results
