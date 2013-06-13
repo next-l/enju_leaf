@@ -502,4 +502,22 @@ module ApplicationHelper
     html << escape_once(str)
     html.html_safe
   end
+
+  def tab_menu_width
+    css_name = ''
+    if !user_signed_in?
+      if can_use_purchase_request?
+        css_name = 'fg-4button'
+      else
+        css_name = 'fg-3button'
+      end
+    elsif user_signed_in? and !current_user.has_role?('Librarian')
+      if can_use_purchase_request? || SystemConfiguration.get('use_copy_request') || SystemConfiguration.get("user_show_questions")
+        css_name = 'fg-4button'
+      else
+        css_name = 'fg-3button'
+      end
+    end
+    return css_name
+  end
 end

@@ -1,9 +1,4 @@
-<a tabindex="0" href="#circulation_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all
-  <%- if !SystemConfiguration.get("user_show_purchase_requests") and !SystemConfiguration.get("user_show_questions") -%>
-    <%- if !user_signed_in? or !current_user.has_role?('Librarian') -%> fg-3button<%- end -%>
-  <%- else -%>
-    <%- if !user_signed_in? or !current_user.has_role?('Librarian') -%> fg-4button<%- end -%>
-  <%- end -%>" id="fg_circulation">
+<a tabindex="0" href="#circulation_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all <%= tab_menu_width %>" id="fg_circulation">
   <span class="ui-icon ui-icon-triangle-1-s"></span>
   <% if current_user.try(:has_role?, 'Librarian') %>
     <%= t('page.librarian_circulation') -%>
