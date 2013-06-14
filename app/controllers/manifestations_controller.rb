@@ -542,9 +542,13 @@ class ManifestationsController < ApplicationController
     if original_manifestation
       @manifestation = original_manifestation.dup
       @creator = original_manifestation.creators.collect(&:full_name).flatten.join(';')
+      @creator_transcription = original_manifestation.creators.collect(&:full_name_transcription).flatten.join(';')
       @contributor = original_manifestation.contributors.collect(&:full_name).flatten.join(';')
+      @contributor_transcription = original_manifestation.contributors.collect(&:full_name_transcription).flatten.join(';')
       @publisher = original_manifestation.publishers.collect(&:full_name).flatten.join(';')
+      @publisher_transcription = original_manifestation.publishers.collect(&:full_name_transcription).flatten.join(';')
       @subject = original_manifestation.subjects.collect(&:term).join(';')
+      @subject_transcription = original_manifestation.subjects.collect(&:term_transcription).join(';')
       @manifestation.isbn = nil
       @manifestation.series_statement = original_manifestation.series_statement unless @manifestation.series_statement
     elsif @expression
