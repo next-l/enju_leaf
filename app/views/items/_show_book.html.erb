@@ -193,7 +193,7 @@
     <% end %>
     <%- if @item.inter_library_loans.empty? -%>
       <%- if user_signed_in? and current_user.has_role?('Librarian') -%>
-        <li><%= link_to t('item.add_new_copy'), new_manifestation_item_path(@item.manifestation) -%></li>
+        <li><%= link_to t('item.add_new_copy'), new_manifestation_item_path(@item.manifestation, :item_id => @item) -%></li>
       <%- end -%>
     <%- end -%>
     <li><%= link_to t('page.listing', :model => t('activerecord.models.lending_policy')), item_lending_policies_path(@item) -%></li>

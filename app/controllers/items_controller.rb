@@ -126,11 +126,12 @@ class ItemsController < ApplicationController
       redirect_to manifestations_url
       return
     end
-    original_item = @manifestation.items.where(:rank => 0).first rescue nil
+    original_item = Item.where(:id => params[:item_id]).first if params[:item_id]
     if original_item
       @item = original_item.dup
       @item.item_identifier = nil
-      @item.rank = 1 # copy
+      @item.rank = 1 if original_item.rank == 0
+      @item.use_restriction_id = original_item.use_restriction.id
       @shelves << @item.shelf
     else
       @item = Item.new
@@ -140,13 +141,12 @@ class ItemsController < ApplicationController
       @circulation_statuses = CirculationStatus.order(:position)
       @item.circulation_status = CirculationStatus.where(:name => 'In Process').first unless @item.try(:circulation_status)
       @item.checkout_type = @manifestation.carrier_type.checkout_types.first unless @item.try(:checkout_type)
-      @item.use_restriction_id = UseRestriction.where(:name => 'Limited Circulation, Normal Loan Period').select(:id).first.id unless @item.try(:use_restriction)
-#      @item.shelf = @library.shelves.first
+      @item.use_restriction_id = UseRestriction.where(:name => 'Limited Circulation, Normal Loan Period').select(:id).first.id unless @item.use_restriction_id
       @item.call_number = @manifestation.items.where(:rank => 0).first.call_number unless @item.try(:call_number) rescue nil
     else
       @item.circulation_status = CirculationStatus.where(:name => 'Not Available').first unless @item.try(:circulation_status)
       @item.checkout_type = CheckoutType.where(:name => 'article').first unless @item.try(:checkout_type)
-      @item.use_restriction_id = UseRestriction.where(:name => 'Not For Loan').select(:id).first.id unless @item.try(:use_restriction)
+      @item.use_restriction_id = UseRestriction.where(:name => 'Not For Loan').select(:id).first.id unless @item.use_restriction_id
       @item.shelf = @library.article_shelf unless @item.try(:shelf)
     end
 
