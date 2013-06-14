@@ -1,10 +1,12 @@
 <p>
+  <%= f.label :edition_display_value -%>
+  <%= f.text_field :edition_display_value, :size=>"10" %>
   <%= f.label :volume_number_string -%>
-  <%= f.text_field :volume_number_string, :class => 'resource_integer' -%>
+  <%= f.text_field :volume_number_string, :size=>"10" %>
   <%= f.label :issue_number_string -%>
-  <%= f.text_field :issue_number_string, :class => 'resource_integer' -%>
+  <%= f.text_field :issue_number_string, :size=>"10" %>
   <%= f.label :serial_number_string -%>
-  <%= f.text_field :serial_number_string, :class => 'resource_integer', :style => 'ime-mode: disabled' -%>
+  <%= f.text_field :serial_number_string, :size=>"10" %>
 </p>
 <p>
   <%= f.label :isbn -%>
