@@ -537,6 +537,7 @@ class ManifestationsController < ApplicationController
   # GET /manifestations/new.json
   def new
     @manifestation = Manifestation.new
+    @manifestation.language = Language.where(:iso_639_1 => @locale).first
     original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
     if original_manifestation
       @manifestation = original_manifestation.dup
@@ -550,9 +551,28 @@ class ManifestationsController < ApplicationController
       @manifestation.original_title = @expression.original_title
       @manifestation.title_transcription = @expression.title_transcription
     elsif @series_statement
+      @manifestation.original_title = @series_statement.original_title
+      @manifestation.title_transcription = @series_statement.title_transcription
+      @manifestation.issn = @series_statement.issn
+      if @series_statement.root_manifestation
+        root_manifestation = @series_statement.root_manifestation
+        @creator = root_manifestation.creators.collect(&:full_name).flatten.join(';')
+        @creator_transcription = root_manifestation.creators.collect(&:full_name_transcription).flatten.join(';')
+        @contributor = root_manifestation.contributors.collect(&:full_name).flatten.join(';')
+        @contributor_transcription = root_manifestation.contributors.collect(&:full_name_transcription).flatten.join(';')
+        @publisher = root_manifestation.publishers.collect(&:full_name).flatten.join(';')
+        @publisher_transcription = root_manifestation.publishers.collect(&:full_name_transcription).flatten.join(';')
+        @manifestation.carrier_type = root_manifestation.carrier_type
+        @manifestation.manifestation_type = root_manifestation.manifestation_type
+        @manifestation.frequency = root_manifestation.frequency
+        @manifestation.country_of_publication = root_manifestation.country_of_publication
+        @manifestation.place_of_publication = root_manifestation.place_of_publication
+        @manifestation.language = root_manifestation.language
+        @manifestation.access_address = root_manifestation.access_address
+        @manifestation.required_role = root_manifestation.required_role
+      end
       @manifestation.series_statement = @series_statement
     end
-    @manifestation.language = Language.where(:iso_639_1 => @locale).first unless original_manifestation
     @manifestation = @manifestation.set_serial_number if params[:mode] == 'new_issue'
     @original_manifestation = original_manifestation if params[:mode] == 'add'
     respond_to do |format|

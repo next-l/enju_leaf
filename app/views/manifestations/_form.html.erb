@@ -91,7 +91,7 @@ $(document).keydown(function(e) {
   </div>
   <div class="field">
     <strong><%= t('manifestation.creator_transcription') -%></strong><%= t('manifestation.delim_semicolon') -%><br />
-    <%= f.text_field :creator_transcription, :class => 'resource_title' -%>
+    <%= f.text_field :creator_transcription, :value => @creator_transcription, :class => 'resource_title' -%>
   </div>
   <div class="field">
     <%= f.label :contributor -%><%= t('manifestation.delim_semicolon') -%><br />
@@ -99,7 +99,7 @@ $(document).keydown(function(e) {
   </div>
   <div class="field">
     <strong><%= t('manifestation.contributor_transcription') -%></strong><%= t('manifestation.delim_semicolon') -%><br />
-    <%= f.text_field :contributor_transcription, :class => 'resource_title' -%>
+    <%= f.text_field :contributor_transcription, :value => @contributor_transcription, :class => 'resource_title' -%>
   </div>
   <div class="field">
     <%= f.label :publisher -%><%= t('manifestation.delim_semicolon') -%><br />
@@ -107,7 +107,7 @@ $(document).keydown(function(e) {
   </div>
   <div class="field">
     <strong><%= t('manifestation.publisher_transcription') -%></strong><%= t('manifestation.delim_semicolon') -%><br />
-    <%= f.text_field :publisher_transcription, :class => 'resource_title' -%>
+    <%= f.text_field :publisher_transcription, :value => @publisher_transcription, :class => 'resource_title' -%>
   </div>
 
   <div class="field">
