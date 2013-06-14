@@ -591,9 +591,13 @@ class ManifestationsController < ApplicationController
     @original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
     @manifestation.series_statement = @series_statement if @series_statement
     @creator = @manifestation.creators.collect(&:full_name).flatten.join(';')
+    @creator_transcription = @manifestation.creators.collect(&:full_name_transcription).flatten.join(';')
     @contributor = @manifestation.contributors.collect(&:full_name).flatten.join(';')
+    @contributor_transcription = @manifestation.contributors.collect(&:full_name_transcription).flatten.join(';')
     @publisher = @manifestation.publishers.collect(&:full_name).flatten.join(';')
+    @publisher_transcription = @manifestation.publishers.collect(&:full_name_transcription).flatten.join(';')
     @subject = @manifestation.subjects.collect(&:term).join(';')
+    @subject_transcription = @manifestation.subjects.collect(&:term_transcription).join(';')
     if defined?(EnjuBookmark)
       if params[:mode] == 'tag_edit'
         @bookmark = current_user.bookmarks.where(:manifestation_id => @manifestation.id).first if @manifestation rescue nil
