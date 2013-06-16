@@ -310,6 +310,12 @@
             <td><%= manifestation.exinfo_10 -%></td>
           </tr>
         <%- end -%>
+        <%- if manifestation.extext_1 -%>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.extext_1') -%>:</td>
+            <td><%= manifestation.extext_1 -%></td>
+          </tr>
+        <%- end -%>
 
         <% unless manifestation.periodical_master %> 
           <%- if SystemConfiguration.get("manifestation.display_checkouts_count") && Setting.operation -%>
