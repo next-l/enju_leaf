@@ -18,7 +18,16 @@ module PurchaseRequestsHelper
       return true
     else
       if user_signed_in?
-        return true if current_user.has_role?(role_can_use_purchase_request)
+        case role_can_use_purchase_request
+        when 'Guest'
+          return true if ['Guest', 'User', 'Librarian', 'Administrator'].include?(current_user.role.name)
+        when 'User'
+          return true if ['User', 'Librarian', 'Administrator'].include?(current_user.role.name)
+        when 'Librarian'
+          return true if ['Librarian', 'Administrator'].include?(current_user.role.name)
+        when 'Administrator'
+          return true if ['Administrator'].include?(current_user.role.name)
+        end
       end
     end
     false

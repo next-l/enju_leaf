@@ -1,6 +1,6 @@
-<% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'show_index', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
+<%# cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'show_index', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
   <strong>
-    <% if manifestation.access_address and !SystemConfiguration.isWebOPAC %>
+    <% if manifestation.access_address.present? and !SystemConfiguration.isWebOPAC %>
       <%= link_to manifestation.original_title, manifestation.access_address %>
     <%- else -%>
       <%= manifestation.original_title %>
@@ -18,4 +18,4 @@
     <%= manifestation.serial_number_string %>
     <%- if manifestation.start_page || manifestation.end_page %>(<%= page_format(manifestation.start_page, manifestation.end_page) -%>)<%- end -%>
   </div>
-<% end %>
+<%# end %>

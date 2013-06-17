@@ -1,5 +1,5 @@
   <%- if user_signed_in? and current_user.has_role?('Librarian') -%>
-    <a tabindex="1" href="#acquisition_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="fg_acquisition"><span class="ui-icon ui-icon-triangle-1-s"></span><%= t('page.acquisition') -%></a>
+    <a tabindex="1" href="#acquisition_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all <%= tab_menu_width %>" id="fg_acquisition"><span class="ui-icon ui-icon-triangle-1-s"></span><%= t('page.acquisition') -%></a>
     <div id="acquisition_menu" class="hidden">
       <ul>
         <li><%= link_to t('import_request.enter_isbn'), new_import_request_path -%></li>

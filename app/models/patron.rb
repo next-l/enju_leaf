@@ -273,17 +273,14 @@ class Patron < ActiveRecord::Base
         if patron_list[:full_name_transcription].present?
           patron.full_name_transcription = patron_list[:full_name_transcription].exstrip_with_full_size_space
         end
-        patron.exclude_state = 1 if Patron.exclude_patrons.include?(patron_list[:full_name].exstrip_with_full_size_space)
+        exclude_patrons = SystemConfiguration.get("exclude_patrons").split(',').inject([]){ |list, word| list << word.gsub(/^[　\s]*(.*?)[　\s]*$/, '\1') }
+        patron.exclude_state = 1 if exclude_patrons.include?(patron_list[:full_name].exstrip_with_full_size_space)
         patron.required_role = Role.where(:name => 'Guest').first
         patron.save
       end
       list << patron
     end
     list
-  end
-
-  def self.exclude_patrons
-    return ['他', 'et-al.']
   end
 
   def self.add_patrons(patron_names, patron_transcriptions = nil)
@@ -304,6 +301,8 @@ class Patron < ActiveRecord::Base
         patron = Patron.new
         patron.full_name = name
         patron.full_name_transcription = full_name_transcription
+        exclude_patrons = SystemConfiguration.get("exclude_patrons").split(',').inject([]){ |list, word| list << word.gsub(/^[　\s]*(.*?)[　\s]*$/, '\1') }
+        patron.exclude_state = 1 if exclude_patrons.include?(name)
         patron.save
       else
         if full_name_transcription
