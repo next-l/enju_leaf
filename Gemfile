@@ -56,7 +56,7 @@ gem 'strongbox'
 gem 'sitemap_generator', '~> 4.0'
 gem 'devise-encryptable'
 gem 'whenever', :require => false
-gem 'sanitize'
+#gem 'sanitize'
 gem 'client_side_validations', '~> 3.2'
 gem 'rack-protection'
 gem 'rails_autolink'
