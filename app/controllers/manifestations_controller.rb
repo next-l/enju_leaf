@@ -796,8 +796,9 @@ class ManifestationsController < ApplicationController
       flg = /\Aexcept_/ =~ key.to_s ? '-' : ''
       tag = "#{field}:" if field
       each_query_word(value) do |word|
-        qws << "#{flg}#{word}"
         hls << word if flg.blank?
+        word = "*#{word}*" if word.size == 1
+        qws << "#{flg}#{word}"
       end
 
       if qws.size > 1 && merge_type == 'any'
