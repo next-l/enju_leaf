@@ -640,6 +640,7 @@ ja:
         checkout_type: 貸出区分
         retention_period: 保存種別
         acquired_at: 受入日
+        acquired_at_string: 受入日
         loss_item: 紛失処理
         set_status: 紛失処理を実行
         will_loss_item: 資料の貸出状態を紛失扱いにし、自動返却を行いますか。
@@ -2324,7 +2325,7 @@ ja:
         publisher: 出版者
         subject: 件名
         accept_type: 受入区分
-        acquired_at: 受入日
+        acquired_at_string: 受入日
         bookstore: 寄贈・購入先
         library: 図書館
         shelf: 本棚

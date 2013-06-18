@@ -946,7 +946,7 @@ class Manifestation < ActiveRecord::Base
     marc_number ndc start_page end_page height width depth price
     acceptance_number access_address repository_content required_role
     except_recent description supplement note creator contributor publisher
-    subject accept_type acquired_at bookstore library shelf checkout_type
+    subject accept_type acquired_at_string bookstore library shelf checkout_type
     circulation_status retention_period call_number item_price url
     include_supplements use_restriction item_note rank item_identifier
     remove_reason non_searchable missing_issue del_flg
