@@ -2704,6 +2704,14 @@ ja:
               ※２つ以上の文献を希望される方は、上のような要領で必要な数だけ列記してください。<br />
               なお、連絡事項等がある場合は、最下行に記入してください。"
 
+  checkoutlist:
+    output_job_queued: "ファイル出力結果はメッセージでお知らせします。(お知らせIDは%{job_name})"
+    output_job_success_subject: "貸出状況表のファイル出力が完了しました [ID: %{job_name}]"
+    output_job_success_body: "お知らせID「%{job_name}」のファイル出力が完了しました。次のアドレスからファイルを取得してください。\n%{url}"
+    output_job_error_subject: "ファイル出力できませんでした [ID: %{job_name}]"
+    output_job_error_body: "お知らせID「%{job_name}」のファイル出力を完了できませんでした。理由は次の通りです。\n%{message}"
+
+
   opac:
     finish: 終わる
     push_touchpanel: ▼ 希望の項目を押してください

@@ -1434,7 +1434,7 @@ class Manifestation < ActiveRecord::Base
         user,
         I18n.t('manifestation.output_job_error_subject', :job_name => name),
         #I18n.t('manifestation.output_job_error_body', :job_name => name, :message => exception.message))
-        I18n.t('manifestation.output_job_error_body', :job_name => name, :message => exception.backtrace))
+        I18n.t('manifestation.output_job_error_body', :job_name => name, :message => exception.message+exception.backtrace))
     end
   end
 end

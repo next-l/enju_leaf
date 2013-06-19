@@ -19,6 +19,9 @@ class UserFile
     item_register: {
       expire: 24.hours,
     },
+    checkoutlist: {
+      expire: 24.hours,
+    },
   }
 
   class << self
