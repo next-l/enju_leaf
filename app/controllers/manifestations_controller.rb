@@ -577,7 +577,8 @@ class ManifestationsController < ApplicationController
       end
       @manifestation.series_statement = @series_statement
     end
-    @manifestation = @manifestation.set_serial_number if params[:mode] == 'new_issue'
+
+    @manifestation = ManifestationsController.helpers.set_serial_number(@manifestation) if params[:mode] == 'new_issue'
     @original_manifestation = original_manifestation if params[:mode] == 'add'
     respond_to do |format|
       format.html # new.html.erb
@@ -796,8 +797,9 @@ class ManifestationsController < ApplicationController
       flg = /\Aexcept_/ =~ key.to_s ? '-' : ''
       tag = "#{field}:" if field
       each_query_word(value) do |word|
-        qws << "#{flg}#{word}"
         hls << word if flg.blank?
+        word = "*#{word}*" if word.size == 1
+        qws << "#{flg}#{word}"
       end
 
       if qws.size > 1 && merge_type == 'any'

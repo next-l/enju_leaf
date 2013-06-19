@@ -252,4 +252,17 @@ module ManifestationsHelper
     end
   end
 
+  def set_serial_number(m)
+    if m.serial_number_string.present? 
+      m.serial_number_string = m.serial_number_string.match(/\D/) ? nil : m.serial_number_string.to_i + 1
+      unless m.issue_number_string.blank?
+        m.issue_number_string = m.issue_number_string.match(/\D/) ? nil : m.issue_number_string.to_i + 1
+      end
+    elsif m.issue_number_string.present?
+      m.issue_number_string = m.issue_number_string.match(/\D/) ? nil : m.issue_number_string.to_i + 1
+    elsif m.volume_number_string.present?
+      m.volume_number_string = m.volume_number_string.match(/\D/) ? nil : m.volume_number_string.to_i + 1
+    end
+    return m
+  end
 end

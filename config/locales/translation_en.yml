@@ -498,6 +498,7 @@ en:
         checkout_type: Checkout type
         retention_period: Retention Period
         acquired_at: Acquired at
+        acquired_at_string: Acquired at
         loss_item: Loss item
         set_status: Loss item processing
         will_loss_item: Is status set as Lost, and Is a book returned? 
