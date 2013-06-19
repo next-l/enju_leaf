@@ -582,41 +582,6 @@ class Manifestation < ActiveRecord::Base
     (creators + contributors + publishers).flatten
   end
 
-  def set_serial_number
-    if m = series_statement.try(:last_issue)
-      self.original_title = m.original_title
-      self.title_transcription = m.title_transcription
-      self.title_alternative = m.title_alternative
-      self.issn = m.issn
-      unless m.serial_number_string.blank?
-        self.serial_number_string = m.serial_number_string.to_i + 1
-        unless m.issue_number_string.blank?
-#          self.issue_number = m.issue_number.split.last.to_i + 1
-          self.issue_number_string = m.issue_number_string.to_i + 1
-        else
-          self.issue_number_string = m.issue_number_string
-        end
-        self.volume_number_string = m.volume_number_string
-      else
-        unless m.issue_number_string.blank?
-#          self.issue_number = m.issue_number.split.last.to_i + 1
-#          self.issue_number_string = m.issue_number.last.to_i + 1
-#          self.issue_number_string = m.issue_number_string.last.to_i + 1
-          self.issue_number_string = m.issue_number_string.to_i + 1
-          self.volume_number_string = m.volume_number_string
-        else
-          unless m.volume_number_string.blank?
-#            self.volume_number = m.volume_number.split.last.to_i + 1
-#            self.volume_number = m.volume_number.last.to_i + 1
-#            self.volume_number_string = m.volume_number_string.last.to_i + 1
-            self.volume_number_string = m.volume_number_string.to_i + 1
-          end
-        end
-      end
-    end
-    self
-  end
-
   def reservable_with_item?(user = nil)
     if SystemConfiguration.get("reserve.not_reserve_on_loan").nil?
       return true

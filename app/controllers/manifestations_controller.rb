@@ -577,7 +577,8 @@ class ManifestationsController < ApplicationController
       end
       @manifestation.series_statement = @series_statement
     end
-    @manifestation = @manifestation.set_serial_number if params[:mode] == 'new_issue'
+
+    @manifestation = ManifestationsController.helpers.set_serial_number(@manifestation) if params[:mode] == 'new_issue'
     @original_manifestation = original_manifestation if params[:mode] == 'add'
     respond_to do |format|
       format.html # new.html.erb
