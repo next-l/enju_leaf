@@ -8,8 +8,8 @@ class ResourceImportTextfile < ActiveRecord::Base
   has_attached_file :resource_import_text, :path => ":rails_root/private:url"
 
   validates_attachment_content_type :resource_import_text,
-    :content_type => %w(text/plain application/vnd.openxmlformats-officedocument.spreadsheetml.sheet),
-    #:content_type => %w(text/plain application/vnd.openxmlformats-officedocument.spreadsheetml.sheet application/octet-stream),
+    #:content_type => %w(text/plain application/vnd.openxmlformats-officedocument.spreadsheetml.sheet),
+    :content_type => %w(text/plain application/vnd.openxmlformats-officedocument.spreadsheetml.sheet application/octet-stream),
     :message => I18n.t('resource_import_textfile.wrong_content_type')
   validates_attachment_presence :resource_import_text
   belongs_to :user, :validate => true

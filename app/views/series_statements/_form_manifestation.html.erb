@@ -32,6 +32,21 @@ function displayArticleTitle(article_title) {
     $("#article_title_field").html("");
   }
 }
+
+function convertExinfo(obj){
+  var tmp = obj.value.split("-");
+  if (tmp.length != 3) {return false;} 
+  tmp[0] = convertNum(tmp[0]);
+  tmp[2] = convertNum(tmp[2]);
+  obj.value = tmp.join("-");
+}
+
+function convertNum(num){
+  while(num.length < 4) {
+    num = "0"+num;
+  }
+  return num;
+}
 </script>
 
   <div class="field" id="article_title_field">
@@ -146,42 +161,42 @@ function displayArticleTitle(article_title) {
   </div>
 
   <div class="field">
-    <%= f_m.label t('activerecord.attributes.manifestation.exinfo_1') %>
-    <%= f_m.text_field :exinfo_1, :class => "resource_integer" %>
+    <%= f_m.label t('root_manifestation.exinfo_3') %>
+    <%= f_m.text_field :exinfo_3 %>
   </div>
 
   <div class="field">
-    <%= f_m.label t('activerecord.attributes.manifestation.exinfo_2') %>
+    <%= f_m.label t('root_manifestation.exinfo_1') %>
+    <%= f_m.text_field :exinfo_1, :onblur => "convertExinfo(this);", :placeholder => "#{t('page.example')}: 1986-37-0001, 1986- -10002" %>
+  </div>
+
+  <div class="field">
+    <%= f_m.label t('root_manifestation.exinfo_2') %>
     <%= f_m.text_field :exinfo_2, :class => "resource_integer" %>
   </div>
 
   <div class="field">
-    <%= f_m.label t('activerecord.attributes.manifestation.exinfo_3') %>
-    <%= f_m.text_field :exinfo_3, :class => "resource_integer" %>
-  </div>
-
-  <div class="field">
-    <%= f_m.label t('activerecord.attributes.manifestation.exinfo_4') %>
+    <%= f_m.label t('root_manifestation.exinfo_4') %>
     <%= f_m.text_field :exinfo_4, :class => "resource_integer" %>
   </div>
 
   <div class="field">
-    <%= f_m.label t('activerecord.attributes.manifestation.exinfo_5') %>
-    <%= f_m.text_field :exinfo_5, :class => "resource_integer" %>
+    <%= f_m.label t('root_manifestation.exinfo_5') %>
+    <%= f_m.text_field :exinfo_5, :onblur => "convertExinfo(this);", :placeholder => "#{t('page.example')}: 1986-37-0001, 1986- -10002"%>
   </div>
 
   <div class="field">
-    <%= f_m.label t('activerecord.attributes.manifestation.exinfo_6') %>
+    <%= f_m.label t('root_manifestation.exinfo_6') %>
     <%= f_m.text_field :exinfo_6, :class => "resource_integer" %>
   </div>
 
   <div class="field">
-    <%= f_m.label t('activerecord.attributes.manifestation.exinfo_7') %>
+    <%= f_m.label t('root_manifestation.exinfo_7') %>
     <%= f_m.text_field :exinfo_7, :class => "resource_integer" %>
   </div>
 
   <div class="field">
-    <%= f_m.label t('activerecord.attributes.manifestation.exinfo_8') %>
+    <%= f_m.label t('root_manifestation.exinfo_8') %>
     <%= f_m.text_field :exinfo_8, :class => "resource_integer" %>
   </div>
 

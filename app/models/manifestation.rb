@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 require EnjuTrunkFrbr::Engine.root.join('app', 'models', 'manifestation')
-require EnjuTrunkCirculation::Engine.root.join('app', 'models', 'manifestation') if Setting.operation
+require EnjuTrunkCirculation::Engine.root.join('app', 'models', 'manifestation') if SystemConfiguration.get('internal_server')
 class Manifestation < ActiveRecord::Base
   self.extend ItemsHelper
   has_many :creators, :through => :creates, :source => :patron, :order => :position
@@ -1400,7 +1400,7 @@ class Manifestation < ActiveRecord::Base
         user,
         I18n.t('manifestation.output_job_error_subject', :job_name => name),
         #I18n.t('manifestation.output_job_error_body', :job_name => name, :message => exception.message))
-        I18n.t('manifestation.output_job_error_body', :job_name => name, :message => exception.backtrace))
+        I18n.t('manifestation.output_job_error_body', :job_name => name, :message => exception.message+exception.backtrace))
     end
   end
 end

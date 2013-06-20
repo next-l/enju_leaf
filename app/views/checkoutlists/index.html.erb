@@ -1,6 +1,7 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('exstatistics.checkout_report') %></h1>
 <div id="content_list">
+  <div style="color: green"><%= flash[:message] -%></div>
   <div id="list_condition_200">
     <%- @item_nums.keys.each_with_index do |item, i| %>
       <p><%= item %>: <%= @item_nums[item] %></p>
