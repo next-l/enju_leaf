@@ -655,7 +655,8 @@ class ManifestationsController < ApplicationController
         format.json { render :json => @manifestation, :status => :created, :location => @manifestation }
       else
         prepare_options
-        format.html { render :action => "new" }
+#        format.html { render :action => "new", :series_statement_id => params[:series_statement_id]}
+        format.html { render :action => "new"}
         format.json { render :json => @manifestation.errors, :status => :unprocessable_entity }
       end
     end

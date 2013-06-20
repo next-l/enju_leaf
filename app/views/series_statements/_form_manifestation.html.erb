@@ -33,20 +33,6 @@ function displayArticleTitle(article_title) {
   }
 }
 
-function convertExinfo(obj){
-  var tmp = obj.value.split("-");
-  if (tmp.length != 3) {return false;} 
-  tmp[0] = convertNum(tmp[0]);
-  tmp[2] = convertNum(tmp[2]);
-  obj.value = tmp.join("-");
-}
-
-function convertNum(num){
-  while(num.length < 4) {
-    num = "0"+num;
-  }
-  return num;
-}
 </script>
 
   <div class="field" id="article_title_field">
@@ -167,7 +153,7 @@ function convertNum(num){
 
   <div class="field">
     <%= f_m.label t('root_manifestation.exinfo_1') %>
-    <%= f_m.text_field :exinfo_1, :onblur => "convertExinfo(this);", :placeholder => "#{t('page.example')}: 1986-37-0001, 1986- -10002" %>
+    <%= f_m.text_field :exinfo_1 %>
   </div>
 
   <div class="field">
@@ -182,7 +168,7 @@ function convertNum(num){
 
   <div class="field">
     <%= f_m.label t('root_manifestation.exinfo_5') %>
-    <%= f_m.text_field :exinfo_5, :onblur => "convertExinfo(this);", :placeholder => "#{t('page.example')}: 1986-37-0001, 1986- -10002"%>
+    <%= f_m.text_field :exinfo_5 %>
   </div>
 
   <div class="field">
