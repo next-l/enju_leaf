@@ -559,11 +559,12 @@ class Manifestation < ActiveRecord::Base
 
   def new_serial?
     return false unless self.serial?    
-    unless self.serial_number.blank?
-      return true if self == self.series_statement.last_issue
-    else
-      return true if self == self.series_statement.last_issue_with_issue_number
-    end
+    return true if self.series_statement.last_issues.include?(self)
+#    unless self.serial_number.blank?
+#      return true if self == self.series_statement.last_issue
+#    else
+#      return true if self == self.series_statement.last_issue_with_issue_number
+#    end
   end
 
   def checkout_period(user)
