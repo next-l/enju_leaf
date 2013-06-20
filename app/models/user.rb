@@ -580,7 +580,7 @@ class User < ActiveRecord::Base
     # query
     query = query.to_s
     query = query.gsub("-", "") if query
-    query = "#{query}*" if query.size == 1
+    query = "*#{query}*" if query.size == 1
     # birth date
     birth_date = birth.to_s.gsub(/\D/, '') if birth
     message = nil
