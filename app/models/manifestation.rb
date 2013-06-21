@@ -526,17 +526,18 @@ class Manifestation < ActiveRecord::Base
 
   def non_searchable?
     return false if periodical_master
+    return true  if items.empty?
     items.each do |i|
-      if !i.try(:retention_period).try(:non_searchable) and i.circulation_status.name != "Removed" and !i.non_searchable
-        return false
-      end
+      hide = false
+      hide = true if i.non_searchable
+      hide = true if i.try(:retention_period).try(:non_searchable)
+      hide = true if i.try(:circulation_status).try(:unsearchable)
       if SystemConfiguration.get('manifestation.manage_item_rank')
-        if i.rank == 0
-          return false
-        end
+        hide = true if i.rank == 2
       end
+      return false unless hide 
     end
-    true
+    return true
   end
 
   def has_removed?

@@ -1,6 +1,6 @@
-            <tr class="line<% unless checkedout_original_book?(manifestation) %><%= cycle("0", "1") %><% else %>2<% end%>">
+            <tr class="line<% unless not_rent_book?(manifestation) %><%= cycle("0", "1") %><% else %>2<% end%>">
               <td style="480px">
-                <%- if manifestation.article? %>
+               <%- if manifestation.article? %>
                   <%= render 'manifestations/show_index_article', :manifestation => manifestation -%>
                 <%- else -%>
                   <%= render 'manifestations/show_index', :manifestation => manifestation -%>

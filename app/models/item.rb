@@ -12,6 +12,7 @@ class Item < ActiveRecord::Base
                   :non_searchable
 
   self.extend ItemsHelper
+  scope :sort_rank, order('rank')
   scope :for_checkout, where('item_identifier IS NOT NULL')
   scope :not_for_checkout, where(:item_identifier => nil)
   scope :on_shelf, where('shelf_id != 1')

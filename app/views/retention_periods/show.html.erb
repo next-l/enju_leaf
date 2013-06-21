@@ -15,11 +15,7 @@
 
 <p>
   <strong><%= t('activerecord.attributes.retention_period.non_searchable') %>:</strong>
-  <% if @retention_period.non_searchable %>
-    <%= t('activerecord.attributes.retention_period.able') %>
-  <% else %>
-    <%= t('activerecord.attributes.retention_period.unable') %>
-  <% end %>
+  <%= localized_boolean(@retention_period.non_searchable) %>
 </p>
 
 <p>

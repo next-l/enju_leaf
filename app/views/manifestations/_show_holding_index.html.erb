@@ -17,7 +17,8 @@
   </tr>
   <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'holding', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
   <%# - manifestation.items.on_shelf.each do |item| -%>
-    <% manifestation.items.each do |item| %>
+    <% items = manifestation.items = SystemConfiguration.get('manifestation.manage_item_rank') ? manifestation.items.sort_rank : manifestation.items %>
+    <% items.each do |item| %>
       <% next if hide_item?(params[:all_manifestations], item) %>
       <tr>
         <td>
@@ -39,7 +40,11 @@
         </td>
         <% unless manifestation.article? %>
           <td>
-            <%= item.circulation_status.display_name.localize if item.circulation_status %>
+            <% if item.circulation_status.name != 'Available On Shelf' %>
+              <span class="not_rent_item"><%= item.circulation_status.display_name.localize if item.circulation_status %></span>
+            <% else %>
+              <%= item.circulation_status.display_name.localize if item.circulation_status %>
+            <% end %>
             <% if item.rent? %>
               (
                 <%= t('activerecord.attributes.checkout.due_date') %>:

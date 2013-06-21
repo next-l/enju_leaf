@@ -7,6 +7,7 @@
     <th id="position"></th>
     <th><%= t('activerecord.attributes.retention_period.name') %></th>
     <th><%= t('activerecord.attributes.retention_period.display_name') %></th>
+    <th><%= t('activerecord.attributes.retention_period.non_searchable') %></th>
     <th><%= t('activerecord.attributes.retention_period.note') %></th>
     <th></th>
   </tr>
@@ -20,6 +21,7 @@
     </td>
     <td><%= link_to retention_period.name, retention_period %></td>
     <td><%= link_to retention_period.display_name, retention_period %></td>
+    <td><%= localized_boolean(retention_period.non_searchable) %></td>
     <td><%= retention_period.note %></td>
     <td>
       <% if can? :update, retention_period %>
