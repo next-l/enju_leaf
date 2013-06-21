@@ -162,6 +162,7 @@ module ManifestationsHelper
   end
 
   def not_rent_book?(manifestation)
+    return false if manifestation.periodical_master?
     return true if manifestation.items.empty?
     manifestation.items.each do  |i|
       return false if CirculationStatus.available_for_retain.all.map(&:id).include?(i.circulation_status.id) and i.item_identifier
