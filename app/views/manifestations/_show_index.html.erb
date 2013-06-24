@@ -23,17 +23,18 @@
       <%= link_to highlight(manifestation.original_title), manifestation_path(manifestation) -%>
     <% end %>
   </strong>
-  <%- unless manifestation.volume_number_string.blank? %><%= t('manifestation.format_volume', :volume => manifestation.volume_number_string) %><%- end -%>
-  <%- unless manifestation.issue_number_string.blank? %><%= t('manifestation.format_issue', :issue => manifestation.issue_number_string) %><%- end -%>
+  <%= t('manifestation.format_volume', :volume => manifestation.volume_number_string) unless manifestation.volume_number_string.blank? %>
+  <%= t('manifestation.format_issue', :issue => manifestation.issue_number_string) unless manifestation.issue_number_string.blank? %>
   <% if manifestation.periodical_master? %>
     <%- if manifestation.series_statement.try(:first_issue) and manifestation.series_statement.try(:latest_issue) -%>
       <%= manifestation.series_statement.first_issue.date_of_publication.try(:year) -%>
       -
       <%= manifestation.series_statement.latest_issue.date_of_publication.try(:year) -%>
     <%- end -%>
-  <%- end -%>
-  <%- unless manifestation.exinfo_1.blank? %><%= manifestation.try(:exinfo_1) -%> - <%- end -%>
-  <%- unless manifestation.exinfo_6.blank? %><%= manifestation.try(:exinfo_6) -%><%- end -%>
+  <% else %>
+    <%= "#{manifestation.try(:exinfo_1)} - " unless manifestation.exinfo_1.blank? %>
+    <%= manifestation.try(:exinfo_6) unless manifestation.exinfo_6.blank? %>
+  <% end %>
   <%= link_to form_icon(manifestation.carrier_type), manifestation_path(manifestation) -%>
   <%= image_tag('icons/newspaper.png', :size => '16x16', :alt => t('manifestation.serial'), :title => t('tooltip.serial')) if manifestation.serial? -%>
   <% unless SystemConfiguration.isWebOPAC and !manifestation.article? %>
