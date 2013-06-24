@@ -1,16 +1,44 @@
+<%
+  form_sub_header = nil
+  if params[:series_statement_id]
+    form_type = :series_statement
+    form_opts = {:url => series_statement_manifestations_path(params[:series_statement_id])}
+  else
+    form_type = :basic
+    form_opts = {:url => manifestations_path }
+  end
+
+  form_opts[:html] = {:method => 'get'}
+%>
 <div id="content_detail" class="ui-corner-all" itemscope itemtype="http://schema.org/Book">
   <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.manifestation')) -%></h1>
   <div id="content_list">
   <p id="notice"><%= notice %></p>
 
-    <%= form_for :manifestations, :url => manifestations_path, :html => {:method => 'get'} do -%>
+    <%= form_for :manifestations, form_opts do -%>
       <div>
         <%= paginate_id_link(@manifestation) -%>
         <%= back_to_manifestation_index -%>
         <%= t('page.search_term') -%>:
-        <%= search_field_tag 'query', session[:query], {:id => 'search_form_top', :class => 'search_form_short', :placeholder => t('page.search_term')} -%>
+        <%= search_field_tag 'query', params[:query], {:id => "search_form_top", :class => 'search_form_short', :placeholder => t('page.search_term')} -%>
+        <% if form_type == :basic %>
+          <%= hidden_field_tag 'user_id', params[:user_id] if params[:user_id] %>
+          <%= hidden_field_tag 'removed', true if @removed %>
+        <% end %>
+        <%= hidden_advanced_search_field_tags -%>
         <%= submit_tag t('page.search') -%>
-        <%= link_to t('page.advanced_search'), page_advanced_search_path -%>
+        <% if params[:query].present? %><input type="button" value="<%= t('page.search_clear') -%>" onclick='<%= "$(" + "'#search_form_top" + "').val('')" %>' ><% end %>
+        <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
+          <% if user_signed_in? and current_user.has_role?('Librarian') %>
+            <% if params[:all_manifestations] %>
+              <%= check_box_tag 'all_manifestations', true, true %>
+            <% else %>
+              <%= check_box_tag 'all_manifestations', true %>
+            <% end %>
+            <%= t('advanced_search.all_manifestations') %><br />
+          <% end %>
+        <% end %>
+        <%= link_to_advanced_search %> <%= link_to_normal_search %> <%= advanced_search_condition_summary %>
       </div>
     <%- end -%>
 

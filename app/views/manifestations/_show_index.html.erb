@@ -3,24 +3,9 @@
     <%- if [1, 2].include?(manifestation.missing_issue) %><%= t('manifestation.missing') %><%- end %>
     <% if manifestation.root_of_series? %>
       <%= link_to highlight(manifestation.series_statement.original_title), 
-        series_statement_manifestations_path(
-          manifestation.series_statement,
-          params.merge(
-            :reservable => nil,
-            :carrier_type => nil,
-            :library => nil,
-            :in_process => nil,
-            :language => nil,
-            :manifestation_type => nil,
-            :missing_issue => nil,
-            :circulation_status_in_process => nil,
-            :circulation_status_in_factory => nil,
-            :page => nil,
-            :view => nil
-          )
-        ) %>
+        series_statement_manifestations_path(manifestation.series_statement, reset_facet_params(params)) %>
     <% else %>
-      <%= link_to highlight(manifestation.original_title), manifestation_path(manifestation) -%>
+      <%= link_to highlight(manifestation.original_title), manifestation_path(manifestation, reset_facet_params(params)) %>
     <% end %>
   </strong>
   <%= t('manifestation.format_volume', :volume => manifestation.volume_number_string) unless manifestation.volume_number_string.blank? %>
