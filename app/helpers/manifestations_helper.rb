@@ -256,4 +256,21 @@ module ManifestationsHelper
     end
     return m
   end
+
+  def reset_facet_params(params)
+    params.merge(
+            :reservable => nil,
+            :carrier_type => nil,
+            :library => nil,
+            :in_process => nil,
+            :language => nil,
+            :manifestation_type => nil,
+            :missing_issue => nil,
+            :circulation_status_in_process => nil,
+            :circulation_status_in_factory => nil,
+            :page => nil,
+            :view => nil
+          )
+    return params
+  end
 end

@@ -442,7 +442,7 @@ class ManifestationsController < ApplicationController
       access_denied; return
     end
 
-    if params[:isbn]
+    if params[:isbn].present?
       if @manifestation = Manifestation.find_by_isbn(params[:isbn])
         redirect_to @manifestation
         return
