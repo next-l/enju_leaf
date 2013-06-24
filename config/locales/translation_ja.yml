@@ -327,6 +327,7 @@ ja:
       circulation_status:
         name: 名前
         display_name: 表示名
+        unsearchable: 検索対象から除外
         note: 注記
         position: 位置
       remove_reason:
@@ -822,8 +823,6 @@ ja:
         note: 注記
         position: 位置
         non_searchable: 検索不可
-        able: 検索可能
-        unable: 検索不可
       manifestation_type:
         name: 名前
         display_name: 表示名

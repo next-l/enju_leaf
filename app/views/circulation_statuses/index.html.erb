@@ -7,6 +7,7 @@
     <th id="position"></th>
     <th><%= t('activerecord.attributes.circulation_status.name') -%></th>
     <th><%= t('activerecord.attributes.circulation_status.display_name') -%></th>
+    <th><%= t('activerecord.attributes.circulation_status.unsearchable') %></th>
     <th></th>
   </tr>
 
@@ -19,6 +20,7 @@
     </td>
     <td><%= link_to circulation_status.name, circulation_status -%></td>
     <td><%= link_to circulation_status.display_name.localize, circulation_status -%></td>
+    <td><%= localized_boolean(circulation_status.unsearchable) %></td>
     <td>
       <%- if can? :update, circulation_status -%>
         <%= link_to t('page.edit'), edit_circulation_status_path(circulation_status) -%>

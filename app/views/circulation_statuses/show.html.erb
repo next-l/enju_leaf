@@ -14,6 +14,11 @@
 </p>
 
 <p>
+  <strong><%= t('activerecord.attributes.circulation_status.unsearchable') %>:</strong>
+  <%= localized_boolean(@circulation_status.unsearchable) %>
+</p>
+
+<p>
   <strong><%= t('activerecord.attributes.circulation_status.note') -%>:</strong>
   <%= @circulation_status.note -%>
 </p>

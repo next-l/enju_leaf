@@ -235,3 +235,8 @@ table#solr_query_format td, table#solr_query_format th {
   vertical-align: top;
   word-break : break-all;
 }
+
+span.not_rent_item {
+  color: red;
+  font-weight: bold;
+}

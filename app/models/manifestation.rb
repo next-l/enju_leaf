@@ -526,17 +526,18 @@ class Manifestation < ActiveRecord::Base
 
   def non_searchable?
     return false if periodical_master
+    return true  if items.empty?
     items.each do |i|
-      if !i.try(:retention_period).try(:non_searchable) and i.circulation_status.name != "Removed" and !i.non_searchable
-        return false
-      end
+      hide = false
+      hide = true if i.non_searchable
+      hide = true if i.try(:retention_period).try(:non_searchable)
+      hide = true if i.try(:circulation_status).try(:unsearchable)
       if SystemConfiguration.get('manifestation.manage_item_rank')
-        if i.rank == 0
-          return false
-        end
+        hide = true if i.rank == 2
       end
+      return false unless hide 
     end
-    true
+    return true
   end
 
   def has_removed?
@@ -559,11 +560,12 @@ class Manifestation < ActiveRecord::Base
 
   def new_serial?
     return false unless self.serial?    
-    unless self.serial_number.blank?
-      return true if self == self.series_statement.last_issue
-    else
-      return true if self == self.series_statement.last_issue_with_issue_number
-    end
+    return true if self.series_statement.last_issues.include?(self)
+#    unless self.serial_number.blank?
+#      return true if self == self.series_statement.last_issue
+#    else
+#      return true if self == self.series_statement.last_issue_with_issue_number
+#    end
   end
 
   def checkout_period(user)
