@@ -13,7 +13,7 @@ class Manifestation < ActiveRecord::Base
   belongs_to :language
   belongs_to :carrier_type
   belongs_to :manifestation_type
-  has_one :series_has_manifestation
+  has_one :series_has_manifestation, :dependent => :destroy
   has_one :series_statement, :through => :series_has_manifestation
   belongs_to :frequency
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
@@ -819,18 +819,12 @@ class Manifestation < ActiveRecord::Base
   #  output.path: 生成結果のパス名(result_typeが:pathのとき)
   #  output.job_name: 後で処理する際のジョブ名(result_typeが:delayedのとき)
   def self.generate_manifestation_list(solr_search, output_type, current_user, search_condition_summary, cols=[], threshold = nil, &block)
-#    get_total = proc do
-#      solr_search.execute.total
-#    end
     get_total = proc do
-      get_periodical_master_ids = Sunspot.new_search(Manifestation).build {
-          with(:periodical_master).equal_to true
-          paginate :page => 1, :per_page => Manifestation.count
-        }.execute.raw_results.map(&:primary_key)
-      series_statements_total = Manifestation.where(:id => get_periodical_master_ids).all.inject(0) do |total, m|
-          total += m.series_statement.manifestations.size
-        end rescue 0
-      solr_search.execute.total - get_periodical_master_ids.size + series_statements_total
+      series_statements_total = solr_search.execute.results.inject(0) do |total, m|
+                                  #TODO series_statement.manifestations は root_manifestation を含む  
+                                  total += m.series_statement.manifestations.size - 1 if m.series_statement
+                                end
+      solr_search.execute.total += series_statements_total if series_statements_total
     end
 
     get_all_ids = proc do
@@ -840,8 +834,7 @@ class Manifestation < ActiveRecord::Base
     end
 
     threshold ||= Setting.background_job.threshold.export rescue nil
-    if threshold && threshold > 0 &&
-        get_total.call > threshold
+    if threshold && threshold > 0 && get_total.call > threshold
       # 指定件数以上のときにはバックグラウンドジョブにする。
       user_file = UserFile.new(current_user)
 

@@ -13,3 +13,12 @@ begin
 rescue Errno::ENOENT
   # skip.
 end
+
+# custom validator
+if defined?(EnjuCustomize)
+  begin
+    require EnjuCustomize.render_dir + '/custom_validator'
+  rescue
+    # NO CUSTOM VALIDATOR
+  end
+end
