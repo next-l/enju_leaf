@@ -78,6 +78,10 @@ class ManifestationsController < ApplicationController
         search_opts[:solr_query_mode] = true if params[:solr_commit].present?
       end
 
+      if params[:item_identifier]
+        search_opts[:direct_mode] = true
+      end
+
       if defined?(EnjuBookmark) && params[:view] == 'tag_cloud'
         search_opts[:tag_cloud_mode] = true
       end
@@ -151,6 +155,15 @@ class ManifestationsController < ApplicationController
       end
 
       # action in the following:
+
+      # search a particular manifestation
+      if search_opts[:direct_mode]
+        item = Item.find_by_item_identifier(params[:item_identifier])
+        if item
+          redirect_to item.manifestation if item 
+          return
+        end
+      end
 
       # setup solr query
       if search_opts[:sru_mode]
