@@ -20,6 +20,26 @@ $(function(){
       $('#tabs-1').find('input').attr("disabled","disabled");
     }
   });
+
+  $("[name=commit]").click(function(){
+    var item_identifier = $("#item_identifier").val().replace(/　/g, '').replace(/ /g, '');
+    if (item_identifier != '') {
+      var input_other_form = false;
+      $('input[type="search"]').each(function(i){
+        if ($(this).attr("id") != "item_identifier") {
+          var value = $(this).val().replace(/　/g, '').replace(/ /g, '');
+          if (value != '') {
+            input_other_form = true;
+            return false;
+          }
+        }
+      });
+      if (input_other_form == true){
+        alert("<%= t("advanced_search.search_item_identifier")%>");
+        return false;
+      }
+    }
+  });
 });
 </script>
 

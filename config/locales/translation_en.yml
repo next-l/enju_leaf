@@ -1398,6 +1398,7 @@ en:
     all: "All %{model}"
     all_libraries: "All libraries"
     all_manifestations: "All manifestations diplay"
+    search_item_identifier: "When you do search the item identifier, do not input other forms."
   work:
     patrons_work: "%{patron_name}'s works"
     library_group_work: "Works in %{library_group_name}"
