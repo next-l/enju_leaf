@@ -22,23 +22,32 @@ $(function(){
   });
 
   $("[name=commit]").click(function(){
-    var item_identifier = $("#item_identifier").val().replace(/　/g, '').replace(/ /g, '');
-    if (item_identifier != '') {
-      var input_other_form = false;
-      $('input[type="search"]').each(function(i){
-        if ($(this).attr("id") != "item_identifier") {
-          var value = $(this).val().replace(/　/g, '').replace(/ /g, '');
-          if (value != '') {
-            input_other_form = true;
-            return false;
+    var arr = ["item_identifier"]
+    <% if SystemConfiguration.get("manifestation.isbn_unique") %>
+      arr.push("isbn")
+    <% end %>
+    for(i = 0; i < arr.length; i++) {
+      var target = $("#" + arr[i]).val().replace(/　/g, '').replace(/ /g, '');
+      if (target != '') {
+        var input_other_form = false;
+        $('input[type="search"]').each(function(){
+          if ($(this).attr("id") != arr[i]) {
+            var value = $(this).val().replace(/　/g, '').replace(/ /g, '');
+            if (value != '') {
+              input_other_form = true;
+              return false;
+            }
           }
+        });
+        if (input_other_form == true){
+          if (arr[i] == "isbn")
+            alert("<%= t('advanced_search.search_isbn') %>");
+          else
+            alert("<%= t('advanced_search.search_item_identifier') %>");
+          return false;
         }
-      });
-      if (input_other_form == true){
-        alert("<%= t("advanced_search.search_item_identifier")%>");
-        return false;
       }
-    }
+    } 
   });
 });
 </script>
