@@ -79,7 +79,9 @@ class ManifestationsController < ApplicationController
       end
 
       if params[:item_identifier]
-        search_opts[:direct_mode] = true
+        unless params[:item_identifier] =~ /\*/
+          search_opts[:direct_mode] = true
+        end
       end
 
       if defined?(EnjuBookmark) && params[:view] == 'tag_cloud'
