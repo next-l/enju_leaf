@@ -173,6 +173,7 @@ $(function(){
       <td>
         <%= hidden_field_tag 'advanced_search', 'true' -%>
         <%= hidden_field_tag 'user_id', params[:user_id] if params[:user_id] -%>
+        <%= hidden_field_tag 'series_statement_id', params[:series_statement_id] if params[:series_statement_id] %>
         <%= submit_tag t('page.search') -%>
         <%= button_to_function t('advanced_search.clear_query'), "clear_all()" %>
       </td>
