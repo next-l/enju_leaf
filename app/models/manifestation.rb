@@ -821,9 +821,10 @@ class Manifestation < ActiveRecord::Base
   def self.generate_manifestation_list(solr_search, output_type, current_user, search_condition_summary, cols=[], threshold = nil, &block)
     get_total = proc do
       series_statements_total = solr_search.execute.results.inject(0) do |total, m|
-                                  total += m.series_statement.manifestations.size - 1 if m.periodical_master
+                                  #TODO series_statement.manifestations は root_manifestation を含む  
+                                  total += m.series_statement.manifestations.size - 1 if m.series_statement
                                 end
-      solr_search.execute.total + series_statements_total
+      solr_search.execute.total += series_statements_total if series_statements_total
     end
 
     get_all_ids = proc do
