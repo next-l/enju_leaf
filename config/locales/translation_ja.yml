@@ -327,6 +327,7 @@ ja:
       circulation_status:
         name: 名前
         display_name: 表示名
+        unsearchable: 検索対象から除外
         note: 注記
         position: 位置
       remove_reason:
@@ -640,6 +641,7 @@ ja:
         checkout_type: 貸出区分
         retention_period: 保存種別
         acquired_at: 受入日
+        acquired_at_string: 受入日
         loss_item: 紛失処理
         set_status: 紛失処理を実行
         will_loss_item: 資料の貸出状態を紛失扱いにし、自動返却を行いますか。
@@ -821,8 +823,6 @@ ja:
         note: 注記
         position: 位置
         non_searchable: 検索不可
-        able: 検索可能
-        unable: 検索不可
       manifestation_type:
         name: 名前
         display_name: 表示名
@@ -1752,6 +1752,8 @@ ja:
     help_issn: "半角英数字で入力してください。"
     all_manifestations: "検索非対象資料も表示"
     clear_query: "検索条件をクリア"
+    search_isbn: "ISBNで検索を行う場合、他の検索条件は指定できません。"
+    search_item_identifier: "所蔵情報IDで検索を行う場合、他の検索条件は指定できません。"
     description: "
       <h5>検索方法:</h5>
       <strong>[AND]検索</strong><br />
@@ -2324,7 +2326,7 @@ ja:
         publisher: 出版者
         subject: 件名
         accept_type: 受入区分
-        acquired_at: 受入日
+        acquired_at_string: 受入日
         bookstore: 寄贈・購入先
         library: 図書館
         shelf: 本棚
@@ -2703,6 +2705,14 @@ ja:
               ※本庁、管区気象台等から送付している刊行物については、自官署にあるものを御利用ください。<br />
               ※２つ以上の文献を希望される方は、上のような要領で必要な数だけ列記してください。<br />
               なお、連絡事項等がある場合は、最下行に記入してください。"
+
+  checkoutlist:
+    output_job_queued: "ファイル出力結果はメッセージでお知らせします。(お知らせIDは%{job_name})"
+    output_job_success_subject: "貸出状況表のファイル出力が完了しました [ID: %{job_name}]"
+    output_job_success_body: "お知らせID「%{job_name}」のファイル出力が完了しました。次のアドレスからファイルを取得してください。\n%{url}"
+    output_job_error_subject: "ファイル出力できませんでした [ID: %{job_name}]"
+    output_job_error_body: "お知らせID「%{job_name}」のファイル出力を完了できませんでした。理由は次の通りです。\n%{message}"
+
 
   opac:
     finish: 終わる

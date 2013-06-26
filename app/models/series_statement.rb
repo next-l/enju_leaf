@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 class SeriesStatement < ActiveRecord::Base
   attr_accessible :original_title, :numbering, :title_subseries,
     :numbering_subseries, :title_transcription, :title_alternative,
@@ -40,10 +41,33 @@ class SeriesStatement < ActiveRecord::Base
 
   paginates_per 10
 
+  # TODO: 不要メソッド　テストを実行し、削除しても問題内容であれば消すこと
   def last_issue
-    return nil unless self.periodical
     manifestations.where('serial_number IS NOT NULL').order('serial_number DESC').first # || manifestations.first
-#    manifestations.where('date_of_publication IS NOT NULL').order('date_of_publication DESC').first || manifestations.first
+    manifestations.where('date_of_publication IS NOT NULL').order('date_of_publication DESC').first || manifestations.first
+  end
+
+  def last_issues
+    return [] unless self.periodical
+    issues = []
+    serial_number = manifestations.where('serial_number IS NOT NULL').select(:serial_number).order('serial_number DESC').first.try(:serial_number)
+    if serial_number
+      issues = manifestations.where("serial_number =#{serial_number}") 
+    else
+      volume_number = manifestations.where('volume_number IS NOT NULL').select(:volume_number).order('volume_number DESC').first.try(:volume_number)
+      if volume_number
+        issue_number = manifestations.where("volume_number = #{volume_number} AND issue_number IS NOT NULL").select(:issue_number).order('issue_number DESC').first.try(:issue_number)
+        if issue_number
+          issues = manifestations.where("volume_number = #{volume_number} AND issue_number = #{issue_number}")
+        else
+          issues = manifestations.where("volume_number = #{volume_number}")
+        end
+      else
+        issue_number = manifestations.where('issue_number IS NOT NULL').select(:issue_number).order('issue_number DESC').first.try(:issue_number)
+        issues = manifestations.where("issue_number = #{issue_number}") if issue_number
+      end
+    end 
+    return issues
   end
 
   def last_issue_with_issue_number
@@ -55,7 +79,12 @@ class SeriesStatement < ActiveRecord::Base
     manifestations = []
     series_statements = SeriesStatement.all
     series_statements.each do |series|
-      manifestations << series.last_issue if series.last_issue
+      if series.last_issues
+        series.last_issues.each do |s|  
+          manifestations << s
+        end
+      end
+    #  manifestations << series.last_issue if series.last_issue
     end
     return manifestations
   end

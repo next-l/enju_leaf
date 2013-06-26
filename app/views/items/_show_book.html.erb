@@ -32,8 +32,7 @@
 <% if user_signed_in? and current_user.has_role?('Librarian') %>
   <p>
     <strong><%= t('activerecord.attributes.item.rank') -%>:</strong>
-    <%= @item.rank %>
-    <%# = i18n_rank(@item.rank) if @item.rank %>
+    <%= i18n_rank(@item.rank) if @item.rank %>
   </p>
 <% end %>
 <% end %>
@@ -66,7 +65,7 @@
 <p>
   <strong><%= t('activerecord.models.circulation_status') -%>:</strong>
   <%= link_to @item.circulation_status.display_name.localize, @item.circulation_status -%>
-  <%- if @item.manifestation.series_statement && @item.manifestation == @item.manifestation.series_statement.last_issue -%>
+  <%- if @item.manifestation.series_statement && @item.manifestation.series_statement.last_issues.include?(@item.manifestation) -%>
     <%= t('item.new_serial') -%>
   <%- end -%>
   <%- if user_signed_in? && Setting.operation -%>
@@ -138,8 +137,8 @@
 <%- cache(:controller => :items, :action => :show, :id => @item.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :item_id => nil) do -%>
 
 <p>
-  <strong><%= t('activerecord.attributes.item.acquired_at') -%>:</strong>
-  <%= l(@item.acquired_at, :format => :only_date) if @item.acquired_at -%>
+  <strong><%= t('activerecord.attributes.item.acquired_at_string') %>:</strong>
+  <%= @item.acquired_at_string %>
 </p>
 
 <p>

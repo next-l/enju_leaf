@@ -78,6 +78,17 @@ class ManifestationsController < ApplicationController
         search_opts[:solr_query_mode] = true if params[:solr_commit].present?
       end
 
+      if params[:item_identifier].present?
+        unless params[:item_identifier] =~ /\*/
+          search_opts[:direct_mode] = true
+        end
+      end
+      if SystemConfiguration.get("manifestation.isbn_unique") and params[:isbn].present?
+        unless params[:isbn] =~ /\*/
+          search_opts[:direct_mode] = true
+        end
+      end
+
       if defined?(EnjuBookmark) && params[:view] == 'tag_cloud'
         search_opts[:tag_cloud_mode] = true
       end
@@ -151,6 +162,21 @@ class ManifestationsController < ApplicationController
       end
 
       # action in the following:
+
+      # search a particular manifestation
+      if search_opts[:direct_mode]
+        manifestation = nil
+        if params[:item_identifier].present?
+          item = Item.find_by_item_identifier(params[:item_identifier])
+          manifestation = item.manifestation if item
+        end
+        if SystemConfiguration.get("manifestation.isbn_unique") and params[:isbn].present?
+          manifestation = Manifestation.where(:isbn => params[:isbn]).first
+        end
+        if manifestation
+          redirect_to manifestation; return
+        end
+      end
 
       # setup solr query
       if search_opts[:sru_mode]
@@ -442,7 +468,7 @@ class ManifestationsController < ApplicationController
       access_denied; return
     end
 
-    if params[:isbn]
+    if params[:isbn].present?
       if @manifestation = Manifestation.find_by_isbn(params[:isbn])
         redirect_to @manifestation
         return
@@ -549,7 +575,7 @@ class ManifestationsController < ApplicationController
       @publisher_transcription = original_manifestation.publishers.collect(&:full_name_transcription).flatten.join(';')
       @subject = original_manifestation.subjects.collect(&:term).join(';')
       @subject_transcription = original_manifestation.subjects.collect(&:term_transcription).join(';')
-      @manifestation.isbn = nil
+      @manifestation.isbn = nil if SystemConfiguration.get("manifestation.isbn_unique")
       @manifestation.series_statement = original_manifestation.series_statement unless @manifestation.series_statement
     elsif @expression
       @manifestation.original_title = @expression.original_title
@@ -577,7 +603,8 @@ class ManifestationsController < ApplicationController
       end
       @manifestation.series_statement = @series_statement
     end
-    @manifestation = @manifestation.set_serial_number if params[:mode] == 'new_issue'
+
+    @manifestation = ManifestationsController.helpers.set_serial_number(@manifestation) if params[:mode] == 'new_issue'
     @original_manifestation = original_manifestation if params[:mode] == 'add'
     respond_to do |format|
       format.html # new.html.erb
@@ -654,7 +681,8 @@ class ManifestationsController < ApplicationController
         format.json { render :json => @manifestation, :status => :created, :location => @manifestation }
       else
         prepare_options
-        format.html { render :action => "new" }
+#        format.html { render :action => "new", :series_statement_id => params[:series_statement_id]}
+        format.html { render :action => "new"}
         format.json { render :json => @manifestation.errors, :status => :unprocessable_entity }
       end
     end
@@ -796,8 +824,9 @@ class ManifestationsController < ApplicationController
       flg = /\Aexcept_/ =~ key.to_s ? '-' : ''
       tag = "#{field}:" if field
       each_query_word(value) do |word|
-        qws << "#{flg}#{word}"
         hls << word if flg.blank?
+        word = "*#{word}*" if word.size == 1
+        qws << "#{flg}#{word}"
       end
 
       if qws.size > 1 && merge_type == 'any'

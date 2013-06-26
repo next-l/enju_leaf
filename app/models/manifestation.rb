@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 require EnjuTrunkFrbr::Engine.root.join('app', 'models', 'manifestation')
-require EnjuTrunkCirculation::Engine.root.join('app', 'models', 'manifestation') if Setting.operation
+require EnjuTrunkCirculation::Engine.root.join('app', 'models', 'manifestation') if SystemConfiguration.get('internal_server')
 class Manifestation < ActiveRecord::Base
   self.extend ItemsHelper
   has_many :creators, :through => :creates, :source => :patron, :order => :position
@@ -13,7 +13,7 @@ class Manifestation < ActiveRecord::Base
   belongs_to :language
   belongs_to :carrier_type
   belongs_to :manifestation_type
-  has_one :series_has_manifestation
+  has_one :series_has_manifestation, :dependent => :destroy
   has_one :series_statement, :through => :series_has_manifestation
   belongs_to :frequency
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
@@ -526,17 +526,18 @@ class Manifestation < ActiveRecord::Base
 
   def non_searchable?
     return false if periodical_master
+    return true  if items.empty?
     items.each do |i|
-      if !i.try(:retention_period).try(:non_searchable) and i.circulation_status.name != "Removed" and !i.non_searchable
-        return false
-      end
+      hide = false
+      hide = true if i.non_searchable
+      hide = true if i.try(:retention_period).try(:non_searchable)
+      hide = true if i.try(:circulation_status).try(:unsearchable)
       if SystemConfiguration.get('manifestation.manage_item_rank')
-        if i.rank == 0
-          return false
-        end
+        hide = true if i.rank == 2
       end
+      return false unless hide 
     end
-    true
+    return true
   end
 
   def has_removed?
@@ -559,11 +560,12 @@ class Manifestation < ActiveRecord::Base
 
   def new_serial?
     return false unless self.serial?    
-    unless self.serial_number.blank?
-      return true if self == self.series_statement.last_issue
-    else
-      return true if self == self.series_statement.last_issue_with_issue_number
-    end
+    return true if self.series_statement.last_issues.include?(self)
+#    unless self.serial_number.blank?
+#      return true if self == self.series_statement.last_issue
+#    else
+#      return true if self == self.series_statement.last_issue_with_issue_number
+#    end
   end
 
   def checkout_period(user)
@@ -580,41 +582,6 @@ class Manifestation < ActiveRecord::Base
 
   def patrons
     (creators + contributors + publishers).flatten
-  end
-
-  def set_serial_number
-    if m = series_statement.try(:last_issue)
-      self.original_title = m.original_title
-      self.title_transcription = m.title_transcription
-      self.title_alternative = m.title_alternative
-      self.issn = m.issn
-      unless m.serial_number_string.blank?
-        self.serial_number_string = m.serial_number_string.to_i + 1
-        unless m.issue_number_string.blank?
-#          self.issue_number = m.issue_number.split.last.to_i + 1
-          self.issue_number_string = m.issue_number_string.to_i + 1
-        else
-          self.issue_number_string = m.issue_number_string
-        end
-        self.volume_number_string = m.volume_number_string
-      else
-        unless m.issue_number_string.blank?
-#          self.issue_number = m.issue_number.split.last.to_i + 1
-#          self.issue_number_string = m.issue_number.last.to_i + 1
-#          self.issue_number_string = m.issue_number_string.last.to_i + 1
-          self.issue_number_string = m.issue_number_string.to_i + 1
-          self.volume_number_string = m.volume_number_string
-        else
-          unless m.volume_number_string.blank?
-#            self.volume_number = m.volume_number.split.last.to_i + 1
-#            self.volume_number = m.volume_number.last.to_i + 1
-#            self.volume_number_string = m.volume_number_string.last.to_i + 1
-            self.volume_number_string = m.volume_number_string.to_i + 1
-          end
-        end
-      end
-    end
-    self
   end
 
   def reservable_with_item?(user = nil)
@@ -852,18 +819,12 @@ class Manifestation < ActiveRecord::Base
   #  output.path: 生成結果のパス名(result_typeが:pathのとき)
   #  output.job_name: 後で処理する際のジョブ名(result_typeが:delayedのとき)
   def self.generate_manifestation_list(solr_search, output_type, current_user, search_condition_summary, cols=[], threshold = nil, &block)
-#    get_total = proc do
-#      solr_search.execute.total
-#    end
     get_total = proc do
-      get_periodical_master_ids = Sunspot.new_search(Manifestation).build {
-          with(:periodical_master).equal_to true
-          paginate :page => 1, :per_page => Manifestation.count
-        }.execute.raw_results.map(&:primary_key)
-      series_statements_total = Manifestation.where(:id => get_periodical_master_ids).all.inject(0) do |total, m|
-          total += m.series_statement.manifestations.size
-        end rescue 0
-      solr_search.execute.total - get_periodical_master_ids.size + series_statements_total
+      series_statements_total = solr_search.execute.results.inject(0) do |total, m|
+                                  #TODO series_statement.manifestations は root_manifestation を含む  
+                                  total += m.series_statement.manifestations.size - 1 if m.series_statement
+                                end
+      solr_search.execute.total += series_statements_total if series_statements_total
     end
 
     get_all_ids = proc do
@@ -873,8 +834,7 @@ class Manifestation < ActiveRecord::Base
     end
 
     threshold ||= Setting.background_job.threshold.export rescue nil
-    if threshold && threshold > 0 &&
-        get_total.call > threshold
+    if threshold && threshold > 0 && get_total.call > threshold
       # 指定件数以上のときにはバックグラウンドジョブにする。
       user_file = UserFile.new(current_user)
 
@@ -946,7 +906,7 @@ class Manifestation < ActiveRecord::Base
     marc_number ndc start_page end_page height width depth price
     acceptance_number access_address repository_content required_role
     except_recent description supplement note creator contributor publisher
-    subject accept_type acquired_at bookstore library shelf checkout_type
+    subject accept_type acquired_at_string bookstore library shelf checkout_type
     circulation_status retention_period call_number item_price url
     include_supplements use_restriction item_note rank item_identifier
     remove_reason non_searchable missing_issue del_flg
@@ -1434,7 +1394,7 @@ class Manifestation < ActiveRecord::Base
         user,
         I18n.t('manifestation.output_job_error_subject', :job_name => name),
         #I18n.t('manifestation.output_job_error_body', :job_name => name, :message => exception.message))
-        I18n.t('manifestation.output_job_error_body', :job_name => name, :message => exception.backtrace))
+        I18n.t('manifestation.output_job_error_body', :job_name => name, :message => exception.message+exception.backtrace))
     end
   end
 end

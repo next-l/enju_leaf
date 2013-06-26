@@ -426,7 +426,7 @@ class ResourceImportFile < ActiveRecord::Base
       :call_number => row['call_number'].to_s.strip,
       :circulation_status => circulation_status,
       :shelf => shelf,
-      :acquired_at => acquired_at,
+      :acquired_at_string => acquired_at,
       :bookstore => bookstore,
       :use_restriction_id => use_restriction_id
     })

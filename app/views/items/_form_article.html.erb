@@ -67,15 +67,11 @@
   <div class="field">
 <script>
 $(function(){
-  $('#item_acquired_at').setCalendar({src:'/assets/calendar.png'});
+  $('#item_acquired_at_string').setCalendar({src:'/assets/calendar.png'});
 });
 </script>
-    <%= f.label :acquired_at %>
-    <% if @item.acquired_at %>
-      <%= f.text_field :acquired_at, :value => @item.acquired_at.try(:strftime, "%Y-%m-%d"), :class => 'date_field' %>
-    <% else %>
-      <%= f.text_field :acquired_at, :class => 'date_field', :placeholder => "#{t('page.example')}: 2011-04-12"%>
-    <% end %>
+    <%= f.label :acquired_at_string %>
+    <%= f.text_field :acquired_at_string, :class => 'date_field', :placeholder => "#{t('page.example')}: 2011-04-12"%>
   </div>
 
   <div class="field">

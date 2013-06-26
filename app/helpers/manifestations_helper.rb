@@ -161,35 +161,26 @@ module ManifestationsHelper
     return pages
   end
 
-  def checkedout_original_book?(manifestation)
-    if manifestation.items
-      if SystemConfiguration.get('manifestation.manage_item_rank')
-        original_item = manifestation.items.find_by_rank(0)
-        if original_item
-          return true if original_item.try(:circulation_status).try(:name) == 'On Loan'
-        end
-      else
-        checkout_all = true
-        manifestation.items.each do |item|
-          unless item.try(:circulation_status).try(:name) == 'On Loan'
-            checkout_all = false; break
-          end
-        end
-        return true if checkout_all
-      end
+  def not_rent_book?(manifestation)
+    return false if manifestation.periodical_master?
+    return true if manifestation.items.empty?
+    manifestation.items.each do  |i|
+      return false if CirculationStatus.available_for_retain.all.map(&:id).include?(i.circulation_status.id) and i.item_identifier
     end
-    false
+    true
   end
 
   def hide_item?(show_all = false, item)
-    if user_signed_in? and current_user.has_role?('Librarian') and @removed
+    if @removed
       return true unless item.circulation_status.name == "Removed"
-    else
+    else 
       return false if user_signed_in? and current_user.has_role?('Librarian') and show_all
-      return true unless item.rank == 0
-      return true if item.retention_period.non_searchable
-      return true if item.circulation_status.name == "Removed"
-      return true if item.non_searchable
+      return true  if item.non_searchable
+      return true  if item.try(:retention_period).try(:non_searchable)
+      return true  if item.try(:circulation_status).try(:unsearchable)
+      if SystemConfiguration.get('manifestation.manage_item_rank')
+        return true if item.rank == 2
+      end
     end
     false
   end
@@ -252,4 +243,34 @@ module ManifestationsHelper
     end
   end
 
+  def set_serial_number(m)
+    if m.serial_number_string.present? 
+      m.serial_number_string = m.serial_number_string.match(/\D/) ? nil : m.serial_number_string.to_i + 1
+      unless m.issue_number_string.blank?
+        m.issue_number_string = m.issue_number_string.match(/\D/) ? nil : m.issue_number_string.to_i + 1
+      end
+    elsif m.issue_number_string.present?
+      m.issue_number_string = m.issue_number_string.match(/\D/) ? nil : m.issue_number_string.to_i + 1
+    elsif m.volume_number_string.present?
+      m.volume_number_string = m.volume_number_string.match(/\D/) ? nil : m.volume_number_string.to_i + 1
+    end
+    return m
+  end
+
+  def reset_facet_params(params)
+    params.merge(
+            :reservable => nil,
+            :carrier_type => nil,
+            :library => nil,
+            :in_process => nil,
+            :language => nil,
+            :manifestation_type => nil,
+            :missing_issue => nil,
+            :circulation_status_in_process => nil,
+            :circulation_status_in_factory => nil,
+            :page => nil,
+            :view => nil
+          )
+    return params
+  end
 end

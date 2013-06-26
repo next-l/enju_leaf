@@ -7,7 +7,7 @@
     <tr>
       <td style="width: 200px"><%= t('manifestation.serial') -%>:</td>
       <td style="width: 490px"><%= manifestation.series_statement.original_title %>
-      <% if manifestation == manifestation.series_statement.last_issue %>
+      <% if manifestation.series_statement.last_issues.include?(manifestation) %>
         <%= t('manifestation.new_serial') %>
       <% end %>
       <% if manifestation.issn.present? %>

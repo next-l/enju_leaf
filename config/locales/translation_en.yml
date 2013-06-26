@@ -211,6 +211,7 @@ en:
       circulation_status:
         name: Name
         display_name: Display name
+        unsearchable: Unsearchable
         note: Note
         position: Position
       remove_reason:
@@ -498,6 +499,7 @@ en:
         checkout_type: Checkout type
         retention_period: Retention Period
         acquired_at: Acquired at
+        acquired_at_string: Acquired at
         loss_item: Loss item
         set_status: Loss item processing
         will_loss_item: Is status set as Lost, and Is a book returned? 
@@ -659,8 +661,6 @@ en:
         note: Note
         position: Position
         non_searchable: Non-searchable
-        able: Able
-        unable: Unable
       manifestation_type:
         name: Name
         display_name: Display name
@@ -1398,6 +1398,8 @@ en:
     all: "All %{model}"
     all_libraries: "All libraries"
     all_manifestations: "All manifestations diplay"
+    search_isbn: "When you do search ISBN, do not input other forms."
+    search_item_identifier: "When you do search the item identifier, do not input other forms."
   work:
     patrons_work: "%{patron_name}'s works"
     library_group_work: "Works in %{library_group_name}"
