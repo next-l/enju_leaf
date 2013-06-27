@@ -78,8 +78,13 @@ class ManifestationsController < ApplicationController
         search_opts[:solr_query_mode] = true if params[:solr_commit].present?
       end
 
-      if params[:item_identifier]
+      if params[:item_identifier].present?
         unless params[:item_identifier] =~ /\*/
+          search_opts[:direct_mode] = true
+        end
+      end
+      if SystemConfiguration.get("manifestation.isbn_unique") and params[:isbn].present?
+        unless params[:isbn] =~ /\*/
           search_opts[:direct_mode] = true
         end
       end
@@ -160,10 +165,16 @@ class ManifestationsController < ApplicationController
 
       # search a particular manifestation
       if search_opts[:direct_mode]
-        item = Item.find_by_item_identifier(params[:item_identifier])
-        if item
-          redirect_to item.manifestation if item 
-          return
+        manifestation = nil
+        if params[:item_identifier].present?
+          item = Item.find_by_item_identifier(params[:item_identifier])
+          manifestation = item.manifestation if item
+        end
+        if SystemConfiguration.get("manifestation.isbn_unique") and params[:isbn].present?
+          manifestation = Manifestation.where(:isbn => params[:isbn]).first
+        end
+        if manifestation
+          redirect_to manifestation; return
         end
       end
 
@@ -564,7 +575,7 @@ class ManifestationsController < ApplicationController
       @publisher_transcription = original_manifestation.publishers.collect(&:full_name_transcription).flatten.join(';')
       @subject = original_manifestation.subjects.collect(&:term).join(';')
       @subject_transcription = original_manifestation.subjects.collect(&:term_transcription).join(';')
-      @manifestation.isbn = nil
+      @manifestation.isbn = nil if SystemConfiguration.get("manifestation.isbn_unique")
       @manifestation.series_statement = original_manifestation.series_statement unless @manifestation.series_statement
     elsif @expression
       @manifestation.original_title = @expression.original_title
