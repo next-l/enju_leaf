@@ -75,7 +75,7 @@ class ManifestationsController < ApplicationController
 
       if params[:format].blank? || params[:format] == 'html'
         search_opts[:html_mode] = true
-        search_opts[:solr_query_mode] = true if params[:solr_commit].present?
+        search_opts[:solr_query_mode] = true if params[:solr_query].present?
       end
 
       if params[:item_identifier].present?
@@ -386,14 +386,25 @@ class ManifestationsController < ApplicationController
       end
 
       if search_opts[:html_mode]
-        @carrier_type_facet = search_all_result.facet(:carrier_type).rows
-        @language_facet = search_all_result.facet(:language).rows
-        @library_facet = search_all_result.facet(:library).rows
-        @manifestation_type_facet = search_all_result.facet(:manifestation_type).rows
-        @missing_issue_facet = search_all_result.facet(:missing_issue).rows
-        @in_process_facet = search_all_result.facet(:in_process).rows
-        @circulation_status_in_process_facet = search_all_result.facet(:circulation_status_in_process).rows
-        @circulation_status_in_factory_facet = search_all_result.facet(:circulation_status_in_factory).rows
+        unless search_opts[:with_article]
+          @carrier_type_facet = search_book_result.facet(:carrier_type).rows
+          @language_facet = search_book_result.facet(:language).rows
+          @library_facet = search_book_result.facet(:library).rows
+          @manifestation_type_facet = search_book_result.facet(:manifestation_type).rows
+          @missing_issue_facet = search_book_result.facet(:missing_issue).rows
+          @in_process_facet = search_book_result.facet(:in_process).rows
+          @circulation_status_in_process_facet = search_book_result.facet(:circulation_status_in_process).rows
+          @circulation_status_in_factory_facet = search_book_result.facet(:circulation_status_in_factory).rows
+        else
+          @carrier_type_facet = search_all_result.facet(:carrier_type).rows
+          @language_facet = search_all_result.facet(:language).rows
+          @library_facet = search_all_result.facet(:library).rows
+          @manifestation_type_facet = search_all_result.facet(:manifestation_type).rows
+          @missing_issue_facet = search_all_result.facet(:missing_issue).rows
+          @in_process_facet = search_all_result.facet(:in_process).rows
+          @circulation_status_in_process_facet = search_all_result.facet(:circulation_status_in_process).rows
+          @circulation_status_in_factory_facet = search_all_result.facet(:circulation_status_in_factory).rows
+        end
       end
 
       # TODO: 検索結果が少ない場合にも表示させる
