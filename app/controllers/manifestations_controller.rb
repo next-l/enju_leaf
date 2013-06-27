@@ -75,7 +75,7 @@ class ManifestationsController < ApplicationController
 
       if params[:format].blank? || params[:format] == 'html'
         search_opts[:html_mode] = true
-        search_opts[:solr_query_mode] = true if params[:solr_commit].present?
+        search_opts[:solr_query_mode] = true if params[:solr_query].present?
       end
 
       if params[:item_identifier].present?

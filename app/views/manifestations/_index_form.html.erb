@@ -89,6 +89,7 @@
       <%= hidden_field_tag 'circulation_status_in_factory', params[:circulation_status_in_factory] if params[:circulation_status_in_factory] -%>
     <%- end -%>
     <%= hidden_field_tag 'sort_by', params[:sort_by] if params[:sort_by] -%>
+    <%= hidden_field_tag 'solr_query', params[:solr_query] if params[:solr_query] -%>
 
 <%- if form_pos == :top -%>
     <%- if SystemConfiguration.get("manifestations.users_show_output_button") or (user_signed_in? and current_user.has_role?('Librarian')) -%>

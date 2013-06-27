@@ -339,12 +339,16 @@ module ApplicationHelper
   end
 
   def link_to_normal_search(link_title = nil)
-    return '' if ADVANCED_SEARCH_PARAMS.all? {|k| params[k].blank? }
+    return '' if ADVANCED_SEARCH_PARAMS.all? {|k| params[k].blank? } and params[:solr_query].blank?
 
     link_title ||= t('page.normal_search')
     url_params = params.dup
     [:controller, :commit, :utf8].each {|k| url_params.delete(k) }
-    ADVANCED_SEARCH_PARAMS.each {|k| url_params.delete(k) }
+    if params[:solr_query].present?
+      url_params.delete('solr_query')
+    else
+      ADVANCED_SEARCH_PARAMS.each {|k| url_params.delete(k) }
+    end
     link_to link_title, manifestations_path(url_params)
   end
 
@@ -364,7 +368,9 @@ module ApplicationHelper
   end
 
   def advanced_search_condition_summary(opts = {})
-    return '' if params[:solr_commit].present?
+    if params[:solr_query].present?
+      return params[:solr_query].present? ? "(#{params[:solr_query]})" : ""
+    end
 
     summary_ary = []
     special = {
