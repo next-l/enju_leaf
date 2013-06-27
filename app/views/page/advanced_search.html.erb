@@ -28,7 +28,7 @@ $(function(){
     <% end %>
     for(i = 0; i < arr.length; i++) {
       var target = $("#" + arr[i]).val().replace(/　/g, '').replace(/ /g, '');
-      if (target != '') {
+      if (target != '' && !target.match(/\*/)) {
         var input_other_form = false;
         $('input[type="search"]').each(function(){
           if ($(this).attr("id") != arr[i]) {
