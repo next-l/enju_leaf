@@ -704,9 +704,10 @@ class ManifestationsController < ApplicationController
         if @manifestation.series_statement and @manifestation.series_statement.periodical
           Manifestation.find(@manifestation.series_statement.root_manifestation_id).index
         end
-        @manifestation.creators = Patron.add_patrons(@creator, @creator_transcription) 
-        @manifestation.contributors = Patron.add_patrons(@contributor, @contributor_transcription) 
-        @manifestation.publishers = Patron.add_patrons(@publisher, @publisher_transcription)
+        #TODO update position to edit patrons without destroy
+        @manifestation.creators.destroy_all; @manifestation.creators = Patron.add_patrons(@creator, @creator_transcription) 
+        @manifestation.contributors.destroy_all; @manifestation.contributors = Patron.add_patrons(@contributor, @contributor_transcription) 
+        @manifestation.publishers.destroy_all; @manifestation.publishers = Patron.add_patrons(@publisher, @publisher_transcription)
         @manifestation.subjects = Subject.import_subjects(@subject, @subject_transcription) 
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_updated', :model => t('activerecord.models.manifestation')) }
         format.json { head :no_content }

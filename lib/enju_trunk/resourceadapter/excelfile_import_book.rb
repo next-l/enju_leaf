@@ -359,7 +359,8 @@ module EnjuTrunk
       unless contributors.nil?
         contributors_list   = contributors.inject([]){ |list, contributor| list << {:full_name => contributor.to_s.strip, :full_name_transcription => "" } }
         contributor_patrons = Patron.import_patrons(contributors_list)
-        manifestation.contributors = contributor_patrons
+        #TODO update contributor position withou destroy_all
+        manifestation.contributor.destroy_all; manifestation.contributors = contributor_patrons
       end
       # subject
       subjects_list_string = datas[@field[I18n.t('resource_import_textfile.excel.article.subject')]]
