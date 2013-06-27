@@ -521,7 +521,9 @@ class Manifestation < ActiveRecord::Base
   end
 
   def series?
-    self.try(:manifestation_type).try(:is_series?)
+    return true if series_statement
+    return false
+#    self.try(:manifestation_type).try(:is_series?)
   end
 
   def non_searchable?
@@ -823,8 +825,9 @@ class Manifestation < ActiveRecord::Base
       series_statements_total = solr_search.execute.results.inject(0) do |total, m|
                                   #TODO series_statement.manifestations は root_manifestation を含む  
                                   total += m.series_statement.manifestations.size - 1 if m.series_statement
+                                  total
                                 end
-      solr_search.execute.total += series_statements_total if series_statements_total
+      solr_search.execute.total + series_statements_total
     end
 
     get_all_ids = proc do
