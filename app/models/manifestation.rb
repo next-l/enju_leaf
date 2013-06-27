@@ -521,7 +521,9 @@ class Manifestation < ActiveRecord::Base
   end
 
   def series?
-    self.try(:manifestation_type).try(:is_series?)
+    return true if series_statement
+    return false
+#    self.try(:manifestation_type).try(:is_series?)
   end
 
   def non_searchable?
