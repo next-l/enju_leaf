@@ -163,6 +163,7 @@ module ManifestationsHelper
 
   def not_rent_book?(manifestation)
     return false if manifestation.periodical_master?
+    return false if manifestation.article?
     return true if manifestation.items.empty?
     manifestation.items.each do  |i|
       return false if CirculationStatus.available_for_retain.all.map(&:id).include?(i.circulation_status.id) and i.item_identifier
@@ -177,9 +178,11 @@ module ManifestationsHelper
       return false if user_signed_in? and current_user.has_role?('Librarian') and show_all
       return true  if item.non_searchable
       return true  if item.try(:retention_period).try(:non_searchable)
-      return true  if item.try(:circulation_status).try(:unsearchable)
-      if SystemConfiguration.get('manifestation.manage_item_rank')
-        return true if item.rank == 2
+      unless item.manifestation.article?
+        return true  if item.try(:circulation_status).try(:unsearchable)
+        if SystemConfiguration.get('manifestation.manage_item_rank')
+          return true if item.rank == 2
+        end
       end
     end
     false

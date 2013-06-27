@@ -533,9 +533,11 @@ class Manifestation < ActiveRecord::Base
       hide = false
       hide = true if i.non_searchable
       hide = true if i.try(:retention_period).try(:non_searchable)
-      hide = true if i.try(:circulation_status).try(:unsearchable)
-      if SystemConfiguration.get('manifestation.manage_item_rank')
-        hide = true if i.rank == 2
+      unless article?
+        hide = true if i.try(:circulation_status).try(:unsearchable)
+        if SystemConfiguration.get('manifestation.manage_item_rank')
+          hide = true if i.rank == 2
+        end
       end
       return false unless hide 
     end
