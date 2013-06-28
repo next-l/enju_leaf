@@ -660,8 +660,8 @@ class ManifestationsController < ApplicationController
     unless @manifestation.original_title?
       @manifestation.original_title = @manifestation.attachment_file_name
     end
-    if params[:series_statement_id]
-      series_statement = SeriesStatement.find(params[:series_statement_id])
+    if params[:manifestation][:series_statement_id]
+      series_statement = SeriesStatement.find(params[:manifestation][:series_statement_id])
       @manifestation.series_statement = series_statement if  series_statement
     end
     @creator = params[:manifestation][:creator]
@@ -692,7 +692,6 @@ class ManifestationsController < ApplicationController
         format.json { render :json => @manifestation, :status => :created, :location => @manifestation }
       else
         prepare_options
-#        format.html { render :action => "new", :series_statement_id => params[:series_statement_id]}
         format.html { render :action => "new"}
         format.json { render :json => @manifestation.errors, :status => :unprocessable_entity }
       end
