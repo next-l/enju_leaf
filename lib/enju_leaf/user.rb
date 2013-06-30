@@ -22,7 +22,7 @@ module EnjuLeaf
         scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
         scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)
         scope :suspended, where('locked_at IS NOT NULL')
-        #has_one :patron, :dependent => :destroy
+        #has_one :agent, :dependent => :destroy
         if defined?(EnjuBiblio)
           has_many :import_requests
           has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
@@ -33,7 +33,7 @@ module EnjuLeaf
         belongs_to :user_group
         belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id' #, :validate => true
         has_many :export_files if defined?(EnjuExport)
-        #has_one :patron_import_result
+        #has_one :agent_import_result
         accepts_nested_attributes_for :user_has_role
 
         validates :username, :presence => true, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z][0-9A-Za-z_\-]*[0-9A-Za-z]\Z/}, :allow_blank => true
@@ -49,12 +49,12 @@ module EnjuLeaf
         end
 
         validates_presence_of     :email, :email_confirmation, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
-        validates_associated :user_group, :library #, :patron
+        validates_associated :user_group, :library #, :agent
         validates_presence_of :user_group, :library, :locale #, :user_number
         validates :user_number, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z_]+\Z/}, :allow_blank => true
         validates_confirmation_of :email, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
 
-        before_validation :set_role_and_patron, :on => :create
+        before_validation :set_role_and_agent, :on => :create
         before_validation :set_lock_information
         before_destroy :check_role_before_destroy
         before_save :check_expiration
@@ -70,7 +70,7 @@ module EnjuLeaf
         searchable do
           text :username, :email, :note, :user_number
           text :name do
-            #patron.name if patron
+            #agent.name if agent
           end
           string :username
           string :email
@@ -90,7 +90,7 @@ module EnjuLeaf
           :zip_code, :address, :telephone_number, :fax_number, :address_note,
           :operator, :password_not_verified,
           :update_own_account, :auto_generated_password,
-          :locked, :current_password #, :patron_id
+          :locked, :current_password #, :agent_id
 
         paginates_per 10
 
@@ -120,11 +120,11 @@ module EnjuLeaf
         end
       end
 
-      def set_role_and_patron
+      def set_role_and_agent
         self.required_role = Role.where(:name => 'Librarian').first
         self.locale = I18n.default_locale.to_s
-        #unless self.patron
-        #  self.patron = Patron.create(:full_name => self.username) if self.username
+        #unless self.agent
+        #  self.agent = Agent.create(:full_name => self.username) if self.username
         #end
       end
 
@@ -226,8 +226,8 @@ module EnjuLeaf
         end
       end
 
-      #def patron
-      #  LocalPatron.new({:username => username})
+      #def agent
+      #  LocalAgent.new({:username => username})
       #end
 
       def full_name

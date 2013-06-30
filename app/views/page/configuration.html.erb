@@ -63,7 +63,7 @@
           <li><%= link_to t('activerecord.models.inventory'), inventory_files_path -%></li>
         <% end %>
         <% if defined?(EnjuResourceMerge) %>
-          <li><%= link_to t('activerecord.models.patron_merge_list'), patron_merge_lists_path -%></li>
+          <li><%= link_to t('activerecord.models.agent_merge_list'), agent_merge_lists_path -%></li>
           <li><%= link_to t('activerecord.models.series_statement_merge_list'), series_statement_merge_lists_path -%></li>
         <% end %>
       </ul>
@@ -97,11 +97,11 @@
           <li><%= link_to t('activerecord.models.circulation_status'), circulation_statuses_path -%></li>
           <li><%= link_to t('activerecord.models.use_restriction'), use_restrictions_path -%></li>
         <% end %>
-        <li><%= link_to t('activerecord.models.patron_type'), patron_types_path -%></li>
+        <li><%= link_to t('activerecord.models.agent_type'), agent_types_path -%></li>
         <li><%= link_to t('activerecord.models.language'), languages_path -%></li>
         <li><%= link_to t('activerecord.models.country'), countries_path -%></li>
         <li><%= link_to t('activerecord.models.frequency'), frequencies_path -%></li>
-        <li><%= link_to t('activerecord.models.patron_relationship_type'), patron_relationship_types_path -%></li>
+        <li><%= link_to t('activerecord.models.agent_relationship_type'), agent_relationship_types_path -%></li>
         <li><%= link_to t('activerecord.models.manifestation_relationship_type'), manifestation_relationship_types_path -%></li>
         <li><%= link_to t('activerecord.models.license'), licenses_path -%></li>
         <!--

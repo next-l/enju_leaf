@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   enju_leaf
+  enju_biblio
+  enju_library
 
   mobylette_config do |config|
     config[:skip_xhr_requests] = false

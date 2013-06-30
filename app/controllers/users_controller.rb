@@ -2,7 +2,7 @@
 class UsersController < ApplicationController
   load_and_authorize_resource :except => :index
   authorize_resource :only => :index
-  before_filter :get_patron, :only => :new
+  before_filter :get_agent, :only => :new
   before_filter :store_location, :only => [:index]
   before_filter :clear_search_sessions, :only => [:show]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
@@ -56,8 +56,8 @@ class UsersController < ApplicationController
     end
 
     session[:user_return_to] = nil
-    #unless @user.patron
-    #  redirect_to new_user_patron_url(@user); return
+    #unless @user.agent
+    #  redirect_to new_user_agent_url(@user); return
     #end
     if defined?(EnjuBookmark)
       @tags = @user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
@@ -80,17 +80,17 @@ class UsersController < ApplicationController
     @user = User.new
     prepare_options
     @user_groups = UserGroup.all
-    if @patron.try(:user)
+    if @agent.try(:user)
       flash[:notice] = t('page.already_activated')
-      redirect_to @patron
+      redirect_to @agent
       return
     end
-    @user.patron_id = @patron.id if @patron
+    @user.agent_id = @agent.id if @agent
     @user.library = current_user.library
     @user.locale = current_user.locale
   end
 
-  # GET /patrons/1/edit
+  # GET /agents/1/edit
   def edit
     if @user == current_user
       redirect_to edit_my_account_url

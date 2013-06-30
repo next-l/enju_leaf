@@ -1,27 +1,28 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-patron_relationship_type_00001:
+--- 
+agent_type_00001:
   id: 1
-  name: See also
-  display_name: See also
+  name: Person
+  display_name: Person
   note: 
   position: 1
-patron_relationship_type_00002:
+
+agent_type_00002:
   id: 2
-  name: Member
-  display_name: Member
+  name: CorporateBody
+  display_name: CorporateBody
   note: 
   position: 2
-patron_relationship_type_00003:
+
+agent_type_00003:
   id: 3
-  name: Child
-  display_name: Child
+  name: Conference
+  display_name: Conference
   note: 
   position: 3
 
 # == Schema Information
 #
-# Table name: patron_relationship_types
+# Table name: agent_types
 #
 #  id           :integer         not null, primary key
 #  name         :string(255)     not null

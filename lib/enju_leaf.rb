@@ -166,7 +166,7 @@ module EnjuLeaf
 
       unless params[:mode] == "add"
         expression = @expression
-        patron = @patron
+        agent = @agent
         manifestation = @manifestation
         reservable = @reservable
         carrier_type = params[:carrier_type]
@@ -179,7 +179,7 @@ module EnjuLeaf
         end
 
         search.build do
-          with(:publisher_ids).equal_to patron.id if patron
+          with(:publisher_ids).equal_to agent.id if agent
           with(:original_manifestation_ids).equal_to manifestation.id if manifestation
           with(:reservable).equal_to reservable unless reservable.nil?
           unless carrier_type.blank?

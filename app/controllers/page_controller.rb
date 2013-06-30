@@ -8,8 +8,8 @@ class PageController < ApplicationController
   def index
     if user_signed_in?
       session[:user_return_to] = nil
-      #unless current_user.patron
-      #  redirect_to new_user_patron_url(current_user); return
+      #unless current_user.agent
+      #  redirect_to new_user_agent_url(current_user); return
       #end
       if defined?(EnjuBookmark)
         @tags = current_user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse

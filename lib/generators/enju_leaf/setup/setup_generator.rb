@@ -21,10 +21,13 @@ ActiveSupport::Inflector.inflections do |inflect|
 end
 EOS
     inject_into_file 'config/environments/development.rb',
-      " config.action_mailer.default_url_options = {:host => 'localhost:3000'}\n",
+      "  config.action_mailer.default_url_options = {:host => 'localhost:3000'}\n",
+      :after => "::Application.configure do\n"
+    inject_into_file 'config/environments/test.rb',
+      "  config.action_mailer.default_url_options = {:host => 'localhost:3000'}\n",
       :after => "::Application.configure do\n"
     inject_into_file 'config/environments/production.rb',
-      " config.action_mailer.default_url_options = {:host => 'localhost:3000'}\n",
+      "  config.action_mailer.default_url_options = {:host => 'localhost:3000'}\n",
       :after => "::Application.configure do\n"
     generate("devise:install")
     generate("devise", "User")
@@ -39,12 +42,14 @@ EOS
     gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
     gsub_file 'app/models/user.rb', /, :trackable, :validatable$/, <<EOS
 , :trackable, #:validatable, 
-    :lockable, :lock_strategy => :none, :unlock_strategy => :none
+      :lockable, :lock_strategy => :none, :unlock_strategy => :none
   enju_leaf_user_model
 EOS
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
   enju_leaf
+  enju_biblio
+  enju_library
 
   mobylette_config do |config|
     config[:skip_xhr_requests] = false

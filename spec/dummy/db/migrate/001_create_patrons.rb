@@ -1,6 +1,6 @@
 class CreatePatrons < ActiveRecord::Migration
   def change
-    create_table :patrons do |t|
+    create_table :agents do |t|
       t.integer :user_id
       t.string :last_name
       t.string :middle_name
@@ -35,7 +35,7 @@ class CreatePatrons < ActiveRecord::Migration
       t.datetime :date_of_death
       t.integer :language_id, :default => 1, :null => false
       t.integer :country_id, :default => 1, :null => false
-      t.integer :patron_type_id, :default => 1, :null => false
+      t.integer :agent_type_id, :default => 1, :null => false
       t.integer :lock_version, :default => 0, :null => false
       t.text :note
       t.integer :required_role_id, :default => 1, :null => false
@@ -44,10 +44,10 @@ class CreatePatrons < ActiveRecord::Migration
       t.text :email
       t.text :url
     end
-    add_index :patrons, :user_id, :unique => true
-    add_index :patrons, :language_id
-    add_index :patrons, :country_id
-    add_index :patrons, :required_role_id
-    add_index :patrons, :full_name
+    add_index :agents, :user_id, :unique => true
+    add_index :agents, :language_id
+    add_index :agents, :country_id
+    add_index :agents, :required_role_id
+    add_index :agents, :full_name
   end
 end

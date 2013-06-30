@@ -5,8 +5,8 @@
   <title><%= title(controller.controller_name) %></title>
   <%= render 'page/include' %>
   <%- if controller.action_name == 'index' -%>
-    <%= auto_discovery_link_tag(:rss, url_for(params.merge(:format => 'rss', :page => nil, :commit => nil, :only_path => true)), :title => (t('patron.library_group_patron', :library_group_name => @library_group.display_name.localize) + " (RSS)")) %>
-    <%= auto_discovery_link_tag(:atom, url_for(params.merge(:format => 'atom', :page => nil, :commit => nil, :only_path => true)), :title => (t('patron.library_group_patron', :library_group_name => @library_group.display_name.localize) + " (Atom)")) %>
+    <%= auto_discovery_link_tag(:rss, url_for(params.merge(:format => 'rss', :page => nil, :commit => nil, :only_path => true)), :title => (t('agent.library_group_agent', :library_group_name => @library_group.display_name.localize) + " (RSS)")) %>
+    <%= auto_discovery_link_tag(:atom, url_for(params.merge(:format => 'atom', :page => nil, :commit => nil, :only_path => true)), :title => (t('agent.library_group_agent', :library_group_name => @library_group.display_name.localize) + " (Atom)")) %>
   <%- end -%>
 </head>
 <body>

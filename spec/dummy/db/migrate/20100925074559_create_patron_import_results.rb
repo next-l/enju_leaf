@@ -1,8 +1,8 @@
 class CreatePatronImportResults < ActiveRecord::Migration
   def change
-    create_table :patron_import_results do |t|
-      t.integer :patron_import_file_id
-      t.integer :patron_id
+    create_table :agent_import_results do |t|
+      t.integer :agent_import_file_id
+      t.integer :agent_id
       t.integer :user_id
       t.text :body
 

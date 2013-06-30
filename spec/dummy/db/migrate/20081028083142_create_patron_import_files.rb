@@ -1,6 +1,6 @@
 class CreatePatronImportFiles < ActiveRecord::Migration
   def change
-    create_table :patron_import_files do |t|
+    create_table :agent_import_files do |t|
       t.integer :parent_id
       t.string :content_type
       t.integer :size
@@ -8,15 +8,15 @@ class CreatePatronImportFiles < ActiveRecord::Migration
       t.text :note
       t.datetime :imported_at
       t.string :state
-      t.string :patron_import_file_name
-      t.string :patron_import_content_type
-      t.integer :patron_import_file_size
-      t.datetime :patron_import_updated_at
+      t.string :agent_import_file_name
+      t.string :agent_import_content_type
+      t.integer :agent_import_file_size
+      t.datetime :agent_import_updated_at
 
       t.timestamps
     end
-    add_index :patron_import_files, :parent_id
-    add_index :patron_import_files, :user_id
-    add_index :patron_import_files, :state
+    add_index :agent_import_files, :parent_id
+    add_index :agent_import_files, :user_id
+    add_index :agent_import_files, :state
   end
 end

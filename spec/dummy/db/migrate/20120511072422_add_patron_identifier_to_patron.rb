@@ -1,6 +1,6 @@
 class AddPatronIdentifierToPatron < ActiveRecord::Migration
   def change
-    add_column :patrons, :patron_identifier, :string
-    add_index :patrons, :patron_identifier
+    add_column :agents, :agent_identifier, :string
+    add_index :agents, :agent_identifier
   end
 end

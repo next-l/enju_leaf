@@ -4,8 +4,6 @@ module EnjuLeaf
       include EnjuLeaf::InstanceMethods
       include EnjuLeaf::Controller
       include Mobylette::RespondToMobileRequests
-      enju_biblio
-      enju_library
     end
 
     private

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: patrons
+# Table name: agents
 #
 #  id                                  :integer          not null, primary key
 #  user_id                             :integer
@@ -38,7 +38,7 @@
 #  date_of_death                       :datetime
 #  language_id                         :integer          default(1), not null
 #  country_id                          :integer          default(1), not null
-#  patron_type_id                      :integer          default(1), not null
+#  agent_type_id                      :integer          default(1), not null
 #  lock_version                        :integer          default(0), not null
 #  note                                :text
 #  required_role_id                    :integer          default(1), not null
@@ -49,11 +49,11 @@
 #  full_name_alternative_transcription :text
 #  birth_date                          :string(255)
 #  death_date                          :string(255)
-#  patron_identifier                   :string(255)
+#  agent_identifier                   :string(255)
 #
 
 --- 
-patron_00001: 
+agent_00001: 
   place: ""
   last_name: Administrator
   first_name: 
@@ -66,11 +66,11 @@ patron_00001:
   address_1: 
   language_id: 1
   country_id: 1
-  patron_type_id: 1
+  agent_type_id: 1
   required_role_id: 1
   created_at: 2007-11-19 17:06:06.507237 +09:00
   user_id: 1
-patron_00002: 
+agent_00002: 
   place: ""
   last_name: Librarian1
   first_name: 
@@ -83,11 +83,11 @@ patron_00002:
   address_1: 
   language_id: 1
   country_id: 1
-  patron_type_id: 1
+  agent_type_id: 1
   required_role_id: 4
   created_at: 2007-11-19 17:06:07.724517 +09:00
   user_id: 2
-patron_00003: 
+agent_00003: 
   place: 
   last_name: Kosuke
   first_name: Tanabe
@@ -100,11 +100,11 @@ patron_00003:
   address_1: 
   language_id: 1
   country_id: 1
-  patron_type_id: 1
+  agent_type_id: 1
   required_role_id: 3
   created_at: 2007-12-04 16:25:01.523618 +09:00
   user_id: 3
-patron_00004: 
+agent_00004: 
   place: 
   last_name: Librarian2
   first_name: 
@@ -117,11 +117,11 @@ patron_00004:
   address_1: 
   language_id: 1
   country_id: 1
-  patron_type_id: 1
+  agent_type_id: 1
   required_role_id: 1
   created_at: 2007-12-04 16:25:01.785027 +09:00
   user_id: 4
-patron_00005: 
+agent_00005: 
   place: ""
   last_name: User2
   first_name: 
@@ -134,15 +134,15 @@ patron_00005:
   address_1: 
   language_id: 1
   country_id: 1
-  patron_type_id: 1
+  agent_type_id: 1
   required_role_id: 2
   created_at: 2007-11-19 17:24:50.153417 +09:00
   user_id: 5
-patron_00006: 
+agent_00006: 
   place: ""
-  last_name: New patron 1
+  last_name: New agent 1
   first_name: 
-  full_name: New patron 1
+  full_name: New agent 1
   updated_at: 2007-11-21 22:02:35.579396 +09:00
   other_designation: ""
   id: 6
@@ -151,14 +151,14 @@ patron_00006:
   address_1: 
   language_id: 1
   country_id: 1
-  patron_type_id: 1
+  agent_type_id: 1
   required_role_id: 1
   created_at: 2007-11-19 17:24:50.153417 +09:00
-patron_00007: 
+agent_00007: 
   place: ""
-  last_name: New patron 2
+  last_name: New agent 2
   first_name: 
-  full_name: New patron 2
+  full_name: New agent 2
   updated_at: 2007-11-21 22:02:35.579396 +09:00
   other_designation: ""
   id: 7
@@ -167,14 +167,14 @@ patron_00007:
   address_1: 
   language_id: 1
   country_id: 1
-  patron_type_id: 1
+  agent_type_id: 1
   required_role_id: 1
   created_at: 2007-11-19 17:24:50.153417 +09:00
-patron_00008: 
+agent_00008: 
   place: ""
-  last_name: New patron 3
+  last_name: New agent 3
   first_name: 
-  full_name: New patron 3
+  full_name: New agent 3
   updated_at: 2007-11-21 22:02:35.579396 +09:00
   other_designation: ""
   id: 8
@@ -183,14 +183,14 @@ patron_00008:
   address_1: 
   language_id: 1
   country_id: 1
-  patron_type_id: 1
+  agent_type_id: 1
   required_role_id: 1
   created_at: 2007-11-19 17:24:50.153417 +09:00
-patron_00009: 
+agent_00009: 
   place: ""
-  last_name: New patron 4
+  last_name: New agent 4
   first_name: 
-  full_name:  New patron 4
+  full_name:  New agent 4
   updated_at: 2007-11-21 22:02:35.579396 +09:00
   other_designation: ""
   id: 9
@@ -199,14 +199,14 @@ patron_00009:
   address_1: 
   language_id: 1
   country_id: 1
-  patron_type_id: 1
+  agent_type_id: 1
   required_role_id: 1
   created_at: 2007-11-19 17:24:50.153417 +09:00
-patron_00010: 
+agent_00010: 
   place: ""
-  last_name: New patron 5
+  last_name: New agent 5
   first_name: 
-  full_name: New patron 5
+  full_name: New agent 5
   updated_at: 2007-11-21 22:02:35.579396 +09:00
   other_designation: ""
   id: 10
@@ -215,10 +215,10 @@ patron_00010:
   address_1: 
   language_id: 1
   country_id: 1
-  patron_type_id: 1
+  agent_type_id: 1
   required_role_id: 1
   created_at: 2007-11-19 17:24:50.153417 +09:00
-patron_00011: 
+agent_00011: 
   place: ""
   last_name: User3
   first_name: 
@@ -231,11 +231,11 @@ patron_00011:
   address_1: 
   language_id: 1
   country_id: 1
-  patron_type_id: 1
+  agent_type_id: 1
   required_role_id: 1
   created_at: 2007-11-19 17:24:50.153417 +09:00
   user_id: 6
-patron_00101:
+agent_00101:
   place: ""
   last_name: テスト名字
   first_name: テスト名前
@@ -248,10 +248,10 @@ patron_00101:
   address_1:
   language_id: 1
   country_id: 1
-  patron_type_id: 1
+  agent_type_id: 1
   required_role_id: 1
   created_at: 2010-03-03 17:00:00.579396 +09:00
-patron_00102:
+agent_00102:
   place: ""
   last_name:
   first_name:
@@ -264,10 +264,10 @@ patron_00102:
   address_1:
   language_id: 1
   country_id: 1
-  patron_type_id: 1
+  agent_type_id: 1
   required_role_id: 1
   created_at: 2010-03-03 17:00:00.579396 +09:00
-patron_00103:
+agent_00103:
   place: ""
   last_name:
   first_name:
@@ -280,10 +280,10 @@ patron_00103:
   address_1:
   language_id: 1
   country_id: 1
-  patron_type_id: 1
+  agent_type_id: 1
   required_role_id: 1
   created_at: 2010-03-16 19:00:00.579396 +09:00
-patron_00104:
+agent_00104:
   place: ""
   last_name:
   first_name:
@@ -296,10 +296,10 @@ patron_00104:
   address_1:
   language_id: 1
   country_id: 1
-  patron_type_id: 1
+  agent_type_id: 1
   required_role_id: 1
   created_at: 2010-03-16 19:00:00.579396 +09:00
-patron_00201:
+agent_00201:
   place: ""
   last_name:
   first_name:
@@ -312,10 +312,10 @@ patron_00201:
   address_1:
   language_id: 1
   country_id: 1
-  patron_type_id: 1
+  agent_type_id: 1
   required_role_id: 1
   created_at: 2010-03-15 17:00:00.579396 +09:00
-patron_00202:
+agent_00202:
   place: ""
   last_name:
   first_name:
@@ -328,7 +328,7 @@ patron_00202:
   address_1:
   language_id: 1
   country_id: 1
-  patron_type_id: 1
+  agent_type_id: 1
   required_role_id: 1
   created_at: 2010-03-15 17:00:00.579396 +09:00
 

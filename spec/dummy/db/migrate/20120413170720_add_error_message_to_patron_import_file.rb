@@ -1,5 +1,5 @@
 class AddErrorMessageToPatronImportFile < ActiveRecord::Migration
   def change
-    add_column :patron_import_files, :error_message, :text
+    add_column :agent_import_files, :error_message, :text
   end
 end

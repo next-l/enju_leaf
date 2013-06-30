@@ -1,4 +1,4 @@
-class LocalPatron
+class LocalAgent
   include ActiveModel::Validations
   include ActiveModel::Conversion
   extend ActiveModel::Naming
