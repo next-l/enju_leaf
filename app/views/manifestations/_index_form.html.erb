@@ -90,6 +90,7 @@
     <%- end -%>
     <%= hidden_field_tag 'sort_by', params[:sort_by] if params[:sort_by] -%>
     <%= hidden_field_tag 'solr_query', params[:solr_query] if params[:solr_query] -%>
+    <%= hidden_field_tag 'mode', params[:mode] if params[:mode] -%>
 
 <%- if form_pos == :top -%>
     <%- if SystemConfiguration.get("manifestations.users_show_output_button") or (user_signed_in? and current_user.has_role?('Librarian')) -%>
