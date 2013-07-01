@@ -231,12 +231,13 @@ module EnjuTrunk
       if item
         manifestation = item.manifestation
         @mode = 'edit'
-      else
-        isbn = datas[@field[I18n.t('resource_import_textfile.excel.book.isbn')]].to_s
-        manifestation = import_isbn(isbn)
       end
       series_statement = find_series_statement(datas, manifestation)
-      manifestation = exist_same_book?(datas, manifestation, series_statement) 
+      manifestation = exist_same_book?(datas, manifestation, series_statement)
+      isbn = datas[@field[I18n.t('resource_import_textfile.excel.book.isbn')]].to_s
+      unless manifestation
+        manifestation = import_isbn(isbn)
+      end
       series_statement = create_series_statement(datas, manifestation, series_statement)
 
       unless manifestation
