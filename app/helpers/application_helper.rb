@@ -339,16 +339,18 @@ module ApplicationHelper
   end
 
   def link_to_normal_search(link_title = nil)
-    return '' if ADVANCED_SEARCH_PARAMS.all? {|k| params[k].blank? } and params[:solr_query].blank?
+    if params[:mode].present?
+      return '' if params[:mode] != 'recent'
+    else
+      return '' if ADVANCED_SEARCH_PARAMS.all? {|k| params[k].blank? } and params[:solr_query].blank?
+    end
 
     link_title ||= t('page.normal_search')
     url_params = params.dup
     [:controller, :commit, :utf8].each {|k| url_params.delete(k) }
-    if params[:solr_query].present?
-      url_params.delete('solr_query')
-    else
-      ADVANCED_SEARCH_PARAMS.each {|k| url_params.delete(k) }
-    end
+    url_params.delete('mode') if params[:mode].present? and params[:mode] == 'recent'
+    url_params.delete('solr_query') if params[:solr_query].present?
+    ADVANCED_SEARCH_PARAMS.each {|k| url_params.delete(k) }
     link_to link_title, manifestations_path(url_params)
   end
 
@@ -368,9 +370,8 @@ module ApplicationHelper
   end
 
   def advanced_search_condition_summary(opts = {})
-    if params[:solr_query].present?
-      return params[:solr_query].present? ? "(#{params[:solr_query]})" : ""
-    end
+    return "(#{I18n.t('page.new_resource')})" if params[:mode] == 'recent'
+    return params[:solr_query].present? ? "(#{params[:solr_query]})" : "" if params[:solr_query].present?
 
     summary_ary = []
     special = {
