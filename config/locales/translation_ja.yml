@@ -1755,23 +1755,18 @@ ja:
     search_isbn: "ISBNで検索を行う場合、他の検索条件は指定できません。"
     search_item_identifier: "所蔵情報IDで検索を行う場合、他の検索条件は指定できません。"
     description: "
-      <h5>検索方法:</h5>
-      <strong>[AND]検索</strong><br />
-      キーワードとキーワードの間に「AND」あるいは「空白文字」が入力されているとき、入力された全てのキーワードを含む情報を検索します<br />
-      
-      例：<br />
-      book1 AND book2<br />
-      book1 book2<br />
+      <h5>検索方法に関して:</h5>
       <br />
-      <strong>[OR]検索</strong><br />
-      キーワードとキーワードの間に「OR」が入力されているとき、入力されたいずれかのキーワードを含む情報を検索します<br />
-      例：<br />
-      book1 OR book2<br />
+      所蔵情報IDを入力時、マッチした資料の表示画面に遷移します。<br />
+      (ただしアスタリスク入力時は、検索結果一覧画面に遷移します)<br />
+      その際、その他の条件は入力できません。
+      "
+    description_unique_isbn: "
+      <h5>検索方法に関して:</h5>
       <br />
-      <strong>[NOT]検索</strong><br />
-      キーワードの前に「NOT」が入力されているとき、それに続いて入力されたキーワードを検索非対象とします<br />
-      例：<br />
-      NOT book1<br />
+      所蔵情報IDまたはISBNを入力時、マッチした資料の表示画面に遷移します。<br />
+      (ただしアスタリスク入力時は、検索結果一覧画面に遷移します)<br />
+      その際、その他の条件は入力できません。
       "
     help_solr_query: "
       solr 検索式を直接入力します
@@ -1782,9 +1777,18 @@ ja:
       word: "単語による検索"
       word_description: "入力された単語で検索を行います。"
       word_ex: "気象"
+      and: "[AND]検索"
+      and_description: "キーワードとキーワードの間に「AND」あるいは「空白文字」が入力されているとき、入力された全てのキーワードを含む情報を検索します。"
+      and_ex: "title_text:(book1 AND book2)"
+      or: "[OR]検索"
+      or_description: "キーワードとキーワードの間に「OR」が入力されているとき、入力されたいずれかのキーワードを含む情報を検索します。"
+      or_ex: "title_text:(book1 OR book2)"
+      not: "[NOT]検索"
+      not_description: "キーワードの前に「NOT」が入力されているとき、それに続いて入力されたキーワードを検索非対象とします。"
+      not_ex: "title_text:(NOT book1)"
       wild: "ワイルドカード検索"
       wild_description: "「任意の文字」に置き換えて検索を行います。「*」が任意の複数文字、「?」が任意の１文字を表します。"
-      wild_ex: "title:天気??<br / >title:天気*"
+      wild_ex: "天気??<br / >天気*"
       field: "フィールド指定検索"
       field_description: "指定されたフィールドに対して検索を行います。"
       field_detail:

@@ -234,6 +234,32 @@ $(function(){
         </td>
       </tr>
       <tr>
+        <td><%= t('advanced_search.solr_query_format.and') %></td>
+        <td>
+          <%= t('advanced_search.solr_query_format.and_description') %><br />
+          <br />
+          <%= t('advanced_search.solr_query_format.exsample') %>:<br />
+          <%= raw t('advanced_search.solr_query_format.and_ex') %>
+        </td>
+      </tr>
+      <tr>
+        <td><%= t('advanced_search.solr_query_format.or') %></td>
+        <td>
+          <%= t('advanced_search.solr_query_format.or_description') %><br />
+          <br />
+          <%= t('advanced_search.solr_query_format.exsample') %>:<br />
+          <%= raw t('advanced_search.solr_query_format.or_ex') %>
+        </td>
+      </tr>
+        <td><%= t('advanced_search.solr_query_format.not') %></td>
+        <td>
+          <%= t('advanced_search.solr_query_format.not_description') %><br />
+          <br />
+          <%= t('advanced_search.solr_query_format.exsample') %>:<br />
+          <%= raw t('advanced_search.solr_query_format.not_ex') %>
+        </td>
+      </tr>
+      <tr>
         <td><%= t('advanced_search.solr_query_format.wild') %></td>
         <td>
           <%= t('advanced_search.solr_query_format.wild_description') %><br />
@@ -391,5 +417,9 @@ $(function(){
 </div>
 
 <div id="submenu" class="ui-corner-all">
-  <%= raw t('advanced_search.description') %>
+  <% unless SystemConfiguration.get("manifestation.isbn_unique") %>
+    <%= raw t('advanced_search.description') %>
+  <% else %>
+    <%= raw t('advanced_search.description_unique_isbn') %>
+  <% end %>
 </div>
