@@ -1150,9 +1150,11 @@ class Manifestation < ActiveRecord::Base
       end
 
       if val.nil?
-        begin
-          val = item.excel_worksheet_value(ws_type, ws_col) || ''
-        rescue NoMethodError
+        if ws_col != 'note' and ws_col != 'price' and ws_col != 'price_string'
+          begin
+            val = item.excel_worksheet_value(ws_type, ws_col) || ''
+          rescue NoMethodError
+          end
         end
       end
     end
