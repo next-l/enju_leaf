@@ -1,4 +1,4 @@
-package_dir = "/home/emiko/pack/"
+package_dir = "/home/enju/customer/pack/"
 packprefix = "enju_production"
 root = "#{::Rails.root}"
 
