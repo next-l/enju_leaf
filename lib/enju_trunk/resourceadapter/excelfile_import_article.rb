@@ -152,7 +152,7 @@ module EnjuTrunk
       unless manifestation.nil?
         @mode = 'edit'
       else       
-        lang = @manifestation_type == 'japanese_article' ? Language.where(:name => 'Japanese').first : Language.where(:name => 'unknown').first
+        lang = Language.where(:name => 'unknown').first
         manifestation = Manifestation.new(
           :carrier_type   => CarrierType.where(:name => 'print').first,
           :language       => lang,
