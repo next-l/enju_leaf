@@ -334,7 +334,7 @@ module ApplicationHelper
     link_title ||= t('page.advanced_search')
     url_params = params.dup
 
-    [:controller, :commit, :utf8].each {|k| url_params.delete(k) }
+    [:controller, :commit, :utf8, :mode].each {|k| url_params.delete(k) }
     link_to link_title, page_advanced_search_path(url_params)
   end
 
