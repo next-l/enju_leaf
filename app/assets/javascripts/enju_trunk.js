@@ -1,5 +1,15 @@
-// check checkbox
 $(document).ready(function() {
+  "<% if !SystemConfiguration.get('internal_server') and clinet_is_special_ip? %>"
+    $(document).bind('contextmenu',function(){
+      return false;
+    });
+
+    $(document).bind('keydown', 'ctrl+p', function(){
+      return false;
+    });
+  "<% end %>"
+
+  // check checkbox
   var $tgt_parent = $("input.check-parent");
   var $tgt_child = $("input.check-child");
 
