@@ -210,7 +210,7 @@ module EnjuTrunk
       subjects_cell = datas[@field[I18n.t('resource_import_textfile.excel.article.subject')]]
       subjects_list = set_article_subjects(subjects_cell)
       unless subjects_list.nil?
-        subjects      = Subject.import_subjects (subjects_list)
+        subjects      = Subject.import_subjects(subjects_list)
         manifestation.subjects = subjects
       end
       return manifestation

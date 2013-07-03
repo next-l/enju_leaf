@@ -365,10 +365,9 @@ module EnjuTrunk
         manifestation.contributors = contributor_patrons
       end
       # subject
-      subjects_list_string = datas[@field[I18n.t('resource_import_textfile.excel.article.subject')]]
-      subjects_list        = subjects_list_string.nil? ? nil : subjects_list_string.to_s.gsub('；', ';').split(';')
+      subjects_list = datas[@field[I18n.t('resource_import_textfile.excel.article.subject')]]
       unless subjects_list.nil?
-        subjects = Subject.import_subjects (subjects_list)
+        subjects = Subject.import_subjects(subjects_list)
         manifestation.subjects = subjects
       end
       return manifestation
