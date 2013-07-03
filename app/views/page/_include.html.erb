@@ -48,4 +48,15 @@ function check_form() {
   <% end %>
   return true;
 }
+$(document).ready(function() {
+  if ("<%= SystemConfiguration.isWebOPAC and clinet_is_special_ip? %>" == 'true'){
+    $(document).bind('contextmenu',function(){
+      return false;
+    });
+
+    $(document).bind('keydown', 'ctrl+p', function(){
+      return false;
+    });
+  }
+});
 </script>
