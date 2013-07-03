@@ -386,7 +386,7 @@ class ManifestationsController < ApplicationController
       end
 
       if search_opts[:html_mode]
-        unless search_opts[:with_article]
+        if search_opts[:split_by_type] and !search_opts[:with_article]
           @carrier_type_facet = search_book_result.facet(:carrier_type).rows
           @language_facet = search_book_result.facet(:language).rows
           @library_facet = search_book_result.facet(:library).rows
