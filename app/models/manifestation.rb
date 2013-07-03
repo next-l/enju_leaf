@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 require EnjuTrunkFrbr::Engine.root.join('app', 'models', 'manifestation')
-require EnjuTrunkCirculation::Engine.root.join('app', 'models', 'manifestation') if SystemConfiguration.get('internal_server')
+require EnjuTrunkCirculation::Engine.root.join('app', 'models', 'manifestation') # unless SystemConfiguration.isWebOPAC
 class Manifestation < ActiveRecord::Base
   self.extend ItemsHelper
   has_many :creators, :through => :creates, :source => :patron, :order => :position
