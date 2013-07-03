@@ -47,7 +47,7 @@ module EnjuTrunk
       publisher
       subject
       accept_type
-      acquired_at
+      acquired_at_string
       bookstore
       library
       shelf
@@ -528,7 +528,7 @@ module EnjuTrunk
         resource_import_textfile = ResourceImportTextfile.find(@textfile_id)
         @mode_item = 'edit'
         accept_type         = set_data(datas, AcceptType, 'accept_type', { :can_blank => true, :check_column => :display_name })
-        acquired_at         = check_data_is_date(datas[@field[I18n.t('resource_import_textfile.excel.book.acquired_at')]], 'acquired_at')      
+        acquired_at         = datas[@field[I18n.t('resource_import_textfile.excel.book.acquired_at')]]
         library             = set_library(datas[@field[I18n.t('resource_import_textfile.excel.book.library')]], resource_import_textfile.user)
         shelf               = set_shelf(datas[@field[I18n.t('resource_import_textfile.excel.book.shelf')]], resource_import_textfile.user, library)
         checkout_type       = set_data(datas, CheckoutType, 'checkout_type', { :default => 'book' })
@@ -573,12 +573,6 @@ module EnjuTrunk
         else
           item.accept_type = nil if datas[@field[I18n.t('resource_import_textfile.excel.book.accept_type')]] == ''
         end
-        # acquired_at
-        unless acquired_at.nil?
-          item.acquired_at = acquired_at 
-        else
-          item.acquired_at = nil if datas[@field[I18n.t('resource_import_textfile.excel.book.acquired_at')]] == ''
-        end
         # use_restriction
         unless use_restriction.nil?
           item.use_restriction_id = use_restriction.id
@@ -599,6 +593,7 @@ module EnjuTrunk
         item.required_role       = required_role        unless required_role.nil?
         item.item_identifier     = item_identifier.to_s unless item_identifier.nil?
         item.non_searchable      = non_searchable       unless non_searchable.nil?
+        item.acquired_at_string  = acquired_at.to_s     unless acquired_at.nil?
 
         # bookstore
         bookstore_name = datas[@field[I18n.t('resource_import_textfile.excel.book.bookstore')]]
