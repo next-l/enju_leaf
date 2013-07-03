@@ -2330,6 +2330,7 @@ ja:
         publisher: 出版者
         subject: 件名
         accept_type: 受入区分
+        acquired_at: 受入日
         acquired_at_string: 受入日
         bookstore: 寄贈・購入先
         library: 図書館
