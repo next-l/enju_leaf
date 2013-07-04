@@ -136,10 +136,10 @@ module EnjuTrunk
           num[:failed] += 1
         end
         import_textresult.save!
-        if row % 50 == 0
+#        if row % 50 == 0
           Sunspot.commit
           GC.start
-        end
+#        end
       end
       Rails.cache.write("manifestation_search_total", Manifestation.search.total)
       return num

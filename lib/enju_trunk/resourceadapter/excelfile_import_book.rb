@@ -214,10 +214,10 @@ module EnjuTrunk
         end
 
         import_textresult.save!
-        if row % 50 == 0
+#        if row % 50 == 0
           Sunspot.commit
           GC.start
-        end
+#        end
       end
       #sm_complete!
       Rails.cache.write("manifestation_search_total", Manifestation.search.total)
