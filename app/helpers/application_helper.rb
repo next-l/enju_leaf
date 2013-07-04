@@ -371,7 +371,7 @@ module ApplicationHelper
 
   def advanced_search_condition_summary(opts = {})
     return "(#{I18n.t('page.new_resource')})" if params[:mode] == 'recent'
-    return params[:solr_query].present? ? "(#{params[:solr_query]})" : "" if params[:solr_query].present?
+    return "(#{params[:solr_query]})" if params[:solr_query].present?
 
     summary_ary = []
     special = {
