@@ -49,7 +49,7 @@ function check_form() {
   return true;
 }
 $(document).ready(function() {
-  if ("<%= !SystemConfiguration.isWebOPAC and clinet_is_special_ip? %>" == 'true'){
+  if ("<%= SystemConfiguration.isWebOPAC and clinet_is_special_ip? %>" == 'true'){
     $(document).bind('contextmenu',function(){
       return false;
     });
