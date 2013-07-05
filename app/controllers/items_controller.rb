@@ -168,8 +168,9 @@ class ItemsController < ApplicationController
     @item = Item.new(params[:item])
     @manifestation = Manifestation.find(@item.manifestation_id)
     respond_to do |format|
-      if @item.save
+      if @item.valid?
         @item.manifestation = @manifestation 
+        @item.save!
         Item.transaction do
           if @item.shelf
             @item.shelf.library.patron.items << @item
