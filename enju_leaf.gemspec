@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency "redis-rails"
   s.add_dependency "rails_autolink"
   s.add_dependency "jquery-ui-rails"
+  s.add_dependency "cache_digests"
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"
