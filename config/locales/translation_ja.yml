@@ -354,9 +354,9 @@ ja:
         zip_code_1: 郵便番号1
         zip_code_2: 郵便番号2
         address: 住所
-        address_1: 所属先住所 # 住所1
+        address_1: 住所1
         address_2: 住所2
-        address_1_note: 所属先住所の注記 # 住所1の注記
+        address_1_note: 住所1の注記
         address_2_note: 住所2の注記
         telephone_number: 電話番号
         telephone_number_1: 内線 # 電話番号1-1
