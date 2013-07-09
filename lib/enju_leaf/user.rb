@@ -226,9 +226,9 @@ module EnjuLeaf
         end
       end
 
-      #def agent
-      #  LocalAgent.new({:username => username})
-      #end
+      def patron
+        LocalPatron.new({:username => username})
+      end
 
       def full_name
         username

@@ -34,7 +34,7 @@
             <%=l checkout.due_date, :formats => :only_date %>
             <%- if can? :update, checkout -%>
               <% unless checkout.checkin %>
-                <%= link_to t('checkout.extend'), edit_checkout_path(checkout) -%>
+                (<%= link_to t('checkout.extend'), edit_checkout_path(checkout) -%>)
               <% end %>
             <%- end -%>
           </td>
