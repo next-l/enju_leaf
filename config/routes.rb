@@ -53,6 +53,7 @@ EnjuLeaf::Application.routes.draw do
     resources :reserves
     post :output_show, :on => :member
     get :output_pdf, :on => :member
+    post :output_excelx, :on => :collection
   end
 
   resources :library_checks do
@@ -77,15 +78,21 @@ EnjuLeaf::Application.routes.draw do
   end
 
   resources :creators, :controller => 'patrons' do
-    resources :manifestations
+    resources :manifestations do
+      post :output_excelx, :on => :collection
+    end
   end
 
   resources :contributors, :controller => 'patrons' do
-    resources :manifestations
+    resources :manifestations do
+      post :output_excelx, :on => :collection
+    end
   end
 
   resources :publishers, :controller => 'patrons' do
-    resources :manifestations
+    resources :manifestations do
+      post :output_excelx, :on => :collection
+    end
   end
 
   resources :works, :controller => 'manifestations' do
@@ -114,6 +121,7 @@ EnjuLeaf::Application.routes.draw do
     resources :manifestation_relationships
     resources :manifestations
     resources :exemplifies
+    post :output_excelx, :on => :collection
   end
 
   resources :users do
@@ -193,7 +201,9 @@ EnjuLeaf::Application.routes.draw do
   resources :subscribes
   resources :picture_files
   resources :series_statements do
-    resources :manifestations, :controller => :manifestations
+    resources :manifestations do
+      post :output_excelx, :on => :collection
+    end
     resources :series_has_manifestations
     resources :series_statement_relationships
   end
@@ -450,6 +460,7 @@ EnjuLeaf::Application.routes.draw do
   end
   resources :binding_items
   match '/bookbindings/:bookbinder_id/manifestations' => 'manifestations#index'
+  match '/bookbindings/:bookbinder_id/manifestations/output_excelx' => 'manifestations#output_excelx'
   resources :checkout_histories
 
   resources :copy_requests
