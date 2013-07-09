@@ -10,7 +10,7 @@ class ManifestationsController < ApplicationController
   before_filter :authenticate_user!, :only => :edit
   before_filter :get_patron
   helper_method :get_manifestation, :get_subject
-  before_filter :get_series_statement, :only => [:index, :new, :edit]
+  before_filter :get_series_statement, :only => [:index, :new, :edit, :output_excelx]
   before_filter :prepare_options, :only => [:new, :edit]
   helper_method :get_libraries
   before_filter :get_version, :only => [:show, :output_show, :output_pdf]
