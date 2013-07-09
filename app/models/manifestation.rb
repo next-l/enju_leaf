@@ -826,16 +826,16 @@ class Manifestation < ActiveRecord::Base
     get_total = proc do
       series_statements_total = solr_search.execute.results.inject(0) do |total, m|
                                   #TODO series_statement.manifestations は root_manifestation を含む  
-                                  total += m.series_statement.manifestations.size - 1 if m.series_statement
+                                  total += m.series_statement.manifestations.size  if m.try(:series_statement).try(:manifestations).try(:size)
                                   total
                                 end
-      solr_search.execute.total + series_statements_total
     end
-
+    
     get_all_ids = proc do
-      solr_search.build {
-        paginate :page => 1, :per_page => Manifestation.count
-      }.execute.raw_results.map(&:primary_key)
+#      solr_search.build {
+#        paginate :page => 1, :per_page => Manifestation.count
+#      }.execute.raw_results.map(&:primary_key)
+      solr_search.execute.raw_results.map(&:primary_key)
     end
 
     threshold ||= Setting.background_job.threshold.export rescue nil
@@ -858,9 +858,7 @@ class Manifestation < ActiveRecord::Base
       block.call(output)
       return
     end
-
     manifestation_ids = get_all_ids.call
-
     generate_manifestation_list_internal(manifestation_ids, output_type, current_user, search_condition_summary, cols, &block)
   end
 

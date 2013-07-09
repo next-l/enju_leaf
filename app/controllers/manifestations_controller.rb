@@ -248,7 +248,6 @@ class ManifestationsController < ApplicationController
           ]
         end
       end
-
       # file output
       if search_opts[:output_mode]
         # TODO: 第一引数にparamsまたは生成した検索語、フィルタ指定を渡すようにして、バックグラウンドファイル生成で一時ファイルを作らなくて済むようにする
@@ -464,6 +463,10 @@ class ManifestationsController < ApplicationController
   #  render :template => 'manifestations/error.xml', :layout => false
   #  Rails.logger.info "#{Time.zone.now}\t#{query}\t\t#{current_user.try(:username)}\t#{e}"
   #  return
+  end
+
+  def output_excelx
+    index
   end
 
   # GET /manifestations/1

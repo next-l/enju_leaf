@@ -15,93 +15,106 @@
   case
   when @index_patron[:creator]
     form_type = :creator
-    form_opts = {:url => creator_manifestations_path(@index_patron[:creator])}
+    form_opts = {:url => creator_manifestations_path(@index_patron[:creator]), :method => :get}
+    form_opts_ex = {:url => output_excelx_creator_manifestations_path(@index_patron[:creator])}
     need_to_render_add_mode_tags = true if can?(:create, Create)
   when @index_patron[:contributor]
     form_type = :contributor
-    form_opts = {:url => contributor_manifestations_path(@index_patron[:contributor])}
+    form_opts = {:url => contributor_manifestations_path(@index_patron[:contributor]), :method => :get}
+    form_opts_ex = {:url => output_excelx_contributor_manifestations_path(@index_patron[:contributor])}
     need_to_render_add_mode_tags = true if can?(:create, Realize)
   when @index_patron[:publisher]
     form_type = :publisher
-    form_opts = {:url => publisher_manifestations_path(@index_patron[:publisher])}
+    form_opts = {:url => publisher_manifestations_path(@index_patron[:publisher]), :method => :get}
+    form_opts_ex = {:url => output_excelx_publisher_manifestations_path(@index_patron[:publisher])}
     need_to_render_add_mode_tags = true if can?(:create, Produce)
   when @manifestation
     form_type = :manifestation
-    form_opts = {:url => manifestation_manifestations_path(@manifestation)}
+    form_opts = {:url => manifestation_manifestations_path(@manifestation), :method => :get}
+    form_opts_ex = {:url => output_excelx_manifestation_manifestations_path(@manifestation)}
     need_to_render_add_mode_tags = true if can?(:create, ManifestationRelationship)
   when @series_statement
     form_type = :series_statement
-    form_opts = {:url => series_statement_manifestations_path(@series_statement)}
+    form_opts = {:url => series_statement_manifestations_path(@series_statement), :method => :get}
+    form_opts_ex = {:url => output_excelx_series_statement_manifestations_path(@series_statement)}
     form_sub_header = "index_form_#{form_type}_header"
     need_to_render_add_mode_tags = true if can?(:update, Manifestation)
   when @binder
     form_type = :bookbinding
-    form_opts = {:url => {:controller => 'manifestations', :action => 'index', :bookbinder_id => @binder.id}}
+    form_opts = {:url => {:controller => 'manifestations', :action => 'index', :bookbinder_id => @binder.id}, :method => :get}
+    form_opts_ex = {:url => {:controller => 'manifestations', :action => 'output_excelx', :bookbinder_id => @binder.id}}
     form_sub_header = "index_form_#{form_type}_header"
     need_to_render_add_mode_tags = true if can?(:update, Manifestation)
   else
     form_type = :basic
-    form_opts = {}
+    form_opts = {:method => :get}
+    form_opts_ex = {:url => {:action => 'output_excelx'}, :method => :post}
   end
 
-  form_opts[:html] = {:method => 'get'}
+  methods = [:get, :post]
 -%>
 
 <%- if form_pos == :top && form_sub_header -%>
   <%= render form_sub_header %>
 <%- end -%>
 
-<%= form_for :manifestations, form_opts do -%>
-  <p>
-    <%= t('page.search_term') -%>:
-    <%= search_field_tag 'query', h(@query), {:id => "search_form_#{form_pos}", :class => 'search_form', :placeholder => t('page.search_term')} -%>
-    <%- if form_type == :basic %>
-      <%= hidden_field_tag 'user_id', params[:user_id] if params[:user_id] -%>
-      <%= hidden_field_tag 'removed', true if @removed %>
-    <%- end -%>
-    <%= hidden_advanced_search_field_tags -%>
-    <%- if need_to_render_add_mode_tags -%>
-      <%= render 'page/add' %>
-    <%- end -%>
-    <%= submit_tag t('page.search') -%>
-    <% if @query.present? %><input type="button" value="<%= t('page.search_clear') -%>" onclick='<%= "$(" + "'#search_form_#{form_pos}" + "').val('')" %>' ><% end %>
-    <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
-      <% if user_signed_in? and current_user.has_role?('Librarian') %>
-        <%- if @all_manifestations %>
-          <%= check_box_tag 'all_manifestations', true, true %>
-        <%- else -%>
-          <%= check_box_tag 'all_manifestations', true %>
-        <%- end -%>
-        <%= t('advanced_search.all_manifestations') %><br />
-      <% end %>
-    <% end %>
-    <%= link_to_advanced_search -%> <%= link_to_normal_search -%> <%= advanced_search_condition_summary -%>
-    <br />
-    <%= hidden_field_tag 'reservable', params[:reservable] if params[:reservable] -%>
-    <%= hidden_field_tag 'carrier_type', params[:carrier_type] if params[:carrier_type] -%>
-    <%= hidden_field_tag 'library', params[:library] if params[:library] -%>
-    <%= hidden_field_tag 'language', params[:language] if params[:language] -%>
-    <%- if form_type != :series_statement -%>
-      <%= hidden_field_tag 'in_process', params[:in_process] if params[:in_process] -%>
-      <%= hidden_field_tag 'manifestation_type', params[:manifestation_type] if params[:manifestation_type] -%>
-      <%= hidden_field_tag 'missing_issue', params[:missing_issue] if params[:missing_issue] -%>
-      <%= hidden_field_tag 'circulation_status_in_process', params[:circulation_status_in_process] if params[:circulation_status_in_process] -%>
-      <%= hidden_field_tag 'circulation_status_in_factory', params[:circulation_status_in_factory] if params[:circulation_status_in_factory] -%>
-    <%- end -%>
-    <%= hidden_field_tag 'sort_by', params[:sort_by] if params[:sort_by] -%>
-    <%= hidden_field_tag 'solr_query', params[:solr_query] if params[:solr_query] -%>
-    <%= hidden_field_tag 'mode', params[:mode] if params[:mode] -%>
-
-<%- if form_pos == :top -%>
-    <%- if SystemConfiguration.get("manifestations.users_show_output_button") or (user_signed_in? and current_user.has_role?('Librarian')) -%>
-      <!-- start hidden checkboxes for selecting excel columns -->
-      <%- Manifestation::ALL_COLUMNS.each do |x| -%>
-        <%= check_box_tag 'cols[]', x, false, :id => "chkbox_#{x.gsub('.','_')}", :style => "display: none;" -%>
+<%- methods.each do |method| %>
+  <% if method == :post %><% opts = form_opts_ex %><% else %><% opts = form_opts %><% end %>
+  <%= opts %>
+  <%= form_for :manifestations, opts do -%>
+    <p <% if method == :post %>style='display:none;'<% end %>>
+      <%= t('page.search_term') -%>:
+      <%= search_field_tag 'query', h(@query), {:id => "search_form_#{form_pos}", :class => 'search_form', :placeholder => t('page.search_term')} -%>
+      <%- if form_type == :basic %>
+        <%= hidden_field_tag 'user_id', params[:user_id] if params[:user_id] -%>
+        <%= hidden_field_tag 'removed', true if @removed %>
       <%- end -%>
-      <!-- end hidden checkboxes for selecting excel columns -->
-      <%= submit_tag t('page.output_pdf', :model => t('page.search_result')), :name => 'output_pdf' -%>
-      <%= submit_tag t('page.output_tsv', :model => t('page.search_result')), :name => 'output_tsv'-%>
-      <%= submit_tag t('page.output_excelx', :model => t('page.search_result')), :name => 'output_excelx', :id => 'output_excelx', :style => "display: none;" -%>
+      <%= hidden_advanced_search_field_tags -%>
+      <%- if need_to_render_add_mode_tags -%>
+        <%= render 'page/add' %>
+      <%- end -%>
+      <%= submit_tag t('page.search') -%>
+      <% if @query.present? %><input type="button" value="<%= t('page.search_clear') -%>" onclick='<%= "$(" + "'#search_form_#{form_pos}" + "').val('')" %>' ><% end %>
+      <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
+        <% if user_signed_in? and current_user.has_role?('Librarian') %>
+          <%- if @all_manifestations %>
+            <%= check_box_tag 'all_manifestations', true, true %>
+          <%- else -%>
+            <%= check_box_tag 'all_manifestations', true %>
+          <%- end -%>
+          <%= t('advanced_search.all_manifestations') %><br />
+        <% end %>
+      <% end %>
+      <%= link_to_advanced_search -%> <%= link_to_normal_search -%> <%= advanced_search_condition_summary -%>
+      <br />
+      <%= hidden_field_tag 'reservable', params[:reservable] if params[:reservable] -%>
+      <%= hidden_field_tag 'carrier_type', params[:carrier_type] if params[:carrier_type] -%>
+      <%= hidden_field_tag 'library', params[:library] if params[:library] -%>
+      <%= hidden_field_tag 'language', params[:language] if params[:language] -%>
+      <%- if form_type != :series_statement -%>
+        <%= hidden_field_tag 'in_process', params[:in_process] if params[:in_process] -%>
+        <%= hidden_field_tag 'manifestation_type', params[:manifestation_type] if params[:manifestation_type] -%>
+        <%= hidden_field_tag 'missing_issue', params[:missing_issue] if params[:missing_issue] -%>
+        <%= hidden_field_tag 'circulation_status_in_process', params[:circulation_status_in_process] if params[:circulation_status_in_process] -%>
+        <%= hidden_field_tag 'circulation_status_in_factory', params[:circulation_status_in_factory] if params[:circulation_status_in_factory] -%>
+      <%- end -%>
+      <%= hidden_field_tag 'sort_by', params[:sort_by] if params[:sort_by] -%>
+      <%= hidden_field_tag 'solr_query', params[:solr_query] if params[:solr_query] -%>
+      <%= hidden_field_tag 'mode', params[:mode] if params[:mode] -%>
+
+  <%- if form_pos == :top -%>
+      <%- if SystemConfiguration.get("manifestations.users_show_output_button") or (user_signed_in? and current_user.has_role?('Librarian')) -%>
+        <%- if method == :get %>
+          <%= submit_tag t('page.output_pdf', :model => t('page.search_result')), :name => 'output_pdf' -%>
+          <%= submit_tag t('page.output_tsv', :model => t('page.search_result')), :name => 'output_tsv'-%>
+        <% else %>
+          <!-- start hidden checkboxes for selecting excel columns -->
+          <%- Manifestation::ALL_COLUMNS.each do |x| -%>
+            <%= check_box_tag 'cols[]', x, false, :id => "chkbox_#{x.gsub('.','_')}", :style => "display: none;" -%>
+          <%- end -%>
+          <!-- end hidden checkboxes for selecting excel columns -->
+          <%= submit_tag t('page.output_excelx', :model => t('page.search_result')), :name => 'output_excelx', :id => 'output_excelx', :style => "display: none;" -%>
+        <% end %>
 <script>
 <!--
 $(function(){
@@ -171,6 +184,7 @@ $(function(){
 
 <%- end -%><%# if form_pos == :top -%>
 <%- end -%><%# form_for :manifestations, :html => {:method => 'get'} do -%>
+<%- end -%>
 
 <%- if form_pos == :top -%>
 
