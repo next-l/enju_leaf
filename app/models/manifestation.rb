@@ -922,7 +922,7 @@ class Manifestation < ActiveRecord::Base
   )
   ARTICLE_COLUMNS = %w(
     creator original_title title volume_number_string number_of_page pub_date
-    call_number url subject
+    call_number access_address subject
   )
   ALL_COLUMNS =
     BOOK_COLUMNS.map {|c| "book.#{c}" } +

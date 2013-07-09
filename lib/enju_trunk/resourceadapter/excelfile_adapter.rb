@@ -23,6 +23,7 @@ class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
         manifestation_types = extraparams["manifestation_type"]
         numberings = extraparams["numbering"]
         @textfile_id = id
+        @resource_import_textfile = ResourceImportTextfile.find(@textfile_id)
         @oo = Excelx.new(filename)
         errors = []
         

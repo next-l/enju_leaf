@@ -1,31 +1,40 @@
 # -*- encoding: utf-8 -*-
 module EnjuTrunk
   module ExcelfileImportArticle
-    ARTICLE_COLUMNS = %w(
-      creator 
-      original_title 
-      title 
-      volume_number_string 
-      number_of_page
-      pub_date
-      call_number
-      url
-      subject
-    )
+    ARTICLE_COLUMNS         = %w(creator original_title title volume_number_string number_of_page pub_date call_number access_address subject)
+    ARTICLE_REQUIRE_COLUMNS = %w(original_title)
+    ARTICLE_FIELD_ROW       = 1
+    ARTICLE_DATA_ROW        = 2
+    # default setting: manifestation
+    ARTICLE_DEFAULT_LANGUAGE           = Language.where(:name => 'unknown').first
+    ARTICLE_DEFAULT_CARRIER_TYPE       = CarrierType.where(:name => 'print').first
+    ARTICLE_DEFAULT_FREQUENCY          = Frequency.where(:name => 'unknown').first
+    ARTICLE_DEFAULT_ROLE               = Role.find('Guest')
+    ARTICLE_DEFAULT_EXCEPT_RECENT      = true
+    # default setting: item
+    ARTICLE_DEFAULT_CIRCULATION_STATUS = CirculationStatus.where(:name => 'Not Available').first
+    ARTICLE_DEFAULT_USE_RESTRICTION    = UseRestriction.where(:name => 'Not For Loan').first
+    ARTICLE_DEFAULT_CHECKOUT_TYPE      = CheckoutType.where(:name => 'article').first
+    ARTICLE_DEFAULT_RANK               = 0
 
     def import_article(sheet, errors)
       error_msg = check_article_header_field(sheet)
       unless error_msg
         import_textresult = ResourceImportTextresult.new(
-          :resource_import_textfile_id => @textfile_id,
+          :resource_import_textfile_id => @resource_import_textfile.id,
           :extraparams                 => "{'sheet'=>'#{sheet}'}",
-          :body                        => @field.keys.join("\t"),
+          :body                        => @field.values.join("\t"),
           :error_msg                   => I18n.t('resource_import_textfile.message.read_sheet', :sheet => sheet),
           :failed                      => true
         )
-        msg = article_header_has_out_of_manage?(sheet)
-        import_textresult.error_msg += msg if msg
+        # contain unknown field?
+        article_headers = ARTICLE_COLUMNS.map { |c| I18n.t("resource_import_textfile.excel.article.#{c}") }
+        unknown_fileds = @field.values.inject([]){ |list, name| list << name unless article_headers.include?(name) }
+        unless unknown_fileds.blank?
+          import_textresult.error_msg += I18n.t('resource_import_textfile.message.out_of_manage', :columns => unknown_fileds.join(', ')) 
+        end
         import_textresult.save!
+
         import_article_data(sheet)
       else
         errors << { :msg => error_msg, :sheet => sheet }
@@ -34,50 +43,98 @@ module EnjuTrunk
     end 
 
     def check_article_header_field(sheet)
-      field_row_num = 1
+      # check1: sheet is blank
+      return I18n.t('resource_import_textfile.error.blank_sheet', :sheet => sheet) unless @oo.first_column
+      # check2: header has duplicate columns
+      set_field
+      return I18n.t('resource_import_textfile.error.overlap', :sheet => sheet) unless @field.keys.uniq.size == @field.keys.size
+      # check3: header require field
+      require_fields = ARTICLE_REQUIRE_COLUMNS.inject([]){ |list, column| list << I18n.t("resource_import_textfile.excel.article.#{column}") }
+      return I18n.t('resource_import_textfile.error.article.head_is_blank', :sheet => sheet) unless (require_fields & @field.values) == require_fields
 
-      # read the field, then set field a hash
-      @field = Hash::new
-      columns_num = 0
-      begin
-        @oo.first_column.upto(@oo.last_column) do |column|
-          name = @oo.cell(field_row_num, column).to_s.strip
-          unless name.blank?
-            @field.store(name, column)
-            columns_num = columns_num + 1
-          end
-        end
-      rescue
-        return I18n.t('resource_import_textfile.error.blank_sheet', :sheet => sheet)
-      end
-      if (columns_num - @field.keys.uniq.size) > 0
-        return I18n.t('resource_import_textfile.error.overlap', :sheet => sheet)
-      end
-
-      # check that exist need fields
-      require_field = [@field[I18n.t('resource_import_textfile.excel.article.original_title')]]
-      if require_field.reject{|field| field.to_s.strip == ""}.empty?
-        return I18n.t('resource_import_textfile.error.article.head_is_blank', :sheet => sheet)
-      end
       return nil
     end
 
-    def article_header_has_out_of_manage?(sheet)
-      msg = nil
-      columns = []
-      article_columns = ARTICLE_COLUMNS.map { |c| I18n.t("resource_import_textfile.excel.article.#{c}") }
-      @field.each_key do |key|
-        columns << key unless article_columns.include?(key)
+    def set_field 
+      @field = Hash::new
+      @oo.first_column.upto(@oo.last_column) do |column|
+        column_name = @oo.cell(ARTICLE_FIELD_ROW, column).to_s.strip
+        @field.store(column, column_name) unless column_name.blank?
       end
-      unless columns.blank?
-        msg = I18n.t('resource_import_textfile.message.out_of_manage', :columns => columns.join(', '))
-        puts " header has column that is out of manage "
+    end
+
+    def set_datas(row)
+      datas = Hash::new
+      @original_datas = Array::new
+
+      ARTICLE_COLUMNS.each do |column|
+        value = nil
+        if @field.index(I18n.t("resource_import_textfile.excel.article.#{column}"))
+          p @field.index(I18n.t("resource_import_textfile.excel.article.#{column}"))
+          p @oo.cell(row, @field.index(I18n.t("resource_import_textfile.excel.article.#{column}")))
+          cell = @oo.cell(row, @field.index(I18n.t("resource_import_textfile.excel.article.#{column}")))
+          @original_datas << cell
+          value = fix_data(cell.to_s.strip)
+        end        
+
+        #case @field[column]
+        case I18n.t("resource_import_textfile.excel.article.#{column}")
+        when I18n.t('resource_import_textfile.excel.article.original_title')
+          datas.store('original_title', value)
+        when I18n.t('resource_import_textfile.excel.article.title')
+          datas.store('article_title', value)
+        when I18n.t('resource_import_textfile.excel.article.pub_date')
+          datas.store('pub_date', value)
+        when I18n.t('resource_import_textfile.excel.article.access_address')
+          datas.store('access_address', value)
+        when I18n.t('resource_import_textfile.excel.article.number_of_page')
+          start_page, end_page = nil, nil
+          unless value.nil? 
+            value = value.to_s
+            if value.present?
+              if value.match(/\-/)
+                start_page = value.split('-')[0] rescue ''
+                end_page   = value.split('-')[1] rescue ''
+              else
+                start_page, end_page = value, ''
+              end
+            else
+              start_page, end_page = '', ''
+            end
+          end
+          datas.store('start_page', start_page)
+          datas.store('end_page', end_page)
+        when I18n.t('resource_import_textfile.excel.article.volume_number_string')
+          volume_number_string, issue_number_string = nil, nil
+          unless value.nil?
+            value = value.to_s
+            if value.present?
+              if value.match(/\*/)
+                volume_number_string = value.split('*')[0] rescue ''
+                issue_number_string  = value.split('*')[1] rescue ''
+              else
+                volume_number_string, issue_number_string =  '', value
+              end
+            else
+              volume_number_string, issue_number_string = '', ''
+            end
+          end
+          datas.store('volume_number_string', volume_number_string)
+          datas.store('issue_number_string', issue_number_string)
+        when I18n.t('resource_import_textfile.excel.article.creator')
+          datas.store('creators', @manifestation_type.name == 'japanese_article' ? value : value.gsub(' ', ';'))
+        when I18n.t('resource_import_textfile.excel.article.subject')
+          datas.store('subjects', @manifestation_type.name == 'japanese_article' ? value : value.gsub(/\*|＊/, ';'))
+        when I18n.t('resource_import_textfile.excel.article.call_number')
+          datas.store('call_number', value)
+        end
       end
-      return msg
+      p "--------------------"
+      datas.each { |key, value| p "#{key}: #{value}" }
+      return datas
     end
 
     def import_article_data(sheet)
-      first_data_row_num = 2
       num = { 
         :manifestation_imported => 0,
         :item_imported          => 0,
@@ -86,28 +143,21 @@ module EnjuTrunk
         :failed                 => 0 
       }
 
-      first_data_row_num.upto(@oo.last_row) do |row|
+      ARTICLE_DATA_ROW.upto(@oo.last_row) do |row|
         Rails.logger.info("import block start. row_num=#{row}")
+        datas = set_datas(row)
+        raise I18n.t('resource_import_textfile.error.article.cell_is_blank') unless (ARTICLE_REQUIRE_COLUMNS & datas.keys) == ARTICLE_REQUIRE_COLUMNS
 
-        datas = Hash::new
-        @oo.first_column.upto(@oo.last_column) do |column|
-          datas.store(column, fix_data(@oo.cell(row, column).to_s.strip))
-        end
         import_textresult = ResourceImportTextresult.new(
-          :resource_import_textfile_id => @textfile_id,
-          :body                        => datas.values.join("\t"),
+          :resource_import_textfile_id => @resource_import_textfile.id,
+          :body                        => @original_datas.join("\t"),
           :extraparams                 => "{'sheet'=>'#{sheet}'}"
         )
 
         begin
           ActiveRecord::Base.transaction do
-            # check cell
-            require_cell = [datas[@field[I18n.t('resource_import_textfile.excel.article.original_title')]]]
-            if require_cell.reject{ |field| field.to_s.strip == "" }.empty?
-              raise I18n.t('resource_import_textfile.error.article.cell_is_blank')
-            end
-            item = exist_same_article?(datas)
-            manifestation = fetch_article(datas, item)
+            item = same_article(datas)
+            manifestation = create_article_manifestation(datas, item)
             if manifestation.valid?
               item = create_article_item(datas, manifestation, item)
               item.manifestation = manifestation
@@ -136,271 +186,106 @@ module EnjuTrunk
           num[:failed] += 1
         end
         import_textresult.save!
-#        if row % 50 == 0
-          Sunspot.commit
-          GC.start
-#        end
+        Sunspot.commit
+        GC.start
       end
       Rails.cache.write("manifestation_search_total", Manifestation.search.total)
       return num
     end
 
-    def fetch_article(datas, item)
-      @mode = 'create'
-      manifestation = item.manifestation rescue nil
-
-      unless manifestation.nil?
-        @mode = 'edit'
+    def create_article_manifestation(datas, item)
+      mode = 'edit'
+      manifestation = nil 
+      if item
+         manifestation = item.manifestation
       else       
-        lang = Language.where(:name => 'unknown').first
+        mode = 'create'
         manifestation = Manifestation.new(
-          :carrier_type   => CarrierType.where(:name => 'print').first,
-          :language       => lang,
-          :frequency      => Frequency.where(:name => 'unknown').first,
-          :required_role  => Role.find('Guest'),
-          :except_recent  => true,
+          :carrier_type   => ARTICLE_DEFAULT_CARRIER_TYPE,
+          :language       => ARTICLE_DEFAULT_LANGUAGE,
+          :frequency      => ARTICLE_DEFAULT_FREQUENCY,
+          :required_role  => ARTICLE_DEFAULT_ROLE,
+          :except_recent  => ARTICLE_DEFAULT_EXCEPT_RECENT,
           :during_import  => true,
         )
       end
+      p mode == 'create' ? "create new manifestation" : "edit manifestation / id:#{manifestation.id}" 
 
-      original_title = datas[@field[I18n.t('resource_import_textfile.excel.article.original_title')]]
-      article_title  = datas[@field[I18n.t('resource_import_textfile.excel.article.title')]]
-      pub_date       = datas[@field[I18n.t('resource_import_textfile.excel.article.pub_date')]]
-      access_address = datas[@field[I18n.t('resource_import_textfile.excel.article.url')]]
-
-      start_page, end_page        = set_page(datas[@field[I18n.t('resource_import_textfile.excel.article.number_of_page')]])
-      volume_number, issue_number = set_number(datas[@field[I18n.t('resource_import_textfile.excel.article.volume_number_string')]])
-
-      manifestation.manifestation_type   = @manifestation_type
-      manifestation.original_title       = original_title.to_s unless original_title.nil?
-      manifestation.article_title        = article_title.to_s  unless article_title.nil?
-      manifestation.pub_date             = pub_date.to_s       unless pub_date.nil?
-      manifestation.volume_number_string = volume_number.to_s  unless volume_number.nil?      
-      manifestation.issue_number_string  = issue_number.to_s   unless issue_number.nil?
-      manifestation.access_address       = access_address.to_s unless access_address.nil?
-
-      unless start_page.nil?
-        if start_page.to_s.blank?
-          manifestation.start_page = nil
-        else
-          manifestation.start_page = start_page.to_s
-        end
-      end
-      unless end_page.nil?
-        if end_page.to_s.blank?
-          manifestation.end_page = nil
-        else
-          manifestation.end_page = end_page.to_s
+      manifestation.manifestation_type = @manifestation_type
+      datas.each do |key, value|
+        unless ['call_number', 'creators', 'subjects'].include?(key)
+          manifestation[key] = value unless value.nil?
         end
       end
       manifestation.save!
-      if @mode == "create"
-        p "created manifestation id:#{manifestation.id}"
-      else
-        p "edited manifestation id:#{manifestation.id}"
-      end
-
-      creators_cell   = datas[@field[I18n.t('resource_import_textfile.excel.article.creator')]]
-      creators        = set_article_creatos(creators_cell)
-      unless creators.nil?
-        creators_list   = creators.inject([]){ |list, creator| list << {:full_name => creator.to_s.strip, :full_name_transcription => "" } }
-        creator_patrons = Patron.import_patrons(creators_list)
-        manifestation.creators = creator_patrons
-      end
-      subjects_cell = datas[@field[I18n.t('resource_import_textfile.excel.article.subject')]]
-      subjects_list = set_article_subjects(subjects_cell)
-      unless subjects_list.nil?
-        subjects      = Subject.import_subjects(subjects_list)
-        manifestation.subjects = subjects
-      end
+      manifestation.creators = Patron.add_patrons(datas['creators']) unless datas['creators'].nil?
+      manifestation.subjects = Subject.import_subjects(datas['subjects']) unless datas['subjects'].nil?
       return manifestation
     end
 
-    def exist_same_article?(datas)
-      original_title       = datas[@field[I18n.t('resource_import_textfile.excel.article.original_title')]]
-      article_title        = datas[@field[I18n.t('resource_import_textfile.excel.article.title')]]
-      pub_date             = datas[@field[I18n.t('resource_import_textfile.excel.article.pub_date')]]
-      access_address       = datas[@field[I18n.t('resource_import_textfile.excel.article.url')]]
-      creators             = set_article_creatos(datas[@field[I18n.t('resource_import_textfile.excel.article.creator')]])
-      subjects             = set_article_subjects(datas[@field[I18n.t('resource_import_textfile.excel.article.subject')]])
-      call_number          = datas[@field[I18n.t('resource_import_textfile.excel.article.call_number')]]
-      volume_number, issue_number = set_number(datas[@field[I18n.t('resource_import_textfile.excel.article.volume_number_string')]])
-      start_page, end_page        = set_page(datas[@field[I18n.t('resource_import_textfile.excel.article.number_of_page')]])
+    def create_article_item(datas, manifestation, item)
+      mode = 'edit'
+      unless item 
+        if manifestation.items.size < 1
+          mode = 'create'
+          item = Item.new
+        else
+          item = manifestation.items.order('created_at asc').first
+        end
+      end
+      p mode == 'create' ? "create new item" : "edit item / id: #{item.id} / item_identifer: #{item.item_identifier}"
 
-p "____________________________________________________________"
-p "original_title: #{original_title}"
-p "article_title:  #{article_title}"
-p "pub_date:       #{pub_date}"
-p "access_address: #{access_address}"
-p "creators:       #{creators}"
-p "subjects:       #{subjects}"
-p "call_number:    #{call_number}"
-p "volume_number:  #{volume_number}"
-p "issue_number:   #{issue_number}"
-p "start_page:     #{start_page}"
-p "end_page:       #{end_page}"
+      item.circulation_status = ARTICLE_DEFAULT_CIRCULATION_STATUS
+      item.use_restriction    = ARTICLE_DEFAULT_USE_RESTRICTION
+      item.checkout_type      = ARTICLE_DEFAULT_CHECKOUT_TYPE
+      item.rank               = ARTICLE_DEFAULT_RANK
+      item.shelf_id           = @resource_import_textfile.user.library.article_shelf.id
+      item.call_number        = datas['call_number'] unless datas['call_number'].nil?
+      while item.item_identifier.nil?
+        item_identifier = Numbering.do_numbering(@numbering.name)
+        item.item_identifier   = item_identifier unless Item.where(:item_identifier => item_identifier).first
+      end
+      item.save!
+      item.patrons << @resource_import_textfile.user.library.patron if mode == 'create'
+      return item
+    end
 
-      return nil if original_title.nil? or original_title.blank?
-      return nil if article_title.nil? or article_title.blank?
-      return nil if pub_date.nil? or pub_date.blank?
-      return nil if access_address.nil? or access_address.blank?
-      #return nil if volume_number.nil? or volume_number.blank?
-      #return nil if issue_number.nil? or issue_number.blank?
-      return nil if start_page.nil? or start_page.blank?
-      #return nil if end_page.nil? or end_page.blank?
-      return nil if call_number.nil? or call_number.blank?
-      return nil if creators.nil?
-      return nil if subjects.nil?
-
+    def same_article(datas)
       conditions = []
-      conditions << "(manifestations).original_title = \'#{original_title.gsub("'", "''")}\'"
-      conditions << "(manifestations).article_title = \'#{article_title.gsub("'", "''")}\'"
-      conditions << "(manifestations).pub_date= \'#{pub_date.gsub("'", "''")}\'"
-      conditions << "(manifestations).access_address = \'#{access_address.gsub("'", "''")}\'"
-      conditions << "(manifestations).start_page = \'#{start_page}\'"
-      conditions << "(manifestations).end_page = \'#{end_page}\'" unless end_page
-      conditions << "(items).call_number = \'#{call_number.to_s.gsub("'", "''")}\'" 
-      conditions << "creates.id is not null"
-      conditions << "subjects.id is not null"
-
-      if volume_number.nil? or volume_number.blank?
-        conditions << "((manifestations).volume_number_string is null or (manifestations).volume_number_string = '')" 
-      else
-        conditions << "(manifestations).volume_number_string = \'#{volume_number.gsub("'", "''")}\'"
+      datas.each do |key, value|
+        case key
+        when 'creators', 'subjects'
+          conditions << "#{key == 'creators' ? 'creates' : 'subjects'}.id IS #{'NOT' unless value.nil? or value.blank?} NULL"
+        else
+          model = 'manifestations'
+          model = 'items' if key == 'call_number'
+          if value.nil? or value.blank?
+            conditions << "((#{model}).#{key} IS NULL OR (#{model}).#{key} = '')"
+          else
+            conditions << "((#{model}).#{key} = \'#{value.gsub("'", "''")}\')"
+          end 
+        end
       end
-      if issue_number.nil? or issue_number.blank?
-        conditions << "((manifestations).issue_number_string is null or (manifestations).issue_number_string = '')" 
-      else
-        conditions << "(manifestations).issue_number_string = \'#{issue_number.gsub("'", "''")}\'"
-      end
-
-      conditions = conditions.join(' and ')
-
-      #article =  Manifestation.find(
+      conditions = conditions.join(' AND ')
       p "@@@@@@@@@@@@@"
       p conditions
 
       article = Item.find(
         :first,
-        :include => [
-          :manifestation => [:creators, :subjects]
-        ],
+        :include => [:manifestation => [:creators, :subjects]],
         :conditions => conditions,
         :order => "items.created_at asc"
       )
       if article
-        if article.manifestation.creators.map{ |c| c.full_name }.sort == creators.sort
-          if article.manifestation.subjects.map{ |s| s.term }.sort == subjects.sort
+        creators = article.manifestation.creators
+        subjects = article.manifestation.subjects
+        if (creators.blank? and (datas['creators'].nil? or datas['creators'].blank?)) or (creators.pluck(:full_name).sort == datas['creators'].gsub('；', ';').split(/;/).sort)
+          if (subjects.blank? and (datas['subjects'].nil? or datas['subjects'].blank?)) or (subjects.pluck(:term).sort == datas['subjects'].gsub('；', ';').split(/;/).sort)
             return article
           end
         end
       end
       return nil
-    end
-
-    def create_article_item(datas, manifestation, item)
-      @mode_item = 'edit'
-      import_textfile = ResourceImportTextfile.find(@textfile_id)
-
-      unless item
-        unless manifestation.items.size > 0
-          item = Item.new
-          @mode_item = 'create'
-        else
-          item = manifestation.items.order('created_at asc').first
-        end
-      end
-      shelf = nil
-      unless item.shelf.nil?
-        unless item.shelf_id == 1
-          shelf = item.shelf
-        else
-          shelf = import_textfile.user.library.article_shelf
-        end
-      else
-        shelf = import_textfile.user.library.article_shelf
-      end
-      shelf = import_textfile.user.library.article_shelf
-
-      call_number = datas[@field[I18n.t('resource_import_textfile.excel.article.call_number')]]
-
-      item.manifestation_id   = manifestation.id
-      item.circulation_status = CirculationStatus.where(:name => 'Not Available').first
-      item.use_restriction    = UseRestriction.where(:name => 'Not For Loan').first
-      item.checkout_type      = CheckoutType.where(:name => 'article').first
-      item.rank               = 0
-      item.shelf_id           = shelf.id        unless shelf.nil?
-      item.call_number        = call_number     unless call_number.nil?
-      if item.item_identifier.nil?
-        while item.item_identifier.nil?
-          create_item_identifier = Numbering.do_numbering(@numbering.name)
-          exit_item_identifier = Item.where(:item_identifier => create_item_identifier).first
-          item.item_identifier = create_item_identifier unless exit_item_identifier
-        end
-      end
-      item.save!
-      if @mode_item == "create"
-        p "created item item_identifer: #{item.item_identifier}"
-      else
-        p "edited item item_identifer: #{item.item_identifier}"
-      end
-      item.patrons << import_textfile.user.library.patron if @mode_item == 'create'
-      return item
-    end
-
-    def set_number(num)
-      volume_number_string, issue_number_string = nil, nil
-      unless num.nil?
-        unless num.to_s.match(/\*/)
-          volume_number_string, issue_number_string =  '', num 
-        else
-          volume_number_string = num.split('*')[0] rescue ''
-          issue_number_string = num.split('*')[1] rescue ''
-          volume_number_string = "" if volume_number_string.nil?
-          issue_number_string = "" if issue_number_string.nil?
-        end
-      end
-      return volume_number_string, issue_number_string
-    end
-
-    def set_page(page)
-      start_page, end_page = nil, nil
-      unless page.nil?
-        if page.to_s.match(/\-/)
-          start_page, end_page = page.split('-')[0], page.split('-')[1]
-        elsif page.blank?
-         start_page, end_page = "", ""
-        else
-          start_page, end_page = page, ""
-        end
-      end
-      return start_page, end_page
-    end
-
-    def set_article_creatos(cell)
-      return nil if cell.nil?
-      creators = []
-      if @manifestation_type.name == 'japanese_article'
-        cell = cell.gsub('；', ';')
-        creators = cell.split(';')
-      else
-        creators = cell.split(' ')
-      end
-      return creators
-    end
-
-    def set_article_subjects(cell)
-      return nil if cell.nil?
-      subjects = []
-      if @manifestation_type.name == 'japanese_article'
-#        subjects = cell.gsub('；', ';').split(';')
-        subjects = cell
-      else
-#        #cell = cell.gsub('＊', '*')
-#        subjects = cell.split('*')
-        subjects = cell.gsub(/\*|＊/, ';')
-      end
-      return subjects
     end
   end
 end

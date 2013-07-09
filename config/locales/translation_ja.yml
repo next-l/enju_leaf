@@ -2359,7 +2359,7 @@ ja:
         number_of_page: ページ
         pub_date: 刊行年
         call_number: 請求記号 
-        url: ＵＲＬ
+        access_address: ＵＲＬ
         subject: 件名 
     message:
       read_sheet: "シート『%{sheet}』の読み取りを開始します。"
