@@ -50,7 +50,7 @@ platforms :jruby do
   #gem 'kramdown'
 end
 
-gem 'exception_notification', '~> 3.0'
+gem 'exception_notification', '~> 4.0'
 gem 'progress_bar'
 gem 'strongbox'
 gem 'sitemap_generator', '~> 4.0'
@@ -76,17 +76,17 @@ end
 group :development, :test do
   gem 'simplecov', '~> 0.7', :require => false
   gem 'ruby-prof', :platforms => :mri
-  gem 'rspec-rails', '~> 2.13'
+  gem 'rspec-rails', '~> 2.14'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 4.2'
   gem 'spring'
   gem 'timecop'
   gem 'sunspot-rails-tester'
-  gem 'vcr', '~> 2.4'
+  gem 'vcr', '~> 2.5'
   gem 'fakeweb'
   gem 'steak'
   gem 'resque_spec'
-  gem 'parallel_tests', '~> 0.12'
+  gem 'parallel_tests', '~> 0.15'
 end
 
 # Gems used only for assets and not required
@@ -103,7 +103,6 @@ end
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'jquery-modal-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
