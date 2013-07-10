@@ -33,7 +33,7 @@ ja:
         keyword_list: キーワードリスト
         user_number: 利用者番号
         state: 状態
-        patron: 人物・団体
+        agent: 人物・団体
         library: 所属館
         user_group: ユーザグループ
         full_name: 氏名
@@ -134,7 +134,7 @@ ja:
     remove_this_facet: "この絞り込みを解除する"
     no_subject: "件名はついていません。"
     no_tag: "タグはついていません。"
-    add_patron: "人物・団体を追加する"
+    add_agent: "人物・団体を追加する"
     total: "合計"
     sort_by: "次の項目で並べ替える"
     bookmarklet: "ブックマークレット"
@@ -166,7 +166,7 @@ ja:
     new: "%{model}の新規作成"
     editing: "%{model}の編集"
     showing: "%{model}の表示"
-    patron_management: "人物・団体の管理"
+    agent_management: "人物・団体の管理"
     user_management: "利用者の管理"
     back_to: "%{model}の一覧に戻る"
     picture: "画像"
@@ -243,11 +243,11 @@ ja:
     to: "から"
     all_libraries: "全ての図書館"
   work:
-    patron_work: "%{patron_name} の書いた資料"
+    agent_work: "%{agent_name} の書いた資料"
     library_group_work: "%{library_group_name} にある書いた資料"
     add: "書いた資料を追加する"
   expression:
-    patron_expression: "%{patron_name} の協力した資料"
+    agent_expression: "%{agent_name} の協力した資料"
     manifestations_expression: "%{manifestation_title} に含まれる協力した資料"
     library_group_expression: "%{library_group_name} にある協力した資料"
     add: "協力した資料を追加する"
@@ -262,7 +262,7 @@ ja:
     edit_publisher: "出版者を編集"
     edit_expression: "協力した資料を編集"
     edit_item: "所蔵を編集"
-    patron_manifestation: "%{patron_name} の資料"
+    agent_manifestation: "%{agent_name} の資料"
     expressions_manifestation: "%{expression_title} の出版した資料"
     library_group_manifestation: "%{library_group_name} にある資料"
     reserve_this: "この資料を予約する"
@@ -303,11 +303,11 @@ ja:
     add_lending_policy: "貸出規則の追加"
     edit_exemplification: "書誌の付け替え"
     accepted_at: "受入時刻"
-  patron:
-    library_group_patron: "%{library_group_name} の人物・団体"
-    work_patron: "%{work_title} の著作者"
-    expression_patron: "%{expression_title} の編者"
-    manifestation_patron: "%{manifestation_title} の出版者"
+  agent:
+    library_group_agent: "%{library_group_name} の人物・団体"
+    work_agent: "%{work_title} の著作者"
+    expression_agent: "%{expression_title} の編者"
+    manifestation_agent: "%{manifestation_title} の出版者"
     activate_as_user: "利用者として登録する"
     deactivate: "利用者登録を解除する"
     add: "人物・団体を追加する"
@@ -339,7 +339,7 @@ ja:
     edit_profile: "プロフィールの編集"
     edit_account: "アカウント情報の編集"
     already_activated: "すでに利用者として登録されています。"
-    specify_patron: "人物・団体を指定してください。"
+    specify_agent: "人物・団体を指定してください。"
     wrong_password: "パスワードが間違っています。"
     password_mismatch: "パスワードが一致しません。"
     cannot_destroy_myself: "自分自身を削除することはできません。"
@@ -347,7 +347,7 @@ ja:
     last_librarian: "この利用者はシステム上の最後の図書館員です。"
     only_administrator_can_destroy: "この利用者は管理者でなければ削除できません。"
     this_user_has_checked_out_item: "この利用者は貸出中の資料があります。"
-    patron_profile: "人物・団体のプロフィール"
+    agent_profile: "人物・団体のプロフィール"
     set_auto_generated_password: "自動生成したパスワードを設定する"
     history: "履歴"
     account_management: "アカウント管理"
