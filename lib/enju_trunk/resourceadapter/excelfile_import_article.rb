@@ -29,7 +29,7 @@ module EnjuTrunk
         )
         # contain unknown field?
         article_headers = ARTICLE_COLUMNS.map { |c| I18n.t("resource_import_textfile.excel.article.#{c}") }
-        unknown_fileds = @field.values.inject([]){ |list, name| list << name unless article_headers.include?(name) }
+        unknown_fileds = @field.values.map { |name| name unless article_headers.include?(name) }.compact
         unless unknown_fileds.blank?
           import_textresult.error_msg += I18n.t('resource_import_textfile.message.out_of_manage', :columns => unknown_fileds.join(', ')) 
         end
@@ -47,7 +47,7 @@ module EnjuTrunk
       return I18n.t('resource_import_textfile.error.blank_sheet', :sheet => sheet) unless @oo.first_column
       # check2: header has duplicate columns
       set_field
-      return I18n.t('resource_import_textfile.error.overlap', :sheet => sheet) unless @field.keys.uniq.size == @field.keys.size
+      return I18n.t('resource_import_textfile.error.overlap', :sheet => sheet) unless @field.values.uniq.size == @field.values.size
       # check3: header require field
       require_fields = ARTICLE_REQUIRE_COLUMNS.inject([]){ |list, column| list << I18n.t("resource_import_textfile.excel.article.#{column}") }
       return I18n.t('resource_import_textfile.error.article.head_is_blank', :sheet => sheet) unless (require_fields & @field.values) == require_fields
@@ -65,16 +65,13 @@ module EnjuTrunk
 
     def set_datas(row)
       datas = Hash::new
-      @original_datas = Array::new
 
       ARTICLE_COLUMNS.each do |column|
         value = nil
-        if @field.index(I18n.t("resource_import_textfile.excel.article.#{column}"))
-          p @field.index(I18n.t("resource_import_textfile.excel.article.#{column}"))
-          p @oo.cell(row, @field.index(I18n.t("resource_import_textfile.excel.article.#{column}")))
-          cell = @oo.cell(row, @field.index(I18n.t("resource_import_textfile.excel.article.#{column}")))
-          @original_datas << cell
-          value = fix_data(cell.to_s.strip)
+        invert_field = @field.invert
+        if invert_field[I18n.t("resource_import_textfile.excel.article.#{column}")]
+          cell = @oo.cell(row, invert_field[I18n.t("resource_import_textfile.excel.article.#{column}")])
+          value = fix_data(cell)
         end        
 
         #case @field[column]
@@ -90,13 +87,13 @@ module EnjuTrunk
         when I18n.t('resource_import_textfile.excel.article.number_of_page')
           start_page, end_page = nil, nil
           unless value.nil? 
-            value = value.to_s
-            if value.present?
-              if value.match(/\-/)
-                start_page = value.split('-')[0] rescue ''
-                end_page   = value.split('-')[1] rescue ''
+            page = value.to_s
+            if page.present?
+              if page.match(/\-/)
+                start_page = fix_data(page.split('-')[0]) rescue ''
+                end_page   = fix_data(page.split('-')[1]) rescue ''
               else
-                start_page, end_page = value, ''
+                start_page, end_page = page, ''
               end
             else
               start_page, end_page = '', ''
@@ -122,14 +119,14 @@ module EnjuTrunk
           datas.store('volume_number_string', volume_number_string)
           datas.store('issue_number_string', issue_number_string)
         when I18n.t('resource_import_textfile.excel.article.creator')
-          datas.store('creators', @manifestation_type.name == 'japanese_article' ? value : value.gsub(' ', ';'))
+          datas.store('creators', @manifestation_type.name == 'japanese_article' ? value : value.to_s.gsub(' ', ';'))
         when I18n.t('resource_import_textfile.excel.article.subject')
-          datas.store('subjects', @manifestation_type.name == 'japanese_article' ? value : value.gsub(/\*|＊/, ';'))
+          datas.store('subjects', @manifestation_type.name == 'japanese_article' ? value : value.to_s.gsub(/\*|＊/, ';'))
         when I18n.t('resource_import_textfile.excel.article.call_number')
           datas.store('call_number', value)
         end
       end
-      p "--------------------"
+      p "---- datas --------------------"
       datas.each { |key, value| p "#{key}: #{value}" }
       return datas
     end
@@ -145,16 +142,21 @@ module EnjuTrunk
 
       ARTICLE_DATA_ROW.upto(@oo.last_row) do |row|
         Rails.logger.info("import block start. row_num=#{row}")
-        datas = set_datas(row)
-        raise I18n.t('resource_import_textfile.error.article.cell_is_blank') unless (ARTICLE_REQUIRE_COLUMNS & datas.keys) == ARTICLE_REQUIRE_COLUMNS
-
+        origin_row = []
+        @oo.first_column.upto(@oo.last_column) do |column|
+          origin_row << @oo.cell(row, column).to_s.strip
+        end
         import_textresult = ResourceImportTextresult.new(
           :resource_import_textfile_id => @resource_import_textfile.id,
-          :body                        => @original_datas.join("\t"),
+          :body                        => origin_row.join("\t"),
           :extraparams                 => "{'sheet'=>'#{sheet}'}"
         )
-
         begin
+          datas = set_datas(row)
+          ARTICLE_REQUIRE_COLUMNS.each do |column|
+            raise I18n.t('resource_import_textfile.error.article.cell_is_blank') if datas[column].nil? or datas[column].blank?
+          end
+
           ActiveRecord::Base.transaction do
             item = same_article(datas)
             manifestation = create_article_manifestation(datas, item)
@@ -214,7 +216,7 @@ module EnjuTrunk
       manifestation.manifestation_type = @manifestation_type
       datas.each do |key, value|
         unless ['call_number', 'creators', 'subjects'].include?(key)
-          manifestation[key] = value unless value.nil?
+          manifestation[key] = value.to_s unless value.nil?
         end
       end
       manifestation.save!
@@ -240,7 +242,7 @@ module EnjuTrunk
       item.checkout_type      = ARTICLE_DEFAULT_CHECKOUT_TYPE
       item.rank               = ARTICLE_DEFAULT_RANK
       item.shelf_id           = @resource_import_textfile.user.library.article_shelf.id
-      item.call_number        = datas['call_number'] unless datas['call_number'].nil?
+      item.call_number        = datas['call_number'].to_s unless datas['call_number'].nil?
       while item.item_identifier.nil?
         item_identifier = Numbering.do_numbering(@numbering.name)
         item.item_identifier   = item_identifier unless Item.where(:item_identifier => item_identifier).first
@@ -251,7 +253,7 @@ module EnjuTrunk
     end
 
     def same_article(datas)
-      conditions = []
+      conditions = ["((manifestations).manifestation_type_id = \'#{@manifestation_type.id}\')"]
       datas.each do |key, value|
         case key
         when 'creators', 'subjects'
@@ -262,12 +264,12 @@ module EnjuTrunk
           if value.nil? or value.blank?
             conditions << "((#{model}).#{key} IS NULL OR (#{model}).#{key} = '')"
           else
-            conditions << "((#{model}).#{key} = \'#{value.gsub("'", "''")}\')"
+            conditions << "((#{model}).#{key} = \'#{value.to_s.gsub("'", "''")}\')"
           end 
         end
       end
       conditions = conditions.join(' AND ')
-      p "@@@@@@@@@@@@@"
+      p "---- conditions --------------------"
       p conditions
 
       article = Item.find(
