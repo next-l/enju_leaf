@@ -24,10 +24,6 @@
       <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'created_at', :order => 'asc', :only_path => true)) -%>
       <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(params.merge(:sort_by => 'created_at', :order => 'desc', :only_path => true)) -%>
     </th>
-    <% if defined?(EnjuCirculation) %>
-      <th><%= t('activerecord.models.checkout') -%></th>
-      <th><%= t('activerecord.models.reserve') -%></th>
-    <% end %>
     <th></th>
   </tr>
 
@@ -38,13 +34,6 @@
     </td>
     <td><%= user.user_number -%></td>
     <td><%= l(user.created_at) if user.created_at -%></td>
-    <% if defined?(EnjuCirculation) %>
-      <td>
-        <%= link_to t('activerecord.models.checkout'), new_basket_path(:user_number => user.user_number) unless user.user_number.blank? -%>
-        (<%= link_to t('page.checkout_history'), user_checkouts_path(user) -%>)
-      </td>
-      <td><%= link_to t('activerecord.models.reserve'), user_reserves_path(user) -%></td>
-    <% end %>
     <td>
       <%= link_to t('user.edit_account'), edit_user_path(user) -%>
     </td>
