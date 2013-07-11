@@ -58,7 +58,7 @@ class ManifestationExstatsController < ApplicationController
 
       while i < @checkouts.length
         @rank = i + 1 unless @checkouts[i].cnt == @checkouts[i-1].cnt
-        @manifestation = Manifestation.find(@checkouts[i].manifestation_id)
+        @manifestation = Manifestation.where(:id => @checkouts[i].manifestation_id).first
         @ranks << @Rank.new(@rank, @manifestation) if @rank <= @limit
         i += 1
       end

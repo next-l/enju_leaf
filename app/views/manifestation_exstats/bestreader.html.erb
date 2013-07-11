@@ -31,8 +31,8 @@ $(function(){
 <%- @ranks.each_with_index do |r, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= r.rank -%></td>
-    <td><%= link_to r.manifestation.original_title, r.manifestation -%></td>
-    <td><%= render 'manifestations/show_creators', :manifestation => r.manifestation -%></td>
+    <td><%= link_to r.try(:manifestation).try(:original_title), r.try(:manifestation) if r.manifestation -%></td>
+    <td><%= render 'manifestations/show_creators', :manifestation => r.try(:manifestation) if r.manifestation -%></td>
     <td><%= @checkouts[i].cnt if @checkouts[i] -%></td>
   </tr>
 <%- end -%>
