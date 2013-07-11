@@ -1689,6 +1689,7 @@ ja:
     search_article_results: "文献資料の検索結果"
     library_reports: "報告書・帳票"
     more_information: "詳細情報を表示"
+    output_receipt_printer: "＊この資料確認票はレシートプリンタ用です。8cm幅に出力されますのでご注意ください。"
 
     exstatistics:
       ranknumber: 順位
