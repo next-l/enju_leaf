@@ -1,4 +1,7 @@
 class ImportRequestsController < ApplicationController
+  add_breadcrumb "I18n.t('page.listing', :model => I18n.t('activerecord.models.import_request'))", 'import_requests_path', :only => [:index]
+  add_breadcrumb "I18n.t('page.showing', :model => I18n.t('activerecord.models.import_request'))", 'import_request_path(params[:id])', :only => [:show]
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.import_request'))", 'new_import_request_path', :only => [:new, :create]
   load_and_authorize_resource
 
   # GET /import_requests

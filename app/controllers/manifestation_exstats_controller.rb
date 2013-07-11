@@ -1,4 +1,6 @@
 class ManifestationExstatsController < ApplicationController
+  add_breadcrumb "I18n.t('page.best_reader')", 'manifestation_exstats_bestreader_path', :only => [:bestreaser]
+  add_breadcrumb "I18n.t('page.best_request')", 'manifestation_exstats_bestrequest_path', :only => [:bestrequest]
 
   def initialize
     @limit = 20

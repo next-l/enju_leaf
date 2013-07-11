@@ -1,4 +1,5 @@
 class KeywordCountsController < ApplicationController
+  add_breadcrumb "I18n.t('activerecord.models.keyword_count')", 'keyword_counts_path', :only => [:index]
   load_and_authorize_resource
 
   def index
