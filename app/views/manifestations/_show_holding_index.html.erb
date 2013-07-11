@@ -10,7 +10,7 @@
       <th><%= t('activerecord.models.circulation_status') %></th>
     <% end %>
     <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
-      <% if user_signed_in? and current_user.has_role?('Librarian') and params[:all_manifestations] %>
+      <% if user_signed_in? and current_user.has_role?('Librarian') %>
         <th><%= t('activerecord.attributes.item.rank') %></th>
       <% end %>
     <% end %>
@@ -54,7 +54,7 @@
           </td>
         <% end %>
         <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
-          <% if user_signed_in? and current_user.has_role?('Librarian') and params[:all_manifestations] %>
+          <% if user_signed_in? and current_user.has_role?('Librarian') %>
             <td><%= i18n_rank(item.rank) %></td>
           <% end %>
         <% end %>
