@@ -823,6 +823,10 @@ class Manifestation < ActiveRecord::Base
   #  output.path: 生成結果のパス名(result_typeが:pathのとき)
   #  output.job_name: 後で処理する際のジョブ名(result_typeが:delayedのとき)
   def self.generate_manifestation_list(solr_search, output_type, current_user, search_condition_summary, cols=[], threshold = nil, &block)
+    solr_search.build {
+      paginate :page => 1, :per_page => Manifestation.count
+    }
+
     get_total = proc do
       series_statements_total = solr_search.execute.results.inject(0) do |total, m|
                                   #TODO series_statement.manifestations は root_manifestation を含む  
@@ -832,11 +836,9 @@ class Manifestation < ActiveRecord::Base
     end
     
     get_all_ids = proc do
-#      solr_search.build {
-#        paginate :page => 1, :per_page => Manifestation.count
-#      }.execute.raw_results.map(&:primary_key)
       solr_search.execute.raw_results.map(&:primary_key)
     end
+
 
     threshold ||= Setting.background_job.threshold.export rescue nil
     if threshold && threshold > 0 && get_total.call > threshold
