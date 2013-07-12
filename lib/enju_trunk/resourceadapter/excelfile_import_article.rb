@@ -10,7 +10,7 @@ module EnjuTrunk
     ARTICLE_DEFAULT_CARRIER_TYPE       = CarrierType.where(:name => 'print').first
     ARTICLE_DEFAULT_FREQUENCY          = Frequency.where(:name => 'unknown').first
     ARTICLE_DEFAULT_ROLE               = Role.find('Guest')
-    ARTICLE_DEFAULT_EXCEPT_RECENT      = true
+    ARTICLE_DEFAULT_EXCEPT_RECENT      = false
     # default setting: item
     ARTICLE_DEFAULT_CIRCULATION_STATUS = CirculationStatus.where(:name => 'Not Available').first
     ARTICLE_DEFAULT_USE_RESTRICTION    = UseRestriction.where(:name => 'Not For Loan').first
