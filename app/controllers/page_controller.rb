@@ -4,6 +4,7 @@ class PageController < ApplicationController
   add_breadcrumb "I18n.t('page.configuration')", 'page_configuration_path', :only => [:configuration]
   add_breadcrumb "I18n.t('page.import_from_file')", 'page_import_path', :only => [:import]
   add_breadcrumb "I18n.t('page.advanced_search')", 'page_import_path', :only => [:advanced_search]
+  add_breadcrumb "I18n.t('page.statistics')", 'page_exstatistics_path', :only => [:exstatistics]
   before_filter :redirect_user, :only => :index
   before_filter :clear_search_sessions, :only => [:index, :advanced_search]
   before_filter :store_location, :only => [:advanced_search, :about, :add_on, :msie_acceralator]

@@ -354,9 +354,9 @@ ja:
         zip_code_1: 郵便番号1
         zip_code_2: 郵便番号2
         address: 住所
-        address_1: 所属先住所 # 住所1
+        address_1: 住所1
         address_2: 住所2
-        address_1_note: 所属先住所の注記 # 住所1の注記
+        address_1_note: 住所1の注記
         address_2_note: 住所2の注記
         telephone_number: 電話番号
         telephone_number_1: 内線 # 電話番号1-1
@@ -1689,6 +1689,7 @@ ja:
     search_article_results: "文献資料の検索結果"
     library_reports: "報告書・帳票"
     more_information: "詳細情報を表示"
+    output_receipt_printer: "＊この資料確認票はレシートプリンタ用です。8cm幅に出力されますのでご注意ください。"
 
     exstatistics:
       ranknumber: 順位
@@ -2359,7 +2360,7 @@ ja:
         number_of_page: ページ
         pub_date: 刊行年
         call_number: 請求記号 
-        url: ＵＲＬ
+        access_address: ＵＲＬ
         subject: 件名 
     message:
       read_sheet: "シート『%{sheet}』の読み取りを開始します。"

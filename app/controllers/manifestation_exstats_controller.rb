@@ -1,4 +1,6 @@
 class ManifestationExstatsController < ApplicationController
+  add_breadcrumb "I18n.t('page.best_reader')", 'manifestation_exstats_bestreader_path', :only => [:bestreaser]
+  add_breadcrumb "I18n.t('page.best_request')", 'manifestation_exstats_bestrequest_path', :only => [:bestrequest]
 
   def initialize
     @limit = 20
@@ -56,7 +58,7 @@ class ManifestationExstatsController < ApplicationController
 
       while i < @checkouts.length
         @rank = i + 1 unless @checkouts[i].cnt == @checkouts[i-1].cnt
-        @manifestation = Manifestation.find(@checkouts[i].manifestation_id)
+        @manifestation = Manifestation.where(:id => @checkouts[i].manifestation_id).first
         @ranks << @Rank.new(@rank, @manifestation) if @rank <= @limit
         i += 1
       end

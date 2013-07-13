@@ -214,10 +214,10 @@ module EnjuTrunk
         end
 
         import_textresult.save!
-        if row % 50 == 0
+#        if row % 50 == 0
           Sunspot.commit
           GC.start
-        end
+#        end
       end
       #sm_complete!
       Rails.cache.write("manifestation_search_total", Manifestation.search.total)
@@ -429,13 +429,11 @@ module EnjuTrunk
       unless isbn.blank?
         begin
           isbn = Lisbn.new(isbn)
-          manifestation = Manifestation.find_by_isbn(isbn)
-          if manifestation
-            @mode = "edit"
-          else
+          exist_manifestation = Manifestation.find_by_isbn(isbn)
+          unless exist_manifestation
             manifestation = Manifestation.import_isbn(isbn)
+            raise I18n.t('resource_import_textfile.error.book.wrong_isbn') unless manifestation
           end
-          raise I18n.t('resource_import_textfile.error.book.wrong_isbn') unless manifestation
         rescue EnjuNdl::InvalidIsbn
           raise I18n.t('resource_import_textfile.error.book.wrong_isbn')
         rescue EnjuNdl::RecordNotFound

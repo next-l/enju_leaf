@@ -71,6 +71,7 @@ $(function(){
     <%- else -%>
       <%= form_tag({:action => 'output_show'}) do -%>
         <%= submit_tag t('page.output', :model => t('activerecord.attributes.manifestation.detail')) -%>
+        <%= t('page.output_receipt_printer') %>
       <%- end -%>
     <%- end -%>
   </div>

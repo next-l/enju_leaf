@@ -823,20 +823,22 @@ class Manifestation < ActiveRecord::Base
   #  output.path: 生成結果のパス名(result_typeが:pathのとき)
   #  output.job_name: 後で処理する際のジョブ名(result_typeが:delayedのとき)
   def self.generate_manifestation_list(solr_search, output_type, current_user, search_condition_summary, cols=[], threshold = nil, &block)
+    solr_search.build {
+      paginate :page => 1, :per_page => Manifestation.count
+    }
+
     get_total = proc do
       series_statements_total = solr_search.execute.results.inject(0) do |total, m|
                                   #TODO series_statement.manifestations は root_manifestation を含む  
-                                  total += m.series_statement.manifestations.size - 1 if m.series_statement
+                                  total += m.series_statement.manifestations.size  if m.try(:series_statement).try(:manifestations).try(:size)
                                   total
                                 end
-      solr_search.execute.total + series_statements_total
+    end
+    
+    get_all_ids = proc do
+      solr_search.execute.raw_results.map(&:primary_key)
     end
 
-    get_all_ids = proc do
-      solr_search.build {
-        paginate :page => 1, :per_page => Manifestation.count
-      }.execute.raw_results.map(&:primary_key)
-    end
 
     threshold ||= Setting.background_job.threshold.export rescue nil
     if threshold && threshold > 0 && get_total.call > threshold
@@ -858,9 +860,7 @@ class Manifestation < ActiveRecord::Base
       block.call(output)
       return
     end
-
     manifestation_ids = get_all_ids.call
-
     generate_manifestation_list_internal(manifestation_ids, output_type, current_user, search_condition_summary, cols, &block)
   end
 
@@ -922,7 +922,7 @@ class Manifestation < ActiveRecord::Base
   )
   ARTICLE_COLUMNS = %w(
     creator original_title title volume_number_string number_of_page pub_date
-    call_number url subject
+    call_number access_address subject
   )
   ALL_COLUMNS =
     BOOK_COLUMNS.map {|c| "book.#{c}" } +

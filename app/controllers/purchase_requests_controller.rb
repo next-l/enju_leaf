@@ -1,4 +1,8 @@
 class PurchaseRequestsController < ApplicationController
+  add_breadcrumb "I18n.t('page.listing', :model => I18n.t('activerecord.models.purchase_request'))", 'purchase_requests_path', :only => [:index]
+  add_breadcrumb "I18n.t('page.showing', :model => I18n.t('activerecord.models.purchase_request'))", 'purchase_request_path(params[:id])', :only => [:show]
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.purchase_request'))", 'new_purchase_request_path', :only => [:new, :create]
+  add_breadcrumb "I18n.t('page.editing', :model => I18n.t('activerecord.models.purchase_request'))", 'edit_purchase_request_path(params[:id])', :only => [:edit, :update]
   before_filter :store_location, :only => :index
   load_and_authorize_resource
   before_filter :get_user

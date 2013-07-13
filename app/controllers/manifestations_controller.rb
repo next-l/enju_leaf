@@ -10,7 +10,7 @@ class ManifestationsController < ApplicationController
   before_filter :authenticate_user!, :only => :edit
   before_filter :get_patron
   helper_method :get_manifestation, :get_subject
-  before_filter :get_series_statement, :only => [:index, :new, :edit]
+  before_filter :get_series_statement, :only => [:index, :new, :edit, :output_excelx]
   before_filter :prepare_options, :only => [:new, :edit]
   helper_method :get_libraries
   before_filter :get_version, :only => [:show, :output_show, :output_pdf]
@@ -248,7 +248,6 @@ class ManifestationsController < ApplicationController
           ]
         end
       end
-
       # file output
       if search_opts[:output_mode]
         # TODO: 第一引数にparamsまたは生成した検索語、フィルタ指定を渡すようにして、バックグラウンドファイル生成で一時ファイルを作らなくて済むようにする
@@ -464,6 +463,10 @@ class ManifestationsController < ApplicationController
   #  render :template => 'manifestations/error.xml', :layout => false
   #  Rails.logger.info "#{Time.zone.now}\t#{query}\t\t#{current_user.try(:username)}\t#{e}"
   #  return
+  end
+
+  def output_excelx
+    index
   end
 
   # GET /manifestations/1

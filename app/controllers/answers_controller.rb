@@ -1,5 +1,9 @@
 # -*- encoding: utf-8 -*-
 class AnswersController < ApplicationController
+  add_breadcrumb "I18n.t('page.listing', :model => I18n.t('activerecord.models.answer'))", 'question_answers_path(params[:question_id])', :only => [:index]
+  add_breadcrumb "I18n.t('page.showing', :model => I18n.t('activerecord.models.answer'))", 'question_answer_path(params[:id])', :only => [:show]
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.answer'))", 'new_question_answer_path', :only => [:new, :create]
+  add_breadcrumb "I18n.t('page.editing', :model => I18n.t('activerecord.models.answer'))", 'edit_question_answer_path(params[:id])', :only => [:edit, :update]
   load_and_authorize_resource
   before_filter :store_location, :only => [:index, :show, :new, :edit]
   before_filter :get_user, :except => [:edit]
