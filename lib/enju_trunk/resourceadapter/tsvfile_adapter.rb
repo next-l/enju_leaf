@@ -288,7 +288,7 @@ class Tsvfile_Adapter < EnjuTrunk::ResourceAdapter::Base
     ##      return nil
     ##    end
 
-    if row['isbn'].preset?
+    if row['isbn'] && row['isbn'].preset? 
       if Lisbn.new(row['isbn'].to_s.strip).valid?
         isbn = Lisbn.new(row['isbn'])
       end
@@ -326,10 +326,10 @@ class Tsvfile_Adapter < EnjuTrunk::ResourceAdapter::Base
       series_statement = import_series_statement(row)
       case options[:edit_mode]
       when 'create'
-        work = self.class.import_work(title, creator_patrons, options)
+        work = ResourceImportFile.import_work(title, creator_patrons, options) # self.class.import_work(title, creator_patrons, options)
         work.series_statement = series_statement
         work.subjects << subjects
-        expression = self.class.import_expression(work, contributor_patrons)
+        expression = ResourceImportFile.import_expression(work, contributor_patrons) # self.class.import_expression(work, contributor_patrons)
       when 'update'
         expression = manifestation
         work = expression
@@ -339,7 +339,7 @@ class Tsvfile_Adapter < EnjuTrunk::ResourceAdapter::Base
         expression.contributors = contributor_patrons
       end
 
-      manifestation = self.class.import_manifestation(expression, publisher_patrons, {
+      manifestation = ResourceImportFile.import_manifestation(expression, publisher_patrons, { # self.class.import_manifestation(expression, publisher_patrons, {
         :original_title => title[:original_title],
         :title_transcription => title[:title_transcription],
         :title_alternative => title[:title_alternative],
