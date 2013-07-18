@@ -29,17 +29,18 @@ class CheckoutlistsController < ApplicationController
         end
       end
     end
-    prepare_options
     search = Sunspot.new_search(Item) #.include([:shelf => :library])
     per_page = Item.default_per_page
     page = params[:page].try(:to_i) || 1
     set_role_query(current_user, search)
-    search.build do
-      with(:circulation_status_id).any_of @selected_circulation_ids if @selected_circulation_ids
+    c_ids = @selected_circulation_ids
+    search.build do 
+      with(:circulation_status_id).any_of c_ids if c_ids
       order_by(:circulation_status_id, :asc)
       paginate :page => page, :per_page => per_page
     end
     @items = search.execute.results
+    prepare_options
   end
 
   def prepare_options
