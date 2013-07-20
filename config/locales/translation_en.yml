@@ -37,7 +37,7 @@ en:
         keyword_list: Keyword list
         user_number: User number
         state: State
-        patron: Patron
+        agent: Agent
         library: Library
         user_group: User group
         full_name: Full name
@@ -149,7 +149,7 @@ en:
     remove_this_facet: "Remove this facet"
     no_subject: "No subjects."
     no_tag: "No tags."
-    add_patron: "Add a patron"
+    add_agent: "Add a agent"
     total: "Total"
     sort_by: "Sort by"
     bookmarklet: "Bookmarklet"
@@ -182,7 +182,7 @@ en:
     new: "New %{model}"
     editing: "Editing %{model}"
     showing: "Showing %{model}"
-    patron_management: "Patron management"
+    agent_management: "Agent management"
     user_management: "User management"
     back_to: "Back to %{model} index"
     picture: "Picture"
@@ -264,11 +264,11 @@ en:
     to: "to"
     all_libraries: "All libraries"
   work:
-    patrons_work: "%{patron_name}'s works"
+    agents_work: "%{agent_name}'s works"
     library_group_work: "Works in %{library_group_name}"
     add: "Add a work"
   expression:
-    patrons_expression: "%{patron_name}'s expressions"
+    agents_expression: "%{agent_name}'s expressions"
     manifestations_expression: "Expressions in %{manifestation_title}"
     library_group_expression: "Expressions in %{library_group_name}"
     add: "Add an expression"
@@ -324,14 +324,14 @@ en:
     add_lending_policy: "Add a new lending policy"
     edit_exemplification: "Edit exemplification"
     accepted_at: "Accepted at"
-  patron:
-    library_group_patron: "Patrons of %{library_group_name}"
-    work_patron: "Creaters of %{work_title}"
-    expression_patron: "Realizers of %{expression_title}"
-    manifestation_patron: "Producers of %{manifestation_title}"
+  agent:
+    library_group_agent: "Agents of %{library_group_name}"
+    work_agent: "Creaters of %{work_title}"
+    expression_agent: "Realizers of %{expression_title}"
+    manifestation_agent: "Producers of %{manifestation_title}"
     activate_as_user: "Activate as an user"
     deactivate: "Deactivate this user"
-    add: "Add a patron"
+    add: "Add a agent"
     publication: "Publications"
     recent_publication: "Recent publications"
     all_publication: "All publications"
@@ -359,7 +359,7 @@ en:
     edit_profile: "Edit profile"
     edit_account: "Edit account"
     already_activated: "Already activated."
-    specify_patron: "Specify the patron."
+    specify_agent: "Specify the agent."
     wrong_password: "Wrong password."
     password_mismatch: "Password mismatch."
     cannot_destroy_myself: "You can't destroy yourself."
@@ -367,7 +367,7 @@ en:
     last_librarian: "This user is the last librarian in this system."
     only_administrator_can_destroy: "Only administrators can destroy this user."
     this_user_has_checked_out_item: "This user has checked-out items."
-    patron_profile: "Patron profile"
+    agent_profile: "Agent profile"
     set_auto_generated_password: "Set auto-generated password"
     history: "History"
     account_management: "Account management"
