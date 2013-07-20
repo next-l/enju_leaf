@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :username
-  has_paper_trail
+  #has_paper_trail
   normalize_attributes :username, :user_number #, :email
 
   enju_circulation_user_model if defined?(EnjuCirculation)
