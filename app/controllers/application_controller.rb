@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   require_dependency 'language'
 
   rescue_from CanCan::AccessDenied, :with => :render_403
-  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+  #rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   rescue_from Errno::ECONNREFUSED, :with => :render_500
   rescue_from ActionView::MissingTemplate, :with => :render_404_invalid_format
   #rescue_from ActionController::RoutingError, :with => :render_404
@@ -29,6 +29,7 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
   def after_sign_in_path_for(resource)
     session[:locale] = nil
     super
@@ -275,10 +276,12 @@ class ApplicationController < ActionController::Base
         request.format = :mobile
       when 'false'
         session[:mobylette_override] = :ignore_mobile
-        request.format = :html
+        unless params[:format]
+          request.format = :html if request.format == :mobile
+        end
       end
-    else
-      session[:mobylette_override] = nil
+    #else
+    #  session[:mobylette_override] = nil
     end
   end
 

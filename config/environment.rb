@@ -9,7 +9,7 @@ if defined?(PhusionPassenger)
     # Reset Rails's object cache
     # Only works with DalliStore
     if defined?(Rails.cache.reset) and forked
-      Rails.cache.reset if forked
+      Rails.cache.reset
     end
 
     # Reset Rails's session store

@@ -12,9 +12,9 @@ gem 'enju_flower', :git => 'git://github.com/next-l/enju_flower.git'
 #gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
 #gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
 #gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
-gem 'enju_ndl', :git => 'git://github.com/next-l/enju_ndl.git'
-#gem 'enju_nii', :git => 'git://github.com/next-l/enju_nii.git'
-gem 'enju_oai', :git => 'git://github.com/next-l/enju_oai.git'
+gem 'enju_ndl', '~> 0.1.0.pre24'
+#gem 'enju_nii', '~> 0.1.0.pre4'
+gem 'enju_oai', '~> 0.1.0.pre10'
 #gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
 gem 'enju_subject', :git => 'git://github.com/next-l/enju_subject.git'
 #gem 'enju_purchase_request', :git => 'git://github.com/next-l/enju_purchase_request.git'
@@ -50,7 +50,7 @@ platforms :jruby do
   #gem 'kramdown'
 end
 
-gem 'exception_notification', '~> 3.0'
+gem 'exception_notification', '~> 4.0'
 gem 'progress_bar'
 gem 'strongbox'
 gem 'sitemap_generator', '~> 4.0'
@@ -76,17 +76,17 @@ end
 group :development, :test do
   gem 'simplecov', '~> 0.7', :require => false
   gem 'ruby-prof', :platforms => :mri
-  gem 'rspec-rails', '~> 2.13'
+  gem 'rspec-rails', '~> 2.14'
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 4.2'
-  gem 'spork-rails'
+  gem 'spring'
   gem 'timecop'
   gem 'sunspot-rails-tester'
-  gem 'vcr', '~> 2.4'
+  gem 'vcr', '~> 2.5'
   gem 'fakeweb'
   gem 'steak'
   gem 'resque_spec'
-  gem 'parallel_tests', '~> 0.11'
+  gem 'parallel_tests', '~> 0.15'
 end
 
 # Gems used only for assets and not required
