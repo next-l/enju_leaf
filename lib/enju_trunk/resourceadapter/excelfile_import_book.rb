@@ -69,8 +69,11 @@ module EnjuTrunk
     )
 
     def import_book(sheet, errors)
-      error_msg = check_header_field(sheet)
-      unless error_msg
+      error_msg = []
+      error_msg << check_header_field(sheet)
+      error_msg << check_duplicate_item_identifier(sheet)
+      error_msg = error_msg.flatten.compact.join('')
+      if error_msg.blank?
         import_textresult = ResourceImportTextresult.new(
           :resource_import_textfile_id => @textfile_id,
           :extraparams                 => "{'sheet'=>'#{sheet}'}",
@@ -146,6 +149,17 @@ module EnjuTrunk
       return msg
     end
 
+    def check_duplicate_item_identifier(sheet)
+      col = @field[I18n.t('resource_import_textfile.excel.book.item_identifier')]
+      item_identifiers, duplicates = [], []
+      2.upto(@oo.last_row) do |row|
+         i_id = @oo.cell(row,col)
+         duplicates << i_id if item_identifiers.include?(i_id)
+         item_identifiers << i_id  
+      end
+      return I18n.t('resource_import_textfile.error.duplicate_item_identifier', :sheet => sheet, :item_identifier => duplicates.join(',')) unless duplicates.empty?
+    end
+
     def import_book_data(sheet)
       first_data_row_num = 2
       num = { 
@@ -158,7 +172,6 @@ module EnjuTrunk
 
       first_data_row_num.upto(@oo.last_row) do |row|
         Rails.logger.info("import block start. row_num=#{row}")
-
         datas = Hash::new
         @oo.first_column.upto(@oo.last_column) do |column|
           datas.store(column, fix_data(@oo.cell(row, column).to_s.strip))
@@ -214,11 +227,12 @@ module EnjuTrunk
         end
 
         import_textresult.save!
-#        if row % 50 == 0
+        if row % 50 == 0
           Sunspot.commit
           GC.start
-#        end
+        end
       end
+      Sunspot.commit
       #sm_complete!
       Rails.cache.write("manifestation_search_total", Manifestation.search.total)
       return num
@@ -233,7 +247,7 @@ module EnjuTrunk
         @mode = 'edit'
       end
       series_statement = find_series_statement(datas, manifestation)
-      manifestation = exist_same_book?(datas, manifestation, series_statement)
+      manifestation = exist_same_book?(datas, manifestation, series_statement) unless manifestation
       isbn = datas[@field[I18n.t('resource_import_textfile.excel.book.isbn')]].to_s
       unless manifestation
         manifestation = import_isbn(isbn)
@@ -243,7 +257,6 @@ module EnjuTrunk
       unless manifestation
         manifestation = Manifestation.new
       end
-
       manifestation.series_statement = series_statement if series_statement
       original_title         = datas[@field[I18n.t('resource_import_textfile.excel.book.original_title')]]
       title_transcription    = datas[@field[I18n.t('resource_import_textfile.excel.book.title_transcription')]]
