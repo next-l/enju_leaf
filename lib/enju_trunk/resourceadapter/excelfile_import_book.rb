@@ -557,21 +557,19 @@ module EnjuTrunk
         non_searchable      = fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.non_searchable')]])
 
         unless item
-          if manifestation.items and manifestation.items.size > 0
-            item = manifestation.items.order('created_at asc').first #if item_identifier.nil?
-          else
-            item = Item.new
-            @mode_item = 'create'
-          end
+          item = Item.new
+          @mode_item = 'create'
         end
         # rank
         rank = fix_rank(datas[@field[I18n.t('resource_import_textfile.excel.book.rank')]], { :manifestation => manifestation, :mode => @mode_item})
         if item.item_identifier.nil? and item_identifier.nil?
-          while item_identifier.nil? 
-            create_item_identifier = Numbering.do_numbering(@numbering.name)
-            exit_item_identifier = Item.where(:item_identifier => create_item_identifier).first
-            item_identifier = create_item_identifier unless exit_item_identifier
+          if item_identifier.nil? && @auto_numbering
+            begin
+              create_item_identifier = Numbering.do_numbering(@numbering.name)
+            end while Item.where(:item_identifier => create_item_identifier).first
+            item_identifier = create_item_identifier
           end
+          raise I18n.t("resource_import_textfile.error.no_item_identifier") if item_identifier.nil?
         end
         unless rank.nil?
           item.rank = rank

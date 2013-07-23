@@ -22,6 +22,7 @@ class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
         extraparams = eval(extraparams)
         manifestation_types = extraparams["manifestation_type"]
         numberings = extraparams["numbering"]
+        auto_numbering = extraparams["auto_numbering"]
         @textfile_id = id
         @resource_import_textfile = ResourceImportTextfile.find(@textfile_id)
         @oo = Excelx.new(filename)
@@ -30,6 +31,7 @@ class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
         extraparams["sheet"].each_with_index do |sheet, i|
           @manifestation_type = ManifestationType.find(manifestation_types[i].to_i)
           @numbering = Numbering.where(:name => numberings[i]).first rescue nil
+          @auto_numbering = auto_numbering[i]
           unless @numbering
             case 
             when @manifestation_type.is_book?

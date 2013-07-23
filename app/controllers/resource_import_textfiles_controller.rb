@@ -37,17 +37,20 @@ class ResourceImportTextfilesController < ApplicationController
     sheets = []
     manifestation_types = []
     numberings = []
+    auto_numberings = []
     extraparams.each do |e, value|
       if value["sheet"]
         sheets << value["sheet"]
         manifestation_types << value["manifestation_type"]
         numberings << value["numbering"]
+        auto_numberings << (value["auto_numbering"] ? true : false)
       end
     end
     params = Hash::new
     params["sheet"] = sheets
     params["manifestation_type"] = manifestation_types
     params["numbering"] = numberings
+    params["auto_numbering"] = auto_numberings
     @resource_import_textfile.extraparams = params.to_s
 
     respond_to do |format|

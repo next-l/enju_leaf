@@ -2284,6 +2284,7 @@ ja:
     wrong_extention: "拡張子がxlsx形式のファイルのみインポート可能です。"
     wrong_content_type: "にはTSVファイルまたはXLSXファイル以外を指定しないでください。"
     importing_please_wait: "エクセルファイルを読み込み中です。しばらくお待ちください。。。"
+    auto_numbering: "所蔵情報IDを自動採番する"
     excel:
       series:
         issn: ISSN
@@ -2374,6 +2375,8 @@ ja:
       wrong_data: "指定の%{field}は不正です。 %{field}: %{data}"
       delete_requre_item_identifier: "所蔵情報IDが入力されていないため削除を実行できませんでした。"
       failed_delete_not_find: "対象の資料が見つからなかったため削除を実行できませんでした。"
+      duplicate_item_identifier: "シート『%{sheet}』の読み取りに失敗しました。所蔵情報IDが重複しています: %{item_identifier}"
+      no_item_identifier: "所蔵情報IDが指定されていません。"
       series:
         head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目にはシリーズ名またはISSN,またタイトルまたはISBNが必須です。\r\nシート『%{sheet}』を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "シリーズ名またはISSN,タイトルまたはISBNを指定してください。"
