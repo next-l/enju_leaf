@@ -2369,6 +2369,7 @@ ja:
       deleted_manifestation: "タイトル：%{original_title}"
       deleted_series_statement: "シリーズタイトル：%{series_original_title}"
       out_of_manage: "<br />ヘッダーに管理外のカラム名が存在しています: %{columns}"
+      without_item: "所蔵情報IDカラムが存在しないので、所蔵情報はインポート対象外です。"
     error:
       blank_sheet: "シート『%{sheet}』の読み取りに失敗しました。データが記述されていません。"
       overlap: "シート『%{sheet}』の読み取りに失敗しました。ヘッダーのフィールド名に重複したものがあります。"
@@ -2396,6 +2397,7 @@ ja:
         not_delete: "タイトルを空白登録することはできません。"
         has_original: "既に正本登録済みの資料に、正本資料の追加はできません。"
         has_not_shelf: "図書館が保持していない本棚が指定されています。"
+        exist_multiple_same_manifestations: "書誌同定された資料が複数存在します。インポートデータを新規作成しました。"
       article:
         head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目には表題が必須です。\r\nシート『%{sheet}』を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "表題を指定してください。"
