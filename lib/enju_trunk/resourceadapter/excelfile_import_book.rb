@@ -422,13 +422,14 @@ module EnjuTrunk
       book = nil
 
       books = Manifestation.find(
+        :all,
         :readonly => false,
         :include => [:series_statement, :creators, :publishers],
         :conditions => conditions,
         :order => "manifestations.created_at asc"
       )
       if books.size == 1
-        if books[0].creators.map{ |c| c.full_name }.sort == creators.sort and book.publishers.map{ |s| s.full_name }.sort == publishers.sort
+        if book = books[0] and book.creators.map{ |c| c.full_name }.sort == creators.sort and book.publishers.map{ |s| s.full_name }.sort == publishers.sort
           p "editing manifestation"
           @mode = 'edit'
           return book
