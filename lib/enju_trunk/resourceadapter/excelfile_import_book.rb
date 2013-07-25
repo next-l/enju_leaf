@@ -429,7 +429,7 @@ module EnjuTrunk
         :order => "manifestations.created_at asc"
       )
       if books.size == 1
-        if book = books[0] and book.creators.map{ |c| c.full_name }.sort == creators.sort and book.publishers.map{ |s| s.full_name }.sort == publishers.sort
+        if book = books.first and book.creators.map{ |c| c.full_name }.sort == creators.sort and book.publishers.map{ |s| s.full_name }.sort == publishers.sort
           p "editing manifestation"
           @mode = 'edit'
           return book
