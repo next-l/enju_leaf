@@ -435,7 +435,7 @@ module EnjuTrunk
           return book
         end
       elsif books.size > 1
-        error_msg = I18n.t('resource_import_textfile.book.exist_multiple_same_manifestations')
+        error_msg = I18n.t('resource_import_textfile.error.book.exist_multiple_same_manifestations')
       end
       p "make new manifestation"
       return manifestation, error_msg
