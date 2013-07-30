@@ -69,14 +69,10 @@ class Item < ActiveRecord::Base
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
   belongs_to :checkout_type
   #belongs_to :resource_import_textresult
-  has_many :inventories, :dependent => :destroy
-  has_many :inventory_files, :through => :inventories
   has_many :lending_policies, :dependent => :destroy
   has_many :answer_has_items, :dependent => :destroy
   has_many :answers, :through => :answer_has_items
   has_one :resource_import_result
-  has_many :libcheck_tmp_items
-  has_many :libcheck_notfound_items
   has_many :expenses
   has_many :binding_items, :class_name => 'Item', :foreign_key => 'bookbinder_id'
   belongs_to :binder_item, :class_name => 'Item', :foreign_key => 'bookbinder_id'
@@ -106,7 +102,6 @@ class Item < ActiveRecord::Base
     end
     integer :shelf_id
     integer :patron_ids, :multiple => true
-    integer :inventory_file_ids, :multiple => true
     integer :rank
     integer :remove_reason_id
     boolean :non_searchable
@@ -174,19 +169,6 @@ class Item < ActiveRecord::Base
   def hold?(library)
     return true if self.shelf.library == library
     false
-  end
-
-  def self.inventory_items(inventory_file, mode = 'not_on_shelf')
-    item_ids = Item.select(:id).collect(&:id)
-    inventory_item_ids = inventory_file.items.select('items.id').collect(&:id)
-    case mode
-    when 'not_on_shelf'
-      Item.where(:id => (item_ids - inventory_item_ids))
-    when 'not_in_catalog'
-      Item.where(:id => (inventory_item_ids - item_ids))
-    end
-  rescue
-    nil
   end
 
   def lending_rule(user)

@@ -275,10 +275,6 @@ class ApplicationController < ActionController::Base
     @checkout_type = CheckoutType.find(params[:checkout_type_id]) if params[:checkout_type_id]
   end
 
-  def get_inventory_file
-    @inventory_file = InventoryFile.find(params[:inventory_file_id]) if params[:inventory_file_id]
-  end
-
   def get_subject_heading_type
     @subject_heading_type = SubjectHeadingType.find(params[:subject_heading_type_id]) if params[:subject_heading_type_id]
   end
