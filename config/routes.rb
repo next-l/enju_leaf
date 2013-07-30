@@ -56,12 +56,6 @@ EnjuLeaf::Application.routes.draw do
     post :output_excelx, :on => :collection
   end
 
-  resources :library_checks do
-    get :download_file, :on => :member
-    resources :libcheck_data_files
-    resources :library_check_shelves
-  end
-
   resources :patrons do
     resources :works, :controller => 'manifestations'
     resources :expressions, :controller => 'manifestations'
@@ -189,11 +183,6 @@ EnjuLeaf::Application.routes.draw do
     resources :patron_merges
   end
   resources :patron_merges
-  resources :inventory_files
-  resources :library_checks
-  resources :library_check_shelves
-  resources :libcheck_data_files
-  resources :inventories
   resources :donates
   resources :subscriptions do
     resources :manifestations
