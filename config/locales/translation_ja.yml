@@ -610,6 +610,7 @@ ja:
         update_note: 注記の更新
       produce:
         position: 位置
+        manifestation: 出版関係 
       role:
         name: 名前
         display_name: 表示名
