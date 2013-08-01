@@ -14,6 +14,13 @@ class Asynchronized_Service
       PatronImportFile.import(param)
     when :EventImportFile_import
       EventImportFile.import(param)
+    when :InventoryCheck_exec
+      InventoryManage.check(param)
+      #if defined?(InventoryManage) || 1
+      #  InventoryManage.check(param)
+      #else
+      #  logger.info "InventoryManage not defined."
+      #end
     else
       logger.error "unknown method_identifier id=#{method_identifier}"
     end
