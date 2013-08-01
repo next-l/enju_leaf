@@ -46,8 +46,7 @@ $(document).keydown(function(e) {
 </script>
 
 <%= render 'page/required_field' %>
-<%#= simple_form_for(@manifestation, :html => { :multipart => true }) do |f| -%>
-<%= form_for(@manifestation, :html => { :multipart => true }) do |f| -%>
+<%= simple_form_for(@manifestation, :html => { :multipart => true }) do |f| -%>
   <%= f.error_messages -%>
 
   <div class="field">
