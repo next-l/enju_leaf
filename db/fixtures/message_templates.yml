@@ -166,3 +166,10 @@ message_template_00018:
   body: "購入リクエストが作成されました。\n\n<%= purchase_request %>"
   position: 18
   locale: ja
+message_template_00019:
+  id: 19
+  status: enju_trunk_inventory_check_finish
+  title: "蔵書点検の実行が終了しました。"
+  body: "蔵書点検の実行が終了しました。\n\n"
+  position: 19
+  locale: ja
