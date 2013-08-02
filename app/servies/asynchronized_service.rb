@@ -16,11 +16,13 @@ class Asynchronized_Service
       EventImportFile.import(param)
     when :InventoryCheck_exec
       InventoryManage.check(param)
-      #if defined?(InventoryManage) || 1
+      #if defined?(InventoryManage) 
       #  InventoryManage.check(param)
       #else
       #  logger.info "InventoryManage not defined."
       #end
+    when :InventoryShelfBarcodeImportFile_import
+      InventoryShelfBarcodeImportFile.import(param)
     else
       logger.error "unknown method_identifier id=#{method_identifier}"
     end
