@@ -23,6 +23,8 @@ class Asynchronized_Service
       #end
     when :InventoryShelfBarcodeImportFile_import
       InventoryShelfBarcodeImportFile.import(param)
+    when :InventoryCheckDataImportFile_import
+      InventoryCheckDataImportFile.import(param)
     else
       logger.error "unknown method_identifier id=#{method_identifier}"
     end
