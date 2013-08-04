@@ -1,6 +1,6 @@
 --- 
 user_group_00001: 
-  name: "First group"  
+  name: "first_group"  
   display_name: "First group"
   id: 1
   note: ""

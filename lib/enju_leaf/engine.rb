@@ -6,7 +6,7 @@ require 'mobylette'
 require 'rails_autolink'
 require 'devise-encryptable'
 require 'sitemap_generator'
-require 'redis-rails'
+#require 'redis-rails'
 require 'jquery-rails'
 require 'jquery-ui-rails'
 
