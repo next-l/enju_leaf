@@ -7,7 +7,7 @@ class UserGroup < ActiveRecord::Base
     :number_of_time_to_notify_overdue
 
   include MasterModel
-  default_scope :order => "user_groups.position"
+  default_scope {order("user_groups.position")}
   has_many :users
 
   validates_numericality_of :valid_period_for_new_user,
