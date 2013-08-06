@@ -1,12 +1,7 @@
 /*!
-<<<<<<< HEAD:vendor/assets/javascripts/jquery.colorbox.js
-	jQuery Colorbox v1.4.21 - 2013-06-06
-	(c) 2013 Jack Moore - jacklmoore.com/colorbox
-=======
-	Colorbox v1.4.26 - 2013-06-30
+	Colorbox v1.4.27 - 2013-07-16
 	jQuery lightbox and modal window plugin
 	(c) 2013 Jack Moore - http://www.jacklmoore.com/colorbox
->>>>>>> 1.1:vendor/assets/javascripts/jquery.colorbox.js
 	license: http://www.opensource.org/licenses/mit-license.php
 */
 (function ($, document, window) {
@@ -135,10 +130,7 @@
 	div = "div",
 	className,
 	requests = 0,
-<<<<<<< HEAD:vendor/assets/javascripts/jquery.colorbox.js
-=======
 	previousCSS = {},
->>>>>>> 1.1:vendor/assets/javascripts/jquery.colorbox.js
 	init;
 
 	// ****************
@@ -349,15 +341,11 @@
 			}
 			className = settings.className;
 
-<<<<<<< HEAD:vendor/assets/javascripts/jquery.colorbox.js
-			$close.html(settings.close).show();
-=======
 			if (settings.closeButton) {
 				$close.html(settings.close).appendTo($content);
 			} else {
 				$close.appendTo('<div/>');
 			}
->>>>>>> 1.1:vendor/assets/javascripts/jquery.colorbox.js
 
 			if (!open) {
 				open = active = true; // Prevents the page-change action from queuing up if the visitor holds down the left or right keys.
@@ -365,14 +353,14 @@
 				// Show colorbox so the sizes can be calculated in older versions of jQuery
 				$box.css({visibility:'hidden', display:'block'});
 				
-				$loaded = $tag(div, 'LoadedContent', 'width:0; height:0; overflow:hidden').appendTo($content);
+				$loaded = $tag(div, 'LoadedContent', 'width:0; height:0; overflow:hidden');
+				$content.css({width:'', height:''}).append($loaded);
 
 				// Cache values needed for size calculations
 				interfaceHeight = $topBorder.height() + $bottomBorder.height() + $content.outerHeight(true) - $content.height();
 				interfaceWidth = $leftBorder.width() + $rightBorder.width() + $content.outerWidth(true) - $content.width();
 				loadedHeight = $loaded.outerHeight(true);
 				loadedWidth = $loaded.outerWidth(true);
-				
 				
 				// Opens inital empty Colorbox prior to content being loaded.
 				settings.w = setSize(settings.initialWidth, 'x');
@@ -426,11 +414,7 @@
 				tabindex: '-1'
 			}).hide();
 			$overlay = $tag(div, "Overlay").hide();
-<<<<<<< HEAD:vendor/assets/javascripts/jquery.colorbox.js
-			$loadingOverlay = $tag(div, "LoadingOverlay").add($tag(div, "LoadingGraphic"));
-=======
 			$loadingOverlay = $([$tag(div, "LoadingOverlay")[0],$tag(div, "LoadingGraphic")[0]]);
->>>>>>> 1.1:vendor/assets/javascripts/jquery.colorbox.js
 			$wrap = $tag(div, "Wrapper");
 			$content = $tag(div, "Content").append(
 				$title = $tag(div, "Title"),
@@ -438,12 +422,7 @@
 				$prev = $('<button type="button"/>').attr({id:prefix+'Previous'}),
 				$next = $('<button type="button"/>').attr({id:prefix+'Next'}),
 				$slideshow = $tag('button', "Slideshow"),
-<<<<<<< HEAD:vendor/assets/javascripts/jquery.colorbox.js
-				$loadingOverlay,
-				$close = $('<button type="button"/>').attr({id:prefix+'Close'})
-=======
 				$loadingOverlay
->>>>>>> 1.1:vendor/assets/javascripts/jquery.colorbox.js
 			);
 
 			$close = $('<button type="button"/>').attr({id:prefix+'Close'});
