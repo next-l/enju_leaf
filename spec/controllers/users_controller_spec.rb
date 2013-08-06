@@ -63,7 +63,7 @@ describe UsersController do
 
       it "assigns the requested user as @user" do
         get :show, :id => 'admin'
-        assigns(:user).should eq(User.find('admin'))
+        assigns(:user).should eq(User.friendly.find('admin'))
       end
     end
 
@@ -99,7 +99,7 @@ describe UsersController do
     describe "When not logged in" do
       it "assigns the requested user as @user" do
         get :show, :id => 'admin'
-        assigns(:user).should eq(User.find('admin'))
+        assigns(:user).should eq(User.friendly.find('admin'))
         response.should redirect_to(new_user_session_url)
       end
     end

@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*-
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource :except => :index
-  authorize_resource :only => :index
+  authorize_resource :except => [:index]
   before_filter :get_agent, :only => :new
   before_filter :store_location, :only => [:index]
   before_filter :clear_search_sessions, :only => [:show]
@@ -191,5 +192,9 @@ class UsersController < ApplicationController
     else
       @user.locked = '1'
     end
+  end
+
+  def set_user
+    @user = User.friendly.find(params[:id])
   end
 end
