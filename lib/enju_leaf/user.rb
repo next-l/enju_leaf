@@ -19,9 +19,9 @@ module EnjuLeaf
           :keyword_list, :user_has_role_attributes, :auto_generated_password,
           :as => :admin
 
-        scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
-        scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)
-        scope :suspended, where('locked_at IS NOT NULL')
+        scope :administrators, -> {where('roles.name = ?', 'Administrator').includes(:role)}
+        scope :librarians, -> {where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)}
+        scope :suspended, -> {where('locked_at IS NOT NULL')}
         #has_one :agent, :dependent => :destroy
         if defined?(EnjuBiblio)
           has_many :import_requests
