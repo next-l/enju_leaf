@@ -27,7 +27,7 @@ class Role < ActiveRecord::Base
   end
 
   def self.default_role
-    Rails.cache.fetch('default_role'){Role.find('Guest')}
+    Rails.cache.fetch('default_role'){Role.where(:name => 'Guest').first}
   end
 end
 
