@@ -352,21 +352,15 @@ private
     chash[:full_name_transcription] = self.full_name_transcription.strip unless self.full_name_transcription.blank?
     chash[:birth_date] = self.birth_date unless self.birth_date.blank?
     chash[:telephone_number_1] = self.telephone_number_1 unless self.telephone_number_1.blank?
-  
     return false if chash.empty?
   
     patrons = Patron.find(:all, :conditions => chash)
-
-    patrons.delete_if {|p| p.id == self.id} if p
-
+    patrons.delete_if { |p| p.id == self.id } 
     if self.new_record? 
-      if patrons && patrons.size > 0
-        errors.add_to_base(I18n.t('patron.duplicate_user'))
-      end
+      errors.add(:base, I18n.t('patron.duplicate_user')) if patrons.size > 0
     end
     #logger.info errors.inspect
   end
-
 
 end
 
