@@ -49,8 +49,8 @@ class Patron < ActiveRecord::Base
   validates :death_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
   validates :email, :format => {:with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i}, :allow_blank => true
   validate :check_birth_date
-  before_validation :set_role_and_name
-  before_save :set_date_of_birth, :set_date_of_death, :change_note
+  before_validation :set_role_and_name, :set_date_of_birth, :set_date_of_death
+  before_save :change_note
 
   validate :check_duplicate_user
 
