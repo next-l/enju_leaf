@@ -5,12 +5,16 @@ inventory_00001:
   item_id: 1
   inventory_file_id: 1
   note: MyText
+  created_at: 2013-01-01 00:00:00.000000 +09:00
+  updated_at: 2013-01-01 00:00:00.000000 +09:00
 
 inventory_00002:
   id: 2
   item_id: 2
   inventory_file_id: 1
   note: MyText
+  created_at: 2013-01-01 00:00:00.000000 +09:00
+  updated_at: 2013-01-01 00:00:00.000000 +09:00
 
 # == Schema Information
 #
