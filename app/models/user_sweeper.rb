@@ -1,5 +1,6 @@
 class UserSweeper < ActionController::Caching::Sweeper
   observe User
+  include Rails.application.routes.url_helpers
 
   def after_save(record)
     case record.class.to_s.to_sym
