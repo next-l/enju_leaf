@@ -450,12 +450,12 @@ module EnjuTrunk
           exist_manifestation = Manifestation.find_by_isbn(isbn)
           unless exist_manifestation
             manifestation = Manifestation.import_isbn(isbn)
-            raise I18n.t('resource_import_textfile.error.book.wrong_isbn') unless manifestation
+            # raise I18n.t('resource_import_textfile.error.book.wrong_isbn') unless manifestation
           end
         rescue EnjuNdl::InvalidIsbn
           raise I18n.t('resource_import_textfile.error.book.wrong_isbn')
         rescue EnjuNdl::RecordNotFound
-          raise I18n.t('resource_import_textfile.error.book.wrong_isbn')
+          raise I18n.t('resource_import_textfile.error.book.record_not_found')
         end
       end
       manifestation.external_catalog = 1 if manifestation
