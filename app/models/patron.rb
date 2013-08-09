@@ -343,17 +343,14 @@ class Patron < ActiveRecord::Base
     end
   end
 
-private
+  private
   def check_duplicate_user
     return if SystemConfiguration.get("patron.check_duplicate_user").nil? || SystemConfiguration.get("patron.check_duplicate_user") == false
+    return if self.full_name_transcription.blank? or self.birth_date.blank? or self.telephone_number_1.blank?
     chash = {}
-    #TODO
-    #chash[:full_name_transcription] = self.full_name_transcription.gsub(/\s|　/, "") unless self.full_name_transcription.blank?
-    chash[:full_name_transcription] = self.full_name_transcription.strip unless self.full_name_transcription.blank?
-    chash[:birth_date] = self.birth_date unless self.birth_date.blank?
-    chash[:telephone_number_1] = self.telephone_number_1 unless self.telephone_number_1.blank?
-    return false if chash.empty?
-  
+    chash[:full_name_transcription] = self.full_name_transcription.strip
+    chash[:birth_date] = self.birth_date
+    chash[:telephone_number_1] = self.telephone_number_1
     patrons = Patron.find(:all, :conditions => chash)
     patrons.delete_if { |p| p.id == self.id } 
     if self.new_record? 
@@ -361,7 +358,6 @@ private
     end
     #logger.info errors.inspect
   end
-
 end
 
 # == Schema Information
