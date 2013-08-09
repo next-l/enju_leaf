@@ -39,6 +39,7 @@ patron_00003:
   date_of_birth: 2000-01-01
   date_of_death: 
   address_1: 
+  telephone_number_1: 000-0000-0000
   language_id: 1
   country_id: 1
   patron_type_id: 1
