@@ -1,3 +1,4 @@
+<% cache([current_user_role_name, @locale]) do %>
 <div id="navibar">
   <ul id="bar1" class="menubar">
     <% if defined?(EnjuCirculation) %>
@@ -134,3 +135,4 @@
     </li>
   </ul>
 </div>
+<% end %>
