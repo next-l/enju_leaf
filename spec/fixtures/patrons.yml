@@ -34,8 +34,10 @@ patron_00003:
   last_name: Kosuke
   first_name: Tanabe
   full_name: Kosuke Tanabe
+  full_name_transcription: Kosuke Tanabe
   other_designation: 
   id: 3
+  birth_date: 2000-01-01
   date_of_birth: 2000-01-01
   date_of_death: 
   address_1: 
