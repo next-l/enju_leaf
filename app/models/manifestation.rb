@@ -551,11 +551,6 @@ class Manifestation < ActiveRecord::Base
     false
   end
 
-  def url
-    #access_address
-    "#{LibraryGroup.site_config.url}#{self.class.to_s.tableize}/#{self.id}"
-  end
-
   def available_checkout_types(user)
     if user
       user.user_group.user_group_has_checkout_types.available_for_carrier_type(self.carrier_type)
