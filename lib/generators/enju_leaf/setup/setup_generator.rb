@@ -73,6 +73,9 @@ EOS
     inject_into_file "app/assets/javascripts/application.js", :after => /\/\/= require jquery_ujs$\n/ do
       "//= require enju_leaf\n"
     end
+    gsub_file "app/assets/javascripts/application.js",
+      /\/\/= require turbolinks$/,
+      ""
     inject_into_file "app/assets/stylesheets/application.css", :after => / *= require_self$\n/ do
       " *= require enju_leaf\n"
     end
