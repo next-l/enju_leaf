@@ -538,7 +538,7 @@ describe Patron do
         end
       end
     end
-    context "システム設定で姓を先に表示するよう設定していないとき" do
+    context "システム設定で姓を先に表示するよう設定しておらず" do
       before(:each) do
         system_configuration = SystemConfiguration.find_by_keyname('family_name_first')
         system_configuration.v = "false"
@@ -786,73 +786,213 @@ describe Patron do
     end
   end
 
-  # TODO:
-  context "is cretor" do
-
+#  TODO: 未使用メソッド。不要なら削除すること
+#  229   def creator?(resource)
+#  230     resource.creators.include?(self)
+#  231   end
+  it "should be creator" do
+    patrons(:patron_00001).creator?(manifestations(:manifestation_00001)).should be_true
+  end
+  it "should not be creator" do
+    patrons(:patron_00010).creator?(manifestations(:manifestation_00001)).should be_false
   end
 
-  context "is not cretor" do
+#  TODO: 未使用メソッド。不要なら削除すること
+#  233   def publisher?(resource)
+#  234     resource.publishers.include?(self)
+#  235   end
+  it "should be publisher" do
+    patrons(:patron_00001).publisher?(manifestations(:manifestation_00001)).should be_true
   end
+  it "should not be publisher" do
+    patrons(:patron_00010).publisher?(manifestations(:manifestation_00001)).should be_false
+  end
+
+#  TODO: 未使用メソッド。不要なら削除すること
+#  237   def check_required_role(user)
+#  238     return true if self.user.blank?
+#  239     return true if self.user.required_role.name == 'Guest'
+#  240     return true if user == self.user
+#  241     return true if user.has_role?(self.user.required_role.name)
+#  242     false
+#  243   rescue NoMethodError
+#  244     false
+#  245   end
+  context "has required_role " do 
+    describe "is blank," do
+      it "should return true" do
+        patron = FactoryGirl.create(:patron)
+        patron.check_required_role(patron).should eq true
+      end
+    end
+    describe "is Guest," do
+      it "should return true" do
+        patron      = FactoryGirl.create(:patron)
+        patron.user = FactoryGirl.create(:guest)
+        patron.check_required_role(patron.user).should eq true
+      end
+    end
+    describe "is self.user," do
+      it "should return true" do
+        patron      = FactoryGirl.create(:patron)
+        patron.user =  FactoryGirl.create(:user)
+        patron.check_required_role(patron.user).should eq true
+      end
+    end
+    describe "is same role," do
+      it "should return true" do
+        user        = FactoryGirl.create(:user)
+        patron      = FactoryGirl.create(:patron)
+        patron.user = FactoryGirl.create(:user)
+        patron.check_required_role(user).should eq true
+      end
+    end
+    describe "is other," do
+      it "should return false" do
+        user        = FactoryGirl.create(:guest)
+        patron      = FactoryGirl.create(:patron)
+        patron.user = FactoryGirl.create(:user)
+        patron.check_required_role(user).should eq false
+      end
+    end
+    describe "no method," do
+      it "should return exception error" do
+        proc{ Patron.check_required_role(nil) }.should raise_error
+      end
+    end
+  end
+
+#  TODO: 未使用メソッド。不要なら削除すること
+#  247   def created(work)
+#  248     creates.where(:work_id => work.id).first
+#  249   end
+#  251   def realized(expression)
+#  252     realizes.where(:expression_id => expression.id).first
+#  253   end
+#  255   def produced(manifestation)
+#  256     produces.where(:manifestation_id => manifestation.id).first
+#  257   end
+#  259   def owned(item)
+#  260     owns.where(:item_id => item.id)
+#  261   end
+#  262
+  it "should created" do
+    patrons(:patron_00001).created(creates(:create_00001)).should eq creates(:create_00001)
+  end
+  it "should realized" do
+    patrons(:patron_00001).realized(realizes(:realize_00001)).should eq realizes(:realize_00001)
+  end
+  it "should produced" do
+    patrons(:patron_00001).produced(manifestations(:manifestation_00001)).should eq produces(:produce_00001)
+  end
+  it "should owned" do
+    patrons(:patron_00001).owned(items(:item_00001)).should eq [owns(:own_00001)]
+  end
+
+  context "add from array_list" do
+    describe "nil > " do
+      it "should return empty list" do
+        patron_lists = nil
+        Patron.import_patrons(patron_lists).should eq []
+      end
+    end
+    describe "blank > " do
+      it "should return empty list" do
+        patron_lists = []
+        Patron.import_patrons(patron_lists).should eq []
+      end
+    end
+    describe "blank attribute > " do
+      it "should return empty list" do
+        patron_lists = [{ full_name: '', full_name_transcription: '' }]
+        Patron.import_patrons(patron_lists).should eq []
+      end
+      it "should return empty list" do
+        patron_lists = [{ full_name: '', full_name_transcription: 'test' }]
+        Patron.import_patrons(patron_lists).should eq []
+      end
+    end
+    describe "duplication > " do
+      it "should compact list" do
+        patron_lists = [patrons(:patron_00001), patrons(:patron_00001)]
+        Patron.import_patrons(patron_lists).should eq [patrons(:patron_00001)]
+      end
+    end
+    describe "add exist patrons > " do
+      it "should not exist new patron" do
+        patron_lists = [patrons(:patron_00001), patrons(:patron_00002), patrons(:patron_00003)]
+        Patron.import_patrons(patron_lists).should eq [patrons(:patron_00001), patrons(:patron_00002), patrons(:patron_00003)]
+      end
+    end
+    describe "add new patrons > " do
+      before(:each) do
+        @time = Time.now
+        @patron_lists = [
+          { full_name: "p_#{@time}_1", full_name_transcription: "p_#{@time}_yomi_1" },
+          { full_name: "p_#{@time}_2", full_name_transcription: "p_#{@time}_yomi_2" },
+          { full_name: "p_#{@time}_3", full_name_transcription: "p_#{@time}_yomi_3" },
+        ]
+      end
+      it "should create new patrons" do
+        Patron.find_by_full_name(@patron_lists[0][:full_name]).should be_nil
+        Patron.find_by_full_name(@patron_lists[1][:full_name]).should be_nil
+        Patron.find_by_full_name(@patron_lists[2][:full_name]).should be_nil
+        list = Patron.import_patrons(@patron_lists)
+        p1 = Patron.find_by_full_name(@patron_lists[0][:full_name])
+        p2 = Patron.find_by_full_name(@patron_lists[1][:full_name])
+        p3 = Patron.find_by_full_name(@patron_lists[2][:full_name])
+        p1.should_not be_nil
+        p2.should_not be_nil
+        p3.should_not be_nil
+        list.should eq [p1, p2, p3]
+      end
+      describe "detail" do
+        it "should set full_name" do
+          list = Patron.import_patrons(@patron_lists)
+          list[0][:full_name].should eq @patron_lists[0][:full_name]
+          list[1][:full_name].should eq @patron_lists[1][:full_name]
+          list[2][:full_name].should eq @patron_lists[2][:full_name]
+        end
+        it "should set full_name_transcription" do
+          list = Patron.import_patrons(@patron_lists)
+          list[0][:full_name_transcription].should eq @patron_lists[0][:full_name_transcription]
+          list[1][:full_name_transcription].should eq @patron_lists[1][:full_name_transcription]
+          list[2][:full_name_transcription].should eq @patron_lists[2][:full_name_transcription]
+        end
+        it "should set language_id is 1" do
+          list = Patron.import_patrons(@patron_lists)
+          list[0][:language_id].should eq 1
+          list[1][:language_id].should eq 1
+          list[2][:language_id].should eq 1
+        end
+        it "should set Guest's role" do
+          list = Patron.import_patrons(@patron_lists)
+          list[0][:required_role_id].should eq Role.find_by_name('Guest').id
+          list[1][:required_role_id].should eq Role.find_by_name('Guest').id
+          list[2][:required_role_id].should eq Role.find_by_name('Guest').id
+        end
+        it "set exclude_state" do
+          system_configuration = SystemConfiguration.find_by_keyname('exclude_patrons')
+          system_configuration.v = "#{system_configuration.v}, p_#{@time}_3"
+          system_configuration.save
+          Rails.cache.clear
+          @patron_lists << { full_name: " 　p_#{@time}_3 　", full_name_transcription: " 　p_#{@time}_yomi_3 　" }    
+          list = Patron.import_patrons(@patron_lists)
+          list[0][:exclude_state].should eq 0
+          list[3][:exclude_state].should eq 1
+        end
+        it "should exstrip with full size_space" do
+          @patron_lists << { full_name: " 　p_#{@time}_3 　", full_name_transcription: " 　p_#{@time}_yomi_3 　" } 
+          list = Patron.import_patrons(@patron_lists)
+          list[3][:full_name].should eq "p_#{@time}_3"
+          list[3][:full_name_transcription].should eq "p_#{@time}_yomi_3"
+        end
+      end
+    end
+  end
+
 =begin
-229   def creator?(resource)
-230     resource.creators.include?(self)
-231   end
-232
-233   def publisher?(resource)
-234     resource.publishers.include?(self)
-235   end
-236
-237   def check_required_role(user)
-238     return true if self.user.blank?
-239     return true if self.user.required_role.name == 'Guest'
-240     return true if user == self.user
-241     return true if user.has_role?(self.user.required_role.name)
-242     false
-243   rescue NoMethodError
-244     false
-245   end
-246
-247   def created(work)
-248     creates.where(:work_id => work.id).first
-249   end
-250
-251   def realized(expression)
-252     realizes.where(:expression_id => expression.id).first
-253   end
-254
-255   def produced(manifestation)
-256     produces.where(:manifestation_id => manifestation.id).first
-257   end
-258
-259   def owned(item)
-260     owns.where(:item_id => item.id)
-261   end
-262
-263   def self.import_patrons(patron_lists)
-264     list = []
-265     patron_lists.uniq.compact.each do |patron_list|
-266       next if patron_list[:full_name].blank?
-267       patron = Patron.where(:full_name => patron_list[:full_name]).first
-268       unless patron
-269         patron = Patron.new(
-270           :full_name => patron_list[:full_name].exstrip_with_full_size_space,
-271           :language_id => 1
-272         )
-273         if patron_list[:full_name_transcription].present?
-274           patron.full_name_transcription = patron_list[:full_name_transcription].exstrip_with_full_size_space
-275         end
-276         exclude_patrons = SystemConfiguration.get("exclude_patrons").split(',').inject([]){ |list, word| list << word.gsub(/^[　\s]*(.*?)[　\s]*$/,     '\1') }
-277         patron.exclude_state = 1 if exclude_patrons.include?(patron_list[:full_name].exstrip_with_full_size_space)
-278         patron.required_role = Role.where(:name => 'Guest').first
-279         patron.save
-280       end
-281       list << patron
-282     end
-283     list
-284   end
-285
 286   def self.add_patrons(patron_names, patron_transcriptions = nil)
-287     return [] if patron_names.blank?
 288     names = patron_names.gsub('；', ';').split(/;/)
 289     transcriptions = []
 290     if patron_transcriptions.present?
@@ -882,52 +1022,183 @@ describe Patron do
 314     end
 315     list
 316   end
-317
-318   def patrons
-319     self.original_patrons + self.derived_patrons
-320   end
-321
-322   def self.create_with_user(params, user)
-323     patron = Patron.new(params)
-324     #patron.full_name = user.username if patron.full_name.blank?
-325     patron.email = user.email
-326     patron.required_role = Role.find(:first, :conditions => ['name=?', "Librarian"]) rescue nil
-327     patron.language = Language.find(:first, :conditions => ['iso_639_1=?', user.locale]) rescue nil
-328     patron
-329   end
-330
-331   def change_note
-332     data = Patron.find(self.id).note rescue nil
-333     unless data == self.note
-334       self.note_update_at = Time.zone.now
-335       if User.current_user.nil?
-336         #TODO
-337         self.note_update_by = "SYSTEM"
-338         self.note_update_library = "SYSTEM"
-339       else
-340         self.note_update_by = User.current_user.patron.full_name
-341         self.note_update_library = Library.find(User.current_user.library_id).display_name
-342       end
-343     end
-344   end
 =end
-# TODO: end
+  context "add from string" do
+    describe "nil > " do
+      it "should return empty list" do
+        Patron.add_patrons(nil).should eq []
+        Patron.add_patrons(nil, nil).should eq []
+      end
+    end
+    describe "blank > " do
+      context "has not transcription" do
+        it "should return empty list" do
+          Patron.add_patrons('').should eq []
+        end
+      end
+      context "has transcription" do
+        it "should return empty list" do
+          Patron.add_patrons('', nil).should eq []
+          Patron.add_patrons('', '').should eq []
+        end
+      end
+    end
+    describe "blank attribute > " do
+      context "has not transcription" do
+        it "should return empty list" do
+          patron_names1 = '; ; ;'
+          patron_names2 = '；；；'
+          Patron.add_patrons(patron_names1).should eq []
+          Patron.add_patrons(patron_names2).should eq []
+        end
+      end
+      context "has transcription" do
+        it "should return empty list" do
+          patron_names1 = '; ; ;'
+          patron_names2 = '；；；'
+          Patron.add_patrons(patron_names1, patron_names1).should eq []
+          Patron.add_patrons(patron_names2, patron_names2).should eq []
+          Patron.add_patrons(patron_names1, 'test').should eq []
+          Patron.add_patrons(patron_names2, 'test').should eq []
+        end
+      end
+    end
+    describe "duplication > " do
+      before(:each) do
+        @patron = patrons(:patron_00003)
+        @patron_names            = "#{@patron.full_name};#{@patron.full_name}"
+        @patron_names_with_space = "#{@patron.full_name}; #{@patron.full_name}"
+      end
+      context "has not transcription" do
+        it "should compact list" do
+          Patron.add_patrons(@patron_names).should eq [@patron]
+        end
+        it "should compact lis: has spacet" do
+          Patron.add_patrons(@patron_names_with_space).should eq [@patron]
+        end
+      end
+      context "has transcription" do
+        it "should compact list: same transcription" do
+          patron_transcriptions = "#{@patron.full_name_transcription};#{@patron.full_name_transcription}"
+          list = Patron.add_patrons(@patron_names, patron_transcriptions)
+          list.should eq [@patron]
+          list[0][:full_name].should eq @patron.full_name
+          list[0][:full_name_transcription].should eq @patron.full_name_transcription
+        end
+        it "should compact list: one transcription" do
+          patron_transcriptions = "#{@patron.full_name_transcription}"
+          list = Patron.add_patrons(@patron_names, patron_transcriptions)
+          list.should eq [@patron]
+          list[0][:full_name].should eq @patron.full_name
+          list[0][:full_name_transcription].should eq @patron.full_name_transcription
+        end
+        it "should compact list: not same transcription" do
+          patron_transcriptions = "#{@patron.full_name_transcription};#{patrons(:patron_00002).full_name_transcription}"
+          list = Patron.add_patrons(@patron_names, patron_transcriptions)
+          list.should eq [@patron]
+          list[0][:full_name].should eq @patron.full_name
+          list[0][:full_name_transcription].should eq @patron.full_name_transcription
+        end
+        it "should compact list" do
+          patron_transcriptions = ";"
+          list = Patron.add_patrons(@patron_names, patron_transcriptions)
+          list.should eq [@patron]
+          list[0][:full_name].should eq @patron.full_name
+          list[0][:full_name_transcription].should eq @patron.full_name_transcription
+        end
+      end
+    end
+    describe "add exist patrons > " do
+      before(:each) do
+        @patron1 = patrons(:patron_00006)
+        @patron2 = patrons(:patron_00007)
+        @patron3 = patrons(:patron_00008)
+      end
+      context "has not transcription" do
+        it "should not exist new patron" do
+          patron_names = "#{@patron1.full_name};#{@patron2.full_name};#{@patron3.full_name}"
+          Patron.add_patrons(patron_names).should eq [@patron1, @patron2, @patron3]
+        end
+      end
+      context "has transcription" do
+        it "should not exist new patron" do
+          patron_names = "#{@patron1.full_name};#{@patron2.full_name};#{@patron3.full_name}"
+	  patron_transcriptions = "#{@patron1.full_name_transcription};#{@patron2.full_name_transcription};#{@patron3.full_name_transcription}"
+	  Patron.add_patrons(patron_names, patron_transcriptions).should eq [@patron1, @patron2, @patron3]
+        end
+      end
+    end
+    context "names_size not equal nametranscriptions_size" do
 
-
-  it "should be creator" do
-    patrons(:patron_00001).creator?(manifestations(:manifestation_00001)).should be_true
-  end
-
-  it "should not be creator" do
-    patrons(:patron_00010).creator?(manifestations(:manifestation_00001)).should be_false
-  end
-
-  it "should be publisher" do
-    patrons(:patron_00001).publisher?(manifestations(:manifestation_00001)).should be_true
-  end
-
-  it "should not be publisher" do
-    patrons(:patron_00010).publisher?(manifestations(:manifestation_00001)).should be_false
+      #TODO: 名前と名前ヨミの引数があっていないときのテスト
+    end
+=begin
+    describe "add new patrons > " do
+      before(:each) do
+        @time = Time.now
+        @patron_lists = [
+          { full_name: "p_#{@time}_1", full_name_transcription: "p_#{@time}_yomi_1" },
+          { full_name: "p_#{@time}_2", full_name_transcription: "p_#{@time}_yomi_2" },
+          { full_name: "p_#{@time}_3", full_name_transcription: "p_#{@time}_yomi_3" },
+        ]
+      end
+      it "should create new patrons" do
+        Patron.find_by_full_name(@patron_lists[0][:full_name]).should be_nil
+        Patron.find_by_full_name(@patron_lists[1][:full_name]).should be_nil
+        Patron.find_by_full_name(@patron_lists[2][:full_name]).should be_nil
+        list = Patron.import_patrons(@patron_lists)
+        p1 = Patron.find_by_full_name(@patron_lists[0][:full_name])
+        p2 = Patron.find_by_full_name(@patron_lists[1][:full_name])
+        p3 = Patron.find_by_full_name(@patron_lists[2][:full_name])
+        p1.should_not be_nil
+        p2.should_not be_nil
+        p3.should_not be_nil
+        list.should eq [p1, p2, p3]
+      end
+      describe "detail" do
+        it "should set full_name" do
+          list = Patron.import_patrons(@patron_lists)
+          list[0][:full_name].should eq @patron_lists[0][:full_name]
+          list[1][:full_name].should eq @patron_lists[1][:full_name]
+          list[2][:full_name].should eq @patron_lists[2][:full_name]
+        end
+        it "should set full_name_transcription" do
+          list = Patron.import_patrons(@patron_lists)
+          list[0][:full_name_transcription].should eq @patron_lists[0][:full_name_transcription]
+          list[1][:full_name_transcription].should eq @patron_lists[1][:full_name_transcription]
+          list[2][:full_name_transcription].should eq @patron_lists[2][:full_name_transcription]
+        end
+        it "should set language_id is 1" do
+          list = Patron.import_patrons(@patron_lists)
+          list[0][:language_id].should eq 1
+          list[1][:language_id].should eq 1
+          list[2][:language_id].should eq 1
+        end
+        it "should set Guest's role" do
+          list = Patron.import_patrons(@patron_lists)
+          list[0][:required_role_id].should eq Role.find_by_name('Guest').id
+          list[1][:required_role_id].should eq Role.find_by_name('Guest').id
+          list[2][:required_role_id].should eq Role.find_by_name('Guest').id
+        end
+        it "set exclude_state" do
+          system_configuration = SystemConfiguration.find_by_keyname('exclude_patrons')
+          system_configuration.v = "#{system_configuration.v}, p_#{@time}_3"
+          system_configuration.save
+          Rails.cache.clear
+          @patron_lists << { full_name: " 　p_#{@time}_3 　", full_name_transcription: " 　p_#{@time}_yomi_3 　" }    
+          list = Patron.import_patrons(@patron_lists)
+          list[0][:exclude_state].should eq 0
+          list[3][:exclude_state].should eq 1
+        end
+        it "should exstrip with full size_space" do
+          @patron_lists << { full_name: " 　p_#{@time}_3 　", full_name_transcription: " 　p_#{@time}_yomi_3 　" } 
+          list = Patron.import_patrons(@patron_lists)
+          list[3][:full_name].should eq "p_#{@time}_3"
+          list[3][:full_name_transcription].should eq "p_#{@time}_yomi_3"
+        end
+      end
+    end
+=end
   end
 
   it "should get or create patron" do
@@ -942,6 +1213,65 @@ describe Patron do
     list[3].id.should eq 104
     list[3].full_name.should eq "試験用会社"
     list[3].full_name_transcription.should eq "しけんようかいしゃ"
+  end
+
+  it "should get original_patrons + derived_patrons" do
+    patron = FactoryGirl.create(:patron)
+    derived_patrons  = patron.derived_patrons  << FactoryGirl.create(:patron)
+    original_patrons = patron.original_patrons << FactoryGirl.create(:patron)
+    patron.patrons.should eq original_patrons + derived_patrons
+  end
+
+  context "when create with user" do
+    before(:each) do
+      @user = users(:admin)
+    end
+    it "should new_record" do
+      Patron.create_with_user({}, @user).should be_new_record
+    end
+    it "should has same email with user" do
+      Patron.create_with_user({}, @user).email.should eq @user.email
+    end
+    it "should has Librarian's role" do
+      Patron.create_with_user({}, @user).required_role eq Role.find_by_name('Librarian') || nil
+    end
+    it "should has user local language" do
+      Patron.create_with_user({}, @user).language eq Language.find_by_iso_639_1(@user.locale) || nil
+    end
+  end
+
+  context "when change note" do
+    before(:each) do
+      @patron = patrons(:patron_00001) 
+    end
+    context "if change a data" do
+      before(:each) do
+        @patron.note = "tes_#{@patron.note}"
+      end
+      it "should update updated_at" do
+        note_update_at = @patron.note_update_at
+        @patron.change_note
+        @patron.note_update_at.should_not eq note_update_at
+      end
+      it "should update by SYSTEM" do
+        User.current_user = nil
+        @patron.change_note
+        @patron.note_update_by.should eq "SYSTEM"
+        @patron.note_update_library.should eq "SYSTEM"
+      end 
+      it "should update by current_user" do
+        User.current_user = users(:admin)
+        @patron.change_note
+        @patron.note_update_by.should eq User.current_user.patron.full_name
+        @patron.note_update_library.should eq User.current_user.library.display_name         
+      end
+    end
+    context "if not change a data" do
+      it "shuld return nil" do
+        data = @patron.change_note
+        data.should eq @patron.note
+      end
+    end
   end
 end
 

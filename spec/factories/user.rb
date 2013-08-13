@@ -45,6 +45,22 @@ FactoryGirl.define do
     f.user_status {UserStatus.first || FactoryGirl.create(:user_status)}
   end
 
+  factory :guest, :class => 'User' do |f|
+    f.sequence(:username){|n| "guest_#{n}"}
+    f.sequence(:email){|n| "guest_#{n}@example.jp"}
+    f.email_confirmation{|u| u.email}
+    f.role {Role.find_by_name('Guest')}
+    f.library {FactoryGirl.create(:library)}
+    f.password 'userpassword'
+    f.password_confirmation 'userpassword'
+    f.user_group {UserGroup.find_by_name("User")}
+    f.required_role {Role.find_by_name('Guest')}
+    f.locale 'ja'
+    f.sequence(:user_number){|n| "user_number_#{n}"}
+    f.patron {FactoryGirl.create(:patron)}
+    f.user_status {UserStatus.first || FactoryGirl.create(:user_status)}
+  end
+
   factory :invalid_user, :class => 'User' do |f|
   end
 

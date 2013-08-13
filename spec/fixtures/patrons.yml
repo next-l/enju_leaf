@@ -82,6 +82,7 @@ patron_00006:
   last_name: New patron 1
   first_name: 
   full_name: New patron 1
+  full_name_transcription: New patron 1
   other_designation: ""
   id: 6
   date_of_birth: 2000-01-01
@@ -96,6 +97,7 @@ patron_00007:
   last_name: New patron 2
   first_name: 
   full_name: New patron 2
+  full_name_transcription: New patron 2
   other_designation: ""
   id: 7
   date_of_birth: 2000-01-01
@@ -110,6 +112,7 @@ patron_00008:
   last_name: New patron 3
   first_name: 
   full_name: New patron 3
+  full_name_transcription: New patron 3
   other_designation: ""
   id: 8
   date_of_birth: 2000-01-01
@@ -124,6 +127,7 @@ patron_00009:
   last_name: New patron 4
   first_name: 
   full_name:  New patron 4
+  full_name_transcription: New patron 4
   other_designation: ""
   id: 9
   date_of_birth: 2000-01-01
@@ -138,6 +142,7 @@ patron_00010:
   last_name: New patron 5
   first_name: 
   full_name: New patron 5
+  full_name_transcription: New patron 5
   other_designation: ""
   id: 10
   date_of_birth: 2000-01-01

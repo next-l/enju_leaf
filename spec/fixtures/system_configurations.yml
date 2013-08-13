@@ -396,6 +396,69 @@ system_configuration_00092:
   typename: Boolean
   description: "正副本管理をする"
   category: 'manifestation'
+system_configuration_00093:
+  id: 93
+  keyname: use_inter_library_loan
+  v: "true"
+  typename: Boolean
+  description: "相互貸借機能を利用する"
+  category: 'checkout'
+system_configuration_00094:
+  id: 94
+  keyname: special_ip_address_list
+  v: ""
+  typename: String
+  description: "特別なIPアドレス"
+  category: 'general'
+system_configuration_00095:
+  id: 95
+  keyname: notice_receiver
+  v: ""
+  typename: Text
+  description: "通知を受け取る利用者(ライブラリアン)"
+  category: 'general'
+system_configuration_00096:
+  id: 96
+  keyname: manifestation.has_one_item
+  v: "false"
+  typename: Boolean
+  description: "書誌と所蔵を１：１で管理する"
+  category: 'manifestation'
+system_configuration_00097:
+  id: 97
+  keyname: manifestation.isbn_unique
+  v: "true"
+  typename: Boolean
+  description: "ISBNは重複しない"
+  category: 'manifestation'
+system_configuration_00098:
+  id: 98
+  keyname: offline_client_crypt_password
+  v: ""
+  typename: String
+  description: "オフラインクライアント暗号化パスワード"
+  category: 'general'
+system_configuration_00099:
+  id: 99
+  keyname: user_change_department
+  v: "true"
+  typename: Boolean
+  description: "自分自身で利用者の部課の変更が出来るか？"
+  category: 'user'
+system_configuration_00100:
+  id: 100
+  keyname: use_copy_request
+  v: "false"
+  typename: Boolean
+  description: "文献複写依頼を使用するか"
+  category: 'copy_request'
+system_configuration_00101:
+  id: 101
+  keyname: exclude_patrons
+  v: "他,ほか,et-al."
+  typename: String
+  description: "著者、協力者・編者、協力者・編者で指定時に人物・団体として扱わないワード"
+  category: 'manifestation'
 
 # == Schema Information
 #
