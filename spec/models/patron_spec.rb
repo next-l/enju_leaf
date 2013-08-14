@@ -991,38 +991,6 @@ describe Patron do
     end
   end
 
-=begin
-286   def self.add_patrons(patron_names, patron_transcriptions = nil)
-288     names = patron_names.gsub('；', ';').split(/;/)
-289     transcriptions = []
-290     if patron_transcriptions.present?
-291       transcriptions = patron_transcriptions.gsub('；', ';').split(/;/)
-292       transcriptions = transcriptions.uniq.compact
-293     end
-294     list = []
-295     names.uniq.compact.each_with_index do |name, i|
-296       name = name.exstrip_with_full_size_space
-297       next if name.empty?
-298       patron = Patron.find(:first, :conditions => ["full_name=?", name])
-299       full_name_transcription = transcriptions[i].exstrip_with_full_size_space rescue nil
-300       if patron.nil?
-301         patron = Patron.new
-302         patron.full_name = name
-303         patron.full_name_transcription = full_name_transcription
-304         exclude_patrons = SystemConfiguration.get("exclude_patrons").split(',').inject([]){ |list, word| list << word.gsub(/^[　\s]*(.*?)[　\s]*$/,     '\1') }
-305         patron.exclude_state = 1 if exclude_patrons.include?(name)
-306         patron.save
-307       else
-308         if full_name_transcription
-309           patron.full_name_transcription = full_name_transcription
-310           patron.save
-311         end
-312       end
-313       list << patron
-314     end
-315     list
-316   end
-=end
   context "add from string" do
     describe "nil > " do
       it "should return empty list" do
@@ -1069,7 +1037,7 @@ describe Patron do
         @patron_names            = "#{@patron.full_name};#{@patron.full_name}"
         @patron_names_with_space = "#{@patron.full_name}; #{@patron.full_name}"
       end
-      context "has not transcription" do
+      context "has not transcriptions" do
         it "should compact list" do
           Patron.add_patrons(@patron_names).should eq [@patron]
         end
@@ -1077,34 +1045,292 @@ describe Patron do
           Patron.add_patrons(@patron_names_with_space).should eq [@patron]
         end
       end
-      context "has transcription" do
-        it "should compact list: same transcription" do
+      context "has transactions" do
+        it "should return a patron" do
           patron_transcriptions = "#{@patron.full_name_transcription};#{@patron.full_name_transcription}"
           list = Patron.add_patrons(@patron_names, patron_transcriptions)
           list.should eq [@patron]
           list[0][:full_name].should eq @patron.full_name
           list[0][:full_name_transcription].should eq @patron.full_name_transcription
         end
-        it "should compact list: one transcription" do
+        it "should return a patron that has transcription" do
           patron_transcriptions = "#{@patron.full_name_transcription}"
           list = Patron.add_patrons(@patron_names, patron_transcriptions)
           list.should eq [@patron]
           list[0][:full_name].should eq @patron.full_name
           list[0][:full_name_transcription].should eq @patron.full_name_transcription
         end
-        it "should compact list: not same transcription" do
-          patron_transcriptions = "#{@patron.full_name_transcription};#{patrons(:patron_00002).full_name_transcription}"
+        it "should return a patron that has transcription that first of patron_transcriptions list" do
+          patron_transcriptions = "#{@patron.full_name_transcription};#{@patron.full_name_transcription}_test"
           list = Patron.add_patrons(@patron_names, patron_transcriptions)
           list.should eq [@patron]
           list[0][:full_name].should eq @patron.full_name
           list[0][:full_name_transcription].should eq @patron.full_name_transcription
         end
-        it "should compact list" do
+        it "should return a patron" do
           patron_transcriptions = ";"
           list = Patron.add_patrons(@patron_names, patron_transcriptions)
           list.should eq [@patron]
           list[0][:full_name].should eq @patron.full_name
+          list[0][:full_name_transcription].should eq ""
+        end
+        it "should return two parsons" do
+          @patron2 = patrons(:patron_00006)
+          @patron_names = "#{@patron_names};#{@patron2.full_name}"
+          patron_transcriptions = "#{@patron.full_name_transcription};#{@patron.full_name_transcription}_1;#{@patron.full_name_transcription}_2"
+          list = Patron.add_patrons(@patron_names, patron_transcriptions)
+          list.should eq [@patron, @patron2]
+          list[0][:full_name].should eq @patron.full_name
           list[0][:full_name_transcription].should eq @patron.full_name_transcription
+          list[1][:full_name].should eq @patron2.full_name
+          list[1][:full_name_transcription].should eq "#{@patron.full_name_transcription}_2"
+        end
+      end
+    end
+    context "size of names is not equal size of name transcriptions > " do
+      describe "edit exist patrons > " do
+        before(:each) do
+          @patron1 = patrons(:patron_00006)
+          @patron2 = patrons(:patron_00007)
+          @patron3 = patrons(:patron_00008)
+          @patron_names = "#{@patron1.full_name};#{@patron2.full_name};#{@patron3.full_name}"
+        end
+        describe "blank > "do
+          it "should not set transcriptions" do
+	    patron_transcriptions = ""
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1.full_name
+            list[1][:full_name].should eq @patron2.full_name
+            list[2][:full_name].should eq @patron3.full_name
+            list[0][:full_name_transcription].should eq ""
+            list[1][:full_name_transcription].should eq @patron2.full_name_transcription
+            list[2][:full_name_transcription].should eq @patron3.full_name_transcription
+          end
+          it "should not set transcriptions" do
+	    patron_transcriptions = " "
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1.full_name
+            list[1][:full_name].should eq @patron2.full_name
+            list[2][:full_name].should eq @patron3.full_name
+            list[0][:full_name_transcription].should eq ""
+            list[1][:full_name_transcription].should eq @patron2.full_name_transcription
+            list[2][:full_name_transcription].should eq @patron3.full_name_transcription
+          end
+          it "should not set transcriptions" do
+	    patron_transcriptions = ";"
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1.full_name
+            list[1][:full_name].should eq @patron2.full_name
+            list[2][:full_name].should eq @patron3.full_name
+            list[0][:full_name_transcription].should eq ""
+            list[1][:full_name_transcription].should eq ""
+            list[2][:full_name_transcription].should eq @patron3.full_name_transcription
+          end
+          it "should not set transcriptions" do
+	    patron_transcriptions = " ; "
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1.full_name
+            list[1][:full_name].should eq @patron2.full_name
+            list[2][:full_name].should eq @patron3.full_name
+            list[0][:full_name_transcription].should eq ""
+            list[1][:full_name_transcription].should eq ""
+            list[2][:full_name_transcription].should eq @patron3.full_name_transcription
+          end
+          it "should not set transcriptions" do
+	    patron_transcriptions = ";;"
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1.full_name
+            list[1][:full_name].should eq @patron2.full_name
+            list[2][:full_name].should eq @patron3.full_name
+            list[0][:full_name_transcription].should eq ""
+            list[1][:full_name_transcription].should eq ""
+            list[2][:full_name_transcription].should eq ""
+          end
+          it "should not set transcriptions" do
+	    patron_transcriptions = " ; ; "
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1.full_name
+            list[1][:full_name].should eq @patron2.full_name
+            list[2][:full_name].should eq @patron3.full_name
+            list[0][:full_name_transcription].should eq ""
+            list[1][:full_name_transcription].should eq ""
+            list[2][:full_name_transcription].should eq ""
+          end
+        end
+        describe "word > "do
+          it "should set a first transcription" do
+	    patron_transcriptions = "test"
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1.full_name
+            list[1][:full_name].should eq @patron2.full_name
+            list[2][:full_name].should eq @patron3.full_name
+            list[0][:full_name_transcription].should eq "test"
+            list[1][:full_name_transcription].should eq @patron2.full_name_transcription
+            list[2][:full_name_transcription].should eq @patron3.full_name_transcription
+          end
+          it "should set a second transcription" do
+	    patron_transcriptions = ";test"
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1.full_name
+            list[1][:full_name].should eq @patron2.full_name
+            list[2][:full_name].should eq @patron3.full_name
+            list[0][:full_name_transcription].should eq ""
+            list[1][:full_name_transcription].should eq "test"
+            list[2][:full_name_transcription].should eq @patron3.full_name_transcription
+          end
+          it "should set a third transcription" do
+	    patron_transcriptions = ";;test"
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1.full_name
+            list[1][:full_name].should eq @patron2.full_name
+            list[2][:full_name].should eq @patron3.full_name
+            list[0][:full_name_transcription].should eq ""
+            list[1][:full_name_transcription].should eq ""
+            list[2][:full_name_transcription].should eq "test"
+          end
+          it "should not set transcriptions" do
+	    patron_transcriptions = ";;;test"
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1.full_name
+            list[1][:full_name].should eq @patron2.full_name
+            list[2][:full_name].should eq @patron3.full_name
+            list[0][:full_name_transcription].should eq ""
+            list[1][:full_name_transcription].should eq ""
+            list[2][:full_name_transcription].should eq ""
+          end
+          it "should set all transcriptions" do
+	    patron_transcriptions = "test;test;test;test"
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1.full_name
+            list[1][:full_name].should eq @patron2.full_name
+            list[2][:full_name].should eq @patron3.full_name
+            list[0][:full_name_transcription].should eq "test"
+            list[1][:full_name_transcription].should eq "test"
+            list[2][:full_name_transcription].should eq "test"
+          end
+        end
+      end
+      describe "edit new patrons > " do
+        before(:each) do
+          @time = Time.now
+          @patron1 = { full_name: "p_#{@time}_1" }
+          @patron2 = { full_name: "p_#{@time}_2" }
+          @patron3 = { full_name: "p_#{@time}_3" }
+          @patron_names = "#{@patron1[:full_name]};#{@patron2[:full_name]};#{@patron3[:full_name]}"
+        end
+        describe "blank > "do
+          it "should not set transcriptions" do
+	    patron_transcriptions = ""
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1[:full_name]
+            list[1][:full_name].should eq @patron2[:full_name]
+            list[2][:full_name].should eq @patron3[:full_name]
+            list[0][:full_name_transcription].should eq ""
+            list[1][:full_name_transcription].should eq ""
+            list[2][:full_name_transcription].should eq ""
+          end
+          it "should not set transcriptions" do
+	    patron_transcriptions = " "
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1[:full_name]
+            list[1][:full_name].should eq @patron2[:full_name]
+            list[2][:full_name].should eq @patron3[:full_name]
+            list[0][:full_name_transcription].should eq ""
+            list[1][:full_name_transcription].should eq ""
+            list[2][:full_name_transcription].should eq ""
+          end
+          it "should not set transcriptions" do
+	    patron_transcriptions = ";"
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1[:full_name]
+            list[1][:full_name].should eq @patron2[:full_name]
+            list[2][:full_name].should eq @patron3[:full_name]
+            list[0][:full_name_transcription].should eq ""
+            list[1][:full_name_transcription].should eq ""
+            list[2][:full_name_transcription].should eq ""
+          end
+          it "should not set transcriptions" do
+	    patron_transcriptions = " ; "
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1[:full_name]
+            list[1][:full_name].should eq @patron2[:full_name]
+            list[2][:full_name].should eq @patron3[:full_name]
+            list[0][:full_name_transcription].should eq ""
+            list[1][:full_name_transcription].should eq ""
+            list[2][:full_name_transcription].should eq ""
+          end
+          it "should not set transcriptions" do
+	    patron_transcriptions = ";;"
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1[:full_name]
+            list[1][:full_name].should eq @patron2[:full_name]
+            list[2][:full_name].should eq @patron3[:full_name]
+            list[0][:full_name_transcription].should eq ""
+            list[1][:full_name_transcription].should eq ""
+            list[2][:full_name_transcription].should eq ""
+          end
+          it "should not set transcriptions" do
+	    patron_transcriptions = " ; ; "
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1[:full_name]
+            list[1][:full_name].should eq @patron2[:full_name]
+            list[2][:full_name].should eq @patron3[:full_name]
+            list[0][:full_name_transcription].should eq ""
+            list[1][:full_name_transcription].should eq ""
+            list[2][:full_name_transcription].should eq ""
+          end
+        end
+        describe "word > "do
+          it "should set a first transcription" do
+	    patron_transcriptions = "test"
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1[:full_name]
+            list[1][:full_name].should eq @patron2[:full_name]
+            list[2][:full_name].should eq @patron3[:full_name]
+            list[0][:full_name_transcription].should eq "test"
+            list[1][:full_name_transcription].should eq ""
+            list[2][:full_name_transcription].should eq ""
+          end
+          it "should set a second transcription" do
+	    patron_transcriptions = ";test"
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1[:full_name]
+            list[1][:full_name].should eq @patron2[:full_name]
+            list[2][:full_name].should eq @patron3[:full_name]
+            list[0][:full_name_transcription].should eq ""
+            list[1][:full_name_transcription].should eq "test"
+            list[2][:full_name_transcription].should eq ""
+          end
+          it "should set a third transcription" do
+	    patron_transcriptions = ";;test"
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1[:full_name]
+            list[1][:full_name].should eq @patron2[:full_name]
+            list[2][:full_name].should eq @patron3[:full_name]
+            list[0][:full_name_transcription].should eq ""
+            list[1][:full_name_transcription].should eq ""
+            list[2][:full_name_transcription].should eq "test"
+          end
+          it "should not set transcriptions" do
+	    patron_transcriptions = ";;;test"
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1[:full_name]
+            list[1][:full_name].should eq @patron2[:full_name]
+            list[2][:full_name].should eq @patron3[:full_name]
+            list[0][:full_name_transcription].should eq ""
+            list[1][:full_name_transcription].should eq ""
+            list[2][:full_name_transcription].should eq ""
+          end
+          it "should set all transcriptions" do
+	    patron_transcriptions = "test;test;test;test"
+            list = Patron.add_patrons(@patron_names, patron_transcriptions)
+            list[0][:full_name].should eq @patron1[:full_name]
+            list[1][:full_name].should eq @patron2[:full_name]
+            list[2][:full_name].should eq @patron3[:full_name]
+            list[0][:full_name_transcription].should eq "test"
+            list[1][:full_name_transcription].should eq "test"
+            list[2][:full_name_transcription].should eq "test"
+          end
         end
       end
     end
@@ -1113,106 +1339,164 @@ describe Patron do
         @patron1 = patrons(:patron_00006)
         @patron2 = patrons(:patron_00007)
         @patron3 = patrons(:patron_00008)
+        @patron_names = "#{@patron1.full_name};#{@patron2.full_name};#{@patron3.full_name}"
+        @patron_transcriptions = "#{@patron1.full_name_transcription}_test;#{@patron2.full_name_transcription}_test;#{@patron3.full_name_transcription}_test"
       end
-      context "has not transcription" do
+      context "not has transcriptions " do
         it "should not exist new patron" do
-          patron_names = "#{@patron1.full_name};#{@patron2.full_name};#{@patron3.full_name}"
-          Patron.add_patrons(patron_names).should eq [@patron1, @patron2, @patron3]
+          list = Patron.add_patrons(@patron_names)
+          list.should eq [@patron1, @patron2, @patron3]
+          list[0][:full_name].should eq "#{@patron1.full_name}"
+          list[1][:full_name].should eq "#{@patron2.full_name}"
+          list[2][:full_name].should eq "#{@patron3.full_name}"
+          list[0][:full_name_transcription].should eq "#{@patron1.full_name_transcription}"
+          list[1][:full_name_transcription].should eq "#{@patron2.full_name_transcription}"
+          list[2][:full_name_transcription].should eq "#{@patron3.full_name_transcription}"
         end
       end
-      context "has transcription" do
+      context "not has transcriptions " do
         it "should not exist new patron" do
-          patron_names = "#{@patron1.full_name};#{@patron2.full_name};#{@patron3.full_name}"
-	  patron_transcriptions = "#{@patron1.full_name_transcription};#{@patron2.full_name_transcription};#{@patron3.full_name_transcription}"
-	  Patron.add_patrons(patron_names, patron_transcriptions).should eq [@patron1, @patron2, @patron3]
+          list = Patron.add_patrons(@patron_names, @patron_transcriptions)
+          list.should eq [@patron1, @patron2, @patron3]
+          list[0][:full_name].should eq "#{@patron1.full_name}"
+          list[1][:full_name].should eq "#{@patron2.full_name}"
+          list[2][:full_name].should eq "#{@patron3.full_name}"
+          list[0][:full_name_transcription].should eq "#{@patron1.full_name_transcription}_test"
+          list[1][:full_name_transcription].should eq "#{@patron2.full_name_transcription}_test"
+          list[2][:full_name_transcription].should eq "#{@patron3.full_name_transcription}_test"
         end
       end
     end
-    context "names_size not equal nametranscriptions_size" do
-
-      #TODO: 名前と名前ヨミの引数があっていないときのテスト
-    end
-=begin
     describe "add new patrons > " do
       before(:each) do
         @time = Time.now
-        @patron_lists = [
-          { full_name: "p_#{@time}_1", full_name_transcription: "p_#{@time}_yomi_1" },
-          { full_name: "p_#{@time}_2", full_name_transcription: "p_#{@time}_yomi_2" },
-          { full_name: "p_#{@time}_3", full_name_transcription: "p_#{@time}_yomi_3" },
-        ]
+        @patron1 = { full_name: "p_#{@time}_1", full_name_transcription: "p_#{@time}_yomi_1" }
+        @patron2 = { full_name: "p_#{@time}_2", full_name_transcription: "p_#{@time}_yomi_2" }
+        @patron3 = { full_name: "p_#{@time}_3", full_name_transcription: "p_#{@time}_yomi_3" }
+        @patron_names = "#{@patron1[:full_name]};#{@patron2[:full_name]};#{@patron3[:full_name]}"
       end
-      it "should create new patrons" do
-        Patron.find_by_full_name(@patron_lists[0][:full_name]).should be_nil
-        Patron.find_by_full_name(@patron_lists[1][:full_name]).should be_nil
-        Patron.find_by_full_name(@patron_lists[2][:full_name]).should be_nil
-        list = Patron.import_patrons(@patron_lists)
-        p1 = Patron.find_by_full_name(@patron_lists[0][:full_name])
-        p2 = Patron.find_by_full_name(@patron_lists[1][:full_name])
-        p3 = Patron.find_by_full_name(@patron_lists[2][:full_name])
-        p1.should_not be_nil
-        p2.should_not be_nil
-        p3.should_not be_nil
-        list.should eq [p1, p2, p3]
+      context "not has transcriptions " do
+        it "should create new patrons" do
+          Patron.find_by_full_name(@patron1[:full_name]).should be_nil
+          Patron.find_by_full_name(@patron2[:full_name]).should be_nil
+          Patron.find_by_full_name(@patron3[:full_name]).should be_nil
+          list = Patron.add_patrons(@patron_names)
+          p1 = Patron.find_by_full_name(@patron1[:full_name])
+          p2 = Patron.find_by_full_name(@patron2[:full_name])
+          p3 = Patron.find_by_full_name(@patron3[:full_name])
+          p1.should_not be_nil
+          p2.should_not be_nil
+          p3.should_not be_nil
+          list.should eq [p1, p2, p3]
+        end
+        describe "detail" do
+          before(:each) do
+            @list = Patron.add_patrons(@patron_names)
+            @p1 = Patron.find_by_full_name(@patron1[:full_name])
+            @p2 = Patron.find_by_full_name(@patron2[:full_name])
+            @p3 = Patron.find_by_full_name(@patron3[:full_name])
+          end
+          it "should set full_name" do
+            @list[0][:full_name].should eq @patron1[:full_name]
+            @list[1][:full_name].should eq @patron2[:full_name]
+            @list[2][:full_name].should eq @patron3[:full_name]
+          end
+          it "should set full_name_transcription" do
+            @list[0][:full_name_transcription].should eq @p1.full_name_transcription
+            @list[1][:full_name_transcription].should eq @p2.full_name_transcription
+            @list[2][:full_name_transcription].should eq @p3.full_name_transcription
+          end
+          it "should set language_id is 1" do
+            @list[0][:language_id].should eq 1
+            @list[1][:language_id].should eq 1
+            @list[2][:language_id].should eq 1
+          end
+          it "should set Guest's role" do
+            @list[0][:required_role_id].should eq Role.find_by_name('Guest').id
+            @list[1][:required_role_id].should eq Role.find_by_name('Guest').id
+            @list[2][:required_role_id].should eq Role.find_by_name('Guest').id
+          end
+          it "set exclude_state" do
+            system_configuration = SystemConfiguration.find_by_keyname('exclude_patrons')
+            system_configuration.v = "#{system_configuration.v}, p_#{@time}_4"
+            system_configuration.save
+            Rails.cache.clear
+            @patron_names += "; 　p_#{@time}_4 　"
+            list = Patron.add_patrons(@patron_names)
+            list[0][:exclude_state].should eq 0
+            list[3][:exclude_state].should eq 1
+          end
+          it "should exstrip with full size_space" do
+            @patron_names += "; 　p_#{@time}_4 　"
+            list = Patron.add_patrons(@patron_names)
+            list[3][:full_name].should eq "p_#{@time}_4"
+          end
+        end
       end
-      describe "detail" do
-        it "should set full_name" do
-          list = Patron.import_patrons(@patron_lists)
-          list[0][:full_name].should eq @patron_lists[0][:full_name]
-          list[1][:full_name].should eq @patron_lists[1][:full_name]
-          list[2][:full_name].should eq @patron_lists[2][:full_name]
+      context "not has transcriptions " do
+        before(:each) do
+          @patron_transcriptions = "#{@patron1[:full_name_transcription]}_test;#{@patron2[:full_name_transcription]}_test;#{@patron3[:full_name_transcription]}_test"
         end
-        it "should set full_name_transcription" do
-          list = Patron.import_patrons(@patron_lists)
-          list[0][:full_name_transcription].should eq @patron_lists[0][:full_name_transcription]
-          list[1][:full_name_transcription].should eq @patron_lists[1][:full_name_transcription]
-          list[2][:full_name_transcription].should eq @patron_lists[2][:full_name_transcription]
+        it "should create new patrons" do
+          Patron.find_by_full_name(@patron1[:full_name]).should be_nil
+          Patron.find_by_full_name(@patron2[:full_name]).should be_nil
+          Patron.find_by_full_name(@patron3[:full_name]).should be_nil
+          list = Patron.add_patrons(@patron_names, @patron_transcriptions)
+          p1 = Patron.find_by_full_name(@patron1[:full_name])
+          p2 = Patron.find_by_full_name(@patron2[:full_name])
+          p3 = Patron.find_by_full_name(@patron3[:full_name])
+          p1.should_not be_nil
+          p2.should_not be_nil
+          p3.should_not be_nil
+          list.should eq [p1, p2, p3]
         end
-        it "should set language_id is 1" do
-          list = Patron.import_patrons(@patron_lists)
-          list[0][:language_id].should eq 1
-          list[1][:language_id].should eq 1
-          list[2][:language_id].should eq 1
-        end
-        it "should set Guest's role" do
-          list = Patron.import_patrons(@patron_lists)
-          list[0][:required_role_id].should eq Role.find_by_name('Guest').id
-          list[1][:required_role_id].should eq Role.find_by_name('Guest').id
-          list[2][:required_role_id].should eq Role.find_by_name('Guest').id
-        end
-        it "set exclude_state" do
-          system_configuration = SystemConfiguration.find_by_keyname('exclude_patrons')
-          system_configuration.v = "#{system_configuration.v}, p_#{@time}_3"
-          system_configuration.save
-          Rails.cache.clear
-          @patron_lists << { full_name: " 　p_#{@time}_3 　", full_name_transcription: " 　p_#{@time}_yomi_3 　" }    
-          list = Patron.import_patrons(@patron_lists)
-          list[0][:exclude_state].should eq 0
-          list[3][:exclude_state].should eq 1
-        end
-        it "should exstrip with full size_space" do
-          @patron_lists << { full_name: " 　p_#{@time}_3 　", full_name_transcription: " 　p_#{@time}_yomi_3 　" } 
-          list = Patron.import_patrons(@patron_lists)
-          list[3][:full_name].should eq "p_#{@time}_3"
-          list[3][:full_name_transcription].should eq "p_#{@time}_yomi_3"
+        describe "detail" do
+          before(:each) do
+            @list = Patron.add_patrons(@patron_names, @patron_transcriptions)
+            @p1 = Patron.find_by_full_name(@patron1[:full_name])
+            @p2 = Patron.find_by_full_name(@patron2[:full_name])
+            @p3 = Patron.find_by_full_name(@patron3[:full_name])
+          end
+          it "should set full_name" do
+            @list[0][:full_name].should eq @patron1[:full_name]
+            @list[1][:full_name].should eq @patron2[:full_name]
+            @list[2][:full_name].should eq @patron3[:full_name]
+          end
+          it "should set full_name_transcription" do
+            @list[0][:full_name_transcription].should eq "#{@patron1[:full_name_transcription]}_test"
+            @list[1][:full_name_transcription].should eq "#{@patron2[:full_name_transcription]}_test"
+            @list[2][:full_name_transcription].should eq "#{@patron3[:full_name_transcription]}_test"
+          end
+          it "should set language_id is 1" do
+            @list[0][:language_id].should eq 1
+            @list[1][:language_id].should eq 1
+            @list[2][:language_id].should eq 1
+          end
+          it "should set Guest's role" do
+            @list[0][:required_role_id].should eq Role.find_by_name('Guest').id
+            @list[1][:required_role_id].should eq Role.find_by_name('Guest').id
+            @list[2][:required_role_id].should eq Role.find_by_name('Guest').id
+          end
+          it "set exclude_state" do
+            system_configuration = SystemConfiguration.find_by_keyname('exclude_patrons')
+            system_configuration.v = "#{system_configuration.v}, p_#{@time}_4"
+            system_configuration.save
+            Rails.cache.clear
+            @patron_names += "; 　p_#{@time}_4 　"
+            @patron_transcriptions += "; 　p_#{@time}_yomi_4 　"
+            list = Patron.add_patrons(@patron_names, @patron_transcriptions)
+            list[0][:exclude_state].should eq 0
+            list[3][:exclude_state].should eq 1
+          end
+          it "should exstrip with full size_space" do
+            @patron_names += "; 　p_#{@time}_4 　"
+            @patron_transcriptions += "; 　p_#{@time}_yomi_4 　"
+            list = Patron.add_patrons(@patron_names, @patron_transcriptions)
+            list[3][:full_name].should eq "p_#{@time}_4"
+          end
         end
       end
     end
-=end
-  end
-
-  it "should get or create patron" do
-    creator = "著者1;著者2;出版社テスト;試験用会社"
-    creator_transcription = "ちょしゃいち;ちょしゃに;;しけんようかいしゃ"
-    list = Patron.add_patrons(creator, creator_transcription)
-    list[0].full_name.should eq "著者1"
-    list[0].full_name_transcription.should eq"ちょしゃいち"
-    list[1].full_name.should eq "著者2"
-    list[1].full_name_transcription.should eq "ちょしゃに"
-    list[2].id.should eq 102
-    list[3].id.should eq 104
-    list[3].full_name.should eq "試験用会社"
-    list[3].full_name_transcription.should eq "しけんようかいしゃ"
   end
 
   it "should get original_patrons + derived_patrons" do
