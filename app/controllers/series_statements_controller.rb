@@ -173,9 +173,10 @@ class SeriesStatementsController < ApplicationController
               @series_statement.root_manifestation.title_alternative = params[:series_statement][:title_alternative] if params[:series_statement][:title_alternative]
               @series_statement.root_manifestation.periodical_master = true
             end
-            @series_statement.root_manifestation.creators     = Patron.add_patrons(@creator)
-            @series_statement.root_manifestation.contributors = Patron.add_patrons(@contributor)
-            @series_statement.root_manifestation.publishers   = Patron.add_patrons(@publisher) 
+            #TODO update position to edit patrons without destroy
+            @series_statement.root_manifestation.creators.destroy_all; @series_statement.root_manifestation.creators     = Patron.add_patrons(@creator)
+            @series_statement.root_manifestation.contributors.destroy_all; @series_statement.root_manifestation.contributors = Patron.add_patrons(@contributor)
+            @series_statement.root_manifestation.publishers.destroy_all; @series_statement.root_manifestation.publishers   = Patron.add_patrons(@publisher) 
             @series_statement.root_manifestation.subjects     = Subject.import_subjects(@subject) 
             @series_statement.root_manifestation.save!
             @series_statement.manifestations << @series_statement.root_manifestation unless @series_statement.manifestations.include?(@series_statement.root_manifestation)
