@@ -6,10 +6,6 @@ describe Patron do
   fixtures :all
 
   describe 'validates' do
-    before(:each) do
-      @patron = patrons(:patron_00003)
-    end
-
     context 'is correct' do
       subject { FactoryGirl.build(:patron) }
       it { should be_valid } 
@@ -136,7 +132,6 @@ describe Patron do
       it { should be_valid }
     end
 
-#TODO:
     describe 'email' do
       # validates :email, :format => {:with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i}, :allow_blank => true
       context 'email is nil' do
@@ -172,17 +167,10 @@ describe Patron do
           it_behaves_like 'create patron has email of wrong format' do let(:email) { 'enju@' }          end
           it_behaves_like 'create patron has email of wrong format' do let(:email) { 'enju@example' }   end
           it_behaves_like 'create patron has email of wrong format' do let(:email) { 'enju@example.c' } end
+          it_behaves_like 'create patron has email of wrong format' do let(:email) { 'enjuexample.com' } end
           chracters.map  { |char| it_behaves_like 'create patron has email of wrong format' do let(:email) { "#{char}@example.com" }      end }
           chracters2.map { |char| it_behaves_like 'create patron has email of wrong format' do let(:email) { "enju@#{char}.com" }         end }
           chracters2.map { |char| it_behaves_like 'create patron has email of wrong format' do let(:email) { "enju@example.#{char * 2}" } end }
-        end
-      end
-    end
-    describe "emailのフォーマット > " do
-      context "フォーマットが不正のとき" do
-        it "エラーが発生すること" do
-          @patron.stub(:email).and_return('enjuexample.com')
-          @patron.should_not be_valid
         end
       end
     end
