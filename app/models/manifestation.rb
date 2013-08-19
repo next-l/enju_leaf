@@ -823,11 +823,8 @@ class Manifestation < ActiveRecord::Base
     }
 
     get_total = proc do
-      series_statements_total = solr_search.execute.results.inject(0) do |total, m|
-                                  #TODO series_statement.manifestations は root_manifestation を含む  
-                                  total += m.series_statement.manifestations.size  if m.try(:series_statement).try(:manifestations).try(:size)
-                                  total
-                                end
+      series_statements_total =
+        Manifestation.where(:id => solr_search.execute.raw_results.map(&:primary_key)).joins(:series_statement => :manifestations).count
     end
     
     get_all_ids = proc do
@@ -928,7 +925,14 @@ class Manifestation < ActiveRecord::Base
     user_file = UserFile.new(current_user)
     excel_filepath, excel_fileinfo = user_file.create(:manifestation_list, Setting.manifestation_list_print_excelx.filename)
 
-    require 'axlsx'
+    begin
+      require 'axlsx_hack'
+      ws_cls = Axlsx::AppendOnlyWorksheet
+    rescue LoadError
+      require 'axlsx'
+      ws_cls = Axlsx::Worksheet
+    end
+
     pkg = Axlsx::Package.new
     wb = pkg.workbook
     sty = wb.styles.add_style :font_name => Setting.manifestation_list_print_excelx.fontname
@@ -958,7 +962,7 @@ class Manifestation < ActiveRecord::Base
         column.delete(type)
         next
       end
-      worksheet[type] = wb.add_worksheet(:name => sheet_name[type]) do |sheet|
+      worksheet[type] = ws_cls.new(wb, :name => sheet_name[type]).tap do |sheet|
         row = column[type].map {|(t, c)| I18n.t("resource_import_textfile.excel.#{t}.#{c}") }
         style[type] = [sty]*row.size
         sheet.add_row row, :types => :string, :style => style[type]

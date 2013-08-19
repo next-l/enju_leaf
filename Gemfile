@@ -43,7 +43,7 @@ end
 
 gem 'roo', "= 1.10.1"
 gem 'spreadsheet', '0.7.9'
-gem 'axlsx'
+gem 'axlsx', '~> 1.3.6'
 
 gem 'spinjs-rails'
 gem 'kaminari'
