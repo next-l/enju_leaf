@@ -18,9 +18,10 @@ class Bookbinding < ActiveRecord::Base
          binder.circulation_status = CirculationStatus.where(:name => 'In Factory').first
          binder.shelf = Shelf.where(:name => 'binding_shelf').first rescue nil
          binder.save!
-        self.binding_items.each do |binding_item|
+         self.binding_items.each do |binding_item|
           binding_item.item.bookbinder_id = binder.id
           binding_item.item.circulation_status = CirculationStatus.where(:name => 'Binded').first
+          binding_item.item.shelf_id = binder.shelf_id
           binding_item.item.save!
           Manifestation.find(binding_item.item.manifestation.id).index
         end
