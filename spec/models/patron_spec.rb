@@ -5,274 +5,180 @@ describe Patron do
   #pending "add some examples to (or delete) #{__FILE__}"
   fixtures :all
 
-  describe "バリデーションテスト: " do
+  describe 'validates' do
     before(:each) do
       @patron = patrons(:patron_00003)
     end
 
-    context "入力値が全て正しいとき" do
-      it "エラーは発生しないこと" do
-        @patron.should be_valid
-      end
+    context 'is correct' do
+      subject { FactoryGirl.build(:patron) }
+      it { should be_valid } 
     end
+
     # validates_presence_of :language, :patron_type, :country
     # validates_associated :language, :patron_type, :country
-    describe "値が nil > " do
-      it "language にエラーが発生すること" do
-        @patron.language = nil
-        expect(@patron).to have(2).errors_on(:language)
-      end 
-      it "patron_type にエラーが発生すること" do
-        @patron.patron_type = nil
-        expect(@patron).to have(2).errors_on(:patron_type)
-      end
-      it "country にエラーが発生すること" do
-        @patron.country = nil
-        expect(@patron).to have(2).errors_on(:country)
+    describe 'language' do
+      context 'language is nil' do
+        subject { FactoryGirl.build(:patron, language: nil) }
+        it { should_not be_valid }
       end
     end
-    # validates :full_name, :presence => true, :length => {:maximum => 255}
-    describe "文字数 > " do
-      describe "full_name > " do
-        context "255字以下のとき" do
-          it "エラーが発生しないこと" do
-            full_name = "a" * 255
-            @patron.stub(:full_name).and_return(full_name)
-            @patron.should be_valid
-          end
-        end
-        context "255字より大きいとき" do
-          it "エラーが発生すること" do
-            full_name = "a" * 256
-            @patron.stub(:full_name).and_return(full_name)
-            @patron.should_not be_valid
-          end
-        end
+    describe 'patron_type' do
+      context 'patron_type is nil' do
+        subject { FactoryGirl.build(:patron, patron_type: nil) }
+        it { should_not be_valid }
       end
     end
-    #validates :user_id, :uniqueness => true, :allow_nil => true
-    describe "ユニーク > " do
-      describe "user_id > " do
-        context "ユニークなとき" do
-          it "エラーが発生しないこと" do
-            @patron.stub(:user).and_return(FactoryGirl.create(:user))
-            @patron.should be_valid
-          end
-        end
-        context "ユニークでないとき" do
-          it "エラーが発生すること" do
-            @patron.stub(:user_id).and_return(users(:admin).id)
-            @patron.should_not be_valid
-          end
-        end
+    describe 'country' do
+      context 'country is nil' do
+        subject { FactoryGirl.build(:patron, country: nil) }
+        it { should_not be_valid }
       end
     end
-    # validates :birth_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
-    describe "birth_date の日付フォーマット > " do
-      before(:each) do
-        @patron.stub(:date_of_death).and_return(nil)
+
+    describe 'full_name' do
+      # validates :full_name, :presence => true, :length => {:maximum => 255}
+      context 'when size of full_name is not over 255' do
+        subject { FactoryGirl.build(:patron, full_name: "a" * 255) }
+        it { should be_valid }
       end
-      describe "\d > " do
-        it "エラーが発生しないこと: YYYY" do
-          @patron.stub(:birth_date).and_return('2000')
-          @patron.should be_valid
-        end
-        it "エラーが発生しないこと: MM" do
-          @patron.stub(:birth_date).and_return('01')
-          @patron.should be_valid 
-        end
-        it "エラーが発生しないこと: D" do
-          @patron.stub(:birth_date).and_return('1')
-          @patron.should be_valid 
-        end
-        it "エラーが発生しないこと: YYYYM" do
-          @patron.stub(:birth_date).and_return('20001')
-          @patron.should be_valid
-        end
-        it "エラーが発生しないこと: YYYYMM" do
-          @patron.stub(:birth_date).and_return('200001')
-          @patron.should be_valid
-        end
-        it "エラーが発生しないこと: YYYYMMD" do
-          @patron.stub(:birth_date).and_return('2000011')
-          @patron.should be_valid 
-        end
-        it "エラーが発生しないこと: YYYYMMDD" do
-          @patron.stub(:birth_date).and_return('20000101')
-          @patron.should be_valid 
-        end
-      end
-      describe "\d-\d{0,2} > " do
-        context "フォーマットが正しいとき > " do
-          it "エラーが発生しないこと: YYYY-" do
-            @patron.stub(:birth_date).and_return('2000-')
-            @patron.should be_valid
-          end
-          it "エラーが発生しないこと: YYYY-M" do
-            @patron.stub(:birth_date).and_return('2000-1')
-            @patron.should be_valid
-          end
-          it "エラーが発生しないこと: YYYY-MM" do
-            @patron.stub(:birth_date).and_return('2000-01')
-            @patron.should be_valid
-          end
-        end
-        context "フォーマットが不正なとき > " do
-          it "エラーが発生すること: YYYY-MMDD" do
-            @patron.stub(:birth_date).and_return('2000-0101')
-            @patron.should_not be_valid 
-          end
-        end
-      end
-      describe "\d-\d{0,2}-\d{0,2} > " do
-        context "フォーマットが正しいとき > " do
-          it "エラーが発生しないこと: YYYY-MM-" do
-            @patron.stub(:birth_date).and_return('2000-01-')
-            @patron.should be_valid
-          end
-          it "エラーが発生しないこと: YYYY-MM-D" do
-            @patron.stub(:birth_date).and_return('2000-01-1')
-            @patron.should be_valid
-          end
-          it "エラーが発生しないこと: YYYY-MM-DD" do
-            @patron.stub(:birth_date).and_return('2000-01-01')
-            @patron.should be_valid
-          end
-        end
-        context "フォーマットが不正なとき > " do
-          it "エラーが発生すること: YYYY-MM-DDD" do
-            @patron.stub(:birth_date).and_return('2000-01-011')
-            @patron.should_not be_valid 
-          end
-        end
-      end
-      describe "other > " do
-        context "フォーマットが不正なとき > " do
-          it "エラーが発生すること: STRING" do
-            @patron.stub(:birth_date).and_return('平成元年')
-            @patron.should_not be_valid 
-          end
-          it "エラーが発生すること: / " do
-            @patron.stub(:birth_date).and_return('2000/01/01')
-            @patron.should_not be_valid 
-          end
-          it "エラーが発生すること: ." do
-            @patron.stub(:birth_date).and_return('2000.01.01')
-            @patron.should_not be_valid 
-          end
-        end
+      context 'when size of full_name is not over 255' do
+        subject { FactoryGirl.build(:patron, full_name: "a" * 256) }
+        it { should_not be_valid }
       end
     end
-    # validates :death_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
-    describe "death_date の日付フォーマット > " do
-      before(:each) do
-        @patron.stub(:date_of_birth).and_return(nil)
+
+    describe 'user_id' do
+      #validates :user_id, :uniqueness => true, :allow_nil => true
+      context 'user_id is unique' do
+        subject { FactoryGirl.build(:patron, { user_id: FactoryGirl.build(:user).id }) }
+        it { should be_valid }
       end
-      describe "\d > " do
-        it "エラーが発生しないこと: YYYY" do
-          @patron.stub(:death_date).and_return('2000')
-          @patron.should be_valid
-        end
-        it "エラーが発生しないこと: MM" do
-          @patron.stub(:death_date).and_return('01')
-          @patron.should be_valid 
-        end
-        it "エラーが発生しないこと: D" do
-          @patron.stub(:death_date).and_return('1')
-          @patron.should be_valid 
-        end
-        it "エラーが発生しないこと: YYYYM" do
-          @patron.stub(:death_date).and_return('20001')
-          @patron.should be_valid
-        end
-        it "エラーが発生しないこと: YYYYMM" do
-          @patron.stub(:death_date).and_return('200001')
-          @patron.should be_valid
-        end
-        it "エラーが発生しないこと: YYYYMMD" do
-          @patron.stub(:death_date).and_return('2000011')
-          @patron.should be_valid 
-        end
-        it "エラーが発生しないこと: YYYYMMDD" do
-          @patron.stub(:death_date).and_return('20000101')
-          @patron.should be_valid 
-        end
+      context 'user_id is not unique' do
+        subject { FactoryGirl.build(:patron, { user_id: users(:admin).id }) }
+        it { should_not be_valid }
       end
-      describe "\d-\d{0,2} > " do
-        context "フォーマットが正しいとき > " do
-          it "エラーが発生しないこと: YYYY-" do
-            @patron.stub(:death_date).and_return('2000-')
-            @patron.should be_valid
-          end
-          it "エラーが発生しないこと: YYYY-M" do
-            @patron.stub(:death_date).and_return('2000-1')
-            @patron.should be_valid
-          end
-          it "エラーが発生しないこと: YYYY-MM" do
-            @patron.stub(:death_date).and_return('2000-01')
-            @patron.should be_valid
-          end
+    end
+
+    describe 'birth_date' do
+      # validates :birth_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
+      context 'when format of birth_date is correct' do
+        shared_examples_for 'format of birth_date is correct' do
+          subject { FactoryGirl.build(:patron, { :date_of_death => nil, :birth_date => birth_date }) }
+         it { should be_valid }
         end
-        context "フォーマットが不正なとき > " do
-          it "エラーが発生すること: YYYY-MMDD" do
-            @patron.stub(:death_date).and_return('2000-0101')
-            @patron.should_not be_valid 
-          end
-        end
+        it_behaves_like 'format of birth_date is correct' do let(:birth_date) { '2000' }       end # YYYY
+        it_behaves_like 'format of birth_date is correct' do let(:birth_date) { '01' }         end # MM
+        it_behaves_like 'format of birth_date is correct' do let(:birth_date) { '1' }          end # D
+        it_behaves_like 'format of birth_date is correct' do let(:birth_date) { '20001' }      end # YYYYM
+        it_behaves_like 'format of birth_date is correct' do let(:birth_date) { '200001' }     end # YYYYMM
+        it_behaves_like 'format of birth_date is correct' do let(:birth_date) { '2000011' }    end # YYYYMMD
+        it_behaves_like 'format of birth_date is correct' do let(:birth_date) { '20000101' }   end # YYYYMMDD
+        it_behaves_like 'format of birth_date is correct' do let(:birth_date) { '2000-' }      end # YYYY-
+        it_behaves_like 'format of birth_date is correct' do let(:birth_date) { '2000-1' }     end # YYYY-M
+        it_behaves_like 'format of birth_date is correct' do let(:birth_date) { '2000-01' }    end # YYYY-MM
+        it_behaves_like 'format of birth_date is correct' do let(:birth_date) { '2000-01-' }   end # YYYY-MM-
+        it_behaves_like 'format of birth_date is correct' do let(:birth_date) { '2000-01-1' }  end # YYYY-MM-D
+        it_behaves_like 'format of birth_date is correct' do let(:birth_date) { '2000-01-01' } end # YYYY-MM-DD
       end
-      describe "\d-\d{0,2}-\d{0,2} > " do
-        context "フォーマットが正しいとき > " do
-          it "エラーが発生しないこと: YYYY-MM-" do
-            @patron.stub(:death_date).and_return('2000-01-')
-            @patron.should be_valid
-          end
-          it "エラーが発生しないこと: YYYY-MM-D" do
-            @patron.stub(:death_date).and_return('2000-01-1')
-            @patron.should be_valid
-          end
-          it "エラーが発生しないこと: YYYY-MM-DD" do
-            @patron.stub(:death_date).and_return('2000-01-01')
-            @patron.should be_valid
-          end
+      context 'when format of birth_date is wrong' do
+        shared_examples_for 'format of birth_date is wrong' do
+          subject { FactoryGirl.build(:patron, { :date_of_death => nil, :birth_date => birth_date }) }
+          it { should_not be_valid }
         end
-        context "フォーマットが不正なとき > " do
-          it "エラーが発生すること: YYYY-MM-DDD" do
-            @patron.stub(:death_date).and_return('2000-01-011')
-            @patron.should_not be_valid 
-          end
-        end
+        it_behaves_like 'format of birth_date is wrong' do let(:birth_date) { '2000-0101' }   end # YYYY-MMDD
+        it_behaves_like 'format of birth_date is wrong' do let(:birth_date) { '2000-01-011' } end # YYYY-MM-DDD
+        it_behaves_like 'format of birth_date is wrong' do let(:birth_date) { '平成元年' }    end # STR
+        it_behaves_like 'format of birth_date is wrong' do let(:birth_date) { '2000/01/01' }  end # YYYY/MM/DD
+        it_behaves_like 'format of birth_date is wrong' do let(:birth_date) { '2000.01.01' }  end # YYYY.MM.DD
       end
-      describe "other > " do
-        context "フォーマットが不正なとき > " do
-          it "エラーが発生すること: STRING" do
-            @patron.stub(:death_date).and_return('平成元年')
-            @patron.should_not be_valid 
+    end
+    describe 'death_date' do
+      # validates :death_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
+      context 'when format of death_date is correct' do
+        shared_examples_for 'format of death_date is correct' do
+          subject { FactoryGirl.build(:patron, { date_of_birth: nil, death_date: death_date }) }
+          it { should be_valid }
+        end
+        it_behaves_like 'format of death_date is correct' do let(:death_date) { '2000' }       end # YYYY
+        it_behaves_like 'format of death_date is correct' do let(:death_date) { '01' }         end # MM
+        it_behaves_like 'format of death_date is correct' do let(:death_date) { '1' }          end # D
+        it_behaves_like 'format of death_date is correct' do let(:death_date) { '20001' }      end # YYYYM
+        it_behaves_like 'format of death_date is correct' do let(:death_date) { '200001' }     end # YYYYMM
+        it_behaves_like 'format of death_date is correct' do let(:death_date) { '2000011' }    end # YYYYMMD
+        it_behaves_like 'format of death_date is correct' do let(:death_date) { '20000101' }   end # YYYYMMDD
+        it_behaves_like 'format of death_date is correct' do let(:death_date) { '2000-' }      end # YYYY-
+        it_behaves_like 'format of death_date is correct' do let(:death_date) { '2000-1' }     end # YYYY-M
+        it_behaves_like 'format of death_date is correct' do let(:death_date) { '2000-01' }    end # YYYY-MM
+        it_behaves_like 'format of death_date is correct' do let(:death_date) { '2000-01-' }   end # YYYY-MM-
+        it_behaves_like 'format of death_date is correct' do let(:death_date) { '2000-01-1' }  end # YYYY-MM-D
+        it_behaves_like 'format of death_date is correct' do let(:death_date) { '2000-01-01' } end # YYYY-MM-DD
+      end
+      context 'when format of death_date is wrong' do
+        shared_examples_for 'format of death_date is wrong' do
+          subject { FactoryGirl.build(:patron, { date_of_birth: nil, death_date: death_date }) }
+          it { should_not be_valid }
+        end
+        it_behaves_like 'format of death_date is wrong' do let(:death_date) { '2000-0101' }   end # YYYY-MMDD
+        it_behaves_like 'format of death_date is wrong' do let(:death_date) { '2000-01-011' } end # YYYY-MM-DDD
+        it_behaves_like 'format of death_date is wrong' do let(:death_date) { '平成元年' }    end # STR
+        it_behaves_like 'format of death_date is wrong' do let(:death_date) { '2000/01/01' }  end # YYYY/MM/DD
+        it_behaves_like 'format of death_date is wrong' do let(:death_date) { '2000.01.01' }  end # YYYY.MM.DD
+      end
+    end
+    # validate :check_birth_date
+    context 'birth_date later than death_date' do
+      subject { FactoryGirl.build(:patron, { birth_date: '2000-01-02', death_date: '2000-01-01' }) }
+      it { should_not be_valid }
+    end
+    context 'death_date later than birth_date' do
+      subject { FactoryGirl.build(:patron, { birth_date: '2000-01-01', death_date: '2000-01-01' }) }
+      it { should be_valid }
+    end
+
+#TODO:
+    describe 'email' do
+      # validates :email, :format => {:with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i}, :allow_blank => true
+      context 'email is nil' do
+        subject { FactoryGirl.build(:patron, email: nil) }
+        it { should be_valid }
+      end
+      describe 'format' do
+        context 'format of email is correct' do
+          shared_examples_for 'create patron has email of correct format' do
+            subject { FactoryGirl.build(:patron, :email => email) }
+            it { should be_valid }
           end
-          it "エラーが発生すること: / " do
-            @patron.stub(:death_date).and_return('2000/01/01')
-            @patron.should_not be_valid 
+          it_behaves_like 'create patron has email of correct format' do let(:email) { '' }                 end
+          it_behaves_like 'create patron has email of correct format' do let(:email) { ' ' }                end
+          it_behaves_like 'create patron has email of correct format' do let(:email) { 'a@example.com' }    end
+          it_behaves_like 'create patron has email of correct format' do let(:email) { '.@example.com' }    end
+          it_behaves_like 'create patron has email of correct format' do let(:email) { '%@example.com' }    end
+          it_behaves_like 'create patron has email of correct format' do let(:email) { '+@example.com' }    end
+          it_behaves_like 'create patron has email of correct format' do let(:email) { '-@example.com' }    end
+          it_behaves_like 'create patron has email of correct format' do let(:email) { 'enju@example.jp' }  end
+          it_behaves_like 'create patron has email of correct format' do let(:email) { 'enju@example.com' } end
+        end
+        context 'format of email is wrong' do
+          shared_examples_for 'create patron has email of wrong format' do
+            subject { FactoryGirl.build(:patron, :email => email) }
+            it { should_not be_valid }
           end
-          it "エラーが発生すること: ." do
-            @patron.stub(:death_date).and_return('2000.01.01')
-            @patron.should_not be_valid 
-          end
+          chracters = %w-! # $ & ' * / = ? ^  ` { | } ~ ( ) < > [ ] : ; @ ,-
+          chracters2 = %w-! # $ & ' * / = ? ^  ` { | } ~ ( ) < > [ ] : ; @ , . % +-
+          it_behaves_like 'create patron has email of wrong format' do let(:email) { '@' }              end
+          it_behaves_like 'create patron has email of wrong format' do let(:email) { '@.' }             end
+          it_behaves_like 'create patron has email of wrong format' do let(:email) { 'enju@' }          end
+          it_behaves_like 'create patron has email of wrong format' do let(:email) { 'enju@' }          end
+          it_behaves_like 'create patron has email of wrong format' do let(:email) { 'enju@example' }   end
+          it_behaves_like 'create patron has email of wrong format' do let(:email) { 'enju@example.c' } end
+          chracters.map  { |char| it_behaves_like 'create patron has email of wrong format' do let(:email) { "#{char}@example.com" }      end }
+          chracters2.map { |char| it_behaves_like 'create patron has email of wrong format' do let(:email) { "enju@#{char}.com" }         end }
+          chracters2.map { |char| it_behaves_like 'create patron has email of wrong format' do let(:email) { "enju@example.#{char * 2}" } end }
         end
       end
     end
-    # validates :email, :format => {:with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i}, :allow_blank => true
     describe "emailのフォーマット > " do
-      context "値が空のとき" do
-        it "エラーが発生しないこと" do
-          @patron.email = ''
-          @patron.should be_valid
-        end
-      end
-      context "フォーマットが正しいのとき" do
-        it "エラーが発生しないこと" do
-          @patron.stub(:email).and_return('enju@example.com')
-          @patron.should be_valid
-        end
-      end
       context "フォーマットが不正のとき" do
         it "エラーが発生すること" do
           @patron.stub(:email).and_return('enjuexample.com')
@@ -280,92 +186,70 @@ describe Patron do
         end
       end
     end
-    # validate :check_birth_date
-    context "生年月日が没年月日より前のとき" do
-      it "エラーが発生しないこと" do
-        @patron.stub(:birth_date => '2000-01-02')
-        @patron.stub(:death_date => '2000-01-01')
-        @patron.should_not be_valid
-      end
-    end 
-    context "生年月日が没年月日より後のとき" do
-      it "エラーが発生すること" do
-        @patron.stub(:birth_date => '2000-01-01')
-        @patron.stub(:death_date => '2000-01-01')
-        @patron.should be_valid
-      end
-    end
+
     # validate :check_duplicate_user
-    describe "ユーザ情報の重複チェック > " do
-      before(:each) do
-        @duplicate_patron     = Patron.new(
-          :full_name => @patron.full_name, 
-          :full_name_transcription => @patron.full_name_transcription,
-          :birth_date => @patron.birth_date,
-          :telephone_number_1 => @patron.telephone_number_1
+    describe 'duplicate user' do
+      let(:patron) { patrons(:patron_00003) }
+      let(:duplicate_patron) { 
+        Patron.new(
+          :full_name               => patron.full_name, 
+          :full_name_transcription => patron.full_name_transcription,
+          :birth_date              => patron.birth_date,
+          :telephone_number_1      => patron.telephone_number_1
         )
+      }
+      shared_examples_for 'successfully create duplicate patron' do
+        subject { duplicate_patron }
+        it { should be_valid }
       end
-      context "重複チェック行う > " do
-        before(:each) do
+      shared_examples_for 'failed create duplicate patron' do
+        subject { duplicate_patron }
+        it { should_not be_valid }
+      end
+      context 'system configuration was set check duplicate user' do
+        before(:all) do
           system_configuration = SystemConfiguration.find_by_keyname('patron.check_duplicate_user')
           system_configuration.v = "true"
           system_configuration.save
-          Rails.cache.clear 
+          Rails.cache.clear
         end
-        context "full_name_transcription, birth_date, telephone_number_1 が全て同一のユーザを登録しようとするとき" do
-          it "エラーが発生すること" do
-            @duplicate_patron.should_not be_valid
-          end
+        context 'has duplicate user' do
+          it_behaves_like 'failed create duplicate patron'
         end
-        
-        context "birth_date, telephone_number_1 が同一で full_name_transcription が異なるユーザを登録しようとするとき" do
-          it "エラーが発生しないこと" do
-            @duplicate_patron.stub(:full_name_transcription => nil)
-            @duplicate_patron.should be_valid
-          end
+        context 'full_name_transcription is different' do
+          before { duplicate_patron.stub(:full_name_transcription => nil) }
+          it_behaves_like 'successfully create duplicate patron'
         end
-        context "full_name_transcription, telephone_number_1 が同一で birth_date が異なるユーザを登録しようとするとき" do
-          it "エラーが発生しないこと" do
-            @duplicate_patron.stub(:birth_date => nil)
-            @duplicate_patron.should be_valid
-          end
+        context 'birth_date is different' do
+          before { duplicate_patron.stub(:birth_date => nil) }
+          it_behaves_like 'successfully create duplicate patron'
         end
-        context "full_name_transcription, birth_date が同一で telephone_number_1 が異なるユーザを登録しようとするとき" do
-          it "エラーが発生しないこと" do
-            @duplicate_patron.stub(:telephone_number_1 => nil)
-            @duplicate_patron.should be_valid
-          end
+        context 'telephone_number_1 is different' do
+          before { duplicate_patron.stub(:telephone_number_1 => nil) }
+          it_behaves_like 'successfully create duplicate patron'
         end
       end
-      context "重複チェック行わない > " do
-        before(:each) do
+      context 'system configuration was not set check duplicate user' do
+        before(:all) do
           system_configuration = SystemConfiguration.find_by_keyname('patron.check_duplicate_user')
           system_configuration.v = "false"
-          system_configuration.save 
-          Rails.cache.clear 
+          system_configuration.save
+          Rails.cache.clear
         end
-        context "full_name_transcription, birth_date, telephone_number_1 が全て同一のユーザを登録しようとするとき" do
-          it "エラーが発生しないこと" do
-            @duplicate_patron.should be_valid
-          end
+        context 'has duplicate user' do
+          it_behaves_like 'successfully create duplicate patron'
         end
-        context "birth_date, telephone_number_1 が同一で full_name_transcription が異なるユーザを登録しようとするとき" do
-          it "エラーが発生しないこと" do
-            @duplicate_patron.stub(:full_name_transcription => nil)
-            @duplicate_patron.should be_valid
-          end
+        context 'full_name_transcription is different' do
+          before { duplicate_patron.stub(:full_name_transcription => nil) }
+          it_behaves_like 'successfully create duplicate patron'
         end
-        context "full_name_transcription, telephone_number_1 が同一で birth_date が異なるユーザを登録しようとするとき" do
-          it "エラーが発生しないこと" do
-            @duplicate_patron.stub(:birth_date => nil)
-            @duplicate_patron.should be_valid
-          end
+        context 'birth_date is different' do
+          before { duplicate_patron.stub(:birth_date => nil) }
+          it_behaves_like 'successfully create duplicate patron'
         end
-        context "full_name_transcription, birth_date が同一で telephone_number_1 が異なるユーザを登録しようとするとき" do
-          it "エラーが発生しないこと" do
-            @duplicate_patron.stub(:telephone_number_1 => nil)
-            @duplicate_patron.should be_valid
-          end
+        context 'telephone_number_1 is different' do
+          before { duplicate_patron.stub(:telephone_number_1 => nil) }
+          it_behaves_like 'successfully create duplicate patron'
         end
       end
     end
