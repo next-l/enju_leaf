@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency "mobylette", "~> 3.4"
   s.add_dependency "sitemap_generator"
   s.add_dependency "devise-encryptable"
-  #s.add_dependency "redis-rails"
+  s.add_dependency "redis-rails", "~> 4.0"
   s.add_dependency "rails_autolink"
   s.add_dependency "jquery-ui-rails"
   # s.add_dependency "jquery-rails"
