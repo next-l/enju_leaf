@@ -1,0 +1,36 @@
+user_status_00001: 
+  id: 1
+  name: 1
+  display_name: 利用可能
+  position: 0
+  state_id: 1
+user_status_00002: 
+  id: 2
+  name: 2
+  display_name: 利用禁止
+  position: 1
+  state_id: 3
+user_status_00003: 
+  id: 3
+  name: 3
+  display_name: 庁外職員
+  position: 2
+  state_id: 2
+user_status_00004: 
+  id: 4
+  name: 4
+  display_name: 休職等
+  position: 3
+  state_id: 1
+user_status_00005: 
+  id: 5
+  name: 5
+  display_name: 退職
+  position: 4
+  state_id: 2
+user_status_00006: 
+  id: 6
+  name: 6
+  display_name: 紛失
+  position: 5
+  state_id: 3
