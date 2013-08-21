@@ -5,6 +5,224 @@ describe Item do
   #pending "add some examples to (or delete) #{__FILE__}"
   fixtures :all
 
+  describe 'validates' do
+    describe '' do
+      it '' # TODO
+      # validates_associated :circulation_status, :shelf, :bookstore, :checkout_type, :retention_period
+    end
+    describe '' do
+      it '' # TODO
+      # validates_presence_of :circulation_status, :checkout_type, :retention_period, :rank
+    end
+    describe '' do
+      it '' # TODO: immediately
+      # validate :is_original?, :if => proc{ SystemConfiguration.get("manifestation.manage_item_rank") }
+    end
+  end
+
+  describe 'before_save' do
+    it '' # TODO: immediately
+    # before_save :set_use_restriction, :set_retention_period, :check_remove_item, :except => :delete
+    it '' # TODO: immediately
+    # before_save :set_rank, :unless => proc{ SystemConfiguration.get("manifestation.manage_item_rank") }
+  end
+
+  describe 'after_save' do
+    it '' # TODO: immediately
+    # after_save :check_price, :except => :delete
+    it '' # TODO
+    # after_save :reindex
+  end
+
+  describe '#serach' do
+    it '' # TODO: immediately
+  end
+
+  describe '#reindex' do
+    it '' # TODO
+  end
+
+  describe '#set_circulation_status' do
+    it '' # TODO: immediately
+  end
+
+  describe '#set_use_restriction' do
+    it '' # TODO: immediately
+  end
+
+  describe '#checkout_status' do
+    it '' # TODO: immediately
+  end
+
+  describe '#retain_item!' do
+    it '' # TODO: immediately
+  end
+
+  describe '#cancel_retain!' do
+    it '' # TODO: immediately
+  end
+
+  describe '#inter_library_loaned?' do
+    it '' # TODO
+  end
+
+  describe '#creator' do
+    it '' # TODO
+  end
+
+  describe '#contributor' do
+    it '' # TODO
+  end  
+
+  describe '#publisher' do
+    it '' # TODO
+  end
+
+  describe '#library' do
+    it '' # TODO
+  end
+
+  describe '#shelf_name' do
+    it '' # TODO
+  end
+
+  describe '#hold?' do
+    it '' # TODO
+  end
+
+  describe '#lending_rule' do
+    it '' # TODO
+  end
+
+  describe '#owned' do
+    it '' # TODO
+  end
+
+  describe '#library_url' do
+    it '' # TODO
+  end
+
+  describe '#manifestation_url' do
+    it '' # TODO
+  end
+
+  describe '#deletable?' do
+    it '' # TODO: immediately
+  end
+
+  describe '#not_for_loan?' do
+    it '' # TODO
+  end
+
+  describe '#check_remove_item' do
+    it '' # TODO: immediately
+  end
+
+  describe '#check_price' do
+    it '' # TODO: immediately
+  end
+
+  describe '#is_original?' do
+    it '' # TODO: immediately
+  end
+
+  describe '#set_retention_period' do
+    it '' # TODO
+  end
+
+  describe '#set_rank' do
+    it '' # TODO: immediately
+  end
+
+  describe '#item_bind' do
+    it '' # TODO: immediately
+  end
+
+  describe '#excel_worksheet_value' do
+    it '' # TODO: immediately
+  end
+
+  describe '.export_removing_list' do
+    it '' # TODO
+  end
+
+  describe '.export_item_register' do
+    it '' # TODO
+  end
+
+  describe '.export_audio_list' do
+    it '' # TODO
+  end
+
+  describe '.patrons_list' do
+    it '' # TODO
+  end
+
+  describe '.make_item_register_tsv' do
+    it '' # TODO
+  end
+
+  describe '.make_audio_list_tsv' do
+    it '' # TODO
+  end
+
+  describe '.make_item_register_pdf' do
+    it '' # TODO
+  end
+
+  describe '.make_audio_list_pdf' do
+    it '' # TODO
+  end
+
+  describe '.make_export_item_list_pdf' do
+    it '' # TODO
+  end
+
+  describe '.make_export_item_list_tsv' do
+    it '' # TODO
+  end
+
+  describe '.make_export_new_item_list_pdf' do
+    it '' # TODO
+  end
+
+  describe '.make_export_new_item_list_tsv' do
+    it '' # TODO
+  end
+
+  describe '.make_export_removed_list_pdf' do
+    it '' # TODO
+  end
+
+  describe '.make_export_new_book_list_pdf' do
+    it '' # TODO
+  end
+
+  describe '.make_export_new_book_list_tsv' do
+    it '' # TODO
+  end
+
+  describe '.make_export_series_statements_latest_list_pdf' do
+    it '' # TODO
+  end
+
+  describe '.make_export_series_statements_latest_list_tsv' do
+    it '' # TODO
+  end
+
+  describe '.make_export_series_statements_list_tsv' do
+    it '' # TODO
+  end
+
+  describe '.make_export_item_list_job' do
+    it '' # TODO
+  end
+
+  describe '.make_export_register_job' do
+    it '' # TODO
+  end
+
+#TODO 以下元のテスト
   it "should be rent" do
     items(:item_00001).rent?.should be_true
   end
@@ -54,6 +272,14 @@ describe Item do
   it "should revert requested when item that is not retained  was check out" do
     items(:item_00029).checkout!(users(:admin)).should be_true
     reserves(:reserve_00023).state.should eq 'requested'
+  end
+end
+
+describe GenerateItemRegisterJob do
+  describe '#initialize' do
+  end
+
+  describe '#perform' do
   end
 end
 
