@@ -275,13 +275,19 @@ describe Item do
   end
 end
 
-describe GenerateItemRegisterJob do
+=begin
+describe GenerateItemListJob do
+  fixtures :all
+
   describe '#initialize' do
+    it '' #TODO
   end
 
   describe '#perform' do
+    it '' #TODO
   end
 end
+=end
 
 # == Schema Information
 #
