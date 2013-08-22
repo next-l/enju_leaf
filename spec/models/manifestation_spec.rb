@@ -364,16 +364,42 @@ describe Manifestation, :solr => true do
         @manifestation1 = FactoryGirl.create(
           :manifestation,
           :manifestation_type => manifestation_type,
-          :series_statement => @series_statement),
+          :series_statement => @series_statement,
+          :isbn => '9784010000007',
+          :isbn10 => '4010000007',
+          :wrong_isbn => '978401000000X',
+          :issn => '10000003',
+          :date_of_publication => Date.new(1001, 1, 1),
+          :start_page => 1,
+          :end_page => 100766),
         @manifestation2 = FactoryGirl.create(
           :manifestation,
           :manifestation_type => manifestation_type,
-          :series_statement => @series_statement),
+          :series_statement => @series_statement,
+          :isbn => '9784020000004',
+          :isbn10 => '402000000X',
+          :wrong_isbn => '978402000000X',
+          :issn => '20000006',
+          :date_of_publication => Date.new(1002, 1, 1),
+          :start_page => 1,
+          :end_page => 200467),
         @manifestation3 = FactoryGirl.create( # 対比用のダミー
           :manifestation,
           :manifestation_type => manifestation_type,
-          :series_statement => nil),
+          :series_statement => nil,
+          :isbn => '9784030000001',
+          :isbn10 => '4030000002',
+          :wrong_isbn => '978403000000X',
+          :issn => '30000009',
+          :date_of_publication => Date.new(1003, 1, 1),
+          :start_page => 1,
+          :end_page => 300918),
       ]
+
+      if @series_statement # 雑誌(@manifestation1をroot_manifestationとする)
+        @series_statement.root_manifestation = @manifestation1
+        @series_statement.save!
+      end
     end
 
     shared_examples_for 'Solrインデックスへの登録' do
@@ -386,7 +412,7 @@ describe Manifestation, :solr => true do
       # Manifestation.searchableで正しくインデックス登録されることを検証する。
       #
       # extract_keys_method: インデックスに登録されることを検証するための検索で指定する値を導くメソッド(シンボルまたはprocで、前者ならばManifestationレコードにsendされ、後者ならばManifestationレコードとともにyieldされる)
-      # seaarch_method: Manifestation.searchで検索条件を指定するのに使うメソッド(およびその引数)
+      # search_method: Manifestation.searchで検索条件を指定するのに使うメソッド(およびその引数)
       # prepared_keys: 検証のために用意したテスト用属性データ(オブジェクト)群
       #
       # ブロックには、用意された属性データから
@@ -405,17 +431,44 @@ describe Manifestation, :solr => true do
             # manifestationが雑誌であったとき
             #
             # NOTE:
-            # manifestationの一部属性値のインデックスへの格納は
-            # 同雑誌(SeriesStatement)に属する全レコードの属性値が
-            # 集約された上で行われる。
-            # ここで、manifestationがA、B、Cの順に登録されたとすると、
-            # manifestation AのためにはAの属性値だけが使用される。
-            # また、BのためにはBとAの属性値が使用され、
-            # CのためにはCとBとAの属性値が使用される。
-            t = Manifestation.arel_table
-            expect =
-              manifestation.series_statement.
-              manifestations.where(t[:id].gteq(manifestation.id))
+            # manifestationの一部属性値については
+            # 同雑誌(SeriesStatement)に属する全レコードの属性値を
+            # 集約したものがroot_manifestationの値として
+            # インデックスに格納される。
+            # すなわち、root_manifestation(root_of_series?がtrue)である
+            # manifestationが更新される際には
+            # 同雑誌の他のmanifestationの属性値を集約する。
+            #
+            # ここで、同雑誌のmanifestationとして
+            # A、B、Cの順に登録されたとすると、
+            # 通常、Aがroot_manifestationとなる。
+            # そしてAには将来的にB、Cの属性値が集約される
+            # (つまりB、Cの属性値を指定した検索すると
+            # Aも検索結果に出現する)ことになる。
+            # ただし、最初にAが登録される時点では
+            # B、Cは存在しないため、属性値としては
+            # A自身の属性値だけが使用される。
+            # 続いてB、Cが登録されるときには
+            # それぞれに対してそれぞれ自身の
+            # 属性値が使用される。
+            # B、Cが登録された後にAが更新されると、
+            # そのタイミングでAの値としてB、Cの属性値が
+            # Aに関連付けられる形でインデックスが更新される。
+            if manifestation.root_of_series?
+              expect = [manifestation]
+
+            else
+              root_manifestation = manifestation.series_statement.root_manifestation
+              if root_manifestation.updated_at > manifestation.created_at
+                # root_manifestationが、他のmanifestationの登録より後に更新されている
+                # (root_manifestationには他manifestationの属性値が関連付けられている)
+                expect = [root_manifestation, manifestation]
+              else
+                # root_manifestationが、それ自身の登録以降更新されていない
+                # (root_manifestationには他manifestationの属性値が関連付けられていない)
+                expect = [manifestation]
+              end
+            end
           end
 
           # 検証のための検索に与える検索キー(検索条件)を取り出す
@@ -505,14 +558,6 @@ describe Manifestation, :solr => true do
           978403000000X
           978409000000X
         )
-        [
-          @manifestation1, @manifestation2, @manifestation3
-        ].each_with_index do |manifestation, i|
-          manifestation.isbn = isbn13[i]
-          manifestation.isbn10 = isbn10[i]
-          manifestation.wrong_isbn = wrong_isbn[i]
-          manifestation.save!
-        end
 
         it_should_search_items_by_attr(:isbn, :with, :isbn, isbn13)
         it_should_search_items_by_attr(:isbn, :fulltext, isbn13)
@@ -531,12 +576,6 @@ describe Manifestation, :solr => true do
           30000009
           90000005
         )
-        [
-          @manifestation1, @manifestation2, @manifestation3
-        ].each_with_index do |manifestation, i|
-          manifestation.issn = issn[i]
-          manifestation.save!
-        end
 
         it_should_search_items_by_attr(:issn, :with, :issn, issn)
         it_should_search_items_by_attr(:issn, :fulltext, issn)
@@ -549,12 +588,6 @@ describe Manifestation, :solr => true do
           Date.new(1003, 1, 1),
           Date.new(1009, 1, 1),
         ]
-        [
-          @manifestation1, @manifestation2, @manifestation3
-        ].each_with_index do |manifestation, i|
-          manifestation.date_of_publication = pub_date[i]
-          manifestation.save!
-        end
 
         it_should_search_items_by_attr(
           :date_of_publication,
@@ -569,13 +602,6 @@ describe Manifestation, :solr => true do
           300918,
           900235,
         ]
-        [
-          @manifestation1, @manifestation2, @manifestation3
-        ].each_with_index do |manifestation, i|
-          manifestation.start_page = 1
-          manifestation.end_page = number_of_pages[i]
-          manifestation.save!
-        end
 
         it_should_search_items_by_attr(
           :number_of_pages,
@@ -644,6 +670,7 @@ describe Manifestation, :solr => true do
             end
             manifestation.index # itemsが変化しているのをsolrに伝える
           end
+          after_setup_items_hook.call if defined?(after_setup_items_hook)
         end
 
         it '所蔵群の所蔵情報IDをインデックスに登録すること' do
@@ -748,6 +775,22 @@ describe Manifestation, :solr => true do
     describe '雑誌について' do
       let :series_statement_type do
         :periodical
+      end
+      include_examples 'Solrインデックスへの登録'
+    end
+
+    describe '雑誌のroot_manifestationについて、同雑誌の他のmanifestationおよび自身の' do
+      let :series_statement_type do
+        :periodical
+      end
+      let :after_setup_items_hook do
+        # 所蔵を登録した後で、root_manifestationに
+        # 他manifestationの属性値を関連付けるために、
+        # root_manifestationを強制更新しておく
+        proc do
+          @manifestation1.updated_at += 10
+          @manifestation1.save!
+        end
       end
       include_examples 'Solrインデックスへの登録'
     end

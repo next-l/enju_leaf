@@ -193,6 +193,9 @@ ja:
       realize_type: 表現の関係
       enju_terminal: 端末設定
       copy_request: 文献複写依頼
+      nacsis_user_request: 複写貸借状況
+      nacsis_request_copy: 複写依頼
+      nacsis_request_lend: 借用依頼
 
     attributes:
       wareki:
@@ -905,6 +908,11 @@ ja:
         acceptance_number: 受入部数
         printout_in_progress: 資料確認票の印刷を開始しました
         external_catalog: 目録作成機関
+        hold_dbname: 収録DB名
+        hold_id: 所蔵レコードID
+        hold_libabl: 所属館略称
+        hold_cln: 請求記号
+        hold_rgtn: 資料番号
       user_group:
         name: 名前
         display_name: 表示名
@@ -1454,6 +1462,47 @@ ja:
         user: 利用者
         body: 本文
         created_at: 登録日
+      nacsis_user_request:
+        subject_heading: 本表題/責任表示
+        subject_heading_reading: 本表題等のよみ
+        publisher: 出版者
+        pub_date: 出版年
+        publish_year: 出版年
+        physical_description: 形態(ページ情報)
+        series_title: シリーズ名
+        note: 資料注記
+        isbn: ISBN
+        issn: ISSN
+        pub_country: 出版国
+        title_language: 標題言語
+        text_language: 本文言語
+        classmark: 分類記号
+        author_heading: 著者情報
+        subject: 件名
+        ncid: NCID
+        user_id: 利用者ID
+        user_name: 利用者名
+        request_datetime: 依頼日時
+        request_type: 依頼分類
+        request_type_names:
+         - 
+         - 借用
+         - 複写
+        state: 処理状態
+        state_names:
+         - 終了
+         - 受付
+         - 受付済
+         - 事務員返却
+         - 依頼済
+         - 相手側拒否
+         - 到着済
+         - 事務確認中
+         - 連務連絡済
+        user_note: 依頼内容
+        librarian_note: 事務員注記
+        created_from: 開始日付
+        created_to: 終了日付
 
   page:
     user_title: "ようこそ %{login_name} さん"
@@ -1468,6 +1517,9 @@ ja:
     catalog_search: "資料の検索"
     search: "検索"
     search_term: "検索語"
+    search_for: "検索対象"
+    search_local: "ローカル所蔵"
+    search_nacsis: "NACSIS 目録"
     all_search_term: "すべて"
     any_search_term: "いずれか"
     except_search_term: "除外"
@@ -1476,6 +1528,8 @@ ja:
     number_of_manifestations: "%{numdocs} 件の資料があります。"
     number_of_unread_messages: "%{numdocs} 件の未読メッセージがあります。"
     number_of_search_results: "%{count} 件の資料が %{numdocs} 件の資料から %{seconds} 秒で見つかりました。"
+    number_of_nacsis_book_search_results: "図書の検索結果（%{count}件）"
+    number_of_nacsis_serial_search_results: "雑誌資料の検索結果（%{count}件）"
     tag: "タグ"
     call_number: "請求記号"
     holding: "所蔵"
@@ -1691,6 +1745,8 @@ ja:
     library_reports: "報告書・帳票"
     more_information: "詳細情報を表示"
     output_receipt_printer: "＊この資料確認票はレシートプリンタ用です。8cm幅に出力されますのでご注意ください。"
+    nacsis_book: "図書"
+    nacsis_serial: "雑誌"
 
     exstatistics:
       ranknumber: 順位

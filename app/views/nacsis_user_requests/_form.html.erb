@@ -1,0 +1,28 @@
+<%= simple_form_for(@nacsis_user_request) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="inputs">
+    <%= f.input :request_type, :collection => t('activerecord.attributes.nacsis_user_request.request_type_names').compact.each_with_index.map{|x,i| [x,i+1]}, :selected => @nacsis_user_request.request_type, :disabled => true %>
+    <%= f.input :request_type, :as => :hidden -%>
+    <%= f.input :manifestation_type, :as => :hidden, :input_html => {:value => @manifestation_type} -%>
+    <%= f.input :state, :collection => t('activerecord.attributes.nacsis_user_request.state_names').each_with_index.map {|x,i| [x,i]}, :selected => @nacsis_user_request.state, :disabled => true %>
+    <%= f.input :state, :as => :hidden -%>
+    <%= f.input :subject_heading, :disabled => true %>
+    <%= f.input :subject_heading, :as => :hidden -%>
+    <%= f.input :isbn, :disabled => true %>
+    <%= f.input :isbn, :as => :hidden -%>
+    <%= f.input :ncid, :disabled => true %>
+    <%= f.input :ncid, :as => :hidden -%>
+    <%= f.input :user_id, :disabled => true -%>
+    <%= f.input :user_id, :as => :hidden -%>
+    <%= @nacsis_user_request.user.patron.full_name %>
+    <%= f.input :user_note %>
+<%- if current_user.has_role?('Librarian') -%>
+    <%= f.input :librarian_note %>
+<%- end -%>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

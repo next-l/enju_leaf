@@ -1,0 +1,12 @@
+<h4><%= t('activerecord.attributes.nacsis_user_request.request_type') -%></h4>
+<ul>
+  <%- request_types = params[:request_type].to_s.split -%>
+  <%- @nacsis_user_request_search.facet(:request_type).rows.each do |facet| -%>
+  <%- current_request_types = request_types.dup -%>
+  <%- request_type = NacsisUserRequest.where(:request_type => facet.value).select([:request_type]).first -%>
+  <li><%= request_type_facet(request_type, current_request_types, facet) -%>
+  <%- end -%>
+  <%- if params[:request_type] -%>
+    <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:request_type => nil, :page => nil, :view => nil)) -%></li>
+  <%- end -%>
+</ul>

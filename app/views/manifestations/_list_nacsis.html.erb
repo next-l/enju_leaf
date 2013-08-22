@@ -1,0 +1,22 @@
+<table class="index" id="manifestation_list">
+<%- manifestations.each do |m| -%>
+  <%- s = m.request_summary -%>
+  <tr class="line<%= cycle("0","1") -%>">
+    <td style="480px">
+<%- if manifestations == @manifestations_book -%>
+      <%= link_to s[:subject_heading], { :action => "show_nacsis", :ncid => s[:ncid], :manifestation_type => type } -%><br />
+      <%= s[:publisher] -%>
+      <%- if !s[:series_title].blank? -%>
+        (<%= s[:series_title] -%>)
+      <%- end -%>
+<%- else -%>
+      <%= link_to s[:subject_heading], { :action => "show_nacsis", :ncid => s[:ncid], :manifestation_type => type } -%><br />
+      <%= s[:publisher] -%>
+<%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(manifestations) -%>
+<br />

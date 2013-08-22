@@ -1,0 +1,12 @@
+<h4><%= t('activerecord.attributes.nacsis_user_request.state') -%></h4>
+<ul>
+  <%- states = params[:states].to_s.split -%>
+  <%- @nacsis_user_request_search.facet(:state).rows.each do |facet| -%>
+  <%- current_states = states.dup -%>
+  <%- state = NacsisUserRequest.where(:state => facet.value).select([:state]).first -%>
+  <li><%= state_facet(state, current_states, facet) -%>
+  <%- end -%>
+  <%- if params[:state] -%>
+    <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:state => nil, :page => nil, :view => nil)) -%></li>
+  <%- end -%>
+</ul>

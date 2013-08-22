@@ -12,5 +12,7 @@ FactoryGirl.define do
     space_w 1.5
     cell_x 1
     cell_y 1
+    cell_h 1.5
+    cell_w 1.5
   end
 end

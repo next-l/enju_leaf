@@ -2,8 +2,8 @@ FactoryGirl.define do
   factory :patron, :class => 'Patron' do |f|
     f.sequence(:full_name){|n| "full_name_#{n}"}
     f.patron_type_id{PatronType.find_by_name('Person').id}
-    f.country_id{Country.first.id || FactoryGirl.create(:country).id}
-    f.language_id{Language.first.id || FactoryGirl.create(:language).id}
+    f.country_id{Country.first.try(:id) || FactoryGirl.create(:country).id}
+    f.language_id{Language.first.try(:id) || FactoryGirl.create(:language).id}
   end
 
   factory :adult_patron, :class => 'Patron' do |f|

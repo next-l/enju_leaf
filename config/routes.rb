@@ -54,6 +54,7 @@ EnjuLeaf::Application.routes.draw do
     post :output_show, :on => :member
     get :output_pdf, :on => :member
     post :output_excelx, :on => :collection
+    get 'nacsis/:ncid', :on => :collection, :to => 'manifestations#show_nacsis'
   end
 
   resources :patrons do
@@ -455,6 +456,8 @@ EnjuLeaf::Application.routes.draw do
   resources :copy_requests
 
   resources :checkoutlists
+  resources :nacsis_user_requests
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

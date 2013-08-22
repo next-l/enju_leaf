@@ -161,17 +161,16 @@ describe ManifestationsController do
         include_examples 'manifestation search conditions'
 
         it 'should load first Item record of a Manifestation record and use it as a solr search condition' do
-          manifestation = Manifestation.first
-          expected = manifestation.items.first
+          expected = Item.first
 
-          get :index, :bookbinder_id => manifestation.id.to_s
+          get :index, :bookbinder_id => expected.id.to_s
 
           response.should be_success
           assigns(:binder).should be_present
           assigns(:binder).should eq(expected)
 
           check_called(:with, :bookbinder_id, :equal_to, expected.id)
-          check_called(:without, :id, :equal_to, manifestation.id)
+          check_called(:without, :id, :equal_to, expected.manifestation.id)
         end
 
         it 'should set nil to @binder and not touch solr search conditions if bookbinder_id is invalid' do
@@ -565,22 +564,22 @@ describe ManifestationsController do
           response.should be_success
           assigns(:solr_query).should be_present
           assigns(:solr_query).should match(/\bfoobar\b/)
-          assigns(:solr_query).should match(/ *title_text:\(barbaz\) */)
+          assigns(:solr_query).should match(/\btitle_text:\(barbaz\)/)
         end
 
-        it 'should assign solr_query parameter value as @solr_query when solr_query parameter is presented' do
+        it 'should assign solr_query parameter value as @solr_query even if query parameter is presented' do
           get :index, query: 'foobar', solr_query: 'barbaz'
           response.should be_success
           assigns(:solr_query).should be_present
           assigns(:solr_query).should eq('barbaz')
         end
 
-        it 'should assign solr_query parameter value as @solr_query when solr_query parameter and query_parameter is presented' do
+        it 'should assign solr_query parameter value as @solr_query even if advanced query parameters are presented' do
           get :index, title: 'foobar', solr_query: 'barbaz'
           response.should be_success
-          assigns(:solr_query).should be_present   
+          assigns(:solr_query).should be_present
           assigns(:solr_query).should eq('barbaz')
-          assigns(:solr_query).should_not match(/ *title_text:\(foobar\) */)
+          assigns(:solr_query).should_not match(/\btitle_text:\(foobar\)/)
         end
 
         it 'should execute search with solr_query parameter value when solr_query parameter is presented' do
@@ -664,9 +663,26 @@ describe ManifestationsController do
           it "should search from #{field} field when #{param} param is specified" do
             found = false
             Sunspot::DSL::Search.any_instance.stub(:fulltext) do |qs, *opts|
-              found = true if /\b#{Regexp.quote(field)}:foobar\b/ =~ qs
+              found = true if /\b#{Regexp.quote(field)}:\(foobar\)/ =~ qs
             end
             get :index, param => 'foobar'
+            response.should be_success
+            found.should be_true
+          end
+        end
+
+        [
+          %w(title title_text),
+          %w(creator creator_text),
+          %w(contributor contributor_text),
+          %w(publisher publisher_text),
+        ].each do |param, field|
+          it "should search with \"*#{param}*\" from #{field} field when one char is specified as #{field} field" do
+            found = false
+            Sunspot::DSL::Search.any_instance.stub(:fulltext) do |qs, *opts|
+              found = true if /\b#{Regexp.quote(field)}:\(\*あ\*\)/ =~ qs
+            end
+            get :index, param => 'あ'
             response.should be_success
             found.should be_true
           end
@@ -699,7 +715,7 @@ describe ManifestationsController do
               found = false
               Sunspot::DSL::Search.any_instance.stub(:fulltext) do |qs, *opts|
                 t = "#{Regexp.quote(field)}:" if field
-                found = true if /\(#{t}foobar OR #{t}barbaz\)/ =~ qs
+                found = true if /#{t}\(foobar OR barbaz\)/ =~ qs
               end
               get :index, param => 'foobar barbaz', "#{param}_merge" => 'any'
               response.should be_success
@@ -718,8 +734,12 @@ describe ManifestationsController do
             it "should search records that dont match all words of the except_#{param}" do
               found = false
               Sunspot::DSL::Search.any_instance.stub(:fulltext) do |qs, *opts|
-                t = "#{Regexp.quote(field)}:" if field
-                found = true if /\b#{t}foobar\b/ =~ qs && /-#{t}barbaz\b/ =~ qs
+                if field
+                  t = "#{Regexp.quote(field)}:"
+                  found = true if /\b#{t}\(foobar\)/ =~ qs && /#{t}\(-barbaz\)/ =~ qs
+                else
+                  found = true if /\bfoobar\b/ =~ qs && /-barbaz\b/ =~ qs
+                end
               end
               get :index, param => 'foobar', "except_#{param}" => 'barbaz'
               response.should be_success

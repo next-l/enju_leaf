@@ -1,0 +1,13 @@
+<div id="content_detail" class="ui-corner-all">
+<%- if @nacsis_user_request.request_type == 1 -%>
+<h1 class="title"><%= t('page.edit', :model => t('activerecord.models.nacsis_request_lend')) -%></h1>
+<%- else -%>
+<h1 class="title"><%= t('page.edit', :model => t('activerecord.models.nacsis_request_copy')) -%></h1>
+<%- end -%>
+
+<div id="content_list">
+<%= render 'form_edit' %>
+
+<%= link_to 'Back', nacsis_user_requests_path %>
+</div>
+</div>

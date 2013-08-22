@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :department do
-    code "MyString"
+    name "MyString"
     display_name "MyString"
     short_name "MyString"
   end

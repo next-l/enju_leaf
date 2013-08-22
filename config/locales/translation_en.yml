@@ -157,6 +157,9 @@ en:
       access_log: Access log
       keyword_count: Keyword count
       enju_terminal: Terminal
+      nacsis_user_request: Nacsis user requests
+      nacsis_request_copy: Nacsis copy request
+      nacsis_request_lend: Nacsis lend request
 
     attributes:
       enju_terminal:
@@ -721,6 +724,11 @@ en:
         per_page: Per page
         last_checkout_datetime: Last used at
         acceptance_number: Acceptance number
+        hold_dbname: DB name
+        hold_id: Record ID
+        hold_libabl: Library name (abbreviated)
+        hold_cln: Call number
+        hold_rgtn: Registration number
       user_group:
         name: Name
         display_name: Display name
@@ -1131,6 +1139,47 @@ en:
         rank: Rank
         keyword: Keyword
         count: Count
+      nacsis_user_request:
+        subject_heading: Subject heading
+        subject_heading_reading: Subject heading (reading)
+        publisher: Publisher
+        pub_date: Publish date
+        publish_year: Publish year
+        physical_description: Physical description
+        series_title: Series title
+        note: Note
+        isbn: ISBN
+        issn: ISSN
+        pub_country: Publish country
+        title_language: Title language
+        text_language: Text language
+        classmark: Classmark
+        author_heading: Author heading
+        subject: subject
+        ncid: NCID
+        user_id: User ID
+        user_name: User Name
+        request_datetime: Request datetime
+        request_type: Request type
+        request_type_names:
+         -
+         - Lend
+         - Copy
+        state: State
+        state_names:
+         - Finish
+         - Accept
+         - Accepted
+         - Sendback
+         - Requested
+         - Rejected
+         - Arrived
+         - Confirming
+         - Notified
+        user_note: User note
+        librarian_note: Librarian note
+        created_from: Created from
+        created_to: Created to
 
   page:
     user_title: "Welcome %{login_name}"
@@ -1145,6 +1194,9 @@ en:
     catalog_search: "Catalog search"
     search: "Search"
     search_term: "Search term(s)"
+    search_for: "Search for"
+    search_local: "Local"
+    search_nacsis: "NACSIS"
     all_search_term: "All"
     any_search_term: "Any"
     except_search_term: "Except"
@@ -1158,6 +1210,12 @@ en:
     number_of_search_results:
       one: "1 record found from %{numdocs} records in %{seconds} seconds."
       other: "%{count} records found from %{numdocs} records in %{seconds} seconds."
+    number_of_nacsis_book_search_results:
+      one: "Book(s) found: 1 record"
+      other: "Book(s) found: %{count} records"
+    number_of_nacsis_serial_search_results:
+      one: "Magazine(s) found: 1 record"
+      other: "Magazine(s) found: %{count} records"
     tag: "Tag"
     call_number: "Call number"
     holding: "Holding"
@@ -1354,6 +1412,8 @@ en:
     search_results: "Search results (Book)"
     search_article_results: "Search results (Paper)"
     more_information: "View more information"
+    nacsis_book: "Book"
+    nacsis_serial: "Magazine"
 
     exstatistics:
       ranknumber: Rank

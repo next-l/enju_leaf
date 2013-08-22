@@ -8,7 +8,7 @@ FactoryGirl.define do
     suffix "MyString"
     padding ""
     padding_number 1
-    last_number "MyString"
+    last_number 1
     checkdigit 1
   end
 end

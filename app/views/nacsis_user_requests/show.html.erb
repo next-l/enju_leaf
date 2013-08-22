@@ -1,0 +1,62 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.nacsis_user_request')) -%></h1>
+
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= t('activerecord.attributes.nacsis_user_request.request_type') -%>:</b>
+  <%= t('activerecord.attributes.nacsis_user_request.request_type_names')[@nacsis_user_request.request_type] %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.nacsis_user_request.state') -%>:</b>
+  <%= t('activerecord.attributes.nacsis_user_request.state_names')[@nacsis_user_request.state] %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.user.user_number') -%> (<%= t('activerecord.attributes.user.username') -%>):</b>
+  <%= @nacsis_user_request.user.user_number %> (<%= @nacsis_user_request.user.patron.full_name %>)
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.nacsis_user_request.subject_heading') -%>:</b>
+  <%= @nacsis_user_request.subject_heading %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.nacsis_user_request.isbn') -%>:</b>
+  <%= @nacsis_user_request.isbn %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.nacsis_user_request.ncid') -%>:</b>
+  <%= @nacsis_user_request.ncid %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.nacsis_user_request.user_note') -%>:</b>
+  <%= @nacsis_user_request.user_note %>
+</p>
+
+<%- if current_user.has_role?('Librarian') -%>
+<p>
+  <b><%= t('activerecord.attributes.nacsis_user_request.librarian_note') -%>:</b>
+  <%= @nacsis_user_request.librarian_note %>
+</p>
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if user_signed_in? -%>
+      <%- if can? :destroy, NacsisUserRequest -%>
+        <li><%= link_to t('page.destroy'), @nacsis_user_request, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+      <%- end -%>
+    <%- end -%>
+  </ul>
+  <ul>
+    <li><%= link_to t('page.back_to_index'), nacsis_user_requests_path -%></li>
+  </ul>
+</div>

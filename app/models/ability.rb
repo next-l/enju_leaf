@@ -112,6 +112,7 @@ class Ability
         ManifestationRelationship,
         ManifestationRelationshipType,
         ManifestationReserveStat,
+        NacsisUserRequest,
         Numbering,
         Order,
         OrderList,
@@ -275,6 +276,7 @@ class Ability
         ManifestationCheckoutStat,
         ManifestationRelationship,
         ManifestationReserveStat,
+        NacsisUserRequest,
         Numbering,
         Order,
         OrderList,
@@ -414,6 +416,7 @@ class Ability
       can [:read, :update, :destroy], CopyRequest do |copy_request|
         copy_request.user == user
       end
+      can [:read, :update, :destroy], NacsisUserRequest, :user_id => user.id
       can :read, [
         AcceptType,
         CarrierType,

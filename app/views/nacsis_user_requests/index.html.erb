@@ -1,0 +1,130 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.nacsis_user_request'))
+ -%></h1>
+<div id="content_list">
+<div style="color: green"><%= flash[:message] -%></div>
+
+<script>
+$(function(){
+  $('#created_from').setCalendar({src:'/assets/calendar.png'});
+  $('#created_to').setCalendar({src:'/assets/calendar.png'});
+});
+</script>
+
+<%- if user_signed_in? -%>
+<%- if current_user.has_role?('Librarian') -%>
+
+<%= form_for :nacsis_user_requests, :url => nacsis_user_requests_path, :html => {:method => 'get', :id => 'form'} do |f| -%>
+  <%= t('activerecord.attributes.nacsis_user_request.state') -%>:
+  <%- t('activerecord.attributes.nacsis_user_request.state_names').each_with_index do |state_name, i| -%>
+    <%= check_box_tag "state[]", i.to_s, params[:state].blank? || params[:state].include?(i.to_s) -%><%= t('activerecord.attributes.nacsis_user_request.state_names')[i] -%>
+  <%- end -%>
+  <br />
+  <%= t('activerecord.attributes.nacsis_user_request.request_type') -%>:
+  <%- t('activerecord.attributes.nacsis_user_request.request_type_names').each_with_index do |state_name, i| -%>
+    <%- next if state_name.nil? -%>
+    <%= check_box_tag "request_type[]", i.to_s, params[:request_type].blank? || params[:request_type].include?(i.to_s) -%><%= t('activerecord.attributes.nacsis_user_request.request_type_names')[i] -%>
+  <%- end -%>
+  <br />
+  <%= t('activerecord.attributes.nacsis_user_request.subject_heading') -%>: <%= text_field_tag 'query', h(@query), :class => 'search_form' -%>
+  <br />
+  <%= t('activerecord.attributes.nacsis_user_request.ncid') -%>: <%= text_field_tag 'ncid', @ncid, :class => 'search_form' -%>
+  <br />
+  <%= t('activerecord.attributes.nacsis_user_request.created_from') -%>: <%= text_field_tag 'created_from', @created_from, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2013-05-15" -%>
+  <%= t('activerecord.attributes.nacsis_user_request.created_to') -%>: <%= text_field_tag 'created_to', @created_to, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2013-05-15" -%>
+  <br />
+  <%= submit_tag t('page.search') -%>
+<%- end -%>
+
+<table class="index">
+  <tr>
+    <th>
+      <%= t('activerecord.attributes.nacsis_user_request.request_type') -%>
+      <br />
+      <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'request_type', :sort => 'asc')) -%>
+      <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'request_type', :sort => 'desc')) -%>
+    </th>
+    <th>
+      <%= t('activerecord.attributes.nacsis_user_request.request_datetime') -%>
+      <br />
+      <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'created_at', :sort => 'asc')) -%>
+      <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'created_at', :sort => 'desc')) -%>
+    </th>
+    <th>
+      <%= t('activerecord.attributes.user.user_number') -%>
+      <br />
+      <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'user_number', :sort => 'asc')) -%>
+      <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'user_number', :sort => 'desc')) -%>
+      <br />
+      <%= t('activerecord.attributes.nacsis_user_request.user_name') -%>
+    </th>
+    <th>
+      <%= t('activerecord.attributes.nacsis_user_request.subject_heading') -%>
+      <br />
+      <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'subject_heading', :sort => 'asc')) -%>
+      <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'subject_heading', :sort => 'desc')) -%>
+      <br />
+      <%= t('activerecord.attributes.nacsis_user_request.ncid') -%>
+    </th>
+    <th>
+      <%= t('activerecord.attributes.nacsis_user_request.state') -%>
+      <br />
+      <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'state', :sort => 'asc')) -%>
+      <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'state', :sort => 'desc')) -%>
+    </th>
+    <th><%= t('page.edit') -%></th>
+  </tr>
+
+<% @nacsis_user_requests.each do |nacsis_user_request| %>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= t('activerecord.attributes.nacsis_user_request.request_type_names')[nacsis_user_request.request_type] -%></td>
+    <td><%= l(nacsis_user_request.created_at) if nacsis_user_request.created_at -%></td>
+    <td><%= nacsis_user_request.user.user_number %><br /><%= nacsis_user_request.user.patron.full_name -%></td>
+    <td><%= nacsis_user_request.subject_heading %><br /><%= nacsis_user_request.ncid -%></td>
+    <td><%= t('activerecord.attributes.nacsis_user_request.state_names')[nacsis_user_request.state] -%></td>
+    <td><%= link_to t('page.edit'), edit_nacsis_user_request_path(nacsis_user_request) -%></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<%= paginate(@nacsis_user_requests) -%>
+
+<%- else -%>
+
+<table>
+  <tr>
+    <th><%= t('activerecord.attributes.nacsis_user_request.request_type') -%></th>
+    <th><%= t('activerecord.attributes.nacsis_user_request.request_datetime') -%></th>
+    <th><%= t('activerecord.attributes.nacsis_user_request.subject_heading') -%></th>
+    <th><%= t('activerecord.attributes.nacsis_user_request.ncid') -%></th>
+    <th><%= t('activerecord.attributes.nacsis_user_request.state') -%></th>
+    <th><%= t('page.edit') -%></th>
+  </tr>
+
+<% @nacsis_user_requests.each do |nacsis_user_request| %>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= t('activerecord.attributes.nacsis_user_request.request_type_names')[nacsis_user_request.request_type] %></td>
+    <td><%= nacsis_user_request.created_at %></td>
+    <td><%= nacsis_user_request.subject_heading %></td>
+    <td><%= nacsis_user_request.ncid %></td>
+    <td><%= t('activerecord.attributes.nacsis_user_request.state_names')[nacsis_user_request.state] %></td>
+    <td><%= link_to t('page.edit'), edit_nacsis_user_request_path(nacsis_user_request) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<%= paginate(@nacsis_user_requests) -%>
+
+<%- end -%>
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+<h3><%= link_to h("#{t('page.total')}: #{@nacsis_user_requests.count}"), url_for(params.merge(:action => 'index', :request_type => nil, :state => nil)) -%></h3>
+<%- if @nacsis_user_requests && (@nacsis_user_requests.total_entries > 0) -%>
+  <%= render 'nacsis_user_requests/all_facet' -%>
+<%- end -%>
+</div>

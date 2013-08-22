@@ -1,0 +1,75 @@
+<div id="content_detail" class="ui-corner-all">
+  <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.manifestation')) -%></h1>
+  <div id="content_list">
+  <p id="notice"><%= notice -%></p>
+
+  <h2 class="resource_title">
+   <%= @nacsis_cat.request_summary[:subject_heading] -%>
+  </h2>
+
+  <%= link_to t('activerecord.models.nacsis_request_lend'), { :controller => "nacsis_user_requests", :action => "new", :ncid => @nacsis_cat.ncid, :manifestation_type => params[:manifestation_type], :request_type => "1" } -%>
+  <%= link_to t('activerecord.models.nacsis_request_copy'), { :controller => "nacsis_user_requests", :action => "new", :ncid => @nacsis_cat.ncid, :manifestation_type => params[:manifestation_type], :request_type => "2" } -%>
+  <table>
+    <%- @nacsis_cat.detail.each_key do |key| -%>
+      <tr>
+        <td><%= t('activerecord.attributes.nacsis_user_request.'+key.to_s) -%></td>
+<%- case key -%>
+  <%- when :publisher, :subject -%>
+        <td><%= @nacsis_cat.detail[key].join(", ") -%></td>
+  <%- when :pub_country -%>
+        <%# XXX: 国コード体系がCountryとは異なる: http://www.loc.gov/marc/countries/countries_code.html -%>
+        <td><%= @nacsis_cat.detail[key] -%></td>
+  <%- when :title_language, :text_language -%>
+	<td><%= @nacsis_cat.detail[key].display_name.localize -%> </td>
+  <%- when :author_heading, :isbn -%>
+        <td><%= @nacsis_cat.detail[key].join(" ") -%></td>
+<%- else -%>
+        <td><%= @nacsis_cat.detail[key] -%></td>
+<%- end -%>
+      </tr>
+    <%- end -%>
+  </table>
+
+  <br />
+
+  <table>
+    <%- @items.each do |x| -%>
+      <tr><td colspan="2">&nbsp;</td></tr>
+      <tr>
+        <td><%= t('activerecord.attributes.manifestation.hold_dbname') -%></td>
+        <td><%= x.record.dbname -%></td>
+      </tr>
+      <tr>
+        <td><%= t('activerecord.attributes.manifestation.hold_id') -%></td>
+        <td><%= x.record.id -%></td>
+      </tr>
+      <tr>
+        <td><%= t('activerecord.attributes.manifestation.hold_libabl') -%></td>
+        <td><%= x.record.libabl -%></td>
+      </tr>
+      <tr>
+        <td><%= t('activerecord.attributes.manifestation.hold_cln') -%></td>
+        <%- if x.record.is_a?(EnjuNacsisCatp::SholdInfo) -%>
+          <td><%= x.record.cln -%></td>
+        <%- else -%>
+          <td>
+            <%- x.record.holds.each do |hd| -%>
+            <%= hd.cln -%> &nbsp;
+            <%- end -%>
+          </td>
+        <%- end -%>
+      </tr>
+      <tr>
+        <%- if x.record.is_a?(EnjuNacsisCatp::BholdInfo) -%>
+          <td><%= t('activerecord.attributes.manifestation.hold_rgtn') -%></td>
+          <td>
+            <%- x.record.holds.each do |hd| -%>
+            <%= hd.rgtn -%>
+            <%- end -%>
+          </td>
+        <%- end -%>
+      </tr>
+    <%- end -%>
+  </table>
+  </div>
+</div>

@@ -74,6 +74,12 @@
       <%- end -%>
       <%= submit_tag t('page.search') -%>
       <% if @query.present? %><input type="button" value="<%= t('page.search_clear') -%>" onclick='<%= "$(" + "'#search_form_#{form_pos}" + "').val('')" %>' ><% end %>
+      <br />
+      <%- if SystemConfiguration.get('nacsis.can_use') -%>
+        <%= radio_button_tag 'index', 'local', params[:index] == "local" ? true : false -%><%= t('page.search_local') -%>
+        <%= radio_button_tag 'index', 'nacsis', params[:index] == "nacsis" ? true : false -%><%= t('page.search_nacsis') -%>
+      <%- end -%>
+      <br />
       <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
         <% if user_signed_in? and current_user.has_role?('Librarian') %>
           <%- if @all_manifestations %>
@@ -92,7 +98,7 @@
       <%= hidden_field_tag 'language', params[:language] if params[:language] -%>
       <%- if form_type != :series_statement -%>
         <%= hidden_field_tag 'in_process', params[:in_process] if params[:in_process] -%>
-        <%= hidden_field_tag 'manifestation_type', params[:manifestation_type] if params[:manifestation_type] -%>
+        <%#= hidden_field_tag 'manifestation_type', params[:manifestation_type] if params[:manifestation_type] -%>
         <%= hidden_field_tag 'missing_issue', params[:missing_issue] if params[:missing_issue] -%>
         <%= hidden_field_tag 'circulation_status_in_process', params[:circulation_status_in_process] if params[:circulation_status_in_process] -%>
         <%= hidden_field_tag 'circulation_status_in_factory', params[:circulation_status_in_factory] if params[:circulation_status_in_factory] -%>
