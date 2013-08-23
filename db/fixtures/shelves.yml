@@ -113,3 +113,10 @@ shelf_00015:
   library_id: 5
   position: 15
   open_access: 10
+#TODO shelf for bookbinder
+shelf_00016:
+  name: binding_shelf
+  display_name: 製本資料
+  id: 16
+  note:
+  library_id: 2

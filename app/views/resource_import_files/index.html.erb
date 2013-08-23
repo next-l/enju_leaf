@@ -28,7 +28,7 @@
         <%= t('page.destroy')%>
       <%- end -%>
     </td>
-    <td><%= localized_state(resource_import_file.state) -%></td>
+    <td><%= t("state.#{resource_import_file.state}") -%></td>
     <td>
       <%= link_to t('page.show'), resource_import_file -%>
       <%= link_to t('page.destroy'), resource_import_file, :confirm => t('page.are_you_sure'), :method => :delete -%>

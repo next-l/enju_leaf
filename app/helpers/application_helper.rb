@@ -192,23 +192,6 @@ module ApplicationHelper
     render :partial => 'page/position', :locals => {:object => object}
   end
 
-  def localized_state(state)
-    case state
-    when 'pending'
-      t('state.pending')
-    when 'canceled'
-      t('state.canceled')
-    when 'started'
-      t('state.started')
-    when 'failed'
-      t('state.failed')
-    when 'completed'
-      t('state.completed')
-    else
-      state
-    end
-  end
-
   def localized_boolean(bool)
     case bool.to_s
     when nil
