@@ -28,7 +28,7 @@
         <%= t('page.destroy')%>
       <%- end -%>
     </td>
-    <td><%= localized_state(patron_import_file.state) if patron_import_file -%></td>
+    <td><%= t("state.#{patron_import_file.state}) if patron_import_file -%></td>
     <td>
       <%= link_to t('page.show'), patron_import_file -%>
       <%= link_to t('page.destroy'), patron_import_file, :confirm => t('page.are_you_sure'), :method => :delete -%>

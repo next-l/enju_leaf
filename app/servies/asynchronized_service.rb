@@ -3,17 +3,33 @@ class Asynchronized_Service
     Rails.logger
   end
 
-  def perform(method_identifier, param = nil)
-    logger.info "Asynchronized_Service start. id=#{method_identifier}"
+  def perform(method_identifier, param = nil) # param = id of object offering the method
+    logger.info "Asynchronized_Service start. method: #{method_identifier} id: #{param}"
     case method_identifier
     when :ResoureceImportFile_import
-      ResourceImportFile.import(param)
+      import = ResoureceImportFile.find(param)
+      if import.state == 'pending'
+        ResourceImportFile.delay.import(param)
+        #TODO import.sm_request!
+      end
     when :ResourceImportTextfile_import
-      ResourceImportTextfile.import(param)
+      import = ResourceImportTextfile.find(param)
+      if import.state == 'pending' # only pending request can be queued 
+        ResourceImportTextfile.delay.import(param) 
+        import.sm_request!
+      end
     when :PatronImportFile_import
-      PatronImportFile.import(param)
+      import = PatronImportFile.find(param)
+      if import.state == 'pending'
+        PatronImportFile.import(param)
+        #TODO import.sm_request!
+      end
     when :EventImportFile_import
-      EventImportFile.import(param)
+      import = EventImportFile.find(param)
+      if import.state == 'pending'
+        EventImportFile.import(param)
+        #TODO import.sm_request!
+      end
     when :InventoryCheck_exec
       InventoryManage.check(param)
       #if defined?(InventoryManage) 

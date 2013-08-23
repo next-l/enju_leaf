@@ -99,7 +99,7 @@ class PatronImportFilesController < ApplicationController
   def import_request
     begin
       @patron_import_file = PatronImportFile.find(params[:id])
-      Asynchronized_Service.new.delay.perform(:PatronImportFile_import, @patron_import_file.id)
+      Asynchronized_Service.new.perform(:PatronImportFile_import, @patron_import_file.id)
       flash[:message] = t('patron_import_file.start_importing')
     rescue Exception => e
       logger.error "Failed to send process to delayed_job: #{e}"

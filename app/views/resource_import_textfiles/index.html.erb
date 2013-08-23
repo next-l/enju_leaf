@@ -18,7 +18,7 @@
     <td><%= link_to resource_import_textfile.resource_import_text_file_name, resource_import_textfile -%></td>
     <td><%= l(resource_import_textfile.imported_at) if resource_import_textfile.imported_at -%></td>
     <td><%= link_to resource_import_textfile.user.username, resource_import_textfile.user if resource_import_textfile.user -%></td>
-    <td><%= localized_state(resource_import_textfile.state) -%></td>
+    <td><%= t("state.#{resource_import_textfile.state}") -%></td>
     <td>
       <%= link_to t('page.show'), resource_import_textfile -%>
       <%= link_to t('page.destroy'), resource_import_textfile, :confirm => t('page.are_you_sure'), :method => :delete -%>

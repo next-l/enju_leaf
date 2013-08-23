@@ -40,7 +40,7 @@
 
 <p>
   <strong><%= t('activerecord.attributes.patron_import_file.state') -%>:</strong>
-  <%= localized_state(@patron_import_file.state) -%>
+  <%= t("state.#{@patron_import_file.state}") -%>
 </p>
 
 <p>

@@ -78,7 +78,7 @@ class ResourceImportTextfilesController < ApplicationController
   def import_request
     begin
       @resource_import_textfile = ResourceImportTextfile.find(params[:id])
-      Asynchronized_Service.new.delay.perform(:ResourceImportTextfile_import, @resource_import_textfile.id)
+      Asynchronized_Service.new.perform(:ResourceImportTextfile_import, @resource_import_textfile.id)
       flash[:message] = t('resource_import_textfile.start_importing')
     rescue Exception => e
       logger.error "Failed to send process to delayed_job: #{e}"

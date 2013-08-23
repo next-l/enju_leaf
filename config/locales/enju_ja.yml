@@ -41,3 +41,7 @@ ja:
           attributes:
             state:
               invalid_transition: "不正な処理です。"
+        resource_import_textfile:
+          attributes:
+            state:
+              invalid_transition: "不正な処理です。"

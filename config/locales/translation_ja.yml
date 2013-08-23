@@ -2271,6 +2271,7 @@ ja:
     you_should_specify_work: "シリーズ情報には書いた資料を指定しなければなりません。"
   state:
     pending: "処理待ち"
+    requested: "受付済み"
     canceled: "中止"
     completed: "完了"
     started: "開始"

@@ -158,7 +158,7 @@
   </div>
 </div>
 
-<%- if params[:index] && params[:index] == 'local' -%>
+<%- unless params[:index] && params[:index] == 'nacsis' -%>
 <div id="submenu" class="ui-corner-all">
   <h3><%= link_to h("#{t('page.total')}: #{@count[:query_result]}"), url_for(params.merge(:action => 'index', :view => nil, :carrier_type => nil, :library => nil, :language => nil, :subject => nil))  -%></h3>
   <%- if @manifestations && (@manifestations.total_count > 0) -%>
