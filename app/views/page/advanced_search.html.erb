@@ -56,7 +56,7 @@ $(function(){
     } 
   });
 
-  if ($('#index_local').is(':checked')) {
+  if ("<%= SystemConfiguration.get('nacsis.can_use') %>" || $('#index_local').is(':checked')) {
     $('#tabs-1').find('.local-only').find('input').removeAttr("disabled");
     $('#tabs-1').find('.local-only').show();
     $('#tabs-1').find('.nacsis-only').find('input').attr("disabled","disabled");
