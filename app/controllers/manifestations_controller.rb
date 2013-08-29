@@ -330,6 +330,7 @@ class ManifestationsController < ApplicationController
 
       if params[:bookbinder_id]
         @binder = Item.find(params[:bookbinder_id]) rescue nil
+        @all_manifestations = params[:all_manifestations] = true
       end
 
       if params[:removed_from].present? || params[:removed_to].present? || params[:removed]
