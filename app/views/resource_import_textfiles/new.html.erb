@@ -31,7 +31,7 @@
         }
       });
 
-      $("#resource_import_textfile_resource_import_text").on("change", function(){
+      $(document).on("change", "#resource_import_textfile_resource_import_text", function(){
         var name = $('select#resource_import_textfile_adapter_name :selected').val();
         $(".excel_sheets").html("")
         if(name == 'Excelfile_Adapter') {
