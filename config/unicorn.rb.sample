@@ -11,10 +11,6 @@ pid "/tmp/unicorn_#{application}.pid"
 # capistrano 用に RAILS_ROOT を指定
 working_directory "/opt/#{application}"
 
-# ログ
-stderr_path File.expand_path('log/unicorn.log', ENV['RAILS_ROOT'])
-stdout_path File.expand_path('log/unicorn.log', ENV['RAILS_ROOT'])
-
 # ダウンタイムなくす
 preload_app true
 
