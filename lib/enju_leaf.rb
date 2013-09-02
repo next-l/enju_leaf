@@ -218,10 +218,6 @@ module EnjuLeaf
 
     def clear_search_sessions
       session[:query] = nil
-    end
-
-    def clear_search_sessions
-      session[:query] = nil
       session[:params] = nil
       session[:search_params] = nil
       session[:manifestation_ids] = nil
