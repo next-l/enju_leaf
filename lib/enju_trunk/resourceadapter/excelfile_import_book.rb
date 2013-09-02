@@ -878,22 +878,22 @@ module EnjuTrunk
 
           manifestation = item.manifestation
           series_statement = manifestation.series_statement
-          item.delete
+          item.destroy
           p "deleted item_identifier: #{item_identifier}"
           if manifestation.items.blank? or manifestation.items.size == 0
             deleted_manifestation_title = manifestation.original_title
-            manifestation.delete
+            manifestation.destroy
             p "deleted manifestation_title: #{deleted_manifestation_title}"
             deleted_manifestation = true
           end
           if series_statement
             if series_statement.periodical and series_statement.manifestations.size == 1
               series_manifestation = series_statement.manifestations.first
-              series_manifestation.delete if series_manifestation.periodical_master
+              series_manifestation.destroy if series_manifestation.periodical_master
             end
             if series_statement.manifestations.blank? or series_statement.manifestations.size == 0
               deleted_series_title = series_statement.original_title
-              series_statement.delete
+              series_statement.destroy
               p "deleted series_statement_title: #{deleted_series_title}"
               deleted_series_statement = true
             end

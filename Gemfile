@@ -42,6 +42,7 @@ platforms :ruby_19 do
 end
 
 gem 'roo', "= 1.10.1"
+gem 'rubyzip', "=0.9.9"
 gem 'spreadsheet', '0.7.9'
 gem 'axlsx'
 

@@ -114,9 +114,9 @@
       <br style="clear: both;"/>
     </div>
 
-    <%- @manifestations_all.each do |m| -%>
+    <%- @manifestations_all.each_with_index do |m, i| -%>
       <%- next if @binder && m == @manifestations_article %>
-      <%- next if SystemConfiguration.get('manifestations.split_by_type') && m == @manifestations -%>
+      <%- next if SystemConfiguration.get('manifestations.split_by_type') && i == 0 -%>
       <div class="search_results_header"><strong>
   	<%= m == @manifestations_article ? t('page.search_article_results') :  t('page.search_results') %>
         <%- if current_user && current_user.has_role?('Librarian') %>
@@ -135,7 +135,6 @@
         <%= render 'manifestations/not_found' -%>
       <%- end -%>
     <%- end -%>
-
     <% if defined?(EnjuBookmark) %>
       <div id="tag_cloud">
         <h3><%= t('activerecord.models.tag') -%></h3>

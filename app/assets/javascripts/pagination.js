@@ -1,9 +1,9 @@
 $(function() {
-  $(".content_pagination a").live("click", function() {
+  $(document).on("click", ".content_pagination a", function() {
     $.get(this.href, null, null, "script");
     return false;
   });
-  $(".sidebar_pagination a").live("click", function() {
+  $(document).on("click", ".sidebar_pagination a", function() {
     $.get(this.href, null, null, "script");
     return false;
   });
