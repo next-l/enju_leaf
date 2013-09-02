@@ -5,7 +5,7 @@ worker_processes 1;
 
 # Feel free to change all paths to suite your needs here, of course
 pid /tmp/nginx.pid;
-error_log /opt/nginx/logs/nginx.error.log;
+error_log /var/log/nginx/nginx.error.log;
 
 events {
   worker_connections 1024; # increase if you have lots of clients
@@ -51,7 +51,7 @@ http {
     server_name www.example.jp;
 
     server_tokens off;
-    access_log /opt/nginx/logs/access.log combined;
+    access_log /var/log/nginx/access.log combined;
 
     #ssl             on;
     #ssl_certificate         /opt/nginx/merima.crt;
