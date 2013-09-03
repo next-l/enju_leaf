@@ -5,7 +5,7 @@ worker_processes 1;
 
 # Feel free to change all paths to suite your needs here, of course
 pid /tmp/nginx.pid;
-error_log /opt/nginx/logs/nginx.error.log;
+error_log /var/log/nginx/nginx.error.log;
 
 events {
   worker_connections 1024; # increase if you have lots of clients
@@ -19,8 +19,6 @@ http {
 
   # fallback in case we can't determine a type
   default_type application/octet-stream;
-
-  access_log /opt/nginx/logs/nginx.access.log combined;
 
   # you generally want to serve static files with nginx since neither
   # Unicorn nor Rainbows! is optimized for it at the moment
@@ -48,16 +46,20 @@ http {
   }
 
   server {
-    listen 443;
-    server_name _;
+    #listen 443;
+    listen 80;
+    server_name www.example.jp;
 
-    ssl             on;
-    ssl_certificate         /opt/nginx/merima.crt;
-    ssl_certificate_key     /opt/nginx/server.key;
-    ssl_session_timeout     10m;
-    ssl_protocols   SSLv3 TLSv1;
-    ssl_ciphers  ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
-    ssl_prefer_server_ciphers   on;
+    server_tokens off;
+    access_log /var/log/nginx/access.log combined;
+
+    #ssl             on;
+    #ssl_certificate         /opt/nginx/merima.crt;
+    #ssl_certificate_key     /opt/nginx/server.key;
+    #ssl_session_timeout     10m;
+    #ssl_protocols   SSLv3 TLSv1;
+    #ssl_ciphers  ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+    #ssl_prefer_server_ciphers   on;
 
     client_max_body_size 1G;
 
