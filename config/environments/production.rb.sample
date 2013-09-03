@@ -75,4 +75,8 @@ EnjuLeaf::Application.configure do
   #  :authentication       => 'plain',
   #  :enable_starttls_auto => true
   #}
+
+  # hostname write here.
+  #routes.default_url_options[:host] = "www.example.jp"
+  #routes.default_url_options[:host] = "192.168.26.159"
 end
