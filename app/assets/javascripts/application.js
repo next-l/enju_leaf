@@ -6,7 +6,6 @@
 //= require jquery.hotkeys
 //= require jquery.cookie
 //= require jquery.keypad
-//= require select2
 //= require fg.menu
 //= require fg.menu.enju
 //= require select_locale
