@@ -15,7 +15,7 @@ defaults: &defaults
   # パトロンの名前を入力する際、姓を先に表示する
   family_name_first: true
   
-  max_number_of_results: 500
+  max_number_of_results: 200
   write_search_log_to_file: true
   csv_charset_conversion: true
 
