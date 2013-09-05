@@ -410,6 +410,10 @@ defaults: &defaults
   background_job:
     threshold:
       export: 500
+
+  export:
+    # 資料エクスポート時に文献資料を削除する
+    delete_article: false
  
 development:
   <<: *defaults
