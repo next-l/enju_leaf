@@ -43,25 +43,27 @@
   <div id="user_info" style="display: none">
     <%= render 'patrons/show_list' %>
   </div>
- 
-  <br />
-    <div id="checkouts_list">
-      <%= render 'page/checkouts_list', :user => @user -%>
-    </div>
+
+  <%- if defined?(EnjuTrunkCirculation) %> 
     <br />
-    <div id="reserves_list">
-      <%= render 'page/reserves_list', :user => @user -%>
-      <%= render 'reserves/output_user'-%>
-    </div>
-  <%- unless @family_users.blank? -%>
-    <br />
-    <div id="checkouts_family_list">
-      <%= render 'page/checkouts_family_list'-%>
-    </div>
-    <br />
-    <div id="reserves_family_list">
-      <%= render 'page/reserves_family_list' -%>
-    </div>
+      <div id="checkouts_list">
+        <%= render 'page/checkouts_list', :user => @user -%>
+      </div>
+      <br />
+      <div id="reserves_list">
+        <%= render 'page/reserves_list', :user => @user -%>
+        <%= render 'reserves/output_user'-%>
+      </div>
+    <%- unless @family_users.blank? -%>
+      <br />
+      <div id="checkouts_family_list">
+        <%= render 'page/checkouts_family_list'-%>
+      </div>
+      <br />
+      <div id="reserves_family_list">
+        <%= render 'page/reserves_family_list' -%>
+      </div>
+    <%- end -%>
   <%- end -%>
 </div>
 </div>
