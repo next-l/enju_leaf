@@ -153,7 +153,7 @@ module EnjuTrunk
       col = @field[I18n.t('resource_import_textfile.excel.book.item_identifier')]
       item_identifiers, duplicates = [], []
       2.upto(@oo.last_row) do |row|
-         i_id = @oo.cell(row,col).try(:strip)
+         i_id = @oo.cell(row,col).try(:to_s).try(:strip)
          next unless i_id
          duplicates << i_id if item_identifiers.include?(i_id)
          item_identifiers << i_id  

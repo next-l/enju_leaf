@@ -512,4 +512,25 @@ module ApplicationHelper
     end
     return css_name
   end
+
+  if defined?(EnjuTrunkCirculation)
+    def i18n_state(state)
+      case state
+      when 'pending'
+        t('reserve.pending')
+      when 'requested'
+        t('reserve.requested')
+      when 'retained'
+        t('reserve.retained')
+      when 'in_process'
+        t('reserve.in_process')
+      when 'canceled'
+        t('reserve.canceled')
+      when 'expired'
+        t('reserve.expired')
+      when 'completed'
+        t('reserve.completed')
+      end
+    end
+  end
 end
