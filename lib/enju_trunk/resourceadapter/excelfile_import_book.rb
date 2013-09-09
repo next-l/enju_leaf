@@ -664,7 +664,7 @@ module EnjuTrunk
       end
       unless SystemConfiguration.get('manifestations.split_by_type')
         @manifestation_type = nil
-        manifestation_type = item.manifestation.maniestation_type if item
+        manifestation_type = item.manifestation.manifestation_type if item
         data = datas[@field[I18n.t('resource_import_textfile.excel.book.manifestation_type')]]
         if data == '' or (manifestation_type.nil? and data.nil?)
           error_msg = "FAIL[sheet:#{sheet} row:#{row}] #{I18n.t('resource_import_textfile.error.cell_require_manifestation_type')}"
