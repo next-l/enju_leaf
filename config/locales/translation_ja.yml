@@ -196,7 +196,7 @@ ja:
       nacsis_user_request: 複写貸借状況
       nacsis_request_copy: 複写依頼
       nacsis_request_lend: 借用依頼
-
+      exchange_manifestation: 所蔵付け替え
     attributes:
       wareki:
         display_name: 表示名
@@ -2825,3 +2825,19 @@ ja:
       clear: 全部消す
     search:
       sort: "%{target}順に並べる"
+  exchange_manifestation:
+    title: "所蔵付け替え"
+    screen1_description1: "付け替える所蔵情報IDを入力してください。"
+    screen2_description1: "付け替え先の書誌を検索してください。「付替」リンクでつけ替えます。"
+    exchange: "付替"
+    item_not_found: "資料が見つかりません。"
+    no_item_identifier: "所蔵情報IDが指定されていません。"
+    source_manifestation: "付替元情報"
+    source_item_identifier: "所蔵情報ID"
+    manifestation: "書誌名"
+    exchange_success: "付け替えを行いました。"
+    force_exchange: "強制的に付け替え"
+    confirm: "付替を行います。よろしいですか？"
+    item_circulation_status_is_invalid: "所蔵の貸出状態が不正です。強制的に進める場合は、チェックボックスにチェックをつけてください。"
+
+

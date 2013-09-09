@@ -2,6 +2,9 @@ EnjuLeaf::Application.routes.draw do
   resources :warekis
   resources :user_request_logs
   resources :enju_terminals
+	resource :exchange_manifestation do
+    post :select_manifestation, :on => :member
+  end
 
   resources :numberings
   resources :departments

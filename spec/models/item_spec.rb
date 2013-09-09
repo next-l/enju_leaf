@@ -222,6 +222,15 @@ describe Item do
     it '' # TODO
   end
 
+  describe 'const test' do
+    it 'rank 3 variables' do
+      expect(Item::RANK_ORIGINAL).to eq(0)
+      expect(Item::RANK_COPY).to eq(1)
+      expect(Item::RANK_SPARE).to eq(2)
+    end
+  end
+
+
 #TODO 以下元のテスト
   it "should be rent" do
     items(:item_00001).rent?.should be_true

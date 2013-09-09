@@ -522,7 +522,14 @@ class ManifestationsController < ApplicationController
       }
       format.mods
       format.json { render :json => @manifestations }
-      format.js { render 'binding_items/manifestations'}
+      format.js { 
+        case params[:verb]
+        when 'Exchange'
+          render 'exchange_manifestations/manifestations'
+        else
+          render 'binding_items/manifestations'
+        end
+      }
     end
   #rescue QueryError => e
   #  render :template => 'manifestations/error.xml', :layout => false
