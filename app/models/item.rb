@@ -112,6 +112,10 @@ class Item < ActiveRecord::Base
 
   paginates_per 10
 
+  RANK_ORIGINAL = 0
+  RANK_COPY =  1
+  RANK_SPARE = 2
+
   def reindex
     manifestation.try(:index)
   end
@@ -292,6 +296,15 @@ class Item < ActiveRecord::Base
       else
         return false
       end
+    end
+  end
+
+  def exchangeable?
+    case self.circulation_status.name
+    when "In Process", "Available On Shelf" 
+      return true
+    else
+      return false
     end
   end
 

@@ -1,0 +1,46 @@
+<%= form_tag(exchange_manifestation_path, :method => :put, :id => 'exchange_manifestation') do %>
+  <%= hidden_field_tag 'item_identifier', @item.item_identifier -%>
+  <%= hidden_field_tag 'dest_manifestation_id' -%>
+<% end %>
+<%= javascript_tag do %>
+  function do_post_exchange_manifestation(manifestation_id) {
+    if (confirm("<%= I18n.t('exchange_manifestation.confirm') -%>")) {
+      $('#dest_manifestation_id').val(manifestation_id);
+      var form = $('#exchange_manifestation');
+      form.submit();
+    }
+    return false; 
+  }
+<% end %>
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('exchange_manifestation.title') -%></h1>
+<div id="content_list">
+
+<% if @item -%>
+  <div>
+  <%= I18n.t('exchange_manifestation.source_manifestation') -%>: <br />
+  <%= I18n.t('exchange_manifestation.source_item_identifier') -%>:
+  <%= @item.item_identifier -%><br />
+  <% if @item.manifestation -%>
+    <%= I18n.t('exchange_manifestation.manifestation') -%>:
+    <%= @item.manifestation.original_title -%>
+    <%= @item.manifestation.serial_number_string -%>
+    <%= @item.manifestation.issue_number_string -%>
+    <%= @item.manifestation.volume_number_string -%>
+  <% end -%>
+  </div>
+<% end -%>
+<br />
+<div id="binding_item_list">
+  <%= render 'list' -%>
+</div>
+
+<br />
+
+</div>
+</div>
+<div id="submenu" class="ui-corner-all">
+<ul>
+  <li><%= link_to t('page.back'), new_exchange_manifestation_path -%></li>
+</ul>
+</div>
