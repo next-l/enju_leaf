@@ -92,34 +92,25 @@ module EnjuTrunk
     end 
 
     def check_header_field(sheet)
-      field_row_num = 1
-
-      # read the field, then set field a hash
-      @field = Hash::new
-      columns_num = 0
-      begin
-        @oo.first_column.upto(@oo.last_column) do |column|
-          name = @oo.cell(field_row_num, column).to_s.strip
-          unless name.blank?
-            @field.store(name, column) 
-            columns_num = columns_num + 1
-          end
-        end
-      rescue
-        return I18n.t('resource_import_textfile.error.blank_sheet', :sheet => sheet)
-      end
-      if (columns_num - @field.keys.uniq.size) > 0
-        return I18n.t('resource_import_textfile.error.overlap', :sheet => sheet)
-      end
-
+      # check1: sheet is blank
+      return I18n.t('resource_import_textfile.error.blank_sheet', :sheet => sheet) unless @oo.first_column
+      # check2: header has duplicate columns
+      set_book_field
+      return I18n.t('resource_import_textfile.error.overlap', :sheet => sheet) unless @field.keys.uniq.size == @field.keys.size
+      # check3: header require field 
       unless @field[I18n.t('resource_import_textfile.excel.book.item_identifier')]
         # exist need fields?
         import_textresult = ResourceImportTextresult.new(:resource_import_textfile_id => @textfile_id, :extraparams => "{'sheet'=>'#{sheet}'}" )
+        unless SystemConfiguration.get('manifestations.split_by_type')
+          if @field[I18n.t('resource_import_textfile.excel.book.manifestation_type')].nil?
+            return I18n.t('resource_import_textfile.error.book.head_require_manifestation_type', :sheet => sheet)
+          end
+        end
         require_book = [@field[I18n.t('resource_import_textfile.excel.book.original_title')],
                         @field[I18n.t('resource_import_textfile.excel.book.isbn')]]
         require_series = [@field[I18n.t('resource_import_textfile.excel.series.original_title')],
                           @field[I18n.t('resource_import_textfile.excel.series.issn')]]
-        if @manifestation_type.is_book?
+        if @manifestation_type.nil? or @manifestation_type.is_book?
           if require_book.reject{ |field| field.to_s.strip == "" }.empty?
             return I18n.t('resource_import_textfile.error.book.head_is_blank', :sheet => sheet)
           end
@@ -130,6 +121,15 @@ module EnjuTrunk
         end
       end
       return nil
+    end
+
+    def set_book_field
+      field_row_num = 1
+      @field = Hash::new
+      @oo.first_column.upto(@oo.last_column) do |column|
+        name = @oo.cell(field_row_num, column).to_s.strip
+        @field.store(name, column) unless name.blank?
+      end
     end
 
     def book_header_has_out_of_manage?(sheet)
@@ -191,9 +191,7 @@ module EnjuTrunk
             if fix_boolean(datas[@field[I18n.t('resource_import_textfile.excel.book.del_flg')]])
               delete_data(item_identifier, item, import_textresult)
             else
-              unless item
-                next unless has_necessary_cell?(datas, sheet, row, import_textresult)
-              end
+              next unless has_necessary_cell?(item, datas, sheet, row, import_textresult)
               manifestation, import_textresult = fetch_book(datas, item, import_textresult)
               if manifestation.valid?
                 item, import_textresult = create_book_item(datas, manifestation, item, import_textresult)
@@ -658,28 +656,51 @@ module EnjuTrunk
       end
     end
 
-    def has_necessary_cell?(datas, sheet, row, textresult)
-      require_cell_book   = [datas[@field[I18n.t('resource_import_textfile.excel.book.original_title')]],
-                             datas[@field[I18n.t('resource_import_textfile.excel.book.isbn')]]]
-      require_cell_series = [datas[@field[I18n.t('resource_import_textfile.excel.series.original_title')]],
-                             datas[@field[I18n.t('resource_import_textfile.excel.series.issn')]]]
+    def has_necessary_cell?(item, datas, sheet, row, textresult)
       if datas[@field[I18n.t('resource_import_textfile.excel.book.original_title')]] == ''
         textresult.error_msg = "FAIL[sheet:#{sheet} row:#{row}] #{I18n.t('resource_import_textfile.error.book.not_delete')}"
         textresult.save
         return false
       end
-      if @manifestation_type.is_book?  
-        if require_cell_book.reject{ |f| f.to_s.strip == "" }.empty?
-          textresult.error_msg = "FAIL[sheet:#{sheet} row:#{row}] #{I18n.t('resource_import_textfile.error.book.cell_is_blank')}"
+      unless SystemConfiguration.get('manifestations.split_by_type')
+        @manifestation_type = nil
+        manifestation_type = item.manifestation.maniestation_type if item
+        data = datas[@field[I18n.t('resource_import_textfile.excel.book.manifestation_type')]]
+        if data == '' or (manifestation_type.nil? and data.nil?)
+          error_msg = "FAIL[sheet:#{sheet} row:#{row}] #{I18n.t('resource_import_textfile.error.cell_require_manifestation_type')}"
+        end
+        unless data.blank?
+          manifestation_type = ManifestationType.find_by_display_name(data) rescue nil 
+          if manifestation_type.nil?
+            error_msg = "FAIL[sheet:#{sheet} row:#{row}] #{I18n.t('resource_import_textfile.error.wrong_manifestation_type', :manifestation_type => data) }"
+          end
+        end
+        if error_msg
+          textresult.error_msg = error_msg
           textresult.save
           return false
         end
-      else
-        if require_cell_series.reject{ |f| f.to_s.strip == "" }.empty? or require_cell_book.reject{ |f| f.to_s.strip == "" }.empty?
-          textresult.error_msg = "FAIL[sheet:#{sheet} row:#{row}] #{I18n.t('resource_import_textfile.error.series.cell_is_blank')}"
-          textresult.save
-          return false
-        end 
+        @manifestation_type = manifestation_type
+      end
+
+      unless item
+        require_cell_book   = [datas[@field[I18n.t('resource_import_textfile.excel.book.original_title')]],
+                               datas[@field[I18n.t('resource_import_textfile.excel.book.isbn')]]]
+        require_cell_series = [datas[@field[I18n.t('resource_import_textfile.excel.series.original_title')]],
+                               datas[@field[I18n.t('resource_import_textfile.excel.series.issn')]]]
+        if @manifestation_type.is_series?
+          if require_cell_series.reject{ |f| f.to_s.strip == "" }.empty? or require_cell_book.reject{ |f| f.to_s.strip == "" }.empty?
+            textresult.error_msg = "FAIL[sheet:#{sheet} row:#{row}] #{I18n.t('resource_import_textfile.error.series.cell_is_blank')}"
+            textresult.save
+            return false
+          end
+        else
+          if require_cell_book.reject{ |f| f.to_s.strip == "" }.empty?
+            textresult.error_msg = "FAIL[sheet:#{sheet} row:#{row}] #{I18n.t('resource_import_textfile.error.book.cell_is_blank')}"
+            textresult.save
+            return false
+          end
+        end
       end
       return true
     end

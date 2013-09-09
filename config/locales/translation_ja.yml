@@ -2436,6 +2436,8 @@ ja:
       failed_delete_not_find: "対象の資料が見つからなかったため削除を実行できませんでした。"
       duplicate_item_identifier: "シート『%{sheet}』の読み取りに失敗しました。所蔵情報IDが重複しています: %{item_identifier}"
       no_item_identifier: "所蔵情報IDが指定されていません。"
+      cell_require_manifestation_type: "資料区分を指定してください。"
+      wrong_manifestation_type: "指定の資料区分は不正です。 資料区分: %{manifestation_type}"
       series:
         head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目にはシリーズ名またはISSN,またタイトルまたはISBNが必須です。\r\nシート『%{sheet}』を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
         cell_is_blank: "シリーズ名またはISSN,タイトルまたはISBNを指定してください。"
@@ -2443,6 +2445,7 @@ ja:
         exist_same_series: "更新しようとしている内容と同一のシリーズ情報が既に存在しています。資料の編集画面より更新する資料のシリーズ情報を付け替えてください。"
       book:
         head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目にはタイトルまたはISBNが必須です。\r\nシート『%{sheet}』を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
+        head_require_manifestation_type: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目には資料区分が必須です。"
         cell_is_blank: "タイトルまたはISBNを指定してください。"
         only_integer: "%{field}には整数以外の値を指定しないでください。 %{field}: %{data}"
         only_numeric: "%{field}には数値以外の値を指定しないでください。 %{field}: %{data}"

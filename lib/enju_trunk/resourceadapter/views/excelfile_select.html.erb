@@ -2,7 +2,9 @@
 <div>
   <table style="border: 0px;">
     <th style="border:0px; border-bottom: 1px solid #aaa;"><%= t('activerecord.attributes.resource_import_textfile.sheet') %></th>
-    <th style="border:0px; border-bottom: 1px solid #aaa;"><%= t('activerecord.models.manifestation_type') %></th>
+    <% if SystemConfiguration.get('manifestations.split_by_type') %>
+      <th style="border:0px; border-bottom: 1px solid #aaa;"><%= t('activerecord.models.manifestation_type') %></th>
+    <% end %>
     <th style="border:0px; border-bottom: 1px solid #aaa;"><%= t('activerecord.models.numbering') %></th>
     <th style="border:0px; border-bottom: 1px solid #aaa;"></th>
     <% @oo.sheets.each_with_index do |name, i| %>
@@ -11,9 +13,11 @@
         <%= check_box_tag "extraparams[#{i}][sheet]", name, :selected => true %>
         <%= name.to_s %>
       </td>
-      <td style="border:0px; border-bottom: 1px solid #aaa;">
-        <%= select_tag "extraparams[#{i}][manifestation_type]", options_for_select(@manifestation_types.collect{|m| [m.display_name.localize, m.id]}) %>
-      </td>
+      <% if SystemConfiguration.get('manifestations.split_by_type') %>
+        <td style="border:0px; border-bottom: 1px solid #aaa;">
+          <%= select_tag "extraparams[#{i}][manifestation_type]", options_for_select(@manifestation_types.collect{|m| [m.display_name.localize, m.id]}) %>
+        </td>
+      <% end %>
       <td style="border:0px; border-bottom: 1px solid #aaa;">
         <%= select_tag "extraparams[#{i}][numbering]", options_for_select(@numberings.map{|n| [n.display_name, n.name]}.insert(0, '')) %>
       </td>
