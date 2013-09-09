@@ -6,7 +6,7 @@
 <% end -%>
 <% if @titem -%>
   <%= I18n.t('exchange_manifestation.source_item_identifier') -%>:
-  <%= @titem.item_identifier -%><br />
+  <%= link_to @titem.item_identifier, @titem -%><br />
   <br />
 <% end -%>
 <%= t('exchange_manifestation.screen1_description1') -%>

@@ -39,6 +39,7 @@ class ExchangeManifestationsController < ApplicationController
       ActiveRecord::Base.transaction do 
         if SystemConfiguration.get('manifestation.manage_item_rank') 
           @titem.rank = Item::RANK_SPARE
+          @titem.save!
         end 
         @titem.manifestation = @dest_manifestation
       end
