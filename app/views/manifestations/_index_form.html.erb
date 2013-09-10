@@ -4,7 +4,7 @@
   end
 
   if form_pos == :top
-    cols_book = Manifestation::BOOK_COLUMNS.map{|c| "book.#{c}"}
+    cols_book = Manifestation::BOOK_COLUMNS.call.map{|c| "book.#{c}"}
     cols_series = Manifestation::SERIES_COLUMNS.map{|c| "series.#{c}"}
     cols_article = Manifestation::ARTICLE_COLUMNS.map{|c| "article.#{c}"}
     cols_all = Manifestation::ALL_COLUMNS

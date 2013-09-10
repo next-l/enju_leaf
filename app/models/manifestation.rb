@@ -896,7 +896,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   # NOTE: resource_import_textfile.excelとの整合性を維持すること
-  BOOK_COLUMNS = %W(
+  BOOK_COLUMNS = lambda { %W(
     #{ 'manifestation_type' unless SystemConfiguration.get('manifestations.split_by_type') } 
     isbn original_title title_transcription title_alternative carrier_type
     frequency pub_date country_of_publication place_of_publication language
@@ -908,7 +908,7 @@ class Manifestation < ActiveRecord::Base
     circulation_status retention_period call_number item_price url
     include_supplements use_restriction item_note rank item_identifier
     remove_reason non_searchable missing_issue del_flg
-  ).map{ |c| c unless  c == '' }.compact
+  ).map{ |c| c unless  c == '' }.compact }
   SERIES_COLUMNS = %w(
     issn original_title title_transcription periodical
     series_statement_identifier note
@@ -918,7 +918,7 @@ class Manifestation < ActiveRecord::Base
     call_number access_address subject
   )
   ALL_COLUMNS =
-    BOOK_COLUMNS.map {|c| "book.#{c}" } +
+    BOOK_COLUMNS.call.map {|c| "book.#{c}" } +
     SERIES_COLUMNS.map {|c| "series.#{c}" } +
     ARTICLE_COLUMNS.map {|c| "article.#{c}" }
 
