@@ -1409,14 +1409,15 @@ class ManifestationsController < ApplicationController
 
     manifestation = nil
 
-    if params[:item_identifier].present? &&
-        item = Item.find_by_item_identifier(params[:item_identifier])
-      manifestation = item.manifestation
+    if params[:item_identifier].present?
+      is = Item.where(:item_identifier => params[:item_identifier])
+      manifestation = is.first.manifestation if is.size == 1
     end
 
     if SystemConfiguration.get("manifestation.isbn_unique") &&
         params[:isbn].present?
-      manifestation = Manifestation.where(:isbn => params[:isbn]).first
+      ms = Manifestation.where(:isbn => params[:isbn])
+      manifestation = ms.first if ms.size == 1
     end
 
     if manifestation
