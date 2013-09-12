@@ -379,6 +379,7 @@ class ManifestationsController < ApplicationController
       searchs = []
 
       searchs << search_all = factory.new_search
+      searchs << search_all_session = factory.new_search
       if search_opts[:split_by_type]
         searchs << search_book = factory.new_search(:book)
         if search_opts[:with_article]
@@ -401,7 +402,7 @@ class ManifestationsController < ApplicationController
         elsif s == search_serial
           factory.setup_paginate!(s, search_opts[:page_serial], search_opts[:per_page])
         else
-          # search_all or search_book
+          # search_all, search_book, or search_all_session
           factory.setup_facet!(s)
           factory.setup_paginate!(s, search_opts[:page], search_opts[:per_page])
         end
@@ -419,7 +420,7 @@ class ManifestationsController < ApplicationController
         return
       end
 
-      update_search_sessions(search_opts, search_all)
+      update_search_sessions(search_opts, search_all_session)
       do_tag_cloud_process(search_opts) and return
 
       # 主にビューのためのインスタンス変数を設定する
