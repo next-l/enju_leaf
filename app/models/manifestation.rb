@@ -896,7 +896,8 @@ class Manifestation < ActiveRecord::Base
   end
 
   # NOTE: resource_import_textfile.excelとの整合性を維持すること
-  BOOK_COLUMNS = %w(
+  BOOK_COLUMNS = lambda { %W(
+    #{ 'manifestation_type' unless SystemConfiguration.get('manifestations.split_by_type') } 
     isbn original_title title_transcription title_alternative carrier_type
     frequency pub_date country_of_publication place_of_publication language
     edition_display_value volume_number_string issue_number_string serial_number_string lccn
@@ -907,7 +908,7 @@ class Manifestation < ActiveRecord::Base
     circulation_status retention_period call_number item_price url
     include_supplements use_restriction item_note rank item_identifier
     remove_reason non_searchable missing_issue del_flg
-  )
+  ).map{ |c| c unless  c == '' }.compact }
   SERIES_COLUMNS = %w(
     issn original_title title_transcription periodical
     series_statement_identifier note
@@ -917,7 +918,7 @@ class Manifestation < ActiveRecord::Base
     call_number access_address subject
   )
   ALL_COLUMNS =
-    BOOK_COLUMNS.map {|c| "book.#{c}" } +
+    BOOK_COLUMNS.call.map {|c| "book.#{c}" } +
     SERIES_COLUMNS.map {|c| "series.#{c}" } +
     ARTICLE_COLUMNS.map {|c| "article.#{c}" }
 
@@ -989,7 +990,7 @@ class Manifestation < ActiveRecord::Base
           find_in_batches do |manifestations|
         logger.debug "begin a batch set"
         manifestations.each do |manifestation|
-          if manifestation.article?
+          if SystemConfiguration.get('manifestations.split_by_type') and manifestation.article?
             type = 'article'
             target = [manifestation]
           elsif manifestation.series?
@@ -1023,21 +1024,25 @@ class Manifestation < ActiveRecord::Base
               end
               worksheet[type].add_row row, :types => :string, :style => style[type]
 
-              # 文献をエクスポート時にはその文献情報を削除する
-              # copied from app/models/resource_import_textresult.rb:92-98
-              if i && type == 'article' && m.article?
-                if i.reserve
-                  i.reserve.revert_request rescue nil
+              if Setting.export.delete_article
+                # 文献をエクスポート時にはその文献情報を削除する
+                # copied from app/models/resource_import_textresult.rb:92-98
+                if i && type == 'article' && m.article?
+                  if i.reserve
+                    i.reserve.revert_request rescue nil
+                  end
+                  i.destroy
                 end
-                i.destroy
               end
             end
 
-            # 文献をエクスポート時にはその文献情報を削除する
-            # copied from app/models/resource_import_textresult.rb:102-105
-            if type == 'article' && m.article?
-              if manifestation.items.count == 0
-                manifestation.destroy
+            if Setting.export.delete_article
+              # 文献をエクスポート時にはその文献情報を削除する
+              # copied from app/models/resource_import_textresult.rb:102-105
+              if type == 'article' && m.article?
+                if manifestation.items.count == 0
+                  manifestation.destroy
+                end
               end
             end
           end # target.each

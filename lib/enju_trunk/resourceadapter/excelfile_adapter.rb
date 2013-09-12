@@ -29,11 +29,13 @@ class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
         errors = []
         
         extraparams["sheet"].each_with_index do |sheet, i|
-          @manifestation_type = ManifestationType.find(manifestation_types[i].to_i)
+          @manifestation_type = ManifestationType.find(manifestation_types[i].to_i) rescue nil
           @numbering = Numbering.where(:name => numberings[i]).first rescue nil
           @auto_numbering = auto_numbering[i]
           unless @numbering
             case 
+            when @manifestation_type.nil?
+              @numbering = Numbering.where(:name => 'book').first
             when @manifestation_type.is_book?
               @numbering = Numbering.where(:name => 'book').first
             when @manifestation_type.is_article?
@@ -43,12 +45,16 @@ class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
             end
           end
           @oo.default_sheet = sheet
-          logger.info "num=#{i}  sheet=#{sheet} manifestation_type=#{@manifestation_type.display_name}"
+          logger.info "num=#{i}  sheet=#{sheet} manifestation_type=#{@manifestation_type.display_name if @manifestation_type}"
 
-          if @manifestation_type.is_article?
-            import_article(sheet, errors)
+          if SystemConfiguration.get('manifestations.split_by_type')
+            if @manifestation_type.is_article?
+              import_article(sheet, errors)
+            else
+              import_book(sheet, errors)
+            end
           else
-            import_book(sheet, errors)
+            import_book(sheet, errors) 
           end
         end
         if errors.size > 0
