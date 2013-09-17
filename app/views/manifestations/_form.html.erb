@@ -86,20 +86,8 @@ $(document).keydown(function(e) {
 
  <div class="field">
     <%= f.label :creator -%><%= t('manifestation.delim_semicolon') -%><br />
-    <%#= f.text_field :creator, :value => @creator -%>
-    <input type="hidden" id="creator" style="500px;" value="<%= @creator -%>" class="select2-offscreen" tablindex="-1">
+    <%= f.text_field :creator, :value => @creator -%>
   </div>
-  <script id="script_creator">
-    $("#creator").select2({tags:[""], separator:";"});
-    $("#creator").on("change", function() { $("#creator_val").html($("#creator").val());});
-    $("#creator").click(function() { alert("aaa"); });
-
-    $("#creator").select2("container").find("ul.select2-choices").sortable({
-      containment: 'parent',
-      start: function() { $("#creator").select2("onSortStart"); },
-      update: function() { $("#creator").select2("onSortEnd"); }
-    });
-  </script>
  
   <div class="field">
     <strong><%= t('manifestation.creator_transcription') -%></strong><%= t('manifestation.delim_semicolon') -%><br />
