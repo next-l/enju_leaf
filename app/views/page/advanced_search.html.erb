@@ -7,8 +7,8 @@ $(function(){
   $('#removed_from').setCalendar({src:'/assets/calendar.png'});
   $('#removed_to').setCalendar({src:'/assets/calendar.png'});
 
-  $('#tabs').bind("tabsselect", function(event, ui) {
-    if ( ui.panel.id == "tabs-1" ) {
+  $('#tabs').bind("tabsactivate", function(event, ui) {
+    if (ui.newPanel.selector == "#tabs-1" ) {
       $('#tabs-1').find('input').removeAttr("disabled");
       $('#tabs-2').find('input').attr("disabled","disabled");
     } else {
@@ -19,7 +19,7 @@ $(function(){
 
   $('#tabs').tabs();
   if ("<%= params[:solr_query] %>" != '') {
-     $('#tabs').tabs({ selected: 1, });
+    $('#tabs').tabs("option", "active", 1);
     $('#tabs-2').find('input').removeAttr("disabled");
     $('#tabs-1').find('input').attr("disabled","disabled");
   } else {
