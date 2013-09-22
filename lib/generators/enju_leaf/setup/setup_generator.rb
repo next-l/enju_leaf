@@ -87,6 +87,7 @@ EOS
     end
     generate("sunspot_rails:install")
     generate("kaminari:config")
+    generate("simple_form:install")
     gsub_file 'config/initializers/kaminari_config.rb',
       /# config.default_per_page = 25$/,
       "config.default_per_page = 10"
