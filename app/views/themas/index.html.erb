@@ -1,0 +1,44 @@
+<div id="content_detail" class="ui-corner-all">
+
+  <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.thema')) -%></h1>
+
+  <div id="content_list">
+
+    <table class="index">
+      <tr>
+        <th><%= t('activerecord.attributes.thema.name') -%></th>
+        <th><%= t('activerecord.attributes.thema.display_name') -%></th>
+        <th><%= t('activerecord.attributes.thema.description') -%></th>
+        <th><%= t('activerecord.attributes.thema.publish') -%></th>
+        <th><%= t('activerecord.attributes.thema.note') -%></th>
+        <th><%= t('activerecord.attributes.thema.position') -%></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+
+      <% @themas.each do |thema| %>
+      <tr class="line<%= cycle("0", "1") -%>">
+        <td><%= thema.name %></td>
+        <td><%= thema.display_name %></td>
+        <td><%= thema.description %></td>
+        <td><%= thema.publish %></td>
+        <td><%= thema.note %></td>
+        <td><%= thema.position %></td>
+        <td><%= link_to 'Show', thema %></td>
+        <td><%= link_to 'Edit', edit_thema_path(thema) %></td>
+        <td><%= link_to 'Destroy', thema, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <% end %>
+    </table>
+
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if can? :create, Thema -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.thema')), new_thema_path %></li>
+    <%- end -%>
+  </ul>
+</div>

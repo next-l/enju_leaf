@@ -1,4 +1,7 @@
 EnjuLeaf::Application.routes.draw do
+  resources :themas
+
+
   resources :warekis
   resources :user_request_logs
   resources :enju_terminals

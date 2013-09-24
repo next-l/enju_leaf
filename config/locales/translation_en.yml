@@ -160,6 +160,7 @@ en:
       nacsis_user_request: Nacsis user requests
       nacsis_request_copy: Nacsis copy request
       nacsis_request_lend: Nacsis lend request
+      thema: Thema
 
     attributes:
       enju_terminal:
@@ -1180,7 +1181,13 @@ en:
         librarian_note: Librarian note
         created_from: Created from
         created_to: Created to
-
+      thema:
+        name: Name
+        display_name: Display name
+        description: Description
+        publish: Publish
+        note: Note
+        position: Position
   page:
     user_title: "Welcome %{login_name}"
     sign_in: "Sign in"
