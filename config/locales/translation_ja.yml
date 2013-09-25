@@ -2298,6 +2298,7 @@ ja:
     resources_were_published: 資料は公開されました。
     select_resources: 資料を選択してください。
     publish: 公開
+    closed: 非公開
     published: 公開済み
     reject: 却下
     withdraw: 取り下げ

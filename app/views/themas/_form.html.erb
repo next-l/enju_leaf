@@ -6,17 +6,13 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :display_name %><br />
-    <%= f.text_field :display_name %>
-  </div>
-  <div class="field">
     <%= f.label :description %><br />
     <%= f.text_area :description %>
   </div>
   <div class="field">
     <%= f.label :publish %><br />
     <%= f.select :publish,
-        { '0' => 0 , '1' => 1}  %> 
+        Thema::PUBLISH_PATTERN %> 
   </div>
   <div class="field">
     <%= f.label :note %><br />
@@ -24,8 +20,8 @@
   </div>
   <div class="inputs">
     <%= f.label :position %><br />
-    <%= f.select :publish,
-        { '0' => 0 , '1' => 1} %>
+    <%= f.select :position,
+        Thema::POSITION_PATTERN %>
   </div>
   <div class="actions">
     <%= f.submit %>
