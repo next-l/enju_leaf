@@ -164,7 +164,7 @@ $(function(){
       $('#excelx_<%= t -%>_trigger').click( function() {
         // make sure the statuses of all the hidden checkboxes
         <%- eval("cols_#{t}").each do |x| -%>
-          $('#chkbox_<%= x.gsub('.','_') -%>').attr('checked', $('#chkbox2_<%= x.gsub('.','_') -%>').is(':checked'));
+          $('#chkbox_<%= x.gsub('.','_') -%>').prop('checked', $('#chkbox2_<%= x.gsub('.','_') -%>').is(':checked'));
         <%- end -%>
         // close the dialog before we go
         $('#excelx_<%= t -%>_dialog').dialog('close');
@@ -172,7 +172,7 @@ $(function(){
         $('#output_excelx').click();
         // make sure all the checkboxes are unchecked again
         <%- cols_all.each do |x| -%>
-          $('#chkbox_<%= x.gsub('.','_') -%>').attr('checked', false);
+          $('#chkbox_<%= x.gsub('.','_') -%>').prop('checked', false);
         <%- end -%>
         return false;
       });
