@@ -6,11 +6,10 @@
 
     <table class="index">
       <tr>
-        <th></th>
+        <th id="position"></th>
         <th><%= t('activerecord.attributes.theme.name') -%></th>
         <th><%= t('activerecord.attributes.theme.publish') -%></th>
         <th><%= t('activerecord.attributes.theme.note') -%></th>
-        <th></th>
         <th></th>
       </tr>
 
@@ -20,7 +19,6 @@
         <td><%= link_to theme.name, theme %></td>
         <td><%= i18n_publish(theme.publish) %></td>
         <td><%= theme.note %></td>
-        <td><%= theme.position %></td>
         <td>
           <%= link_to t('page.edit'), edit_theme_path(theme) %>
           <%= link_to t('page.destroy'), theme, method: :delete, data: { confirm: t('page.are_you_sure') } %>
