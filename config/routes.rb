@@ -1,5 +1,5 @@
 EnjuLeaf::Application.routes.draw do
-  resources :themas
+  resources :themes
 
 
   resources :warekis

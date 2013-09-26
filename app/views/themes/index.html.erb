@@ -1,0 +1,41 @@
+<div id="content_detail" class="ui-corner-all">
+
+  <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.theme')) -%></h1>
+
+  <div id="content_list">
+
+    <table class="index">
+      <tr>
+        <th></th>
+        <th><%= t('activerecord.attributes.theme.name') -%></th>
+        <th><%= t('activerecord.attributes.theme.publish') -%></th>
+        <th><%= t('activerecord.attributes.theme.note') -%></th>
+        <th></th>
+        <th></th>
+      </tr>
+
+      <% @themes.each do |theme| %>
+      <tr class="line<%= cycle("0", "1") -%>">
+        <td><%= move_position(theme) -%></td>
+        <td><%= link_to theme.name, theme %></td>
+        <td><%= i18n_publish(theme.publish) %></td>
+        <td><%= theme.note %></td>
+        <td><%= theme.position %></td>
+        <td>
+          <%= link_to t('page.edit'), edit_theme_path(theme) %>
+          <%= link_to t('page.destroy'), theme, method: :delete, data: { confirm: t('page.are_you_sure') } %>
+       </td>
+      </tr>
+      <% end %>
+    </table>
+
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if can? :create, Theme -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.theme')), new_theme_path %></li> 
+    <%- end -%>
+  </ul>
+</div>

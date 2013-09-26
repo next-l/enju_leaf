@@ -160,7 +160,7 @@ en:
       nacsis_user_request: Nacsis user requests
       nacsis_request_copy: Nacsis copy request
       nacsis_request_lend: Nacsis lend request
-      thema: Thema
+      theme: Theme
 
     attributes:
       enju_terminal:
@@ -1181,9 +1181,8 @@ en:
         librarian_note: Librarian note
         created_from: Created from
         created_to: Created to
-      thema:
+      theme:
         name: Name
-        display_name: Display name
         description: Description
         publish: Publish
         note: Note
@@ -1770,6 +1769,7 @@ en:
     resources_were_published: Resources were published.
     select_resources: Select resources.
     publish: Publish
+    closed: Close
     published: Published
     reject: Reject
     withdraw: Withdraw

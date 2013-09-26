@@ -148,7 +148,7 @@ class Ability
         Subscription,
         SystemConfiguration,
         Term,
-        Thema,
+        Theme,
         EnjuTerminal,
         UserCheckoutStat,
         UserGroupHasCheckoutType,
@@ -306,7 +306,7 @@ class Ability
         Subscription,
         SystemConfiguration,
         Term,
-        Thema,
+        Theme,
         UserStatus,
         WorkHasSubject
       ]

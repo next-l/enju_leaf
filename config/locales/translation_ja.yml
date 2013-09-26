@@ -197,7 +197,7 @@ ja:
       nacsis_request_copy: 複写依頼
       nacsis_request_lend: 借用依頼
       exchange_manifestation: 所蔵付け替え
-      thema: テーマ
+      theme: テーマ
     attributes:
       wareki:
         display_name: 表示名
@@ -1504,9 +1504,8 @@ ja:
         librarian_note: 事務員注記
         created_from: 開始日付
         created_to: 終了日付
-      thema:
+      theme:
         name: 名前
-        display_name: 表示名
         description: 説明
         publish: 公開範囲
         note: 注記
