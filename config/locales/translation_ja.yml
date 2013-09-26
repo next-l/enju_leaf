@@ -640,8 +640,8 @@ ja:
         include_supplements: 付録を含む
         note: 注記
         url: URL
-        price: 価格
-        price_string: 価格
+        price: 購入価格
+        price_string: 購入価格
         lock_version: ロックバージョン
         checkout_type: 貸出区分
         retention_period: 保存種別
