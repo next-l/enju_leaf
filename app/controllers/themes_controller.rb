@@ -9,10 +9,10 @@ class ThemesController < InheritedResources::Base
 
   def update
     @theme = Theme.find(params[:id])
-      if params[:move]
+    if params[:move]
       move_position(@theme, params[:move])
       return
-      end
+    end
     update!
   end
 end
