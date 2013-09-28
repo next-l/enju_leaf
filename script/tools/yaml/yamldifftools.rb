@@ -1,11 +1,8 @@
 #!/usr/bin/env ruby
 # coding: UTF-8
-#
-# gem 'yamldiff'
-#
 
+require 'yaml'
 require 'optparse'
-require 'yamldiff'
 
 # 引数を解析する
 unless ARGV.size == 2
@@ -18,10 +15,16 @@ yaml1 = YAML.load_file(ARGV[0])
 yaml2 = YAML.load_file(ARGV[1])
 
 #TODO
-$gen_yaml = YAML.load_file(ARGV[0])
+$org_yaml = YAML.load_file(ARGV[0])
+$gen_yaml = {}
 
 class CompareYaml
   @num_of_hierarchy = 1
+
+  def self.insert_hashes(hashes, insert_point, insert_hashes)
+		#puts "keys=#{insert_point.join('.')} value=#{insert_hashes}"
+		puts "insert hash keys=#{insert_point.join('.')} "
+	end
 
   def self.compare_hashes(yaml1, yaml2, options = {:level => 1, :parentkeys => []})
     errors = []
@@ -48,26 +51,37 @@ class CompareYaml
         puts "error yaml1 is empty"
         next
       end
-      unless yaml1[key] 
-        #puts "error yaml1 not find key. key=#{key} keys=#{parentkeys.join('.')}"
-        next
-      end
+
+      unless yaml1.has_key?(key)
+				puts "index=#{index}"
+        keys = parentkeys.dup
+				keys << key
+				#puts "error yaml1 not find key. key=#{key} keys=#{parentkeys.join('.')}"
+				insert_hashes($org_yaml, keys, value)
+				next
+			end
 
       value1 = yaml1[key] 
 
       if (value.class != value1.class)
-        puts "error yaml1 another class. key=#{key} keys=#{parentkeys.join('.')}"
+        keys = parentkeys.dup
+        keys << key
+        #puts "error yaml1 another class. key=#{key} keys=#{parentkeys.join('.')}"
+				insert_hashes($org_yaml, keys, value)
         next
       end
+
+			#puts "level=#{level} index=#{index} key=#{key} value=#{value.class}  keys=#{parentkeys.join('.')}"
 
       if value.is_a?(Hash)
         keys = parentkeys.dup
         keys << key
+				#puts "b1 #{keys}"
         errors << compare_hashes(yaml1[key], yaml2[key], {:level => level+1, :parentkeys => keys})
         next
       end
 
-      puts "level=#{level} index=#{index} key=#{key} value=#{value.class}  keys=#{parentkeys.join('.')}"
+      #puts "level=#{level} index=#{index} key=#{key} value=#{value.class}  keys=#{parentkeys.join('.')}"
       index = index + 1
     end
 
