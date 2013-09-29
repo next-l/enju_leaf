@@ -16,14 +16,38 @@ yaml2 = YAML.load_file(ARGV[1])
 
 #TODO
 $org_yaml = YAML.load_file(ARGV[0])
-$gen_yaml = {}
 
 class CompareYaml
   @num_of_hierarchy = 1
 
   def self.insert_hashes(hashes, insert_point, insert_hashes)
-		#puts "keys=#{insert_point.join('.')} value=#{insert_hashes}"
-		puts "insert hash keys=#{insert_point.join('.')} "
+		#puts "insert hash keys=#{insert_point.join('.')} "
+		#TODO
+		p = hashes
+		insert_point.each_with_index do |key, i|
+			if i == (insert_point.size - 1)
+				# leaf point
+				#puts "key=#{key} h=#{insert_hashes}"
+				#puts p
+				p[key] = insert_hashes
+			else
+				if i + 1 <= @num_of_hierarchy
+					#puts "skip."
+					#TODO
+					index = 0
+          yaml1keys = p.keys
+          key = yaml1keys[index]
+					p = p[key]
+				else
+					if p.has_key?(key)
+						p = p[key]	
+					else
+						puts "error inser_point=#{insert_point} key=#{key}"
+						raise
+					end
+				end
+			end
+		end
 	end
 
   def self.compare_hashes(yaml1, yaml2, options = {:level => 1, :parentkeys => []})
@@ -53,7 +77,7 @@ class CompareYaml
       end
 
       unless yaml1.has_key?(key)
-				puts "index=#{index}"
+				#puts "index=#{index}"
         keys = parentkeys.dup
 				keys << key
 				#puts "error yaml1 not find key. key=#{key} keys=#{parentkeys.join('.')}"
@@ -89,6 +113,5 @@ class CompareYaml
   end
 end
 
-result = CompareYaml.compare_hashes(yaml1, yaml2)
-puts result
-
+CompareYaml.compare_hashes(yaml1, yaml2)
+puts $org_yaml.to_yaml
