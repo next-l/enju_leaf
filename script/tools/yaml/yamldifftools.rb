@@ -21,18 +21,18 @@ class CompareYaml
   @num_of_hierarchy = 1
 
   def self.insert_hashes(hashes, insert_point, insert_hashes)
-		#puts "insert hash keys=#{insert_point.join('.')} "
+		#STDERR.puts "insert hash keys=#{insert_point.join('.')} "
 		#TODO
 		p = hashes
 		insert_point.each_with_index do |key, i|
 			if i == (insert_point.size - 1)
 				# leaf point
-				#puts "key=#{key} h=#{insert_hashes}"
-				#puts p
+				#STDERR.puts "key=#{key} h=#{insert_hashes}"
+				#STDERR.puts p
 				p[key] = insert_hashes
 			else
 				if i + 1 <= @num_of_hierarchy
-					#puts "skip."
+					#STDERR.puts "skip."
 					#TODO
 					index = 0
           yaml1keys = p.keys
@@ -42,7 +42,7 @@ class CompareYaml
 					if p.has_key?(key)
 						p = p[key]	
 					else
-						puts "error inser_point=#{insert_point} key=#{key}"
+						STDERR.puts "error inser_point=#{insert_point} key=#{key}"
 						raise
 					end
 				end
@@ -51,7 +51,6 @@ class CompareYaml
 	end
 
   def self.compare_hashes(yaml1, yaml2, options = {:level => 1, :parentkeys => []})
-    errors = []
     level = options[:level]
     parentkeys = options[:parentkeys]
 
@@ -60,56 +59,61 @@ class CompareYaml
       if level <= @num_of_hierarchy
         # 無視する
         if value.is_a?(Hash)
-          #puts "level=#{level} index=#{index} key=#{key} value=@@@Hash@@@"
+          #STDERR.puts "level=#{level} index=#{index} key=#{key} value=@@@Hash@@@"
           yaml1keys = yaml1.keys
           key1 = yaml1keys[index]
 
           keys = parentkeys.dup
           keys << key
-          errors << compare_hashes(yaml1[key1], yaml2[key], {:level => level+1, :parentkeys => keys})
+          compare_hashes(yaml1[key1], yaml2[key], {:level => level+1, :parentkeys => keys})
           next
         end
       end
 
       unless yaml1
-        puts "error yaml1 is empty"
-        next
+        STDERR.puts "error yaml1 is empty key=#{key}"
+				STDERR.puts parentkeys
+				raise
+        #next
       end
 
       unless yaml1.has_key?(key)
-				#puts "index=#{index}"
+				#STDERR.puts "index=#{index}"
         keys = parentkeys.dup
 				keys << key
-				#puts "error yaml1 not find key. key=#{key} keys=#{parentkeys.join('.')}"
+				#STDERR.puts "error yaml1 not find key. key=#{key} keys=#{parentkeys.join('.')}"
 				insert_hashes($org_yaml, keys, value)
 				next
 			end
 
       value1 = yaml1[key] 
-
-      if (value.class != value1.class)
+      unless value1 
+				#STDERR.puts "index=#{index}"
         keys = parentkeys.dup
-        keys << key
-        #puts "error yaml1 another class. key=#{key} keys=#{parentkeys.join('.')}"
+				keys << key
+				#STDERR.puts "error yaml1 not find key. key=#{key} keys=#{parentkeys.join('.')}"
 				insert_hashes($org_yaml, keys, value)
-        next
-      end
+				next
+			end
 
-			#puts "level=#{level} index=#{index} key=#{key} value=#{value.class}  keys=#{parentkeys.join('.')}"
+			#STDERR.puts "level=#{level} index=#{index} key=#{key} value=#{value.class}  keys=#{parentkeys.join('.')}"
+=begin
+			if key == "reserve_stat_has_manifestation"
+				STDERR.puts "key=#{key} value1=#{value1}"
+			end
+=end
 
       if value.is_a?(Hash)
         keys = parentkeys.dup
         keys << key
-				#puts "b1 #{keys}"
-        errors << compare_hashes(yaml1[key], yaml2[key], {:level => level+1, :parentkeys => keys})
+				#STDERR.puts "b1 #{keys}"
+        compare_hashes(yaml1[key], yaml2[key], {:level => level+1, :parentkeys => keys})
         next
       end
 
-      #puts "level=#{level} index=#{index} key=#{key} value=#{value.class}  keys=#{parentkeys.join('.')}"
+      #STDERR.puts "level=#{level} index=#{index} key=#{key} value=#{value.class}  keys=#{parentkeys.join('.')}"
       index = index + 1
     end
-
-    errors
   end
 end
 
