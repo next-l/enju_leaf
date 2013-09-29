@@ -1,4 +1,4 @@
-require EnjuTrunkCirculation::Engine.root.join('app', 'models', 'item') if defined?(EnjuTrunkCirculation)
+require EnjuTrunkCirculation::Engine.root.join('app', 'models', 'basket') if defined?(EnjuTrunkCirculation)
 class Basket < ActiveRecord::Base
   validates :basket_type, :uniqueness => {:scope => [:user_id, :basket_type]}, :unless => Proc.new{|b| b.basket_type > 0}
   has_many :checked_manifestations
