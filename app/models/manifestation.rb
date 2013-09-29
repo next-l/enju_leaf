@@ -20,12 +20,13 @@ class Manifestation < ActiveRecord::Base
   has_one :resource_import_result
   has_many :purchase_requests
   has_many :table_of_contents
+  has_many :checked_manifestations
 
   belongs_to :manifestation_content_type, :class_name => 'ContentType', :foreign_key => 'content_type_id'
   belongs_to :country_of_publication, :class_name => 'Country', :foreign_key => 'country_of_publication_id'
 
   scope :without_master, where(:periodical_master => false)
-
+ 
   searchable do
     text :fulltext, :contributor, :article_title, :series_title, :exinfo_1, :exinfo_6
     text :title, :default_boost => 2 do
@@ -565,6 +566,10 @@ class Manifestation < ActiveRecord::Base
 #    else
 #      return true if self == self.series_statement.last_issue_with_issue_number
 #    end
+  end
+
+  def in_basket?(basket)
+    basket.manifestations.include?(self)
   end
 
   def checkout_period(user)

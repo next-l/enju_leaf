@@ -1,0 +1,8 @@
+<div id="basket_menu">
+  <%- if @basket -%>
+    <%= link_to "ALL M", manifestations_path %>
+  <%- else -%>
+    <%= link_to "BASKET", manifestations_path(:basket_id => @current_basket) %></br>
+    <%= @current_basket.checked_manifestations.size if current_user.try(:current_basket) %>
+  <%- end -%>
+</div>

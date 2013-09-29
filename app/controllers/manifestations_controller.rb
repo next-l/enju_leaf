@@ -337,6 +337,11 @@ class ManifestationsController < ApplicationController
         @removed = true
       end
 
+      if params[:basket_id]
+        @basket = @current_basket
+        @all_manifestations = params[:all_manifestations] = true 
+      end
+
       @query = params[:query] # フォームで入力されたメインの検索語を保存する
 
       # 検索オブジェクトのfactoryを生成する
@@ -348,7 +353,6 @@ class ManifestationsController < ApplicationController
 
       if search_opts[:index] == :nacsis
         factory = NacsisCatSearchFactory.new(search_opts, params)
-
       else
         if search_opts[:sru_mode]
           sru = Sru.new(params)
@@ -1070,6 +1074,10 @@ class ManifestationsController < ApplicationController
       end
     end
 
+    if @basket
+      with << [:id, :any_of, @basket.manifestations.collect(&:id)]
+    end
+
     [with, without]
   end
 
@@ -1156,21 +1164,6 @@ class ManifestationsController < ApplicationController
 
   def write_search_log(query, total, user)
     SEARCH_LOGGER.info "#{Time.zone.now}\t#{query}\t#{total}\t#{user.try(:username)}\t#{params[:format]}"
-  end
-
-  def get_index_patron
-    patron = {}
-    case
-    when params[:patron_id]
-      patron[:patron] = Patron.find(params[:patron_id])
-    when params[:creator_id]
-      patron[:creator] = Patron.find(params[:creator_id])
-    when params[:contributor_id]
-      patron[:contributor] = Patron.find(params[:contributor_id])
-    when params[:publisher_id]
-      patron[:publisher] = Patron.find(params[:publisher_id])
-    end
-    patron
   end
 
   def set_reserve_user

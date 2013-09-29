@@ -40,13 +40,13 @@
                     <%- if reserve = manifestation.is_reserved_by(@reserve_user) -%>
                       <%= link_to t('reserve.show'), user_reserve_path(reserve.user, reserve) -%><br />
                     <%- else -%>
-                      <%- if @reserve_user.user_number? -%>
+                      <%- if @reserve_user.try(:user_number?) -%>
                         <%- if manifestation.reservable_with_item?(current_user) -%>
                           <%= link_to t('activerecord.models.reserve'), new_user_reserve_path(@reserve_user, :manifestation_id => manifestation.id) -%><br />
                         <%- end -%> 
                       <%- end -%>
                     <%- end -%>
-                    (<%= t('page.number_of_reservations', :count => Reserve.waiting.where(:manifestation_id => manifestation.id, :checked_out_at => nil).count) -%>)
+                    (<%= t('page.number_of_reservations', :count => Reserve.reserves_count(manifestation)) -%>)
                   <%- end -%>
                 </td>
                 <td id="edit_icons" style="white-space:nowrap;">
@@ -70,6 +70,9 @@
                         <%= link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('manifestation.add_derivation'), :title => t('tooltip.add_derivation')), manifestation_manifestations_path(manifestation, :mode => 'add') -%>
                       <% end %>
                     <% end %>
+                    <div id="basket_<%=manifestation.id%>">
+                      <%= render 'checked_manifestations/new', :manifestation => manifestation %>
+                    </div>
                   <%- end -%>
                 </td>
               <%- end -%>

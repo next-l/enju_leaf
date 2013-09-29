@@ -1,0 +1,6 @@
+$('#basket_menu').html(
+  "<%= escape_javascript(render 'baskets/menu') %>" 
+);
+$("#basket_<%= @manifestation.id %>").html(
+  "<%= escape_javascript(render 'new', :manifestation => @manifestation) %>"
+)

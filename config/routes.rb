@@ -60,6 +60,9 @@ EnjuLeaf::Application.routes.draw do
     get 'nacsis/:ncid', :on => :collection, :to => 'manifestations#show_nacsis'
   end
 
+  match 'checked_manifestations/create' => 'checked_manifestations#create'
+  match 'checked_manifestations/delete' => 'checked_manifestations#destroy'
+
   resources :patrons do
     resources :works, :controller => 'manifestations'
     resources :expressions, :controller => 'manifestations'
@@ -237,6 +240,7 @@ EnjuLeaf::Application.routes.draw do
 
   resources :baskets do
     resources :checked_items
+    get :manifestations, :on => :member
   end
 
   match '/resource_import_textfiles/adapters/:name' => 'resource_import_textfiles#inherent_view'
