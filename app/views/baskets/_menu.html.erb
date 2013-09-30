@@ -1,8 +1,8 @@
 <div id="basket_menu">
-  <%- if @basket -%>
+  <%- count = @current_basket.try(:checked_manifestations).try(:size) %>
+  <%- if @basket || count == 0 -%>
     <%= link_to t('basket.all_manifestation'), manifestations_path %>
   <%- else -%>
-    <%- count = @current_basket.try(:checked_manifestations).try(:size) %>
     <%= link_to t('basket.show_basket', :count => count), manifestations_path(:basket_id => @current_basket) if count > 0 %></br>
   <%- end -%>
 </div>

@@ -67,6 +67,7 @@
       <%- if form_type == :basic %>
         <%= hidden_field_tag 'user_id', params[:user_id] if params[:user_id] -%>
         <%= hidden_field_tag 'removed', true if @removed %>
+        <%= hidden_field_tag 'basket_id', params[:basket_id] if params[:basket_id] %>
       <%- end -%>
       <%= hidden_advanced_search_field_tags -%>
       <%- if need_to_render_add_mode_tags -%>

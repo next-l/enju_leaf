@@ -2060,6 +2060,7 @@ ja:
     checkout_completed: "貸出が完了しました。"
     all_manifestation: "全ての資料"
     show_basket: "バスケットを参照: %{count}件"
+    out: "解除"
   checkout:
     user_checkout: "%{login_name} さんの貸出資料"
     library_group_checkout: "%{library_group_name} での貸出"
