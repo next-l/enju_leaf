@@ -70,10 +70,10 @@
                         <%= link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('manifestation.add_derivation'), :title => t('tooltip.add_derivation')), manifestation_manifestations_path(manifestation, :mode => 'add') -%>
                       <% end %>
                     <% end %>
-                    <div id="basket_<%=manifestation.id%>">
-                      <%= render 'checked_manifestations/new', :manifestation => manifestation %>
-                    </div>
                   <%- end -%>
+                  <div id="basket_<%=manifestation.id%>">
+                    <%= render 'checked_manifestations/new', :manifestation => manifestation %>
+                  </div>
                 </td>
               <%- end -%>
             </tr>

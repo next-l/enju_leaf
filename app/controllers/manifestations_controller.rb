@@ -338,7 +338,7 @@ class ManifestationsController < ApplicationController
       end
 
       if params[:basket_id]
-        @basket = @current_basket
+        @basket = @current_basket # ignore params[:basket_id] and get current_basket with current_user
         @all_manifestations = params[:all_manifestations] = true 
       end
 
