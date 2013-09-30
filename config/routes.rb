@@ -62,6 +62,7 @@ EnjuLeaf::Application.routes.draw do
 
   match 'checked_manifestations/create' => 'checked_manifestations#create'
   match 'checked_manifestations/delete' => 'checked_manifestations#destroy'
+  match 'checked_manifestations/clear_all' => 'checked_manifestations#destroy_all'
 
   resources :patrons do
     resources :works, :controller => 'manifestations'
@@ -240,7 +241,6 @@ EnjuLeaf::Application.routes.draw do
 
   resources :baskets do
     resources :checked_items
-    get :manifestations, :on => :member
   end
 
   match '/resource_import_textfiles/adapters/:name' => 'resource_import_textfiles#inherent_view'

@@ -25,6 +25,10 @@ class CheckedManifestationsController < ApplicationController
     end
     render :action => :update
   end
+  
+  def destroy_all
+    @current_basket.checked_manifestations.each{|c| c.destroy}
+  end
 
   def get_current_basket
     if current_user

@@ -4,7 +4,8 @@
   <%- else -%>
     <%- count = @current_basket.try(:checked_manifestations).try(:size) %>
     <%- if count > 0 -%>
-      <%= link_to t('basket.show_basket', :count => count), manifestations_path(:basket_id => @current_basket) %>
+      <%= link_to t('basket.show_basket', :count => count), manifestations_path(:basket_id => @current_basket) %><br />
+      <%= link_to "DESTROY", checked_manifestations_clear_all_path, :remote => true %><br />
     <%- else -%>
       <%= t('basket.show_basket', :count => count) %>
     <%- end -%>
