@@ -639,8 +639,8 @@ ja:
         include_supplements: 付録を含む
         note: 注記
         url: URL
-        price: 価格
-        price_string: 価格
+        price: 購入価格
+        price_string: 購入価格
         lock_version: ロックバージョン
         checkout_type: 貸出区分
         retention_period: 保存種別
@@ -2434,6 +2434,7 @@ ja:
       out_of_manage: "<br />ヘッダーに管理外のカラム名が存在しています: %{columns}"
       without_item: "所蔵情報IDカラムが存在しないので、所蔵情報はインポート対象外です。"
     error:
+      manifestation_type_is_nil: "資料区分が設定されていません。"
       blank_sheet: "シート『%{sheet}』の読み取りに失敗しました。データが記述されていません。"
       overlap: "シート『%{sheet}』の読み取りに失敗しました。ヘッダーのフィールド名に重複したものがあります。"
       wrong_data: "指定の%{field}は不正です。 %{field}: %{data}"

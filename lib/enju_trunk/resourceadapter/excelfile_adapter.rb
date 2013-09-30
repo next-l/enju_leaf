@@ -30,6 +30,11 @@ class Excelfile_Adapter < EnjuTrunk::ResourceAdapter::Base
         
         extraparams["sheet"].each_with_index do |sheet, i|
           @manifestation_type = ManifestationType.find(manifestation_types[i].to_i) rescue nil
+          if SystemConfiguration.get('manifestations.split_by_type') and @manifestation_type.nil?
+            errors << { :msg => I18n.t('resource_import_textfile.error.manifestation_type_is_nil'), :sheet => sheet }
+            next
+          end
+
           @numbering = Numbering.where(:name => numberings[i]).first rescue nil
           @auto_numbering = auto_numbering[i]
           unless @numbering
