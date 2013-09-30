@@ -1,5 +1,5 @@
 /*!
-	Colorbox v1.4.26 - 2013-06-30
+	Colorbox v1.4.31 - 2013-09-25
 	jQuery lightbox and modal window plugin
 	(c) 2013 Jack Moore - http://www.jacklmoore.com/colorbox
 	license: http://www.opensource.org/licenses/mit-license.php
@@ -9,6 +9,13 @@
 	// Default settings object.
 	// See http://jacklmoore.com/colorbox for details.
 	defaults = {
+		// data sources
+		html: false,
+		photo: false,
+		iframe: false,
+		inline: false,
+
+		// behavior and appearance
 		transition: "elastic",
 		speed: 300,
 		fadeOut: 300,
@@ -22,17 +29,32 @@
 		maxHeight: false,
 		scalePhotos: true,
 		scrolling: true,
-		inline: false,
-		html: false,
-		iframe: false,
-		fastIframe: true,
-		photo: false,
 		href: false,
 		title: false,
 		rel: false,
 		opacity: 0.9,
 		preloading: true,
 		className: false,
+		overlayClose: true,
+		escKey: true,
+		arrowKey: true,
+		top: false,
+		bottom: false,
+		left: false,
+		right: false,
+		fixed: false,
+		data: undefined,
+		closeButton: true,
+		fastIframe: true,
+		open: false,
+		reposition: true,
+		loop: true,
+		slideshow: false,
+		slideshowAuto: true,
+		slideshowSpeed: 2500,
+		slideshowStart: "start slideshow",
+		slideshowStop: "stop slideshow",
+		photoRegex: /\.(gif|png|jp(e|g|eg)|bmp|ico|webp)((#|\?).*)?$/i,
 
 		// alternate image paths for high-res displays
 		retinaImage: false,
@@ -47,34 +69,16 @@
 		xhrError: "This content failed to load.",
 		imgError: "This image failed to load.",
 
-		open: false,
+		// accessbility
 		returnFocus: true,
 		trapFocus: true,
-		reposition: true,
-		loop: true,
-		slideshow: false,
-		slideshowAuto: true,
-		slideshowSpeed: 2500,
-		slideshowStart: "start slideshow",
-		slideshowStop: "stop slideshow",
-		photoRegex: /\.(gif|png|jp(e|g|eg)|bmp|ico|webp)((#|\?).*)?$/i,
 
+		// callbacks
 		onOpen: false,
 		onLoad: false,
 		onComplete: false,
 		onCleanup: false,
-		onClosed: false,
-
-		overlayClose: true,
-		escKey: true,
-		arrowKey: true,
-		top: false,
-		bottom: false,
-		left: false,
-		right: false,
-		fixed: false,
-		data: undefined,
-		closeButton: true
+		onClosed: false
 	},
 	
 	// Abstracting the HTML and event identifiers for easy rebranding
@@ -230,70 +234,87 @@
 		}
 	}
 
-	// Slideshow functionality
-	function slideshow() {
-		var
-		timeOut,
-		className = prefix + "Slideshow_",
-		click = "click." + prefix,
-		clear,
-		set,
-		start,
-		stop;
-		
-		if (settings.slideshow && $related[1]) {
-			clear = function () {
-				clearTimeout(timeOut);
-			};
 
-			set = function () {
-				if (settings.loop || $related[index + 1]) {
-					timeOut = setTimeout(publicMethod.next, settings.slideshowSpeed);
-				}
-			};
+	var slideshow = (function(){
+		var active,
+			className = prefix + "Slideshow_",
+			click = "click." + prefix,
+			timeOut;
 
-			start = function () {
-				$slideshow
-					.html(settings.slideshowStop)
-					.unbind(click)
-					.one(click, stop);
+		function clear () {
+			clearTimeout(timeOut);
+		}
 
-				$events
-					.bind(event_complete, set)
-					.bind(event_load, clear)
-					.bind(event_cleanup, stop);
-
-				$box.removeClass(className + "off").addClass(className + "on");
-			};
-			
-			stop = function () {
+		function set() {
+			if (settings.loop || $related[index + 1]) {
 				clear();
-				
-				$events
-					.unbind(event_complete, set)
-					.unbind(event_load, clear)
-					.unbind(event_cleanup, stop);
-				
-				$slideshow
-					.html(settings.slideshowStart)
-					.unbind(click)
-					.one(click, function () {
-						publicMethod.next();
-						start();
-					});
-
-				$box.removeClass(className + "on").addClass(className + "off");
-			};
-			
-			if (settings.slideshowAuto) {
-				start();
-			} else {
-				stop();
+				timeOut = setTimeout(publicMethod.next, settings.slideshowSpeed);
 			}
-		} else {
+		}
+
+		function start() {
+			$slideshow
+				.html(settings.slideshowStop)
+				.unbind(click)
+				.one(click, stop);
+
+			$events
+				.bind(event_complete, set)
+				.bind(event_load, clear);
+
+			$box.removeClass(className + "off").addClass(className + "on");
+		}
+
+		function stop() {
+			clear();
+			
+			$events
+				.unbind(event_complete, set)
+				.unbind(event_load, clear);
+
+			$slideshow
+				.html(settings.slideshowStart)
+				.unbind(click)
+				.one(click, function () {
+					publicMethod.next();
+					start();
+				});
+
+			$box.removeClass(className + "on").addClass(className + "off");
+		}
+
+		function reset() {
+			active = false;
+			$slideshow.hide();
+			clear();
+			$events
+				.unbind(event_complete, set)
+				.unbind(event_load, clear);
 			$box.removeClass(className + "off " + className + "on");
 		}
-	}
+
+		return function(){
+			if (active) {
+				if (!settings.slideshow) {
+					$events.unbind(event_cleanup, reset);
+					reset();
+				}
+			} else {
+				if (settings.slideshow && $related[1]) {
+					active = true;
+					$events.one(event_cleanup, reset);
+					if (settings.slideshowAuto) {
+						start();
+					} else {
+						stop();
+					}
+					$slideshow.show();
+				}
+			}
+		};
+
+	}());
+
 
 	function launch(target) {
 		if (!closing) {
@@ -353,21 +374,20 @@
 				// Show colorbox so the sizes can be calculated in older versions of jQuery
 				$box.css({visibility:'hidden', display:'block'});
 				
-				$loaded = $tag(div, 'LoadedContent', 'width:0; height:0; overflow:hidden').appendTo($content);
+				$loaded = $tag(div, 'LoadedContent', 'width:0; height:0; overflow:hidden');
+				$content.css({width:'', height:''}).append($loaded);
 
 				// Cache values needed for size calculations
 				interfaceHeight = $topBorder.height() + $bottomBorder.height() + $content.outerHeight(true) - $content.height();
 				interfaceWidth = $leftBorder.width() + $rightBorder.width() + $content.outerWidth(true) - $content.width();
 				loadedHeight = $loaded.outerHeight(true);
 				loadedWidth = $loaded.outerWidth(true);
-				
-				
+
 				// Opens inital empty Colorbox prior to content being loaded.
 				settings.w = setSize(settings.initialWidth, 'x');
 				settings.h = setSize(settings.initialHeight, 'y');
+				$loaded.css({width:'', height:settings.h});
 				publicMethod.position();
-
-				slideshow();
 
 				trigger(event_open, settings.onOpen);
 				
@@ -375,7 +395,6 @@
 
 				$box.focus();
 				
-
 				if (settings.trapFocus) {
 					// Confine focus to the modal
 					// Uses event capturing that is not supported in IE8-
@@ -396,7 +415,6 @@
 					});
 				}
 			}
-			
 			load();
 		}
 	}
@@ -772,9 +790,7 @@
 				$next[(settings.loop || index < total - 1) ? "show" : "hide"]().html(settings.next);
 				$prev[(settings.loop || index) ? "show" : "hide"]().html(settings.previous);
 				
-				if (settings.slideshow) {
-					$slideshow.show();
-				}
+				slideshow();
 				
 				// Preloads images within a rel group
 				if (settings.preloading) {
@@ -937,7 +953,12 @@
 					return;
 				}
 
-				photo.alt = $(element).attr('alt') || $(element).attr('data-alt') || '';
+				$.each(['alt', 'longdesc', 'aria-describedby'], function(i,val){
+					var attr = $(element).attr(val) || $(element).attr('data-'+val);
+					if (attr) {
+						photo.setAttribute(val, attr);
+					}
+				});
 
 				if (settings.retinaImage && window.devicePixelRatio > 1) {
 					photo.height = photo.height / window.devicePixelRatio;
