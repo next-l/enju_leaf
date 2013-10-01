@@ -108,6 +108,14 @@
             </td>
           </tr>
         <%- end -%>
+          <tr>
+            <td><%= t('activerecord.models.theme') -%>:</td>
+            <td>
+              <%- manifestation.themes.each do |theme| -%>
+                <%= theme.name -%>
+              <%- end -%>
+            </td>
+          </tr>
         <% if defined?(EnjuBookmark) %>
           <tr>
             <td><%= t('activerecord.models.tag') -%>:</td>
