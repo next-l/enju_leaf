@@ -1187,6 +1187,8 @@ en:
         publish: Publish
         note: Note
         position: Position
+        hot_topic: Hot topic
+
   page:
     user_title: "Welcome %{login_name}"
     sign_in: "Sign in"

@@ -14,6 +14,7 @@ class PageController < ApplicationController
 
   def index
     @numdocs = Manifestation.search.total
+    @themes = Theme.order('position ASC').limit(10)
     if defined?(EnjuBookmark)
       # TODO: タグ下限の設定
       #@tags = Tag.all(:limit => 50, :order => 'taggings_count DESC')

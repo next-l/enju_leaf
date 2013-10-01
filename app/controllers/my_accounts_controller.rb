@@ -13,6 +13,9 @@ class MyAccountsController < ApplicationController
     unless @user.patron
       redirect_to new_user_patron_url(@user); return
     end
+
+    @themes = Theme.order('position ASC').limit(10)
+
     #TODO
     if defined?(EnjuBookmark) 
       @tags = @user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse

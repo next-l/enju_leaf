@@ -1510,6 +1510,7 @@ ja:
         publish: 公開範囲
         note: 注記
         position: 優先度
+        hot_topic: 話題のテーマ
 
   page:
     user_title: "ようこそ %{login_name} さん"
