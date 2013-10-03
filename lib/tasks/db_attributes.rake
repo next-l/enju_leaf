@@ -13,6 +13,7 @@ namespace :enju do
       models.each { |model|
         puts ""
         print "Model=#{model.to_s} "
+        print "Table=#{model.table_name} "
         print I18n.t("activerecord.models.#{model.to_s.underscore}")
         puts ""
         puts ""
