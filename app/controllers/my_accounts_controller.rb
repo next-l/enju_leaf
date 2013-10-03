@@ -14,7 +14,7 @@ class MyAccountsController < ApplicationController
       redirect_to new_user_patron_url(@user); return
     end
 
-    @themes = Theme.order('position ASC').limit(10)
+    @themes = Theme.where(publish: 0).order('position ASC').limit(10)
 
     #TODO
     if defined?(EnjuBookmark) 

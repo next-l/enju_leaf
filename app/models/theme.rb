@@ -9,4 +9,11 @@ class Theme < ActiveRecord::Base
 
   PUBLISH_PATTERN = { I18n.t('resource.publish') => 0, I18n.t('resource.closed') => 1 }
 
+  searchable do
+    text :name
+    time :created_at
+    time :updated_at
+  end
+
+  paginates_per 10
 end

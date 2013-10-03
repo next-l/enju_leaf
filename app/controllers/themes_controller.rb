@@ -15,4 +15,20 @@ class ThemesController < InheritedResources::Base
     end
     update!
   end
+ 
+  def index
+  query = params[:query].to_s.strip
+    @query = query.dup
+    query = "#{query}*" if query.size == 1
+    page = params[:page] || 1
+
+    unless query.blank?
+      @themes = Theme.search do
+        fulltext query
+        paginate :page => page.to_i, :per_page => Area.default_per_page
+      end.results
+    else
+      @themes = Theme.page(page)
+    end
+  end
 end

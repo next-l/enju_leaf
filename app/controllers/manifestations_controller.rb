@@ -336,6 +336,12 @@ class ManifestationsController < ApplicationController
       if params[:removed_from].present? || params[:removed_to].present? || params[:removed]
         @removed = true
       end
+      
+      #TODO theme
+      if params[:theme_id]
+        @theme = Theme.find(params[:theme_id]) rescue nil
+        @all_manifestations = params[:all_manifestations] = false
+      end
 
       @query = params[:query] # フォームで入力されたメインの検索語を保存する
 

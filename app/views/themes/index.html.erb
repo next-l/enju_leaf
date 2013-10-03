@@ -3,6 +3,14 @@
   <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.theme')) -%></h1>
 
   <div id="content_list">
+
+  <%= form_for :themes, :url => themes_path, :html => {:method => 'get'} do -%>
+    <p>
+      <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+      <%= submit_tag t('page.search') -%>
+    </p>
+  <%- end -%>
+
     <table class="index">
       <tr>
         <th id="position"></th>
@@ -11,11 +19,11 @@
         <th><%= t('activerecord.attributes.theme.note') -%></th>
         <th></th>
       </tr>
-
+      
       <% @themes.each do |theme| %>
       <tr class="line<%= cycle("0", "1") -%>">
         <td><%= move_position(theme) -%></td>
-        <td><%= link_to theme.name, theme %></td>
+        <td><%= link_to theme.name, theme %></td> 
         <td><%= i18n_publish(theme.publish) %></td>
         <td><%= theme.note %></td>
         <td>
