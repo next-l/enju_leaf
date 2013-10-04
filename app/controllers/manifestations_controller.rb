@@ -1075,7 +1075,11 @@ class ManifestationsController < ApplicationController
         with << [:language, :equal_to, language]
       end
     end
-
+  
+    if @theme
+      with << [:id, :any_of, @theme.manifestations.collect(&:id)]
+    end
+    
     [with, without]
   end
 

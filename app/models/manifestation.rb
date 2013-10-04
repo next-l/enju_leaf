@@ -21,6 +21,9 @@ class Manifestation < ActiveRecord::Base
   has_many :purchase_requests
   has_many :table_of_contents
 
+  has_many :theme_has_manifestations
+  has_many :themes, :through => :theme_has_manifestations
+
   belongs_to :manifestation_content_type, :class_name => 'ContentType', :foreign_key => 'content_type_id'
   belongs_to :country_of_publication, :class_name => 'Country', :foreign_key => 'country_of_publication_id'
 
