@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionView::MissingTemplate, :with => :render_404_invalid_format
 
   #before_filter :get_library_group, :set_locale, :set_available_languages, :prepare_for_mobile, :set_current_user
-  before_filter :get_library_group, :set_locale, :set_available_languages, :set_current_user
+  before_filter :get_library_group, :set_locale, :set_available_languages, :set_current_user, :get_current_basket
   #helper_method :mobile_device?
 
   protected
@@ -295,6 +295,10 @@ class ApplicationController < ActionController::Base
   def get_bookbinding
     @bookbinding = Bookbinding.find(params[:bookbinding_id]) if params[:bookbinding_id]
   end
+ 
+  def get_current_basket
+    @current_basket = current_user.current_basket if current_user
+  end
 
   def convert_charset
     case params[:format]
@@ -426,6 +430,21 @@ class ApplicationController < ActionController::Base
   def get_carrier_types
     @carrier_types = CarrierType.all
   end
+
+  def get_index_patron
+    patron = {} 
+    case 
+    when params[:patron_id]
+      patron[:patron] = Patron.find(params[:patron_id])
+    when params[:creator_id]
+      patron[:creator] = Patron.find(params[:creator_id])
+    when params[:contributor_id]
+      patron[:contributor] = Patron.find(params[:contributor_id])
+    when params[:publisher_id]
+      patron[:publisher] = Patron.find(params[:publisher_id])
+    end  
+    patron
+  end  
 end
 
 class InvalidLocaleError < StandardError
