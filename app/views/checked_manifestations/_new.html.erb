@@ -1,0 +1,9 @@
+<%- if @current_basket && manifestation.in_basket?(@current_basket) %>
+  <% if @basket%>
+    <%= link_to t("checked_manifestation.delete"), checked_manifestations_delete_path(:manifestation_id => manifestation.id, :basket_id => @basket.id), :remote => true %>
+  <% else %>
+    <%= link_to t("checked_manifestation.delete"), checked_manifestations_delete_path(:manifestation_id => manifestation.id), :remote => true %>
+  <% end %>
+<%- else -%> 
+  <%= link_to t("checked_manifestation.add"), checked_manifestations_create_path(:manifestation_id => manifestation.id), :remote => true %>
+<%- end -%> 

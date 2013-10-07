@@ -8,4 +8,15 @@
     $("#item_shelf_id").load('<%= shelves_path %>?mode=select&shelf_category=' + shelfValue);
    }
   $("#item_library_id").change(displayVals);
+  function numbering() {
+    var type = $("#numbering_type").val();
+    $.ajax({
+      type: "Get",
+      url: "<%= numbering_items_path%>",
+      data: {type: type},
+      success: function(obj) {
+        $("#item_item_identifier").val(obj.item_identifier);
+      }
+    });
+  }
 </script>

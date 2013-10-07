@@ -85,6 +85,7 @@ class Ability
       can :manage, [
         AccessLog,
         Answer,
+        Basket,
         Barcode,
         BarcodeList,
         BindingItem,
@@ -256,6 +257,7 @@ class Ability
       can :manage, [
         AccessLog,
         Answer,
+        Basket,
         Barcode,
         BarcodeList,
         BindingItem,
@@ -366,6 +368,7 @@ class Ability
       can [:update, :destroy], Answer do |answer|
         answer.user == user
       end
+      can :create, Basket
       can :index, Item
       can :show, Item do |item|
         item.required_role_id <= 2
