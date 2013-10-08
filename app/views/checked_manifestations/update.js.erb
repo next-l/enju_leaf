@@ -7,9 +7,9 @@
   $("#tr_basket_<%= @manifestation.id %>").html('')
 <% else %>
   $('#basket_menu').html(
-    "<%= escape_javascript(render 'baskets/menu') %>" 
+    "<%= escape_javascript(render 'baskets/menu', :is_list => @is_list) %>" 
   );
   $("#basket_<%= @manifestation.id %>").html(
-    "<%= escape_javascript(render 'new', :manifestation => @manifestation) %>"
+    "<%= escape_javascript(render 'new', :manifestation => @manifestation, :is_list => @is_list) %>"
   )
 <% end %>

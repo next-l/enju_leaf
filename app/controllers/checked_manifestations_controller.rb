@@ -45,5 +45,6 @@ class CheckedManifestationsController < ApplicationController
 
   def prepare_options
     @index_patron = get_index_patron
+    @is_list = params[:is_list] rescue nil
   end
 end
