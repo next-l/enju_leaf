@@ -5,6 +5,254 @@ describe Manifestation, :solr => true do
   fixtures :all
   use_vcr_cassette "enju_ndl/manifestation", :record => :new_episodes
 
+
+  # !!! notice !!!
+  #
+  # TODO: immediately の実装を優先してください
+  # また、TODOになっている部分のテストメソッドを実装するときに既存テストで重複しているものがないか確認してください。
+  #
+
+  describe 'validates' do
+    #validates_presence_of :carrier_type, :language, :manifestation_type, :country_of_publication
+    it '' # TODO 
+    #validates_associated :carrier_type, :language, :manifestation_type, :country_of_publication
+    it '' # TODO
+    #validates_numericality_of :acceptance_number, :allow_nil => true
+    it '' # TODO
+    #validate :check_rank
+    it '' # TODO: immediately
+  end
+
+  describe 'before_validation' do
+    #before_validation :set_language, :if => :during_import
+    it '' # TODO
+    #before_validation :uniq_options
+    it '' # TODO
+    #before_validation :set_manifestation_type, :set_country_of_publication
+    it '' # TODO
+  end
+
+  describe 'before_save' do
+    #before_save :set_series_statement
+    it '' # TODO: immediately
+  end
+
+  describe 'after_save' do
+    #after_save :index_series_statement
+    it '' # TODO
+  end
+
+  describe 'after_destroy' do
+    #after_destroy :index_series_statement
+    it '' # TODO
+  end
+
+  describe 'search' do
+    it '' # TODO: immediately
+  end
+
+  describe '#check_rank' do
+    it '' # TODO: immediately
+  end
+
+  describe '#set_language' do
+    it '' # TODO
+  end
+
+  describe '#set_manifestation_type' do
+    it '' # TODO
+  end
+
+  describe '#root_of_series?' do
+    it '' # TODO: immediately
+  end
+
+  describe '#serial?' do
+    it '' # TODO: immediately
+  end
+
+  describe '#article?' do
+    it '' # TODO: immediately
+  end
+
+  describe '#japanese_article?' do
+    it '' # TODO
+  end
+
+  describe '#series?' do
+    it '' # TODO
+  end
+
+  describe '#non_searchable?' do
+    it '' # TODO: immediately
+  end
+
+  describe '#has_removed?' do
+    it '' # TODO: immediately
+  end
+
+  describe '#available_checkout_types' do
+    it '' # TODO: immediately
+  end
+
+  describe '#new_serial?' do
+    it '' # TODO
+  end
+
+  describe '#in_basket?' do
+    it '' # TODO: immediately
+  end
+
+  describe '#checkout_period' do 
+    it '' # TODO
+  end
+
+  describe '#reservation_expired_period' do
+    it '' # TODO: immediately　EnjuTrunkCirculation使用時のみ利用可能とすべきでは？
+  end
+
+  describe '#patrons' do
+    it '' # TODO
+  end
+
+  describe '#reservable_with_item?' do
+    it '' # TODO EnjuTrunkCirculation使用時のみ利用可能とすべきでは？
+  end
+
+  describe '#reservable?' do
+    it '' # TODO EnjuTrunkCirculation使用時のみ利用可能とすべきでは？
+  end
+
+  describe '#in_process?' do
+    it '' # TODO
+  end
+
+  describe '#checkouts' do
+    it '' # TODO EnjuTrunkCirculation使用時のみ利用可能とすべきでは？
+  end
+
+  describe '#creator' do
+    it '' # TODO
+  end
+
+  describe '#contributor' do
+    it '' # TODO
+  end
+
+  describe '#publisher' do
+    it '' # TODO
+  end
+
+  describe '.pickup' do
+    it '' # TODO
+  end
+
+  describe '#extract_text' do
+    it '' # TODO
+  end
+
+  describe '#created' do
+    it '' # TODO
+  end
+
+  describe '#realized' do
+    it '' # TODO
+  end
+
+  describe '#produced' do
+    it '' # TODO
+  end
+
+  describe '#sort_title' do
+    it '' # TODO
+  end
+
+  describe '#classifications' do
+    it '' # TODO
+  end
+
+  describe '#questions' do
+    it '' # TODO
+  end
+
+  describe '#web_item' do
+    it '' # TODO
+  end
+
+  describe '#index_series_statement' do
+    it '' # TODO
+  end
+
+  describe '#set_series_statement' do
+    it '' # TODO
+  end
+
+  describe '#uniq_options' do
+    it '' # TODO
+  end
+
+  describe '#reserve_coun' do
+    it '' # TODO EnjuTrunkCirculation使用時のみ利用可能とすべきでは？
+  end
+
+  describe '#checkout_count' do
+    it '' # TODO EnjuTrunkCirculation使用時のみ利用可能とすべきでは？
+  end
+
+  describe '#next_item_for_retain' do
+    it '' # TODO EnjuTrunkCirculation使用時のみ利用可能とすべきでは？
+  end
+
+  describe '#items_ordered_for_retain' do
+    it '' # TODO
+  end
+
+  describe '#ordered?' do
+    it '' # TODO
+  end
+
+  describe '#add_subject' do
+    it '' # TODO: immediately
+  end
+
+  describe '.build_search_for_manifestations_list' do
+    it '' # TODO
+  end
+
+  describe '.generate_manifestation_list' do
+    it '' # TODO: immediately
+  end
+
+  describe '.generate_manifestation_list_internal' do
+    it '' # TODO: immediately
+  end
+
+  describe '.get_manifestation_list_excelx' do
+    it '' # TODO: immediately
+  end
+
+  describe '#excel_worksheet_value' do
+    it '' # TODO: immediately
+  end
+
+  describe '.get_missing_issue_list_pdf' do
+    it '' # TODO
+  end
+
+  describe '.get_manifestation_list_pdf(' do
+    it '' # TODO
+  end
+
+  describe '.get_manifestation_list_tsv' do
+    it '' # TODO
+  end
+
+  describe '.get_manifestation_locate' do
+    it '' # TODO
+  end
+
+
+# 以下、元のテスト
   it "should set pub_date" do
     manifestation = FactoryGirl.create(:manifestation, :pub_date => '2000')
     manifestation.date_of_publication.should eq Time.zone.parse('2000-12-31').end_of_month
@@ -795,7 +1043,33 @@ describe Manifestation, :solr => true do
       include_examples 'Solrインデックスへの登録'
     end
   end
+
+  context 'use EnjuBookmark' do
+    describe 'search' do
+      it '' # TODO
+    end
+
+    describe '#bookmarked?' do
+      it '' # TODO
+    end
+
+    describe '#tags' do
+      it '' # TODO
+    end
+  end
 end
+
+=begin
+  describe GenerateManifestationListJob do
+    describe '#initialize' do
+      it '' # TODO
+    end
+
+    describe '#perform' do
+      it '' # TODO
+    end
+  end
+=end
 
 # == Schema Information
 #

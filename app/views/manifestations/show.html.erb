@@ -112,6 +112,14 @@ $(function(){
         <% if defined?(EnjuBookmark) %>
           <li><%= link_to_bookmark(@manifestation) %></li>
         <% end %>
+        <li>
+          <span id="basket_<%=@manifestation.id%>">
+            <%= render 'checked_manifestations/new', :manifestation => @manifestation, :is_list => true %>
+          </span>
+          <ul id="basket_menu">
+            <%= render 'baskets/menu', :is_list => true %>
+          </ul>
+        </li>
       <% end %>
 
       <%- unless @manifestation.try(:carrier_type).try(:name) == 'file' -%>

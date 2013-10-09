@@ -30,6 +30,10 @@
 <div id="content_list">
   <div style="color: green"><%= flash[:message] -%></div> 
   <%= render 'manifestations/title', :manifestation => @manifestation if @manifestation -%>
+  <% if @basket %>
+    <p id="basket_count"><%= t('basket.show_basket', :count => @basket.try(:checked_manifestations).try(:size)) %></p>
+    <%= link_to t('basket.out'), manifestations_path %>
+  <% end %>
 
   <%= render 'index_form' %>
 

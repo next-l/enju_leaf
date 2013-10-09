@@ -1,4 +1,4 @@
-            <tr class="line<% unless not_rent_book?(manifestation) %><%= cycle("0", "1") %><% else %>2<% end%>">
+            <tr id="tr_basket_<%=manifestation.id%>" class="line<% unless not_rent_book?(manifestation) %><%= cycle("0", "1") %><% else %>2<% end%>">
               <td style="480px">
                <%- if manifestation.article? %>
                   <%= render 'manifestations/show_index_article', :manifestation => manifestation -%>
@@ -40,13 +40,13 @@
                     <%- if reserve = manifestation.is_reserved_by(@reserve_user) -%>
                       <%= link_to t('reserve.show'), user_reserve_path(reserve.user, reserve) -%><br />
                     <%- else -%>
-                      <%- if @reserve_user.user_number? -%>
+                      <%- if @reserve_user.try(:user_number?) -%>
                         <%- if manifestation.reservable_with_item?(current_user) -%>
                           <%= link_to t('activerecord.models.reserve'), new_user_reserve_path(@reserve_user, :manifestation_id => manifestation.id) -%><br />
                         <%- end -%> 
                       <%- end -%>
                     <%- end -%>
-                    (<%= t('page.number_of_reservations', :count => Reserve.waiting.where(:manifestation_id => manifestation.id, :checked_out_at => nil).count) -%>)
+                    (<%= t('page.number_of_reservations', :count => Reserve.reserves_count(manifestation)) -%>)
                   <%- end -%>
                 </td>
                 <td id="edit_icons" style="white-space:nowrap;">
@@ -71,6 +71,11 @@
                       <% end %>
                     <% end %>
                   <%- end -%>
+                  <% unless manifestation.periodical_master %>
+                    <div id="basket_<%=manifestation.id%>">
+                      <%= render 'checked_manifestations/new', :manifestation => manifestation %>
+                    </div>
+                  <% end %>
                 </td>
               <%- end -%>
             </tr>

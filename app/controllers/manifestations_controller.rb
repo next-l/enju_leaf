@@ -337,6 +337,11 @@ class ManifestationsController < ApplicationController
         @removed = true
       end
 
+      if params[:basket_id]
+        @basket = @current_basket # ignore params[:basket_id] and get current_basket with current_user
+        @all_manifestations = params[:all_manifestations] = true 
+      end
+
       @query = params[:query] # フォームで入力されたメインの検索語を保存する
 
       # 検索オブジェクトのfactoryを生成する
@@ -348,7 +353,6 @@ class ManifestationsController < ApplicationController
 
       if search_opts[:index] == :nacsis
         factory = NacsisCatSearchFactory.new(search_opts, params)
-
       else
         if search_opts[:sru_mode]
           sru = Sru.new(params)
@@ -1022,17 +1026,17 @@ class ManifestationsController < ApplicationController
 
     unless params[:with_periodical_item]
       unless @binder
-        with << [:periodical, :equal_to, false] if options[:add_mode] || @series_statement.blank?
+        with << [:periodical, :equal_to, false] if options[:add_mode].blank? and @series_statement.blank? and @basket.blank?
       end
     end
-
+    with << [:periodical_master, :equal_to, false] if options[:add_mode] 
     return [with, without] if options[:add_mode]
 
     #
     # params['mode']が'add'でないときだけ設定するフィルタ
     #
     with << [:reservable, :equal_to, @reservable] unless @reservable.nil?
-    with << [:periodical_master, :equal_to, false] if @series_statement
+    with << [:periodical_master, :equal_to, false] if @series_statement or @basket
     with << [:carrier_type, :equal_to, params[:carrier_type]] if params[:carrier_type]
     with << [:missing_issue, :equal_to, params[:missing_issue]] if params[:missing_issue]
     with << [:in_process, :equal_to, @in_process] unless @in_process.nil?
@@ -1068,6 +1072,10 @@ class ManifestationsController < ApplicationController
       params[:language].split.uniq.each do |language|
         with << [:language, :equal_to, language]
       end
+    end
+
+    if @basket
+      with << [:id, :any_of, @basket.manifestations.collect(&:id)]
     end
 
     [with, without]
@@ -1156,21 +1164,6 @@ class ManifestationsController < ApplicationController
 
   def write_search_log(query, total, user)
     SEARCH_LOGGER.info "#{Time.zone.now}\t#{query}\t#{total}\t#{user.try(:username)}\t#{params[:format]}"
-  end
-
-  def get_index_patron
-    patron = {}
-    case
-    when params[:patron_id]
-      patron[:patron] = Patron.find(params[:patron_id])
-    when params[:creator_id]
-      patron[:creator] = Patron.find(params[:creator_id])
-    when params[:contributor_id]
-      patron[:contributor] = Patron.find(params[:contributor_id])
-    when params[:publisher_id]
-      patron[:publisher] = Patron.find(params[:publisher_id])
-    end
-    patron
   end
 
   def set_reserve_user
