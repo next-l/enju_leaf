@@ -34,6 +34,7 @@ ja:
       default: ! '%Y/%m/%d'
       long: ! '%Y年%m月%d日(%a)'
       short: ! '%m/%d'
+      only_date: "%Y年%m月%d日"
     month_names:
     - 
     - 1月
