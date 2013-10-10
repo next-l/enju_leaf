@@ -582,6 +582,10 @@ describe User do
     it '' #TODO immediately
   end
 
+  describe '#current_basket' do
+    it '' #TODO immediately
+  end
+
   describe '.set_query' do
 =begin
 579   def self.set_query(query = nil, birth = nil, add = nil)

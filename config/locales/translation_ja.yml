@@ -631,7 +631,6 @@ ja:
       subscribe:
         started_on: 開始日
         ended_on: 終了日
-      checkin:
       item:
         call_number: 請求記号
         item_identifier: 所蔵情報ID
@@ -2058,6 +2057,10 @@ ja:
     number_of_reserve: "予約冊数"
     this_account_is_suspended: "このアカウントは停止されています。"
     checkout_completed: "貸出が完了しました。"
+    all_manifestation: "全ての資料"
+    show_basket: "バスケットを参照: %{count}件"
+    clear_basket: "バスケットを空にする"
+    out: "解除"
   checkout:
     user_checkout: "%{login_name} さんの貸出資料"
     library_group_checkout: "%{library_group_name} での貸出"
@@ -2242,6 +2245,9 @@ ja:
     successfully_checked_in: "この資料は正常に返却されました。"
     not_available_for_checkin: "この資料の返却はできません。(状態不正)"
     overdue_item: "この資料は貸出期限が過ぎています。"
+  checked_manifestation:
+    add: "バスケットに追加"
+    delete: "バスケットから削除"
   search_history:
     all_history: "全ての検索履歴"
     failed_search: "失敗した検索"

@@ -194,6 +194,7 @@ class SeriesStatementsController < ApplicationController
         end
       rescue Exception => e
         logger.error "Failed to update: #{e}"
+        @series_statement.root_manifestation = @series_statement.root_manifestation || Manifestation.new(params[:manifestation])
         prepare_options
         format.html { render :action => "edit" }
         format.json { render :json => @series_statement.errors, :status => :unprocessable_entity }

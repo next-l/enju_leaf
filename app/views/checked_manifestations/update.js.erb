@@ -1,0 +1,15 @@
+<% if params[:basket_id] %>
+  $("#basket_count").html(
+    "<%= escape_javascript(
+      t('basket.show_basket', :count => @current_basket.checked_manifestations.try(:size))
+    ) %>"
+  )
+  $("#tr_basket_<%= @manifestation.id %>").html('')
+<% else %>
+  $('#basket_menu').html(
+    "<%= escape_javascript(render 'baskets/menu', :is_list => @is_list) %>" 
+  );
+  $("#basket_<%= @manifestation.id %>").html(
+    "<%= escape_javascript(render 'new', :manifestation => @manifestation, :is_list => @is_list) %>"
+  )
+<% end %>

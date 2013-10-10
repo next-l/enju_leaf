@@ -33,6 +33,7 @@ class Version < ActiveRecord::Base
     end
 
     def import_for_incremental_synchronization!(dump)
+      logfile = "#{Rails.root}/log/sync_import.log"
       last_processed = current_proccessing = nil
       item_attributes = nil
 
@@ -62,49 +63,57 @@ class Version < ActiveRecord::Base
 
         model_class = version.item_type.constantize
         event = version.event
-        case event
-        when 'destroy'
-          record = model_class.find(version.item_id) rescue nil
-          record.destroy if record
+        begin
+          case event
+          when 'destroy'
+            record = model_class.find(version.item_id) rescue nil
+            record.destroy if record 
+            item_attributes = nil
+            last_processed = current_proccessing
 
-          item_attributes = nil
-          last_processed = current_proccessing
-
-        when 'create', 'update'
-          if next_version
-            item_attributes = next_version.reify.attributes
-          else
-            # PaperTrailによる「その次」の記録がない場合、
-            # そのレコードの「最新」の状態を別に取得する。
-            item_attributes = dump[:latest][version.item_type][version.item_id]
-          end
-
-          if event == 'update'
-            # 復元対象となるレコードの
-            # 現能の状態を取得してそれを更新する。
-            current = model_class.find(item_attributes['id']) rescue nil
-            if current
-              copy_attributes(current, item_attributes)
-              current.save!
-
-              last_processed = current_proccessing
-              next
+          when 'create', 'update'
+            if next_version
+              item_attributes = next_version.reify.attributes
+            else
+              # PaperTrailによる「その次」の記録がない場合、
+              # そのレコードの「最新」の状態を別に取得する。
+              item_attributes = dump[:latest][version.item_type][version.item_id]
             end
-          end
 
-          # レコードがないので作成する
-          transaction do
-            created = model_class.create! do |r|
-              copy_attributes(r, item_attributes)
-              incremental_synchronization_hook(:before_create, r)
+            if event == 'update'
+              # 復元対象となるレコードの
+              # 現能の状態を取得してそれを更新する。
+              current = model_class.find(item_attributes['id']) rescue nil
+              if current
+                copy_attributes(current, item_attributes)
+                current.save! 
+                last_processed = current_proccessing
+                next
+              end
             end
-            incremental_synchronization_hook(:after_create, created)
-          end
 
-          last_processed = current_proccessing
-        end # case event
+            # レコードがないので作成する
+            transaction do
+              created = model_class.create! do |r|
+                copy_attributes(r, item_attributes)
+                incremental_synchronization_hook(:before_create, r)
+              end
+              incremental_synchronization_hook(:after_create, created)
+            end
 
-        Sunspot.commit
+            last_processed = current_proccessing
+          end # case event
+
+          Sunspot.commit
+        rescue Exception => e
+          time = Time.now
+          str = "#{time}: version.id => #{version.id}, version.item_type => #{version.item_type}, version.item_id => #{version.item_id}, version.event => #{version.event}"
+          File.open logfile, 'a' do |f|
+            f.puts str
+            f.puts e
+            f.puts
+          end 
+        end
       end # dump[:versions].each
 
       {

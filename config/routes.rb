@@ -60,6 +60,10 @@ EnjuLeaf::Application.routes.draw do
     get 'nacsis/:ncid', :on => :collection, :to => 'manifestations#show_nacsis'
   end
 
+  match 'checked_manifestations/create' => 'checked_manifestations#create'
+  match 'checked_manifestations/delete' => 'checked_manifestations#destroy'
+  match 'checked_manifestations/clear_all' => 'checked_manifestations#destroy_all'
+
   resources :patrons do
     resources :works, :controller => 'manifestations'
     resources :expressions, :controller => 'manifestations'
@@ -117,7 +121,9 @@ EnjuLeaf::Application.routes.draw do
     resources :picture_files
     resources :expressions, :controller => 'manifestations'
     resources :manifestation_relationships
-    resources :manifestations
+    resources :manifestations do
+      post :output_excelx, :on => :collection
+    end
     resources :exemplifies
     post :output_excelx, :on => :collection
   end
