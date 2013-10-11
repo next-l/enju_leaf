@@ -712,3 +712,24 @@ system_configuration_00101:
   typename: String
   description: "著者、協力者・編者、協力者・編者で指定時に人物・団体として扱わないワード"
   category: 'manifestation'
+system_configuration_00102:
+  id: 102
+  keyname: checkout.ordinary_checkout_label
+  v: "en: Normal Loan Period\r\nja:通常期間貸出"
+  typename: Text
+  description: "貸出画面に表示される貸出期間選択セレクタの通常期間貸出のラベル名"
+  category: 'checkout'
+system_configuration_00103:
+  id: 103
+  keyname: checkout.extending_due_date_period
+  v: "3m"
+  typename: String
+  description: "長期貸出日の指定(日にち指定: 半角数字8桁(ex.20150101), 期間指定: 年 => yもしくはY, 月 => mもしくはM, 日 => dもしくはD (ex.4d => 4日後, 3m => 3ヶ月後, 1y => 1年後)"
+  category: 'checkout'
+system_configuration_00104:
+  id: 104
+  keyname: checkout.set_extending_due_date_before_closing_day
+  v: "false"
+  typename: Boolean
+  description: "長期貸出日の返却日を閉館日の前日にするか"
+  category: 'checkout'

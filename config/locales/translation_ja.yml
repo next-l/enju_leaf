@@ -631,7 +631,6 @@ ja:
       subscribe:
         started_on: 開始日
         ended_on: 終了日
-      checkin:
       item:
         call_number: 請求記号
         item_identifier: 所蔵情報ID

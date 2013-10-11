@@ -1,0 +1,51 @@
+#!/bin/sh
+#
+# delayed_job - this script starts and stops the delayed_job daemon
+#
+# chkconfig:   - 85 15
+# description: delayed_job is database based asynchronous priority queue system 
+# processname: delayed_job
+# pidfile:     /opt/enju_trunk/var/run/nginx.pid
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Check that networking is up.
+[ "$NETWORKING" = "no" ] && exit 0
+
+ENJUUSER=enju
+ENJUHOME=/opt/enju_trunk
+
+start() {
+	echo -n $"Starting delayed_job:"
+	su - $ENJUUSER -c "cd $ENJUHOME ; RAILS_ENV=production script/delayed_job start"
+	retval=$?
+	echo
+	return $retval
+}
+
+stop() {
+	echo -n $"Stopping $prog: "
+	su - $ENJUUSER -c "cd $ENJUHOME ; RAILS_ENV=production script/delayed_job stop"
+	retval=$?
+	echo
+	return $retval
+}
+
+case "$1" in
+	start)
+		rh_status_q && exit 0
+		$1
+		;;
+	stop)
+		rh_status_q || exit 0
+		$1
+		;;
+
+	*)
+		echo $"Usage: $0 {start|stop}"
+		exit 2
+esac

@@ -186,7 +186,8 @@ module SystemConfigurationsHelper
      # => yes,no
      when 'auto_user_number', 'manifestations.split_by_type', 'manifestations.google_book_search_preview', 
           'checkout.auto_checkin', 'manifestation.manage_item_rank', 'use_inter_library_loan', 'use_family', 'use_birth_day',
-          'manifestation.has_one_item', 'manifestation.isbn_unique', 'user_change_department'
+          'manifestation.has_one_item', 'manifestation.isbn_unique', 'user_change_department',
+          'checkout.set_extending_due_date_before_closing_day'
        string << t('system_configuration.boolean_yes') if state == 'true'
        string << t('system_configuration.boolean_no') if state == 'false'
      # => send
