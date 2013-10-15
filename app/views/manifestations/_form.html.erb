@@ -45,6 +45,17 @@ $(document).keydown(function(e) {
 });
 </script>
 
+<script id="script_e9">
+  var theme_tags = <%= raw @select_theme_tags.to_json -%>;
+  $(document).ready(function() { 
+    $("#e9").select2({
+      multiple: true, 
+      data: theme_tags, 
+      width: "300px",
+    }); 
+  });
+</script>
+
 <%= render 'page/required_field' %>
 <%= simple_form_for(@manifestation, :html => { :multipart => true }) do |f| -%>
   <%= f.error_messages -%>
@@ -264,6 +275,10 @@ $(document).keydown(function(e) {
     <%= f.text_field :subject_transcription, :value => @subject_transcription, :class => 'resource_url' -%>
   </div>
 
+  <div class="field">
+    <strong><%= t('activerecord.models.theme') -%></strong><br />
+    <%= f.text_field :theme, :id => 'e9'%>
+  </div>
 
   <div class="field">
     <%= f.label t('activerecord.attributes.manifestation.missing_issue') -%>

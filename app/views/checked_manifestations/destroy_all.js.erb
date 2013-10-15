@@ -1,0 +1,11 @@
+$('#basket_menu').html(
+  "<%= escape_javascript(render 'baskets/menu') %>"
+);
+
+<% @checked_manifestation_ids.each do |id| %>
+  $("#basket_<%= id %>").html(
+    "<%= escape_javascript(
+       link_to t('checked_manifestation.add'), checked_manifestations_create_path(:manifestation_id => id, :is_list => @is_list), :remote => true
+    ) %>"
+  )
+<% end %>

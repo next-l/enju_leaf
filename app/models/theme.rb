@@ -17,6 +17,19 @@ class Theme < ActiveRecord::Base
     time :created_at
     time :updated_at
   end
+  
+  def self.import_themes(theme_lists)
+    return [] if theme_lists.blank?
+    themes = theme_lists.split(/;/)
+    logger.info("@@@@@@@@")
+    logger.info(themes);
+  end
+
+
+
+
+
+
 
   paginates_per 10
 end

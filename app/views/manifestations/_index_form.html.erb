@@ -67,6 +67,7 @@
       <%- if form_type == :basic %>
         <%= hidden_field_tag 'user_id', params[:user_id] if params[:user_id] -%>
         <%= hidden_field_tag 'removed', true if @removed %>
+        <%= hidden_field_tag 'basket_id', params[:basket_id] if params[:basket_id] %>
       <%- end -%>
       <%= hidden_advanced_search_field_tags -%>
       <%- if need_to_render_add_mode_tags -%>
@@ -187,7 +188,6 @@ $(function(){
       <% if params[:missing_issue] %><%= submit_tag t('page.output_request', :model => t('page.search_result')), :name => 'output_request'-%><% end %>
     <%- end -%><%# if SystemConfiguration.get("manifestations.users_show_output_button") or (user_signed_in? and current_user.has_role?('Librarian')) -%>
   </p>
-
 <%- end -%><%# if form_pos == :top -%>
 <%- end -%><%# form_for :manifestations, :html => {:method => 'get'} do -%>
 <%- end -%>
@@ -235,5 +235,10 @@ $(function(){
 
 <%- end -%>
 <!-- end dialog for selecting excel columns -->
-
+<%- if current_user -%>
+  <div style="float: right">
+    <%= render 'baskets/menu', :is_list => false %>
+  </div>
+  <br style="clear: both;"/>
+<%- end -%>
 <%- end -%><%# if form_pos == :top -%>

@@ -46,6 +46,8 @@ gem 'rubyzip', "=0.9.9"
 gem 'spreadsheet', '0.7.9'
 gem 'axlsx', '~> 1.3.6'
 
+gem 'select2-rails'
+
 gem 'spinjs-rails'
 gem 'kaminari'
 gem 'settingslogic'

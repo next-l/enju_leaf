@@ -20,15 +20,14 @@ class Manifestation < ActiveRecord::Base
   has_one :resource_import_result
   has_many :purchase_requests
   has_many :table_of_contents
-
+  has_many :checked_manifestations
   has_many :theme_has_manifestations
   has_many :themes, :through => :theme_has_manifestations
-
   belongs_to :manifestation_content_type, :class_name => 'ContentType', :foreign_key => 'content_type_id'
   belongs_to :country_of_publication, :class_name => 'Country', :foreign_key => 'country_of_publication_id'
 
   scope :without_master, where(:periodical_master => false)
-
+ 
   searchable do
     text :fulltext, :contributor, :article_title, :series_title, :exinfo_1, :exinfo_6
     text :title, :default_boost => 2 do
@@ -439,7 +438,7 @@ class Manifestation < ActiveRecord::Base
 
   after_save :index_series_statement
   after_destroy :index_series_statement
-  attr_accessor :during_import, :creator, :contributor, :publisher, :subject, 
+  attr_accessor :during_import, :creator, :contributor, :publisher, :subject, :theme, 
                 :creator_transcription, :publisher_transcription, :contributor_transcription, :subject_transcription
 
   paginates_per 10
@@ -568,6 +567,10 @@ class Manifestation < ActiveRecord::Base
 #    else
 #      return true if self == self.series_statement.last_issue_with_issue_number
 #    end
+  end
+
+  def in_basket?(basket)
+    basket.manifestations.include?(self)
   end
 
   def checkout_period(user)
@@ -896,6 +899,16 @@ class Manifestation < ActiveRecord::Base
       output.data = /_pdf\z/ =~ method ? result.generate : result
     end
     block.call(output)
+  end
+
+  def self.struct_theme_selects
+    struct_theme = Struct.new(:id, :text)
+    @struct_theme_array = []
+    struct_select = Theme.all
+    struct_select.each do |theme|
+      @struct_theme_array << struct_theme.new(theme.id, theme.name)
+    end
+    return @struct_theme_array
   end
 
   # NOTE: resource_import_textfile.excelとの整合性を維持すること

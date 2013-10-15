@@ -577,6 +577,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def current_basket
+    Basket.where(:user_id => current_user.id, :basket_type => 1).first || Basket.create(:user_id => current_user.id, :basket_type => 1)
+  end
+
   def self.set_query(query = nil, birth = nil, add = nil)
     # query
     query = query.to_s

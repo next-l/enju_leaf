@@ -19,4 +19,6 @@
 //= require jquery.spin
 //= require jquery.upload-1.0.2
 //= require jquery.simplecalendarjp
-//= require jquery.autoKana 
+//= require jquery.autoKana
+//= require select2
+
