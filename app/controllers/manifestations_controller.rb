@@ -778,7 +778,7 @@ class ManifestationsController < ApplicationController
           @manifestation.contributors = Patron.add_patrons(@contributor, @contributor_transcription) unless @contributor.blank?
           @manifestation.publishers = Patron.add_patrons(@publisher, @publisher_transcription) unless @publisher.blank?
           @manifestation.subjects = Subject.import_subjects(@subject, @subject_transcription) unless @subject.blank?
-          @manifestation.themes = Theme.import_themes(@theme) unless @theme.blank?
+          @manifestation.themes = Theme.add_themes(@theme) unless @theme.blank?
         end
 
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_created', :model => t('activerecord.models.manifestation')) }
@@ -814,7 +814,7 @@ class ManifestationsController < ApplicationController
         @manifestation.publishers.destroy_all; @manifestation.publishers = Patron.add_patrons(@publisher, @publisher_transcription)
         @manifestation.subjects = Subject.import_subjects(@subject, @subject_transcription)
         #TODO ここおかしい
-        #@manifestation.themes = Theme.import_themes(@theme)
+        @manifestation.themes = Theme.add_themes(@theme)
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_updated', :model => t('activerecord.models.manifestation')) }
         format.json { head :no_content }
       else

@@ -180,9 +180,7 @@
             <%- unless manifestation.themes.empty? -%>
               <ul>
                 <%- manifestation.themes.each do |theme| -%>
-                  <li>
                     <%= link_to theme.name, theme -%>
-                  </li>
                 <%- end -%>
               </ul>
             <%- end -%>
