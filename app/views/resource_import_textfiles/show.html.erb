@@ -56,8 +56,10 @@
           <td style="border:0px; border-bottom: 1px solid #aaa;"><%= sheet %></td>
           <% if SystemConfiguration.get('manifestations.split_by_type') %>
             <td style="border:0px; border-bottom: 1px solid #aaa;"><%= get_manifestation_type_name(manifestation_types[i]) rescue nil %></td>
+            <td style="border:0px; border-bottom: 1px solid #aaa;"><%= get_numbering_display_name(numberings[i], manifestation_types[i]) rescue nil %></td>
+          <% else %>
+            <td style="border:0px; border-bottom: 1px solid #aaa;"><%= get_numbering_display_name(numberings[i]) rescue nil %></td>
           <% end %>
-          <td style="border:0px; border-bottom: 1px solid #aaa;"><%= get_numbering_display_name(numberings[i], manifestation_types[i]) rescue nil %></td>
           <td style="border:0px; border-bottom: 1px solid #aaa;"><%= t("page.boolean.#{auto_numberings[i]}") if auto_numberings %></td>
         </tr>
       <% end %>
