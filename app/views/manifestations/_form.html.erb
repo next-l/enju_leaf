@@ -47,11 +47,13 @@ $(document).keydown(function(e) {
 
 <script id="script_e9">
   var theme_tags = <%= raw @select_theme_tags.to_json -%>;
+  //var theme_values = [{"id":3,"text":"ghi"},{"id":2,"text":"def"}]
   $(document).ready(function() { 
     $("#e9").select2({
       multiple: true, 
       data: theme_tags, 
       width: "300px",
+      //value: theme_values,
     }); 
   });
 </script>
@@ -99,7 +101,6 @@ $(document).keydown(function(e) {
     <%= f.label :creator -%><%= t('manifestation.delim_semicolon') -%><br />
     <%= f.text_field :creator, :value => @creator -%>
   </div>
- 
   <div class="field">
     <strong><%= t('manifestation.creator_transcription') -%></strong><%= t('manifestation.delim_semicolon') -%><br />
     <%= f.text_field :creator_transcription, :value => @creator_transcription, :class => 'resource_title' -%>

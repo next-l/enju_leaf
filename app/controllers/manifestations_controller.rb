@@ -348,6 +348,11 @@ class ManifestationsController < ApplicationController
         @all_manifestations = params[:all_manifestations] = true 
       end
 
+      if params[:basket_id]
+        @basket = @current_basket # ignore params[:basket_id] and get current_basket with current_user
+        @all_manifestations = params[:all_manifestations] = true 
+      end
+
       @query = params[:query] # フォームで入力されたメインの検索語を保存する
 
       # 検索オブジェクトのfactoryを生成する
@@ -673,7 +678,6 @@ class ManifestationsController < ApplicationController
       @publisher_transcription = original_manifestation.publishers.collect(&:full_name_transcription).flatten.join(';')
       @subject = original_manifestation.subjects.collect(&:term).join(';')
       @subject_transcription = original_manifestation.subjects.collect(&:term_transcription).join(';')
-      #@select_theme_tags = Manifestation.struct_theme_selects
       @manifestation.isbn = nil if SystemConfiguration.get("manifestation.isbn_unique")
       @manifestation.series_statement = original_manifestation.series_statement unless @manifestation.series_statement
     elsif @expression
@@ -813,7 +817,6 @@ class ManifestationsController < ApplicationController
         @manifestation.contributors.destroy_all; @manifestation.contributors = Patron.add_patrons(@contributor, @contributor_transcription)
         @manifestation.publishers.destroy_all; @manifestation.publishers = Patron.add_patrons(@publisher, @publisher_transcription)
         @manifestation.subjects = Subject.import_subjects(@subject, @subject_transcription)
-        #TODO ここおかしい
         @manifestation.themes = Theme.add_themes(@theme)
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_updated', :model => t('activerecord.models.manifestation')) }
         format.json { head :no_content }
@@ -1089,7 +1092,6 @@ class ManifestationsController < ApplicationController
         with << [:language, :equal_to, language]
       end
     end
-
   
     if @theme
       with << [:id, :any_of, @theme.manifestations.collect(&:id)]

@@ -7,7 +7,7 @@ class Theme < ActiveRecord::Base
   validates_presence_of :name, :position, :publish
   validates_uniqueness_of :name
 
-  has_many :theme_has_manifestations
+  has_many :theme_has_manifestations, :dependent => :destroy
   has_many :manifestations, :through => :theme_has_manifestations
 
   PUBLISH_PATTERN = { I18n.t('resource.publish') => 0, I18n.t('resource.closed') => 1 }
