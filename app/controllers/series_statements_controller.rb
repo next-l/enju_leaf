@@ -28,6 +28,9 @@ class SeriesStatementsController < ApplicationController
       paginate :page => page.to_i, :per_page => SeriesStatement.default_per_page
       order_by :position, :asc
     end
+
+    @basket = Basket.find(params[:basket_id]) if params[:basket_id]
+
     #work = @work
     manifestation = @manifestation
     parent = @parent
