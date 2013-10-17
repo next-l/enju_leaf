@@ -30,6 +30,7 @@ EnjuLeaf::Application.routes.draw do
     post :send_reminder, :on => :collection
   end
 
+  match '/series_has_manifestations/update_all' => 'series_has_manifestations#update_all'
   resources :series_has_manifestations
   resources :series_statement_merges
 
