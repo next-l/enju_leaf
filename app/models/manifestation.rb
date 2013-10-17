@@ -905,14 +905,13 @@ class Manifestation < ActiveRecord::Base
   def self.struct_theme_selects
     struct_theme = Struct.new(:id, :text)
     @struct_theme_array = []
-    #struct_select = Theme.joins(:manifestations).all
     struct_select = Theme.all
     struct_select.each do |theme|
       @struct_theme_array << struct_theme.new(theme.id, theme.name)
     end
     return @struct_theme_array
   end
-
+ 
   # NOTE: resource_import_textfile.excelとの整合性を維持すること
   BOOK_COLUMNS = lambda { %W(
     #{ 'manifestation_type' unless SystemConfiguration.get('manifestations.split_by_type') } 

@@ -2,7 +2,7 @@ class Theme < ActiveRecord::Base
   
   acts_as_list
   default_scope :order => "position"
-  attr_accessible :description, :name, :note, :position, :publish
+  attr_accessible :description, :name, :note, :position, :publish, :manifestation, :theme_has_manifestation
   
   validates_presence_of :name, :position, :publish
   validates_uniqueness_of :name

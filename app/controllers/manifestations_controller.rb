@@ -337,7 +337,6 @@ class ManifestationsController < ApplicationController
         @removed = true
       end
       
-      #TODO theme
       if params[:theme_id]
         @theme = Theme.find(params[:theme_id]) rescue nil
         @all_manifestations = params[:all_manifestations] = false
@@ -740,7 +739,7 @@ class ManifestationsController < ApplicationController
       end
       store_location unless params[:mode] == 'tag_edit'
     end
-    
+    @real_themes = @manifestation.themes.collect(&:id).flatten.join(',')
     @select_theme_tags = Manifestation.struct_theme_selects
   end
 
