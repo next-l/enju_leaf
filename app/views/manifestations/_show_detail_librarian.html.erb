@@ -37,6 +37,7 @@
           <% end %>
 
           <%- if manifestation.periodical_master %>
+<!--
             <%- if manifestation.exinfo_3 -%>
               <tr>
                 <td><%= t('root_manifestation.exinfo_3') -%>:</td>
@@ -85,6 +86,7 @@
                 <td><%= manifestation.exinfo_8 -%></td>
               </tr>
             <%- end -%>
+-->
           <%- end -%>
         <% end %>
         <% if manifestation.article? %>
@@ -277,6 +279,7 @@
               <%= simple_format(hbr(manifestation.note)) -%>
             </td>
           </tr>
+<!--
           <%- if manifestation.exinfo_1 -%>
             <tr>
               <td><%= t('activerecord.attributes.manifestation.exinfo_1') -%>:</td>
@@ -337,6 +340,7 @@
               <td><%= manifestation.exinfo_10 -%></td>
              </tr>
           <%- end -%>
+-->
         <%- end -%>
         <%- if manifestation.extext_1 -%>
           <tr>
@@ -344,7 +348,6 @@
             <td><%= manifestation.extext_1 -%></td>
           </tr>
         <%- end -%>
-
         <% unless manifestation.periodical_master %> 
           <%- if SystemConfiguration.get("manifestation.display_checkouts_count") && Setting.operation -%>
             <tr>
