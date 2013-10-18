@@ -146,6 +146,7 @@ function displayArticleTitle(article_title) {
     <%= f_m.text_field :subject, :value => @subject -%>
   </div>
 
+<!--
   <div class="field">
     <%= f_m.label t('root_manifestation.exinfo_3') %>
     <%= f_m.text_field :exinfo_3 %>
@@ -185,6 +186,7 @@ function displayArticleTitle(article_title) {
     <%= f_m.label t('root_manifestation.exinfo_8') %>
     <%= f_m.text_field :exinfo_8, :class => "resource_integer" %>
   </div>
+--> 
 
   <div class="actions">
     <%= hidden_field_tag :patron_id, @patron.id if @patron -%>

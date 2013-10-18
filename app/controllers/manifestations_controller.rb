@@ -1016,10 +1016,10 @@ class ManifestationsController < ApplicationController
 
     if @removed
       with << [:has_removed, :equal_to, true]
-    elsif !params[:missing_issue] &&
-        SystemConfiguration.get('manifestation.manage_item_rank') &&
-        @all_manifestations.blank?
-      without << [:non_searchable, :equal_to, true]
+    else
+      if !params[:missing_issue] && (@all_manifestations.blank? or !@all_manifestations == true)
+        without << [:non_searchable, :equal_to, true]
+      end
     end
 
     without << [:id, :equal_to, @binder.manifestation.id] if @binder

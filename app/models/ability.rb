@@ -106,6 +106,7 @@ class Ability
         Exemplify,
         Expense,
         Family,
+        IdentifierType,
         ImportRequest,
         ItemHasUseRestriction,
         KeywordCount,
