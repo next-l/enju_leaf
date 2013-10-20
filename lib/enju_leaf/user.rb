@@ -36,7 +36,7 @@ module EnjuLeaf
         #has_one :agent_import_result
         accepts_nested_attributes_for :user_has_role
 
-        validates :username, :presence => true, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z][0-9A-Za-z_\-]*[0-9A-Za-z]\Z/}, :allow_blank => true
+        validates :username, :presence => true, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z][0-9A-Za-z_\-]*[0-9A-Za-z]\Z/}
         validates_uniqueness_of :email, :allow_blank => true
         validates :email, :format => Devise::email_regexp, :allow_blank => true
         validates_date :expired_at, :allow_blank => true

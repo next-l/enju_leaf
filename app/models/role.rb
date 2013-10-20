@@ -27,7 +27,11 @@ class Role < ActiveRecord::Base
   end
 
   def self.default_role
-    Rails.cache.fetch('default_role'){Role.where(:name => 'Guest').first}
+    if Rails.env == 'production'
+      Rails.cache.fetch('default_role'){Role.where(:name => 'Guest').first}
+    else
+      Role.where(:name => 'Guest').first
+    end
   end
 end
 
