@@ -25,7 +25,7 @@ class ThemesController < InheritedResources::Base
     unless query.blank?
       @themes = Theme.search do
         fulltext query
-        paginate :page => page.to_i, :per_page => Area.default_per_page
+        paginate :page => page.to_i, :per_page => Theme.default_per_page
       end.results
     else
       @themes = Theme.page(page)

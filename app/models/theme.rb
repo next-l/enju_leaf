@@ -17,24 +17,20 @@ class Theme < ActiveRecord::Base
     time :created_at
     time :updated_at
   end
+
+  paginates_per 10
   
-  def self.add_themes(theme_lists)
-    return [] if theme_lists.blank?
-    themes = theme_lists.split(/,/)
+  def self.add_themes(theme_ids)
+    return [] if theme_ids.blank?
+    themes = theme_ids.split(/,/)
     list = []
-    themes.uniq.compact.each_with_index do |theme, i|
+    themes.uniq.compact.each do |theme|
       theme = theme.exstrip_with_full_size_space
       next if theme.empty?
-      theme = Theme.find(:first, :conditions => ["id=?", theme])
-      if theme.nil?
-        theme = ThemeHasManifestation.new
-        theme.theme_id = theme
-        theme.save
-      end
+      theme = Theme.find(theme)
+      #theme = Theme.find(:first, :conditions => ["id=?", theme])
       list << theme
     end
     list
   end
-
-  paginates_per 10
 end

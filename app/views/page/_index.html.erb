@@ -59,7 +59,7 @@ $(document).FunctionKeys(
       <div>
          <%- @themes.each do |theme| -%>
            <%= link_to theme.name, manifestations_path(:theme_id => theme.id) -%>
-           <%= hidden_field_tag 'theme_id', params[:theme_id] if params[:theme_id] %>
+           <%# hidden_field_tag 'theme_id', params[:theme_id] if params[:theme_id] %>
          <% end %>
       </div>
 
