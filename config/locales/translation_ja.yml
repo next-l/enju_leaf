@@ -108,9 +108,6 @@ ja:
       manifestation_api_response: 資料APIの応答
       request_type: 依頼の種類
       inventory_file: 蔵書点検ファイル
-      library_check: 蔵書点検
-      library_check_shelf: 棚定義ファイル
-      libcheck_data_file: 点検ファイル
       user_group_has_checkout_type: 利用者グループと貸出区分の関係
       carrier_type_has_checkout_type: 資料の種類と貸出区分の関係
       manifestation_checkout_stat: 資料別貸出統計
@@ -1317,49 +1314,6 @@ ja:
         parent_id: 派生元の資料
         child_id: 派生先の資料
         manifestation_relationship_type_id: 資料の関係の種類
-      library_check:
-        id: Id
-        opeym: 実施年月
-        shelf_def_file: 棚定義ファイル
-        operated_at: 実施日
-        status: ステータス
-        download: 棚バーコード出力
-        shelf_data: 棚定義ファイルのアップロード
-        book_data: 点検データ登録
-        do: 実行
-        not_yet: 未実施
-        shelf_upload: 棚定義ファイル
-        shelf_upload_file_name: 棚定義ファイル
-        resource_list: 蔵書リスト
-        notfound_list: 欠本リスト
-        error_msg: エラーメッセージ
-        error_list: 蔵書点検エラーリスト
-        item_register: 図書原簿
-        detection_list: 発見資料リスト
-        removing_list: 除籍原簿
-      libcheck_tmp_item:
-        seq: No.
-        ndc: 分類記号1
-        class_type1: 著者記号
-        class_type2: 分類記号2
-        shelf_id: 棚ID
-        confusion_flg: 乱れフラグ
-        status_notfound: 不明
-        status_invalid_call_no: 請求記号不正
-        status_unknown_shelf: 棚不明
-        status_deleted: 削除済
-        status_diff_checkout_type: 資料区分乱れ
-        status_ndc_warning: NDC警告
-        status_invalid_serial: 定期刊行物ID不正
-        original_title: タイトル
-      libcheck_notfound_item:
-        status_checkout: 貸出中
-      libcheck_data_file:
-        id: id
-        file_name: 点検ファイル名
-        uploaded_at: アップロード日時
-        data_upload: 点検ファイル
-        data_upload_file_name: 点検ファイル
       resource_import_result:
         body: 本文
         error_msg: メッセージ

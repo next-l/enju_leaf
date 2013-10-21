@@ -4,6 +4,8 @@ en:
       previous: "&laquo; Prev"
       next: "Next &raquo;"
       truncate: "..."
+      first: First
+      Last: Last
 
 ja:
   views:
