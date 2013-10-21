@@ -6,8 +6,17 @@ namespace :enju do
       format = ENV['format'] || "text"
       unless format == "text" || format == "excel"
         STDERR.puts "format invalid. #{format}"
+        STDERR.puts "format 'text' or 'excel' (default:'text')"
         raise
       end
+      display_association = ENV['association'] || 'off'
+      unless display_association == 'off' || display_association == 'on'
+        STDERR.puts "association invalid. #{format}"
+        STDERR.puts "association 'on' or 'off' (default:'off') "
+        raise
+      end
+
+      target_models = ENV['models'].split(',') if ENV['models']
 
       CONST_COLUMN = {"created_at"=>I18n.t('page.created_at'),
         "updated_at"=>I18n.t('page.updated_at'),
@@ -21,6 +30,13 @@ namespace :enju do
       Dir.glob(Rails.root.join('app/models/**/*.rb')).each { |path| require path }
       tables = ActiveRecord::Base.connection.tables.sort
       models = tables.map{|table| Object.const_get(table.classify) rescue nil}.compact
+
+      if target_models.blank?
+        target_models = models.inject([]) {|a, b| a << b.to_s.downcase }
+      end
+      if target_models.present?
+        STDERR.puts "target_models=#{target_models}"
+      end
 
       if format == "excel"
         require 'axlsx'
@@ -36,9 +52,10 @@ namespace :enju do
 
           wb.add_worksheet(:name => "DB Shemes") do |sheet|
             models.each do |model|
-              sheet.add_row ["モデル名","テーブル名","モデル名称"], :style => [gray_cell, gray_cell, gray_cell]
-              sheet.add_row ["#{model.to_s}", "#{model.table_name}", I18n.t("activerecord.models.#{model.to_s.underscore}")], :types => :string, :style => [wh_cell, wh_cell, wh_cell]
-              sheet.add_row []
+              next unless target_models.include?(model.to_s.downcase)
+              #puts "aaa model=#{model.to_s.downcase}"
+
+              sheet.add_row ["#{model.to_s}", "#{model.table_name}", I18n.t("activerecord.models.#{model.to_s.underscore}")], :types => :string, :style => [sty, sty, sty]
 
               sheet.add_row ["アトリビュート名","型","型","名称"], :style => [gray_cell, gray_cell, gray_cell, gray_cell]
               model.columns.each do |column|
@@ -51,31 +68,33 @@ namespace :enju do
                       msg = I18n.t("activerecord.models.#{$1}") + " ID"
                     end
                   end
-								end
-								cols << msg
-								sheet.add_row cols, :types => :string, :style => [wh_cell, wh_cell, wh_cell, wh_cell]
-							end
+                end
+                cols << msg
+                sheet.add_row cols, :types => :string, :style => [wh_cell, wh_cell, wh_cell, wh_cell]
+              end
 
-							# table index
-							sheet.add_row []
-							sheet.add_row ["database indexes"], :style => [gray_cell, gray_cell]
-							sheet.add_row ["pk", "#{ActiveRecord::Base.connection.primary_key(model.table_name)}"], :types => :string, :style => [wh_cell, wh_cell]
-							ActiveRecord::Base.connection.indexes(model.table_name).each_with_index do |index, i|
-								sheet.add_row ["#{i+1}", "#{index.name}", "#{index.columns.join(',')}"], :types => :string, :style => [wh_cell, wh_cell, wh_cell]
-							end
+              if display_association == 'on'
+                # table index
+                sheet.add_row []
+                sheet.add_row ["database indexes"], :style => [gray_cell, gray_cell]
+                sheet.add_row ["pk", "#{ActiveRecord::Base.connection.primary_key(model.table_name)}"], :types => :string, :style => [wh_cell, wh_cell]
+                ActiveRecord::Base.connection.indexes(model.table_name).each_with_index do |index, i|
+                  sheet.add_row ["#{i+1}", "#{index.name}", "#{index.columns.join(',')}"], :types => :string, :style => [wh_cell, wh_cell, wh_cell]
+                end
 
-							# associations
-							association_macros.each do |macro|
-								sheet.add_row []
-                sheet.add_row ["association", "#{association_names[macro]}"], :types => :string, :style => [gray_cell, gray_cell]
-                begin
-                  model.reflect_on_all_associations(macro).each_with_index do |r, i|
-                    sheet.add_row ["#{i+1}", "#{r.association_foreign_key}", "#{r.table_name}", "#{r.association_primary_key}"], :types => :string, :style => [wh_cell, wh_cell, wh_cell, wh_cell]
+                # associations
+                association_macros.each do |macro|
+                  sheet.add_row []
+                  sheet.add_row ["association", "#{association_names[macro]}"], :types => :string, :style => [gray_cell, gray_cell]
+                  begin
+                    model.reflect_on_all_associations(macro).each_with_index do |r, i|
+                      sheet.add_row ["#{i+1}", "#{r.association_foreign_key}", "#{r.table_name}", "#{r.association_primary_key}"], :types => :string, :style => [wh_cell, wh_cell, wh_cell, wh_cell]
 
+                    end
+                  rescue 
+                    puts "error(#{$!})"
+                    #puts $@
                   end
-                rescue 
-                  puts "error(#{$!})"
-                  #puts $@
                 end
               end
 							sheet.add_row []
