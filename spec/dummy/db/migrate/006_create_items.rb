@@ -1,7 +1,7 @@
 class CreateItems < ActiveRecord::Migration
   def change
     create_table :items do |t|
-      #t.integer :manifestation_id
+      t.integer :manifestation_id
       t.string :call_number
       t.string :item_identifier
       t.timestamps
@@ -16,7 +16,7 @@ class CreateItems < ActiveRecord::Migration
       t.string :state
       t.integer :required_score, :default => 0, :null => false
     end
-    #add_index :items, :manifestation_id
+    add_index :items, :manifestation_id
     add_index :items, :shelf_id
     add_index :items, :item_identifier
     add_index :items, :required_role_id
