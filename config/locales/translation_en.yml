@@ -1787,7 +1787,7 @@ en:
     description: ! ' <h5>Search detail:</h5> <br /> Directly show manifestation detail matched, with item identifier. <br />
       (With asterisk for item identifier, results will be showed as manifestations list and other conditions is not available.)'
     description_unique_isbn: ! ' <h5>Search detail:</h5> <br /> Directly show manifestation detail matched with item identifier or isbn.<br
-      /> (With asterisk to for patial match, search results will be showed as manifsetations list and other conditions are not avilable.)'
+      /> (With asterisk for patial match, search results will be showed as manifsetations list and other conditions are not avilable.)'
     help_solr_query: ! 'Type solr search query'
     solr_query_format:
       format: How to type search query

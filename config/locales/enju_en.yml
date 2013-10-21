@@ -19,7 +19,7 @@ en:
           no_checkout: No checkout is found.
           not_overdue: Checkout for this item is not overdue.
         user:
-          auto_generated_password: ! 'Your password is auto generated one. Change your log in password'
+          auto_generated_password: ! 'Your password is auto generated. Change your log in password'
         bookbinding:
           bookbinding_nil: No item is selected.
       models:
