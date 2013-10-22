@@ -4,9 +4,9 @@ namespace :enju do
     desc 'print attributes'
     task :desc => :environment do
       format = ENV['format'] || "text"
-      unless format == "text" || format == "excel"
+      unless format == "text" || format == "excel" || format == "graph"
         STDERR.puts "format invalid. #{format}"
-        STDERR.puts "format 'text' or 'excel' (default:'text')"
+        STDERR.puts "format 'text' or 'excel' or 'graph' (default:'text')"
         raise
       end
       display_association = ENV['association'] || 'off'
@@ -38,8 +38,10 @@ namespace :enju do
         STDERR.puts "target_models=#{target_models}"
       end
 
-      if format == "excel"
+      case format
+      when "excel"
         require 'axlsx'
+       
         Axlsx::Package.new do |pkg|
           wb = pkg.workbook
 
@@ -103,6 +105,55 @@ namespace :enju do
           pkg.serialize('enju_db_schema.xlsx')
         end
 
+      when "graph"
+        # gem install ruby-graphviz
+        require 'graphviz'
+        # Create a new graph
+        g = GraphViz.new( :G, :type => :digraph )
+        nodes = {}
+
+        models.each do |model|
+          next unless target_models.include?(model.to_s.downcase)
+
+          # Create two nodes
+          nodes[model.to_s.downcase] = g.add_nodes("#{model.to_s}")
+
+        end 
+
+        models.each do |model|
+          next unless target_models.include?(model.to_s.downcase)
+
+#      association_names = {:has_one=>"1:1", :has_many=>"1:N", :belongs_to=>"N:1"}
+#      association_vectors = {:has_one=>"<=>", :has_many=>"=>", :belongs_to=>"<="}
+#      association_macros = [:has_one, :has_many, :belongs_to]
+
+          # associations
+          association_macros.each do |macro|
+            #sheet.add_row ["association", "#{association_names[macro]}"], :types => :string, :style => [gray_cell, gray_cell]
+            begin
+              model.reflect_on_all_associations(macro).each_with_index do |r, i|
+                #sheet.add_row ["#{i+1}", "#{r.association_foreign_key}", "#{r.table_name}", "#{r.association_primary_key}"], :types => :string, :style => [wh_cell, wh_cell, wh_cell, wh_cell]
+                node1_name = model.to_s.downcase
+                node2_name = r.name.to_s.singularize.camelize.downcase
+                STDERR.puts r.inspect
+                STDERR.puts "node1_name=#{node1_name}"
+                STDERR.puts "node2_name=#{node2_name}"
+                node1 = nodes[node1_name]
+                node2 = nodes[node2_name]
+                # Create an edge between the two nodes
+                g.add_edges( node1, node2 )
+              end
+            rescue 
+              STDERR.puts "error(#{$!})"
+              STDERR.puts $@
+              #raise
+            end
+          end
+        end 
+        if nodes.size > 0
+          # Generate output image
+          g.output( :png => "enju_db_schema.png" )
+        end
       else
         models.each do |model|
           puts ""
