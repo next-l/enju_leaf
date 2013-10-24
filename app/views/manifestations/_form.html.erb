@@ -46,7 +46,6 @@ $(document).keydown(function(e) {
 </script>
 
 <script id="script_theme">
-  var theme_tags = <%= raw @select_theme_tags.to_json -%>;
   $(document).ready(function() { 
     $("#manifestation_theme").select2({
       multiple: true, 
