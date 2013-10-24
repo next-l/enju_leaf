@@ -7,15 +7,6 @@ class ThemesController < InheritedResources::Base
   before_filter :check_client_ip_address
   load_and_authorize_resource
 
-  def update
-    @theme = Theme.find(params[:id])
-    if params[:move]
-      move_position(@theme, params[:move])
-      return
-    end
-    update!
-  end
- 
   def index
   query = params[:query].to_s.strip
     @query = query.dup
@@ -30,5 +21,14 @@ class ThemesController < InheritedResources::Base
     else
       @themes = Theme.page(page)
     end
+  end
+
+  def update
+    @theme = Theme.find(params[:id])
+    if params[:move]
+      move_position(@theme, params[:move])
+      return
+    end
+    update!
   end
 end
