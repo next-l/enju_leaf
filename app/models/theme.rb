@@ -27,10 +27,16 @@ class Theme < ActiveRecord::Base
     themes.uniq.compact.each do |theme|
       theme = theme.exstrip_with_full_size_space
       next if theme.empty?
+<<<<<<< HEAD
       theme = Theme.find(theme)
       #theme = Theme.find(:first, :conditions => ["id=?", theme])
       list << theme
     end
+=======
+        theme = Theme.find(theme)
+        list << theme
+      end
+>>>>>>> c006728... refs 5876 テーマ設定メソッド内に不要な処理が存在する問題の修正
     list
   end
 end
