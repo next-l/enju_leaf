@@ -785,6 +785,8 @@ class ManifestationsController < ApplicationController
         prepare_options
         format.html { render :action => "new" }
         format.json { render :json => @manifestation.errors, :status => :unprocessable_entity }
+        @real_themes = @theme
+        @select_theme_tags = Manifestation.struct_theme_selects
       end
     end
   end
@@ -811,13 +813,15 @@ class ManifestationsController < ApplicationController
         @manifestation.contributors.destroy_all; @manifestation.contributors = Patron.add_patrons(@contributor, @contributor_transcription)
         @manifestation.publishers.destroy_all; @manifestation.publishers = Patron.add_patrons(@publisher, @publisher_transcription)
         @manifestation.subjects = Subject.import_subjects(@subject, @subject_transcription)
-        @manifestation.themes = Theme.add_themes(@theme)
+        @manifestation.themes.destroy_all; @manifestation.themes = Theme.add_themes(@theme)
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_updated', :model => t('activerecord.models.manifestation')) }
         format.json { head :no_content }
       else
         prepare_options
         format.html { render :action => "edit" }
         format.json { render :json => @manifestation.errors, :status => :unprocessable_entity }
+        @real_themes = @theme
+        @select_theme_tags = Manifestation.struct_theme_selects
       end
     end
   end

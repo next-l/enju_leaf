@@ -40,6 +40,7 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
+  <!-- refs 5870 にて修正予定   -->
     <%- if can? :create, Theme -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.theme')), new_theme_path %></li> 
     <%- end -%>
