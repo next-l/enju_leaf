@@ -112,7 +112,9 @@
             <td><%= t('activerecord.models.theme') -%>:</td>
             <td>
               <%- manifestation.themes.each do |theme| -%>
-                <%= theme.name -%>
+                <% if(theme.publish == 0) %>
+                  <%= theme.name -%>
+                <% end %>
               <%- end -%>
             </td>
           </tr>
