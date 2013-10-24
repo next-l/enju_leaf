@@ -674,6 +674,7 @@ class ManifestationsController < ApplicationController
       @subject_transcription = original_manifestation.subjects.collect(&:term_transcription).join(';')
       @manifestation.isbn = nil if SystemConfiguration.get("manifestation.isbn_unique")
       @manifestation.series_statement = original_manifestation.series_statement unless @manifestation.series_statement
+      @keep_themes = original_manifestation.themes.collect(&:id).flatten.join(',')
     elsif @expression
       @manifestation.original_title = @expression.original_title
       @manifestation.title_transcription = @expression.title_transcription
@@ -734,8 +735,8 @@ class ManifestationsController < ApplicationController
       end
       store_location unless params[:mode] == 'tag_edit'
     end
-    @real_themes = @manifestation.themes.collect(&:id).flatten.join(',')
     @select_theme_tags = Manifestation.struct_theme_selects
+    @keep_themes = @manifestation.themes.collect(&:id).flatten.join(',')
   end
 
   # POST /manifestations
@@ -785,8 +786,8 @@ class ManifestationsController < ApplicationController
         prepare_options
         format.html { render :action => "new" }
         format.json { render :json => @manifestation.errors, :status => :unprocessable_entity }
-        @real_themes = @theme
         @select_theme_tags = Manifestation.struct_theme_selects
+        @keep_themes = @theme
       end
     end
   end
@@ -820,8 +821,8 @@ class ManifestationsController < ApplicationController
         prepare_options
         format.html { render :action => "edit" }
         format.json { render :json => @manifestation.errors, :status => :unprocessable_entity }
-        @real_themes = @theme
         @select_theme_tags = Manifestation.struct_theme_selects
+        @keep_themes = @theme
       end
     end
   end
