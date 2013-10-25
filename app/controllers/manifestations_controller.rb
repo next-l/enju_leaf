@@ -347,6 +347,11 @@ class ManifestationsController < ApplicationController
         @all_manifestations = params[:all_manifestations] = true 
       end
 
+      if params[:basket_id]
+        @basket = @current_basket # ignore params[:basket_id] and get current_basket with current_user
+        @all_manifestations = params[:all_manifestations] = true 
+      end
+
       @query = params[:query] # フォームで入力されたメインの検索語を保存する
 
       # 検索オブジェクトのfactoryを生成する
@@ -1094,6 +1099,10 @@ class ManifestationsController < ApplicationController
   
     if @theme
       with << [:id, :any_of, @theme.manifestations.collect(&:id)]
+    end
+
+    if @basket
+      with << [:id, :any_of, @basket.manifestations.collect(&:id)]
     end
 
     if @basket
