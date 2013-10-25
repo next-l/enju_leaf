@@ -8,20 +8,39 @@ class ThemesController < InheritedResources::Base
   load_and_authorize_resource
 
   def index
-  query = params[:query].to_s.strip
+    query = params[:query].to_s.strip
     @query = query.dup
     query = "#{query}*" if query.size == 1
     page = params[:page] || 1
 
-    unless query.blank?
-      @themes = Theme.search do
-        fulltext query
-        paginate :page => page.to_i, :per_page => Theme.default_per_page
-      end.results
-    else
-      @themes = Theme.page(page)
+    @themes = Theme.search do
+     # fulltext query if query
+      with(:publish).equal_to 0 #.to_i unless current_user.has_role?("Libralian")
+      paginate :page => page.to_i, :per_page => Theme.default_per_page
+    end.results
+  end
+
+=begin
+  def show
+    if params[:id]
+      theme = Theme.find(params[:id])
+      return
+    end
+
+    search = Sunspot.new_search(Manifestation)
+    theme = @theme
+    search.build do
+      with(:theme_ids).equal_to theme.id if theme
+    end
+    page = params[:work_page] || 1
+    search.query.paginate(page.to_i, Manifestation.default_per_page)
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render :json => @theme }
     end
   end
+=end
 
   def update
     @theme = Theme.find(params[:id])
