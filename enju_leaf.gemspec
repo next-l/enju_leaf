@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   #s.add_dependency "enju_library", "~> 0.1.0.pre25"
   #s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre11"
   s.add_dependency "redcarpet"
-  s.add_dependency "mobylette", "~> 3.4"
+  s.add_dependency "mobylette", "~> 3.5"
   s.add_dependency "sitemap_generator"
   s.add_dependency "devise-encryptable"
   s.add_dependency "redis-rails", "~> 4.0"
@@ -31,10 +31,10 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
-  s.add_development_dependency "enju_message", "~> 0.1.14.pre11"
+  #s.add_development_dependency "enju_message", "~> 0.1.14.pre11"
   s.add_development_dependency "vcr"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "factory_girl_rails"
-  s.add_development_dependency "sunspot_solr", "~> 2.0.0"
+  s.add_development_dependency "sunspot_solr", "~> 2.1"
   s.add_development_dependency "sunspot-rails-tester"
 end
