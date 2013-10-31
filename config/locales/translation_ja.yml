@@ -108,9 +108,6 @@ ja:
       manifestation_api_response: 資料APIの応答
       request_type: 依頼の種類
       inventory_file: 蔵書点検ファイル
-      library_check: 蔵書点検
-      library_check_shelf: 棚定義ファイル
-      libcheck_data_file: 点検ファイル
       user_group_has_checkout_type: 利用者グループと貸出区分の関係
       carrier_type_has_checkout_type: 資料の種類と貸出区分の関係
       manifestation_checkout_stat: 資料別貸出統計
@@ -631,7 +628,6 @@ ja:
       subscribe:
         started_on: 開始日
         ended_on: 終了日
-      checkin:
       item:
         call_number: 請求記号
         item_identifier: 所蔵情報ID
@@ -1318,49 +1314,6 @@ ja:
         parent_id: 派生元の資料
         child_id: 派生先の資料
         manifestation_relationship_type_id: 資料の関係の種類
-      library_check:
-        id: Id
-        opeym: 実施年月
-        shelf_def_file: 棚定義ファイル
-        operated_at: 実施日
-        status: ステータス
-        download: 棚バーコード出力
-        shelf_data: 棚定義ファイルのアップロード
-        book_data: 点検データ登録
-        do: 実行
-        not_yet: 未実施
-        shelf_upload: 棚定義ファイル
-        shelf_upload_file_name: 棚定義ファイル
-        resource_list: 蔵書リスト
-        notfound_list: 欠本リスト
-        error_msg: エラーメッセージ
-        error_list: 蔵書点検エラーリスト
-        item_register: 図書原簿
-        detection_list: 発見資料リスト
-        removing_list: 除籍原簿
-      libcheck_tmp_item:
-        seq: No.
-        ndc: 分類記号1
-        class_type1: 著者記号
-        class_type2: 分類記号2
-        shelf_id: 棚ID
-        confusion_flg: 乱れフラグ
-        status_notfound: 不明
-        status_invalid_call_no: 請求記号不正
-        status_unknown_shelf: 棚不明
-        status_deleted: 削除済
-        status_diff_checkout_type: 資料区分乱れ
-        status_ndc_warning: NDC警告
-        status_invalid_serial: 定期刊行物ID不正
-        original_title: タイトル
-      libcheck_notfound_item:
-        status_checkout: 貸出中
-      libcheck_data_file:
-        id: id
-        file_name: 点検ファイル名
-        uploaded_at: アップロード日時
-        data_upload: 点検ファイル
-        data_upload_file_name: 点検ファイル
       resource_import_result:
         body: 本文
         error_msg: メッセージ
@@ -1666,6 +1619,13 @@ ja:
     output_excelx_detail: "チェックした項目を出力"
     output_excelx_default_checked: "(デフォルト)"
     output_request: "欠号未請求リストの出力(PDF)"
+    batch_change: "一括更新"
+    batch_change_dialog: "アクションを選択"
+    batch_change_description: "バスケットに入っている情報を一括更新します。<br />実行したいアクションを選択してください。"
+    batch_change_theme: "テーマを設定"
+    batch_change_series_statement: "シリーズ情報を設定" 
+    batch_change_series_statement_updated: "シリーズ情報を %{title} に設定しました。"
+    batch_change_series_statement_failed: "シリーズ情報の設定に失敗しました。"
     patron_management: "人物・団体の管理"
     user_management: "利用者の管理"
     back_to: "%{model}の一覧に戻る"
@@ -2063,6 +2023,7 @@ ja:
     checkout_completed: "貸出が完了しました。"
     all_manifestation: "全ての資料"
     show_basket: "バスケットを参照: %{count}件"
+    clear_basket: "バスケットを空にする"
     out: "解除"
   checkout:
     user_checkout: "%{login_name} さんの貸出資料"

@@ -1,4 +1,4 @@
-            <tr class="line<% unless not_rent_book?(manifestation) %><%= cycle("0", "1") %><% else %>2<% end%>">
+            <tr id="tr_basket_<%=manifestation.id%>" class="line<% unless not_rent_book?(manifestation) %><%= cycle("0", "1") %><% else %>2<% end%>">
               <td style="480px">
                <%- if manifestation.article? %>
                   <%= render 'manifestations/show_index_article', :manifestation => manifestation -%>
@@ -71,9 +71,11 @@
                       <% end %>
                     <% end %>
                   <%- end -%>
-                  <div id="basket_<%=manifestation.id%>">
-                    <%= render 'checked_manifestations/new', :manifestation => manifestation %>
-                  </div>
+                  <% unless manifestation.periodical_master %>
+                    <div id="basket_<%=manifestation.id%>">
+                      <%= render 'checked_manifestations/new', :manifestation => manifestation %>
+                    </div>
+                  <% end %>
                 </td>
               <%- end -%>
             </tr>

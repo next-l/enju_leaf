@@ -195,7 +195,7 @@ $(function(){
           <% if params[:manifestation_types] %>
             <% manifestation_types = params[:manifestation_types].class == String ? eval(params[:manifestation_types]) : params[:manifestation_types] %>
             <%= check_box 'manifestation_types', manifestation_type.id, {:checked => manifestation_types.has_key?(manifestation_type.id.to_s), :class => 'check-child'}, true, false %>
-            <%= manifestation_type.display_name -%> 
+            <%= manifestation_type.display_name.localize -%> 
             <%- if [5,9].include?(i) %><br /><%- end -%>
           <% end %>
         <% end %>

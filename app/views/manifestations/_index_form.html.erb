@@ -237,7 +237,8 @@ $(function(){
 <!-- end dialog for selecting excel columns -->
 <%- if current_user -%>
   <div style="float: right">
-<%= render 'baskets/menu' %>
+    <%= render 'baskets/menu', :is_list => false %>
   </div>
+  <br style="clear: both;"/>
 <%- end -%>
 <%- end -%><%# if form_pos == :top -%>

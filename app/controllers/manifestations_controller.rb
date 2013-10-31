@@ -1016,27 +1016,27 @@ class ManifestationsController < ApplicationController
 
     if @removed
       with << [:has_removed, :equal_to, true]
-    elsif !params[:missing_issue] &&
-        SystemConfiguration.get('manifestation.manage_item_rank') &&
-        @all_manifestations.blank?
-      without << [:non_searchable, :equal_to, true]
+    else
+      if !params[:missing_issue] && (@all_manifestations.blank? or !@all_manifestations == true)
+        without << [:non_searchable, :equal_to, true]
+      end
     end
 
     without << [:id, :equal_to, @binder.manifestation.id] if @binder
 
     unless params[:with_periodical_item]
       unless @binder
-        with << [:periodical, :equal_to, false] if options[:add_mode] || @series_statement.blank?
+        with << [:periodical, :equal_to, false] if options[:add_mode].blank? and @series_statement.blank? and @basket.blank?
       end
     end
-
+    with << [:periodical_master, :equal_to, false] if options[:add_mode] 
     return [with, without] if options[:add_mode]
 
     #
     # params['mode']が'add'でないときだけ設定するフィルタ
     #
     with << [:reservable, :equal_to, @reservable] unless @reservable.nil?
-    with << [:periodical_master, :equal_to, false] if @series_statement
+    with << [:periodical_master, :equal_to, false] if @series_statement or @basket
     with << [:carrier_type, :equal_to, params[:carrier_type]] if params[:carrier_type]
     with << [:missing_issue, :equal_to, params[:missing_issue]] if params[:missing_issue]
     with << [:in_process, :equal_to, @in_process] unless @in_process.nil?

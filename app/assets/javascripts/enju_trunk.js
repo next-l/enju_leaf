@@ -4,15 +4,15 @@ $(document).ready(function() {
   var $tgt_child = $("input.check-child");
 
   $tgt_parent.click(function(){
-    $(this).parents("div.parent").find('input.check-child').attr('checked', this.checked);
+    $(this).parents("div.parent").find('input.check-child').prop('checked', this.checked);
   });
   $tgt_child.click(function(){
     var checkNum = $(this).parents("div.parent").find('input.check-child:checked').length;
     var listNum = $(this).parents("div.parent").find('input.check-child').length;
     if(checkNum < listNum)
-      $(this).parents("div.parent").find("input.check-parent").attr('checked', false);
+      $(this).parents("div.parent").find("input.check-parent").prop('checked', false);
     if(checkNum == listNum)
-      $(this).parents("div.parent").find("input.check-parent").attr('checked', true);
+      $(this).parents("div.parent").find("input.check-parent").prop('checked', true);
   });
 });
 

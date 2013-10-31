@@ -1,4 +1,5 @@
 EnjuLeaf::Application.routes.draw do
+  #resources :identifier_types
   resources :warekis
   resources :user_request_logs
   resources :enju_terminals
@@ -30,6 +31,7 @@ EnjuLeaf::Application.routes.draw do
     post :send_reminder, :on => :collection
   end
 
+  match '/series_has_manifestations/update_all' => 'series_has_manifestations#update_all'
   resources :series_has_manifestations
   resources :series_statement_merges
 
@@ -121,7 +123,9 @@ EnjuLeaf::Application.routes.draw do
     resources :picture_files
     resources :expressions, :controller => 'manifestations'
     resources :manifestation_relationships
-    resources :manifestations
+    resources :manifestations do
+      post :output_excelx, :on => :collection
+    end
     resources :exemplifies
     post :output_excelx, :on => :collection
   end

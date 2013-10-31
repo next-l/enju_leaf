@@ -3,11 +3,18 @@
     <%= link_to t('basket.all_manifestation'), manifestations_path %>
   <%- else -%>
     <%- count = @current_basket.try(:checked_manifestations).try(:size) %>
+    <%- is_list = is_list || @is_list -%>
     <%- if count > 0 -%>
-      <%= link_to t('basket.show_basket', :count => count), manifestations_path(:basket_id => @current_basket) %><br />
-      <%= link_to "DESTROY", checked_manifestations_clear_all_path, :remote => true %><br />
+      <% if is_list %><li><% end %>
+      <%= link_to t('basket.show_basket', :count => count), manifestations_path(:basket_id => @current_basket) %>
+      <% if is_list %></li><% else %><br /><% end %>
+      <% if is_list %><li><% end %>
+      <%= link_to t('basket.clear_basket'), checked_manifestations_clear_all_path(:is_list => is_list), :remote => true %>
+      <% if is_list %></li><% else %><br /><% end %>
     <%- else -%>
+      <% if is_list %><li><% end %>
       <%= t('basket.show_basket', :count => count) %>
+      <% if is_list %></li><% end %>
     <%- end -%>
   <%- end -%>
 </div>

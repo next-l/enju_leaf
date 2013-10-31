@@ -1,0 +1,58 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.series_statement')) %></h1>
+<div id="content_list">
+<div style="color: green"><%= flash[:message] %></div>
+<div>
+  <% count = @current_basket.try(:checked_manifestations).try(:size) %>
+  <% if count > 0 %>
+    <%= link_to t('basket.show_basket', :count => count), manifestations_path(:basket_id => @basket) %><br />
+  <% else %>
+    <%= t('basket.show_basket', :count => count) %><br />
+  <% end %>
+  <%= link_to t('basket.all_manifestation'), manifestations_path %>
+</div>
+<br />
+
+<%= form_for :series_statements, :url => series_statements_path, :html => {:method => 'get'} do %>
+  <p>
+    <%= t('page.search_term') %>: 
+    <%= hidden_field_tag :basket_id, @basket.id %>
+    <%= search_field_tag 'query', 
+      h(@query), 
+      { :id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term') } %>
+    <%= submit_tag t('page.search') %>
+  </p>
+<% end %>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.series_statement.original_title') %></th>
+    <th style="white-space: nowrap;"><%= t('activerecord.attributes.series_statement.issn') %></th>
+    <th style="white-space: nowrap;"><%= t('activerecord.attributes.series_statement.series_statement_identifier') %></th>
+    <th style="white-space: nowrap;"></th>
+  </tr>
+
+<% @series_statements.each do |series_statement| %>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to series_statement.original_title, series_statement %></td>
+    <td style="white-space: nowrap;"><%= series_statement.issn %></td>
+    <td style="white-space: nowrap;"><%= series_statement.series_statement_identifier %></td>
+    <td style="white-space: nowrap;">
+      <% if can? :create, SeriesHasManifestation %>
+        <%= link_to t('page.select'), series_has_manifestations_update_all_path(:series_statement_id => series_statement.id) %> 
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate(@series_statements) %>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.series_statement')), new_series_statement_path %></li>
+  </ul>
+</div>

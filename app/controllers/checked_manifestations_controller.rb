@@ -27,7 +27,14 @@ class CheckedManifestationsController < ApplicationController
   end
   
   def destroy_all
-    @current_basket.checked_manifestations.each{|c| c.destroy}
+    begin
+      @checked_manifestation_ids = @current_basket.checked_manifestations.map(&:manifestation_id)
+      @current_basket.checked_manifestations.each{ |c| c.destroy }
+      @current_basket.checked_manifestations = []
+    rescue Exception => e
+      logger.error e
+    end
+    render :action => :destroy_all
   end
 
   def get_current_basket
@@ -38,5 +45,6 @@ class CheckedManifestationsController < ApplicationController
 
   def prepare_options
     @index_patron = get_index_patron
+    @is_list = params[:is_list] rescue nil
   end
 end

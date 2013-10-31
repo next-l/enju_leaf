@@ -28,6 +28,9 @@ class SeriesStatementsController < ApplicationController
       paginate :page => page.to_i, :per_page => SeriesStatement.default_per_page
       order_by :position, :asc
     end
+
+    @basket = Basket.find(params[:basket_id]) if params[:basket_id]
+
     #work = @work
     manifestation = @manifestation
     parent = @parent
@@ -194,6 +197,7 @@ class SeriesStatementsController < ApplicationController
         end
       rescue Exception => e
         logger.error "Failed to update: #{e}"
+        @series_statement.root_manifestation = @series_statement.root_manifestation || Manifestation.new(params[:manifestation])
         prepare_options
         format.html { render :action => "edit" }
         format.json { render :json => @series_statement.errors, :status => :unprocessable_entity }

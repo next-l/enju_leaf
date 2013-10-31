@@ -31,7 +31,8 @@
   <div style="color: green"><%= flash[:message] -%></div> 
   <%= render 'manifestations/title', :manifestation => @manifestation if @manifestation -%>
   <% if @basket %>
-    <%= t('basket.show_basket', :count => @basket.try(:checked_manifestations).try(:size)) %>  <%= link_to t('basket.out'), manifestations_path %>
+    <p id="basket_count"><%= t('basket.show_basket', :count => @basket.try(:checked_manifestations).try(:size)) %></p>
+    <%= link_to t('basket.out'), manifestations_path %>
   <% end %>
 
   <%= render 'index_form' %>
@@ -128,6 +129,8 @@
   	  <%- else -%>
             &nbsp; <button id="excelx_book_dialog_opener"><%= t('page.output_excelx', :model => t('page.search_result')) -%></button>
           <%- end -%>
+          <button id="batch_change_opener"><%= t('page.batch_change') %></button>
+          <%= render 'index_batch_change_dialog' %>
         <%- end -%>
       </strong></div>
       <%- if m && (m.count > 0) -%>
