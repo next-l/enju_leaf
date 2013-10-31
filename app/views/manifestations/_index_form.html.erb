@@ -81,15 +81,13 @@
         <%= radio_button_tag 'index', 'nacsis', params[:index] == "nacsis" ? true : false -%><%= t('page.search_nacsis') -%>
         <br />
       <%- end -%>
-      <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
-        <% if user_signed_in? and current_user.has_role?('Librarian') %>
-          <%- if @all_manifestations %>
-            <%= check_box_tag 'all_manifestations', true, true %>
-          <%- else -%>
-            <%= check_box_tag 'all_manifestations', true %>
-          <%- end -%>
-          <%= t('advanced_search.all_manifestations') %><br />
-        <% end %>
+      <% if user_signed_in? and current_user.has_role?('Librarian') %>
+        <%- if @all_manifestations %>
+          <%= check_box_tag 'all_manifestations', true, true %>
+        <%- else -%>
+          <%= check_box_tag 'all_manifestations', true %>
+        <%- end -%>
+        <%= t('advanced_search.all_manifestations') %><br />
       <% end %>
       <%= link_to_advanced_search -%> <%= link_to_normal_search -%> <%= advanced_search_condition_summary -%>
       <br />
