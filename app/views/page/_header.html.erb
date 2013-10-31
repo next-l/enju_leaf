@@ -29,10 +29,14 @@
           <%- end -%>
         <% end %>
       <% end %>
+      <br />
     </div>
 
     <%= render 'page/select_locale' -%>
     <%= l(Time.now, :format => :only_date) if SystemConfiguration.get("header.disp_date") == 1 -%>
     <%= wareki_dateformat(Time.now) if SystemConfiguration.get("header.disp_date") == 2 -%>
+    <%- if SystemConfiguration.get('display_manual') -%>    
+      <div id="header_manual" %><%= link_to t('page.get_manual'), get_manual_path %></div>
+    <%- end -%>
   </div>
 </div>

@@ -1423,6 +1423,10 @@ en:
       nil_date: "fill in the form"
       invalid_input_date: "wrong date inputed"
       over_end_date: "The end date should over the start date"
+    
+    get_manual: Download manual
+  manual_for_user: "manual_for_user.pdf"
+  manual_for_librarian: "manual_for_librarian.pdf"
 
   tooltip:
     icons_info: Icons information

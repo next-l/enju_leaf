@@ -1756,7 +1756,10 @@ ja:
       nil_date: "年月日が空です。"
       invalid_input_date: "入力年月日が正しくありません。"
       over_end_date: "検索終了日は検索開始日以降を指定してください。"
+    get_manual: 利用マニュアルをダウンロード 
 
+  manual_for_user: "利用マニュアル.pdf"
+  manual_for_librarian: "運用マニュアル.pdf"
 
   tooltip:
     icons_info: アイコンの説明

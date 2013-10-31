@@ -8,8 +8,8 @@ class PageController < ApplicationController
   before_filter :redirect_user, :only => :index
   before_filter :clear_search_sessions, :only => [:index, :advanced_search]
   before_filter :store_location, :only => [:advanced_search, :about, :add_on, :msie_acceralator]
-  before_filter :authenticate_user!, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :routing_error]
-  before_filter :check_librarian, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :routing_error]
+  before_filter :authenticate_user!, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :routing_error, :get_manual]
+  before_filter :check_librarian, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :routing_error, :get_manual]
   helper_method :get_libraries
 
   def index
@@ -89,6 +89,18 @@ class PageController < ApplicationController
 
   def routing_error
     render_404
+  end
+
+  def get_manual
+    access_denied unless SystemConfiguration.get('display_manual')
+    if user_signed_in? && current_user.has_role?('Librarian')
+      filepath = Rails.root.join('public/manual_for_librarian.pdf')
+      filename = t('manual_for_librarian')
+    else
+      filepath = Rails.root.join('public/manual_for_user.pdf')
+      filename = t('manual_for_user')
+    end
+    send_file filepath, :filename => filename
   end
 
   private

@@ -117,6 +117,10 @@ div#header_right{
   padding-bottom: 0.5em;
 }
 
+div#header_manual{
+  padding-left: 5px;
+}
+
 div#search_footer{
   clear: both;
 }
