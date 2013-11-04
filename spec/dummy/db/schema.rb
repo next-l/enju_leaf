@@ -791,7 +791,7 @@ ActiveRecord::Schema.define(:version => 20130221154434) do
     t.integer  "user_group_id",          :default => 1,  :null => false
     t.text     "note"
     t.text     "keyword_list"
-    t.integer  "failed_attempts"
+    t.integer  "failed_attempts",        :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.datetime "confirmed_at"
