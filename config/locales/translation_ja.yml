@@ -198,6 +198,7 @@ ja:
       nacsis_request_lend: 借用依頼
       exchange_manifestation: 所蔵付け替え
       theme: テーマ
+      theme_list: テーマ一覧
     attributes:
       wareki:
         display_name: 表示名

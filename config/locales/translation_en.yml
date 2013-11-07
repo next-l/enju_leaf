@@ -161,7 +161,7 @@ en:
       nacsis_request_copy: Nacsis copy request
       nacsis_request_lend: Nacsis lend request
       theme: Theme
-
+      theme_list: Theme_list
     attributes:
       enju_terminal:
         ipaddr: IP Address

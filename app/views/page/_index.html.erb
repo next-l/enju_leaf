@@ -52,16 +52,17 @@ $(document).FunctionKeys(
      
       <br />
       <br />
-      <!-- TODO テーマのリンクを後で直す --> 
       <p>
         <b><%= t('activerecord.attributes.theme.hot_topic') -%> : </b>
       </p>
       <div>
-         <%- @themes.each do |theme| -%>
-           <%= link_to theme.name, manifestations_path(:theme_id => theme.id) -%>
-           <%# hidden_field_tag 'theme_id', params[:theme_id] if params[:theme_id] %>
-         <% end %>
+        <%- @themes.each do |theme| -%>
+          <%= link_to theme.name, manifestations_path(:theme_id => theme.id) -%>
+        <% end %>
       </div>
+      <p>
+        <b><%= link_to t('activerecord.models.theme_list'), themes_path -%></b>
+      </p>
 
       <% if defined?(EnjuBookmark) %>
         <% if user_signed_in? %>
