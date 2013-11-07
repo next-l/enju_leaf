@@ -18,7 +18,6 @@ class ThemesController < InheritedResources::Base
         fulltext query if query
         with :publish, 0
         order_by :position
-        #with(:publish).equal_to 0.to_i
         paginate :page => page.to_i, :per_page => Theme.default_per_page
       end.results
     else
@@ -33,6 +32,7 @@ class ThemesController < InheritedResources::Base
     end
   end
 
+#追加機能2：タグについての試用
 =begin
     @themes = Theme.search do
       fulltext query if query

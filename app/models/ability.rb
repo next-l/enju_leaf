@@ -82,6 +82,7 @@ class Ability
       can :destroy, UserGroup do |user_group|
         user_group.users.empty?
       end
+      can :show, Theme
       can :manage, [
         AccessLog,
         Answer,

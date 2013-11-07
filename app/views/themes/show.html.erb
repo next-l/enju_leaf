@@ -14,22 +14,28 @@
       <%= @theme.description %>
     </p>
 
-    <p>
-      <b><%= t('activerecord.attributes.theme.publish') -%>:</b>
-      <%= i18n_publish(@theme.publish) %>
-    </p>
+    <%- if can? :edit, Theme -%>
+      <p>
+        <b><%= t('activerecord.attributes.theme.publish') -%>:</b>
+        <%= i18n_publish(@theme.publish) %>
+      </p>
+    <%- end -%>
 
-    <p>
-      <b><%= t('activerecord.attributes.theme.note') -%>:</b>
-      <%= @theme.note %>
-    </p>
+    <%- if can? :edit, Theme -%>
+      <p>
+        <b><%= t('activerecord.attributes.theme.note') -%>:</b>
+        <%= @theme.note %>
+      </p>
+    <%- end -%>
 
   </div>
 </div>
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.edit'), edit_theme_path(@theme) %> 
+    <%- if can? :create, CarrierType -%>
+      <li><%= link_to t('page.edit'), edit_theme_path(@theme) %>
+    <%- end -%>   
     <li><%= link_to t('page.back'), themes_path %>
   </ul>
 </div>

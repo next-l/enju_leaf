@@ -19,34 +19,30 @@
         <%- if can? :edit, Theme -%>
           <th><%= t('activerecord.attributes.theme.publish') -%></th>
         <%- end -%>
-        <th><%= t('activerecord.attributes.theme.note') -%></th>
-        <%- if can? :edit, Theme -%>       
+        <th><%= t('activerecord.attributes.theme.description') -%></th>
+        <%- if can? :manege, Theme -%>
           <th></th>
         <%- end -%>
       </tr>
       
       <% @themes.each do |theme| %>
       <tr class="line<%= cycle("0", "1") -%>">
-          <%- if can? :edit, Theme -%>
-            <td><%= move_position(theme) -%></td>
-          <%- end -%>
-          <td><%= link_to theme.name, theme %></td> 
-          <%- if can? :edit, Theme -%>
-            <td><%= i18n_publish(theme.publish) %></td>
-          <%- end -%>
-          <td><%= theme.note %></td>
+        <%- if can? :edit, Theme -%>
+          <td><%= move_position(theme) -%></td>
+        <%- end -%>
+        <td><%= link_to theme.name, theme %></td> 
+        <%- if can? :edit, Theme -%>
+          <td><%= i18n_publish(theme.publish) %></td>
+        <%- end -%>
+        <td><%= theme.description %></td>
+        <%- if can? :manege, Theme -%>
           <td>
-            <%- if can? :edit, Theme -%>
-              <%= link_to t('page.edit'), edit_theme_path(theme) %>
-            <%- end -%>
-            <%- if can? :delete, Theme -%>
-              <%= link_to t('page.destroy'), theme, method: :delete, data: { confirm: t('page.are_you_sure') } %>
-            <%- end -%>
-         </td>
+            <%= link_to t('page.edit'), edit_theme_path(theme) %>
+            <%= link_to t('page.destroy'), theme, method: :delete, data: { confirm: t('page.are_you_sure') } %>
+          </td>
+        <%- end -%>
       </tr>
       <% end %>
-
-
     </table>
 
   <br />
