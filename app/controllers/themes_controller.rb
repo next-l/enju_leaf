@@ -12,14 +12,35 @@ class ThemesController < InheritedResources::Base
     @query = query.dup
     query = "#{query}*" if query.size == 1
     page = params[:page] || 1
+   
+    unless current_user.try(:has_role?, 'Librarian')
+      @themes = Theme.search do
+        fulltext query if query
+        with :publish, 0
+        order_by :position
+        #with(:publish).equal_to 0.to_i
+        paginate :page => page.to_i, :per_page => Theme.default_per_page
+      end.results
+    else
+      unless query.blank?
+        @themes = Theme.search do
+          fulltext query
+          paginate :page => page.to_i, :per_page => Theme.default_per_page
+        end.results
+      else
+        @themes = Theme.page(page)
+      end
+    end
+  end
 
+=begin
     @themes = Theme.search do
-     # fulltext query if query
-      with(:publish).equal_to 0 #.to_i unless current_user.has_role?("Libralian")
+      fulltext query if query
+      with(:publish).equal_to 0 unless current_user.has_role?("Libralian")
       paginate :page => page.to_i, :per_page => Theme.default_per_page
     end.results
   end
-
+=end
 =begin
   def show
     if params[:id]

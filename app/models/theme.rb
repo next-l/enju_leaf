@@ -15,6 +15,7 @@ class Theme < ActiveRecord::Base
   searchable do
     text :name
     integer :publish
+    integer :position
     time :created_at
     time :updated_at
   end
