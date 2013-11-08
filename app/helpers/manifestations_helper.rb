@@ -276,4 +276,56 @@ module ManifestationsHelper
           )
     return params
   end
+
+  def twitter_url(title, url)
+    return 'https://twitter.com/intent/tweet?source=webclient&text=' + title + ' ' + url
+  end
+
+  def hatena_url(url)
+    return 'http://b.hatena.ne.jp/append?' + url
+  end
+
+  def yahoo_url(title, url)
+    return 'http://myweb2.search.yahoo.com/myresults/bookmarklet?t=' + title + '&u=' + url
+  end
+
+  def amazon_url(isbn, title)
+    if isbn
+      return 'http://www.amazon.co.jp/gp/search/ref=sr_adv_b/?field-isbn=' + isbn + '&search-alias=stripbooks'
+    else
+      return 'http://www.amazon.co.jp/gp/search/ref=sr_adv_b/?field-title=' + title + '&search-alias=stripbooks'
+    end
+  end
+
+  def seven_url(isbn, title)
+    if isbn
+      return 'http://www.7netshopping.jp/books/search_result/?code=' + isbn
+    else
+      return 'http://www.7netshopping.jp/books/search_result/?title=' + title
+    end
+  end
+
+  def rakuten_url(isbn, title)
+    if isbn
+      return 'http://search.books.rakuten.co.jp/bksearch/nm?g=001&x=0&y=0&sitem=' + isbn
+    else
+      return 'http://search.books.rakuten.co.jp/bksearch/nm?g=001&x=0&y=0&bttl=' + title
+    end
+  end
+
+  def kinokuniya_url(isbn, title)
+    if isbn
+      return 'http://www.kinokuniya.co.jp/f/dsg-01-' + isbn
+    else
+      return 'http://www.kinokuniya.co.jp/disp/CSfDispListPage_001.jsp?qsd=true&ptk=01&gtin=&q=&title=' + title + '&author-key=&publisher-key=&pubdateStart=&pubdateEnd=&thn-cod-b=&ndc-dec-key=&rpp=20&SEARCH.x=0&SEARCH.y=0'
+    end
+  end
+
+  def junkdo_url(isbn, title)
+    if isbn
+      return 'http://www.junkudo.co.jp/mj/products/detail.php?isbn=' + isbn
+    else
+      return 'http://www.junkudo.co.jp/'
+    end
+  end
 end

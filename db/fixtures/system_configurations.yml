@@ -733,3 +733,10 @@ system_configuration_00104:
   typename: Boolean
   description: "長期貸出日の返却日を閉館日の前日にするか"
   category: 'checkout'
+system_configuration_00105:
+  id: 105
+  keyname: manifestation.social_bookmark
+  v: "true"
+  typename: Boolean
+  description: "資料の詳細画面にソーシャルブックマークリンクの表示をするか"
+  category: 'manifestation'

@@ -125,6 +125,10 @@ div#search_footer{
   clear: both;
 }
 
+div#submenu_block{
+  float: left;
+}
+
 div#submenu{
   margin-left: 10px;
   width: 190px;
@@ -132,6 +136,16 @@ div#submenu{
   float: left;
   border: 1px solid #5970B2;
 }
+
+div#social_bookmark{
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 190px;
+  padding: 5px;
+  float: left;
+  border: 1px solid #5970B2;
+}
+
 
 div#manifestation_book_jacket{
   margin-top: 10px;
