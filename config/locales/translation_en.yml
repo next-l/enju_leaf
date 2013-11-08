@@ -194,7 +194,6 @@ en:
       realize_type: Realize type
       copy_request: Copy request
       exchange_manifestation: Exchenge manifestation exemplified
->>>>>>> origin/master
     attributes:
       enju_terminal:
         ipaddr: IP Address
@@ -1481,7 +1480,6 @@ en:
         user: User
         body: Body
         created_at: Accept date
->>>>>>> origin/master
   page:
     user_title: Welcome %{login_name}
     sign_in: Sign in
