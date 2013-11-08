@@ -416,7 +416,7 @@ defaults: &defaults
     delete_article: false
 
    # ヘッダーにマニュアルダウンロードリンクを表示する
-   display_manual: false
+  display_manual: false
  
 development:
   <<: *defaults
