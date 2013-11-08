@@ -1,3 +1,4 @@
+---
 en:
   activerecord:
     models:
@@ -80,15 +81,15 @@ en:
       user_group: User group
       resource_import_file: Resource import file
       checkout: Checkout
-      checkout_family: Family's checkout
+      checkout_family: "Family's checkout"
       subscription: Subscription
       patron_merge: Patron merge
       subject_related_term: Subject related term
       library_group: Library group
       attachment_file: Attachment file
       reserve: Reserve
-      retained_manifestation: Retaubed manifestation(not connected)
-      reserve_family: Family's reserve
+      retained_manifestation: Retained manifestation(not noticed)
+      reserve_family: "Family's reserve"
       answer: Answer
       bookstore: Bookstore
       area: Area
@@ -109,8 +110,8 @@ en:
       expression_has_expression: Expression to expression relationship
       manifestation_has_manifestation: Manifestation to manifestation relationship
       item_has_item: Item to item relationship
-      reserve_stat_has_manifestation: Reserve stat to manifestation relationship
-      reserve_stat_has_user: Reserve stat to user relationship
+      reserve_stat_has_manifestation: Reserve stat has manifestation
+      reserve_stat_has_user: Reserve stat has user
       concept: Concept
       place: Place
       work_has_concept: Work to concept relationship
@@ -124,20 +125,18 @@ en:
       patron_has_patron: Patron to patron relationship
       extent: Extent
       medium_of_performance: Medium of performance
-      content_type: Content type
       patron_relationship_type: Patron relationship type
       manifestation_relationship_type: Resource relationship type
       lending_policy: Lending policy
       nii_type: NII metadata type
       license: License
       work_to_expression_rel_type: Work-to-Expression relationship type
-      expression_to_manifestation_rel_type: Expression-to-Manifestation relationship type
+      expression_to_manifestation_rel_type: Expression-to-Manifestation relationship
+        type
       series_statement: Series statement
       series_statement_relationship: Series statement relationship
       checkout_stat_has_manifestation: Checkout stat has manifestation
       checkout_stat_has_user: Checkout stat has user
-      reserve_stat_has_manifestation: Reserve stat has manifestation
-      reserve_stat_has_user: Reserve stat has user
       import_request: Import request
       resource: Resource
       user_has_role: User and roles
@@ -162,6 +161,40 @@ en:
       nacsis_request_lend: Nacsis lend request
       theme: Theme
       theme_list: Theme_list
+      wareki: Japanese Calendar
+      user_request_log: User request log
+      sheet: Sheet
+      create_type: Create type
+      resource_import_textfile: Resource Import Textfile
+      user_status: User status
+      department: Department
+      classmark: Class mark
+      family_user: Family
+      shelf_has_manifestation: Relationship between shelf and manifestation
+      resource_import_textresult: Result of resource import
+      budget: Budget
+      budget_type: Budget type
+      exchange_rate: Exchange rate
+      term: Term
+      checkoutlist: Checkout list
+      reservelist: Reservation list
+      manifestation_exstat: Statistics
+      statistic_report: Statistics report
+      ndl_report: Export annual report of ndl branches
+      ndl_statistic: Export annual report of nal branches
+      print_label: User label
+      export_item_list: Export item list
+      export_item_register: Export item register
+      library_report: Library report
+      numbering: Numbering
+      bookbinding: Bookbinding
+      binding_item: Binding item
+      checkout_history: "Today's Checkout"
+      produce_type: Produce type
+      realize_type: Realize type
+      copy_request: Copy request
+      exchange_manifestation: Exchenge manifestation exemplified
+>>>>>>> origin/master
     attributes:
       enju_terminal:
         ipaddr: IP Address
@@ -174,7 +207,7 @@ en:
         checkouts_autoprint: Auto-print checkout sheet
         reserve_autoprint: Auto-print reservation sheet
         manifestation_autoprint: Auto-print manifestation sheet
-        boolean_yes: yes
+        boolean_yes: true
         boolean_no: no
       library:
         name: Name
@@ -212,6 +245,7 @@ en:
         patron_import_updated_at: Updated at
         state: State
         edit_mode: Edit mode
+        import_request: Import now
       circulation_status:
         name: Name
         display_name: Display name
@@ -237,7 +271,8 @@ en:
         full_name: Full name
         full_name_transcription: Full name transcription
         full_name_alternative: Full name alternative
-        full_name_note: The case of not inputting, It is set up as a last name+ " " +first name
+        full_name_note: The case of not inputting, It is set up as a last name+ "
+          " +first name
         deleted_at: Deleted at
         zip_code_1: Zip code 1
         zip_code_2: Zip code 2
@@ -271,6 +306,12 @@ en:
         email: Email
         url: URL
         old: old
+        address: Address
+        no_key: undefined
+        birth_date: Birth date
+        death_date: Death date
+        note_update_at: Note update date
+        patron_identifier: Patron Identifier
       feeds/app:
         source_url: Source URL
         title: Title
@@ -311,6 +352,8 @@ en:
       subject_as_place:
         term: Term
       subject_has_classification:
+        subject: Subject
+        classification: Classification
       expression:
         original_title: Original title
         title_transcription: Title transcription
@@ -377,6 +420,16 @@ en:
         locked_no: Impossible
         unable_yes: Possible
         unable_no: Impossible
+        duedate_reminder_days: Reminder days for duedate
+        present_user_number: Current user number
+        new_user_number: New user number
+        reserved_library: Reserved library
+        birth_date: Birth date
+        death_date: Death date
+        adddress: Address
+        unable: Inaccessible
+        user_status: User status
+        department: Department
       work_has_subject:
         work: Work
         subject: Subject
@@ -405,6 +458,11 @@ en:
         return_received_at: Return received at
         deleted_at: Deleted at
         state: State
+        item_id: Item
+        borrowing_library: Received library
+        from_library: Original library
+        to_library: Received library
+        reason: Loan reason
       classification:
         category: Category
         name: Name
@@ -447,6 +505,8 @@ en:
         open: Open
         closed: Closed
         in_process: In process
+        stock: Stock
+        other: Other
       advertisement:
         title: Title
         url: URL
@@ -459,6 +519,8 @@ en:
       porta_response:
         body: Body
       donate:
+        patron: Patron
+        item: Item
       basket:
         user: User
         note: Note
@@ -473,6 +535,7 @@ en:
         note_successfully_updated: Note was successfully updated.
       produce:
         position: Position
+        manifestation: Published Manifestation
       role:
         name: Name
         display_name: Display name
@@ -481,7 +544,7 @@ en:
         position: Position
       session:
         data: Data
-      subject_broader_term:
+      subject_broader_term: 
       subject_heading_type:
         name: Name
         display_name: Display name
@@ -490,7 +553,7 @@ en:
       subscribe:
         started_on: Start on
         ended_on: End on
-      checkin:
+      checkin: 
       item:
         call_number: Call number
         item_identifier: Item identifier
@@ -506,15 +569,17 @@ en:
         acquired_at_string: Acquired at
         loss_item: Loss item
         set_status: Loss item processing
-        will_loss_item: Is status set as Lost, and Is a book returned? 
+        will_loss_item: Is status set as Lost, and Is a book returned?
         fail_update_loss_item: Failed to update status
         created_at: Created at
         removed_at: Removed at
         rank: Rank
         non_searchable: Non Searchable
+        price_string: Purchase Price
+        items_number: Item number
       loss_item:
         user_id: User number
-        item_id: Loss item 
+        item_id: Loss item
         loss_item: Loss item
         status: Status
         reimbursed: Reimbursed
@@ -540,8 +605,19 @@ en:
         start_number: Start Number
         print_sheet: Print sheet
         error: input 0 or more numerical values.
-        generated_from: "1:Generate from patterns,2:Generate from user numbers,3:Generate from item IDs,4:Generate custom barcodes"
+        generated_from: 1:Generate from patterns,2:Generate from user numbers,3:Generate
+          from item IDs,4:Generate custom barcodes
         custom_barcode: Custom barcode
+        barcode_suffix: Suffix
+        sheet_id: Sheet Type
+        end_number: Finish Number
+        output_user_numbers: "Export user numbers in ascending order"
+        output_item_identifiers: "Export item identifiers in ascending order"
+        sp_start_number: Start Code
+        sp_end_number: End Code
+        label_note: Label note
+        print_label: Print
+        print_label_2: Print
       work:
         original_title: Original title
         title_transcription: Title transcription
@@ -563,8 +639,14 @@ en:
         accepted_at: Accepted at
         denied_at: Denied at
         deleted_at: Deleted at
+        created_at: Created at
+        pub_date: Publication date
+        state: State
+        reason: Reason
       realize:
         position: Position
+        patron: Patron
+        expression: Expression
       reify:
         position: Position
       subject_as_concept:
@@ -574,6 +656,8 @@ en:
         display_name: Display name
         note: Note
         position: Position
+        freq_string: Frequency
+        nii_code: NII Code
       expression_merge_list:
         title: Title
       use_restriction:
@@ -592,7 +676,7 @@ en:
         display_name: Display name
         note: Note
         position: Position
-      work_merge:
+      work_merge: 
       aaws_response:
         body: Body
       patron_type:
@@ -618,12 +702,13 @@ en:
         deleted_at: Deleted at
         state: State
         ordered_at_annotation: YYYY-MM-DD or YYYY-MM-DD HH:MM (e.g. 2011-04-01 09:00)
+        ordered_at_s: "ordered at"
       advertise:
         position: Position
       embody:
         position: Position
-      item_has_use_restriction:
-      expression_merge:
+      item_has_use_restriction: 
+      expression_merge: 
       request_status_type:
         name: Name
         display_name: Display name
@@ -643,6 +728,7 @@ en:
         start_date: Start date
         end_date: End date
         draft: Draft
+        to_date: End date
       search_engine:
         name: Name
         url: URL
@@ -730,6 +816,31 @@ en:
         hold_libabl: Library name (abbreviated)
         hold_cln: Call number
         hold_rgtn: Registration number
+        id: ID
+        pub_date_article: "date of publication"
+        pub_year: "year of publication"
+        price_string: Price
+        volume_number: Volume Number(integer)
+        volume_number_string: Volume Number
+        issue_number: Issue Number(integer)
+        issue_number_string: Issue Number
+        serial_number: Serial Number(integer)
+        serial_number_string: Serial Number
+        edition_string: Edition
+        marc_number: MARC number
+        table_of_contents: Table of contents
+        exinfo_6: Exinfo6
+        exinfo_7: Exinfo7
+        exinfo_8: Exinfo8
+        exinfo_9: Exinfo9
+        exinfo_10: Exinfo10
+        creator: Creator
+        contributor: Contributor
+        publisher: Publisher
+        subject: Subject
+        missing_issue: Missing Issue
+        printout_in_progress: started to export checkout confirmation card
+        external_catalog: Cataloging Authority
       user_group:
         name: Name
         display_name: Display name
@@ -752,7 +863,7 @@ en:
         edit_mode: Edit mode
       checkout:
         due_date: Due date
-        family_info: Family's information
+        family_info: "Family's information"
         lock_version: Lock version
         renewal_count: Checkout renewal count
         output_checkoutlist: Outout checkout list
@@ -762,8 +873,8 @@ en:
         note: Note
         deleted_at: Deleted at
         subscribes_count: Count
-      patron_merge:
-      subject_related_term:
+      patron_merge: 
+      subject_related_term: 
       library_group:
         name: Name
         display_name: Display name
@@ -805,6 +916,8 @@ en:
         telephone: telephone
         reserve_list: Reserve list
         position: Position
+        contact: Contact
+        zipcode: Zipcode
       retained_manifestation:
         done: Done
         failed_update: Failed update
@@ -825,6 +938,7 @@ en:
         email: Email
         position: Position
         deleted_at: Deleted at
+        name_transcription: Name transcription
       area:
         name: Name
         address: Address
@@ -877,9 +991,13 @@ en:
         user_group_id: User group
         checkout_type_id: Checkout type
         current_checkout_count: Current checkout count
+        user_group: User Group
+        checkout_type: Checkout Type
       carrier_type_has_checkout_type:
         note: Note
         position: Position
+        carrier_type: Carrier Type
+        checkout_type: Checkout Type
       manifestation_checkout_stat:
         start_date: Start date
         end_date: End date
@@ -958,6 +1076,9 @@ en:
         date_of_death: Date of death
         lock_version: Lock version
         note: Note
+        full_name: Full name
+        full_name_transcription: Full name transcription
+        full_name_alternative: Alternatice full name
       family:
         name: Name
         name_transcription: Name transcription
@@ -979,6 +1100,10 @@ en:
         date_of_death: Date of death
         lock_version: Lock version
         note: Note
+        id: ID
+        full_name: Full name
+        full_name_transcription: Full name transcription
+        full_name_alternative: Alternatice full name
       unablelist:
         output_format: Output format
       checkout_stat_has_user:
@@ -1013,17 +1138,7 @@ en:
         display_name: Displayname
         note: Note
         position: Position
-      content_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
       extent:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      content_type:
         name: Name
         display_name: Display name
         note: Note
@@ -1090,6 +1205,8 @@ en:
         issn: ISSN
         periodical: Periodical
         title_transcription: Title transcription
+        id: ID
+        note: Note
       series_statement_relationship:
         parent_id: Parent
         child_id: Child
@@ -1110,18 +1227,31 @@ en:
         parent_id: Parent
         child_id: Child
         patron_relationship_type_id: Patron relationship type
+        parent: Original patron
+        child: Related patron
       manifestation_relationship:
         parent_id: Parent
         child_id: Child
         manifestation_relationship_type_id: Manifestation relationship type
+        parent: Original manifestation
+        child: Related manifestation
       resource_import_result:
         body: Body
         error_msg: Message
+        index: Index
+        imported_row: Number of imported rows
+        display_result: Number of display results
+        all: ALL
+        has_msg: only results with message
       resource_import_textresult:
         error_msg: Message
+        body: Body
+        imported_row: Number of imported rows
       patron_import_result:
         body: Body
         error_msg: Message
+        index: Index
+        imported_row: Number of imported rows
       series_statement_merge_list:
         title: Title
       item_list:
@@ -1135,7 +1265,7 @@ en:
         v: Value
         typename: Type name
         description: Description
-        invalid_format: " invalid format"
+        invalid_format: invalid format
       keyword_count:
         rank: Rank
         keyword: Keyword
@@ -1163,20 +1293,20 @@ en:
         request_datetime: Request datetime
         request_type: Request type
         request_type_names:
-         -
-         - Lend
-         - Copy
+        - 
+        - Lend
+        - Copy
         state: State
         state_names:
-         - Finish
-         - Accept
-         - Accepted
-         - Sendback
-         - Requested
-         - Rejected
-         - Arrived
-         - Confirming
-         - Notified
+        - Finish
+        - Accept
+        - Accepted
+        - Sendback
+        - Requested
+        - Rejected
+        - Arrived
+        - Confirming
+        - Notified
         user_note: User note
         librarian_note: Librarian note
         created_from: Created from
@@ -1189,248 +1319,441 @@ en:
         position: Position
         hot_topic: Hot topic
 
+      wareki:
+        display_name: Display name
+        short_name: Short name
+        year_from: Start year of western calendar
+        year_to: End year of western calendar
+        note: Note
+      user_request_log:
+        user_id: User ID
+        controller: Controller
+        action: Action
+        remote_ip: IP address
+        created_at: "Operated date&time"
+        created_at_start: "Date&Time(start)"
+        created_at_end: "Date&Time(end)"
+        search_note: Regular Expressions are available for IP address, Controller and Action
+        created_sort_note: "Sort operated date&time by following order"
+        data: request parameter
+      user_status:
+        name: Name
+        display_name: Display name
+        state: Availability
+      classmark:
+        name: Mark
+        display_name: Display name
+      department:
+        name: Code
+        display_name: Display name
+        short_name: Short name
+        position: Position
+        note: Note
+      numbering:
+        name: Name
+        display_name: Display name
+        prefix: Prefix
+        suffix: Suffix
+        padding: Padding
+        padding_number: Padding length
+        padding_character: Padding letter
+        last_number: Last number
+        checkdigit: Check digit
+      manifestation_types:
+        book: Book
+        series: Serial
+      budget_and_results_managements:
+        id: Index
+        item_of_expenditure: Item 
+        expense: Purchase price(yen)
+        budget: Budget(yen)
+        remain_amount: Remaining amount(yen)
+        digestibility: Digestive rate(%)
+        search: Search
+        expense_label: ! '%yyyy%mm'
+        budget_sum: Budget amount
+        expense_sum: Expense amount 
+        digestibility_sum: Digestive rate(%)
+      reminder_list:
+        id: Id
+        checkout: Checkout
+        checkout_id: Checkout id
+        original_title: Title
+        user_name: User name
+        status: Status
+        due_date: Due date
+        number_of_day_overdue: overdue days
+        type1_printed: Overdue notice card
+        type1_printed_at: printed date
+        type2_printed: Overdue notice card
+        type2_printed_at: printed date
+        mail_sent_at: overdue notice sent date
+        printed: printed
+        status_name:
+          accepted: accepted
+          called: called
+        honorific1: Dear
+        honorific2: Mr/Mrs/Miss
+        total: total
+        other: other
+        items: items
+        library: Library
+        item_identifier: Item identifier
+      resource_import_textfile:
+        resource_import_text_file_name: File name
+        resource_import_text_content_type: Content-Type
+        resource_import_text_file_size: File size
+        file_hash: File hash
+        note: Note
+        imported_at: Imported date
+        resource_import_updated_at: Updated date
+        state: State
+        adapter_name: File type
+        sheet: Sheet
+      accept_type:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      create_type:
+        name: Name
+        display_name: Display name
+        note: Note
+      realize_type:
+        name: Name
+        display_name: Display name
+        note: Note
+      produce_type:
+        name: Name
+        display_name: Display name
+        note: Note
+      series_has_manifestation:
+        series_statement_id: Series statement id 
+        manifestation_id: Manifestation id
+      budget:
+        library_id: Library
+        term_id: Term
+        library: Library
+        term: Term
+        budget_type: Budget type
+        amount: Amount
+        note: Note
+      budget_type:
+        id: ID
+        name: Name
+      term:
+        display_name: Name
+        start_at: Start date
+        end_at: End date
+        end_at_invalid: End date must be later than Start date.
+      statistic_report:
+        type: Type
+        term: Term
+      item_register:
+        list_type: List type
+        file_type: File type
+      library_report:
+        library: Library
+        yyyymmdd: yyyymmdd(for daily report)
+        yyyymm: yymm(for monthly report)
+        visiters: Visiters
+        copies: Copies
+        consultations: References
+      expense:
+        budget: Budget
+        item: Item
+        price: Price
+        created_at: Accept date
+      sheet:
+        name: Name
+        note: Note
+        height: Height
+        width: Width
+        cell_h: Cell(H)
+        cell_w: Cell(W)
+        margin_h: Margin(H)
+        margin_w: Margin(W)
+        space_h: Space(H)
+        space_w: Space(W)
+        cell_x: Number of row(H)
+        cell_y: Number of column(W)
+      copy_request:
+        user: User
+        body: Body
+        created_at: Accept date
+>>>>>>> origin/master
   page:
-    user_title: "Welcome %{login_name}"
-    sign_in: "Sign in"
-    sign_out: "Sign out"
-    sign_up: "Sign up"
-    logged_in_as: "logged in as %{login_name}"
+    user_title: Welcome %{login_name}
+    sign_in: Sign in
+    sign_out: Sign out
+    sign_up: Sign up
+    logged_in_as: logged in as %{login_name}
     edit_user_profile: "Edit %{login_name}'s profile"
-    login_name: "Login name"
-    password: "Password"
-    email_and_password: "Email and password"
-    catalog_search: "Catalog search"
-    search: "Search"
-    search_term: "Search term(s)"
-    search_for: "Search for"
-    search_local: "Local"
-    search_nacsis: "NACSIS"
-    all_search_term: "All"
-    any_search_term: "Any"
-    except_search_term: "Except"
-    search_result: "Search result"
+    login_name: Login name
+    password: Password
+    email_and_password: Email and password
+    catalog_search: Catalog search
+    search: Search
+    search_term: Search term(s)
+    search_for: Search for
+    search_local: Local
+    search_nacsis: NACSIS
+    all_search_term: All
+    any_search_term: Any
+    except_search_term: Except
+    search_result: Search result
     number_of_manifestations:
-      one: "1 record in this library."
-      other: "%{numdocs} records in this library."
+      one: 1 record in this library.
+      other: ! "%{numdocs} records in this library."
     number_of_unread_messages:
-      one: "You have 1 unread message."
-      other: "You have %{numdocs} unread messages."
+      one: You have 1 unread message.
+      other: You have %{numdocs} unread messages.
     number_of_search_results:
-      one: "1 record found from %{numdocs} records in %{seconds} seconds."
-      other: "%{count} records found from %{numdocs} records in %{seconds} seconds."
+      one: 1 record found from %{numdocs} records in %{seconds} seconds.
+      other: ! "%{count} records found from %{numdocs} records in %{seconds} seconds."
     number_of_nacsis_book_search_results:
       one: "Book(s) found: 1 record"
       other: "Book(s) found: %{count} records"
     number_of_nacsis_serial_search_results:
-      one: "Magazine(s) found: 1 record"
-      other: "Magazine(s) found: %{count} records"
-    tag: "Tag"
-    call_number: "Call number"
-    holding: "Holding"
-    advanced_search: "Advanced search"
-    advanced_search: "Normal search"
-    advanced_search_summary_delimiter: ", "
-    title: "Title"
-    exact_title: "Exact match"
-    all_title: "All"
-    any_title: "Any"
-    except_title: "Except"
-    exact_creator: "Exact match"
-    all_creator: "All"
-    any_creator: "Any"
-    except_creator: "Except"
-    exact_publisher: "Exact match"
-    all_publisher: "All"
-    any_publisher: "Any"
-    except_publisher: "Except"
-    note: "Note"
-    back: "Back"
-    show: "Show"
-    edit: "Edit"
-    destroy: "Destroy"
-    create: "Create"
-    update: "Update"
-    delete: "Delete"
-    add: "Add"
-    price: "Price"
-    bookstore: "Bookstore"
-    created_at: "Created at"
-    updated_at: "Updated at"
-    checkout: "Checkout"
-    checkin: "Checkin"
-    name: "Name"
-    are_you_sure: "Are you sure?"
-    cancel_confirm: "Are you sure?"
-    roles_confirm: "Are you sure?"
-    send_email_confirm: "Are you sure?"
-    inter_library_loans_confirm: "Are you sure?"
-    file: "File"
-    cancel: "Cancel"
-    author: "Author"
-    editor: "Editor"
-    publisher: "Publisher"
-    feed: "Feed"
-    back_to_index: "Back to index"
-    import: "Import from file"
-    import_record: "Import records"
-    export: "Export"
-    detail: "Detail"
-    acquisition: "Acquisition"
-    configuration: "Configuration"
-    search_resource: "Search %{model}"
-    show_all: "Show all"
-    hide: "Hide"
-    et_al: "et-al."
-    overdue: "Overdue"
+      one: ! 'Magazine(s) found: 1 record'
+      other: 'Magazine(s) found: %{count} records'
+    tag: Tag
+    call_number: Call number
+    holding: Holding
+    advanced_search: Normal search
+    advanced_search_summary_delimiter: ', '
+    title: Title
+    exact_title: Exact match
+    all_title: All
+    any_title: Any
+    except_title: Except
+    exact_creator: Exact match
+    all_creator: All
+    any_creator: Any
+    except_creator: Except
+    exact_publisher: Exact match
+    all_publisher: All
+    any_publisher: Any
+    except_publisher: Except
+    note: Note
+    back: Back
+    show: Show
+    edit: Edit
+    destroy: Destroy
+    create: Create
+    update: Update
+    delete: Delete
+    add: Add
+    price: Price
+    bookstore: Bookstore
+    created_at: Created at
+    updated_at: Updated at
+    checkout: Checkout
+    checkin: Checkin
+    name: Name
+    are_you_sure: Are you sure?
+    cancel_confirm: Are you sure?
+    roles_confirm: Are you sure?
+    send_email_confirm: Are you sure?
+    inter_library_loans_confirm: Are you sure?
+    file: File
+    cancel: Cancel
+    author: Author
+    editor: Editor
+    publisher: Publisher
+    feed: Feed
+    back_to_index: Back to index
+    import: Import
+    import_record: Import records
+    export: Export
+    detail: Detail
+    acquisition: Acquisition
+    configuration: Configuration
+    search_resource: Search %{model}
+    show_all: Show all
+    hide: Hide
+    et_al: et-al.
+    overdue: Overdue
     number_of_reservations:
-      one: "%{count} user"
-      other: "%{count} users"
-    back_to_search_results: "Back to search results"
-    submit: "Submit"
-    management: "Management"
-    about_us: "About us"
-    open_source_integrated_library_system: "an open source integrated library system"
-    related_work: "Related work"
-    related_manifestation: "Related manifestation"
-    amazon_review: "Amazon review"
-    these_reviews_are_from_amazon: "These reviews are from Amazon.com."
-    video: "Video"
-    picture: "Picture"
-    number: "Number"
-    statistics: "Statistics"
-    request: "Request"
-    librarian_circulation: "Circulation"
-    user_circulation: "Circulation"
-    reset: "Reset"
-    account: "Account"
-    form: "Form"
-    remove_this_facet: "Remove this facet"
-    no_subject: "No subjects."
-    no_tag: "No tags."
-    add_patron: "Add a patron"
-    total: "Total"
-    sort_by: "Sort by"
-    bookmarklet: "Bookmarklet"
-    add_file: "Add a file"
-    telephone_number: "Telephoone number"
-    about_this_system: "About this system"
-    report_bugs: "Report bugs"
-    new_resource: "New resources"
-    checkout_history: "Checkout history"
-    recommendation: "Recommendation"
-    add_manually: "Add manually"
-    import: "Import"
-    import_from_file: "Import from TSV file"
-    import_from_network: "Import from networks"
-    no_record_found: "No records found."
-    did_you_mean_to_search_for: "Did you mean to search for"
-    not_found_users: "Not found users."
-    limit_exceeded: "Limit exceeded. Listing the first %{count} records."
-    enter_search_term: "Enter your search term."
-    serial: "Serial"
-    number_of_pages: "Number of pages"
-    holding_library: "Holding library"
-    resource: "Resource"
-    type: "Type"
-    search_result_feed: "Search result feed"
-    force_reload: "Force reload"
-    clear_cache: "Clear cache"
-    current_url: "Current URL"
-    subject_and_classification: "Subject and classification"
-    you_can_search_following_database: "You can search the following databases."
-    listing: "Listing %{model}"
-    new: "New %{model}"
-    editing: "Editing %{model}"
-    showing: "Showing %{model}"
-    output: "Output %{model}"
-    output_pdf: "Output %{model}(PDF)"
-    output_csv: "Output %{model}(CSV)"
-    output_tsv: "Output %{model}(TSV)"
-    output_excelx: "Output %{model}(Excel 2007 and up)"
-    output_excelx_dialog: "Select column(s) for output"
-    output_excelx_detail: "Output checked columns"
-    output_excelx_default_checked: "(default)"
-    patron_management: "Patron management"
-    user_management: "User management"
-    back_to: "Back to %{model} index"
-    picture: "Picture"
-    add_picture: "Add a picture"
-    invalid_date: "Invalid date."
-    current_status: "Current status"
-    date: "Date"
-    this_month: "This month"
-    click_to_edit: "click to edit..."
-    saving: "Saving..."
-    news: "News"
-    model: "Model"
-    number_of_record: "Number of record"
-    facet: "Facet"
+      one:  '%{count} user'
+      other:  "%{count} users"
+    back_to_search_results: Back to search results
+    submit: Submit
+    management: Management
+    about_us: About us
+    open_source_integrated_library_system: an open source integrated library system
+    related_work: Related work
+    related_manifestation: Related manifestation
+    amazon_review: Amazon review
+    these_reviews_are_from_amazon: These reviews are from Amazon.com.
+    video: Video
+    picture: Picture
+    number: Number
+    statistics: Statistics
+    request: Request
+    librarian_circulation: Circulation
+    user_circulation: Circulation
+    reset: Reset
+    account: Account
+    form: Form
+    remove_this_facet: Remove this facet
+    no_subject: No subjects.
+    no_tag: No tags.
+    add_patron: Add a patron
+    total: Total
+    sort_by: Sort by
+    bookmarklet: Bookmarklet
+    add_file: Add a file
+    telephone_number: Telephoone number
+    about_this_system: About this system
+    report_bugs: Report bugs
+    new_resource: New resources
+    checkout_history: Checkout history
+    recommendation: Recommendation
+    add_manually: Add manually
+    import_from_file: Import from TSV file
+    import_from_network: Import from networks
+    no_record_found: No records found.
+    did_you_mean_to_search_for: Did you mean to search for
+    not_found_users: Not found users.
+    limit_exceeded: Limit exceeded. Listing the first %{count} records.
+    enter_search_term: Enter your search term.
+    serial: Serial
+    number_of_pages: Number of pages
+    holding_library: Holding library
+    resource: Resource
+    type: Type
+    search_result_feed: Search result feed
+    force_reload: Force reload
+    clear_cache: Clear cache
+    current_url: Current URL
+    subject_and_classification: Subject and classification
+    you_can_search_following_database: You can search the following databases.
+    listing: Listing %{model}
+    new: New %{model}
+    editing: Editing %{model}
+    showing: Showing %{model}
+    output: Output %{model}
+    output_pdf: Output %{model}(PDF)
+    output_csv: Output %{model}(CSV)
+    output_tsv: Output %{model}(TSV)
+    output_excelx: Output %{model}(Excel 2007 and up)
+    output_excelx_dialog: Select column(s) for output
+    output_excelx_detail: Output checked columns
+    output_excelx_default_checked: (default)
+    patron_management: Patron management
+    user_management: User management
+    back_to: Back to %{model} index
+    add_picture: Add a picture
+    invalid_date: Invalid date.
+    current_status: Current status
+    date: Date
+    this_month: This month
+    click_to_edit: click to edit...
+    saving: Saving...
+    news: News
+    model: Model
+    number_of_record: Number of record
+    facet: Facet
     number_of_days:
-      one: "%{count} day"
-      other: "%{count} days"
-    require_login_as_librarian: "You should login as a librarian to create and edit resources."
-    read: "Read"
-    merge: "Merge!"
-    merge_resource: "Merge %{model}"
-    merge_confirm: "Are you sure?"
-    attachable: "Attachable"
-    under_construction: "Under construction"
-    sent_email: "Sent email."
-    identifier: "Identifier"
-    select_locale: "Select locale"
-    local_record: "Local record"
-    search_catalog_at: "Search catalog at %{library_name}"
-    add_on: "Add-ons"
-    asc: "ascendent"
-    desc: "descendent"
-    error_occured: "An error occured."
-    did_you_mean: "Did you mean"
-    calendar: "Calendar"
-    related: "Related"
-    history: "History"
-    current_version: "Current version"
-    select: "Select"
-    other_view: "Other views"
+      one:  '%{count} day'
+      other:  '%{count} days'
+    require_login_as_librarian: You should login as a librarian to create and edit
+      resources.
+    read: Read
+    merge: Merge!
+    merge_resource: Merge %{model}
+    merge_confirm: Are you sure?
+    attachable: Attachable
+    under_construction: Under construction
+    sent_email: Sent email.
+    identifier: Identifier
+    select_locale: Select locale
+    local_record: Local record
+    search_catalog_at: Search catalog at %{library_name}
+    add_on: Add-ons
+    asc: ascendent
+    desc: descendent
+    error_occured: An error occured.
+    did_you_mean: Did you mean
+    calendar: Calendar
+    related: Related
+    history: History
+    current_version: Current version
+    select: Select
+    other_view: Other views
     boolean:
-      "true": "Yes"
-      "false": "No"
-    not_found: "Page not found"
-    access_denied: "Access denied"
-    internal_server_error: "Internal server error"
-    last_updated: "Last updated"
-    unknown: "Unknown"
-    more: "More"
-    connection_faild: "Connection failed."
-    timed_out: "Operation timed out."
-    example: "Example"
-    example_date: "2012-04-01"
-    saving: "Saving..."
-    previous: "Previous"
-    next: "Next"
-    my_account: "My account"
+      'true': 'Yes'
+      'false': 'No'
+    not_found: Page not found
+    access_denied: Access denied
+    internal_server_error: Internal server error
+    last_updated: Last updated
+    unknown: Unknown
+    more: More
+    connection_faild: Connection failed.
+    timed_out: Operation timed out.
+    example: Example
+    example_date: '2012-04-01'
+    previous: Previous
+    next: Next
+    my_account: My account
     number_of_pictures:
-      one: "Picture"
-      other: "Pictures"
-    best_request: "best request"
-    best_reader: "best reader"
-    wait: "Wait.."
-    extensions: "Extensions"
-    add_child: "Add a child"
+      one: Picture
+      other: Pictures
+    best_request: best request
+    best_reader: best reader
+    wait: Wait..
+    extensions: Extensions
+    add_child: Add a child
     access_logs: Access logs
-    search_results: "Search results (Book)"
-    search_article_results: "Search results (Paper)"
-    more_information: "View more information"
-    nacsis_book: "Book"
-    nacsis_serial: "Magazine"
-
+    search_results: Search results (Book)
+    search_article_results: Search results (Paper)
+    more_information: View more information
+    nacsis_book: Book
+    nacsis_serial: Magazine
     exstatistics:
       ranknumber: Rank
       count: Count
       readercount: Reader count
       requestcount: Request count
-      nil_date: "fill in the form"
-      invalid_input_date: "wrong date inputed"
-      over_end_date: "The end date should over the start date"
+      nil_date: fill in the form
+      invalid_input_date: wrong date inputed
+      over_end_date: The end date should over the start date
+    search_clear: Clear
+    has_relationships: Has relationships
+    normal_search: Clear advanced search and search
+    pub_date: Date of publication
+    carrier_type: Carrier Type
+    item_identifier: Item identifier
+    solr_query: Solr query
+    remove: Remove
+    restore: Restore
+    operated_at: Opearated at
+    recheckout: Checkout again
+    undo_binding: Do you want to unbind it?
+    enju_leaf_extended_version: Public library version
+    ex_statistics: Statistics
+    import_from_tsvfile: Import from TSV file
+    histories:  '%{model} History'
+    output_request: List of missing issues not requested(PDF)
+    no_file: No file
+    connection_failed: Failed to connect network
+    userdetail: User detail
+    download: Download
+    budget_and_order: Budget and Order
+    budget: Budget
+    system_configuration: Systen Configuration
+    reminder_postal_card: Reminder card
+    reminder_letter: Reminder letter
+    budgets: Budget
+    extensions_1: Extensions
+    library_check: Inventory Check
+    library_reports: Reports
+    output_receipt_printer: "* This receipt is only for receipt printer and will be printed in 8cm width."
+    get_manual: Download manual
+  manual_for_user: "manual_for_user.pdf"
+  manual_for_librarian: "manual_for_librarian.pdf"
 
   tooltip:
     icons_info: Icons information
@@ -1450,313 +1773,492 @@ en:
     unavailable: unavailable
     add_derivation: Add derivation
     answer: answer
-    serial: serial
+    xlsx: XLSX
+    add: Add
   title:
-    index: "index"
-    show: "show"
-    new: "new"
-    edit: "edit"
+    index: index
+    show: show
+    new: new
+    edit: edit
   controller:
-    successfully_created: "%{model} was successfully created."
-    successfully_updated: "%{model} was successfully updated."
-    successfully_deleted: "%{model} was successfully deleted."
+    successfully_created: ! '%{model} was successfully created.'
+    successfully_updated: ! '%{model} was successfully updated.'
+    successfully_deleted: ! '%{model} was successfully deleted.'
   advanced_search:
-    from: "from"
-    to: "to"
-    all: "All %{model}"
-    all_libraries: "All libraries"
-    all_manifestations: "All manifestations diplay"
-    search_isbn: "When you do search ISBN, do not input other forms."
-    search_item_identifier: "When you do search the item identifier, do not input other forms."
+    from: from
+    to: to
+    all: All %{model}
+    all_libraries: All libraries
+    all_manifestations: All manifestations diplay
+    search_isbn: When you do search ISBN, do not input other forms.
+    search_item_identifier: When you do search the item identifier, do not input other
+      forms.
+    from_date: From
+    to_date: To
+    library: Library
+    help_query: Search from title, creator, puslisher, series name and note.
+    help_isbn: Type using half-width characters.
+    help_issn: Type using half-width characters.
+    clear_query: Clear query
+    description: ! ' <h5>Search detail:</h5> <br /> Directly show manifestation detail matched, with item identifier. <br />
+      (With asterisk for item identifier, results will be showed as manifestations list and other conditions is not available.)'
+    description_unique_isbn: ! ' <h5>Search detail:</h5> <br /> Directly show manifestation detail matched with item identifier or isbn.<br
+      /> (With asterisk for patial match, search results will be showed as manifsetations list and other conditions are not avilable.)'
+    help_solr_query: ! 'Type solr search query'
+    solr_query_format:
+      format: How to type search query
+      exsample: Example
+      word: Search with word(s)
+      word_description: to search with word(s) inputted
+      word_ex: weather
+      and: ! '[AND] search'
+      and_description: to search manifestations including all key words, type 'AND' or space between words and search.
+      and_ex: title_text:(book1 AND book2)
+      or: ! '[OR] search'
+      or_description: to search manifestations including one of key words, type 'OR' between words and search.
+      or_ex: title_text:(book1 OR book2)
+      not: ! '[NOT] search'
+      not_description: to search manifsetations NOT including the words with 'NOT'  
+      not_ex: "title_text:(NOT book1)"
+      wild: Wild card search
+      wild_description: to replace and search '*' as any string and '?' as any single character.
+      wild_ex: weather??<br / >weather*
+      field: Specific field search
+      field_description: to search with specific field.
+      field_detail:
+        target: Target
+        format: Format
+        title_format: ! 'title_text:'
+        title_ex: ! 'title_text: weather'
+        creator_format: ! 'creator_text:'
+        creator_ex: ! 'creator_text: Charles Dickens'
+        publisher_format: ! 'publisher_text:'
+        publisher_ex: ! 'publisher_text: Oxford'
+        contributor_format: ! 'contributor_text:'
+        contributor_ex: ! 'contributor_text: John Smith'
+        isbn_format: ! 'isbn_sm:'
+        isbn_ex: isbn_sm:4167113058
+        issn_format: ! 'issn_sm:'
+        issn_ex: issn_sm:00280836
+        item_identifier_format: ! 'item_identifier_sm:'
+        item_identifier_ex: item_identifier_sm:10000001
+        pub_date_format: pub_date_sm:[ TO ]
+        pub_date_ex: pub_date_sm:[2012-01-01 TO 2013-12-31]
+        acquired_format: acquired_at_sm:[ TO ]
+        acquired_ex: acquired_at_sm:[2012-01-01 TO 2013-12-31]
+        removed_format: removed_at_sm:[ TO ]
+        removed_ex: removed_at_sm:[2012-01-01 TO 2013-12-31]
+        manifestation_type_format: ! 'manifestation_type_sm:'
+        manifestation_type_ex: manifestation_type_sm:japanese_book
+        carrier_type_format: ! 'carrier_type_s:'
+        carrier_type_ex: carrier_type_s:print
+        volume_number_string_format: ! 'volume_number_string_sm:'
+        volume_number_string_ex: volume_number_string_sm:1
+        issue_number_string_format: ! 'issue_number_string_sm:'
+        issue_number_string_ex: issue_number_string_sm:1
+        serial_number_string_format: ! 'serial_number_string_sm:'
+        serial_number_string_ex: serial_number_string_sm:1
+        description_format: ! 'description_text:'
+        description_ex: ! 'description_text: Special Feature'
+        note_format: ! 'note_text:'
+        note_ex: ! 'note_text: Special edition'
+        subject_format: ! 'subject_sm:'
+        subject_ex: ! 'subject_sm: Subject'
+        exinfo_1_format: ! 'exinfo_1_text:'
+        exinfo_1_ex: ! 'exinfo_1_text:1'
+        exinfo_6_format: ! 'exinfo_6_text:'
+        exinfo_6_ex: ! 'exinfo_6_text:1'
+        library_format: ! 'library_sm:'
+        library_ex: ! 'libray_sm:gotanda'
+        shelf_format: ! 'shelf_sm:'
+        shelf_ex: ! 'shelf_sm:honkan01'
+        series_title_format: ! 'series_title_text:'
+        series_title_ex: ! 'series_title_text:nature'
+        article_title_format: ! 'article_title_text:'
+        article_title_ex: ! 'article_title_text:nature'
+    advanced: Advanced search
+    solr_search: Search with solr query
   work:
-    patrons_work: "%{patron_name}'s works"
-    library_group_work: "Works in %{library_group_name}"
-    add: "Add a work"
+    patrons_work: ! "%{patron_name}'s works"
+    library_group_work: Works in %{library_group_name}
+    add: Add a work
   expression:
-    patrons_expression: "%{patron_name}'s expressions"
-    manifestations_expression: "Expressions in %{manifestation_title}"
-    library_group_expression: "Expressions in %{library_group_name}"
-    add: "Add an expression"
-    specify_work: "Specify the work."
-    specify_manifestation: "Specify the manifestation."
+    patrons_expression: ! "%{patron_name}'s expressions"
+    manifestations_expression: Expressions in %{manifestation_title}
+    library_group_expression: Expressions in %{library_group_name}
+    add: Add an expression
+    specify_work: Specify the work.
+    specify_manifestation: Specify the manifestation.
+    patron_expression: ! "%{patron_name}'s expressions"
   manifestation:
-    date_of_acquisition: "Date of acquisition"
-    physical_description: "Physical description"
-    edit: "Edit this manifestation"
-    add_next_issue: "Add a next issue"
-    edit_creator: "Edit creators"
-    edit_contributor: "Edit contributors"
-    edit_publisher: "Edit publishers"
-    edit_expression: "Edit expressions"
-    edit_item: "Edit items"
-    expressions_manifestation: "Manifestations for %{expression_title}"
-    library_group_manifestation: "Manifestations in %{library_group_name}"
-    reserve_this: "Reserve this manifestation"
-    cancel_reservation: "Cancel this reservation"
-    query_search_result: "Search results for %{query} in %{library_group_name}"
-    serial: "Serial"
-    number: "Number"
-    issue_number: "Issue number"
-    serial_number: "Serial number"
-    invalid_isbn: "Invalid ISBN."
-    already_imported: "This manifestation is already imporeted."
-    record_not_found: "Record not found."
-    add: "Add a manifestation"
-    specify_expression: "Specify the expression."
-    pickup: "Pick up"
-    showing_all_record: "Showing all records."
-    showing_reservable_record: "Showing reservable records."
-    reservable: "Reservable"
-    all_result: "All results"
-    reservable_list: "Reservable list"
-    post_to_twitter: "post to Twitter"
-    web: "Web"
-    send_email: "Email this information"
-    attachment_file: "Attachment file"
-    question: "Question"
-    add_derivation: "Add a derivation"
-    output_job_queued: "Will be notified later when ready [ID: %{job_name}]"
-    output_job_success_subject: "Requested file ready [ID: %{job_name})"
-    output_job_success_body: "The requested file (ID: %{job_name}) is now ready for download. You can obtain the file from the following address.\n%{url}"
-    output_job_error_subject: "Failed to generate the requested file [ID: %{job_name}]"
-    output_job_error_body: "The requested file (ID: %{job_name}) couldn't get generated because of the following error:\n%{message}"
-    format_numbers: "%{volume} (%{issue}) %{serial}"
+    date_of_acquisition: Date of acquisition
+    physical_description: Physical description
+    edit: Edit this manifestation
+    add_next_issue: Add a next issue
+    edit_creator: Edit creators
+    edit_contributor: Edit contributors
+    edit_publisher: Edit publishers
+    edit_expression: Edit expressions
+    edit_item: Edit items
+    expressions_manifestation: Manifestations for %{expression_title}
+    library_group_manifestation: Manifestations in %{library_group_name}
+    reserve_this: Reserve this manifestation
+    cancel_reservation: Cancel this reservation
+    query_search_result: Search results for %{query} in %{library_group_name}
+    serial: Serial
+    number: Number
+    issue_number: Issue number
+    serial_number: Serial number
+    invalid_isbn: Invalid ISBN.
+    already_imported: This manifestation is already imporeted.
+    record_not_found: Record not found.
+    add: Add a manifestation
+    specify_expression: Specify the expression.
+    pickup: Pick up
+    showing_all_record: Showing all records.
+    showing_reservable_record: Showing reservable records.
+    reservable: Reservable
+    all_result: All results
+    reservable_list: Reservable list
+    post_to_twitter: post to Twitter
+    web: Web
+    send_email: Email this information
+    attachment_file: Attachment file
+    question: Question
+    add_derivation: Add a derivation
+    output_job_queued: ! 'Will be notified later when ready [ID: %{job_name}]'
+    output_job_success_subject: ! 'Requested file ready [ID: %{job_name}]'
+    output_job_success_body: ! 'The requested file (ID: %{job_name}) is now ready for download. You can obtain the file from the following address. %{url}'
+    output_job_error_subject: ! 'Failed to generate the requested file [ID: %{job_name}]'
+    output_job_error_body: ! 'The requested file (ID: %{job_name}) couldn''t get generated because of the following error: %{message}'
+    format_numbers: ! '%{volume} (%{issue}) %{serial}'
+    copy: Copy and create new manifestation
+    patron_manifestation: ! "%{patron_name}'s Manifestation"
+    new_serial: (New)
+    invalid_query: Search query is invalid.
+    delete_attachment: Delete attachment
+    delim_semicolon: (Semicolon ; delimite input)
+    binding_status: Bindinng
+    undo_binding: Unbind
+    missing:  '[Missing]'
+    not_has_original: Article manifestation has only 1 item of original copy. Modify items rank.
+    format_volume: 'Volume: %{volume}'
+    format_issue:  'Issue: %{issue}'
+    format_year: '%{year}'
+    creator_transcription: Creator transcription
+    contributor_transcription: Contributor transcription
+    publisher_transcription: Publiher transcription
+    subject_transcription: Subeject transcription
   item:
-    current_checkout: "Current checkout"
-    donor: "Donors"
-    library_group_item: "Items in %{library_group_name}"
-    add: "Add an item"
-    specify_manifestation: "Specify the manifestation."
-    this_item_is_reserved: "This item is reserved!"
-    create_shelf_first: "You should create a shelf first."
-    this_item_include_supplement: "This item includes supplements."
-    all_item: "All items"
-    add_new_copy: "Add a new copy"
-    no_manifestation: "No manifestation"
-    no_number: "No number"
-    add_lending_policy: "Add a new lending policy"
-    original_item_require_item_identidier: "Original item  require a item identifier."
-    already_original_item_created: "Already original title item is created."
+    current_checkout: Current checkout
+    donor: Donors
+    library_group_item: Items in %{library_group_name}
+    add: Add an item
+    specify_manifestation: Specify the manifestation.
+    this_item_is_reserved: This item is reserved!
+    create_shelf_first: You should create a shelf first.
+    this_item_include_supplement: This item includes supplements.
+    all_item: All items
+    add_new_copy: Add a new copy
+    no_manifestation: No manifestation
+    no_number: No number
+    add_lending_policy: Add a new lending policy
+    original_item_require_item_identidier: Original item  require a item identifier.
+    already_original_item_created: Already original title item is created.
     original: Original
     copy: Copy
     spare: Spare
-    set_remove_reason: "Set a remove reason"
-    select_remove_reason: "Select a remove reason"
+    set_remove_reason: Set a remove reason
+    select_remove_reason: Select a remove reason
+    close_shelf: This item is closed.
+    item_removed: The item was removed.
+    item_restored: The circulation status was changed to In Process.
+    update_failed: Update process was failed.
+    new_serial: (Latest)
+    already_removed: This item was already removed. You cannot edit it.
+    all_type: All manifesation types
+    general_item: General
+    audio_item: Audio
+    binding_status: Binding status
+    binding_item: Binding item
+    not_found: Not found
+    search_bookstore: Search bookstore
+    search_bookstore_description: Input bookstore name
   patron:
-    library_group_patron: "Patrons of %{library_group_name}"
-    work_patron: "Creaters of %{work_title}"
-    expression_patron: "Realizers of %{expression_title}"
-    manifestation_patron: "Producers of %{manifestation_title}"
-    activate_as_user: "Activate as an user"
-    deactivate: "Deactivate this user"
-    add: "Add a patron"
-    publication: "Publications"
-    recent_publication: "Recent publications"
-    all_publication: "All publications"
-    other_address: "The other address"
-    add_derivation: "Add derivatation"
-    creator: "Creator"
-    contributor: "Contributor"
-    publisher: "Publisher"
-    owner: "Owner"
+    library_group_patron: Patrons of %{library_group_name}
+    work_patron: Creaters of %{work_title}
+    expression_patron: Realizers of %{expression_title}
+    manifestation_patron: Producers of %{manifestation_title}
+    activate_as_user: Activate as an user
+    deactivate: Deactivate this user
+    add: Add a patron
+    publication: Publications
+    recent_publication: Recent publications
+    all_publication: All publications
+    other_address: The other address
+    add_derivation: Add derivatation
+    creator: Creator
+    contributor: Contributor
+    publisher: Publisher
+    owner: Owner
+    create_family_user: Create family
+    last_update_at: Last update at
+    last_update_by: Last update by
+    duplicate_user: Duplicate user was already registered. (same full name(transcription), same telephone number 1-1 and same birth date)
+    patron_identifier: Patron identifier
   question:
-    my: "My questions"
-    all: "All questions"
+    my: My questions
+    all: All questions
     number_of_search_results:
-      one: "1 record found."
-      other: "%{count} records found."
-    user_question: "%{login_name}'s questions"
-    no_record_found: "No records found."
-    library_group_question: "Questions in %{library_group_name}"
-    answer_question: "Answer this question"
-    crd: "NDL Collaborative Reference Database"
-    you_can_search_crd: "You can search within NDL Collaborative Reference Database."
-    created_at: "Question created at"
-    updated_at: "Question updated at"
-    last_answered_at: "Last answered at"
-    solved: "Solved"
-    not_solved: "Not solved"
+      one: 1 record found.
+      other: ! '%{count} records found.'
+    user_question: ! '%{login_name}''s questions'
+    no_record_found: No records found.
+    library_group_question: Questions in %{library_group_name}
+    answer_question: Answer this question
+    crd: NDL Collaborative Reference Database
+    you_can_search_crd: You can search within NDL Collaborative Reference Database.
+    created_at: Question created at
+    updated_at: Question updated at
+    last_answered_at: Last answered at
+    solved: Solved
+    not_solved: Not solved
   answer:
-    user_answer: "%{login_name}'s answers"
-    library_group_answer: "Answers from %{library_group_name}"
-    specify_question: "Specify the question."
-    count: "Count"
+    user_answer: ! '%{login_name}''s answers'
+    library_group_answer: Answers from %{library_group_name}
+    specify_question: Specify the question.
+    count: Count
   basket:
-    my_status: "Your status"
-    books: "records"
-    number_of_checkout: "Number of checkout"
-    number_of_reserve: "Number of reserve"
-    this_account_is_suspended: "This account is suspended."
-    checkout_completed: "Checkout completed."
+    my_status: Your status
+    books: records
+    number_of_checkout: Number of checkout
+    number_of_reserve: Number of reserve
+    this_account_is_suspended: This account is suspended.
+    checkout_completed: Checkout completed.
+    all_manifestation: All manifestations
+    show_basket: ! 'Show basket: %{count}'
+    out: Out of basket
   checkout:
-    user_checkout: "%{login_name}'s checkouts"
-    library_group_checkout: "Checkouts in %{library_group_name}"
-    renewal: "Renewal"
-    renewal_count: "Renewal count"
-    new_due_date: "New due date"
-    editing_due_date: "Editing due date"
-    this_item_cant_be_renewed: "This item can't be renewed."
-    listing_overdue_item: "Listing overdue items"
-    current_user: "Current user"
-    this_item_is_reserved: "This item is reserved."
-    you_have_overdue_item: "You have overdue items."
-    excessed_renewal_limit: "Excessed checkout renewal limit."
-    all_checkout: "All checkouts"
-    my_checkout: "My checkouts"
-    no_checkout: "No checkouts."
-    number_of_day_overdue: "Number of days overdue"
-    extend: "Extend"
+    user_checkout: ! '%{login_name}''s checkouts'
+    library_group_checkout: Checkouts in %{library_group_name}
+    renewal: Renewal
+    renewal_count: Renewal count
+    new_due_date: New due date
+    editing_due_date: Editing due date
+    this_item_cant_be_renewed: This item can't be renewed.
+    listing_overdue_item: Listing overdue items
+    current_user: Current user
+    this_item_is_reserved: This item is reserved.
+    you_have_overdue_item: You have overdue items.
+    excessed_renewal_limit: Excessed checkout renewal limit.
+    all_checkout: All checkouts
+    my_checkout: My checkouts
+    no_checkout: No checkouts.
+    number_of_day_overdue: Number of days overdue
+    extend: Extend
+    over_renewal_limit: Renewal count was over limited.
+    extended: Checkout term was extended.
   library:
-    map: "Map"
-    staff: "Staff"
-    number_of_item: "Number of items"
-    address: "Address"
+    map: Map
+    staff: Staff
+    number_of_item: Number of items
+    address: Address
+    cannot_delete: Thie library must not be deleted.
+    already_exist_shelf: The library name is unavailable. There is already registered shelf with same name.
+    help_name: Use half-width characters.
   import:
-    from_file: "from file"
-    from_isbn: "from ISBN"
+    from_file: from file
+    from_isbn: from ISBN
     will_be_imported:
-      one: "Resource will be impored in a %{minute} minute."
-      other: "Resource will be impored in %{minute} minutes."
+      one: Resource will be impored in a %{minute} minute.
+      other: Resource will be impored in %{minute} minutes.
   user:
-    current_password: "Current password"
-    new_password: "New password"
-    repeat_new_password: "Repeat new password"
-    delete_this_user: "Delete this user"
-    your_temporary_password_is: "Your temporary password is"
-    sign_up: "Sign up"
-    edit_profile: "Edit profile"
-    edit_account: "Edit account"
-    already_activated: "Already activated."
-    specify_patron: "Specify the patron."
-    wrong_password: "Wrong password."
-    password_mismatch: "Password mismatch."
-    cannot_destroy_myself: "You can't destroy yourself."
-    last_administrator: "This user is the last administrator in this system."
-    last_librarian: "This user is the last librarian in this system."
-    only_administrator_can_destroy: "Only administrators can destroy this user."
-    this_user_has_checked_out_item: "This user has checked-out items."
-    patron_profile: "Patron profile"
-    set_auto_generated_password: "Set auto-generated password"
-    history: "History"
-    account_management: "Account management"
-    reset_checkout_icalendar_url: "Reset checkout iCalendar URL"
-    you_have_to_save_profile_to_activate_feed_url: "You have to save your profile to activate this url."
-    you_have_to_save_profile_to_deactivate_feed_url: "You have to save your profile to deactivate this url."
-    could_not_setup_account: "We couldn't set up that account, sorry.  Please try again, or contact an admin."
-    resend_confirmation_instruction: "Resend confirmation instructions"
-    remember_me: "Remember me"
-    forgot_your_password: "Forgot your password?"
-    send_me_reset_password_instruction: "Send me reset password instruction"
-    change_my_password: "Change my password"
-    management: "User management"
-    not_found: "User not found."
-    create_family: "Create family"
-    create_family_user: "Create family"
-    not_connect: "Can not connect to %{user}"
+    current_password: Current password
+    new_password: New password
+    repeat_new_password: Repeat new password
+    delete_this_user: Delete this user
+    your_temporary_password_is: Your temporary password is
+    sign_up: Sign up
+    edit_profile: Edit profile
+    edit_account: Edit account
+    already_activated: Already activated.
+    specify_patron: Specify the patron.
+    wrong_password: Wrong password.
+    password_mismatch: Password mismatch.
+    cannot_destroy_myself: You can't destroy yourself.
+    last_administrator: This user is the last administrator in this system.
+    last_librarian: This user is the last librarian in this system.
+    only_administrator_can_destroy: Only administrators can destroy this user.
+    this_user_has_checked_out_item: This user has checked-out items.
+    patron_profile: Patron profile
+    set_auto_generated_password: Set auto-generated password
+    history: History
+    account_management: Account management
+    reset_checkout_icalendar_url: Reset checkout iCalendar URL
+    you_have_to_save_profile_to_activate_feed_url: You have to save your profile to
+      activate this url.
+    you_have_to_save_profile_to_deactivate_feed_url: You have to save your profile
+      to deactivate this url.
+    could_not_setup_account: We couldn't set up that account, sorry.  Please try again,
+      or contact an admin.
+    resend_confirmation_instruction: Resend confirmation instructions
+    remember_me: Remember me
+    forgot_your_password: Forgot your password?
+    send_me_reset_password_instruction: Send me reset password instruction
+    change_my_password: Change my password
+    management: User management
+    not_found: User not found.
+    create_family: Create family
+    create_family_user: Create family
+    not_connect: Can not connect to %{user}
+    birth_date_invalid: 'Birth date is invalid. ex. 2011-04-12'
+    already_in_family: This user is already in a family.
+    overdue_item: '%{user} has %{count} overdue items'
+    retained_reserve: '%{user} can use %{count} reserved items'
+    manage_family: Manage family
+    update_user_number: Update user number
   news_post:
-    library_group_news_post: "News from %{library_group_name}"
+    library_group_news_post: News from %{library_group_name}
   reserve:
-    user_reserve: "%{login_name}'s reservations"
-    library_group_reserve: "Reservations in %{library_group_name}"
-    my_reservation: "My reservations"
-    all_reservation: "All reservations"
-    this_manifestation_is_already_reserved: "This manifestation is already reserved."
-    excessed_reservation_limit: "Excessed reservation limit."
-    this_patron_cannot_reserve: "This patron can't reserve this manifestation."
-    reservation_was_canceled: "Reservation was canceled."
-    this_item_is_not_reserved: "This item is not reserved."
-    this_user_is_locked: "This user is locked."
-    expired_at_of_this_user_is_over: "Expired at of this user is over"
-    invalid_item: "Invalid item."
-    show: "Show reservation"
-    invalid_date: "Invalid date."
-    pending: "Pending"
-    requested: "Requested"
-    retained: "Retained"
-    called: "Called"
-    canceled: "Canceled"
-    expired: "Expired"
-    completed: "Completed"
-    completed_reserve: "Completed reserve"
-    in_process_reserve: "In process reserve"
+    user_reserve: ! "%{login_name}'s reservations"
+    library_group_reserve: Reservations in %{library_group_name}
+    my_reservation: My reservations
+    all_reservation: All reservations
+    this_manifestation_is_already_reserved: This manifestation is already reserved.
+    excessed_reservation_limit: Excessed reservation limit.
+    this_patron_cannot_reserve: This patron can't reserve this manifestation.
+    reservation_was_canceled: Reservation was canceled.
+    this_item_is_not_reserved: This item is not reserved.
+    this_user_is_locked: This user is locked.
+    expired_at_of_this_user_is_over: Expired at of this user is over
+    invalid_item: Invalid item.
+    show: Show reservation
+    invalid_date: Invalid date.
+    pending: Pending
+    requested: Requested
+    retained: Retained
+    called: Called
+    canceled: Canceled
+    expired: Expired
+    completed: Completed
+    completed_reserve: Completed reserve
+    in_process_reserve: In process reserve
+    reservation_was_destroyed: The rservation was deleted.
+    in_process: In process
+    update: Update reservation
+    retain: Retain reserved item
+    add: Add
+    cannot_retain_item: The item cannot be retained.
+    not_found: Reservation is not found.
+    retain_error: Failed to retain.
   purchase_request:
-    user_purchase_request: "%{login_name} 's purchase requests"
-    library_group_purchase_request: "Purchase requests in %{library_group_name}"
-    add_to_purchase_request: "Add to purchase request"
-    all_request: "All requests"
-    my_request: "My requests"
-    ordered: "Ordered"
-    not_ordered: "Not ordered"
-    add_to_order_list: "Add to order list"
-    remove_from_order_list: "Remove from order list"
-    input_into_form_as_much_as_possible: "Input into form as much as possible"
+    user_purchase_request: ! "%{login_name}'s purchase requests"
+    library_group_purchase_request: Purchase requests in %{library_group_name}
+    add_to_purchase_request: Add to purchase request
+    all_request: All requests
+    my_request: My requests
+    ordered: Ordered
+    not_ordered: Not ordered
+    add_to_order_list: Add to order list
+    remove_from_order_list: Remove from order list
+    input_into_form_as_much_as_possible: Input into form as much as possible
     guest: Guest
+    pending: Pending
+    accept: Accept
+    reject: Reject
+    order: Order
+    request_accepted: Accepted the purchase request.
+    request_rejected: Rejected the purchase request.
+    request_ordered: Ordered the purchase request.
+    failed_update: Failed to update purchase request.
   order_list:
-    library_group_order_list: "Order lists in %{library_group_name}"
-    total_price: "Total price"
+    library_group_order_list: Order lists in %{library_group_name}
+    total_price: Total price
   inter_library_loan:
-    library_group_inter_library_loan: "Inter library loans in %{library_group_name}"
-    borrowing_library: "Borrowing library"
-    return_this_item: "Return this item"
+    library_group_inter_library_loan: Inter library loans in %{library_group_name}
+    borrowing_library: Borrowing library
+    return_this_item: Return this item
+    loan_lists: Loan list
+    original_library: Original library
+    checkout: Checkout
+    checkin: Checkin
+    pickup_item: Ship items
+    accept_item: Receive items
+    no_item: Item is not found.
+    wrong_library: This item is not checked for the library.
+    no_loan: Item required load order is not found.
+    successfully_pickup: '%{item_identifier} was shipped for inter library loan'
+    successfully_accept: '%{item_identifier} was received'
+    failed_pickup: Failed to shipping operation.
+    failed_accept: Failed to receiving operation.
+    no_library: Select an original library.
+    pending: Pending
+    requested: Requested
+    shipped: Shipped
+    received: Received
   checked_item:
-    not_available_for_checkout: "This item is not available for checkout."
-    not_for_loan: "Not for loan"
-    this_group_cannot_checkout: "This group cannnot checkout"
-    item_not_found: "Item not found."
-    already_checked_out: "This item is already checked out."
-    reserved_item_included: "Reserved item included"
-    excessed_checkout_limit: "Exceed checkout limited"
-    in_transcation: "In transcation"
-    previous_checkout: "Previous checkouts"
-    previous_checkout_family: "Previous family's checkouts"
-    previous_reserve: "Previous reserves"
-    previous_reserve_family: "Previous family's reserves"
-    checkout: "Checkout!"
-    ignore_restriction: "Ignore restriction"
+    not_available_for_checkout: This item is not available for checkout.
+    not_for_loan: Not for loan
+    this_group_cannot_checkout: This group cannnot checkout
+    item_not_found: Item not found.
+    already_checked_out: This item is already checked out.
+    reserved_item_included: Reserved item included
+    excessed_checkout_limit: Exceed checkout limited
+    in_transcation: In transcation
+    previous_checkout: Previous checkouts
+    previous_checkout_family: Previous family's checkouts
+    previous_reserve: Previous reserves
+    previous_reserve_family: Previous family's reserves
+    checkout: Checkout!
+    ignore_restriction: Ignore restriction
+    new_serial: The item is not available for checkout. (Latest issue)
+    history: Checkout history
+    library_closed_today: The library of this item is closed today.
   checkin:
-    item_not_found: "Item not found."
-    enter_item_identifier: "Enter item identifier."
-    other_library_item: "This item is other library's item!"
+    item_not_found: Item not found.
+    enter_item_identifier: Enter item identifier.
+    other_library_item: This item is other library's item!
     other_library: "This item is %{model}'s item!"
-    already_checked_in: "This item is already checked in."
-    not_checkin: "This item is not checkouts."
-    checkin: "Checkin!"
-    successfully_checked_in: "This items was successfully checked in."
-    not_available_for_checkin: "This item is not available for checkin." 
-    overdue_item: "This item is over due."
+    already_checked_in: This item is already checked in.
+    not_checkin: This item is not checkouts.
+    checkin: Checkin!
+    successfully_checked_in: This items was successfully checked in.
+    not_available_for_checkin: This item is not available for checkin.
+    overdue_item: This item is over due.
   search_history:
-    all_history: "All search history"
-    failed_search: "Failed searches"
-    searched_at: "Searched at"
+    all_history: All search history
+    failed_search: Failed searches
+    searched_at: Searched at
   subscribe:
-    this_subscription_is_expired: "This subscription is expired!"
+    this_subscription_is_expired: This subscription is expired!
   role:
-    required_role: "Required role"
+    required_role: Required role
   advertisement:
-    period: "Period"
+    period: Period
   attachment_file:
-    invalid_file: "Invalid file."
+    invalid_file: Invalid file.
   inventory_file:
-    not_in_catalog: "Not in catalog"
-    not_on_shelf: "Not on shelf"
+    not_in_catalog: Not in catalog
+    not_on_shelf: Not on shelf
   order:
-    create_order_list: "You should create an order list."
-    specify_purchase_request: "You should specify the purchase request."
+    create_order_list: You should create an order list.
+    specify_purchase_request: You should specify the purchase request.
   work_has_subject:
-    add_work: "Add a work"
-    add_subject: "Add a subject"
-    subjectable: "Subjectable"
+    add_work: Add a work
+    add_subject: Add a subject
+    subjectable: Subjectable
   library_group:
-    configuration: "Library configuration"
+    configuration: Library configuration
   series_statement:
-    edit: "Edit series statement"
-    you_should_specify_work: "You should specify a work in the series statement."
+    edit: Edit series statement
+    you_should_specify_work: You should specify a work in the series statement.
   state:
-    pending: "Pending"
-    canceled: "Cancaled"
-    completed: "Completed"
-    started: "Started"
-    failed: "Failed"
+    pending: Pending
+    canceled: Cancaled
+    completed: Completed
+    started: Started
+    failed: Failed
+    requested: Requested
   resource:
     select_all: Select all
     approve_selected_resources: Approve selected resources
@@ -1790,28 +2292,191 @@ en:
     invalid_file: Invalid file. You can upload gif, jpeg, png and svg files.
     all_picture: All pictures
   merge_list:
-    successfully_merged: "%{model} were merged successfully."
-    specify_id: "Specify %{model} ID."
+    successfully_merged: '%{model} were merged successfully.'
+    specify_id: Specify %{model} ID.
   resource_import_textfile:
-    wrong_file: "can not be imported."
-    wrong_extention: "Only files with xlsx extension can be imported."
-    importing_please_wait: "Now importing Excel file. Please wait..."
+    wrong_file: can not be imported.
+    wrong_extention: Only files with xlsx extension can be imported.
+    importing_please_wait: Now importing Excel file. Please wait...
+    template_download: Download template
+    import_request: Import now
+    start_importing: Started to import.
+    unsuccess_start: Failed to start importing.
+    file_type: File type
+    book: Book
+    article: Article
+    series: Series
+    exinfo: Other
+    wrong_content_type: was invalid type. TSV or EXLSX are available. 
+    auto_numbering: Auto numbering for item identifier
+    excel:
+      series:
+        issn: ISSN
+        original_title: Series name
+        title_transcription: Series name（transcription）
+        periodical: Periodical
+        series_statement_identifier: Series statement identifier
+        note: Note
+      book:
+        manifestation_type: Manifestation type
+        original_title: Title
+        title_transcription: Title（transcription）
+        title_alternative: Alternative title
+        isbn: ISBN
+        lccn: LCCN
+        marc_number: MARC number
+        ndc: NDC
+        carrier_type: Carrier type
+        frequency: Frequency
+        pub_date: Date of publication
+        country_of_publication: Country of publication
+        place_of_publication: Place of publication
+        language: Language
+        edition_display_value: Edition statement
+        volume_number_string: Volume number
+        issue_number_string: Issue number
+        serial_number_string: Serial number
+        start_page: Start page
+        end_page: End page
+        height: Height(cm)
+        width: Width(cm)
+        depth: Depth(cm)
+        price: Price
+        price_string: Price
+        access_address: Access address
+        repository_content: Repository content
+        required_role: Required role
+        except_recent: Excep recent
+        acceptance_number: Accept number
+        description: Description
+        supplement: Supplement
+        note: Note
+        creator: Creator
+        contributor: Contributor
+        publisher: Publisher
+        subject: Subject
+        accept_type: Accept type
+        acquired_at: Date of accession
+        acquired_at_string: Date of accession
+        bookstore: Bookstore
+        library: Library
+        shelf: Shelf
+        checkout_type: Checkout type
+        circulation_status: Circulation status
+        retention_period: retention period
+        call_number: Call number
+        item_price: Purchase price
+        item_price_string: Purchase price
+        url: URL
+        include_supplements: Include supplements
+        use_restriction: Use restriction
+        item_note: Item note
+        rank: Rank
+        item_identifier: Item identifier
+        remove_reason: Removed reason
+        non_searchable: Non searchable
+        missing_issue: Missing issue
+        del_flg: Delete flag
+      article:
+        creator: Creator
+        original_title: Title
+        title: title of journal
+        volume_number_string: Volume number
+        number_of_page: Pages
+        pub_date: Date of publication
+        call_number: Call number
+        access_address: URL
+        subject: Subject
+    message:
+      read_sheet: Started to read %{sheet} sheet.
+      deleted: 'Deleted Item identifier: %{item_identifier}'
+      deleted_manifestation: Title：%{original_title}
+      deleted_series_statement: Series title：%{series_original_title}
+      out_of_manage: '<br />Header has unmanaged colum name: %{columns}'
+      without_item: Item won't be created withou item identifier column.
+    error:
+      manifestation_type_is_nil: Manifestation type is not selected.
+      blank_sheet: Failed to read %{sheet} sheet. No date in the sheet.
+      overlap: Failed to read %{sheet} sheet. Header has duplicate column name.
+      wrong_data: 'Invalid data %{field}: %{data}'
+      delete_requre_item_identifier: Cannnot delete item without item identifier.
+      failed_delete_not_find: Failed to delete item. Item is not found.
+      duplicate_item_identifier: 'Failed to read %{sheet} sheet. Duplicate item identifier: %{item_identifier}'
+      no_item_identifier: No item identifier
+      cell_require_manifestation_type: Select manifestation type
+      wrong_manifestation_type: 'Manifestation type is invalid: %{manifestation_type}'
+      series:
+        head_is_blank: "Failed to read %{sheet} sheet. \r\n One of series name, ISSN, title or ISBN is required."
+        cell_is_blank: One of series name, ISSN, title or ISBN is required.
+        wrong_issn: ISSN is invalid.
+        exist_same_series: Series statement may already registered. Select series statement in manifestation editting screen.
+      book:
+        head_is_blank: "Failed to read %{sheet} sheet.\r\n Title or ISBN is required in first line. "
+        head_require_manifestation_type: "Failed to read %{sheet} sheet. \r\n Manifestation type id required in first line."
+        cell_is_blank: Select title or ISBN.
+        only_integer: 'Only integer is available for %{field} %{field}: %{data}'
+        only_numeric: 'Only number is available for %{field} %{field}: %{data}'
+        only_date: 'Only datetime is available for %{field} %{field}: %{data}'
+        not_exsit_shelf: 'There is no shelf named %{shelf}'
+        not_exsit_library: 'There is no library named %{library}'
+        wrong_rank: 'Item rank is invalid rank: %{data}'
+        wrong_isbn: ISBN is invalid.
+        wrong_missing_issue: 'Missing issue is invalid. Missing issue: %{data}'
+        not_delete: Title is required field and cannot delete title.
+        has_original: Manifestaion cannot have 2 original items.
+        has_not_shelf: There is not specific shelf.
+        exist_multiple_same_manifestations: There are multiple identifier manifestations. New data is created.
+        record_not_found: Failed to get datas from NDL-OPAC.
+      article:
+        head_is_blank: "Failed to read %{sheet} sheet. \r\n title is requiered in first line. "
+        cell_is_blank: Title is required.
   item_list:
     list_condition: List Condition
     no_list_condition: Check list condition
-    invalid_file_type: "Invalid file type specified."
-    export_job_queued: "Will be notified later when ready [ID: %{job_name}]"
-    export_job_success_subject: "Requested file ready [ID: %{job_name})"
-    export_job_success_body: "The requested file (ID: %{job_name}) is now ready for download. You can obtain the file from the following address.\n%{url}"
-    export_job_error_subject: "Failed to generate the requested file [ID: %{job_name}]"
-    export_job_error_body: "The requested file (ID: %{job_name}) couldn't get generated because of the following error:\n%{message}"
+    invalid_file_type: Invalid file type specified.
+    export_job_queued: 'Will be notified later when ready [ID: %{job_name}]'
+    export_job_success_subject: 'Requested file ready [ID: %{job_name}]'
+    export_job_success_body: 'The requested file (ID: %{job_name}) is now ready for download. You can obtain the file from the following address. %{url}'
+    export_job_error_subject: 'Failed to generate the requested file [ID: %{job_name}]'
+    export_job_error_body: 'The requested file (ID: %{job_name}) couldn''t get generated because of the following error: %{message}'
+    list_type: List type
+    shelf_list: by shelf
+    call_number_list: by call number
+    removed_list: removed list
+    unused_list: unused list
+    new_item_list: new item list
+    latest_list: latest issues
+    new_book_list: new accept list
+    series_statements_list: series statement list
+    library: Library
+    all_library: All library
+    carrier_type: Carrier type
+    all_carrier_type: All carrier type
+    all_bookstore: All bookstore
+    shelf: Shelf
+    ndc: NDL
+    ndc_message: (Export matched items with this field)
+    invalid_ndc: 'NDC is invalid. Input 3digit XXX'
+    no_record: No record is found.
+    acquired_at_invalid: 'Date of accession is invalid. ex. 2011-04-12'
   item_register:
-    invalid_file_type: "Invalid file type specified."
-    export_job_queued: "Will be notified later when ready [ID: %{job_name}]"
-    export_job_success_subject: "Requested file ready [ID: %{job_name})"
-    export_job_success_body: "The requested file (ID: %{job_name}) is now ready for download. You can obtain the file from the following address.\n%{url}"
-    export_job_error_subject: "Failed to generate the requested file [ID: %{job_name}]"
-    export_job_error_body: "The requested file (ID: %{job_name}) couldn't get generated because of the following error:\n%{message}"
+    invalid_file_type: Invalid file type specified.
+    export_job_queued: 'Will be notified later when ready [ID: %{job_name}]'
+    export_job_success_subject: 'Requested file ready [ID: %{job_name}]'
+    export_job_success_body: 'The requested file (ID: %{job_name}) is now ready for download. You can obtain the file from the following address. %{url}'
+    export_job_error_subject: 'Failed to generate the requested file [ID: %{job_name}]'
+    export_job_error_body: 'The requested file (ID: %{job_name}) couldn''t get generated because of the following error: %{message}'
+    pdf: PDF
+    tsv: TSV
+    list_number: number
+    page_number: pages
+    item_register_all: Accession register(ALL)
+    removing_list: Withdrawal list
+    audio_list: Adudio list
+    item_register_book: Accession register
+    item_register_series: Series register
+    item_register_article: Article register
+    item_register_other: Other register
   system_configuration:
     general: General
     user: User
@@ -1839,41 +2504,50 @@ en:
       red: red
     role:
       all: All
-    boolean_display: "Display"
-    boolean_not_display: "Not display"
-    boolean_do: "Do"
-    boolean_not_do: "Not do"
-    boolean_send: "Send" 
-    boolean_not_send: "Not send"
-    boolean_use: "Use" 
-    boolean_not_use: "Not use"
-    boolean_delete: "Delete"
-    boolean_not_delete: "Not delete"
-    boolean_disable: "Disable"
-    boolean_not_disable: "Not disable"
-    boolean_output_button_all: "All"
-    boolean_output_button_librarian: "Librarian"
-    boolean_item_remove: "after removed"
-    boolean_item_destroy: "immediately destroy"
-    boolean_file: "File"
-    boolean_db: "DB"
-    boolean_and: "AND search"
-    boolean_or: "OR search"
-    boolean_reserve_only_checkout_item: "Only checkout item"
-    boolean_reserve_all_item: "All item"
-    boolean_reserve_able_for_not_item: "Can be reserved"
-    boolean_reserve_not_able_for_not_item: "Can not be reserved"
-    boolean_autoprint: "Auto-print"
-    boolean_not_autoprint: "Not auto-print"
+    boolean_display: Display
+    boolean_not_display: Not display
+    boolean_do: Do
+    boolean_not_do: Not do
+    boolean_send: Send
+    boolean_not_send: Not send
+    boolean_use: Use
+    boolean_not_use: Not use
+    boolean_delete: Delete
+    boolean_not_delete: Not delete
+    boolean_disable: Disable
+    boolean_not_disable: Not disable
+    boolean_output_button_all: All
+    boolean_output_button_librarian: Librarian
+    boolean_item_remove: after removed
+    boolean_item_destroy: immediately destroy
+    boolean_file: File
+    boolean_db: DB
+    boolean_and: AND search
+    boolean_or: OR search
+    boolean_reserve_only_checkout_item: Only checkout item
+    boolean_reserve_all_item: All item
+    boolean_reserve_able_for_not_item: Can be reserved
+    boolean_reserve_not_able_for_not_item: Can not be reserved
+    boolean_autoprint: Auto-print
+    boolean_not_autoprint: Not auto-print
     error:
-      over_checkouts_print_message: "checkouts print message exceed the limit. max %{num}."
-      over_reminder_postal_card_message: "reminder postal card message exceed the limit. max %{num}."
-      over_reminder_letter_message: "reminder letter message exceed the limit. max %{num}."
+      over_checkouts_print_message: checkouts print message exceed the limit. max
+        %{num}.
+      over_reminder_postal_card_message: reminder postal card message exceed the limit.
+        max %{num}.
+      over_reminder_letter_message: reminder letter message exceed the limit. max
+        %{num}.
+    copy_request: Copy request
+    view: Show
+    nacsis: NACSIS-CAT/ILL
+    boolean_yes: Yes
+    boolean_no: No
+    boolean_no_opac: No(WebOPAC)
   manifestation_relationships:
-    no_parent_id: "Not found parent id"
-    no_child_id: "Not found child id"
+    no_parent_id: Not found parent id
+    no_child_id: Not found child id
   function_key:
-    will_move: "Form is inputted.Are page changes carried out?"
+    will_move: Form is inputted.Are page changes carried out?
   access_log:
     date: Date
     type: Type
@@ -1882,5 +2556,294 @@ en:
     manifestations_index: Manifestations index
     materials_show: Materials show
   breadcrumb:
-    lib_top: "Top Page"
-    search_manifestations: "Catalog search"
+    lib_top: Top Page
+    search_manifestations: Catalog search
+  exstatistics:
+    report: Report
+    checkout_report: Checkout report
+    reserve_report: Reservation report
+    statistic_report: Statistics report
+    library_report: Library report
+    ndl_report: Annual report for ndl
+  worki:
+    patron_work: ! "%{patron_name}'s works"
+    library_group_work: 'works in %{library_group_name} '
+    add: Add
+  missing_issue:
+    no_request: No request
+    requested: Requested
+    received: Received
+  shelf:
+    cannot_delete: The shelf cannnot be deleted.
+    other: other
+  checked_manifestation:
+    add: Add to basket
+    delete: Delere from basket
+  family:
+    add: Add
+    tips_remove: Remove
+    willremove: will be removed after update
+    members: Family members
+    may_family_with: Family with?
+    not_select_family: Not select family
+    already_family_with: Alreday family with
+    out_of_family: Out of family
+    will_be_family_with: will be family with
+    create_family: create family
+    please_search_users: Search user
+    no_select_users: No user selected 
+    will_change_family: ※To edit family, delete the family and create new family.
+    will_change_patron_type: ※Autimatically removed from family when patron type of family member change to Company.
+    user_will_change_family: ※Please offer librarian to change family information
+  bookstore:
+    not_found: No bookstore is found.
+  resource_import_textresult:
+    show_error_list: Only results with error
+    show_all_list: All results
+  resource_import_file:
+    template_download: Download template
+    import_request: Import now
+    start_importing: Started to import.
+    unsuccess_start: Failed to import.
+    reserved_item: 'It is reserved item. (username: %{username}, user number: %{user_number})'
+    invalid_isbn: 'ISBN is invalid ISBN: %{isbn}'
+    record_not_found: 'Failed to get data with ISBN: %{isbn}'
+  patron_import_file:
+    template_download: Download template
+    import_request: Import now
+    start_importing: Stated to import.
+    unsuccess_start: Failed to import.
+  library_check:
+    opeym_notice: Input YYYYMM like 201203.
+  budget:
+    yen: '%{amount} yen'
+    yent: yen
+    sum: Total budget(include supplementary)
+    balance: Balance
+    all_budgets: All budgets
+    all_libraries: All libraries
+    all_bookstores: All bookstores
+    list_number: number
+    page_number: pages
+  budget_type:
+    all_type: All budget type
+    term: Term
+    cannot_delete: The term cannot be deleted.
+  expense:
+    yen: ! '%{price} yen'
+    export: Export 
+    export_tsv: TSV
+    export_pdf: PDF
+    term: Term to calcurate
+    date_format: ! '%{year}-%{month}-%{date}'
+    term_note: (YYYY or YYYYMM or YYYYMMDD)
+    no_value: No value
+  statistic_report:
+    monthly_report: monthly statistics
+    daily_report: daily statistics
+    timezone_report: by timezone
+    day_report: by day of week
+    age_report: by age of users
+    items_report: items
+    inout_items_report: in&out
+    loans_report: inter library loan 
+    groups_report: by user groups
+    departments_report: by departments
+    invalid_year: term is invalid.
+    invalid_month: term is invalid.
+    no_corporate: no coporate
+    no_department: no department
+    year: Year(YYYY)
+    month_ex: Month(YYYYMM)
+    year_or_month: Year(YYYY) or Month(YYYYMM)
+    day: Date(YYYYMMDD)
+    submit: Export report
+    submit_tsv: TSV
+    created: Created report
+    all_library: All libraries
+    items: Items
+    opens: Opening days
+    checkout_users: Checkout users
+    user_type_5: 18 -
+    user_type_4: 15 - 18
+    user_type_3: 12 - 15
+    user_type_2: 6 - 12
+    user_type_1: 0 - 6
+    item_type_1: Adults
+    item_type_2: Children
+    item_type_3: Other
+    checkout_items: Chekcout items
+    checkout_items_each_user_groups: Checkout items(by user group)
+    checkin_items: Checkin items
+    average_checkout_users: Daily average of checkout users
+    average_checkout_items: Daily average of checkout items
+    average_checkin_items: Daily average of checkin items
+    missing_items: Missing items
+    users: Users
+    all_users: All
+    user_areas: Users(area)
+    all_areas: All
+    other_area: Other
+    user_groups: (user group)
+    unlocked_users: (in use)
+    locked_users: (locked)
+    user_provisional: (Provisional)
+    reserves: Reservations
+    on_counter: (Counter)
+    from_opac: (OPAC)
+    questions: References
+    consultations: Counter usages
+    visiters: Visiters
+    copies: Copies
+    month: ! '%{num}'
+    date: ! '%{num}'
+    hour: Hour
+    sum: Sum
+    accept: Accepted items
+    remove: Removed items
+    checkout_loan: Checkouts
+    checkin_loan: Checkins
+    remind_checkouts: Overdue checkouts
+    checkin_remindered: Overdue checkins
+    type: Type
+    library: Library
+    loan_type: Loan type
+    loan_library: Loan library
+    corporate_name: Coporate
+    department_name: Department
+    manifestation_type: Manifestation type
+    option: Option
+    condition: ''
+    day_0: Sunday
+    day_1: Monday
+    day_2: Tuesday
+    day_3: Wednesday
+    day_4: Thursday
+    day_5: Friday
+    day_6: Saturday
+    all: All
+  ndl_report:
+    invalid_term: Term is invalid.
+    term_not_found: "Statistics haven't calculated yet."
+    submit: Export(Excel 2007 and more)
+    filename_excelx: ndl_branches_report.xlsx
+  print_label:
+    users: Users
+    submit: Create
+    nousers: No users
+    notypes: Select label type.
+    printed_type: Information to print
+    printed_type_full_name: Full name
+    printed_type_address: Address
+    printed_type_postal_barcode: Postal code
+    notice_printed_postal_barcode: Postal code and valid address are required to create postal code barcode.
+  library_report:
+    checkouts: Checkouts
+    ndc: (NDC:%{ndc})
+    daily_report: ! 'Daily report: %{year}-%{month}-%{date}'
+    daily: Daily report
+    monthly: Monthly report
+    yyyymm: Month
+    date_comment: Type 8 digits. 2011/12/13 as 20111213.
+  reminder_list:
+    input_user_for_output_reminder: Input user number to remind.
+    no_user: No user is found.
+    no_item: No orverdue item.
+    failed_output: Failed to export reminder list.
+    successfully__output: Reminder list is successfuly created.
+    send: Send reminder mail to checked users
+    successfully_sent: Reminder mail is successfully sent.
+    failed_sent: Failed to send reminder mail.
+    reminder_mail: Mail
+  binding_item:
+    bind: Bind items
+    add: Add
+    search_items: Search item to bind.
+    no_item_identifier: No item identifier is selected.
+  bookbinding:
+    bookbinding_completed: Bookbinding process is successfully completed.
+    unbinded: Bookbinding is unbinded.
+    added: Item is added to bookbinding.
+    binding_items: Binding items
+    binded: Binded
+    binder: Binder
+    status: Binding status
+  user_status:
+    general: General
+    guest: Guest
+    suspended: Suspende
+  manifestation_type:
+    book: Book
+    series: Series
+    article: Article
+    exinfo: Other
+  external_catalog:
+    ndl: NDL
+  copy_request:
+    message: You can request to copy article.<br />
+             Following information is required. 1.title, 2.author name, 3.series title(date of publication, volume&issue number, pages), 4.call number(if you know)<br />
+  checkoutlist:
+    output_job_queued: "You will receive a message informed output is completed.(job ID: %{job_name})"
+    output_job_success_subject: ! 'Checkout list is created. [ID: %{job_name}]'
+    output_job_success_body: ! 'job ID: %{job_name} is completed. Export from the following address.
+
+      %{url}'
+    output_job_error_subject: ! 'Failed to create list. [ID: %{job_name}]'
+    output_job_error_body: ! 'job ID: %{job_name}」is failed beacuse of following reason.
+
+      %{message}'
+  opac:
+    finish: Finish
+    push_touchpanel: ▼ Select menu
+    catalog_search: Search manifestations
+    news: Library new
+    login:
+      sign_in: Log in
+      sign_out: Log out
+      login_description: Please log in here.
+      logged_in: Now logged in
+    manifestation_exstats:
+      bestreader: Best Reader
+      bestrequest: Best Request
+      rank: Rank in %{term}
+      1year: 1 year
+      6months: 6 monthes
+      3months: 3 monthes
+      1month: 1 month
+      2weeks: 2 weeks
+    manifestations:
+      holding: with holdings
+      reserved: Reserved
+    reserves:
+      no_reserve: No reservation
+    checkouts:
+      checkout_at: date of checkout
+      overdue_item: Checkout for this item is overdue.
+      renewal_description: Click "Update checkout" to extend checkout period. 
+    events:
+      category: Category
+    keypad:
+      input_keyword: Input keyword
+      kana: Kana
+      alnum: Alphabet&Number
+      lower: Lower
+      upper: Upper
+      space: Spave
+      back: Back
+      clear: Clear
+    search:
+      sort: ! 'Order by %{target}'
+  exchange_manifestation:
+    title: Change item and manifesation relationship
+    screen1_description1: Select item identifier to change manifestation
+    screen2_description1: Search new manifestation and click "Change" to create new realation.
+    exchange: Change
+    item_not_found: No item is found.
+    no_item_identifier: Item identifier is not selected.
+    source_manifestation: Original manifestation
+    source_item_identifier: Item ientifier
+    manifestation: Manifestation
+    exchange_success: Item is successfully related with new manifestation.
+    force_exchange: Ignore item status
+    confirm: Are you sure to change?
+    item_circulation_status_is_invalid: Circulation status of the item is invalid. Check "Ignore item status" to change relationship.

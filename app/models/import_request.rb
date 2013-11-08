@@ -1,4 +1,5 @@
 class ImportRequest < ActiveRecord::Base
+  include EnjuNdl::NdlSearch
   attr_accessible :isbn, :manifestation_id, :user_id
 
   default_scope :order => 'id DESC'
@@ -8,8 +9,6 @@ class ImportRequest < ActiveRecord::Base
   validate :check_isbn
   #validate :check_imported, :on => :create
   #validates_uniqueness_of :isbn, :if => Proc.new{|request| ImportRequest.where("created_at > ?", 1.day.ago).collect(&:isbn).include?(request.isbn)}
-
-  enju_ndl_search
 
   state_machine :initial => :pending do
     event :sm_fail do
@@ -40,7 +39,7 @@ class ImportRequest < ActiveRecord::Base
   def import!
     logger.info "import start"
     unless manifestation
-      manifestation = self.class.import_isbn!(isbn)
+      manifestation = self.class.import_isbn(isbn)
       if manifestation
         self.manifestation = manifestation
         manifestation.update_attributes(:external_catalog => 1)

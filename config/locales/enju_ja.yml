@@ -12,22 +12,7 @@ ja:
           in_transcation: "貸出処理中です。"
         checkin:
           already_checked_out: "この資料はすでに貸し出されています。"
-        library_check:
-          start_process: "点検処理を開始しました。"
-          start_process_failed: "点検処理を開始できませんでした。"
-          othher_active_process: "実行中の点検処理が存在します。"
-          no_shelf_definition_file: "棚定義ファイルがありません。"
-          no_shelf_definition_data: "棚定義データがありません。"
-          no_check_data: "点検データがありません。"
-          no_check_data_exist: "点検データが存在しません。"
-          error_at_loading_barcode: "点検データ読み込み時にエラーが発生しました。"
-          error_at_checking_notfound: "欠本チェック処理時にエラーが発生しました。"
-          error_at_checking_confusion: "乱れチェック処理時にエラーが発生しました。"
-          error_at_exporting_resource_list: "蔵書リストファイル出力時にエラーが発生しました。"
-          error_at_exporting_notfound_list: "欠本リストファイル出力時にエラーが発生しました。"
-          error_at_exporting_item_register: "図書原簿ファイルの出力時にエラーが発生しました。"
-          error_at_exporting_detection_list: "発見リストファイルの出力時にエラーが発生しました。"
-        inter_library_loan:
+        iter_library_loan:
           same_library: "移動元図書館と移動先図書館が同じです。"
         reminder_list:
           no_checkout: "該当する貸出が見つかりません。"

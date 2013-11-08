@@ -1,5 +1,5 @@
 module NumberingsHelper
-  def get_numbering_display_name(numbering_name, manifestation_type_id)
+  def get_numbering_display_name(numbering_name, manifestation_type_id = 0)
     numbering = Numbering.where(:name => numbering_name).first.try(:display_name) rescue nil
     unless numbering
       manifestation_type = ManifestationType.find(manifestation_type_id) rescue nil

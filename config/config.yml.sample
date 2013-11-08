@@ -414,6 +414,9 @@ defaults: &defaults
   export:
     # 資料エクスポート時に文献資料を削除する
     delete_article: false
+
+   # ヘッダーにマニュアルダウンロードリンクを表示する
+   display_manual: false
  
 development:
   <<: *defaults

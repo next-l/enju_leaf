@@ -1,6 +1,7 @@
-# -*- encoding: utf-8 -*-
+#-*- encoding: utf-8 -*-
 require 'timeout'
 class Question < ActiveRecord::Base
+  include EnjuNdl::NdlSearch
   attr_accessible :user_id, :body, :shared, :solved, :note
 
   default_scope :order => 'id DESC'
@@ -31,8 +32,6 @@ class Question < ActiveRecord::Base
   end
 
   acts_as_taggable_on :tags
-  enju_ndl_search
-  enju_ndl_crd
 
   paginates_per 10
 

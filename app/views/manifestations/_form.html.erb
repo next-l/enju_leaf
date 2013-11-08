@@ -288,6 +288,7 @@ $(document).keydown(function(e) {
     <%= f.text_field :acceptance_number, :class => "resource_integer" %>
   </div>
 
+<!--
   <div class="field">
     <%= f.label t('activerecord.attributes.manifestation.exinfo_1') %>
     <%= f.text_field :exinfo_1, :class => "resource_integer" %>
@@ -327,6 +328,7 @@ $(document).keydown(function(e) {
     <%= f.label t('activerecord.attributes.manifestation.exinfo_8') %>
     <%= f.text_field :exinfo_8, :class => "resource_integer" %>
   </div>
+-->
 
   <div class="actions">
     <%= hidden_field_tag :patron_id, @patron.id if @patron -%>

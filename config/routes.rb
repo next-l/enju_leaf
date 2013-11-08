@@ -1,7 +1,6 @@
 EnjuLeaf::Application.routes.draw do
   resources :themes
-
-
+  #resources :identifier_types
   resources :warekis
   resources :user_request_logs
   resources :enju_terminals
@@ -33,6 +32,7 @@ EnjuLeaf::Application.routes.draw do
     post :send_reminder, :on => :collection
   end
 
+  match '/series_has_manifestations/update_all' => 'series_has_manifestations#update_all'
   resources :series_has_manifestations
   resources :series_statement_merges
 
@@ -539,6 +539,7 @@ EnjuLeaf::Application.routes.draw do
   match '/page/routing_error' => 'page#routing_error'
   match '/page/extensions' => 'page#extensions'
   match '/page/budgets' => 'page#budgets'
+  match '/get_manual' => 'page#get_manual'
 
   # for opac begin
   match '/opac/signed_in' => 'opac#signed_in'

@@ -3,6 +3,7 @@ require EnjuTrunkFrbr::Engine.root.join('app', 'models', 'manifestation')
 require EnjuTrunkCirculation::Engine.root.join('app', 'models', 'manifestation') # unless SystemConfiguration.isWebOPAC
 class Manifestation < ActiveRecord::Base
   self.extend ItemsHelper
+  include EnjuNdl::NdlSearch
   has_many :creators, :through => :creates, :source => :patron, :order => :position
   has_many :contributors, :through => :realizes, :source => :patron, :order => :position
   has_many :publishers, :through => :produces, :source => :patron, :order => :position
@@ -23,6 +24,7 @@ class Manifestation < ActiveRecord::Base
   has_many :checked_manifestations
   has_many :theme_has_manifestations, :dependent => :destroy
   has_many :themes, :through => :theme_has_manifestations
+  has_many :identifiers
 
   belongs_to :manifestation_content_type, :class_name => 'ContentType', :foreign_key => 'content_type_id'
   belongs_to :country_of_publication, :class_name => 'Country', :foreign_key => 'country_of_publication_id'
@@ -414,7 +416,6 @@ class Manifestation < ActiveRecord::Base
   end
 
   enju_manifestation_viewer
-  enju_ndl_search
   #enju_amazon
   enju_oai
   #enju_calil_check

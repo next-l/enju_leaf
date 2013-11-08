@@ -532,5 +532,15 @@ module ApplicationHelper
         t('reserve.completed')
       end
     end
+    def i18n_information_type(id)
+      case id
+      when 0
+        t('activerecord.attributes.reserve.unnecessary')
+      when 1
+        t('activerecord.attributes.reserve.email')
+      when [2, 3, 4, 5, 6, 7], 2, 3, 4, 5, 6, 7
+        t('activerecord.attributes.reserve.telephone')
+      end 
+    end 
   end
 end
