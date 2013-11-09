@@ -4,7 +4,6 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
 
   def copy_setup_files
     directory("db/fixtures", "db/fixtures/enju_leaf")
-    directory("solr", "solr")
     copy_file("config/application.yml", "config/application.yml")
     copy_file("config/resque.yml", "config/resque.yml")
     copy_file("config/schedule.rb", "config/schedule.rb")
@@ -83,6 +82,9 @@ use Rack::Protection, :except => [:escaped_params, :json_csrf, :http_origin, :se
 EOS
     end
     generate("sunspot_rails:install")
+    gsub_file "config/sunspot.yml",
+      /path: \/solr\/production/,
+      "path: /solr/default"
     generate("kaminari:config")
     generate("simple_form:install")
     gsub_file 'config/initializers/kaminari_config.rb',
