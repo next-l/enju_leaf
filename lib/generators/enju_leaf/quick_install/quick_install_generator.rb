@@ -25,7 +25,7 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
     rake("enju_subject:setup", :env => environment)
     if environment == 'production'
       rake("assets:precompile")
-      rake("enju_leaf:non_digested")
+      rake("enju_leaf:create_non_digested_assets")
     end
     rake("db:seed", :env => environment)
     if ENV['OS'] == 'Windows_NT'
