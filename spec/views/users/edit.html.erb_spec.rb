@@ -11,7 +11,7 @@ describe "users/edit" do
     assign(:libraries, Library.all)
     assign(:roles, Role.all)
     assign(:available_languages, Language.available_languages)
-    view.stub(:current_user).and_return(User.find('admin'))
+    view.stub(:current_user).and_return(User.friendly.find('admin'))
   end
 
   it "renders the edit user form" do

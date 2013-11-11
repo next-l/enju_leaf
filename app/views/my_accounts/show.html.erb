@@ -6,9 +6,6 @@
   <h2 class="resource_title">
     [U]
     <%= current_user.username -%>
-    <% if can? :show, current_user.patron %>
-      (<%= link_to current_user.patron.full_name, current_user.patron %>)
-    <% end %>
   </h2>
 
   <p><%= t('activerecord.attributes.user.user_number') %>: <%= current_user.user_number %></p>
@@ -31,7 +28,15 @@
             <%= link_to checkout.item.item_identifier, checkout.item %><br />
             (<%= link_to checkout.item.manifestation.original_title, checkout.item.manifestation %>)
           </td>
-          <td><%=l checkout.due_date, :formats => :only_date %></td>
+          <td>
+            <%=l checkout.due_date, :formats => :only_date %>
+            <br />
+            <%- if can? :update, checkout -%>
+              <% unless checkout.checkin %>
+                (<%= link_to t('checkout.extend'), edit_checkout_path(checkout) -%>)
+              <% end %>
+            <%- end -%>
+          </td>
         </tr>
       <% end %>
     </table>

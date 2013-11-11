@@ -1,4 +1,4 @@
-<div class="column" id="col1">
+<div class="column-fixed" id="col1">
   <div class="portlet" id="library">
     <h2 class="title"><%= t('activerecord.models.library') -%></h2>
     <div class="config_box">
@@ -46,6 +46,7 @@
           <li><%= link_to t('item.all_item'), items_path %></li>
         </ul>
         </li>
+        <li><%= link_to t('activerecord.models.identifier_type'), identifier_types_path -%>
         <% if defined?(EnjuBookmark) %>
           <li><%= link_to t('activerecord.models.bookmark'), bookmarks_path -%></li>
         <% end %>
@@ -62,7 +63,7 @@
           <li><%= link_to t('activerecord.models.inventory'), inventory_files_path -%></li>
         <% end %>
         <% if defined?(EnjuResourceMerge) %>
-          <li><%= link_to t('activerecord.models.patron_merge_list'), patron_merge_lists_path -%></li>
+          <li><%= link_to t('activerecord.models.agent_merge_list'), agent_merge_lists_path -%></li>
           <li><%= link_to t('activerecord.models.series_statement_merge_list'), series_statement_merge_lists_path -%></li>
         <% end %>
       </ul>
@@ -70,7 +71,7 @@
   </div>
 </div>
 
-<div class="column" id="col2">
+<div class="column-fixed" id="col2">
   <% if defined?(EnjuSubject) %>
     <div class="portlet" id="subject_and_classification">
       <h2 class="title"><%= t('page.subject_and_classification') -%></h2>
@@ -96,11 +97,11 @@
           <li><%= link_to t('activerecord.models.circulation_status'), circulation_statuses_path -%></li>
           <li><%= link_to t('activerecord.models.use_restriction'), use_restrictions_path -%></li>
         <% end %>
-        <li><%= link_to t('activerecord.models.patron_type'), patron_types_path -%></li>
+        <li><%= link_to t('activerecord.models.agent_type'), agent_types_path -%></li>
         <li><%= link_to t('activerecord.models.language'), languages_path -%></li>
         <li><%= link_to t('activerecord.models.country'), countries_path -%></li>
         <li><%= link_to t('activerecord.models.frequency'), frequencies_path -%></li>
-        <li><%= link_to t('activerecord.models.patron_relationship_type'), patron_relationship_types_path -%></li>
+        <li><%= link_to t('activerecord.models.agent_relationship_type'), agent_relationship_types_path -%></li>
         <li><%= link_to t('activerecord.models.manifestation_relationship_type'), manifestation_relationship_types_path -%></li>
         <li><%= link_to t('activerecord.models.license'), licenses_path -%></li>
         <!--

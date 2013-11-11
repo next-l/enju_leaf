@@ -1,7 +1,7 @@
 class Role < ActiveRecord::Base
   attr_accessible :name, :display_name, :note
   include MasterModel
-  default_scope :order => "roles.position"
+  default_scope {order("roles.position")}
   has_many :user_has_roles
   has_many :users, :through => :user_has_roles
   after_save :clear_all_cache
@@ -27,7 +27,11 @@ class Role < ActiveRecord::Base
   end
 
   def self.default_role
-    Rails.cache.fetch('default_role'){Role.find('Guest')}
+    if Rails.env == 'production'
+      Rails.cache.fetch('default_role'){Role.where(:name => 'Guest').first}
+    else
+      Role.where(:name => 'Guest').first
+    end
   end
 end
 
@@ -44,4 +48,3 @@ end
 #  score        :integer          default(0), not null
 #  position     :integer
 #
-

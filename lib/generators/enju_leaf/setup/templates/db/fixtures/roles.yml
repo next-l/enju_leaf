@@ -1,0 +1,29 @@
+--- 
+role_00001: 
+  name: Guest  
+  display_name: Guest
+  id: 1
+  position: 1
+  score: 1
+  note: 
+role_00002: 
+  name: User  
+  display_name: User
+  id: 2
+  position: 2
+  score: 2
+  note: 
+role_00003: 
+  name: Librarian  
+  display_name: Librarian
+  id: 3
+  position: 3
+  score: 3
+  note: 
+role_00004: 
+  name: Administrator  
+  display_name: Administrator
+  id: 4
+  position: 4
+  score: 4
+  note: 

@@ -5,7 +5,7 @@ describe "users/index" do
 
   before(:each) do
     assign(:users, User.page(1))
-    view.stub(:current_user).and_return(User.find('admin'))
+    view.stub(:current_user).and_return(User.friendly.find('admin'))
   end
 
   it "renders a list of users" do

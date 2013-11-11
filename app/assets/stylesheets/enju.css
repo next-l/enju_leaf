@@ -383,7 +383,7 @@ input.date_field{
 }
 
 input.date_text_field{
-  width: 80px;
+  width: 100px;
 }
 
 input.wide_date_text_field{

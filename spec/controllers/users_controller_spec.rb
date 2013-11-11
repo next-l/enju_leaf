@@ -63,12 +63,7 @@ describe UsersController do
 
       it "assigns the requested user as @user" do
         get :show, :id => 'admin'
-        assigns(:user).should eq(User.find('admin'))
-      end
-
-      it "should not show missing user" do
-        get :show, :id => 'missing'
-        response.should be_missing
+        assigns(:user).should eq(User.friendly.find('admin'))
       end
     end
 
@@ -104,7 +99,7 @@ describe UsersController do
     describe "When not logged in" do
       it "assigns the requested user as @user" do
         get :show, :id => 'admin'
-        assigns(:user).should eq(User.find('admin'))
+        assigns(:user).should eq(User.friendly.find('admin'))
         response.should redirect_to(new_user_session_url)
       end
     end
@@ -156,11 +151,6 @@ describe UsersController do
         user = FactoryGirl.create(:user)
         get :edit, :id => user.id
         assigns(:user).should eq(user)
-      end
-
-      it "should not edit missing user" do
-        get :edit, :id => 'missing'
-        response.should be_missing
       end
     end
 
@@ -513,11 +503,6 @@ describe UsersController do
 
       it "should not destroy myself" do
         delete :destroy, :id => users(:librarian1).username
-        response.should be_forbidden
-      end
-
-      it "should not destroy user who has items not checked in" do
-        delete :destroy, :id => users(:user1).username
         response.should be_forbidden
       end
     end

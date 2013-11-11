@@ -1,6 +1,6 @@
 --- 
 user_group_00001: 
-  name: (not specified)
+  name: not_specified
   display_name: (not specified)
   updated_at: 2007-12-13 21:00:51.564542 +09:00
   id: 1

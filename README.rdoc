@@ -1,5 +1,8 @@
 = Next-L Enju Leaf
 
+{<img src="https://travis-ci.org/nabeta/enju_leaf.png?branch=rails4" alt="Build Status" />}[https://travis-ci.org/next-l/enju_leaf]
+{<img src="https://gemnasium.com/nabeta/enju_leaf.png" alt="Dependency Status" />}[https://gemnasium.com/nabeta/enju_leaf]
+
 Next-L Enju Leaf は、{Project Next-L}[http://www.next-l.jp] で開発している図書館管理システムです。
 
 Next-L Enju Leaf is an integrated library system developed by {Project Next-L}[http://www.next-l.jp].
@@ -10,7 +13,7 @@ Next-L Enju Leaf is an integrated library system developed by {Project Next-L}[h
 {Project Next-L}[http://www.next-l.jp] is a project to build a new integrated library system maintained by Japanese volunteers interested in libraries.
 
 == 動作デモ (Demonstration)
-* http://enju3.slis.doshisha.ac.jp
+* http://enju.next-l.jp
 
 == インストール (Install)
 * https://github.com/nabeta/enju_leaf/wiki/Install

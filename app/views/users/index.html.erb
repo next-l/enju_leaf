@@ -24,10 +24,6 @@
       <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'created_at', :order => 'asc', :only_path => true)) -%>
       <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(params.merge(:sort_by => 'created_at', :order => 'desc', :only_path => true)) -%>
     </th>
-    <% if defined?(EnjuCirculation) %>
-      <th><%= t('activerecord.models.checkout') -%></th>
-      <th><%= t('activerecord.models.reserve') -%></th>
-    <% end %>
     <th></th>
   </tr>
 
@@ -35,20 +31,9 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
       <%= link_to user.username, user -%>
-      <%- if user.patron.id -%>
-        <br />
-        <%= link_to user.patron.full_name, local_patron_path(:id => user.username)  if current_user.has_role?('Librarian') -%>
-      <%- end -%>
     </td>
     <td><%= user.user_number -%></td>
     <td><%= l(user.created_at) if user.created_at -%></td>
-    <% if defined?(EnjuCirculation) %>
-      <td>
-        <%= link_to t('activerecord.models.checkout'), new_basket_path(:user_number => user.user_number) unless user.user_number.blank? -%>
-        (<%= link_to t('page.checkout_history'), user_checkouts_path(user) -%>)
-      </td>
-      <td><%= link_to t('activerecord.models.reserve'), user_reserves_path(user) -%></td>
-    <% end %>
     <td>
       <%= link_to t('user.edit_account'), edit_user_path(user) -%>
     </td>
@@ -57,7 +42,7 @@
 </table>
 
 <br />
-<%= paginate(@users) -%>
+<%= paginate(@users, :theme => 'enju_leaf') -%>
 
 </div>
 </div>
@@ -66,8 +51,6 @@
   <ul>
     <%- if user_signed_in? && current_user.has_role?('Librarian') -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
-      <li><%= link_to t('page.import_from_file'), new_agent_import_file_path -%></li>
     <%- end -%>
-    <li><%= link_to t('page.search_resource', :model => t('activerecord.models.patron')), agents_path -%></li>
   </ul>
 </div>

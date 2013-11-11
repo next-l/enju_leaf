@@ -1,0 +1,34 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+agent_relationship_type_00001:
+  id: 1
+  name: See also
+  display_name: See also
+  note: 
+  position: 1
+agent_relationship_type_00002:
+  id: 2
+  name: Member
+  display_name: Member
+  note: 
+  position: 2
+agent_relationship_type_00003:
+  id: 3
+  name: Child
+  display_name: Child
+  note: 
+  position: 3
+
+# == Schema Information
+#
+# Table name: agent_relationship_types
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+

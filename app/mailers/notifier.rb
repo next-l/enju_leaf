@@ -11,7 +11,7 @@ class Notifier < ActionMailer::Base
       subject = I18n.t('message.new_message_from_library', :library => LibraryGroup.system_name(message.receiver.user.locale))
     end
     if message.sender
-      @sender_name = message.sender.patron.full_name
+      @sender_name = message.sender.agent.full_name
     else
       @sender_name = LibraryGroup.system_name(message.receiver.locale)
     end

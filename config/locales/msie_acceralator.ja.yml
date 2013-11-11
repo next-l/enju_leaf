@@ -1,5 +1,0 @@
-ja:
-  msie:
-    acceralator: "%{library_name}用の Internet Explorer 8 アクセラレータ"
-    install_acceralator: "アクセラレータのインストール"
-    not_supported: "このアドオンは現在お使いのブラウザでは利用できません。"

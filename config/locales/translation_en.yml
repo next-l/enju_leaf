@@ -262,6 +262,7 @@ en:
   advanced_search:
     from: "from"
     to: "to"
+    from_to: "-"
     all_libraries: "All libraries"
   work:
     agents_work: "%{agent_name}'s works"
@@ -337,6 +338,9 @@ en:
     all_publication: "All publications"
     other_address: "The other address"
     add_derivation: "Add derivatation"
+    creator: "Creator"
+    contributor: "Contributor"
+    publisher: "Publisher"
     owner: "Owner"
   library:
     map: "Map"

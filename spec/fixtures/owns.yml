@@ -2,13 +2,13 @@
 own_00001: 
   item_id: 1
   updated_at: 2007-11-21 21:22:57.654360 +09:00
-  patron_id: 1
+  agent_id: 1
   id: 1
   created_at: 2007-11-21 21:22:57.654360 +09:00
 own_00002: 
   item_id: 2
   updated_at: 2007-11-21 21:22:13.685287 +09:00
-  patron_id: 2
+  agent_id: 2
   id: 2
   created_at: 2007-11-21 21:22:13.685287 +09:00
 
@@ -17,7 +17,7 @@ own_00002:
 # Table name: owns
 #
 #  id         :integer         not null, primary key
-#  patron_id  :integer         not null
+#  agent_id  :integer         not null
 #  item_id    :integer         not null
 #  position   :integer
 #  type       :string(255)

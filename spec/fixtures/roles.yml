@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: roles
+#
+#  id           :integer          not null, primary key
+#  name         :string(255)      not null
+#  display_name :string(255)
+#  note         :text
+#  created_at   :datetime
+#  updated_at   :datetime
+#  score        :integer          default(0), not null
+#  position     :integer
+#
+
 --- 
 role_00001: 
   name: Guest  
@@ -22,19 +36,4 @@ role_00004:
   display_name: Administrator
   id: 4
   score: 4
-  note:
-
-# == Schema Information
-#
-# Table name: roles
-#
-#  id           :integer          not null, primary key
-#  name         :string(255)      not null
-#  display_name :string(255)
-#  note         :text
-#  created_at   :datetime
-#  updated_at   :datetime
-#  score        :integer          default(0), not null
-#  position     :integer
-#
-
+  note: 

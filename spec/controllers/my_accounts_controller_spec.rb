@@ -6,7 +6,7 @@ describe MyAccountsController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in User.find('admin')
+        sign_in User.friendly.find('admin')
       end
 
       it "assigns the requested user as @user" do
@@ -27,7 +27,7 @@ describe MyAccountsController do
   describe "GET edit" do
     describe "When logged in as Administrator" do
       before(:each) do
-        @user = User.find('admin')
+        @user = User.friendly.find('admin')
         sign_in @user
       end
 

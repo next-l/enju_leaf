@@ -1,7 +1,0 @@
-en:
-  flash:
-    actions:
-      create:
-        notice: "%{resource_name} was successfully created."
-      update:
-        notice: "%{resource_name} was successfully updated."
