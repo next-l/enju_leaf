@@ -1,9 +1,5 @@
 /*!
-<<<<<<< HEAD:vendor/assets/javascripts/jquery.colorbox.js
-	Colorbox v1.4.27 - 2013-07-16
-=======
 	Colorbox v1.4.33 - 2013-10-31
->>>>>>> rails4:app/assets/javascripts/jquery.colorbox.js
 	jQuery lightbox and modal window plugin
 	(c) 2013 Jack Moore - http://www.jacklmoore.com/colorbox
 	license: http://www.opensource.org/licenses/mit-license.php
@@ -39,8 +35,6 @@
 		opacity: 0.9,
 		preloading: true,
 		className: false,
-<<<<<<< HEAD:vendor/assets/javascripts/jquery.colorbox.js
-=======
 		overlayClose: true,
 		escKey: true,
 		arrowKey: true,
@@ -61,7 +55,6 @@
 		slideshowStart: "start slideshow",
 		slideshowStop: "stop slideshow",
 		photoRegex: /\.(gif|png|jp(e|g|eg)|bmp|ico|webp)((#|\?).*)?$/i,
->>>>>>> rails4:app/assets/javascripts/jquery.colorbox.js
 
 		// alternate image paths for high-res displays
 		retinaImage: false,
@@ -79,39 +72,13 @@
 		// accessbility
 		returnFocus: true,
 		trapFocus: true,
-<<<<<<< HEAD:vendor/assets/javascripts/jquery.colorbox.js
-		reposition: true,
-		loop: true,
-		slideshow: false,
-		slideshowAuto: true,
-		slideshowSpeed: 2500,
-		slideshowStart: "start slideshow",
-		slideshowStop: "stop slideshow",
-		photoRegex: /\.(gif|png|jp(e|g|eg)|bmp|ico|webp)((#|\?).*)?$/i,
-=======
->>>>>>> rails4:app/assets/javascripts/jquery.colorbox.js
 
 		// callbacks
 		onOpen: false,
 		onLoad: false,
 		onComplete: false,
 		onCleanup: false,
-<<<<<<< HEAD:vendor/assets/javascripts/jquery.colorbox.js
-		onClosed: false,
-
-		overlayClose: true,
-		escKey: true,
-		arrowKey: true,
-		top: false,
-		bottom: false,
-		left: false,
-		right: false,
-		fixed: false,
-		data: undefined,
-		closeButton: true
-=======
 		onClosed: false
->>>>>>> rails4:app/assets/javascripts/jquery.colorbox.js
 	},
 	
 	// Abstracting the HTML and event identifiers for easy rebranding
@@ -148,11 +115,7 @@
 	$prev,
 	$close,
 	$groupControls,
-<<<<<<< HEAD:vendor/assets/javascripts/jquery.colorbox.js
-	$events = $('<a/>'),
-=======
 	$events = $('<a/>'), // $([]) would be prefered, but there is an issue with jQuery 1.4.2
->>>>>>> rails4:app/assets/javascripts/jquery.colorbox.js
 	
 	// Variables for cached values or use across multiple functions
 	settings,
@@ -419,32 +382,19 @@
 				interfaceWidth = $leftBorder.width() + $rightBorder.width() + $content.outerWidth(true) - $content.width();
 				loadedHeight = $loaded.outerHeight(true);
 				loadedWidth = $loaded.outerWidth(true);
-<<<<<<< HEAD:vendor/assets/javascripts/jquery.colorbox.js
-				
-=======
 
->>>>>>> rails4:app/assets/javascripts/jquery.colorbox.js
 				// Opens inital empty Colorbox prior to content being loaded.
 				settings.w = setSize(settings.initialWidth, 'x');
 				settings.h = setSize(settings.initialHeight, 'y');
 				$loaded.css({width:'', height:settings.h});
 				publicMethod.position();
 
-<<<<<<< HEAD:vendor/assets/javascripts/jquery.colorbox.js
-				slideshow();
-
-=======
->>>>>>> rails4:app/assets/javascripts/jquery.colorbox.js
 				trigger(event_open, settings.onOpen);
 				
 				$groupControls.add($title).hide();
 
 				$box.focus();
 				
-<<<<<<< HEAD:vendor/assets/javascripts/jquery.colorbox.js
-
-=======
->>>>>>> rails4:app/assets/javascripts/jquery.colorbox.js
 				if (settings.trapFocus) {
 					// Confine focus to the modal
 					// Uses event capturing that is not supported in IE8-
@@ -465,10 +415,6 @@
 					});
 				}
 			}
-<<<<<<< HEAD:vendor/assets/javascripts/jquery.colorbox.js
-			
-=======
->>>>>>> rails4:app/assets/javascripts/jquery.colorbox.js
 			load();
 		}
 	}
@@ -1007,16 +953,12 @@
 					return;
 				}
 
-<<<<<<< HEAD:vendor/assets/javascripts/jquery.colorbox.js
-				photo.alt = $(element).attr('alt') || $(element).attr('data-alt') || '';
-=======
 				$.each(['alt', 'longdesc', 'aria-describedby'], function(i,val){
 					var attr = $(element).attr(val) || $(element).attr('data-'+val);
 					if (attr) {
 						photo.setAttribute(val, attr);
 					}
 				});
->>>>>>> rails4:app/assets/javascripts/jquery.colorbox.js
 
 				if (settings.retinaImage && window.devicePixelRatio > 1) {
 					photo.height = photo.height / window.devicePixelRatio;
