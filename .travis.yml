@@ -5,4 +5,5 @@ rvm:
 before_script: "bundle exec rake db:migrate"
 branches:
   only:
-    - gem
+    - master
+    - 1.1

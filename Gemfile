@@ -1,35 +1,16 @@
 source 'https://rubygems.org'
 
 #ruby '2.0.0'
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.15'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'enju_leaf', :git => 'git://github.com/nabeta/enju_leaf.git', :branch => 'gem'
-gem 'enju_biblio', :git => 'git://github.com/next-l/enju_biblio.git'
-gem 'enju_library', :git => 'git://github.com/next-l/enju_library.git'
-#gem 'enju_amazon', :git => 'git://github.com/nabeta/enju_amazon.git'
-#gem 'enju_barcode', :git => 'git://github.com/nabeta/enju_barcode.git'
-#gem 'enju_calil', :git => 'git://github.com/nabeta/enju_calil.git'
-gem 'enju_ndl', :git => 'git://github.com/next-l/enju_ndl.git'
-gem 'enju_nii', :git => 'git://github.com/next-l/enju_nii.git'
-gem 'enju_oai', :git => 'git://github.com/next-l/enju_oai.git'
-#gem 'enju_scribd', :git => 'git://github.com/nabeta/enju_scribd.git'
-gem 'enju_subject', :git => 'git://github.com/next-l/enju_subject.git'
-#gem 'enju_purchase_request', :git => 'git://github.com/next-l/enju_purchase_request.git'
-#gem 'enju_question', :git => 'git://github.com/next-l/enju_question.git'
-#gem 'enju_bookmark', :git => 'git://github.com/next-l/enju_bookmark.git'
-gem 'enju_resource_merge', :git => 'git://github.com/next-l/enju_resource_merge.git'
-gem 'enju_circulation', :git => 'git://github.com/next-l/enju_circulation.git'
-#gem 'enju_message', :git => 'git://github.com/next-l/enju_message.git'
-gem 'enju_inter_library_loan', :git => 'git://github.com/next-l/enju_inter_library_loan.git'
-gem 'enju_inventory', :git => 'git://github.com/next-l/enju_inventory.git'
-gem 'enju_event', :git => 'git://github.com/next-l/enju_event.git'
-#gem 'enju_news', :git => 'git://github.com/next-l/enju_news.git'
-gem 'enju_search_log', :git => 'git://github.com/next-l/enju_search_log.git'
-gem 'enju_manifestation_viewer', :git => 'git://github.com/next-l/enju_manifestation_viewer.git'
-gem 'enju_export', :git => 'git://github.com/next-l/enju_export.git'
+gem 'enju_leaf', '~> 1.1.0.rc7'
+gem "enju_flower", "~> 0.1.0.pre13"
+gem "enju_ndl", "~> 0.1.0.pre27"
+gem "enju_circulation", "~> 0.1.0.pre30"
+gem "enju_subject", "~> 0.1.0.pre21"
 
 platforms :mri do
   gem 'pg'
@@ -50,7 +31,7 @@ platforms :jruby do
   #gem 'kramdown'
 end
 
-gem 'exception_notification', '~> 3.0'
+gem 'exception_notification', '~> 4.0'
 gem 'progress_bar'
 gem 'strongbox'
 #gem 'devise_security_extension'
@@ -62,30 +43,30 @@ gem 'rails_autolink'
 #gem 'oink', '>= 0.10'
 gem 'foreigner'
 gem 'strong_parameters'
-gem 'resque-scheduler', '~> 2.0.0', :require => 'resque_scheduler'
+gem 'resque-scheduler', '~> 2.0', :require => 'resque_scheduler'
 gem 'redis-rails'
 
 group :development do
   gem 'annotate', '~> 2.5'
-  gem 'sunspot_solr', '~> 2.0.0'
+  gem 'sunspot_solr', '~> 2.1'
   gem 'rails-erd'
   gem 'immigrant'
 end
 
 group :development, :test do
-  gem 'simplecov', '~> 0.7', :require => false
+  gem 'simplecov', '~> 0.8', :require => false
   gem 'ruby-prof', :platforms => :mri
   gem 'rspec-rails', '~> 2.13'
   gem 'guard-rspec'
-  gem 'factory_girl_rails', '~> 4.2'
+  gem 'factory_girl_rails', '~> 4.3'
   gem 'spork-rails'
   gem 'timecop'
-  gem 'sunspot-rails-tester', :git => 'git://github.com/justinko/sunspot-rails-tester.git'
-  gem 'vcr', '~> 2.4'
+  gem 'sunspot-rails-tester'
+  gem 'vcr', '~> 2.7'
   gem 'fakeweb'
   gem 'steak'
   gem 'resque_spec'
-  gem 'parallel_tests', '~> 0.10'
+  gem 'parallel_tests', '~> 0.16'
 end
 
 # Gems used only for assets and not required
@@ -95,8 +76,8 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer', '0.10.2', :platform => :ruby
-  gem 'therubyrhino', :platform => :jruby
+  # gem 'therubyracer', '0.10.2', :platform => :ruby
+  # gem 'therubyrhino', :platform => :jruby
 
   gem 'uglifier', '>= 1.0.3'
   gem 'less-rails'
