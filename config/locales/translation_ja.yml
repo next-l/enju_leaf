@@ -2823,5 +2823,16 @@ ja:
     force_exchange: "強制的に付け替え"
     confirm: "付替を行います。よろしいですか？"
     item_circulation_status_is_invalid: "所蔵の貸出状態が不正です。強制的に進める場合は、チェックボックスにチェックをつけてください。"
-
-
+  social_bookmark:
+    bookmark:
+      title: "ブックマーク"
+      twitter: "Twitterにつぶやく"
+      hatena: "はてなブックマーク"
+      yahoo: "Yahoo!ブックマークに追加"
+    publisher:
+      title: "出版社流通情報"
+      amazon: "Amazon"
+      seven_net: "セブンネット"
+      rakuten: "楽天ブックス"
+      kinokuniya: "紀伊國屋書店"
+      junk_do: "ジュンク堂"

@@ -2845,3 +2845,17 @@ en:
     force_exchange: Ignore item status
     confirm: Are you sure to change?
     item_circulation_status_is_invalid: Circulation status of the item is invalid. Check "Ignore item status" to change relationship.
+  social_bookmark:
+    bookmark:
+      title: Social bookmark
+      twitter: Tweet
+      hatena: Hatena Bookmark
+      yahoo: Yahoo! Bookmark
+    publisher:
+      title: Publishing Infomation
+      amazon: Amazon
+      seven_net: Seven Net Shopping
+      rakuten: Rakuten
+      kinokuniya: Kinokuniya
+      junk_do: JUNKUDO
+
