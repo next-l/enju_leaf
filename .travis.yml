@@ -6,3 +6,4 @@ before_script: "bundle exec rake db:migrate"
 branches:
   only:
     - gem
+    - rails4
