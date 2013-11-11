@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.15'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -107,7 +107,7 @@ gem 'foreigner'
 
 group :development do
   gem 'annotate', '~> 2.5'
-  gem 'sunspot_solr', '~> 2.0.0.pre.120925'
+  gem 'sunspot_solr', '~> 2.0.0'
   gem 'rails-erd'
   gem 'immigrant'
 end
@@ -122,7 +122,7 @@ group :development, :test do
   end
   gem 'spork-rails'
   gem 'timecop'
-  gem 'sunspot-rails-tester', :git => 'https://github.com/justinko/sunspot-rails-tester.git'
+  gem 'sunspot-rails-tester'
   gem 'vcr', '~> 2.2'
   gem 'fakeweb'
   gem 'steak'
