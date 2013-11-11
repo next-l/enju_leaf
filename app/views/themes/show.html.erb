@@ -54,6 +54,11 @@
                 <%- else -%>
                   <%= render 'themes/show_index', :manifestation => manifestation -%>
                 <%- end -%>
+                <% unless SystemConfiguration.isWebOPAC %>
+                  <div class="access_address">
+                    <%= link_to manifestation.access_address, manifestation.access_address if manifestation.access_address.present? -%>
+                  </div>
+                <%- end -%>
               </td>
             </tr> 
           <%- end -%>
