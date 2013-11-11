@@ -27,13 +27,52 @@
         <%= @theme.note %>
       </p>
     <%- end -%>
+    
+    <div id="tabs">
+      <ul>
+        <li title="active" class="selected">
+          <a href="#tab1"><em><%= t('activerecord.attributes.theme.related_manifestation') %></em></a>
+        </li>
+<!--  タブ二つ目
+        <li>
+          <a href="#tab2"><em><%# t('library.staff') -%></em></a>
+        </li>
+-->
+      </ul>
+      <div id="tab1">
+        <h2>
+          <%= t('activerecord.attributes.theme.related_manifestation_listing') -%>
+        </h2>
 
+        <table class="index">
+          <tr></tr>
+          <% @themes.each do |manifestation| %>
+            <tr class="line<%= cycle("0", "1") -%>">
+              <td>
+                <%- if manifestation.article? %>
+                  <%= render 'manifestations/show_index_article', :manifestation => manifestation -%>
+                <%- else -%>
+                  <%= render 'manifestations/show_index', :manifestation => manifestation -%>
+                <%- end -%>
+              </td>
+            </tr> 
+          <%- end -%>
+        </table>
+        <br />
+        <%= paginate(@themes) -%>
+      </div>
+<!-- タブ二つ目
+      <div id="tab2">
+        <%# @theme.id %>
+      </div>
+-->
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <%- if can? :create, CarrierType -%>
+    <%- if can? :create, Theme -%>
       <li><%= link_to t('page.edit'), edit_theme_path(@theme) %>
     <%- end -%>   
     <li><%= link_to t('page.back'), themes_path %>

@@ -1110,14 +1110,6 @@ class ManifestationsController < ApplicationController
       with << [:id, :any_of, @basket.manifestations.collect(&:id)]
     end
 
-    if @basket
-      with << [:id, :any_of, @basket.manifestations.collect(&:id)]
-    end
-
-    if @basket
-      with << [:id, :any_of, @basket.manifestations.collect(&:id)]
-    end
-
     [with, without]
   end
 

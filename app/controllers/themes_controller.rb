@@ -32,36 +32,10 @@ class ThemesController < InheritedResources::Base
     end
   end
 
-#追加機能2：タグについての試用
-=begin
-    @themes = Theme.search do
-      fulltext query if query
-      with(:publish).equal_to 0 unless current_user.has_role?("Libralian")
-      paginate :page => page.to_i, :per_page => Theme.default_per_page
-    end.results
-  end
-=end
-=begin
   def show
-    if params[:id]
-      theme = Theme.find(params[:id])
-      return
-    end
-
-    search = Sunspot.new_search(Manifestation)
-    theme = @theme
-    search.build do
-      with(:theme_ids).equal_to theme.id if theme
-    end
-    page = params[:work_page] || 1
-    search.query.paginate(page.to_i, Manifestation.default_per_page)
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @theme }
-    end
+    @themes = Theme.find(params[:id]).manifestations.scoped.page params[:page]
+    #@themes = Manifestation.scoped.page params[:page]
   end
-=end
 
   def update
     @theme = Theme.find(params[:id])
