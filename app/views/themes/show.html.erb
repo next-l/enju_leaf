@@ -50,9 +50,9 @@
             <tr class="line<%= cycle("0", "1") -%>">
               <td>
                 <%- if manifestation.article? %>
-                  <%= render 'manifestations/show_index_article', :manifestation => manifestation -%>
+                  <%= render 'themes/show_index_article', :manifestation => manifestation -%>
                 <%- else -%>
-                  <%= render 'manifestations/show_index', :manifestation => manifestation -%>
+                  <%= render 'themes/show_index', :manifestation => manifestation -%>
                 <%- end -%>
               </td>
             </tr> 

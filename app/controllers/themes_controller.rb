@@ -34,7 +34,6 @@ class ThemesController < InheritedResources::Base
 
   def show
     @themes = Theme.find(params[:id]).manifestations.scoped.page params[:page]
-    #@themes = Manifestation.scoped.page params[:page]
   end
 
   def update
