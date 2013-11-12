@@ -1466,6 +1466,7 @@ ja:
         position: 優先度
         hot_topic: 話題のテーマ
         related_manifestation: 関連する資料
+        no_matches_found: テーマが見つかりません
   page:
     user_title: "ようこそ %{login_name} さん"
     logged_in_as: "%{login_name} としてログイン"
