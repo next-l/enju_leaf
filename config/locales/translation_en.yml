@@ -1318,7 +1318,6 @@ en:
         position: Position
         hot_topic: Hot topic
         related_manifestation: Related manifestation
-        related_manifestation_listing: Related manifestation listing
       wareki:
         display_name: Display name
         short_name: Short name
