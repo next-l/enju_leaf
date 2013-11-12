@@ -159,6 +159,8 @@ en:
       nacsis_user_request: Nacsis user requests
       nacsis_request_copy: Nacsis copy request
       nacsis_request_lend: Nacsis lend request
+      theme: Theme
+      theme_list: Theme_list
       wareki: Japanese Calendar
       user_request_log: User request log
       sheet: Sheet
@@ -1308,6 +1310,14 @@ en:
         librarian_note: Librarian note
         created_from: Created from
         created_to: Created to
+      theme:
+        name: Name
+        description: Description
+        publish: Publish
+        note: Note
+        position: Position
+        hot_topic: Hot topic
+        related_manifestation: Related manifestation
       wareki:
         display_name: Display name
         short_name: Short name
@@ -2261,6 +2271,7 @@ en:
     resources_were_published: Resources were published.
     select_resources: Select resources.
     publish: Publish
+    closed: Close
     published: Published
     reject: Reject
     withdraw: Withdraw

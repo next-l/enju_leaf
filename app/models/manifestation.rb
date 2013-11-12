@@ -22,6 +22,8 @@ class Manifestation < ActiveRecord::Base
   has_many :purchase_requests
   has_many :table_of_contents
   has_many :checked_manifestations
+  has_many :theme_has_manifestations, :dependent => :destroy
+  has_many :themes, :through => :theme_has_manifestations
   has_many :identifiers
 
   belongs_to :manifestation_content_type, :class_name => 'ContentType', :foreign_key => 'content_type_id'
@@ -438,7 +440,7 @@ class Manifestation < ActiveRecord::Base
 
   after_save :index_series_statement
   after_destroy :index_series_statement
-  attr_accessor :during_import, :creator, :contributor, :publisher, :subject, 
+  attr_accessor :during_import, :creator, :contributor, :publisher, :subject, :theme, 
                 :creator_transcription, :publisher_transcription, :contributor_transcription, :subject_transcription
 
   paginates_per 10
@@ -901,6 +903,16 @@ class Manifestation < ActiveRecord::Base
     block.call(output)
   end
 
+  def self.struct_theme_selects
+    struct_theme = Struct.new(:id, :text)
+    @struct_theme_array = []
+    struct_select = Theme.all
+    struct_select.each do |theme|
+      @struct_theme_array << struct_theme.new(theme.id, theme.name)
+    end
+    return @struct_theme_array
+  end
+ 
   # NOTE: resource_import_textfile.excelとの整合性を維持すること
   BOOK_COLUMNS = lambda { %W(
     #{ 'manifestation_type' unless SystemConfiguration.get('manifestations.split_by_type') } 

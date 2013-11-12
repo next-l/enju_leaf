@@ -1,4 +1,5 @@
 EnjuLeaf::Application.routes.draw do
+  resources :themes
   #resources :identifier_types
   resources :warekis
   resources :user_request_logs

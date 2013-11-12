@@ -176,6 +176,18 @@
             <%- end -%>
           </td>
         </tr>
+        <tr>
+          <td><%= t('activerecord.models.theme') -%>:</td>
+          <td>
+            <%- unless manifestation.themes.empty? -%>
+              <ul>
+                <%- manifestation.themes.each do |theme| -%>
+                    <%= link_to theme.name, theme -%>
+                <%- end -%>
+              </ul>
+            <%- end -%>
+          </td>
+        </tr>
         <% if defined?(EnjuBookmark) %>
           <tr>
             <td><%= t('activerecord.models.tag') -%>:</td>
