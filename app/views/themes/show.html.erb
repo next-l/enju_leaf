@@ -1,70 +1,70 @@
 <div id="content_detail" class="ui-corner-all">
-  <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.theme')) -%></h1>
+  <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.theme')) %></h1>
   <div id="content_list">
-
+ 
     <p id="notice"><%= notice %></p>
 
     <p>
-      <b><%= t('activerecord.attributes.theme.name') -%>:</b>
+      <b><%= t('activerecord.attributes.theme.name') %>:</b>
       <%= @theme.name %>
     </p>
 
     <p>
-      <b><%= t('activerecord.attributes.theme.description') -%>:</b>
+      <b><%= t('activerecord.attributes.theme.description') %>:</b>
       <%= @theme.description %>
     </p>
 
-    <%- if can? :edit, Theme -%>
+    <% if can? :edit, Theme %>
       <p>
-        <b><%= t('activerecord.attributes.theme.publish') -%>:</b>
+        <b><%= t('activerecord.attributes.theme.publish') %>:</b>
         <%= i18n_publish(@theme.publish) %>
       </p>
-    <%- end -%>
+    <% end %>
 
-    <%- if can? :edit, Theme -%>
+    <% if can? :edit, Theme %>
       <p>
-        <b><%= t('activerecord.attributes.theme.note') -%>:</b>
+        <b><%= t('activerecord.attributes.theme.note') %>:</b>
         <%= @theme.note %>
       </p>
-    <%- end -%>
+    <% end %>
     
     <div id="tabs">
       <ul>
         <li title="active" class="selected">
-          <a href="#tab1"><em><%= t('activerecord.attributes.theme.related_manifestation') %></em></a>
+          <a href="#tab1"><em><%= t('page.theme.related_manifestation') %></em></a>
         </li>
 <!--  タブ二つ目
         <li>
-          <a href="#tab2"><em><%# t('library.staff') -%></em></a>
+          <a href="#tab2"><em><%# t('library.staff') %></em></a>
         </li>
 -->
       </ul>
       <div id="tab1">
         <h2>
-          <%= t('page.listing', :model => t('activerecord.attributes.theme.related_manifestation')) -%>
+          <%= t('page.listing', :model => t('page.theme.related_manifestation')) %>
         </h2>
 
         <table class="index">
           <tr></tr>
-          <% @themes.each do |manifestation| %>
-            <tr class="line<%= cycle("0", "1") -%>">
+          <% @themes.each do |manifestations| %>
+            <tr class="line<%= cycle("0", "1") %>">
               <td>
-                <%- if manifestation.article? %>
-                  <%= render 'themes/show_index_article', :manifestation => manifestation -%>
-                <%- else -%>
-                  <%= render 'themes/show_index', :manifestation => manifestation -%>
-                <%- end -%>
+                <% if manifestations.article? %>
+                  <%= render 'manifestations/show_index_article', :manifestation => manifestations %>
+                <% else %>
+                  <%= render 'manifestations/show_index', :manifestation => manifestations %>
+                <% end %>
                 <% unless SystemConfiguration.isWebOPAC %>
                   <div class="access_address">
-                    <%= link_to manifestation.access_address, manifestation.access_address if manifestation.access_address.present? -%>
+                    <%= link_to manifestation.access_address, manifestations.access_address if manifestations.access_address.present? %>
                   </div>
-                <%- end -%>
+                <% end %>
               </td>
             </tr> 
-          <%- end -%>
+          <% end %>
         </table>
         <br />
-        <%= paginate(@themes) -%>
+        <%= paginate(@themes) %>
       </div>
 <!-- タブ二つ目
       <div id="tab2">
@@ -77,9 +77,9 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <%- if can? :create, Theme -%>
+    <% if can? :create, Theme %>
       <li><%= link_to t('page.edit'), edit_theme_path(@theme) %>
-    <%- end -%>   
+    <% end %>   
     <li><%= link_to t('page.back'), themes_path %>
   </ul>
 </div>

@@ -50,6 +50,9 @@ $(document).keydown(function(e) {
     $("#manifestation_theme").select2({
       multiple: true, 
       data: <%= raw @select_theme_tags.to_json -%>, 
+      formatNoMatches: function(term) {
+        return <%= raw t("page.theme.no_matches_found").to_json %>;
+      },
       width: "300px",
     }); 
   });

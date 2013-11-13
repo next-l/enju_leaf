@@ -160,7 +160,6 @@ en:
       nacsis_request_copy: Nacsis copy request
       nacsis_request_lend: Nacsis lend request
       theme: Theme
-      theme_list: Theme_list
       wareki: Japanese Calendar
       user_request_log: User request log
       sheet: Sheet
@@ -1316,8 +1315,6 @@ en:
         publish: Publish
         note: Note
         position: Position
-        hot_topic: Hot topic
-        related_manifestation: Related manifestation
       wareki:
         display_name: Display name
         short_name: Short name
@@ -1750,6 +1747,12 @@ en:
     library_reports: Reports
     output_receipt_printer: "* This receipt is only for receipt printer and will be printed in 8cm width."
     get_manual: Download manual
+    theme:
+      theme_list: Theme_list
+      no_matches_found: No matches found
+      hot_topic: Hot topic
+      related_manifestation: Related manifestation
+
   manual_for_user: "manual_for_user.pdf"
   manual_for_librarian: "manual_for_librarian.pdf"
 
