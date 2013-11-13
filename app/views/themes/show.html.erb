@@ -56,7 +56,7 @@
                 <% end %>
                 <% unless SystemConfiguration.isWebOPAC %>
                   <div class="access_address">
-                    <%= link_to manifestation.access_address, manifestations.access_address if manifestations.access_address.present? %>
+                    <%= link_to manifestations.access_address, manifestations.access_address if manifestations.access_address.present? %>
                   </div>
                 <% end %>
               </td>
