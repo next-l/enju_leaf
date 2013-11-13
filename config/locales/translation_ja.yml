@@ -195,7 +195,6 @@ ja:
       nacsis_request_lend: 借用依頼
       exchange_manifestation: 所蔵付け替え
       theme: テーマ
-      theme_list: テーマ一覧
     attributes:
       wareki:
         display_name: 表示名
@@ -1464,9 +1463,6 @@ ja:
         publish: 公開範囲
         note: 注記
         position: 優先度
-        hot_topic: 話題のテーマ
-        related_manifestation: 関連する資料
-        no_matches_found: テーマが見つかりません
   page:
     user_title: "ようこそ %{login_name} さん"
     logged_in_as: "%{login_name} としてログイン"
@@ -1717,7 +1713,6 @@ ja:
     output_receipt_printer: "＊この資料確認票はレシートプリンタ用です。8cm幅に出力されますのでご注意ください。"
     nacsis_book: "図書"
     nacsis_serial: "雑誌"
-
     exstatistics:
       ranknumber: 順位
       count: 回数
@@ -1726,7 +1721,12 @@ ja:
       nil_date: "年月日が空です。"
       invalid_input_date: "入力年月日が正しくありません。"
       over_end_date: "検索終了日は検索開始日以降を指定してください。"
-    get_manual: 利用マニュアルをダウンロード 
+    get_manual: 利用マニュアルをダウンロード
+    theme:
+      theme_list: テーマ一覧
+      no_matches_found: テーマが見つかりません
+      hot_topic: 話題のテーマ
+      related_manifestation: 関連する資料
 
   manual_for_user: "利用マニュアル.pdf"
   manual_for_librarian: "運用マニュアル.pdf"
