@@ -194,6 +194,8 @@ ja:
       nacsis_request_copy: 複写依頼
       nacsis_request_lend: 借用依頼
       exchange_manifestation: 所蔵付け替え
+      theme: テーマ
+      theme_list: テーマ一覧
     attributes:
       wareki:
         display_name: 表示名
@@ -1456,7 +1458,14 @@ ja:
         librarian_note: 事務員注記
         created_from: 開始日付
         created_to: 終了日付
-
+      theme:
+        name: 名前
+        description: 説明
+        publish: 公開範囲
+        note: 注記
+        position: 優先度
+        hot_topic: 話題のテーマ
+        related_manifestation: 関連する資料
   page:
     user_title: "ようこそ %{login_name} さん"
     logged_in_as: "%{login_name} としてログイン"
@@ -1716,7 +1725,10 @@ ja:
       nil_date: "年月日が空です。"
       invalid_input_date: "入力年月日が正しくありません。"
       over_end_date: "検索終了日は検索開始日以降を指定してください。"
+    get_manual: 利用マニュアルをダウンロード 
 
+  manual_for_user: "利用マニュアル.pdf"
+  manual_for_librarian: "運用マニュアル.pdf"
 
   tooltip:
     icons_info: アイコンの説明
@@ -2257,6 +2269,7 @@ ja:
     resources_were_published: 資料は公開されました。
     select_resources: 資料を選択してください。
     publish: 公開
+    closed: 非公開
     published: 公開済み
     reject: 却下
     withdraw: 取り下げ
@@ -2810,5 +2823,16 @@ ja:
     force_exchange: "強制的に付け替え"
     confirm: "付替を行います。よろしいですか？"
     item_circulation_status_is_invalid: "所蔵の貸出状態が不正です。強制的に進める場合は、チェックボックスにチェックをつけてください。"
-
-
+  social_bookmark:
+    bookmark:
+      title: "ブックマーク"
+      twitter: "Twitterにつぶやく"
+      hatena: "はてなブックマーク"
+      yahoo: "Yahoo!ブックマークに追加"
+    publisher:
+      title: "出版社流通情報"
+      amazon: "Amazon"
+      seven_net: "セブンネット"
+      rakuten: "楽天ブックス"
+      kinokuniya: "紀伊國屋書店"
+      junk_do: "ジュンク堂"

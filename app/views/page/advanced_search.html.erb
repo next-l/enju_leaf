@@ -206,16 +206,14 @@ $(function(){
       <td><%= check_box_tag 'manifestation_type[]', :book, true -%><%= t('page.nacsis_book') -%>
           <%= check_box_tag 'manifestation_type[]', :serial, true -%><%= t('page.nacsis_serial') -%></td>
     </tr>
-    <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
-      <% if user_signed_in? and current_user.has_role?('Librarian') %>
-        <tr class="local-only">
-          <td></td>
-          <td>
-            <%= check_box_tag 'all_manifestations', true, params[:all_manifestations].present? %>
-            <%= t('advanced_search.all_manifestations') %>
-          </td>
-        </tr>
-      <% end %>
+    <% if user_signed_in? and current_user.has_role?('Librarian') %>
+      <tr class="local-only">
+        <td></td>
+        <td>
+          <%= check_box_tag 'all_manifestations', true, params[:all_manifestations].present? %>
+          <%= t('advanced_search.all_manifestations') %>
+        </td>
+      </tr>
     <% end %>
     <!--
     <tr>

@@ -336,6 +336,21 @@ class ManifestationsController < ApplicationController
       if params[:removed_from].present? || params[:removed_to].present? || params[:removed]
         @removed = true
       end
+      
+      if params[:theme_id]
+        @theme = Theme.find(params[:theme_id]) rescue nil
+        @all_manifestations = params[:all_manifestations] = false
+      end
+
+      if params[:basket_id]
+        @basket = @current_basket # ignore params[:basket_id] and get current_basket with current_user
+        @all_manifestations = params[:all_manifestations] = true 
+      end
+
+      if params[:basket_id]
+        @basket = @current_basket # ignore params[:basket_id] and get current_basket with current_user
+        @all_manifestations = params[:all_manifestations] = true 
+      end
 
       if params[:basket_id]
         @basket = @current_basket # ignore params[:basket_id] and get current_basket with current_user
@@ -655,6 +670,7 @@ class ManifestationsController < ApplicationController
   def new
     @manifestation = Manifestation.new
     @manifestation.language = Language.where(:iso_639_1 => @locale).first
+    @select_theme_tags = Manifestation.struct_theme_selects
     original_manifestation = Manifestation.where(:id => params[:manifestation_id]).first
     if original_manifestation
       @manifestation = original_manifestation.dup
@@ -668,6 +684,7 @@ class ManifestationsController < ApplicationController
       @subject_transcription = original_manifestation.subjects.collect(&:term_transcription).join(';')
       @manifestation.isbn = nil if SystemConfiguration.get("manifestation.isbn_unique")
       @manifestation.series_statement = original_manifestation.series_statement unless @manifestation.series_statement
+      @keep_themes = original_manifestation.themes.collect(&:id).flatten.join(',')
     elsif @expression
       @manifestation.original_title = @expression.original_title
       @manifestation.title_transcription = @expression.title_transcription
@@ -701,6 +718,7 @@ class ManifestationsController < ApplicationController
       format.html # new.html.erb
       format.json { render :json => @manifestation }
     end
+
   end
 
   # GET /manifestations/1/edit
@@ -727,6 +745,8 @@ class ManifestationsController < ApplicationController
       end
       store_location unless params[:mode] == 'tag_edit'
     end
+    @select_theme_tags = Manifestation.struct_theme_selects
+    @keep_themes = @manifestation.themes.collect(&:id).flatten.join(',')
   end
 
   # POST /manifestations
@@ -752,6 +772,7 @@ class ManifestationsController < ApplicationController
     @contributor_transcription = params[:manifestation][:contributor_transcription]
     @subject = params[:manifestation][:subject]
     @subject_transcription = params[:manifestation][:subject_transcription]
+    @theme = params[:manifestation][:theme]
 
     respond_to do |format|
       if @manifestation.save
@@ -766,6 +787,7 @@ class ManifestationsController < ApplicationController
           @manifestation.contributors = Patron.add_patrons(@contributor, @contributor_transcription) unless @contributor.blank?
           @manifestation.publishers = Patron.add_patrons(@publisher, @publisher_transcription) unless @publisher.blank?
           @manifestation.subjects = Subject.import_subjects(@subject, @subject_transcription) unless @subject.blank?
+          @manifestation.themes = Theme.add_themes(@theme) unless @theme.blank?
         end
 
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_created', :model => t('activerecord.models.manifestation')) }
@@ -774,6 +796,8 @@ class ManifestationsController < ApplicationController
         prepare_options
         format.html { render :action => "new" }
         format.json { render :json => @manifestation.errors, :status => :unprocessable_entity }
+        @select_theme_tags = Manifestation.struct_theme_selects
+        @keep_themes = @theme
       end
     end
   end
@@ -789,6 +813,7 @@ class ManifestationsController < ApplicationController
     @contributor_transcription = params[:manifestation][:contributor_transcription]
     @subject = params[:manifestation][:subject]
     @subject_transcription = params[:manifestation][:subject_transcription]
+    @theme = params[:manifestation][:theme]
     respond_to do |format|
       if @manifestation.update_attributes(params[:manifestation])
         if @manifestation.series_statement and @manifestation.series_statement.periodical
@@ -799,12 +824,15 @@ class ManifestationsController < ApplicationController
         @manifestation.contributors.destroy_all; @manifestation.contributors = Patron.add_patrons(@contributor, @contributor_transcription)
         @manifestation.publishers.destroy_all; @manifestation.publishers = Patron.add_patrons(@publisher, @publisher_transcription)
         @manifestation.subjects = Subject.import_subjects(@subject, @subject_transcription)
+        @manifestation.themes.destroy_all; @manifestation.themes = Theme.add_themes(@theme)
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_updated', :model => t('activerecord.models.manifestation')) }
         format.json { head :no_content }
       else
         prepare_options
         format.html { render :action => "edit" }
         format.json { render :json => @manifestation.errors, :status => :unprocessable_entity }
+        @select_theme_tags = Manifestation.struct_theme_selects
+        @keep_themes = @theme
       end
     end
   end
@@ -1072,6 +1100,10 @@ class ManifestationsController < ApplicationController
       params[:language].split.uniq.each do |language|
         with << [:language, :equal_to, language]
       end
+    end
+  
+    if @theme
+      with << [:id, :any_of, @theme.manifestations.collect(&:id)]
     end
 
     if @basket

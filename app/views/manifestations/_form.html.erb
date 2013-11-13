@@ -45,6 +45,16 @@ $(document).keydown(function(e) {
 });
 </script>
 
+<script id="script_theme">
+  $(document).ready(function() { 
+    $("#manifestation_theme").select2({
+      multiple: true, 
+      data: <%= raw @select_theme_tags.to_json -%>, 
+      width: "300px",
+    }); 
+  });
+</script>
+
 <%= render 'page/required_field' %>
 <%= simple_form_for(@manifestation, :html => { :multipart => true }) do |f| -%>
   <%= f.error_messages -%>
@@ -88,7 +98,6 @@ $(document).keydown(function(e) {
     <%= f.label :creator -%><%= t('manifestation.delim_semicolon') -%><br />
     <%= f.text_field :creator, :value => @creator -%>
   </div>
- 
   <div class="field">
     <strong><%= t('manifestation.creator_transcription') -%></strong><%= t('manifestation.delim_semicolon') -%><br />
     <%= f.text_field :creator_transcription, :value => @creator_transcription, :class => 'resource_title' -%>
@@ -264,6 +273,10 @@ $(document).keydown(function(e) {
     <%= f.text_field :subject_transcription, :value => @subject_transcription, :class => 'resource_url' -%>
   </div>
 
+  <div class="field">
+    <strong><%= t('activerecord.models.theme') -%></strong><br />
+    <%= f.text_field :theme, :id => 'manifestation_theme', :value => @keep_themes %>
+  </div>
 
   <div class="field">
     <%= f.label t('activerecord.attributes.manifestation.missing_issue') -%>

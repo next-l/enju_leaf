@@ -9,10 +9,8 @@
       <%= radio_button_tag 'index', 'nacsis', false -%><%= t('page.search_nacsis') -%>
       <br />
     <%- end -%>
-    <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
-      <% if user_signed_in? and current_user.has_role?('Librarian') %>
-        <%= check_box_tag 'all_manifestations', true %><%= t('advanced_search.all_manifestations') %><br />
-      <% end %>
+    <% if user_signed_in? and current_user.has_role?('Librarian') %>
+      <%= check_box_tag 'all_manifestations', true %><%= t('advanced_search.all_manifestations') %><br />
     <% end %>
     (<%= link_to t('page.advanced_search'), page_advanced_search_path -%>)
   </p>

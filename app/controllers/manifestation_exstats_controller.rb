@@ -38,14 +38,14 @@ class ManifestationExstatsController < ApplicationController
       if @selected_library.nil? || @selected_library.empty?
         @checkout_parts = Checkout.find_by_sql(["SELECT manifestation_id, 
           COUNT(*) AS cnt FROM checkouts LEFT OUTER 
-          JOIN exemplifies on (exemplifies.id = checkouts.item_id) 
+          JOIN exemplifies on (exemplifies.item_id = checkouts.item_id) 
           WHERE (checkouts.checked_at >= ? and checkouts.checked_at < ?) 
           GROUP BY exemplifies.manifestation_id 
           ORDER BY cnt DESC LIMIT ? OFFSET ?", @start_d, @end_d.to_time + 1.days, @limit, @offset]);
       else
         @checkout_parts = Checkout.find_by_sql(["SELECT manifestation_id, 
           COUNT(*) AS cnt FROM users, checkouts LEFT OUTER 
-          JOIN exemplifies on (exemplifies.id = checkouts.item_id) 
+          JOIN exemplifies on (exemplifies.item_id = checkouts.item_id) 
           WHERE checkouts.user_id = users.id AND users.library_id = ? AND (checkouts.checked_at >= ? and checkouts.checked_at < ?) 
           GROUP BY exemplifies.manifestation_id 
           ORDER BY cnt DESC LIMIT ? OFFSET ?", @selected_library, @start_d, @end_d.to_time + 1.days, @limit, @offset]);

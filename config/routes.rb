@@ -1,4 +1,5 @@
 EnjuLeaf::Application.routes.draw do
+  resources :themes
   #resources :identifier_types
   resources :warekis
   resources :user_request_logs
@@ -538,6 +539,7 @@ EnjuLeaf::Application.routes.draw do
   match '/page/routing_error' => 'page#routing_error'
   match '/page/extensions' => 'page#extensions'
   match '/page/budgets' => 'page#budgets'
+  match '/get_manual' => 'page#get_manual'
 
   # for opac begin
   match '/opac/signed_in' => 'opac#signed_in'

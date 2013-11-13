@@ -2,7 +2,6 @@ class SystemConfiguration < ActiveRecord::Base
   default_scope order('id ASC') 
   validate :value_by_typename_is_valid
   validate :check_length
-  validates_format_of :v, :with => /(^\d{8}$|^\d+[dDmMyY]{1}$)/ , :if => proc { SystemConfiguration.find(self.id).keyname == 'checkout.extending_due_date_period' if self.id }, :allow_blank => true
 
   after_commit lambda {    
     Rails.cache.clear

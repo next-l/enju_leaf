@@ -88,7 +88,7 @@ en:
       library_group: Library group
       attachment_file: Attachment file
       reserve: Reserve
-      retained_manifestation: Retaubed manifestation(not connected)
+      retained_manifestation: Retained manifestation(not noticed)
       reserve_family: "Family's reserve"
       answer: Answer
       bookstore: Bookstore
@@ -159,6 +159,8 @@ en:
       nacsis_user_request: Nacsis user requests
       nacsis_request_copy: Nacsis copy request
       nacsis_request_lend: Nacsis lend request
+      theme: Theme
+      theme_list: Theme_list
       wareki: Japanese Calendar
       user_request_log: User request log
       sheet: Sheet
@@ -1308,6 +1310,14 @@ en:
         librarian_note: Librarian note
         created_from: Created from
         created_to: Created to
+      theme:
+        name: Name
+        description: Description
+        publish: Publish
+        note: Note
+        position: Position
+        hot_topic: Hot topic
+        related_manifestation: Related manifestation
       wareki:
         display_name: Display name
         short_name: Short name
@@ -1739,6 +1749,10 @@ en:
     library_check: Inventory Check
     library_reports: Reports
     output_receipt_printer: "* This receipt is only for receipt printer and will be printed in 8cm width."
+    get_manual: Download manual
+  manual_for_user: "manual_for_user.pdf"
+  manual_for_librarian: "manual_for_librarian.pdf"
+
   tooltip:
     icons_info: Icons information
     message: message
@@ -2257,6 +2271,7 @@ en:
     resources_were_published: Resources were published.
     select_resources: Select resources.
     publish: Publish
+    closed: Close
     published: Published
     reject: Reject
     withdraw: Withdraw
@@ -2830,3 +2845,17 @@ en:
     force_exchange: Ignore item status
     confirm: Are you sure to change?
     item_circulation_status_is_invalid: Circulation status of the item is invalid. Check "Ignore item status" to change relationship.
+  social_bookmark:
+    bookmark:
+      title: Social bookmark
+      twitter: Tweet
+      hatena: Hatena Bookmark
+      yahoo: Yahoo! Bookmark
+    publisher:
+      title: Publishing Infomation
+      amazon: Amazon
+      seven_net: Seven Net Shopping
+      rakuten: Rakuten
+      kinokuniya: Kinokuniya
+      junk_do: JUNKUDO
+
