@@ -25,7 +25,7 @@ class ThemesController < InheritedResources::Base
     unless can_show
       access_denied
     end
-    @themes = @theme.manifestations.page(params[:page])
+    @themes = @theme.manifestations.where(:periodical_master => false).page(params[:page])
   end
 
   def update
