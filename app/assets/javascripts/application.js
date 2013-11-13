@@ -21,4 +21,3 @@
 //= require jquery.simplecalendarjp
 //= require jquery.autoKana
 //= require select2
-
