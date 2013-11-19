@@ -747,4 +747,10 @@ system_configuration_00106:
   typename: Boolean
   description: "貸出票の出力サイズ"
   category: 'checkout'
-
+system_configuration_00107:
+  id: 107
+  keyname: set_user_list_output
+  v: "true"
+  typename: Boolean
+  description: "インポート/エクスポートの形式"
+  category: 'general'
