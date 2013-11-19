@@ -417,6 +417,8 @@ defaults: &defaults
 
    # ヘッダーにマニュアルダウンロードリンクを表示する
   display_manual: false
+
+  ndl_api_type: 'opensearch'
  
 development:
   <<: *defaults
