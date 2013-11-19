@@ -198,9 +198,9 @@ defaults: &defaults
   # 利用者リストの出力(PDF)
   user_list_print_pdf:
     filename: "user_list.pdf"
-  # 利用者リス知の出力(TSV)
+  # 利用者リストの出力(TSV)
   user_list_print_tsv:
-    filename: "user_list.tsv"
+    filename: "user_list"
   # 連絡不可者の出力(PDF)
   unable_list_print_pdf:
     filename: "unable_list.pdf"

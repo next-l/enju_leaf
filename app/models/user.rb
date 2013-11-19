@@ -725,8 +725,11 @@ class User < ActiveRecord::Base
     columns.each do |column|
       row << I18n.t(column[1])
     end
-    data << '"'+row.join("\"\t\"")+"\"\n"
-
+    if SystemConfiguration.get("set_user_list_output") == false
+      data << '"'+row.join("\",\"")+"\"\n"
+    else
+      data << '"'+row.join("\"\t\"")+"\"\n"
+    end
     users.each do |user|
       row = []
       columns.each do |column|
@@ -836,8 +839,12 @@ class User < ActiveRecord::Base
         else
           row << get_object_method(user, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
         end
-      end  
-      data << '"'+row.join("\"\t\"")+"\"\n"
+      end 
+      if SystemConfiguration.get("set_user_list_output") == false
+        data << '"'+row.join("\",\"")+"\"\n"
+      else
+        data << '"'+row.join("\"\t\"")+"\"\n"
+      end 
     end
     return data
   end
