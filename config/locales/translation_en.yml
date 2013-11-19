@@ -2544,6 +2544,8 @@ en:
     boolean_yes: Yes
     boolean_no: No
     boolean_no_opac: No(WebOPAC)
+    boolean_rental_certificate_size: Label
+    boolean_not_rental_certificate_size: A4
   manifestation_relationships:
     no_parent_id: Not found parent id
     no_child_id: Not found child id

@@ -740,3 +740,11 @@ system_configuration_00105:
   typename: Boolean
   description: "資料の詳細画面にソーシャルブックマークリンクの表示をするか"
   category: 'manifestation'
+system_configuration_00106:
+  id: 106
+  keyname: checkout.set_rental_certificate_size
+  v: "true"
+  typename: Boolean
+  description: "貸出票の出力サイズ"
+  category: 'checkout'
+
