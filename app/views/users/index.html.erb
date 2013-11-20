@@ -32,7 +32,12 @@ $(function(){
     <%= hidden_field_tag 'role', params[:role] if params[:role] -%>
     <%= submit_tag t('page.search'), :onclick => "push_submit(null);" -%>
     <%= submit_tag t('page.output_pdf', :model => t('page.listing', :model => t('activerecord.models.user'))), :onclick => "push_submit('pdf');" -%>
-    <%= submit_tag t('page.output_tsv', :model => t('page.listing', :model => t('activerecord.models.user'))), :onclick => "push_submit('tsv');" -%>
+
+    <% if SystemConfiguration.get("set_output_format_type") == false %>
+      <%= submit_tag t('page.output_csv', :model => t('page.listing', :model => t('activerecord.models.user'))), :onclick => "push_submit('tsv');" -%>     
+    <% else %>
+      <%= submit_tag t('page.output_tsv', :model => t('page.listing', :model => t('activerecord.models.user'))), :onclick => "push_submit('tsv');" -%>
+    <% end %>
   </p>
 <%- end -%>
 

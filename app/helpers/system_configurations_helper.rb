@@ -250,7 +250,13 @@ module SystemConfigurationsHelper
        string << t('system_configuration.boolean_reserve_not_able_for_not_item') if state == 'false'
      when 'internal_server'
        string << t('system_configuration.boolean_yes') if state == 'true'
-       string << t('system_configuration.boolean_no_opac') if state == 'false'       
+       string << t('system_configuration.boolean_no_opac') if state == 'false'
+     when 'checkout.set_rental_certificate_size'
+       string << t('system_configuration.boolean_rental_certificate_size') if state == 'true'
+       string << t('system_configuration.boolean_not_rental_certificate_size') if state == 'false'
+     when 'set_output_format_type'
+       string << t('system_configuration.boolean_output_format_type') if state == 'true'
+       string << t('system_configuration.boolean_not_output_format_type') if state == 'false'
      end
 
      string << "<br />" if state == 'true'

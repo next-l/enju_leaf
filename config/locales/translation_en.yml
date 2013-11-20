@@ -2531,6 +2531,8 @@ en:
     boolean_reserve_not_able_for_not_item: Can not be reserved
     boolean_autoprint: Auto-print
     boolean_not_autoprint: Not auto-print
+    boolean_output_format_type: TSV
+    boolean_not_output_format_type: CSV
     error:
       over_checkouts_print_message: checkouts print message exceed the limit. max
         %{num}.
@@ -2544,6 +2546,8 @@ en:
     boolean_yes: Yes
     boolean_no: No
     boolean_no_opac: No(WebOPAC)
+    boolean_rental_certificate_size: Label
+    boolean_not_rental_certificate_size: A4
   manifestation_relationships:
     no_parent_id: Not found parent id
     no_child_id: Not found child id
