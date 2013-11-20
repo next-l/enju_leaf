@@ -2531,6 +2531,8 @@ en:
     boolean_reserve_not_able_for_not_item: Can not be reserved
     boolean_autoprint: Auto-print
     boolean_not_autoprint: Not auto-print
+    boolean_output_format_type: TSV
+    boolean_not_output_format_type: CSV
     error:
       over_checkouts_print_message: checkouts print message exceed the limit. max
         %{num}.

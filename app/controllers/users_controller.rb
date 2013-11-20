@@ -53,7 +53,7 @@ class UsersController < ApplicationController
       format.html # index.html.erb
       format.json { render :json => @users }
       format.pdf  { send_data User.output_userlist_pdf(@users).generate, :filename => Setting.user_list_print_pdf.filename }
-      if SystemConfiguration.get("set_user_list_output") == false
+      if SystemConfiguration.get("set_output_format_type") == false
         format.tsv  { send_data User.output_userlist_tsv(@users), :filename => Setting.user_list_print_tsv.filename + ".csv" }
       else
         format.tsv  { send_data User.output_userlist_tsv(@users), :filename => Setting.user_list_print_tsv.filename + ".tsv" }

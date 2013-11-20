@@ -254,9 +254,9 @@ module SystemConfigurationsHelper
      when 'checkout.set_rental_certificate_size'
        string << t('system_configuration.boolean_rental_certificate_size') if state == 'true'
        string << t('system_configuration.boolean_not_rental_certificate_size') if state == 'false'
-     when 'set_user_list_output'
-       string << t('system_configuration.boolean_user_list') if state == 'true'
-       string << t('system_configuration.boolean_not_user_list') if state == 'false'
+     when 'set_output_format_type'
+       string << t('system_configuration.boolean_output_format_type') if state == 'true'
+       string << t('system_configuration.boolean_not_output_format_type') if state == 'false'
      end
 
      string << "<br />" if state == 'true'
