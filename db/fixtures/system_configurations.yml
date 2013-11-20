@@ -749,7 +749,7 @@ system_configuration_00106:
   category: 'checkout'
 system_configuration_00107:
   id: 107
-  keyname: set_user_list_output
+  keyname: set_output_format_type
   v: "true"
   typename: Boolean
   description: "インポート/エクスポートの形式"
