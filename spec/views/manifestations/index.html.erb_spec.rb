@@ -38,4 +38,76 @@ describe "manifestations/index" do
       end
     end
   end
+
+  context 'インデックスがnacsisのとき' do
+    include NacsisCatSpecHelper
+
+    let(:book_record) do
+      NacsisCat.new(record: nacsis_record_object(:book))
+    end
+
+    let(:serial_record) do
+      NacsisCat.new(record: nacsis_record_object(:serial))
+    end
+
+    before do
+      params[:index] = 'nacsis'
+    end
+
+    context 'nacsis.search_eachがtrueなら' do
+
+      before do
+        update_system_configuration('nacsis.search_each', true)
+        assign(:manifestations_book,
+                Kaminari.paginate_array([book_record]).page(1))
+        assign(:manifestations_serial,
+                Kaminari.paginate_array([serial_record]).page(1))
+        assign(:count, {
+          query_result_book: 1,
+          query_result_serial: 1,
+        })
+      end
+
+      it '検索結果を分割表示すること' do
+        render
+        assert_select 'table.index', count: 2 do
+          assert_select "tr td", count: 2
+        end
+      end
+
+      it 'レコードへのリンクを表示すること' do
+        render
+        assert_select "a[href=?]",
+          nacsis_manifestations_path(ncid: book_record.ncid, manifestation_type: 'book')
+        assert_select "a[href=?]",
+          nacsis_manifestations_path(ncid: serial_record.ncid, manifestation_type: 'serial')
+      end
+    end
+
+    context 'nacsis.search_eachがfalseなら' do
+      before do
+        update_system_configuration('nacsis.search_each', false)
+        assign(:manifestations,
+                Kaminari.paginate_array([book_record, serial_record]).page(1))
+        assign(:count, {
+          query_result: 2,
+        })
+      end
+
+      it '検索結果を表示すること' do
+        render
+        assert_select 'table.index', count: 1 do
+          assert_select "tr td", count: 2
+        end
+      end
+
+      it 'レコードへのリンクを表示すること' do
+        render
+        assert_select "a[href=?]",
+          nacsis_manifestations_path(ncid: book_record.ncid, manifestation_type: 'book')
+        assert_select "a[href=?]",
+          nacsis_manifestations_path(ncid: serial_record.ncid, manifestation_type: 'serial')
+      end
+    end
+  end
 end

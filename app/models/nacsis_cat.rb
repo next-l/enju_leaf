@@ -6,18 +6,33 @@ class NacsisCat
 
   attr_accessor :record
 
-  class Error < RuntimeError; end
+  class Error < StandardError
+    def initialize(raw_result, message = nil)
+      super(message)
+      @raw_result = raw_result
+    end
+    attr_reader :raw_result
+  end
   class ClientError < Error; end
   class ServerError < Error; end
   class UnknownError < Error; end
 
+  class NetworkError < StandardError
+    def initialize(orig_ex, message = nil)
+      message ||= orig_ex.message
+      super(message)
+      @original_exception = orig_ex
+    end
+    attr_reader :original_exception
+  end
+
   class ResultArray < Array
     def initialize(search_result)
       @raw_result = search_result
-      @total = @raw_result.try(:result_count) || 0
+      @total = @raw_result.try(:[], 'total') || 0
 
-      if search_result.try(:result_records)
-        search_result.result_records.each do |record|
+      if @raw_result.try(:[], 'records')
+        @raw_result['records'].each do |record|
           self << NacsisCat.new(:record => record)
         end
       end
@@ -28,10 +43,10 @@ class NacsisCat
   class << self
     # NACSIS-CAT検索を実行する。検索結果はNacsisCatオブジェクトの配列で返す。
     # 検索条件は引数で指定する。サポートしている形式は以下の通り。
-    #  * :db => '...' - 検索対象のDB名: :book(一般書誌)、:serial(雑誌書誌)、:bhold(一般所蔵)、:shold(雑誌所蔵)
-    #  * :page => n - ページ番号
-    #  * :per_page => n - ページあたりの件数
+    #  * :dbs => [...] - 検索対象のDB名リスト: :book(一般書誌)、:serial(雑誌書誌)、:bhold(一般所蔵)、:shold(雑誌所蔵)、:all(:bookと:serialからの横断検索)
+    #  * :opts => {...} - DBに対するオプション(ページ指定): 指定例: {:book => {:page => 2, :per_page => 30}, :serial => {...}}
     #  * :id => '...' - NACSIS-CATの書誌IDにより検索する
+    #  * :bid => '...' - NACSIS-CATの書蔵IDにより検索する
     #  * :isbn => '...' - ISBN(ISBNKEY)により検索する
     #  * :issn => '...' - ISSN(ISSNKEY)により検索する
     #  * :query => '...' - 一般検索語により検索する(*)
@@ -41,12 +56,18 @@ class NacsisCat
     #  * :subject => [...] - 件名(SHKEY)により検索する(*)
     #  * :except => {...} - 否定条件により検索する(*)(**)
     #
-    # (*) :dbが:bookまたは:serialのときのみ機能する
+    # (*) :dbsが:bookまたは:serialのときのみ機能する
     # (**) :query、:title、:author、:publisher、:subjectの否定形に対応
+    #
+    # :dbsには基本的に複数のDBを指定する。
+    # 検索結果は {:book => aResultArray, ...} のような形となる。
+    # なお、複数DBを指定した場合、すべてのDBに対して同じ条件で検索を行う。
+    # このため、たとえば :dbs => [:book, :bhold] のように
+    # まったく違う種類のDBを指定してもうまく動作しない。
     def search(*args)
       options = args.extract_options!
       options.assert_valid_keys(
-        :db, :page, :per_page,
+        :dbs, :opts,
         :id, :isbn, :issn,
         :query, :title, :author, :publisher, :subject, :except)
       if options[:except]
@@ -54,31 +75,35 @@ class NacsisCat
           :query, :title, :author, :publisher, :subject)
       end
 
-      db_option = options.delete(:db) || :book
-      page = options.delete(:page)
-      per_page = options.delete(:per_page)
-      return ResultArray.new(nil) if options.blank? || options.keys == [:except]
+      dbs = options.delete(:dbs) || [:book]
+      db_opts = options.delete(:opts) || {}
 
-      if (db_option == :shold || db_option == :bhold) &&
+      if options.blank? || options.keys == [:except]
+        return {}.tap do |h|
+          dbs.each {|db| h[db] = ResultArray.new(nil) }
+        end
+      end
+
+      if (dbs.include?(:shold) || dbs.include?(:bhold)) &&
           options.include?(:id)
         options[:bid] = options.delete(:id)
       end
       query = build_query(options)
-      request_gateway_to(:search, :db => db_option, :query => query, :per_page => per_page, :page => page)
+      search_by_gateway(dbs: dbs, opts: db_opts, query: query)
     end
 
     private
 
       DB_KEY = {
-        :query => ['_TITLE_', '_AUTH_', 'PUBLKEY', 'SHKEY'],
-        :title => '_TITLE_',
-        :author => '_AUTH_',
-        :publisher => 'PUBLKEY',
-        :subject => 'SHKEY',
-        :id => 'ID',
-        :bid => 'BID',
-        :isbn => 'ISBNKEY',
-        :issn => 'ISSNKEY',
+        query: ['_TITLE_', '_AUTH_', 'PUBLKEY', 'SHKEY'],
+        title: '_TITLE_',
+        author: '_AUTH_',
+        publisher: 'PUBLKEY',
+        subject: 'SHKEY',
+        id: 'ID',
+        bid: 'BID',
+        isbn: 'ISBNKEY',
+        issn: 'ISSNKEY',
       }
       def build_query(cond, inverse = false)
         if inverse
@@ -133,79 +158,99 @@ class NacsisCat
         %Q!#{key}="#{value.to_s.gsub(/[\\"]/, '\\\1')}"!
       end
 
-      def request_gateway_to(action, options)
+      def search_by_gateway(options)
         db_type = db_names = nil
-        case options[:db]
-=begin
-# NOTE:
-# CATPプロトコル上はBOOK:SERIALの横断的検索が可能だと思われる。
-# 実際、BOOK:SERIALでの検索を行うと両種類のレコードを含んだ応答がある。
-# しかしながらenju_nacsis_gatewayはこのような応答に対応しておらず
-# 結果的に横断的検索は行えない。
-        when :all
-          db_type = 'BOOK'
-          db_names = %w(BOOK SERIAL)
-=end
-        when :book
-          db_type = 'BOOK'
-          db_names = %w(BOOK)
-        when :serial
-          db_type = 'SERIAL'
-          db_names = %w(SERIAL)
-        when :bhold
-          db_type = 'BHOLD'
-          db_names = %w(BHOLD)
-        when :shold
-          db_type = 'SHOLD'
-          db_names = %w(SHOLD)
-        else
-          raise ArgumentError, "unknwon db: #{options[:db]}"
+
+        key_to_db = {
+          all: '_ALL_',
+          book: 'BOOK',
+          serial: 'SERIAL',
+          bhold: 'BHOLD',
+          shold: 'SHOLD',
+        }
+
+        dbs = options[:dbs].map do |key|
+          db = key_to_db[key]
+          raise ArgumentError, "unknwon db: #{key}" unless db
+          db
         end
 
-        per_page = options[:per_page]
-        page = options[:page] || 1
-
-        cc = EnjuNacsisCatp::CatContainer.new
-        case action
-        when :search
-          cc.db_type = db_type
-          cc.db_names = db_names
-          cc.query = options[:query]
-          cc.command = 'SEARCH'
-          if per_page
-            cc.extra_options = {}
-            cc.command = 'SEARCH_RETRIEVE'
-            cc.extra_options[:search] = {
-              'large_lower_bound' => 1,
-            }
-            cc.extra_options[:retrieve] = {
-              'start_position' => per_page*(page - 1) + 1,
-              'record_requested' => per_page,
-            }
-            cc.max_retrieve = per_page
-          end
-
-        else
-          raise ArgumentError, "unknwon action: #{action}"
+        db_opts = {}
+        options[:opts].each do |key, v|
+          db = key_to_db[key]
+          next unless db
+          next unless dbs.include?(db)
+          db_opts[db] = v
         end
 
-        cgc = EnjuNacsisCatp::CatGatewayClient.new
-        cgc.container = cc
-        result = cgc.execute
+        q = {}
+        q[:db] = dbs
+        q[:opts] = db_opts if db_opts.present?
+        q[:query] = options[:query]
 
-        if result.has_errors?
-          case result.catp_code
-          when /\A4/
-            ex = ClientError
-          when /\A5/
-            ex = ServerError
+        url = "#{gateway_search_url}?#{q.to_query}"
+        begin
+          return_value = http_get_value(url)
+        rescue SocketError, SystemCallError => ex
+          raise NetworkError.new(ex)
+        end
+
+        case return_value['status']
+        when 'success'
+          ex = nil
+        when 'user-error'
+          ex = ClientError
+        when 'gateway-error'
+          ex = ServerError
+        when 'server-error'
+          ex = ServerError
+        else
+          ex = UnknownError
+        end
+        if ex
+          raise ex.new(return_value, return_value['phrase'])
+        end
+
+        ret = {}
+        db_to_key = key_to_db.invert
+        return_value['results'].each_pair do |db, result|
+          key = db_to_key[db]
+          ret[key] = ResultArray.new(result)
+        end
+
+        ret
+      end
+
+      def gateway_config
+        NACSIS_CLIENT_CONFIG[Rails.env]['gw_account']
+      end
+
+      def gateway_search_url
+        url = gateway_config['gw_url']
+        url.sub(%r{/*\z}, '/') + 'records'
+      end
+
+      def http_get_value(url)
+        uri = URI(url)
+
+        opts = {}
+        if uri.scheme == 'https'
+          opts[:use_ssl] =  true
+
+          if gateway_config.include?('ssl_verify') &&
+              gateway_config['ssl_verify'] == false
+            # config/nacsis_client.ymlで'ssl_verify': falseのとき
+            opts[:verify_mode] = OpenSSL::SSL::VERIFY_NONE
           else
-            ex = UnknownError
+            opts[:verify_mode] = OpenSSL::SSL::VERIFY_PEER
           end
-          raise ex.new(result.catp_errors.join(' '))
         end
 
-        ResultArray.new(result)
+        resp = Net::HTTP.start(uri.host, uri.port, opts) do |h|
+          h.get(uri.request_uri)
+        end
+
+        JSON.parse(resp.body)
       end
   end # class << self
 
@@ -221,21 +266,20 @@ class NacsisCat
   end
 
   def serial?
-    @record.is_a?(EnjuNacsisCatp::SerialInfo)
+    @record['_DBNAME_'] == 'SERIAL'
   end
 
   def item?
-    @record.is_a?(EnjuNacsisCatp::BholdInfo) ||
-      @record.is_a?(EnjuNacsisCatp::SholdInfo)
+    @record['_DBNAME_'] == 'BHOLD' || @record['_DBNAME_'] == 'SHOLD'
   end
 
   def ncid
-    @record.bibliog_id
+    @record['ID']
   end
 
   def isbn
     if book?
-      @record.volgs.map {|vol| vol.isbn }.compact
+      map_attrs(@record['VOLG'], 'ISBN').compact
     else
       nil
     end
@@ -243,7 +287,7 @@ class NacsisCat
 
   def issn
     if serial?
-      @record.issn
+      @record['ISSN']
     else
       nil
     end
@@ -254,24 +298,24 @@ class NacsisCat
 
     if item?
       hash = {
-        :database => @record.dbname,
-        :hold_id => @record.hold_id,
-        :library_abbrev => @record.libabl,
-        :cln => @record.holds.map(&:cln).join(' '),
-        :rgtn => @record.holds.map(&:rgtn).join(' '),
+        :database => @record['_DBNAME_'],
+        :hold_id => @record['ID'],
+        :library_abbrev => @record['LIBABL'],
+        :cln => map_attrs(@record['HOLD'], 'CLN').join(' '),
+        :rgtn => map_attrs(@record['HOLD'], 'RGTN').join(' '),
       }
 
     else
       hash = {
-        :subject_heading => @record.tr.try(:trd),
-        :publisher => @record.pubs.map {|x| [x.publ, x.pubdt] },
+        :subject_heading => @record['TR'].try(:[], 'TRD'),
+        :publisher => map_attrs(@record['PUB']) {|x| [x['PUBL'], x['PUBDT']] },
       }
 
       if serial?
-        hash[:display_number] = @record.vlyrs
+        hash[:display_number] = [@record['VLYR']].flatten
       else
         hash[:series_title] =
-          @record.ptbls.map {|x| [x.ptbtr, x.ptbno] }
+          map_attrs(@record['PTBL']) {|x| [x['PTBTR'], x['PTBNO']] }
       end
     end
 
@@ -282,29 +326,29 @@ class NacsisCat
     return nil unless @record
 
     {
-      :subject_heading => @record.tr.try(:trd),
-      :subject_heading_reading => @record.tr.try(:trr),
-      :publisher => @record.pubs.map {|pub| join_attrs(pub, [:pubp, :publ, :pubdt], ',') },
-      :publish_year => join_attrs(@record.year, [:year1, :year2], '-'),
-      :physical_description => join_attrs(@record.phys, [:physp, :physi, :physs, :physa], ';'),
-      :pub_country => @record.cntry, # :pub_country => @record.cntry.try {|cntry| Country.where(:alpha_2 => cntry.upcase).first }, # XXX: 国コード体系がCountryとは異なる: http://www.loc.gov/marc/countries/countries_code.html
-      :title_language => @record.ttll.try {|lang| Language.where(:iso_639_3 => lang).first },
-      :text_language => @record.txtl.try {|lang| Language.where(:iso_639_3 => lang).first },
+      :subject_heading => @record['TR'].try(:[], 'TRD'),
+      :subject_heading_reading => @record['TR'].try(:[], 'TRR'),
+      :publisher => map_attrs(@record['PUB']) {|pub| join_attrs(pub, ['PUBP', 'PUBL', 'PUBDT'], ',') },
+      :publish_year => join_attrs(@record['YEAR'], ['YEAR1', 'YEAR2'], '-'),
+      :physical_description => join_attrs(@record['PHYS'], ['PHYSP', 'PHYSI', 'PHYSS', 'PHYSA'], ';'),
+      :pub_country => @record['CNTRY'], # :pub_country => @record.cntry.try {|cntry| Country.where(:alpha_2 => cntry.upcase).first }, # XXX: 国コード体系がCountryとは異なる: http://www.loc.gov/marc/countries/countries_code.html
+      :title_language => @record['TTLL'].try {|lang| Language.where(:iso_639_3 => lang).first },
+      :text_language => @record['TXTL'].try {|lang| Language.where(:iso_639_3 => lang).first },
       :classmark => if book?
-          @record.cls.map {|cl| join_attrs(cl, [:clsk, :clsd], ':') }.join(';')
+          map_attrs(@record['CLS']) {|cl| join_attrs(cl, ['CLSK', 'CLSD'], ':') }.join(';')
         else
           nil
         end,
-      :author_heading => @record.als.map do |al|
-        if al.ahdng.blank? && al.ahdngr.blank?
+      :author_heading => map_attrs(@record['AL']) do |al|
+        if al['AHDNG'].blank? && al['AHDNGR'].blank?
           nil
-        elsif al.ahdng && al.ahdngr
-          "#{al.ahdng}(#{al.ahdngr})"
+        elsif al['AHDNG'] && al['AHDNGR']
+          "#{al['AHDNG']}(#{al['AHDNGR']})"
         else
-          al.ahdng || al.ahdngr
+          al['AHDNG'] || al['AHDNGR']
         end
       end.compact,
-      :subject => @record.shs.map {|sh| sh.shd },
+      :subject => map_attrs(@record['SH'], 'SHD'),
     }.tap do |hash|
         if book?
           hash[:isbn] = isbn
@@ -318,34 +362,34 @@ class NacsisCat
     return nil unless @record
 
     {
-      :subject_heading => @record.tr.try(:trd),
-      :publisher => @record.pubs.map {|pub| join_attrs(pub, [:pubp, :publ, :pubdt], ',') }.join(' '),
-      :pub_date => join_attrs(@record.year, [:year1, :year2], '-'),
-      :physical_description => join_attrs(@record.phys, [:physp, :physi, :physs, :physa], ';'),
+      :subject_heading => @record['TR'].try(:[], 'TRD'),
+      :publisher => map_attrs(@record['PUB']) {|pub| join_attrs(pub, ['PUBP', 'PUBL', 'PUBDT'], ',') }.join(' '),
+      :pub_date => join_attrs(@record['YEAR'], ['YEAR1', 'YEAR2'], '-'),
+      :physical_description => join_attrs(@record['PHYS'], ['PHYSP', 'PHYSI', 'PHYSS', 'PHYSA'], ';'),
       :series_title => if book?
-          @record.ptbls.map {|x| [x.ptbtr, x.ptbno].compact.join(' ') }.join(',')
+          map_attrs(@record['PTBL']) {|x| [x['PTBTR'], x['PTBNO']].compact.join(' ') }.join(',')
         else
           nil
         end,
       :isbn => isbn.try(:join, ','),
-      :pub_country => @record.cntry, # :pub_country => @record.cntry.try {|cntry| Country.where(:alpha_2 => cntry.upcase).first }, # XXX: 国コード体系がCountryとは異なる: http://www.loc.gov/marc/countries/countries_code.html
-      :title_language => @record.ttll.try {|lang| Language.where(:iso_639_3 => lang).first },
-      :text_language => @record.txtl.try {|lang| Language.where(:iso_639_3 => lang).first },
+      :pub_country => @record['CNTRY'], # :pub_country => @record['CNTRY'].try {|cntry| Country.where(:alpha_2 => cntry.upcase).first }, # XXX: 国コード体系がCountryとは異なる: http://www.loc.gov/marc/countries/countries_code.html
+      :title_language => @record['TTLL'].try {|lang| Language.where(:iso_639_3 => lang).first },
+      :text_language => @record['TXTL'].try {|lang| Language.where(:iso_639_3 => lang).first },
       :classmark => if book?
-          @record.cls.map {|cl| join_attrs(cl, [:clsk, :clsd], ':') }.join(';')
+          map_attrs(@record['CLS']) {|cl| join_attrs(cl, ['CLSK', 'CLSD'], ':') }.join(';')
         else
           nil
         end,
-      :author_heading => @record.als.map do |al|
-        if al.ahdng.blank? && al.ahdngr.blank?
+      :author_heading => map_attrs(@record['AL']) do |al|
+        if al['AHDNG'].blank? && al['AHDNGR'].blank?
           nil
-        elsif al.ahdng && al.ahdngr
-          "#{al.ahdng}(#{al.ahdngr})"
+        elsif al['AHDNG'] && al['AHDNGR']
+          "#{al['AHDNG']}(#{al['AHDNGR']})"
         else
-          al.ahdng || al.ahdngr
+          al['AHDNG'] || al['AHDNGR']
         end
       end.compact.join(','),
-      :subject => @record.shs.map {|sh| sh.shd }.join(','),
+      :subject => map_attrs(@record['SH'], 'SHD').join(','),
       :ncid => ncid,
     }.tap do |hash|
     end
@@ -357,9 +401,19 @@ class NacsisCat
 
   private
 
-    def join_attrs(obj, attrs, str)
+    def map_attrs(str_or_ary, key = nil, &block)
+      return [] unless str_or_ary
+      ary = [str_or_ary].flatten
+      if block
+        ary.map(&block)
+      else
+        ary.map {|x| x[key] }
+      end
+    end
+
+    def join_attrs(obj, keys, str)
       if obj
-        ary = attrs.map {|a| obj.__send__(a) }.compact
+        ary = keys.map {|k| obj[k] }.compact
         ary.blank? ? nil : ary.join(str)
       else
         obj

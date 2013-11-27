@@ -5,6 +5,10 @@ describe ManifestationsController do
   fixtures :all
 
   describe '#showは', :solr => false do
+    before do
+      Rails.cache.clear # SystemConfiguration由来の値が不定になるのを避けるため
+    end
+
     let(:user) { FactoryGirl.create(:user) }
     let(:admin) { FactoryGirl.create(:admin) }
     let(:librarian) { FactoryGirl.create(:librarian) }
@@ -38,23 +42,15 @@ describe ManifestationsController do
     include NacsisCatSpecHelper
 
     let(:nacsis_cat) { nacsis_cat_with_mock_record(:book) }
-    let(:ncid) { nacsis_cat.record.bibliog_id }
-
-    let(:result_spec_0) { {
-      :has_errors? => false,
-      :result_count => 0,
-      :result_records => [],
-    } }
-    let(:result_spec_1) { {
-      :has_errors? => false,
-      :result_count => 1,
-      :result_records => [nacsis_cat.record],
-    } }
+    let(:ncid) { nacsis_cat.record['ID'] }
 
     it 'ncidパラメータ値によってNACSIS-CAT検索を実行すること' do
-      cgc = EnjuNacsisCatp::CatGatewayClient.new
-      EnjuNacsisCatp::CatGatewayClient.stub(:new => cgc)
-      set_nacsis_cat_gw_client_stub([result_spec_1, result_spec_0])
+      NacsisCat.should_receive(:search).
+        with(:dbs => [:book], :id => ncid).
+        and_return({:book => [nacsis_cat]})
+      NacsisCat.should_receive(:search).
+        with(any_args).
+        and_return({:bhold =>NacsisCat::ResultArray.new(nil)})
 
       get :show_nacsis, :ncid => ncid, :manifestation_type => 'book'
       response.should be_success
@@ -65,11 +61,11 @@ describe ManifestationsController do
       nacsis_cat_i.stub(:summary => {})
 
       NacsisCat.should_receive(:search).
-        with(:db => :book, :id => ncid).
-        and_return([nacsis_cat])
+        with(:dbs => [:book], :id => ncid).
+        and_return({:book => [nacsis_cat]})
       NacsisCat.should_receive(:search).
-        with(:db => :bhold, :id => ncid).
-        and_return([nacsis_cat_i])
+        with(:dbs => [:bhold], :id => ncid).
+        and_return({:bhold => [nacsis_cat_i]})
 
       get :show_nacsis, :ncid => ncid, :manifestation_type => 'book'
       assigns(:items).should be_present
@@ -80,7 +76,9 @@ describe ManifestationsController do
     end
 
     it '存在しないIDが指定されたら404応答を返すこと' do
-      set_nacsis_cat_gw_client_stub(result_spec_0)
+      NacsisCat.should_receive(:search).
+        with(:dbs => [:book], :id => 'dummy').
+        and_return({:book => NacsisCat::ResultArray.new(nil)})
 
       get :show_nacsis, :ncid => 'dummy', :manifestation_type => 'book'
       response.should be_not_found
@@ -90,15 +88,15 @@ describe ManifestationsController do
     describe 'manifestation_typeパラメータが' do
       it 'bookなら一般書誌検索を行うこと' do
         NacsisCat.should_receive(:search).
-          with(:db => :book, :id => 'dummy').
-          and_return(NacsisCat::ResultArray.new(nil))
+          with(:dbs => [:book], :id => 'dummy').
+          and_return({:book => NacsisCat::ResultArray.new(nil)})
         get :show_nacsis, :ncid => 'dummy', :manifestation_type => 'book'
       end
 
       it 'serialなら雑誌書誌検索を行うこと' do
         NacsisCat.should_receive(:search).
-          with(:db => :serial, :id => 'dummy').
-          and_return(NacsisCat::ResultArray.new(nil))
+          with(:dbs => [:serial], :id => 'dummy').
+          and_return({:book => NacsisCat::ResultArray.new(nil)})
         get :show_nacsis, :ncid => 'dummy', :manifestation_type => 'serial'
       end
 

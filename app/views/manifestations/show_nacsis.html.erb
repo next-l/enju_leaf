@@ -17,6 +17,7 @@
       <ul>
         <li class="selected"><a href="#detail"><em><%= t('page.detail') -%></em></a></li>
       </ul>
+
       <%# 詳細の項目表示 %>
       <div id="detail">
         <table>
@@ -30,7 +31,7 @@
             <%# XXX: 国コード体系がCountryとは異なる: http://www.loc.gov/marc/countries/countries_code.html -%>
             <td><%= @nacsis_cat.detail[key] -%></td>
           <%- when :title_language, :text_language -%>
-            <td><%= @nacsis_cat.detail[key].display_name.localize -%> </td>
+	    <td><%= @nacsis_cat.detail[key].try(:display_name).try(:localize) -%> </td>
           <%- when :author_heading, :isbn -%>
             <td><%= @nacsis_cat.detail[key].join(" ") -%></td>
           <%- else -%>
@@ -49,27 +50,17 @@
             <th><%= t('activerecord.attributes.manifestation.hold_cln') -%></th>
             <th><%= t('activerecord.attributes.manifestation.hold_rgtn') -%></th>
           </tr>
-          <%- @items.each do |x| -%>
+          <%- @items.each do |x| item_summary = x.summary -%>
           <tr>
-            <td><%= x.record.dbname -%></td>
-            <td><%= x.record.id -%></td>
-            <td><%= x.record.libabl -%></td>
-            <%- if x.record.is_a?(EnjuNacsisCatp::SholdInfo) -%>
-              <td><%= x.record.cln -%></td>
-            <%- else -%>
-              <td>
-                <%- x.record.holds.each do |hd| -%>
-                  <%= hd.cln -%> &nbsp;
-                <%- end -%>
-              </td>
-            <%- end -%>
-            <%- if x.record.is_a?(EnjuNacsisCatp::BholdInfo) -%>
-              <td>
-                <%- x.record.holds.each do |hd| -%>
-                  <%= hd.rgtn -%>
-                <%- end -%>
-              </td>
-            <%- end -%>
+            <td><%= item_summary[:database] -%></td>
+            <td><%= item_summary[:hold_id] -%></td>
+            <td><%= item_summary[:library_abbrev] -%></td>
+            <td><%= item_summary[:cln] -%></td>
+            <td>
+              <%- if item_summary[:database] == 'BHOLD' -%>
+                <%= item_summary[:rgtn] -%>
+              <%- end -%>
+            </td>
           </tr>
           <%- end -%>
         </table>

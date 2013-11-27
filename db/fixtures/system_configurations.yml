@@ -754,3 +754,10 @@ system_configuration_00107:
   typename: Boolean
   description: "インポート/エクスポートの形式"
   category: 'general'
+system_configuration_00108:
+  id: 108
+  keyname: nacsis.search_each
+  v: "true"
+  typename: Boolean
+  description: "NACSIS目録検索で図書・雑誌を別々に検索する"
+  category: 'nacsis'
