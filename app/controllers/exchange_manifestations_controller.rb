@@ -53,7 +53,6 @@ class ExchangeManifestationsController < ApplicationController
       logger.fatal "error. item_exchange unsuccess."
       logger.fatal e.message
       logger.fatal e.backtrace.join("\n")
-      flash.now[:notice] => e
       render :select_manifestation
     end
 
