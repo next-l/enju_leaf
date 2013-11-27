@@ -10,6 +10,8 @@
      ill_gw_search_url: 'http://your.ill.gateway:3000/ill/search.yaml'
      cat_ssl_verify: 'yes'
      ill_ssl_verify: 'yes'
+     gw_url: 'http://192.168.26.160:3001/'
+     ssl_verify: 'false'
 
  test:
    gw_account:
@@ -23,6 +25,8 @@
      ill_gw_search_url: 'http://your.ill.gateway:3000/ill/search.yaml'
      cat_ssl_verify: 'yes'
      ill_ssl_verify: 'yes'
+     gw_url: 'http://192.168.26.160:3001/'
+     ssl_verify: 'false'
 
  production:
    gw_account:
@@ -36,3 +40,5 @@
      ill_gw_search_url: 'http://your.ill.gateway:3000/ill/search.yaml'
      cat_ssl_verify: 'yes'
      ill_ssl_verify: 'yes'
+     gw_url: 'http://192.168.26.160:3001/'
+     ssl_verify: 'false'
