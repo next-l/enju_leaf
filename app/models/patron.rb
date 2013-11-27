@@ -79,6 +79,11 @@ class Patron < ActiveRecord::Base
     string :fax_number_2
     string :zip_code_1
     string :zip_code_2
+    string :place
+    string :address_1
+    string :address_2
+    string :other_designation
+    string :note
     string :username do
       user.username if user
     end
