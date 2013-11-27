@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe PatronsController do
@@ -51,6 +52,114 @@ describe PatronsController do
       it "assigns all patrons as @patrons in atom format" do
         get :index, :format => :atom
         assigns(:patrons).should_not be_empty
+      end
+    end
+
+    describe '検索文字列として' do
+      let(:fulltext_attr) do
+        [
+          :full_name,
+          :full_name_transcription,
+          :full_name_alternative,
+          :place, :address_1, :address_2,
+          :other_designation, :note,
+        ]
+      end
+
+      let(:random_kanji) do
+        %(
+          亜唖娃阿哀愛挨姶逢葵茜穐悪握渥
+          旭葦芦鯵梓圧斡扱宛姐虻飴絢綾鮎或
+          粟袷安庵按暗案闇鞍杏以伊位依偉囲
+          夷委威尉惟意慰易椅為畏異移維緯胃
+          萎衣謂違遺医井亥域育郁磯一壱溢逸
+          稲茨芋鰯允印咽員因姻引飲淫胤蔭
+        ).gsub(/\s*/, '').scan(/./)
+      end
+
+      let(:random_kanji_used) do
+        []
+      end
+
+      def shift_random_kanji
+        k = random_kanji.shift
+        raise 'kanji empty' unless k # テスト用の漢字が足りなかった
+        random_kanji_used << k
+        k
+      end
+
+      before do
+        # XXX:
+        # Patron.change_noteでUser.current_userを参照している。
+        # User.current_userに中途半端なUserが設定されていると
+        # テストの挙動(というよりもコントローラから以外での
+        # Patronレコード作成)に副作用が出てしまうため
+        # 念のために設定値を調整しておく。
+        save_user_current_user = User.current_user
+        User.current_user = nil
+
+        Sunspot.remove_all!
+        fulltext_attr.each do |a|
+          k = shift_random_kanji
+          kk = shift_random_kanji + shift_random_kanji
+          kkk = shift_random_kanji + shift_random_kanji + shift_random_kanji
+
+          FactoryGirl.create(:patron, a => k)
+          FactoryGirl.create(:patron, a => kk)
+          FactoryGirl.create(:patron, a => kkk)
+        end
+        Sunspot.commit
+
+        User.current_user = save_user_current_user
+      end
+
+      before do
+        sign_in FactoryGirl.create(:user)
+      end
+
+      it '1文字だけが与えられたとき検索できること' do
+        while k = random_kanji_used.shift
+          get :index, query: k
+          expect(response).to be_success
+          patrons = assigns(:patrons)
+          expect(patrons).to be_present
+          expect(patrons).to have(1).item
+        end
+
+        k = random_kanji.last # 未使用漢字
+        get :index, query: k
+        expect(response).to be_success
+        patrons = assigns(:patrons)
+        expect(patrons).to be_blank
+      end
+
+      it '1文字検索語が複数与えられたとき検索できること' do
+        last_word_chars = random_kanji_used[-3, 3]
+        last_patron = Patron.where(fulltext_attr.last => last_word_chars.join).first
+
+        last_patron.full_name = 'あいう えお'
+        last_patron.save!
+        Sunspot.commit
+
+        get :index, query: "#{last_word_chars[0]} #{last_word_chars[2]}"
+        expect(response).to be_success
+        patrons = assigns(:patrons)
+        expect(patrons).to be_present
+        expect(patrons).to have(1).item
+        expect(patrons.first).to eq(last_patron)
+
+
+        get :index, query: "\"いう え\" #{last_word_chars[2]}"
+        expect(response).to be_success
+        patrons = assigns(:patrons)
+        expect(patrons).to be_present
+        expect(patrons).to have(1).item
+        expect(patrons.first).to eq(last_patron)
+
+        get :index, query: "#{random_kanji_used[0]} #{random_kanji_used[-1]}"
+        expect(response).to be_success
+        patrons = assigns(:patrons)
+        expect(patrons).to be_blank
       end
     end
   end

@@ -17,6 +17,8 @@ class PatronsController < ApplicationController
   after_filter :solr_commit, :only => [:create, :update, :destroy]
   cache_sweeper :patron_sweeper, :only => [:create, :update, :destroy]
 
+  include FormInputUtils
+
   # GET /patrons
   # GET /patrons.json
   def index
@@ -29,18 +31,29 @@ class PatronsController < ApplicationController
         access_denied; return
       end
     end
-    query = params[:query].to_s.strip
 
-    if query.size == 1
-      query = "#{query}*"
-    end
-
+    query = normalize_query_string(params[:query])
     @query = query.dup
-    query = query.gsub('　', ' ')
+
+    query = generate_adhoc_one_char_query_text(
+      query, Patron, [
+        :full_name, :full_name_transcription, :full_name_alternative, # name
+        :place, :address_1, :address_2,
+        :other_designation, :note,
+      ])
+
+    if params[:mode] == 'recent'
+      query << 'created_at_d:[NOW-1MONTH TO NOW]'
+    end
+    logger.debug "  SOLR Query string:<#{query}>"
+
     order = nil
     @count = {}
 
-    search = Patron.search(:include => [:patron_type, :required_role])
+    search = Sunspot.new_search(Patron)
+    search.data_accessor_for(Patron).include = [
+      :patron_type, :required_role
+    ]
     search.data_accessor_for(Patron).select = [
       :id,
       :full_name,
@@ -54,9 +67,7 @@ class PatronsController < ApplicationController
     ]
     set_role_query(current_user, search)
 
-    if params[:mode] == 'recent'
-      query = "#{query} created_at_d:[NOW-1MONTH TO NOW]"
-    end
+
     unless query.blank?
       search.build do
         fulltext query
