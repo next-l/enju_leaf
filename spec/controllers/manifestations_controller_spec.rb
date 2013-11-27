@@ -5,27 +5,9 @@ describe ManifestationsController do
   fixtures :all
 
   describe "GET index", :solr => true do
-    # SystemConfigurationの簡易設定
-    def update_system_configuration(key, value)
-      Rails.cache.clear
-      sc = SystemConfiguration.find_by_keyname(key)
-      unless sc
-        t = case value
-            when String
-              'String'
-            when true, false
-              'Boolean'
-            when Fixnum
-              'Numeric'
-            end
-        sc = SystemConfiguration.new(keyname: key, typename: t)
-      end
-      sc.v = value.to_s
-      sc.save!
-    end
-
     before do
       Rails.cache.clear # SystemConfiguration由来の値が不定になるのを避けるため
+      update_system_configuration('manifestations.split_by_type', 'false') # このブロックではsplit_by_type==falseを基本とする
     end
 
     shared_examples_for 'manifestation search conditions' do
@@ -302,6 +284,7 @@ describe ManifestationsController do
         include_examples 'manifestation search conditions'
 
         it 'should search with/without is_article' do
+          update_system_configuration('manifestations.split_by_type', 'true')
           get :index
           check_called(:with, :is_article, :equal_to, false)
           check_called(:with, :is_article, :equal_to, true)
@@ -883,7 +866,11 @@ describe ManifestationsController do
             expected_args = [order_args[0], dir ? dir : order_args[1]]
             it "should be \"#{order_args.join(' ')}\" with sort_by=#{param.inspect} and order=#{dir.inspect}" do
               called = []
-              expected = [expected_args, [:created_at, :desc]]*3
+
+              # 指定された主orderと、幅order[:created_at, :desc]がコントローラで指定される(後者は固定)
+              # split_by_type==falseのとき、search_allとsearch_all_sessionの二つの検索オブジェクトが生成される
+              expected = [expected_args, [:created_at, :desc]]*2
+
               Sunspot::DSL::Search.any_instance.stub(:order_by) do |*args|
                 called << args
               end
@@ -899,7 +886,10 @@ describe ManifestationsController do
 
         it 'should be done by and updated_at in oai format' do
           called = []
-          expected = [[:updated_at, :desc]]
+
+          # split_by_type==falseのとき、search_allとsearch_all_sessionの二つの検索オブジェクトが生成される
+          expected = [[:updated_at, :desc]]*2
+
           Sunspot::DSL::Search.any_instance.stub(:order_by) do |*args|
             called << args
           end

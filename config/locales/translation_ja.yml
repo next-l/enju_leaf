@@ -2699,6 +2699,8 @@ ja:
     boolean_output_button_librarian: "ライブラリアン以上の権限"
     boolean_item_remove: "除籍してから削除"
     boolean_item_destroy: "すぐに削除"
+    boolean_search_each: "別々に検索する"
+    boolean_do_not_search_each: "別々に検索しない"
     boolean_file: "ファイル"
     boolean_db: "DB"
     boolean_and: "AND検索"

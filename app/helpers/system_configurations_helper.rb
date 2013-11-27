@@ -257,6 +257,9 @@ module SystemConfigurationsHelper
      when 'set_output_format_type'
        string << t('system_configuration.boolean_output_format_type') if state == 'true'
        string << t('system_configuration.boolean_not_output_format_type') if state == 'false'
+     when 'nacsis.search_each'
+       string << t('system_configuration.boolean_search_each') if state == 'true'
+       string << t('system_configuration.boolean_do_not_search_each') if state == 'false'
      end
 
      string << "<br />" if state == 'true'

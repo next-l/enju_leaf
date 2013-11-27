@@ -5,6 +5,15 @@ describe ManifestationsController do
   fixtures :all
 
   describe '#indexは', :solr => true do
+    def set_nacsis_search_each(v)
+      update_system_configuration('nacsis.search_each', v)
+    end
+
+    before do
+      Rails.cache.clear # SystemConfiguration由来の値が不定になるのを避けるため
+      set_nacsis_search_each(true) # このブロックではnacsis.search_each==trueを基本とする
+    end
+
     let(:user) { FactoryGirl.create(:user) }
     let(:admin) { FactoryGirl.create(:admin) }
     let(:librarian) { FactoryGirl.create(:librarian) }
@@ -70,60 +79,110 @@ describe ManifestationsController do
       include NacsisCatSpecHelper
 
       let(:nacsis_cat) { nacsis_cat_with_mock_record(:book) }
-      let(:ncid) { nacsis_cat.record.bibliog_id }
+      let(:ncid) { nacsis_cat.record['ID'] }
 
+      # NOTE:
+      # config/config.yml->Setting->SystemConfig->per_pages
+      # によるページネイトのデフォルトページ幅が10となる。
+      # paramsで指定されない限り、
+      # ManifestationsControllerでは
+      # per_page=10が指定された状態で動作する。
       def reverse_merge_default_page_options(opts)
-        opts.reverse_merge({:page => 1, :per_page => 10})
+        return opts unless opts.is_a?(Hash)
+
+        merged_db_opts = (opts[:opts] || {}).dup
+        opts[:dbs].each do |db|
+          h = (merged_db_opts[db] || {}).dup
+          h[:page] ||= 1
+          h[:per_page] ||= 10
+          merged_db_opts[db] = h
+        end
+        opts.merge(:opts => merged_db_opts)
       end
 
       def nacsis_cat_should_receive_search_with(opts, return_value = nil)
-        return_value ||= NacsisCat::ResultArray.new(nil)
-        opts = reverse_merge_default_page_options(opts) if opts.is_a?(Hash)
+        return_value ||= {}
+        opts = reverse_merge_default_page_options(opts)
         NacsisCat.should_receive(:search).
           with(opts).and_return(return_value)
       end
 
-      it 'NACSIS-CAT検索を実行すること' do
-        nacsis_cat_should_receive_search_with(any_args) # book
-        nacsis_cat_should_receive_search_with(any_args) # serial
-        get :index, :index => 'nacsis', :ncid => ncid
-        response.should be_success
+      context 'nacsis.search_eachがtrueのとき' do
+        before { set_nacsis_search_each(true) }
+
+        it 'NACSIS-CAT検索を1回だけ実行すること' do
+          nacsis_cat_should_receive_search_with(any_args)
+          get :index, :index => 'nacsis', :ncid => ncid
+          response.should be_success
+        end
+      end
+
+      context 'nacsis.search_eachがfalseのとき' do
+        before { set_nacsis_search_each(false) }
+
+        it 'NACSIS-CAT検索を1回だけ実行すること' do
+          nacsis_cat_should_receive_search_with(any_args)
+          get :index, :index => 'nacsis', :ncid => ncid
+          response.should be_success
+        end
       end
 
       it '検索条件が空のとき@manifestationsを空にすること' do
-        EnjuNacsisCatp::CatGatewayClient.any_instance.
-          should_not_receive(:execute)
+        NacsisCat.should_not_receive(:http_get_value)
 
         get :index, :index => 'nacsis'
         response.should be_success
         assigns(:manifestations).should eq(NacsisCat::ResultArray.new(nil))
       end
 
-      it '書誌の種類の指定がなければ一般および雑誌の書誌を検索対象とすること' do
-        nacsis_cat_should_receive_search_with(:db => :book, :id => 'foo')
-        nacsis_cat_should_receive_search_with(:db => :serial, :id => 'foo')
-        get :index, :index => 'nacsis', :ncid => 'foo'
+      describe '書誌の種類の指定がないとき' do
+        context 'nacsis.search_eachがtrueなら' do
+          before { set_nacsis_search_each(true) }
+          it '一般および雑誌の書誌を検索対象とすること' do
+            nacsis_cat_should_receive_search_with(:dbs => [:book, :serial], :id => 'foo')
+            get :index, :index => 'nacsis', :ncid => 'foo'
+          end
+        end
+
+        context 'nacsis.search_eachがfalseなら' do
+          before { set_nacsis_search_each(false) }
+          it '全書誌を検索対象とすること' do
+            nacsis_cat_should_receive_search_with(:dbs => [:all], :id => 'foo')
+            get :index, :index => 'nacsis', :ncid => 'foo'
+          end
+        end
       end
 
-      it '書誌の種類の指定がbookとserialのとき、一般および雑誌の書誌を検索対象とすること' do
-        nacsis_cat_should_receive_search_with(:db => :book, :id => 'foo')
-        nacsis_cat_should_receive_search_with(:db => :serial, :id => 'foo')
-        get :index, :index => 'nacsis', :ncid => 'foo', :manifestation_type => %w(book serial)
+      describe '書誌の種類の指定がbookとserialのとき' do
+        context 'nacsis.search_eachがtrueなら' do
+          before { set_nacsis_search_each(true) }
+          it '一般および雑誌の書誌を検索対象とすること' do
+            nacsis_cat_should_receive_search_with(:dbs => [:book, :serial], :id => 'foo')
+            get :index, :index => 'nacsis', :ncid => 'foo', :manifestation_type => %w(book serial)
+          end
+        end
+
+        context 'nacsis.search_eachがfalseなら' do
+          before { set_nacsis_search_each(false) }
+          it '全書誌を検索対象とすること' do
+            nacsis_cat_should_receive_search_with(:dbs => [:all], :id => 'foo')
+            get :index, :index => 'nacsis', :ncid => 'foo', :manifestation_type => %w(book serial)
+          end
+        end
       end
 
       it '書誌の種類の指定がbookのとき、一般書誌を検索対象とすること' do
-        nacsis_cat_should_receive_search_with(:db => :book, :id => 'foo')
+        nacsis_cat_should_receive_search_with(:dbs => [:book], :id => 'foo')
         get :index, :index => 'nacsis', :ncid => 'foo', :manifestation_type => %w(book)
       end
 
       it '書誌の種類の指定がserialのとき、雑誌書誌を検索対象とすること' do
-        nacsis_cat_should_receive_search_with(:db => :serial, :id => 'foo')
+        nacsis_cat_should_receive_search_with(:dbs => [:serial], :id => 'foo')
         get :index, :index => 'nacsis', :ncid => 'foo', :manifestation_type => %w(serial)
       end
 
       it '検索条件が否定形のみのとき@manifestationsを空にすること' do
-        EnjuNacsisCatp::CatGatewayClient.any_instance.
-          should_not_receive(:execute)
+        NacsisCat.should_not_receive(:http_get_value)
 
         get :index, :index => 'nacsis', :except_title => 'foo'
         response.should be_success
@@ -139,8 +198,7 @@ describe ManifestationsController do
 
         describe "#{name}パラメータが指定されたとき" do
           it "#{sname.inspect}でNacsisCat.searchを実行すること" do
-            nacsis_cat_should_receive_search_with(sname => 'foo bar', :db => :book)
-            nacsis_cat_should_receive_search_with(sname => 'foo bar', :db => :serial)
+            nacsis_cat_should_receive_search_with(sname => 'foo bar', :dbs => [:book, :serial])
             get :index, :index => 'nacsis',
               name => 'foo bar'
             response.should be_success
@@ -157,8 +215,7 @@ describe ManifestationsController do
 
         describe "#{name}パラメータが指定されたとき" do
           it "#{name.inspect}でNacsisCat.searchを実行すること" do
-            nacsis_cat_should_receive_search_with(sname => ['foo', 'bar'], :db => :book)
-            nacsis_cat_should_receive_search_with(sname => ['foo', 'bar'], :db => :serial)
+            nacsis_cat_should_receive_search_with(sname => ['foo', 'bar'], :dbs => [:book, :serial])
             get :index, :index => 'nacsis',
               name => 'foo bar'
             response.should be_success
@@ -167,8 +224,7 @@ describe ManifestationsController do
 
         describe "except_#{name}パラメータが指定されたとき" do
           it "否定形#{name.inspect}でNacsisCat.searchを実行すること" do
-            nacsis_cat_should_receive_search_with(sname => ['foo', 'bar'], :except => {sname => ['baz']}, :db => :book)
-            nacsis_cat_should_receive_search_with(sname => ['foo', 'bar'], :except => {sname => ['baz']}, :db => :serial)
+            nacsis_cat_should_receive_search_with(sname => ['foo', 'bar'], :except => {sname => ['baz']}, :dbs => [:book, :serial])
             get :index, :index => 'nacsis',
               name => 'foo bar', :"except_#{name}" => 'baz'
             response.should be_success
@@ -180,12 +236,22 @@ describe ManifestationsController do
 
   describe ManifestationsController::NacsisCatSearch, :solr => false do
     it 'オブジェクト生成時に指定されたDBと異なるDB条件が与えられたら検索を実行せずに空の結果を返すこと' do
-      search = ManifestationsController::NacsisCatSearch.new(:book)
+      search = ManifestationsController::NacsisCatSearch.new([:book, :serial])
       search.filter_by_record_type!('book')
       NacsisCat.should_receive(:search)
       search.execute
 
-      search = ManifestationsController::NacsisCatSearch.new(:book)
+      search = ManifestationsController::NacsisCatSearch.new([:book])
+      search.filter_by_record_type!('book')
+      NacsisCat.should_receive(:search)
+      search.execute
+
+      search = ManifestationsController::NacsisCatSearch.new([:all])
+      search.filter_by_record_type!('book')
+      NacsisCat.should_receive(:search)
+      search.execute
+
+      search = ManifestationsController::NacsisCatSearch.new([:book])
       search.filter_by_record_type!('serial')
       NacsisCat.should_not_receive(:search)
       search.execute
@@ -263,39 +329,17 @@ describe ManifestationsController do
       end # names.each do
     end # each_pair do
 
-    describe '#per_pageは' do
-      it '検索実行時に渡すper_pageオプションを室定すること' do
+    describe '#setup_paginate!は' do
+      it '検索実行時に渡すpaginateオプションを設定すること' do
         NacsisCat.should_receive(:search).
-          with(:per_page => 10, :page => 1, :db => :book).
+          with(:opts => {:book => {:per_page => 10, :page => 1}}, :dbs => [:book]).
           and_return(NacsisCat::ResultArray.new(nil))
 
-        search = ManifestationsController::NacsisCatSearch.new(:book)
-        search.per_page('10') # フォーム入力がそのまま渡るのでNacsisCatSearch#per_pageの引数は文字列となる(内部で数値に変換してNacsisCatに渡す)
+        search = ManifestationsController::NacsisCatSearch.new([:book])
+        search.setup_paginate!(:book, '1', '10') # フォーム入力がそのまま渡るのでNacsisCatSearch#per_pageの引数は文字列となる(内部で数値に変換してNacsisCatに渡す)
         search.execute
       end
     end
 
-    describe '#pageは' do
-      it '検索実行時に渡すpageオプションを室定すること' do
-        NacsisCat.should_receive(:search).
-          with(:page => 2, :per_page => 10, :db => :book).
-          and_return(NacsisCat::ResultArray.new(nil))
-
-        search = ManifestationsController::NacsisCatSearch.new(:book)
-        search.per_page('10')
-        search.page('2') # フォーム入力がそのまま渡るのでNacsisCatSearch#pageの引数は文字列となる(内部で数値に変換してNacsisCatに渡す)
-        search.execute
-      end
-
-      it 'per_pageの設定がなければ検索時に指定を無視すること' do
-        NacsisCat.should_receive(:search).
-          with(:db => :book).
-          and_return(NacsisCat::ResultArray.new(nil))
-
-        search = ManifestationsController::NacsisCatSearch.new(:book)
-        search.page('2')
-        search.execute
-      end
-    end
   end
 end
