@@ -14,6 +14,7 @@ namespace :enju_trunk do
     task :restart do
       if File.exist? "/tmp/unicorn_#{application}.pid"
         sh "kill -s USR2 `cat /tmp/unicorn_#{application}.pid`"
+        sh "kill -s QUIT `cat /tmp/unicorn_#{application}.pid`"
       end
     end
     desc 'stop unicorn.'
