@@ -2521,6 +2521,8 @@ en:
     boolean_output_button_librarian: Librarian
     boolean_item_remove: after removed
     boolean_item_destroy: immediately destroy
+    boolean_search_each: search individually
+    boolean_do_not_search_each: do not search individually
     boolean_file: File
     boolean_db: DB
     boolean_and: AND search

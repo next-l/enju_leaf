@@ -1,22 +1,25 @@
 <table class="index" id="manifestation_list">
 <%- manifestations.each do |m| -%>
+  <%- mt = m.book? ? 'book' : 'serial' -%>
   <%- s = m.request_summary -%>
   <tr class="line<%= cycle("0","1") -%>">
     <td style="480px">
-<%- if manifestations == @manifestations_book -%>
-      <%= link_to s[:subject_heading], { :action => "show_nacsis", :ncid => s[:ncid], :manifestation_type => type } -%><br />
+      <%= link_to s[:subject_heading], { :action => "show_nacsis", :ncid => s[:ncid], :manifestation_type => mt } -%><br />
       <%= s[:publisher] -%>
-      <%- if !s[:series_title].blank? -%>
+      <%- if mt == 'book' && s[:series_title].present? -%>
         (<%= s[:series_title] -%>)
       <%- end -%>
-<%- else -%>
-      <%= link_to s[:subject_heading], { :action => "show_nacsis", :ncid => s[:ncid], :manifestation_type => type } -%><br />
-      <%= s[:publisher] -%>
-<%- end -%>
     </td>
   </tr>
 <%- end -%>
 </table>
 
-<%= paginate(manifestations) -%>
+<%=
+    if type == 'book' || type == 'all'
+      page_name = :page
+    else
+      page_name = :"page_#{type}"
+    end
+    paginate(manifestations, :param_name => page_name)
+-%>
 <br />

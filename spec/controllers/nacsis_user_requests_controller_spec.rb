@@ -8,7 +8,7 @@ describe NacsisUserRequestsController do
 
   let(:record_type) { :book }
   let(:nacsis_cat) { nacsis_cat_with_mock_record(record_type) }
-  let(:ncid) { nacsis_cat.record.bibliog_id }
+  let(:ncid) { nacsis_cat.record['ID'] }
 
   shared_context '管理ユーザでログインする' do
     let(:login_user) {
@@ -429,7 +429,7 @@ describe NacsisUserRequestsController do
 
   shared_examples '必須パラメータの指定がなければエラー画面を表示する' do
     def do_test_request(request_params, result = nil)
-      result ||= [nacsis_cat]
+      result ||= {record_type => [nacsis_cat]}
       if result.is_a?(Exception)
         NacsisCat.stub(:search).and_raise(result)
       else
@@ -458,7 +458,7 @@ describe NacsisUserRequestsController do
     end
 
     it 'ncidパラメータの値が不正のときエラー応答すること' do
-      result = NacsisCat::ResultArray.new(nil) # IDによるNACSIS-CAT検索で結果が得られなかった(在存しないIDだった)
+      result = {record_type => NacsisCat::ResultArray.new(nil)} # IDによるNACSIS-CAT検索で結果が得られなかった(在存しないIDだった)
       do_test_request({'request_type' => '1', 'ncid' => 'XXX', 'manifestation_type' => record_type.to_s}, result)
     end
 
@@ -483,21 +483,21 @@ describe NacsisUserRequestsController do
     } }
 
     it 'NacsisUserRequestオブジェクトを@nacsis_user_requestに設定すること' do
-      NacsisCat.stub(:search).and_return([nacsis_cat])
+      NacsisCat.stub(:search).and_return(record_type => [nacsis_cat])
 
       get :new, valid_attributes
       expect(assigns(:nacsis_user_request)).to be_a_new(NacsisUserRequest)
     end
 
     it 'ログイン中のユーザを@nacsis_user_request.userに設定すること' do
-      NacsisCat.stub(:search).and_return([nacsis_cat])
+      NacsisCat.stub(:search).and_return(record_type => [nacsis_cat])
 
       get :new, valid_attributes
       expect(assigns(:nacsis_user_request).user).to eq(login_user)
     end
 
     it '指定されたレコード種別を@manifestation_typeに設定すること' do
-      NacsisCat.stub(:search).and_return([nacsis_cat])
+      NacsisCat.stub(:search).and_return(record_type => [nacsis_cat])
 
       get :new, valid_attributes
       expect(assigns(:manifestation_type)).to eq(record_type.to_s)
@@ -505,7 +505,7 @@ describe NacsisUserRequestsController do
 
     it '一般書誌のレコードIDが与えられたとき、その書誌をもとにNacsisUserRequestオブジェクトを生成すること' do
       attrs = nacsis_cat.request_summary
-      NacsisCat.should_receive(:search).with(:id => ncid, :db => record_type).and_return([nacsis_cat])
+      NacsisCat.should_receive(:search).with(:id => ncid, :dbs => [record_type]).and_return(record_type => [nacsis_cat])
       NacsisCat.any_instance.should_receive(:request_summary).and_return(attrs)
 
       get :new, valid_attributes
@@ -521,7 +521,7 @@ describe NacsisUserRequestsController do
       record_type = :serial
       nacsis_cat = nacsis_cat_with_mock_record(record_type)
       attrs = nacsis_cat.request_summary
-      NacsisCat.should_receive(:search).with(:id => nacsis_cat.ncid, :db => record_type).and_return([nacsis_cat])
+      NacsisCat.should_receive(:search).with(:id => nacsis_cat.ncid, :dbs => [record_type]).and_return(record_type => [nacsis_cat])
       NacsisCat.any_instance.should_receive(:request_summary).and_return(attrs)
 
       get :new, valid_attributes.merge({
@@ -570,7 +570,7 @@ describe NacsisUserRequestsController do
 
     describe '正しいパラメータにより' do
       before do
-        NacsisCat.should_receive(:search).with(:id => ncid, :db => record_type).and_return([nacsis_cat])
+        NacsisCat.should_receive(:search).with(:id => ncid, :dbs => [record_type]).and_return(record_type => [nacsis_cat])
       end
 
       it '新しいNacsisUserRequestレコードを作成すること' do
@@ -600,7 +600,7 @@ describe NacsisUserRequestsController do
       end
 
       it '指定されたレコード種別を@manifestation_typeに設定すること' do
-        NacsisCat.stub(:search).and_return([nacsis_cat])
+        NacsisCat.stub(:search).and_return(record_type => [nacsis_cat])
 
         post :create, {:nacsis_user_request => valid_attributes}
         expect(assigns(:manifestation_type)).to eq(record_type.to_s)
@@ -611,7 +611,7 @@ describe NacsisUserRequestsController do
       include_context '一般ユーザでログインする'
 
       before do
-        NacsisCat.should_receive(:search).with(:id => ncid, :db => record_type).and_return([nacsis_cat])
+        NacsisCat.should_receive(:search).with(:id => ncid, :dbs => [record_type]).and_return(record_type => [nacsis_cat])
       end
 
       it 'librarian_noteに値を設定しないこと' do

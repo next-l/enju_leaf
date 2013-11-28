@@ -233,7 +233,9 @@ class NacsisUserRequestsController < InheritedResources::Base
       end
 
       begin
-        cat = NacsisCat.search(:id => form_input[:ncid], :db => @manifestation_type.to_sym).first
+        db = @manifestation_type.to_sym
+        retval = NacsisCat.search(:id => form_input[:ncid], :dbs => [db])
+        cat = retval[db].first
       rescue ArgumentError => ex
         logger.debug "NACSIS-CAT search failed: #{ex.message} (#{ex.class})"
         raise InvalidPrametresError, ex.message

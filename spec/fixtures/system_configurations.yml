@@ -713,3 +713,10 @@ system_configuration_00101:
   typename: String
   description: "著者、協力者・編者、協力者・編者で指定時に人物・団体として扱わないワード"
   category: 'manifestation'
+system_configuration_00102:
+  id: 102
+  keyname: nacsis.search_each
+  v: "false"
+  typename: Boolean
+  description: "資料区分で検索結果を分離するか？"
+  category: 'nacsis'
