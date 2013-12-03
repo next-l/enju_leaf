@@ -133,6 +133,7 @@ class Ability
         Question,
         Realize,
         RealizeType,
+        RelationshipFamily,
         ReserveStatHasManifestation,
         ReserveStatHasUser,
         ResourceImportFile,
@@ -180,6 +181,7 @@ class Ability
         RequestStatusType,
         RequestType,
         Role,
+        SeriesStatementRelationshipType,
         UseRestriction
       ]
       can :read, [
@@ -299,6 +301,7 @@ class Ability
         Question,
         Realize,
         RealizeType,
+        RelationshipFamily,
         ResourceImportFile,
         ResourceImportTextfile,
         SearchHistory,
@@ -315,6 +318,9 @@ class Ability
         Theme,
         UserStatus,
         WorkHasSubject
+      ]
+      can :read, :update [
+        SeriesStatementRelationshipType
       ]
       can :read, [
         AcceptType,
@@ -458,6 +464,7 @@ class Ability
         ProduceType,
         Realize,
         RealizeType,
+        RelationshipFamily,
         RemoveReason,
         SeriesStatement,
         SeriesHasManifestation,
@@ -515,6 +522,7 @@ class Ability
         ProduceType,
         Realize,
         RealizeType,
+        RelationshipFamily,
         RemoveReason,
         SeriesStatement,
         SeriesHasManifestation,

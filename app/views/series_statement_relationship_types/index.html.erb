@@ -1,0 +1,38 @@
+<div id="content_detail" class="ui-corner-all">
+  <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.series_statement_relationship_type')) %></h1>
+  <div id="content_list">
+  <div style="color: green"><%= flash[:message] %></div>
+
+    <table class="index">
+      <tr>
+        <th id="position"></th>
+        <th><%= t('activerecord.attributes.series_statement_relationship_type.display_name') %></th>
+        <th><%= t('activerecord.attributes.series_statement_relationship_type.typeid') %></th>
+        <th><%= t('activerecord.attributes.series_statement_relationship_type.note') %></th>
+        <th></th>
+      </tr>
+
+      <% @series_statement_relationship_types.each do |series_statement_relationship_type| %>
+        <tr class="line<%= cycle("0", "1") %>">
+          <td>
+            <% if can? :update, series_statement_relationship_type %>
+              <%= move_position(series_statement_relationship_type) %>
+            <% end %>
+          </td>
+          <td><%= link_to series_statement_relationship_type.display_name, series_statement_relationship_type %></td>
+          <td><%= series_statement_relationship_type.typeid %></td>
+          <td><%= series_statement_relationship_type.note %></td>
+          <td>
+            <% if can? :update, series_statement_relationship_type %>
+              <%= link_to t('page.edit'), edit_series_statement_relationship_type_path(series_statement_relationship_type) %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+    <%= paginate @series_statement_relationship_types %>
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+</div>
