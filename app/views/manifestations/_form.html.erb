@@ -153,6 +153,10 @@ $(document).keydown(function(e) {
     <%= f.select(:manifestation_type_id, @manifestation_types.collect{|m| [m.display_name.localize, m.id]}) -%>
   </div>
 
+  <div class="field">
+    <%= f.label t('activerecord.attributes.manifestation.jpn_or_foreign') %>
+    <%= f.select :jpn_or_foreign, Manifestation::JPN_OR_FOREIGN, :include_blank => true %>
+  </div>
   
   <div class="field" id="frequency_field">
     <%= f.label t('activerecord.models.frequency') -%>

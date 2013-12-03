@@ -73,6 +73,11 @@ function displayArticleTitle(article_title) {
   </div>
 
   <div class="field">
+    <%= f_m.label t('activerecord.attributes.manifestation.jpn_or_foreign') %>
+    <%= f_m.select :jpn_or_foreign, Manifestation::JPN_OR_FOREIGN, :include_blank => true %>
+  </div>
+
+  <div class="field">
     <%= f_m.label t('activerecord.models.frequency') -%>
     <%= f_m.select(:frequency_id, @frequencies.collect{|frequency| [frequency.display_name.localize, frequency.id]}) -%>
   </div>

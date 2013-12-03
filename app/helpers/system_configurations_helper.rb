@@ -183,13 +183,6 @@ module SystemConfigurationsHelper
           'no_operation_logout'
        string << t('system_configuration.boolean_do') if state == 'true'
        string << t('system_configuration.boolean_not_do') if state == 'false'
-     # => yes,no
-     when 'auto_user_number', 'manifestations.split_by_type', 'manifestations.google_book_search_preview', 
-          'checkout.auto_checkin', 'manifestation.manage_item_rank', 'use_inter_library_loan', 'use_family', 'use_birth_day',
-          'manifestation.has_one_item', 'manifestation.isbn_unique', 'user_change_department',
-          'checkout.set_extending_due_date_before_closing_day', 'manifestation.social_bookmark'
-       string << t('system_configuration.boolean_yes') if state == 'true'
-       string << t('system_configuration.boolean_no') if state == 'false'
      # => send
      when 'send_message.recall_item',
           'send_message.recall_overdue_item',
@@ -260,6 +253,10 @@ module SystemConfigurationsHelper
      when 'nacsis.search_each'
        string << t('system_configuration.boolean_search_each') if state == 'true'
        string << t('system_configuration.boolean_do_not_search_each') if state == 'false'
+     else
+     # => yes,no
+       string << t('system_configuration.boolean_yes') if state == 'true'
+       string << t('system_configuration.boolean_no') if state == 'false'
      end
 
      string << "<br />" if state == 'true'

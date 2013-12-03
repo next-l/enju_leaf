@@ -756,8 +756,36 @@ system_configuration_00107:
   category: 'general'
 system_configuration_00108:
   id: 108
+  keyname: statistic_report.yearly_public
+  v: "false"
+  typename: Boolean
+  description: "年別利用統計(公共図書館向け)を利用する"
+  category: 'statistics'
+system_configuration_00109:
+  id: 109
+  keyname: statistic_report.users
+  v: "false"
+  typename: Boolean
+  description: "利用者別利用統計を利用する"
+  category: 'statistics'
+system_configuration_00110:
+  id: 110
+  keyname: statistic_report.departments_report
+  v: "false"
+  typename: Boolean
+  description: "所属別利用統計を利用する"
+  category: 'statistics'
+system_configuration_00111:
+  id: 111
   keyname: nacsis.search_each
   v: "true"
   typename: Boolean
   description: "NACSIS目録検索で図書・雑誌を別々に検索する"
+  category: 'nacsis'
+system_configuration_00112:
+  id: 112
+  keyname: statistic_report.manifestations
+  v: "false"
+  typename: Boolean
+  description: "資料別利用統計を利用する"
   category: 'nacsis'

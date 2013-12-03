@@ -31,6 +31,8 @@ class Manifestation < ActiveRecord::Base
 
   scope :without_master, where(:periodical_master => false)
  
+  JPN_OR_FOREIGN = { I18n.t('jpn_or_foreign.jpn') => 0, I18n.t('jpn_or_foreign.foreign') => 1 }
+
   searchable do
     text :fulltext, :contributor, :article_title, :series_title, :exinfo_1, :exinfo_6
     text :title, :default_boost => 2 do

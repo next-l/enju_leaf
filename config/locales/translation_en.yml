@@ -178,7 +178,6 @@ en:
       checkoutlist: Checkout list
       reservelist: Reservation list
       manifestation_exstat: Statistics
-      statistic_report: Statistics report
       ndl_report: Export annual report of ndl branches
       ndl_statistic: Export annual report of nal branches
       print_label: User label
@@ -839,6 +838,7 @@ en:
         missing_issue: Missing Issue
         printout_in_progress: started to export checkout confirmation card
         external_catalog: Cataloging Authority
+        jpn_or_foreign: Japan or foreign
       user_group:
         name: Name
         display_name: Display name
@@ -1442,9 +1442,6 @@ en:
         start_at: Start date
         end_at: End date
         end_at_invalid: End date must be later than Start date.
-      statistic_report:
-        type: Type
-        term: Term
       item_register:
         list_type: List type
         file_type: File type
@@ -2569,7 +2566,6 @@ en:
     report: Report
     checkout_report: Checkout report
     reserve_report: Reservation report
-    statistic_report: Statistics report
     library_report: Library report
     ndl_report: Annual report for ndl
   worki:
@@ -2645,90 +2641,6 @@ en:
     date_format: ! '%{year}-%{month}-%{date}'
     term_note: (YYYY or YYYYMM or YYYYMMDD)
     no_value: No value
-  statistic_report:
-    monthly_report: monthly statistics
-    daily_report: daily statistics
-    timezone_report: by timezone
-    day_report: by day of week
-    age_report: by age of users
-    items_report: items
-    inout_items_report: in&out
-    loans_report: inter library loan 
-    groups_report: by user groups
-    departments_report: by departments
-    invalid_year: term is invalid.
-    invalid_month: term is invalid.
-    no_corporate: no coporate
-    no_department: no department
-    year: Year(YYYY)
-    month_ex: Month(YYYYMM)
-    year_or_month: Year(YYYY) or Month(YYYYMM)
-    day: Date(YYYYMMDD)
-    submit: Export report
-    submit_tsv: TSV
-    created: Created report
-    all_library: All libraries
-    items: Items
-    opens: Opening days
-    checkout_users: Checkout users
-    user_type_5: 18 -
-    user_type_4: 15 - 18
-    user_type_3: 12 - 15
-    user_type_2: 6 - 12
-    user_type_1: 0 - 6
-    item_type_1: Adults
-    item_type_2: Children
-    item_type_3: Other
-    checkout_items: Chekcout items
-    checkout_items_each_user_groups: Checkout items(by user group)
-    checkin_items: Checkin items
-    average_checkout_users: Daily average of checkout users
-    average_checkout_items: Daily average of checkout items
-    average_checkin_items: Daily average of checkin items
-    missing_items: Missing items
-    users: Users
-    all_users: All
-    user_areas: Users(area)
-    all_areas: All
-    other_area: Other
-    user_groups: (user group)
-    unlocked_users: (in use)
-    locked_users: (locked)
-    user_provisional: (Provisional)
-    reserves: Reservations
-    on_counter: (Counter)
-    from_opac: (OPAC)
-    questions: References
-    consultations: Counter usages
-    visiters: Visiters
-    copies: Copies
-    month: ! '%{num}'
-    date: ! '%{num}'
-    hour: Hour
-    sum: Sum
-    accept: Accepted items
-    remove: Removed items
-    checkout_loan: Checkouts
-    checkin_loan: Checkins
-    remind_checkouts: Overdue checkouts
-    checkin_remindered: Overdue checkins
-    type: Type
-    library: Library
-    loan_type: Loan type
-    loan_library: Loan library
-    corporate_name: Coporate
-    department_name: Department
-    manifestation_type: Manifestation type
-    option: Option
-    condition: ''
-    day_0: Sunday
-    day_1: Monday
-    day_2: Tuesday
-    day_3: Wednesday
-    day_4: Thursday
-    day_5: Friday
-    day_6: Saturday
-    all: All
   ndl_report:
     invalid_term: Term is invalid.
     term_not_found: "Statistics haven't calculated yet."
@@ -2867,4 +2779,7 @@ en:
       rakuten: Rakuten
       kinokuniya: Kinokuniya
       junk_do: JUNKUDO
-
+  jpn_or_foreign:
+    jpn: Japan
+    foreign: Foreign
+    other: 未設定

@@ -22,6 +22,9 @@ class UserFile
     checkoutlist: {
       expire: 24.hours,
     },
+    statisticreport: {
+      expire: 24.hours,
+    }
   }
 
   class << self

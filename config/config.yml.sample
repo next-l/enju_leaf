@@ -116,6 +116,7 @@ defaults: &defaults
 
   # 利用統計の帳票ファイル名
   statistic_report:
+    yearly: "yearly_report"
     monthly: "monthly_report.pdf"
     monthly_tsv: "monthly_report.tsv"
     daily: "daily_report.pdf"
@@ -126,6 +127,7 @@ defaults: &defaults
     day_tsv: "day_report.tsv"
     age: "age_report.pdf"
     age_tsv: "age_report.tsv"
+    users: "users_report"
     items: "items_report.pdf"
     items_tsv: "items_report.tsv"
     inout_items: "inout_items_report.pdf"
@@ -134,7 +136,8 @@ defaults: &defaults
     loans_tsv: "loans_report.tsv"
     groups: "groups_report.pdf"
     groups_tsv: "groups_report.tsv"
-    departments: "departments_report.pdf"
+    departments: "departments_report"
+    departments_pdf: "departments_report.pdf"
     departments_tsv: "departments_report.tsv"
     # 時間別統計の設定
     open: 8

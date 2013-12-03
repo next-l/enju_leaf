@@ -167,7 +167,6 @@ ja:
       checkoutlist: 貸出状況
       reservelist: 予約状況
       manifestation_exstat: 拡張統計
-      statistic_report: 利用統計の帳票
       ndl_report: 支部図書館業務年報の出力
       ndl_statistic: 支部図書館業務年報の出力
       print_label: 利用者ラベル
@@ -910,6 +909,7 @@ ja:
         hold_libabl: 所属館略称
         hold_cln: 請求記号
         hold_rgtn: 資料番号
+        jpn_or_foreign: 和洋区分
       user_group:
         name: 名前
         display_name: 表示名
@@ -1365,9 +1365,6 @@ ja:
         start_at: 開始日時
         end_at: 終了日時
         end_at_invalid: 終了日は開始日より未来を指定してください。
-      statistic_report:
-        type: 帳票の種類
-        term: 対象期間
       item_list:
         list_type: リストの種類
         list_condition: 抽出条件
@@ -1757,7 +1754,6 @@ ja:
     report: 帳票
     checkout_report: 貸出状況表
     reserve_report: 予約状況表
-    statistic_report: 利用統計
     library_report: 報告書(日報・月報)
     ndl_report: 支部図書館業務年報の出力
 
@@ -2486,90 +2482,6 @@ ja:
     date_format: "%{year}年%{month}月%{date}日"
     term_note: (YYYY, YYYYMM, YYYYMMDDのいずれかで指定)
     no_value: 未登録
-  statistic_report:
-    monthly_report: 月別利用統計
-    daily_report: 日別利用統計
-    timezone_report: 時間帯別利用統計
-    day_report: 曜日別利用統計
-    age_report: 年代別利用統計
-    items_report: 蔵書統計
-    inout_items_report: 受払統計
-    loans_report: 相互貸借統計
-    groups_report: 団体別貸出統計
-    departments_report: 利用統計
-    invalid_year: "対象年度の指定が不正です。"
-    invalid_month: "対象月の指定が不正です。"
-    no_corporate: "団体が登録されていません。"
-    no_department: "部署が登録されていません。"
-    year: 対象年度(YYYY) 
-    month_ex: 対象月(YYYYMM)
-    year_or_month: 対象年度(YYYY)または対象月(YYYYMM)
-    day: 対象年月日(YYYYMMDD)
-    submit: "帳票を作成"
-    submit_tsv: "TSVで出力"
-    created: "帳票を作成しました。"
-    all_library: 全図書館
-    items: 蔵書冊数(冊)
-    opens: 開館日数(日)
-    checkout_users: 貸出人数 (人)
-    user_type_5: "18 -   歳"
-    user_type_4: "15 - 18 歳"
-    user_type_3: "12 - 15 歳"
-    user_type_2: "6 - 12 歳"
-    user_type_1: "0 - 6 歳"
-    item_type_1: 一般
-    item_type_2: 児童書
-    item_type_3: その他
-    checkout_items: 貸出冊数 (冊)
-    checkout_items_each_user_groups: 貸出冊数(団体別)(冊)
-    checkin_items: 返却数(冊)
-    average_checkout_users: 一日平均貸出人数(人)
-    average_checkout_items: 一日平均貸出冊数(冊)
-    average_checkin_items: 一日平均返却冊数(冊)
-    missing_items: 不明
-    users: 登録人数 (人)
-    all_users: 全区分
-    user_areas: 登録人数(地区別)(人)
-    all_areas: 全地区
-    other_area: その他
-    user_groups: (団体別)
-    unlocked_users: (利用中)
-    locked_users: (利用停止)
-    user_provisional: (仮登録)
-    reserves: 予約件数 (件)
-    on_counter: (窓口)
-    from_opac: (OPAC)
-    questions: レファレンス数 (件)
-    consultations: 窓口利用件数(件)
-    visiters: 入館者数(人)
-    copies: コピー件数(件)
-    month: "%{num}月"
-    date: "%{num}日"
-    hour: 時
-    sum: 合計
-    accept: 受入資料
-    remove: 除籍資料
-    checkout_loan: 貸出(冊)
-    checkin_loan: 借受(冊)
-    remind_checkouts: 督促対象資料数
-    checkin_remindered: 督促資料返却数
-    type: 種別
-    library: 図書館
-    loan_type: 貸借区分
-    loan_library: 貸借図書館
-    corporate_name: 団体名
-    department_name: 部署名
-    manifestation_type: 資料区分
-    option: オプション
-    condition: ""
-    day_0: 日曜日
-    day_1: 月曜日
-    day_2: 火曜日
-    day_3: 水曜日
-    day_4: 木曜日
-    day_5: 金曜日
-    day_6: 土曜日
-    all: 全て
   ndl_report:
     invalid_term: "対象年度の指定が不正です。"
     term_not_found: "対象年度の情報が収集されていません。"
@@ -2843,3 +2755,7 @@ ja:
       rakuten: "楽天ブックス"
       kinokuniya: "紀伊國屋書店"
       junk_do: "ジュンク堂"
+  jpn_or_foreign:
+    jpn: 和書
+    foreign: 洋書
+    other: 未設定

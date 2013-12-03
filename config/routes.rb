@@ -412,6 +412,7 @@ EnjuLeaf::Application.routes.draw do
   resources :budget_and_results_managements
 
   resources :statistic_reports do
+    post :get_report, :on => :collection
     post :get_monthly_report, :on => :collection
     post :get_daily_report, :on => :collection
     post :get_timezone_report, :on => :collection
