@@ -1,0 +1,55 @@
+<div id="content_detail" class="ui-corner-all">
+  <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.relationship_family')) %></h1>
+  <div id="content_list">
+    <div style="color: green"><%= flash[:message] %></div>
+
+    <%= form_for :areas, :url => relationship_families_path, :html => {:method => 'get'} do %>
+       <%= t('page.search_term') %>:
+       <%= search_field_tag 'query', h(@query),
+         { :id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term') } %>
+       <%= submit_tag t('page.search') %>
+    <% end %>
+
+    <table class="index">
+      <tr>
+        <th><%= t('activerecord.attributes.relationship_family.display_name') %></th>
+        <% if can? :edit, RelationshipFamily %>
+          <th><%= t('activerecord.attributes.relationship_family.note') %></th>
+        <% end %>
+        <th></th>
+       </tr>
+        <% @relationship_families.each do |relationship_family| %>
+         <tr class="line<%= cycle("0", "1") %>">
+           <td><%= link_to relationship_family.display_name, relationship_family %></td>
+           <% if can? :edit, relationship_family %>
+             <td><%= relationship_family.note %></td>
+           <% end %>
+           <td>
+             <% if params[:add] %>
+               <% if can? :update, SeriesStatementRelationship %>
+                 <%= link_to t('page.select'),
+                   new_relationship_family_series_statement_relationship_path(relationship_family) %>
+               <% end %>
+             <% else %>
+               <% if can? :edit, relationship_family %>
+                 <%= link_to t('page.edit'), edit_relationship_family_path(relationship_family) %>
+               <% end %>
+               <% if can? :destroy, relationship_family %>
+                 <%= link_to t('page.destroy'), relationship_family, method: :delete, data: { confirm: t('page.are_you_sure') } %>
+               <% end %>
+             <% end %>
+           </td>
+         </tr>
+       <% end %>
+     </table>
+     <%= paginate(@relationship_families) %>
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+     <% if can? :create, RelationshipFamily %>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.relationship_family')), new_relationship_family_path %></li>
+     <% end %>
+  </ul>
+</div>

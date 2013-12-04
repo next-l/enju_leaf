@@ -1,0 +1,82 @@
+<div id="content_detail" class="ui-corner-all">
+  <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.relationship_family')) %></h1>
+  <div id="content_list">
+    <p id="notice"><%= notice %></p>
+
+    <p>
+      <b><%= t('activerecord.attributes.relationship_family.display_name') %></b>
+      <%= @relationship_family.display_name %>
+    </p>
+    <p>
+      <b><%= t('activerecord.attributes.relationship_family.description') %></b><br />
+      <%= @relationship_family.description %>
+    </p>
+    <% if user_signed_in? and current_user.has_role?('Librarian') %>
+      <p>
+        <b><%= t('activerecord.attributes.relationship_family.note') %></b><br />
+        <%= @relationship_family.note %>
+      </p>
+    <% end %>
+
+    <br />
+    <div>
+      <table class="table table-striped index">
+        <tr>
+          <th style="width: 30px"><%= 'Id' %></th>
+          <th><%= t('activerecord.attributes.series_statement_relationship.seq') %></th>
+          <th><%= t('activerecord.attributes.series_statement_relationship.before_series_statement_relationship') %></th>
+          <th><%= t('activerecord.attributes.series_statement_relationship.after_series_statement_relationship') %></th>
+          <th><%= t('activerecord.models.series_statement_relationship_type') %></th>
+          <th><%= t('activerecord.attributes.series_statement_relationship.source') %></th>
+          <th></th>
+        </tr>
+
+        <% @relationship_family.series_statement_relationships.each do |series_statement_relationship| %>
+          <tr class="line<%= cycle("0", "1") %>">
+            <td>
+              <%= link_to series_statement_relationship.id, series_statement_relationship %>
+            </td>
+            <td><%= series_statement_relationship.seq %></td>
+            <td>
+              <% if series_statement_relationship.before_series_statement_relationship %>
+                <%= link_to series_statement_relationship.before_series_statement_relationship.original_title,
+                  series_statement_relationship.before_series_statement_relationship %>
+              <% end %>
+            </td>
+            <td>
+              <% if series_statement_relationship.after_series_statement_relationship %>
+                <%= link_to series_statement_relationship.after_series_statement_relationship.original_title,
+                  series_statement_relationship.after_series_statement_relationship %>
+              <% end %>
+            </td>
+            <td><%=  series_statement_relationship. series_statement_relationship_type.display_name %></td>
+            <td><%= SeriesStatementRelationship::SOURCES[series_statement_relationship.source] %></td>
+            <td>
+              <% if can? :edit, series_statement_relationship %>
+                <%= link_to t('page.edit'), edit_series_statement_relationship_path(series_statement_relationship) %>
+              <% end %>
+              <% if can? :destroy, series_statement_relationship %>
+                <%= link_to t('page.destroy'), series_statement_relationship, method: :delete, data: { confirm: t('page.are_you_sure') } %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <% if can? :update, @relationship_family %>
+      <li><%= link_to t('page.edit'), edit_relationship_family_path(@relationship_family) %></li>
+    <% end %>
+    <% if can? :create, SeriesStatementRelationship %>
+      <li>
+       <%= link_to t('page.new', :model => t('activerecord.models.series_statement_relationship')),
+         new_relationship_family_series_statement_relationship_path(@relationship_family) %>
+      </li>
+    <% end %>
+    <li><%= link_to t('page.back'), relationship_families_path %></li>
+  </ul>
+</div>

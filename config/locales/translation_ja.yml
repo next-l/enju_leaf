@@ -144,7 +144,7 @@ ja:
       work_to_expression_rel_type: 書いた資料と協力した資料の関係の種類
       expression_to_manifestation_rel_type: 協力した資料と出版した資料の関係の種類
       series_statement: シリーズ情報
-      series_statement_relationship: シリーズ情報の関係
+      series_statement_relationship: 遍歴
       checkout_stat_has_manifestation: 資料別貸出統計
       checkout_stat_has_user: 利用者別貸出統計
       reserve_stat_has_manifestation: 資料別予約統計
@@ -193,6 +193,8 @@ ja:
       nacsis_request_copy: 複写依頼
       nacsis_request_lend: 借用依頼
       exchange_manifestation: 所蔵付け替え
+      relationship_family: 遍歴ファミリー
+      series_statement_relationship_type: 遍歴関係タイプ
       theme: テーマ
     attributes:
       wareki:
@@ -699,7 +701,6 @@ ja:
         note: 注記
         lock_version: ロックバージョン
         deleted_at: 削除時刻
-        parent_of_series: 継続前
       purchase_request:
         title: タイトル
         author: 著者
@@ -1291,8 +1292,12 @@ ja:
         title_transcription: シリーズ名（ヨミ）
         note: 注記
       series_statement_relationship:
-        parent_id: 継続前
-        child_id: 継続後
+        seq: シーケンシャル番号	 
+        before_series_statement_relationship: 前誌
+        after_series_statement_relationship: 後誌
+        before_series_statement_relationship_id: 前誌ID
+        after_series_statement_relationship_id: 後誌ID
+        source: 作成機関 
       import_request:
         isbn: ISBN
         state: 状態
@@ -1454,6 +1459,14 @@ ja:
         librarian_note: 事務員注記
         created_from: 開始日付
         created_to: 終了日付
+      relationship_family:
+        display_name: 表示名
+        description: 説明
+        note: 注記
+      series_statement_relationship_type:
+        display_name: 表示名
+        typeid: タイプID
+        note: 注記
       theme:
         name: 名前
         description: 説明
@@ -1699,8 +1712,9 @@ ja:
     reminder_letter: "催告書"
     extensions: "Enju_trunk 拡張機能"
     budgets: "予算"
-    add_child: "継続後シリーズ情報の登録"
+    edit_series_statement_relationship: "雑誌遍歴の編集"
     extensions_1: "その他の機能"
+    relationship: "遍歴"
     library_check: "蔵書点検"
     access_logs: アクセス件数
     search_results: "資料の検索結果"
@@ -2759,3 +2773,7 @@ ja:
     jpn: 和書
     foreign: 洋書
     other: 未設定
+  series_statement_relationship:
+    not_necessary: " は必要ありません。"
+    failed_destroy: "遍歴の削除に失敗しました。"
+    not_exist_series_statement: "は存在してません。"

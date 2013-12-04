@@ -4,7 +4,13 @@
     <% end %>
     <% if can? :update, @series_statement %>
       <li><%= link_to t('page.edit'), edit_series_statement_path(@series_statement) %></li>
-      <li><%= link_to t('page.add_child'), series_statements_path(:parent_id => @series_statement.id) %></li>
+      <li>
+        <% if @series_statement.relationship_family %>
+          <%= link_to t('page.edit_series_statement_relationship'), @series_statement.relationship_family %>
+        <% else %>
+          <%= link_to t('page.edit_series_statement_relationship'), relationship_families_path(:add => true) %>
+        <% end %>
+      </li>
     <% end %>
     <% if can? :destroy, @series_statement %>
        <li><%= link_to t('page.destroy'), @series_statement, :confirm => t('page.are_you_sure'), :method => :delete %></li>

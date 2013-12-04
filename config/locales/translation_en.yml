@@ -192,6 +192,9 @@ en:
       realize_type: Realize type
       copy_request: Copy request
       exchange_manifestation: Exchenge manifestation exemplified
+      relationship_family: Relationship family
+      series_statement_relationship_type: Series statement relationship type
+
     attributes:
       enju_terminal:
         ipaddr: IP Address
@@ -623,7 +626,6 @@ en:
         note: Note
         lock_version: Lock version
         deleted_at: Deleted at
-        parent_of_series: Parent of series
       purchase_request:
         title: Title
         author: Author
@@ -1206,8 +1208,12 @@ en:
         id: ID
         note: Note
       series_statement_relationship:
-        parent_id: Parent
-        child_id: Child
+        seq: SEQ
+        before_series_statement_relationship: Before series statement relationship 
+        after_series_statement_relationship: After series statement relationship
+        before_series_statement_relationship_id: Before series statement relationship id
+        after_series_statement_relationship_id: After series statement relationship id
+        source: Source
       import_request:
         isbn: ISBN
         state: State
@@ -1474,6 +1480,15 @@ en:
         user: User
         body: Body
         created_at: Accept date
+      relationship_family:
+        display_name: Display name
+        description: Description
+        note: Note
+      series_statement_relationship_type:
+        display_name: Display name
+        typeid: TypeID
+        note: Note
+
   page:
     user_title: Welcome %{login_name}
     sign_in: Sign in
@@ -1697,7 +1712,8 @@ en:
     best_reader: best reader
     wait: Wait..
     extensions: Extensions
-    add_child: Add a child
+    edit_series_statement_relationship: Edit series statement relationship
+    relationship: Relationship
     access_logs: Access logs
     search_results: Search results (Book)
     search_article_results: Search results (Paper)
@@ -2782,4 +2798,8 @@ en:
   jpn_or_foreign:
     jpn: Japan
     foreign: Foreign
-    other: 未設定
+    other: unknown
+  series_statement_relationship:
+    not_necessary: " is not necessary"
+    failed_destroy: "failed destroy series statement relationship"
+    not_exist_series_statement: " is not exist"

@@ -8,7 +8,6 @@ class SeriesStatementsController < ApplicationController
   load_and_authorize_resource
   before_filter :get_work, :only => [:index, :new, :edit]
   before_filter :get_manifestation, :only => [:index, :new, :edit]
-  before_filter :get_parent_and_child, :only => [:index, :new, :edit]
   before_filter :prepare_options, :only => [:new, :edit]
   cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
   after_filter :solr_commit, :only => [:create, :update, :destroy]
@@ -33,18 +32,10 @@ class SeriesStatementsController < ApplicationController
 
     #work = @work
     manifestation = @manifestation
-    parent = @parent
-    child = @child
     unless params[:mode] == 'add'
       search.build do
       #  with(:work_id).equal_to work.id if work
-        with(:parent_ids).equal_to parent.id if parent
-        with(:child_ids).equal_to child.id if child
         with(:manifestation_ids).equal_to manifestation.id if manifestation
-      end
-    else
-      search.build do
-        without(:parent_ids, parent.id) if parent
       end
     end
     page = params[:page] || 1
@@ -89,7 +80,6 @@ class SeriesStatementsController < ApplicationController
     @series_statement = SeriesStatement.new
     @manifestation = @series_statement.root_manifestation
     @series_statement.root_manifestation = Manifestation.new
-    @series_statement.parent = @parent_series_statement if @parent_series_statement
 
     respond_to do |format|
       format.html # new.html.erb
@@ -100,7 +90,6 @@ class SeriesStatementsController < ApplicationController
   # GET /series_statements/1/edit
   def edit
     @series_statement.work = @work if @work
-    @series_statement.parent = @parent_series_statement if @parent_series_statement
     @series_statement.root_manifestation = Manifestation.new unless @series_statement.root_manifestation
     if @series_statement.root_manifestation
       manifestation = @series_statement.root_manifestation 
@@ -231,11 +220,6 @@ class SeriesStatementsController < ApplicationController
   end
 
   private
-  def get_parent_and_child
-    @parent = SeriesStatement.find(params[:parent_id]) if params[:parent_id]
-    @child = SeriesStatement.find(params[:child_id]) if params[:child_id]
-  end
-
   def prepare_options
     @carrier_types = CarrierType.all
     @manifestation_types = ManifestationType.where(:name => ['japanese_magazine', 'foreign_magazine', 'japanese_serial_book', 'foreign_serial_book'])
