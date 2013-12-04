@@ -110,7 +110,11 @@
       <%- if SystemConfiguration.get("manifestations.users_show_output_button") or (user_signed_in? and current_user.has_role?('Librarian')) -%>
         <%- if method == :get %>
           <%= submit_tag t('page.output_pdf', :model => t('page.search_result')), :name => 'output_pdf' -%>
-          <%= submit_tag t('page.output_tsv', :model => t('page.search_result')), :name => 'output_tsv'-%>
+          <% if SystemConfiguration.get("set_output_format_type") %>
+            <%= submit_tag t('page.output_tsv', :model => t('page.search_result')), :name => 'output_tsv'-%>
+          <% else %>
+            <%= submit_tag t('page.output_csv', :model => t('page.search_result')), :name => 'output_tsv'-%>
+          <% end %>
         <% else %>
           <!-- start hidden checkboxes for selecting excel columns -->
           <%- Manifestation::ALL_COLUMNS.each do |x| -%>

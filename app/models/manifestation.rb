@@ -1241,6 +1241,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def self.get_manifestation_list_tsv(manifestations, current_user)
+    split = SystemConfiguration.get("set_output_format_type") ? "\t" : ","
     data = String.new
     data << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
 
@@ -1256,7 +1257,7 @@ class Manifestation < ActiveRecord::Base
 
     # title column
     row = columns.map{|column| I18n.t(column[1])}
-    data << '"' + row.join("\"\t\"") +"\"\n"
+    data << '"' + row.join(%Q[\"#{split}\"]) +"\"\n"
 
     manifestations.each do |manifestation|
       row = []
@@ -1282,7 +1283,7 @@ class Manifestation < ActiveRecord::Base
           row << Reserve.waiting.where(:manifestation_id => manifestation.id, :checked_out_at => nil).count rescue 0
         end
       end
-      data << '"' + row.join("\"\t\"") +"\"\n"
+      data << '"' + row.join(%Q[\"#{split}\"]) +"\"\n"
     end
     return data
   end
