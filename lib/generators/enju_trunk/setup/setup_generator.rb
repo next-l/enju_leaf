@@ -20,6 +20,12 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'reserve', 'reserves'
 end
 EOS
+    append_to_file 'app/assets/javascripts/application.js', <<EOS
+//= require enju_trunk
+EOS
+    append_to_file 'app/assets/stylesheets/application.css', <<EOS
+ *= require enju_trunk
+EOS
     inject_into_file 'config/environments/development.rb',
       "  config.action_mailer.default_url_options = {:host => 'localhost:3000'}\n",
       :after => "::Application.configure do\n"
