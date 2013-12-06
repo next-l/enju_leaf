@@ -1,4 +1,5 @@
 require "enju_trunk/engine"
+require "enju_trunk/version"
 require "enju_trunk/string_strip_tag"
 require "enju_trunk/notification_sounds"
 require "enju_trunk/localized_name"
