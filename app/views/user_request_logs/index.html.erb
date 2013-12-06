@@ -1,0 +1,107 @@
+<script>
+  $(function(){
+    $('#created_at_start').setCalendar({src:'/assets/calendar.png'});
+    $('#created_at_end').setCalendar({src:'/assets/calendar.png'});
+    });
+
+    jQuery(document).ready(function() {
+      $(":reset").click(function() {
+        $(this.form).find(':input').each(function() {
+          switch (this.type) {
+            case 'password':
+            case 'select-multiple':
+            case 'select-one':
+            case 'text':
+            case 'textarea':
+            $(this).val('');
+            break;
+            case 'checkbox':
+            case 'radio':
+            this.checked = false;
+            break;
+            case 'hidden':
+            break;
+          }
+        });
+        return false;
+      });
+    });
+</script>
+
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.user_request_log')) %></h1>
+<div id="content_list">
+
+  <div>
+    <div style="float: left;">
+      <%= t('activerecord.attributes.user_request_log.search_note') -%>
+      <br />
+      <%= form_for :user_request_log, :url => user_request_logs_path, :html => {:method => 'get'} do -%>
+      <p>
+      <%= t('activerecord.attributes.user_request_log.user_id') -%>:
+      <%= text_field_tag 'user_id', params[:user_id] -%> 
+      <%= t('activerecord.attributes.user_request_log.controller') -%>:
+      <%= text_field_tag 'contoller_name', params[:controller_name] -%> 
+      </p>
+
+      <p>
+      <%= t('activerecord.attributes.user_request_log.action') -%>:
+      <%= text_field_tag 'action_name', params[:action_name] -%> 
+      <%= t('activerecord.attributes.user_request_log.remote_ip') -%>:
+      <%= text_field_tag 'remote_ip', params[:remote_ip], :placeholder => "192.168.0.20 or 172.27.0%" -%> 
+      </p>
+
+      <p>
+      <%= t('activerecord.attributes.user_request_log.created_at') -%>:
+      <%= text_field_tag 'created_at_start', params[:created_at_start], :placeholder => "2013-02-20 or 2013-02-22 03:40:10" -%> 
+      〜
+      <%= text_field_tag 'created_at_end', params[:created_at_end], :placeholder => "2013-02-20 or 2013-02-22 03:40:10" -%> 
+      </p>
+ 
+      <%= submit_tag t('page.search') -%> &nbsp; <%= button_tag t('page.reset'), :type => 'reset' %> <br />
+      <%- end -%>
+      <p>
+      <%= t('activerecord.attributes.user_request_log.created_sort_note') -%>:
+      <%- if params[:order] == 'asc' -%>
+        <strong><%= t('page.asc') -%></strong>
+        <%= link_to t('page.desc'), params.merge(:order => 'desc') -%>
+      <%- else -%>
+        <%= link_to t('page.asc'), params.merge(:order => 'asc') -%>
+        <strong><%= t('page.desc') -%></strong>
+      <%- end -%>
+      </p>
+    </div>
+  </div>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.user_request_log.user_id') %></th>
+    <th><%= t('activerecord.attributes.user_request_log.controller') %></th>
+    <th><%= t('activerecord.attributes.user_request_log.action') %></th>
+    <th><%= t('activerecord.attributes.user_request_log.remote_ip') %></th>
+    <th><%= t('activerecord.attributes.user_request_log.created_at') %></th>
+    <%- if current_user.has_role?('Librarian') -%>
+    <th>&nbsp;</th>
+    <%- end -%>
+  </tr>
+
+<% @user_request_logs.each do |user_request_log| %>
+  <tr class="line<%= cycle("0", "1") %>">
+    <td><%= user_request_log.user_id %></td>
+    <td><%= user_request_log.controller %></td>
+    <td><%= user_request_log.action %></td>
+    <td><%= user_request_log.remote_ip %></td>
+    <td><%=l user_request_log.created_at %></td>
+    <%- if current_user.has_role?('Librarian') -%>
+    <td><%= link_to t('page.detail'), user_request_log %></td>
+    <%- end -%>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate(@user_request_logs) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+</div>

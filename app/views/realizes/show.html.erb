@@ -1,0 +1,24 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.realize')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.patron') -%>:</strong>
+  <%= link_to @realize.patron.full_name, @realize.patron -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.expression') -%>:</strong>
+  <%= link_to @realize.expression.original_title, @realize.expression -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back_to', :model => t('activerecord.models.patron')), expression_patrons_path(@realize.expression) -%></li>
+    <li><%= link_to t('page.back_to', :model => t('activerecord.models.expression')), contributor_manifestations_path(@realize.patron) -%></li>
+  </ul>
+</div>

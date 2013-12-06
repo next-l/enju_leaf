@@ -1,0 +1,26 @@
+<%- cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'title', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
+  <h2 class="resource_title">
+    [M]
+    <%= link_to manifestation.original_title, manifestation -%>
+    <%= link_to form_icon(manifestation.carrier_type), manifestation -%>
+  </h2>
+  <p>
+    <%- unless manifestation.creators.readable_by(current_user).empty? -%>
+      <%= t('patron.creator') -%>: <%= patrons_list(manifestation.creators.readable_by(current_user)) -%>
+    <%- end -%>
+    <%- unless manifestation.contributors.readable_by(current_user).empty? -%>
+      <%= t('patron.contributor') -%>: <%= patrons_list(manifestation.contributors.readable_by(current_user)) -%>
+    <%- end -%>
+    <%- unless manifestation.publishers.readable_by(current_user).empty? -%>
+      <%= t('patron.publisher') -%>: <%= patrons_list(manifestation.publishers.readable_by(current_user)) -%>
+    <% end %>
+    <%- if manifestation.pub_date.present? -%>
+      (<%= manifestation.pub_date -%>)
+    <%- end -%>
+    <%- unless manifestation.access_address.blank? -%>
+      <br />
+      <%= link_to manifestation.access_address, manifestation.access_address -%>
+      <%= link_to image_tag('icons/world_go.png', :size => '16x16', :alt => ('Web')), manifestation.access_address -%>
+    <%- end -%>
+  </p>
+<% end %>

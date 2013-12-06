@@ -1,5 +1,5 @@
 class CreateSearchHistories < ActiveRecord::Migration
-  def change
+  def self.up
     create_table :search_histories do |t|
       t.integer :user_id
       t.string :operation, :default => 'searchRetrieve'
@@ -23,5 +23,9 @@ class CreateSearchHistories < ActiveRecord::Migration
       t.timestamps
     end
     add_index :search_histories, :user_id
+  end
+
+  def self.down
+    drop_table :search_histories
   end
 end

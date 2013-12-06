@@ -1,0 +1,70 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.picture_file')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('page.attachable') -%>:</strong>
+  <%= link_to h("#{(@picture_file.picture_attachable_type)}/#{(@picture_file.picture_attachable_id)}"), @picture_file.picture_attachable if @picture_file.picture_attachable_type? -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.picture_file.picture_file_size') -%>:</strong>
+  <%= @picture_file.picture_file_size -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.picture_file.picture_content_type') -%>:</strong>
+  <%= @picture_file.picture_content_type -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.picture_file.picture_file_name') -%>:</strong>
+  <%= link_to @picture_file.picture_file_name, picture_file_path(@picture_file, :format => :download, :size => 'original') -%><br />
+  <%= render 'picture_files/link', :picture_file => @picture_file %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.picture_file.width') -%>:</strong>
+  <%= @picture_file.width -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.picture_file.height') -%>:</strong>
+  <%= @picture_file.height -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.picture_file.file_hash') -%>:</strong>
+  <%= @picture_file.file_hash -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.picture_file.picture_updated_at') -%>:</strong>
+  <%= l(@picture_file.picture_updated_at) if @picture_file.picture_updated_at -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_picture_file_path(@picture_file) -%></li>
+    <% if @picture_file.picture_attachable_type? %>
+      <%- case -%>
+      <%- when @picture_file.picture_attachable.is_a?(Shelf) -%>
+        <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), shelf_picture_files_path(@picture_file.picture_attachable) -%></li>
+      <%- when @picture_file.picture_attachable.is_a?(Manifestation) -%>
+        <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), manifestation_picture_files_path(@picture_file.picture_attachable) -%></li>
+      <%- when @picture_file.picture_attachable.is_a?(Patron) -%>
+        <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), patron_picture_files_path(@picture_file.picture_attachable) -%></li>
+      <%- when @picture_file.picture_attachable.is_a?(Event) -%>
+        <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), event_picture_files_path(@picture_file.picture_attachable) -%></li>
+      <%- else -%>
+        <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), picture_files_path -%></li>
+      <%- end -%>
+    <% else %>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), picture_files_path -%></li>
+    <% end %>
+  </ul>
+</div>

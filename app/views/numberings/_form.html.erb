@@ -1,0 +1,46 @@
+<%= form_for(@numbering) do |f| %>
+  <%= f.error_messages %>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name -%>
+  </div>
+  <div class="field">
+    <%= f.label :display_name %><br />
+    <%= f.text_field :display_name -%>
+  </div>
+ <div class="field">
+    <%= f.label :prefix %><br />
+    <%= f.text_field :prefix -%>
+  </div>
+ <div class="field">
+    <%= f.label :suffix %><br />
+    <%= f.text_field :suffix -%>
+  </div>
+ <div class="field">
+    <%= f.label :padding %><br />
+    <%= f.check_box :padding -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :padding_number %><br />
+    <%= f.text_field :padding_number -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :padding_character %><br />
+    <%= f.text_field :padding_character -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :checkdigit %><br />
+    <%= f.text_field :checkdigit -%>
+  </div>
+  <div class="field">
+    <%= f.label :last_number %><br />
+    <%= f.text_field :last_number -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit :disable_with => t('page.wait') %>
+  </div>
+<% end %>

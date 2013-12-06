@@ -1,0 +1,55 @@
+<div id="content_detail" class="ui-corner-all">
+  <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.picture_file')) -%></h1>
+<div id="content_list">
+
+<h2 class="resource_title">
+  [M] <%= link_to manifestation.original_title, manifestation -%>
+</h2>
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('page.attachable') -%></th>
+    <th><%= t('activerecord.attributes.picture_file.picture_file_size') -%></th>
+    <th><%= t('activerecord.attributes.picture_file.picture_content_type') -%></th>
+    <th><%= t('activerecord.attributes.picture_file.picture_file_name') -%></th>
+    <th></th>
+  </tr>
+  <%- @picture_files.each do |picture_file| -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td>
+        <%- if can? :update, picture_file -%>
+          <%= move_position(picture_file) -%>
+        <%- end -%>
+      </td>
+      <td>
+        <%= link_to "#{h(picture_file.picture_attachable_type)}/#{h(picture_file.picture_attachable_id)}", picture_file.picture_attachable if picture_file.picture_attachable -%>
+      </td>
+      <td><%= picture_file.picture_file_size -%></td>
+      <td><%= picture_file.picture_content_type -%></td>
+      <td><%= link_to picture_file.picture_file_name, picture_file_path(picture_file, :format => :download, :size => 'original') -%></td>
+      <td>
+        <%= link_to t('page.show'), picture_file -%>
+        <%- if can? :update, picture_file -%>
+          <%= link_to t('page.edit'), edit_picture_file_path(picture_file) -%>
+        <% end %>
+        <%- if can? :destroy, picture_file -%>
+          <%= link_to t('page.destroy'), picture_file, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%- end -%>
+      </td>
+    </tr>
+  <%- end -%>
+</table>
+
+<%= paginate(@picture_files) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <%- if can? :create, PictureFile -%>
+    <ul>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.picture_file')), new_manifestation_picture_file_path(manifestation) -%></li>
+      <li><%= link_to t('picture_file.all_picture'), picture_files_path -%></li>
+    </ul>
+  <%- end -%>
+</div>

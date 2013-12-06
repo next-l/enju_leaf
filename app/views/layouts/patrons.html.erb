@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @locale.to_s -%>" lang="<%= @locale.to_s -%>">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= title(controller.controller_name) %></title>
+  <%= render 'page/include' %>
+  <%- if controller.action_name == 'index' -%>
+    <%= auto_discovery_link_tag(:rss, url_for(params.merge(:format => 'rss', :page => nil, :commit => nil)), :title => (t('patron.library_group_patron', :library_group_name => @library_group.display_name.localize) + " (RSS)")) %>
+    <%= auto_discovery_link_tag(:atom, url_for(params.merge(:format => 'atom', :page => nil, :commit => nil)), :title => (t('patron.library_group_patron', :library_group_name => @library_group.display_name.localize) + " (Atom)")) %>
+  <%- end -%>
+</head>
+<body>
+<script>
+  $(document).ready(function(){
+    $('#patron_birth_date').setCalendar({src:'/assets/calendar.png'});
+    $('#patron_death_date').setCalendar({src:'/assets/calendar.png'});
+
+    if ($("#errorExplanation").length > 0)
+       playSound('<%= root_path -%><%= SystemConfiguration.get("sounds.basedir") %><%= SystemConfiguration.get("sounds.errors.default") %>');
+  });
+</script>
+<%= render 'page/header' %>
+
+<%- unless session[:breadcrumbs].nil? || session[:breadcrumbs].empty? -%>
+  <div id="breadcrumb">
+    <% session[:breadcrumbs].to_a[0..-2].each do |txt, url| %>
+      <%= link_to(txt, url) %> >
+    <% end %>
+    <%= h(session[:breadcrumbs].to_a.last.first) if session[:breadcrumbs].to_a.last%>
+  </div>
+<%- end -%>
+
+
+<%= render 'page/menu' %>
+
+<div id="content">
+
+<%= yield %>
+
+</div>
+
+<%= render 'page/function_general' %>
+<%= render 'page/footer' %>
+
+</body>
+</html>

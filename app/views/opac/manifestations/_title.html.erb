@@ -1,0 +1,16 @@
+<div class="opac_list_title">
+  <%= manifestation.original_title %>
+</div>
+<% unless manifestation.creators.readable_by(current_user).empty? and manifestation.publishers.readable_by(current_user).empty? %>
+  <div class="opac_list_sub">
+    <% unless manifestation.creators.readable_by(current_user).empty? %>
+      <%= t('patron.creator')%>:
+      <%= patrons_short_list(manifestation.creators.readable_by(current_user), { :nolink => 'true' }) %>
+      &nbsp;&nbsp;
+    <% end %>
+    <% unless manifestation.publishers.readable_by(current_user).empty? %>
+      <%= t('patron.publisher') %>: 
+      <%= patrons_short_list(manifestation.publishers.readable_by(current_user), { :nolink => 'true' }) %>
+    <% end %>
+  </div>
+<% end %>

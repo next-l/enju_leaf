@@ -1,0 +1,17 @@
+  <a tabindex="3" href="#event_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all <%= tab_menu_width %>" id="fg_event">
+    <span class="ui-icon ui-icon-triangle-1-s"></span><%= t('activerecord.models.event') -%>
+  </a>
+  <div id="event_menu" class="hidden">
+    <%- unless @library_group.real_libraries.empty? -%>
+      <ul>
+        <li><%= link_to t('page.calendar'), calendar_path -%></li>
+        <li><%= link_to t('event.all'), events_path -%></li>
+        <%- @library_group.real_libraries.each do |library| -%>
+          <li><%= link_to library.display_name.localize, library_events_path(library) -%></li>
+        <%- end -%>
+        <%- if can? :create, Event -%>
+          <li><%= link_to t('page.import'), new_event_import_file_path -%></li>
+        <%- end -%>
+      </ul>
+    <%- end -%>
+  </div>

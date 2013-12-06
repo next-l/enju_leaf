@@ -1,5 +1,5 @@
 class CreateLibraryGroups < ActiveRecord::Migration
-  def change
+  def self.up
     create_table :library_groups do |t|
       t.string :name, :null => false
       t.text :display_name
@@ -11,10 +11,15 @@ class CreateLibraryGroups < ActiveRecord::Migration
       t.text :login_banner
       t.text :note
       t.integer :valid_period_for_new_user, :default => 365, :null => false
+      t.boolean :post_to_union_catalog, :default => false, :null => false
       t.integer :country_id
 
       t.timestamps
     end
     add_index :library_groups, :short_name
+  end
+
+  def self.down
+    drop_table :library_groups
   end
 end

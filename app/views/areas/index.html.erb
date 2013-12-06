@@ -1,0 +1,49 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.area')) -%></h1>
+<div id="content_list">
+<div style="color: green"><%= flash[:message] -%></div>
+
+<%= form_for :areas, :url => areas_path, :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+    <%= submit_tag t('page.search') -%>
+  </p>
+<%- end -%>
+
+<table class="index">
+  <tr>
+    <th style="width: 30px"><%= 'Id' -%></th>
+    <th><%= t('activerecord.attributes.area.name') -%></th>
+    <th><%= t('activerecord.attributes.area.address') -%></th>
+    <th id="edit_icons"></th>
+  </tr>
+<%- @areas.each do |area| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to area.id, area -%></td>
+    <td><%= link_to area.name, area -%></td>
+    <td><%= area.address -%></td>
+    <td>
+      <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_area_path(area) -%>
+      <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')), area, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<br />
+<%= paginate(@areas) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.area')), new_area_path -%></li>
+  </ul>
+  <div id="iconmenu" class="ui-corner-all">
+    <strong><%= t('tooltip.icons_info') -%></strong>
+    <ul>
+      <li><%= image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')) -%>:&nbsp;<%=t('page.edit')-%></li>
+      <li><%= image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')) -%>:&nbsp;<%=t('page.destroy')-%></li>
+    </ul>
+  </div>
+</div>

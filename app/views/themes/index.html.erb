@@ -1,0 +1,59 @@
+<div id="content_detail" class="ui-corner-all">
+
+  <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.theme')) -%></h1>
+  <div id="content_list">
+
+  <%= form_for :themes, :url => themes_path, :html => {:method => 'get'} do -%>
+    <p>
+      <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+      <%= submit_tag t('page.search') -%>
+    </p>
+  <%- end -%>
+
+    <table class="index">
+      <tr>
+        <%- if can? :edit, Theme -%>
+          <th id="position"></th>
+        <%- end -%>
+        <th><%= t('activerecord.attributes.theme.name') -%></th>
+        <%- if can? :edit, Theme -%>
+          <th><%= t('activerecord.attributes.theme.publish') -%></th>
+        <%- end -%>
+        <th><%= t('activerecord.attributes.theme.description') -%></th>
+        <%- if can? :manege, Theme -%>
+          <th></th>
+        <%- end -%>
+      </tr>
+      
+      <% @themes.each do |theme| %>
+      <tr class="line<%= cycle("0", "1") -%>">
+        <%- if can? :edit, Theme -%>
+          <td><%= move_position(theme) -%></td>
+        <%- end -%>
+        <td><%= link_to theme.name, theme %></td> 
+        <%- if can? :edit, Theme -%>
+          <td><%= i18n_publish(theme.publish) %></td>
+        <%- end -%>
+        <td><%= theme.description %></td>
+        <%- if can? :edit, Theme -%>
+          <td>
+            <%= link_to t('page.edit'), edit_theme_path(theme) %>
+            <%= link_to t('page.destroy'), theme, method: :delete, data: { confirm: t('page.are_you_sure') } %>
+          </td>
+        <%- end -%>
+      </tr>
+      <% end %>
+    </table>
+
+  <br />
+  <%= paginate(@themes) -%>
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if can? :create, Theme -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.theme')), new_theme_path %></li> 
+    <%- end -%>
+  </ul>
+</div>

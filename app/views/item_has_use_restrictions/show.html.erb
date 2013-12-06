@@ -1,0 +1,29 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.item_has_use_restriction')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.item') -%>:</strong>
+  <%= link_to @item_has_use_restriction.item.item_identifier, @item_has_use_restriction.item -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.item.item_identifier') -%>:</strong>
+  <%= link_to @item_has_use_restriction.item.item_identifier, @item_has_use_restriction.item -%> (<%= link_to @item_has_use_restriction.item.manifestation.original_title, @item_has_use_restriction.item.manifestation -%>)
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.use_restriction') -%>:</strong>
+  <%= link_to @item_has_use_restriction.use_restriction.display_name.localize, @item_has_use_restriction.use_restriction -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_item_has_use_restriction_path(@item_has_use_restriction) -%></li>
+    <li><%= link_to t('page.back'), item_has_use_restrictions_path -%></li>
+  </ul>
+</div>

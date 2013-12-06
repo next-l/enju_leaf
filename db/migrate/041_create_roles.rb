@@ -1,5 +1,5 @@
 class CreateRoles < ActiveRecord::Migration
-  def change
+  def self.up
     create_table "roles" do |t|
       t.column :name, :string, :null => false
       t.column :display_name, :string
@@ -9,5 +9,9 @@ class CreateRoles < ActiveRecord::Migration
       t.integer :score, :default => 0, :null => false
       t.integer :position
     end
+  end
+
+  def self.down
+    drop_table "roles"
   end
 end

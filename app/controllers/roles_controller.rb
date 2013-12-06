@@ -1,5 +1,7 @@
 class RolesController < ApplicationController
+  before_filter :check_client_ip_address
   load_and_authorize_resource
+  cache_sweeper :page_sweeper, :only => :update
 
   # GET /roles
   # GET /roles.json
@@ -26,8 +28,9 @@ class RolesController < ApplicationController
   # PUT /roles/1
   # PUT /roles/1.json
   def update
-    if params[:move]
-      move_position(@role, params[:move])
+    if params[:position]
+      @role.insert_at(params[:position])
+      redirect_to roles_url
       return
     end
 

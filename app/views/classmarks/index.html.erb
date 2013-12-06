@@ -1,0 +1,45 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.classmark')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.classmark.name') -%></th>
+    <th><%= t('activerecord.attributes.classmark.display_name') -%></th>
+    <th id="edit_icons"></th>
+  </tr>
+
+<%- @classmarks.each_with_index do |classmark, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to classmark.name, classmark -%> </td>
+    <td><%= classmark.display_name -%></td>
+    <td>
+      <%- if can? :update, classmark -%>
+        <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_classmark_path(classmark) -%>
+      <% end %>
+      <%- if can? :destroy, classmark -%>
+        <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')), classmark, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@classmarks) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <%- if can? :create, Classmark -%>
+    <ul>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.classmark')), new_classmark_path -%></li>
+    </ul>
+    <div id="iconmenu" class="ui-corner-all">
+      <strong><%= t('tooltip.icons_info') -%></strong>
+      <ul>
+        <li><%= image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')) -%>:&nbsp;<%=t('page.edit')-%></li>
+        <li><%= image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')) -%>:&nbsp;<%=t('page.destroy')-%></li>
+      </ul>
+    </div>
+  <%- end -%>
+</div>

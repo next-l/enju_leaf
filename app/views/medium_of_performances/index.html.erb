@@ -1,0 +1,44 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.medium_of_performance')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.medium_of_performance.name') -%></th>
+    <th><%= t('activerecord.attributes.medium_of_performance.display_name') -%></th>
+    <th><%= t('activerecord.attributes.medium_of_performance.note') -%></th>
+    <th></th>
+  </tr>
+
+<%- @medium_of_performances.each do |medium_of_performance| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :update, medium_of_performance -%>
+        <%= move_position(medium_of_performance) -%>
+      <%- end -%>
+    </td>
+    <td><%= link_to medium_of_performance.name, medium_of_performance -%></td>
+    <td><%= link_to medium_of_performance.display_name.localize, medium_of_performance -%></td>
+    <td><%= medium_of_performance.note -%></td>
+    <td>
+      <%- if can? :update, medium_of_performance -%>
+        <%= link_to t('page.edit'), edit_medium_of_performance_path(medium_of_performance) -%>
+      <% end %>
+      <%- if can? :destroy, medium_of_performance -%>
+        <%= link_to t('page.destroy'), medium_of_performance, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@medium_of_performances) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.medium_of_performance')), new_medium_of_performance_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,81 @@
+            <tr id="tr_basket_<%=manifestation.id%>" class="line<% unless not_rent_book?(manifestation) %><%= cycle("0", "1") %><% else %>2<% end%>">
+              <td style="480px">
+               <%- if manifestation.article? %>
+                  <%= render 'manifestations/show_index_article', :manifestation => manifestation -%>
+                <%- else -%>
+                  <%= render 'manifestations/show_index', :manifestation => manifestation -%>
+                <%- end -%>
+                <% unless SystemConfiguration.isWebOPAC %> 
+                  <div class="access_address">
+                    <%= link_to manifestation.access_address, manifestation.access_address if manifestation.access_address.present? -%>
+                  </div>
+                <%- end -%>
+              <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'show_list', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
+                <%- unless manifestation.periodical_master? or manifestation.items.empty? -%>
+                  (<%= link_to_function t('page.holding'), "$('#holding_#{manifestation.id}').toggle()" -%>)
+                <%- end -%>
+                <% if user_signed_in? and current_user.has_role?('Librarian') %>
+                  <% unless manifestation.note.blank? %>
+                    (<%= link_to_function t('activerecord.attributes.manifestation.note'), "$('#note_#{manifestation.id}').toggle()" %>)
+                  <% end %>
+                <% end %>
+                <%- if manifestation.original_manifestations.first or manifestation.derived_manifestations.first -%>
+                  <%= link_to t('page.has_relationships'), manifestation, :itemprop => 'name' -%>
+                <%- end -%>
+                <% if defined?(EnjuBookmark) %>
+                  <%- if manifestation.tags.first -%>
+                    (<%= link_to_function t('activerecord.models.tag'), "$('#tag_#{manifestation.id}').toggle()" -%>)
+                  <%- end -%>
+                  <%= render 'manifestations/show_tag', :manifestation => manifestation -%>
+                <% end %>
+                <%= render 'manifestations/holding', :manifestation => manifestation -%>
+                <%# グループ表示の部分テンプレート %>
+                <%= render 'manifestations/show_group', :manifestation => manifestation -%>
+                <%= render 'manifestations/show_note', :manifestation => manifestation -%>
+              <% end %>
+              </td>
+              <%- if user_signed_in? -%>
+                <td style="white-space:nowrap;">
+                  <% if manifestation.reservable? && Setting.operation %>
+                    <%- if reserve = manifestation.is_reserved_by(@reserve_user) -%>
+                      <%= link_to t('reserve.show'), user_reserve_path(reserve.user, reserve) -%><br />
+                    <%- else -%>
+                      <%- if @reserve_user.try(:user_number?) -%>
+                        <%- if manifestation.reservable_with_item?(current_user) -%>
+                          <%= link_to t('activerecord.models.reserve'), new_user_reserve_path(@reserve_user, :manifestation_id => manifestation.id) -%><br />
+                        <%- end -%> 
+                      <%- end -%>
+                    <%- end -%>
+                    (<%= t('page.number_of_reservations', :count => Reserve.reserves_count(manifestation)) -%>)
+                  <%- end -%>
+                </td>
+                <td id="edit_icons" style="white-space:nowrap;">
+                  <%- if can? :update, manifestation -%>
+                    <% if manifestation.periodical_master %>
+                      <%= link_to image_tag('icons/book_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_series_statement_path(manifestation.series_statement) -%>
+                    <% else %>
+                      <%= link_to image_tag('icons/book_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_manifestation_path(manifestation) -%>
+                      <% case %>
+                      <% when @index_patron[:creator] %>
+                        <%= link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add_derivation')), new_patron_create_path(@index_patron[:creator], :work_id => manifestation.id) unless manifestation.creators.include?(@index_patron[:creator]) -%>
+                      <% when @index_patron[:contributor] %>
+                        <%= link_to link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add_derivation')), new_patron_realize_path(@index_patron[:contributor], :expression_id => manifestation.id) unless manifestation.contributors.include?(@index_patron[:contributor]) -%>
+                      <% when @index_patron[:publisher] %>
+                        <%= link_to link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add_derivation')), new_patron_produce_path(@index_patron[:publisher], :manifestation_id => manifestation.id) unless manifestation.publishers.include?(@index_patron[:publisher]) -%>
+                      <% when @series_statement %>
+                        <%= link_to link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add')), edit_series_statement_manifestation_path(@series_statement, manifestation) -%>
+                      <% when @manifestation %>
+                        <%= link_to link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('page.add'), :title => t('tooltip.add_derivation')), new_manifestation_manifestation_relationship_path(@manifestation, :child_id => manifestation.id) unless @manifestation.derived_manifestations.include?(manifestation) or @manifestation == manifestation -%>
+                      <% else %>
+                        <%= link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('manifestation.add_derivation'), :title => t('tooltip.add_derivation')), manifestation_manifestations_path(manifestation, :mode => 'add') -%>
+                      <% end %>
+                    <% end %>
+                  <%- end -%>
+                  <% unless manifestation.periodical_master %>
+                    <div id="basket_<%=manifestation.id%>">
+                      <%= render 'checked_manifestations/new', :manifestation => manifestation %>
+                    </div>
+                  <% end %>
+                </td>
+              <%- end -%>
+            </tr>

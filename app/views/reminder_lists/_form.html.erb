@@ -1,0 +1,25 @@
+<%= form_for(@reminder_list) do |f| %>
+  <%= f.error_messages %>
+  <div style="color: red"><%= raw flash[:message] -%></div>
+
+  <div class="field">
+    <%= f.label :item_identifier -%><br />
+    <%- if @reminder_list.checkout_id -%>
+      <%= @reminder_list.checkout.item.item_identifier rescue "" %>
+      </div>
+      <div class="field">
+      <%= f.label :checkout_id -%><br />
+      <%= @reminder_list.checkout_id -%>
+    <%- else -%>
+      <%= f.text_field :item_identifier -%>
+    <%- end -%>
+  </div>
+  <div class="field">
+    <%= f.label :status -%><br />
+    <%= f.select(:status, @reminder_list_statuses.collect{|r| [r[:display_name], r[:id]]}) -%>
+  </div>
+  <br />
+  <div class="actions">
+      <%= f.submit %>
+  </div>
+<%- end -%>

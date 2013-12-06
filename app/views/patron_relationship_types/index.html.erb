@@ -1,0 +1,43 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.patron_relationship_type')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.patron_relationship_type.name') -%></th>
+    <th><%= t('activerecord.attributes.patron_relationship_type.display_name') -%></th>
+    <th><%= t('activerecord.attributes.patron_relationship_type.note') -%></th>
+    <th></th>
+  </tr>
+
+<%- @patron_relationship_types.each do |patron_relationship_type| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :update, patron_relationship_type -%>
+        <%= move_position(patron_relationship_type) -%>
+      <%- end -%>
+    </td>
+    <td><%= link_to patron_relationship_type.name, patron_relationship_type -%></td>
+    <td><%= link_to patron_relationship_type.display_name.localize, patron_relationship_type -%></td>
+    <td><%= patron_relationship_type.note -%></td>
+    <td>
+      <%- if can? :update, patron_relationship_type -%>
+        <%= link_to t('page.edit'), edit_patron_relationship_type_path(patron_relationship_type) -%>
+      <% end %>
+      <%- if can? :destroy, patron_relationship_type -%>
+        <%= link_to t('page.destroy'), patron_relationship_type, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <% end %>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.patron_relationship_type')), new_patron_relationship_type_path -%></li>
+  </ul>
+</div>

@@ -1,18 +1,16 @@
-<%= @user.patron.full_name -%> さん
+<%=h @user.patron.full_name -%> さん
 
-資料名: <%= @manifestation.original_title %>
-著者: <%= @manifestation.creators.readable_by(@user).collect(&:full_name).join("/") %>
-編者: <%= @manifestation.contributors.readable_by(@user).collect(&:full_name).join("/") %> 
-出版者: <%= @manifestation.publishers.readable_by(@user).collect(&:full_name).join("/") %>
-ISBN: <%= @manifestation.isbn %>
-URL: <%= @manifestation.access_address %>
+資料名: <%=h @manifestation.original_title %>
+著者: <%=h @manifestation.creators.readable_by(@user).collect(&:full_name).join("/") %>
+編者: <%=h @manifestation.contributors.readable_by(@user).collect(&:full_name).join("/") %> 
+出版者: <%=h @manifestation.publishers.readable_by(@user).collect(&:full_name).join("/") %>
+ISBN: <%=h @manifestation.isbn %>
+URL: <%=h @manifestation.access_address %>
 所蔵場所:
 <% @manifestation.items.on_shelf.each do |item| -%>
- <%= item.shelf_display_name.localize %> <%= item.call_number %> <%= item.item_identifier %>
+ <%=h item.shelf_display_name.localize %> <%=h call_numberformat(item) %> <%=h item.item_identifier %>
 <% end -%>
 
-<%= "#{LibraryGroup.site_config.url}manifestations/#{@manifestation.id}" %>
-
 -- 
-<%= LibraryGroup.system_name(@user.locale) %>
-<%= LibraryGroup.site_config.url %>
+<%=h LibraryGroup.system_name(@user.locale) %>
+<%=h LibraryGroup.site_config.url %>

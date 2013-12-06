@@ -1,5 +1,12 @@
 class Notifier < ActionMailer::Base
-  include Resque::Mailer
+  if LibraryGroup.site_config.try(:url)
+    uri = Addressable::URI.parse(LibraryGroup.site_config.url)
+    default_url_options[:host] = uri.host
+    default_url_options[:port] = uri.port if Setting.enju.web_port_number != 80
+  else
+    default_url_options[:host] = Setting.enju.web_hostname
+    default_url_options[:port] = Setting.enju.web_port_number if Setting.enju.web_port_number != 80
+  end
 
   def message_notification(message_id)
     message = Message.find(message_id)
@@ -20,9 +27,7 @@ class Notifier < ActionMailer::Base
     mail(:from => from, :to => message.receiver.email, :subject => subject)
   end
 
-  def manifestation_info(user_id, manifestation_id)
-    user = User.find(user_id)
-    manifestation = Manifestation.find(manifestation_id)
+  def manifestation_info(user, manifestation)
     from = "#{LibraryGroup.system_name(user.locale)} <#{LibraryGroup.site_config.email}>"
     subject = "#{manifestation.original_title} : #{LibraryGroup.system_name(user.locale)}"
     @user = user

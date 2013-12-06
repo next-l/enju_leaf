@@ -1,0 +1,105 @@
+<% if manifestation.isbn %>
+  <%= google_book_search_preview(manifestation.isbn) %>
+<% end %>
+<table id="opac_detail_table">
+  <%= embed_content(manifestation) -%>
+  <% if manifestation.series_statement %>
+    <tr>
+      <td style="width: 200px"><%= t('manifestation.serial') -%>:</td>
+      <td style="width: 490px"><%= manifestation.series_statement.original_title %>
+      <% if manifestation.series_statement.last_issues.include?(manifestation) %>
+        <%= t('manifestation.new_serial') %>
+      <% end %>
+      <% if manifestation.issn.present? %>
+        (<%= t('activerecord.attributes.manifestation.issn') %>: <%= manifestation.issn %>)
+      <% end %>
+      </td>
+    </tr>
+  <% end %>
+  <tr>
+    <td><%= t('page.number') %>:</td>
+    <td>
+      <% if manifestation.edition? %>
+        <%= t('activerecord.attributes.manifestation.edition') %>: <%= manifestation.edition %>
+      <% end %>
+      <% unless manifestation.volume_number_string.blank? %>
+        <%= t('activerecord.attributes.manifestation.volume_number_string') %>: <%= manifestation.volume_number_string %>
+      <% end %>
+      <% if manifestation.series_statement %>
+        <% unless manifestation.issue_number_string.blank? %>
+          <%= t('manifestation.issue_number') %>: <%= manifestation.issue_number_string %>
+        <% end %>
+        <% unless manifestation.serial_number_string.blank? %>
+          <%= t('manifestation.serial_number') %>: <%= manifestation.serial_number_string %>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td style="width: 200px"><%= t('page.form') %>:</td>
+    <td style="width: 500px">
+      <%= form_icon(manifestation.carrier_type) %> <%= manifestation.carrier_type.display_name.localize %>
+    </td>
+  </tr>
+  <tr>
+    <td><%= t('activerecord.models.language') %>:</td>
+    <td><span itemprop="inLanguage"><%= manifestation.language.display_name.localize %></span></td>
+  </tr>
+  <tr>
+    <td><%= t('manifestation.physical_description') %>:</td>
+    <td>
+      <% if manifestation.number_of_pages %>
+        <span itemprop="numPages"><%= manifestation.number_of_pages %></span> p.
+        (<%= manifestation.start_page %> - <%= manifestation.end_page %>)
+      <% end %>
+      <!-- TODO: センチメートル以外の単位 -->
+      <% if manifestation.height %>
+        <%= manifestation.height %> cm.
+      <% end %>
+    </td>
+  </tr>
+  <% if manifestation.price.present? %>
+    <tr>
+      <td><%= t('activerecord.attributes.manifestation.price') %></td>
+      <td><%= manifestation.price %></td>
+    </tr>
+  <% end %>
+  <% unless manifestation.subjects.empty? %>
+    <tr>
+      <td><%= t('activerecord.models.subject') %>:</td>
+      <td>
+        <% manifestation.subjects.each do |subject| %>
+          <%= subject.term %>
+        <% end %>
+      </td>
+  </tr>
+  <% end %>
+  <% unless manifestation.serial? %>
+    <tr>
+      <td><%= t('page.identifier') %>:</td>
+      <td>
+        <% if manifestation.isbn.present? %>
+          ISBN: <span itemprop="isbn"><%= manifestation.isbn %></span>
+          <% if manifestation.isbn10.present? %>
+            ( <%= manifestation.isbn10 %> )
+          <% end %>
+        <% end %>
+        <% if manifestation.nbn.present? %>
+          NBN: <%= manifestation.nbn %>
+        <% end %>
+        <% if manifestation.lccn.present? %>
+          <br />
+          LCCN: <%= manifestation.lccn %>
+        <% end %>
+        <% if manifestation.ndc.present? %>
+          <br />
+          NDC: <%= manifestation.ndc %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  <tr>
+    <td><%= t('manifestation.date_of_acquisition') %>:</td>
+    <td><%=l manifestation.created_at if manifestation.created_at %></td>
+  </tr>
+</table>

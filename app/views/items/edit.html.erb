@@ -1,0 +1,17 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.item')) -%></h1>
+<div id="content_list">
+  <%= render 'form' %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <%= render 'manifestations/book_jacket', :manifestation => @item.manifestation -%>
+  <ul>
+    <li><%= link_to t('page.show'), @item -%></li>
+    <% if can? :destroy, @item %>
+      <li><%= link_to t('page.destroy'), @item, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+    <% end %>
+    <li><%= link_to t('page.back'), manifestation_items_path(@item.manifestation) -%></li>
+  </ul>
+</div>

@@ -1,0 +1,40 @@
+<script>
+jQuery(function(){
+  new AutoKana('series_statement_original_title', 'series_statement_title_transcription', { katakana:true, toggle:false })
+
+  // Shows the default spinner
+  $("input[type=submit]").click(function(){
+    $(".spinner").spin();
+  });
+ 
+  if ("<%= @series_statement.periodical%>" != "" || "<%= @series_statement.periodical%>" != "false") {
+    if ("<%= @series_statement.periodical%>" == "true") {
+      $("#series_statement_periodical").attr('checked', true);
+      $("#root_manifestation_field").show();
+    } else {
+      $("#series_statement_periodical").attr('checked', false);
+      $("#root_manifestation_field").hide();
+    }
+  }
+
+  $("#series_statement_periodical").click(function() {
+    if ($("#series_statement_periodical").is(':checked')) {
+      $("#root_manifestation_field").show();
+      "<% @series_statement.periodical = nil%>";
+    } else {
+      $("#root_manifestation_field").hide();
+    }
+  });
+})
+</script>
+
+<%= form_for(@series_statement) do |f| %>
+  <%= error_messages_for @series_statement,  @series_statement.root_manifestation %>　
+  <%= render 'form_series_statement', :f => f %>
+
+  <div id="root_manifestation_field" style="display: none">
+    <%= fields_for @series_statement.root_manifestation do |f_m| %>
+      <%= render 'form_manifestation', :f_m => f_m %>
+    <% end %>
+  </div>
+<% end %>

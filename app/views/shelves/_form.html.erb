@@ -1,0 +1,35 @@
+<%= render 'page/required_field' %>
+<%= simple_form_for(@shelf) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label :name -%><br />
+    <%= f.text_field :name, :class => 'short_name' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :display_name -%><br />
+    <%= f.text_area :display_name, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.library') -%><br />
+    <%= f.select(:library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :open_access -%><br />
+    <%= t('activerecord.attributes.shelf.open') -%><%= f.radio_button :open_access, 0 -%>&nbsp;
+    <%= t('activerecord.attributes.shelf.closed') -%><%= f.radio_button :open_access, 1 -%>&nbsp;
+    <%= t('activerecord.attributes.shelf.stock') -%><%= f.radio_button :open_access, 2 -%>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>

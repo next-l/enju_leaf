@@ -1,11 +1,18 @@
-<div class="search_form">
-  <%= form_for :manifestations, :url => manifestations_path, :html => {:method => 'get'} do -%>
-    <p>
-      <%= label_tag :query, t('page.search_term') -%>:
-      <%= search_field_tag 'query', nil, :class => 'search_form_short', :placeholder => t('page.search_term') -%>
-      <%= submit_tag t('page.search') -%><br />
-      (<%= link_to t('page.advanced_search'), page_advanced_search_path -%>)
-    </p>
-  <%- end -%>
-</div>
-<%= javascript_tag("$(function(){$('#query').focus()})") %>
+<%= form_for :manifestations, :url => manifestations_path, :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>:
+    <%= search_field_tag 'query', nil, :class => 'search_form_short', :placeholder => t('page.search_term') -%> 
+    <%= submit_tag t('page.search') -%><br />
+    <%- if SystemConfiguration.get('nacsis.can_use') -%>
+      <%= t('page.search_for') -%>:
+      <%= radio_button_tag 'index', 'local', true -%><%= t('page.search_local') -%>
+      <%= radio_button_tag 'index', 'nacsis', false -%><%= t('page.search_nacsis') -%>
+      <br />
+    <%- end -%>
+    <% if user_signed_in? and current_user.has_role?('Librarian') %>
+      <%= check_box_tag 'all_manifestations', true %><%= t('advanced_search.all_manifestations') %><br />
+    <% end %>
+    (<%= link_to t('page.advanced_search'), page_advanced_search_path -%>)
+  </p>
+<%- end -%>
+<%= javascript_tag("$('#query').focus()") -%>

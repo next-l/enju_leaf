@@ -1,0 +1,7 @@
+<div class="holding_index" id="holding_<%= manifestation.id -%>" style="display: none">
+  <%- if manifestation.article? %>
+    <%= render 'manifestations/show_holding_index_article', :manifestation => manifestation -%>
+  <%- else -%>
+    <%= render 'manifestations/show_holding_index', :manifestation => manifestation -%>
+  <%- end -%>
+</div>

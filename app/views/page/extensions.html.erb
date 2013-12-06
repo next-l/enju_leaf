@@ -1,0 +1,54 @@
+<div class="column" id="col1">
+  <div class="portlet" id="other">
+    <h2 class="title"><%= t('page.library_reports') -%></h2>
+    <div class="config_box">
+      <ul>
+        <li><%= link_to t('exstatistics.library_report'), library_reports_path -%></li>
+        <li><%= link_to t('exstatistics.ndl_report'), ndl_statistics_path -%></li>
+        <li><%= link_to t('activerecord.models.export_item_list'), export_item_lists_path -%></li>
+        <li><%= link_to t('activerecord.models.export_item_register'), export_item_registers_path -%></li>
+        <li><%= link_to t('exstatistics.checkout_report'), checkoutlists_path -%></li>
+        <li><%= link_to t('exstatistics.reserve_report'), reservelists_path -%></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="portlet" id="other">
+    <h2 class="title"><%= t('page.extensions_1') -%></h2>
+    <div class="config_box">
+      <ul>
+        <li><%= link_to t('activerecord.models.sheet'), sheets_path -%></li>
+        <li><%= link_to t('activerecord.models.barcode_list'), barcode_lists_path -%></li>
+        <li><%= link_to t('activerecord.models.print_label'), print_labels_path -%></li>
+      </ul>
+      <br />
+      <ul>
+        <li><%= link_to t('activerecord.models.bookbinding'), {:action=>"create", :controller=>"bookbindings"}, :method => :post -%></li>
+      </ul>
+      <br />
+      <ul>
+        <li><%= link_to t('activerecord.models.loss_item'), loss_items_path -%></li>
+        <li><%= link_to t('activerecord.models.reminder_list'), reminder_lists_path -%></li>
+      </ul>
+        <br />
+      <ul>
+        <li><%= link_to t('exchange_manifestation.title'), new_exchange_manifestation_path -%></li>
+      </ul>
+      <ul>
+        <li><%= link_to t('activerecord.models.theme'), themes_path -%> </li>
+      </ul>
+			</div>
+    </div>
+  </div>
+</div>
+
+<div class="column ui-sortable" id="col2">  
+  <div class="portlet" id="other">
+    <h2 class="title"><%= t('page.relationship') %></h2>
+    <div class="config_box">
+      <ul>
+        <li><%= link_to t('activerecord.models.relationship_family'), relationship_families_path %></li>
+      </ul>
+    </div> 
+  </div>
+</div>

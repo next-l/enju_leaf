@@ -1,0 +1,14 @@
+<%- if current_user && current_user.has_role?('Librarian') %>
+  <h4><%= t('activerecord.attributes.manifestation.missing_issue') -%></h4>
+  <ul>
+    <%- current_status = params[:missing_issue].to_s.split -%>
+    <%- @missing_issue_facet.each do |facet| -%>
+      <li>
+        <%= missing_status_facet(facet.value, current_status, facet) %>
+      </li>
+    <%- end -%>
+    <%- if params[:missing_issue] -%>
+      <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:missing_issue => nil, :page => nil, :view => nil)) -%></li>
+    <%- end -%>
+  </ul>
+<%- end %>

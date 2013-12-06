@@ -1,0 +1,103 @@
+<script>
+  $("#purchase_request_next_state").change(function () {
+    type = $("#purchase_request_next_state").val();
+    if (type == "reject") {
+      $("#reason").show();
+    } else {
+      $("#reason").hide();
+      $("#purchase_request_reason").val('');
+    }
+  });
+  $(function(){
+    $('#purchase_request_pub_date').setCalendar({src:'/assets/calendar.png'});
+  });
+</script>
+
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.purchase_request')) %></h1>
+<div id="content_list">
+<strong><%= t('purchase_request.input_into_form_as_much_as_possible') %></strong><br />
+<br />
+  <%= form_for(@purchase_request, :url => purchase_request_path(@purchase_request)) do |f| %>
+  <%= f.error_messages %>
+
+  <% if current_user.try(:has_role?, 'Librarian') %>
+    <div class="field">
+      <%= f.label t('activerecord.attributes.purchase_request.state') %>: 
+      <% if @states %>
+        <%= f.select :next_state, @states -%>
+      <% else %>
+        <%= i18n_pr_state(@purchase_request.state) -%>
+      <% end %>
+    </div>
+    <div id="reason" style="display:none;">
+       <%= f.label t('activerecord.attributes.purchase_request.reason') -%><br />
+       <%= f.text_area :reason, :class => 'resource_textarea' -%>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.user') -%><br />
+    <%= link_to @purchase_request.user.username, @purchase_request.user if @purchase_request.user %>
+    <%= t('purchase_request.guest') unless @purchase_request.user %>
+    <%= f.hidden_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :title -%><br />
+    <%= f.text_area :title, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :author -%><br />
+    <%= f.text_area :author, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :publisher -%><br />
+    <%= f.text_area :publisher, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :isbn -%><br />
+    <%= f.text_field :isbn, :class => 'resource_isbn_issn' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :pub_date -%><br />
+    <%= f.text_field :pub_date -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :price -%><br />
+    <%= f.text_field :price, :class => 'resource_integer' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :url -%><br />
+    <%= f.url_field :url, :class => 'resource_url' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <% if @purchase_request.user %>
+      <li><%= link_to t('page.show'), user_purchase_request_path(@purchase_request.user, @purchase_request) -%></li>
+      <li><%= link_to t('page.back'), user_purchase_requests_path(@purchase_request.user, :page => flash[:page] ||= nil) -%></li>
+    <% else %>
+      <li><%= link_to t('page.show'), purchase_request_path(@purchase_request) -%></li>
+      <li><%= link_to t('page.back'), purchase_requests_path(:page => flash[:page] ||= nil) -%></li>
+    <% end %>
+  </ul>
+</div>

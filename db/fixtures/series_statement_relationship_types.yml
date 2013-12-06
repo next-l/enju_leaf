@@ -1,0 +1,72 @@
+series_statement_relationship_type_00001:
+  id: 1
+  display_name: "始端"
+  typeid: 0
+  note:
+  position: 1
+series_statement_relationship_type_00002:
+  id: 2
+  display_name: "継続"
+  typeid: 1
+  note: "誌名の変更があり、巻号も継続しない"
+  position: 2
+series_statement_relationship_type_00003:
+  id: 3
+  display_name: "吸収"
+  typeid: 2
+  note:
+  position: 3
+series_statement_relationship_type_00004:
+  id: 4
+  display_name: "派生"
+  typeid: 3
+  note:
+  position: 4
+series_statement_relationship_type_00005:
+  id: 5
+  display_name: "終端"
+  typeid: 9
+  note:
+  position: 5
+series_statement_relationship_type_00006:
+  id: 6
+  display_name: "誌名変更"
+  typeid: 10
+  note: "誌名の変更だけで、巻号は継続する"
+  position: 6
+series_statement_relationship_type_00007:
+  id: 7
+  display_name: "分離"
+  typeid: 11
+  note:
+  position: 7
+series_statement_relationship_type_00008:
+  id: 8
+  display_name: "合併"
+  typeid: 12
+  note: 
+  position: 8
+series_statement_relationship_type_00009:
+  id: 9
+  display_name: "吸収合併"
+  typeid: 13
+  note: 
+  position: 9
+series_statement_relationship_type_00010:
+  id: 10
+  display_name: "再収集"
+  typeid: 20
+  note:
+  position: 10
+series_statement_relationship_type_00011:
+  id: 11
+  display_name: "復刊"
+  typeid: 21
+  note:
+  position: 11
+series_statement_relationship_type_00012:
+  id: 12
+  display_name: "収集外/未登録"
+  typeid: 30
+  note:
+  position: 12

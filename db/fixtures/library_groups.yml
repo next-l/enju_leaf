@@ -1,10 +1,10 @@
 library_group_00001:
   id: 1
   name: enju_library
-  display_name: "en: Enju Library\r\n\
-    ja: えんじゅ図書館"
+  display_name: Enju Library
   short_name: enju
   email: library@example.jp
+  use_dsbl: false
   note: 
   my_networks: 0.0.0.0/0
-  login_banner: Next-L Enju, an open-source integrated library system. You can edit this message after logging in as Administrator.
+  login_banner: ""

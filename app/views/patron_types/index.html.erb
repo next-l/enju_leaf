@@ -1,0 +1,45 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.patron_type')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.patron_type.name') -%></th>
+    <th><%= t('activerecord.attributes.patron_type.display_name') -%></th>
+    <th><%= t('activerecord.attributes.patron_type.note') -%></th>
+    <th></th>
+  </tr>
+
+<%- @patron_types.each do |patron_type| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :update, patron_type -%>
+        <%= move_position(patron_type) -%>
+      <%- end -%>
+    </td>
+    <td><%= link_to patron_type.name, patron_type -%></td>
+    <td><%= link_to patron_type.display_name.localize, patron_type -%></td>
+    <td><%= patron_type.note -%></td>
+    <td>
+      <%- if can? :update, patron_type -%>
+        <%= link_to t('page.edit'), edit_patron_type_path(patron_type) -%>
+      <% end %>
+      <%- if can? :destroy, patron_type -%>
+        <%= link_to t('page.destroy'), patron_type, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+<%- if false-%>
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.patron_type')), new_patron_type_path -%></li>
+  </ul>
+<%- end -%>
+</div>

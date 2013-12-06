@@ -1,14 +1,33 @@
+---
 en:
   activerecord:
     errors:
       messages:
         checked_item:
-          not_available_for_checkout: "This item is not available for checkout."
-          this_group_cannot_checkout: "This user group cannot check out this item."
-          item_not_found: "Item not found."
-          already_checked_out: "This item is already checked out."
-          reserved_item_included: "Reserved item included!"
-          excessed_checkout_limit: "Excessed checkout limit."
-          in_transcation: "In transaction."
+          not_available_for_checkout: This item is not available for checkout.
+          this_group_cannot_checkout: This user group cannot check out this item.
+          item_not_found: Item not found.
+          already_checked_out: This item is already checked out.
+          reserved_item_included: Reserved item included!
+          excessed_checkout_limit: Excessed checkout limit.
+          in_transcation: In transaction.
         checkin:
-          already_checked_out: "This item is already checked out."
+          already_checked_out: This item is already checked out.
+        inter_library_loan:
+          same_library: Same library is selected for both of original and target library.
+        reminder_list:
+          no_checkout: No checkout is found.
+          not_overdue: Checkout for this item is not overdue.
+        user:
+          auto_generated_password: ! 'Your password is auto generated. Change your log in password'
+        bookbinding:
+          bookbinding_nil: No item is selected.
+      models:
+        inter_library_loan:
+          attributes:
+            state:
+              invalid_transition: Invalid transaction
+        resource_import_textfile:
+          attributes:
+            state:
+              invalid_transition: Invalid transaction

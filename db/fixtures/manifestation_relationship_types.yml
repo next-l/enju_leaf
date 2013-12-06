@@ -3,12 +3,12 @@ manifestation_relationship_type_00001:
   position: 1
   name: Reproduction
   id: 1
-  display_name: "en: Reproduction\r\n\
-    ja: 複製"
+  display_name: "en:Reproduction\r\n\
+    ja:複製"
 
 manifestation_relationship_type_00002: 
   position: 2
   name: Alternate
   id: 2
-  display_name: "en: Alternate\r\n\
-    ja: 代替"
+  display_name: "en:Alternate\r\n\
+    ja:代替"

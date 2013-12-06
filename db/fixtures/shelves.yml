@@ -7,9 +7,116 @@ shelf_00001:
   library_id: 1
   position: 1
 shelf_00002: 
-  name: first_shelf
-  display_name: First shelf
+  name: web_in_process
+  display_name: 受入手続き中 
   id: 2
   note:
-  library_id: 2
+  library_id: 1
   position: 2
+  open_access: 9
+shelf_00003: 
+  name: honkan01
+  display_name: 本館１F
+  id: 3
+  note:
+  library_id: 2
+  position: 3
+shelf_00004:
+  name: honkan02
+  display_name: 本館２F
+  id: 4
+  note:
+  library_id: 2
+  position: 4
+shelf_00005:
+  name: honkan_in_process
+  display_name: 受入手続き中 
+  id: 5
+  note:
+  library_id: 2
+  position: 5
+  open_access: 9
+shelf_00006:
+  name: honkan_article
+  display_name: 文献棚
+  id: 6
+  note:
+  library_id: 2
+  position: 6
+  open_access: 10
+shelf_00007: 
+  name: bunkan01
+  display_name: １丁目分館１F
+  id: 7
+  note:
+  library_id: 3
+  position: 7
+shelf_00008: 
+  name: bunkan01_in_process
+  display_name: 受入手続き中
+  id: 8
+  note:
+  library_id: 3
+  position: 8
+  open_access: 9
+shelf_00009:
+  name: bunkan01_article
+  display_name: 文献棚
+  id: 9
+  note:
+  library_id: 3
+  position: 9
+  open_access: 10
+shelf_00010: 
+  name: bunkan02
+  display_name: ２丁目分館１F
+  id: 10
+  note:
+  library_id: 4
+  position: 10
+shelf_00011: 
+  name: bunkan02_in_process
+  display_name: 受入手続き中
+  id: 11
+  note:
+  library_id: 4
+  position: 11
+  open_access: 9
+shelf_00012:
+  name: bunkan02_article
+  display_name: 文献棚
+  id: 12
+  note:
+  library_id: 4
+  position: 12
+  open_access: 10
+shelf_00013: 
+  name: bunkan03
+  display_name: ３丁目分館１F
+  id: 13
+  note:
+  library_id: 5
+  position: 13
+shelf_00014: 
+  name: bunkan03_in_process
+  display_name: 受入手続き中
+  id: 14
+  note:
+  library_id: 5
+  position: 14
+  open_access: 9
+shelf_00015:
+  name: bunkan03_article
+  display_name: 文献棚
+  id: 15
+  note:
+  library_id: 5
+  position: 15
+  open_access: 10
+#TODO shelf for bookbinder
+shelf_00016:
+  name: binding_shelf
+  display_name: 製本資料
+  id: 16
+  note:
+  library_id: 2

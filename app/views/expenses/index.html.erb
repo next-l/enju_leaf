@@ -1,0 +1,37 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.expense')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.expense.item') -%></th>
+    <th><%= t('activerecord.attributes.expense.price') -%></th>
+    <th><%= t('activerecord.attributes.expense.budget') -%></th>
+    <th></th>
+  </tr>
+
+<%- @expenses.each do |expense| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= expense.item.manifestation.original_title if expense.item && expense.item.manifestation -%></ br>
+        (<%= link_to(expense.item.item_identifier, expense.item) if expense.item -%>)</td>
+    <td><%= t('expense.yen', :price => to_format(expense.price)) -%></td>
+    <td><%= expense.budget.library.display_name.localize if expense.budget && expense.budget.library -%>
+        <%= expense.budget.term.display_name.localize if expense.budget && expense.budget.term -%></td>
+    <td>
+      <%- if can? :update, expense -%>
+        <%= link_to t('page.edit'), edit_expense_path(expense) -%>
+      <% end %>
+      <%= link_to t('page.show'), expense -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('expense.export'), export_report_expenses_path -%></li>
+  </ul>
+</div>

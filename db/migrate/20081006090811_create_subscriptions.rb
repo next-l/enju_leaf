@@ -1,5 +1,5 @@
 class CreateSubscriptions < ActiveRecord::Migration
-  def change
+  def self.up
     create_table :subscriptions do |t|
       t.text :title, :null => false
       t.text :note
@@ -13,5 +13,9 @@ class CreateSubscriptions < ActiveRecord::Migration
     end
     add_index :subscriptions, :user_id
     add_index :subscriptions, :order_list_id
+  end
+
+  def self.down
+    drop_table :subscriptions
   end
 end

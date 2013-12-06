@@ -12,6 +12,9 @@ class AddCompletedAtToUserCheckoutStat < ActiveRecord::Migration
     add_column :manifestation_reserve_stats, :started_at, :datetime
     add_column :manifestation_reserve_stats, :completed_at, :datetime
     add_index :manifestation_reserve_stats, :state
+    add_column :bookmark_stats, :started_at, :datetime
+    add_column :bookmark_stats, :completed_at, :datetime
+    add_index :bookmark_stats, :state
   end
 
   def self.down
@@ -23,5 +26,7 @@ class AddCompletedAtToUserCheckoutStat < ActiveRecord::Migration
     remove_column :manifestation_checkout_stats, :completed_at
     remove_column :manifestation_reserve_stats, :started_at
     remove_column :manifestation_reserve_stats, :completed_at
+    remove_column :bookmark_stats, :started_at
+    remove_column :bookmark_stats, :completed_at
   end
 end

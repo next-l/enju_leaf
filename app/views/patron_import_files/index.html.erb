@@ -1,0 +1,48 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.patron_import_file')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th>Id</th>
+    <th><%= t('activerecord.attributes.patron_import_file.patron_import_file_name') -%></th>
+    <th><%= t('activerecord.attributes.patron_import_file.imported_at') -%></th>
+    <th><%= t('activerecord.models.user') -%></th>
+    <th><%= t('activerecord.attributes.patron_import_file.edit_mode') -%></th>
+    <th><%= t('activerecord.attributes.patron_import_file.state') -%></th>
+    <th></th>
+  </tr>
+
+<%- @patron_import_files.each do |patron_import_file| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to patron_import_file.id, patron_import_file -%></td>
+    <td><%= link_to patron_import_file.patron_import_file_name, patron_import_file -%></td>
+    <td><%= l(patron_import_file.imported_at) if patron_import_file.imported_at -%></td>
+    <td><%= link_to patron_import_file.user.username, patron_import_file.user if patron_import_file.user -%></td>
+    <td>
+      <%- if patron_import_file.edit_mode == 'create' -%>
+        <%= t('page.create')%>
+      <%- elsif patron_import_file.edit_mode == 'update' -%>
+        <%= t('page.update')%>
+      <%- else -%>
+        <%= t('page.destroy')%>
+      <%- end -%>
+    </td>
+    <td><%= t("state.#{patron_import_file.state}) if patron_import_file -%></td>
+    <td>
+      <%= link_to t('page.show'), patron_import_file -%>
+      <%= link_to t('page.destroy'), patron_import_file, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@patron_import_files) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.patron_import_file')), new_patron_import_file_path -%></li>
+  </ul>
+</div>

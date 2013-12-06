@@ -1,16 +1,18 @@
 class CreateItems < ActiveRecord::Migration
-  def change
+  def self.up
     create_table :items do |t|
       #t.integer :manifestation_id
       t.string :call_number
       t.string :item_identifier
-      t.integer :circulation_status_id, :default => 5, :null => false
+      t.integer :circulation_status_id, :null => false
       t.integer :checkout_type_id, :default => 1, :null => false
       t.timestamps
       t.datetime :deleted_at
       t.integer :shelf_id, :default => 1, :null => false
+      t.integer :basket_id
       t.boolean :include_supplements, :default => false, :null => false
       t.integer :checkouts_count, :default => 0, :null => false
+      t.integer :owns_count, :default => 0, :null => false
       t.integer :resource_has_subjects_count, :default => 0, :null => false
       t.text :note
       t.string :url
@@ -25,5 +27,10 @@ class CreateItems < ActiveRecord::Migration
     add_index :items, :checkout_type_id
     add_index :items, :shelf_id
     add_index :items, :item_identifier
+    add_index :items, :required_role_id
+  end
+
+  def self.down
+    drop_table :items
   end
 end

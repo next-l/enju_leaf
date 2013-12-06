@@ -1,84 +1,175 @@
+<%
+manifestations = <<"EOS"
+利用者: <%= @user.patron.full_name if @user %\>\n
+<% for m in @manifestations %\>\n
+  資料の形態：<%= m.carrier_type.display_name.localize %\>\n
+  タイトル: <%= m.original_title %\>\n
+  <% if m.edition? %\>
+    版: <%= m.edition %\>\n
+  <% end %\>
+  <% unless m.volume_number_string.blank? %\>
+    巻: <%= m.volume_number_string %\>\n
+  <% end %\>
+  <% if m.series_statement %\>
+    <% unless m.issue_number_string.blank? %\>
+      号: <%= m.issue_number_string %\>\n
+    <% end %\>
+    <% unless m.serial_number_string.blank? %\>
+      通号: <%= m.serial_number_string %\>\n
+    <% end %\>
+  <% end %\>
+  著者: <%= m.creators.readable_by(@user).collect(&:full_name).join('/') %\>\n
+  編者: <%= m.contributors.readable_by(@user).collect(&:full_name).join('/') %\>\n
+  出版者: <%=  m.publishers.readable_by(@user).collect(&:full_name).join('/') %\>\n
+  ISBN: <%= m.isbn %\>\n
+<% end %\>
+EOS
+
+purchase_request = <<"EOS"
+<% for p in @purchase_request %\>\n
+  利用者: <%= p.user.patron.full_name if p.user %\>\n
+  タイトル: <%= p.title %\>\n
+  著者: <%=  p.author %\>\n
+  出版者: <%= p.publisher %\>\n
+  ISBN: <%= p.isbn %\>\n
+  出版日: <%= p.date_of_publication.strftime('%Y-%m-%d') if p.date_of_publication%\>\n
+  価格: <%= p.price %\>\n
+  URL: <%= p.url %\>\n
+  注記: <%= p.note %\>\n
+<% end %\>
+EOS
+%>
+
 message_template_00001:
   id: 1
   status: reservation_accepted_for_patron
-  title: Reservation accepted
-  body: Reservation accepted
+  title: "予約を受け付けました"
+  body: "以下の資料の予約を受け付けました。\n\n<%= manifestations %>"
   position: 1
   locale: ja
 message_template_00002:
   id: 2
-  status: item_received_for_patron
-  title: Item received
-  body: Item received
+  status: reservation_accepted_for_library
+  title: "予約が行われました"
+  body: "以下の資料の予約が行われました。\n\n<%= manifestations %>"
   position: 2
   locale: ja
 message_template_00003:
   id: 3
-  status: reservation_expired_for_patron
-  title: Reservation expired
-  body: Reservation expired
+  status: item_received_for_patron
+  title: "予約資料の準備が整いました"
+  body: "以下の予約資料の準備が整いました。\n\n<%= manifestations %>"
   position: 3
   locale: ja
 message_template_00004:
   id: 4
-  status: reservation_expired_for_library
-  title: Reservation expired
-  body: Reservation expired
+  status: item_received_for_library
+  title: "予約資料を確保しました"
+  body: "以下の予約資料を確保しました。\n\n<%= manifestations %>"
   position: 4
   locale: ja
 message_template_00005:
   id: 5
-  status: reservation_canceled_for_patron
-  title: Reservation canceled
-  body: Reservation canceled
+  status: reservation_expired_for_patron
+  title: "予約の有効期限が過ぎました"
+  body: "以下の予約資料の有効期限が過ぎました。\n\n<%= manifestations %>"
   position: 5
   locale: ja
 message_template_00006:
   id: 6
-  status: reservation_canceled_for_library
-  title: Reservation canceled
-  body: Reservation canceled
+  status: reservation_expired_for_library
+  title: "有効期限が過ぎた予約があります"
+  body: "以下の予約資料の有効期限が過ぎました。\n\n<%= manifestations %>"
   position: 6
   locale: ja
 message_template_00007:
   id: 7
-  status: recall_item
-  title: Recall item
-  body: Recall item
+  status: reservation_canceled_for_patron
+  title: "予約を取り消しました"
+  body: "以下の資料の予約を取り消しました。\n\n<%= manifestations %>"
   position: 7
   locale: ja
 message_template_00008:
   id: 8
-  status: recall_overdue_item
-  title: Recall overdue item
-  body: Recall overdue item
+  status: reservation_canceled_for_library
+  title: "予約が取り消されました"
+  body: "以下の資料の予約が取り消されました。\n\n<%= manifestations %>"
   position: 8
   locale: ja
 message_template_00009:
   id: 9
-  status: reservation_accepted_for_library
-  title: Reservation accepted
-  body: Reservation accepted
+  status: recall_item
+  title: "貸出期限が迫っています"
+  body: "以下の資料の貸出期限が迫っています。\n\n<%= manifestations %>"
   position: 9
   locale: ja
 message_template_00010:
   id: 10
-  status: item_received_for_library
-  title: Item received
-  body: Item received
+  status: recall_overdue_item
+  title: "資料を返却してください"
+  body: "以下の資料の貸出期限が過ぎています。返却をお願いします。\n\n<%= manifestations %>"
   position: 10
   locale: ja
 message_template_00011:
   id: 11
-  status: reservation_postponed_for_patron
-  title: Reservation postponed
-  body: Reservation postponed
+  status: retained_manifestations
+  title: "予約資料の準備が整いました"
+  body: "以下の予約資料の準備が整いました。\n\n<%= manifestations %>"
   position: 11
   locale: ja
 message_template_00012:
   id: 12
-  status: reservation_postponed_for_library
-  title: Reservation postponed
-  body: Reservation postponed
+  status: purchase_request_accepted_for_patron
+  title: "購入リクエストを受け付けました"
+  body: "以下の資料の購入リクエストを受け付けました。\n\n<%= purchase_request %>"
   position: 12
+  locale: ja
+message_template_00013:
+  id: 13
+  status: purchase_request_accepted_for_library
+  title: "購入リクエストを受け付けました"
+  body: "以下の資料の購入リクエストを受け付けました。\n\n<%= purchase_request %>"
+  position: 13
+  locale: ja
+message_template_00014:
+  id: 14
+  status: purchase_request_rejected
+  title: "購入リクエストを謝絶されました"
+  body: "以下の資料の購入リクエストは謝絶されました。\n\n<%= purchase_request %>"
+  position: 14
+  locale: ja
+message_template_00015:
+  id: 15
+  status: reserve_reverted_for_patron
+  title: "予約資料の取置きはキャンセルされました"
+  body: "以下の取置き済みの予約資料は貸出できない状態となりました。\n申し訳ありませんが貸出状態が整うまでしばしお待ちください。\n\n<%= manifestations %>"
+  position: 15
+  locale: ja
+message_template_00016:
+  id: 16
+  status: reserve_reverted_for_library
+  title: "取置き済み予約の状態を受付済みに戻しました"
+  body: "以下の取置き済であった予約資料の状態を受付済みに戻しました。\n\n<%= manifestations %>"
+  position: 16
+  locale: ja
+message_template_00017:
+  id: 17
+  status: user_reserved_a_book
+  title: "資料が予約されました。"
+  body: "利用者が資料を予約しました。\n\n<%= manifestations %>"
+  position: 17
+  locale: ja
+message_template_00018:
+  id: 18
+  status: user_create_a_purchase_request
+  title: "購入リクエストが作成されました。"
+  body: "購入リクエストが作成されました。\n\n<%= purchase_request %>"
+  position: 18
+  locale: ja
+message_template_00019:
+  id: 19
+  status: enju_trunk_inventory_check_finish
+  title: "蔵書点検の実行が終了しました。"
+  body: "蔵書点検の実行が終了しました。\n\n"
+  position: 19
   locale: ja

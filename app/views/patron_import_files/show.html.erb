@@ -1,0 +1,62 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.patron_import_file')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id:</strong>
+  <%= @patron_import_file.id -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.patron_import_file.patron_import_file_name') -%>:</strong>
+  <%= link_to @patron_import_file.patron_import_file_name, patron_import_file_path(@patron_import_file, :format => :download) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.patron_import_file.patron_import_content_type') -%>:</strong>
+  <%= @patron_import_file.patron_import_content_type -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.patron_import_file.patron_import_file_size') -%>:</strong>
+  <%= @patron_import_file.patron_import_file_size -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.patron_import_file.file_hash') -%>:</strong>
+  <%= @patron_import_file.file_hash -%>
+</p>
+
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@patron_import_file.created_at) if @patron_import_file.created_at -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.patron_import_file.imported_at') -%>:</strong>
+  <%= l(@patron_import_file.imported_at) if @patron_import_file.imported_at -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.patron_import_file.state') -%>:</strong>
+  <%= t("state.#{@patron_import_file.state}") -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= link_to @patron_import_file.user.username, @patron_import_file.user if @patron_import_file.user -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if @patron_import_file.state == 'pending' -%>
+      <li><%= link_to t('patron_import_file.import_request'), {:action => "import_request", :id => @patron_import_file.id} -%></li>
+    <%- end -%>
+    <li><%= link_to t('activerecord.models.patron_import_result'), patron_import_file_patron_import_results_path(@patron_import_file) -%></li>
+    <li><%= link_to t('page.back_to_index'), patron_import_files_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,42 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.request_status_type')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.request_status_type.name') -%></th>
+    <th><%= t('activerecord.attributes.request_status_type.display_name') -%></th>
+    <th></th>
+  </tr>
+
+<%- @request_status_types.each do |request_status_type| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :update, request_status_type -%>
+        <%= move_position(request_status_type) -%>
+      <%- end -%>
+    </td>
+    <td><%= link_to request_status_type.name, request_status_type -%></td>
+    <td><%= link_to request_status_type.display_name.localize, request_status_type -%></td>
+    <td>
+      <%- if can? :update, request_status_type -%>
+        <%= link_to t('page.edit'), edit_request_status_type_path(request_status_type) -%>
+      <% end %>
+      <%- if can? :destroy, request_status_type -%>
+        <%= link_to t('page.destroy'), request_status_type, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <% end %>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+<!--
+    <li><%= link_to t('page.new', :model => t('activerecord.models.request_status_type')), new_request_status_type_path -%></li>
+-->
+  </ul>
+</div>

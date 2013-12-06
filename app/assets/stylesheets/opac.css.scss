@@ -1,0 +1,568 @@
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#wrapper {
+  height: 100%;
+}
+body > #wrapper{
+  height: auto;
+  min-height: 100%;
+}
+
+div#opac_content {
+  margin:0 auto;
+  width:1024px;
+  height: 100%;
+  min-height: 100%;
+}
+div#opac_content, div#opac_content p, div#opac_content td {
+  font-size: 16px;
+}
+
+
+//--- header ---------------------/
+div#opac_header {
+  width: 100%;
+  height: 40px;
+  background: #17293f;
+}
+
+div.opac_header_right {
+  float: right;
+  margin: 10px 20px;
+}
+.opac_user_singed_in {
+  float: left;
+  color: #fff;
+  margin-right: 30px;
+}
+.opac_user_singed_in_icon {
+  width: 20px;
+  vertical-align: bottom;
+}
+.opac_logout_button {
+  float: left;
+}
+.opac_logout_button a {
+  color: #000; 
+  font-weight: 900;
+  padding: 5px 30px;
+  text-decoration: none;
+  // radius 
+  border-radius: 3px;         /* CSS3 */
+  -moz-border-radius: 3px;    /* Firefox */
+  -webkit-border-radius: 3px; /* Safari,Chrome */
+  // color
+  background: #ddd;
+  background: -moz-linear-gradient(top, #fff, #ccc); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#fff), to(#ccc)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFFFFFFF', endColorstr='#FFCCCCCC'); /* IE5.5以上 */
+}
+.opac_logout_button a:hover {
+  color: #fff;
+  border-color: #555;
+  background: -moz-linear-gradient(top, #999, #555); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#999), to(#555)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF999999', endColorstr='#FF555555'); /* IE5.5以上 */
+} 
+
+//--- header - index -------------/
+div#opac_index_header {
+  width: 100%;
+  color: #fff;
+  border-bottom: solid 2px #fff;
+  margin-bottom: 50px; 
+  text-align: center;
+  // color
+  background: #52a3b6;
+  background: -moz-linear-gradient(top, #51c7bb, #138bb9); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#51c7bb), to(#138bb9)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF51c7bb', endColorstr='#FF138bb9'); /* IE5.5以上 */
+}
+.opac_index_libraryname {
+  font-size: 72px;
+  font-weight: 900px;
+  letter-spacing: 10px;
+}
+
+//--- header - content -------------/
+div#opac_content_header {
+  margin-bottom: 20px;
+  padding: 20px 10px;
+  text-align: right;
+  overflow: auto;
+  // color
+  background: -moz-linear-gradient(top, #eee, #fff); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#eee), to(#fff)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFEEEEEE', endColorstr='#FFFFFFFF'); /* IE5.5以上 */
+}
+div.opac_title {
+  letter-spacing: 3px;
+  float: left;
+}
+div.opac_head_button_area {
+  float: right;
+}
+div.opac_head_button {
+  float: left;
+}
+div.opac_head_button a {
+  display: block;
+  padding: 10px 20px;
+  text-align: center;
+  font-weight: 900;
+  margin-left: 10px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  // radius 
+  border-radius: 5px;         /* CSS3 */
+  -moz-border-radius: 5px;    /* Firefox */
+  -webkit-border-radius: 5px; /* Safari,Chrome */
+  // color
+  background: #ddd;
+  background: -moz-linear-gradient(top, #fff, #ddd); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#fff), to(#ddd)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFFFFFFF', endColorstr='#FFDDDDDD'); /* IE5.5以上 */
+}
+div.opac_head_button a:hover {
+  color: #fff;
+  border-color: #555;
+  background: -moz-linear-gradient(top, #999, #555); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#999), to(#555)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF999999', endColorstr='#FF555555'); /* IE5.5以上 */
+} 
+
+//--- footer ---------------------/
+div#opac_footer {
+  background: #17293f;
+  width: 100%;
+  height: 10px;
+  margin-top: -10px;
+}
+
+
+div#opac_content table {
+  border: none;
+}
+div#opac_content th, div#opac_content td {
+  border: none;
+  padding: 7px
+}
+
+tr.opac_line0 {
+  background-color: #DDD;
+  border-top: solid 1px #999;
+  border-bottom: solid 1px #999;
+}
+tr.opac_line1 {
+  background-color: #FFF;
+  border-top: solid 1px #999;
+  border-bottom: solid 1px #999;
+}
+tr.opac_line_checkout_overdue_date {
+  background-color: pink;
+  border-top: solid 1px #999;
+  border-bottom: solid 1px #999;
+}
+tr.opac_line_reserve_retained {
+  background-color: #DFFFAA;
+  border-top: solid 1px #999;
+  border-bottom: solid 1px #999;
+}
+
+#opac_lists th {
+  color: white;
+  background-color: #555 ;
+}
+#opac_lists td {
+  vertical-align: middle;
+}
+tr.opac_lists_row:hover td {
+  cursor: pointer;
+  background-color: #A2DCEA ;
+}
+.opac_list_title {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+#opac_lists .sub_column {
+  width: 1%;
+  white-space: nowrap;
+}
+.opac_list_sub {
+  font-size: 15px; 
+  margin-top: 4px;
+}
+
+table#opac_detail_table {
+ width: 100%;
+}
+table#opac_detail_table th {
+  word-break: break-all;
+  border-bottom: 1px solid #888;
+}
+table#opac_detail_table td {
+  word-break: break-all;
+  border-bottom: 1px solid #aaa;
+}
+td.opac_reserve_table_column {
+  width: 300px;
+}
+td.opac_checkout_table_column {
+  width: 200px;
+}
+
+
+//--- index -------------------------------/
+div.opac_index_notice {
+  text-align: center;
+}
+//--- index - menu --------------/
+div#opac_menu {
+  width: 440px;
+  font-weight: 900;
+  text-align: center;  
+  float: left;
+}
+div#opac_menu div {
+  margin-bottom: 20px;
+}
+div.opac_menu_info {
+  text-align: left;
+  font-weight: 900;
+}
+
+div#opac_search_col a, div#opac_session_col a, div.opac_bestreader a, div.opac_bestrequest a {
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+  // radius
+  border-radius: 10px;         /* CSS3 */
+  -moz-border-radius: 10px;    /* Firefox */
+  -webkit-border-radius: 10px; /* Safari,Chrome */
+  // shadow
+  box-shadow: 2px 2px 4px #000; /*CSS3*/
+  -moz-box-shadow: 2px 2px 4px #000; /* Firefox用*/
+  -webkit-box-shadow: 3px 3px 4px #000; /* Google Chrome, Safari用*/
+}
+div#opac_search_col a {
+  display: block;
+  font-size: 36px;
+  padding: 50px 20px;
+  letter-spacing: 5px;
+  border: 1px solid #1D7FC4;
+  // color
+  background: #17649A;
+  background: -moz-linear-gradient(top, #A2DCEA, #17649A); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#A2DCEA), to(#17649A)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFA2DCEA', endColorstr='#FF17649A'); /* IE5.5以上 */
+}
+div#opac_search_col a:hover {
+  border: 1px solid #091D42;
+  // color
+  background: #155B8C;
+  background: -moz-linear-gradient(top, #93C7D4, #155B8C); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#93C7D4), to(#155B8C)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF93C7D4', endColorstr='#FF155B8C'); /* IE5.5以上 */
+} 
+
+div#opac_session_col a {
+  display: block;
+  padding: 20px 20px;
+  letter-spacing: 3px;
+  border: 1px solid #091D42;
+  //color
+  background: #091D42;
+  background: -moz-linear-gradient(top, #396A92, #091D42); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#396A92), to(#091D42)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF396A92', endColorstr='#FF091D42'); /* IE5.5以上 */
+}
+div#opac_session_col a:hover {
+  border: 1px solid #091D42;
+  // color
+  background: #000;
+  background: -moz-linear-gradient(top, #2E5575, #000); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#2E5575), to(#000)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF2E5575', endColorstr='#FF000000'); /* IE5.5以上 */
+} 
+div.opac_button_description {
+  background-color: #eee;
+  color: #000;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 15px;
+  padding: 3px; 
+  letter-spacing: 0px;
+  // radius
+  border-radius: 3px;         /* CSS3 */
+  -moz-border-radius: 3px;    /* Firefox */
+  -webkit-border-radius: 3px; /* Safari,Chrome */
+}
+
+div.opac_bestrequest a, div.opac_bestreader a{
+  display: block;
+  width: 168px;
+  float: left; 
+  padding: 20px 20px;
+  letter-spacing: 3px;
+  border: 1px solid #091D42;
+  // color
+  background: #091D42;
+  background: -moz-linear-gradient(top, #396A92, #091D42); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#396A92), to(#091D42)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF396A92', endColorstr='#FF091D42'); /* IE5.5以上 */
+}
+div.opac_bestrequest a{
+  margin-left: 20px;
+}
+div.opac_bestrequest a:hover, div.opac_bestreader a:hover {
+  border: 1px solid #091D42;
+  // color
+  background: #000;
+  background: -moz-linear-gradient(top, #2E5575, #000); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#2E5575), to(#000)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF2E5575', endColorstr='#FF000000'); /* IE5.5以上 */
+} 
+
+//--- index - information --------------/
+div#opac_information {
+  margin-left: 80px;
+  width: 484px;
+  float: left;
+}
+div.user_notice_column { 
+  background: #fff;
+  padding: 10px;
+  border: solid 2px #000; 
+  // radius 
+  border-radius: 5px;         /* CSS3 */
+  -moz-border-radius: 5px;    /* Firefox */
+  -webkit-border-radius: 5px; /* Safari,Chrome */
+}
+div.opac_news_column { 
+  background: #fff;
+  padding: 10px;
+  border: solid 2px #000; 
+  // radius 
+  border-radius: 5px;         /* CSS3 */
+  -moz-border-radius: 5px;    /* Firefox */
+  -webkit-border-radius: 5px; /* Safari,Chrome */
+}
+div.user_notice_column {
+  margin-bottom: 20px;
+}
+div.opac_news dl {
+  padding: 10px;
+  border-top: dotted 1px #000;
+}
+div.opac_news dt {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px; 
+}
+div.opac_news .library_name {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 2px 15px;
+  background: #e6f598;; 
+}
+div.opac_news_more {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: right;
+  padding: 10px 10px 0 0;
+}
+div.opac_news_more img {
+  vertical-align: bottom;
+}
+div.opac_news_more a {
+  color: white;
+  padding: 5px 20px;
+  text-decoration: none;
+  background: #de406e;
+  border: solid 2px #c83288;
+  // radius 
+  border-radius: 3px;         /* CSS3 */
+  -moz-border-radius: 3px;    /* Firefox */
+  -webkit-border-radius: 3px; /* Safari,Chrome */
+}
+
+
+
+input.opac_radio_button {
+  width: 24px;
+  height: 24px;
+   border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+input.opac_submit_button {
+  padding: 5px 25px;
+  font-size: 20px;
+  font-weight: 900;
+  color: white;
+  // radius
+  border-radius: 10px;         /* CSS3 */
+  -moz-border-radius: 10px;    /* Firefox */
+  -webkit-border-radius: 10px; /* Safari,Chrome */
+  // color
+  background: -moz-linear-gradient(top, #444, #000); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#444), to(#000)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF444444', endColorstr='#FF000000'); /* IE5.5以上 */
+}
+
+div.opac_field div {
+  margin-bottom: 20px;
+}
+div.opac_field .text-field {
+  font-size: 20px;
+  width: 415px;
+}
+div.opac_field .telephone-field {
+  font-size: 20px;
+  width: 300px;
+}
+div.opac_field select {
+  font-size: 20px;
+}
+div.opac_field .password-field {
+  font-size: 20px;
+  width: 200px;
+}
+div.opac_field .date-text-field {
+  font-size: 20px;
+  width: 190px;
+}
+div.opac_field div.formError {
+  margin-top: -20px;
+}
+div.opac_field .formError {
+  font-size: 95%;
+  font-weight: 900;
+  color: red;
+  margin: 0px;
+}
+.opac_my_account_left_field {
+  float: left;
+}
+
+.opac_my_account_right_field {
+  float: left;
+  margin-left: 60px;
+}
+
+.opac_sort {
+  width: 100%;
+}
+.opac_sort_button_on a, .opac_sort_button_off a {
+  display: block;
+  color: white;
+  font-weight: 900px;
+  min-width: 177px;
+  max-width: 184px;
+  padding: 10px 7px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  float: left;
+  // radius
+  border-radius: 5px;         /* CSS3 */
+  -moz-border-radius: 5px;    /* Firefox */
+  -webkit-border-radius: 5px; /* Safari,Chrome */
+  text-decoration: none;
+  // shadow
+  box-shadow: 2px 2px 4px #000; /*CSS3*/
+  -moz-box-shadow: 2px 2px 4px #000; /* Firefox用*/
+  -webkit-box-shadow: 2px 3px 4px #000; /* Google Chrome, Safari用*/
+}
+.opac_sort_button_on a {
+  border: 1px solid #9CBD00;
+  // color
+  background: #9CBD00;
+  background: -moz-linear-gradient(top, #D8E988, #9CBD00); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#D8E988), to(#9CBD00)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFD8E988', endColorstr='#FF9CBD00'); /* IE5.5以上 */
+}
+.opac_sort_button_on a:hover {
+  border-color: #809C00;
+  background: -moz-linear-gradient(top, #CBDB80, #809C00); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#CBDB80), to(#809C00)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFCBDB80', endColorstr='#FF809C00'); /* IE5.5以上 */
+} 
+.opac_sort_button_off a {
+  border: 1px solid #091D42;
+  // color
+  background: #091D42;
+  background: -moz-linear-gradient(top, #396A92, #091D42); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#396A92), to(#091D42)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF396A92', endColorstr='#FF091D42'); /* IE5.5以上 */
+}
+.opac_sort_button_off a:hover {
+  border: 1px solid #091D42;
+  // color
+  background: #000;
+  background: -moz-linear-gradient(top, #2E5575, #000); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#2E5575), to(#000)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF2E5575', endColorstr='#FF000000'); /* IE5.5以上 */
+} 
+
+#opac_manifestation_book_jacket {
+  float: left;
+  margin-bottom: 40px;
+}
+#opac_manifestation_title {
+  margin-left: 20px;
+  float: left;
+}
+
+table#opac_patrons_table {
+  margin-bottom: 10px;
+}
+table#opac_patrons_table td {
+  padding: 3px;
+}
+span.manifestation_reserves_number, span.manifestation_items_number {
+  background-color: #D8E988;
+  margin-right: 20px;
+  padding: 2px 15px;
+}
+
+#opac_button_200 a {
+  display: block;
+  color: white;
+  font-weight: 900px;
+  padding: 10px 5px;
+  width: 200px;
+  margin: 5px 0 20px 10px;
+  text-align: center;
+  text-decoration: none;
+  float: left;
+  // radius
+  border-radius: 10px;         /* CSS3 */
+  -moz-border-radius: 10px;    /* Firefox */
+  -webkit-border-radius: 10px; /* Safari,Chrome */
+  // color
+  background: #091D42;
+  background: -moz-linear-gradient(top, #396A92, #091D42); /* mozilla */
+  background: -webkit-gradient(linear, center top, center bottom, from(#396A92), to(#091D42)); /* Webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF396A92', endColorstr='#FF091D42'); /* IE5.5以上 */
+  // shadow
+  box-shadow: 2px 2px 4px #000; /*CSS3*/
+  -moz-box-shadow: 2px 2px 4px #000; /* Firefox用*/
+  -webkit-box-shadow: 2px 3px 4px #000; /* Google Chrome, Safari用*/
+}
+
+#reserve_information_type label {
+  width: 700px;
+  // radius
+  border-radius: 0px;         /* CSS3 */
+  -moz-border-radius: 0px;    /* Firefox */
+  -webkit-border-radius: 0px; /* Safari,Chrome */
+}
+#reserve_receipt_library label {
+  width: 500px;
+  // radius
+  border-radius: 0px;         /* CSS3 */
+  -moz-border-radius: 0px;    /* Firefox */
+  -webkit-border-radius: 0px; /* Safari,Chrome */
+}

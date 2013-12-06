@@ -1,0 +1,47 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.retention_period')) %></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.retention_period.name') %></th>
+    <th><%= t('activerecord.attributes.retention_period.display_name') %></th>
+    <th><%= t('activerecord.attributes.retention_period.non_searchable') %></th>
+    <th><%= t('activerecord.attributes.retention_period.note') %></th>
+    <th></th>
+  </tr>
+
+<% @retention_periods.each do |retention_period| %>
+  <tr class="line<%= cycle("0", "1") %>">
+    <td>
+      <% if can? :update, retention_period %>
+        <%= move_position(retention_period) %>
+      <% end %>
+    </td>
+    <td><%= link_to retention_period.name, retention_period %></td>
+    <td><%= link_to retention_period.display_name, retention_period %></td>
+    <td><%= localized_boolean(retention_period.non_searchable) %></td>
+    <td><%= retention_period.note %></td>
+    <td>
+      <% if can? :update, retention_period %>
+        <%= link_to t('page.edit'), edit_retention_period_path(retention_period) %>
+      <% end %>
+      <% if can? :destroy, retention_period %>
+        <%= link_to t('page.destroy'), retention_period, method: :delete, data: { confirm: t('page.are_you_sure') } %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <% if can? :create, RetentionPeriod %>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.retention_period')), new_retention_period_path %></li>
+    <% end %>
+  </ul>
+</div>

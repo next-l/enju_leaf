@@ -1,0 +1,66 @@
+<% if user_signed_in? && current_user.has_role?('Librarian') -%>
+  <div id="shortcut">
+      <div class="function_key"><h4>F2: <%= t('page.checkout') %></h4></div>
+      <div class="function_key"><h4>F3: <%= t('page.checkin') %></h4></div>
+      <div class="function_key"><h4>F4: <%= t('page.recheckout') %></h4></div>
+      <div class="function_key"><h4>F6: <%= t('page.catalog_search') %></h4></div>
+      <% if SystemConfiguration.get("use_order_lists") %>
+        <div class="function_key"><h4>F7: <%= t('activerecord.models.order_list') %></h4></div>
+      <% end %>
+      <br style="clear:both;">
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  <!--
+  <% if user_signed_in? && current_user.has_role?('Librarian') -%>
+    $(document).FunctionKeys(
+    {
+       F2:function(obj,s,c,a){document.location = '<%= new_basket_path%>';} 
+      ,F3:function(obj,s,c,a){document.location = '<%= checkins_path %>';}
+      ,F4:function(obj,s,c,a){document.location = '<%= extend_checkouts_path %>';}
+      ,F6:function(obj,s,c,a){document.location = '<%= root_path %>';}
+       <% if SystemConfiguration.get("use_order_lists") %>
+      ,F7:function(obj,s,c,a){document.location = '<%= order_lists_path %>';}
+       <% end %>
+      ,F9:function(obj,s,c,a){ }
+     });
+  <% end %>
+
+  <% unless SystemConfiguration.get("no_operation_counter").nil? || SystemConfiguration.get("no_operation_counter") == 0 -%>   
+   $(function(){
+
+    window.document.onmousedown = counter_clear;
+    window.document.onkeydown   = counter_clear;
+    window.document.onmousemove = counter_clear;
+    function counter_clear() {
+      nooperation_cnt = 0;
+    }
+
+    var t = setInterval(keyborad_observer, 1000);
+    function keyborad_observer(){
+      try {
+        nooperation_cnt++;
+      } catch (e) {
+        nooperation_cnt = 0;
+      }
+      if (nooperation_cnt > <%= SystemConfiguration.get("no_operation_counter") %>) {
+      <% if user_signed_in? %>      
+        <% if SystemConfiguration.get("no_operation_logout") %>
+          location.href = "<%= destroy_user_session_path %>";
+        <% else %>
+          <% if current_user.has_role?('Librarian') %>      
+            location.href = "<%= root_path %>";
+          <% else %>
+            location.href = "<%= destroy_user_session_path %>";
+          <% end %>
+        <% end %>
+      <% else %>
+        location.href = "<%= root_path %>";
+      <% end %>
+      }
+    }
+   });
+   <% end %>
+   // -->
+ </script>

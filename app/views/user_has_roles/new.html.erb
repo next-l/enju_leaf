@@ -1,0 +1,16 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.user_has_role')) -%></h1>
+<div id="content_list">
+  <%= render 'form' %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if @user -%>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.user')), user_roles_path(@user) -%></li>
+    <%- else -%>
+      <li><%= link_to t('page.back_to_index'), user_has_roles_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

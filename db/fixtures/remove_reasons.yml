@@ -1,0 +1,19 @@
+---
+remove_reason_00001:
+  id: 1
+  name: undefined
+  display_name: "不明"
+  note:
+  position: 1
+remove_reason_00002:
+  id: 2
+  name: damage
+  display_name: "破損"
+  note:
+  position: 2
+remove_reason_00003:
+  id: 3
+  name: over
+  display_name: "余剰"
+  note:
+  position: 3

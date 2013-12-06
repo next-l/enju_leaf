@@ -1,5 +1,5 @@
 class CreateUseRestrictions < ActiveRecord::Migration
-  def change
+  def self.up
     create_table :use_restrictions do |t|
       t.string :name, :null => false
       t.text :display_name
@@ -8,5 +8,9 @@ class CreateUseRestrictions < ActiveRecord::Migration
 
       t.timestamps
     end
+  end
+
+  def self.down
+    drop_table :use_restrictions
   end
 end

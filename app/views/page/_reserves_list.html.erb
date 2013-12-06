@@ -1,0 +1,22 @@
+<h3><%= t('checked_item.previous_reserve') -%></h3>
+
+<table class="index">
+  <tr>
+    <%- if SystemConfiguration.get("checked_items.disp_title") -%>
+      <th class="checked_item_title"><%= t('page.title') -%></th>
+    <%- end -%>
+    <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
+    <th><%= t('activerecord.attributes.reserve.state') -%></th>
+    <th><%= t('activerecord.attributes.reserve.expired_at') -%></th>
+  </tr>
+  <%- user.reserves.user_show_reserves.each do |reserve| -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <%- if SystemConfiguration.get("checked_items.disp_title") -%>
+        <td><%= render 'reserves/title', :reserve => reserve -%></td>
+      <%- end -%>
+      <td><%= link_to reserve.item.item_identifier, reserve.item if reserve.item -%></td>
+      <td><%= i18n_state(reserve.state) -%></td>
+      <td><%= l(reserve.expired_at, :format => :only_date) -%></td>
+    </tr>
+  <%- end -%>
+</table>

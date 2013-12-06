@@ -1,0 +1,34 @@
+<%= form_for(@term) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="field">
+    <%= f.label :display_name %><br />
+    <%= f.text_field :display_name %>
+  </div>
+
+  <div class="field">
+<script>
+$(function(){
+  $('#term_start_at').setCalendar({src:'/assets/calendar.png'});
+  $('#term_end_at').setCalendar({src:'/assets/calendar.png'});
+});
+</script>
+    <%= f.label :start_at %><br />
+<!--
+    <%= f.date_select :start_at, :use_month_numbers => true -%>
+-->
+    <%= f.text_field :start_at %>
+  </div>
+
+  <div class="field">
+    <%= f.label :end_at %><br />
+<!--
+    <%= f.date_select :end_at, :use_month_numbers => true -%>
+-->
+    <%= f.text_field :end_at %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

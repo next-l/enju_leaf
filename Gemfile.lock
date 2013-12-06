@@ -1,110 +1,46 @@
-GIT
-  remote: git://github.com/next-l/enju_biblio.git
-  revision: 0d66dc6d3a6833a63beaf14d766befac06251261
+PATH
+  remote: .
   specs:
-    enju_biblio (0.1.0.pre46)
-      aws-sdk
-      dynamic_form
-      enju_core (~> 0.1.1.pre4)
-      inherited_resources
-      library_stdnums
-      lisbn
-      marc
-      paper_trail
-      paperclip (~> 3.4)
-      paperclip-meta
-      resque_mailer
-      simple_form
-      state_machine
-      validates_timeliness
-
-GIT
-  remote: git://github.com/next-l/enju_circulation.git
-  revision: 80d0f01ed996769d5a7125df44d9c2cea22a4f74
-  specs:
-    enju_circulation (0.1.0.pre31)
-      enju_biblio (~> 0.1.0.pre45)
-      enju_event (~> 0.1.17.pre13)
-      enju_library (~> 0.1.0.pre25)
-      enju_message (~> 0.1.14.pre10)
-
-GIT
-  remote: git://github.com/next-l/enju_event.git
-  revision: 9b810c78b0f9de5a397662962b024ec1f679fa9c
-  specs:
-    enju_event (0.1.17.pre13)
-      enju_core (~> 0.1.1.pre4)
-      enju_message (~> 0.1.14.pre10)
-      event-calendar (~> 2.3.3)
-      inherited_resources
-      paperclip
-      rails_autolink
+    enju_trunk (0.0.1)
+      RedCloth (>= 4.2.9)
+      acts-as-taggable-on (~> 2.2)
+      axlsx (~> 1.3.6)
+      barby (~> 0.5)
+      chunky_png (= 1.2.5)
+      client_side_validations
+      daemons
+      delayed_job_active_record
+      exception_notification (~> 4.0)
+      file_wrapper
+      jpp_customercode_transfer (~> 0.0.2)
+      omniauth (>= 0.2.6)
+      parallel
+      paranoia
+      prawn (= 1.0.0.rc1)
+      progress_bar
+      rails (~> 3.2.16)
+      rghost
+      rghost_barcode
       ri_cal
-      simple_form
-      state_machine
-
-GIT
-  remote: git://github.com/next-l/enju_export.git
-  revision: 9562de9ad96364721f380fe1ae201554ac4fdaad
-  specs:
-    enju_export (0.1.1.pre5)
-      enju_biblio (~> 0.1.0.pre45)
-      state_machine
-
-GIT
-  remote: git://github.com/next-l/enju_flower.git
-  revision: b087c6550f3723d5eded194b23040d4b7fbee2af
-  specs:
-    enju_flower (0.1.0.pre13)
-      rails (~> 3.2)
-
-GIT
-  remote: git://github.com/next-l/enju_library.git
-  revision: 489be659591127bb80beddb13a77b436d410fbdf
-  specs:
-    enju_library (0.1.0.pre25)
-      enju_core (~> 0.1.1.pre4)
-      geocoder
-      inherited_resources
-
-GIT
-  remote: git://github.com/next-l/enju_manifestation_viewer.git
-  revision: 5e5efccf10cc1093497f9983cd2941521a6d4ab9
-  specs:
-    enju_manifestation_viewer (0.1.0.pre11)
-      rails (~> 3.2)
-
-GIT
-  remote: git://github.com/next-l/enju_message.git
-  revision: 18c1053ad0bfeb1dbe9add81d8239dac022fdfcf
-  specs:
-    enju_message (0.1.14.pre11)
-      awesome_nested_set (~> 2.1)
-      enju_core (~> 0.1.1.pre4)
-      inherited_resources
-      rails_autolink
-      resque_mailer
-      simple_form
-      state_machine
-
-GIT
-  remote: git://github.com/next-l/enju_subject.git
-  revision: f036b43721cf50621b00b4c768c802fcda744d45
-  specs:
-    enju_subject (0.1.0.pre21)
-      dynamic_form
-      enju_core (~> 0.1.1.pre4)
-      inherited_resources
+      rmagick
+      roo (= 1.10.1)
+      rqrcode
+      rubyzip (= 0.9.9)
+      scribd_fu
+      spinjs-rails
+      spreadsheet (= 0.7.9)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    actionmailer (3.2.14)
-      actionpack (= 3.2.14)
+    Ascii85 (1.0.2)
+    RedCloth (4.2.9)
+    actionmailer (3.2.16)
+      actionpack (= 3.2.16)
       mail (~> 2.5.4)
-    actionpack (3.2.14)
-      activemodel (= 3.2.14)
-      activesupport (= 3.2.14)
+    actionpack (3.2.16)
+      activemodel (= 3.2.16)
+      activesupport (= 3.2.16)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
       journey (~> 1.0.4)
@@ -112,422 +48,177 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    activemodel (3.2.14)
-      activesupport (= 3.2.14)
+    activemodel (3.2.16)
+      activesupport (= 3.2.16)
       builder (~> 3.0.0)
-    activerecord (3.2.14)
-      activemodel (= 3.2.14)
-      activesupport (= 3.2.14)
+    activerecord (3.2.16)
+      activemodel (= 3.2.16)
+      activesupport (= 3.2.16)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activeresource (3.2.14)
-      activemodel (= 3.2.14)
-      activesupport (= 3.2.14)
-    activesupport (3.2.14)
+    activeresource (3.2.16)
+      activemodel (= 3.2.16)
+      activesupport (= 3.2.16)
+    activesupport (3.2.16)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
-    acts_as_list (0.3.0)
-      activerecord (>= 3.0)
-    addressable (2.3.5)
-    annotate (2.5.0)
-      rake
-    arel (3.0.2)
-    attribute_normalizer (1.1.0)
-    awesome_nested_set (2.1.6)
-      activerecord (>= 3.0.0)
-    aws-sdk (1.11.1)
-      json (~> 1.4)
-      nokogiri (>= 1.4.4)
-      uuidtools (~> 2.1)
-    bcrypt-ruby (3.1.1)
+    acts-as-taggable-on (2.4.1)
+      rails (>= 3, < 5)
+    afm (0.2.0)
+    arel (3.0.3)
+    axlsx (1.3.6)
+      htmlentities (~> 4.3.1)
+      nokogiri (>= 1.4.1)
+      rubyzip (>= 0.9.5)
+    barby (0.5.1)
     builder (3.0.4)
-    cancan (1.6.10)
-    capybara (2.1.0)
-      mime-types (>= 1.16)
-      nokogiri (>= 1.3.3)
-      rack (>= 1.0.0)
-      rack-test (>= 0.5.4)
-      xpath (~> 2.0)
-    charlock_holmes (0.6.9.4)
     choice (0.1.6)
-    chronic (0.9.1)
+    chunky_png (1.2.5)
     client_side_validations (3.2.6)
-    climate_control (0.0.3)
-      activesupport (>= 3.0)
-    cocaine (0.5.1)
-      climate_control (>= 0.0.3, < 1.0)
-    coderay (1.0.9)
-    coffee-rails (3.2.2)
-      coffee-script (>= 2.2.0)
-      railties (~> 3.2.0)
-    coffee-script (2.2.0)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.6.3)
-    dalli (2.6.4)
-    devise (3.0.2)
-      bcrypt-ruby (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 3.2.6, < 5)
-      warden (~> 1.2.3)
-    devise-encryptable (0.1.2)
-      devise (>= 2.1.0)
-    diff-lcs (1.2.4)
-    dynamic_form (1.1.4)
-    enju_core (0.1.1.pre4)
-      acts_as_list
-      addressable
-      attribute_normalizer (~> 1.1)
-      cancan
-      dalli
-      devise
-      friendly_id (~> 4.0)
-      kaminari
-      nested_form
-      rails (~> 3.2)
-      resque
-      settingslogic
-      sunspot_rails (~> 2.0.0)
-    enju_ndl (0.1.0.pre26)
-      library_stdnums
-      lisbn
-      nokogiri
-      rails (~> 3.2)
-    enju_oai (0.1.0.pre10)
-      rails (~> 3.2)
+    daemons (1.1.9)
+    delayed_job (4.0.0)
+      activesupport (>= 3.0, < 4.1)
+    delayed_job_active_record (4.0.0)
+      activerecord (>= 3.0, < 4.1)
+      delayed_job (>= 3.0, < 4.1)
     erubis (2.7.0)
-    event-calendar (2.3.3)
-    exception_notification (4.0.0)
+    exception_notification (4.0.1)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
-    execjs (1.4.0)
-      multi_json (~> 1.0)
-    factory_girl (4.2.0)
-      activesupport (>= 3.0.0)
-    factory_girl_rails (4.2.1)
-      factory_girl (~> 4.2.0)
-      railties (>= 3.0.0)
-    fakeweb (1.3.0)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     fattr (2.2.1)
-    ffi (1.9.0)
-    foreigner (1.4.2)
-      activerecord (>= 3.0.0)
-    formatador (0.2.4)
-    friendly_id (4.0.10)
-    geocoder (1.1.8)
-    guard (1.8.2)
-      formatador (>= 0.2.4)
-      listen (>= 1.0.0)
-      lumberjack (>= 1.0.2)
-      pry (>= 0.9.10)
-      thor (>= 0.14.6)
-    guard-rspec (3.0.2)
-      guard (>= 1.8)
-      rspec (~> 2.13)
-    has_scope (0.6.0.rc)
-      actionpack (>= 3.2, < 5)
-      activesupport (>= 3.2, < 5)
-    highline (1.6.19)
+    file_wrapper (0.4.1)
+    google-spreadsheet-ruby (0.3.1)
+      google_drive (>= 0.3.0)
+    google_drive (0.3.6)
+      nokogiri (>= 1.4.4, != 1.5.2, != 1.5.1)
+      oauth (>= 0.3.6)
+      oauth2 (>= 0.5.0)
+    hashery (2.1.1)
+    hashie (2.0.5)
+    highline (1.6.20)
     hike (1.2.3)
-    i18n (0.6.5)
-    immigrant (0.1.5)
-      activerecord (>= 3.0)
-      foreigner (>= 1.2.1)
-    inherited_resources (1.4.1)
-      has_scope (~> 0.6.0.rc)
-      responders (~> 1.0.0.rc)
+    htmlentities (4.3.1)
+    httpauth (0.2.0)
+    i18n (0.6.9)
     journey (1.0.4)
+    jpp_customercode_transfer (0.0.2)
+      rails (~> 3.2.3)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (4.0.4)
-      jquery-rails
-      railties (>= 3.1.0)
-    json (1.8.0)
-    kaminari (0.14.1)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
-    kgio (2.8.0)
-    library_stdnums (1.3.0)
-    lisbn (0.1.3)
-      nokogiri
-      nori (~> 2.0)
-    listen (1.3.0)
-      rb-fsevent (>= 0.9.3)
-      rb-inotify (>= 0.9)
-      rb-kqueue (>= 0.2)
-    lumberjack (1.0.4)
+    json (1.8.1)
+    jwt (0.1.8)
+      multi_json (>= 1.5)
+    log4r (1.1.10)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    marc (0.5.1)
-    method_source (0.8.2)
-    mime-types (1.24)
-    mini_portile (0.5.1)
-    mobylette (3.4.1)
-      actionpack (>= 3.0)
-    mono_logger (1.1.0)
-    multi_json (1.7.9)
-    nested_form (0.3.2)
+    mime-types (1.25.1)
+    mini_portile (0.5.2)
+    multi_json (1.8.2)
+    multi_xml (0.5.5)
+    multipart-post (1.2.0)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
-    nori (2.3.0)
+    oauth (0.4.7)
+    oauth2 (0.9.2)
+      faraday (~> 0.8)
+      httpauth (~> 0.2)
+      jwt (~> 0.1.4)
+      multi_json (~> 1.0)
+      multi_xml (~> 0.5)
+      rack (~> 1.2)
+    omniauth (1.1.4)
+      hashie (>= 1.2, < 3)
+      rack
     options (2.3.0)
       fattr
-    orm_adapter (0.4.0)
-    paper_trail (2.7.2)
-      activerecord (~> 3.0)
-      railties (~> 3.0)
-    paperclip (3.5.1)
-      activemodel (>= 3.0.0)
-      activesupport (>= 3.0.0)
-      cocaine (~> 0.5.0)
-      mime-types
-    paperclip-meta (0.4.3)
-      paperclip
-    parallel (0.7.1)
-    parallel_tests (0.15.0)
-      parallel
-    pg (0.16.0)
+    parallel (0.9.1)
+    paranoia (1.3.2)
+      activerecord (~> 3.2)
+    pdf-reader (1.3.3)
+      Ascii85 (~> 1.0.0)
+      afm (~> 0.2.0)
+      hashery (~> 2.0)
+      ruby-rc4
+      ttfunk
     polyglot (0.3.3)
-    pr_geohash (1.0.0)
+    prawn (1.0.0.rc1)
+      pdf-reader (>= 0.9.0)
+      ttfunk (~> 1.0.3)
     progress_bar (1.0.0)
       highline (~> 1.6.1)
       options (~> 2.3.0)
-    pry (0.9.12.2)
-      coderay (~> 1.0.5)
-      method_source (~> 0.8)
-      slop (~> 3.4)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
-    rack-protection (1.5.0)
-      rack
     rack-ssl (1.3.3)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails (3.2.14)
-      actionmailer (= 3.2.14)
-      actionpack (= 3.2.14)
-      activerecord (= 3.2.14)
-      activeresource (= 3.2.14)
-      activesupport (= 3.2.14)
+    rails (3.2.16)
+      actionmailer (= 3.2.16)
+      actionpack (= 3.2.16)
+      activerecord (= 3.2.16)
+      activeresource (= 3.2.16)
+      activesupport (= 3.2.16)
       bundler (~> 1.0)
-      railties (= 3.2.14)
-    rails-erd (1.1.0)
-      activerecord (>= 3.0)
-      activesupport (>= 3.0)
-      choice (~> 0.1.6)
-      ruby-graphviz (~> 1.0.4)
-    rails_autolink (1.1.0)
-      rails (> 3.1)
-    railties (3.2.14)
-      actionpack (= 3.2.14)
-      activesupport (= 3.2.14)
+      railties (= 3.2.16)
+    railties (3.2.16)
+      actionpack (= 3.2.16)
+      activesupport (= 3.2.16)
       rack-ssl (~> 1.3.2)
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     rake (10.1.0)
-    rb-fsevent (0.9.3)
-    rb-inotify (0.9.1)
-      ffi (>= 0.5.0)
-    rb-kqueue (0.2.0)
-      ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
-    redcarpet (3.0.0)
-    redis (3.0.4)
-    redis-actionpack (3.2.3)
-      actionpack (~> 3.2.3)
-      redis-rack (~> 1.4.0)
-      redis-store (~> 1.1.0)
-    redis-activesupport (3.2.3)
-      activesupport (~> 3.2.3)
-      redis-store (~> 1.1.0)
-    redis-namespace (1.3.1)
-      redis (~> 3.0.0)
-    redis-rack (1.4.2)
-      rack (~> 1.4.1)
-      redis-store (~> 1.1.0)
-    redis-rails (3.2.3)
-      redis-actionpack (~> 3.2.3)
-      redis-activesupport (~> 3.2.3)
-      redis-store (~> 1.1.0)
-    redis-store (1.1.3)
-      redis (>= 2.2.0)
-    responders (1.0.0.rc)
-      railties (>= 3.2, < 5)
-    resque (1.24.1)
-      mono_logger (~> 1.0)
-      multi_json (~> 1.0)
-      redis-namespace (~> 1.2)
-      sinatra (>= 0.9.2)
-      vegas (~> 0.1.2)
-    resque-scheduler (2.0.1)
-      redis (>= 2.0.1)
-      resque (>= 1.20.0)
-      rufus-scheduler
-    resque_mailer (2.2.4)
-      actionmailer (>= 3.0)
-    resque_spec (0.14.2)
-      resque (>= 1.19.0)
-      rspec-core (>= 2.5.0)
-      rspec-expectations (>= 2.5.0)
-      rspec-mocks (>= 2.5.0)
+    rghost (0.9.3)
+    rghost_barcode (0.9)
     ri_cal (0.8.8)
-    rsolr (1.0.9)
-      builder (>= 2.1.2)
-    rspec (2.14.1)
-      rspec-core (~> 2.14.0)
-      rspec-expectations (~> 2.14.0)
-      rspec-mocks (~> 2.14.0)
-    rspec-core (2.14.5)
-    rspec-expectations (2.14.2)
-      diff-lcs (>= 1.1.3, < 2.0)
-    rspec-mocks (2.14.3)
-    rspec-rails (2.14.0)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
-      railties (>= 3.0)
-      rspec-core (~> 2.14.0)
-      rspec-expectations (~> 2.14.0)
-      rspec-mocks (~> 2.14.0)
-    ruby-graphviz (1.0.9)
-    ruby-prof (0.13.0)
-    rufus-scheduler (2.0.23)
-      tzinfo (>= 0.3.23)
-    sass (3.2.10)
-    sass-rails (3.2.6)
-      railties (~> 3.2.0)
-      sass (>= 3.1.10)
-      tilt (~> 1.3)
-    settingslogic (2.0.9)
-    simple_form (2.1.0)
-      actionpack (~> 3.0)
-      activemodel (~> 3.0)
-    simplecov (0.7.1)
-      multi_json (~> 1.0)
-      simplecov-html (~> 0.7.1)
-    simplecov-html (0.7.1)
-    sinatra (1.4.3)
-      rack (~> 1.4)
-      rack-protection (~> 1.4)
-      tilt (~> 1.3, >= 1.3.4)
-    sitemap_generator (4.1.1)
-      builder
-    slop (3.4.6)
-    spring (0.0.10)
+    rmagick (2.13.2)
+    roo (1.10.1)
+      choice (>= 0.1.4)
+      google-spreadsheet-ruby (>= 0.1.5)
+      nokogiri (>= 1.5.0)
+      rubyzip (>= 0.9.4)
+      spreadsheet (> 0.6.4)
+      todonotes (>= 0.1.0)
+    rqrcode (0.4.2)
+    rscribd (1.3.0)
+      mime-types
+    ruby-ole (1.2.11.7)
+    ruby-rc4 (0.1.5)
+    rubyzip (0.9.9)
+    scribd_fu (2.0.11)
+      rscribd
+    spinjs-rails (1.3)
+      rails (>= 3.1)
+    spreadsheet (0.7.9)
+      ruby-ole (>= 1.0)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    state_machine (1.2.0)
-    steak (2.0.0)
-      capybara (>= 1.0.0)
-      rspec-rails (>= 2.5.0)
-    strong_parameters (0.2.1)
-      actionpack (~> 3.0)
-      activemodel (~> 3.0)
-      railties (~> 3.0)
-    strongbox (0.7.0)
-      activerecord
-    sunspot (2.0.0)
-      pr_geohash (~> 1.0)
-      rsolr (~> 1.0.7)
-    sunspot-rails-tester (1.0.0)
-      sunspot_rails (>= 1.2)
-      sunspot_solr (>= 1.2)
-    sunspot_rails (2.0.0)
-      nokogiri
-      sunspot (= 2.0.0)
-    sunspot_solr (2.0.0)
+    sqlite3 (1.3.8)
     thor (0.18.1)
     tilt (1.4.1)
-    timecop (0.6.3)
-    timeliness (0.3.7)
-    treetop (1.4.14)
+    todonotes (0.1.1)
+      log4r
+    treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.37)
-    uglifier (2.1.2)
-      execjs (>= 0.3.0)
-      multi_json (~> 1.0, >= 1.0.2)
-    uuidtools (2.1.4)
-    validates_timeliness (3.0.14)
-      timeliness (~> 0.3.6)
-    vcr (2.5.0)
-    vegas (0.1.11)
-      rack (>= 1.0.0)
-    warden (1.2.3)
-      rack (>= 1.0)
-    whenever (0.8.4)
-      activesupport (>= 2.3.4)
-      chronic (>= 0.6.3)
-    xpath (2.0.0)
-      nokogiri (~> 1.3)
-    zipruby (0.3.6)
+    ttfunk (1.0.3)
+    tzinfo (0.3.38)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-jdbcpostgresql-adapter
-  annotate (~> 2.5)
-  charlock_holmes
-  client_side_validations (~> 3.2)
-  coffee-rails (~> 3.2.1)
-  devise-encryptable
-  enju_biblio!
-  enju_circulation!
-  enju_event!
-  enju_export!
-  enju_flower!
-  enju_library!
-  enju_manifestation_viewer!
-  enju_message!
-  enju_ndl (~> 0.1.0.pre24)
-  enju_oai (~> 0.1.0.pre10)
-  enju_subject!
-  exception_notification (~> 4.0)
-  factory_girl_rails (~> 4.2)
-  fakeweb
-  foreigner
-  guard-rspec
-  immigrant
+  enju_trunk!
   jquery-rails
-  jquery-ui-rails
-  jruby-openssl
-  kgio
-  mobylette (~> 3.4)
-  parallel_tests (~> 0.15)
-  pg
-  progress_bar
-  rack-protection
-  rails (= 3.2.14)
-  rails-erd
-  rails_autolink
-  redcarpet
-  redis-rails
-  resque-scheduler (~> 2.0.0)
-  resque_spec
-  rspec-rails (~> 2.14)
-  ruby-prof
-  rubyzip
-  sass-rails (~> 3.2.3)
-  simplecov (~> 0.7)
-  sitemap_generator (~> 4.0)
-  spring
-  steak
-  strong_parameters
-  strongbox
-  sunspot-rails-tester
-  sunspot_solr (~> 2.0.0)
-  timecop
-  trinidad
-  uglifier (>= 1.0.3)
-  vcr (~> 2.5)
-  whenever
-  zipruby
+  sqlite3

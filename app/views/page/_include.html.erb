@@ -1,4 +1,40 @@
 <%= stylesheet_link_tag 'application' %>
-<%= stylesheet_link_tag 'print', :media => :print %>
 <%= javascript_include_tag 'application' %>
+
 <%= csrf_meta_tag %>
+
+<script>
+function check_form() {
+  <% unless SystemConfiguration.get("disp_alert_when_move_page_with_function") == false -%>
+    var input_form = false
+    checks = new Array();
+    checks = [$('input[type=text]'), $('input[type=search]'), $('input[type=url]'),$('textarea')];
+
+    for (var i = 0; i < checks.length; i++) {
+      checks[i].each(function() {
+        if ($(this).val().replace(/^\s+|\s+$/g, "" != ""))
+          input_form = true
+      });
+    }
+
+    if (input_form == true) {
+      if (confirm("<%= t('function_key.will_move') -%>") == true)
+        return true;
+      else
+        return false;
+    }
+  <% end %>
+  return true;
+}
+$(document).ready(function() {
+  if ("<%= SystemConfiguration.isWebOPAC and clinet_is_special_ip? %>" == 'true'){
+    $(document).bind('contextmenu',function(){
+      return false;
+    });
+
+    $(document).bind('keydown', 'ctrl+p', function(){
+      return false;
+    });
+  }
+});
+</script>

@@ -1,0 +1,27 @@
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.item_has_use_restriction')) -%></h1>
+
+<%= form_for(@item_has_use_restriction) do |f| -%>
+  <%= f.error_messages -%>
+  <div class="field">
+    <%= f.label t('activerecord.models.item') -%><br />
+    <%- if @item_has_use_restriction.item -%>
+      <%= link_to @item_has_use_restriction.item.item_identifier, @item_has_use_restriction.item -%>
+      (<%= link_to @item_has_use_restriction.item.manifestation.original_title, @item_has_use_restriction.item.manifestation -%>)
+      <%= f.hidden_field :item_id -%>
+    <%- else -%>
+      <%= f.text_field :item_id -%>
+    <%- end -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.use_restriction') -%><br />
+    <%= f.select(:use_restriction_id, @use_restrictions.collect{|u| [u.name, u.id]}) -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+
+<%= link_to t('page.show'), @item_has_use_restriction -%> |
+<%= link_to t('page.back'), item_has_use_restrictions_path -%>

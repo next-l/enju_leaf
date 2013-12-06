@@ -1,0 +1,53 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.manifestation_reserve_stat')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_reserve_stat.start_date') -%>:</strong>
+  <%= l(@manifestation_reserve_stat.start_date) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_reserve_stat.end_date') -%>:</strong>
+  <%= l(@manifestation_reserve_stat.end_date) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_reserve_stat.state') -%>:</strong>
+  <%= @manifestation_reserve_stat.state -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_reserve_stat.note') -%>:</strong>
+  <%= @manifestation_reserve_stat.note -%>
+</p>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.manifestation') -%></th>
+    <th><%= t('activerecord.attributes.reserve_stat_has_manifestation.reserves_count') -%></th>
+  </tr>
+  <%- @stats.each do |stat| -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td>
+        <%= render 'manifestations/show_index', :manifestation => stat.manifestation -%>
+      </td>
+      <td><%= stat.reserves_count -%></td>
+    </tr>
+  <%- end -%>
+</table>
+
+<%= paginate(@stats) -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_manifestation_reserve_stat_path(@manifestation_reserve_stat) -%></li>
+    <li><%= link_to t('page.back'), manifestation_reserve_stats_path -%></li>
+  </ul>
+  <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), manifestation_reserve_stat_path(@manifestation_reserve_stat, :locale => @locale.to_s, :format => 'tsv') -%>
+  (<%= link_to 'TSV', manifestation_reserve_stat_path(@manifestation_reserve_stat, :format => :tsv, :locale => @locale.to_s) -%>)
+</div>

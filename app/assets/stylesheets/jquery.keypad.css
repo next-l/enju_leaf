@@ -1,0 +1,178 @@
+/* Main style sheet for jQuery Keypad v1.4.2. */
+button.keypad-trigger {
+	width: 25px;
+	padding: 0px;
+}
+img.keypad-trigger {
+	margin: 2px;
+	vertical-align: middle;
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 14px;
+}
+.keypad-popup {
+	display: none;
+	z-index: 10;
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+	color: #000;
+	border: 1px solid #888;
+	border-radius: 0.25em;
+	-moz-border-radius: 0.25em;
+	-webkit-border-radius: 0.25em;
+}
+.keypad-keyentry {
+	display: none;
+}
+
+.keypad-inline {
+	background-color: #fff;
+}
+.keypad-disabled {
+	position: absolute;
+	z-index: 100;
+	background-color: white;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+.keypad-rtl {
+	direction: rtl;
+}
+.keypad-prompt1{
+	clear: both;
+	text-align: center;
+}
+.keypad-prompt.ui-widget-header {
+	margin: 0.125em;
+}
+
+div#special_keys_area {
+  float: left;
+}
+div#special_keys_area button {
+  font-size: 18px;
+}
+div#keys_area {
+  float: left;
+}
+div#keys_area button {
+  font-size: 24px;
+}
+div#keypad-toggle button {
+  font-size: 18px;
+}
+
+.keypad-row {
+	clear: both;
+	float: left;
+	width: 100%;
+}
+.keypad-space {
+	float: left;
+	width: 2em;
+}
+* html .keypad-space { /* IE6 */
+	margin: 0em;
+	width: 2.25em;
+}
+.keypad-half-space {
+	float: left;
+	margin: 0.125em 0.0625em;
+	width: 1em;
+}
+* html .keypad-half-space { /* IE6 */
+	margin: 0em;
+	width: 1.125em;
+}
+
+.keypad-key, .keypad-special {
+        color: #fff;
+        font-size: 16px;
+        font-weight: 900;
+	float: left;
+	padding: 0em;
+	text-align: center;
+	cursor: pointer;
+        height: 60px;
+        margin: 1px;
+}
+
+.keypad-key {
+        width: 60px;
+        border: 0.5px solid #4891A6; 
+        background: -webkit-gradient(linear, left top, left bottom, from(#A2DCEA), to(#58B2CB)); /* Webkit */
+        background: -moz-linear-gradient(-90deg, #A2DCEA, #58B2CB);/* mozilla */
+        filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#A2DCEA', endColorstr='#58B2CB');/* IE5.5以上 */
+}
+.keypad-key[disabled] {
+	border: 0.125em outset;
+}
+.keypad-key-down {
+}
+.keypad-special {
+	width: 182px;
+}
+.keypad-spacebar {
+        border: 0.5px solid #C2604C; 
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFFE7E64', endColorstr='#FFD44865'); /* IE5.5以上 */
+        background: -webkit-gradient(linear, left top, left bottom, from(#FE7E64), to(#D44865)); /* Webkit */
+        background: -moz-linear-gradient(top, #FE7E64, #D44865); /* mozilla */
+}
+.keypad-tab {
+	width: 2em;
+}
+.keypad-clear {
+	//background-color: #a00;
+        border: 0.5px solid #C2604C; 
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFFE7E64', endColorstr='#FFD44865'); /* IE5.5以上 */
+        background: -webkit-gradient(linear, left top, left bottom, from(#FE7E64), to(#D44865)); /* Webkit */
+        background: -moz-linear-gradient(top, #FE7E64, #D44865); /* mozilla */
+}
+.keypad-back {
+	//background-color: #00a;
+        border: 0.5px solid #C2604C; 
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFFE7E64', endColorstr='#FFD44865'); /* IE5.5以上 */
+        background: -webkit-gradient(linear, left top, left bottom, from(#FE7E64), to(#D44865)); /* Webkit */
+        background: -moz-linear-gradient(top, #FE7E64, #D44865); /* mozilla */
+}
+.keypad-close {
+	background-color: #0a0;
+}
+.keypad-shift {
+	background-color: #0aa;
+}
+.keypad-kana {
+        border: 0.5px solid #809C00; 
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFD8E988', endColorstr='#FF9CBD00'); /* IE5.5以上 */
+        background: -webkit-gradient(linear, center top, center bottom, from(#D8E988), to(#9CBD00)); /* Webkit */
+        background: -moz-linear-gradient(top, #D8E988, #9CBD00); /* mozilla */
+}
+.keypad-alnum {
+        border: 0.5px solid #809C00; 
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFD8E988', endColorstr='#FF9CBD00'); /* IE5.5以上 */
+        background: -webkit-gradient(linear, center top, center bottom, from(#D8E988), to(#9CBD00)); /* Webkit */
+        background: -moz-linear-gradient(top, #D8E988, #9CBD00); /* mozilla */
+}
+.keypad-lower {
+        border: 0.5px solid #809C00; 
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFD8E988', endColorstr='#FF9CBD00'); /* IE5.5以上 */
+        background: -webkit-gradient(linear, center top, center bottom, from(#D8E988), to(#9CBD00)); /* Webkit */
+        background: -moz-linear-gradient(top, #D8E988, #9CBD00); /* mozilla */
+}
+.keypad-upper {
+        border: 0.5px solid #809C00; 
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFD8E988', endColorstr='#FF9CBD00'); /* IE5.5以上 */
+        background: -webkit-gradient(linear, center top, center bottom, from(#D8E988), to(#9CBD00)); /* Webkit */
+        background: -moz-linear-gradient(top, #D8E988, #9CBD00); /* mozilla */
+}
+.keypad-cover {
+	display: none;
+	display/**/: block;
+	position: absolute;
+	z-index: -1;
+	filter: mask();
+	top: -4px;
+	left: -4px;
+	width: 125px;
+	height: 200px;
+}

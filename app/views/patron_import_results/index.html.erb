@@ -1,0 +1,51 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.patron_import_result')) -%></h1>
+<div id="content_list">
+  <% if @patron_import_file %>
+    <h2 class="patron_title">
+      <%= link_to @patron_import_file.patron_import_file_name, @patron_import_file %>
+    </h2>
+  <% end %>
+
+<%= t('activerecord.attributes.patron_import_result.imported_row') -%>: <%= @results_num if @results_num -%>
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.patron') %></th>
+    <th><%= t('activerecord.attributes.user.username') %></th>
+    <th><%= t('activerecord.attributes.patron_import_result.error_msg') %></th>
+    <th></th>
+  </tr>
+
+<% @patron_import_results.each do |patron_import_result| %>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to patron_import_result.patron.full_name, patron_import_result.user if patron_import_result.user %></td>
+    <td><%= link_to patron_import_result.user.username, patron_import_result.user if patron_import_result.user %></td>
+    <td><%= patron_import_result.error_msg %></td>
+    <td>
+      <%= link_to t('page.show'), patron_import_result %>
+      <%- if false -%>
+      <%= link_to t('page.destroy'), patron_import_result, :confirm => t('page.are_you_sure'), :method => :delete %>
+      <%- end -%>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate(@patron_import_results) %>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), @patron_import_file %></li>
+  </ul>
+    
+  <% if @patron_import_file %>
+    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), patron_import_file_patron_import_results_path(@patron_import_file, :locale => @locale.to_s, :format => 'tsv') -%>
+    (<%= link_to 'TSV', patron_import_file_patron_import_results_path(:locale => @locale.to_s, :format => 'tsv') -%>)
+  <% else %>
+    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), patron_import_results_path(:locale => @locale.to_s, :format => 'tsv') -%>
+    (<%= link_to 'TSV', patron_import_results_path(:locale => @locale.to_s, :format => 'tsv') -%>)
+  <% end %>
+</div>

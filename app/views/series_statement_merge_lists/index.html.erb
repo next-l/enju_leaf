@@ -1,0 +1,33 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.series_statement_merge_list')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.series_statement_merge_list.title') -%></th>
+    <th><%= t('page.created_at') -%></th>
+    <th></th>
+  </tr>
+
+<%- @series_statement_merge_lists.each do |series_statement_merge_list| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to series_statement_merge_list.title, series_statement_merge_list -%></td>
+    <td><%= l(series_statement_merge_list.created_at) -%></td>
+    <td>
+      <%= link_to t('page.show'), series_statement_merge_list -%>
+      <%= link_to t('page.edit'), edit_series_statement_merge_list_path(series_statement_merge_list) -%>
+      <%= link_to t('page.destroy'), series_statement_merge_list, :confirm => t('page.are_you_sure'), :method => :delete -%>
+  </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@series_statement_merge_lists) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.series_statement_merge_list')), new_series_statement_merge_list_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,41 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.patron')) -%></h1>
+<div id="content_list">
+<%= form_for :patrons, :url => patrons_path, :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+    <%= submit_tag t('page.search') -%>
+  </p>
+<%- end -%>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.patron.full_name') -%></th>
+    <th><%= t('activerecord.models.patron_type') -%></th>
+    <th><%= t('activerecord.attributes.patron.date_of_birth') -%></th>
+    <th id="edit_icons"></th>
+  </tr>
+  <%= render @patrons %>
+</table>
+
+<%= paginate(@patrons) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if can? :create, Patron -%>
+      <li><%= link_to t('patron.add'), new_patron_path -%></li>
+      <li><%= link_to t('page.merge', :model => t('activerecord.models.patron')), patron_merge_lists_path -%></li>
+    <%- end -%>
+  </ul>
+  <%- if can? :create, Patron -%>
+    <div id="iconmenu" class="ui-corner-all">
+      <strong><%= t('tooltip.icons_info') -%></strong>
+      <ul>
+        <li><%= image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')) -%>:&nbsp;<%=t('page.edit')-%></li>
+        <li><%= image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('patron.add_derivation'), :title => t('patron.add_derivation')) -%>:&nbsp;<%=t('patron.add_derivation')-%></li>
+      </ul>
+    </div>
+  <%- end -%>
+</div>

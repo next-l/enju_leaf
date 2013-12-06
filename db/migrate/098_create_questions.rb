@@ -1,5 +1,5 @@
 class CreateQuestions < ActiveRecord::Migration
-  def change
+  def self.up
     create_table :questions do |t|
       t.integer :user_id, :null => false
       t.text :body
@@ -10,5 +10,9 @@ class CreateQuestions < ActiveRecord::Migration
       t.string :state
     end
     add_index :questions, :user_id
+  end
+
+  def self.down
+    drop_table :questions
   end
 end

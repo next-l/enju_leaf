@@ -1,0 +1,70 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.sheet')) -%></h1>
+<div id="content_list">
+<div style="color: green"><%= flash[:message] -%></div>
+
+<table class="index">
+  <tr>
+    <th>
+      <%= t('activerecord.attributes.sheet.name') -%>      
+    </th>   
+    <th>
+      <%= t('activerecord.attributes.sheet.height') -%> <br />
+      <%= t('activerecord.attributes.sheet.width') -%>      
+    </th>   
+    <th>
+      <%= t('activerecord.attributes.sheet.cell_h') -%> <br />
+      <%= t('activerecord.attributes.sheet.cell_w') -%>      
+    </th>   
+    <th>
+      <%= t('activerecord.attributes.sheet.margin_h') -%> <br />   
+      <%= t('activerecord.attributes.sheet.margin_w') -%>      
+    </th>   
+    <th>
+      <%= t('activerecord.attributes.sheet.space_h') -%> <br />
+      <%= t('activerecord.attributes.sheet.space_w') -%>      
+    </th>   
+    <th>
+      <%= t('activerecord.attributes.sheet.cell_x') -%> <br />
+      <%= t('activerecord.attributes.sheet.cell_y') -%>      
+    </th>   
+    <th></th>
+  </tr>
+
+<% @sheets.each do |sheet| %>
+  <tr>
+    <td><%= sheet.name %></td>
+    <td><%= sheet.height %> <br />
+        <%= sheet.width %></td>
+    <td><%= sheet.cell_h %><br />
+        <%= sheet.cell_w %></td>
+    <td><%= sheet.margin_h %><br />
+        <%= sheet.margin_w %></td>
+    <td><%= sheet.space_h %><br />
+        <%= sheet.space_w %></td>
+    <td><%= sheet.cell_x %><br />
+        <%= sheet.cell_y %></td>
+    <td><%= link_to t('page.edit'), edit_sheet_path(sheet) %>
+        <%= link_to t('page.destroy'), sheet, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%= link_to t('page.show'), sheet %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<br />
+<%= paginate(@sheets) -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if user_signed_in? && current_user.has_role?('Librarian') -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.sheet')), new_sheet_path -%></li>
+    <%- end -%>
+    <li><%= link_to t('page.back'), page_extensions_path %></li>
+  </ul>
+</div>
+

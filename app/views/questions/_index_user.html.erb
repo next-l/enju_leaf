@@ -1,0 +1,40 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.question')) -%></h1>
+<div id="content_list">
+  <%= form_for :questions, :url => user_questions_path(@user), :html => {:method => 'get'} do -%>
+    <p>
+      <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+      <%= submit_tag t('page.search') -%>
+    </p>
+  <%- end -%>
+
+  <%= render 'list' -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <%= render 'solved_facet' -%>
+  <%- if user_signed_in? -%>
+    <ul>
+    <%# - if current_user.has_role?('Librarian') -%>
+      <li><%= link_to t('question.all'), questions_path -%></li>
+    <%# - end -%>
+    <%- if can? :create, Question -%>
+      <li><%= link_to t('question.my'), user_questions_path(current_user) -%></li>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.question')), new_user_question_path(current_user) -%></li>
+    <%- end -%>
+    </ul>
+  <%- end -%>
+  <br />
+  <div id="crd_list">
+    <%= render 'crd' -%>
+  </div>
+  <div id="iconmenu" class="ui-corner-all">
+    <strong><%= t('tooltip.icons_info') -%></strong>
+    <ul>
+      <li><%= image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')) -%>:&nbsp;<%=t('page.edit')-%></li>
+      <li><%= image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')) -%>:&nbsp;<%=t('page.destroy')-%></li>
+      <li><%= image_tag('icons/comments.png', :size => '16x16', :alt => t('tooltip.answer'), :title => t('tooltip.answer')) -%>:&nbsp;<%=t('tooltip.answer')-%></li>
+    </ul>
+  </div>
+</div>

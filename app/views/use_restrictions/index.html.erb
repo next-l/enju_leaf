@@ -1,0 +1,43 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.use_restriction')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.use_restriction.name') -%></th>
+    <th><%= t('activerecord.attributes.use_restriction.display_name') -%></th>
+    <th></th>
+  </tr>
+
+<%- @use_restrictions.each do |use_restriction| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :update, use_restriction -%>
+        <%= move_position(use_restriction) -%>
+      <%- end -%>
+    </td>
+    <td><%= link_to use_restriction.name, use_restriction -%></td>
+    <td><%= link_to use_restriction.display_name.localize, use_restriction -%></td>
+    <td>
+      <%- if can? :update, use_restriction -%>
+        <%= link_to t('page.edit'), edit_use_restriction_path(use_restriction) -%>
+      <% end %>
+      <%- if can? :destroy, use_restriction -%>
+        <%= link_to t('page.destroy'), use_restriction, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if can? :create, UseRestriction -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.use_restriction')), new_use_restriction_path -%></li >
+    <%- end -%>
+  </ul>
+</div>

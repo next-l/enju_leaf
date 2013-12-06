@@ -1,0 +1,41 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.order_list')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.order_list.title') -%></th>
+    <th><%= t('activerecord.models.bookstore') -%></th>
+    <th><%= t('activerecord.attributes.order_list.note') -%></th>
+    <th id="edit_icons"></th>
+  </tr>
+
+<%- @order_lists.each do |order_list| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to order_list.title, order_list -%></td>
+    <td><%= link_to order_list.bookstore.name, order_list.bookstore -%></td>
+    <td><%= order_list.note -%></td>
+    <td>
+      <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_order_list_path(order_list) -%>
+      <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')) , order_list, :confirm => t('page.are_you_sure'), :method => :delete -%>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@order_lists) -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.order_list')), new_order_list_path -%></li>
+  </ul>
+  <div id="iconmenu" class="ui-corner-all">
+    <strong><%= t('tooltip.icons_info') -%></strong>
+    <ul>
+      <li><%= image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')) -%>:&nbsp;<%=t('page.edit')-%></li>
+      <li><%= image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')) -%>:&nbsp;<%=t('page.destroy')-%></li>
+    </ul>
+  </div>
+</div>

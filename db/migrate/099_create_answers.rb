@@ -1,5 +1,5 @@
 class CreateAnswers < ActiveRecord::Migration
-  def change
+  def self.up
     create_table :answers do |t|
       t.integer :user_id, :null => false
       t.integer :question_id, :null => false
@@ -11,5 +11,9 @@ class CreateAnswers < ActiveRecord::Migration
     end
     add_index :answers, :user_id
     add_index :answers, :question_id
+  end
+
+  def self.down
+    drop_table :answers
   end
 end

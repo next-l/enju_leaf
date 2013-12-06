@@ -1,0 +1,68 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.patron')) %></h1>
+<div id="content_list">
+  <h2 class="resource_title">
+    [P]
+    <%= link_to patron.full_name, patron -%>
+  </h2>
+  <%= form_for :patrons, :url => patron_patrons_path(patron), :html => {:method => 'get'} do %>
+    <p>
+      <%= t('page.search_term') %>: 
+      <%= search_field_tag 'query', h(@query),
+        {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} %>
+      <% if can? :update, patron %>
+        <%= render 'page/add' %>
+      <% end %>
+      <%= submit_tag t('page.search') %>
+    </p>
+  <% end %>
+
+  <table class="index">
+    <tr>
+      <th><%= t('activerecord.attributes.patron.full_name') %></th>
+      <th><%= t('activerecord.models.patron_type') %></th>
+      <th><%= t('activerecord.attributes.patron.date_of_birth') %></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+    <% @patrons.each do |p| %>
+      <% if p.user.blank? %>
+        <tr class="line<%= cycle("0", "1") %>">
+          <td>
+            <%= link_to p.full_name, p %><br />
+            <%= p.full_name_transcription %>
+          </td>
+          <td><%= p.patron_type.display_name.localize %></td>
+          <td><%= l(p.date_of_birth, :format => :only_date) if p.date_of_birth %></td>
+          <td>
+            <% if can? :edit, p %>
+              <%= link_to t('page.edit'), edit_patron_path(p) %>
+            <% end %>
+          </td>
+          <td>
+            <% if can? :edit, p %>
+              <% if params[:mode] == "add" %>
+                <%= link_to t('page.add'), new_patron_patron_relationship_path(patron, :child_id => p.id) unless patron.derived_patrons.include?(p) or p == patron %>
+              <% else %>
+                <% patron_relationship = patron.children.find_by_child_id(p.id) %>
+                <%= link_to t('page.destroy'), patron_relationship, :confirm => t('page.are_you_sure'), :method => :delete if patron_relationship %>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+  <%= paginate(@patrons) %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <% if can? :create, Patron %>
+      <li><%= link_to t('patron.add'), new_patron_path %></li>
+      <li><%= link_to t('page.merge', :model => t('activerecord.models.patron')), patron_merge_lists_path %></li>
+    <% end %>
+  </ul>
+</div>

@@ -1,0 +1,20 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.output', :model => t('activerecord.models.print_label')) -%></h1>
+<div id="content_list">
+  <%= render 'form' %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), page_extensions_path -%></li>
+  </ul>
+  <div id="iconmenu" class="ui-corner-all">
+    <strong><%= t('tooltip.icons_info') -%></strong>
+    <ul>
+      <li><%= image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')) -%>:&nbsp;<%=t('page.destroy')-%></li>
+      <li><%= image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('page.asc'))-%>:&nbsp;<%=t('page.asc')-%></li>
+      <li><%= image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('page.desc'))-%>:&nbsp;<%=t('page.desc')-%></li>
+    </ul>
+  </div>
+</div>

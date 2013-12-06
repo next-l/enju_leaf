@@ -1,0 +1,13 @@
+<div id="event_list">
+  (<%= link_to t('page.calendar'), :controller => :calendar, :action => :index, :library_id => @library.name -%>)
+  <ul>
+    <%- @events.each do |event| -%>
+      <li>
+        <%= link_to event.display_name.localize, event -%>
+        (<%= l(event.start_at) -%> - <%= l(event.end_at) -%>)
+      </li>
+    <%- end -%>
+  </ul>
+
+  <%= paginate(@events, :param_name => :event_page, :remote => true) -%>
+</div>

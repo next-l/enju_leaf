@@ -1,0 +1,73 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.search_history')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.search_history.operation') -%>:</strong>
+  <%= @search_history.operation -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.search_history.version') -%>:</strong>
+  <%= @search_history.sru_version -%>
+</p>
+
+<p>
+<strong><%= t('activerecord.attributes.search_history.query') -%>:</strong>
+<%= link_to @search_history.query, manifestations_path(:query => @search_history.query) -%>
+</p>
+
+<p>
+<strong><%= t('activerecord.attributes.search_history.start_record') -%>:</strong>
+  <%= @search_history.start_record -%>
+</p>
+
+<p>
+<strong><%= t('activerecord.attributes.search_history.maximum_records') -%>:</strong>
+  <%= @search_history.maximum_records -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.search_history.record_packing') -%>:</strong>
+  <%= @search_history.record_packing -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.search_history.record_schema') -%>:</strong>
+  <%= @search_history.record_schema -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.search_history.result_set_ttl') -%>:</strong>
+  <%= @search_history.result_set_ttl -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.search_history.stylesheet') -%>:</strong>
+  <%= @search_history.stylesheet -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.search_history.extra_request_data') -%>:</strong>
+  <%= @search_history.extra_request_data -%>
+</p>
+
+<p>
+<strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@search_history.created_at) -%>
+</p>
+
+<p>
+<strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= @search_history.user.username if @search_history.user -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), search_histories_path -%></li>
+  </ul>
+</div>

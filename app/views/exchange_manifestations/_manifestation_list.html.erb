@@ -1,0 +1,20 @@
+<% if @manifestations -%>
+  <div style="color: green"><%= flash[:message] -%></div>
+    <table class="index">
+      <tr>
+        <th class='binding_item_title'><%= t('activerecord.attributes.manifestation.original_title') %></th>
+        <th><%= t('activerecord.attributes.manifestation.pub_date') %></th>
+        <th></th>
+      </tr>
+
+      <%- @manifestations.each_with_index do |manifestation, i| -%>
+          <tr class="line<%= cycle("0", "1") -%>">
+            <td><%= link_to manifestation.original_title, manifestation -%></td>
+            <td><%= manifestation.pub_date %></td>
+            <td><%= link_to t('exchange_manifestation.exchange'), "javascript:do_post_exchange_manifestation('#{manifestation.id}');", :id => "manifestation_#{manifestation.id}" -%></td>
+          </tr>
+      <%- end -%>
+    </table>
+    <%= paginate(@manifestations, :remote => true) -%>
+  </div>
+<%- end -%>

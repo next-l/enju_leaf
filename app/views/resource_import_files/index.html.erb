@@ -1,0 +1,48 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.resource_import_file')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th>Id</th>
+    <th><%= t('activerecord.attributes.resource_import_file.resource_import_file_name') -%></th>
+    <th><%= t('activerecord.attributes.resource_import_file.imported_at') -%></th>
+    <th><%= t('activerecord.models.user') -%></th>
+    <th><%= t('activerecord.attributes.resource_import_file.edit_mode') -%></th>
+    <th><%= t('activerecord.attributes.resource_import_file.state') -%></th>
+    <th></th>
+  </tr>
+
+<%- @resource_import_files.each do |resource_import_file| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to (resource_import_file.id), resource_import_file -%></td>
+    <td><%= link_to resource_import_file.resource_import_file_name, resource_import_file -%></td>
+    <td><%= l(resource_import_file.imported_at) if resource_import_file.imported_at -%></td>
+    <td><%= link_to resource_import_file.user.username, resource_import_file.user if resource_import_file.user -%></td>
+    <td>
+      <%- if resource_import_file.edit_mode == 'create' -%>
+        <%= t('page.create')%>
+      <%- elsif resource_import_file.edit_mode == 'update' -%>
+        <%= t('page.update')%>
+      <%- else -%>
+        <%= t('page.destroy')%>
+      <%- end -%>
+    </td>
+    <td><%= t("state.#{resource_import_file.state}") -%></td>
+    <td>
+      <%= link_to t('page.show'), resource_import_file -%>
+      <%= link_to t('page.destroy'), resource_import_file, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@resource_import_files) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.resource_import_file')), new_resource_import_file_path -%></li>
+  </ul>
+</div>

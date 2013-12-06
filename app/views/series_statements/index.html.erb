@@ -1,0 +1,9 @@
+<% if @manifestation %>
+  <%= render 'index_manifestation' %>
+<% elsif @parent %>
+  <%= render 'index_parent' %>
+<% elsif @basket %>
+  <%= render 'index_basket' %>
+<% else %>
+  <%= render 'index' %>
+<% end %>

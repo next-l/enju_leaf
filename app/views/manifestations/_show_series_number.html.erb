@@ -1,0 +1,19 @@
+<%- if manifestation.edition? || manifestation.volume_number_string.present? || manifestation.series_statement || manifestation.serial_number_string.present?  -%>
+<p>
+<%= t('page.number') -%>
+<%- if manifestation.edition? -%>
+  <%= t('activerecord.attributes.manifestation.edition') -%>: <%= manifestation.edition -%>
+<%- end -%>
+<%- unless manifestation.volume_number_string.blank? -%>
+  <%= t('activerecord.attributes.manifestation.volume_number_string') -%>: <%= manifestation.volume_number_string -%>
+<%- end -%>
+<%- if manifestation.series_statement -%>
+  <%- unless manifestation.issue_number_string.blank? -%>
+    <%= t('manifestation.issue_number') -%>: <%= manifestation.issue_number_string -%>
+  <%- end -%>
+  <%- unless manifestation.serial_number_string.blank? -%>
+    <%= t('manifestation.serial_number') -%>: <%= manifestation.serial_number_string -%>
+  <%- end -%>
+<%- end -%>
+</p>
+<%- end -%>

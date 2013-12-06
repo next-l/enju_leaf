@@ -1,0 +1,18 @@
+  <ul>
+    <% if can? :create, Manifestation %>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.manifestation')), new_series_statement_manifestation_path(@series_statement) %></li>
+    <% end %>
+    <% if can? :update, @series_statement %>
+      <li><%= link_to t('page.edit'), edit_series_statement_path(@series_statement) %></li>
+      <li>
+        <% if @series_statement.relationship_family %>
+          <%= link_to t('page.edit_series_statement_relationship'), @series_statement.relationship_family %>
+        <% else %>
+          <%= link_to t('page.edit_series_statement_relationship'), relationship_families_path(:add => true) %>
+        <% end %>
+      </li>
+    <% end %>
+    <% if can? :destroy, @series_statement %>
+       <li><%= link_to t('page.destroy'), @series_statement, :confirm => t('page.are_you_sure'), :method => :delete %></li>
+    <% end %>
+  </ul>

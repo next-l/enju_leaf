@@ -1,0 +1,49 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.search_engine')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.search_engine.name') -%>:</strong>
+  <%= @search_engine.name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.search_engine.url') -%>:</strong>
+  <%= link_to @search_engine.url, @search_engine.url -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.search_engine.base_url') -%>:</strong>
+  <%= @search_engine.base_url -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.search_engine.http_method') -%>:</strong>
+  <%= @search_engine.http_method -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.search_engine.query_param') -%>:</strong>
+  <%= @search_engine.query_param -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.search_engine.additional_param') -%>:</strong>
+  <%= raw simple_format(h(@search_engine.additional_param)) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.search_engine.note') -%>:</strong>
+  <%= @search_engine.note -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_search_engine_path(@search_engine) -%></li>
+    <li><%= link_to t('page.back'), search_engines_path -%></li>
+  </ul>
+</div>

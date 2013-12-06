@@ -1,5 +1,4 @@
 class Role < ActiveRecord::Base
-  attr_accessible :name, :display_name, :note
   include MasterModel
   default_scope :order => "roles.position"
   has_many :user_has_roles
@@ -7,8 +6,14 @@ class Role < ActiveRecord::Base
   after_save :clear_all_cache
   after_destroy :clear_all_cache
 
+  has_paper_trail
+
   extend FriendlyId
   friendly_id :name
+
+  def self.librarian_role_ids
+     Role.where(:name => ['Administrator', 'Librarian']).select('id').inject([]) {|a, b| a << b.id}
+  end
 
   def localized_name
     display_name.localize
@@ -35,13 +40,13 @@ end
 #
 # Table name: roles
 #
-#  id           :integer          not null, primary key
-#  name         :string(255)      not null
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
 #  display_name :string(255)
 #  note         :text
 #  created_at   :datetime
 #  updated_at   :datetime
-#  score        :integer          default(0), not null
+#  score        :integer         default(0), not null
 #  position     :integer
 #
 

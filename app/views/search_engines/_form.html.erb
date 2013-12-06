@@ -1,0 +1,35 @@
+<%= form_for(@search_engine) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label :name -%><br />
+    <%= f.text_field :name -%>
+  </div>
+  <div class="field">
+    <%= f.label :url -%><br />
+    <%= f.url_field :url, :class => 'resource_url' -%>
+  </div>
+  <div class="field">
+    <%= f.label :base_url -%><br />
+    <%= f.text_area :base_url, :class => 'resource_textarea' -%>
+  </div>
+  <div class="field">
+    <%= f.label :http_method -%><br />
+    <%= f.select :http_method, ['get', 'post'] -%>
+  </div>
+  <div class="field">
+    <%= f.label :query_param -%><br />
+    <%= f.text_field :query_param -%>
+  </div>
+  <div class="field">
+    <%= f.label :additional_param -%><br />
+    <%= f.text_area :additional_param, :class => 'resource_textarea' -%>
+  </div>
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note, :class => 'resource_textarea' -%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>

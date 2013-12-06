@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @locale.to_s -%>" lang="<%= @locale.to_s -%>">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= t('message.user_message', :login_name => current_user.username) -%></title>
+  <%= render 'page/include' -%>
+  <%= auto_discovery_link_tag(:rss, messages_url(:format => :rss), :title => (t('message.user_message', :login_name => current_user.username) + " (RSS)")) %>
+  <%= auto_discovery_link_tag(:atom, messages_url(:format => :atom), :title => (t('message.user_message', :login_name => current_user.username) + " (Atom)")) %>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+
+<%= render 'page/header' -%>
+
+<%- unless session[:breadcrumbs].nil? || session[:breadcrumbs].empty? -%>
+  <div id="breadcrumb">
+    <% session[:breadcrumbs].to_a[0..-2].each do |txt, url| %>
+      <%= link_to(txt, url) %> >
+    <% end %>
+    <%= h(session[:breadcrumbs].to_a.last.first) if session[:breadcrumbs].to_a.last%>
+  </div>
+<%- end -%>
+
+<%= render 'page/menu' -%>
+
+<div id="content">
+
+<%= yield  -%>
+
+</div>
+
+<%= render 'page/footer' -%>
+
+</body>
+</html>

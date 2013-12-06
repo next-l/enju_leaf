@@ -1,4 +1,4 @@
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {'data-ajax' => false}) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <div data-role="header">
     <h1 class="title"><%= t('page.sign_in') -%> : Next-L Enju</h1>
   </div>
@@ -21,7 +21,7 @@
       <p><%= f.submit t('page.sign_in') %></p>
     </div>
 
-    <%= javascript_tag("$(function(){$('#user_username').focus()})") %>
+    <%= javascript_tag("$('#user_username').focus()") -%>
 
     <%= render "devise/shared/links" %>
 

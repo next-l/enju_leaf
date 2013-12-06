@@ -1,0 +1,33 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.picture_file')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@picture_file, :url => picture_files_path, :html => { :multipart => true, :method => :post }) do |f| -%>
+  <% if @picture_file.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <li><%= t('picture_file.invalid_file') %></li>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :picture_attachable_id -%>
+  <%= f.hidden_field :picture_attachable_type -%>
+
+  <div class="field">
+    <%= f.label t('page.file') -%><br />
+    <%= f.file_field :picture -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), :back -%></li>
+  </ul>
+</div>

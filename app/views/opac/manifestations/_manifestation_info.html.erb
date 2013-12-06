@@ -1,0 +1,17 @@
+<div>
+  <div id="opac_manifestation_book_jacket">
+    <% if manifestation %>
+      <%= opac_book_jacket(manifestation) %>
+    <% end %>
+    <% if manifestation.picture_files.exists? %>
+      <br />
+      <%= t('page.total') %>: <%= manifestation.picture_files.count %>
+      <%= t('page.number_of_pictures', :count => manifestation.picture_files.count) %>
+    <% end %>
+  </div>
+  <div id="opac_manifestation_title">
+    <%= render 'opac/manifestations/title_detail', :manifestation => manifestation %>
+    <%= render 'manifestations/show_series_number', :manifestation => manifestation %>
+  </div>
+</div>
+<br style="clear: both;" />

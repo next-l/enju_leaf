@@ -1,0 +1,14 @@
+<h4><%= t('activerecord.models.role') -%></h4>
+<ul>
+  <%- roles = params[:role].to_s.split -%>
+  <%- @search.facet(:role).rows.each do |facet| -%>
+    <%- current_roles = roles.dup -%>
+    <%- role = Role.where(:name => facet.value).select([:name, :display_name]).first -%>
+    <%- if role -%>
+      <li><%= role_facet(role, current_roles, facet) %></li>
+    <%- end -%>
+  <%- end -%>
+  <%- if params[:role] -%>
+    <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:role => nil, :page => nil, :view => nil)) -%></li>
+  <%- end -%>
+</ul>

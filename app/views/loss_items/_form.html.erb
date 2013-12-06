@@ -1,0 +1,37 @@
+<%= form_for(@loss_item) do |f| %>
+  <%= f.error_messages %>
+  <div style="color: red"><%= raw flash[:message] -%></div>
+
+  <%= render 'manifestations/title', :manifestation => @loss_item.item.manifestation -%>
+  <%= f.hidden_field :item_id, :value => @loss_item.item.id -%>
+  <br />
+
+  <p>
+    <strong><%= t('activerecord.models.user') -%>:</strong>
+    <%= link_to @loss_item.user.patron.full_name, @loss_item.user -%>
+    (<%= link_to @loss_item.user.username, @loss_item.user -%>)
+  </p>
+  <%= f.hidden_field :user_id, :value => @loss_item.user.id -%>
+
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note, :class => 'resource_note' -%>
+  </div>
+  <br />
+
+  <% if controller.action_name == "edit" %>
+    <div class="field">
+      <%- if @loss_item.status == 0 -%>
+        <strong><%= t('activerecord.attributes.loss_item.will_reimburse') -%></strong><br />
+        <%= f.hidden_field :status, :value => 1 -%>
+      <%- else -%>
+        <strong><%= t('activerecord.attributes.loss_item.will_cancellation') -%></strong><br />
+        <%= f.hidden_field :status, :value => 0 -%>
+      <%- end -%>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>

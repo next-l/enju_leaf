@@ -1,0 +1,15 @@
+  <strong><%= link_to manifestation.original_title, manifestation -%></strong>
+  <%- if manifestation.serial? -%>
+    <%= manifestation.volume_number_string -%>
+    <%- unless manifestation.issue_number_string.blank? -%>
+      (<%= manifestation.issue_number_string -%>)
+    <%- end -%>
+    <%= manifestation.serial_number_string -%>
+  <%- end -%>
+  <%= link_to form_icon(manifestation.carrier_type), manifestation -%>
+  <%= image_tag('icons/newspaper.png', :size => '16x16', :alt => t('manifestation.serial')) if manifestation.serial? -%>
+  <%= link_to image_tag('icons/world_go.png', :size => '16x16', :alt => t('manifestation.web')), manifestation.access_address unless manifestation.access_address.blank? -%>
+  <br />
+  <div id="creator_list_<%= manifestation.id -%>">
+    <%= render 'manifestations/show_creators', :manifestation => manifestation -%>
+  </div>

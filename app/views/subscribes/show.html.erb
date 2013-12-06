@@ -1,0 +1,34 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.subscribe')) -%></h1>
+<div id='content_list'>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.subscription') -%>:</strong>
+  <%= link_to @subscribe.subscription.title, @subscribe.subscription -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.work') -%>:</strong>
+  <%= link_to @subscribe.work.original_title, @subscribe.work -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.subscribe.start_at') -%>:</strong>
+  <%=l @subscribe.start_at -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.subscribe.end_at') -%>:</strong>
+  <%=l @subscribe.end_at -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_subscribe_path(@subscribe) -%></li>
+    <li><%= link_to t('page.back'), subscribes_path -%></li>
+  </ul>
+</div>

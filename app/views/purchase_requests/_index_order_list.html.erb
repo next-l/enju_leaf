@@ -1,0 +1,82 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.purchase_request')) %></h1>
+<div id="content_list">
+<h2 class="resource_title"><%= link_to @order_list.title, @order_list %></h2>
+<p>
+  <% if @order_list.ordered_at %>
+    <%= t('activerecord.attributes.order_list.ordered_at') -%>: <%= l(@order_list.ordered_at) if @order_list.ordered_at %>
+    (<%= link_to @order_list.bookstore.name, @order_list.bookstore %>)
+  <% end %>
+  <%= t('order_list.total_price') -%>: <%= @order_list.total_price %>
+</p>
+
+<%= form_for :purchase_requests, :url => order_list_purchase_requests_path(@order_list), :html => {:method => 'get'} do %>
+  <p>
+    <%= t('page.search_term') %>:
+    <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} %>
+    <%= submit_tag t('page.search') %>
+  </p>
+<% end %>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.purchase_request.title') %></th>
+    <th><%= t('activerecord.attributes.purchase_request.price') %></th>
+    <th id="edit_icons"></th>
+  </tr>
+
+  <% @purchase_requests.each do |purchase_request| %>
+    <tr class="line<%= cycle("0", "1") %>">
+      <td>
+        <%= link_to purchase_request.title, purchase_request %><br />
+        <%= purchase_request.author %>
+        <%= purchase_request.publisher %>
+        <%= purchase_request.pub_date %>
+      </td>
+      <td><%= purchase_request.price %></td>
+      <td>
+        <% if can? :edit, purchase_request %>
+          <%= link_to t('tooltip.edit'), edit_user_purchase_request_path(purchase_request.user, purchase_request) if purchase_request.user %>
+          <%= link_to t('tooltip.edit'), edit_purchase_request_path(purchase_request) unless purchase_request.user%>
+        <% end %>
+        <% if can? :destroy, purchase_request %>
+          <% if params[:mode] == "add" %>
+            <%= link_to t('page.add'), new_order_list_purchase_request_path(@order_list, :purchase_request_id => purchase_request.id, :mode => 'add') -%>
+          <% else %>
+            <% order = @order_list.orders.find_by_purchase_request_id(purchase_request.id) %>
+            <%= link_to t('tooltip.destroy'), purchase_request, :confirm => t('page.are_you_sure'), :method => :delete -%>
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= paginate(@purchase_requests) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <% unless @order_list.ordered? %>
+      <li><%= link_to t('activerecord.models.order'), edit_order_list_path(@order_list, :mode => 'order') %></li>
+    <% end %>
+    <li><%= link_to t('purchase_request.all_request'), purchase_requests_path %></li>
+  </ul>
+  <p>
+    <%= link_to (image_tag 'icons/feed.png', :size => '16x16', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), order_list_purchase_requests_path(@order_list, :format => :rss) -%>
+    (<%= link_to 'RSS', order_list_purchase_requests_path(@order_list, :format => :rss) -%>)
+    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), order_list_purchase_requests_path(@order_list, :format => :tsv, :locale => @locale.to_s) -%>
+    (<%= link_to 'TSV', order_list_purchase_requests_path(@order_list, :format => :tsv, :locale => @locale.to_s) -%>)
+  </p>
+  <%- if false -%>
+  <h4><%= t('page.bookmarklet') -%></h4>
+  <ul>
+    <% if current_user %>
+      <li><a href="javascript:window.location.href='<%= new_user_purchase_request_url(current_user) -%>?purchase_request[url]='+encodeURIComponent(location.href)+'&purchase_request[title]='+encodeURIComponent(document.title);"><%= t('purchase_request.add_to_purchase_request') -%></a></li>
+    <% else %>
+      <li><a href="javascript:window.location.href='<%= new_purchase_request_url %>?purchase_request[url]='+encodeURIComponent(location.href)+'&purchase_request[title]='+encodeURIComponent(document.title);"><%= t('purchase_request.add_to_purchase_request') -%></a></li>
+    <% end %>
+  </ul>
+  <% end %>
+</div>

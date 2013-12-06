@@ -1,0 +1,107 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.user')) -%></h1>
+<div id="content_list">
+  <p id="notice"><%= notice %></p>
+  <div style="color: red">
+    <%= user_notice(user) -%>
+    <%- unless @family_users.blank? -%>
+      <br />
+      <%- @family_users.each do |f_user| -%>
+        <%= user_notice(f_user) unless f_user == user -%>
+      <%- end -%>
+    <%- end -%>
+  </div>
+
+  <h2 class="resource_title">[U]<%= @patron.full_name %></h2>
+
+  <%- if flash[:temporary_password] -%>
+    <p><%= t('user.your_temporary_password_is') -%>: </p>
+    <p style="font-size: 200%"><%= flash[:temporary_password] -%></p>
+    <%= form_tag({:action => 'output_password'}) do -%>
+      <%= hidden_field_tag :password, flash[:temporary_password] -%>
+      <%= submit_tag t('page.output', :model => t('activerecord.attributes.user.password')) -%> 
+    <%- end -%>
+  <%- end -%>
+
+  <p><strong><%= t('activerecord.attributes.user.user_number') %>: </strong><%= user.user_number %></p>
+  <%- unless @family_users.blank? -%>
+    <p><strong><%= t('activerecord.attributes.checkout.family_info') %>: </strong>
+      <%- @family_users.each do |f_user| -%>
+        <%- unless f_user == user -%>
+          <%- if current_user.has_role?('Librarian') -%>
+            <%= link_to f_user.patron.full_name, f_user -%>
+          <%- else -%>
+            <%= f_user.patron.full_name -%>
+          <%- end -%>
+          &nbsp;
+        <%- end -%>
+      <%- end -%>
+    </p>  
+  <%- end -%>
+
+  <div><%= link_to_function t('activerecord.attributes.user.disp_user_info'), "$('#user_info').toggle()" -%></div>
+  <div id="user_info" style="display: none">
+    <%= render 'patrons/show_list' %>
+  </div>
+
+  <%- if defined?(EnjuTrunkCirculation) %> 
+    <br />
+      <div id="checkouts_list">
+        <%= render 'page/checkouts_list', :user => @user -%>
+      </div>
+      <br />
+      <div id="reserves_list">
+        <%= render 'page/reserves_list', :user => @user -%>
+        <%= render 'reserves/output_user'-%>
+      </div>
+    <%- unless @family_users.blank? -%>
+      <br />
+      <div id="checkouts_family_list">
+        <%= render 'page/checkouts_family_list'-%>
+      </div>
+      <br />
+      <div id="reserves_family_list">
+        <%= render 'page/reserves_family_list' -%>
+      </div>
+    <%- end -%>
+  <%- end -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if current_user.has_role?('Librarian') -%>
+      <%- if user.user_number? -%>
+        <%- if user.active_for_authentication? -%>
+          <li><%= link_to t('activerecord.models.checkout'), new_basket_path(:user_number => user.user_number) -%></li>
+        <%- end -%>
+        <li><%= link_to t('activerecord.models.checkin'), checkins_path -%></li>
+      <%- end -%>
+    <%- end -%>
+    <li><%= link_to t('activerecord.models.reserve'), user_reserves_path(user) -%></li>
+    <% if user_signed_in? %>
+      <% if can? :update, user %>
+        <li><%= link_to t('page.edit'), edit_user_path(user) -%></li>
+        <% unless SystemConfiguration.get("auto_user_number") %>
+          <%- if current_user.has_role?('Librarian') -%>
+            <li><%= link_to t('user.update_user_number'), edit_user_number_user_path(user) -%></li>
+          <%- end -%>
+        <% end %>
+      <% end %>
+      <%- unless current_user == user %>
+        <%- if can? :create, Message %>
+          <li><%= link_to t('message.send'), new_message_path(:recipient => user.username) -%></li>
+        <%- end -%>
+      <%- end -%>
+      <%- if can? :create, user -%>
+        <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
+        <%- if user.patron.patron_type_id == 1 && SystemConfiguration.get('use_family') -%>
+          <li><%= link_to t('user.create_family_user'), new_user_path(:family_user_id => user.id) -%></li>        
+        <%- end -%>
+      <% end %>
+      <%- if can? :destroy, user -%>
+        <li><%= link_to t('page.destroy'), user, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+      <% end %>
+    <%- end -%>
+  </ul>
+</div>

@@ -1,0 +1,55 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.reminder_list')) -%></h1>
+<div id="content_list">
+
+<%= render 'reminder_lists/search_and_output'-%>
+
+<div style="color: green"><%= flash[:message] -%></div>
+
+<%= form_for :remider_list, :url => {:action => :send_reminder} do %>
+<div id='reminder_send'><%= submit_tag t('reminder_list.send') %></div>
+<br style="clear: both;"/>
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.reminder_list.checkout_id')-%></th>
+    <th><%= t('activerecord.attributes.reminder_list.original_title')-%></th>
+    <th><%= t('activerecord.attributes.reminder_list.user_name') -%><br /><nobr>(<%= t('activerecord.attributes.user.user_number') -%>)</nobr></th>
+    <th><nobr><%= t('activerecord.attributes.reminder_list.status')-%></nobr></th>
+    <th><%= t('activerecord.attributes.reminder_list.due_date')-%></th>
+    <th><%= t('activerecord.attributes.reminder_list.number_of_day_overdue')-%></th>
+    <th></th>
+    <th><%= t('activerecord.models.reminder_list') %><br /><nobr><%= t('reminder_list.reminder_mail') %></nobr></th>
+  </tr>
+
+<%- @reminder_lists.each_with_index do |reminder_list, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to reminder_list.checkout.try(:id), user_checkout_path(reminder_list.try(:checkout).try(:user), reminder_list.checkout) if reminder_list.try(:checkout).try(:user) -%></td>
+    <td><%= link_to reminder_list.checkout.item.manifestation.original_title, manifestation_path(reminder_list.checkout.item.manifestation) if reminder_list.try(:checkout).try(:item) -%></td>
+    <td><%= reminder_list.try(:checkout).try(:user).try(:patron).try(:full_name) -%><br />(<%= reminder_list.try(:checkout).try(:user).try(:user_number) -%>)</td>
+    <td><%= reminder_list.status_name -%></td>
+    <td><%= l(reminder_list.try(:checkout).try(:due_date), :format => :only_date) if reminder_list.try(:checkout).try(:due_date) -%></td>
+    <td><%= reminder_list.try(:checkout).try(:day_of_overdue) -%></td>
+    <td>
+      <%= link_to t('page.show'), reminder_list -%><br />
+      <%= link_to t('page.edit'), edit_reminder_list_path(reminder_list) -%>
+      <%= link_to t('page.destroy'), reminder_list, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    </td>    
+    <td><%= check_box_tag "send_reminder[]", reminder_list.id -%></td>
+  </tr>
+<%- end -%>
+</table>
+<%- end -%>
+
+<br />
+<%= paginate(@reminder_lists) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <li><%= link_to t('page.new', :model => t('activerecord.models.reminder_list')), new_reminder_list_path -%></li>
+  <%- if false -%>
+    <li><%= link_to t('page.output', :model => t('page.reminder_postal_card')), {:action => :reminder_postal_card}, {:method => :post} -%></li>
+    <li><%= link_to t('page.output', :model => t('page.reminder_letter')), {:action => :reminder_letter}, {:method => :post} -%></li>
+  <%- end -%>
+  <li><%= link_to t('page.back'), page_extensions_path %></li>
+</div>

@@ -1,0 +1,21 @@
+<div data-role="header">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.question')) -%></h1>
+</div>
+
+<div data-role="content">
+  <div data-role="fieldcontain">
+    <%= form_for :questions, :html => {:method => 'get'} do -%>
+      <label for="search_form_top"><%= t('page.search_term') -%>:</label>
+      <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+      <%= submit_tag t('page.search') -%>
+    <% end %>
+  </div>
+</div>
+
+<ul data-role="listview">
+<% @questions.each do |question| %>
+  <li><%= link_to truncate(question.body, :length => 60), user_question_path(question.user, question) -%></li>
+<% end %>
+</ul>
+
+<%= paginate(@questions, :renderer => WillPaginateJqueryMobileRenderer) %>

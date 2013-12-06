@@ -1,0 +1,34 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.frequency')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.frequency.display_name') -%>:</strong>
+  <%= @frequency.display_name.localize -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.frequency.note') -%>:</strong>
+  <%= @frequency.note -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.frequency.freq_string') -%>:</strong>
+  <%= @frequency.freq_string -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.frequency.nii_code') -%>:</strong>
+  <%= @frequency.nii_code -%>
+</p>
+
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_frequency_path(@frequency) -%></li>
+    <li><%= link_to t('page.back'), frequencies_path -%></li>
+  </ul>
+</div>

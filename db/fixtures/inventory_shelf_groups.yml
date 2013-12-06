@@ -1,0 +1,30 @@
+---
+inventory_shelf_groups_00001:
+  id: 1
+  name: S1
+  display_name: "図書"
+inventory_shelf_groups_00002:
+  id: 2
+  name: S2
+  display_name: "雑誌"
+inventory_shelf_groups_00003:
+  id: 3
+  name: S3
+  display_name: "資料"
+inventory_shelf_groups_00004:
+  id: 4
+  name: S4
+  display_name: "貴重書"
+inventory_shelf_groups_00005:
+  id: 5
+  name: S5
+  display_name: "保管資料"
+inventory_shelf_groups_00006:
+  id: 6
+  name: S6
+  display_name: "短期"
+inventory_shelf_groups_00007:
+  id: 7
+  name: S7
+  display_name: "予備"
+

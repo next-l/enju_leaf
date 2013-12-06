@@ -1,0 +1,39 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.series_statement_merge')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@series_statement_merge) do |f| -%>
+  <%= f.error_messages -%>
+  <div class="field">
+    <%= f.label t('activerecord.models.series_statement') -%><br />
+    <%- if @series_statement -%>
+      <%= link_to @series_statement.full_name, @series_statement -%>
+      <%= f.hidden_field :series_statement_id -%>
+    <%- else -%>
+      <%= f.text_field :series_statement_id -%>
+    <%- end -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.series_statement_merge_list') -%><br />
+    <%- if @series_statement_merge_list -%>
+      <%= link_to @series_statement_merge_list.title, series_statement_merge_list_path(@series_statement_merge_list) -%>
+      <%= f.hidden_field :series_statement_merge_list_id -%>
+    <%- else -%>
+      <%= f.text_field :series_statement_merge_list_id -%>
+    <%- end -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), series_statement_merges_path -%></li>
+  </ul>
+</div>

@@ -12,3 +12,21 @@ ja:
           in_transcation: "貸出処理中です。"
         checkin:
           already_checked_out: "この資料はすでに貸し出されています。"
+        iter_library_loan:
+          same_library: "移動元図書館と移動先図書館が同じです。"
+        reminder_list:
+          no_checkout: "該当する貸出が見つかりません。"
+          not_overdue: "この資料の貸出は延滞していません。"
+        user:
+          auto_generated_password: "仮パスワードが登録されています。\nパスワードを変更してください。"
+        bookbinding:
+          bookbinding_nil: "製本対象資料が選択されていません。"
+      models:
+        inter_library_loan:
+          attributes:
+            state:
+              invalid_transition: "不正な処理です。"
+        resource_import_textfile:
+          attributes:
+            state:
+              invalid_transition: "不正な処理です。"

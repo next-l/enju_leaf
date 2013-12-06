@@ -1,0 +1,43 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('library_report.daily')) -%></h1>
+<div id="content_list">
+<%= form_for :library_report, :url => library_reports_path, :html => {:method => 'get'} do -%>
+<div style="color: green"><%= flash[:message].to_s -%></div>
+  <p>
+    <%= t('library_report.yyyymm') -%>: <%= text_field_tag 'yyyymm', @yyyymm, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 201104" -%>
+    <%= t('activerecord.attributes.library_report.library') -%>: <%= select(:library_report, :library_id, @libraries.collect{|lib| [lib.display_name.localize, lib.id]}, {:include_blank => t('advanced_search.all_libraries'), :selected => (@library.id if @library) }) -%>
+    <%= submit_tag t('page.search') -%>
+  </p>
+<%- end -%>
+<table class="index">
+<%- @library_reports.each do |library_report| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%= link_to t('library_report.daily_report', :year => library_report.yyyymmdd.to_s[0,4], :month => library_report.yyyymmdd.to_s[4,2], :date => library_report.yyyymmdd.to_s[6,2]), library_report -%>
+    </td>
+    <td>
+      <%= library_report.library.display_name.localize -%>
+    </td>
+    <td>
+      <%- if can? :update, library_report -%>
+        <%= link_to t('page.edit'), edit_library_report_path(library_report) -%>
+      <% end %>
+      <%- if can? :destroy, library_report -%>
+        <%= link_to t('page.destroy'), library_report, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+<%= paginate(@library_reports) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('library_report.daily')), new_library_report_path -%></li>
+    <li><%= link_to t('page.back'), page_extensions_path %>
+  </ul>
+  <%= render 'monthly_report' %>
+  <%= render 'daily_report' %>
+</div>

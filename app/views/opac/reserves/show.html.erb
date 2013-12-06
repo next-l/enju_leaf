@@ -1,0 +1,133 @@
+<div id="opac_content_header">
+  <div id="opac_content">
+    <div class="opac_title">
+      <h1><%= t('page.showing', :model => t('activerecord.models.reserve')) %></h1>
+    </div>
+    <div class="opac_head_button_area">
+      <div class="opac_head_button"><%= link_to t('page.listing', :model => t('activerecord.models.reserve')), user_reserves_path(current_user, :opac => true) %></div>
+      <div class="opac_head_button"><%= link_to t('page.showing', :model => t('activerecord.models.manifestation')), manifestation_path(@reserve.manifestation, :opac => true) %></div>
+      <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %></div>
+    </div>
+  </div>
+</div>
+
+<div id="opac_content">
+  <p id="notice"><%= notice %></p>
+  <div>
+    <div id="opac_manifestation_book_jacket">
+      <% if @reserve.manifestation %>
+        <%= opac_book_jacket(@reserve.manifestation) %>
+      <% end %>
+      <% if @reserve.manifestation.picture_files.exists? %>
+        <br />
+        <%= t('page.total') %>: <%= @reserve.manifestation.picture_files.count %>
+        <%= t('page.number_of_pictures', :count => @reserve.manifestation.picture_files.count) %>
+      <% end %>
+    </div>
+    <div id="opac_manifestation_title">
+      <%= render 'opac/manifestations/title_detail', :manifestation => @reserve.manifestation %>
+      <br />
+      <%= render 'manifestations/show_series_number', :manifestation => @reserve.manifestation %>
+      <div><%= t('page.number_of_reservations', :count => @reserved_count) %></div>
+    </div>
+  </div>
+  <br style="clear: both;" />
+
+  <div>
+    <% if @reserve.can_edit? and  @reserve.can_checkout? %>
+      <div id="opac_button_200">
+        <%= link_to t('page.edit'), edit_user_reserve_path(@reserve.user, @reserve, :opac => true) %>
+      </div>
+    <% end %>
+    <% if @reserve.user.reserves.waiting.include?(@reserve) %>
+      <% if @reserve.can_cancel? %>
+        <div id="opac_button_200">
+          <%= link_to t('page.cancel'), user_reserve_path(@reserve.user, @reserve, :mode => 'cancel', :opac => true),
+            :confirm => t('page.cancel_confirm'), :method => :put %>
+        </div>
+      <% end %>
+    <% end %>
+    <% if @reserve.can_checkout? %>
+      <div id="opac_button_200">
+        <%= link_to t('page.output', :model => t('activerecord.attributes.reserve.reserve_list')),
+          { :action => 'output', :reserve_id => @reserve.id }, { :method => :post } %>
+      </div>
+    <% end %>
+  </div>
+  <br />
+
+  <table id="opac_detail_table">
+    <tr>
+      <td class="opac_reserve_table_column">
+        <%= t('activerecord.models.user') %>:
+      </td>
+      <td><%=@reserve.user.username %>(<%= @reserve.user.user_number %>)</td>
+    </tr>
+    <tr>
+      <td class="opac_reserve_table_column">
+        <%= t('activerecord.attributes.user.reserved_library') %>:
+      </td>
+      <td><%= @reserve.reserved_library_name %></td>
+    </tr>
+    <% if @reserve.user and @reserve.user.patron %>
+      <tr>
+        <td class="opac_reserve_table_column">
+          <%= t('activerecord.attributes.reserve.contact') %>:
+        </td>
+        <td>
+          <%= @reserve.user.patron.full_name %><br />
+          <% unless @reserve.user.patron.address_1.blank? %>
+            <% unless @reserve.user.patron.zip_code_1.blank %>
+              <%= t('activerecord.attributes.reserve.zipcode') %>
+              <%= @reserve.user.patron.zip_code_1 %><br />
+            <% end %>
+            <%= @reserve.user.patron.address_1 %>
+          <% end %>
+          <% unless @reserve.user.patron.telephone_number_1.blank? %>
+            <%= t('activerecord.attributes.patron.telephone_number') %>:
+            <%= @reserve.user.patron.telephone_number_1 %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    <tr>
+      <td class="opac_reserve_table_column">
+        <%= t('activerecord.attributes.reserve.receipt_library') %>:
+      </td>
+      <td><%= @receipt_library.display_name %></td>
+    </tr>
+    <tr>
+      <td class="opac_reserve_table_column">
+        <%= t('activerecord.attributes.reserve.information_type') %>:
+      </td>
+      <td>
+        <%= i18n_information_type(@reserve.information_type_id) %>:
+         &nbsp;<%= @information_type unless @information_type.blank? %>
+      </td>
+    </tr>
+    <tr>
+      <td class="opac_reserve_table_column">
+        <%= t('activerecord.attributes.reserve.state') %>:
+      </td>
+      <td>
+        <%= i18n_state(@reserve.state) %>
+        <% if @reserve.retained %>
+          (<%= t('reserve.called') %>)
+        <% end %>
+      </td>
+    </tr> 
+    <tr>
+      <td class="opac_reserve_table_column">
+        <%= t('activerecord.attributes.reserve.created_at') %>:
+      </td>
+      <td><%= l(@reserve.created_at, :format => :only_date) %></td>
+    </tr>
+    <tr>
+      <td class="opac_reserve_table_column">
+        <%= t('activerecord.attributes.reserve.expired_at') %>:
+      </td>
+      <td><%= l(@reserve.expired_at, :format => :only_date) if @reserve.expired_at %></td>
+    </tr>
+  </table>
+</div>
+

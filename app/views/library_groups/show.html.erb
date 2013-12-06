@@ -1,0 +1,79 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.library_group')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.name') -%>:</strong>
+  <%= @library_group.name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.display_name') -%>:</strong>
+  <%= @library_group.display_name.localize -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.email') -%>:</strong>
+  <%= @library_group.email -%>
+</p>
+
+<div>
+  <strong><%= t('activerecord.attributes.library_group.login_banner') -%>:</strong>
+  <%= raw textilize(h(@library_group.login_banner)) -%>
+</div>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.allow_bookmark_external_url') -%>:</strong>
+  <%= localized_boolean(@library_group.allow_bookmark_external_url) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.post_to_union_catalog') -%>:</strong>
+  <%= localized_boolean(@library_group.post_to_union_catalog) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.my_networks') -%>:</strong>
+  <%= @library_group.my_networks -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.admin_networks') -%>:</strong>
+  <%= @library_group.admin_networks -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.use_dsbl') -%>:</strong>
+  <%= localized_boolean(@library_group.use_dsbl) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.dsbl_list') -%>:</strong>
+  <%= raw simple_format(h(@library_group.dsbl_list)) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.note') -%>:</strong>
+  <%= @library_group.note -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.library') -%>:</strong><br />
+</p>
+
+<ul>
+  <%- @library_group.real_libraries.each do |library| -%>
+    <li><%= link_to h(library.display_name.localize), library -%></li>
+  <%- end -%>
+</ul>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_library_group_path(@library_group) -%></li>
+    <li><%= link_to t('page.back'), library_groups_path -%></li>
+  </ul>
+</div>

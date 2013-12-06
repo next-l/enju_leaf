@@ -1,0 +1,42 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('exstatistics.reserve_report') -%></h1>
+<div id="content_list">
+
+<%= render 'reservelists/output'-%>
+
+<%- @displist.each do |d| -%>
+  <br />
+  <h3><strong><%= i18n_state(d.state) -%></strong></h3> 
+  <table class="index">
+    <tr>
+      <th><%= t('activerecord.attributes.manifestation.original_title') -%></th>
+      <th><%= t('activerecord.attributes.user.user_number') -%></th>
+      <th><%= t('activerecord.models.user') -%></th>
+      <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
+    </tr>
+    <%- line = 0 -%>
+    <%- d.reserves.each do |reserve| -%>
+      <%- if line == 0 -%>
+        <tr class="line0">
+        <%- line = 1 -%>
+      <%- else -%>
+        <tr class="line1">
+        <%- line = 0 -%>
+      <%- end -%>
+        <td><%= link_to reserve.manifestation.original_title, reserve.manifestation %></td>
+        <td><%= link_to reserve.user.user_number, reserve.user unless reserve.user.user_number.blank? -%></td>
+        <td><%= link_to reserve.user.patron.full_name, reserve.user %>(<%= link_to reserve.user.username, reserve.user %>)</td>
+        <td><%= link_to reserve.item.item_identifier, reserve.item unless reserve.item.blank? or reserve.item.item_identifier.blank? -%></td>
+      </tr>
+    <%- end -%>
+  </table>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), page_extensions_path -%></li>
+  </ul>
+</div>

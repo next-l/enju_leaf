@@ -1,5 +1,5 @@
 class CreatePatrons < ActiveRecord::Migration
-  def change
+  def self.up
     create_table :patrons do |t|
       t.integer :user_id
       t.string :last_name
@@ -50,6 +50,13 @@ class CreatePatrons < ActiveRecord::Migration
       t.text :url
     end
     add_index :patrons, :user_id, :unique => true
+    add_index :patrons, :language_id
+    add_index :patrons, :country_id
+    add_index :patrons, :required_role_id
     add_index :patrons, :full_name
+  end
+
+  def self.down
+    drop_table :patrons
   end
 end

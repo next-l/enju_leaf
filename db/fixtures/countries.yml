@@ -469,8 +469,8 @@ country_00024:
   alpha_3: BMU
 country_00106: 
   position: 106
-  name: Korea, Democratic People's Republic of  
-  display_name: Korea, Democratic People's Republic of
+  name: Korea, Democratic People\'s Republic of  
+  display_name: Korea, Democratic People\'s Republic of
   numeric_3: "408"
   id: 106
   note: 
@@ -1504,8 +1504,8 @@ country_00181:
   alpha_3: SYC
 country_00049: 
   position: 49
-  name: Cote D'Ivoire  
-  display_name: Cote D'Ivoire
+  name: Cote D\'Ivoire  
+  display_name: Cote D\'Ivoire
   numeric_3: "384"
   id: 49
   note: 
@@ -1684,8 +1684,8 @@ country_00003:
   alpha_3: ALB
 country_00110: 
   position: 110
-  name: Lao People's Democratic Republic  
-  display_name: Lao People's Democratic Republic
+  name: Lao People\'s Democratic Republic  
+  display_name: Lao People\'s Democratic Republic
   numeric_3: "418"
   id: 110
   note: 

@@ -1,0 +1,45 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.circulation_status')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.circulation_status.name') -%></th>
+    <th><%= t('activerecord.attributes.circulation_status.display_name') -%></th>
+    <th><%= t('activerecord.attributes.circulation_status.unsearchable') %></th>
+    <th></th>
+  </tr>
+
+<%- @circulation_statuses.each do |circulation_status| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :update, circulation_status -%>
+        <%= move_position(circulation_status) -%>
+      <%- end -%>
+    </td>
+    <td><%= link_to circulation_status.name, circulation_status -%></td>
+    <td><%= link_to circulation_status.display_name.localize, circulation_status -%></td>
+    <td><%= localized_boolean(circulation_status.unsearchable) %></td>
+    <td>
+      <%- if can? :update, circulation_status -%>
+        <%= link_to t('page.edit'), edit_circulation_status_path(circulation_status) -%>
+      <% end %>
+      <%- if can? :destroy, circulation_status -%>
+        <%= link_to t('page.destroy'), circulation_status, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if can? :create, CirculationStatus -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.circulation_status')), new_circulation_status_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

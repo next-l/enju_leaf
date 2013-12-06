@@ -1,0 +1,44 @@
+<script>
+$(function() {
+    $('.opac_lists_row').click(function(e) {
+      if(!$(e.target).is('a')){
+        window.location = $(e.target).closest('tr').data('href');
+      };
+  });
+});
+</script>
+
+<div id="opac_content_header">
+  <div id="opac_content" %>
+    <div class="opac_title"><h1><%= t('page.listing', :model => t('activerecord.models.event')) %></h1></div>
+    <div class="opac_head_button_area">
+      <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %></div>
+    </div>
+  </div>
+</div>
+
+<div id="opac_content">
+  <table class="index" id="opac_lists">
+    <tr>
+      <th><%= t('activerecord.models.library') -%></th>
+      <th><%= t('opac.events.category') -%></th>
+      <th><%= t('activerecord.attributes.event.name') -%></th>
+    </tr>
+    <% @events.each do |event| %>
+      <tr class="opac_line<%= cycle("0", "1") %> opac_lists_row" data-href="<%= opac_event_path(event) %>">
+        <td><%= event.library.display_name.localize %></td>
+        <td><%= event.event_category.display_name.localize if event.event_category %></td>
+        <td>
+          <%= event.display_name.localize if event.display_name  %>
+          <br />
+          <div class="opac_list_sub">
+            <%= l(event.start_at, :format => :short) %>
+            -
+            <%= l(event.end_at, :format => :short) %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <%= paginate(@events) %>
+</div>

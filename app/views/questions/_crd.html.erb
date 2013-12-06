@@ -1,0 +1,12 @@
+<%- if @crd_results -%>
+  <h4><%= link_to t('question.crd'), "http://crd.ndl.go.jp/" -%></h4>
+  <p><%= t('question.number_of_search_results', :count => @crd_results.total_count) -%><br />
+  <ul>
+    <%- @crd_results.each do |result| -%>
+      <li><%= link_to h(truncate(result[:question])), result[:url] -%></li>
+    <%- end -%>
+  </ul>
+  <%= paginate(@crd_results, :param_name => :crd_page, :remote => true) -%>
+<%- else -%>
+  <p><%= link_to t('question.you_can_search_crd'), "http://crd.ndl.go.jp/" -%></p>
+<%- end -%>

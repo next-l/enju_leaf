@@ -1,0 +1,102 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.resource_import_textfile')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id:</strong>
+  <%= @resource_import_textfile.id -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.resource_import_textfile.adapter_name') -%>:</strong>
+  <%= @resource_import_textfile.adapter_display_name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.resource_import_textfile.resource_import_text_file_name') -%>:</strong>
+  <%= link_to @resource_import_textfile.resource_import_text_file_name, resource_import_textfile_path(@resource_import_textfile, :format => :download) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.resource_import_textfile.resource_import_text_content_type') -%>:</strong>
+  <%= @resource_import_textfile.resource_import_text_content_type -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.resource_import_textfile.resource_import_text_file_size') -%>:</strong>
+  <%= @resource_import_textfile.resource_import_text_file_size -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.resource_import_textfile.file_hash') -%>:</strong>
+  <%= @resource_import_textfile.file_hash -%>
+</p>
+
+<% if @resource_import_textfile.adapter_name == 'Excelfile_Adapter' %>
+  <br />
+  <% sheets = eval(@resource_import_textfile.extraparams)["sheet"] %>
+  <% if SystemConfiguration.get('manifestations.split_by_type') %>
+    <% manifestation_types = eval(@resource_import_textfile.extraparams)["manifestation_type"] %>
+  <% end %>
+  <% numberings = eval(@resource_import_textfile.extraparams)["numbering"] %>
+  <% auto_numberings = eval(@resource_import_textfile.extraparams)["auto_numbering"] %>
+  <% if sheets.present? %>
+    <table style="border: 0px;">
+      <tr>
+        <th style="border:0px; border-bottom: 1px solid #aaa;"><%= t('activerecord.attributes.resource_import_textfile.sheet') %></th>
+        <% if SystemConfiguration.get('manifestations.split_by_type') %>
+          <th style="border:0px; border-bottom: 1px solid #aaa;"><%= t('activerecord.models.manifestation_type') %></th>
+        <% end %>
+        <th style="border:0px; border-bottom: 1px solid #aaa;"><%= t('activerecord.models.numbering') %></th>
+        <th style="border:0px; border-bottom: 1px solid #aaa;"><%= t('resource_import_textfile.auto_numbering') %></th>
+      </tr>
+      <% sheets.each_with_index do |sheet, i| %>
+        <tr>
+          <td style="border:0px; border-bottom: 1px solid #aaa;"><%= sheet %></td>
+          <% if SystemConfiguration.get('manifestations.split_by_type') %>
+            <td style="border:0px; border-bottom: 1px solid #aaa;"><%= get_manifestation_type_name(manifestation_types[i]) rescue nil %></td>
+            <td style="border:0px; border-bottom: 1px solid #aaa;"><%= get_numbering_display_name(numberings[i], manifestation_types[i]) rescue nil %></td>
+          <% else %>
+            <td style="border:0px; border-bottom: 1px solid #aaa;"><%= get_numbering_display_name(numberings[i]) rescue nil %></td>
+          <% end %>
+          <td style="border:0px; border-bottom: 1px solid #aaa;"><%= t("page.boolean.#{auto_numberings[i]}") if auto_numberings %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+  <br />
+<% end %>
+
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@resource_import_textfile.created_at) if @resource_import_textfile.created_at -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.resource_import_textfile.imported_at') -%>:</strong>
+  <%= l(@resource_import_textfile.imported_at) if @resource_import_textfile.imported_at -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.resource_import_textfile.state') -%>:</strong>
+  <%= t("state.#{@resource_import_textfile.state}") -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= link_to @resource_import_textfile.user.username, @resource_import_textfile.user -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if @resource_import_textfile.state == 'pending' -%>
+      <li><%= link_to t('resource_import_textfile.import_request'), {:action => "import_request", :id => @resource_import_textfile.id} -%></li>
+    <%- end -%>
+    <li><%= link_to t('activerecord.models.resource_import_textresult'), resource_import_textfile_resource_import_textresults_path(@resource_import_textfile) -%></li>
+    <li><%= link_to t('page.back_to_index'), resource_import_textfiles_path -%></li>
+  </ul>
+</div>

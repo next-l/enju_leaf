@@ -1,0 +1,49 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.loss_item')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= raw notice %></p>
+<div style="color: red"><%= raw flash[:message] -%></div>
+<%- if flash[:sound] -%>
+<script>
+playSound('<%= root_path -%><%= flash[:sound] -%>');
+</script>
+<%- end -%>
+
+<%- if @loss_item.item.manifestation -%>
+  <%= render 'manifestations/title', :manifestation => @loss_item.item.manifestation -%>
+<%- end -%>
+<p>
+  <strong><%= t('activerecord.attributes.item.item_identifier') -%>:</strong>
+  <%= link_to @loss_item.item.item_identifier, @loss_item.item -%>
+</p>
+<p>
+  <strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= link_to @loss_item.user.patron.full_name, @loss_item.user -%>
+  (<%= link_to @loss_item.user.username, @loss_item.user -%>)
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.loss_item.status') -%>:</strong>
+  <%= i18n_status(@loss_item.status) -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.loss_item.note') -%>:</strong>
+  <%= @loss_item.note -%>
+</p>
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@loss_item.created_at) -%>
+</p>
+<p>
+  <strong><%= t('page.updated_at') -%>:</strong>
+  <%= l(@loss_item.updated_at) -%>
+</p>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.loss_item')), loss_items_path -%></li>
+    <li><%= link_to t('page.edit'), edit_loss_item_path(@loss_item) -%></li>
+    <li><%= link_to t('page.destroy'), @loss_item, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+  </ul>
+</div>

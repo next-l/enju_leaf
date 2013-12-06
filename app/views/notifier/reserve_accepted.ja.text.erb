@@ -1,0 +1,18 @@
+<%=h @user.patron.full_name -%> さん
+
+以下の資料の予約を受け付けました。
+
+資料名: <%=h @manifestation.original_title %>
+著者: <%=h @manifestation.creators.readable_by(@user).collect(&:full_name).join("/") %>
+編者: <%=h @manifestation.contributors.readable_by(@user).collect(&:full_name).join("/") %> 
+出版者: <%=h @manifestation.publishers.readable_by(@user).collect(&:full_name).join("/") %>
+ISBN: <%=h @manifestation.isbn %>
+URL: <%=h @manifestation.access_address %>
+所蔵場所:
+<% @manifestation.items.on_shelf.each do |item| -%>
+ <%=h item.shelf_display_name.localize %> <%=h call_numberformat(item) %> <%=h item.item_identifier %>
+<% end -%>
+
+-- 
+<%=h LibraryGroup.system_name(@user.locale) %>
+<%=h LibraryGroup.site_config.url %>

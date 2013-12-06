@@ -1,0 +1,45 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.form_of_work')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.form_of_work.name') -%></th>
+    <th><%= t('activerecord.attributes.form_of_work.display_name') -%></th>
+    <th><%= t('activerecord.attributes.form_of_work.note') -%></th>
+    <th></th>
+  </tr>
+
+<%- @form_of_works.each do |form_of_work| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :update, form_of_work -%>
+        <%= move_position(form_of_work) -%>
+      <%- end -%>
+    </td>
+    <td><%= link_to form_of_work.name, form_of_work -%></td>
+    <td><%= link_to form_of_work.display_name.localize, form_of_work -%></td>
+    <td><%= form_of_work.note -%></td>
+    <td>
+      <%- if can? :update, form_of_work -%>
+        <%= link_to t('page.edit'), edit_form_of_work_path(form_of_work) -%>
+      <% end %>
+      <%- if can? :destroy, form_of_work -%>
+        <%= link_to t('page.destroy'), form_of_work, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if can? :create, FormOfWork -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.form_of_work')), new_form_of_work_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

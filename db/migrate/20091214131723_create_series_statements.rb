@@ -1,5 +1,5 @@
 class CreateSeriesStatements < ActiveRecord::Migration
-  def change
+  def self.up
     create_table :series_statements do |t|
       t.text :title
       t.text :numbering
@@ -9,5 +9,9 @@ class CreateSeriesStatements < ActiveRecord::Migration
 
       t.timestamps
     end
+  end
+
+  def self.down
+    drop_table :series_statements
   end
 end

@@ -1,0 +1,118 @@
+<div id="content_detail" class="ui-corner-all">
+  <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.purchase_request')) %></h1>
+<div id="content_list">
+<%= form_for :purchase_requests, :url => purchase_requests_path, :html => {:method => 'get'} do %>
+  <p>
+    <%= t('page.search_term') %>: 
+    <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} %>
+    <%= submit_tag t('page.search') %>
+  </p>
+<% end %>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.purchase_request.title') %></th>
+    <th><%= t('activerecord.attributes.purchase_request.price') %></th>
+    <% if user_signed_in? and current_user.has_role?('Librarian') %>
+      <% if SystemConfiguration.get("use_order_lists") %>
+        <th><%= t('activerecord.models.order_list') %></th>
+      <% end %>
+    <% end %>
+    <th><%= t('activerecord.attributes.purchase_request.state') %></th>
+    <% if user_signed_in? %>
+      <th id="edit_icons"></th>
+    <% end %>
+  </tr>
+  <% @purchase_requests.each do |purchase_request| %>
+    <tr class="line<%= cycle("0", "1") %>">
+      <td>
+        <%= link_to purchase_request.title, user_purchase_request_path(purchase_request.user, purchase_request) if purchase_request.user %>
+        <%= link_to purchase_request.title, purchase_request unless purchase_request.user %>
+        <br />
+        <%= purchase_request.author %>
+        <%= purchase_request.publisher %>
+        <%= purchase_request.pub_date %>
+      </td>
+      <td><%= purchase_request.price %></td>
+      <% if user_signed_in? and current_user.has_role?('Librarian') %>
+        <% if SystemConfiguration.get("use_order_lists") %>
+          <td>
+            <% if purchase_request.order_list %>
+              <%= link_to purchase_request.order_list.title, order_list_purchase_requests_path(purchase_request.order_list) %>
+            <% end %>
+          </td>
+        <% end %>
+      <% end %>
+      <td><%= i18n_pr_state(purchase_request.state) %></td>
+      <% if user_signed_in? %>
+        <td>
+          <% if can? :edit, purchase_request %>
+            <%= link_to t('page.edit'), edit_user_purchase_request_path(purchase_request.user, purchase_request) if purchase_request.user %>
+            <%= link_to t('page.edit'), edit_purchase_request_path(purchase_request) unless purchase_request.user %>
+          <% end %>
+          <% if can? :destroy, purchase_request %>
+            <%= link_to t('page.destroy'), user_purchase_request_path(purchase_request.user, purchase_request), :confirm => t('page.are_you_sure'), :method => :delete if purchase_request.user %>
+            <%= link_to t('page.destroy'), purchase_request, :confirm => t('page.are_you_sure'), :method => :delete unless purchase_request.user%>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+
+<%= paginate(@purchase_requests) %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <%= render 'state_facet' %>
+  <% if user_signed_in? %>
+    <ul>
+      <% if @user %>
+        <li><%= link_to t('purchase_request.all_request'), purchase_requests_path %></li>
+        <li><strong><%= link_to t('purchase_request.my_request'), user_purchase_requests_path(current_user) %></strong></li>
+      <% else %>
+        <li><strong><%= link_to t('purchase_request.all_request'), purchase_requests_path %></strong></li>
+        <li><%= link_to t('purchase_request.my_request'), user_purchase_requests_path(current_user) %></li>
+      <% end %>
+    </ul>
+    <br />
+  <% end %>
+  <ul>
+    <li>
+      <%= link_to t('page.new', :model => t('activerecord.models.purchase_request')), new_purchase_request_path unless user_signed_in? %>
+      <%= link_to t('page.new', :model => t('activerecord.models.purchase_request')), new_user_purchase_request_path(current_user) if user_signed_in? %>
+    </li>
+  </ul>
+
+  <p>
+  <% if @user %>
+    <%= link_to (image_tag 'icons/feed.png', :size => '16x16', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'),
+      :user_id => @user.username, :format => :rss, :mode => params[:mode], :query => @query %>
+    (<%= link_to 'RSS', user_purchase_requests_path(@user, :format => :rss) %>)
+    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => t('tooltip.tsv'), :class => 'icon'),
+      user_purchase_requests_path(@user, :format => :tsv, :locale => @locale.to_s, :mode => params[:mode], :query => @query) %>
+    (<%= link_to 'TSV', user_purchase_requests_path(@user, :format => :tsv, :locale => @locale.to_s, :mode => params[:mode], :query => @query) %>)
+  <% else %>
+    <%= link_to (image_tag 'icons/feed.png', :size => '16x16', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'),
+      :format => :rss, :mode => params[:mode], :query => @query %>
+    (<%= link_to 'RSS', purchase_requests_path(:format => :rss, :mode => params[:mode], :query => @query) %>)
+    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => t('tooltip.tsv'), :class => 'icon'),
+      purchase_requests_path(:format => :tsv, :locale => @locale.to_s, :mode => params[:mode], :query => @query) %>
+    (<%= link_to 'TSV', purchase_requests_path(:format => :tsv, :locale => @locale.to_s, :mode => params[:mode], :query => @query) %>)
+  <% end %>
+  </p>
+
+ <% if false %>
+  <% if user_signed_in? %>
+    <h4><%= t('page.bookmarklet') %></h4>
+    <ul>
+      <li>
+        <a href="javascript:window.location.href='<%= new_user_purchase_request_url(current_user) -%>?purchase_request[url]='+encodeURIComponent(location.href)+'&purchase_request[title]='+encodeURIComponent(document.title);">
+        <%= t('purchase_request.add_to_purchase_request') -%>
+        </a>
+      </li>
+    </ul>
+  <% end %>
+  <% end %>
+</div>

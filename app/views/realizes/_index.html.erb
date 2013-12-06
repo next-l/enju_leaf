@@ -1,0 +1,33 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.realize')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.patron') -%></th>
+    <th><%= t('activerecord.models.expression') -%></th>
+  </tr>
+
+  <%- @realizes.each do |realize| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to realize.patron.full_name, realize.patron -%></td>
+    <td><%= link_to realize.expression.original_title, realize.expression -%></td>
+    <%- if can? :destroy, realize -%>
+      <td><%= link_to t('page.show'), realize -%></td>
+      <td><%= link_to t('page.destroy'), realize, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+    <%- end -%>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@realizes) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <%- if can? :create, Realize -%>
+    <ul>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.realize')), new_realize_path -%></li>
+    </ul>
+  <%- end -%>
+</div>

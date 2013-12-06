@@ -1,0 +1,13 @@
+<div id="question">
+  <div id="question_list">
+    <ul>
+      <% manifestation.questions(:user => current_user).each do |question| %>
+        <li>
+          <%= link_to question.body, question %>
+          (<%= t('page.last_updated') %>: <%=l question.updated_at %>)
+        </li>
+      <% end %>
+    </ul>
+    <%= paginate(manifestation.questions(:user => current_user), :param_name => :question_page, :class => 'content_pagination digg_pagination') -%>
+  </div>
+</div>

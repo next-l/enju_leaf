@@ -1,55 +1,119 @@
 --- 
 frequency_00001: 
-  name: unknown
-  display_name: "en: unknown\r\n\
-    ja: 不明・不定期刊"
+  name: daily
+  display_name: 日刊
   id: 1
   position: 1
+  freq_string: "1"
+  nii_code: "d"
 frequency_00002: 
-  name: daily
-  display_name: "en: daily\r\n\
-    ja: 日刊"
+  name: every_ten_days
+  display_name: 旬報
   id: 2
   position: 2
+  freq_string: "10"
+  nii_code: ""
 frequency_00003: 
-  name: weekly
-  display_name: "en: weekly\r\n\
-    ja: 週刊"
+  name: monthly
+  display_name: 月刊
   id: 3
   position: 3
+  freq_string: "31"
+  nii_code: "m"
 frequency_00004: 
   name: biweekly
-  display_name: "en: biweekly\r\n\
-    ja: 隔週刊"
+  display_name: 半月
   id: 4
   position: 4
+  freq_string: "15"
 frequency_00005: 
-  name: monthly
-  display_name: "en: monthly\r\n\
-    ja: 月刊"
+  name: bimonthly
+  display_name: 隔月
   id: 5
   position: 5
+  freq_string: "60"
+  nii_code: "b"
 frequency_00006: 
-  name: bimonthly
-  display_name: "en: bimonthly\r\n\
-    ja: 隔月刊"
+  name: semimonthly
+  display_name: 月２回
   id: 6
   position: 6
+  freq_string: "15"
+  nii_code: "s"
 frequency_00007: 
-  name: quarterly
-  display_name: "en: quarterly\r\n\
-    ja: 季刊"
+  name: weekly
+  display_name: 週刊
   id: 7
   position: 7
+  freq_string: "0"
+  nii_code: "w"
 frequency_00008: 
-  name: yearly
-  display_name: "en: yearly\r\n\
-    ja: 年刊"
+  name: nonscheduled 
+  display_name: 不定期
   id: 8
   position: 8
+  freq_string: "0"
+  nii_code: ""
 frequency_00009: 
-  name: biyearly
-  display_name: "en: biyearly\r\n\
-    ja: 隔年刊"
+  name: yearly
+  display_name: 年刊
   id: 9
   position: 9
+  freq_string: "365"
+  nii_code: "a"
+frequency_00010: 
+  name: ten_times
+  display_name: 年１０回
+  id: 10
+  position: 10
+  freq_string: "36"
+  nii_code: ""
+frequency_00011: 
+  name: half_yearly
+  display_name: 半年
+  id: 11
+  position: 11
+  freq_string: "183"
+  nii_code: ""
+frequency_00012: 
+  name: three_times_a_year
+  display_name: 年３回
+  id: 12
+  position: 12
+  freq_string: "122"
+  nii_code: ""
+frequency_00013: 
+  name: quarterly
+  display_name: 季刊
+  id: 13
+  position: 13
+  freq_string: "0"
+  nii_code: "q"
+frequency_00014: 
+  name: five_times_a_year
+  display_name: 年５回
+  id: 14
+  position: 14
+  freq_string: "73"
+  nii_code: "q"
+frequency_00015: 
+  name: six_times_a_year
+  display_name: 年６回
+  id: 15
+  position: 15
+  freq_string: "61"
+  nii_code: ""
+frequency_00016: 
+  name: no_determinable_frequency
+  display_name: 不定期刊
+  id: 16
+  position: 16
+  freq_string: ""
+  nii_code: ""
+frequency_00017: 
+  name: unknown
+  display_name: 不明
+  id: 17
+  position: 17
+  freq_string: ""
+  nii_code: "u"

@@ -1,0 +1,14 @@
+<%- if @user.checkout_icalendar_token? -%>
+  <%= checkouts_url(:icalendar_token => @user.checkout_icalendar_token, :format => :ics) -%>
+  <%= hidden_field_tag 'user[checkout_icalendar_token]', @user.checkout_icalendar_token -%>
+<%- end -%>
+<br />
+<%- if @user.checkout_icalendar_token? -%>
+  <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_user_path(@user, :disable => true, :mode => 'feed_token') %>'});" type="button" value="<%= t('page.delete') %>" />
+  <br />
+  <%= t('user.you_have_to_save_profile_to_activate_feed_url') -%>
+<%- else -%>
+  <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_user_path(@user, :mode => 'feed_token') %>'});" type="button" value="<%= t('page.reset') %>" />
+  <br />
+  <%= t('user.you_have_to_save_profile_to_deactivate_feed_url') -%>
+<%- end -%>

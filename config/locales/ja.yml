@@ -34,6 +34,7 @@ ja:
       default: ! '%Y/%m/%d'
       long: ! '%Y年%m月%d日(%a)'
       short: ! '%m/%d'
+      only_date: "%Y年%m月%d日"
     month_names:
     - 
     - 1月
@@ -119,6 +120,10 @@ ja:
       too_long: は%{count}文字以内で入力してください。
       too_short: は%{count}文字以上で入力してください。
       wrong_length: は%{count}文字で入力してください。
+      non_exist_user: に存在しない利用者が指定されています。
+      invalid_content_type: が不正です。text/csv, text/plain, text/tab-separated-values いずれかの形式でアップロードしてください。
+      not_selected: が選択されていません。
+      en_expected: は半角英数字で入力してください。
     template:
       body: 次の項目を確認してください。
       header:

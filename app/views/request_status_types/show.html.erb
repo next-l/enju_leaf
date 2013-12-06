@@ -1,0 +1,29 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.request_status_type')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.request_status_type.name') -%>:</strong>
+  <%= @request_status_type.name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.request_status_type.display_name') -%>:</strong>
+  <%= @request_status_type.display_name.localize -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.request_status_type.note') -%>:</strong>
+  <%= @request_status_type.note -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_request_status_type_path(@request_status_type) -%></li>
+    <li><%= link_to t('page.back'), request_status_types_path -%></li>
+  </ul>
+</div>

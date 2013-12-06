@@ -2,8 +2,8 @@
 language_00001: 
   position: 1
   name: unknown  
-  display_name: "en: unknown\r\n\
-    ja: 不明"
+  display_name: "en:unknown\r\n\
+    ja:不明"
   iso_639_1: unknown
   iso_639_2: unknown
   iso_639_3: unknown
@@ -248,7 +248,7 @@ language_00031:
   iso_639_2: chi
   iso_639_3: zho
   id: 31
-  note: 
+  note: 中国語
   native_name: 
 language_00004: 
   position: 4
@@ -488,7 +488,7 @@ language_00091:
   iso_639_2: kor
   iso_639_3: kor
   id: 91
-  note: 
+  note: 韓国語
   native_name: 
 language_00064: 
   position: 64
@@ -528,7 +528,7 @@ language_00008:
   iso_639_2: ara
   iso_639_3: ara
   id: 8
-  note: 
+  note: "アラビア語" 
   native_name: 
 language_00092: 
   position: 92
@@ -1355,8 +1355,8 @@ language_00160:
 language_00077: 
   position: 77
   name: Japanese  
-  display_name: "en: Japanese\r\n\
-    ja: 日本語"
+  display_name: "en:Japanese\r\n\
+    ja:日本語"
   iso_639_1: ja
   iso_639_2: jpn
   iso_639_3: jpn
@@ -1571,7 +1571,7 @@ language_00051:
   iso_639_2: fre
   iso_639_3: fra
   id: 51
-  note: 
+  note: フランス語
   native_name: 
 language_00165: 
   position: 165

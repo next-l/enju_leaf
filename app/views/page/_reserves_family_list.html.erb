@@ -1,0 +1,31 @@
+<h3><%= t('checked_item.previous_reserve_family') -%></h3>
+
+<table class="index">
+  <tr>
+    <%- if SystemConfiguration.get("checked_items.disp_title") -%>
+      <th class="checked_item_title"><%= t('page.title') -%></th>
+    <%- end -%>
+    <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
+    <th><%= t('activerecord.attributes.reserve.state') -%></th>
+    <th><%= t('activerecord.attributes.reserve.expired_at') -%></th>
+    <%- if SystemConfiguration.get("checked_items.disp_user") -%>
+      <th><%= t('activerecord.attributes.checkout.family_info') -%></th>
+    <%- end -%>
+  </tr>
+  <% @family_users.each do |f_user| %>
+    <%- f_user.reserves.user_show_reserves.each do |reserve| -%>
+      <tr class="line<%= cycle("0", "1") -%>">
+        <%- if SystemConfiguration.get("checked_items.disp_title") -%>
+          <td><%= render 'reserves/title', :reserve => reserve -%></td>
+        <%- end -%>
+        <td><%= link_to reserve.item.item_identifier, reserve.item if reserve.item -%></td>
+        <td><%= i18n_state(reserve.state) -%></td>
+        <td><%= l(reserve.expired_at, :format => :only_date) -%></td>
+        <%- if SystemConfiguration.get("checked_items.disp_user") -%>
+          <td><%= link_to f_user.patron.full_name, f_user -%><br />
+              (<%= link_to f_user.username, f_user -%>)</td>
+        <%- end -%>
+      </tr>
+    <%- end -%>
+  <%- end -%>
+</table>

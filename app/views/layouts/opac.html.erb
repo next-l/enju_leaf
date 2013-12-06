@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @locale.to_s -%>" lang="<%= @locale.to_s -%>" style="height:100%;">
+<head>
+  <meta charset="UTF-8" />
+  <%= render 'page/include' %>
+  <title><%= title(controller.controller_name) %></title>
+  <%- if controller.controller_name == 'manifestations' and controller.action_name == 'index' -%>
+    <%= auto_discovery_link_tag(:rss, url_for(params.merge(:format => 'rss', :page => nil, :commit => nil)), :title => (t('manifestation.library_group_manifestation', :library_group_name => @library_group.display_name.localize) + " (RSS)")) %>
+    <%= auto_discovery_link_tag(:atom, url_for(params.merge(:format => 'atom', :page => nil, :commit => nil)), :title => (t('manifestation.library_group_manifestation', :library_group_name => @library_group.display_name.localize) + " (Atom)")) %>
+  <% end %>
+  <%= render 'page/portlets' %>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" style="height:100%; background: #eee;">
+
+<div id="wrapper">
+  <%= render 'opac/page/header'%>
+  <%= yield %>
+</div>
+<%= render 'opac/page/footer' %>
+</body>
+</html>

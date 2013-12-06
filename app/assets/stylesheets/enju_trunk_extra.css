@@ -1,0 +1,242 @@
+/* add annotation by reiko@opentech.co.jp */
+#annotation {
+  font-weight: normal;
+  font-size: 85%;
+}
+
+/** tab menu**/
+a.fg-4button {
+   width: 184px;
+}
+
+a.fg-3button {
+   width: 260px;
+}
+
+/** cheked_outs **/
+#user_comment {
+  padding: 5px;
+  border: 1px solid #2779AA;
+}
+
+/** my_status button **/
+.my_status_button {
+  font-size: 1em;
+  width:140px;
+  text-align: center;
+  float: right;
+}
+a.my_status_button,  a:visited.my_status_button {
+  color: #333333;
+  border: 1px solid #c0c0c0;
+  background: #e0e0e0 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+  text-decoration: none;
+}
+a:hover.my_status_button {
+  color: #212121;
+  border: 1px solid #999999;
+  background: #dadada url(images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x; 
+}
+
+div#my_basket_box{
+  padding: 10px;
+  word-wrap: break-word;
+}
+.my_status_button {
+  font-size: 1em;
+  width: 140px;
+  text-align: center;
+  float: right;
+}
+a.my_status_button,  a:visited.my_status_button {
+  color: #555555;
+  border: 1px solid #d3d3d3;
+  background: #e6e6e6 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+  text-decoration: none;
+}
+a:hover.my_status_button {
+  color: #212121;
+  border: 1px solid #999999;
+  background: #dadada url(images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
+}
+div#easy_tools_box{
+  padding: 10px;
+  word-wrap: break-word;
+}
+.easy_tools_button {
+  font-size: 1em;
+  width: 210px;
+  text-align: center;
+  margin: 0 0 10px 0;
+  float: left;
+}
+.easy_tools_button_right {
+  margin: 0 5px 0 0;
+}
+a.easy_tools_button,  a:visited.easy_tools_button {
+  color: #333333;
+  border: 1px solid #d3d3d3;
+  background: #e6e6e6 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+  text-decoration: none;
+}
+a:hover.easy_tools_button {
+  color: #000000;
+  border: 1px solid #999999;
+  background: #dadada url(images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
+}
+
+div#family {
+  float: right;
+  text_align: left;
+  width: 250px;
+}
+
+#shortcut {
+  clear: both;
+}
+       
+.function_key {
+  width: 145px;
+  margin: 0 5px 0 0;
+  border: 1px solid #aaaaaa;
+  text-align: center;
+  float :left;
+}
+
+div#iconmenu{
+  margin-top: 15px;
+  width: 178px;
+  padding: 5px;
+  border: 1px solid #5970B2;
+}
+
+.line2{
+  background: #ffcccc;
+}
+
+div#budget_library {
+  float: left;
+  text_align: left;
+  width: 200px;
+  margin-top: 20px;
+}
+
+div#budget_type {
+  float: left;
+  text_align: left;
+  width: 200px;
+}
+
+div#expense_item {
+  float: left;
+  text_align: left;
+  width: 200px;
+  margin-top: 20px;
+}
+
+div#list_condition_150 {
+    float: left;
+    text_align: left;
+    width: 150px;
+}
+div#list_condition_200 {
+  float: left;
+  text_align: left;
+  width: 200px;
+}
+
+div#item_list_library {
+  float: left;
+  text_align: left;
+  width: 200px;
+}
+
+div#item_list_carrier_type {
+  float: left;
+  text_align: left;
+  width: 200px;
+}
+
+div#budget_bookstore {
+  float: left;
+  text_align: left;
+  width: 200px;
+  margin-top: 20px;
+}
+
+div#checkouts_report { 
+  margin-left: 50px;
+  margin-top: -20px;
+}
+div#monthly_library_report {
+  margin-top: 20px;
+}
+input.report_integer {
+  width: 5em;
+  ime-mode: disabled;
+}
+
+p.no_file {
+  color: grey;
+}
+
+div#item_list_bookstore {
+  float: left;
+  text_align: left;
+  width: 200px;
+}
+
+div#item_list_created_at {
+    float: left;
+    text_align: left;
+}
+
+table#system_configurations {
+  border: none;
+  width: 100%;
+}
+
+table#system_configurations td {
+  border-right: none;
+  border-left: none;
+  padding: 5px;
+  vertical-align: top;
+  word-break : break-all;
+}
+
+table #system_configurations-key {
+  width: 350px;
+}
+
+#system_configurations-value textarea{
+  width: 25em;
+  height: 8em;
+}
+
+div#reminder_send {
+  float: right;
+}
+
+table#solr_query_format {
+  border: none;
+  width: 100%;
+}
+
+table#solr_query_format table {
+  border: none;
+  width: 100%;
+}
+
+table#solr_query_format td, table#solr_query_format th {
+  border: 0px;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  padding: 5px;
+  vertical-align: top;
+  word-break : break-all;
+}
+
+span.not_rent_item {
+  color: red;
+  font-weight: bold;
+}

@@ -1,5 +1,5 @@
 class CreateCheckouts < ActiveRecord::Migration
-  def change
+  def self.up
     create_table :checkouts do |t|
       t.integer :user_id
       t.integer :item_id, :null => false
@@ -17,5 +17,9 @@ class CreateCheckouts < ActiveRecord::Migration
     add_index :checkouts, [:item_id, :basket_id], :unique => true
     add_index :checkouts, :librarian_id
     add_index :checkouts, :checkin_id
+  end
+
+  def self.down
+    drop_table :checkouts
   end
 end

@@ -1,0 +1,59 @@
+<div id="content_detail" class="ui-corner-all">
+  <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.numbering')) -%></h1>
+  <div id="content_list">
+    <p id="notice"><%= notice %></p>
+
+    <p>
+    <strong><%= t('activerecord.attributes.numbering.name') -%>:</strong>
+    <%= @numbering.name -%>
+    </p>
+
+    <p>
+    <strong><%= t('activerecord.attributes.numbering.display_name') -%>:</strong>
+    <%= @numbering.display_name -%>
+    </p>
+
+    <p>
+    <strong><%= t('activerecord.attributes.numbering.prefix') -%>:</strong>
+    <%= @numbering.prefix -%>
+    </p>
+
+    <p>
+    <strong><%= t('activerecord.attributes.numbering.suffix') -%>:</strong>
+    <%= @numbering.suffix -%>
+    </p>
+
+    <p>
+    <strong><%= t('activerecord.attributes.numbering.padding') -%>:</strong>
+    <%= @numbering.padding -%>
+    </p>
+
+    <p>
+    <strong><%= t('activerecord.attributes.numbering.padding_number') -%>:</strong>
+    <%= @numbering.padding_number -%>
+    </p>
+
+    <p>
+    <strong><%= t('activerecord.attributes.numbering.padding_character') -%>:</strong>
+    <%= @numbering.padding_character -%>
+    </p>
+
+    <p>
+    <strong><%= t('activerecord.attributes.numbering.checkdigit') -%>:</strong>
+    <%= @numbering.checkdigit -%>
+    </p>
+
+    <p>
+    <strong><%= t('activerecord.attributes.numbering.last_number') -%>:</strong>
+    <%= @numbering.last_number -%>
+    </p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_numbering_path(@numbering) -%></li>
+    <li><%= link_to t('page.back'), numberings_path -%></li>
+  </ul>
+</div>

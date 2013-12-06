@@ -1,0 +1,47 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.frequency')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.frequency.name') -%></th>
+    <th><%= t('activerecord.attributes.frequency.display_name') -%></th>
+    <th><%= t('activerecord.attributes.frequency.freq_string') -%></th>
+    <th><%= t('activerecord.attributes.frequency.nii_code') -%></th>
+    <th></th>
+  </tr>
+
+<%- @frequencies.each do |frequency| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :update, frequency -%>
+        <%= move_position(frequency) -%>
+      <%- end -%>
+    </td>
+    <td><%= link_to frequency.name, frequency -%></td>
+    <td><%= link_to frequency.display_name.localize, frequency -%></td>
+    <td><%= frequency.freq_string -%></td>
+    <td><%= frequency.nii_code -%></td>
+    <td>
+      <%- if can? :update, frequency -%>
+        <%= link_to t('page.edit'), edit_frequency_path(frequency) -%>
+      <% end %>
+      <%- if can? :destroy, frequency -%>
+        <%= link_to t('page.destroy'), frequency, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if can? :create, Frequency -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.frequency')), new_frequency_path -%></li>
+    <%- end -%>
+ </ul>
+</div>

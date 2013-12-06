@@ -1,0 +1,47 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.system_configuration')) -%></h1>
+<div id="content_list">
+
+<%= form_for :system_configurations, :url => { :action => "index" }, :html => { :method => 'get' } do %>
+  <%= select("system_configuration", "category", system_configuration_categories.collect{ |c| [i18n_system_configuration_categories(c), c] }, { :selected => @category }, :onchange=>'submit();') %>
+<% end %>
+
+<br />
+<div style="color: green"><%= notice %></div>
+<%= form_for :system_configurations, :url => { :action => "update" } do |f| %>
+  <% unless @errors.blank? %>
+    <div id="errorExplanation">
+      <h2><%= t('page.error_occured') %> </h2>
+      <ul>
+        <% @errors.each do |error| %>
+          <li><%= error.msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table id="system_configurations">
+    <% @system_configurations.each do |system_configuration| %>
+      <tr>
+        <td id="system_configurations-key">
+          <%= system_configuration.description %>:
+        </td>
+        <td id="system_configurations-value">
+          <%= make_form(system_configuration, @errors) %>
+        </td>
+      </tr>
+    <% end%>
+  </table>
+  <%= hidden_field_tag :category, @category %>
+  <%= submit_tag t('page.update') %>
+<% end %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if false -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.system_configuration')), new_system_configuration_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

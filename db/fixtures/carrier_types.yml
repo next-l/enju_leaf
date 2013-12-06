@@ -1,29 +1,52 @@
 --- 
-carrier_type_00004: 
-  name: file  
-  display_name: "en: file\r\n\
-    ja: コンピュータファイル"
-  id: 4
-  note:
-  position: 4
 carrier_type_00001: 
   name: print  
-  display_name: "en: print\r\n\
-    ja: 印刷物"
+  display_name: "en:print\r\n\
+    ja:印刷物"
   id: 1
   note: !binary |
   position: 1
 carrier_type_00002: 
   name: CD  
-  display_name: "en: CD\r\n\
-    ja: CD"
+  display_name: "en:CD\r\n\
+    ja:CD"
   id: 2
   note: 
   position: 2
 carrier_type_00003: 
   name: DVD  
-  display_name: "en: DVD\r\n\
-    ja: DVD"
+  display_name: "en:DVD\r\n\
+    ja:DVD"
   id: 3
   note: 
   position: 3
+carrier_type_00006: 
+  name: sheaf
+  display_name: "en:sheaf\r\n\
+    ja:加除式"
+  id: 6
+  note: 
+  position: 4
+carrier_type_00004:
+  name: file
+  display_name: "en:file\r\n\
+    ja:コンピュータファイル"
+  id: 4
+  note:
+  position: 5
+carrier_type_00005: 
+  name: AV
+  display_name: "en:Audio,Visual\r\n\
+    ja:視聴覚資料"
+  id: 5
+  note: 
+  position: 6
+
+carrier_type_00007:
+  name: micro
+  display_name: "en:Micro Film\r\n\
+    ja:マイクロ資料"
+  id: 7
+  note:
+  position: 7
+

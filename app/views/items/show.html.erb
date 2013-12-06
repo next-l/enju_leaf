@@ -1,0 +1,5 @@
+<% unless @item.manifestation.article? %>
+  <%= render 'show_book' %>
+<% else %>
+  <%= render 'show_article' %>
+<% end %>

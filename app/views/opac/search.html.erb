@@ -1,0 +1,129 @@
+<script>
+//keypad
+var specials  = [
+  $.keypad.SPACE_BAR,
+  $.keypad.BACK,
+  $.keypad.CLEAR
+];
+var kana = [
+  'ャァワラヤマハナタサカア',
+  'ュィヲリ　ミヒニチシキイ',
+  'ョゥンルユムフヌツスクウ',
+  'ッェﾟレ　メヘネテセケエ',
+  'ーォ゛ロヨモホノトソコオ'
+];
+var alnum = [
+  'ABCDEFGHI123',
+  'JKLMNOPQR456',
+  'STUVWXYZ@789',
+  '?!&:;~-_/*0#',
+  '"()[].,+=|$%'
+];
+
+$(function () {
+  $('#query').focus();
+
+  // keypad
+  var default_layout = kana;                         // keys layout
+  var target = $('#' + document.activeElement.name); // input form
+  make_keys_area(target, default_layout);
+  make_special_keys_area(target);
+});
+
+function make_keys_area (target, layout) {
+  $('#keys_area').html('');
+  $('#keys_area').keypad({
+    layout: layout,
+    target: target,
+    keypadOnly: false,
+    beforeShow : function(inst){
+      $("input[type=search]").click(function(){
+        target =  $('#' + document.activeElement.name);
+        $('#keys_area').html('');
+        $('.keypad-inline').html('');
+        make_keys_area(target, layout);
+        make_special_keys_area(target);
+      });
+    }
+  });
+}
+
+function make_special_keys_area(target) { 
+  $('#special_keys_area').keypad({
+    target: target,
+    layout: specials,
+    spacebarText : "<%= t('opac.keypad.space') %>",
+    clearText    : "<%= t('opac.keypad.clear') %>",
+    backText     : "<%= t('opac.keypad.back') %>",
+    beforeShow : function(inst){
+      // change layout
+      $('.keypad-kana').click(function(){
+        make_keys_area(target, kana);
+      });
+      $('.keypad-alnum').click(function(){
+        make_keys_area(target, alnum);
+      });
+    }
+  });
+}
+</script>
+
+<div id="opac_content_header">
+  <div id="opac_content">
+    <div class="opac_title"><h1><%= t('opac.catalog_search') %></h1></div>
+    <div class="opac_head_button_area">
+      <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %></div>
+    </div>
+  </div>
+</div>
+
+<div id="opac_content">
+  <p style="color: red;"><%= flash[:notice] %></p>
+  <h4><%= t('opac.keypad.input_keyword') %></h4>
+  <div class="opac_field">
+    <%# = form_tag({:controller => 'manifestations'}, {:method => 'get'}) do -%>
+    <%= form_tag opac_manifestations_path, :method => 'get' do -%>
+      <table>
+        <tr>
+          <td><%= t('page.search_term') %>:</td>
+          <td><%= search_field_tag 'query', params[:query], :class => 'text-field' %></td>
+        </tr>
+        <tr>
+          <td><%= t('patron.creator') %>:</td>
+          <td><%= search_field_tag 'creator', params[:creator], :class => 'text-field' %></td>
+        </tr>
+        <tr>
+          <td><%= t('patron.publisher') %>:</td>
+          <td><%= search_field_tag 'publisher', params[:publisher], :class => 'text-field' %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.manifestation.date_of_publication') %>:</td>
+          <td>
+            <%= search_field_tag 'pub_date_from', params[:pub_date_from], :class => 'date-text-field',
+              :placeholder => "#{t('page.example')}: 1978, 1978-04-12" %>
+             - 
+            <%= search_field_tag 'pub_date_to', params[:pub_date_to], :class => 'date-text-field',
+              :placeholder => "#{t('page.example')}: 2011, 2011-04-12" %>
+         </td>
+        </tr>
+      </table>
+      <%= hidden_field_tag 'sort_by', 'date_of_acquisition' %>
+      <%= hidden_field_tag 'order', 'desc' %>
+      <%= hidden_field_tag 'per_page', 10 %>
+      <%= submit_tag t('page.search'), :class => 'opac_submit_button' %><br />
+    <% end %>
+  </div>
+  <br />
+  <div id="keypad">
+    <div id="special_keys_area">
+      <div>
+        <button class="keypad-special keypad-kana"><%= t('opac.keypad.kana') %></button>
+      </div>
+      <div style="clear: both;">
+        <button class="keypad-special keypad-alnum"><%= t('opac.keypad.alnum') %></button>
+      </div>
+    </div>
+    <div id="keys_area"></div>
+    <br style="cleat:both;"/>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<%= form_for(@expense) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="field">
+    <%= f.label :item %><br />
+    <%= @expense.item.manifestation.original_title if @expense.item && @expense.item.manifestation -%><br />
+    <%= link_to(@expense.item.item_identifier, @expense.item) if @expense.item -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :budget %><br />
+    <%= f.select(:budget_id, @budgets.collect{|b| ["#{b.library.display_name.localize}(#{b.term.display_name.localize}#{b.note})", b.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :price %><br />
+    <%= f.text_field :price -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

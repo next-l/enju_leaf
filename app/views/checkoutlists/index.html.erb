@@ -1,0 +1,58 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('exstatistics.checkout_report') %></h1>
+<div id="content_list">
+  <div style="color: green"><%= flash[:message] -%></div>
+  <div id="list_condition_200">
+    <%- @item_nums.keys.each_with_index do |item, i| %>
+      <p><%= item %>: <%= @item_nums[item] %></p>
+      <% if i == 5 || i == 11 %>
+        </div>
+        <div id="list_condition_200">
+      <% end %>
+    <%- end -%>
+  </div>
+  <br style="clear:both;"/><br />
+
+<%= form_for :checkoutlists, :html => {:method => 'get'} do %>
+  <p id="notice"><%= notice %></p>
+
+    <%= label :list_condition, t('activerecord.attributes.item_list.list_condition') %>:<br />
+    <div class="parent">
+      <%= check_box_tag "all_circulation_status", true,
+         @selected_circulation_ids.size == @circulation_status.size ? true : false, :class => 'check-parent' %>
+      <%= t('advanced_search.all', :model => t('activerecord.models.circulation_status')) %><br />
+      <div id="list_condition_200">
+        <% @circulation_status.each_with_index do |c, g| %>
+          &nbsp;&nbsp;
+          <%= check_box_tag "circulation_status[]", c.id,
+            @selected_circulation_ids.include?(c.id) ? true : false, :class => 'check-child' %>
+          <%= c.display_name.localize %><br />
+          <% if g == 5 || g == 11 %>
+            </div>
+            <div id="list_condition_200">
+          <% end %>
+        <% end %>
+        </div>
+      </div>
+
+  <br style="clear:both;"/>
+  <div class="actions">
+    <%= submit_tag t('page.output_pdf', :model => t('activerecord.models.checkoutlist')), :name => 'pdf' %>
+    <%= submit_tag t('page.output_tsv', :model => t('activerecord.models.checkoutlist')), :name => 'tsv' %>
+    <%= button_to t('page.show', :model => t('activerecord.models.checkoutlist')), {:method => :show}, {:remote => true} %>
+  </div>
+
+  <div id="item_list">
+    <%= render 'list' %>
+  </div>
+  
+<% end %>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), page_extensions_path %></li>
+  </ul>
+</div>

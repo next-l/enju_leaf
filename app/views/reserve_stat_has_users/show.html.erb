@@ -1,0 +1,28 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.reserve_stat_has_user')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.user_reserve_stat') -%></strong>
+  <%= link_to @reserve_stat_has_user.user_reserve_stat.id, @reserve_stat_has_user.user_reserve_stat -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.user') -%></strong>
+  <%= link_to @reserve_stat_has_user.user.username, @reserve_stat_has_user.user -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.reserve_stat_has_user.reserves_count') -%></strong>
+  <%= @reserve_stat_has_user.reserves_count -%>
+</p>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_reserve_stat_has_user_path(@reserve_stat_has_user) -%></li>
+    <li><%= link_to t('page.back'), reserve_stat_has_users_path -%></li>
+  </ul>
+</div>

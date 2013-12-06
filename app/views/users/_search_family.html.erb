@@ -1,0 +1,20 @@
+<% if @family_id.blank? %>
+<% unless @users.blank? && @families.blank? %>
+<div id="search_family">
+  <div><strong><%= t('family.may_family_with') -%></strong></div>
+  <div><%= radio_button_tag :family, "", family_radio_check?(0, @family) %><%=t('family.not_select_family') -%></div>
+<% if @families %>
+  <% @families.each do |f| %>
+    <div>
+      <%= radio_button_tag :family, f.users.first.id, family_radio_check?(f.users.first.id, @family), :onclick => "get_family_info();" %><%= enumrate_user_name(f) -%>
+    </div>
+  <% end %>
+<% end %>
+<% if @users %>
+  <% @users.each do |user| %>
+    <div><%= radio_button_tag :family, user.id, family_radio_check?(user.id, @family), :onclick => "get_family_info();" %><%= user.patron.full_name if user.patron -%>(<%= user.username -%>)</div>
+  <% end %>
+<% end %>
+</div>
+<% end %>
+<% end %>

@@ -1,0 +1,14 @@
+<div id="opac_header">
+  <% if user_signed_in? %>
+    <div class="opac_header_right">
+      <div class="opac_user_singed_in">
+        <img src="/assets/opac/user.png"/ class="opac_user_singed_in_icon">
+        <%= t('opac.login.logged_in') %>
+      </div>
+      <div class="opac_logout_button">
+        <%= link_to t('opac.login.sign_out'), destroy_user_session_path(:opac => true) %>
+      </div>
+    </div>
+    <br style="clear: both;"/>
+  <% end %>  
+</div>

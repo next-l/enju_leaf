@@ -1,0 +1,43 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.import_request')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id:</strong>
+  <%= @import_request.id -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= link_to @import_request.user.username, @import_request.user -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.import_request.isbn') -%>:</strong>
+  <%= @import_request.isbn -%>
+</p>
+
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%=l @import_request.created_at -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.import_request.state') -%>:</strong>
+  <%= t("state.#{@import_request.state}") -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation.original_title')-%>:</strong>
+  <%= link_to @import_request.manifestation.original_title, @import_request.manifestation if @import_request.manifestation -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), import_requests_path -%></li>
+  </ul>
+</div>

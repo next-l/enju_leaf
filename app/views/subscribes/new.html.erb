@@ -1,0 +1,48 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.subscribe')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@subscribe) do |f| -%>
+  <%= f.error_messages -%>
+  <div class="field">
+    <%= f.label t('activerecord.models.subscription') -%><br />
+    <%- if @subscription -%>
+      <%= link_to @subscription.title, @subscription -%>
+      <%= f.hidden_field :subscription_id, :value => @subscription.id -%>
+    <%- else -%>
+      <%= f.text_field :subscription_id, :value => params[:subscription_id] -%>
+    <%- end -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.work') -%><br />
+    <%- if @work -%>
+      <%= link_to @work.original_title, @work -%>
+      <%= f.hidden_field :work_id, :value => @work.id -%>
+    <%- else -%>
+      <%= f.text_field :work_id, :value => params[:work_id] -%>
+    <%- end -%>
+  </div>
+  <div class="field">
+    <%= f.label :start_at -%><br />
+    <%= f.text_field :start_at, :class => 'date_field' -%>
+  </div>
+  <div class="field">
+    <%= f.label :end_at -%><br />
+    <%= f.text_field :start_at, :class => 'date_field' -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('activerecord.models.subscription'), subscription_path(@subscription) if @subscription -%>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.work')), subscription_works_path(@subscription) if @subscription -%>
+  </ul>
+</div>

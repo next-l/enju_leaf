@@ -1,0 +1,52 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.user_reserve_stat')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_reserve_stat.start_date') -%>:</strong>
+  <%= l(@user_reserve_stat.start_date) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_reserve_stat.end_date') -%>:</strong>
+  <%= l(@user_reserve_stat.end_date) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_reserve_stat.state') -%>:</strong>
+  <%= @user_reserve_stat.state -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_reserve_stat.note') -%>:</strong>
+  <%= @user_reserve_stat.note -%>
+</p>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.user') -%></th>
+    <th><%= t('activerecord.attributes.reserve_stat_has_user.reserves_count') -%></th>
+  </tr>
+  <%- @stats.each do |stat| -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td>
+        <%= link_to stat.user.username, stat.user -%>
+      </td>
+      <td><%= stat.reserves_count -%></td>
+    </tr>
+  <%- end -%>
+</table>
+
+<%= paginate(@stats) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_user_reserve_stat_path(@user_reserve_stat) -%></li>
+    <li><%= link_to t('page.back'), user_reserve_stats_path -%></li>
+  </ul>
+  <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), user_reserve_stat_path(@user_reserve_stat, :locale => @locale.to_s, :format => 'tsv') -%>
+  (<%= link_to 'TSV', user_reserve_stat_path(@user_reserve_stat, :locale => @locale.to_s, :format => 'tsv') -%>)
+</div>

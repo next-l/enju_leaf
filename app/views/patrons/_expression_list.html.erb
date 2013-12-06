@@ -1,0 +1,19 @@
+<div id="expression">
+  <%= paginate(@expressions, :param_name => :expression_list_page, :remote => true) %>
+  <ul>
+    <%- @expressions.each do |manifestation| -%>
+      <li>
+            [M]
+            <%= link_to manifestation.original_title, manifestation -%>
+            <%= form_icon(manifestation.carrier_type) -%>
+            <%= patrons_list(manifestation.creators.readable_by(current_user)) -%>
+            <%= patrons_list(manifestation.contributors.readable_by(current_user)) -%>
+            <%= patrons_list(manifestation.publishers.readable_by(current_user)) -%>
+            <%- if manifestation.pub_date? -%>
+              (<%= manifestation.pub_date -%>)
+            <%- end -%>
+      </li>
+    <%- end -%>
+  </ul>
+  <%= paginate(@expressions, :param_name => :expression_list_page, :remote => true) %>
+</div>

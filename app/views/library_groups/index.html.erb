@@ -1,0 +1,32 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.library_group')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.library_group.display_name') -%></th>
+    <th><%= t('activerecord.attributes.library_group.name') -%></th>
+    <th><%= t('activerecord.attributes.library_group.email') -%></th>
+    <td></td>
+  </tr>
+
+<%- @library_groups.each do |library_group| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to h(library_group.display_name.localize), edit_library_group_path(library_group) -%></td>
+    <td><%= library_group.name -%></td>
+    <td><%= library_group.email -%></td>
+    <td><%= link_to t('page.edit'), edit_library_group_path(library_group) -%></td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <!--
+  <ul>
+    <li><%= t('library_group.configuration') -%></li>
+  </ul>
+  --> 
+</div>

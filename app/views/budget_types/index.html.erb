@@ -1,0 +1,36 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.budget_type')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.budget_type.id') -%></th>
+    <th><%= t('activerecord.attributes.budget_type.name') -%></th>
+    <td>&nbsp;</th>
+  </tr>
+
+<%- @budget_types.each do |budget_type| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= budget_type.id -%></td>
+    <td><%= budget_type.name -%></td>
+    <td>
+      <%- if can? :update, budget_type -%>
+        <%= link_to t('page.edit'), edit_budget_type_path(budget_type) -%>
+      <% end %>
+      <%- if can? :destroy, budget_type -%>
+        <%= link_to t('page.destroy'), budget_type, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+        <%= link_to t('page.show'), budget_type -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.budget_type')), new_budget_type_path -%></li>
+  </ul>
+</div>

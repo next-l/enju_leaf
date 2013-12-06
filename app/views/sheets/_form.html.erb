@@ -1,0 +1,64 @@
+<%= render 'page/required_field' %>
+<%= simple_form_for(@sheet) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="field">
+    <%= f.label :name -%><br />
+    <%= f.text_field :name, :class => 'short_name' -%> 
+  </div>
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_field :note, :class => 'short_name' -%> 
+  </div>
+  <div class="field">
+    <%= f.label :height -%><br />
+    <%= f.text_field :height, :class => 'short_name' -%> 
+  </div>
+  <div class="field">
+    <%= f.label :width -%><br />
+    <%= f.text_field :width, :class => 'short_name' -%> 
+  </div>
+
+  <div class="field">
+    <%= f.label :cell_h -%><br />
+    <%= f.text_field :cell_h, :class => 'short_name' -%>
+  </div>
+  <div class="field">
+    <%= f.label :cell_w -%><br />
+    <%= f.text_field :cell_w, :class => 'short_name' -%> 
+  </div>
+
+  <div class="field">
+    <%= f.label :margin_h -%><br />
+    <%= f.text_field :margin_h, :class => 'short_name' -%> 
+  </div>
+  <div class="field">
+    <%= f.label :margin_w -%><br />
+    <%= f.text_field :margin_w, :class => 'short_name' -%> 
+  </div>
+
+ <div class="field">
+    <%= f.label :space_h -%><br />
+    <%= f.text_field :space_h, :class => 'short_name' -%> 
+  </div>
+
+ <div class="field">
+    <%= f.label :space_w -%><br />
+    <%= f.text_field :space_w, :class => 'short_name' -%> <%= t('library.help_name') -%> 
+  </div>
+
+ <div class="field">
+    <%= f.label :cell_x -%><br />
+    <%= f.text_field :cell_x, :class => 'short_name' -%> <%= t('library.help_name') -%> 
+  </div>
+
+ <div class="field">
+    <%= f.label :cell_y -%><br />
+    <%= f.text_field :cell_y, :class => 'short_name' -%> <%= t('library.help_name') -%> 
+  </div>
+
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

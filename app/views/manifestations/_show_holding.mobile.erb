@@ -1,0 +1,38 @@
+<table style="width: 100%">
+  <tr>
+    <th><%= t('activerecord.models.library') -%></th>
+    <th><%= t('activerecord.models.shelf') -%></th>
+    <th><%= t('activerecord.attributes.item.call_number') -%></th>
+    <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
+    <th><%= t('activerecord.models.circulation_status') -%></th>
+  </tr>
+  <%- manifestation.items.on_shelf.each do |item| -%>
+    <tr>
+      <td>
+        <%= item.shelf.library.display_name.localize %>
+      </td>
+      <td>
+        <%= item.shelf_display_name.localize -%>
+      </td>
+      <td>
+        <%= call_numberformat(item) -%>
+      </td>
+      <td>
+        <%- if item.item_identifier? -%>
+          <%= link_to item.item_identifier, item -%>
+        <%- else -%>
+          (<%= link_to t('item.no_number'), item -%>)
+        <%- end -%>
+      </td>
+      <td>
+        <%= item.circulation_status.display_name.localize if item.circulation_status -%>
+        <%- if item.rent? -%>
+          (
+            <%= t('activerecord.attributes.checkout.due_date') -%>:
+            <%= l(item.checkouts.first.due_date, :format => :short) -%>
+          )
+        <%- end -%>
+      </td>
+    </tr>
+  <%- end -%>
+</table>

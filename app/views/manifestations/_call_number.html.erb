@@ -1,0 +1,25 @@
+<table class="call_number_table">
+  <tr>
+    <td class="call_number_table">
+      <%= item.shelf.library.display_name.localize -%>
+      <br />
+      <%= link_to item.shelf.display_name.localize, library_shelf_path(item.shelf.library, item.shelf) -%>
+      <br />
+      <%= item.circulation_status.display_name.localize if item.circulation_status -%>
+
+    </td>
+    <td class="call_number_table">
+      <table id="call_number_label">
+        <%- i = 0; while i < item.shelf.library.call_number_rows.to_i -%>
+          <tr>
+            <%- if call_numbers[i].blank? -%>
+              <td class="call_number_label">&nbsp;</td>
+            <%- else -%>
+              <td class="call_number_label"><%= call_numbers[i] -%></td>
+            <%- end -%>
+          </tr>
+        <%- i += 1; end -%>
+      </table>
+    </td>
+  </tr>
+</table>

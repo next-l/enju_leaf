@@ -18,39 +18,37 @@
   <%= @user_group.valid_period_for_new_user %>
 </p>
 
-<% if defined?(EnjuCirculation) %>
-  <p>
-    <strong><%= t('activerecord.attributes.user_group.number_of_day_to_notify_due_date') -%>:</strong>
-    <%= @user_group.number_of_day_to_notify_due_date %>
-  </p>
+<p>
+  <strong><%= t('activerecord.attributes.user_group.number_of_day_to_notify_due_date') -%>:</strong>
+  <%= @user_group.number_of_day_to_notify_due_date %>
+</p>
 
-  <p>
-    <strong><%= t('activerecord.attributes.user_group.number_of_day_to_notify_overdue') -%>:</strong>
-    <%= @user_group.number_of_day_to_notify_overdue %>
-  </p>
+<p>
+  <strong><%= t('activerecord.attributes.user_group.number_of_day_to_notify_overdue') -%>:</strong>
+  <%= @user_group.number_of_day_to_notify_overdue %>
+</p>
 
-  <p>
-    <strong><%= t('activerecord.attributes.user_group.number_of_time_to_notify_overdue') -%>:</strong>
-    <%= @user_group.number_of_time_to_notify_overdue %>
-  </p>
-
-  <p>
-    <strong><%= t('activerecord.models.checkout_type') -%></strong>
-  </p>
-  <ul>
-    <%- @user_group.user_group_has_checkout_types.each do |available_checkout_type| -%>
-      <li>
-        <%= link_to available_checkout_type.checkout_type.display_name.localize, available_checkout_type.checkout_type -%>
-        (<%= link_to t('page.number_of_days', :count => available_checkout_type.checkout_period), edit_user_group_user_group_has_checkout_type_path(@user_group, available_checkout_type) -%>)
-      </li>
-    <%- end -%>
-  </ul>
-<% end %>
+<p>
+  <strong><%= t('activerecord.attributes.user_group.number_of_time_to_notify_overdue') -%>:</strong>
+  <%= @user_group.number_of_time_to_notify_overdue %>
+</p>
 
 <p>
   <strong><%= t('activerecord.attributes.user_group.note') -%>:</strong>
   <%= @user_group.note -%>
 </p>
+
+<p>
+  <strong><%= t('activerecord.models.checkout_type') -%></strong>
+</p>
+<ul>
+  <%- @user_group.user_group_has_checkout_types.each do |available_checkout_type| -%>
+    <li>
+      <%= link_to available_checkout_type.checkout_type.display_name.localize, available_checkout_type.checkout_type -%>
+      (<%= link_to t('page.number_of_days', :count => available_checkout_type.checkout_period), edit_user_group_user_group_has_checkout_type_path(@user_group, available_checkout_type) -%>)
+    </li>
+  <%- end -%>
+</ul>
 
 </div>
 </div>
@@ -58,7 +56,7 @@
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.edit'), edit_user_group_path(@user_group) -%></li>
-    <li><%= back_to_index(flash[:page_info]) -%></li>
+    <li><%= link_to t('page.back'), user_groups_path -%></li>
     <li><%= link_to t('page.new', :model => t('activerecord.models.checkout_type')), new_user_group_user_group_has_checkout_type_path(@user_group) -%></li>
   </ul>
 </div>

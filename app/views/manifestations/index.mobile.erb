@@ -1,0 +1,21 @@
+<div data-role="header">
+<h1 class="title"><%= t('page.search_resource', :model => t('page.resource')) -%></h1>
+</div>
+
+<div data-role="content">
+  <div data-role="fieldcontain">
+    <%= form_for :manifestations, :html => {:method => 'get'} do -%>
+      <label for="search_form_top"><%= t('page.search_term') -%>:</label>
+      <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+      <%= submit_tag t('page.search') -%>
+    <% end %>
+  </div>
+</div>
+
+<ul data-role="listview">
+<% @manifestations.each do |manifestation| %>
+  <li><%= link_to manifestation.original_title, manifestation %></li>
+<% end %>
+</ul>
+
+<%= paginate(@manifestations, :renderer => WillPaginateJqueryMobileRenderer) %>

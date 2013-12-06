@@ -1,0 +1,9 @@
+budget_type_00001: 
+  id: 1
+  name: 公費
+budget_type_00002: 
+  id: 2
+  name: 私費
+budget_type_00003: 
+  id: 3
+  name: その他

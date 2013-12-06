@@ -1,0 +1,46 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.wareki')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.wareki.display_name') -%></th>
+    <th><%= t('activerecord.attributes.wareki.short_name') -%></th>
+    <th><%= t('activerecord.attributes.wareki.year_from') -%></th>
+    <th><%= t('activerecord.attributes.wareki.year_to') -%></th>
+    <th>&nbsp;</th>
+  </tr>
+
+<%- @warekis.each_with_index do |wareki, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :update, wareki -%>
+      <%- end -%>
+    </td>
+    <td><%= link_to wareki.display_name, wareki -%> </td>
+    <td><%= wareki.short_name -%></td>
+    <td><%= wareki.year_from -%></td>
+    <td><%= wareki.year_to -%></td>
+    <td>
+      <%- if can? :update, wareki -%>
+        <%= link_to t('page.edit'), edit_wareki_path(wareki) -%>
+      <% end %>
+      <%- if can? :destroy, wareki -%>
+        <%= link_to t('page.destroy'), wareki, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <%- if can? :create, Wareki -%>
+    <ul>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.wareki')), new_wareki_path -%></li>
+    </ul>
+  <%- end -%>
+</div>

@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.role')) -%></h1>
 <div id="content_list">
 
-<table class="table table-striped index">
+<table class="index">
   <tr>
     <th><%= t('activerecord.attributes.role.name') -%></th>
     <th><%= t('activerecord.attributes.role.display_name') -%></th>
@@ -13,10 +13,7 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to role.name, role -%></td>
     <td><%= link_to role.display_name.localize, role -%></td>
-    <td>
-      <%= link_to t('page.edit'), edit_role_path(role) -%>
-      <%= link_to t('page.destroy'), role, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
-    </td>
+    <td><%= link_to t('page.edit'), edit_role_path(role) -%></td>
   </tr>
 <%- end -%>
 </table>

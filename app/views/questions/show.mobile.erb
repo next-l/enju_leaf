@@ -1,0 +1,46 @@
+<div data-role="header">
+  <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.question')) -%></h1>
+</div>
+<div data-role="content">
+  <div id="detail">
+
+<p>
+  <strong><%= t('activerecord.attributes.question.body') -%>:</strong>
+  <%= raw auto_link(textilize(h(@question.body))) -%><br />
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= link_to @question.user.username, @question.user -%>
+  <strong><%= t('activerecord.attributes.question.shared') -%>:</strong>
+  <%= localized_boolean(@question.shared) -%>
+  <strong><%= t('activerecord.attributes.question.solved') -%>:</strong>
+  <%= localized_boolean(@question.solved) -%>
+</p>
+
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@question.created_at) -%>
+  <strong><%= t('page.updated_at') -%>:</strong>
+  <%= l(@question.updated_at) -%>
+</p>
+
+<ul>
+  <%- @question.answers.public_answers.each do |answer| -%>
+    <li><%= link_to answer.user.username, answer.user -%>
+    (<%=l answer.updated_at %>)<br />
+    <%= raw auto_link(textilize(h(answer.body))) -%><br />
+    <% unless answer.items.empty? %>
+      <ul>
+        <% answer.items.each do |item| %>
+          <li><%= link_to item.manifestation.original_title, item.manifestation %><br /></li>
+        <% end %>
+      </ul>
+    <% end %>
+    </li>
+  <%- end -%>
+</ul>
+
+<h3><%= link_to t('question.answer_question'), new_user_question_answer_path(@question.user, @question) -%></h3>
+</div>
+</div>

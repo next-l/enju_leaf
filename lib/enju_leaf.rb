@@ -1,7 +1,0 @@
-require 'csv'
-#require 'mathn'
-require 'rss'
-require 'nkf'
-require 'ipaddr'
-require 'plugins'
-require 'enju_leaf/version'

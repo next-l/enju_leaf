@@ -1,0 +1,12 @@
+<%= simple_form_for(@series_statement_merge) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="inputs">
+    <%= f.input :series_statement_id %>
+    <%= f.input :series_statement_list_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,0 +1,16 @@
+<h4><%= t('activerecord.models.manifestation_type') %></h4>
+<ul>
+  <% manifestation_types = params[:manifestation_type].to_s.split %>
+  <% current_manifestation_type = manifestation_types.dup %>
+  <% @manifestation_type_facet.each do |facet| -%>
+    <% manifestation_type = ManifestationType.where(:name => facet.value).select([:name, :display_name]).first %>
+    <% if manifestation_type %>
+      <li>
+        <%= manifestation_type_facet(manifestation_type, current_manifestation_type, facet) %>
+      </li>
+    <% end %>
+  <% end %>
+  <% if params[:manifestation_type] %>
+    <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:manifestation_type => nil, :page => nil, :view => nil)) %></li>
+  <% end %>
+</ul>

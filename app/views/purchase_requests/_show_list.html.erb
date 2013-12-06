@@ -1,0 +1,79 @@
+<% if user_signed_in? %>
+  <p>
+    <strong><%= t('activerecord.models.user') %>:</strong>
+    <%= link_to @purchase_request.user.username, @purchase_request.user if @purchase_request.user %>
+    <%= t('purchase_request.guest') unless @purchase_request.user %>
+  </p>
+
+  <% if SystemConfiguration.get("use_order_lists") %>
+    <% if current_user.has_role?('Librarian') %>
+      <p>
+        <strong><%= t('activerecord.models.order_list') %>:</strong>
+        <%= link_to @purchase_request.order_list.title, order_list_purchase_requests_path(@purchase_request.order_list) if @purchase_request.order_list %>
+        <%= t('purchase_request.not_ordered') unless @purchase_request.order_list %>
+      </p>
+    <% end %>
+  <% end %>
+<% end %>
+
+<p>
+  <strong><%= t('activerecord.attributes.purchase_request.state') %>:</strong>
+  <%= i18n_pr_state(@purchase_request.state) %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.purchase_request.title') %>:</strong>
+  <%= @purchase_request.title %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.purchase_request.author') %>:</strong>
+  <%= @purchase_request.author %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.purchase_request.publisher') %>:</strong>
+  <%= @purchase_request.publisher %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.purchase_request.isbn') %>:</strong>
+  <%= @purchase_request.isbn %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.purchase_request.pub_date') %>:</strong>
+  <%= @purchase_request.pub_date %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.purchase_request.price') %>:</strong>
+  <%= @purchase_request.price %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.purchase_request.url') %>:</strong>
+  <%= link_to @purchase_request.url, @purchase_request.url if @purchase_request.url? %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.purchase_request.note') %>:</strong>
+  <%= @purchase_request.note %>
+</p>
+
+<% if SystemConfiguration.get("use_order_lists") %>
+  <p>
+    <strong><%= t('activerecord.attributes.order_list.ordered_at') %>:</strong>
+    <%= l(@purchase_request.order_list.ordered_at) if @purchase_request.order_list rescue nil %>
+  </p>
+<% end %>
+
+<p>
+<strong><%= t('page.created_at') %>:</strong>
+  <%= l(@purchase_request.created_at) %>
+</p>
+
+<p>
+<strong><%= t('page.updated_at') %>:</strong>
+  <%= l(@purchase_request.updated_at) %>
+</p>

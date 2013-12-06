@@ -1,0 +1,50 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.numbering')) -%></h1>
+<div id="content_list">
+<div style="color: green"><%= flash[:message] -%></div>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.numbering.name') -%></th>
+    <th><%= t('activerecord.attributes.numbering.display_name') -%></th>
+    <th><%= t('activerecord.attributes.numbering.prefix') -%></th>
+    <th><%= t('activerecord.attributes.numbering.suffix') -%></th>
+    <th><%= t('activerecord.attributes.numbering.padding') -%></th>
+    <th><%= t('activerecord.attributes.numbering.padding_number') -%></th>
+    <th><%= t('activerecord.attributes.numbering.padding_character') -%></th>
+    <th><%= t('activerecord.attributes.numbering.checkdigit') -%></th>
+    <th><%= t('activerecord.attributes.numbering.last_number') -%></th>
+    <th></th>
+  </tr>
+
+<% @numberings.each do |numbering| %>
+  <tr>
+    <td><%= numbering.name %></td>
+    <td><%= numbering.display_name %></td>
+    <td><%= numbering.prefix %></td>
+    <td><%= numbering.suffix %></td>
+    <td><%= numbering.padding %></td>
+    <td><%= numbering.padding_number %></td>
+    <td><%= numbering.padding_character %></td>
+    <td><%= numbering.checkdigit %></td>
+    <td><%= numbering.last_number %></td>
+    <td>
+    <%= link_to t('page.edit'), edit_numbering_path(numbering) -%>
+    <%= link_to t('page.destroy'), numbering, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    <%= link_to t('page.show'), numbering -%>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<%= paginate(@numberings) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.numbering')), new_numbering_path -%></li>
+  </ul>
+</div>
+

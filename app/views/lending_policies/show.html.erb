@@ -1,0 +1,50 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.lending_policy')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.item') -%>:</strong>
+  <%= link_to @lending_policy.item.item_identifier, @lending_policy.item -%>
+  (<%= link_to @lending_policy.item.manifestation.original_title, @lending_policy.item.manifestation -%>)
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.user_group') -%>:</strong>
+  <%= link_to @lending_policy.user_group.display_name.localize, @lending_policy.user_group -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.lending_policy.loan_period') -%>:</strong>
+  <%= @lending_policy.loan_period -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.lending_policy.fixed_due_date') -%>:</strong>
+  <%= @lending_policy.fixed_due_date -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.lending_policy.renewal') -%>:</strong>
+  <%= @lending_policy.renewal -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.lending_policy.fine') -%>:</strong>
+  <%= @lending_policy.fine -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.lending_policy.note') -%>:</strong>
+  <%= @lending_policy.note -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_lending_policy_path(@lending_policy) -%></li>
+    <li><%= link_to t('page.back'), lending_policies_path -%></li>
+  </ul>
+</div>

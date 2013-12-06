@@ -1,0 +1,22 @@
+<p>
+  <%= f.label :edition_display_value -%>
+  <%= f.text_field :edition_display_value, :size=>"10" %>
+  <%= f.label :volume_number_string -%>
+  <%= f.text_field :volume_number_string, :size=>"10" %>
+  <%= f.label :issue_number_string -%>
+  <%= f.text_field :issue_number_string, :size=>"10" %>
+  <%= f.label :serial_number_string -%>
+  <%= f.text_field :serial_number_string, :size=>"10" %>
+</p>
+<p>
+  <%= f.label :isbn -%>
+  <%= f.text_field :isbn, :class => 'resource_isbn_issn' -%>
+  <%= f.label :wrong_isbn -%>
+  <%= f.text_field :wrong_isbn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
+</p>
+<p>
+  <%= f.label :issn -%>
+  <%= f.text_field :issn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
+  <%= f.label :lccn -%>
+  <%= f.text_field :lccn, :class => 'resource_isbn_issn', :style => 'ime-mode: disabled' -%>
+</p>

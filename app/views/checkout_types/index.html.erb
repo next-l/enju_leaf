@@ -1,0 +1,50 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.checkout_type')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.checkout_type.name') -%></th>
+    <th><%= t('activerecord.attributes.checkout_type.display_name') -%></th>
+    <th><%= t('activerecord.attributes.checkout_type.note') -%></th>
+    <th></th>
+  </tr>
+
+<%- @checkout_types.each do |checkout_type| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- unless @user_group -%>
+        <%- if can? :update, checkout_type -%>
+          <%= move_position(checkout_type) -%>
+        <%- end -%>
+      <%- end -%>
+    </td>
+    <td><%= link_to checkout_type.name, checkout_type -%></td>
+    <td><%= link_to checkout_type.display_name.localize, checkout_type -%></td>
+    <td><%= checkout_type.note -%></td>
+    <td>
+      <%- if can? :update, checkout_type -%>
+        <%= link_to t('page.edit'), edit_checkout_type_path(checkout_type) -%>
+      <% end %>
+      <%- if can? :destroy, checkout_type -%>
+        <%= link_to t('page.destroy'), checkout_type, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <% end %>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@checkout_types) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if @user_group -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.user_group_has_checkout_type')), new_user_group_user_group_has_checkout_type_path(@user_group) -%></li>
+    <%- else -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.checkout_type')), new_checkout_type_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

@@ -8,12 +8,69 @@ patron_00001:
   language_id: 1
   patron_type_id: 1
   required_role_id: 1
+  user_id: 1
 patron_00002: 
   place: ""
-  full_name: Your Library
+  full_name: Librarian1
   other_designation: ""
   id: 2
   address_1: 
   language_id: 1
-  patron_type_id: 2
+  patron_type_id: 1
   required_role_id: 1
+patron_00003: 
+  place: ""
+  full_name: Librarian2
+  other_designation: ""
+  id: 3
+  address_1: 
+  language_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+patron_00003: 
+  place: ""
+  full_name: Librarian2
+  other_designation: ""
+  id: 3
+  address_1: 
+  language_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+patron_00004: 
+  place: ""
+  full_name: Librarian3
+  other_designation: ""
+  id: 4
+  address_1: 
+  language_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+patron_00005: 
+  place: ""
+  full_name: Librarian4
+  other_designation: ""
+  id: 5
+  address_1: 
+  language_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+patron_00006: 
+  place: ""
+  full_name: 他
+  other_designation: ""
+  id: 6
+  address_1: 
+  language_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+  exclude_state: 1
+patron_00007: 
+  place: ""
+  full_name: et-al.
+  other_designation: ""
+  id: 7
+  address_1: 
+  language_id: 1
+  patron_type_id: 1
+  required_role_id: 1
+  exclude_state: 1

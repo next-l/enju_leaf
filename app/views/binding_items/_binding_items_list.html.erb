@@ -1,0 +1,29 @@
+<div id='message' style="color: red"><%= flash[:message].try(:join) -%></div>
+
+<% form_for @binding_item, :html => {:method => :post}, :url => bookbinding_binding_items_path(@bookbinding, :mode => 'list'), :remote => true do |f| -%>
+  <%= f.error_messages -%>
+  <p>
+    <%= t('activerecord.attributes.item.item_identifier') -%>: <%= f.text_field :item_identifier -%>
+    <%= submit_tag t('page.read') %>
+  </p>
+<%- end -%>
+<%= javascript_tag("setTimeout(function() {$('#binding_item_item_identifier').focus()}, 500)") -%>
+<table class="index">
+  <tr>
+    <th class="binding_item_title"><%= t('page.title') -%></th>
+    <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
+    <th></th>
+  </tr>
+
+<%- @binding_items.each_with_index do |binding_item, i| -%>
+  <%- if binding_item.item %>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td>
+        <%= link_to binding_item.try(:item).try(:manifestation).try(:original_title), manifestation_path(binding_item.try(:item).try(:manifestation)) if binding_item.try(:item).try(:manifestation) -%>
+      </td>
+      <td><%= link_to binding_item.item.item_identifier, item_path(binding_item.item) -%></td>
+      <td><%= link_to t('page.destroy'), bookbinding_binding_item_path(binding_item.bookbinding, binding_item), :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+    </tr>
+  <%- end -%>
+<%- end -%>
+</table>

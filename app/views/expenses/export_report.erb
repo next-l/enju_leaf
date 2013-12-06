@@ -1,0 +1,178 @@
+<script>
+  $(document).ready(function(){
+    $('#expense_term_from').setCalendar({src:'/assets/calendar.png', fmt:'%Y%m%d'});
+    $('#expense_term_to').setCalendar({src:'/assets/calendar.png', fmt:'%Y%m%d'});
+    // for checked box
+    var $tgt_parent = $("input.check-parent");
+    var $tgt_child = $("input.check-child");
+
+    // change parents_checkbox
+    $tgt_parent.click(function(){
+      $(this).parents("div.parent").find('input.check-child').attr('checked', this.checked);
+
+      //count list_size      
+      get_list_size();
+    });
+
+    // change child_checkbox
+    $tgt_child.click(function(){
+      var checkNum = $(this).parents("div.parent").find('input.check-child:checked').length;
+      var listNum = $(this).parents("div.parent").find('input.check-child').length;
+
+      if(checkNum < listNum)
+        $(this).parents("div.parent").find("input.check-parent").attr('checked', false);
+      if(checkNum == listNum)
+        $(this).parents("div.parent").find("input.check-parent").attr('checked', true);
+
+      //count list_size      
+      get_list_size();
+    });
+
+    // change term
+    $("#expense_term_from").change(function () {
+      get_list_size();
+    });
+    $("#expense_term_to").change(function () {
+      get_list_size();
+    });
+  });
+  
+  function get_list_size() {
+    var budgets = new Array;
+    var libraries = new Array;
+    var bookstores = new Array; 
+    var budget_types = new Array;
+    var item_types = new Array;
+    $("input#budget_:checked").map(function() { budgets.push($(this).val()); });
+    $("input#library_:checked").map(function() { libraries.push($(this).val()); });
+    $("input#bookstore_:checked").map(function() { bookstores.push($(this).val()); });
+    $("input#budget_type_:checked").map(function() { budget_types.push($(this).val()); });
+    $("input#item_type_:checked").map(function() {item_types.push($(this).val()); });
+
+    
+    var all_budgets = false;
+    var all_libraries = false;
+    var all_bookstores = false;
+    var all_budget_types = false;
+    var all_item_types = false;
+    if ($("input#all_budgets:checked").attr('checked')) all_budgets = true;
+    if ($("input#all_libraries:checked").attr('checked')) all_libraries = true;
+    if ($("input#all_bookstores:checked").attr('checked')) all_bookstores = true;
+    if ($("input#all_budget_types:checked").attr('checked')) all_budget_types = true;
+    if ($("input#all_item_types:checked").attr('checked')) all_item_types = true;
+
+    var no_budget = false;
+    var no_library = false;
+    var no_bookstore = false;
+    var no_budget_type = false;
+    var no_item_type = false;
+    if ($("input#no_budget:checked").attr('checked')) no_budget = true;
+    if ($("input#no_library:checked").attr('checked')) no_library = true;
+    if ($("input#no_bookstore:checked").attr('checked')) no_bookstore = true;
+    if ($("input#no_budget_type:checked").attr('checked')) no_budget_type = true;
+    if ($("input#no_item_type:checked").attr('checked')) no_item_type = true;
+    var term_from = $("#expense_term_from").val();
+    var term_to = $("#expense_term_to").val();
+    
+    $.ajax({
+      type: "GET",
+      url: "<%= url_for(:controller => :expenses, :action => :get_list_size)-%>",
+      data: {
+        "budgets": budgets, 
+        "all_budgets": all_budgets, 
+        "no_budget": no_budget, 
+        "libraries": libraries, 
+        "all_libraries": all_libraries, 
+        "no_library": no_library, 
+        "bookstores": bookstores, 
+        "all_bookstores": all_bookstores, 
+        "no_bookstore": no_bookstore, 
+        "budget_types": budget_types, 
+        "all_budget_types": all_budget_types, 
+        "no_budget_type": no_budget_type, 
+        "all_item_types": all_item_types,
+        "item_types": item_types, 
+        "no_item_type": no_item_type, 
+        "term_from": term_from, 
+        "term_to": term_to},
+      success: function(obj) {
+        $('span#list_size').html(obj["list_size"]);
+        $('span#page_size').html(obj["page"]);
+      }
+    });
+  }
+</script>
+
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.output', :model => t('activerecord.models.expense')) -%></h1>
+<div id="content_list">
+<div id="message" style="color: green"><%= raw flash[:message] -%></div>
+<%= form_for(:expense, :url => {:controller => 'expenses', :action => :download_file}, :html => {:multipart => true, :method => :get}) do |f| -%>
+  <div class="field">
+    <%= label :list_condition, t('activerecord.attributes.item_list.list_condition') -%>:<br />
+    <div id="budget_type" class="parent">
+      <%= check_box_tag "all_budgets", true, (@selected_budget.size == @budgets.size and @no_budget) ? true : false, :class=>'check-parent' -%><%= t('budget.all_budgets') -%><br />
+      <%- @budgets.each do |budget| -%>
+        &nbsp;&nbsp;<%= check_box_tag 'budget[]', budget.id, (@selected_budget.index(budget.id.to_s) != nil or @selected_budget.index(budget.id))? true : false, :class=>'check-child' -%><%= budget.library.display_name.localize -%>&nbsp;<%= budget.term.display_name.localize -%><%- if budget.note.size > 0 -%>(<%= budget.note -%>)<%- end -%><br />
+      <%- end -%>
+      &nbsp;&nbsp;<%= check_box_tag 'no_budget', true, @no_budget ? true : false, :class=>'check-child' -%><%= t('expense.no_value') -%>
+    </div>
+    <div id="budget_type" class="parent">
+      <%= check_box_tag "all_budget_types", true, (@selected_budget_type.size == @budget_types.size and @no_budget_type) ? true : false, :class=>'check-parent' -%><%= t('budget_type.all_type') -%><br />
+      <%- @budget_types.each do |budget_type| -%>
+        &nbsp;&nbsp;<%= check_box_tag 'budget_type[]', budget_type.id, (@selected_budget_type.index(budget_type.id.to_s) != nil or @selected_budget_type.index(budget_type.id))? true : false, :class=>'check-child' -%><%= budget_type.name -%><br />
+      <%- end -%>
+      &nbsp;&nbsp;<%= check_box_tag 'no_budget_type', true, @no_budget_type ? true : false, :class=>'check-child' -%><%= t('expense.no_value') -%>
+    </div>
+    <br style="clear: both;"/>
+
+    <div id="budget_library" class="parent">
+      <%= check_box_tag "all_libraries", true, (@selected_library.size == @libraries.size and @no_library) ? true : false, :class=>'check-parent' -%><%= t('budget.all_libraries') -%><br />
+        <%- @libraries.each do |library| -%>
+          &nbsp;&nbsp;<%= check_box_tag "library[]", library.id, (@selected_library.index(library.id.to_s) != nil or @selected_library.index(library.id))? true : false, :class=>'check-child' -%><%= library.display_name -%><br />
+        <%- end -%>
+      &nbsp;&nbsp;<%= check_box_tag 'no_library', true, @no_library ? true : false, :class=>'check-child' -%><%= t('expense.no_value') -%>
+    </div>
+    <div id="budget_bookstore" class="parent">
+      <%= check_box_tag "all_bookstores", true, (@selected_bookstore.size == @bookstores.size and @no_bookstore) ? true : false, :class=>'check-parent' -%><%= t('budget.all_bookstores') -%><br />
+      <%- @bookstores.each do |bookstore| -%>
+        &nbsp;&nbsp;<%= check_box_tag "bookstore[]", bookstore.id, (@selected_bookstore.index(bookstore.id.to_s) != nil or @selected_bookstore.index(bookstore.id))? true : false, :class=>'check-child' -%><%= bookstore.name -%><br />
+      <%- end -%>
+      &nbsp;&nbsp;<%= check_box_tag 'no_bookstore', true, @no_bookstore ? true : false, :class=>'check-child' -%><%= t('expense.no_value') -%>
+    </div>
+    <div id="expense_item" class="parent">
+      <%= check_box_tag "all_item_types", true, (@selected_item_type.size == @item_types.size and @no_item_type) ? true : false, :class=>'check-parent' -%><%= t('item.all_type') -%><br />
+      <%- @item_types.each do |item_type| -%>
+        &nbsp;&nbsp;<%= check_box_tag "item_type[]", item_type[1], (@selected_item_type.index(item_type[1]) != nil or @selected_item_type.index(item_type[1]))? true : false, :class=>'check-child' -%><%= item_type[0] -%><br />
+      <%- end -%>
+      &nbsp;&nbsp;<%= check_box_tag 'no_item_type', true, @no_item_type ? true :false , :class=>'check-child' -%><%= t('expense.no_value') -%>
+    </div>
+    <br style="clear: both;" />
+  </div>
+  <div>
+     <%= label :list_condition, t('expense.term') -%>:<br />
+     <%= f.text_field :term_from, :class => 'resource_integer' -%>&nbsp;-&nbsp;<%= f.text_field :term_to, :class => 'resource_integer' -%>
+     <%= t('expense.term_note') -%>
+  </div>
+
+  <br />
+  <div>
+    <p>
+      <strong><%= t('budget.list_number') -%>: </strong><span id="list_size"><%= @items_size if @items_size -%></span><br />
+      <strong><%= t('budget.page_number') -%>: </strong><span id="page_size"><%= @page if @page -%></span>
+    </p>
+  </div>
+
+  <div class="actions">
+    <%= f.submit t('expense.export_pdf'), :name => "pdf" %>
+    <%= f.submit t('expense.export_tsv'), :name => "tsv" %>
+  </div>
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), expenses_path -%></li>
+  </ul>
+</div>

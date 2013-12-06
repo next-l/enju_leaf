@@ -1,0 +1,64 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.resource_import_result')) -%></h1>
+<div id="content_list">
+<div style="color: green"><%= flash[:message] -%></div>
+  <% if @resource_import_textfile %>
+    <h2 class="resource_title">
+      <%= link_to @resource_import_textfile.resource_import_text_file_name, @resource_import_textfile %>
+    </h2>
+  <% end %>
+
+<%= t('activerecord.attributes.resource_import_textresult.imported_row') -%>: <%= @results_num if @results_num -%><br />
+<% if params[:only_error] %>
+  <%= link_to t('resource_import_textresult.show_all_list'), resource_import_textfile_resource_import_textresults_path(@resource_import_textfile) %>
+<% else %>
+  <%= link_to t('resource_import_textresult.show_error_list'), resource_import_textfile_resource_import_textresults_path(@resource_import_textfile, :only_error => true) %>
+<% end %>
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.resource_import_textresult.body') %></th>
+    <th><%= t('activerecord.attributes.resource_import_textresult.error_msg') %></th>
+  </tr>
+
+<% @resource_import_textresults.each do |r| %>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <% if r.manifestation and r.manifestation.series_statement %>
+      [<%= link_to r.manifestation.series_statement.original_title, r.manifestation.series_statement %>]<br/>
+      <% end %>
+      <%= link_to r.manifestation.original_title, r.manifestation if r.manifestation %>
+      <% if r.item %>
+        <br />
+        (<%= link_to r.item.item_identifier, r.item %>)
+      <% end %>
+    </td>
+    <td><%= raw r.error_msg %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate(@resource_import_textresults) %>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), @resource_import_textfile -%></li>
+  </ul>
+    <% if @resource_import_textfile %>
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => t('tooltip.tsv'), :class => 'icon'),
+        resource_import_textfile_resource_import_textresults_path(@resource_import_textfile, :format => :tsv, :locale => @locale.to_s) -%>
+      (<%= link_to 'TSV', resource_import_textfile_resource_import_textresults_path(:format => :tsv, :locale => @locale.to_s) -%>)
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'XLSX', :title => t('tooltip.xlsx'), :class => 'icon'),
+        resource_import_textfile_resource_import_textresults_path(@resource_import_textfile, :only_error => params[:only_error], :format => :xlsx, :locale => @locale.to_s) -%>
+      (<%= link_to 'XLSX', resource_import_textfile_resource_import_textresults_path(:only_error => params[:only_error], :format => :xlsx, :locale => @locale.to_s) -%>)
+    <% else %>
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => t('tooltip.tsv'), :class => 'icon'),
+        resource_import_textresults_path(:format => :tsv, :locale => @locale.to_s) -%>
+      (<%= link_to 'TSV', resource_import_textresults_path(:format => :tsv, :locale => @locale.to_s) -%>)
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'XLSX', :title => t('tooltip.xlsx'), :class => 'icon'),
+        resource_import_textresults_path(:only_error => params[:only_error], :format => :xlsx, :locale => @locale.to_s) -%>
+      (<%= link_to 'XLSX', resource_import_textresults_path(:only_error => params[:only_error],:format => :xlsx, :locale => @locale.to_s) -%>)
+    <% end %>
+</div>

@@ -1,0 +1,24 @@
+<% unless tab_menu_width == 'fg-3button' %>
+  <a tabindex="2" href="#request_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all <%= tab_menu_width %>" id="fg_request">
+  <span class="ui-icon ui-icon-triangle-1-s"></span>
+  <%= t('page.request') %>
+  </a>
+
+  <div id="request_menu" class="hidden">
+    <% unless SystemConfiguration.isWebOPAC %>
+    <ul>
+      <% if can_use_purchase_request? %>
+        <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path %></li>
+      <% end %>
+      <% if user_signed_in? %> 
+        <% if SystemConfiguration.get("user_show_questions") or current_user.has_role?('Librarian') %>
+          <li><%= link_to t('activerecord.models.question'), questions_path %></li>
+        <% end %>
+      <% end %>
+      <% if SystemConfiguration.get('use_copy_request') %>
+        <li><%= link_to t('activerecord.models.copy_request'), copy_requests_path %></li>
+      <% end %>
+    </ul>
+    <%- end -%>
+  </div>
+<% end %>

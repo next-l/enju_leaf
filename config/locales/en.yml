@@ -1,3 +1,4 @@
+---
 en:
   date:
     abbr_day_names:
@@ -34,6 +35,7 @@ en:
       default: ! '%Y-%m-%d'
       long: ! '%B %d, %Y'
       short: ! '%b %d'
+      only_date: ! '%Y-%m-%d'
     month_names:
     - 
     - January
@@ -95,9 +97,9 @@ en:
       month: Month
       second: Seconds
       year: Year
-  errors: &errors
+  errors:
     format: ! '%{attribute} %{message}'
-    messages:
+    messages: &70241128444460
       accepted: must be accepted
       blank: can't be blank
       confirmation: doesn't match confirmation
@@ -125,7 +127,11 @@ en:
       wrong_length:
         one: is the wrong length (should be 1 character)
         other: is the wrong length (should be %{count} characters)
-    template:
+      non_exist_user: is invalid. User is not found.
+      invalid_content_type: is invalid. text/csv, text/plain or text/tab-separated-values are available. 
+      not_selected: is not selected.
+      en_expected: is required to type half-width characters.
+    template: &70241128435960
       body: ! 'There were problems with the following fields:'
       header:
         one: 1 error prohibited this %{model} from being saved
@@ -195,14 +201,17 @@ en:
       default: ! '%a, %d %b %Y %H:%M:%S %z'
       long: ! '%B %d, %Y %H:%M'
       short: ! '%d %b %H:%M'
-      only_date: "%b %d, %Y"
-      only_year_and_month: "%m %Y"
-      only_month: "%m"
+      only_date: ! '%b %d, %Y'
+      only_year_and_month: ! '%m %Y'
+      only_month: ! '%m'
     pm: pm
-  # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
   activemodel:
     errors:
-      <<: *errors
+      format: ! '%{attribute} %{message}'
+      messages: *70241128444460
+      template: *70241128435960
   activerecord:
     errors:
-      <<: *errors
+      format: ! '%{attribute} %{message}'
+      messages: *70241128444460
+      template: *70241128435960

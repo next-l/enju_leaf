@@ -1,0 +1,37 @@
+<div id="content_detail" class="ui-corner-all">
+  <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.subscribe')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@subscribe) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.subscription') -%><br />
+    <%= f.text_field :subscription_id -%>
+  </div>
+  <div class="field">
+    <%= f.label t('activerecord.models.work') -%><br />
+    <%= f.text_field :work_id -%>
+  </div>
+  <div class="field">
+    <%= f.label :start_at -%><br />
+    <%= f.text_field :start_at, :value => @subscribe.start_at.try(:strftime, "%Y-%m-%d"), :class => 'date_field' -%>
+  </div>
+  <div class="field">
+    <%= f.label :end_at -%><br />
+    <%= f.text_field :end_at, :value => @subscribe.end_at.try(:strftime, "%Y-%m-%d"), :class => 'date_field' -%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.show'), @subscribe -%></li>
+    <li><%= link_to t('page.back'), subscribes_path -%></li>
+  </ul>
+</div>

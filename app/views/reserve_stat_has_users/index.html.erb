@@ -1,0 +1,33 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('activerecord.models.reserve_stat_has_user') -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.user_reserve_stat') -%></th>
+    <th><%= t('activerecord.models.user') -%></th>
+    <th><%= t('activerecord.attributes.reserve_stat_has_user.reserves_count') -%></th>
+  </tr>
+
+<%- @reserve_stat_has_users.each do |reserve_stat_has_user| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to reserve_stat_has_user.user_reserve_stat.id, reserve_stat_has_user.user_reserve_stat -%></td>
+    <td><%= link_to reserve_stat_has_user.user.username, reserve_stat_has_user.user -%></td>
+    <td><%= reserve_stat_has_user.reserves_count -%></td>
+    <td><%= link_to t('page.show'), reserve_stat_has_user -%></td>
+    <td><%= link_to t('page.edit'), edit_reserve_stat_has_user_path(reserve_stat_has_user) -%></td>
+    <td><%= link_to t('page.destroy'), reserve_stat_has_user, :confirm => 'Are you sure?', :method => :delete -%></td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@reserve_stat_has_users) -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.reserve_stat_has_user')), new_reserve_stat_has_user_path -%></li>
+  </ul>
+</div>

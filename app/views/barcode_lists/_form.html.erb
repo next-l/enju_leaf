@@ -1,0 +1,48 @@
+<%= render 'page/required_field' %>
+<%= simple_form_for(@barcode_list) do |f| %>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label :barcode_name -%><br />
+    <%= f.text_field :barcode_name, :class => 'short_name' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :sheet_id %><br />
+    <%= f.select(:sheet_id, @sheets.collect{|t| [t.name, t.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :usage_type -%><br />
+    <%= f.select(:usage_type, BarcodeList::GENERATED_FROM.collect{|t| [t.split(":").last, t.split(":").first]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :barcode_type -%><br />
+    <%= f.select(:barcode_type, BarcodeList::BARCODE_TYPES) -%>
+  </div>
+ 
+  <div class="field">
+    <%= f.label :printed_number -%><br />
+    <%= f.text_field :printed_number, :class => 'short_name' -%>
+  </div>
+  <div class="field">
+    <%= f.label :barcode_prefix -%><br />
+    <%= f.text_field :barcode_prefix, :class => 'short_name' -%>
+  </div>
+  <div class="field">
+    <%= f.label :barcode_suffix -%><br />
+    <%= f.text_field :barcode_suffix, :class => 'short_name' -%>
+  </div>
+  <div class="field">
+    <%= f.label :label_note -%><br />
+    <%= f.text_field :label_note, :class => 'name' -%>
+  </div>
+
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<%- end -%>
+
+

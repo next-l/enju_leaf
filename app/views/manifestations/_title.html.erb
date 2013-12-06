@@ -1,0 +1,37 @@
+<%- cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'title', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
+  <h2 class="resource_title">
+    [M]
+    <%- if [1, 2].include?(manifestation.missing_issue) %><%= t('manifestation.missing') %><%- end %>
+    <%= link_to manifestation.original_title, manifestation, :itemprop => 'name' -%>
+    <%= link_to form_icon(manifestation.carrier_type), manifestation -%>
+  </h2>
+  <p style="margin: -12px 0 0 0; font-size: 90%"><%=  manifestation.title_transcription %></p>
+  <% if manifestation.title_alternative %><p><%=  manifestation.title_alternative %></p><% end %>
+  <p>
+    <%- unless manifestation.creators.readable_by(current_user).empty? -%>
+      <%= t('patron.creator') -%>: <%= patrons_list(manifestation.creators.readable_by(current_user), :itemprop => 'author') -%>
+    <%- end -%>
+    <%- unless manifestation.contributors.readable_by(current_user).empty? -%>
+      <%= t('patron.contributor') -%>: <%= patrons_list(manifestation.contributors.readable_by(current_user), :itemprop => 'editor') -%>
+    <%- end -%>
+    <%- unless manifestation.publishers.readable_by(current_user).empty? -%>
+      <%= t('patron.publisher') -%>: <%= patrons_list(manifestation.publishers.readable_by(current_user), :itemprop => 'publisher') -%>
+    <% end %>
+    <%- if manifestation.pub_date.present? -%>
+      <meta itemprop="publishDate" content="<%= manifestation.try(:date_of_publication).try(:iso8601) %>" />
+      (<%- if manifestation.article? -%>
+         <%= t('activerecord.attributes.manifestation.pub_date_article') %>
+       <%- else -%>
+         <%= t('activerecord.attributes.manifestation.pub_date') %>
+       <%- end -%>
+       : <%= manifestation.pub_date -%>)
+    <%- end -%>
+    <%- unless SystemConfiguration.isWebOPAC -%>
+      <%- unless manifestation.access_address.blank? -%>
+        <br />
+        <%= link_to manifestation.access_address, manifestation.access_address -%>
+        <%= link_to image_tag('icons/world_go.png', :size => '16x16', :alt => ('Web'), :title => t('tooltip.web')), manifestation.access_address -%>
+      <%- end -%>
+    <%- end -%>
+  </p>
+<% end %>

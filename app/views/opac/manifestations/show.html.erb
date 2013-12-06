@@ -1,0 +1,111 @@
+<div id="opac_content_header">
+  <div id="opac_content">
+    <div class="opac_title">
+      <h1><%= t('page.showing', :model => t('activerecord.models.manifestation')) %></h1>
+    </div>
+    <div class="opac_head_button_area">
+      <div class="opac_head_button"><%= link_to t('opac.catalog_search'), opac_search_path %></div>
+      <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %> </div>
+    </div>
+  </div>
+</div>
+
+<div id="opac_content">
+  <div>
+    <div class="opac_head_button_area" style="float: right;">
+      <% if session[:params] %>
+        <div class="opac_head_button">
+          <%= link_to t('page.back'), url_for(session[:params].merge(:view => nil, :controller => :manifestations)) %>
+        </div>
+      <% else %>
+        <div class="opac_head_button">
+          <%= link_to t('page.back'), :back %>
+        </div>
+      <% end %>
+
+      <% if session[:manifestation_ids].is_a?(Array) %>
+        <% if session[:manifestation_ids].index(@manifestation.id) %>
+           <% unless @manifestation.id == session[:manifestation_ids].last %>
+             <div class="opac_head_button">
+               <%= link_to t('page.next'),
+                 manifestation_path(session[:manifestation_ids][session[:manifestation_ids].index(@manifestation.id) + 1], :opac => true) %>
+             </div>
+           <% end %>
+           <% unless @manifestation.id == session[:manifestation_ids].first %>
+             <div class="opac_head_button">
+               <%= link_to t('page.previous'),
+                 manifestation_path(session[:manifestation_ids][session[:manifestation_ids].index(@manifestation.id) - 1], :opac => true) %>
+             </div>
+           <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    <br style="clear: both;"/>
+  </div>
+
+  <div> 
+    <div id="opac_manifestation_book_jacket">
+      <% if @manifestation %>
+        <%= opac_book_jacket(@manifestation) %>
+      <% end %>
+      <% if @manifestation.picture_files.exists? %>
+        <br />
+        <%= t('page.total') %>: <%= @manifestation.picture_files.count %> 
+        <%= t('page.number_of_pictures', :count => @manifestation.picture_files.count) %>
+      <% end %>
+    </div>
+    <div id="opac_manifestation_title">
+      <%= render 'opac/manifestations/title_detail', :manifestation => @manifestation %>
+      <div>
+        <% unless @manifestation.carrier_type.name == 'file' %>
+          <% if @manifestation.reservable? %>
+            <span class="manifestation_reserves_number">
+              <%= t('activerecord.attributes.manifestation.reserves_number') %>:
+              <%= @reserved_count %>
+            </span>
+          <% end %>
+        <% end %>
+        <span class="manifestation_items_number">
+          <%= t('activerecord.attributes.item.items_number') %>
+          <%= @manifestation.items.size %>
+        </span>
+       </div>
+    </div>
+  </div>
+  <br style="clear: both;" />
+
+  <div>
+    <div id="opac_button_200">
+      <%= link_to t('page.output', :model => t('activerecord.attributes.manifestation.detail')), {:action => 'output_show'}, {:method => :post} %>
+    </div>
+    <% unless @manifestation.carrier_type.name == 'file' %>
+      <% if @manifestation.reservable? && user_signed_in? %>
+        <div>
+          <% if @manifestation.is_reserved_by(current_user) %>
+            <% if current_user.reserves.user_show_reserves.inject([]){ |manifestations, reserve| manifestations << reserve.manifestation }.include?(@manifestation) %>
+              <div id="opac_button_200">
+                <%= link_to t('page.showing', :model => t('activerecord.models.reserve')), user_reserve_path(@reserve.user, @reserve, :opac => true) %>
+              </div>
+            <% end %>
+          <% else %>
+            <% if @manifestation.reservable_with_item?(current_user) %>
+              <div id="opac_button_200">
+                <%= link_to t('manifestation.reserve_this'), new_opac_user_reserve_path(current_user, :manifestation_id => @manifestation.id) %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <br style="clear:both;"/>
+
+  </div>
+
+  <% if @manifestation.periodical_master? %>
+    <%= render 'opac/manifestations/periodical_list', :manifestation => @manifestation %>
+  <% else %>
+    <%= render 'opac/manifestations/show_detail', :manifestation => @manifestation %>
+  <% end %>
+</div>
+

@@ -1,0 +1,16 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.manifestation_relationship')) -%></h1>
+<div id="content_list">
+<%= render 'form' %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if params[:child_id] and params[:manifestation_id] -%>
+      <li><%= link_to t('page.back'), :back -%></li>
+    <%- else -%>
+      <li><%= link_to t('page.back'), manifestation_relationships_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

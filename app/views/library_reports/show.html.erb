@@ -1,0 +1,53 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('library_report.daily_report', :year => @library_report.yyyymmdd.to_s[0,4], :month => @library_report.yyyymmdd.to_s[4,2], :date => @library_report.yyyymmdd.to_s[6,2]) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_report.library') -%>:</strong>
+  <%= @library_report.library.display_name.localize -%>
+</p>
+
+<p>
+  <strong><%= t('library_report.checkouts') -%>:</strong>
+  <div>
+  <table>
+    <tr>
+      <td><%= t('library_report.checkouts') -%></td>
+      <td><%= @checkout_datas.inject(0){|sum, data| sum += data.value} -%></td>
+    </tr>
+    <%- @checkout_datas.each do |data| -%>
+      <tr>
+        <td><%= t('library_report.ndc', :ndc => data.ndc) -%></td>
+        <td><%= data.value -%></td>
+      </tr>
+    <%- end -%>
+  </table>
+  </div>
+</p>
+
+<p >
+  <strong><%= t('activerecord.attributes.library_report.visiters') -%>:</strong>
+  <%= @library_report.visiters -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_report.copies') -%>:</strong>
+  <%= @library_report.copies -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_report.consultations') -%>:</strong>
+  <%= @library_report.consultations -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.export'), {:action => "daily_report", :id => @library_report.id} -%></li>
+    <li><%= link_to t('page.edit'), edit_library_report_path(@library_report) -%></li>
+    <li><%= link_to t('page.back'), library_reports_path -%></li>
+  </ul>
+</div>

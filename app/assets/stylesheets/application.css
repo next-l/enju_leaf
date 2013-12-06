@@ -3,15 +3,20 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
+ *= require jquery.ui.all
  *= require html5-doctor-reset-stylesheet.min
  *= require scaffold_modified
  *= require enju
+ *= require enju_trunk_extra
  *= require acts_as_taggable_stylesheet
  *= require colorbox
  *= require pagination
  *= require portlets
  *= require event_calendar
- *= require jquery.powertip
- *= require jquery.ui.all
- *= require jquery.ui.menubar
+ *= require vendor
+ *= require opac
+ *= require opac_pagination
+ *= require jquery.keypad
+ *= require calendar
+ *= require select2
 */

@@ -1,0 +1,30 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.access_logs') -%></h1>
+<div id="content_list">
+
+<table class="index statistics">
+  <tr>
+    <th><nobr><%= t('access_log.date') %></nobr></th>
+    <th><nobr><%= t('access_log.top_access') %></nobr></th>
+    <th><nobr><%= t('access_log.manifestations_index') %></nobr></th>
+    <th><nobr><%= t('access_log.materials_show') %></nobr></th>
+  </tr>
+
+  <% @access_logs.each do |month, log| %>
+     <tr>
+       <td><%= month %></nobr></td>
+       <td><nobr><%= log[:top_access] %></nobr></td>
+       <td><nobr><%= log[:manifestations_index] %></nobr></td>
+       <td><nobr><%= log[:manifestations_show] %></nobr></td>
+     </tr>
+  <% end %>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+   <li><%= link_to t('page.back'), page_exstatistics_path %></li>
+  </ul>
+</div>

@@ -1,0 +1,21 @@
+<div class="column" id="col1">
+  <div class="portlet" id="resource">
+    <h2 class="title"><%= t('page.statistics') -%></h2>
+    <div class="config_box">
+      <ul>
+        <% if defined?(EnjuTrunkStatistics) %>
+          <li><%= link_to t('exstatistics.statistic_report'), statistic_reports_path -%></li>
+        <% end %>
+        <li><%= link_to t('page.access_logs'), access_logs_path %></li>
+        <li><%= link_to t('page.best_reader'), manifestation_exstats_bestreader_path -%></li>
+        <li><%= link_to t('page.best_request'), manifestation_exstats_bestrequest_path -%></li>
+        <li><%= link_to t('activerecord.models.keyword_count'), keyword_counts_path %></li>
+        <% if SystemConfiguration.get("write_search_log_to_file") %>
+          <li><%= link_to t('activerecord.models.search_history'), search_histories_path -%></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+</div>
+</div>

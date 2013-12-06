@@ -1,0 +1,39 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.term')) -%></h1>
+<div id="content_list">
+<div style="color: red"><%= flash[:message].to_s -%></div>
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.term.display_name') -%></th>
+    <th><%= t('activerecord.attributes.term.start_at') -%></th>
+    <th><%= t('activerecord.attributes.term.end_at') -%></th>
+    <th></th>
+  </tr>
+
+<%- @terms.each do |term| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%= link_to term.display_name.localize, term -%>
+    </td>
+    <td><%= l(term.start_at, :format => :only_date) -%></td>
+    <td><%= l(term.end_at, :format => :only_date) -%></td>
+    <td>
+      <%- if can? :update, term -%>
+        <%= link_to t('page.edit'), edit_term_path(term) -%>
+      <% end %>
+      <%- if term.destroy? -%>
+        <%= link_to t('page.destroy'), term, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.term')), new_term_path -%></li>
+  </ul>
+</div>

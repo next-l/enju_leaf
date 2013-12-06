@@ -1,0 +1,20 @@
+<div id="content_detail" class="ui-corner-all">
+  <h1 class="title"><%= t('page.new', :model => t('activerecord.models.item')) -%></h1>
+<div id="content_list">
+  <%= render 'form' %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <%- if @item.manifestation -%>
+    <%= render 'manifestations/book_jacket', :manifestation => @item.manifestation -%>
+  <%- end -%>
+
+  <ul>
+    <%- if @item.manifestation -%>
+      <li><%= link_to t('page.back'), manifestation_items_path(@item.manifestation) -%></li>
+    <%- else -%>
+      <li><%= link_to t('page.back'), items_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

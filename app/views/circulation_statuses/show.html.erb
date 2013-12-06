@@ -1,0 +1,34 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.circulation_status')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.circulation_status.name') -%>:</strong>
+  <%= @circulation_status.name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.circulation_status.display_name') -%>:</strong>
+  <%= @circulation_status.display_name.localize -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.circulation_status.unsearchable') %>:</strong>
+  <%= localized_boolean(@circulation_status.unsearchable) %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.circulation_status.note') -%>:</strong>
+  <%= @circulation_status.note -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_circulation_status_path(@circulation_status) -%></li>
+    <li><%= link_to t('page.back'), circulation_statuses_path -%></li>
+  </ul>
+</div>

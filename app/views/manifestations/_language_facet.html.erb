@@ -1,0 +1,16 @@
+<h4><%= t('activerecord.models.language') -%></h4>
+<ul>
+  <%- languages = params[:language].to_s.split -%>
+  <%- current_languages = languages.dup -%>
+  <%- @language_facet.each do |facet| -%>
+    <%- language = Language.where(:name => facet.value).select([:name, :display_name]).first -%>
+    <%- if language -%>
+      <li>
+        <%= language_facet(language, current_languages, facet) %>
+      </li>
+    <%- end -%>
+  <%- end -%>
+  <%- if params[:language] -%>
+    <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:language => nil, :page => nil, :view => nil)) -%></li>
+  <%- end -%>
+</ul>

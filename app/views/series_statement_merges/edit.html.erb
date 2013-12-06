@@ -1,0 +1,31 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.series_statement_merge')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@series_statement_merge) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.series_statement') -%><br />
+    <%= f.text_field :series_statement_id -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.series_statement_merge_list') -%><br />
+    <%= f.text_field :series_statement_merge_list_id -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.show'), @series_statement_merge -%></li>
+    <li><%= link_to t('page.back'), series_statement_merges_path -%></li>
+  </ul>
+</div>

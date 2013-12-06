@@ -1,0 +1,42 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.edit_user_profile', :login_name => @user.username) -%></h1>
+<div id="content_list">
+  <%= form_tag(:action => :update_user_number, :method => :post) do -%>
+  <%= error_messages_for :user %>
+
+  <div id="left_pane_detail">
+    <div class="field">
+      <%= label_tag t('activerecord.attributes.user.username') -%><br />
+      <%= @user.username -%>
+    </div>
+    <div class="field">
+      <%= label_tag t('activerecord.attributes.user.present_user_number') -%><br />
+      <%= @user.user_number -%>
+    </div>
+    <div class="field">
+      <%= label_tag t('activerecord.attributes.user.new_user_number') -%><br />
+      <%= text_field_tag :new_user_number, nil, :class => 'resource_user_number' -%>
+    </div>
+  </div>
+  <br style="clear: both;"/>
+  <div class="actions">
+    <%= submit_tag t('page.update') -%>
+  </div>
+
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if current_user.has_role?('Librarian') -%>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.user')), users_path -%></li>
+    <%- end -%>
+    <li><%= link_to t('activerecord.attributes.user.show_user'), @user -%></li>
+    <%- if current_user.has_role?('Librarian') -%>
+      <%- if can? :destroy, @user -%>
+        <li><%= link_to t('page.destroy'), @user, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+      <%- end -%>
+    <%- end -%>
+  </ul>
+</div>

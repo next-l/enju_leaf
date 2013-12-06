@@ -1,0 +1,39 @@
+<%- if manifestation.items.exists? -%>
+<div id="holding">
+<table class="holding" id="opac_detail_table">
+  <tr>
+    <th><%= t('activerecord.models.library') %></th>
+    <th><%= t('activerecord.models.shelf') %></th>
+    <th><%= t('activerecord.attributes.item.call_number') %></th>
+    <th><%= t('activerecord.attributes.item.item_identifier') %></th>
+    <th><%= t('activerecord.models.circulation_status') %></th>
+  </tr>
+  <% cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'holding', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
+  <%- manifestation.items.each do |item| -%>
+    <tr>
+      <td><%= item.shelf.library.display_name.localize %></td>
+      <td>
+        <%= item.shelf.display_name.localize %>
+        <%= render 'opac/manifestations/shelf_picture', :item => item -%>
+      </td>
+      <td><%= call_numberformat(item) %></td>
+      <td>
+        <% if item.item_identifier? %>
+          <%= item.item_identifier %>
+        <%- else -%>
+          (<%= t('item.no_number') %>)
+        <%- end -%>
+      </td>
+      <td>
+        <%= item.circulation_status.display_name.localize if item.circulation_status -%>
+        <% if item.rent? %>
+          (<%= t('activerecord.attributes.checkout.due_date') %>:
+          <%= l(item.checkouts.first.due_date, :format => :only_date) %>)
+        <% end %>
+      </td>
+    </tr>
+  <%- end -%>
+  <%- end -%>
+</table>
+</div>
+<%- end -%>

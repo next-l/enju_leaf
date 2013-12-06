@@ -1,0 +1,18 @@
+<p>
+  <h5 style="display: inline"><%= t('basket.number_of_checkout') -%>: 
+    <%= current_user.checkouts.not_returned.size -%><%= t('basket.books') -%>
+  </h5>
+
+  <span>
+    <%= link_to t('page.listing', :model => t('activerecord.models.checkout')), user_checkouts_path(current_user), :class=>'my_status_button ui-corner-all' -%>
+  </span>
+  
+  <p><%= checkout_checkout_types(@user) %></p>
+</p>
+<br />
+<p>
+  <h5 style="display: inline"><%=t ('basket.number_of_reserve') -%>: <%= current_user.reserves.user_show_reserves.size -%><%=t ('basket.books') -%></h5>
+  <span>
+    <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), user_reserves_path(current_user), :class=>'my_status_button ui-corner-all' -%>
+  </span>
+</p>

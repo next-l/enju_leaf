@@ -1,0 +1,16 @@
+  <%- if patron.user.blank? -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td>
+        <%= link_to patron.full_name, patron -%><br />
+        <%= patron.full_name_transcription -%>
+      </td>
+      <td><%= patron.patron_type.display_name.localize -%></td>
+      <td><%= l(patron.date_of_birth, :format => :only_date) if patron.date_of_birth -%></td>
+      <td>
+        <%- if can? :destroy, patron -%>
+          <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_patron_path(patron) -%>
+          <%= link_to image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('patron.add_derivation'), :title => t('patron.add_derivation')), patron_patrons_path(patron, :mode => 'add') -%>
+        <%- end -%>
+      </td>
+    </tr>
+  <%- end -%>

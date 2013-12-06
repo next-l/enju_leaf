@@ -1,0 +1,9 @@
+ja:
+  errors:
+    template:
+      header:
+        one:    "1 error occured to save %{model}"
+        other:  "%{count} errors occured to save %{model}"
+      # The variable :count is also available
+      body: "Following field has error:"
+

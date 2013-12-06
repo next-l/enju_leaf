@@ -1,0 +1,55 @@
+<div id="opac_content_header">
+  <div id="opac_content">
+    <div class="opac_title">
+      <h1><%= t('page.showing', :model => t('activerecord.models.event')) %></h1>
+    </div>
+    <div class="opac_head_button_area">
+      <div class="opac_head_button"><%= link_to t('page.listing', :model => t('activerecord.models.event')), opac_events_path %></div>
+      <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %> </div>
+    </div>
+  </div>
+</div>
+
+<div id="opac_content">
+  <h2 class="resource_title">
+    <%= @event.display_name.localize -%>
+  </h2>
+
+  <table>
+    <tr>
+      <td><%= t('activerecord.models.event_category') %>:</td>
+      <td><%= @event.event_category.display_name.localize if @event.event_category %></td>
+    </tr>
+    <tr>
+      <td><%= t('activerecord.models.library') %>:</td>
+      <td><%= @event.library.display_name.localize %></td>
+    </tr>
+    <% if @event.all_day %>
+      <tr>
+        <td><%= t('activerecord.attributes.event.all_day') %>:</td>
+        <td><%= l(@event.start_at, :format => :only_date) %> - <%= l(@event.end_at, :format => :only_date) %></td>
+      </tr>
+    <% else %>
+      <tr>
+        <td><%= t('activerecord.attributes.event.start_at') %>:</td>
+        <td><%= l(@event.start_at, :format => :short) %></td>
+      </tr>
+      <tr>
+        <td><%= t('activerecord.attributes.event.end_at') %>:</td>
+        <td><%= l(@event.end_at, :format => :short) %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td><%= t('activerecord.attributes.event.note') %>:</td>
+      <td><%= raw auto_link(simple_format(h(@event.note))) %></td>
+    </tr>
+    <tr>
+      <td><%= t('activerecord.models.picture_file') %>:</td>
+      <td>
+        <% @event.picture_files.each do |picture_file| %>
+          <%= render 'picture_files/link', :picture_file => picture_file %>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+</div>

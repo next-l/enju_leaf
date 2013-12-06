@@ -1,0 +1,48 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.license')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.license.name') -%></th>
+    <th><%= t('activerecord.attributes.license.note') -%></th>
+    <th></th>
+  </tr>
+
+<%- @licenses.each do |license| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :update, license -%>
+        <%= move_position(license) -%>
+      <%- end -%>
+    </td>
+    <td>
+      <%= link_to license.display_name.localize, license -%>
+      <br />
+      (<%= link_to license.name, license -%>)
+    </td>
+    <td><%= license.note -%></td>
+    <td>
+      <%- if can? :update, license -%>
+        <%= link_to t('page.edit'), edit_license_path(license) -%>
+      <% end %>
+      <%- if can? :destroy, license -%>
+        <%= link_to t('page.destroy'), license, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@licenses) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+<%- if false -%>
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.license')), new_license_path -%></li>
+  </ul>
+<%- end -%>
+</div>

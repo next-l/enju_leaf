@@ -1,0 +1,29 @@
+<div id="daily_library_report">
+<h4>
+<strong><%= t('page.output', :model => t('library_report.daily')) -%></strong>
+</h4>
+
+<%= form_for :library_report, :url => {:action => "daily_report"}, :html => {:method => 'get'} do |f| %>
+  <div class="field">
+    <%= label_tag 'library_id', t('activerecord.attributes.library_report.library')-%>:<br />
+    <%- @libraries.each do |library| -%>
+      <%= check_box_tag "library[]", library.id, true, :class => 'library' -%><%= library.display_name -%><br />
+    <%- end -%>
+  </div>
+ 
+  <div class="field">
+    <%= label_tag 'yyyymmdd', t('activerecord.attributes.library_report.yyyymmdd') -%>:
+    <%= f.select(:yyyymmdd, @dates.collect{|date| [date, date]}) -%>
+  </div>
+
+  <div class="actions">
+    <%- if @library_reports.size > 0 -%>
+      <%= submit_tag t('page.export') %>
+    <%- else -%>
+      <%= submit_tag t('page.export'), :disabled => true %>
+    <%- end -%>
+  </div>
+
+<%- end -%>
+
+</div>

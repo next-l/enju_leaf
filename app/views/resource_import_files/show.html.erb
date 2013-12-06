@@ -1,0 +1,62 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.resource_import_file')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id:</strong>
+  <%= @resource_import_file.id -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.resource_import_file.resource_import_file_name') -%>:</strong>
+  <%= link_to @resource_import_file.resource_import_file_name, resource_import_file_path(@resource_import_file, :format => :download) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.resource_import_file.resource_import_content_type') -%>:</strong>
+  <%= @resource_import_file.resource_import_content_type -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.resource_import_file.resource_import_file_size') -%>:</strong>
+  <%= @resource_import_file.resource_import_file_size -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.resource_import_file.file_hash') -%>:</strong>
+  <%= @resource_import_file.file_hash -%>
+</p>
+
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@resource_import_file.created_at) if @resource_import_file.created_at -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.resource_import_file.imported_at') -%>:</strong>
+  <%= l(@resource_import_file.imported_at) if @resource_import_file.imported_at -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.resource_import_file.state') -%>:</strong>
+  <%= t("state.#{@resource_import_file.state}") -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= link_to @resource_import_file.user.username, @resource_import_file.user -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if @resource_import_file.state == 'pending' -%>
+      <li><%= link_to t('resource_import_file.import_request'), {:action => "import_request", :id => @resource_import_file.id} -%></li>
+    <%- end -%>
+    <li><%= link_to t('activerecord.models.resource_import_result'), resource_import_file_resource_import_results_path(@resource_import_file) -%></li>
+    <li><%= link_to t('page.back_to_index'), resource_import_files_path -%></li>
+  </ul>
+</div>

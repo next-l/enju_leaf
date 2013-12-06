@@ -1,0 +1,29 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.realize_type')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.realize_type.name') -%>:</strong>
+  <%= @realize_type.name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.realize_type.display_name') -%>:</strong>
+  <%= @realize_type.display_name.localize -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.realize_type.note') -%>:</strong>
+  <%= @realize_type.note -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_realize_type_path(@realize_type) -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
+  </ul>
+</div>

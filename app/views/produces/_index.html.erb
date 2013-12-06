@@ -1,0 +1,35 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.produce')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.patron') -%></th>
+    <th><%= t('activerecord.attributes.manifestation.original_title') -%></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<%- @produces.each do |produce| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to produce.patron.full_name, produce.patron -%></td>
+    <td><%= link_to produce.manifestation_original_title, produce.manifestation -%></td>
+    <%- if can? :destroy, produce -%>
+      <td><%= link_to t('page.show'), produce -%></td>
+      <td><%= link_to t('page.destroy'), produce, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+    <%- end -%>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@produces) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <%- if can? :create, Produce -%>
+    <ul>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.produce')), new_realize_path -%></li>
+    </ul>
+  <%- end -%>
+</div>

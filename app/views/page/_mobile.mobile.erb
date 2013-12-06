@@ -1,3 +1,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<%= javascript_include_tag 'mobile' %>
-<%= stylesheet_link_tag 'mobile' %>
+<%= javascript_include_tag 'jquery.min', 'jquery.mobile-1.0.1.min',
+  'jquery.colorbox-min',
+  :cache => 'include_jquerymobile' %>
+<%= stylesheet_link_tag 'jquery.mobile-1.0.1.min', 'enju_mobile',
+  :cache => 'include_jquerymobile' %>

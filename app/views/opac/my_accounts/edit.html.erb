@@ -1,0 +1,169 @@
+<script>
+//keypad
+var specials = [
+  $.keypad.SPACE_BAR,
+  $.keypad.BACK,
+  $.keypad.CLEAR
+];
+var lower = [
+  'abcdefghi123',
+  'jklmnopqr456',
+  'stuvwxyz 789',
+  '@+.-      0 '
+];
+var upper = [
+  'ABCDEFGHI123',
+  'JKLMNOPQR456',
+  'STUVWXYZ 789',
+  '@+.-      0 '
+];
+
+$(function () {
+  $('#user_email').focus();
+
+  // keypad
+  var default_layout = lower;                      // keys layout
+  var target = $('#' + document.activeElement.id); // input form
+  make_keys_area(target, default_layout);
+  make_special_keys_area(target);
+});
+
+function make_keys_area (target, layout) {
+  $('#keys_area').html('');
+  $('#keys_area').keypad({
+    layout: layout,
+    target: target,
+    keypadOnly: false,
+    beforeShow : function(inst){
+      $("input").click(function(){
+        target =  $('#' + document.activeElement.id);
+        $('#keys_area').html('');
+        $('.keypad-inline').html('');
+        make_keys_area(target, layout);
+        make_special_keys_area(target);
+      });
+    }
+  });
+}
+
+function make_special_keys_area(target) { 
+  $('#special_keys_area').keypad({
+    target: target,
+    layout: specials,
+    spacebarText : "<%= t('opac.keypad.space') %>",
+    clearText    : "<%= t('opac.keypad.clear') %>",
+    backText     : "<%= t('opac.keypad.back') %>",
+    beforeShow : function(inst){
+      // change layout
+      $('.keypad-lower').click(function(){
+        $('#keypad-toggle').html('');
+        $('#special_keys_area').html('');
+        $('#keypad-toggle').html('<button class="keypad-special keypad-upper"><%= t('opac.keypad.upper') %></button>');
+        make_keys_area(target, lower);
+        make_special_keys_area(target);
+      });
+      $('.keypad-upper').click(function(){
+        $('#keypad-toggle').html('');
+        $('#special_keys_area').html('');
+        $('#keypad-toggle').html('<button class="keypad-special keypad-lower"><%= t('opac.keypad.lower') %></button>');
+        make_keys_area(target, upper);
+        make_special_keys_area(target);
+      });
+    }
+  });
+}
+</script>
+
+<div id="opac_content_header">
+  <div id="opac_content">
+    <div class="opac_title">
+      <h1><%= t('page.edit_user_profile', :login_name => @user.username) %></h1>
+    </div>
+    <div class="opac_head_button_area">
+      <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %> </div>
+    </div>
+  </div>
+</div>
+
+<div id="opac_content">
+  <div>
+    <%= form_for(@user, :url => my_account_path(:opac => true)) do |f| %>
+      <%= form_for(@user.patron, :url => my_account_path(:opac => true)) do |p_f| %>
+        <!-- <%= f.error_messages %> -->
+        <div>
+          <div class="opac_field opac_my_account_left_field">
+            <div>
+              <%= t('activerecord.attributes.user.email') %>: <br />
+              <%= f.email_field :email, :class => 'text-field' %>
+              <%= error_message_on :user, :email, t('activerecord.attributes.user.email') %>
+            </div>
+            <div>
+              <%= t('activerecord.attributes.patron.telephone_number_1') %>: <br />
+              <%= p_f.phone_field :telephone_number_1, :class => 'telephone-field' %>
+              <%= p_f.select :telephone_number_1_type_id,
+                 { t('activerecord.attributes.patron.home_phone') => 1,
+                   t('activerecord.attributes.patron.fax') => 2,
+                   t('activerecord.attributes.patron.mobile_phone') => 3,
+                   t('activerecord.attributes.patron.company_phone') => 4 } %>
+              <%= error_message_on :patron, :telephone_number_1, t('activerecord.attributes.patron.telephone_number_1') %>
+            </div>
+            <div>
+              <%= t('activerecord.attributes.patron.extelephone_number_1') %>: <br />
+              <%= p_f.phone_field :extelephone_number_1, :class => 'telephone-field' %>
+              <%= p_f.select :extelephone_number_1_type_id,
+                 { t('activerecord.attributes.patron.home_phone') => 1,
+                   t('activerecord.attributes.patron.fax') => 2,
+                   t('activerecord.attributes.patron.mobile_phone') => 3,
+                   t('activerecord.attributes.patron.company_phone') => 4 } %>
+              <%= error_message_on :patron, :extelephone_number_1, t('activerecord.attributes.patron.extelephone_number_1') %>
+            </div>
+            <div>
+              <%= t('activerecord.attributes.patron.fax_number_1') %>: <br />
+              <%= p_f.phone_field :fax_number_1, :class => 'telephone-field' %>
+              <%= p_f.select :fax_number_1_type_id,
+                 { t('activerecord.attributes.patron.home_phone') => 1,
+                   t('activerecord.attributes.patron.fax') => 2,
+                   t('activerecord.attributes.patron.mobile_phone') => 3,
+                   t('activerecord.attributes.patron.company_phone') => 4 } %>
+              <%= error_message_on :patron, :fax_number_1, t('activerecord.attributes.patron.fax_number_1') %>
+            </div>
+          </div>
+
+          <div class="opac_field opac_my_account_right_field">
+            <div>
+              <%= t('activerecord.attributes.user.current_password') %>:<br />
+              <%= f.password_field :current_password, :class => 'password-field' %>
+              <%= error_message_on :user, :current_password, t('activerecord.attributes.user.current_password'), :id => 'test' %>
+            </div>
+            <div>
+              <%= t('activerecord.attributes.user.password') %>:<br />
+              <%= f.password_field :password, :class => 'password-field' %>
+              <%= error_message_on :user, :password, t('activerecord.attributes.user.password') %>
+            </div>
+            <div>
+              <%= t('activerecord.attributes.user.password_confirmation') %>:<br />
+              <%= f.password_field :password_confirmation, :class => 'password-field' %>
+              <%= error_message_on :user, :password_confirmation, t('activerecord.attributes.user.password_confirmation') %>
+            </div>
+          </div>
+        </div>
+        <div class="opac_field" style="clear: both;">
+          <%= hidden_field_tag 'opac', 'true' %>
+          <%= f.submit :class => 'opac_submit_button' %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <br />
+  <div id="keypad">
+    <div style="float: left;">
+      <div id="keypad-toggle">
+        <button class="keypad-special keypad-upper"><%= t('opac.keypad.upper') %></button>
+      </div>
+      <div id="special_keys_area" style="clear: both;">
+      </div>
+    </div>
+    <div id="keys_area"></div>
+    <br style="clear:both;"/>
+  </div>
+</div>

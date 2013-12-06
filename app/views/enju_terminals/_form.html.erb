@@ -1,0 +1,37 @@
+<%= form_for(@enju_terminal) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label :ipaddr -%>
+    <%= f.text_field :ipaddr -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :name -%>
+    <%= f.text_field :name -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :comment -%>
+    <%= f.text_field :comment -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :checkouts_autoprint -%>
+    <%= f.check_box :checkouts_autoprint -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :reserve_autoprint -%>
+    <%= f.check_box :reserve_autoprint -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :manifestation_autoprint -%>
+    <%= f.check_box :manifestation_autoprint -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>

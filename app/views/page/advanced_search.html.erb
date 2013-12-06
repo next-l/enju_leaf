@@ -1,52 +1,220 @@
+<script>
+$(function(){
+  $('#pub_date_from').setCalendar({src:'/assets/calendar.png'});
+  $('#pub_date_to').setCalendar({src:'/assets/calendar.png'});
+  $('#acquired_from').setCalendar({src:'/assets/calendar.png'});
+  $('#acquired_to').setCalendar({src:'/assets/calendar.png'});
+  $('#removed_from').setCalendar({src:'/assets/calendar.png'});
+  $('#removed_to').setCalendar({src:'/assets/calendar.png'});
+
+  $('#tabs').bind("tabsactivate", function(event, ui) {
+    if (ui.newPanel.selector == "#tabs-1" ) {
+      $('#tabs-1').find('input').removeAttr("disabled");
+      $('#tabs-2').find('input').attr("disabled","disabled");
+    } else {
+      $('#tabs-2').find('input').removeAttr("disabled");
+      $('#tabs-1').find('input').attr("disabled","disabled");
+    }
+  });
+
+  $('#tabs').tabs();
+  if ("<%= params[:solr_query] %>" != '') {
+    $('#tabs').tabs("option", "active", 1);
+    $('#tabs-2').find('input').removeAttr("disabled");
+    $('#tabs-1').find('input').attr("disabled","disabled");
+  } else {
+    $('#tabs-1').find('input').removeAttr("disabled");
+    $('#tabs-2').find('input').attr("disabled","disabled");
+  }
+
+  $("[name=commit]").click(function(){
+    var arr = ["item_identifier"]
+    <% if SystemConfiguration.get("manifestation.isbn_unique") %>
+      arr.push("isbn")
+    <% end %>
+    for(i = 0; i < arr.length; i++) {
+      var target = $("#" + arr[i]).val().replace(/　/g, '').replace(/ /g, '');
+      if (target != '' && !target.match(/\*/)) {
+        var input_other_form = false;
+        $('input[type="search"]').each(function(){
+          if ($(this).attr("id") != arr[i]) {
+            var value = $(this).val().replace(/　/g, '').replace(/ /g, '');
+            if (value != '') {
+              input_other_form = true;
+              return false;
+            }
+          }
+        });
+        if (input_other_form == true){
+          if (arr[i] == "isbn")
+            alert("<%= t('advanced_search.search_isbn') %>");
+          else
+            alert("<%= t('advanced_search.search_item_identifier') %>");
+          return false;
+        }
+      }
+    } 
+  });
+
+  if ("<%= SystemConfiguration.get('nacsis.can_use') %>" || $('#index_local').is(':checked')) {
+    $('#tabs-1').find('.local-only').find('input').removeAttr("disabled");
+    $('#tabs-1').find('.local-only').show();
+    $('#tabs-1').find('.nacsis-only').find('input').attr("disabled","disabled");
+    $('#tabs-1').find('.nacsis-only').hide();
+  } else {
+    $('#tabs-1').find('.local-only').find('input').attr("disabled","disabled");
+    $('#tabs-1').find('.local-only').hide();
+    $('#tabs-1').find('.nacsis-only').find('input').removeAttr("disabled");
+    $('#tabs-1').find('.nacsis-only').show();
+  }
+
+  $('#index_local').change(function(){
+    $('#tabs-1').find('.local-only').find('input').removeAttr("disabled");
+    $('#tabs-1').find('.local-only').show();
+    $('#tabs-1').find('.nacsis-only').find('input').attr("disabled","disabled");
+    $('#tabs-1').find('.nacsis-only').hide();
+  });
+  $('#index_nacsis').change(function(){
+    $('#tabs-1').find('.local-only').find('input').attr("disabled","disabled");
+    $('#tabs-1').find('.local-only').hide();
+    $('#tabs-1').find('.nacsis-only').find('input').removeAttr("disabled");
+    $('#tabs-1').find('.nacsis-only').show();
+  });
+});
+</script>
+
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.advanced_search') -%></h1>
 <div id="content_list">
 
+<%#- cache :controller => 'page', :action => 'advanced_search', :locale => @locale do -%>
 <%= form_tag({:controller => 'manifestations'}, {:method => 'get'}) do -%>
-  <table style="width: 100%">
+  <div id="tabs">
+    <ul>
+      <li><a href="#tabs-1"><%= t('advanced_search.advanced') -%></a></li>
+      <li><a href="#tabs-2"><%= t('advanced_search.solr_search') -%></a></li>
+    </ul>
+  <div id="tabs-1">
+  <table style="width: 100%" id="advanced_search">
+    <%- if SystemConfiguration.get('nacsis.can_use') -%>
+      <tr>
+        <td><label><%= t('page.search_for') -%>:</label></td>
+        <td>
+          <%= radio_button_tag 'index', 'local', true -%><%= t('page.search_local') -%>
+          <%= radio_button_tag 'index', 'nacsis', false -%><%= t('page.search_nacsis') -%>
+        </td>
+      </tr>
+    <%- end -%>
     <tr>
-      <td><%= label_tag :query, t('page.search_term') -%>:</td>
-      <td><%= search_field_tag 'query', nil, :class => 'search_form_short', :placeholder => t('page.search_term') -%></td>
+      <td><label><%= advanced_search_label(:query) -%>:</label></td>
+      <td><%= search_field_tag 'query', params[:query], :class => 'search_form_short', :placeholder => t('page.search_term') -%> <%=advanced_search_merge_tag('query') -%>
+        <br />
+        <label><%= advanced_search_label(:except_query) %></label><%= search_field_tag 'except_query', params[:except_query] -%><br />
+        <%= t('advanced_search.help_query') -%>
+      </td>
+    </tr>
+    <% if defined?(EnjuBookmark) %>
+      <tr class="local-only">
+        <td><label><%= advanced_search_label(:tag) -%>:</label></td>
+        <td><%= search_field_tag 'tag', params[:tag] -%></td>
+      </tr>
+    <%- end -%>
+    <tr>
+      <td><label><%= advanced_search_label(:title) -%>:</label></td>
+      <td><%= search_field_tag 'title', params[:title] -%>
+        <%= advanced_search_merge_tag('title') %>
+        <br />
+        <label><%= advanced_search_label(:except_title) %></label><%= search_field_tag 'except_title', params[:except_title] -%>
+      </td>
     </tr>
     <tr>
-      <td><label><%= t('page.tag') -%>:</label></td>
-      <td><%= text_field_tag 'tag' -%></td>
+      <td><label><%= advanced_search_label(:creator) -%>:</label></td>
+      <td><%= search_field_tag 'creator', params[:creator] -%>
+        <%= advanced_search_merge_tag('creator') %>
+        <br />
+        <label><%= advanced_search_label(:except_creator) %></label><%= search_field_tag 'except_creator', params[:except_creator] -%>
+      </td>
+    </tr>
+    <tr class="nacsis-only">
+      <td><label><%= advanced_search_label(:subject) -%></label></td>
+      <td><%= search_field_tag 'subject', params[:subject] -%></td>
     </tr>
     <tr>
-      <td><label><%= t('patron.creator') -%>:</label></td>
-      <td><%= text_field_tag 'creator' -%></td>
+      <td><label><%= advanced_search_label(:publisher) -%>:</label></td>
+      <td><%= search_field_tag 'publisher', params[:publisher] -%></td>
     </tr>
     <tr>
-      <td><label><%= t('patron.publisher') -%>:</label></td>
-      <td><%= text_field_tag 'publisher' -%></td>
+      <td><label><%= advanced_search_label(:isbn) -%>:</label></td>
+      <td><%= search_field_tag 'isbn', params[:isbn] -%><%= t('advanced_search.help_isbn') -%></td>
     </tr>
     <tr>
-      <td><label><%= t('activerecord.attributes.manifestation.isbn') -%>:</label></td>
-      <td><%= text_field_tag 'isbn' -%></td>
+      <td><label><%= advanced_search_label(:issn) -%>:</label></td>
+      <td><%= search_field_tag 'issn', params[:issn] -%><%= t('advanced_search.help_issn') -%></td>
     </tr>
+    <tr class="nacsis-only">
+      <td><label><%= advanced_search_label(:ncid) -%>:</label></td>
+      <td><%= search_field_tag 'ncid', params[:ncid] -%>
+    </tr>
+    <tr class="local-only">
+      <td><label><%= advanced_search_label(:item_identifier) -%>:</label></td>
+      <td><%= search_field_tag 'item_identifier', params[:item_identifier] -%></td>
+    </tr>
+    <tr class="local-only">
+      <td><label><%= advanced_search_label(:pub_date) -%>:</label></td>
+      <td><%= t('advanced_search.from') -%> <%= search_field_tag 'pub_date_from', params[:pub_date_from], :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 1978, 1978-04-12" -%>
+        <%= t('advanced_search.to') -%> <%= search_field_tag 'pub_date_to', params[:pub_date_to], :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011, 2011-04-12"-%></td>
+    </tr>
+    <tr class="local-only">
+      <td><label><%= advanced_search_label(:acquired) -%>:</label></td>
+      <td><%= t('advanced_search.from') -%> <%= search_field_tag 'acquired_from', params[:acquired_from], :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2005, 2005-04-01" -%>
+        <%= t('advanced_search.to') -%> <%= search_field_tag 'acquired_to', params[:acquired_to], :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011, 2011-03-31"-%></td>
+    </tr>
+    <% if user_signed_in? and current_user.has_role?('Librarian') %>
+      <tr class="local-only">
+        <td><label><%= advanced_search_label(:removed) %>:</label></td>
+        <td>
+          <%= t('advanced_search.from') %>
+          <%= search_field_tag 'removed_from', params[:removed_from], :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2005, 2005-04-01" %>
+          <%= t('advanced_search.to') %>
+          <%= search_field_tag 'removed_to', params[:removed_to], :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011, 2011-03-31" %>
+        </td>
+      </tr>
+    <% end %>
+<% if false %>
     <tr>
-      <td><label><%= t('activerecord.attributes.manifestation.issn') -%>:</label></td>
-      <td><%= text_field_tag 'issn' -%></td>
+      <td><label><%= advanced_search_label(:number_of_pages) -%>:</label></td>
+        <td><%= t('advanced_search.from') -%> <%= search_field_tag 'number_of_pages_at_least', params[:number_of_pages_at_least], :size => 5 -%>
+          <%= t('advanced_search.to') -%> <%= search_field_tag 'number_of_pages_at_most', params[:number_of_pages_at_most], :size => 5 -%></td>
     </tr>
-    <tr>
-      <td><label><%= t('activerecord.attributes.item.item_identifier') -%>:</label></td>
-      <td><%= text_field_tag 'item_identifier' -%></td>
+<% end %>
+    <tr class="local-only">
+      <td><label><%= advanced_search_label(:manifestation_types) -%>:</label></td>
+      <td><div class='parent'>
+        <%= check_box_tag 'all_manifestation_types', true, @selected_manifestation_types.size == @manifestation_types.size ? true : false, :class => 'check-parent' %><%= t('advanced_search.all', :model => t('activerecord.models.manifestation_type')) %><br />
+        <% @manifestation_types.each_with_index do |manifestation_type, i| %>
+          <% if params[:manifestation_types] %>
+            <% manifestation_types = params[:manifestation_types].class == String ? eval(params[:manifestation_types]) : params[:manifestation_types] %>
+            <%= check_box 'manifestation_types', manifestation_type.id, {:checked => manifestation_types.has_key?(manifestation_type.id.to_s), :class => 'check-child'}, true, false %>
+            <%= manifestation_type.display_name.localize -%> 
+            <%- if [5,9].include?(i) %><br /><%- end -%>
+          <% end %>
+        <% end %>
+      </div></td>
     </tr>
-    <tr>
-      <td><label><%= t('activerecord.attributes.manifestation.date_of_publication') -%>:</label></td>
-      <td><%= t('advanced_search.from') -%> <%= text_field_tag 'pub_date_from', nil, :class => 'date_text_field', :placeholder => "#{t('page.example')}: 1978, 1978-04-12" -%>
-        <%= t('advanced_search.to') -%> <%= text_field_tag 'pub_date_to', nil, :class => 'date_text_field', :placeholder => "#{t('page.example')}: 2011, 2011-04-12"-%></td>
+    <tr class="nacsis-only">
+      <td><label><%= advanced_search_label(:manifestation_types) -%>:</label></td>
+      <td><%= check_box_tag 'manifestation_type[]', :book, true -%><%= t('page.nacsis_book') -%>
+          <%= check_box_tag 'manifestation_type[]', :serial, true -%><%= t('page.nacsis_serial') -%></td>
     </tr>
-    <tr>
-      <td><label><%= t('activerecord.attributes.item.acquired_at') -%>:</label></td>
-      <td><%= t('advanced_search.from') -%> <%= text_field_tag 'acquired_from', nil, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2005, 2005-04-01" -%>
-        <%= t('advanced_search.to') -%> <%= text_field_tag 'acquired_to', nil, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011, 2011-03-31"-%></td>
-    </tr>
-    <tr>
-      <td><label><%= t('page.number_of_pages') -%>:</label></td>
-        <td><%= t('advanced_search.from') -%> <%= text_field_tag 'number_of_pages_at_least', nil, :size => 5 -%>
-          <%= t('advanced_search.to') -%> <%= text_field_tag 'number_of_pages_at_most', nil, :size => 5 -%></td>
-    </tr>
+    <% if user_signed_in? and current_user.has_role?('Librarian') %>
+      <tr class="local-only">
+        <td></td>
+        <td>
+          <%= check_box_tag 'all_manifestations', true, params[:all_manifestations].present? %>
+          <%= t('advanced_search.all_manifestations') %>
+        </td>
+      </tr>
+    <% end %>
     <!--
     <tr>
       <td><label><%= t('page.holding_library') -%>:</label></td>
@@ -64,14 +232,239 @@
       <td></td>
       <td>
         <%= hidden_field_tag 'advanced_search', 'true' -%>
+        <%= hidden_field_tag 'user_id', params[:user_id] if params[:user_id] -%>
+        <%= hidden_field_tag 'series_statement_id', params[:series_statement_id] if params[:series_statement_id] %>
         <%= submit_tag t('page.search') -%>
+        <%= button_to_function t('advanced_search.clear_query'), "clear_all()" %>
       </td>
     </tr>
   </table>
+  </div>
+  <div id="tabs-2">
+  <table style="width: 100%">
+    <tr>
+      <td><label><%= advanced_search_label(:solr_query) -%>:</label></td>
+      <td><%= text_field_tag 'solr_query', params[:solr_query], :class => 'search_form' -%><br /><%= t('advanced_search.help_solr_query') -%></td>
+    </tr>
+    <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
+      <% if user_signed_in? and current_user.has_role?('Librarian') %>
+        <tr>
+          <td></td>
+          <td>
+            <%= check_box_tag 'all_manifestations', true, params[:all_manifestations].present? %>
+            <%= t('advanced_search.all_manifestations') %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+    <tr>
+      <td></td>
+      <td>
+        <%= submit_tag t('page.search'), :name => 'solr_commit' -%>
+        <%= button_to_function t('advanced_search.clear_query'), "clear_all()" %>
+      </td>
+    </tr>
+  </table>
+  <br />
+  <strong><%= t('advanced_search.solr_query_format.format') %></strong>
+  <div>  
+    <table id="solr_query_format">
+      <tr>
+        <td style="width:120px;"><%= t('advanced_search.solr_query_format.word') %></td>
+        <td>
+          <%= t('advanced_search.solr_query_format.word_description') %><br />
+          <br />
+          <%= t('advanced_search.solr_query_format.exsample') %>:<br />
+          <%= t('advanced_search.solr_query_format.word_ex') %>
+        </td>
+      </tr>
+      <tr>
+        <td><%= t('advanced_search.solr_query_format.and') %></td>
+        <td>
+          <%= t('advanced_search.solr_query_format.and_description') %><br />
+          <br />
+          <%= t('advanced_search.solr_query_format.exsample') %>:<br />
+          <%= raw t('advanced_search.solr_query_format.and_ex') %>
+        </td>
+      </tr>
+      <tr>
+        <td><%= t('advanced_search.solr_query_format.or') %></td>
+        <td>
+          <%= t('advanced_search.solr_query_format.or_description') %><br />
+          <br />
+          <%= t('advanced_search.solr_query_format.exsample') %>:<br />
+          <%= raw t('advanced_search.solr_query_format.or_ex') %>
+        </td>
+      </tr>
+        <td><%= t('advanced_search.solr_query_format.not') %></td>
+        <td>
+          <%= t('advanced_search.solr_query_format.not_description') %><br />
+          <br />
+          <%= t('advanced_search.solr_query_format.exsample') %>:<br />
+          <%= raw t('advanced_search.solr_query_format.not_ex') %>
+        </td>
+      </tr>
+      <tr>
+        <td><%= t('advanced_search.solr_query_format.wild') %></td>
+        <td>
+          <%= t('advanced_search.solr_query_format.wild_description') %><br />
+          <br />
+          <%= t('advanced_search.solr_query_format.exsample') %>:<br />
+          <%= raw t('advanced_search.solr_query_format.wild_ex') %>
+        </td>
+      </tr>
+      <tr>
+        <td><%= t('advanced_search.solr_query_format.field') %></td>
+        <td>
+          <%= t('advanced_search.solr_query_format.field_description') %><br />
+          <br />
+          <table>
+            <tr>
+              <th style="width:100px;"><%= t('advanced_search.solr_query_format.field_detail.target') %></th>
+              <th style="width:180px;"><%= t('advanced_search.solr_query_format.field_detail.format') %></th>
+              <th><%= t('advanced_search.solr_query_format.exsample') %></th>
+            </tr>
+            <% if defined?(EnjuBookmark) %>
+              <tr>
+                <td><%= advanced_search_label(:tag) %></td>
+                <td><%= t('advanced_search.solr_query_format.field_detail.tag_format') %></td>
+                <td><%= t('advanced_search.solr_query_format.field_detail.tag_ex') %></td>
+              </tr>
+            <% end %>
+            <tr>
+              <td><%= advanced_search_label(:title) %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.title_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.title_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= advanced_search_label(:creator) %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.creator_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.creator_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= advanced_search_label(:publisher) %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.publisher_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.publisher_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= t('patron.contributor') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.contributor_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.contributor_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= advanced_search_label(:isbn) %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.isbn_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.isbn_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= advanced_search_label(:issn) %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.issn_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.issn_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= advanced_search_label(:item_identifier) %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.item_identifier_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.item_identifier_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= advanced_search_label(:pub_date) %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.pub_date_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.pub_date_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= advanced_search_label(:acquired) %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.acquired_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.acquired_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= advanced_search_label(:removed) %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.removed_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.removed_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= advanced_search_label(:manifestation_types) %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.manifestation_type_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.manifestation_type_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= t('activerecord.models.carrier_type') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.carrier_type_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.carrier_type_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= t('activerecord.attributes.manifestation.volume_number_string') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.volume_number_string_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.volume_number_string_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= t('activerecord.attributes.manifestation.issue_number_string') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.issue_number_string_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.issue_number_string_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= t('activerecord.attributes.manifestation.serial_number_string') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.serial_number_string_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.serial_number_string_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= t('activerecord.attributes.manifestation.description') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.description_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.description_ex') %></td>
+            </tr>
+            <% if user_signed_in? and current_user.has_role?('Librarian') %>
+              <tr>
+                <td><%= t('activerecord.attributes.manifestation.note') %></td>
+                <td><%= t('advanced_search.solr_query_format.field_detail.note_format') %></td>
+                <td><%= t('advanced_search.solr_query_format.field_detail.note_ex') %></td>
+              </tr>
+            <% end %>
+            <tr>
+              <td><%= t('activerecord.attributes.manifestation.exinfo_1') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.exinfo_1_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.exinfo_1_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= t('activerecord.attributes.manifestation.exinfo_6') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.exinfo_6_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.exinfo_6_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= t('activerecord.models.library') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.library_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.library_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= t('activerecord.models.shelf') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.shelf_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.shelf_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= t('activerecord.attributes.series_statement.original_title') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.series_title_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.series_title_ex') %></td>
+            </tr>
+            <tr>
+              <td><%= t('activerecord.attributes.manifestation.article_title') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.article_title_format') %></td>
+              <td><%= t('advanced_search.solr_query_format.field_detail.article_title_ex') %></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+  </div>
+  </div>
+<%#- end -%>
+<%= javascript_tag("$('#query').focus()") -%>
 <%- end -%>
-<%= javascript_tag("$(function(){$('#query').focus()})") %>
 </div>
 </div>
 
 <div id="submenu" class="ui-corner-all">
+  <% unless SystemConfiguration.get("manifestation.isbn_unique") %>
+    <%= raw t('advanced_search.description') %>
+  <% else %>
+    <%= raw t('advanced_search.description_unique_isbn') %>
+  <% end %>
 </div>

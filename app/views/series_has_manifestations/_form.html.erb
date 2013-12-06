@@ -1,0 +1,27 @@
+<%= simple_form_for(@series_has_manifestation) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.series_statement') -%><b>(<%= t('activerecord.attributes.series_statement.id') -%>)</b><br />
+    <%- if @series_has_manifestation.series_statement -%>
+      <%= link_to @series_has_manifestation.series_statement.original_title, @series_has_manifestation.series_statement if @series_has_manifestation.series_statement %>
+      <%= f.hidden_field :series_statement_id %>
+    <%- else -%>
+      <%= f.text_field :series_statement_id -%>
+    <%- end -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.manifestation') -%><b>(<%= t('activerecord.attributes.manifestation.id') -%>)</b><br />
+    <%- if @series_has_manifestation.manifestation -%>
+      <%= link_to @series_has_manifestation.manifestation.original_title, @series_has_manifestation.manifestation if @series_has_manifestation.manifestation %>
+      <%= f.hidden_field :manifestation_id %>
+    <% else %>
+      <%= f.text_field :manifestation_id %>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,0 +1,62 @@
+<script>
+  $(document).ready(function() {
+    set_disabled();
+    $('#series_statement_relationship_series_statement_relationship_type_id').change(function(){
+      set_disabled();
+    });
+  });
+
+  function set_disabled() {
+    var relationship_type_id = $('select#series_statement_relationship_series_statement_relationship_type_id').val();
+    jQuery('input').attr('disabled', false);
+    switch (relationship_type_id) {
+      case '0':
+        $('#series_statement_relationship_bbid').val('');
+        $('#series_statement_relationship_before_series_statement_relationship_id').val('');
+        $('#series_statement_relationship_bbid').attr('disabled', true);
+        $('#series_statement_relationship_before_series_statement_relationship_id').attr('disabled', true);
+        break;
+      case '9':
+        $('#series_statement_relationship_abid').val('');
+        $('#series_statement_relationship_after_series_statement_relationship_id').val('');
+        $('#series_statement_relationship_abid').attr('disabled', true);
+        $('#series_statement_relationship_after_series_statement_relationship_id').attr('disabled', true);
+        break;
+    }
+  }
+</script>
+
+<%= render 'page/required_field' %>
+<%= simple_form_for @series_statement_relationship do |f| %>
+  <%= f.error_messages -%>
+ 
+  <div class="field">
+    <h2 class="resource_title">[S]<%= link_to @series_statement.original_title, @series_statement %></h2>
+    <%= f.hidden_field :series_statement_id, :value => @series_statement.id %>
+  </div>
+  <div class="field">
+    <%= f.label t('activerecord.models.relationship_family') %>
+    <%= link_to @relationship_family.display_name, @relationship_family %>
+    (<%= link_to t('page.editing', :model => t('activerecord.models.relationship_family')),
+           relationship_families_path(:series_statement_id => @series_statement.id) %>)
+    <%= f.hidden_field :relationship_family_id, :value => @relationship_family.id %>
+  </div>
+  <div class="field">
+    <table>
+      <tr>
+        <th><%= f.label :seq %></th>
+        <th><%= f.label :after_series_statement_relationship_id %></th>
+        <th><%= f.label t('activerecord.models.series_statement_relationship_type') %></th>
+      </tr>
+      <tr>
+        <td><%= f.text_field :seq %></td>
+        <td><%= f.text_field :after_series_statement_relationship_id %></td>
+        <td><%= f.select :series_statement_relationship_type_id, @series_statement_relationship_types %></td>
+      </tr>
+    </table>
+  </div>
+  <div class="actions">
+    <%= f.hidden_field :source, :value => 0 %>
+    <%= f.submit %>
+  </div>
+<% end %>

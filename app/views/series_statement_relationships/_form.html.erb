@@ -1,0 +1,56 @@
+<script>
+  $(document).ready(function() {
+    set_disabled();
+    $('#series_statement_relationship_series_statement_relationship_type_id').change(function(){
+      set_disabled();
+    });
+  });
+  function set_disabled() {
+    var relationship_type_id = $('select#series_statement_relationship_series_statement_relationship_type_id').val();
+    $('input').attr('disabled', false);
+    switch (relationship_type_id) {
+      case '1':
+        $('#series_statement_relationship_before_series_statement_relationship_id').val('');
+        $('#series_statement_relationship_before_series_statement_relationship_id').attr('disabled', true);
+        break;
+      case '5':
+        $('#series_statement_relationship_after_series_statement_relationship_id').val('');
+        $('#series_statement_relationship_after_series_statement_relationship_id').attr('disabled', true);
+        break;
+    }
+  }
+  function undisabled(){
+    jQuery('input').attr('disabled', false);
+    return true;
+  }
+</script>
+<%= render 'page/required_field' %>
+<%= simple_form_for @series_statement_relationship do |f| %>
+  <%= f.error_messages %>
+ 
+  <div class="field">
+    <%= f.label t('activerecord.models.relationship_family') %>
+    <%= link_to @relationship_family.display_name, @relationship_family %>
+    <%= f.hidden_field :relationship_family_id, :value => @relationship_family.id %>
+  </div>
+  <div class="field">
+    <%= f.label :seq %><br />
+    <%= f.text_field :seq %>
+  </div>
+  <div class="field">
+    <%= f.label :before_series_statement_relationship_id %><br />
+    <%= f.text_field :before_series_statement_relationship_id %>
+  </div>
+  <div class="field">
+    <%= f.label :after_series_statement_relationship_id %><br />
+    <%= f.text_field :after_series_statement_relationship_id %>
+  </div>
+  <div class="field">
+    <%= f.label t('activerecord.models.series_statement_relationship_type') %><br />
+    <%= f.select :series_statement_relationship_type_id, @series_statement_relationship_types %>
+  </div>
+  <div class="actions">
+    <%= f.hidden_field :source, :value => 0 %>
+    <%= f.submit :onclick => "undisabled();" %>
+  </div>
+<% end %>

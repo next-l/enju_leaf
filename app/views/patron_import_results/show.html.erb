@@ -1,0 +1,42 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.patron_import_result')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= t('activerecord.models.patron_import_file') %></b>
+  <%= @patron_import_result.patron_import_file.patron_import_file_name %>
+</p>
+
+<p>
+  <b><%= t('activerecord.models.patron') %></b>
+  <%= link_to @patron_import_result.patron.full_name, @patron_import_result.user if @patron_import_result.user %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.user.username') %></b>
+  <%= link_to @patron_import_result.user.username, @patron_import_result.user if @patron_import_result.user %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.patron_import_result.body') %></b>
+  <%- if @patron_import_result.body -%><br />
+    <% @patron_import_result.body.split("\t").each_with_index do |item, i| %>
+      &nbsp;<%= t('activerecord.attributes.patron_import_result.index') %><%= "#{h(i+1)}:" %>&nbsp;<%= h(item) %><br />
+    <% end %>
+  <%- end -%>
+  </p>
+
+<p>
+  <b><%= t('page.created_at') %></b>
+  <%=l @patron_import_result.created_at %>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), patron_import_results_path %></li>
+  </ul>
+</div>

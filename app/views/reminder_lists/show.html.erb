@@ -1,0 +1,68 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.reminder_list')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= raw notice %></p>
+<div style="color: red"><%= raw flash[:message] -%></div>
+<%- if flash[:sound] -%>
+<script>
+playSound('<%= root_path -%><%= flash[:sound] -%>');
+</script>
+<%- end -%>
+
+<p>
+  <strong><%= t('activerecord.models.checkout') -%>:</strong>
+  <%= link_to @reminder_list.checkout.id, user_checkout_path(@reminder_list.checkout.user, @reminder_list.checkout) -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.reminder_list.original_title') -%>:</strong>
+  <%= link_to @reminder_list.checkout.item.manifestation.original_title, @reminder_list.checkout.item -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.reminder_list.user_name') -%>:</strong>
+  <%= link_to @reminder_list.checkout.user.patron.full_name, @reminder_list.checkout.user -%>
+  (<%= @reminder_list.checkout.user_username -%>)
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.reminder_list.status') -%>:</strong>
+  <%= @reminder_list.status_name -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.reminder_list.due_date') -%>:</strong>
+  <%= l(@reminder_list.checkout.due_date, :format => :only_date) -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.reminder_list.number_of_day_overdue') -%>:</strong>
+  <%= @reminder_list.checkout.day_of_overdue -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.reminder_list.type1_printed_at') -%>:</strong>
+  <%= dateformat(@reminder_list.type1_printed_at) -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.reminder_list.type2_printed_at') -%>:</strong>
+  <%= dateformat(@reminder_list.type2_printed_at) -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.reminder_list.mail_sent_at') -%>:</strong>
+  <%= dateformat(@reminder_list.mail_sent_at) -%>
+</p>
+
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@reminder_list.created_at) -%>
+</p>
+<p>
+  <strong><%= t('page.updated_at') -%>:</strong>
+  <%= l(@reminder_list.updated_at) -%>
+</p>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.reminder_list')), reminder_lists_path -%></li>
+    <li><%= link_to t('page.edit'), edit_reminder_list_path(@reminder_list) -%></li>
+    <li><%= link_to t('page.destroy'), @loss_item, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+  </ul>
+</div>

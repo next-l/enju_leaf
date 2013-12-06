@@ -1,0 +1,29 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.manifestation_relationship_type')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_relationship_type.name') -%>:</strong>
+  <%= @manifestation_relationship_type.name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_relationship_type.display_name') -%>:</strong>
+  <%= @manifestation_relationship_type.display_name.localize -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_relationship_type.note') -%>:</strong>
+  <%= @manifestation_relationship_type.note -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_manifestation_relationship_type_path(@manifestation_relationship_type) -%></li>
+    <li><%= link_to t('page.back'), manifestation_relationship_types_path -%></li>
+  </ul>
+</div>

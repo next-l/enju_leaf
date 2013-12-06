@@ -1,0 +1,117 @@
+<script>
+var specials  = [
+  $.keypad.SPACE_BAR,
+  $.keypad.BACK,
+  $.keypad.CLEAR
+];
+var lower = [
+  'abcdefghi123',
+  'jklmnopqr456',
+  'stuvwxyz@789',
+  '?!&:;~-_/*0#',
+  '"()[].,+=|$%'
+];
+var upper = [
+  'ABCDEFGHI123',
+  'JKLMNOPQR456',
+  'STUVWXYZ@789',
+  '?!&:;~-_/*0#',
+  '"()[].,+=|$%'
+];
+
+$(function() {
+  $('#user_username').focus()
+
+  // keypad
+  var default_layout = lower;                         // keys layout
+  var target = $('#' + document.activeElement.id); // input form
+  make_keys_area(target, default_layout);
+  make_special_keys_area(target);
+});
+
+function make_keys_area (target, layout) {
+  $('#keys_area').html('');
+  $('#keys_area').keypad({
+    layout: layout,
+    target: target,
+    keypadOnly: false,
+    beforeShow : function(inst){
+      $("input").click(function(){
+        target =  $('#' + document.activeElement.id);
+        $('#keys_area').html('');
+        $('.keypad-inline').html('');
+        make_keys_area(target, layout);
+        make_special_keys_area(target);
+      });
+    }
+  });
+}
+
+function make_special_keys_area(target) {
+  $('#special_keys_area').keypad({
+    target: target,
+    layout: specials,
+    spacebarText : "<%= t('opac.keypad.space') %>",
+    clearText    : "<%= t('opac.keypad.clear') %>",
+    backText     : "<%= t('opac.keypad.back') %>",
+    beforeShow : function(inst){
+      // change layout
+      $('.keypad-lower').click(function(){
+        make_keys_area(target, lower);
+      });
+      $('.keypad-upper').click(function(){
+        make_keys_area(target, upper);
+      });
+    }
+  });
+}
+</script>
+
+<div id="opac_content_header">
+  <div id="opac_content">
+    <div class="opac_title"><h1>OPAC<%= t('page.sign_in') -%></h1></div>
+    <div class="opac_head_button_area">
+      <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %></div>
+    </div>
+  </div>
+</div>
+
+<div id="opac_content">
+  <%= form_for(resource, :as => resource_name, :url => new_user_session_path(:opac => true)) do |f| %>
+    <%= f.error_messages -%>
+    <div>
+      <%= raw sanitize(textilize(h(@library_group.login_banner))) %>
+    </div>
+    <br />
+    <p id="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <div class="opac_field">
+      <div>
+        <%= t('activerecord.attributes.user.username') %>:<br />
+        <%= f.text_field :username, :class => 'password-field' %>
+      </div>
+      <div>
+        <%= t('activerecord.attributes.user.password') %>:<br />
+        <%= f.password_field :password, :class => 'password-field' %>
+      </div>
+<!--
+      <% if devise_mapping.rememberable? -%>
+        <p><%= f.check_box :remember_me %> <%= f.label t('user.remember_me') %></p>
+      <% end -%>
+-->
+      <div>
+        <%= f.submit t('page.sign_in'), :class => 'opac_submit_button' %></p>
+      </div>
+    </div>
+  <% end %>
+<!-- <%= render "devise/shared/links" %> -->
+
+  <div id="keypad">
+    <div id="special_keys_area">
+      <div><button class="keypad-special keypad-lower"><%= t('opac.keypad.lower') %></button></div>
+      <div style="clear: both;"><button class="keypad-special keypad-upper"><%= t('opac.keypad.upper') %></button></div>
+    </div>
+    <div id="keys_area"></div>
+    <br style="cleat:both;"/>
+  </div>
+</div>

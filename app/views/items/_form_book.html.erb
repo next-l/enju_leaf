@@ -1,0 +1,120 @@
+<%- if manifestation -%>
+  <%= render 'manifestations/title', :manifestation => manifestation -%>
+<%- end -%>
+
+<%# = render 'page/required_field' %>
+<%= simple_form_for(@item) do |f| -%>
+  <%= f.error_messages -%>
+  <%= f.hidden_field :manifestation_id %>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.library') -%><strong> / <%= t('activerecord.models.shelf') -%></strong><br />
+    <%= f.select :library_id, @libraries.map{|l| [l.display_name.localize, l.id]} %>
+    <%- if @shelf_categories %>
+      <%= select_tag :shelf_category, options_for_select(@shelf_categories.map{|c|[i18n_shelf_category(c),c]}), {:include_blank => ''} %>
+      <%= f.select :shelf_id, @shelves.map{|s| [s.display_name.localize, s.id]}, :selected => @item.shelf_id %>
+    <%- else -%>
+      <%= f.select :shelf_id, @shelves.map{|s| [s.display_name.localize, s.id]} %>
+    <%- end -%>
+    <%= render 'observe_field' %>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.checkout_type') -%><br />
+    <%= f.select(:checkout_type_id, @checkout_types.collect{|c| [c.display_name.localize, c.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.accept_type') -%><br />
+    <%= f.select(:accept_type_id, @accept_types.collect{|a| [a.display_name.localize, a.id]}, :include_blank => true) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.circulation_status') -%><br />
+    <%= f.select(:circulation_status_id, @circulation_statuses.collect{|c| [c.display_name.localize, c.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.retention_period') -%><br />
+    <%= f.select(:retention_period_id, @retention_periods.collect{|r| [r.display_name.localize, r.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :call_number -%><br />
+    <%= f.text_field :call_number -%>
+  </div>
+
+  <div class="field">
+    <strong><%= t('item.search_bookstore') %></strong>
+    <%= text_field :search_bookstore, :input %>
+    <%= submit_tag t('page.search'), :class => 'search_bookstore_button' %>
+    <div id="error" style="color: red"></div>
+    <div style="font-size: 90%; padding-bottom: 10px;"><%= t('item.search_bookstore_description') %></div>
+    <%= f.label t('activerecord.models.bookstore') -%>
+    <%= f.select(:bookstore_id, @bookstores.collect{|b| [b.name, b.id]}, :include_blank => true) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :price -%><br />
+    <%= f.text_field :price -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :url -%><br />
+    <%= f.url_field :url, :class => 'resource_url' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :include_supplements -%>
+    <%= f.check_box :include_supplements -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.use_restriction') -%>
+    <%= f.select(:use_restriction_id, @use_restrictions.collect{|u| [u.display_name.localize, u.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('role.required_role') -%>
+    <%= f.select(:required_role_id, @roles.collect{|r| [r.display_name.localize, r.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :non_searchable %>
+    <%= f.check_box :non_searchable %>
+  </div>
+
+  <div class="field">
+<script>
+$(function(){
+  $('#item_acquired_at_string').setCalendar({src:'/assets/calendar.png'});
+});
+</script>
+    <%= f.label :acquired_at_string -%>
+    <%= f.text_field :acquired_at_string, :class => 'date_field', :placeholder => "#{t('page.example')}: 2011-04-12"-%>
+  </div>
+
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note, :class => 'resource_textarea' -%>
+  </div>
+
+	<% if SystemConfiguration.get('manifestation.manage_item_rank') %>
+  <div class="field">
+    <%= f.label t('activerecord.attributes.item.rank') %><br />
+    <%= f.select(:rank, item_ranks.collect{|r| [i18n_rank(r), r]}) %>
+  </div>
+	<% end %>
+
+  <div class="field">
+    <%= f.label :item_identifier -%><br />
+    <%= select :numbering, :type, @numberings.map{|n| [n.display_name, n.name]}, :include_blank => true %>
+    <%= link_to t('activerecord.models.numbering'), {}, :onClick => "numbering();false", :remote => true %>
+    <%= f.text_field :item_identifier, :class => 'resource_item_identifier' -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit :disable_with => t('page.wait') %>
+  </div>
+  <%= javascript_tag("$('#library_id').focus()") -%>
+<%- end -%>

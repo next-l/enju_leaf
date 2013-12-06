@@ -1,0 +1,55 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.lending_policy')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@lending_policy) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%- if @item -%>
+      <%= f.label :item_id, t('activerecord.models.item') -%><br />
+      <%= link_to @item.item_identifier, @item -%>
+      (<%= link_to @item.manifestation.original_title, @item.manifestation -%>)
+      <%= f.hidden_field :item_id -%>
+    <%- else -%>
+      <%= f.label :item_id, t('activerecord.models.item') -%><br />
+      <%= f.text_field :item_id -%>
+    <%- end -%>
+  </div>
+  <div class="field">
+    <%= f.label :user_group_id, t('activerecord.models.user_group') -%><br />
+    <%= f.select :user_group_id, @user_groups.collect{|u| [u.display_name.localize, u.id]} -%>
+  </div>
+  <div class="field">
+    <%= f.label :loan_period -%><br />
+    <%= f.text_field :loan_period -%>
+  </div>
+  <div class="field">
+    <%= f.label :fixed_due_date -%><br />
+    <%= f.text_field :fixed_due_date -%>
+  </div>
+  <div class="field">
+    <%= f.label :renewal -%><br />
+    <%= f.text_field :renewal -%>
+  </div>
+  <div class="field">
+    <%= f.label :fine -%><br />
+    <%= f.text_field :fine -%>
+  </div>
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note -%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), lending_policies_path -%></li>
+  </ul>
+</div>

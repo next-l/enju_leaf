@@ -1,0 +1,42 @@
+<div>
+  <div class="opac_sort_button_<%= (params[:sort_by] == '2.weeks' or params[:sort_by] == nil) ? 'on' : 'off'%>">
+    <%= link_to t('opac.manifestation_exstats.rank', :term => t('opac.manifestation_exstats.2weeks')),
+      manifestation_exstats_bestrequest_path(
+        :opac => true,
+        :sort_by => '2.weeks',
+        :search_date_first => (Date.today - 2.weeks),
+        :search_date_last => Date.today) %>
+  </div>
+  <div class="opac_sort_button_<%= params[:sort_by] == '1.month' ? 'on' : 'off'%>">
+    <%= link_to t('opac.manifestation_exstats.rank', :term => t('opac.manifestation_exstats.1month')),
+      manifestation_exstats_bestrequest_path(
+        :opac => true,
+        :sort_by => '1.month',
+        :search_date_first => (Date.today - 1.month),
+        :search_date_last => Date.today) %>
+  </div>
+  <div class="opac_sort_button_<%= params[:sort_by] == '3.months' ? 'on' : 'off'%>">
+    <%= link_to t('opac.manifestation_exstats.rank', :term => t('opac.manifestation_exstats.3months')) ,
+      manifestation_exstats_bestrequest_path(
+        :opac => true,
+        :sort_by => '3.months',
+        :search_date_first => (Date.today - 3.months),
+        :search_date_last => Date.today) %>
+  </div>
+  <div class="opac_sort_button_<%= params[:sort_by] == '6.months' ? 'on' : 'off'%>">
+    <%= link_to t('opac.manifestation_exstats.rank', :term => t('opac.manifestation_exstats.6months')),
+      manifestation_exstats_bestrequest_path(
+        :opac => true,
+        :sort_by => '6.months',
+        :search_date_first => (Date.today - 6.months),
+        :search_date_last => Date.today) %>
+  </div>
+  <div class="opac_sort_button_<%= params[:sort_by] == '1.year' ? 'on' : 'off'%>">
+   <%= link_to t('opac.manifestation_exstats.rank', :term => t('opac.manifestation_exstats.1year')),
+     manifestation_exstats_bestrequest_path(
+        :opac => true,
+        :sort_by => '1.year',
+        :search_date_first => (Date.today - 1.year),
+        :search_date_last => Date.today) %>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<% if manifestation.items.exists? %>
+<div id="holding">
+<table class="holding">
+  <tr>
+    <th><%= t('activerecord.models.library') %></th>
+    <th><%= t('activerecord.models.shelf') %></th>
+    <th><%= t('activerecord.attributes.item.call_number') %></th>
+    <th><%= t('activerecord.attributes.item.item_identifier') %></th>
+    <% unless manifestation.article? %>
+      <th><%= t('activerecord.models.circulation_status') %></th>
+    <% end %>
+    <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
+      <% if user_signed_in? and current_user.has_role?('Librarian') %>
+        <th><%= t('activerecord.attributes.item.rank') %></th>
+      <% end %>
+    <% end %>
+  </tr>
+  <%# cache(:controller => :manifestations, :action => :show, :id => manifestation.id, :page => 'holding', :role => current_user_role_name, :locale => @locale, :manifestation_id => nil) do %>
+  <%# - manifestation.items.on_shelf.each do |item| -%>
+    <% items = manifestation.items = SystemConfiguration.get('manifestation.manage_item_rank') ? manifestation.items.sort_rank : manifestation.items %>
+    <% items.each do |item| %>
+      <% next if hide_item?(params[:all_manifestations], item) %>
+      <tr>
+        <td>
+          <%= link_to item.shelf.library.display_name.localize, item.shelf.library if item.try(:shelf).try(:library) %>
+        </td>
+        <td>
+          <%= link_to item.shelf.display_name.localize, item.shelf if item.shelf %>
+          <%= render 'items/shelf_picture', :item => item if item.shelf %>
+        </td>
+        <td>
+          <%= call_numberformat(item) %>
+        </td>
+        <td>
+          <% if item.item_identifier? %>
+            <%= link_to item.item_identifier, item %>
+          <% else %>
+            (<%= link_to t('item.no_number'), item %>)
+          <% end %>
+        </td>
+        <% unless manifestation.article? %>
+          <td>
+            <% if item.circulation_status.name != 'Available On Shelf' %>
+              <span class="not_rent_item"><%= item.circulation_status.display_name.localize if item.circulation_status %></span>
+            <% else %>
+              <%= item.circulation_status.display_name.localize if item.circulation_status %>
+            <% end %>
+            <% if item.rent? %>
+              (
+                <%= t('activerecord.attributes.checkout.due_date') %>:
+                <%= l(item.checkouts.first.due_date, :format => :only_date) %>
+              )
+            <% end %>
+          </td>
+        <% end %>
+        <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
+          <% if user_signed_in? and current_user.has_role?('Librarian') %>
+            <td><%= i18n_rank(item.rank) %></td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  <%# end %>
+</table>
+</div>
+<% end %>

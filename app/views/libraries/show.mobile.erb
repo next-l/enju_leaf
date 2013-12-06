@@ -1,0 +1,26 @@
+<div data-role="header">
+  <h1 class="title"><%= @library.display_name.localize -%></h1>
+</div>
+<div data-role="content">
+  <p>
+    <%= t('activerecord.attributes.library.name') -%>: <%= @library.name -%>
+  </p>
+  <div id="detail">
+  <%- unless @library.web? -%>
+    <p>
+      <%= t('library.address') -%>: <%= @library.zip_code -%> <%= @library.address -%>
+      <br />
+      <%= t('activerecord.attributes.library.telephone_number_1') -%>: <%= @library.telephone_number_1 -%>
+      <%= t('activerecord.attributes.library.telephone_number_2') -%>: <%= @library.telephone_number_2 -%>
+      <br />
+      <%= t('activerecord.attributes.library.fax_number') -%>: <%= @library.fax_number -%>
+    </p>
+    <p>
+      <%= @library.opening_hour -%>
+    </p>
+    <p>
+      <%= @library.note -%>
+    </p>
+  <%- end -%>
+  </div>
+</div>

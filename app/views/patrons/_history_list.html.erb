@@ -1,0 +1,18 @@
+<div id="history">
+  <ul>
+    <%- @patron.versions.reverse.each_with_index do |version, i| -%>
+      <li>
+        <%- unless @patron.user.blank? -%>
+          <%# = link_to l(version.created_at), user_path(@patron.user, :version_id => version.id) -%>
+          <%= l(version.created_at) -%>
+        <%- else -%>
+          <%#= link_to l(version.created_at), patron_path(@patron, :version_id => version.id) -%>
+          <%= l(version.created_at) -%>
+        <%- end -%>
+        <%- if i == 0 -%>
+          (<%= t('page.current_version') -%>)
+        <%- end -%>
+      </li>
+    <%- end -%>
+  </ul>
+</div>

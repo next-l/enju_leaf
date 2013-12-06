@@ -1,0 +1,29 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.license')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.license.name') -%>:</strong>
+  <%= @license.name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.license.display_name') -%>:</strong>
+  <%= @license.display_name.localize -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.license.note') -%>:</strong>
+  <%= @license.note -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_license_path(@license) -%></li>
+    <li><%= link_to t('page.back'), licenses_path -%></li>
+  </ul>
+</div>

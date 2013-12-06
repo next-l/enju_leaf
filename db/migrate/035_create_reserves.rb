@@ -1,5 +1,5 @@
 class CreateReserves < ActiveRecord::Migration
-  def change
+  def self.up
     create_table :reserves do |t|
       t.integer :user_id, :null => false
       t.integer :manifestation_id, :null => false
@@ -19,5 +19,9 @@ class CreateReserves < ActiveRecord::Migration
     add_index :reserves, :manifestation_id
     add_index :reserves, :item_id
     add_index :reserves, :request_status_type_id
+  end
+
+  def self.down
+    drop_table :reserves
   end
 end

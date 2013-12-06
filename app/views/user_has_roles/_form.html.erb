@@ -1,0 +1,15 @@
+<%= form_for(@user_has_role) do |f| %>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :role_id %><br />
+    <%= f.text_field :role_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit :disable_with => t(page.saving) %>
+  </div>
+<% end %>

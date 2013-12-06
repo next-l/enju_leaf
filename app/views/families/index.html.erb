@@ -1,0 +1,40 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.family')) -%></h1>
+<div id="content_list">
+<div style="color: green"><%= flash[:message] -%></div>
+<%= form_for :families, :url => families_path, :html => {:method => 'get'} do -%>
+  <%= submit_tag t('page.output_pdf', :model => t('page.listing', :model => t('activerecord.models.family'))), :name => 'output_pdf' -%>
+  <%= submit_tag t('page.output_tsv', :model => t('page.listing', :model => t('activerecord.models.family'))), :name => 'output_tsv' -%>
+<%- end -%>
+<table class="index">
+  <tr>
+    <th></th>
+    <th><%= t('activerecord.models.family_user') -%></th>
+    <th></th>
+  </tr>
+
+<%- @families.each_with_index do |family, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to family.id, family -%></td>
+    <td>
+      <%- family.users.each do |user| -%> 
+        <%= link_to user.patron.full_name, user -%>(<%= link_to user.username, user -%>)&nbsp;
+      <%- end -%>
+    </td>
+    <td><%= link_to t('page.edit'), edit_family_path(family) -%>
+        <%= link_to t('page.destroy'), family, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    </td>    
+  </tr>
+<%- end -%>
+</table>
+
+<br />
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.family')), new_family_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,76 @@
+<script language="JavaScript" type="text/javascript">
+  <!--
+    function clearMessage() {
+      $('div#message').empty();
+    }
+    function addUser(user_id, user_name, fullname) {
+      if ($("div#add_" + user_id).size() == 0) {
+        s = "<div id='add_" + user_id + "'>"
+          + "<input type='hidden' name='users[]' value=" + user_id + ">"
+          + fullname
+          + "&nbsp;"
+          + "(" + user_name + ")"
+          + "&nbsp;"
+          + "<a href='javascript:removeUser(" + user_id + ")'>"
+          + "<img src='<%= path_to_image('icons/delete.png') -%>' alt='<%= t('family.tips_remove') -%>' size='16x16'>"
+          + "</a>"
+          + "</div>";
+        $(s).appendTo('#print_users');
+        $('a#user_' + user_id).hide();
+      }
+    }
+    function removeUser(user_id) {
+      $('div#add_' + user_id).remove();
+      $('a#user_' + user_id).show();
+    }
+    function disableUser(user_id) {
+      var text = $('input#user_' + user_id).val();
+      if (text == "") {
+         $('input#user_' + user_id).val(user_id);
+      } else {
+         $('input#user_' + user_id).val("");
+      }
+      $('span#removelabel_' + user_id).toggle();
+    }
+
+  // -->
+</script>
+
+<div id="message" style="color: red"><%= raw flash[:error].join("<br />") -%></div>
+
+<%= form_tag(:action => :get_user_label) do %>
+  <%= t('print_label.printed_type') -%><br />
+
+  <%- @printed_types.each do |type| -%>
+    <%= check_box_tag "type[]", type, @selected_type.index(type) ? true : false -%><%= t("print_label.#{type}") -%> &nbsp;
+  <%- end -%>
+
+  <br />
+  <br />
+  <%= t('print_label.users') -%>
+  <div id="print_users">
+  </div>
+
+  <div class="actions">
+    <%= submit_tag t('print_label.submit')%>
+  </div>
+<%- end -%>
+
+<script>
+$(function(){
+  $('#birth_date').setCalendar({src:'/assets/calendar.png'});
+});
+</script>
+
+<%= t('family.please_search_users') -%>
+<%= form_tag({:action=>'search_user'},{:remote=>true}) do -%>
+  <p>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%><br />
+    <%= t('activerecord.attributes.user.birth_date') -%>: <%= text_field_tag 'birth_date', @date_of_birth, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011-04-12" -%>
+    <%= t('activerecord.attributes.user.adddress') -%>: <%= text_field_tag 'address', @address, :class => 'search_form' -%>
+    <%= hidden_field_tag 'patron_id', @patron.id if @patron -%>
+    <%= submit_tag t('page.search') -%>
+  </p>
+<%- end -%>
+
+<%= render :partial => "user_list" %>

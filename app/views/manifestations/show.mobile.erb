@@ -1,0 +1,20 @@
+<div data-role="header">
+  <a href="javascript:history.back()" data-icon="back" data-iconpos="notext" class="ui-btn-left"><%= t('page.back') %></a>
+  <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.resource')) -%></h1>
+</div>
+<div data-role="content">
+<%= render 'title', :manifestation => @manifestation %>
+<table>
+<tr>
+<th>ISBN</th>
+<td><%= @manifestation.isbn %></td>
+</tr>
+<tr>
+<th>Price</th>
+<td><%= @manifestation.price %></td>
+</tr>
+</table>
+<%- if @manifestation.items.on_shelf.exists? -%>
+  <%= render 'manifestations/show_holding', :manifestation => @manifestation -%>
+<%- end -%>
+</div>

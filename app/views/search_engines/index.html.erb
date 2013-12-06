@@ -1,0 +1,44 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.search_engine')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.search_engine.name') -%></th>
+    <th><%= t('activerecord.attributes.search_engine.note') -%></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<%- @search_engines.each do |search_engine| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :update, search_engine -%>
+        <%= move_position(search_engine) -%>
+      <%- end -%>
+    </td>
+    <td><%= link_to search_engine.name, search_engine.url -%></td>
+    <td><%= search_engine.note -%></td>
+    <td><%= link_to t('page.show'), search_engine -%></td>
+    <td>
+      <%- if can? :update, search_engine -%>
+        <%= link_to t('page.edit'), edit_search_engine_path(search_engine) -%>
+      <% end %>
+      <%- if can? :destroy, search_engine -%>
+        <%= link_to t('page.destroy'), search_engine, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@search_engines) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.search_engine')), new_search_engine_path -%></li>
+  </ul>
+</div>

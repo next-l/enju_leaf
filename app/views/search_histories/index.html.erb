@@ -1,0 +1,59 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.search_history')) -%></h1>
+<div id="content_list">
+  <% if current_user.try(:has_role?, 'Librarian') %>
+    <%- if params[:mode] == 'not_found' -%>
+      <%= reverse_tag_cloud(SearchHistory.not_found_query(2, 6.month.ago)) -%>
+      <p>
+        <%= link_to t('search_history.all_history'), search_histories_path -%>
+      </p>
+    <%- else -%>
+      <p>
+        <%= link_to t('search_history.failed_search'), search_histories_path(:mode => 'not_found') -%>
+      </p>
+    <%- end -%>
+  <% end %>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.search_history.query') -%></th>
+    <th><%= t('activerecord.attributes.search_history.number_of_records') -%></th>
+    <%- unless params[:mode] == 'not_found' -%>
+      <th><%= t('activerecord.attributes.search_history.start_record') -%></th>
+    <%- end -%>
+    <th><%= t('search_history.searched_at') -%></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<%- @search_histories.each_with_index do |search_history, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to h(search_history.query), manifestations_path(:query => search_history.query) -%></td>
+    <td><%= search_history.number_of_records -%></td>
+    <%- unless params[:mode] == 'not_found' -%>
+      <td><%= search_history.start_record -%></td>
+    <%- end -%>
+    <td><%= l(search_history.created_at) -%></td>
+    <td>
+      <%- if can? :destroy, search_history -%>
+        <%= link_to t('page.show'), search_history -%>
+      <% end %>
+    </td>
+    <td>
+      <%- if can? :destroy, search_history -%>
+        <%= link_to t('page.destroy'), search_history, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@search_histories) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+   <li><%= link_to t('page.back'), page_exstatistics_path %></li>
+  </ul>
+</div>

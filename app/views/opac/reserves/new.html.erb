@@ -1,0 +1,22 @@
+<div id="opac_content_header">
+  <div id="opac_content">
+    <div class="opac_title">
+      <h1><%= t('page.new', :model => t('activerecord.models.reserve')) %></h1>
+    </div>
+    <div class="opac_head_button_area">
+      <div class="opac_head_button">
+        <%= link_to t('page.showing', :model => t('activerecord.models.manifestation')), manifestation_path(@manifestation, :opac => true) %>
+      </div>
+      <div class="opac_head_button">
+        <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), user_reserves_path(@reserve.user, :opac => true) %>
+      </div>
+      <div class="opac_head_button">
+        <%= link_to t('opac.finish'), opac_path %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="opac_content">
+  <%= render 'opac/reserves/form', :reserve => @reserve, :manifestation => @manifestation, :user => @reserve.user, :informations => @informations, :libraries => @libraries %>
+</div>

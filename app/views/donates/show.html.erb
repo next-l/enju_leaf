@@ -1,0 +1,25 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.donate')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.patron') -%>:</strong>
+  <%= link_to @donate.patron.full_name, @donate.patron -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.item') -%>:</strong>
+  <%= link_to @donate.item.manifestation.original_title, @donate.item.manifestation -%>
+  (<%= link_to @donate.item.item_identifier, @donate.item -%>)
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_donate_path(@donate) -%></li>
+    <li><%= link_to t('page.back'), donates_path -%></li>
+  </ul>
+</div>

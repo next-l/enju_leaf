@@ -1,0 +1,48 @@
+<script>
+  $(document).ready(function() {
+     // checked
+     var $tgt_parent = $("input.check-parent");
+     var $tgt_child = $("input.check-child");
+
+     $tgt_parent.click(function(){
+       $(this).parents("div.parent").find('input.check-child').attr('checked', this.checked);
+     });
+
+     $tgt_child.click(function(){
+       var checkNum = $(this).parents("div.parent").find('input.check-child:checked').length;
+       var listNum = $(this).parents("div.parent").find('input.check-child').length;
+
+       if(checkNum < listNum)
+         $(this).parents("div.parent").find("input.check-parent").attr('checked', false);
+       if(checkNum == listNum)
+         $(this).parents("div.parent").find("input.check-parent").attr('checked', true);
+    });
+  });
+</script>
+
+<%= form_for :reminder_list, :url => reminder_lists_path, :html => {:method => :get} do -%>
+  <div class="field">
+    <p id="notice"><%= raw flash[:reminder_list_notice] -%></p>
+    <%= label :list_condition, t('activerecord.attributes.item_list.list_condition') -%>:<br />
+    <div class="parent">
+      <%= check_box_tag "all_state", true, @selected_state.size == @reminder_list_statuses.size ? true : false, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.state')) -%><br />
+      &nbsp;
+      <%= t('activerecord.attributes.reminder_list.status')-%>
+      <%- @reminder_list_statuses.each do |state| -%>
+        <%= check_box_tag "state[]", state[:id], @selected_state.index(state[:id]) != nil ? true : false, :class=>'check-child' -%><%= state[:display_name] -%>
+      <%- end -%>
+    </div>
+  </div>
+  <div>
+    <%= t('advanced_search.library') -%>:<%= select("library", "id", @libraries, {:include_blank => t('advanced_search.all_libraries'), :selected=>@selected_library})%>
+    <%= t('checkout.number_of_day_overdue') -%>:<%= text_field_tag 'days_overdue', h(@days_overdue), :class => 'resource_integer' -%><%= t('activerecord.attributes.checkout.over') -%><br />
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%><br />
+  </div>
+  <div class="actions">
+    <%= hidden_field_tag 'do_search', true -%>
+    <%= submit_tag t('page.search') %>
+    <%= submit_tag t('page.output_pdf', :model => t('activerecord.models.reminder_list')), :name => 'output_pdf' %>
+    <%= submit_tag t('page.output_tsv', :model => t('activerecord.models.reminder_list')), :name => 'output_tsv' %>
+  </div>
+<%- end -%>
+

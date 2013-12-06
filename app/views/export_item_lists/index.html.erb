@@ -1,0 +1,194 @@
+<script>
+  $(document).ready(function(){
+    form_toggle();
+
+    // change list_type
+    $("#export_item_list_list_type").change(function () {
+       form_toggle();
+    });
+
+    // chenge ndc
+    $("#ndc").change(function() {
+      form_toggle();
+    });
+
+   
+    // change acquired_at 
+    $("#acquired_at").change(function() {
+      form_toggle();
+    });
+
+    // for checked box
+    var $tgt_parent = $("input.check-parent");
+    var $tgt_child = $("input.check-child");
+
+    // chenge parents_checkbox
+    $tgt_parent.click(function(){
+      $(this).parents("div.parent").find('input.check-child').attr('checked', this.checked);
+
+      //count list_size      
+      get_list_size();
+    });
+    // chenge child_checkbox
+    $tgt_child.click(function(){
+      var checkNum = $(this).parents("div.parent").find('input.check-child:checked').length;
+      var listNum = $(this).parents("div.parent").find('input.check-child').length;
+
+      if(checkNum < listNum)
+        $(this).parents("div.parent").find("input.check-parent").attr('checked', false);
+      if(checkNum == listNum)
+        $(this).parents("div.parent").find("input.check-parent").attr('checked', true);
+
+      //count list_size      
+      get_list_size();
+    });
+  });
+ 
+  function form_toggle(){
+    var list_type = $("#export_item_list_list_type").val();
+
+    // carrier_type
+    if ((list_type == 6) || (list_type == 8)) {
+      $("#item_list_carrier_type input:checkbox[@type='checkbox']").attr('checked', true);
+      $('#item_list_carrier_type').hide();
+    } else {
+      $('#item_list_carrier_type').show();
+    }
+
+    // book_store
+    if ((list_type == 6) || (list_type == 8)) {
+      $('#item_list_bookstore').show();
+    } else {
+      $("#item_list_bookstore input:checkbox[@type='checkbox']").attr('checked', true);
+      $('#item_list_bookstore').hide();
+    }
+
+    // ndc
+    if ((list_type == 1) || (list_type == 5) || (list_type == 7)) {
+      $("#item_list_ndc").show();
+    } else {
+      $("#ndc").val("");
+      $("#item_list_ndc").hide();
+    }
+
+    // acquired_at
+    if (list_type == 8) {
+      $("#item_list_acquired_at").show();
+    } else {
+      $("#acquired_at").val("");
+      $("#item_list_acquired_at").hide();
+    }
+
+    //count list_size      
+    get_list_size();
+  }
+ 
+  function get_list_size() {
+    var list_type = $("#export_item_list_list_type").val();
+    var ndc = $("input#ndc").val();
+    var acquired_at = $("input#acquired_at").val();
+    var libraries = new Array;
+    var carrier_types = new Array; 
+    var bookstores = new Array;
+    var all_bookstore = $("input#all_bookstore:checked").val();
+ 
+    $("[name='library[]']:checked").map(function() { libraries.push($(this).val()); });
+    $("[name='carrier_type[]']:checked").map(function() { carrier_types.push($(this).val()); });
+    $("[name='bookstore[]']:checked").map(function() { bookstores.push($(this).val()); });
+    $.ajax({
+      type: "GET",
+      url: "<%= url_for(:controller => :export_item_lists, :action => :get_list_size)-%>",
+      data: {"list_type": list_type, 
+             "ndc": ndc, 
+             "acquired_at": acquired_at, 
+             "libraries": libraries, 
+             "carrier_types": carrier_types, 
+             "bookstores": bookstores, 
+             "all_bookstore": all_bookstore},
+      success: function(obj) {
+        $('span#list_size').html(obj["list_size"]);
+        $('span#page_size').html(obj["page"]);
+      }
+    });
+  }
+</script>
+
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.output', :model => t('activerecord.models.export_item_list')) -%></h1>
+<div id="content_list">
+<div id="message" style="color: green"><%= raw flash[:message] -%></div>
+<%= form_for(:export_item_list, :url => {:controller => 'export_item_lists', :action => :create}, :html => {:multipart => true, :method => :create}) do |f| -%>
+  <div class="field">
+    <%= label :list_type, t('activerecord.attributes.item_list.list_type')-%>: 
+    <%= f.select :list_type, @list_types.collect{|l| [l[0], l[1]]},:selected => @selected_list_type -%>
+  </div>
+
+  <div class="field">
+    <%= label :list_type, t('activerecord.attributes.item_register.file_type')-%>:
+    <%= f.radio_button :file_type, "pdf", :checked => "checked" -%><%= t('item_register.pdf')-%>
+    <%= f.radio_button :file_type, "tsv" -%><%= t('item_register.tsv') -%>
+  </div>
+
+  <div class="field">
+    <%= label :list_condition, t('activerecord.attributes.item_list.list_condition') -%>:<br />
+    <div id="item_list_library" class="parent">
+      <%= check_box_tag "all_library", true, @selected_library.size == @libraries.size ? true : false, :class=>'check-parent' -%>
+      <%= t('item_list.all_library') -%><br />
+      <%- @libraries.each do |library| -%>
+        &nbsp;&nbsp;<%= check_box_tag "library[]", library.id, @selected_library.index(library.id) ? true : false, :class=>'check-child' -%>
+        <%= library.display_name -%><br />
+      <%- end -%>
+    </div>
+
+    <div id="item_list_bookstore" class="parent">
+      <%= check_box_tag "all_bookstore", true, @selected_bookstore.size == @bookstores.size ? true : false, :class=>'check-parent' -%>
+      <%= t('item_list.all_bookstore') -%><br />
+      <%- @bookstores.each do |bookstore| -%>
+        &nbsp;&nbsp;<%= check_box_tag "bookstore[]", bookstore.id, @selected_bookstore.index(bookstore.id) ? true : false, :class=>'check-child' -%>
+        <%= bookstore.name -%><br />
+      <%- end -%>
+    </div>
+
+    <div id="item_list_carrier_type" class="parent">
+      <%= check_box_tag "all_carrier_type", true, @selected_carrier_type.size == @carrier_types.size ? true : false, :class=>'check-parent' -%>
+      <%= t('item_list.all_carrier_type') -%><br />
+      <%- @carrier_types.each do |carrier_type| -%>
+        &nbsp;&nbsp;<%= check_box_tag "carrier_type[]", carrier_type.id, @selected_carrier_type.index(carrier_type.id) ? true : false, :class=>'check-child' -%>
+        <%= carrier_type.display_name.localize -%><br />
+      <%- end -%>
+    </div>
+
+    <div id="item_list_acquired_at">
+      <%= t('activerecord.attributes.item.acquired_at') -%><br />
+      <%= text_field_tag :acquired_at, @acquired_at , :placeholder => "#{t('page.example')}: 2011-04-12"-%>
+    </div>
+
+<%- if false -%>
+    <div id="item_list_ndc">
+      <%= t('item_list.ndc') -%> <%= t('item_list.ndc_message') -%><br />
+      <%= text_field_tag :ndc, @ndc rescue "" -%>
+    </div>
+<%- end -%>
+    <br style="clear: both;" />
+
+  </div>
+
+  <div>
+    <p>
+      <strong><%= t('activerecord.attributes.item_list.list_number') -%>: </strong><span id="list_size"><%= @items_size if @items_size -%></span><br />
+      <strong><%= t('activerecord.attributes.item_list.page_number') -%>: </strong><span id="page_size"><%= @page if @page -%></span>
+    </p>
+  </div>
+
+  <div class="actions">
+    <%= f.submit t('page.output', :model => t('activerecord.models.export_item_list')) %>
+  </div>
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), page_extensions_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,49 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.barcode_list')) -%></h1>
+<div id="content_list">
+<p>
+  <strong>id:</strong>
+  <%= @barcode_list.id -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.barcode_list.barcode_name') -%>:</strong>
+  <%= @barcode_list.barcode_name -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.barcode_list.usage_type') -%>:</strong>
+  <%= barcode_list_usage_name(@barcode_list.usage_type) -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.barcode_list.barcode_type') -%>:</strong>
+  <%= @barcode_list.barcode_type -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.barcode_list.printed_number') -%>:</strong>
+  <%= @barcode_list.printed_number -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.barcode_list.barcode_prefix') -%>:</strong>
+  <%= @barcode_list.barcode_prefix -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.barcode_list.barcode_suffix') -%>:</strong>
+  <%= @barcode_list.barcode_suffix -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.barcode_list.sheet_id') -%>:</strong>
+  <%= @barcode_list.sheet.name -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.barcode_list.label_note') -%>:</strong>
+  <%= @barcode_list.label_note -%>
+  </p>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_barcode_list_path(@barcode_list) -%></li>
+    <li><%= link_to t('page.back'), barcode_lists_path -%></li>
+    <li><%= link_to t('activerecord.attributes.barcode_list.print_label'), barcode_list_print_path(@barcode_list) -%></li>
+  </ul>
+</div>

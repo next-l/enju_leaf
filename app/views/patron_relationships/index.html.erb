@@ -1,0 +1,34 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.patron_relationship')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.patron_relationship.parent') -%>:</th>
+    <th><%= t('activerecord.attributes.patron_relationship.child') -%>:</th>
+    <th></th>
+  </tr>
+
+<% @patron_relationships.each do |patron_relationship| %>
+  <tr class="line<%= cycle('0', '1')%>">
+    <td><%= link_to patron_relationship.parent.full_name, patron_relationship.parent %></td>
+    <td><%= link_to patron_relationship.child.full_name, patron_relationship.child %></td>
+    <td>
+      <%= link_to t('page.show'), patron_relationship %>
+      <%= link_to t('page.edit'), edit_patron_relationship_path(patron_relationship) %>
+      <%= link_to t('page.destroy'), patron_relationship, :confirm => t('page.are_you_sure'), :method => :delete %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.patron_relationship')), new_patron_relationship_path -%></li>
+  </ul>
+</div>

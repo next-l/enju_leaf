@@ -1,0 +1,88 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.purchase_request')) -%></h1>
+<div id="content_list">
+<strong><%= t('purchase_request.input_into_form_as_much_as_possible') -%></strong><br />
+<br />
+
+<script>
+$(function(){
+  $('#purchase_request_pub_date').setCalendar({src:'/assets/calendar.png'});
+});
+</script>
+
+<%= form_for(@purchase_request) do |f| -%>
+  <%= f.error_messages -%>
+
+  <% if user_signed_in? %>
+    <div class="field">
+      <%= f.label t('activerecord.models.user') %><br />
+      <% if @user %>
+        <%= link_to @user.username, @user %>
+      <% else %>
+        <%= link_to current_user.username, current_user %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title -%><br />
+    <%= f.text_area :title, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :author -%><br />
+    <%= f.text_area :author, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :publisher -%><br />
+    <%= f.text_area :publisher, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :isbn -%><br />
+    <%= f.text_field :isbn, :class => 'resource_isbn_issn' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :pub_date -%><br />
+    <%= f.text_field :pub_date -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :price -%><br />
+    <%= f.text_field :price, :class => 'resource_integer' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :url -%><br />
+    <%= f.url_field :url, :class => 'resource_url' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note, :class => 'resource_textarea' -%>
+  </div>
+
+  <%= f.hidden_field :manifestation_id, :value => @purchase_request.manifestation_id -%>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <% if @user %>
+      <% if params[:url].try(:bookmarkable?) %>
+        <li><%= link_to t('page.back'), :back %></li>
+      <% end %>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.purchase_request')), user_purchase_requests_path(@user) %></li>
+    <% else %>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.purchase_request')), purchase_requests_path %></li>
+    <% end %>
+  </ul>
+</div>

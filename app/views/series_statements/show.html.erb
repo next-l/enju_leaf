@@ -1,0 +1,58 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.series_statement')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.series_statement.original_title') -%>:</strong>
+  <%= @series_statement.original_title %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.series_statement.title_transcription') -%>:</strong>
+  <%= @series_statement.title_transcription %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.series_statement.issn') -%>:</strong>
+  <%= @series_statement.issn %>
+</p>
+
+<!--
+<p>
+  <strong><%= t('activerecord.attributes.series_statement.numbering') -%></strong>
+  <%= @series_statement.numbering %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.series_statement.title_subseries') -%></strong>
+  <%= @series_statement.title_subseries %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.series_statement.numbering_subseries') -%></strong>
+  <%= @series_statement.numbering_subseries %>
+</p>
+-->
+
+<p>
+  <strong><%= t('activerecord.attributes.series_statement.series_statement_identifier') -%>:</strong>
+  <%= @series_statement.series_statement_identifier %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.series_statement.note') -%>:</strong>
+  <%= raw simple_format(h(@series_statement.note)) -%>
+</p>
+
+  <%= render 'manifestation_list' -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.manifestation')), new_series_statement_manifestation_path(@series_statement) %></li>
+    <li><%= link_to t('page.edit'), edit_series_statement_path(@series_statement) %></li>
+    <li><%= link_to t('page.back'), series_statements_path %></li>
+  </ul>
+</div>

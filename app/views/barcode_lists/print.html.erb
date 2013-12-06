@@ -1,0 +1,93 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('activerecord.attributes.barcode_list.print_label') -%></h1>
+<div id="content_list">
+  <%= form_tag("create_pdf") do  %>
+<p>
+  <strong><%= t('activerecord.attributes.barcode_list.barcode_name') -%>:</strong>
+  <%= @barcode_list.barcode_name -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.barcode_list.usage_type') -%>:</strong>
+  <%= barcode_list_usage_name(@barcode_list.usage_type) -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.barcode_list.barcode_type') -%>:</strong>
+  <%= @barcode_list.barcode_type -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.barcode_list.printed_number') -%>:</strong>
+  <%= @barcode_list.printed_number -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.barcode_list.barcode_prefix') -%>:</strong>
+  <%= @barcode_list.barcode_prefix -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.barcode_list.barcode_suffix') -%>:</strong>
+  <%= @barcode_list.barcode_suffix -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.barcode_list.sheet_id') -%>:</strong>
+  <%= @barcode_list.sheet.name -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.barcode_list.label_note') -%>:</strong>
+  <%= @barcode_list.label_note -%>
+</p>
+<p>
+  <strong><%= t('activerecord.attributes.barcode_list.last_number') -%>:</strong>
+  <%= @barcode_list.last_number -%>
+</p>
+<br />
+
+<%= form_for @barcode_list, :url => {:action => 'exec_print'}, :method => 'post',  :html => { :class => "barcode_list", :id => @barcode_list.id }  do |f|%>
+  <%- if @barcode_list.usage_type == "4" -%>
+  <p>
+    <strong><%= t('activerecord.attributes.barcode_list.custom_barcode') -%> 1:</strong>
+    <%= text_field_tag 'custom_barcodes[]' -%>
+  </p>
+  <p>
+    <strong><%= t('activerecord.attributes.barcode_list.custom_barcode') -%> 2:</strong>
+    <%= text_field_tag 'custom_barcodes[]' -%>
+  </p>
+  <p>
+    <strong><%= t('activerecord.attributes.barcode_list.custom_barcode') -%> 3:</strong>
+    <%= text_field_tag 'custom_barcodes[]' -%>
+  </p>
+  <p>
+    <strong><%= t('activerecord.attributes.barcode_list.custom_barcode') -%> 4:</strong>
+    <%= text_field_tag 'custom_barcodes[]' -%>
+  </p>
+  <p>
+    <strong><%= t('activerecord.attributes.barcode_list.custom_barcode') -%> 5:</strong>
+    <%= text_field_tag 'custom_barcodes[]' -%>
+  </p>
+  <%- else -%>
+  <p>
+    <strong><%= t('activerecord.attributes.barcode_list.start_number') -%>:</strong>
+    <%= f.text_field :start_number -%>
+  </p>
+  <p>
+    <strong><%= t('activerecord.attributes.barcode_list.end_number') -%>:</strong>
+    <%= f.text_field :end_number -%>
+  </p>
+  <%- end -%>
+  <%= hidden_field_tag :"barcode_list[:usage_type]", 1 -%>
+  <br />
+  <br />
+    <div class="actions">
+      <%= f.submit %> <%# t('activerecord.attributes.barcode_list.print_label_2') %>
+    </div>
+<%- end -%>
+ 
+<%- end -%>
+
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), barcode_lists_path -%></li>
+  </ul>
+</div>

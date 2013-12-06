@@ -1,0 +1,24 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.user_has_role')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= link_to @user_has_role.user.username, @user_has_role.user -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.role') -%>:</strong>
+  <%= link_to @user_has_role.role.display_name.localize, @user_has_role.role -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.user_has_role')), user_has_roles_path -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.role')), roles_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,74 @@
+<%= form_for(@library_group) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label :name -%><br />
+    <%= f.text_field :name, :class => 'short_name' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :display_name -%><br />
+    <%= f.text_area :display_name, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :email -%><br />
+    <%= f.email_field :email, :class => 'resource_email' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :url -%><br />
+    <%= f.url_field :url, :class => 'resource_url' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :login_banner -%><br />
+    <%= f.text_area :login_banner -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :allow_bookmark_external_url -%>
+    <%= f.check_box :allow_bookmark_external_url -%>
+  </div>
+
+  <!--
+  <div class="field">
+    <%= f.label :post_to_union_catalog -%>
+    <%= f.check_box :post_to_union_catalog -%>
+  </div>
+  -->
+
+  <div class="field">
+    <%= f.label :my_networks -%><br />
+    <%= f.text_area :my_networks -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :admin_networks -%><br />
+    <%= f.text_area :admin_networks -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :use_dsbl -%>
+    <%= f.check_box :use_dsbl -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :dsbl_list -%><br />
+    <%= f.text_area :dsbl_list -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.country') -%><br />
+    <%= f.select(:country_id, @countries.collect{|c| [c.display_name.localize, c.id]}) -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>

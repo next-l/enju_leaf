@@ -1,0 +1,53 @@
+<div data-role="header">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.item')) -%></h1>
+</div>
+<div data-role="content">
+<%= render 'manifestations/title', :manifestation => @manifestation if @manifestation -%>
+<div data-role="detail">
+<%= form_for :items, :url => items_path, :html => {:method => 'get'} do -%>
+  <p>
+    <label for="search_form_top"><%= t('page.search_term') -%>:</label>
+    <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+    <%= submit_tag t('page.search') -%>
+  </p>
+<%- end -%>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
+    <th><%= t('activerecord.attributes.item.call_number') -%></th>
+    <th><%= t('activerecord.models.manifestation') -%></th>
+    <th><%= t('activerecord.models.library') -%></th>
+    <th><%= t('activerecord.models.shelf') -%></th>
+    <th><%= t('activerecord.models.circulation_status') -%></th>
+    <%- if user_signed_in? -%>
+      <th></th>
+    <%- end -%>
+  </tr>
+
+  <%- @items.each do |item| -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td>
+        <%- if item.item_identifier.blank? -%>
+          (<%= link_to t('item.no_number'), item -%>)
+        <%- else -%>
+          <%= link_to item.item_identifier, item -%>
+        <%- end -%>
+      </td>
+      <td><%= call_numberformat(item) -%></td>
+      <td>
+        <%= render 'manifestations/show_index', :manifestation => item.manifestation -%>
+      </td>
+      <td><%= link_to item.shelf.library.display_name.localize, item.shelf.library -%></td>
+      <td><%= link_to item.shelf_display_name.localize, item.shelf -%></td>
+      <td><%= item.circulation_status.display_name.localize -%></td>
+      <%- if can? :destroy, item -%>
+        <td><%= link_to t('page.edit'), edit_item_path(item) -%></td>
+      <%- end -%>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@items) -%>
+</div>
+</div>

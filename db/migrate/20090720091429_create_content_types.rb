@@ -1,5 +1,5 @@
 class CreateContentTypes < ActiveRecord::Migration
-  def change
+  def self.up
     create_table :content_types do |t|
       t.string :name, :null => false
       t.text :display_name
@@ -8,5 +8,9 @@ class CreateContentTypes < ActiveRecord::Migration
 
       t.timestamps
     end
+  end
+
+  def self.down
+    drop_table :content_types
   end
 end

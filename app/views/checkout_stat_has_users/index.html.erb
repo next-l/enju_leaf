@@ -1,0 +1,33 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.checkout_stat_has_user')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.user_checkout_stat') -%></th>
+    <th><%= t('activerecord.models.user') -%></th>
+    <th><%= t('activerecord.attributes.checkout_stat_has_user.checkouts_count') -%></th>
+  </tr>
+
+<%- @checkout_stat_has_users.each do |checkout_stat_has_user| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to checkout_stat_has_user.user_checkout_stat.id, checkout_stat_has_user.user_checkout_stat -%></td>
+    <td><%= link_to checkout_stat_has_user.user.username, checkout_stat_has_user.user -%></td>
+    <td><%= checkout_stat_has_user.checkouts_count -%></td>
+    <td><%= link_to t('page.show'), checkout_stat_has_user -%></td>
+    <td><%= link_to t('page.edit'), edit_checkout_stat_has_user_path(checkout_stat_has_user) -%></td>
+    <td><%= link_to t('page.destroy'), checkout_stat_has_user, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@checkout_stat_has_users) -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.checkout_stat_has_user')), new_checkout_stat_has_user_path -%></li>
+  </ul>
+</div>

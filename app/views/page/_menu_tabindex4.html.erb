@@ -1,0 +1,46 @@
+  <a tabindex="4" href="#configuration_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all <%= tab_menu_width %>" id="fg_configuration">
+    <span class="ui-icon ui-icon-triangle-1-s"></span>
+    <% if current_user.try(:has_role?, 'Librarian') %>
+      <%= t('page.management') -%>
+    <% else %>
+      <%= t('page.configuration') -%>
+    <% end %>
+  </a>
+  <div id="configuration_menu" class="hidden">
+    <%- if user_signed_in? -%>
+      <%- if current_user.has_role?('Librarian') -%>
+        <ul>
+          <li><%= link_to t('user.management'), users_path -%></li>
+          <li><%= link_to t('page.patron_management'), patrons_path -%></li>
+          <li><%= link_to t('page.import'), page_import_path -%></li>
+          <!--
+          <li><%= link_to t('page.export'), 'page/export' -%></li>
+          -->
+          <% if SystemConfiguration.get("use_order_lists") %>
+            <li><%= link_to t('activerecord.models.order_list'), order_lists_path -%></li>
+          <% end %>
+          <li><%= link_to t('page.statistics'), page_exstatistics_path -%></li>
+          <!--
+          <li><%= link_to t('page.recommendation'), 'page/under_construction' -%></li>
+          <li><%= link_to 'Send questions and answers to CRD', 'page/under_construction' -%></li>
+          -->
+          <li><%= link_to t('page.extensions_1'), page_extensions_path -%></li>
+          <% if defined?(EnjuTrunkInventory) %>
+            <li><%= link_to t('page.library_check'), inventory_manages_path -%></li>
+          <% end  %>
+          <li><%= link_to t('page.budgets'), page_budgets_path -%></li>
+          <li><%= link_to t('page.configuration'), page_configuration_path -%></li>
+        </ul>
+      <%- else -%>
+        <ul>
+          <li><%= link_to t('user.account_management'), edit_user_path(current_user) -%></li>
+        </ul>
+      <%- end -%>
+    <%- else -%>
+        <ul>
+        <%- unless SystemConfiguration.isWebOPAC %>
+          <li><%= link_to t('page.sign_in'), new_user_session_path -%></li>
+        <%- end -%>
+        </ul>
+    <%- end -%>
+  </div>

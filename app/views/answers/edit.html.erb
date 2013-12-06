@@ -1,0 +1,46 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.answer')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@answer, :url => {:action => "update"}) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.user') -%><br />
+    <%= link_to @answer.user.username, @answer.user if @answer.user -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.question') -%><br />
+    <%= link_to @answer.question.body, question_path(@answer.question) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :body -%><br />
+    <%= f.text_area :body, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :item_identifier_list -%><br />
+    <%= f.text_area :item_identifier_list, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :url_list -%><br />
+    <%= f.text_area :url_list, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.show'), question_answer_path(@answer.question, @answer) -%></li>
+    <li><%= link_to t('page.back'), question_answers_path(@answer.question) -%></li>
+  </ul>
+</div>

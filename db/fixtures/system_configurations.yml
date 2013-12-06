@@ -1,0 +1,791 @@
+---
+system_configuration_00001:
+  id: 1 
+  keyname: header.disp_date
+  v: 2
+  typename: Numeric
+  description: "現在日付の表示"
+  category: 'general'
+system_configuration_00002:
+  id: 2
+  keyname: disp_alert_when_move_page_with_function
+  v: "true"
+  typename: Boolean 
+  description: "フォームに入力済みの状態でファンクションキーで画面遷移時にアラート画面を表示するか"
+  category: 'general'
+system_configuration_00003:
+  id: 3
+  keyname: family_name_first
+  v: "true"
+  typename: Boolean
+  description: "名前を入力する際、先に姓を表示するか"
+  category: 'user'
+system_configuration_00004:
+  id: 4
+  keyname: max_number_of_results
+  v: 500
+  typename: Numeric
+  description: "資料検索時の最大表示件数"
+  category: 'manifestation'
+system_configuration_00005:
+  id: 5
+  keyname: checkins.disp_title
+  v: "true"
+  typename: Boolean
+  description: "返却画面で本のタイトルを表示するか"
+  category: 'checkin'
+system_configuration_00006:
+  id: 6
+  keyname: checkins.disp_user
+  v: "true"
+  typename: Boolean
+  description: "返却画面で利用者の名前を表示するか。家族の貸出、予約一覧に家族の名前を表示するか"
+  category: 'checkin'
+system_configuration_00007:
+  id: 7
+  keyname: checked_items.disp_title
+  v: "true"
+  typename: Boolean
+  description: "貸出画面で本のタイトルを表示するか"
+  category: 'checkout'
+system_configuration_00008:
+  id: 8
+  keyname: checked_items.disp_user
+  v: "true"
+  typename: Boolean
+  description: "貸出画面で利用者の名前を表示するか。家族の貸出一覧、予約一覧に家族の名前を表示するか"
+  category: 'checkout'
+system_configuration_00009:
+  id: 9
+  keyname: no_operation_counter
+  v: 0
+  typename: Numeric
+  description: "無操作待機時間 (sec) 0のときは作動しない"
+  category: 'general'
+system_configuration_00010:
+  id: 10 
+  keyname: checkouts_print.message
+  v: "本は大事に扱いましょう。期限はきちんと守りましょう。インターネットで延長ができます。"
+  typename: Text
+  description: "貸出票に表示するメッセージ内容(最大全角76文字)"
+  category: 'checkout'
+system_configuration_00011:
+  id: 11
+  keyname: checkout_print.old
+  v: "true"
+  typename: Boolean
+  description: "貸出リストに利用者の年齢を表示するか"
+  category: 'checkout'
+system_configuration_00012:
+  id: 12
+  keyname: reserve_print.old
+  v: "true"
+  typename: Boolean
+  description: "予約表に利用者の年齢を表示するか"
+  category: 'reserve'
+system_configuration_00013:
+  id: 13
+  keyname: reminder_postal_card_message
+  v: "図書館からお借りになったなった本や視聴覚資料などを、返す日が過ぎております。\n速やかにお返しください。"
+  typename: Text
+  description: "督促はがきの図書館メッセージ（最大全角242文字）"
+  category: 'reminder'
+system_configuration_00014:
+  id: 14
+  keyname: reminder_letter_message
+  v: "図書館からお借りになったなった本や視聴覚資料などを、返す日が過ぎております。\n速やかにお返しください。\n\n・お返しになった後、行き違いにこの手紙が届きましたらご容赦ください。\n・図書館が閉まっているときは、入り口脇のブックポストをご利用ください。\n・視聴覚資料に限りましてはブックポストへの返却はご遠慮いただき、直接カウンターにお返しください。\n・資料を、郵送や宅配便でお返しいただく場合は、
+壊れないようご配慮の上お送りください。\n・ご不明な点がありましたらお問い合わせください。"
+  typename: Text
+  description: "督促書の図書館メッセージ（最大全角550文字）"
+  category: 'reminder'
+system_configuration_00015:
+  id: 15
+  keyname: statistic_report.open
+  v: 8
+  typename: Numeric
+  description: "時間帯別利用統計の開館時間(n時)"
+  category: 'statistics'
+system_configuration_00016:
+  id: 16
+  keyname: statistic_report.hours
+  v: 14
+  typename: Numeric
+  description: "時間別カラム（横列）の表示カラム数"
+  category: 'statistics'
+system_configuration_00017:
+  id: 17
+  keyname: manifestation.display_checkouts_count
+  v: "true"
+  typename: Boolean
+  description: "資料の詳細画面に過去の貸出回数を表示するか"
+  category: 'manifestation'
+system_configuration_00018:
+  id: 18
+  keyname: manifestation.display_reserves_count
+  v: "true"
+  typename: Boolean
+  description: "資料の詳細画面に過去の予約回数を表示するか"
+  category: 'manifestation'
+system_configuration_00019:
+  id: 19
+  keyname: manifestation.display_last_checkout_datetime
+  v: "true"
+  typename: Boolean
+  description: "資料の詳細画面に最終利用年月日を表示するか"
+  category: 'manifestation'
+system_configuration_00020:
+  id: 20
+  keyname: user.locked.background
+  v: "pink"
+  typename: String
+  description: "利用者の一覧画面の利用禁止者の名前カラムの背景色"
+  category: 'user'
+system_configuration_00021:
+  id: 21
+  keyname: user.unable.background
+  v: "yellow"
+  typename: String
+  description: "利用者の一覧画面の連絡不能者の名前カラムの背景色"
+  category: 'user'
+system_configuration_00022:
+  id: 22
+  keyname: sounds.basedir
+  v: "sounds/"
+  typename: String
+  description: "音ファイルのパス"
+  category: 'sound'
+system_configuration_00023:
+  id: 23
+  keyname: sounds.errors.item.this_item_is_reserved
+  v: "missA11.ogg"
+  typename: String
+  description: "予約済み資料返却時に発生する警告音"
+  category: 'sound'
+system_configuration_00024:
+  id: 24
+  keyname: sounds.errors.checkin.not_checkin
+  v: "chimeA08.ogg"
+  typename: String
+  description: "貸出を行っていない資料返却時に発生する警告音"
+  category: 'sound'
+system_configuration_00025:
+  id: 25
+  keyname: sounds.errors.checkin.already_checked_in
+  v: "missA11.ogg"
+  typename: String
+  description: "返却済み資料を返却しようとすると発生する警告音"
+  category: 'sound'
+system_configuration_00026:
+  id: 26
+  keyname: sounds.errors.checkin.overdue_item
+  v: "missA11.ogg"
+  typename: String
+  description: "貸出期限が過ぎている資料返却時に発生する警告音"
+  category: 'sound'
+system_configuration_00027:
+  id: 27
+  keyname: sounds.errors.checkin.not_available_for_checkin
+  v: "churchA08.ogg"
+  typename: String
+  description: "状態不正の資料返却時に発生する警告音"
+  category: 'sound'
+system_configuration_00028:
+  id: 28
+  keyname: sounds.errors.checkin.other_library_item
+  v: "chimeA08.ogg"
+  typename: String
+  description: "他の図書館所蔵の資料返却時に発生する警告音"
+  category: 'sound'
+system_configuration_00029:
+  id: 29
+  keyname: sounds.errors.checked_item.already_checked_out
+  v: "missA11.ogg"
+  typename: String
+  description: "貸出済みの資料を貸し出そうとすると発生する警告音"
+  category: 'sound'
+system_configuration_00030:
+  id: 30
+  keyname: sounds.errors.checked_item.not_available_for_checkout
+  v: "churchA08.ogg"
+  typename: String
+  description: "貸出できない資料を貸し出そうとすると発生する警告音"
+  category: 'sound'
+system_configuration_00031:
+  id: 31
+  keyname: sounds.errors.checked_item.this_group_cannot_checkout
+  v: "churchA08.ogg"
+  typename: String
+  description: "貸出を行えない利用者種別の利用者に資料を貸し出そうとすると発生する警告音"
+  category: 'sound'
+system_configuration_00032:
+  id: 32
+  keyname: sounds.errors.checked_item.in_transcation
+  v: "chimeA08.ogg"
+  typename: String
+  description: "貸出処理中の資料を貸し出そうとすると発生する警告音"
+  category: 'sound'
+system_configuration_00033:
+  id: 33
+  keyname: sounds.errors.checked_item.reserved_item_included
+  v: "chimeA08.ogg"
+  typename: String
+  description: "予約状態が取り置き済み以外の利用者に予約済み資料を貸し出そうとすると発生する警告音"
+  category: 'sound'
+system_configuration_00034:
+  id: 34
+  keyname: reserve.not_reserve_on_loan
+  v: "false"
+  typename: Boolean
+  description: "予約対象は貸出中の所蔵のみとするか"
+  category: 'reserve'
+system_configuration_00035:
+  id: 35
+  keyname: library_checks.auto_checkin
+  v: "true"
+  typename: Boolean
+  description: "蔵書点検時、未返却資料を検出した場合は自動的に返却処理を行うか"
+  category: 'checkin'
+system_configuration_00036:
+  id: 36
+  keyname: patron.check_duplicate_user
+  v: "false"
+  typename: Boolean
+  description: "ユーザ情報の重複チェックを行うか"
+  category: 'user'
+system_configuration_00037:
+  id: 37
+  keyname: manifestations.users_show_output_button
+  v: "false"
+  typename: Boolean
+  description: "検索結果の一覧の出力ボタンをどの権限以上で表示するか"
+  category: 'manifestation'
+system_configuration_00038:
+  id: 38
+  keyname: items.confirm_destroy
+  v: "true"
+  typename: Boolean
+  description: "所蔵が1冊だけの資料削除時、除籍してからでなければ削除できないようにするか、すぐに削除できるようにするか"
+  category: 'manifestation'
+system_configuration_00039:
+  id: 39
+  keyname: checkouts.cannot_for_new_serial
+  v: "true"
+  typename: Boolean
+  description: "雑誌最新号を貸出禁止にするか"
+  category: 'checkout'
+system_configuration_00040:
+  id: 40
+  keyname: reserves.able_for_not_item
+  v: "true"
+  typename: Boolean
+  description: "所蔵のない資料の予約ができるようにするか"
+  category: 'reserve'
+system_configuration_00041:
+  id: 41
+  keyname: new_book_term
+  v: 14
+  typename: Numeric
+  description: "出版から何日までを新刊扱いとするか"
+  category: 'statistics'
+system_configuration_00042:
+  id: 42
+  keyname: write_search_log_to_file
+  v: "true"
+  typename: Boolean
+  description: "資料の検索履歴をどの媒体に記録するか"
+  category: 'manifestation'
+system_configuration_00043:
+  id: 43
+  keyname: purchase_request.can_use
+  v: ""
+  typename: String
+  description: "どの権限以上の利用者が購入リクエスト機能を利用できるか"
+  category: 'purchase_request'
+system_configuration_00044:
+  id: 44
+  keyname: user_show_questions
+  v: "true"
+  typename: Boolean
+  description: "ユーザー権限以下でログイン時、質問(レファレンス)画面を表示するか"
+  category: 'question'
+system_configuration_00045:
+  id: 45
+  keyname: use_order_lists
+  v: "false"
+  typename: Boolean
+  description: "発注リストを使用するか"
+  category: 'order_list'
+system_configuration_00046:
+  id: 46
+  keyname: send_message.reservation_accepted_for_patron
+  v: "true"
+  typename: Boolean
+  description: "予約受付時に予約者に受付完了メッセージを送信するか"
+  category: 'reserve'
+system_configuration_00047:
+  id: 47
+  keyname: send_message.reservation_accepted_for_library
+  v: "true"
+  typename: Boolean
+  description: "予約受付時に管理者に受付完了メッセージを送信するか"
+  category: 'reserve'
+system_configuration_00048:
+  id: 48
+  keyname: send_message.reservation_canceled_for_patron
+  v: "true"
+  typename: Boolean
+  description: "予約キャンセル時に予約者にキャンセル完了メッセージを送信するか"
+  category: 'reserve'
+system_configuration_00049:
+  id: 49
+  keyname: send_message.reservation_canceled_for_library
+  v: "true"
+  typename: Boolean
+  description: "予約キャンセル時に管理者にキャンセル完了メッセージを送信するか"
+  category: 'reserve'
+system_configuration_00050:
+  id: 50
+  keyname: send_message.item_received_for_patron
+  v: "true"
+  typename: Boolean
+  description: "予約資料確保時に予約者に資料確保完了メッセージを送信するか"
+  category: 'reserve'
+system_configuration_00051:
+  id: 51
+  keyname: send_message.item_received_for_library
+  v: "true"
+  typename: Boolean
+  description: "予約資料確保時に管理者に資料確保完了メッセージを送信するか"
+  category: 'reserve'
+system_configuration_00052:
+  id: 52
+  keyname: send_message.reservation_expired_for_patron
+  v: "true"
+  typename: Boolean
+  description: "予約資料の有効期限が過ぎた時に利用者に有効期限切れメッセージを送信するか"
+  category: 'reserve'
+system_configuration_00053:
+  id: 53
+  keyname: send_message.reservation_expired_for_library
+  v: "true"
+  typename: Boolean
+  description: "予約資料の有効期限が過ぎた時に管理者に有効期限切れメッセージを送信するか"
+  category: 'reserve'
+system_configuration_00054:
+  id: 54
+  keyname: send_message.recall_item
+  v: "true"
+  typename: Boolean
+  description: "貸出資料の督促送信指定日に利用者に督促メッセージを送信するか"
+  category: 'reminder'
+system_configuration_00055:
+  id: 55
+  keyname: send_message.recall_overdue_item
+  v: "true"
+  typename: Boolean
+  description: "貸出期限切れ資料の督促送信指定日に利用者に督促メッセージを送信するか"
+  category: 'reminder'
+system_configuration_00056:
+  id: 56
+  keyname: send_message.purchase_request_accepted_for_patron
+  v: "true"
+  typename: Boolean
+  description: "購入リクエスト受付時に利用者に受付完了メッセージを送信するか"
+  category: 'purchase_request'
+system_configuration_00057:
+  id: 57
+  keyname: send_message.purchase_request_accepted_for_library
+  v: "true"
+  typename: Boolean
+  description: "購入リクエスト受付時に管理者に受付完了メッセージを送信するか"
+  category: 'purchase_request'
+system_configuration_00058:
+  id: 58
+  keyname: send_message.purchase_request_rejected
+  v: "true"
+  typename: Boolean
+  description: "購入リクエスト謝絶時に利用者に謝絶完了メッセージを送信するか"
+  category: 'purchase_request'
+system_configuration_00059:
+  id: 59
+  keyname: send_message.reserve_reverted_for_patron
+  v: "true"
+  typename: Boolean
+  description: "取置き済資料が貸出不可になったとき利用者に取置き取消メッセージを送信するか"
+  category: 'reserve'
+system_configuration_00060:
+  id: 60
+  keyname: send_message.reserve_reverted_for_library
+  v: "true"
+  typename: Boolean
+  description: "取置き済資料が貸出不可になったとき管理者に取置き取消メッセージを送信するか"
+  category: 'reserve'
+system_configuration_00061:
+  id: 61
+  keyname: items.call_number.delete_first_delimiter
+  v: "true"
+  typename: Boolean
+  description: "請求記号の先頭文字がセパレータのとき、先頭文字を削除するか"
+  category: 'manifestation'
+system_configuration_00062:
+  id: 62
+  keyname: search.use_and
+  v: "true"
+  typename: Boolean
+  description: "資料の検索時、キーワードがスペースで区切られている場合の検索方式"
+  category: 'manifestation'
+system_configuration_00063:
+  id: 63
+  keyname: advanced_search.use_and
+  v: "true"
+  typename: Boolean
+  description: "資料の詳細検索時、各項目に関する検索方式"
+  category: 'manifestation'
+system_configuration_00064:
+  id: 64
+  keyname: no_operation_logout
+  v: "false"
+  typename: Boolean
+  description: "無操作待機時間で自動でログアウトする"
+  category: 'general'
+system_configuration_00065:
+  id: 65
+  keyname: checkouts_print.auto_print
+  v: "false"
+  typename: Boolean
+  description: "貸出票を自動印刷するか？"
+  category: 'checkout'
+system_configuration_00066:
+  id: 66
+  keyname: view.pick_up
+  v: "true"
+  typename: Boolean
+  description: "トップ画面にピックアップボックスを表示するか？"
+  category: 'view'
+system_configuration_00067:
+  id: 67
+  keyname: view.tag_cloud
+  v: "true"
+  typename: Boolean
+  description: "トップ画面にタグクラウドを表示するか？"
+  category: 'view'
+system_configuration_00068:
+  id: 68
+  keyname: view.top_query_detail
+  v: "false"
+  typename: Boolean
+  description: "トップ画面は詳細検索を表示するか？"
+  category: 'view'
+system_configuration_00069:
+  id: 69
+  keyname: nacsis.can_use
+  v: "false"
+  typename: Boolean
+  description: "NACSIS-CAT/ILLを利用するか？"
+  category: 'nacsis'
+system_configuration_00070:
+  id: 70
+  keyname: view.checkout.disp_reserves
+  v: "true"
+  typename: Boolean
+  description: "貸出画面で現在予約中の資料を表示するか？"
+  category: 'view'
+system_configuration_00071:
+  id: 71
+  keyname: view.checkout.disp_checkouts
+  v: "true"
+  typename: Boolean
+  description: "貸出画面で現在貸出中の資料を表示するか？"
+  category: 'view'
+system_configuration_00072:
+  id: 72
+  keyname: view.events
+  v: "true"
+  typename: Boolean
+  description: "トップ画面に開催日と催し物を表示するか？"
+  category: 'view'
+system_configuration_00073:
+  id: 73
+  keyname: auto_user_number
+  v: "false"
+  typename: Boolean
+  description: "ユーザ名と利用者番号は常に同一の値とするか？"
+  category: 'user'
+system_configuration_00074:
+  id: 74
+  keyname: manifestations.split_by_type
+  v: "false"
+  typename: Boolean
+  description: "資料区分で検索結果を分離するか？"
+  category: 'manifestation'
+system_configuration_00075:
+  id: 75
+  keyname: manifestations.google_book_search_preview
+  v: "true"
+  typename: Boolean
+  description: "google_book_search_previewを利用するか？"
+  category: 'manifestation'
+system_configuration_00076:
+  id: 76
+  keyname: use_family
+  v: "true"
+  typename: Boolean
+  description: "家族機能を利用する"
+  category: 'user'
+system_configuration_00077:
+  id: 77
+  keyname: use_birth_day
+  v: "true"
+  typename: Boolean
+  description: "誕生日・年齢を管理する"
+  category: 'user'
+system_configuration_00078:
+  id: 78
+  keyname: statistic_report.monthly_public
+  v: "false"
+  typename: Boolean
+  description: "月別利用統計(公共図書館向け)を利用する"
+  category: 'statistics'
+system_configuration_00079:
+  id: 79
+  keyname: statistic_report.daily_public
+  v: "false"
+  typename: Boolean
+  description: "日別利用統計(公共図書館向け)を利用する"
+  category: 'statistics'
+system_configuration_00080:
+  id: 80
+  keyname: statistic_report.timezone_public
+  v: "false"
+  typename: Boolean
+  description: "時間帯別利用統計(公共図書館向け)を利用する"
+  category: 'statistics'
+system_configuration_00081:
+  id: 81
+  keyname: statistic_report.day_public
+  v: "false"
+  typename: Boolean
+  description: "曜日利用統計(公共図書館向け)を利用する"
+  category: 'statistics'
+system_configuration_00082:
+  id: 82
+  keyname: statistic_report.age_public
+  v: "false"
+  typename: Boolean
+  description: "年代別利用統計(公共図書館向け)を利用する"
+  category: 'statistics'
+system_configuration_00083:
+  id: 83
+  keyname: statistic_report.items
+  v: "false"
+  typename: Boolean
+  description: "蔵書統計を利用する"
+  category: 'statistics'
+system_configuration_00084:
+  id: 84
+  keyname: statistic_report.inouts
+  v: "false"
+  typename: Boolean
+  description: "受払統計を利用する"
+  category: 'statistics'
+system_configuration_00085:
+  id: 85
+  keyname: statistic_report.inter_library_loans
+  v: "false"
+  typename: Boolean
+  description: "相互貸借統計を利用する"
+  category: 'statistics'
+system_configuration_00086:
+  id: 86
+  keyname: statistic_report.user_group_checkouts
+  v: "false"
+  typename: Boolean
+  description: "団体別貸出統計を利用する"
+  category: 'statistics'
+system_configuration_00087:
+  id: 87
+  keyname: statistic_report.departments
+  v: "true"
+  typename: Boolean
+  description: "利用統計(省庁図書館向け)を利用する"
+  category: 'statistics'
+  keyname: reserve_print.auto_print
+  v: "false"
+  typename: Boolean
+  description: "予約票を自動印刷するか？"
+  category: 'reserve'
+system_configuration_00088:
+  id: 88
+  keyname: manifestation_print.auto_print
+  v: "false"
+  typename: Boolean
+  description: "資料確認票を自動印刷するか？"
+  category: 'manifestation'
+system_configuration_00089:
+  id: 89
+  keyname: footer_message
+  v: ""
+  typename: Text	
+  description: "フッターの表示内容"
+  category: 'general'
+system_configuration_00090:
+  id: 90
+  keyname: internal_server
+  v: "true"
+  typename: Boolean
+  description: "業務サーバとして利用する"
+  category: 'general'
+system_configuration_00091:
+  id: 91
+  keyname: checkout.auto_checkin
+  v: "true"
+  typename: Boolean
+  description: "未返却資料を貸出処理読み込んだ場合、再貸出可能にする"
+  category: 'checkout'
+system_configuration_00092:
+  id: 92
+  keyname: manifestation.manage_item_rank
+  v: "false"
+  typename: Boolean
+  description: "正副本管理をする"
+  category: 'manifestation'
+system_configuration_00093:
+  id: 93
+  keyname: use_inter_library_loan
+  v: "true"
+  typename: Boolean
+  description: "相互貸借機能を利用する"
+  category: 'checkout'
+system_configuration_00094:
+  id: 94
+  keyname: special_ip_address_list
+  v: ""
+  typename: String
+  description: "特別なIPアドレス"
+  category: 'general'
+system_configuration_00095:
+  id: 95
+  keyname: notice_receiver
+  v: ""
+  typename: Text	
+  description: "通知を受け取る利用者(ライブラリアン)"
+  category: 'general'
+system_configuration_00096:
+  id: 96
+  keyname: manifestation.has_one_item
+  v: "false"
+  typename: Boolean	
+  description: "書誌と所蔵を１：１で管理する"
+  category: 'manifestation'
+system_configuration_00097:
+  id: 97
+  keyname: manifestation.isbn_unique
+  v: "true"
+  typename: Boolean	
+  description: "ISBNは重複しない"
+  category: 'manifestation'
+system_configuration_00098:
+  id: 98
+  keyname: offline_client_crypt_password
+  v: ""
+  typename: String
+  description: "オフラインクライアント暗号化パスワード"
+  category: 'general'
+system_configuration_00099:
+  id: 99
+  keyname: user_change_department
+  v: "true"
+  typename: Boolean
+  description: "自分自身で利用者の部課の変更が出来るか？"
+  category: 'user'
+system_configuration_00100:
+  id: 100
+  keyname: use_copy_request
+  v: "false"
+  typename: Boolean
+  description: "文献複写依頼を使用するか"
+  category: 'copy_request'
+system_configuration_00101:
+  id: 101
+  keyname: exclude_patrons
+  v: "他,ほか,et-al."
+  typename: String
+  description: "著者、協力者・編者、協力者・編者で指定時に人物・団体として扱わないワード"
+  category: 'manifestation'
+system_configuration_00102:
+  id: 102
+  keyname: checkout.ordinary_checkout_label
+  v: "en: Normal Loan Period\r\nja:通常期間貸出"
+  typename: Text
+  description: "貸出画面に表示される貸出期間選択セレクタの通常期間貸出のラベル名"
+  category: 'checkout'
+system_configuration_00103:
+  id: 103
+  keyname: checkout.extending_due_date_period
+  v: "3m"
+  typename: String
+  description: "長期貸出日の指定(日にち指定: 半角数字8桁(ex.20150101), 期間指定: 年 => yもしくはY, 月 => mもしくはM, 日 => dもしくはD (ex.4d => 4日後, 3m => 3ヶ月後, 1y => 1年後)"
+  category: 'checkout'
+system_configuration_00104:
+  id: 104
+  keyname: checkout.set_extending_due_date_before_closing_day
+  v: "false"
+  typename: Boolean
+  description: "長期貸出日の返却日を閉館日の前日にするか"
+  category: 'checkout'
+system_configuration_00105:
+  id: 105
+  keyname: manifestation.social_bookmark
+  v: "true"
+  typename: Boolean
+  description: "資料の詳細画面にソーシャルブックマークリンクの表示をするか"
+  category: 'manifestation'
+system_configuration_00106:
+  id: 106
+  keyname: checkout.set_rental_certificate_size
+  v: "true"
+  typename: Boolean
+  description: "貸出票の出力サイズ"
+  category: 'checkout'
+system_configuration_00107:
+  id: 107
+  keyname: set_output_format_type
+  v: "true"
+  typename: Boolean
+  description: "インポート/エクスポートの形式"
+  category: 'general'
+system_configuration_00108:
+  id: 108
+  keyname: statistic_report.yearly_public
+  v: "false"
+  typename: Boolean
+  description: "年別利用統計(公共図書館向け)を利用する"
+  category: 'statistics'
+system_configuration_00109:
+  id: 109
+  keyname: statistic_report.users
+  v: "false"
+  typename: Boolean
+  description: "利用者別利用統計を利用する"
+  category: 'statistics'
+system_configuration_00110:
+  id: 110
+  keyname: statistic_report.departments_report
+  v: "false"
+  typename: Boolean
+  description: "所属別利用統計を利用する"
+  category: 'statistics'
+system_configuration_00111:
+  id: 111
+  keyname: nacsis.search_each
+  v: "true"
+  typename: Boolean
+  description: "NACSIS目録検索で図書・雑誌を別々に検索する"
+  category: 'nacsis'
+system_configuration_00112:
+  id: 112
+  keyname: statistic_report.manifestations
+  v: "false"
+  typename: Boolean
+  description: "資料別利用統計を利用する"
+  category: 'nacsis'

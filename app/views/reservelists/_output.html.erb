@@ -1,0 +1,62 @@
+<script>
+  $(document).ready(function() {
+     var $tgt_parent = $("input.check-parent");
+     var $tgt_child = $("input.check-child");
+
+     $tgt_parent.click(function(){
+       $(this).parents("div.parent").find('input.check-child').attr('checked', this.checked);
+     });
+
+     $tgt_child.click(function(){
+       var checkNum = $(this).parents("div.parent").find('input.check-child:checked').length;
+       var listNum = $(this).parents("div.parent").find('input.check-child').length;
+
+       if(checkNum < listNum)
+         $(this).parents("div.parent").find("input.check-parent").attr('checked', false);
+       if(checkNum == listNum)
+         $(this).parents("div.parent").find("input.check-parent").attr('checked', true);
+    });
+  });
+
+  function push_submit(format) {
+    var o = document.getElementById('form');
+    if(format == 'pdf')
+      o.action = "<%= reservelists_path(:format => 'pdf') %>";
+    else if(format == 'tsv')
+      o.action = "<%= reservelists_path(:format => 'tsv') %>";
+    else
+      o.action = "<%= reservelists_path %>";
+    o.submit();
+  }
+</script>
+
+<%= form_for :reservelists, :html => { :method => 'get', :id => 'form' } do %>
+  <div class="field">
+    <p id="notice"><%= flash[:reserve_notice] -%></p>
+    <%= label :list_condition, t('activerecord.attributes.item_list.list_condition') -%>:<br />
+    <div id="list_condition_150" class="parent">
+      <%= check_box_tag "all_state", true, @selected_state.size == @reserve_states.size ? true : false, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.state')) -%><br />
+      <%- @reserve_states.each do |state| -%>
+        &nbsp;&nbsp;<%= check_box_tag "state[]", state, @selected_state.index(state) != nil ? true : false, :class=>'check-child' -%><%= i18n_state(state) -%><br />
+      <%- end -%>
+    </div>
+    <div id="list_condition_150" class="parent">
+      <%= check_box_tag "all_library", true, @selected_library.size == @libraries.size ? true : false, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.receipt_library')) -%><br />
+      <%- @libraries.each do |library| -%>
+        &nbsp;&nbsp;<%= check_box_tag "library[]", library.id, (@selected_library.index(library.id.to_s) or @selected_library.index(library.id.to_i)) ? true : false, :class=>'check-child' -%><%= library.display_name -%><br />
+      <%- end -%>
+    </div>
+    <div id="list_condition_150" class="parent">
+      <%= check_box_tag "all_information_type", true, @selected_information_type.size == @reserve_information_types.size ? true : false, :class=>'check-parent' -%><%= t('advanced_search.all', :model=>t('activerecord.attributes.reserve.information_type')) -%><br />
+      <%- @reserve_information_types.each do |type| -%>
+        &nbsp;&nbsp;<%= check_box_tag "information_type[]", type, @selected_information_type.index(type) ? true : false, :class=>'check-child' -%><%= i18n_information_type(type) -%><br />
+      <%- end -%>
+    </div>
+    <br style="clear:both;"/>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag t('page.output_pdf', :model => t('page.listing', :model => t('activerecord.models.reserve'))), :onclick => "push_submit('pdf');" %>
+    <%= submit_tag t('page.output_tsv', :model => t('page.listing', :model => t('activerecord.models.reserve'))), :onclick => "push_submit('tsv');" %>
+  </div>
+<%- end -%>

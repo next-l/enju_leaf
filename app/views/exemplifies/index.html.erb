@@ -1,0 +1,35 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.exemplify')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.manifestation.original_title')-%></th>
+    <th><%= t('activerecord.models.item') -%></th>
+  </tr>
+
+<%- @exemplifies.each do |exemplify| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to exemplify.manifestation.original_title, exemplify.manifestation -%></td>
+    <td><%= link_to exemplify.item.item_identifier, exemplify.item -%></td>
+    <%- if can? :destroy, exemplify -%>
+      <td>
+        <%= link_to t('page.show'), exemplify -%>
+        <%= link_to t('page.destroy'), exemplify, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      </td>
+    <%- end -%>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@exemplifies) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if can? :create, Exemplify -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.exemplify')), new_exemplify_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

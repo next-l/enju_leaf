@@ -1,0 +1,53 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.user_checkout_stat')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_checkout_stat.start_date') -%>:</strong>
+  <%= l(@user_checkout_stat.start_date) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_checkout_stat.end_date') -%>:</strong>
+  <%= l(@user_checkout_stat.end_date) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_checkout_stat.state') -%>:</strong>
+  <%= @user_checkout_stat.state -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_checkout_stat.note') -%>:</strong>
+  <%= @user_checkout_stat.note -%>
+</p>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.user') -%></th>
+    <th><%= t('activerecord.attributes.checkout_stat_has_user.checkouts_count') -%></th>
+  </tr>
+  <%- @stats.each do |stat| -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td>
+        <%= link_to stat.user.username, stat.user -%>
+      </td>
+      <td><%= stat.checkouts_count -%></td>
+    </tr>
+  <%- end -%>
+</table>
+
+<%= paginate(@stats) -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_user_checkout_stat_path(@user_checkout_stat) -%></li>
+    <li><%= link_to t('page.back'), user_checkout_stats_path -%></li>
+  </ul>
+  <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), user_checkout_stat_path(@user_checkout_stat, :locale => @locale.to_s, :format => 'tsv') -%>
+  (<%= link_to 'TSV', user_checkout_stat_path(@user_checkout_stat, :locale => @locale.to_s, :format => 'tsv') -%>)
+</div>

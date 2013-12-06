@@ -1,0 +1,251 @@
+<div id="tabs">
+  <ul>
+    <li title="active" class="selected"><a href="#detail"><em><%= t('page.detail') -%></em></a></li>
+    <%- if @patron.user.blank? -%>
+      <%- if @patron.derived_patrons.exists? or @patron.original_patrons.exists? -%>
+        <li><a href="#related"><em><%= t('page.related') -%></em></a></li>
+      <%- end -%>
+      <%- if @works.present? -%>
+        <li><a href="#work"><em><%= t('activerecord.models.work') -%></em></a></li>
+      <%- end -%>
+      <%- if @expressions.present? -%>
+        <li><a href="#expression"><em><%= t('activerecord.models.expression') -%></em></a></li>
+      <%- end -%>
+      <%- if @manifestations.present? -%>
+        <li><a href="#manifestation"><em><%= t('activerecord.models.manifestation') -%></em></a></li>
+      <%- end -%>
+    <%- end -%>
+    <li><a href="#history"><em><%= t('page.history') -%></em></a></li>
+  </ul>
+
+  <div id="detail">
+    <table class="index vcard">
+      <tr>
+        <td><strong><%= t('activerecord.attributes.patron.full_name') -%>:</strong></td>
+        <td><span class="fn"><%= @patron.full_name -%></span></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.attributes.patron.full_name_transcription') -%>:</strong></td>
+        <td><%= @patron.full_name_transcription -%></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.attributes.patron.full_name_alternative') -%>:</strong></td>
+        <td><%= @patron.full_name_alternative -%></td>
+      </tr>
+      <%- if @patron.user -%>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.user.username') -%>:</strong></td>
+          <td><%= @patron.user.username -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.user.library') -%>:</strong></td>
+          <td><%= @patron.user.library.display_name unless @patron.user.library_id.blank? -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.user.user_group') -%>:</strong></td>
+          <td><%= @patron.user.user_group.display_name -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.user.department') -%>:</strong></td>
+          <td><%= @patron.user.department.display_name unless @patron.user.department_id.blank? -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.user.expired_at') -%>:</strong></td>
+          <td><%= l(@patron.user.expired_at, :format => :only_date) if @patron.user.expired_at -%></td>
+        </tr>
+        <%- if user_signed_in? and current_user.has_role?('Librarian') -%>
+          <tr>
+            <td><strong><%= t('activerecord.attributes.user.user_status') -%>:</strong></td>
+            <td>
+              <%= @patron.user.user_status.display_name %>
+              <%- if @patron.user.active_for_authentication? -%>
+	        <%= t('activerecord.attributes.user.locked_yes') -%>
+              <%- else -%>
+                <%= t('activerecord.attributes.user.locked_no') -%>
+              <%- end -%>
+            </td>
+          </tr>
+          <tr>
+            <td><strong><%= t('activerecord.attributes.user.unable') -%>:</strong></td>
+            <td>
+              <%- if @patron.user.unable == true -%>
+                <%= t('activerecord.attributes.user.unable_no') -%>
+              <%- else -%>
+                <%= t('activerecord.attributes.user.unable_yes') -%>
+              <%- end -%>
+            </td>
+          </tr>
+        <%- end -%>
+      <%- end -%>
+      <%- if user_signed_in? and current_user.has_role?('Librarian') or !@patron.user -%>
+        <tr>
+          <td><strong><%= t('activerecord.models.patron_type') -%>:</strong></td>
+          <td><%= @patron.patron_type.display_name.localize -%></td>
+        </tr>
+      <%- end -%>
+      <tr>
+        <td><strong><%= t('activerecord.attributes.patron.email') -%>:</strong></td>
+        <td><%= mail_to @patron.email, nil, :class => 'email' -%></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.attributes.patron.url') -%>:</strong></td>
+        <td><%= link_to @patron.url, @patron.url, :class => 'url' if @patron.url? -%></td>
+      </tr>
+<%- if false -%>
+      <tr>
+        <td><strong><%= t('activerecord.attributes.patron.other_designation') -%>:</strong></td>
+        <td><%= @patron.other_designation -%></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.attributes.patron.place') -%>:</strong></td>
+        <td><%= @patron.place -%></td>
+      </tr>
+<%- end -%>
+      <tr>
+        <td><strong><%= t('activerecord.models.language') -%>:</strong></td>
+        <td><%= @patron.language.display_name.localize -%></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.models.country') -%>:</strong></td>
+        <td><%= @patron.country.display_name.localize -%></td>
+      </tr>
+<%# - if can? :destroy, @patron -%>
+      <%- if user_signed_in? and current_user.try(:has_role?, 'Librarian') -%>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.zip_code_1') -%>:</strong></td>
+          <td><%= @patron.zip_code_1 -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.address_1') -%>:</strong></td>
+          <td><%= @patron.address_1 -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.telephone_number_1') -%>:</strong></td>
+          <td>
+            <%= @patron.telephone_number_1 -%>
+            <%- unless @patron.telephone_number_1.blank? -%>
+              &nbsp;(<%= i18n_telephone_type(@patron.telephone_number_1_type_id) -%>)
+            <%- end -%>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.extelephone_number_1') -%>:</strong></td>
+          <td>
+            <%= @patron.extelephone_number_1 -%>
+            <%- unless @patron.extelephone_number_1.blank? -%>
+              &nbsp;(<%= i18n_telephone_type(@patron.extelephone_number_1_type_id) -%>)
+            <%- end -%>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.fax_number_1') -%>:</strong></td>
+          <td>
+            <%= @patron.fax_number_1 -%>
+            <%- unless @patron.fax_number_1.blank? -%>
+              &nbsp;(<%= i18n_telephone_type(@patron.fax_number_1_type_id) -%>)
+            <%- end -%>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.address_1_note') -%>:</strong></td>
+          <td><%= @patron.address_1_note -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.zip_code_2') -%>:</strong></td>
+          <td><%= @patron.zip_code_2 -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.address_2') -%>:</strong></td>
+          <td><%= @patron.address_2 -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.telephone_number_2') -%>:</strong></td>
+          <td>
+            <%= @patron.telephone_number_2 -%>
+            <%- unless @patron.telephone_number_2.blank? -%>
+              &nbsp;(<%= i18n_telephone_type(@patron.telephone_number_2_type_id) -%>)
+            <%- end -%>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.extelephone_number_2') -%>:</strong></td>
+          <td>
+            <%= @patron.extelephone_number_2 -%>
+            <%- unless @patron.extelephone_number_2.blank? -%>
+              &nbsp;(<%= i18n_telephone_type(@patron.extelephone_number_2_type_id) -%>)
+            <%- end -%>
+          </td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.fax_number_2') -%>:</strong></td>
+          <td>
+            <%= @patron.fax_number_2 -%>
+            <%- unless @patron.fax_number_2.blank? -%>
+              &nbsp;(<%= i18n_telephone_type(@patron.fax_number_2_type_id) -%>)
+            <%- end -%>
+            </td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.address_2_note') -%>:</strong></td>
+          <td><%= @patron.address_2_note -%></td>
+        </tr>
+        <%# - if !@patron.user or (@patron.user and current_user.try(:has_role?, 'Administrator')) %>
+          <tr>
+            <td><strong><%= t('activerecord.attributes.patron.date_of_birth') -%>:</strong></td>
+            <td><%= l(@patron.date_of_birth, :format => :only_date) if @patron.date_of_birth -%></td>
+          </tr>
+          <tr>
+            <td><strong><%= t('activerecord.attributes.patron.date_of_death') -%>:</strong></td>
+            <td><%= l(@patron.date_of_death, :format => :only_date) if @patron.date_of_death -%></td>
+          </tr>
+        <%# end %>
+      <%- end -%>
+      <%- if !@patron.user or (@patron.user and user_signed_in? and current_user.has_role?('Librarian')) -%>
+        <tr>
+         <td><strong><%= t('activerecord.attributes.patron.note') -%>:</strong></td>
+          <td><%= @patron.note -%></td>
+        </tr>
+        <tr>
+          <td><strong><%= t('activerecord.attributes.patron.note_update_at') -%>:</strong></td>
+          <td><%= l(@patron.note_update_at) unless @patron.note_update_at.blank?-%>
+            <%- if @patron.note_update_by -%>
+              &nbsp;<%= t('patron.last_update_by') -%>: <%= @patron.note_update_by -%>
+            <%- end -%>
+            <%- if @patron.note_update_library -%>
+              (<%= @patron.note_update_library-%>)
+            <%- end -%>
+          </td>
+        </tr>
+      <%- end -%>
+      <%- unless @patron.patron_identifier.blank? -%>
+      <tr>
+        <td><strong><%= t('patron.patron_identifier') -%>:</strong></td>
+        <td><%= @patron.patron_identifier -%></td>
+      </tr>
+    <%- end -%>
+      <tr>
+        <td><strong><%= t('page.created_at') -%>:</strong></td>
+        <td><%= l(@patron.created_at) -%></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('page.updated_at') -%>:</strong></td>
+        <td><%= l(@patron.updated_at) -%></td>
+      </tr>
+    </table>
+  </div>
+  <%- if @patron.user.blank? -%>
+    <%- unless @patron.derived_patrons.empty? and @patron.original_patrons.empty? -%>
+      <%= render 'patrons/patron_list' -%>
+    <%- end -%>
+    <%- unless @works.blank? -%>
+      <%= render 'patrons/work_list' -%>
+    <%- end -%>
+    <%- unless @expressions.blank? -%>
+      <%= render 'patrons/expression_list' -%>
+    <%- end -%>
+    <%- unless @manifestations.blank? -%>
+      <%= render 'patrons/manifestation_list' -%>
+    <%- end -%>
+  <%- end -%>
+  <%= render 'patrons/history_list' -%>
+</div>

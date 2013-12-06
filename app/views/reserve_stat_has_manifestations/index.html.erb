@@ -1,0 +1,33 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('activerecord.models.reserve_stat_has_manifestation') -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.manifestation_reserve_stat') -%></th>
+    <th><%= t('activerecord.models.manifestation') -%></th>
+    <th><%= t('activerecord.attributes.reserve_stat_has_manifestation.reserves_count') -%></th>
+  </tr>
+
+<%- @reserve_stat_has_manifestations.each do |reserve_stat_has_manifestation| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to reserve_stat_has_manifestation.manifestation_reserve_stat.id, reserve_stat_has_manifestation.manifestation_reserve_stat -%></td>
+    <td><%= link_to reserve_stat_has_manifestation.manifestation.original_title, reserve_stat_has_manifestation.manifestation -%></td>
+    <td><%= reserve_stat_has_manifestation.reserves_count -%></td>
+    <td><%= link_to t('page.show'), reserve_stat_has_manifestation -%></td>
+    <td><%= link_to t('page.edit'), edit_reserve_stat_has_manifestation_path(reserve_stat_has_manifestation) -%></td>
+    <td><%= link_to t('page.destroy'), reserve_stat_has_manifestation, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@reserve_stat_has_manifestations) -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.reserve_stat_has_manifestation')), new_reserve_stat_has_manifestation_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,47 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.import_request')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="edit_icons">Id</th>
+    <th><%= t('activerecord.models.user') -%></th>
+    <th><%= t('activerecord.attributes.import_request.isbn') -%></th>
+    <th><%= t('page.created_at') -%></th>
+    <th><%= t('activerecord.attributes.import_request.state') -%></th>
+    <th><%= t('activerecord.attributes.manifestation.original_title')-%></th>
+    <th id="edit_icons"></th>
+  </tr>
+
+<%- @import_requests.each do |import_request| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to import_request.id, import_request -%></td>
+    <td><%= link_to import_request.try(:user).try(:username), import_request.try(:user) -%></td>
+    <td><%= import_request.isbn -%></td>
+    <td><%=l import_request.created_at -%></td>
+    <td><%= t("state.#{import_request.state}") -%></td>
+    <td><%= link_to import_request.manifestation.original_title, import_request.manifestation if import_request.manifestation -%></td>
+    <td>
+      <%- if can? :destroy, import_request -%>
+        <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')), import_request, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@import_requests) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.import_request')), new_import_request_path -%></li>
+  </ul>
+  <div id="iconmenu" class="ui-corner-all">
+    <strong><%= t('tooltip.icons_info') -%></strong>
+    <ul>
+      <li><%= image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')) -%>:&nbsp;<%=t('page.destroy')-%></li>
+    </ul>
+  </div>
+</div>

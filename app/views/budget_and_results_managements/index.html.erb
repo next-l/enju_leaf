@@ -1,0 +1,61 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('activerecord.models.budget_and_results_managements') -%></h1>
+<div id="content_list">
+<div style="color: green"><%= flash[:message] -%></div>
+<%= form_tag({:action => 'index'}, {:method => 'get'}) do |f| %>  
+  <div class="field">
+    <%= t('activerecord.models.term') -%><br />
+    <%= select_tag :id, options_from_collection_for_select(@terms, 'id', 'display_name', @term.id) -%>
+  </div>
+  <div class="actions">
+    <%= submit_tag t('activerecord.attributes.budget_and_results_managements.search') %>
+    <%= submit_tag t('page.output_tsv', :model => t('page.search_result')), :name => 'output_tsv'-%>
+  </div>
+<% end %>
+
+<%- if @results.size > 0 -%>
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.budget_and_results_managements.budget_sum') -%></th>
+    <th><%= t('activerecord.attributes.budget_and_results_managements.expense_sum') -%></th>
+    <th><%= t('activerecord.attributes.budget_and_results_managements.digestibility_sum') -%></th>
+  </tr>
+  <tr>
+    <td><%= number_to_currency(@budget_sum, :unit => "") -%></td>
+    <td><%= number_to_currency(@expense_sum, :unit => "") -%></td>
+    <td><%= number_to_percentage(@digestibility_sum, :precision => 1) -%></td>
+  </tr>
+</table>
+<br />
+<%- end -%>
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.budget_and_results_managements.id') -%></th>
+    <th><%= t('activerecord.attributes.budget_and_results_managements.item_of_expenditure') -%></th>
+    <th align="right"><%= t('activerecord.attributes.budget_and_results_managements.expense') -%></th>
+    <th align="right"><%= t('activerecord.attributes.budget_and_results_managements.budget') -%></th>
+    <th align="right"><%= t('activerecord.attributes.budget_and_results_managements.remain_amount') -%></th>
+    <th align="right"><%= t('activerecord.attributes.budget_and_results_managements.digestibility') -%></th>
+  </tr>
+
+<%- @results.each_with_index do |r, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>" >
+    <td><%= i+1 -%></td>
+    <%- if r[:expense] -%>
+      <td><%= link_to r[:item_of_expenditure], :action => :show, :id => r[:ym] -%></td>
+    <%- else -%>
+    <td><%= r[:item_of_expenditure] -%></td>
+    <%- end -%>
+    <td align="right"><%= number_to_currency(r[:expense], :unit => "") -%></td>
+    <td align="right"><%= number_to_currency(r[:budget], :unit => "") -%></td>
+    <td align="right"><%= number_to_currency(r[:remain_amount], :unit => "") -%></td>
+    <td align="right"><%= number_to_percentage(r[:digestibility], :precision => 1) -%></td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+</div>

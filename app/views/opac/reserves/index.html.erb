@@ -1,0 +1,57 @@
+<script>
+$(function() {
+    $('.opac_lists_row').click(function(e) {
+      if(!$(e.target).is('a')){
+        window.location = $(e.target).closest('tr').data('href');
+      };
+  });
+});
+</script>
+
+<div id="opac_content_header">
+  <div id="opac_content" %>
+    <div class="opac_title"><h1><%= t('page.listing', :model => t('activerecord.models.reserve')) %></h1></div>
+    <div class="opac_head_button_area">
+      <div class="opac_head_button"><%= link_to t('opac.finish'), opac_path %></div>
+    </div>
+  </div>
+</div>
+
+<div id="opac_content">
+  <div id="notice"><%= flash[:notice].to_s -%></div>
+  <% if @reserves.size > 0 %>
+    <div id="opac_button_200">
+      <%= link_to t('page.output', :model => t('activerecord.attributes.reserve.reserve_list')),
+        user_reserves_path(@user, :format => :pdf) %>
+    </div>
+  
+    <table class="index" id="opac_lists">
+      <tr>
+        <th style="width: 30px"><%= 'Id' %></th>
+        <th><%= t('activerecord.attributes.manifestation.original_title') %></th>
+        <th><%= t('activerecord.attributes.reserve.state') %></th>
+        <th><%= t('activerecord.attributes.reserve.expired_at') %></th>
+      </tr>
+      <% @reserves.each_with_index do |reserve, i| %>
+        <% if reserve.state == 'retained' %>
+          <tr class="opac_line_reserve_retained opac_lists_row" data-href="<%= reserve_path(reserve, :opac => true) %>">
+        <% else %>
+          <tr class="opac_line<%= cycle("0", "1") %> opac_lists_row" data-href="<%= reserve_path(reserve, :opac => true) %>">
+        <% end %>
+          <td><%= reserve.id %></td>
+          <td><%= render 'opac/manifestations/title', :manifestation => reserve.manifestation %></td>
+          <td>
+            <%= i18n_state(reserve.state) %>
+            <% if reserve.retained %>
+              (<%= t('reserve.called') %>)
+            <% end %>
+          </td>
+          <td><%= l(reserve.expired_at, :format => :only_date) %></td>
+        </tr>
+      <% end %>
+    </table>
+    <%= paginate @reserves, :theme => 'opac_theme' %>
+  <% else %>
+    <h4><%= t('opac.reserves.no_reserve') %></h4>
+  <% end %>
+</div>

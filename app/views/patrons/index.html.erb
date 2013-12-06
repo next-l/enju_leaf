@@ -1,0 +1,13 @@
+<%- case when @work -%>
+  <%= render 'index_work', :work => @work -%>
+<%- when @expression -%>
+  <%= render 'index_expression', :expression => @expression -%>
+<%- when @manifestation -%>
+  <%= render 'index_manifestation', :manifestation => @manifestation -%>
+<%- when @patron -%>
+  <%= render 'index_patron', :patron => @patron -%>
+<%- when @patron_merge_list -%>
+  <%= render 'index_patron_merge_list', :patron_merge_list => @patron_merge_list -%>
+<%- else -%>
+  <%= render 'index' -%>
+<%- end -%>

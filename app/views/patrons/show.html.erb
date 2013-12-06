@@ -1,0 +1,60 @@
+<div id="content_detail" class="ui-corner-all">
+<%# cache(:controller => :patrons, :action => :show, :id => @patron.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :patron_id => nil) do %>
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.patron')) -%></h1>
+<div id="content_list">
+  <p id="notice"><%= notice %></p>
+
+  <h2 class="resource_title">
+    [P]
+    <%= @patron.full_name -%>
+  </h2>
+
+  <%- if @version -%>
+    <p>(<%= l(@patron.versions.find(@version).created_at) -%>)</p>
+  <%- end -%>
+  <p>
+    (<%= link_to_wikipedia(@patron.full_name_without_space) -%>)
+  </p>
+
+  <%= render 'patrons/show_list' %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <div id="manifestation_book_jacket">
+    <%= patron_custom_book_jacket(@patron) -%>
+  </div>
+  <ul>
+    <%- if @patron.picture_files.exists? -%>
+      <li><%= t('page.total') %>: <%= @patron.picture_files.count %> <%= t('page.number_of_pictures', :count => @patron.picture_files.count) %></li>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.picture_file')), patron_picture_files_path(@patron) -%></li>
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $("a[rel='patron_<%= @patron.id -%>']").colorbox({transition:"none"});
+          $("a[rel='patron_<%= @patron.id -%>_other']").colorbox({transition:"none"});
+        })
+      </script>
+    <% end %>
+    <%- if can? :create, PictureFile -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.picture_file')), new_patron_picture_file_path(@patron) -%></li>
+    <%- end -%>
+  </ul>
+  <ul>
+    <li><%= link_to t('page.back'), patrons_path -%></li>
+    <%- if can? :create, User -%>
+      <li><%= link_to t('page.edit'), edit_patron_path(@patron) -%></li>
+      <li><%= link_to t('patron.add_derivation'), patron_patrons_path(@patron, :mode => 'add') -%></li>
+    <%- end -%>
+    <%- if @patron.user.blank? -%>
+      <%- if can? :destroy, @patron -%>
+        <li><%= link_to t('page.new', :model => t('activerecord.models.patron')), new_patron_path -%></li>
+        <li><%= link_to t('page.destroy'), @patron, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+      <%- end -%>
+    <%- end -%>
+  </ul>
+  <ul>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.work')), creator_manifestations_path(@patron) -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.expression')), contributor_manifestations_path(@patron) -%></li>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.manifestation')), publisher_manifestations_path(@patron) -%></li>
+  </ul>
+</div>

@@ -1,0 +1,93 @@
+<div id="content_detail" class="ui-corner-all" >
+  <h1 class="title">
+    <%= t('page.showing', :model => t('activerecord.models.manifestation')) -%>
+  </h1>
+  <div id="content_list">
+    <p id="notice"><%= notice -%></p>
+    <h2 class="resource_title">
+      <%= @nacsis_cat.request_summary[:subject_heading] -%>
+    </h2>
+    <p style="margin: -12px 0 0 0; font-size: 90%">
+      <%= @nacsis_cat.request_summary[:all] %>
+    </p>
+    </br>
+
+    <div id="tabs">
+      <%# タブの設定 %>
+      <ul>
+        <li class="selected"><a href="#detail"><em><%= t('page.detail') -%></em></a></li>
+      </ul>
+
+      <%# 詳細の項目表示 %>
+      <div id="detail">
+        <table>
+        <%- @nacsis_cat.detail.each_key do |key| -%>
+          <tr>
+            <td style="width: 200px"><%= t('activerecord.attributes.nacsis_user_request.'+key.to_s) -%></td>
+          <%- case key -%>
+          <%- when :publisher, :subject -%>
+            <td style="width: 490px"><%= @nacsis_cat.detail[key].join(", ") -%></td>
+          <%- when :pub_country -%>
+            <%# XXX: 国コード体系がCountryとは異なる: http://www.loc.gov/marc/countries/countries_code.html -%>
+            <td><%= @nacsis_cat.detail[key] -%></td>
+          <%- when :title_language, :text_language -%>
+	    <td><%= @nacsis_cat.detail[key].try(:display_name).try(:localize) -%> </td>
+          <%- when :author_heading, :isbn -%>
+            <td><%= @nacsis_cat.detail[key].join(" ") -%></td>
+          <%- else -%>
+            <td><%= @nacsis_cat.detail[key] -%></td>
+          <%- end -%>
+          </tr>
+        <%- end -%>
+        </table>
+        </br>
+
+        <table class="holding">
+          <tr>
+            <th><%= t('activerecord.attributes.manifestation.hold_dbname') -%></th>
+            <th><%= t('activerecord.attributes.manifestation.hold_id') -%></th>
+            <th><%= t('activerecord.attributes.manifestation.hold_libabl') -%></th>
+            <th><%= t('activerecord.attributes.manifestation.hold_cln') -%></th>
+            <th><%= t('activerecord.attributes.manifestation.hold_rgtn') -%></th>
+          </tr>
+          <%- @items.each do |x| item_summary = x.summary -%>
+          <tr>
+            <td><%= item_summary[:database] -%></td>
+            <td><%= item_summary[:hold_id] -%></td>
+            <td><%= item_summary[:library_abbrev] -%></td>
+            <td><%= item_summary[:cln] -%></td>
+            <td>
+              <%- if item_summary[:database] == 'BHOLD' -%>
+                <%= item_summary[:rgtn] -%>
+              <%- end -%>
+            </td>
+          </tr>
+          <%- end -%>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="submenu_block">
+  <div id="submenu" class="ui-corner-all">
+    <ul>
+      <li>
+        <%= link_to t('activerecord.models.nacsis_request_lend'),
+          {:controller => "nacsis_user_requests",
+           :action => "new",
+           :ncid => @nacsis_cat.ncid,
+           :manifestation_type => params[:manifestation_type],
+           :request_type => "1" } -%>
+      </li>
+      <li>
+        <%= link_to t('activerecord.models.nacsis_request_copy'),
+          {:controller => "nacsis_user_requests",
+           :action => "new",
+           :ncid => @nacsis_cat.ncid,
+           :manifestation_type => params[:manifestation_type],
+           :request_type => "2" } -%>
+      </li>
+    </ul>
+  </div>
+</div>

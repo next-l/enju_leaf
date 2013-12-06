@@ -1,0 +1,24 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.content_type')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.content_type.display_name') -%>:</strong>
+  <%= @content_type.display_name.localize -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.content_type.note') -%>:</strong>
+  <%= @content_type.note -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_content_type_path(@content_type) -%></li>
+    <li><%= link_to t('page.back'), content_types_path -%></li>
+  </ul>
+</div>

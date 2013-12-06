@@ -1,0 +1,12 @@
+<tr>
+  <td><%= t('activerecord.attributes.manifestation.table_of_contents') -%>:</td>
+  <td>
+    <%- manifestation.table_of_contents.order(:display_order).each do |t| -%>
+      <%- if t.contents_level == 2 -%>
+        &nbsp; &nbsp;
+      <%- end -%>
+      <%= t.note -%> &nbsp; <%= p "p" if t.pagenumber -%><%= t.pagenumber -%> <br />
+    <%- end -%>
+  </td>
+</tr>
+

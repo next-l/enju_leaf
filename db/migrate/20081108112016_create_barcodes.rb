@@ -1,5 +1,5 @@
 class CreateBarcodes < ActiveRecord::Migration
-  def change
+  def self.up
     create_table :barcodes do |t|
       t.string :barcode_type, :default => 'Code128B', :null => false
       t.integer :barcodable_id
@@ -11,5 +11,9 @@ class CreateBarcodes < ActiveRecord::Migration
     end
     add_index :barcodes, [:barcodable_id, :barcodable_type]
     add_index :barcodes, [:barcode_type, :code_word]
+  end
+
+  def self.down
+    drop_table :barcodes
   end
 end

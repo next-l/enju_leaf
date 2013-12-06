@@ -1,0 +1,48 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.language')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.language.native_name') -%></th>
+    <th><%= t('activerecord.attributes.language.name') -%></th>
+    <th><%= t('activerecord.attributes.language.display_name') -%></th>
+    <th><%= 'Iso 639 1' -%></th>
+    <th><%= 'Iso 639 2' -%></th>
+    <th><%= 'Iso 639 3' -%></th>
+    <th></th>
+  </tr>
+
+<%- @languages.each do |language| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :update, language -%>
+        <%= move_position(language) -%>
+      <%- end -%>
+    </td>
+    <td><%= language.native_name -%></td>
+    <td><%= language.name -%></td>
+    <td><%= link_to language.display_name.localize, language -%></td>
+    <td><%= language.iso_639_1 -%></td>
+    <td><%= language.iso_639_2 -%></td>
+    <td><%= language.iso_639_3 -%></td>
+    <td>
+      <%- if can? :update, language -%>
+        <%= link_to t('page.edit'), edit_language_path(language) -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+<%= paginate(@languages) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <%- if can? :create, Country -%>
+    <ul>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.language')), new_language_path -%></li>
+    </ul>
+  <%- end -%>
+</div>

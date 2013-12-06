@@ -1,0 +1,246 @@
+<%-
+  unless defined?(form_pos)
+    form_pos = :top
+  end
+
+  if form_pos == :top
+    cols_book = Manifestation::BOOK_COLUMNS.call.map{|c| "book.#{c}"}
+    cols_series = Manifestation::SERIES_COLUMNS.map{|c| "series.#{c}"}
+    cols_article = Manifestation::ARTICLE_COLUMNS.map{|c| "article.#{c}"}
+    cols_all = Manifestation::ALL_COLUMNS
+  end
+
+  form_sub_header = nil
+  need_to_render_add_mode_tags = false
+  case
+  when @index_patron[:creator]
+    form_type = :creator
+    form_opts = {:url => creator_manifestations_path(@index_patron[:creator]), :method => :get}
+    form_opts_ex = {:url => output_excelx_creator_manifestations_path(@index_patron[:creator])}
+    need_to_render_add_mode_tags = true if can?(:create, Create)
+  when @index_patron[:contributor]
+    form_type = :contributor
+    form_opts = {:url => contributor_manifestations_path(@index_patron[:contributor]), :method => :get}
+    form_opts_ex = {:url => output_excelx_contributor_manifestations_path(@index_patron[:contributor])}
+    need_to_render_add_mode_tags = true if can?(:create, Realize)
+  when @index_patron[:publisher]
+    form_type = :publisher
+    form_opts = {:url => publisher_manifestations_path(@index_patron[:publisher]), :method => :get}
+    form_opts_ex = {:url => output_excelx_publisher_manifestations_path(@index_patron[:publisher])}
+    need_to_render_add_mode_tags = true if can?(:create, Produce)
+  when @manifestation
+    form_type = :manifestation
+    form_opts = {:url => manifestation_manifestations_path(@manifestation), :method => :get}
+    form_opts_ex = {:url => output_excelx_manifestation_manifestations_path(@manifestation)}
+    need_to_render_add_mode_tags = true if can?(:create, ManifestationRelationship)
+  when @series_statement
+    form_type = :series_statement
+    form_opts = {:url => series_statement_manifestations_path(@series_statement), :method => :get}
+    form_opts_ex = {:url => output_excelx_series_statement_manifestations_path(@series_statement)}
+    form_sub_header = "index_form_#{form_type}_header"
+    need_to_render_add_mode_tags = true if can?(:update, Manifestation)
+  when @binder
+    form_type = :bookbinding
+    form_opts = {:url => {:controller => 'manifestations', :action => 'index', :bookbinder_id => @binder.id}, :method => :get}
+    form_opts_ex = {:url => {:controller => 'manifestations', :action => 'output_excelx', :bookbinder_id => @binder.id}}
+    form_sub_header = "index_form_#{form_type}_header"
+    need_to_render_add_mode_tags = true if can?(:update, Manifestation)
+  else
+    form_type = :basic
+    form_opts = {:method => :get}
+    form_opts_ex = {:url => {:action => 'output_excelx'}, :method => :post}
+  end
+
+  methods = [:get, :post]
+-%>
+
+<%- if form_pos == :top && form_sub_header -%>
+  <%= render form_sub_header %>
+<%- end -%>
+
+<%- methods.each do |method| %>
+  <% if method == :post %><% opts = form_opts_ex %><% else %><% opts = form_opts %><% end %>
+  <%= form_for :manifestations, opts do -%>
+    <p <% if method == :post %>style='display:none;'<% end %>>
+      <%= t('page.search_term') -%>:
+      <%= search_field_tag 'query', h(@query), {:id => "search_form_#{form_pos}", :class => 'search_form', :placeholder => t('page.search_term')} -%>
+      <%- if form_type == :basic %>
+        <%= hidden_field_tag 'user_id', params[:user_id] if params[:user_id] -%>
+        <%= hidden_field_tag 'removed', true if @removed %>
+        <%= hidden_field_tag 'basket_id', params[:basket_id] if params[:basket_id] %>
+      <%- end -%>
+      <%= hidden_advanced_search_field_tags -%>
+      <%- if need_to_render_add_mode_tags -%>
+        <%= render 'page/add' %>
+      <%- end -%>
+      <%= submit_tag t('page.search') -%>
+      <% if @query.present? %><input type="button" value="<%= t('page.search_clear') -%>" onclick='<%= "$(" + "'#search_form_#{form_pos}" + "').val('')" %>' ><% end %>
+      <%- if SystemConfiguration.get('nacsis.can_use') -%>
+        <br />
+        <%= radio_button_tag 'index', 'local', params[:index] == "local" ? true : false -%><%= t('page.search_local') -%>
+        <%= radio_button_tag 'index', 'nacsis', params[:index] == "nacsis" ? true : false -%><%= t('page.search_nacsis') -%>
+        <br />
+      <%- end -%>
+      <% if user_signed_in? and current_user.has_role?('Librarian') %>
+        <%- if @all_manifestations %>
+          <%= check_box_tag 'all_manifestations', true, true %>
+        <%- else -%>
+          <%= check_box_tag 'all_manifestations', true %>
+        <%- end -%>
+        <%= t('advanced_search.all_manifestations') %><br />
+      <% end %>
+      <%= link_to_advanced_search -%> <%= link_to_normal_search -%> <%= advanced_search_condition_summary -%>
+      <br />
+      <%= hidden_field_tag 'reservable', params[:reservable] if params[:reservable] -%>
+      <%= hidden_field_tag 'carrier_type', params[:carrier_type] if params[:carrier_type] -%>
+      <%= hidden_field_tag 'library', params[:library] if params[:library] -%>
+      <%= hidden_field_tag 'language', params[:language] if params[:language] -%>
+      <%- if form_type != :series_statement -%>
+        <%= hidden_field_tag 'in_process', params[:in_process] if params[:in_process] -%>
+        <%#= hidden_field_tag 'manifestation_type', params[:manifestation_type] if params[:manifestation_type] -%>
+        <%= hidden_field_tag 'missing_issue', params[:missing_issue] if params[:missing_issue] -%>
+        <%= hidden_field_tag 'circulation_status_in_process', params[:circulation_status_in_process] if params[:circulation_status_in_process] -%>
+        <%= hidden_field_tag 'circulation_status_in_factory', params[:circulation_status_in_factory] if params[:circulation_status_in_factory] -%>
+      <%- end -%>
+      <%= hidden_field_tag 'sort_by', params[:sort_by] if params[:sort_by] -%>
+      <%= hidden_field_tag 'solr_query', params[:solr_query] if params[:solr_query] -%>
+      <%= hidden_field_tag 'mode', params[:mode] if params[:mode] -%>
+
+  <%- if form_pos == :top -%>
+      <%- if SystemConfiguration.get("manifestations.users_show_output_button") or (user_signed_in? and current_user.has_role?('Librarian')) -%>
+        <%- if method == :get %>
+          <%= submit_tag t('page.output_pdf', :model => t('page.search_result')), :name => 'output_pdf' -%>
+          <% if SystemConfiguration.get("set_output_format_type") %>
+            <%= submit_tag t('page.output_tsv', :model => t('page.search_result')), :name => 'output_tsv'-%>
+          <% else %>
+            <%= submit_tag t('page.output_csv', :model => t('page.search_result')), :name => 'output_tsv'-%>
+          <% end %>
+        <% else %>
+          <!-- start hidden checkboxes for selecting excel columns -->
+          <%- Manifestation::ALL_COLUMNS.each do |x| -%>
+            <%= check_box_tag 'cols[]', x, false, :id => "chkbox_#{x.gsub('.','_')}", :style => "display: none;" -%>
+          <%- end -%>
+          <!-- end hidden checkboxes for selecting excel columns -->
+          <%= submit_tag t('page.output_excelx', :model => t('page.search_result')), :name => 'output_excelx', :id => 'output_excelx', :style => "display: none;" -%>
+        <% end %>
+<script>
+<!--
+$(function(){
+    // set the dialog box default properties
+    $('#excelx_book_dialog').dialog({
+        autoOpen: false,
+        modal: true,
+        width: Math.floor($(window).width() * 0.70),
+    });
+    $('#excelx_article_dialog').dialog({
+        autoOpen: false,
+        modal: true,
+        width: Math.floor($(window).width() * 0.5),
+    });
+
+    // make sure to set all the checkboxes to checked by default
+    <%- cols_all.each do |x| -%>
+      $('#chkbox_<%= x.gsub('.','_') -%>').attr('checked', false);
+      $('#chkbox2_<%= x.gsub('.','_') -%>').attr('checked', true);
+      $('#chkbox2_<%= x.gsub('.','_') -%>').removeAttr('disabled');
+    <%- end -%>
+
+    // hide default columns (i.e. always enabled)
+    $('#chkbox2_book_original_title').attr('disabled', 'disabled')
+    $('#chkbox2_book_manifestation_type').attr('disabled', 'disabled')
+    $('#chkbox2_book_creator').attr('disabled', 'disabled')
+    $('#chkbox2_book_pub_date').attr('disabled', 'disabled')
+    $('#chkbox2_book_publisher').attr('disabled', 'disabled')
+    $('#chkbox2_article_creator').attr('disabled', 'disabled')
+    $('#chkbox2_article_original_title').attr('disabled', 'disabled')
+    $('#chkbox2_article_title').attr('disabled', 'disabled')
+    $('#chkbox2_series_original_title').attr('disabled', 'disabled')
+
+    <%- ['book','article'].each do |t| -%>
+      // function to open the dialog
+      $('#excelx_<%= t -%>_dialog_opener').click( function() {
+        $('#excelx_<%= t -%>_dialog').dialog('open');
+        return false;
+      });
+
+      // trigger function to submit the form itself
+      $('#excelx_<%= t -%>_trigger').click( function() {
+        // make sure the statuses of all the hidden checkboxes
+        <%- eval("cols_#{t}").each do |x| -%>
+          $('#chkbox_<%= x.gsub('.','_') -%>').prop('checked', $('#chkbox2_<%= x.gsub('.','_') -%>').is(':checked'));
+        <%- end -%>
+        // close the dialog before we go
+        $('#excelx_<%= t -%>_dialog').dialog('close');
+        // submit the form itself
+        $('#output_excelx').click();
+        // make sure all the checkboxes are unchecked again
+        <%- cols_all.each do |x| -%>
+          $('#chkbox_<%= x.gsub('.','_') -%>').prop('checked', false);
+        <%- end -%>
+        return false;
+      });
+    <%- end -%>
+});
+// -->
+</script>
+<!--
+      <button id="excelx_book_dialog_opener"><%= t('page.output_excelx', :model => t('page.search_result')) -%></button>
+      <button id="excelx_article_dialog_opener"><%= t('page.output_excelx', :model => t('page.search_result')) -%></button>
+-->
+      <% if params[:missing_issue] %><%= submit_tag t('page.output_request', :model => t('page.search_result')), :name => 'output_request'-%><% end %>
+    <%- end -%><%# if SystemConfiguration.get("manifestations.users_show_output_button") or (user_signed_in? and current_user.has_role?('Librarian')) -%>
+  </p>
+<%- end -%><%# if form_pos == :top -%>
+<%- end -%><%# form_for :manifestations, :html => {:method => 'get'} do -%>
+<%- end -%>
+
+<%- if form_pos == :top -%>
+
+<!-- start dialog for selecting excel columns -->
+<%- if SystemConfiguration.get("manifestations.users_show_output_button") or (user_signed_in? and current_user.has_role?('Librarian')) -%>
+
+  <div id="excelx_book_dialog" title="<%= t('page.output_excelx_dialog') -%>" style="display:none;">
+    <div style="width: 33%; float: left;">
+      <%- cols_book[0, cols_book.length / 2].each do |x| -%>
+        <%= check_box_tag '', '', true, :id => "chkbox2_#{x.gsub('.','_')}" -%><%= t("resource_import_textfile.excel.#{x}") -%><br />
+      <%- end -%>
+    </div>
+    <div style="width: 34%; float: left;">
+      <%- cols_book[cols_book.length / 2, cols_book.length - (cols_book.length / 2)].each do |x| -%>
+        <%= check_box_tag '', '', true, :id => "chkbox2_#{x.gsub('.','_')}" -%><%= t("resource_import_textfile.excel.#{x}") -%><br />
+      <%- end -%>
+    </div>
+    <div style="width: 33%; float: left;">
+      <%- cols_series.each do |x| -%>
+        <%= check_box_tag '', '', true, :id => "chkbox2_#{x.gsub('.','_')}" -%><%= t("resource_import_textfile.excel.#{x}") -%><br />
+      <%- end -%>
+    </div>
+    <div style="clear: left;">
+      <br />
+      <br />
+      <button id="excelx_book_trigger"><%= t('page.output_excelx_detail') -%></button>
+    </div>
+  </div>
+
+  <div id="excelx_article_dialog" title="<%= t('page.output_excelx_dialog') -%>" style="display:none;">
+    <div>
+      <%- cols_article.each do |x| -%>
+        <%= check_box_tag '', '', true, :id => "chkbox2_#{x.gsub('.','_')}" -%><%= t("resource_import_textfile.excel.#{x}") -%><br />
+      <%- end -%>
+    </div>
+    <div>
+      <br />
+      <br />
+      <button id="excelx_article_trigger"><%= t('page.output_excelx_detail') -%></button>
+    </div>
+  </div>
+
+<%- end -%>
+<!-- end dialog for selecting excel columns -->
+<%- if current_user -%>
+  <div style="float: right">
+    <%= render 'baskets/menu', :is_list => false %>
+  </div>
+  <br style="clear: both;"/>
+<%- end -%>
+<%- end -%><%# if form_pos == :top -%>

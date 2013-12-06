@@ -1,5 +1,5 @@
 class CreateBookmarks < ActiveRecord::Migration
-  def change
+  def self.up
     create_table :bookmarks, :force => true do |t|
       t.integer :user_id, :null => false
       t.integer :manifestation_id
@@ -12,5 +12,9 @@ class CreateBookmarks < ActiveRecord::Migration
     add_index :bookmarks, :user_id
     add_index :bookmarks, :manifestation_id
     add_index :bookmarks, :url
+  end
+
+  def self.down
+    drop_table :bookmarks
   end
 end

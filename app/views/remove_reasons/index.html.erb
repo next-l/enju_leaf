@@ -1,0 +1,45 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.remove_reason')) %></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.remove_reason.name') %></th>
+    <th><%= t('activerecord.attributes.remove_reason.display_name') %></th>
+    <th><%= t('activerecord.attributes.remove_reason.note') %></th>
+    <th></th>
+  </tr>
+
+<% @remove_reasons.each do |remove_reason| %>
+  <tr class="line<%= cycle("0", "1") %>">
+    <td>
+      <% if can? :update, remove_reason %>
+        <%= move_position(remove_reason) %>
+      <% end %>
+    </td>
+    <td><%= link_to remove_reason.name, remove_reason %></td>
+    <td><%= link_to remove_reason.display_name, remove_reason %></td>
+    <td><%= remove_reason.note %></td>
+    <td>
+      <% if can? :update, remove_reason %>
+        <%= link_to t('page.edit'), edit_remove_reason_path(remove_reason) %>
+      <% end %>
+      <% if can? :destroy, remove_reason %>
+      <%= link_to t('page.destroy'), remove_reason, method: :delete, data: { confirm: t('page.are_you_sure') } %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <% if can? :create, RemoveReason %>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.remove_reason')), new_remove_reason_path %></li>
+    <% end %>
+  </ul>
+</div>

@@ -1,5 +1,5 @@
-<%= simple_nested_form_for(@user_group) do |f| %>
-  <%= f.error_notification -%>
+<%= form_for(@user_group) do |f| %>
+  <%= f.error_messages -%>
 
   <div class="field">
     <%= f.label :name %><br />
@@ -25,11 +25,6 @@
     <%= f.label :number_of_time_to_notify_overdue %><br />
     <%= f.text_field :number_of_time_to_notify_overdue, :class => 'resource_integer' %>
   </div>
-
-  <% if defined?(EnjuCirculation) %>
-    <%= render 'user_groups/checkout_form', :f => f %>
-  <% end %>
-
   <div class="field">
     <%= f.label :note %><br />
     <%= f.text_area :note %>

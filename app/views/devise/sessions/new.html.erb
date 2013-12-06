@@ -1,10 +1,10 @@
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 <div id="content_detail" class="ui-corner-all">
-<h1 class="title"><%= t('page.sign_in') -%> : Next-L Enju</h1>
+<h1 class="title"><%= t('page.sign_in') -%> : <%= LibraryGroup.system_name(@locale) %></h1>
 <div id="content_list">
   <%= f.error_messages -%>
 
-  <%= markdown_helper(@library_group.login_banner) %>
+  <%= raw sanitize(textilize(h(@library_group.login_banner))) %>
 
 </div>
 </div>
@@ -24,14 +24,60 @@
   <p class="alert"><%= alert %></p>
 
   <% if devise_mapping.rememberable? -%>
-    <p><%= f.check_box :remember_me %> <%= f.label :remember_me, t('user.remember_me') %></p>
+    <p><%= f.check_box :remember_me %> <%= f.label t('user.remember_me') %></p>
   <% end -%>
 
   <p><%= f.submit t('page.sign_in') %></p>
 
-<%= javascript_tag("$(function(){$('#user_username').focus()})") %>
+<%= javascript_tag("$('#user_username').focus()") -%>
 
 <%= render "devise/shared/links" %>
 
+<!--
+<%= link_to 'Twitter Authentication', root_path(:warden_oauth_provider => 'twitter') -%>
+-->
 </div>
 <% end -%>
+
+<% content_for :opac do %>
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title">OPAC<%= t('page.sign_in') -%> : Next-L Enju</h1>
+<div id="content_list">
+  <%= f.error_messages -%>
+
+  <%= raw sanitize(textilize(h(@library_group.login_banner))) %>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <p>
+    <%= f.label t('activerecord.attributes.user.username') %><br />
+    <%= f.text_field :username, :class => 'login_password' %>
+  </p>
+
+  <p>
+    <%= f.label t('activerecord.attributes.user.password') %><br />
+    <%= f.password_field :password, :class => 'login_password' %>
+  </p>
+
+  <p id="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+
+  <% if devise_mapping.rememberable? -%>
+    <p><%= f.check_box :remember_me %> <%= f.label t('user.remember_me') %></p>
+  <% end -%>
+
+  <p><%= f.submit t('page.sign_in') %></p>
+
+<%= javascript_tag("$('#user_username').focus()") -%>
+
+<%= render "devise/shared/links" %>
+
+<!--
+<%= link_to 'Twitter Authentication', root_path(:warden_oauth_provider => 'twitter') -%>
+-->
+</div>
+<% end -%>
+<%- end -%>

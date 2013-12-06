@@ -1,0 +1,21 @@
+<h4><%= t('activerecord.attributes.question.solved') -%></h4>
+<ul>
+  <%- @question_facet.each do |facet| -%>
+    <li>
+      <%- if facet.value -%>
+        <%- if @solved == 'true' -%><strong><%- end -%>
+        <%= link_to localized_boolean(facet.value), url_for(params.merge(:page => nil, :solved => true, :view => nil)) -%>
+        (<%= facet.count -%>)
+        <%- if @solved == 'true' -%></strong><%- end -%>
+      <%- else -%>
+        <%- if @solved == 'false' -%><strong><%- end -%>
+        <%= link_to localized_boolean(facet.value), url_for(params.merge(:page => nil, :solved => 'false', :view => nil)) -%>
+        (<%= facet.count -%>)
+        <%- if @solved == 'false' -%></strong><%- end -%>
+      <%- end -%>
+    </li>
+  <%- end -%>
+  <%- if @solved -%>
+    <li><%= link_to t('page.remove_this_facet'), params.merge(:solved => nil, :page => nil, :view => nil) -%></li>
+  <%- end -%>
+</ul>

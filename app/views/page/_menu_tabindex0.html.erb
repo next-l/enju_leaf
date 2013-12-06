@@ -1,0 +1,42 @@
+<a tabindex="0" href="#circulation_menu" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all <%= tab_menu_width %>" id="fg_circulation">
+  <span class="ui-icon ui-icon-triangle-1-s"></span>
+  <% if current_user.try(:has_role?, 'Librarian') %>
+    <%= t('page.librarian_circulation') -%>
+  <% else %>
+    <%= t('page.user_circulation') -%>
+  <% end %>
+</a>
+<div id="circulation_menu" class="hidden">
+  <%- if user_signed_in? && Setting.operation -%>
+    <ul>
+      <%- if current_user.has_role?('Librarian') -%>
+        <li><%= link_to t('page.checkout'), new_basket_path -%></li>
+        <li>
+          <%- if @checkins and @basket -%>
+          <%= link_to t('page.checkin'), user_basket_checkins_path(@basket.user, @basket) -%>
+          <%- else -%>
+            <%= link_to t('page.checkin'), checkins_path -%>
+          <%- end -%>
+        </li>
+      <% end %>
+      <li>
+        <%- if current_user.has_role?('Librarian') -%>
+          <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%>
+        <%- else -%>
+          <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), user_reserves_path(current_user) -%>
+        <%- end -%>
+      </li>
+      <%- if current_user.has_role?('Librarian') -%>
+        <%- if SystemConfiguration.get('use_inter_library_loan') %><li><%= link_to t('activerecord.models.inter_library_loan'), inter_library_loans_path -%></li><%- end -%>
+        <!-- <li><%= link_to 'NACSIS ILL', 'page/under_construction' -%></li> -->
+      <%- end -%>
+      <li><%= link_to t('page.checkout_history'), user_checkouts_path(current_user) -%></li>
+      <li><%= link_to t('activerecord.models.checkout_history'), checkout_histories_path -%></li>
+    </ul>
+  <%- elsif !SystemConfiguration.isWebOPAC -%>
+    <ul>
+      <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%></li>
+    </ul>
+  <%- end -%>
+</div>

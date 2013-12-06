@@ -1,0 +1,38 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.checkout_type')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.checkout_type.name') -%>:</strong>
+  <%= @checkout_type.name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.checkout_type.display_name') -%>:</strong>
+  <%= @checkout_type.display_name.localize -%>
+</p>
+
+<p>
+<strong><%= t('activerecord.models.user_group') -%></strong>
+<ul>
+  <%- @checkout_type.user_group_has_checkout_types.each do |available_user_group| -%>
+    <li><%= link_to available_user_group.user_group.display_name.localize, available_user_group.user_group -%></li>
+  <%- end -%>
+</ul>
+
+<p>
+  <strong><%= t('activerecord.attributes.checkout_type.note') -%>:</strong>
+  <%= @checkout_type.note -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_checkout_type_path(@checkout_type) -%></li>
+    <li><%= link_to t('page.back'), checkout_types_path -%></li>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.user_group_has_checkout_type')), new_checkout_type_user_group_has_checkout_type_path(@checkout_type) -%></li>
+  </ul>
+</div>

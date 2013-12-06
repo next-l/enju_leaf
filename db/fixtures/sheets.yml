@@ -1,0 +1,15 @@
+---
+sheet_00001:
+  id: 1
+  name: 'キハラ  60690-6 (A4)'
+  note: 'プリンタ用バーコード・OCRラベル'
+  height: 290
+  width: 210
+  cell_h: 26
+  cell_w: 44
+  margin_h: 15
+  margin_w: 14
+  space_h: 4
+  space_w: 2
+  cell_x: 4
+  cell_y: 9

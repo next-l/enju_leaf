@@ -1,45 +1,98 @@
-<div class="column" id="col1">
-  <div class="portlet" id="search">
+<script type="text/javascript">
+<!--
+<% if user_signed_in? && current_user.has_role?('Librarian') -%>
+$(document).FunctionKeys(
+{
+ F2:function(obj,s,c,a){document.location = '<%= new_basket_path%>';} 
+,F3:function(obj,s,c,a){document.location = '<%= checkins_path %>';}
+,F4:function(obj,s,c,a){document.location = '<%= order_lists_path %>';}
+});
+<% end %>
+// -->
+</script>
+<% if SystemConfiguration.get('view.top_query_detail') %>
+  <div class="portlet" id="search" style="width:915px">
     <h2 class="title">
       <% if user_signed_in? %>
-        <%= t('page.user_title', :login_name => current_user.username) -%>
+        <%= t('page.user_title', :login_name => current_user.try(:patron).try(:full_name)) -%>
       <% else %>
         <%= t('page.catalog_search') -%>
       <% end %>
     </h2>
     <div id="user_search_form">
+      <% if current_user %>
+        <% unless current_user.own_password %>
+          <div style="color: red;"><b><%= simple_format(t('activerecord.errors.messages.user.auto_generated_password')) %></b></div>
+        <% end %>
+      <% end %>
       <p id="notice"><%= notice %></p>
-
+      <%= render 'page/search_form_detail' -%>
+    </div>
+  </div>
+<% else %>
+<div class="column" id="col1">
+  <div class="portlet" id="search">
+    <h2 class="title">
+      <% if user_signed_in? %>
+        <%= t('page.user_title', :login_name => current_user.try(:patron).try(:full_name)) -%>
+      <% else %>
+        <%= t('page.catalog_search') -%>
+      <% end %>
+    </h2>
+    <div id="user_search_form">
+      <% if current_user %>
+        <% unless current_user.own_password %>
+          <div style="color: red;"><b><%= simple_format(t('activerecord.errors.messages.user.auto_generated_password')) %></b></div>
+        <% end %>
+      <% end %>
+      <p id="notice"><%= notice %></p>
       <%= render 'page/search_form' -%>
-      <p><%= t('page.number_of_manifestations', :numdocs => Manifestation.search.total, :count => Manifestation.search.total) -%></p>
+      <p><%= t('page.number_of_manifestations', :numdocs => Manifestation.cached_numdocs, :count => Manifestation.cached_numdocs) -%></p>
       <h3 style="display: inline"><%= link_to t('page.new_resource'), manifestations_path(:mode => 'recent') -%></h3>
+     
+      <br />
+      <br />
+      <p>
+        <b><%= t('page.theme.hot_topic') -%> : </b>
+      </p>
+      <div>
+      </div>
+      <p>
+      </p>
+
       <% if defined?(EnjuBookmark) %>
         <% if user_signed_in? %>
-         <h4 style="display: inline"><%= link_to t('activerecord.models.bookmark'), user_bookmarks_path(current_user) %></h4>
+          <h4 style="display: inline"><%= link_to t('activerecord.models.bookmark'), user_bookmarks_path(current_user) %></h4>
         <% end %>
       <% end %>
     </div>
   </div>
-
-  <% if defined?(EnjuNews) %>
-    <div class="portlet" id="news_feed">
-      <h3 class="title"><%= t('page.news') -%></h3>
-      <div id="news_feed_box">
-        <%= render :partial => 'news_feeds/list', :locals => {:news_feeds => @news_feeds} -%>
+  <% if user_signed_in? && !current_user.has_role?('Librarian') -%>
+    <div class="portlet" id="my_basket">
+      <h3 class="title"><%= t('basket.my_status') -%></h3>
+      <div id="my_basket_box">
+        <%= render 'page/my_basket' -%>
       </div>
     </div>
-  <% end %>
+    <div class="portlet" id="easy_tools">
+      <div id="easy_tools_box">
+        <%= render 'page/easy_tools' -%>
+      </div>
+    </div>
+  <%- end -%>
 </div>
 
 <div class="column" id="col2">
+  <% if SystemConfiguration.get('view.pick_up') %>
   <div class="portlet" id="pickup">
     <h3 class="title"><%= t('manifestation.pickup') -%></h3>
     <div id="picked_up_box">
       <%= render 'manifestations/pickup', :manifestation => @manifestation -%>
     </div>
   </div>
+  <% end %>
 
-  <% if defined?(EnjuBookmark) %>
+  <% if defined?(EnjuBookmark) && SystemConfiguration.get('view.tag_cloud') %>
     <div class="portlet" id="tag_cloud">
       <h3 class="title">
         <% if user_signed_in? %>
@@ -50,8 +103,23 @@
       </h3>
       <div id="tag_cloud_box">
         <%= render 'bookmarks/tag_cloud', :tags => @tags -%>
-        <p>(<%= link_to t('page.listing', :model => t('activerecord.models.tag')), tags_path -%>)</p>
+        <%- if can? :index, Tag -%>
+          <p>(<%= link_to t('page.listing', :model => t('activerecord.models.tag')), tags_path -%>)</p>
+        <%- end -%>
       </div>
     </div>
   <% end %>
 </div>
+
+<% if defined?(EnjuEvent) && SystemConfiguration.get('view.events') %>
+  <div class="column" id="col3">
+    <div class="portlet" id="events">
+      <h3 class="title"><%= t('activerecord.models.event') -%></h3>
+      <div id="tag_cloud_box">
+        <div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<% end %>

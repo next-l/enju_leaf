@@ -1,0 +1,56 @@
+<div id="result">
+<div style="color: green"><%= flash[:message] -%></div>
+<table class="index">
+  <tr>
+    <th></th>
+    <th>
+      <%= t('activerecord.attributes.user.username') -%>
+      <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(:action => 'new', :sort_by => 'username', :order => 'asc', :query => @query, :birth_date => @date_of_birth, :address => @address) -%>
+      <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(:action => 'new', :sort_by => 'username', :order => 'desc', :query => @query, :birth_date => @date_of_birth, :address => @address) -%><br />
+      <%= t('activerecord.attributes.patron.full_name') -%>
+      <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(:action => 'new', :sort_by => 'full_name', :order => 'asc', :query => @query, :birth_date => @date_of_birth, :address => @address) -%>
+      <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(:action => 'new', :sort_by => 'full_name', :order => 'desc', :query => @query, :birth_date => @date_of_birth, :address => @address) -%>
+    </th>
+
+    <th>
+      <%= t('activerecord.attributes.user.user_number') -%>
+      <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(:action => 'new', :sort_by => 'user_number', :order => 'asc', :query => @query, :birth_date => @date_of_birth, :address => @address) -%>
+      <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(:action => 'new', :sort_by => 'user_number', :order => 'desc', :query => @query, :birth_date => @date_of_birth, :address => @address) -%>
+    </th>
+    <th>
+      <%= t('activerecord.attributes.patron.telephone_number') -%>
+      <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(:action => 'new', :sort_by => 'telephone_number_1', :order => 'asc', :query => @query, :birth_date => @date_of_birth, :address => @address) -%>
+      <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(:action => 'new', :sort_by => 'telephone_number_1', :order => 'desc', :query => @query, :birth_date => @date_of_birth, :address => @address) -%>
+    </th>
+    <th>
+      <%= t('activerecord.attributes.patron.address') -%>
+    </th>
+  </tr>
+
+<%- @users.each_with_index do |user, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to t('family.add'), "javascript:addUser('#{user.id}', '#{user.username}', '#{user.patron.full_name}');", :id => "user_#{user.id}" -%></td>
+    <td>
+      <%= link_to user.username, user -%>
+      <br />
+      <%- if user.patron -%>
+        <%= link_to user.patron.full_name, user -%>
+      <%- end -%>
+    </td>
+    <td><%= user.user_number -%></td>
+    <td>
+     <%- if user.patron -%>
+       <%= user.patron.telephone_number_1 -%>
+       <br />
+       <%= user.patron.telephone_number_2 -%>
+     <%- end -%>
+    </td>
+    <td><%= user.patron.address_1 if user.patron -%></td>
+  </tr>
+<%- end -%>
+</table>
+
+<br />
+<%= paginate(@users) -%>
+
+</div>

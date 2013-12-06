@@ -1,0 +1,56 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.picture_file')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@picture_file) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label :picture_attachable_type -%><br />
+    <%= f.text_field :picture_attachable_type -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('page.attachable') -%><br />
+    <%= f.text_field :picture_attachable_id -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :picture_file_size -%><br />
+    <%= f.text_field :picture_file_size -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :picture_content_type -%><br />
+    <%= f.text_field :picture_content_type -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :picture_file_name -%><br />
+    <%= f.text_field :picture_file_name -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :width -%><br />
+    <%= f.text_field :width -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :height -%><br />
+    <%= f.text_field :height -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.show'), @picture_file -%></li>
+    <li><%= link_to t('page.back'), :back -%></li>
+  </ul>
+</div>

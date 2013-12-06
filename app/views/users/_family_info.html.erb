@@ -1,0 +1,21 @@
+<% unless @family_users.blank? %>
+<div id="family_users">
+  <div><strong><%= t('family.already_family_with') -%></strong></div> 
+  <%- if current_user.has_role?('Librarian') -%>
+    <%= check_box_tag 'out_of_family', "1" -%><%= t('family.out_of_family') -%>
+  <%- end -%>
+  <ul>
+    <% @family_users.each do |f_user| %>
+      <li><%= f_user.patron.full_name -%>(<%= f_user.username -%>)</li>
+    <% end %>
+  </ul>
+  <hr>
+  <%- if current_user.has_role?('Librarian') -%>
+    <%= t('family.will_change_family') -%><br />
+    <br />
+    <%= t('family.will_change_patron_type') -%>
+  <%- else -%>
+    <%= t('family.user_will_change_family') -%>
+  <%- end -%>
+</div>
+<% end %>

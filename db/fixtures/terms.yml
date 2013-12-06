@@ -1,0 +1,106 @@
+term_00001: 
+  id: 1
+  display_name: "平成12年度"
+  start_at: 2000-4-1 
+  end_at: 2001-3-31 
+term_00002: 
+  id: 2
+  display_name: "平成13年度"
+  start_at: 2001-4-1
+  end_at: 2002-3-31 
+term_00003: 
+  id: 3
+  display_name: "平成14年度"
+  start_at: 2002-4-1 
+  end_at: 2003-3-31 
+term_00004: 
+  id: 4
+  display_name: "平成15年度"
+  start_at: 2003-4-1 
+  end_at: 2004-3-31 
+term_00005: 
+  id: 5
+  display_name: "平成16年度"
+  start_at: 2004-4-1 
+  end_at: 2005-3-31 
+term_00006: 
+  id: 6
+  display_name: "平成17年度"
+  start_at: 2005-4-1 
+  end_at: 2006-3-31 
+term_00007: 
+  id: 7
+  display_name: "平成18年度"
+  start_at: 2006-4-1
+  end_at: 2007-3-31 
+term_00008: 
+  id: 8
+  display_name: "平成19年度"
+  start_at: 2007-4-1
+  end_at: 2008-3-31 
+term_00009: 
+  id: 9
+  display_name: "平成20年度"
+  start_at: 2008-4-1
+  end_at: 2009-3-31 
+term_00010: 
+  id: 10
+  display_name: "平成21年度"
+  start_at: 2009-4-1 
+  end_at: 2010-3-31 
+term_00011: 
+  id: 11
+  display_name: "平成22年度"
+  start_at: 2010-4-1
+  end_at: 2011-3-31 
+term_00012: 
+  id: 12
+  display_name: "平成23年度"
+  start_at: 2011-4-1 
+  end_at: 2012-3-31 
+term_00013: 
+  id: 13
+  display_name: "平成24年度"
+  start_at: 2012-4-1
+  end_at: 2013-3-31 
+term_00014: 
+  id: 14
+  display_name: "平成25年度"
+  start_at: 2013-4-1
+  end_at: 2014-3-31 
+term_00015: 
+  id: 15
+  display_name: "平成26年度"
+  start_at: 2014-4-1 
+  end_at: 2015-3-31 
+term_00016: 
+  id: 16
+  display_name: "平成27年度"
+  start_at: 2015-4-1 
+  end_at: 2016-3-31 
+term_00017: 
+  id: 17
+  display_name: "平成28年度"
+  start_at: 2016-4-1 
+  end_at: 2017-3-31 
+term_00018: 
+  id: 18
+  display_name: "平成29年度"
+  start_at: 2017-4-1
+  end_at: 2018-3-31 
+term_00019: 
+  id: 19
+  display_name: "平成30年度"
+  start_at: 2018-4-1 
+  end_at: 2019-3-31 
+term_00020: 
+  id: 20
+  display_name: "平成31年度"
+  start_at: 2019-4-1
+  end_at: 2020-3-31 
+term_00021: 
+  id: 21
+  display_name: "平成32年度"
+  start_at: 2020-4-1
+  end_at: 2021-3-31 
+

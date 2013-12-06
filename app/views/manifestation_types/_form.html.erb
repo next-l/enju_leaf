@@ -1,0 +1,19 @@
+<%= simple_form_for(@manifestation_type) do |f| %>
+  <%= f.error_messages %>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, :disabled => true %>
+  </div>
+  <div class="field">
+    <%= f.label :display_name %><br />
+    <%= f.text_area :display_name %>
+  </div>
+  <div class="field">
+    <%= f.label :note %><br />
+    <%= f.text_area :note %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

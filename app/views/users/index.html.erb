@@ -1,56 +1,114 @@
+<script>
+  function push_submit(format) {
+    var o = document.getElementById('form');
+    if(format == 'pdf')
+      o.action = "<%= users_path(:format => 'pdf') %>";
+    else if(format == 'tsv')
+      o.action = "<%= users_path(:format => 'tsv') %>";
+    else
+      o.action = "<%= users_path %>";
+    o.submit();
+  }
+</script>
+
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.user')) -%></h1>
 <div id="content_list">
-
-<div class="search_form">
-<%= form_for :users, :url => users_path, :html => {:method => 'get'} do -%>
+<div style="color: green"><%= flash[:message] -%></div>
+<script>
+$(function(){
+  $('#birth_date').setCalendar({src:'/assets/calendar.png'});
+});
+</script>
+<%= form_for :users, :url => users_path, :html => {:method => 'get', :id => 'form'} do -%>
   <p>
-    <%= label_tag :query, t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), :class => 'search_form', :placeholder => t('page.search_term') -%>
-    <%= submit_tag t('page.search') -%>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+    <% if !@query.empty? %><input type="button" value="<%= t('page.search_clear') -%>" onclick="$('#search_form_top').val('')"><% end %><br />
+    <%= t('activerecord.attributes.user.birth_date') -%>: <%= text_field_tag 'birth_date', @date_of_birth, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011-04-12" -%>
+    <%= t('activerecord.attributes.user.adddress') -%>: <%= text_field_tag 'address', @address, :class => 'search_form' -%>
+    <br />
+    <%= hidden_field_tag 'patron_id', @patron.id if @patron -%>
+    <%= hidden_field_tag 'library', params[:library] if params[:library] -%>
+    <%= hidden_field_tag 'role', params[:role] if params[:role] -%>
+    <%= submit_tag t('page.search'), :onclick => "push_submit(null);" -%>
+    <%= submit_tag t('page.output_pdf', :model => t('page.listing', :model => t('activerecord.models.user'))), :onclick => "push_submit('pdf');" -%>
+
+    <% if SystemConfiguration.get("set_output_format_type") == false %>
+      <%= submit_tag t('page.output_csv', :model => t('page.listing', :model => t('activerecord.models.user'))), :onclick => "push_submit('tsv');" -%>     
+    <% else %>
+      <%= submit_tag t('page.output_tsv', :model => t('page.listing', :model => t('activerecord.models.user'))), :onclick => "push_submit('tsv');" -%>
+    <% end %>
   </p>
 <%- end -%>
-</div>
 
-<table class="table table-striped index">
+<table class="index">
   <tr>
     <th>
       <%= t('activerecord.attributes.user.username') -%>
-      <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'username', :order => 'asc', :only_path => true)) -%>
-      <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(params.merge(:sort_by => 'username', :order => 'desc', :only_path => true)) -%>
+      <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'username', :order => 'asc')) -%>
+      <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'username', :order => 'desc')) -%><br />
+      <%= t('activerecord.attributes.patron.full_name') -%>
+      <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'full_name', :order => 'asc')) -%>
+      <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'full_name', :order => 'desc')) -%>
     </th>
-    <th><%= t('activerecord.attributes.user.user_number') -%></th>
+    <th>
+      <%= t('activerecord.attributes.user.user_number') -%>
+      <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'user_number', :order => 'asc')) -%>
+      <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'user_number', :order => 'desc')) -%>
+    </th>
+    <th>
+      <%= t('activerecord.attributes.patron.telephone_number') -%>
+      <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'telephone_number_1', :order => 'asc')) -%>
+      <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'telephone_number_1', :order => 'desc')) -%>
+    </th>
     <th>
       <%= t('page.created_at') -%>
-      <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'created_at', :order => 'asc', :only_path => true)) -%>
-      <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(params.merge(:sort_by => 'created_at', :order => 'desc', :only_path => true)) -%>
+      <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('tooltip.asc')), url_for(params.merge(:sort_by => 'created_at', :order => 'asc')) -%>
+      <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('tooltip.desc')), url_for(params.merge(:sort_by => 'created_at', :order => 'desc')) -%>
     </th>
-    <% if defined?(EnjuCirculation) %>
-      <th><%= t('activerecord.models.checkout') -%></th>
-      <th><%= t('activerecord.models.reserve') -%></th>
-    <% end %>
-    <th></th>
+    <th><%= t('activerecord.models.checkout') -%></th>
+    <th><%= t('activerecord.models.reserve') -%></th>
+    <th><%= t('page.edit') -%></th>
   </tr>
 
 <%- @users.each_with_index do |user, i| -%>
-  <tr class="line<%= cycle("0", "1") -%>">
+  <tr class="line<%= cycle("0", "1") -%>" style="background-color:<%= user.set_color -%>">
     <td>
       <%= link_to user.username, user -%>
-      <%- if user.patron.id -%>
-        <br />
-        <%= link_to user.patron.full_name, local_patron_path(:id => user.username)  if current_user.has_role?('Librarian') -%>
+      <br />
+      <%- if user.patron -%>
+        <%= link_to user.patron.full_name, user -%>
+      <%- end -%>
+      <%- if user.user_status.state_id == 3 or user.unable == true -%>
+        <br/>
+        (<%= t('activerecord.attributes.user.unable') if user.unable == true -%><%- if user.user_status.state_id == 3 and user.unable == true -%>&nbsp;<%- end -%><%= t('activerecord.attributes.user.locked') if user.user_status.state_id == 3 -%>)
       <%- end -%>
     </td>
     <td><%= user.user_number -%></td>
-    <td><%= l(user.created_at) if user.created_at -%></td>
-    <% if defined?(EnjuCirculation) %>
-      <td>
-        <%= link_to t('activerecord.models.checkout'), new_basket_path(:user_number => user.user_number) unless user.user_number.blank? -%>
-        (<%= link_to t('page.checkout_history'), user_checkouts_path(user) -%>)
-      </td>
-      <td><%= link_to t('activerecord.models.reserve'), user_reserves_path(user) -%></td>
-    <% end %>
     <td>
-      <%= link_to t('user.edit_account'), edit_user_path(user) -%>
+     <%- if user.patron -%>
+       <%= user.patron.telephone_number_1 -%>
+       <br />
+       <%= user.patron.telephone_number_2 -%>
+     <%- end -%>
+    </td>
+    <td><%= l(user.created_at) if user.created_at -%></td>
+    <td>
+      <%- if user.active_for_authentication? -%>
+        <%= link_to t('activerecord.models.checkout'), new_basket_path(:user_number => user.user_number) unless user.user_number.blank? -%>
+      <%- end -%>
+      <%= link_to t('activerecord.models.checkin'), checkins_path unless user.user_number.blank? -%>
+      <br />
+      (<%= link_to t('page.checkout_history'), user_checkouts_path(user) -%>)
+    </td>
+    <td><%= link_to t('activerecord.models.reserve'), user_reserves_path(user) unless user.user_number.blank? -%></td>
+    <td>
+      <%= link_to t('page.edit'), edit_user_path(user) -%><br />
+      <% if SystemConfiguration.get("use_family") -%>
+        <% if user.patron and user.patron.patron_type_id == 1 %>
+          <%= link_to t('user.create_family'), new_user_path(:family_user_id => user.id) -%>
+        <% end %>
+      <% end %>
     </td>
   </tr>
 <%- end -%>
@@ -63,11 +121,19 @@
 </div>
 
 <div id="submenu" class="ui-corner-all">
+  <h3><%= link_to h("#{t('page.total')}: #{@count[:query_result]}"), url_for(params.merge(:action => 'index', :library => nil, :role => nil, :patron_type => nil))  -%></h3>
+  <%- if @users && (@users.total_entries > 0) -%>
+    <%= render 'users/all_facet' -%>
+    <br />
+  <%- end -%>
+
   <ul>
     <%- if user_signed_in? && current_user.has_role?('Librarian') -%>
       <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
-      <li><%= link_to t('page.import_from_file'), new_agent_import_file_path -%></li>
+      <%- if SystemConfiguration.get('use_family') %><li><%= link_to t('user.manage_family'), families_path -%></li><%- end -%>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.unablelist')), unablelist_path -%></li>
+      <li><%= link_to t('page.import_from_file'), new_patron_import_file_path -%></li>
+      <li><%= link_to t('activerecord.models.checkin'), checkins_path -%>
     <%- end -%>
-    <li><%= link_to t('page.search_resource', :model => t('activerecord.models.patron')), agents_path -%></li>
   </ul>
 </div>

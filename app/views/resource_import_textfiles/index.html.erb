@@ -1,0 +1,38 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.resource_import_textfile')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th>Id</th>
+    <th><%= t('activerecord.attributes.resource_import_textfile.resource_import_text_file_name') -%></th>
+    <th><%= t('activerecord.attributes.resource_import_textfile.imported_at') -%></th>
+    <th><%= t('activerecord.models.user') -%></th>
+    <th><%= t('activerecord.attributes.resource_import_textfile.state') -%></th>
+    <th></th>
+  </tr>
+
+<%- @resource_import_textfiles.each do |resource_import_textfile| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to (resource_import_textfile.id), resource_import_textfile -%></td>
+    <td><%= link_to resource_import_textfile.resource_import_text_file_name, resource_import_textfile -%></td>
+    <td><%= l(resource_import_textfile.imported_at) if resource_import_textfile.imported_at -%></td>
+    <td><%= link_to resource_import_textfile.user.username, resource_import_textfile.user if resource_import_textfile.user -%></td>
+    <td><%= t("state.#{resource_import_textfile.state}") -%></td>
+    <td>
+      <%= link_to t('page.show'), resource_import_textfile -%>
+      <%= link_to t('page.destroy'), resource_import_textfile, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@resource_import_textfiles) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.resource_import_textfile')), new_resource_import_textfile_path -%></li>
+  </ul>
+</div>

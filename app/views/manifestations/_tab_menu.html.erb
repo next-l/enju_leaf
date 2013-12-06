@@ -1,0 +1,14 @@
+<ul>
+  <li class="selected"><a href="#detail"><em><%= t('page.detail') -%></em></a></li>
+  <%- if manifestation.original_manifestations.exists? or manifestation.derived_manifestations.exists? -%>
+    <li><a href="#related_manifestation"><em><%= t('page.related_manifestation') -%> (<%= manifestation.original_manifestations.size + manifestation.derived_manifestations.size -%>)</em></a></li>
+  <%- end -%>
+  <% if defined?(EnjuQuestion) %>
+    <%- unless manifestation.questions(:user => current_user).empty? -%>
+      <li><a href="#question"><em><%= t('resource.question') -%></em></a></li>
+    <%- end -%>
+  <% end %>
+  <%- if current_user.try(:has_role?, 'Librarian') -%>
+    <li><a href="#history"><em><%= t('page.history') -%></em></a></li>
+  <%- end -%>
+</ul>

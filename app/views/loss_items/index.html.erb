@@ -1,0 +1,62 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.loss_item')) -%></h1>
+<div id="content_list">
+<div style="color: green"><%= flash[:message] -%></div>
+
+<script>
+$(function(){
+  $('#birth_date').setCalendar({src:'/assets/calendar.png'});
+});
+</script>
+
+<%= form_for :loss_items, :url => loss_items_path, :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>: 
+    <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%><br />
+    <%= t('activerecord.attributes.user.birth_date') -%>: 
+    <%= text_field_tag 'birth_date', @date_of_birth, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011-04-12" -%>
+    <%= t('activerecord.attributes.user.adddress') -%>: 
+    <%= text_field_tag 'address', @address, :class => 'search_form' -%><br />
+    <%= t('activerecord.attributes.loss_item.status')-%>:
+    <%= radio_button_tag 'status', '', true -%><%= t('advanced_search.all', :model =>t('activerecord.attributes.loss_item.status')) -%>&nbsp;
+    <%= radio_button_tag 'status', 0, (params[:status] == '0') -%><%= i18n_status(0) -%>&nbsp;
+    <%= radio_button_tag 'status', 1, (params[:status] == '1') -%><%= i18n_status(1) -%>
+    <%= submit_tag t('page.search') -%>
+  </p>
+<%- end -%>
+
+<table class="index">
+  <tr>
+    <th style="width: 30px"><%= 'Id' -%></th>
+    <th><%= t('activerecord.attributes.manifestation.original_title')-%></th>
+    <th><%= t('activerecord.models.user') -%></th>
+    <th><%= t('activerecord.attributes.loss_item.status')-%></th>
+    <th></th>
+  </tr>
+
+<%- @loss_items.each_with_index do |loss_item, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to loss_item.id, loss_item -%></td>
+    <td><%= link_to loss_item.item.manifestation.original_title, loss_item -%></td>
+    <td>
+      <%= link_to loss_item.user.patron.full_name, loss_item.user -%>
+      (<%= link_to loss_item.user.username, loss_item.user -%>)
+    </td>
+    <td><%= i18n_status(loss_item.status) -%></td>
+    <td>
+      <%= link_to t('page.edit'), edit_loss_item_path(loss_item) -%>
+      <%= link_to t('page.destroy'), loss_item, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    </td>    
+  </tr>
+<%- end -%>
+</table>
+
+<br />
+<%= paginate(@loss_items) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <li><%= link_to t('page.new', :model => t('activerecord.models.loss_item')), new_loss_item_path -%></li>
+  <li><%= link_to t('page.back'), page_extensions_path %></li>
+</div>

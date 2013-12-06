@@ -1,0 +1,14 @@
+<h4><%= t('activerecord.attributes.shelf.open_access') -%></h4>
+<ul>
+  <%- open_accesses = params[:open_access].to_s.split -%>
+  <%- @open_access_facet.each do |facet| -%>
+    <%- current_open_access = open_accesses.dup -%>
+    <%- open_access = facet.value -%>
+    <%- if open_access -%>
+      <li><%= open_access_facet(open_access, current_open_access, facet) %></li>
+    <%- end -%>
+  <%- end -%>
+  <%- if params[:open_access] -%>
+    <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:open_access => nil, :page => nil, :view => nil)) -%></li>
+  <%- end -%>
+</ul>

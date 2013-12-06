@@ -1,0 +1,45 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.country')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.country.display_name') -%></th>
+    <th><%= t('activerecord.attributes.country.alpha_2') -%></th>
+    <th><%= t('activerecord.attributes.country.alpha_3') -%></th>
+    <th><%= t('activerecord.attributes.country.numeric_3') -%></th>
+    <th></th>
+  </tr>
+
+<%- @countries.each do |country| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :update, country -%>
+        <%= move_position(country) -%>
+      <%- end -%>
+    </td>
+    <td><%= link_to country.display_name.localize, country -%></td>
+    <td><%= country.alpha_2 -%></td>
+    <td><%= country.alpha_3 -%></td>
+    <td><%= country.numeric_3 -%></td>
+    <td>
+      <%- if can? :update, country -%>
+        <%= link_to t('page.edit'), edit_country_path(country) -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@countries) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+<%- if false -%>
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.country')), new_country_path -%></li>
+  </ul>
+<%- end -%>
+</div>

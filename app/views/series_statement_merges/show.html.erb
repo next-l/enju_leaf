@@ -1,0 +1,27 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.series_statement_merge')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.series_statement') -%>:</strong>
+  <%= link_to @series_statement_merge.series_statement.original_title, @series_statement_merge.series_statement -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.series_statement_merge_list') -%>:</strong>
+  <%= link_to @series_statement_merge.series_statement_merge_list.title, @series_statement_merge.series_statement_merge_list -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.add', :model => t('activerecord.models.series_statement')), series_statement_merge_list_series_statements_path(@series_statement_merge.series_statement_merge_list) -%></li>
+    <li><%= link_to t('page.edit'), edit_series_statement_merge_path(@series_statement_merge) -%></li>
+    <!--
+    <li><%= link_to t('page.back'), series_statement_merges_path -%></li>
+    -->
+  </ul>
+</div>

@@ -1,0 +1,9 @@
+<h4><%= t('activerecord.models.carrier_type') -%></h4>
+<ul>
+  <%- @carrier_type_facet.each do |facet| -%>
+    <li><%= carrier_type_facet(facet) %></li>
+  <%- end -%>
+  <%- if params[:carrier_type] -%>
+    <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:carrier_type => nil, :page => nil, :view => nil)) -%></li>
+  <%- end -%>
+</ul>

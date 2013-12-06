@@ -1,0 +1,19 @@
+<%= form_for(@carrier_type_has_checkout_type) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.carrier_type') -%><br />
+    <%= f.select(:carrier_type_id, @carrier_types.collect{|m| [m.display_name.localize, m.id]}, :include_blank => true) -%>
+  </div>
+  <div class="field">
+    <%= f.label t('activerecord.models.checkout_type') -%><br />
+    <%= f.select(:checkout_type_id, @checkout_types.collect{|c| [c.display_name.localize, c.id]}, :include_blank => true) -%>
+  </div>
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note, :class => 'resource_textarea' -%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>

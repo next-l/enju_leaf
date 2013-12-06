@@ -1,0 +1,16 @@
+<p>
+  <%= t('page.no_record_found') -%>
+  <% if false %>
+    <% unless !@search_engines.nil? && @search_engines.empty? %>
+      <%= t('page.you_can_search_following_database') -%>
+      <%= render 'manifestations/search_engine' -%>
+    <% end %>
+  <% end %>
+</p>
+<%- if @collation -%>
+  <p>
+    <%= t('page.did_you_mean_to_search_for') %>: <%- @collation.each do |collation| -%>
+      <%= link_to collation, params.merge(:query => collation) %>
+    <%- end -%>
+  </p>
+<%- end -%>

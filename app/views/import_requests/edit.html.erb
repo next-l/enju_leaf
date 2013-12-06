@@ -1,0 +1,24 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.import_request')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@import_request) do |f| -%>
+  <%= f.error_messages -%>
+  <div class="field">
+    <%= f.label :isbn -%><br />
+    <%= f.text_field :isbn, :class => 'resource_isbn_issn' -%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.show'), @import_request -%></li>
+    <li><%= link_to t('page.back'), import_requests_path -%></li>
+  </ul>
+</div>

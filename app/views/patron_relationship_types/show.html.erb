@@ -1,0 +1,29 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.patron_relationship_type')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.patron_relationship_type.name') -%>:</strong>
+  <%= @patron_relationship_type.name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.patron_relationship_type.display_name') -%>:</strong>
+  <%= @patron_relationship_type.display_name.localize -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.patron_relationship_type.note') -%>:</strong>
+  <%= @patron_relationship_type.note -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_patron_relationship_type_path(@patron_relationship_type) -%></li>
+    <li><%= link_to t('page.back'), patron_relationship_types_path -%></li>
+  </ul>
+</div>

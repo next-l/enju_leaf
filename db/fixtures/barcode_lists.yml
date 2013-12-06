@@ -1,0 +1,28 @@
+---
+barcode_list_00001:
+  id: 1
+  barcode_name: 'default'
+  usage_type:
+  barcode_type: 'Code128B'
+  barcode_prefix: 'S'
+  printed_number: 10
+  sheet_id: 1
+  last_number: 0
+barcode_list_00002:
+  id: 2
+  barcode_name: '利用者番号'
+  usage_type: 'user'
+  barcode_type: 'Code128B'
+  barcode_prefix: ''
+  printed_number: 10
+  sheet_id: 1
+  last_number: 0
+barcode_list_00003:
+  id: 3
+  barcode_name: '所蔵ID'
+  usage_type: 'item'
+  barcode_type: 'Code128B'
+  barcode_prefix: ''
+  printed_number: 10
+  sheet_id: 1
+  last_number: 0

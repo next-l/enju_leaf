@@ -1,0 +1,36 @@
+<script>
+  $(document).ready(function() {
+    // output file
+    if ("<%= flash[:path]-%>".length > 0) {
+      location.href= "<%= url_for(:controller => :reminder_lists, :action => :download_file, :path =>flash[:path])-%>";
+    }
+ 
+    // clear form
+    $("input#user_number").val("");
+  });
+</script>
+
+<div id="content_detail" class="ui-corner-all">
+  <h1 class="title"><%= t('page.output', :model => t('page.reminder_postal_card')) -%></h1>
+  <div id="content_list">
+    <div style="color: green"><%= flash[:notice] -%></div>
+    <div>
+      <p><%= t('reminder_list.input_user_for_output_reminder')-%></p>
+      <br />
+      <%= form_tag({:action => 'output_reminder_postal_card'}) do -%>
+        <p>
+          <%= t('activerecord.attributes.user.user_number') -%>: 
+          <%= text_field_tag :user_number -%>
+          <%= submit_tag t('page.output', :model => t('page.reminder_postal_card')) -%>
+          <%= javascript_tag("$('#user_number').focus()") -%>
+        </p>
+      <%- end -%>
+    </div>
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), reminder_lists_path -%></li>
+  </ul>
+</div>

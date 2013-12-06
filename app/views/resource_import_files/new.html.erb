@@ -1,0 +1,36 @@
+<div id="content_detail" class="ui-corner-all">
+  <h1 class="title"><%= t('page.new', :model => t('activerecord.models.resource_import_file')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@resource_import_file, :html => { :multipart => true }) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label t('page.file') -%><br />
+    <%= f.file_field :resource_import -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :edit_mode -%><br />
+    <%= f.radio_button :edit_mode, 'create', :checked => 'checked' %>
+    <%= f.label :edit_mode, t('page.create'), :value => 'create' %>
+    <%= f.radio_button :edit_mode, 'update' %>
+    <%= f.label :edit_mode, t('page.update'), :value => 'update' %>
+    <%= f.radio_button :edit_mode, 'destroy' %>
+    <%= f.label :edit_mode, t('page.destroy'), :value => 'destroy' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), resource_import_files_path -%></li>
+    <li><%= link_to t('resource_import_file.template_download'), @file_path -%></li>
+  </ul>
+</div>

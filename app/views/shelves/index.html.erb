@@ -1,0 +1,48 @@
+<div id="content_detail" class="ui-corner-all">
+  <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.shelf')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.shelf.name') -%></th>
+    <th><%= t('activerecord.models.library') -%></th>
+    <th></th>
+  </tr>
+<%- @shelves.each_with_index do |shelf, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%= link_to shelf.display_name.localize, shelf -%>
+      <br />
+      <%= shelf.name if can? :update, shelf %>
+    </td>
+    <td><%= link_to shelf.library.display_name.localize, library_path(shelf.library) if shelf.library -%></td>
+    <td>
+      <% if can? :update, shelf %>
+        <%= link_to t('page.edit'), edit_shelf_path(shelf) -%>
+      <% end %>
+      <%- if can? :destroy, shelf -%>
+        <%- unless shelf.id == 1 or shelf.open_access == 9 or shelf.open_access == 10 -%>
+          <%= link_to t('page.destroy'), shelf, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%- end -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@shelves) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <h3><%= link_to h("#{t('page.total')}: #{@count[:query_result]}"), url_for(params.merge(:action => 'index', :library => nil, :open_access => nil))  -%></h3>
+  <%- if @shelves and @shelves.total_entries > 0 -%>
+    <%= render 'shelves/all_facet' -%>
+    <br />
+  <%- end -%>
+  <ul>
+    <%- if can? :create, Shelf -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.shelf')), new_shelf_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

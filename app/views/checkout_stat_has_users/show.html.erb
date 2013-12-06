@@ -1,0 +1,28 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.checkout_stat_has_user')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.user_checkout_stat') -%>:</strong>
+  <%= link_to @checkout_stat_has_user.user_checkout_stat.id, @checkout_stat_has_user.user_checkout_stat -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= link_to @checkout_stat_has_user.user.username, @checkout_stat_has_user.user -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.checkout_stat_has_user.checkouts_count') -%>:</strong>
+  <%= @checkout_stat_has_user.checkouts_count -%>
+</p>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_checkout_stat_has_user_path(@checkout_stat_has_user) -%></li>
+    <li><%= link_to t('page.back'), checkout_stat_has_users_path -%></li>
+  </ul>
+</div>

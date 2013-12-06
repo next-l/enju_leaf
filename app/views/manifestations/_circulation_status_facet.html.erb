@@ -1,0 +1,16 @@
+<%- if current_user && current_user.has_role?('Librarian') %>
+  <h4><%= t('activerecord.models.circulation_status') -%></h4>
+  <ul>
+    <%- @circulation_status_in_process_facet.each do |f| %>
+      <% next unless f.value %>
+      <li><%= circulation_status_facet('in_process', f) %></li>
+    <%- end -%>
+    <%- @circulation_status_in_factory_facet.each do |f| %>
+      <% next unless f.value %>
+      <li><%= circulation_status_facet('in_factory', f) %></li>
+    <%- end -%>
+    <%- if params[:circulation_status_in_process] || params[:circulation_status_in_factory] -%>
+      <li><%= link_to t('page.remove_this_facet'), url_for(params.merge(:circulation_status_in_process => nil, :circulation_status_in_factory => nil, :page => nil, :view => nil)) -%></li>
+    <%- end -%>
+  </ul>
+<%- end -%>

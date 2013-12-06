@@ -24,17 +24,12 @@ illustrator:
   position: 3
   id: 3
 
+translator_supervisor:
+  name: translator_supervisor
+  display_name: "en: Translator Supervisor\r\n\
+    ja: 監訳者"
+  note: 
+  position: 4
+  id: 4
 
-# == Schema Information
-#
-# Table name: create_types
-#
-#  id           :integer         not null, primary key
-#  name         :string(255)
-#  display_name :text
-#  note         :text
-#  position     :integer
-#  created_at   :datetime
-#  updated_at   :datetime
-#
 

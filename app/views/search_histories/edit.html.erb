@@ -1,0 +1,74 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.search_history')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@search_history) do |f| -%>
+  <%= f.error_messages -%>
+  <div class="field">
+    <%= f.label :operation -%><br />
+    <%= f.text_field :operation -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :version -%><br />
+    <%= f.text_field :version -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :query -%><br />
+    <%= f.text_field :query -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :start_record -%><br />
+    <%= f.text_field :start_record -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :maximum_records -%><br />
+    <%= f.text_field :maximum_records -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :record_packing -%><br />
+    <%= f.text_field :record_packing -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :record_schema -%><br />
+    <%= f.text_field :record_schema -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :result_set_ttl -%><br />
+    <%= f.text_field :result_set_ttl -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :stylesheet -%><br />
+    <%= f.text_field :stylesheet -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :extra_request_data -%><br />
+    <%= f.text_field :extra_request_data -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.user') -%><br />
+    <%= f.text_field :user_id -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.show'), user_search_history_path(@search_history.user, @search_history) -%></li>
+    <li><%= link_to t('page.back'), user_search_histories_path(@search_history.user) -%></li>
+  </ul>
+</div>

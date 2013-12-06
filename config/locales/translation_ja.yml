@@ -1,16 +1,460 @@
 ja:
   activerecord:
     models:
+      wareki: 和暦
+      user_request_log: 利用者操作履歴
+      library: 図書館
+      question: 質問（レファレンス）
+      patron_import_file: 人物・団体のインポート用ファイル
+      circulation_status: 貸出状態
+      remove_reason: 除籍理由
+      inventory: 蔵書点検
+      patron: 人物・団体
+      user_note: 利用者の注記
+      feeds/app: フィード/アプリ
+      feeds/persistence: フィード/永続
+      feeds/shared: フィード/共有
+      feeds/instance: フィード/インスタンス
+      feeds/global: フィード/グローバル
+      feeds/activity: フィード/活動
+      subject_as_object: 件名オブジェクトとして
+      subject_as_place: 対象地として
+      subject_has_classification: 件名と分類の関係
+      expression: 協力した資料
+      language: 言語
+      patron_merge_list: 人物・団体の統合リスト
       user: 利用者
+      work_has_subject: 資料と件名の関係
+      picture_file: 画像ファイル
+      form_of_work: 書いた資料の形態
+      inter_library_loan: 相互貸借
+      classification: 分類
+      imported_object: インポートされたオブジェクト
+      exemplify: 例証
+      own: 所有関係
+      search_history: 検索履歴
+      shelf: 本棚
+      advertisement: 広告記事
+      porta_response: PORTAの応答
+      donate: 寄贈
+      basket: 貸出セッション
+      subject_as_event: 対象イベントとして
+      checked_item: 貸出資料
+      produce: 出版関係
       role: 権限
+      session: セッション
+      subject_broader_term: 件名広範な用語
+      subject_type: 件名の種類
+      subject_heading_type: 件名標目の種類
+      subscribe: 購読
+      checkin: 返却
+      item: 所蔵情報
+      barcode: バーコード
+      barcode_list: 拡張バーコード
+      sheet: 印刷用紙
+      work: 書いた資料
+      purchase_request: 購入リクエスト
+      realize: 表現関係
+      reify: 具体化
+      subject_as_concept: 件名概念として
+      frequency: 発行頻度
+      expression_merge_list: 協力した資料の統合リスト
+      use_restriction: 利用制限
+      subject: 件名
+      content_type: 協力した資料の形態
+      work_merge: 書いた資料の統合
+      aaws_response: Aawsの応答
+      patron_type: 人物・団体の種類
+      work_merge_list: 書いた資料の統合リスト
+      order: 発注
+      order_list: 発注リスト
+      advertise: 広告
+      embody: 具体化
+      item_has_use_restriction: 項目を制限している
+      expression_merge: 協力した資料の統合
+      request_status_type: 依頼の状態の種類
+      news_feed: お知らせのフィード
+      news_post: 図書館からのお知らせ
+      search_engine: 検索エンジン
+      create: 著作関係
+      create_type: 著作の関係
+      carrier_type: 資料の形態
+      retention_period: 保存種別
+      manifestation_type: 資料区分
+      manifestation: 資料
       user_group: 利用者グループ
+      resource_import_file: 資料のインポート用ファイル
+      resource_import_textfile: 資料のインポート用ファイル
+      checkout: 貸出
+      checkout_family: 家族の貸出
+      subscription: 購読
+      patron_merge: 人物・団体の統合
+      subject_related_term: 件名の関連語
+      library_group: 図書館全体の設定
       attachment_file: 添付ファイル
+      reserve: 予約
+      retained_manifestation: 取置済み(未連絡)資料
+      reserve_family: 家族の予約
+      answer: 回答
+      bookstore: 寄贈・購入先
+      area: 地区
+      user_status: 利用者利用状況
+      department: 部署
+      classmark:  分類記号
+      checkout_type: 貸出区分
+      accept_type: 受入区分
+      classification_type: 分類型
+      country: 国と地域
+      manifestation_api_response: 資料APIの応答
+      request_type: 依頼の種類
+      inventory_file: 蔵書点検ファイル
+      user_group_has_checkout_type: 利用者グループと貸出区分の関係
+      carrier_type_has_checkout_type: 資料の種類と貸出区分の関係
+      manifestation_checkout_stat: 資料別貸出統計
+      user_checkout_stat: 利用者別貸出統計
+      manifestation_reserve_stat: 資料別予約統計
+      user_reserve_stat: 利用者別予約統計
+      work_has_work: 書いた資料間の関係
+      expression_has_expression: 協力した資料間の関係
+      manifestation_has_manifestation: 資料間の関係
+      item_has_item: 所蔵情報間の関係
+      reserve_stat_has_manifestation: 予約統計と資料の関係
+      reserve_stat_has_user: 予約統計と利用者の関係
+      concept: 概念
+      place: 場所
+      work_has_concept: 書いた資料と概念の関係
+      work_has_place: 書いた資料と場所の関係
+      person: 人
+      corporate_body: 団体
+      family: 家族
+      family_user: 家族利用者
+      unablelist: 連絡不能者
+      subject_heading_type_has_subject: 件名標目と件名の関係
+      user_has_shelf: 利用者と書棚の関係
+      patron_has_patron: 人物・団体間の関係
+      shelf_has_manifestation: 書棚と資料の関係
+      extent: 大きさ
+      medium_of_performance: 演奏手段
+      content_type: 内容の種類
+      patron_relationship_type: 人物・団体の関係の種類
+      manifestation_relationship_type: 資料の関係の種類
+      lending_policy: 貸出規則
+      nii_type: NIIメタデータタイプ
+      license: ライセンス
+      work_to_expression_rel_type: 書いた資料と協力した資料の関係の種類
+      expression_to_manifestation_rel_type: 協力した資料と出版した資料の関係の種類
+      series_statement: シリーズ情報
+      series_statement_relationship: 遍歴
+      checkout_stat_has_manifestation: 資料別貸出統計
+      checkout_stat_has_user: 利用者別貸出統計
+      reserve_stat_has_manifestation: 資料別予約統計
+      reserve_stat_has_user: 利用者別予約統計
+      import_request: ISBNインポートのリクエスト
+      resource: 資料
       user_has_role: 利用者と権限
-      session: ログイン
-      work: 著作
-      expression: 表現
-
+      patron_relationship: 著者・編者・出版者の関係
+      manifestation_relationship: 資料の関係
+      resource_import_result: 資料インポートの結果
+      resource_import_textresult: 資料インポートの結果
+      patron_import_result: 人物・団体インポートの結果
+      series_statement_merge: シリーズ情報の統合
+      series_statement_merge_list: シリーズ情報統合リスト
+      series_has_manifestation: シリーズ情報と資料の関係
+      budget: 予算
+      budget_type: 予算区分
+      exchange_rate: 為替レート
+      term: 期間
+      checkoutlist: 貸出状況
+      reservelist: 予約状況
+      manifestation_exstat: 拡張統計
+      ndl_report: 支部図書館業務年報の出力
+      ndl_statistic: 支部図書館業務年報の出力
+      print_label: 利用者ラベル
+      export_item_list: 図書リスト
+      export_item_register: 図書原簿
+      library_report: 報告書
+      loss_item: 紛失弁償
+      system_configuration: システム情報
+      reminder_list: 督促
+      expense: 購入情報
+      budget_and_results_managements: 予算実績対比 
+      manifestation_type: 資料区分
+      access_log: アクセス件数
+      keyword_count: 検索キーワード
+      numbering: 採番
+      bookbinding: 製本処理
+      binding_item: 製本資料
+      checkout_history: 今日の操作履歴
+      produce_type: 体現の関係
+      realize_type: 表現の関係
+      enju_terminal: 端末設定
+      copy_request: 文献複写依頼
+      nacsis_user_request: 複写貸借状況
+      nacsis_request_copy: 複写依頼
+      nacsis_request_lend: 借用依頼
+      exchange_manifestation: 所蔵付け替え
+      relationship_family: 遍歴ファミリー
+      series_statement_relationship_type: 遍歴関係タイプ
+      theme: テーマ
     attributes:
+      wareki:
+        display_name: 表示名
+        short_name: 短縮名
+        year_from: 西暦開始
+        year_to: 西暦終了
+        note: 注記
+      user_request_log:
+        user_id: 利用者ID
+        controller: コントローラ名
+        action: アクション名
+        remote_ip: IPアドレス
+        created_at: 操作日時
+        created_at_start: 操作日時(開始)
+        created_at_end: 操作日時(終了)
+        search_note: "コントローラ名、アクション名、IPアドレスは正規表現が利用できます。"
+        created_sort_note: "次の順序で操作日時を並べる"
+        data: "リクエストパラメータ"
+      enju_terminal:
+        ipaddr: IPアドレス
+        name: ホスト名
+        comment: コメント
+        autoprint: 自動印刷
+        checkouts: 貸出票
+        reserve: 予約票
+        manifestation: 資料確認票
+        checkouts_autoprint: 貸出票の自動印刷
+        reserve_autoprint: 予約票の自動印刷
+        manifestation_autoprint: 資料確認票の自動印刷
+        boolean_yes: する
+        boolean_no: しない
+      user_status:
+        name: 名前
+        display_name: 表示名
+        state: 利用可否
+      classmark:
+        name: 記号
+        display_name: 表示名
+      department:
+        name: コード
+        display_name: 表示名
+        short_name: 短縮名
+        position: 位置
+        note: 注記
+      numbering:
+        name: 名称
+        display_name: 表示名
+        prefix: プレフィックス
+        suffix: サフィックス
+        padding: 埋める
+        padding_number: 埋める桁数
+        padding_character: 埋める文字
+        last_number: 最後の番号
+        checkdigit: チェックデジットのルール
+      manifestation_types:
+        book: 図書
+        series: 定期刊行物
+      budget_and_results_managements:
+        id: 項番
+        item_of_expenditure: 費目
+        expense: 購入金額(円)
+        budget: 予算(円)
+        remain_amount: 予算残額(円)
+        digestibility: 消化率(%)
+        search: 検索
+        expense_label: ! '%yyyy年%mm月分'
+        budget_sum: 予算総額
+        expense_sum: 購入総額
+        digestibility_sum: 消化率(%)
+      reminder_list:
+        id: Id
+        checkout: 貸出
+        checkout_id: 貸出番号
+        original_title: タイトル 
+        user_name: 利用者名
+        status: 連絡 # 状態
+        due_date: 貸出期限
+        number_of_day_overdue: 超過日数
+        type1_printed: 督促はがき
+        type1_printed_at: 督促はがき印刷日時
+        type2_printed: 催告書
+        type2_printed_at: 催告書印刷日時
+        mail_sent_at: 督促メール送信日時
+        printed: 印字済
+        status_name:
+          accepted: 未 # 連絡
+          called: 済 # 連絡済    
+        honorific1: 様
+        honorific2: さん
+        total : 全
+        other: 他
+        items: 冊
+        library: 本籍館
+        item_identifier: 所蔵情報ID
+      library:
+        name: 名前
+        display_name: 表示名
+        short_display_name: 短縮表示名
+        zip_code: 郵便番号
+        region: 都道府県
+        locality: 市区町村
+        street: 番地
+        telephone_number_1: 電話番号1
+        telephone_number_2: 電話番号2
+        fax_number: ファックス番号
+        lat: 緯度
+        lng: 経度
+        note: 注記
+        call_number_rows: 請求記号の列数
+        call_number_delimiter: 請求番号の区切り文字
+        position: 位置
+        deleted_at: 削除時刻
+        opening_hour: 開館時間
+      question:
+        body: 本文
+        deleted_at: 削除時刻
+        shared: 質問を公開する
+        solved: 解決済み
+        answers_count: 回答件数
+      patron_import_file:
+        patron_import_file_name: ファイル名
+        patron_import_content_type: Content-Type
+        patron_import_file_size: ファイルサイズ
+        file_hash: ファイルのハッシュ
+        note: 注記
+        imported_at: インポート時刻
+        patron_import_updated_at: 更新時刻
+        state: 状態
+        edit_mode: 編集モード
+        import_request: すぐにインポート
+      circulation_status:
+        name: 名前
+        display_name: 表示名
+        unsearchable: 検索対象から除外
+        note: 注記
+        position: 位置
+      remove_reason:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      inventory:
+        note: 注記
+      patron:
+        last_name: 姓
+        middle_name: ミドルネーム
+        first_name: 名
+        last_name_transcription: 姓（ヨミ）
+        middle_name_transcription: ミドルネーム（ヨミ）
+        first_name_transcription: 名（ヨミ）
+        corporate_name: 会社名
+        corporate_name_transcription: 企業名（ヨミ）
+        full_name: フルネーム
+        full_name_transcription: フルネーム（ヨミ）
+        full_name_alternative: フルネーム代替
+        full_name_note: 未入力の場合、保存時に自動的に 姓＋" "＋名 が設定されます。
+        deleted_at: 削除時刻
+        zip_code_1: 郵便番号1
+        zip_code_2: 郵便番号2
+        address: 住所
+        address_1: 住所1
+        address_2: 住所2
+        address_1_note: 住所1の注記
+        address_2_note: 住所2の注記
+        telephone_number: 電話番号
+        telephone_number_1: 内線 # 電話番号1-1
+        telephone_number_2: 電話番号2-1
+        extelephone_number_1: 電話番号1-2
+        extelephone_number_2: 電話番号2-2
+        fax_number_1: 電話番号1-3
+        fax_number_2: 電話番号2-3
+        home_phone: 自宅
+        mobile_phone: 携帯
+        company_phone: 勤務先
+        fax: ファックス
+        extension: 内線
+        other_designation: 他の指定
+        no_key: 不明
+        place: 場所
+        date_of_birth: 生年月日
+        birth_date: 生年月日
+        date_of_death: 没年月日
+        death_date: 没年月日
+        date_of_establishment: 設立年月日
+        date_of_dissolution: 解散年月日
+        lock_version: ロックバージョン
+        note: 注記
+        country: 国籍
+        patron_type: 人物・団体の種類
+        language: 言語
+        email: メールアドレス
+        url: URL
+        note_update_at: 注記更新時刻
+        old: 歳
+        patron_identifier: 人物団体の識別番号
+      feeds/app:
+        source_url: ソースURL
+        title: タイトル
+        description: 説明
+        directory_title: ディレクトリタイトル
+        title_url: 作品のURL
+        author: 著者
+        author_email: 著者のメール
+        author_affiliation: 著者略歴
+        author_location: 著者のロケーション
+        screenshot: スクリーンショット
+        thumbnail: サムネイル
+        height: 高さ
+        width: 幅
+        scaling: スケーリング
+        scrolling: スクロール
+        singleton: シングルトン
+        author_photo: 著者写真
+        author_aboutme: 著者aboutme
+        author_link: 著者名
+        author_quote: 著者引用
+      feeds/persistence:
+        key: 鍵
+        value: 値
+      feeds/shared:
+        key: 鍵
+        value: 値
+      feeds/instance:
+        key: 鍵
+        value: 値
+      feeds/global:
+        key: 鍵
+        value: 値
+      feeds/activity:
+        title: タイトル
+      subject_as_object:
+        term: 用語
+      subject_as_place:
+        term: 用語
+      subject_has_classification:
+        subject: 件名
+        classification: 分類
+      expression:
+        original_title: タイトル # 原題
+        title_transcription: タイトル(ヨミ)
+        title_alternative: 代替タイトル
+        summarization: 要約
+        context: コンテキスト
+        issn: ISSN
+        feed_url: フィードURL
+        note: 注記
+        lock_version: ロックバージョン
+        deleted_at: 削除時刻
+      language:
+        name: 名前
+        native_name: ネイティブ名
+        display_name: 表示名
+        iso_639_1: ISO 639-1
+        iso_639_2: ISO 639-2
+        iso_639_3: ISO 639-3
+        note: 注記
+        position: 位置
+      patron_merge_list:
+        title: タイトル
       user:
         login: ユーザ名
         username: ユーザ名
@@ -26,31 +470,447 @@ ja:
         activation_code: 活性化コード
         activated_at: 登録時刻
         expired_at: 有効期限
-        locked: 利用不可
+        nil_expired_at: （有効期限無し）
+        locked: 利用禁止
         confirmed: 確認済み
         approved: 承認済み
         checkout_icalendar_token: 貸出iCalendarのトークン
-        due_date_reminder_days: Duedateリマインダー日
+        answer_rss_token: 回答用RSSのトークン
+        duedate_reminder_days: Duedateリマインダー日
         note: 注記
+        save_search_history: 検索履歴を保存する
         save_checkout_history: 貸出の履歴を保存する
         lock_version: ロックバージョン
         keyword_list: キーワードリスト
         user_number: 利用者番号
+        present_user_number: 古い利用者番号
+        new_user_number: 新しい利用者番号
         state: 状態
-        agent: 人物・団体
+        patron: 人物・団体
         library: 所属館
+        reserved_library: 予約館
         user_group: ユーザグループ
-        full_name: 氏名
+        full_name: フルネーム
         password: パスワード
         current_password: 現在のパスワード
         locale: 言語
         password_confirmation: パスワード（確認）
+        birth_date: 生年月日
+        death_date: 没年月日
+        email: メールアドレス
+        adddress: 住所
+        disp_user_info: 利用者情報を表示する
+        show_user: 利用者の表示
+        unable: 連絡不能
+        locked_yes: (ログイン可) # 利用可能
+        locked_no: (ログイン不可) # 利用禁止
+        unable_yes: 可能
+        unable_no: 不能
+        user_status: 利用状況
+        department: 所属部署
+      work_has_subject:
+        work: 書いた資料
+        subject: 件名
+        subjectable_type: 件名付与対象の種類
+      picture_file:
+        picture_attachable_type: 画像を添付可能な種類
+        picture_file_size: ファイルサイズ
+        picture_content_type: Content-Type
+        title: タイトル
+        picture_file_name: ファイル名
+        height: 高さ
+        width: 幅
+        thumbnail: サムネイル
+        file_hash: ファイルのハッシュ
+        picture_updated_at: 更新時刻
+      form_of_work:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      inter_library_loan:
+        item_id: 所蔵情報
+        requested_at: 依頼時刻
+        shipped_at: 発送時刻
+        received_at: 受取時刻
+        return_shipped_at: 返却発送時刻
+        return_received_at: 返却受取時刻
+        deleted_at: 削除時刻
+        borrowing_library: 受取図書館
+        from_library: 移動元図書館
+        to_library: 受取図書館
+        state: 状態
+        reason: 移動理由
+      classification:
+        category: カテゴリー
+        name: 名前
+        note: 注記
+      imported_object:
+        imported_file: インポート用ファイル
+        imported_file_type: インポート用ファイルの種類
+        importable: インポートされた資料
+        importable_type: インポートされた資料の種類
+        line_number: 行番号
+      exemplify:
+        position: 位置
+      own:
+        position: 位置
+      search_history:
+        operation: 操作
+        version: バージョン
+        query: クエリ
+        start_record: スタート記録
+        maximum_records: 最大レコード数
+        record_packing: レコードの梱包
+        record_schema: レコードスキーマ
+        result_set_ttl: 結果のTTL設定
+        stylesheet: スタイルシート
+        extra_request_data: 余分なリクエストデータ
+        number_of_records: レコードの数
+        result_set_idle_time: 結果のアイドル時間を設定
+        records: レコード
+        next_record_position: 次のレコードの位置
+        diagnostics: 診断
+        extra_response_data: 余分な応答データ
+        echoed_search_retrieve_request: エコーの検索リクエストを取得
+      shelf:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+        deleted_at: 削除時刻
+        open_access: 開架区分
+        open: 閲覧室 # 開架 
+        closed: 書庫 # 閉架
+        stock: 保存
+        in_process: 受入手続き中
+        other: その他
+      advertisement:
+        title: タイトル
+        url: URL
+        body: 本文
+        note: 注記
+        started_at: 開始時刻
+        ended_at: 終了時刻
+        deleted_at: 削除時刻
+        position: 位置
+      porta_response:
+        body: 本文
+      donate:
+        patron: 人物・団体
+        item: 所蔵情報
+      basket:
+        user: 利用者
+        note: 注記
+        lock_version: ロックバージョン
+      subject_as_event:
+        term: 用語
+      checked_item:
+        due_date: 期日
+        user_comment: 利用者の注記
+        edit_user_comment: 利用者の注記を編集する
+        update_note: 注記の更新
+      produce:
+        position: 位置
+        manifestation: 出版関係 
       role:
         name: 名前
         display_name: 表示名
         score: 点数
         note: 注記
         position: 位置
+      session:
+        data: データ
+      subject_broader_term:
+      subject_heading_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      subscribe:
+        started_on: 開始日
+        ended_on: 終了日
+      item:
+        call_number: 請求記号
+        item_identifier: 所蔵情報ID
+        deleted_at: 削除時刻
+        include_supplements: 付録を含む
+        note: 注記
+        url: URL
+        price: 購入価格
+        price_string: 購入価格
+        lock_version: ロックバージョン
+        checkout_type: 貸出区分
+        retention_period: 保存種別
+        acquired_at: 受入日
+        acquired_at_string: 受入日
+        loss_item: 紛失処理
+        set_status: 紛失処理を実行
+        will_loss_item: 資料の貸出状態を紛失扱いにし、自動返却を行いますか。
+        fail_update_loss_item: 紛失処理に失敗しました。
+        created_at: 登録日
+        removed_at: 除籍日
+        items_number: 所蔵数
+        rank: 正本区分
+        non_searchable: 検索対象から除外
+      loss_item:
+        user_id: 利用者番号
+        item_id: 紛失資料
+        loss_item: 紛失資料
+        status: 状態
+        reimbursed: 弁償済み
+        not_reimbursed: 未弁償
+        will_reimburse: 弁償処理を行い、資料の貸出状態を除籍扱いにしますか。
+        will_cancellation: 弁償処理を取り消し、資料の貸出状態を紛失扱いにしますか。
+        note: 注記
+        fail_update: 紛失弁償処理に失敗しました。
+      barcode:
+        barcode_type: バーコードの種類
+        barcodable_type: バーコード付与対象の種類
+        code_word: コードワード
+        data: データ
+        barcodable: バーコード付与対象
+      barcode_list:
+        barcode_name: 名前
+        usage_type: タイプ
+        barcode_type: バーコードの種類
+        barcode_prefix: プレフィックス
+        barcode_suffix: サフィックス
+        printed_number: 連番桁数
+        #sheet_type: 1シートあたりの個数
+        sheet_id: 用紙の種類
+        last_number: 最後に出力した番号
+        start_number: 今回の開始番号
+        end_number: 今回の終了番号
+        print_sheet: 出力するシート数
+        error: 0以上の数値を入力してください
+        output_user_numbers: 利用者番号を昇順に出力します。
+        output_item_identifiers: 所蔵IDを昇順に出力します。
+        sp_start_number: 開始コード
+        sp_end_number: 終了コード
+        generated_from: "1:パターンから作成,2:利用者番号から作成,3:所蔵IDから作成,4:カスタムバーコードを作成"
+        label_note: "ラベル注記"
+        print_label: "印刷"
+        print_label_2: "印刷する"
+        custom_barcode: "カスタムバーコード"
+      work:
+        original_title: タイトル # 原題
+        title_transcription: タイトル（ヨミ）
+        title_alternative: 代替タイトル
+        context: コンテキスト
+        note: 注記
+        lock_version: ロックバージョン
+        deleted_at: 削除時刻
+      purchase_request:
+        title: タイトル
+        author: 著者
+        publisher: 出版者
+        isbn: ISBN
+        date_of_publication: 出版日
+        price: 価格
+        url: URL
+        note: 注記
+        created_at: 作成時刻
+        accepted_at: 受理時刻
+        denied_at: 拒絶時刻
+        deleted_at: 削除時刻
+        pub_date: 出版日
+        state: 状態
+        reason: 理由
+      realize:
+        position: 位置
+        patron: 人物・団体
+        expression: 協力した資料
+      reify:
+        position: 位置
+      subject_as_concept:
+        term: 用語
+      frequency:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+        freq_string: 間隔
+        nii_code: 識別コード
+      expression_merge_list:
+        title: タイトル
+      use_restriction:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      subject:
+        term: 用語
+        term_transcription: 用語よみ
+        scope_note: スコープ注記
+        note: 注記
+        lock_version: ロックバージョン
+      content_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      work_merge:
+      aaws_response:
+        body: 本文
+      patron_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      subject_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      work_merge_list:
+        title: タイトル
+      order:
+        position: 位置
+        state: 状態
+      order_list:
+        title: 発注リスト名
+        bookstore: 書店
+        note: 注記
+        ordered_at: 発注時刻
+        ordered_at_s: 発注時刻
+        deleted_at: 削除時刻
+        state: 状態
+        ordered_at_annotation: YYYY-MM-DD あるいは YYYY-MM-DD HH:MM (例 "2011-04-01 09:00")
+      advertise:
+        position: 位置
+      embody:
+        position: 位置
+      item_has_use_restriction:
+      expression_merge:
+      request_status_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      news_feed:
+        title: タイトル
+        url: URL
+        body: 本文
+        note: 注記
+        position: 位置
+      news_post:
+        title: タイトル
+        body: 本文
+        note: 注記
+        position: 位置
+        start_date: 開始日
+        to_date: 終了日
+        draft: 下書き
+      search_engine:
+        name: 名前
+        url: URL
+        base_url: ベースURL
+        http_method: HTTPメソッド
+        query_param: クエリパラメータ
+        additional_param: 追加のパラメータ
+        note: 注記
+        position: 位置
+      create:
+        position: 位置
+      carrier_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      retention_period:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+        non_searchable: 検索不可
+      manifestation_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      manifestation:
+        id: ID
+        original_title: タイトル # 原題
+        title_alternative: 代替タイトル
+        title_transcription: タイトル（ヨミ）
+        article_title: 誌名
+        classification_number: 分類番号
+        identifier: 識別子
+        date_of_publication: 出版日
+        pub_date: 出版日
+        pub_date_article: 刊行年
+        country_of_publication: 出版国
+        place_of_publication: 出版地
+        pub_year: 版年
+        deleted_at: 削除時刻
+        access_address: アクセスアドレス
+        start_page: 最初のページ
+        end_page: 最後のページ
+        page: ページ
+        size: サイズ
+        height: 高さ
+        width: 幅
+        depth: 奥行き
+        isbn: ISBN
+        isbn10: 10桁のISBN
+        wrong_isbn: 間違ったISBN
+        nbn: NBN
+        price: 価格
+        price_string: 価格
+        volume_number: 巻（数字）
+        volume_number_string: 巻
+        issue_number: 号（数字）
+        issue_number_string: 号
+        serial_number: 通号
+        serial_number_string: 通号
+        edition: 版（数字）
+        edition_string: 版
+        note: 注記
+        repository_content: リポジトリのコンテンツ
+        lock_version: ロックバージョン
+        carrier_type: 資料の形態
+        language: 言語
+        lccn: LCCN
+        issn: ISSN
+        marc_number: MARC番号
+        subscription_master: 購読マスタ
+        description: 説明
+        table_of_contents: 目次
+        except_recent: 新刊対象から除外
+        checkouts_count: 貸出回数(累計/今期/前期)
+        reserves_count:  予約回数(累計/今期/前期)
+        last_checkout_datetime: 最終利用年月日
+        ndc: 分類記号
+        exinfo_1: 拡張情報１
+        exinfo_2: 拡張情報２
+        exinfo_3: 拡張情報３
+        exinfo_4: 拡張情報４
+        exinfo_5: 拡張情報５
+        exinfo_6: 拡張情報６
+        exinfo_7: 拡張情報７
+        exinfo_8: 拡張情報８
+        exinfo_9: 拡張情報９
+        exinfo_10: 拡張情報１０
+        edition_display_value: 版表示
+        reserves_number: 予約数
+        detail: 資料確認票
+        supplement: 付録
+        per_page: 表示件数
+        creator: 著者
+        contributor: 協力者・編者
+        publisher: 出版者
+        subject: 件名
+        missing_issue: 欠号管理
+        acceptance_number: 受入部数
+        printout_in_progress: 資料確認票の印刷を開始しました
+        external_catalog: 目録作成機関
+        hold_dbname: 収録DB名
+        hold_id: 所蔵レコードID
+        hold_libabl: 所属館略称
+        hold_cln: 請求記号
+        hold_rgtn: 資料番号
+        jpn_or_foreign: 和洋区分
       user_group:
         name: 名前
         display_name: 表示名
@@ -61,7 +921,558 @@ ja:
         number_of_day_to_notify_due_date: 貸出期限の何日前に督促を送るか
         number_of_day_to_notify_overdue: 貸出期限の何日後に督促を送るか
         number_of_time_to_notify_overdue: 貸出期限が切れた後に何回督促を送るか
-
+      resource_import_file:
+        resource_import_file_name: ファイル名
+        resource_import_content_type: Content-Type
+        resource_import_file_size: ファイルサイズ
+        file_hash: ファイルのハッシュ
+        note: 注記
+        imported_at: インポート時刻
+        resource_import_updated_at: 更新時刻
+        state: 状態
+        edit_mode: 編集モード
+      resource_import_textfile:
+        resource_import_text_file_name: ファイル名
+        resource_import_text_content_type: Content-Type
+        resource_import_text_file_size: ファイルサイズ
+        file_hash: ファイルのハッシュ
+        note: 注記
+        imported_at: インポート時刻
+        resource_import_updated_at: 更新時刻
+        state: 状態
+        adapter_name: 取込ファイル種別
+        sheet: 取込シート
+      checkout:
+        due_date: 期日
+        family_info: 家族情報
+        lock_version: ロックバージョン
+        renewal_count: 貸出の更新回数
+        output_checkoutlist: 貸出票の出力
+        over: 以上
+      subscription:
+        title: タイトル
+        note: 注記
+        deleted_at: 削除時刻
+        subscribes_count: 購読数
+      patron_merge:
+      subject_related_term:
+      library_group:
+        name: 名前
+        display_name: 表示名
+        short_name: 短縮名
+        email: メール
+        my_networks: LANとして扱うネットワーク
+        admin_networks: 管理用として扱うネットワーク
+        use_dsbl: DSBLを使用する
+        dsbl_list: DSBLの一覧
+        note: 注記
+        login_banner: ログイン画面でのメッセージ
+        post_to_union_catalog: 総合目録に登録する
+      attachment_file:
+        attachable_type: 添付可能な種類
+        size: ファイルサイズ
+        content_type: Content-Type
+        title: タイトル
+        filename: ファイル名
+        height: 高さ
+        width: 幅
+        thumbnail: サムネイル
+        fulltext: 全文
+        file_hash: ファイルのハッシュ
+      reserve:
+        user: 利用者
+        checked_out_at: 貸出時刻
+        canceled_at: 取消時刻
+        expired_at: 有効期限（この日以降は不要）
+        expired_at2: 有効期限
+        within_expired_at: 期限内
+        over_expired_at: 期限切れ
+        deleted_at: 削除時刻
+        created_at: 予約日時
+        state: 状態
+        contact: 連絡先
+        zipcode: 〒
+        information_type: 連絡方法
+        receipt_library: 受取館
+        unnecessary: 連絡不要
+        email: メール
+        telephone: 電話
+        reserve_list: 予約確認票
+        position: 順位
+      retained_manifestation:
+        done: 連絡完了
+        failed_update: 更新に失敗しました。
+      answer:
+        body: 本文
+        deleted_at: 削除時刻
+        shared: 回答を公開する
+        item_identifier_list: 所蔵情報IDリスト
+        url_list: URLリスト
+      bookstore:
+        name: 名前
+        name_transcription: 名前ヨミ
+        zip_code: 郵便番号
+        address: 住所
+        note: 注記
+        telephone_number: 電話番号
+        fax_number: ファックス番号
+        url: URL
+        email: メールアドレス
+        position: 位置
+        deleted_at: 削除時刻
+      area:
+        name: 地区名   
+        address: 住所
+      checkout_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      accept_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      classification_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      country:
+        name: 名前
+        display_name: 表示名
+        alpha_2: アルファ2
+        alpha_3: アルファ3
+        numeric_3: 数値3
+        note: 注記
+        position: 位置
+      manifestation_api_response:
+        body: 本文
+      request_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      inventory_file:
+        inventory_file_name: ファイル名
+        inventory_content_type: Content-Type
+        inventory_file_size: ファイルサイズ
+        file_hash: ファイルのハッシュ
+        note: 注記
+      user_group_has_checkout_type:
+        user_group: 利用者グループ
+        checkout_type: 貸出区分
+        checkout_limit: 貸出数の上限
+        checkout_period: 貸出期間
+        checkout_renewal_limit: 貸出更新回数の上限
+        reservation_limit: 予約冊数の上限
+        reservation_expired_period: 予約の期限切れまでの期間
+        set_due_date_before_closing_day: 返却日を閉館日の前日にする
+        fixed_due_date: 固定貸出期限
+        note: 注記
+        position: 位置
+        user_group_id: 利用者グループ
+        checkout_type_id: 貸出種別
+        current_checkout_count: 現在の貸出数
+      carrier_type_has_checkout_type:
+        carrier_type: 資料の形態
+        checkout_type: 貸出区分
+        note: 注記
+        position: 位置
+      manifestation_checkout_stat:
+        start_date: 開始日
+        end_date: 終了日
+        note: 注記
+        state: 状態
+      user_checkout_stat:
+        start_date: 開始日
+        end_date: 終了日
+        note: 注記
+        state: 状態
+      manifestation_reserve_stat:
+        start_date: 開始日
+        end_date: 終了日
+        note: 注記
+        state: 状態
+      user_reserve_stat:
+        start_date: 開始日
+        end_date: 終了日
+        note: 注記
+        state: 状態
+      concept:
+        term: 用語
+        note: 注記
+        required_score: 必要スコア
+      place:
+        term: 用語
+        note: 注記
+        required_score: 必要スコア
+      person:
+        last_name: 姓
+        middle_name: ミドルネーム
+        first_name: 名前
+        last_name_transcription: 最後の名前のよみ
+        middle_name_transcription: ミドルネームよみ
+        first_name_transcription: 最初の名前のよみ
+        corporate_name: 会社名
+        corporate_name_transcription: 企業名よみ
+        full_name: 正式名称
+        full_name_transcription: フルネームよみ
+        full_name_alternative: フルネーム代替
+        deleted_at: 削除時刻
+        zip_code_1: 郵便番号1
+        zip_code_2: 郵便番号2
+        address_1: 所属先住所 # 住所1
+        address_2: 住所2
+        address_1_note: 所属先住所の注記 # 住所1の注記
+        address_2_note: 住所2の注記
+        telephone_number_1: 電話番号1
+        telephone_number_2: 電話番号2
+        fax_number_1: ファックス番号1
+        fax_number_2: ファックス番号2
+        other_designation: 他の指定
+        place: 場所
+        date_of_birth: 生年月日
+        note: 注記
+      corporate_body:
+        full_name: 名前
+        full_name_transcription: 名前のよみ
+        full_name_alternative: 代替の名前
+        deleted_at: 削除時刻
+        zip_code_1: 郵便番号1
+        zip_code_2: 郵便番号2
+        address_1: 所属先住所 # 住所1
+        address_2: 住所2
+        address_1_note: 所属先住所の注記 # 住所1の注記
+        address_2_note: 住所2の注記
+        telephone_number_1: 電話番号1
+        telephone_number_2: 電話番号2
+        fax_number_1: ファックス番号1
+        fax_number_2: ファックス番号2
+        other_designation: 他の指定
+        place: 場所
+        date_of_birth: 生年月日
+        note: 注記
+      family:
+        id: ID
+        full_name: 名前
+        full_name_transcription: 名前のよみ
+        full_name_alternative: 代替の名前
+        deleted_at: 削除時刻
+        zip_code_1: 郵便番号1
+        zip_code_2: 郵便番号2
+        address_1: 所属先住所 # 住所1
+        address_2: 住所2
+        address_1_note: 所属先住所の注記 # 住所1の注記
+        address_2_note: 住所2の注記
+        telephone_number_1: 電話番号1
+        telephone_number_2: 電話番号2
+        fax_number_1: ファックス番号1
+        fax_number_2: ファックス番号2
+        other_designation: 他の指定
+        place: 場所
+        date_of_birth: 生年月日
+        note: 注記
+      unablelist:
+        output_format: 出力形式 
+      checkout_stat_has_user:
+        checkouts_count: 利用者の貸出回数
+      checkout_stat_has_manifestation:
+        checkouts_count: 資料の貸出回数
+      reserve_stat_has_user:
+        reserves_count: 利用者の予約回数
+      reserve_stat_has_manifestation:
+        reserves_count: 資料の予約回数
+      work_has_work:
+        from_work: 始点
+        to_work: 終点
+      expression_has_expression:
+        from_expression: 始点
+        to_expression: 終点
+      manifestation_has_manifestation:
+        from_manifestation: 始点
+        to_manifestation: 終点
+      item_has_item:
+        from_item: 始点
+        to_item: 終点
+      patron_has_patron:
+        from_patron: 始点
+        to_patron: 終点
+      shelf_has_manifestation:
+        shelf: 書棚
+        manifestation: 資料
+        position: 位置
+      medium_of_performance:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      content_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      extent:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      content_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      patron_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      patron_relationship_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      work_relationship_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      expression_relationship_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      manifestation_relationship_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      item_relationship_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      lending_policy:
+        loan_period: 貸出期間
+        fixed_due_date: 固定貸出期限
+        renewal: 貸出延長の回数
+        fine: 罰金
+        note: 注記
+        position: 位置
+      nii_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      license:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      work_to_expression_rel_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      expression_to_manifestation_rel_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      series_statement:
+        id: ID
+        original_title: シリーズ名
+        numbering: シリーズ番号
+        title_subseries: 副シリーズ名
+        numbering_subseries: 副シリーズ番号
+        work: 書いた資料
+        series_statement_identifier: シリーズ識別子
+        issn: ISSN
+        periodical: 定期刊行物
+        title_transcription: シリーズ名（ヨミ）
+        note: 注記
+      series_statement_relationship:
+        seq: シーケンシャル番号	 
+        before_series_statement_relationship: 前誌
+        after_series_statement_relationship: 後誌
+        before_series_statement_relationship_id: 前誌ID
+        after_series_statement_relationship_id: 後誌ID
+        source: 作成機関 
+      import_request:
+        isbn: ISBN
+        state: 状態
+      resource:
+        iss_token: トークン
+        manifestation_id: 資料
+        dcndl_xml: DCNDL XML
+        work_token: 著作トークン
+        approve: 修正承認
+        publish: 公開承認
+        state: 状態
+        deleted_at: 削除時刻
+      patron_relationship:
+        parent: 派生元の人物・団体
+        child: 派生先の人物・団体
+        patron_relationship_type_id: 人物・団体の関係の種類
+      manifestation_relationship:
+        parent: 派生元の資料
+        child: 派生先の資料
+        parent_id: 派生元の資料
+        child_id: 派生先の資料
+        manifestation_relationship_type_id: 資料の関係の種類
+      resource_import_result:
+        body: 本文
+        error_msg: メッセージ
+        index: 項番
+        imported_row: 処理済み行数
+        display_result: 表示する結果
+        all: 全て
+        has_msg: メッセージが存在するもの
+      resource_import_textresult:
+        body: 処理内容
+        error_msg: メッセージ
+        imported_row: 処理済み件数
+      patron_import_result:
+        body: 本文
+        error_msg: メッセージ
+        index: 項番
+        imported_row: 処理済み件数
+      create_type:
+        name: 名称
+        display_name: 表示名
+        note: 注記
+      realize_type:
+        name: 名称
+        display_name: 表示名
+        note: 注記
+      produce_type:
+        name: 名称
+        display_name: 表示名
+        note: 注記
+      series_statement_merge_list:
+        title: タイトル
+      series_has_manifestation:
+        series_statement_id: シリーズ情報のID
+        manifestation_id: 資料のID
+      budget:
+        library_id: 図書館
+        term_id: 期間
+        library: 図書館
+        term: 期間
+        budget_type: 予算区分
+        amount: 金額
+        note: 説明
+      budget_type:
+        id: ID
+        name: 区分名
+      term:
+        display_name: 期間名
+        start_at: 開始日時
+        end_at: 終了日時
+        end_at_invalid: 終了日は開始日より未来を指定してください。
+      item_list:
+        list_type: リストの種類
+        list_condition: 抽出条件
+        list_number: 件数
+        page_number: ページ数(PDF)
+        sort_by: ソート順
+      item_register:
+        list_type: リストの種類
+        file_type: ファイル形式
+      library_report:
+        library: 図書館
+        yyyymmdd: 日報対象日
+        yyyymm: 月報対象月
+        visiters: 入館者(人)
+        copies: コピー件数(件)
+        consultations: 窓口利用件数(件)
+      system_configuration:
+        keyname: key
+        v: "値"
+        typename: "型"
+        description: "説明"
+        invalid_format: "の型が不正です"
+      expense:
+        budget: 予算
+        item: 所蔵情報
+        price: 値段
+        created_at: 受入日
+      sheet:
+        name: 名称
+        note: 備考
+        height: 高さ
+        width: 幅
+        cell_h: セル(H)
+        cell_w: セル(W)
+        margin_h: マージン(H)
+        margin_w: マージン(W)
+        space_h: 間隔(H)
+        space_w: 間隔(W)
+        cell_x: セル個数(H)
+        cell_y: セル個数(W)
+      keyword_count:
+        rank: 順位
+        keyword: 検索ワード
+        count: 検索回数
+      copy_request:
+        user: 利用者
+        body: 本文
+        created_at: 登録日
+      nacsis_user_request:
+        subject_heading: 本表題/責任表示
+        subject_heading_reading: 本表題等のよみ
+        publisher: 出版者
+        pub_date: 出版年
+        publish_year: 出版年
+        physical_description: 形態(ページ情報)
+        series_title: シリーズ名
+        note: 資料注記
+        isbn: ISBN
+        issn: ISSN
+        pub_country: 出版国
+        title_language: 標題言語
+        text_language: 本文言語
+        classmark: 分類記号
+        author_heading: 著者情報
+        subject: 件名
+        ncid: NCID
+        user_id: 利用者ID
+        user_name: 利用者名
+        request_datetime: 依頼日時
+        request_type: 依頼分類
+        request_type_names:
+         - 
+         - 借用
+         - 複写
+        state: 処理状態
+        state_names:
+         - 終了
+         - 受付
+         - 受付済
+         - 事務員返却
+         - 依頼済
+         - 相手側拒否
+         - 到着済
+         - 事務確認中
+         - 連務連絡済
+        user_note: 依頼内容
+        librarian_note: 事務員注記
+        created_from: 開始日付
+        created_to: 終了日付
+      relationship_family:
+        display_name: 表示名
+        description: 説明
+        note: 注記
+      series_statement_relationship_type:
+        display_name: 表示名
+        typeid: タイプID
+        note: 注記
+      theme:
+        name: 名前
+        description: 説明
+        publish: 公開範囲
+        note: 注記
+        position: 優先度
   page:
     user_title: "ようこそ %{login_name} さん"
     logged_in_as: "%{login_name} としてログイン"
@@ -75,20 +1486,52 @@ ja:
     catalog_search: "資料の検索"
     search: "検索"
     search_term: "検索語"
+    search_for: "検索対象"
+    search_local: "ローカル所蔵"
+    search_nacsis: "NACSIS 目録"
+    all_search_term: "すべて"
+    any_search_term: "いずれか"
+    except_search_term: "除外"
     search_result: "検索結果"
+    search_clear: クリア
     number_of_manifestations: "%{numdocs} 件の資料があります。"
     number_of_unread_messages: "%{numdocs} 件の未読メッセージがあります。"
     number_of_search_results: "%{count} 件の資料が %{numdocs} 件の資料から %{seconds} 秒で見つかりました。"
+    number_of_nacsis_book_search_results: "図書の検索結果（%{count}件）"
+    number_of_nacsis_serial_search_results: "雑誌資料の検索結果（%{count}件）"
     tag: "タグ"
     call_number: "請求記号"
     holding: "所蔵"
+    has_relationships: "関連あり"
     advanced_search: "条件を詳しく指定して検索"
+    normal_search: "詳細条件を解除して検索"
+    advanced_search_summary_delimiter: "、"
+    created_at: "登録日"
+    pub_date: "出版日"
     title: "タイトル"
+    author: "著者"
+    carrier_type: "資料形態"
+    item_identifier: "所蔵情報ID"
+    exact_title: "完全一致"
+    all_title: "すべて"
+    any_title: "いずれか"
+    except_title: "除外"
+    exact_creator: "完全一致"
+    all_creator: "すべて"
+    any_creator: "いずれか"
+    except_creator: "除外"
+    exact_publisher: "完全一致"
+    all_publisher: "すべて"
+    any_publisher: "いずれか"
+    except_publisher: "除外"
+    solr_query: "Solr 検索式"
     note: "注記"
     back: "戻る"
     show: "表示"
     edit: "編集"
     destroy: "削除"
+    remove: "除籍"
+    restore: "復元"
     create: "作成"
     update: "更新"
     delete: "削除"
@@ -97,10 +1540,17 @@ ja:
     bookstore: "書店"
     created_at: "作成時刻"
     updated_at: "更新時刻"
+    operated_at: "実施年月"
     checkout: "貸出"
     checkin: "返却"
+    recheckout: "再貸出"
     name: "名前"
-    are_you_sure: "ほんとうですか？"
+    are_you_sure: "削除しますか？"
+    cancel_confirm: "取消しますか？"
+    roles_confirm: "実行しますか？"
+    send_email_confirm: "実行しますか？"
+    inter_library_loans_confirm: "実行しますか？"
+    undo_binding: "解除しますか？"
     file: "ファイル"
     cancel: "取消"
     feed: "フィード"
@@ -111,7 +1561,7 @@ ja:
     detail: "詳細"
     acquisition: "資料の受入"
     configuration: "システムの設定"
-    search_resource: "%{model}を検索する"
+    search_resource: "%{model}を検索"
     show_all: "全てを表示"
     hide: "隠す"
     overdue: "延滞"
@@ -121,6 +1571,7 @@ ja:
     management: "図書館の管理"
     about_us: "私たちについて"
     open_source_integrated_library_system: "オープンソース統合図書館システム"
+    enju_leaf_extended_version: 公共図書館拡張版
     related_work: "この資料に含まれる著作"
     related_manifestation: "この著作を含む資料"
     amazon_review: "Amazonのレビュー"
@@ -129,16 +1580,17 @@ ja:
     picture: "画像"
     number: "巻号"
     statistics: "統計"
+    ex_statistics: "拡張統計"
     request: "図書館への依頼"
     librarian_circulation: "貸出・返却・予約"
     user_circulation: "貸出と予約"
     reset: "リセット"
     account: "アカウント"
     form: "形態"
-    remove_this_facet: "この絞り込みを解除する"
+    remove_this_facet: "この絞り込みを解除"
     no_subject: "件名はついていません。"
     no_tag: "タグはついていません。"
-    add_agnet: "人物・団体を追加する"
+    add_patron: "人物・団体を追加"
     total: "合計"
     sort_by: "次の項目で並べ替える"
     bookmarklet: "ブックマークレット"
@@ -149,10 +1601,13 @@ ja:
     new_resource: "新着資料"
     checkout_history: "貸出履歴"
     recommendation: "おすすめの資料"
-    add_manually: "手動で登録する"
-    import_from_file: "TSVファイルからのインポート"
+    add_manually: "手動で登録"
+    import_from_tsvfile: "TSVファイルからのインポート"
+    import_from_file: "ファイルからのインポート"
     import_from_network: "ネットワークからインポート"
     no_record_found: "資料が見つかりませんでした。"
+    did_you_mean_to_search_for: "もしかして"
+    not_found_users: "該当の利用者は見つかりませんでした。"
     limit_exceeded: "検索件数の上限を超えました。最初の%{count}件を表示しています。"
     enter_search_term: "検索語を入力してください。"
     serial: "雑誌・定期刊行物"
@@ -167,10 +1622,27 @@ ja:
     subject_and_classification: "件名と分類"
     you_can_search_following_database: "以下のデータベースで検索することができます。"
     listing: "%{model}の一覧"
+    histories: "%{model}履歴"
     new: "%{model}の新規作成"
     editing: "%{model}の編集"
     showing: "%{model}の表示"
-    agent_management: "人物・団体の管理"
+    output: "%{model}の出力"
+    output_pdf: "%{model}の出力(PDF)"
+    output_csv: "%{model}の出力(CSV)"
+    output_tsv: "%{model}の出力(TSV)"
+    output_excelx: "%{model}の出力(Excel 2007以降)"
+    output_excelx_dialog: "出力対象カラムを選択"
+    output_excelx_detail: "チェックした項目を出力"
+    output_excelx_default_checked: "(デフォルト)"
+    output_request: "欠号未請求リストの出力(PDF)"
+    batch_change: "一括更新"
+    batch_change_dialog: "アクションを選択"
+    batch_change_description: "バスケットに入っている情報を一括更新します。<br />実行したいアクションを選択してください。"
+    batch_change_theme: "テーマを設定"
+    batch_change_series_statement: "シリーズ情報を設定" 
+    batch_change_series_statement_updated: "シリーズ情報を %{title} に設定しました。"
+    batch_change_series_statement_failed: "シリーズ情報の設定に失敗しました。"
+    patron_management: "人物・団体の管理"
     user_management: "利用者の管理"
     back_to: "%{model}の一覧に戻る"
     picture: "画像"
@@ -180,13 +1652,19 @@ ja:
     date: "日時"
     this_month: "今月"
     click_to_edit: "クリックで編集開始"
+    saving: "保存しています..."
+    news: "お知らせ"
     model: "モデル"
     number_of_record: "レコード数"
     facet: "属性による絞り込み"
     number_of_days: "%{count} 日"
     require_login_as_librarian: "操作を進めるには、図書館員としてログインする必要があります。"
     read: "読み込み"
+    merge: "統合（取り消しはできません）"
+    merge_resource: "%{model}を統合する"
+    merge_confirm: "実行しますか？"
     attachable: "添付先"
+    under_construction: "開発中"
     sent_email: "電子メールを送信しました。"
     identifier: "識別子"
     select_locale: "言語を設定"
@@ -212,28 +1690,87 @@ ja:
     last_updated: "最終更新日"
     unknown: "不明"
     more: "さらに表示"
+    no_file: "ダウンロードするファイルがありません。"
     connection_failed: "ネットワーク接続に失敗しました。"
     timed_out: "タイムアウトしました。"
     example: "例"
+    example_date: "2012-04-01"
     saving: "保存中..."
     previous: "前へ"
     next: "次へ"
     my_account: "自分のアカウント"
     number_of_pictures: "枚"
-    status: "状態"
-    enabled: "有効"
-    disabled: "無効"
-    routing_error: "ルーティングエラー"
-    change: "変更"
-    refine_by: "この一覧から絞り込む"
-    standard_view: "パソコン用の画面"
-    mobile_view: "携帯機器用の画面"
-    rearrange_order: "順番を変更する"
-    only_lowercase_letters_and_numbers_are_allowed: "英数小文字のみ使用できます。最初の文字に数字は使用できません。"
-    not_logged_in: "ログインしていません"
-    add_child: "子を追加"
-    electronic_resource_management: 電子リソース管理
-    continue: "続行しますか？"
+    best_request: "予約の多い本"
+    best_reader: "貸出の多い本"
+    userdetail: "利用者詳細"
+    download: "ダウンロード"
+    budget_and_order: "予算と発注の管理" 
+    budget: "予算"
+    wait: "処理中.."
+    system_configuration: "システム設定"
+    reminder_postal_card: "督促はがき"
+    reminder_letter: "催告書"
+    extensions: "Enju_trunk 拡張機能"
+    budgets: "予算"
+    edit_series_statement_relationship: "雑誌遍歴の編集"
+    extensions_1: "その他の機能"
+    relationship: "遍歴"
+    library_check: "蔵書点検"
+    access_logs: アクセス件数
+    search_results: "資料の検索結果"
+    search_article_results: "文献資料の検索結果"
+    library_reports: "報告書・帳票"
+    more_information: "詳細情報を表示"
+    output_receipt_printer: "＊この資料確認票はレシートプリンタ用です。8cm幅に出力されますのでご注意ください。"
+    nacsis_book: "図書"
+    nacsis_serial: "雑誌"
+    exstatistics:
+      ranknumber: 順位
+      count: 回数
+      readercount: 貸出回数
+      requestcount: 予約回数
+      nil_date: "年月日が空です。"
+      invalid_input_date: "入力年月日が正しくありません。"
+      over_end_date: "検索終了日は検索開始日以降を指定してください。"
+    get_manual: 利用マニュアルをダウンロード
+    theme:
+      theme_list: テーマ一覧
+      no_matches_found: テーマが見つかりません
+      hot_topic: 話題のテーマ
+      related_manifestation: 関連する資料
+
+  manual_for_user: "利用マニュアル.pdf"
+  manual_for_librarian: "運用マニュアル.pdf"
+
+  tooltip:
+    icons_info: アイコンの説明
+    message: メッセージ
+    edit: 編集
+    book_edit: 編集
+    cancel: 取消
+    destroy: 削除
+    feed: フィード
+    csv: CSV
+    tsv: TSV
+    xlsx: XLSX
+    asc: 昇順
+    desc: 降順
+    picture: 画像
+    serial: 定期刊行物
+    web: Web
+    unavailable: 操作不可
+    add_derivation: 派生資料を追加
+    answer: 回答
+    serial: 定期刊行物
+    add: 追加
+
+  exstatistics:
+    report: 帳票
+    checkout_report: 貸出状況表
+    reserve_report: 予約状況表
+    library_report: 報告書(日報・月報)
+    ndl_report: 支部図書館業務年報の出力
+
   title:
     index: "一覧"
     show: "表示"
@@ -244,42 +1781,147 @@ ja:
     successfully_updated: "%{model}は正常に更新されました。"
     successfully_deleted: "%{model}は正常に削除されました。"
   advanced_search:
-    from: ""
-    to: "から"
+    from: "ここから"
+    to: "ここまで"
+    all: "全ての%{model}"
     all_libraries: "全ての図書館"
-  work:
-    agent_work: "%{agent_name} の書いた資料"
+    from_date: "検索開始日"
+    to_date: "検索終了日"
+    library: "図書館"
+    help_query: "タイトル、著者、出版者、シリーズ名、注記等を対象に検索を行います。"
+    help_isbn: "半角英数字で入力してください。"
+    help_issn: "半角英数字で入力してください。"
+    all_manifestations: "検索非対象資料も表示"
+    clear_query: "検索条件をクリア"
+    search_isbn: "ISBNで検索を行う場合、他の検索条件は指定できません。"
+    search_item_identifier: "所蔵情報IDで検索を行う場合、他の検索条件は指定できません。"
+    description: "
+      <h5>検索方法に関して:</h5>
+      <br />
+      所蔵情報IDを入力時、マッチした資料の表示画面に遷移します。<br />
+      (ただしアスタリスク入力時は、検索結果一覧画面に遷移します)<br />
+      その際、その他の条件は入力できません。
+      "
+    description_unique_isbn: "
+      <h5>検索方法に関して:</h5>
+      <br />
+      所蔵情報IDまたはISBNを入力時、マッチした資料の表示画面に遷移します。<br />
+      (ただしアスタリスク入力時は、検索結果一覧画面に遷移します)<br />
+      その際、その他の条件は入力できません。
+      "
+    help_solr_query: "
+      solr 検索式を直接入力します
+      "
+    solr_query_format:
+      format: "検索式の記述方法"
+      exsample: "例"
+      word: "単語による検索"
+      word_description: "入力された単語で検索を行います。"
+      word_ex: "気象"
+      and: "[AND]検索"
+      and_description: "キーワードとキーワードの間に「AND」あるいは「空白文字」が入力されているとき、入力された全てのキーワードを含む情報を検索します。"
+      and_ex: "title_text:(book1 AND book2)"
+      or: "[OR]検索"
+      or_description: "キーワードとキーワードの間に「OR」が入力されているとき、入力されたいずれかのキーワードを含む情報を検索します。"
+      or_ex: "title_text:(book1 OR book2)"
+      not: "[NOT]検索"
+      not_description: "キーワードの前に「NOT」が入力されているとき、それに続いて入力されたキーワードを検索非対象とします。"
+      not_ex: "title_text:(NOT book1)"
+      wild: "ワイルドカード検索"
+      wild_description: "「任意の文字」に置き換えて検索を行います。「*」が任意の複数文字、「?」が任意の１文字を表します。"
+      wild_ex: "天気??<br / >天気*"
+      field: "フィールド指定検索"
+      field_description: "指定されたフィールドに対して検索を行います。"
+      field_detail:
+        target: "検索対象"
+        format: "検索式"
+        title_format: "title_text:"
+        title_ex: "title_text:気候"
+        creator_format: "creator_text:"
+        creator_ex: "creator_text:山田太郎"
+        publisher_format: "publisher_text:"
+        publisher_ex: "publisher_text:新潮社"
+        contributor_format: "contributor_text:"
+        contributor_ex: "contributor_text:鈴木花子"
+        isbn_format: "isbn_sm:"
+        isbn_ex: "isbn_sm:4167113058"
+        issn_format: "issn_sm:"
+        issn_ex: "issn_sm:00280836"
+        item_identifier_format: "item_identifier_sm:"
+        item_identifier_ex: "item_identifier_sm:10000001"
+        pub_date_format: "pub_date_sm:[ TO ]"
+        pub_date_ex: "pub_date_sm:[2012-01-01 TO 2013-12-31]"
+        acquired_format: "acquired_at_sm:[ TO ]"
+        acquired_ex: "acquired_at_sm:[2012-01-01 TO 2013-12-31]"
+        removed_format: "removed_at_sm:[ TO ]"
+        removed_ex: "removed_at_sm:[2012-01-01 TO 2013-12-31]"
+        manifestation_type_format: "manifestation_type_sm:"
+        manifestation_type_ex: "manifestation_type_sm:japanese_book"
+        carrier_type_format: "carrier_type_s:"
+        carrier_type_ex: "carrier_type_s:print"
+        volume_number_string_format: "volume_number_string_sm:"
+        volume_number_string_ex: "volume_number_string_sm:1"
+        issue_number_string_format: "issue_number_string_sm:"
+        issue_number_string_ex: "issue_number_string_sm:1"
+        serial_number_string_format: "serial_number_string_sm:"
+        serial_number_string_ex: "serial_number_string_sm:1"
+        description_format: "description_text:"
+        description_ex: "description_text:特集"
+        note_format: "note_text:"
+        note_ex: "note_text:新装版"
+        subject_format: "subject_sm:"
+        subject_ex: "subject_sm:刊行"
+        exinfo_1_format: "exinfo_1_text:"
+        exinfo_1_ex: "exinfo_1_text:1"
+        exinfo_6_format: "exinfo_6_text:"
+        exinfo_6_ex: "exinfo_6_text:1"
+        library_format: "library_sm:"
+        library_ex: "libray_sm:gotanda"
+        shelf_format: "shelf_sm:"
+        shelf_ex: "shelf_sm:honkan01"
+        series_title_format: "series_title_text:"
+        series_title_ex: "series_title_text:nature"
+        article_title_format: "article_title_text:"
+        article_title_ex: "article_title_text:nature"
+    advanced: "詳細検索"
+    solr_search: "solr検索式による詳細検索"
+  worki:
+    patron_work: "%{patron_name} の書いた資料"
     library_group_work: "%{library_group_name} にある書いた資料"
-    add: "書いた資料を追加する"
+    add: "書いた資料を追加"
   expression:
-    agent_expression: "%{agent_name} の協力した資料"
+    patron_expression: "%{patron_name} の協力した資料"
     manifestations_expression: "%{manifestation_title} に含まれる協力した資料"
     library_group_expression: "%{library_group_name} にある協力した資料"
-    add: "協力した資料を追加する"
+    add: "協力した資料を追加"
     specify_work: "書いた資料を指定してください。"
     specify_manifestation: "資料を指定してください。"
   manifestation:
-    date_of_acquisition: "受入日"
+    date_of_acquisition: 登録日 # "受入日"
     physical_description: "ページ数と大きさ"
     add_next_issue: "次の号を追加"
+    copy: "コピーして新規"
     edit_creator: "著者を編集"
     edit_contributor: "編者を編集"
     edit_publisher: "出版者を編集"
     edit_expression: "協力した資料を編集"
     edit_item: "所蔵を編集"
-    agent_manifestation: "%{agent_name} の資料"
+    patron_manifestation: "%{patron_name} の資料"
     expressions_manifestation: "%{expression_title} の出版した資料"
     library_group_manifestation: "%{library_group_name} にある資料"
-    reserve_this: "この資料を予約する"
-    cancel_reservation: "この資料の予約を解除する"
-    user_who_bookmark_this_resource: "この資料をブックマークしている利用者"
+    reserve_this: "この資料を予約"
+    cancel_reservation: "この資料の予約を解除"
     query_search_result: "検索語 %{query} による %{library_group_name} の資料の検索結果"
     serial: "定期刊行物"
+    new_serial: "(最新号)"
     number: "巻号"
+    issue_number: "号数"
+    serial_number: "通号"
     invalid_isbn: "無効なISBNです。"
     already_imported: "すでにインポートされています。"
     record_not_found: "資料が見つかりませんでした。"
-    add: "資料を追加する"
+    invalid_query: "検索語の指定が不正です。"
+    add: "資料を追加"
     specify_expression: "協力した資料を指定してください。"
     pickup: "ピックアップ"
     showing_all_record: "すべての資料を表示しています。"
@@ -287,46 +1929,152 @@ ja:
     reservable: "予約可能"
     all_result: "すべての検索結果"
     reservable_list: "予約可能な資料の一覧"
-    post_to_twitter: "Twitterに送信する"
+    post_to_twitter: "Twitterに送信"
     web: "Web"
-    send_email: "書誌情報を電子メールで送信する"
+    send_email: "書誌情報を電子メールで送信"
     attachment_file: "添付ファイル"
+    question: "この資料で調べた質問"
     add_derivation: "派生資料を追加"
+    delete_attachment: "添付ファイルを削除(アップロード不可)"
+    delim_semicolon: "(セミコロン;で区切ると複数入力できます。)"
+    binding_status: "製本雑誌"
+    undo_binding: "製本解除"
+    missing: "[欠号]"
+    output_job_queued: "ファイル出力結果はメッセージでお知らせします。(お知らせIDは%{job_name})"
+    output_job_success_subject: "ファイル出力が完了しました [ID: %{job_name}]"
+    output_job_success_body: "お知らせID「%{job_name}」のファイル出力が完了しました。次のアドレスからファイルを取得してください。\n%{url}"
+    output_job_error_subject: "ファイル出力できませんでした [ID: %{job_name}]"
+    output_job_error_body: "お知らせID「%{job_name}」のファイル出力を完了できませんでした。理由は次の通りです。\n%{message}"
+    not_has_original: "文献登録するには所蔵が正本である必要があります。登録済みの所蔵の正本区分を修正してください。"
+    format_volume: "%{volume}巻"
+    format_issue: "%{issue}号"
+    format_year: "%{year}年"
+    creator_transcription: 著者(ヨミ)
+    contributor_transcription: 協力者・編者(ヨミ)
+    publisher_transcription: 出版者(ヨミ)
+    subject_transcription: 件名(ヨミ)
+  missing_issue:
+    no_request: 未請求
+    requested: 請求済
+    received: 受入済
   item:
     current_checkout: "現在の貸出"
     donor: "寄贈者"
     library_group_item: "%{library_group_name}にある所蔵情報"
-    add: "所蔵情報を追加する"
+    add: "所蔵情報を追加"
     specify_manifestation: "資料を指定してください。"
     this_item_is_reserved: "この資料は予約されています！"
     create_shelf_first: "最初に書棚を作成してください。"
     this_item_include_supplement: "この資料は付録を含んでいます。"
+    close_shelf: "閉架本棚に所蔵されている資料です。"
     all_item: "全ての所蔵情報"
     add_new_copy: "複本を追加"
     no_manifestation: "資料なし"
     no_number: "番号なし"
     add_lending_policy: "貸出規則の追加"
-    edit_exemplification: "書誌の付け替え"
-    accepted_at: "受入時刻"
-  agent:
-    library_group_agent: "%{library_group_name} の人物・団体"
-    work_agent: "%{work_title} の著作者"
-    expression_agent: "%{expression_title} の編者"
-    manifestation_agent: "%{manifestation_title} の出版者"
-    activate_as_user: "利用者として登録する"
-    deactivate: "利用者登録を解除する"
-    add: "人物・団体を追加する"
+    item_removed: "資料を除籍しました。"
+    item_restored: "資料の貸出状態を作業中に変更しました。"
+    update_failed: "資料の更新に失敗しました。"	
+    new_serial: "(最新号)"
+    already_removed: "この資料は除籍されています。編集できません。"
+    all_type: 全ての資料区分
+    general_item: 一般資料
+    audio_item: 視聴覚資料
+    original_item_require_item_identidier: "正本登録する場合は所蔵情報IDが必要です。"
+    already_original_item_created: "正本は既に登録済みです。"
+    original: 正本
+    copy: 複本
+    spare: 予備資料
+    set_remove_reason: "除籍理由の設定"
+    select_remove_reason: "除籍理由を選択してください。"
+    binding_status: 製本ステータス
+    binding_item: 製本雑誌
+    not_found: "資料が見つかりません"
+    search_bookstore: "寄贈・購入先検索フォーム"
+    search_bookstore_description: "絞り込みを行いたい寄贈・購入先を入力してください"
+  patron:
+    library_group_patron: "%{library_group_name} の人物・団体"
+    work_patron: "%{work_title} の著作者"
+    expression_patron: "%{expression_title} の編者"
+    manifestation_patron: "%{manifestation_title} の出版者"
+    activate_as_user: "利用者として登録"
+    create_family_user: "家族を新規作成"
+    deactivate: "利用者登録を解除"
+    add: "人物・団体を追加"
     publication: "出版物"
     recent_publication: "最近の出版物"
     all_publication: "全ての出版物"
     other_address: "他の住所"
     add_derivation: "派生人物・団体を追加"
+    creator: "著者"
+    contributor: "協力者・編者"
+    publisher: "出版者"
     owner: "所有者"
+    last_update_at: 最終更新日時
+    last_update_by: 更新者 
+    duplicate_user: "同じフルネーム(ヨミ)、電話番号１ー１、生年月日の人が既に登録されています。"
+    patron_identifier: 人物団体の識別番号
+  question:
+    my: "自分の質問"
+    all: "全ての質問"
+    number_of_search_results: "%{count} 件の質問が見つかりました。"
+    user_question: "%{login_name} さんの質問"
+    no_record_found: "事例が見つかりませんでした。"
+    library_group_question: "%{library_group_name} での質問"
+    answer_question: "この質問に答える"
+    crd: "国会図書館レファレンス協同データベース"
+    you_can_search_crd: "国立国会図書館のレファレンス協同データベースを検索することができます。"
+    created_at: "質問の作成時刻"
+    updated_at: "質問の更新時刻"
+    last_answered_at: "最新の回答時刻"
+    solved: "解決済み"
+    not_solved: "未解決"
+  answer:
+    user_answer: "%{login_name} さんの寄せた回答"
+    library_group_answer: "%{library_group_name} の寄せた回答"
+    specify_question: "質問を指定してください。"
+    count: "回答件数"
+  basket:
+    my_status: "現在の利用状況"
+    books: "冊"
+    number_of_checkout : "貸出冊数"
+    number_of_reserve: "予約冊数"
+    this_account_is_suspended: "このアカウントは停止されています。"
+    checkout_completed: "貸出が完了しました。"
+    all_manifestation: "全ての資料"
+    show_basket: "バスケットを参照: %{count}件"
+    clear_basket: "バスケットを空にする"
+    out: "解除"
+  checkout:
+    user_checkout: "%{login_name} さんの貸出資料"
+    library_group_checkout: "%{library_group_name} での貸出"
+    renewal: "貸出の更新"
+    renewal_count: "更新回数"
+    new_due_date: "新しい貸出期限日"
+    editing_due_date: "貸出期限日の編集"
+    this_item_cant_be_renewed: "この資料は更新できません。"
+    listing_overdue_item: "貸出期限切れの資料の一覧"
+    current_user: "現在の貸出利用者"
+    this_item_is_reserved: "この資料は予約されています。"
+    you_have_overdue_item: "貸出期限を過ぎている資料があります。"
+    over_renewal_limit: "貸出更新回数の上限を超えています。"
+    all_checkout: "全ての貸出"
+    my_checkout: "自分の貸出"
+    no_checkout: "貸出中の資料ではありません。"
+    number_of_day_overdue: "延滞日数"
+    extend: "貸出期間の延長"
+    extended: "貸出期間が延長されました。"
   library:
     map: "地図"
     staff: "職員"
     number_of_item: "所蔵冊数"
     address: "住所"
+    cannot_delete: "この図書館は削除できません。"
+    already_exist_shelf: "図書館作成時のデフォルトの本棚名と同一の本棚が既に存在しています。この名前では図書館の作成ができません。"
+    help_name: "半角英数字で入力してください。"
+  shelf:
+    cannot_delete: "この本棚は削除できません。"
+    other: その他
   import:
     from_file: "ファイルから"
     from_isbn: "ISBNから"
@@ -335,13 +2083,13 @@ ja:
     current_password: "現在のパスワード"
     new_password: "新しいパスワード"
     repeat_new_password: "新しいパスワード（確認のため再度入力）"
-    delete_this_user: "この利用者を削除する"
+    delete_this_user: "この利用者を削除"
     your_temporary_password_is: "仮パスワードは次のとおりです"
-    sign_up: "利用者を登録する（取り消しはできません）"
+    sign_up: "利用者を登録（取り消しはできません）"
     edit_profile: "プロフィールの編集"
     edit_account: "アカウント情報の編集"
     already_activated: "すでに利用者として登録されています。"
-    specify_agent: "人物・団体を指定してください。"
+    specify_patron: "人物・団体を指定してください。"
     wrong_password: "パスワードが間違っています。"
     password_mismatch: "パスワードが一致しません。"
     cannot_destroy_myself: "自分自身を削除することはできません。"
@@ -349,11 +2097,10 @@ ja:
     last_librarian: "この利用者はシステム上の最後の図書館員です。"
     only_administrator_can_destroy: "この利用者は管理者でなければ削除できません。"
     this_user_has_checked_out_item: "この利用者は貸出中の資料があります。"
-    agent_profile: "人物・団体のプロフィール"
+    patron_profile: "人物・団体のプロフィール"
     set_auto_generated_password: "自動生成したパスワードを設定する"
     history: "履歴"
     account_management: "アカウント管理"
-    checkout_history_icalendar_url: "貸出期限のiCalendar URL"
     reset_checkout_icalendar_url: "貸出期限通知用のiCalendarファイルのURLをリセットする"
     you_have_to_save_profile_to_activate_feed_url: "新しいURLを有効にするには、プロフィールを更新する必要があります。"
     you_have_to_save_profile_to_deactivate_feed_url: "URLを無効にするには、プロフィールを更新する必要があります。"
@@ -361,16 +2108,152 @@ ja:
     resend_confirmation_instruction: '確認手順をもう一度取り寄せる'
     remember_me: "ウインドウを閉じてもログインしたままにする"
     forgot_your_password: "パスワードを忘れましたか?"
-    send_me_reset_password_instruction: "パスワードを再発行する"
-    change_my_password: "パスワードを変更する"
+    send_me_reset_password_instruction: "パスワードを再発行"
+    change_my_password: "パスワードを変更"
     management: "利用者の管理"
     not_found: "利用者が見つかりません。"
+    birth_date_invalid: "生年月日が不正な値です。例: 2011-04-12"
+    already_in_family: "家族登録済みです。"
+    overdue_item: "%{user} さんの貸出期限がすぎている資料が %{count} 冊あります。"
+    retained_reserve: "%{user} さんの予約資料が %{count} 冊用意されています。" 
+    not_connect: "%{user}さんは連絡不能にチェックがされています。"
+    create_family: "家族の作成"
+    create_family_user: "家族を新規作成"
+    manage_family: "家族情報の管理"
+    update_user_number: "利用者番号を変更"
+  news_post:
+    library_group_news_post: "%{library_group_name} からのお知らせ"
+  reserve:
+    user_reserve: "%{login_name} さんの予約資料"
+    library_group_reserve: "%{library_group_name} での予約資料"
+    my_reservation: "自分の予約"
+    all_reservation: "全ての予約"
+    this_manifestation_is_already_reserved: "この資料はすでに予約されています。"
+    excessed_reservation_limit: "予約できる資料数の上限を超えています。"
+    this_patron_cannot_reserve: "この利用者はこの資料を予約できません。"
+    reservation_was_canceled: "予約は取り消されました。"
+    reservation_was_destroyed: "予約を削除しました。"
+    this_item_is_not_reserved: "この資料は予約されていません。"
+    this_user_is_locked: "この利用者は利用禁止中です。"
+    expired_at_of_this_user_is_over: "予約の有効期限が利用者の有効期限を超えています。"
+    invalid_item: "無効な所蔵情報です。"
+    show: "予約の詳細"
+    invalid_date: "は無効な日付です。"
+    pending: "受付待ち"
+    requested: "受付済み"
+    in_process: "作業中"
+    retained: "取置済み"
+    called: "連絡済み"
+    canceled: "取消済み"
+    expired: "期限切れ"
+    completed: "貸出済み"
+    completed_reserve: "取り置き済みの予約"
+    in_process_reserve: "作業中の予約"
+    update: "予約の更新"
+    retain: "予約資料の取り置き"
+    add: 登録
+    cannot_retain_item: "取り置きのできない資料です。"
+    not_found: "予約が見つかりません。"
+    retain_error: "取り置き処理に失敗しました。"
+  purchase_request:
+    user_purchase_request: "%{login_name} さんの購入依頼資料"
+    library_group_purchase_request: "%{library_group_name} での購入依頼資料"
+    add_to_purchase_request: "図書館の購入依頼に追加"
+    my_request: "自分の購入依頼"
+    all_request: "全ての購入依頼"
+    ordered: "発注済み"
+    not_ordered: 発注待ち # "未発注"
+    pending: 処理待ち
+    accept: 受付
+    reject: 謝絶
+    order: 発注
+    request_accepted: "購入リクエストを受け付けました。"
+    request_rejected: "購入リクエストを謝絶しました。"
+    request_ordered: "購入リクエストを発注しました。"
+    failed_update: "購入リクエストの更新に失敗しました。"
+    add_to_order_list: "発注リストに追加"
+    remove_from_order_list: "発注リストから削除"
+    input_into_form_as_much_as_possible: "わかる範囲で入力してください。"
+    guest: ゲスト
+  order_list:
+    library_group_order_list: "%{library_group_name} の発注リスト"
+    total_price: "合計価格"
+  inter_library_loan:
+    library_group_inter_library_loan: "%{library_group_name} の相互貸借"
+    borrowing_library: "借受館"
+    return_this_item: "この資料を返却"
+    loan_lists: 相互貸借リスト
+    original_library: 移動元図書館
+    checkout: 貸出
+    checkin: 返却
+    pickup_item: 発送準備
+    accept_item: 受取処理
+    no_item: 該当資料が見つかりません。
+    wrong_library: この図書館に貸し出された資料ではありません。
+    no_loan: 相互貸借の対象になっている資料が見つかりません。
+    successfully_pickup: "%{item_identifier}は発送処理が完了しました。"
+    successfully_accept: "%{item_identifier}は受取処理が完了しました。"
+    failed_pickup: 資料の発送処理に失敗しました。
+    failed_accept: 資料の受取処理に失敗しました。
+    no_library: 移動元図書館を選択してください。
+    pending: 処理待ち
+    requested: 受付済み
+    shipped: 発送済み
+    received: 受取済み
+  checked_item:
+    not_available_for_checkout: "この資料の貸出はできません。(状態不正)"
+    new_serial: "この資料の貸出はできません。(雑誌の最新号)"
+    not_for_loan: "この資料の貸出はできません。"
+    this_group_cannot_checkout: "この利用者種別でのこの資料の貸出はできません。"
+    item_not_found: "資料が見つかりません。"
+    already_checked_out: "この資料はすでに貸し出されています。"
+    reserved_item_included: "予約されている資料が含まれています！"
+    excessed_checkout_limit: "貸出数の上限を超えています。"
+    in_transcation: "貸出処理中です。"
+    history: "貸出履歴"
+    previous_checkout: "現在貸出中の資料"
+    previous_checkout_family: "現在家族に貸出中の資料"
+    previous_reserve: "現在予約中の資料"
+    previous_reserve_family: "現在家族が予約中の資料"
+    checkout: "上記の資料を貸し出す"
+    ignore_restriction: "制限を無視する"
+    library_closed_today: "この資料の図書館は本日休館日です。"
+  checkin:
+    item_not_found: "資料が見つかりません。"
+    enter_item_identifier: "所蔵情報番号を入力してください。"
+    other_library_item: "この資料は他の図書館のものです！"
+    other_library: "この資料は%{model}のものです。"
+    already_checked_in: "この資料はすでに返却されています。"
+    not_checkin: "この資料は貸出されていません。"
+    checkin: "返却（取り消しはできません）"
+    successfully_checked_in: "この資料は正常に返却されました。"
+    not_available_for_checkin: "この資料の返却はできません。(状態不正)"
+    overdue_item: "この資料は貸出期限が過ぎています。"
+  checked_manifestation:
+    add: "バスケットに追加"
+    delete: "バスケットから削除"
+  search_history:
+    all_history: "全ての検索履歴"
+    failed_search: "失敗した検索"
+    searched_at: "検索時刻"
   subscribe:
     this_subscription_is_expired: "購読期間が過ぎています。"
   role:
     required_role: "参照に必要な権限"
+  advertisement:
+    period: "期間"
   attachment_file:
     invalid_file: "無効なファイルです。"
+  inventory_file:
+    not_in_catalog: "目録に存在しない資料"
+    not_on_shelf: "書架に存在しない資料"
+  order:
+    create_order_list: "発注リストを作成してください。"
+    specify_purchase_request: "購入依頼を指定してください。"
+  work_has_subject:
+    add_work: "書いた資料を追加"
+    add_subject: "件名を追加"
+    subjectable: "件名付与対象"
   library_group:
     configuration: "図書館の設定"
   series_statement:
@@ -378,15 +2261,36 @@ ja:
     you_should_specify_work: "シリーズ情報には書いた資料を指定しなければなりません。"
   state:
     pending: "処理待ち"
+    requested: "受付済み"
     canceled: "中止"
     completed: "完了"
     started: "開始"
     failed: "失敗"
+  resource:
+    select_all: すべてを選択
+    approve_selected_resources: 選択した資料を承認
+    approve_all_resources: すべての資料を承認
+    publish_selected_resources: 選択した資料を公開
+    publish_all_resources: すべての資料を公開
+    approve: 承認
+    approved: 承認済み
+    not_approved: 未承認
+    all_resources: すべての資料
+    resources_were_approved: 資料の修正は承認されました。
+    resources_were_published: 資料は公開されました。
+    select_resources: 資料を選択してください。
+    publish: 公開
+    closed: 非公開
+    published: 公開済み
+    reject: 却下
+    withdraw: 取り下げ
+  news_feed:
+    failed_to_fetch_feed: フィードの読み込みに失敗しました。
   import_request:
     record_not_found: 書誌レコードが見つかりませんでした。
     invalid_isbn: ISBNが正しくありません。
     isbn_taken: はすでに登録されています。
-    enter_isbn: ISBNを入力する
+    enter_isbn: ISBNを入力
   sort:
     date_of_acquisition: 新着図書優先
     date_of_publication: 出版日優先
@@ -394,9 +2298,482 @@ ja:
   picture_file:
     invalid_file: 無効なファイルです。アップロードできるのはgif, jpeg, png, svg形式のファイルです。
     all_picture: すべての画像
-  accept:
+  merge_list:
+    successfully_merged: "%{model}は正常に統合されました。"
+    specify_id: "%{model}のIDを指定してください。"
+  family:
+    add: 追加
+    tips_remove: 外す
+    willremove: 更新すると外れます
+    members: 家族メンバー
+    may_family_with: "家族ですか？"
+    not_select_family: "家族を選択しない"
+    already_family_with: "家族登録済み"
+    out_of_family: "家族登録を解除する"
+    will_be_family_with: "さんと家族登録します。"
+    create_family: "下記の利用者を家族にします。"
+    please_search_users: "追加する利用者を検索してください。"
+    no_select_users: "家族情報が空です。"
+    will_change_family : "※家族情報を変更したいときは、一度家族登録を解除してから再登録を行ってください。"
+    will_change_patron_type : "※人物・団体の種類を団体に変更した場合、自動的に所属していた家族から登録削除されます。"
+    user_will_change_family : "※家族情報を変更したいときは、図書館員までお申し付けください。"
+  bookstore:
+    not_found: "一致する寄贈・購入先が存在しませんでした。"
+  resource_import_textfile:
+    template_download: "テンプレートをダウンロード"
+    import_request: "すぐにインポート"
+    start_importing: "インポートを開始しました。"
+    unsuccess_start: "インポート開始に失敗しました。"
+    file_type: ファイル形式
+    book: 書誌    
+    article: 文献
+    series: シリーズ
+    exinfo: その他
+    wrong_file: "はインポートできません。"
+    wrong_extention: "拡張子がxlsx形式のファイルのみインポート可能です。"
+    wrong_content_type: "にはTSVファイルまたはXLSXファイル以外を指定しないでください。"
+    importing_please_wait: "エクセルファイルを読み込み中です。しばらくお待ちください。。。"
+    auto_numbering: "所蔵情報IDを自動採番する"
+    excel:
+      series:
+        issn: ISSN
+        original_title: シリーズ名
+        title_transcription: シリーズ名（ヨミ）
+        periodical: 定期刊行物
+        series_statement_identifier: シリーズ識別子
+        note: 雑誌注記
+      book:
+        manifestation_type: 資料区分
+        original_title: タイトル
+        title_transcription: タイトル（ヨミ）
+        title_alternative: 代替タイトル
+        isbn: ISBN
+        lccn: LCCN
+        marc_number: MARC番号
+        ndc: NDC
+        carrier_type: 資料の形態
+        frequency: 発行頻度
+        pub_date: 出版日
+        country_of_publication: 出版国
+        place_of_publication: 出版地
+        language: 言語
+        edition_display_value: 版表示
+        volume_number_string: 巻
+        issue_number_string: 号
+        serial_number_string: 通号
+        start_page: 最初のページ
+        end_page: 最後のページ
+        height: 高さ(cm) 
+        width: 幅(cm) 
+        depth: 奥行き(cm)
+        price: 価格
+        price_string: 価格
+        access_address: アクセスアドレス
+        repository_content: リポジトリのコンテンツ
+        required_role: 参照に必要な権限
+        except_recent: 新刊対象から除外
+        acceptance_number: 受入部数
+        description: 説明
+        supplement: 付録
+        note: 注記
+        creator: 著者
+        contributor: 編者
+        publisher: 出版者
+        subject: 件名
+        accept_type: 受入区分
+        acquired_at: 受入日
+        acquired_at_string: 受入日
+        bookstore: 寄贈・購入先
+        library: 図書館
+        shelf: 本棚
+        checkout_type: 貸出区分
+        circulation_status: 貸出状態
+        retention_period: 保存種別
+        call_number: 請求記号
+        item_price: 購入価格
+        item_price_string: 購入価格
+        url: URL
+        include_supplements: 付録を含む
+        use_restriction: 利用制限
+        item_note: 所蔵注記
+        rank: 正本区分
+        item_identifier: 所蔵情報ID
+        remove_reason: 除籍理由
+        non_searchable: 検索対象から除外
+        missing_issue: 欠号管理
+        del_flg: 削除フラグ
+      article: 
+        creator: 著者
+        original_title: 表題
+        title: 誌名
+        volume_number_string: 巻号
+        number_of_page: ページ
+        pub_date: 刊行年
+        call_number: 請求記号 
+        access_address: ＵＲＬ
+        subject: 件名 
+    message:
+      read_sheet: "シート『%{sheet}』の読み取りを開始します。"
+      deleted: "削除完了  所蔵情報ID: %{item_identifier}"
+      deleted_manifestation: "タイトル：%{original_title}"
+      deleted_series_statement: "シリーズタイトル：%{series_original_title}"
+      out_of_manage: "<br />ヘッダーに管理外のカラム名が存在しています: %{columns}"
+      without_item: "所蔵情報IDカラムが存在しないので、所蔵情報はインポート対象外です。"
+    error:
+      manifestation_type_is_nil: "資料区分が設定されていません。"
+      blank_sheet: "シート『%{sheet}』の読み取りに失敗しました。データが記述されていません。"
+      overlap: "シート『%{sheet}』の読み取りに失敗しました。ヘッダーのフィールド名に重複したものがあります。"
+      wrong_data: "指定の%{field}は不正です。 %{field}: %{data}"
+      delete_requre_item_identifier: "所蔵情報IDが入力されていないため削除を実行できませんでした。"
+      failed_delete_not_find: "対象の資料が見つからなかったため削除を実行できませんでした。"
+      duplicate_item_identifier: "シート『%{sheet}』の読み取りに失敗しました。所蔵情報IDが重複しています: %{item_identifier}"
+      no_item_identifier: "所蔵情報IDが指定されていません。"
+      cell_require_manifestation_type: "資料区分を指定してください。"
+      wrong_manifestation_type: "指定の資料区分は不正です。 資料区分: %{manifestation_type}"
+      series:
+        head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目にはシリーズ名またはISSN,またタイトルまたはISBNが必須です。\r\nシート『%{sheet}』を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
+        cell_is_blank: "シリーズ名またはISSN,タイトルまたはISBNを指定してください。"
+        wrong_issn: "指定のISSNは不正です。"
+        exist_same_series: "更新しようとしている内容と同一のシリーズ情報が既に存在しています。資料の編集画面より更新する資料のシリーズ情報を付け替えてください。"
+      book:
+        head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目にはタイトルまたはISBNが必須です。\r\nシート『%{sheet}』を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
+        head_require_manifestation_type: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目には資料区分が必須です。"
+        cell_is_blank: "タイトルまたはISBNを指定してください。"
+        only_integer: "%{field}には整数以外の値を指定しないでください。 %{field}: %{data}"
+        only_numeric: "%{field}には数値以外の値を指定しないでください。 %{field}: %{data}"
+        only_date: "%{field}には日時以外の値を指定しないでください。 %{field}: %{data}"
+        not_exsit_shelf: "指定の本棚は存在しません。 本棚: %{shelf}"
+        not_exsit_library: "指定の図書館は存在しません。 図書館: %{library}"
+        wrong_rank: "指定の正本区分は不正です。 正本区分: %{data}"
+        wrong_isbn: "指定のISBNは不正です。"
+        wrong_missing_issue: "指定の欠号管理は不正です。 欠号管理: %{data}"
+        not_delete: "タイトルを空白登録することはできません。"
+        has_original: "既に正本登録済みの資料に、正本資料の追加はできません。"
+        has_not_shelf: "図書館が保持していない本棚が指定されています。"
+        exist_multiple_same_manifestations: "書誌同定された資料が複数存在します。インポートデータを新規作成しました。"
+        record_not_found: "NDL-OPACを参照しましたが、書誌情報を取得できませんでした。"
+      article:
+        head_is_blank: "シート『%{sheet}』の読み取りに失敗しました。\r\n1行目には表題が必須です。\r\nシート『%{sheet}』を再インポートする場合は資料インポートの新規登録より読み込みを再度行ってください。"
+        cell_is_blank: "表題を指定してください。"
+  resource_import_textresult:
+    show_error_list: "エラー行のみ表示"
+    show_all_list: "全ての行を表示"
+  resource_import_file:
+    template_download: "テンプレートをダウンロード"
+    import_request: "すぐにインポート"
+    start_importing: "インポートを開始しました。"
+    unsuccess_start: "インポート開始に失敗しました。"
+    reserved_item : "予約済みの資料です。(ユーザ名: %{username}, 利用者番号: %{user_number})"
+    invalid_isbn: "指定ISBNが不正です。 ISBN: %{isbn}"
+    record_not_found: "指定ISBNの書誌情報を読み込めませんでした。 ISBN: %{isbn}"
+  patron_import_file:
+    template_download: "テンプレートをダウンロード"
+    import_request: "すぐにインポート"
+    start_importing: "インポートを開始しました。"
+    unsuccess_start: "インポート開始に失敗しました。"
+  library_check:
+    opeym_notice: "実施年月は 201203 のように YYYYMM 形式で入力してください。"
+  budget:
+    yen: "%{amount} 円"
+    yent: 円
+    sum: 予算全額(補正予算を含む)
+    balance: 残金
+    all_budgets: 全ての予算
+    all_libraries: 全ての図書館
+    all_bookstores: 全ての書店
+    list_number: 件数
+    page_number: ページ数
+  budget_type:
+    all_type: 全ての予算区分
+  term:
+    cannot_delete: "この期間は削除できません。"
+  expense:
+    yen: "%{price} 円"
+    export: 帳票の出力
+    export_tsv: TSV出力
+    export_pdf: PDF出力
+    term: 集計対象期間
+    date_format: "%{year}年%{month}月%{date}日"
+    term_note: (YYYY, YYYYMM, YYYYMMDDのいずれかで指定)
+    no_value: 未登録
+  ndl_report:
+    invalid_term: "対象年度の指定が不正です。"
+    term_not_found: "対象年度の情報が収集されていません。"
+    submit: "出力(Excel 2007以降)"
+    filename_excelx: "支部図書館業務年報.xlsx"
+  print_label:
+    users: ラベルを作成する利用者
+    submit: ラベルを作成
+    nousers: 利用者が選択されていません。
+    notypes: 印刷する情報が選択されていません。
+    printed_type: 印字する情報
+    printed_type_full_name: 名前
+    printed_type_address: 住所
+    printed_type_postal_barcode: 郵便カスタマバーコード
+    notice_printed_postal_barcode: 郵便カスタマバーコードを出力するには郵便番号と正しい住所の設定が必要です。
+  item_list:
+    list_type: リストタイプ
+    shelf_list: 保管場所資料リスト
+    call_number_list: 請求記号別資料リスト
+    removed_list: 除籍資料リスト
+    unused_list: 未利用資料リスト
+    new_item_list: 新着資料リスト
+    latest_list: 雑誌最新号リスト
+    new_book_list: 新刊購入受入リスト
+    series_statements_list: 雑誌一覧リスト
+    list_condition: 抽出条件
+    library: 図書館
+    all_library: 全図書館
+    carrier_type: 資料の形態
+    all_carrier_type: 全ての資料の形態
+    all_bookstore: 全ての寄贈・購入先
+    shelf: 保管場所
+    ndc: NDC
+    ndc_message: "(入力すると該当資料のみ出力します。)"
+    invalid_ndc: "不正なNDCが指定されています。\nXXX3桁の英数字を指定してください。"
+    invalid_file_type: "不正なファイル種別が指定されています。"
+    no_record: "該当する図書が見つかりませんでした。"
+    no_list_condition: "抽出条件を指定してください。"
+    acquired_at_invalid: "受入日が不正な値です。例: 2011-04-12"
+    export_job_queued: "ファイル出力結果はメッセージでお知らせします。(お知らせIDは%{job_name})"
+    export_job_success_subject: "ファイル出力が完了しました [ID: %{job_name}]"
+    export_job_success_body: "お知らせID「%{job_name}」のファイル出力が完了しました。次のアドレスからファイルを取得してください。\n%{url}"
+    export_job_error_subject: "ファイル出力できませんでした [ID: %{job_name}]"
+    export_job_error_body: "お知らせID「%{job_name}」のファイル出力を完了できませんでした。理由は次の通りです。\n%{message}"
+  item_register:
+    pdf: PDF
+    tsv: TSV
+    list_number: 件数
+    page_number: ページ数
+    item_register_all: 図書原簿(全て)
+    removing_list: 除籍原簿
+    audio_list: 視聴覚資料目録
+    item_register_book: 図書原簿
+    item_register_series: 雑誌原簿
+    item_register_article: 文献原簿
+    item_register_other: その他原簿
+    invalid_file_type: "不正なファイル種別が指定されています。"
+    export_job_queued: "ファイル出力結果はメッセージでお知らせします。(お知らせIDは%{job_name})"
+    export_job_success_subject: "ファイル出力が完了しました [ID: %{job_name}]"
+    export_job_success_body: "お知らせID「%{job_name}」のファイル出力が完了しました。次のアドレスからファイルを取得してください。\n%{url}"
+    export_job_error_subject: "ファイル出力できませんでした [ID: %{job_name}]"
+    export_job_error_body: "お知らせID「%{job_name}」のファイル出力を完了できませんでした。理由は次の通りです。\n%{message}"
+  library_report:
+    checkouts: 貸出数(冊)
+    ndc: "(NDC:%{ndc})" 
+    daily_report: "%{year}年%{month}月%{date}日の日報"
+    daily: 日報
+    monthly: 月報
+    yyyymm: 対象年月
+    date_comment: "８桁で入力。2011/12/13 の場合は、 20111213 と入力。"
+  reminder_list:
+    input_user_for_output_reminder: "督促作成対象者の利用者番号を入力してください。"
+    no_user: "該当の利用者が見つかりません。"
+    no_item: "督促対象になっている資料が見つかりません。"
+    failed_output: "督促の出力に失敗しました。"
+    successfully__output: "督促を出力しました。"
+    send: "チェックした利用者に督促メールを送信"
+    successfully_sent: "督促メールを送信しました。"
+    failed_sent: "督促メールの送信に失敗しました。"
+    reminder_mail: "メール"
+  system_configuration:
+    general: 全般
+    user: 利用者
+    manifestation: 資料
+    checkout: 貸出
+    checkin: 返却
+    reserve: 予約
+    purchase_request: 購入リクエスト
+    question: 質問（レファレンス）
+    order_list: 発注リスト
+    copy_request: 文献複写依頼
+    reminder: 督促
+    statistics: 統計
+    sound: 音
+    view: 表示
+    nacsis: 'NACSIS-CAT/ILL'
+    disp_date:
+      not_display: 非表示
+      christian_era: 西暦
+      japanese_era: 和暦
+    color:
+      white: white
+      lightgrey: light grey
+      skyblue: sky blue
+      springgreen: spring green
+      yellow: yellow
+      pink: pink
+      red: red
+    role:
+      all: "全て"
+    boolean_yes: "はい"
+    boolean_no: "いいえ"
+    boolean_no_opac: "いいえ(WebOPAC用)"
+    boolean_display: "表示する"
+    boolean_not_display: "表示しない"
+    boolean_do: "行う"
+    boolean_not_do: "行わない"
+    boolean_send: "送信する"
+    boolean_not_send: "送信しない"
+    boolean_use: "使用する"
+    boolean_not_use: "使用しない"
+    boolean_delete: "削除する"
+    boolean_not_delete: "削除しない"
+    boolean_disable: "禁止にする"
+    boolean_not_disable: "禁止にしない"
+    boolean_output_button_all: "全ての権限"
+    boolean_output_button_librarian: "ライブラリアン以上の権限"
+    boolean_item_remove: "除籍してから削除"
+    boolean_item_destroy: "すぐに削除"
+    boolean_search_each: "別々に検索する"
+    boolean_do_not_search_each: "別々に検索しない"
+    boolean_file: "ファイル"
+    boolean_db: "DB"
+    boolean_and: "AND検索"
+    boolean_or: "OR検索"
+    boolean_reserve_only_checkout_item: "貸出中の所蔵のみを予約対象とする" 
+    boolean_reserve_all_item: "全ての所蔵を予約対象とする"
+    boolean_reserve_able_for_not_item: "予約できる"
+    boolean_reserve_not_able_for_not_item: "予約できない"
+    boolean_autoprint: "自動印刷する"
+    boolean_not_autoprint: "自動印刷しない"
+    boolean_rental_certificate_size: "ラベル"
+    boolean_not_rental_certificate_size: "A4"
+    boolean_output_format_type: "TSV"
+    boolean_not_output_format_type: "CSV"
+    error:
+      over_checkouts_print_message: "貸出表に表示できるメッセージは最大全角%{num}文字までです"
+      over_reminder_postal_card_message: "督促はがきに表示できるメッセージは最大全角%{num}文字までです"
+      over_reminder_letter_message: "督促書に表示できるメッセージは最大全角%{num}文字までです"
+  manifestation_relationships: 
+    no_parent_id: "指定の派生元の資料ID が見つかりません。"
+    no_child_id: "指定の派生先の資料ID が見つかりません。"
+  function_key:
+    will_move: "フォームに値が入力されています。画面遷移してもよろしいですか。"
+  access_log:
+    date: 集計対象月
+    type: 集計対象画面
+    value: アクセス数
+    top_access: トップ画面
+    manifestations_index: 資料の一覧画面
+    materials_show: 資料の閲覧画面
+  binding_item:
+    bind: "上記の資料を製本する"
+    add: "追加"
+    search_items: "製本対象資料を検索してください。"
+    no_item_identifier: "所蔵情報IDが設定されていません。"
+  bookbinding:
+    bookbinding_completed: "製本処理が完了しました。"
+    unbinded: "製本を解除しました。"
+    added: "資料を製本資料に追加しました。"
+    binding_items: "製本した資料一覧"
+    binded: "製本済み"
+    binder: "製本資料"
+    status: "製本ステータス"
+  breadcrumb:
+    lib_top: "図書館のトップページ"
+    search_manifestations: "資料の検索"
+  user_status:
+    general: 制限なし
+    guest: ログイン不可
+    suspended: 利用不可
+  manifestation_type:
+    book: "図書・資料"
+    series: "雑誌・新聞"
+    article: "文献"
+    exinfo: "その他"
+  external_catalog:
+    ndl: NDL
+  copy_request:
+    message: "地方官署に勤務する職員のための郵送による文献複写サービスです。<br />
+              以下に名前・所属・送付先住所と複写を希望する文献（入力項目：①表題，②著者名，③誌名（刊行年、巻号、ページ），④請求記号[分かる場合]）を入力し、登録するボタンを押してください。<br />
+              未入力事項等がある場合は、受け付けられない場合があります。<br />
+              また、メールでの依頼を希望される方は、文献係の利用の手引をご覧ください。<br /><br />
+              ※本庁、管区気象台等から送付している刊行物については、自官署にあるものを御利用ください。<br />
+              ※２つ以上の文献を希望される方は、上のような要領で必要な数だけ列記してください。<br />
+              なお、連絡事項等がある場合は、最下行に記入してください。"
+
+  checkoutlist:
+    output_job_queued: "ファイル出力結果はメッセージでお知らせします。(お知らせIDは%{job_name})"
+    output_job_success_subject: "貸出状況表のファイル出力が完了しました [ID: %{job_name}]"
+    output_job_success_body: "お知らせID「%{job_name}」のファイル出力が完了しました。次のアドレスからファイルを取得してください。\n%{url}"
+    output_job_error_subject: "ファイル出力できませんでした [ID: %{job_name}]"
+    output_job_error_body: "お知らせID「%{job_name}」のファイル出力を完了できませんでした。理由は次の通りです。\n%{message}"
+
+
+  opac:
+    finish: 終わる
+    push_touchpanel: ▼ 希望の項目を押してください
+    catalog_search: 資料の検索
+    news: 図書館からのお知らせ
+    login:
+      sign_in: 登録利用者ログイン
+      sign_out: ログアウト
+      login_description: "利用者登録している方はこちらからログインしてください"
+      logged_in: ログインしています
+    manifestation_exstats:
+      bestreader: 貸出の多い本
+      bestrequest: 予約の多い本
+      rank: "過去%{term}の順位"
+      1year: 1年間
+      6months: 6ヶ月間
+      3months: 3ヶ月間
+      1month: 1ヶ月間
+      2weeks: 2週間
+    manifestations:
+      holding: 所蔵あり
+      reserved: 予約済
+    reserves:
+      no_reserve: 予約中の資料はありません。 
+    checkouts:
+      checkout_at: 貸出日
+      overdue_item: この資料は貸出期限が過ぎています。
+      renewal_description: "貸出期間を延長するには「貸出の更新」を押してください。<br />貸出の更新回数の制限を超えている場合、更新はできません。"
+    events:
+      category: 種類
+    keypad:
+      input_keyword: キーワードを入力してください
+      kana: カナ
+      alnum: 英数
+      lower: 小文字
+      upper: 大文字
+      space: スペース
+      back: 最後から一文字消す
+      clear: 全部消す
+    search:
+      sort: "%{target}順に並べる"
+  exchange_manifestation:
+    title: "所蔵付け替え"
+    screen1_description1: "付け替える所蔵情報IDを入力してください。"
+    screen2_description1: "付け替え先の書誌を検索してください。「付替」リンクでつけ替えます。"
+    exchange: "付替"
     item_not_found: "資料が見つかりません。"
-    enter_item_identifier: "所蔵情報番号を入力してください。"
-    already_accepted: "この資料はすでに検収されています。"
-    accept: "検収"
-    successfully_accepted: "この資料は正常に検収されました。"
+    no_item_identifier: "所蔵情報IDが指定されていません。"
+    source_manifestation: "付替元情報"
+    source_item_identifier: "所蔵情報ID"
+    manifestation: "書誌名"
+    exchange_success: "付け替えを行いました。"
+    force_exchange: "強制的に付け替え"
+    confirm: "付替を行います。よろしいですか？"
+    item_circulation_status_is_invalid: "所蔵の貸出状態が不正です。強制的に進める場合は、チェックボックスにチェックをつけてください。"
+  social_bookmark:
+    bookmark:
+      title: "ブックマーク"
+      twitter: "Twitterにつぶやく"
+      hatena: "はてなブックマーク"
+      yahoo: "Yahoo!ブックマークに追加"
+    publisher:
+      title: "出版社流通情報"
+      amazon: "Amazon"
+      seven_net: "セブンネット"
+      rakuten: "楽天ブックス"
+      kinokuniya: "紀伊國屋書店"
+      junk_do: "ジュンク堂"
+  jpn_or_foreign:
+    jpn: 和書
+    foreign: 洋書
+    other: 未設定
+  series_statement_relationship:
+    not_necessary: " は必要ありません。"
+    failed_destroy: "遍歴の削除に失敗しました。"
+    not_exist_series_statement: "は存在してません。"

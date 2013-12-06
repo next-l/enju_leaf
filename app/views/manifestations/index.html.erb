@@ -1,0 +1,222 @@
+<script>
+<!--
+  $(document).ready(function() {
+    $('#per_page').change(function() {
+      url = "<%= url_for(:controller => :manifestations,:action => :index) %>";
+
+      var per_page = $('#per_page').val();
+      url += "?per_page=" + per_page;
+
+      var parameter = location.search;
+      parameter = parameter.substring(1, parameter.length);  
+      parameter = decodeURIComponent(parameter);
+      parameters = parameter.split('&');
+      var fix_parameter = "";
+      for(var i = 0; i < parameters.length; i++) {
+        if (!parameters[i].match(/^per_page=|^page=/))
+          fix_parameter += "&" + parameters[i];
+      }
+      if (fix_parameter != null)
+        url += fix_parameter;
+
+      location.href = url;
+    });
+  });
+-->
+</script>
+
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.search_resource', :model => t('page.resource')) -%></h1>
+<div id="content_list">
+  <div style="color: green"><%= flash[:message] -%></div> 
+  <%= render 'manifestations/title', :manifestation => @manifestation if @manifestation -%>
+  <% if @basket %>
+    <p id="basket_count"><%= t('basket.show_basket', :count => @basket.try(:checked_manifestations).try(:size)) %></p>
+    <%= link_to t('basket.out'), manifestations_path %>
+  <% end %>
+
+  <%= render 'index_form' %>
+
+  <% if @series_statement %>
+    <%= render 'show_series_statement' %>
+  <% end %>
+
+<%- if params[:index] && params[:index] == 'nacsis' -%>
+
+    <div>
+      <div style="float: right;">
+        <%= t('activerecord.attributes.manifestation.per_page') %>: 
+        <%= select_tag("per_page", options_for_select(per_pages, @per_page)) %>
+      </div>
+      <br style="clear: both;"/>
+    </div>
+      <%- if SystemConfiguration.get('nacsis.search_each') -%>
+        <%- if @manifestations_book && (@manifestations_book.count > 0) -%>
+          <p>
+            <strong><%= t('page.number_of_nacsis_book_search_results', :count => @count[:query_result_book]) -%></strong>
+          </p>
+          <div class="autopagerize_page_element" id="list">
+          <%= render 'manifestations/list_nacsis', :manifestations => @manifestations_book, :type => "book" -%>
+          </div>
+        <%- else -%>
+          <%= render 'manifestations/not_found' -%>
+        <%- end -%>
+        <%- if @manifestations_serial && (@manifestations_serial.count > 0) -%>
+          <p>
+            <strong><%= t('page.number_of_nacsis_serial_search_results', :count => @count[:query_result_serial]) -%></strong>
+          </p>
+          <div class="autopagerize_page_element" id="list">
+          <%= render 'manifestations/list_nacsis', :manifestations => @manifestations_serial, :type => "serial" -%>
+          </div>
+        <%- else -%>
+          <%= render 'manifestations/not_found' -%>
+        <%- end -%>
+      <%- else -%>
+        <%- if @manifestations && (@manifestations.total_count > 0) -%>
+          <p>
+            <strong><%= t('page.number_of_nacsis_book_search_results', :count => @count[:query_result]) -%></strong>
+          </p>
+          <div class="autopagerize_page_element" id="list">
+          <%= render 'manifestations/list_nacsis', :manifestations => @manifestations, :type => "book" -%>
+          </div>
+        <%- else -%>
+          <%= render 'manifestations/not_found' -%>
+        <%- end -%>
+      <%- end -%>
+
+<%- else -%>
+
+  <%- if @manifestations && (@manifestations.total_count > 0) -%>
+    <p>
+      <%= t('page.number_of_search_results', :count => @count[:query_result], :numdocs => Manifestation.cached_numdocs, :seconds => sprintf("%.3f", @seconds)) -%>
+      <%- if @count[:query_result] > SystemConfiguration.get("max_number_of_results") -%>
+        <br />
+        <%= t('page.limit_exceeded', :count => SystemConfiguration.get("max_number_of_results")) -%>
+      <%- end -%>
+    </p>
+
+    <div>
+      <div style="float: left;">
+        <p>
+          <%= t('page.sort_by') -%>:
+          <%- if params[:sort_by].blank? -%>
+            <strong><%= t('manifestation.date_of_acquisition') -%></strong>
+          <%- else -%>
+            <%= link_to t('manifestation.date_of_acquisition'), params.merge(:sort_by => nil) -%>
+          <%- end -%>
+          <%- if params[:sort_by] == 'pub_date' -%>
+            <strong><%= t('activerecord.attributes.manifestation.date_of_publication') -%></strong>
+          <%- else -%>
+            <%= link_to t('activerecord.attributes.manifestation.date_of_publication'), params.merge(:sort_by => 'pub_date') -%>
+          <%- end -%>
+          <%- if params[:sort_by] == 'title' -%>
+            <strong><%= t('page.title') -%></strong>
+          <%- else -%>
+            <%= link_to t('page.title'), params.merge(:sort_by => 'title') -%>
+          <%- end -%>
+          <%- if params[:sort_by] == 'author' -%>
+            <strong><%= t('patron.creator') -%></strong>
+          <%- else -%>
+            <%= link_to t('patron.creator'), params.merge(:sort_by => 'author') -%>
+          <%- end -%>
+          <%- if params[:sort_by] == 'carrier_type' -%>
+            <strong><%= t('activerecord.models.carrier_type') -%></strong>
+          <%- else -%>
+            <%= link_to t('activerecord.models.carrier_type'), params.merge(:sort_by => 'carrier_type') -%>
+          <%- end -%>
+        </p>
+      </div>
+
+      <div style="float: right;">
+        <%= t('activerecord.attributes.manifestation.per_page') %>: 
+        <%= select_tag("per_page", options_for_select(per_pages, @per_page)) %>
+      </div>
+      <br style="clear: both;"/>
+    </div>
+
+    <%- @manifestations_all.each_with_index do |m, i| -%>
+      <%- next if @binder && m == @manifestations_article %>
+      <%- next if SystemConfiguration.get('manifestations.split_by_type') && i == 0 -%>
+      <div class="search_results_header"><strong>
+  	<%= m == @manifestations_article ? t('page.search_article_results') :  t('page.search_results') %>
+        <%- if current_user && current_user.has_role?('Librarian') %>
+          <%- if m == @manifestations_article -%>
+            &nbsp; <button id="excelx_article_dialog_opener"><%= t('page.output_excelx', :model => t('page.search_result')) -%></button>
+  	  <%- else -%>
+            &nbsp; <button id="excelx_book_dialog_opener"><%= t('page.output_excelx', :model => t('page.search_result')) -%></button>
+          <%- end -%>
+          <button id="batch_change_opener"><%= t('page.batch_change') %></button>
+          <%= render 'index_batch_change_dialog' %>
+        <%- end -%>
+      </strong></div>
+      <%- if m && (m.count > 0) -%>
+        <div class="autopagerize_page_element" id="list">
+        <%= render 'manifestations/list', :manifestations => m -%>
+        </div>
+      <%- else -%>
+        <%= render 'manifestations/not_found' -%>
+      <%- end -%>
+    <%- end -%>
+    <% if defined?(EnjuBookmark) %>
+      <div id="tag_cloud">
+        <h3><%= t('activerecord.models.tag') -%></h3>
+        <div id="tag_cloud_list"></div>
+        <%= image_tag 'spinner.gif', :id => 'spinner_tag_cloud',
+          :style => 'padding-bottom: 15px; padding-left: 40px;' -%>
+      </div>
+    <% end %>
+  <%- else -%>
+    <!-- TODO: 検索結果が少ない場合にも表示させる -->
+    <%- if @suggested_tag -%>
+      <p><%= t('page.did_you_mean') -%>: <%= link_to @suggested_tag.name, manifestations_path(:tag => @suggested_tag.name) -%></p>
+    <%- end -%>
+    <%= render 'manifestations/not_found' -%>
+  <%- end -%>
+
+<%- end -%>
+
+    <div class="autopagerize_insert_before"></div>
+
+  </div>
+</div>
+
+<%- unless params[:index] && params[:index] == 'nacsis' -%>
+<div id="submenu" class="ui-corner-all">
+  <h3><%= link_to h("#{t('page.total')}: #{@count[:query_result]}"), url_for(params.merge(:action => 'index', :view => nil, :carrier_type => nil, :library => nil, :language => nil, :subject => nil))  -%></h3>
+  <%- if @manifestations && (@manifestations.total_count > 0) -%>
+    <%= render 'manifestations/all_facet' -%>
+  <%- end -%>
+  <br />
+  <% if @series_statement and can?(:update, @series_statement) %>
+    <%= render 'submenu_series_statement' %>
+  <% end %>
+  <div>
+    <%- if params[:library_id].blank? -%>
+      <%= link_to (image_tag 'icons/feed.png', :size => '16x16', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), url_for(params.merge(:format => :rss, :page => nil, :library_id => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => :rss, :page => nil, :library_id => nil, :commit => nil)) -%>
+    <%- else -%>
+      <%= link_to (image_tag 'icons/feed.png', :size => '16x16', :alt => t('page.feed'), :title => t('tooltip.feed'), :class => 'icon'), url_for(params.merge(:format => :rss, :page => nil)) -%> <%= link_to t('page.search_result_feed'), url_for(params.merge(:format => :rss, :page => nil, :commit => nil)) -%>
+    <%- end -%>
+    <% if user_signed_in? and current_user.has_role?('Librarian') %>
+      <div id="iconmenu" class="ui-corner-all">
+        <strong><%= t('tooltip.icons_info') -%></strong>
+        <ul>
+          <li><%= image_tag('icons/book_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.book_edit')) -%>:&nbsp;<%=t('page.edit')-%></li>
+          <li><%= image_tag('icons/arrow_divide.png', :size => '16x16', :alt => t('manifestation.add_derivation'), :title => t('tooltip.add_derivation')) -%>:&nbsp;<%=t('manifestation.add_derivation')-%></li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</div>
+<%- end -%>
+
+<% if defined?(EnjuBookmark) %>
+  <script type="text/javascript">
+    window.onload = function() {
+      $("#tag_cloud_list").load('<%= url_for(params.merge(:view => "tag_cloud")) -%>', null, hideTagCloudSpinner);
+    }
+
+    function hideTagCloudSpinner(){
+      $("#spinner_tag_cloud").hide();
+    }
+<% end %>
+</script>

@@ -1,106 +1,116 @@
 --- 
 circulation_status_00001: 
   name: Available For Pickup  
-  display_name: "en: Available For Pickup\r\n\
-    ja: 持ち出し可能"
+  display_name: "en:Available For Pickup\r\n\
+    ja:予約取り置き済み"
   id: 1
   note: ""
   position: 1
 circulation_status_00002: 
   name: Available On Shelf  
-  display_name: "en: Available on Shelf\r\n\
-    ja: 在架（利用可能）"
+  display_name: "en:Available on Shelf\r\n\
+    ja:在架（利用可能）"
   id: 2
   note: ""
   position: 2
 circulation_status_00003: 
   name: Circulation Status Undefined  
-  display_name: Circulation Status Undefined
+  display_name: "en:Circulation Status Undefined\r\n\
+    ja:不明"
   id: 3
   note: ""
   position: 3
 circulation_status_00004: 
   name: Claimed Returned Or Never Borrowed  
-  display_name: Claimed Returned Or Never Borrowed
+  display_name: "en:Claimed Returned Or Never Borrowed\r\n\
+    ja:返却済み/未貸出クレーム"
   id: 4
   note: ""
   position: 4
 circulation_status_00005: 
   name: In Process  
-  display_name: "en: In Process\r\n\
-    ja: 作業中"
+  display_name: "en:In Process\r\n\
+    ja:作業中"
   id: 5
   note: ""
   position: 5
 circulation_status_00006: 
   name: In Transit Between Library Locations  
-  display_name: In Transit Between Library Locations
+  display_name: "en:In Transit Between Library Locations\r\n\
+    ja:相互貸借移動中"
   id: 6
   note: ""
   position: 6
 circulation_status_00007: 
   name: Lost  
-  display_name: "en: Lost\r\n\
-    ja: 紛失"
+  display_name: "en:Lost\r\n\
+    ja:紛失"
   id: 7
   note: ""
   position: 7
 circulation_status_00008: 
-  name: Missing  
-  display_name: "en: Missing\r\n\
-    ja: 行方不明"
+  name: Not Available  
+  display_name: "en:Not Available\r\n\
+    ja:利用不可"
   id: 8
   note: ""
   position: 8
 circulation_status_00009: 
-  name: Not Available  
-  display_name: "en: Not Available\r\n\
-    ja: 利用不可"
+  name: On Loan  
+  display_name: "en:On Loan\r\n\
+    ja:貸出中"
   id: 9
   note: ""
   position: 9
 circulation_status_00010: 
-  name: On Loan  
-  display_name: "en: On Loan\r\n\
-    ja: 貸出中"
+  name: On Order  
+  display_name: "en:On Order\r\n\
+    ja:発注済み"
   id: 10
   note: ""
   position: 10
-circulation_status_00011: 
-  name: On Order  
-  display_name: On Order
+circulation_status_00011:
+  name: Pending Transfer  
+  display_name: "en:Pending Transfer\r\n\
+    ja:相互貸借移動待ち"
   id: 11
   note: ""
   position: 11
 circulation_status_00012: 
-  name: Pending Transfer  
-  display_name: Pending Transfer
+  name: Recalled  
+  display_name: "en:Recalled\r\n\
+    ja:相互貸借受付中"
   id: 12
   note: ""
   position: 12
-circulation_status_00013: 
-  name: Recalled  
-  display_name: Recalled
+circulation_status_00013:
+  name: Waiting To Be Reshelved  
+  display_name: "en:Waiting To Be Reshelved\r\n\
+    ja:棚戻し待ち"
   id: 13
   note: ""
   position: 13
-circulation_status_00014: 
-  name: Waiting To Be Reshelved  
-  display_name: Waiting To Be Reshelved
-  id: 14
-  note: ""
-  position: 14
-circulation_status_00015: 
-  name: Not arrived
-  display_name: "en: Not arrived\r\n\
-    ja: 未着"
-  id: 15
-  note: ""
-  position: 15
-circulation_status_00016: 
+circulation_status_00014:
   name: Removed
-  display_name: "en: Removed\r\n\
-    ja: 除籍済み"
+  display_name: "en:Removed\r\n\
+    ja:除籍"
+  id: 14
+  position: 14
+circulation_status_00015:
+  name: Binded
+  display_name: "en:Binded\r\n\
+    ja:製本済み"
+  id: 15
+  position: 15
+circulation_status_00016:
+  name: In Factory
+  display_name: "en:In Factory\r\n\
+    ja:製本または修理中"
   id: 16
-  note: ""
   position: 16
+circulation_status_00017:
+  name: Missing
+  display_name: "en:Missing\r\n\
+    ja:欠号"
+  id: 17
+  position: 17

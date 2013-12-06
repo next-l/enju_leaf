@@ -10,7 +10,7 @@ class CreateCountries < ActiveRecord::Migration
   #
   # http://www.iso.org/iso/country_codes/background_on_iso_3166/what_is_iso_3166.htm
 
-  def change
+  def self.up    
     create_table :countries do |t|
       t.string :name,         :size => 80, :null => false
       t.text :display_name
@@ -24,5 +24,9 @@ class CreateCountries < ActiveRecord::Migration
     add_index :countries, :alpha_2
     add_index :countries, :alpha_3
     add_index :countries, :numeric_3
+  end
+
+  def self.down
+    drop_table :countries
   end
 end

@@ -1,0 +1,31 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.patron_merge_list')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<%= form_for(:patron_merge_list, :url => patron_merge_list_path(@patron_merge_list, :mode => 'merge'), :html => { :method => :put }) do |f| -%>
+  <p>
+  <strong><%= t('page.title') -%>:</strong>
+    <%= @patron_merge_list.title -%>
+  </p>
+
+  <ul>
+    <%- @patron_merge_list.patrons.each do |patron| -%>
+      <li><%= radio_button_tag 'selected_patron_id', patron.id -%><%= link_to patron.full_name, patron -%></li>
+    <%- end -%>
+  </ul>
+  <%- if @patron_merge_list.patrons.size > 1 -%>
+    <%= f.submit t('page.merge'), :confirm => t('page.merge_confirm') -%>
+  <%- end -%>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.patron')), patron_merge_list_patrons_path(@patron_merge_list) -%></li>
+    <li><%= link_to t('page.edit'), edit_patron_merge_list_path(@patron_merge_list) -%></li>
+    <li><%= link_to t('page.back'), patron_merge_lists_path -%></li>
+  </ul>
+</div>

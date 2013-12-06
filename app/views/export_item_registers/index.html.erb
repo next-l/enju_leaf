@@ -1,0 +1,61 @@
+<script>
+  $(document).ready(function(){
+    // change list_type
+    $("#export_item_register_list_type").change(function () {
+      var list_type = $("#export_item_register_list_type").val();
+
+      //count list_size      
+      get_list_size();
+    });
+  });
+  
+  function get_list_size() {
+    var list_type = $("#export_item_register_list_type").val();
+    $("input#carrier_type_:checked").map(function() { carrier_types.push($(this).val()); });
+
+    $.ajax({
+      type: "GET",
+      url: "<%= url_for(:controller => :export_item_registers, :action => :get_list_size)-%>",
+      data: {"list_type": list_type},
+      success: function(obj) {
+        $('span#list_size').html(obj["list_size"]);
+        $('span#page_size').html(obj["page"]);
+      }
+    });
+  }
+</script>
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.output', :model => t('activerecord.models.export_item_register')) -%></h1>
+<div id="content_list">
+<div id="message" style="color: green"><%= raw flash[:message] -%></div>
+<%= form_for(:export_item_register, :url => {:controller => 'export_item_registers', :action => :create}, :html => {:multipart => true, :method => :create}) do |f| -%>
+  <div class="field">
+    <%= label :list_type, t('activerecord.attributes.item_register.list_type')-%>: 
+    <%= f.select :list_type, @list_types.collect{|l| [l[0], l[1]]},:selected => @selected_list_type -%>
+  </div>
+
+  <div class="field">
+    <%= label :list_type, t('activerecord.attributes.item_register.file_type')-%>:
+    <%= f.radio_button :file_type, "pdf", :checked => "checked" -%><%= t('item_register.pdf')-%>
+    <%= f.radio_button :file_type, "tsv" -%><%= t('item_register.tsv') -%>
+  </div>
+
+  <div>
+    <p>
+      <strong><%= t('item_register.list_number') -%>: </strong><span id="list_size"><%= @items_size if @items_size -%></span><br />
+      <strong><%= t('item_register.page_number') -%>: </strong><span id="page_size"><%= @page if @page -%></span>
+    </p>
+  </div>
+
+  <div class="actions">
+    <%= f.submit t('page.output', :model => t('activerecord.models.export_item_register')) %>
+  </div>
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), page_extensions_path -%></li>
+  </ul>
+</div>

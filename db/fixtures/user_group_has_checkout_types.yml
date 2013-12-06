@@ -1,0 +1,14 @@
+--- 
+type_00001:
+ id: 1
+ user_group_id: 1
+ checkout_type_id: 1
+ checkout_limit: 15
+ checkout_period: 7
+ checkout_renewal_limit: 1
+ reservation_limit: 15
+ reservation_expired_period: 7
+ set_due_date_before_closing_day: false
+ fixed_due_date: 
+ note: ""
+ position: 1

@@ -1,0 +1,31 @@
+<%= form_for(@patron_relationship) do |f| %>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <% if @patron_relationship.try(:parent) %>
+      <%= f.label :parent %><br />
+      <%= link_to @patron_relationship.parent.full_name, @patron_relationship.parent %>
+      <%= f.hidden_field :parent_id %>
+    <% else %>
+      <%= f.label :parent %><br />
+      <%= f.text_field :parent_id %>
+    <% end %>
+  </div>
+  <div class="field">
+    <% if @patron_relationship.child.try(:full_name) %>
+      <%= f.label :child %><br />
+      <%= link_to @patron_relationship.child.full_name, @patron_relationship.child %>
+      <%= f.hidden_field :child_id %>
+    <% else %>
+      <%= f.label :child %><br />
+      <%= f.text_field :child_id %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :patron_relationship_type_id %><br />
+    <%= f.select(:patron_relationship_type_id, @patron_relationship_types.collect{|r| [r.display_name.localize, r.id]}) -%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

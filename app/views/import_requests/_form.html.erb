@@ -1,0 +1,32 @@
+<%= form_for(@import_request) do |f| %>
+  <% if @import_request.errors.any? %>
+  <div id="errorExplanation">
+    <h2><%= pluralize(@import_request.errors.count, "error") %> prohibited this import_request from being saved:</h2>
+    <ul>
+    <% @import_request.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :isbn %><br />
+    <%= f.text_field :isbn %>
+  </div>
+  <div class="field">
+    <%= f.label :state %><br />
+    <%= f.text_field :state %>
+  </div>
+  <div class="field">
+    <%= f.label :manifestation_id %><br />
+    <%= f.text_field :manifestation_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,59 @@
+<script>
+  $(document).ready(function() { 
+    $(document).ready(function() { get_date(); });
+    $("#budget_term_id").change(function() { get_date(); });
+   });
+
+  function get_date() {
+    var term_id = $("#budget_term_id").val();
+    $.ajax({
+      type: "GET",
+      url: "<%= url_for(:controller => :terms, :action => :get_term) -%>",
+      data: {"term_id": term_id},
+      success: function(obj) {
+        if (obj.success) {
+          var term_date = "<span>" 
+             + obj.start_at 
+             + " - " 
+             + obj.end_at 
+             + "</span>";
+          $("#budget_term_date").html(term_date);
+        }
+      }
+    });
+  }
+</script>
+
+<%= form_for(@budget) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="field">
+    <%= f.label :library %><br />
+    <%= f.select(:library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :budget_type %><br />
+    <%= f.select(:budget_type_id, @budget_types.collect{|t| [t.name, t.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :term %><br />
+    <%= f.select(:term_id, @terms.collect{|t| [t.display_name.localize, t.id]}) -%>
+      &nbsp;<span id="budget_term_date"></span>
+  </div>
+
+  <div class="field">
+    <%= f.label :note %><br />
+    <%= f.text_field :note -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :amount %><br />
+    <%= f.text_field :amount -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

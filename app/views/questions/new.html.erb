@@ -1,0 +1,36 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.question')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@question, :url => user_questions_path(@question.user)) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.user') -%><br />
+    <%= link_to @question.user.username, @question.user -%>
+    <%= f.hidden_field :user_id -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :body -%><br />
+    <%= f.text_area :body, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :shared -%>
+    <%= f.check_box :shared -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), user_questions_path(@question.user) -%></li>
+  </ul>
+</div>

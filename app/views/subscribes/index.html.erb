@@ -1,0 +1,31 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.subscribe')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.subscription') -%></th>
+    <th><%= t('activerecord.models.work') -%></th>
+  </tr>
+
+<%- @subscribes.each do |subscribe| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to subscribe.subscription.title, subscribe.subscription -%></td>
+    <td><%= link_to subscribe.work.original_title, subscribe.work -%></td>
+    <td><%= link_to t('page.show'), subscribe -%></td>
+    <td><%= link_to t('page.edit'), edit_subscribe_path(subscribe) -%></td>
+    <td><%= link_to t('page.destroy'), subscribe, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@subscribes) -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.subscribe')), new_subscribe_path -%></li>
+  </ul>
+</div>

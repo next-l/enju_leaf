@@ -1,0 +1,33 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.checkout_stat_has_manifestation')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.manifestation_checkout_stat') -%></th>
+    <th><%= t('activerecord.models.manifestation') -%></th>
+    <th><%= t('activerecord.attributes.checkout_stat_has_manifestation.checkouts_count') -%></th>
+  </tr>
+
+<%- @checkout_stat_has_manifestations.each do |checkout_stat_has_manifestation| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to checkout_stat_has_manifestation.manifestation_checkout_stat.id, checkout_stat_has_manifestation.manifestation_checkout_stat -%></td>
+    <td><%= link_to checkout_stat_has_manifestation.manifestation.original_title, checkout_stat_has_manifestation.manifestation -%></td>
+    <td><%= checkout_stat_has_manifestation.checkouts_count -%></td>
+    <td><%= link_to t('page.show'), checkout_stat_has_manifestation -%></td>
+    <td><%= link_to t('page.edit'), edit_checkout_stat_has_manifestation_path(checkout_stat_has_manifestation) -%></td>
+    <td><%= link_to t('page.destroy'), checkout_stat_has_manifestation, :confirm => t('page.are_you_sure'), :method => :delete -%></td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@checkout_stat_has_manifestations) -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.checkout_stat_has_manifestation')), new_checkout_stat_has_manifestation_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,64 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.user_group_has_checkout_type')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.user_group') -%>:</strong>
+  <%= link_to @user_group_has_checkout_type.user_group.display_name.localize, @user_group_has_checkout_type.user_group -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.checkout_type') -%>:</strong>
+  <%= link_to @user_group_has_checkout_type.checkout_type.display_name.localize, @user_group_has_checkout_type.checkout_type -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_group_has_checkout_type.note') -%>:</strong>
+  <%= @user_group_has_checkout_type.note -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_group_has_checkout_type.checkout_limit') -%>:</strong>
+  <%= @user_group_has_checkout_type.checkout_limit -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_group_has_checkout_type.checkout_period') -%>:</strong>
+  <%= @user_group_has_checkout_type.checkout_period -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_group_has_checkout_type.checkout_renewal_limit') -%>:</strong>
+  <%= @user_group_has_checkout_type.checkout_renewal_limit -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_group_has_checkout_type.reservation_limit') -%>:</strong>
+  <%= @user_group_has_checkout_type.reservation_limit -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_group_has_checkout_type.reservation_expired_period') -%>:</strong>
+  <%= @user_group_has_checkout_type.reservation_expired_period -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_group_has_checkout_type.set_due_date_before_closing_day') -%>:</strong>
+  <%= localized_boolean(@user_group_has_checkout_type.set_due_date_before_closing_day) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_group_has_checkout_type.current_checkout_count') -%>:</strong>
+  <%= @user_group_has_checkout_type.current_checkout_count.to_i -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_user_group_has_checkout_type_path(@user_group_has_checkout_type) -%></li>
+    <li><%= link_to t('page.back'), user_group_has_checkout_types_path -%></li>
+  </ul>
+</div>

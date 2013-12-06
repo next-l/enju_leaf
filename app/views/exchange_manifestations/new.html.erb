@@ -1,0 +1,45 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('exchange_manifestation.title') %></h1>
+<div id="content_list">
+<% if flash[:notice] -%>
+  <p style="color: green"> <%= flash[:notice] -%> </p> 
+<% end -%>
+<% if @titem -%>
+  <%= I18n.t('exchange_manifestation.source_item_identifier') -%>:
+  <%= link_to @titem.item_identifier, @titem -%><br />
+  <br />
+<% end -%>
+<%= t('exchange_manifestation.screen1_description1') -%>
+<br />
+<br />
+<% if @errors && @errors.size > 0 -%>
+  <div class="errorExplanation" id="errorExplanation">
+    <h2><%= I18n.t('simple_form.error_notification.default_message') -%></h2>
+    <ul>
+  <%- @errors.each do |error| -%>
+    <li><%= error -%></li>
+  <%- end -%>
+    </ul>
+  </div>
+<% end -%>
+
+<%= form_tag select_manifestation_exchange_manifestation_path do -%>
+  <div class="field">
+    <%= label_tag t('activerecord.attributes.item.item_identifier') -%>
+		<%= text_field_tag 'exchange_manifestation[item_identifier]', @item_identifier, :class => 'resource_user_number', :style => 'ime-mode:disabled' -%>
+
+
+    <%= t('exchange_manifestation.force_exchange') -%>
+    <%= check_box_tag 'exchange_manifestation[force_exchange]', true, false, {} %> 
+    <%= submit_tag t('page.read') -%>
+  </div>
+<%- end -%>
+<%= javascript_tag("$('#excchange_manifestation_item_identifier').focus()") -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), page_extensions_path -%></li>
+  </ul>
+</div>

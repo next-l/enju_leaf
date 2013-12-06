@@ -1,0 +1,24 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.produce')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.patron') -%>:</strong>
+  <%=link_to @produce.patron.full_name, @produce.patron -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation.original_title') -%>:</strong>
+  <%= link_to @produce.manifestation_original_title, @produce.manifestation -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back_to', :model => t('activerecord.models.patron')), manifestation_patrons_path(@produce.manifestation) -%></li>
+    <li><%= link_to t('page.back_to', :model => t('activerecord.models.manifestation')), publisher_manifestations_path(@produce.patron) -%></li>
+  </ul>
+</div>

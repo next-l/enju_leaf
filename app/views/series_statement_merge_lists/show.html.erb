@@ -1,0 +1,31 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.series_statement_merge_list')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<%= form_for(:series_statement_merge_list, :url => series_statement_merge_list_path(@series_statement_merge_list, :mode => 'merge'), :html => { :method => :put }) do |f| -%>
+  <p>
+  <strong><%= t('page.title') -%>:</strong>
+    <%= @series_statement_merge_list.title -%>
+  </p>
+
+  <ul>
+    <%- @series_statement_merge_list.series_statements.each do |series_statement| -%>
+      <li><%= radio_button_tag 'selected_series_statement_id', series_statement.id -%><%= link_to series_statement.original_title, series_statement -%></li>
+    <%- end -%>
+  </ul>
+  <%- if @series_statement_merge_list.series_statements.size > 1 -%>
+    <%= f.submit t('page.merge'), :confirm => t('page.merge_confirm') -%>
+  <%- end -%>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.series_statement')), series_statement_merge_list_series_statements_path(@series_statement_merge_list) -%></li>
+    <li><%= link_to t('page.edit'), edit_series_statement_merge_list_path(@series_statement_merge_list) -%></li>
+    <li><%= link_to t('page.back'), series_statement_merge_lists_path -%></li>
+  </ul>
+</div>

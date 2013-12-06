@@ -1,28 +1,32 @@
 --- 
 subject_type_00001:
   id: 1
-  name: concept  
-  display_name: Concept
+  name: Concept  
+  display_name: "en:Concept\r\n\
+  ja:件名概念"
   note: 
   position: 1
 
 subject_type_00002:
   id: 2
-  name: event  
-  display_name: Event
+  name: Event  
+  display_name: "en:Event\r\n\
+  ja:対象イベント"
   note: 
   position: 2
 
 subject_type_00003:
   id: 3
-  name: object  
-  display_name: Object
+  name: Object  
+  display_name: "en:Object\r\n\
+  ja:件名オブジェクト"
   note: 
   position: 3
 
 subject_type_00004:
   id: 4
-  name: place  
-  display_name: Place
+  name: Place  
+  display_name: "en:Place\r\n\
+  ja:対象地"
   note: 
   position: 4

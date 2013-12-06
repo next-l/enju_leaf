@@ -1,0 +1,46 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.own')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.patron') -%></th>
+    <th><%= t('activerecord.models.item') -%></th>
+    <th><%= t('activerecord.attributes.manifestation.original_title')-%></th>
+    <th></th>
+  </tr>
+
+<%- @owns.each do |own| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to own.patron.full_name, own.patron -%></td>
+    <td>
+      <%- if own.item.item_identifier.blank? -%>
+        (<%= link_to ('no number'), own.item -%>)
+      <%- else -%>
+        <%= link_to own.item.item_identifier, own.item -%>
+      <%- end -%>
+    </td>
+    <td>
+      <%= render 'manifestations/show_index', :manifestation => own.item.manifestation -%>
+    </td>
+    <td>
+      <%- if can? :destroy, own -%>
+        <%= link_to t('page.show'), own -%>
+        <%= link_to t('page.destroy'), own, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@owns) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if can? :create, Own -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.own')), new_own_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

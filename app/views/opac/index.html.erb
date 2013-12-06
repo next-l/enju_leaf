@@ -1,0 +1,78 @@
+<div id="opac_index_header">
+  <p class="opac_index_libraryname"><%= LibraryGroup.system_name(@locale) %></p>
+</div>
+
+<div id="opac_content">
+  <div id="notice" class="opac_index_notice"><%= notice %></div>
+
+  <div class="opac_menu_info"><%= t('opac.push_touchpanel') %></div>
+  <br />
+  <div id="opac_menu">
+    <div id="opac_search_col">
+      <%= link_to opac_search_path do %>
+        <img src="/assets/opac/book.png"/ style="width:20px;">
+        <%= t('opac.catalog_search') %>
+      <% end %>
+    </div>
+
+    <% if user_signed_in? %>
+      <div id="opac_session_col">
+        <%= link_to t('user.edit_profile'), edit_my_account_path(:opac => true) %>
+      </div>
+      <div id="opac_session_col">
+        <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), opac_user_reserves_path(current_user) %> 
+      </div>
+      <div id="opac_session_col">
+        <%= link_to t('page.listing', :model => t('activerecord.models.checkout')), opac_user_checkouts_path(current_user) %>
+      </div>
+    <% else %>
+      <div id="opac_session_col">
+        <%= link_to new_user_session_path(:opac => true) do %>
+          <%= t('opac.login.sign_in') %>
+          <div class="opac_button_description"><%= t('opac.login.login_description')%></div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div id="opac_easy">
+      <div class="opac_bestreader">
+        <%= link_to t('opac.manifestation_exstats.bestreader'), opac_manifestation_exstats_bestreader_path %>
+      </div>
+      <div class="opac_bestrequest">
+        <%= link_to t('opac.manifestation_exstats.bestrequest'), opac_manifestation_exstats_bestrequest_path %>
+      </div>
+    </div>
+  </div>
+
+  <div id="opac_information">
+    <% if user_signed_in? %>
+      <% unless user_notice(current_user) %>
+        <div class="user_notice_column">
+          <p style="color: red;"><%= user_notice(current_user) %></p>
+        </div>
+      <% end %>
+    <% end %>
+    <div class="opac_news_column">
+      <div><h4><%= t('opac.news') %></h4></div>
+      <div class="opac_news">
+        <% @events.each do |event| %>
+          <dl>
+            <dt>
+              <%= l(event.start_at, :format => :short) %> - <%= l(event.end_at, :format => :short) %>
+              <span class="library_name"><%= event.library.display_name %></span>
+            </dt>
+            <dd><%= event.display_name %></dd>
+          </dl>
+        <% end %>
+      </div>
+      <% if @events.size > 0 %>
+        <div class="opac_news_more">
+          <%= link_to opac_events_path do %>
+            <img src="assets/opac/arrow-forward.png"/ style="width:20px;">
+            <%= t('page.listing', :model => t('activerecord.models.event'))%>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

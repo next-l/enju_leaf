@@ -1,0 +1,35 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.user_reserve_stat')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.user_reserve_stat.start_date') -%></th>
+    <th><%= t('activerecord.attributes.user_reserve_stat.end_date') -%></th>
+    <th><%= t('activerecord.attributes.user_reserve_stat.state') -%></th>
+    <th></th>
+  </tr>
+
+<%- @user_reserve_stats.each do |user_reserve_stat| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= l(user_reserve_stat.start_date) -%></td>
+    <td><%= l(user_reserve_stat.end_date) -%></td>
+    <td><%= user_reserve_stat.state -%></td>
+    <td>
+      <%= link_to t('page.show'), user_reserve_stat -%>
+      <%= link_to t('page.edit'), edit_user_reserve_stat_path(user_reserve_stat) -%>
+      <%= link_to t('page.destroy'), user_reserve_stat, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@user_reserve_stats) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.user_reserve_stat')), new_user_reserve_stat_path -%></li>
+  </ul>
+</div>

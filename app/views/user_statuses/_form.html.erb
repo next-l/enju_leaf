@@ -1,0 +1,22 @@
+<%= form_for(@user_status) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label :name -%><br />
+    <%= f.text_field :name -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :display_name -%><br />
+    <%= f.text_field :display_name -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :state -%><br />
+    <%= f.select :state_id,  [1,2,3].collect{|n| [state(n), n]}-%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>

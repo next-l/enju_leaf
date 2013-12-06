@@ -1,0 +1,32 @@
+<div id="related_manifestation">
+  <ul>
+    <%- manifestation.original_manifestations.each do |manifestation| -%>
+        <li>
+          [M]
+          <%= link_to manifestation.original_title, manifestation -%>
+          <%= form_icon(manifestation.carrier_type) -%>
+          <%= link_to image_tag('icons/world_go.png', :size => '16x16', :alt => ('Web'), :title => t('tooltip.web')), manifestation.access_address if manifestation.access_address? -%>
+          <%= patrons_list(manifestation.creators.readable_by(current_user)) -%>
+          <%= patrons_list(manifestation.contributors.readable_by(current_user)) -%>
+          <%= patrons_list(manifestation.publishers.readable_by(current_user)) -%>
+          <%- if manifestation.pub_date? -%>
+            (<%= manifestation.pub_date -%>)
+          <%- end -%>
+        </li>
+    <%- end -%>
+    <%- manifestation.derived_manifestations.each do |manifestation| -%>
+        <li>
+          [M]
+          <%= link_to manifestation.original_title, manifestation -%>
+          <%= form_icon(manifestation.carrier_type) -%>
+          <%= link_to image_tag('icons/world_go.png', :size => '16x16', :alt => ('Web'), :title => t('tooltip.web')), manifestation.access_address if manifestation.access_address? -%>
+          <%= patrons_list(manifestation.creators.readable_by(current_user)) -%>
+          <%= patrons_list(manifestation.contributors.readable_by(current_user)) -%>
+          <%= patrons_list(manifestation.publishers.readable_by(current_user)) -%>
+          <%- if manifestation.pub_date? -%>
+            (<%= manifestation.pub_date -%>)
+          <%- end -%>
+        </li>
+    <%- end -%>
+  </ul>
+</div>

@@ -1,0 +1,203 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.item')) -%></h1>
+<div id="content_list">
+<div style="color: red"><%= raw flash[:message] -%></div>
+<p id="notice"><%= raw notice %></p>
+
+  <%- if @item.manifestation -%>
+    <%= render 'manifestations/title', :manifestation => @item.manifestation -%>
+  <%- end -%>
+
+<%- if @item.bookbinder_id -%>
+  <p>
+    <strong><%= t('bookbinding.binded') %>:</strong>
+    <%= link_to @item.try(:binder_item).try(:manifestation).try(:original_title), manifestation_path(@item.try(:binder_item).try(:manifestation)) %>
+    (<%= link_to @item.binder_item.item_identifier || t('activerecord.attributes.item.item_identifier'), item_path(@item.binder_item) %>)
+  </p>
+<%- elsif @item.bookbinder -%>
+  <p>
+    <strong><%= t('bookbinding.binder') %>: </strong>
+    <%= link_to t('bookbinding.binding_items'), {:controller => 'manifestations', :action => 'index', :bookbinder_id => @item.id} %>
+  </p>
+<%- end -%>
+
+<p>
+  <strong><%= t('activerecord.models.shelf') -%>:</strong>
+  <%= link_to @item.shelf_display_name.localize, @item.shelf -%>
+  <%= render 'items/shelf_picture', :item => @item -%>
+  (<%= link_to @item.shelf.library.display_name.localize, @item.shelf.library -%>)
+</p>
+
+<% if SystemConfiguration.get('manifestation.manage_item_rank') %> 
+<% if user_signed_in? and current_user.has_role?('Librarian') %>
+  <p>
+    <strong><%= t('activerecord.attributes.item.rank') -%>:</strong>
+    <%= i18n_rank(@item.rank) if @item.rank %>
+  </p>
+<% end %>
+<% end %>
+
+<p>
+  <strong><%= t('activerecord.attributes.item.checkout_type') -%>:</strong>
+  <%= link_to @item.checkout_type.display_name.localize, @item.checkout_type -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.accept_type') -%>:</strong>
+  <%= link_to @item.accept_type.display_name.localize, @item.accept_type if @item.accept_type%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.item.retention_period') -%>:</strong>
+  <%= link_to @item.retention_period.display_name.localize, @item.retention_period if @item.retention_period -%>
+</p>
+<%- if Setting.operation -%>
+  <p>
+    <strong><%= t('activerecord.models.lending_policy') -%>:</strong>
+    <ul>
+      <%- @item.lending_policies.each do |lending_policy| -%>
+        <li><%= link_to lending_policy.user_group.display_name.localize, lending_policy -%></li>
+      <%- end -%>
+    </ul>
+  </p>
+<%- end -%>
+
+<p>
+  <strong><%= t('activerecord.models.circulation_status') -%>:</strong>
+  <%= link_to @item.circulation_status.display_name.localize, @item.circulation_status -%>
+  <%- if @item.manifestation.series_statement && @item.manifestation.series_statement.last_issues.include?(@item.manifestation) -%>
+    <%= t('item.new_serial') -%>
+  <%- end -%>
+  <%- if user_signed_in? && Setting.operation -%>
+    <%- if current_user.has_role?('Librarian') -%>
+      <%- unless @item.checkouts.not_returned.blank? -%>
+        (<%= link_to t('item.current_checkout'), user_checkout_path(@item.checkouts.not_returned.first.user, @item.checkouts.not_returned.first) -%>)
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+</p>
+
+<% if @item.remove_reason %>
+  <p>
+    <strong><%= t('activerecord.models.remove_reason') %>:</strong>
+    <%= link_to @item.remove_reason.display_name.localize, @item.remove_reason %>
+  </p>
+  <p>
+    <strong><%= t('activerecord.attributes.item.removed_at') %>:</strong>
+    <%= l(@item.removed_at) %>
+  </p>
+<% end %>
+
+<p>
+  <strong><%= t('activerecord.attributes.item.call_number') -%>:</strong>
+  <%= call_numberformat(@item) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.item.item_identifier') -%>:</strong>
+  <%= @item.item_identifier -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.bookstore') -%>:</strong>
+  <%= @item.bookstore.try(:name) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.item.price') -%>:</strong>
+  <%= @item.price -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.item.url') -%>:</strong>
+  <%= @item.url -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.item.include_supplements') -%>:</strong>
+  <%= localized_boolean(@item.include_supplements) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.use_restriction') -%>:</strong>
+  <% if @item.use_restriction %>
+    <ul>
+      <li><%= @item.use_restriction.display_name.localize %></li>
+    </ul>
+  <% end %>
+</p>
+
+<% if user_signed_in? and current_user.has_role?('Librarian') %>
+  <p>
+    <strong><%= t('activerecord.attributes.item.non_searchable') %>:</strong>
+    <%= localized_boolean(@item.non_searchable) %>
+  </p>
+<% end %>
+
+<%- cache(:controller => :items, :action => :show, :id => @item.id, :page => 'detail', :role => current_user_role_name, :locale => @locale, :item_id => nil) do -%>
+
+<p>
+  <strong><%= t('activerecord.attributes.item.acquired_at_string') %>:</strong>
+  <%= @item.acquired_at_string %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.item.note') -%>:</strong>
+  <%= @item.note %>
+</p>
+
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@item.created_at) -%>
+</p>
+
+<p>
+  <strong><%= t('page.updated_at') -%>:</strong>
+  <%= l(@item.updated_at) -%>
+</p>
+<%- end -%>
+
+<%- if Setting.operation && @item.reserve -%>
+  <%- if @item.reserve.user == current_user or (user_signed_in? and current_user.has_role?('Librarian')) -%>
+    <%- if @item.reserve.can_checkout? -%>
+      <%= form_tag ({:controller => 'reserves', :action => 'output'}) do -%>
+        <%= hidden_field_tag :reserve_id, @item.reserve.id -%>
+        <%= submit_tag t('page.output', :model => t('activerecord.attributes.reserve.reserve_list')) -%>
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+<%- end -%>
+</div>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <%= render 'manifestations/book_jacket', :manifestation => @item.manifestation -%>
+  <ul>
+    <%- if @item.circulation_status.name != "Removed" -%>
+      <%- if @shelf -%>
+        <li><%= link_to t('page.edit'), edit_library_shelf_item_path(@shelf.library, @shelf, @item) -%></li>
+      <%- else -%>
+        <li><%= link_to t('page.edit'), edit_item_path(@item) -%></li>
+      <%- end -%>
+    <%- end -%>
+    <li><%= link_to t('page.back'), items_path -%></li>
+    <%- if @item.circulation_status.name != "Removed" -%>
+      <li><%= link_to t('page.remove'), remove_item_path(@item) -%></li>
+    <%- else -%>
+      <li><%= link_to t('page.restore'), restore_item_path(@item) -%></li>
+    <%- end -%>
+    <% if can? :destroy, @item %>
+      <li><%= link_to t('page.destroy'), @item, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+    <% end %>
+    <%- if @item.inter_library_loans.empty? -%>
+      <%- if user_signed_in? and current_user.has_role?('Librarian') -%>
+        <li><%= link_to t('item.add_new_copy'), new_manifestation_item_path(@item.manifestation, :item_id => @item) -%></li>
+      <%- end -%>
+    <%- end -%>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.lending_policy')), item_lending_policies_path(@item) -%></li>
+    <%- if @item.manifestation.bookbinder && -%>
+      <li><%= link_to(t('manifestation.undo_binding'), {:controller => 'bookbindings', :action => 'bind_undo', :item_id => @item.id}, :confirm => t('page.undo_binding')) -%></li>
+    <%- end -%>
+  </ul>
+</div>

@@ -1,0 +1,67 @@
+<div class="opac_sort">
+  <div class="opac_sort_button_<%= params[:sort_by] == 'date_of_acquisition' ? 'on' : 'off'%>">
+    <% if params[:order] == 'asc' and params[:sort_by] == 'date_of_acquisition' %>
+      <%= link_to params.merge(:sort_by => 'date_of_acquisition', :order => 'desc') do %>
+        <%= t('opac.search.sort', :target => t('manifestation.date_of_acquisition')) %>
+        <img src="/assets/opac/arrow-down.png"/ style="width:20px;">
+      <% end %>
+    <% else %>
+      <%= link_to params.merge(:sort_by => 'date_of_acquisition', :order => 'asc') do %>
+        <%= t('opac.search.sort', :target => t('manifestation.date_of_acquisition')) %>
+        <img src="/assets/opac/arrow-up.png"/ style="width:20px;">
+      <% end %>
+    <% end %>
+  </div>
+  <div class="opac_sort_button_<%= params[:sort_by] == 'pub_date' ? 'on' : 'off'%>">
+    <% if params[:order] == 'asc' and params[:sort_by] == 'pub_date' %>
+      <%= link_to params.merge(:sort_by => 'pub_date', :order => 'desc') do %>
+        <%= t('opac.search.sort', :target => t('activerecord.attributes.manifestation.date_of_publication')) %>
+        <img src="/assets/opac/arrow-down.png"/ style="width:20px;">
+      <% end %>
+    <% else %>
+      <%= link_to params.merge(:sort_by => 'pub_date', :order => 'asc') do %>
+        <%= t('opac.search.sort', :target => t('activerecord.attributes.manifestation.date_of_publication')) %>
+        <img src="/assets/opac/arrow-up.png"/ style="width:20px;">
+      <% end %>
+    <% end %>
+  </div>
+  <div class="opac_sort_button_<%= params[:sort_by] == 'title' ? 'on' : 'off'%>">
+    <% if params[:order] == 'asc' and  params[:sort_by] == 'title' %>
+      <%= link_to params.merge(:sort_by => 'title', :order => 'desc') do %>
+        <%= t('opac.search.sort', :target => t('page.title')) %>
+        <img src="/assets/opac/arrow-down.png"/ style="width:20px;">
+      <% end %>
+    <% else %>
+      <%= link_to params.merge(:sort_by => 'title', :order => 'asc') do %>
+        <%= t('opac.search.sort', :target => t('page.title')) %>
+        <img src="/assets/opac/arrow-up.png"/ style="width:20px;">
+      <% end %>
+    <% end %>
+  </div>
+  <div class="opac_sort_button_<%= params[:sort_by] == 'author' ? 'on' : 'off'%>">
+    <% if params[:order] == 'asc' and params[:sort_by] == 'author'%>
+      <%= link_to params.merge(:sort_by => 'author', :order => 'desc') do %>
+        <%= t('opac.search.sort', :target => t('patron.creator')) %>
+        <img src="/assets/opac/arrow-down.png"/ style="width:20px;">
+      <% end %>
+    <% else %>
+      <%= link_to params.merge(:sort_by => 'author', :order => 'asc') do %>
+        <%= t('opac.search.sort', :target => t('patron.creator')) %>
+        <img src="/assets/opac/arrow-up.png"/ style="width:20px;">
+      <% end %>
+    <% end %>
+  </div>
+  <div class="opac_sort_button_<%= params[:sort_by] == 'carrier_type' ? 'on' : 'off'%>">
+    <% if params[:order] == 'asc' and params[:sort_by] == 'carrier_type' %>
+      <%= link_to params.merge(:sort_by => 'carrier_type', :order => 'desc') do %>
+        <%= t('opac.search.sort',:target => t('activerecord.models.carrier_type')) %>
+        <img src="/assets/opac/arrow-down.png"/ style="width:20px;">
+      <% end %>
+    <% else %>
+      <%= link_to params.merge(:sort_by => 'carrier_type', :order => 'asc') do %>
+        <%= t('opac.search.sort',:target => t('activerecord.models.carrier_type')) %>
+        <img src="/assets/opac/arrow-up.png"/ style="width:20px;">
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -1,6 +1,13 @@
 # -*- encoding: utf-8 -*-
 class UserGroupsController < ApplicationController
+  add_breadcrumb "I18n.t('page.configuration')", 'page_configuration_path'
+  add_breadcrumb "I18n.t('page.listing', :model => I18n.t('activerecord.models.user_group'))", 'user_groups_path'
+  add_breadcrumb "I18n.t('page.new', :model => I18n.t('activerecord.models.user_group'))", 'new_user_group_path', :only => [:new, :create]
+  add_breadcrumb "I18n.t('page.editing', :model => I18n.t('activerecord.models.user_group'))", 'edit_user_group_path(params[:id])', :only => [:edit, :update]
+  add_breadcrumb "I18n.t('activerecord.models.user_group')", 'user_group_path(params[:id])', :only => [:show]
+  before_filter :check_client_ip_address
   load_and_authorize_resource
+  helper_method :get_library
 
   # GET /user_groups
   # GET /user_groups.json

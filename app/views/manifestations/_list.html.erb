@@ -1,0 +1,20 @@
+<table class="index" id="manifestation_list">
+  <%- if @binder -%>
+    <%= render 'binding_items' %>
+  <%- else %>
+    <%= render manifestations %>
+  <%- end %>
+</table>
+
+<%- if manifestations == @manifestations_article -%>
+  <%= paginate(manifestations, :param_name => :page_article) -%>
+<%- else -%>
+  <%= paginate(manifestations) -%>
+<%- end -%>
+<br />
+
+<div>
+  <%- if manifestations and manifestations.size > @manifestations.limit_value.div(2) -%>
+    <%= render 'index_form', :form_pos => :bottom %>
+  <%- end -%>
+</div>

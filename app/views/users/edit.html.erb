@@ -1,75 +1,25 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.edit_user_profile', :login_name => @user.username) -%></h1>
 <div id="content_list">
+<%= simple_form_for(@user) do |u_form| -%>
+<%= simple_form_for(@patron) do |p_form| -%>
 <%= render 'page/required_field' %>
-<%= simple_form_for(@user, :validate => true) do |f| -%>
-  <%= f.error_messages -%>
-
-  <%= render :partial => 'users/edit_credential', :locals => {:f => f, :user => @user} -%>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<div style="clear: both">
-  <div class="field">
-    <%= f.label :keyword_list -%><br />
-    <%= f.text_area :keyword_list, :class => 'resource_textarea' -%>
-  </div>
-
-  <% if defined?(EnjuCirculation) %>
-    <div class="field">
-      <%= f.label t('user.checkout_history_icalendar_url') -%><br />
-      <div id="feed_token">
-        <%- if @user.checkout_icalendar_token? -%>
-          <%= link_to checkouts_url(:icalendar_token => @user.checkout_icalendar_token, :format => :ics), checkouts_url(:icalendar_token => @user.checkout_icalendar_token, :format => :ics) -%>
-          <%= f.hidden_field :checkout_icalendar_token -%>
-        <%- end -%>
-        <br />
-        <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_user_path(@user, :mode => 'feed_token') %>'});" type="button" value="<%= t('page.reset') %>" />
-        <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_user_path(@user, :disable => true, :mode => 'feed_token') %>'});" type="button" value="<%= t('page.delete') %>" />
-      </div>
-      <br />
-    </div>
-  <% end %>
-
-  <% if defined?(EnjuSearchLog) %>
-    <div class="field">
-      <%= f.check_box :save_search_history %>
-      <%= f.label :save_search_history %>
-    </div>
-  <% end %>
-
-  <% if defined?(EnjuCirculation) %>
-    <div class="field">
-      <%= f.check_box :save_checkout_history %>
-      <%= f.label :save_checkout_history %>
-    </div>
-  <% end %>
-
-  <% if current_user.has_role?('Librarian') %>
-    <div class="field">
-      <%= f.label :note -%><br />
-      <%= f.text_area :note, :class => 'resource_textarea' -%>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-
-  <%- end -%>
-
-</div>
+<%= render :partial => 'users/edit_credential', :locals => {:f => u_form, :user => @user} -%>
+<%= render :partial => 'users/form', :locals => {:f => p_form, :u_form => u_form, :patron => @patron}-%>
+<%- end -%>
+<%- end -%>
 </div>
 </div>
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.show'), @user -%></li>
-    <li><%= link_to t('page.listing', :model => t('activerecord.models.user')), users_path -%></li>
     <%- if current_user.has_role?('Librarian') -%>
-      <%- unless current_user == @user -%>
-        <li><%= link_to t('page.destroy'), @user, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%></li>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.user')), users_path -%></li>
+    <%- end -%>
+    <li><%= link_to t('activerecord.attributes.user.show_user'), @user -%></li>
+    <%- if current_user.has_role?('Librarian') -%>
+      <%- if can? :destroy, @user -%>
+        <li><%= link_to t('page.destroy'), @user, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
       <%- end -%>
     <%- end -%>
   </ul>

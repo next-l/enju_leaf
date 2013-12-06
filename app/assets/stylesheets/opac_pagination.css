@@ -1,0 +1,67 @@
+.opac_digg_pagination {
+  margin-top: 10px;
+  /* self-clearing method: */}
+  .opac_digg_pagination a, .opac_digg_pagination span, .opac_digg_pagination em {
+    padding: 10px 15px;
+    display: block;
+    float: left;
+    margin-right: 3px;
+    border-radius: 5px;         /* CSS3 */
+    -moz-border-radius: 5px;    /* Firefox */
+    -webkit-border-radius: 5px; /* Safari,Chrome */
+    background: #ddd;
+    background: -moz-linear-gradient(top, #fff, #ddd); /* mozilla */
+    background: -webkit-gradient(linear, center top, center bottom, from(#fff), to(#ddd)); /* Webkit */
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFFFFFFF', endColorstr='#FFDDDDDD'); /* IE5.5以上 */
+  }
+  .opac_digg_pagination span.disabled {
+    color: #999;
+    border: 1px solid #000; }
+  .opac_digg_pagination span.opac_current, .opac_digg_pagination em {
+    font-weight: bold;
+    color: #fff;
+    border: 1px solid #000;
+    background: #000;
+    background: -moz-linear-gradient(top, #444, #000); /* mozilla */
+    background: -webkit-gradient(linear, center top, center bottom, from(#444), to(#000)); /* Webkit */
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF444444', endColorstr='#FF000000'); /* IE5.5以上 */
+  }
+  .opac_digg_pagination a {
+    text-decoration: none;
+    color: #000;
+    border: 1px solid #aaa; }
+    .opac_digg_pagination a:hover, .opac_digg_pagination a:focus {
+      color: #fff;
+      border-color: #eee;
+      background: #555;
+      background: -moz-linear-gradient(top, #999, #555); /* mozilla */
+      background: -webkit-gradient(linear, center top, center bottom, from(#999), to(#555)); /* Webkit */
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF999999', endColorstr='#FF555555'); /* IE5.5以上 */
+    }
+  .opac_digg_pagination .page_info {
+    background: -moz-linear-gradient(top, #444, #000); /* mozilla */
+    background: -webkit-gradient(linear, center top, center bottom, from(#444), to(#000)); /* Webkit */
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF444444', endColorstr='#FF000000'); /* IE5.5以上 */
+    color: white;
+    padding: .4em .6em;
+    width: 22em;
+    margin-bottom: .3em;
+    text-align: center; }
+    .opac_digg_pagination .page_info b {
+      color: #fff;
+      padding: .1em .25em;
+      background: #000; 
+      background: -moz-linear-gradient(top, #444, #000); /* mozilla */
+      background: -webkit-gradient(linear, center top, center bottom, from(#444), to(#000)); /* Webkit */
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF444444', endColorstr='#FF000000'); /* IE5.5以上 */
+    }
+  .opac_digg_pagination:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+  * html .opac_digg_pagination {
+    height: 1%; }
+  *:first-child+html .opac_digg_pagination {
+    overflow: hidden; }

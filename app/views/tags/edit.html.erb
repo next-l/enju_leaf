@@ -1,0 +1,24 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.tag')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@tag, :url => tag_path(@tag)) do |f| -%>
+  <%= f.error_messages -%>
+  <div class="field">
+    <%= f.label :name -%><br />
+    <%= f.text_field :name, :value => @tag.name  if @tag.name -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.show'), tag_path(@tag) -%></li>
+    <li><%= link_to t('page.back'), tags_path -%></li>
+  </ul>
+</div>

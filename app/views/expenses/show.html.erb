@@ -1,0 +1,31 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.expense')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.expense.item') -%>:</strong>
+  <%= @expense.item.manifestation.original_title if @expense.item && @expense.item.manifestation -%>
+  (<%= link_to(@expense.item.item_identifier, @expense.item) if @expense.item -%>)
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.expense.price') -%>:</strong>
+  <%= t('expense.yen', :price => to_format(@expense.price)) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.expense.budget') -%>:</strong>
+  <%= @expense.budget.library.display_name.localize if @expense.budget && @expense.budget.library -%>
+  (<%= @expense.budget.term.display_name.localize if @expense.budget && @expense.budget.term -%>)
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_expense_path(@expense) -%></li>
+    <li><%= link_to t('page.back'), expenses_path -%></li>
+  </ul>
+</div>

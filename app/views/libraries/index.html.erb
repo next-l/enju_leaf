@@ -1,0 +1,77 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.library')) -%></h1>
+<div id="content_list">
+
+<%= form_for :libraries, :url => libraries_path, :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+    <%= submit_tag t('page.search') -%>
+  </p>
+<%- end -%>
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.library.name') -%></th>
+    <th>
+      <%= t('activerecord.attributes.library.telephone_number_1') -%>
+      /
+      <%= t('activerecord.attributes.library.telephone_number_2') -%>
+    </th>
+    <th>
+      <%= t('activerecord.attributes.library.fax_number') -%>
+    </th>
+    <th id="edit_icons"></th>
+  </tr>
+
+<%- @libraries.each_with_index do |library, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :update, library -%>
+        <%= move_position(library) -%>
+      <%- end -%>
+    </td>
+    <td>
+      <%= link_to library.display_name.localize, library -%>
+      <br />
+      <%= library.zip_code -%>
+      <%= library.address -%>
+    </td>
+    <td>
+      <%= library.telephone_number_1 -%>
+      <br />
+      <%= library.telephone_number_2 -%>
+    </td>
+    <td><%= library.fax_number -%></td>
+    <td>
+      <%- if can? :update, library -%>
+        <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_library_path(library) -%>
+      <% end %>
+      <%- if can? :destroy, library -%>
+        <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')), library, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <%- if can? :create, Library -%>
+    <ul>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.library')), new_library_path -%></li>
+    </ul>
+    <div id="iconmenu" class="ui-corner-all">
+      <strong><%= t('tooltip.icons_info') -%></strong>
+      <ul>
+        <li><%= image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')) -%>:&nbsp;<%=t('page.edit')-%></li>
+        <li><%= image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')) -%>:&nbsp;<%=t('page.destroy')-%></li>
+        <li><%= image_tag('icons/cross.png', :size => '16x16', :alt => t('tooltip.unavailable'), :title => t('tooltip.unavailable'))-%>:&nbsp;<%=t('tooltip.unavailable')-%></li>
+        <li><%= image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('page.asc'))-%>:&nbsp;<%=t('page.asc')-%></li>
+        <li><%= image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('page.desc'))-%>:&nbsp;<%=t('page.desc')-%></li>
+      </ul>
+    </div>
+  <%- end -%>
+</div>

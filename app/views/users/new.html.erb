@@ -1,85 +1,23 @@
 <div id="content_detail" class="ui-corner-all">
 <h1 class="title"><%= t('page.new', :model => t('activerecord.models.user')) -%></h1>
 <div id="content_list">
+<%= simple_form_for(@user) do |u_form| -%>
+<%= simple_form_for(@patron) do |p_form| -%>
 <%= render 'page/required_field' %>
-<%= simple_form_for(@user, :validate => true) do |f| -%>
-  <%= f.error_messages -%>
-
-  <%- if @patron -%>
-    <h2 class="resource_title">
-      [P]
-      <%= link_to @patron.full_name, @patron -%>
-    </h2>
-    <%= f.hidden_field :patron_id -%>
-  <%- end -%>
-
-  <div class="field">
-    <%= f.label :username -%></label>
-    <%= f.text_field :username, :class => 'resource_user' -%>
-  </div>
-  <div class="field">
-    <%= f.label :email -%></label>
-    <%= f.email_field :email, :class => 'resource_email' -%>
-  </div>
-  <div class="field">
-    <%= f.label :email_confirmation -%></label>
-    <%= f.email_field :email_confirmation, :class => 'resource_email' -%>
-  </div>
-
-  <div class="field">
-    <label for="user_group"><%= t('activerecord.models.user_group') -%></label>
-    <%= f.select(:user_group_id, @user_groups.collect{|u| [u.name, u.id]}) -%>
-  </div>
-
-  <%- if current_user.has_role?('Librarian') -%>
-    <div class="field">
-      <%= f.label t('activerecord.models.library') -%>
-      <%= f.select(:library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%>
-    </div>
-
-  <%- end -%>
-  <div class="field">
-    <%= f.label :locale -%>
-    <%= f.select(:locale, @available_languages.collect{|language| [language.display_name.localize, language.iso_639_1]}) -%>
-  </div>
-
-  <div class="field">
-    <%= f.label :user_number -%>
-    <%= f.text_field :user_number, :value => "", :class => 'resource_user' -%>
-  </div>
-
-  <% if defined?(EnjuSearchLog) %>
-    <div class="field">
-      <%= f.check_box :save_search_history %>
-      <%= f.label :save_search_history %>
-    </div>
-  <% end %>
-
-  <% if defined?(EnjuCirculation) %>
-    <div class="field">
-      <%= f.check_box :save_checkout_history %>
-      <%= f.label :save_checkout_history %>
-    </div>
-  <% end %>
-
-  <% if current_user.has_role?('Librarian') %>
-    <div class="field">
-      <%= f.label :note -%><br />
-      <%= f.text_area :note, :class => 'resource_textarea' -%>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit t('user.sign_up') -%>
-  </div>
+<%- if @family_id -%>
+  <div style="color: green"><%= @family_with.patron.full_name if @family_with.patron -%>(<%= @family_with.username -%>) <%= t('family.will_be_family_with') -%></div> 
+  <input type="hidden", name="family", value="<%= @family_id -%>">
 <%- end -%>
-<%= javascript_tag("$(function(){$('#user_username').focus()})") %>
+<%= render :partial => 'users/edit_credential', :locals => {:f => u_form, :user => @user} -%>
+<%= render :partial => 'users/form', :locals => {:f => p_form, :u_form => u_form, :patron => @patron}-%>
+<%- end -%>
+<%- end -%>
 </div>
 </div>
 
 <div id="submenu" class="ui-corner-all">
   <ul>
     <li><%= link_to t('page.listing', :model => t('activerecord.models.user')), users_path -%></li>
-    <li><%= link_to t('page.import'), new_agent_import_file_path -%></li>
+    <li><%= link_to t('page.import'), new_patron_import_file_path -%></li>
   </ul>
 </div>

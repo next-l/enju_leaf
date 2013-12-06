@@ -1,0 +1,57 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.enju_terminal')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th rowspan="2"><%= t('activerecord.attributes.enju_terminal.ipaddr') -%></th>
+    <th rowspan="2"><%= t('activerecord.attributes.enju_terminal.name') -%></th>
+    <th rowspan="2"><%= t('activerecord.attributes.enju_terminal.comment') -%></th>
+    <th colspan="3"><%= t('activerecord.attributes.enju_terminal.autoprint') -%></th>
+    <th rowspan="2" id="edit_icons"></th>
+  </tr>
+  <tr>
+    <th><%= t('activerecord.attributes.enju_terminal.checkouts') -%></th>
+    <th><%= t('activerecord.attributes.enju_terminal.reserve') -%></th>
+    <th><%= t('activerecord.attributes.enju_terminal.manifestation') -%></th>
+  </tr>
+
+<% @enju_terminals.each_with_index do |enju_terminal, i| %>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= enju_terminal.ipaddr %></td>
+    <td><%= enju_terminal.name %></td>
+    <td><%= enju_terminal.comment %></td>
+    <td><%= enju_terminal.checkouts_autoprint ? t('activerecord.attributes.enju_terminal.boolean_yes') : t('activerecord.attributes.enju_terminal.boolean_no') %></td>
+    <td><%= enju_terminal.reserve_autoprint ? t('activerecord.attributes.enju_terminal.boolean_yes') : t('activerecord.attributes.enju_terminal.boolean_no') %></td>
+    <td><%= enju_terminal.manifestation_autoprint ? t('activerecord.attributes.enju_terminal.boolean_yes') : t('activerecord.attributes.enju_terminal.boolean_no') %></td>
+    <td>
+      <%- if can? :update, enju_terminal -%>
+        <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_enju_terminal_path(enju_terminal) -%>
+      <% end %>
+      <%- if can? :destroy, enju_terminal -%>
+        <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')), enju_terminal, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@enju_terminals) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <%- if can? :create, EnjuTerminal -%>
+    <ul>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.enju_terminal')), new_enju_terminal_path -%></li>
+    </ul>
+    <div id="iconmenu" class="ui-corner-all">
+      <strong><%= t('tooltip.icons_info') -%></strong>
+      <ul>
+        <li><%= image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')) -%>:&nbsp;<%=t('page.edit')-%></li>
+        <li><%= image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')) -%>:&nbsp;<%=t('page.destroy')-%></li>
+        <li><%= image_tag('icons/cross.png', :size => '16x16', :alt => t('tooltip.unavailable'), :title => t('tooltip.unavailable'))-%>:&nbsp;<%=t('tooltip.unavailable')-%></li>
+      </ul>
+    </div>
+  <%- end -%>
+</div>

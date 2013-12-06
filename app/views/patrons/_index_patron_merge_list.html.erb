@@ -1,0 +1,53 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.patron')) -%></h1>
+<div id="content_list">
+
+<%= form_for :patrons, :url => patron_merge_list_patrons_path(@patron_merge_list), :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+    <%- if can? :update, @patron_merge_list -%>
+      <%= render 'page/add' %>
+    <%- end -%>
+    <%= submit_tag t('page.search') -%>
+    <%= link_to t('page.back_to_index'), patron_merge_list_patrons_path(@patron_merge_list) -%>
+  </p>
+<%- end -%>
+
+  <table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.patron.full_name') -%></th>
+    <th><%= t('activerecord.models.patron_type') -%></th>
+    <th><%= t('activerecord.attributes.patron.date_of_birth') -%></th>
+    <th id="edit_icons"></th>
+  </tr>
+
+<%- @patrons.each do |patron| -%>
+  <%- if patron.user.blank? -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td><%= link_to patron.full_name, patron_merge_list_patron_path(@patron_merge_list, patron) -%></td>
+      <td><%= patron.patron_type.display_name.localize -%></td>
+      <td><%=l patron.date_of_birth if patron.date_of_birth -%></td>
+      <td>
+        <%- if can? :destroy, patron -%>
+          <%- if params[:mode] == 'add' -%>
+            <%= link_to t('page.add'), new_patron_merge_list_patron_merge_path(@patron_merge_list, :patron_id => patron.id) unless @patron_merge_list.patrons.include?(patron) -%>
+          <%- else -%>
+            <%- patron_merge = @patron_merge_list.patron_merges.find_by_patron_id(patron) -%>
+            <%= link_to t('page.destroy'), patron_merge_list_patron_merge_path(@patron_merge_list, patron_merge), :confirm => t('page.are_you_sure'), :method => :delete -%>
+          <%- end -%>
+        <%- end -%>
+      </td>
+    </tr>
+  <%- end -%>
+<%- end -%>
+</table>
+
+<%= paginate(@patrons) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.patron_merge_list')), @patron_merge_list -%></li>
+  </ul>
+</div>

@@ -1,0 +1,71 @@
+<script>
+  $(function() {
+    $("#reserve_information_type").buttonset();
+    $("#reserve_receipt_library").buttonset();
+    $("#reserve_expired_at").datepicker();
+  });
+</script>
+
+<div id="opac_manifestation_info_area">
+  <%= render 'opac/manifestations/manifestation_info', :manifestation => manifestation %>
+</div>
+<br style="clear: both;" />
+
+<div class="opac_field">
+  <%= form_for(reserve) do |f| %>
+    <div>
+      <%= t('activerecord.models.user') %>:
+      <%= reserve.user.username %>(<%= reserve.user.user_number %>)
+    </div>
+
+    <div id="reserve_information_type">
+      <%= t('activerecord.attributes.reserve.information_type') %>:<br />
+      <% if reserve.retained %>
+        <%= i18n_information_type(reserve.information_type_id) %>: <%= Reserve.get_information_type(reserve) %> 
+      <% else %>
+        <% informations.each do |i| %>
+          <% if i == informations.first %>
+            <%= f.radio_button :information_type_id, i.id, :checked => true, :class => 'opac_radio_button' %>
+            <label for="reserve_information_type_id_<%= i.id %>"><%= i.display_name + " " + i.information %></label><br />
+          <% else %>
+            <%= f.radio_button :information_type_id, i.id, :class => 'opac_radio_button' %>
+            <label for="reserve_information_type_id_<%= i.id %>"><%= i.display_name + " " + i.information %></label><br />
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div id="reserve_receipt_library">
+      <%= t('activerecord.attributes.reserve.receipt_library') %>:<br />
+      <% if reserve and !reserve.state == 'requested' %>
+        <%= reserve.item.shelf.library.display_name.localize %>
+      <% else %>
+        <% libraries.each do |l| %>
+          <% if l == libraries.first %>
+            <%= f.radio_button :receipt_library_id, l.id, :checked => true, :class => 'opac_radio_button' %>
+              <label for="reserve_receipt_library_id_<%= l.id %>"><%= l.display_name.localize %></label><br />
+          <% else %>
+            <%= f.radio_button :receipt_library_id, l.id, :class => 'opac_radio_button' %>
+              <label for="reserve_receipt_library_id_<%= l.id %>"><%= l.display_name.localize %></label><br />
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div>
+      <%= t('activerecord.attributes.reserve.expired_at') %>:<br />
+      <% if reserve and !reserve.state == 'requested' %>
+        <%= l(reserve.expired_at, :format => :only_date) %>
+      <% else %>
+        <%= f.text_field :expired_at, :value => reserve.expired_at.try(:strftime, "%Y-%m-%d"), :class => 'date-text-field' %>
+        <%= error_message_on :reserve, :expired_at, t('activerecord.attributes.reserve.expired_at') %>
+      <% end %>
+    </div>
+    <div>
+      <%= f.hidden_field :user_number, :value => user.user_number %>
+      <%= f.hidden_field :manifestation_id %>
+      <%= hidden_field_tag :opac, true %>
+      <%= f.submit t('page.create'), :disable_with => t('page.wait'), :class => 'opac_submit_button' %>
+    </div>
+  <% end %>
+</div>

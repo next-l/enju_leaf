@@ -1,0 +1,38 @@
+<%= form_for(@library_report) do |f| %>
+  <%= f.error_messages %>
+
+<script>
+$(function(){
+  $('#library_report_yyyymmdd').setCalendar({src:'/assets/calendar.png', fmt:'%Y%m%d'});
+});
+</script>
+
+  <div class="field">
+    <%= f.label :yyyymmdd %>
+    <%= f.text_field :yyyymmdd, :class => 'report_integer' %>&nbsp;&nbsp;<%= t('library_report.date_comment') -%>
+  </div>
+ 
+  <div class="field">
+    <%= f.label :library %>
+    <%= f.select(:library_id, @libraries.collect{|lib| [lib.display_name.localize, lib.id]}) -%>  
+  </div>
+
+  <div class="field">
+    <%= f.label :visiters %>
+    <%= f.text_field :visiters, :class => 'report_integer' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :copies %>
+    <%= f.text_field :copies, :class => 'report_integer' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :consultations %>
+    <%= f.text_field :consultations, :class => 'report_integer' -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

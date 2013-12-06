@@ -1,0 +1,45 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.carrier_type')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.carrier_type.name') -%></th>
+    <th><%= t('activerecord.attributes.carrier_type.display_name') -%></th>
+    <th><%= t('activerecord.attributes.carrier_type.note') -%></th>
+    <th></th>
+  </tr>
+
+<%- @carrier_types.each do |carrier_type| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :update, carrier_type -%>
+        <%= move_position(carrier_type) -%>
+      <%- end -%>
+    </td>
+    <td><%= link_to carrier_type.name, carrier_type -%></td>
+    <td><%= link_to carrier_type.display_name.localize, carrier_type -%></td>
+    <td><%= carrier_type.note -%></td>
+    <td>
+      <%- if can? :update, carrier_type -%>
+        <%= link_to t('page.edit'), edit_carrier_type_path(carrier_type) -%>
+      <% end %>
+      <%- if can? :destroy, carrier_type -%>
+        <%= link_to t('page.destroy'), carrier_type_path(carrier_type), :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if can? :create, CarrierType -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.carrier_type')), new_carrier_type_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

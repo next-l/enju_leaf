@@ -1,0 +1,35 @@
+<div data-role="header">
+  <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.answer')) -%></h1>
+</div>
+<div data-role="content">
+  <div id="detail">
+
+<%= form_for(@answer, :url => user_question_answers_path(@answer.question.user, @answer.question)) do |f| -%>
+  <%= f.error_messages -%>
+  <div class="field">
+    <%= f.label t('activerecord.models.question') -%><br />
+    <%= @answer.question.body -%>
+    <%= f.hidden_field :question_id, :value => @answer.question.id -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :body -%><br />
+    <%= f.text_area :body, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :item_identifier_list -%><br />
+    <%= f.text_area :item_identifier_list, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :url_list -%><br />
+    <%= f.text_area :url_list, :class => 'resource_textarea' -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+</div>
+</div>

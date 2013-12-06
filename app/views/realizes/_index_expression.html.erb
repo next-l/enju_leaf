@@ -1,0 +1,50 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.realize')) -%></h1>
+<div id="content_list">
+  <h2 class="resource_title">
+    <%= link_to expression.original_title, expression -%>
+  </h2>
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.models.expression') -%></th>
+    <th></th>
+  </tr>
+
+<%- @realizes.each do |realize| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :destroy, realize -%>
+        <%= realize.first? ? image_tag('icons/cross.png', :size => '16x16') : link_to(image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), {:action => 'update', :position => (realize.position > 1 ? realize.position - 1 : 1), :id => realize.id, :expression_id => expression.id}, :method => :put) -%>
+        <%= realize.last? ? image_tag('icons/cross.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), {:action => 'update', :position => (realize.position + 1), :id => realize.id, :expression_id => expression.id}, :method => :put) -%>
+      <%- end -%>
+    </td>
+    <td>
+      <%= link_to realize.expression.original_title, realize.expression -%>
+      <%= content_type_icon(expression.content_type) -%>
+      <br />
+      <%= patrons_list(expression.creators.readable_by(current_user)) -%>
+    </td>
+    <td>
+      <%- if can? :destroy, realize -%>
+        <%= link_to t('page.destroy'), expression_realize_path(expression, realize), :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@realizes) -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.patron')), expression_patrons_path(expression) -%></li>
+    <%- if can? :create, Realize -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.realize')), new_expression_realize_path(expression) -%></li>
+    <%- end -%>
+  </ul>
+</div>

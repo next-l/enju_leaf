@@ -1,0 +1,34 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.series_has_manifestation')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.models.series_statement') -%></th>
+    <th><%= t('activerecord.attributes.manifestation.original_title')-%></th>
+    <th></th>
+  </tr>
+
+<% @series_has_manifestations.each do |series_has_manifestation| %>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to series_has_manifestation.series_statement.original_title, series_has_manifestation.series_statement if series_has_manifestation.series_statement%></td>
+    <td><%= link_to series_has_manifestation.manifestation.original_title, series_has_manifestation.manifestation if series_has_manifestation.manifestation %></td>
+    <td>
+      <%= link_to t('page.show'), series_has_manifestation %>
+      <%= link_to t('page.edit'), edit_series_has_manifestation_path(series_has_manifestation) %>
+      <%= link_to t('page.destroy'), series_has_manifestation, :confirm => t('page.are_you_sure'), :method => :delete %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate(@series_has_manifestations) %>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.series_has_manifestation')), new_series_has_manifestation_path -%></li>
+  </ul>
+</div>

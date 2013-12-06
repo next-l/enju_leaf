@@ -1,0 +1,16 @@
+<div class="column" id="col1">
+  <div class="portlet" id="form">
+    <h2 class="title"><%= t('page.budget_and_order') -%></h2>
+    <div class="config_box">
+      <ul>
+        <% if SystemConfiguration.get("use_order_lists") %>
+          <li><%= link_to t('activerecord.models.order_list'), order_lists_path -%></li>
+        <% end %>
+        <li><%= link_to t('activerecord.models.budget_type'), budget_types_path -%></li>
+        <li><%= link_to t('activerecord.models.budget'), budgets_path -%></li>
+        <li><%= link_to t('activerecord.models.expense'), expenses_path -%></li>
+        <li><%= link_to t('activerecord.models.budget_and_results_managements'), budget_and_results_managements_path -%></li>
+      </ul>
+    </div>
+  </div>
+</div>

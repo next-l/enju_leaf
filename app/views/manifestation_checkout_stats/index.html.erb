@@ -1,0 +1,35 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.manifestation_checkout_stat')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.manifestation_checkout_stat.start_date') -%></th>
+    <th><%= t('activerecord.attributes.manifestation_checkout_stat.end_date') -%></th>
+    <th><%= t('activerecord.attributes.manifestation_checkout_stat.state') -%></th>
+    <th></th>
+  </tr>
+
+<%- @manifestation_checkout_stats.each do |manifestation_checkout_stat| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= l(manifestation_checkout_stat.start_date) -%></td>
+    <td><%= l(manifestation_checkout_stat.end_date) -%></td>
+    <td><%= manifestation_checkout_stat.state -%></td>
+    <td>
+      <%= link_to t('page.show'), manifestation_checkout_stat -%>
+      <%= link_to t('page.edit'), edit_manifestation_checkout_stat_path(manifestation_checkout_stat) -%>
+      <%= link_to t('page.destroy'), manifestation_checkout_stat, :confirm => t('page.are_you_sure'), :method => :delete -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@manifestation_checkout_stats) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.manifestation_checkout_stat')), new_manifestation_checkout_stat_path -%></li>
+  </ul>
+</div>

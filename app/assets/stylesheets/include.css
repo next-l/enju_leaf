@@ -1,0 +1,986 @@
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}
+body{line-height:1}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
+nav ul{list-style:none}
+blockquote,q{quotes:none}
+blockquote:before,blockquote:after,q:before,q:after{content:none}
+a{margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent}
+ins{background-color:#ff9;color:#000;text-decoration:none}
+mark{background-color:#ff9;color:#000;font-style:italic;font-weight:bold}
+del{text-decoration:line-through}
+abbr[title],dfn[title]{border-bottom:1px dotted;cursor:help}
+table{border-collapse:collapse;border-spacing:0}
+hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0}
+input,select{vertical-align:middle}
+
+body { background-color: #fff; color: #333; }
+
+body, p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size:   13px;
+  line-height: 18px;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+a { color: #000; }
+a:visited { color: #666; }
+/* a:hover { color: #fff; background-color:#000; } */
+
+div.field, div.actions {
+  margin-bottom: 10px;
+}
+
+#notice {
+  color: green;
+}
+
+.alert {
+  color: red;
+}
+
+.fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#errorExplanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  margin-bottom: 0px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+
+body{
+  margin-left: 5px;
+  margin-right: 5px;
+  text-align: left;
+}
+
+a.hover{:background-color: transparent}
+
+strong{
+  font-weight: bold;
+}
+
+div#narrow_search, div#narrow_library_search{
+  margin-top: 1em;
+}
+.line0{
+  background: #d7ebf9;
+}
+.line1{
+  background: white;
+}
+.overdue{
+  color: red;
+}
+.duedate_is_today{
+  color: blue;
+}
+.in_checkout{
+  color: black;
+}
+
+div#navibar, div#bd{
+  padding-left: 1px;
+}
+
+div#navibar{
+  clear: both;
+  width: 100%;
+}
+
+div#content{
+  padding-top: 8px;
+  padding-left: 4px;
+  padding-right: 4px;
+  clear: both;
+}
+
+div.header_and_footer{
+  padding: 2px;
+  clear: both;
+}
+
+div#header_left{
+  width: 400px;
+  height: 65px;
+  float: left;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+div#library_system_name{
+  width: 400px;
+  height: 30px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+div#header_micro_advertisement{
+  width: 400px;
+  height: 35px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+div#header_advertisement{
+  width: 240px;
+  height: 65px;
+  float: left;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+div#header_select_locale{
+  width: 120px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  display: inline-block;
+}
+
+div#header_right{
+  width: 250px;
+  float: left;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+div#search_footer{
+  clear: both;
+}
+
+div#submenu{
+  margin-left: 10px;
+  width: 190px;
+  padding: 5px;
+  float: left;
+  border: 1px solid #5970B2;
+}
+
+div#manifestation_book_jacket{
+  margin-top: 10px;
+  text-align: center;
+}
+
+div#pickup_book_jacket{
+  width: 150px;
+  float: left;
+  text-align: center;
+}
+
+img.book_jacket{
+  border: 1px solid;
+}
+
+img.screen_shot{
+  border: 0;
+}
+
+div#manifestation_bookmark_buttons{
+  clear: both;
+  margin-top: 1em;
+}
+
+div#content_detail{
+  width: 700px;
+  float: left;
+  margin-bottom: 5px;
+  border: 1px solid #5970B2;
+}
+
+div#content_list{
+  padding: 10px;
+  word-wrap: break-word;
+}
+
+div#manifestation_footer{
+  margin-top: 1em;
+  clear: both;
+}
+
+div#left_pane{
+  float: left;
+  width: 456px;
+  word-break: break-all;
+}
+
+div#right_pane{
+  float: left;
+  margin-left: 10px;
+  width: 456px;
+  word-break: break-all;
+}
+
+div#left_pane_detail{
+  margin-top: 5px;
+  float: left;
+  width: 330px;
+  word-break: break-all;
+}
+
+div#right_pane_detail{
+  margin-top: 5px;
+  float: left;
+  margin-left: 10px;
+  width: 330px;
+  word-break: break-all;
+}
+
+div#footer{
+  padding-top: 5px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-bottom: 5px;
+  clear: both;
+}
+
+h1{
+  font-size: 180%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  line-height: 120%;
+}
+
+h2{
+  font-size: 160%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+h1.resource_title{
+  line-height: 140%;
+}
+
+h2.resource_title{
+  line-height: 140%;
+}
+
+h3{
+  font-size: 150%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+h4{
+  font-size: 120%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+h1.title, h2.title, h3.title, h4.title{
+  color: white;
+  background-color: #5970B2;
+  padding: 5px;
+  margin: 0px;
+}
+
+a.title { color: white; }
+a.title:hover { color: white; }
+a.title:visited { color: white; }
+
+form{
+  padding: 0;
+}
+
+table{
+  border: 1px solid #2779aa;
+}
+
+td, th{
+  border: 1px solid #2779aa;
+  padding: 5px;
+  word-break: break-all
+}
+
+table#manifestation_list{
+  width: 100%;
+}
+
+table.index{
+  width: 100%;
+}
+
+div#search_form{
+  padding-top: 10px;
+}
+
+div#general_search_form{
+  clear: both;
+  padding-left: 4px;
+  padding-top: 10px;
+}
+
+table#manifestation_detail{
+  width: 100%;
+}
+
+div#services{
+  width: 920px;
+}
+
+div#bookmarks_for_manifestation{
+  border: 1px solid #5970B2;
+}
+
+div#user_search_form, div#message_box, div#news_feed_box, div#user_box{
+  padding: 10px;
+}
+
+div#picked_up_box{
+  padding: 10px;
+  word-wrap: break-word;
+}
+
+div#tag_cloud_box{
+  padding: 10px;
+  word-wrap: break-word;
+}
+
+div#tag_cloud_list{
+  word-wrap: break-word;
+}
+
+div.config_box{
+  padding: 10px;
+}
+
+img{
+  border: 0;
+}
+
+div#tabview{
+  margin-top: 1em;
+}
+
+div#call_number_content{
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+div#call_number_content_left{
+  float: left;
+  width: 20px;
+}
+
+div#call_number_content_right{
+  float: left;
+  width: 20px;
+}
+
+table#call_number_label{
+  border: solid 1px green;
+}
+
+.call_number_table{
+  margin-left: auto;
+  margin-right: auto;
+  border: 0;
+}
+
+.call_number_label{
+  border: solid 1px green;
+  width: 50px;
+  padding: 0px;
+  text-align: center;
+}
+
+li{
+  line-height: 2em;
+}
+
+input.resource_title{
+  width: 30em;
+}
+
+input.resource_locale{
+  width: 10em;
+}
+
+input.resource_email{
+  width: 20em;
+  ime-mode: disabled;
+}
+
+input.resource_zip_code{
+  width: 15em;
+}
+
+input.resource_url{
+  width: 40em;
+}
+
+input.resource_isbn_issn, input.resource_item_identifier, input.resource_user_number, input.resource_user{
+  width: 10em;
+  ime-mode: disabled;
+}
+
+input.resource_integer{
+  width: 5em;
+  ime-mode: disabled;
+}
+
+input.year_field, input.month_field, input.day_field{
+  width: 5em;
+  ime-mode: disabled;
+}
+
+input.date_field{
+  ime-mode: disabled;
+}
+
+input.date_text_field{
+  width: 80px;
+}
+
+input.wide_date_text_field{
+  width: 160px;
+}
+
+input.short_name{
+  ime-mode: disabled;
+}
+
+textarea{
+  width: 40em;
+  height: 10em;
+}
+
+p#post_to_twitter{
+  margin-left: 10px;
+}
+
+input.twitter_text{
+  width:40em;
+}
+
+textarea#message_body{
+  width: 40em;
+  height: 20em;
+}
+
+th.checked_item_title{
+  width: 400px;
+}
+
+.error_message{
+  color: red;
+}
+
+div.holding_index{
+  margin-top: 10px;
+}
+
+label{
+  font-weight: bold;
+}
+
+input.editable_text_field{
+  width: 100%;
+}
+
+form.inplaceeditor-form input[type="text"]{
+  width: 100%;
+}
+
+form.inplaceeditor-form textarea{
+  width: 100%;
+}
+
+input.login_password{
+  width: 180px;
+  ime-mode: disabled;
+}
+
+input.search_form{
+  width: 350px;
+}
+
+input.search_form_short{
+  width: 250px;
+}
+
+th#position{
+  width: 40px;
+}
+
+.highlight { background-color: yellow }
+
+em{
+  font-style: normal;
+}
+
+div#flash_alert, div#flash_error{
+  color: red;
+}
+
+div#flash_notice{
+  color: green;
+}
+
+td#edit_icons, th#edit_icons{
+  width: 50px;
+}
+
+img.icon{
+  border: 0;
+}
+
+#select_locale{
+  display: none;
+  z-index: 1;
+  position: absolute;
+  background-color: white;
+  padding: 10px;
+  border: 1px solid #5970B2;
+  max-width: 250px;
+}
+
+#user_account{
+  height: 40px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+li{
+  margin-left: 20px;
+}
+
+p{
+  line-height: 2em;
+}
+
+table#resource_detail{
+  background-color: white;
+  width: 100%;
+}
+
+div#holding{
+  margin-top: 10px;
+}
+
+table.holding{
+  background-color: white;
+  width: 100%;
+}
+
+abbr[title="required"]{
+  color: red;
+}
+
+div.book_jacket{
+  text-align: center;
+  width: 150px;
+}
+
+
+/* add annotation by reiko@opentech.co.jp */
+#annotation {
+  font-weight: normal;
+  font-size: 85%;
+}
+
+/** tab menu**/
+a.fg-4button {
+   width: 184px;
+}
+
+/** cheked_outs **/
+#user_comment {
+  padding: 5px;
+  border: 1px solid #2779AA;
+}
+
+/** my_status button **/
+.my_status_button {
+  font-size: 1em;
+  width:140px;
+  text-align: center;
+  float: right;
+}
+a.my_status_button,  a:visited.my_status_button {
+  color: #333333;
+  border: 1px solid #c0c0c0;
+  background: #e0e0e0 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+  text-decoration: none;
+}
+a:hover.my_status_button {
+  color: #212121;
+  border: 1px solid #999999;
+  background: #dadada url(images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x; 
+}
+
+div#my_basket_box{
+  padding: 10px;
+  word-wrap: break-word;
+}
+.my_status_button {
+  font-size: 1em;
+  width: 140px;
+  text-align: center;
+  float: right;
+}
+a.my_status_button,  a:visited.my_status_button {
+  color: #555555;
+  border: 1px solid #d3d3d3;
+  background: #e6e6e6 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+  text-decoration: none;
+}
+a:hover.my_status_button {
+  color: #212121;
+  border: 1px solid #999999;
+  background: #dadada url(images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
+}
+div#easy_tools_box{
+  padding: 10px;
+  word-wrap: break-word;
+}
+.easy_tools_button {
+  font-size: 1em;
+  width: 210px;
+  text-align: center;
+  margin: 0 0 10px 0;
+  float: left;
+}
+.easy_tools_button_right {
+  margin: 0 5px 0 0;
+}
+a.easy_tools_button,  a:visited.easy_tools_button {
+  color: #333333;
+  border: 1px solid #d3d3d3;
+  background: #e6e6e6 url(images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+  text-decoration: none;
+}
+a:hover.easy_tools_button {
+  color: #000000;
+  border: 1px solid #999999;
+  background: #dadada url(images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
+}
+
+div#family {
+  float: right;
+  text_align: left;
+  width: 250px;
+}
+
+#shortcut {
+  clear: both;
+}
+       
+.function_key {
+  width: 145px;
+  margin: 0 5px 0 0;
+  border: 1px solid #aaaaaa;
+  text-align: center;
+  float :left;
+}
+
+div#iconmenu{
+  margin-top: 15px;
+  width: 178px;
+  padding: 5px;
+  border: 1px solid #5970B2;
+}
+
+.line2{
+  background: #ffcccc;
+}
+
+div#budget_library {
+  float: left;
+  text_align: left;
+  width: 200px;
+  margin-top: 30px;
+}
+
+div#budget_type {
+  float: left;
+  text_align: left;
+  width: 300px;
+  margin-top: 30px;
+}
+
+div#expense_item {
+  float: left;
+  text_align: left;
+  width: 200px;
+  margin-top: 30px;
+}
+
+div#list_condition_150 {
+    float: left;
+    text_align: left;
+    width: 150px;
+}
+div#list_condition_200 {
+  float: left;
+  text_align: left;
+  width: 200px;
+}
+div#item_list_carrier_type {
+  float: left;
+  text_align: left;
+  width: 200px;
+}
+
+div#budget_bookstore {
+  float: left;
+  text_align: left;
+  width: 200px;
+}
+
+div#checkouts_report { 
+  margin-left: 50px;
+  margin-top: -20px;
+}
+div#monthly_library_report {
+  margin-top: 20px;
+}
+input.report_integer {
+  width: 5em;
+  ime-mode: disabled;
+}
+
+p.no_file {
+  color: grey;
+}
+
+div#item_list_bookstore {
+  float: left;
+  text_align: left;
+  width: 200px;
+}
+
+div#item_list_created_at {
+    float: left;
+    text_align: left;
+}
+
+
+
+.hTagcloud .popularity 		{ margin:0; padding:0; }
+.hTagcloud .popularity li	{ display:inline; text-decoration:none; line-height: 2em; }
+.hTagcloud .popularity .popular				{ font-size:1.0em; }
+.hTagcloud .popularity .v-popular 		{ font-size:1.2em; }
+.hTagcloud .popularity .vv-popular 		{ font-size:1.4em; }
+.hTagcloud .popularity .vvv-popular		{ font-size:1.6em; }
+.hTagcloud .popularity .vvvv-popular	{ font-size:1.8em; }
+
+
+/*
+    ColorBox Core Style:
+    The following CSS is consistent between example themes and should not be altered.
+*/
+#colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden;}
+#cboxOverlay{position:fixed; width:100%; height:100%;}
+#cboxMiddleLeft, #cboxBottomLeft{clear:left;}
+#cboxContent{position:relative;}
+#cboxLoadedContent{overflow:auto;}
+#cboxTitle{margin:0;}
+#cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%;}
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
+.cboxPhoto{float:left; margin:auto; border:0; display:block;}
+.cboxIframe{width:100%; height:100%; display:block; border:0;}
+
+/* 
+    User Style:
+    Change the following styles to modify the appearance of ColorBox.  They are
+    ordered & tabbed in a way that represents the nesting of the generated HTML.
+*/
+#cboxOverlay{background:url(images/overlay.png) repeat 0 0;}
+#colorbox{}
+    #cboxTopLeft{width:21px; height:21px; background:url(images/controls.png) no-repeat -100px 0;}
+    #cboxTopRight{width:21px; height:21px; background:url(images/controls.png) no-repeat -129px 0;}
+    #cboxBottomLeft{width:21px; height:21px; background:url(images/controls.png) no-repeat -100px -29px;}
+    #cboxBottomRight{width:21px; height:21px; background:url(images/controls.png) no-repeat -129px -29px;}
+    #cboxMiddleLeft{width:21px; background:url(images/controls.png) left top repeat-y;}
+    #cboxMiddleRight{width:21px; background:url(images/controls.png) right top repeat-y;}
+    #cboxTopCenter{height:21px; background:url(images/border.png) 0 0 repeat-x;}
+    #cboxBottomCenter{height:21px; background:url(images/border.png) 0 -29px repeat-x;}
+    #cboxContent{background:#fff; overflow:hidden;}
+        #cboxError{padding:50px; border:1px solid #ccc;}
+        #cboxLoadedContent{margin-bottom:28px;}
+        #cboxTitle{position:absolute; bottom:4px; left:0; text-align:center; width:100%; color:#949494;}
+        #cboxCurrent{position:absolute; bottom:4px; left:58px; color:#949494;}
+        #cboxSlideshow{position:absolute; bottom:4px; right:30px; color:#0092ef;}
+        #cboxPrevious{position:absolute; bottom:0; left:0; background:url(images/controls.png) no-repeat -75px 0; width:25px; height:25px; text-indent:-9999px;}
+        #cboxPrevious.hover{background-position:-75px -25px;}
+        #cboxNext{position:absolute; bottom:0; left:27px; background:url(images/controls.png) no-repeat -50px 0; width:25px; height:25px; text-indent:-9999px;}
+        #cboxNext.hover{background-position:-50px -25px;}
+        #cboxLoadingOverlay{background:url(images/loading_background.png) no-repeat center center;}
+        #cboxLoadingGraphic{background:url(images/loading.gif) no-repeat center center;}
+        #cboxClose{position:absolute; bottom:0; right:0; background:url(images/controls.png) no-repeat -25px 0; width:25px; height:25px; text-indent:-9999px;}
+        #cboxClose.hover{background-position:-25px -25px;}
+
+/*
+  The following fixes a problem where IE7+ replaces a PNG's alpha transparency with a black fill
+  when an alpha filter (opacity change) is set on the element or ancestor element.
+*/
+.cboxIE #cboxTopLeft,
+.cboxIE #cboxTopCenter,
+.cboxIE #cboxTopRight,
+.cboxIE #cboxBottomLeft,
+.cboxIE #cboxBottomCenter,
+.cboxIE #cboxBottomRight,
+.cboxIE #cboxMiddleLeft,
+.cboxIE #cboxMiddleRight {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);
+}
+
+/*
+  The following provides PNG transparency support for IE6
+*/
+.cboxIE6 #cboxTopLeft{background:url(images/ie6/borderTopLeft.png);}
+.cboxIE6 #cboxTopCenter{background:url(images/ie6/borderTopCenter.png);}
+.cboxIE6 #cboxTopRight{background:url(images/ie6/borderTopRight.png);}
+.cboxIE6 #cboxBottomLeft{background:url(images/ie6/borderBottomLeft.png);}
+.cboxIE6 #cboxBottomCenter{background:url(images/ie6/borderBottomCenter.png);}
+.cboxIE6 #cboxBottomRight{background:url(images/ie6/borderBottomRight.png);}
+.cboxIE6 #cboxMiddleLeft{background:url(images/ie6/borderMiddleLeft.png);}
+.cboxIE6 #cboxMiddleRight{background:url(images/ie6/borderMiddleRight.png);}
+
+.cboxIE6 #cboxTopLeft,
+.cboxIE6 #cboxTopCenter,
+.cboxIE6 #cboxTopRight,
+.cboxIE6 #cboxBottomLeft,
+.cboxIE6 #cboxBottomCenter,
+.cboxIE6 #cboxBottomRight,
+.cboxIE6 #cboxMiddleLeft,
+.cboxIE6 #cboxMiddleRight {
+    _behavior: expression(this.src = this.src ? this.src : this.currentStyle.backgroundImage.split('"')[1], this.style.background = "none", this.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" + this.src + ", sizingMethod='scale')");
+}
+
+
+.digg_pagination {
+  margin-top: 10px;
+  background: white;
+  /* self-clearing method: */ }
+  .digg_pagination a, .digg_pagination span, .digg_pagination em {
+    padding: .2em .5em;
+    display: block;
+    float: left;
+    margin-right: 1px; }
+  .digg_pagination span.disabled {
+    color: #999;
+    border: 1px solid #DDD; }
+  .digg_pagination span.current, .digg_pagination em {
+    font-weight: bold;
+    background: #2E6AB1;
+    color: white;
+    border: 1px solid #2E6AB1; }
+  .digg_pagination a {
+    text-decoration: none;
+    color: #105CB6;
+    border: 1px solid #9AAFE5; }
+    .digg_pagination a:hover, .digg_pagination a:focus {
+      color: #003;
+      border-color: #003; }
+  .digg_pagination .page_info {
+    background: #2E6AB1;
+    color: white;
+    padding: .4em .6em;
+    width: 22em;
+    margin-bottom: .3em;
+    text-align: center; }
+    .digg_pagination .page_info b {
+      color: #003;
+      background: #6aa6ed;
+      padding: .1em .25em; }
+  .digg_pagination:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+  * html .digg_pagination {
+    height: 1%; }
+  *:first-child+html .digg_pagination {
+    overflow: hidden; }
+
+.apple_pagination {
+  background: #F1F1F1;
+  border: 1px solid #E5E5E5;
+  text-align: center;
+  padding: 1em; }
+  .apple_pagination a, .apple_pagination span {
+    padding: .2em .3em; }
+  .apple_pagination span.disabled {
+    color: #AAA; }
+  .apple_pagination span.current {
+    font-weight: bold;
+    background: transparent url(apple-circle.gif) no-repeat 50% 50%; }
+  .apple_pagination a {
+    text-decoration: none;
+    color: black; }
+    .apple_pagination a:hover, .apple_pagination a:focus {
+      text-decoration: underline; }
+
+.flickr_pagination {
+  text-align: center;
+  padding: .3em; }
+  .flickr_pagination a, .flickr_pagination span {
+    padding: .2em .5em; }
+  .flickr_pagination span.disabled {
+    color: #AAA; }
+  .flickr_pagination span.current {
+    font-weight: bold;
+    color: #FF0084; }
+  .flickr_pagination a {
+    border: 1px solid #DDDDDD;
+    color: #0063DC;
+    text-decoration: none; }
+    .flickr_pagination a:hover, .flickr_pagination a:focus {
+      border-color: #003366;
+      background: #0063DC;
+      color: white; }
+  .flickr_pagination .page_info {
+    color: #aaa;
+    padding-top: .8em; }
+  .flickr_pagination .prev_page, .flickr_pagination .next_page {
+    border-width: 2px; }
+  .flickr_pagination .prev_page {
+    margin-right: 1em; }
+  .flickr_pagination .next_page {
+    margin-left: 1em; }

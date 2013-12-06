@@ -1,0 +1,29 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.form_of_work')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.form_of_work.name') -%>:</strong>
+  <%= @form_of_work.name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.form_of_work.display_name') -%>:</strong>
+  <%= @form_of_work.display_name.localize -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.form_of_work.note') -%>:</strong>
+  <%= @form_of_work.note -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_form_of_work_path(@form_of_work) -%></li>
+    <li><%= link_to t('page.back'), form_of_works_path -%></li>
+  </ul>
+</div>

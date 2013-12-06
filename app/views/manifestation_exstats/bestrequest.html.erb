@@ -1,0 +1,49 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.best_request') -%></h1>
+<div id="content_list">
+<%= form_for :manifestations, :html => {:method => 'get'} do -%>
+<script>
+$(function(){
+  $('#search_date_first').setCalendar({src:'/assets/calendar.png'});
+  $('#search_date_last').setCalendar({src:'/assets/calendar.png'});
+});
+</script>
+  <div style="color: red"><%= flash[:message] -%></div>
+  <p>
+    <%= t('advanced_search.from_date') -%>:<%= text_field_tag 'search_date_first', h(@start_d), :size => 10, :placeholder => "#{t('page.example')}: 2011-04-01" -%>
+    <%= t('advanced_search.to_date') -%>:<%= text_field_tag 'search_date_last', h(@end_d), :size => 10, :placeholder => "#{t('page.example')}: 2011-04-30" -%> <br />
+      <%= t('advanced_search.library') -%>:<%= select("library", "id", @select_librarlies, {:include_blank => t('advanced_search.all_libraries'), :selected=>@selected_library}  )%> </td>
+    <%= submit_tag t('page.search') -%>
+    <br />
+  </p>
+<%- end -%>
+<table class="index">
+  <tr>
+    <th><%= t('page.exstatistics.ranknumber') -%></th>
+    <th><%= t('activerecord.attributes.manifestation.original_title') -%> </th>
+    <th></th>
+    <th><%= t('page.exstatistics.requestcount') -%></th>
+  </tr>
+<%- if @ranks -%>
+<%- @ranks.each_with_index do |r, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= r.rank -%></td>
+    <td><%= link_to r.manifestation.original_title, r.manifestation -%></td>
+    <td><%= render 'manifestations/show_creators', :manifestation => r.manifestation -%></td>
+    <td><%= @reserves[i].cnt if @reserves[i] -%></td>
+  </tr>
+<%- end -%>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+<ul>
+  <li><%= link_to t('page.best_reader'), manifestation_exstats_bestreader_path -%></li>
+  <%- if user_signed_in? and current_user.has_role?('Librarian') -%>
+    <li><%= link_to t('page.back'), page_exstatistics_path -%></li>
+  <%- end -%>
+</ul>
+</div>

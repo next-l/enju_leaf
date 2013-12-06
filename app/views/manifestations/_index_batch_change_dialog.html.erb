@@ -1,0 +1,25 @@
+<script>
+$(function(){
+  // set the dialog box default properties
+  $('#batch_change_dialog').dialog({
+    autoOpen: false,
+    modal: true,
+    width: Math.floor($(window).width() * 0.35),
+  });
+  // function to open the dialog
+  $('#batch_change_opener').click( function() {
+    $('#batch_change_dialog').dialog('open');
+      return false;
+  });
+});
+</script>
+
+<div id="batch_change_dialog" title="<%= t('page.batch_change_dialog') -%>" style="display:none;">
+  <%= raw t('page.batch_change_description') %>
+  <br />
+  <br />
+  <%= form_tag series_statements_path, { method: 'get' } do %>
+    <%= hidden_field_tag :basket_id, @current_basket.id %>
+    <%= submit_tag t('page.batch_change_series_statement'), :style => "width: 200px" %>
+  <% end %>
+</div>

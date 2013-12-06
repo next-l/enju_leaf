@@ -1,0 +1,35 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.department')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.department.name') -%>:</strong>
+  <%= @department.name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.department.display_name') -%>:</strong>
+  <%= @department.display_name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.department.short_name') -%>:</strong>
+  <%= @department.short_name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.department.note') -%>:</strong>
+  <%= @department.note -%>
+</p>
+
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_department_path(@department) -%></li>
+    <li><%= link_to t('page.back'), departments_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,18 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.patron')) -%></h1>
+<div id="content_list">
+  <%= render 'form' %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.show'), @patron -%></li>
+   <%- if @patron.user.blank? -%>
+      <%- if can? :destroy, @patron -%>
+        <li><%= link_to t('page.destroy'), @patron, :confirm => t('page.are_you_sure'), :method => :delete -%></li>
+      <%- end -%>
+    <%- end -%>
+    <li><%= link_to t('page.back'), patrons_path -%></li>
+  </ul>
+</div>

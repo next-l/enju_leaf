@@ -1,0 +1,93 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.item')) -%></h1>
+<div id="content_list">
+
+<%= render 'manifestations/title', :manifestation => @manifestation if @manifestation -%>
+
+<%= form_for :items, :url => items_path, :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+    <%= submit_tag t('page.search') -%>
+  </p>
+<%- end -%>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.manifestation.original_title') -%></th>
+    <th><%= t('activerecord.models.library') -%></th>
+    <th><%= t('activerecord.models.shelf') -%></th>
+    <th><%= t('activerecord.attributes.item.call_number') -%></th>
+    <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
+    <th><%= t('activerecord.models.circulation_status') -%></th>
+    <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
+      <% if user_signed_in? and current_user.has_role?('Librarian') %>
+        <th><%= t('activerecord.attributes.item.rank') %></th>
+      <% end %>
+    <% end %>
+  </tr>
+  <%- @items.each do |item| -%>
+    <tr>
+      <td>
+        <%= link_to item.manifestation.original_title, item.manifestation %>
+      </td>
+      <td>
+        <%= link_to item.shelf.library.display_name.localize, item.shelf.library %>
+      </td>
+      <td>
+        <%= link_to item.shelf_display_name.localize, item.shelf -%>
+        <%= render 'items/shelf_picture', :item => item -%>
+      </td>
+      <td>
+        <%= call_numberformat(item) -%>
+      </td>
+      <td>
+        <%- if item.item_identifier? -%>
+          <%= link_to item.item_identifier, item -%>
+        <%- else -%>
+          (<%= link_to t('item.no_number'), item -%>)
+        <%- end -%>
+      </td>
+      <td>
+        <%= item.circulation_status.display_name.localize if item.circulation_status -%>
+        <%- if Setting.operation && item.rent?-%>
+          (
+            <%= t('activerecord.attributes.checkout.due_date') -%>:
+            <%= l(item.checkouts.first.due_date, :format => :short) -%>
+          )
+        <%- end -%>
+      </td>
+      <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
+        <% if user_signed_in? and current_user.has_role?('Librarian') %>
+          <td>
+            <%= i18n_rank(item.rank) %>
+          </td>
+        <% end %>
+      <% end %>
+    </tr>
+  <%- end -%>
+</table>
+
+<%= paginate(@items) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <%= render 'manifestations/book_jacket', :manifestation => @manifestation if @manifestation -%>
+  <ul>
+    <%- if can?(:create, Item) and @manifestation -%>
+      <% if SystemConfiguration.get('manifestation.manage_item_rank') %>
+        <% create_item = true %>
+        <% if @manifestation.article? %>
+          <% if @manifestation.items and @manifestation.items.size > 0 %>
+            <% create_item = false if @manifestation.items.map{ |item| item.rank.to_i }.compact.include?(0) %>
+          <% end %>
+        <% end %>
+        <% if create_item %>
+          <li><%= link_to t('page.new', :model => t('activerecord.models.item')), new_manifestation_item_path(@manifestation) %></li>
+        <% end %>
+      <% else %>
+        <li><%= link_to t('page.new', :model => t('activerecord.models.item')), new_manifestation_item_path(@manifestation) -%></li>
+      <% end %>
+    <%- end -%>
+  </ul>
+</div>

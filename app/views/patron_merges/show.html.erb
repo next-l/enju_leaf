@@ -1,0 +1,27 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.patron_merge')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.patron') -%>:</strong>
+  <%= link_to @patron_merge.patron.full_name, @patron_merge.patron -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.patron_merge_list') -%>:</strong>
+  <%= link_to @patron_merge.patron_merge_list.title, @patron_merge.patron_merge_list -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.add', :model => t('activerecord.models.patron')), @patron_merge.patron_merge_list -%></li>
+    <li><%= link_to t('page.edit'), edit_patron_merge_path(@patron_merge) -%></li>
+    <!--
+    <li><%= link_to t('page.back'), patron_merges_path -%></li>
+    -->
+  </ul>
+</div>

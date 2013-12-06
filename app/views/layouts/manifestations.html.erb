@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @locale.to_s -%>" lang="<%= @locale.to_s -%>">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= resource_title(@manifestation, controller.action_name) %></title>
+  <%= render 'page/include' %>
+  <%- if controller.action_name == 'index' -%>
+    <%= auto_discovery_link_tag(:rss, url_for(params.merge(:format => :rss, :page => nil, :commit => nil)), :title => (t('manifestation.library_group_manifestation', :library_group_name => @library_group.display_name.localize) + " (RSS)")) %>
+    <%= auto_discovery_link_tag(:atom, url_for(params.merge(:format => :atom, :page => nil, :commit => nil)), :title => (t('manifestation.library_group_manifestation', :library_group_name => @library_group.display_name.localize) + " (Atom)")) %>
+  <%- end -%>
+  <% if controller.action_name == 'show' %>
+    <script type="text/javascript" src="http://books.google.com/books/previewlib.js"></script>
+  <% end %>
+</head>
+<body>
+<script>
+  $(function(){
+    $('#manifestation_pub_date').setCalendar({src:'/assets/calendar.png'});
+  });
+
+  $(document).ready(function(){
+    if ($("#errorExplanation").length > 0)
+       playSound('<%= root_path -%><%= SystemConfiguration.get("sounds.basedir") %><%= SystemConfiguration.get("sounds.errors.default") %>');
+  });
+</script>
+<%= render 'page/header' %>
+
+<%- unless session[:breadcrumbs].nil? || session[:breadcrumbs].empty? -%>
+  <div id="breadcrumb" %>
+    <% session[:breadcrumbs].to_a[0..-2].each do |txt, url| %>
+      <%= link_to(txt, url) %> >
+    <% end %>
+    <%= h(session[:breadcrumbs].to_a.last.first) if session[:breadcrumbs].to_a.last%>
+  </div>
+<%- end -%>
+
+<%= render 'page/menu' %>
+
+<div id="content">
+
+<%= yield %>
+
+</div>
+
+<%= render 'page/function_general' %>
+<%= render 'page/footer' %>
+
+</body>
+</html>

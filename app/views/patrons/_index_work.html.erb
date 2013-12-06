@@ -1,0 +1,62 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('patron.creator')) -%></h1>
+<div id="content_list">
+
+  <h2 class="resource_title">
+    [W]
+    <%= link_to work.original_title, work -%>
+    <%- if work.series_statement -%>
+      (<%= link_to work.series_statement.original_title, work.series_statement -%>)
+    <%- end -%>
+  </h2>
+
+<%= form_for :patrons, :url => work_patrons_path(work), :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+    <%- if can? :update, work -%>
+      <%= render 'page/add' %>
+    <% end %>
+    <%= submit_tag t('page.search') -%>
+    <%= link_to t('page.back_to_index'), work_patrons_path(work) -%>
+  </p>
+<%- end -%>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.patron.full_name') -%></th>
+    <th><%= t('activerecord.models.patron_type') -%></th>
+    <th><%= t('activerecord.attributes.patron.date_of_birth') -%></th>
+    <th id="edit_icons"></th>
+  </tr>
+
+  <%- @patrons.each do |patron| -%>
+    <%- if patron.user.blank? -%>
+      <tr class="line<%= cycle("0", "1") -%>">
+        <td><%= link_to patron.full_name, patron -%></td>
+        <td><%= patron.patron_type.display_name.localize -%></td>
+        <td><%= l(patron.date_of_birth, :format => :only_date) if patron.date_of_birth -%></td>
+        <td>
+          <%- if can? :destroy, patron -%>
+            <%- if params[:mode] == 'add' -%>
+              <%= link_to t('page.add'), new_work_create_path(work, :patron_id => patron.id) unless work.creators.include?(patron) -%>
+            <%- else -%>
+              <%= link_to t('page.destroy'), work_create_path(work, work.created(patron)), :confirm => t('page.are_you_sure'), :method => :delete -%>
+            <%- end -%>
+          <%- end -%>
+        </td>
+      </tr>
+    <%- end -%>
+  <%- end -%>
+</table>
+
+<%= paginate(@patrons) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if can? :create, Patron -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.patron')), new_work_patron_path(work) -%></li>
+    <%- end -%>
+  </ul>
+</div>

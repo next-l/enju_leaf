@@ -1,0 +1,49 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.budget')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.budget.library') -%>:</strong>
+  <%= @budget.library.display_name if @budget.library -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.budget.term') -%>:</strong>
+  <%= @budget.term.display_name if @budget.term -%> (<%= l(@budget.term.start_at, :format => :only_date) if @budget.term -%> - <%= l(@budget.term.end_at, :format => :only_date) if @budget.term-%>)
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.budget.budget_type') -%>:</strong>
+  <%= @budget.budget_type.name if @budget.budget_type -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.budget.note') -%>:</strong>
+  <%= @budget.note -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.budget.amount') -%>:</strong>
+  <%= t('budget.yen', :amount => to_format(@budget.amount)) -%>
+</p>
+
+<p>
+  <strong><%= t('budget.sum') -%>:</strong>
+  <%= t('budget.yen', :amount => to_format(@sum)) -%>
+</p>
+
+<p>
+  <strong><%= t('budget.balance') -%>:</strong>
+  <%= t('budget.yen', :amount => to_format(@balance)) -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_budget_path(@budget) -%></li>
+    <li><%= link_to t('page.back'), budgets_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,16 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.loss_item')) -%></h1>
+<div id="content_list">
+  <% if params[:user_id] and params[:item_id] %>
+    <%= render 'form' %>
+  <% else %>
+    <%= render 'form_search_manifestations' %>
+  <% end %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.loss_item')), loss_items_path -%></li>
+  </ul>
+</div>

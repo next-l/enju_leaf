@@ -1,0 +1,32 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.editing', :model => t('activerecord.models.produce')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@produce) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.patron') -%><br />
+    <%= f.text_field :patron_id -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.manifestation') -%><br />
+    <%= f.text_field :manifestation_id -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.show'), @produce -%></li>
+    <li><%= link_to t('page.back'), produces_path -%></li>
+  </ul>
+</div>

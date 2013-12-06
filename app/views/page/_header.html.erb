@@ -5,30 +5,38 @@
     </div>
     <div id="header_micro_advertisement"></div>
   </div>
-  <div id="header_center"></div>
+
+  <div id="header_advertisement"></div>
 
   <div id="header_right">
     <div id="user_account">
       <% if user_signed_in? %>
-        <%= t('page.logged_in_as', :login_name => current_user.username) -%>
+        <%= t('page.logged_in_as', :login_name => current_user.try(:patron).try(:full_name)) -%>
         <br />
-        <% if defined?(EnjuMessage) %>
-          <%= link_to image_tag('icons/email.png', :size => '16x16', :alt => t('activerecord.models.message')), messages_path %>
-          <% if current_user.received_messages.unread.size > 0 %>
-            <%= link_to "(#{h(current_user.received_messages.unread.size)})", messages_path %>
-          <% else %>
-            (<%= current_user.received_messages.unread.size %>)
-          <% end %>
+        <%= link_to image_tag('icons/email.png', :size => '16x16', :alt => t('activerecord.models.message'), :title => t('tooltip.message')), messages_path %>
+        <% if current_user.received_messages.unread.size > 0 %>
+          <%= link_to "(#{h(current_user.received_messages.unread.size)})", messages_path %>
+        <% else %>
+          (<%= current_user.received_messages.unread.size %>)
         <% end %>
-        <%= link_to t('page.account'), my_account_path -%>
-        <%= link_to t('page.sign_out'), destroy_user_session_path, :method => :delete -%>
+        <%= link_to t('page.account'), edit_my_account_path -%>
+        <%= link_to t('page.sign_out'), destroy_user_session_path -%>
         <br />
       <% else %>
         <% unless controller_name == 'sessions' %>
-          <%= link_to t('page.sign_in'), new_user_session_path -%>
+          <%- unless SystemConfiguration.isWebOPAC %>
+            <%= link_to t('page.sign_in'), new_user_session_path -%>
+          <%- end -%>
         <% end %>
       <% end %>
+      <br />
     </div>
+
     <%= render 'page/select_locale' -%>
+    <%= l(Time.now, :format => :only_date) if SystemConfiguration.get("header.disp_date") == 1 -%>
+    <%= wareki_dateformat(Time.now) if SystemConfiguration.get("header.disp_date") == 2 -%>
+    <%- if SystemConfiguration.get('display_manual') -%>    
+      <div id="header_manual" %><%= link_to t('page.get_manual'), get_manual_path %></div>
+    <%- end -%>
   </div>
 </div>

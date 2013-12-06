@@ -1,0 +1,8 @@
+<%- item.shelf.picture_files.each do |picture_file| -%>
+  <%= link_to image_tag('icons/picture.png', :size => '16x16', :alt => t('page.picture'), :title => t('tooltip.picture')), picture_file_path(picture_file, :format => picture_file.extname), :rel => "item_#{item.id}_manifestation_#{item.manifestation.id}" if picture_file.extname -%>
+<%- end -%>
+<script type="text/javascript">
+  $(document).ready(function(){
+      $("a[rel='item_<%= item.id -%>_manifestation_<%= item.manifestation.id -%>']").colorbox({transition:"none"});
+  })
+</script>

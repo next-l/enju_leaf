@@ -1,0 +1,59 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.bookstore')) -%></h1>
+<div id="content_list">
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.bookstore.name') -%></th>
+    <th><%= t('activerecord.attributes.bookstore.telephone_number') -%></th>
+    <th><%= t('activerecord.attributes.bookstore.fax_number') -%></th>
+    <th id="edit_icons"></th>
+  </tr>
+
+<%- @bookstores.each_with_index do |bookstore, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :update, bookstore -%>
+        <%= move_position(bookstore) -%>
+      <%- end -%>
+    </td>
+    <td>
+      <%= link_to bookstore.name, bookstore -%><br />
+      <%= link_to bookstore.url, bookstore.url -%>
+    </td>
+    <td><%= bookstore.telephone_number -%></td>
+    <td><%= bookstore.fax_number -%></td>
+    <td>
+      <%- if can? :update, bookstore -%>
+        <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')), edit_bookstore_path(bookstore) -%>
+      <% end %>
+      <%- if can? :destroy, bookstore -%>
+        <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')), bookstore, :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@bookstores) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <%- if can? :create, Bookstore -%>
+    <ul>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.bookstore')), new_bookstore_path -%></li>
+    </ul>
+    <div id="iconmenu" class="ui-corner-all">
+      <strong><%= t('tooltip.icons_info') -%></strong>
+      <ul>
+        <li><%= image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit'), :title => t('tooltip.edit')) -%>:&nbsp;<%=t('page.edit')-%></li>
+        <li><%= image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy'), :title => t('tooltip.destroy')) -%>:&nbsp;<%=t('page.destroy')-%></li>
+        <li><%= image_tag('icons/cross.png', :size => '16x16', :alt => t('tooltip.unavailable'), :title => t('tooltip.unavailable'))-%>:&nbsp;<%=t('tooltip.unavailable')-%></li>
+        <li><%= image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc'), :title => t('page.asc'))-%>:&nbsp;<%=t('page.asc')-%></li>
+        <li><%= image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc'), :title => t('page.desc'))-%>:&nbsp;<%=t('page.desc')-%></li>
+      </ul>
+    </div>
+  <%- end -%>
+</div>

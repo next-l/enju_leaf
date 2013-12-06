@@ -1,0 +1,29 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.use_restriction')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.use_restriction.name') -%></strong>
+  <%= @use_restriction.name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.use_restriction.display_name') -%></strong>
+  <%= @use_restriction.display_name.localize -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.use_restriction.note') -%></strong>
+  <%= @use_restriction.note -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_use_restriction_path(@use_restriction) -%></li>
+    <li><%= link_to t('page.back'), use_restrictions_path -%></li>
+  </ul>
+</div>

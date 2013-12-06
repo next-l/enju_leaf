@@ -1,0 +1,15 @@
+<div id="manifestation">
+<h2><%= t('page.listing', :model => t('activerecord.models.manifestation')) -%></h2>
+  <%= paginate(@manifestations, :param_name => :manifestation_page, :class => 'content_pagination digg_pagination') -%>
+  <table class="index">
+    <%- @manifestations.each do |manifestation| -%>
+      <% next if manifestation.periodical_master? %>
+      <tr class="line<%= cycle("0", "1") -%>">
+        <td>
+          <%= render 'manifestations/show_index', :manifestation => manifestation %>
+        </td>
+      </tr>
+    <%- end -%>
+  </table>
+  <%= paginate(@manifestations, :param_name => :manifestation_page, :class => 'content_pagination digg_pagination') -%>
+</div>

@@ -1,0 +1,44 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.produce')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@produce) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.patron') -%><br />
+    <%- if @produce.patron -%>
+      <%= link_to @produce.patron.full_name, @produce.patron -%>
+      <%= f.hidden_field :patron_id -%>
+    <%- else -%>
+      <%= f.text_field :patron_id -%>
+    <%- end -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.manifestation') -%><br />
+    <%- if @produce.manifestation -%>
+      <%= link_to @produce.manifestation_original_title, @produce.manifestation -%>
+      <%= f.hidden_field :manifestation_id -%>
+    <%- else -%>
+      <%= f.text_field :manifestation_id -%>
+    <%- end -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if @produce.patron -%>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.patron')), publisher_manifestations_path(@produce.patron) -%></li>
+    <%- end -%>
+    <%- if @produce.manifestation -%>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.manifestation')), manifestation_patrons_path(@produce.manifestation) -%></li>
+    <%- end -%>
+  </ul>
+</div>

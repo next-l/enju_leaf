@@ -1,0 +1,32 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.budget')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.budget_and_results_managements.id') -%></th>
+    <th><%= t('activerecord.attributes.manifestation.original_title') -%></th>
+    <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
+    <th align="right"><%= t('activerecord.attributes.budget_and_results_managements.expense') -%></th>
+  </tr>
+
+  <%- @expenses.each_with_index do |r, i| -%>
+    <tr class="line<%= cycle("0", "1") -%>" >
+      <td><%= i+1 -%></td>
+      <td><%= r.try(:item).try(:manifestation).try(:original_title) -%></td>
+      <td><%= r.try(:item).try(:item_identifier) -%></td>
+      <td align="right"><%= number_to_currency(r.price, :unit => "") -%></td>
+    </tr>
+  <%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), budget_and_results_managements_path -%></li>
+  </ul>
+</div>

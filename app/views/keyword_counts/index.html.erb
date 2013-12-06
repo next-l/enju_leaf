@@ -1,0 +1,48 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('activerecord.models.keyword_count') %></h1>
+<div id="content_list">
+
+<script>
+$(function(){
+  $('#start_d').setCalendar({src:'/assets/calendar.png'});
+  $('#end_d').setCalendar({src:'/assets/calendar.png'});
+});
+</script>
+
+<%= form_for :keyword_counts, :html => { :method => 'get' } do %>
+  <div style="color: red"><%= flash[:message] %></div>
+  <p>
+    <%= t('advanced_search.from_date') %>:
+    <%= text_field_tag 'start_d',
+      h(@start_d), :size => 10, :placeholder => "#{t('page.example')}: #{t('page.example_date')}" %>
+    <%= t('advanced_search.to_date') %>:
+    <%= text_field_tag 'end_d',
+       h(@end_d), :size => 10, :placeholder => "#{t('page.example')}: #{t('page.example_date')}" %>
+    <br />
+    <%= submit_tag t('page.search') %>
+    <br />
+  </p>
+<% end %>
+
+<table class="index statistics">
+  <tr>
+    <th><nobr><%= t('activerecord.attributes.keyword_count.rank') %></nobr></th>
+    <th><nobr><%= t('activerecord.attributes.keyword_count.keyword') %></nobr></th>
+    <th><nobr><%= t('activerecord.attributes.keyword_count.count') %></nobr></th>
+  </tr>
+  <% @keyword_counts.each do |keyword_count| %>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td><nobr><%= keyword_count.rank %></nobr></td>
+      <td><nobr><%= keyword_count.keyword %></nobr></td>
+      <td><nobr><%= keyword_count.count %></nobr></td>
+    </tr>
+  <% end %> 
+</table>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+   <li><%= link_to t('page.back'), page_exstatistics_path %></li>
+  </ul>
+</div>

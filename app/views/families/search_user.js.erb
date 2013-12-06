@@ -1,0 +1,8 @@
+$('#result').html(
+    "<%= escape_javascript(render :partial => 'user_list') %>"
+);
+var selector = $("div#family_users").find("input");
+selector.each(function() {
+ var value = $(this).val();
+ $('a#user_' + value).hide();
+});

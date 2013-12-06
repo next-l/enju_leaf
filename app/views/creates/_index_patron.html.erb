@@ -1,0 +1,48 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.create')) -%></h1>
+<div id="content_list">
+  <h2 class="resource_title">
+    <%= link_to patron.full_name, patron -%>
+  </h2>
+
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.models.work') -%></th>
+    <th><%= t('page.created_at') -%></th>
+    <th><%= t('page.updated_at') -%></th>
+    <th></th>
+  </tr>
+
+<%- @creates.each do |create| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :destroy, create -%>
+        <%= create.first? ? image_tag('icons/cross.png', :size => '16x16') : link_to(image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), {:action => 'update', :position => (create.position > 1 ? create.position - 1 : 1), :id => create.id, :patron_id => patron.id}, :method => :put) -%>
+        <%= create.last? ? image_tag('icons/cross.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), {:action => 'update', :position => (create.position + 1), :id => create.id, :patron_id => patron.id}, :method => :put) -%>
+      <%- end -%>
+    </td>
+    <td><%= link_to create.work.original_title, create.work -%></td>
+    <td><%= l(create.created_at) -%></td>
+    <td><%= l(create.updated_at) -%></td>
+    <td>
+      <%- if can? :destroy, create -%>
+        <%= link_to t('page.show'), patron_create_path(patron, create) -%>
+        <%= link_to t('page.destroy'), patron_create_path(patron, create), :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@creates) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <%- if can? :create, Create -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.create')), new_patron_create_path(patron) -%></li>
+    <%- end -%>
+  </ul>
+</div>

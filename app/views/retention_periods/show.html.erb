@@ -1,0 +1,36 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.retention_period')) %></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.retention_period.name') %>:</strong>
+  <%= @retention_period.name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.retention_period.display_name') %>:</strong>
+  <%= @retention_period.display_name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.retention_period.non_searchable') %>:</strong>
+  <%= localized_boolean(@retention_period.non_searchable) %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.retention_period.note') %>:</strong>
+  <%= @retention_period.note %>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <% if can? :update, @retention_period %>
+      <li><%= link_to t('page.edit'), edit_retention_period_path(@retention_period) %>
+    <% end %>
+    <li><%= link_to t('page.back'), retention_periods_path %>
+  </ul>
+</div>

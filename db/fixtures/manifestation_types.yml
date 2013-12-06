@@ -1,0 +1,79 @@
+---
+retention_period_00001:
+  id: 1
+  name: japanese_book 
+  display_name: "en: Japanese book\r\n\
+                 ja: 和図書"
+  note:
+  position: 1
+retention_period_00002:
+  id: 2
+  name: foreign_book
+  display_name: "en: Foreign book\r\n\
+                 ja: 洋図書"
+  note:
+  position: 2
+retention_period_00003:
+  id: 3
+  name: japanese_magazine
+  display_name: "en: Japanese magazine\r\n\
+                 ja: 和雑誌"
+  note:
+  position: 3
+retention_period_00004:
+  id: 4
+  name: foreign_magazine
+  display_name: "en: Foreign magazine\r\n\
+                 ja: 洋雑誌"
+  note:
+  position: 4
+retention_period_00005:
+  id: 5
+  name: japanese_serial_book
+  display_name: "en: Japanese serial book\r\n\
+                 ja: 国内逐次資料"
+  note:
+  position: 5
+retention_period_00006:
+  id: 6
+  name: foreign_serial_book
+  display_name: "en: Foreign serial book\r\n\
+                 ja: 外国逐次資料"
+  note:
+  position: 6
+retention_period_00007:
+  id: 7
+  name: japanese_monograph
+  display_name: "en: Japanese monograph\r\n\
+                 ja: 国内単行資料"
+  note:
+  position: 7
+retention_period_00008:
+  id: 8
+  name: foreign_monograph
+  display_name: "en: Foreign monograph\r\n\
+                 ja: 外国単行資料"
+  note:
+  position: 8
+retention_period_00009:
+  id: 9
+  name: japanese_article
+  display_name: "en: Japanese article\r\n\
+                 ja: 和文献"
+  note:
+  position: 9
+retention_period_00010:
+  id: 10
+  name: foreign_article
+  display_name: "en: Foreign article\r\n\
+                 ja: 洋文献"
+  note:
+  position: 10
+retention_period_00011:
+  id: 11
+  name: unknown
+  display_name: "en: Other\r\n\
+                 ja: 未分類"
+  note: "en: For import data from NDL\r\n\
+         ja: NDLからのインポートで設定"
+  position: 11

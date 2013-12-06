@@ -1,0 +1,69 @@
+<div id="result_index">
+<p>
+  <%= t('page.sort_by') -%>:
+  <%- if params[:sort_by].blank? -%>
+    <strong><%= t('question.last_answered_at') -%></strong>
+  <%- else -%>
+    <%= link_to t('question.last_answered_at'), params.merge(:sort_by => nil) -%>
+  <%- end -%>
+  <%- if params[:sort_by] == 'created_at' -%>
+    <strong><%= t('question.created_at') -%></strong>
+  <%- else -%>
+    <%= link_to t('question.created_at'), params.merge(:sort_by => 'created_at') -%>
+  <%- end -%>
+  <%- if params[:sort_by] == 'answers_count' -%>
+    <strong><%= t('activerecord.attributes.question.answers_count') -%></strong>
+  <%- else -%>
+    <%= link_to t('activerecord.attributes.question.answers_count'), params.merge(:sort_by => 'answers_count') -%>
+  <%- end -%>
+</p>
+
+<%- if @count[:query_result] > 0 -%>
+  <table class="index">
+    <tr>
+      <th><%= 'Id' -%></th>
+      <th><%= t('activerecord.models.question') -%></th>
+      <th></th>
+      <th id="edit_icons"></th>
+    </tr>
+
+  <%- @questions.each_with_index do |question, i| -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td style="width: 30px"><%= question.id -%></td>
+      <td>
+        <%= link_to truncate(question.body, :length => 60), question_path(question) -%>
+        (<%= link_to question.user.username, question.user if question.user -%>)
+        <br />
+        <!--
+        <%= t('question.updated_at') %>: <%= l(question.updated_at) -%>
+        <br />
+        -->
+        <%= t('question.last_answered_at') %>: <%= l(question.answers.last.updated_at) if question.answers.last -%>
+      </td>
+      <td>
+        <%= link_to image_tag('icons/comments.png', :alt => t('answer.count'), :title => t('tooltip.answer'), :size => '16x16'), question %>
+        <%= link_to question.answers.size, question -%>
+        <%- if question.solved %>
+          <%= t('question.solved') %>
+        <% else %>
+          <%= t('question.not_solved') %>
+        <% end %>
+      </td>
+      <td>
+        <%- if can? :update, question -%>
+          <%= link_to image_tag('icons/page_white_edit.png', :alt => t('page.edit'), :title => t('tooltip.edit'), :size => '16x16'), edit_question_path(question) -%>
+        <% end %>
+        <%- if can? :destroy, question -%>
+          <%= link_to image_tag('icons/delete.png', :alt => t('page.destroy'), :title => t('tooltip.destroy'), :size => '16x16'), question_path(question), :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%- end -%>
+      </td>
+    </tr>
+  <%- end -%>
+  </table>
+<%- else -%>
+  <p><%= t('question.no_record_found') -%></p>
+<%- end -%>
+
+<%= paginate(@questions, :remote => true) -%>
+
+</div>

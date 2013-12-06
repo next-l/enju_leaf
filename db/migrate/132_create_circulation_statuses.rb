@@ -1,5 +1,5 @@
 class CreateCirculationStatuses < ActiveRecord::Migration
-  def change
+  def self.up
     create_table :circulation_statuses do |t|
       t.string :name, :null => false
       t.text :display_name
@@ -8,5 +8,9 @@ class CreateCirculationStatuses < ActiveRecord::Migration
 
       t.timestamps
     end
+  end
+
+  def self.down
+    drop_table :circulation_statuses
   end
 end

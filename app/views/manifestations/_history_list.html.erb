@@ -1,0 +1,12 @@
+<div id="history">
+  <ul>
+    <%- manifestation.versions.reverse.each_with_index do |version, i| -%>
+      <li>
+        <%= link_to l(version.created_at), manifestation_path(manifestation, :version_id => version.id) -%>
+        <%- if i == 0 -%>
+          (<%= t('page.current_version') -%>)
+        <%- end -%>
+      </li>
+    <%- end -%>
+  </ul>
+</div>

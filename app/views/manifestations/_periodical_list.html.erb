@@ -1,0 +1,19 @@
+<div id="periodical">
+  <%= paginate(@periodicals, :param_name => :periodical_list_page, :class => 'content_pagination digg_pagination') -%>
+  <ul>
+    <%- @periodicals.each do |periodical| -%>
+      <li>
+        [M]
+        <%= link_to periodical.original_title, periodical -%>
+        <%= form_icon(periodical.carrier_type) -%>
+        <%= patrons_list(periodical.creators.readable_by(current_user)) -%>
+        <%= patrons_list(periodical.contributors.readable_by(current_user)) -%>
+        <%= patrons_list(periodical.publishers.readable_by(current_user)) -%>
+        <%- if periodical.pub_date? -%>
+          (<%= periodical.pub_date -%>)
+        <%- end -%>
+      </li>
+    <%- end -%>
+  </ul>
+  <%= paginate(@periodicals, :param_name => :periodical_list_page, :class => 'content_pagination digg_pagination') -%>
+</div>

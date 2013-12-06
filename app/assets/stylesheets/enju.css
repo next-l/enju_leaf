@@ -4,6 +4,17 @@ body{
   text-align: left;
 }
 
+pre {
+  white-space: pre;           /* CSS 2.0 */
+  white-space: pre-wrap;      /* CSS 2.1 */
+  white-space: pre-line;      /* CSS 3.0 */
+  white-space: -pre-wrap;     /* Opera 4-6 */
+  white-space: -o-pre-wrap;   /* Opera 7 */
+  white-space: -moz-pre-wrap; /* Mozilla */
+  white-space: -hp-pre-wrap;  /* HP Printers */
+  word-wrap: break-word;      /* IE 5+ */
+}
+
 a.hover{:background-color: transparent}
 
 strong{
@@ -29,15 +40,13 @@ div#narrow_search, div#narrow_library_search{
   color: black;
 }
 
-div#bd{
+div#navibar, div#bd{
   padding-left: 1px;
 }
 
 div#navibar{
   clear: both;
-  padding-left: 5px;
-  padding-right: 5px;
-  width: 914px;
+  width: 100%;
 }
 
 div#content{
@@ -80,7 +89,7 @@ div#header_micro_advertisement{
   padding-bottom: 0.5em;
 }
 
-div#header_center{
+div#header_advertisement{
   width: 240px;
   height: 65px;
   float: left;
@@ -91,7 +100,7 @@ div#header_center{
 }
 
 div#header_select_locale{
-  width: 150px;
+  width: 120px;
   padding-left: 5px;
   padding-right: 5px;
   padding-top: 0.5em;
@@ -108,8 +117,16 @@ div#header_right{
   padding-bottom: 0.5em;
 }
 
+div#header_manual{
+  padding-left: 5px;
+}
+
 div#search_footer{
   clear: both;
+}
+
+div#submenu_block{
+  float: left;
 }
 
 div#submenu{
@@ -120,12 +137,23 @@ div#submenu{
   border: 1px solid #5970B2;
 }
 
+div#social_bookmark{
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 190px;
+  padding: 5px;
+  float: left;
+  border: 1px solid #5970B2;
+}
+
+
 div#manifestation_book_jacket{
   margin-top: 10px;
   text-align: center;
 }
 
 div#pickup_book_jacket{
+  width: 150px;
   float: left;
   text-align: center;
 }
@@ -152,6 +180,7 @@ div#content_detail{
 
 div#content_list{
   padding: 10px;
+  word-wrap: break-word;
 }
 
 div#manifestation_footer{
@@ -208,7 +237,11 @@ h2{
   margin-bottom: 10px;
 }
 
-h1.resource_title, h2.resource_title, h3.resource_title{
+h1.resource_title{
+  line-height: 140%;
+}
+
+h2.resource_title{
   line-height: 140%;
 }
 
@@ -285,10 +318,16 @@ div#user_search_form, div#message_box, div#news_feed_box, div#user_box{
 
 div#picked_up_box{
   padding: 10px;
+  word-wrap: break-word;
 }
 
 div#tag_cloud_box{
   padding: 10px;
+  word-wrap: break-word;
+}
+
+div#tag_cloud_list{
+  word-wrap: break-word;
 }
 
 div.config_box{
@@ -363,7 +402,7 @@ input.resource_url{
   width: 40em;
 }
 
-input.resource_isbn_issn, input.resource_identifier, input.resource_user_number, input.resource_user{
+input.resource_isbn_issn, input.resource_item_identifier, input.resource_user_number, input.resource_user{
   width: 10em;
   ime-mode: disabled;
 }
@@ -473,7 +512,6 @@ div#flash_notice{
 
 td#edit_icons, th#edit_icons{
   width: 50px;
-  line-height: 200%;
 }
 
 img.icon{
@@ -511,7 +549,7 @@ table#resource_detail{
   width: 100%;
 }
 
-div.holding{
+div#holding{
   margin-top: 10px;
 }
 
@@ -526,11 +564,11 @@ abbr[title="required"]{
 
 div.book_jacket{
   text-align: center;
-  width: 190px;
+  width: 150px;
 }
-
-div.search_form{
-  margin-bottom: 10px;
+div#breadcrumb{
+  padding: 10px;
+  clear: both;
+  position: relative;
+  width: 700px;
 }
-
-.hidden {display: none;}

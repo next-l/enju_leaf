@@ -1,0 +1,42 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.produce')) -%></h1>
+<div id="content_list">
+  <%= render 'manifestations/title', :manifestation => manifestation -%>
+<table class="index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.models.patron') -%></th>
+    <th></th>
+  </tr>
+
+<%- @produces.each do |produce| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if can? :destroy, produce -%>
+        <%= produce.first? ? image_tag('icons/cross.png', :size => '16x16') : link_to(image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), {:action => 'update', :position => (produce.position  > 1 ? produce.position - 1 : 1), :id => produce.id, :manifestation_id => manifestation.id}, :method => :put) -%>
+        <%= produce.last? ? image_tag('icons/cross.png', :size => '16x16') : link_to(image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), {:action => 'update', :position => (produce.position + 1), :id => produce.id, :manifestation_id => manifestation.id}, :method => :put) -%>
+      <%- end -%>
+    </td>
+    <td><%= link_to produce.patron.full_name, produce.patron -%></td>
+    <td>
+      <%- if can? :destroy, produce -%>
+        <%= link_to t('page.destroy'), manifestation_produce_path(produce.manifestation, produce), :confirm => t('page.are_you_sure'), :method => :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@produces) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.listing', :model => t('activerecord.models.patron')), manifestation_patrons_path(manifestation) -%></li>
+    <li><%= link_to t('activerecord.models.manifestation'), manifestation -%></li>
+    <%- if can? :create, Produce -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.produce')), new_manifestation_produce_path(manifestation) -%></li>
+    <%- end -%>
+  </ul>
+</div>

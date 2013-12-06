@@ -1,0 +1,27 @@
+<div id="tabs">
+  <ul>
+    <% if @manifestation.items.exists? %>
+      <li><a href="#holding"><em><%= t('activerecord.models.item') %></em></a></li>
+    <% end %>
+    <li class="selected"><a href="#detail"><em><%= t('page.detail') -%></em></a></li>
+    <% if manifestation.description %>
+      <li><a href="#description"><em><%= t('activerecord.attributes.manifestation.description') %></em></a></li>
+    <% end %>
+    <% if manifestation.supplement %>
+      <li><a href="#supplement"><em><%= t('activerecord.attributes.manifestation.supplement') %></em></a></li>
+    <% end %>
+  </ul>
+
+  <div id="holding">
+    <%= render 'opac/manifestations/holding_list', :manifestation => manifestation %>
+  </div>
+  <div id="detail">
+    <%= render 'opac/manifestations/detail_list', :manifestation => manifestation %>
+  </div>
+  <div id="description">
+    <%= raw simple_format(h(manifestation.description)) %>
+  </div>
+  <div id="supplement">
+    <%= raw simple_format(h(manifestation.supplement)) %>
+  </div>
+</div>

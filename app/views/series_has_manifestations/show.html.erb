@@ -1,0 +1,23 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.series_has_manifestation')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= t('activerecord.models.series_statement') %>:</b>
+  <%= link_to @series_has_manifestation.series_statement.original_title, @series_has_manifestation.series_statement if @series_has_manifestation.series_statement %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.manifestation.original_title')-%>:</b>
+  <%= link_to @series_has_manifestation.manifestation.original_title, @series_has_manifestation.manifestation if @series_has_manifestation.manifestation %>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), series_has_manifestations_path %></li>
+  </ul>
+</div>

@@ -1,8 +1,0 @@
-"full_name"	"username"	"email"	"library_short_name"	"user_group_name"	"user_number"	"note"
-"日本語の名前"	"tanabe"	"tanabe@library.example.jp"	"kamata"		100001	
-"kosuke"	"kosuke"				100001	"user_number重複"
-"tanabe"	"tanabe"				100002	"username重複"
-"tanabe2"	"tanabe2"		"kamata"		100002	"emailなし"
-"tanabe"	"tanabe3"				100003	"full_name重複"
-"tanabe"	"tanabe4"	"tanabe@library.example.jp"			100004	"email重複"
-"tanabe"	"tanabe5"					"user_numberなし"

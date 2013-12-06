@@ -1,0 +1,66 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.series_statement')) -%></h1>
+<div id="content_list">
+
+<%= render 'manifestations/title', :manifestation => @manifestation -%>
+<%= form_for :series_statements, :url => series_statements_path, :html => {:method => 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+    <%= hidden_field_tag 'manifestation_id', @manifestation.id -%>
+    <%= render 'page/add' %>
+    <%= submit_tag t('page.search') -%>
+  </p>
+<%- end -%>
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.series_statement.original_title') -%></th>
+    <th style="white-space: nowrap;"><%= t('activerecord.attributes.series_statement.issn') -%></th>
+    <th style="white-space: nowrap;"><%= t('activerecord.attributes.series_statement.series_statement_identifier') -%></th>
+    <th style="white-space: nowrap;"></th>
+  </tr>
+
+<% @series_statements.each do |series_statement| %>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to series_statement.original_title, series_statement %></td>
+    <td style="white-space: nowrap;"><%= series_statement.issn %></td>
+    <td style="white-space: nowrap;"><%= series_statement.series_statement_identifier %></td>
+    <td style="white-space: nowrap;">
+      <%- if can? :create, SeriesHasManifestation -%>
+        <%- if params[:mode] == 'add' -%>
+          <% if @manifestation.series_has_manifestation %>
+            <% unless @manifestation.series_statement.id == series_statement.id %>
+              <%= link_to t('page.select'),
+                { :controller => 'series_has_manifestations',
+                  :action => 'update',
+                  :id => @manifestation.series_has_manifestation.id,
+                  :mode => 'edit_manifestation',
+                  :series_has_manifestation => { :series_statement_id => series_statement.id, :manifestation_id => @manifestation.id } },
+                { :method => 'put' } %>
+            <% end %>
+          <% else %>
+            <%= link_to t('page.select'),
+              { :controller => 'series_has_manifestations',
+                :action => 'create',
+                :mode => 'edit_manifestation',
+                :series_has_manifestation => { :series_statement_id => series_statement.id, :manifestation_id => @manifestation.id } },
+              { :method => 'post' } %>
+          <% end %>
+        <%- else -%>
+          <%= link_to t('page.destroy'), manifestation_series_has_manifestation_path(@manifestation, series_statement.manifestation_included(@manifestation), :mode => 'edit_manifestation'), :confirm => t('page.are_you_sure'), :method => :delete if series_statement.manifestation_included(@manifestation) -%>
+        <%- end -%>
+      <%- end -%>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate(@series_statements) -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.series_statement')), new_series_statement_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,43 @@
+<script>
+$(function() {
+    $('.opac_lists_row').click(function(e) {
+      if(!$(e.target).is('a')){
+        window.location = $(e.target).closest('tr').data('href');
+      };
+  });
+});
+</script>
+
+<div id="opac_content_header">
+  <div id="opac_content">
+    <div class="opac_title"><h1><%= t('opac.manifestation_exstats.bestreader') %></h1></div>
+    <div class="opac_head_button_area">
+      <div class="opac_head_button">
+        <%= link_to t('opac..manifestation_exstats.bestrequest'), manifestation_exstats_bestrequest_path(:opac => true) %>
+      </div>
+      <div class="opac_head_button">
+        <%= link_to t('opac.finish'), opac_path %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="opac_content">
+  <%= render 'opac/manifestation_exstats/sort_menu_bestreader' %>
+  <table class="index" id="opac_lists">
+    <tr>
+      <th><%= t('page.exstatistics.ranknumber') %></th>
+      <th><%= t('activerecord.attributes.manifestation.original_title') -%> </th>
+      <th><%= t('page.exstatistics.readercount') %></th>
+    </tr>
+    <% if @ranks %>
+      <% @ranks.each_with_index do |r, i| %>
+        <tr class="opac_line<%= cycle('0', '1') %> opac_lists_row" data-href="<%= opac_manifestation_path(r.manifestation) %>">
+          <td><%= r.rank -%></td>
+          <td><%= render 'opac/manifestations/title', :manifestation => r.manifestation %></td>
+          <td><%= @checkouts[i].cnt if @checkouts[i] %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+</div>

@@ -1,0 +1,55 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.resource_import_result')) -%></h1>
+<div id="content_list">
+<div style="color: green"><%= flash[:message] -%></div>
+  <% if @resource_import_file %>
+    <h2 class="resource_title">
+      <%= link_to @resource_import_file.resource_import_file_name, @resource_import_file %>
+    </h2>
+  <% end %>
+
+<%= t('activerecord.attributes.resource_import_result.imported_row') -%>: <%= @results_num if @results_num -%>
+<br />
+<%= t('activerecord.attributes.resource_import_result.display_result') -%>:
+<%= link_to t('activerecord.attributes.resource_import_result.all'),resource_import_file_resource_import_results_path(@resource_import_file) -%> &nbsp;
+<%= link_to t('activerecord.attributes.resource_import_result.has_msg'), {:display_result=>'has_msg'} -%>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.manifestation.original_title')-%>(<%= t('activerecord.models.item') %>)</th>
+    <th><%= t('activerecord.attributes.resource_import_result.error_msg') %></th>
+    <th></th>
+  </tr>
+
+<% @resource_import_results.each do |resource_import_result| %>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to resource_import_result.manifestation.original_title, resource_import_result.manifestation if resource_import_result.manifestation %>
+        <% if resource_import_result.item %><br />(<%= link_to resource_import_result.item.item_identifier, resource_import_result.item %>)<% end %>
+    </td>
+    <td><%= h(resource_import_result.error_msg) if resource_import_result.error_msg %></td>
+    </td>
+    <td>
+      <%= link_to t('page.show'), resource_import_result %>
+      <%= link_to t('page.destroy'), resource_import_result, :confirm => t('page.are_you_sure'), :method => :delete %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate(@resource_import_results) %>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.back'), @resource_import_file %></li>
+  </ul>
+  <% if @resource_import_file %>
+    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), resource_import_file_resource_import_results_path(@resource_import_file, :locale => @locale.to_s, :format => :tsv) -%>
+    (<%= link_to 'TSV', resource_import_file_resource_import_results_path(:locale => @locale.to_s, :format => :tsv) -%>)
+  <% else %>
+    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), resource_import_results_path(:locale => @locale.to_s, :format => 'tsv') -%>
+    (<%= link_to 'TSV', resource_import_results_path(:locale => @locale.to_s, :format => 'tsv') -%>)
+  <% end %>
+</div>
