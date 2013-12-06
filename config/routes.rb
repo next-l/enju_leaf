@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :realize_types
   resources :produce_types
 
-  devise_for :users, :path => 'accounts'
+  #devise_for :users, :path => 'accounts'
 
   resource :my_account
 

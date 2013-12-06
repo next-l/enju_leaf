@@ -6,6 +6,7 @@ require "geocoder"
 require "client_side_validations"
 require "acts-as-taggable-on"
 require "ipaddr"
+require "pp"
 
 module EnjuTrunk
   def self.included(base)

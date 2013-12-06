@@ -6,8 +6,8 @@ class EnjuTrunk::SetupGenerator < Rails::Generators::Base
     copy_file("config/config.yml", "config/config.yml")
     copy_file("config/resque.yml", "config/resque.yml")
     copy_file("config/schedule.rb", "config/schedule.rb")
+    copy_file("db/seeds.rb", "db/seeds.rb")
     directory("db/fixtures", "db/fixtures")
-    directory("db/seeds.rb", "db/seeds.rb")
     copy_file("app/controllers/application_controller.rb", "app/controllers/application_controller.rb")
     gsub_file 'config/application.rb', /# config.i18n.default_locale = :de$/,
       "config.i18n.default_locale = :ja"
@@ -31,7 +31,9 @@ EOS
       :after => "::Application.configure do\n"
     generate("devise:install")
     rake("enju_trunk_engine:install:migrations")
-    gsub_file 'config/routes.rb', /devise_for :users$/, "devise_for :users, :path => 'accounts'"
+    inject_into_file 'config/routes.rb', :after => /Application.routes.draw do$\n/ do
+      "devise_for :users, :path => 'accounts'"
+    end
     gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\Z/i'
     gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [ :email ]', 'config.authentication_keys = [ :username ]'
     inject_into_file "config.ru", :after => /require ::File.expand_path\(\'..\/config\/environment\',  __FILE__\)$\n/ do
@@ -50,6 +52,7 @@ EOS
       /# config.default_per_page = 25$/,
       "config.default_per_page = 10"
     remove_file "public/index.html"
+    remove_file "app/helpers/application_helper.rb"
     remove_file "app/views/layouts/application.html.erb"
   end
 end
