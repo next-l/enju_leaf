@@ -6,6 +6,7 @@ class EnjuTrunk::SetupGenerator < Rails::Generators::Base
     copy_file("config/config.yml", "config/config.yml")
     copy_file("config/resque.yml", "config/resque.yml")
     copy_file("config/schedule.rb", "config/schedule.rb")
+    directory("db/fixtures", "db/fixtures")
     copy_file("app/controllers/application_controller.rb", "app/controllers/application_controller.rb")
     gsub_file 'config/application.rb', /# config.i18n.default_locale = :de$/,
       "config.i18n.default_locale = :ja"
