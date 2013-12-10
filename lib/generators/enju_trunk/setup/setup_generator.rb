@@ -38,7 +38,7 @@ EOS
     generate("devise:install")
     rake("enju_trunk_engine:install:migrations")
     inject_into_file 'config/routes.rb', :after => /Application.routes.draw do$\n/ do
-      "devise_for :users, :path => 'accounts'"
+      "devise_for :users, :path => 'accounts'\n"
     end
     gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\Z/i'
     gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [ :email ]', 'config.authentication_keys = [ :username ]'
