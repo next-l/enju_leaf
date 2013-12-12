@@ -1,5 +1,6 @@
-require 'enju_biblio'
-require 'enju_library'
+#require 'enju_biblio'
+#require 'enju_library'
+require 'devise'
 require 'enju_manifestation_viewer'
 require 'redcarpet'
 require 'mobylette'
