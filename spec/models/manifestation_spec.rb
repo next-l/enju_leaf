@@ -5,6 +5,18 @@ describe Manifestation, :solr => true do
   fixtures :all
   use_vcr_cassette "enju_ndl/manifestation", :record => :new_episodes
 
+  let(:cs_in_process) do
+    CirculationStatus.find_by_name('In Process') or raise '"In Process" not found'
+  end
+  let(:cs_in_factory) do
+    CirculationStatus.find_by_name('In Factory') or raise '"In Factory" not found'
+  end
+  let(:cs_removed) do
+    CirculationStatus.find_by_name('Removed') or raise '"Removed" not found'
+  end
+  let(:cs_available) do
+    CirculationStatus.find_by_name('Available On Shelf') or raise '"Available On Shelf" not found'
+  end
 
   # !!! notice !!!
   #
@@ -84,11 +96,132 @@ describe Manifestation, :solr => true do
   end
 
   describe '#non_searchable?' do
-    it '' # TODO: immediately
+    let(:rp_searchable) do
+      FactoryGirl.create(
+        :retention_period,
+        non_searchable: false,
+        name: 'non_searchable_test rp_searchable')
+    end
+
+    let(:rp_non_searchable) do
+      FactoryGirl.create(
+        :retention_period,
+        non_searchable: true,
+        name: 'non_searchable_test rp_non_searchable')
+    end
+
+    let(:cs_searchable) do
+      FactoryGirl.create(
+        :circulation_status,
+        unsearchable: false,
+        name: 'non_searchable_test cs_searchable')
+    end
+
+    let(:cs_unsearchable) do
+      FactoryGirl.create(
+        :circulation_status,
+        unsearchable: true,
+        name: 'non_searchable_test cs_unsearchable')
+    end
+
+    let(:manifestation) do
+      m = FactoryGirl.create(:manifestation)
+
+      # 所属に関するあらゆる条件でnon_searchable?==trueになるようにする(書誌自身の条件は除く)
+      2.times do
+        item = m.items.build(
+          non_searchable: true,
+          retention_period: rp_non_searchable,
+          circulation_status: cs_unsearchable,
+          rank: 2,
+          item_identifier: "non_searchable_test_#{Item.count + 1}",
+          manifestation: m
+        )
+        item.save!
+      end
+      expect(m).to be_non_searchable
+
+      m
+    end
+
+    it 'periodical_masterがtrueであるなら常にfalseを返すこと' do
+      manifestation.periodical_master = true
+      expect(manifestation).not_to be_non_searchable
+    end
+
+    it '所蔵を持たないときtrueを返すこと' do
+      manifestation.items.destroy_all
+      expect(manifestation).to be_non_searchable
+    end
+
+    it '所蔵のいずれかが所定の条件を満たすならfalseを返すこと' do
+      manifestation.stub(:article?) { true } # manifestationはarticleである
+      update_system_configuration('manifestation.manage_item_rank', false) # manage_item_rankしない
+
+      item = manifestation.items.first
+
+      # itemはsearchableだがitem.retention_periodはnon_searchable -- 所定の条件を満たさない
+      item.non_searchable = false
+      item.retention_period = rp_non_searchable
+      expect(manifestation).to be_non_searchable
+
+      # item.retention_periodはsearchableだがitemはnon_searchable -- 所定の条件を満たさない
+      item.non_searchable = true
+      item.retention_period = rp_searchable
+      expect(manifestation).to be_non_searchable
+
+      # itemはsearchableで、item.retention_periodもsearchable -- (1) 条件を満たす
+      item.non_searchable = false
+      item.retention_period = rp_searchable
+      expect(manifestation).not_to be_non_searchable
+
+      manifestation.stub(:article?) { false } # manifestationはarticleでない
+      # (1)+item.circulation_statusがunsearchable -- 所定の条件を満たさない
+      expect(manifestation).to be_non_searchable
+
+      # (1)+item.circulation_statusがsearchable -- (2) 条件を満たす
+      item.circulation_status = cs_searchable
+      expect(manifestation).not_to be_non_searchable
+
+      update_system_configuration('manifestation.manage_item_rank', true) # manage_item_rankする
+      # (2)+item.rankが2 -- 所定の条件を満たさない
+      expect(manifestation).to be_non_searchable
+
+      # (2)+item.rankが1 -- 条件を満たす
+      item.rank = 1
+      expect(manifestation).not_to be_non_searchable
+    end
   end
 
   describe '#has_removed?' do
-    it '' # TODO: immediately
+    it 'circulation_statusが "Removed" である所蔵があればtrueを返すこと' do
+      rp = FactoryGirl.create(
+        :retention_period,
+        name: 'has_removed_test')
+
+      manifestation = FactoryGirl.create(:manifestation)
+      expect(manifestation).not_to be_has_removed
+
+      item1 = manifestation.items.build(
+        manifestation: manifestation,
+        circulation_status: cs_in_factory,
+        retention_period: rp)
+      item1.save!
+      expect(manifestation).not_to be_has_removed
+
+      item2 = manifestation.items.build(
+        manifestation: manifestation,
+        circulation_status: cs_removed,
+        retention_period: rp)
+      item2.save!
+      expect(manifestation).to be_has_removed
+
+      manifestation.items -= [item1]
+      expect(manifestation).to be_has_removed
+
+      manifestation.items -= [item2]
+      expect(manifestation).not_to be_has_removed
+    end
   end
 
   describe '#available_checkout_types' do
@@ -659,20 +792,30 @@ describe Manifestation, :solr => true do
 
       # Manifestation.searchableで正しくインデックス登録されることを検証する。
       #
+      # なおextract_keys_methodで導出される検索語および
+      # それを用いたsearch_methodにより構成される検索条件により、
+      # ただ一つのmanifestationを特定できることを前提としている。
+      # (雑誌のmanifestationの場合は検索語により特定されるのとは別に
+      # そのmanifestationのroot manifestationも検出されるが、
+      # 検索語により特定されるのが一つであればこの前提には十分であるあ)
+      #
       # extract_keys_method: インデックスに登録されることを検証するための検索で指定する値を導くメソッド(シンボルまたはprocで、前者ならばManifestationレコードにsendされ、後者ならばManifestationレコードとともにyieldされる)
       # search_method: Manifestation.searchで検索条件を指定するのに使うメソッド(およびその引数)
       # prepared_keys: 検証のために用意したテスト用属性データ(オブジェクト)群
+      # not_collect_series_attrs: 雑誌であっても、同誌書誌群の情報を収集しないインデックス項目の場合にtrueを指定する(creator、isbnなどはfalse、connect_creator、non_searchableなどはtrue)
       #
       # ブロックには、用意された属性データから
       # インデックスに登録されているはずの検索語(など)を
       # 取り出す処理を与える。
-      def it_should_search_items_by_attr(extract_keys_method, *search_method, prepared_keys, &block)
+      def it_should_search_items_by_attr(extract_keys_method, *search_method, prepared_keys, not_collect_series_attrs, &block)
         Sunspot.commit
 
         @manifestations.each do |manifestation|
           if manifestation.series_statement.blank? ||
-              series_statement_type != :periodical
+              series_statement_type != :periodical ||
+              not_collect_series_attrs
             # manifestationが雑誌でなかったとき
+            # または雑誌であっても同雑誌の情報を集めべきインデックス項目のテストのとき
             expect = [manifestation]
 
           else
@@ -706,7 +849,7 @@ describe Manifestation, :solr => true do
               expect = [manifestation]
 
             else
-              root_manifestation = manifestation.series_statement.root_manifestation
+              root_manifestation = @manifestation1
               if root_manifestation.updated_at > manifestation.created_at
                 # root_manifestationが、他のmanifestationの登録より後に更新されている
                 # (root_manifestationには他manifestationの属性値が関連付けられている)
@@ -733,7 +876,7 @@ describe Manifestation, :solr => true do
 
             results = Manifestation.search do
               __send__(*search_method, block ? block.call(key) : key)
-            end.execute.results
+            end.results
 
             results.should have(expect.count).items,
               "expected #{expect.count} items for '#{search_method.join(' ')}' search with #{search_key_record_inspect(key)}, got #{results.count} items"
@@ -747,7 +890,7 @@ describe Manifestation, :solr => true do
         prepared_keys.each do |key|
           results = Manifestation.search do
             __send__(*search_method, block ? block.call(key) : key)
-          end.execute.results
+          end.results
           results.should have(:no).items,
             "expected no items for '#{search_method.join(' ')}' search with #{search_key_record_inspect(key)}, got #{results.count} items"
         end
@@ -770,11 +913,43 @@ describe Manifestation, :solr => true do
           @patron4 = FactoryGirl.create(:patron, :full_name => 'たちつてと'),
           @patron5 = FactoryGirl.create(:patron, :full_name => 'なにぬねの'),
         ]
-        @manifestation1.__send__(setter, [@patron1])
-        @manifestation2.__send__(setter, [@patron2, @patron3])
-        @manifestation3.__send__(setter, [@patron4])
 
-        it_should_search_items_by_attr(reader, :fulltext, patrons) do |obj|
+        emulate_static = proc do |m|
+          if ENV['ENABLE_ITEM_ATTR_CACHE']
+            # NOTE:
+            # ManifestationのItem属性値内部キャッシュは
+            # 動作中にレコードの状態が変わらないことを前提としている。
+            # 通常これはrakeタスクによる
+            # インデックス再構築のときにだけ有効な前提である。
+            # (DBから読み取ったママをインデックスに登録するのみ。)
+            #
+            # 本テストにおいては環境変数ENABLE_ITEM_ATTR_CACHEが
+            # 設定されているときに限り、
+            # インデックス登録が完全に行われた状態を
+            # エミュレートするために、特別に、
+            # テストで使用するManifestationレコードの
+            # 最新の状態をもとに改めてインデックス登録を行う。
+            #
+            # なお、本テストではインデックス登録のタイミングの違いによる
+            # ある種のインデックスの不整合
+            # (it_should_search_items_by_attrのNOTEを参照)
+            # を含めて検証している。
+            # このためreloadとindexは
+            # レコードに変更を加えた直後に
+            # いちいち実施する必要がある。
+            m.reload
+            m.index
+          end
+        end
+
+        @manifestation1.__send__(setter, [@patron1])
+        @manifestation1.tap(&emulate_static)
+        @manifestation2.__send__(setter, [@patron2, @patron3])
+        @manifestation2.tap(&emulate_static)
+        @manifestation3.__send__(setter, [@patron4])
+        @manifestation3.tap(&emulate_static)
+
+        it_should_search_items_by_attr(reader, :fulltext, patrons, false) do |obj|
           obj.full_name
         end
       end
@@ -807,14 +982,14 @@ describe Manifestation, :solr => true do
           978409000000X
         )
 
-        it_should_search_items_by_attr(:isbn, :with, :isbn, isbn13)
-        it_should_search_items_by_attr(:isbn, :fulltext, isbn13)
+        it_should_search_items_by_attr(:isbn, :with, :isbn, isbn13, false)
+        it_should_search_items_by_attr(:isbn, :fulltext, isbn13, false)
 
-        it_should_search_items_by_attr(:isbn10, :with, :isbn, isbn10)
-        it_should_search_items_by_attr(:isbn10, :fulltext, isbn10)
+        it_should_search_items_by_attr(:isbn10, :with, :isbn, isbn10, false)
+        it_should_search_items_by_attr(:isbn10, :fulltext, isbn10, false)
 
-        it_should_search_items_by_attr(:wrong_isbn, :with, :isbn, wrong_isbn)
-        it_should_search_items_by_attr(:wrong_isbn, :fulltext, wrong_isbn)
+        it_should_search_items_by_attr(:wrong_isbn, :with, :isbn, wrong_isbn, false)
+        it_should_search_items_by_attr(:wrong_isbn, :fulltext, wrong_isbn, false)
       end
 
       it 'ISSNをインデックスに登録すること' do
@@ -825,8 +1000,8 @@ describe Manifestation, :solr => true do
           90000005
         )
 
-        it_should_search_items_by_attr(:issn, :with, :issn, issn)
-        it_should_search_items_by_attr(:issn, :fulltext, issn)
+        it_should_search_items_by_attr(:issn, :with, :issn, issn, false)
+        it_should_search_items_by_attr(:issn, :fulltext, issn, false)
       end
 
       it '出版日をインデックスに登録すること' do
@@ -840,7 +1015,7 @@ describe Manifestation, :solr => true do
         it_should_search_items_by_attr(
           :date_of_publication,
           :with, :pub_date,
-          pub_date)
+          pub_date, false)
       end
 
       it 'ページ数をインデックスに登録すること' do
@@ -854,15 +1029,19 @@ describe Manifestation, :solr => true do
         it_should_search_items_by_attr(
           :number_of_pages,
           :with, :number_of_pages,
-          number_of_pages
+          number_of_pages, false
         )
       end
 
       describe '所蔵群の' do
         before do
-          retention_period = FactoryGirl.create(:retention_period)
-          shelf = Shelf.first
-          circulation_status = CirculationStatus.find_by_name('Removed')
+          rp_in_factory = FactoryGirl.create(:retention_period, name: 'In Factory')
+          rp_other = FactoryGirl.create(:retention_period, name: 'other')
+
+          shelf1 = shelves(:shelf_00001) # shelf1.library #=> library_00001
+          shelf2 = shelves(:shelf_00002) # shelf2.library #=> library_00002
+          shelf3 = shelves(:shelf_00003) # shelf3.library #=> library_00002
+          shelf4 = shelves(:shelf_00004) # shelf4.library #=> library_00003
 
           @item_spec = {
             @manifestation1 => [
@@ -870,6 +1049,9 @@ describe Manifestation, :solr => true do
                 item_identifier: 'item11',
                 acquired_at: Time.zone.local(1001, 1, 10),
                 removed_at: Time.zone.local(1001, 1, 15),
+                shelf: shelf1,
+                circulation_status: cs_removed,
+                retention_period: rp_other,
               },
             ],
             @manifestation2 => [
@@ -877,16 +1059,25 @@ describe Manifestation, :solr => true do
                 item_identifier: 'item21',
                 acquired_at: Time.zone.local(1002, 1, 10),
                 removed_at: Time.zone.local(1002, 1, 15),
+                shelf: shelf2,
+                circulation_status: cs_available,
+                retention_period: rp_other,
               },
               {
                 item_identifier: 'item22',
                 acquired_at: Time.zone.local(1002, 2, 10),
                 removed_at: Time.zone.local(1002, 2, 15),
+                shelf: shelf3,
+                circulation_status: cs_in_process,
+                retention_period: rp_in_factory,
               },
               {
                 item_identifier: 'item23',
                 acquired_at: Time.zone.local(1002, 3, 10),
                 removed_at: Time.zone.local(1002, 3, 15),
+                shelf: shelf3,
+                circulation_status: cs_removed,
+                retention_period: rp_other,
               },
             ],
             @manifestation3 => [
@@ -894,11 +1085,17 @@ describe Manifestation, :solr => true do
                 item_identifier: 'item31',
                 acquired_at: Time.zone.local(1003, 1, 10),
                 removed_at: Time.zone.local(1003, 1, 15),
+                shelf: shelf4,
+                circulation_status: cs_removed,
+                retention_period: rp_other,
               },
               {
                 item_identifier: 'item32',
                 acquired_at: Time.zone.local(1003, 2, 10),
                 removed_at: Time.zone.local(1003, 2, 15),
+                shelf: shelf4,
+                circulation_status: cs_removed,
+                retention_period: rp_other,
               },
             ],
           }
@@ -906,51 +1103,127 @@ describe Manifestation, :solr => true do
           @item_spec.each do |manifestation, spec|
             spec.each do |s|
               item = Item.new(
-                :item_identifier => s[:item_identifier],
-                :manifestation => manifestation,
-                :shelf => shelf,
-                :circulation_status => circulation_status,
-                :retention_period => retention_period
+                item_identifier: s[:item_identifier],
+                manifestation: manifestation,
+                shelf: s[:shelf],
+                circulation_status: s[:circulation_status],
+                retention_period: s[:retention_period]
               )
               item.acquired_at = s[:acquired_at]
               item.removed_at = s[:removed_at]
               item.save!
             end
+            manifestation.reload if ENV['ENABLE_ITEM_ATTR_CACHE'] # NOTE: it_should_search_items_by_patronのNOTEを参照
             manifestation.index # itemsが変化しているのをsolrに伝える
           end
           after_setup_items_hook.call if defined?(after_setup_items_hook)
         end
 
-        it '所蔵群の所蔵情報IDをインデックスに登録すること' do
+        it '所蔵情報IDをインデックスに登録すること' do
           item_identifier = 
             @item_spec.values.flatten.map {|h| h[:item_identifier] }
 
           it_should_search_items_by_attr(
             proc {|manifestation| @item_spec[manifestation].map {|h| h[:item_identifier] } },
             :with, :item_identifier,
-            item_identifier
+            item_identifier, false
           )
         end
 
-        it '所蔵群の除籍日をインデックスに登録すること' do
+        it '除籍日をインデックスに登録すること' do
           removed_at = 
             @item_spec.values.flatten.map {|h| h[:removed_at] }
 
           it_should_search_items_by_attr(
-            proc {|manifestation| @item_spec[manifestation].map {|h| h[:removed_at] } },
+            proc do |manifestation|
+              @item_spec[manifestation].map do |h|
+                h[:circulation_status] == cs_removed ? h[:removed_at] : nil
+              end.compact
+            end,
             :with, :removed_at,
-            removed_at
+            removed_at, false
           )
         end
 
-        it '所蔵群中の最古の受入日をインデックスに登録すること' do
+        it 'それぞれの最古の受入日をインデックスに登録すること' do
           acquired_at =
             @item_spec.values.flatten.map {|h| h[:acquired_at] }
 
+#XXX: acquired_at_smで確認せよ?
           it_should_search_items_by_attr(
             proc {|manifestation| @item_spec[manifestation].map {|h| h[:acquired_at] }.min },
             :with, :acquired_at,
-            acquired_at
+            acquired_at, false
+          )
+        end
+
+        it '図書館名をインデックスに登録すること' do
+          library =
+            @item_spec.values.flatten.map {|h| h[:shelf].library.name }
+
+          it_should_search_items_by_attr(
+            proc {|manifestation| @item_spec[manifestation].map {|h| h[:shelf].library.name } },
+            :with, :library,
+            library, true
+          )
+        end
+
+        it '棚名をインデックスに登録すること' do
+          shelf =
+            @item_spec.values.flatten.map do |h|
+              "#{h[:shelf].library.name}_#{h[:shelf].name}"
+            end
+
+          it_should_search_items_by_attr(
+            proc do |manifestation|
+              @item_spec[manifestation].map do |h|
+                "#{h[:shelf].library.name}_#{h[:shelf].name}"
+              end
+            end,
+            :with, :shelf,
+            shelf, true
+          )
+        end
+
+        it 'circulation_statusが "In Process" であるものを含むかどうかを登録すること' do
+          q_fmt = "id_i:%d %s circulation_status_in_process_b:true"
+
+          cs_and_manifestation_id = @item_spec.keys.map do |manifestation|
+            %w(AND NOT).map {|op| q_fmt%[manifestation.id, op] }
+          end.flatten
+
+          it_should_search_items_by_attr(
+            proc do |manifestation|
+              if @item_spec[manifestation].any? {|h| h[:circulation_status].name == 'In Process' }
+                op = 'AND'
+              else
+                op = 'NOT'
+              end
+              q_fmt%[manifestation.id, op]
+            end,
+            :fulltext,
+            cs_and_manifestation_id, true
+          )
+        end
+
+        it 'circulation_statusが "In Factory" であるものを含むかどうかを登録すること' do
+          q_fmt = "id_i:%d %s circulation_status_in_factory_b:true"
+
+          cs_and_manifestation_id = @item_spec.keys.map do |manifestation|
+            %w(AND NOT).map {|op| q_fmt%[manifestation.id, op] }
+          end.flatten
+
+          it_should_search_items_by_attr(
+            proc do |manifestation|
+              if @item_spec[manifestation].any? {|h| h[:circulation_status].name == 'In Factory' }
+                op = 'AND'
+              else
+                op = 'NOT'
+              end
+              q_fmt%[manifestation.id, op]
+            end,
+            :fulltext,
+            cs_and_manifestation_id, true
           )
         end
       end
@@ -994,13 +1267,13 @@ describe Manifestation, :solr => true do
           it_should_search_items_by_attr(
             :tags,
             :with, :tag,
-            prepared_tags.flatten
+            prepared_tags.flatten, false
           ) {|obj| obj.name }
 
           it_should_search_items_by_attr(
             :tags,
             :fulltext,
-            prepared_tags.flatten
+            prepared_tags.flatten, false
           ) {|obj| obj.name }
         end
       end
@@ -1027,13 +1300,14 @@ describe Manifestation, :solr => true do
       include_examples 'Solrインデックスへの登録'
     end
 
-    describe '雑誌のroot_manifestationについて、同雑誌の他のmanifestationおよび自身の' do
+    describe '雑誌のroot_manifestationが最後に更新されたとき、同雑誌の他のmanifestationおよび自身の' do
       let :series_statement_type do
         :periodical
       end
       let :after_setup_items_hook do
         # 所蔵を登録した後で、root_manifestationに
-        # 他manifestationの属性値を関連付けるために、
+        # 他manifestationの属性値を関連付ける
+        # (全所蔵の最新情報を収集しなおす)ために、
         # root_manifestationを強制更新しておく
         proc do
           @manifestation1.updated_at += 10

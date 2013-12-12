@@ -33,7 +33,16 @@ class Manifestation < ActiveRecord::Base
  
   JPN_OR_FOREIGN = { I18n.t('jpn_or_foreign.jpn') => 0, I18n.t('jpn_or_foreign.foreign') => 1 }
 
-  searchable do
+  SUNSPOT_EAGER_LOADING = {
+    include: [
+      :creators, :publishers, :contributors, :carrier_type,
+      :manifestation_type, :language, :series_statement,
+      :original_manifestations,
+      items: :shelf,
+      subjects: {classifications: :category},
+    ]
+  }
+  searchable(SUNSPOT_EAGER_LOADING) do
     text :fulltext, :contributor, :article_title, :series_title, :exinfo_1, :exinfo_6
     text :title, :default_boost => 2 do
       titles
@@ -46,8 +55,7 @@ class Manifestation < ActiveRecord::Base
     end
     text :note do
       if root_of_series? # 雑誌の場合
-        Manifestation.joins(:series_statement).
-          where(['series_statements.id = ?', self.series_statement.id]).
+        series_manifestations.
           map(&:note).compact
       else
         note
@@ -55,8 +63,7 @@ class Manifestation < ActiveRecord::Base
     end
     text :description do
       if root_of_series? # 雑誌の場合
-        Manifestation.joins(:series_statement).
-          where(['series_statements.id = ?', self.series_statement.id]).
+        series_manifestations.
           map(&:description).compact
       else
         description
@@ -69,7 +76,7 @@ class Manifestation < ActiveRecord::Base
           where(['series_statements.id = ?', self.series_statement.id]).
           collect(&:name).compact
       else
-        creator(true)
+        creator
       end
     end
     text :publisher do
@@ -79,7 +86,7 @@ class Manifestation < ActiveRecord::Base
           where(['series_statements.id = ?', self.series_statement.id]).
           collect(&:name).compact
       else
-        publisher(true)
+        publisher
       end
     end
     text :subject do
@@ -101,8 +108,7 @@ class Manifestation < ActiveRecord::Base
     string :isbn, :multiple => true do
       if root_of_series? # 雑誌の場合
         # 同じ雑誌の全号のISBNのリストを取得する
-        Manifestation.joins(:series_statement).
-          where(['series_statements.id = ?', self.series_statement.id]).
+        series_manifestations.
           map {|manifestation| [manifestation.isbn, manifestation.isbn10, manifestation.wrong_isbn] }.flatten.compact
       else
         [isbn, isbn10, wrong_isbn]
@@ -113,8 +119,7 @@ class Manifestation < ActiveRecord::Base
         # 同じ雑誌の全号のISSNのリストを取得する
         issns = []
         issns << series_statement.try(:issn)
-        issns << Manifestation.joins(:series_statement).
-          where(['series_statements.id = ?', self.series_statement.id]).
+        issns << series_manifestations.
           map(&:issn).compact
         issns.flatten
       else
@@ -142,7 +147,7 @@ class Manifestation < ActiveRecord::Base
       #end
     end
     string :library, :multiple => true do
-      items.map{|i| i.shelf.library.name}
+      items.map{|i| item_library_name(i)}
     end
     string :language do
       language.try(:name)
@@ -150,21 +155,19 @@ class Manifestation < ActiveRecord::Base
     string :item_identifier, :multiple => true do
       if root_of_series? # 雑誌の場合
         # 同じ雑誌の全号の蔵書の蔵書情報IDのリストを取得する
-        Item.joins(:manifestation => :series_statement).
-          where(['series_statements.id = ?', self.series_statement.id]).
+        series_manifestations_items.
           collect(&:item_identifier).compact
       else
-        items(true).collect(&:item_identifier)
+        items.collect(&:item_identifier)
       end
     end
     string :removed_at, :multiple => true do
       if root_of_series? # 雑誌の場合
         # 同じ雑誌の全号の除籍日のリストを取得する
-        Item.joins(:manifestation => :series_statement).
-          where(['series_statements.id = ?', self.series_statement.id]).
+        series_manifestations_items.
           collect(&:removed_at).compact
       else
-        items(true).collect(&:removed_at)
+        items.collect(&:removed_at)
       end
     end
     boolean :has_removed do
@@ -174,7 +177,7 @@ class Manifestation < ActiveRecord::Base
       self.article?
     end
     string :shelf, :multiple => true do
-      items.collect{|i| "#{i.shelf.library.name}_#{i.shelf.name}"}
+      items.collect{|i| "#{item_library_name(i)}_#{i.shelf.name}"}
     end
     string :user, :multiple => true do
     end
@@ -185,8 +188,7 @@ class Manifestation < ActiveRecord::Base
     string :pub_date, :multiple => true do
       if root_of_series? # 雑誌の場合
         # 同じ雑誌の全号の出版日のリストを取得する
-        Manifestation.joins(:series_statement).
-          where(['series_statements.id = ?', self.series_statement.id]).
+        series_manifestations.
           map(&:date_of_publication).compact
       else
         date_of_publication
@@ -208,8 +210,7 @@ class Manifestation < ActiveRecord::Base
     string :volume_number_string, :multiple => true do
       if root_of_series? # 雑誌の場合
         # 同じ雑誌の全号の出版日のリストを取得する
-        Manifestation.joins(:series_statement).
-          where(['series_statements.id = ?', self.series_statement.id]).
+        series_manifestations.
           map(&:volume_number_string).compact
       else
         volume_number_string 
@@ -218,8 +219,7 @@ class Manifestation < ActiveRecord::Base
     string :issue_number_string, :multiple => true do
       if root_of_series? # 雑誌の場合
         # 同じ雑誌の全号の出版日のリストを取得する
-        Manifestation.joins(:series_statement).
-          where(['series_statements.id = ?', self.series_statement.id]).
+        series_manifestations.
           map(&:issue_number_string).compact
       else
         issue_number_string 
@@ -228,8 +228,7 @@ class Manifestation < ActiveRecord::Base
     string :serial_number_string, :multiple => true do
       if root_of_series? # 雑誌の場合
         # 同じ雑誌の全号の出版日のリストを取得する
-        Manifestation.joins(:series_statement).
-          where(['series_statements.id = ?', self.series_statement.id]).
+        series_manifestations.
           map(&:serial_number_string).compact
       else
         serial_number_string 
@@ -241,8 +240,7 @@ class Manifestation < ActiveRecord::Base
     string :number_of_pages, :multiple => true do
       if root_of_series? # 雑誌の場合
         # 同じ雑誌の全号のページ数のリストを取得する
-        Manifestation.joins(:series_statement).
-          where(['series_statements.id = ?', self.series_statement.id]).
+        series_manifestations.
           map(&:number_of_pages).compact
       else
         number_of_pages
@@ -299,8 +297,7 @@ class Manifestation < ActiveRecord::Base
     text :isbn do  # 前方一致検索のためtext指定を追加
       if root_of_series? # 雑誌の場合
         # 同じ雑誌の全号のISBNのリストを取得する
-        Manifestation.joins(:series_statement).
-          where(['series_statements.id = ?', self.series_statement.id]).
+        series_manifestations.
           map {|manifestation| [manifestation.isbn, manifestation.isbn10, manifestation.wrong_isbn] }.flatten.compact
       else
         [isbn, isbn10, wrong_isbn]
@@ -311,8 +308,7 @@ class Manifestation < ActiveRecord::Base
         # 同じ雑誌の全号のISSNのリストを取得する
         issns = []
         issns << series_statement.try(:issn)
-        issns << Manifestation.joins(:series_statement).
-          where(['series_statements.id = ?', self.series_statement.id]).
+        issns << series_manifestations.
           map(&:issn).compact
         issns.flatten
       else
@@ -416,10 +412,10 @@ class Manifestation < ActiveRecord::Base
     integer :id
     integer :missing_issue
     boolean :circulation_status_in_process do
-      true if items.collect(&:circulation_status_id).include?(CirculationStatus.find_by_name('In Process').id)
+      true if items.any? {|i| item_circulation_status_name(i) == 'In Process' }
     end
     boolean :circulation_status_in_factory do
-      true if items.collect(&:circulation_status_id).include?(CirculationStatus.find_by_name('In Factory').id)
+      true if items.any? {|i| item_circulation_status_name(i) == 'In Factory' }
     end
   end
 
@@ -494,6 +490,11 @@ class Manifestation < ActiveRecord::Base
     end
   end
 
+  def index
+    reload if reload_for_index
+    solr_index
+  end
+
   def check_rank
     if self.manifestation_type && self.manifestation_type.is_article?
       if self.items and self.items.size > 0
@@ -513,7 +514,7 @@ class Manifestation < ActiveRecord::Base
   end
 
   def root_of_series?
-    return true if series_statement.try(:root_manifestation) == self
+    return true if series_statement.try(:root_manifestation_id) == self.id
     false
   end
 
@@ -544,9 +545,9 @@ class Manifestation < ActiveRecord::Base
     items.each do |i|
       hide = false
       hide = true if i.non_searchable
-      hide = true if i.try(:retention_period).try(:non_searchable)
+      hide = true if item_retention_period_non_searchable?(i)
       unless article?
-        hide = true if i.try(:circulation_status).try(:unsearchable)
+        hide = true if item_circulation_status_unsearchable?(i)
         if SystemConfiguration.get('manifestation.manage_item_rank')
           hide = true if i.rank == 2
         end
@@ -558,7 +559,7 @@ class Manifestation < ActiveRecord::Base
 
   def has_removed?
     items.each do |i|
-      return true if i.circulation_status.name == "Removed" and !i.removed_at.nil?
+      return true if item_circulation_status_name(i) == "Removed" and !i.removed_at.nil?
     end
     false
   end
@@ -1435,6 +1436,106 @@ class Manifestation < ActiveRecord::Base
         I18n.t('manifestation.output_job_error_body', :job_name => name, :message => exception.message+exception.backtrace))
     end
   end
+
+  private
+
+    INTERNAL_ITEM_ATTR_CACHE = {}
+    def internal_item_attr_cache
+      if INTERNAL_ITEM_ATTR_CACHE[:limit] &&
+          INTERNAL_ITEM_ATTR_CACHE[:limit] > Time.now
+        return INTERNAL_ITEM_ATTR_CACHE
+      end
+
+      self.class.init_internal_item_attr_cache!
+      INTERNAL_ITEM_ATTR_CACHE
+    end
+
+    def item_attr_with_cache(attr_key, attr_id)
+      cache = internal_item_attr_cache
+      if cache[attr_key].include?(attr_id)
+        return cache[attr_key][attr_id]
+      end
+      cache[attr_key][attr_id] = yield
+    end
+
+    def item_attr_without_cache(attr_key, attr_id)
+      yield
+    end
+
+    def self.init_internal_item_attr_cache!
+      INTERNAL_ITEM_ATTR_CACHE.clear
+      INTERNAL_ITEM_ATTR_CACHE[:limit] = Time.now + 60*60*24
+      INTERNAL_ITEM_ATTR_CACHE[:rp_non_searchable] = {}
+      INTERNAL_ITEM_ATTR_CACHE[:cs_unsearchable] = {}
+      INTERNAL_ITEM_ATTR_CACHE[:cs_name] = {}
+      INTERNAL_ITEM_ATTR_CACHE[:library_name] = {}
+    end
+
+    def self.enable_item_attr_cache!
+      alias_method :item_attr, :item_attr_with_cache
+      define_method(:reload_for_index) { false }
+      init_internal_item_attr_cache!
+      logger.info 'Internal item attributions cache for Manifestation is enabled.'
+    end
+
+    def self.disable_item_attr_cache!
+      alias_method :item_attr, :item_attr_without_cache
+      define_method(:reload_for_index) { true }
+      init_internal_item_attr_cache!
+      logger.info 'Internal item attributions cache for Manifestation is disabled.'
+    end
+
+    if ENV['ENABLE_ITEM_ATTR_CACHE']
+      enable_item_attr_cache!
+    else
+      disable_item_attr_cache!
+    end
+
+    def item_retention_period_non_searchable?(item)
+      item_attr(:rp_non_searchable, item.retention_period_id) do
+        item.retention_period.try(:non_searchable)
+      end
+    end
+
+    def item_circulation_status_unsearchable?(item)
+      item_attr(:cs_name, item.circulation_status_id) do
+        item.circulation_status.try(:unsearchable)
+      end
+    end
+
+    def item_circulation_status_name(item)
+      item_attr(:cs_unsearchable, item.circulation_status_id) do
+        item.circulation_status.try(:name)
+      end
+    end
+
+    def item_library_name(item)
+      item_attr(:library_name, item.shelf.library_id) do
+        item.shelf.library.name
+      end
+    end
+
+    def series_manifestations
+      if !reload_for_index &&
+          @_series_manifestations_cache
+        @_series_manifestations_cache
+      end
+
+      @_series_manifestations_cache =
+        Manifestation.joins(:series_statement).
+          where(['series_statements.id = ?', self.series_statement.id])
+    end
+
+    def series_manifestations_items
+      if !reload_for_index &&
+          @_series_manifestations_items_cache
+        @_series_manifestations_items_cache
+      end
+
+      @_series_manifestations_items_cache =
+        Item.joins(:manifestation => :series_statement).
+          where(['series_statements.id = ?', self.series_statement.id])
+    end
 end
 
 # == Schema Information

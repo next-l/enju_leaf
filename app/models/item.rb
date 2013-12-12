@@ -89,7 +89,16 @@ class Item < ActiveRecord::Base
   #enju_union_catalog
   has_paper_trail
 
-  searchable do
+  searchable(
+    include: {
+      shelf: :library,
+      manifestation: [
+        :creators,
+        :contributors,
+        :publishers
+      ],
+    }
+  ) do
     text :item_identifier, :note, :title, :creator, :contributor, :publisher, :library
     string :item_identifier
     string :library
@@ -97,9 +106,7 @@ class Item < ActiveRecord::Base
     integer :circulation_status_id
     integer :accept_type_id
     integer :retention_period_id
-    integer :manifestation_id do
-      manifestation.id if manifestation
-    end
+    integer :manifestation_id
     integer :shelf_id
     integer :patron_ids, :multiple => true
     integer :rank
