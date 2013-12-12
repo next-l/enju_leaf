@@ -1508,6 +1508,7 @@ en:
     all_search_term: All
     any_search_term: Any
     except_search_term: Except
+    startwith_term: Start with
     search_result: Search result
     number_of_manifestations:
       one: 1 record in this library.
@@ -1531,14 +1532,17 @@ en:
     advanced_search_summary_delimiter: ', '
     title: Title
     exact_title: Exact match
+    startwith_title: Start with
     all_title: All
     any_title: Any
     except_title: Except
     exact_creator: Exact match
+    startwith_creator: Start with
     all_creator: All
     any_creator: Any
     except_creator: Except
     exact_publisher: Exact match
+    startwith_publisher: Start with
     all_publisher: All
     any_publisher: Any
     except_publisher: Except

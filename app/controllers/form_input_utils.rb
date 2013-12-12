@@ -27,6 +27,15 @@ module FormInputUtils
     form_input.to_s.gsub(/[　\s]+/, ' ').strip
   end
 
+  # 引用符をエスケープした文字列を返す
+  # 第二引数がtrueなら空白文字もエスケープする
+  def escape_query_string(form_input, escape_wsp = false)
+    escaped = form_input.to_s
+    escaped = escaped.gsub(/(['"])/, '\\\\\1')
+    escaped = escaped.gsub(/([\s　])/, '\\\\\1') if escape_wsp
+    escaped
+  end
+
   # 空白を含まない文字列、"..."、'...'を抽出する
   # ただし単独のAND、ORは"AND"、"OR"に変換して返す(quote_op == trueのとき)
   # ブロックが与えられていれば抽出した文字列に適用する
@@ -146,13 +155,50 @@ module FormInputUtils
   # 使用例:
   #
   #     generate_adhoc_one_char_query_text('あ い うえお AND "かき くけこ"', Patron, [:full_name, :note])
-  #     #=> "{!qf='full_name_s note_s'}*あ* *い* *うえお* *AND* *かき\ くけこ*"
+  #     #=> %Q|_query_:"{!edismax qf='full_name_s note_s'}*あ* *い*" *うえお* "AND" "かき くけこ"|
   #
   # 注意:
   # 可能ならば適切なインデックス構成とすることでこうした問題を解決するのが望ましい。
   # しかし、インデックス構成の変更が難しいケースもある。
   # ここでの方法はあくまでadhocなものであり利用を推奨するものではない。
   def generate_adhoc_one_char_query_text(text, model, string_fields)
+    generate_adhoc_string_query_text(text, model, string_fields) do |t|
+      t.size == 1 ? "*#{t}*" : nil
+    end
+  end
+
+  # 与えられたテキストから検索語を抽出し、
+  # 各語に対してブロックを適用する。
+  # ブロックの返り値が偽ならば通常の検索を行い、
+  # 第3引数で指定されたstring型フィールドで
+  # 検索を行うようなSolrクエリー式を生成する。
+  #
+  # (generate_adhoc_one_char_query_textを参照)
+  def generate_adhoc_string_query_text(text, model, string_fields)
+    str_words = []
+    words = []
+    each_query_word(text) do |t|
+      if r = yield(t)
+        str_words << r
+      else
+        words << t
+      end
+    end
+
+    if str_words.present?
+      words << adhoc_text_field_query(str_words, model, string_fields)
+    end
+    words.join(' ')
+  end
+
+  # 第1引数で与えられたテキストを
+  # 第3引数で与えられたフィールドから
+  # 検索するためのSolrクエリー式を返す。
+  #
+  # その際、与えられたフィールドが
+  # 第2引数で与えられたモデルにおいて
+  # 定義されていることを検査する。
+  def adhoc_text_field_query(qwords, model, fields, nest = true, op = :default)
     model_string_fields = {}
     Sunspot::Setup.for(model).fields.each do |sunspot_field|
       next unless sunspot_field.type.is_a?(Sunspot::Type::StringType)
@@ -160,7 +206,7 @@ module FormInputUtils
     end
 
     indexed_names = []
-    string_fields.each do |field|
+    fields.each do |field|
       unless model_string_fields.include?(field)
         logger.debug "#{model.name} has no such a string-typed-field: #{field.inspect}"
         next
@@ -176,12 +222,16 @@ module FormInputUtils
       return one_char_text
     end
 
-    qwords = []
-    each_query_word(text) do |t|
-      t = $1.gsub(/(\s)/, '\\\\\\1') if /\A"(.*)"\z/ =~ t
-      qwords << "*#{t}*"
+    case op
+    when :and
+      op = ' AND '
+    when :or
+      op = ' OR '
+    else
+      op = ' '
     end
 
-    "{!qf='#{indexed_names.join(' ')}'}#{qwords.join(' ')}"
+    query = %Q|{!edismax qf='#{indexed_names.join(' ')}'}#{[qwords].flatten.map(&:to_s).join(op)}|
+    nest ? %Q|_query_:"#{query}"| : query
   end
 end

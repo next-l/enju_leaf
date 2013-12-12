@@ -295,10 +295,12 @@ module ApplicationHelper
     removed: 'activerecord.attributes.item.removed_at',
     number_of_pages: 'page.number_of_pages',
     exact_title: 'page.exact_title',
+    startwith_title: 'page.startwith_title',
     all_title: 'page.all_title',
     any_title: 'page.any_title',
     except_title: 'page.except_title',
     exact_creator: 'page.exact_creator',
+    startwith_creator: 'page.startwith_creator',
     all_creator: 'page.all_creator',
     any_creator: 'page.any_creator',
     except_creator: 'page.except_creator',
@@ -306,6 +308,7 @@ module ApplicationHelper
     all_query: 'page.all_search_term',
     any_query: 'page.any_search_term',
     except_query: 'page.except_search_term',
+    startwith_query: 'page.startwith_term',
     solr_query: 'page.solr_query',
     manifestation_types: 'activerecord.models.manifestation_type',
     carrier_types: 'activerecord.models.carrier_type',
@@ -392,7 +395,7 @@ module ApplicationHelper
         v = nil
         if $1
           i = 1
-          if params[t].present? && /\A(?:all|any|exact)\z/ =~ params[key].to_s
+          if params[t].present? && /\A(?:all|any|exact|startwith)\z/ =~ params[key].to_s
             v = "[#{advanced_search_label(:"#{params[key]}_#{t}")}]"
           end
         else
@@ -448,7 +451,7 @@ module ApplicationHelper
 
   def advanced_search_merge_tag(name)
     pname = :"#{name}_merge"
-    all = any = exact = false
+    all = any = exact = startwith = false
 
     case params[pname]
     when 'any'
@@ -459,6 +462,8 @@ module ApplicationHelper
       else
         exact = true
       end
+    when 'startwith'
+      startwith = true
     else
       all = true
     end
@@ -469,6 +474,8 @@ module ApplicationHelper
         radio_button_tag(pname, 'exact', exact) +
         advanced_search_label(:"exact_#{name}") + ' '
       end +
+      radio_button_tag(pname, 'startwith', startwith) +
+      advanced_search_label(:"startwith_#{name}") + ' ' +
       radio_button_tag(pname, 'all', all) +
       advanced_search_label(:"all_#{name}") + ' ' +
       radio_button_tag(pname, 'any', any) +

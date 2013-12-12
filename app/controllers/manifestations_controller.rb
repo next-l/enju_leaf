@@ -1011,13 +1011,37 @@ class ManifestationsController < ApplicationController
     # basic search
     #
 
-    query = normalize_query_string(params[:query])
-    query = "#{query}*" if query.size == 1
+    string_fields_for_query = [ # fulltext検索に対応するstring型フィールドのリスト
+      :title, :contributor,
+      :exinfo_1, :exinfo_6,
+      :subject, :isbn, :issn,
+      # 登録内容がroot_of_series?==trueの場合に相違
+      :creator, :publisher,
+      # 対応するstring型インデックスがない
+      # :fulltext,
+      # :article_title, :series_title,
+      # :note, :description,
+      # :aulast, :aufirst
+      # :atitle, :btitle, :jtitle,
+      # :extext_1, :extext_2, :extext_3, :extext_4, :extext_5,
+    ]
+
+    query = params[:query].to_s
     query = '' if query == '[* TO *]'
 
     if query.present?
-      qws = each_query_word(query) do |qw|
-        highlight << /#{highlight_pattern(qw)}/
+      qws = []
+      if params[:query_merge] == 'startwith'
+        qws << adhoc_text_field_query(
+          "#{escape_query_string(query, true)}*",
+          Manifestation, string_fields_for_query, false)
+      else
+        each_query_word(normalize_query_string(query)) do |qw|
+          highlight << /#{highlight_pattern(qw)}/
+          qws << generate_adhoc_string_query_text(qw, Manifestation, string_fields_for_query) do |t|
+            qw.size == 1 ? "#{t}*" : nil
+          end
+        end
       end
 
       if qws.size == 1
@@ -1028,6 +1052,7 @@ class ManifestationsController < ApplicationController
         qwords << '(' + qws.join(' OR ') + ')'
       end
     end
+
     # recent manifestations
     qwords << "created_at_d:[NOW-1MONTH TO NOW] AND except_recent_b:false" if params[:mode] == 'recent'
 
@@ -1035,65 +1060,89 @@ class ManifestationsController < ApplicationController
     # advanced search
     #
 
-    # exact match
-    exact_match = []
-    if params[:title].present? && params[:title_merge] == 'exact'
-      exact_match << :title
-      t = params[:title]
-      highlight << /\A#{highlight_pattern(t)}\z/
-      qwords << %Q[title_sm:"#{t.gsub(/"/, '\\"')}"]
-    end
+    # exact match / start-with match
+    special_match = []
+    [:title, :creator].each do |key|
+      value = params[key]
+      merge_type = params[:"#{key}_merge"]
+      next unless value.present? && (merge_type == 'exact' || merge_type == 'startwith')
+      special_match << key
 
-    if params[:creator].present? && params[:creator_merge] == 'exact'
-      exact_match << :creator
-      t = params[:creator].gsub(/\s/, '') # インデックス登録時の値に合わせて空白を除去しておく
-      highlight << /\A#{highlight_pattern(t)}\z/
-      qwords << %Q[creator_sm:"#{t.gsub(/"/, '\\"')}"]
+      case key
+      when :title
+        field = 'title_sm'
+      when :creator
+        field = 'creator_sm'
+        value = value.gsub(/\s/, '') # インデックス登録時の値に合わせて空白を除去しておく
+      end
+      highlight << /\A#{highlight_pattern(value)}\z/
+
+      if merge_type == 'exact'
+        qw = %Q["#{escape_query_string(value)}"]
+      else
+        qw = %Q[#{escape_query_string(value, true)}*]
+      end
+      qwords << %Q[#{field}:#{qw}]
     end
 
     # other attributes
     [
       [:tag, 'tag_sm'],
-      [:title, 'title_text'],
-      [:creator, 'creator_text'],
-      [:contributor, 'contributor_text'],
+      [:title, 'title_text', 'title_sm'],
+      [:creator, 'creator_text', 'creator_sm'],
+      [:contributor, 'contributor_text', 'contributor_sm'],
       [:isbn, 'isbn_sm'],
       [:issn, 'issn_sm'],
       [:lccn, 'lccn_s'],
       [:nbn, 'nbn_s'],
-      [:publisher, 'publisher_text'],
+      [:publisher, 'publisher_text', 'publisher_sm'],
       [:item_identifier, 'item_identifier_sm'],
-      [:manifestation_type, 'manifestation_type_sm'],
       [:except_query, nil],
-      [:except_title, 'title_text'],
-      [:except_creator, 'creator_text'],
-      [:except_publisher, 'publisher_text'],
-    ].each do |key, field|
-      next if exact_match.include?(key)
+      [:except_title, 'title_text', 'title_sm'],
+      [:except_creator, 'creator_text', 'creator_sm'],
+      [:except_publisher, 'publisher_text', 'publisher_sm'],
+    ].each do |key, field, onechar_field|
+      next if special_match.include?(key)
 
       value = params[key]
       next if value.blank?
 
+      qcs = []
       qws = []
       hls = []
 
       merge_type = params[:"#{key}_merge"]
       flg = /\Aexcept_/ =~ key.to_s ? '-' : ''
-      tag = "#{field}:" if field
       each_query_word(value) do |word|
         hls << word if flg.blank?
-        word = "*#{word}*" if word.size == 1
-        qws << "#{flg}#{word}"
+        if word.size == 1 && onechar_field
+          # 1文字だけの検索語を部分一致とみなす
+          qcs << "#{flg}*#{word}*"
+        else
+          qws << "#{flg}#{word}"
+        end
       end
 
-      if qws.size > 1 && merge_type == 'any'
-        qwords.push "#{tag}(#{qws.join(' OR ')})"
-      else
-        qwords.push "#{tag}(#{qws.join(' AND ')})"
+      qw = []
+      [
+        [qcs, onechar_field || field],
+        [qws, field],
+      ].each do |q, f|
+        next if q.blank?
+
+        tag = f ? "#{f}:" : ''
+        if q.size == 1
+          qw << "#{tag}#{q.first}"
+        elsif merge_type == 'any'
+          qw << "#{tag}(#{q.join(' OR ')})"
+        else
+          qw << "#{tag}(#{q.join(' AND ')})"
+        end
       end
+      qwords.push qw.join(' AND ')
 
       if (key == :title || key == :creator) &&
-          flg!= '-' && !hls.blank? && merge_type != 'exact'
+          flg != '-' && hls.present?
         highlight.concat hls.map {|t| /#{highlight_pattern(t)}/ }
       end
     end
@@ -1119,7 +1168,7 @@ class ManifestationsController < ApplicationController
       types_ary = []
       manifestation_types = params[:manifestation_types]
       manifestation_types.each_key do |key|
-        manifestation_type = ManifestationType.find(key)
+        manifestation_type = ManifestationType.find(key) rescue nil
         types_ary << manifestation_type.name if manifestation_type.present?
       end
       qwords << "manifestation_type_sm:(" + types_ary.join(" OR ") + ")" if types_ary.present?

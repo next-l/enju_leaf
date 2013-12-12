@@ -98,7 +98,7 @@ describe ApplicationHelper do
       helper.stub(:params).and_return(params)
     end
 
-    it '詳細検索のためのパラメータ以外を引き継いぐhiddenタグを生成すること' do
+    it '詳細検索のためのパラメータ以外を引き継ぐhiddenタグを生成すること' do
       ApplicationHelper::ADVANCED_SEARCH_PARAMS.each do |name|
         params[name] = name.to_s
       end
@@ -238,10 +238,10 @@ describe ApplicationHelper do
     end
 
     [
-      ['title', %w(exact all any)],
-      ['creator', %w(exact all any)],
-      ['publisher', %w(exact all any)],
-      ['query', %w(all any)],
+      ['title', %w(exact startwith all any)],
+      ['creator', %w(exact startwith all any)],
+      ['publisher', %w(exact startwith all any)],
+      ['query', %w(startwith all any)],
     ].each do |name, values|
       values.each do |pvalue|
         pname = "#{name}_merge"
@@ -250,7 +250,7 @@ describe ApplicationHelper do
 
           html = helper.advanced_search_merge_tag(name)
 
-          found = false
+          found = []
           html.scan(/<input(.+?)>/) do
             n = t = v = c = nil
             $1.scan(/(\S+)="(.+?)"/) do
@@ -261,8 +261,8 @@ describe ApplicationHelper do
               when 'checked'; c = true
               end
             end
+            found << v
             next unless n == pname
-            found = true
 
             if v == pvalue
               c.should be_true, "expected <input type=\"#{t}\" name=\"#{n}\" value=\"#{v}\" checked>, but not checked"
@@ -270,7 +270,7 @@ describe ApplicationHelper do
               c.should be_false, "expected <input type=\"#{t}\" name=\"#{n}\" value=\"#{v}\">, but checked"
             end
           end
-          found.should be_true, "expected <input name=\"#{pname}\" value=\"#{pvalue}\" checked>, but not found"
+          found.sort.should eq(values.sort)
         end
       end
     end
