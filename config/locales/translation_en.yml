@@ -194,6 +194,7 @@ en:
       exchange_manifestation: Exchenge manifestation exemplified
       relationship_family: Relationship family
       series_statement_relationship_type: Series statement relationship type
+      barcode_registration: Registration bar code
 
     attributes:
       enju_terminal:
@@ -1769,6 +1770,12 @@ en:
       no_matches_found: No matches found
       hot_topic: Hot topic
       related_manifestation: Related manifestation
+    barcode_registration:
+      first_number: First number
+      last_number: Last number
+      submit: submit
+      error: Invalid value has been entered
+      number: Number
 
   manual_for_user: "manual_for_user.pdf"
   manual_for_librarian: "manual_for_librarian.pdf"

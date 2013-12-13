@@ -196,6 +196,7 @@ ja:
       relationship_family: 遍歴ファミリー
       series_statement_relationship_type: 遍歴関係タイプ
       theme: テーマ
+      barcode_registration: 資料登録番号バーコード
     attributes:
       wareki:
         display_name: 表示名
@@ -1742,6 +1743,12 @@ ja:
       no_matches_found: テーマが見つかりません
       hot_topic: 話題のテーマ
       related_manifestation: 関連する資料
+    barcode_registration:
+      first_number: 開始番号
+      last_number: 終了番号
+      submit: 出力
+      error: "不正な値が入力されています。"
+      number: 登録番号
 
   manual_for_user: "利用マニュアル.pdf"
   manual_for_librarian: "運用マニュアル.pdf"
