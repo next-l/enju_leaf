@@ -31,7 +31,7 @@ module FormInputUtils
   # 第二引数がtrueなら空白文字もエスケープする
   def escape_query_string(form_input, escape_wsp = false)
     escaped = form_input.to_s
-    escaped = escaped.gsub(/(['"])/, '\\\\\1')
+    escaped = escaped.gsub(/(['"\\])/, '\\\\\1')
     escaped = escaped.gsub(/([\s　])/, '\\\\\1') if escape_wsp
     escaped
   end
@@ -231,7 +231,9 @@ module FormInputUtils
       op = ' '
     end
 
-    query = %Q|{!edismax qf='#{indexed_names.join(' ')}'}#{[qwords].flatten.map(&:to_s).join(op)}|
+    query = %Q|#{[qwords].flatten.map(&:to_s).join(op)}|
+    query = escape_query_string(query) if nest
+    query = %Q|{!edismax qf='#{indexed_names.join(' ')}'}#{query}|
     nest ? %Q|_query_:"#{query}"| : query
   end
 end

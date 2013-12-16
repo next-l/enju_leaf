@@ -1034,7 +1034,7 @@ class ManifestationsController < ApplicationController
       if params[:query_merge] == 'startwith'
         qws << adhoc_text_field_query(
           "#{escape_query_string(query, true)}*",
-          Manifestation, string_fields_for_query, false)
+          Manifestation, string_fields_for_query)
       else
         each_query_word(normalize_query_string(query)) do |qw|
           highlight << /#{highlight_pattern(qw)}/

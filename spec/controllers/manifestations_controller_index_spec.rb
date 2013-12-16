@@ -255,13 +255,18 @@ describe ManifestationsController do
 
         describe 'except_queryが与えられたとき' do
           it '指定語を含まないレコードを抽出すること' do
-            get :index, query: '岩手県', except_query: '秋田'
-            expect(response).to be_success
+            [nil, 'any', 'all', 'startwith'].each do |merge|
+              get :index, query: '岩手県', except_query: '秋田', query_merge: merge
+              expect(response).to be_success
 
-            manifestations = assigns(:manifestations)
-            expect(manifestations).to be_present
-            expect(manifestations).to have(1).item
-            expect(manifestations.first.original_title).to eq('根室市北海道')
+              manifestations = assigns(:manifestations)
+              expect(manifestations).to be_present,
+                "[query_merge=#{merge.inspect}] expected @manifestations, got false"
+              expect(manifestations).to have(1).item,
+                "[query_merge=#{merge.inspect}] expected 1 item, got #{manifestations.size} items"
+              expect(manifestations.first.original_title).to eq('根室市北海道'),
+                "[query_merge=#{merge.inspect}] expected \"根室市北海道\" item, got #{manifestations.first.original_title.inspect}"
+            end
           end
         end
 
