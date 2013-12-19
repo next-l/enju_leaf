@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -* encoding: utf-8 -*-
 class ManifestationsController < ApplicationController
   add_breadcrumb "I18n.t('breadcrumb.search_manifestations')", 'manifestations_path', :only => [:index] #, :unless => proc{params}
 #  add_breadcrumb "I18n.t('breadcrumb.search_manifestations')", 'manifestations_path(params)', :only => [:index], :if => proc{params}
@@ -793,6 +793,8 @@ class ManifestationsController < ApplicationController
       @manifestation.isbn = nil if SystemConfiguration.get("manifestation.isbn_unique")
       @manifestation.series_statement = original_manifestation.series_statement unless @manifestation.series_statement
       @keep_themes = original_manifestation.themes.collect(&:id).flatten.join(',')
+      #TODO exinfo
+      #@exinfo = original.manifestation.manifestation_exinfos
     elsif @expression
       @manifestation.original_title = @expression.original_title
       @manifestation.title_transcription = @expression.title_transcription
@@ -881,6 +883,8 @@ class ManifestationsController < ApplicationController
     @subject = params[:manifestation][:subject]
     @subject_transcription = params[:manifestation][:subject_transcription]
     @theme = params[:manifestation][:theme]
+    #TODO exinfo
+    #@exinfo = params[:manifestation][:exinfo]
 
     respond_to do |format|
       if @manifestation.save
@@ -896,6 +900,8 @@ class ManifestationsController < ApplicationController
           @manifestation.publishers = Patron.add_patrons(@publisher, @publisher_transcription) unless @publisher.blank?
           @manifestation.subjects = Subject.import_subjects(@subject, @subject_transcription) unless @subject.blank?
           @manifestation.themes = Theme.add_themes(@theme) unless @theme.blank?
+          #TODO exinfo
+          #@manifestation.manifestation_exinfos = ManifestationExinfo.add_exinfo(@exinfo)
         end
 
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_created', :model => t('activerecord.models.manifestation')) }
@@ -922,6 +928,8 @@ class ManifestationsController < ApplicationController
     @subject = params[:manifestation][:subject]
     @subject_transcription = params[:manifestation][:subject_transcription]
     @theme = params[:manifestation][:theme]
+    #TODO exinfo
+    #@exinfo = params[:manifestation][:exinfo_1]
     respond_to do |format|
       if @manifestation.update_attributes(params[:manifestation])
         if @manifestation.series_statement and @manifestation.series_statement.periodical
@@ -933,6 +941,8 @@ class ManifestationsController < ApplicationController
         @manifestation.publishers.destroy_all; @manifestation.publishers = Patron.add_patrons(@publisher, @publisher_transcription)
         @manifestation.subjects = Subject.import_subjects(@subject, @subject_transcription)
         @manifestation.themes.destroy_all; @manifestation.themes = Theme.add_themes(@theme)
+        #TODO exinfo
+        #@manifestation.manifestation_exinfos.destroy_all; @manifestation.manifestation_exinfos = ManifestationExinfo.add_exinfo("name", @exinfo, @manifestation.id)
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_updated', :model => t('activerecord.models.manifestation')) }
         format.json { head :no_content }
       else

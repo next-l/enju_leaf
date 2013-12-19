@@ -25,6 +25,8 @@ class Manifestation < ActiveRecord::Base
   has_many :theme_has_manifestations, :dependent => :destroy
   has_many :themes, :through => :theme_has_manifestations
   has_many :identifiers
+  has_many :manifestation_exinfos, :dependent => :destroy
+  has_many :manifestation_extexts, :dependent => :destroy
 
   belongs_to :manifestation_content_type, :class_name => 'ContentType', :foreign_key => 'content_type_id'
   belongs_to :country_of_publication, :class_name => 'Country', :foreign_key => 'country_of_publication_id'
@@ -444,8 +446,7 @@ class Manifestation < ActiveRecord::Base
 
   after_save :index_series_statement
   after_destroy :index_series_statement
-  attr_accessor :during_import, :creator, :contributor, :publisher, :subject, :theme, 
-                :creator_transcription, :publisher_transcription, :contributor_transcription, :subject_transcription
+  attr_accessor :during_import, :creator, :contributor, :publisher, :subject, :theme, :manifestation_exinfo, :creator_transcription, :publisher_transcription, :contributor_transcription, :subject_transcription
 
   paginates_per 10
 

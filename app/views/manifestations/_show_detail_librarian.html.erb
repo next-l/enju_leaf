@@ -295,13 +295,19 @@
               <%= simple_format(hbr(manifestation.note)) -%>
             </td>
           </tr>
-<!--
-          <%- if manifestation.exinfo_1 -%>
+<!-- TODO exinfo
+          <%- if manifestation.manifestation_exinfos -%>
             <tr>
               <td><%= t('activerecord.attributes.manifestation.exinfo_1') -%>:</td>
-              <td><%= manifestation.exinfo_1 -%></td>
+              <td>
+                <% manifestation.manifestation_exinfos.each do |ex| %> 
+                  <%= ex.name -%> | <%= ex.value  %>
+                <% end %>
+              </td>
             </tr>
           <%- end -%>
+-->
+<!--
           <%- if manifestation.exinfo_2 -%>
             <tr>
               <td><%= t('activerecord.attributes.manifestation.exinfo_2') -%>:</td>
