@@ -33,5 +33,10 @@ class Term < ActiveRecord::Base
   def self.current_term
     Term.where("start_at <= ? AND end_at >= ?", Time.now, Time.now).first
   end
+  def self.get_term_end_at(time)
+    term = Term.where("start_at <= ? AND end_at >= ?", time, time).first
+    return term['end_at']
+  end
+
 end
 
