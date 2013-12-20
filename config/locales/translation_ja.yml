@@ -363,11 +363,17 @@ ja:
         address_2_note: 住所2の注記
         telephone_number: 電話番号
         telephone_number_1: 内線 # 電話番号1-1
+        telephone_number_1_type: 内線の種類
         telephone_number_2: 電話番号2-1
+        telephone_number_2_type: 電話番号2-1の種類
         extelephone_number_1: 電話番号1-2
+        extelephone_number_1_type: 電話番号1-2の種類
         extelephone_number_2: 電話番号2-2
+        extelephone_number_2_type: 電話番号2-2の種類
         fax_number_1: 電話番号1-3
+        fax_number_1_type: 電話番号1-3の種類
         fax_number_2: 電話番号2-3
+        fax_number_2_type: 電話番号2-3の種類
         home_phone: 自宅
         mobile_phone: 携帯
         company_phone: 勤務先
@@ -390,6 +396,8 @@ ja:
         email: メールアドレス
         url: URL
         note_update_at: 注記更新時刻
+        note_update_by: 注記更新者
+        note_update_library: 注記更新図書館        
         old: 歳
         patron_identifier: 人物団体の識別番号
       feeds/app:
@@ -2090,6 +2098,11 @@ ja:
     from_file: "ファイルから"
     from_isbn: "ISBNから"
     will_be_imported: "%{minute} 分以内にインポートされます。"
+    successfully_created: "正常に作成されました。"
+    successfully_updated: "正常に更新されました。"
+    successfully_deleted: "正常に削除されました。"
+    user_does_not_exist: "対象のユーザが存在しません。"
+    check_input: "入力値を確認してください。"
   user:
     current_password: "現在のパスワード"
     new_password: "新しいパスワード"

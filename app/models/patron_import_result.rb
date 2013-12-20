@@ -20,7 +20,11 @@ class PatronImportResult < ActiveRecord::Base
 
     # title column
     row = columns.map {|column| I18n.t(column[1])}
-    data << '"'+row.join("\"\t\"")+"\"\n"
+    if SystemConfiguration.get("set_output_format_type") == false
+      data << '"'+row.join("\",\"")+"\"\n"
+    else
+      data << '"'+row.join("\"\t\"")+"\"\n"
+    end
 
     patron_import_results.each do |patron_import_result|
       row = []
@@ -40,7 +44,11 @@ class PatronImportResult < ActiveRecord::Base
           row << error_msg
         end
       end
-      data << '"' + row.join("\"\t\"") + "\"\n"
+      if SystemConfiguration.get("set_output_format_type") == false
+        data << '"' + row.join("\",\"") + "\"\n"
+      else
+        data << '"' + row.join("\"\t\"") + "\"\n"
+      end
     end
     return data
   end

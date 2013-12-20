@@ -21,10 +21,16 @@
 <p>
   <b><%= t('activerecord.attributes.patron_import_result.body') %></b>
   <%- if @patron_import_result.body -%><br />
-    <% @patron_import_result.body.split("\t").each_with_index do |item, i| %>
-      &nbsp;<%= t('activerecord.attributes.patron_import_result.index') %><%= "#{h(i+1)}:" %>&nbsp;<%= h(item) %><br />
+    <% if SystemConfiguration.get("set_output_format_type") == false %>
+      <% @patron_import_result.body.split(",").each_with_index do |item, i| %>
+        &nbsp;<%= t('activerecord.attributes.patron_import_result.index') %><%= "#{h(i+1)}:" %>&nbsp;<%= h(item) %><br />
+      <% end %>
+    <% else %>
+      <% @patron_import_result.body.split("\t").each_with_index do |item, i| %>
+        &nbsp;<%= t('activerecord.attributes.patron_import_result.index') %><%= "#{h(i+1)}:" %>&nbsp;<%= h(item) %><br />
+      <% end %>
     <% end %>
-  <%- end -%>
+  <% end %>
   </p>
 
 <p>
