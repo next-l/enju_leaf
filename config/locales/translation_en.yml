@@ -283,11 +283,17 @@ en:
         address_2_note: Address 2 note
         telephone_number: Telephone number
         telephone_number_1: Telephone number 1-1
+        telephone_number_1_type: Telephone number type 1-1 
         telephone_number_2: Telephone number 2-1
+        telephone_number_2_type: Telephone number type 2-1
         extelephone_number_1: Telephone number 1-2
+        extelephone_number_1_type: Telephone number type 1-2
         extelephone_number_2: Telephone number 2-2
+        extelephone_number_2_type: Telephone number type 2-2
         fax_number_1: Telephone number 1-3
+        fax_number_1_type: Telephone number type 1-3
         fax_number_2: Telephone number 2-3
+        fax_number_2_type: Telephone number type 2-3
         home_phone: Home phone
         mobile_phone: Mobile phone
         company_phone: Company phone
@@ -312,6 +318,8 @@ en:
         birth_date: Birth date
         death_date: Death date
         note_update_at: Note update date
+        note_update_by: Note update user
+        note_update_library: Note update library
         patron_identifier: Patron Identifier
       feeds/app:
         source_url: Source URL
@@ -2094,6 +2102,11 @@ en:
   import:
     from_file: from file
     from_isbn: from ISBN
+    successfully_created: Successfully created
+    successfully_updated: Successfully updated
+    successfully_deleted: Successfully deleted
+    user_does_not_exist: User does not exist
+    check_input: Please check input
     will_be_imported:
       one: Resource will be impored in a %{minute} minute.
       other: Resource will be impored in %{minute} minutes.

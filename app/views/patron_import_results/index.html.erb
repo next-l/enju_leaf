@@ -41,11 +41,22 @@
     <li><%= link_to t('page.back'), @patron_import_file %></li>
   </ul>
     
-  <% if @patron_import_file %>
-    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), patron_import_file_patron_import_results_path(@patron_import_file, :locale => @locale.to_s, :format => 'tsv') -%>
-    (<%= link_to 'TSV', patron_import_file_patron_import_results_path(:locale => @locale.to_s, :format => 'tsv') -%>)
+  <% if SystemConfiguration.get("set_output_format_type") == false %>
+    <% if @patron_import_file %>
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :title => 'CSV', :class => 'icon'), patron_import_file_patron_import_results_path(@patron_import_file, :locale => @locale.to_s, :format => 'csv') -%>
+      (<%= link_to 'CSV', patron_import_file_patron_import_results_path(:locale => @locale.to_s, :format => 'csv') -%>)
+    <% else %>
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :title => 'CSV', :class => 'icon'), patron_import_results_path(:locale => @locale.to_s, :format => 'csv') -%>
+      (<%= link_to 'CSV', patron_import_results_path(:locale => @locale.to_s, :format => 'csv') -%>)
+    <% end %>
   <% else %>
-    <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), patron_import_results_path(:locale => @locale.to_s, :format => 'tsv') -%>
-    (<%= link_to 'TSV', patron_import_results_path(:locale => @locale.to_s, :format => 'tsv') -%>)
+    <% if @patron_import_file %>
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), patron_import_file_patron_import_results_path(@patron_import_file, :locale => @locale.to_s, :format => 'tsv') -%>
+      (<%= link_to 'TSV', patron_import_file_patron_import_results_path(:locale => @locale.to_s, :format => 'tsv') -%>)
+    <% else %>
+      <%= link_to (image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :title => 'TSV', :class => 'icon'), patron_import_results_path(:locale => @locale.to_s, :format => 'tsv') -%>
+      (<%= link_to 'TSV', patron_import_results_path(:locale => @locale.to_s, :format => 'tsv') -%>)
+    <% end %>
   <% end %>
+  
 </div>

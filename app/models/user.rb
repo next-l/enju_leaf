@@ -684,11 +684,17 @@ class User < ActiveRecord::Base
       [:full_name, 'activerecord.attributes.patron.full_name'],
       [:full_name_transcription, 'activerecord.attributes.patron.full_name_transcription'],
       [:full_name_alternative, 'activerecord.attributes.patron.full_name_alternative'],
+      [:first_name, 'activerecord.attributes.patron.first_name'],
+      [:first_name_transcription, 'activerecord.attributes.patron.first_name_transcription'],
+      [:last_name, 'activerecord.attributes.patron.last_name'],
+      [:last_name_transcription, 'activerecord.attributes.patron.last_name_transcription'],
       ['username', 'activerecord.attributes.user.username'],
       ['user_number', 'activerecord.attributes.user.user_number'],
       [:library, 'activerecord.attributes.user.library'],
+      [:user_group, 'activerecord.attributes.user.user_group'],
+      [:department, 'activerecord.attributes.user.department'],
       [:expired_at, 'activerecord.attributes.user.expired_at'],
-      [:locked, 'activerecord.attributes.user.locked'],
+      [:status, 'activerecord.attributes.user.user_status'],
       [:unable, 'activerecord.attributes.user.unable'],
       [:patron_type, 'activerecord.models.patron_type'],
       [:email, 'activerecord.attributes.patron.email'],
@@ -696,30 +702,41 @@ class User < ActiveRecord::Base
       [:other_designation, 'activerecord.attributes.patron.other_designation'],
       [:place, 'activerecord.attributes.patron.place'],
       [:language, 'activerecord.models.language'],
+      [:country, 'activerecord.models.country'],
       [:zip_code_1, 'activerecord.attributes.patron.zip_code_1'],
       [:address_1, 'activerecord.attributes.patron.address_1'],
       [:telephone_number_1, 'activerecord.attributes.patron.telephone_number_1'],
+      [:telephone_number_1_type_id, 'activerecord.attributes.patron.telephone_number_1_type'],
       [:extelephone_number_1, 'activerecord.attributes.patron.extelephone_number_1'],
+      [:extelephone_number_1_type_id, 'activerecord.attributes.patron.extelephone_number_1_type'],
       [:fax_number_1, 'activerecord.attributes.patron.fax_number_1'],
+      [:fax_number_1_type_id, 'activerecord.attributes.patron.fax_number_1_type'],
       [:address_1_note, 'activerecord.attributes.patron.address_1_note'],
       [:zip_code_2, 'activerecord.attributes.patron.zip_code_2'],
       [:address_2, 'activerecord.attributes.patron.address_2'],
       [:telephone_number_2, 'activerecord.attributes.patron.telephone_number_2'],
+      [:telephone_number_2_type_id, 'activerecord.attributes.patron.telephone_number_2_type'],
       [:extelephone_number_2, 'activerecord.attributes.patron.extelephone_number_2'],
+      [:extelephone_number_2_type_id, 'activerecord.attributes.patron.extelephone_number_2_type'],
       [:fax_number_2, 'activerecord.attributes.patron.fax_number_2'],
+      [:fax_number_2_type_id, 'activerecord.attributes.patron.fax_number_2_type'],
       [:address_2_note, 'activerecord.attributes.patron.address_2_note'],
-      [:date_of_birth, 'activerecord.attributes.patron.date_of_birth'],
-      [:date_of_death, 'activerecord.attributes.patron.date_of_death'],
+      [:birth_date, 'activerecord.attributes.patron.date_of_birth'],
+      [:death_date, 'activerecord.attributes.patron.date_of_death'],
       [:note, 'activerecord.attributes.patron.note'],
       [:note_update_at, 'activerecord.attributes.patron.note_update_at'],
+      [:note_update_by, 'activerecord.attributes.patron.note_update_by'],
+      [:note_update_library, 'activerecord.attributes.patron.note_update_library'],
       [:patron_identifier, 'patron.patron_identifier'],
+      [:role, 'activerecord.models.role'],
       [:created_at, 'page.created_at'],
       [:updated_at, 'page.updated_at'],
+      [:del_flg, 'resource_import_textfile.excel.book.del_flg']
     ]
 
     data = String.new
 
-    data << "\xEF\xBB\xBF".force_encoding("UTF-8") + "\n"
+    data << "\xEF\xBB\xBF".force_encoding("UTF-8") #+ "\n"
     # title column
     row = []
     columns.each do |column|
@@ -740,39 +757,59 @@ class User < ActiveRecord::Base
           row << user.try(:patron).try(:full_name_transcription)
         when :full_name_alternative
           row << user.try(:patron).try(:full_name_alternative)
+        when :first_name
+          row << user.try(:patron).try(:first_name)
+        when :first_name_transcription
+          row << user.try(:patron).try(:first_name_transcription)
+        when :last_name
+          row << user.try(:patron).try(:last_name)
+        when :last_name_transcription
+          row << user.try(:patron).try(:last_name_transcription)
         when :library
-          row << user.try(:library).try(:display_name)
+          row << user.try(:library).try(:name)
+        when :user_group
+          row << user.try(:user_group).try(:display_name)
+        when :department
+          row << user.try(:department).try(:display_name)
         when :expired_at
-          expired_at = ""
-          if user.expired_at
-            year = user.expired_at.strftime("%Y")
-            month = user.expired_at.strftime("%m")
-            date = user.expired_at.strftime("%d")
-            expired_at = I18n.t('expense.date_format', :year => year, :month => month, :date => date) 
-          end
-          row << expired_at
-        when :locked
-          row << I18n.t('activerecord.attributes.user.locked_yes') if user.active_for_authentication?
-          row << I18n.t('activerecord.attributes.user.locked_no') unless user.active_for_authentication?
+          row << user.expired_at
+        when :status
+          row << user.try(:user_status).try(:display_name)
         when :unable
-          row << I18n.t('activerecord.attributes.user.unable_yes') unless user.unable
-          row << I18n.t('activerecord.attributes.user.unable_no') if user.unable
+          row << user.try(:unable)
         when :patron_type
-          row << user.try(:patron).try(:patron_type).try(:display_name).try(:localize)
+          row << user.try(:patron).try(:patron_type_id)
         when :email
           row << user.try(:patron).try(:email)
         when :url
           row << user.try(:patron).try(:url)
+        #TODO 現在は表示されていない
         when :other_designation
           row << user.try(:patron).try(:other_designation)
+        #TODO 現在は表示されていない
         when :place
           row << user.try(:patron).try(:place)
         when :language
           row << user.try(:patron).try(:language).try(:display_name).try(:localize)
+        when :country
+          row << user.try(:patron).try(:country).try(:display_name).try(:localize)
         when :zip_code_1
           row << user.try(:patron).try(:zip_code_1)
         when :address_1
           row << user.try(:patron).try(:address_1)
+        when :telephone_number_1
+          row << user.try(:patron).try(:telephone_number_1)
+        when :telephone_number_1_type_id
+          row << user.try(:patron).try(:telephone_number_1_type_id)
+        when :extelephone_number_1
+          row << user.try(:patron).try(:extelephone_number_1)
+        when :extelephone_number_1_type_id
+          row << user.try(:patron).try(:extelephone_number_1_type_id)
+        when :fax_number_1
+          row << user.try(:patron).try(:fax_number_1)
+        when :fax_number_1_type_id
+          row << user.try(:patron).try(:fax_number_1_type_id)
+=begin
         when :telephone_number_1
           telephone_number_1 = user.try(:patron).try(:telephone_number_1)
           telephone_number_1 += ' (' + I18n.t(i18n_telephone_type(user.try(:patron).try(:telephone_number_1_type_id)).try(:strip_tags)) +')' unless user.try(:patron).try(:telephone_number_1).blank?
@@ -785,12 +822,26 @@ class User < ActiveRecord::Base
           fax_number_1 = user.try(:patron).try(:fax_number_1)
           fax_number_1 += ' (' + I18n.t(i18n_telephone_type(user.patron.fax_number_1_type_id).try(:strip_tags)) +')' unless user.try(:patron).try(:fax_number_1).blank?
           row << fax_number_1 
+=end
         when :address_1_note
           row << user.try(:patron).try(:address_1_note )
         when :zip_code_2
           row << user.try(:patron).try(:zip_code_2)
         when :address_2
           row << user.try(:patron).try(:address_2)
+        when :telephone_number_2
+          row << user.try(:patron).try(:telephone_number_2)
+        when :telephone_number_2_type_id
+          row << user.try(:patron).try(:telephone_number_2_type_id)
+        when :extelephone_number_2
+          row << user.try(:patron).try(:extelephone_number_2)
+        when :extelephone_number_2_type_id
+          row << user.try(:patron).try(:extelephone_number_2_type_id)
+        when :fax_number_2
+          row << user.try(:patron).try(:fax_number_2)
+        when :fax_number_2_type_id
+          row << user.try(:patron).try(:fax_number_2_type_id)
+=begin
         when :telephone_number_2
           telephone_number_2 = user.try(:patron).try(:telephone_number_2)
           telephone_number_2 += ' (' + I18n.t(i18n_telephone_type(user.patron.telephone_number_2_type_id).try(:strip_tags)) +')' unless user.try(:patron).try(:telephone_number_2).blank?
@@ -803,39 +854,31 @@ class User < ActiveRecord::Base
           fax_number_2 = user.try(:patron).try(:fax_number_2)
           fax_number_2 += ' (' + I18n.t(i18n_telephone_type(user.patron.fax_number_2_type_id).try(:strip_tags)) +')' unless user.try(:patron).try(:fax_number_2).blank?
           row << fax_number_2 
+=end
         when :address_2_note
           row << user.try(:patron).try(:address_2_note)
-        when :date_of_birth
-          date_of_birth = ""
-          if user.try(:patron).try(:date_of_birth)
-            year = user.patron.date_of_birth.strftime("%Y")
-            month = user.patron.date_of_birth.strftime("%m")
-            date = user.patron.date_of_birth.strftime("%d")
-            date_of_birth = I18n.t('expense.date_format', :year => year, :month => month, :date => date)
-          end
-          row << date_of_birth
-        when :date_of_death
-          date_of_death = ""
-          if user.try(:patron).try(:date_of_death)
-            year = user.patron.date_of_death.strftime("%Y")
-            month = user.patron.date_of_death.strftime("%m")
-            date = user.patron.date_of_death.strftime("%d")
-            date_of_death = I18n.t('expense.date_format', :year => year, :month => month, :date => date)
-          end
-          row << date_of_death
+        when :birth_date
+          row << user.try(:patron).try(:birth_date)
+        when :death_date
+          row << user.try(:patron).try(:death_date)
         when :note
           row << user.try(:patron).try(:note)
         when :note_update_at
-          note_update = user.patron.note_update_at.strftime("%Y/%m/%d %H:%M:%S") if user.try(:patron).try(:note_update_at)
-          note_update += ' ' + I18n.t('patron.last_update_by') + ':' + user.try(:patron).try(:note_update_by) if user.try(:patron).try(:note_update_by)
-          note_update += '(' + user.patron.note_update_library + ')' if user.try(:patron).try(:note_update_library)
-          row << note_update
+          row << user.patron.note_update_at.strftime("%Y/%m/%d %H:%M:%S") if user.try(:patron).try(:note_update_at)
+        when :note_update_by
+          row << user.try(:patron).try(:note_update_by) if user.try(:patron).try(:note_update_by)
+        when :note_update_library
+          row << user.try(:patron).try(:note_update_library) if user.try(:patron).try(:note_update_library)
         when :patron_identifier
           row << user.try(:patron).try(:patron_identifier)
+        when :role
+          row << user.try(:user_has_role).try(:role_id)
         when :created_at
           row << user.created_at.strftime("%Y/%m/%d %H:%M:%S")
         when :updated_at
           row << user.updated_at.strftime("%Y/%m/%d %H:%M:%S")
+        when :del_flg
+          row << nil
         else
           row << get_object_method(user, column[0].split('.')).to_s.gsub(/\r\n|\r|\n/," ").gsub(/\"/,"\"\"")
         end
@@ -844,7 +887,7 @@ class User < ActiveRecord::Base
         data << '"'+row.join("\",\"")+"\"\n"
       else
         data << '"'+row.join("\"\t\"")+"\"\n"
-      end 
+      end
     end
     return data
   end

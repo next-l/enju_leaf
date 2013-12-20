@@ -269,6 +269,9 @@ defaults: &defaults
   # 人物・団体インポートの結果の一覧の出力(TSV)
   patron_import_results_print_tsv:
     filename: "patron_import_results.tsv"
+  # 人物・団体インポートの結果の一覧の出力(CSV)
+  patron_import_results_print_csv:
+    filename: "patron_import_results.csv"
   # テキストファイルからの資料インポートの結果の一覧の出力(XLSX)
   resource_import_textresults_print_xlsx:
     filename: "resource_import_textresults.xlsx"
