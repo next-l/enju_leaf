@@ -793,8 +793,8 @@ class ManifestationsController < ApplicationController
       @manifestation.isbn = nil if SystemConfiguration.get("manifestation.isbn_unique")
       @manifestation.series_statement = original_manifestation.series_statement unless @manifestation.series_statement
       @keep_themes = original_manifestation.themes.collect(&:id).flatten.join(',')
-      #TODO exinfo
-      #@exinfo = original.manifestation.manifestation_exinfos
+      original_manifestation.manifestation_exinfos.each { |exinfo| eval("@#{exinfo.name} = '#{exinfo.value}'") }
+      original_manifestation.manifestation_extexts.each { |extext| eval("@#{extext.name} = '#{extext.value}'") }
     elsif @expression
       @manifestation.original_title = @expression.original_title
       @manifestation.title_transcription = @expression.title_transcription
@@ -848,6 +848,8 @@ class ManifestationsController < ApplicationController
     @publisher_transcription = @manifestation.publishers.collect(&:full_name_transcription).flatten.join(';')
     @subject = @manifestation.subjects.collect(&:term).join(';')
     @subject_transcription = @manifestation.subjects.collect(&:term_transcription).join(';')
+    @manifestation.manifestation_exinfos.each { |exinfo| eval("@#{exinfo.name} = '#{exinfo.value}'") }
+    @manifestation.manifestation_extexts.each { |extext| eval("@#{extext.name} = '#{extext.value}'") }
     if defined?(EnjuBookmark)
       if params[:mode] == 'tag_edit'
         @bookmark = current_user.bookmarks.where(:manifestation_id => @manifestation.id).first if @manifestation rescue nil
@@ -883,8 +885,8 @@ class ManifestationsController < ApplicationController
     @subject = params[:manifestation][:subject]
     @subject_transcription = params[:manifestation][:subject_transcription]
     @theme = params[:manifestation][:theme]
-    #TODO exinfo
-    #@exinfo = params[:manifestation][:exinfo]
+    params[:exinfos].each { |key, value| eval("@#{key} = '#{value}'") }
+    params[:extexts].each { |key, value| eval("@#{key} = '#{value}'") }
 
     respond_to do |format|
       if @manifestation.save
@@ -900,8 +902,8 @@ class ManifestationsController < ApplicationController
           @manifestation.publishers = Patron.add_patrons(@publisher, @publisher_transcription) unless @publisher.blank?
           @manifestation.subjects = Subject.import_subjects(@subject, @subject_transcription) unless @subject.blank?
           @manifestation.themes = Theme.add_themes(@theme) unless @theme.blank?
-          #TODO exinfo
-          #@manifestation.manifestation_exinfos = ManifestationExinfo.add_exinfo(@exinfo)
+          @manifestation.manifestation_exinfos = ManifestationExinfo.add_exinfos(params[:exinfos], @manifestation.id)
+          @manifestation.manifestation_extexts = ManifestationExtext.add_extexts(params[:extexts], @manifestation.id)
         end
 
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_created', :model => t('activerecord.models.manifestation')) }
@@ -928,8 +930,8 @@ class ManifestationsController < ApplicationController
     @subject = params[:manifestation][:subject]
     @subject_transcription = params[:manifestation][:subject_transcription]
     @theme = params[:manifestation][:theme]
-    #TODO exinfo
-    #@exinfo = params[:manifestation][:exinfo_1]
+    params[:exinfos].each { |key, value| eval("@#{key} = '#{value}'") }
+    params[:extexts].each { |key, value| eval("@#{key} = '#{value}'") }
     respond_to do |format|
       if @manifestation.update_attributes(params[:manifestation])
         if @manifestation.series_statement and @manifestation.series_statement.periodical
@@ -941,8 +943,10 @@ class ManifestationsController < ApplicationController
         @manifestation.publishers.destroy_all; @manifestation.publishers = Patron.add_patrons(@publisher, @publisher_transcription)
         @manifestation.subjects = Subject.import_subjects(@subject, @subject_transcription)
         @manifestation.themes.destroy_all; @manifestation.themes = Theme.add_themes(@theme)
-        #TODO exinfo
-        #@manifestation.manifestation_exinfos.destroy_all; @manifestation.manifestation_exinfos = ManifestationExinfo.add_exinfo("name", @exinfo, @manifestation.id)
+        @manifestation.manifestation_exinfos.destroy_all;
+        @manifestation.manifestation_exinfos = ManifestationExinfo.add_extexts(params[:exinfos], @manifestation.id)
+        @manifestation.manifestation_extexts.destroy_all;
+        @manifestation.manifestation_extexts = ManifestationExtext.add_extexts(params[:extexts], @manifestation.id)
         format.html { redirect_to @manifestation, :notice => t('controller.successfully_updated', :model => t('activerecord.models.manifestation')) }
         format.json { head :no_content }
       else

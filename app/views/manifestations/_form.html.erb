@@ -295,12 +295,18 @@ $(document).keydown(function(e) {
     <%= f.text_field :acceptance_number, :class => "resource_integer" %>
   </div>
 
-<!-- TODO exinfo
+<% if false %> 
+  <%#= TODO for exinfo: change property_name(=> exinfo1) when use this form. %>
   <div class="field">
-    <%= f.label t('activerecord.attributes.manifestation.exinfo_1') %>
-    <%= f.text_field :exinfo_1, :class => "resource_integer"%>
+    <label>exinfo</label><br /> 
+    <%= text_field :exinfos, :exinfo1, :value => @exinfo1, :class => "" %>
   </div>
--->
+  <%#= TODO for extext: change property_name(=> extext1) when use this form. %>
+  <div class="field">
+    <label>extext</label><br /> 
+    <%= text_field :extexts, :extext1, :value => @extext1, :class => "" %>
+  </div>
+<% end %>
 <!--
   <div class="field">
     <%= f.label t('activerecord.attributes.manifestation.exinfo_2') %>

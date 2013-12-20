@@ -4,7 +4,7 @@ class CreateManifestationExtexts < ActiveRecord::Migration
       t.string :name
       t.text :value
       t.integer :manifestation_id, null: false
-      t.integer :positiondb, null: false, :default => 0
+      t.integer :position, null: false, :default => 0
 
       t.timestamps
     end

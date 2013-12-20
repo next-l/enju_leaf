@@ -4,24 +4,21 @@ class ManifestationExinfo < ActiveRecord::Base
   acts_as_list
   default_scope :order => "position"
 
-  belongs_to :manifestations
+  belongs_to :manifestation
 
-  #TODO exinfo
-  #単体の登録のみを確認
-=begin
-  def self.add_exinfo(name, value, manifestation_id)
-    return [] if value.blank?
-    values = value.split(/,/)
+  def self.add_extexts(exinfos, manifestation_id)
+    return [] if exinfos.blank?
     list = []
-    values.each do |exinfo|
-      exinfo = ManifestationExinfo.new
-      exinfo.name = name
-      exinfo.value = value
-      exinfo.manifestation_id = manifestation_id
-      exinfo.save
-      list << exinfo
+    exinfos.each do |key, value|
+      next if value.blank?
+      manifestation_exinfo = ManifestationExinfo.new(
+          name: key,
+          value: value,
+          manifestation_id: manifestation_id
+        )
+      manifestation_exinfo.save
+      list << manifestation_exinfo
     end
-    list
+    return list
   end
-=end
 end
