@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 2e22bbdd40d610f2b07259cfc7b7d135e25354bb
+  revision: 4702ec56c5ddaf8f199170d44d9240c008c6e3d0
   branch: rails4
   specs:
     enju_biblio (0.2.0.pre1)
@@ -103,7 +103,7 @@ GEM
     arel (4.0.1)
     atomic (1.1.14)
     attribute_normalizer (1.1.0)
-    aws-sdk (1.31.0)
+    aws-sdk (1.31.3)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
@@ -326,5 +326,6 @@ DEPENDENCIES
   simplecov
   sqlite3
   sunspot-rails-tester
+  sunspot_rails (~> 2.1)
   sunspot_solr (~> 2.1)
   vcr
