@@ -326,6 +326,5 @@ DEPENDENCIES
   simplecov
   sqlite3
   sunspot-rails-tester
-  sunspot_rails (~> 2.1)
   sunspot_solr (~> 2.1)
   vcr
