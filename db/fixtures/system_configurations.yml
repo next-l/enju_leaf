@@ -789,3 +789,10 @@ system_configuration_00112:
   typename: Boolean
   description: "資料別利用統計を利用する"
   category: 'nacsis'
+system_configuration_00113:
+  id: 113
+  keyname: manifestation.search.hide_not_for_loan
+  v: "false"
+  typename: Boolean
+  description: "利用制限が貸出不可な所蔵を検索結果画面に表示しない"
+  category: 'manifestation'

@@ -166,7 +166,11 @@ module ManifestationsHelper
     return false if manifestation.article?
     return true if manifestation.items.empty?
     manifestation.items.each do  |i|
-      return false if CirculationStatus.available_for_retain.all.map(&:id).include?(i.circulation_status.id) and i.item_identifier
+      if CirculationStatus.available_for_retain.all.map(&:id).include?(i.circulation_status.id) and 
+        i.item_identifier and
+        (SystemConfiguration.get('manifestation.search.hide_not_for_loan') ? i.use_restriction.name != 'Not For Loan' : true)
+        return false 
+      end
     end
     true
   end
@@ -178,6 +182,9 @@ module ManifestationsHelper
       return false if user_signed_in? and current_user.has_role?('Librarian') and show_all
       return true  if item.non_searchable
       return true  if item.try(:retention_period).try(:non_searchable)
+      if SystemConfiguration.get('manifestation.search.hide_not_for_loan')
+        return true if item.use_restriction.name == 'Not For Loan'
+      end
       unless item.manifestation.article?
         return true  if item.try(:circulation_status).try(:unsearchable)
         if SystemConfiguration.get('manifestation.manage_item_rank')

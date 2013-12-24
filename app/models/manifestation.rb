@@ -547,6 +547,9 @@ class Manifestation < ActiveRecord::Base
       hide = false
       hide = true if i.non_searchable
       hide = true if item_retention_period_non_searchable?(i)
+      if SystemConfiguration.get('manifestation.search.hide_not_for_loan')
+        hide = true if i.use_restriction.name == 'Not For Loan' 
+      end
       unless article?
         hide = true if item_circulation_status_unsearchable?(i)
         if SystemConfiguration.get('manifestation.manage_item_rank')
