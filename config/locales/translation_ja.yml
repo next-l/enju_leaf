@@ -960,6 +960,7 @@ ja:
         over: 以上
         past_due: 返却延滞中
         not_for_loan: 在架（貸出不可）
+        not_available: 貸出不可
       subscription:
         title: タイトル
         note: 注記

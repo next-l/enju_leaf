@@ -41,7 +41,12 @@
         <% unless manifestation.article? %>
           <td>
             <% if item.circulation_status.name != 'Available On Shelf' %>
-              <span class="not_rent_item"><%= item.circulation_status.display_name.localize if item.circulation_status %></span>
+              <span class="not_rent_item">
+                <%= item.circulation_status.display_name.localize if item.circulation_status %>
+                <% if item.use_restriction.name == 'Not For Loan' %>
+                  (<%= t('activerecord.attributes.checkout.not_available') %>)
+                <% end %>
+              </span>
             <% else %>
               <% if item.circulation_status %>
                 <% if item.use_restriction.name != 'Not For Loan' %>
@@ -53,16 +58,14 @@
             <% end %>
             <% if item.rent? %>
               <% if user_signed_in? and current_user.has_role?('Librarian') %>
-              (
+                (
                 <%= t('activerecord.attributes.checkout.due_date') %>:
                 <%= l(item.checkouts.first.due_date, :format => :only_date) %>
-              <% else  %>
-                (
-              <% end %>
                 <% if Time.zone.parse(item.checkouts.first.due_date.to_s) < Time.now %>
                   <span class="not_rent_item"><%= t('activerecord.attributes.checkout.past_due') -%></span>
                 <% end %>
-              )
+                )
+              <% end %>
             <% end %>
           </td>
         <% end %>

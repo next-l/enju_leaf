@@ -879,6 +879,7 @@ en:
         over: Over
         past_due: Past due
         not_for_loan: Not for loan
+        not_available: Not available
       subscription:
         title: Title
         note: Note
