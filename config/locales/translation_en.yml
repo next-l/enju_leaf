@@ -877,6 +877,8 @@ en:
         renewal_count: Checkout renewal count
         output_checkoutlist: Outout checkout list
         over: Over
+        past_due: Past due
+        not_for_loan: Not for loan
       subscription:
         title: Title
         note: Note
