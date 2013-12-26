@@ -21,7 +21,10 @@
       <td><%= link_to checkout.try(:item).try(:item_identifier), checkout.try(:item) if checkout.try(:item) -%></td>
       <td><%= checkout.try(:item).try(:note) -%></td>
       <td>
-        <%= l(checkout.due_date, :format => :only_date) -%><br />
+        <%= l(checkout.due_date, :format => :only_date) %><br />
+        <% if Time.zone.parse(checkout.due_date.to_s) < Time.now %>
+          <strong style="color: red;"><%= t('activerecord.attributes.checkout.past_due') %></strong><br />
+        <% end %>
         <%- if current_user.has_role?('Librarian') %><%= link_to t('activerecord.attributes.item.loss_item'), {:controller => 'loss_items', :action => 'new', :item_id => checkout.item_id, :user_id => checkout.user.id} -%><%- end -%>
       </td>
     </tr>

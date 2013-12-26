@@ -24,7 +24,12 @@
         <%- end -%>
         <td><%= link_to checkout.item.item_identifier, checkout.item -%></td>
         <td><%= checkout.item.note -%></td>
-        <td><%= l(checkout.due_date, :format => :only_date) -%></td>
+        <td>
+          <%= l(checkout.due_date, :format => :only_date) %>
+          <% if Time.zone.parse(checkout.due_date.to_s) < Time.now %>
+            <br /><strong style="color: red;"><%= t('activerecord.attributes.checkout.past_due') %></strong>
+          <% end %>
+        </td>
         <%- if SystemConfiguration.get("checked_items.disp_user") -%>
           <td><%= link_to f_user.patron.full_name, f_user -%><br />
               (<%= link_to f_user.username, f_user -%>)</td>
