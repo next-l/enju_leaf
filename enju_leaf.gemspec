@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids}/*"]
 
-  s.add_dependency "enju_biblio", "~> 0.1.0.pre47"
+  s.add_dependency "enju_biblio", "~> 0.1.0.pre48"
   s.add_dependency "enju_library", "~> 0.1.0.pre27"
   s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre11"
   s.add_dependency "redcarpet"

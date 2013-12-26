@@ -24,8 +24,7 @@ set :environment, :development
 set :output, "#{path}/log/cron_log.log"
 
 every 1.hour do
-  rake "enju:import:start"
-  rake "enju:import:expire"
+  rake "enju_biblio:import"
 end
 
 every 1.day, :at => '0:00 am' do
