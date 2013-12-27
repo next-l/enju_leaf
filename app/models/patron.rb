@@ -47,7 +47,7 @@ class Patron < ActiveRecord::Base
 
   validates_presence_of :language, :patron_type, :country
   validates_associated :language, :patron_type, :country
-  validates :full_name, :presence => true, :length => {:maximum => 255}
+  validates :full_name, :uniqueness => true, :presence => true, :length => {:maximum => 255}
   validates :user_id, :uniqueness => true, :allow_nil => true
   validates :birth_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
   validates :death_date, :format => {:with => /^\d+(-\d{0,2}){0,2}$/}, :allow_blank => true
@@ -100,6 +100,7 @@ class Patron < ActiveRecord::Base
     integer :expression_ids, :multiple => true
     integer :manifestation_ids, :multiple => true
     integer :patron_merge_list_ids, :multiple => true
+    integer :derived_patron_ids, :multiple => true
     integer :original_patron_ids, :multiple => true
     integer :required_role_id
     integer :patron_type_id

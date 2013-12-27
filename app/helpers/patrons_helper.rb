@@ -11,4 +11,10 @@ module PatronsHelper
     end
     link.html_safe
   end
+
+  def patron_relationship_anyone(patron, id)
+    patron_relationship = patron.children.find_by_child_id(id) 
+    patron_relationship = patron.parents.find_by_parent_id(id) unless patron_relationship
+    return patron_relationship
+  end  
 end

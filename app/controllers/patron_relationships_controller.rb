@@ -1,6 +1,14 @@
 class PatronRelationshipsController < InheritedResources::Base
   load_and_authorize_resource
   before_filter :prepare_options, :except => [:index, :destroy]
+  before_filter :parent_child_delete, :only => [:destroy]
+
+  def parent_child_delete
+    # レコード削除時、親子レコードが相互にある場合（通常発生しないが）、
+    # 対象レコードのparent_idとchild_idを入れ替えて検索し、対象レコードを削除
+    pr_result = PatronRelationship.find(params[:id])
+    PatronRelationship.where(["parent_id = ? AND child_id = ?", pr_result.child_id, pr_result.parent_id]).destroy_all rescue nil
+  end
 
   def prepare_options
     @patron_relationship_types = PatronRelationshipType.all
