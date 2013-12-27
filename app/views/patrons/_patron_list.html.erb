@@ -1,5 +1,17 @@
 <div id="related">
   <ul>
+    <%- if @patron.patron_aliases.exists? -%>
+      <%= t('page.see') -%>
+    <%- end -%>
+    <%- @patron.patron_aliases.each do |patron_alias| -%>
+      <li>
+        <%= patron_alias.full_name -%>
+        <%= '||' if patron_alias.full_name_transcription.present? && patron_alias.full_name.present? -%>
+        <%= patron_alias.full_name_transcription -%>
+        <%= '||' if ( patron_alias.full_name.present? || patron_alias.full_name_transcription.present? ) && patron_alias.full_name_alternative.present? -%>
+        <%= patron_alias.full_name_alternative -%>
+      </li>
+    <%- end -%>
     <%- @patron.parents.each do |patron_relationship| -%>
       <li>
         [P]

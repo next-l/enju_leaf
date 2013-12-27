@@ -4,7 +4,7 @@
     <% unless @patron.full_name_alternative.blank? %>
       if ("<%= @patron.full_name_alternative.gsub(/[　\s\t]+$/o, "").gsub(/^[　\s\t]+/o, "") -%>" != "")
         $("#full_name_alternative").show();
-    <%- end -%>  
+    <%- end -%> 
     // check address2
     var input_address2 = false;
     "<%- if @patron.zip_code_2 -%>"
@@ -64,8 +64,59 @@
       }
     });
   });
-</script>
 
+  $(document).keydown(function(e) {
+    $("input[type=text]").keypress(function(ev) {
+      if ((ev.which && ev.which === 13) ||
+        (ev.keyCode && ev.keyCode === 13)) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+  });
+
+  var ItemField = {
+    currentNumber : 0,
+    itemTemplate : ''
+                 + '<input class="resorce_title" id="patron_patron_aliases_attributes___count___full_name" name="patron[patron_aliases_attributes][__count__][full_name]" size="20" type="text" value="" /> '
+                 + '<input class="resorce_title" id="patron_patron_aliases_attributes___count___full_name_transcription" name="patron[patron_aliases_attributes][__count__][full_name_transcription]" size="20" type="text" value="" /> '
+                 + '<input class="resorce_title" id="patron_patron_aliases_attributes___count___full_name_alternative" name="patron[patron_aliases_attributes][__count__][full_name_alternative]" size="20" type="text" value="" /> '
+                 + '<input type="button" value="+" onClick="ItemField.add();" /> '
+                 + '<input type="button" value="-" onClick="ItemField.remove();" />',
+    itemDeleteTemplate : ''
+                 + '<input class="resorce_title" id="patron_patron_aliases_attributes___count___full_name" name="patron[patron_aliases_attributes][__count__][full_name]" size="20" type="hidden" value="" /> '
+                 + '<input class="resorce_title" id="patron_patron_aliases_attributes___count___full_name_transcription" name="patron[patron_aliases_attributes][__count__][full_name_transcription]" size="20" type="hidden" value="" /> '
+                 + '<input class="resorce_title" id="patron_patron_aliases_attributes___count___full_name_alternative" name="patron[patron_aliases_attributes][__count__][full_name_alternative]" size="20" type="hidden" value="" /> ',
+    add : function () {
+      this.currentNumber++;
+      var field = document.getElementById('SF' + this.currentNumber);
+      var replaceCount = this.currentNumber + <%= @countalias -%>;
+      var newItem = this.itemTemplate.replace(/__count__/mg, replaceCount);
+      field.innerHTML = newItem;
+
+      var nextNumber = this.currentNumber + 1;
+      var new_area = document.createElement("div");
+      new_area.setAttribute("id", "SF" + nextNumber);
+      new_area.setAttribute("class", "field");
+      field.appendChild(new_area);
+    },
+    remove : function () {
+      if ( this.currentNumber == 0) { return; }
+
+      var field = document.getElementById('SF' + this.currentNumber);
+      field.removeChild(field.lastChild);
+      field.innerHTML = '';
+      this.currentNumber--;
+    },
+    alias_remove : function (span_id) {
+      var field = document.getElementById("patron_alias" + span_id);
+      var newItem = this.itemDeleteTemplate.replace(/__count__/mg, span_id);
+      field.innerHTML = newItem;
+    }
+  }
+
+</script>
 <%= render 'page/required_field' %>
 <%= simple_form_for(@patron) do |f| -%>
   <%= f.error_messages -%>
@@ -91,8 +142,29 @@
     <%= link_to_function t('activerecord.attributes.patron.full_name_alternative'), "$('#full_name_alternative').toggle()" -%>
     <span id="full_name_alternative" style="display: none">
       <br />
-      <%= f.text_area :full_name_alternative, :class => 'resource_textarea' -%>
+      <%= f.text_field :full_name_alternative, :class => 'resource_title' -%>
     </span>
+  </div>
+
+  <div class="field">
+    <%= f.label :patron_alias -%><br />
+    <%= f.label :patron_aliases_attributes -%><br />
+
+    <% i = 0 %>
+    <%= f.fields_for :patron_aliases do |aliasf| %>
+      <span id="<%= 'patron_alias' + i.to_s -%>">
+      <%= aliasf.text_field :full_name , :class => 'resorce_title', :size => '20' %>
+      <%= aliasf.text_field :full_name_transcription , :class => 'resorce_title', :size => '20' %>
+      <%= aliasf.text_field :full_name_alternative , :class => 'resorce_title', :size => '20' %>
+      <%= button_to_function '+', 'ItemField.add()' -%>
+      <input type="button" value="-" onClick="ItemField.alias_remove(<%= i.to_s -%>)" />
+      <br />
+      </span>
+      <% i += 1 %>
+    <% end %>
+
+    <div id="SF1" class="field">
+    </div>
   </div>
 
   <div class="field">

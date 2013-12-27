@@ -353,6 +353,8 @@ ja:
         full_name_transcription: フルネーム（ヨミ）
         full_name_alternative: フルネーム代替
         full_name_note: 未入力の場合、保存時に自動的に 姓＋" "＋名 が設定されます。
+        patron_alias: 別名(を見よ参照)
+        patron_aliases_attributes: フルネーム フルネーム（ヨミ）フルネーム代替
         deleted_at: 削除時刻
         zip_code_1: 郵便番号1
         zip_code_2: 郵便番号2
@@ -1693,6 +1695,7 @@ ja:
     did_you_mean: "もしかして"
     calendar: "カレンダー"
     related: "関連"
+    see: "を見よ"
     history: "履歴"
     current_version: "最新版"
     select: "選択"
