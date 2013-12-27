@@ -6,7 +6,7 @@ class ManifestationExinfo < ActiveRecord::Base
 
   belongs_to :manifestation
 
-  def self.add_extexts(exinfos, manifestation_id)
+  def self.add_exinfos(exinfos, manifestation_id)
     return [] if exinfos.blank?
     list = []
     exinfos.each do |key, value|
