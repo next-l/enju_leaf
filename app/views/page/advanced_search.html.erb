@@ -151,6 +151,23 @@ $(function(){
       <td><label><%= advanced_search_label(:issn) -%>:</label></td>
       <td><%= search_field_tag 'issn', params[:issn] -%><%= t('advanced_search.help_issn') -%></td>
     </tr>
+    <tr>
+      <td><label><%= advanced_search_label(:ndc) -%>:</label></td>
+      <td><%= search_field_tag 'ndc', params[:ndc] -%></td>
+    </tr>
+    <tr>
+      <td><label><%= t('page.number') -%>:</label></td>
+      <td>
+        <%= advanced_search_label(:edition_display_value) -%> 
+        <%= search_field_tag 'edition_display_value', params[:edition_display_value], :size => 8 -%>
+        <%= advanced_search_label(:volume_number_string) -%> 
+        <%= search_field_tag 'volume_number_string', params[:volume_number_string], :size => 8 -%>
+        <%= advanced_search_label(:issue_number_string) -%> 
+        <%= search_field_tag 'issue_number_string', params[:issue_number_string], :size => 8 -%>
+        <%= advanced_search_label(:serial_number_string) -%> 
+        <%= search_field_tag 'serial_number_string', params[:serial_number_string], :size => 8 -%>
+      </td>
+    </tr>
     <tr class="nacsis-only">
       <td><label><%= advanced_search_label(:ncid) -%>:</label></td>
       <td><%= search_field_tag 'ncid', params[:ncid] -%>

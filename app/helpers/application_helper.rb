@@ -273,7 +273,8 @@ module ApplicationHelper
 
   ADVANCED_SEARCH_PARAMS = [
     :except_query, :tag, :title, :except_title, :creator, :except_creator,
-    :publisher, :isbn, :issn, :item_identifier, :pub_date_from,
+    :publisher, :isbn, :issn, :ndc, :item_identifier, :pub_date_from,
+    :edition_display_value, :volume_number_string, :issue_number_string, :serial_number_string,
     :pub_date_to, :acquired_from, :acquired_to, :removed_from, :removed_to,
     :number_of_pages_at_least, :number_of_pages_at_most, :advanced_search,
     :title_merge, :creator_merge, :query_merge, :manifestation_types 
@@ -287,6 +288,11 @@ module ApplicationHelper
     publisher: 'patron.publisher',
     isbn: 'activerecord.attributes.manifestation.isbn',
     issn: 'activerecord.attributes.manifestation.issn',
+    ndc: 'activerecord.attributes.manifestation.ndc',
+    edition_display_value: 'activerecord.attributes.manifestation.edition_display_value',
+    volume_number_string: 'activerecord.attributes.manifestation.volume_number_string',
+    issue_number_string: 'activerecord.attributes.manifestation.issue_number_string',
+    serial_number_string: 'activerecord.attributes.manifestation.serial_number_string',
     ncid: 'activerecord.attributes.nacsis_user_request.ncid',
     item_identifier: 'activerecord.attributes.item.item_identifier',
     call_number: 'activerecord.attributes.item.call_number',

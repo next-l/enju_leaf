@@ -154,6 +154,13 @@ class Manifestation < ActiveRecord::Base
     string :language do
       language.try(:name)
     end
+    string :ndc, :multiple => true do
+      if root_of_series? # 雑誌の場合
+        series_manifestations.map.map(&:ndc).compact
+      else
+        ndc
+      end
+    end
     string :item_identifier, :multiple => true do
       if root_of_series? # 雑誌の場合
         # 同じ雑誌の全号の蔵書の蔵書情報IDのリストを取得する
@@ -206,9 +213,19 @@ class Manifestation < ActiveRecord::Base
     integer :height
     integer :width
     integer :depth
+    integer :edition, :multiple => true
     integer :volume_number, :multiple => true
     integer :issue_number, :multiple => true
     integer :serial_number, :multiple => true
+    string :edition_display_value, :multiple => true do
+      if root_of_series? # 雑誌の場合
+        # 同じ雑誌の全号の出版日のリストを取得する
+        series_manifestations.
+          map(&:edition_display_value).compact
+      else
+        edition_display_value
+      end
+    end
     string :volume_number_string, :multiple => true do
       if root_of_series? # 雑誌の場合
         # 同じ雑誌の全号の出版日のリストを取得する

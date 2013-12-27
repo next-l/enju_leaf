@@ -106,6 +106,21 @@ class ManifestationsController < ApplicationController
     def filter_by_issn!(form_input)
       filter_by_one_word(:issn, form_input)
     end
+    def filter_by_ndc!(form_input)
+      filter_by_one_word(:ndc, form_input)
+    end
+    def filter_by_edition_display_value!(form_input)
+      filter_by_one_word(:edition_display_value, form_input)
+    end
+    def filter_by_volume_number_string!(form_input)
+      filter_by_one_word(:volume_number_string, form_input)
+    end
+    def filter_by_issue_number_string!(form_input)
+      filter_by_one_word(:issue_number_string, form_input)
+    end
+    def filter_by_serial_number_string!(form_input)
+      filter_by_one_word(:serial_number_string, form_input)
+    end
 
     def filter_by_query!(form_input, inverse = false)
       filter_by_some_words(:query, form_input, inverse)
@@ -422,7 +437,10 @@ class ManifestationsController < ApplicationController
 
       search.filter_by_record_type!(params[:manifestation_type])
 
-      [:isbn, :issn, :ncid].each do |name|
+      [
+        :isbn, :issn, :ndc, :ncid,
+        :edition_display_value, :volume_number_string, :issue_number_string, :serial_number_string,
+      ].each do |name|
         search.__send__(:"filter_by_#{name}!", params[name])
       end
 
@@ -1107,6 +1125,11 @@ class ManifestationsController < ApplicationController
       [:contributor, 'contributor_text', 'contributor_sm'],
       [:isbn, 'isbn_sm'],
       [:issn, 'issn_sm'],
+      [:ndc, 'ndc_sm'],
+      [:edition_display_value, 'edition_display_value_sm'],
+      [:volume_number_string, 'volume_number_string_sm'],
+      [:issue_number_string, 'issue_number_string_sm'],
+      [:serial_number_string, 'serial_number_string_sm'],
       [:lccn, 'lccn_s'],
       [:nbn, 'nbn_s'],
       [:publisher, 'publisher_text', 'publisher_sm'],
