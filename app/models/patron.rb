@@ -34,12 +34,16 @@ class Patron < ActiveRecord::Base
   has_many :items, :through => :owns
   has_many :patron_merges, :dependent => :destroy
   has_many :patron_merge_lists, :through => :patron_merges
+  has_many :patron_aliases, :dependent => :destroy
   belongs_to :user
   belongs_to :patron_type
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id', :validate => true
   belongs_to :language
   belongs_to :country
   has_one :patron_import_result
+
+  accepts_nested_attributes_for :patron_aliases
+  attr_accessible :patron_aliases_attributes
 
   validates_presence_of :language, :patron_type, :country
   validates_associated :language, :patron_type, :country
@@ -50,7 +54,7 @@ class Patron < ActiveRecord::Base
   validates :email, :format => {:with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i}, :allow_blank => true
   validate :check_birth_date
   before_validation :set_role_and_name, :set_date_of_birth, :set_date_of_death
-  before_save :change_note
+  before_save :change_note, :mark_destroy_blank_full_name
 
   validate :check_duplicate_user
 
@@ -104,6 +108,12 @@ class Patron < ActiveRecord::Base
   end
 
   paginates_per 10
+
+  def mark_destroy_blank_full_name
+    patron_aliases.each do |patron_alias|
+      patron_alias.mark_for_destruction if patron_alias.full_name.blank? and patron_alias.full_name_transcription.blank? and patron_alias.full_name_alternative.blank?
+    end
+  end
 
   def full_name_without_space
     full_name.gsub(/\s/, "")

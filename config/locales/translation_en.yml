@@ -272,8 +272,9 @@ en:
         full_name: Full name
         full_name_transcription: Full name transcription
         full_name_alternative: Full name alternative
-        full_name_note: The case of not inputting, It is set up as a last name+ "
-          " +first name
+        full_name_note: The case of not inputting, It is set up as a last name+ " " +first name
+        patron_alias: Alternative lavel (See From)
+        patron_aliases_attributes: Full name  Full name transcription  Full name alternative
         deleted_at: Deleted at
         zip_code_1: Zip code 1
         zip_code_2: Zip code 2
@@ -1701,6 +1702,7 @@ en:
     did_you_mean: Did you mean
     calendar: Calendar
     related: Related
+    see: See
     history: History
     current_version: Current version
     select: Select

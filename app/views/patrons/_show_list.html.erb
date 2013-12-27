@@ -2,7 +2,7 @@
   <ul>
     <li title="active" class="selected"><a href="#detail"><em><%= t('page.detail') -%></em></a></li>
     <%- if @patron.user.blank? -%>
-      <%- if @patron.derived_patrons.exists? or @patron.original_patrons.exists? -%>
+      <%- if @patron.derived_patrons.exists? or @patron.original_patrons.exists? or @patron.patron_aliases.exists? -%>
         <li><a href="#related"><em><%= t('page.related') -%></em></a></li>
       <%- end -%>
       <%- if @works.present? -%>
@@ -234,7 +234,7 @@
     </table>
   </div>
   <%- if @patron.user.blank? -%>
-    <%- unless @patron.derived_patrons.empty? and @patron.original_patrons.empty? -%>
+    <%- unless @patron.derived_patrons.empty? and @patron.original_patrons.empty? and @patron.patron_aliases.empty? -%>
       <%= render 'patrons/patron_list' -%>
     <%- end -%>
     <%- unless @works.blank? -%>
