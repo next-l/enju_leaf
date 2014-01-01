@@ -967,7 +967,7 @@ class ManifestationsController < ApplicationController
         @manifestation.themes.destroy_all; @manifestation.themes = Theme.add_themes(@theme)
         if params[:exinfos]
           @manifestation.manifestation_exinfos.destroy_all;
-          @manifestation.manifestation_exinfos = ManifestationExinfo.add_extexts(params[:exinfos], @manifestation.id)
+          @manifestation.manifestation_exinfos = ManifestationExinfo.add_exinfos(params[:exinfos], @manifestation.id)
         end
         if params[:extexts]
           @manifestation.manifestation_extexts.destroy_all;
