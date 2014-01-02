@@ -17,7 +17,7 @@
       <% if is_list %><li><% end %>
         <%= link_to t('page.batch_change'),  '', :id => 'batch_change_opener' %>
       <% if is_list %></li><% end %>
-      <%= render 'index_batch_change_dialog' %>
+      <%= render 'manifestations/index_batch_change_dialog' %>
     <%- else -%>
       <% if is_list %><li><% end %>
       <%= t('basket.show_basket', :count => count) %>
