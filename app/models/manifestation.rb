@@ -45,6 +45,14 @@ class Manifestation < ActiveRecord::Base
     ]
   }
   searchable(SUNSPOT_EAGER_LOADING) do
+    text :extexts do
+      if root_of_series? # 雑誌の場合
+        series_manifestations.
+          manifestation_extexts.map(&:value).compact
+      else
+        manifestation_extexts.map(&:value).compact
+      end
+    end
     text :fulltext, :contributor, :article_title, :series_title, :exinfo_1, :exinfo_6
     text :title, :default_boost => 2 do
       titles
