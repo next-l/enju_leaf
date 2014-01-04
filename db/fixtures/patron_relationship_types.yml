@@ -3,7 +3,7 @@
 patron_relationship_type_00001:
   id: 1
   name: See also
-  display_name: "en:See also\r\n\ja:をも見よ"
+  display_name: "en:See also\r\nja:をも見よ"
   note: 
   position: 1
 patron_relationship_type_00002:
