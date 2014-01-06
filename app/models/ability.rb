@@ -319,7 +319,7 @@ class Ability
         UserStatus,
         WorkHasSubject
       ]
-      can :read, :update [
+      can [:read, :update], [
         SeriesStatementRelationshipType
       ]
       can :read, [
