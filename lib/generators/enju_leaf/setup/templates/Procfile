@@ -1,0 +1,3 @@
+solr: bundle exec rake sunspot:solr:run
+resque: bundle exec rake environment resque:work QUEUE=*
+web: bundle exec rails s
