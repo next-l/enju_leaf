@@ -85,7 +85,7 @@ require 'rack/protection'
 use Rack::Protection, :except => [:escaped_params, :json_csrf, :http_origin, :session_hijacking, :remote_token]
 EOS
     end
-    inject_into_file 'config/routes.rb', :after => "devise_for :users, :path => 'accounts'\n" do
+    inject_into_file 'config/routes.rb', :after => /devise_for :users, :path => 'accounts'\n/ do
       <<"EOS"
   authenticate :user, lambda {|u| u.role.try(:name) == 'Administrator' } do
     mount Resque::Server.new, :at => "/resque"
