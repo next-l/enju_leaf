@@ -4,6 +4,7 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
 
   def copy_setup_files
     directory("db/fixtures", "db/fixtures/enju_leaf")
+    copy_file("Procfile", "Procfile")
     copy_file("config/application.yml", "config/application.yml")
     copy_file("config/resque.yml", "config/resque.yml")
     copy_file("config/schedule.rb", "config/schedule.rb")
@@ -79,6 +80,13 @@ EOS
       <<"EOS"
 require 'rack/protection'
 use Rack::Protection, :except => [:escaped_params, :json_csrf, :http_origin, :session_hijacking, :remote_token]
+EOS
+    end
+    inject_into_file 'config/routes.rb', :after => /devise_for :users, :path => 'accounts'\n/ do
+      <<"EOS"
+  authenticate :user, lambda {|u| u.role.try(:name) == 'Administrator' } do
+    mount Resque::Server.new, :at => "/resque"
+  end
 EOS
     end
     generate("sunspot_rails:install")
