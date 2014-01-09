@@ -161,7 +161,9 @@ class Ability
         UserReserveStat,
         UserStatus,
         Wareki,
-        WorkHasSubject
+        WorkHasSubject,
+        Currency,
+        ExchangeRate
       ]
       can [:read, :update], [
         AcceptType,
@@ -317,7 +319,9 @@ class Ability
         Term,
         Theme,
         UserStatus,
-        WorkHasSubject
+        WorkHasSubject,
+        Currency,
+        ExchangeRate
       ]
       can [:read, :update], [
         SeriesStatementRelationshipType

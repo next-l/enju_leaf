@@ -1,0 +1,42 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.exchange_rate')) -%></h1>
+<div id="content_list">
+
+<%= form_tag({:action => "index"},  {:method => "get"}) do %>
+  <%= select(:currency, :display_name, @currencies.collect{|c| [c.display_name,c.id]}, {:selected => @currencies_selected, :prompt => t('page.all_search_term')}, :onchange => 'submit();') %>
+<% end %>
+<br />
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.exchange_rate.currency') -%></th>
+    <th><%= t('activerecord.attributes.exchange_rate.rate') -%></th>
+    <th><%= t('activerecord.attributes.exchange_rate.started_at') -%></th>
+    <th></th>
+  </tr>
+
+<% @exchange_rates.each do |exchange_rate| %>
+  <tr class="line<%= cycle("0","1") -%>">
+    <td><%= exchange_rate.currency.display_name %></td>
+    <td><%= exchange_rate.rate %></td>
+    <td><%= l(exchange_rate.started_at, :format => :only_date) %></td>
+    <td>
+        <%= link_to t('page.edit'), edit_exchange_rate_path(exchange_rate) -%>
+        <%= link_to t('page.destroy'), exchange_rate, :confirm => t('page.are_you_sure'), :method => :delete -%>
+
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate(@exchange_rates) -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.exchange_rate')), new_exchange_rate_path %></li>
+  </ul>
+</div>
+

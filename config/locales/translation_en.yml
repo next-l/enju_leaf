@@ -1,4 +1,3 @@
----
 en:
   activerecord:
     models:
@@ -195,6 +194,7 @@ en:
       relationship_family: Relationship family
       series_statement_relationship_type: Series statement relationship type
       barcode_registration: Registration bar code
+      currency: Currency
 
     attributes:
       enju_terminal:
@@ -1501,6 +1501,13 @@ en:
         display_name: Display name
         typeid: TypeID
         note: Note
+      currency:
+        name: Name
+        display_name: Display name
+      exchange_rate:
+        currency: Currency
+        rate: Rate
+        started_at: Started at
 
   page:
     user_title: Welcome %{login_name}
@@ -2833,3 +2840,8 @@ en:
     not_necessary: " is not necessary"
     failed_destroy: "failed destroy series statement relationship"
     not_exist_series_statement: " is not exist"
+  currency:
+    invalid_name: "is invalid"
+    can_not_delete: "Could not delete currency"
+  exchange_rate:
+    invalid_started_at: "is invalid"

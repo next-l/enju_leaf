@@ -1,0 +1,35 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.currency')) -%></h1>
+<div id="content_list">
+<div style="color: red"><%= flash[:message].to_s -%></div>
+
+<table class="index">
+  <tr>
+    <th><%= t('activerecord.attributes.currency.name') %></th>
+    <th><%= t('activerecord.attributes.currency.display_name')%></th>
+    <th></th>
+  </tr>
+
+<% @currencies.each do |currency| %>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= currency.name %></td>
+    <td><%= currency.display_name %></td>
+    <td>
+        <%= link_to t('page.edit'), edit_currency_path(currency) -%>
+        
+        <% if currency.destroy? %>
+          <%= link_to t('page.destroy'), currency, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+<%= paginate(@currencies) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.currency')), new_currency_path %></li>
+  </ul>
+</div>

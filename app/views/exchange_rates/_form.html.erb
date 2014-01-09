@@ -1,0 +1,29 @@
+<%= form_for(@exchange_rate) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="field">
+    <%= f.label :currency %><br />
+    <%= f.collection_select :currency_id, @currencies, :id, :display_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :rate %><br />
+    <%= f.text_field :rate %>
+  </div>
+
+<script>
+$(function(){
+  $('#exchange_rate_started_at').setCalendar({src:'/assets/calendar.png'});
+});
+</script>
+
+  <div class="field">
+    <%= f.label :started_at %><br />
+    <%= f.text_field :started_at %>
+  </div>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

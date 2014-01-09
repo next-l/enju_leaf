@@ -1,0 +1,25 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.currency')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+
+<p>
+  <strong><%= t('activerecord.attributes.currency.name') -%>:</strong>
+  <%= @currency.name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.currency.display_name') -%>:</strong>
+  <%= @currency.display_name %>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_currency_path(@currency) %></li>
+    <li><%= link_to t('page.back'), currencies_path %></li>
+  <ul>
+</div>

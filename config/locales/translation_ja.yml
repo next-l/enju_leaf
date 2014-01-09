@@ -162,7 +162,7 @@ ja:
       series_has_manifestation: シリーズ情報と資料の関係
       budget: 予算
       budget_type: 予算区分
-      exchange_rate: 為替レート
+      exchange_rate: 通貨レート
       term: 期間
       checkoutlist: 貸出状況
       reservelist: 予約状況
@@ -197,6 +197,8 @@ ja:
       series_statement_relationship_type: 遍歴関係タイプ
       theme: テーマ
       barcode_registration: 資料登録番号バーコード
+      currency: 通貨単位
+
     attributes:
       wareki:
         display_name: 表示名
@@ -1487,6 +1489,14 @@ ja:
         publish: 公開範囲
         note: 注記
         position: 優先度
+      currency:
+        name: 名前
+        display_name: 表示名 
+      exchange_rate:
+        currency: 通貨単位
+        rate: レート
+        started_at: 利用開始年月日
+      
   page:
     user_title: "ようこそ %{login_name} さん"
     logged_in_as: "%{login_name} としてログイン"
@@ -2808,3 +2818,8 @@ ja:
     not_necessary: " は必要ありません。"
     failed_destroy: "遍歴の削除に失敗しました。"
     not_exist_series_statement: "は存在してません。"
+  currency:
+    invalid_name: "は半角英数字で入力してください。"
+    can_not_delete: "通貨単位は削除できません。"
+  exchange_rate:
+    invalid_started_at: "が不正な値です。例: 2011-04-12"

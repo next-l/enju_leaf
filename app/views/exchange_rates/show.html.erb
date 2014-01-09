@@ -1,0 +1,30 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.exchange_rate')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.exchange_rate.currency') -%>:</strong>
+  <%= @exchange_rate.currency.name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.exchange_rate.rate') -%>:</strong>
+  <%= @exchange_rate.rate %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.exchange_rate.sterted_at') -%>:</strong>
+  <%= @exchange_rate.started_at %>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_exchange_rate_path(@exchange_rate) %></li>
+    <li><%= link_to t('page.back'), exchange_rates_path %></li>
+  <ul>
+</div>
+
