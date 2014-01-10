@@ -1,9 +1,10 @@
 class UserImportFilesController < ApplicationController
+  load_and_authorize_resource
   before_filter :set_user_import_file, only: [:show, :edit, :update, :destroy]
 
   # GET /user_import_files
   def index
-    @user_import_files = UserImportFile.all
+    @user_import_files = UserImportFile.page(params[:page])
   end
 
   # GET /user_import_files/1

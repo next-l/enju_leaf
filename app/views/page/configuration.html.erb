@@ -10,6 +10,8 @@
           </ul>
         </li>
         <li><%= link_to t('activerecord.models.user_group'), user_groups_path -%></li>
+        <li><%= link_to t('activerecord.models.user'), users_path -%></li>
+        <li><%= link_to t('activerecord.models.user_import_file'), user_import_files_path -%></li>
         <% if defined?(EnjuCirculation) %>
           <li><%= link_to t('activerecord.models.checkout_type'), checkout_types_path -%>
             <ul>

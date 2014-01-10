@@ -3,17 +3,18 @@
 <div id="content_list">
 
 <ul>
-  <li><%= link_to t('activerecord.models.agent'), agent_import_files_path -%>
-  (<%= t('activerecord.models.user') -%>)</li>
-
+  <li><%= link_to t('activerecord.models.user'), user_import_files_path -%>
+  <li><%= link_to t('page.resource'), new_resource_import_file_path -%></li>
   <li><%= link_to t('activerecord.models.event'), event_import_files_path -%></li>
-  <li><%= link_to t('page.resource'), new_resource_import_file_path -%> (MARC, TSV)</li>
+  <!--
+  <li><%= link_to t('activerecord.models.agent'), agent_import_files_path -%></li>
+  -->
 </ul>
 </div>
 </div>
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.add_manually'), new_import_request_path -%></li>
+    <li><%= link_to t('page.add_resource_manually'), new_import_request_path -%></li>
   </ul>
 </div>

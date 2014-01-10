@@ -4,11 +4,9 @@ en:
       user: User
       role: Role
       user_group: User group
-      attachment_file: Attachment file
       user_has_role: User and roles
-      session: Login
-      work: Work
-      expression: Expression
+      user_import_file: User import file
+      user_import_result: User import result
 
     attributes:
       user:
@@ -61,6 +59,19 @@ en:
         number_of_day_to_notify_due_date: Number of day to notify due date
         number_of_day_to_notify_overdue: Number of day to notify overdue
         number_of_time_to_notify_overdue: Number of time to notify overdue
+      user_import_file:
+        user_import_file_name: Filename
+        user_import_content_type: Content type
+        user_import_file_size: Size
+        user_import_fingerprint: File hash
+        note: Note
+        executed_at: Executed at
+        user_import_updated_at: Updated at
+        state: State
+        edit_mode: Edit mode
+        error_message: Error message
+      user_import_result:
+        body: Body
 
   page:
     user_title: "Welcome %{login_name}"
@@ -160,7 +171,7 @@ en:
     new_resource: "New resources"
     checkout_history: "Checkout history"
     recommendation: "Recommendation"
-    add_manually: "Add manually"
+    add_resource_manually: "Add a resource manually"
     import: "Import"
     import_from_file: "Import from TSV file"
     import_from_network: "Import from networks"
