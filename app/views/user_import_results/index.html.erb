@@ -1,0 +1,31 @@
+<h1>Listing user_import_results</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User import file</th>
+      <th>User</th>
+      <th>Body</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_import_results.each do |user_import_result| %>
+      <tr>
+        <td><%= user_import_result.user_import_file_id %></td>
+        <td><%= user_import_result.user_id %></td>
+        <td><%= user_import_result.body %></td>
+        <td><%= link_to 'Show', user_import_result %></td>
+        <td><%= link_to 'Edit', edit_user_import_result_path(user_import_result) %></td>
+        <td><%= link_to 'Destroy', user_import_result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User import result', new_user_import_result_path %>

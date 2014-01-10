@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 4702ec56c5ddaf8f199170d44d9240c008c6e3d0
+  revision: 176c69d0448f0ac71424efe0bbaf31c074417bbc
   branch: rails4
   specs:
     enju_biblio (0.2.0.pre1)
@@ -21,10 +21,10 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_core.git
-  revision: 5753b7168664b0fdf09024d0d638780e49829ead
+  revision: 05409ee6fae14df095042bcacce81b8a76d638d6
   branch: rails4
   specs:
-    enju_core (0.2.0.pre1)
+    enju_core (0.2.0.pre2)
       acts_as_list (~> 0.3)
       addressable
       attribute_normalizer (~> 1.1)
@@ -35,14 +35,14 @@ GIT
       kaminari (~> 0.15)
       nested_form
       protected_attributes
-      rails (~> 4.0.2)
+      rails (~> 4.0)
       resque
       settingslogic
       sunspot_rails (~> 2.1)
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 047c3c83a528e1504abd685a9db49bc6ee8169d3
+  revision: 7f9b269c726bf8d86575cfde7162215167e44d9f
   branch: rails4
   specs:
     enju_library (0.2.0.pre1)
@@ -52,7 +52,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_manifestation_viewer.git
-  revision: c5738a12d1d520b6b3c9fd5a3393afef26a8d8dd
+  revision: 847e67697eef2e51dc152f24081f2567c5278a46
   branch: rails4
   specs:
     enju_manifestation_viewer (0.2.0.pre1)
@@ -103,7 +103,7 @@ GEM
     arel (4.0.1)
     atomic (1.1.14)
     attribute_normalizer (1.1.0)
-    aws-sdk (1.31.3)
+    aws-sdk (1.32.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
@@ -114,7 +114,7 @@ GEM
       activesupport (>= 3.0)
     cocaine (0.5.3)
       climate_control (>= 0.0.3, < 1.0)
-    dalli (2.6.4)
+    dalli (2.7.0)
     devise (3.2.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -169,7 +169,7 @@ GEM
     mobylette (3.5)
       actionpack (>= 3.0)
     mono_logger (1.1.0)
-    multi_json (1.8.2)
+    multi_json (1.8.4)
     nested_form (0.3.2)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
@@ -246,8 +246,9 @@ GEM
     rspec-expectations (2.14.4)
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-mocks (2.14.4)
-    rspec-rails (2.14.0)
+    rspec-rails (2.14.1)
       actionpack (>= 3.0)
+      activemodel (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec-core (~> 2.14.0)

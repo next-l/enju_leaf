@@ -2,7 +2,7 @@
 #require 'enju_library'
 require 'enju_core'
 require 'devise'
-require 'enju_manifestation_viewer'
+#require 'enju_manifestation_viewer'
 require 'redcarpet'
 require 'mobylette'
 require 'rails_autolink'

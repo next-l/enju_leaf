@@ -1,0 +1,47 @@
+<h1>Listing user_import_files</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Note</th>
+      <th>Executed at</th>
+      <th>State</th>
+      <th>User import file name</th>
+      <th>User import content type</th>
+      <th>User import file size</th>
+      <th>User import updated at</th>
+      <th>User import fingerprint</th>
+      <th>Edit mode</th>
+      <th>Error message</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_import_files.each do |user_import_file| %>
+      <tr>
+        <td><%= user_import_file.user_id %></td>
+        <td><%= user_import_file.note %></td>
+        <td><%= user_import_file.executed_at %></td>
+        <td><%= user_import_file.state %></td>
+        <td><%= user_import_file.user_import_file_name %></td>
+        <td><%= user_import_file.user_import_content_type %></td>
+        <td><%= user_import_file.user_import_file_size %></td>
+        <td><%= user_import_file.user_import_updated_at %></td>
+        <td><%= user_import_file.user_import_fingerprint %></td>
+        <td><%= user_import_file.edit_mode %></td>
+        <td><%= user_import_file.error_message %></td>
+        <td><%= link_to 'Show', user_import_file %></td>
+        <td><%= link_to 'Edit', edit_user_import_file_path(user_import_file) %></td>
+        <td><%= link_to 'Destroy', user_import_file, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User import file', new_user_import_file_path %>
