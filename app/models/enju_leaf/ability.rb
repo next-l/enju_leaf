@@ -24,12 +24,16 @@ module EnjuLeaf
         can :manage, [
           UserHasRole
         ]
+        can :manage, [
+          UserImportFile
+        ] if LibraryGroup.site_config.network_access_allowed?(ip_address)
         can :update, [
           Role
         ] if LibraryGroup.site_config.network_access_allowed?(ip_address)
         can :read, [
-          Role
-        ]
+          Role,
+          UserImportResult
+        ] if LibraryGroup.site_config.network_access_allowed?(ip_address)
       when 'Librarian'
         can [:read, :create, :update], User
         can :destroy, User do |u|
@@ -41,10 +45,16 @@ module EnjuLeaf
             end
           end
         end
+        can :manage, [
+          UserImportFile
+        ] if LibraryGroup.site_config.network_access_allowed?(ip_address)
         can :read, [
           Role,
           UserGroup
         ]
+        can :read, [
+          UserImportResult
+        ] if LibraryGroup.site_config.network_access_allowed?(ip_address)
       when 'User'
         can :show, User
         can :update, User do |u|

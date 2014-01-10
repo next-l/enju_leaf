@@ -1,0 +1,43 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.user_import_file')) -%></h1>
+<div id="content_list">
+
+<table class="table table-striped index">
+  <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.user_import_file.user_import_file_name') -%></th>
+      <th><%= t('activerecord.attributes.user_import_file.executed_at') -%></th>
+      <th><%= t('activerecord.models.user') -%></th>
+      <th><%= t('activerecord.attributes.user_import_file.edit_mode') -%></th>
+      <th><%= t('activerecord.attributes.user_import_file.state') -%></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_import_files.each do |user_import_file| %>
+      <tr>
+        <td><%= user_import_file.user_import_file_name %></td>
+        <td><%= user_import_file.executed_at %></td>
+        <td><%= link_to user_import_file.user.username, user_import_file.user if user_import_file.user %></td>
+        <td><%= user_import_file.edit_mode %></td>
+        <td><%= user_import_file.state %></td>
+        <td><%= link_to 'Show', user_import_file %></td>
+        <td><%= link_to 'Edit', edit_user_import_file_path(user_import_file) %></td>
+        <td><%= link_to 'Destroy', user_import_file, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate(@user_import_files) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.user_import_file')), new_user_import_file_path -%></li>
+  </ul>
+</div>
