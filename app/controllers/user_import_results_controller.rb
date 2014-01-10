@@ -1,5 +1,5 @@
 class UserImportResultsController < ApplicationController
-  before_action :set_user_import_result, only: [:show, :edit, :update, :destroy]
+  before_filter :set_user_import_result, only: [:show, :edit, :update, :destroy]
 
   # GET /user_import_results
   def index

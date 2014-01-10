@@ -1,5 +1,5 @@
 class UserImportFilesController < ApplicationController
-  before_action :set_user_import_file, only: [:show, :edit, :update, :destroy]
+  before_filter :set_user_import_file, only: [:show, :edit, :update, :destroy]
 
   # GET /user_import_files
   def index
