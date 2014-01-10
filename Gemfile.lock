@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 176c69d0448f0ac71424efe0bbaf31c074417bbc
+  revision: b8eef330533ed040cb5146be734212816700cc2e
   branch: rails4
   specs:
     enju_biblio (0.2.0.pre1)

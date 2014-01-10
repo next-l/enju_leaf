@@ -1,9 +1,10 @@
 class UserImportResultsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_user_import_result, only: [:show, :edit, :update, :destroy]
 
   # GET /user_import_results
   def index
-    @user_import_results = UserImportResult.all
+    @user_import_results = UserImportResult.page(params[:page])
   end
 
   # GET /user_import_results/1

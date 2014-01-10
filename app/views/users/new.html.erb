@@ -14,20 +14,20 @@
   <%- end -%>
 
   <div class="field">
-    <%= f.label :username -%></label>
+    <%= f.label :username -%>
     <%= f.text_field :username, :class => 'resource_user' -%>
   </div>
   <div class="field">
-    <%= f.label :email -%></label>
+    <%= f.label :email -%>
     <%= f.email_field :email, :class => 'resource_email' -%>
   </div>
   <div class="field">
-    <%= f.label :email_confirmation -%></label>
+    <%= f.label :email_confirmation -%>
     <%= f.email_field :email_confirmation, :class => 'resource_email' -%>
   </div>
 
   <div class="field">
-    <label for="user_group"><%= t('activerecord.models.user_group') -%></label>
+    <%= f.label :user_group_id -%>
     <%= f.select(:user_group_id, @user_groups.collect{|u| [u.name, u.id]}) -%>
   </div>
 

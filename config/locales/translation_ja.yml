@@ -5,6 +5,8 @@ ja:
       role: 権限
       user_group: 利用者グループ
       user_has_role: 利用者と権限
+      user_import_file: 利用者のインポート用ファイル
+      user_import_result: 利用者インポートの結果
 
     attributes:
       user:
@@ -57,6 +59,19 @@ ja:
         number_of_day_to_notify_due_date: 貸出期限の何日前に督促を送るか
         number_of_day_to_notify_overdue: 貸出期限の何日後に督促を送るか
         number_of_time_to_notify_overdue: 貸出期限が切れた後に何回督促を送るか
+      user_import_file:
+        user_import_file_name: ファイル名
+        user_import_content_type: Content-Type
+        user_import_file_size: ファイルサイズ
+        user_import_fingerprint: ファイルのハッシュ
+        note: 注記
+        executed_at: 実行時刻
+        user_import_updated_at: 更新時刻
+        state: 状態
+        edit_mode: 編集モード
+        error_message: エラーメッセージ
+      user_import_result:
+        body: 本文
 
   page:
     user_title: "ようこそ %{login_name} さん"
@@ -145,7 +160,7 @@ ja:
     new_resource: "新着資料"
     checkout_history: "貸出履歴"
     recommendation: "おすすめの資料"
-    add_manually: "手動で登録する"
+    add_resource_manually: "手動で資料を登録する"
     import_from_file: "TSVファイルからのインポート"
     import_from_network: "ネットワークからインポート"
     no_record_found: "資料が見つかりませんでした。"
