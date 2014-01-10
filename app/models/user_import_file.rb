@@ -45,4 +45,19 @@ class UserImportFile < ActiveRecord::Base
     end
   end
 
+  def import_start
+    case edit_mode
+    when 'create'
+      import
+    when 'update'
+      modify
+    when 'destroy'
+      remove
+    else
+      import
+    end
+  end
+
+  def modify
+  end
 end

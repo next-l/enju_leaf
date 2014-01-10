@@ -23,6 +23,7 @@ class UserImportFilesController < ApplicationController
   # POST /user_import_files
   def create
     @user_import_file = UserImportFile.new(user_import_file_params)
+    @user_import_file.user = current_user
 
     if @user_import_file.save
       redirect_to @user_import_file, notice: 'User import file was successfully created.'
@@ -54,6 +55,6 @@ class UserImportFilesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_import_file_params
-      params.require(:user_import_file).permit(:user_id, :note, :executed_at, :state, :user_import_file_name, :user_import_content_type, :user_import_file_size, :user_import_updated_at, :user_import_fingerprint, :edit_mode, :error_message)
+      params.require(:user_import_file).permit(:user_id, :note, :executed_at, :state, :user_import_file_name, :user_import_content_type, :user_import_file_size, :user_import_updated_at, :user_import_fingerprint, :edit_mode, :error_message, :user_import)
     end
 end
