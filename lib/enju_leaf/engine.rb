@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 require 'enju_biblio'
 require 'enju_library'
 require 'enju_manifestation_viewer'
+=======
+#require 'enju_biblio'
+#require 'enju_library'
+require 'enju_core'
+require 'devise'
+#require 'enju_manifestation_viewer'
+>>>>>>> 29dbd91... added UserImportFile and UserImportResult
 require 'redcarpet'
 require 'mobylette'
 require 'rails_autolink'

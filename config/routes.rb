@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :user_import_results
+
+  resources :user_import_files
+
   resource :my_account
 
   #resources :users do

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User import file:</strong>
+  <%= @user_import_result.user_import_file_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @user_import_result.user_id %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @user_import_result.body %>
+</p>
+
+<%= link_to 'Edit', edit_user_import_result_path(@user_import_result) %> |
+<%= link_to 'Back', user_import_results_path %>
