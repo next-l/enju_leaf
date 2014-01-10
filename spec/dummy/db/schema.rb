@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130416054135) do
+ActiveRecord::Schema.define(version: 20140110131010) do
 
   create_table "accepts", force: true do |t|
     t.integer  "basket_id"
@@ -754,6 +754,30 @@ ActiveRecord::Schema.define(version: 20130416054135) do
 
   add_index "user_has_roles", ["role_id"], name: "index_user_has_roles_on_role_id"
   add_index "user_has_roles", ["user_id"], name: "index_user_has_roles_on_user_id"
+
+  create_table "user_import_files", force: true do |t|
+    t.integer  "user_id"
+    t.text     "note"
+    t.datetime "executed_at"
+    t.string   "state"
+    t.string   "user_import_file_name"
+    t.string   "user_import_content_type"
+    t.string   "user_import_file_size"
+    t.datetime "user_import_updated_at"
+    t.string   "user_import_fingerprint"
+    t.string   "edit_mode"
+    t.text     "error_message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_import_results", force: true do |t|
+    t.integer  "user_import_file_id"
+    t.integer  "user_id"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
