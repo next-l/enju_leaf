@@ -1,13 +1,17 @@
-<h1>Listing user_import_results</h1>
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.user_import_result')) -%></h1>
+<div id="content_list">
+  <% if @user_import_file %>
+    <h2 class="resource_title">
+      <%= link_to @user_import_file.user_import_file_name, @user_import_file %>
+    </h2>
+  <% end %>
 
 <table>
   <thead>
     <tr>
-      <th>User import file</th>
-      <th>User</th>
-      <th>Body</th>
-      <th></th>
-      <th></th>
+      <th><%= t('activerecord.models.user_import_file') %></th>
+      <th><%= t('activerecord.models.user') %></th>
       <th></th>
     </tr>
   </thead>
@@ -15,17 +19,36 @@
   <tbody>
     <% @user_import_results.each do |user_import_result| %>
       <tr>
-        <td><%= user_import_result.user_import_file_id %></td>
-        <td><%= user_import_result.user_id %></td>
-        <td><%= user_import_result.body %></td>
-        <td><%= link_to 'Show', user_import_result %></td>
-        <td><%= link_to 'Edit', edit_user_import_result_path(user_import_result) %></td>
-        <td><%= link_to 'Destroy', user_import_result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to user_import_result.user_import_file.user_import_file_name, user_import_result.user_import_file %>
+          <br />
+          <%=l user_import_result.created_at %>
+        </td>
+        <td><%= link_to user_import_result.user.username, user_import_result.user if user_import_result.user %></td>
+        <td>
+          <%= link_to t('page.show'), user_import_result %>
+          <%= link_to t('page.destroy'), user_import_result, :data => {:confirm => t('page.are_you_sure')}, :method => :delete %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+<%= paginate(@user_import_results, :theme => 'enju_leaf') %>
 
-<%= link_to 'New User import result', new_user_import_result_path %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li>
+    <% if @user_import_file %>
+      <%= link_to((image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :class => 'icon'), user_import_file_user_import_results_path(@user_import_file, :format => :csv, :locale => @locale.to_s)) -%>
+      (<%= link_to 'CSV', user_import_file_user_import_results_path(:format => :csv, :locale => @locale.to_s) -%>)
+    <% else %>
+      <%= link_to((image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), user_import_results_path(:format => :csv, :locale => @locale.to_s)) -%>
+      (<%= link_to 'CSV', user_import_results_path(:format => :csv, :locale => @locale.to_s) -%>)
+    <% end %>
+    </li>
+  </ul>
+</div>

@@ -203,7 +203,7 @@ describe UserImportFilesController do
       login_admin
 
       it "should update user_import_file" do
-        put :update, :id => user_import_files(:two).id, :user_import_file => { }
+        put :update, :id => user_import_files(:two).id, :user_import_file => { :note => 'test' }
         response.should redirect_to user_import_file_url(assigns(:user_import_file))
       end
     end
@@ -212,7 +212,7 @@ describe UserImportFilesController do
       login_librarian
 
       it "should update user_import_file" do
-        put :update, :id => user_import_files(:two).id, :user_import_file => { }
+        put :update, :id => user_import_files(:two).id, :user_import_file => { :note => 'test' }
         response.should redirect_to user_import_file_url(assigns(:user_import_file))
       end
     end
