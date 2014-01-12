@@ -19,7 +19,7 @@ $(function(){
 
   <div class="field">
     <%= f.label :started_at %><br />
-    <%= f.text_field :started_at %>
+    <%= f.text_field :started_at, :value => Date.today.to_s %>
   </div>
 
 
