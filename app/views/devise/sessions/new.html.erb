@@ -1,5 +1,5 @@
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-<div id="content_detail" class="ui-corner-all">
+<div id="content_detail" class="ui-corner-all ui-widget-content">
 <h1 class="title"><%= t('page.sign_in') -%> : Next-L Enju</h1>
 <div id="content_list">
   <%= f.error_messages -%>
@@ -9,7 +9,7 @@
 </div>
 </div>
 
-<div id="submenu" class="ui-corner-all">
+<div id="submenu" class="ui-corner-all ui-widget-content">
   <p>
     <%= f.label t('activerecord.attributes.user.username') %><br />
     <%= f.text_field :username, :class => 'login_password', :autofocus => true %>
