@@ -1,5 +1,7 @@
 defaults: &defaults
   enju:
+    color: 
+      heading: red
     erms_url: 
     skip_mobile_agents:
       - ipad
