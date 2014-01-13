@@ -1,7 +1,7 @@
 <div id="header_select_locale">
   <%- if request.get? -%>
     <a href="#" id="select_locale_menu">Other languages</a>
-    <div id="select_locale">
+    <div id="select_locale" class="ui-widget-content ui-corner-all">
       <% @available_languages.each do |language| %>
         <% if language.iso_639_1 == I18n.locale.to_s %>
           <strong><%= language.native_name || language.name %></strong>
