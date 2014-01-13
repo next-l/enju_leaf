@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency "redis-rails", "~> 4.0"
   s.add_dependency "rails_autolink"
   s.add_dependency "jquery-ui-rails"
+  s.add_dependency "resque-scheduler"
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"
