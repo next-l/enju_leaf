@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: b8eef330533ed040cb5146be734212816700cc2e
+  revision: 00b04fadf346dabb3974ad7f5d1678908eb6cb5e
   branch: rails4
   specs:
     enju_biblio (0.2.0.pre1)
@@ -42,7 +42,7 @@ GIT
 
 GIT
   remote: git://github.com/next-l/enju_library.git
-  revision: 7f9b269c726bf8d86575cfde7162215167e44d9f
+  revision: d241c874b799f68ba7393ade78de63332c4a2659
   branch: rails4
   specs:
     enju_library (0.2.0.pre1)
@@ -68,6 +68,7 @@ PATH
       rails_autolink
       redcarpet
       redis-rails (~> 4.0)
+      resque-scheduler
       sitemap_generator
 
 GEM
@@ -238,6 +239,10 @@ GEM
       redis-namespace (~> 1.2)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
+    resque-scheduler (2.3.1)
+      redis (>= 3.0.0)
+      resque (~> 1.25)
+      rufus-scheduler (~> 2.0)
     resque_mailer (2.2.6)
       actionmailer (>= 3.0)
     rsolr (1.0.9)
@@ -254,6 +259,8 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
+    rufus-scheduler (2.0.24)
+      tzinfo (>= 0.3.22)
     settingslogic (2.0.9)
     simple_form (3.0.1)
       actionpack (>= 4.0.0, < 4.1)
