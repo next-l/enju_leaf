@@ -55,6 +55,6 @@ class UserImportFilesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_import_file_params
-      params.require(:user_import_file).permit(:user_id, :note, :executed_at, :state, :user_import_file_name, :user_import_content_type, :user_import_file_size, :user_import_updated_at, :user_import_fingerprint, :edit_mode, :error_message, :user_import)
+      params.require(:user_import_file).permit(:user_id, :note, :executed_at, :state, :user_import_file_name, :user_import_content_type, :user_import_file_size, :user_import_updated_at, :user_import_fingerprint, :edit_mode, :error_message, [:user_import])
     end
 end

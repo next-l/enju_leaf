@@ -1,5 +1,5 @@
 class UserImportFile < ActiveRecord::Base
-  #attr_accessible :user_import, :edit_mode
+  attr_accessible :user_import, :edit_mode
   include ImportFile
   default_scope {order('user_import_files.id DESC')}
   scope :not_imported, -> {where(:state => 'pending')}
@@ -59,9 +59,106 @@ class UserImportFile < ActiveRecord::Base
     end
   end
 
+  def import
+    sm_start!
+    reload
+    num = {:user_imported => 0, :user_found => 0, :failed => 0}
+    rows = open_import_file
+    row_num = 2
+
+    field = rows.first
+    if [field['username']].reject{|field| field.to_s.strip == ""}.empty?
+      raise "username column is not found"
+    end
+
+    rows.each do |row|
+      next if row['dummy'].to_s.strip.present?
+      import_result = UserImportResult.create!(
+        :user_import_file_id => id, :body => row.fields.join("\t")
+      )
+
+      username = row['username']
+      new_user = User.where(:username => username).first
+      if new_user
+        import_result.user = new_user
+        import_result.save!
+        num[:user_found] += 1
+      else
+        new_user = User.new
+        new_user.operator = user
+        new_user.username = username
+        new_user.email = row['email'] if row['email'].present?
+        new_user.role = Role.where(:name => row['role']).first
+        if row['user_group'].present?
+          new_user.user_group = UserGroup.where(:name => row['user_group']).first
+        end
+        new_user.note = row['note']
+        if row['password'].present?
+          new_user.password = row['password']
+        else
+          new_user.set_auto_generated_password
+        end
+
+        if new_user.save
+          num[:user_imported] += 1
+        else
+          num[:failed] += 1
+        end
+      end
+    end
+    num
+  end
+
   def modify
   end
 
   def remove
+    sm_start!
+    reload
+    rows = open_import_file
+
+    field = rows.first
+    if [field['username']].reject{|field| field.to_s.strip == ""}.empty?
+      raise "username column is not found"
+    end
+
+    rows.each do |row|
+      username = row['username'].to_s.strip
+      user = User.where(:username => username).first
+      user.destroy if user
+    end
+  end
+
+  private
+  def open_import_file
+    tempfile = Tempfile.new('user_import_file')
+    if Setting.uploaded_file.storage == :s3
+      uploaded_file_path = user_import.expiring_url(10)
+    else
+      uploaded_file_path = user_import.path
+    end
+    open(uploaded_file_path){|f|
+      f.each{|line|
+        if defined?(CharlockHolmes::EncodingDetector)
+          begin
+            string = line.encode('UTF-8', CharlockHolmes::EncodingDetector.detect(line)[:encoding])
+          rescue StandardError
+            string = NKF.nkf('-w -Lu', line)
+          end
+        else
+          string = NKF.nkf('-w -Lu', line)
+        end
+        tempfile.puts(string)
+      }
+    }
+    tempfile.close
+
+    file = CSV.open(tempfile.path, 'r:utf-8', :col_sep => "\t")
+    header = file.first
+    rows = CSV.open(tempfile.path, 'r:utf-8', :headers => header, :col_sep => "\t")
+    UserImportResult.create!(:user_import_file_id => self.id, :body => header.join("\t"))
+    tempfile.close(true)
+    file.close
+    rows
   end
 end
