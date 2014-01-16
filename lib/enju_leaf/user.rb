@@ -65,7 +65,8 @@ module EnjuLeaf
         extend FriendlyId
         friendly_id :username
         #has_paper_trail
-        normalize_attributes :username, :user_number #, :email
+        normalize_attributes :username, :user_number
+        normalize_attributes :email, :with => :strip
 
         searchable do
           text :username, :email, :note, :user_number
@@ -188,8 +189,10 @@ module EnjuLeaf
       end
 
       def set_expired_at
-        if self.user_group.valid_period_for_new_user > 0
-          self.expired_at = self.user_group.valid_period_for_new_user.days.from_now.end_of_day
+        if expired_at.blank?
+          if user_group.valid_period_for_new_user > 0
+            self.expired_at = user_group.valid_period_for_new_user.days.from_now.end_of_day
+          end
         end
       end
 
