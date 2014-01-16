@@ -114,6 +114,8 @@ class UserImportFile < ActiveRecord::Base
   end
 
   def modify
+    sm_start!
+    sm_complete!
   end
 
   def remove
@@ -131,6 +133,7 @@ class UserImportFile < ActiveRecord::Base
       user = User.where(:username => username).first
       user.destroy if user
     end
+    sm_complete!
   end
 
   private
