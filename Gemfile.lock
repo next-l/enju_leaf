@@ -1,12 +1,11 @@
 GIT
   remote: git://github.com/next-l/enju_biblio.git
-  revision: 00b04fadf346dabb3974ad7f5d1678908eb6cb5e
+  revision: 75f4ed69537f4f3fd2d38de4f8a0934757d77d7b
   branch: rails4
   specs:
     enju_biblio (0.2.0.pre1)
       aws-sdk
       dynamic_form
-      enju_core (~> 0.2.0.pre1)
       inherited_resources
       library_stdnums
       lisbn
@@ -20,11 +19,28 @@ GIT
       validates_timeliness
 
 GIT
-  remote: git://github.com/next-l/enju_core.git
-  revision: 05409ee6fae14df095042bcacce81b8a76d638d6
+  remote: git://github.com/next-l/enju_library.git
+  revision: 888d938ea4e5093a102db4862a4ae20e573217ae
   branch: rails4
   specs:
-    enju_core (0.2.0.pre2)
+    enju_library (0.2.0.pre1)
+      geocoder
+      inherited_resources
+
+GIT
+  remote: git://github.com/next-l/enju_manifestation_viewer.git
+  revision: 847e67697eef2e51dc152f24081f2567c5278a46
+  branch: rails4
+  specs:
+    enju_manifestation_viewer (0.2.0.pre1)
+      rails (~> 4.0)
+
+GIT
+  remote: git://github.com/next-l/enju_seed.git
+  revision: a6a930b931666b800fad251dacc4add37621cea2
+  branch: rails4
+  specs:
+    enju_seed (0.2.0.pre1)
       acts_as_list (~> 0.3)
       addressable
       attribute_normalizer (~> 1.1)
@@ -38,25 +54,7 @@ GIT
       rails (~> 4.0)
       resque
       settingslogic
-      sunspot_rails (~> 2.1)
-
-GIT
-  remote: git://github.com/next-l/enju_library.git
-  revision: d241c874b799f68ba7393ade78de63332c4a2659
-  branch: rails4
-  specs:
-    enju_library (0.2.0.pre1)
-      enju_core (~> 0.2.0.pre1)
-      geocoder
-      inherited_resources
-
-GIT
-  remote: git://github.com/next-l/enju_manifestation_viewer.git
-  revision: 847e67697eef2e51dc152f24081f2567c5278a46
-  branch: rails4
-  specs:
-    enju_manifestation_viewer (0.2.0.pre1)
-      rails (~> 4.0)
+      sunspot_rails (~> 2.0)
 
 PATH
   remote: .
@@ -151,11 +149,11 @@ GEM
     jquery-ui-rails (4.1.1)
       railties (>= 3.1.0)
     json (1.8.1)
-    kaminari (0.15.0)
+    kaminari (0.15.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     library_stdnums (1.4.1)
-    lisbn (0.1.3)
+    lisbn (0.2.0)
       nokogiri
       nori (~> 2.0)
     mail (2.5.4)
@@ -191,7 +189,7 @@ GEM
     protected_attributes (1.0.5)
       activemodel (>= 4.0.1, < 5.0)
     rack (1.5.2)
-    rack-protection (1.5.1)
+    rack-protection (1.5.2)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -324,10 +322,10 @@ PLATFORMS
 
 DEPENDENCIES
   enju_biblio!
-  enju_core!
   enju_leaf!
   enju_library!
   enju_manifestation_viewer!
+  enju_seed!
   factory_girl_rails
   jquery-rails
   rspec-rails
