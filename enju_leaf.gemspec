@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.name        = "enju_leaf"
   s.version     = EnjuLeaf::VERSION
   s.authors     = ["Kosuke Tanabe"]
-  s.email       = ["tanabe@mwr.mediacom.keio.ac.jp"]
-  s.homepage    = "https://github.com/nabeta/enju_leaf"
+  s.email       = ["kosuke@e23.jp"]
+  s.homepage    = "https://github.com/next-l/enju_leaf"
   s.summary     = "Next-L Enju Leaf"
   s.description = "integrated library system"
   s.license     = "MIT"

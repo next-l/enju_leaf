@@ -1,7 +1,7 @@
 = Next-L Enju Leaf
 
-{<img src="https://travis-ci.org/nabeta/enju_leaf.png?branch=master" alt="Build Status" />}[https://travis-ci.org/nabeta/enju_leaf]
-{<img src="https://gemnasium.com/nabeta/enju_leaf.png" alt="Dependency Status" />}[https://gemnasium.com/nabeta/enju_leaf]
+{<img src="https://travis-ci.org/next-l/enju_leaf.png?branch=master" alt="Build Status" />}[https://travis-ci.org/next-l/enju_leaf]
+{<img src="https://gemnasium.com/next-l/enju_leaf.png" alt="Dependency Status" />}[https://gemnasium.com/next-l/enju_leaf]
 
 Next-L Enju Leaf は、{Project Next-L}[http://www.next-l.jp] で開発している図書館管理システムです。
 
@@ -16,12 +16,12 @@ Next-L Enju Leaf is an integrated library system developed by {Project Next-L}[h
 * http://enju.next-l.jp
 
 == インストール (Install)
-* https://github.com/nabeta/enju_leaf/wiki/Install
+* https://github.com/next-l/enju_leaf/wiki/Install
 
 == 関連するプロジェクト (Related projects)
 * {Next-L Enju Root}[https://github.com/next-l/enju_root]
 * {Next-L Enju Flower}[https://github.com/next-l/enju_flower]
 
 == 製作者・貢献者 (Authors and contributors)
-* {TANABE, Kosuke}[http://mwr.mediacom.keio.ac.jp/~tanabe/] ({@nabeta}[https://twitter.com/nabeta])
+* {TANABE, Kosuke}[https://github.com/nabeta] ({@nabeta}[https://twitter.com/nabeta])
 * {Project Next-L}[http://www.next-l.jp] ({@ProjectNextL}[https://twitter.com/ProjectNextL])
