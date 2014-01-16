@@ -16,9 +16,9 @@ class User < ActiveRecord::Base
     :keyword_list, :user_has_role_attributes, :auto_generated_password,
     :as => :admin
 
-  scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
-  scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)
-  scope :suspended, where('locked_at IS NOT NULL')
+  scope :administrators, -> {where('roles.name = ?', 'Administrator').includes(:role)}
+  scope :librarians, -> {where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)}
+  scope :suspended, -> {where('locked_at IS NOT NULL')}
   #has_one :patron, :dependent => :destroy
   if defined?(EnjuBiblio)
     has_many :import_requests
@@ -63,7 +63,8 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :username
   #has_paper_trail
-  normalize_attributes :username, :user_number, :email
+  normalize_attributes :username, :user_number
+  normalize_attributes :email, :with => :strip
 
   enju_circulation_user_model if defined?(EnjuCirculation)
   enju_question_user_model if defined?(EnjuQuestion)
@@ -196,8 +197,10 @@ class User < ActiveRecord::Base
   end
 
   def set_expired_at
-    if self.user_group.valid_period_for_new_user > 0
-      self.expired_at = self.user_group.valid_period_for_new_user.days.from_now.end_of_day
+    unless expired_at
+      if user_group.valid_period_for_new_user > 0
+        self.expired_at = user_group.valid_period_for_new_user.days.from_now.end_of_day
+      end
     end
   end
 

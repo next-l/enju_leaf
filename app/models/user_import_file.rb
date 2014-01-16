@@ -92,6 +92,10 @@ class UserImportFile < ActiveRecord::Base
         if row['user_group'].present?
           new_user.user_group = UserGroup.where(:name => row['user_group']).first
         end
+        new_user.user_number = row['user_number']
+        if row['expired_at'].present?
+          new_user.expired_at = Time.zone.parse(row['expired_at']).end_of_day
+        end
         new_user.note = row['note']
         if row['password'].present?
           new_user.password = row['password']
