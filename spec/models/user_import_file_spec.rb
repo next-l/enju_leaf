@@ -62,27 +62,3 @@ describe UserImportFile do
     end
   end
 end
-
-# == Schema Information
-#
-# Table name: user_import_files
-#
-#  id                        :integer          not null, primary key
-#  parent_id                 :integer
-#  content_type              :string(255)
-#  size                      :integer
-#  user_id                   :integer
-#  note                      :text
-#  executed_at               :datetime
-#  state                     :string(255)
-#  user_import_file_name    :string(255)
-#  user_import_content_type :string(255)
-#  user_import_file_size    :integer
-#  user_import_updated_at   :datetime
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  user_import_fingerprint  :string(255)
-#  error_message             :text
-#  edit_mode                 :string(255)
-#
-
