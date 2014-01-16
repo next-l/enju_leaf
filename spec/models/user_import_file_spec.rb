@@ -19,10 +19,13 @@ describe UserImportFile do
       User.order('id DESC')[1].username.should eq 'user002'
       User.order('id DESC')[2].username.should eq 'user001'
       User.count.should eq old_users_count + 3
+
       user002 = User.where(:username => 'user002').first
       user002.user_number.should eq '001002'
       user002.user_group.name.should eq 'Faculty'
       user002.expired_at.to_i.should eq Time.zone.parse('2013-12-01').end_of_day.to_i
+      user002.valid_password?('4NsxXPLy')
+
       user003 = User.where(:username => 'user003').first
       user002.user_number.should eq '001002'
       user003.note.should eq 'テストユーザ'
