@@ -13,7 +13,7 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
     gsub_file 'config/application.rb', /# config.time_zone = 'Central Time \(US & Canada\)'$/,
       "config.time_zone = 'Tokyo'"
     gsub_file 'config/schedule.rb', /\/path\/to\/enju_leaf/, Rails.root.to_s
-    append_to_file("Rakefile", "require 'resque/tasks'")
+    append_to_file("Rakefile", "require 'resque/tasks'\n")
     append_to_file("Rakefile", "require 'resque_scheduler/tasks'")
     append_to_file("db/seeds.rb", File.open(File.expand_path('../templates', __FILE__) + '/db/seeds.rb').read)
     append_to_file 'config/initializers/inflections.rb',  <<EOS
