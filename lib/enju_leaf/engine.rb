@@ -12,6 +12,7 @@ require 'sitemap_generator'
 require 'jquery-rails'
 require 'jquery-ui-rails'
 require 'resque_scheduler/server'
+require 'protected_attributes'
 
 module EnjuLeaf
   class Engine < ::Rails::Engine
