@@ -1,0 +1,5 @@
+username	email	user_number	role	user_group	expired_at	password	note	dummy
+user001	user001@example.jp	001001	Administrator				test	
+user002		001002	User	Faculty	2013-12-01			
+user003	user003@example.jp	001003	Librarian			4NsxXPLy	テストユーザ	
+user004		001004						t
