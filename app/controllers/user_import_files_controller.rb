@@ -1,19 +1,48 @@
 class UserImportFilesController < ApplicationController
   load_and_authorize_resource
-  before_filter :set_user_import_file, only: [:show, :edit, :update, :destroy]
 
   # GET /user_import_files
+  # GET /user_import_files.json
   def index
     @user_import_files = UserImportFile.page(params[:page])
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render :json => @user_import_files }
+    end
   end
 
   # GET /user_import_files/1
+  # GET /user_import_files/1.json
   def show
+    if @user_import_file.user_import.path
+      unless Setting.uploaded_file.storage == :s3
+        file = @user_import_file.user_import.path
+      end
+    end
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render :json => @user_import_file }
+      format.download {
+        if Setting.uploaded_file.storage == :s3
+          redirect_to @user_import_file.user_import.expiring_url(10)
+        else
+          send_file file, :filename => @user_import_file.user_import_file_name, :type => 'application/octet-stream'
+        end
+      }
+    end
   end
 
   # GET /user_import_files/new
+  # GET /user_import_files/new.json
   def new
     @user_import_file = UserImportFile.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render :json => @user_import_file }
+    end
   end
 
   # GET /user_import_files/1/edit
@@ -21,39 +50,44 @@ class UserImportFilesController < ApplicationController
   end
 
   # POST /user_import_files
+  # POST /user_import_files.json
   def create
-    @user_import_file = UserImportFile.new(user_import_file_params)
+    @user_import_file = UserImportFile.new(params[:user_import_file])
+    @user_import_file.user = current_user
 
-    if @user_import_file.save
-      redirect_to @user_import_file, notice: 'User import file was successfully created.'
-    else
-      render action: 'new'
+    respond_to do |format|
+      if @user_import_file.save
+        format.html { redirect_to @user_import_file, :notice => t('controller.successfully_created', :model => t('activerecord.models.user_import_file')) }
+        format.json { render :json => @user_import_file, :status => :created, :location => @user_import_file }
+      else
+        format.html { render :action => "new" }
+        format.json { render :json => @user_import_file.errors, :status => :unprocessable_entity }
+      end
     end
   end
 
-  # PATCH/PUT /user_import_files/1
+  # PUT /user_import_files/1
+  # PUT /user_import_files/1.json
   def update
-    if @user_import_file.update(user_import_file_params)
-      redirect_to @user_import_file, notice: 'User import file was successfully updated.'
-    else
-      render action: 'edit'
+    respond_to do |format|
+      if @user_import_file.update_attributes(params[:user_import_file])
+        format.html { redirect_to @user_import_file, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user_import_file')) }
+        format.json { head :no_content }
+      else
+        format.html { render :action => "edit" }
+        format.json { render :json => @user_import_file.errors, :status => :unprocessable_entity }
+      end
     end
   end
 
   # DELETE /user_import_files/1
+  # DELETE /user_import_files/1.json
   def destroy
     @user_import_file.destroy
-    redirect_to user_import_files_url, notice: 'User import file was successfully destroyed.'
+
+    respond_to do |format|
+      format.html { redirect_to(user_import_files_url) }
+      format.json { head :no_content }
+    end
   end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user_import_file
-      @user_import_file = UserImportFile.find(params[:id])
-    end
-
-    # Only allow a trusted parameter "white list" through.
-    def user_import_file_params
-      params.require(:user_import_file).permit(:user_id, :note, :executed_at, :state, :user_import_file_name, :user_import_content_type, :user_import_file_size, :user_import_updated_at, :user_import_fingerprint, :edit_mode, :error_message)
-    end
 end
