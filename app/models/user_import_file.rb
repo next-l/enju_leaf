@@ -81,7 +81,7 @@ class UserImportFile < ActiveRecord::Base
       new_user = User.where(:username => username).first
       if new_user
         import_result.user = new_user
-        import_result.save!
+        import_result.save
         num[:user_found] += 1
       else
         new_user = User.new
@@ -103,7 +103,7 @@ class UserImportFile < ActiveRecord::Base
           new_user.set_auto_generated_password
         end
 
-        if new_user.save
+        if new_user.save!
           num[:user_imported] += 1
         else
           num[:failed] += 1
