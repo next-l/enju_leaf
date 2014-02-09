@@ -203,7 +203,8 @@ describe UserImportFilesController do
       login_admin
 
       it "should update user_import_file" do
-        put :update, :id => user_import_files(:two).id, :user_import_file => { :note => 'test' }
+        post :create, :user_import_file => {:user_import => fixture_file_upload("/../../examples/user_import_file_sample.tsv", 'text/csv') }
+        put :update, :id => assigns(:user_import_file).id, :user_import_file => { :note => 'test' }
         response.should redirect_to user_import_file_url(assigns(:user_import_file))
       end
     end
@@ -212,7 +213,8 @@ describe UserImportFilesController do
       login_librarian
 
       it "should update user_import_file" do
-        put :update, :id => user_import_files(:two).id, :user_import_file => { :note => 'test' }
+        post :create, :user_import_file => {:user_import => fixture_file_upload("/../../examples/user_import_file_sample.tsv", 'text/csv') }
+        put :update, :id => assigns(:user_import_file).id, :user_import_file => { :note => 'test' }
         response.should redirect_to user_import_file_url(assigns(:user_import_file))
       end
     end
