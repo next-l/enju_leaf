@@ -81,7 +81,7 @@ class UsersController < ApplicationController
     prepare_options
     @user_groups = UserGroup.all
     if @agent.try(:user)
-      flash[:notice] = t('page.already_activated')
+      flash[:notice] = t('user.already_activated')
       redirect_to @agent
       return
     end
@@ -126,7 +126,7 @@ class UsersController < ApplicationController
         user_has_role.assign_attributes({:user_id => @user.id, :role_id => role.id}, :as => :admin)
         user_has_role.save
         flash[:temporary_password] = @user.password
-        format.html { redirect_to @user, :notice => t('controller.successfully_created.', :model => t('activerecord.models.user')) }
+        format.html { redirect_to @user, :notice => t('controller.successfully_created', :model => t('activerecord.models.user')) }
         format.json { render :json => @user, :status => :created, :location => @user }
       else
         prepare_options
