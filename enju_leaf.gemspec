@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
   #s.add_dependency "enju_biblio", "~> 0.2.0.pre1"
   #s.add_dependency "enju_library", "~> 0.2.0.pre1"
   #s.add_dependency "enju_manifestation_viewer", "~> 0.2.0.pre1"
-  s.add_dependency "redcarpet"
   s.add_dependency "mobylette", "~> 3.5"
   s.add_dependency "sitemap_generator", "~> 5.0"
   s.add_dependency "devise-encryptable"
@@ -31,9 +30,18 @@ Gem::Specification.new do |s|
   s.add_dependency "resque-scheduler"
   s.add_dependency "protected_attributes"
   s.add_dependency "paperclip", "~> 4.1"
+  if RUBY_PLATFORM == "java"
+    s.add_dependency "kramdown"
+  else
+    s.add_dependency "redcarpet"
+  end
   # s.add_dependency "jquery-rails"
 
-  s.add_development_dependency "sqlite3"
+  if RUBY_PLATFORM == "java"
+    s.add_development_dependency "activerecord-jdbcsqlite3-adapter"
+  else
+    s.add_development_dependency "sqlite3"
+  end
   s.add_development_dependency "rspec-rails"
   #s.add_development_dependency "enju_message", "~> 0.2.0.pre1"
   s.add_development_dependency "vcr"
