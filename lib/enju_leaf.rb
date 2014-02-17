@@ -250,21 +250,6 @@ module EnjuLeaf
       @libraries = Library.real
     end
 
-    def set_mobile_request
-      if params[:mobile_view]
-        case params[:mobile_view]
-        when 'true'
-          session[:mobylette_override] = :force_mobile
-          request.format = :mobile
-        when 'false'
-          session[:mobylette_override] = :ignore_mobile
-          unless params[:format]
-            request.format = :html if request.format == :mobile
-          end
-        end
-      end
-    end
-
     def move_position(resource, direction, redirect = true)
       if ['higher', 'lower'].include?(direction)
         resource.send("move_#{direction}")
