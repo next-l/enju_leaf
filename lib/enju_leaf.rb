@@ -97,6 +97,23 @@ module EnjuLeaf
       @available_languages = Language.where(:iso_639_1 => I18n.available_locales.map{|l| l.to_s})
     end
 
+    def set_mobile_request
+      case params[:mobile_view]
+      when 'true'
+        request.format = :mobile
+        session[:mobile_view] = true
+      when 'false'
+        request.format = :html
+        session[:mobile_view] = false
+      else
+        if session[:mobile_view]
+          request.format = :mobile
+        else
+          request.format = :html
+        end
+      end
+    end
+
     def reset_params_session
       session[:params] = nil
     end

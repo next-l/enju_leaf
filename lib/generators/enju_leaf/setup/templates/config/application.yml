@@ -3,8 +3,6 @@ defaults: &defaults
     color: 
       heading: "#5970B2"
     erms_url: 
-    skip_mobile_agents:
-      - ipad
 
   family_name_first: true
   max_number_of_results: 500
