@@ -109,7 +109,16 @@ module EnjuLeaf
         if session[:mobile_view]
           request.format = :mobile
         else
-          request.format = :html
+          if session[:mobile_view].nil?
+            browser = Browser.new(:ua => request.user_agent)
+            if browser.mobile?
+              request.format = :mobile
+            else
+              request.format = :html
+            end
+          else
+            request.format = :html
+          end
         end
       end
     end
