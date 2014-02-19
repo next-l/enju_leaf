@@ -3,8 +3,8 @@
 require 'enju_seed'
 require 'devise'
 #require 'enju_manifestation_viewer'
-require 'redcarpet'
-require 'mobylette'
+#require 'mobylette'
+require 'browser'
 require 'rails_autolink'
 require 'devise-encryptable'
 require 'sitemap_generator'
@@ -13,6 +13,11 @@ require 'jquery-rails'
 require 'jquery-ui-rails'
 require 'resque_scheduler/server'
 require 'protected_attributes'
+if RUBY_PLATFORM == "java"
+  require 'kramdown'
+else
+  require 'redcarpet'
+end
 
 module EnjuLeaf
   class Engine < ::Rails::Engine

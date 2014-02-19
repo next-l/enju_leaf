@@ -54,11 +54,6 @@ EOS
   enju_biblio
   enju_library
 
-  mobylette_config do |config|
-    config[:skip_xhr_requests] = false
-    config[:skip_user_agents] = Setting.enju.skip_mobile_agents.map{|a| a.to_sym}
-  end
-
 EOS
     end
     #inject_into_class "app/models/user.rb", User, "  enju_user_model\n"

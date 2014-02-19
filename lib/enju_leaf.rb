@@ -97,6 +97,32 @@ module EnjuLeaf
       @available_languages = Language.where(:iso_639_1 => I18n.available_locales.map{|l| l.to_s})
     end
 
+    def set_mobile_request
+      case params[:mobile_view]
+      when 'true'
+        request.format = :mobile
+        session[:mobile_view] = true
+      when 'false'
+        request.format = :html
+        session[:mobile_view] = false
+      else
+        if session[:mobile_view]
+          request.format = :mobile
+        else
+          if session[:mobile_view].nil?
+            browser = Browser.new(:ua => request.user_agent)
+            if browser.mobile?
+              request.format = :mobile
+            else
+              request.format = :html
+            end
+          else
+            request.format = :html
+          end
+        end
+      end
+    end
+
     def reset_params_session
       session[:params] = nil
     end
@@ -248,21 +274,6 @@ module EnjuLeaf
         @news_posts = NewsPost.limit(Setting.news_post.number.top_page)
       end
       @libraries = Library.real
-    end
-
-    def set_mobile_request
-      if params[:mobile_view]
-        case params[:mobile_view]
-        when 'true'
-          session[:mobylette_override] = :force_mobile
-          request.format = :mobile
-        when 'false'
-          session[:mobylette_override] = :ignore_mobile
-          unless params[:format]
-            request.format = :html if request.format == :mobile
-          end
-        end
-      end
     end
 
     def move_position(resource, direction, redirect = true)

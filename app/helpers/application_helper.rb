@@ -110,8 +110,7 @@ module ApplicationHelper
   def markdown_helper(string)
     return unless string
     if defined?(JRUBY_VERSION)
-      string
-    #  Kramdown::Document.new(string.to_s).to_html.html_safe
+      Kramdown::Document.new(string.to_s).to_html.html_safe
     else
       markdown = Redcarpet::Markdown.new(
         Redcarpet::Render::HTML,
