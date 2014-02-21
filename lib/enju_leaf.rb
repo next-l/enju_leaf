@@ -101,24 +101,19 @@ module EnjuLeaf
       return if request.format != 'text/html'
       case params[:mobile_view]
       when 'true'
-        request.format = :mobile
+        request.variant = :phone
         session[:mobile_view] = true
       when 'false'
-        request.format = :html
         session[:mobile_view] = false
       else
         if session[:mobile_view]
-          request.format = :mobile
+          request.variant = :phone
         else
           if session[:mobile_view].nil?
             browser = Browser.new(:ua => request.user_agent)
             if browser.mobile?
-              request.format = :mobile
-            else
-              request.format = :html
+              request.variant = :phone
             end
-          else
-            request.format = :html
           end
         end
       end

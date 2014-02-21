@@ -28,6 +28,7 @@ class PageController < ApplicationController
 
     respond_to do |format|
       format.html
+      format.html.phone
     end
   end
 
