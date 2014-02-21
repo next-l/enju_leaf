@@ -98,6 +98,7 @@ module EnjuLeaf
     end
 
     def set_mobile_request
+      return unless [:html, :mobile].include?(request.format)
       case params[:mobile_view]
       when 'true'
         request.format = :mobile
