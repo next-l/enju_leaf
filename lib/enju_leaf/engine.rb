@@ -12,7 +12,8 @@ require 'sitemap_generator'
 require 'jquery-rails'
 require 'jquery-ui-rails'
 require 'resque_scheduler/server'
-require 'protected_attributes'
+require 'bcrypt/password'
+#require 'protected_attributes'
 if RUBY_PLATFORM == "java"
   require 'kramdown'
 else
