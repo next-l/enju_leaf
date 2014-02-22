@@ -28,14 +28,14 @@ module EnjuLeaf
       if user_signed_in?
         respond_to do |format|
           format.html {render :template => 'page/403', :status => 403}
-          format.mobile {render :template => 'page/403', :status => 403}
+          #format.mobile {render :template => 'page/403', :status => 403}
           format.xml {render :template => 'page/403', :status => 403}
           format.json { render :text => '{"error": "forbidden"}' }
         end
       else
         respond_to do |format|
           format.html {redirect_to new_user_session_url}
-          format.mobile {redirect_to new_user_session_url}
+          #format.mobile {redirect_to new_user_session_url}
           format.xml {render :template => 'page/403', :status => 403}
           format.json { render :text => '{"error": "forbidden"}' }
         end
@@ -46,7 +46,7 @@ module EnjuLeaf
       return if performed?
       respond_to do |format|
         format.html {render :template => 'page/404', :status => 404}
-        format.mobile {render :template => 'page/404', :status => 404}
+        #format.mobile {render :template => 'page/404', :status => 404}
         format.xml {render :template => 'page/404', :status => 404}
         format.json { render :text => '{"error": "not_found"}' }
       end
@@ -63,7 +63,7 @@ module EnjuLeaf
       #flash[:notice] = t('page.connection_failed')
       respond_to do |format|
         format.html {render :file => "#{Rails.root.to_s}/public/500", :layout => false, :status => 500}
-        format.mobile {render :file => "#{Rails.root.to_s}/public/500", :layout => false, :status => 500}
+        #format.mobile {render :file => "#{Rails.root.to_s}/public/500", :layout => false, :status => 500}
         format.xml {render :template => 'page/500', :status => 500}
         format.json { render :text => '{"error": "server_error"}' }
       end
@@ -106,12 +106,12 @@ module EnjuLeaf
       when 'false'
         session[:mobile_view] = false
       else
-        if session[:mobile_view]
-          request.variant = :phone
-        else
-          if session[:mobile_view].nil?
-            browser = Browser.new(:ua => request.user_agent)
-            if browser.mobile?
+        browser = Browser.new(:ua => request.user_agent)
+        if browser.mobile?
+          if session[:mobile_view]
+            request.variant = :phone
+          else
+            if session[:mobile_view].nil?
               request.variant = :phone
             end
           end
