@@ -2,6 +2,7 @@
 
 {<img src="https://travis-ci.org/next-l/enju_leaf.png?branch=master" alt="Build Status" />}[https://travis-ci.org/next-l/enju_leaf]
 {<img src="https://gemnasium.com/next-l/enju_leaf.png" alt="Dependency Status" />}[https://gemnasium.com/next-l/enju_leaf]
+{<img src="https://codeclimate.com/github/next-l/enju_leaf.png" />}[https://codeclimate.com/github/next-l/enju_leaf]
 
 Next-L Enju Leaf は、{Project Next-L}[http://www.next-l.jp] で開発している図書館管理システムです。
 
