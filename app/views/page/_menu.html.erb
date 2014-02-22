@@ -83,9 +83,6 @@
         <a href="#event_menu"><%= t('activerecord.models.event') -%></a>
         <ul>
           <%- unless @library_group.real_libraries.empty? -%>
-            <!--
-            <li><%= link_to t('page.calendar'), calendar_path -%></li>
-            -->
             <li><%= link_to t('event.all'), events_path -%></li>
             <%- @library_group.real_libraries.each do |library| -%>
               <li><%= link_to library.display_name.localize, library_events_path(library) -%></li>
