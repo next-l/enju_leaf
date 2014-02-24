@@ -32,7 +32,7 @@ class RolesController < ApplicationController
     end
 
     respond_to do |format|
-      if @role.update_attributes(params[:role])
+      if @role.update_attributes(role_params)
         format.html { redirect_to @role, :notice => t('controller.successfully_updated', :model => t('activerecord.models.role')) }
         format.json { head :no_content }
       else
@@ -40,5 +40,11 @@ class RolesController < ApplicationController
         format.json { render :json => @role.errors, :status => :unprocessable_entity }
       end
     end
+  end
+
+  def role_params
+    params.require(:role).permit(
+      :name, :display_name, :note
+    )
   end
 end

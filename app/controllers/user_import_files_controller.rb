@@ -1,5 +1,6 @@
 class UserImportFilesController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource except: :create
+  authorize_resource only: :create
   before_action :set_user_import_file, only: [:show, :edit, :update, :destroy]
 
   # GET /user_import_files

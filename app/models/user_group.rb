@@ -1,11 +1,5 @@
 # -*- encoding: utf-8 -*-
 class UserGroup < ActiveRecord::Base
-  attr_accessible :name, :display_name, :note, :valid_period_for_new_user,
-    :expired_at, :number_of_day_to_notify_overdue,
-    :number_of_day_to_notify_overdue,
-    :number_of_day_to_notify_due_date,
-    :number_of_time_to_notify_overdue
-
   include MasterModel
   default_scope {order("user_groups.position")}
   has_many :users

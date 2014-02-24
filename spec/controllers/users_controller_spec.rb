@@ -269,7 +269,7 @@ describe UsersController do
 
       it "should not create user" do
         post :create, :user => { :username => 'test10' }
-        assigns(:user).should_not be_valid
+        assigns(:user).should be_nil
         response.should be_forbidden
       end
     end
@@ -325,7 +325,7 @@ describe UsersController do
         put :update, :id => users(:user1).username, :user => {:user_has_role_attributes => {:role_id => 4}, :locale => 'en'}
         response.should redirect_to user_url(assigns(:user))
         assigns(:user).reload
-        assigns(:user).role.should eq Role.find_by_name('Administrator')
+        assigns(:user).role.should eq Role.where(name: 'Administrator').first
       end
     end
 
@@ -403,14 +403,14 @@ describe UsersController do
       end
 
       it "should update myself" do
-        put :update, :id => users(:user1).username, :user => { }
+        put :update, :id => users(:user1).username, :user => {:note => 'test'}
         response.should redirect_to user_url(assigns(:user))
       end
 
       it "should not update my role" do
         put :update, :id => users(:user1).username, :user => {:user_has_role_attributes => {:role_id => 4}}
         response.should redirect_to user_url(assigns(:user))
-        assigns(:user).role.should_not eq Role.find_by_name('Administrator')
+        assigns(:user).role.should_not eq Role.where(name: 'Administrator').first
       end
 
       it "should not update my user_group" do

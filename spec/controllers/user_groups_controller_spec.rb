@@ -205,9 +205,9 @@ describe UserGroupsController do
       login_librarian
 
       describe "with valid params" do
-        it "assigns a newly created user_group as @user_group" do
+        it "assigns nil as @user_group" do
           post :create, :user_group => @attrs
-          assigns(:user_group).should be_valid
+          assigns(:user_group).should be_nil
         end
 
         it "should be forbidden" do
@@ -217,9 +217,9 @@ describe UserGroupsController do
       end
 
       describe "with invalid params" do
-        it "assigns a newly created but unsaved user_group as @user_group" do
+        it "assigns nil as @user_group" do
           post :create, :user_group => @invalid_attrs
-          assigns(:user_group).should_not be_valid
+          assigns(:user_group).should be_nil
         end
 
         it "should be forbidden" do
@@ -233,9 +233,9 @@ describe UserGroupsController do
       login_user
 
       describe "with valid params" do
-        it "assigns a newly created user_group as @user_group" do
+        it "assigns nil as @user_group" do
           post :create, :user_group => @attrs
-          assigns(:user_group).should be_valid
+          assigns(:user_group).should be_nil
         end
 
         it "should be forbidden" do
@@ -245,9 +245,9 @@ describe UserGroupsController do
       end
 
       describe "with invalid params" do
-        it "assigns a newly created but unsaved user_group as @user_group" do
+        it "assigns nil as @user_group" do
           post :create, :user_group => @invalid_attrs
-          assigns(:user_group).should_not be_valid
+          assigns(:user_group).should be_nil
         end
 
         it "should be forbidden" do
@@ -259,9 +259,9 @@ describe UserGroupsController do
 
     describe "When not logged in" do
       describe "with valid params" do
-        it "assigns a newly created user_group as @user_group" do
+        it "assigns nil as @user_group" do
           post :create, :user_group => @attrs
-          assigns(:user_group).should be_valid
+          assigns(:user_group).should be_nil
         end
 
         it "should be forbidden" do
@@ -271,9 +271,9 @@ describe UserGroupsController do
       end
 
       describe "with invalid params" do
-        it "assigns a newly created but unsaved user_group as @user_group" do
+        it "assigns nil as @user_group" do
           post :create, :user_group => @invalid_attrs
-          assigns(:user_group).should_not be_valid
+          assigns(:user_group).should be_nil
         end
 
         it "should be forbidden" do

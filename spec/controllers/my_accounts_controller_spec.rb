@@ -74,7 +74,7 @@ describe MyAccountsController do
   describe "PUT update" do
     before(:each) do
       @attrs = {:email => 'newaddress@example.jp', :locale => 'en', :current_password => 'password'}
-      @invalid_attrs = {:username => ''}
+      @invalid_attrs = {:email => 'invalid'}
     end
 
     describe "When logged in as Administrator" do

@@ -9,15 +9,9 @@ module EnjuLeaf
         include InstanceMethods
 
         # Setup accessible (or protected) attributes for your model
-        attr_accessible :email, :password, :password_confirmation, :current_password,
-          :remember_me, :email_confirmation, :library_id, :locale,
-          :keyword_list, :auto_generated_password
-        attr_accessible :email, :password, :password_confirmation, :username,
-          :current_password, :user_number, :remember_me,
-          :email_confirmation, :note, :user_group_id, :library_id, :locale,
-          :expired_at, :locked, :required_role_id, :role_id,
-          :keyword_list, :user_has_role_attributes, :auto_generated_password,
-          :as => :admin
+        #attr_accessible :email, :password, :password_confirmation, :current_password,
+        #  :remember_me, :email_confirmation, :library_id, :locale,
+        #  :keyword_list, :auto_generated_password
 
         scope :administrators, -> {where('roles.name = ?', 'Administrator').includes(:role)}
         scope :librarians, -> {where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)}

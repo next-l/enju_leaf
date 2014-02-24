@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 class UserGroupsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:create]
+  authorize_resource only: :create
   before_filter :prepare_options, :only => [:new, :edit]
 
   # GET /user_groups
@@ -40,7 +41,7 @@ class UserGroupsController < ApplicationController
   # POST /user_groups
   # POST /user_groups.json
   def create
-    @user_group = UserGroup.new(params[:user_group])
+    @user_group = UserGroup.new(user_group_params)
 
     respond_to do |format|
       if @user_group.save
@@ -63,7 +64,7 @@ class UserGroupsController < ApplicationController
     end
 
     respond_to do |format|
-      if @user_group.update_attributes(params[:user_group])
+      if @user_group.update_attributes(user_group_params)
         format.html { redirect_to @user_group, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user_group')) }
         format.json { head :no_content }
       else
@@ -90,5 +91,15 @@ class UserGroupsController < ApplicationController
     if defined?(EnjuCirculation)
       @checkout_types = CheckoutType.select([:id, :display_name, :position])
     end
+  end
+
+  def user_group_params
+    params.require(:user_group).permit(
+      :name, :display_name, :note, :valid_period_for_new_user,
+      :expired_at, :number_of_day_to_notify_overdue,
+      :number_of_day_to_notify_overdue,
+      :number_of_day_to_notify_due_date,
+      :number_of_time_to_notify_overdue
+    )
   end
 end

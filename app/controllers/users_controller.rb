@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource :except => :index
-  authorize_resource :only => [:index]
+  load_and_authorize_resource :except => [:index, :create]
+  authorize_resource :only => [:index, :create]
   before_filter :get_agent, :only => :new
   before_filter :store_location, :only => [:index]
   before_filter :clear_search_sessions, :only => [:show]
@@ -116,8 +116,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new
-    @user.assign_attributes(params[:user], :as => :admin)
+    @user = User.new(user_params)
     @user.operator = current_user
     @user.set_auto_generated_password
 
@@ -125,7 +124,7 @@ class UsersController < ApplicationController
       if @user.save
         role = Role.where(:name => 'User').first
         user_has_role = UserHasRole.new
-        user_has_role.assign_attributes({:user_id => @user.id, :role_id => role.id}, :as => :admin)
+        user_has_role.assign_attributes({:user_id => @user.id, :role_id => role.id})
         user_has_role.save
         flash[:temporary_password] = @user.password
         format.html { redirect_to @user, :notice => t('controller.successfully_created', :model => t('activerecord.models.user')) }
@@ -142,11 +141,7 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    if current_user.has_role?('Librarian')
-      @user.assign_attributes(params[:user], :as => :admin)
-    else
-      @user.assign_attributes(params[:user])
-    end
+    @user.assign_attributes(user_params)
     if @user.auto_generated_password == "1"
       @user.set_auto_generated_password
       flash[:temporary_password] = @user.password
@@ -197,5 +192,24 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.friendly.find(params[:id])
+  end
+
+  def user_params
+    if current_user.has_role?('Librarian')
+      params.require(:user).permit(
+        :email, :password, :password_confirmation, :username,
+        :current_password, :user_number, :remember_me,
+        :email_confirmation, :note, :user_group_id, :library_id, :locale,
+        :expired_at, :locked, :required_role_id, :role_id,
+        :keyword_list, :auto_generated_password,
+        :user_has_role_attributes => [:user_id, :role_id]
+      )
+    else
+      params.require(:user).permit(
+        :email, :password, :password_confirmation, :current_password,
+        :remember_me, :email_confirmation, :library_id, :locale,
+        :keyword_list, :auto_generated_password
+      )
+    end
   end
 end

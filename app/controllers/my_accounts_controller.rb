@@ -31,9 +31,9 @@ class MyAccountsController < ApplicationController
 
     respond_to do |format|
       if current_user.has_role?('Librarian')
-        saved = current_user.update_with_password(params[:user], :as => :admin)
+        saved = current_user.update_with_password(user_params) #, :as => :admin)
       else
-        saved = current_user.update_with_password(params[:user])
+        saved = current_user.update_with_password(user_params)
       end
 
       if saved
@@ -70,5 +70,13 @@ class MyAccountsController < ApplicationController
     else
       current_user.locked = '1'
     end
+  end
+
+  def user_params
+    params.require(:user).permit(
+      :email, :password, :password_confirmation, :current_password,
+      :remember_me, :email_confirmation, :library_id, :locale,
+      :keyword_list, :auto_generated_password
+    )
   end
 end
