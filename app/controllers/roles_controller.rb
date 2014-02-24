@@ -42,6 +42,7 @@ class RolesController < ApplicationController
     end
   end
 
+  private
   def role_params
     params.require(:role).permit(
       :name, :display_name, :note
