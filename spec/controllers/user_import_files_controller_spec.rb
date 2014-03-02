@@ -27,7 +27,7 @@ describe UserImportFilesController do
 
       it "assigns empty as @user_import_files" do
         get :index
-        assigns(:user_import_files).should be_empty
+        assigns(:user_import_files).should be_nil
         response.should be_forbidden
       end
     end
@@ -35,7 +35,7 @@ describe UserImportFilesController do
     describe "When not logged in" do
       it "assigns empty as @user_import_files" do
         get :index
-        assigns(:user_import_files).should be_empty
+        assigns(:user_import_files).should be_nil
         response.should redirect_to(new_user_session_url)
       end
     end

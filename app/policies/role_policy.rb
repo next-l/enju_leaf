@@ -1,0 +1,2 @@
+class RolePolicy < AdminPolicy
+end

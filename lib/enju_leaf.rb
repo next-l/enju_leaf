@@ -128,7 +128,7 @@ module EnjuLeaf
     end
 
     def access_denied
-      raise CanCan::AccessDenied
+      render_403
     end
 
     def get_user
@@ -241,27 +241,6 @@ module EnjuLeaf
 
     def api_request?
       true unless params[:format].nil? or params[:format] == 'html'
-    end
-
-    def current_ability
-      @current_ability ||= EnjuLeaf::Ability.new(current_user, request.remote_ip.split('%')[0])
-      @current_ability.merge(EnjuBiblio::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuBiblio)
-      @current_ability.merge(EnjuLibrary::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuLibrary)
-      @current_ability.merge(EnjuNii::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuNii)
-      @current_ability.merge(EnjuSubject::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuSubject)
-      @current_ability.merge(EnjuPurchaseRequest::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuPurchaseRequest)
-      @current_ability.merge(EnjuQuestion::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuQuestion)
-      @current_ability.merge(EnjuBookmark::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuBookmark)
-      @current_ability.merge(EnjuResourceMerge::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuResourceMerge)
-      @current_ability.merge(EnjuCirculation::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuCirculation)
-      @current_ability.merge(EnjuMessage::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuMessage)
-      @current_ability.merge(EnjuInterLibraryLoan::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuInterLibraryLoan)
-      @current_ability.merge(EnjuInventory::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuInventory)
-      @current_ability.merge(EnjuEvent::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuEvent)
-      @current_ability.merge(EnjuNews::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuNews)
-      @current_ability.merge(EnjuSearchLog::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuSearchLog)
-      @current_ability.merge(EnjuExport::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuExport)
-      @current_ability
     end
 
     def get_top_page_content

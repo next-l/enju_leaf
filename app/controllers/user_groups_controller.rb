@@ -1,37 +1,23 @@
 # -*- encoding: utf-8 -*-
 class UserGroupsController < ApplicationController
-  load_and_authorize_resource except: [:create]
-  authorize_resource only: :create
+  before_action :set_user_group, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized
+  after_action :verify_policy_scoped, :only => :index
   before_filter :prepare_options, :only => [:new, :edit]
 
   # GET /user_groups
-  # GET /user_groups.json
   def index
     @user_groups = UserGroup.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render :json => @user_groups }
-    end
   end
 
   # GET /user_groups/1
-  # GET /user_groups/1.json
   def show
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @user_group }
-    end
   end
 
   # GET /user_groups/new
   def new
     @user_group = UserGroup.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @user_group }
-    end
+    authorize @user_group
   end
 
   # GET /user_groups/1/edit
@@ -39,54 +25,45 @@ class UserGroupsController < ApplicationController
   end
 
   # POST /user_groups
-  # POST /user_groups.json
   def create
     @user_group = UserGroup.new(user_group_params)
+    authorize @user_group
 
-    respond_to do |format|
-      if @user_group.save
-        format.html { redirect_to @user_group, :notice => t('controller.successfully_created', :model => t('activerecord.models.user_group')) }
-        format.json { render :json => @user_group, :status => :created, :location => @user_group }
-      else
-        prepare_options
-        format.html { render :action => "new" }
-        format.json { render :json => @user_group.errors, :status => :unprocessable_entity }
-      end
+    if @user_group.save
+      redirect_to @user_group, :notice => t('controller.successfully_created', :model => t('activerecord.models.user_group'))
+    else
+      prepare_options
+      render :action => "new"
     end
   end
 
   # PUT /user_groups/1
-  # PUT /user_groups/1.json
   def update
     if params[:move]
       move_position(@user_group, params[:move])
       return
     end
 
-    respond_to do |format|
-      if @user_group.update_attributes(user_group_params)
-        format.html { redirect_to @user_group, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user_group')) }
-        format.json { head :no_content }
-      else
-        prepare_options
-        format.html { render :action => "edit" }
-        format.json { render :json => @user_group.errors, :status => :unprocessable_entity }
-      end
+    if @user_group.update_attributes(user_group_params)
+      redirect_to @user_group, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user_group'))
+    else
+      prepare_options
+      render :action => "edit"
     end
   end
 
   # DELETE /user_groups/1
-  # DELETE /user_groups/1.json
   def destroy
     @user_group.destroy
-
-    respond_to do |format|
-      format.html { redirect_to user_groups_url }
-      format.json { head :no_content }
-    end
+    redirect_to user_groups_url, notice: 'User group was successfully destroyed.'
   end
 
   private
+  def set_user_group
+    @user_group = UserGroup.find(params[:id])
+    authorize @user_group
+  end
+
   def prepare_options
     if defined?(EnjuCirculation)
       @checkout_types = CheckoutType.select([:id, :display_name, :position])

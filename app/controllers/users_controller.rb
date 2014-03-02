@@ -1,17 +1,16 @@
 # -*- encoding: utf-8 -*-
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource :except => [:index, :create]
-  authorize_resource :only => [:index, :create]
-  before_filter :get_agent, :only => :new
-  before_filter :store_location, :only => [:index]
-  before_filter :clear_search_sessions, :only => [:show]
-  after_filter :solr_commit, :only => [:create, :update, :destroy]
-  #cache_sweeper :user_sweeper, :only => [:create, :update, :destroy]
+  before_action :store_location, :only => [:index]
+  before_action :clear_search_sessions, :only => [:show]
+  after_action :verify_authorized
+  after_action :verify_policy_scoped, :only => :index
+  after_action :solr_commit, :only => [:create, :update, :destroy]
 
   # GET /users
   # GET /users.json
   def index
+    authorize User
     query = flash[:query] = params[:query].to_s
     @query = query.dup
     @count = {}
@@ -76,10 +75,11 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.json
   def new
-    unless current_user.try(:has_role?, 'Librarian')
-      access_denied; return
-    end
+    #unless current_user.try(:has_role?, 'Librarian')
+    #  access_denied; return
+    #end
     @user = User.new
+    authorize @user
     prepare_options
     @user_groups = UserGroup.all
     if @agent.try(:user)
@@ -116,6 +116,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    authorize User
     @user = User.new(user_params)
     @user.operator = current_user
     @user.set_auto_generated_password
@@ -192,6 +193,7 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.friendly.find(params[:id])
+    authorize @user
   end
 
   def user_params

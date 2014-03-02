@@ -27,14 +27,14 @@ describe RolesController do
 
       it "assigns all roles as @roles" do
         get :index
-        assigns(:roles).should be_empty
+        assigns(:roles).should be_nil
       end
     end
 
     describe "When not logged in" do
       it "assigns all roles as @roles" do
         get :index
-        assigns(:roles).should be_empty
+        assigns(:roles).should be_nil
       end
     end
   end

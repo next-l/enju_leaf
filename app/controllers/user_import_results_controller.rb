@@ -1,10 +1,12 @@
 class UserImportResultsController < ApplicationController
-  load_and_authorize_resource
+  after_action :verify_authorized
+  after_action :verify_policy_scoped, :only => :index
   before_action :set_user_import_result, only: [:show, :edit, :update, :destroy]
 
   # GET /user_import_results
   def index
-    @user_import_results = UserImportResult.page(params[:page])
+    authorize UserImportResult
+    @user_import_results = policy_scope(UserImportResult).page(params[:page])
   end
 
   # GET /user_import_results/1
@@ -22,6 +24,7 @@ class UserImportResultsController < ApplicationController
 
   # POST /user_import_results
   def create
+    authorize UserImportResult
     @user_import_result = UserImportResult.new(user_import_result_params)
 
     if @user_import_result.save
@@ -50,6 +53,7 @@ class UserImportResultsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user_import_result
       @user_import_result = UserImportResult.find(params[:id])
+      authorize @user_import_result
     end
 
     # Only allow a trusted parameter "white list" through.

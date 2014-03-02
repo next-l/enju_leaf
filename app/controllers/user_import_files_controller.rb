@@ -1,10 +1,11 @@
 class UserImportFilesController < ApplicationController
-  load_and_authorize_resource except: :create
-  authorize_resource only: :create
+  after_action :verify_authorized
+  after_action :verify_policy_scoped, :only => :index
   before_action :set_user_import_file, only: [:show, :edit, :update, :destroy]
 
   # GET /user_import_files
   def index
+    authorize UserImportFile
     @user_import_files = UserImportFile.page(params[:page])
   end
 
@@ -15,6 +16,7 @@ class UserImportFilesController < ApplicationController
   # GET /user_import_files/new
   def new
     @user_import_file = UserImportFile.new
+    authorize @user_import_file
   end
 
   # GET /user_import_files/1/edit
@@ -23,6 +25,7 @@ class UserImportFilesController < ApplicationController
 
   # POST /user_import_files
   def create
+    authorize UserImportFile
     @user_import_file = UserImportFile.new(user_import_file_params)
     @user_import_file.user = current_user
 
@@ -52,6 +55,7 @@ class UserImportFilesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user_import_file
       @user_import_file = UserImportFile.find(params[:id])
+      authorize @user_import_file
     end
 
     # Only allow a trusted parameter "white list" through.

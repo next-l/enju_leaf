@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids}/*"]
 
   s.add_dependency "rails", "4.1.0.beta2"
-  s.add_dependency "enju_seed", "~> 0.2.0.pre4"
+  #s.add_dependency "enju_seed", "~> 0.2.0.pre4"
   #s.add_dependency "enju_biblio", "~> 0.2.0.pre1"
   #s.add_dependency "enju_library", "~> 0.2.0.pre1"
   #s.add_dependency "enju_manifestation_viewer", "~> 0.2.0.pre1"
