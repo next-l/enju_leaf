@@ -33,7 +33,7 @@
           <td>
             <%=l checkout.due_date, :formats => :only_date %>
             <br />
-            <%- if can? :update, checkout -%>
+            <%- if policy(checkout).update? -%>
               <% unless checkout.checkin %>
                 (<%= link_to t('checkout.extend'), edit_checkout_path(checkout) -%>)
               <% end %>
@@ -64,16 +64,16 @@
       <li><%= back_to_index %></li>
     <% end %>
     <% if user_signed_in? %>
-      <% if can? :update, @user %>
+      <% if policy(@user).update? %>
         <li><%= link_to t('page.edit'), edit_user_path(@user) -%></li>
       <% end %>
       <% if defined?(EnjuMessage) %>
         <li><%= link_to t('message.send'), new_message_path(:recipient => @user.username) -%></li>
       <% end %>
-      <%- if can? :create, @user -%>
+      <%- if policy(User).create? -%>
         <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
       <% end %>
-      <%- if can? :destroy, @user -%>
+      <%- if policy(@user).destroy? -%>
         <li><%= link_to t('page.destroy'), @user, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%></li>
       <% end %>
     <%- end -%>
