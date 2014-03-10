@@ -33,6 +33,7 @@ EOS
       :after => "::Application.configure do\n"
     generate("devise:install")
     generate("devise", "User")
+    generate("pundit:install")
     generate("enju_biblio:setup")
     generate("enju_library:setup")
     rake("enju_leaf_engine:install:migrations")
@@ -53,9 +54,10 @@ EOS
   enju_biblio
   enju_library
 
+  include Pundit
+  rescue_from Pundit::NotAuthorizedError, with: :render_403
 EOS
     end
-    #inject_into_class "app/models/user.rb", User, "  enju_user_model\n"
     inject_into_file "app/helpers/application_helper.rb", :after => /module ApplicationHelper$\n/ do
       <<"EOS"
   include EnjuLeaf::EnjuLeafHelper
