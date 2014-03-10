@@ -133,7 +133,7 @@ module EnjuLeaf
 
     def get_user
       @user = User.where(:username => params[:user_id]).first if params[:user_id]
-      authorize @user if @user
+      authorize @user, :show? if @user
     end
 
     def get_user_group
