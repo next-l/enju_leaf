@@ -13,14 +13,14 @@
 <%- @user_groups.each do |user_group| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if policy(user_group).update?-%>
+      <%- if policy(user_group).update? -%>
         <%= move_position(user_group) -%>
       <%- end -%>
     </td>
     <td><%= link_to user_group.display_name.localize, user_group -%></td>
     <td><%= user_group.note -%></td>
     <td>
-      <%- if policy(user_group).update?-%>
+      <%- if policy(user_group).update? -%>
         <%= link_to t('page.edit'), edit_user_group_path(user_group) -%>
       <% end %>
       <%- if policy(user_group).destroy? -%>
