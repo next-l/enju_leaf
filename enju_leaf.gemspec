@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = "enju_leaf"
   s.version     = EnjuLeaf::VERSION
   s.authors     = ["Kosuke Tanabe"]
-  s.email       = ["kosuke@e23.jp"]
+  s.email       = ["nabeta@fastmail.fm"]
   s.homepage    = "https://github.com/next-l/enju_leaf"
   s.summary     = "Next-L Enju Leaf"
   s.description = "integrated library system"
@@ -17,8 +17,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids}/*"]
 
-  s.add_dependency "rails", "~> 4.1.0.rc2"
-  #s.add_dependency "enju_seed", "~> 0.2.0.pre4"
+  s.add_dependency "enju_seed", "~> 0.2.0.pre5"
   #s.add_dependency "enju_biblio", "~> 0.2.0.pre1"
   #s.add_dependency "enju_library", "~> 0.2.0.pre1"
   #s.add_dependency "enju_manifestation_viewer", "~> 0.2.0.pre1"

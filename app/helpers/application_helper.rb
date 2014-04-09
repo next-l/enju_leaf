@@ -9,7 +9,7 @@ module ApplicationHelper
   include EnjuBookmark::BookmarkHelper if defined?(EnjuBookmark)
 
   def database_adapter
-    case ActiveRecord::Base.connection.adapter_name
+    case UserGroup.connection.adapter_name
     when 'PostgreSQL'
       link_to 'PostgreSQL', 'http://www.postgresql.org/'
     when 'MySQL'
