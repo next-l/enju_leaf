@@ -2,11 +2,12 @@
 class UserGroupsController < ApplicationController
   before_action :set_user_group, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized
-  after_action :verify_policy_scoped, :only => :index
+  #after_action :verify_policy_scoped, :only => :index
   before_filter :prepare_options, :only => [:new, :edit]
 
   # GET /user_groups
   def index
+    authorize UserGroup
     @user_groups = UserGroup.all
   end
 

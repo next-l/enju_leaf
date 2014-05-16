@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   before_action :store_location, :only => [:index]
   before_action :clear_search_sessions, :only => [:show]
   after_action :verify_authorized
-  after_action :verify_policy_scoped, :only => :index
   after_action :solr_commit, :only => [:create, :update, :destroy]
 
   # GET /users

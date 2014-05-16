@@ -1,6 +1,6 @@
 class UserImportFilesController < ApplicationController
   after_action :verify_authorized
-  after_action :verify_policy_scoped, :only => :index
+  #after_action :verify_policy_scoped, :only => :index
   before_action :set_user_import_file, only: [:show, :edit, :update, :destroy]
 
   # GET /user_import_files

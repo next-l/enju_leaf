@@ -1,4 +1,8 @@
 class UserGroupPolicy < AdminPolicy
+  def index?
+    true
+  end
+
   def create?
     user.try(:has_role?, 'Administrator')
   end
