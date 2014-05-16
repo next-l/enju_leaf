@@ -35,4 +35,9 @@ namespace :enju_leaf do
       FileUtils.cp(file, non_digested)
     end
   end
+
+  desc "import users and items from a TSV file"
+  task :user_import => :environment do
+    UserImportFile.import
+  end
 end
