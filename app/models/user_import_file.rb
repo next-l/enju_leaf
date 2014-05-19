@@ -168,4 +168,12 @@ class UserImportFile < ActiveRecord::Base
     file.close
     rows
   end
+
+  def self.import
+    UserImportFile.not_imported.each do |file|
+      file.import_start
+    end
+  rescue
+    Rails.logger.info "#{Time.zone.now} importing resources failed!"
+  end
 end
