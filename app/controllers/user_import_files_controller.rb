@@ -11,6 +11,21 @@ class UserImportFilesController < ApplicationController
 
   # GET /user_import_files/1
   def show
+    if @user_import_file.user_import.path
+      unless Setting.uploaded_file.storage == :s3
+        file = @user_import_file.user_import.path
+      end
+    end
+
+    respond_to do |format|
+      format.download {
+        if Setting.uploaded_file.storage == :s3
+          redirect_to @user_import_file.user_import.expiring_url(10)
+        else
+          send_file file, :filename => @user_import_file.user_import_file_name, :type => 'application/octet-stream'
+        end
+      }
+    end
   end
 
   # GET /user_import_files/new
