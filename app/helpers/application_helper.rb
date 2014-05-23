@@ -81,7 +81,7 @@ module ApplicationHelper
 
   def title(controller_name)
     string = ''
-    unless ['page', 'routing_error', 'my_accounts'].include?(controller_name)
+    unless %w(page routing_error my_accounts).include?(controller_name)
       string << t("activerecord.models.#{controller_name.singularize}") + ' - '
     end
     if controller_name == 'routing_error'

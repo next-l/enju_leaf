@@ -18,6 +18,7 @@ class UserImportFilesController < ApplicationController
     end
 
     respond_to do |format|
+      format.html
       format.download {
         if Setting.uploaded_file.storage == :s3
           redirect_to @user_import_file.user_import.expiring_url(10)

@@ -253,7 +253,7 @@ ja:
   controller:
     successfully_created: "%{model}は正常に作成されました。"
     successfully_updated: "%{model}は正常に更新されました。"
-    successfully_deleted: "%{model}は正常に削除されました。"
+    successfully_destroyed: "%{model}は正常に削除されました。"
   advanced_search:
     from: ""
     to: "から"

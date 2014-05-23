@@ -43,7 +43,7 @@ class MyAccountsController < ApplicationController
       else
         @user = current_user
         prepare_options
-        format.html { render :action => "edit" }
+        format.html { render :action => 'edit' }
         format.json { render :json => current_user.errors, :status => :unprocessable_entity }
       end
     end

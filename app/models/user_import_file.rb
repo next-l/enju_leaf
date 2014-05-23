@@ -67,7 +67,7 @@ class UserImportFile < ActiveRecord::Base
     row_num = 2
 
     field = rows.first
-    if [field['username']].reject{|field| field.to_s.strip == ""}.empty?
+    if [field['username']].reject { |f| f.to_s.strip == "" }.empty?
       raise "username column is not found"
     end
 

@@ -269,7 +269,7 @@ en:
   controller:
     successfully_created: "%{model} was successfully created."
     successfully_updated: "%{model} was successfully updated."
-    successfully_deleted: "%{model} was successfully deleted."
+    successfully_destroyed: "%{model} was successfully destroyed."
   advanced_search:
     from: "from"
     to: "to"

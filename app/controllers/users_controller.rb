@@ -127,7 +127,7 @@ class UsersController < ApplicationController
         user_has_role.assign_attributes({:user_id => @user.id, :role_id => role.id})
         user_has_role.save
         flash[:temporary_password] = @user.password
-        format.html { redirect_to @user, :notice => t('controller.successfully_created', :model => t('activerecord.models.user')) }
+        format.html { redirect_to @user, notice: t('controller.successfully_created', :model => t('activerecord.models.user')) }
         format.json { render :json => @user, :status => :created, :location => @user }
       else
         prepare_options
@@ -150,12 +150,12 @@ class UsersController < ApplicationController
     respond_to do |format|
       @user.save
       if @user.errors.empty?
-        format.html { redirect_to @user, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user')) }
+        format.html { redirect_to @user, notice: t('controller.successfully_updated', :model => t('activerecord.models.user')) }
         format.json { head :no_content }
       else
         prepare_options
-        format.html { render :action => "edit" }
-        format.json { render :json => @user.errors, :status => :unprocessable_entity }
+        format.html { render action: 'edit' }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -172,7 +172,7 @@ class UsersController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to(users_url) }
+      format.html { redirect_to users_url, notice: t('controller.successfully_destroyed', :model => t('activerecord.models.user')) }
       format.json { head :no_content }
     end
   end
