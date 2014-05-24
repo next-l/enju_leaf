@@ -47,7 +47,7 @@ class UserImportFile < ActiveRecord::Base
   end
 
   def import
-    sm_start!
+    transition_to!(:started)
     reload
     num = {:user_imported => 0, :user_found => 0, :failed => 0}
     rows = open_import_file
@@ -101,12 +101,12 @@ class UserImportFile < ActiveRecord::Base
   end
 
   def modify
-    sm_start!
-    sm_complete!
+    transition_to!(:started)
+    transition_to!(:completed)
   end
 
   def remove
-    sm_start!
+    transition_to!(:started)
     reload
     rows = open_import_file
 
@@ -120,7 +120,7 @@ class UserImportFile < ActiveRecord::Base
       user = User.where(:username => username).first
       user.destroy if user
     end
-    sm_complete!
+    transition_to!(:completed)
   end
 
   private
