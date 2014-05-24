@@ -1,5 +1,5 @@
 class UserImportFile < ActiveRecord::Base
-  #attr_accessible :user_import, :edit_mode
+  include Statesman::Adapters::ActiveRecordModel
   include ImportFile
   default_scope {order('user_import_files.id DESC')}
   scope :not_imported, -> {where(:state => 'pending')}
