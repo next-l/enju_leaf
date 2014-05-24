@@ -181,7 +181,6 @@ module EnjuLeaf
       set_role_query(current_user, search)
 
       unless params[:mode] == "add"
-        expression = @expression
         agent = @agent
         manifestation = @manifestation
         reservable = @reservable

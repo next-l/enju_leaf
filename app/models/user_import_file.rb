@@ -24,27 +24,14 @@ class UserImportFile < ActiveRecord::Base
   belongs_to :user, :validate => true
   has_many :user_import_results
 
-  state_machine :initial => :pending do
-    event :sm_start do
-      transition [:pending, :started] => :started
-    end
+  has_many :user_import_file_transitions
 
-    event :sm_complete do
-      transition :started => :completed
-    end
-
-    event :sm_fail do
-      transition :started => :failed
-    end
-
-    before_transition any => :started do |user_import_file|
-      user_import_file.executed_at = Time.zone.now
-    end
-
-    before_transition any => :completed do |user_import_file|
-      user_import_file.error_message = nil
-    end
+  def state_machine
+    @state_machine ||= UserImportFileStateMachine.new(self, transition_class: UserImportFileTransition)
   end
+
+  delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
+    to: :state_machine
 
   def import_start
     case edit_mode
@@ -137,6 +124,10 @@ class UserImportFile < ActiveRecord::Base
   end
 
   private
+  def self.transition_class
+    UserImportFileTransition
+  end
+
   def open_import_file
     tempfile = Tempfile.new('user_import_file')
     if Setting.uploaded_file.storage == :s3

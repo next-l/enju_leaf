@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140110131010) do
+ActiveRecord::Schema.define(version: 20140524074813) do
 
   create_table "accepts", force: true do |t|
     t.integer  "basket_id"
@@ -550,6 +550,24 @@ ActiveRecord::Schema.define(version: 20140110131010) do
   add_index "produces", ["agent_id"], name: "index_produces_on_agent_id"
   add_index "produces", ["manifestation_id"], name: "index_produces_on_manifestation_id"
 
+  create_table "profiles", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "user_group_id"
+    t.integer  "library_id"
+    t.string   "locale"
+    t.string   "user_number"
+    t.text     "full_name"
+    t.text     "note"
+    t.text     "keyword_list"
+    t.integer  "required_role_id"
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id"
+  add_index "profiles", ["user_number"], name: "index_profiles_on_user_number"
+
   create_table "realize_types", force: true do |t|
     t.string   "name"
     t.text     "display_name"
@@ -754,6 +772,18 @@ ActiveRecord::Schema.define(version: 20140110131010) do
 
   add_index "user_has_roles", ["role_id"], name: "index_user_has_roles_on_role_id"
   add_index "user_has_roles", ["user_id"], name: "index_user_has_roles_on_user_id"
+
+  create_table "user_import_file_transitions", force: true do |t|
+    t.string   "to_state"
+    t.text     "metadata",            default: "{}"
+    t.integer  "sort_key"
+    t.integer  "user_import_file_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_import_file_transitions", ["sort_key", "user_import_file_id"], name: "index_user_import_file_transitions_on_sort_key_and_file_id", unique: true
+  add_index "user_import_file_transitions", ["user_import_file_id"], name: "index_user_import_file_transitions_on_user_import_file_id"
 
   create_table "user_import_files", force: true do |t|
     t.integer  "user_id"
