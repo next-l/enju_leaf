@@ -19,6 +19,7 @@ class UserImportFilesController < ApplicationController
 
     respond_to do |format|
       format.html
+      format.json
       format.download {
         if Setting.uploaded_file.storage == :s3
           redirect_to @user_import_file.user_import.expiring_url(10)
@@ -64,7 +65,11 @@ class UserImportFilesController < ApplicationController
   # DELETE /user_import_files/1
   def destroy
     @user_import_file.destroy
-    redirect_to user_import_files_url, notice: 'User import file was successfully destroyed.'
+
+    respond_to do |format|
+      format.html { redirect_to user_import_files_url, notice: t('controller.successfully_destroyed', :model => t('activerecord.models.user_import_file')) }
+      format.json { head :no_content }
+    end
   end
 
   private
