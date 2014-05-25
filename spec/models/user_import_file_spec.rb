@@ -14,7 +14,7 @@ describe UserImportFile do
     it "should be imported" do
       old_users_count = User.count
       old_import_results_count = UserImportResult.count
-      @file.state.should eq 'pending'
+      @file.current_state.should eq 'pending'
       @file.import_start.should eq({:user_imported => 3, :user_found => 0, :failed => 0})
       User.order('id DESC')[1].username.should eq 'user002'
       User.order('id DESC')[2].username.should eq 'user001'

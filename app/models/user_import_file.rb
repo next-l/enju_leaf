@@ -48,7 +48,6 @@ class UserImportFile < ActiveRecord::Base
 
   def import
     transition_to!(:started)
-    reload
     num = {:user_imported => 0, :user_found => 0, :failed => 0}
     rows = open_import_file
     row_num = 2
@@ -97,6 +96,7 @@ class UserImportFile < ActiveRecord::Base
         end
       end
     end
+    transition_to!(:completed)
     num
   end
 
