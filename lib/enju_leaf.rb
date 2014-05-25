@@ -25,20 +25,18 @@ module EnjuLeaf
 
     def render_403
       return if performed?
-      if user_signed_in?
-        respond_to do |format|
-          format.html {render :template => 'page/403', :status => 403}
-          #format.mobile {render :template => 'page/403', :status => 403}
-          format.xml {render :template => 'page/403', :status => 403}
-          format.json { render :text => '{"error": "forbidden"}' }
-        end
-      else
-        respond_to do |format|
-          format.html {redirect_to new_user_session_url}
-          #format.mobile {redirect_to new_user_session_url}
-          format.xml {render :template => 'page/403', :status => 403}
-          format.json { render :text => '{"error": "forbidden"}' }
-        end
+      respond_to do |format|
+        format.html {
+          if user_signed_in?
+            render :template => 'page/403', :status => 403
+          else
+            redirect_to new_user_session_url
+          end
+        }
+        #format.mobile {render :template => 'page/403', :status => 403}
+        format.xml {render :template => 'page/403', :status => 403}
+        format.json { render :text => '{"error": "forbidden"}' }
+        format.rss {render :template => 'page/403', :status => 403, :formats => 'xml'}
       end
     end
 
@@ -49,6 +47,7 @@ module EnjuLeaf
         #format.mobile {render :template => 'page/404', :status => 404}
         format.xml {render :template => 'page/404', :status => 404}
         format.json { render :text => '{"error": "not_found"}' }
+        format.rss {render :template => 'page/404', :status => 404, :formats => 'xml'}
       end
     end
 
