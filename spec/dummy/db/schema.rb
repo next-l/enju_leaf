@@ -550,24 +550,6 @@ ActiveRecord::Schema.define(version: 20140524074813) do
   add_index "produces", ["agent_id"], name: "index_produces_on_agent_id"
   add_index "produces", ["manifestation_id"], name: "index_produces_on_manifestation_id"
 
-  create_table "profiles", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "user_group_id"
-    t.integer  "library_id"
-    t.string   "locale"
-    t.string   "user_number"
-    t.text     "full_name"
-    t.text     "note"
-    t.text     "keyword_list"
-    t.integer  "required_role_id"
-    t.string   "state"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id"
-  add_index "profiles", ["user_number"], name: "index_profiles_on_user_number"
-
   create_table "realize_types", force: true do |t|
     t.string   "name"
     t.text     "display_name"

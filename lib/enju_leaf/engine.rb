@@ -9,7 +9,7 @@ require 'devise-encryptable'
 require 'sitemap_generator'
 #require 'redis-rails'
 require 'jquery-ui-rails'
-require 'resque_scheduler/server'
+require 'resque/scheduler/server'
 require 'bcrypt/password'
 if RUBY_PLATFORM == "java"
   require 'kramdown'
