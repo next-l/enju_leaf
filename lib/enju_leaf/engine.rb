@@ -9,7 +9,7 @@ require 'sitemap_generator'
 require 'redis-rails'
 require 'jquery-rails'
 require 'jquery-ui-rails'
-require 'resque_scheduler/server'
+require 'resque/scheduler/server'
 
 module EnjuLeaf
   class Engine < ::Rails::Engine
