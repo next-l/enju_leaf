@@ -1,59 +1,69 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.user_import_file')) -%></h1>
+<div id="content_list">
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>User:</strong>
-  <%= @user_import_file.user_id %>
+  <strong>Id:</strong>
+  <%= @user_import_file.id -%>
 </p>
 
 <p>
-  <strong>Note:</strong>
-  <%= @user_import_file.note %>
+  <strong><%= t('activerecord.attributes.user_import_file.user_import_file_name') -%>:</strong>
+  <%= link_to @user_import_file.user_import_file_name, user_import_file_path(@user_import_file, :format => :download) -%>
 </p>
 
 <p>
-  <strong>Executed at:</strong>
-  <%= @user_import_file.executed_at %>
+  <strong><%= t('activerecord.attributes.user_import_file.user_import_content_type') -%>:</strong>
+  <%= @user_import_file.user_import_content_type -%>
 </p>
 
 <p>
-  <strong>State:</strong>
-  <%= @user_import_file.state %>
+  <strong><%= t('activerecord.attributes.user_import_file.user_import_file_size') -%>:</strong>
+  <%= @user_import_file.user_import_file_size -%>
 </p>
 
 <p>
-  <strong>User import file name:</strong>
-  <%= @user_import_file.user_import_file_name %>
+  <strong><%= t('activerecord.attributes.user_import_file.user_import_fingerprint') -%>:</strong>
+  <%= @user_import_file.user_import_fingerprint -%>
 </p>
 
 <p>
-  <strong>User import content type:</strong>
-  <%= @user_import_file.user_import_content_type %>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@user_import_file.created_at) if @user_import_file.created_at -%>
 </p>
 
 <p>
-  <strong>User import file size:</strong>
-  <%= @user_import_file.user_import_file_size %>
+  <strong><%= t('activerecord.attributes.user_import_file.executed_at') -%>:</strong>
+  <%= l(@user_import_file.executed_at) if @user_import_file.executed_at -%>
 </p>
 
 <p>
-  <strong>User import updated at:</strong>
-  <%= @user_import_file.user_import_updated_at %>
+  <strong><%= t('activerecord.attributes.user_import_file.edit_mode') -%>:</strong>
+  <%= @user_import_file.edit_mode -%>
 </p>
 
 <p>
-  <strong>User import fingerprint:</strong>
-  <%= @user_import_file.user_import_fingerprint %>
+  <strong><%= t('activerecord.attributes.user_import_file.state') -%>:</strong>
+  <%= localized_state(@user_import_file.state) -%>
 </p>
 
 <p>
-  <strong>Edit mode:</strong>
-  <%= @user_import_file.edit_mode %>
+  <strong><%= t('activerecord.attributes.user_import_file.error_message') -%>:</strong>
+  <%= @user_import_file.error_message -%>
 </p>
 
 <p>
-  <strong>Error message:</strong>
-  <%= @user_import_file.error_message %>
+  <strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= link_to @user_import_file.user.username, @user_import_file.user -%>
 </p>
 
-<%= link_to 'Edit', edit_user_import_file_path(@user_import_file) %> |
-<%= link_to 'Back', user_import_files_path %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('activerecord.models.user_import_result'), user_import_file_user_import_results_path(@user_import_file) -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
+  </ul>
+</div>
