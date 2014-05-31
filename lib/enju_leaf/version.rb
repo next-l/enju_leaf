@@ -1,3 +1,3 @@
 module EnjuLeaf
-  VERSION = "1.1.0.rc8"
+  VERSION = "1.1.0.rc9"
 end
