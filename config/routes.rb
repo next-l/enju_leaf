@@ -3,10 +3,10 @@ Rails.application.routes.draw do
     mount Resque::Server.new, :at => "/resque", :as => :resque
   end
 
-  resources :user_import_results
+  resources :user_import_results, :only => [:index, :show, :destroy]
 
   resources :user_import_files do
-    resources :user_import_results
+    resources :user_import_results, :only => [:index, :show, :destroy]
   end
 
   resource :my_account

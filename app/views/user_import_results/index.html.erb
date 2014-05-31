@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.user_import_result')) -%></h1>
 <div id="content_list">
   <% if @user_import_file %>
-    <h2 class="user_title">
+    <h2 class="resource_title">
       <%= link_to @user_import_file.user_import_file_name, @user_import_file %>
     </h2>
   <% end %>
@@ -21,7 +21,7 @@
       <br />
       <%=l user_import_result.created_at %>
     </td>
-    <td><%= link_to user_import_result.user.user_number, user_import_result.user if user_import_result.user %></td>
+    <td><%= link_to user_import_result.user.username, user_import_result.user if user_import_result.user %></td>
     <td>
       <%= link_to t('page.show'), user_import_result %>
       <%= link_to t('page.destroy'), user_import_result, :data => {:confirm => t('page.are_you_sure')}, :method => :delete %>
