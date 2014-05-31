@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   resources :user_import_results
 
-  resources :user_import_files
+  resources :user_import_files do
+    resources :user_import_results
+  end
 
   resource :my_account
 
