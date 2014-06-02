@@ -148,7 +148,7 @@ class UserImportFile < ActiveRecord::Base
       f.each{|line|
         if defined?(CharlockHolmes::EncodingDetector)
           begin
-            string = line.encode('UTF-8', CharlockHolmes::EncodingDetector.detect(line)[:encoding])
+            string = line.encode('UTF-8', CharlockHolmes::EncodingDetector.detect(line)[:encoding], universal_newline: true)
           rescue StandardError
             string = NKF.nkf('-w -Lu', line)
           end
