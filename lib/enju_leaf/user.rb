@@ -13,8 +13,8 @@ module EnjuLeaf
         #  :remember_me, :email_confirmation, :library_id, :locale,
         #  :keyword_list, :auto_generated_password
 
-        scope :administrators, -> {where('roles.name = ?', 'Administrator').includes(:role)}
-        scope :librarians, -> {where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)}
+        scope :administrators, -> {where('roles.name = ?', 'Administrator').joins(:role)}
+        scope :librarians, -> {where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').joins(:role)}
         scope :suspended, -> {where('locked_at IS NOT NULL')}
         #has_one :agent, :dependent => :destroy
         if defined?(EnjuBiblio)
