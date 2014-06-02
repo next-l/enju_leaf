@@ -37,6 +37,7 @@ module EnjuLeaf
         format.xml {render :template => 'page/403', :status => 403}
         format.json { render :text => '{"error": "forbidden"}' }
         format.rss {render :template => 'page/403', :status => 403, :formats => 'xml'}
+        format.csv {render :template => 'page/403', :status => 403, :formats => 'html'}
       end
     end
 
@@ -48,6 +49,7 @@ module EnjuLeaf
         format.xml {render :template => 'page/404', :status => 404}
         format.json { render :text => '{"error": "not_found"}' }
         format.rss {render :template => 'page/404', :status => 404, :formats => 'xml'}
+        format.csv {render :template => 'page/403', :status => 404, :formats => 'html'}
       end
     end
 
