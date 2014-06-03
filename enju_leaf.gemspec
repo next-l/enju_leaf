@@ -43,7 +43,7 @@ Gem::Specification.new do |s|
   else
     s.add_development_dependency "sqlite3"
   end
-  s.add_development_dependency "rspec-rails"
+  s.add_development_dependency "rspec-rails", "~> 2.99"
   #s.add_development_dependency "enju_message", "~> 0.2.0.pre1"
   s.add_development_dependency "vcr"
   s.add_development_dependency "simplecov"

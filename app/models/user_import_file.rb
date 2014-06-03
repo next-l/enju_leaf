@@ -89,7 +89,7 @@ class UserImportFile < ActiveRecord::Base
           new_user.set_auto_generated_password
         end
 
-        if new_user.save!
+        if new_user.save
           num[:user_imported] += 1
         else
           num[:failed] += 1
