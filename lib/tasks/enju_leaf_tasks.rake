@@ -36,7 +36,7 @@ namespace :enju_leaf do
     end
   end
 
-  desc "import users and items from a TSV file"
+  desc "import users from a TSV file"
   task :user_import => :environment do
     UserImportFile.import
   end
