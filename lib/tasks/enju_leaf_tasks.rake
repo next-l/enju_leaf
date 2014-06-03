@@ -20,4 +20,9 @@ namespace :enju_leaf do
 
     puts 'indexing completed.'
   end
+
+  desc "import users from a TSV file"
+  task :user_import => :environment do
+    UserImportFile.import
+  end
 end
