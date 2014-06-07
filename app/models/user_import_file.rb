@@ -2,8 +2,8 @@ class UserImportFile < ActiveRecord::Base
   include Statesman::Adapters::ActiveRecordModel
   include ImportFile
   default_scope {order('user_import_files.id DESC')}
-  scope :not_imported, -> {where(:state => 'pending')}
-  scope :stucked, -> {where('created_at < ? AND state = ?', 1.hour.ago, 'pending')}
+  scope :not_imported, -> {in_state(:pending)}
+  scope :stucked, -> {in_state(:pending).where('created_at < ? AND state = ?', 1.hour.ago)}
 
   if Setting.uploaded_file.storage == :s3
     has_attached_file :user_import, :storage => :s3,
@@ -98,7 +98,10 @@ class UserImportFile < ActiveRecord::Base
         end
       end
     end
+
+    rows.close
     transition_to!(:completed)
+    Sunspot.commit
     num
   end
 
