@@ -105,6 +105,8 @@ class UserImportFile < ActiveRecord::Base
 
         if new_user.save
           num[:user_imported] += 1
+          import_result.user = new_user
+          import_result.save!
         else
           num[:failed] += 1
         end
