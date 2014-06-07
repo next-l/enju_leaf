@@ -103,7 +103,7 @@ class UserImportFile < ActiveRecord::Base
           new_user.set_auto_generated_password
         end
 
-        if new_user.save
+        if new_user.save!
           num[:user_imported] += 1
           import_result.user = new_user
           import_result.save!
@@ -119,7 +119,7 @@ class UserImportFile < ActiveRecord::Base
     num
   rescue => e
     self.error_message = "line #{row_num}: #{e.message}"
-    transition_to!(:failed)
+    sm_fail!
     raise e
   end
 
