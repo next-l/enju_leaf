@@ -110,7 +110,15 @@ class UserImportFile < ActiveRecord::Base
         end
       end
     end
+
+    Sunspot.commit
+    rows.close
+    sm_complete!
     num
+  rescue => e
+    self.error_message = "line #{row_num}: #{e.message}"
+    transition_to!(:failed)
+    raise e
   end
 
   def modify
