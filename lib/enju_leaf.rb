@@ -9,7 +9,7 @@ require 'csv'
 require 'rss'
 require 'nkf'
 require 'ipaddr'
-require 'plugins'
+#require 'plugins'
 
 module EnjuLeaf
   def self.included(base)

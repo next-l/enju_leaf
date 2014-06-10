@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids}/*"]
 
-  s.add_dependency "enju_seed", "~> 0.2.0.pre5"
+  #s.add_dependency "enju_seed", "~> 0.2.0.pre5"
   #s.add_dependency "enju_biblio", "~> 0.2.0.pre1"
   #s.add_dependency "enju_library", "~> 0.2.0.pre1"
   #s.add_dependency "enju_manifestation_viewer", "~> 0.2.0.pre1"
@@ -30,9 +30,6 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-ui-rails"
   s.add_dependency "resque-scheduler", "~> 3.0"
   s.add_dependency "paperclip", "~> 4.1"
-  s.add_dependency "elasticsearch-model"
-  s.add_dependency "elasticsearch-rails"
-  s.add_dependency "kaminari", "~> 0.16"
   if RUBY_PLATFORM == "java"
     s.add_dependency "kramdown"
   else

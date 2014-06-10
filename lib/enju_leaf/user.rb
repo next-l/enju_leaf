@@ -7,6 +7,8 @@ module EnjuLeaf
     module ClassMethods
       def enju_leaf_user_model
         include InstanceMethods
+        include Elasticsearch::Model
+        include Elasticsearch::Model::Callbacks
 
         # Setup accessible (or protected) attributes for your model
         #attr_accessible :email, :password, :password_confirmation, :current_password,
@@ -62,21 +64,18 @@ module EnjuLeaf
         normalize_attributes :username, :user_number
         normalize_attributes :email, :with => :strip
 
-        searchable do
-          text :username, :email, :note, :user_number
-          text :name do
-            #agent.name if agent
+        settings do
+          mappings dynamic: 'false', _routing: {required: true, path: :required_role_id} do
+            indexes :username
+            indexes :email
+            indexes :note
+            indexes :user_number
+            indexes :name
+            indexes :created_at
+            indexes :updated_at
+            indexes :active, type: 'boolean'
+            indexes :confirmed_at
           end
-          string :username
-          string :email
-          string :user_number
-          integer :required_role_id
-          time :created_at
-          time :updated_at
-          boolean :active do
-            active_for_authentication?
-          end
-          time :confirmed_at
         end
 
         attr_accessor :first_name, :middle_name, :last_name, :full_name,
@@ -98,6 +97,12 @@ module EnjuLeaf
     end
 
     module InstanceMethods
+      def as_indexed_json
+        as_json.merge(
+          active: active_for_authentication?
+        )
+      end
+
       def password_required?
         !persisted? || !password.nil? || !password_confirmation.nil?
       end
