@@ -24,7 +24,7 @@ class PageController < ApplicationController
       @manifestation = Manifestation.pickup rescue nil
     end
     get_top_page_content
-    @numdocs = Manifestation.search.total
+    @numdocs = Manifestation.search('*').results.total
 
     respond_to do |format|
       format.html
