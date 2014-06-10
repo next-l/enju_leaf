@@ -34,6 +34,9 @@ describe UserImportFile do
       User.where(:username => 'user000').first.should be_nil
       UserImportResult.count.should eq old_import_results_count + 5
 
+      user005 = User.where(username: 'user005').first
+      user005.role.name.should eq 'User'
+
       @file.user_import_fingerprint.should be_true
       @file.executed_at.should be_true
     end

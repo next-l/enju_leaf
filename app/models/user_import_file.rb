@@ -89,6 +89,9 @@ class UserImportFile < ActiveRecord::Base
         new_user.username = username
         new_user.email = row['email'] if row['email'].present?
         new_user.role = Role.where(:name => row['role']).first
+        unless new_user.role
+          new_user.role = Role.find(2) # User
+        end
         if row['user_group'].present?
           new_user.user_group = UserGroup.where(:name => row['user_group']).first
         end
