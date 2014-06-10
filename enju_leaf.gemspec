@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
   s.add_dependency "cache_digests"
   s.add_dependency "resque-scheduler", "~> 3.0"
   s.add_dependency "paperclip", "~> 3.5"
+  s.add_dependency "kaminari", "~> 0.15.1"
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"
