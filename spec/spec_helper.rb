@@ -33,13 +33,13 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.extend ControllerMacros, :type => :controller
 
-  config.before :suite do
-    Elasticsearch::Extensions::Test::Cluster.start(port: 9201) unless Elasticsearch::Extensions::Test::Cluster.running?(on: 9201)
-  end
+  #config.before :suite do
+  #  Elasticsearch::Extensions::Test::Cluster.start(port: 9201) unless Elasticsearch::Extensions::Test::Cluster.running?(on: 9201)
+  #end
 
-  config.after :suite do
-    Elasticsearch::Extensions::Test::Cluster.stop(port: 9201) if Elasticsearch::Extensions::Test::Cluster.running?(on: 9201)
-  end
+  #config.after :suite do
+  #  Elasticsearch::Extensions::Test::Cluster.stop(port: 9201) if Elasticsearch::Extensions::Test::Cluster.running?(on: 9201)
+  #end
 end
 
 FactoryGirl.definition_file_paths << "#{::Rails.root}/../../spec/factories"
