@@ -11,6 +11,8 @@ require 'sitemap_generator'
 require 'jquery-ui-rails'
 require 'resque/scheduler/server'
 require 'bcrypt/password'
+require 'elasticsearch/model'
+require 'elasticsearch/rails'
 if RUBY_PLATFORM == "java"
   require 'kramdown'
 else

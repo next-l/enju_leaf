@@ -30,6 +30,9 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-ui-rails"
   s.add_dependency "resque-scheduler", "~> 3.0"
   s.add_dependency "paperclip", "~> 4.1"
+  s.add_dependency "elasticsearch-model"
+  s.add_dependency "elasticsearch-rails"
+  s.add_dependency "kaminari", "~> 0.16"
   if RUBY_PLATFORM == "java"
     s.add_dependency "kramdown"
   else
@@ -47,6 +50,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "vcr"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "factory_girl_rails"
-  s.add_development_dependency "sunspot_solr", "~> 2.1"
-  s.add_development_dependency "sunspot-rails-tester"
+  s.add_development_dependency "elasticsearch-extensions"
 end
