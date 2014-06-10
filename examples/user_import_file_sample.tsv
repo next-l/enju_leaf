@@ -1,6 +1,6 @@
-username	email	user_number	role	user_group	expired_at	password	note	dummy
-user001	user001@example.jp	001001	Administrator	user			test	
-user002		001002	User	faculty	2013-12-01			
-user003	user003@example.jp	001003	Librarian	user		4NsxXPLy	テストユーザ	
-user004		001004		user				t
-user005		001005		faculty	2014-12-01			
+username	email	user_number	role	user_group	expired_at	password	library	locale	note	dummy
+user001	user001@example.jp	001001	Administrator	user					test	
+user002		001002	User	faculty	2013-12-01			en		
+user003	user003@example.jp	001003	Librarian	user		4NsxXPLy	kamata	ja	テストユーザ	
+user004		001004		user						t
+user005		001005		faculty	2014-12-01		hoge	fuga		

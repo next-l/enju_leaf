@@ -123,7 +123,7 @@ module EnjuLeaf
 
       def set_role_and_agent
         self.required_role = Role.where(:name => 'Librarian').first
-        self.locale = I18n.default_locale.to_s
+        self.locale = I18n.default_locale.to_s unless locale
         #unless self.agent
         #  self.agent = Agent.create(:full_name => self.username) if self.username
         #end

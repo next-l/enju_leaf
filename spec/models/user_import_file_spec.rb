@@ -25,17 +25,23 @@ describe UserImportFile do
       user002.user_group.name.should eq 'faculty'
       user002.expired_at.to_i.should eq Time.zone.parse('2013-12-01').end_of_day.to_i
       user002.valid_password?('4NsxXPLy')
+      user002.user_number.should eq '001002'
+      user002.library.name.should eq 'web'
+      user002.locale.should eq 'en'
 
       user003 = User.where(:username => 'user003').first
-      user002.user_number.should eq '001002'
       user003.note.should eq 'テストユーザ'
       user003.role.name.should eq 'Librarian'
       user003.user_number.should eq '001003'
+      user003.library.name.should eq 'kamata'
+      user003.locale.should eq 'ja'
       User.where(:username => 'user000').first.should be_nil
       UserImportResult.count.should eq old_import_results_count + 5
 
       user005 = User.where(username: 'user005').first
       user005.role.name.should eq 'User'
+      user005.library.name.should eq 'web'
+      user005.locale.should eq 'en'
 
       @file.user_import_fingerprint.should be_true
       @file.executed_at.should be_true
