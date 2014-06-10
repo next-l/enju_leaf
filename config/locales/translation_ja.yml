@@ -37,7 +37,7 @@ ja:
         state: 状態
         agent: 人物・団体
         library: 所属館
-        user_group: ユーザグループ
+        user_group_id: 利用者グループ
         full_name: 氏名
         password: パスワード
         current_password: 現在のパスワード

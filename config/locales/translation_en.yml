@@ -37,7 +37,7 @@ en:
         state: State
         agent: Agent
         library: Library
-        user_group: User group
+        user_group_id: User group
         full_name: Full name
         password: Password
         current_password: Current password

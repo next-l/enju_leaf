@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= f.label :user_group_id -%>
-    <%= f.select(:user_group_id, @user_groups.collect{|u| [u.name, u.id]}) -%>
+    <%= f.select(:user_group_id, @user_groups.collect{|u| [u.display_name.localize, u.id]}) -%>
   </div>
 
   <%- if current_user.has_role?('Librarian') -%>
