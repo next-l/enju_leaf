@@ -11,8 +11,11 @@
           </ul>
         </li>
         <li><%= link_to t('activerecord.models.user_group'), user_groups_path -%></li>
-        <li><%= link_to t('activerecord.models.user'), users_path -%></li>
-        <li><%= link_to t('activerecord.models.user_import_file'), user_import_files_path -%></li>
+        <li><%= link_to t('activerecord.models.user'), users_path -%>
+          <ul>
+            <li><%= link_to t('activerecord.models.user_import_file'), user_import_files_path -%></li>
+          </ul>
+        </li>
         <% if defined?(EnjuCirculation) %>
           <li><%= link_to t('activerecord.models.checkout_type'), checkout_types_path -%>
             <ul>
@@ -45,9 +48,10 @@
     <div class="config_box">
       <ul>
         <li><%= link_to t('activerecord.models.manifestation'), manifestations_path -%>
-        <ul>
-          <li><%= link_to t('item.all_item'), items_path %></li>
-        </ul>
+          <ul>
+            <li><%= link_to t('item.all_item'), items_path %></li>
+            <li><%= link_to t('activerecord.models.resource_import_file'), resource_import_files_path -%></li>
+          </ul>
         </li>
         <li><%= link_to t('activerecord.models.identifier_type'), identifier_types_path -%>
         <% if defined?(EnjuBookmark) %>
