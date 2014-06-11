@@ -40,10 +40,10 @@
     <li>
     <% if @user_import_file %>
       <%= link_to((image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'TSV', :class => 'icon'), user_import_file_user_import_results_path(@user_import_file, :format => :csv, :locale => @locale.to_s)) -%>
-      (<%= link_to 'CSV', user_import_file_user_import_results_path(:format => :csv, :locale => @locale.to_s) -%>)
+      (<%= link_to 'TSV', user_import_file_user_import_results_path(:format => :csv, :locale => @locale.to_s) -%>)
     <% else %>
       <%= link_to((image_tag 'icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), user_import_results_path(:format => :csv, :locale => @locale.to_s)) -%>
-      (<%= link_to 'CSV', user_import_results_path(:format => :csv, :locale => @locale.to_s) -%>)
+      (<%= link_to 'TSV', user_import_results_path(:format => :csv, :locale => @locale.to_s) -%>)
     <% end %>
     </li>
   </ul>
