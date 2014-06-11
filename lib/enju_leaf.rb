@@ -223,10 +223,6 @@ module EnjuLeaf
       return search
     end
 
-    def solr_commit
-      Sunspot.commit
-    end
-
     def get_version
       @version = params[:version_id].to_i if params[:version_id]
       @version = nil if @version == 0

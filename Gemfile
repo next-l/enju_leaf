@@ -11,8 +11,8 @@ gemspec
 # your gem to rubygems.org.
 gem "enju_seed", github: "next-l/enju_seed", branch: "elasticsearch"
 gem "enju_biblio", github: "next-l/enju_biblio", branch: "elasticsearch"
-gem "enju_library", github: "next-l/enju_library"
-gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer"
+gem "enju_library", github: "next-l/enju_library", branch: "elasticsearch"
+gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer", branch: "elasticsearch"
 
 # To use debugger
 # gem 'debugger'

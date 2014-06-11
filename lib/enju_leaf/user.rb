@@ -10,6 +10,20 @@ module EnjuLeaf
         include Elasticsearch::Model
         include Elasticsearch::Model::Callbacks
 
+        index_name "#{name.downcase.pluralize}-#{Rails.env}"
+
+        after_commit on: :create do
+          index_document
+        end
+
+        after_commit on: :update do
+          update_document
+        end
+
+        after_commit on: :destroy do
+          delete_document
+        end
+
         # Setup accessible (or protected) attributes for your model
         #attr_accessible :email, :password, :password_confirmation, :current_password,
         #  :remember_me, :email_confirmation, :library_id, :locale,
@@ -55,7 +69,6 @@ module EnjuLeaf
         before_destroy :check_role_before_destroy
         before_save :check_expiration
         before_create :set_expired_at
-        after_destroy :remove_from_index
         after_create :set_confirmation
 
         extend FriendlyId
@@ -97,7 +110,7 @@ module EnjuLeaf
     end
 
     module InstanceMethods
-      def as_indexed_json
+      def as_indexed_json(options={})
         as_json.merge(
           active: active_for_authentication?
         )

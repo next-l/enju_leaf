@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   before_action :store_location, :only => [:index]
   before_action :clear_search_sessions, :only => [:show]
   after_action :verify_authorized
-  after_action :solr_commit, :only => [:create, :update, :destroy]
 
   # GET /users
   # GET /users.json
@@ -26,19 +25,34 @@ class UsersController < ApplicationController
       sort[:order] = 'desc'
     end
 
-    query = params[:query]
-    page = params[:page] || 1
-    role = current_user.try(:role) || Role.default_role
-
-    search = User.search
-    search.build do
-      fulltext query if query
-      order_by sort[:sort_by], sort[:order]
-      with(:required_role_id).less_than_or_equal_to role.id
+    if params[:query].to_s.strip == ''
+      user_query = '*'
+    else
+      user_query = params[:query]
     end
-    search.query.paginate(page.to_i, User.default_per_page)
-    @users = search.execute!.results
-    @count[:query_result] = @users.total_entries
+    if user_signed_in?
+      role_ids = Role.where('id <= ?', current_user.role.id).pluck(:id)
+    else
+      role_ids = [1]
+    end
+
+    query = {
+      query: {
+        filtered: {
+          query: {
+            query_string: {
+              query: user_query, fields: ['_all']
+            }
+          }
+        }
+      }
+    }
+
+    search = User.search(query, routing: role_ids)
+    @users = search.page(params[:page]).records
+    #search.build do
+    #  order_by sort[:sort_by], sort[:order]
+    #end
 
     respond_to do |format|
       format.html # index.html.erb
