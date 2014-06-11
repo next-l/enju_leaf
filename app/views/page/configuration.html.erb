@@ -60,8 +60,10 @@
           <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
           <li><%= link_to t('activerecord.models.order_list'), order_lists_path -%></li>
         <% end %>
+        <!--
         <li><%= link_to t('activerecord.models.subscription'), subscriptions_path -%></li>
-        <!-- <li><%= link_to t('activerecord.models.donate'), donates_path -%></li> -->
+        <li><%= link_to t('activerecord.models.donate'), donates_path -%></li>
+        -->
         <% if defined?(EnjuInventory) %>
           <li><%= link_to t('activerecord.models.inventory'), inventory_files_path -%></li>
         <% end %>
@@ -104,10 +106,10 @@
         <li><%= link_to t('activerecord.models.language'), languages_path -%></li>
         <li><%= link_to t('activerecord.models.country'), countries_path -%></li>
         <li><%= link_to t('activerecord.models.frequency'), frequencies_path -%></li>
+        <!--
         <li><%= link_to t('activerecord.models.agent_relationship_type'), agent_relationship_types_path -%></li>
         <li><%= link_to t('activerecord.models.manifestation_relationship_type'), manifestation_relationship_types_path -%></li>
         <li><%= link_to t('activerecord.models.license'), licenses_path -%></li>
-        <!--
         <li><%= link_to t('activerecord.models.create_type'), create_types_path -%></li>
         <li><%= link_to t('activerecord.models.realize_type'), realize_types_path -%></li>
         <li><%= link_to t('activerecord.models.produce_type'), produce_types_path -%></li>
