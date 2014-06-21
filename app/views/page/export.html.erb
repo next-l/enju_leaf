@@ -3,6 +3,7 @@
 <div id="content_list">
 
 <ul>
+  <!--
   <li>
     <%= t('activerecord.models.agent') -%>
     (<%= link_to 'CSV', agents_path(:format => :csv) -%>)
@@ -20,6 +21,10 @@
   <li>
     <%= t('activerecord.models.item') -%>
     (<%= link_to 'CSV', items_path(:format => :csv) -%>)
+  </li>
+  -->
+  <li>
+    <%= link_to t('activerecord.models.resource_export_file'), new_resource_export_file_path -%>
   </li>
 </ul>
 </div>
