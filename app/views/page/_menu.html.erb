@@ -108,9 +108,7 @@
             <li><%= link_to t('user.management'), users_path -%></li>
             <li><%= link_to t('page.agent_management'), agents_path -%></li>
             <li><%= link_to t('page.import'), page_import_path -%></li>
-           <!--
-            <li><%= link_to t('page.export'), 'page/export' -%></li>
-            -->
+            <li><%= link_to t('page.export'), page_export_path -%></li>
             <% if defined?(EnjuPurchaseRequest) %>
               <li><%= link_to t('activerecord.models.order_list'), order_lists_path -%></li>
             <% end %>
