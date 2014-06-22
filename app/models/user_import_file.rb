@@ -77,6 +77,8 @@ class UserImportFile < ActiveRecord::Base
             num[:failed] += 1
             next
           end
+        else
+          new_user.role = Role.find(2) # User
         end
         new_user.operator = user
         new_user.username = username
