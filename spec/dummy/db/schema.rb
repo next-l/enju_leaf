@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140524074813) do
+ActiveRecord::Schema.define(version: 20140610123439) do
 
   create_table "accepts", force: true do |t|
     t.integer  "basket_id"
@@ -864,7 +864,7 @@ ActiveRecord::Schema.define(version: 20140524074813) do
     t.datetime "confirmed_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["email"], name: "index_users_on_email"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   add_index "users", ["user_group_id"], name: "index_users_on_user_group_id"
