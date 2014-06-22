@@ -37,6 +37,15 @@ describe UserImportFile do
       @file.user_import_fingerprint.should be_true
       @file.executed_at.should be_true
     end
+
+    it "should not import users that have higher roles than current user's role" do
+      old_users_count = User.count
+      old_import_results_count = UserImportResult.count
+      @file.user = User.where(username: 'librarian1').first
+      @file.import_start.should eq({:user_imported => 2, :user_found => 0, :failed => 1})
+      User.order('id DESC')[1].username.should eq 'user002'
+      User.count.should eq old_users_count + 2
+    end
   end
 
   describe "when its mode is 'update'" do
