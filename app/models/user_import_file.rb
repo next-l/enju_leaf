@@ -1,9 +1,10 @@
 class UserImportFile < ActiveRecord::Base
   attr_accessible :user_import, :edit_mode
+  include Statesman::Adapters::ActiveRecordModel
   include ImportFile
   default_scope {order('user_import_files.id DESC')}
-  scope :not_imported, -> {where(:state => 'pending')}
-  scope :stucked, -> {where('created_at < ? AND state = ?', 1.hour.ago, 'pending')}
+  scope :not_imported, -> {in_state(:pending)}
+  scope :stucked, -> {in_state(:pending).where('created_at < ? AND state = ?', 1.hour.ago)}
 
   if Setting.uploaded_file.storage == :s3
     has_attached_file :user_import, :storage => :s3,
@@ -24,27 +25,14 @@ class UserImportFile < ActiveRecord::Base
   belongs_to :user, :validate => true
   has_many :user_import_results
 
-  state_machine :initial => :pending do
-    event :sm_start do
-      transition [:pending, :started] => :started
-    end
+  has_many :user_import_file_transitions
 
-    event :sm_complete do
-      transition :started => :completed
-    end
-
-    event :sm_fail do
-      transition :started => :failed
-    end
-
-    before_transition any => :started do |user_import_file|
-      user_import_file.executed_at = Time.zone.now
-    end
-
-    before_transition any => :completed do |user_import_file|
-      user_import_file.error_message = nil
-    end
+  def state_machine
+    @state_machine ||= UserImportFileStateMachine.new(self, transition_class: UserImportFileTransition)
   end
+
+  delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
+    to: :state_machine
 
   def import_start
     case edit_mode
@@ -60,14 +48,13 @@ class UserImportFile < ActiveRecord::Base
   end
 
   def import
-    sm_start!
-    reload
+    transition_to!(:started)
     num = {:user_imported => 0, :user_found => 0, :failed => 0}
     rows = open_import_file
     row_num = 2
 
     field = rows.first
-    if [field['username']].reject{|field| field.to_s.strip == ""}.empty?
+    if [field['username']].reject{|f| f.to_s.strip == ""}.empty?
       raise "username column is not found"
     end
 
@@ -91,7 +78,7 @@ class UserImportFile < ActiveRecord::Base
             num[:failed] += 1
             next
           end
-        else new_user.role
+        else
           new_user.role = Role.find(2) # User
         end
         new_user.operator = user
@@ -119,7 +106,7 @@ class UserImportFile < ActiveRecord::Base
           new_user.set_auto_generated_password
         end
 
-        if new_user.save!
+        if new_user.save
           num[:user_imported] += 1
           import_result.user = new_user
           import_result.save!
@@ -130,22 +117,22 @@ class UserImportFile < ActiveRecord::Base
     end
 
     rows.close
-    sm_complete!
+    transition_to!(:completed)
     Sunspot.commit
     num
   rescue => e
     self.error_message = "line #{row_num}: #{e.message}"
-    sm_fail!
+    transition_to!(:failed)
     raise e
   end
 
   def modify
-    sm_start!
-    sm_complete!
+    transition_to!(:started)
+    transition_to!(:completed)
   end
 
   def remove
-    sm_start!
+    transition_to!(:started)
     reload
     rows = open_import_file
 
@@ -159,10 +146,14 @@ class UserImportFile < ActiveRecord::Base
       user = User.where(:username => username).first
       user.destroy if user
     end
-    sm_complete!
+    transition_to!(:completed)
   end
 
   private
+  def self.transition_class
+    UserImportFileTransition
+  end
+
   def open_import_file
     tempfile = Tempfile.new('user_import_file')
     if Setting.uploaded_file.storage == :s3
