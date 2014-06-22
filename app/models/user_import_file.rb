@@ -71,10 +71,16 @@ class UserImportFile < ActiveRecord::Base
         num[:user_found] += 1
       else
         new_user = User.new
+        new_user.role = Role.where(:name => row['role']).first
+        if new_user.role
+          unless user.has_role?(new_user.role.name)
+            num[:failed] += 1
+            next
+          end
+        end
         new_user.operator = user
         new_user.username = username
         new_user.email = row['email'] if row['email'].present?
-        new_user.role = Role.where(:name => row['role']).first
         if row['user_group'].present?
           new_user.user_group = UserGroup.where(:name => row['user_group']).first
         end
