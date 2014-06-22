@@ -14,10 +14,10 @@ describe UserImportFile do
     it "should be imported" do
       old_users_count = User.count
       old_import_results_count = UserImportResult.count
-      @file.state.should eq 'pending'
+      @file.current_state.should eq 'pending'
       @file.import_start.should eq({:user_imported => 4, :user_found => 0, :failed => 0})
+      User.order('id DESC')[1].username.should eq 'user003'
       User.order('id DESC')[2].username.should eq 'user002'
-      User.order('id DESC')[3].username.should eq 'user001'
       User.count.should eq old_users_count + 4
 
       user002 = User.where(:username => 'user002').first
@@ -42,6 +42,8 @@ describe UserImportFile do
       user005.role.name.should eq 'User'
       user005.library.name.should eq 'web'
       user005.locale.should eq 'en'
+      user005.user_number.should be_nil
+      user005.user_group.name.should eq 'not_specified'
 
       @file.user_import_fingerprint.should be_true
       @file.executed_at.should be_true
@@ -51,9 +53,9 @@ describe UserImportFile do
       old_users_count = User.count
       old_import_results_count = UserImportResult.count
       @file.user = User.where(username: 'librarian1').first
-      @file.import_start.should eq({:user_imported => 2, :user_found => 0, :failed => 1})
-      User.order('id DESC')[1].username.should eq 'user002'
-      User.count.should eq old_users_count + 2
+      @file.import_start.should eq({:user_imported => 3, :user_found => 0, :failed => 1})
+      User.order('id DESC')[1].username.should eq 'user003'
+      User.count.should eq old_users_count + 3
     end
   end
 
