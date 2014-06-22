@@ -9,6 +9,7 @@ require 'sitemap_generator'
 require 'redis-rails'
 require 'jquery-rails'
 require 'jquery-ui-rails'
+require 'statesman'
 require 'resque/scheduler/server'
 
 module EnjuLeaf
