@@ -22,7 +22,7 @@ module ExpireEditableFragment
     I18n.available_locales.each do |locale|
       Role.all_cache.each do |role|
         fragments.uniq.each do |fragment|
-          expire_fragment([:manifestation => manifestation.id, :fragment => fragment, :role => role.name, :locale => locale])
+          expire_fragment(:manifestation => manifestation.id, :fragment => fragment, :role => role.name, :locale => locale)
         end
       end
     end

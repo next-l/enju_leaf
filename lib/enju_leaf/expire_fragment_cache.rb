@@ -9,7 +9,7 @@ class ExpireFragmentCache
     I18n.available_locales.each do |locale|
       Role.all_cache.each do |role|
         fragments.each do |fragment|
-          Rails.cache.delete([":#{record.class.to_s.downcase}" => record.id, :fragment => fragment, :role => role.name, :locale => locale])
+          Rails.cache.delete(":#{record.class.to_s.downcase}" => record.id, :fragment => fragment, :role => role.name, :locale => locale)
         end
       end
     end
