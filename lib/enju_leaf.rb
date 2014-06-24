@@ -3,12 +3,12 @@ require "enju_leaf/version"
 require "enju_leaf/controller"
 require "enju_leaf/user"
 require "enju_leaf/helper"
-require "enju_seed/bookmark_url"
-require "enju_seed/calculate_stat"
-require "enju_seed/import_file"
-require "enju_seed/localized_name"
-require "enju_seed/master_model"
-require "enju_seed/url_validator"
+require "enju_leaf/bookmark_url"
+require "enju_leaf/calculate_stat"
+require "enju_leaf/import_file"
+require "enju_leaf/localized_name"
+require "enju_leaf/master_model"
+require "enju_leaf/url_validator"
 
 require 'csv'
 #require 'mathn'
