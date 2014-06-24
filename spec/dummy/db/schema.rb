@@ -278,6 +278,28 @@ ActiveRecord::Schema.define(version: 20140610123439) do
     t.datetime "updated_at"
   end
 
+  create_table "identifier_types", force: true do |t|
+    t.string   "name"
+    t.text     "display_name"
+    t.text     "note"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "identifiers", force: true do |t|
+    t.string   "body",               null: false
+    t.integer  "identifier_type_id", null: false
+    t.integer  "manifestation_id"
+    t.boolean  "primary"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "identifiers", ["body", "identifier_type_id"], name: "index_identifiers_on_body_and_identifier_type_id"
+  add_index "identifiers", ["manifestation_id"], name: "index_identifiers_on_manifestation_id"
+
   create_table "import_requests", force: true do |t|
     t.string   "isbn"
     t.string   "state"
@@ -478,6 +500,7 @@ ActiveRecord::Schema.define(version: 20140610123439) do
     t.integer  "month_of_publication"
     t.boolean  "fulltext_content"
     t.string   "doi"
+    t.boolean  "periodical"
   end
 
   add_index "manifestations", ["access_address"], name: "index_manifestations_on_access_address"
@@ -702,9 +725,11 @@ ActiveRecord::Schema.define(version: 20140610123439) do
     t.integer  "manifestation_id"
     t.text     "note"
     t.text     "title_subseries_transcription"
+    t.integer  "root_manifestation_id"
   end
 
   add_index "series_statements", ["manifestation_id"], name: "index_series_statements_on_manifestation_id"
+  add_index "series_statements", ["root_manifestation_id"], name: "index_series_statements_on_root_manifestation_id"
   add_index "series_statements", ["series_statement_identifier"], name: "index_series_statements_on_series_statement_identifier"
 
   create_table "shelves", force: true do |t|

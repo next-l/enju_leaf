@@ -11,7 +11,7 @@
       <p id="notice"><%= notice %></p>
 
       <%= render 'page/search_form' -%>
-      <p><%= t('page.number_of_manifestations', :numdocs => Manifestation.search.total, :count => Manifestation.search.total) -%></p>
+      <p><%= t('page.number_of_manifestations', :numdocs => Manifestation.search('*').results.total, :count => Manifestation.search('*').results.total) -%></p>
       <h3 style="display: inline"><%= link_to t('page.new_resource'), manifestations_path(:mode => 'recent') -%></h3>
       <% if defined?(EnjuBookmark) %>
         <% if user_signed_in? %>

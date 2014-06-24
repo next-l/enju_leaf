@@ -5,7 +5,8 @@ describe UsersController do
 
   describe "GET index", :solr => true do
 		before do
-			User.reindex
+      User.__elasticsearch__.create_index!
+      User.import
 		end
 
     describe "When logged in as Administrator" do

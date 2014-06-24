@@ -109,7 +109,7 @@ class UserImportFile < ActiveRecord::Base
 
     rows.close
     transition_to!(:completed)
-    Sunspot.commit
+    User.__elasticsearch__.refresh_index!
     num
   rescue => e
     self.error_message = "line #{row_num}: #{e.message}"

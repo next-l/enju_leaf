@@ -15,7 +15,6 @@ require 'csv'
 require 'rss'
 require 'nkf'
 require 'ipaddr'
-require 'plugins'
 
 module EnjuLeaf
   def self.included(base)
@@ -227,10 +226,6 @@ module EnjuLeaf
         end
       end
       return search
-    end
-
-    def solr_commit
-      Sunspot.commit
     end
 
     def get_version
