@@ -3,7 +3,6 @@ module EnjuLeaf
     def enju_leaf
       include EnjuLeaf::InstanceMethods
       include EnjuLeaf::Controller
-      #include Mobylette::RespondToMobileRequests
     end
 
     private
