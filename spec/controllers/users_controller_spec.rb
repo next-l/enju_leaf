@@ -7,6 +7,7 @@ describe UsersController do
 		before do
       User.__elasticsearch__.create_index!
       User.import
+      sleep 1
 		end
 
     describe "When logged in as Administrator" do

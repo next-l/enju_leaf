@@ -45,7 +45,10 @@ class UsersController < ApplicationController
             }
           }
         }
-      }
+      },
+      sort: [
+        {:"#{sort[:sort_by]}" => sort[:order]}
+      ]
     }
 
     search = User.search(query, routing: role_ids)
