@@ -14,8 +14,8 @@ end
 #  display_name                     :text
 #  note                             :text
 #  position                         :integer
-#  created_at                       :datetime         not null
-#  updated_at                       :datetime         not null
+#  created_at                       :datetime
+#  updated_at                       :datetime
 #  deleted_at                       :datetime
 #  valid_period_for_new_user        :integer          default(0), not null
 #  expired_at                       :datetime
@@ -23,4 +23,3 @@ end
 #  number_of_day_to_notify_due_date :integer          default(7), not null
 #  number_of_time_to_notify_overdue :integer          default(3), not null
 #
-
