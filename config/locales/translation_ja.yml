@@ -7,6 +7,7 @@ ja:
       user_has_role: 利用者と権限
       user_import_file: 利用者のインポート用ファイル
       user_import_result: 利用者インポートの結果
+      profile: 利用者プロフィール
 
     attributes:
       user:

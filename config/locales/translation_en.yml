@@ -7,6 +7,7 @@ en:
       user_has_role: User and roles
       user_import_file: User import file
       user_import_result: User import result
+      profile: Profile
 
     attributes:
       user:

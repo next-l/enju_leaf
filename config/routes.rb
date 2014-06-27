@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     resources :user_import_results, :only => [:index, :show, :destroy]
   end
 
+  resources :profiles
+
   resource :my_account
 
   #resources :users do
