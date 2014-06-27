@@ -14,7 +14,6 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
     gsub_file 'config/application.rb', /# config.time_zone = 'Central Time \(US & Canada\)'$/,
       "config.time_zone = 'Tokyo'"
     gsub_file 'config/schedule.rb', /\/path\/to\/enju_leaf/, Rails.root.to_s
-    append_to_file("Rakefile", "require 'sunspot/solr/tasks'\n")
     append_to_file("Rakefile", "require 'resque/tasks'\n")
     append_to_file("Rakefile", "require 'resque/scheduler/tasks'")
     append_to_file("db/seeds.rb", File.open(File.expand_path('../templates', __FILE__) + '/db/seeds.rb').read)
@@ -85,10 +84,6 @@ require 'rack/protection'
 use Rack::Protection, :except => [:escaped_params, :json_csrf, :http_origin, :session_hijacking, :remote_token]
 EOS
     end
-    generate("sunspot_rails:install")
-    gsub_file "config/sunspot.yml",
-      /path: \/solr\/production/,
-      "path: /solr/default"
     generate("kaminari:config")
     generate("simple_form:install")
     gsub_file 'config/initializers/kaminari_config.rb',

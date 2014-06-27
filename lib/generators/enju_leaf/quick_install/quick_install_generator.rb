@@ -28,12 +28,12 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
       rake("enju_leaf:create_non_digested_assets")
     end
     rake("db:seed", :env => environment)
-    if ENV['OS'] == 'Windows_NT'
-      rake("sunspot:solr:run", :env => environment)
-    else
-      rake("sunspot:solr:start", :env => environment)
-      rake("enju_leaf:create_initial_index", :env => environment)
-      rake("sunspot:solr:stop", :env => environment)
-    end
+    #if ENV['OS'] == 'Windows_NT'
+    #  rake("sunspot:solr:run", :env => environment)
+    #else
+    #  rake("sunspot:solr:start", :env => environment)
+    #  rake("enju_leaf:create_initial_index", :env => environment)
+    #  rake("sunspot:solr:stop", :env => environment)
+    #end
   end
 end
