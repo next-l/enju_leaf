@@ -13,3 +13,21 @@ class Profile < ActiveRecord::Base
     string :user_number
   end
 end
+
+# == Schema Information
+#
+# Table name: profiles
+#
+#  id               :integer          not null, primary key
+#  user_id          :integer
+#  user_group_id    :integer
+#  library_id       :integer
+#  locale           :string(255)
+#  user_number      :string(255)
+#  full_name        :text
+#  note             :text
+#  keyword_list     :text
+#  required_role_id :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#

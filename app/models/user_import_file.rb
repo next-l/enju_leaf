@@ -37,19 +37,6 @@ class UserImportFile < ActiveRecord::Base
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
     to: :state_machine
 
-  def import_start
-    case edit_mode
-    when 'create'
-      import
-    when 'update'
-      modify
-    when 'destroy'
-      remove
-    else
-      import
-    end
-  end
-
   def import
     transition_to!(:started)
     num = {:user_imported => 0, :user_found => 0, :failed => 0}
@@ -188,3 +175,24 @@ class UserImportFile < ActiveRecord::Base
     Rails.logger.info "#{Time.zone.now} importing resources failed!"
   end
 end
+
+# == Schema Information
+#
+# Table name: user_import_files
+#
+#  id                       :integer          not null, primary key
+#  user_id                  :integer
+#  note                     :text
+#  executed_at              :datetime
+#  state                    :string(255)
+#  user_import_file_name    :string(255)
+#  user_import_content_type :string(255)
+#  user_import_file_size    :string(255)
+#  user_import_updated_at   :datetime
+#  user_import_fingerprint  :string(255)
+#  edit_mode                :string(255)
+#  error_message            :text
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  user_encoding            :string(255)
+#

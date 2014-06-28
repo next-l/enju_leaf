@@ -70,6 +70,7 @@ en:
         state: State
         edit_mode: Edit mode
         error_message: Error message
+        user_encoding: Encoding
       user_import_result:
         body: Body
 
@@ -364,6 +365,7 @@ en:
     will_be_imported:
       one: "Resource will be impored in a %{minute} minute."
       other: "Resource will be impored in %{minute} minutes."
+    auto_detect: "Auto detect"
   user:
     current_password: "Current password"
     new_password: "New password"

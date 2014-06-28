@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140610123439) do
+ActiveRecord::Schema.define(:version => 20140628072217) do
 
   create_table "accepts", :force => true do |t|
     t.integer  "basket_id"
@@ -579,7 +579,6 @@ ActiveRecord::Schema.define(:version => 20140610123439) do
     t.text     "note"
     t.text     "keyword_list"
     t.integer  "required_role_id"
-    t.string   "state"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
@@ -836,6 +835,7 @@ ActiveRecord::Schema.define(:version => 20140610123439) do
     t.text     "error_message"
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
+    t.string   "user_encoding"
   end
 
   create_table "user_import_results", :force => true do |t|
