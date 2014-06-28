@@ -47,6 +47,7 @@ end
 #  note             :text
 #  keyword_list     :text
 #  required_role_id :integer
+#  state            :string(255)
 #  created_at       :datetime
 #  updated_at       :datetime
 #

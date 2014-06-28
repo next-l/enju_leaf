@@ -26,25 +26,15 @@ class UserImportFile < ActiveRecord::Base
 
   has_many :user_import_file_transitions
 
+  enju_import_file_model
+  attr_accessor :user_encoding
+
   def state_machine
     @state_machine ||= UserImportFileStateMachine.new(self, transition_class: UserImportFileTransition)
   end
 
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
     to: :state_machine
-
-  def import_start
-    case edit_mode
-    when 'create'
-      import
-    when 'update'
-      modify
-    when 'destroy'
-      remove
-    else
-      import
-    end
-  end
 
   def import
     transition_to!(:started)
@@ -146,7 +136,7 @@ class UserImportFile < ActiveRecord::Base
   end
 
   def open_import_file
-    tempfile = Tempfile.new('user_import_file')
+    tempfile = Tempfile.new(name.underscore)
     if Setting.uploaded_file.storage == :s3
       uploaded_file_path = user_import.expiring_url(10)
     else
@@ -154,16 +144,7 @@ class UserImportFile < ActiveRecord::Base
     end
     open(uploaded_file_path){|f|
       f.each{|line|
-        if defined?(CharlockHolmes::EncodingDetector)
-          begin
-            string = line.encode('UTF-8', CharlockHolmes::EncodingDetector.detect(line)[:encoding], universal_newline: true)
-          rescue StandardError
-            string = NKF.nkf('-w -Lu', line)
-          end
-        else
-          string = NKF.nkf('-w -Lu', line)
-        end
-        tempfile.puts(string)
+        tempfile.puts(convert_enconding(line))
       }
     }
     tempfile.close
@@ -204,4 +185,5 @@ end
 #  error_message            :text
 #  created_at               :datetime
 #  updated_at               :datetime
+#  user_encoding            :string(255)
 #

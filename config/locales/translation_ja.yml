@@ -71,6 +71,7 @@ ja:
         state: 状態
         edit_mode: 編集モード
         error_message: エラーメッセージ
+        user_encoding: 文字コード
       user_import_result:
         body: 本文
 
@@ -346,6 +347,7 @@ ja:
     from_file: "ファイルから"
     from_isbn: "ISBNから"
     will_be_imported: "%{minute} 分以内にインポートされます。"
+    auto_detect: "自動判別"
   user:
     current_password: "現在のパスワード"
     new_password: "新しいパスワード"

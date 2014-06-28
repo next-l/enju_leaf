@@ -44,6 +44,11 @@
 </p>
 
 <p>
+  <strong><%= t('activerecord.attributes.user_import_file.user_encoding') -%>:</strong>
+  <%= @user_import_file.user_encoding -%>
+</p>
+
+<p>
   <strong><%= t('activerecord.attributes.user_import_file.state') -%>:</strong>
   <%= localized_state(@user_import_file.current_state) -%>
 </p>

@@ -104,4 +104,5 @@ end
 #  error_message            :text
 #  created_at               :datetime
 #  updated_at               :datetime
+#  user_encoding            :string(255)
 #

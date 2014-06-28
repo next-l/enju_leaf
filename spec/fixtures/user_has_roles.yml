@@ -1,14 +1,3 @@
-# == Schema Information
-#
-# Table name: user_has_roles
-#
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  role_id    :integer
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 admin:
@@ -38,3 +27,14 @@ user3:
 user4:
   user_id: 7
   role_id: 2
+
+# == Schema Information
+#
+# Table name: user_has_roles
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  role_id    :integer
+#  created_at :datetime
+#  updated_at :datetime
+#

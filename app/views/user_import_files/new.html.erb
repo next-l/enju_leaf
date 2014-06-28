@@ -20,6 +20,18 @@
     <%= f.label :edit_mode, t('page.destroy'), :value => 'destroy' %>
   </div>
 
+  <div class="field">
+    <%= f.label :user_encoding -%><br />
+    <%= f.radio_button :user_encoding, 'auto_detect', :checked => 'checked' %>
+    <%= f.label :user_encoding, t('import.auto_detect'), :value => 'auto_detect' %>
+    <%= f.radio_button :user_encoding, 'utf-8' %>
+    <%= f.label :user_encoding, 'UTF-8', :value => 'utf-8' %>
+    <%= f.radio_button :user_encoding, 'shift_jis' %>
+    <%= f.label :user_encoding, 'Shift_JIS', :value => 'shift_jis' %>
+    <%= f.radio_button :user_encoding, 'euc-ho' %>
+    <%= f.label :user_encoding, 'EUC-JP', :value => 'euc-jp' %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
