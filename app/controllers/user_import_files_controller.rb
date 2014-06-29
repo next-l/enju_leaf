@@ -55,6 +55,9 @@ class UserImportFilesController < ApplicationController
 
   # PATCH/PUT /user_import_files/1
   def update
+    if @user_import_file.mode == 'import'
+    end
+
     if @user_import_file.update(user_import_file_params)
       redirect_to @user_import_file, notice: 'User import file was successfully updated.'
     else

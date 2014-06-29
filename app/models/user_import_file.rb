@@ -27,7 +27,7 @@ class UserImportFile < ActiveRecord::Base
   has_many :user_import_file_transitions
 
   enju_import_file_model
-  attr_accessor :user_encoding
+  attr_accessor :mode
 
   def state_machine
     @state_machine ||= UserImportFileStateMachine.new(self, transition_class: UserImportFileTransition)
@@ -136,7 +136,7 @@ class UserImportFile < ActiveRecord::Base
   end
 
   def open_import_file
-    tempfile = Tempfile.new(name.underscore)
+    tempfile = Tempfile.new(self.class.name.underscore)
     if Setting.uploaded_file.storage == :s3
       uploaded_file_path = user_import.expiring_url(10)
     else
@@ -144,7 +144,7 @@ class UserImportFile < ActiveRecord::Base
     end
     open(uploaded_file_path){|f|
       f.each{|line|
-        tempfile.puts(convert_enconding(line))
+        tempfile.puts(convert_encoding(line))
       }
     }
     tempfile.close
