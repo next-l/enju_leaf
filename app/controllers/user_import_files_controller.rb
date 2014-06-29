@@ -69,6 +69,8 @@ class UserImportFilesController < ApplicationController
   # PUT /user_import_files/1
   # PUT /user_import_files/1.json
   def update
+    if @user_import_file.mode == 'import'
+    end
     respond_to do |format|
       if @user_import_file.update_attributes(params[:user_import_file])
         format.html { redirect_to @user_import_file, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user_import_file')) }
