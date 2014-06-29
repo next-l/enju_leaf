@@ -39,7 +39,7 @@ class UserImportFile < ActiveRecord::Base
   def import
     transition_to!(:started)
     num = {:user_imported => 0, :user_found => 0, :failed => 0}
-    rows = open_import_file
+    rows = open_import_file(create_import_temp_file)
     row_num = 2
 
     field = rows.first
@@ -115,7 +115,7 @@ class UserImportFile < ActiveRecord::Base
   def remove
     transition_to!(:started)
     reload
-    rows = open_import_file
+    rows = open_import_file(create_import_temp_file)
 
     field = rows.first
     if [field['username']].reject{|field| field.to_s.strip == ""}.empty?
