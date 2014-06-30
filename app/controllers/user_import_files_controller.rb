@@ -56,6 +56,7 @@ class UserImportFilesController < ApplicationController
   # PATCH/PUT /user_import_files/1
   def update
     if @user_import_file.mode == 'import'
+      UserImportFileQueue.perform(@user_import_file.id)
     end
 
     if @user_import_file.update(user_import_file_params)
