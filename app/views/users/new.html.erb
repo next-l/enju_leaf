@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all">
+<div id="content_detail" class="ui-corner-all ui-widget-content">
 <h1 class="title"><%= t('page.new', :model => t('activerecord.models.user')) -%></h1>
 <div id="content_list">
 <%= render 'page/required_field' %>
@@ -77,7 +77,7 @@
 </div>
 </div>
 
-<div id="submenu" class="ui-corner-all">
+<div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
     <li><%= link_to t('page.listing', :model => t('activerecord.models.user')), users_path -%></li>
     <li><%= link_to t('page.import'), new_agent_import_file_path -%></li>
