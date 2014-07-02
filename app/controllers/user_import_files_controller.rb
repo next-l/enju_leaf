@@ -57,7 +57,7 @@ class UserImportFilesController < ApplicationController
   def update
     if @user_import_file.update(user_import_file_params)
       if @user_import_file.mode == 'import'
-        UserImportFileQueue.perform(@user_import_file.id)
+        Resque.enqueue(UserImportFileQueue, @user_import_file.id)
       end
       redirect_to @user_import_file, notice: 'User import file was successfully updated.'
     else
