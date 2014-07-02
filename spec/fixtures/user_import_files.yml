@@ -4,7 +4,6 @@ one:
   user_id: 1
   note: MyText
   executed_at: 2014-01-10 21:22:16
-  state: pending
   user_import_file_name: MyString
   user_import_content_type: text/csv
   user_import_file_size: 1
@@ -17,7 +16,6 @@ two:
   user_id: 1
   note: MyText
   executed_at: 2014-01-10 21:22:16
-  state: pending
   user_import_file_name: MyString
   user_import_content_type: text/csv
   user_import_file_size: 1
@@ -34,7 +32,6 @@ two:
 #  user_id                  :integer
 #  note                     :text
 #  executed_at              :datetime
-#  state                    :string(255)
 #  user_import_file_name    :string(255)
 #  user_import_content_type :string(255)
 #  user_import_file_size    :string(255)

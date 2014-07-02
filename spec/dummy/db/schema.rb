@@ -825,7 +825,6 @@ ActiveRecord::Schema.define(:version => 20140628072217) do
     t.integer  "user_id"
     t.text     "note"
     t.datetime "executed_at"
-    t.string   "state"
     t.string   "user_import_file_name"
     t.string   "user_import_content_type"
     t.string   "user_import_file_size"
@@ -861,7 +860,6 @@ ActiveRecord::Schema.define(:version => 20140628072217) do
     t.datetime "updated_at",                             :null => false
     t.string   "username"
     t.string   "user_number"
-    t.string   "state"
     t.string   "locale"
     t.datetime "deleted_at"
     t.datetime "expired_at"

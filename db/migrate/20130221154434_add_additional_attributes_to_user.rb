@@ -2,7 +2,6 @@ class AddAdditionalAttributesToUser < ActiveRecord::Migration
   def change
     add_column :users, :username, :string
     add_column :users, :user_number, :string
-    add_column :users, :state, :string
     add_column :users, :locale, :string
     add_column :users, :deleted_at, :datetime
     add_column :users, :expired_at, :datetime
