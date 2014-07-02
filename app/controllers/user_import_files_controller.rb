@@ -72,7 +72,7 @@ class UserImportFilesController < ApplicationController
     respond_to do |format|
       if @user_import_file.update_attributes(params[:user_import_file])
         if @user_import_file.mode == 'import'
-          UserImportFileQueue.perform(@user_import_file.id)
+          Resque.enqueue(UserImportFileQueue, @user_import_file.id)
         end
         format.html { redirect_to @user_import_file, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user_import_file')) }
         format.json { head :no_content }
