@@ -135,7 +135,23 @@ class UserImportFile < ActiveRecord::Base
     UserImportFileTransition
   end
 
-  def open_import_file
+  def create_import_temp_file
+    tempfile = Tempfile.new(self.class.name.underscore)
+    if Setting.uploaded_file.storage == :s3
+      uploaded_file_path = user_import.expiring_url(10)
+    else
+      uploaded_file_path = user_import.path
+    end
+    open(uploaded_file_path){|f|
+      f.each{|line|
+        tempfile.puts(convert_encoding(line))
+      }
+    }
+    tempfile.close
+    tempfile
+  end
+
+  def open_import_file(tempfile)
     tempfile = Tempfile.new(self.class.name.underscore)
     if Setting.uploaded_file.storage == :s3
       uploaded_file_path = user_import.expiring_url(10)

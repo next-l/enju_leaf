@@ -84,6 +84,13 @@ describe UserImportFile do
       User.count.should eq old_count - 3
     end
   end
+
+  it "should import in background" do
+    file = UserImportFile.new :user_import => File.new("#{Rails.root.to_s}/../../examples/user_import_file_sample.tsv")
+    file.user = users(:admin)
+    file.save
+    UserImportFileQueue.perform(file.id).should be_true
+  end
 end
 
 # == Schema Information
