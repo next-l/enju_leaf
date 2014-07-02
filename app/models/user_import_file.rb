@@ -40,7 +40,7 @@ class UserImportFile < ActiveRecord::Base
   def import
     transition_to!(:started)
     num = {:user_imported => 0, :user_found => 0, :failed => 0}
-    rows = open_import_file
+    rows = open_import_file(create_import_temp_file)
     row_num = 2
 
     field = rows.first
@@ -124,7 +124,7 @@ class UserImportFile < ActiveRecord::Base
   def remove
     transition_to!(:started)
     reload
-    rows = open_import_file
+    rows = open_import_file(create_import_temp_file)
 
     field = rows.first
     if [field['username']].reject{|field| field.to_s.strip == ""}.empty?
@@ -144,7 +144,7 @@ class UserImportFile < ActiveRecord::Base
     UserImportFileTransition
   end
 
-  def open_import_file
+  def create_import_temp_file
     tempfile = Tempfile.new(self.class.name.underscore)
     if Setting.uploaded_file.storage == :s3
       uploaded_file_path = user_import.expiring_url(10)
@@ -157,7 +157,10 @@ class UserImportFile < ActiveRecord::Base
       }
     }
     tempfile.close
+    tempfile
+  end
 
+  def open_import_file(tempfile)
     file = CSV.open(tempfile.path, 'r:utf-8', :col_sep => "\t")
     header = file.first
     rows = CSV.open(tempfile.path, 'r:utf-8', :headers => header, :col_sep => "\t")
