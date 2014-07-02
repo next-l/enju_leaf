@@ -81,6 +81,14 @@ class UserImportFile < ActiveRecord::Base
           new_user.expired_at = Time.zone.parse(row['expired_at']).end_of_day
         end
         new_user.note = row['note']
+
+        if I18n.available_locales.include?(row['locale'].to_s.to_sym)
+          new_user.locale = row['locale']
+        end
+
+        library = Library.where(:name => row['library'].to_s.strip).first || Library.web
+        new_user.library = library
+
         if row['password'].present?
           new_user.password = row['password']
         else
@@ -152,19 +160,6 @@ class UserImportFile < ActiveRecord::Base
   end
 
   def open_import_file(tempfile)
-    tempfile = Tempfile.new(self.class.name.underscore)
-    if Setting.uploaded_file.storage == :s3
-      uploaded_file_path = user_import.expiring_url(10)
-    else
-      uploaded_file_path = user_import.path
-    end
-    open(uploaded_file_path){|f|
-      f.each{|line|
-        tempfile.puts(convert_encoding(line))
-      }
-    }
-    tempfile.close
-
     file = CSV.open(tempfile.path, 'r:utf-8', :col_sep => "\t")
     header = file.first
     rows = CSV.open(tempfile.path, 'r:utf-8', :headers => header, :col_sep => "\t")
