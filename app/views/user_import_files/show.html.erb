@@ -74,7 +74,7 @@
     <% if @user_import_file.current_state == 'pending' %>
     <li>
       <%= f.hidden_field :mode, value: 'import' %>
-      <%= f.submit t('page.import') %>
+      <%= f.submit t('page.start_import') %>
     </li>
     <% end %>
   </ul>
