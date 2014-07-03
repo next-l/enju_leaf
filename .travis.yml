@@ -9,4 +9,4 @@ branches:
     - master
     - 1.1
 servies:
- - redis-server
+  - redis-server
