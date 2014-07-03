@@ -3,6 +3,7 @@
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register_alias "text/html", :iphone
+Mime::Type.register "text/tab-separated-values", :tsv
 Mime::Type.register "application/octet-stream",  :download
 Mime::Type.register "application/xml",  :sru
 #Mime::Type.register "application/xml",  :openurl
