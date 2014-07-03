@@ -1,5 +1,5 @@
 class UserImportResultsController < InheritedResources::Base
-  respond_to :html, :json, :csv
+  respond_to :html, :json, :tsv
   load_and_authorize_resource
   has_scope :file_id
   actions :index, :show, :destroy
