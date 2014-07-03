@@ -118,6 +118,7 @@ ja:
     feed: "フィード"
     back_to_index: "一覧に戻る"
     import: "インポート"
+    start_import: "インポートを開始"
     import_record: "書誌レコードのインポート"
     export: "エクスポート"
     detail: "詳細"
