@@ -10,3 +10,4 @@ branches:
     - 1.1
 services:
   - elasticsearch
+  - redis-server
