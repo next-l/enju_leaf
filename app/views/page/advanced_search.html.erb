@@ -9,9 +9,15 @@
       <td><%= search_field_tag 'query', nil, :class => 'search_form_short', :placeholder => t('page.search_term') -%></td>
     </tr>
     <tr>
-      <td><label><%= t('page.tag') -%>:</label></td>
-      <td><%= text_field_tag 'tag' -%></td>
+      <td><label><%= t('page.title') -%>:</label></td>
+      <td><%= text_field_tag 'title' -%></td>
     </tr>
+    <% if defined?(EnjuBookmark) %>
+      <tr>
+        <td><label><%= t('page.tag') -%>:</label></td>
+        <td><%= text_field_tag 'tag' -%></td>
+      </tr>
+    <% end %>
     <tr>
       <td><label><%= t('agent.creator') -%>:</label></td>
       <td><%= text_field_tag 'creator' -%></td>
