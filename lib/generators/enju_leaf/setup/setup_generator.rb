@@ -8,8 +8,6 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
     copy_file("config/enju_leaf.yml", "config/enju_leaf.yml")
     copy_file("config/resque.yml", "config/resque.yml")
     copy_file("config/schedule.rb", "config/schedule.rb")
-    copy_file("config/initializers/statesman.rb", "config/initializers/statesman.rb")
-    copy_file("config/initializers/resque.rb", "config/initializers/resque.rb")
     gsub_file 'config/application.rb', /# config.i18n.default_locale = :de$/,
       "config.i18n.default_locale = :ja"
     gsub_file 'config/application.rb', /# config.time_zone = 'Central Time \(US & Canada\)'$/,
