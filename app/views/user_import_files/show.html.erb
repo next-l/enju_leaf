@@ -71,6 +71,9 @@
   <ul>
     <li><%= link_to t('activerecord.models.user_import_result'), user_import_file_user_import_results_path(@user_import_file) -%></li>
     <li><%= back_to_index(flash[:page_info]) -%></li>
+    <% if current_user.has_role?('Administrator') %>
+      <li><%= link_to 'Resque', resque_path %></li>
+    <% end %>
   </ul>
   <% end %>
 </div>
