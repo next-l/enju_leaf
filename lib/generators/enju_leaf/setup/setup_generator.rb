@@ -16,11 +16,6 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
     append_to_file("Rakefile", "require 'resque/tasks'\n")
     append_to_file("Rakefile", "require 'resque/scheduler/tasks'")
     append_to_file("db/seeds.rb", File.open(File.expand_path('../templates', __FILE__) + '/db/seeds.rb').read)
-    append_to_file 'config/initializers/inflections.rb',  <<EOS
-ActiveSupport::Inflector.inflections do |inflect|
-  inflect.irregular 'reserve', 'reserves'
-end
-EOS
     inject_into_file 'config/environments/development.rb',
       "  config.action_mailer.default_url_options = {:host => 'localhost:3000'}\n",
       :after => "::Application.configure do\n"
