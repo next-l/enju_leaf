@@ -1,5 +1,5 @@
 /*!
-	Colorbox v1.5.9 - 2014-04-25
+	Colorbox v1.5.10 - 2014-06-26
 	jQuery lightbox and modal window plugin
 	(c) 2014 Jack Moore - http://www.jacklmoore.com/colorbox
 	license: http://www.opensource.org/licenses/mit-license.php
@@ -88,7 +88,6 @@
 			return this.title;
 		}
 	},
-
 
 	// Abstracting the HTML and event identifiers for easy rebranding
 	colorbox = 'colorbox',
@@ -353,7 +352,7 @@
 
 		if (!closing) {
 
-			options = $(element).data('colorbox');
+			options = $(element).data(colorbox);
 
 			settings = new Settings(element, options);
 			
@@ -549,7 +548,7 @@
 	}
 
 	// Don't do anything if Colorbox already exists.
-	if ($.colorbox) {
+	if ($[colorbox]) {
 		return;
 	}
 
@@ -1067,8 +1066,8 @@
 		if (!$box) { return; }
 
 		$box.stop();
-		$.colorbox.close();
-		$box.stop().remove();
+		$[colorbox].close();
+		$box.stop(false, true).remove();
 		$overlay.remove();
 		closing = false;
 		$box = null;

@@ -1,4 +1,4 @@
-//= require jquery.ui.all
+//= require jquery-ui
 //= require jquery.colorbox
 //= require jquery.highlight
 //= require jquery.shortcut
