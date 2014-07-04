@@ -7,7 +7,6 @@ before_script: "bundle exec rake db:migrate"
 branches:
   only:
     - master
-    - 1.1
-    - 1.1-stable
+    - "1.1"
 servies:
   - redis-server
