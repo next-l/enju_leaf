@@ -11,26 +11,26 @@ describe User do
 
   it 'should destroy an user' do
     user = FactoryGirl.create(:user)
-    user.destroy.should be_true
+    user.destroy.should be_truthy
   end
 
   it 'should respond to has_role(Administrator)' do
     admin = FactoryGirl.create(:admin)
-    admin.has_role?('Administrator').should be_true
+    admin.has_role?('Administrator').should be_truthy
   end
 
   it 'should respond to has_role(Librarian)' do
     librarian = FactoryGirl.create(:librarian)
     librarian.has_role?('Administrator').should be_false
-    librarian.has_role?('Librarian').should be_true
-    librarian.has_role?('User').should be_true
+    librarian.has_role?('Librarian').should be_truthy
+    librarian.has_role?('User').should be_truthy
   end
 
   it 'should respond to has_role(User)' do
     user = FactoryGirl.create(:user)
     user.has_role?('Administrator').should be_false
     user.has_role?('Librarian').should be_false
-    user.has_role?('User').should be_true
+    user.has_role?('User').should be_truthy
   end
 
   it 'should lock an user' do
@@ -45,7 +45,7 @@ describe User do
     user.lock_access!
     user.locked = '0'
     user.save
-    user.active_for_authentication?.should be_true
+    user.active_for_authentication?.should be_truthy
   end
 
   it 'should not set expired_at if its user group does not have valid period' do
@@ -69,7 +69,7 @@ describe User do
     old_count = User.count
     user = FactoryGirl.build(:user, :username => nil)
     user.save
-    user.errors[:username].should be_true
+    user.errors[:username].should be_truthy
     User.count.should eq old_count
   end
 
@@ -81,7 +81,7 @@ describe User do
   it "should require password" do
     user = FactoryGirl.build(:user, :password => nil)
     user.save
-    user.errors[:password].should be_true
+    user.errors[:password].should be_truthy
   end
 
   it "should not require password_confirmation on create" do
@@ -101,7 +101,7 @@ describe User do
     users(:user1).password = 'new password'
     users(:user1).password_confirmation = 'new password'
     users(:user1).save
-    users(:user1).valid_password?('new password').should be_true
+    users(:user1).valid_password?('new password').should be_truthy
   end
 
   it "should set temporary_password" do
@@ -124,7 +124,7 @@ describe User do
 
   it "should lock_expired users" do
     user = users(:user1)
-    users(:user1).active_for_authentication?.should be_true
+    users(:user1).active_for_authentication?.should be_truthy
     user.expired_at = 1.day.ago
     user.save
     users(:user1).active_for_authentication?.should be_false
@@ -133,7 +133,7 @@ describe User do
   if defined?(EnjuQuestion)
     it "should reset answer_feed_token" do
       users(:user1).reset_answer_feed_token
-      users(:user1).answer_feed_token.should be_true
+      users(:user1).answer_feed_token.should be_truthy
     end
 
     it "should delete answer_feed_token" do
@@ -145,7 +145,7 @@ describe User do
   if defined?(EnjuCirculation)
     it "should reset checkout_icalendar_token" do
       users(:user1).reset_checkout_icalendar_token
-      users(:user1).checkout_icalendar_token.should be_true
+      users(:user1).checkout_icalendar_token.should be_truthy
     end
 
     it "should delete checkout_icalendar_token" do

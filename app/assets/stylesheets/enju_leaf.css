@@ -5,11 +5,10 @@
  *= require colorbox
  *= require pagination
  *= require jquery.powertip
- *= require jquery.ui.button
- *= require jquery.ui.tabs
- *= require jquery.ui.menu
+ *= require jquery-ui/button
+ *= require jquery-ui/tabs
+ *= require jquery-ui/menu
+ *= require jquery-ui/datepicker
  *= require jquery.ui.menubar
- *= require jquery.ui.datepicker
- *= require jquery.modal
  *= require portlets
 */

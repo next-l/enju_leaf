@@ -1,4 +1,4 @@
-//= require jquery.ui.all
+//= require jquery-ui
 //= require jquery.colorbox
 //= require jquery.highlight
 //= require jquery.shortcut
@@ -10,4 +10,3 @@
 //= require tab_view
 //= require jquery.powertip
 //= require jquery_nested_form
-//= require jquery.modal
