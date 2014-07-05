@@ -119,6 +119,10 @@ class UserImportFile < ActiveRecord::Base
   def modify
     transition_to!(:started)
     transition_to!(:completed)
+  rescue => e
+    self.error_message = "line #{row_num}: #{e.message}"
+    transition_to!(:failed)
+    raise e
   end
 
   def remove
@@ -137,6 +141,10 @@ class UserImportFile < ActiveRecord::Base
       user.destroy if user
     end
     transition_to!(:completed)
+  rescue => e
+    self.error_message = "line #{row_num}: #{e.message}"
+    transition_to!(:failed)
+    raise e
   end
 
   private
