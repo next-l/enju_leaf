@@ -21,15 +21,15 @@ describe User do
 
   it 'should respond to has_role(Librarian)' do
     librarian = FactoryGirl.create(:librarian)
-    librarian.has_role?('Administrator').should be_false
+    librarian.has_role?('Administrator').should be_falsy
     librarian.has_role?('Librarian').should be_truthy
     librarian.has_role?('User').should be_truthy
   end
 
   it 'should respond to has_role(User)' do
     user = FactoryGirl.create(:user)
-    user.has_role?('Administrator').should be_false
-    user.has_role?('Librarian').should be_false
+    user.has_role?('Administrator').should be_falsy
+    user.has_role?('Librarian').should be_falsy
     user.has_role?('User').should be_truthy
   end
 
@@ -37,7 +37,7 @@ describe User do
     user = FactoryGirl.create(:user)
     user.locked = '1'
     user.save
-    user.active_for_authentication?.should be_false
+    user.active_for_authentication?.should be_falsy
   end
 
   it 'should unlock an user' do
@@ -110,7 +110,7 @@ describe User do
     user.set_auto_generated_password
     user.save
     old_password.should_not eq user.encrypted_password
-    user.valid_password?('user1password').should be_false
+    user.valid_password?('user1password').should be_falsy
   end
 
   it "should get highest_role" do
@@ -119,7 +119,7 @@ describe User do
 
   it "should lock all expired users" do
     User.lock_expired_users
-    users(:user4).active_for_authentication?.should be_false
+    users(:user4).active_for_authentication?.should be_falsy
   end
 
   it "should lock_expired users" do
@@ -127,7 +127,7 @@ describe User do
     users(:user1).active_for_authentication?.should be_truthy
     user.expired_at = 1.day.ago
     user.save
-    users(:user1).active_for_authentication?.should be_false
+    users(:user1).active_for_authentication?.should be_falsy
   end
 
   if defined?(EnjuQuestion)
