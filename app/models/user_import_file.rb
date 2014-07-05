@@ -40,7 +40,7 @@ class UserImportFile < ActiveRecord::Base
     transition_to!(:started)
     num = {:user_imported => 0, :user_found => 0, :failed => 0}
     rows = open_import_file(create_import_temp_file)
-    row_num = 2
+    row_num = 1
 
     field = rows.first
     if [field['username']].reject{|f| f.to_s.strip == ""}.empty?
@@ -48,6 +48,7 @@ class UserImportFile < ActiveRecord::Base
     end
 
     rows.each do |row|
+      row_num += 1
       next if row['dummy'].to_s.strip.present?
       import_result = UserImportResult.create!(
         :user_import_file_id => id, :body => row.fields.join("\t")
@@ -118,6 +119,7 @@ class UserImportFile < ActiveRecord::Base
   def modify
     transition_to!(:started)
     transition_to!(:completed)
+    row_num = 1
   rescue => e
     self.error_message = "line #{row_num}: #{e.message}"
     transition_to!(:failed)
@@ -126,7 +128,7 @@ class UserImportFile < ActiveRecord::Base
 
   def remove
     transition_to!(:started)
-    reload
+    row_num = 1
     rows = open_import_file(create_import_temp_file)
 
     field = rows.first
@@ -135,6 +137,7 @@ class UserImportFile < ActiveRecord::Base
     end
 
     rows.each do |row|
+      row_num += 1
       username = row['username'].to_s.strip
       user = User.where(:username => username).first
       user.destroy if user
