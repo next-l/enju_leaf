@@ -47,7 +47,10 @@ class UserImportFilesController < ApplicationController
     @user_import_file.user = current_user
 
     if @user_import_file.save
-      redirect_to @user_import_file, notice: 'User import file was successfully created.'
+      if @user_import_file.mode == 'import'
+        Resque.enqueue(UserImportFileQueue, @user_import_file.id)
+      end
+      redirect_to @user_import_file, notice: t('controller.successfully_created', :model => t('activerecord.models.user_import_file'))
     else
       render action: 'new'
     end
@@ -59,7 +62,7 @@ class UserImportFilesController < ApplicationController
       if @user_import_file.mode == 'import'
         Resque.enqueue(UserImportFileQueue, @user_import_file.id)
       end
-      redirect_to @user_import_file, notice: 'User import file was successfully updated.'
+      redirect_to @user_import_file, notice: t('controller.successfully_updated', :model => t('activerecord.models.user_import_file'))
     else
       render action: 'edit'
     end
