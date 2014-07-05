@@ -52,8 +52,8 @@ describe UserImportFile do
       user006.user_number.should be_nil
       user006.user_group.name.should eq 'not_specified'
 
-      @file.user_import_fingerprint.should be_true
-      @file.executed_at.should be_true
+      @file.user_import_fingerprint.should be_truthy
+      @file.executed_at.should be_truthy
     end
 
     it "should not import users that have higher roles than current user's role" do
@@ -93,7 +93,7 @@ describe UserImportFile do
     file = UserImportFile.new :user_import => File.new("#{Rails.root.to_s}/../../examples/user_import_file_sample.tsv")
     file.user = users(:admin)
     file.save
-    UserImportFileQueue.perform(file.id).should be_true
+    UserImportFileQueue.perform(file.id).should be_truthy
   end
 end
 

@@ -145,7 +145,7 @@ describe MyAccountsController do
         it "should ignore username" do
           put :update, :user => @invalid_attrs
           response.should render_template("edit")
-          assigns(:user).changed?.should be_true
+          assigns(:user).changed?.should be_truthy
         end
       end
     end
