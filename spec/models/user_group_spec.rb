@@ -23,4 +23,3 @@ end
 #  number_of_day_to_notify_due_date :integer          default(7), not null
 #  number_of_time_to_notify_overdue :integer          default(3), not null
 #
-
