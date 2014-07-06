@@ -44,5 +44,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency "sunspot_solr", "~> 2.1"
   s.add_development_dependency "sunspot-rails-tester"
   s.add_development_dependency "annotate"
-  s.add_development_dependency "rspec-activemodel-mocks"
 end
