@@ -7,6 +7,8 @@ en:
       user_has_role: User and roles
       user_import_file: User import file
       user_import_result: User import result
+      profile: Profile
+      user_export_file: User export
 
     attributes:
       user:
@@ -73,6 +75,10 @@ en:
         user_encoding: Encoding
       user_import_result:
         body: Body
+      user_export_file:
+        user_export_file_name: Filename
+        user_export_file_size: Size
+        state: State
 
   page:
     user_title: "Welcome %{login_name}"

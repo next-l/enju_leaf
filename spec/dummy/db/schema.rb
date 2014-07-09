@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140628072217) do
+ActiveRecord::Schema.define(:version => 20140709113905) do
 
   create_table "accepts", :force => true do |t|
     t.integer  "basket_id"
@@ -783,6 +783,29 @@ ActiveRecord::Schema.define(:version => 20140628072217) do
 
   add_index "subscriptions", ["order_list_id"], :name => "index_subscriptions_on_order_list_id"
   add_index "subscriptions", ["user_id"], :name => "index_subscriptions_on_user_id"
+
+  create_table "user_export_file_transitions", :force => true do |t|
+    t.string   "to_state"
+    t.text     "metadata",            :default => "{}"
+    t.integer  "sort_key"
+    t.integer  "user_export_file_id"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+  end
+
+  add_index "user_export_file_transitions", ["sort_key", "user_export_file_id"], :name => "index_user_export_file_transitions_on_sort_key_and_file_id", :unique => true
+  add_index "user_export_file_transitions", ["user_export_file_id"], :name => "index_user_export_file_transitions_on_file_id"
+
+  create_table "user_export_files", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "user_export_file_name"
+    t.string   "user_export_content_type"
+    t.integer  "user_export_file_size"
+    t.datetime "user_export_updated_at"
+    t.datetime "executed_at"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
 
   create_table "user_groups", :force => true do |t|
     t.string   "name"

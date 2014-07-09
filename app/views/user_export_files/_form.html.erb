@@ -1,0 +1,21 @@
+<%= form_for(@user_export_file) do |f| %>
+  <%= f.error_messages %>
+
+  <!--
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= @user_export_file.user.username %>
+  </div>
+  <div class="field">
+    <%= f.label :user_export %><br>
+    <%= f.text_field :user_export %>
+  </div>
+  -->
+  <div class="actions">
+    <% if @user_export_file.new_record? %>
+      <%= f.submit t('page.export') %>
+    <% else %>
+      <%= f.submit %>
+    <% end %>
+  </div>
+<% end %>

@@ -7,6 +7,8 @@ ja:
       user_has_role: 利用者と権限
       user_import_file: 利用者のインポート用ファイル
       user_import_result: 利用者インポートの結果
+      profile: 利用者プロフィール
+      user_export_file: 利用者情報のエクスポート
 
     attributes:
       user:
@@ -73,6 +75,10 @@ ja:
         user_encoding: 文字コード
       user_import_result:
         body: 本文
+      user_export_file:
+        user_export_file_name: ファイル名
+        user_export_file_size: ファイルサイズ
+        state: 状態
 
   page:
     user_title: "ようこそ %{login_name} さん"
