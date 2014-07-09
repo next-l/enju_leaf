@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails_autolink"
   s.add_dependency "jquery-ui-rails", "~> 5.0"
   s.add_dependency "resque-scheduler", "~> 3.0"
-  s.add_dependency "paperclip", "~> 4.1"
+  s.add_dependency "paperclip", "~> 4.2"
   if RUBY_PLATFORM == "java"
     s.add_dependency "kramdown"
   else

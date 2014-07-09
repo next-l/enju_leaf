@@ -197,7 +197,6 @@ end
 #  user_id                  :integer
 #  note                     :text
 #  executed_at              :datetime
-#  state                    :string(255)
 #  user_import_file_name    :string(255)
 #  user_import_content_type :string(255)
 #  user_import_file_size    :string(255)

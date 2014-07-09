@@ -106,6 +106,21 @@ module EnjuLeaf
             user.lock_access! if user.expired? and user.active_for_authentication?
           end
         end
+
+        def export(options = {format: :tsv})
+          header = %w(
+            username
+          ).join("\t")
+          users = User.all.map{|u|
+            lines = []
+            lines << u.username
+          }
+          if options[:format] == :tsv
+            users.map{|u| u.join("\t")}.unshift(header).join("\r\n")
+          else
+            users
+          end
+        end
       end
     end
 
