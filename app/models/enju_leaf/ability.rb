@@ -25,6 +25,7 @@ module EnjuLeaf
           UserHasRole
         ]
         can :manage, [
+          UserExportFile,
           UserImportFile
         ] if LibraryGroup.site_config.network_access_allowed?(ip_address)
         can :update, [
