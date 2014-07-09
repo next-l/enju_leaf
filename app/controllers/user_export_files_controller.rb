@@ -1,5 +1,5 @@
 class UserExportFilesController < ApplicationController
-  load_and_authorize_user
+  load_and_authorize_resource
 
   # GET /user_export_files
   # GET /user_export_files.json
