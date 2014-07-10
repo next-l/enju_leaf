@@ -163,7 +163,7 @@ describe User do
     end
   end
 
-  if defined?(EnjuMessage)
+  if defined?(EnjuCirculation)
     it "should send_message" do
       assert users(:librarian1).send_message('reservation_expired_for_patron', :manifestations => users(:librarian1).reserves.not_sent_expiration_notice_to_patron.collect(&:manifestation))
       users(:librarian1).reload

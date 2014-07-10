@@ -16,9 +16,9 @@ describe UserExportFilesController do
     describe "When logged in as Librarian" do
       login_librarian
 
-      it "assigns all user_export_files as @user_export_files" do
+      it "assigns empty as @user_export_files" do
         get :index
-        assigns(:user_export_files).should eq(UserExportFile.order('id DESC').page(1))
+        assigns(:user_export_files).should be_empty
       end
     end
 
@@ -27,7 +27,7 @@ describe UserExportFilesController do
 
       it "assigns empty as @user_export_files" do
         get :index
-        assigns(:user_export_files).should be_nil
+        assigns(:user_export_files).should be_empty
         response.should be_forbidden
       end
     end
@@ -35,7 +35,7 @@ describe UserExportFilesController do
     describe "When not logged in" do
       it "assigns empty as @user_export_files" do
         get :index
-        assigns(:user_export_files).should be_nil
+        assigns(:user_export_files).should be_empty
         response.should redirect_to(new_user_session_url)
       end
     end
@@ -58,7 +58,7 @@ describe UserExportFilesController do
       it "assigns the requested user_export_file as @user_export_file" do
         get :show, :id => user_export_files(:user_export_file_00003).id
         assigns(:user_export_file).should eq(user_export_files(:user_export_file_00003))
-        response.should be_success
+        response.should be_forbidden
       end
     end
 
@@ -97,8 +97,8 @@ describe UserExportFilesController do
 
       it "should not assign the requested user_export_file as @user_export_file" do
         get :new
-        assigns(:user_export_file).should be_valid
-        response.should be_success
+        assigns(:user_export_file).should_not be_valid
+        response.should be_forbidden
       end
     end
 
@@ -107,7 +107,7 @@ describe UserExportFilesController do
 
       it "should not assign the requested user_export_file as @user_export_file" do
         get :new
-        assigns(:user_export_file).should be_valid
+        assigns(:user_export_file).should_not be_valid
         response.should be_forbidden
       end
     end
@@ -122,9 +122,9 @@ describe UserExportFilesController do
   end
 
   describe "POST create" do
-    describe "When logged in as Librarian" do
+    describe "When logged in as Administrator" do
       before(:each) do
-        @user = FactoryGirl.create(:librarian)
+        @user = FactoryGirl.create(:admin)
         sign_in @user
       end
 
@@ -133,6 +133,20 @@ describe UserExportFilesController do
         assigns(:user_export_file).should be_valid
         assigns(:user_export_file).user.username.should eq @user.username
         response.should redirect_to user_export_file_url(assigns(:user_export_file))
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      before(:each) do
+        @user = FactoryGirl.create(:librarian)
+        sign_in @user
+      end
+
+      it "should create agent_export_file" do
+        post :create, :user_export_file => { }
+        assigns(:user_export_file).should_not be_valid
+        assigns(:user_export_file).user.should be_nil
+        response.should be_forbidden
       end
     end
 
@@ -175,7 +189,7 @@ describe UserExportFilesController do
       it "assigns the requested user_export_file as @user_export_file" do
         user_export_file = user_export_files(:user_export_file_00001)
         get :edit, :id => user_export_file.id
-        assigns(:user_export_file).should eq(user_export_file)
+        response.should be_forbidden
       end
     end
 
@@ -213,7 +227,7 @@ describe UserExportFilesController do
 
       it "should update user_export_file" do
         put :update, :id => user_export_files(:user_export_file_00003).id, :user_export_file => { }
-        response.should redirect_to user_export_file_url(assigns(:user_export_file))
+        response.should be_forbidden
       end
     end
 
@@ -259,9 +273,9 @@ describe UserExportFilesController do
         delete :destroy, :id => @user_export_file.id
       end
 
-      it "redirects to the user_export_files list" do
+      it "should be forbidden" do
         delete :destroy, :id => @user_export_file.id
-        response.should redirect_to(user_export_files_url)
+        response.should be_forbidden
       end
     end
 

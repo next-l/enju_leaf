@@ -252,6 +252,28 @@ item_00023:
   id: 23
   include_supplements: false
   created_at: 2007-08-24 23:46:20.484813 +09:00
+item_00024: 
+  updated_at: 2007-08-24 23:46:20.484813 +09:00
+  item_identifier: '00024'
+  circulation_status_id: 8
+  checkout_type_id: 3
+  shelf_id: 2
+  call_number: 
+  manifestation_id: 3
+  id: 24
+  include_supplements: false
+  created_at: 2007-08-24 23:46:20.484813 +09:00
+item_00025: 
+  updated_at: 2007-08-24 23:46:20.484813 +09:00
+  item_identifier: '00025'
+  circulation_status_id: 8
+  checkout_type_id: 3
+  shelf_id: 2
+  call_number: 
+  manifestation_id: 8
+  id: 25
+  include_supplements: false
+  created_at: 2007-08-24 23:46:20.484813 +09:00
 
 # == Schema Information
 #

@@ -24,68 +24,6 @@ ActiveRecord::Schema.define(version: 20140709113905) do
   add_index "accepts", ["basket_id"], name: "index_accepts_on_basket_id"
   add_index "accepts", ["item_id"], name: "index_accepts_on_item_id"
 
-  create_table "agent_import_files", force: true do |t|
-    t.integer  "parent_id"
-    t.string   "content_type"
-    t.integer  "size"
-    t.integer  "user_id"
-    t.text     "note"
-    t.datetime "executed_at"
-    t.string   "state"
-    t.string   "agent_import_file_name"
-    t.string   "agent_import_content_type"
-    t.integer  "agent_import_file_size"
-    t.datetime "agent_import_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "agent_import_fingerprint"
-    t.text     "error_message"
-    t.string   "edit_mode"
-  end
-
-  add_index "agent_import_files", ["parent_id"], name: "index_agent_import_files_on_parent_id"
-  add_index "agent_import_files", ["state"], name: "index_agent_import_files_on_state"
-  add_index "agent_import_files", ["user_id"], name: "index_agent_import_files_on_user_id"
-
-  create_table "agent_import_results", force: true do |t|
-    t.integer  "agent_import_file_id"
-    t.integer  "agent_id"
-    t.integer  "user_id"
-    t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "agent_relationship_types", force: true do |t|
-    t.string   "name",         null: false
-    t.text     "display_name"
-    t.text     "note"
-    t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "agent_relationships", force: true do |t|
-    t.integer  "parent_id"
-    t.integer  "child_id"
-    t.integer  "agent_relationship_type_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "position"
-  end
-
-  add_index "agent_relationships", ["child_id"], name: "index_agent_relationships_on_child_id"
-  add_index "agent_relationships", ["parent_id"], name: "index_agent_relationships_on_parent_id"
-
-  create_table "agent_types", force: true do |t|
-    t.string   "name",         null: false
-    t.text     "display_name"
-    t.text     "note"
-    t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "agents", force: true do |t|
     t.integer  "user_id"
     t.string   "last_name"
@@ -127,16 +65,11 @@ ActiveRecord::Schema.define(version: 20140709113905) do
     t.text     "note"
     t.integer  "required_role_id",                    default: 1, null: false
     t.integer  "required_score",                      default: 0, null: false
-    t.string   "state"
     t.text     "email"
     t.text     "url"
     t.text     "full_name_alternative_transcription"
-    t.string   "birth_date"
-    t.string   "death_date"
-    t.string   "agent_identifier"
   end
 
-  add_index "agents", ["agent_identifier"], name: "index_agents_on_agent_identifier"
   add_index "agents", ["country_id"], name: "index_agents_on_country_id"
   add_index "agents", ["full_name"], name: "index_agents_on_full_name"
   add_index "agents", ["language_id"], name: "index_agents_on_language_id"
@@ -302,7 +235,6 @@ ActiveRecord::Schema.define(version: 20140709113905) do
 
   create_table "import_requests", force: true do |t|
     t.string   "isbn"
-    t.string   "state"
     t.integer  "manifestation_id"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -314,6 +246,7 @@ ActiveRecord::Schema.define(version: 20140709113905) do
   add_index "import_requests", ["user_id"], name: "index_import_requests_on_user_id"
 
   create_table "items", force: true do |t|
+    t.integer  "manifestation_id"
     t.string   "call_number"
     t.string   "item_identifier"
     t.datetime "created_at"
@@ -326,12 +259,10 @@ ActiveRecord::Schema.define(version: 20140709113905) do
     t.integer  "price"
     t.integer  "lock_version",          default: 0,     null: false
     t.integer  "required_role_id",      default: 1,     null: false
-    t.string   "state"
     t.integer  "required_score",        default: 0,     null: false
     t.datetime "acquired_at"
     t.integer  "bookstore_id"
     t.integer  "budget_type_id"
-    t.integer  "manifestation_id"
     t.integer  "circulation_status_id", default: 5,     null: false
     t.integer  "checkout_type_id",      default: 1,     null: false
   end
@@ -340,6 +271,7 @@ ActiveRecord::Schema.define(version: 20140709113905) do
   add_index "items", ["checkout_type_id"], name: "index_items_on_checkout_type_id"
   add_index "items", ["circulation_status_id"], name: "index_items_on_circulation_status_id"
   add_index "items", ["item_identifier"], name: "index_items_on_item_identifier"
+  add_index "items", ["manifestation_id"], name: "index_items_on_manifestation_id"
   add_index "items", ["required_role_id"], name: "index_items_on_required_role_id"
   add_index "items", ["shelf_id"], name: "index_items_on_shelf_id"
 
@@ -387,20 +319,19 @@ ActiveRecord::Schema.define(version: 20140709113905) do
   add_index "libraries", ["name"], name: "index_libraries_on_name", unique: true
 
   create_table "library_groups", force: true do |t|
-    t.string   "name",                                                         null: false
+    t.string   "name",                                              null: false
     t.text     "display_name"
-    t.string   "short_name",                                                   null: false
+    t.string   "short_name",                                        null: false
     t.string   "email"
     t.text     "my_networks"
     t.text     "login_banner"
     t.text     "note"
-    t.integer  "valid_period_for_new_user", default: 365,                      null: false
     t.integer  "country_id"
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "admin_networks"
-    t.string   "url",                       default: "http://localhost:3000/"
+    t.string   "url",            default: "http://localhost:3000/"
   end
 
   add_index "library_groups", ["short_name"], name: "index_library_groups_on_short_name"
@@ -429,7 +360,6 @@ ActiveRecord::Schema.define(version: 20140709113905) do
     t.integer  "manifestation_relationship_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position"
   end
 
   add_index "manifestation_relationships", ["child_id"], name: "index_manifestation_relationships_on_child_id"
@@ -455,13 +385,6 @@ ActiveRecord::Schema.define(version: 20140709113905) do
     t.integer  "height"
     t.integer  "width"
     t.integer  "depth"
-    t.string   "isbn"
-    t.string   "isbn10"
-    t.string   "wrong_isbn"
-    t.string   "nbn"
-    t.string   "lccn"
-    t.string   "oclc_number"
-    t.string   "issn"
     t.integer  "price"
     t.text     "fulltext"
     t.string   "volume_number_string"
@@ -472,7 +395,6 @@ ActiveRecord::Schema.define(version: 20140709113905) do
     t.boolean  "repository_content",              default: false, null: false
     t.integer  "lock_version",                    default: 0,     null: false
     t.integer  "required_role_id",                default: 1,     null: false
-    t.string   "state"
     t.integer  "required_score",                  default: 0,     null: false
     t.integer  "frequency_id",                    default: 1,     null: false
     t.boolean  "subscription_master",             default: false, null: false
@@ -504,13 +426,9 @@ ActiveRecord::Schema.define(version: 20140709113905) do
   end
 
   add_index "manifestations", ["access_address"], name: "index_manifestations_on_access_address"
+  add_index "manifestations", ["date_of_publication"], name: "index_manifestations_on_date_of_publication"
   add_index "manifestations", ["doi"], name: "index_manifestations_on_doi"
-  add_index "manifestations", ["isbn"], name: "index_manifestations_on_isbn"
-  add_index "manifestations", ["issn"], name: "index_manifestations_on_issn"
-  add_index "manifestations", ["lccn"], name: "index_manifestations_on_lccn"
   add_index "manifestations", ["manifestation_identifier"], name: "index_manifestations_on_manifestation_identifier"
-  add_index "manifestations", ["nbn"], name: "index_manifestations_on_nbn"
-  add_index "manifestations", ["oclc_number"], name: "index_manifestations_on_oclc_number"
   add_index "manifestations", ["updated_at"], name: "index_manifestations_on_updated_at"
 
   create_table "medium_of_performances", force: true do |t|
@@ -521,6 +439,53 @@ ActiveRecord::Schema.define(version: 20140709113905) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "message_requests", force: true do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.integer  "message_template_id"
+    t.datetime "sent_at"
+    t.datetime "deleted_at"
+    t.text     "body"
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "message_requests", ["state"], name: "index_message_requests_on_state"
+
+  create_table "message_templates", force: true do |t|
+    t.string   "status",                    null: false
+    t.text     "title",                     null: false
+    t.text     "body",                      null: false
+    t.integer  "position"
+    t.string   "locale",     default: "en"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "message_templates", ["status"], name: "index_message_templates_on_status", unique: true
+
+  create_table "messages", force: true do |t|
+    t.datetime "read_at"
+    t.integer  "receiver_id"
+    t.integer  "sender_id"
+    t.string   "subject",            null: false
+    t.text     "body"
+    t.integer  "message_request_id"
+    t.string   "state"
+    t.integer  "parent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.integer  "depth"
+  end
+
+  add_index "messages", ["message_request_id"], name: "index_messages_on_message_request_id"
+  add_index "messages", ["parent_id"], name: "index_messages_on_parent_id"
+  add_index "messages", ["receiver_id"], name: "index_messages_on_receiver_id"
+  add_index "messages", ["sender_id"], name: "index_messages_on_sender_id"
 
   create_table "owns", force: true do |t|
     t.integer  "agent_id",   null: false
@@ -636,7 +601,6 @@ ActiveRecord::Schema.define(version: 20140709113905) do
     t.integer  "user_id"
     t.text     "note"
     t.datetime "executed_at"
-    t.string   "state"
     t.string   "resource_import_file_name"
     t.string   "resource_import_content_type"
     t.integer  "resource_import_file_size"
@@ -649,7 +613,6 @@ ActiveRecord::Schema.define(version: 20140709113905) do
   end
 
   add_index "resource_import_files", ["parent_id"], name: "index_resource_import_files_on_parent_id"
-  add_index "resource_import_files", ["state"], name: "index_resource_import_files_on_state"
   add_index "resource_import_files", ["user_id"], name: "index_resource_import_files_on_user_id"
 
   create_table "resource_import_results", force: true do |t|
@@ -720,7 +683,7 @@ ActiveRecord::Schema.define(version: 20140709113905) do
     t.text     "title_alternative"
     t.string   "series_statement_identifier"
     t.string   "issn"
-    t.boolean  "periodical",                    default: false, null: false
+    t.boolean  "periodical"
     t.integer  "manifestation_id"
     t.text     "note"
     t.text     "title_subseries_transcription"
