@@ -15,6 +15,6 @@ end
 #  metadata            :text             default("{}")
 #  sort_key            :integer
 #  user_export_file_id :integer
-#  created_at          :datetime
-#  updated_at          :datetime
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
 #

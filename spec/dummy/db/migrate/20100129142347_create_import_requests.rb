@@ -2,7 +2,6 @@ class CreateImportRequests < ActiveRecord::Migration
   def change
     create_table :import_requests do |t|
       t.string :isbn
-      t.string :state
       t.integer :manifestation_id
       t.integer :user_id
 

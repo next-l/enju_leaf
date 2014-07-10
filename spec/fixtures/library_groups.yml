@@ -1,14 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 one:
   id: 1
-  name: enju_library
-  display_name: "<%= I18n.locale %>: Enju Library"
-  short_name: enju
+  name: unknown
+  display_name: unknown
+  short_name: unknown
   email: next-l@library.example.jp
   note: 
   my_networks: 0.0.0.0/0
   url: "http://localhost:3000/"
-  admin_networks: 0.0.0.0/0
 
 
 # == Schema Information
@@ -23,9 +22,10 @@ one:
 #  my_networks                 :text
 #  login_banner                :text
 #  note                        :text
+#  post_to_union_catalog       :boolean         default(FALSE), not null
 #  country_id                  :integer
-#  created_at                  :datetime        not null
-#  updated_at                  :datetime        not null
+#  created_at                  :datetime
+#  updated_at                  :datetime
 #  admin_networks              :text
 #  allow_bookmark_external_url :boolean         default(FALSE), not null
 #  position                    :integer
