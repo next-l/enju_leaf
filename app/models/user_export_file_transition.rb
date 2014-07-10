@@ -3,6 +3,7 @@ class UserExportFileTransition < ActiveRecord::Base
 
   
   belongs_to :user_export_file, inverse_of: :user_export_file_transitions
+  attr_accessible :to_state, :sort_key, :metadata
 end
 
 # == Schema Information
