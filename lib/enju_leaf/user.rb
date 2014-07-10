@@ -140,7 +140,6 @@ module EnjuLeaf
               lines << nil
             end
             lines << u.note
-            note
           }
           if options[:format] == :tsv
             users.map{|u| u.join("\t")}.unshift(header).join("\r\n")
