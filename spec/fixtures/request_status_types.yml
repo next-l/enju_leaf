@@ -1,0 +1,63 @@
+--- 
+request_status_type_00001: 
+  name: Available For Pickup  
+  display_name: Available For Pickup
+  updated_at: 2008-02-13 18:38:38.553114 +09:00
+  id: 1
+  position: 1
+  note: ""
+  created_at: 2008-02-13 18:38:38.553114 +09:00
+request_status_type_00002: 
+  name: Cannot Fulfill Request  
+  display_name: Cannot Fulfill Request
+  updated_at: 2008-02-13 18:38:51.815755 +09:00
+  id: 2
+  position: 2
+  note: ""
+  created_at: 2008-02-13 18:38:51.815755 +09:00
+request_status_type_00003: 
+  name: Expired  
+  display_name: Expired
+  updated_at: 2008-02-13 18:39:00.878701 +09:00
+  id: 3
+  position: 3
+  note: ""
+  created_at: 2008-02-13 18:39:00.878701 +09:00
+request_status_type_00004: 
+  name: In Process  
+  display_name: In Process
+  updated_at: 2008-02-13 18:39:10.010140 +09:00
+  id: 4
+  position: 4
+  note: ""
+  created_at: 2008-02-13 18:39:10.010140 +09:00
+request_status_type_00005: 
+  name: Need to Accept Conditions  
+  display_name: Need to Accept Conditions
+  updated_at: 2008-02-13 18:39:19.068390 +09:00
+  id: 5
+  position: 5
+  note: ""
+  created_at: 2008-02-13 18:39:19.068390 +09:00
+request_status_type_00006: 
+  name: Requested Via ILL  
+  display_name: Requested Via ILL
+  updated_at: 2008-02-13 18:39:29.382844 +09:00
+  id: 6
+  position: 6
+  note: ""
+  created_at: 2008-02-13 18:39:29.382844 +09:00
+
+# == Schema Information
+#
+# Table name: request_status_types
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
