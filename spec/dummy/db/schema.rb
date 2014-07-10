@@ -24,6 +24,79 @@ ActiveRecord::Schema.define(version: 20140709113905) do
   add_index "accepts", ["basket_id"], name: "index_accepts_on_basket_id"
   add_index "accepts", ["item_id"], name: "index_accepts_on_item_id"
 
+  create_table "agent_import_file_transitions", force: true do |t|
+    t.string   "to_state"
+    t.text     "metadata",             default: "{}"
+    t.integer  "sort_key"
+    t.integer  "agent_import_file_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "agent_import_file_transitions", ["agent_import_file_id"], name: "index_agent_import_file_transitions_on_agent_import_file_id"
+  add_index "agent_import_file_transitions", ["sort_key", "agent_import_file_id"], name: "index_agent_import_file_transitions_on_sort_key_and_file_id", unique: true
+
+  create_table "agent_import_files", force: true do |t|
+    t.integer  "parent_id"
+    t.string   "content_type"
+    t.integer  "size"
+    t.integer  "user_id"
+    t.text     "note"
+    t.datetime "executed_at"
+    t.string   "agent_import_file_name"
+    t.string   "agent_import_content_type"
+    t.integer  "agent_import_file_size"
+    t.datetime "agent_import_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "agent_import_fingerprint"
+    t.text     "error_message"
+    t.string   "edit_mode"
+    t.string   "user_encoding"
+  end
+
+  add_index "agent_import_files", ["parent_id"], name: "index_agent_import_files_on_parent_id"
+  add_index "agent_import_files", ["user_id"], name: "index_agent_import_files_on_user_id"
+
+  create_table "agent_import_results", force: true do |t|
+    t.integer  "agent_import_file_id"
+    t.integer  "agent_id"
+    t.integer  "user_id"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "agent_relationship_types", force: true do |t|
+    t.string   "name",         null: false
+    t.text     "display_name"
+    t.text     "note"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "agent_relationships", force: true do |t|
+    t.integer  "parent_id"
+    t.integer  "child_id"
+    t.integer  "agent_relationship_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "position"
+  end
+
+  add_index "agent_relationships", ["child_id"], name: "index_agent_relationships_on_child_id"
+  add_index "agent_relationships", ["parent_id"], name: "index_agent_relationships_on_parent_id"
+
+  create_table "agent_types", force: true do |t|
+    t.string   "name",         null: false
+    t.text     "display_name"
+    t.text     "note"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "agents", force: true do |t|
     t.integer  "user_id"
     t.string   "last_name"
@@ -68,8 +141,12 @@ ActiveRecord::Schema.define(version: 20140709113905) do
     t.text     "email"
     t.text     "url"
     t.text     "full_name_alternative_transcription"
+    t.string   "birth_date"
+    t.string   "death_date"
+    t.string   "agent_identifier"
   end
 
+  add_index "agents", ["agent_identifier"], name: "index_agents_on_agent_identifier"
   add_index "agents", ["country_id"], name: "index_agents_on_country_id"
   add_index "agents", ["full_name"], name: "index_agents_on_full_name"
   add_index "agents", ["language_id"], name: "index_agents_on_language_id"
@@ -233,6 +310,18 @@ ActiveRecord::Schema.define(version: 20140709113905) do
   add_index "identifiers", ["body", "identifier_type_id"], name: "index_identifiers_on_body_and_identifier_type_id"
   add_index "identifiers", ["manifestation_id"], name: "index_identifiers_on_manifestation_id"
 
+  create_table "import_request_transitions", force: true do |t|
+    t.string   "to_state"
+    t.text     "metadata",          default: "{}"
+    t.integer  "sort_key"
+    t.integer  "import_request_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "import_request_transitions", ["import_request_id"], name: "index_import_request_transitions_on_import_request_id"
+  add_index "import_request_transitions", ["sort_key", "import_request_id"], name: "index_import_request_transitions_on_sort_key_and_request_id", unique: true
+
   create_table "import_requests", force: true do |t|
     t.string   "isbn"
     t.integer  "manifestation_id"
@@ -360,6 +449,7 @@ ActiveRecord::Schema.define(version: 20140709113905) do
     t.integer  "manifestation_relationship_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
   add_index "manifestation_relationships", ["child_id"], name: "index_manifestation_relationships_on_child_id"
@@ -423,6 +513,7 @@ ActiveRecord::Schema.define(version: 20140709113905) do
     t.boolean  "fulltext_content"
     t.string   "doi"
     t.boolean  "periodical"
+    t.text     "statement_of_responsibility"
   end
 
   add_index "manifestations", ["access_address"], name: "index_manifestations_on_access_address"
@@ -594,6 +685,41 @@ ActiveRecord::Schema.define(version: 20140709113905) do
     t.datetime "updated_at"
   end
 
+  create_table "resource_export_file_transitions", force: true do |t|
+    t.string   "to_state"
+    t.text     "metadata",                default: "{}"
+    t.integer  "sort_key"
+    t.integer  "resource_export_file_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "resource_export_file_transitions", ["resource_export_file_id"], name: "index_resource_export_file_transitions_on_file_id"
+  add_index "resource_export_file_transitions", ["sort_key", "resource_export_file_id"], name: "index_resource_export_file_transitions_on_sort_key_and_file_id", unique: true
+
+  create_table "resource_export_files", force: true do |t|
+    t.integer  "user_id"
+    t.string   "resource_export_file_name"
+    t.string   "resource_export_content_type"
+    t.integer  "resource_export_file_size"
+    t.datetime "resource_export_updated_at"
+    t.datetime "executed_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "resource_import_file_transitions", force: true do |t|
+    t.string   "to_state"
+    t.text     "metadata",                default: "{}"
+    t.integer  "sort_key"
+    t.integer  "resource_import_file_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "resource_import_file_transitions", ["resource_import_file_id"], name: "index_resource_import_file_transitions_on_file_id"
+  add_index "resource_import_file_transitions", ["sort_key", "resource_import_file_id"], name: "index_resource_import_file_transitions_on_sort_key_and_file_id", unique: true
+
   create_table "resource_import_files", force: true do |t|
     t.integer  "parent_id"
     t.string   "content_type"
@@ -610,6 +736,7 @@ ActiveRecord::Schema.define(version: 20140709113905) do
     t.string   "edit_mode"
     t.string   "resource_import_fingerprint"
     t.text     "error_message"
+    t.string   "user_encoding"
   end
 
   add_index "resource_import_files", ["parent_id"], name: "index_resource_import_files_on_parent_id"
@@ -688,6 +815,10 @@ ActiveRecord::Schema.define(version: 20140709113905) do
     t.text     "note"
     t.text     "title_subseries_transcription"
     t.integer  "root_manifestation_id"
+    t.text     "creator_string"
+    t.text     "volume_number_string"
+    t.text     "volume_number_transcription_string"
+    t.boolean  "series_master"
   end
 
   add_index "series_statements", ["manifestation_id"], name: "index_series_statements_on_manifestation_id"
