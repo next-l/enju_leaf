@@ -104,10 +104,33 @@ module EnjuLeaf
         def export(options = {format: :tsv})
           header = %w(
             username
+            email
+            user_number
+            user_group
+            library
+            locale
+            created_at
+            updated_at
+            expired_at
+            keyword_list
+            save_checkout_history
+            note
           ).join("\t")
           users = User.all.map{|u|
             lines = []
             lines << u.username
+            lines << u.email
+            lines << u.user_number
+            lines << u.user_group.name
+            lines << u.library.name
+            lines << u.locale
+            lines << u.user_group.created_at
+            lines << u.user_group.updated_at
+            lines << u.user_group.expired_at
+            lines << u.user_group.keyword_list.split.join("//")
+            lines << u.user_group.try(:save_checkout_history)
+            lines << u.note
+            note
           }
           if options[:format] == :tsv
             users.map{|u| u.join("\t")}.unshift(header).join("\r\n")
