@@ -1,0 +1,43 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+event_import_file_00001:
+  id: 1
+  event_import_file_name: MyString
+  event_import_file_size: 1
+  user_id: 1
+  event_import_content_type: text/csv
+event_import_file_00002:
+  id: 2
+  event_import_file_name: MyString
+  event_import_file_size: 1
+  user_id: 1
+  event_import_content_type: text/csv
+event_import_file_00003:
+  id: 3
+  event_import_file_name: MyString
+  event_import_file_size: 1
+  user_id: 1
+  event_import_content_type: text/csv
+
+# == Schema Information
+#
+# Table name: event_import_files
+#
+#  id                        :integer          not null, primary key
+#  parent_id                 :integer
+#  content_type              :string(255)
+#  size                      :integer
+#  user_id                   :integer
+#  note                      :text
+#  executed_at               :datetime
+#  event_import_file_name    :string(255)
+#  event_import_content_type :string(255)
+#  event_import_file_size    :integer
+#  event_import_updated_at   :datetime
+#  edit_mode                 :string(255)
+#  created_at                :datetime
+#  updated_at                :datetime
+#  event_import_fingerprint  :string(255)
+#  error_message             :text
+#  user_encoding             :string(255)
+#

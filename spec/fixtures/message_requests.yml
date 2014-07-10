@@ -1,0 +1,30 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  sender_id: 1
+  receiver_id: 1
+  message_template_id: 1
+  state: pending
+
+two:
+  sender_id: 1
+  receiver_id: 1
+  message_template_id: 1
+  state: pending
+
+# == Schema Information
+#
+# Table name: message_requests
+#
+#  id                  :integer         not null, primary key
+#  sender_id           :integer
+#  receiver_id         :integer
+#  message_template_id :integer
+#  sent_at             :datetime
+#  deleted_at          :datetime
+#  body                :text
+#  state               :string(255)
+#  created_at          :datetime
+#  updated_at          :datetime
+#
+

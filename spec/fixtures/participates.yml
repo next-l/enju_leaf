@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  agent_id: 1
+  event_id: 1
+  position: 1
+
+two:
+  agent_id: 2
+  event_id: 1
+  position: 2
+
+# == Schema Information
+#
+# Table name: participates
+#
+#  id         :integer          not null, primary key
+#  agent_id   :integer          not null
+#  event_id   :integer          not null
+#  position   :integer
+#  created_at :datetime
+#  updated_at :datetime
+#

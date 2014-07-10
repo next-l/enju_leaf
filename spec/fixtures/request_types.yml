@@ -1,0 +1,55 @@
+--- 
+request_type_00005: 
+  name: Stack Retrieval  
+  display_name: Stack Retrieval
+  updated_at: 2008-02-13 18:44:10.145739 +09:00
+  id: 5
+  position: 5
+  note: ""
+  created_at: 2008-02-13 18:44:10.145739 +09:00
+request_type_00001: 
+  name: Estimate  
+  display_name: Estimate
+  updated_at: 2008-02-13 18:43:33.710810 +09:00
+  id: 1
+  position: 1
+  note: ""
+  created_at: 2008-02-13 18:43:33.710810 +09:00
+request_type_00002: 
+  name: Hold  
+  display_name: Hold
+  updated_at: 2008-02-13 18:43:42.151759 +09:00
+  id: 2
+  position: 2
+  note: ""
+  created_at: 2008-02-13 18:43:42.151759 +09:00
+request_type_00003: 
+  name: Loan  
+  display_name: Loan
+  updated_at: 2008-02-13 18:43:51.940315 +09:00
+  id: 3
+  position: 3
+  note: ""
+  created_at: 2008-02-13 18:43:51.940315 +09:00
+request_type_00004: 
+  name: Non-Returnable Copy  
+  display_name: Non-Returnable Copy
+  updated_at: 2008-02-13 18:44:00.870893 +09:00
+  id: 4
+  position: 4
+  note: ""
+  created_at: 2008-02-13 18:44:00.870893 +09:00
+
+# == Schema Information
+#
+# Table name: request_types
+#
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+

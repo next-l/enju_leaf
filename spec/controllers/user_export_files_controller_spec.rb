@@ -16,26 +16,26 @@ describe UserExportFilesController do
     describe "When logged in as Librarian" do
       login_librarian
 
-      it "assigns empty as @user_export_files" do
+      it "assigns nil as @user_export_files" do
         get :index
-        assigns(:user_export_files).should be_empty
+        assigns(:user_export_files).should be_nil
       end
     end
 
     describe "When logged in as User" do
       login_user
 
-      it "assigns empty as @user_export_files" do
+      it "assigns nil as @user_export_files" do
         get :index
-        assigns(:user_export_files).should be_empty
+        assigns(:user_export_files).should be_nil
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
-      it "assigns empty as @user_export_files" do
+      it "assigns nil as @user_export_files" do
         get :index
-        assigns(:user_export_files).should be_empty
+        assigns(:user_export_files).should be_nil
         response.should redirect_to(new_user_session_url)
       end
     end
@@ -97,7 +97,7 @@ describe UserExportFilesController do
 
       it "should not assign the requested user_export_file as @user_export_file" do
         get :new
-        assigns(:user_export_file).should_not be_valid
+        assigns(:user_export_file).should be_valid
         response.should be_forbidden
       end
     end
@@ -107,7 +107,7 @@ describe UserExportFilesController do
 
       it "should not assign the requested user_export_file as @user_export_file" do
         get :new
-        assigns(:user_export_file).should_not be_valid
+        assigns(:user_export_file).should be_valid
         response.should be_forbidden
       end
     end
