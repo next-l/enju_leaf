@@ -128,7 +128,11 @@ module EnjuLeaf
             lines << u.user_group.updated_at
             lines << u.user_group.expired_at
             lines << u.keyword_list.try(:split).try(:join, "//")
-            lines << u.user_group.try(:save_checkout_history)
+            if defined?(EnjuCirculation)
+              lines << u.try(:save_checkout_history)
+            else
+              lines << nil
+            end
             lines << u.note
             note
           }
