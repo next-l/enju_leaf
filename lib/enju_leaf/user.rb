@@ -127,7 +127,7 @@ module EnjuLeaf
             lines << u.user_group.created_at
             lines << u.user_group.updated_at
             lines << u.user_group.expired_at
-            lines << u.keyword_list.split.join("//")
+            lines << u.keyword_list.try(:split).try(:join, "//")
             lines << u.user_group.try(:save_checkout_history)
             lines << u.note
             note
