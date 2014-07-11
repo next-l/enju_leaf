@@ -129,7 +129,7 @@ describe UserExportFilesController do
       end
 
       it "should create agent_export_file" do
-        post :create, :user_export_file => { }
+        post :create, :user_export_file => {mode: 'export'}
         assigns(:user_export_file).should be_valid
         assigns(:user_export_file).user.username.should eq @user.username
         response.should redirect_to user_export_file_url(assigns(:user_export_file))
@@ -143,9 +143,8 @@ describe UserExportFilesController do
       end
 
       it "should create agent_export_file" do
-        post :create, :user_export_file => { }
-        assigns(:user_export_file).should_not be_valid
-        assigns(:user_export_file).user.should be_nil
+        post :create, :user_export_file => {mode: 'export'}
+        assigns(:user_export_file).should be_nil
         response.should be_forbidden
       end
     end
@@ -157,16 +156,16 @@ describe UserExportFilesController do
       end
 
       it "should be forbidden" do
-        post :create, :user_export_file => { }
-        assigns(:user_export_file).user.should be_nil
+        post :create, :user_export_file => {mode: 'export'}
+        assigns(:user_export_file).should be_nil
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "should be redirected to new session url" do
-        post :create, :user_export_file => { }
-        assigns(:user_export_file).user.should be_nil
+        post :create, :user_export_file => {mode: 'export'}
+        assigns(:user_export_file).should be_nil
         response.should redirect_to new_user_session_url
       end
     end
@@ -217,7 +216,7 @@ describe UserExportFilesController do
       login_admin
 
       it "should update user_export_file" do
-        put :update, :id => user_export_files(:user_export_file_00003).id, :user_export_file => { }
+        put :update, :id => user_export_files(:user_export_file_00003).id, :user_export_file => {mode: 'export'}
         response.should redirect_to user_export_file_url(assigns(:user_export_file))
       end
     end
@@ -226,7 +225,7 @@ describe UserExportFilesController do
       login_librarian
 
       it "should update user_export_file" do
-        put :update, :id => user_export_files(:user_export_file_00003).id, :user_export_file => { }
+        put :update, :id => user_export_files(:user_export_file_00003).id, :user_export_file => {mode: 'export'}
         response.should be_forbidden
       end
     end
@@ -235,14 +234,14 @@ describe UserExportFilesController do
       login_user
 
       it "should not update user_export_file" do
-        put :update, :id => user_export_files(:user_export_file_00003).id, :user_export_file => { }
+        put :update, :id => user_export_files(:user_export_file_00003).id, :user_export_file => {mode: 'export'}
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "should not update user_export_file" do
-        put :update, :id => user_export_files(:user_export_file_00003).id, :user_export_file => { }
+        put :update, :id => user_export_files(:user_export_file_00003).id, :user_export_file => {mode: 'export'}
         response.should redirect_to new_user_session_url
       end
     end

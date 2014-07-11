@@ -25,7 +25,9 @@ class UserExportFilesController < ApplicationController
 
   # POST /user_export_files
   def create
+    authorize UserExportFile
     @user_export_file = UserExportFile.new(user_export_file_params)
+    @user_export_file.user = current_user
     if @user_export_file.save
       if @user_export_file.mode == 'export'
         Resque.enqueue(UserExportFileQueue, @user_export_file.id)
