@@ -36,9 +36,8 @@ module EnjuLeaf
         #has_one :agent_import_result
         accepts_nested_attributes_for :user_has_role
 
-        validates :username, :presence => true, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z][0-9A-Za-z_\-]*[0-9A-Za-z]\Z/}, :allow_blank => true
-        validates_uniqueness_of :email, :allow_blank => true
-        validates :email, :format => Devise::email_regexp, :allow_blank => true
+        validates :username, :presence => true, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z][0-9A-Za-z_\-]*[0-9A-Za-z]\Z/}
+        validates :email, :format => Devise::email_regexp, :allow_blank => true, :uniqueness => true
         validates_date :expired_at, :allow_blank => true
 
         with_options :if => :password_required? do |v|
@@ -114,8 +113,10 @@ module EnjuLeaf
             updated_at
             expired_at
             keyword_list
-            save_checkout_history
             note
+            save_checkout_history
+            save_search_history
+            share_bookmark
           ).join("\t")
           users = User.all.map{|u|
             lines = []
@@ -130,12 +131,22 @@ module EnjuLeaf
             lines << u.updated_at
             lines << u.expired_at
             lines << u.keyword_list.try(:split).try(:join, "//")
+            lines << u.note
             if defined?(EnjuCirculation)
               lines << u.try(:save_checkout_history)
             else
               lines << nil
             end
-            lines << u.note
+            if defined?(EnjuSearchLog)
+              lines << u.try(:save_search_history)
+            else
+              lines << nil
+            end
+            if defined?(EnjuBookmark)
+              lines << u.try(:share_bookmark)
+            else
+              lines << nil
+            end
           }
           if options[:format] == :tsv
             users.map{|u| u.join("\t")}.unshift(header).join("\r\n")
@@ -165,7 +176,7 @@ module EnjuLeaf
       end
 
       def set_role_and_agent
-        self.required_role = Role.where(:name => 'Librarian').first
+        self.required_role = Role.where(name: 'Librarian').first
         self.locale = I18n.default_locale.to_s unless locale
         #unless self.agent
         #  self.agent = Agent.create(:full_name => self.username) if self.username
