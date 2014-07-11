@@ -73,28 +73,7 @@ class UserImportFile < ActiveRecord::Base
         end
         new_user.operator = user
         new_user.username = username
-        new_user.email = row['email'] if row['email'].present?
-        if row['user_group'].present?
-          new_user.user_group = UserGroup.where(:name => row['user_group']).first
-        end
-        new_user.user_number = row['user_number']
-        if row['expired_at'].present?
-          new_user.expired_at = Time.zone.parse(row['expired_at']).end_of_day
-        end
-        new_user.note = row['note']
-
-        if I18n.available_locales.include?(row['locale'].to_s.to_sym)
-          new_user.locale = row['locale']
-        end
-
-        library = Library.where(:name => row['library'].to_s.strip).first || Library.web
-        new_user.library = library
-
-        if row['password'].present?
-          new_user.password = row['password']
-        else
-          new_user.set_auto_generated_password
-        end
+        new_user.assign_attributes(set_user_params(new_user, row), as: :admin)
 
         if new_user.save
           num[:user_imported] += 1
@@ -118,8 +97,42 @@ class UserImportFile < ActiveRecord::Base
 
   def modify
     transition_to!(:started)
-    transition_to!(:completed)
+    num = {:user_updated => 0, :user_not_found => 0, :failed => 0}
+    rows = open_import_file(create_import_temp_file)
     row_num = 1
+
+    field = rows.first
+    if [field['username']].reject{|f| f.to_s.strip == ""}.empty?
+      raise "username column is not found"
+    end
+
+    rows.each do |row|
+      row_num += 1
+      next if row['dummy'].to_s.strip.present?
+      import_result = UserImportResult.create!(
+        :user_import_file_id => id, :body => row.fields.join("\t")
+      )
+
+      username = row['username']
+      new_user = User.where(:username => username).first
+      if new_user
+        new_user.assign_attributes(set_user_params(new_user, row), as: :admin)
+        if new_user.save
+          num[:user_updated] += 1
+          import_result.user = new_user
+          import_result.save!
+        else
+          num[:failed] += 1
+        end
+      else
+        num[:user_not_found] += 1
+      end
+    end
+
+    rows.close
+    transition_to!(:completed)
+    Sunspot.commit
+    num
   rescue => e
     self.error_message = "line #{row_num}: #{e.message}"
     transition_to!(:failed)
@@ -186,6 +199,38 @@ class UserImportFile < ActiveRecord::Base
     end
   rescue
     Rails.logger.info "#{Time.zone.now} importing resources failed!"
+  end
+
+  private
+  def set_user_params(new_user, row)
+    params = {}
+    params[:email] = row['email'] if row['email'].present?
+    if row['user_group'].present?
+      user_group = UserGroup.where(name: row['user_group']).first
+      params[:user_group_id] = user_group.id if user_group
+    end
+    params[:user_number] = row['user_number']
+    if row['expired_at'].present?
+      params[:expired_at] = Time.zone.parse(row['expired_at']).end_of_day
+    end
+    if row['keyword_list'].present?
+      params[:keyword_list] = row['keyword_list'].split('//').join('\n')
+    end
+    params[:note] = row['note']
+
+    if I18n.available_locales.include?(row['locale'].to_s.to_sym)
+      params[:locale] = row['locale']
+    end
+
+    library = Library.where(name: row['library'].to_s.strip).first || Library.web
+    params[:library_id] = library.id if library
+
+    if row['password'].present?
+      params[:password] = row['password']
+    else
+      params[:password] = Devise.friendly_token[0..7]
+    end
+    params
   end
 end
 

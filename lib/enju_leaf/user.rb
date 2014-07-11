@@ -120,8 +120,10 @@ module EnjuLeaf
             updated_at
             expired_at
             keyword_list
-            save_checkout_history
             note
+            save_checkout_history
+            save_search_history
+            share_bookmark
           ).join("\t")
           users = User.all.map{|u|
             lines = []
@@ -136,12 +138,22 @@ module EnjuLeaf
             lines << u.user_group.updated_at
             lines << u.user_group.expired_at
             lines << u.keyword_list.try(:split).try(:join, "//")
+            lines << u.note
             if defined?(EnjuCirculation)
               lines << u.try(:save_checkout_history)
             else
               lines << nil
             end
-            lines << u.note
+            if defined?(EnjuSearchLog)
+              lines << u.try(:save_search_history)
+            else
+              lines << nil
+            end
+            if defined?(EnjuBookmark)
+              lines << u.try(:share_bookmark)
+            else
+              lines << nil
+            end
           }
           if options[:format] == :tsv
             users.map{|u| u.join("\t")}.unshift(header).join("\r\n")
