@@ -47,8 +47,7 @@ module EnjuLeaf
         accepts_nested_attributes_for :user_has_role
 
         validates :username, :presence => true, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z][0-9A-Za-z_\-]*[0-9A-Za-z]\Z/}
-        validates_uniqueness_of :email, :allow_blank => true
-        validates :email, :format => Devise::email_regexp, :allow_blank => true
+        validates :email, :format => Devise::email_regexp, :allow_blank => true, :uniqueness => true
         validates_date :expired_at, :allow_blank => true
 
         with_options :if => :password_required? do |v|
@@ -129,8 +128,8 @@ module EnjuLeaf
             lines = []
             lines << u.username
             lines << u.email
-            lines << u.role.name
             lines << u.user_number
+            lines << u.role.name
             lines << u.user_group.try(:name)
             lines << u.library.try(:name)
             lines << u.locale
@@ -189,8 +188,8 @@ module EnjuLeaf
       end
 
       def set_role_and_agent
-        self.required_role = Role.where(:name => 'Librarian').first
-        self.locale = I18n.default_locale.to_s
+        self.required_role = Role.where(name: 'Librarian').first
+        self.locale = I18n.default_locale.to_s unless locale
         #unless self.agent
         #  self.agent = Agent.create(:full_name => self.username) if self.username
         #end

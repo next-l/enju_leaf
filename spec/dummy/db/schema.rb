@@ -1162,11 +1162,11 @@ ActiveRecord::Schema.define(version: 20140709113905) do
     t.integer  "manifestation_id"
     t.text     "note"
     t.text     "title_subseries_transcription"
-    t.integer  "root_manifestation_id"
     t.text     "creator_string"
     t.text     "volume_number_string"
     t.text     "volume_number_transcription_string"
     t.boolean  "series_master"
+    t.integer  "root_manifestation_id"
   end
 
   add_index "series_statements", ["manifestation_id"], name: "index_series_statements_on_manifestation_id"
@@ -1390,6 +1390,8 @@ ActiveRecord::Schema.define(version: 20140709113905) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "save_checkout_history",    default: false, null: false
+    t.string   "checkout_icalendar_token"
     t.string   "username"
     t.string   "user_number"
     t.string   "locale"
@@ -1404,8 +1406,6 @@ ActiveRecord::Schema.define(version: 20140709113905) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.datetime "confirmed_at"
-    t.boolean  "save_checkout_history",    default: false, null: false
-    t.string   "checkout_icalendar_token"
   end
 
   add_index "users", ["checkout_icalendar_token"], name: "index_users_on_checkout_icalendar_token", unique: true
