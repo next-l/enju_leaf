@@ -2,6 +2,7 @@
 RSpec.configure do |config|
   REDIS_PID = "#{Rails.root}/tmp/pids/redis-test.pid"
   REDIS_CACHE_PATH = "#{Rails.root}/tmp/cache/"
+  Resque.redis = 'localhost:9736'
 
   unless ENV["TRAVIS"]
     config.before(:suite) do
