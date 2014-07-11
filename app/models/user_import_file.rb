@@ -73,7 +73,7 @@ class UserImportFile < ActiveRecord::Base
         end
         new_user.operator = user
         new_user.username = username
-        new_user.assign_attributes(set_user_params(new_user, row), as: :admin)
+        new_user.assign_attributes(set_user_params(new_user, row))
 
         if new_user.save
           num[:user_imported] += 1
@@ -131,7 +131,6 @@ class UserImportFile < ActiveRecord::Base
 
     rows.close
     transition_to!(:completed)
-    Sunspot.commit
     num
   rescue => e
     self.error_message = "line #{row_num}: #{e.message}"
