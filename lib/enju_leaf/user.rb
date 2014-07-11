@@ -131,12 +131,12 @@ module EnjuLeaf
             lines << u.email
             lines << u.role.name
             lines << u.user_number
-            lines << u.user_group.name
-            lines << u.library.name
+            lines << u.user_group.try(:name)
+            lines << u.library.try(:name)
             lines << u.locale
-            lines << u.user_group.created_at
-            lines << u.user_group.updated_at
-            lines << u.user_group.expired_at
+            lines << u.created_at
+            lines << u.updated_at
+            lines << u.expired_at
             lines << u.keyword_list.try(:split).try(:join, "//")
             lines << u.note
             if defined?(EnjuCirculation)
