@@ -106,6 +106,7 @@ module EnjuLeaf
             username
             email
             user_number
+            role
             user_group
             library
             locale
@@ -121,6 +122,7 @@ module EnjuLeaf
             lines << u.username
             lines << u.email
             lines << u.user_number
+            lines << u.role.name
             lines << u.user_group.name
             lines << u.library.name
             lines << u.locale
