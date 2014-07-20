@@ -80,12 +80,7 @@ class UsersController < ApplicationController
     @user = User.new
     prepare_options
     @user_groups = UserGroup.all
-    if @agent.try(:user)
-      flash[:notice] = t('user.already_activated')
-      redirect_to @agent
-      return
-    end
-    @user.agent_id = @agent.id if @agent
+    @user.user_group = current_user.user_group
     @user.library = current_user.library
     @user.locale = current_user.locale
   end
