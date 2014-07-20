@@ -122,4 +122,6 @@ end
 #  created_at               :datetime
 #  updated_at               :datetime
 #  user_encoding            :string(255)
+#  default_library_id       :integer
+#  default_user_group_id    :integer
 #
