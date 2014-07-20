@@ -11,7 +11,6 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
     inject_into_file 'config/application.rb', :after => /# config.i18n.default_locale = :de$\n/ do
       <<"EOS"
     config.i18n.available_locales = [:en, :ja]
-    config.i18n.enforce_available_locales = true
 EOS
     end
     gsub_file 'config/application.rb', /# config.i18n.default_locale = :de$/,
