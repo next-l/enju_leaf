@@ -229,6 +229,17 @@ class UserImportFile < ActiveRecord::Base
     else
       params[:password] = Devise.friendly_token[0..7]
     end
+
+    if defined?(EnjuCirculation)
+      params[:checkout_icalendar_token] = row['checkout_icalendar_token'] if row['checkout_icalendar_token'].present?
+      params[:save_checkout_history] = row['save_checkout_history'] if row['save_checkout_history'].present?
+    end
+    if defined?(EnjuSearchLog)
+      params[:save_search_history] = row['save_search_history'] if row['save_search_history'].present?
+    end
+    if defined?(EnjuBookmark)
+      params[:share_bookmarks] = row['share_bookmarks'] if row['share_bookmarks'].present?
+    end
     params
   end
 end

@@ -15,6 +15,8 @@ gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer"
 gem "enju_message", :github => "next-l/enju_message"
 gem "enju_event", :github => "next-l/enju_event"
 gem "enju_circulation", :github => "next-l/enju_circulation"
+gem "enju_search_log", :github => "next-l/enju_search_log"
+gem "enju_bookmark", :github => "next-l/enju_bookmark"
 
 # To use debugger
 # gem 'debugger'
