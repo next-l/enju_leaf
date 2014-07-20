@@ -66,6 +66,7 @@ class UserImportFilesController < ApplicationController
         format.html { redirect_to @user_import_file, :notice => t('controller.successfully_created', :model => t('activerecord.models.user_import_file')) }
         format.json { render :json => @user_import_file, :status => :created, :location => @user_import_file }
       else
+        prepare_options
         format.html { render :action => "new" }
         format.json { render :json => @user_import_file.errors, :status => :unprocessable_entity }
       end
