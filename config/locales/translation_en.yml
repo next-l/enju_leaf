@@ -73,6 +73,8 @@ en:
         edit_mode: Edit mode
         error_message: Error message
         user_encoding: Encoding
+        default_user_group_id: Default user group
+        default_library_id: Default library
       user_import_result:
         body: Body
       user_export_file:

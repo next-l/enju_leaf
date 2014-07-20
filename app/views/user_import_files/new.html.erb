@@ -32,6 +32,16 @@
     <%= f.label :user_encoding, 'EUC-JP', value: 'euc-jp' %>
   </div>
 
+  <div class="field">
+    <%= f.label :default_user_group_id -%>
+    <%= f.select(:default_user_group_id, @user_groups.collect{|u| [u.display_name.localize, u.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :default_library_id -%>
+    <%= f.select(:default_library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%>
+  </div>
+
   <div class="actions">
     <%= f.hidden_field :mode, value: 'import' %>
     <%= f.submit t('page.start_import') %>

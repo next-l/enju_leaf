@@ -73,6 +73,8 @@ ja:
         edit_mode: 編集モード
         error_message: エラーメッセージ
         user_encoding: 文字コード
+        default_user_group_id: 既定の利用者グループ
+        default_library_id: 既定の図書館
       user_import_result:
         body: 本文
       user_export_file:

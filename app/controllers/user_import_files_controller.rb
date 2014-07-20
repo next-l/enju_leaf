@@ -38,6 +38,9 @@ class UserImportFilesController < ApplicationController
   # GET /user_import_files/new.json
   def new
     @user_import_file = UserImportFile.new
+    @user_import_file.default_user_group = current_user.user_group
+    @user_import_file.default_library = current_user.library
+    prepare_options
 
     respond_to do |format|
       format.html # new.html.erb
@@ -80,6 +83,7 @@ class UserImportFilesController < ApplicationController
         format.html { redirect_to @user_import_file, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user_import_file')) }
         format.json { head :no_content }
       else
+	prepare_options
         format.html { render :action => "edit" }
         format.json { render :json => @user_import_file.errors, :status => :unprocessable_entity }
       end
@@ -95,5 +99,11 @@ class UserImportFilesController < ApplicationController
       format.html { redirect_to(user_import_files_url) }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def prepare_options
+    @user_groups = UserGroup.all
+    @libraries = Library.all
   end
 end

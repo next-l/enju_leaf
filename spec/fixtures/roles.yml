@@ -18,4 +18,18 @@ role_00004:
   name: Administrator  
   display_name: Administrator
   id: 4
-  note: 
+  note:
+
+# == Schema Information
+#
+# Table name: roles
+#
+#  id           :integer          not null, primary key
+#  name         :string(255)      not null
+#  display_name :string(255)
+#  note         :text
+#  created_at   :datetime
+#  updated_at   :datetime
+#  score        :integer          default(0), not null
+#  position     :integer
+#

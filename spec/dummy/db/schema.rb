@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140709113905) do
+ActiveRecord::Schema.define(:version => 20140720170735) do
 
   create_table "accepts", :force => true do |t|
     t.integer  "basket_id"
@@ -1354,6 +1354,8 @@ ActiveRecord::Schema.define(:version => 20140709113905) do
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
     t.string   "user_encoding"
+    t.integer  "default_library_id"
+    t.integer  "default_user_group_id"
   end
 
   create_table "user_import_results", :force => true do |t|
