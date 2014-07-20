@@ -7,6 +7,8 @@ describe UserImportFile do
   describe "when its mode is 'create'" do
     before(:each) do
       @file = UserImportFile.new :user_import => File.new("#{Rails.root.to_s}/../../examples/user_import_file_sample.tsv")
+      @file.default_user_group = UserGroup.find(2)
+      @file.default_library = Library.find(3)
       @file.user = users(:admin)
       @file.save
     end
@@ -25,6 +27,9 @@ describe UserImportFile do
       user002.user_group.name.should eq 'faculty'
       user002.expired_at.to_i.should eq Time.zone.parse('2013-12-01').end_of_day.to_i
       user002.valid_password?('4NsxXPLy')
+      user002.user_number.should eq '001002'
+      user002.library.name.should eq 'hachioji'
+      user002.locale.should eq 'en'
 
       user003 = User.where(:username => 'user003').first
       user002.user_number.should eq '001002'
@@ -42,17 +47,17 @@ describe UserImportFile do
 
       user005 = User.where(username: 'user005').first
       user005.role.name.should eq 'User'
-      user005.library.name.should eq 'web'
+      user005.library.name.should eq 'hachioji'
       user005.locale.should eq 'en'
       user005.user_number.should eq '001005'
       user005.user_group.name.should eq 'faculty'
 
       user006 = User.where(username: 'user006').first
       user006.role.name.should eq 'User'
-      user006.library.name.should eq 'web'
+      user006.library.name.should eq 'hachioji'
       user006.locale.should eq 'en'
       user006.user_number.should be_nil
-      user006.user_group.name.should eq 'not_specified'
+      user006.user_group.name.should eq UserGroup.find(2).name
 
       @file.user_import_fingerprint.should be_truthy
       @file.executed_at.should be_truthy

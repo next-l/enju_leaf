@@ -34,6 +34,9 @@ class UserImportFilesController < ApplicationController
   def new
     @user_import_file = UserImportFile.new
     authorize @user_import_file
+    @user_import_file.default_user_group = current_user.user_group
+    @user_import_file.default_library = current_user.library
+    prepare_options
   end
 
   # GET /user_import_files/1/edit
@@ -52,6 +55,7 @@ class UserImportFilesController < ApplicationController
       end
       redirect_to @user_import_file, notice: t('controller.successfully_created', :model => t('activerecord.models.user_import_file'))
     else
+      prepare_options
       render action: 'new'
     end
   end
@@ -64,6 +68,7 @@ class UserImportFilesController < ApplicationController
       end
       redirect_to @user_import_file, notice: t('controller.successfully_updated', :model => t('activerecord.models.user_import_file'))
     else
+      prepare_options
       render action: 'edit'
     end
   end
@@ -90,5 +95,10 @@ class UserImportFilesController < ApplicationController
       params.require(:user_import_file).permit(
         :user_import, :edit_mode, :user_encoding, :mode
       )
+    end
+
+    def prepare_options
+      @user_groups = UserGroup.all
+      @libraries = Library.all
     end
 end
