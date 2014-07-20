@@ -22,6 +22,8 @@ class UserImportFile < ActiveRecord::Base
   ]
   validates_attachment_presence :user_import
   belongs_to :user, :validate => true
+  belongs_to :default_user_group, class_name: 'UserGroup'
+  belongs_to :default_library, class_name: 'Library'
   has_many :user_import_results
 
   has_many :user_import_file_transitions
@@ -204,10 +206,11 @@ class UserImportFile < ActiveRecord::Base
   def set_user_params(new_user, row)
     params = {}
     params[:email] = row['email'] if row['email'].present?
-    if row['user_group'].present?
-      user_group = UserGroup.where(name: row['user_group']).first
-      params[:user_group_id] = user_group.id if user_group
+    user_group = UserGroup.where(name: row['user_group']).first
+    unless user_group
+      user_group = default_user_group
     end
+    params[:user_group_id] = user_group.id if user_group
     params[:user_number] = row['user_number']
     if row['expired_at'].present?
       params[:expired_at] = Time.zone.parse(row['expired_at']).end_of_day
@@ -221,7 +224,10 @@ class UserImportFile < ActiveRecord::Base
       params[:locale] = row['locale']
     end
 
-    library = Library.where(name: row['library'].to_s.strip).first || Library.web
+    library = Library.where(name: row['library'].to_s.strip).first
+    unless library
+      library = default_library || Library.web
+    end
     params[:library_id] = library.id if library
 
     if row['password'].present?
@@ -262,4 +268,6 @@ end
 #  created_at               :datetime
 #  updated_at               :datetime
 #  user_encoding            :string(255)
+#  default_library_id       :integer
+#  default_user_group_id    :integer
 #

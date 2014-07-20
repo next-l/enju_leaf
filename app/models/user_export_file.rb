@@ -53,6 +53,6 @@ end
 #  user_export_file_size    :integer
 #  user_export_updated_at   :datetime
 #  executed_at              :datetime
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
+#  created_at               :datetime
+#  updated_at               :datetime
 #
