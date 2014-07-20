@@ -1,5 +1,6 @@
 class UserImportFile < ActiveRecord::Base
-  attr_accessible :user_import, :edit_mode, :user_encoding, :mode
+  attr_accessible :user_import, :edit_mode, :user_encoding, :mode,
+    :default_user_group_id, :default_library_id
   include Statesman::Adapters::ActiveRecordModel
   include ImportFile
   default_scope {order('user_import_files.id DESC')}
