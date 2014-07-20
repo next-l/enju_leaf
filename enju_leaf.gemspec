@@ -45,6 +45,8 @@ Gem::Specification.new do |s|
   end
   s.add_development_dependency "rspec-rails", "~> 3.0"
   #s.add_development_dependency "enju_circulation", "~> 0.2.0.pre1"
+  #s.add_development_dependency "enju_bookmark", "~> 0.2.0.pre1"
+  #s.add_development_dependency "enju_search_log", "~> 0.2.0.pre1"
   s.add_development_dependency "vcr"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "factory_girl_rails"

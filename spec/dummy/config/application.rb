@@ -22,4 +22,6 @@ module Dummy
 end
 
 require 'enju_circulation'
+require 'enju_bookmark'
+require 'enju_search_log'
 
