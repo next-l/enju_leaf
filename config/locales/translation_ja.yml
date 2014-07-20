@@ -253,6 +253,7 @@ ja:
     add_child: "子を追加"
     electronic_resource_management: 電子リソース管理
     system: システム
+    manual: マニュアル
   title:
     index: "一覧"
     show: "表示"
