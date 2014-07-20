@@ -5,14 +5,6 @@
 <%= simple_form_for(@user, :validate => true) do |f| -%>
   <%= f.error_messages -%>
 
-  <%- if @agent -%>
-    <h2 class="resource_title">
-      [P]
-      <%= link_to @agent.full_name, @agent -%>
-    </h2>
-    <%= f.hidden_field :agent_id -%>
-  <%- end -%>
-
   <div class="field">
     <%= f.label :username -%>
     <%= f.text_field :username, :class => 'resource_user' -%>
@@ -80,6 +72,6 @@
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
     <li><%= link_to t('page.listing', :model => t('activerecord.models.user')), users_path -%></li>
-    <li><%= link_to t('page.import'), new_agent_import_file_path -%></li>
+    <li><%= link_to t('page.import'), new_user_import_file_path -%></li>
   </ul>
 </div>
