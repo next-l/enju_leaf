@@ -1404,6 +1404,7 @@ ActiveRecord::Schema.define(:version => 20140709113905) do
     t.datetime "updated_at",                                  :null => false
     t.boolean  "save_checkout_history",    :default => false, :null => false
     t.string   "checkout_icalendar_token"
+    t.boolean  "share_bookmarks"
     t.boolean  "save_search_history",      :default => false, :null => false
     t.string   "username"
     t.string   "user_number"
@@ -1419,7 +1420,6 @@ ActiveRecord::Schema.define(:version => 20140709113905) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.datetime "confirmed_at"
-    t.boolean  "share_bookmarks"
   end
 
   add_index "users", ["checkout_icalendar_token"], :name => "index_users_on_checkout_icalendar_token", :unique => true
