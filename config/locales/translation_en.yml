@@ -269,6 +269,7 @@ en:
     add_child: "Add a child"
     electronic_resource_management: "Electronic resource management"
     system: System
+    manual: Manual
   title:
     index: "index"
     show: "show"
