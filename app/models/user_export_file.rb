@@ -19,7 +19,7 @@ class UserExportFile < ActiveRecord::Base
   def export!
     transition_to!(:started)
     tempfile = Tempfile.new(['user_export_file_', '.txt'])
-    file = User.export(format: :tsv)
+    file = User.export(format: :txt)
     tempfile.puts(file)
     tempfile.close
     self.user_export = File.new(tempfile.path, "r")

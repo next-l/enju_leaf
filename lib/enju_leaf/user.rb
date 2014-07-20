@@ -100,7 +100,7 @@ module EnjuLeaf
           end
         end
 
-        def export(options = {format: :tsv})
+        def export(options = {format: :txt})
           header = %w(
             username
             email
@@ -148,7 +148,7 @@ module EnjuLeaf
               lines << nil
             end
           }
-          if options[:format] == :tsv
+          if options[:format] == :txt
             users.map{|u| u.join("\t")}.unshift(header).join("\r\n")
           else
             users
