@@ -163,6 +163,57 @@ ActiveRecord::Schema.define(:version => 20140709113905) do
 
   add_index "baskets", ["user_id"], :name => "index_baskets_on_user_id"
 
+  create_table "bookmark_stat_has_manifestations", :force => true do |t|
+    t.integer  "bookmark_stat_id", :null => false
+    t.integer  "manifestation_id", :null => false
+    t.integer  "bookmarks_count"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "bookmark_stat_has_manifestations", ["bookmark_stat_id"], :name => "index_bookmark_stat_has_manifestations_on_bookmark_stat_id"
+  add_index "bookmark_stat_has_manifestations", ["manifestation_id"], :name => "index_bookmark_stat_has_manifestations_on_manifestation_id"
+
+  create_table "bookmark_stat_transitions", :force => true do |t|
+    t.string   "to_state"
+    t.text     "metadata",         :default => "{}"
+    t.integer  "sort_key"
+    t.integer  "bookmark_stat_id"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+  end
+
+  add_index "bookmark_stat_transitions", ["bookmark_stat_id"], :name => "index_bookmark_stat_transitions_on_bookmark_stat_id"
+  add_index "bookmark_stat_transitions", ["sort_key", "bookmark_stat_id"], :name => "index_bookmark_stat_transitions_on_sort_key_and_stat_id", :unique => true
+
+  create_table "bookmark_stats", :force => true do |t|
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "started_at"
+    t.datetime "completed_at"
+    t.text     "note"
+    t.string   "state"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "bookmark_stats", ["state"], :name => "index_bookmark_stats_on_state"
+
+  create_table "bookmarks", :force => true do |t|
+    t.integer  "user_id",          :null => false
+    t.integer  "manifestation_id"
+    t.text     "title"
+    t.string   "url"
+    t.text     "note"
+    t.boolean  "shared"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "bookmarks", ["manifestation_id"], :name => "index_bookmarks_on_manifestation_id"
+  add_index "bookmarks", ["url"], :name => "index_bookmarks_on_url"
+  add_index "bookmarks", ["user_id"], :name => "index_bookmarks_on_user_id"
+
   create_table "bookstores", :force => true do |t|
     t.text     "name",             :null => false
     t.string   "zip_code"
@@ -1154,6 +1205,27 @@ ActiveRecord::Schema.define(:version => 20140709113905) do
   add_index "subscriptions", ["order_list_id"], :name => "index_subscriptions_on_order_list_id"
   add_index "subscriptions", ["user_id"], :name => "index_subscriptions_on_user_id"
 
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context"
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
+
+  create_table "tags", :force => true do |t|
+    t.string   "name"
+    t.string   "name_transcription"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.integer  "taggings_count",     :default => 0
+  end
+
   create_table "use_restrictions", :force => true do |t|
     t.string   "name",         :null => false
     t.text     "display_name"
@@ -1330,6 +1402,9 @@ ActiveRecord::Schema.define(:version => 20140709113905) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
+    t.boolean  "save_checkout_history",    :default => false, :null => false
+    t.string   "checkout_icalendar_token"
+    t.boolean  "save_search_history",      :default => false, :null => false
     t.string   "username"
     t.string   "user_number"
     t.string   "locale"
@@ -1344,8 +1419,7 @@ ActiveRecord::Schema.define(:version => 20140709113905) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.datetime "confirmed_at"
-    t.boolean  "save_checkout_history",    :default => false, :null => false
-    t.string   "checkout_icalendar_token"
+    t.boolean  "share_bookmarks"
   end
 
   add_index "users", ["checkout_icalendar_token"], :name => "index_users_on_checkout_icalendar_token", :unique => true

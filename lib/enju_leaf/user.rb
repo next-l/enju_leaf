@@ -114,9 +114,10 @@ module EnjuLeaf
             expired_at
             keyword_list
             note
+	    checkout_icalendar_token
             save_checkout_history
             save_search_history
-            share_bookmark
+            share_bookmarks
           ).join("\t")
           users = User.all.map{|u|
             lines = []
@@ -133,6 +134,7 @@ module EnjuLeaf
             lines << u.keyword_list.try(:split).try(:join, "//")
             lines << u.note
             if defined?(EnjuCirculation)
+              lines << u.try(:checkout_icalendar_token)
               lines << u.try(:save_checkout_history)
             else
               lines << nil
@@ -143,7 +145,7 @@ module EnjuLeaf
               lines << nil
             end
             if defined?(EnjuBookmark)
-              lines << u.try(:share_bookmark)
+              lines << u.try(:share_bookmarks)
             else
               lines << nil
             end

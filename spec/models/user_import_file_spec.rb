@@ -35,6 +35,10 @@ describe UserImportFile do
       user003.user_number.should eq '001003'
       user003.library.name.should eq 'kamata'
       user003.locale.should eq 'ja'
+      user003.checkout_icalendar_token.should eq 'secrettoken'
+      user003.save_checkout_history.should be_truthy
+      user003.save_search_history.should be_falsy
+      user003.share_bookmarks.should be_falsy
       User.where(:username => 'user000').first.should be_nil
       UserImportResult.count.should eq old_import_results_count + 6
 
