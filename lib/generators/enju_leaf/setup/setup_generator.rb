@@ -14,7 +14,6 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
     config.i18n.enforce_available_locales = true
 EOS
     end
-      "    config.i18n.enforce_available_locales = true\n",
     gsub_file 'config/application.rb', /# config.i18n.default_locale = :de$/,
       "config.i18n.default_locale = :ja"
     gsub_file 'config/application.rb', /# config.time_zone = 'Central Time \(US & Canada\)'$/,
