@@ -4,7 +4,6 @@ class CreateLibraryGroups < ActiveRecord::Migration
       t.string :name, :null => false
       t.text :display_name
       t.string :short_name, :null => false
-      t.string :email
       t.text :my_networks
       t.text :login_banner
       t.text :note

@@ -8,6 +8,7 @@ gemspec
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
 gem "enju_circulation", :github => "next-l/enju_circulation", branch: '1.1'
+gem "enju_library", :github => "next-l/enju_library", branch: '1.1'
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or
