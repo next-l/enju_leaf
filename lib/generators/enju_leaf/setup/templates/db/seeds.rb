@@ -16,7 +16,7 @@ Sunspot.session = Sunspot::Rails::StubSessionProxy.new(Sunspot.session)
 system_user = User.new
 system_user.username = 'system'
 system_user.password = SecureRandom.urlsafe_base64(32)
-system_user.email = system_user.email_confirmation = LibraryGroup.first.email
+system_user.email = system_user.email_confirmation = 'root@library.example.jp'
 system_user.save!
 system_user.role = Role.where(:name => 'Administrator').first
 system_user.index

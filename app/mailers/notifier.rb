@@ -4,7 +4,7 @@ class Notifier < ActionMailer::Base
   def message_notification(message_id)
     message = Message.find(message_id)
     I18n.locale = message.receiver.locale.try(:to_sym) || I18n.default_locale
-    from = "#{LibraryGroup.system_name(message.receiver.locale)} <#{LibraryGroup.site_config.email}>"
+    from = "#{LibraryGroup.system_name(message.receiver.locale)} <#{LibraryGroup.site_config.user.email}>"
     if message.subject
       subject = message.subject
     else
@@ -24,7 +24,7 @@ class Notifier < ActionMailer::Base
   def manifestation_info(user_id, manifestation_id)
     user = User.find(user_id)
     manifestation = Manifestation.find(manifestation_id)
-    from = "#{LibraryGroup.system_name(user.locale)} <#{LibraryGroup.site_config.email}>"
+    from = "#{LibraryGroup.system_name(user.locale)} <#{LibraryGroup.site_config.user.email}>"
     subject = "#{manifestation.original_title} : #{LibraryGroup.system_name(user.locale)}"
     @user = user
     @manifestation = manifestation
