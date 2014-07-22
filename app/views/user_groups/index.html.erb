@@ -6,8 +6,10 @@
   <tr>
     <th id="position"></th>
     <th><%= t('activerecord.attributes.user_group.name') -%></th>
-    <th><%= t('activerecord.attributes.user_group.display_name') -%></th>
-    <th><%= t('activerecord.attributes.user_group.note') -%></th>
+    <th>
+      <%= t('activerecord.attributes.user_group.display_name') -%>
+      /
+      <%= t('activerecord.attributes.user_group.note') -%>
     <th></th>
   </tr>
 
@@ -18,9 +20,11 @@
         <%= move_position(user_group) -%>
       <%- end -%>
     </td>
-    <td><%= link_to user_group.name, user_group -%></td>
-    <td><%= link_to user_group.display_name.localize, user_group -%></td>
-    <td><%= user_group.note -%></td>
+    <td><%= user_group.name -%></td>
+    <td>
+      <%= link_to user_group.display_name.localize, user_group -%>
+      <br />
+      <%= user_group.note -%>
     <td>
       <%- if policy(user_group).update? -%>
         <%= link_to t('page.edit'), edit_user_group_path(user_group) -%>
