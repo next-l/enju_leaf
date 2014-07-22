@@ -94,7 +94,7 @@ describe UserGroupsController do
       it "assigns the requested user_group as @user_group" do
         get :new
         assigns(:user_group).should_not be_valid
-        response.should be_success
+        expect(response).to be_success
       end
     end
 
@@ -104,7 +104,7 @@ describe UserGroupsController do
       it "should not assign the requested user_group as @user_group" do
         get :new
         assigns(:user_group).should_not be_valid
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -114,7 +114,7 @@ describe UserGroupsController do
       it "should not assign the requested user_group as @user_group" do
         get :new
         assigns(:user_group).should_not be_valid
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -122,7 +122,7 @@ describe UserGroupsController do
       it "should not assign the requested user_group as @user_group" do
         get :new
         assigns(:user_group).should_not be_valid
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -144,7 +144,7 @@ describe UserGroupsController do
       it "assigns the requested user_group as @user_group" do
         user_group = FactoryGirl.create(:user_group)
         get :edit, :id => user_group.id
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -154,7 +154,7 @@ describe UserGroupsController do
       it "assigns the requested user_group as @user_group" do
         user_group = FactoryGirl.create(:user_group)
         get :edit, :id => user_group.id
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -162,7 +162,7 @@ describe UserGroupsController do
       it "should not assign the requested user_group as @user_group" do
         user_group = FactoryGirl.create(:user_group)
         get :edit, :id => user_group.id
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -184,7 +184,7 @@ describe UserGroupsController do
 
         it "redirects to the created patron" do
           post :create, :user_group => @attrs
-          response.should redirect_to(assigns(:user_group))
+          expect(response).to redirect_to(assigns(:user_group))
         end
       end
 
@@ -196,7 +196,7 @@ describe UserGroupsController do
 
         it "re-renders the 'new' template" do
           post :create, :user_group => @invalid_attrs
-          response.should render_template("new")
+          expect(response).to render_template("new")
         end
       end
     end
@@ -212,7 +212,7 @@ describe UserGroupsController do
 
         it "should be forbidden" do
           post :create, :user_group => @attrs
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
@@ -224,7 +224,7 @@ describe UserGroupsController do
 
         it "should be forbidden" do
           post :create, :user_group => @invalid_attrs
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -240,7 +240,7 @@ describe UserGroupsController do
 
         it "should be forbidden" do
           post :create, :user_group => @attrs
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
@@ -252,7 +252,7 @@ describe UserGroupsController do
 
         it "should be forbidden" do
           post :create, :user_group => @invalid_attrs
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -266,7 +266,7 @@ describe UserGroupsController do
 
         it "should be forbidden" do
           post :create, :user_group => @attrs
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
@@ -278,7 +278,7 @@ describe UserGroupsController do
 
         it "should be forbidden" do
           post :create, :user_group => @invalid_attrs
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -306,14 +306,14 @@ describe UserGroupsController do
 
         it "moves its position when specified" do
           put :update, :id => @user_group.id, :user_group => @attrs, :move => 'lower'
-          response.should redirect_to(user_groups_url)
+          expect(response).to redirect_to(user_groups_url)
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested user_group as @user_group" do
           put :update, :id => @user_group.id, :user_group => @invalid_attrs
-          response.should render_template("edit")
+          expect(response).to render_template("edit")
         end
       end
     end
@@ -329,14 +329,14 @@ describe UserGroupsController do
         it "assigns the requested user_group as @user_group" do
           put :update, :id => @user_group.id, :user_group => @attrs
           assigns(:user_group).should eq(@user_group)
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested user_group as @user_group" do
           put :update, :id => @user_group.id, :user_group => @invalid_attrs
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -352,14 +352,14 @@ describe UserGroupsController do
         it "assigns the requested user_group as @user_group" do
           put :update, :id => @user_group.id, :user_group => @attrs
           assigns(:user_group).should eq(@user_group)
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested user_group as @user_group" do
           put :update, :id => @user_group.id, :user_group => @invalid_attrs
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -372,14 +372,14 @@ describe UserGroupsController do
 
         it "should be forbidden" do
           put :update, :id => @user_group.id, :user_group => @attrs
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested user_group as @user_group" do
           put :update, :id => @user_group.id, :user_group => @invalid_attrs
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -399,7 +399,7 @@ describe UserGroupsController do
 
       it "redirects to the user_groups list" do
         delete :destroy, :id => @user_group.id
-        response.should redirect_to(user_groups_url)
+        expect(response).to redirect_to(user_groups_url)
       end
     end
 
@@ -412,7 +412,7 @@ describe UserGroupsController do
 
       it "should be forbidden" do
         delete :destroy, :id => @user_group.id
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -425,7 +425,7 @@ describe UserGroupsController do
 
       it "should be forbidden" do
         delete :destroy, :id => @user_group.id
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -436,7 +436,7 @@ describe UserGroupsController do
 
       it "should be forbidden" do
         delete :destroy, :id => @user_group.id
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

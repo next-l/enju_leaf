@@ -11,18 +11,20 @@ module EnjuLeaf
         # Setup accessible (or protected) attributes for your model
         attr_accessible :email, :password, :password_confirmation, :current_password,
           :remember_me, :email_confirmation, :library_id, :locale,
-          :keyword_list, :auto_generated_password
+          :keyword_list, :auto_generated_password,
+          :profile_attributes
         attr_accessible :email, :password, :password_confirmation, :username,
           :current_password, :user_number, :remember_me,
           :email_confirmation, :note, :user_group_id, :library_id, :locale,
           :expired_at, :locked, :required_role_id, :role_id,
           :keyword_list, :user_has_role_attributes, :auto_generated_password,
+          :profile_attributes,
           :as => :admin
 
         scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
         scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)
         scope :suspended, where('locked_at IS NOT NULL')
-        #has_one :agent, :dependent => :destroy
+        has_one :profile, :dependent => :destroy
         if defined?(EnjuBiblio)
           has_many :import_requests
           has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
@@ -35,6 +37,7 @@ module EnjuLeaf
         has_many :export_files if defined?(EnjuExport)
         #has_one :agent_import_result
         accepts_nested_attributes_for :user_has_role
+        accepts_nested_attributes_for :profile
 
         validates :username, :presence => true, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z][0-9A-Za-z_\-]*[0-9A-Za-z]\Z/}
         validates :email, :format => Devise::email_regexp, :allow_blank => true, :uniqueness => true

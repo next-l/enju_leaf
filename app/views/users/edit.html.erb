@@ -11,9 +11,10 @@
     <%= f.submit %>
   </div>
 <div style="clear: both">
+  <%= f.fields_for :profile do |profile_f| %>
   <div class="field">
-    <%= f.label :keyword_list -%><br />
-    <%= f.text_area :keyword_list, :class => 'resource_textarea' -%>
+    <%= profile_f.label :keyword_list -%><br />
+    <%= profile_f.text_area :keyword_list, :class => 'resource_textarea' -%>
   </div>
 
   <% if defined?(EnjuCirculation) %>
@@ -48,9 +49,10 @@
 
   <% if current_user.has_role?('Librarian') %>
     <div class="field">
-      <%= f.label :note -%><br />
-      <%= f.text_area :note, :class => 'resource_textarea' -%>
+      <%= profile_f.label :note -%><br />
+      <%= profile_f.text_area :note, :class => 'resource_textarea' -%>
     </div>
+  <% end %>
   <% end %>
 
   <div class="actions">

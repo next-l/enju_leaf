@@ -34,7 +34,6 @@ ja:
         note: 注記
         save_checkout_history: 貸出の履歴を保存する
         lock_version: ロックバージョン
-        keyword_list: キーワードリスト
         user_number: 利用者番号
         state: 状態
         agent: 人物・団体
@@ -81,6 +80,16 @@ ja:
         user_export_file_name: ファイル名
         user_export_file_size: ファイルサイズ
         state: 状態
+      profile:
+        note: 注記
+        keyword_list: キーワードリスト
+        required_role_id: 閲覧に必要な権限
+        user_id: 利用者
+        user_group_id: 利用者グループ
+        library_id: 所属館
+        locale: 言語
+        full_name: フルネーム
+        user_number: 利用者番号
 
   page:
     user_title: "ようこそ %{login_name} さん"

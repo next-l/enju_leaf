@@ -34,7 +34,6 @@ en:
         note: Note
         save_checkout_history: Save checkout history
         lock_version: Lock version
-        keyword_list: Keyword list
         user_number: User number
         state: State
         agent: Agent
@@ -81,6 +80,16 @@ en:
         user_export_file_name: Filename
         user_export_file_size: Size
         state: State
+      profile:
+        note: Note
+        keyword_list: Keyword list
+        required_role_id: Required role
+        user_id: User
+        user_group_id: User group
+        library_id: Library
+        locale: Locale
+        full_name: Full name
+        user_number: User number
 
   page:
     user_title: "Welcome %{login_name}"

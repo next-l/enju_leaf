@@ -11,15 +11,15 @@ describe MyAccountsController do
 
       it "assigns the requested user as @user" do
         get :show, :id => 'admin'
-        response.should be_success
+        expect(response).to be_success
       end
     end
 
     describe "When not logged in" do
       it "assigns the requested user as @user" do
         get :show, :id => 'admin'
-        assigns(:user).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:user)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -33,7 +33,7 @@ describe MyAccountsController do
 
       it "assigns the requested user as @user" do
         get :edit
-        assigns(:user).should eq(@user)
+        expect(assigns(:user)).to eq(@user)
       end
     end
 
@@ -45,7 +45,7 @@ describe MyAccountsController do
 
       it "should assign the requested user as @user" do
         get :edit
-        assigns(:user).should eq(@user)
+        expect(assigns(:user)).to eq(@user)
       end
     end
 
@@ -57,16 +57,16 @@ describe MyAccountsController do
 
       it "should assign the requested user as @user" do
         get :edit
-        assigns(:user).should eq(@user)
-        response.should be_success
+        expect(assigns(:user)).to eq(@user)
+        expect(response).to be_success
       end
     end
 
     describe "When not logged in" do
       it "should not assign the requested user as @user" do
         get :edit
-        assigns(:user).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:user)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -90,25 +90,25 @@ describe MyAccountsController do
 
         it "assigns the requested user as @user" do
           put :update, :user => @attrs
-          assigns(:user).should eq(@user)
+          expect(assigns(:user)).to eq(@user)
         end
 
         it "redirects to the user" do
           put :update, :user => @attrs
-          assigns(:user).should eq(@user)
-          response.should redirect_to(my_account_url)
+          expect(assigns(:user)).to eq(@user)
+          expect(response).to redirect_to(my_account_url)
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested user as @user" do
           put :update, :user => @invalid_attrs
-          assigns(:user).should eq(@user)
+          expect(assigns(:user)).to eq(@user)
         end
 
         it "re-renders the 'edit' template" do
           put :update, :user => @invalid_attrs
-          response.should render_template("edit")
+          expect(response).to render_template("edit")
         end
       end
     end
@@ -126,26 +126,26 @@ describe MyAccountsController do
 
         it "assigns the requested user as @user" do
           put :update, :user => @attrs
-          assigns(:user).should eq(@user)
+          expect(assigns(:user)).to eq(@user)
         end
 
         it "redirects to the user" do
           put :update, :user => @attrs
-          assigns(:user).should eq(@user)
-          response.should redirect_to(my_account_url)
+          expect(assigns(:user)).to eq(@user)
+          expect(response).to redirect_to(my_account_url)
         end
       end
 
       describe "with invalid params" do
         it "assigns the user as @user" do
           put :update, :user => @invalid_attrs
-          assigns(:user).should_not be_valid
+          expect(assigns(:user)).to_not be_valid
         end
 
         it "should ignore username" do
           put :update, :user => @invalid_attrs
-          response.should render_template("edit")
-          assigns(:user).changed?.should be_truthy
+          expect(response).to render_template("edit")
+          expect(assigns(:user).changed?).to be_truthy
         end
       end
     end
@@ -163,15 +163,15 @@ describe MyAccountsController do
 
         it "assigns the requested user as @user" do
           put :update, :user => @attrs
-          assigns(:user).should eq(@user)
-          response.should redirect_to(my_account_url)
+          expect(assigns(:user)).to eq(@user)
+          expect(response).to redirect_to(my_account_url)
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested user as @user" do
           put :update, :user => @invalid_attrs
-          response.should be_success
+          expect(response).to be_success
         end
       end
     end
@@ -184,14 +184,14 @@ describe MyAccountsController do
 
         it "should be forbidden" do
           put :update, :user => @attrs
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested user as @user" do
           put :update, :user => @invalid_attrs
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
