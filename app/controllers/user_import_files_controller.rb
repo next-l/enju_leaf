@@ -51,7 +51,7 @@ class UserImportFilesController < ApplicationController
       if @user_import_file.mode == 'import'
         Resque.enqueue(UserImportFileQueue, @user_import_file.id)
       end
-      redirect_to @user_import_file, notice: t('controller.successfully_created', :model => t('activerecord.models.user_import_file'))
+      redirect_to @user_import_file, notice: t('import.successfully_created', model: t('activerecord.models.user_import_file'))
     else
       prepare_options
       render action: 'new'
