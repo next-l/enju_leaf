@@ -366,6 +366,7 @@ ja:
     from_isbn: "ISBNから"
     will_be_imported: "%{minute} 分以内にインポートされます。"
     auto_detect: "自動判別"
+    successfully_created: "%{model}は正常に作成されました。タスクが完了すると「%{model}の一覧」の状態が「完了」となります。"
   user:
     current_password: "現在のパスワード"
     new_password: "新しいパスワード"
