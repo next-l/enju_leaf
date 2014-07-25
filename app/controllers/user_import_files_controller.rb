@@ -35,6 +35,8 @@ class UserImportFilesController < ApplicationController
   def new
     @user_import_file = UserImportFile.new
     authorize @user_import_file
+    @user_import_file.default_user_group = current_user.user_group
+    @user_import_file.default_library = current_user.library
   end
 
   # GET /user_import_files/1/edit
@@ -99,9 +101,5 @@ class UserImportFilesController < ApplicationController
     def prepare_options
       @user_groups = UserGroup.all
       @libraries = Library.all
-      if @user_import_file.new_record?
-        @user_import_file.default_user_group = current_user.user_group
-        @user_import_file.default_library = current_user.library
-      end
     end
 end
