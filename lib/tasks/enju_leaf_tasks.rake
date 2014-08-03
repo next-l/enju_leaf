@@ -53,5 +53,7 @@ namespace :enju_leaf do
         end
       end
     end
+
+    puts 'The upgrade completed successfully.'
   end
 end
