@@ -12,15 +12,6 @@ namespace :enju_leaf do
     puts 'initial fixture files loaded.'
   end
 
-  desc "create initial index"
-  task :create_initial_index => :environment do
-    Library.reindex
-    Shelf.reindex
-    User.reindex
-
-    puts 'indexing completed.'
-  end
-
   desc "create non-digested asset files"
   task create_non_digested_assets: :environment do
     assets = Dir.glob(File.join(Rails.root, 'public/assets/**/*'))
@@ -39,5 +30,43 @@ namespace :enju_leaf do
   desc "import users from a TSV file"
   task :user_import => :environment do
     UserImportFile.import
+  end
+
+  desc "upgrade enju_leaf"
+  task :upgrade => :environment do
+    version = EnjuLeaf::VERSION.split('.')
+    if version[0..2] == ["1", "1" ,"0"]
+      if version[3] == 'rc13'
+        Exemplify.transaction do
+          Exemplify.find_each do |exemplify|
+            if exemplify.item
+              exemplify.item.update_column(:manifestation_id, exemplify.manifestation_id)
+            end
+
+            YAML.load(open('db/fixtures/enju_circulation/circulation_statuses.yml').read).each do |line|
+              l = line[1].select!{|k, v| %w(name display_name).include?(k)}
+              CirculationStatus.where(name: l["name"]).first.try(:update_attributes!, l)
+            end
+
+            YAML.load(open('db/fixtures/enju_circulation/use_restrictions.yml').read).each do |line|
+              l = line[1].select!{|k, v| %w(name display_name).include?(k)}
+              UseRestriction.where(name: l["name"]).first.try(:update_attributes!, l)
+            end
+
+            YAML.load(open('db/fixtures/enju_message/message_templates.yml').read).each do |line|
+              l = line[1].select!{|k, v| %w(status locale title body).include?(k)}
+              template = MessageTemplate.where(
+                status: l["status"], locale: l["locale"]
+              ).first
+              if template
+                template.update_attributes!(l)
+              else
+                MessageTemplate.create!(l)
+              end
+            end
+          end
+        end
+      end
+    end
   end
 end
