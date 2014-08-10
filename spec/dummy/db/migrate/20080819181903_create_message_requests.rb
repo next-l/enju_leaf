@@ -7,11 +7,9 @@ class CreateMessageRequests < ActiveRecord::Migration
       t.datetime :sent_at
       t.datetime :deleted_at
       t.text :body
-      t.string :state
 
       t.timestamps
     end
-    add_index :message_requests, :state
   end
 
   def self.down

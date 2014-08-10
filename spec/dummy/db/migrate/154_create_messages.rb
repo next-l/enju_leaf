@@ -6,7 +6,6 @@ class CreateMessages < ActiveRecord::Migration
       t.string   :subject, :null => false
       t.text     :body
       t.integer :message_request_id
-      t.string :state
       t.integer :parent_id
 
       t.timestamps

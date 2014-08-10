@@ -62,6 +62,14 @@ describe UserImportFile do
       @file.executed_at.should be_truthy
     end
 
+    it "should send message when import is completed" do
+      old_message_count = Message.count
+      @file.user = User.where(username: 'librarian1').first
+      @file.import_start
+      Message.count.should eq old_message_count + 1
+      Message.order(:id).last.subject.should eq 'インポートが完了しました'
+    end
+
     it "should not import users that have higher roles than current user's role" do
       old_users_count = User.count
       old_import_results_count = UserImportResult.count
@@ -121,4 +129,6 @@ end
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  user_encoding            :string(255)
+#  default_library_id       :integer
+#  default_user_group_id    :integer
 #

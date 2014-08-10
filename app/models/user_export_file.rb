@@ -24,12 +24,7 @@ class UserExportFile < ActiveRecord::Base
     tempfile.close
     self.user_export = File.new(tempfile.path, "r")
     if save
-      message = Message.create(
-        sender: User.find(1),
-        recipient: user.username,
-        subject: 'export completed',
-        body: I18n.t('export.export_completed')
-      )
+      send_message
     end
     transition_to!(:completed)
   rescue => e
@@ -40,6 +35,15 @@ class UserExportFile < ActiveRecord::Base
   private
   def self.transition_class
     UserExportFileTransition
+  end
+
+  def send_message
+    sender = User.find(1)
+    message_template = MessageTemplate.localized_template('export_completed', user.locale)
+    request = MessageRequest.new
+    request.assign_attributes({:sender => sender, :receiver => user, :message_template => message_template}, as: :admin)
+    request.save_message_body
+    request.transition_to!(:sent)
   end
 end
 

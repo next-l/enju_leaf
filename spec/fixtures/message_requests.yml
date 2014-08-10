@@ -4,13 +4,11 @@ one:
   sender_id: 1
   receiver_id: 1
   message_template_id: 1
-  state: pending
 
 two:
   sender_id: 1
   receiver_id: 1
   message_template_id: 1
-  state: pending
 
 # == Schema Information
 #
@@ -23,7 +21,6 @@ two:
 #  sent_at             :datetime
 #  deleted_at          :datetime
 #  body                :text
-#  state               :string(255)
 #  created_at          :datetime
 #  updated_at          :datetime
 #
