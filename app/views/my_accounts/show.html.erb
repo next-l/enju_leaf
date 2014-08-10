@@ -8,7 +8,7 @@
     <%= current_user.username -%>
   </h2>
 
-  <p><%= t('activerecord.attributes.user.user_number') %>: <%= current_user.user_number %></p>
+  <p><%= t('activerecord.attributes.user.profile.user_number') %>: <%= current_user.profile.user_number %></p>
 
   <% if defined?(EnjuCirculation) %>
     <h2>

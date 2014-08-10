@@ -38,6 +38,7 @@ namespace :enju_leaf do
             profile.user_number = user.user_number
             profile.keyword_list = user.keyword_list
             profile.locale = user.locale
+            profile.note = user.note
             profile.save
           end
 

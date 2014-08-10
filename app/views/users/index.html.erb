@@ -18,7 +18,7 @@
       <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'username', :order => 'asc', :only_path => true)) -%>
       <%= link_to image_tag('icons/arrow_down.png', :size => '16x16', :alt => t('page.desc')), url_for(params.merge(:sort_by => 'username', :order => 'desc', :only_path => true)) -%>
     </th>
-    <th><%= t('activerecord.attributes.user.user_number') -%></th>
+    <th><%= t('activerecord.attributes.profile.user_number') -%></th>
     <th>
       <%= t('page.created_at') -%>
       <%= link_to image_tag('icons/arrow_up.png', :size => '16x16', :alt => t('page.asc')), url_for(params.merge(:sort_by => 'created_at', :order => 'asc', :only_path => true)) -%>
@@ -32,7 +32,7 @@
     <td>
       <%= link_to user.username, user -%>
     </td>
-    <td><%= user.user_number -%></td>
+    <td><%= user.profile.user_number -%></td>
     <td><%= l(user.created_at) if user.created_at -%></td>
     <td>
       <%= link_to t('user.edit_account'), edit_user_path(user) -%>
