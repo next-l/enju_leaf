@@ -18,47 +18,48 @@
     <%= f.email_field :email_confirmation, :class => 'resource_email' -%>
   </div>
 
-  <div class="field">
-    <%= f.label :user_group_id -%>
-    <%= f.select(:user_group_id, @user_groups.collect{|u| [u.display_name.localize, u.id]}) -%>
-  </div>
-
-  <%- if current_user.has_role?('Librarian') -%>
+  <%= f.fields_for :profile do |profile_f| %>
     <div class="field">
-      <%= f.label t('activerecord.models.library') -%>
-      <%= f.select(:library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%>
+      <%= profile_f.label :user_group_id -%>
+      <%= profile_f.select(:user_group_id, @user_groups.collect{|u| [u.display_name.localize, u.id]}) -%>
     </div>
 
-  <%- end -%>
-  <div class="field">
-    <%= f.label :locale -%>
-    <%= f.select(:locale, @available_languages.collect{|language| [language.display_name.localize, language.iso_639_1]}) -%>
-  </div>
-
-  <div class="field">
-    <%= f.label :user_number -%>
-    <%= f.text_field :user_number, value: "", class: 'resource_user' -%>
-  </div>
-
-  <% if defined?(EnjuSearchLog) %>
+    <%- if current_user.has_role?('Librarian') -%>
+      <div class="field">
+        <%= profile_f.label t('activerecord.models.library') -%>
+        <%= profile_f.select(:library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%>
+      </div>
+    <%- end -%>
     <div class="field">
-      <%= f.check_box :save_search_history %>
-      <%= f.label :save_search_history %>
+      <%= profile_f.label :locale -%>
+      <%= profile_f.select(:locale, @available_languages.collect{|language| [language.display_name.localize, language.iso_639_1]}) -%>
     </div>
-  <% end %>
 
-  <% if defined?(EnjuCirculation) %>
     <div class="field">
-      <%= f.check_box :save_checkout_history %>
-      <%= f.label :save_checkout_history %>
+      <%= profile_f.label :user_number -%>
+      <%= profile_f.text_field :user_number, value: "", class: 'resource_user' -%>
     </div>
-  <% end %>
 
-  <% if current_user.has_role?('Librarian') %>
-    <div class="field">
-      <%= f.label :note -%><br />
-      <%= f.text_area :note, :class => 'resource_textarea' -%>
-    </div>
+    <% if defined?(EnjuSearchLog) %>
+      <div class="field">
+        <%= profile_f.check_box :save_search_history %>
+        <%= profile_f.label :save_search_history %>
+      </div>
+    <% end %>
+
+    <% if defined?(EnjuCirculation) %>
+      <div class="field">
+        <%= profile_f.check_box :save_checkout_history %>
+        <%= profile_f.label :save_checkout_history %>
+      </div>
+    <% end %>
+
+    <% if current_user.has_role?('Librarian') %>
+      <div class="field">
+        <%= profile_f.label :note -%><br />
+        <%= profile_f.text_area :note, :class => 'resource_textarea' -%>
+      </div>
+    <% end %>
   <% end %>
 
   <div class="actions">

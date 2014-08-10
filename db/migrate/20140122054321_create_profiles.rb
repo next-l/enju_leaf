@@ -15,6 +15,6 @@ class CreateProfiles < ActiveRecord::Migration
     end
 
     add_index :profiles, :user_id
-    add_index :profiles, :user_number
+    add_index :profiles, :user_number, :unique => true
   end
 end

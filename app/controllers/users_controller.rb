@@ -78,11 +78,12 @@ class UsersController < ApplicationController
       access_denied; return
     end
     @user = User.new
+    @user.profile = Profile.new
     prepare_options
     @user_groups = UserGroup.all
-    @user.user_group = current_user.user_group
-    @user.library = current_user.library
-    @user.locale = current_user.locale
+    @user.profile.user_group = current_user.profile.user_group
+    @user.profile.library = current_user.profile.library
+    @user.profile.locale = current_user.profile.locale
   end
 
   # GET /agents/1/edit
