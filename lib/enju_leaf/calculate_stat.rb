@@ -26,5 +26,14 @@ module CalculateStat
         end
       end
     end
+
+    def send_message
+      sender = User.find(1)
+      message_template = MessageTemplate.localized_template('counting_completed', user.locale)
+      request = MessageRequest.new
+      request.assign_attributes({:sender => sender, :receiver => user, :message_template => message_template}, as: :admin)
+      request.save_message_body
+      request.transition_to!(:sent)
+    end
   end
 end
