@@ -38,6 +38,7 @@ namespace :enju_leaf do
             profile.user_number = user.user_number
             profile.keyword_list = user.keyword_list
             profile.locale = user.locale
+            profile.save
           end
 
           YAML.load(open('db/fixtures/enju_circulation/circulation_statuses.yml').read).each do |line|
