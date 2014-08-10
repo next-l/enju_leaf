@@ -27,27 +27,38 @@ namespace :enju_leaf do
             if exemplify.item
               exemplify.item.update_column(:manifestation_id, exemplify.manifestation_id)
             end
+          end
 
-            YAML.load(open('db/fixtures/enju_circulation/circulation_statuses.yml').read).each do |line|
-              l = line[1].select!{|k, v| %w(name display_name).include?(k)}
-              CirculationStatus.where(name: l["name"]).first.try(:update_attributes!, l)
-            end
+          User.find_each do |user|
+            profile = Profile.new
+            profile.user = user
+            profile.user_group = user.user_group
+            profile.library = user.library
+            profile.required_role = user.required_role
+            profile.user_number = user.user_number
+            profile.keyword_list = user.keyword_list
+            profile.locale = user.locale
+          end
 
-            YAML.load(open('db/fixtures/enju_circulation/use_restrictions.yml').read).each do |line|
-              l = line[1].select!{|k, v| %w(name display_name).include?(k)}
-              UseRestriction.where(name: l["name"]).first.try(:update_attributes!, l)
-            end
+          YAML.load(open('db/fixtures/enju_circulation/circulation_statuses.yml').read).each do |line|
+            l = line[1].select!{|k, v| %w(name display_name).include?(k)}
+            CirculationStatus.where(name: l["name"]).first.try(:update_attributes!, l)
+          end
 
-            YAML.load(open('db/fixtures/enju_message/message_templates.yml').read).each do |line|
-              l = line[1].select!{|k, v| %w(status locale title body).include?(k)}
-              template = MessageTemplate.where(
-                status: l["status"], locale: l["locale"]
-              ).first
-              if template
-                template.update_attributes!(l)
-              else
-                MessageTemplate.create!(l)
-              end
+          YAML.load(open('db/fixtures/enju_circulation/use_restrictions.yml').read).each do |line|
+            l = line[1].select!{|k, v| %w(name display_name).include?(k)}
+            UseRestriction.where(name: l["name"]).first.try(:update_attributes!, l)
+          end
+
+          YAML.load(open('db/fixtures/enju_message/message_templates.yml').read).each do |line|
+            l = line[1].select!{|k, v| %w(status locale title body).include?(k)}
+            template = MessageTemplate.where(
+              status: l["status"], locale: l["locale"]
+            ).first
+            if template
+              template.update_attributes!(l)
+            else
+              MessageTemplate.create!(l)
             end
           end
         end
