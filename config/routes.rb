@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     mount Resque::Server.new, :at => "/resque", :as => :resque
   end
 
+  resources :profiles
+
   resources :user_export_files
 
   resources :user_import_results, :only => [:index, :show, :destroy]
@@ -16,7 +18,6 @@ Rails.application.routes.draw do
   #resources :users do
   #  resource :patron
   #end
-  resources :users
 
   resources :roles, :except => [:new, :create, :destroy]
 

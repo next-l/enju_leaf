@@ -27,9 +27,10 @@ user.email = email
 user.email_confirmation = email
 user.password = password
 user.password_confirmation = password
-user.library = Library.real.first
-user.locale = I18n.default_locale.to_s
-user.user_number = '0'
+user.profile = Profile.new
+user.profile.library = Library.real.first
+user.profile.locale = I18n.default_locale.to_s
+user.profile.user_number = '0'
 user.operator = user
 user.save!
 #user.confirm!

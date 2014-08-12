@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe PageController do
-  fixtures :library_groups, :user_groups, :roles
+  fixtures :all
 
   describe "GET page" do
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "should get import" do
         get :import
@@ -19,7 +19,7 @@ describe PageController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "should redirect to user" do
         get :index

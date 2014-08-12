@@ -25,14 +25,11 @@ en:
         remember_token_expires_at: Remember token expires at
         activation_code: Activation code
         activated_at: Activated at
-        expired_at: Expired at
         locked: Locked
         confirmed: Confirmed
         approved: Approved
-        checkout_icalendar_token: Checkout iCalendar token
         due_date_reminder_days: Due date reminder days
         note: Note
-        save_checkout_history: Save checkout history
         lock_version: Lock version
         user_number: User number
         state: State
@@ -44,6 +41,7 @@ en:
         current_password: Current password
         locale: Locale
         password_confirmation: Password confirmation
+        auto_generated_password: Set auto-generated password
       role:
         name: Name
         display_name: Display name
@@ -90,6 +88,7 @@ en:
         locale: Locale
         full_name: Full name
         user_number: User number
+        expired_at: Expired at
 
   page:
     user_title: "Welcome %{login_name}"

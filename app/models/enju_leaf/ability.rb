@@ -6,12 +6,12 @@ module EnjuLeaf
   
       case user.try(:role).try(:name)
       when 'Administrator'
-        can :index, User
-        can [:read, :create, :update], User
-        can :destroy, User do |u|
-          if u != user and u.id != 1
+        can :index, Profile
+        can [:read, :create, :update], [User, Profile]
+        can :destroy, Profile do |profile|
+          if profile != user.profile and profile.user.id != 1
             if defined?(EnjuCirculation)
-               true if u.checkouts.not_returned.empty?
+               true if profile.user.checkouts.not_returned.empty?
             else
               true
             end
@@ -19,7 +19,7 @@ module EnjuLeaf
         end
         can [:read, :create, :update], UserGroup
         can :destroy, UserGroup do |user_group|
-          user_group.users.empty?
+          user_group.profiles.empty?
         end
         can :manage, [
           UserHasRole
@@ -36,11 +36,11 @@ module EnjuLeaf
           UserImportResult
         ] if LibraryGroup.site_config.network_access_allowed?(ip_address)
       when 'Librarian'
-        can [:read, :create, :update], User
-        can :destroy, User do |u|
-          if u.role.name == 'User' and u != user
+        can [:read, :create, :update], Profile
+        can :destroy, Profile do |profile|
+          if profile.user.role.name == 'User' and profile != user.profile
             if defined?(EnjuCirculation)
-               true if u.checkouts.not_returned.empty?
+               true if profile.user.checkouts.not_returned.empty?
             else
               true
             end
@@ -57,9 +57,9 @@ module EnjuLeaf
           UserImportResult
         ] if LibraryGroup.site_config.network_access_allowed?(ip_address)
       when 'User'
-        can :show, User
-        can :update, User do |u|
-          u == user
+        can :show, Profile
+        can :update, Profile do |profile|
+          profile == user.profile
         end
         can :read, [
           UserGroup

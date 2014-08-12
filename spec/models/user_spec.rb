@@ -48,18 +48,6 @@ describe User do
     user.active_for_authentication?.should be_truthy
   end
 
-  it 'should not set expired_at if its user group does not have valid period' do
-    user = FactoryGirl.create(:user)
-    user.expired_at.should be_nil
-  end
-
-  it 'should not set expired_at if its user group does not have valid period' do
-    user = FactoryGirl.build(:user)
-    user.user_group = FactoryGirl.create(:user_group, :valid_period_for_new_user => 10)
-    user.save
-    user.expired_at.should eq 10.days.from_now.end_of_day
-  end
-
   it "should create user" do
     user = FactoryGirl.create(:user)
     assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
@@ -71,11 +59,6 @@ describe User do
     user.save
     user.errors[:username].should be_truthy
     User.count.should eq old_count
-  end
-
-  it "should not require user_number" do
-    user = FactoryGirl.create(:user, :user_number => nil)
-    user.errors[:user_number].should be_empty
   end
 
   it "should require password" do

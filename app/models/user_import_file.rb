@@ -78,11 +78,18 @@ class UserImportFile < ActiveRecord::Base
         new_user.operator = user
         new_user.username = username
         new_user.assign_attributes(set_user_params(new_user, row), as: :admin)
+        profile = Profile.new
+        profile.assign_attributes(set_profile_params(row), as: :admin)
 
         if new_user.save
-          num[:user_imported] += 1
-          import_result.user = new_user
-          import_result.save!
+          new_user.profile = profile
+          if profile.save
+            num[:user_imported] += 1
+            import_result.user = new_user
+            import_result.save!
+          else
+            num[:failed] += 1
+          end
         else
           num[:failed] += 1
         end
@@ -94,10 +101,10 @@ class UserImportFile < ActiveRecord::Base
     transition_to!(:completed)
     send_message
     num
-  rescue => e
-    self.error_message = "line #{row_num}: #{e.message}"
-    transition_to!(:failed)
-    raise e
+  #rescue => e
+  #  self.error_message = "line #{row_num}: #{e.message}"
+  #  transition_to!(:failed)
+  #  raise e
   end
 
   def modify
@@ -209,19 +216,35 @@ class UserImportFile < ActiveRecord::Base
   private
   def set_user_params(new_user, row)
     params = {}
+    profile_params = {}
     params[:email] = row['email'] if row['email'].present?
+
+    if row['expired_at'].present?
+      params[:expired_at] = Time.zone.parse(row['expired_at']).end_of_day
+    end
+
+    if row['password'].present?
+      params[:password] = row['password']
+    else
+      params[:password] = Devise.friendly_token[0..7]
+    end
+    params
+  end
+
+  def set_profile_params(row)
+    params = {}
     user_group = UserGroup.where(name: row['user_group']).first
     unless user_group
       user_group = default_user_group
     end
     params[:user_group_id] = user_group.id if user_group
+
     params[:user_number] = row['user_number']
-    if row['expired_at'].present?
-      params[:expired_at] = Time.zone.parse(row['expired_at']).end_of_day
-    end
+
     if row['keyword_list'].present?
       params[:keyword_list] = row['keyword_list'].split('//').join('\n')
     end
+
     params[:note] = row['note']
 
     if I18n.available_locales.include?(row['locale'].to_s.to_sym)
@@ -233,12 +256,6 @@ class UserImportFile < ActiveRecord::Base
       library = default_library || Library.web
     end
     params[:library_id] = library.id if library
-
-    if row['password'].present?
-      params[:password] = row['password']
-    else
-      params[:password] = Devise.friendly_token[0..7]
-    end
 
     if defined?(EnjuCirculation)
       params[:checkout_icalendar_token] = row['checkout_icalendar_token'] if row['checkout_icalendar_token'].present?

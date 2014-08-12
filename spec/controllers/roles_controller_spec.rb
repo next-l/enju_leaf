@@ -5,7 +5,7 @@ describe RolesController do
 
   describe "GET index" do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns all roles as @roles" do
         get :index
@@ -14,7 +14,7 @@ describe RolesController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "assigns all roles as @roles" do
         get :index
@@ -23,7 +23,7 @@ describe RolesController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "assigns all roles as @roles" do
         get :index
@@ -41,7 +41,7 @@ describe RolesController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns the requested role as @role" do
         role = Role.find(1)
@@ -61,7 +61,7 @@ describe RolesController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns the requested role as @role" do
         role = Role.find(1)
@@ -87,7 +87,7 @@ describe RolesController do
     end
 
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       describe "with valid params" do
         it "updates the requested role" do

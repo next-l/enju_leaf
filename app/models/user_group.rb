@@ -8,7 +8,7 @@ class UserGroup < ActiveRecord::Base
 
   include MasterModel
   default_scope :order => "user_groups.position"
-  has_many :users
+  has_many :profiles
 
   validates_numericality_of :valid_period_for_new_user,
     :greater_than_or_equal_to => 0,

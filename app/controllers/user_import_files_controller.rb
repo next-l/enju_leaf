@@ -39,8 +39,8 @@ class UserImportFilesController < ApplicationController
   # GET /user_import_files/new.json
   def new
     @user_import_file = UserImportFile.new
-    @user_import_file.default_user_group = current_user.user_group
-    @user_import_file.default_library = current_user.library
+    @user_import_file.default_user_group = current_user.profile.user_group
+    @user_import_file.default_library = current_user.profile.library
 
     respond_to do |format|
       format.html # new.html.erb

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140720170735) do
+ActiveRecord::Schema.define(:version => 20140812093836) do
 
   create_table "accepts", :force => true do |t|
     t.integer  "basket_id"
@@ -668,9 +668,11 @@ ActiveRecord::Schema.define(:version => 20140720170735) do
     t.datetime "updated_at",   :null => false
     t.datetime "started_at"
     t.datetime "completed_at"
+    t.integer  "user_id"
   end
 
   add_index "manifestation_checkout_stats", ["state"], :name => "index_manifestation_checkout_stats_on_state"
+  add_index "manifestation_checkout_stats", ["user_id"], :name => "index_manifestation_checkout_stats_on_user_id"
 
   create_table "manifestation_relationship_types", :force => true do |t|
     t.string   "name",         :null => false
@@ -714,9 +716,11 @@ ActiveRecord::Schema.define(:version => 20140720170735) do
     t.datetime "updated_at",   :null => false
     t.datetime "started_at"
     t.datetime "completed_at"
+    t.integer  "user_id"
   end
 
   add_index "manifestation_reserve_stats", ["state"], :name => "index_manifestation_reserve_stats_on_state"
+  add_index "manifestation_reserve_stats", ["user_id"], :name => "index_manifestation_reserve_stats_on_user_id"
 
   create_table "manifestations", :force => true do |t|
     t.text     "original_title",                                     :null => false
@@ -922,12 +926,18 @@ ActiveRecord::Schema.define(:version => 20140720170735) do
     t.text     "note"
     t.text     "keyword_list"
     t.integer  "required_role_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+    t.string   "checkout_icalendar_token"
+    t.boolean  "save_checkout_history",    :default => false, :null => false
+    t.datetime "expired_at"
+    t.boolean  "save_search_history"
+    t.boolean  "share_bookmarks"
   end
 
+  add_index "profiles", ["checkout_icalendar_token"], :name => "index_profiles_on_checkout_icalendar_token", :unique => true
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
-  add_index "profiles", ["user_number"], :name => "index_profiles_on_user_number"
+  add_index "profiles", ["user_number"], :name => "index_profiles_on_user_number", :unique => true
 
   create_table "realize_types", :force => true do |t|
     t.string   "name"
@@ -1275,9 +1285,11 @@ ActiveRecord::Schema.define(:version => 20140720170735) do
     t.datetime "updated_at",   :null => false
     t.datetime "started_at"
     t.datetime "completed_at"
+    t.integer  "user_id"
   end
 
   add_index "user_checkout_stats", ["state"], :name => "index_user_checkout_stats_on_state"
+  add_index "user_checkout_stats", ["user_id"], :name => "index_user_checkout_stats_on_user_id"
 
   create_table "user_export_file_transitions", :force => true do |t|
     t.string   "to_state"
@@ -1406,9 +1418,11 @@ ActiveRecord::Schema.define(:version => 20140720170735) do
     t.datetime "updated_at",   :null => false
     t.datetime "started_at"
     t.datetime "completed_at"
+    t.integer  "user_id"
   end
 
   add_index "user_reserve_stats", ["state"], :name => "index_user_reserve_stats_on_state"
+  add_index "user_reserve_stats", ["user_id"], :name => "index_user_reserve_stats_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                    :default => "",    :null => false
@@ -1428,15 +1442,8 @@ ActiveRecord::Schema.define(:version => 20140720170735) do
     t.boolean  "share_bookmarks"
     t.boolean  "save_search_history",      :default => false, :null => false
     t.string   "username"
-    t.string   "user_number"
-    t.string   "locale"
     t.datetime "deleted_at"
     t.datetime "expired_at"
-    t.integer  "library_id",               :default => 1,     :null => false
-    t.integer  "required_role_id",         :default => 1,     :null => false
-    t.integer  "user_group_id",            :default => 1,     :null => false
-    t.text     "note"
-    t.text     "keyword_list"
     t.integer  "failed_attempts",          :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
@@ -1447,8 +1454,6 @@ ActiveRecord::Schema.define(:version => 20140720170735) do
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
-  add_index "users", ["user_group_id"], :name => "index_users_on_user_group_id"
-  add_index "users", ["user_number"], :name => "index_users_on_user_number", :unique => true
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
   create_table "versions", :force => true do |t|

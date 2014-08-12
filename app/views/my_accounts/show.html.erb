@@ -8,7 +8,7 @@
     <%= current_user.username -%>
   </h2>
 
-  <p><%= t('activerecord.attributes.user.profile.user_number') %>: <%= current_user.profile.user_number %></p>
+  <p><%= t('activerecord.attributes.profile.user_number') %>: <%= current_user.profile.user_number %></p>
 
   <% if defined?(EnjuCirculation) %>
     <h2>
@@ -47,7 +47,7 @@
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <% if defined?(EnjuCirculation) %>
     <ul>
-      <%- current_user.user_group.user_group_has_checkout_types.each do |available_checkout_type| -%>
+      <%- current_user.profile.user_group.user_group_has_checkout_types.each do |available_checkout_type| -%>
         <li>
           <%= available_checkout_type.checkout_type.display_name.localize -%>:
           <%= current_user.checked_item_count[:"#{available_checkout_type.checkout_type.name}"] -%> / <%= available_checkout_type.checkout_limit -%>

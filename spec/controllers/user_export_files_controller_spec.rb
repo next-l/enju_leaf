@@ -5,7 +5,7 @@ describe UserExportFilesController do
 
   describe "GET index" do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns all user_export_files as @user_export_files" do
         get :index
@@ -14,7 +14,7 @@ describe UserExportFilesController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "assigns empty as @user_export_files" do
         get :index
@@ -23,7 +23,7 @@ describe UserExportFilesController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "assigns empty as @user_export_files" do
         get :index
@@ -43,7 +43,7 @@ describe UserExportFilesController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns the requested user_export_file as @user_export_file" do
         get :show, :id => user_export_files(:user_export_file_00003).id
@@ -53,7 +53,7 @@ describe UserExportFilesController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "assigns the requested user_export_file as @user_export_file" do
         get :show, :id => user_export_files(:user_export_file_00003).id
@@ -63,7 +63,7 @@ describe UserExportFilesController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "assigns the requested user_export_file as @user_export_file" do
         get :show, :id => user_export_files(:user_export_file_00003).id
@@ -83,7 +83,7 @@ describe UserExportFilesController do
 
   describe "GET new" do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns the requested user_export_file as @user_export_file" do
         get :new
@@ -93,7 +93,7 @@ describe UserExportFilesController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "should not assign the requested user_export_file as @user_export_file" do
         get :new
@@ -103,7 +103,7 @@ describe UserExportFilesController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "should not assign the requested user_export_file as @user_export_file" do
         get :new
@@ -123,10 +123,7 @@ describe UserExportFilesController do
 
   describe "POST create" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        @user = FactoryGirl.create(:admin)
-        sign_in @user
-      end
+      login_fixture_admin
 
       it "should create agent_export_file" do
         post :create, :user_export_file => {mode: 'export'}
@@ -137,10 +134,7 @@ describe UserExportFilesController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        @user = FactoryGirl.create(:librarian)
-        sign_in @user
-      end
+      login_fixture_librarian
 
       it "should create agent_export_file" do
         post :create, :user_export_file => {mode: 'export'}
@@ -151,10 +145,7 @@ describe UserExportFilesController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        @user = FactoryGirl.create(:user)
-        sign_in @user
-      end
+      login_fixture_user
 
       it "should be forbidden" do
         post :create, :user_export_file => {mode: 'export'}
@@ -174,7 +165,7 @@ describe UserExportFilesController do
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "assigns the requested user_export_file as @user_export_file" do
         user_export_file = user_export_files(:user_export_file_00001)
@@ -184,7 +175,7 @@ describe UserExportFilesController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "assigns the requested user_export_file as @user_export_file" do
         user_export_file = user_export_files(:user_export_file_00001)
@@ -194,7 +185,7 @@ describe UserExportFilesController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "assigns the requested user_export_file as @user_export_file" do
         user_export_file = user_export_files(:user_export_file_00001)
@@ -214,7 +205,7 @@ describe UserExportFilesController do
 
   describe "PUT update" do
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "should update user_export_file" do
         put :update, :id => user_export_files(:user_export_file_00003).id, :user_export_file => {mode: 'export'}
@@ -223,7 +214,7 @@ describe UserExportFilesController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "should update user_export_file" do
         put :update, :id => user_export_files(:user_export_file_00003).id, :user_export_file => {mode: 'export'}
@@ -232,7 +223,7 @@ describe UserExportFilesController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "should not update user_export_file" do
         put :update, :id => user_export_files(:user_export_file_00003).id, :user_export_file => {mode: 'export'}
@@ -254,7 +245,7 @@ describe UserExportFilesController do
     end
 
     describe "When logged in as Administrator" do
-      login_admin
+      login_fixture_admin
 
       it "destroys the requested user_export_file" do
         delete :destroy, :id => @user_export_file.id
@@ -267,7 +258,7 @@ describe UserExportFilesController do
     end
 
     describe "When logged in as Librarian" do
-      login_librarian
+      login_fixture_librarian
 
       it "destroys the requested user_export_file" do
         delete :destroy, :id => @user_export_file.id
@@ -280,7 +271,7 @@ describe UserExportFilesController do
     end
 
     describe "When logged in as User" do
-      login_user
+      login_fixture_user
 
       it "destroys the requested user_export_file" do
         delete :destroy, :id => @user_export_file.id

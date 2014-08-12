@@ -10,14 +10,14 @@ module EnjuLeaf
 
         # Setup accessible (or protected) attributes for your model
         attr_accessible :email, :password, :password_confirmation, :current_password,
-          :remember_me, :email_confirmation, :library_id, :locale,
-          :keyword_list, :auto_generated_password,
+          :remember_me, :email_confirmation,
+          :auto_generated_password,
           :profile_attributes
         attr_accessible :email, :password, :password_confirmation, :username,
-          :current_password, :user_number, :remember_me,
-          :email_confirmation, :note, :user_group_id, :library_id, :locale,
-          :expired_at, :locked, :required_role_id, :role_id,
-          :keyword_list, :user_has_role_attributes, :auto_generated_password,
+          :current_password, :remember_me,
+          :email_confirmation,
+          :expired_at, :locked, :role_id,
+          :user_has_role_attributes, :auto_generated_password,
           :profile_attributes,
           :as => :admin
 
@@ -31,11 +31,6 @@ module EnjuLeaf
         end
         has_one :user_has_role, :dependent => :destroy
         has_one :role, :through => :user_has_role
-        belongs_to :library, :validate => true
-        belongs_to :user_group
-        belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id' #, :validate => true
-        has_many :export_files if defined?(EnjuExport)
-        #has_one :agent_import_result
         accepts_nested_attributes_for :user_has_role
         accepts_nested_attributes_for :profile
 
@@ -51,34 +46,33 @@ module EnjuLeaf
         end
 
         validates_presence_of     :email, :email_confirmation, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
-        validates_associated :user_group, :library #, :agent
-        validates_presence_of :user_group, :library, :locale #, :user_number
-        validates :user_number, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z_]+\Z/}, :allow_blank => true
         validates_confirmation_of :email, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
 
-        before_validation :set_role_and_agent, :on => :create
         before_validation :set_lock_information
         before_destroy :check_role_before_destroy
         before_save :check_expiration
-        before_create :set_expired_at
         after_destroy :remove_from_index
         after_create :set_confirmation
 
         extend FriendlyId
         friendly_id :username
         #has_paper_trail
-        normalize_attributes :username, :user_number
+        normalize_attributes :username
         normalize_attributes :email, :with => :strip
 
         searchable do
-          text :username, :email, :note, :user_number
-          text :name do
-            #agent.name if agent
+          text :username, :email
+          text :user_number do
+            profile.user_number
+          end
+          text :note do
+            profile.note
           end
           string :username
           string :email
-          string :user_number
-          integer :required_role_id
+          string :user_number do
+            profile.user_number
+          end
           time :created_at
           time :updated_at
           boolean :active do
@@ -126,19 +120,19 @@ module EnjuLeaf
             lines = []
             lines << u.username
             lines << u.email
-            lines << u.user_number
+            lines << u.profile.user_number
             lines << u.role.name
-            lines << u.user_group.try(:name)
-            lines << u.library.try(:name)
-            lines << u.locale
+            lines << u.profile.user_group.try(:name)
+            lines << u.profile.library.try(:name)
+            lines << u.profile.locale
             lines << u.created_at
             lines << u.updated_at
             lines << u.expired_at
-            lines << u.keyword_list.try(:split).try(:join, "//")
-            lines << u.note
+            lines << u.profile.keyword_list.try(:split).try(:join, "//")
+            lines << u.profile.note
             if defined?(EnjuCirculation)
-              lines << u.try(:checkout_icalendar_token)
-              lines << u.try(:save_checkout_history)
+              lines << u.profile.try(:checkout_icalendar_token)
+              lines << u.profile.try(:save_checkout_history)
             else
               lines << nil
             end
@@ -178,14 +172,6 @@ module EnjuLeaf
         else
           false
         end
-      end
-
-      def set_role_and_agent
-        self.required_role = Role.where(name: 'Librarian').first
-        self.locale = I18n.default_locale.to_s unless locale
-        #unless self.agent
-        #  self.agent = Agent.create(:full_name => self.username) if self.username
-        #end
       end
 
       def set_lock_information
@@ -247,14 +233,6 @@ module EnjuLeaf
         end
       end
 
-      def set_expired_at
-        if expired_at.blank?
-          if user_group.valid_period_for_new_user > 0
-            self.expired_at = user_group.valid_period_for_new_user.days.from_now.end_of_day
-          end
-        end
-      end
-
       def deletable_by(current_user)
         if defined?(EnjuCirculation)
           # 未返却の資料のあるユーザを削除しようとした
@@ -294,6 +272,14 @@ module EnjuLeaf
 
       def full_name
         username
+      end
+
+      def create_profile
+        profile = Profile.new
+        profile.locale = I18n.default_locale
+        profile.library = Library.first
+        profile.user_group = UserGroup.first
+        self.profile = profile
       end
     end
   end

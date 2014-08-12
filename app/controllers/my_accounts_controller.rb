@@ -2,22 +2,22 @@ class MyAccountsController < ApplicationController
   before_filter :authenticate_user!
 
   def show
-    @user = current_user
+    @profile = current_user.profile
 
     respond_to do |format|
       format.html
-      format.json { render :json => @user }
+      format.json { render :json => @profile }
     end
   end
 
   def edit
-    @user = current_user
+    @profile = current_user.profile
     if defined?(EnjuCirculation)
       if params[:mode] == 'feed_token'
         if params[:disable] == 'true'
-          @user.delete_checkout_icalendar_token
+          @profile.delete_checkout_icalendar_token
         else
-          @user.reset_checkout_icalendar_token
+          @profile.reset_checkout_icalendar_token
         end
         render :partial => 'feed_token'
         return
@@ -27,13 +27,13 @@ class MyAccountsController < ApplicationController
   end
 
   def update
-    @user = current_user
+    @profile = current_user.profile
 
     respond_to do |format|
       if current_user.has_role?('Librarian')
-        saved = current_user.update_with_password(params[:user], :as => :admin)
+        saved = current_user.update_with_password(params[:profile][:user_attributes], :as => :admin)
       else
-        saved = current_user.update_with_password(params[:user])
+        saved = current_user.update_with_password(params[:profile][:user_attributes])
       end
 
       if saved
@@ -41,7 +41,6 @@ class MyAccountsController < ApplicationController
         format.html { redirect_to my_account_url, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user')) }
         format.json { head :no_content }
       else
-        @user = current_user
         prepare_options
         format.html { render :action => "edit" }
         format.json { render :json => current_user.errors, :status => :unprocessable_entity }
@@ -50,8 +49,8 @@ class MyAccountsController < ApplicationController
   end
 
   def destroy
-    @user = current_user
-    @user.destroy
+    @profile = current_user.profile
+    @profile.destroy
 
     respond_to do |format|
       format.html { redirect_to my_account_url, :notice => 'devise.registrations.destroyed' }

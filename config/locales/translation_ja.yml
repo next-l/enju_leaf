@@ -25,14 +25,11 @@ ja:
         remember_token_expires_at: トークンを忘れないで期限が切れる
         activation_code: 活性化コード
         activated_at: 登録時刻
-        expired_at: 有効期限
         locked: 利用不可
         confirmed: 確認済み
         approved: 承認済み
-        checkout_icalendar_token: 貸出iCalendarのトークン
         due_date_reminder_days: Duedateリマインダー日
         note: 注記
-        save_checkout_history: 貸出の履歴を保存する
         lock_version: ロックバージョン
         user_number: 利用者番号
         state: 状態
@@ -44,6 +41,7 @@ ja:
         current_password: 現在のパスワード
         locale: 言語
         password_confirmation: パスワード（確認）
+        auto_generated_password: パスワードの自動生成
       role:
         name: 名前
         display_name: 表示名
@@ -90,6 +88,7 @@ ja:
         locale: 言語
         full_name: フルネーム
         user_number: 利用者番号
+        expired_at: 有効期限
 
   page:
     user_title: "ようこそ %{login_name} さん"

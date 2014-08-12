@@ -5,13 +5,13 @@
 
   <h2 class="resource_title">
     [U]
-    <%= @user.username -%>
-    <% if @user.full_name %>
-      (<%= @user.full_name %>)
+    <%= @profile.user.username -%>
+    <% if @profile.full_name %>
+      (<%= @profile.full_name %>)
     <% end %>
   </h2>
 
-  <p><%= t('activerecord.attributes.profile.user_number') %>: <%= @user.profile.try(:user_number) %></p>
+  <p><%= t('activerecord.attributes.profile.user_number') %>: <%= @profile.user_number %></p>
   <%- if flash[:temporary_password] -%>
     <p><%= t('user.your_temporary_password_is') -%>: </p>
     <p style="font-size: 200%"><%= flash[:temporary_password] -%></p>
@@ -24,7 +24,8 @@
         <th><%= t('activerecord.models.item') %></th>
         <th><%= t('activerecord.attributes.checkout.due_date') %></th>
       </tr>
-      <% @user.checkouts.not_returned.each do |checkout| %>
+      <% if @profile.user %>
+      <% @profile.user.checkouts.not_returned.each do |checkout| %>
         <tr class="line<%= cycle("0", "1") -%>">
           <td>
             <%= link_to checkout.item.item_identifier, checkout.item %><br />
@@ -41,6 +42,7 @@
           </td>
         </tr>
       <% end %>
+      <% end %>
     </table>
   <% end %>
 </div>
@@ -49,48 +51,46 @@
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <% if defined?(EnjuCirculation) %>
     <ul>
-      <% if @user.profile %>
-        <%- @user.profile.user_group.user_group_has_checkout_types.each do |available_checkout_type| -%>
-          <li>
-            <%= available_checkout_type.checkout_type.display_name.localize -%>:
-            <%= @user.checked_item_count[:"#{available_checkout_type.checkout_type.name}"] -%> / <%= available_checkout_type.checkout_limit -%>
-          </li>
-        <%- end -%>
+      <%- @profile.user_group.user_group_has_checkout_types.each do |available_checkout_type| -%>
+        <li>
+          <%= available_checkout_type.checkout_type.display_name.localize -%>:
+          <%= @profile.user.checked_item_count[:"#{available_checkout_type.checkout_type.name}"] -%> / <%= available_checkout_type.checkout_limit -%>
+        </li>
       <%- end -%>
     </ul>
   <% end %>
   <ul>
     <%- if flash[:query] -%>
-      <li><%= link_to t('page.back'), users_path(:query => flash[:query]) -%></li>
+      <li><%= link_to t('page.back'), profiles_path(:query => flash[:query]) -%></li>
     <% else %>
       <li><%= back_to_index %></li>
     <% end %>
     <% if user_signed_in? %>
-      <% if can? :update, @user %>
-        <li><%= link_to t('page.edit'), edit_user_path(@user) -%></li>
+      <% if can? :update, @profile %>
+        <li><%= link_to t('page.edit'), edit_profile_path(@profile) -%></li>
       <% end %>
       <% if defined?(EnjuMessage) %>
-        <li><%= link_to t('message.send'), new_message_path(:recipient => @user.username) -%></li>
+        <li><%= link_to t('message.send'), new_message_path(:recipient => @profile.user.username) -%></li>
       <% end %>
-      <%- if can? :create, @user -%>
-        <li><%= link_to t('page.new', :model => t('activerecord.models.user')), new_user_path -%></li>
+      <%- if can? :create, @profile -%>
+        <li><%= link_to t('page.new', :model => t('activerecord.models.profile')), new_profile_path -%></li>
       <% end %>
-      <%- if can? :destroy, @user -%>
-        <li><%= link_to t('page.destroy'), @user, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%></li>
+      <%- if can? :destroy, @profile -%>
+        <li><%= link_to t('page.destroy'), @profile, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%></li>
       <% end %>
     <%- end -%>
     <% if defined?(EnjuCirculation) %>
-      <li><%= link_to t('activerecord.models.checkout'), user_checkouts_path(@user) %></li>
-      <li><%= link_to t('activerecord.models.reserve'), user_reserves_path(@user) %></li>
+      <li><%= link_to t('activerecord.models.checkout'), checkouts_path(user_id: @profile.user.username) %></li>
+      <li><%= link_to t('activerecord.models.reserve'), reserves_path(user_id: @profile.user.username) %></li>
     <% end %>
     <% if defined?(EnjuQuestion) %>
-      <li><%= link_to t('activerecord.models.question'), user_questions_path(@user) %></li>
+      <li><%= link_to t('activerecord.models.question'), questions_path(user_id: @profile.user.username) %></li>
     <% end %>
     <% if defined?(EnjuBookmark) %>
-      <li><%= link_to t('activerecord.models.bookmark'), user_bookmarks_path(@user) %></li>
+      <li><%= link_to t('activerecord.models.bookmark'), bookmarks_path(user_id: @profile.user.username) %></li>
     <% end %>
     <% if defined?(EnjuPurchaseRequest) %>
-      <li><%= link_to t('activerecord.models.purchase_request'), user_purchase_requests_path(@user) %></li>
+      <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path(user_id: @profile.user.username) %></li>
     <% end %>
   </ul>
 </div>

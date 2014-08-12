@@ -1,12 +1,10 @@
 require 'spec_helper'
 
-describe "users/edit" do
-  fixtures :user_groups
+describe "profiles/edit" do
+  fixtures :all
 
   before(:each) do
-    @user = assign(:user, stub_model(User,
-      :username => "MyString"
-    ))
+    @profile = assign(:profile, profiles(:admin))
     assign(:user_groups, UserGroup.all)
     assign(:libraries, Library.all)
     assign(:roles, Role.all)
@@ -18,8 +16,8 @@ describe "users/edit" do
     render
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "form", :action => users_path(@user), :method => "post" do
-      assert_select "input#user_email", :name => "user[email]"
+    assert_select "form", :action => profiles_path(@profile), :method => "post" do
+      assert_select "input#profile_user_number", :name => "profile[user_number]"
     end
   end
 end

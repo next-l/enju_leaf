@@ -39,7 +39,7 @@ class UserExportFile < ActiveRecord::Base
 
   def send_message
     sender = User.find(1)
-    message_template = MessageTemplate.localized_template('export_completed', user.locale)
+    message_template = MessageTemplate.localized_template('export_completed', user.profile.locale)
     request = MessageRequest.new
     request.assign_attributes({:sender => sender, :receiver => user, :message_template => message_template}, as: :admin)
     request.save_message_body
