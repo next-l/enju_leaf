@@ -1,11 +1,9 @@
 class UserExportFile < ActiveRecord::Base
   include Statesman::Adapters::ActiveRecordModel
-  belongs_to :user
+  include ExportFile
+  enju_export_file_model
   has_attached_file :user_export
   validates_attachment_content_type :user_export, :content_type => /\Atext\/plain\Z/
-  validates :user, presence: true
-  attr_accessible :mode
-  attr_accessor :mode
 
   has_many :user_export_file_transitions
 
@@ -35,15 +33,6 @@ class UserExportFile < ActiveRecord::Base
   private
   def self.transition_class
     UserExportFileTransition
-  end
-
-  def send_message
-    sender = User.find(1)
-    message_template = MessageTemplate.localized_template('export_completed', user.profile.locale)
-    request = MessageRequest.new
-    request.assign_attributes({:sender => sender, :receiver => user, :message_template => message_template}, as: :admin)
-    request.save_message_body
-    request.transition_to!(:sent)
   end
 end
 
