@@ -61,7 +61,7 @@ class UserExportFilesController < ApplicationController
         if @user_export_file.mode == 'export'
           Resque.enqueue(UserExportFileQueue, @user_export_file.id)
         end
-        format.html { redirect_to @user_export_file, :notice => t('controller.successfully_created', :model => t('activerecord.models.user_export_file')) }
+        format.html { redirect_to @user_export_file, :notice => t('export.successfully_created', :model => t('activerecord.models.user_export_file')) }
         format.json { render :json => @user_export_file, :status => :created, :location => @user_export_file }
       else
         format.html { render :action => "new" }

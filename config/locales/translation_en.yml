@@ -385,6 +385,10 @@ en:
       other: "Resource will be impored in %{minute} minutes."
     auto_detect: "Auto detect"
     successfully_created: "%{model} was created successfully. When the task is completed, its status on the list will be updated to 'completed'."
+  export:
+    export_completed: Export completed.
+    are_you_sure_to_export: It may take some time to complete. Are you sure to export?
+    successfully_created: "%{model} task was created successfully. A notification message will be sent to you when the task is completed. You can download the export file from 'Listing %{model}'."
   user:
     current_password: "Current password"
     new_password: "New password"
