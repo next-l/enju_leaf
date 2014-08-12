@@ -62,17 +62,8 @@ module EnjuLeaf
 
         searchable do
           text :username, :email
-          text :user_number do
-            profile.user_number
-          end
-          text :note do
-            profile.note
-          end
           string :username
           string :email
-          string :user_number do
-            profile.user_number
-          end
           time :created_at
           time :updated_at
           boolean :active do
