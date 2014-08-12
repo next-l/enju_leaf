@@ -86,7 +86,7 @@ module EnjuLeaf
         end
       end
       if user_signed_in?
-        locale = params[:locale] || session[:locale] || current_user.profile.locale.try(:to_sym)
+        locale = params[:locale] || session[:locale] || current_user.profile.try(:locale).try(:to_sym)
       else
         locale = params[:locale] || session[:locale]
       end
