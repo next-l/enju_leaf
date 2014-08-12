@@ -51,7 +51,6 @@ module EnjuLeaf
         before_validation :set_lock_information
         before_destroy :check_role_before_destroy
         before_save :check_expiration
-        after_destroy :remove_from_index
         after_create :set_confirmation
 
         extend FriendlyId
@@ -60,23 +59,7 @@ module EnjuLeaf
         normalize_attributes :username
         normalize_attributes :email, :with => :strip
 
-        searchable do
-          text :username, :email
-          string :username
-          string :email
-          time :created_at
-          time :updated_at
-          boolean :active do
-            active_for_authentication?
-          end
-          time :confirmed_at
-        end
-
-        attr_accessor :first_name, :middle_name, :last_name, :full_name,
-          :first_name_transcription, :middle_name_transcription,
-          :last_name_transcription, :full_name_transcription,
-          :zip_code, :address, :telephone_number, :fax_number, :address_note,
-          :operator, :password_not_verified,
+        attr_accessor :operator, :password_not_verified,
           :update_own_account, :auto_generated_password,
           :locked, :current_password #, :agent_id
 
@@ -255,22 +238,6 @@ module EnjuLeaf
         else
           false
         end
-      end
-
-      def patron
-        LocalPatron.new({:username => username})
-      end
-
-      def full_name
-        username
-      end
-
-      def create_profile
-        profile = Profile.new
-        profile.locale = I18n.default_locale
-        profile.library = Library.first
-        profile.user_group = UserGroup.first
-        self.profile = profile
       end
     end
   end

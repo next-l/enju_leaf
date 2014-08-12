@@ -22,6 +22,23 @@ class Profile < ActiveRecord::Base
   searchable do
     text :user_number, :full_name, :note
     string :user_number
+    text :username do
+      user.try(:username)
+    end
+    text :email do
+      user.try(:email)
+    end
+    string :username do
+      user.try(:username)
+    end
+    string :email do
+      user.try(:email)
+    end
+    time :created_at
+    time :updated_at
+    boolean :active do
+      user.try(:active_for_authentication?)
+    end
   end
 
   before_validation :set_role_and_agent, :on => :create

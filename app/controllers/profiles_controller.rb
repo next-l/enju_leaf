@@ -7,7 +7,34 @@ class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.page(params[:page])
+    query = flash[:query] = params[:query].to_s
+    @query = query.dup
+    @count = {}
+
+    sort = {:sort_by => 'created_at', :order => 'desc'}
+    case params[:sort_by]
+    when 'username'
+      sort[:sort_by] = 'username'
+    end
+    case params[:order]
+    when 'asc'
+      sort[:order] = 'asc'
+    when 'desc'
+      sort[:order] = 'desc'
+    end
+
+    query = params[:query]
+    page = params[:page] || 1
+    role = current_user.try(:role) || Role.default_role
+
+    search = Profile.search
+    search.build do
+      fulltext query if query
+      order_by sort[:sort_by], sort[:order]
+    end
+    search.query.paginate(page.to_i, Profile.default_per_page)
+    @profiles = search.execute!.results
+    @count[:query_result] = @profiles.total_entries
 
     respond_to do |format|
       format.html # index.html.erb
