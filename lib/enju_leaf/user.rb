@@ -102,7 +102,7 @@ module EnjuLeaf
             expired_at
             keyword_list
             note
-	    checkout_icalendar_token
+            checkout_icalendar_token
             save_checkout_history
             save_search_history
             share_bookmarks
