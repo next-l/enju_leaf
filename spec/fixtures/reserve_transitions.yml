@@ -1,4 +1,78 @@
-
+reserve_transition_00001:
+  id: 1
+  to_state: requested
+  reserve_id: 1
+  sort_key: 0
+reserve_transition_00002:
+  id: 2
+  to_state: requested
+  reserve_id: 2
+  sort_key: 0
+reserve_transition_00003:
+  id: 3
+  to_state: requested
+  reserve_id: 3
+  sort_key: 0
+reserve_transition_00004:
+  id: 4
+  to_state: requested
+  reserve_id: 4
+  sort_key: 0
+reserve_transition_00005:
+  id: 5
+  to_state: requested
+  reserve_id: 5
+  sort_key: 0
+reserve_transition_00006:
+  id: 6
+  to_state: requested
+  reserve_id: 6
+  sort_key: 0
+reserve_transition_00007:
+  id: 7
+  to_state: requested
+  reserve_id: 7
+  sort_key: 0
+reserve_transition_00008:
+  id: 8
+  to_state: expired
+  reserve_id: 8
+  sort_key: 0
+reserve_transition_00009:
+  id: 9
+  to_state: requested
+  reserve_id: 9
+  sort_key: 0
+reserve_transition_00010:
+  id: 10
+  to_state: completed
+  reserve_id: 10
+  sort_key: 0
+reserve_transition_00011:
+  id: 11
+  to_state: expired
+  reserve_id: 11
+  sort_key: 0
+reserve_transition_00012:
+  id: 12
+  to_state: retained
+  reserve_id: 12
+  sort_key: 0
+reserve_transition_00013:
+  id: 13
+  to_state: requested
+  reserve_id: 13
+  sort_key: 0
+reserve_transition_00014:
+  id: 14
+  to_state: retained
+  reserve_id: 14
+  sort_key: 0
+reserve_transition_00015:
+  id: 15
+  to_state: requested
+  reserve_id: 15
+  sort_key: 0
 
 # == Schema Information
 #
@@ -9,6 +83,6 @@
 #  metadata   :text             default("{}")
 #  sort_key   :integer
 #  reserve_id :integer
-#  created_at :datetime
-#  updated_at :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
