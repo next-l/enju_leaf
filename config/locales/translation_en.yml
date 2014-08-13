@@ -461,3 +461,6 @@ en:
     already_accepted: "This item is already accepted."
     accept: "Accept!"
     successfully_accepted: "This items was successfully accepted."
+  user_import_file:
+    default_user_group: If "user_group" column is not set in the TSV file, this user group is set to the new user.
+    default_library: If "library" column is not set in the TSV file, this library is set to the new user.

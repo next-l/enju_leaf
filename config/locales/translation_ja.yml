@@ -442,3 +442,6 @@ ja:
     already_accepted: "この資料はすでに検収されています。"
     accept: "検収"
     successfully_accepted: "この資料は正常に検収されました。"
+  user_import_file:
+    default_user_group: TSVファイルで"user_group"列が指定されていない場合、この利用者グループが登録されます。
+    default_library: TSVファイルで"library"列が指定されていない場合、この図書館が登録されます。
