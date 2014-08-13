@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe UsersController do
+describe ProfilesController do
   describe "routing" do
 
     it "recognizes and generates #index" do
