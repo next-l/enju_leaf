@@ -1,5 +1,5 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.user_import_file')) -%></h1>
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.user_import_file')) -%></h1>
 <div id="content_list">
 
 <table class="table table-striped index">
@@ -26,7 +26,7 @@
         <td><%= localized_state(user_import_file.current_state) -%></td>
         <td>
           <%= link_to t('page.show'), user_import_file -%>
-          <%= link_to t('page.destroy'), user_import_file, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
+          <%= link_to t('page.destroy'), user_import_file, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
         </td>
       </tr>
     <% end %>
@@ -39,6 +39,6 @@
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
-    <li><%= link_to t('page.new', :model => t('activerecord.models.user_import_file')), new_user_import_file_path -%></li>
+    <li><%= link_to t('page.new', model: t('activerecord.models.user_import_file')), new_user_import_file_path -%></li>
   </ul>
 </div>

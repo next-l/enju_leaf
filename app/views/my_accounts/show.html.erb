@@ -1,5 +1,5 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.user')) -%></h1>
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.user')) -%></h1>
 <div id="content_list">
 <p id="notice"><%= notice %></p>
 
@@ -13,9 +13,9 @@
   <% if defined?(EnjuCirculation) %>
     <h2>
       <%= t('activerecord.models.checkout') %>
-      <%= link_to image_tag('icons/date.png', :size => '16x16', :alt => 'iCalendar', :class => 'icon'), checkouts_url(:icalendar_token => current_user.checkout_icalendar_token, :format => :ics) if current_user.checkout_icalendar_token? %>
-      <%= link_to image_tag('icons/feed.png', :size => '16x16', :alt => 'RSS', :class => 'icon'), user_checkouts_url(current_user, :format => :rss) %>
-      <%= link_to image_tag('icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), user_checkouts_url(current_user, :format => :csv) %>
+      <%= link_to image_tag('icons/date.png', size: '16x16', alt: 'iCalendar', class: 'icon'), checkouts_url(icalendar_token: current_user.checkout_icalendar_token, format: :ics) if current_user.checkout_icalendar_token? %>
+      <%= link_to image_tag('icons/feed.png', size: '16x16', alt: 'RSS', class: 'icon'), user_checkouts_url(current_user, format: :rss) %>
+      <%= link_to image_tag('icons/page_white_excel.png', size: '16x16', alt: 'CSV', class: 'icon'), user_checkouts_url(current_user, format: :csv) %>
     </h2>
     <table class="table table-striped index">
       <tr>
@@ -29,7 +29,7 @@
             (<%= link_to checkout.item.manifestation.original_title, checkout.item.manifestation %>)
           </td>
           <td>
-            <%=l checkout.due_date, :formats => :only_date %>
+            <%=l checkout.due_date, formats: :only_date %>
             <br />
             <%- if can? :update, checkout -%>
               <% unless checkout.checkin %>
@@ -58,7 +58,7 @@
   <ul>
     <li><%= link_to t('page.edit'), edit_my_account_path -%></li>
     <%- if can? :destroy, current_user -%>
-      <%= link_to t('page.destroy'), curent_user, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
+      <%= link_to t('page.destroy'), curent_user, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
     <%- end -%>
     <% if defined?(EnjuSearchLog) %>
       <li><%= link_to t('activerecord.models.search_history'), search_histories_path %></li>

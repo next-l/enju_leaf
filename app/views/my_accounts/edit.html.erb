@@ -1,11 +1,11 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.edit_user_profile', :login_name => @profile.user.username) -%></h1>
+<h1 class="title"><%= t('page.edit_user_profile', login_name: @profile.user.username) -%></h1>
 <div id="content_list">
 <%= render 'page/required_field' %>
-<%= simple_form_for(@profile, :url => my_account_path) do |f| -%>
+<%= simple_form_for(@profile, url: my_account_path) do |f| -%>
   <%= f.error_messages -%>
 
-  <%= render :partial => 'edit_credential', :locals => {:f => f, :profile => @profile} -%>
+  <%= render partial: 'edit_credential', locals: {f: f, profile: @profile} -%>
 
   <div class="actions">
     <%= f.submit %>
@@ -13,10 +13,10 @@
 <div style="clear: both">
   <div class="field">
     <%= f.label :keyword_list -%><br />
-    <%= f.text_area :keyword_list, :class => 'resource_textarea' -%>
+    <%= f.text_area :keyword_list, class: 'resource_textarea' -%>
   </div>
 
-  <%= render :partial => 'profiles/edit_profile', :locals => {:f => f, :profile => @profile} -%>
+  <%= render partial: 'profiles/edit_profile', locals: {f: f, profile: @profile} -%>
 </div>
   <%- end -%>
 
@@ -27,7 +27,7 @@
   <ul>
     <li><%= link_to t('page.show'), my_account_path -%></li>
     <% if current_user.has_role?('Librarian') %>
-      <li><%= link_to t('page.listing', :model => t('activerecord.models.user')), users_path -%></li>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.user')), users_path -%></li>
     <% end %>
   </ul>
 </div>

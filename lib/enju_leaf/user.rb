@@ -31,6 +31,9 @@ module EnjuLeaf
         end
         has_one :user_has_role, :dependent => :destroy
         has_one :role, :through => :user_has_role
+        belongs_to :user_group
+        belongs_to :library
+        belongs_to :required_role, class_name: 'Role', foreign_key: 'required_role_id'
         accepts_nested_attributes_for :user_has_role
         accepts_nested_attributes_for :profile
 

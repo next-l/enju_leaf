@@ -2,7 +2,7 @@ xml.openServiceDescription("xmlns" => "http://www.microsoft.com/schemas/openserv
   xml.homepageUrl LibraryGroup.site_config.url
   xml.display do
     xml.name LibraryGroup.system_name(@locale)
-    xml.description t('page.search_catalog_at', :library_name => LibraryGroup.system_name(@locale))
+    xml.description t('page.search_catalog_at', library_name: LibraryGroup.system_name(@locale))
   end
   xml.activity("category" => t('page.search')) do
     xml.activityAction do

@@ -15,15 +15,9 @@ Rails.application.routes.draw do
 
   resource :my_account
 
-  #resources :users do
-  #  resource :patron
-  #end
-
   resources :roles, :except => [:new, :create, :destroy]
 
   resources :user_groups
-
-  resources :local_patrons, :only => :show
 
   resources :accepts
 

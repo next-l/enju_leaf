@@ -3,12 +3,12 @@
       <%= f.label t('user.checkout_history_icalendar_url') -%><br />
       <div id="feed_token">
         <%- if profile.checkout_icalendar_token? -%>
-          <%= link_to checkouts_url(:icalendar_token => profile.checkout_icalendar_token, :format => :ics), checkouts_url(:icalendar_token => profile.checkout_icalendar_token, :format => :ics) -%>
+          <%= link_to checkouts_url(icalendar_token: profile.checkout_icalendar_token, format: :ics), checkouts_url(icalendar_token: profile.checkout_icalendar_token, format: :ics) -%>
           <%= f.hidden_field :checkout_icalendar_token -%>
         <%- end -%>
         <br />
-        <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_my_account_path(:mode => 'feed_token') %>'});" type="button" value="<%= t('page.reset') %>" />
-        <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_my_account_path(:disable => true, :mode => 'feed_token') %>'});" type="button" value="<%= t('page.delete') %>" />
+        <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_my_account_path(mode: 'feed_token') %>'});" type="button" value="<%= t('page.reset') %>" />
+        <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_my_account_path(disable: true, mode: 'feed_token') %>'});" type="button" value="<%= t('page.delete') %>" />
       </div>
       <br />
     </div>
@@ -31,7 +31,7 @@
   <% if current_user.has_role?('Librarian') %>
     <div class="field">
       <%= f.label :note -%><br />
-      <%= f.text_area :note, :class => 'resource_textarea' -%>
+      <%= f.text_area :note, class: 'resource_textarea' -%>
     </div>
   <% end %>
 

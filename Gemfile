@@ -13,6 +13,7 @@ gem "jquery-rails"
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 gem "enju_circulation", :github => "next-l/enju_circulation", branch: '1.1'
+gem "enju_biblio", :github => "next-l/enju_biblio", branch: '1.1'
 gem "enju_library", :github => "next-l/enju_library", branch: '1.1'
 gem "enju_message", :github => "next-l/enju_message", branch: '1.1'
 gem "enju_bookmark", :github => "next-l/enju_bookmark", branch: '1.1'

@@ -1,5 +1,5 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.user_group')) -%></h1>
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.user_group')) -%></h1>
 <div id="content_list">
 <p id="notice"><%= notice %></p>
 
@@ -41,7 +41,7 @@
     <%- @user_group.user_group_has_checkout_types.each do |available_checkout_type| -%>
       <li>
         <%= link_to available_checkout_type.checkout_type.display_name.localize, available_checkout_type.checkout_type -%>
-        (<%= link_to t('page.number_of_days', :count => available_checkout_type.checkout_period), edit_user_group_user_group_has_checkout_type_path(@user_group, available_checkout_type) -%>)
+        (<%= link_to t('page.number_of_days', count: available_checkout_type.checkout_period), edit_user_group_user_group_has_checkout_type_path(@user_group, available_checkout_type) -%>)
       </li>
     <%- end -%>
   </ul>
@@ -59,6 +59,6 @@
   <ul>
     <li><%= link_to t('page.edit'), edit_user_group_path(@user_group) -%></li>
     <li><%= back_to_index(flash[:page_info]) -%></li>
-    <li><%= link_to t('page.new', :model => t('activerecord.models.checkout_type')), new_user_group_user_group_has_checkout_type_path(@user_group) -%></li>
+    <li><%= link_to t('page.new', model: t('activerecord.models.checkout_type')), new_user_group_user_group_has_checkout_type_path(@user_group) -%></li>
   </ul>
 </div>

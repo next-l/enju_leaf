@@ -1,5 +1,5 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.user')) -%></h1>
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.user')) -%></h1>
 <div id="content_list">
 <p id="notice"><%= notice %></p>
 
@@ -32,7 +32,7 @@
             (<%= link_to checkout.item.manifestation.original_title, checkout.item.manifestation %>)
           </td>
           <td>
-            <%=l checkout.due_date, :formats => :only_date %>
+            <%=l checkout.due_date, formats: :only_date %>
             <br />
             <%- if can? :update, checkout -%>
               <% unless checkout.checkin %>
@@ -61,7 +61,7 @@
   <% end %>
   <ul>
     <%- if flash[:query] -%>
-      <li><%= link_to t('page.back'), profiles_path(:query => flash[:query]) -%></li>
+      <li><%= link_to t('page.back'), profiles_path(query: flash[:query]) -%></li>
     <% else %>
       <li><%= back_to_index %></li>
     <% end %>
@@ -70,13 +70,13 @@
         <li><%= link_to t('page.edit'), edit_profile_path(@profile) -%></li>
       <% end %>
       <% if defined?(EnjuMessage) %>
-        <li><%= link_to t('message.send'), new_message_path(:recipient => @profile.user.username) -%></li>
+        <li><%= link_to t('message.send'), new_message_path(recipient: @profile.user.username) -%></li>
       <% end %>
       <%- if can? :create, @profile -%>
-        <li><%= link_to t('page.new', :model => t('activerecord.models.profile')), new_profile_path -%></li>
+        <li><%= link_to t('page.new', model: t('activerecord.models.profile')), new_profile_path -%></li>
       <% end %>
       <%- if can? :destroy, @profile -%>
-        <li><%= link_to t('page.destroy'), @profile, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%></li>
+        <li><%= link_to t('page.destroy'), @profile, data: {confirm: t('page.are_you_sure')}, method: :delete -%></li>
       <% end %>
     <%- end -%>
     <% if defined?(EnjuCirculation) %>

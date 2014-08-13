@@ -16,7 +16,7 @@
               <li><%= link_to t('page.checkin'), new_checkin_path -%></li>
             <% end %>
             <li>
-              <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%>
+              <%= link_to t('page.listing', model: t('activerecord.models.reserve')), reserves_path -%>
             </li>
             <% if defined?(EnjuInterLibraryLoan) %>
               <% if current_user.has_role?('Librarian') -%>
@@ -26,7 +26,7 @@
             <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
           <%- else -%>
             <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
-            <li><%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%></li>
+            <li><%= link_to t('page.listing', model: t('activerecord.models.reserve')), reserves_path -%></li>
           <%- end -%>
         </ul>
       <% end %>
@@ -44,15 +44,15 @@
 	      <li><%= link_to t('enju_loc.import_from_loc_search'), loc_search_index_path -%></li>
 	    <% end %>
             <li><%= link_to t('page.add_resource_manually'), new_manifestation_path -%></li>
-            <li><%= link_to t('page.serial'), manifestations_path(:periodical => true) -%></li>
+            <li><%= link_to t('page.serial'), manifestations_path(periodical: true) -%></li>
             <li><%= link_to t('page.import_from_file'), new_resource_import_file_path -%></li>
             <li><%= link_to t('activerecord.models.accept'), new_accept_path -%></li>
             <% if defined?(EnjuBookmark) %>
-              <li><%= link_to t('page.listing', :model => t('activerecord.models.bookmark')), bookmarks_path -%></li>
+              <li><%= link_to t('page.listing', model: t('activerecord.models.bookmark')), bookmarks_path -%></li>
             <% end %>
           <%- else -%>
             <% if defined?(EnjuBookmark) %>
-              <li><%= link_to t('page.listing', :model => t('activerecord.models.bookmark')), bookmarks_path -%></li>
+              <li><%= link_to t('page.listing', model: t('activerecord.models.bookmark')), bookmarks_path -%></li>
             <% end %>
           <%- end -%>
         </ul>

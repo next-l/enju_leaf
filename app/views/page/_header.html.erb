@@ -1,7 +1,7 @@
 <div class="header_and_footer">
   <div id="header_left">
     <div id="library_system_name">
-      <h1 class="resource_title"><%= link_to LibraryGroup.system_name(@locale), root_path, :title => LibraryGroup.system_name(@locale) %></h1>
+      <h1 class="resource_title"><%= link_to LibraryGroup.system_name(@locale), root_path, title: LibraryGroup.system_name(@locale) %></h1>
     </div>
     <div id="header_micro_advertisement"></div>
   </div>
@@ -10,10 +10,10 @@
   <div id="header_right">
     <div id="user_account">
       <% if user_signed_in? %>
-        <%= t('page.logged_in_as', :login_name => current_user.username) -%>
+        <%= t('page.logged_in_as', login_name: current_user.username) -%>
         <br />
         <% if defined?(EnjuMessage) %>
-          <%= link_to image_tag('icons/email.png', :size => '16x16', :alt => t('activerecord.models.message')), messages_path %>
+          <%= link_to image_tag('icons/email.png', size: '16x16', alt: t('activerecord.models.message')), messages_path %>
           <% if current_user.received_messages.unread.size > 0 %>
             <%= link_to "(#{h(current_user.received_messages.unread.size)})", messages_path %>
           <% else %>
@@ -21,7 +21,7 @@
           <% end %>
         <% end %>
         <%= link_to t('page.account'), my_account_path -%>
-        <%= link_to t('page.sign_out'), destroy_user_session_path, :method => :delete -%>
+        <%= link_to t('page.sign_out'), destroy_user_session_path, method: :delete -%>
         <br />
       <% else %>
         <% unless controller_name == 'sessions' %>
