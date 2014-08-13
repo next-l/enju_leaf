@@ -94,15 +94,18 @@ describe MyAccountsController do
 
       describe "with valid params" do
         it "updates the requested user" do
+          @attrs[:user_attributes][:id] = @user.id
           put :update, profile: @attrs
         end
 
         it "assigns the requested user as @user" do
+          @attrs[:user_attributes][:id] = @user.id
           put :update, profile: @attrs
           expect(assigns(:profile)).to eq(@user.profile)
         end
 
         it "redirects to the user" do
+          @attrs[:user_attributes][:id] = @user.id
           put :update, profile: @attrs
           expect(assigns(:profile)).to eq(@user.profile)
           expect(response).to redirect_to(my_account_url)
@@ -141,6 +144,7 @@ describe MyAccountsController do
         end
 
         it "redirects to the user" do
+          @attrs[:user_attributes][:id] = @user.id
           put :update, profile: @attrs
           expect(assigns(:profile)).to eq(@user.profile)
           expect(response).to redirect_to(my_account_url)
@@ -150,16 +154,14 @@ describe MyAccountsController do
       describe "with invalid params" do
         it "assigns the user as @user" do
           put :update, profile: @invalid_attrs
-          # user_numberの変更は無視される
-          #expect(assigns(:profile)).to_not be_valid
-          expect(assigns(:profile)).to be_valid
+          expect(assigns(:profile)).to_not be_valid
           expect(response).to be_success
         end
 
         it "should ignore username" do
           put :update, profile: @invalid_attrs
           expect(response).to render_template("edit")
-          expect(assigns(:profile).changed?).to be_falsy
+          expect(assigns(:profile).changed?).to be_truthy
         end
       end
     end
