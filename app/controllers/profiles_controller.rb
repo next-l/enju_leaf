@@ -59,6 +59,9 @@ class ProfilesController < ApplicationController
   # GET /profiles/new
   def new
     @profile = Profile.new
+    @profile.user_group = current_user.user_group
+    @profile.library = current_user.profile.library
+    @profile.locale = current_user.profile.locale
 
     respond_to do |format|
       format.html # new.html.erb

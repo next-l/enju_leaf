@@ -43,5 +43,13 @@
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
+    <%- if current_user.try(:has_role?, 'Librarian') -%>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.profile')), new_profile_path -%></li>
+      <li><%= link_to t('page.new', :model => t('activerecord.models.user_import_file')), new_user_import_file_path -%></li>
+      <li><%= link_to t('page.listing', :model => t('activerecord.models.user_import_file')), user_import_files_path -%></li>
+      <%- if current_user.has_role?('Administrator') -%>
+        <li><%= link_to t('activerecord.models.user_export_file'), user_export_files_path -%></li>
+      <%- end -%>
+    <%- end -%>
   </ul>
 </div>
