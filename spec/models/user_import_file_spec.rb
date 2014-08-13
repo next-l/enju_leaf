@@ -24,7 +24,7 @@ describe UserImportFile do
 
       user002 = User.where(:username => 'user002').first
       user002.profile.user_group.name.should eq 'faculty'
-      user002.expired_at.to_i.should eq Time.zone.parse('2013-12-01').end_of_day.to_i
+      user002.profile.expired_at.to_i.should eq Time.zone.parse('2013-12-01').end_of_day.to_i
       user002.valid_password?('4NsxXPLy')
       user002.profile.user_number.should eq '001002'
       user002.profile.library.name.should eq 'hachioji'
@@ -59,6 +59,9 @@ describe UserImportFile do
 
       @file.user_import_fingerprint.should be_truthy
       @file.executed_at.should be_truthy
+
+      @file.reload
+      @file.error_message.should eq "The follwing column(s) were ignored: invalid"
     end
 
     it "should send message when import is completed" do

@@ -101,10 +101,10 @@ class UserImportFile < ActiveRecord::Base
     transition_to!(:completed)
     send_message
     num
-  #rescue => e
-  #  self.error_message = "line #{row_num}: #{e.message}"
-  #  transition_to!(:failed)
-  #  raise e
+  rescue => e
+    self.error_message = "line #{row_num}: #{e.message}"
+    transition_to!(:failed)
+    raise e
   end
 
   def modify
@@ -197,7 +197,26 @@ class UserImportFile < ActiveRecord::Base
 
   def open_import_file(tempfile)
     file = CSV.open(tempfile.path, 'r:utf-8', :col_sep => "\t")
+    header_columns = %w(
+      username role email password user_group user_number expired_at
+      keyword_list note locale library dummy
+    )
+    if defined?(EnjuCirculation)
+      header_columns += %w(checkout_icalendar_token save_checkout_history)
+    end
+    if defined?(EnjuSearchLog)
+      header_columns += %w(save_search_history)
+    end
+    if defined?(EnjuBookmark)
+      header_columns += %w(share_bookmarks)
+    end
+
     header = file.first
+    ignored_columns = header - header_columns
+    unless ignored_columns.empty?
+      self.error_message = I18n.t('import.following_column_were_ignored', column: ignored_columns.join(', '))
+      save!
+    end
     rows = CSV.open(tempfile.path, 'r:utf-8', :headers => header, :col_sep => "\t")
     UserImportResult.create!(:user_import_file_id => self.id, :body => header.join("\t"))
     tempfile.close(true)
@@ -219,10 +238,6 @@ class UserImportFile < ActiveRecord::Base
     profile_params = {}
     params[:email] = row['email'] if row['email'].present?
 
-    if row['expired_at'].present?
-      params[:expired_at] = Time.zone.parse(row['expired_at']).end_of_day
-    end
-
     if row['password'].present?
       params[:password] = row['password']
     else
@@ -240,6 +255,10 @@ class UserImportFile < ActiveRecord::Base
     params[:user_group_id] = user_group.id if user_group
 
     params[:user_number] = row['user_number']
+
+    if row['expired_at'].present?
+      params[:expired_at] = Time.zone.parse(row['expired_at']).end_of_day
+    end
 
     if row['keyword_list'].present?
       params[:keyword_list] = row['keyword_list'].split('//').join('\n')

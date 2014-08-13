@@ -386,6 +386,7 @@ en:
       other: "Resource will be impored in %{minute} minutes."
     auto_detect: "Auto detect"
     successfully_created: "%{model} was created successfully. When the task is completed, its status on the list will be updated to 'completed'."
+    following_column_were_ignored: "The follwing column(s) were ignored: %{column}"
   export:
     export_completed: Export completed.
     are_you_sure_to_export: It may take some time to complete. Are you sure to export?
