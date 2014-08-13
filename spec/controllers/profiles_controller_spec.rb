@@ -258,7 +258,7 @@ describe ProfilesController do
 
       it "should not create user" do
         post :create, profile: { :username => 'test10' }
-        assigns(:profile).should_not be_valid
+        assigns(:profile).should be_nil
         response.should be_forbidden
       end
     end

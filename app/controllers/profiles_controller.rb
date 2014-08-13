@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 class ProfilesController < ApplicationController
-  load_and_authorize_resource except: :index
-  authorize_resource only: :index
+  load_and_authorize_resource except: [:index, :create]
+  authorize_resource only: [:index, :create]
   before_filter :prepare_options, :only => [:new, :edit]
 
   # GET /profiles
@@ -59,6 +59,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/new
   def new
     @profile = Profile.new
+    @profile.user = User.new
     @profile.user_group = current_user.user_group
     @profile.library = current_user.profile.library
     @profile.locale = current_user.profile.locale
@@ -82,12 +83,20 @@ class ProfilesController < ApplicationController
   def create
     if current_user.has_role?('Librarian')
       @profile = Profile.new(params[:profile], as: :admin)
+      if @profile.user
+        @profile.user.operator = current_user
+        @profile.user.set_auto_generated_password
+      end
     else
       @profile = Profile.new(params[:profile])
     end
 
     respond_to do |format|
       if @profile.save
+        if @profile.user
+          @profile.user.role = Role.where(name: 'User').first
+          flash[:temporary_password] = @profile.user.password
+        end
         format.html { redirect_to @profile, :notice => t('controller.successfully_created', :model => t('activerecord.models.profile')) }
         format.json { render :json => @profile, :status => :created, :location => @profile }
       else

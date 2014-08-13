@@ -49,7 +49,7 @@ module EnjuLeaf
         end
 
         validates_presence_of     :email, :email_confirmation, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
-        validates_confirmation_of :email, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
+        validates_confirmation_of :email, :on => :create #, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
 
         before_validation :set_lock_information
         before_destroy :check_role_before_destroy

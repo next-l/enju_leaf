@@ -83,6 +83,7 @@ en:
         keyword_list: Keyword list
         required_role_id: Required role
         user_id: User
+        user: User
         user_group_id: User group
         library_id: Library
         locale: Locale
@@ -423,6 +424,7 @@ en:
     change_my_password: "Change my password"
     management: "User management"
     not_found: "User not found."
+    role_is_not_set: "Role is not set."
   subscribe:
     this_subscription_is_expired: "This subscription is expired!"
   role:

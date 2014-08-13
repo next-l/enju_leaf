@@ -83,6 +83,7 @@ ja:
         keyword_list: キーワードリスト
         required_role_id: 閲覧に必要な権限
         user_id: 利用者
+        user: 利用者
         user_group_id: 利用者グループ
         library_id: 所属館
         locale: 言語
@@ -404,6 +405,7 @@ ja:
     change_my_password: "パスワードを変更する"
     management: "利用者の管理"
     not_found: "利用者が見つかりません。"
+    role_is_not_set: "権限が設定されていません。"
   subscribe:
     this_subscription_is_expired: "購読期間が過ぎています。"
   role:
