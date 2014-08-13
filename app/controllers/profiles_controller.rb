@@ -2,7 +2,7 @@
 class ProfilesController < ApplicationController
   load_and_authorize_resource except: [:index, :create]
   authorize_resource only: [:index, :create]
-  before_filter :prepare_options, :only => [:new, :edit]
+  before_filter :prepare_options, only: [:new, :edit]
 
   # GET /profiles
   # GET /profiles.json
@@ -11,7 +11,7 @@ class ProfilesController < ApplicationController
     @query = query.dup
     @count = {}
 
-    sort = {:sort_by => 'created_at', :order => 'desc'}
+    sort = {sort_by: 'created_at', order: 'desc'}
     case params[:sort_by]
     when 'username'
       sort[:sort_by] = 'username'
@@ -38,7 +38,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @profiles }
+      format.json { render json: @profiles }
     end
   end
 
@@ -52,7 +52,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @profile }
+      format.json { render json: @profile }
     end
   end
 
@@ -66,7 +66,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render :json => @profile }
+      format.json { render json: @profile }
     end
   end
 
@@ -97,12 +97,12 @@ class ProfilesController < ApplicationController
           @profile.user.role = Role.where(name: 'User').first
           flash[:temporary_password] = @profile.user.password
         end
-        format.html { redirect_to @profile, :notice => t('controller.successfully_created', :model => t('activerecord.models.profile')) }
-        format.json { render :json => @profile, :status => :created, :location => @profile }
+        format.html { redirect_to @profile, notice: t('controller.successfully_created', :model => t('activerecord.models.profile')) }
+        format.json { render json: @profile, status: :created, :location => @profile }
       else
         prepare_options
-        format.html { render :action => "new" }
-        format.json { render :json => @profile.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.json { render json: @profile.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -124,12 +124,12 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       if @profile.save
-        format.html { redirect_to @profile, :notice => t('controller.successfully_updated', :model => t('activerecord.models.profile')) }
+        format.html { redirect_to @profile, notice: t('controller.successfully_updated', :model => t('activerecord.models.profile')) }
         format.json { head :no_content }
       else
         prepare_options
-        format.html { render :action => "edit" }
-        format.json { render :json => @profile.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.json { render json: @profile.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -140,7 +140,7 @@ class ProfilesController < ApplicationController
     @profile.destroy
 
     respond_to do |format|
-      format.html { redirect_to profiles_url }
+      format.html { redirect_to profiles_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.profile')) }
       format.json { head :no_content }
     end
   end
