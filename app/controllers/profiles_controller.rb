@@ -115,6 +115,12 @@ class ProfilesController < ApplicationController
     else
       @profile.update_attributes(params[:profile])
     end
+    if @profile.user
+      if @profile.user.auto_generated_password == "1"
+        @profile.user.set_auto_generated_password
+        flash[:temporary_password] = @profile.user.password
+      end
+    end
 
     respond_to do |format|
       if @profile.save
