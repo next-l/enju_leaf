@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-  <%= render 'page/index' %>
-<% else %>
   <%= render 'users/show', user: current_user -%>
+<% else %>
+  <%= render 'page/index' %>
 <% end %>
