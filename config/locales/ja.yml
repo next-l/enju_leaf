@@ -95,7 +95,7 @@ ja:
       month: 月
       second: 秒
       year: 年
-  errors:
+  errors: &errors
     format: ! '%{attribute}%{message}'
     messages:
       accepted: を受諾してください。
@@ -195,3 +195,10 @@ ja:
       only_year_and_month: "%Y年%m月"
       only_month: "%m月"
     pm: 午後
+  # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
+  activemodel:
+    errors:
+      <<: *errors
+  activerecord:
+    errors:
+      <<: *errors

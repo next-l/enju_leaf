@@ -95,7 +95,7 @@ en:
       month: Month
       second: Seconds
       year: Year
-  errors:
+  errors: &errors
     format: ! '%{attribute} %{message}'
     messages:
       accepted: must be accepted
@@ -205,3 +205,10 @@ en:
       only_year_and_month: "%m, %Y"
       only_month: "%m"
     pm: pm
+  # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
+  activemodel:
+    errors:
+      <<: *errors
+  activerecord:
+    errors:
+      <<: *errors
