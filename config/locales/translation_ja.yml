@@ -189,6 +189,7 @@ ja:
     number_of_pages: "ページ数"
     holding_library: "所蔵館"
     resource: "資料"
+    manifestation_and_item: "書誌と所蔵"
     type: "種類"
     search_result_feed: "検索結果のフィード"
     force_reload: "強制的に再読込を行う"

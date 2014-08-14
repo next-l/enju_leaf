@@ -201,6 +201,7 @@ en:
     number_of_pages: "Number of pages"
     holding_library: "Holding library"
     resource: "Resource"
+    manifestation_and_item: "Manifestation and Item"
     type: "Type"
     search_result_feed: "Search result feed"
     force_reload: "Force reload"
