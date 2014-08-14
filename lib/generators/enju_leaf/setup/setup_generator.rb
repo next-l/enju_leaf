@@ -38,6 +38,7 @@ EOS
     rake("enju_leaf_engine:install:migrations")
     rake("enju_biblio_engine:install:migrations")
     rake("enju_library_engine:install:migrations")
+    gsub_file 'config/routes.rb', /devise_for :users$/, "devise_for :users, :path => 'accounts'"
     gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\Z/i'
     gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [ :email ]', 'config.authentication_keys = [ :username ]'
     gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
