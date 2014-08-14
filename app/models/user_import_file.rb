@@ -43,7 +43,7 @@ class UserImportFile < ActiveRecord::Base
   def import
     transition_to!(:started)
     num = {:user_imported => 0, :user_found => 0, :failed => 0}
-    rows = open_import_file(create_import_temp_file)
+    rows = open_import_file(create_import_temp_file(user_import))
     row_num = 1
 
     field = rows.first
@@ -110,7 +110,7 @@ class UserImportFile < ActiveRecord::Base
   def modify
     transition_to!(:started)
     num = {:user_updated => 0, :user_not_found => 0, :failed => 0}
-    rows = open_import_file(create_import_temp_file)
+    rows = open_import_file(create_import_temp_file(user_import))
     row_num = 1
 
     field = rows.first
@@ -154,7 +154,7 @@ class UserImportFile < ActiveRecord::Base
   def remove
     transition_to!(:started)
     row_num = 1
-    rows = open_import_file(create_import_temp_file)
+    rows = open_import_file(create_import_temp_file(user_import))
 
     field = rows.first
     if [field['username']].reject{|field| field.to_s.strip == ""}.empty?
@@ -177,22 +177,6 @@ class UserImportFile < ActiveRecord::Base
   private
   def self.transition_class
     UserImportFileTransition
-  end
-
-  def create_import_temp_file
-    tempfile = Tempfile.new(self.class.name.underscore)
-    if Setting.uploaded_file.storage == :s3
-      uploaded_file_path = user_import.expiring_url(10)
-    else
-      uploaded_file_path = user_import.path
-    end
-    open(uploaded_file_path){|f|
-      f.each{|line|
-        tempfile.puts(convert_encoding(line))
-      }
-    }
-    tempfile.close
-    tempfile
   end
 
   def open_import_file(tempfile)
