@@ -9,7 +9,7 @@ ja:
     - 金
     - 土
     abbr_month_names:
-    - 
+    -
     - 1月
     - 2月
     - 3月
@@ -35,7 +35,7 @@ ja:
       long: ! '%Y年%m月%d日(%a)'
       short: ! '%m/%d'
     month_names:
-    - 
+    -
     - 1月
     - 2月
     - 3月
@@ -69,10 +69,10 @@ ja:
       half_a_minute: 30秒前後
       less_than_x_minutes:
         one: 1分以内
-        other: ! '%{count}分以内'
+        other: ! '%{count}分未満'
       less_than_x_seconds:
         one: 1秒以内
-        other: ! '%{count}秒以内'
+        other: ! '%{count}秒未満'
       over_x_years:
         one: 1年以上
         other: ! '%{count}年以上'
@@ -95,12 +95,13 @@ ja:
       month: 月
       second: 秒
       year: 年
-  errors: &errors
+  errors:
     format: ! '%{attribute}%{message}'
     messages:
       accepted: を受諾してください。
       blank: を入力してください。
-      confirmation: と確認の入力が一致しません。
+      present: は入力しないでください。
+      confirmation: と%{attribute}の入力が一致しません。
       empty: を入力してください。
       equal_to: は%{count}にしてください。
       even: は偶数にしてください。
@@ -115,15 +116,17 @@ ja:
       not_an_integer: は整数で入力してください。
       odd: は奇数にしてください。
       record_invalid: バリデーションに失敗しました。 %{errors}
+      restrict_dependent_destroy: ! '%{record}が存在しているので削除できません。'
       taken: はすでに存在します。
       too_long: は%{count}文字以内で入力してください。
       too_short: は%{count}文字以上で入力してください。
       wrong_length: は%{count}文字で入力してください。
+      other_than: "は%{count}以外の値にしてください。"
     template:
       body: 次の項目を確認してください。
       header:
         one: ! '%{model}にエラーが発生しました。'
-        other: ! '%{model}に%{count}つのエラーが発生しました。'
+        other: ! '%{model}に%{count}個のエラーが発生しました。'
   helpers:
     select:
       prompt: 選択してください。
@@ -173,6 +176,7 @@ ja:
     percentage:
       format:
         delimiter: ''
+        format: "%n%"
     precision:
       format:
         delimiter: ''
@@ -191,10 +195,3 @@ ja:
       only_year_and_month: "%Y年%m月"
       only_month: "%m月"
     pm: 午後
-  # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
-  activemodel:
-    errors:
-      <<: *errors
-  activerecord:
-    errors:
-      <<: *errors
