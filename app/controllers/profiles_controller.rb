@@ -97,8 +97,8 @@ class ProfilesController < ApplicationController
           @profile.user.role = Role.where(name: 'User').first
           flash[:temporary_password] = @profile.user.password
         end
-        format.html { redirect_to @profile, notice: t('controller.successfully_created', :model => t('activerecord.models.profile')) }
-        format.json { render json: @profile, status: :created, :location => @profile }
+        format.html { redirect_to @profile, notice: t('controller.successfully_created', model: t('activerecord.models.profile')) }
+        format.json { render json: @profile, status: :created, location: @profile }
       else
         prepare_options
         format.html { render action: "new" }
@@ -124,7 +124,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       if @profile.save
-        format.html { redirect_to @profile, notice: t('controller.successfully_updated', :model => t('activerecord.models.profile')) }
+        format.html { redirect_to @profile, notice: t('controller.successfully_updated', model: t('activerecord.models.profile')) }
         format.json { head :no_content }
       else
         prepare_options

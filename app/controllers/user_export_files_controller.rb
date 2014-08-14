@@ -8,7 +8,7 @@ class UserExportFilesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @user_export_files }
+      format.json { render json: @user_export_files }
     end
   end
 
@@ -23,12 +23,12 @@ class UserExportFilesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @user_export_file }
+      format.json { render json: @user_export_file }
       format.download {
         if Setting.uploaded_file.storage == :s3
           redirect_to @user_export_file.user_export.expiring_url(10)
         else
-          send_file file, :filename => @user_export_file.user_export_file_name, :type => 'application/octet-stream'
+          send_file file, filename: @user_export_file.user_export_file_name, type: 'application/octet-stream'
         end
       }
     end
@@ -42,7 +42,7 @@ class UserExportFilesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render :json => @user_export_file }
+      format.json { render json: @user_export_file }
     end
   end
 
@@ -61,11 +61,11 @@ class UserExportFilesController < ApplicationController
         if @user_export_file.mode == 'export'
           Resque.enqueue(UserExportFileQueue, @user_export_file.id)
         end
-        format.html { redirect_to @user_export_file, :notice => t('export.successfully_created', :model => t('activerecord.models.user_export_file')) }
-        format.json { render :json => @user_export_file, :status => :created, :location => @user_export_file }
+        format.html { redirect_to @user_export_file, notice: t('export.successfully_created', model: t('activerecord.models.user_export_file')) }
+        format.json { render json: @user_export_file, status: :created, location: @user_export_file }
       else
-        format.html { render :action => "new" }
-        format.json { render :json => @user_export_file.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.json { render json: @user_export_file.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -78,11 +78,11 @@ class UserExportFilesController < ApplicationController
         if @user_export_file.mode == 'export'
           UserExportFileQueue.perform(@user_export_file.id)
         end
-        format.html { redirect_to @user_export_file, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user_export_file')) }
+        format.html { redirect_to @user_export_file, notice: t('controller.successfully_updated', model: t('activerecord.models.user_export_file')) }
         format.json { head :no_content }
       else
-        format.html { render :action => "edit" }
-        format.json { render :json => @user_export_file.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.json { render json: @user_export_file.errors, status: :unprocessable_entity }
       end
     end
   end

@@ -6,7 +6,7 @@ class MyAccountsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render :json => @profile }
+      format.json { render json: @profile }
     end
   end
 
@@ -19,7 +19,7 @@ class MyAccountsController < ApplicationController
         else
           @profile.reset_checkout_icalendar_token
         end
-        render :partial => 'feed_token'
+        render partial: 'feed_token'
         return
       end
     end
@@ -31,7 +31,7 @@ class MyAccountsController < ApplicationController
 
     respond_to do |format|
       if current_user.has_role?('Librarian')
-        saved = current_user.update_with_password(params[:profile][:user_attributes], :as => :admin)
+        saved = current_user.update_with_password(params[:profile][:user_attributes], as: :admin)
         @profile.assign_attributes(params[:profile], as: :admin)
       else
         saved = current_user.update_with_password(params[:profile][:user_attributes])
@@ -41,18 +41,18 @@ class MyAccountsController < ApplicationController
       if saved
         if @profile.save
           sign_in(current_user, :bypass => true)
-          format.html { redirect_to my_account_url, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user')) }
+          format.html { redirect_to my_account_url, notice: t('controller.successfully_updated', model: t('activerecord.models.user')) }
           format.json { head :no_content }
         else
           prepare_options
-          format.html { render :action => "edit" }
-          format.json { render :json => current_user.errors, :status => :unprocessable_entity }
+          format.html { render action: "edit" }
+          format.json { render json: current_user.errors, status: :unprocessable_entity }
         end
       else
         @profile.errors[:base] << I18n.t('activerecord.attributes.user.current_password')
         prepare_options
-        format.html { render :action => "edit" }
-        format.json { render :json => current_user.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.json { render json: current_user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -62,7 +62,7 @@ class MyAccountsController < ApplicationController
     @profile.destroy
 
     respond_to do |format|
-      format.html { redirect_to my_account_url, :notice => 'devise.registrations.destroyed' }
+      format.html { redirect_to my_account_url, notice: 'devise.registrations.destroyed' }
       format.json { head :no_content }
     end
   end
