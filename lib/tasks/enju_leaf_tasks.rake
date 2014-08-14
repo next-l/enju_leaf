@@ -46,6 +46,24 @@ namespace :enju_leaf do
             ReserveTransition.create(reserve_id: 1, sort_key: 0, to_state: reserve.state)
           end
 
+          carrier_types = YAML.load(open('db/fixtures/enju_biblio/carrier_types.yml').read)
+          carrier_types.each do |line|
+            case line[1]["name"]
+            when "volume"
+              carrier_type = CarrierType.where(name: 'print').first
+              carrier_type.update_attributes!(line[1])
+            when "audio_disc"
+              carrier_type = CarrierType.where(name: 'cd').first
+              carrier_type.update_attributes!(line[1])
+            when "videodisc"
+              carrier_type = CarrierType.where(name: 'dvd').first
+              carrier_type.update_attributes!(line[1])
+            when "online_resource"
+              carrier_type = CarrierType.where(name: 'file').first
+              carrier_type.update_attributes!(line[1])
+            end
+          end
+
           YAML.load(open('db/fixtures/enju_circulation/circulation_statuses.yml').read).each do |line|
             l = line[1].select!{|k, v| %w(name display_name).include?(k)}
             CirculationStatus.where(name: l["name"]).first.try(:update_attributes!, l)
