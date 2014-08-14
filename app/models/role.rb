@@ -3,7 +3,7 @@ class Role < ActiveRecord::Base
   include MasterModel
   default_scope :order => "roles.position"
   has_many :user_has_roles
-  has_many :users, :through => :user_has_roles
+  has_many :users, through: :user_has_roles
   after_save :clear_all_cache
   after_destroy :clear_all_cache
 

@@ -23,7 +23,7 @@ class UserImportFile < ActiveRecord::Base
     'application/vnd.ms-excel'
   ]
   validates_attachment_presence :user_import
-  belongs_to :user, :validate => true
+  belongs_to :user, validate: true
   belongs_to :default_user_group, class_name: 'UserGroup'
   belongs_to :default_library, class_name: 'Library'
   has_many :user_import_results
