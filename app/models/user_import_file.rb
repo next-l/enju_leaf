@@ -55,7 +55,7 @@ class UserImportFile < ActiveRecord::Base
       row_num += 1
       next if row['dummy'].to_s.strip.present?
       import_result = UserImportResult.create!(
-        :user_import_file_id => id, :body => row.fields.join("\t")
+        :user_import_file_id => id, body: row.fields.join("\t")
       )
 
       username = row['username']
@@ -66,7 +66,7 @@ class UserImportFile < ActiveRecord::Base
         num[:user_found] += 1
       else
         new_user = User.new
-        new_user.role = Role.where(:name => row['role']).first
+        new_user.role = Role.where(name: row['role']).first
         if new_user.role
           unless user.has_role?(new_user.role.name)
             num[:failed] += 1
@@ -122,7 +122,7 @@ class UserImportFile < ActiveRecord::Base
       row_num += 1
       next if row['dummy'].to_s.strip.present?
       import_result = UserImportResult.create!(
-        :user_import_file_id => id, :body => row.fields.join("\t")
+        :user_import_file_id => id, body: row.fields.join("\t")
       )
 
       username = row['username']
@@ -202,7 +202,7 @@ class UserImportFile < ActiveRecord::Base
       save!
     end
     rows = CSV.open(tempfile.path, 'r:utf-8', :headers => header, :col_sep => "\t")
-    UserImportResult.create!(:user_import_file_id => self.id, :body => header.join("\t"))
+    UserImportResult.create!(:user_import_file_id => self.id, body: header.join("\t"))
     tempfile.close(true)
     file.close
     rows

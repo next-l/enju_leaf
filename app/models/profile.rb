@@ -12,12 +12,12 @@ class Profile < ActiveRecord::Base
   belongs_to :user
   belongs_to :library, validate: true
   belongs_to :user_group
-  belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id' #, validate: true
+  belongs_to :required_role, class_name: 'Role', foreign_key: 'required_role_id' #, validate: true
 
   validates_associated :user_group, :library
   validates_associated :user
   validates_presence_of :user_group, :library, :locale #, :user_number
-  validates :user_number, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z_]+\Z/}, :allow_blank => true
+  validates :user_number, :uniqueness => true, format: {with: /\A[0-9A-Za-z_]+\Z/}, allow_blank: true
 
   searchable do
     text :user_number, :full_name, :note
@@ -41,7 +41,7 @@ class Profile < ActiveRecord::Base
     end
   end
 
-  before_validation :set_role_and_agent, :on => :create
+  before_validation :set_role_and_agent, on: :create
   before_save :set_expired_at
   accepts_nested_attributes_for :user
 
