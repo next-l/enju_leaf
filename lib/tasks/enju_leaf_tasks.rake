@@ -46,6 +46,10 @@ namespace :enju_leaf do
             ReserveTransition.create(reserve_id: 1, sort_key: 0, to_state: reserve.state)
           end
 
+          cd = CarrierType.where(name: 'CD').first
+          cd.update_column(:name, 'cd') if cd
+          dvd = CarrierType.where(name: 'DVD').first
+          dvd.update_column(:name, 'dvd') if cd
           carrier_types = YAML.load(open('db/fixtures/enju_biblio/carrier_types.yml').read)
           carrier_types.each do |line|
             case line[1]["name"]
