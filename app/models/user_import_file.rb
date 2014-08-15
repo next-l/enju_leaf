@@ -13,7 +13,7 @@ class UserImportFile < ActiveRecord::Base
       :s3_permissions => :private
   else
     has_attached_file :user_import,
-      :path => ":rails_root/private/system/:class/:attachment/:id_partition/:style/:filename"
+      path: ":rails_root/private/system/:class/:attachment/:id_partition/:style/:filename"
   end
   validates_attachment_content_type :user_import, :content_type => [
     'text/csv',
@@ -180,7 +180,7 @@ class UserImportFile < ActiveRecord::Base
   end
 
   def open_import_file(tempfile)
-    file = CSV.open(tempfile.path, 'r:utf-8', :col_sep => "\t")
+    file = CSV.open(tempfile.path, 'r:utf-8', col_sep: "\t")
     header_columns = %w(
       username role email password user_group user_number expired_at
       keyword_list note locale library dummy
@@ -201,7 +201,7 @@ class UserImportFile < ActiveRecord::Base
       self.error_message = I18n.t('import.following_column_were_ignored', column: ignored_columns.join(', '))
       save!
     end
-    rows = CSV.open(tempfile.path, 'r:utf-8', :headers => header, :col_sep => "\t")
+    rows = CSV.open(tempfile.path, 'r:utf-8', headers: header, col_sep: "\t")
     UserImportResult.create!(:user_import_file_id => self.id, body: header.join("\t"))
     tempfile.close(true)
     file.close

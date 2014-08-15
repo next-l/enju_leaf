@@ -35,17 +35,17 @@ module EnjuLeaf
       return if performed?
       if user_signed_in?
         respond_to do |format|
-          format.html {render :template => 'page/403', :status => 403}
-          format.mobile {render :template => 'page/403', :status => 403}
-          format.xml {render :template => 'page/403', :status => 403}
-          format.json { render :text => '{"error": "forbidden"}' }
+          format.html {render template: 'page/403', status: 403}
+          format.mobile {render template: 'page/403', status: 403}
+          format.xml {render template: 'page/403', status: 403}
+          format.json { render text: '{"error": "forbidden"}' }
         end
       else
         respond_to do |format|
           format.html {redirect_to new_user_session_url}
           format.mobile {redirect_to new_user_session_url}
-          format.xml {render :template => 'page/403', :status => 403}
-          format.json { render :text => '{"error": "forbidden"}' }
+          format.xml {render template: 'page/403', status: 403}
+          format.json { render text: '{"error": "forbidden"}' }
         end
       end
     end
@@ -53,16 +53,16 @@ module EnjuLeaf
     def render_404
       return if performed?
       respond_to do |format|
-        format.html {render :template => 'page/404', :status => 404}
-        format.mobile {render :template => 'page/404', :status => 404}
-        format.xml {render :template => 'page/404', :status => 404}
-        format.json { render :text => '{"error": "not_found"}' }
+        format.html {render template: 'page/404', status: 404}
+        format.mobile {render template: 'page/404', status: 404}
+        format.xml {render template: 'page/404', status: 404}
+        format.json { render text: '{"error": "not_found"}' }
       end
     end
 
     def render_404_invalid_format
       return if performed?
-      render :file => "#{Rails.root}/public/404", :formats => [:html]
+      render file: "#{Rails.root}/public/404", formats: [:html]
     end
 
     def render_500
@@ -70,10 +70,10 @@ module EnjuLeaf
       return if performed?
       #flash[:notice] = t('page.connection_failed')
       respond_to do |format|
-        format.html {render :file => "#{Rails.root.to_s}/public/500", :layout => false, :status => 500}
-        format.mobile {render :file => "#{Rails.root.to_s}/public/500", :layout => false, :status => 500}
-        format.xml {render :template => 'page/500', :status => 500}
-        format.json { render :text => '{"error": "server_error"}' }
+        format.html {render file: "#{Rails.root.to_s}/public/500", layout: false, status: 500}
+        format.mobile {render file: "#{Rails.root.to_s}/public/500", layout: false, status: 500}
+        format.xml {render template: 'page/500', status: 500}
+        format.json { render text: '{"error": "server_error"}' }
       end
     end
 
@@ -98,16 +98,16 @@ module EnjuLeaf
     end
 
     def default_url_options(options={})
-      {:locale => nil}
+      {locale: nil}
     end
 
     def set_available_languages
       if Rails.env == 'production'
         @available_languages = Rails.cache.fetch('available_languages'){
-          Language.where(:iso_639_1 => I18n.available_locales.map{|l| l.to_s}).select([:id, :iso_639_1, :name, :native_name, :display_name, :position]).all
+          Language.where(iso_639_1: I18n.available_locales.map{|l| l.to_s}).select([:id, :iso_639_1, :name, :native_name, :display_name, :position]).all
         }
       else
-        @available_languages = Language.where(:iso_639_1 => I18n.available_locales.map{|l| l.to_s})
+        @available_languages = Language.where(iso_639_1: I18n.available_locales.map{|l| l.to_s})
       end
     end
 
@@ -124,7 +124,7 @@ module EnjuLeaf
     end
 
     def get_user
-      @user = User.where(:username => params[:user_id]).first if params[:user_id]
+      @user = User.where(username: params[:user_id]).first if params[:user_id]
       #authorize! :show, @user if @user
     end
 
@@ -182,7 +182,7 @@ module EnjuLeaf
         language = params[:language]
         if defined?(EnjuSubject)
           subject = params[:subject]
-          subject_by_term = Subject.where(:term => params[:subject]).first
+          subject_by_term = Subject.where(term: params[:subject]).first
           @subject_by_term = subject_by_term
         end
 
@@ -283,7 +283,7 @@ module EnjuLeaf
       if ['higher', 'lower'].include?(direction)
         resource.send("move_#{direction}")
         if redirect
-          redirect_to url_for(:controller => resource.class.to_s.pluralize.underscore)
+          redirect_to url_for(controller: resource.class.to_s.pluralize.underscore)
           return
         end
       end

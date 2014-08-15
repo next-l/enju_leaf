@@ -17,7 +17,7 @@ class Profile < ActiveRecord::Base
   validates_associated :user_group, :library
   validates_associated :user
   validates_presence_of :user_group, :library, :locale #, :user_number
-  validates :user_number, :uniqueness => true, format: {with: /\A[0-9A-Za-z_]+\Z/}, allow_blank: true
+  validates :user_number, uniqueness: true, format: {with: /\A[0-9A-Za-z_]+\Z/}, allow_blank: true
 
   searchable do
     text :user_number, :full_name, :note
