@@ -10,6 +10,7 @@
       <%= t('activerecord.attributes.user_group.display_name') -%>
       /
       <%= t('activerecord.attributes.user_group.note') -%>
+    </th>
     <th></th>
   </tr>
 
@@ -25,6 +26,7 @@
       <%= link_to user_group.display_name.localize, user_group -%>
       <br />
       <%= user_group.note -%>
+    </td>
     <td>
       <%- if can? :update, user_group -%>
         <%= link_to t('page.edit'), edit_user_group_path(user_group) -%>
