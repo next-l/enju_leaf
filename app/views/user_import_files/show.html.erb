@@ -70,7 +70,7 @@
 
 <p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to @user_import_file.user.username, @user_import_file.user -%>
+  <%= link_to @user_import_file.user.username, @user_import_file.user.profile if @user_import_file.user.try(:profile) -%>
 </p>
 
 </div>
