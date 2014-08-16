@@ -1,4 +1,6 @@
 require 'active_record/fixtures'
+require 'tasks/profile'
+
 namespace :enju_leaf do
   desc "create initial records for enju_leaf"
   task :setup => :environment do
@@ -22,77 +24,14 @@ namespace :enju_leaf do
     version = EnjuLeaf::VERSION.split('.')
     if version[0..2] == ["1", "1" ,"0"]
       if version[3] == 'rc13'
-        Exemplify.transaction do
-          Exemplify.find_each do |exemplify|
-            if exemplify.item
-              exemplify.item.update_column(:manifestation_id, exemplify.manifestation_id)
-            end
-          end
-
-          User.find_each do |user|
-            profile = Profile.new
-            profile.user = user
-            profile.user_group = user.user_group
-            profile.library = user.library
-            profile.required_role = user.required_role
-            profile.user_number = user.user_number
-            profile.keyword_list = user.keyword_list
-            profile.locale = user.locale
-            profile.note = user.note
-            profile.save
-          end
-
-          Reserve.find_each do |reserve|
-            ReserveTransition.create(reserve_id: 1, sort_key: 0, to_state: reserve.state)
-          end
-
-          cd = CarrierType.where(name: 'CD').first
-          cd.update_column(:name, 'cd') if cd
-          dvd = CarrierType.where(name: 'DVD').first
-          dvd.update_column(:name, 'dvd') if cd
-          carrier_types = YAML.load(open('db/fixtures/enju_biblio/carrier_types.yml').read)
-          carrier_types.each do |line|
-            case line[1]["name"]
-            when "volume"
-              carrier_type = CarrierType.where(name: 'print').first
-              carrier_type.update_attributes!(line[1])
-            when "audio_disc"
-              carrier_type = CarrierType.where(name: 'cd').first
-              carrier_type.update_attributes!(line[1])
-            when "videodisc"
-              carrier_type = CarrierType.where(name: 'dvd').first
-              carrier_type.update_attributes!(line[1])
-            when "online_resource"
-              carrier_type = CarrierType.where(name: 'file').first
-              carrier_type.update_attributes!(line[1])
-            end
-          end
-
-          YAML.load(open('db/fixtures/enju_circulation/circulation_statuses.yml').read).each do |line|
-            l = line[1].select!{|k, v| %w(name display_name).include?(k)}
-            CirculationStatus.where(name: l["name"]).first.try(:update_attributes!, l)
-          end
-
-          YAML.load(open('db/fixtures/enju_circulation/use_restrictions.yml').read).each do |line|
-            l = line[1].select!{|k, v| %w(name display_name).include?(k)}
-            UseRestriction.where(name: l["name"]).first.try(:update_attributes!, l)
-          end
-
-          YAML.load(open('db/fixtures/enju_message/message_templates.yml').read).each do |line|
-            l = line[1].select!{|k, v| %w(status locale title body).include?(k)}
-            template = MessageTemplate.where(
-              status: l["status"], locale: l["locale"]
-            ).first
-            if template
-              template.update_attributes!(l)
-            else
-              MessageTemplate.create!(l)
-            end
-          end
+        Rake::Task['enju_biblio:upgrade'].invoke
+        Rake::Task['enju_circulation:upgrade'].invoke
+        Rake::Task['enju_message:upgrade'].invoke
+        Profile.transaction do
+          update_profile
         end
       end
     end
-
-    puts 'The upgrade completed successfully.'
+    puts 'enju_leaf: The upgrade completed successfully.'
   end
 end
