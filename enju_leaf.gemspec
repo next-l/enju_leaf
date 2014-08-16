@@ -18,8 +18,8 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids}/*"]
 
   s.add_dependency "rails", "~> 3.2.19"
-  s.add_dependency "enju_biblio", "~> 0.1.0.pre55"
-  s.add_dependency "enju_library", "~> 0.1.0.pre33"
+  s.add_dependency "enju_biblio", "~> 0.1.0.pre56"
+  s.add_dependency "enju_library", "~> 0.1.0.pre34"
   s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre13"
   s.add_dependency "mobylette", "~> 3.5"
   s.add_dependency "sitemap_generator"
@@ -37,9 +37,9 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails", "~> 3.0"
-  s.add_development_dependency "enju_circulation", "~> 0.1.0.pre36"
-  s.add_development_dependency "enju_bookmark", "~> 0.1.2.pre14"
-  s.add_development_dependency "enju_search_log", "~> 0.1.0.pre7"
+  s.add_development_dependency "enju_circulation", "~> 0.1.0.pre37"
+  s.add_development_dependency "enju_bookmark", "~> 0.1.2.pre15"
+  s.add_development_dependency "enju_search_log", "~> 0.1.0.pre8"
   s.add_development_dependency "vcr"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "factory_girl_rails"
