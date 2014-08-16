@@ -260,7 +260,7 @@ ja:
     standard_view: "パソコン用の画面"
     mobile_view: "携帯機器用の画面"
     rearrange_order: "順番を変更する"
-    only_lowercase_letters_and_numbers_are_allowed: "英数小文字・アンダースコアのみ使用できます。最初の文字に数字は使用できません。"
+    only_lowercase_letters_and_numbers_are_allowed: "には英数小文字・アンダースコアのみ使用できます。最初の文字に数字は使用できません。"
     not_logged_in: "ログインしていません"
     add_child: "子を追加"
     electronic_resource_management: 電子リソース管理

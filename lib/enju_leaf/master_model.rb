@@ -4,20 +4,27 @@ module MasterModel
     base.send :include, InstanceMethods
     base.class_eval do
       acts_as_list
-      validates_uniqueness_of :name, :case_sensitive => false
-      validates :name, :presence => true, :format => {
-        :with => /\A[A-Za-z][0-9A-Za-z_\s]*[0-9a-z]\Z/,
-        :message => I18n.t('page.only_lowercase_letters_and_numbers_are_allowed')
-      }
-      validates :display_name, :presence => true
-      before_validation :set_display_name, :on => :create
+      validates_uniqueness_of :name, case_sensitive: false
+      validates :name, presence: true
+      validate :name do
+        valid_format?
+      end
+      validates :display_name, presence: true
+      before_validation :set_display_name, on: :create
       normalize_attributes :name
     end
   end
 
   module InstanceMethods
     def set_display_name
-      self.display_name = "#{I18n.locale}: #{self.name}" if self.display_name.blank?
+      self.display_name = "#{I18n.locale}: #{name}" if display_name.blank?
+    end
+
+    private
+    def valid_format?
+      unless name =~ /\A[A-Za-z][0-9A-Za-z_\s]*[0-9a-z]\Z/
+        errors.add(:name, I18n.t('page.only_lowercase_letters_and_numbers_are_allowed'))
+      end
     end
   end
 end
