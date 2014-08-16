@@ -21,7 +21,7 @@
       <br />
       <%=l user_import_result.created_at %>
     </td>
-    <td><%= link_to user_import_result.user.username, user_import_result.user if user_import_result.user %></td>
+    <td><%= link_to user_import_result.user.username, user_import_result.user.profile if user_import_result.user.try(:profile) %></td>
     <td>
       <%= link_to t('page.show'), user_import_result %>
       <%= link_to t('page.destroy'), user_import_result, data: {confirm: t('page.are_you_sure')}, method: :delete %>
