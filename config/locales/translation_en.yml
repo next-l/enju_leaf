@@ -276,7 +276,7 @@ en:
     standard_view: "Standard view"
     mobile_view: "Mobile view"
     rearrange_order: "Rearrange order"
-    only_lowercase_letters_and_numbers_are_allowed: "Only lowercase letters and numbers are allowed. The first character must be alphabetic."
+    only_lowercase_letters_and_numbers_are_allowed: "Only lowercase letters, numbers, hyphen and underscore are allowed. The first character must be alphabetic."
     not_logged_in: "Not logged in"
     add_child: "Add a child"
     electronic_resource_management: "Electronic resource management"
