@@ -18,8 +18,7 @@ system_user.username = 'system'
 system_user.password = SecureRandom.urlsafe_base64(32)
 system_user.email = system_user.email_confirmation = 'root@library.example.jp'
 system_user.save!
-system_user.role = Role.where(:name => 'Administrator').first
-system_user.index
+system_user.role = Role.where(name: 'Administrator').first
 
 user = User.new
 user.username = username
@@ -34,7 +33,7 @@ user.profile.user_number = '0'
 user.operator = user
 user.save!
 #user.confirm!
-user.role = Role.where(:name => 'Administrator').first
-user.index
+user.role = Role.where(name: 'Administrator').first
+user.profile.index
 Sunspot.commit
 puts 'Administrator account created.'
