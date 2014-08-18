@@ -23,7 +23,7 @@ namespace :enju_leaf do
   task :upgrade => :environment do
     version = EnjuLeaf::VERSION.split('.')
     if version[0..2] == ["1", "1" ,"0"]
-      if version[3] == 'rc13'
+      if version[3] == 'rc14'
         Rake::Task['enju_biblio:upgrade'].invoke
         Rake::Task['enju_circulation:upgrade'].invoke
         Rake::Task['enju_message:upgrade'].invoke
