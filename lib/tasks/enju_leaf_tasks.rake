@@ -27,6 +27,7 @@ namespace :enju_leaf do
         Rake::Task['enju_biblio:upgrade'].invoke
         Rake::Task['enju_circulation:upgrade'].invoke
         Rake::Task['enju_message:upgrade'].invoke
+        Rake::Task['enju_subject:upgrade'].invoke
         Profile.transaction do
           update_profile
         end
