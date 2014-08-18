@@ -210,7 +210,7 @@ module EnjuLeaf
         end
       end
 
-      def deletable_by(current_user)
+      def deletable_by?(current_user)
         if defined?(EnjuCirculation)
           # 未返却の資料のあるユーザを削除しようとした
           if checkouts.count > 0

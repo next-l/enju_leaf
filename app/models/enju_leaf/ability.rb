@@ -12,10 +12,12 @@ module EnjuLeaf
           if profile.user
             if profile != user.profile and profile.user.id != 1
               if defined?(EnjuCirculation)
-                 true if profile.user.checkouts.not_returned.empty?
+                if profile.user.checkouts.not_returned.empty?
+                  true if profile.user.deletable_by?(user)
+                end
               else
-                true
-             end
+                true if profile.user.deletable_by?(user)
+              end
             end
           else
             true
@@ -45,10 +47,12 @@ module EnjuLeaf
           if profile.user
             if profile != user.profile and profile.user.id != 1
               if defined?(EnjuCirculation)
-                 true if profile.user.checkouts.not_returned.empty?
+                 if profile.user.checkouts.not_returned.empty?
+                   true if profile.user.deletable_by?(user)
+                 end
               else
-                true
-             end
+                true if profile.user.deletable_by?(user)
+              end
             end
           else
             true
