@@ -266,6 +266,7 @@ ja:
     electronic_resource_management: 電子リソース管理
     system: システム
     manual: マニュアル
+    cannot_parse_yaml_header: "YAMLヘッダを読み込めません。ヘッダのコロンの後には、半角スペースを含める必要があります。"
   title:
     index: "一覧"
     show: "表示"

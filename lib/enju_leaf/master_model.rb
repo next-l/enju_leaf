@@ -9,6 +9,9 @@ module MasterModel
       validate :name do
         valid_format?
       end
+      validate :display_name do
+        valid_yaml?
+      end
       validates :display_name, presence: true
       before_validation :set_display_name, on: :create
       normalize_attributes :name
@@ -24,6 +27,14 @@ module MasterModel
     def valid_format?
       unless name =~ /\A[A-Za-z][0-9A-Za-z_\s]*[0-9a-z]\Z/
         errors.add(:name, I18n.t('page.only_lowercase_letters_and_numbers_are_allowed'))
+      end
+    end
+
+    def valid_yaml?
+      begin
+        YAML.load(display_name)
+      rescue Psych::SyntaxError
+        errors.add(:display_name, I18n.t('page.cannot_parse_yaml_header'))
       end
     end
   end
