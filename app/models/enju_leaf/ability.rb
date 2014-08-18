@@ -9,12 +9,16 @@ module EnjuLeaf
         can :index, Profile
         can [:read, :create, :update], [User, Profile]
         can :destroy, Profile do |profile|
-          if profile != user.profile and profile.user.id != 1
-            if defined?(EnjuCirculation)
-               true if profile.user.checkouts.not_returned.empty?
-            else
-              true
+          if profile.user
+            if profile != user.profile and profile.user.id != 1
+              if defined?(EnjuCirculation)
+                 true if profile.user.checkouts.not_returned.empty?
+              else
+                true
+             end
             end
+          else
+            true
           end
         end
         can [:read, :create, :update], UserGroup
@@ -38,12 +42,16 @@ module EnjuLeaf
       when 'Librarian'
         can [:read, :create, :update], Profile
         can :destroy, Profile do |profile|
-          if profile.user.role.name == 'User' and profile != user.profile
-            if defined?(EnjuCirculation)
-               true if profile.user.checkouts.not_returned.empty?
-            else
-              true
+          if profile.user
+            if profile != user.profile and profile.user.id != 1
+              if defined?(EnjuCirculation)
+                 true if profile.user.checkouts.not_returned.empty?
+              else
+                true
+             end
             end
+          else
+            true
           end
         end
         can :manage, [

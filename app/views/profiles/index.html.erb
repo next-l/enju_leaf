@@ -24,17 +24,24 @@
       <%= link_to image_tag('icons/arrow_up.png', size: '16x16', alt: t('page.asc')), url_for(params.merge(sort_by: 'created_at', order: 'asc', only_path: true)) -%>
       <%= link_to image_tag('icons/arrow_down.png', size: '16x16', alt: t('page.desc')), url_for(params.merge(sort_by: 'created_at', order: 'desc', only_path: true)) -%>
     </th>
-    <th></th>
+    <th style="width: 80px"></th>
   </tr>
 
 <%- @profiles.each_with_index do |profile, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%= link_to profile.user.username, profile -%>
+      <%= profile.user.try(:username) -%>
     </td>
-    <td><%= profile.user_number -%></td>
+    <td>
+      <% if profile.user_number %>
+        <%= link_to profile.user_number, profile -%>
+      <% else %>
+        <%= link_to t('profile.no_number'), profile -%>
+      <% end %>
+    </td>
     <td><%= l(profile.created_at) -%></td>
     <td>
+      <%= link_to t('page.show'), profile -%>
       <%= link_to t('page.edit'), edit_profile_path(profile) -%>
     </td>
   </tr>

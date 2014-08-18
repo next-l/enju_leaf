@@ -324,44 +324,6 @@ ja:
     send_email: "書誌情報を電子メールで送信する"
     attachment_file: "添付ファイル"
     add_derivation: "派生資料を追加"
-  item:
-    current_checkout: "現在の貸出"
-    donor: "寄贈者"
-    library_group_item: "%{library_group_name}にある所蔵情報"
-    add: "所蔵情報を追加する"
-    specify_manifestation: "資料を指定してください。"
-    this_item_is_reserved: "この資料は予約されています！"
-    create_shelf_first: "最初に書棚を作成してください。"
-    this_item_include_supplement: "この資料は付録を含んでいます。"
-    all_item: "全ての所蔵情報"
-    add_new_copy: "複本を追加"
-    no_manifestation: "資料なし"
-    no_number: "番号なし"
-    add_lending_policy: "貸出規則の追加"
-    edit_exemplification: "書誌の付け替え"
-    accepted_at: "検収時刻"
-  agent:
-    library_group_agent: "%{library_group_name} の人物・団体"
-    work_agent: "%{work_title} の著作者"
-    expression_agent: "%{expression_title} の編者"
-    manifestation_agent: "%{manifestation_title} の出版者"
-    activate_as_user: "利用者として登録する"
-    deactivate: "利用者登録を解除する"
-    add: "人物・団体を追加する"
-    publication: "出版物"
-    recent_publication: "最近の出版物"
-    all_publication: "全ての出版物"
-    other_address: "他の住所"
-    add_derivation: "派生人物・団体を追加"
-    creator: "著者"
-    contributor: "協力者・編者"
-    publisher: "出版者"
-    owner: "所有者"
-  library:
-    map: "地図"
-    staff: "職員"
-    number_of_item: "所蔵冊数"
-    address: "住所"
   import:
     from_file: "ファイルから"
     from_isbn: "ISBNから"
@@ -446,3 +408,5 @@ ja:
   user_import_file:
     default_user_group: TSVファイルで"user_group"列が指定されていない場合、この利用者グループが登録されます。
     default_library: TSVファイルで"library"列が指定されていない場合、この図書館が登録されます。
+  profile:
+    no_number: 番号なし

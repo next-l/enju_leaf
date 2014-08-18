@@ -341,44 +341,6 @@ en:
     send_email: "Email this information"
     attachment_file: "Attachment file"
     add_derivation: "Add a derivation"
-  item:
-    current_checkout: "Current checkout"
-    donor: "Donors"
-    library_group_item: "Items in %{library_group_name}"
-    add: "Add an item"
-    specify_manifestation: "Specify the manifestation."
-    this_item_is_reserved: "This item is reserved!"
-    create_shelf_first: "You should create a shelf first."
-    this_item_include_supplement: "This item includes supplements."
-    all_item: "All items"
-    add_new_copy: "Add a new copy"
-    no_manifestation: "No manifestation"
-    no_number: "No number"
-    add_lending_policy: "Add a new lending policy"
-    edit_exemplification: "Edit exemplification"
-    accepted_at: "Accepted at"
-  agent:
-    library_group_agent: "Agents of %{library_group_name}"
-    work_agent: "Creaters of %{work_title}"
-    expression_agent: "Realizers of %{expression_title}"
-    manifestation_agent: "Producers of %{manifestation_title}"
-    activate_as_user: "Activate as an user"
-    deactivate: "Deactivate this user"
-    add: "Add a agent"
-    publication: "Publications"
-    recent_publication: "Recent publications"
-    all_publication: "All publications"
-    other_address: "The other address"
-    add_derivation: "Add derivatation"
-    creator: "Creator"
-    contributor: "Contributor"
-    publisher: "Publisher"
-    owner: "Owner"
-  library:
-    map: "Map"
-    staff: "Staff"
-    number_of_item: "Number of items"
-    address: "Address"
   import:
     from_file: "from file"
     from_isbn: "from ISBN"
@@ -465,3 +427,5 @@ en:
   user_import_file:
     default_user_group: If "user_group" column is not set in the TSV file, this user group is set to the new user.
     default_library: If "library" column is not set in the TSV file, this library is set to the new user.
+  profile:
+    no_number: No number
