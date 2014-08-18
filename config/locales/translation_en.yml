@@ -282,7 +282,7 @@ en:
     electronic_resource_management: "Electronic resource management"
     system: System
     manual: Manual
-    cannot_parse_yaml_header: "Cannot parse YAML header. You must add a space after the header's colon."
+    cannot_parse_yaml_header: "has an invalid YAML header. You must add a space after the header's colon."
   title:
     index: "index"
     show: "show"
