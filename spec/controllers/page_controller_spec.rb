@@ -44,12 +44,12 @@ describe PageController do
       end
 
       it "should get opensearch" do
-        get :opensearch
+        get :opensearch, format: :xml
         expect(response).to be_success
       end
 
       it "should get msie_acceralator" do
-        get :msie_acceralator
+        get :msie_acceralator, format: :xml
         expect(response).to be_success
       end
 
