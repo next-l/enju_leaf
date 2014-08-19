@@ -5,11 +5,11 @@ xml.OpenSearchDescription(
   xml.ShortName @library_group.display_name.localize
   xml.Description @library_group.display_name.localize
   xml.Tags 'Library Catalog'
-  xml.Contact @library_group.email
-  xml.Url type: 'text/html', template: "#{manifestations_url}?query={searchTerms}&pages={startPage?}"
-  xml.Url type: 'application/rss+xml', template: "#{manifestations_url(format: :rss)}?query={searchTerms}&pages={startPage?}"
+  xml.Contact @library_group.user.email
+  xml.Url type: 'text/html', template: "#{manifestations_url}?query={searchTerms}"
+  xml.Url type: 'application/rss+xml', template: "#{manifestations_url(format: :rss)}?query={searchTerms}"
   xml.Query :role => 'example', :searchTerms => 'enju'
-  xml.Language @locale
+  xml.Language @locale.to_s
   xml.OutputEncoding 'UTF-8'
   xml.InputEncoding 'UTF-8'
   xml.tag! 'moz:SearchForm', root_url

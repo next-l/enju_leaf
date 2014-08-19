@@ -32,11 +32,15 @@ class PageController < ApplicationController
   end
 
   def msie_acceralator
-    render layout: false
+    respond_to do |format|
+      format.xml { render layout: false }
+    end
   end
 
   def opensearch
-    render layout: false
+    respond_to do |format|
+      format.xml { render layout: false }
+    end
   end
 
   def advanced_search
