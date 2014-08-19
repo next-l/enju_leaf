@@ -5,7 +5,7 @@ class UserImportFile < ActiveRecord::Base
   include ImportFile
   default_scope {order('user_import_files.id DESC')}
   scope :not_imported, -> {in_state(:pending)}
-  scope :stucked, -> {in_state(:pending).where('created_at < ? AND state = ?', 1.hour.ago)}
+  scope :stucked, -> {in_state(:pending).where('user_import_files.created_at < ?', 1.hour.ago)}
 
   if Setting.uploaded_file.storage == :s3
     has_attached_file :user_import, :storage => :s3,

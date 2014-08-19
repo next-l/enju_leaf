@@ -366,6 +366,11 @@ input.resource_isbn_issn, input.resource_identifier, input.resource_user_number,
   ime-mode: disabled;
 }
 
+input.resource_identifier_body{
+  width: 20em;
+  ime-mode: disabled;
+}
+
 input.resource_integer{
   width: 5em;
   ime-mode: disabled;
