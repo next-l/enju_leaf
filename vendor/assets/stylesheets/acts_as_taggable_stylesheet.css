@@ -1,7 +1,0 @@
-.hTagcloud .popularity 		{ margin:0; padding:0; }
-.hTagcloud .popularity li	{ display:inline; text-decoration:none; line-height: 2em; }
-.hTagcloud .popularity .popular				{ font-size:1.0em; }
-.hTagcloud .popularity .v-popular 		{ font-size:1.2em; }
-.hTagcloud .popularity .vv-popular 		{ font-size:1.4em; }
-.hTagcloud .popularity .vvv-popular		{ font-size:1.6em; }
-.hTagcloud .popularity .vvvv-popular	{ font-size:1.8em; }
