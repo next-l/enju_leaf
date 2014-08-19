@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 3.2.19"
   s.add_dependency "enju_biblio", "~> 0.1.0.pre56"
-  s.add_dependency "enju_library", "~> 0.1.0.pre34"
+  s.add_dependency "enju_library", "~> 0.1.0.pre35"
   s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre13"
   s.add_dependency "mobylette", "~> 3.5"
   s.add_dependency "sitemap_generator"
