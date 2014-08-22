@@ -223,8 +223,8 @@ h4{
 }
 
 h1.title, h2.title, h3.title, h4.title{
-  color: white;
-  background-color: #5970B2;
+  /* color: white; */
+  /* background-color: #5970B2; */
   padding: 5px;
   margin: 0px;
 }
@@ -536,3 +536,6 @@ div.search_form{
 }
 
 .hidden {display: none;}
+
+.enju_table_header{
+}
