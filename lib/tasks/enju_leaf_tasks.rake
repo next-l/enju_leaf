@@ -26,6 +26,7 @@ namespace :enju_leaf do
       if version[3] == 'rc14'
         Rake::Task['enju_biblio:upgrade'].invoke
         Rake::Task['enju_circulation:upgrade'].invoke
+        Rake::Task['enju_library:upgrade'].invoke
         Rake::Task['enju_message:upgrade'].invoke
         Rake::Task['enju_subject:upgrade'].invoke
         Profile.transaction do
