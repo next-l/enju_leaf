@@ -11,7 +11,7 @@ class UserGroup < ActiveRecord::Base
   has_many :profiles
 
   validates_numericality_of :valid_period_for_new_user,
-    :greater_than_or_equal_to => 0,
+    greater_than_or_equal_to: 0,
     allow_blank: true
 
   paginates_per 10

@@ -8,7 +8,7 @@ class Notifier < ActionMailer::Base
     if message.subject
       subject = message.subject
     else
-      subject = I18n.t('message.new_message_from_library', :library => LibraryGroup.system_name(message.receiver.user.profile.locale))
+      subject = I18n.t('message.new_message_from_library', library: LibraryGroup.system_name(message.receiver.user.profile.locale))
     end
     if message.sender
       @sender_name = message.sender.username
@@ -17,7 +17,7 @@ class Notifier < ActionMailer::Base
     end
     @message = message
     @locale = message.receiver.profile.locale
-    mail(:from => from, :to => message.receiver.email, :subject => subject)
+    mail(from: from, to: message.receiver.email, subject: subject)
   end
 
   def manifestation_info(user_id, manifestation_id)
@@ -27,6 +27,6 @@ class Notifier < ActionMailer::Base
     subject = "#{manifestation.original_title} : #{LibraryGroup.system_name(user.profile.locale)}"
     @user = user
     @manifestation = manifestation
-    mail(:from => from, :to => user.email, :subject => subject)
+    mail(from: from, to: user.email, subject: subject)
   end
 end

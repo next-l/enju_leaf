@@ -4,18 +4,18 @@ class UserImportFile < ActiveRecord::Base
   include Statesman::Adapters::ActiveRecordModel
   include ImportFile
   default_scope {order('user_import_files.id DESC')}
-  scope :not_imported, -> {in_state(:pending)}
-  scope :stucked, -> {in_state(:pending).where('user_import_files.created_at < ?', 1.hour.ago)}
+  scope :not_imported, -> { in_state(:pending) }
+  scope :stucked, -> { in_state(:pending).where('user_import_files.created_at < ?', 1.hour.ago) }
 
   if Setting.uploaded_file.storage == :s3
-    has_attached_file :user_import, :storage => :s3,
-      :s3_credentials => "#{Setting.amazon}",
-      :s3_permissions => :private
+    has_attached_file :user_import, storage: :s3,
+      s3_credentials: "#{Setting.amazon}",
+      s3_permissions: :private
   else
     has_attached_file :user_import,
       path: ":rails_root/private/system/:class/:attachment/:id_partition/:style/:filename"
   end
-  validates_attachment_content_type :user_import, :content_type => [
+  validates_attachment_content_type :user_import, content_type: [
     'text/csv',
     'text/plain',
     'text/tab-separated-values',
@@ -34,7 +34,7 @@ class UserImportFile < ActiveRecord::Base
   attr_accessor :mode
 
   def state_machine
-    @state_machine ||= UserImportFileStateMachine.new(self, transition_class: UserImportFileTransition)
+    UserImportFileStateMachine.new(self, transition_class: UserImportFileTransition)
   end
 
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
@@ -47,7 +47,7 @@ class UserImportFile < ActiveRecord::Base
     row_num = 1
 
     field = rows.first
-    if [field['username']].reject{|f| f.to_s.strip == ""}.empty?
+    if [field['username']].reject{ |f| f.to_s.strip == "" }.empty?
       raise "username column is not found"
     end
 
@@ -55,11 +55,11 @@ class UserImportFile < ActiveRecord::Base
       row_num += 1
       next if row['dummy'].to_s.strip.present?
       import_result = UserImportResult.create!(
-        :user_import_file_id => id, body: row.fields.join("\t")
+        user_import_file_id: id, body: row.fields.join("\t")
       )
 
       username = row['username']
-      new_user = User.where(:username => username).first
+      new_user = User.where(username: username).first
       if new_user
         import_result.user = new_user
         import_result.save
@@ -123,11 +123,11 @@ class UserImportFile < ActiveRecord::Base
       row_num += 1
       next if row['dummy'].to_s.strip.present?
       import_result = UserImportResult.create!(
-        :user_import_file_id => id, body: row.fields.join("\t")
+        user_import_file_id: id, body: row.fields.join("\t")
       )
 
       username = row['username']
-      new_user = User.where(:username => username).first
+      new_user = User.where(username: username).first
       if new_user
         new_user.assign_attributes(set_user_params(new_user, row), as: :admin)
         if new_user.save
@@ -159,14 +159,14 @@ class UserImportFile < ActiveRecord::Base
     rows = open_import_file(create_import_temp_file(user_import))
 
     field = rows.first
-    if [field['username']].reject{|field| field.to_s.strip == ""}.empty?
+    if [field['username']].reject{ |f| f.to_s.strip == "" }.empty?
       raise "username column is not found"
     end
 
     rows.each do |row|
       row_num += 1
       username = row['username'].to_s.strip
-      user = User.where(:username => username).first
+      user = User.where(username: username).first
       user.destroy if user
     end
     transition_to!(:completed)
@@ -205,7 +205,7 @@ class UserImportFile < ActiveRecord::Base
       save!
     end
     rows = CSV.open(tempfile.path, 'r:utf-8', headers: header, col_sep: "\t")
-    UserImportResult.create!(:user_import_file_id => self.id, body: header.join("\t"))
+    UserImportResult.create!(user_import_file_id: id, body: header.join("\t"))
     tempfile.close(true)
     file.close
     rows
@@ -220,9 +220,8 @@ class UserImportFile < ActiveRecord::Base
   end
 
   private
-  def set_user_params(new_user, row)
+  def set_user_params(_new_user, row)
     params = {}
-    profile_params = {}
     params[:email] = row['email'] if row['email'].present?
 
     if row['password'].present?

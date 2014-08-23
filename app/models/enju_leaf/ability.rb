@@ -3,14 +3,14 @@ module EnjuLeaf
     include CanCan::Ability
   
     def initialize(user, ip_address = nil)
-  
+
       case user.try(:role).try(:name)
       when 'Administrator'
         can :index, Profile
         can [:read, :create, :update], [User, Profile]
         can :destroy, Profile do |profile|
           if profile.user
-            if profile != user.profile and profile.user.id != 1
+            if profile != user.profile && profile.user.id != 1
               if defined?(EnjuCirculation)
                 if profile.user.checkouts.not_returned.empty?
                   true if profile.user.deletable_by?(user)
@@ -45,7 +45,7 @@ module EnjuLeaf
         can [:read, :create, :update], Profile
         can :destroy, Profile do |profile|
           if profile.user
-            if profile != user.profile and profile.user.id != 1
+            if profile != user.profile && profile.user.id != 1
               if defined?(EnjuCirculation)
                  if profile.user.checkouts.not_returned.empty?
                    true if profile.user.deletable_by?(user)

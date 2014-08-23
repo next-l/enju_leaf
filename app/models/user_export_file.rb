@@ -20,7 +20,7 @@ class UserExportFile < ActiveRecord::Base
     file = User.export(format: :txt)
     tempfile.puts(file)
     tempfile.close
-    self.user_export = File.new(tempfile.path, "r")
+    self.user_export = File.new(tempfile.path, 'r')
     if save
       send_message
     end

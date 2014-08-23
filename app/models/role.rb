@@ -2,7 +2,7 @@ class Role < ActiveRecord::Base
   attr_accessible :name, :display_name, :note
   include MasterModel
   default_scope order: "roles.position"
-  validates :name, presence: true, format: {with: /\A[A-Za-z][a-z_,]*[a-z]\Z/}
+  validates :name, presence: true, format: { with: /\A[A-Za-z][a-z_,]*[a-z]\Z/ }
   has_many :user_has_roles
   has_many :users, through: :user_has_roles
   after_save :clear_all_cache
@@ -17,7 +17,7 @@ class Role < ActiveRecord::Base
 
   def self.all_cache
     if Rails.env == 'production'
-      Rails.cache.fetch('role_all'){Role.select(:name).all}
+      Rails.cache.fetch('role_all'){ Role.select(:name).all }
     else
       Role.select(:name)
     end
@@ -28,7 +28,7 @@ class Role < ActiveRecord::Base
   end
 
   def self.default_role
-    Rails.cache.fetch('default_role'){Role.find('Guest')}
+    Rails.cache.fetch('default_role'){ Role.find('Guest') }
   end
 
   private
