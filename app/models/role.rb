@@ -30,6 +30,11 @@ class Role < ActiveRecord::Base
   def self.default_role
     Rails.cache.fetch('default_role'){Role.find('Guest')}
   end
+
+  private
+  def valid_format?
+    true
+  end
 end
 
 # == Schema Information
