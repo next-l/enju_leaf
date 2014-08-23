@@ -33,7 +33,10 @@ EOS
       :after => "::Application.configure do\n"
     generate("devise:install")
     generate("devise", "User")
-    generate("friendly_id")
+    if Rails::VERSION::MAJOR >= 4
+      generate("friendly_id")
+      gsub_file 'config/initializers/friendly_id.rb', /# config.use :finders$/, "config.use :finders"
+    end
     generate("enju_biblio:setup")
     generate("enju_library:setup")
     rake("enju_leaf_engine:install:migrations")
