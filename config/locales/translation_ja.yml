@@ -134,7 +134,6 @@ ja:
     cancel: "取消"
     feed: "フィード"
     back_to_index: "一覧に戻る"
-    import: "インポート"
     start_import: "インポートを開始"
     import_record: "書誌レコードのインポート"
     export: "エクスポート"
@@ -180,6 +179,7 @@ ja:
     checkout_history: "貸出履歴"
     recommendation: "おすすめの資料"
     add_resource_manually: "手動で資料を登録する"
+    import: "インポート"
     import_from_file: "TSVファイルからのインポート"
     import_from_network: "ネットワークからインポート"
     no_record_found: "資料が見つかりませんでした。"
@@ -298,6 +298,7 @@ ja:
     auto_detect: "自動判別"
     successfully_created: "%{model}は正常に作成されました。インポートが完了すると「%{model}の一覧」の状態が「完了」となります。"
     following_column_were_ignored: "次の列は無視されました。 %{column}"
+    dummy: この行はダミー行になっています。
   export:
     export_completed: エクスポートが完了しました。
     are_you_sure_to_export: エクスポートに時間がかかることがあります。本当にエクスポートしますか？

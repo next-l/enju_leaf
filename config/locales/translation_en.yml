@@ -143,7 +143,6 @@ en:
     publisher: "Publisher"
     feed: "Feed"
     back_to_index: "Back to index"
-    import: "Import from file"
     start_import: "Start import"
     import_record: "Import records"
     export: "Export"
@@ -317,6 +316,7 @@ en:
     auto_detect: "Auto detect"
     successfully_created: "%{model} was created successfully. When the task is completed, its status on the list will be updated to 'completed'."
     following_column_were_ignored: "The follwing column(s) were ignored: %{column}"
+    dummy: This row is treated as a dummy input.
   export:
     export_completed: Export completed.
     are_you_sure_to_export: It may take some time to complete. Are you sure to export?

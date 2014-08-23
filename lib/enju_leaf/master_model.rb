@@ -25,7 +25,7 @@ module MasterModel
 
     private
     def valid_format?
-      unless name =~ /\A[A-Za-z][0-9A-Za-z_]*[0-9a-z]\Z/
+      unless name =~ /\A[a-z][0-9a-z_]*[0-9a-z]\Z/
         errors.add(:name, I18n.t('page.only_lowercase_letters_and_numbers_are_allowed'))
       end
     end
