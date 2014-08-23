@@ -32,7 +32,7 @@ class Role < ActiveRecord::Base
   end
 
   private
-  def valid_format?
+  def valid_name?
     true
   end
 end
