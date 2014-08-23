@@ -2,7 +2,7 @@ class Role < ActiveRecord::Base
   attr_accessible :name, :display_name, :note
   include MasterModel
   default_scope order: "roles.position"
-  validates :name, presence: true, format: {with: /\A[a-z][a-z_,]*[a-z]\Z/}
+  validates :name, presence: true, format: {with: /\A[A-Za-z][a-z_,]*[a-z]\Z/}
   has_many :user_has_roles
   has_many :users, through: :user_has_roles
   after_save :clear_all_cache
