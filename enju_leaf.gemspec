@@ -17,14 +17,14 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids}/*"]
 
-  s.add_dependency "rails", "~> 3.2.19"
+  s.add_dependency "rails", ">= 3.2.19", "< 4.2"
   s.add_dependency "enju_biblio", "~> 0.1.0.pre58"
   s.add_dependency "enju_library", "~> 0.1.0.pre36"
   s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre14"
   s.add_dependency "mobylette", "~> 3.5"
   s.add_dependency "sitemap_generator"
   s.add_dependency "devise-encryptable"
-  s.add_dependency "redis-rails", "~> 3.2"
+  s.add_dependency "redis-rails"
   s.add_dependency "rails_autolink"
   s.add_dependency "jquery-ui-rails", "~> 4.2.1"
   s.add_dependency "cache_digests"

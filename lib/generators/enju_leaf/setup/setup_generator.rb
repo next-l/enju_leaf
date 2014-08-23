@@ -33,6 +33,7 @@ EOS
       :after => "::Application.configure do\n"
     generate("devise:install")
     generate("devise", "User")
+    generate("friendly_id")
     generate("enju_biblio:setup")
     generate("enju_library:setup")
     rake("enju_leaf_engine:install:migrations")
