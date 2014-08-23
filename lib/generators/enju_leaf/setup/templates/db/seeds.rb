@@ -1,4 +1,8 @@
-username = 'admin'
+if Rails::VERSION::MAJOR >= 4
+  username = 'enjuadmin'
+else
+  username = 'admin'
+end
 email = 'admin@example.jp'
 password = 'adminpassword'
 
