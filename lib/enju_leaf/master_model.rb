@@ -7,7 +7,7 @@ module MasterModel
       validates_uniqueness_of :name, case_sensitive: false
       validates :name, presence: true
       validate :name do
-        valid_format?
+        valid_name?
       end
       validate :display_name do
         valid_yaml?
@@ -24,7 +24,7 @@ module MasterModel
     end
 
     private
-    def valid_format?
+    def valid_name?
       unless name =~ /\A[a-z][0-9a-z_]*[0-9a-z]\Z/
         errors.add(:name, I18n.t('page.only_lowercase_letters_and_numbers_are_allowed'))
       end
