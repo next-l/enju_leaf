@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140812093836) do
+ActiveRecord::Schema.define(:version => 20140823095740) do
 
   create_table "accepts", :force => true do |t|
     t.integer  "basket_id"
@@ -779,8 +779,9 @@ ActiveRecord::Schema.define(:version => 20140812093836) do
     t.integer  "month_of_publication"
     t.boolean  "fulltext_content"
     t.string   "doi"
-    t.boolean  "periodical"
+    t.boolean  "serial"
     t.text     "statement_of_responsibility"
+    t.text     "dimensions"
   end
 
   add_index "manifestations", ["access_address"], :name => "index_manifestations_on_access_address"
