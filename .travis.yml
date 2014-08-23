@@ -10,6 +10,6 @@ branches:
     - "1.1"
 services:
   - redis-server
-gemfile:
-  - gemfiles/rails3_2.gemfile
-  - gemfiles/rails4_1.gemfile
+#gemfile:
+#  - gemfiles/rails3_2.gemfile
+#  - gemfiles/rails4_1.gemfile
