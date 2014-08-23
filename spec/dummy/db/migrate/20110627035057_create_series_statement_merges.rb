@@ -7,6 +7,6 @@ class CreateSeriesStatementMerges < ActiveRecord::Migration
       t.timestamps
     end
     add_index :series_statement_merges, :series_statement_id
-    add_index :series_statement_merges, :series_statement_merge_list_id
+    add_index :series_statement_merges, :series_statement_merge_list_id, name: "index_series_statement_merges_on_list_id"
   end
 end
