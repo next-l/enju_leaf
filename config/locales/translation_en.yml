@@ -282,6 +282,7 @@ en:
     system: System
     manual: Manual
     cannot_parse_yaml_header: "has an invalid YAML header. You must add a space after the header's colon."
+    notice: Notice
   title:
     index: "index"
     show: "show"
