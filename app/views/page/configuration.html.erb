@@ -27,7 +27,7 @@
         <% if defined?(EnjuEvent) %>
           <li><%= link_to t('activerecord.models.event_category'), event_categories_path -%>
             <ul>
-              <li><%= link_to t('page.new', model: t('activerecord.models.event_import_file')), new_event_import_file_path %></li>
+              <li><%= link_to t('activerecord.models.event_import_file'), event_import_files_path -%></li>
             </ul>
           </li>
         <% end %>
