@@ -1,4 +1,5 @@
 class UserExportFile < ActiveRecord::Base
+  attr_accessible
   include Statesman::Adapters::ActiveRecordModel
   include ExportFile
   enju_export_file_model
