@@ -252,7 +252,7 @@ module EnjuLeaf
       @current_ability.merge(EnjuEvent::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuEvent)
       @current_ability.merge(EnjuNews::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuNews)
       @current_ability.merge(EnjuSearchLog::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuSearchLog)
-      @current_ability.merge(EnjuExport::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuExport)
+      @current_ability.merge(EnjuIr::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuIr)
       @current_ability
     end
 
