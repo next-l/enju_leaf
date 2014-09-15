@@ -35,7 +35,6 @@ Gem::Specification.new do |s|
   s.add_dependency "redcarpet"
   # s.add_dependency "jquery-rails"
 
-  s.add_development_dependency "rails", "~> 3.2.19"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails", "~> 3.0.2"
   s.add_development_dependency "enju_circulation", "~> 0.1.0.pre38"
