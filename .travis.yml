@@ -2,7 +2,7 @@ language: ruby
 rvm:
   - 1.9.3
   - 2.0.0
-  - 2.1.2
+  - 2.1.3
 before_script: "bundle exec rake db:migrate"
 branches:
   only:
@@ -11,6 +11,5 @@ branches:
 services:
   - redis-server
 gemfile:
-  - Gemfile
   - gemfiles/rails3_2.gemfile
   - gemfiles/rails4_1.gemfile

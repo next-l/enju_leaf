@@ -1,5 +1,6 @@
 class UserImportResultsController < ApplicationController
   load_and_authorize_resource
+
   # GET /user_import_results
   # GET /user_import_results.json
   def index
