@@ -6,7 +6,7 @@ describe "page/advanced_search" do
 
   before(:each) do
     assign(:libraries, Library.all)
-    view.stub(:current_user).and_return(User.find('admin'))
+    view.stub(:current_user).and_return(User.find('enjuadmin'))
     @ability = Object.new
     @ability.extend(CanCan::Ability)
     controller.stub(:current_ability) { @ability }

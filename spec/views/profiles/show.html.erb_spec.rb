@@ -6,7 +6,7 @@ describe "profiles/show" do
 
   before(:each) do
     @profile = assign(:profile, profiles(:admin))
-    view.stub(:current_user).and_return(User.find('admin'))
+    view.stub(:current_user).and_return(User.find('enjuadmin'))
     @ability = Object.new
     @ability.extend(CanCan::Ability)
     controller.stub(:current_ability) { @ability }

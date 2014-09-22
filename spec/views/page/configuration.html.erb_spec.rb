@@ -5,7 +5,7 @@ describe "page/configuration" do
   fixtures :all
 
   before(:each) do
-    view.stub(:current_user).and_return(User.find('admin'))
+    view.stub(:current_user).and_return(User.find('enjuadmin'))
     @ability = Object.new
     @ability.extend(CanCan::Ability)
     controller.stub(:current_ability) { @ability }

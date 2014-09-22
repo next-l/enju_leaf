@@ -9,7 +9,7 @@ describe "profiles/edit" do
     assign(:libraries, Library.all)
     assign(:roles, Role.all)
     assign(:available_languages, Language.available_languages)
-    view.stub(:current_user).and_return(User.find('admin'))
+    view.stub(:current_user).and_return(User.find('enjuadmin'))
   end
 
   it "renders the edit user form" do

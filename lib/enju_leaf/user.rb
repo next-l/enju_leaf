@@ -35,7 +35,6 @@ module EnjuLeaf
         belongs_to :library
         belongs_to :required_role, class_name: 'Role', foreign_key: 'required_role_id'
         accepts_nested_attributes_for :user_has_role
-        accepts_nested_attributes_for :profile
 
         validates :username, :presence => true, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z][0-9A-Za-z_\-]*[0-9A-Za-z]\Z/}
         validates :email, :format => Devise::email_regexp, :allow_blank => true, :uniqueness => true

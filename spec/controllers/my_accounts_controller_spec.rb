@@ -7,7 +7,7 @@ describe MyAccountsController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in User.find('admin')
+        sign_in User.find('enjuadmin')
       end
 
       it "assigns the requested user as @user" do
@@ -29,7 +29,7 @@ describe MyAccountsController do
     describe "When logged in as Administrator" do
       before(:each) do
         profile = FactoryGirl.create(:profile)
-        @user = User.find('admin')
+        @user = User.find('enjuadmin')
         @user.profile = profile
         sign_in @user
       end

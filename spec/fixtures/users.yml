@@ -3,7 +3,7 @@ admin:
   updated_at: 2008-05-31 13:16:30.163731 +09:00
   encrypted_password: $2a$10$vHohD1WflnTIqAa8zMkF9evwAgIZRw3XuR4d3bi29M.jph/MB/AJi
   id: 1
-  username: admin
+  username: enjuadmin
   email: tanabe@kamata.lib.teu.ac.jp
   created_at: 2007-11-19 16:58:32.111941 +09:00
 librarian1: 
