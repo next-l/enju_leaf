@@ -21,9 +21,9 @@ module EnjuLeaf
           :profile_attributes,
           :as => :admin
 
-        scope :administrators, where('roles.name = ?', 'Administrator').includes(:role)
-        scope :librarians, where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').includes(:role)
-        scope :suspended, where('locked_at IS NOT NULL')
+        scope :administrators, -> { joins(:role).where('roles.name = ?', 'Administrator') }
+        scope :librarians, -> { joins(:role).where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian') }
+        scope :suspended, -> { where('locked_at IS NOT NULL') }
         has_one :profile, :dependent => :destroy
         if defined?(EnjuBiblio)
           has_many :import_requests
@@ -36,7 +36,9 @@ module EnjuLeaf
         belongs_to :required_role, class_name: 'Role', foreign_key: 'required_role_id'
         accepts_nested_attributes_for :user_has_role
 
-        validates :username, :presence => true, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z][0-9A-Za-z_\-]*[0-9A-Za-z]\Z/}
+        validates :username, presence: true, uniqueness: true, format: {
+          with: /\A[0-9A-Za-z][0-9A-Za-z_\-]*[0-9A-Za-z]\Z/
+        }
         validates :email, :format => Devise::email_regexp, :allow_blank => true, :uniqueness => true
         validates_date :expired_at, :allow_blank => true
 

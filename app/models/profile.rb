@@ -9,6 +9,8 @@ class Profile < ActiveRecord::Base
   enju_circulation_profile_model if defined?(EnjuCirculation)
   enju_search_log_profile_model if defined?(EnjuSearchLog)
 
+  scope :administrators, -> { joins(user: :role).where('roles.name = ?', 'Administrator') }
+  scope :librarians, -> { joins(user: :role).where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian') }
   belongs_to :user
   belongs_to :library, validate: true
   belongs_to :user_group
