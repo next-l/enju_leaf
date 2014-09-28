@@ -51,7 +51,7 @@
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <% if defined?(EnjuCirculation) %>
     <ul>
-      <%- @profile.user_group.profile.user_group_has_checkout_types.each do |available_checkout_type| -%>
+      <%- @profile.user_group.user_group_has_checkout_types.each do |available_checkout_type| -%>
         <li>
           <%= available_checkout_type.checkout_type.display_name.localize -%>:
           <%= @profile.user.checked_item_count[:"#{available_checkout_type.checkout_type.name}"] -%> / <%= available_checkout_type.checkout_limit -%>
