@@ -8,6 +8,5 @@
 //= require select_locale
 //= require portlets
 //= require tab_view
-//= require event_calendar
 //= require jquery.powertip
 //= require jquery_nested_form
