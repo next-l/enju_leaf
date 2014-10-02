@@ -39,13 +39,15 @@ module EnjuLeaf
           format.mobile {render template: 'page/403', status: 403}
           format.xml {render template: 'page/403', status: 403}
           format.json { render text: '{"error": "forbidden"}' }
+          format.rss {render template: 'page/403.xml', status: 403}
         end
       else
         respond_to do |format|
-          format.html {redirect_to new_user_session_url}
-          format.mobile {redirect_to new_user_session_url}
-          format.xml {render template: 'page/403', status: 403}
+          format.html { redirect_to new_user_session_url }
+          format.mobile { redirect_to new_user_session_url }
+          format.xml { render template: 'page/403', status: 403 }
           format.json { render text: '{"error": "forbidden"}' }
+          format.rss { render template: 'page/403.xml', status: 403 }
         end
       end
     end
@@ -53,10 +55,11 @@ module EnjuLeaf
     def render_404
       return if performed?
       respond_to do |format|
-        format.html {render template: 'page/404', status: 404}
-        format.mobile {render template: 'page/404', status: 404}
-        format.xml {render template: 'page/404', status: 404}
+        format.html { render template: 'page/404', status: 404 }
+        format.mobile { render template: 'page/404', status: 404 }
+        format.xml { render template: 'page/404', status: 404 }
         format.json { render text: '{"error": "not_found"}' }
+        format.xml { render template: 'page/404.xml', status: 404 }
       end
     end
 
@@ -74,6 +77,7 @@ module EnjuLeaf
         format.mobile {render file: "#{Rails.root.to_s}/public/500", layout: false, status: 500}
         format.xml {render template: 'page/500', status: 500}
         format.json { render text: '{"error": "server_error"}' }
+        format.xml {render template: 'page/500.xml', status: 500}
       end
     end
 
