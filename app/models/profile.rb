@@ -22,7 +22,7 @@ class Profile < ActiveRecord::Base
   validates :user_number, uniqueness: true, format: { with: /\A[0-9A-Za-z_]+\Z/ }, allow_blank: true
 
   searchable do
-    text :user_number, :full_name, :note
+    text :user_number, :full_name, :full_name_transcriptino, :note
     string :user_number
     text :username do
       user.try(:username)
