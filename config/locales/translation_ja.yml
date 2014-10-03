@@ -90,6 +90,8 @@ ja:
         full_name: フルネーム
         user_number: 利用者番号
         expired_at: 有効期限
+        full_name_transcription: フルネーム（ヨミ）
+        date_of_birth: 生年月日
 
   page:
     user_title: "ようこそ %{login_name} さん"

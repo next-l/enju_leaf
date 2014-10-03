@@ -90,6 +90,8 @@ en:
         full_name: Full name
         user_number: User number
         expired_at: Expired at
+        full_name_transcription: Full name transcription
+        date_of_birth: Date of birth
 
   page:
     user_title: "Welcome %{login_name}"
