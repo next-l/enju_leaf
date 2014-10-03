@@ -1,9 +1,10 @@
 class Profile < ActiveRecord::Base
-  attr_accessible :full_name, :keyword_list, :locale
-  attr_accessible :full_name, :user_number, :library_id, :keyword_list, :note,
+  attr_accessible :full_name, :full_name_transcription, :keyword_list, :locale
+  attr_accessible :full_name, :full_name_transcription, :user_number,
+    :library_id, :keyword_list, :note,
     :user_group_id, :user_id, :locale, :required_role_id, :expired_at,
     :user_attributes,
-    :save_checkout_history,
+    :save_checkout_history, :birth_date,
     as: :admin
 
   enju_circulation_profile_model if defined?(EnjuCirculation)
@@ -20,6 +21,9 @@ class Profile < ActiveRecord::Base
   validates_associated :user
   validates_presence_of :user_group, :library, :locale #, :user_number
   validates :user_number, uniqueness: true, format: { with: /\A[0-9A-Za-z_]+\Z/ }, allow_blank: true
+  validates :birth_date, :format => {:with => /\A\d{4}-\d{1,2}-\d{1,2}\z/}, :allow_blank => true
+
+  attr_accessor :birth_date
 
   searchable do
     text :user_number, :full_name, :full_name_transcriptino, :note
@@ -58,6 +62,10 @@ class Profile < ActiveRecord::Base
         self.expired_at = user_group.valid_period_for_new_user.days.from_now.end_of_day
       end
     end
+  end
+
+  def set_date_of_birth
+    self.date_of_birth = Time.zone.parse(birth_date) if birth_date
   end
 end
 
