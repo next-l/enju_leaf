@@ -26,7 +26,7 @@ class Profile < ActiveRecord::Base
   attr_accessor :birth_date
 
   searchable do
-    text :user_number, :full_name, :full_name_transcriptino, :note
+    text :user_number, :full_name, :full_name_transcription, :note
     string :user_number
     text :username do
       user.try(:username)
