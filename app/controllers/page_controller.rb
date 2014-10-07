@@ -56,6 +56,10 @@ class PageController < ApplicationController
     @title = t('page.configuration')
   end
 
+  def system_information
+    @specs = Bundler.load.specs.sort
+  end
+
   def import
     @title = t('page.import')
   end

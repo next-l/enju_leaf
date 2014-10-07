@@ -128,6 +128,7 @@
       <ul>
         <% if current_user.has_role?('Administrator') %>
           <li><%= link_to 'Resque', resque_path %></li>
+          <li><%= link_to t('page.system_information'), page_system_information_path %></li>
         <% end %>
       </ul>
     </div>

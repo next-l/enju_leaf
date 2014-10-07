@@ -36,5 +36,6 @@ Rails.application.routes.draw do
   get '/page/msie_acceralator' => 'page#msie_acceralator'
   get '/page/opensearch' => 'page#opensearch'
   get '/page/statistics' => 'page#statistics'
+  get '/page/system_information' => 'page#system_information'
   get '/page/routing_error' => 'page#routing_error'
 end

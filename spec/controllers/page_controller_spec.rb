@@ -16,6 +16,11 @@ describe PageController do
         get :configuration
         expect(response).to be_success
       end
+
+      it "should get system information" do
+        get :system_information
+        expect(response).to be_success
+      end
     end
 
     describe "When logged in as User" do
@@ -33,6 +38,11 @@ describe PageController do
 
       it "should not get configuration" do
         get :configuration
+        expect(response).to be_forbidden
+      end
+
+      it "should not get system information" do
+        get :system_information
         expect(response).to be_forbidden
       end
     end
@@ -87,6 +97,11 @@ describe PageController do
 
       it "should not get configuration" do
         get :configuration
+        expect(response).to redirect_to new_user_session_url
+      end
+
+      it "should not get system information" do
+        get :system_information
         expect(response).to redirect_to new_user_session_url
       end
     end
