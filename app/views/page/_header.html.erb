@@ -14,10 +14,10 @@
         <br />
         <% if defined?(EnjuMessage) %>
           <%= link_to image_tag('icons/email.png', size: '16x16', alt: t('activerecord.models.message')), messages_path %>
-          <% if current_user.received_messages.unread.size > 0 %>
-            <%= link_to "(#{h(current_user.received_messages.unread.size)})", messages_path %>
+          <% if messages_count(current_user) > 0 %>
+            <%= link_to "(#{messages_count(current_user)})", messages_path %>
           <% else %>
-            (<%= current_user.received_messages.unread.size %>)
+            (<%= messages_count(current_user) %>)
           <% end %>
         <% end %>
         <%= link_to t('page.account'), my_account_path -%>
