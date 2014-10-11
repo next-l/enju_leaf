@@ -69,10 +69,10 @@ class MyAccountsController < ApplicationController
 
   private
   def prepare_options
-    @user_groups = UserGroup.all
-    @roles = Role.all
-    @libraries = Library.all_cache
-    @languages = Language.all_cache
+    @user_groups = UserGroup.order(:position)
+    @roles = Role.order(:position)
+    @libraries = Library.order(:position)
+    @languages = Language.order(:position)
     if current_user.active_for_authentication?
       current_user.locked = '0'
     else
