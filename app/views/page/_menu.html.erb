@@ -17,7 +17,7 @@
               <li><%= link_to t('page.checkin'), new_checkin_path -%></li>
             <% end %>
             <li>
-              <%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%>
+              <%= link_to t('page.listing', model: t('activerecord.models.reserve')), reserves_path -%>
             </li>
             <% if defined?(EnjuInterLibraryLoan) %>
               <% if current_user.has_role?('Librarian') -%>
@@ -27,7 +27,7 @@
             <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
           <%- else -%>
             <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
-            <li><%= link_to t('page.listing', :model => t('activerecord.models.reserve')), reserves_path -%></li>
+            <li><%= link_to t('page.listing', model: t('activerecord.models.reserve')), reserves_path -%></li>
           <%- end -%>
         </ul>
       <% end %>
@@ -41,16 +41,22 @@
             <% if defined?(EnjuNdl) %>
               <li><%= link_to t('enju_ndl.import_from_ndl_search'), ndl_books_path -%></li>
             <% end %>
+            <% if defined?(EnjuLoc) %>
+              <li><%= link_to t('enju_loc.import_from_loc_search'), loc_search_index_path -%></li>
+            <% end %>
             <li><%= link_to t('page.add_resource_manually'), new_manifestation_path -%></li>
-            <li><%= link_to t('page.serial'), manifestations_path(:periodical => true) -%></li>
+            <li><%= link_to t('page.serial'), manifestations_path(serial: true) -%></li>
             <li><%= link_to t('page.import_from_file'), new_resource_import_file_path -%></li>
             <li><%= link_to t('activerecord.models.accept'), new_accept_path -%></li>
+	          <% if defined?(EnjuIr) %>
+	            <li><%= link_to t('activemodel.models.resource'), resources_path -%></li>
+	          <% end %>
             <% if defined?(EnjuBookmark) %>
-              <li><%= link_to t('page.listing', :model => t('activerecord.models.bookmark')), bookmarks_path -%></li>
+              <li><%= link_to t('page.listing', model: t('activerecord.models.bookmark')), bookmarks_path -%></li>
             <% end %>
           <%- else -%>
             <% if defined?(EnjuBookmark) %>
-              <li><%= link_to t('page.listing', :model => t('activerecord.models.bookmark')), bookmarks_path -%></li>
+              <li><%= link_to t('page.listing', model: t('activerecord.models.bookmark')), bookmarks_path -%></li>
             <% end %>
           <%- end -%>
         </ul>
@@ -83,9 +89,10 @@
         <a href="#event_menu"><%= t('activerecord.models.event') -%></a>
         <ul>
           <%- unless @library_group.real_libraries.empty? -%>
+            <li><%= link_to t('page.calendar'), events_path(mode: 'calendar') -%></li>
             <li><%= link_to t('event.all'), events_path -%></li>
             <%- @library_group.real_libraries.each do |library| -%>
-              <li><%= link_to library.display_name.localize, library_events_path(library) -%></li>
+              <li><%= link_to library.display_name.localize, events_path(library_id: library.name) -%></li>
             <%- end -%>
             <%- if policy(Event).create? -%>
               <li><%= link_to t('page.import'), new_event_import_file_path -%></li>
@@ -105,7 +112,7 @@
       <ul>
         <%- if user_signed_in? -%>
           <%- if current_user.has_role?('Librarian') -%>
-            <li><%= link_to t('user.management'), users_path -%></li>
+            <li><%= link_to t('user.management'), profiles_path -%></li>
             <li><%= link_to t('page.agent_management'), agents_path -%></li>
             <li><%= link_to t('page.import'), page_import_path -%></li>
             <li><%= link_to t('page.export'), page_export_path -%></li>

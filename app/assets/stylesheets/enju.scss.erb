@@ -223,8 +223,8 @@ h4{
 }
 
 h1.title, h2.title, h3.title, h4.title{
-  color: white;
-  background-color: <%= Setting.enju.color.heading %>;
+  /* color: white; */
+  /* background-color: #5970B2; */
   padding: 5px;
   margin: 0px;
 }
@@ -363,6 +363,11 @@ input.resource_url{
 
 input.resource_isbn_issn, input.resource_identifier, input.resource_user_number, input.resource_user{
   width: 10em;
+  ime-mode: disabled;
+}
+
+input.resource_identifier_body{
+  width: 20em;
   ime-mode: disabled;
 }
 
@@ -531,3 +536,6 @@ div.search_form{
 }
 
 .hidden {display: none;}
+
+.enju_table_header{
+}

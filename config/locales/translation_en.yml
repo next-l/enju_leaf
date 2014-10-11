@@ -25,26 +25,23 @@ en:
         remember_token_expires_at: Remember token expires at
         activation_code: Activation code
         activated_at: Activated at
-        expired_at: Expired at
         locked: Locked
         confirmed: Confirmed
         approved: Approved
-        checkout_icalendar_token: Checkout iCalendar token
         due_date_reminder_days: Due date reminder days
         note: Note
-        save_checkout_history: Save checkout history
         lock_version: Lock version
-        keyword_list: Keyword list
         user_number: User number
         state: State
         agent: Agent
         library: Library
-        user_group: User group
+        user_group_id: User group
         full_name: Full name
         password: Password
         current_password: Current password
         locale: Locale
         password_confirmation: Password confirmation
+        auto_generated_password: Set auto-generated password
       role:
         name: Name
         display_name: Display name
@@ -81,6 +78,20 @@ en:
         user_export_file_name: Filename
         user_export_file_size: Size
         state: State
+      profile:
+        note: Note
+        keyword_list: Keyword list
+        required_role_id: Required role
+        user_id: User
+        user: User
+        user_group_id: User group
+        library_id: Library
+        locale: Locale
+        full_name: Full name
+        user_number: User number
+        expired_at: Expired at
+        full_name_transcription: Full name transcription
+        date_of_birth: Date of birth
 
   page:
     user_title: "Welcome %{login_name}"
@@ -134,7 +145,6 @@ en:
     publisher: "Publisher"
     feed: "Feed"
     back_to_index: "Back to index"
-    import: "Import from file"
     start_import: "Start import"
     import_record: "Import records"
     export: "Export"
@@ -192,6 +202,7 @@ en:
     number_of_pages: "Number of pages"
     holding_library: "Holding library"
     resource: "Resource"
+    manifestation_and_item: "Manifestation and Item"
     type: "Type"
     search_result_feed: "Search result feed"
     force_reload: "Force reload"
@@ -266,12 +277,15 @@ en:
     standard_view: "Standard view"
     mobile_view: "Mobile view"
     rearrange_order: "Rearrange order"
-    only_lowercase_letters_and_numbers_are_allowed: "Only lowercase letters and numbers are allowed. The first character must be alphabetic."
+    only_lowercase_letters_and_numbers_are_allowed: "is invalid. Only lowercase letters, numbers and underscore are allowed. The first character must be alphabetic."
     not_logged_in: "Not logged in"
     add_child: "Add a child"
     electronic_resource_management: "Electronic resource management"
     system: System
     manual: Manual
+    cannot_parse_yaml_header: "has an invalid YAML header. You must add a space after the header's colon."
+    notice: Notice
+    system_information: System information
   title:
     index: "index"
     show: "show"
@@ -280,7 +294,7 @@ en:
   controller:
     successfully_created: "%{model} was successfully created."
     successfully_updated: "%{model} was successfully updated."
-    successfully_destroyed: "%{model} was successfully destroyed."
+    successfully_deleted: "%{model} was successfully deleted."
   advanced_search:
     from: "from"
     to: "to"
@@ -297,78 +311,6 @@ en:
     add: "Add an expression"
     specify_work: "Specify the work."
     specify_manifestation: "Specify the manifestation."
-  manifestation:
-    date_of_acquisition: "Date of acquisition"
-    physical_description: "Physical description"
-    edit: "Edit this manifestation"
-    add_next_issue: "Add a next issue"
-    edit_creator: "Edit creators"
-    edit_contributor: "Edit contributors"
-    edit_publisher: "Edit publishers"
-    edit_expression: "Edit expressions"
-    edit_item: "Edit items"
-    expressions_manifestation: "Manifestations for %{expression_title}"
-    library_group_manifestation: "Manifestations in %{library_group_name}"
-    reserve_this: "Reserve this manifestation"
-    cancel_reservation: "Cancel this reservation"
-    user_who_bookmark_this_resource: "Users who bookmark this resource"
-    query_search_result: "Search results for %{query} in %{library_group_name}"
-    serial: "Serial"
-    number: "Number"
-    invalid_isbn: "Invalid ISBN."
-    already_imported: "This manifestation is already imporeted."
-    record_not_found: "Record not found."
-    add: "Add a manifestation"
-    specify_expression: "Specify the expression."
-    pickup: "Pick up"
-    showing_all_record: "Showing all records."
-    showing_reservable_record: "Showing reservable records."
-    reservable: "Reservable"
-    all_result: "All results"
-    reservable_list: "Reservable list"
-    post_to_twitter: "post to Twitter"
-    web: "Web"
-    send_email: "Email this information"
-    attachment_file: "Attachment file"
-    add_derivation: "Add a derivation"
-  item:
-    current_checkout: "Current checkout"
-    donor: "Donors"
-    library_group_item: "Items in %{library_group_name}"
-    add: "Add an item"
-    specify_manifestation: "Specify the manifestation."
-    this_item_is_reserved: "This item is reserved!"
-    create_shelf_first: "You should create a shelf first."
-    this_item_include_supplement: "This item includes supplements."
-    all_item: "All items"
-    add_new_copy: "Add a new copy"
-    no_manifestation: "No manifestation"
-    no_number: "No number"
-    add_lending_policy: "Add a new lending policy"
-    edit_exemplification: "Edit exemplification"
-    accepted_at: "Accepted at"
-  agent:
-    library_group_agent: "Agents of %{library_group_name}"
-    work_agent: "Creaters of %{work_title}"
-    expression_agent: "Realizers of %{expression_title}"
-    manifestation_agent: "Producers of %{manifestation_title}"
-    activate_as_user: "Activate as an user"
-    deactivate: "Deactivate this user"
-    add: "Add a agent"
-    publication: "Publications"
-    recent_publication: "Recent publications"
-    all_publication: "All publications"
-    other_address: "The other address"
-    add_derivation: "Add derivatation"
-    creator: "Creator"
-    contributor: "Contributor"
-    publisher: "Publisher"
-    owner: "Owner"
-  library:
-    map: "Map"
-    staff: "Staff"
-    number_of_item: "Number of items"
-    address: "Address"
   import:
     from_file: "from file"
     from_isbn: "from ISBN"
@@ -377,6 +319,12 @@ en:
       other: "Resource will be impored in %{minute} minutes."
     auto_detect: "Auto detect"
     successfully_created: "%{model} was created successfully. When the task is completed, its status on the list will be updated to 'completed'."
+    following_column_were_ignored: "The follwing column(s) were ignored: %{column}"
+    dummy: This row is treated as a dummy input.
+  export:
+    export_completed: Export completed.
+    are_you_sure_to_export: It may take some time to complete. Are you sure to export?
+    successfully_created: "%{model} task was created successfully. A notification message will be sent to you when the task is completed. You can download the export file from 'Listing %{model}'."
   user:
     current_password: "Current password"
     new_password: "New password"
@@ -411,6 +359,7 @@ en:
     change_my_password: "Change my password"
     management: "User management"
     not_found: "User not found."
+    role_is_not_set: "Role is not set."
   subscribe:
     this_subscription_is_expired: "This subscription is expired!"
   role:
@@ -446,3 +395,8 @@ en:
     already_accepted: "This item is already accepted."
     accept: "Accept!"
     successfully_accepted: "This items was successfully accepted."
+  user_import_file:
+    default_user_group: If "user_group" column is not set in the TSV file, this user group is set to the new user.
+    default_library: If "library" column is not set in the TSV file, this library is set to the new user.
+  profile:
+    no_number: No number

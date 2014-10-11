@@ -126,16 +126,17 @@ event_00008:
 #
 # Table name: events
 #
-#  id                :integer          not null, primary key
-#  library_id        :integer          default(1), not null
-#  event_category_id :integer          default(1), not null
+#  id                :integer         not null, primary key
+#  library_id        :integer         default(1), not null
+#  event_category_id :integer         default(1), not null
 #  name              :string(255)
 #  note              :text
 #  start_at          :datetime
 #  end_at            :datetime
-#  all_day           :boolean          default(FALSE), not null
+#  all_day           :boolean         default(FALSE), not null
 #  deleted_at        :datetime
-#  display_name      :text
 #  created_at        :datetime
 #  updated_at        :datetime
+#  display_name      :text
 #
+

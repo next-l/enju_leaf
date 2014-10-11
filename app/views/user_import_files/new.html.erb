@@ -1,8 +1,8 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.new', :model => t('activerecord.models.user_import_file')) -%></h1>
+<h1 class="title"><%= t('page.new', model: t('activerecord.models.user_import_file')) -%></h1>
 <div id="content_list">
 
-<%= form_for(@user_import_file, :html => { :multipart => true }) do |f| %>
+<%= form_for(@user_import_file, html: { multipart: true }) do |f| %>
   <%= f.error_messages -%>
 
   <div class="field">
@@ -34,12 +34,14 @@
 
   <div class="field">
     <%= f.label :default_user_group_id -%>
-    <%= f.select(:default_user_group_id, @user_groups.collect{|u| [u.display_name.localize, u.id]}) -%>
+    <%= f.select(:default_user_group_id, @user_groups.collect{|u| [u.display_name.localize, u.id]}) -%><br />
+    <%= t('user_import_file.default_user_group') %>
   </div>
 
   <div class="field">
     <%= f.label :default_library_id -%>
-    <%= f.select(:default_library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%>
+    <%= f.select(:default_library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%><br />
+    <%= t('user_import_file.default_library') %>
   </div>
 
   <div class="actions">

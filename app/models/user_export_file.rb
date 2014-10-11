@@ -1,10 +1,9 @@
 class UserExportFile < ActiveRecord::Base
   include Statesman::Adapters::ActiveRecordModel
-  belongs_to :user
+  include ExportFile
+  enju_export_file_model
   has_attached_file :user_export
   validates_attachment_content_type :user_export, :content_type => /\Atext\/plain\Z/
-  validates :user, presence: true
-  attr_accessor :mode
 
   has_many :user_export_file_transitions
 
@@ -21,14 +20,9 @@ class UserExportFile < ActiveRecord::Base
     file = User.export(format: :txt)
     tempfile.puts(file)
     tempfile.close
-    self.user_export = File.new(tempfile.path, "r")
+    self.user_export = File.new(tempfile.path, 'r')
     if save
-      message = Message.create(
-        sender: User.find(1),
-        recipient: user.username,
-        subject: 'export completed',
-        body: I18n.t('export.export_completed')
-      )
+      send_message
     end
     transition_to!(:completed)
   rescue => e
@@ -53,6 +47,6 @@ end
 #  user_export_file_size    :integer
 #  user_export_updated_at   :datetime
 #  executed_at              :datetime
-#  created_at               :datetime
-#  updated_at               :datetime
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
 #

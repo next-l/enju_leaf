@@ -6,6 +6,7 @@ require "enju_leaf/helper"
 require "enju_leaf/bookmark_url"
 require "enju_leaf/calculate_stat"
 require "enju_leaf/import_file"
+require "enju_leaf/export_file"
 require "enju_leaf/localized_name"
 require "enju_leaf/master_model"
 require "enju_leaf/url_validator"
@@ -82,7 +83,7 @@ module EnjuLeaf
         end
       end
       if user_signed_in?
-        locale = params[:locale] || session[:locale] || current_user.locale.try(:to_sym)
+        locale = params[:locale] || session[:locale] || current_user.profile.try(:locale).try(:to_sym)
       else
         locale = params[:locale] || session[:locale]
       end

@@ -2,11 +2,11 @@
 <h1 class="title"><%= t('page.advanced_search') -%></h1>
 <div id="content_list">
 
-<%= form_tag({:controller => 'manifestations'}, {:method => 'get'}) do -%>
+<%= form_tag({controller: 'manifestations'}, {method: 'get'}) do -%>
   <table style="width: 100%">
     <tr>
       <td><%= label_tag :query, t('page.search_term') -%>:</td>
-      <td><%= search_field_tag 'query', nil, :class => 'search_form_short', :placeholder => t('page.search_term') -%></td>
+      <td><%= search_field_tag 'query', nil, class: 'search_form_short', placeholder: t('page.search_term') -%></td>
     </tr>
     <tr>
       <td><label><%= t('page.title') -%>:</label></td>
@@ -40,18 +40,18 @@
     </tr>
     <tr>
       <td><label><%= t('activerecord.attributes.manifestation.date_of_publication') -%>:</label></td>
-      <td><%= t('advanced_search.from') -%> <%= text_field_tag 'pub_date_from', nil, :class => 'date_text_field', :placeholder => "#{t('page.example')}: 1978, 1978-04-12" -%>
-        <%= t('advanced_search.to') -%> <%= text_field_tag 'pub_date_to', nil, :class => 'date_text_field', :placeholder => "#{t('page.example')}: 2011, 2011-04-12"-%></td>
+      <td><%= t('advanced_search.from') -%> <%= text_field_tag 'pub_date_from', nil, class: 'date_text_field', placeholder: "#{t('page.example')}: 1978, 1978-04-12" -%>
+        <%= t('advanced_search.to') -%> <%= text_field_tag 'pub_date_to', nil, class: 'date_text_field', placeholder: "#{t('page.example')}: 2011, 2011-04-12"-%></td>
     </tr>
     <tr>
       <td><label><%= t('activerecord.attributes.item.acquired_at') -%>:</label></td>
-      <td><%= t('advanced_search.from') -%> <%= text_field_tag 'acquired_from', nil, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2005, 2005-04-01" -%>
-        <%= t('advanced_search.to') -%> <%= text_field_tag 'acquired_to', nil, :class => 'wide_date_text_field', :placeholder => "#{t('page.example')}: 2011, 2011-03-31"-%></td>
+      <td><%= t('advanced_search.from') -%> <%= text_field_tag 'acquired_from', nil, class: 'wide_date_text_field', placeholder: "#{t('page.example')}: 2005, 2005-04-01" -%>
+        <%= t('advanced_search.to') -%> <%= text_field_tag 'acquired_to', nil, class: 'wide_date_text_field', placeholder: "#{t('page.example')}: 2011, 2011-03-31"-%></td>
     </tr>
     <tr>
       <td><label><%= t('page.number_of_pages') -%>:</label></td>
-        <td><%= t('advanced_search.from') -%> <%= text_field_tag 'number_of_pages_at_least', nil, :size => 5 -%>
-          <%= t('advanced_search.to') -%> <%= text_field_tag 'number_of_pages_at_most', nil, :size => 5 -%></td>
+        <td><%= t('advanced_search.from') -%> <%= text_field_tag 'number_of_pages_at_least', nil, size: 5 -%>
+          <%= t('advanced_search.to') -%> <%= text_field_tag 'number_of_pages_at_most', nil, size: 5 -%></td>
     </tr>
     <!--
     <tr>

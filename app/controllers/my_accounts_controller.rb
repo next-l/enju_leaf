@@ -2,24 +2,24 @@ class MyAccountsController < ApplicationController
   before_filter :authenticate_user!
 
   def show
-    @user = current_user
+    @profile = current_user.profile
 
     respond_to do |format|
       format.html
-      format.json { render :json => @user }
+      format.json { render json: @profile }
     end
   end
 
   def edit
-    @user = current_user
+    @profile = current_user.profile
     if defined?(EnjuCirculation)
       if params[:mode] == 'feed_token'
         if params[:disable] == 'true'
-          @user.delete_checkout_icalendar_token
+          @profile.delete_checkout_icalendar_token
         else
-          @user.reset_checkout_icalendar_token
+          @profile.reset_checkout_icalendar_token
         end
-        render :partial => 'feed_token'
+        render partial: 'feed_token'
         return
       end
     end
@@ -27,34 +27,37 @@ class MyAccountsController < ApplicationController
   end
 
   def update
-    @user = current_user
+    @profile = current_user.profile
 
     respond_to do |format|
-      if current_user.has_role?('Librarian')
-        saved = current_user.update_with_password(user_params) #, :as => :admin)
-      else
-        saved = current_user.update_with_password(user_params)
-      end
+      saved = current_user.update_with_password(user_params)
+      @profile.assign_attributes(profile_params)
 
       if saved
-        sign_in(current_user, :bypass => true)
-        format.html { redirect_to my_account_url, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user')) }
-        format.json { head :no_content }
+        if @profile.save
+          sign_in(current_user, :bypass => true)
+          format.html { redirect_to my_account_url, notice: t('controller.successfully_updated', model: t('activerecord.models.user')) }
+          format.json { head :no_content }
+        else
+          prepare_options
+          format.html { render action: "edit" }
+          format.json { render json: current_user.errors, status: :unprocessable_entity }
+        end
       else
-        @user = current_user
+        @profile.errors[:base] << I18n.t('activerecord.attributes.user.current_password')
         prepare_options
-        format.html { render :action => 'edit' }
-        format.json { render :json => current_user.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.json { render json: current_user.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def destroy
-    @user = current_user
-    @user.destroy
+    @profile = current_user.profile
+    @profile.destroy
 
     respond_to do |format|
-      format.html { redirect_to my_account_url, :notice => 'devise.registrations.destroyed' }
+      format.html { redirect_to my_account_url, notice: 'devise.registrations.destroyed' }
       format.json { head :no_content }
     end
   end
@@ -78,5 +81,8 @@ class MyAccountsController < ApplicationController
       :remember_me, :email_confirmation, :library_id, :locale,
       :keyword_list, :auto_generated_password
     )
+  end
+
+  def profile_params
   end
 end

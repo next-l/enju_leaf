@@ -32,7 +32,7 @@ module EnjuLeaf
         scope :administrators, -> {where('roles.name = ?', 'Administrator').joins(:role)}
         scope :librarians, -> {where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').joins(:role)}
         scope :suspended, -> {where('locked_at IS NOT NULL')}
-        #has_one :agent, :dependent => :destroy
+        has_one :profile, :dependent => :destroy
         if defined?(EnjuBiblio)
           has_many :import_requests
           has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
@@ -58,22 +58,17 @@ module EnjuLeaf
         end
 
         validates_presence_of     :email, :email_confirmation, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
-        validates_associated :user_group, :library #, :agent
-        validates_presence_of :user_group, :library, :locale #, :user_number
-        validates :user_number, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z_]+\Z/}, :allow_blank => true
         validates_confirmation_of :email, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
 
-        before_validation :set_role_and_agent, :on => :create
         before_validation :set_lock_information
         before_destroy :check_role_before_destroy
         before_save :check_expiration
-        before_create :set_expired_at
         after_create :set_confirmation
 
         extend FriendlyId
         friendly_id :username
         #has_paper_trail
-        normalize_attributes :username, :user_number
+        normalize_attributes :username
         normalize_attributes :email, :with => :strip
 
         settings do
@@ -81,7 +76,6 @@ module EnjuLeaf
             indexes :username
             indexes :email
             indexes :note
-            indexes :user_number
             indexes :name
             indexes :created_at
             indexes :updated_at
@@ -91,9 +85,6 @@ module EnjuLeaf
         end
 
         attr_accessor :first_name, :middle_name, :last_name, :full_name,
-          :first_name_transcription, :middle_name_transcription,
-          :last_name_transcription, :full_name_transcription,
-          :zip_code, :address, :telephone_number, :fax_number, :address_note,
           :operator, :password_not_verified,
           :update_own_account, :auto_generated_password,
           :locked, :current_password #, :agent_id
@@ -110,17 +101,12 @@ module EnjuLeaf
           header = %w(
             username
             email
-            user_number
             role
             user_group
             library
-            locale
             created_at
             updated_at
             expired_at
-            keyword_list
-            note
-	    checkout_icalendar_token
             save_checkout_history
             save_search_history
             share_bookmarks
@@ -129,15 +115,12 @@ module EnjuLeaf
             lines = []
             lines << u.username
             lines << u.email
-            lines << u.user_number
             lines << u.role.name
             lines << u.user_group.try(:name)
             lines << u.library.try(:name)
-            lines << u.locale
             lines << u.created_at
             lines << u.updated_at
             lines << u.expired_at
-            lines << u.keyword_list.try(:split).try(:join, "//")
             lines << u.note
             if defined?(EnjuCirculation)
               lines << u.try(:checkout_icalendar_token)
@@ -187,14 +170,6 @@ module EnjuLeaf
         else
           false
         end
-      end
-
-      def set_role_and_agent
-        self.required_role = Role.where(name: 'Librarian').first
-        self.locale = I18n.default_locale.to_s unless locale
-        #unless self.agent
-        #  self.agent = Agent.create(:full_name => self.username) if self.username
-        #end
       end
 
       def set_lock_information
@@ -253,14 +228,6 @@ module EnjuLeaf
       def send_confirmation_instructions
         unless self.operator
           Devise::Mailer.confirmation_instructions(self).deliver if self.email.present?
-        end
-      end
-
-      def set_expired_at
-        if expired_at.blank?
-          if user_group.valid_period_for_new_user > 0
-            self.expired_at = user_group.valid_period_for_new_user.days.from_now.end_of_day
-          end
         end
       end
 
@@ -342,10 +309,7 @@ end
 #  expired_at               :datetime
 #  required_role_id         :integer         default(1), not null
 #  note                     :text
-#  keyword_list             :text
-#  user_number              :string(255)
 #  state                    :string(255)
-#  locale                   :string(255)
 #  enju_access_key          :string(255)
 #  save_checkout_history    :boolean
 #  checkout_icalendar_token :string(255)

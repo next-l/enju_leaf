@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :store_location, :only => [:index]
-  before_action :clear_search_sessions, :only => [:show]
+  before_action :store_location, only: [:index]
+  before_action :clear_search_sessions, only: [:show]
   after_action :verify_authorized
 
   # GET /users
@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     @query = query.dup
     @count = {}
 
-    sort = {:sort_by => 'created_at', :order => 'desc'}
+    sort = {sort_by: 'created_at', :order => 'desc'}
     case params[:sort_by]
     when 'username'
       sort[:sort_by] = 'username'
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @users }
+      format.json { render json: @users }
     end
   end
 
@@ -84,7 +84,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.html.phone
-      format.json { render :json => @user }
+      format.json { render json: @user }
     end
   end
 
@@ -139,13 +139,13 @@ class UsersController < ApplicationController
         user_has_role.assign_attributes({:user_id => @user.id, :role_id => role.id})
         user_has_role.save
         flash[:temporary_password] = @user.password
-        format.html { redirect_to @user, notice: t('controller.successfully_created', :model => t('activerecord.models.user')) }
-        format.json { render :json => @user, :status => :created, :location => @user }
+        format.html { redirect_to @user, notice: t('controller.successfully_created', model: t('activerecord.models.user')) }
+        format.json { render json: @user, :status => :created, :location => @user }
       else
         prepare_options
         flash[:error] = t('user.could_not_setup_account')
-        format.html { render :action => "new" }
-        format.json { render :json => @user.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.json { render json: @user.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -162,7 +162,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       @user.save
       if @user.errors.empty?
-        format.html { redirect_to @user, notice: t('controller.successfully_updated', :model => t('activerecord.models.user')) }
+        format.html { redirect_to @user, notice: t('controller.successfully_updated', model: t('activerecord.models.user')) }
         format.json { head :no_content }
       else
         prepare_options
@@ -184,7 +184,7 @@ class UsersController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to users_url, notice: t('controller.successfully_destroyed', :model => t('activerecord.models.user')) }
+      format.html { redirect_to users_url, notice: t('controller.successfully_destroyed', model: t('activerecord.models.user')) }
       format.json { head :no_content }
     end
   end
@@ -211,17 +211,17 @@ class UsersController < ApplicationController
     if current_user.has_role?('Librarian')
       params.require(:user).permit(
         :email, :password, :password_confirmation, :username,
-        :current_password, :user_number, :remember_me,
-        :email_confirmation, :note, :user_group_id, :library_id, :locale,
+        :current_password, :remember_me,
+        :email_confirmation,
         :expired_at, :locked, :required_role_id, :role_id,
-        :keyword_list, :auto_generated_password,
+        :auto_generated_password,
         :user_has_role_attributes => [:user_id, :role_id]
       )
     else
       params.require(:user).permit(
         :email, :password, :password_confirmation, :current_password,
-        :remember_me, :email_confirmation, :library_id, :locale,
-        :keyword_list, :auto_generated_password
+        :remember_me, :email_confirmation,
+        :auto_generated_password
       )
     end
   end

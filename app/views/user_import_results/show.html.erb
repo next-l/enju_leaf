@@ -1,5 +1,5 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.user_import_result')) -%></h1>
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.user_import_result')) -%></h1>
 <div id="content_list">
 <p id="notice"><%= notice %></p>
 
@@ -10,11 +10,11 @@
 
 <p>
   <b><%= t('activerecord.models.user') %></b>
-  <%= link_to @user_import_result.user.username, @user_import_result.user if @user_import_result.user %>
+  <%= link_to @user_import_result.user.username, @user_import_result.user.profile if @user_import_result.user.try(:profile) %>
 </p>
 
 <p>
-  <b><%= t('activerecord.attributes.agent_import_result.body') %></b>
+  <b><%= t('activerecord.attributes.user_import_result.body') %></b>
   <%= @user_import_result.body %>
 </p>
 

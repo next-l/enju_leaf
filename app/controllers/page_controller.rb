@@ -1,8 +1,8 @@
 class PageController < ApplicationController
-  before_filter :clear_search_sessions, :only => [:index, :advanced_search]
-  before_filter :store_location, :only => [:advanced_search, :about, :add_on, :msie_acceralator, :statistics]
-  before_filter :authenticate_user!, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics, :routing_error]
-  before_filter :check_librarian, :except => [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics, :routing_error]
+  before_filter :clear_search_sessions, only: [:index, :advanced_search]
+  before_filter :store_location, only: [:advanced_search, :about, :add_on, :msie_acceralator, :statistics]
+  before_filter :authenticate_user!, except: [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics, :routing_error]
+  before_filter :check_librarian, except: [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics, :routing_error]
   helper_method :get_libraries
 
   def index
@@ -14,7 +14,7 @@ class PageController < ApplicationController
       if defined?(EnjuBookmark)
         @tags = current_user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
       end
-      @manifestation = Manifestation.pickup(current_user.keyword_list.to_s.split.sort_by{rand}.first) rescue nil
+      @manifestation = Manifestation.pickup(current_user.keyword_list.to_s.split.sort_by{rand}.first, current_user) rescue nil
     else
       if defined?(EnjuBookmark)
         # TODO: タグ下限の設定
@@ -33,11 +33,15 @@ class PageController < ApplicationController
   end
 
   def msie_acceralator
-    render :layout => false
+    respond_to do |format|
+      format.xml { render layout: false }
+    end
   end
 
   def opensearch
-    render :layout => false
+    respond_to do |format|
+      format.xml { render layout: false }
+    end
   end
 
   def advanced_search
@@ -51,6 +55,10 @@ class PageController < ApplicationController
 
   def configuration
     @title = t('page.configuration')
+  end
+
+  def system_information
+    @specs = Bundler.load.specs.sort
   end
 
   def import

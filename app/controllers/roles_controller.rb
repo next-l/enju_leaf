@@ -1,7 +1,7 @@
 class RolesController < ApplicationController
   before_action :set_role, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized
-  #after_action :verify_policy_scoped, :only => :index
+  #after_action :verify_policy_scoped, only: :index
 
   # GET /roles
   def index
@@ -25,7 +25,7 @@ class RolesController < ApplicationController
     end
 
     if @role.update_attributes(role_params)
-      redirect_to @role, notice: t('controller.successfully_updated', :model => t('activerecord.models.role'))
+      redirect_to @role, notice: t('controller.successfully_updated', model: t('activerecord.models.role'))
     else
       render action: 'edit'
     end

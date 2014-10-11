@@ -1,8 +1,9 @@
 class Role < ActiveRecord::Base
   include MasterModel
-  default_scope {order("roles.position")}
+  default_scope { order("roles.position") }
+  validates :name, presence: true, format: { with: /\A[A-Za-z][a-z_,]*[a-z]\Z/ }
   has_many :user_has_roles
-  has_many :users, :through => :user_has_roles
+  has_many :users, through: :user_has_roles
   after_save :clear_all_cache
   after_destroy :clear_all_cache
 
@@ -15,7 +16,7 @@ class Role < ActiveRecord::Base
 
   def self.all_cache
     if Rails.env == 'production'
-      Rails.cache.fetch('role_all'){Role.select(:name).all}
+      Rails.cache.fetch('role_all'){ Role.select(:name).all }
     else
       Role.select(:name)
     end
@@ -26,11 +27,12 @@ class Role < ActiveRecord::Base
   end
 
   def self.default_role
-    if Rails.env == 'production'
-      Rails.cache.fetch('default_role'){Role.where(:name => 'Guest').first}
-    else
-      Role.where(:name => 'Guest').first
-    end
+    Role.where(name: 'Guest').first
+  end
+
+  private
+  def valid_name?
+    true
   end
 end
 

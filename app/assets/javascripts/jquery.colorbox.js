@@ -1,5 +1,9 @@
 /*!
+<<<<<<< HEAD:app/assets/javascripts/jquery.colorbox.js
 	Colorbox v1.5.10 - 2014-06-26
+=======
+	Colorbox v1.5.13 - 2014-08-04
+>>>>>>> 1.1:vendor/assets/javascripts/jquery.colorbox.js
 	jQuery lightbox and modal window plugin
 	(c) 2014 Jack Moore - http://www.jacklmoore.com/colorbox
 	license: http://www.opensource.org/licenses/mit-license.php
@@ -415,8 +419,14 @@
 				}
 			}
 
+<<<<<<< HEAD:app/assets/javascripts/jquery.colorbox.js
 			$overlay.css({
 				opacity: parseFloat(settings.get('opacity')) || '',
+=======
+			var opacity = parseFloat(settings.get('opacity'));
+			$overlay.css({
+				opacity: opacity === opacity ? opacity : '',
+>>>>>>> 1.1:vendor/assets/javascripts/jquery.colorbox.js
 				cursor: settings.get('overlayClose') ? 'pointer' : '',
 				visibility: 'visible'
 			}).show();
@@ -696,7 +706,7 @@
 					}, 1);
 				}
 
-				if (loadedCallback) {
+				if ($.isFunction(loadedCallback)) {
 					loadedCallback();
 				}
 			},

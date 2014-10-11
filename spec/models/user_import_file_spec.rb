@@ -23,44 +23,53 @@ describe UserImportFile do
       User.count.should eq old_users_count + 5
 
       user002 = User.where(:username => 'user002').first
-      user002.user_number.should eq '001002'
-      user002.user_group.name.should eq 'faculty'
-      user002.expired_at.to_i.should eq Time.zone.parse('2013-12-01').end_of_day.to_i
+      user002.profile.user_group.name.should eq 'faculty'
+      user002.profile.expired_at.to_i.should eq Time.zone.parse('2013-12-01').end_of_day.to_i
       user002.valid_password?('4NsxXPLy')
-      user002.user_number.should eq '001002'
-      user002.library.name.should eq 'hachioji'
-      user002.locale.should eq 'en'
+      user002.profile.user_number.should eq '001002'
+      user002.profile.library.name.should eq 'hachioji'
+      user002.profile.locale.should eq 'en'
 
       user003 = User.where(:username => 'user003').first
-      user002.user_number.should eq '001002'
-      user003.note.should eq 'テストユーザ'
+      user003.profile.note.should eq 'テストユーザ'
       user003.role.name.should eq 'Librarian'
-      user003.user_number.should eq '001003'
-      user003.library.name.should eq 'kamata'
-      user003.locale.should eq 'ja'
-      user003.checkout_icalendar_token.should eq 'secrettoken'
-      user003.save_checkout_history.should be_truthy
-      user003.save_search_history.should be_falsy
-      user003.share_bookmarks.should be_falsy
+      user003.profile.user_number.should eq '001003'
+      user003.profile.library.name.should eq 'kamata'
+      user003.profile.locale.should eq 'ja'
+      user003.profile.checkout_icalendar_token.should eq 'secrettoken'
+      user003.profile.save_checkout_history.should be_truthy
+      user003.profile.save_search_history.should be_falsy
+      user003.profile.share_bookmarks.should be_falsy
       User.where(:username => 'user000').first.should be_nil
       UserImportResult.count.should eq old_import_results_count + 6
 
-      user005 = User.where(username: 'user005').first
+      user005 = User.where(:username => 'user005').first
       user005.role.name.should eq 'User'
-      user005.library.name.should eq 'hachioji'
-      user005.locale.should eq 'en'
-      user005.user_number.should eq '001005'
-      user005.user_group.name.should eq 'faculty'
+      user005.profile.library.name.should eq 'hachioji'
+      user005.profile.locale.should eq 'en'
+      user005.profile.user_number.should eq '001005'
+      user005.profile.user_group.name.should eq 'faculty'
 
-      user006 = User.where(username: 'user006').first
+      user006 = User.where(:username => 'user006').first
       user006.role.name.should eq 'User'
-      user006.library.name.should eq 'hachioji'
-      user006.locale.should eq 'en'
-      user006.user_number.should be_nil
-      user006.user_group.name.should eq UserGroup.find(2).name
+      user006.profile.library.name.should eq 'hachioji'
+      user006.profile.locale.should eq 'en'
+      user006.profile.user_number.should be_nil
+      user006.profile.user_group.name.should eq UserGroup.find(2).name
 
       @file.user_import_fingerprint.should be_truthy
       @file.executed_at.should be_truthy
+
+      @file.reload
+      @file.error_message.should eq "The follwing column(s) were ignored: invalid"
+    end
+
+    it "should send message when import is completed" do
+      old_message_count = Message.count
+      @file.user = User.where(username: 'librarian1').first
+      @file.import_start
+      Message.count.should eq old_message_count + 1
+      Message.order(:id).last.subject.should eq 'インポートが完了しました'
     end
 
     it "should not import users that have higher roles than current user's role" do
@@ -84,6 +93,8 @@ describe UserImportFile do
     before(:each) do
       @file = UserImportFile.new :user_import => File.new("#{Rails.root.to_s}/../../examples/user_import_file_sample.tsv")
       @file.user = users(:admin)
+      @file.default_user_group = UserGroup.find(2)
+      @file.default_library = Library.find(3)
       @file.save
       @file.import_start
     end
@@ -99,6 +110,8 @@ describe UserImportFile do
   it "should import in background" do
     file = UserImportFile.new :user_import => File.new("#{Rails.root.to_s}/../../examples/user_import_file_sample.tsv")
     file.user = users(:admin)
+    file.default_user_group = UserGroup.find(2)
+    file.default_library = Library.find(3)
     file.save
     UserImportFileQueue.perform(file.id).should be_truthy
   end
@@ -119,8 +132,8 @@ end
 #  user_import_fingerprint  :string(255)
 #  edit_mode                :string(255)
 #  error_message            :text
-#  created_at               :datetime
-#  updated_at               :datetime
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
 #  user_encoding            :string(255)
 #  default_library_id       :integer
 #  default_user_group_id    :integer

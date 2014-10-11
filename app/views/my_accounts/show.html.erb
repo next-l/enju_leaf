@@ -1,5 +1,5 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.user')) -%></h1>
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.user')) -%></h1>
 <div id="content_list">
 <p id="notice"><%= notice %></p>
 
@@ -8,14 +8,14 @@
     <%= current_user.username -%>
   </h2>
 
-  <p><%= t('activerecord.attributes.user.user_number') %>: <%= current_user.user_number %></p>
+  <p><%= t('activerecord.attributes.profile.user_number') %>: <%= current_user.profile.user_number %></p>
 
   <% if defined?(EnjuCirculation) %>
     <h2>
       <%= t('activerecord.models.checkout') %>
-      <%= link_to image_tag('icons/date.png', :size => '16x16', :alt => 'iCalendar', :class => 'icon'), checkouts_url(:icalendar_token => current_user.checkout_icalendar_token, :format => :ics) if current_user.checkout_icalendar_token? %>
-      <%= link_to image_tag('icons/feed.png', :size => '16x16', :alt => 'RSS', :class => 'icon'), user_checkouts_url(current_user, :format => :rss) %>
-      <%= link_to image_tag('icons/page_white_excel.png', :size => '16x16', :alt => 'CSV', :class => 'icon'), user_checkouts_url(current_user, :format => :csv) %>
+      <%= link_to image_tag('icons/date.png', size: '16x16', alt: 'iCalendar', class: 'icon'), checkouts_url(icalendar_token: current_user.checkout_icalendar_token, format: :ics) if current_user.checkout_icalendar_token? %>
+      <%= link_to image_tag('icons/feed.png', size: '16x16', alt: 'RSS', class: 'icon'), checkouts_url(user_id: current_user.username, format: :rss) %>
+      <%= link_to image_tag('icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'icon'), checkouts_url(user_id: current_user.username, format: :txt) %>
     </h2>
     <table class="table table-striped index">
       <tr>
@@ -29,7 +29,7 @@
             (<%= link_to checkout.item.manifestation.original_title, checkout.item.manifestation %>)
           </td>
           <td>
-            <%=l checkout.due_date, :formats => :only_date %>
+            <%=l checkout.due_date, formats: :only_date %>
             <br />
             <%- if policy(checkout).update? -%>
               <% unless checkout.checkin %>
@@ -47,7 +47,7 @@
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <% if defined?(EnjuCirculation) %>
     <ul>
-      <%- current_user.user_group.user_group_has_checkout_types.each do |available_checkout_type| -%>
+      <%- current_user.profile.user_group.user_group_has_checkout_types.each do |available_checkout_type| -%>
         <li>
           <%= available_checkout_type.checkout_type.display_name.localize -%>:
           <%= current_user.checked_item_count[:"#{available_checkout_type.checkout_type.name}"] -%> / <%= available_checkout_type.checkout_limit -%>
@@ -58,7 +58,7 @@
   <ul>
     <li><%= link_to t('page.edit'), edit_my_account_path -%></li>
     <%- if policy(current_user).destroy? -%>
-      <%= link_to t('page.destroy'), curent_user, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
+      <%= link_to t('page.destroy'), curent_user, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
     <%- end -%>
     <% if defined?(EnjuSearchLog) %>
       <li><%= link_to t('activerecord.models.search_history'), search_histories_path %></li>

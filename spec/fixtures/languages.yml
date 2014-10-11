@@ -2,8 +2,8 @@
 language_00001: 
   position: 1
   name: unknown  
-  display_name: "en:unknown\r\n\
-    ja:不明"
+  display_name: "en: unknown\r\n\
+    ja: 不明"
   iso_639_1: unknown
   iso_639_2: unknown
   iso_639_3: unknown
@@ -1355,8 +1355,8 @@ language_00160:
 language_00077: 
   position: 77
   name: Japanese  
-  display_name: "en:Japanese\r\n\
-    ja:日本語"
+  display_name: "en: Japanese\r\n\
+    ja: 日本語"
   iso_639_1: ja
   iso_639_2: jpn
   iso_639_3: jpn

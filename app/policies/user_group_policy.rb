@@ -9,7 +9,7 @@ class UserGroupPolicy < AdminPolicy
 
   def destroy?
     if user.try(:has_role?, 'Administrator')
-      record.users.empty?
+      record.profiles.empty?
     end
   end
 end

@@ -8,7 +8,7 @@ event_category_00002:
   created_at: 2008-01-01 16:17:34.642433 +09:00
   position: 2
 event_category_00003: 
-  name: book_talk
+  name: おはなし会
   display_name: おはなし会
   updated_at: 2008-01-01 16:24:45.267241 +09:00
   id: 3
@@ -16,7 +16,7 @@ event_category_00003:
   created_at: 2008-01-01 16:17:45.415487 +09:00
   position: 3
 event_category_00004: 
-  name: movie_theater
+  name: 上映会
   display_name: 上映会
   updated_at: 2008-01-01 16:24:55.261682 +09:00
   id: 4
@@ -24,7 +24,7 @@ event_category_00004:
   created_at: 2008-01-01 16:18:08.868680 +09:00
   position: 4
 event_category_00005: 
-  name: talk_event
+  name: 講演会
   display_name: 講演会
   updated_at: 2008-01-01 16:25:04.251141 +09:00
   id: 5
@@ -44,11 +44,12 @@ event_category_00001:
 #
 # Table name: event_categories
 #
-#  id           :integer          not null, primary key
-#  name         :string(255)      not null
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
 #  display_name :text
 #  note         :text
 #  position     :integer
 #  created_at   :datetime
 #  updated_at   :datetime
 #
+

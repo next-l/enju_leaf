@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     mount Resque::Server.new, :at => "/resque", :as => :resque
   end
 
+  resources :profiles
+
   resources :user_export_files
 
   resources :user_import_results, :only => [:index, :show, :destroy]
@@ -11,20 +13,11 @@ Rails.application.routes.draw do
     resources :user_import_results, :only => [:index, :show, :destroy]
   end
 
-  resources :profiles
-
   resource :my_account
-
-  #resources :users do
-  #  resource :patron
-  #end
-  resources :users
 
   resources :roles, :except => [:new, :create, :destroy]
 
   resources :user_groups
-
-  resources :local_patrons, :only => :show
 
   resources :accepts
 
@@ -43,5 +36,6 @@ Rails.application.routes.draw do
   get '/page/msie_acceralator' => 'page#msie_acceralator'
   get '/page/opensearch' => 'page#opensearch'
   get '/page/statistics' => 'page#statistics'
+  get '/page/system_information' => 'page#system_information'
   get '/page/routing_error' => 'page#routing_error'
 end

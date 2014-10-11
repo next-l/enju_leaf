@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 class UserGroupsController < ApplicationController
   before_action :set_user_group, only: [:show, :edit, :update, :destroy]
+  before_action :prepare_options, only: [:new, :edit]
   after_action :verify_authorized
-  #after_action :verify_policy_scoped, :only => :index
-  before_filter :prepare_options, :only => [:new, :edit]
+  #after_action :verify_policy_scoped, only: :index
 
   # GET /user_groups
   def index
@@ -31,10 +31,10 @@ class UserGroupsController < ApplicationController
     authorize @user_group
 
     if @user_group.save
-      redirect_to @user_group, :notice => t('controller.successfully_created', :model => t('activerecord.models.user_group'))
+      redirect_to @user_group, notice: t('controller.successfully_created', model: t('activerecord.models.user_group'))
     else
       prepare_options
-      render :action => "new"
+      render action: "new"
     end
   end
 
@@ -46,10 +46,10 @@ class UserGroupsController < ApplicationController
     end
 
     if @user_group.update_attributes(user_group_params)
-      redirect_to @user_group, :notice => t('controller.successfully_updated', :model => t('activerecord.models.user_group'))
+      redirect_to @user_group, notice: t('controller.successfully_updated', model: t('activerecord.models.user_group'))
     else
       prepare_options
-      render :action => "edit"
+      render action: "edit"
     end
   end
 

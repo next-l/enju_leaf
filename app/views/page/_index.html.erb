@@ -2,7 +2,7 @@
   <div class="portlet" id="search">
     <h2 class="title">
       <% if user_signed_in? %>
-        <%= t('page.user_title', :login_name => current_user.username) -%>
+        <%= t('page.user_title', login_name: current_user.username) -%>
       <% else %>
         <%= t('page.catalog_search') -%>
       <% end %>
@@ -11,11 +11,11 @@
       <p id="notice"><%= notice %></p>
 
       <%= render 'page/search_form' -%>
-      <p><%= t('page.number_of_manifestations', :numdocs => Manifestation.search('*').results.total, :count => Manifestation.search('*').results.total) -%></p>
-      <h3 style="display: inline"><%= link_to t('page.new_resource'), manifestations_path(:mode => 'recent') -%></h3>
+      <p><%= t('page.number_of_manifestations', numdocs: Manifestation.search('*').results.total, count: Manifestation.search('*').results.total) -%></p>
+      <h3 style="display: inline"><%= link_to t('page.new_resource'), manifestations_path(mode: 'recent') -%></h3>
       <% if defined?(EnjuBookmark) %>
         <% if user_signed_in? %>
-         <h4 style="display: inline"><%= link_to t('activerecord.models.bookmark'), user_bookmarks_path(current_user) %></h4>
+         <h4 style="display: inline"><%= link_to t('activerecord.models.bookmark'), bookmarks_path(user_id: current_user.username) %></h4>
         <% end %>
       <% end %>
     </div>
@@ -25,7 +25,7 @@
     <div class="portlet" id="news_feed">
       <h3 class="title"><%= t('page.news') -%></h3>
       <div id="news_feed_box">
-        <%= render :partial => 'news_feeds/list', :locals => {:news_feeds => @news_feeds} -%>
+        <%= render partial: 'news_feeds/list', locals: {news_feeds: @news_feeds} -%>
       </div>
     </div>
   <% end %>
@@ -35,7 +35,7 @@
   <div class="portlet" id="pickup">
     <h3 class="title"><%= t('manifestation.pickup') -%></h3>
     <div id="picked_up_box">
-      <%= render 'manifestations/pickup', :manifestation => @manifestation -%>
+      <%= render 'manifestations/pickup', manifestation: @manifestation -%>
     </div>
   </div>
 
@@ -49,8 +49,8 @@
         <% end %>
       </h3>
       <div id="tag_cloud_box">
-        <%= render 'bookmarks/tag_cloud', :tags => @tags -%>
-        <p>(<%= link_to t('page.listing', :model => t('activerecord.models.tag')), tags_path -%>)</p>
+        <%= render 'bookmarks/tag_cloud', tags: @tags -%>
+        <p>(<%= link_to t('page.listing', model: t('activerecord.models.tag')), tags_path -%>)</p>
       </div>
     </div>
   <% end %>

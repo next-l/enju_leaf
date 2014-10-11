@@ -1,13 +1,13 @@
 ja:
   activerecord:
     models:
-      user: 利用者
+      user: 利用者アカウント
       role: 権限
       user_group: 利用者グループ
       user_has_role: 利用者と権限
       user_import_file: 利用者のインポート用ファイル
       user_import_result: 利用者インポートの結果
-      profile: 利用者プロフィール
+      profile: 利用者
       user_export_file: 利用者情報のエクスポート
 
     attributes:
@@ -25,26 +25,23 @@ ja:
         remember_token_expires_at: トークンを忘れないで期限が切れる
         activation_code: 活性化コード
         activated_at: 登録時刻
-        expired_at: 有効期限
         locked: 利用不可
         confirmed: 確認済み
         approved: 承認済み
-        checkout_icalendar_token: 貸出iCalendarのトークン
         due_date_reminder_days: Duedateリマインダー日
         note: 注記
-        save_checkout_history: 貸出の履歴を保存する
         lock_version: ロックバージョン
-        keyword_list: キーワードリスト
         user_number: 利用者番号
         state: 状態
         agent: 人物・団体
         library: 所属館
-        user_group: ユーザグループ
+        user_group_id: 利用者グループ
         full_name: 氏名
         password: パスワード
         current_password: 現在のパスワード
         locale: 言語
         password_confirmation: パスワード（確認）
+        auto_generated_password: パスワードの自動生成
       role:
         name: 名前
         display_name: 表示名
@@ -81,6 +78,20 @@ ja:
         user_export_file_name: ファイル名
         user_export_file_size: ファイルサイズ
         state: 状態
+      profile:
+        note: 注記
+        keyword_list: キーワードリスト
+        required_role_id: 閲覧に必要な権限
+        user_id: 利用者
+        user: 利用者
+        user_group_id: 利用者グループ
+        library_id: 所属館
+        locale: 言語
+        full_name: フルネーム
+        user_number: 利用者番号
+        expired_at: 有効期限
+        full_name_transcription: フルネーム（ヨミ）
+        date_of_birth: 生年月日
 
   page:
     user_title: "ようこそ %{login_name} さん"
@@ -125,7 +136,6 @@ ja:
     cancel: "取消"
     feed: "フィード"
     back_to_index: "一覧に戻る"
-    import: "インポート"
     start_import: "インポートを開始"
     import_record: "書誌レコードのインポート"
     export: "エクスポート"
@@ -171,6 +181,7 @@ ja:
     checkout_history: "貸出履歴"
     recommendation: "おすすめの資料"
     add_resource_manually: "手動で資料を登録する"
+    import: "インポート"
     import_from_file: "TSVファイルからのインポート"
     import_from_network: "ネットワークからインポート"
     no_record_found: "資料が見つかりませんでした。"
@@ -180,6 +191,7 @@ ja:
     number_of_pages: "ページ数"
     holding_library: "所蔵館"
     resource: "資料"
+    manifestation_and_item: "書誌と所蔵"
     type: "種類"
     search_result_feed: "検索結果のフィード"
     force_reload: "強制的に再読込を行う"
@@ -250,12 +262,15 @@ ja:
     standard_view: "パソコン用の画面"
     mobile_view: "携帯機器用の画面"
     rearrange_order: "順番を変更する"
-    only_lowercase_letters_and_numbers_are_allowed: "英数小文字のみ使用できます。最初の文字に数字は使用できません。"
+    only_lowercase_letters_and_numbers_are_allowed: "には英数小文字・アンダースコアのみ使用できます。最初の文字に数字は使用できません。"
     not_logged_in: "ログインしていません"
     add_child: "子を追加"
     electronic_resource_management: 電子リソース管理
     system: システム
     manual: マニュアル
+    cannot_parse_yaml_header: "のYAMLヘッダを読み込めません。ヘッダのコロンの後には、半角スペースを含める必要があります。"
+    notice: 注意
+    system_information: システムの基本的な情報の表示
   title:
     index: "一覧"
     show: "表示"
@@ -264,7 +279,7 @@ ja:
   controller:
     successfully_created: "%{model}は正常に作成されました。"
     successfully_updated: "%{model}は正常に更新されました。"
-    successfully_destroyed: "%{model}は正常に削除されました。"
+    successfully_deleted: "%{model}は正常に削除されました。"
   advanced_search:
     from: ""
     to: "から"
@@ -280,84 +295,18 @@ ja:
     add: "協力した資料を追加する"
     specify_work: "書いた資料を指定してください。"
     specify_manifestation: "資料を指定してください。"
-  manifestation:
-    date_of_acquisition: "受入日"
-    physical_description: "ページ数と大きさ"
-    add_next_issue: "次の号を追加"
-    edit_creator: "著者を編集"
-    edit_contributor: "編者を編集"
-    edit_publisher: "出版者を編集"
-    edit_expression: "協力した資料を編集"
-    edit_item: "所蔵を編集"
-    agent_manifestation: "%{agent_name} の資料"
-    expressions_manifestation: "%{expression_title} の出版した資料"
-    library_group_manifestation: "%{library_group_name} にある資料"
-    reserve_this: "この資料を予約する"
-    cancel_reservation: "この資料の予約を解除する"
-    user_who_bookmark_this_resource: "この資料をブックマークしている利用者"
-    query_search_result: "検索語 %{query} による %{library_group_name} の資料の検索結果"
-    serial: "定期刊行物"
-    number: "巻号"
-    invalid_isbn: "無効なISBNです。"
-    already_imported: "すでにインポートされています。"
-    record_not_found: "資料が見つかりませんでした。"
-    add: "資料を追加する"
-    specify_expression: "協力した資料を指定してください。"
-    pickup: "ピックアップ"
-    showing_all_record: "すべての資料を表示しています。"
-    showing_reservable_record: "予約可能な資料のみを表示しています。"
-    reservable: "予約可能"
-    all_result: "すべての検索結果"
-    reservable_list: "予約可能な資料の一覧"
-    post_to_twitter: "Twitterに送信する"
-    web: "Web"
-    send_email: "書誌情報を電子メールで送信する"
-    attachment_file: "添付ファイル"
-    add_derivation: "派生資料を追加"
-  item:
-    current_checkout: "現在の貸出"
-    donor: "寄贈者"
-    library_group_item: "%{library_group_name}にある所蔵情報"
-    add: "所蔵情報を追加する"
-    specify_manifestation: "資料を指定してください。"
-    this_item_is_reserved: "この資料は予約されています！"
-    create_shelf_first: "最初に書棚を作成してください。"
-    this_item_include_supplement: "この資料は付録を含んでいます。"
-    all_item: "全ての所蔵情報"
-    add_new_copy: "複本を追加"
-    no_manifestation: "資料なし"
-    no_number: "番号なし"
-    add_lending_policy: "貸出規則の追加"
-    edit_exemplification: "書誌の付け替え"
-    accepted_at: "検収時刻"
-  agent:
-    library_group_agent: "%{library_group_name} の人物・団体"
-    work_agent: "%{work_title} の著作者"
-    expression_agent: "%{expression_title} の編者"
-    manifestation_agent: "%{manifestation_title} の出版者"
-    activate_as_user: "利用者として登録する"
-    deactivate: "利用者登録を解除する"
-    add: "人物・団体を追加する"
-    publication: "出版物"
-    recent_publication: "最近の出版物"
-    all_publication: "全ての出版物"
-    other_address: "他の住所"
-    add_derivation: "派生人物・団体を追加"
-    creator: "著者"
-    contributor: "協力者・編者"
-    publisher: "出版者"
-    owner: "所有者"
-  library:
-    map: "地図"
-    staff: "職員"
-    number_of_item: "所蔵冊数"
-    address: "住所"
   import:
     from_file: "ファイルから"
     from_isbn: "ISBNから"
     will_be_imported: "%{minute} 分以内にインポートされます。"
     auto_detect: "自動判別"
-    successfully_created: "%{model}は正常に作成されました。タスクが完了すると「%{model}の一覧」の状態が「完了」となります。"
+    successfully_created: "%{model}は正常に作成されました。インポートが完了すると「%{model}の一覧」の状態が「完了」となります。"
+    following_column_were_ignored: "次の列は無視されました。 %{column}"
+    dummy: この行はダミー行になっています。
+  export:
+    export_completed: エクスポートが完了しました。
+    are_you_sure_to_export: エクスポートに時間がかかることがあります。本当にエクスポートしますか？
+    successfully_created: "%{model}の処理は正常に作成されました。エクスポートが完了しましたら、メッセージでお知らせします。エクスポートしたファイルは「%{model}の一覧」からダウンロードできます。"
   user:
     current_password: "現在のパスワード"
     new_password: "新しいパスワード"
@@ -392,6 +341,7 @@ ja:
     change_my_password: "パスワードを変更する"
     management: "利用者の管理"
     not_found: "利用者が見つかりません。"
+    role_is_not_set: "権限が設定されていません。"
   subscribe:
     this_subscription_is_expired: "購読期間が過ぎています。"
   role:
@@ -427,3 +377,8 @@ ja:
     already_accepted: "この資料はすでに検収されています。"
     accept: "検収"
     successfully_accepted: "この資料は正常に検収されました。"
+  user_import_file:
+    default_user_group: TSVファイルで"user_group"列が指定されていない場合、この利用者グループが登録されます。
+    default_library: TSVファイルで"library"列が指定されていない場合、この図書館が登録されます。
+  profile:
+    no_number: 番号なし

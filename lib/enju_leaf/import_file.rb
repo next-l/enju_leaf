@@ -65,5 +65,21 @@ module ImportFile
       end
       string = NKF.nkf("#{output_encoding} -Lu", line)
     end
+
+    def create_import_temp_file(attachment)
+      tempfile = Tempfile.new(self.class.name.underscore)
+      if Setting.uploaded_file.storage == :s3
+        uploaded_file_path = attachment.expiring_url(10)
+      else
+        uploaded_file_path = attachment.path
+      end
+      open(uploaded_file_path){|f|
+        f.each{|line|
+          tempfile.puts(convert_encoding(line))
+        }
+      }
+      tempfile.close
+      tempfile
+    end
   end
 end

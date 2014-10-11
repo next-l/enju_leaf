@@ -21,8 +21,8 @@
     color: #105CB6;
     border: 1px solid #9AAFE5; }
     .digg_pagination a:hover, .digg_pagination a:focus {
-      color: #003;
-      border-color: #003; }
+      /* color: #003; */
+      /* border-color: #003; */ }
   .digg_pagination .page_info {
     background: #2E6AB1;
     color: white;

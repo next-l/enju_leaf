@@ -1581,7 +1581,7 @@ manifestation_00201:
   width:
   created_at: 2007-11-19 17:55:41 UTC
   frequency_id: 3
-  periodical: true
+  serial: true
 manifestation_00202:
   carrier_type_id: 1
   language_id: 1
@@ -1600,7 +1600,7 @@ manifestation_00202:
   serial_number: 2
   volume_number: 1
   issue_number: 2
-  periodical: true
+  serial: true
 manifestation_00203:
   carrier_type_id: 1
   language_id: 1
@@ -1616,7 +1616,7 @@ manifestation_00203:
   width:
   created_at: 2010-03-03 17:00:00 UTC
   frequency_id: 1
-  periodical: false
+  serial: false
 manifestation_00204:
   carrier_type_id: 1
   language_id: 1
@@ -1631,7 +1631,7 @@ manifestation_00204:
   height:
   width:
   created_at: 2010-03-03 20:00:00 UTC
-  periodical: true
+  serial: true
 manifestation_00205:
   carrier_type_id: 1
   language_id: 1
@@ -1876,8 +1876,7 @@ manifestation_00216:
 #  attachment_meta                 :text
 #  month_of_publication            :integer
 #  fulltext_content                :boolean
-#  doi                             :string(255)
-#  periodical                      :boolean
+#  serial                      :boolean
 #  statement_of_responsibility     :text
 #
 
