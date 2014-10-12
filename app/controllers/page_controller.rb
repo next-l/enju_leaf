@@ -15,7 +15,7 @@ class PageController < ApplicationController
         @tags = current_user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
       end
       if current_user.profile
-        @manifestation = Manifestation.pickup(current_user.parent.keyword_list.to_s.split.sort_by{rand}.first, current_user)
+        @manifestation = Manifestation.pickup(current_user.profile.keyword_list.to_s.split.sort_by{rand}.first, current_user)
       else
         @manifestation = nil
       end
