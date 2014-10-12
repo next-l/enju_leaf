@@ -30,7 +30,7 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
     else
       rake("sunspot:solr:start", env: environment)
       sleep 5
-      rake("environment sunspot:reindex", env: environment)
+      rake("environment sunspot:reindex[,Library+Profile+Shelf]", env: environment)
       rake("sunspot:solr:stop", env: environment)
     end
   end
