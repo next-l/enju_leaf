@@ -66,6 +66,8 @@ class Profile < ActiveRecord::Base
 
   def set_date_of_birth
     self.date_of_birth = Time.zone.parse(birth_date) if birth_date
+  rescue ArgumentError
+    nil
   end
 end
 
