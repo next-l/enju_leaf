@@ -42,7 +42,7 @@ class UserImportFile < ActiveRecord::Base
 
   def import
     transition_to!(:started)
-    num = {:user_imported => 0, :user_found => 0, :failed => 0}
+    num = { user_imported: 0, user_found: 0, failed: 0 }
     rows = open_import_file(create_import_temp_file(user_import))
     row_num = 1
 
@@ -110,7 +110,7 @@ class UserImportFile < ActiveRecord::Base
 
   def modify
     transition_to!(:started)
-    num = {:user_updated => 0, :user_not_found => 0, :failed => 0}
+    num = { user_updated: 0, user_not_found: 0, failed: 0 }
     rows = open_import_file(create_import_temp_file(user_import))
     row_num = 1
 

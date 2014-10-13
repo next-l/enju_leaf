@@ -22,7 +22,7 @@ class PageController < ApplicationController
     else
       if defined?(EnjuBookmark)
         # TODO: タグ下限の設定
-        #@tags = Tag.all(:limit => 50, :order => 'taggings_count DESC')
+        #@tags = Tag.all(limit: 50, order: 'taggings_count DESC')
         @tags = Bookmark.tag_counts.sort{|a,b| a.count <=> b.count}.reverse[0..49]
       end
       @manifestation = Manifestation.pickup rescue nil

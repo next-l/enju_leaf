@@ -40,7 +40,7 @@ class MyAccountsController < ApplicationController
 
       if saved
         if @profile.save
-          sign_in(current_user, :bypass => true)
+          sign_in(current_user, bypass: true)
           format.html { redirect_to my_account_url, notice: t('controller.successfully_updated', model: t('activerecord.models.user')) }
           format.json { head :no_content }
         else
