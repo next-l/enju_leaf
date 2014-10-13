@@ -48,7 +48,7 @@ class Profile < ActiveRecord::Base
   end
 
   before_validation :set_role_and_agent, on: :create
-  before_save :set_expired_at
+  before_save :set_expired_at, :set_date_of_birth
   accepts_nested_attributes_for :user
 
   def set_role_and_agent
