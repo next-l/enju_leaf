@@ -31,4 +31,10 @@ namespace :enju_leaf do
     end
     puts 'enju_leaf: The upgrade completed successfully.'
   end
+
+  desc "reindex all models"
+  task :reindex, [:batch_size, :models, :silence] => :environment do |t, args|
+    Rails::Engine.subclasses.each{|engine| engine.instance.eager_load!}
+    Rake::Task['sunspot:reindex'].execute(args)
+  end
 end
