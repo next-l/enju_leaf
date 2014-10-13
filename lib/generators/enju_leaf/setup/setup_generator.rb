@@ -49,6 +49,9 @@ EOS
     gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\Z/i'
     gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [ :email ]', 'config.authentication_keys = [ :username ]'
     gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
+    gsub_file 'config/initializers/devise.rb',
+      "# config.navigational_formats = ['*/*', :html]",
+      "config.navigational_formats = ['*/*', :html, :mobile]"
     gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
     gsub_file 'app/models/user.rb', /, :trackable, :validatable$/, <<EOS
 , :trackable, #:validatable, 
@@ -101,6 +104,12 @@ EOS
     gsub_file 'config/initializers/kaminari_config.rb',
       /# config.default_per_page = 25$/,
       "config.default_per_page = 10"
+    create_file 'config/initializers/mobile.rb' do <<"EOS"
+ActionController::Responder.class_eval do
+  alias :to_mobile :to_html
+end
+EOS
+    end
     remove_file "public/index.html"
     remove_file "app/views/layouts/application.html.erb"
   end
