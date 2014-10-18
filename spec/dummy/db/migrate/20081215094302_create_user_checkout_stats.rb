@@ -4,7 +4,6 @@ class CreateUserCheckoutStats < ActiveRecord::Migration
       t.datetime :start_date
       t.datetime :end_date
       t.text :note
-      t.string :state
 
       t.timestamps
     end

@@ -2,7 +2,11 @@ class CreateMessageTransitions < ActiveRecord::Migration
   def change
     create_table :message_transitions do |t|
       t.string :to_state
-      t.text :metadata, default: "{}"
+      if ActiveRecord::Base.configurations[Rails.env]["adapter"].try(:match, /mysql/)
+        t.text :metadata
+      else
+        t.text :metadata, default: "{}"
+      end
       t.integer :sort_key
       t.integer :message_id
       t.timestamps

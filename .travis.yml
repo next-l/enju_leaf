@@ -1,15 +1,19 @@
+# http://matthew.mceachen.us/blog/how-to-test-your-rails-application-with-travis-ci-on-different-databases-engines-1220.html
 language: ruby
 rvm:
   - 1.9.3
   - 2.0.0
   - 2.1.3
-before_script: "bundle exec rake db:migrate"
-branches:
-  only:
-    - master
-    - "1.1"
+before_script:
+  - mysql -e 'create database enju_test'
+  - psql -c 'create database enju_test;' -U postgres
+  - "bundle exec rake db:migrate"
 services:
   - redis-server
 gemfile:
   - gemfiles/rails3_2.gemfile
   - gemfiles/rails4_1.gemfile
+env:
+  - DB=sqlite
+  - DB=mysql
+  - DB=postgresql
