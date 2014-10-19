@@ -15,7 +15,6 @@ agent_00001:
   agent_type_id: 1
   required_role_id: 1
   created_at: 2007-11-19 17:06:06.507237 +09:00
-  user_id: 1
 agent_00002: 
   place: ""
   last_name: Librarian1
@@ -32,7 +31,6 @@ agent_00002:
   agent_type_id: 1
   required_role_id: 4
   created_at: 2007-11-19 17:06:07.724517 +09:00
-  user_id: 2
 agent_00003: 
   place: 
   last_name: Kosuke
@@ -49,7 +47,6 @@ agent_00003:
   agent_type_id: 1
   required_role_id: 3
   created_at: 2007-12-04 16:25:01.523618 +09:00
-  user_id: 3
 agent_00004: 
   place: 
   last_name: Librarian2
@@ -66,7 +63,6 @@ agent_00004:
   agent_type_id: 1
   required_role_id: 1
   created_at: 2007-12-04 16:25:01.785027 +09:00
-  user_id: 4
 agent_00005: 
   place: ""
   last_name: User2
@@ -83,7 +79,6 @@ agent_00005:
   agent_type_id: 1
   required_role_id: 2
   created_at: 2007-11-19 17:24:50.153417 +09:00
-  user_id: 5
 agent_00006: 
   place: ""
   last_name: New agent 1
@@ -180,7 +175,6 @@ agent_00011:
   agent_type_id: 1
   required_role_id: 1
   created_at: 2007-11-19 17:24:50.153417 +09:00
-  user_id: 6
 agent_00101:
   place: ""
   last_name: テスト名字
@@ -278,17 +272,11 @@ agent_00202:
   required_role_id: 1
   created_at: 2010-03-15 17:00:00.579396 +09:00
 
-
-
-
-
-
 # == Schema Information
 #
 # Table name: agents
 #
 #  id                                  :integer         not null, primary key
-#  user_id                             :integer
 #  last_name                           :string(255)
 #  middle_name                         :string(255)
 #  first_name                          :string(255)
