@@ -40,6 +40,9 @@
             <% if defined?(EnjuNdl) %>
               <li><%= link_to t('enju_ndl.import_from_ndl_search'), ndl_books_path -%></li>
             <% end %>
+	    <% if defined?(EnjuNii) %>
+	      <li><%= link_to t('enju_nii.import_from_cinii_books'), cinii_books_path -%></li>
+	    <% end %>
 	    <% if defined?(EnjuLoc) %>
 	      <li><%= link_to t('enju_loc.import_from_loc_search'), loc_search_index_path -%></li>
 	    <% end %>
