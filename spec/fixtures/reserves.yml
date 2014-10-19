@@ -6,7 +6,7 @@ reserve_00001:
   request_status_type_id: 4
   id: 1
   created_at: 2007-09-01 14:14:52.356803 +09:00
-  expired_at: <%= 1.week.from_now %>
+  expired_at: <%= 1.week.from_now.to_s(:db) %>
   lock_version: 0
 reserve_00002: 
   updated_at: 2007-09-01 14:20:05.530854 +09:00
@@ -15,7 +15,7 @@ reserve_00002:
   request_status_type_id: 4
   id: 2
   created_at: 2007-09-01 14:20:05.530854 +09:00
-  expired_at: <%= 1.week.from_now %>
+  expired_at: <%= 1.week.from_now.to_s(:db) %>
   lock_version: 0
 reserve_00003: 
   updated_at: 2007-09-02 17:46:52.791614 +09:00
@@ -24,7 +24,7 @@ reserve_00003:
   request_status_type_id: 4
   id: 3
   created_at: 2007-09-02 17:46:52.791614 +09:00
-  expired_at: <%= 1.week.from_now %>
+  expired_at: <%= 1.week.from_now.to_s(:db) %>
   lock_version: 0
 reserve_00004: 
   updated_at: 2007-09-02 18:37:25.576087 +09:00
@@ -33,7 +33,7 @@ reserve_00004:
   request_status_type_id: 4
   id: 4
   created_at: 2007-09-02 18:37:25.576087 +09:00
-  expired_at: <%= 1.week.from_now %>
+  expired_at: <%= 1.week.from_now.to_s(:db) %>
   lock_version: 0
 reserve_00005: 
   updated_at: 2007-09-02 19:16:55.714812 +09:00
@@ -42,7 +42,7 @@ reserve_00005:
   request_status_type_id: 4
   id: 5
   created_at: 2007-09-02 19:16:55.714812 +09:00
-  expired_at: <%= 1.week.from_now %>
+  expired_at: <%= 1.week.from_now.to_s(:db) %>
   lock_version: 0
 reserve_00006: 
   updated_at: 2007-09-02 19:20:06.530854 +09:00
@@ -51,7 +51,7 @@ reserve_00006:
   request_status_type_id: 4
   id: 6
   created_at: 2007-09-02 19:20:06.530854 +09:00
-  expired_at: <%= 1.week.from_now %>
+  expired_at: <%= 1.week.from_now.to_s(:db) %>
   lock_version: 0
 reserve_00007: 
   updated_at: 2007-09-02 19:20:07.530854 +09:00
@@ -60,7 +60,7 @@ reserve_00007:
   request_status_type_id: 4
   id: 7
   created_at: 2007-09-02 19:20:07.530854 +09:00
-  expired_at: <%= 1.week.from_now %>
+  expired_at: <%= 1.week.from_now.to_s(:db) %>
   lock_version: 0
 reserve_00008: 
   updated_at: 2007-09-02 19:46:53.791614 +09:00
@@ -69,7 +69,7 @@ reserve_00008:
   request_status_type_id: 3
   id: 8
   created_at: 2007-09-02 19:46:53.791614 +09:00
-  expired_at: <%= 1.week.ago %>
+  expired_at: <%= 1.week.ago.to_s(:db) %>
   lock_version: 0
 reserve_00009: 
   updated_at: 2007-09-02 19:46:54.791614 +09:00
@@ -78,7 +78,7 @@ reserve_00009:
   request_status_type_id: 3
   id: 9
   created_at: 2007-09-02 19:46:54.791614 +09:00
-  expired_at: <%= 1.day.ago %>
+  expired_at: <%= 1.day.ago.to_s(:db) %>
   lock_version: 0
 reserve_00010: 
   updated_at: 2007-09-02 19:46:55.791614 +09:00
@@ -87,8 +87,8 @@ reserve_00010:
   request_status_type_id: 3
   id: 10
   created_at: 2007-09-02 19:46:55.791614 +09:00
-  expired_at: <%= 1.hour.ago %>
-  checked_out_at: <%= 1.week.ago %>
+  expired_at: <%= 1.hour.ago.to_s(:db) %>
+  checked_out_at: <%= 1.week.ago.to_s(:db) %>
   item_id: 25
   lock_version: 0
 reserve_00011: 
@@ -98,7 +98,7 @@ reserve_00011:
   request_status_type_id: 3
   id: 11
   created_at: 2007-09-03 14:20:05.530854 +09:00
-  expired_at: <%= 1.day.ago %>
+  expired_at: <%= 1.day.ago.to_s(:db) %>
   lock_version: 0
 reserve_00012: 
   updated_at: 2007-09-03 14:20:06.530854 +09:00
@@ -107,7 +107,7 @@ reserve_00012:
   request_status_type_id: 4
   id: 12
   created_at: 2007-09-03 14:20:06.530854 +09:00
-  expired_at: <%= 1.day.ago %>
+  expired_at: <%= 1.day.ago.to_s(:db) %>
   lock_version: 0
 reserve_00013: 
   updated_at: 2007-09-03 14:20:07.530854 +09:00
@@ -116,7 +116,7 @@ reserve_00013:
   request_status_type_id: 3
   id: 13
   created_at: 2007-09-03 14:20:07.530854 +09:00
-  expired_at: <%= 1.day.ago %>
+  expired_at: <%= 1.day.ago.to_s(:db) %>
   lock_version: 0
 reserve_00014: 
   updated_at: 2007-09-03 14:20:08.530854 +09:00
@@ -125,8 +125,8 @@ reserve_00014:
   request_status_type_id: 3
   id: 14
   created_at: 2007-09-03 14:20:08.530854 +09:00
-  retained_at: <%= 1.hour.from_now %>
-  expired_at: <%= 1.day.from_now %>
+  retained_at: <%= 1.hour.from_now.to_s(:db) %>
+  expired_at: <%= 1.day.from_now.to_s(:db) %>
   item_id: 21
   lock_version: 0
 reserve_00015: 
@@ -136,7 +136,7 @@ reserve_00015:
   request_status_type_id: 3
   id: 15
   created_at: 2007-09-03 14:20:09.530854 +09:00
-  expired_at: <%= 1.day.from_now %>
+  expired_at: <%= 1.day.from_now.to_s(:db) %>
   lock_version: 0
 
 # == Schema Information
