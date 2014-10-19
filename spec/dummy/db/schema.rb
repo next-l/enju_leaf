@@ -205,12 +205,9 @@ ActiveRecord::Schema.define(version: 20141014065831) do
     t.datetime "started_at"
     t.datetime "completed_at"
     t.text     "note"
-    t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "bookmark_stats", ["state"], name: "index_bookmark_stats_on_state"
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id",          null: false
