@@ -61,11 +61,26 @@ ActiveRecord::Schema.define(version: 20141014065831) do
   create_table "agent_import_results", force: true do |t|
     t.integer  "agent_import_file_id"
     t.integer  "agent_id"
-    t.integer  "user_id"
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "agent_merge_lists", force: true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "agent_merges", force: true do |t|
+    t.integer  "agent_id",            null: false
+    t.integer  "agent_merge_list_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "agent_merges", ["agent_id"], name: "index_agent_merges_on_agent_id"
+  add_index "agent_merges", ["agent_merge_list_id"], name: "index_agent_merges_on_agent_merge_list_id"
 
   create_table "agent_relationship_types", force: true do |t|
     t.string   "name",         null: false
@@ -98,7 +113,6 @@ ActiveRecord::Schema.define(version: 20141014065831) do
   end
 
   create_table "agents", force: true do |t|
-    t.integer  "user_id"
     t.string   "last_name"
     t.string   "middle_name"
     t.string   "first_name"
@@ -151,7 +165,6 @@ ActiveRecord::Schema.define(version: 20141014065831) do
   add_index "agents", ["full_name"], name: "index_agents_on_full_name"
   add_index "agents", ["language_id"], name: "index_agents_on_language_id"
   add_index "agents", ["required_role_id"], name: "index_agents_on_required_role_id"
-  add_index "agents", ["user_id"], name: "index_agents_on_user_id", unique: true
 
   create_table "baskets", force: true do |t|
     t.integer  "user_id"
@@ -535,27 +548,31 @@ ActiveRecord::Schema.define(version: 20141014065831) do
   add_index "item_transitions", ["sort_key", "item_id"], name: "index_item_transitions_on_sort_key_and_item_id", unique: true
 
   create_table "items", force: true do |t|
-    t.integer  "manifestation_id"
     t.string   "call_number"
     t.string   "item_identifier"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
-    t.integer  "shelf_id",              default: 1,     null: false
-    t.boolean  "include_supplements",   default: false, null: false
+    t.integer  "shelf_id",                default: 1,     null: false
+    t.boolean  "include_supplements",     default: false, null: false
     t.text     "note"
     t.string   "url"
     t.integer  "price"
-    t.integer  "lock_version",          default: 0,     null: false
-    t.integer  "required_role_id",      default: 1,     null: false
-    t.integer  "required_score",        default: 0,     null: false
+    t.integer  "lock_version",            default: 0,     null: false
+    t.integer  "required_role_id",        default: 1,     null: false
+    t.integer  "required_score",          default: 0,     null: false
     t.datetime "acquired_at"
     t.integer  "bookstore_id"
     t.integer  "budget_type_id"
-    t.integer  "circulation_status_id", default: 5,     null: false
-    t.integer  "checkout_type_id",      default: 1,     null: false
+    t.integer  "circulation_status_id",   default: 5,     null: false
+    t.integer  "checkout_type_id",        default: 1,     null: false
+    t.string   "binding_item_identifier"
+    t.string   "binding_call_number"
+    t.datetime "binded_at"
+    t.integer  "manifestation_id"
   end
 
+  add_index "items", ["binding_item_identifier"], name: "index_items_on_binding_item_identifier"
   add_index "items", ["bookstore_id"], name: "index_items_on_bookstore_id"
   add_index "items", ["checkout_type_id"], name: "index_items_on_checkout_type_id"
   add_index "items", ["circulation_status_id"], name: "index_items_on_circulation_status_id"
@@ -734,7 +751,6 @@ ActiveRecord::Schema.define(version: 20141014065831) do
     t.string   "access_address"
     t.integer  "language_id",                     default: 1,     null: false
     t.integer  "carrier_type_id",                 default: 1,     null: false
-    t.integer  "extent_id",                       default: 1,     null: false
     t.integer  "start_page"
     t.integer  "end_page"
     t.integer  "height"
@@ -779,6 +795,8 @@ ActiveRecord::Schema.define(version: 20141014065831) do
     t.string   "doi"
     t.boolean  "serial"
     t.text     "statement_of_responsibility"
+    t.text     "publication_place"
+    t.text     "extent"
     t.text     "dimensions"
   end
 
@@ -1088,6 +1106,7 @@ ActiveRecord::Schema.define(version: 20141014065831) do
     t.string   "resource_import_fingerprint"
     t.text     "error_message"
     t.string   "user_encoding"
+    t.integer  "default_shelf_id"
   end
 
   add_index "resource_import_files", ["parent_id"], name: "index_resource_import_files_on_parent_id"
@@ -1100,6 +1119,7 @@ ActiveRecord::Schema.define(version: 20141014065831) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "error_message"
   end
 
   add_index "resource_import_results", ["item_id"], name: "index_resource_import_results_on_item_id"

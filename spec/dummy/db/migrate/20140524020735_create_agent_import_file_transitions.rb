@@ -2,7 +2,11 @@ class CreateAgentImportFileTransitions < ActiveRecord::Migration
   def change
     create_table :agent_import_file_transitions do |t|
       t.string :to_state
-      t.text :metadata, default: "{}"
+      if ActiveRecord::Base.configurations[Rails.env]["adapter"].try(:match, /mysql/)
+        t.text :metadata
+      else
+        t.text :metadata, default: "{}"
+      end
       t.integer :sort_key
       t.integer :agent_import_file_id
       t.timestamps

@@ -13,13 +13,12 @@ class CreateManifestations < ActiveRecord::Migration
       t.string :access_address
       t.integer :language_id, :default => 1, :null => false
       t.integer :carrier_type_id, :default => 1, :null => false
-      t.integer :extent_id, :default => 1, :null => false
       t.integer :start_page
       t.integer :end_page
       t.integer :height
       t.integer :width
       t.integer :depth
-      t.integer :price # TODO: currency unit
+      t.integer :price # TODO: 通貨単位
       t.text :fulltext
       t.string :volume_number_string
       t.string :issue_number_string
