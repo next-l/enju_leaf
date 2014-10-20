@@ -40,7 +40,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails", "~> 3.1"
   s.add_development_dependency "enju_circulation", "~> 0.1.0.pre40"
-  s.add_development_dependency "enju_bookmark", "~> 0.1.2.pre18"
+  s.add_development_dependency "enju_bookmark", "~> 0.1.2.pre20"
   s.add_development_dependency "enju_search_log", "~> 0.1.0.pre9"
   s.add_development_dependency "vcr"
   s.add_development_dependency "simplecov"
