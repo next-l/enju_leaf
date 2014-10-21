@@ -17,6 +17,12 @@ env:
   - DB=sqlite
   - DB=mysql
   - DB=postgresql
+matrix:
+  exclude:
+    - rvm: 1.9.3
+      gemfile: gemfiles/rails4_1.gemfile
+    - rvm: 2.1.3
+      gemfile: gemfiles/rails3_2.gemfile
 notifications:
   hipchat:
     rooms:
