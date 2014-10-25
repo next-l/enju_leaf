@@ -1,21 +1,23 @@
 language: ruby
 rvm:
-- 1.9.3
-- 2.0.0
-- 2.1.3
+  - 1.9.3
+  - 2.0.0
+  - 2.1.3
+before_install:
+  - sudo apt-get update && sudo apt-get install libicu-dev
 before_script:
-- mysql -e 'create database enju_test'
-- psql -c 'create database enju_test;' -U postgres
-- bundle exec rake db:migrate
+  - mysql -e 'create database enju_test'
+  - psql -c 'create database enju_test;' -U postgres
+  - bundle exec rake db:migrate
 services:
-- redis-server
+  - redis-server
 gemfile:
-- gemfiles/rails3_2.gemfile
-- gemfiles/rails4_1.gemfile
+  - gemfiles/rails3_2.gemfile
+  - gemfiles/rails4_1.gemfile
 env:
-- DB=sqlite
-- DB=mysql
-- DB=postgresql
+  - DB=sqlite
+  - DB=mysql
+  - DB=postgresql
 matrix:
   exclude:
   - rvm: 1.9.3
