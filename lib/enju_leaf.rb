@@ -4,7 +4,6 @@ require "enju_leaf/controller"
 require "enju_leaf/user"
 require "enju_leaf/helper"
 require "enju_leaf/calculate_stat"
-require "enju_leaf/bookmark_url"
 require "enju_leaf/calculate_stat"
 require "enju_leaf/import_file"
 require "enju_leaf/export_file"
@@ -170,53 +169,6 @@ module EnjuLeaf
       search.build do
         with(:required_role_id).less_than_or_equal_to role.id
       end
-    end
-
-    def make_internal_query(search)
-      # 内部的なクエリ
-      set_role_query(current_user, search)
-
-      unless params[:mode] == "add"
-        expression = @expression
-        agent = @agent
-        manifestation = @manifestation
-        reservable = @reservable
-        carrier_type = params[:carrier_type]
-        library = params[:library]
-        language = params[:language]
-        if defined?(EnjuSubject)
-          subject = params[:subject]
-          subject_by_term = Subject.where(term: params[:subject]).first
-          @subject_by_term = subject_by_term
-        end
-
-        search.build do
-          with(:publisher_ids).equal_to agent.id if agent
-          with(:original_manifestation_ids).equal_to manifestation.id if manifestation
-          with(:reservable).equal_to reservable unless reservable.nil?
-          unless carrier_type.blank?
-            with(:carrier_type).equal_to carrier_type
-          end
-          unless library.blank?
-            library_list = library.split.uniq
-            library_list.each do |library|
-              with(:library).equal_to library
-            end
-          end
-          unless language.blank?
-            language_list = language.split.uniq
-            language_list.each do |language|
-              with(:language).equal_to language
-            end
-          end
-          if defined?(EnjuSubject)
-            unless subject.blank?
-              with(:subject).equal_to subject_by_term.term
-            end
-          end
-        end
-      end
-      return search
     end
 
     def solr_commit
