@@ -1,5 +1,4 @@
 = Next-L Enju Leaf
-
 {<img src="https://travis-ci.org/next-l/enju_leaf.png?branch=1.1" alt="Build Status" />}[https://travis-ci.org/next-l/enju_leaf]
 {<img src="https://coveralls.io/repos/next-l/enju_leaf/badge.png?branch=1.1" alt="Coverage Status" />}[https://coveralls.io/r/next-l/enju_leaf?branch=1.1]
 {<img src="https://hakiri.io/github/next-l/enju_leaf/1.1.svg" alt="security" />}[https://hakiri.io/github/next-l/enju_leaf/1.1]
