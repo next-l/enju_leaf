@@ -18,8 +18,8 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids,default,development,test}/*"] - Dir["spec/dummy/tmp/*"]
 
   s.add_dependency "enju_seed", "~> 0.1.1.pre11"
-  s.add_dependency "enju_biblio", "~> 0.1.0.pre61"
-  s.add_dependency "enju_library", "~> 0.1.0.pre37"
+  s.add_dependency "enju_biblio", "~> 0.1.0.pre63"
+  s.add_dependency "enju_library", "~> 0.1.0.pre39"
   s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre16"
   s.add_dependency "mobylette", "~> 3.5"
   s.add_dependency "sitemap_generator"
@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "mysql2"
   s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails", "~> 3.1"
-  s.add_development_dependency "enju_circulation", "~> 0.1.0.pre40"
+  s.add_development_dependency "enju_circulation", "~> 0.1.0.pre41"
   s.add_development_dependency "enju_bookmark", "~> 0.1.2.pre20"
   s.add_development_dependency "enju_search_log", "~> 0.1.0.pre9"
   s.add_development_dependency "vcr"
