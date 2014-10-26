@@ -24,9 +24,6 @@ matrix:
     gemfile: gemfiles/rails4_1.gemfile
   - rvm: 2.1.3
     gemfile: gemfiles/rails3_2.gemfile
-addons:
-  code_climate:
-    repo_token: c193cb8ea058a7d62fd62d6d05adaaf95f6bdf882c1039500b30b54494a36e52
 notifications:
   slack:
     secure: ZbjsNTloRj5xbP5nRcwrqAJKC+6Kwo4M+J7Z+aXcHtKTzWfxfJw/aN47CrLm1afd8m+JPgEP3FjsXkOSBxfHiSwitZv4F6PjDaNcRXsv6gMI4dI+AhGTeXQuGtXDdYljipMVYAg0+Og3aVV7ZyesiugkLLMGV5d0TF/7mSVbWVs=
