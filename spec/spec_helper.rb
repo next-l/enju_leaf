@@ -1,7 +1,7 @@
 require 'simplecov'
-require "codeclimate-test-reporter"
+require 'coveralls'
 SimpleCov.start 'rails'
-CodeClimate::TestReporter.start
+Coveralls.wear!
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
