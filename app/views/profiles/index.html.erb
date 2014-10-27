@@ -30,7 +30,7 @@
 <%- @profiles.each_with_index do |profile, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <% if profile.user_number %>
+      <% if profile.user_number? %>
         <%= link_to profile.user_number, profile -%>
       <% else %>
         <%= link_to t('profile.no_number'), profile -%>
