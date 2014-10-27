@@ -6,7 +6,7 @@
   <h2 class="resource_title">
     [U]
     <%= @profile.user.username -%>
-    <% if @profile.full_name %>
+    <% if @profile.full_name? %>
       (<%= @profile.full_name %>)
     <% end %>
   </h2>
