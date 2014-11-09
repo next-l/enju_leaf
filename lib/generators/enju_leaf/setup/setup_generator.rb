@@ -22,15 +22,15 @@ EOS
     append_to_file("Rakefile", "require 'resque/tasks'\n")
     append_to_file("Rakefile", "require 'resque/scheduler/tasks'")
     append_to_file("db/seeds.rb", File.open(File.expand_path('../templates', __FILE__) + '/db/seeds.rb').read)
-    inject_into_file 'config/environments/development.rb',
-      "  config.action_mailer.default_url_options = {host: 'localhost:3000'}\n",
-      after: "::Application.configure do\n"
-    inject_into_file 'config/environments/test.rb',
-      "  config.action_mailer.default_url_options = {host: 'localhost:3000'}\n",
-      after: "::Application.configure do\n"
-    inject_into_file 'config/environments/production.rb',
-      "  config.action_mailer.default_url_options = {host: 'localhost:3000'}\n",
-      after: "::Application.configure do\n"
+    application(nil, env: "development") do
+      "config.action_mailer.default_url_options = {host: 'localhost:3000'}\n"
+    end
+    application(nil, env: "test") do
+      "config.action_mailer.default_url_options = {host: 'localhost:3000'}\n"
+    end
+    application(nil, env: "production") do
+      "config.action_mailer.default_url_options = {host: 'localhost:3000'}\n"
+    end
     generate("devise:install")
     generate("devise", "User")
     if Rails::VERSION::MAJOR >= 4
