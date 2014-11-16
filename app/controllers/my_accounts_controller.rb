@@ -49,7 +49,9 @@ class MyAccountsController < ApplicationController
           format.json { render json: current_user.errors, status: :unprocessable_entity }
         end
       else
-        @profile.errors[:base] << I18n.t('activerecord.attributes.user.current_password')
+	current_user.errors.full_messages.each do |msg|
+          @profile.errors[:base] << msg
+	end
         prepare_options
         format.html { render action: "edit" }
         format.json { render json: current_user.errors, status: :unprocessable_entity }

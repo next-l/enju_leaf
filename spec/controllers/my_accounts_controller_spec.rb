@@ -82,6 +82,7 @@ describe MyAccountsController do
     before(:each) do
       @attrs = {:user_attributes => {:email => 'newaddress@example.jp', :current_password => 'password'}, :locale => 'en'}
       @invalid_attrs = {:user_attributes => {:username => ''}, :user_number => '日本語'}
+      @invalid_passwd_attrs = {:user_attributes => {:current_password=> ''}}
     end
 
     describe "When logged in as Administrator" do
@@ -122,6 +123,12 @@ describe MyAccountsController do
           put :update, profile: @invalid_attrs
           expect(response).to render_template("edit")
         end
+      end
+      describe "with invalid password params" do
+        it "assigns the requested user as @user" do
+          put :update, profile: @invalid_passwd_attrs
+	  expect(assigns(:profile).errors).not_to be_blank
+	end
       end
     end
 
