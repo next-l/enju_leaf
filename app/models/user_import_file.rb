@@ -82,6 +82,9 @@ class UserImportFile < ActiveRecord::Base
         profile.assign_attributes(set_profile_params(row), as: :admin)
 
         if new_user.save
+          if profile.locked
+            new_user.lock_access!
+          end
           new_user.profile = profile
           if profile.save
             num[:user_imported] += 1
@@ -186,6 +189,7 @@ class UserImportFile < ActiveRecord::Base
     file = CSV.open(tempfile.path, 'r:utf-8', col_sep: "\t")
     header_columns = %w(
       username role email password user_group user_number expired_at
+      full_name full_name_transcription required_role locked
       keyword_list note locale library dummy
     )
     if defined?(EnjuCirculation)
@@ -240,7 +244,15 @@ class UserImportFile < ActiveRecord::Base
     end
     params[:user_group_id] = user_group.id if user_group
 
+    required_role = Role.where(name: row['required_role']).first
+    unless required_role
+      required_role = Role.where(name: 'Librarian').first
+    end
+    params[:required_role_id] = required_role.id if required_role
+
     params[:user_number] = row['user_number']
+    params[:full_name] = row['full_name']
+    params[:full_name_transcription] = row['full_name_transcription']
 
     if row['expired_at'].present?
       params[:expired_at] = Time.zone.parse(row['expired_at']).end_of_day
@@ -251,6 +263,10 @@ class UserImportFile < ActiveRecord::Base
     end
 
     params[:note] = row['note']
+
+    if %w(t true).include?(row['locked'].to_s.downcase.strip)
+      params[:locked] = true 
+    end
 
     if I18n.available_locales.include?(row['locale'].to_s.to_sym)
       params[:locale] = row['locale']

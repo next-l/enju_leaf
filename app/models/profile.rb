@@ -3,7 +3,7 @@ class Profile < ActiveRecord::Base
   attr_accessible :full_name, :full_name_transcription, :user_number,
     :library_id, :keyword_list, :note,
     :user_group_id, :user_id, :locale, :required_role_id, :expired_at,
-    :user_attributes,
+    :user_attributes, :locked,
     :save_checkout_history, :birth_date,
     as: :admin
 
@@ -23,7 +23,7 @@ class Profile < ActiveRecord::Base
   validates :user_number, uniqueness: true, format: { with: /\A[0-9A-Za-z_]+\Z/ }, allow_blank: true
   validates :birth_date, format: { with: /\A\d{4}-\d{1,2}-\d{1,2}\Z/ }, allow_blank: true
 
-  attr_accessor :birth_date
+  attr_accessor :birth_date, :locked
 
   searchable do
     text :user_number, :full_name, :full_name_transcription, :note
@@ -52,7 +52,7 @@ class Profile < ActiveRecord::Base
   accepts_nested_attributes_for :user
 
   def set_role_and_agent
-    self.required_role = Role.where(name: 'Librarian').first
+    self.required_role = Role.where(name: 'Librarian').first unless required_role
     self.locale = I18n.default_locale.to_s unless locale
   end
 
