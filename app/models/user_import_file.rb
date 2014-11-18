@@ -259,7 +259,7 @@ class UserImportFile < ActiveRecord::Base
     end
 
     if row['keyword_list'].present?
-      params[:keyword_list] = row['keyword_list'].split('//').join('\n')
+      params[:keyword_list] = row['keyword_list'].split('//').join("\n")
     end
 
     params[:note] = row['note']
