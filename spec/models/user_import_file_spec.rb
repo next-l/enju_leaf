@@ -25,7 +25,7 @@ describe UserImportFile do
       Profile.search.total.should eq old_profiles_solr_count + 5
 
       user001 = User.where(username: 'user001').first
-      user001.profile.keyword_list.should eq '日本史\\n地理'
+      user001.profile.keyword_list.should eq "日本史\n地理"
       user001.profile.full_name.should eq '田辺 浩介'
       user001.profile.full_name_transcription.should eq 'たなべ こうすけ'
       user001.profile.required_role.name.should eq 'User'
