@@ -76,7 +76,7 @@ class ProfilesController < ApplicationController
       redirect_to edit_my_account_url
       return
     end
-    if @profile.user.locked_at?
+    if @profile.user.try(:locked_at?)
       @profile.user.locked = true
     end
   end
