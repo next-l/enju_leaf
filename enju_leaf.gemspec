@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.add_dependency "resque-scheduler", "~> 3.0"
   s.add_dependency "paperclip", "~> 4.2"
   s.add_dependency "kaminari", "~> 0.15.1"
-  s.add_dependency "statesman"
+  s.add_dependency "statesman", "~> 1.0"
   s.add_dependency "redcarpet"
   # s.add_dependency "jquery-rails"
 
