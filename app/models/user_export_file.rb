@@ -35,6 +35,10 @@ class UserExportFile < ActiveRecord::Base
   def self.transition_class
     UserExportFileTransition
   end
+
+  def self.initial_state
+    :pending
+  end
 end
 
 # == Schema Information

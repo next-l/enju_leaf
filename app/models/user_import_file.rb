@@ -185,6 +185,10 @@ class UserImportFile < ActiveRecord::Base
     UserImportFileTransition
   end
 
+  def self.initial_state
+    :pending
+  end
+
   def open_import_file(tempfile)
     file = CSV.open(tempfile.path, 'r:utf-8', col_sep: "\t")
     header_columns = %w(
