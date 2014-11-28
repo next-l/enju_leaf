@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 3.2.19"
+gem "rails", "~> 3.2.21"
 gem "jquery-rails"
-gem 'coveralls', require: false, group: :test
+gem "coveralls", require: false, group: :test
 
 gemspec path: "../"
