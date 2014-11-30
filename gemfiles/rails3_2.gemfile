@@ -3,5 +3,10 @@ source "https://rubygems.org"
 gem "rails", "~> 3.2.21"
 gem "jquery-rails"
 gem "coveralls", require: false, group: :test
+gem "enju_biblio", github: "next-l/enju_biblio", branch: "1.1"
+gem "enju_bookmark", github: "next-l/enju_bookmark", branch: "1.1"
+gem "enju_circulation", github: "next-l/enju_circulation", branch: "1.1"
+gem "enju_event", github: "next-l/enju_event", branch: "1.1"
+gem "enju_message", github: "next-l/enju_message", branch: "1.1"
 
 gemspec path: "../"
