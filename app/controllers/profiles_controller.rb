@@ -88,7 +88,7 @@ class ProfilesController < ApplicationController
       @profile = Profile.new(params[:profile], as: :admin)
       if @profile.user
         @profile.user.operator = current_user
-        @profile.user.set_auto_generated_password
+        password = @profile.user.set_auto_generated_password
       end
     else
       @profile = Profile.new(params[:profile])
@@ -98,7 +98,7 @@ class ProfilesController < ApplicationController
       if @profile.save
         if @profile.user
           @profile.user.role = Role.where(name: 'User').first
-          flash[:temporary_password] = @profile.user.password
+          flash[:temporary_password] = password
         end
         format.html { redirect_to @profile, notice: t('controller.successfully_created', model: t('activerecord.models.profile')) }
         format.json { render json: @profile, status: :created, location: @profile }
