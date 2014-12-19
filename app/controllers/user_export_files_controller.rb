@@ -53,7 +53,7 @@ class UserExportFilesController < ApplicationController
   # POST /user_export_files
   # POST /user_export_files.json
   def create
-    @user_export_file = UserExportFile.new(params[:user_export_file])
+    @user_export_file = UserExportFile.new(user_export_file_params)
     @user_export_file.user = current_user
 
     respond_to do |format|
@@ -74,7 +74,7 @@ class UserExportFilesController < ApplicationController
   # PUT /user_export_files/1.json
   def update
     respond_to do |format|
-      if @user_export_file.update_attributes(params[:user_export_file])
+      if @user_export_file.update_attributes(user_export_file_params)
         if @user_export_file.mode == 'export'
           UserExportFileQueue.perform(@user_export_file.id)
         end
@@ -96,5 +96,10 @@ class UserExportFilesController < ApplicationController
       format.html { redirect_to user_export_files_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def user_export_file_params
+    params.require(:user_export_file).permit
   end
 end

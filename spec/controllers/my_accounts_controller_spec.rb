@@ -142,10 +142,12 @@ describe MyAccountsController do
 
       describe "with valid params" do
         it "updates the requested user" do
+          @attrs[:user_attributes][:id] = @user.id
           put :update, profile: @attrs
         end
 
         it "assigns the requested user as @user" do
+          @attrs[:user_attributes][:id] = @user.id
           put :update, profile: @attrs
           expect(assigns(:profile)).to eq(@user.profile)
         end
@@ -183,10 +185,12 @@ describe MyAccountsController do
 
       describe "with valid params" do
         it "updates the requested user" do
+          @attrs[:user_attributes][:id] = @user.id
           put :update, profile: @attrs
         end
 
         it "assigns the requested user as @user" do
+          @attrs[:user_attributes][:id] = @user.id
           put :update, profile: @attrs
           expect(assigns(:profile)).to eq(@user.profile)
           expect(response).to redirect_to(my_account_url)

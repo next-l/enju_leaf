@@ -1,6 +1,4 @@
 class UserHasRole < ActiveRecord::Base
-  attr_accessible :user_id, :role_id, :role
-  attr_accessible :user_id, :role_id, :role, as: :admin
   belongs_to :user
   belongs_to :role
   accepts_nested_attributes_for :role

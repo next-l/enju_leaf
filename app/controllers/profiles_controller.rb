@@ -85,13 +85,13 @@ class ProfilesController < ApplicationController
   # POST /profiles.json
   def create
     if current_user.has_role?('Librarian')
-      @profile = Profile.new(params[:profile], as: :admin)
+      @profile = Profile.new(profile_params)
       if @profile.user
         @profile.user.operator = current_user
         password = @profile.user.set_auto_generated_password
       end
     else
-      @profile = Profile.new(params[:profile])
+      @profile = Profile.new(profile_params)
     end
 
     respond_to do |format|
@@ -113,11 +113,7 @@ class ProfilesController < ApplicationController
   # PUT /profiles/1
   # PUT /profiles/1.json
   def update
-    if current_user.has_role?('Librarian')
-      @profile.update_attributes(params[:profile], as: :admin)
-    else
-      @profile.update_attributes(params[:profile])
-    end
+    @profile.update_attributes(profile_params)
     if @profile.user
       if @profile.user.auto_generated_password == "1"
         @profile.user.set_auto_generated_password
@@ -149,6 +145,25 @@ class ProfilesController < ApplicationController
   end
 
   private
+  def profile_params
+    attrs = [
+      :full_name, :full_name_transcription,
+      :keyword_list, :locale,
+      :save_checkout_history, :checkout_icalendar_token, # EnjuCirculation
+      :save_search_history, # EnjuSearchLog
+    ]
+    attrs += [
+      :library_id, :expired_at, :birth_date,
+      :user_group_id, :required_role_id, :note, :locked, :user_number, {
+        :user_attributes => [
+          :id, :email, :current_password,
+          {:user_has_role_attributes => [:id, :role_id]}
+        ]
+      }
+    ] if current_user.has_role?('Librarian')
+    params.require(:profile).permit(attrs)
+  end
+
   def prepare_options
     @user_groups = UserGroup.all
     @roles = Role.all

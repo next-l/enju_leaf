@@ -30,13 +30,8 @@ class MyAccountsController < ApplicationController
     @profile = current_user.profile
 
     respond_to do |format|
-      if current_user.has_role?('Librarian')
-        saved = current_user.update_with_password(params[:profile][:user_attributes], as: :admin)
-        @profile.assign_attributes(params[:profile], as: :admin)
-      else
-        saved = current_user.update_with_password(params[:profile][:user_attributes])
-        @profile.assign_attributes(params[:profile])
-      end
+      saved = current_user.update_with_password(profile_params[:user_attributes])
+      @profile.assign_attributes(profile_params)
 
       if saved
         if @profile.save
@@ -70,6 +65,31 @@ class MyAccountsController < ApplicationController
   end
 
   private
+  def profile_params
+    attrs = [
+      #:full_name, :full_name_transcription, :keyword_list, :locale
+      :full_name, :full_name_transcription, :user_number,
+      :library_id, :keyword_list, :note,
+      :locale, :required_role_id, :expired_at,
+      :locked, :birth_date,
+      :save_checkout_history, :checkout_icalendar_token, # EnjuCirculation
+      :save_search_history, # EnjuSearchLog
+      #as: :admin
+    ]
+    if current_user.has_role?('Librarian')
+      attrs << :user_group_id
+    end
+    if current_user.has_role?('Administrator') or current_user == @profile.user
+      attrs += [{
+        :user_attributes => [
+          :id, :email, :current_password,
+          {:user_has_role_attributes => [:id, :role_id]}
+        ]
+      }]
+    end
+    params.require(:profile).permit(attrs)
+  end
+
   def prepare_options
     @user_groups = UserGroup.order(:position)
     @roles = Role.order(:position)

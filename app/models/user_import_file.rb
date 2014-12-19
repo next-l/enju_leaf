@@ -1,6 +1,4 @@
 class UserImportFile < ActiveRecord::Base
-  attr_accessible :user_import, :edit_mode, :user_encoding, :mode,
-    :default_user_group_id, :default_library_id
   include Statesman::Adapters::ActiveRecordQueries
   include ImportFile
   default_scope {order('user_import_files.id DESC')}
@@ -77,9 +75,9 @@ class UserImportFile < ActiveRecord::Base
         end
         new_user.operator = user
         new_user.username = username
-        new_user.assign_attributes(set_user_params(new_user, row), as: :admin)
+        new_user.assign_attributes(set_user_params(new_user, row))
         profile = Profile.new
-        profile.assign_attributes(set_profile_params(row), as: :admin)
+        profile.assign_attributes(set_profile_params(row))
 
         if new_user.save
           if profile.locked

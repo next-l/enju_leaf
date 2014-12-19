@@ -1,12 +1,4 @@
 class Profile < ActiveRecord::Base
-  attr_accessible :full_name, :full_name_transcription, :keyword_list, :locale
-  attr_accessible :full_name, :full_name_transcription, :user_number,
-    :library_id, :keyword_list, :note,
-    :user_group_id, :user_id, :locale, :required_role_id, :expired_at,
-    :user_attributes, :locked,
-    :save_checkout_history, :birth_date,
-    as: :admin
-
   enju_circulation_profile_model if defined?(EnjuCirculation)
   enju_search_log_profile_model if defined?(EnjuSearchLog)
 

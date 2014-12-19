@@ -55,7 +55,7 @@ class UserImportFilesController < ApplicationController
   # POST /user_import_files
   # POST /user_import_files.json
   def create
-    @user_import_file = UserImportFile.new(params[:user_import_file])
+    @user_import_file = UserImportFile.new(user_import_file_params)
     @user_import_file.user = current_user
 
     respond_to do |format|
@@ -77,7 +77,7 @@ class UserImportFilesController < ApplicationController
   # PUT /user_import_files/1.json
   def update
     respond_to do |format|
-      if @user_import_file.update_attributes(params[:user_import_file])
+      if @user_import_file.update_attributes(user_import_file_params)
         if @user_import_file.mode == 'import'
           Resque.enqueue(UserImportFileQueue, @user_import_file.id)
         end
@@ -103,6 +103,13 @@ class UserImportFilesController < ApplicationController
   end
 
   private
+  def user_import_file_params
+    params.require(:user_import_file).permit(
+      :user_import, :edit_mode, :user_encoding, :mode,
+      :default_user_group_id, :default_library_id
+    )
+  end
+
   def prepare_options
     @user_groups = UserGroup.all
     @libraries = Library.all

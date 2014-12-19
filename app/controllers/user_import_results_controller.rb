@@ -37,4 +37,11 @@ class UserImportResultsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+  def user_import_result_params
+    params.require(:user_import_result).permit(
+      :user_import_file_id, :user_id, :body
+    )
+  end
 end
