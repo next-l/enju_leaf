@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 class UserGroupsController < ApplicationController
   load_and_authorize_resource
-  before_action :prepare_options, only: [:new, :edit]
+  before_filter :prepare_options, only: [:new, :edit]
 
   # GET /user_groups
   # GET /user_groups.json
