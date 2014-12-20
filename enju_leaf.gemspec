@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids,default,development,test}/*"] - Dir["spec/dummy/tmp/*"]
 
-  s.add_dependency "enju_seed", "~> 0.1.1.pre11"
+  s.add_dependency "enju_seed", "~> 0.1.1.pre12"
   s.add_dependency "enju_biblio", "~> 0.1.0.pre63"
   s.add_dependency "enju_library", "~> 0.1.0.pre39"
   s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre16"
@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.add_dependency "resque-scheduler", "~> 3.0"
   s.add_dependency "paperclip", "~> 4.2"
   s.add_dependency "kaminari", "~> 0.15.1"
-  s.add_dependency "statesman", "~> 1.0"
+  s.add_dependency "statesman"
   s.add_dependency "redcarpet"
   # s.add_dependency "jquery-rails"
 
