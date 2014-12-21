@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "rails", "~> 3.2.21"
 gem "jquery-rails"
-gem "statesman", "~> 1.0"
+gem "statesman", "~> 1.0.0"
 gem "strong_parameters"
 gem "coveralls", require: false, group: :test
 gem "enju_biblio", github: "next-l/enju_biblio", branch: "1.1"
