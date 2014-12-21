@@ -1,9 +1,5 @@
 class UserExportFile < ActiveRecord::Base
-  if Rails::VERSION::MAJOR >= 4
-    include Statesman::Adapters::ActiveRecordQueries
-  else
-    include Statesman::Adapters::ActiveRecordModel
-  end
+  include Statesman::Adapters::ActiveRecordQueries
   include ExportFile
   enju_export_file_model
   has_attached_file :user_export
