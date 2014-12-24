@@ -28,9 +28,17 @@ class MyAccountsController < ApplicationController
 
   def update
     @profile = current_user.profile
+    user_attrs = [
+      :id, :email, :current_password, :password, :password_confirmation
+    ]
+    user_attrs += [
+      {:user_has_role_attributes => [:id, :role_id]}
+    ] if current_user.has_role?('Administrator')
+
+    user_params = ActionController::Parameters.new(params[:profile][:user_attributes]).permit(*user_attrs)
 
     respond_to do |format|
-      saved = current_user.update_with_password(profile_params[:user_attributes])
+      saved = current_user.update_with_password(user_params)
       @profile.assign_attributes(profile_params)
 
       if saved
@@ -44,9 +52,9 @@ class MyAccountsController < ApplicationController
           format.json { render json: current_user.errors, status: :unprocessable_entity }
         end
       else
-	current_user.errors.full_messages.each do |msg|
+        current_user.errors.full_messages.each do |msg|
           @profile.errors[:base] << msg
-	end
+        end
         prepare_options
         format.html { render action: "edit" }
         format.json { render json: current_user.errors, status: :unprocessable_entity }
@@ -67,27 +75,17 @@ class MyAccountsController < ApplicationController
   private
   def profile_params
     attrs = [
-      #:full_name, :full_name_transcription, :keyword_list, :locale
       :full_name, :full_name_transcription, :user_number,
       :library_id, :keyword_list, :note,
       :locale, :required_role_id, :expired_at,
       :locked, :birth_date,
       :save_checkout_history, :checkout_icalendar_token, # EnjuCirculation
-      :save_search_history, # EnjuSearchLog
-      #as: :admin
+      :save_search_history # EnjuSearchLog
     ]
     if current_user.has_role?('Librarian')
       attrs << :user_group_id
     end
-    if current_user.has_role?('Administrator') or current_user == @profile.user
-      attrs += [{
-        :user_attributes => [
-          :id, :email, :current_password,
-          {:user_has_role_attributes => [:id, :role_id]}
-        ]
-      }]
-    end
-    params.require(:profile).permit(attrs)
+    params.require(:profile).permit(*attrs)
   end
 
   def prepare_options

@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails_autolink"
   s.add_dependency "jquery-ui-rails", "~> 4.2.1"
   s.add_dependency "cache_digests"
-  s.add_dependency "resque-scheduler", "~> 3.0"
+  s.add_dependency "resque-scheduler", "~> 3.1"
   s.add_dependency "paperclip", "~> 4.2"
   s.add_dependency "kaminari", "~> 0.15.1"
   s.add_dependency "statesman"
