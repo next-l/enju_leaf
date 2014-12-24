@@ -161,7 +161,7 @@ class ProfilesController < ApplicationController
         ]
       }
     ] if current_user.has_role?('Librarian')
-    params.require(:profile).permit(attrs)
+    params.require(:profile).permit(*attrs)
   end
 
   def prepare_options
