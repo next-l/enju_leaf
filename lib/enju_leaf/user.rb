@@ -24,7 +24,7 @@ module EnjuLeaf
         scope :administrators, -> { joins(:role).where('roles.name = ?', 'Administrator') }
         scope :librarians, -> { joins(:role).where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian') }
         scope :suspended, -> { where('locked_at IS NOT NULL') }
-        has_one :profile, :dependent => :destroy
+        has_one :profile
         if defined?(EnjuBiblio)
           has_many :import_requests
           has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
