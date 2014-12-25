@@ -98,19 +98,19 @@ module EnjuLeaf
             lines = []
             lines << u.username
             lines << u.email
-            lines << u.profile.user_number
+            lines << u.try(:profile).try(:user_number)
             lines << u.role.name
-            lines << u.profile.user_group.try(:name)
-            lines << u.profile.library.try(:name)
-            lines << u.profile.locale
+            lines << u.try(:profile).try(:user_group).try(:name)
+            lines << u.try(:profile).try(:library).try(:name)
+            lines << u.try(:profile).try(:locale)
             lines << u.created_at
             lines << u.updated_at
             lines << u.expired_at
-            lines << u.profile.keyword_list.try(:split).try(:join, "//")
-            lines << u.profile.note
+            lines << u.try(:profile).try(:keyword_list).try(:split).try(:join, "//")
+            lines << u.try(:profile).try(:note)
             if defined?(EnjuCirculation)
-              lines << u.profile.try(:checkout_icalendar_token)
-              lines << u.profile.try(:save_checkout_history)
+              lines << u.try(:profile).try(:checkout_icalendar_token)
+              lines << u.try(:profile).try(:save_checkout_history)
             else
               lines << nil
             end

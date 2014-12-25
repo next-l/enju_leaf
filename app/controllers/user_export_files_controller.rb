@@ -100,6 +100,6 @@ class UserExportFilesController < ApplicationController
 
   private
   def user_export_file_params
-    params.require(:user_export_file).permit
+    params.require(:user_export_file).permit(:mode)
   end
 end
