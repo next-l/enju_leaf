@@ -113,7 +113,7 @@ class ProfilesController < ApplicationController
   # PUT /profiles/1
   # PUT /profiles/1.json
   def update
-    @profile.update_attributes(profile_params)
+    @profile.update_attributes(profile_update_params)
     if @profile.user
       if @profile.user.auto_generated_password == "1"
         @profile.user.set_auto_generated_password
@@ -150,6 +150,25 @@ class ProfilesController < ApplicationController
       :full_name, :full_name_transcription,
       :keyword_list, :locale,
       :save_checkout_history, :checkout_icalendar_token, # EnjuCirculation
+      :save_search_history, # EnjuSearchLog
+    ]
+    attrs += [
+      :library_id, :expired_at, :birth_date,
+      :user_group_id, :required_role_id, :note, :locked, :user_number, {
+        :user_attributes => [
+          :id, :username, :email, :current_password,
+          {:user_has_role_attributes => [:id, :role_id]}
+        ]
+      }
+    ] if current_user.has_role?('Librarian')
+    params.require(:profile).permit(*attrs)
+  end
+
+  def profile_update_params
+    attrs = [
+      :full_name, :full_name_transcription,
+      :keyword_list, :locale,
+      :save_checkout_history, # EnjuCirculation
       :save_search_history, # EnjuSearchLog
     ]
     attrs += [
