@@ -57,7 +57,6 @@ EOS
 , :trackable, #:validatable, 
       :lockable, :lock_strategy => :none, :unlock_strategy => :none
   enju_leaf_user_model
-  attr_accessible :username
 EOS
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
