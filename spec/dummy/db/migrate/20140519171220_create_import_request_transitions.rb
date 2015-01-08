@@ -2,7 +2,11 @@ class CreateImportRequestTransitions < ActiveRecord::Migration
   def change
     create_table :import_request_transitions do |t|
       t.string :to_state
-      t.text :metadata, default: "{}"
+      if ActiveRecord::Base.configurations[Rails.env]["adapter"].try(:match, /mysql/)
+        t.text :metadata
+      else
+        t.text :metadata, default: "{}"
+      end
       t.integer :sort_key
       t.integer :import_request_id
       t.timestamps

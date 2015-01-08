@@ -6,9 +6,7 @@ describe ProfilesController do
 
   describe "GET index", :solr => true do
 		before do
-      Profile.__elasticsearch__.create_index!
-      Profile.import
-      sleep 1
+			Profile.reindex
 		end
 
     describe "When logged in as Administrator" do
@@ -396,7 +394,7 @@ describe ProfilesController do
       end
 
       it "should update myself" do
-        put :update, id: profiles(:user1).id, profile: { }
+        put :update, id: profiles(:user1).id, profile: {keyword_list: 'test'}
         response.should redirect_to profile_url(assigns(:profile))
       end
 
@@ -409,7 +407,7 @@ describe ProfilesController do
       it "should not update my user_group" do
         put :update, id: profiles(:user1).id, profile: {:user_group_id => 3, :library_id => 3}
         response.should redirect_to profile_url(assigns(:profile))
-        assigns(:profile).user_group.id.should eq 1
+        assigns(:profile).user_group_id.should eq 1
       end
 
       it "should not update my note" do

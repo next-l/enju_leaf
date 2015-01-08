@@ -1,8 +1,7 @@
 = Next-L Enju Leaf
-
-{<img src="https://travis-ci.org/next-l/enju_leaf.png?branch=master" alt="Build Status" />}[https://travis-ci.org/next-l/enju_leaf]
-{<img src="https://gemnasium.com/next-l/enju_leaf.png" alt="Dependency Status" />}[https://gemnasium.com/next-l/enju_leaf]
-{<img src="https://codeclimate.com/github/next-l/enju_leaf.png" />}[https://codeclimate.com/github/next-l/enju_leaf]
+{<img src="https://travis-ci.org/next-l/enju_leaf.png?branch=1.1" alt="Build Status" />}[https://travis-ci.org/next-l/enju_leaf]
+{<img src="https://coveralls.io/repos/next-l/enju_leaf/badge.png?branch=1.1" alt="Coverage Status" />}[https://coveralls.io/r/next-l/enju_leaf?branch=1.1]
+{<img src="https://hakiri.io/github/next-l/enju_leaf/1.1.svg" alt="security" />}[https://hakiri.io/github/next-l/enju_leaf/1.1]
 
 Next-L Enju Leaf は、{Project Next-L}[http://www.next-l.jp] で開発している図書館管理システムです。
 
@@ -25,5 +24,4 @@ Next-L Enju Leaf is an integrated library system developed by {Project Next-L}[h
 
 == 製作者・貢献者 (Authors and contributors)
 * {TANABE, Kosuke}[https://github.com/nabeta] ({@nabeta}[https://twitter.com/nabeta])
-* {TAKAKU, Masao}[https://github.com/masao] ({@tmasao}[https://twitter.com/tmasao])
 * {Project Next-L}[http://www.next-l.jp] ({@ProjectNextL}[https://twitter.com/ProjectNextL])

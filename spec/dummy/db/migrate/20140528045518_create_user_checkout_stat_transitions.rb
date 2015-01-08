@@ -2,7 +2,11 @@ class CreateUserCheckoutStatTransitions < ActiveRecord::Migration
   def change
     create_table :user_checkout_stat_transitions do |t|
       t.string :to_state
-      t.text :metadata, default: "{}"
+      if ActiveRecord::Base.configurations[Rails.env]["adapter"].try(:match, /mysql/)
+        t.text :metadata
+      else
+        t.text :metadata, default: "{}"
+      end
       t.integer :sort_key
       t.integer :user_checkout_stat_id
       t.timestamps

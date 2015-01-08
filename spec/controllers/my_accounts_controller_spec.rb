@@ -7,18 +7,18 @@ describe MyAccountsController do
   describe "GET show" do
     describe "When logged in as Administrator" do
       before(:each) do
-        sign_in User.friendly.find('enjuadmin')
+        sign_in User.find('enjuadmin')
       end
 
       it "assigns the requested user as @user" do
-        get :show, :id => 'enjuadmin'
+        get :show, :id => 'admin'
         expect(response).to be_success
       end
     end
 
     describe "When not logged in" do
       it "assigns the requested user as @user" do
-        get :show, :id => 'enjuadmin'
+        get :show, :id => 'admin'
         expect(assigns(:user)).to be_nil
         expect(response).to redirect_to(new_user_session_url)
       end
@@ -29,7 +29,7 @@ describe MyAccountsController do
     describe "When logged in as Administrator" do
       before(:each) do
         profile = FactoryGirl.create(:profile)
-        @user = User.friendly.find('enjuadmin')
+        @user = User.find('enjuadmin')
         @user.profile = profile
         sign_in @user
       end
@@ -82,6 +82,7 @@ describe MyAccountsController do
     before(:each) do
       @attrs = {:user_attributes => {:email => 'newaddress@example.jp', :current_password => 'password'}, :locale => 'en'}
       @invalid_attrs = {:user_attributes => {:username => ''}, :user_number => '日本語'}
+      @invalid_passwd_attrs = {:user_attributes => {:current_password=> ''}}
     end
 
     describe "When logged in as Administrator" do
@@ -123,6 +124,12 @@ describe MyAccountsController do
           expect(response).to render_template("edit")
         end
       end
+      describe "with invalid password params" do
+        it "assigns the requested user as @user" do
+          put :update, profile: @invalid_passwd_attrs
+	  expect(assigns(:profile).errors).not_to be_blank
+	end
+      end
     end
 
     describe "When logged in as Librarian" do
@@ -135,10 +142,12 @@ describe MyAccountsController do
 
       describe "with valid params" do
         it "updates the requested user" do
+          @attrs[:user_attributes][:id] = @user.id
           put :update, profile: @attrs
         end
 
         it "assigns the requested user as @user" do
+          @attrs[:user_attributes][:id] = @user.id
           put :update, profile: @attrs
           expect(assigns(:profile)).to eq(@user.profile)
         end
@@ -176,10 +185,12 @@ describe MyAccountsController do
 
       describe "with valid params" do
         it "updates the requested user" do
+          @attrs[:user_attributes][:id] = @user.id
           put :update, profile: @attrs
         end
 
         it "assigns the requested user as @user" do
+          @attrs[:user_attributes][:id] = @user.id
           put :update, profile: @attrs
           expect(assigns(:profile)).to eq(@user.profile)
           expect(response).to redirect_to(my_account_url)

@@ -3,32 +3,19 @@
 <div id="content_list">
 
 <ul>
-  <!--
-  <li>
-    <%= t('activerecord.models.agent') -%>
-    (<%= link_to 'CSV', agents_path(format: :csv) -%>)
-  </li>
-  <% if defined?(EnjuEvent) %>
-    <li>
-      <%= t('activerecord.models.event') -%>
-      (<%= link_to 'CSV', events_path(format: :csv) -%>)
-    </li>
-  <% end %>
-  <li>
-    <%= t('activerecord.models.manifestation') -%>
-    (<%= link_to 'CSV', manifestations_path(format: :csv) -%>)
-  </li>
-  <li>
-    <%= t('activerecord.models.item') -%>
-    (<%= link_to 'CSV', items_path(format: :csv) -%>)
-  </li>
-  -->
   <li>
     <%= link_to t('activerecord.models.resource_export_file'), resource_export_files_path -%>
   </li>
-  <li>
-    <%= link_to t('activerecord.models.user_export_file'), user_export_files_path -%>
-  </li>
+  <% if defined?(EnjuEvent) %>
+    <li>
+      <%= link_to t('activerecord.models.event_export_file'), event_export_files_path -%>
+    </li>
+  <% end %>
+  <% if current_user.try(:has_role?, 'Administrator') %>
+    <li>
+      <%= link_to t('activerecord.models.user_export_file'), user_export_files_path -%>
+    </li>
+  <% end %>
 </ul>
 </div>
 </div>

@@ -1,23 +1,15 @@
-#require 'enju_biblio'
-#require 'enju_library'
-require 'enju_seed'
-require 'devise'
-#require 'enju_manifestation_viewer'
-require 'browser'
+require 'enju_biblio'
+require 'enju_library'
+require 'enju_manifestation_viewer'
+require 'redcarpet'
 require 'rails_autolink'
 require 'devise-encryptable'
 require 'sitemap_generator'
-#require 'redis-rails'
+require 'redis-rails'
+require 'jquery-rails'
 require 'jquery-ui-rails'
+require 'statesman'
 require 'resque/scheduler/server'
-require 'bcrypt/password'
-require 'elasticsearch/model'
-require 'elasticsearch/rails'
-if RUBY_PLATFORM == "java"
-  require 'kramdown'
-else
-  require 'redcarpet'
-end
 
 module EnjuLeaf
   class Engine < ::Rails::Engine

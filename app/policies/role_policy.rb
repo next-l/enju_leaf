@@ -1,2 +1,0 @@
-class RolePolicy < AdminPolicy
-end

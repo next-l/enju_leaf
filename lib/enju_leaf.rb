@@ -3,7 +3,7 @@ require "enju_leaf/version"
 require "enju_leaf/controller"
 require "enju_leaf/user"
 require "enju_leaf/helper"
-require "enju_leaf/bookmark_url"
+require "enju_leaf/calculate_stat"
 require "enju_leaf/calculate_stat"
 require "enju_leaf/import_file"
 require "enju_leaf/export_file"
@@ -16,6 +16,7 @@ require 'csv'
 require 'rss'
 require 'nkf'
 require 'ipaddr'
+require 'plugins'
 
 module EnjuLeaf
   def self.included(base)
@@ -31,37 +32,36 @@ module EnjuLeaf
 
     def render_403
       return if performed?
-      respond_to do |format|
-        format.html {
-          if user_signed_in?
-            render :template => 'page/403', :status => 403
-          else
-            redirect_to new_user_session_url
-          end
-        }
-        #format.mobile {render :template => 'page/403', :status => 403}
-        format.xml {render :template => 'page/403', :status => 403}
-        format.json { render :text => '{"error": "forbidden"}' }
-        format.rss {render :template => 'page/403', :status => 403, :formats => 'xml'}
-        format.csv {render :template => 'page/403', :status => 403, :formats => 'html'}
+      if user_signed_in?
+        respond_to do |format|
+          format.html {render template: 'page/403', status: 403}
+          format.xml {render template: 'page/403', status: 403}
+          format.json { render text: '{"error": "forbidden"}' }
+          format.rss {render template: 'page/403.xml', status: 403}
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to new_user_session_url }
+          format.xml { render template: 'page/403', status: 403 }
+          format.json { render text: '{"error": "forbidden"}' }
+          format.rss { render template: 'page/403.xml', status: 403 }
+        end
       end
     end
 
     def render_404
       return if performed?
       respond_to do |format|
-        format.html {render :template => 'page/404', :status => 404}
-        #format.mobile {render :template => 'page/404', :status => 404}
-        format.xml {render :template => 'page/404', :status => 404}
-        format.json { render :text => '{"error": "not_found"}' }
-        format.rss {render :template => 'page/404', :status => 404, :formats => 'xml'}
-        format.csv {render :template => 'page/403', :status => 404, :formats => 'html'}
+        format.html { render template: 'page/404', status: 404 }
+        format.xml { render template: 'page/404', status: 404 }
+        format.json { render text: '{"error": "not_found"}' }
+        format.xml { render template: 'page/404.xml', status: 404 }
       end
     end
 
     def render_404_invalid_format
       return if performed?
-      render :file => "#{Rails.root}/public/404", :formats => [:html]
+      render file: "#{Rails.root}/public/404", formats: [:html]
     end
 
     def render_500
@@ -69,10 +69,10 @@ module EnjuLeaf
       return if performed?
       #flash[:notice] = t('page.connection_failed')
       respond_to do |format|
-        format.html {render :file => "#{Rails.root.to_s}/public/500", :layout => false, :status => 500}
-        #format.mobile {render :file => "#{Rails.root.to_s}/public/500", :layout => false, :status => 500}
-        format.xml {render :template => 'page/500', :status => 500}
-        format.json { render :text => '{"error": "server_error"}' }
+        format.html {render file: "#{Rails.root.to_s}/public/500", layout: false, status: 500}
+        format.xml {render template: 'page/500', status: 500}
+        format.json { render text: '{"error": "server_error"}' }
+        format.xml {render template: 'page/500.xml', status: 500}
       end
     end
 
@@ -97,32 +97,16 @@ module EnjuLeaf
     end
 
     def default_url_options(options={})
-      {:locale => nil}
+      {locale: nil}
     end
 
     def set_available_languages
-      @available_languages = Language.where(:iso_639_1 => I18n.available_locales.map{|l| l.to_s})
-    end
-
-    def set_mobile_request
-      return if request.format != 'text/html'
-      case params[:mobile_view]
-      when 'true'
-        request.variant = :phone
-        session[:mobile_view] = true
-      when 'false'
-        session[:mobile_view] = false
+      if Rails.env == 'production'
+        @available_languages = Rails.cache.fetch('available_languages'){
+          Language.where(iso_639_1: I18n.available_locales.map{|l| l.to_s}).select([:id, :iso_639_1, :name, :native_name, :display_name, :position]).all
+        }
       else
-        browser = Browser.new(:ua => request.user_agent)
-        if browser.mobile?
-          if session[:mobile_view]
-            request.variant = :phone
-          else
-            if session[:mobile_view].nil?
-              request.variant = :phone
-            end
-          end
-        end
+        @available_languages = Language.where(iso_639_1: I18n.available_locales.map{|l| l.to_s})
       end
     end
 
@@ -135,12 +119,12 @@ module EnjuLeaf
     end
 
     def access_denied
-      render_403
+      raise CanCan::AccessDenied
     end
 
     def get_user
-      @user = User.where(:username => params[:user_id]).first if params[:user_id]
-      authorize @user, :show? if @user
+      @user = User.where(username: params[:user_id]).first if params[:user_id]
+      #authorize! :show, @user if @user
     end
 
     def get_user_group
@@ -183,50 +167,8 @@ module EnjuLeaf
       end
     end
 
-    def make_internal_query(search)
-      # 内部的なクエリ
-      set_role_query(current_user, search)
-
-      unless params[:mode] == "add"
-        agent = @agent
-        manifestation = @manifestation
-        reservable = @reservable
-        carrier_type = params[:carrier_type]
-        library = params[:library]
-        language = params[:language]
-        if defined?(EnjuSubject)
-          subject = params[:subject]
-          subject_by_term = Subject.where(:term => params[:subject]).first
-          @subject_by_term = subject_by_term
-        end
-
-        search.build do
-          with(:publisher_ids).equal_to agent.id if agent
-          with(:original_manifestation_ids).equal_to manifestation.id if manifestation
-          with(:reservable).equal_to reservable unless reservable.nil?
-          unless carrier_type.blank?
-            with(:carrier_type).equal_to carrier_type
-          end
-          unless library.blank?
-            library_list = library.split.uniq
-            library_list.each do |library|
-              with(:library).equal_to library
-            end
-          end
-          unless language.blank?
-            language_list = language.split.uniq
-            language_list.each do |language|
-              with(:language).equal_to language
-            end
-          end
-          if defined?(EnjuSubject)
-            unless subject.blank?
-              with(:subject).equal_to subject_by_term.term
-            end
-          end
-        end
-      end
-      return search
+    def solr_commit
+      Sunspot.commit
     end
 
     def get_version
@@ -245,6 +187,27 @@ module EnjuLeaf
       true unless params[:format].nil? or params[:format] == 'html'
     end
 
+    def current_ability
+      @current_ability ||= EnjuLeaf::Ability.new(current_user, request.remote_ip.split('%')[0])
+      @current_ability.merge(EnjuBiblio::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuBiblio)
+      @current_ability.merge(EnjuLibrary::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuLibrary)
+      @current_ability.merge(EnjuNii::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuNii)
+      @current_ability.merge(EnjuSubject::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuSubject)
+      @current_ability.merge(EnjuPurchaseRequest::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuPurchaseRequest)
+      @current_ability.merge(EnjuQuestion::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuQuestion)
+      @current_ability.merge(EnjuBookmark::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuBookmark)
+      @current_ability.merge(EnjuResourceMerge::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuResourceMerge)
+      @current_ability.merge(EnjuCirculation::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuCirculation)
+      @current_ability.merge(EnjuMessage::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuMessage)
+      @current_ability.merge(EnjuInterLibraryLoan::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuInterLibraryLoan)
+      @current_ability.merge(EnjuInventory::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuInventory)
+      @current_ability.merge(EnjuEvent::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuEvent)
+      @current_ability.merge(EnjuNews::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuNews)
+      @current_ability.merge(EnjuSearchLog::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuSearchLog)
+      @current_ability.merge(EnjuIr::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuIr)
+      @current_ability
+    end
+
     def get_top_page_content
       if defined?(EnjuNews)
         @news_feeds = Rails.cache.fetch('news_feed_all'){NewsFeed.all}
@@ -253,11 +216,24 @@ module EnjuLeaf
       @libraries = Library.real
     end
 
+    def set_mobile_request
+      if params[:mobile_view]
+        case params[:mobile_view]
+        when 'true'
+          request.variant = :phone
+        when 'false'
+          unless params[:format]
+            request.variant = nil
+          end
+        end
+      end
+    end
+
     def move_position(resource, direction, redirect = true)
       if ['higher', 'lower'].include?(direction)
         resource.send("move_#{direction}")
         if redirect
-          redirect_to url_for(:controller => resource.class.to_s.pluralize.underscore)
+          redirect_to url_for(controller: resource.class.to_s.pluralize.underscore)
           return
         end
       end

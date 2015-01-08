@@ -10,6 +10,6 @@ def update_profile
     profile.keyword_list = user.keyword_list
     profile.locale = user.locale
     profile.note = user.note
-    profile.save
+    profile.save!
   end
 end

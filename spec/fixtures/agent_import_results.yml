@@ -4,14 +4,12 @@ one:
   id: 1
   agent_import_file_id: 1
   agent_id: 1
-  user_id: 1
   body: MyText
 
 two:
   id: 2
   agent_import_file_id: 1
   agent_id: 1
-  user_id: 1
   body: MyText
 
 # == Schema Information
@@ -21,7 +19,6 @@ two:
 #  id                    :integer         not null, primary key
 #  agent_import_file_id :integer
 #  agent_id             :integer
-#  user_id               :integer
 #  body                  :text
 #  created_at            :datetime
 #  updated_at            :datetime

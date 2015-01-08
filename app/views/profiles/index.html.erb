@@ -14,11 +14,11 @@
 
 <table class="table table-striped index">
   <tr>
+    <th><%= t('activerecord.attributes.profile.user_number') -%></th>
     <th><%= t('activerecord.attributes.user.username') -%>
       <%= link_to image_tag('icons/arrow_up.png', size: '16x16', alt: t('page.asc')), url_for(params.merge(sort_by: 'username', order: 'asc', only_path: true)) -%>
       <%= link_to image_tag('icons/arrow_down.png', size: '16x16', alt: t('page.desc')), url_for(params.merge(sort_by: 'username', order: 'desc', only_path: true)) -%>
     </th>
-    <th><%= t('activerecord.attributes.profile.user_number') -%></th>
     <th>
       <%= t('page.created_at') -%>
       <%= link_to image_tag('icons/arrow_up.png', size: '16x16', alt: t('page.asc')), url_for(params.merge(sort_by: 'created_at', order: 'asc', only_path: true)) -%>
@@ -30,14 +30,14 @@
 <%- @profiles.each_with_index do |profile, i| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%= profile.user.try(:username) -%>
-    </td>
-    <td>
-      <% if profile.user_number %>
+      <% if profile.user_number? %>
         <%= link_to profile.user_number, profile -%>
       <% else %>
         <%= link_to t('profile.no_number'), profile -%>
       <% end %>
+    </td>
+    <td>
+      <%= profile.user.try(:username) -%>
     </td>
     <td><%= l(profile.created_at) -%></td>
     <td>

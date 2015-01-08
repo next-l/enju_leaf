@@ -6,11 +6,8 @@ class CreateBookmarkStats < ActiveRecord::Migration
       t.datetime :started_at
       t.datetime :completed_at
       t.text :note
-      t.string :state
 
       t.timestamps
     end
-
-    add_index :bookmark_stats, :state
   end
 end

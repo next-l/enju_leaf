@@ -1,12 +1,12 @@
+# -*- encoding: utf-8 -*-
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: [:show, :edit, :update, :destroy]
-  before_action :prepare_options, only: [:new, :edit]
-  after_action :verify_authorized
+  load_and_authorize_resource except: [:index, :create]
+  authorize_resource only: [:index, :create]
+  before_filter :prepare_options, only: [:new, :edit]
 
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.page(params[:page])
     query = flash[:query] = params[:query].to_s
     @query = query.dup
     @count = {}
@@ -27,6 +27,19 @@ class ProfilesController < ApplicationController
     page = params[:page] || 1
     role = current_user.try(:role) || Role.default_role
 
+    search = Profile.search
+    search.build do
+      fulltext query if query
+      order_by sort[:sort_by], sort[:order]
+    end
+    search.query.paginate(page.to_i, Profile.default_per_page)
+    @profiles = search.execute!.results
+    @count[:query_result] = @profiles.total_entries
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @profiles }
+    end
   end
 
   # GET /profiles/1
@@ -35,6 +48,12 @@ class ProfilesController < ApplicationController
     if @profile.user == current_user
       redirect_to my_account_url
       return
+    end
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.html.phone
+      format.json { render json: @profile }
     end
   end
 
@@ -58,24 +77,29 @@ class ProfilesController < ApplicationController
       redirect_to edit_my_account_url
       return
     end
+    if @profile.user.try(:locked_at?)
+      @profile.user.locked = true
+    end
   end
 
   # POST /profiles
   # POST /profiles.json
   def create
-    @profile = Profile.new(profile_params)
     if current_user.has_role?('Librarian')
+      @profile = Profile.new(profile_params)
       if @profile.user
         @profile.user.operator = current_user
-        @profile.user.set_auto_generated_password
+        password = @profile.user.set_auto_generated_password
       end
+    else
+      @profile = Profile.new(profile_params)
     end
 
     respond_to do |format|
       if @profile.save
         if @profile.user
           @profile.user.role = Role.where(name: 'User').first
-          flash[:temporary_password] = @profile.user.password
+          flash[:temporary_password] = password
         end
         format.html { redirect_to @profile, notice: t('controller.successfully_created', model: t('activerecord.models.profile')) }
         format.json { render json: @profile, status: :created, location: @profile }
@@ -87,10 +111,10 @@ class ProfilesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /profiles/1
-  # PATCH/PUT /profiles/1.json
+  # PUT /profiles/1
+  # PUT /profiles/1.json
   def update
-    @profile.update_attributes(profile_params)
+    @profile.update_attributes(profile_update_params)
     if @profile.user
       if @profile.user.auto_generated_password == "1"
         @profile.user.set_auto_generated_password
@@ -122,24 +146,48 @@ class ProfilesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_profile
-      @profile = Profile.find(params[:id])
-      authorize @profile
-    end
+  def profile_params
+    attrs = [
+      :full_name, :full_name_transcription,
+      :keyword_list, :locale,
+      :save_checkout_history, :checkout_icalendar_token, # EnjuCirculation
+      :save_search_history, # EnjuSearchLog
+    ]
+    attrs += [
+      :library_id, :expired_at, :birth_date,
+      :user_group_id, :required_role_id, :note, :locked, :user_number, {
+        :user_attributes => [
+          :id, :username, :email, :current_password,
+          {:user_has_role_attributes => [:id, :role_id]}
+        ]
+      }
+    ] if current_user.has_role?('Librarian')
+    params.require(:profile).permit(*attrs)
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def profile_params
-      params.require(:profile).permit(
-        :user_id, :user_group_id, :library_id, :locale, :user_number,
-        :full_name, :note, :keyword, :required_role_id
-      )
-    end
+  def profile_update_params
+    attrs = [
+      :full_name, :full_name_transcription,
+      :keyword_list, :locale,
+      :save_checkout_history, # EnjuCirculation
+      :save_search_history, # EnjuSearchLog
+    ]
+    attrs += [
+      :library_id, :expired_at, :birth_date,
+      :user_group_id, :required_role_id, :note, :locked, :user_number, {
+        :user_attributes => [
+          :id, :email, :current_password,
+          {:user_has_role_attributes => [:id, :role_id]}
+        ]
+      }
+    ] if current_user.has_role?('Librarian')
+    params.require(:profile).permit(*attrs)
+  end
 
-    def prepare_options
-      @user_groups = UserGroup.all
-      @roles = Role.all
-      @libraries = Library.all
-      @languages = Language.all
-    end
+  def prepare_options
+    @user_groups = UserGroup.all
+    @roles = Role.all
+    @libraries = Library.all
+    @languages = Language.all
+  end
 end

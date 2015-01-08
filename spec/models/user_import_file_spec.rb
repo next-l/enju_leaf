@@ -13,24 +13,35 @@ describe UserImportFile do
       @file.save
     end
 
-    it "should be imported" do
+    it "should be imported", solr: true do
       old_users_count = User.count
       old_import_results_count = UserImportResult.count
+      old_profiles_solr_count = Profile.search.total
       @file.current_state.should eq 'pending'
       @file.import_start.should eq({:user_imported => 5, :user_found => 0, :failed => 0})
       User.order('id DESC')[1].username.should eq 'user005'
       User.order('id DESC')[2].username.should eq 'user003'
       User.count.should eq old_users_count + 5
+      Profile.search.total.should eq old_profiles_solr_count + 5
 
-      user002 = User.where(:username => 'user002').first
+      user001 = User.where(username: 'user001').first
+      user001.profile.keyword_list.should eq "日本史\n地理"
+      user001.profile.full_name.should eq '田辺 浩介'
+      user001.profile.full_name_transcription.should eq 'たなべ こうすけ'
+      user001.profile.required_role.name.should eq 'User'
+      user001.locked_at.should be_truthy
+
+      user002 = User.where(username: 'user002').first
       user002.profile.user_group.name.should eq 'faculty'
       user002.profile.expired_at.to_i.should eq Time.zone.parse('2013-12-01').end_of_day.to_i
       user002.valid_password?('4NsxXPLy')
       user002.profile.user_number.should eq '001002'
       user002.profile.library.name.should eq 'hachioji'
       user002.profile.locale.should eq 'en'
+      user002.profile.required_role.name.should eq 'Librarian'
+      user002.locked_at.should be_nil
 
-      user003 = User.where(:username => 'user003').first
+      user003 = User.where(username: 'user003').first
       user003.profile.note.should eq 'テストユーザ'
       user003.role.name.should eq 'Librarian'
       user003.profile.user_number.should eq '001003'
@@ -40,17 +51,17 @@ describe UserImportFile do
       user003.profile.save_checkout_history.should be_truthy
       user003.profile.save_search_history.should be_falsy
       user003.profile.share_bookmarks.should be_falsy
-      User.where(:username => 'user000').first.should be_nil
+      User.where(username: 'user000').first.should be_nil
       UserImportResult.count.should eq old_import_results_count + 6
 
-      user005 = User.where(:username => 'user005').first
+      user005 = User.where(username: 'user005').first
       user005.role.name.should eq 'User'
       user005.profile.library.name.should eq 'hachioji'
       user005.profile.locale.should eq 'en'
       user005.profile.user_number.should eq '001005'
       user005.profile.user_group.name.should eq 'faculty'
 
-      user006 = User.where(:username => 'user006').first
+      user006 = User.where(username: 'user006').first
       user006.role.name.should eq 'User'
       user006.profile.library.name.should eq 'hachioji'
       user006.profile.locale.should eq 'en'

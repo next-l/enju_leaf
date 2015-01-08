@@ -1,9 +1,9 @@
 class UserExportFile < ActiveRecord::Base
-  include Statesman::Adapters::ActiveRecordModel
+  include Statesman::Adapters::ActiveRecordQueries
   include ExportFile
   enju_export_file_model
   has_attached_file :user_export
-  validates_attachment_content_type :user_export, :content_type => /\Atext\/plain\Z/
+  validates_attachment_content_type :user_export, content_type: /\Atext\/plain\Z/
 
   has_many :user_export_file_transitions
 
@@ -33,6 +33,10 @@ class UserExportFile < ActiveRecord::Base
   private
   def self.transition_class
     UserExportFileTransition
+  end
+
+  def self.initial_state
+    :pending
   end
 end
 

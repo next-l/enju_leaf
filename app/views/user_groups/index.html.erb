@@ -17,7 +17,7 @@
 <%- @user_groups.each do |user_group| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if policy(user_group).update? -%>
+      <%- if can? :update, user_group -%>
         <%= move_position(user_group) -%>
       <%- end -%>
     </td>
@@ -28,14 +28,10 @@
       <%= user_group.note -%>
     </td>
     <td>
-      <%= link_to user_group.display_name.localize, user_group -%>
-      <br />
-      <%= user_group.note -%>
-    <td>
-      <%- if policy(user_group).update? -%>
+      <%- if can? :update, user_group -%>
         <%= link_to t('page.edit'), edit_user_group_path(user_group) -%>
       <% end %>
-      <%- if policy(user_group).destroy? -%>
+      <%- if can? :destroy, user_group -%>
         <%= link_to t('page.destroy'), user_group_path(user_group), data: {confirm: t('page.are_you_sure')}, method: :delete -%>
       <% end %>
     </td>

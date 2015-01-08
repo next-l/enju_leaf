@@ -1,5 +1,5 @@
 class UserImportFile < ActiveRecord::Base
-  include Statesman::Adapters::ActiveRecordModel
+  include Statesman::Adapters::ActiveRecordQueries
   include ImportFile
   default_scope {order('user_import_files.id DESC')}
   scope :not_imported, -> { in_state(:pending) }
@@ -40,7 +40,7 @@ class UserImportFile < ActiveRecord::Base
 
   def import
     transition_to!(:started)
-    num = {:user_imported => 0, :user_found => 0, :failed => 0}
+    num = { user_imported: 0, user_found: 0, failed: 0 }
     rows = open_import_file(create_import_temp_file(user_import))
     row_num = 1
 
@@ -75,11 +75,14 @@ class UserImportFile < ActiveRecord::Base
         end
         new_user.operator = user
         new_user.username = username
-        new_user.assign_attributes(set_user_params(new_user, row), as: :admin)
+        new_user.assign_attributes(set_user_params(new_user, row))
         profile = Profile.new
-        profile.assign_attributes(set_profile_params(row), as: :admin)
+        profile.assign_attributes(set_profile_params(row))
 
         if new_user.save
+          if profile.locked
+            new_user.lock_access!
+          end
           new_user.profile = profile
           if profile.save
             num[:user_imported] += 1
@@ -108,7 +111,7 @@ class UserImportFile < ActiveRecord::Base
 
   def modify
     transition_to!(:started)
-    num = {:user_updated => 0, :user_not_found => 0, :failed => 0}
+    num = { user_updated: 0, user_not_found: 0, failed: 0 }
     rows = open_import_file(create_import_temp_file(user_import))
     row_num = 1
 
@@ -180,10 +183,15 @@ class UserImportFile < ActiveRecord::Base
     UserImportFileTransition
   end
 
+  def self.initial_state
+    :pending
+  end
+
   def open_import_file(tempfile)
     file = CSV.open(tempfile.path, 'r:utf-8', col_sep: "\t")
     header_columns = %w(
       username role email password user_group user_number expired_at
+      full_name full_name_transcription required_role locked
       keyword_list note locale library dummy
     )
     if defined?(EnjuCirculation)
@@ -238,17 +246,29 @@ class UserImportFile < ActiveRecord::Base
     end
     params[:user_group_id] = user_group.id if user_group
 
+    required_role = Role.where(name: row['required_role']).first
+    unless required_role
+      required_role = Role.where(name: 'Librarian').first
+    end
+    params[:required_role_id] = required_role.id if required_role
+
     params[:user_number] = row['user_number']
+    params[:full_name] = row['full_name']
+    params[:full_name_transcription] = row['full_name_transcription']
 
     if row['expired_at'].present?
       params[:expired_at] = Time.zone.parse(row['expired_at']).end_of_day
     end
 
     if row['keyword_list'].present?
-      params[:keyword_list] = row['keyword_list'].split('//').join('\n')
+      params[:keyword_list] = row['keyword_list'].split('//').join("\n")
     end
 
     params[:note] = row['note']
+
+    if %w(t true).include?(row['locked'].to_s.downcase.strip)
+      params[:locked] = true 
+    end
 
     if I18n.available_locales.include?(row['locale'].to_s.to_sym)
       params[:locale] = row['locale']

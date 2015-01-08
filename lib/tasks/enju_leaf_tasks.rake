@@ -1,4 +1,6 @@
 require 'active_record/fixtures'
+require 'tasks/profile'
+
 namespace :enju_leaf do
   desc "create initial records for enju_leaf"
   task :setup => :environment do
@@ -12,21 +14,6 @@ namespace :enju_leaf do
     puts 'initial fixture files loaded.'
   end
 
-  desc "create non-digested asset files"
-  task create_non_digested_assets: :environment do
-    assets = Dir.glob(File.join(Rails.root, 'public/assets/**/*'))
-    regex = /(-{1}[a-z0-9]{32}*\.{1}){1}/
-    assets.each do |file|
-      next if File.directory?(file) || file !~ regex
-
-      source = file.split('/')
-      source.push(source.pop.gsub(regex, '.'))
-
-      non_digested = File.join(source)
-      FileUtils.cp(file, non_digested)
-    end
-  end
-
   desc "import users from a TSV file"
   task :user_import => :environment do
     UserImportFile.import
@@ -34,41 +21,20 @@ namespace :enju_leaf do
 
   desc "upgrade enju_leaf"
   task :upgrade => :environment do
-    version = EnjuLeaf::VERSION.split('.')
-    if version[0..2] == ["1", "1" ,"0"]
-      if version[3] == 'rc13'
-        Exemplify.transaction do
-          Exemplify.find_each do |exemplify|
-            if exemplify.item
-              exemplify.item.update_column(:manifestation_id, exemplify.manifestation_id)
-            end
-
-            YAML.load(open('db/fixtures/enju_circulation/circulation_statuses.yml').read).each do |line|
-              l = line[1].select!{|k, v| %w(name display_name).include?(k)}
-              CirculationStatus.where(name: l["name"]).first.try(:update_attributes!, l)
-            end
-
-            YAML.load(open('db/fixtures/enju_circulation/use_restrictions.yml').read).each do |line|
-              l = line[1].select!{|k, v| %w(name display_name).include?(k)}
-              UseRestriction.where(name: l["name"]).first.try(:update_attributes!, l)
-            end
-
-            YAML.load(open('db/fixtures/enju_message/message_templates.yml').read).each do |line|
-              l = line[1].select!{|k, v| %w(status locale title body).include?(k)}
-              template = MessageTemplate.where(
-                status: l["status"], locale: l["locale"]
-              ).first
-              if template
-                template.update_attributes!(l)
-              else
-                MessageTemplate.create!(l)
-              end
-            end
-          end
-        end
-      end
+    Rake::Task['enju_biblio:upgrade'].invoke
+    Rake::Task['enju_circulation:upgrade'].invoke
+    Rake::Task['enju_library:upgrade'].invoke
+    Rake::Task['enju_message:upgrade'].invoke
+    Rake::Task['enju_subject:upgrade'].invoke
+    Profile.transaction do
+      update_profile
     end
+    puts 'enju_leaf: The upgrade completed successfully.'
+  end
 
-    puts 'The upgrade completed successfully.'
+  desc "reindex all models"
+  task :reindex, [:batch_size, :models, :silence] => :environment do |t, args|
+    Rails::Engine.subclasses.each{|engine| engine.instance.eager_load!}
+    Rake::Task['sunspot:reindex'].execute(args)
   end
 end

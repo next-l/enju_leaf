@@ -14,21 +14,24 @@ class PageController < ApplicationController
       if defined?(EnjuBookmark)
         @tags = current_user.bookmarks.tag_counts.sort{|a,b| a.count <=> b.count}.reverse
       end
-      @manifestation = Manifestation.pickup(current_user.keyword_list.to_s.split.sort_by{rand}.first, current_user) rescue nil
+      if current_user.profile
+        @manifestation = Manifestation.pickup(current_user.profile.keyword_list.to_s.split.sort_by{rand}.first, current_user)
+      else
+        @manifestation = nil
+      end
     else
       if defined?(EnjuBookmark)
         # TODO: タグ下限の設定
-        #@tags = Tag.all(:limit => 50, :order => 'taggings_count DESC')
+        #@tags = Tag.all(limit: 50, order: 'taggings_count DESC')
         @tags = Bookmark.tag_counts.sort{|a,b| a.count <=> b.count}.reverse[0..49]
       end
       @manifestation = Manifestation.pickup rescue nil
     end
     get_top_page_content
-    @numdocs = Manifestation.search('*').results.total
+    @numdocs = Manifestation.search.total
 
     respond_to do |format|
       format.html
-      format.html.phone
     end
   end
 

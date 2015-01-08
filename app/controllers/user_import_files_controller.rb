@@ -1,16 +1,20 @@
 class UserImportFilesController < ApplicationController
-  before_action :set_user_import_file, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
   before_filter :prepare_options, only: [:new, :edit]
-  after_action :verify_authorized
-  #after_action :verify_policy_scoped, only: :index
 
   # GET /user_import_files
+  # GET /user_import_files.json
   def index
-    authorize UserImportFile
     @user_import_files = UserImportFile.page(params[:page])
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @user_import_files }
+    end
   end
 
   # GET /user_import_files/1
+  # GET /user_import_files/1.json
   def show
     if @user_import_file.user_import.path
       unless Setting.uploaded_file.storage == :s3
@@ -19,8 +23,8 @@ class UserImportFilesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html
-      format.json
+      format.html # show.html.erb
+      format.json { render json: @user_import_file }
       format.download {
         if Setting.uploaded_file.storage == :s3
           redirect_to @user_import_file.user_import.expiring_url(10)
@@ -32,11 +36,16 @@ class UserImportFilesController < ApplicationController
   end
 
   # GET /user_import_files/new
+  # GET /user_import_files/new.json
   def new
     @user_import_file = UserImportFile.new
-    authorize @user_import_file
     @user_import_file.default_user_group = current_user.profile.user_group
     @user_import_file.default_library = current_user.profile.library
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @user_import_file }
+    end
   end
 
   # GET /user_import_files/1/edit
@@ -44,62 +53,65 @@ class UserImportFilesController < ApplicationController
   end
 
   # POST /user_import_files
+  # POST /user_import_files.json
   def create
-    authorize UserImportFile
     @user_import_file = UserImportFile.new(user_import_file_params)
     @user_import_file.user = current_user
 
-    if @user_import_file.save
-      if @user_import_file.mode == 'import'
-        Resque.enqueue(UserImportFileQueue, @user_import_file.id)
+    respond_to do |format|
+      if @user_import_file.save
+        if @user_import_file.mode == 'import'
+          Resque.enqueue(UserImportFileQueue, @user_import_file.id)
+        end
+        format.html { redirect_to @user_import_file, notice: t('import.successfully_created', model: t('activerecord.models.user_import_file')) }
+        format.json { render json: @user_import_file, status: :created, location: @user_import_file }
+      else
+        prepare_options
+        format.html { render action: "new" }
+        format.json { render json: @user_import_file.errors, status: :unprocessable_entity }
       end
-      redirect_to @user_import_file, notice: t('import.successfully_created', model: t('activerecord.models.user_import_file'))
-    else
-      prepare_options
-      render action: 'new'
     end
   end
 
-  # PATCH/PUT /user_import_files/1
+  # PUT /user_import_files/1
+  # PUT /user_import_files/1.json
   def update
-    if @user_import_file.update(user_import_file_params)
-      if @user_import_file.mode == 'import'
-        Resque.enqueue(UserImportFileQueue, @user_import_file.id)
+    respond_to do |format|
+      if @user_import_file.update_attributes(user_import_file_params)
+        if @user_import_file.mode == 'import'
+          Resque.enqueue(UserImportFileQueue, @user_import_file.id)
+        end
+        format.html { redirect_to @user_import_file, notice: t('controller.successfully_updated', model: t('activerecord.models.user_import_file')) }
+        format.json { head :no_content }
+      else
+        prepare_options
+        format.html { render action: "edit" }
+        format.json { render json: @user_import_file.errors, status: :unprocessable_entity }
       end
-      redirect_to @user_import_file, notice: t('controller.successfully_updated', model: t('activerecord.models.user_import_file'))
-    else
-      prepare_options
-      render action: 'edit'
     end
   end
 
   # DELETE /user_import_files/1
+  # DELETE /user_import_files/1.json
   def destroy
     @user_import_file.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_import_files_url, notice: t('controller.successfully_destroyed', model: t('activerecord.models.user_import_file')) }
+      format.html { redirect_to(user_import_files_url) }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user_import_file
-      @user_import_file = UserImportFile.find(params[:id])
-      authorize @user_import_file
-    end
+  def user_import_file_params
+    params.require(:user_import_file).permit(
+      :user_import, :edit_mode, :user_encoding, :mode,
+      :default_user_group_id, :default_library_id
+    )
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def user_import_file_params
-      params.require(:user_import_file).permit(
-        :user_import, :edit_mode, :user_encoding, :mode,
-	:default_user_group_id, :default_library_id
-      )
-    end
-
-    def prepare_options
-      @user_groups = UserGroup.all
-      @libraries = Library.all
-    end
+  def prepare_options
+    @user_groups = UserGroup.all
+    @libraries = Library.all
+  end
 end

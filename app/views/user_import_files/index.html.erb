@@ -21,8 +21,7 @@
         <td>
           <%= link_to user_import_file.user_import_file_name, user_import_file -%>
           <br />
-          <%= t('activerecord.models.user') -%>: <%= link_to user_import_file.user.username, user_import_file.user.profile if user_import_file.user.try(:profile) -%>
-        </td>
+          <%= t('activerecord.models.user') -%>: <%= link_to user_import_file.user.username, user_import_file.user.profile if user_import_file.user.try(:profile) -%></td>
         <td><%= user_import_file.edit_mode -%></td>
         <td><%= l(user_import_file.executed_at) if user_import_file.executed_at -%></td>
         <td><%= localized_state(user_import_file.current_state) -%></td>

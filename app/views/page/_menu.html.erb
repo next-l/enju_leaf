@@ -1,4 +1,3 @@
-<% cache([current_user_role_name, @locale]) do %>
 <div id="navibar">
   <ul id="bar1" class="menubar">
     <% if defined?(EnjuCirculation) %>
@@ -41,9 +40,12 @@
             <% if defined?(EnjuNdl) %>
               <li><%= link_to t('enju_ndl.import_from_ndl_search'), ndl_books_path -%></li>
             <% end %>
-            <% if defined?(EnjuLoc) %>
-              <li><%= link_to t('enju_loc.import_from_loc_search'), loc_search_index_path -%></li>
-            <% end %>
+	    <% if defined?(EnjuNii) %>
+	      <li><%= link_to t('enju_nii.import_from_cinii_books'), cinii_books_path -%></li>
+	    <% end %>
+	    <% if defined?(EnjuLoc) %>
+	      <li><%= link_to t('enju_loc.import_from_loc_search'), loc_search_index_path -%></li>
+	    <% end %>
             <li><%= link_to t('page.add_resource_manually'), new_manifestation_path -%></li>
             <li><%= link_to t('page.serial'), manifestations_path(serial: true) -%></li>
             <li><%= link_to t('page.import_from_file'), new_resource_import_file_path -%></li>
@@ -94,7 +96,7 @@
             <%- @library_group.real_libraries.each do |library| -%>
               <li><%= link_to library.display_name.localize, events_path(library_id: library.name) -%></li>
             <%- end -%>
-            <%- if policy(Event).create? -%>
+            <%- if can? :create, Event -%>
               <li><%= link_to t('page.import'), new_event_import_file_path -%></li>
             <%- end -%>
           <%- end -%>
@@ -139,4 +141,3 @@
     </li>
   </ul>
 </div>
-<% end %>

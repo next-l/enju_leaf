@@ -26,3 +26,8 @@ set :output, "#{path}/log/cron_log.log"
 every 1.day, :at => '0:00 am' do
   runner "User.lock_expired_users"
 end
+
+every 1.day, :at => '3:00 am' do
+  rake "sunspot:reindex"
+#  rake "sitemap:refresh:no_ping"
+end

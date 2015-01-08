@@ -7,46 +7,38 @@ module EnjuLeaf
     module ClassMethods
       def enju_leaf_user_model
         include InstanceMethods
-        include Elasticsearch::Model
-        include Elasticsearch::Model::Callbacks
-
-        index_name "#{name.downcase.pluralize}-#{Rails.env}"
-
-        after_commit on: :create do
-          index_document
-        end
-
-        after_commit on: :update do
-          update_document
-        end
-
-        after_commit on: :destroy do
-          delete_document
-        end
 
         # Setup accessible (or protected) attributes for your model
         #attr_accessible :email, :password, :password_confirmation, :current_password,
-        #  :remember_me, :email_confirmation, :library_id, :locale,
-        #  :keyword_list, :auto_generated_password
+        #  :remember_me, :email_confirmation,
+        #  :auto_generated_password,
+        #  :profile_attributes
+        #attr_accessible :email, :password, :password_confirmation, :username,
+        #  :current_password, :remember_me,
+        #  :email_confirmation,
+        #  :expired_at, :locked, :role_id,
+        #  :user_has_role_attributes, :auto_generated_password,
+        #  :profile_attributes,
+        #  :as => :admin
 
-        scope :administrators, -> {where('roles.name = ?', 'Administrator').joins(:role)}
-        scope :librarians, -> {where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian').joins(:role)}
-        scope :suspended, -> {where('locked_at IS NOT NULL')}
-        has_one :profile, :dependent => :destroy
+        scope :administrators, -> { joins(:role).where('roles.name = ?', 'Administrator') }
+        scope :librarians, -> { joins(:role).where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian') }
+        scope :suspended, -> { where('locked_at IS NOT NULL') }
+        has_one :profile
         if defined?(EnjuBiblio)
           has_many :import_requests
           has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
         end
         has_one :user_has_role, :dependent => :destroy
         has_one :role, :through => :user_has_role
-        belongs_to :library, :validate => true
         belongs_to :user_group
-        belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id' #, :validate => true
-        has_many :export_files if defined?(EnjuExport)
-        #has_one :agent_import_result
+        belongs_to :library
+        belongs_to :required_role, class_name: 'Role', foreign_key: 'required_role_id'
         accepts_nested_attributes_for :user_has_role
 
-        validates :username, :presence => true, :uniqueness => true, :format => {:with => /\A[0-9A-Za-z][0-9A-Za-z_\-]*[0-9A-Za-z]\Z/}
+        validates :username, presence: true, uniqueness: true, format: {
+          with: /\A[0-9A-Za-z][0-9A-Za-z_\-]*[0-9A-Za-z]\Z/
+        }
         validates :email, :format => Devise::email_regexp, :allow_blank => true, :uniqueness => true
         validates_date :expired_at, :allow_blank => true
 
@@ -58,7 +50,7 @@ module EnjuLeaf
         end
 
         validates_presence_of     :email, :email_confirmation, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
-        validates_confirmation_of :email, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
+        validates_confirmation_of :email, :on => :create #, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
 
         before_validation :set_lock_information
         before_destroy :check_role_before_destroy
@@ -71,21 +63,7 @@ module EnjuLeaf
         normalize_attributes :username
         normalize_attributes :email, :with => :strip
 
-        settings do
-          mappings dynamic: 'false', _routing: {required: true, path: :required_role_id} do
-            indexes :username
-            indexes :email
-            indexes :note
-            indexes :name
-            indexes :created_at
-            indexes :updated_at
-            indexes :active, type: 'boolean'
-            indexes :confirmed_at
-          end
-        end
-
-        attr_accessor :first_name, :middle_name, :last_name, :full_name,
-          :operator, :password_not_verified,
+        attr_accessor :operator, :password_not_verified,
           :update_own_account, :auto_generated_password,
           :locked, :current_password #, :agent_id
 
@@ -101,12 +79,17 @@ module EnjuLeaf
           header = %w(
             username
             email
+            user_number
             role
             user_group
             library
+            locale
             created_at
             updated_at
             expired_at
+            keyword_list
+            note
+            checkout_icalendar_token
             save_checkout_history
             save_search_history
             share_bookmarks
@@ -115,16 +98,19 @@ module EnjuLeaf
             lines = []
             lines << u.username
             lines << u.email
+            lines << u.try(:profile).try(:user_number)
             lines << u.role.name
-            lines << u.user_group.try(:name)
-            lines << u.library.try(:name)
+            lines << u.try(:profile).try(:user_group).try(:name)
+            lines << u.try(:profile).try(:library).try(:name)
+            lines << u.try(:profile).try(:locale)
             lines << u.created_at
             lines << u.updated_at
             lines << u.expired_at
-            lines << u.note
+            lines << u.try(:profile).try(:keyword_list).try(:split).try(:join, "//")
+            lines << u.try(:profile).try(:note)
             if defined?(EnjuCirculation)
-              lines << u.try(:checkout_icalendar_token)
-              lines << u.try(:save_checkout_history)
+              lines << u.try(:profile).try(:checkout_icalendar_token)
+              lines << u.try(:profile).try(:save_checkout_history)
             else
               lines << nil
             end
@@ -149,12 +135,6 @@ module EnjuLeaf
     end
 
     module InstanceMethods
-      def as_indexed_json(options={})
-        as_json.merge(
-          active: active_for_authentication?
-        )
-      end
-
       def password_required?
         !persisted? || !password.nil? || !password_confirmation.nil?
       end
@@ -231,7 +211,7 @@ module EnjuLeaf
         end
       end
 
-      def deletable_by(current_user)
+      def deletable_by?(current_user)
         if defined?(EnjuCirculation)
           # 未返却の資料のあるユーザを削除しようとした
           if checkouts.count > 0
@@ -262,14 +242,6 @@ module EnjuLeaf
         else
           false
         end
-      end
-
-      def patron
-        LocalPatron.new({:username => username})
-      end
-
-      def full_name
-        username
       end
     end
   end
@@ -309,7 +281,10 @@ end
 #  expired_at               :datetime
 #  required_role_id         :integer         default(1), not null
 #  note                     :text
+#  keyword_list             :text
+#  user_number              :string(255)
 #  state                    :string(255)
+#  locale                   :string(255)
 #  enju_access_key          :string(255)
 #  save_checkout_history    :boolean
 #  checkout_icalendar_token :string(255)

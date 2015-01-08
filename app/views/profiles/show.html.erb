@@ -6,7 +6,7 @@
   <h2 class="resource_title">
     [U]
     <%= @profile.user.username -%>
-    <% if @profile.full_name %>
+    <% if @profile.full_name? %>
       (<%= @profile.full_name %>)
     <% end %>
   </h2>
@@ -34,7 +34,7 @@
           <td>
             <%=l checkout.due_date, formats: :only_date %>
             <br />
-            <%- if policy(checkout).update? -%>
+            <%- if can? :update, checkout -%>
               <% unless checkout.checkin %>
                 (<%= link_to t('checkout.extend'), edit_checkout_path(checkout) -%>)
               <% end %>
@@ -66,16 +66,16 @@
       <li><%= back_to_index %></li>
     <% end %>
     <% if user_signed_in? %>
-      <% if policy(@user).update? %>
+      <% if can? :update, @profile %>
         <li><%= link_to t('page.edit'), edit_profile_path(@profile) -%></li>
       <% end %>
       <% if defined?(EnjuMessage) %>
         <li><%= link_to t('message.send'), new_message_path(recipient: @profile.user.username) -%></li>
       <% end %>
-      <%- if policy(User).create? -%>
+      <%- if can? :create, @profile -%>
         <li><%= link_to t('page.new', model: t('activerecord.models.profile')), new_profile_path -%></li>
       <% end %>
-      <%- if policy(@user).destroy? -%>
+      <%- if can? :destroy, @profile -%>
         <li><%= link_to t('page.destroy'), @profile, data: {confirm: t('page.are_you_sure')}, method: :delete -%></li>
       <% end %>
     <%- end -%>

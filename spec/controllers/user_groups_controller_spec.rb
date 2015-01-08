@@ -205,7 +205,7 @@ describe UserGroupsController do
       login_fixture_librarian
 
       describe "with valid params" do
-        it "assigns a newly created but unsaved user_group as @user_group" do
+        it "assigns a newly created user_group as @user_group" do
           post :create, :user_group => @attrs
           assigns(:user_group).should be_valid
         end
@@ -233,7 +233,7 @@ describe UserGroupsController do
       login_fixture_user
 
       describe "with valid params" do
-        it "assigns a newly created but unsaved user_group as @user_group" do
+        it "assigns a newly created user_group as @user_group" do
           post :create, :user_group => @attrs
           assigns(:user_group).should be_valid
         end
@@ -259,7 +259,7 @@ describe UserGroupsController do
 
     describe "When not logged in" do
       describe "with valid params" do
-        it "assigns a newly created but unsaved user_group as @user_group" do
+        it "assigns a newly created user_group as @user_group" do
           post :create, :user_group => @attrs
           assigns(:user_group).should be_valid
         end

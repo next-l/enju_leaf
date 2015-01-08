@@ -1,13 +1,10 @@
 class Profile < ActiveRecord::Base
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
-
   enju_circulation_profile_model if defined?(EnjuCirculation)
   enju_search_log_profile_model if defined?(EnjuSearchLog)
 
   scope :administrators, -> { joins(user: :role).where('roles.name = ?', 'Administrator') }
   scope :librarians, -> { joins(user: :role).where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian') }
-  belongs_to :user
+  belongs_to :user, dependent: :destroy
   belongs_to :library, validate: true
   belongs_to :user_group
   belongs_to :required_role, class_name: 'Role', foreign_key: 'required_role_id' #, validate: true
@@ -16,38 +13,38 @@ class Profile < ActiveRecord::Base
   validates_associated :user
   validates_presence_of :user_group, :library, :locale #, :user_number
   validates :user_number, uniqueness: true, format: { with: /\A[0-9A-Za-z_]+\Z/ }, allow_blank: true
-  validates :birth_date, format: {:with => /\A\d{4}-\d{1,2}-\d{1,2}\z/}, allow_blank: true
+  validates :birth_date, format: { with: /\A\d{4}-\d{1,2}-\d{1,2}\Z/ }, allow_blank: true
 
-  attr_accessor :birth_date
+  attr_accessor :birth_date, :locked
 
-  #searchable do
-  #  text :user_number, :full_name, :full_name_transcription, :note
-  #  string :user_number
-  #  text :username do
-  #    user.try(:username)
-  #  end
-  #  text :email do
-  #    user.try(:email)
-  #  end
-  #  string :username do
-  #    user.try(:username)
-  #  end
-  #  string :email do
-  #    user.try(:email)
-  #  end
-  #  time :created_at
-  #  time :updated_at
-  #  boolean :active do
-  #    user.try(:active_for_authentication?)
-  #  end
-  #end
+  searchable do
+    text :user_number, :full_name, :full_name_transcription, :note
+    string :user_number
+    text :username do
+      user.try(:username)
+    end
+    text :email do
+      user.try(:email)
+    end
+    string :username do
+      user.try(:username)
+    end
+    string :email do
+      user.try(:email)
+    end
+    time :created_at
+    time :updated_at
+    boolean :active do
+      user.try(:active_for_authentication?)
+    end
+  end
 
   before_validation :set_role_and_agent, on: :create
-  before_save :set_expired_at
+  before_save :set_expired_at, :set_date_of_birth
   accepts_nested_attributes_for :user
 
   def set_role_and_agent
-    self.required_role = Role.where(name: 'Librarian').first
+    self.required_role = Role.where(name: 'Librarian').first unless required_role
     self.locale = I18n.default_locale.to_s unless locale
   end
 
@@ -61,6 +58,8 @@ class Profile < ActiveRecord::Base
 
   def set_date_of_birth
     self.date_of_birth = Time.zone.parse(birth_date) if birth_date
+  rescue ArgumentError
+    nil
   end
 end
 

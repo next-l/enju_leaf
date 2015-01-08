@@ -4,11 +4,6 @@ describe PageController do
   fixtures :all
 
   describe "GET page" do
-    before do
-      Manifestation.__elasticsearch__.create_index!
-      Manifestation.import
-    end
-
     describe "When logged in as Librarian" do
       login_fixture_librarian
 

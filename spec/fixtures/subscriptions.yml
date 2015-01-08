@@ -1,0 +1,27 @@
+---
+subscription_00001:
+  id: 1
+  title: test
+  user_id: 1
+  order_list_id: 1
+subscription_00002:
+  id: 2
+  title: test
+  user_id: 2
+  order_list_id: 2
+
+# == Schema Information
+#
+# Table name: subscriptions
+#
+#  id               :integer         not null, primary key
+#  title            :text            not null
+#  note             :text
+#  user_id          :integer
+#  order_list_id    :integer
+#  deleted_at       :datetime
+#  subscribes_count :integer         default(0), not null
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+
