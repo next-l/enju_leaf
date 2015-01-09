@@ -10,6 +10,7 @@ require 'jquery-rails'
 require 'jquery-ui-rails'
 require 'statesman'
 require 'resque/scheduler/server'
+require 'browser'
 
 module EnjuLeaf
   class Engine < ::Rails::Engine

@@ -12,12 +12,12 @@ gemspec
 gem "jquery-rails"
 gem "enju_biblio", github: "next-l/enju_biblio", branch: "master"
 gem "enju_library", github: "next-l/enju_library", branch: "master"
-gem "enju_bookmark", github: "next-l/enju_bookmark", branch: "1.1"
+gem "enju_bookmark", github: "next-l/enju_bookmark", branch: "master"
 gem "enju_circulation", github: "next-l/enju_circulation", branch: "master"
-gem "enju_event", github: "next-l/enju_event", branch: "1.1"
-gem "enju_message", github: "next-l/enju_message", branch: "1.1"
+gem "enju_event", github: "next-l/enju_event", branch: "master"
+gem "enju_message", github: "next-l/enju_message", branch: "master"
 gem "enju_search_log", github: "next-l/enju_search_log", branch: "1.1"
-gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer", branch: "1.1"
+gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer", branch: "master"
 gem "coveralls", require: false, group: :test
 
 # To use a debugger
