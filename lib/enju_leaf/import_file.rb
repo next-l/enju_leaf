@@ -77,7 +77,7 @@ module ImportFile
 
     def create_import_temp_file(attachment)
       tempfile = Tempfile.new(self.class.name.underscore)
-      if Setting.uploaded_file.storage == :s3
+      if Rails.application.config_for(:enju_leaf)["uploaded_file"]["storage"] == :s3
         uploaded_file_path = attachment.expiring_url(10)
       else
         uploaded_file_path = attachment.path

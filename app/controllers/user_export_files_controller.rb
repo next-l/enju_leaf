@@ -16,7 +16,7 @@ class UserExportFilesController < ApplicationController
   # GET /user_export_files/1.json
   def show
     if @user_export_file.user_export.path
-      unless Setting.uploaded_file.storage == :s3
+      unless Rails.application.config_for(:enju_leaf)["uploaded_file"]["storage"] == :s3
         file = @user_export_file.user_export.path
       end
     end
@@ -25,7 +25,7 @@ class UserExportFilesController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @user_export_file }
       format.download {
-        if Setting.uploaded_file.storage == :s3
+        if Rails.application.config_for(:enju_leaf)["uploaded_file"]["storage"] == :s3
           redirect_to @user_export_file.user_export.expiring_url(10)
         else
           send_file file, filename: @user_export_file.user_export_file_name, type: 'application/octet-stream'

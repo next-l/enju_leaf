@@ -42,6 +42,7 @@ Gem::Specification.new do |s|
   s.add_dependency "statesman", "~> 1.1"
   s.add_dependency "redcarpet"
   s.add_dependency "browser"
+  s.add_dependency "sunspot_rails", "~> 2.1"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mysql2"
