@@ -216,11 +216,6 @@ module EnjuLeaf
       @libraries = Library.real
     end
 
-    def is_mobile_request?
-      browser = Browser.new(ua: request.env['HTTP_USER_AGENT'])
-      browser.mobile?
-    end
-
     def set_mobile_request
       if params[:mobile_view]
         case params[:mobile_view]
