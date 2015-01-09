@@ -22,6 +22,7 @@ require 'jquery-ui-rails'
 require 'statesman'
 require 'resque/scheduler/server'
 require 'browser'
+require 'sunspot_rails'
 
 module EnjuLeaf
   class Engine < ::Rails::Engine
