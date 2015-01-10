@@ -117,13 +117,13 @@ class ProfilesController < ApplicationController
     @profile.update_attributes(profile_update_params)
     if @profile.user
       if @profile.user.auto_generated_password == "1"
-        @profile.user.set_auto_generated_password
-        flash[:temporary_password] = @profile.user.password
+        password = @profile.user.set_auto_generated_password
       end
     end
 
     respond_to do |format|
       if @profile.save
+        flash[:temporary_password] = password
         format.html { redirect_to @profile, notice: t('controller.successfully_updated', model: t('activerecord.models.profile')) }
         format.json { head :no_content }
       else
@@ -176,7 +176,7 @@ class ProfilesController < ApplicationController
       :library_id, :expired_at, :birth_date,
       :user_group_id, :required_role_id, :note, :locked, :user_number, {
         :user_attributes => [
-          :id, :email, :current_password,
+          :id, :email, :current_password, :auto_generated_password,
           {:user_has_role_attributes => [:id, :role_id]}
         ]
       }
