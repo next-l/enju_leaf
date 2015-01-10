@@ -25,7 +25,7 @@
         </td>
         <td><%= localized_state(user_export_file.current_state) -%></td>
         <td>
-          <%= link_to t('page.destroy'), user_export_file, method: :delete, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+          <%= link_to t('page.destroy'), user_export_file, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
         </td>
       </tr>
     <% end %>
