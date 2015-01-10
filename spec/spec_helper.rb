@@ -1,3 +1,5 @@
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
 require 'simplecov'
 require 'coveralls'
 SimpleCov.start 'rails'
