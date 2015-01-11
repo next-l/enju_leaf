@@ -34,10 +34,8 @@ Gem::Specification.new do |s|
   s.add_dependency "nested_form"
   s.add_dependency "sitemap_generator"
   s.add_dependency "devise-encryptable"
-  s.add_dependency "redis-rails"
   s.add_dependency "rails_autolink"
   s.add_dependency "jquery-ui-rails", "~> 4.2.1"
-  s.add_dependency "resque-scheduler", "~> 3.1"
   s.add_dependency "paperclip", "~> 4.2"
   s.add_dependency "statesman", "~> 1.1"
   s.add_dependency "redcarpet"
@@ -59,4 +57,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "annotate"
   s.add_development_dependency "rspec-activemodel-mocks"
   s.add_development_dependency "charlock_holmes"
+  s.add_development_dependency "redis-rails"
+  s.add_development_dependency "resque-scheduler", "~> 3.1"
 end
