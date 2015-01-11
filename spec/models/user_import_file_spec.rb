@@ -72,7 +72,7 @@ describe UserImportFile do
       @file.executed_at.should be_truthy
 
       @file.reload
-      @file.error_message.should eq "The follwing column(s) were ignored: invalid"
+      @file.error_message.should eq "次の列は無視されました。 invalid"
     end
 
     it "should send message when import is completed" do
@@ -124,7 +124,7 @@ describe UserImportFile do
     file.default_user_group = UserGroup.find(2)
     file.default_library = Library.find(3)
     file.save
-    UserImportFileQueue.perform(file.id).should be_truthy
+    UserImportFileJob.perform_later(file).should be_truthy
   end
 end
 

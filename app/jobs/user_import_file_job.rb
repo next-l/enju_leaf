@@ -1,4 +1,4 @@
-class UserImportJob < ActiveJob::Base
+class UserImportFileJob < ActiveJob::Base
   queue_as :default
 
   def perform(user_import_file)

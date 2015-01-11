@@ -59,7 +59,7 @@ class UserExportFilesController < ApplicationController
     respond_to do |format|
       if @user_export_file.save
         if @user_export_file.mode == 'export'
-          UserExportJob.perform_later(@user_export_file)
+          UserExportFileJob.perform_later(@user_export_file)
         end
         format.html { redirect_to @user_export_file, notice: t('export.successfully_created', model: t('activerecord.models.user_export_file')) }
         format.json { render json: @user_export_file, status: :created, location: @user_export_file }
