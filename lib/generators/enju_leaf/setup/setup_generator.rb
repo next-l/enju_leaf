@@ -5,7 +5,7 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
   def copy_setup_files
     directory("db/fixtures", "db/fixtures/enju_leaf")
     copy_file("Procfile", "Procfile")
-    copy_file("config/application.yml", "config/application.yml")
+    copy_file("config/enju_leaf.yml", "config/enju_leaf.yml")
     copy_file("config/resque.yml", "config/resque.yml")
     copy_file("config/schedule.rb", "config/schedule.rb")
     inject_into_file 'config/application.rb', after: /# config.i18n.default_locale = :de$\n/ do
