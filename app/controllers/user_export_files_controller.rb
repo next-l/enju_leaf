@@ -76,7 +76,7 @@ class UserExportFilesController < ApplicationController
     respond_to do |format|
       if @user_export_file.update_attributes(user_export_file_params)
         if @user_export_file.mode == 'export'
-          UserExportFileQueue.perform(@user_export_file.id)
+          UserExportFileJob.perform_later(@user_export_file)
         end
         format.html { redirect_to @user_export_file, notice: t('controller.successfully_updated', model: t('activerecord.models.user_export_file')) }
         format.json { head :no_content }
