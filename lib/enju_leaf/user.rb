@@ -207,7 +207,7 @@ module EnjuLeaf
 
       def send_confirmation_instructions
         unless self.operator
-          Devise::Mailer.confirmation_instructions(self).deliver if self.email.present?
+          Devise::Mailer.confirmation_instructions(self).deliver_later if self.email.present?
         end
       end
 

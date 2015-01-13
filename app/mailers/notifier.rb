@@ -1,6 +1,4 @@
-class Notifier < ActionMailer::Base
-  include Resque::Mailer
-
+class Notifier < ApplicationMailer
   def message_notification(message_id)
     message = Message.find(message_id)
     I18n.locale = message.receiver.profile.locale.try(:to_sym) || I18n.default_locale
