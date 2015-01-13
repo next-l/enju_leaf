@@ -38,6 +38,8 @@
     </td>
     <td>
       <%= profile.user.try(:username) -%>
+      <br />
+      <%= profile.full_name %>
     </td>
     <td><%= l(profile.created_at) -%></td>
     <td>
