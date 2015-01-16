@@ -17,13 +17,7 @@
       <%= link_to image_tag('icons/feed.png', size: '16x16', alt: 'RSS', class: 'icon'), checkouts_path(user_id: current_user.username, format: :rss) %>
       <%= link_to image_tag('icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'icon'), checkouts_path(user_id: current_user.username, format: :txt) %>
     </h2>
-    <table class="table table-striped index">
-      <tr>
-        <th><%= t('activerecord.models.item') %></th>
-        <th><%= t('activerecord.attributes.checkout.due_date') %></th>
-      </tr>
-      <%= render 'checkouts/list', checkouts: current_user.checkouts %>
-    </table>
+    <%= render 'checkouts/list', checkouts: current_user.checkouts.page(params[:page]) %>
   <% end %>
 </div>
 </div>
