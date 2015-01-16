@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   #s.add_dependency "enju_biblio", "~> 0.1.0.pre63"
   #s.add_dependency "enju_library", "~> 0.1.0.pre39"
   #s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre16"
-  s.add_dependency "friendly_id", "~> 5.1.0.beta1"
+  s.add_dependency "friendly_id", "~> 5.1"
   s.add_dependency "kaminari", "~> 0.15.1"
   s.add_dependency "devise", "~> 3.4"
   #s.add_dependency "pundit"
