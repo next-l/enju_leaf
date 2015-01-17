@@ -90,10 +90,10 @@ describe ProfilesController do
         assert_redirected_to my_account_url
       end
 
-      it "should show other user's account" do
+      it "should not show other user's account" do
         get :show, id: profiles(:admin).id
         assigns(:profile).should eq(profiles(:admin))
-        response.should be_success
+        response.should be_forbidden
       end
     end
 
@@ -130,7 +130,7 @@ describe ProfilesController do
 
       it "should not assign the requested user as @profile" do
         get :new
-        assigns(:profile).should_not be_valid
+        assigns(:profile).should be_nil
         response.should be_forbidden
       end
     end
@@ -138,7 +138,7 @@ describe ProfilesController do
     describe "When not logged in" do
       it "should not assign the requested user as @profile" do
         get :new
-        assigns(:profile).should_not be_valid
+        assigns(:profile).should be_nil
         response.should redirect_to(new_user_session_url)
       end
     end

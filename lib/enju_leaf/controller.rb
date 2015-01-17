@@ -7,6 +7,7 @@ module EnjuLeaf
 
     private
     def set_error_template
+      rescue_from Pundit::NotAuthorizedError, with: :render_403
       rescue_from CanCan::AccessDenied, with: :render_403
       #rescue_from ActiveRecord::RecordNotFound, with: :render_404
       rescue_from Errno::ECONNREFUSED, with: :render_500

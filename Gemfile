@@ -18,6 +18,7 @@ gem "enju_event", github: "next-l/enju_event", branch: "master"
 gem "enju_message", github: "next-l/enju_message", branch: "master"
 gem "enju_search_log", github: "next-l/enju_search_log", branch: "master"
 gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer", branch: "master"
+gem "cancancan"
 gem "coveralls", require: false, group: :test
 
 # To use a debugger

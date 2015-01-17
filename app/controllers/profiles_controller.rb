@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 class ProfilesController < ApplicationController
-  load_and_authorize_resource except: [:index, :create]
-  authorize_resource only: [:index, :create]
-  before_filter :prepare_options, only: [:new, :edit]
+  before_action :set_profile, only: [:show, :edit, :update, :destroy]
+  before_action :check_policy, only: [:index, :new, :create]
+  before_action :prepare_options, only: [:new, :edit]
 
   # GET /profiles
   # GET /profiles.json
@@ -146,6 +146,15 @@ class ProfilesController < ApplicationController
   end
 
   private
+  def set_profile
+    @profile = Profile.find(params[:id])
+    authorize @profile
+  end
+
+  def check_policy
+    authorize Profile
+  end
+
   def profile_params
     attrs = [
       :full_name, :full_name_transcription,
