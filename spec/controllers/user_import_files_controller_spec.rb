@@ -27,7 +27,7 @@ describe UserImportFilesController do
 
       it "assigns empty as @user_import_files" do
         get :index
-        assigns(:user_import_files).should be_empty
+        assigns(:user_import_files).should be_nil
         expect(response).to be_forbidden
       end
     end
@@ -35,7 +35,7 @@ describe UserImportFilesController do
     describe "When not logged in" do
       it "assigns empty as @user_import_files" do
         get :index
-        assigns(:user_import_files).should be_empty
+        assigns(:user_import_files).should be_nil
         expect(response).to redirect_to(new_user_session_url)
       end
     end
@@ -95,7 +95,7 @@ describe UserImportFilesController do
     describe "When logged in as Librarian" do
       login_fixture_librarian
 
-      it "should not assign the requested user_import_file as @user_import_file" do
+      it "assigns the requested user_import_file as @user_import_file" do
         get :new
         assigns(:user_import_file).should_not be_valid
         expect(response).to be_success
@@ -107,7 +107,7 @@ describe UserImportFilesController do
 
       it "should not assign the requested user_import_file as @user_import_file" do
         get :new
-        assigns(:user_import_file).should_not be_valid
+        assigns(:user_import_file).should be_nil
         expect(response).to be_forbidden
       end
     end
@@ -115,7 +115,7 @@ describe UserImportFilesController do
     describe "When not logged in" do
       it "should not assign the requested user_import_file as @user_import_file" do
         get :new
-        assigns(:user_import_file).should_not be_valid
+        assigns(:user_import_file).should be_nil
         expect(response).to redirect_to(new_user_session_url)
       end
     end
@@ -148,7 +148,7 @@ describe UserImportFilesController do
 
       it "should be forbidden" do
         post :create, :user_import_file => {:user_import => fixture_file_upload("/../../examples/user_import_file_sample.tsv", 'text/csv') }
-        assigns(:user_import_file).user.should be_nil
+        assigns(:user_import_file).should be_nil
         expect(response).to be_forbidden
       end
     end
@@ -156,7 +156,7 @@ describe UserImportFilesController do
     describe "When not logged in" do
       it "should be redirected to new session url" do
         post :create, :user_import_file => {:user_import => fixture_file_upload("/../../examples/user_import_file_sample.tsv", 'text/csv') }
-        assigns(:user_import_file).user.should be_nil
+        assigns(:user_import_file).should be_nil
         expect(response).to redirect_to new_user_session_url
       end
     end

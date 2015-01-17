@@ -1,4 +1,4 @@
-class RolePolicy < ApplicationPolicy
+class UserImportResultPolicy < ApplicationPolicy
   def index?
     true if user.try(:has_role?, 'Librarian')
   end
@@ -12,9 +12,7 @@ class RolePolicy < ApplicationPolicy
   end
 
   def update?
-    if user.try(:has_role?, 'Administrator')
-      true
-    end
+    false
   end
 
   def destroy?

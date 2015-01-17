@@ -1,5 +1,6 @@
 class UserImportResultsController < ApplicationController
-  load_and_authorize_resource
+  before_action :set_user_import_result, only: [:show, :edit, :update, :destroy]
+  before_action :check_policy, only: [:index, :new, :create]
 
   # GET /user_import_results
   # GET /user_import_results.json
@@ -39,6 +40,15 @@ class UserImportResultsController < ApplicationController
   end
 
   private
+  def set_user_import_result
+    @user_import_result = UserImportResult.find(params[:id])
+    authorize @user_import_result
+  end
+
+  def check_policy
+    authorize UserImportResult
+  end
+
   def user_import_result_params
     params.require(:user_import_result).permit(
       :user_import_file_id, :user_id, :body

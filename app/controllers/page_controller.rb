@@ -1,8 +1,8 @@
 class PageController < ApplicationController
-  before_filter :clear_search_sessions, only: [:index, :advanced_search]
-  before_filter :store_location, only: [:advanced_search, :about, :add_on, :msie_acceralator, :statistics]
-  before_filter :authenticate_user!, except: [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics, :routing_error]
-  before_filter :check_librarian, except: [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics, :routing_error]
+  before_action :clear_search_sessions, only: [:index, :advanced_search]
+  before_action :store_location, only: [:advanced_search, :about, :add_on, :msie_acceralator, :statistics]
+  before_action :authenticate_user!, except: [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics, :routing_error]
+  before_action :check_librarian, except: [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics, :routing_error]
   helper_method :get_libraries
 
   def index

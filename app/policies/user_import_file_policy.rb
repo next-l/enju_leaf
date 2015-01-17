@@ -1,4 +1,4 @@
-class RolePolicy < ApplicationPolicy
+class UserImportFilePolicy < ApplicationPolicy
   def index?
     true if user.try(:has_role?, 'Librarian')
   end
@@ -8,16 +8,14 @@ class RolePolicy < ApplicationPolicy
   end
 
   def create?
-    false
+    true if user.try(:has_role?, 'Librarian')
   end
 
   def update?
-    if user.try(:has_role?, 'Administrator')
-      true
-    end
+    true if user.try(:has_role?, 'Librarian')
   end
 
   def destroy?
-    false
+    true if user.try(:has_role?, 'Librarian')
   end
 end
