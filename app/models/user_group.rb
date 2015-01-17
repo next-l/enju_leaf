@@ -1,7 +1,6 @@
 # -*- encoding: utf-8 -*-
 class UserGroup < ActiveRecord::Base
   include MasterModel
-  default_scope { order("user_groups.position") }
   has_many :profiles
 
   validates_numericality_of :valid_period_for_new_user,

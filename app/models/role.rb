@@ -1,6 +1,5 @@
 class Role < ActiveRecord::Base
   include MasterModel
-  default_scope { order("roles.position") }
   validates :name, presence: true, format: { with: /\A[A-Za-z][a-z_,]*[a-z]\Z/ }
   has_many :user_has_roles
   has_many :users, through: :user_has_roles
