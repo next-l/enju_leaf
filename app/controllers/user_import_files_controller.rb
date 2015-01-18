@@ -6,7 +6,7 @@ class UserImportFilesController < ApplicationController
   # GET /user_import_files
   # GET /user_import_files.json
   def index
-    @user_import_files = UserImportFile.page(params[:page])
+    @user_import_files = UserImportFile.order(id: :desc).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

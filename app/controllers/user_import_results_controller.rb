@@ -7,9 +7,9 @@ class UserImportResultsController < ApplicationController
   def index
     @user_import_file = UserImportFile.where(id: params[:user_import_file_id]).first
     if @user_import_file
-      @user_import_results = @user_import_file.user_import_results.page(params[:page])
+      @user_import_results = @user_import_file.user_import_results.order(id: :desc).page(params[:page])
     else
-      @user_import_results = UserImportResult.page(params[:page])
+      @user_import_results = UserImportResult.order(id: :desc).page(params[:page])
     end
 
     respond_to do |format|

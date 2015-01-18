@@ -1,5 +1,4 @@
 class UserImportResult < ActiveRecord::Base
-  default_scope { order('user_import_results.id') }
   scope :file_id, proc{ |file_id| where(user_import_file_id: file_id) }
   scope :failed, -> { where(user_id: nil) }
 
