@@ -189,7 +189,6 @@ module EnjuLeaf
 
     def current_ability
       @current_ability ||= EnjuLeaf::Ability.new(current_user, request.remote_ip.split('%')[0])
-      @current_ability.merge(EnjuBiblio::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuBiblio)
       @current_ability.merge(EnjuLibrary::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuLibrary)
       @current_ability.merge(EnjuNii::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuNii)
       @current_ability.merge(EnjuSubject::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuSubject)

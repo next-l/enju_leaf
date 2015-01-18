@@ -55,7 +55,7 @@
       <% if defined?(EnjuMessage) %>
         <li><%= link_to t('message.send'), new_message_path(recipient: @profile.user.username) -%></li>
       <% end %>
-      <%- if policy(@profile).create? -%>
+      <%- if policy(Profile).create? -%>
         <li><%= link_to t('page.new', model: t('activerecord.models.profile')), new_profile_path -%></li>
       <% end %>
       <%- if policy(@profile).destroy? -%>
