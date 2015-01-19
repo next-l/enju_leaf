@@ -4,7 +4,6 @@ require "enju_leaf/controller"
 require "enju_leaf/user"
 require "enju_leaf/helper"
 require "enju_leaf/calculate_stat"
-require "enju_leaf/calculate_stat"
 require "enju_leaf/import_file"
 require "enju_leaf/export_file"
 require "enju_leaf/localized_name"
@@ -196,15 +195,13 @@ module EnjuLeaf
       @current_ability.merge(EnjuMessage::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuMessage)
       @current_ability.merge(EnjuInterLibraryLoan::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuInterLibraryLoan)
       @current_ability.merge(EnjuInventory::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuInventory)
-      @current_ability.merge(EnjuNews::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuNews)
-      @current_ability.merge(EnjuSearchLog::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuSearchLog)
       @current_ability.merge(EnjuIr::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuIr)
       @current_ability
     end
 
     def get_top_page_content
       if defined?(EnjuNews)
-        @news_feeds = Rails.cache.fetch('news_feed_all'){NewsFeed.all}
+        @news_feeds = Rails.cache.fetch('news_feed_all'){NewsFeed.order(:position)}
         @news_posts = NewsPost.limit(Rails.application.config_for(:enju_leaf)["news_post"]["number.top_page"])
       end
       @libraries = Library.real
