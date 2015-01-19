@@ -187,7 +187,7 @@ module EnjuLeaf
     end
 
     def current_ability
-      @current_ability ||= EnjuCirculation::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuCirculation)
+      @current_ability ||= EnjuCirculation::Ability.new(current_user, request.remote_ip.split('%')[0]) if defined?(EnjuCirculation)
       @current_ability.merge(EnjuPurchaseRequest::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuPurchaseRequest)
       @current_ability.merge(EnjuQuestion::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuQuestion)
       @current_ability.merge(EnjuBookmark::Ability.new(current_user, request.remote_ip.split('%')[0])) if defined?(EnjuBookmark)
