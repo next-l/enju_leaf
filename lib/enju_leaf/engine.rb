@@ -1,7 +1,6 @@
 require 'kaminari'
 require 'devise'
 require 'pundit'
-require 'cancancan'
 require 'acts_as_list'
 require 'normalizr'
 require 'friendly_id'

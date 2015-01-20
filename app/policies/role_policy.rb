@@ -12,9 +12,7 @@ class RolePolicy < ApplicationPolicy
   end
 
   def update?
-    if user.try(:has_role?, 'Administrator')
-      true
-    end
+    true if user.try(:has_role?, 'Administrator')
   end
 
   def destroy?
