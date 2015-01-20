@@ -118,7 +118,7 @@ module EnjuLeaf
     end
 
     def access_denied
-      raise CanCan::AccessDenied
+      raise Pundit::NotAuthorizedError
     end
 
     def get_user
