@@ -170,7 +170,7 @@ class UserImportFile < ActiveRecord::Base
       user = User.where(username: username).first
       if user
         UserImportFile.transaction do
-          profile.destroy
+          user.profile.destroy
           user.destroy
         end
       end
