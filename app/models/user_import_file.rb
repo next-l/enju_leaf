@@ -168,7 +168,12 @@ class UserImportFile < ActiveRecord::Base
       row_num += 1
       username = row['username'].to_s.strip
       user = User.where(username: username).first
-      user.destroy if user
+      if user
+        UserImportFile.transaction do
+          profile.destroy
+          user.destroy
+        end
+      end
     end
     transition_to!(:completed)
   rescue => e
