@@ -16,6 +16,7 @@ defaults: &defaults
     hostname: www.amazon.co.jp
     access_key_id: REPLACE_WITH_YOUR_AMAZON_ACCESS_KEY
     secret_access_key: REPLACE_WITH_YOUR_AMAZON_SECRET_ACCESS_KEY
+    bucket: enju_leaf
 
 # :google, :amazon
   book_jacket:
