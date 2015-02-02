@@ -19,7 +19,7 @@
         <td><%= link_to user_export_file.id, user_export_file %></td>
         <td><%= user_export_file.user.try(:username) %></td>
         <td>
-          <%= link_to user_export_file.user_export_file_name, user_export_file.user_export.url if user_export_file.user_export.path %>
+          <%= link_to user_export_file.user_export_file_name, user_export_file_path(user_export_file, format: :download) if user_export_file.user_export_file_name %>
           <br />
           <%= user_export_file.created_at %>
         </td>

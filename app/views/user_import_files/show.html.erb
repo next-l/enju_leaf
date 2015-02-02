@@ -10,7 +10,7 @@
 
 <p>
   <strong><%= t('activerecord.attributes.user_import_file.user_import_file_name') -%>:</strong>
-  <%= link_to @user_import_file.user_import_file_name, user_import_file_path(@user_import_file, format: :download) -%>
+  <%= link_to @user_import_file.user_import_file_name, user_import_file_path(@user_import_file, format: :download) if @user_import_file.user_import_file_name %>
 </p>
 
 <p>
