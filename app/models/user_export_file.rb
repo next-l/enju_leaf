@@ -4,7 +4,7 @@ class UserExportFile < ActiveRecord::Base
   enju_export_file_model
   if Setting.uploaded_file.storage == :s3
     has_attached_file :user_export, storage: :s3,
-      s3_credentials: "#{Setting.amazon}",
+      s3_credentials: Setting.amazon,
       s3_permissions: :private
   else
     has_attached_file :user_export
