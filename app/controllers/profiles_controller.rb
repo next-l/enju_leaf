@@ -136,7 +136,6 @@ class ProfilesController < ApplicationController
   # DELETE /profiles/1
   # DELETE /profiles/1.json
   def destroy
-    @profile.user.destroy
     @profile.destroy
 
     respond_to do |format|
