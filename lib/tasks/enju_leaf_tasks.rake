@@ -37,4 +37,9 @@ namespace :enju_leaf do
     Rails::Engine.subclasses.each{|engine| engine.instance.eager_load!}
     Rake::Task['sunspot:reindex'].execute(args)
   end
+
+  desc 'Export items'
+  task :item => :environment do
+    puts Manifestation.export(format: :txt)
+  end
 end
