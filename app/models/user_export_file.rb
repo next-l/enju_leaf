@@ -7,7 +7,8 @@ class UserExportFile < ActiveRecord::Base
       s3_credentials: "#{Rails.application.config_for(:enju_leaf)["amazon"]}",
       s3_permissions: :private
   else
-    has_attached_file :user_export
+    has_attached_file :user_export,
+      path: ":rails_root/private/system/:class/:attachment/:id_partition/:style/:filename"
   end
   validates_attachment_content_type :user_export, content_type: /\Atext\/plain\Z/
 
