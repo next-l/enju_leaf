@@ -14,8 +14,6 @@ defaults: &defaults
   amazon:
     aws_hostname: ecs.amazonaws.jp
     hostname: www.amazon.co.jp
-    access_key: REPLACE_WITH_YOUR_AMAZON_ACCESS_KEY
-    secret_access_key: REPLACE_WITH_YOUR_AMAZON_SECRET_ACCESS_KEY
 
 # :google, :amazon
   book_jacket:
