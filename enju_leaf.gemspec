@@ -44,7 +44,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mysql2"
   s.add_development_dependency "pg"
-  s.add_development_dependency "rspec-rails", "~> 3.1"
+  s.add_development_dependency "rspec-rails", "~> 3.2"
   #s.add_development_dependency "enju_circulation", "~> 0.1.0.pre41"
   #s.add_development_dependency "enju_bookmark", "~> 0.1.2.pre20"
   #s.add_development_dependency "enju_search_log", "~> 0.1.0.pre9"
@@ -57,5 +57,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec-activemodel-mocks"
   s.add_development_dependency "charlock_holmes"
   s.add_development_dependency "redis-rails"
-  s.add_development_dependency "resque-scheduler", "~> 3.1"
+  s.add_development_dependency "resque-scheduler", "~> 4.0"
 end
