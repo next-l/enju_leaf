@@ -17,3 +17,4 @@ env:
 notifications:
   slack:
     secure: ZbjsNTloRj5xbP5nRcwrqAJKC+6Kwo4M+J7Z+aXcHtKTzWfxfJw/aN47CrLm1afd8m+JPgEP3FjsXkOSBxfHiSwitZv4F6PjDaNcRXsv6gMI4dI+AhGTeXQuGtXDdYljipMVYAg0+Og3aVV7ZyesiugkLLMGV5d0TF/7mSVbWVs=
+sudo: false
