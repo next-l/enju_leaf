@@ -12,7 +12,7 @@
       <%= auto_discovery_link_tag(:atom, news_posts_url(format: :atom, locale: @locale), title: (t('news_post.library_group_news_post', library_group_name: @library_group.display_name.localize) + " (Atom)")) %>
     <% end %>
   <% end %>
-  <%= book_jacket_header(Rails.application.config_for(:enju_leaf)["book_jacket"]["source"]) %>
+  <%= book_jacket_header(ENV['ENJU_BOOK_JACKET_SOURCE']) %>
   <% if controller.controller_name == 'page' %>
     <%= render 'page/portlets' %>
   <% end %>

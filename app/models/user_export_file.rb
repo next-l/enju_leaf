@@ -2,7 +2,8 @@ class UserExportFile < ActiveRecord::Base
   include Statesman::Adapters::ActiveRecordQueries
   include ExportFile
   enju_export_file_model
-  if Rails.application.config_for(:enju_leaf)["uploaded_file"]["storage"] == :s3
+
+  if ENV['ENJU_STORAGE'] == 's3'
     has_attached_file :user_export, storage: :s3,
       s3_credentials: {
         access_key: ENV['AWS_ACCESS_KEY_ID'],

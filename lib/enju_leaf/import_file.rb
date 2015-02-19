@@ -72,12 +72,12 @@ module ImportFile
       else
         output_encoding = '-w'
       end
-      string = NKF.nkf("#{output_encoding} -Lu", line)
+      NKF.nkf("#{output_encoding} -Lu", line)
     end
 
     def create_import_temp_file(attachment)
       tempfile = Tempfile.new(self.class.name.underscore)
-      if Rails.application.config_for(:enju_leaf)["uploaded_file"]["storage"] == :s3
+      if ENV['ENJU_STORAGE'] == 's3'
         uploaded_file_path = attachment.expiring_url(10)
       else
         uploaded_file_path = attachment.path

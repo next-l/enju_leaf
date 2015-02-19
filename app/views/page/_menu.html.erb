@@ -125,8 +125,8 @@
             <% if defined?(EnjuSearchLog) %>
               <li><%= link_to t('activerecord.models.search_history'), search_histories_path %></li>
             <% end %>
-            <% if Rails.application.config_for(:enju_leaf)["enju"]["erms_url"] %>
-              <li><%= link_to t('page.electronic_resource_management'), Rails.application.config_for(:enju_leaf)["enju"]["erms_url"] -%></li>
+            <% if ENV['ENJU_ERMS_URL'] %>
+              <li><%= link_to t('page.electronic_resource_management'), ENV['ENJU_ERMS_URL'] -%></li>
             <% end %>
             <li><%= link_to t('page.configuration'), page_configuration_path -%></li>
           <% else %>
