@@ -6,7 +6,7 @@ describe UserImportFile do
 
   describe "when its mode is 'create'" do
     before(:each) do
-      @file = UserImportFile.new :user_import => File.new("#{Rails.root.to_s}/../../examples/user_import_file_sample.tsv")
+      @file = UserImportFile.new :user_import => File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv")
       @file.default_user_group = UserGroup.find(2)
       @file.default_library = Library.find(3)
       @file.user = users(:admin)
@@ -95,14 +95,14 @@ describe UserImportFile do
 
   describe "when its mode is 'update'" do
     it "should update users" do
-      @file = UserImportFile.create :user_import => File.new("#{Rails.root.to_s}/../../examples/user_update_file.tsv")
+      @file = UserImportFile.create :user_import => File.new("#{Rails.root}/../../examples/user_update_file.tsv")
       @file.modify
     end
   end
 
   describe "when its mode is 'destroy'" do
     before(:each) do
-      @file = UserImportFile.new :user_import => File.new("#{Rails.root.to_s}/../../examples/user_import_file_sample.tsv")
+      @file = UserImportFile.new :user_import => File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv")
       @file.user = users(:admin)
       @file.default_user_group = UserGroup.find(2)
       @file.default_library = Library.find(3)
@@ -112,14 +112,14 @@ describe UserImportFile do
 
     it "should remove users" do
       old_count = User.count
-      @file = UserImportFile.create :user_import => File.new("#{Rails.root.to_s}/../../examples/user_delete_file.tsv")
+      @file = UserImportFile.create :user_import => File.new("#{Rails.root}/../../examples/user_delete_file.tsv")
       @file.remove
       User.count.should eq old_count - 3
     end
   end
 
   it "should import in background" do
-    file = UserImportFile.new :user_import => File.new("#{Rails.root.to_s}/../../examples/user_import_file_sample.tsv")
+    file = UserImportFile.new :user_import => File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv")
     file.user = users(:admin)
     file.default_user_group = UserGroup.find(2)
     file.default_library = Library.find(3)

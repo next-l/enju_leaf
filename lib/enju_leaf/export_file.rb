@@ -14,10 +14,10 @@ module ExportFile
 
   module InstanceMethods
     def send_message
-      sender = User.find(1)
+      sender = User.find(1) #system
       message_template = MessageTemplate.localized_template('export_completed', user.profile.locale)
       request = MessageRequest.new
-      request.assign_attributes({:sender => sender, :receiver => user, :message_template => message_template})
+      request.assign_attributes({sender: sender, receiver: user, message_template: message_template})
       request.save_message_body
       request.transition_to!(:sent)
     end

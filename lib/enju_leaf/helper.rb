@@ -29,15 +29,15 @@ module EnjuLeaf
     end
   
     def locale_display_name(locale)
-      Language.where(:iso_639_1 => locale).first.display_name
+      Language.where(iso_639_1: locale).first.display_name
     end
   
     def locale_native_name(locale)
-      Language.where(:iso_639_1 => locale).first.native_name
+      Language.where(iso_639_1: locale).first.native_name
     end
   
     def move_position(object)
-      render :partial => 'page/position', :locals => {:object => object}
+      render partial: 'page/position', locals: {object: object}
     end
   
     def localized_state(state)
@@ -91,7 +91,7 @@ module EnjuLeaf
         options.delete(:page) if options[:page].to_i == 1
       end
       unless controller_name == 'test'
-        link_to t('page.listing', :model => t("activerecord.models.#{controller_name.singularize}")), url_for(params.merge(:controller => controller_name, :action => :index, :id => nil, :only_path => true).merge(options))
+        link_to t('page.listing', model: t("activerecord.models.#{controller_name.singularize}")), url_for(params.merge(controller: controller_name, action: :index, id: nil, only_path: true).merge(options))
       end
     end
   
@@ -102,12 +102,11 @@ module EnjuLeaf
     def markdown_helper(string)
       return unless string
       if defined?(JRUBY_VERSION)
-        string
-      #  Kramdown::Document.new(string.to_s).to_html.html_safe
+        Kramdown::Document.new(string.to_s).to_html.html_safe
       else
         markdown = Redcarpet::Markdown.new(
           Redcarpet::Render::HTML,
-          :autolink => true, :safe_links_only => true
+          autolink: true, safe_links_only: true
         )
         markdown.render(string.to_s).html_safe
       end

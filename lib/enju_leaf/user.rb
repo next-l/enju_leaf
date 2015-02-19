@@ -19,7 +19,7 @@ module EnjuLeaf
         #  :expired_at, :locked, :role_id,
         #  :user_has_role_attributes, :auto_generated_password,
         #  :profile_attributes,
-        #  :as => :admin
+        #  as: :admin
 
         scope :administrators, -> { joins(:role).where('roles.name = ?', 'Administrator') }
         scope :librarians, -> { joins(:role).where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian') }
@@ -27,10 +27,10 @@ module EnjuLeaf
         has_one :profile
         if defined?(EnjuBiblio)
           has_many :import_requests
-          has_many :picture_files, :as => :picture_attachable, :dependent => :destroy
+          has_many :picture_files, as: :picture_attachable, dependent: :destroy
         end
-        has_one :user_has_role, :dependent => :destroy
-        has_one :role, :through => :user_has_role
+        has_one :user_has_role, dependent: :destroy
+        has_one :role, through: :user_has_role
         belongs_to :user_group
         belongs_to :library
         belongs_to :required_role, class_name: 'Role', foreign_key: 'required_role_id'
@@ -39,18 +39,18 @@ module EnjuLeaf
         validates :username, presence: true, uniqueness: true, format: {
           with: /\A[0-9A-Za-z][0-9A-Za-z_\-]*[0-9A-Za-z]\Z/
         }
-        validates :email, :format => Devise::email_regexp, :allow_blank => true, :uniqueness => true
-        validates_date :expired_at, :allow_blank => true
+        validates :email, format: Devise::email_regexp, allow_blank: true, uniqueness: true
+        validates_date :expired_at, allow_blank: true
 
-        with_options :if => :password_required? do |v|
+        with_options if: :password_required? do |v|
           v.validates_presence_of     :password
           v.validates_confirmation_of :password
-          v.validates_length_of       :password, :allow_blank => true,
-            :within => Devise::password_length
+          v.validates_length_of       :password, allow_blank: true,
+            within: Devise::password_length
         end
 
-        validates_presence_of     :email, :email_confirmation, :on => :create, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
-        validates_confirmation_of :email, :on => :create #, :if => proc{|user| !user.operator.try(:has_role?, 'Librarian')}
+        validates_presence_of     :email, :email_confirmation, on: :create, if: proc{|user| !user.operator.try(:has_role?, 'Librarian')}
+        validates_confirmation_of :email, on: :create #, if: proc{|user| !user.operator.try(:has_role?, 'Librarian')}
 
         before_validation :set_lock_information
         before_destroy :check_role_before_destroy
@@ -61,7 +61,7 @@ module EnjuLeaf
         friendly_id :username
         #has_paper_trail
         normalize_attributes :username
-        normalize_attributes :email, :with => :strip
+        normalize_attributes :email, with: :strip
 
         attr_accessor :operator, :password_not_verified,
           :update_own_account, :auto_generated_password,
@@ -178,7 +178,7 @@ module EnjuLeaf
 
       def check_role_before_destroy
         if self.has_role?('Administrator')
-          raise 'This is the last administrator in this system.' if Role.where(:name => 'Administrator').first.users.size == 1
+          raise 'This is the last administrator in this system.' if Role.where(name: 'Administrator').first.users.size == 1
         end
       end
 
@@ -200,7 +200,7 @@ module EnjuLeaf
 
       def last_librarian?
         if self.has_role?('Librarian')
-          role = Role.where(:name => 'Librarian').first
+          role = Role.where(name: 'Librarian').first
           true if role.users.size == 1
         end
       end
@@ -232,7 +232,7 @@ module EnjuLeaf
 
         # 最後の管理者を削除しようとした
         if has_role?('Administrator')
-          if Role.where(:name => 'Administrator').first.users.size == 1
+          if Role.where(name: 'Administrator').first.users.size == 1
             errors[:base] << I18n.t('user.last_administrator')
           end
         end
