@@ -12,11 +12,11 @@ describe UserImportFilesController do
     end
 
     it "routes to #show" do
-      get("/user_import_files/1").should route_to("user_import_files#show", :id => "1")
+      get("/user_import_files/1").should route_to("user_import_files#show", id: "1")
     end
 
     it "routes to #edit" do
-      get("/user_import_files/1/edit").should route_to("user_import_files#edit", :id => "1")
+      get("/user_import_files/1/edit").should route_to("user_import_files#edit", id: "1")
     end
 
     it "routes to #create" do
@@ -24,11 +24,11 @@ describe UserImportFilesController do
     end
 
     it "routes to #update" do
-      put("/user_import_files/1").should route_to("user_import_files#update", :id => "1")
+      put("/user_import_files/1").should route_to("user_import_files#update", id: "1")
     end
 
     it "routes to #destroy" do
-      delete("/user_import_files/1").should route_to("user_import_files#destroy", :id => "1")
+      delete("/user_import_files/1").should route_to("user_import_files#destroy", id: "1")
     end
 
   end

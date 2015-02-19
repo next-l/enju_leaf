@@ -11,14 +11,14 @@ describe MyAccountsController do
       end
 
       it "assigns the requested user as @user" do
-        get :show, :id => 'admin'
+        get :show, id: 'admin'
         expect(response).to be_success
       end
     end
 
     describe "When not logged in" do
       it "assigns the requested user as @user" do
-        get :show, :id => 'admin'
+        get :show, id: 'admin'
         expect(assigns(:user)).to be_nil
         expect(response).to redirect_to(new_user_session_url)
       end
@@ -80,8 +80,8 @@ describe MyAccountsController do
 
   describe "PUT update" do
     before(:each) do
-      @attrs = {:user_attributes => {:email => 'newaddress@example.jp', :current_password => 'password'}, :locale => 'en'}
-      @invalid_attrs = {:user_attributes => {:username => ''}, :user_number => '日本語'}
+      @attrs = {:user_attributes => {email: 'newaddress@example.jp', :current_password => 'password'}, :locale => 'en'}
+      @invalid_attrs = {:user_attributes => {username: ''}, user_number: '日本語'}
       @invalid_passwd_attrs = {:user_attributes => {:current_password=> ''}}
     end
 
@@ -124,11 +124,12 @@ describe MyAccountsController do
           expect(response).to render_template("edit")
         end
       end
+
       describe "with invalid password params" do
         it "assigns the requested user as @user" do
           put :update, profile: @invalid_passwd_attrs
-	  expect(assigns(:profile).errors).not_to be_blank
-	end
+          expect(assigns(:profile).errors).not_to be_blank
+        end
       end
     end
 

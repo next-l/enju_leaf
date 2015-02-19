@@ -46,7 +46,7 @@ describe UserImportFilesController do
       login_fixture_admin
 
       it "assigns the requested user_import_file as @user_import_file" do
-        get :show, :id => user_import_files(:two).id
+        get :show, id: user_import_files(:two).id
         assigns(:user_import_file).should eq(user_import_files(:two))
         expect(response).to be_success
       end
@@ -56,7 +56,7 @@ describe UserImportFilesController do
       login_fixture_librarian
 
       it "assigns the requested user_import_file as @user_import_file" do
-        get :show, :id => user_import_files(:two).id
+        get :show, id: user_import_files(:two).id
         assigns(:user_import_file).should eq(user_import_files(:two))
         expect(response).to be_success
       end
@@ -66,7 +66,7 @@ describe UserImportFilesController do
       login_fixture_user
 
       it "assigns the requested user_import_file as @user_import_file" do
-        get :show, :id => user_import_files(:two).id
+        get :show, id: user_import_files(:two).id
         assigns(:user_import_file).should eq(user_import_files(:two))
         expect(response).to be_forbidden
       end
@@ -74,7 +74,7 @@ describe UserImportFilesController do
 
     describe "When not logged in" do
       it "assigns the requested user_import_file as @user_import_file" do
-        get :show, :id => user_import_files(:two).id
+        get :show, id: user_import_files(:two).id
         assigns(:user_import_file).should eq(user_import_files(:two))
         expect(response).to redirect_to(new_user_session_url)
       end
@@ -168,7 +168,7 @@ describe UserImportFilesController do
 
       it "assigns the requested user_import_file as @user_import_file" do
         user_import_file = user_import_files(:one)
-        get :edit, :id => user_import_file.id
+        get :edit, id: user_import_file.id
         assigns(:user_import_file).should eq(user_import_file)
       end
     end
@@ -178,7 +178,7 @@ describe UserImportFilesController do
 
       it "assigns the requested user_import_file as @user_import_file" do
         user_import_file = user_import_files(:one)
-        get :edit, :id => user_import_file.id
+        get :edit, id: user_import_file.id
         assigns(:user_import_file).should eq(user_import_file)
       end
     end
@@ -188,7 +188,7 @@ describe UserImportFilesController do
 
       it "assigns the requested user_import_file as @user_import_file" do
         user_import_file = user_import_files(:one)
-        get :edit, :id => user_import_file.id
+        get :edit, id: user_import_file.id
         expect(response).to be_forbidden
       end
     end
@@ -196,7 +196,7 @@ describe UserImportFilesController do
     describe "When not logged in" do
       it "should not assign the requested user_import_file as @user_import_file" do
         user_import_file = user_import_files(:one)
-        get :edit, :id => user_import_file.id
+        get :edit, id: user_import_file.id
         expect(response).to redirect_to(new_user_session_url)
       end
     end
@@ -208,7 +208,7 @@ describe UserImportFilesController do
 
       it "should update user_import_file" do
         post :create, :user_import_file => {:user_import => fixture_file_upload("/../../examples/user_import_file_sample.tsv", 'text/csv') }
-        put :update, :id => assigns(:user_import_file).id, :user_import_file => { :note => 'test' }
+        put :update, id: assigns(:user_import_file).id, :user_import_file => { :note => 'test' }
         expect(response).to redirect_to user_import_file_url(assigns(:user_import_file))
       end
     end
@@ -218,7 +218,7 @@ describe UserImportFilesController do
 
       it "should update user_import_file" do
         post :create, :user_import_file => {:user_import => fixture_file_upload("/../../examples/user_import_file_sample.tsv", 'text/csv') }
-        put :update, :id => assigns(:user_import_file).id, :user_import_file => { :note => 'test' }
+        put :update, id: assigns(:user_import_file).id, :user_import_file => { :note => 'test' }
         expect(response).to redirect_to user_import_file_url(assigns(:user_import_file))
       end
     end
@@ -227,14 +227,14 @@ describe UserImportFilesController do
       login_fixture_user
 
       it "should not update user_import_file" do
-        put :update, :id => user_import_files(:two).id, :user_import_file => { }
+        put :update, id: user_import_files(:two).id, :user_import_file => { }
         expect(response).to be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "should not update user_import_file" do
-        put :update, :id => user_import_files(:two).id, :user_import_file => { }
+        put :update, id: user_import_files(:two).id, :user_import_file => { }
         expect(response).to redirect_to new_user_session_url
       end
     end
@@ -249,11 +249,11 @@ describe UserImportFilesController do
       login_fixture_admin
 
       it "destroys the requested user_import_file" do
-        delete :destroy, :id => @user_import_file.id
+        delete :destroy, id: @user_import_file.id
       end
 
       it "redirects to the user_import_files list" do
-        delete :destroy, :id => @user_import_file.id
+        delete :destroy, id: @user_import_file.id
         expect(response).to redirect_to(user_import_files_url)
       end
     end
@@ -262,11 +262,11 @@ describe UserImportFilesController do
       login_fixture_librarian
 
       it "destroys the requested user_import_file" do
-        delete :destroy, :id => @user_import_file.id
+        delete :destroy, id: @user_import_file.id
       end
 
       it "redirects to the user_import_files list" do
-        delete :destroy, :id => @user_import_file.id
+        delete :destroy, id: @user_import_file.id
         expect(response).to redirect_to(user_import_files_url)
       end
     end
@@ -275,22 +275,22 @@ describe UserImportFilesController do
       login_fixture_user
 
       it "destroys the requested user_import_file" do
-        delete :destroy, :id => @user_import_file.id
+        delete :destroy, id: @user_import_file.id
       end
 
       it "should be forbidden" do
-        delete :destroy, :id => @user_import_file.id
+        delete :destroy, id: @user_import_file.id
         expect(response).to be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "destroys the requested user_import_file" do
-        delete :destroy, :id => @user_import_file.id
+        delete :destroy, id: @user_import_file.id
       end
 
       it "should be forbidden" do
-        delete :destroy, :id => @user_import_file.id
+        delete :destroy, id: @user_import_file.id
         expect(response).to redirect_to(new_user_session_url)
       end
     end

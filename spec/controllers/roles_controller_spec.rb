@@ -45,7 +45,7 @@ describe RolesController do
 
       it "assigns the requested role as @role" do
         role = Role.find(1)
-        get :show, :id => role.id
+        get :show, id: role.id
         expect(assigns(:role)).to eq(role)
       end
     end
@@ -53,7 +53,7 @@ describe RolesController do
     describe "When not logged in" do
       it "assigns the requested role as @role" do
         role = Role.find(1)
-        get :show, :id => role.id
+        get :show, id: role.id
         expect(assigns(:role)).to eq(role)
       end
     end
@@ -65,7 +65,7 @@ describe RolesController do
 
       it "assigns the requested role as @role" do
         role = Role.find(1)
-        get :edit, :id => role.id
+        get :edit, id: role.id
         expect(assigns(:role)).to eq(role)
       end
     end
@@ -73,7 +73,7 @@ describe RolesController do
     describe "When not logged in" do
       it "should not assign the requested role as @role" do
         role = Role.find(1)
-        get :edit, :id => role.id
+        get :edit, id: role.id
         expect(response).to redirect_to(new_user_session_url)
       end
     end
@@ -83,7 +83,7 @@ describe RolesController do
     before(:each) do
       @role = Role.find(1)
       @attrs = {:display_name => 'guest user'}
-      @invalid_attrs = {:name => ''}
+      @invalid_attrs = {name: ''}
     end
 
     describe "When logged in as Administrator" do
@@ -91,23 +91,23 @@ describe RolesController do
 
       describe "with valid params" do
         it "updates the requested role" do
-          put :update, :id => @role.id, :role => @attrs
+          put :update, id: @role.id, :role => @attrs
         end
 
         it "assigns the requested role as @role" do
-          put :update, :id => @role.id, :role => @attrs
+          put :update, id: @role.id, :role => @attrs
           expect(assigns(:role)).to eq(@role)
         end
 
         it "moves its position when specified" do
-          put :update, :id => @role.id, :role => @attrs, :move => 'lower'
+          put :update, id: @role.id, :role => @attrs, move: 'lower'
           expect(response).to redirect_to(roles_url)
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested role as @role" do
-          put :update, :id => @role.id, :role => @invalid_attrs
+          put :update, id: @role.id, :role => @invalid_attrs
           expect(response).to render_template("edit")
         end
       end
@@ -116,18 +116,18 @@ describe RolesController do
     describe "When not logged in" do
       describe "with valid params" do
         it "updates the requested role" do
-          put :update, :id => @role.id, :role => @attrs
+          put :update, id: @role.id, :role => @attrs
         end
 
         it "should be forbidden" do
-          put :update, :id => @role.id, :role => @attrs
+          put :update, id: @role.id, :role => @attrs
           expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested role as @role" do
-          put :update, :id => @role.id, :role => @invalid_attrs
+          put :update, id: @role.id, :role => @invalid_attrs
           expect(response).to redirect_to(new_user_session_url)
         end
       end

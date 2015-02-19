@@ -72,8 +72,8 @@ module EnjuLeaf
       return if performed?
       #flash[:notice] = t('page.connection_failed')
       respond_to do |format|
-        format.html {render file: "#{Rails.root.to_s}/public/500", layout: false, status: 500}
-        format.mobile {render file: "#{Rails.root.to_s}/public/500", layout: false, status: 500}
+        format.html {render file: "#{Rails.root}/public/500", layout: false, status: 500}
+        format.mobile {render file: "#{Rails.root}/public/500", layout: false, status: 500}
         format.xml {render template: 'page/500', status: 500}
         format.json { render text: '{"error": "server_error"}' }
         format.xml {render template: 'page/500.xml', status: 500}

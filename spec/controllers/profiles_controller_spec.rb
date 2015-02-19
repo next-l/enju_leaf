@@ -5,9 +5,9 @@ describe ProfilesController do
   fixtures :all
 
   describe "GET index", :solr => true do
-		before do
-			Profile.reindex
-		end
+    before do
+      Profile.reindex
+    end
 
     describe "When logged in as Administrator" do
       login_fixture_admin
@@ -202,24 +202,24 @@ describe ProfilesController do
 
       describe "with valid params" do
         it "assigns a newly created user as @profile" do
-          post :create, :profile => @attrs
+          post :create, profile: @attrs
           assigns(:profile).should be_valid
         end
 
         it "redirects to the created user" do
-          post :create, :profile => @attrs
+          post :create, profile: @attrs
           response.should redirect_to(profile_url(assigns(:profile)))
         end
       end
 
       describe "with invalid params" do
         it "assigns a newly created but unsaved user as @profile" do
-          post :create, :profile => @invalid_attrs
+          post :create, profile: @invalid_attrs
           assigns(:profile).should_not be_valid
         end
 
         it "re-renders the 'new' template" do
-          post :create, :profile => @invalid_attrs
+          post :create, profile: @invalid_attrs
           response.should render_template("new")
         end
       end
@@ -230,24 +230,24 @@ describe ProfilesController do
 
       describe "with valid params" do
         it "assigns a newly created user as @profile" do
-          post :create, :profile => @attrs
+          post :create, profile: @attrs
           assigns(:profile).should be_valid
         end
 
         it "redirects to the created user" do
-          post :create, :profile => @attrs
+          post :create, profile: @attrs
           response.should redirect_to(profile_url(assigns(:profile)))
         end
       end
 
       describe "with invalid params" do
         it "assigns a newly created but unsaved user as @profile" do
-          post :create, :profile => @invalid_attrs
+          post :create, profile: @invalid_attrs
           assigns(:profile).should_not be_valid
         end
 
         it "re-renders the 'new' template" do
-          post :create, :profile => @invalid_attrs
+          post :create, profile: @invalid_attrs
           response.should render_template("new")
         end
       end
@@ -311,7 +311,7 @@ describe ProfilesController do
       end
 
       it "should update other user's role" do
-        put :update, id: profiles(:user1).id, profile: {:user_attributes => {:user_has_role_attributes => {:role_id => 4}, :email => profiles(:user1).user.email, :locale => 'en', :id => profiles(:user1).user.id}}
+        put :update, id: profiles(:user1).id, profile: {:user_attributes => {:user_has_role_attributes => {:role_id => 4}, :email => profiles(:user1).user.email, :locale => 'en', id: profiles(:user1).user.id}}
         response.should redirect_to profile_url(assigns(:profile))
         assigns(:profile).reload
         assigns(:profile).user.role.should eq Role.where(name: 'Administrator').first

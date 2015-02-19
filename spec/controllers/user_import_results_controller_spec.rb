@@ -47,7 +47,7 @@ describe UserImportResultsController do
       login_fixture_admin
 
       it "assigns the requested user_import_result as @user_import_result" do
-        get :show, :id => 1
+        get :show, id: 1
         assigns(:user_import_result).should eq(UserImportResult.find(1))
       end
     end
@@ -56,7 +56,7 @@ describe UserImportResultsController do
       login_fixture_librarian
 
       it "assigns the requested user_import_result as @user_import_result" do
-        get :show, :id => 1
+        get :show, id: 1
         assigns(:user_import_result).should eq(UserImportResult.find(1))
       end
     end
@@ -65,14 +65,14 @@ describe UserImportResultsController do
       login_fixture_user
 
       it "assigns the requested user_import_result as @user_import_result" do
-        get :show, :id => 1
+        get :show, id: 1
         assigns(:user_import_result).should eq(UserImportResult.find(1))
       end
     end
 
     describe "When not logged in" do
       it "assigns the requested user_import_result as @user_import_result" do
-        get :show, :id => 1
+        get :show, id: 1
         assigns(:user_import_result).should eq(UserImportResult.find(1))
         response.should redirect_to(new_user_session_url)
       end
@@ -88,11 +88,11 @@ describe UserImportResultsController do
       login_fixture_admin
 
       it "destroys the requested user_import_result" do
-        delete :destroy, :id => @user_import_result.id
+        delete :destroy, id: @user_import_result.id
       end
 
       it "should be forbidden" do
-        delete :destroy, :id => @user_import_result.id
+        delete :destroy, id: @user_import_result.id
         response.should be_forbidden
       end
     end
@@ -101,11 +101,11 @@ describe UserImportResultsController do
       login_fixture_librarian
 
       it "destroys the requested user_import_result" do
-        delete :destroy, :id => @user_import_result.id
+        delete :destroy, id: @user_import_result.id
       end
 
       it "should be forbidden" do
-        delete :destroy, :id => @user_import_result.id
+        delete :destroy, id: @user_import_result.id
         response.should be_forbidden
       end
     end
@@ -114,22 +114,22 @@ describe UserImportResultsController do
       login_fixture_user
 
       it "destroys the requested user_import_result" do
-        delete :destroy, :id => @user_import_result.id
+        delete :destroy, id: @user_import_result.id
       end
 
       it "should be forbidden" do
-        delete :destroy, :id => @user_import_result.id
+        delete :destroy, id: @user_import_result.id
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "destroys the requested user_import_result" do
-        delete :destroy, :id => @user_import_result.id
+        delete :destroy, id: @user_import_result.id
       end
 
       it "should be forbidden" do
-        delete :destroy, :id => @user_import_result.id
+        delete :destroy, id: @user_import_result.id
         response.should redirect_to(new_user_session_url)
       end
     end

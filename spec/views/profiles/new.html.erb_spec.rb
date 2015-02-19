@@ -18,8 +18,8 @@ describe "profiles/new" do
     render
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "form", :action => profiles_path, :method => "post" do
-      assert_select "input#profile_user_number", :name => "profile[user_number]"
+    assert_select "form", action: profiles_path, method: "post" do
+      assert_select "input#profile_user_number", name: "profile[user_number]"
     end
   end
 end

@@ -7,7 +7,7 @@ FactoryGirl.define do
     f.password_confirmation 'adminpassword'
     f.after(:create) do |user|
       user_has_role = UserHasRole.new
-      user_has_role.assign_attributes({:user_id => user.id, :role_id => Role.find_by_name('Administrator').id})
+      user_has_role.assign_attributes({user_id: user.id, role_id: Role.find_by_name('Administrator').id})
       user_has_role.save
       user.reload
     end
@@ -21,7 +21,7 @@ FactoryGirl.define do
     f.password_confirmation 'librarianpassword'
     f.after(:create) do |user|
       user_has_role = UserHasRole.new
-      user_has_role.assign_attributes({:user_id => user.id, :role_id => Role.find_by_name('Librarian').id})
+      user_has_role.assign_attributes({user_id: user.id, role_id: Role.find_by_name('Librarian').id})
       user_has_role.save
       user.reload
     end
@@ -35,12 +35,12 @@ FactoryGirl.define do
     f.password_confirmation 'userpassword'
     f.after(:create) do |user|
       user_has_role = UserHasRole.new
-      user_has_role.assign_attributes({:user_id => user.id, :role_id => Role.find_by_name('User').id})
+      user_has_role.assign_attributes({user_id: user.id, role_id: Role.find_by_name('User').id})
       user_has_role.save
       user.reload
     end
   end
 
-  factory :invalid_user, :class => User do |f|
+  factory :invalid_user, class: User do |f|
   end
 end
