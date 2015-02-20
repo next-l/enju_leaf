@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  authenticate :user, lambda {|u| u.role.try(:name) == 'Administrator' } do
+    mount Resque::Server.new, at: "/resque", as: :resque
+  end
   devise_for :users
 
   # The priority is based upon order of creation: first created -> highest priority.

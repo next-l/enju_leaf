@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  authenticate :user, lambda {|u| u.role.try(:name) == 'Administrator' } do
-    mount Resque::Server.new, :at => "/resque", :as => :resque
-  end
-
   resources :profiles
 
   resources :user_export_files

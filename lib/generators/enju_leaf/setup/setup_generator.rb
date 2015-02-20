@@ -5,9 +5,8 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
   def copy_setup_files
     directory("db/fixtures", "db/fixtures/enju_leaf")
     copy_file("Procfile", "Procfile")
-    copy_file("config/enju_leaf.yml", "config/enju_leaf.yml")
-    copy_file("config/resque.yml", "config/resque.yml")
     copy_file("config/schedule.rb", "config/schedule.rb")
+    copy_file("config/initializers/resque.rb", "config/initializers/resque.rb")
     inject_into_file 'config/application.rb', after: /# config.i18n.default_locale = :de$\n/ do
       <<"EOS"
     config.i18n.available_locales = [:en, :ja]
@@ -58,6 +57,7 @@ EOS
       :lockable, :lock_strategy => :none, :unlock_strategy => :none
   enju_leaf_user_model
 EOS
+
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
   enju_leaf
@@ -68,7 +68,15 @@ EOS
 
 EOS
     end
-    #inject_into_class "app/models/user.rb", User, "  enju_user_model\n"
+
+    inject_into_file "config/routes.rb", after: /^Rails.application.routes.draw do$\n/ do
+      <<"EOS"
+  authenticate :user, lambda {|u| u.role.try(:name) == 'Administrator' } do
+    mount Resque::Server.new, at: "/resque", as: :resque
+  end
+EOS
+    end
+
     inject_into_file "app/helpers/application_helper.rb", after: /module ApplicationHelper$\n/ do
       <<"EOS"
   include EnjuLeaf::EnjuLeafHelper
@@ -79,6 +87,7 @@ EOS
   end
 EOS
     end
+
     inject_into_file "app/assets/javascripts/application.js", after: /\/\/= require jquery_ujs$\n/ do
       "//= require enju_leaf\n"
     end
