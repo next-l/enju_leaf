@@ -133,7 +133,7 @@ module EnjuLeaf
     def convert_charset
       case params[:format]
       when 'csv'
-        return unless ENV['ENJU_CSV_CHARSET_CONVERSION']
+        return unless LibraryGroup.site_config.settings[:csv_charset_conversion]
         # TODO: 他の言語
         if @locale.to_sym == :ja
           headers["Content-Type"] = "text/csv; charset=Shift_JIS"
@@ -189,7 +189,7 @@ module EnjuLeaf
     def get_top_page_content
       if defined?(EnjuNews)
         @news_feeds = Rails.cache.fetch('news_feed_all'){NewsFeed.order(:position)}
-        @news_posts = NewsPost.limit(ENV['ENJU_NEWS_POST_NUMBER_TOP_PAGE'])
+        @news_posts = NewsPost.limit(LibraryGroup.site_config.settings[:news_post_number_top_page] || 10)
       end
       @libraries = Library.real
     end
