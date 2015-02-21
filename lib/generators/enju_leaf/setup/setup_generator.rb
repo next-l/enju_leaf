@@ -58,6 +58,7 @@ EOS
       :lockable, :lock_strategy => :none, :unlock_strategy => :none
   enju_leaf_user_model
 EOS
+
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
   enju_leaf
@@ -82,6 +83,7 @@ EOS
   end
 EOS
     end
+
     inject_into_file "app/assets/javascripts/application.js", after: /\/\/= require jquery_ujs$\n/ do
       "//= require enju_leaf\n"
     end

@@ -4,6 +4,7 @@ gem "rails", "~> 4.1.9"
 gem "jquery-rails"
 gem "statesman", "~> 1.1"
 gem "foreigner"
+gem "enju_library", github: "next-l/enju_library", branch: "1.1"
 gem "coveralls", require: false, group: :test
 
 gemspec path: "../"

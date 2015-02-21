@@ -5,9 +5,13 @@ class UserImportFile < ActiveRecord::Base
   scope :not_imported, -> { in_state(:pending) }
   scope :stucked, -> { in_state(:pending).where('user_import_files.created_at < ?', 1.hour.ago) }
 
-  if Setting.uploaded_file.storage == :s3
+  if ENV['ENJU_STORAGE'] == 's3'
     has_attached_file :user_import, storage: :s3,
-      s3_credentials: Setting.amazon,
+      s3_credentials: {
+        access_key: ENV['AWS_ACCESS_KEY_ID'],
+        secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+        bucket: ENV['S3_BUCKET_NAME']
+      },
       s3_permissions: :private
   else
     has_attached_file :user_import,
