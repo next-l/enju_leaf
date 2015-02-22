@@ -1,4 +1,0 @@
-<%=h @bookmark_stat.start_date -%>,<%=h @bookmark_stat.end_date -%><%= "\n" -%>
-<%- @stats.each do |stat| -%>
-"<%=h stat.manifestation.original_title -%>","<%= manifestation_url(stat.manifestation) -%>","<%=h stat.bookmarks_count -%>"<%= "\n" -%>
-<%- end -%>

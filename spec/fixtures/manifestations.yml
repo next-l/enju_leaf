@@ -2,7 +2,6 @@
 manifestation_00001: 
   carrier_type_id: 1
   language_id: 1
-  isbn: "4798002062"
   updated_at: 2007-11-19 16:59:00.293393 +09:00
   original_title: "\xE3\x82\x88\xE3\x81\x8F\xE3\x82\x8F\xE3\x81\x8B\xE3\x82\x8B\xE6\x9C\x80\xE6\x96\xB0Web\xE3\x82\xB5\xE3\x83\xBC\xE3\x83\x93\xE3\x82\xB9\xE6\x8A\x80\xE8\xA1\x93"
   price: 
@@ -20,7 +19,6 @@ manifestation_00001:
 manifestation_00002: 
   carrier_type_id: 1
   language_id: 1
-  isbn: "4915724824"
   updated_at: 2007-11-19 16:59:01.991512 +09:00
   original_title: "\xE6\x83\x85\xE5\xA0\xB1\xE9\x80\x9A\xE4\xBF\xA1\xE3\x83\x8F\xE3\x83\xB3\xE3\x83\x89\xE3\x83\x96\xE3\x83\x83\xE3\x82\xAF2005"
   price: 
@@ -36,7 +34,6 @@ manifestation_00002:
 manifestation_00003: 
   carrier_type_id: 1
   language_id: 1
-  isbn: "4897063590"
   updated_at: 2007-11-19 16:59:02.618359 +09:00
   original_title: !binary |
     44GT44KM44GL44KJ44Gu55Sf5ZG956eR5a2m56CU56m26ICF44Gu44Gf44KB
@@ -54,7 +51,6 @@ manifestation_00003:
 manifestation_00004: 
   carrier_type_id: 1
   language_id: 1
-  isbn: 0471412791
   updated_at: 2007-11-19 16:59:03.275738 +09:00
   original_title: THE BIOTECH INVESTOR'S BIBLE
   price: 
@@ -69,7 +65,6 @@ manifestation_00004:
 manifestation_00005: 
   carrier_type_id: 1
   language_id: 1
-  isbn: ""
   updated_at: 2007-11-19 16:59:04.333183 +09:00
   original_title: !binary |
     6aGn5a6i5rqA6Laz5Z6L44Oe44O844Kx44OG44Kj44Oz44Kw44Gu5qeL5Zuz
@@ -86,7 +81,6 @@ manifestation_00005:
 manifestation_00006: 
   carrier_type_id: 1
   language_id: 1
-  isbn: ""
   updated_at: 2007-11-19 16:59:05.255684 +09:00
   original_title: !binary |
     5LuV57WE44G/6Z2p5paw44Gu5pmC5Luj
@@ -103,7 +97,6 @@ manifestation_00006:
 manifestation_00007: 
   carrier_type_id: 1
   language_id: 1
-  isbn: 0470844701
   updated_at: 2007-11-19 16:59:06.892741 +09:00
   original_title: dictionary of e-business
   price: 
@@ -118,7 +111,6 @@ manifestation_00007:
 manifestation_00008: 
   carrier_type_id: 1
   language_id: 1
-  isbn: "4798101028"
   updated_at: 2007-11-19 16:59:07.463333 +09:00
   original_title: "Web\xE3\x82\xB5\xE3\x83\xBC\xE3\x83\x93\xE3\x82\xB9\xE5\xAE\x8C\xE5\x85\xA8\xE8\xA7\xA3\xE8\xAA\xAC"
   price: 
@@ -133,7 +125,6 @@ manifestation_00008:
 manifestation_00009: 
   carrier_type_id: 1
   language_id: 1
-  isbn: "4641143331"
   updated_at: 2007-11-19 16:59:08.166195 +09:00
   original_title: !binary |
     6YCQ5p2h6Kej6Kqs5LiN5q2j56u25LqJ6Ziy5q2i5rOV
@@ -150,7 +141,6 @@ manifestation_00009:
 manifestation_00010: 
   carrier_type_id: 1
   language_id: 1
-  isbn: "9784774127804"
   updated_at: 2007-11-19 16:59:09.799724 +09:00
   original_title: "Apache Lucene入門 : Java・オープンソース・全文検索システムの構築"
   price: 
@@ -164,7 +154,6 @@ manifestation_00010:
   created_at: 2007-11-19 16:59:09.799724 +09:00
 manifestation_00021: 
   carrier_type_id: 1
-  isbn: "4822281167"
   updated_at: 2007-11-19 16:59:20.799724 +09:00
   original_title: "Web\xE3\x82\xB5\xE3\x83\xBC\xE3\x83\x93\xE3\x82\xB9\xE5\xAE\x8C\xE5\x85\xA8\xE6\xA7\x8B\xE7\xAF\x89\xE3\x82\xAC\xE3\x82\xA4\xE3\x83\x89"
   price: 
@@ -179,7 +168,6 @@ manifestation_00021:
   required_role_id: 2
 manifestation_00022: 
   carrier_type_id: 1
-  isbn: 
   updated_at: 2007-11-19 16:59:21.799724 +09:00
   original_title: "YouTube - Open Source ILS Song"
   price: 
@@ -194,7 +182,6 @@ manifestation_00022:
   required_role_id: 1
 manifestation_00023: 
   carrier_type_id: 1
-  isbn: 
   updated_at: 2008-04-17 00:34:01 +09:00
   original_title: "世界の美しい図書館集めてみた【第一弾】"
   price: 
@@ -210,7 +197,6 @@ manifestation_00023:
 manifestation_00101:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000101
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "CGI基礎講座 : Perl・プログラミング・日本語処理"
   price:
@@ -221,11 +207,10 @@ manifestation_00101:
   id: 101
   height:
   width:
-  created_at: 2010-02-21 15:47:09 UTC
+  created_at: 2010-02-21 15:47:09 +9:00
 manifestation_00102:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000102
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "CGIレスキュー実践Perlプログラミング : Web裏技"
   price:
@@ -236,11 +221,10 @@ manifestation_00102:
   id: 102
   height:
   width:
-  created_at: 2010-02-21 14:57:08 UTC
+  created_at: 2010-02-21 14:57:08 +9:00
 manifestation_00103:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000103
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perlクックブック. v．2"
   price:
@@ -251,11 +235,10 @@ manifestation_00103:
   id: 103
   height:
   width:
-  created_at: 2010-02-21 10:51:48 UTC
+  created_at: 2010-02-21 10:51:48 +9:00
 manifestation_00104:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000104
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perlクックブック. v．1"
   price:
@@ -266,11 +249,10 @@ manifestation_00104:
   id: 104
   height:
   width:
-  created_at: 2010-02-21 10:51:33 UTC
+  created_at: 2010-02-21 10:51:33 +9:00
 manifestation_00105:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000105
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "初めてのPerl. 続"
   price:
@@ -281,11 +263,10 @@ manifestation_00105:
   id: 105
   height:
   width:
-  created_at: 2010-02-21 10:48:14 UTC
+  created_at: 2010-02-21 10:48:14 +9:00
 manifestation_00106:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000106
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl ＆ XML"
   price:
@@ -296,11 +277,10 @@ manifestation_00106:
   id: 106
   height:
   width:
-  created_at: 2010-02-21 10:45:48 UTC
+  created_at: 2010-02-21 10:45:48 +9:00
 manifestation_00107:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000107
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "はじめてのPerlモジュール : 厳選実用モジュール集"
   price:
@@ -311,11 +291,10 @@ manifestation_00107:
   id: 107
   height:
   width:
-  created_at: 2010-02-21 09:59:01 UTC
+  created_at: 2010-02-21 09:59:01 +9:00
 manifestation_00108:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000108
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl 5パワフルテクニック大全集"
   price:
@@ -326,11 +305,10 @@ manifestation_00108:
   id: 108
   height:
   width:
-  created_at: 2010-02-21 08:13:17 UTC
+  created_at: 2010-02-21 08:13:17 +9:00
 manifestation_00109:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000109
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "CGI／Perlパワープログラミング"
   price:
@@ -341,11 +319,10 @@ manifestation_00109:
   id: 109
   height:
   width:
-  created_at: 2010-02-20 17:26:08 UTC
+  created_at: 2010-02-20 17:26:08 +9:00
 manifestation_00110:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000110
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Ruby／GTKプログラミング入門 : Rubyで作って遊ぶGUIプログラミング"
   price:
@@ -356,11 +333,10 @@ manifestation_00110:
   id: 110
   height:
   width:
-  created_at: 2010-02-19 13:09:56 UTC
+  created_at: 2010-02-19 13:09:56 +9:00
 manifestation_00111:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000111
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "すぐわかるPerl"
   price:
@@ -371,11 +347,10 @@ manifestation_00111:
   id: 111
   height:
   width:
-  created_at: 2010-02-19 13:07:28 UTC
+  created_at: 2010-02-19 13:07:28 +9:00
 manifestation_00112:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000112
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "CGIのための実践入門Perl : 対話的・動きのあるWebページを作ろう"
   price:
@@ -386,11 +361,10 @@ manifestation_00112:
   id: 112
   height:
   width:
-  created_at: 2010-02-19 13:06:51 UTC
+  created_at: 2010-02-19 13:06:51 +9:00
 manifestation_00113:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000113
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "プログラミングは難しくない！ : ウェブではじめるJavaScript／Perl／Java"
   price:
@@ -401,11 +375,10 @@ manifestation_00113:
   id: 113
   height:
   width:
-  created_at: 2010-02-19 11:02:27 UTC
+  created_at: 2010-02-19 11:02:27 +9:00
 manifestation_00114:
   carrier_type_id: 1
   language_id: 1
-  isbn: 9784756137470
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Rubyを256倍使うための本. 魔道編"
   price:
@@ -416,11 +389,10 @@ manifestation_00114:
   id: 114
   height:
   width:
-  created_at: 2010-02-19 05:46:08 UTC
+  created_at: 2010-02-19 05:46:08 +9:00
 manifestation_00115:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000115
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "入門Perl"
   price:
@@ -431,11 +403,10 @@ manifestation_00115:
   id: 115
   height:
   width:
-  created_at: 2010-02-19 05:40:17 UTC
+  created_at: 2010-02-19 05:40:17 +9:00
 manifestation_00116:
   carrier_type_id: 1
   language_id: 1
-  isbn: 9784756100917
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "sed ＆ awkプログラミング : UNIX power tools"
   price:
@@ -446,11 +417,10 @@ manifestation_00116:
   id: 116
   height:
   width:
-  created_at: 2010-02-19 05:39:01 UTC
+  created_at: 2010-02-19 05:39:01 +9:00
 manifestation_00117:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000117
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perlの達人"
   price:
@@ -461,11 +431,10 @@ manifestation_00117:
   id: 117
   height:
   width:
-  created_at: 2010-02-18 10:23:27 UTC
+  created_at: 2010-02-18 10:23:27 +9:00
 manifestation_00118:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000118
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "ナチ強制・絶滅収容所 : 18施設内の生と死"
   price:
@@ -476,11 +445,10 @@ manifestation_00118:
   id: 118
   height:
   width:
-  created_at: 2010-02-17 01:12:08 UTC
+  created_at: 2010-02-17 01:12:08 +9:00
 manifestation_00119:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000119
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl基礎講座"
   price:
@@ -491,11 +459,10 @@ manifestation_00119:
   id: 119
   height:
   width:
-  created_at: 2010-02-16 04:30:37 UTC
+  created_at: 2010-02-16 04:30:37 +9:00
 manifestation_00120:
   carrier_type_id: 1
   language_id: 1
-  isbn: 9784274063855
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Rubyプログラミング入門"
   price:
@@ -506,11 +473,10 @@ manifestation_00120:
   id: 120
   height:
   width:
-  created_at: 2010-02-16 04:29:59 UTC
+  created_at: 2010-02-16 04:29:59 +9:00
 manifestation_00121:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000121
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Django×Python"
   price:
@@ -521,11 +487,10 @@ manifestation_00121:
   id: 121
   height:
   width:
-  created_at: 2010-01-30 06:22:35 UTC
+  created_at: 2010-01-30 06:22:35 +9:00
 manifestation_00122:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000122
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "みんなのPython"
   price:
@@ -536,11 +501,10 @@ manifestation_00122:
   id: 122
   height:
   width:
-  created_at: 2010-01-30 06:17:32 UTC
+  created_at: 2010-01-30 06:17:32 +9:00
 manifestation_00123:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000123
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Rubyでgroonga使って全文検索 - ラングバ"
   price:
@@ -551,11 +515,10 @@ manifestation_00123:
   id: 123
   height:
   width:
-  created_at: 2009-10-25 13:20:34 UTC
+  created_at: 2009-10-25 13:20:34 +9:00
 manifestation_00124:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000124
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "まちづくり三鷹図書館（Ruby図書館情報システム デモサイト）"
   price:
@@ -566,11 +529,10 @@ manifestation_00124:
   id: 124
   height:
   width:
-  created_at: 2009-10-20 13:46:44 UTC
+  created_at: 2009-10-20 13:46:44 +9:00
 manifestation_00125:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000125
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Ruby on Rails入門 : 優しいRailsの育て方"
   price:
@@ -581,11 +543,10 @@ manifestation_00125:
   id: 125
   height:
   width:
-  created_at: 2009-10-16 05:16:48 UTC
+  created_at: 2009-10-16 05:16:48 +9:00
 manifestation_00126:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000126
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Ruby Cookbook"
   price:
@@ -596,11 +557,10 @@ manifestation_00126:
   id: 126
   height:
   width:
-  created_at: 2009-06-29 12:44:11 UTC
+  created_at: 2009-06-29 12:44:11 +9:00
 manifestation_00127:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000127
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "CGI programming on the World Wide Web"
   price:
@@ -611,11 +571,10 @@ manifestation_00127:
   id: 127
   height:
   width:
-  created_at: 2009-06-19 13:45:14 UTC
+  created_at: 2009-06-19 13:45:14 +9:00
 manifestation_00128:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000128
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Genomic Perl"
   price:
@@ -626,11 +585,10 @@ manifestation_00128:
   id: 128
   height:
   width:
-  created_at: 2009-06-19 13:27:46 UTC
+  created_at: 2009-06-19 13:27:46 +9:00
 manifestation_00129:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000129
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Indians of the Pacific Northwest"
   price:
@@ -641,11 +599,10 @@ manifestation_00129:
   id: 129
   height:
   width:
-  created_at: 2009-06-19 12:16:23 UTC
+  created_at: 2009-06-19 12:16:23 +9:00
 manifestation_00130:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000130
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Massachusetts acid rain monitoring project / Massachusetts acid rain monitoring project A.R.M"
   price:
@@ -656,11 +613,10 @@ manifestation_00130:
   id: 130
   height:
   width:
-  created_at: 2009-06-19 12:03:29 UTC
+  created_at: 2009-06-19 12:03:29 +9:00
 manifestation_00131:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000131
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "International Symposium Genes and Chromosomes Structure and Function"
   price:
@@ -671,11 +627,10 @@ manifestation_00131:
   id: 131
   height:
   width:
-  created_at: 2009-06-19 12:02:48 UTC
+  created_at: 2009-06-19 12:02:48 +9:00
 manifestation_00132:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000132
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl black book, 2nd edition"
   price:
@@ -686,11 +641,10 @@ manifestation_00132:
   id: 132
   height:
   width:
-  created_at: 2009-06-19 11:42:02 UTC
+  created_at: 2009-06-19 11:42:02 +9:00
 manifestation_00133:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000133
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Python scripting for computational science"
   price:
@@ -701,11 +655,10 @@ manifestation_00133:
   id: 133
   height:
   width:
-  created_at: 2009-06-19 11:18:01 UTC
+  created_at: 2009-06-19 11:18:01 +9:00
 manifestation_00134:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000134
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Tests on a gold ore from the Ruby Basin, Black Hills"
   price:
@@ -716,11 +669,10 @@ manifestation_00134:
   id: 134
   height:
   width:
-  created_at: 2009-06-19 11:06:07 UTC
+  created_at: 2009-06-19 11:06:07 +9:00
 manifestation_00135:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000135
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Official guide to programming with CGI.pm / Programming with CGI.pm / Official guide to programming with CGI.pm"
   price:
@@ -731,11 +683,10 @@ manifestation_00135:
   id: 135
   height:
   width:
-  created_at: 2009-06-19 10:54:21 UTC
+  created_at: 2009-06-19 10:54:21 +9:00
 manifestation_00136:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000136
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Three little words [sound recording] / Nevertheless (I'm in love with you) / I love you so much / All alone Monday / Where did you get that girl? / Thinking of you / I wanna be loved by you / Who's sorry now? / My sunny Tennessee / So long Oolong / Three little words"
   price:
@@ -746,11 +697,10 @@ manifestation_00136:
   id: 136
   height:
   width:
-  created_at: 2009-06-19 10:46:46 UTC
+  created_at: 2009-06-19 10:46:46 +9:00
 manifestation_00137:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000137
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Femtosecond time-resolved spectroscopy of organic molecular crystals / Time-resolved spectroscopy of organic molecular crystals, Femtosecond"
   price:
@@ -761,11 +711,10 @@ manifestation_00137:
   id: 137
   height:
   width:
-  created_at: 2009-06-19 10:18:59 UTC
+  created_at: 2009-06-19 10:18:59 +9:00
 manifestation_00138:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000138
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "CGI programming with Perl"
   price:
@@ -776,11 +725,10 @@ manifestation_00138:
   id: 138
   height:
   width:
-  created_at: 2009-06-19 09:19:08 UTC
+  created_at: 2009-06-19 09:19:08 +9:00
 manifestation_00139:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000139
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Python and XML / Python &amp; XML / XML processing with Python"
   price:
@@ -791,11 +739,10 @@ manifestation_00139:
   id: 139
   height:
   width:
-  created_at: 2009-06-19 09:19:02 UTC
+  created_at: 2009-06-19 09:19:02 +9:00
 manifestation_00140:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000140
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl cookbook / Solutions and examples for Perl programmers"
   price:
@@ -806,11 +753,10 @@ manifestation_00140:
   id: 140
   height:
   width:
-  created_at: 2009-06-19 09:19:01 UTC
+  created_at: 2009-06-19 09:19:01 +9:00
 manifestation_00141:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000141
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Mastering Perl/Tk / Perl/Tk"
   price:
@@ -821,11 +767,10 @@ manifestation_00141:
   id: 141
   height:
   width:
-  created_at: 2009-06-19 09:19:00 UTC
+  created_at: 2009-06-19 09:19:00 +9:00
 manifestation_00142:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000142
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Mastering algorithms with Perl / Practical programming through computer science"
   price:
@@ -836,11 +781,10 @@ manifestation_00142:
   id: 142
   height:
   width:
-  created_at: 2009-06-19 09:18:58 UTC
+  created_at: 2009-06-19 09:18:58 +9:00
 manifestation_00143:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000143
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Programming Perl"
   price:
@@ -851,11 +795,10 @@ manifestation_00143:
   id: 143
   height:
   width:
-  created_at: 2009-06-19 09:18:45 UTC
+  created_at: 2009-06-19 09:18:45 +9:00
 manifestation_00144:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000144
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Fort Worth &amp; Tarrant County / Fort Worth and Tarrant County"
   price:
@@ -866,11 +809,10 @@ manifestation_00144:
   id: 144
   height:
   width:
-  created_at: 2009-06-19 07:49:42 UTC
+  created_at: 2009-06-19 07:49:42 +9:00
 manifestation_00145:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000145
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Monty Python's Spamalot [sound recording] / Spamalot / Spamalot / Monty Python and the Holy Grail (Motion picture)"
   price:
@@ -881,11 +823,10 @@ manifestation_00145:
   id: 145
   height:
   width:
-  created_at: 2009-06-19 06:44:35 UTC
+  created_at: 2009-06-19 06:44:35 +9:00
 manifestation_00146:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000146
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "AWK programming language"
   price:
@@ -896,11 +837,10 @@ manifestation_00146:
   id: 146
   height:
   width:
-  created_at: 2009-06-19 06:28:27 UTC
+  created_at: 2009-06-19 06:28:27 +9:00
 manifestation_00147:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000147
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Toting the lead row"
   price:
@@ -911,11 +851,10 @@ manifestation_00147:
   id: 147
   height:
   width:
-  created_at: 2009-06-19 02:16:22 UTC
+  created_at: 2009-06-19 02:16:22 +9:00
 manifestation_00148:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000148
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Afro-American blues and game songs"
   price:
@@ -926,11 +865,10 @@ manifestation_00148:
   id: 148
   height:
   width:
-  created_at: 2009-06-19 02:09:17 UTC
+  created_at: 2009-06-19 02:09:17 +9:00
 manifestation_00149:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000149
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl/Tk pocket reference"
   price:
@@ -941,11 +879,10 @@ manifestation_00149:
   id: 149
   height:
   width:
-  created_at: 2009-06-19 01:10:56 UTC
+  created_at: 2009-06-19 01:10:56 +9:00
 manifestation_00150:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000150
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "politics of improving urban air quality"
   price:
@@ -956,11 +893,10 @@ manifestation_00150:
   id: 150
   height:
   width:
-  created_at: 2009-06-19 00:42:38 UTC
+  created_at: 2009-06-19 00:42:38 +9:00
 manifestation_00151:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000151
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl developer's dictionary"
   price:
@@ -971,11 +907,10 @@ manifestation_00151:
   id: 151
   height:
   width:
-  created_at: 2009-06-19 00:13:13 UTC
+  created_at: 2009-06-19 00:13:13 +9:00
 manifestation_00152:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000152
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Andrテδゥ Poitiers"
   price:
@@ -986,11 +921,10 @@ manifestation_00152:
   id: 152
   height:
   width:
-  created_at: 2009-06-18 23:58:14 UTC
+  created_at: 2009-06-18 23:58:14 +9:00
 manifestation_00153:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000153
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "PERL and CGI for the World Wide Web [electronic resource] / Visual QuickStart guide"
   price:
@@ -1001,11 +935,10 @@ manifestation_00153:
   id: 153
   height:
   width:
-  created_at: 2009-06-18 23:43:08 UTC
+  created_at: 2009-06-18 23:43:08 +9:00
 manifestation_00154:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000154
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Python tutorial"
   price:
@@ -1016,11 +949,10 @@ manifestation_00154:
   id: 154
   height:
   width:
-  created_at: 2009-06-18 23:17:40 UTC
+  created_at: 2009-06-18 23:17:40 +9:00
 manifestation_00155:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000155
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Line shapes of paramagnetic resonances in ruby"
   price:
@@ -1031,11 +963,10 @@ manifestation_00155:
   id: 155
   height:
   width:
-  created_at: 2009-06-18 22:44:00 UTC
+  created_at: 2009-06-18 22:44:00 +9:00
 manifestation_00156:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000156
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl programmer's reference"
   price:
@@ -1046,11 +977,10 @@ manifestation_00156:
   id: 156
   height:
   width:
-  created_at: 2009-06-18 22:19:34 UTC
+  created_at: 2009-06-18 22:19:34 +9:00
 manifestation_00157:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000157
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Technological capabilities in developing countries"
   price:
@@ -1061,11 +991,10 @@ manifestation_00157:
   id: 157
   height:
   width:
-  created_at: 2009-06-18 21:58:42 UTC
+  created_at: 2009-06-18 21:58:42 +9:00
 manifestation_00158:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000158
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "phenomena of vagueness"
   price:
@@ -1076,11 +1005,10 @@ manifestation_00158:
   id: 158
   height:
   width:
-  created_at: 2009-06-18 21:44:38 UTC
+  created_at: 2009-06-18 21:44:38 +9:00
 manifestation_00159:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000159
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "theory of consumer's demand"
   price:
@@ -1091,11 +1019,10 @@ manifestation_00159:
   id: 159
   height:
   width:
-  created_at: 2009-06-18 21:10:02 UTC
+  created_at: 2009-06-18 21:10:02 +9:00
 manifestation_00160:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000160
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "theory of consumer's demand"
   price:
@@ -1106,11 +1033,10 @@ manifestation_00160:
   id: 160
   height:
   width:
-  created_at: 2009-06-18 21:10:01 UTC
+  created_at: 2009-06-18 21:10:01 +9:00
 manifestation_00161:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000161
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Monty Python, Shakespeare, and English Renaissance drama"
   price:
@@ -1121,11 +1047,10 @@ manifestation_00161:
   id: 161
   height:
   width:
-  created_at: 2009-06-18 20:37:58 UTC
+  created_at: 2009-06-18 20:37:58 +9:00
 manifestation_00162:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000162
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Analyzing computer system performance with PERL::PDQ"
   price:
@@ -1136,11 +1061,10 @@ manifestation_00162:
   id: 162
   height:
   width:
-  created_at: 2009-06-18 20:29:54 UTC
+  created_at: 2009-06-18 20:29:54 +9:00
 manifestation_00163:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000163
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "equilibrium of the reaction between the manganate, permanganate, and hydroxide of potassium, and manganese dioxide"
   price:
@@ -1151,11 +1075,10 @@ manifestation_00163:
   id: 163
   height:
   width:
-  created_at: 2009-06-18 20:16:44 UTC
+  created_at: 2009-06-18 20:16:44 +9:00
 manifestation_00164:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000164
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Stimulated optical emission in ruby"
   price:
@@ -1166,11 +1089,10 @@ manifestation_00164:
   id: 164
   height:
   width:
-  created_at: 2009-06-18 20:05:25 UTC
+  created_at: 2009-06-18 20:05:25 +9:00
 manifestation_00165:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000165
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Strategic planning and risk analysis"
   price:
@@ -1181,11 +1103,10 @@ manifestation_00165:
   id: 165
   height:
   width:
-  created_at: 2009-06-18 17:41:41 UTC
+  created_at: 2009-06-18 17:41:41 +9:00
 manifestation_00166:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000166
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Performance assertion checking"
   price:
@@ -1196,11 +1117,10 @@ manifestation_00166:
   id: 166
   height:
   width:
-  created_at: 2009-06-18 17:34:03 UTC
+  created_at: 2009-06-18 17:34:03 +9:00
 manifestation_00167:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000167
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Spin-lattice relaxation time of ruby"
   price:
@@ -1211,11 +1131,10 @@ manifestation_00167:
   id: 167
   height:
   width:
-  created_at: 2009-06-18 16:26:38 UTC
+  created_at: 2009-06-18 16:26:38 +9:00
 manifestation_00168:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000168
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Mourning Ruby"
   price:
@@ -1226,11 +1145,10 @@ manifestation_00168:
   id: 168
   height:
   width:
-  created_at: 2009-06-18 16:25:25 UTC
+  created_at: 2009-06-18 16:25:25 +9:00
 manifestation_00169:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000169
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "statistical analysis of banking performance in the Eastern Caribbean Currency Union in the 1990s"
   price:
@@ -1241,11 +1159,10 @@ manifestation_00169:
   id: 169
   height:
   width:
-  created_at: 2009-06-18 15:53:44 UTC
+  created_at: 2009-06-18 15:53:44 +9:00
 manifestation_00170:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000170
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Professional Perl programming / Perl programming"
   price:
@@ -1256,11 +1173,10 @@ manifestation_00170:
   id: 170
   height:
   width:
-  created_at: 2009-06-18 15:52:50 UTC
+  created_at: 2009-06-18 15:52:50 +9:00
 manifestation_00171:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000171
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl in a nutshell"
   price:
@@ -1271,11 +1187,10 @@ manifestation_00171:
   id: 171
   height:
   width:
-  created_at: 2009-06-18 15:40:53 UTC
+  created_at: 2009-06-18 15:40:53 +9:00
 manifestation_00172:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000172
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Programming Web services with Perl"
   price:
@@ -1286,11 +1201,10 @@ manifestation_00172:
   id: 172
   height:
   width:
-  created_at: 2009-06-18 15:34:21 UTC
+  created_at: 2009-06-18 15:34:21 +9:00
 manifestation_00173:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000173
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Proceedings of the Trieste Workshop on the search for New Elementary Particles / International journal of modern physics / Search for new elementary particles"
   price:
@@ -1301,11 +1215,10 @@ manifestation_00173:
   id: 173
   height:
   width:
-  created_at: 2009-06-18 15:08:06 UTC
+  created_at: 2009-06-18 15:08:06 +9:00
 manifestation_00174:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000174
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Europeras 3 &amp; 4 / Europera"
   price:
@@ -1316,11 +1229,10 @@ manifestation_00174:
   id: 174
   height:
   width:
-  created_at: 2009-06-18 15:05:43 UTC
+  created_at: 2009-06-18 15:05:43 +9:00
 manifestation_00175:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000175
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Retreats from realism in recent English drama"
   price:
@@ -1331,11 +1243,10 @@ manifestation_00175:
   id: 175
   height:
   width:
-  created_at: 2009-06-18 15:03:06 UTC
+  created_at: 2009-06-18 15:03:06 +9:00
 manifestation_00176:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000176
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Python programming patterns"
   price:
@@ -1346,11 +1257,10 @@ manifestation_00176:
   id: 176
   height:
   width:
-  created_at: 2009-06-18 14:52:11 UTC
+  created_at: 2009-06-18 14:52:11 +9:00
 manifestation_00177:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000177
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Beginning Perl for bioinformatics"
   price:
@@ -1361,11 +1271,10 @@ manifestation_00177:
   id: 177
   height:
   width:
-  created_at: 2009-06-18 13:45:13 UTC
+  created_at: 2009-06-18 13:45:13 +9:00
 manifestation_00178:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000178
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Learning Perl"
   price:
@@ -1376,11 +1285,10 @@ manifestation_00178:
   id: 178
   height:
   width:
-  created_at: 2009-06-18 13:45:11 UTC
+  created_at: 2009-06-18 13:45:11 +9:00
 manifestation_00179:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000179
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Effective awk programming"
   price:
@@ -1391,11 +1299,10 @@ manifestation_00179:
   id: 179
   height:
   width:
-  created_at: 2009-06-18 13:45:09 UTC
+  created_at: 2009-06-18 13:45:09 +9:00
 manifestation_00180:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000180
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Python standard library / Annotated reference for Python 2.0"
   price:
@@ -1406,11 +1313,10 @@ manifestation_00180:
   id: 180
   height:
   width:
-  created_at: 2009-06-18 13:45:04 UTC
+  created_at: 2009-06-18 13:45:04 +9:00
 manifestation_00181:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000181
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Programming Python"
   price:
@@ -1421,11 +1327,10 @@ manifestation_00181:
   id: 181
   height:
   width:
-  created_at: 2009-06-18 13:45:04 UTC
+  created_at: 2009-06-18 13:45:04 +9:00
 manifestation_00182:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000182
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl CD bookshelf"
   price:
@@ -1436,11 +1341,10 @@ manifestation_00182:
   id: 182
   height:
   width:
-  created_at: 2009-06-18 13:44:56 UTC
+  created_at: 2009-06-18 13:44:56 +9:00
 manifestation_00183:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000183
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Programming Perl"
   price:
@@ -1451,11 +1355,10 @@ manifestation_00183:
   id: 183
   height:
   width:
-  created_at: 2009-06-18 13:44:55 UTC
+  created_at: 2009-06-18 13:44:55 +9:00
 manifestation_00184:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000184
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Sed &amp; awk pocket reference / Sed and awk pocket reference"
   price:
@@ -1466,11 +1369,10 @@ manifestation_00184:
   id: 184
   height:
   width:
-  created_at: 2009-06-18 13:44:54 UTC
+  created_at: 2009-06-18 13:44:54 +9:00
 manifestation_00185:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000185
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl power!"
   price:
@@ -1481,11 +1383,10 @@ manifestation_00185:
   id: 185
   height:
   width:
-  created_at: 2009-06-18 13:41:37 UTC
+  created_at: 2009-06-18 13:41:37 +9:00
 manifestation_00186:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000186
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "ATOKダイレクト API for Perl / Ruby?|?さらに使いこなす?|?ATOK.com"
   price:
@@ -1496,11 +1397,10 @@ manifestation_00186:
   id: 186
   height:
   width:
-  created_at: 2008-12-19 17:52:47 UTC
+  created_at: 2008-12-19 17:52:47 +9:00
 manifestation_00187:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000187
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Welcome ― Ruby Enterprise Edition"
   price:
@@ -1511,11 +1411,10 @@ manifestation_00187:
   id: 187
   height:
   width:
-  created_at: 2008-10-19 15:58:50 UTC
+  created_at: 2008-10-19 15:58:50 +9:00
 manifestation_00188:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000188
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Pythonクックブック"
   price:
@@ -1526,11 +1425,10 @@ manifestation_00188:
   id: 188
   height:
   width:
-  created_at: 2008-08-22 00:27:29 UTC
+  created_at: 2008-08-22 00:27:29 +9:00
 manifestation_00189:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000189
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "みんなのPython インデントの世界へようこそ！　object oriented-lightweight language Python"
   price:
@@ -1541,11 +1439,10 @@ manifestation_00189:
   id: 189
   height:
   width:
-  created_at: 2008-08-22 00:20:59 UTC
+  created_at: 2008-08-22 00:20:59 +9:00
 manifestation_00190:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000190
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Django | The Web framework for perfectionists with deadlines"
   price:
@@ -1556,11 +1453,10 @@ manifestation_00190:
   id: 190
   height:
   width:
-  created_at: 2008-05-20 13:06:31 UTC
+  created_at: 2008-05-20 13:06:31 +9:00
 manifestation_00191:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000191
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "fac-back-opac - Google Code"
   price:
@@ -1571,11 +1467,10 @@ manifestation_00191:
   id: 191
   height:
   width:
-  created_at: 2008-05-19 22:36:11 UTC
+  created_at: 2008-05-19 22:36:11 +9:00
 manifestation_00192:
   carrier_type_id: 1
   language_id: 1
-  isbn: 9784873113241
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Rubyクックブック"
   price:
@@ -1586,12 +1481,10 @@ manifestation_00192:
   id: 192
   height:
   width:
-  created_at: 2008-03-05 01:37:55 UTC
+  created_at: 2008-03-05 01:37:55 +9:00
 manifestation_00193:
   carrier_type_id: 1
   language_id: 1
-  isbn: 9784797340044
-  isbn10: 4797340045
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Rubyレシピブック"
   price:
@@ -1602,11 +1495,10 @@ manifestation_00193:
   id: 193
   height:
   width:
-  created_at: 2008-03-05 01:30:39 UTC
+  created_at: 2008-03-05 01:30:39 +9:00
 manifestation_00194:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000194
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "初めてのPerl 第3版"
   price:
@@ -1617,11 +1509,10 @@ manifestation_00194:
   id: 194
   height:
   width:
-  created_at: 2007-11-19 17:56:37 UTC
+  created_at: 2007-11-19 17:56:37 +9:00
 manifestation_00195:
   carrier_type_id: 1
   language_id: 1
-  isbn: 0000000195
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "続・初めてのPerl 改訂版"
   price:
@@ -1632,11 +1523,10 @@ manifestation_00195:
   id: 195
   height:
   width:
-  created_at: 2007-11-19 17:55:42 UTC
+  created_at: 2007-11-19 17:55:42 +9:00
 manifestation_00196:
   carrier_type_id: 1
   language_id: 1
-  isbn: 9784797336610
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "たのしいRuby 第2版 Rubyではじめる気軽なプログラミング"
   price:
@@ -1647,11 +1537,10 @@ manifestation_00196:
   id: 196
   height:
   width:
-  created_at: 2007-11-19 17:55:41 UTC
+  created_at: 2007-11-19 17:55:41 +9:00
 manifestation_00197:
   carrier_type_id: 1
   language_id: 1
-  isbn: 
   updated_at: 2010-03-15 16:14:18 +09:00
   original_title: "Ruby"
   price:
@@ -1662,11 +1551,10 @@ manifestation_00197:
   id: 197
   height:
   width:
-  created_at: 2007-11-19 17:55:41 UTC
+  created_at: 2007-11-19 17:55:41 +9:00
 manifestation_00198:
   carrier_type_id: 1
   language_id: 1
-  isbn:
   updated_at: 2010-03-15 16:14:18 +09:00
   original_title: "紅玉の本"
   price:
@@ -1677,11 +1565,10 @@ manifestation_00198:
   id: 198
   height:
   width:
-  created_at: 2007-11-19 17:55:41 UTC
+  created_at: 2007-11-19 17:55:41 +9:00
 manifestation_00201:
   carrier_type_id: 1
   language_id: 1
-  isbn: 9876543210201
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "テスト雑誌2005年１月号"
   price:
@@ -1692,13 +1579,12 @@ manifestation_00201:
   id: 201
   height:
   width:
-  created_at: 2007-11-19 17:55:41 UTC
+  created_at: 2007-11-19 17:55:41 +9:00
   frequency_id: 3
-  issn: 09130000
+  serial: true
 manifestation_00202:
   carrier_type_id: 1
   language_id: 1
-  isbn: 9876543210202
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "テスト雑誌２月号"
   price:
@@ -1709,16 +1595,15 @@ manifestation_00202:
   id: 202
   height:
   width:
-  created_at: 2007-11-19 17:55:41 UTC
+  created_at: 2007-11-19 17:55:41 +9:00
   frequency_id: 3
-  issn: 12345678
   serial_number: 2
   volume_number: 1
   issue_number: 2
+  serial: true
 manifestation_00203:
   carrier_type_id: 1
   language_id: 1
-  isbn: 9876543210203
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "テスト単行本記事2005"
   price:
@@ -1729,14 +1614,14 @@ manifestation_00203:
   id: 203
   height:
   width:
-  created_at: 2010-03-03 17:00:00 UTC
+  created_at: 2010-03-03 17:00:00 +9:00
   frequency_id: 1
+  serial: false
 manifestation_00204:
   carrier_type_id: 1
   language_id: 1
-  isbn: 5555567890001
   updated_at: 2010-03-03 20:00:00 +09:00
-  original_title: "テスト雑誌１月号の記事１"
+  original_title: "テスト雑誌１月号の記事１ 2005"
   price:
   manifestation_identifier:
   depth:
@@ -1745,41 +1630,39 @@ manifestation_00204:
   id: 204
   height:
   width:
-  created_at: 2010-03-03 20:00:00 UTC
+  created_at: 2010-03-03 20:00:00 +9:00
+  serial: true
 manifestation_00205:
   carrier_type_id: 1
   language_id: 1
-  isbn: 5555567890002
   updated_at: 2010-03-03 20:00:00 +09:00
   original_title: "テスト雑誌１月号の記事２"
   price:
   manifestation_identifier:
   depth:
-  date_of_publication:
+  date_of_publication: 2000-01-01 00:00:00 +09:00
   access_address:
   id: 205
   height:
   width:
-  created_at: 2010-03-03 20:00:00 UTC
+  created_at: 2010-03-03 20:00:00 +9:00
 manifestation_00206:
   carrier_type_id: 1
   language_id: 1
-  isbn: 5555567890003
   updated_at: 2010-03-03 20:00:00 +09:00
   original_title: "テスト雑誌２月号の記事１"
   price:
   manifestation_identifier:
   depth:
-  date_of_publication:
+  date_of_publication: 2010-01-01 00:00:00 +09:00
   access_address:
   id: 206
   height:
   width:
-  created_at: 2010-03-03 20:00:00 UTC
+  created_at: 2010-03-03 20:00:00 +9:00
 manifestation_00207:
   carrier_type_id: 1
   language_id: 1
-  isbn: 9876543210207
   updated_at: 2010-03-03 20:00:00 +09:00
   original_title: "試験単行本"
   price:
@@ -1790,11 +1673,10 @@ manifestation_00207:
   id: 207
   height:
   width:
-  created_at: 2010-03-03 20:00:00 UTC
+  created_at: 2010-03-03 20:00:00 +9:00
 manifestation_00208:
   carrier_type_id: 1
   language_id: 1
-  isbn:
   updated_at: 2010-03-16 11:00:00 +09:00
   original_title: "ある出版物"
   price:
@@ -1805,11 +1687,10 @@ manifestation_00208:
   id: 208
   height:
   width:
-  created_at: 2010-03-16 11:00:00 UTC
+  created_at: 2010-03-16 11:00:00 +9:00
 manifestation_00209:
   carrier_type_id: 1
   language_id: 1
-  isbn:
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認Admin専用１"
   price:
@@ -1820,12 +1701,11 @@ manifestation_00209:
   id: 209
   height:
   width:
-  created_at: 2010-03-19 13:00:00 UTC
+  created_at: 2010-03-19 13:00:00 +9:00
   required_role_id: 4
 manifestation_00210:
   carrier_type_id: 1
   language_id: 1
-  isbn:
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認Admin専用２"
   price:
@@ -1836,13 +1716,12 @@ manifestation_00210:
   id: 210
   height:
   width:
-  created_at: 2010-03-19 13:00:00 UTC
+  created_at: 2010-03-19 13:00:00 +9:00
   required_role_id: 4
   repository_content: true
 manifestation_00211:
   carrier_type_id: 1
   language_id: 1
-  isbn:
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認Librarian以上用１"
   price:
@@ -1853,13 +1732,12 @@ manifestation_00211:
   id: 211
   height:
   width:
-  created_at: 2010-03-19 13:00:00 UTC
+  created_at: 2010-03-19 13:00:00 +9:00
   required_role_id: 3
   repository_content: true
 manifestation_00212:
   carrier_type_id: 1
   language_id: 1
-  isbn:
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認Librarian以上用２"
   price:
@@ -1870,13 +1748,12 @@ manifestation_00212:
   id: 212
   height:
   width:
-  created_at: 2010-03-19 13:00:00 UTC
+  created_at: 2010-03-19 13:00:00 +9:00
   required_role_id: 3
   repository_content: true
 manifestation_00213:
   carrier_type_id: 1
   language_id: 1
-  isbn:
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認User以上用１"
   price:
@@ -1887,13 +1764,12 @@ manifestation_00213:
   id: 213
   height:
   width:
-  created_at: 2010-03-19 13:00:00 UTC
+  created_at: 2010-03-19 13:00:00 +9:00
   required_role_id: 2
   repository_content: true
 manifestation_00214:
   carrier_type_id: 1
   language_id: 1
-  isbn:
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認User以上用２"
   price:
@@ -1904,13 +1780,12 @@ manifestation_00214:
   id: 214
   height:
   width:
-  created_at: 2010-03-19 13:00:00 UTC
+  created_at: 2010-03-19 13:00:00 +9:00
   required_role_id: 2
   repository_content: false
 manifestation_00215:
   carrier_type_id: 1
   language_id: 1
-  isbn:
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認"
   price:
@@ -1921,13 +1796,12 @@ manifestation_00215:
   id: 215
   height:
   width:
-  created_at: 2010-03-19 13:00:00 UTC
+  created_at: 2010-03-19 13:00:00 +9:00
   required_role_id: 1
   repository_content: true
 manifestation_00216:
   carrier_type_id: 1
   language_id: 1
-  isbn:
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認"
   price:
@@ -1938,48 +1812,34 @@ manifestation_00216:
   id: 216
   height:
   width:
-  created_at: 2010-03-19 13:00:00 UTC
+  created_at: 2010-03-19 13:00:00 +9:00
   required_role_id: 1
   repository_content: false
-
-
-
-
-
-
-
 
 # == Schema Information
 #
 # Table name: manifestations
 #
-#  id                              :integer         not null, primary key
-#  original_title                  :text            not null
+#  id                              :integer          not null, primary key
+#  original_title                  :text             not null
 #  title_alternative               :text
 #  title_transcription             :text
 #  classification_number           :string(255)
 #  manifestation_identifier        :string(255)
 #  date_of_publication             :datetime
 #  date_copyrighted                :datetime
-#  created_at                      :datetime        not null
-#  updated_at                      :datetime        not null
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
 #  deleted_at                      :datetime
 #  access_address                  :string(255)
-#  language_id                     :integer         default(1), not null
-#  carrier_type_id                 :integer         default(1), not null
-#  extent_id                       :integer         default(1), not null
+#  language_id                     :integer          default(1), not null
+#  carrier_type_id                 :integer          default(1), not null
+#  extent_id                       :integer          default(1), not null
 #  start_page                      :integer
 #  end_page                        :integer
 #  height                          :integer
 #  width                           :integer
 #  depth                           :integer
-#  isbn                            :string(255)
-#  isbn10                          :string(255)
-#  wrong_isbn                      :string(255)
-#  nbn                             :string(255)
-#  lccn                            :string(255)
-#  oclc_number                     :string(255)
-#  issn                            :string(255)
 #  price                           :integer
 #  fulltext                        :text
 #  volume_number_string            :string(255)
@@ -1987,13 +1847,13 @@ manifestation_00216:
 #  serial_number_string            :string(255)
 #  edition                         :integer
 #  note                            :text
-#  repository_content              :boolean         default(FALSE), not null
-#  lock_version                    :integer         default(0), not null
-#  required_role_id                :integer         default(1), not null
+#  repository_content              :boolean          default(FALSE), not null
+#  lock_version                    :integer          default(0), not null
+#  required_role_id                :integer          default(1), not null
 #  state                           :string(255)
-#  required_score                  :integer         default(0), not null
-#  frequency_id                    :integer         default(1), not null
-#  subscription_master             :boolean         default(FALSE), not null
+#  required_score                  :integer          default(0), not null
+#  frequency_id                    :integer          default(1), not null
+#  subscription_master             :boolean          default(FALSE), not null
 #  attachment_file_name            :string(255)
 #  attachment_content_type         :string(255)
 #  attachment_file_size            :integer
@@ -2006,17 +1866,17 @@ manifestation_00216:
 #  date_submitted                  :datetime
 #  date_accepted                   :datetime
 #  date_caputured                  :datetime
-#  ndl_bib_id                      :string(255)
 #  pub_date                        :string(255)
 #  edition_string                  :string(255)
 #  volume_number                   :integer
 #  issue_number                    :integer
 #  serial_number                   :integer
-#  ndc                             :string(255)
-#  content_type_id                 :integer         default(1)
+#  content_type_id                 :integer          default(1)
 #  year_of_publication             :integer
-#  attachment_fingerprint          :string(255)
 #  attachment_meta                 :text
 #  month_of_publication            :integer
+#  fulltext_content                :boolean
+#  serial                      :boolean
+#  statement_of_responsibility     :text
 #
 

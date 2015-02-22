@@ -1,6 +1,6 @@
 --- 
 user_group_00001: 
-  name: (not specified)
+  name: not_specified
   display_name: (not specified)
   updated_at: 2007-12-13 21:00:51.564542 +09:00
   id: 1
@@ -10,7 +10,7 @@ user_group_00001:
   valid_period_for_new_user: 0
   number_of_day_to_notify_due_date: 2
 user_group_00002: 
-  name: User
+  name: user
   display_name: User
   updated_at: 2007-12-23 03:14:56.836548 +09:00
   id: 2
@@ -21,7 +21,7 @@ user_group_00002:
   number_of_day_to_notify_overdue: 30
   number_of_time_to_notify_overdue: 6
 user_group_00003: 
-  name: Faculty
+  name: faculty
   display_name: Faculty
   updated_at: 2007-12-23 03:15:05.134351 +09:00
   id: 3
@@ -34,18 +34,17 @@ user_group_00003:
 #
 # Table name: user_groups
 #
-#  id                               :integer         not null, primary key
+#  id                               :integer          not null, primary key
 #  name                             :string(255)
 #  display_name                     :text
 #  note                             :text
 #  position                         :integer
-#  created_at                       :datetime        not null
-#  updated_at                       :datetime        not null
+#  created_at                       :datetime         not null
+#  updated_at                       :datetime         not null
 #  deleted_at                       :datetime
-#  valid_period_for_new_user        :integer         default(0), not null
+#  valid_period_for_new_user        :integer          default(0), not null
 #  expired_at                       :datetime
-#  number_of_day_to_notify_overdue  :integer         default(1), not null
-#  number_of_day_to_notify_due_date :integer         default(7), not null
-#  number_of_time_to_notify_overdue :integer         default(3), not null
+#  number_of_day_to_notify_overdue  :integer          default(1), not null
+#  number_of_day_to_notify_due_date :integer          default(7), not null
+#  number_of_time_to_notify_overdue :integer          default(3), not null
 #
-

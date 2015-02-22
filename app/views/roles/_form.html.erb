@@ -1,4 +1,4 @@
-<%= form_for(@role, :html => {:class => 'well'}) do |f| %>
+<%= form_for(@role) do |f| %>
   <%= f.error_messages %>
 
   <div class="field">
@@ -14,6 +14,6 @@
     <%= f.text_area :note %>
   </div>
   <div class="actions">
-    <%= f.submit :data => {:confirm => t('page.are_you_sure')}, :class => 'btn' %>
+    <%= f.submit data: {confirm: t('page.are_you_sure')} %>
   </div>
 <% end %>

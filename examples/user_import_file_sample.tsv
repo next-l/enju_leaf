@@ -1,0 +1,7 @@
+username	full_name	full_name_transcription	email	user_number	role	user_group	expired_at	password	library	locale	note	locked	required_role	keyword_list	checkout_icalendar_token	save_checkout_history	save_search_history	share_bookmarks	dummy	invalid
+user001	田辺 浩介	たなべ こうすけ	user001@example.jp	001001	Administrator	user					test	t	User	日本史//地理						この列は無視されます
+user002				001002	User	faculty	2013-12-01			en										
+user003			user003@example.jp	001003	Librarian	user		4NsxXPLy	kamata	ja	テストユーザ				secrettoken	true	false	false		
+user004				001004		user													t	
+user005				001005		faculty	2014-12-01		hoge	fuga										
+user006											usernameのみ									

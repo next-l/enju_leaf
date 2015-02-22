@@ -1,20 +1,20 @@
-<div class="row-fluid">
-<div class="span9">
+<div id="content_detail" class="ui-corner-all ui-widget-content">
 <h1 class="title"><%= t('page.statistics') -%></h1>
-  <table class="table table-striped index">
+<div id="content_list">
+  <table class="index">
     <tr>
       <th><%= t('page.model') -%></th>
       <th><%= t('page.number_of_record') -%></th>
       <th><%= t('page.note') -%></th>
     </tr>
     <tr>
-      <td><%= link_to t('activerecord.models.patron'), patrons_path -%></td>
-      <td><%= Patron.count -%></td>
+      <td><%= link_to t('activerecord.models.agent'), agents_path -%></td>
+      <td><%= Agent.count -%></td>
       <td></td>
     </tr>
     <tr>
-      <td><%= link_to t('activerecord.models.user'), users_path -%></td>
-      <td><%= User.count -%></td>
+      <td><%= link_to t('activerecord.models.profile'), profiles_path -%></td>
+      <td><%= Profile.count -%></td>
       <td></td>
     </tr>
     <tr>
@@ -97,9 +97,9 @@
     <% end %>
   </table>
 </div>
+</div>
 
-<div class="span3">
+<div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
   </ul>
-</div>
 </div>

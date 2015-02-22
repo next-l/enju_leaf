@@ -7,13 +7,15 @@
 </head>
 <body>
 
-  <%= render 'page/header' %>
-  <div class="container">
+<%= render 'page/header' %>
 
-    <%= yield %>
+<div id="content">
 
-    <%= render 'page/footer' %>
-  </div>
+<%= yield %>
+
+</div>
+
+<%= render 'page/footer' %>
 
 </body>
 </html>

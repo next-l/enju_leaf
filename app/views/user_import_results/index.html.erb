@@ -1,0 +1,50 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.user_import_result')) -%></h1>
+<div id="content_list">
+  <% if @user_import_file %>
+    <h2 class="resource_title">
+      <%= link_to @user_import_file.user_import_file_name, @user_import_file %>
+    </h2>
+  <% end %>
+
+<table class="table table-striped index">
+  <tr>
+    <th><%= t('activerecord.models.user_import_file') %></th>
+    <th><%= t('activerecord.models.user') %></th>
+    <th></th>
+  </tr>
+
+<% @user_import_results.each do |user_import_result| %>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%= link_to user_import_result.user_import_file.user_import_file_name, user_import_result.user_import_file %>
+      <br />
+      <%=l user_import_result.created_at %>
+    </td>
+    <td><%= link_to user_import_result.user.username, user_import_result.user.profile if user_import_result.user.try(:profile) %></td>
+    <td>
+      <%= link_to t('page.show'), user_import_result %>
+      <%= link_to t('page.destroy'), user_import_result, data: {confirm: t('page.are_you_sure')}, method: :delete %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate(@user_import_results) %>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li>
+    <% if @user_import_file %>
+      <%= link_to((image_tag 'icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'icon'), user_import_file_user_import_results_path(@user_import_file, format: :txt, locale: @locale.to_s)) -%>
+      (<%= link_to 'TSV', user_import_file_user_import_results_path(format: :txt, locale: @locale.to_s) -%>)
+    <% else %>
+      <%= link_to((image_tag 'icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'icon'), user_import_results_path(format: :txt, locale: @locale.to_s)) -%>
+      (<%= link_to 'TSV', user_import_results_path(format: :txt, locale: @locale.to_s) -%>)
+    <% end %>
+    </li>
+  </ul>
+</div>

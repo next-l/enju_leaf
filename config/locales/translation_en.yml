@@ -1,105 +1,16 @@
 en:
   activerecord:
     models:
-      library: Library
       user: User
-      shelf: Shelf
-      donate: Donate
       role: Role
-      subscribe: Subscribe
-      request_status_type: Request status type
-      search_engine: Search engine
       user_group: User group
-      subscription: Subscription
-      library_group: Library group
-      attachment_file: Attachment file
-      bookstore: Bookstore
-      country: Country
-      request_type: Request type
-      participate: Participate
       user_has_role: User and roles
-      budget_type: Budget type
-      session: Login
-      accept: Accept
-      work: Work
-      expression: Expression
-      permission: Permission
+      user_import_file: User import file
+      user_import_result: User import result
+      profile: Profile
+      user_export_file: User export
 
     attributes:
-      library:
-        name: Name
-        display_name: Display name
-        short_display_name: Short display name
-        zip_code: Zip code
-        region: Region
-        locality: Locality
-        street: Street
-        telephone_number_1: Telephone number 1
-        telephone_number_2: Telephone number 2
-        fax_number: Fax number
-        lat: Lat
-        lng: Lng
-        note: Note
-        call_number_rows: Call number rows
-        call_number_delimiter: Call number delimiter
-        position: Position
-        deleted_at: Deleted at
-        opening_hour: Opening hour
-        isil: ISIL
-      patron_import_file:
-        patron_import_file_name: Filename
-        patron_import_content_type: Content type
-        patron_import_file_size: Size
-        patron_import_fingerprint: File hash
-        note: Note
-        executed_at: Executed at
-        patron_import_updated_at: Updated at
-        state: State
-        edit_mode: Edit mode
-        error_message: Error message
-      patron:
-        last_name: Last name
-        middle_name: Middle name
-        first_name: Name
-        last_name_transcription: Last name transcription
-        middle_name_transcription: Middle name transcription
-        first_name_transcription: First name transcription
-        corporate_name: Corporate name
-        corporate_name_transcription: Corporate name transcription
-        full_name: Full name
-        full_name_transcription: Full name transcription
-        full_name_alternative: Full name alternative
-        deleted_at: Deleted at
-        zip_code_1: Zip code 1
-        zip_code_2: Zip code 2
-        address_1: Address 1
-        address_2: Address 2
-        address_1_note: Address 1 note
-        address_2_note: Address 2 note
-        telephone_number_1: Telephone number 1
-        telephone_number_2: Telephone number 2
-        fax_number_1: Fax number 1
-        fax_number_2: Fax number 2
-        other_designation: Other designation
-        place: Place
-        date_of_birth: Date of birth
-        date_of_death: Date of death
-        lock_version: Lock version
-        note: Note
-        country: Country
-        patron_type: Patron type
-        language: Language
-        email: Email
-        url: URL
-      language:
-        name: Name
-        native_name: Native name
-        display_name: Display name
-        iso_639_1: ISO 639 1
-        iso_639_2: ISO 639 2
-        iso_639_3: ISO 639 3
-        note: Note
-        position: Position
       user:
         login: Login
         username: Username
@@ -114,154 +25,29 @@ en:
         remember_token_expires_at: Remember token expires at
         activation_code: Activation code
         activated_at: Activated at
-        expired_at: Expired at
         locked: Locked
         confirmed: Confirmed
         approved: Approved
-        checkout_icalendar_token: Checkout iCalendar token
         due_date_reminder_days: Due date reminder days
         note: Note
-        save_checkout_history: Save checkout history
         lock_version: Lock version
-        keyword_list: Keyword list
         user_number: User number
         state: State
-        patron: Patron
+        agent: Agent
         library: Library
-        user_group: User group
+        user_group_id: User group
         full_name: Full name
         password: Password
         current_password: Current password
         locale: Locale
         password_confirmation: Password confirmation
-      picture_file:
-        picture_attachable_type: Picture attachable type
-        picture_file_size: Size
-        picture_content_type: Content type
-        title: Title
-        picture_file_name: Filename
-        height: Height
-        width: Width
-        thumbnail: Thumbnail
-        picture_fingerprint: File hash
-        picture_updated_at: Updated at
-      form_of_work:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      exemplify:
-        position: Position
-      own:
-        position: Position
-      shelf:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-        deleted_at: Deleted at
-        closed: Closed
-      donate:
-      produce:
-        position: Position
+        auto_generated_password: Set auto-generated password
       role:
         name: Name
         display_name: Display name
         score: Score
         note: Note
         position: Position
-      subscribe:
-        started_on: Start on
-        ended_on: End on
-      item:
-        call_number: Call number
-        item_identifier: Item identifier
-        deleted_at: Deleted at
-        include_supplements: Include supplements
-        note: Note
-        url: URL
-        price: Price
-        lock_version: Lock version
-        checkout_type: Checkout type
-        acquired_at: Acquired at
-        donation: Donation
-      realize:
-        position: Position
-      frequency:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      content_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      patron_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      embody:
-        position: Position
-      request_status_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      search_engine:
-        name: Name
-        url: URL
-        base_url: Base URL
-        http_method: HTTP method
-        query_param: Query param
-        additional_param: Additional param
-        note: Note
-        position: Position
-      create:
-        position: Position
-      carrier_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      manifestation:
-        original_title: Original title
-        title_alternative: Titlte alternative
-        title_transcription: Title transcription
-        classification_number: Classification number
-        manifestation_identifier: Manifestation identifier
-        date_of_publication: Date of publication
-        pub_date: Date of publication
-        deleted_at: Deleted at
-        access_address: Access address
-        start_page: Start page
-        end_page: End page
-        height: Height
-        width: Width
-        depth: Depth
-        isbn: ISBN
-        isbn10: ISBN 10
-        wrong_isbn: Wrong ISBN
-        nbn: NBN
-        price: Price
-        volume_number: Volume number (integer)
-        volume_number_string: Volume number
-        issue_number: Issue number (integer)
-        issue_number_string: Issue number
-        serial_number: Serial number
-        serial_number_string: Serial number (string)
-        edition: Edition (integer)
-        edition_string: Edition
-        note: Note
-        repository_content: Repository content
-        lock_version: Lock version
-        carrier_type: Manifestation form
-        language: Language
-        lccn: LCCN
-        issn: ISSN
-        subscription_master: Subscription master
-        description: Description
       user_group:
         name: Name
         display_name: Display name
@@ -272,135 +58,40 @@ en:
         number_of_day_to_notify_due_date: Number of day to notify due date
         number_of_day_to_notify_overdue: Number of day to notify overdue
         number_of_time_to_notify_overdue: Number of time to notify overdue
-      resource_import_file:
-        resource_import_file_name: Filename
-        resource_import_content_type: Content type
-        resource_import_file_size: Size
-        resource_import_fingerprint: File hash
+      user_import_file:
+        user_import_file_name: Filename
+        user_import_content_type: Content type
+        user_import_file_size: Size
+        user_import_fingerprint: File hash
         note: Note
         executed_at: Executed at
-        resource_import_updated_at: Updated at
+        user_import_updated_at: Updated at
         state: State
         edit_mode: Edit mode
         error_message: Error message
-      subscription:
-        title: Title
-        note: Note
-        deleted_at: Deleted at
-        subscribes_count: Count
-      library_group:
-        name: Name
-        display_name: Display name
-        short_name: Short name
-        email: Email
-        my_networks: My networks
-        admin_networks: Admin networks
-        note: Note
-        login_banner: Login banner
-        post_to_union_catalog: Post to union catalog
-      bookstore:
-        name: Name
-        zip_code: Zip code
-        address: Address
-        note: Note
-        telephone_number: Telephone number
-        fax_number: Fax number
-        url: URL
-        position: Position
-        deleted_at: Deleted at
-      country:
-        name: Name
-        display_name: Display name
-        alpha_2: Alpha 2
-        alpha_3: Alpha 3
-        numeric_3: Numeric 3
-        note: Note
-        position: Position
-      request_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      medium_of_performance:
-        name: Name
-        display_name: Displayname
-        note: Note
-        position: Position
-      content_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      extent:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      content_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      patron_relationship_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      manifestation_relationship_type:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      license:
-        name: Name
-        display_name: Display name
-        note: Note
-        position: Position
-      series_statement:
-        original_title: Title
-        numbering: Numbering
-        title_subseries: Title subseries
-        title_subseries_transcription: Title subseries transcription
-        numbering_subseries: Numbering subseries
-        work: Work
-        series_statement_identifier: Series statement identifier
-        issn: ISSN
-        periodical: Periodical
-        title_transcription: Title transcription
-        note: Note
-      import_request:
-        isbn: ISBN
+        user_encoding: Encoding
+        default_user_group_id: Default user group
+        default_library_id: Default library
+      user_import_result:
+        body: Body
+      user_export_file:
+        user_export_file_name: Filename
+        user_export_file_size: Size
         state: State
-      patron_relationship:
-        parent_id: Parent
-        child_id: Child
-        patron_relationship_type_id: Patron relationship type
-      manifestation_relationship:
-        parent_id: Parent
-        child_id: Child
-        manifestation_relationship_type_id: Manifestation relationship type
-      resource_import_result:
-        body: Body
-      patron_import_result:
-        body: Body
-      create_type:
-        name: Name
-        display_name: Display name
+      profile:
         note: Note
-      realize_type:
-        name: Name
-        display_name: Display name
-        note: Note
-      produce_type:
-        name: Name
-        display_name: Display name
-        note: Note
-      budget_type:
-        name: Name
-        display_name: Display name
-        note: Note
-      accept:
-        item_id: Item
+        keyword_list: Keyword list
+        required_role_id: Required role
+        user_id: User
+        user: User
+        user_group_id: User group
+        library_id: Library
+        locale: Locale
+        full_name: Full name
+        user_number: User number
+        expired_at: Expired at
+        full_name_transcription: Full name transcription
+        date_of_birth: Date of birth
 
   page:
     user_title: "Welcome %{login_name}"
@@ -454,7 +145,7 @@ en:
     publisher: "Publisher"
     feed: "Feed"
     back_to_index: "Back to index"
-    import: "Import from file"
+    start_import: "Start import"
     import_record: "Import records"
     export: "Export"
     detail: "Detail"
@@ -489,7 +180,7 @@ en:
     remove_this_facet: "Remove this facet"
     no_subject: "No subjects."
     no_tag: "No tags."
-    add_patron: "Add a patron"
+    add_agent: "Add a agent"
     total: "Total"
     sort_by: "Sort by"
     bookmarklet: "Bookmarklet"
@@ -500,7 +191,7 @@ en:
     new_resource: "New resources"
     checkout_history: "Checkout history"
     recommendation: "Recommendation"
-    add_manually: "Add manually"
+    add_resource_manually: "Add a resource manually"
     import: "Import"
     import_from_file: "Import from TSV file"
     import_from_network: "Import from networks"
@@ -511,6 +202,7 @@ en:
     number_of_pages: "Number of pages"
     holding_library: "Holding library"
     resource: "Resource"
+    manifestation_and_item: "Manifestation and Item"
     type: "Type"
     search_result_feed: "Search result feed"
     force_reload: "Force reload"
@@ -522,7 +214,7 @@ en:
     new: "New %{model}"
     editing: "Editing %{model}"
     showing: "Showing %{model}"
-    patron_management: "Patron management"
+    agent_management: "Agent management"
     user_management: "User management"
     back_to: "Back to %{model} index"
     picture: "Picture"
@@ -585,9 +277,15 @@ en:
     standard_view: "Standard view"
     mobile_view: "Mobile view"
     rearrange_order: "Rearrange order"
-    only_lowercase_letters_and_numbers_are_allowed: "Only lowercase letters and numbers are allowed. The first character must be alphabetic."
+    only_lowercase_letters_and_numbers_are_allowed: "is invalid. Only lowercase letters, numbers and underscore are allowed. The first character must be alphabetic."
     not_logged_in: "Not logged in"
     add_child: "Add a child"
+    electronic_resource_management: "Electronic resource management"
+    system: System
+    manual: Manual
+    cannot_parse_yaml_header: "has an invalid YAML header. You must add a space after the header's colon."
+    notice: Notice
+    system_information: System information
   title:
     index: "index"
     show: "show"
@@ -600,96 +298,33 @@ en:
   advanced_search:
     from: "from"
     to: "to"
+    from_to: "-"
     all_libraries: "All libraries"
   work:
-    patrons_work: "%{patron_name}'s works"
+    agents_work: "%{agent_name}'s works"
     library_group_work: "Works in %{library_group_name}"
     add: "Add a work"
   expression:
-    patrons_expression: "%{patron_name}'s expressions"
+    agents_expression: "%{agent_name}'s expressions"
     manifestations_expression: "Expressions in %{manifestation_title}"
     library_group_expression: "Expressions in %{library_group_name}"
     add: "Add an expression"
     specify_work: "Specify the work."
     specify_manifestation: "Specify the manifestation."
-  manifestation:
-    date_of_acquisition: "Date of acquisition"
-    physical_description: "Physical description"
-    edit: "Edit this manifestation"
-    add_next_issue: "Add a next issue"
-    edit_creator: "Edit creators"
-    edit_contributor: "Edit contributors"
-    edit_publisher: "Edit publishers"
-    edit_expression: "Edit expressions"
-    edit_item: "Edit items"
-    expressions_manifestation: "Manifestations for %{expression_title}"
-    library_group_manifestation: "Manifestations in %{library_group_name}"
-    reserve_this: "Reserve this manifestation"
-    cancel_reservation: "Cancel this reservation"
-    user_who_bookmark_this_resource: "Users who bookmark this resource"
-    query_search_result: "Search results for %{query} in %{library_group_name}"
-    serial: "Serial"
-    number: "Number"
-    invalid_isbn: "Invalid ISBN."
-    already_imported: "This manifestation is already imporeted."
-    record_not_found: "Record not found."
-    add: "Add a manifestation"
-    specify_expression: "Specify the expression."
-    pickup: "Pick up"
-    showing_all_record: "Showing all records."
-    showing_reservable_record: "Showing reservable records."
-    reservable: "Reservable"
-    all_result: "All results"
-    reservable_list: "Reservable list"
-    post_to_twitter: "post to Twitter"
-    web: "Web"
-    send_email: "Email this information"
-    attachment_file: "Attachment file"
-    add_derivation: "Add a derivation"
-  item:
-    current_checkout: "Current checkout"
-    donor: "Donors"
-    library_group_item: "Items in %{library_group_name}"
-    add: "Add an item"
-    specify_manifestation: "Specify the manifestation."
-    this_item_is_reserved: "This item is reserved!"
-    create_shelf_first: "You should create a shelf first."
-    this_item_include_supplement: "This item includes supplements."
-    all_item: "All items"
-    add_new_copy: "Add a new copy"
-    no_manifestation: "No manifestation"
-    no_number: "No number"
-    add_lending_policy: "Add a new lending policy"
-    edit_exemplification: "Edit exemplification"
-    accepted_at: "Accepted at"
-  patron:
-    library_group_patron: "Patrons of %{library_group_name}"
-    work_patron: "Creaters of %{work_title}"
-    expression_patron: "Realizers of %{expression_title}"
-    manifestation_patron: "Producers of %{manifestation_title}"
-    activate_as_user: "Activate as an user"
-    deactivate: "Deactivate this user"
-    add: "Add a patron"
-    publication: "Publications"
-    recent_publication: "Recent publications"
-    all_publication: "All publications"
-    other_address: "The other address"
-    add_derivation: "Add derivatation"
-    creator: "Creator"
-    contributor: "Contributor"
-    publisher: "Publisher"
-    owner: "Owner"
-  library:
-    map: "Map"
-    staff: "Staff"
-    number_of_item: "Number of items"
-    address: "Address"
   import:
     from_file: "from file"
     from_isbn: "from ISBN"
     will_be_imported:
       one: "Resource will be impored in a %{minute} minute."
       other: "Resource will be impored in %{minute} minutes."
+    auto_detect: "Auto detect"
+    successfully_created: "%{model} was created successfully. When the task is completed, its status on the list will be updated to 'completed'."
+    following_column_were_ignored: "The follwing column(s) were ignored: %{column}"
+    dummy: This row is treated as a dummy input.
+  export:
+    export_completed: Export completed.
+    are_you_sure_to_export: It may take some time to complete. Are you sure to export?
+    successfully_created: "%{model} task was created successfully. A notification message will be sent to you when the task is completed. You can download the export file from 'Listing %{model}'."
   user:
     current_password: "Current password"
     new_password: "New password"
@@ -700,7 +335,7 @@ en:
     edit_profile: "Edit profile"
     edit_account: "Edit account"
     already_activated: "Already activated."
-    specify_patron: "Specify the patron."
+    specify_agent: "Specify the agent."
     wrong_password: "Wrong password."
     password_mismatch: "Password mismatch."
     cannot_destroy_myself: "You can't destroy yourself."
@@ -708,7 +343,7 @@ en:
     last_librarian: "This user is the last librarian in this system."
     only_administrator_can_destroy: "Only administrators can destroy this user."
     this_user_has_checked_out_item: "This user has checked-out items."
-    patron_profile: "Patron profile"
+    agent_profile: "Agent profile"
     set_auto_generated_password: "Set auto-generated password"
     history: "History"
     account_management: "Account management"
@@ -724,6 +359,7 @@ en:
     change_my_password: "Change my password"
     management: "User management"
     not_found: "User not found."
+    role_is_not_set: "Role is not set."
   subscribe:
     this_subscription_is_expired: "This subscription is expired!"
   role:
@@ -759,3 +395,8 @@ en:
     already_accepted: "This item is already accepted."
     accept: "Accept!"
     successfully_accepted: "This items was successfully accepted."
+  user_import_file:
+    default_user_group: If "user_group" column is not set in the TSV file, this user group is set to the new user.
+    default_library: If "library" column is not set in the TSV file, this library is set to the new user.
+  profile:
+    no_number: No number

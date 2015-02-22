@@ -1,3 +1,0 @@
-isbn	library_short_name
-invalid
-9784873113647

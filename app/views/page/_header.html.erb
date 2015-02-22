@@ -1,35 +1,34 @@
-  <div class="navbar navbar-fluid-top">
-    <div class="navbar-inner">
-      <div class="container-fluid">
-        <%= link_to @library_group.display_name.localize, root_path, :class => 'brand' %>
-        <%= render 'page/menu' %>
-        <% unless controller_name == 'sessions' %>
-          <div class="btn-group pull-right">
-            <a id="menu-account" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-              <i class="icon-user"></i>
-              <% if user_signed_in? %>
-                <%= current_user.username %>
-              <% else %>
-                (<%= t('page.not_logged_in') %>)
-              <% end %>
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="menu-account">
-              <% if user_signed_in? %>
-                <li><%= link_to t('page.account'), my_account_path %></li>
-                <li>
-                <% if defined?(EnjuMessage) %>
-                  <%= link_to "#{t('activerecord.models.message')} (#{h(current_user.received_messages.unread.size)})", messages_path %>
-                <% end %>
-                </li>
-                <li class="divider"></li>
-                <li><%= link_to t('page.sign_out'), destroy_user_session_path, :method => :delete -%></li>
-              <% else %>
-                <li><%= link_to t('page.sign_in'), new_user_session_path -%></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-      </div>
+<div class="header_and_footer">
+  <div id="header_left">
+    <div id="library_system_name">
+      <h1 class="resource_title"><%= link_to LibraryGroup.system_name(@locale), root_path, title: LibraryGroup.system_name(@locale) %></h1>
     </div>
+    <div id="header_micro_advertisement"></div>
   </div>
+  <div id="header_center"></div>
+
+  <div id="header_right">
+    <div id="user_account">
+      <% if user_signed_in? %>
+        <%= t('page.logged_in_as', login_name: current_user.username) -%>
+        <br />
+        <% if defined?(EnjuMessage) %>
+          <%= link_to image_tag('icons/email.png', size: '16x16', alt: t('activerecord.models.message')), messages_path %>
+          <% if messages_count(current_user) > 0 %>
+            <%= link_to "(#{messages_count(current_user)})", messages_path %>
+          <% else %>
+            (<%= messages_count(current_user) %>)
+          <% end %>
+        <% end %>
+        <%= link_to t('page.account'), my_account_path -%>
+        <%= link_to t('page.sign_out'), destroy_user_session_path, method: :delete -%>
+        <br />
+      <% else %>
+        <% unless controller_name == 'sessions' %>
+          <%= link_to t('page.sign_in'), new_user_session_path -%>
+        <% end %>
+      <% end %>
+    </div>
+    <%= render 'page/select_locale' -%>
+  </div>
+</div>

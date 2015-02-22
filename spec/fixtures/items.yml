@@ -6,6 +6,7 @@ item_00001:
   checkout_type_id: 1
   shelf_id: 1
   call_number: 
+  manifestation_id: 1
   id: 1
   include_supplements: false
   created_at: 2007-08-24 23:46:00.484813 +09:00
@@ -16,6 +17,7 @@ item_00002:
   checkout_type_id: 1
   shelf_id: 1
   call_number: 
+  manifestation_id: 2
   id: 2
   include_supplements: false
   created_at: 2007-08-24 23:46:01.641413 +09:00
@@ -26,6 +28,7 @@ item_00003:
   checkout_type_id: 2
   shelf_id: 1
   call_number: 
+  manifestation_id: 3
   id: 3
   include_supplements: false
   created_at: 2007-08-24 23:46:02.502569 +09:00
@@ -36,6 +39,7 @@ item_00004:
   checkout_type_id: 1
   shelf_id: 1
   call_number: 
+  manifestation_id: 1
   id: 4
   include_supplements: true
   created_at: 2007-08-24 23:46:03.520781 +09:00
@@ -46,6 +50,7 @@ item_00005:
   checkout_type_id: 2
   shelf_id: 1
   call_number: 
+  manifestation_id: 2
   id: 5
   include_supplements: false
   created_at: 2007-08-24 23:46:04.538073 +09:00
@@ -56,6 +61,7 @@ item_00006:
   checkout_type_id: 2
   shelf_id: 1
   call_number: 
+  manifestation_id: 3
   id: 6
   include_supplements: true
   created_at: 2007-08-24 23:46:05.555353 +09:00
@@ -66,6 +72,7 @@ item_00007:
   checkout_type_id: 1
   shelf_id: 1
   call_number: 
+  manifestation_id: 1
   id: 7
   include_supplements: false
   created_at: 2007-08-24 23:46:06.572631 +09:00
@@ -76,6 +83,7 @@ item_00008:
   checkout_type_id: 2
   shelf_id: 1
   call_number: 
+  manifestation_id: 2
   id: 8
   include_supplements: true
   created_at: 2007-08-24 23:46:07.589909 +09:00
@@ -86,6 +94,7 @@ item_00009:
   checkout_type_id: 1
   shelf_id: 4
   call_number: 
+  manifestation_id: 3
   id: 9
   include_supplements: false
   created_at: 2007-08-24 23:46:08.607081 +09:00
@@ -96,6 +105,7 @@ item_00010:
   checkout_type_id: 2
   shelf_id: 1
   call_number: 
+  manifestation_id: 1
   id: 10
   include_supplements: false
   created_at: 2007-08-24 23:46:09.624281 +09:00
@@ -106,6 +116,7 @@ item_00011:
   checkout_type_id: 1
   shelf_id: 1
   call_number: 
+  manifestation_id: 1
   id: 11
   include_supplements: false
   created_at: 2007-08-24 23:46:10.484813 +09:00
@@ -116,6 +127,7 @@ item_00012:
   checkout_type_id: 2
   shelf_id: 1
   call_number: 
+  manifestation_id: 2
   id: 12
   include_supplements: false
   created_at: 2007-08-24 23:46:11.484813 +09:00
@@ -126,6 +138,7 @@ item_00013:
   checkout_type_id: 1
   shelf_id: 1
   call_number: 
+  manifestation_id: 2
   id: 13
   include_supplements: false
   created_at: 2007-08-24 23:46:12.484813 +09:00
@@ -136,6 +149,7 @@ item_00014:
   checkout_type_id: 2
   shelf_id: 1
   call_number: 
+  manifestation_id: 2
   id: 14
   include_supplements: false
   created_at: 2007-08-24 23:46:13.484813 +09:00
@@ -146,6 +160,7 @@ item_00015:
   checkout_type_id: 3
   shelf_id: 1
   call_number: 
+  manifestation_id: 2
   id: 15
   include_supplements: false
   created_at: 2007-08-24 23:46:14.484813 +09:00
@@ -156,6 +171,7 @@ item_00016:
   checkout_type_id: 2
   shelf_id: 1
   call_number: 
+  manifestation_id: 3
   id: 16
   include_supplements: true
   created_at: 2007-08-24 23:46:15.484813 +09:00
@@ -166,6 +182,7 @@ item_00017:
   checkout_type_id: 3
   shelf_id: 1
   call_number: 
+  manifestation_id: 3
   id: 17
   include_supplements: false
   created_at: 2007-08-24 23:46:16.484813 +09:00
@@ -176,6 +193,7 @@ item_00018:
   checkout_type_id: 3
   shelf_id: 1
   call_number: 
+  manifestation_id: 1
   id: 18
   include_supplements: false
   created_at: 2007-08-24 23:46:17.484813 +09:00
@@ -186,6 +204,7 @@ item_00019:
   checkout_type_id: 3
   shelf_id: 1
   call_number: 
+  manifestation_id: 1
   id: 19
   include_supplements: false
   created_at: 2007-08-24 23:46:18.484813 +09:00
@@ -196,6 +215,7 @@ item_00020:
   checkout_type_id: 3
   shelf_id: 1
   call_number: 
+  manifestation_id: 1
   id: 20
   include_supplements: false
   created_at: 2007-08-24 23:46:19.484813 +09:00
@@ -206,6 +226,7 @@ item_00021:
   checkout_type_id: 3
   shelf_id: 1
   call_number: 
+  manifestation_id: 11
   id: 21
   include_supplements: false
   created_at: 2007-08-24 23:46:20.484813 +09:00
@@ -216,6 +237,7 @@ item_00022:
   checkout_type_id: 3
   shelf_id: 1
   call_number: 
+  manifestation_id: 11
   id: 22
   include_supplements: false
   created_at: 2007-08-24 23:46:20.484813 +09:00
@@ -226,37 +248,56 @@ item_00023:
   checkout_type_id: 3
   shelf_id: 2
   call_number: 
+  manifestation_id: 11
   id: 23
   include_supplements: false
   created_at: 2007-08-24 23:46:20.484813 +09:00
-
+item_00024: 
+  updated_at: 2007-08-24 23:46:20.484813 +09:00
+  item_identifier: '00024'
+  circulation_status_id: 8
+  checkout_type_id: 3
+  shelf_id: 2
+  call_number: 
+  manifestation_id: 3
+  id: 24
+  include_supplements: false
+  created_at: 2007-08-24 23:46:20.484813 +09:00
+item_00025: 
+  updated_at: 2007-08-24 23:46:20.484813 +09:00
+  item_identifier: '00025'
+  circulation_status_id: 8
+  checkout_type_id: 3
+  shelf_id: 2
+  call_number: 
+  manifestation_id: 8
+  id: 25
+  include_supplements: false
+  created_at: 2007-08-24 23:46:20.484813 +09:00
 
 # == Schema Information
 #
 # Table name: items
 #
-#  id                    :integer         not null, primary key
+#  id                    :integer          not null, primary key
 #  call_number           :string(255)
 #  item_identifier       :string(255)
-#  circulation_status_id :integer         default(5), not null
-#  checkout_type_id      :integer         default(1), not null
-#  created_at            :datetime        not null
-#  updated_at            :datetime        not null
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
 #  deleted_at            :datetime
-#  shelf_id              :integer         default(1), not null
-#  include_supplements   :boolean         default(FALSE), not null
-#  checkouts_count       :integer         default(0), not null
-#  owns_count            :integer         default(0), not null
+#  shelf_id              :integer          default(1), not null
+#  include_supplements   :boolean          default(FALSE), not null
 #  note                  :text
 #  url                   :string(255)
 #  price                 :integer
-#  lock_version          :integer         default(0), not null
-#  required_role_id      :integer         default(1), not null
+#  lock_version          :integer          default(0), not null
+#  required_role_id      :integer          default(1), not null
 #  state                 :string(255)
-#  required_score        :integer         default(0), not null
+#  required_score        :integer          default(0), not null
 #  acquired_at           :datetime
 #  bookstore_id          :integer
-#  missing_since         :datetime
 #  budget_type_id        :integer
+#  circulation_status_id :integer          default(5), not null
+#  checkout_type_id      :integer          default(1), not null
 #
 

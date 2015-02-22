@@ -1,17 +1,17 @@
-<div class="row-fluid">
-  <div class="span9">
-  <h1 class="title">このシステムについて</h1>
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title">このシステムについて</h1>
+<div id="content_list">
 
 <ul>
-  <li>この図書館システム"Next-L Enju Leaf"は、<a href="http://mwr.mediacom.keio.ac.jp/~tanabe/">田辺浩介</a>と<a href="http://www.next-l.jp/">Project Next-L</a>によって開発されています。</li>
-  <li>Next-L Enju LeafはMITライセンスのもとに公開されています。詳しくは<a href="https://github.com/nabeta/enju_leaf/wiki">プロジェクトのホームページ</a>をごらんください。</li>
+  <li>この図書館システム"Next-L Enju Leaf"は、<a href="https://github.com/nabeta">田辺浩介</a>と<a href="http://www.next-l.jp/">Project Next-L</a>によって開発されています。</li>
+  <li>Next-L Enju LeafはMITライセンスのもとに公開されています。詳しくは<a href="https://github.com/next-l/enju_leaf">プロジェクトのホームページ</a>をごらんください。</li>
 </ul>
 
 <h2>連絡先</h2>
 
 <ul>
-  <li>田辺浩介: <%= mail_to 'tanabe@mwr.mediacom.keio.ac.jp', nil, :replace_at => '_at_' -%></li>
-  <li>Project Next-L: <%= mail_to 'info@next-l.jp', nil, :replace_at => '_at_' -%></li>
+  <li>田辺浩介: <%= mail_to 'nabeta@fastmail.fm', nil, replace_at: '_at_' -%></li>
+  <li>Project Next-L: <%= mail_to 'info@next-l.jp', nil, replace_at: '_at_' -%></li>
 </ul>
 
 <h2>謝辞</h2>
@@ -45,13 +45,13 @@
   <li>このシステムで利用しているアイコンは、<a href="http://www.famfamfam.com/lab/icons/silk/">famfamfam.com</a>によって製作されています。</li>
 </ul>
 
-  </div>
+</div>
+</div>
 
-  <div class="span3">
-    <ul>
-      <li><a href="http://www.next-l.jp/">Project Next-L</a></li>
-      <li><a href="https://github.com/nabeta/enju_leaf/wiki">GitHubでのプロジェクトのページ</a></li>
-      <li><a href="http://www.next-l.jp/?page=%A5%E1%A1%BC%A5%EA%A5%F3%A5%B0%A5%EA%A5%B9%A5%C8">メーリングリスト</a></li>
-    </ul>
-  </div>
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><a href="http://www.next-l.jp/">Project Next-L</a></li>
+    <li><a href="https://github.com/next-l/enju_leaf">GitHubでのプロジェクトのページ</a></li>
+    <li><a href="http://www.next-l.jp/?page=%A5%E1%A1%BC%A5%EA%A5%F3%A5%B0%A5%EA%A5%B9%A5%C8">メーリングリスト</a></li>
+  </ul>
 </div>

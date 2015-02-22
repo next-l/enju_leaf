@@ -1,68 +1,31 @@
-<h1 class="title"><%= t('page.edit_user_profile', :login_name => @user.username) -%></h1>
-<div class="row-fluid">
-  <div class="span9">
-    <%= simple_form_for(@user, :url => my_account_path) do |f| -%>
-    <%= render 'page/required_field' %>
-    <%= f.error_messages -%>
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.edit_user_profile', login_name: @profile.user.username) -%></h1>
+<div id="content_list">
+<%= render 'page/required_field' %>
+<%= simple_form_for(@profile, url: my_account_path) do |f| -%>
+  <%= f.error_messages -%>
 
-    <div class="row-fluid">
-      <%= render :partial => 'edit_credential', :locals => {:f => f, :user => @user} -%>
-    </div>
+  <%= render partial: 'edit_credential', locals: {f: f, profile: @profile} -%>
 
-    <hr />
-
-    <div class="field">
-      <%= f.label :keyword_list -%>
-      <%= f.text_area :keyword_list, :class => 'span12' -%>
-    </div>
-
-    <% if defined?(EnjuCirculation) %>
-      <div class="field">
-        <%= f.label t('user.checkout_history_icalendar_url') -%><br />
-        <div id="feed_token">
-          <%- if @user.checkout_icalendar_token? -%>
-            <%= link_to checkouts_url(:icalendar_token => @user.checkout_icalendar_token, :format => :ics), checkouts_url(:icalendar_token => @user.checkout_icalendar_token, :format => :ics) -%>
-            <%= f.hidden_field :checkout_icalendar_token -%>
-          <%- end -%>
-          <br />
-          <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_my_account_path(:mode => 'feed_token') %>'});" type="button" value="<%= t('page.reset') %>" class="btn" />
-          <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_my_account_path(:disable => true, :mode => 'feed_token') %>'});" type="button" value="<%= t('page.delete') %>" class="btn" />
-        </div>
-        <br />
-      </div>
-    <% end %>
-
-    <% if defined?(EnjuSearchLog) %>
-      <div class="field">
-        <%= f.check_box :save_search_history %>
-        <%= f.label :save_search_history %>
-      </div>
-    <% end %>
-
-    <% if defined?(EnjuCirculation) %>
-      <div class="field">
-        <%= f.check_box :save_checkout_history %>
-        <%= f.label :save_checkout_history %>
-      </div>
-    <% end %>
-
-    <div class="field">
-      <%= f.label :note -%>
-      <%= f.text_area :note, :class => 'span12' -%>
-    </div>
-
-    <div class="actions">
-      <%= f.submit :class => 'btn' %>
-    </div>
-    <%- end -%>
+  <div class="actions" style="clear: both">
+    <%= f.submit %>
+  </div>
+  <div class="field">
+    <%= f.label :keyword_list -%><br />
+    <%= f.text_area :keyword_list, class: 'resource_textarea' -%>
   </div>
 
-  <div class="span3">
-    <ul>
-      <li><%= link_to t('page.show'), my_account_path -%></li>
-      <% if current_user.has_role?('Librarian') %>
-        <li><%= link_to t('page.listing', :model => t('activerecord.models.user')), users_path -%></li>
-      <% end %>
-    </ul>
-  </div>
+  <%= render partial: 'profiles/edit_profile', locals: {f: f, profile: @profile} -%>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.show'), my_account_path -%></li>
+    <% if current_user.has_role?('Librarian') %>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.user')), profiles_path -%></li>
+    <% end %>
+  </ul>
 </div>

@@ -29,13 +29,15 @@ div#narrow_search, div#narrow_library_search{
   color: black;
 }
 
-div#navibar, div#bd{
+div#bd{
   padding-left: 1px;
 }
 
 div#navibar{
   clear: both;
-  width: 100%;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 914px;
 }
 
 div#content{
@@ -78,7 +80,7 @@ div#header_micro_advertisement{
   padding-bottom: 0.5em;
 }
 
-div#header_advertisement{
+div#header_center{
   width: 240px;
   height: 65px;
   float: left;
@@ -111,11 +113,10 @@ div#search_footer{
 }
 
 div#submenu{
-  margin-left: 10px;
+  margin-left: 11px;
   width: 190px;
   padding: 5px;
   float: left;
-  border: 1px solid #5970B2;
 }
 
 div#manifestation_book_jacket{
@@ -145,7 +146,6 @@ div#content_detail{
   width: 700px;
   float: left;
   margin-bottom: 5px;
-  border: 1px solid #5970B2;
 }
 
 div#content_list{
@@ -223,8 +223,8 @@ h4{
 }
 
 h1.title, h2.title, h3.title, h4.title{
-  color: white;
-  background-color: #5970B2;
+  /* color: white; */
+  /* background-color: #5970B2; */
   padding: 5px;
   margin: 0px;
 }
@@ -366,6 +366,11 @@ input.resource_isbn_issn, input.resource_identifier, input.resource_user_number,
   ime-mode: disabled;
 }
 
+input.resource_identifier_body{
+  width: 20em;
+  ime-mode: disabled;
+}
+
 input.resource_integer{
   width: 5em;
   ime-mode: disabled;
@@ -381,7 +386,7 @@ input.date_field{
 }
 
 input.date_text_field{
-  width: 80px;
+  width: 100px;
 }
 
 input.wide_date_text_field{
@@ -470,7 +475,7 @@ div#flash_notice{
 }
 
 td#edit_icons, th#edit_icons{
-  width: 50px;
+  width: 100px;
   line-height: 200%;
 }
 
@@ -484,7 +489,6 @@ img.icon{
   position: absolute;
   background-color: white;
   padding: 10px;
-  border: 1px solid #5970B2;
   max-width: 250px;
 }
 
@@ -509,7 +513,7 @@ table#resource_detail{
   width: 100%;
 }
 
-div#holding{
+div.holding{
   margin-top: 10px;
 }
 
@@ -529,4 +533,9 @@ div.book_jacket{
 
 div.search_form{
   margin-bottom: 10px;
+}
+
+.hidden {display: none;}
+
+.enju_table_header{
 }

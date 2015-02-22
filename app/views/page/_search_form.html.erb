@@ -1,11 +1,11 @@
 <div class="search_form">
-  <%= form_for :manifestations, :url => manifestations_path, :html => {:method => 'get', :class => "well form-search"} do -%>
+  <%= form_for :manifestations, url: manifestations_path, html: {method: 'get'} do -%>
     <p>
-      <%= t('page.search_term') -%>:
-      <%= search_field_tag 'query', nil, :class => 'input-medium search-query', :placeholder => t('page.search_term') -%>
-      <%= submit_tag t('page.search'), :class => 'btn' -%><br />
+      <%= label_tag :query, t('page.search_term') -%>:
+      <%= search_field_tag 'query', nil, class: 'search_form_short', placeholder: t('page.search_term') -%>
+      <%= submit_tag t('page.search') -%><br />
       (<%= link_to t('page.advanced_search'), page_advanced_search_path -%>)
     </p>
   <%- end -%>
 </div>
-<%= javascript_tag("$('#query').focus()") -%>
+<%= javascript_tag("$(function(){$('#query').focus()})") %>

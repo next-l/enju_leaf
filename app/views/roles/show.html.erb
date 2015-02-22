@@ -1,7 +1,7 @@
-<div class="row-fluid">
-  <div class="span9">
-    <h1 class="title"><%= t('page.showing', :model => t('activerecord.models.role')) -%></h1>
-    <p id="notice"><%= notice %></p>
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.role')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
 
 <p>
   <strong><%= t('activerecord.attributes.role.name') -%>:</strong>
@@ -33,12 +33,12 @@
   <%= l(@role.updated_at) if @role.created_at -%>
 </p>
 
-  </div>
+</div>
+</div>
 
-  <div class="span3">
-    <ul>
-      <li><%= link_to t('page.edit'), edit_role_path(@role) -%></li>
-      <li><%= back_to_index(flash[:page_info]) -%></li>
-    </ul>
-  </div>
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_role_path(@role) -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
+  </ul>
 </div>

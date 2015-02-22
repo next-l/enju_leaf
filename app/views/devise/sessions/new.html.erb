@@ -1,39 +1,37 @@
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div class="row-fluid">
-    <div class="span8">
-      <h1 class="title"><%= t('page.sign_in') -%> : Next-L Enju</h1>
-      <%= f.error_messages -%>
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.sign_in') -%> : Next-L Enju</h1>
+<div id="content_list">
+  <%= f.error_messages -%>
 
-      <%= raw sanitize(textilize(h(@library_group.login_banner))) %>
+  <%= markdown_helper(@library_group.login_banner) %>
 
-    </div>
+</div>
+</div>
 
-  <div class="span4">
-    <%= f.label :username do %>
-      <%= t('activerecord.attributes.user.username') %><br />
-      <%= f.text_field :username, :class => 'input-middle' %>
-    <% end %>
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <p>
+    <%= f.label t('activerecord.attributes.user.username') %><br />
+    <%= f.text_field :username, :class => 'login_password', :autofocus => true %>
+  </p>
 
-    <%= f.label :password do %>
-      <%= t('activerecord.attributes.user.password') %><br />
-      <%= f.password_field :password, :class => 'input-middle' %>
-    <% end %>
+  <p>
+    <%= f.label t('activerecord.attributes.user.password') %><br />
+    <%= f.password_field :password, :class => 'login_password', :autocomplete => 'off' %>
+  </p>
 
-    <p id="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+  <p id="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
 
-    <% if devise_mapping.rememberable? -%>
-      <%= f.label :remember_me, :class => 'checkbox' do %>
-        <%= t('user.remember_me') %>
-        <%= f.check_box :remember_me %>
-      <% end %>
-    <% end -%>
+  <% if devise_mapping.rememberable? -%>
+    <p><%= f.check_box :remember_me %> <%= f.label :remember_me, t('user.remember_me') %></p>
+  <% end -%>
 
-    <p><%= f.submit t('page.sign_in'), :class => 'btn' %></p>
+  <p><%= f.submit t('page.sign_in') %></p>
 
-  <%= javascript_tag("$('#user_username').focus().select();") -%>
+<%= javascript_tag("$(function(){$('#user_username').focus()})") %>
 
-  <%= render "devise/shared/links" %>
+<%= render "devise/shared/links" %>
 
-  </div>
+</div>
 <% end -%>

@@ -1,31 +1,26 @@
-<div class="row-fluid">
-<div class="span9">
+<div id="content_detail" class="ui-corner-all ui-widget-content">
 <h1 class="title"><%= t('page.export') -%></h1>
+<div id="content_list">
 
 <ul>
-  <li>
-    <%= t('activerecord.models.patron') -%>
-    (<%= link_to 'CSV', patrons_path(:format => :csv) -%>)
-  </li>
-  <% if defined?(EnjuEvent) %>
+  <% if current_user.try(:has_role?, 'Administrator') %>
     <li>
-      <%= t('activerecord.models.event') -%>
-      (<%= link_to 'CSV', events_path(:format => :csv) -%>)
+      <%= link_to t('activerecord.models.user_export_file'), user_export_files_path -%>
     </li>
   <% end %>
   <li>
-    <%= t('activerecord.models.manifestation') -%>
-    (<%= link_to 'CSV', manifestations_path(:format => :csv) -%>)
+    <%= link_to t('activerecord.models.resource_export_file'), resource_export_files_path -%>
   </li>
-  <li>
-    <%= t('activerecord.models.item') -%>
-    (<%= link_to 'CSV', items_path(:format => :csv) -%>)
-  </li>
+  <% if defined?(EnjuEvent) %>
+    <li>
+      <%= link_to t('activerecord.models.event_export_file'), event_export_files_path -%>
+    </li>
+  <% end %>
 </ul>
 </div>
+</div>
 
-<div class="span3">
+<div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
   </ul>
-</div>
 </div>

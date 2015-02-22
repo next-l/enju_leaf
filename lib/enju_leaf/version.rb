@@ -1,7 +1,3 @@
 module EnjuLeaf
-  VERSION = '1.1.0.dev'
-
-  def self.version
-    VERSION
-  end
+  VERSION = "1.2.0.beta.1"
 end
