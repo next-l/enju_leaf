@@ -14,7 +14,7 @@ module MasterModel
       end
       validates :display_name, presence: true
       before_validation :set_display_name, on: :create
-      normalize_attributes :name
+      strip_attributes only: :name
     end
   end
 

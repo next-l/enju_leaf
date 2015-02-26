@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency "devise", "~> 3.4"
   s.add_dependency "pundit"
   s.add_dependency "acts_as_list", "~> 0.6"
-  s.add_dependency "normalizr", "~> 0.1"
+  s.add_dependency "strip_attributes", "~> 1.7"
   s.add_dependency "addressable", "~> 2.3"
   s.add_dependency "elasticsearch-model", "~> 0.1.6"
   s.add_dependency "elasticsearch-rails", "~> 0.1.6"
