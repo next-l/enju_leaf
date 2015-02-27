@@ -42,6 +42,7 @@ Gem::Specification.new do |s|
   s.add_dependency "paperclip", "~> 4.2"
   s.add_dependency "statesman"
   s.add_dependency "redcarpet"
+  s.add_dependency "settingslogic"
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"
