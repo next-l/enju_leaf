@@ -6,7 +6,7 @@ class CreateUserImportFiles < ActiveRecord::Migration
       t.datetime :executed_at
       t.string :user_import_file_name
       t.string :user_import_content_type
-      t.string :user_import_file_size
+      t.integer :user_import_file_size
       t.datetime :user_import_updated_at
       t.string :user_import_fingerprint
       t.string :edit_mode

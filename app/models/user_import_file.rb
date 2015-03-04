@@ -4,26 +4,7 @@ class UserImportFile < ActiveRecord::Base
   scope :not_imported, -> { in_state(:pending) }
   scope :stucked, -> { in_state(:pending).where('user_import_files.created_at < ?', 1.hour.ago) }
 
-  if ENV['ENJU_STORAGE'] == 's3'
-    has_attached_file :user_import, storage: :s3,
-      s3_credentials: {
-        access_key: ENV['AWS_ACCESS_KEY_ID'],
-        secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-        bucket: ENV['S3_BUCKET_NAME']
-      },
-      s3_permissions: :private
-  else
-    has_attached_file :user_import,
-      path: ":rails_root/private/system/:class/:attachment/:id_partition/:style/:filename"
-  end
-  validates_attachment_content_type :user_import, content_type: [
-    'text/csv',
-    'text/plain',
-    'text/tab-separated-values',
-    'application/octet-stream',
-    'application/vnd.ms-excel'
-  ]
-  validates_attachment_presence :user_import
+  validates :user_import, presence: true, on: :create
   belongs_to :user, validate: true
   belongs_to :default_user_group, class_name: 'UserGroup'
   belongs_to :default_library, class_name: 'Library'
@@ -31,6 +12,8 @@ class UserImportFile < ActiveRecord::Base
 
   has_many :user_import_file_transitions
 
+  before_save :set_fingerprint
+  attachment :user_import
   enju_import_file_model
   attr_accessor :mode
 
@@ -44,7 +27,7 @@ class UserImportFile < ActiveRecord::Base
   def import
     transition_to!(:started)
     num = { user_imported: 0, user_found: 0, failed: 0 }
-    rows = open_import_file(create_import_temp_file(user_import))
+    rows = open_import_file(create_import_temp_file(user_import.download))
     row_num = 1
 
     field = rows.first
@@ -115,7 +98,7 @@ class UserImportFile < ActiveRecord::Base
   def modify
     transition_to!(:started)
     num = { user_updated: 0, user_not_found: 0, failed: 0 }
-    rows = open_import_file(create_import_temp_file(user_import))
+    rows = open_import_file(create_import_temp_file(user_import.download))
     row_num = 1
 
     field = rows.first
@@ -160,7 +143,7 @@ class UserImportFile < ActiveRecord::Base
   def remove
     transition_to!(:started)
     row_num = 1
-    rows = open_import_file(create_import_temp_file(user_import))
+    rows = open_import_file(create_import_temp_file(user_import.download))
 
     field = rows.first
     if [field['username']].reject{ |f| f.to_s.strip == "" }.empty?
@@ -233,7 +216,6 @@ class UserImportFile < ActiveRecord::Base
     Rails.logger.info "#{Time.zone.now} importing resources failed!"
   end
 
-  private
   def set_user_params(_new_user, row)
     params = {}
     params[:email] = row['email'] if row['email'].present?
@@ -300,6 +282,10 @@ class UserImportFile < ActiveRecord::Base
     end
     params
   end
+
+  def set_fingerprint
+    self.user_import_fingerprint = Digest::SHA1.file(user_import.download.path).hexdigest
+  end
 end
 
 # == Schema Information
@@ -310,16 +296,18 @@ end
 #  user_id                  :integer
 #  note                     :text
 #  executed_at              :datetime
-#  user_import_file_name    :string(255)
-#  user_import_content_type :string(255)
-#  user_import_file_size    :string(255)
+#  user_import_file_name    :string
+#  user_import_content_type :string
+#  user_import_file_size    :integer
 #  user_import_updated_at   :datetime
-#  user_import_fingerprint  :string(255)
-#  edit_mode                :string(255)
+#  user_import_fingerprint  :string
+#  edit_mode                :string
 #  error_message            :text
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
-#  user_encoding            :string(255)
+#  created_at               :datetime
+#  updated_at               :datetime
+#  user_encoding            :string
 #  default_library_id       :integer
 #  default_user_group_id    :integer
+#  user_import_id           :string
+#  user_import_size         :integer
 #

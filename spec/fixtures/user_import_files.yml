@@ -6,7 +6,7 @@ one:
   executed_at: 2014-01-10 21:22:16
   user_import_file_name: MyString
   user_import_content_type: text/csv
-  user_import_file_size: 1
+  user_import_size: 1
   user_import_updated_at: 2014-01-10 21:22:16
   user_import_fingerprint: MyString
   edit_mode: MyString
@@ -18,7 +18,7 @@ two:
   executed_at: 2014-01-10 21:22:16
   user_import_file_name: MyString
   user_import_content_type: text/csv
-  user_import_file_size: 1
+  user_import_size: 1
   user_import_updated_at: 2014-01-10 21:22:16
   user_import_fingerprint: MyString
   edit_mode: MyString
@@ -32,16 +32,18 @@ two:
 #  user_id                  :integer
 #  note                     :text
 #  executed_at              :datetime
-#  user_import_file_name    :string(255)
-#  user_import_content_type :string(255)
-#  user_import_file_size    :string(255)
+#  user_import_file_name    :string
+#  user_import_content_type :string
+#  user_import_file_size    :integer
 #  user_import_updated_at   :datetime
-#  user_import_fingerprint  :string(255)
-#  edit_mode                :string(255)
+#  user_import_fingerprint  :string
+#  edit_mode                :string
 #  error_message            :text
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
-#  user_encoding            :string(255)
+#  created_at               :datetime
+#  updated_at               :datetime
+#  user_encoding            :string
 #  default_library_id       :integer
 #  default_user_group_id    :integer
+#  user_import_id           :string
+#  user_import_size         :integer
 #

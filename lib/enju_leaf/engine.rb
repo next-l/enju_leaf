@@ -21,6 +21,9 @@ require 'jquery-ui-rails'
 require 'statesman'
 require 'browser'
 require 'sunspot_rails'
+require "mini_magick"
+require "refile/rails"
+require "refile/image_processing"
 
 module EnjuLeaf
   class Engine < ::Rails::Engine
