@@ -29,13 +29,11 @@ end
 #
 #  id                       :integer          not null, primary key
 #  user_id                  :integer
-#  user_export_file_name    :string
-#  user_export_content_type :string
-#  user_export_file_size    :integer
-#  user_export_updated_at   :datetime
 #  executed_at              :datetime
 #  created_at               :datetime
 #  updated_at               :datetime
 #  user_export_id           :string
+#  user_export_file_name    :string
 #  user_export_size         :integer
+#  user_export_content_type :string
 #
