@@ -1,12 +1,2 @@
-//= require jquery.ui.all
-//= require jquery.colorbox
-//= require jquery.highlight
-//= require jquery.shortcut
-//= require jquery.cookie
-//= require jquery.ui.menubar
-//= require menu.enju
 //= require select_locale
-//= require portlets
-//= require tab_view
-//= require jquery.powertip
 //= require jquery_nested_form

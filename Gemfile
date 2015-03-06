@@ -20,7 +20,6 @@ gem "enju_search_log", github: "next-l/enju_search_log", branch: "master"
 gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer", branch: "master"
 gem "coveralls", require: false, group: :test
 gem "dotenv-rails"
-gem "bootstrap-sass", "~> 3.3.3"
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
