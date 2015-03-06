@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150221063719) do
+ActiveRecord::Schema.define(version: 20150304175658) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer  "basket_id"
@@ -1066,10 +1066,6 @@ ActiveRecord::Schema.define(version: 20150221063719) do
 
   create_table "resource_export_files", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "resource_export_file_name"
-    t.string   "resource_export_content_type"
-    t.integer  "resource_export_file_size"
-    t.datetime "resource_export_updated_at"
     t.datetime "executed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1346,14 +1342,16 @@ ActiveRecord::Schema.define(version: 20150221063719) do
 
   create_table "user_export_files", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "user_export_file_name"
-    t.string   "user_export_content_type"
-    t.integer  "user_export_file_size"
-    t.datetime "user_export_updated_at"
     t.datetime "executed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "user_export_id"
+    t.string   "user_export_file_name"
+    t.integer  "user_export_size"
+    t.string   "user_export_content_type"
   end
+
+  add_index "user_export_files", ["user_export_id"], name: "index_user_export_files_on_user_export_id"
 
   create_table "user_group_has_checkout_types", force: :cascade do |t|
     t.integer  "user_group_id",                                   null: false
@@ -1418,7 +1416,7 @@ ActiveRecord::Schema.define(version: 20150221063719) do
     t.datetime "executed_at"
     t.string   "user_import_file_name"
     t.string   "user_import_content_type"
-    t.string   "user_import_file_size"
+    t.integer  "user_import_file_size"
     t.datetime "user_import_updated_at"
     t.string   "user_import_fingerprint"
     t.string   "edit_mode"
@@ -1428,7 +1426,11 @@ ActiveRecord::Schema.define(version: 20150221063719) do
     t.string   "user_encoding"
     t.integer  "default_library_id"
     t.integer  "default_user_group_id"
+    t.string   "user_import_id"
+    t.integer  "user_import_size"
   end
+
+  add_index "user_import_files", ["user_import_id"], name: "index_user_import_files_on_user_import_id"
 
   create_table "user_import_results", force: :cascade do |t|
     t.integer  "user_import_file_id"

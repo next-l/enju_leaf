@@ -17,21 +17,13 @@ class UserImportFilesController < ApplicationController
   # GET /user_import_files/1
   # GET /user_import_files/1.json
   def show
-    if @user_import_file.user_import.path
-      unless ENV['ENJU_STORAGE'] == 's3'
-        file = @user_import_file.user_import.path
-      end
-    end
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user_import_file }
       format.download {
-        if ENV['ENJU_STORAGE'] == 's3'
-          redirect_to @user_import_file.user_import.expiring_url(10)
-        else
-          send_file file, filename: @user_import_file.user_import_file_name, type: 'application/octet-stream'
-        end
+        send_file @user_import_file.user_import.download,
+          filename: @user_import_file.user_import_file_name,
+          type: 'application/octet-stream'
       }
     end
   end

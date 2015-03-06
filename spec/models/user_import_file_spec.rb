@@ -6,7 +6,7 @@ describe UserImportFile do
 
   describe "when its mode is 'create'" do
     before(:each) do
-      @file = UserImportFile.new :user_import => File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv")
+      @file = UserImportFile.new user_import: File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv")
       @file.default_user_group = UserGroup.find(2)
       @file.default_library = Library.find(3)
       @file.user = users(:admin)
@@ -69,6 +69,7 @@ describe UserImportFile do
       user006.profile.user_group.name.should eq UserGroup.find(2).name
 
       @file.user_import_fingerprint.should be_truthy
+      @file.user_import_size.should eq 729
       @file.executed_at.should be_truthy
 
       @file.reload
@@ -95,14 +96,14 @@ describe UserImportFile do
 
   describe "when its mode is 'update'" do
     it "should update users" do
-      @file = UserImportFile.create :user_import => File.new("#{Rails.root}/../../examples/user_update_file.tsv")
+      @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_update_file.tsv")
       @file.modify
     end
   end
 
   describe "when its mode is 'destroy'" do
     before(:each) do
-      @file = UserImportFile.new :user_import => File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv")
+      @file = UserImportFile.new user_import: File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv")
       @file.user = users(:admin)
       @file.default_user_group = UserGroup.find(2)
       @file.default_library = Library.find(3)
@@ -112,14 +113,14 @@ describe UserImportFile do
 
     it "should remove users" do
       old_count = User.count
-      @file = UserImportFile.create :user_import => File.new("#{Rails.root}/../../examples/user_delete_file.tsv")
+      @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_delete_file.tsv")
       @file.remove
       User.count.should eq old_count - 3
     end
   end
 
   it "should import in background" do
-    file = UserImportFile.new :user_import => File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv")
+    file = UserImportFile.new user_import: File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv")
     file.user = users(:admin)
     file.default_user_group = UserGroup.find(2)
     file.default_library = Library.find(3)
@@ -136,16 +137,18 @@ end
 #  user_id                  :integer
 #  note                     :text
 #  executed_at              :datetime
-#  user_import_file_name    :string(255)
-#  user_import_content_type :string(255)
-#  user_import_file_size    :string(255)
+#  user_import_file_name    :string
+#  user_import_content_type :string
+#  user_import_file_size    :integer
 #  user_import_updated_at   :datetime
-#  user_import_fingerprint  :string(255)
-#  edit_mode                :string(255)
+#  user_import_fingerprint  :string
+#  edit_mode                :string
 #  error_message            :text
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
-#  user_encoding            :string(255)
+#  created_at               :datetime
+#  updated_at               :datetime
+#  user_encoding            :string
 #  default_library_id       :integer
 #  default_user_group_id    :integer
+#  user_import_id           :string
+#  user_import_size         :integer
 #
