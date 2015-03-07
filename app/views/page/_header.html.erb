@@ -1,13 +1,13 @@
-<div class="header_and_footer">
-  <div id="header_left">
+<div class="row">
+  <div class="col-md-4" id="header_left">
     <div id="library_system_name">
       <h1 class="resource_title"><%= link_to LibraryGroup.system_name(@locale), root_path, title: LibraryGroup.system_name(@locale) %></h1>
     </div>
     <div id="header_micro_advertisement"></div>
   </div>
-  <div id="header_center"></div>
+  <div class="col-md-4" id="header_center"></div>
 
-  <div id="header_right">
+  <div class="col-md-4" id="header_right">
     <div id="user_account">
       <% if user_signed_in? %>
         <%= t('page.logged_in_as', login_name: current_user.username) -%>

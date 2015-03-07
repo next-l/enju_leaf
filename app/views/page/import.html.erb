@@ -1,17 +1,27 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.import_from_file') -%></h1>
-<div id="content_list">
+<div class="row" id="col1">
+  <div class="col-md-9" id="search">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <%= t('page.import_from_file') -%>
+      </div>
 
-<ul>
-  <li><%= link_to t('activerecord.models.user'), user_import_files_path -%>
-  <li><%= link_to t('page.manifestation_and_item'), resource_import_files_path -%></li>
-  <li><%= link_to t('activerecord.models.event'), event_import_files_path -%></li>
-  <!--
-  <li><%= link_to t('activerecord.models.agent'), agent_import_files_path -%></li>
-  -->
-</ul>
-</div>
-</div>
+      <div class="panel-body">
+        <ul>
+          <li><%= link_to t('activerecord.models.user'), user_import_files_path -%>
+          <li><%= link_to t('page.manifestation_and_item'), resource_import_files_path -%></li>
+          <li><%= link_to t('activerecord.models.event'), event_import_files_path -%></li>
+          <!--
+          <li><%= link_to t('activerecord.models.agent'), agent_import_files_path -%></li>
+          -->
+        </ul>
+      </div>
+    </div>
+  </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+  <div id="submenu" class="col-md-3">
+    <div class="panel panel-default">
+      <div class="panel-body">
+      </div>
+    </div>
+  </div>
 </div>

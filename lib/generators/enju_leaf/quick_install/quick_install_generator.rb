@@ -2,25 +2,24 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
   def quick_install
-    environment = ENV['ENJU_ENV'] || 'development'
     if !ENV['SKIP_CONFIG']
-      rake("db:migrate", env: environment)
+      rake("db:migrate")
       generate("enju_circulation:setup")
       generate("enju_subject:setup")
     end
-    rake("db:migrate", env: environment)
-    rake("enju_leaf:setup", env: environment)
-    rake("enju_circulation:setup", env: environment)
-    rake("enju_subject:setup", env: environment)
-    rake("assets:precompile", env: environment) if environment == 'production'
-    rake("db:seed", env: environment)
+    rake("db:migrate")
+    rake("enju_leaf:setup")
+    rake("enju_circulation:setup")
+    rake("enju_subject:setup")
+    rake("assets:precompile")
+    rake("db:seed")
     if ENV['OS'] == 'Windows_NT'
-      rake("sunspot:solr:run", env: environment)
+      rake("sunspot:solr:run")
     else
-      rake("sunspot:solr:start", env: environment)
+      rake("sunspot:solr:start")
       sleep 5
-      rake("environment enju_leaf:reindex", env: environment)
-      rake("sunspot:solr:stop", env: environment)
+      rake("environment enju_leaf:reindex")
+      rake("sunspot:solr:stop")
     end
   end
 end
