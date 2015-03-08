@@ -34,7 +34,6 @@ Gem::Specification.new do |s|
   s.add_dependency "sitemap_generator"
   s.add_dependency "devise-encryptable"
   s.add_dependency "rails_autolink"
-  s.add_dependency "jquery-ui-rails", "~> 4.2.1"
   s.add_dependency "refile"
   s.add_dependency "mini_magick"
   s.add_dependency "statesman", "~> 1.1"
