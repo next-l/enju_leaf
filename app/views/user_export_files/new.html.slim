@@ -1,0 +1,11 @@
+#content_detail.ui-corner-all.ui-widget-content
+  h1.title
+    = t('page.new', model: t('activerecord.models.user_export_file'))
+  #content_list
+    p
+      = t('export.are_you_sure_to_export')
+    = render 'form'
+#submenu.ui-corner-all.ui-widget-content
+  ul
+    li
+      = link_to t('page.listing', model: t('activerecord.models.user_export_file')), user_export_files_path

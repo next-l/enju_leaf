@@ -1,0 +1,4 @@
+- if user_signed_in?
+  = render 'profiles/show', profile: current_user.profile
+- else
+  = render 'page/index'

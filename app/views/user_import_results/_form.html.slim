@@ -1,0 +1,24 @@
+= form_for(@user_import_result) do |f|
+  - if @user_import_result.errors.any?
+    #error_explanation
+      h2
+        = pluralize(@user_import_result.errors.count, "error")
+        |  prohibited this user_import_result from being saved:
+      ul
+        - @user_import_result.errors.full_messages.each do |msg|
+          li
+            = msg
+  .field
+    = f.label :user_import_file_id
+    br
+    = f.number_field :user_import_file_id
+  .field
+    = f.label :user_id
+    br
+    = f.number_field :user_id
+  .field
+    = f.label :body
+    br
+    = f.text_area :body
+  .actions
+    = f.submit

@@ -1,0 +1,49 @@
+#col1.row
+  #search.col-md-6
+    .panel.panel-default
+      .panel-heading
+        - if user_signed_in?
+          = t('page.user_title', login_name: current_user.username)
+        - else
+          = t('page.catalog_search')
+      #user_search_form.panel-body
+        p#notice
+          = notice
+        = render 'page/search_form'
+        p
+          = t('page.number_of_manifestations', numdocs: Manifestation.search.total, count: Manifestation.search.total)
+        h3[style="display: inline"]
+          = link_to t('page.new_resource'), manifestations_path(mode: 'recent')
+        - if defined?(EnjuBookmark)
+          - if user_signed_in?
+            h4[style="display: inline"]
+              = link_to t('activerecord.models.bookmark'), bookmarks_path(user_id: current_user.username)
+  - if defined?(EnjuNews)
+    #news_feed.col-md-6
+      .panel.panel-default
+        .panel-heading
+          = t('page.news')
+        #picked_up_box.panel-body
+          #news_feed_box
+            = render partial: 'news_feeds/list', locals: {news_feeds: @news_feeds}
+  #pickup.col-md-6
+    #pickup.panel.panel-default
+      .panel-heading
+        = t('manifestation.pickup')
+      #picked_up_box.panel-body
+        = render 'manifestations/pickup', manifestation: @manifestation
+  - if defined?(EnjuBookmark)
+    #tag_cloud.col-md-6
+      #pickup.panel.panel-default
+        .panel-heading
+          - if user_signed_in?
+            = t('tag.my_tag')
+          - else
+            = t('tag.popular_tag')
+        #picked_up_box.panel-body
+          #tag_cloud_box
+            = render 'bookmarks/tag_cloud', tags: @tags
+            p
+              | (
+              = link_to t('page.listing', model: t('activerecord.models.tag')), tags_path
+              | )

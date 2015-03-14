@@ -1,0 +1,20 @@
+#content_detail.ui-corner-all.ui-widget-content
+  h1.title
+    = t('page.system_information')
+  #content_list
+    ul
+      li
+        | Environment: 
+        = Rails.env
+      li
+        | Gems: 
+        ul
+          - @specs.each do |spec|
+            li
+              = spec.name
+              | : 
+              = spec.version.to_s
+#submenu.ui-corner-all.ui-widget-content
+  ul
+    li
+      = link_to t('page.configuration'), page_configuration_path

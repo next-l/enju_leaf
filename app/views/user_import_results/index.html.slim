@@ -1,0 +1,41 @@
+#content_detail.ui-corner-all.ui-widget-content
+  h1.title
+    = t('page.listing', model: t('activerecord.models.user_import_result'))
+  #content_list
+    - if @user_import_file
+      h2.resource_title
+        = link_to @user_import_file.user_import_file_name, @user_import_file
+    table.table.table-striped.index
+      tr
+        th
+          = t('activerecord.models.user_import_file')
+        th
+          = t('activerecord.models.user')
+        th
+      - @user_import_results.each do |user_import_result|
+        |  <tr class="line
+        = cycle("0", "1")
+        | "> 
+        td
+          = link_to user_import_result.user_import_file.user_import_file_name, user_import_result.user_import_file
+          br
+          =l user_import_result.created_at
+        td
+          = link_to user_import_result.user.username, user_import_result.user.profile if user_import_result.user.try(:profile)
+        td
+          = link_to t('page.show'), user_import_result
+          = link_to t('page.destroy'), user_import_result, data: {confirm: t('page.are_you_sure')}, method: :delete
+    = paginate(@user_import_results)
+#submenu.ui-corner-all.ui-widget-content
+  ul
+    li
+      - if @user_import_file
+        = link_to((image_tag 'icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'icon'), user_import_file_user_import_results_path(@user_import_file, format: :txt, locale: @locale.to_s))
+        |  (
+        = link_to 'TSV', user_import_file_user_import_results_path(format: :txt, locale: @locale.to_s)
+        | ) 
+      - else
+        = link_to((image_tag 'icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'icon'), user_import_results_path(format: :txt, locale: @locale.to_s))
+        |  (
+        = link_to 'TSV', user_import_results_path(format: :txt, locale: @locale.to_s)
+        | ) 

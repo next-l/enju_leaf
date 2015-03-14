@@ -1,0 +1,26 @@
+#content_detail.ui-corner-all.ui-widget-content
+  h1.title
+    = t('page.showing', model: t('activerecord.models.user_export_file'))
+  #content_list
+    p#notice
+      = notice
+    p
+      strong
+        = t('activerecord.models.user')
+      = @user_export_file.user.try(:username)
+    p
+      strong
+        = t('activerecord.attributes.user_export_file.user_export_file_name')
+      = link_to @user_export_file.user_export_file_name, user_export_file_path(@user_export_file, format: :download) if @user_export_file.user_export_file_name
+    p
+      strong
+        = t('activerecord.attributes.user_export_file.state')
+        | :
+      = localized_state(@user_export_file.current_state)
+#submenu.ui-corner-all.ui-widget-content
+  ul
+    li
+      = back_to_index(flash[:page_info])
+    - if current_user.has_role?('Administrator')
+      li
+        = link_to 'Resque', resque_path

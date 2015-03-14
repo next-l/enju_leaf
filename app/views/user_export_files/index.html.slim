@@ -1,0 +1,38 @@
+#content_detail.ui-corner-all.ui-widget-content
+  h1.title
+    = t('page.listing', model: t('activerecord.models.user_export_file'))
+  #content_list
+    table.table.table-striped.index
+      thead
+        tr
+          th
+            | Id
+          th
+            = t('activerecord.models.user')
+          th
+            = t('activerecord.attributes.user_export_file.user_export_file_name')
+          th
+            = t('activerecord.attributes.user_export_file.state')
+          th
+      tbody
+        - @user_export_files.each do |user_export_file|
+          |  <tr class="line
+          = cycle("0", "1")
+          | "> 
+          td
+            = link_to user_export_file.id, user_export_file
+          td
+            = user_export_file.user.try(:username)
+          td
+            = link_to user_export_file.user_export_file_name, user_export_file_path(user_export_file, format: :download) if user_export_file.user_export_file_name
+            br
+            = user_export_file.created_at
+          td
+            = localized_state(user_export_file.current_state)
+          td
+            = link_to t('page.destroy'), user_export_file, method: :delete, data: {confirm: t('page.are_you_sure')}, method: :delete
+    = paginate(@user_export_files)
+#submenu.ui-corner-all.ui-widget-content
+  ul
+    li
+      = link_to t('page.new', model: t('activerecord.models.user_export_file')), new_user_export_file_path

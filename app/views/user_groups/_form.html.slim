@@ -1,0 +1,34 @@
+= simple_nested_form_for(@user_group) do |f|
+  = f.error_notification
+  .field
+    = f.label :name
+    br
+    = f.text_field :name
+  .field
+    = f.label :display_name
+    br
+    = f.text_area :display_name
+  .field
+    = f.label :valid_period_for_new_user
+    br
+    = f.text_field :valid_period_for_new_user, class: 'resource_integer'
+  .field
+    = f.label :number_of_day_to_notify_due_date
+    br
+    = f.text_field :number_of_day_to_notify_due_date, class: 'resource_integer'
+  .field
+    = f.label :number_of_day_to_notify_overdue
+    br
+    = f.text_field :number_of_day_to_notify_overdue, class: 'resource_integer'
+  .field
+    = f.label :number_of_time_to_notify_overdue
+    br
+    = f.text_field :number_of_time_to_notify_overdue, class: 'resource_integer'
+  - if defined?(EnjuCirculation) and !@user_group.new_record?
+    = render 'user_groups/checkout_form', f: f
+  .field
+    = f.label :note
+    br
+    = f.text_area :note
+  .actions
+    = f.submit

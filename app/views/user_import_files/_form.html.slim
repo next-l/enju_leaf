@@ -1,0 +1,56 @@
+= form_for(@user_import_file) do |f|
+  - if @user_import_file.errors.any?
+    #error_explanation
+      h2
+        = pluralize(@user_import_file.errors.count, "error")
+        |  prohibited this user_import_file from being saved:
+      ul
+        - @user_import_file.errors.full_messages.each do |msg|
+          li
+            = msg
+  .field
+    = f.label :user_id
+    br
+    = f.number_field :user_id
+  .field
+    = f.label :note
+    br
+    = f.text_area :note
+  .field
+    = f.label :executed_at
+    br
+    = f.datetime_select :executed_at
+  .field
+    = f.label :state
+    br
+    = f.text_field :state
+  .field
+    = f.label :user_import_file_name
+    br
+    = f.text_field :user_import_file_name
+  .field
+    = f.label :user_import_content_type
+    br
+    = f.text_field :user_import_content_type
+  .field
+    = f.label :user_import_file_size
+    br
+    = f.text_field :user_import_file_size
+  .field
+    = f.label :user_import_updated_at
+    br
+    = f.datetime_select :user_import_updated_at
+  .field
+    = f.label :user_import_fingerprint
+    br
+    = f.text_field :user_import_fingerprint
+  .field
+    = f.label :edit_mode
+    br
+    = f.text_field :edit_mode
+  .field
+    = f.label :error_message
+    br
+    = f.text_area :error_message
+  .actions
+    = f.submit

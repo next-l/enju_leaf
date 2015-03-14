@@ -1,0 +1,16 @@
+#col1.row
+  #search.col-md-9
+    .panel.panel-default
+      .panel-heading
+        = t('page.import_from_file')
+      .panel-body
+        ul
+          li
+            = link_to t('activerecord.models.user'), user_import_files_path
+          li
+            = link_to t('page.manifestation_and_item'), resource_import_files_path
+          li
+            = link_to t('activerecord.models.event'), event_import_files_path
+  #submenu.col-md-3
+    .panel.panel-default
+      .panel-body

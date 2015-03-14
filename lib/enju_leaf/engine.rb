@@ -20,9 +20,11 @@ require 'jquery-rails'
 require 'statesman'
 require 'browser'
 require 'sunspot_rails'
-require "mini_magick"
-require "refile/rails"
-require "refile/image_processing"
+require 'mini_magick'
+require 'refile/rails'
+require 'refile/image_processing'
+require 'bootstrap-sass'
+require 'slim-rails'
 
 module EnjuLeaf
   class Engine < ::Rails::Engine

@@ -1,0 +1,26 @@
+#content_detail.ui-corner-all.ui-widget-content
+  h1.title
+    = t('page.showing', model: t('activerecord.models.user_import_result'))
+  #content_list
+    p#notice
+      = notice
+    p
+      b
+        = t('activerecord.models.user_import_file')
+      = @user_import_result.user_import_file.user_import_file_name
+    p
+      b
+        = t('activerecord.models.user')
+      = link_to @user_import_result.user.username, @user_import_result.user.profile if @user_import_result.user.try(:profile)
+    p
+      b
+        = t('activerecord.attributes.user_import_result.body')
+      = @user_import_result.body
+    p
+      b
+        = t('page.created_at')
+      =l @user_import_result.created_at
+#submenu.ui-corner-all.ui-widget-content
+  ul
+    li
+      = back_to_index(flash[:page_info])
