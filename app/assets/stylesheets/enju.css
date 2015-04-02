@@ -522,7 +522,8 @@ table.holding{
   width: 100%;
 }
 
-abbr[title="required"]{
+abbr[title="required"],
+abbr[title="必須"]{
   color: red;
 }
 
