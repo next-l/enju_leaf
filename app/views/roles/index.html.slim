@@ -1,0 +1,23 @@
+.row
+  #content_list.col-md-9
+    h1.title
+      = t('page.listing', model: t('activerecord.models.role'))
+    table.table.table-striped.index
+      tr
+        th
+          = t('activerecord.attributes.role.name')
+        th
+          = t('activerecord.attributes.role.display_name')
+        th
+      - @roles.each do |role|
+        |  <tr class="line
+        = cycle("0", "1")
+        | "> 
+        td
+          = link_to role.name, role
+        td
+          = link_to role.display_name.localize, role
+        td
+          = link_to t('page.edit'), edit_role_path(role)
+          = link_to t('page.destroy'), role, data: {confirm: t('page.are_you_sure')}, method: :delete
+  #submenu.col-md-3

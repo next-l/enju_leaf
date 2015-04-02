@@ -1,4 +1,4 @@
-#content_detail.ui-corner-all.ui-widget-content
+.row
   h1.title
     = t('page.listing', model: t('activerecord.models.profile'))
   #content_list
@@ -44,7 +44,7 @@
           = link_to t('page.edit'), edit_profile_path(profile)
     br
     = paginate(@profiles)
-#submenu.ui-corner-all.ui-widget-content
+  #submenu.col-md-3
   ul
     - if current_user.try(:has_role?, 'Librarian')
       li

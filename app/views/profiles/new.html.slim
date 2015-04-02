@@ -1,7 +1,7 @@
-#content_detail.ui-corner-all.ui-widget-content
-  h1.title
-    = t('page.new', model: t('activerecord.models.profile'))
+.row
   #content_list
+    h1.title
+      = t('page.new', model: t('activerecord.models.profile'))
     = render 'page/required_field'
     = simple_form_for(@profile, validate: true) do |f|
       = f.error_messages
@@ -53,10 +53,9 @@
         = f.text_field :user_number, class: 'resource_user'
       .actions
         = f.submit t('user.sign_up')
-      - - end
-#submenu.ui-corner-all.ui-widget-content
-  ul
-    li
-      = link_to t('page.listing', model: t('activerecord.models.profile')), profiles_path
-    li
-      = link_to t('page.import'), new_user_import_file_path
+  #submenu.col-md-3
+    ul
+      li
+        = link_to t('page.listing', model: t('activerecord.models.profile')), profiles_path
+      li
+        = link_to t('page.import'), new_user_import_file_path

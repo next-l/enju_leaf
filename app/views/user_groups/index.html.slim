@@ -1,7 +1,7 @@
 .row
-  h1.title
-    = t('page.listing', model: t('activerecord.models.user_group'))
   #content_list.col-md-9
+    h1.title
+      = t('page.listing', model: t('activerecord.models.user_group'))
     table.table.table-striped.index
       tr
         th#position
@@ -19,7 +19,6 @@
         td
           - if policy(user_group).update?
             = move_position(user_group)
-            - - end
         td
           = user_group.name
         td
@@ -31,8 +30,7 @@
             = link_to t('page.edit'), edit_user_group_path(user_group)
           - if policy(user_group).destroy?
             = link_to t('page.destroy'), user_group_path(user_group), data: {confirm: t('page.are_you_sure')}, method: :delete
-        - - end
   #submenu.col-md-3
-  ul
-    li
-      = link_to t('page.new', model: t('activerecord.models.user_group')), new_user_group_path
+    ul
+      li
+        = link_to t('page.new', model: t('activerecord.models.user_group')), new_user_group_path
