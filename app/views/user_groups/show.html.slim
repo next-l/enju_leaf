@@ -1,7 +1,7 @@
-#content_detail.ui-corner-all.ui-widget-content
+.row
   h1.title
     = t('page.showing', model: t('activerecord.models.user_group'))
-  #content_list
+  #content_list.col-md-9
     p#notice
       = notice
     p
@@ -51,7 +51,7 @@
         = t('activerecord.attributes.user_group.note')
         | :
       = @user_group.note
-#submenu.ui-corner-all.ui-widget-content
+  #submenu.col-md-3
   ul
     li
       = link_to t('page.edit'), edit_user_group_path(@user_group)

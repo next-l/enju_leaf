@@ -1,7 +1,7 @@
-#content_detail.ui-corner-all.ui-widget-content
+.row
   h1.title
     = t('page.edit_user_profile', login_name: @profile.user.username)
-  #content_list
+  #content_list.col-md-9
     = render 'page/required_field'
     = simple_form_for(@profile, url: my_account_path) do |f|
       = f.error_messages
@@ -13,7 +13,7 @@
         br
         = f.text_area :keyword_list, class: 'resource_textarea'
       = render partial: 'profiles/edit_profile', locals: {f: f, profile: @profile}
-#submenu.ui-corner-all.ui-widget-content
+  #submenu.col-md-3
   ul
     li
       = link_to t('page.show'), my_account_path

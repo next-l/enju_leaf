@@ -1,8 +1,8 @@
-#content_detail.ui-corner-all.ui-widget-content
-  h1.title
-    = t('page.statistics')
-  #content_list
-    table.index
+.row
+  #content_list.col-md-9
+    h1.title
+      = t('page.statistics')
+    table.table.table-striped.index
       tr
         th
           = t('page.model')
@@ -107,5 +107,5 @@
           td
             = Answer.count
           td
-#submenu.ui-corner-all.ui-widget-content
-  ul
+  #submenu.col-md-3
+    ul

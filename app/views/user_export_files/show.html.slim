@@ -1,7 +1,7 @@
-#content_detail.ui-corner-all.ui-widget-content
+.row
   h1.title
     = t('page.showing', model: t('activerecord.models.user_export_file'))
-  #content_list
+  #content_list.col-md-9
     p#notice
       = notice
     p
@@ -17,7 +17,7 @@
         = t('activerecord.attributes.user_export_file.state')
         | :
       = localized_state(@user_export_file.current_state)
-#submenu.ui-corner-all.ui-widget-content
+  #submenu.col-md-3
   ul
     li
       = back_to_index(flash[:page_info])

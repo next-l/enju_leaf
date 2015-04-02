@@ -1,0 +1,75 @@
+#content_detail.ui-corner-all.ui-widget-content
+  h1.title
+    = t('page.showing', model: t('activerecord.models.user'))
+  #content_list
+    p#notice
+      = notice
+    h2.resource_title
+      |  [U] 
+      = @profile.user.username
+      - if @profile.full_name?
+        |  (
+        = @profile.full_name
+        | ) 
+    p
+      = t('activerecord.attributes.profile.user_number')
+      | : 
+      = @profile.user_number
+    - if flash[:temporary_password]
+      p
+        = t('user.your_temporary_password_is')
+        | : 
+      p[style="font-size: 200%"]
+        = flash[:temporary_password]
+      - if defined?(EnjuCirculation)
+        h2
+          = t('activerecord.models.checkout')
+          = link_to image_tag('icons/date.png', size: '16x16', alt: 'iCalendar', class: 'icon'), checkouts_path(icalendar_token: current_user.profile.checkout_icalendar_token, format: :ics) if current_user.profile.checkout_icalendar_token?
+          = link_to image_tag('icons/feed.png', size: '16x16', alt: 'RSS', class: 'icon'), checkouts_path(user_id: current_user.username, format: :rss)
+          = link_to image_tag('icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'icon'), checkouts_path(user_id: current_user.username, format: :txt)
+        - if @profile.user
+          = render 'checkouts/list', checkouts: @profile.user.checkouts.page(params[:page])
+#submenu.ui-corner-all.ui-widget-content
+  - if defined?(EnjuCirculation)
+    ul
+      - @profile.user_group.user_group_has_checkout_types.each do |available_checkout_type|
+        li
+          = available_checkout_type.checkout_type.display_name.localize
+          | : 
+          = @profile.user.checked_item_count[:"#{available_checkout_type.checkout_type.name}"]
+          |  / 
+          = available_checkout_type.checkout_limit
+  ul
+    - if flash[:query]
+      li
+        = link_to t('page.back'), profiles_path(query: flash[:query])
+    - else
+      li
+        = back_to_index
+    - if user_signed_in?
+      - if policy(@profile).update?
+        li
+          = link_to t('page.edit'), edit_profile_path(@profile)
+      - if defined?(EnjuMessage)
+        li
+          = link_to t('message.send'), new_message_path(recipient: @profile.user.username)
+      - if policy(Profile).create?
+        li
+          = link_to t('page.new', model: t('activerecord.models.profile')), new_profile_path
+      - if policy(@profile).destroy?
+        li
+          = link_to t('page.destroy'), @profile, data: {confirm: t('page.are_you_sure')}, method: :delete
+      - if defined?(EnjuCirculation)
+        li
+          = link_to t('activerecord.models.checkout'), checkouts_path(user_id: @profile.user.username)
+        li
+          = link_to t('activerecord.models.reserve'), reserves_path(user_id: @profile.user.username)
+      - if defined?(EnjuQuestion)
+        li
+          = link_to t('activerecord.models.question'), questions_path(user_id: @profile.user.username)
+      - if defined?(EnjuBookmark)
+        li
+          = link_to t('activerecord.models.bookmark'), bookmarks_path(user_id: @profile.user.username)
+      - if defined?(EnjuPurchaseRequest)
+        li
+          = link_to t('activerecord.models.purchase_request'), purchase_requests_path(user_id: @profile.user.username)

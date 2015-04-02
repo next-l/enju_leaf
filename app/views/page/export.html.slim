@@ -1,7 +1,7 @@
-#content_detail.ui-corner-all.ui-widget-content
+.row
   h1.title
     = t('page.export')
-  #content_list
+  #content_list.col-md-9
     ul
       - if current_user.try(:has_role?, 'Administrator')
         li
@@ -11,5 +11,5 @@
       - if defined?(EnjuEvent)
         li
           = link_to t('activerecord.models.event_export_file'), event_export_files_path
-#submenu.ui-corner-all.ui-widget-content
+  #submenu.col-md-3
   ul

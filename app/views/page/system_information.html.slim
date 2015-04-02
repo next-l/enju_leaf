@@ -1,7 +1,7 @@
-#content_detail.ui-corner-all.ui-widget-content
+.row
   h1.title
     = t('page.system_information')
-  #content_list
+  #content_list.col-md-9
     ul
       li
         | Environment: 
@@ -14,7 +14,7 @@
               = spec.name
               | : 
               = spec.version.to_s
-#submenu.ui-corner-all.ui-widget-content
+  #submenu.col-md-3
   ul
     li
       = link_to t('page.configuration'), page_configuration_path

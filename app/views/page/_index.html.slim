@@ -1,5 +1,5 @@
 #col1.row
-  #search.col-md-6
+  .col-md-6
     .panel.panel-default
       .panel-heading
         - if user_signed_in?
@@ -26,24 +26,10 @@
         #picked_up_box.panel-body
           #news_feed_box
             = render partial: 'news_feeds/list', locals: {news_feeds: @news_feeds}
-  #pickup.col-md-6
+  .col-md-6
     #pickup.panel.panel-default
       .panel-heading
         = t('manifestation.pickup')
       #picked_up_box.panel-body
         = render 'manifestations/pickup', manifestation: @manifestation
-  - if defined?(EnjuBookmark)
-    #tag_cloud.col-md-6
-      #pickup.panel.panel-default
-        .panel-heading
-          - if user_signed_in?
-            = t('tag.my_tag')
-          - else
-            = t('tag.popular_tag')
-        #picked_up_box.panel-body
-          #tag_cloud_box
-            = render 'bookmarks/tag_cloud', tags: @tags
-            p
-              | (
-              = link_to t('page.listing', model: t('activerecord.models.tag')), tags_path
-              | )
+

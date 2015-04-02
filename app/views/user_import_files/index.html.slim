@@ -1,7 +1,7 @@
-#content_detail.ui-corner-all.ui-widget-content
+.row
   h1.title
     = t('page.listing', model: t('activerecord.models.user_import_file'))
-  #content_list
+  #content_list.col-md-9
     table.table.table-striped.index
       thead
         tr
@@ -39,7 +39,7 @@
             = link_to t('page.show'), user_import_file
             = link_to t('page.destroy'), user_import_file, data: {confirm: t('page.are_you_sure')}, method: :delete
     = paginate(@user_import_files)
-#submenu.ui-corner-all.ui-widget-content
+  #submenu.col-md-3
   ul
     li
       = link_to t('page.new', model: t('activerecord.models.user_import_file')), new_user_import_file_path

@@ -1,7 +1,7 @@
-#content_detail.ui-corner-all.ui-widget-content
+.row
   h1.title
     = t('page.listing', model: t('activerecord.models.user_import_result'))
-  #content_list
+  #content_list.col-md-9
     - if @user_import_file
       h2.resource_title
         = link_to @user_import_file.user_import_file_name, @user_import_file
@@ -26,7 +26,7 @@
           = link_to t('page.show'), user_import_result
           = link_to t('page.destroy'), user_import_result, data: {confirm: t('page.are_you_sure')}, method: :delete
     = paginate(@user_import_results)
-#submenu.ui-corner-all.ui-widget-content
+  #submenu.col-md-3
   ul
     li
       - if @user_import_file

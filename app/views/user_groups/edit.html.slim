@@ -1,9 +1,9 @@
-#content_detail.ui-corner-all.ui-widget-content
+.row
   h1.title
     = t('page.editing', model: t('activerecord.models.user_group'))
-  #content_list
+  #content_list.col-md-9
     = render 'form'
-#submenu.ui-corner-all.ui-widget-content
+  #submenu.col-md-3
   ul
     li
       = link_to t('page.show'), user_group_path(@user_group)

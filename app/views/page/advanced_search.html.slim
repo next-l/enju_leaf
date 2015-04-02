@@ -1,7 +1,7 @@
-#content_detail.ui-corner-all.ui-widget-content
-  h1.title
-    = t('page.advanced_search')
-  #content_list
+.row
+  #content_list.col-md-9
+    h1.title
+      = t('page.advanced_search')
     = form_tag({controller: 'manifestations'}, {method: 'get'}) do
       table[style="width: 100%"]
         tr
@@ -96,4 +96,4 @@
             = hidden_field_tag 'advanced_search', 'true'
             = submit_tag t('page.search')
       = javascript_tag("$(function(){$('#query').focus()})")
-#submenu.ui-corner-all.ui-widget-content
+  #submenu.col-md-3

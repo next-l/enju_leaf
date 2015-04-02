@@ -1,7 +1,7 @@
-#content_detail.ui-corner-all.ui-widget-content
+.row
   h1.title
     = t('page.new', model: t('activerecord.models.user_import_file'))
-  #content_list
+  #content_list.col-md-9
     = form_for(@user_import_file, html: { multipart: true }) do |f|
       = f.error_messages
       .field
@@ -41,7 +41,7 @@
       .actions
         = f.hidden_field :mode, value: 'import'
         = f.submit t('page.start_import')
-#submenu.ui-corner-all.ui-widget-content
+  #submenu.col-md-3
   ul
     li
       = back_to_index(flash[:page_info])
