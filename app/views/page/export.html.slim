@@ -1,7 +1,7 @@
 .row
-  h1.title
-    = t('page.export')
   #content_list.col-md-9
+    h1.title
+      = t('page.export')
     ul
       - if current_user.try(:has_role?, 'Administrator')
         li
@@ -12,4 +12,4 @@
         li
           = link_to t('activerecord.models.event_export_file'), event_export_files_path
   #submenu.col-md-3
-  ul
+    ul
