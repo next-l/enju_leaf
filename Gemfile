@@ -16,7 +16,7 @@ gem "enju_bookmark", github: "next-l/enju_bookmark", branch: "bootstrap"
 gem "enju_circulation", github: "next-l/enju_circulation", branch: "bootstrap"
 gem "enju_event", github: "next-l/enju_event", branch: "bootstrap"
 gem "enju_message", github: "next-l/enju_message", branch: "bootstrap"
-gem "enju_search_log", github: "next-l/enju_search_log", branch: "bootstrap"
+gem "enju_search_log", github: "next-l/enju_search_log", branch: "master"
 gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer", branch: "bootstrap"
 gem "coveralls", require: false, group: :test
 gem "dotenv-rails"
