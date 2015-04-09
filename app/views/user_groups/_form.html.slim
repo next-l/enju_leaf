@@ -11,19 +11,19 @@
   .field
     = f.label :valid_period_for_new_user
     br
-    = f.text_field :valid_period_for_new_user, class: 'resource_integer'
+    = f.text_field :valid_period_for_new_user, class: 'form-control'
   .field
     = f.label :number_of_day_to_notify_due_date
     br
-    = f.text_field :number_of_day_to_notify_due_date, class: 'resource_integer'
+    = f.text_field :number_of_day_to_notify_due_date, class: 'form-control'
   .field
     = f.label :number_of_day_to_notify_overdue
     br
-    = f.text_field :number_of_day_to_notify_overdue, class: 'resource_integer'
+    = f.text_field :number_of_day_to_notify_overdue, class: 'form-control'
   .field
     = f.label :number_of_time_to_notify_overdue
     br
-    = f.text_field :number_of_time_to_notify_overdue, class: 'resource_integer'
+    = f.text_field :number_of_time_to_notify_overdue, class: 'form-control'
   - if defined?(EnjuCirculation) and !@user_group.new_record?
     = render 'user_groups/checkout_form', f: f
   .field
@@ -31,4 +31,4 @@
     br
     = f.text_area :note
   .actions
-    = f.submit
+    = f.submit class: 'btn btn-default'

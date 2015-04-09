@@ -1,22 +1,23 @@
 .row
-  h1.title
-    = t('page.edit_user_profile', login_name: @profile.user.username)
   #content_list.col-md-9
+    h1.title
+      = t('page.edit_user_profile', login_name: @profile.user.username)
     = render 'page/required_field'
     = simple_form_for(@profile, url: my_account_path) do |f|
-      = f.error_messages
-      = render partial: 'edit_credential', locals: {f: f, profile: @profile}
-      .actions[style="clear: both"]
-        = f.submit
-      .field
+      .form-group
+        = f.error_messages
+        = render partial: 'edit_credential', locals: {f: f, profile: @profile}
+        .actions[style="clear: both"]
+        = f.submit class: 'btn btn-default'
+      .form-group
         = f.label :keyword_list
         br
-        = f.text_area :keyword_list, class: 'resource_textarea'
-      = render partial: 'profiles/edit_profile', locals: {f: f, profile: @profile}
+        = f.text_area :keyword_list, class: 'form-control'
+        = render partial: 'profiles/edit_profile', locals: {f: f, profile: @profile}
   #submenu.col-md-3
-  ul
-    li
-      = link_to t('page.show'), my_account_path
-    - if current_user.has_role?('Librarian')
+    ul
       li
-        = link_to t('page.listing', model: t('activerecord.models.user')), profiles_path
+        = link_to t('page.show'), my_account_path
+      - if current_user.has_role?('Librarian')
+        li
+          = link_to t('page.listing', model: t('activerecord.models.user')), profiles_path

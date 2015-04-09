@@ -1,5 +1,5 @@
 - if defined?(EnjuCirculation)
-  .field
+  .form-group
     = f.label t('user.checkout_history_icalendar_url')
     br
     #feed_token
@@ -22,17 +22,17 @@
         | " /> 
     br
 - if defined?(EnjuSearchLog)
-  .field
+  .form-group
     = f.label :save_search_history
     = f.check_box :save_search_history
 - if defined?(EnjuCirculation)
-  .field
+  .form-group
     = f.label :save_checkout_history
     = f.check_box :save_checkout_history
 - if current_user.has_role?('Librarian')
-  .field
+  .form-group
     = f.label :note
     br
-    = f.text_area :note, class: 'resource_textarea'
-.actions
-  = f.submit
+    = f.text_area :note, class: 'form-control'
+.form-group
+  = f.submit class: 'btn btn-default'

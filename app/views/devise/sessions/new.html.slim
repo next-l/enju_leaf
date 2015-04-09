@@ -10,11 +10,11 @@
       p
         = f.label t('activerecord.attributes.user.username')
         br
-        = f.text_field :username, :class => 'login_password', :autofocus => true
+        = f.text_field :username, :class => 'form-control login_password', :autofocus => true
       p
         = f.label t('activerecord.attributes.user.password')
         br
-        = f.password_field :password, :class => 'login_password', :autocomplete => 'off'
+        = f.password_field :password, :class => 'form-control login_password', :autocomplete => 'off'
       - if devise_mapping.rememberable?
         p
           = f.check_box :remember_me
@@ -24,6 +24,6 @@
       p.alert
         = alert
       p
-        = f.submit t('page.sign_in')
+        = f.submit t('page.sign_in'), class: 'btn btn-default'
       = javascript_tag("$(function(){$('#user_username').focus()})")
       = render "devise/shared/links"

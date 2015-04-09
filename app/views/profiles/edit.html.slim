@@ -1,5 +1,5 @@
 .row
-  #content_list
+  #content_list.col-md-9
     h1.title
       = t('page.edit_user_profile', login_name: @profile.user.username)
     = render 'page/required_field'
@@ -7,11 +7,11 @@
       = f.error_messages
       = render partial: 'profiles/edit_credential', locals: {f: f, profile: @profile}
       .actions[style="clear: both"]
-        = f.submit
+        = f.submit class: 'btn btn-default'
       .field
         = f.label :keyword_list
         br
-        = f.text_area :keyword_list, class: 'resource_textarea'
+        = f.text_area :keyword_list, class: 'form-control'
       = render partial: 'profiles/edit_profile', locals: {f: f, profile: @profile}
   #submenu.col-md-3
     ul

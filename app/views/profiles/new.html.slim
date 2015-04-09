@@ -1,5 +1,5 @@
 .row
-  #content_list
+  #content_list.col-md-9
     h1.title
       = t('page.new', model: t('activerecord.models.profile'))
     = render 'page/required_field'
@@ -47,7 +47,7 @@
         .field
           = f.label :note
           br
-          = f.text_area :note, class: 'resource_textarea'
+          = f.text_area :note, class: 'form-control'
       .field
         = f.label :user_number
         = f.text_field :user_number, class: 'resource_user'

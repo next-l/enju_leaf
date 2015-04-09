@@ -1,7 +1,7 @@
 .row
-  h1.title
-    = t('page.new', model: t('activerecord.models.user_import_file'))
   #content_list.col-md-9
+    h1.title
+      = t('page.new', model: t('activerecord.models.user_import_file'))
     = form_for(@user_import_file, html: { multipart: true }) do |f|
       = f.error_messages
       .field
@@ -40,8 +40,8 @@
         = t('user_import_file.default_library')
       .actions
         = f.hidden_field :mode, value: 'import'
-        = f.submit t('page.start_import')
+        = f.submit t('page.start_import'), class: 'btn btn-default'
   #submenu.col-md-3
-  ul
-    li
-      = back_to_index(flash[:page_info])
+    ul
+      li
+        = back_to_index(flash[:page_info])
