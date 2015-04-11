@@ -1,12 +1,12 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 4.2.0"
+gem "rails", "~> 4.2.1"
 gem "jquery-rails"
 gem "enju_biblio", github: "next-l/enju_biblio", branch: "1.1"
 gem "enju_library", github: "next-l/enju_library", branch: "1.1"
 gem "enju_event", github: "next-l/enju_event", branch: "1.1"
 gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer", branch: "1.1"
-gem "statesman", "~> 1.1"
+gem "statesman", "~> 1.2"
 gem "coveralls", require: false, group: :test
 
 gemspec path: "../"
