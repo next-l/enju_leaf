@@ -12,7 +12,7 @@ one:
   login_banner: "*Next-L Enju*"
   admin_networks: "0.0.0.0/0\r\n\
     ::/0"
-  settings: <% Marshal.dump({max_number_of_results: 200, family_name_first: true}) %>
+  settings: <% Marshal.dump({max_number_of_results: 200, family_name_first: true, amazon_hostname: "www.amazon.co.jp", book_jacket_source: "google", screenshot_generator: "mozshot"}) %>
 
 # == Schema Information
 #
