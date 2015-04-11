@@ -12,24 +12,23 @@ one:
   login_banner: "*Next-L Enju*"
   admin_networks: "0.0.0.0/0\r\n\
     ::/0"
-  settings: "{\"max_number\":200}"
+  settings: <% Marshal.dump({max_number_of_results: 200, family_name_first: true}) %>
 
 # == Schema Information
 #
 # Table name: library_groups
 #
 #  id             :integer          not null, primary key
-#  name           :string           not null
+#  name           :string(255)      not null
 #  display_name   :text
-#  short_name     :string           not null
+#  short_name     :string(255)      not null
 #  my_networks    :text
 #  login_banner   :text
 #  note           :text
 #  country_id     :integer
 #  position       :integer
-#  created_at     :datetime
-#  updated_at     :datetime
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #  admin_networks :text
-#  url            :string           default("http://localhost:3000/")
-#  settings       :text
+#  url            :string(255)      default("http://localhost:3000/")
 #
