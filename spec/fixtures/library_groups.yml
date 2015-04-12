@@ -15,7 +15,7 @@ one:
   settings: <% if Rails::VERSION::MAJOR > 3 %>
     "{\"max_number_of_results\":200,\"family_name_first\":true}"
   <% else %>
-    "\x04\b{\a:\x1Amax_number_of_resultsi\x01\xC8:\x16family_name_firstT"
+    "---\n:max_number_of_results: 200\n:family_name_first: true\n"
   <% end %>
 # == Schema Information
 #
