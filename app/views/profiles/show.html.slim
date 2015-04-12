@@ -1,7 +1,7 @@
 .row
   #content_list.col-md-9
     h1.title
-      = t('page.showing', model: t('activerecord.models.user'))
+      = t('page.showing', model: t('activerecord.models.profile'))
     p#notice
       = notice
     h2.resource_title
@@ -21,14 +21,14 @@
         | : 
       p[style="font-size: 200%"]
         = flash[:temporary_password]
-      - if defined?(EnjuCirculation)
-        h2
-          = t('activerecord.models.checkout')
-          = link_to image_tag('icons/date.png', size: '16x16', alt: 'iCalendar', class: 'icon'), checkouts_path(icalendar_token: current_user.profile.checkout_icalendar_token, format: :ics) if current_user.profile.checkout_icalendar_token?
-          = link_to image_tag('icons/feed.png', size: '16x16', alt: 'RSS', class: 'icon'), checkouts_path(user_id: current_user.username, format: :rss)
-          = link_to image_tag('icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'icon'), checkouts_path(user_id: current_user.username, format: :txt)
-        - if @profile.user
-          = render 'checkouts/list', checkouts: @profile.user.checkouts.page(params[:page])
+    - if defined?(EnjuCirculation)
+      h2
+        = t('activerecord.models.checkout')
+        = link_to image_tag('icons/date.png', size: '16x16', alt: 'iCalendar', class: 'icon'), checkouts_path(icalendar_token: current_user.profile.checkout_icalendar_token, format: :ics) if current_user.profile.checkout_icalendar_token?
+        = link_to image_tag('icons/feed.png', size: '16x16', alt: 'RSS', class: 'icon'), checkouts_path(user_id: current_user.username, format: :rss)
+        = link_to image_tag('icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'icon'), checkouts_path(user_id: current_user.username, format: :txt)
+      - if @profile.user
+        = render 'checkouts/list', checkouts: @profile.user.checkouts.page(params[:page])
   #submenu.col-md-3
     - if defined?(EnjuCirculation)
       ul
