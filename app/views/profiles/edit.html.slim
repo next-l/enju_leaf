@@ -8,7 +8,7 @@
       = render partial: 'profiles/edit_credential', locals: {f: f, profile: @profile}
       .actions[style="clear: both"]
         = f.submit class: 'btn btn-default'
-      .field
+      .form-group
         = f.label :keyword_list
         br
         = f.text_area :keyword_list, class: 'form-control'

@@ -1,12 +1,12 @@
 = form_for(@user) do |f|
   = f.error_notification
-  .field
+  .form-group
     = f.label :username
     br
     = f.text_field :username
-  .field
+  .form-group
     = f.label :email
     br
     = f.email_field :email
-  .actions
+  .form-control
     = f.submit class: 'btn btn-default'

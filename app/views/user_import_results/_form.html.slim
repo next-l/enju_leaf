@@ -8,17 +8,17 @@
         - @user_import_result.errors.full_messages.each do |msg|
           li
             = msg
-  .field
+  .form-group
     = f.label :user_import_file_id
     br
     = f.number_field :user_import_file_id
-  .field
+  .form-group
     = f.label :user_id
     br
     = f.number_field :user_id
-  .field
+  .form-group
     = f.label :body
     br
     = f.text_area :body
-  .actions
+  .form-control
     = f.submit class: 'btn btn-default'

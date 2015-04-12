@@ -8,13 +8,13 @@
         - @user.errors.full_messages.each do |msg|
           li
             = msg
-  .field
+  .form-group
     = f.label :username
     br
     = f.text_field :username
-  .field
+  .form-group
     = f.label :email
     br
     = f.email_field :email
-  .actions
+  .form-control
     = f.submit class: 'btn btn-default'
