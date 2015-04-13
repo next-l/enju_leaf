@@ -1,7 +1,7 @@
 .row
-  h1.title
-    = t('page.showing', model: t('activerecord.models.user_import_file'))
   #content_list.col-md-9
+    h1.title
+      = t('page.showing', model: t('activerecord.models.user_import_file'))
     p#notice
       = notice
     p
@@ -74,7 +74,6 @@
         | :
       = link_to @user_import_file.user.username, @user_import_file.user.profile if @user_import_file.user.try(:profile)
   #submenu.col-md-3
-  = form_for(@user_import_file) do |f|
     ul
       li
         = link_to t('activerecord.models.user_import_result'), user_import_file_user_import_results_path(@user_import_file)
