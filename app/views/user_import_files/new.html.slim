@@ -38,7 +38,7 @@
         = f.select(:default_library_id, @libraries.collect{|l| [l.display_name.localize, l.id]})
         br
         = t('user_import_file.default_library')
-      .form-control
+      .form-group
         = f.hidden_field :mode, value: 'import'
         = f.submit t('page.start_import'), class: 'btn btn-default'
   #submenu.col-md-3

@@ -12,8 +12,9 @@
             ul
               li
                 = link_to t('activerecord.models.shelf'), shelves_path
-              li
-                = link_to t('activerecord.models.event'), events_path
+                - if defined?(EnjuEvent)
+                  li
+                    = link_to t('activerecord.models.event'), events_path
           li
             = link_to t('activerecord.models.user_group'), user_groups_path
           li
