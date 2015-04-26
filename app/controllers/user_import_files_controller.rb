@@ -22,7 +22,7 @@ class UserImportFilesController < ApplicationController
       format.json { render json: @user_import_file }
       format.download {
         send_file @user_import_file.user_import.download,
-          filename: @user_import_file.user_import_file_name,
+          filename: @user_import_file.user_import_filename,
           type: 'application/octet-stream'
       }
     end

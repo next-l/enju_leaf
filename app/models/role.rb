@@ -45,6 +45,6 @@ end
 #  note         :text
 #  created_at   :datetime
 #  updated_at   :datetime
-#  score        :integer          default("0"), not null
+#  score        :integer          default(0), not null
 #  position     :integer
 #

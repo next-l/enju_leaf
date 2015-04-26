@@ -21,7 +21,7 @@ class UserExportFilesController < ApplicationController
       format.json { render json: @user_export_file }
       format.download {
         send_file @user_export_file.user_export.download,
-          filename: @user_export_file.user_export_file_name,
+          filename: @user_export_file.user_export_filename,
           type: 'application/octet-stream'
       }
     end

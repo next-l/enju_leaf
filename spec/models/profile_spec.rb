@@ -82,7 +82,7 @@ end
 #  created_at               :datetime
 #  updated_at               :datetime
 #  checkout_icalendar_token :string
-#  save_checkout_history    :boolean          default("f"), not null
+#  save_checkout_history    :boolean          default(FALSE), not null
 #  expired_at               :datetime
 #  save_search_history      :boolean
 #  share_bookmarks          :boolean

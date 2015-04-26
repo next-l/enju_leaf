@@ -10,8 +10,8 @@
       = @user_export_file.user.try(:username)
     p
       strong
-        = t('activerecord.attributes.user_export_file.user_export_file_name')
-      = link_to @user_export_file.user_export_file_name, user_export_file_path(@user_export_file, format: :download) if @user_export_file.user_export_file_name
+        = t('activerecord.attributes.user_export_file.user_export_filename')
+      = link_to @user_export_file.user_export_filename, user_export_file_path(@user_export_file, format: :download) if @user_export_file.user_export_filename
     p
       strong
         = t('activerecord.attributes.user_export_file.state')

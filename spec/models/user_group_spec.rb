@@ -29,9 +29,9 @@ end
 #  created_at                       :datetime
 #  updated_at                       :datetime
 #  deleted_at                       :datetime
-#  valid_period_for_new_user        :integer          default("0"), not null
+#  valid_period_for_new_user        :integer          default(0), not null
 #  expired_at                       :datetime
-#  number_of_day_to_notify_overdue  :integer          default("1"), not null
-#  number_of_day_to_notify_due_date :integer          default("7"), not null
-#  number_of_time_to_notify_overdue :integer          default("3"), not null
+#  number_of_day_to_notify_overdue  :integer          default(1), not null
+#  number_of_day_to_notify_due_date :integer          default(7), not null
+#  number_of_time_to_notify_overdue :integer          default(3), not null
 #

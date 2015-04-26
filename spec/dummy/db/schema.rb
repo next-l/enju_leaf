@@ -1346,9 +1346,8 @@ ActiveRecord::Schema.define(version: 20150304175658) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user_export_id"
-    t.string   "user_export_file_name"
     t.integer  "user_export_size"
-    t.string   "user_export_content_type"
+    t.string   "user_import_filename"
   end
 
   add_index "user_export_files", ["user_export_id"], name: "index_user_export_files_on_user_export_id"

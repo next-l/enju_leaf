@@ -10,7 +10,7 @@
           th
             = t('activerecord.models.user')
           th
-            = t('activerecord.attributes.user_export_file.user_export_file_name')
+            = t('activerecord.attributes.user_export_file.user_export_filename')
           th
             = t('activerecord.attributes.user_export_file.state')
           th
@@ -24,7 +24,7 @@
           td
             = user_export_file.user.try(:username)
           td
-            = link_to user_export_file.user_export_file_name, user_export_file_path(user_export_file, format: :download) if user_export_file.user_export_file_name
+            = link_to user_export_file.user_export_filename, user_export_file_path(user_export_file, format: :download) if user_export_file.user_export_filename
             br
             = user_export_file.created_at
           td
