@@ -2,8 +2,7 @@ language: ruby
 cache: bundler
 rvm:
   - 2.1.5
-  - 2.2.1
-  - rbx-2
+  - 2.2.2
 before_script:
   - mysql -e 'create database enju_test'
   - psql -c 'create database enju_test;' -U postgres
