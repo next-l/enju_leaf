@@ -1,4 +1,14 @@
 .row
+  #submenu.col-md-3
+    ul
+      li
+        = link_to t('page.show'), @profile
+      li
+        = link_to t('page.listing', model: t('activerecord.models.profile')), profiles_path
+      - if current_user.has_role?('Librarian')
+        - unless current_user == @profile.user
+          li
+            = link_to t('page.destroy'), @profile, data: {confirm: t('page.are_you_sure')}, method: :delete
   #content_list.col-md-9
     h1.title
       = t('page.edit_user_profile', login_name: @profile.user.username)
@@ -13,13 +23,3 @@
         br
         = f.text_area :keyword_list, class: 'form-control'
       = render partial: 'profiles/edit_profile', locals: {f: f, profile: @profile}
-  #submenu.col-md-3
-    ul
-      li
-        = link_to t('page.show'), @profile
-      li
-        = link_to t('page.listing', model: t('activerecord.models.profile')), profiles_path
-      - if current_user.has_role?('Librarian')
-        - unless current_user == @profile.user
-          li
-            = link_to t('page.destroy'), @profile, data: {confirm: t('page.are_you_sure')}, method: :delete

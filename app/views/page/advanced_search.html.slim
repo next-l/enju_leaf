@@ -1,4 +1,5 @@
 .row
+  #submenu.col-md-3
   #content_list.col-md-9
     h1.title
       = t('page.advanced_search')
@@ -96,4 +97,3 @@
             = hidden_field_tag 'advanced_search', 'true'
             = submit_tag t('page.search'), class: 'btn btn-default'
       = javascript_tag("$(function(){$('#query').focus()})")
-  #submenu.col-md-3

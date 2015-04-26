@@ -1,4 +1,11 @@
 .row
+  #submenu.col-md-3
+    ul
+      li
+        = back_to_index(flash[:page_info])
+      - if current_user.has_role?('Administrator')
+        li
+          = link_to 'Resque', resque_path
   #content_list.col-md-9
     h1.title
       = t('page.showing', model: t('activerecord.models.user_export_file'))
@@ -17,10 +24,3 @@
         = t('activerecord.attributes.user_export_file.state')
         | :
       = localized_state(@user_export_file.current_state)
-  #submenu.col-md-3
-    ul
-      li
-        = back_to_index(flash[:page_info])
-      - if current_user.has_role?('Administrator')
-        li
-          = link_to 'Resque', resque_path

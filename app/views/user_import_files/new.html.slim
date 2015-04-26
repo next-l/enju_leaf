@@ -1,4 +1,8 @@
 .row
+  #submenu.col-md-3
+    ul
+      li
+        = back_to_index(flash[:page_info])
   #content_list.col-md-9
     h1.title
       = t('page.new', model: t('activerecord.models.user_import_file'))
@@ -41,7 +45,3 @@
       .form-group
         = f.hidden_field :mode, value: 'import'
         = f.submit t('page.start_import'), class: 'btn btn-default'
-  #submenu.col-md-3
-    ul
-      li
-        = back_to_index(flash[:page_info])

@@ -59,7 +59,7 @@ ja:
         number_of_day_to_notify_overdue: 貸出期限の何日後に督促を送るか
         number_of_time_to_notify_overdue: 貸出期限が切れた後に何回督促を送るか
       user_import_file:
-        user_import_file_name: ファイル名
+        user_import_filename: ファイル名
         user_import_content_type: Content-Type
         user_import_file_size: ファイルサイズ
         user_import_fingerprint: ファイルのハッシュ
@@ -75,7 +75,7 @@ ja:
       user_import_result:
         body: 本文
       user_export_file:
-        user_export_file_name: ファイル名
+        user_export_filename: ファイル名
         user_export_file_size: ファイルサイズ
         state: 状態
       profile:

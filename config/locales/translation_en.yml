@@ -59,7 +59,7 @@ en:
         number_of_day_to_notify_overdue: Number of day to notify overdue
         number_of_time_to_notify_overdue: Number of time to notify overdue
       user_import_file:
-        user_import_file_name: Filename
+        user_import_filename: Filename
         user_import_content_type: Content type
         user_import_file_size: Size
         user_import_fingerprint: File hash
@@ -75,7 +75,7 @@ en:
       user_import_result:
         body: Body
       user_export_file:
-        user_export_file_name: Filename
+        user_export_filename: Filename
         user_export_file_size: Size
         state: State
       profile:

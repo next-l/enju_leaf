@@ -2,7 +2,7 @@
   = f.error_messages
   = f.hidden_field :mode, value: 'export' if @user_export_file.new_record?
   br
-  .form-control
+  .form-group
     - if @user_export_file.new_record?
       = f.submit t('page.export'), class: 'btn btn-default'
     - else

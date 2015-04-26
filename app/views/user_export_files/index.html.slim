@@ -1,4 +1,8 @@
 .row
+  #submenu.col-md-3
+    ul
+      li
+        = link_to t('page.new', model: t('activerecord.models.user_export_file')), new_user_export_file_path
   #content_list.col-md-9
     h1.title
       = t('page.listing', model: t('activerecord.models.user_export_file'))
@@ -32,7 +36,3 @@
           td
             = link_to t('page.destroy'), user_export_file, method: :delete, data: {confirm: t('page.are_you_sure')}, method: :delete
     = paginate(@user_export_files)
-  #submenu.col-md-3
-    ul
-      li
-        = link_to t('page.new', model: t('activerecord.models.user_export_file')), new_user_export_file_path

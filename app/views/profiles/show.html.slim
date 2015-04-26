@@ -1,34 +1,4 @@
 .row
-  #content_list.col-md-9
-    h1.title
-      = t('page.showing', model: t('activerecord.models.profile'))
-    p#notice
-      = notice
-    h2.resource_title
-      |  [U] 
-      = @profile.user.username
-      - if @profile.full_name?
-        |  (
-        = @profile.full_name
-        | ) 
-    p
-      = t('activerecord.attributes.profile.user_number')
-      | : 
-      = @profile.user_number
-    - if flash[:temporary_password]
-      p
-        = t('user.your_temporary_password_is')
-        | : 
-      p[style="font-size: 200%"]
-        = flash[:temporary_password]
-    - if defined?(EnjuCirculation)
-      h2
-        = t('activerecord.models.checkout')
-        = link_to image_tag('icons/date.png', size: '16x16', alt: 'iCalendar', class: 'icon'), checkouts_path(icalendar_token: current_user.profile.checkout_icalendar_token, format: :ics) if current_user.profile.checkout_icalendar_token?
-        = link_to image_tag('icons/feed.png', size: '16x16', alt: 'RSS', class: 'icon'), checkouts_path(user_id: current_user.username, format: :rss)
-        = link_to image_tag('icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'icon'), checkouts_path(user_id: current_user.username, format: :txt)
-      - if @profile.user
-        = render 'checkouts/list', checkouts: @profile.user.checkouts.page(params[:page])
   #submenu.col-md-3
     - if defined?(EnjuCirculation)
       ul
@@ -73,3 +43,33 @@
         - if defined?(EnjuPurchaseRequest)
           li
             = link_to t('activerecord.models.purchase_request'), purchase_requests_path(user_id: @profile.user.username)
+  #content_list.col-md-9
+    h1.title
+      = t('page.showing', model: t('activerecord.models.profile'))
+    p#notice
+      = notice
+    h2.resource_title
+      |  [U] 
+      = @profile.user.username
+      - if @profile.full_name?
+        |  (
+        = @profile.full_name
+        | ) 
+    p
+      = t('activerecord.attributes.profile.user_number')
+      | : 
+      = @profile.user_number
+    - if flash[:temporary_password]
+      p
+        = t('user.your_temporary_password_is')
+        | : 
+      p[style="font-size: 200%"]
+        = flash[:temporary_password]
+    - if defined?(EnjuCirculation)
+      h2
+        = t('activerecord.models.checkout')
+        => link_to image_tag('icons/date.png', size: '16x16', alt: 'iCalendar', class: 'icon'), checkouts_path(icalendar_token: current_user.profile.checkout_icalendar_token, format: :ics) if current_user.profile.checkout_icalendar_token?
+        => link_to image_tag('icons/feed.png', size: '16x16', alt: 'RSS', class: 'icon'), checkouts_path(user_id: current_user.username, format: :rss)
+        => link_to image_tag('icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'icon'), checkouts_path(user_id: current_user.username, format: :txt)
+      - if @profile.user
+        = render 'checkouts/list', checkouts: @profile.user.checkouts.page(params[:page])
