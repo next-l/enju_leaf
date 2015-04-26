@@ -1,15 +1,18 @@
 .row
-  #content_list.col-md-9
-    h1.title
-      = t('page.export')
-    ul
-      - if current_user.try(:has_role?, 'Administrator')
-        li
-          = link_to t('activerecord.models.user_export_file'), user_export_files_path
-      li
-        = link_to t('activerecord.models.resource_export_file'), resource_export_files_path
-      - if defined?(EnjuEvent)
-        li
-          = link_to t('activerecord.models.event_export_file'), event_export_files_path
   #submenu.col-md-3
-    ul
+    .panel.panel-default
+      .panel-body
+  #content_list.col-md-9
+    .panel.panel-default
+      .panel-heading
+        = t('page.export')
+      .panel-body
+        ul
+          - if current_user.try(:has_role?, 'Administrator')
+            li
+              = link_to t('activerecord.models.user_export_file'), user_export_files_path
+          li
+            = link_to t('activerecord.models.resource_export_file'), resource_export_files_path
+          - if defined?(EnjuEvent)
+            li
+              = link_to t('activerecord.models.event_export_file'), event_export_files_path

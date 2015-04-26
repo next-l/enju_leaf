@@ -1,4 +1,8 @@
 .row
+  #submenu.col-md-3
+    ul
+      li
+        = link_to t('page.new', model: t('activerecord.models.user_group')), new_user_group_path
   #content_list.col-md-9
     h1.title
       = t('page.listing', model: t('activerecord.models.user_group'))
@@ -30,7 +34,3 @@
             = link_to t('page.edit'), edit_user_group_path(user_group)
           - if policy(user_group).destroy?
             = link_to t('page.destroy'), user_group_path(user_group), data: {confirm: t('page.are_you_sure')}, method: :delete
-  #submenu.col-md-3
-    ul
-      li
-        = link_to t('page.new', model: t('activerecord.models.user_group')), new_user_group_path

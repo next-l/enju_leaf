@@ -1,13 +1,13 @@
-= simple_nested_form_for(@user_group) do |f|
+= simple_form_for(@user_group) do |f|
   = f.error_notification
   .form-group
     = f.label :name
     br
-    = f.text_field :name
+    = f.text_field :name, class: 'form-control'
   .form-group
     = f.label :display_name
     br
-    = f.text_area :display_name
+    = f.text_area :display_name, class: 'form-control'
   .form-group
     = f.label :valid_period_for_new_user
     br
@@ -29,6 +29,6 @@
   .form-group
     = f.label :note
     br
-    = f.text_area :note
-  .form-control
+    = f.text_area :note, class: 'form-control'
+  .form-group
     = f.submit class: 'btn btn-default'

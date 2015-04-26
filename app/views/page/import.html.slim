@@ -1,4 +1,7 @@
-#col1.row
+.row
+  #submenu.col-md-3
+    .panel.panel-default
+      .panel-body
   #content_list.col-md-9
     .panel.panel-default
       .panel-heading
@@ -11,6 +14,3 @@
             = link_to t('page.manifestation_and_item'), resource_import_files_path
           li
             = link_to t('activerecord.models.event'), event_import_files_path
-  #submenu.col-md-3
-    .panel.panel-default
-      .panel-body

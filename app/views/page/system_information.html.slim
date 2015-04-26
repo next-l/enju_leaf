@@ -1,4 +1,8 @@
 .row
+  #submenu.col-md-3
+    ul
+      li
+        = link_to t('page.configuration'), page_configuration_path
   #content_list.col-md-9
     h1.title
       = t('page.system_information')
@@ -14,7 +18,3 @@
               = spec.name
               | : 
               = spec.version.to_s
-  #submenu.col-md-3
-    ul
-      li
-        = link_to t('page.configuration'), page_configuration_path

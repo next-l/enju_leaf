@@ -1,7 +1,15 @@
 .row
-  h1.title
-    = t('page.showing', model: t('activerecord.models.user_group'))
+  #submenu.col-md-3
+    ul
+      li
+        = link_to t('page.edit'), edit_user_group_path(@user_group)
+      li
+        = back_to_index(flash[:page_info])
+      li
+        = link_to t('page.new', model: t('activerecord.models.checkout_type')), new_user_group_has_checkout_type_path(user_group_id: @user_group.id)
   #content_list.col-md-9
+    h1.title
+      = t('page.showing', model: t('activerecord.models.user_group'))
     p#notice
       = notice
     p
@@ -50,11 +58,3 @@
         = t('activerecord.attributes.user_group.note')
         | :
       = @user_group.note
-  #submenu.col-md-3
-  ul
-    li
-      = link_to t('page.edit'), edit_user_group_path(@user_group)
-    li
-      = back_to_index(flash[:page_info])
-    li
-      = link_to t('page.new', model: t('activerecord.models.checkout_type')), new_user_group_user_group_has_checkout_type_path(@user_group)
