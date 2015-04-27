@@ -12,5 +12,6 @@
             = link_to t('activerecord.models.user'), user_import_files_path
           li
             = link_to t('page.manifestation_and_item'), resource_import_files_path
-          li
-            = link_to t('activerecord.models.event'), event_import_files_path
+          - if defined?(EnjuEvent)
+            li
+              = link_to t('activerecord.models.event'), event_import_files_path

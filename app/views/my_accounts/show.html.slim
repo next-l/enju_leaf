@@ -1,23 +1,4 @@
 .row
-  #content_list.col-md-9
-    h1.title
-      = t('page.showing', model: t('activerecord.models.user'))
-    p#notice
-      = notice
-    h2.resource_title
-      |  [U] 
-      = current_user.username
-    p
-      = t('activerecord.attributes.profile.user_number')
-      | : 
-      = current_user.profile.user_number
-    - if defined?(EnjuCirculation)
-      h2
-        = t('activerecord.models.checkout')
-        = link_to image_tag('icons/date.png', size: '16x16', alt: 'iCalendar', class: 'icon'), checkouts_path(icalendar_token: current_user.profile.checkout_icalendar_token, format: :ics) if current_user.profile.checkout_icalendar_token?
-        = link_to image_tag('icons/feed.png', size: '16x16', alt: 'RSS', class: 'icon'), checkouts_path(user_id: current_user.username, format: :rss)
-        = link_to image_tag('icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'icon'), checkouts_path(user_id: current_user.username, format: :txt)
-      = render 'checkouts/list', checkouts: current_user.checkouts.page(params[:page])
   #submenu.col-md-3
     - if defined?(EnjuCirculation)
       ul
@@ -50,3 +31,22 @@
         - if defined?(EnjuPurchaseRequest)
           li
             = link_to t('activerecord.models.purchase_request'), purchase_requests_path
+  #content_list.col-md-9
+    h1.title
+      = t('page.showing', model: t('activerecord.models.user'))
+    p#notice
+      = notice
+    h2.resource_title
+      |  [U] 
+      = current_user.username
+    p
+      = t('activerecord.attributes.profile.user_number')
+      | : 
+      = current_user.profile.user_number
+    - if defined?(EnjuCirculation)
+      h2
+        = t('activerecord.models.checkout')
+        = link_to image_tag('icons/date.png', size: '16x16', alt: 'iCalendar', class: 'icon'), checkouts_path(icalendar_token: current_user.profile.checkout_icalendar_token, format: :ics) if current_user.profile.checkout_icalendar_token?
+        = link_to image_tag('icons/feed.png', size: '16x16', alt: 'RSS', class: 'icon'), checkouts_path(user_id: current_user.username, format: :rss)
+        = link_to image_tag('icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'icon'), checkouts_path(user_id: current_user.username, format: :txt)
+      = render 'checkouts/list', checkouts: current_user.checkouts.page(params[:page])
