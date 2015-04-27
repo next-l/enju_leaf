@@ -1,20 +1,28 @@
 .row
   #submenu.col-md-3
-    ul
-      li
-        = link_to t('page.configuration'), page_configuration_path
-  #content_list.col-md-9
-    h1.title
-      = t('page.system_information')
-    ul
-      li
-        | Environment: 
-        = Rails.env
-      li
-        | Gems: 
+    .panel.panel-default
+      .panel-heading
+        h2.panel-title
+          = t('page.menu')
+      .panel-body
         ul
-          - @specs.each do |spec|
-            li
-              = spec.name
-              | : 
-              = spec.version.to_s
+          li
+            = link_to t('page.configuration'), page_configuration_path
+  #content_list.col-md-9
+    .panel.panel-default
+      .panel-heading
+        h1.panel-title
+          = t('page.system_information')
+      .panel-body
+        ul
+          li
+            | Environment: 
+            = Rails.env
+          li
+            | Gems: 
+            ul
+              - @specs.each do |spec|
+                li
+                  = spec.name
+                  | : 
+                  = spec.version.to_s

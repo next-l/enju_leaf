@@ -1,8 +1,13 @@
 .row
   #submenu.col-md-3
-    ul
-      li
-        = link_to t('page.new', model: t('activerecord.models.user_import_file')), new_user_import_file_path
+    .panel.panel-default
+      .panel-heading
+        h2.panel-title
+          = t('activerecord.models.user_import_file')
+      .panel-body
+        ul
+          li
+            = link_to t('page.new', model: t('activerecord.models.user_import_file')), new_user_import_file_path
   #content_list.col-md-9
     h1.title
       = t('page.listing', model: t('activerecord.models.user_import_file'))

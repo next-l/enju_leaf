@@ -1,13 +1,18 @@
 .row
   #submenu.col-md-3
-    ul
-      li
-        = link_to t('page.edit'), edit_user_group_path(@user_group)
-      li
-        = back_to_index(flash[:page_info])
-      - if defined?(EnjuCirculation)
-        li
-          = link_to t('page.new', model: t('activerecord.models.checkout_type')), new_user_group_has_checkout_type_path(user_group_id: @user_group.id)
+    .panel.panel-default
+      .panel-heading
+        h2.panel-title
+          = t('activerecord.models.user_group')
+      .panel-body
+        ul
+          li
+            = link_to t('page.edit'), edit_user_group_path(@user_group)
+          li
+            = back_to_index(flash[:page_info])
+          - if defined?(EnjuCirculation)
+            li
+              = link_to t('page.new', model: t('activerecord.models.checkout_type')), new_user_group_has_checkout_type_path(user_group_id: @user_group.id)
   #content_list.col-md-9
     h1.title
       = t('page.showing', model: t('activerecord.models.user_group'))

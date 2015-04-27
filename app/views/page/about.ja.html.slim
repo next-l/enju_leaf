@@ -1,79 +1,86 @@
 .row
   #submenu.col-md-3
-    ul
-      li
-        a[href="http://www.next-l.jp/"]
-          | Project Next-L
-      li
-        a[href="https://github.com/next-l/enju_leaf"]
-          | GitHubでのプロジェクトのページ
-      li
-        a[href="http://www.next-l.jp/?page=%A5%E1%A1%BC%A5%EA%A5%F3%A5%B0%A5%EA%A5%B9%A5%C8"]
-          | メーリングリスト
+    .panel.panel-default
+      .panel-heading
+        h2.panel-title
+          = t('page.menu')
+      ul.list-group
+        li.list-group-item
+          a[href="http://www.next-l.jp/"]
+            | Project Next-L
+        li.list-group-item
+          a[href="https://github.com/next-l/enju_leaf"]
+            | GitHubでのプロジェクトのページ
+        li.list-group-item
+          a[href="http://www.next-l.jp/?page=%A5%E1%A1%BC%A5%EA%A5%F3%A5%B0%A5%EA%A5%B9%A5%C8"]
+            | メーリングリスト
   #content_list.col-md-9
-    h1.title
-     | このシステムについて
-    ul
-      li
-        | この図書館システム"Next-L Enju Leaf"は、
-        a[href="https://github.com/nabeta"]
-          | 田辺浩介
-        | と
-        a[href="http://www.next-l.jp/"]
-          | Project Next-L
-        | によって開発されています。
-      li
-        | Next-L Enju LeafはMITライセンスのもとに公開されています。詳しくは
-        a[href="https://github.com/next-l/enju_leaf"]
-          | プロジェクトのホームページ
-        | をごらんください。
-    h2
-      | 連絡先
-    ul
-      li
-        | 田辺浩介: 
-        = mail_to 'nabeta@fastmail.fm', nil, replace_at: '_at_'
-      li
-        | Project Next-L: 
-        = mail_to 'info@next-l.jp', nil, replace_at: '_at_'
-    h2
-      | 謝辞
-    ul
-      li
-        | このシステムは、以下のソフトウェアを利用しています。 
+    .panel.panel-default
+      .panel-heading
+        h1.panel-title
+         | このシステムについて
+      .panel-body
         ul
           li
-            a[href="http://www.ruby-lang.org/"]
-              | Ruby
-            | , 
-            a[href="http://www.rubyonrails.org/"]
-              | Ruby on Rails
-            | , 
-            = database_adapter
-            | , 
-            a[href="http://lucene.apache.org/solr/"]
-              | Apache Solr
-      li
-        | このシステムは、以下のサービスやデータベースから得た書誌データを利用しています。 
+            | この図書館システム"Next-L Enju Leaf"は、
+            a[href="https://github.com/nabeta"]
+              | 田辺浩介
+            | と
+            a[href="http://www.next-l.jp/"]
+              | Project Next-L
+            | によって開発されています。
+          li
+            | Next-L Enju LeafはMITライセンスのもとに公開されています。詳しくは
+            a[href="https://github.com/next-l/enju_leaf"]
+              | プロジェクトのホームページ
+            | をごらんください。
+        h2
+          | 連絡先
         ul
           li
-            a[href="http://iss.ndl.go.jp/"]
-              | 国立国会図書館サーチ (NDLサーチ)
+            | 田辺浩介: 
+            = mail_to 'nabeta@fastmail.fm', nil, replace_at: '_at_'
           li
-            a[href="http://crd.ndl.go.jp/jp/public/"]
-              | 国立国会図書館レファレンス協同データベース
-      li
-        | このシステムは、以下のサービスから得た書影を利用しています。 
+            | Project Next-L: 
+            = mail_to 'info@next-l.jp', nil, replace_at: '_at_'
+        h2
+          | 謝辞
         ul
           li
-            = book_jacket_source_link
-      li
-        | このシステムは、以下のサービスから得たWebサイトのスクリーンショットを利用しています。 
-        ul
+            | このシステムは、以下のソフトウェアを利用しています。 
+            ul
+              li
+                a[href="http://www.ruby-lang.org/"]
+                  | Ruby
+                | , 
+                a[href="http://www.rubyonrails.org/"]
+                  | Ruby on Rails
+                | , 
+                = database_adapter
+                | , 
+                a[href="http://lucene.apache.org/solr/"]
+                  | Apache Solr
           li
-            = screenshot_generator_link
-      li
-        | このシステムで利用しているアイコンは、
-        a[href="http://www.famfamfam.com/lab/icons/silk/"]
-          | famfamfam.com
-        | によって製作されています。
+            | このシステムは、以下のサービスやデータベースから得た書誌データを利用しています。 
+            ul
+              li
+                a[href="http://iss.ndl.go.jp/"]
+                  | 国立国会図書館サーチ (NDLサーチ)
+              li
+                a[href="http://crd.ndl.go.jp/jp/public/"]
+                  | 国立国会図書館レファレンス協同データベース
+          li
+            | このシステムは、以下のサービスから得た書影を利用しています。 
+            ul
+              li
+                = book_jacket_source_link
+          li
+            | このシステムは、以下のサービスから得たWebサイトのスクリーンショットを利用しています。 
+            ul
+              li
+                = screenshot_generator_link
+          li
+            | このシステムで利用しているアイコンは、
+            a[href="http://www.famfamfam.com/lab/icons/silk/"]
+              | famfamfam.com
+            | によって製作されています。

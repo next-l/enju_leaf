@@ -1,7 +1,9 @@
 .row
   #submenu.col-md-3
     .panel.panel-default
-      .panel-heading メニュー
+      .panel-heading
+        h2.panel-title
+          = t('activerecord.models.profile')
       ul.list-group
         - if current_user.try(:has_role?, 'Librarian')
           li.list-group-item

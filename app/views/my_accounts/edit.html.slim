@@ -1,11 +1,15 @@
 .row
   #submenu.col-md-3
-    ul
-      li
-        = link_to t('page.show'), my_account_path
-      - if current_user.has_role?('Librarian')
-        li
-          = link_to t('page.listing', model: t('activerecord.models.user')), profiles_path
+    .panel.panel-default
+      .panel-heading
+        h2.panel-title
+          = t('activerecord.models.profile')
+      ul.list-group
+        li.list-group-item
+          = link_to t('page.show'), my_account_path
+        - if current_user.has_role?('Librarian')
+          li.list-group-item
+            = link_to t('page.listing', model: t('activerecord.models.user')), profiles_path
   #content_list.col-md-9
     h1.title
       = t('page.edit_user_profile', login_name: @profile.user.username)

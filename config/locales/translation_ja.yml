@@ -271,6 +271,7 @@ ja:
     cannot_parse_yaml_header: "のYAMLヘッダを読み込めません。ヘッダのコロンの後には、半角スペースを含める必要があります。"
     notice: 注意
     system_information: システムの基本的な情報の表示
+    menu: メニュー
   title:
     index: "一覧"
     show: "表示"
