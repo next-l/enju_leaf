@@ -5,6 +5,14 @@
 <%= form_tag({controller: 'manifestations'}, {method: 'get'}) do -%>
   <table style="width: 100%">
     <tr>
+      <td><%= label_tag :library_adv, t('activerecord.models.library') %>:</td>
+      <td>
+        <% @libraries.sort_by{|l| l.position }.each do |library| %>
+          <label><%= check_box_tag "library_adv[]", library.name %><%= library.display_name.localize %></label>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
       <td><%= label_tag :query, t('page.search_term') -%>:</td>
       <td><%= search_field_tag 'query', nil, class: 'search_form_short', placeholder: t('page.search_term') -%></td>
     </tr>
