@@ -1,16 +1,16 @@
 .row
   #submenu.col-md-3
-    ul
-      li
+    ul.list-group
+      li.list-group-item
         = link_to t('page.show'), @profile
-      li
+      li.list-group-item
         = link_to t('page.listing', model: t('activerecord.models.profile')), profiles_path
       - if current_user.has_role?('Librarian')
         - unless current_user == @profile.user
-          li
+          li.list-group-item
             = link_to t('page.destroy'), @profile, data: {confirm: t('page.are_you_sure')}, method: :delete
   #content_list.col-md-9
-    h1.title
+    h1.panel-title
       = t('page.edit_user_profile', login_name: @profile.user.username)
     = render 'page/required_field'
     = simple_form_for(@profile, validate: true) do |f|

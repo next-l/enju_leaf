@@ -1,5 +1,5 @@
 .row
-  h1.title
+  h1.panel-title
     = t('page.showing', model: t('activerecord.models.user_import_result'))
   #content_list.col-md-9
     p#notice
@@ -21,6 +21,6 @@
         = t('page.created_at')
       =l @user_import_result.created_at
   #submenu.col-md-3
-  ul
-    li
+  ul.list-group
+    li.list-group-item
       = back_to_index(flash[:page_info])

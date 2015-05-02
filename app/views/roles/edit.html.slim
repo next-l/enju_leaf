@@ -1,11 +1,11 @@
 .row
   #content_list.col-md-9
-    h1.title
+    h1.panel-title
       = t('page.editing', model: t('activerecord.models.role'))
     = render 'form'
   #submenu.col-md-3
-    ul
-      li
+    ul.list-group
+      li.list-group-item
         = link_to t('page.show'), role_path(@role)
-      li
+      li.list-group-item
         = link_to t('page.back'), roles_path

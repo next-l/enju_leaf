@@ -5,46 +5,49 @@
         h2.panel-title
           = t('activerecord.models.user_import_file')
       .panel-body
-        ul
-          li
+        ul.list-group
+          li.list-group-item
             = link_to t('page.new', model: t('activerecord.models.user_import_file')), new_user_import_file_path
   #content_list.col-md-9
-    h1.title
-      = t('page.listing', model: t('activerecord.models.user_import_file'))
-    table.table.table-striped.index
-      thead
-        tr
-          th[style="width: 30px"]
-            | Id
-          th
-            = t('activerecord.attributes.user_import_file.user_import_filename')
-          th
-            = t('activerecord.attributes.user_import_file.edit_mode')
-          th
-            = t('activerecord.attributes.user_import_file.executed_at')
-          th
-            = t('activerecord.attributes.user_import_file.state')
-          th
-      tbody
-        - @user_import_files.each do |user_import_file|
-          |  <tr class="line
-          = cycle("0", "1")
-          | "> 
-          td
-            = link_to (user_import_file.id), user_import_file
-          td
-            = link_to user_import_file.user_import_filename, user_import_file_path(user_import_file, format: :download) if user_import_file.user_import_filename
-            br
-            = t('activerecord.models.user')
-            | : 
-            = link_to user_import_file.user.username, user_import_file.user.profile if user_import_file.user.try(:profile)
-          td
-            = user_import_file.edit_mode
-          td
-            = l(user_import_file.executed_at) if user_import_file.executed_at
-          td
-            = localized_state(user_import_file.current_state)
-          td
-            => link_to t('page.show'), user_import_file
-            => link_to t('page.destroy'), user_import_file, data: {confirm: t('page.are_you_sure')}, method: :delete
-    = paginate(@user_import_files)
+    .panel.panel-default
+      .panel-heading
+        h1.panel-title
+          = t('page.listing', model: t('activerecord.models.user_import_file'))
+      .panel-body
+        table.table.table-striped.index
+          thead
+            tr
+              th[style="width: 30px"]
+                | Id
+              th
+                = t('activerecord.attributes.user_import_file.user_import_filename')
+              th
+                = t('activerecord.attributes.user_import_file.edit_mode')
+              th
+                = t('activerecord.attributes.user_import_file.executed_at')
+              th
+                = t('activerecord.attributes.user_import_file.state')
+              th
+          tbody
+            - @user_import_files.each do |user_import_file|
+              |  <tr class="line
+              = cycle("0", "1")
+              | "> 
+              td
+                = link_to (user_import_file.id), user_import_file
+              td
+                = link_to user_import_file.user_import_filename, user_import_file_path(user_import_file, format: :download) if user_import_file.user_import_filename
+                br
+                = t('activerecord.models.user')
+                | : 
+                = link_to user_import_file.user.username, user_import_file.user.profile if user_import_file.user.try(:profile)
+              td
+                = user_import_file.edit_mode
+              td
+                = l(user_import_file.executed_at) if user_import_file.executed_at
+              td
+                = localized_state(user_import_file.current_state)
+              td
+                => link_to t('page.show'), user_import_file
+                => link_to t('page.destroy'), user_import_file, data: {confirm: t('page.are_you_sure')}, method: :delete
+        = paginate(@user_import_files)

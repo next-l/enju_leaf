@@ -1,50 +1,50 @@
 .row
   #submenu.col-md-3
     - if defined?(EnjuCirculation)
-      ul
+      ul.list-group
         - @profile.user_group.user_group_has_checkout_types.each do |available_checkout_type|
-          li
+          li.list-group-item
             = available_checkout_type.checkout_type.display_name.localize
             | : 
             = @profile.user.checked_item_count[:"#{available_checkout_type.checkout_type.name}"]
             |  / 
             = available_checkout_type.checkout_limit
-    ul
+    ul.list-group
       - if flash[:query]
-        li
+        li.list-group-item
           = link_to t('page.back'), profiles_path(query: flash[:query])
       - else
-        li
+        li.list-group-item
           = back_to_index
       - if user_signed_in?
         - if policy(@profile).update?
-          li
+          li.list-group-item
             = link_to t('page.edit'), edit_profile_path(@profile)
         - if defined?(EnjuMessage)
-          li
+          li.list-group-item
             = link_to t('message.send'), new_message_path(recipient: @profile.user.username)
         - if policy(Profile).create?
-          li
+          li.list-group-item
             = link_to t('page.new', model: t('activerecord.models.profile')), new_profile_path
         - if policy(@profile).destroy?
-          li
+          li.list-group-item
             = link_to t('page.destroy'), @profile, data: {confirm: t('page.are_you_sure')}, method: :delete
         - if defined?(EnjuCirculation)
-          li
+          li.list-group-item
             = link_to t('activerecord.models.checkout'), checkouts_path(user_id: @profile.user.username)
-          li
+          li.list-group-item
             = link_to t('activerecord.models.reserve'), reserves_path(user_id: @profile.user.username)
         - if defined?(EnjuQuestion)
-          li
+          li.list-group-item
             = link_to t('activerecord.models.question'), questions_path(user_id: @profile.user.username)
         - if defined?(EnjuBookmark)
-          li
+          li.list-group-item
             = link_to t('activerecord.models.bookmark'), bookmarks_path(user_id: @profile.user.username)
         - if defined?(EnjuPurchaseRequest)
-          li
+          li.list-group-item
             = link_to t('activerecord.models.purchase_request'), purchase_requests_path(user_id: @profile.user.username)
   #content_list.col-md-9
-    h1.title
+    h1.panel-title
       = t('page.showing', model: t('activerecord.models.profile'))
     p#notice
       = notice

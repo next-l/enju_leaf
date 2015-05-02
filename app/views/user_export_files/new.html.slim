@@ -1,10 +1,10 @@
 .row
   #submenu.col-md-3
-    ul
-      li
+    ul.list-group
+      li.list-group-item
         = link_to t('page.listing', model: t('activerecord.models.user_export_file')), user_export_files_path
   #content_list.col-md-9
-    h1.title
+    h1.panel-title
       = t('page.new', model: t('activerecord.models.user_export_file'))
     p
       = t('export.are_you_sure_to_export')

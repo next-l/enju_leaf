@@ -1,6 +1,6 @@
 .row
   #content_list.col-md-9
-    h1.title
+    h1.panel-title
       = t('page.showing', model: t('activerecord.models.role'))
     p#notice
       = notice
@@ -35,8 +35,8 @@
         | :
       = l(@role.updated_at) if @role.created_at
   #submenu.col-md-3
-    ul
-      li
+    ul.list-group
+      li.list-group-item
         = link_to t('page.edit'), edit_role_path(@role)
-      li
+      li.list-group-item
         = back_to_index(flash[:page_info])
