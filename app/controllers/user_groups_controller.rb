@@ -104,7 +104,11 @@ class UserGroupsController < ApplicationController
       :number_of_day_to_notify_overdue,
       :number_of_day_to_notify_due_date,
       :number_of_time_to_notify_overdue,
-      :user_group_has_checkout_types_attributes # EnjuCirculation
+      # EnjuCirculation
+      {:user_group_has_checkout_types_attributes => [
+        :id, :checkout_type_id, :checkout_limit, :checkout_period, :checkout_renewal_limit,
+        :reservation_limit, :reservation_expired_period, :set_due_date_before_closing_day,
+      ]},
     )
   end
 
