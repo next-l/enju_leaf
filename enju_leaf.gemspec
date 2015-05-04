@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids,default,development,test}/*"] - Dir["spec/dummy/tmp/*"]
 
-  s.add_dependency "rails", "~> 4.2"
+  s.add_dependency "rails", "~> 4.1"
   #s.add_dependency "enju_biblio", "~> 0.2.0.beta.1"
   #s.add_dependency "enju_library", "~> 0.2.0.beta.1"
   #s.add_dependency "enju_manifestation_viewer", "~> 0.2.0.beta.1"
@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency "kaminari", "~> 0.16.3"
   s.add_dependency "devise", "~> 3.4"
   s.add_dependency "pundit", "~> 1.0"
-  s.add_dependency "acts_as_list", "~> 0.6"
+  s.add_dependency "acts_as_list", "~> 0.7"
   s.add_dependency "strip_attributes", "~> 1.7"
   s.add_dependency "addressable", "~> 2.3"
   s.add_dependency "elasticsearch-model", "~> 0.1.7"
