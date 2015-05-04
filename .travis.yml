@@ -12,6 +12,7 @@ before_script:
 services:
   - redis-server
 gemfile:
+  - gemfiles/rails_3.2.gemfile
   - gemfiles/rails_4.1.gemfile
   - gemfiles/rails_4.2.gemfile
 env:
