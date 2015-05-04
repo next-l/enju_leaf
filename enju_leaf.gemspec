@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency "kaminari", "~> 0.16.3"
   s.add_dependency "devise", "~> 3.4"
   s.add_dependency "cancancan", "~> 1.10"
-  s.add_dependency "acts_as_list", "~> 0.6"
+  s.add_dependency "acts_as_list", "~> 0.7"
   s.add_dependency "attribute_normalizer", "~> 1.2"
   s.add_dependency "addressable"
   s.add_dependency "sunspot_rails", "~> 2.2"
@@ -60,4 +60,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "annotate"
   s.add_development_dependency "rspec-activemodel-mocks"
   s.add_development_dependency "charlock_holmes"
+  s.add_development_dependency "appraisal"
 end
