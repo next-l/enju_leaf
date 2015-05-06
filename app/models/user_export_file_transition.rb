@@ -11,10 +11,10 @@ end
 # Table name: user_export_file_transitions
 #
 #  id                  :integer          not null, primary key
-#  to_state            :string(255)
-#  metadata            :text             default("{}")
+#  to_state            :string
+#  metadata            :text             default({})
 #  sort_key            :integer
 #  user_export_file_id :integer
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
+#  created_at          :datetime
+#  updated_at          :datetime
 #
