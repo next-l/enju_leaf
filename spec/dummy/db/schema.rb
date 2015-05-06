@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304175658) do
+ActiveRecord::Schema.define(version: 20150506105356) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer  "basket_id"
@@ -1437,6 +1437,7 @@ ActiveRecord::Schema.define(version: 20150304175658) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "error_message"
   end
 
   create_table "user_reserve_stat_transitions", force: :cascade do |t|
