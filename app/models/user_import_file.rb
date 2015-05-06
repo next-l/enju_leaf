@@ -78,6 +78,8 @@ class UserImportFile < ActiveRecord::Base
             num[:failed] += 1
           end
         else
+          import_result.error_message = new_user.errors.full_messages.join("\n")
+          import_result.save
           num[:failed] += 1
         end
       end

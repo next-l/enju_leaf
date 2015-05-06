@@ -18,7 +18,7 @@ describe UserImportFile do
       old_import_results_count = UserImportResult.count
       old_profiles_solr_count = Profile.search.total
       @file.current_state.should eq 'pending'
-      @file.import_start.should eq({user_imported: 5, user_found: 0, failed: 0})
+      @file.import_start.should eq({user_imported: 5, user_found: 0, failed: 1})
       User.order('id DESC')[1].username.should eq 'user005'
       User.order('id DESC')[2].username.should eq 'user003'
       User.count.should eq old_users_count + 5
@@ -52,7 +52,8 @@ describe UserImportFile do
       user003.profile.save_search_history.should be_falsy
       user003.profile.share_bookmarks.should be_falsy
       User.where(username: 'user000').first.should be_nil
-      UserImportResult.count.should eq old_import_results_count + 6
+      UserImportResult.count.should eq old_import_results_count + 7
+      UserImportResult.order(:created_at).last.error_message.should eq 'Password is too short (minimum is 6 characters)'
 
       user005 = User.where(username: 'user005').first
       user005.role.name.should eq 'User'
@@ -69,7 +70,7 @@ describe UserImportFile do
       user006.profile.user_group.name.should eq UserGroup.find(2).name
 
       @file.user_import_fingerprint.should be_truthy
-      @file.user_import_size.should eq 729
+      @file.user_import_size.should eq 785
       @file.executed_at.should be_truthy
 
       @file.reload
@@ -88,7 +89,7 @@ describe UserImportFile do
       old_users_count = User.count
       old_import_results_count = UserImportResult.count
       @file.user = User.where(username: 'librarian1').first
-      @file.import_start.should eq({user_imported: 4, user_found: 0, failed: 1})
+      @file.import_start.should eq({user_imported: 4, user_found: 0, failed: 2})
       User.order('id DESC')[1].username.should eq 'user005'
       User.count.should eq old_users_count + 4
     end

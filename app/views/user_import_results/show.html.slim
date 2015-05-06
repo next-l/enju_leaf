@@ -18,6 +18,10 @@
       = @user_import_result.body
     p
       b
+        = t('activerecord.attributes.user_import_result.error_message')
+      = @user_import_result.error_message
+    p
+      b
         = t('page.created_at')
       =l @user_import_result.created_at
   #submenu.col-md-3

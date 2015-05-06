@@ -74,6 +74,7 @@ ja:
         default_library_id: 既定の図書館
       user_import_result:
         body: 本文
+        error_message: エラーメッセージ
       user_export_file:
         user_export_filename: ファイル名
         user_export_file_size: ファイルサイズ
