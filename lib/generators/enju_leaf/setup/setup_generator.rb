@@ -70,7 +70,9 @@ EOS
 
   mobylette_config do |config|
     config[:skip_xhr_requests] = false
-    config[:skip_user_agents] = ENV['ENJU_SKIP_MOBILE_AGENTS'].to_s.split.map{|s| s.to_sym}
+    config[:skip_user_agents] = ENV['ENJU_SKIP_MOBILE_AGENTS'].to_a.split.map{|a|
+      a.to_sym
+    }
   end
 
 EOS
