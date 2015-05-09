@@ -18,9 +18,9 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids,default,development,test}/*"] - Dir["spec/dummy/tmp/*"]
 
   s.add_dependency "rails", ">= 3.2.21", "< 5.0"
-  s.add_dependency "enju_biblio", "~> 0.1.0.pre65"
-  s.add_dependency "enju_library", "~> 0.1.0.pre40"
-  s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre17"
+  s.add_dependency "enju_biblio", "~> 0.1.0.pre66"
+  s.add_dependency "enju_library", "~> 0.1.0.pre41"
+  s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre18"
   s.add_dependency "friendly_id", ">= 4.0"
   s.add_dependency "kaminari", "~> 0.16.3"
   s.add_dependency "devise", "~> 3.4"
@@ -49,7 +49,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails", "~> 3.2"
   s.add_development_dependency "enju_circulation", "~> 0.1.0.pre44"
-  s.add_development_dependency "enju_bookmark", "~> 0.1.2.pre21"
+  s.add_development_dependency "enju_bookmark", "~> 0.1.2.pre22"
   s.add_development_dependency "enju_search_log", "~> 0.1.0.pre11"
   s.add_development_dependency "vcr"
   s.add_development_dependency "simplecov"
