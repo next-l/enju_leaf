@@ -18,6 +18,11 @@
   <%= localized_state(@user_export_file.current_state) -%>
 </p>
 
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@user_export_file.created_at) if @user_export_file.created_at -%>
+</p>
+
 </div>
 </div>
 
