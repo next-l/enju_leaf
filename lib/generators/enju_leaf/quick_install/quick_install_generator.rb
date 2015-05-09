@@ -2,24 +2,29 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
   def quick_install
+    environment = ENV['RAILS_ENV'] || 'development'
+    rake("enju_leaf_engine:install:migrations")
+    rake("enju_biblio_engine:install:migrations")
+    rake("enju_library_engine:install:migrations")
     if !ENV['SKIP_CONFIG']
-      rake("db:migrate")
+      generate("enju_biblio:setup")
+      generate("enju_library:setup")
       generate("enju_circulation:setup")
       generate("enju_subject:setup")
     end
-    rake("db:migrate")
-    rake("enju_leaf:setup")
-    rake("enju_circulation:setup")
-    rake("enju_subject:setup")
-    rake("assets:precompile")
-    rake("db:seed")
+    rake("db:migrate", env: environment)
+    rake("enju_leaf:setup", env: environment)
+    rake("enju_circulation:setup", env: environment)
+    rake("enju_subject:setup", env: environment)
+    rake("assets:precompile", env: environment) if environment == 'production'
+    rake("db:seed", env: environment)
     if ENV['OS'] == 'Windows_NT'
-      rake("sunspot:solr:run")
+      rake("sunspot:solr:run", env: environment)
     else
-      rake("sunspot:solr:start")
+      rake("sunspot:solr:start", env: environment)
       sleep 5
-      rake("environment enju_leaf:reindex")
-      rake("sunspot:solr:stop")
+      rake("environment sunspot:reindex", env: environment)
+      rake("sunspot:solr:stop", env: environment)
     end
   end
 end
