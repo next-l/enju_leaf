@@ -2,11 +2,11 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
   def quick_install
-    environment = ENV['ENJU_ENV'] || 'development'
+    environment = ENV['RAILS_ENV'] || 'development'
+    rake("enju_leaf_engine:install:migrations")
+    rake("enju_biblio_engine:install:migrations")
+    rake("enju_library_engine:install:migrations")
     if !ENV['SKIP_CONFIG']
-      generate("sunspot_rails:install")
-      generate("kaminari:config")
-      generate("simple_form:install")
       generate("enju_biblio:setup")
       generate("enju_library:setup")
       generate("enju_circulation:setup")
@@ -23,7 +23,7 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
     else
       rake("sunspot:solr:start", env: environment)
       sleep 5
-      rake("environment enju_leaf:reindex", env: environment)
+      rake("environment sunspot:reindex", env: environment)
       rake("sunspot:solr:stop", env: environment)
     end
   end

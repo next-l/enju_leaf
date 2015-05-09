@@ -32,6 +32,15 @@ EOS
     end
     generate("devise:install")
     generate("devise", "User")
+    generate("sunspot_rails:install")
+    generate("kaminari:config")
+    generate("simple_form:install")
+    gsub_file "config/sunspot.yml",
+      /path: \/solr\/production/,
+      "path: /solr/default"
+    gsub_file 'config/initializers/kaminari_config.rb',
+      /# config.default_per_page = 25$/,
+      "config.default_per_page = 10"
     if Rails::VERSION::MAJOR >= 4
       generate("friendly_id")
       gsub_file 'config/initializers/friendly_id.rb', /# config.use :finders$/, "config.use :finders"
@@ -61,7 +70,7 @@ EOS
 
   mobylette_config do |config|
     config[:skip_xhr_requests] = false
-    config[:skip_user_agents] = LibraryGroup.first.settings[:skip_mobile_agents].split.map{|s| s.to_sym}
+    config[:skip_user_agents] = ENV['ENJU_SKIP_MOBILE_AGENTS'].to_s.split.map{|s| s.to_sym}
   end
 
 EOS
@@ -90,15 +99,6 @@ require 'rack/protection'
 use Rack::Protection, except: [:escaped_params, :json_csrf, :http_origin, :session_hijacking, :remote_token]
 EOS
     end
-    rake("enju_leaf_engine:install:migrations")
-    rake("enju_biblio_engine:install:migrations")
-    rake("enju_library_engine:install:migrations")
-    gsub_file "config/sunspot.yml",
-      /path: \/solr\/production/,
-      "path: /solr/default"
-    gsub_file 'config/initializers/kaminari_config.rb',
-      /# config.default_per_page = 25$/,
-      "config.default_per_page = 10"
     create_file 'config/initializers/mobile.rb' do <<"EOS"
 ActionController::Responder.class_eval do
   alias :to_mobile :to_html
