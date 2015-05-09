@@ -24,3 +24,8 @@
         = t('activerecord.attributes.user_export_file.state')
         | :
       = localized_state(@user_export_file.current_state)
+    p
+      strong
+        = t('page.created_at')
+        | :
+      = l(@user_export_file.created_at) if @user_export_file.created_at
