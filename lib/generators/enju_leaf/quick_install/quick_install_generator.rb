@@ -3,12 +3,12 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
 
   def quick_install
     environment = ENV['ENJU_ENV'] || 'development'
-    generate("sunspot_rails:install")
-    generate("kaminari:config")
-    generate("simple_form:install")
-    generate("enju_biblio:setup")
-    generate("enju_library:setup")
     if !ENV['SKIP_CONFIG']
+      generate("sunspot_rails:install")
+      generate("kaminari:config")
+      generate("simple_form:install")
+      generate("enju_biblio:setup")
+      generate("enju_library:setup")
       generate("enju_circulation:setup")
       generate("enju_subject:setup")
     end
