@@ -39,11 +39,6 @@ EOS
         /\/\/= require turbolinks$/,
         ""
     end
-    generate("enju_biblio:setup")
-    generate("enju_library:setup")
-    rake("enju_leaf_engine:install:migrations")
-    rake("enju_biblio_engine:install:migrations")
-    rake("enju_library_engine:install:migrations")
     gsub_file 'config/routes.rb', /devise_for :users$/, "devise_for :users, path: 'accounts'"
     gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\Z/i'
     gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [ :email ]', 'config.authentication_keys = [ :username ]'
@@ -95,12 +90,12 @@ require 'rack/protection'
 use Rack::Protection, except: [:escaped_params, :json_csrf, :http_origin, :session_hijacking, :remote_token]
 EOS
     end
-    generate("sunspot_rails:install")
+    rake("enju_leaf_engine:install:migrations")
+    rake("enju_biblio_engine:install:migrations")
+    rake("enju_library_engine:install:migrations")
     gsub_file "config/sunspot.yml",
       /path: \/solr\/production/,
       "path: /solr/default"
-    generate("kaminari:config")
-    generate("simple_form:install")
     gsub_file 'config/initializers/kaminari_config.rb',
       /# config.default_per_page = 25$/,
       "config.default_per_page = 10"
