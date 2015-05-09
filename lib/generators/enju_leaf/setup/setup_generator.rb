@@ -32,6 +32,15 @@ EOS
     end
     generate("devise:install")
     generate("devise", "User")
+    generate("sunspot_rails:install")
+    generate("kaminari:config")
+    generate("simple_form:install")
+    gsub_file "config/sunspot.yml",
+      /path: \/solr\/production/,
+      "path: /solr/default"
+    gsub_file 'config/initializers/kaminari_config.rb',
+      /# config.default_per_page = 25$/,
+      "config.default_per_page = 10"
     if Rails::VERSION::MAJOR >= 4
       generate("friendly_id")
       gsub_file 'config/initializers/friendly_id.rb', /# config.use :finders$/, "config.use :finders"
@@ -39,11 +48,6 @@ EOS
         /\/\/= require turbolinks$/,
         ""
     end
-    generate("enju_biblio:setup")
-    generate("enju_library:setup")
-    rake("enju_leaf_engine:install:migrations")
-    rake("enju_biblio_engine:install:migrations")
-    rake("enju_library_engine:install:migrations")
     gsub_file 'config/routes.rb', /devise_for :users$/, "devise_for :users, path: 'accounts'"
     gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\Z/i'
     gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [ :email ]', 'config.authentication_keys = [ :username ]'
@@ -100,21 +104,14 @@ require 'rack/protection'
 use Rack::Protection, except: [:escaped_params, :json_csrf, :http_origin, :session_hijacking, :remote_token]
 EOS
     end
-    generate("sunspot_rails:install")
-    gsub_file "config/sunspot.yml",
-      /path: \/solr\/production/,
-      "path: /solr/default"
-    generate("kaminari:config")
-    generate("simple_form:install")
-    gsub_file 'config/initializers/kaminari_config.rb',
-      /# config.default_per_page = 25$/,
-      "config.default_per_page = 10"
     create_file 'config/initializers/mobile.rb' do <<"EOS"
 ActionController::Responder.class_eval do
   alias :to_mobile :to_html
 end
 EOS
     end
+    remove_file "public/index.html"
+    remove_file "app/views/layouts/application.html.erb"
     gsub_file 'config/schedule.rb', /^set :environment, :development$/,
       "set :environment, :#{environment}"
     gsub_file 'config/environments/production.rb',
@@ -126,7 +123,5 @@ EOS
     gsub_file 'config/environments/production.rb',
       /# config.assets.precompile \+= %w\( search.js \)$/,
       "config.assets.precompile += %w( mobile.js mobile.css print.css )"
-    remove_file "public/index.html"
-    remove_file "app/views/layouts/application.html.erb"
   end
 end
