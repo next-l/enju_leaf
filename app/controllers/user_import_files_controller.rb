@@ -27,7 +27,7 @@ class UserImportFilesController < ApplicationController
       format.json { render json: @user_import_file }
       format.download {
         if ENV['ENJU_STORAGE'] == 's3'
-          redirect_to @user_import_file.user_import.expiring_url(10)
+          send_data Faraday.get(@user_import_file.user_export.expiring_url).body.force_encoding('UTF-8'),
         else
           send_file file, filename: @user_import_file.user_import_file_name, type: 'application/octet-stream'
         end
