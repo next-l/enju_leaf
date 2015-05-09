@@ -11,7 +11,7 @@ require 'nested_form'
 require 'enju_biblio'
 require 'enju_library'
 require 'enju_manifestation_viewer'
-require 'redcarpet'
+require 'kramdown'
 require 'mobylette'
 require 'rails_autolink'
 require 'devise-encryptable'
@@ -21,7 +21,6 @@ require 'jquery-rails'
 require 'jquery-ui-rails'
 require 'statesman'
 require 'resque/scheduler/server'
-require 'settingslogic'
 
 module EnjuLeaf
   class Engine < ::Rails::Engine

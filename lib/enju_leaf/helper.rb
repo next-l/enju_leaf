@@ -101,14 +101,14 @@ module EnjuLeaf
   
     def markdown_helper(string)
       return unless string
-      if defined?(JRUBY_VERSION)
-        Kramdown::Document.new(string.to_s).to_html.html_safe
-      else
+      if defined?(Redcarpet)
         markdown = Redcarpet::Markdown.new(
           Redcarpet::Render::HTML,
           autolink: true, safe_links_only: true
         )
         markdown.render(string.to_s).html_safe
+      else
+        Kramdown::Document.new(string.to_s).to_html.html_safe
       end
     end
 

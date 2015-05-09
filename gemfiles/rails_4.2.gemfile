@@ -6,5 +6,6 @@ gem "jquery-rails"
 gem "rails", "4.2.1"
 gem "statesman", "~> 1.2"
 gem "coveralls", :require => false
+gem "enju_biblio", :github => "next-l/enju_biblio", :branch => "1.1"
 
 gemspec :path => "../"

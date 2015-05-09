@@ -7,5 +7,6 @@ gem "rails", "4.1.10"
 gem "statesman", "~> 1.2"
 gem "foreigner"
 gem "coveralls", :require => false
+gem "enju_biblio", :github => "next-l/enju_biblio", :branch => "1.1"
 
 gemspec :path => "../"
