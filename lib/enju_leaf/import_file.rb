@@ -78,15 +78,15 @@ module ImportFile
     def create_import_temp_file(attachment)
       tempfile = Tempfile.new(self.class.name.underscore)
       if ENV['ENJU_STORAGE'] == 's3'
-        uploaded_file_path = attachment.expiring_url(10)
+        tempfile.write Faraday.get(attachment.expiring_url(10)).body.force_encoding('UTF-8')
       else
         uploaded_file_path = attachment.path
-      end
-      open(uploaded_file_path){|f|
-        f.each{|line|
-          tempfile.puts(convert_encoding(line))
+        open(uploaded_file_path){|f|
+          f.each{|line|
+            tempfile.puts(convert_encoding(line))
+          }
         }
-      }
+      end
       tempfile.close
       tempfile
     end

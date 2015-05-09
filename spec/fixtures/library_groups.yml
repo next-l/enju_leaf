@@ -13,9 +13,9 @@ one:
   admin_networks: "0.0.0.0/0\r\n\
     ::/0"
   settings: <% if Rails::VERSION::MAJOR > 3 %>
-    "{\"max_number_of_results\":200,\"family_name_first\":true}"
+    "{\"max_number_of_results\":200,\"family_name_first\":true,\"book_jacket_source\":\"google\",\"screenshot_generator\":\"mozshot\"}"
   <% else %>
-    "---\n:max_number_of_results: 200\n:family_name_first: true\n"
+    "---\n:max_number_of_results: 200\n:family_name_first: true\n:book_jacket_source: \"google\"\n:screenshot_generator: \"mozshot\""
   <% end %>
 # == Schema Information
 #
