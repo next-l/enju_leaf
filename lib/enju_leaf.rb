@@ -67,12 +67,23 @@ module EnjuLeaf
     end
 
     def render_500
+      return if performed?
+      respond_to do |format|
+        format.html {render file: "#{Rails.root}/public/500", layout: false, status: 500}
+        format.mobile {render file: "#{Rails.root}/public/500", layout: false, status: 500}
+        format.xml {render template: 'page/500', status: 500}
+        format.json { render text: '{"error": "server_error"}' }
+        format.xml {render template: 'page/500.xml', status: 500}
+      end
+    end
+
+    def render_500_nosolr
       Rails.logger.fatal("please confirm that the Solr is running.")
       return if performed?
       #flash[:notice] = t('page.connection_failed')
       respond_to do |format|
-        format.html {render file: "#{Rails.root}/public/500", layout: false, status: 500}
-        format.mobile {render file: "#{Rails.root}/public/500", layout: false, status: 500}
+        format.html {render template: "page/500_nosolr", layout: false, status: 500}
+        format.mobile {render template: "page/500_nosolr", layout: false, status: 500}
         format.xml {render template: 'page/500', status: 500}
         format.json { render text: '{"error": "server_error"}' }
         format.xml {render template: 'page/500.xml', status: 500}

@@ -286,6 +286,8 @@ en:
     cannot_parse_yaml_header: "has an invalid YAML header. You must add a space after the header's colon."
     notice: Notice
     system_information: System information
+    nosolr_error: 'There is an error on connecting to the search server.'
+    nosolr_error_description: 'This error may be caused by a delay when the sever is still waiting for launching the search server. In that case, please wait for a while, and go back to this page later.'
   title:
     index: "index"
     show: "show"

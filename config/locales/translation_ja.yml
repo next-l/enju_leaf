@@ -271,6 +271,8 @@ ja:
     cannot_parse_yaml_header: "のYAMLヘッダを読み込めません。ヘッダのコロンの後には、半角スペースを含める必要があります。"
     notice: 注意
     system_information: システムの基本的な情報の表示
+    nosolr_error: '検索サーバに不具合があるようです'
+    nosolr_error_description: '検索サーバーの起動に時間がかかっている場合もこのエラーとなります。少し時間を置いてアクセスするとエラーが解消される場合もありますのでお試しください。'
   title:
     index: "一覧"
     show: "表示"
