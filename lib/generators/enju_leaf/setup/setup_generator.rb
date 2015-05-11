@@ -11,6 +11,8 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
       <<"EOS"
     config.i18n.available_locales = [:en, :ja]
     config.i18n.enforce_available_locales = true
+
+    config.active_job.queue_adapter = :resque
 EOS
     end
     gsub_file 'config/application.rb', /# config.i18n.default_locale = :de$/,
@@ -52,9 +54,6 @@ EOS
     gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\Z/i'
     gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [ :email ]', 'config.authentication_keys = [ :username ]'
     gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
-    gsub_file 'config/initializers/devise.rb',
-      "# config.navigational_formats = ['*/*', :html]",
-      "config.navigational_formats = ['*/*', :html, :mobile]"
     gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
     gsub_file 'app/models/user.rb', /, :trackable, :validatable$/, <<EOS
 , :trackable, #:validatable, 
@@ -102,12 +101,6 @@ EOS
       <<"EOS"
 require 'rack/protection'
 use Rack::Protection, except: [:escaped_params, :json_csrf, :http_origin, :session_hijacking, :remote_token]
-EOS
-    end
-    create_file 'config/initializers/mobile.rb' do <<"EOS"
-ActionController::Responder.class_eval do
-  alias :to_mobile :to_html
-end
 EOS
     end
     remove_file "public/index.html"
