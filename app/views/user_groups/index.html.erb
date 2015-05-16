@@ -44,6 +44,8 @@
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
-    <li><%= link_to t('page.new', model: t('activerecord.models.user_group')), new_user_group_path -%></li>
+    <%- if can? :create, UserGroup -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.user_group')), new_user_group_path -%></li>
+    <%- end -%>
   </ul>
 </div>

@@ -14,8 +14,12 @@
     <td><%= link_to role.name, role -%></td>
     <td><%= link_to role.display_name.localize, role -%></td>
     <td>
-      <%= link_to t('page.edit'), edit_role_path(role) -%>
-      <%= link_to t('page.destroy'), role, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <%- if can? :update, role -%>
+        <%= link_to t('page.edit'), edit_role_path(role) -%>
+      <%- end -%>
+      <%- if can? :destroy, role -%>
+        <%= link_to t('page.destroy'), role, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <%- end -%>
     </td>
   </tr>
 <%- end -%>

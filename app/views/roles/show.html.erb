@@ -38,7 +38,9 @@
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
-    <li><%= link_to t('page.edit'), edit_role_path(@role) -%></li>
+    <%- if can? :update, @role -%>
+      <li><%= link_to t('page.edit'), edit_role_path(@role) -%></li>
+    <%- end -%>
     <li><%= back_to_index(flash[:page_info]) -%></li>
   </ul>
 </div>
