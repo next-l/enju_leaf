@@ -61,24 +61,39 @@ class UserImportFile < ActiveRecord::Base
         end
         new_user.operator = user
         new_user.username = username
-        new_user.assign_attributes(set_user_params(new_user, row))
+        new_user.assign_attributes(set_user_params(row))
         profile = Profile.new
         profile.assign_attributes(set_profile_params(row))
 
-        if new_user.save
-          if profile.locked
-            new_user.lock_access!
-          end
-          new_user.profile = profile
-          if profile.save
+        identity = Identity.new(
+          name: new_user.username,
+          email: new_user.email,
+        )
+        if row['password'].present?
+          identity.password = row['password']
+        else
+          identity.set_auto_generated_password
+        end
+
+        if new_user.valid? && profile.valid?
+          new_user.locked_at = Time.zone.now if profile.locked
+          if identity.save
+            profile.save
+            new_user.profile = profile
+            new_user.save
             num[:user_imported] += 1
             import_result.user = new_user
             import_result.save!
+            new_user.update_attributes({uid: identity.id, provider: 'identity'})
           else
+            import_result.error_message = new_user.errors.full_messages.join("\n")
+            import_result.error_message += identity.errors.full_messages.join("\n")
+            import_result.save
             num[:failed] += 1
           end
         else
           import_result.error_message = new_user.errors.full_messages.join("\n")
+          import_result.error_message += identity.errors.full_messages.join("\n")
           import_result.save
           num[:failed] += 1
         end
@@ -118,13 +133,18 @@ class UserImportFile < ActiveRecord::Base
       username = row['username']
       new_user = User.where(username: username).first
       if new_user
-        new_user.assign_attributes(set_user_params(new_user, row), as: :admin)
+        new_user.assign_attributes(set_user_params(row))
+        identity = Identity.where(id: new_user.uid).first
         if new_user.save
+          if identity and row['password'].present?
+            identity.password = row['password']
+            identity.save
+          end
           num[:user_updated] += 1
           import_result.user = new_user
           import_result.save!
         else
-          num[:failed] += 1
+          num[:failed] += 1 
         end
       else
         num[:user_not_found] += 1
@@ -185,7 +205,7 @@ class UserImportFile < ActiveRecord::Base
     header_columns = %w(
       username role email password user_group user_number expired_at
       full_name full_name_transcription required_role locked
-      keyword_list note locale library dummy
+      keyword_list note locale library dummy provider
     )
     if defined?(EnjuCirculation)
       header_columns += %w(checkout_icalendar_token save_checkout_history)
@@ -218,15 +238,20 @@ class UserImportFile < ActiveRecord::Base
     Rails.logger.info "#{Time.zone.now} importing resources failed!"
   end
 
-  def set_user_params(_new_user, row)
+  def set_user_params(row)
     params = {}
     params[:email] = row['email'] if row['email'].present?
-
-    if row['password'].present?
-      params[:password] = row['password']
+    if row['provider'].present?
+      params[:provider] = row['provider']
     else
-      params[:password] = Devise.friendly_token[0..7]
+      params[:provider] = 'identity'
     end
+
+    #if row['password'].present?
+    #  params[:password] = row['password']
+    #else
+    #  params[:password] = Devise.friendly_token[0..7]
+    #end
     params
   end
 

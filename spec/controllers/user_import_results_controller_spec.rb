@@ -37,7 +37,7 @@ describe UserImportResultsController do
       it "assigns empty as @user_import_results" do
         get :index
         assigns(:user_import_results).should be_nil
-        response.should redirect_to(new_user_session_url)
+        response.should redirect_to(new_session_url)
       end
     end
   end
@@ -74,7 +74,7 @@ describe UserImportResultsController do
       it "assigns the requested user_import_result as @user_import_result" do
         get :show, id: 1
         assigns(:user_import_result).should eq(UserImportResult.find(1))
-        response.should redirect_to(new_user_session_url)
+        response.should redirect_to(new_session_url)
       end
     end
   end
@@ -130,7 +130,7 @@ describe UserImportResultsController do
 
       it "should be forbidden" do
         delete :destroy, id: @user_import_result.id
-        response.should redirect_to(new_user_session_url)
+        response.should redirect_to(new_session_url)
       end
     end
   end

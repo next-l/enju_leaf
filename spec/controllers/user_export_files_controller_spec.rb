@@ -36,7 +36,7 @@ describe UserExportFilesController do
       it "assigns empty as @user_export_files" do
         get :index
         assigns(:user_export_files).should be_nil
-        expect(response).to redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_session_url)
       end
     end
   end
@@ -76,7 +76,7 @@ describe UserExportFilesController do
       it "assigns the requested user_export_file as @user_export_file" do
         get :show, id: user_export_files(:user_export_file_00003).id
         assigns(:user_export_file).should eq(user_export_files(:user_export_file_00003))
-        expect(response).to redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_session_url)
       end
     end
   end
@@ -116,7 +116,7 @@ describe UserExportFilesController do
       it "should not assign the requested user_export_file as @user_export_file" do
         get :new
         assigns(:user_export_file).should be_nil
-        expect(response).to redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_session_url)
       end
     end
   end
@@ -157,7 +157,7 @@ describe UserExportFilesController do
       it "should be redirected to new session url" do
         post :create, user_export_file: {mode: 'export'}
         assigns(:user_export_file).should be_nil
-        expect(response).to redirect_to new_user_session_url
+        expect(response).to redirect_to new_session_url
       end
     end
   end
@@ -197,7 +197,7 @@ describe UserExportFilesController do
       it "should not assign the requested user_export_file as @user_export_file" do
         user_export_file = user_export_files(:user_export_file_00001)
         get :edit, id: user_export_file.id
-        expect(response).to redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_session_url)
       end
     end
   end
@@ -233,7 +233,7 @@ describe UserExportFilesController do
     describe "When not logged in" do
       it "should not update user_export_file" do
         put :update, id: user_export_files(:user_export_file_00003).id, user_export_file: {mode: 'export'}
-        expect(response).to redirect_to new_user_session_url
+        expect(response).to redirect_to new_session_url
       end
     end
   end
@@ -289,7 +289,7 @@ describe UserExportFilesController do
 
       it "should be forbidden" do
         delete :destroy, id: @user_export_file.id
-        expect(response).to redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_session_url)
       end
     end
   end

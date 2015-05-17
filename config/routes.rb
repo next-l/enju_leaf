@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  delete '/logout' => 'sessions#destroy'
+
   resources :profiles
 
   resources :user_export_files
@@ -20,6 +22,8 @@ Rails.application.routes.draw do
   resources :baskets do
     resources :accepts, :except => [:edit, :update]
   end
+
+  resources :sessions, only: :new
 
   root :to => "page#index"
 

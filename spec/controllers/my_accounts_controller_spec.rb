@@ -6,9 +6,7 @@ describe MyAccountsController do
 
   describe "GET show" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        sign_in User.find('enjuadmin')
-      end
+      login_fixture_admin
 
       it "assigns the requested user as @user" do
         get :show, id: 'admin'
@@ -20,19 +18,14 @@ describe MyAccountsController do
       it "assigns the requested user as @user" do
         get :show, id: 'admin'
         expect(assigns(:user)).to be_nil
-        expect(response).to redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_session_url)
       end
     end
   end
 
   describe "GET edit" do
     describe "When logged in as Administrator" do
-      before(:each) do
-        profile = FactoryGirl.create(:profile)
-        @user = User.find('enjuadmin')
-        @user.profile = profile
-        sign_in @user
-      end
+      login_fixture_admin
 
       it "assigns the requested user as @user" do
         get :edit
@@ -41,12 +34,7 @@ describe MyAccountsController do
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        profile = FactoryGirl.create(:profile)
-        @user = FactoryGirl.create(:librarian)
-        @user.profile = profile
-        sign_in @user
-      end
+      login_fixture_librarian
 
       it "should assign the requested user as @user" do
         get :edit
@@ -55,12 +43,7 @@ describe MyAccountsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        profile = FactoryGirl.create(:profile)
-        @user = FactoryGirl.create(:user)
-        @user.profile = profile
-        sign_in @user
-      end
+      login_fixture_user
 
       it "should assign the requested user as @user" do
         get :edit
@@ -73,25 +56,20 @@ describe MyAccountsController do
       it "should not assign the requested user as @user" do
         get :edit
         expect(assigns(:user)).to be_nil
-        expect(response).to redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_session_url)
       end
     end
   end
 
   describe "PUT update" do
     before(:each) do
-      @attrs = {:user_attributes => {email: 'newaddress@example.jp', :current_password => 'password'}, :locale => 'en'}
+      @attrs = {:user_attributes => {email: 'newaddress@example.jp'}, :locale => 'en'}
       @invalid_attrs = {:user_attributes => {username: ''}, user_number: '日本語'}
-      @invalid_passwd_attrs = {:user_attributes => {:current_password=> ''}}
+      #@invalid_passwd_attrs = {:user_attributes => {:current_password=> ''}}
     end
 
     describe "When logged in as Administrator" do
-      before(:each) do
-        profile = FactoryGirl.create(:profile)
-        @user = FactoryGirl.create(:admin, :password => 'password', :password_confirmation => 'password')
-        @user.profile = profile
-        sign_in @user
-      end
+      login_fixture_admin
 
       describe "with valid params" do
         it "updates the requested user" do
@@ -125,21 +103,16 @@ describe MyAccountsController do
         end
       end
 
-      describe "with invalid password params" do
-        it "assigns the requested user as @user" do
-          put :update, profile: @invalid_passwd_attrs
-          expect(assigns(:profile).errors).not_to be_blank
-        end
-      end
+      #describe "with invalid password params" do
+      #  it "assigns the requested user as @user" do
+      #    put :update, profile: @invalid_passwd_attrs
+      #    expect(assigns(:profile).errors).not_to be_blank
+      #  end
+      #end
     end
 
     describe "When logged in as Librarian" do
-      before(:each) do
-        profile = FactoryGirl.create(:profile)
-        @user = FactoryGirl.create(:librarian, :password => 'password', :password_confirmation => 'password')
-        @user.profile = profile
-        sign_in @user
-      end
+      login_fixture_librarian
 
       describe "with valid params" do
         it "updates the requested user" do
@@ -177,12 +150,7 @@ describe MyAccountsController do
     end
 
     describe "When logged in as User" do
-      before(:each) do
-        profile = FactoryGirl.create(:profile)
-        @user = FactoryGirl.create(:user, :password => 'password', :password_confirmation => 'password')
-        @user.profile = profile
-        sign_in @user
-      end
+      login_fixture_user
 
       describe "with valid params" do
         it "updates the requested user" do
@@ -214,14 +182,14 @@ describe MyAccountsController do
 
         it "should be forbidden" do
           put :update, profile: @attrs
-          expect(response).to redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_session_url)
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested user as @user" do
           put :update, profile: @invalid_attrs
-          expect(response).to redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_session_url)
         end
       end
     end

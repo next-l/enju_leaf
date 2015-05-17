@@ -1,5 +1,5 @@
 class MyAccountsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate
 
   def show
     @profile = current_user.profile
@@ -30,7 +30,7 @@ class MyAccountsController < ApplicationController
   def update
     @profile = current_user.profile
     user_attrs = [
-      :id, :email, :current_password, :password, :password_confirmation
+      :id, :email
     ]
     user_attrs += [
       {:user_has_role_attributes => [:id, :role_id]}
@@ -39,12 +39,11 @@ class MyAccountsController < ApplicationController
     user_params = ActionController::Parameters.new(params[:profile][:user_attributes]).permit(*user_attrs)
 
     respond_to do |format|
-      saved = current_user.update_with_password(user_params)
       @profile.assign_attributes(profile_params)
 
-      if saved
+      if current_user.update_attributes(user_params)
         if @profile.save
-          sign_in(current_user, bypass: true)
+          #sign_in(current_user, bypass: true)
           format.html { redirect_to my_account_url, notice: t('controller.successfully_updated', model: t('activerecord.models.user')) }
           format.json { head :no_content }
         else
@@ -94,7 +93,7 @@ class MyAccountsController < ApplicationController
     @roles = Role.order(:position)
     @libraries = Library.order(:position)
     @languages = Language.order(:position)
-    if current_user.active_for_authentication?
+    if current_user.locked?
       current_user.locked = '0'
     else
       current_user.locked = '1'

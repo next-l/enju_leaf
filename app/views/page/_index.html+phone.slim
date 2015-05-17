@@ -3,7 +3,7 @@ div[data-role="header"]
     = @library_group.display_name.localize
 div[data-role="content"]
   h2.title
-    - if user_signed_in?
+    - if current_user
       = t('page.user_title', login_name: current_user.username)
     - else
       = t('page.catalog_search')
@@ -17,6 +17,6 @@ div[data-role="content"]
       h4[style="display: inline"]
         = link_to t('activerecord.models.question'), questions_path
     - if defined?(EnjuBookmark)
-      - if user_signed_in?
+      - if current_user
         h4[style="display: inline"]
           = link_to t('activerecord.models.bookmark'), bookmarks_path(user_id: current_user.username)

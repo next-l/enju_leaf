@@ -74,7 +74,7 @@ describe RolesController do
       it "should not assign the requested role as @role" do
         role = Role.find(1)
         get :edit, id: role.id
-        expect(response).to redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_session_url)
       end
     end
   end
@@ -121,14 +121,14 @@ describe RolesController do
 
         it "should be forbidden" do
           put :update, id: @role.id, :role => @attrs
-          expect(response).to redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_session_url)
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested role as @role" do
           put :update, id: @role.id, :role => @invalid_attrs
-          expect(response).to redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_session_url)
         end
       end
     end

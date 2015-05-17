@@ -7,7 +7,7 @@
   #header_center.col-md-4
   #header_right.col-md-4
     #user_account
-      - if user_signed_in?
+      - if current_user
         = t('page.logged_in_as', login_name: current_user.username)
         br
         - if defined?(EnjuMessage)
@@ -19,9 +19,9 @@
             = messages_count(current_user)
             | ) 
         = link_to t('page.account'), my_account_path
-        = link_to t('page.sign_out'), destroy_user_session_path, method: :delete
+        = link_to t('page.sign_out'), '/logout', method: :delete
         br
       - else
         - unless controller_name == 'sessions'
-        = link_to t('page.sign_in'), new_user_session_path
+        = link_to t('page.sign_in'), '/auth/identity'
     = render 'page/select_locale'

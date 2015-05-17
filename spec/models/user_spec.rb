@@ -37,15 +37,16 @@ describe User do
     user = FactoryGirl.create(:user)
     user.locked = '1'
     user.save
-    user.active_for_authentication?.should be_falsy
+    user.locked?.should be_truthy
   end
 
   it 'should unlock an user' do
     user = FactoryGirl.create(:user)
-    user.lock_access!
+    user.locked = '1'
+    user.save
     user.locked = '0'
     user.save
-    user.active_for_authentication?.should be_truthy
+    user.locked?.should be_falsy
   end
 
   it "should create user" do
@@ -61,14 +62,14 @@ describe User do
     User.count.should eq old_count
   end
 
-  it "should require password" do
-    user = FactoryGirl.build(:user, :password => nil)
+  it "should not require password" do
+    user = FactoryGirl.build(:user)
     user.save
     user.errors[:password].should be_truthy
   end
 
   it "should not require password_confirmation on create" do
-    user = FactoryGirl.build(:user, :password => 'new_password', :password_confirmation => nil)
+    user = FactoryGirl.build(:user)
     user.save
     user.errors[:email].should be_empty
   end
@@ -80,21 +81,21 @@ describe User do
     user.errors[:email].should be_empty
   end
 
-  it "should reset password" do
-    users(:user1).password = 'new password'
-    users(:user1).password_confirmation = 'new password'
-    users(:user1).save
-    users(:user1).valid_password?('new password').should be_truthy
-  end
+  #it "should reset password" do
+  #  users(:user1).password = 'new password'
+  #  users(:user1).password_confirmation = 'new password'
+  #  users(:user1).save
+  #  users(:user1).valid_password?('new password').should be_truthy
+  #end
 
-  it "should set temporary_password" do
-    user = users(:user1)
-    old_password = user.encrypted_password
-    user.set_auto_generated_password
-    user.save
-    old_password.should_not eq user.encrypted_password
-    user.valid_password?('user1password').should be_falsy
-  end
+  #it "should set temporary_password" do
+  #  user = users(:user1)
+  #  old_password = user.encrypted_password
+  #  user.set_auto_generated_password
+  #  user.save
+  #  old_password.should_not eq user.encrypted_password
+  #  user.valid_password?('user1password').should be_falsy
+  #end
 
   it "should get highest_role" do
     users(:admin).role.name.should eq 'Administrator'
@@ -102,15 +103,15 @@ describe User do
 
   it "should lock all expired users" do
     User.lock_expired_users
-    users(:user4).active_for_authentication?.should be_falsy
+    users(:user4).locked?.should be_truthy
   end
 
   it "should lock_expired users" do
     user = users(:user1)
-    users(:user1).active_for_authentication?.should be_truthy
+    users(:user1).locked?.should be_falsy
     user.expired_at = 1.day.ago
     user.save
-    users(:user1).active_for_authentication?.should be_falsy
+    users(:user1).locked?.should be_truthy
   end
 
   if defined?(EnjuQuestion)
@@ -126,16 +127,6 @@ describe User do
   end
 
   if defined?(EnjuCirculation)
-    it "should reset checkout_icalendar_token" do
-      users(:user1).reset_checkout_icalendar_token
-      users(:user1).checkout_icalendar_token.should be_truthy
-    end
-
-    it "should delete checkout_icalendar_token" do
-      users(:user1).delete_checkout_icalendar_token
-      users(:user1).checkout_icalendar_token.should be_nil
-    end
-
     it "should get checked_item_count" do
       count = users(:user1).checked_item_count
       count.should eq({:book=>2, :serial=>1, :cd=>0})
@@ -144,9 +135,7 @@ describe User do
     it "should get reserves_count" do
       users(:user1).reserves.waiting.count.should eq 1
     end
-  end
 
-  if defined?(EnjuCirculation)
     it "should send_message" do
       assert users(:librarian1).send_message('reservation_expired_for_patron', :manifestations => users(:librarian1).reserves.not_sent_expiration_notice_to_patron.collect(&:manifestation))
       users(:librarian1).reload
@@ -154,6 +143,7 @@ describe User do
     end
   end
 end
+
 # == Schema Information
 #
 # Table name: users

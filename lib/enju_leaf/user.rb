@@ -39,18 +39,12 @@ module EnjuLeaf
         validates :username, presence: true, uniqueness: true, format: {
           with: /\A[0-9A-Za-z][0-9A-Za-z_\-]*[0-9A-Za-z]\Z/
         }
-        validates :email, format: Devise::email_regexp, allow_blank: true, uniqueness: true
+        #validates :email, format: Devise::email_regexp, allow_blank: true, uniqueness: true
+        validates :email, allow_blank: true, uniqueness: true
         validates_date :expired_at, allow_blank: true
 
-        with_options if: :password_required? do |v|
-          v.validates_presence_of     :password
-          v.validates_confirmation_of :password
-          v.validates_length_of       :password, allow_blank: true,
-            within: Devise::password_length
-        end
-
-        validates_presence_of     :email, :email_confirmation, on: :create, if: proc{|user| !user.operator.try(:has_role?, 'Librarian')}
-        validates_confirmation_of :email, on: :create #, if: proc{|user| !user.operator.try(:has_role?, 'Librarian')}
+        #validates_presence_of     :email, :email_confirmation, on: :create, if: proc{|user| !user.operator.try(:has_role?, 'Librarian')}
+        #validates_confirmation_of :email, on: :create #, if: proc{|user| !user.operator.try(:has_role?, 'Librarian')}
 
         before_validation :set_lock_information
         before_destroy :check_role_before_destroy
@@ -71,7 +65,7 @@ module EnjuLeaf
 
         def lock_expired_users
           User.find_each do |user|
-            user.lock_access! if user.expired? and user.active_for_authentication?
+            user.lock_access! if user.expired? #and user.active_for_authentication?
           end
         end
 
@@ -135,9 +129,9 @@ module EnjuLeaf
     end
 
     module InstanceMethods
-      def password_required?
-        !persisted? || !password.nil? || !password_confirmation.nil?
-      end
+      #def password_required?
+      #  !persisted? || !password.nil? || !password_confirmation.nil?
+      #end
 
       def has_role?(role_in_question)
         return false unless role
@@ -153,9 +147,9 @@ module EnjuLeaf
       end
 
       def set_lock_information
-        if locked == '1' and self.active_for_authentication?
+        if locked == '1' # and active_for_authentication?
           lock_access!
-        elsif locked == '0' and !self.active_for_authentication?
+        elsif locked == '0' #and !active_for_authentication?
           unlock_access!
         end
       end
@@ -171,7 +165,7 @@ module EnjuLeaf
         return if self.has_role?('Administrator')
         if expired_at
           if expired_at.beginning_of_day < Time.zone.now.beginning_of_day
-            lock_access! if active_for_authentication?
+            lock_access!
           end
         end
       end
@@ -182,11 +176,11 @@ module EnjuLeaf
         end
       end
 
-      def set_auto_generated_password
-        password = Devise.friendly_token[0..7]
-        self.password = password
-        self.password_confirmation = password
-      end
+      #def set_auto_generated_password
+      #  password = Devise.friendly_token[0..7]
+      #  self.password = password
+      #  self.password_confirmation = password
+      #end
 
       def expired?
         if expired_at
@@ -242,6 +236,18 @@ module EnjuLeaf
         else
           false
         end
+      end
+
+      def lock_access!
+        self.locked_at = Time.zone.now
+      end
+
+      def unlock_access!
+        self.locked_at = nil
+      end
+
+      def locked?
+        true if locked_at
       end
     end
   end

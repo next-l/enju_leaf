@@ -8,4 +8,4 @@
           strong
             = language.native_name || language.name
         - else
-          = link_to "#{language.native_name || language.name}", url_for(params.merge(locale: language.iso_639_1, only_path: true))
+          = link_to "#{language.native_name || language.name}", url_for(params.merge(locale: language.iso_639_1, only_path: true)) if false
