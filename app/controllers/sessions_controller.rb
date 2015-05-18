@@ -3,9 +3,22 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.from_omniauth(env["omniauth.auth"])
-    session[:user_id] = user.id
-    redirect_to root_url, notice: "Signed in!"
+    auth = request.env['omniauth.auth']
+    identity = Identity.find_with_omniauth(auth)
+    if auth['provider'] != 'identity'
+      identity = Identity.create_with_omniauth(auth) unless identity
+    end
+    unless identity.user
+      if current_user
+        identity.user = current_user
+      else
+        user = User.create_with_omniauth(auth)
+        identity.user = user
+      end
+      identity.save
+    end
+    session[:user_id] = identity.user.id
+    redirect_to request.env['omniauth.origin'] || root_url, notice: "Signed in!"
   end
 
   def destroy
@@ -14,6 +27,6 @@ class SessionsController < ApplicationController
   end
 
   def failure
-    redirect_to root_url, alert: "Authentication failed, please try again."
+    redirect_to new_session_url, notice: "Authentication failed, please try again."
   end
 end

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  post "/auth/:provider/callback" => "sessions#create"
+  get "/auth/failure", to: "sessions#failure"
+  get "/auth/:provider" => "sessions#new"
+
   delete '/logout' => 'sessions#destroy'
 
   resources :profiles
@@ -23,7 +27,7 @@ Rails.application.routes.draw do
     resources :accepts, :except => [:edit, :update]
   end
 
-  resources :sessions, only: :new
+  resources :sessions, only: [:new, :create, :destroy]
 
   root :to => "page#index"
 
