@@ -31,7 +31,7 @@ module EnjuLeaf
 
     def render_403
       return if performed?
-      if current_user
+      if user_signed_in?
         respond_to do |format|
           format.html {render template: 'page/403', status: 403}
           format.xml {render template: 'page/403', status: 403}
@@ -40,7 +40,7 @@ module EnjuLeaf
         end
       else
         respond_to do |format|
-          format.html { redirect_to new_session_url }
+          format.html { redirect_to new_user_session_url }
           format.xml { render template: 'page/403', status: 403 }
           format.json { render text: '{"error": "forbidden"}' }
           format.rss { render template: 'page/403.xml', status: 403 }
@@ -75,21 +75,13 @@ module EnjuLeaf
       end
     end
 
-    def authenticate
-      if current_user
-        true
-      else
-        access_denied
-      end
-    end
-
     def set_locale
       if params[:locale]
         unless I18n.available_locales.include?(params[:locale].to_s.intern)
           raise InvalidLocaleError
         end
       end
-      if current_user
+      if user_signed_in?
         locale = params[:locale] || session[:locale] || current_user.profile.try(:locale).try(:to_sym)
       else
         locale = params[:locale] || session[:locale]

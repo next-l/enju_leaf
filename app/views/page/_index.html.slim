@@ -2,7 +2,7 @@
   .col-md-6
     .panel.panel-default
       .panel-heading
-        - if current_user
+        - if user_signed_in?
           = t('page.user_title', login_name: current_user.username)
         - else
           = t('page.catalog_search')
@@ -15,7 +15,7 @@
         h3[style="display: inline"]
           = link_to t('page.new_resource'), manifestations_path(mode: 'recent')
         - if defined?(EnjuBookmark)
-          - if current_user
+          - if user_signed_in?
             h4[style="display: inline"]
               = link_to t('activerecord.models.bookmark'), bookmarks_path(user_id: current_user.username)
   - if defined?(EnjuNews)

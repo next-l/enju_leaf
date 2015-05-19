@@ -18,6 +18,9 @@
         .form-group
           = user_form.label :email
           = user_form.email_field :email, class: 'resource_email'
+        .form-group
+          = user_form.label :email_confirmation
+          = user_form.email_field :email_confirmation, class: 'resource_email'
       .form-group
         = f.label :expired_at
         = f.text_field :expired_at, class: 'date_text_field', placeholder: "#{t('page.example')}: 2011-04-12"

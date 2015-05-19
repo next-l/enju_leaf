@@ -34,6 +34,7 @@ describe UserImportFile do
       user002 = User.where(username: 'user002').first
       user002.profile.user_group.name.should eq 'faculty'
       user002.profile.expired_at.to_i.should eq Time.zone.parse('2013-12-01').end_of_day.to_i
+      user002.valid_password?('4NsxXPLy')
       user002.profile.user_number.should eq '001002'
       user002.profile.library.name.should eq 'hachioji'
       user002.profile.locale.should eq 'en'
@@ -50,11 +51,9 @@ describe UserImportFile do
       user003.profile.save_checkout_history.should be_truthy
       user003.profile.save_search_history.should be_falsy
       user003.profile.share_bookmarks.should be_falsy
-      Identity.where(id: user003.uid).first.authenticate('4NsxXPLy').should be_truthy
-
       User.where(username: 'user000').first.should be_nil
       UserImportResult.count.should eq old_import_results_count + 7
-      UserImportResult.order(:created_at).last.error_message.should eq 'Password is too short (minimum is 8 characters)'
+      UserImportResult.order(:created_at).last.error_message.should eq 'Password is too short (minimum is 6 characters)'
 
       user005 = User.where(username: 'user005').first
       user005.role.name.should eq 'User'

@@ -16,7 +16,7 @@
       - else
         li.list-group-item
           = back_to_index
-      - if current_user
+      - if user_signed_in?
         - if policy(@profile).update?
           li.list-group-item
             = link_to t('page.edit'), edit_profile_path(@profile)

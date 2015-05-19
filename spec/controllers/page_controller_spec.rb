@@ -92,17 +92,17 @@ describe PageController do
 
       it "should not get import" do
         get :import
-        expect(response).to redirect_to new_session_url
+        expect(response).to redirect_to new_user_session_url
       end
 
       it "should not get configuration" do
         get :configuration
-        expect(response).to redirect_to new_session_url
+        expect(response).to redirect_to new_user_session_url
       end
 
       it "should not get system information" do
         get :system_information
-        expect(response).to redirect_to new_session_url
+        expect(response).to redirect_to new_user_session_url
       end
     end
   end

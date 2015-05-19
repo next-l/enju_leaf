@@ -35,7 +35,7 @@ class Profile < ActiveRecord::Base
     time :created_at
     time :updated_at
     boolean :active do
-      !user.try(:locked?)
+      user.try(:active_for_authentication?)
     end
   end
 

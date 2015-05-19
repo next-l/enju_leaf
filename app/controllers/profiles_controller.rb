@@ -89,6 +89,7 @@ class ProfilesController < ApplicationController
       @profile = Profile.new(profile_params)
       if @profile.user
         @profile.user.operator = current_user
+        password = @profile.user.set_auto_generated_password
       end
     else
       @profile = Profile.new(profile_params)
@@ -97,16 +98,6 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       if @profile.save
         if @profile.user
-          identity = Identity.new(
-            name: @profile.user.username,
-            email: @profile.user.email,
-          )
-          identity.set_auto_generated_password
-          identity.save!
-          @profile.user.update_attributes!({
-            uid: identity.id,
-            provider: 'identity'
-          })
           @profile.user.role = Role.where(name: 'User').first
           flash[:temporary_password] = password
         end

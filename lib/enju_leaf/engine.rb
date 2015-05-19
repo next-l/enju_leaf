@@ -1,4 +1,5 @@
 require 'kaminari'
+require 'devise'
 require 'pundit'
 require 'acts_as_list'
 require 'strip_attributes'
@@ -12,6 +13,7 @@ require 'enju_library'
 require 'enju_manifestation_viewer'
 require 'kramdown'
 require 'rails_autolink'
+require 'devise-encryptable'
 require 'sitemap_generator'
 require 'redis-rails'
 require 'jquery-rails'
@@ -23,7 +25,6 @@ require 'refile/rails'
 require 'refile/image_processing'
 require 'bootstrap-sass'
 require 'slim-rails'
-require 'keepass/password'
 
 module EnjuLeaf
   class Engine < ::Rails::Engine

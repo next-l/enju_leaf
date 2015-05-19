@@ -53,7 +53,7 @@ describe ProfilesController do
       it "assigns all profiles as @profiles" do
         get :index
         assigns(:profiles).should be_nil
-        response.should redirect_to(new_session_url)
+        response.should redirect_to(new_user_session_url)
       end
     end
   end
@@ -101,7 +101,7 @@ describe ProfilesController do
       it "assigns the requested user as @profile" do
         get :show, id: profiles(:admin).id
         assigns(:profile).should eq(profiles(:admin))
-        response.should redirect_to(new_session_url)
+        response.should redirect_to(new_user_session_url)
       end
     end
   end
@@ -139,7 +139,7 @@ describe ProfilesController do
       it "should not assign the requested user as @profile" do
         get :new
         assigns(:profile).should be_nil
-        response.should redirect_to(new_session_url)
+        response.should redirect_to(new_user_session_url)
       end
     end
   end
@@ -186,7 +186,7 @@ describe ProfilesController do
         profile = FactoryGirl.create(:profile)
         get :edit, id: profile.id
         assigns(:profile).should eq(profile)
-        response.should redirect_to(new_session_url)
+        response.should redirect_to(new_user_session_url)
       end
     end
   end
@@ -266,7 +266,7 @@ describe ProfilesController do
     describe "When not logged in" do
       it "should not create user" do
         post :create, profile: { :username => 'test10' }
-        response.should redirect_to new_session_url
+        response.should redirect_to new_user_session_url
       end
     end
   end
@@ -438,14 +438,14 @@ describe ProfilesController do
 
         it "should be forbidden" do
           put :update, id: @profile.id, profile: @attrs
-          response.should redirect_to(new_session_url)
+          response.should redirect_to(new_user_session_url)
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested user as @profile" do
           put :update, id: @profile.id, profile: @invalid_attrs
-          response.should redirect_to(new_session_url)
+          response.should redirect_to(new_user_session_url)
         end
       end
     end
@@ -523,7 +523,7 @@ describe ProfilesController do
 
       it "should be forbidden" do
         delete :destroy, id: profiles(:user2).id
-        response.should redirect_to(new_session_url)
+        response.should redirect_to(new_user_session_url)
       end
     end
   end

@@ -122,7 +122,7 @@ describe UserGroupsController do
       it "should not assign the requested user_group as @user_group" do
         get :new
         assigns(:user_group).should be_nil
-        expect(response).to redirect_to(new_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -162,7 +162,7 @@ describe UserGroupsController do
       it "should not assign the requested user_group as @user_group" do
         user_group = FactoryGirl.create(:user_group)
         get :edit, id: user_group.id
-        expect(response).to redirect_to(new_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -266,7 +266,7 @@ describe UserGroupsController do
 
         it "should be forbidden" do
           post :create, user_group: @attrs
-          expect(response).to redirect_to(new_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
@@ -278,7 +278,7 @@ describe UserGroupsController do
 
         it "should be forbidden" do
           post :create, user_group: @invalid_attrs
-          expect(response).to redirect_to(new_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -372,14 +372,14 @@ describe UserGroupsController do
 
         it "should be forbidden" do
           put :update, id: @user_group.id, user_group: @attrs
-          expect(response).to redirect_to(new_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested user_group as @user_group" do
           put :update, id: @user_group.id, user_group: @invalid_attrs
-          expect(response).to redirect_to(new_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -436,7 +436,7 @@ describe UserGroupsController do
 
       it "should be forbidden" do
         delete :destroy, id: @user_group.id
-        expect(response).to redirect_to(new_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

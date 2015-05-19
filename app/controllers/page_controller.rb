@@ -1,12 +1,12 @@
 class PageController < ApplicationController
   before_action :clear_search_sessions, only: [:index, :advanced_search]
   before_action :store_location, only: [:advanced_search, :about, :add_on, :msie_acceralator, :statistics]
-  before_action :authenticate, except: [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics, :routing_error]
+  before_action :authenticate_user!, except: [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics, :routing_error]
   before_action :check_librarian, except: [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics, :routing_error]
   helper_method :get_libraries
 
   def index
-    if current_user
+    if user_signed_in?
       session[:user_return_to] = nil
       #unless current_user.agent
       #  redirect_to new_user_agent_url(current_user); return
