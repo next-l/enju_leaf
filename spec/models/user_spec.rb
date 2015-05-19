@@ -73,13 +73,6 @@ describe User do
     user.errors[:email].should be_empty
   end
 
-  it "should not require email on create if an operator is set" do
-    user = FactoryGirl.build(:user, :email => '')
-    user.operator = FactoryGirl.create(:admin)
-    user.save
-    user.errors[:email].should be_empty
-  end
-
   it "should reset password" do
     users(:user1).password = 'new password'
     users(:user1).password_confirmation = 'new password'

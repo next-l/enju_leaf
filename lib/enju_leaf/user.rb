@@ -63,7 +63,7 @@ module EnjuLeaf
         strip_attributes only: :username
         strip_attributes only: :email, allow_empty: true
 
-        attr_accessor :operator, :password_not_verified,
+        attr_accessor :password_not_verified,
           :update_own_account, :auto_generated_password,
           :locked, :current_password #, :agent_id
 
@@ -163,7 +163,7 @@ module EnjuLeaf
       end
 
       def set_confirmation
-        if operator and respond_to?(:confirm!)
+        if respond_to?(:confirm!)
           reload
           confirm!
         end
@@ -208,9 +208,7 @@ module EnjuLeaf
       end
 
       def send_confirmation_instructions
-        unless self.operator
-          Devise::Mailer.confirmation_instructions(self).deliver_later if self.email.present?
-        end
+        Devise::Mailer.confirmation_instructions(self).deliver_later if self.email.present?
       end
 
       def deletable_by?(current_user)

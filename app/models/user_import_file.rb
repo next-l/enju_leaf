@@ -59,7 +59,6 @@ class UserImportFile < ActiveRecord::Base
         else
           new_user.role = Role.find(2) # User
         end
-        new_user.operator = user
         new_user.username = username
         new_user.assign_attributes(set_user_params(new_user, row))
         profile = Profile.new

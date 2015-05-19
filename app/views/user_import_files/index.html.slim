@@ -4,10 +4,9 @@
       .panel-heading
         h2.panel-title
           = t('activerecord.models.user_import_file')
-      .panel-body
-        ul.list-group
-          li.list-group-item
-            = link_to t('page.new', model: t('activerecord.models.user_import_file')), new_user_import_file_path
+      ul.list-group
+        li.list-group-item
+          = link_to t('page.new', model: t('activerecord.models.user_import_file')), new_user_import_file_path
   #content_list.col-md-9
     .panel.panel-default
       .panel-heading

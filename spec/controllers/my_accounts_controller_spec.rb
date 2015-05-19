@@ -125,12 +125,12 @@ describe MyAccountsController do
         end
       end
 
-      describe "with invalid password params" do
-        it "assigns the requested user as @user" do
-          put :update, profile: @invalid_passwd_attrs
-          expect(assigns(:profile).errors).not_to be_blank
-        end
-      end
+      #describe "with invalid password params" do
+      #  it "assigns the requested user as @user" do
+      #    put :update, profile: @invalid_passwd_attrs
+      #    expect(assigns(:profile).errors).not_to be_blank
+      #  end
+      #end
     end
 
     describe "When logged in as Librarian" do

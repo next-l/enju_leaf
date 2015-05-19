@@ -23,12 +23,14 @@
     br
 - if defined?(EnjuSearchLog)
   .form-group
-    = f.label :save_search_history
-    = f.check_box :save_search_history
+    .checkbox-inline
+      = f.check_box :save_search_history
+      = f.label :save_search_history
 - if defined?(EnjuCirculation)
   .form-group
-    = f.label :save_checkout_history
-    = f.check_box :save_checkout_history
+    .checkbox-inline
+      = f.check_box :save_checkout_history
+      = f.label :save_checkout_history
 - if current_user.has_role?('Librarian')
   .form-group
     = f.label :note

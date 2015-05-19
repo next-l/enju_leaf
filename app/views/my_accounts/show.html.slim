@@ -16,8 +16,11 @@
       ul.list-group
         li.list-group-item
           = link_to t('page.edit'), edit_my_account_path
+        li.list-group-item
+          = link_to t('page.password'), edit_user_registration_path
         - if policy(current_user.profile).destroy?
-          = link_to t('page.destroy'), curent_user, data: {confirm: t('page.are_you_sure')}, method: :delete
+          li.list-group-item
+            = link_to t('page.destroy'), curent_user, data: {confirm: t('page.are_you_sure')}, method: :delete
           - if defined?(EnjuSearchLog)
             li.list-group-item
               = link_to t('activerecord.models.search_history'), search_histories_path
@@ -50,7 +53,7 @@
     - if defined?(EnjuCirculation)
       h2
         = t('activerecord.models.checkout')
-        = link_to image_tag('icons/date.png', size: '16x16', alt: 'iCalendar', class: 'icon'), checkouts_path(icalendar_token: current_user.profile.checkout_icalendar_token, format: :ics) if current_user.profile.checkout_icalendar_token?
-        = link_to image_tag('icons/feed.png', size: '16x16', alt: 'RSS', class: 'icon'), checkouts_path(user_id: current_user.username, format: :rss)
-        = link_to image_tag('icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'icon'), checkouts_path(user_id: current_user.username, format: :txt)
+        => link_to image_tag('icons/date.png', size: '16x16', alt: 'iCalendar', class: 'icon'), checkouts_path(icalendar_token: current_user.profile.checkout_icalendar_token, format: :ics) if current_user.profile.checkout_icalendar_token?
+        => link_to image_tag('icons/feed.png', size: '16x16', alt: 'RSS', class: 'icon'), checkouts_path(user_id: current_user.username, format: :rss)
+        => link_to image_tag('icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'icon'), checkouts_path(user_id: current_user.username, format: :txt)
       = render 'checkouts/list', checkouts: current_user.checkouts.page(params[:page])

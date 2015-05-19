@@ -88,7 +88,6 @@ class ProfilesController < ApplicationController
     if current_user.has_role?('Librarian')
       @profile = Profile.new(profile_params)
       if @profile.user
-        @profile.user.operator = current_user
         password = @profile.user.set_auto_generated_password
       end
     else

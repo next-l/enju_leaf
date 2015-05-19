@@ -1,0 +1,37 @@
+.row
+  #submenu.col-md-3
+    .panel.panel-default
+      .panel-heading
+        h2.panel-title
+          = t('activerecord.models.profile')
+      ul.list-group
+        li.list-group-item
+          = link_to t('page.back'), :back
+  #content_list.col-md-9
+    h2.title
+      = t('page.password')
+    #content_list
+      = form_for(resource, :as => resource_name, :url => user_registration_path, :html => { :method => :put }) do |f|
+        = devise_error_messages!
+        p
+          = f.label :email
+        p
+          = f.email_field :email, class: 'form-control'
+        p
+          = f.label :password
+          i
+            | (leave blank if you don't want to change it)
+        p
+          = f.password_field :password, class: 'form-control'
+        p
+          = f.label :password_confirmation
+        p
+          = f.password_field :password_confirmation, class: 'form-control'
+        p
+          = f.label :current_password
+          i
+            | (we need your current password to confirm your changes)
+        p
+          = f.password_field :current_password, class: 'form-control'
+        p
+          = f.submit t('page.update'), class: 'btn btn-default'
