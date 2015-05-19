@@ -9,7 +9,6 @@ en:
       user_import_result: User import result
       profile: Profile
       user_export_file: User export
-      session: Login
 
     attributes:
       user:
