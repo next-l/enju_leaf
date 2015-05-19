@@ -498,6 +498,19 @@ ActiveRecord::Schema.define(version: 20150506105356) do
   add_index "identifiers", ["body", "identifier_type_id"], name: "index_identifiers_on_body_and_identifier_type_id"
   add_index "identifiers", ["manifestation_id"], name: "index_identifiers_on_manifestation_id"
 
+  create_table "identities", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.integer  "profile_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "identities", ["email"], name: "index_identities_on_email"
+  add_index "identities", ["name"], name: "index_identities_on_name"
+  add_index "identities", ["profile_id"], name: "index_identities_on_profile_id"
+
   create_table "import_request_transitions", force: :cascade do |t|
     t.string   "to_state"
     t.text     "metadata",          default: "{}"

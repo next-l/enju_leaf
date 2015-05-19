@@ -126,16 +126,6 @@ describe User do
   end
 
   if defined?(EnjuCirculation)
-    it "should reset checkout_icalendar_token" do
-      users(:user1).reset_checkout_icalendar_token
-      users(:user1).checkout_icalendar_token.should be_truthy
-    end
-
-    it "should delete checkout_icalendar_token" do
-      users(:user1).delete_checkout_icalendar_token
-      users(:user1).checkout_icalendar_token.should be_nil
-    end
-
     it "should get checked_item_count" do
       count = users(:user1).checked_item_count
       count.should eq({:book=>2, :serial=>1, :cd=>0})

@@ -49,8 +49,8 @@ module EnjuLeaf
             within: Devise::password_length
         end
 
-        validates_presence_of     :email, :email_confirmation, on: :create, if: proc{|user| !user.operator.try(:has_role?, 'Librarian')}
-        validates_confirmation_of :email, on: :create #, if: proc{|user| !user.operator.try(:has_role?, 'Librarian')}
+        #validates_presence_of     :email, :email_confirmation, on: :create, if: proc{|user| !user.operator.try(:has_role?, 'Librarian')}
+        #validates_confirmation_of :email, on: :create #, if: proc{|user| !user.operator.try(:has_role?, 'Librarian')}
 
         before_validation :set_lock_information
         before_destroy :check_role_before_destroy
@@ -136,7 +136,9 @@ module EnjuLeaf
 
     module InstanceMethods
       def password_required?
-        !persisted? || !password.nil? || !password_confirmation.nil?
+        if Devise.mappings[:user].modules.include?(:database_authenticatable)
+          !persisted? || !password.nil? || !password_confirmation.nil?
+        end
       end
 
       def has_role?(role_in_question)
