@@ -1,0 +1,10 @@
+doctype html
+html
+  head
+    title
+      = title(controller.controller_name)
+    = render 'page/mobile'
+  body
+    div[data-role="page"]
+      = yield
+      = render 'page/footer'

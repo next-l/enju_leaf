@@ -1,0 +1,20 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('user.forgot_your_password') %></h1>
+<div id="content_list">
+
+<%= form_for(resource, :as => resource_name, :url => password_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <p><%= f.label :email %></p>
+  <p><%= f.email_field :email %></p>
+
+  <p><%= f.submit t("user.send_me_reset_password_instruction") %></p>
+<% end %>
+
+  <%= javascript_tag("$(function(){$('#user_email').focus()})") %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <%= render :partial => "devise/shared/links" %>
+</div>
