@@ -38,7 +38,7 @@ class MyAccountsController < ApplicationController
     user_params = ActionController::Parameters.new(params[:profile][:user_attributes]).permit(*user_attrs)
 
     respond_to do |format|
-      saved = current_user.update_with_password(user_params)
+      saved = current_user.update_attributes(user_params)
       @profile.assign_attributes(profile_params)
 
       if saved

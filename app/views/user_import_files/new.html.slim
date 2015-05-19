@@ -1,0 +1,64 @@
+.row
+  #submenu.col-md-3
+    .panel.panel-default
+      .panel-heading
+        h2.panel-title
+          = t('activerecord.models.user_import_file')
+      ul.list-group
+        li.list-group-item
+          = back_to_index(flash[:page_info])
+  #content_list.col-md-9
+    .panel.panel-default
+      .panel-heading
+        h1.panel-title
+          = t('page.new', model: t('activerecord.models.user_import_file'))
+      .panel-body
+        = form_for(@user_import_file, html: { multipart: true }) do |f|
+          = f.error_messages
+          .form-group
+            = f.label t('page.file')
+            br
+            = f.file_field :user_import
+          .form-group
+            = f.label :edit_mode
+            br
+            .radio-inline
+              = f.radio_button :edit_mode, 'create', checked: 'checked'
+              = f.label :edit_mode, t('page.create'), value: 'create'
+            .radio-inline
+              = f.radio_button :edit_mode, 'update'
+              = f.label :edit_mode, t('page.update'), value: 'update'
+            .radio-inline
+              = f.radio_button :edit_mode, 'update_relationship'
+              = f.label :edit_mode, t('resource_import_file.update_relationship'), value: 'update_relationship'
+            .radio-inline
+              = f.radio_button :edit_mode, 'destroy'
+              = f.label :edit_mode, t('page.destroy'), value: 'destroy'
+          .form-group
+            = f.label :user_encoding
+            br
+            .radio-inline
+              = f.radio_button :user_encoding, 'auto_detect', checked: 'checked'
+              = f.label :user_encoding, t('import.auto_detect'), value: 'auto_detect'
+            .radio-inline
+              = f.radio_button :user_encoding, 'utf-8'
+              = f.label :user_encoding, 'UTF-8', value: 'utf-8'
+            .radio-inline
+              = f.radio_button :user_encoding, 'shift_jis'
+              = f.label :user_encoding, 'Shift_JIS', value: 'shift_jis'
+            .radio-inline
+              = f.radio_button :user_encoding, 'euc-jp'
+              = f.label :user_encoding, 'EUC-JP', value: 'euc-jp'
+          .form-group
+            = f.label :default_user_group_id
+            = f.select(:default_user_group_id, @user_groups.collect{|u| [u.display_name.localize, u.id]}, {}, {class: 'form-control'})
+            br
+            = t('user_import_file.default_user_group')
+          .form-group
+            = f.label :default_library_id
+            = f.select(:default_library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}, {}, {class: 'form-control'})
+            br
+            = t('user_import_file.default_library')
+          .form-group
+            = f.hidden_field :mode, value: 'import'
+            = f.submit t('page.start_import'), class: 'btn btn-default'

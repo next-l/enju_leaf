@@ -48,7 +48,7 @@ EOS
         /\/\/= require turbolinks$/,
         ""
     end
-    gsub_file 'config/routes.rb', /devise_for :users$/, "devise_for :users, path: 'accounts'"
+    gsub_file 'config/routes.rb', /devise_for :users$/, "devise_for :users, skip: [:registration]"
     gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\Z/i'
     gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [ :email ]', 'config.authentication_keys = [ :username ]'
     gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
@@ -73,11 +73,24 @@ EOS
     config[:skip_user_agents] = ENV['ENJU_SKIP_MOBILE_AGENTS'].to_a.split.map{|a|
       a.to_sym
     }
+
+EOS
+    end
+
+    inject_into_file "config/routes.rb", after: /^Rails.application.routes.draw do$\n/ do
+      <<"EOS"
+  as :user do
+    get 'users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
+    put 'users' => 'devise/registrations#update', as: 'user_registration'
+  end
+
+  authenticate :user, lambda {|u| u.role.try(:name) == 'Administrator' } do
+    mount Resque::Server.new, at: "/resque", as: :resque
   end
 
 EOS
     end
-    #inject_into_class "app/models/user.rb", User, "  enju_user_model\n"
+
     inject_into_file "app/helpers/application_helper.rb", after: /module ApplicationHelper$\n/ do
       <<"EOS"
   include EnjuLeaf::EnjuLeafHelper

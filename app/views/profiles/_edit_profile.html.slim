@@ -1,0 +1,40 @@
+- if defined?(EnjuCirculation)
+  .form-group
+    = f.label t('user.checkout_history_icalendar_url')
+    br
+    #feed_token
+      - if profile.checkout_icalendar_token?
+        = link_to checkouts_url(icalendar_token: profile.checkout_icalendar_token, format: :ics), checkouts_url(icalendar_token: profile.checkout_icalendar_token, format: :ics)
+        = f.hidden_field :checkout_icalendar_token
+        br
+        |  <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('
+        = form_authenticity_token
+        | '), success:function(request){$('#feed_token').html(request);}, type:'get', url:'
+        = edit_my_account_path(mode: 'feed_token')
+        | '});" type="button" value="
+        = t('page.reset')
+        | " /> <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('
+        = form_authenticity_token
+        | '), success:function(request){$('#feed_token').html(request);}, type:'get', url:'
+        = edit_my_account_path(disable: true, mode: 'feed_token')
+        | '});" type="button" value="
+        = t('page.delete')
+        | " /> 
+    br
+- if defined?(EnjuSearchLog)
+  .form-group
+    .checkbox-inline
+      = f.check_box :save_search_history
+      = f.label :save_search_history
+- if defined?(EnjuCirculation)
+  .form-group
+    .checkbox-inline
+      = f.check_box :save_checkout_history
+      = f.label :save_checkout_history
+- if current_user.has_role?('Librarian')
+  .form-group
+    = f.label :note
+    br
+    = f.text_area :note, class: 'form-control'
+.form-group
+  = f.submit class: 'btn btn-default'
