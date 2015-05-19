@@ -18,7 +18,6 @@ module EnjuLeaf
     def self.included(base)
       base.send(:before_filter, :get_library_group, :set_locale, :set_available_languages, :set_mobile_request)
       base.send(:set_error_template)
-      base.send(:helper_method, :current_user)
     end
   end
 end
