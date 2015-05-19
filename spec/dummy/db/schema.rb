@@ -498,6 +498,19 @@ ActiveRecord::Schema.define(version: 20150506105356) do
   add_index "identifiers", ["body", "identifier_type_id"], name: "index_identifiers_on_body_and_identifier_type_id"
   add_index "identifiers", ["manifestation_id"], name: "index_identifiers_on_manifestation_id"
 
+  create_table "identities", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.integer  "profile_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "identities", ["email"], name: "index_identities_on_email"
+  add_index "identities", ["name"], name: "index_identities_on_name"
+  add_index "identities", ["profile_id"], name: "index_identities_on_profile_id"
+
   create_table "import_request_transitions", force: :cascade do |t|
     t.string   "to_state"
     t.text     "metadata",          default: "{}"
@@ -1066,6 +1079,10 @@ ActiveRecord::Schema.define(version: 20150506105356) do
 
   create_table "resource_export_files", force: :cascade do |t|
     t.integer  "user_id"
+    t.string   "resource_export_file_name"
+    t.string   "resource_export_content_type"
+    t.integer  "resource_export_file_size"
+    t.datetime "resource_export_updated_at"
     t.datetime "executed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1342,6 +1359,10 @@ ActiveRecord::Schema.define(version: 20150506105356) do
 
   create_table "user_export_files", force: :cascade do |t|
     t.integer  "user_id"
+    t.string   "user_export_file_name"
+    t.string   "user_export_content_type"
+    t.integer  "user_export_file_size"
+    t.datetime "user_export_updated_at"
     t.datetime "executed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1415,7 +1436,7 @@ ActiveRecord::Schema.define(version: 20150506105356) do
     t.datetime "executed_at"
     t.string   "user_import_file_name"
     t.string   "user_import_content_type"
-    t.integer  "user_import_file_size"
+    t.string   "user_import_file_size"
     t.datetime "user_import_updated_at"
     t.string   "user_import_fingerprint"
     t.string   "edit_mode"

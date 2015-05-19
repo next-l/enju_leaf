@@ -18,10 +18,9 @@
             |  (
             = messages_count(current_user)
             | ) 
-        = link_to t('page.account'), my_account_path
-        = link_to t('page.sign_out'), destroy_user_session_path, method: :delete
-        br
+        => link_to t('page.account'), my_account_path
+        => link_to t('page.sign_out'), destroy_user_session_path, method: :delete
       - else
         - unless controller_name == 'sessions'
-        = link_to t('page.sign_in'), new_user_session_path
+          => link_to t('page.sign_in'), new_user_session_path
     = render 'page/select_locale'
