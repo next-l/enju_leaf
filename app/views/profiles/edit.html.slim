@@ -1,14 +1,18 @@
 .row
   #submenu.col-md-3
-    ul.list-group
-      li.list-group-item
-        = link_to t('page.show'), @profile
-      li.list-group-item
-        = link_to t('page.listing', model: t('activerecord.models.profile')), profiles_path
-      - if current_user.has_role?('Librarian')
-        - unless current_user == @profile.user
-          li.list-group-item
-            = link_to t('page.destroy'), @profile, data: {confirm: t('page.are_you_sure')}, method: :delete
+    .panel.panel-default
+      .panel-heading
+        h2.panel-title
+          = t('activerecord.models.profile')
+      ul.list-group
+        li.list-group-item
+          = link_to t('page.show'), @profile
+        li.list-group-item
+          = link_to t('page.listing', model: t('activerecord.models.profile')), profiles_path
+        - if current_user.has_role?('Librarian')
+          - unless current_user == @profile.user
+            li.list-group-item
+              = link_to t('page.destroy'), @profile, data: {confirm: t('page.are_you_sure')}, method: :delete
   #content_list.col-md-9
     h1.panel-title
       = t('page.edit_user_profile', login_name: @profile.user.username)
