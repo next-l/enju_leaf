@@ -3,8 +3,8 @@ cache: bundler
 rvm:
   - 1.9.3
   - 2.0.0
-  - 2.1
-  - 2.2
+  - 2.1.6
+  - 2.2.2
 before_script:
   - mysql -e 'create database enju_test'
   - psql -c 'create database enju_test;' -U postgres
@@ -29,7 +29,7 @@ matrix:
     gemfile: gemfiles/rails_3.2.gemfile
   - rvm: 2.0.0
     gemfile: gemfiles/rails_4.2.gemfile
-  - rvm: 2.1.5
+  - rvm: 2.1.6
     gemfile: gemfiles/rails_3.2.gemfile
   - rvm: 2.2.2
     gemfile: gemfiles/rails_3.2.gemfile
