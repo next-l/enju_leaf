@@ -1,9 +1,13 @@
 .row
+  #submenu.col-md-3
+    .panel.panel-default
+      .panel-heading
+        h2.panel-title
+          = t('activerecord.models.role')
+      ul.list-group
+        li.list-group-item
+          = link_to t('page.back'), roles_path
   #content_list.col-md-9
     h1.panel-title
       = t('page.new', model: t('activerecord.models.role'))
     = render 'form'
-  #submenu.col-md-3
-    ul.list-group
-      li.list-group-item
-        = link_to t('page.back'), roles_path

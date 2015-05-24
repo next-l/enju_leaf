@@ -1,4 +1,14 @@
 .row
+  #submenu.col-md-3
+    .panel.panel-default
+      .panel-heading
+        h2.panel-title
+          = t('activerecord.models.role')
+      ul.list-group
+        li.list-group-item
+          = link_to t('page.edit'), edit_role_path(@role)
+        li.list-group-item
+          = back_to_index(flash[:page_info])
   #content_list.col-md-9
     h1.panel-title
       = t('page.showing', model: t('activerecord.models.role'))
@@ -34,9 +44,3 @@
         = t('page.updated_at')
         | :
       = l(@role.updated_at) if @role.created_at
-  #submenu.col-md-3
-    ul.list-group
-      li.list-group-item
-        = link_to t('page.edit'), edit_role_path(@role)
-      li.list-group-item
-        = back_to_index(flash[:page_info])

@@ -1,4 +1,9 @@
 .row
+  #submenu.col-md-3
+    .panel.panel-default
+      .panel-heading
+        h2.panel-title
+          = t('activerecord.models.role')
   #content_list.col-md-9
     h1.panel-title
       = t('page.listing', model: t('activerecord.models.role'))
@@ -20,4 +25,3 @@
         td
           = link_to t('page.edit'), edit_role_path(role)
           = link_to t('page.destroy'), role, data: {confirm: t('page.are_you_sure')}, method: :delete
-  #submenu.col-md-3
