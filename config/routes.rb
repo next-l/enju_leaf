@@ -25,6 +25,11 @@ Rails.application.routes.draw do
     resources :accepts, :except => [:edit, :update]
   end
 
+  as :user do
+    get 'users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
+    put 'users' => 'devise/registrations#update', as: 'user_registration'
+  end
+
   root :to => "page#index"
 
   get '/page/about' => 'page#about'
