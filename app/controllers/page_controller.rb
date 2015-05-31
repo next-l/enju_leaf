@@ -61,7 +61,7 @@ class PageController < ApplicationController
   end
 
   def system_information
-    @specs = Bundler.load.specs.sort
+    @specs = Bundler.load.specs.sort!
   end
 
   def import
