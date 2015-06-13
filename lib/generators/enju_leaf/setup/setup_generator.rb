@@ -73,7 +73,7 @@ EOS
     config[:skip_user_agents] = ENV['ENJU_SKIP_MOBILE_AGENTS'].to_a.split.map{|a|
       a.to_sym
     }
-
+  end
 EOS
     end
 
