@@ -77,15 +77,6 @@ EOS
 EOS
     end
 
-    inject_into_file "config/routes.rb", after: /^Rails.application.routes.draw do$\n/ do
-      <<"EOS"
-  authenticate :user, lambda {|u| u.role.try(:name) == 'Administrator' } do
-    mount Resque::Server.new, at: "/resque", as: :resque
-  end
-
-EOS
-    end
-
     inject_into_file "app/helpers/application_helper.rb", after: /module ApplicationHelper$\n/ do
       <<"EOS"
   include EnjuLeaf::EnjuLeafHelper
