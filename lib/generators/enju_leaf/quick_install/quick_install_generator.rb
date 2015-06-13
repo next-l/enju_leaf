@@ -3,6 +3,8 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
 
   def quick_install
     environment = ENV['RAILS_ENV'] || 'development'
+    gsub_file 'config/schedule.rb', /^set :environment, :development$/,
+      "set :environment, :#{environment}"
     rake("enju_leaf_engine:install:migrations")
     rake("enju_biblio_engine:install:migrations")
     rake("enju_library_engine:install:migrations")
