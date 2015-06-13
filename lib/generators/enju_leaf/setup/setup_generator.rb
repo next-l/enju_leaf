@@ -34,6 +34,12 @@ EOS
     end
     generate("devise:install")
     generate("devise", "User")
+    gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
+    gsub_file 'app/models/user.rb', /, :trackable, :validatable$/, <<EOS
+, :trackable, #:validatable, 
+      :lockable, :lock_strategy => :none, :unlock_strategy => :none
+  enju_leaf_user_model
+EOS
     generate("sunspot_rails:install")
     generate("kaminari:config")
     generate("simple_form:install")
@@ -54,12 +60,6 @@ EOS
     gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\Z/i'
     gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [:email]', 'config.authentication_keys = [:username]'
     gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
-    gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
-    gsub_file 'app/models/user.rb', /, :trackable, :validatable$/, <<EOS
-, :trackable, #:validatable, 
-      :lockable, :lock_strategy => :none, :unlock_strategy => :none
-  enju_leaf_user_model
-EOS
 
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
