@@ -79,11 +79,6 @@ EOS
 
     inject_into_file "config/routes.rb", after: /^Rails.application.routes.draw do$\n/ do
       <<"EOS"
-  as :user do
-    get 'users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
-    put 'users' => 'devise/registrations#update', as: 'user_registration'
-  end
-
   authenticate :user, lambda {|u| u.role.try(:name) == 'Administrator' } do
     mount Resque::Server.new, at: "/resque", as: :resque
   end
