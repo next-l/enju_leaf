@@ -110,8 +110,6 @@ EOS
     end
     remove_file "public/index.html"
     remove_file "app/views/layouts/application.html.erb"
-    gsub_file 'config/schedule.rb', /^set :environment, :development$/,
-      "set :environment, :#{environment}"
     gsub_file 'config/environments/production.rb',
       /config.serve_static_assets = false$/,
       "config.serve_static_assets = true"
