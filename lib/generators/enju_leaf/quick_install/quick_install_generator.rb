@@ -8,7 +8,7 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
     rake("enju_leaf_engine:install:migrations")
     rake("enju_biblio_engine:install:migrations")
     rake("enju_library_engine:install:migrations")
-    if !ENV['SKIP_CONFIG']
+    if !ENV['ENJU_SKIP_CONFIG']
       generate("enju_biblio:setup")
       generate("enju_library:setup")
       generate("enju_circulation:setup")
@@ -20,13 +20,15 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
     rake("enju_subject:setup", env: environment)
     rake("assets:precompile", env: environment) if environment == 'production'
     rake("db:seed", env: environment)
-    if ENV['OS'] == 'Windows_NT'
-      rake("sunspot:solr:run", env: environment)
-    else
-      rake("sunspot:solr:start", env: environment)
-      sleep 5
-      rake("environment sunspot:reindex", env: environment)
-      rake("sunspot:solr:stop", env: environment)
+    if !ENV['ENJU_SKIP_SOLR']
+      if ENV['OS'] == 'Windows_NT'
+        rake("sunspot:solr:run", env: environment)
+      else
+        rake("sunspot:solr:start", env: environment)
+        sleep 5
+        rake("environment sunspot:reindex", env: environment)
+        rake("sunspot:solr:stop", env: environment)
+      end
     end
   end
 end
