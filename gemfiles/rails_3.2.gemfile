@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 
 gem "jquery-rails"
-gem "rails", "3.2.21"
+gem "rails", "3.2.22"
 gem "statesman", "~> 1.0.0"
 gem "strong_parameters"
 gem "cache_digests"
