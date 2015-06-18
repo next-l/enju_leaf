@@ -1,8 +1,8 @@
 class PageController < ApplicationController
   before_filter :clear_search_sessions, only: [:index, :advanced_search]
-  before_filter :store_location, only: [:advanced_search, :about, :add_on, :msie_acceralator, :statistics]
-  before_filter :authenticate_user!, except: [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics, :routing_error]
-  before_filter :check_librarian, except: [:index, :advanced_search, :about, :add_on, :msie_acceralator, :opensearch, :statistics, :routing_error]
+  before_filter :store_location, only: [:advanced_search, :about, :add_on, :msie_accelerator, :statistics]
+  before_filter :authenticate_user!, except: [:index, :advanced_search, :about, :add_on, :msie_accelerator, :opensearch, :statistics, :routing_error]
+  before_filter :check_librarian, except: [:index, :advanced_search, :about, :add_on, :msie_accelerator, :opensearch, :statistics, :routing_error]
   helper_method :get_libraries
 
   def index
@@ -35,7 +35,7 @@ class PageController < ApplicationController
     end
   end
 
-  def msie_acceralator
+  def msie_accelerator
     respond_to do |format|
       format.xml { render layout: false }
     end

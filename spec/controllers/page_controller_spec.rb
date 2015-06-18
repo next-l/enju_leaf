@@ -58,8 +58,8 @@ describe PageController do
         expect(response).to be_success
       end
 
-      it "should get msie_acceralator" do
-        get :msie_acceralator, format: :xml
+      it "should get msie_accelerator" do
+        get :msie_accelerator, format: :xml
         expect(response).to be_success
       end
 
