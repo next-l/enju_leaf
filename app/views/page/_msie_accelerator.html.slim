@@ -1,10 +1,10 @@
 h2
-  = t('msie.acceralator', library_name: h(LibraryGroup.system_name(@locale)))
+  = t('msie.accelerator', library_name: h(LibraryGroup.system_name(@locale)))
 - if request.env["HTTP_USER_AGENT"] =~ /Mozilla\/4.0 \(compatible; MSIE 8.\d/
   |  <button onclick="window.external.addService('
   = LibraryGroup.site_config.url
-  | page/msie_acceralator')">
-  = t('msie.install_acceralator')
+  | page/msie_accelerator')">
+  = t('msie.install_acceleratorr')
 - else
   p
     = t('msie.not_supported')
