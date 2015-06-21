@@ -9,6 +9,7 @@ en:
       user_import_result: User import result
       profile: Profile
       user_export_file: User export
+      registration: Password
 
     attributes:
       user:
