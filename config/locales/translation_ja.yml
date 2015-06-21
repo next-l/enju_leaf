@@ -9,6 +9,7 @@ ja:
       user_import_result: 利用者インポートの結果
       profile: 利用者
       user_export_file: 利用者情報のエクスポート
+      registration: パスワード
 
     attributes:
       user:
