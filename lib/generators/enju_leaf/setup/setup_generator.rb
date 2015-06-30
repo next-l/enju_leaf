@@ -4,6 +4,7 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
 
   def copy_setup_files
     directory("db/fixtures", "db/fixtures/enju_leaf")
+    directory("solr", "example/solr")
     copy_file("Procfile", "Procfile")
     copy_file("config/schedule.rb", "config/schedule.rb")
     copy_file("config/initializers/resque.rb", "config/initializers/resque.rb")
@@ -34,6 +35,12 @@ EOS
     end
     generate("devise:install")
     generate("devise", "User")
+    gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
+    gsub_file 'app/models/user.rb', /, :trackable, :validatable$/, <<EOS
+, :trackable, #:validatable, 
+      :lockable, :lock_strategy => :none, :unlock_strategy => :none
+  enju_leaf_user_model
+EOS
     generate("sunspot_rails:install")
     generate("kaminari:config")
     generate("simple_form:install")
@@ -52,14 +59,8 @@ EOS
     end
     gsub_file 'config/routes.rb', /devise_for :users$/, "devise_for :users, skip: [:registration]"
     gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\Z/i'
-    gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [ :email ]', 'config.authentication_keys = [ :username ]'
+    gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [:email]', 'config.authentication_keys = [:username]'
     gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
-    gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
-    gsub_file 'app/models/user.rb', /, :trackable, :validatable$/, <<EOS
-, :trackable, #:validatable, 
-      :lockable, :lock_strategy => :none, :unlock_strategy => :none
-  enju_leaf_user_model
-EOS
 
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
@@ -74,11 +75,6 @@ EOS
 
     inject_into_file "config/routes.rb", after: /^Rails.application.routes.draw do$\n/ do
       <<"EOS"
-  as :user do
-    get 'users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
-    put 'users' => 'devise/registrations#update', as: 'user_registration'
-  end
-
   authenticate :user, lambda {|u| u.role.try(:name) == 'Administrator' } do
     mount Resque::Server.new, at: "/resque", as: :resque
   end
@@ -110,8 +106,6 @@ EOS
     end
     remove_file "public/index.html"
     remove_file "app/views/layouts/application.html.erb"
-    gsub_file 'config/schedule.rb', /^set :environment, :development$/,
-      "set :environment, :#{environment}"
     gsub_file 'config/environments/production.rb',
       /config.serve_static_assets = false$/,
       "config.serve_static_assets = true"
