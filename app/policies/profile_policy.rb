@@ -16,9 +16,16 @@ class ProfilePolicy < ApplicationPolicy
   end
 
   def update?
-    if user.try(:has_role?, 'Librarian')
+    case user.try(:role).try(:name)
+    when 'Administrator'
       true
-    elsif user.try(:has_role?, 'User')
+    when 'Librarian'
+      if record.try(:user).try(:has_role?, 'Librarian')
+        false
+      else
+        true
+      end
+    when 'User'
       true if record == user.profile
     end
   end

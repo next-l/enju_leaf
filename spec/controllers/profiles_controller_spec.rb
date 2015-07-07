@@ -355,6 +355,11 @@ describe ProfilesController do
         response.should redirect_to profile_url(assigns(:profile))
       end
 
+      it "should not update other admin" do
+        put :update, id: profiles(:admin).id, profile: {:user_number => '00003', :locale => 'en', :user_group_id => 3, :library_id => 3, :note => 'test'}
+        response.should be_forbidden
+      end
+
       it "should update other user's user_group" do
         put :update, id: profiles(:user1).id, profile: {:user_group_id => 3, :library_id => 3, :locale => 'en'}
         response.should redirect_to profile_url(assigns(:profile))
