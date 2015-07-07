@@ -42,7 +42,14 @@ module EnjuLeaf
           UserImportResult
         ] if LibraryGroup.site_config.network_access_allowed?(ip_address)
       when 'Librarian'
-        can [:read, :create, :update], Profile
+        can [:read, :create], Profile
+        can :update, Profile do |profile|
+          if profile.try(:user).try(:has_role?, 'Librarian')
+            false
+          else
+            true
+          end
+        end
         can :destroy, Profile do |profile|
           if profile.user
             if profile != user.profile && profile.user.id != 1
