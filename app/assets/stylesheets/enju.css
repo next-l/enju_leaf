@@ -361,7 +361,7 @@ input.resource_url{
   width: 40em;
 }
 
-input.resource_isbn_issn, input.resource_identifier, input.resource_user_number, input.resource_user{
+input.resource_isbn_issn, input.resource_identifier, input.resource_user_number, input.resource_user, input.resource_item_identifier{
   width: 10em;
   ime-mode: disabled;
 }
