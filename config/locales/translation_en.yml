@@ -392,12 +392,6 @@ en:
   picture_file:
     invalid_file: Invalid file. You can upload gif, jpeg, png and svg files.
     all_picture: All pictures
-  accept:
-    item_not_found: "Item not found."
-    enter_item_identifier: "Enter item identifier."
-    already_accepted: "This item is already accepted."
-    accept: "Accept!"
-    successfully_accepted: "This items was successfully accepted."
   user_import_file:
     default_user_group: If "user_group" column is not set in the TSV file, this user group is set to the new user.
     default_library: If "library" column is not set in the TSV file, this library is set to the new user.
