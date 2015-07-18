@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.add_dependency "elasticsearch-model", "~> 0.1.7"
   s.add_dependency "elasticsearch-rails", "~> 0.1.7"
   s.add_dependency "cocoon"
-  s.add_dependency "sitemap_generator"
+  s.add_dependency "sitemap_generator", "~> 5.1"
   s.add_dependency "devise-encryptable"
   s.add_dependency "rails_autolink"
   s.add_dependency "refile"
