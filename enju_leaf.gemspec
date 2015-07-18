@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
   s.add_dependency "dalli"
   s.add_dependency "nested_form"
   s.add_dependency "mobylette", "~> 3.5"
-  s.add_dependency "sitemap_generator"
+  s.add_dependency "sitemap_generator", "~> 5.1"
   s.add_dependency "devise-encryptable"
   s.add_dependency "redis-rails"
   s.add_dependency "rails_autolink"
