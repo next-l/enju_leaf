@@ -43,6 +43,7 @@ en:
         locale: Locale
         password_confirmation: Password confirmation
         auto_generated_password: Set auto-generated password
+        friendly_id: Username
       role:
         name: Name
         display_name: Display name
