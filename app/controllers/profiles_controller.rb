@@ -30,6 +30,7 @@ class ProfilesController < ApplicationController
     search = Profile.search
     search.build do
       fulltext query if query
+      with(:required_role_id).less_than_or_equal_to role.id
       order_by sort[:sort_by], sort[:order]
     end
     search.query.paginate(page.to_i, Profile.default_per_page)

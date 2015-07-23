@@ -32,22 +32,21 @@ class ProfilePolicy < ApplicationPolicy
 
   def destroy?
     return false unless user
-    if user.try(:has_role?, 'Librarian')
-      if record.user
-        if record != user.profile && record.user.id != 1
-          if defined?(EnjuCirculation)
-            if record.user.checkouts.not_returned.empty?
-              true if record.user.deletable_by?(user)
-            end
-          else
+    return false unless user.try(:has_role?, 'Librarian')
+    if record.user
+      if record != user.profile && record.user.id != 1
+        if defined?(EnjuCirculation)
+          if record.user.checkouts.not_returned.empty?
             true if record.user.deletable_by?(user)
           end
+        else
+          true if record.user.deletable_by?(user)
         end
       else
-        true
+        false
       end
     else
-      false
+      true
     end
   end
 end

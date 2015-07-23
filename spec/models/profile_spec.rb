@@ -58,7 +58,9 @@ describe Profile do
 
   if defined?(EnjuCirculation)
     it "should send_message" do
-      assert profiles(:librarian1).user.send_message('reservation_expired_for_patron', :manifestations => profiles(:librarian1).user.reserves.not_sent_expiration_notice_to_patron.collect(&:manifestation))
+      assert profiles(:librarian1).user.send_message(
+        'reservation_expired_for_patron',
+        manifestations: profiles(:librarian1).user.reserves.not_sent_expiration_notice_to_patron.collect(&:manifestation))
       profiles(:librarian1).reload
       profiles(:librarian1).user.reserves.not_sent_expiration_notice_to_patron.should be_empty
     end
