@@ -136,7 +136,7 @@ class UserImportFile < ActiveRecord::Base
       username = row['username']
       new_user = User.where(username: username).first
       if new_user
-        new_user.assign_attributes(set_user_params(new_user, row), as: :admin)
+        new_user.assign_attributes(set_user_params(new_user, row))
         if new_user.save
           num[:user_updated] += 1
           import_result.user = new_user
