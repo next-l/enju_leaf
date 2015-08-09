@@ -105,7 +105,7 @@ ja:
       empty: を入力してください。
       equal_to: は%{count}にしてください。
       even: は偶数にしてください。
-      exclusion: は使用できません。
+      exclusion: ': この%{attribute}は使用できません。'
       greater_than: は%{count}より大きい値にしてください。
       greater_than_or_equal_to: は%{count}以上の値にしてください。
       inclusion: は一覧にありません。
