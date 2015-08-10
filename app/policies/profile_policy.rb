@@ -5,9 +5,11 @@ class ProfilePolicy < ApplicationPolicy
 
   def show?
     if user.try(:has_role?, 'Librarian')
-      true
+      return true if record == user.profile
+      true if %w(Librarian User Guest).include?(record.required_role.name)
     elsif user.try(:has_role?, 'User')
-      true if record == user.profile
+      return true if record == user.profile
+      true if %w(User Guest).include?(record.required_role.name)
     end
   end
 
@@ -26,7 +28,7 @@ class ProfilePolicy < ApplicationPolicy
         true
       end
     when 'User'
-      true if record == user.profile
+      return true if record == user.profile
     end
   end
 
