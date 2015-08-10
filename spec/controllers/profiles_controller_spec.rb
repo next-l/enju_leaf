@@ -75,6 +75,11 @@ describe ProfilesController do
         get :show, id: profiles(:librarian1).id
         assigns(:profile).should eq(profiles(:librarian1))
       end
+      it "should not assign the requested user as @admin" do
+        admin = FactoryGirl.create(:admin_profile)
+        get :show, id: admin.id
+        response.should be_forbidden
+      end
     end
 
     describe "When logged in as User" do
@@ -93,7 +98,7 @@ describe ProfilesController do
       it "should show other user's account" do
         get :show, id: profiles(:admin).id
         assigns(:profile).should eq(profiles(:admin))
-        response.should be_success
+        response.should be_forbidden
       end
     end
 
@@ -162,6 +167,12 @@ describe ProfilesController do
         profile = FactoryGirl.create(:profile)
         get :edit, id: profile.id
         assigns(:profile).should eq(profile)
+      end
+      it "should not get edit page for admin required user" do
+        admin = FactoryGirl.create(:admin_profile)
+        get :edit, id: admin.id
+        response.should be_forbidden
+        #assigns(:profile).should_not eq(admin)
       end
     end
 
