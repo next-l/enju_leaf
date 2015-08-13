@@ -44,7 +44,7 @@ module EnjuLeaf
       when 'Librarian'
         can :create, Profile
         can :read, Profile do |profile|
-          profile == user.profile or %w[Librarian User Guest].include? profile.required_role.name
+          profile == user.profile or %w(Librarian User Guest).include?(profile.required_role.name)
         end
         can :update, Profile do |profile|
           if profile.try(:user).try(:has_role?, 'Librarian')
@@ -80,7 +80,7 @@ module EnjuLeaf
         ] if LibraryGroup.site_config.network_access_allowed?(ip_address)
       when 'User'
         can :show, Profile do |profile|
-	  profile == user.profile or %w[User Guest].include? profile.required_role.name
+	  profile == user.profile or %w(User Guest).include?(profile.required_role.name)
         end
         can :update, Profile do |profile|
           profile == user.profile
