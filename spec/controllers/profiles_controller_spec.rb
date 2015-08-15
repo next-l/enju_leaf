@@ -80,6 +80,12 @@ describe ProfilesController do
         get :show, id: admin.id
         response.should be_forbidden
       end
+      it "should assign the requested user as @librarian" do
+        librarian = FactoryGirl.create(:librarian_profile)
+        get :show, id: librarian.id
+        response.should_not be_forbidden
+        assigns(:profile).should eq librarian
+      end
     end
 
     describe "When logged in as User" do
@@ -173,6 +179,12 @@ describe ProfilesController do
         get :edit, id: admin.id
         response.should be_forbidden
         #assigns(:profile).should_not eq(admin)
+      end
+      it "should get edit page for other librarian user" do
+        librarian = FactoryGirl.create(:librarian_profile)
+        get :edit, id: librarian.id
+        response.should_not be_forbidden
+        assigns(:profile).should eq librarian
       end
     end
 
