@@ -174,6 +174,26 @@ describe ProfilesController do
         response.should be_forbidden
         #assigns(:profile).should_not eq(admin)
       end
+
+      it "should get edit page for other librarian user" do
+        librarian = FactoryGirl.create(:librarian_profile)
+        get :edit, id: librarian.id
+        response.should_not be_forbidden
+        assigns(:profile).should eq librarian
+      end
+
+      it "should get edit page for other librarian user" do
+        admin = FactoryGirl.create(:admin_profile, required_role_id: Role.where(name: 'Librarian').first.id)
+        get :edit, id: admin.id
+        response.should be_forbidden
+        assigns(:profile).should eq admin
+      end
+
+      it "should not be able to delete other librarian user" do
+        librarian = FactoryGirl.create(:librarian_profile)
+        ability = EnjuLeaf::Ability.new(@user, "0.0.0.0")
+        ability.should_not be_able_to( :destroy, librarian )
+      end
     end
 
     describe "When logged in as User" do
