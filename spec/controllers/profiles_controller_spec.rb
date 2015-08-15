@@ -183,8 +183,14 @@ describe ProfilesController do
       it "should get edit page for other librarian user" do
         librarian = FactoryGirl.create(:librarian_profile)
         get :edit, id: librarian.id
-        response.should be_forbidden
+        response.should_not be_forbidden
         assigns(:profile).should eq librarian
+      end
+      it "should get edit page for other librarian user" do
+        admin = FactoryGirl.create(:admin_profile, required_role_id: Role.where(name: 'Librarian').first.id)
+        get :edit, id: admin.id
+        response.should be_forbidden
+        assigns(:profile).should eq admin
       end
       it "should not be able to delete other librarian user" do
         librarian = FactoryGirl.create(:librarian_profile)

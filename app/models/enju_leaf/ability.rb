@@ -51,7 +51,7 @@ module EnjuLeaf
             true
           else
             if %w(Librarian User Guest).include?(profile.required_role.name)
-	      unless profile.try(:user).try(:has_role?, 'Librarian')
+	      unless profile.try(:user).try(:has_role?, 'Administrator')
                 true
               end
             end
