@@ -186,6 +186,11 @@ describe ProfilesController do
         response.should_not be_forbidden
         assigns(:profile).should eq librarian
       end
+      it "should not be able to delete other librarian user" do
+        librarian = FactoryGirl.create(:librarian_profile)
+        ability = EnjuLeaf::Ability.new(@user, "0.0.0.0")
+        ability.should_not be_able_to( :destroy, librarian )
+      end
     end
 
     describe "When logged in as User" do
@@ -503,6 +508,7 @@ describe ProfilesController do
 
       it "destroys the requested user" do
         delete :destroy, id: profiles(:user2).id
+        response.should redirect_to(profiles_url)
       end
 
       it "redirects to the profiles list" do
