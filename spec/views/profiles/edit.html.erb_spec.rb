@@ -36,5 +36,10 @@ describe "profiles/edit" do
       render
       expect(rendered).not_to have_selector("a[href='#{profile_path(@profile.id)}'][data-method='delete']") 
     end
+
+    it "should disable role selection" do
+      render
+      expect(rendered).to have_selector("select#profile_user_attributes_user_has_role_attributes_role_id[disabled='disabled']")
+    end
   end
 end
