@@ -32,6 +32,13 @@ describe Profile do
     assert !profile.new_record?, "#{profile.errors.full_messages.to_sentence}"
   end
 
+  it "should create profile with empty user_number" do
+    profile1 = FactoryGirl.create(:profile, user_number: "")
+    profile2 = FactoryGirl.create(:profile, user_number: "")
+    profile1.should be_valid
+    profile2.should be_valid
+  end
+
   if defined?(EnjuQuestion)
     it "should reset answer_feed_token" do
       profiles(:user1).reset_answer_feed_token
