@@ -44,7 +44,7 @@
     <td><%= l(profile.created_at) -%></td>
     <td>
       <%= link_to t('page.show'), profile -%>
-      <%= link_to t('page.edit'), edit_profile_path(profile) -%>
+      <%= link_to t('page.edit'), edit_profile_path(profile) if can?(:edit, profile) -%>
     </td>
   </tr>
 <%- end -%>
