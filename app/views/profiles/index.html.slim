@@ -58,6 +58,7 @@
               = l(profile.created_at)
             td
               => link_to t('page.show'), profile
-              => link_to t('page.edit'), edit_profile_path(profile)
+              - if policy(profile).update?
+                => link_to t('page.edit'), edit_profile_path(profile)
         br
         = paginate(@profiles)
