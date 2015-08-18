@@ -119,9 +119,17 @@ class UserImportFile < ActiveRecord::Base
       if new_user
         new_user.assign_attributes(set_user_params(new_user, row), as: :admin)
         if new_user.save
-          num[:user_updated] += 1
-          import_result.user = new_user
-          import_result.save!
+          profile = new_user.profile || Profile.new
+          profile.assign_attributes(set_profile_params(row))
+	  if profile.save
+	    new_user.profile = profile
+	    new_user.save!
+            num[:user_updated] += 1
+            import_result.user = new_user
+            import_result.save!
+	  else
+            num[:failed] += 1
+	  end
         else
           num[:failed] += 1
         end
