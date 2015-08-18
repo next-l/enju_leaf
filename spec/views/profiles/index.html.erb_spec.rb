@@ -5,7 +5,11 @@ describe "profiles/index" do
 
   before(:each) do
     assign(:profiles, Profile.page(1))
-    view.stub(:current_user).and_return(User.find('enjuadmin'))
+    admin = User.find('enjuadmin')
+    view.stub(:current_user).and_return(admin)
+    @ability = EnjuLeaf::Ability.new(admin, '0.0.0.0')
+    @ability.extend(CanCan::Ability)
+    controller.stub(:current_ability) { @ability }
   end
 
   it "renders a list of profiles" do
