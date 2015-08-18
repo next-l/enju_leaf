@@ -118,6 +118,15 @@ describe UserImportFile do
       @file.remove
       User.count.should eq old_count - 3
     end
+
+    it "should not remove users if there are checkouts" do
+      user001 = User.where(username: 'user001').first
+      checkout = FactoryGirl.create(:checkout, user: user001, item: FactoryGirl.create(:item))
+      old_count = User.count
+      @file = UserImportFile.create :user_import => File.new("#{Rails.root}/../../examples/user_delete_file.tsv")
+      @file.remove
+      User.where(username: 'user001').should_not be_blank
+    end
   end
 
   it "should import in background" do
