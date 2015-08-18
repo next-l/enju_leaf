@@ -96,8 +96,18 @@ describe UserImportFile do
 
   describe "when its mode is 'update'" do
     it "should update users" do
+      user001 = FactoryGirl.create(:user,
+                                   username: 'user001',
+                                   profile: FactoryGirl.create(:profile,
+                                                               full_name: 'User 001',
+                                                               keyword_list: 'word term'))
       @file = UserImportFile.create :user_import => File.new("#{Rails.root}/../../examples/user_update_file.tsv")
-      @file.modify
+      result = @file.modify
+      result.should have_key(:user_updated)
+      user001 = User.where(username: 'user001').first
+      user001.profile.full_name.should eq '田辺 浩介'
+      user001.profile.note.should eq 'test'
+      user001.profile.keyword_list.should eq 'keyword1 keyword2'
     end
   end
 
