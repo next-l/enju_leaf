@@ -174,7 +174,7 @@ class UserImportFile < ActiveRecord::Base
       row_num += 1
       username = row['username'].to_s.strip
       user = User.where(username: username).first
-      if user
+      if user and user.checkouts.not_returned.empty?
         UserImportFile.transaction do
           user.profile.destroy
           user.destroy
