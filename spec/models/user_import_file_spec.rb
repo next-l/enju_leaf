@@ -53,7 +53,7 @@ describe UserImportFile do
       user003.profile.share_bookmarks.should be_falsy
       User.where(username: 'user000').first.should be_nil
       UserImportResult.count.should eq old_import_results_count + 7
-      UserImportResult.order(:created_at).last.error_message.should eq 'Password is too short (minimum is 6 characters)'
+      UserImportResult.order(:id).last.error_message.should eq 'Password is too short (minimum is 6 characters)'
 
       user005 = User.where(username: 'user005').first
       user005.role.name.should eq 'User'
