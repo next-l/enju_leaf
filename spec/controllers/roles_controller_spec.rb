@@ -9,7 +9,7 @@ describe RolesController do
 
       it "assigns all roles as @roles" do
         get :index
-        expect(assigns(:roles)).to eq(Role.all)
+        expect(assigns(:roles)).to eq(Role.order(:position))
       end
     end
 
@@ -18,7 +18,7 @@ describe RolesController do
 
       it "assigns all roles as @roles" do
         get :index
-        expect(assigns(:roles)).to eq(Role.all)
+        expect(assigns(:roles)).to eq(Role.order(:position))
       end
     end
 
@@ -27,14 +27,14 @@ describe RolesController do
 
       it "assigns all roles as @roles" do
         get :index
-        expect(assigns(:roles)).to be_empty
+        expect(assigns(:roles)).to be_nil
       end
     end
 
     describe "When not logged in" do
       it "assigns all roles as @roles" do
         get :index
-        expect(assigns(:roles)).to be_empty
+        expect(assigns(:roles)).to be_nil
       end
     end
   end

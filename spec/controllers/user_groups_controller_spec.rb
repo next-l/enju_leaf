@@ -17,7 +17,7 @@ describe UserGroupsController do
 
       it "assigns all user_groups as @user_groups" do
         get :index
-        assigns(:user_groups).should eq(UserGroup.all)
+        assigns(:user_groups).should eq(UserGroup.order(:position))
       end
     end
 
@@ -26,7 +26,7 @@ describe UserGroupsController do
 
       it "assigns all user_groups as @user_groups" do
         get :index
-        assigns(:user_groups).should eq(UserGroup.all)
+        assigns(:user_groups).should eq(UserGroup.order(:position))
       end
     end
 
@@ -35,14 +35,14 @@ describe UserGroupsController do
 
       it "assigns all user_groups as @user_groups" do
         get :index
-        assigns(:user_groups).should eq(UserGroup.all)
+        assigns(:user_groups).should eq(UserGroup.order(:position))
       end
     end
 
     describe "When not logged in" do
       it "assigns all user_groups as @user_groups" do
         get :index
-        assigns(:user_groups).should eq(UserGroup.all)
+        assigns(:user_groups).should eq(UserGroup.order(:position))
       end
     end
   end
