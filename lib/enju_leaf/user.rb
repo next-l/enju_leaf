@@ -170,7 +170,7 @@ module EnjuLeaf
       end
 
       def check_expiration
-        return if self.has_role?('Administrator')
+        return if has_role?('Administrator')
         if expired_at
           if expired_at.beginning_of_day < Time.zone.now.beginning_of_day
             lock_access! if active_for_authentication?
@@ -179,8 +179,10 @@ module EnjuLeaf
       end
 
       def check_role_before_destroy
-        if self.has_role?('Administrator')
-          raise 'This is the last administrator in this system.' if Role.where(name: 'Administrator').first.users.size == 1
+        if has_role?('Administrator')
+          if Role.where(name: 'Administrator').first.users.count == 1
+            raise username + 'This is the last administrator in this system.'
+          end
         end
       end
 
@@ -197,21 +199,22 @@ module EnjuLeaf
       end
 
       def is_admin?
-        true if self.has_role?('Administrator')
+        true if has_role?('Administrator')
       end
 
       def last_librarian?
-        if self.has_role?('Librarian')
+        if has_role?('Librarian')
           role = Role.where(name: 'Librarian').first
           true if role.users.size == 1
         end
       end
 
       def send_confirmation_instructions
-        Devise::Mailer.confirmation_instructions(self).deliver if self.email.present?
+        Devise::Mailer.confirmation_instructions(self).deliver if email.present?
       end
 
       def deletable_by?(current_user)
+        return nil unless current_user
         if defined?(EnjuCirculation)
           # 未返却の資料のあるユーザを削除しようとした
           if checkouts.count > 0
@@ -232,7 +235,7 @@ module EnjuLeaf
 
         # 最後の管理者を削除しようとした
         if has_role?('Administrator')
-          if Role.where(name: 'Administrator').first.users.size == 1
+          if Role.where(name: 'Administrator').first.users.count == 1
             errors[:base] << I18n.t('user.last_administrator')
           end
         end

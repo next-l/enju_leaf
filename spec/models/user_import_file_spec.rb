@@ -97,28 +97,33 @@ describe UserImportFile do
   describe "when its mode is 'update'" do
     it "should update users" do
       FactoryGirl.create(:user,
-                         username: 'user001',
-                         profile: FactoryGirl.create(:profile))
+        username: 'user001',
+        profile: FactoryGirl.create(:profile)
+      )
       @file = UserImportFile.create :user_import => File.new("#{Rails.root}/../../examples/user_update_file.tsv")
       result = @file.modify
       result.should have_key(:user_updated)
       user001 = User.where(username: 'user001').first
       user001.email.should eq 'user001@example.jp'
       user001.profile.full_name.should eq '田辺 浩介'
+      user001.profile.full_name_transcription.should eq 'たなべこうすけ'
+      user001.profile.user_number.should eq 'user_number_1'
       user001.profile.note.should eq 'test'
       user001.profile.keyword_list.should eq 'keyword1 keyword2'
     end
+
     it "should not overwrite with null value" do
       FactoryGirl.create(:user,
-                         username: 'user001',
-                         profile: FactoryGirl.create(:profile,
-                                                     user_number: '001',
-                                                     full_name: 'User 001',
-                                                     full_name_transcription: 'User 001',
-                                                     locale: 'ja',
-                                                     note: 'Note',
-                                                     keyword_list: 'keyword1 keyword2',
-                                                     date_of_birth: 10.years.ago))
+        username: 'user001',
+        profile: FactoryGirl.create(:profile,
+          user_number: '001',
+          full_name: 'User 001',
+          full_name_transcription: 'User 001',
+          locale: 'ja',
+          note: 'Note',
+          keyword_list: 'keyword1 keyword2',
+          date_of_birth: 10.years.ago)
+      )
       @file = UserImportFile.create :user_import => File.new("#{Rails.root}/../../examples/user_update_file2.tsv")
       result = @file.modify
       result.should have_key(:user_updated)
@@ -154,8 +159,9 @@ describe UserImportFile do
     it "should remove users" do
       old_count = User.count
       @file = UserImportFile.create :user_import => File.new("#{Rails.root}/../../examples/user_delete_file.tsv")
+      @file.user = users(:admin)
       @file.remove
-      User.count.should eq old_count - 3
+      User.count.should eq old_count - 2
     end
 
     it "should not remove users if there are checkouts" do
