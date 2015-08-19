@@ -22,10 +22,8 @@ class ProfilePolicy < ApplicationPolicy
     when 'Administrator'
       true
     when 'Librarian'
-      if record.try(:user).try(:has_role?, 'Librarian')
-        false
-      else
-        true
+      unless record.user.try(:has_role?, 'Administrator')
+        true if %w(User Guest Librarian).include?(record.required_role.name)
       end
     when 'User'
       return true if record == user.profile

@@ -1,4 +1,4 @@
-username	password	email	role	user_group	expired_at	note	full_name	keyword_list
-user001	password	user001@example.jp	Administrator			test	田辺 浩介	keyword1 keyword2
-user002			User		2013-12-01	
-user003		user003@example.jp	Librarian			テストユーザ
+username	password	user_number	email	role	user_group	expired_at	note	full_name	full_name_transcription	keyword_list
+user001	password	user_number_1	user001@example.jp	Administrator			test	田辺 浩介	たなべこうすけ	keyword1 keyword2
+user002				User		2013-12-01	
+user003			user003@example.jp	Librarian			テストユーザ
