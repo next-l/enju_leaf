@@ -18,7 +18,7 @@ class Profile < ActiveRecord::Base
   validates :user_id, uniqueness: true, allow_blank: true
   validates :birth_date, format: { with: /\A\d{4}-\d{1,2}-\d{1,2}\Z/ }, allow_blank: true
 
-  normalize_attribute :user_number
+  strip_attributes only: :user_number
 
   attr_accessor :birth_date, :locked
 
