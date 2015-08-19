@@ -127,6 +127,17 @@ describe UserImportFile do
       user001.profile.user_number.should eq '001'
       user001.profile.full_name.should eq 'User 001'
       user001.profile.full_name_transcription.should eq 'User 001'
+      user001.profile.keyword_list.should eq 'keyword1 keyword2'
+    end
+    it "should update user_number" do
+      FactoryGirl.create(:user,
+                         username: 'user001',
+                         profile: FactoryGirl.create(:profile))
+      @file = UserImportFile.create :user_import => File.new("#{Rails.root}/../../examples/user_update_file3.tsv")
+      result = @file.modify
+      result.should have_key(:user_updated)
+      user001 = User.where(username: 'user001').first
+      user001.profile.user_number.should eq '0001'
     end
   end
 
