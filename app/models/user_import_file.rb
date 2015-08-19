@@ -251,9 +251,9 @@ class UserImportFile < ActiveRecord::Base
     end
     params[:required_role_id] = required_role.id if required_role
 
-    params[:user_number] = row['user_number']
-    params[:full_name] = row['full_name']
-    params[:full_name_transcription] = row['full_name_transcription']
+    params[:user_number] = row['user_number'] if row['user_number']
+    params[:full_name] = row['full_name'] if row['full_name']
+    params[:full_name_transcription] = row['full_name_transcription'] if row['full_name_transcription']
 
     if row['expired_at'].present?
       params[:expired_at] = Time.zone.parse(row['expired_at']).end_of_day
@@ -263,7 +263,7 @@ class UserImportFile < ActiveRecord::Base
       params[:keyword_list] = row['keyword_list'].split('//').join("\n")
     end
 
-    params[:note] = row['note']
+    params[:note] = row['note'] if row['note']
 
     if %w(t true).include?(row['locked'].to_s.downcase.strip)
       params[:locked] = true 
