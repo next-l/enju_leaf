@@ -100,6 +100,7 @@ module EnjuLeaf
     end
   
     def markdown_helper(string)
+      return unless string
       if defined?(Redcarpet)
         markdown = Redcarpet::Markdown.new(
           Redcarpet::Render::HTML,
