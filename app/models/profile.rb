@@ -42,6 +42,7 @@ class Profile < ActiveRecord::Base
     boolean :active do
       user.try(:active_for_authentication?)
     end
+    integer :required_role_id
   end
 
   before_validation :set_role_and_agent, on: :create

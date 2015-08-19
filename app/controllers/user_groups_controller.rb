@@ -6,7 +6,7 @@ class UserGroupsController < ApplicationController
   # GET /user_groups
   # GET /user_groups.json
   def index
-    @user_groups = UserGroup.all
+    @user_groups = UserGroup.order(:position)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -96,7 +96,7 @@ class UserGroupsController < ApplicationController
       # EnjuCirculation
       {:user_group_has_checkout_types_attributes => [
         :id, :checkout_type_id, :checkout_limit, :checkout_period, :checkout_renewal_limit,
-        :reservation_limit, :reservation_expired_period, :set_due_date_before_closing_day,
+        :reservation_limit, :reservation_expired_period, :set_due_date_before_closing_day
       ]},
     )
   end

@@ -1,9 +1,12 @@
 class RolesController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource except: :index
+  authorize_resource only: :index
 
   # GET /roles
   # GET /roles.json
   def index
+    @roles = Role.order(:position)
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @roles }
