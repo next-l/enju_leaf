@@ -116,14 +116,17 @@ class UserImportFile < ActiveRecord::Base
 
       username = row['username']
       new_user = User.where(username: username).first
-      if new_user
-        new_user.assign_attributes(set_user_params(new_user, row), as: :admin)
-        if new_user.save
-          num[:user_updated] += 1
-          import_result.user = new_user
-          import_result.save!
-        else
-          num[:failed] += 1
+      if new_user.try(:profile)
+        new_user.assign_attributes(set_user_params(new_user, row))
+        new_user.profile.assign_attributes(set_profile_params(row))
+        Profile.transaction do
+          if new_user.save and new_user.profile.save
+            num[:user_updated] += 1
+            import_result.user = new_user
+            import_result.save!
+          else
+            num[:failed] += 1
+          end
         end
       else
         num[:user_not_found] += 1
@@ -154,11 +157,11 @@ class UserImportFile < ActiveRecord::Base
     rows.each do |row|
       row_num += 1
       username = row['username'].to_s.strip
-      user = User.where(username: username).first
-      if user
+      remove_user = User.where(username: username).first
+      if remove_user.try(:deletable_by?, user)
         UserImportFile.transaction do
-          user.profile.destroy
-          user.destroy
+          remove_user.destroy
+          remove_user.profile.destroy
         end
       end
     end

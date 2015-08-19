@@ -99,6 +99,11 @@ describe UserImportFile do
     it "should update users" do
       @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_update_file.tsv")
       @file.modify
+      user1 = User.where(username: 'user1').first
+      user1.profile.full_name.should eq '田辺浩介'
+      user1.profile.full_name_transcription.should eq 'たなべこうすけ'
+      user1.profile.user_number.should eq '98765'
+      user1.profile.note.should eq 'test'
     end
   end
 
@@ -115,8 +120,9 @@ describe UserImportFile do
     it "should remove users" do
       old_count = User.count
       @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_delete_file.tsv")
+      @file.user = users(:admin)
       @file.remove
-      User.count.should eq old_count - 3
+      User.count.should eq old_count - 2
     end
   end
 
