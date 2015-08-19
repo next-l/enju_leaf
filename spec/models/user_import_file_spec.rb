@@ -97,7 +97,6 @@ describe UserImportFile do
 
   describe "when its mode is 'update'" do
     it "should update users" do
-<<<<<<< HEAD
       user001 = FactoryGirl.create(:user,
         username: 'user001',
         profile: FactoryGirl.create(:profile,
@@ -134,15 +133,6 @@ describe UserImportFile do
       user001.profile.user_number.should eq '001'
       user001.profile.full_name.should eq 'User 001'
       user001.profile.full_name_transcription.should eq 'User 001'
-=======
-      @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_update_file.tsv")
-      @file.modify
-      user1 = User.where(username: 'user1').first
-      user1.profile.full_name.should eq '田辺浩介'
-      user1.profile.full_name_transcription.should eq 'たなべこうすけ'
-      user1.profile.user_number.should eq '98765'
-      user1.profile.note.should eq 'test'
->>>>>>> e71530e77d966809e8368f6420d0fff356f2c82a
     end
   end
 
@@ -160,7 +150,6 @@ describe UserImportFile do
       old_count = User.count
       @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_delete_file.tsv")
       @file.user = users(:admin)
-<<<<<<< HEAD
       @file.remove
       User.count.should eq old_count - 2
     end
@@ -172,10 +161,7 @@ describe UserImportFile do
       @file = UserImportFile.create :user_import => File.new("#{Rails.root}/../../examples/user_delete_file.tsv")
       @file.remove
       User.where(username: 'user001').should_not be_blank
-=======
-      @file.remove
       User.count.should eq old_count - 2
->>>>>>> e71530e77d966809e8368f6420d0fff356f2c82a
     end
   end
 
