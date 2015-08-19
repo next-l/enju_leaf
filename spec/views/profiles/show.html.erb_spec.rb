@@ -27,6 +27,7 @@ describe "profiles/show" do
       @ability.extend(CanCan::Ability)
       controller.stub(:current_ability) { @ability }
     end
+
     it "cannot be deletable by other librarian" do
       render
       @ability.should_not be_able_to( :destroy, @profile )
