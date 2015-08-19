@@ -149,8 +149,9 @@ describe UserImportFile do
     it "should remove users" do
       old_count = User.count
       @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_delete_file.tsv")
+      @file.user = users(:admin)
       @file.remove
-      User.count.should eq old_count - 3
+      User.count.should eq old_count - 2
     end
 
     it "should not remove users if there are checkouts" do

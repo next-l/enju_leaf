@@ -1,4 +1,4 @@
-username	email	role	user_group	expired_at	note
-user001	user001@example.jp	Administrator			test
-user002		User		2013-12-01	
-user003	user003@example.jp	Librarian			テストユーザ
+username
+user1
+user2	
+user3
