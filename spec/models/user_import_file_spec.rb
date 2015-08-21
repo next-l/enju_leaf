@@ -103,7 +103,8 @@ describe UserImportFile do
           full_name: 'User 001',
           keyword_list: 'word term')
       )
-      @file = UserImportFile.create :user_import => File.new("#{Rails.root}/../../examples/user_update_file.tsv")
+      @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_update_file.tsv"), user: users(:admin)
+      old_message_count = Message.count
       result = @file.modify
       result.should have_key(:user_updated)
       user001 = User.where(username: 'user001').first
@@ -111,6 +112,7 @@ describe UserImportFile do
       user001.profile.full_name.should eq '田辺 浩介'
       user001.profile.note.should eq 'test'
       user001.profile.keyword_list.should eq 'keyword1 keyword2'
+      Message.count.should eq old_message_count + 1
     end
 
     it "should not overwrite with null value" do
@@ -125,7 +127,7 @@ describe UserImportFile do
           keyword_list: 'keyword1 keyword2',
           date_of_birth: 10.years.ago)
       )
-      @file = UserImportFile.create :user_import => File.new("#{Rails.root}/../../examples/user_update_file2.tsv")
+      @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_update_file2.tsv"), user: users(:admin)
       result = @file.modify
       result.should have_key(:user_updated)
       user001 = User.find('user001')
@@ -133,12 +135,23 @@ describe UserImportFile do
       user001.profile.user_number.should eq '001'
       user001.profile.full_name.should eq 'User 001'
       user001.profile.full_name_transcription.should eq 'User 001'
+      user001.profile.keyword_list.should eq 'keyword1 keyword2'
+    end
+    it "should update user_number" do
+      FactoryGirl.create(:user,
+                         username: 'user001',
+                         profile: FactoryGirl.create(:profile))
+      @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_update_file3.tsv"), user: users(:admin)
+      result = @file.modify
+      result.should have_key(:user_updated)
+      user001 = User.where(username: 'user001').first
+      user001.profile.user_number.should eq '0001'
     end
   end
 
   describe "when its mode is 'destroy'" do
     before(:each) do
-      @file = UserImportFile.new user_import: File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv")
+      @file = UserImportFile.new user_import: File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv"), user: users(:admin)
       @file.user = users(:admin)
       @file.default_user_group = UserGroup.find(2)
       @file.default_library = Library.find(3)
@@ -148,18 +161,19 @@ describe UserImportFile do
 
     it "should remove users" do
       old_count = User.count
-      @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_delete_file.tsv")
+      @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_delete_file.tsv"), user: users(:admin)
       @file.user = users(:admin)
+      old_message_count = Message.count
       @file.remove
       User.count.should eq old_count - 2
+      Message.count.should eq old_message_count + 1
     end
 
     it "should not remove users if there are checkouts" do
       user001 = User.where(username: 'user001').first
       checkout = FactoryGirl.create(:checkout, user: user001, item: FactoryGirl.create(:item))
       old_count = User.count
-      @file = UserImportFile.create :user_import => File.new("#{Rails.root}/../../examples/user_delete_file.tsv")
-      @file.user = users(:admin)
+      @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_delete_file.tsv"), user: users(:admin)
       @file.remove
       User.where(username: 'user001').should_not be_blank
       User.count.should eq old_count - 2
@@ -167,7 +181,7 @@ describe UserImportFile do
   end
 
   it "should import in background" do
-    file = UserImportFile.new user_import: File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv")
+    file = UserImportFile.new user_import: File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv"), user: users(:admin)
     file.user = users(:admin)
     file.default_user_group = UserGroup.find(2)
     file.default_library = Library.find(3)
