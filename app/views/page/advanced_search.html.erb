@@ -10,6 +10,7 @@
         <% @libraries.sort_by{|l| l.position }.each do |library| %>
           <label><%= check_box_tag "library_adv[]", library.name %><%= library.display_name.localize %></label>
         <% end %>
+        <div class="check_all"><%= check_all_button "library_adv_", t('advanced_search.check_all') %> / <%= uncheck_all_button "library_adv_", t('advanced_search.uncheck_all') %></div>
       </td>
     </tr>
     <tr>

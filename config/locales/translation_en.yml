@@ -304,6 +304,8 @@ en:
     to: "to"
     from_to: "-"
     all_libraries: "All libraries"
+    check_all: "Check All"
+    uncheck_all: "Uncheck All"
   work:
     agents_work: "%{agent_name}'s works"
     library_group_work: "Works in %{library_group_name}"

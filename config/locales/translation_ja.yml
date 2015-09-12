@@ -299,6 +299,8 @@ ja:
     add: "協力した資料を追加する"
     specify_work: "書いた資料を指定してください。"
     specify_manifestation: "資料を指定してください。"
+    check_all: "全て選択"
+    uncheck_all: "全て解除"
   import:
     from_file: "ファイルから"
     from_isbn: "ISBNから"
