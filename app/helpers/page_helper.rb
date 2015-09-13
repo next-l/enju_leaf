@@ -1,21 +1,17 @@
 module PageHelper
-  def check_all_button( param, label, checked = true )
-    func_name = "check_all"
-    func_name = "un" + func_name if checked == false
+  def check_all_button( param, label )
     html = <<-EOF
-    <button id="#{ func_name }_#{ param }">#{ label }</button>
+    <button id="check_all_#{ param }">#{ label }</button>
     <script>
       $(function(){
-        $("##{ func_name }_#{ param }").click(function(){
-          $("input##{ param }").prop("checked", #{ checked });
-	  return false;
+        $("#check_all_#{ param }").click(function(e){
+          var checkboxes = $("input##{ param }");
+          checkboxes.prop("checked", !checkboxes.prop("checked"));
+          e.preventDefault();
         });
       });
     </script>
     EOF
     html.html_safe
-  end
-  def uncheck_all_button( param, label )
-    check_all_button( param, label, false )
   end
 end
