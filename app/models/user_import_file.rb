@@ -84,9 +84,6 @@ class UserImportFile < ActiveRecord::Base
         profile.assign_attributes(set_profile_params(row))
 
         if new_user.save
-          if profile.locked
-            new_user.lock_access!
-          end
           new_user.profile = profile
           if profile.save
             num[:user_imported] += 1
@@ -251,6 +248,11 @@ class UserImportFile < ActiveRecord::Base
     else
       params[:password] = Devise.friendly_token[0..7]
     end
+
+    if %w(t true).include?(row['locked'].to_s.downcase.strip)
+      params[:locked] = '1'
+    end
+
     params
   end
 
@@ -281,10 +283,6 @@ class UserImportFile < ActiveRecord::Base
     end
 
     params[:note] = row['note'] if row['note']
-
-    if %w(t true).include?(row['locked'].to_s.downcase.strip)
-      params[:locked] = true 
-    end
 
     if I18n.available_locales.include?(row['locale'].to_s.to_sym)
       params[:locale] = row['locale']
