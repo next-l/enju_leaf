@@ -405,6 +405,13 @@ describe ProfilesController do
         response.should redirect_to profile_url(assigns(:profile))
         assert_equal assigns(:profile).note, 'test'
       end
+
+      it "should update other user's locked status" do
+        put :update, id: profiles(:user1).id, profile: {:user_attributes => {:id => 3, :locked => '1', :username => 'user1'}}
+        response.should redirect_to profile_url(assigns(:profile))
+        assigns(:profile).user.locked_at.should be_truthy
+        assigns(:profile).user.access_locked?.should be_truthy
+      end
     end
 
     describe "When logged in as User" do

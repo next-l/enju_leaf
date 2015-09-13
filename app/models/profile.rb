@@ -20,7 +20,7 @@ class Profile < ActiveRecord::Base
 
   normalize_attribute :user_number
 
-  attr_accessor :birth_date, :locked
+  attr_accessor :birth_date
 
   searchable do
     text :user_number, :full_name, :full_name_transcription, :note

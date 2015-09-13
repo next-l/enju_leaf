@@ -288,6 +288,7 @@ ja:
     from: ""
     to: "から"
     all_libraries: "全ての図書館"
+    check_all: "全て選択/解除"
   work:
     agent_work: "%{agent_name} の書いた資料"
     library_group_work: "%{library_group_name} にある書いた資料"
