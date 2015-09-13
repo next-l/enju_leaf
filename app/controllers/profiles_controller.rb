@@ -154,9 +154,9 @@ class ProfilesController < ApplicationController
     ]
     attrs += [
       :library_id, :expired_at, :birth_date,
-      :user_group_id, :required_role_id, :note, :locked, :user_number, {
+      :user_group_id, :required_role_id, :note, :user_number, {
         :user_attributes => [
-          :id, :username, :email, :current_password,
+          :id, :username, :email, :current_password, :locked,
           {:user_has_role_attributes => [:id, :role_id]}
         ]
       }
@@ -173,9 +173,9 @@ class ProfilesController < ApplicationController
     ]
     attrs += [
       :library_id, :expired_at, :birth_date,
-      :user_group_id, :required_role_id, :note, :locked, :user_number, {
+      :user_group_id, :required_role_id, :note, :user_number, {
         :user_attributes => [
-          :id, :email, :current_password, :auto_generated_password,
+          :id, :email, :current_password, :auto_generated_password, :locked,
           {:user_has_role_attributes => [:id, :role_id]}
         ]
       }
