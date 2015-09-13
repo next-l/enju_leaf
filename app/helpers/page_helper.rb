@@ -1,13 +1,13 @@
 module PageHelper
   def check_all_button( param, label )
     html = <<-EOF
-    <button id="check_all_#{ param }">#{ label }</button>
+    <button type="button" id="check_all_#{ param }">#{ label }</button>
     <script>
       $(function(){
         $("#check_all_#{ param }").click(function(e){
+          alert(e.type + e.target);
           var checkboxes = $("input##{ param }");
           checkboxes.prop("checked", !checkboxes.prop("checked"));
-          e.preventDefault();
         });
       });
     </script>
