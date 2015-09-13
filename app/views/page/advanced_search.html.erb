@@ -52,6 +52,14 @@
       <td><%= text_field_tag 'item_identifier' -%></td>
     </tr>
     <tr>
+      <td><label><%= t('activerecord.models.classification') %>:</label></td>
+      <td>
+        <%- types = ClassificationType.all.select{|t| ! t.classifications.empty? } -%> 
+        <%= select_tag 'classification_type', options_from_collection_for_select( types, :id, Proc.new{|e| e.display_name.localize } ) -%>
+        <%= text_field_tag 'classification' -%>
+      </td>
+    </tr>
+    <tr>
       <td><label><%= t('activerecord.attributes.manifestation.date_of_publication') -%>:</label></td>
       <td><%= t('advanced_search.from') -%> <%= text_field_tag 'pub_date_from', nil, class: 'date_text_field', placeholder: "#{t('page.example')}: 1978, 1978-04-12" -%>
         <%= t('advanced_search.to') -%> <%= text_field_tag 'pub_date_to', nil, class: 'date_text_field', placeholder: "#{t('page.example')}: 2011, 2011-04-12"-%></td>

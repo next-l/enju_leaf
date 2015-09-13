@@ -5,7 +5,6 @@ module PageHelper
     <script>
       $(function(){
         $("#check_all_#{ param }").click(function(e){
-          alert(e.type + e.target);
           var checkboxes = $("input##{ param }");
           checkboxes.prop("checked", !checkboxes.prop("checked"));
         });
