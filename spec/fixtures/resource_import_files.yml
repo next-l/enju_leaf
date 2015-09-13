@@ -2,20 +2,20 @@
 
 resource_import_file_00001:
   id: 1
-  resource_import_file_name: MyString
-  resource_import_file_size: 1
+  resource_import_filename: MyString
+  resource_import_size: 1
   user_id: 1
   resource_import_content_type: text/csv
 resource_import_file_00002:
   id: 2
-  resource_import_file_name: MyString
-  resource_import_file_size: 1
+  resource_import_filename: MyString
+  resource_import_size: 1
   user_id: 1
   resource_import_content_type: text/csv
 resource_import_file_00003:
   id: 3
-  resource_import_file_name: MyString
-  resource_import_file_size: 1
+  resource_import_filename: MyString
+  resource_import_size: 1
   user_id: 1
   resource_import_content_type: text/csv
 
@@ -31,9 +31,9 @@ resource_import_file_00003:
 #  note                         :text
 #  executed_at                  :datetime
 #  state                        :string(255)
-#  resource_import_file_name    :string(255)
+#  resource_import_filename    :string(255)
 #  resource_import_content_type :string(255)
-#  resource_import_file_size    :integer
+#  resource_import_size    :integer
 #  resource_import_updated_at   :datetime
 #  created_at                   :datetime        not null
 #  updated_at                   :datetime        not null
