@@ -7,6 +7,13 @@ class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.json
   def index
+    if params[:username].present?
+      profile = User.where(username: params[:username]).first.try(:profile)
+      if profile
+        redirect_to profile
+        return
+      end
+    end
     query = flash[:query] = params[:query].to_s
     @query = query.dup
     @count = {}
