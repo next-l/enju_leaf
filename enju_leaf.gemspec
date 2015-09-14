@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids,default,development,test}/*"] - Dir["spec/dummy/tmp/*"]
 
   s.add_dependency "rails", ">= 3.2.22", "< 5.0"
-  s.add_dependency "enju_biblio", "~> 0.1.0.pre68"
+  s.add_dependency "enju_biblio", "~> 0.1.0.pre69"
   s.add_dependency "enju_library", "~> 0.1.0.pre43"
   s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre18"
   s.add_dependency "friendly_id", ">= 4.0"
@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
   s.add_dependency "addressable"
   s.add_dependency "sunspot_rails", "~> 2.2"
   s.add_dependency "resque"
+  s.add_dependency "dalli"
   s.add_dependency "nested_form"
   s.add_dependency "mobylette", "~> 3.5"
   s.add_dependency "sitemap_generator", "~> 5.1"
