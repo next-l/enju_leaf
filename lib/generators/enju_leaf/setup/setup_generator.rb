@@ -114,7 +114,7 @@ EOS
       "config.serve_static_assets = true"
     gsub_file 'config/environments/production.rb',
       /# config.cache_store = :mem_cache_store$/,
-      "config.cache_store = :dalli_store, {:compress => true}"
+      "config.cache_store = :redis_store, ENV['REDIS_URL'], { expires_in: 1.day }"
     gsub_file 'config/environments/production.rb',
       /# config.assets.precompile \+= %w\( search.js \)$/,
       "config.assets.precompile += %w( mobile.js mobile.css print.css )"
