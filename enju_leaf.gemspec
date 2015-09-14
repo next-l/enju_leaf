@@ -30,7 +30,6 @@ Gem::Specification.new do |s|
   s.add_dependency "addressable"
   s.add_dependency "sunspot_rails", "~> 2.2"
   s.add_dependency "resque"
-  s.add_dependency "dalli"
   s.add_dependency "nested_form"
   s.add_dependency "mobylette", "~> 3.5"
   s.add_dependency "sitemap_generator", "~> 5.1"
