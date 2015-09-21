@@ -93,10 +93,10 @@ EOS
     end
 
     inject_into_file "app/assets/javascripts/application.js", after: /\/\/= require jquery_ujs$\n/ do
-      "//= require enju_leaf\n"
+      "//= require enju_leaf/application\n"
     end
     inject_into_file "app/assets/stylesheets/application.css", after: / *= require_self$\n/ do
-      " *= require enju_leaf\n"
+      " *= require enju_leaf/application\n"
     end
     inject_into_file "config.ru", after: /require ::File.expand_path\(\'..\/config\/environment\',  __FILE__\)$\n/ do
       <<"EOS"
