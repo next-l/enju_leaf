@@ -60,4 +60,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "charlock_holmes"
   s.add_development_dependency "redis-rails"
   s.add_development_dependency "resque-scheduler", "~> 4.0"
+  s.add_development_dependency "capybara"
 end
