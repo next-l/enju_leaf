@@ -18,7 +18,7 @@ gem "enju_event", github: "next-l/enju_event", branch: "master"
 gem "enju_message", github: "next-l/enju_message", branch: "master"
 gem "enju_search_log", github: "next-l/enju_search_log", branch: "master"
 gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer", branch: "master"
-gem "coveralls", require: false, group: :test
+gem "codeclimate-test-reporter", group: :test, require: false
 gem "dotenv-rails"
 
 # To use a debugger
