@@ -78,12 +78,16 @@ module EnjuLeaf
         def export(options = {format: :txt})
           header = %w(
             username
+            full_name
+            full_name_transcription
             email
             user_number
             role
             user_group
             library
             locale
+            locked
+            required_role
             created_at
             updated_at
             expired_at
@@ -100,12 +104,16 @@ module EnjuLeaf
           users = User.all.map{|u|
             lines = []
             lines << u.username
+            lines << u.try(:profile).try(:full_name)
+            lines << u.try(:profile).try(:full_name_transcription)
             lines << u.email
             lines << u.try(:profile).try(:user_number)
             lines << u.role.name
             lines << u.try(:profile).try(:user_group).try(:name)
             lines << u.try(:profile).try(:library).try(:name)
             lines << u.try(:profile).try(:locale)
+            lines << u.access_locked?
+            lines << u.try(:profile).try(:required_role).try(:name)
             lines << u.created_at
             lines << u.updated_at
             lines << u.expired_at
