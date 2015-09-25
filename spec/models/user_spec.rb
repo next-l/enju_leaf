@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-require 'spec_helper'
+require 'rails_helper'
 
 describe User do
   #pending "add some examples to (or delete) #{__FILE__}"
@@ -134,6 +134,28 @@ describe User do
       assert users(:librarian1).send_message('reservation_expired_for_patron', :manifestations => users(:librarian1).reserves.not_sent_expiration_notice_to_patron.collect(&:manifestation))
       users(:librarian1).reload
       users(:librarian1).reserves.not_sent_expiration_notice_to_patron.should be_empty
+    end
+  end
+
+  describe ".export" do
+    it "should export all user's information" do
+      lines = User.export
+      expect(lines).not_to be_empty
+      expect(lines.split(/\r\n/).size).to eq User.all.size + 1
+    end
+    it "should export share_bookmarks and save_search_history" do
+      user = FactoryGirl.create(:user,
+        profile: FactoryGirl.create(:profile,
+          share_bookmarks: true,
+          save_search_history: true))
+      lines = User.export
+      rows = CSV.new(lines, col_sep: "\t", headers: true)
+      rows.each do |row|
+        if row["username"] == user.username
+          expect(row["share_bookmarks"]).to eq "true"
+          expect(row["save_search_history"]).to eq "true"
+        end
+      end
     end
   end
 end
