@@ -275,6 +275,9 @@ ja:
     notice: 注意
     system_information: システムの基本的な情報の表示
     menu: メニュー
+    default_locale: "既定の言語"
+    nosolr_error: '検索サーバに不具合があるようです'
+    nosolr_error_description: '検索サーバーの起動に時間がかかっている場合もこのエラーとなります。少し時間を置いてアクセスするとエラーが解消される場合もありますのでお試しください。'
   title:
     index: "一覧"
     show: "表示"
