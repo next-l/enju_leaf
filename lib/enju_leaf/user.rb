@@ -89,11 +89,14 @@ module EnjuLeaf
             expired_at
             keyword_list
             note
+	  )
+	  header += %w(
             checkout_icalendar_token
             save_checkout_history
-            save_search_history
-            share_bookmarks
-          ).join("\t")
+	  ) if defined? EnjuCirculation
+	  header << "save_search_history" if defined? EnjuSearchLog
+	  header << "share_bookmarks" if defined? EnjuBookmark
+	  header = header.join("\t")
           users = User.all.map{|u|
             lines = []
             lines << u.username
@@ -108,10 +111,16 @@ module EnjuLeaf
             lines << u.expired_at
             lines << u.try(:profile).try(:keyword_list).try(:split).try(:join, "//")
             lines << u.try(:profile).try(:note)
-            lines << u.try(:profile).try(:checkout_icalendar_token)
-            lines << u.try(:profile).try(:save_checkout_history)
-            lines << u.try(:profile).try(:save_search_history)
-            lines << u.try(:profile).try(:share_bookmarks)
+	    if defined? EnjuCirculation
+              lines << u.try(:profile).try(:checkout_icalendar_token)
+              lines << u.try(:profile).try(:save_checkout_history)
+	    end
+	    if defined? EnjuSearchLog
+              lines << u.try(:profile).try(:save_search_history)
+	    end
+	    if defined? EnjuBookmark
+              lines << u.try(:profile).try(:share_bookmarks)
+	    end
           }
           if options[:format] == :txt
             users.map{|u| u.join("\t")}.unshift(header).join("\r\n")
