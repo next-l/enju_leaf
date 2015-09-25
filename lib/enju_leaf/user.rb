@@ -129,6 +129,7 @@ module EnjuLeaf
 	    if defined? EnjuBookmark
               lines << u.try(:profile).try(:share_bookmarks)
 	    end
+	    lines
           }
           if options[:format] == :txt
             users.map{|u| u.join("\t")}.unshift(header).join("\r\n")
