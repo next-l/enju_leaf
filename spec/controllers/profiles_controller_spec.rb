@@ -566,6 +566,7 @@ describe ProfilesController do
     describe "When not logged in" do
       it "destroys the requested user" do
         delete :destroy, id: profiles(:user2).id
+        response.should redirect_to(new_user_session_url)
       end
 
       it "should be forbidden" do
