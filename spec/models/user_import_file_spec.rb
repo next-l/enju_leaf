@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-require 'spec_helper'
+require 'rails_helper'
 
 describe UserImportFile do
   fixtures :all
@@ -95,11 +95,13 @@ describe UserImportFile do
   end
 
   describe "when its mode is 'update'" do
-    it "should update users" do
+    before(:each) do
       FactoryGirl.create(:user,
         username: 'user001',
         profile: FactoryGirl.create(:profile)
       )
+    end
+    it "should update users" do
       @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_update_file.tsv"), user: users(:admin)
       old_message_count = Message.count
       result = @file.modify
@@ -115,17 +117,15 @@ describe UserImportFile do
     end
 
     it "should not overwrite with null value" do
-      FactoryGirl.create(:user,
-        username: 'user001',
-        profile: FactoryGirl.create(:profile,
-          user_number: '001',
-          full_name: 'User 001',
-          full_name_transcription: 'User 001',
-          locale: 'ja',
-          note: 'Note',
-          keyword_list: 'keyword1 keyword2',
-          date_of_birth: 10.years.ago)
-      )
+      user = User.where(username: 'user001').first
+      user.profile = FactoryGirl.create(:profile,
+        user_number: '001',
+        full_name: 'User 001',
+        full_name_transcription: 'User 001',
+        locale: 'ja',
+        note: 'Note',
+        keyword_list: 'keyword1 keyword2',
+        date_of_birth: 10.years.ago)
       @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_update_file2.tsv"), user: users(:admin)
       result = @file.modify
       result.should have_key(:user_updated)
@@ -137,14 +137,18 @@ describe UserImportFile do
       user001.profile.keyword_list.should eq 'keyword1 keyword2'
     end
     it "should update user_number" do
-      FactoryGirl.create(:user,
-                         username: 'user001',
-                         profile: FactoryGirl.create(:profile))
       @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_update_file3.tsv"), user: users(:admin)
       result = @file.modify
       result.should have_key(:user_updated)
       user001 = User.where(username: 'user001').first
       user001.profile.user_number.should eq '0001'
+    end
+    it "should update user's lock status" do
+      @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_update_file4.tsv"), user: users(:admin)
+      result = @file.modify
+      result.should have_key(:user_updated)
+      user001 = User.where(username: 'user001').first
+      user001.access_locked?.should be_truthy
     end
   end
 
