@@ -3,10 +3,6 @@ machine:
     version: 2.2.3
   environment:
     RAILS_ENV: test
-dependencies:
-  override:
-    - 'rvm-exec 2.1.7 bundle install'
-    - 'rvm-exec 2.2.3 bundle install'
 test:
   override:
     - rvm-exec 2.1.7 bundle exec rake: { parallel: true }
