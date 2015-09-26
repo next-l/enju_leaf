@@ -1,13 +1,6 @@
 machine:
   ruby:
     version: 2.2.3
-  environment:
-    RAILS_ENV: test
-test:
-  override:
-    - rvm-exec 2.1.7 bundle exec rake: { parallel: true }
-    - rvm-exec 2.2.3 bundle exec rake: { parallel: true }
 database:
   override:
-    - 'rvm-exec 2.1.7 bundle exec rake db:create db:migrate'
-    - 'rvm-exec 2.2.3 bundle exec rake db:create db:migrate'
+    - bundle exec rake db:create db:migrate
