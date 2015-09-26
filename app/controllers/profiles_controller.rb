@@ -88,7 +88,7 @@ class ProfilesController < ApplicationController
         else
           @profile.reset_checkout_icalendar_token
         end
-        render partial: 'feed_token'
+        render partial: 'feed_token', locals: {profile: @profile}
         return
       end
     end
