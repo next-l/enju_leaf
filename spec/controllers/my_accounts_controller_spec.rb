@@ -29,7 +29,7 @@ describe MyAccountsController do
     describe "When logged in as Administrator" do
       before(:each) do
         profile = FactoryGirl.create(:profile)
-        @user = User.find('enjuadmin')
+        @user = FactoryGirl.create(:admin)
         @user.profile = profile
         sign_in @user
       end

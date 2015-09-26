@@ -119,7 +119,7 @@ module EnjuLeaf
             lines << u.try(:profile).try(:required_role).try(:name)
             lines << u.created_at
             lines << u.updated_at
-            lines << u.expired_at
+            lines << u.try(:profile).try(:expired_at)
             lines << u.try(:profile).try(:keyword_list).try(:split).try(:join, "//")
             lines << u.try(:profile).try(:note)
 	    if defined? EnjuCirculation
