@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-require 'spec_helper'
+require 'rails_helper'
 
 describe ProfilesController do
   fixtures :all
@@ -190,8 +190,9 @@ describe ProfilesController do
         #assigns(:profile).should eq admin
       end
 
-      it "should not be able to delete other librarian user" do
-        librarian = FactoryGirl.create(:librarian_profile)
+      it "should show icalendar feed" do
+        get :edit, id: profiles(:user1).id, mode: 'feed_token'
+        response.should render_template("profiles/_feed_token")
       end
     end
 

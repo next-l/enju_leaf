@@ -10,13 +10,13 @@
         |  <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('
         = form_authenticity_token
         | '), success:function(request){$('#feed_token').html(request);}, type:'get', url:'
-        = edit_my_account_path(mode: 'feed_token')
+        = edit_profile_path(profile, mode: 'feed_token')
         | '});" type="button" value="
         = t('page.reset')
         | " /> <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('
         = form_authenticity_token
         | '), success:function(request){$('#feed_token').html(request);}, type:'get', url:'
-        = edit_my_account_path(disable: true, mode: 'feed_token')
+        = edit_profile_path(profile, disable: true, mode: 'feed_token')
         | '});" type="button" value="
         = t('page.delete')
         | " /> 

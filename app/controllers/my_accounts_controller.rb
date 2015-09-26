@@ -13,17 +13,6 @@ class MyAccountsController < ApplicationController
 
   def edit
     @profile = current_user.profile
-    if defined?(EnjuCirculation)
-      if params[:mode] == 'feed_token'
-        if params[:disable] == 'true'
-          @profile.delete_checkout_icalendar_token
-        else
-          @profile.reset_checkout_icalendar_token
-        end
-        render partial: 'feed_token'
-        return
-      end
-    end
     prepare_options
   end
 
