@@ -69,12 +69,15 @@ module EnjuLeaf
 
         paginates_per 10
 
+        # 有効期限切れのユーザを一括で使用不可にします。
         def lock_expired_users
           User.find_each do |user|
             user.lock_access! if user.expired? and user.active_for_authentication?
           end
         end
 
+        # ユーザの情報をエクスポートします。
+        # @param [Hash] options
         def export(options = {format: :txt})
           header = %w(
             username
@@ -141,12 +144,17 @@ module EnjuLeaf
     end
 
     module InstanceMethods
+      # ユーザにパスワードが必要かどうかをチェックします。
+      # @return [Boolean]
       def password_required?
         if Devise.mappings[:user].modules.include?(:database_authenticatable)
           !persisted? || !password.nil? || !password_confirmation.nil?
         end
       end
 
+      # ユーザが特定の権限を持っているかどうかをチェックします。
+      # @param [String] role_in_question 権限名
+      # @return [Boolean]
       def has_role?(role_in_question)
         return false unless role
         return true if role.name == role_in_question
@@ -160,6 +168,7 @@ module EnjuLeaf
         end
       end
 
+      # ユーザに使用不可の設定を反映させます。
       def set_lock_information
         if locked == '1' and self.active_for_authentication?
           lock_access!
@@ -175,6 +184,8 @@ module EnjuLeaf
         end
       end
 
+      # ユーザが有効期限切れかどうかをチェックし、期限切れであれば使用不可に設定します。
+      # @return [Object]
       def check_expiration
         return if has_role?('Administrator')
         if expired_at
@@ -184,6 +195,8 @@ module EnjuLeaf
         end
       end
 
+      # ユーザの削除前に、管理者ユーザが不在にならないかどうかをチェックします。
+      # @return [Object]
       def check_role_before_destroy
         if has_role?('Administrator')
           if Role.where(name: 'Administrator').first.users.count == 1
@@ -192,26 +205,36 @@ module EnjuLeaf
         end
       end
 
+      # ユーザに自動生成されたパスワードを設定します。
+      # @return [String]
       def set_auto_generated_password
         password = Devise.friendly_token[0..7]
         self.password = password
         self.password_confirmation = password
       end
 
+      # ユーザが有効期限切れかどうかをチェックします。
+      # @return [Boolean]
       def expired?
         if expired_at
           true if expired_at.beginning_of_day < Time.zone.now.beginning_of_day
         end
       end
 
+      # ユーザが管理者かどうかをチェックします。
+      # @return [Boolean]
       def is_admin?
-        true if has_role?('Administrator')
+        return true if has_role?('Administrator')
+        false
       end
 
+      # ユーザがシステム上の最後のLibrarian権限ユーザかどうかをチェックします。
+      # @return [Boolean]
       def last_librarian?
         if has_role?('Librarian')
           role = Role.where(name: 'Librarian').first
-          true if role.users.size == 1
+          return true if role.users.count == 1
+          false
         end
       end
 
@@ -219,6 +242,9 @@ module EnjuLeaf
         Devise::Mailer.confirmation_instructions(self).deliver if email.present?
       end
 
+      # ユーザが削除可能かどうかをチェックします。
+      # @param [User] current_user ユーザ
+      # @return [Object]
       def deletable_by?(current_user)
         return nil unless current_user
         if defined?(EnjuCirculation)
