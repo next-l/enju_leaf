@@ -49,11 +49,15 @@ class Profile < ActiveRecord::Base
   before_save :set_expired_at, :set_date_of_birth
   accepts_nested_attributes_for :user
 
+  # 既定のユーザ権限を設定します。
+  # @return [void]
   def set_role_and_agent
     self.required_role = Role.where(name: 'Librarian').first unless required_role
     self.locale = I18n.default_locale.to_s unless locale
   end
 
+  # ユーザの有効期限を設定します。
+  # @return [Time]
   def set_expired_at
     if expired_at.blank?
       if user_group.valid_period_for_new_user > 0
@@ -62,6 +66,8 @@ class Profile < ActiveRecord::Base
     end
   end
 
+  # ユーザの誕生日を設定します。
+  # @return [Time]
   def set_date_of_birth
     self.date_of_birth = Time.zone.parse(birth_date) if birth_date
   rescue ArgumentError
