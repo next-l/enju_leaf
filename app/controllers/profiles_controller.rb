@@ -186,7 +186,7 @@ class ProfilesController < ApplicationController
     attrs = [
       :full_name, :full_name_transcription,
       :keyword_list, :locale,
-      :save_checkout_history, # EnjuCirculation
+      :save_checkout_history, :checkout_icalendar_token, # EnjuCirculation
       :save_search_history, # EnjuSearchLog
     ]
     attrs += [
