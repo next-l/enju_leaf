@@ -80,10 +80,6 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
-    if @profile.user == current_user
-      redirect_to edit_my_account_url
-      return
-    end
     if defined?(EnjuCirculation)
       if params[:mode] == 'feed_token'
         if params[:disable] == 'true'
@@ -94,6 +90,10 @@ class ProfilesController < ApplicationController
         render partial: 'feed_token'
         return
       end
+    end
+    if @profile.user == current_user
+      redirect_to edit_my_account_url
+      return
     end
     if @profile.user.try(:locked_at?)
       @profile.user.locked = true
