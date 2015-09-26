@@ -13,6 +13,7 @@ class PageController < ApplicationController
   ]
   helper_method :get_libraries
 
+  # トップページを表示します。
   def index
     if user_signed_in?
       session[:user_return_to] = nil
@@ -50,51 +51,62 @@ class PageController < ApplicationController
     end
   end
 
+  # Internet Explorer用のアクセラレータを表示します。
   def msie_accelerator
     respond_to do |format|
       format.xml { render layout: false }
     end
   end
 
+  # OpenSearch Descriptionファイルを表示します。
   def opensearch
     respond_to do |format|
       format.xml { render layout: false }
     end
   end
 
+  # 詳細検索画面を表示します。
   def advanced_search
     get_libraries
     @title = t('page.advanced_search')
   end
 
+  # 統計画面を表示します。
   def statistics
     @title = t('page.statistics')
   end
 
+  # システム設定画面を表示します。
   def configuration
     @title = t('page.configuration')
   end
 
+  # システム情報画面を表示します。
   def system_information
     @specs = Bundler.load.specs.sort!
   end
 
+  # インポート画面を表示します。
   def import
     @title = t('page.import')
   end
 
+  # エクスポート画面を表示します。
   def export
     @title = t('page.export')
   end
 
+  # 「このシステムについて」を表示します。
   def about
     @title = t('page.about_this_system')
   end
 
+  # 「アドオン」を表示します。
   def add_on
     @title = t('page.add_on')
   end
 
+  # ルーティングエラー画面を表示します。
   def routing_error
     render_404
   end

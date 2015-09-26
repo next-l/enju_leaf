@@ -10,6 +10,7 @@ module CalculateStat
   end
 
   module ClassMethods
+    # 利用統計の集計を開始します。
     def calculate_stat
       self.not_calculated.each do |stat|
         stat.transition_to!(:started)
@@ -18,6 +19,7 @@ module CalculateStat
   end
 
   module InstanceMethods
+    # 利用統計の日付をチェックします。
     def check_date
       if self.start_date and self.end_date
         if self.start_date >= self.end_date
@@ -27,6 +29,7 @@ module CalculateStat
       end
     end
 
+    # 利用統計の集計完了メッセージを送信します。
     def send_message
       sender = User.find(1) #system
       message_template = MessageTemplate.localized_template('counting_completed', user.profile.locale)
