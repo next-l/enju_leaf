@@ -316,11 +316,6 @@ class UserImportFile < ActiveRecord::Base
     end
     params
   end
-
-  # TSVファイルのハッシュ値を設定します。
-  def set_fingerprint
-    self.user_import_fingerprint = Digest::SHA1.file(user_import.download.path).hexdigest
-  end
 end
 
 # == Schema Information
