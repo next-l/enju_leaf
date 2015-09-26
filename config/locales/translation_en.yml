@@ -76,6 +76,7 @@ en:
         default_library_id: Default library
       user_import_result:
         body: Contents
+        lineno: Line
       user_export_file:
         user_export_file_name: Filename
         user_export_file_size: Size
