@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-require 'spec_helper'
+require 'rails_helper'
 
 describe ProfilesController do
   fixtures :all
@@ -192,10 +192,10 @@ describe ProfilesController do
         response.should be_forbidden
         assigns(:profile).should eq admin
       end
-      it "should not be able to delete other librarian user" do
-        librarian = FactoryGirl.create(:librarian_profile)
-        ability = EnjuLeaf::Ability.new(@user, "0.0.0.0")
-        ability.should_not be_able_to( :destroy, librarian )
+
+      it "should show icalendar feed" do
+        get :edit, id: profiles(:user1).id, mode: 'feed_token'
+        response.should render_template("profiles/_feed_token")
       end
     end
 
@@ -542,6 +542,12 @@ describe ProfilesController do
       it "should not destroy myself" do
         delete :destroy, id: profiles(:librarian1).id
         response.should be_forbidden
+      end
+
+      it "should not be able to delete other librarian user" do
+        librarian = FactoryGirl.create(:librarian_profile)
+        ability = EnjuLeaf::Ability.new(@user, "0.0.0.0")
+        ability.should_not be_able_to( :destroy, librarian )
       end
     end
 

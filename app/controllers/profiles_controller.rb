@@ -84,6 +84,17 @@ class ProfilesController < ApplicationController
       redirect_to edit_my_account_url
       return
     end
+    if defined?(EnjuCirculation)
+      if params[:mode] == 'feed_token'
+        if params[:disable] == 'true'
+          @profile.delete_checkout_icalendar_token
+        else
+          @profile.reset_checkout_icalendar_token
+        end
+        render partial: 'feed_token'
+        return
+      end
+    end
     if @profile.user.try(:locked_at?)
       @profile.user.locked = true
     end
