@@ -8,6 +8,7 @@ module ImportFile
       include InstanceMethods
     end
 
+    # 失敗したインポート処理を一括削除します。
     def expire
       self.stucked.find_each do |file|
         file.destroy
@@ -29,6 +30,8 @@ module ImportFile
       end
     end
 
+    # インポートするファイルの文字コードをUTF-8に変換します。
+    # @param [String] line 変換する文字列
     def convert_encoding(line)
       if defined?(CharlockHolmes::EncodingDetector)
         begin
@@ -49,6 +52,7 @@ module ImportFile
       end
     end
 
+    # インポート完了時のメッセージを送信します。
     def send_message
       sender = User.find(1)
       message_template = MessageTemplate.localized_template('import_completed', user.profile.locale)
