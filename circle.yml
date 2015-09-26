@@ -1,3 +1,6 @@
 machine:
   ruby:
     version: 2.2.3
+database:
+  override:
+    - bundle exec rake db:create db:migrate
