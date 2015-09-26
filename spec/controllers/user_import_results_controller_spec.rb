@@ -12,6 +12,26 @@ describe UserImportResultsController do
         get :index
         assigns(:user_import_results).should eq(UserImportResult.order(id: :desc).page(1))
       end
+
+      describe "With @user_import_file parameter" do
+        before (:each) do
+          @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_import_file_sample_long.tsv"), user: users(:admin)
+          @file.default_user_group = UserGroup.find(2)
+          @file.default_library = Library.find(3)
+          @file.save
+          result = @file.import_start
+        end
+        render_views
+        it "should assign all user_import_results for the user_import_file with a page parameter" do
+          get :index, user_import_file_id: @file.id
+          results = assigns(:user_import_results)
+          results.should_not be_empty
+          get :index, user_import_file_id: @file.id, page: 2
+          results2 = assigns(:user_import_results)
+          results2.first.should_not eq results.first
+          response.body.should match /<td>11<\/td>/
+        end
+      end
     end
 
     describe "When logged in as Librarian" do
