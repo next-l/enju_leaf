@@ -27,6 +27,7 @@ class UserExportFile < ActiveRecord::Base
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
     to: :state_machine
 
+  # エクスポートの処理を実行します。
   def export!
     transition_to!(:started)
     tempfile = Tempfile.new(['user_export_file_', '.txt'])

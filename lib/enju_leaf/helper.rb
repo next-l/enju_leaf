@@ -1,5 +1,6 @@
 module EnjuLeaf
   module EnjuLeafHelper
+    # 使用中のデータベースのアダプタ名を表示します。
     def database_adapter
       case ActiveRecord::Base.connection.adapter_name
       when 'PostgreSQL'
@@ -10,7 +11,8 @@ module EnjuLeaf
         link_to 'SQLite', 'http://www.sqlite.org/'
       end
     end
-  
+
+    # HTMLのtitleに表示されるアクション名を設定します。  
     def title_action_name
       case controller.action_name
       when 'index'
@@ -39,7 +41,9 @@ module EnjuLeaf
     def move_position(object)
       render partial: 'page/position', locals: {object: object}
     end
-  
+
+    # I18nに対応した状態名を表示します。
+    # @param [String] state 状態名
     def localized_state(state)
       case state
       when 'pending'
@@ -57,6 +61,8 @@ module EnjuLeaf
       end
     end
   
+    # I18nに対応した状態名を表示します。
+    # @param [Boolean] bool 状態名
     def localized_boolean(bool)
       case bool.to_s
       when nil
@@ -66,11 +72,13 @@ module EnjuLeaf
         t('page.boolean.false')
       end
     end
-  
+
+    # ログイン中のユーザの権限名を表示します。
     def current_user_role_name
       current_user.try(:role).try(:name) || 'Guest'
     end
   
+    # HTMLのtitleを表示します。
     def title(controller_name)
       string = ''
       unless ['page', 'routing_error', 'my_accounts'].include?(controller_name)
@@ -82,7 +90,9 @@ module EnjuLeaf
       string << LibraryGroup.system_name + ' - Next-L Enju Leaf'
       string.html_safe
     end
-  
+
+    # 前の画面に戻るリンクを表示します。 
+    # @param [Hash] options
     def back_to_index(options = {})
       if options == nil
         options = {}
@@ -94,11 +104,14 @@ module EnjuLeaf
         link_to t('page.listing', model: t("activerecord.models.#{controller_name.singularize}")), url_for(params.merge(controller: controller_name, action: :index, id: nil, only_path: true).merge(options))
       end
     end
-  
+
+    # 検索フォームにフォーカスを移動するJavaScriptを表示します。 
     def set_focus_on_search_form
       javascript_tag("$(function(){$('#search_form').focus()})") if @query.blank?
     end
-  
+
+    # Markdownの文字列をパースして表示します。
+    # @param [String] string Markdownの文字列 
     def markdown_helper(string)
       return unless string
       if defined?(Redcarpet)
@@ -112,6 +125,8 @@ module EnjuLeaf
       end
     end
 
+    # ユーザの未読メッセージ数を表示します。
+    # @param [User] user ユーザ
     def messages_count(user)
       Message.search do
         with(:receiver_id).equal_to user.id

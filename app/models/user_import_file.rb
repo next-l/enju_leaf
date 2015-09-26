@@ -43,6 +43,7 @@ class UserImportFile < ActiveRecord::Base
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
     to: :state_machine
 
+  # 利用者情報をTSVファイルを用いて作成します。
   def import
     transition_to!(:started)
     num = { user_imported: 0, user_found: 0, failed: 0 }
@@ -79,7 +80,7 @@ class UserImportFile < ActiveRecord::Base
           new_user.role = Role.find(2) # User
         end
         new_user.username = username
-        new_user.assign_attributes(set_user_params(new_user, row))
+        new_user.assign_attributes(set_user_params(row))
         profile = Profile.new
         profile.assign_attributes(set_profile_params(row))
 
@@ -112,6 +113,7 @@ class UserImportFile < ActiveRecord::Base
     raise e
   end
 
+  # 利用者情報をTSVファイルを用いて更新します。
   def modify
     transition_to!(:started)
     num = { user_updated: 0, user_not_found: 0, failed: 0 }
@@ -133,7 +135,7 @@ class UserImportFile < ActiveRecord::Base
       username = row['username']
       new_user = User.where(username: username).first
       if new_user.try(:profile)
-        new_user.assign_attributes(set_user_params(new_user, row))
+        new_user.assign_attributes(set_user_params(row))
         new_user.profile.assign_attributes(set_profile_params(row))
         Profile.transaction do
           if new_user.save and new_user.profile.save
@@ -161,6 +163,7 @@ class UserImportFile < ActiveRecord::Base
     raise e
   end
 
+  # 利用者情報をTSVファイルを用いて削除します。
   def remove
     transition_to!(:started)
     row_num = 1
@@ -200,6 +203,8 @@ class UserImportFile < ActiveRecord::Base
     :pending
   end
 
+  # インポート作業用のファイルを読み込みます。
+  # @param [File] tempfile 作業用のファイル
   def open_import_file(tempfile)
     file = CSV.open(tempfile.path, 'r:utf-8', col_sep: "\t")
     header_columns = %w(
@@ -230,6 +235,7 @@ class UserImportFile < ActiveRecord::Base
     rows
   end
 
+  # 未処理のインポート作業用のファイルを一括で処理します。
   def self.import
     UserImportFile.not_imported.each do |file|
       file.import_start
@@ -239,7 +245,9 @@ class UserImportFile < ActiveRecord::Base
   end
 
   private
-  def set_user_params(_new_user, row)
+  # ユーザ情報のパラメータを設定します。
+  # @param [Hash] row 利用者情報のハッシュ
+  def set_user_params(row)
     params = {}
     params[:email] = row['email'] if row['email'].present?
 
@@ -256,6 +264,8 @@ class UserImportFile < ActiveRecord::Base
     params
   end
 
+  # 利用者情報のパラメータを設定します。
+  # @param [Hash] row 利用者情報のハッシュ
   def set_profile_params(row)
     params = {}
     user_group = UserGroup.where(name: row['user_group']).first
@@ -305,6 +315,11 @@ class UserImportFile < ActiveRecord::Base
       params[:share_bookmarks] = row['share_bookmarks'] if row['share_bookmarks'].present?
     end
     params
+  end
+
+  # TSVファイルのハッシュ値を設定します。
+  def set_fingerprint
+    self.user_import_fingerprint = Digest::SHA1.file(user_import.download.path).hexdigest
   end
 end
 
