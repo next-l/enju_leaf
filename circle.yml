@@ -1,6 +1,12 @@
-machine:
-  ruby:
-    version: 2.2.3
+dependencies:
+  override:
+    - 'rvm-exec 2.1.7 bundle install'
+    - 'rvm-exec 2.2.3 bundle install'
+test:
+  override:
+    - 'rvm-exec 2.1.7 bundle exec rake'
+    - 'rvm-exec 2.2.3 bundle exec rake'
 database:
   override:
-    - bundle exec rake db:create db:migrate
+    - 'rvm-exec 2.1.7 bundle exec rake db:create db:migrate'
+    - 'rvm-exec 2.2.3 bundle exec rake db:create db:migrate'
