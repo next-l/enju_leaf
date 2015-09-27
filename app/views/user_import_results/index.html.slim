@@ -6,7 +6,7 @@
       h2.resource_title
         = link_to @user_import_file.user_import_filename, @user_import_file
     - if @user_import_file
-      = render 'list_lines
+      = render 'list_lines'
     - else
       = render 'list'
     = paginate(@user_import_results)
