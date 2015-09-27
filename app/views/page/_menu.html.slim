@@ -62,6 +62,8 @@ nav.navbar.navbar-default
                 = link_to t('page.import_from_file'), new_resource_import_file_path
               li
                 = link_to t('activerecord.models.accept'), new_accept_path
+              li
+                = link_to t('activerecord.models.withdraw'), new_withdraw_path
               - if defined?(EnjuIr)
                 li
                   = link_to t('activemodel.models.resource'), resources_path
