@@ -63,8 +63,8 @@
     <% end %>
     <tr>
       <td><label><%= t('activerecord.attributes.manifestation.date_of_publication') -%>:</label></td>
-      <td><%= t('advanced_search.from') -%> <%= text_field_tag 'pub_date_from', nil, class: 'date_text_field', placeholder: "#{t('page.example')}: 1978, 1978-04-12" -%>
-        <%= t('advanced_search.to') -%> <%= text_field_tag 'pub_date_until', nil, class: 'date_text_field', placeholder: "#{t('page.example')}: 2011, 2011-04-12"-%></td>
+      <td><%= t('advanced_search.from') -%> <%= text_field_tag 'pub_date_from', nil, class: 'wide_date_text_field', placeholder: "#{t('page.example')}: 1978, 1978-04-12" -%>
+        <%= t('advanced_search.to') -%> <%= text_field_tag 'pub_date_until', nil, class: 'wide_date_text_field', placeholder: "#{t('page.example')}: 2011, 2011-04-12"-%></td>
     </tr>
     <tr>
       <td><label><%= t('activerecord.attributes.item.acquired_at') -%>:</label></td>
