@@ -51,7 +51,9 @@
           <ul>
             <li><%= link_to t('item.all_item'), items_path %></li>
             <li><%= link_to t('activerecord.models.resource_import_file'), resource_import_files_path -%></li>
+            <% if respond_to? :new_withdraw_path %>
             <li><%= link_to t('activerecord.models.withdraw'), new_withdraw_path -%></li>
+            <% end %>
           </ul>
         </li>
         <li><%= link_to t('activerecord.models.identifier_type'), identifier_types_path -%>
