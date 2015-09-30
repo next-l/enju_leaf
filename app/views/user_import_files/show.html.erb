@@ -3,30 +3,18 @@
 <div id="content_list">
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Id:</strong>
-  <%= @user_import_file.id -%>
-</p>
-
+<% if @user_import_file.user_import_file_name %>
 <p>
   <strong><%= t('activerecord.attributes.user_import_file.user_import_file_name') -%>:</strong>
-  <%= link_to @user_import_file.user_import_file_name, user_import_file_path(@user_import_file, format: :download) if @user_import_file.user_import_file_name %>
-</p>
-
-<p>
-  <strong><%= t('activerecord.attributes.user_import_file.user_import_content_type') -%>:</strong>
-  <%= @user_import_file.user_import_content_type -%>
+  <%= link_to @user_import_file.user_import_file_name, user_import_file_path(@user_import_file, format: :download) %>
+  (<%= @user_import_file.user_import_content_type -%>)
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.user_import_file.user_import_file_size') -%>:</strong>
   <%= @user_import_file.user_import_file_size -%>
 </p>
-
-<p>
-  <strong><%= t('activerecord.attributes.user_import_file.user_import_fingerprint') -%>:</strong>
-  <%= @user_import_file.user_import_fingerprint -%>
-</p>
+<% end %>
 
 <p>
   <strong><%= t('page.created_at') -%>:</strong>
@@ -73,13 +61,16 @@
   <%= link_to @user_import_file.user.username, @user_import_file.user.profile if @user_import_file.user.try(:profile) -%>
 </p>
 
+<% if @user_import_results %>
+<%= render 'results' %>
+<% end %>
+
 </div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <%= form_for(@user_import_file) do |f| %>
   <ul>
-    <li><%= link_to t('activerecord.models.user_import_result'), user_import_file_user_import_results_path(@user_import_file) -%></li>
     <li><%= back_to_index(flash[:page_info]) -%></li>
     <% if current_user.has_role?('Administrator') %>
       <li><%= link_to 'Resque', resque_path %></li>

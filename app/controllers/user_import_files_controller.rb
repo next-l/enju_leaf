@@ -21,6 +21,7 @@ class UserImportFilesController < ApplicationController
         file = @user_import_file.user_import.path
       end
     end
+    @user_import_results = @user_import_file.user_import_results.page(params[:page])
 
     respond_to do |format|
       format.html # show.html.erb
