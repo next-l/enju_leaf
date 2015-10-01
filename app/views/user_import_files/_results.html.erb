@@ -1,3 +1,4 @@
+<h2><%= t('activerecord.models.user_import_result') %></h2>
 <table class="table table-striped index">
   <tr>
     <th><%= t('activerecord.attributes.user_import_result.lineno') %></th>
@@ -5,7 +6,6 @@
     <th><%= t('activerecord.models.user') %></th>
     <th></th>
   </tr>
-  <h2><%= t('activerecord.models.user_import_result') %></h2>
 <% @user_import_results.each_with_index do |user_import_result, idx| %>
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= @user_import_results.offset_value + idx + 1 %></td>
