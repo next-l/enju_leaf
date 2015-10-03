@@ -18,7 +18,6 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids,default,development,test}/*"] - Dir["spec/dummy/tmp/*"]
 
   s.add_dependency "rails", "~> 4.2.4"
-  s.add_dependency "jquery-rails", "~> 4.0.5"
   #s.add_dependency "enju_biblio", "~> 0.2.0.beta.1"
   #s.add_dependency "enju_library", "~> 0.2.0.beta.1"
   #s.add_dependency "enju_manifestation_viewer", "~> 0.2.0.beta.1"
@@ -38,7 +37,7 @@ Gem::Specification.new do |s|
   s.add_dependency "refile", "~> 0.6"
   s.add_dependency "refile-mini_magick"
   s.add_dependency "statesman", "~> 1.3"
-  s.add_dependency "kramdown"
+  s.add_dependency "kramdown", "~> 1.9"
   s.add_dependency "browser"
   s.add_dependency "sunspot_rails", "~> 2.2"
   s.add_dependency "bootstrap-sass", "~> 3.3.5"

@@ -9,7 +9,6 @@ gemspec
 # your gemspec. These might include edge Rails or gems from your path or
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
-gem "jquery-rails"
 gem "enju_biblio", github: "next-l/enju_biblio", branch: "master"
 gem "enju_library", github: "next-l/enju_library", branch: "master"
 gem "enju_bookmark", github: "next-l/enju_bookmark", branch: "master"
