@@ -51,7 +51,7 @@ ja:
       already_confirmed: "was already confirmed, please try signing in"
       confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "有効期限が切れています。新しく登録してください。"
-      not_found: "not found"
+      not_found: "は登録されていません。"
       not_locked: "was not locked"
       not_saved:
         one: "%{resource} を保存するときに1個のエラーが発生しました:"
