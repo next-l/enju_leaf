@@ -54,5 +54,5 @@ ja:
       not_found: "は登録されていません。"
       not_locked: "was not locked"
       not_saved:
-        one: "%{resource} を保存するときに1個のエラーが発生しました:"
-        other: "%{resource} を保存するときに%{count}個のエラーが発生しました:"
+        one: "%{resource} の情報に1個のエラーがあります:"
+        other: "%{resource} の情報に%{count}個のエラーがあります:"
