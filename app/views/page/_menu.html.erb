@@ -130,9 +130,7 @@
             <% end %>
             <li><%= link_to t('page.configuration'), page_configuration_path -%></li>
           <% else %>
-            <ul>
-              <li><%= link_to t('user.account_management'), edit_my_account_path -%></li>
-            </ul>
+            <li><%= link_to t('user.account_management'), edit_my_account_path -%></li>
           <%- end -%>
         <%- else -%>
           <li><%= link_to t('page.sign_in'), new_user_session_path -%></li>
