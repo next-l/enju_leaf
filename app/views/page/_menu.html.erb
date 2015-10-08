@@ -28,6 +28,7 @@
             <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
             <li><%= link_to t('page.listing', model: t('activerecord.models.reserve')), reserves_path -%></li>
           <%- end -%>
+	  <li><%= link_to t('page.catalog_search'), manifestations_path %></li>
         </ul>
       <% end %>
     </li>
