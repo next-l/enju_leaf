@@ -104,37 +104,33 @@
         </ul>
       </li>
     <% end %>
-    <li>
-      <a href="#configuration_menu">
-        <% if current_user.try(:has_role?, 'Librarian') %>
-          <%= t('page.management') -%>
-        <% else %>
-          <%= t('page.configuration') -%>
-        <% end %>
-      </a>
-      <%- if user_signed_in? -%>
-        <ul>
-          <%- if current_user.has_role?('Librarian') -%>
-            <li><%= link_to t('user.management'), profiles_path -%></li>
-            <li><%= link_to t('page.agent_management'), agents_path -%></li>
-            <li><%= link_to t('page.import'), page_import_path -%></li>
-            <li><%= link_to t('page.export'), page_export_path -%></li>
-            <% if defined?(EnjuPurchaseRequest) %>
-              <li><%= link_to t('activerecord.models.order_list'), order_lists_path -%></li>
-            <% end %>
-            <li><%= link_to t('page.statistics'), page_statistics_path -%></li>
-            <% if defined?(EnjuSearchLog) %>
-              <li><%= link_to t('activerecord.models.search_history'), search_histories_path %></li>
-            <% end %>
-            <% if @library_group.settings[:erms_url] %>
-              <li><%= link_to t('page.electronic_resource_management'), @library_group.settings[:erms_url] -%></li>
-            <% end %>
-            <li><%= link_to t('page.configuration'), page_configuration_path -%></li>
+    <%- if current_user.try(:has_role?, 'Librarian') -%>
+      <li>
+        <a href="#configuration_menu">
+          <% if current_user.try(:has_role?, 'Librarian') %>
+            <%= t('page.management') -%>
           <% else %>
-            <li><%= link_to t('user.account_management'), edit_my_account_path -%></li>
-          <%- end -%>
+            <%= t('page.configuration') -%>
+          <% end %>
+        </a>
+        <ul>
+          <li><%= link_to t('user.management'), profiles_path -%></li>
+          <li><%= link_to t('page.agent_management'), agents_path -%></li>
+          <li><%= link_to t('page.import'), page_import_path -%></li>
+          <li><%= link_to t('page.export'), page_export_path -%></li>
+          <% if defined?(EnjuPurchaseRequest) %>
+            <li><%= link_to t('activerecord.models.order_list'), order_lists_path -%></li>
+          <% end %>
+          <li><%= link_to t('page.statistics'), page_statistics_path -%></li>
+          <% if defined?(EnjuSearchLog) %>
+            <li><%= link_to t('activerecord.models.search_history'), search_histories_path %></li>
+          <% end %>
+          <% if @library_group.settings[:erms_url] %>
+            <li><%= link_to t('page.electronic_resource_management'), @library_group.settings[:erms_url] -%></li>
+          <% end %>
+          <li><%= link_to t('page.configuration'), page_configuration_path -%></li>
         </ul>
-      <% end %>
-    </li>
+      </li>
+    <% end %>
   </ul>
 </div>
