@@ -142,6 +142,7 @@ ja:
     start_import: "インポートを開始"
     import_record: "書誌レコードのインポート"
     export: "エクスポート"
+    other_format: "書き出し"
     detail: "詳細"
     acquisition: "資料の受入"
     configuration: "システムの設定"
