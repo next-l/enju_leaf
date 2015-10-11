@@ -151,6 +151,7 @@ en:
     start_import: "Start import"
     import_record: "Import records"
     export: "Export"
+    other_format: "Other formats"
     detail: "Detail"
     acquisition: "Acquisition"
     configuration: "Configuration"
