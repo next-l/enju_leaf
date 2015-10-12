@@ -32,7 +32,7 @@
         </ul>
       <% end %>
     </li>
-    <%- if user_signed_in? -%>
+    <%- if user_signed_in? and (current_user.has_role?('Librarian') or defined?(EnjuBookmark)) -%>
       <li>
         <a href="#acquisition_menu"><%= t('page.acquisition') -%></a>
         <ul>
@@ -41,27 +41,23 @@
             <% if defined?(EnjuNdl) %>
               <li><%= link_to t('enju_ndl.import_from_ndl_search'), ndl_books_path -%></li>
             <% end %>
-	    <% if defined?(EnjuNii) %>
-	      <li><%= link_to t('enju_nii.import_from_cinii_books'), cinii_books_path -%></li>
-	    <% end %>
-	    <% if defined?(EnjuLoc) %>
-	      <li><%= link_to t('enju_loc.import_from_loc_search'), loc_search_index_path -%></li>
-	    <% end %>
+            <% if defined?(EnjuNii) %>
+              <li><%= link_to t('enju_nii.import_from_cinii_books'), cinii_books_path -%></li>
+            <% end %>
+            <% if defined?(EnjuLoc) %>
+              <li><%= link_to t('enju_loc.import_from_loc_search'), loc_search_index_path -%></li>
+            <% end %>
             <li><%= link_to t('page.add_resource_manually'), new_manifestation_path -%></li>
             <li><%= link_to t('page.serial'), manifestations_path(serial: true) -%></li>
             <li><%= link_to t('page.import_from_file'), new_resource_import_file_path -%></li>
             <li><%= link_to t('activerecord.models.accept'), new_accept_path -%></li>
-	          <% if defined?(EnjuIr) %>
-	            <li><%= link_to t('activemodel.models.resource'), resources_path -%></li>
-	          <% end %>
-            <% if defined?(EnjuBookmark) %>
-              <li><%= link_to t('page.listing', model: t('activerecord.models.bookmark')), bookmarks_path -%></li>
-            <% end %>
-          <%- else -%>
-            <% if defined?(EnjuBookmark) %>
-              <li><%= link_to t('page.listing', model: t('activerecord.models.bookmark')), bookmarks_path -%></li>
+            <% if defined?(EnjuIr) %>
+              <li><%= link_to t('activemodel.models.resource'), resources_path -%></li>
             <% end %>
           <%- end -%>
+          <% if defined?(EnjuBookmark) %>
+            <li><%= link_to t('page.listing', model: t('activerecord.models.bookmark')), bookmarks_path -%></li>
+          <% end %>
         </ul>
       </li>
     <% end %>
