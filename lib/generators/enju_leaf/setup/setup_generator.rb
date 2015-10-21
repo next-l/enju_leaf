@@ -115,7 +115,5 @@ EOS
     gsub_file 'config/environments/production.rb',
       /# config.assets.precompile \+= %w\( search.js \)$/,
       "config.assets.precompile += %w( mobile.js mobile.css print.css )"
-    copy_file("app/assets/stylesheets/application.css", "app/assets/stylesheets/application.scss")
-    remove_file("app/assets/stylesheets/application.css")
   end
 end
