@@ -4,7 +4,6 @@ require 'pundit'
 require 'acts_as_list'
 require 'strip_attributes'
 require 'friendly_id'
-require 'addressable/uri'
 require 'elasticsearch/model'
 require 'elasticsearch/rails'
 require 'cocoon'
@@ -23,6 +22,7 @@ require 'refile/rails'
 require 'refile/mini_magick'
 require 'bootstrap-sass'
 require 'slim-rails'
+require 'postrank-uri'
 
 module EnjuLeaf
   class Engine < ::Rails::Engine

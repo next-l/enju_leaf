@@ -29,7 +29,6 @@ Gem::Specification.new do |s|
   s.add_dependency "pundit", "~> 1.0"
   s.add_dependency "acts_as_list", "~> 0.7"
   s.add_dependency "strip_attributes", "~> 1.7"
-  s.add_dependency "addressable", "~> 2.3"
   s.add_dependency "elasticsearch-model", "~> 0.1.7"
   s.add_dependency "elasticsearch-rails", "~> 0.1.7"
   s.add_dependency "cocoon"
@@ -44,6 +43,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sunspot_rails", "~> 2.2"
   s.add_dependency "bootstrap-sass", "~> 3.3.5"
   s.add_dependency "slim-rails"
+  s.add_dependency "postrank-uri"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mysql2", "~> 0.3.20"
