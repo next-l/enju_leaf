@@ -1,5 +1,5 @@
 module EnjuLeaf
-  module EnjuLeafHelper
+  module ApplicationHelper
     # 使用中のデータベースのアダプタ名を表示します。
     def database_adapter
       case ActiveRecord::Base.connection.adapter_name

@@ -81,17 +81,6 @@ EOS
 EOS
     end
 
-    inject_into_file "app/helpers/application_helper.rb", after: /module ApplicationHelper$\n/ do
-      <<"EOS"
-  include EnjuLeaf::EnjuLeafHelper
-  include EnjuBiblio::BiblioHelper if defined?(EnjuBiblio)
-  if defined?(EnjuManifestationViewer)
-    include EnjuManifestationViewer::BookJacketHelper
-    include EnjuManifestationViewer::ManifestationViewerHelper
-  end
-EOS
-    end
-
     inject_into_file "app/assets/javascripts/application.js", after: /\/\/= require jquery_ujs$\n/ do
       "//= require enju_leaf/application\n"
     end
