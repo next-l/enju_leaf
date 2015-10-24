@@ -43,6 +43,7 @@ EOS
 EOS
     generate("sunspot_rails:install")
     generate("kaminari:config")
+    generate("kaminari:views bootstrap3")
     generate("simple_form:install")
     gsub_file "config/sunspot.yml",
       /path: \/solr\/production/,
