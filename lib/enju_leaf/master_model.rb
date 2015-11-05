@@ -26,7 +26,7 @@ module MasterModel
 
     private
     def valid_name?
-      unless name =~ /\A[a-z][0-9a-z_]*[0-9a-z]\Z/
+      unless name =~ /\A[a-z][0-9a-z_]*[0-9a-z]\z/
         errors.add(:name, I18n.t('page.only_lowercase_letters_and_numbers_are_allowed'))
       end
     end
