@@ -14,9 +14,9 @@ class Profile < ActiveRecord::Base
   validates_associated :user_group, :library
   validates_associated :user
   validates_presence_of :user_group, :library, :locale #, :user_number
-  validates :user_number, uniqueness: true, format: { with: /\A[0-9A-Za-z_]+\Z/ }, allow_blank: true
+  validates :user_number, uniqueness: true, format: { with: /\A[0-9A-Za-z_]+\z/ }, allow_blank: true
   validates :user_id, uniqueness: true, allow_blank: true
-  validates :birth_date, format: { with: /\A\d{4}-\d{1,2}-\d{1,2}\Z/ }, allow_blank: true
+  validates :birth_date, format: { with: /\A\d{4}-\d{1,2}-\d{1,2}\z/ }, allow_blank: true
 
   strip_attributes only: :user_number
 
