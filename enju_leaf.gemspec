@@ -20,17 +20,13 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids,default,development,test}/*"] - Dir["spec/dummy/tmp/*"]
 
   s.add_dependency "rails", ">= 3.2.22", "< 5.0"
-  s.add_dependency "enju_biblio", "~> 0.1.0.pre69"
-  s.add_dependency "enju_library", "~> 0.1.0.pre43"
+  s.add_dependency "enju_biblio", "~> 0.1.0.pre70"
+  s.add_dependency "enju_library", "~> 0.1.0.pre44"
   s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre18"
   s.add_dependency "friendly_id", ">= 4.0"
   s.add_dependency "kaminari", "~> 0.16.3"
   s.add_dependency "devise", "~> 3.5"
-  if RUBY_VERSION >= "2.0"
-    s.add_dependency "cancancan", "~> 1.13.1"
-  else
-    s.add_dependency "cancancan", "~> 1.12.0"
-  end
+  s.add_dependency "cancancan", "~> 1.12"
   s.add_dependency "acts_as_list", "~> 0.7"
   s.add_dependency "attribute_normalizer", "~> 1.2"
   s.add_dependency "addressable"
