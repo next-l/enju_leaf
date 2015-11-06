@@ -2,6 +2,7 @@ appraise "rails-3.2" do
   gem "rails", "~> 3.2.22"
   gem "jquery-rails"
   gem "statesman", "~> 1.0.0"
+  gem "cancancan", "~> 1.12.0"
   gem "strong_parameters"
   gem "cache_digests"
   gem "foreigner"
