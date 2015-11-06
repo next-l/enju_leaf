@@ -2,6 +2,7 @@
 
 source "https://rubygems.org"
 
+gem "enju_circulation", :github => "next-l/enju_circulation", :branch => "1.1"
 gem "rails", "~> 4.1.13"
 gem "jquery-rails"
 gem "statesman", "~> 1.3"
