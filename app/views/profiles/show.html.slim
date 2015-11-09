@@ -64,4 +64,4 @@
             p[style="font-size: 200%"]
               = flash[:temporary_password]
             - if defined?(EnjuCirculation)
-              = render 'checkout_list'
+              = render 'checkout_list', profile: @profile
