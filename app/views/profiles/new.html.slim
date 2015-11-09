@@ -1,64 +1,64 @@
 .row
-  #submenu.col-md-3
+  .col-md-3
     .panel.panel-default
       .panel-heading
         h2.panel-title
-          = t('activerecord.models.profile')
-      ul.list-group
-        li.list-group-item
+      ul
+        li
           = link_to t('page.listing', model: t('activerecord.models.profile')), profiles_path
-        li.list-group-item
+        li
           = link_to t('page.import'), new_user_import_file_path
-  #content_list.col-md-9
-    h1.panel-title
-      = t('page.new', model: t('activerecord.models.profile'))
-    = render 'page/required_field'
-    = simple_form_for(@profile, validate: true) do |f|
-      = f.error_messages
-      = f.fields_for :user do |user_form|
-        .form-group
-          = user_form.label :username
-          = user_form.text_field :username, class: 'form-control'
-        .form-group
-          = user_form.label :email
-          = user_form.email_field :email, class: 'form-control'
-      .form-group
-        = f.label :expired_at
-        = f.text_field :expired_at, class: 'form-control', placeholder: "#{t('page.example')}: 2011-04-12"
-      .form-group
-        = f.label :full_name
-        br
-        = f.text_field :full_name, class: 'form-control'
-      .form-group
-        = f.label :full_name_transcription
-        br
-        = f.text_field :full_name_transcription, class: 'form-control'
-      .form-group
-        = f.label :user_group_id
-        = f.select(:user_group_id, @user_groups.collect{|u| [u.display_name.localize, u.id]}, {}, {class: 'form-control'})
-      .form-group
-        = f.label t('activerecord.models.library')
-        = f.select(:library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}, {}, {class: 'form-control'})
-      .form-group
-        = f.label :locale
-        = f.select(:locale, @available_languages.collect{|language| [language.display_name.localize, language.iso_639_1]}, {}, {class: 'form-control'})
-      - if defined?(EnjuSearchLog)
-        .form-group
-          .checkbox-inline
-            = f.check_box :save_search_history
-            = f.label :save_search_history
-      - if defined?(EnjuCirculation)
-        .form-group
-          .checkbox-inline
-            = f.check_box :save_checkout_history
-            = f.label :save_checkout_history
-      - if current_user.has_role?('Librarian')
-        .form-group
-          = f.label :note
-          br
-          = f.text_area :note, class: 'form-control'
-      .form-group
-        = f.label :user_number
-        = f.text_field :user_number, class: 'form-control'
-      .form-group
-        = f.submit t('user.sign_up'), class: 'btn btn-default'
+  .col-md-9
+    .panel.panel-default
+      .panel-heading
+        h1.title
+          = t('page.new', model: t('activerecord.models.profile'))
+      .panel-body
+        = render 'page/required_field'
+        = simple_form_for(@profile, validate: true) do |f|
+          = f.error_messages
+          = f.fields_for :user do |user_form|
+            .field
+              = user_form.label :username
+              = user_form.text_field :username, class: 'resource_user'
+            .field
+              = user_form.label :email
+              = user_form.email_field :email, class: 'resource_email'
+          .field
+            = f.label :expired_at
+            = f.text_field :expired_at, class: 'date_text_field', placeholder: "#{t('page.example')}: 2011-04-12"
+          .field
+            = f.label :full_name
+            br
+            = f.text_field :full_name
+          .field
+            = f.label :full_name_transcription
+            br
+            = f.text_field :full_name_transcription
+          .field
+            = f.label :user_group_id
+            = f.select(:user_group_id, @user_groups.collect{|u| [u.display_name.localize, u.id]})
+          .field
+            = f.label t('activerecord.models.library')
+            = f.select(:library_id, @libraries.collect{|l| [l.display_name.localize, l.id]})
+          .field
+            = f.label :locale
+            = f.select(:locale, @available_languages.collect{|language| [language.display_name.localize, language.iso_639_1]})
+          - if defined?(EnjuSearchLog)
+            .field
+              = f.label :save_search_history
+              = f.check_box :save_search_history
+          - if defined?(EnjuCirculation)
+            .field
+              = f.label :save_checkout_history
+              = f.check_box :save_checkout_history
+          - if current_user.has_role?('Librarian')
+            .field
+              = f.label :note
+              br
+              = f.text_area :note, class: 'resource_textarea'
+          .field
+            = f.label :user_number
+            = f.text_field :user_number, class: 'resource_user'
+          .actions
+            = f.submit t('user.sign_up')
