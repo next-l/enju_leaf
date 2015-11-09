@@ -80,6 +80,12 @@ describe ProfilesController do
         get :show, id: admin.id
         response.should be_forbidden
       end
+      it "should assign the requested user as @librarian" do
+        librarian = FactoryGirl.create(:librarian_profile)
+        get :show, id: librarian.id
+        response.should_not be_forbidden
+        assigns(:profile).should eq librarian
+      end
     end
 
     describe "When logged in as User" do
@@ -402,6 +408,13 @@ describe ProfilesController do
         response.should redirect_to profile_url(assigns(:profile))
         assert_equal assigns(:profile).note, 'test'
       end
+
+      it "should update other user's locked status" do
+        put :update, id: profiles(:user1).id, profile: {:user_attributes => {:id => 3, :locked => '1', :username => 'user1'}}
+        response.should redirect_to profile_url(assigns(:profile))
+        assigns(:profile).user.locked_at.should be_truthy
+        assigns(:profile).user.access_locked?.should be_truthy
+      end
     end
 
     describe "When logged in as User" do
@@ -511,6 +524,7 @@ describe ProfilesController do
 
       it "destroys the requested user" do
         delete :destroy, id: profiles(:user2).id
+        response.should redirect_to(profiles_url)
       end
 
       it "redirects to the profiles list" do
@@ -530,6 +544,12 @@ describe ProfilesController do
 
       it "should not destroy myself" do
         delete :destroy, id: profiles(:librarian1).id
+        response.should be_forbidden
+      end
+
+      it "should not be able to delete other librarian user" do
+        librarian = FactoryGirl.create(:librarian_profile)
+        delete :destroy, id: librarian.id
         response.should be_forbidden
       end
     end

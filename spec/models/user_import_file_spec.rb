@@ -113,6 +113,8 @@ describe UserImportFile do
       user001 = User.where(username: 'user001').first
       user001.email.should eq 'user001@example.jp'
       user001.profile.full_name.should eq '田辺 浩介'
+      user001.profile.full_name_transcription.should eq 'たなべこうすけ'
+      user001.profile.user_number.should eq 'user_number_1'
       user001.profile.note.should eq 'test'
       user001.profile.keyword_list.should eq 'keyword1 keyword2'
       Message.count.should eq old_message_count + 1

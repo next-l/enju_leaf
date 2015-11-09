@@ -9,7 +9,7 @@ en:
       user_import_result: User import result
       profile: Profile
       user_export_file: User export
-      registration: Password
+      registration: Change password
 
     attributes:
       user:
@@ -75,8 +75,9 @@ en:
         default_user_group_id: Default user group
         default_library_id: Default library
       user_import_result:
-        body: Body
         error_message: Error message
+        body: Contents
+        lineno: Line
       user_export_file:
         user_export_filename: Filename
         user_export_file_size: Size
@@ -308,6 +309,7 @@ en:
     to: "to"
     from_to: "-"
     all_libraries: "All libraries"
+    check_all: "Check/Uncheck All"
   work:
     agents_work: "%{agent_name}'s works"
     library_group_work: "Works in %{library_group_name}"

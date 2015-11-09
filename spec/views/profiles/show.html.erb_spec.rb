@@ -15,4 +15,17 @@ describe "profiles/show" do
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/Checkout/)
   end
+
+  describe "when logged in as Librarian" do
+    before(:each) do
+      @profile = assign(:profile, profiles(:librarian2))
+      user = users(:librarian1)
+      view.stub(:current_user).and_return(user)
+    end
+
+    it "cannot be deletable by other librarian" do
+      render
+      @ability.should_not be_able_to( :destroy, @profile )
+    end
+  end
 end

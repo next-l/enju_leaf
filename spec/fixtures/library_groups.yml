@@ -1,33 +1,34 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 one:
   id: 1
-  name: enju
-  display_name: Next-L Enju
-  short_name: Enju
+  name: unknown
+  display_name: unknown
+  short_name: unknown
   note: 
-  my_networks: 0.0.0.0/0
+  my_networks: "0.0.0.0/0\r\n\
+    ::/0"
   url: "http://localhost:3000/"
   settings: "{\"max_number_of_results\":200,\"family_name_first\":true}"
-
+  position: 1
+  login_banner: "*Next-L Enju*"
+  admin_networks: "0.0.0.0/0\r\n\
+    ::/0"
 
 # == Schema Information
 #
 # Table name: library_groups
 #
-#  id                          :integer         not null, primary key
-#  name                        :string(255)     not null
-#  display_name                :text
-#  short_name                  :string(255)     not null
-#  my_networks                 :text
-#  login_banner                :text
-#  note                        :text
-#  post_to_union_catalog       :boolean         default(FALSE), not null
-#  country_id                  :integer
-#  created_at                  :datetime
-#  updated_at                  :datetime
-#  admin_networks              :text
-#  allow_bookmark_external_url :boolean         default(FALSE), not null
-#  position                    :integer
-#  url                         :string(255)     default("http://localhost:3000/")
+#  id             :integer          not null, primary key
+#  name           :string(255)      not null
+#  display_name   :text
+#  short_name     :string(255)      not null
+#  my_networks    :text
+#  login_banner   :text
+#  note           :text
+#  country_id     :integer
+#  position       :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  admin_networks :text
+#  url            :string(255)      default("http://localhost:3000/")
 #
-

@@ -1,0 +1,42 @@
+  <% if defined?(EnjuCirculation) %>
+    <div class="field">
+      <%= f.label t('user.checkout_history_icalendar_url') -%><br />
+      <div id="feed_token">
+        <%- if profile.checkout_icalendar_token? -%>
+          <%= link_to checkouts_url(icalendar_token: profile.checkout_icalendar_token, format: :ics), checkouts_url(icalendar_token: profile.checkout_icalendar_token, format: :ics) -%>
+          <%= f.hidden_field :checkout_icalendar_token -%>
+        <%- end -%>
+        <br />
+        <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_profile_path(profile, mode: 'feed_token') %>'});" type="button" value="<%= t('page.reset') %>" />
+        <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_profile_path(profile, disable: true, mode: 'feed_token') %>'});" type="button" value="<%= t('page.delete') %>" />
+      </div>
+      <br />
+    </div>
+  <% end %>
+
+  <% if defined?(EnjuSearchLog) %>
+    <div class="field">
+      <%= f.label :save_search_history %>
+      <%= f.check_box :save_search_history %>
+    </div>
+  <% end %>
+
+  <% if defined?(EnjuCirculation) %>
+    <div class="field">
+      <%= f.label :save_checkout_history %>
+      <%= f.check_box :save_checkout_history %>
+    </div>
+  <% end %>
+
+  <% if current_user.has_role?('Librarian') %>
+    <div class="field">
+      <%= f.label :note -%><br />
+      <%= f.text_area :note, class: 'resource_textarea' -%>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+

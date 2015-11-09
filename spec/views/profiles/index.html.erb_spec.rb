@@ -5,7 +5,8 @@ describe "profiles/index" do
 
   before(:each) do
     assign(:profiles, Profile.page(1))
-    view.stub(:current_user).and_return(User.find('enjuadmin'))
+    admin = User.find('enjuadmin')
+    view.stub(:current_user).and_return(admin)
   end
 
   it "renders a list of profiles" do

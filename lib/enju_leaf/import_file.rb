@@ -85,12 +85,12 @@ module ImportFile
         uploaded_file_path = attachment.expiring_url(10)
       else
         uploaded_file_path = attachment.path
-      end
-      open(uploaded_file_path){|f|
-        f.each{|line|
-          tempfile.puts(convert_encoding(line))
+        open(uploaded_file_path){|f|
+          f.each{|line|
+            tempfile.puts(convert_encoding(line))
+          }
         }
-      }
+      end
       tempfile.close
       tempfile
     end

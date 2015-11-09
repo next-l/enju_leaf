@@ -17,6 +17,8 @@ class UserImportFilesController < ApplicationController
   # GET /user_import_files/1
   # GET /user_import_files/1.json
   def show
+    @user_import_results = @user_import_file.user_import_results.page(params[:page])
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user_import_file }

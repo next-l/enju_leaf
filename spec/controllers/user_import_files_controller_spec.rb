@@ -50,6 +50,12 @@ describe UserImportFilesController do
         assigns(:user_import_file).should eq(user_import_files(:two))
         expect(response).to be_success
       end
+
+      it "assigns user_import_results" do
+        get :show, id: user_import_files(:one).id
+        expect(response).to be_success
+        expect(assigns(:user_import_file)).to eq user_import_files(:one)
+      end
     end
 
     describe "When logged in as Librarian" do

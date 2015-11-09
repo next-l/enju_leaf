@@ -1,0 +1,132 @@
+<div id="navibar">
+  <ul id="bar1" class="menubar">
+    <% if defined?(EnjuCirculation) %>
+      <li>
+        <a href="#circulation_menu">
+          <% if current_user.try(:has_role?, 'Librarian') %>
+            <%= t('page.librarian_circulation') -%>
+          <% else %>
+            <%= t('page.user_circulation') -%>
+          <% end %>
+        </a>
+        <ul>
+          <%- if user_signed_in? -%>
+            <%- if current_user.has_role?('Librarian') -%>
+              <li><%= link_to t('page.checkout'), new_basket_path -%></li>
+              <li><%= link_to t('page.checkin'), new_checkin_path -%></li>
+            <% end %>
+            <li>
+              <%= link_to t('page.listing', model: t('activerecord.models.reserve')), reserves_path -%>
+            </li>
+            <% if defined?(EnjuInterLibraryLoan) %>
+              <% if current_user.has_role?('Librarian') -%>
+                <li><%= link_to t('activerecord.models.inter_library_loan'), inter_library_loans_path -%></li>
+              <% end %>
+            <% end %>
+            <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
+          <%- else -%>
+            <li><%= link_to t('page.checkout_history'), checkouts_path -%></li>
+            <li><%= link_to t('page.listing', model: t('activerecord.models.reserve')), reserves_path -%></li>
+          <%- end -%>
+	  <li><%= link_to t('page.catalog_search'), manifestations_path %></li>
+        </ul>
+      <% end %>
+    </li>
+    <%- if user_signed_in? and (current_user.has_role?('Librarian') or defined?(EnjuBookmark)) -%>
+      <li>
+        <a href="#acquisition_menu"><%= t('page.acquisition') -%></a>
+        <ul>
+          <%- if current_user.has_role?('Librarian') -%>
+            <li><%= link_to t('import_request.enter_isbn'), new_import_request_path -%></li>
+            <% if defined?(EnjuNdl) %>
+              <li><%= link_to t('enju_ndl.import_from_ndl_search'), ndl_books_path -%></li>
+            <% end %>
+            <% if defined?(EnjuNii) %>
+              <li><%= link_to t('enju_nii.import_from_cinii_books'), cinii_books_path -%></li>
+            <% end %>
+            <% if defined?(EnjuLoc) %>
+              <li><%= link_to t('enju_loc.import_from_loc_search'), loc_search_index_path -%></li>
+            <% end %>
+            <li><%= link_to t('page.add_resource_manually'), new_manifestation_path -%></li>
+            <li><%= link_to t('page.serial'), manifestations_path(serial: true) -%></li>
+            <li><%= link_to t('page.import_from_file'), new_resource_import_file_path -%></li>
+            <li><%= link_to t('activerecord.models.accept'), new_accept_path -%></li>
+            <% if defined?(EnjuIr) %>
+              <li><%= link_to t('activemodel.models.resource'), resources_path -%></li>
+            <% end %>
+          <%- end -%>
+          <% if defined?(EnjuBookmark) %>
+            <li><%= link_to t('page.listing', model: t('activerecord.models.bookmark')), bookmarks_path -%></li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+    <% if defined?(EnjuPurchaseRequest) or defined?(EnjuQuestion) %>
+      <li>
+        <a href="#request_menu"><%= t('page.request') -%></a>
+        <ul>
+          <%- if user_signed_in? -%>
+            <% if defined?(EnjuPurchaseRequest) %>
+              <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
+            <% end %>
+            <% if defined?(EnjuQuestion) %>
+              <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
+            <% end %>
+          <%- else -%>
+            <% if defined?(EnjuPurchaseRequest) %>
+              <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path -%></li>
+            <% end %>
+            <% if defined?(EnjuQuestion) %>
+              <li><%= link_to t('activerecord.models.question'), questions_path -%></li>
+            <% end %>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+    <% if defined?(EnjuEvent) %>
+      <li>
+        <a href="#event_menu"><%= t('activerecord.models.event') -%></a>
+        <ul>
+          <%- unless @library_group.real_libraries.empty? -%>
+            <li><%= link_to t('page.calendar'), events_path(mode: 'calendar') -%></li>
+            <li><%= link_to t('event.all'), events_path -%></li>
+            <%- @library_group.real_libraries.each do |library| -%>
+              <li><%= link_to library.display_name.localize, events_path(library_id: library.name) -%></li>
+            <%- end -%>
+            <%- if can? :create, Event -%>
+              <li><%= link_to t('page.import'), new_event_import_file_path -%></li>
+            <%- end -%>
+          <%- end -%>
+        </ul>
+      </li>
+    <% end %>
+    <%- if current_user.try(:has_role?, 'Librarian') -%>
+      <li>
+        <a href="#configuration_menu">
+          <% if current_user.try(:has_role?, 'Librarian') %>
+            <%= t('page.management') -%>
+          <% else %>
+            <%= t('page.configuration') -%>
+          <% end %>
+        </a>
+        <ul>
+          <li><%= link_to t('user.management'), profiles_path -%></li>
+          <li><%= link_to t('page.agent_management'), agents_path -%></li>
+          <li><%= link_to t('page.import'), page_import_path -%></li>
+          <li><%= link_to t('page.export'), page_export_path -%></li>
+          <% if defined?(EnjuPurchaseRequest) %>
+            <li><%= link_to t('activerecord.models.order_list'), order_lists_path -%></li>
+          <% end %>
+          <li><%= link_to t('page.statistics'), page_statistics_path -%></li>
+          <% if defined?(EnjuSearchLog) %>
+            <li><%= link_to t('activerecord.models.search_history'), search_histories_path %></li>
+          <% end %>
+          <% if @library_group.settings[:erms_url] %>
+            <li><%= link_to t('page.electronic_resource_management'), @library_group.settings[:erms_url] -%></li>
+          <% end %>
+          <li><%= link_to t('page.configuration'), page_configuration_path -%></li>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+</div>

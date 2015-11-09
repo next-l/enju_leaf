@@ -1,0 +1,22 @@
+<h2><%= t('activerecord.models.user_import_result') %></h2>
+<table class="table table-striped index">
+  <tr>
+    <th><%= t('activerecord.attributes.user_import_result.lineno') %></th>
+    <th><%= t('activerecord.attributes.user_import_result.body') %></th>
+    <th><%= t('activerecord.models.user') %></th>
+    <th></th>
+  </tr>
+<% @user_import_results.each_with_index do |user_import_result, idx| %>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= @user_import_results.offset_value + idx + 1 %></td>
+    <td><%= user_import_result.body.inspect %></td>
+    <td><%= link_to user_import_result.user.username, user_import_result.user.profile if user_import_result.user.try(:profile) %></td>
+    <td>
+      <%= link_to t('page.show'), user_import_result %>
+      <%= link_to t('page.destroy'), user_import_result, data: {confirm: t('page.are_you_sure')}, method: :delete %>
+    </td>
+  </tr>
+<% end %>
+</table>
+<%= paginate(@user_import_results) %>
+

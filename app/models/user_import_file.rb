@@ -225,6 +225,7 @@ class UserImportFile < ActiveRecord::Base
     Rails.logger.info "#{Time.zone.now} importing resources failed!"
   end
 
+  private
   # ユーザ情報のパラメータを設定します。
   # @param [Hash] row 利用者情報のハッシュ
   def set_user_params(row)
@@ -240,6 +241,11 @@ class UserImportFile < ActiveRecord::Base
     else
       params[:password] = Devise.friendly_token[0..7]
     end
+
+    if %w(t true).include?(row['locked'].to_s.downcase.strip)
+      params[:locked] = '1'
+    end
+
     params
   end
 

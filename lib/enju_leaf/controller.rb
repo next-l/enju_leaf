@@ -9,7 +9,7 @@ module EnjuLeaf
     def set_error_template
       rescue_from Pundit::NotAuthorizedError, with: :render_403
       #rescue_from ActiveRecord::RecordNotFound, with: :render_404
-      rescue_from Errno::ECONNREFUSED, with: :render_500
+      rescue_from Errno::ECONNREFUSED, with: :render_500_nosolr
       #rescue_from ActionView::MissingTemplate, with: :render_404_invalid_format
     end
   end

@@ -9,7 +9,7 @@ ja:
       user_import_result: 利用者インポートの結果
       profile: 利用者
       user_export_file: 利用者情報のエクスポート
-      registration: パスワード
+      registration: パスワード変更
 
     attributes:
       user:
@@ -77,6 +77,7 @@ ja:
       user_import_result:
         body: 本文
         error_message: エラーメッセージ
+        lineno: 行数
       user_export_file:
         user_export_filename: ファイル名
         user_export_file_size: ファイルサイズ
@@ -292,6 +293,7 @@ ja:
     from: ""
     to: "から"
     all_libraries: "全ての図書館"
+    check_all: "全て選択/解除"
   work:
     agent_work: "%{agent_name} の書いた資料"
     library_group_work: "%{library_group_name} にある書いた資料"
