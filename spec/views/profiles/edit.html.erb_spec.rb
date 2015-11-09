@@ -12,18 +12,19 @@ describe "profiles/edit" do
     view.stub(:current_user).and_return(User.find('enjuadmin'))
   end
 
-  it "renders the edit user form" do
-    render
-    assert_select "form", :action => profiles_path(@profile), :method => "post" do
-      assert_select "input#profile_user_number", :name => "profile[user_number]"
-    end
-  end
-
   describe "when logged in as librarian" do
     before(:each) do
       @profile = assign(:profile, profiles(:librarian2))
       user = users(:librarian1)
       view.stub(:current_user).and_return(user)
+      allow(view).to receive(:policy).and_return double(create?: true, update?: true, destroy?: true)
+    end
+
+    it "renders the edit user form" do
+      render
+      assert_select "form", action: profiles_path(@profile), method: "post" do
+        assert_select "input#profile_user_number", name: "profile[user_number]"
+      end
     end
 
     it "should not display 'delete' link" do

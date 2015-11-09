@@ -22,10 +22,5 @@ describe "profiles/show" do
       user = users(:librarian1)
       view.stub(:current_user).and_return(user)
     end
-
-    it "cannot be deletable by other librarian" do
-      render
-      @ability.should_not be_able_to( :destroy, @profile )
-    end
   end
 end
