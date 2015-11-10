@@ -9,7 +9,6 @@ gem "cancancan", "~> 1.12.0"
 gem "strong_parameters"
 gem "cache_digests"
 gem "foreigner"
-gem "tins", "~> 1.6.0"
-gem "coveralls", :require => false
+gem "coveralls", "0.8.3", :require => false
 
 gemspec :path => "../"
