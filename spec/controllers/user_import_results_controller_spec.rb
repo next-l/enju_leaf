@@ -14,7 +14,7 @@ describe UserImportResultsController do
       end
 
       describe "With @user_import_file parameter" do
-        before (:each) do
+        before(:each) do
           @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_import_file_sample_long.tsv"), user: users(:admin)
           @file.default_user_group = UserGroup.find(2)
           @file.default_library = Library.find(3)
