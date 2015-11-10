@@ -18,14 +18,14 @@
   <%- end -%>
 
   <% if defined?(EnjuCirculation) %>
-    <%= render 'checkout_list' %>
+    <%= render 'checkout_list', profile: @profile %>
   <% end %>
 </div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <% if defined?(EnjuCirculation) %>
-    <%= render 'submenu_checkout' %>
+    <%= render 'submenu_checkout', profile: @profile %>
   <% end %>
   <ul>
     <%- if flash[:query] -%>
