@@ -6,7 +6,8 @@ appraise "rails-3.2" do
   gem "strong_parameters"
   gem "cache_digests"
   gem "foreigner"
-  gem "coveralls", "0.8.3", require: false
+  gem "coveralls", require: false
+  gem "tins", "~> 1.5.4"
 end
 
 appraise "rails-4.1" do
