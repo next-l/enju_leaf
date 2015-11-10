@@ -20,9 +20,9 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids,default,development,test}/*"] - Dir["spec/dummy/tmp/*"]
 
   s.add_dependency "rails", ">= 3.2.22", "< 5.0"
-  s.add_dependency "enju_biblio", "~> 0.1.0.pre70"
-  s.add_dependency "enju_library", "~> 0.1.0.pre44"
-  s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre18"
+  s.add_dependency "enju_biblio", "~> 0.1.0.pre71"
+  s.add_dependency "enju_library", "~> 0.1.0.pre45"
+  s.add_dependency "enju_manifestation_viewer", "~> 0.1.0.pre19"
   s.add_dependency "friendly_id", ">= 4.0"
   s.add_dependency "kaminari", "~> 0.16.3"
   s.add_dependency "devise", "~> 3.5"
