@@ -1,6 +1,6 @@
 class Role < ActiveRecord::Base
   include MasterModel
-  validates :name, presence: true, format: { with: /\A[A-Za-z][a-z_,]*[a-z]\Z/ }
+  validates :name, presence: true, format: { with: /\A[A-Za-z][a-z_,]*[a-z]\z/ }
   has_many :user_has_roles
   has_many :users, through: :user_has_roles
   after_save :clear_all_cache
