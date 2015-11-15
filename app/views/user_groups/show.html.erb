@@ -57,11 +57,11 @@
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
-    <%- if can? :update, @user_group -%>
+    <%- if policy(@user_group).update? -%>
       <li><%= link_to t('page.edit'), edit_user_group_path(@user_group) -%></li>
     <%- end -%>
     <li><%= back_to_index(flash[:page_info]) -%></li>
-    <%- if can? :create, UserGroupHasCheckoutType -%>
+    <%- if policy(UserGroupHasCheckoutType).create? -%>
       <li><%= link_to t('page.new', model: t('activerecord.models.checkout_type')), new_user_group_user_group_has_checkout_type_path(@user_group) -%></li>
     <%- end -%>
   </ul>

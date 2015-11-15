@@ -34,16 +34,16 @@
       <li><%= back_to_index %></li>
     <% end %>
     <% if user_signed_in? %>
-      <% if can? :update, @profile %>
+      <% if policy(@profile).update? %>
         <li><%= link_to t('page.edit'), edit_profile_path(@profile) -%></li>
       <% end %>
       <% if defined?(EnjuMessage) %>
         <li><%= link_to t('message.send'), new_message_path(recipient: @profile.user.username) -%></li>
       <% end %>
-      <%- if can? :create, @profile -%>
+      <%- if profile(Profile).create? -%>
         <li><%= link_to t('page.new', model: t('activerecord.models.profile')), new_profile_path -%></li>
       <% end %>
-      <%- if can? :destroy, @profile -%>
+      <%- if profile(@profile).destroy? -%>
         <li><%= link_to t('page.destroy'), @profile, data: {confirm: t('page.are_you_sure')}, method: :delete -%></li>
       <% end %>
     <%- end -%>
