@@ -20,8 +20,6 @@ env:
   - DB=mysql
   - DB=postgresql
 matrix:
-  allow_failures:
-  - rvm: 1.9.3
   exclude:
   - rvm: 1.9.3
     gemfile: gemfiles/rails_4.1.gemfile
