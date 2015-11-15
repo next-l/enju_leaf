@@ -1,5 +1,6 @@
 class UserExportFilesController < ApplicationController
-  load_and_authorize_resource
+  before_action :set_user_export_file, only: [:show, :edit, :update, :destroy]
+  before_action :check_policy, only: [:index, :new, :create]
 
   # GET /user_export_files
   # GET /user_export_files.json
@@ -100,6 +101,15 @@ class UserExportFilesController < ApplicationController
   end
 
   private
+  def set_user_export_file
+    @user_export_file = UserExportFile.find(params[:id])
+    authorize @user_export_file
+  end
+
+  def check_policy
+    authorize UserExportFile
+  end
+
   def user_export_file_params
     params.require(:user_export_file).permit(:mode)
   end

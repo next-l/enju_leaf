@@ -34,7 +34,7 @@ module EnjuLeaf
       if user_signed_in?
         respond_to do |format|
           format.html {render template: 'page/403', status: 403}
-          format.mobile {render template: 'page/403', status: 403}
+          #format.html.phone {render template: 'page/403', status: 403}
           format.xml {render template: 'page/403', status: 403}
           format.json { render text: '{"error": "forbidden"}' }
           format.rss {render template: 'page/403.xml', status: 403}
@@ -42,7 +42,7 @@ module EnjuLeaf
       else
         respond_to do |format|
           format.html { redirect_to new_user_session_url }
-          format.mobile { redirect_to new_user_session_url }
+          #format.html.phone { redirect_to new_user_session_url }
           format.xml { render template: 'page/403', status: 403 }
           format.json { render text: '{"error": "forbidden"}' }
           format.rss { render template: 'page/403.xml', status: 403 }
@@ -54,7 +54,7 @@ module EnjuLeaf
       return if performed?
       respond_to do |format|
         format.html { render template: 'page/404', status: 404 }
-        format.mobile { render template: 'page/404', status: 404 }
+        #format.html.phone { render template: 'page/404', status: 404 }
         format.xml { render template: 'page/404', status: 404 }
         format.json { render text: '{"error": "not_found"}' }
         format.xml { render template: 'page/404.xml', status: 404 }
@@ -70,7 +70,7 @@ module EnjuLeaf
       return if performed?
       respond_to do |format|
         format.html {render file: "#{Rails.root}/public/500", layout: false, status: 500}
-        format.mobile {render file: "#{Rails.root}/public/500", layout: false, status: 500}
+        #format.html.phone {render file: "#{Rails.root}/public/500", layout: false, status: 500}
         format.xml {render template: 'page/500', status: 500}
         format.json { render text: '{"error": "server_error"}' }
         format.xml {render template: 'page/500.xml', status: 500}
@@ -83,7 +83,7 @@ module EnjuLeaf
       #flash[:notice] = t('page.connection_failed')
       respond_to do |format|
         format.html {render template: "page/500_nosolr", layout: false, status: 500}
-        format.mobile {render template: "page/500_nosolr", layout: false, status: 500}
+        format.html.phone {render template: "page/500_nosolr", layout: false, status: 500}
         format.xml {render template: 'page/500', status: 500}
         format.json { render text: '{"error": "server_error"}' }
         format.xml {render template: 'page/500.xml', status: 500}
@@ -133,7 +133,7 @@ module EnjuLeaf
     end
 
     def access_denied
-      raise CanCan::AccessDenied
+      raise Pundit::NotAuthorizedError
     end
 
     def get_user
@@ -234,12 +234,10 @@ module EnjuLeaf
       if params[:mobile_view]
         case params[:mobile_view]
         when 'true'
-          session[:mobylette_override] = :force_mobile
-          request.format = :mobile
+          request.variant = :phone
         when 'false'
-          session[:mobylette_override] = :ignore_mobile
           unless params[:format]
-            request.format = :html if request.format == :mobile
+            request.variant = nil if request.variant = :phone
           end
         end
       end

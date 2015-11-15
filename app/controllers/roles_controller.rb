@@ -1,6 +1,6 @@
 class RolesController < ApplicationController
-  load_and_authorize_resource except: :index
-  authorize_resource only: :index
+  before_action :set_role, only: [:show, :edit, :update, :destroy]
+  before_action :check_policy, only: [:index, :new, :create]
 
   # GET /roles
   # GET /roles.json
@@ -46,6 +46,15 @@ class RolesController < ApplicationController
   end
 
   private
+  def set_role
+    @role = Role.find(params[:id])
+    authorize @role
+  end
+
+  def check_policy
+    authorize Role
+  end
+
   def role_params
     params.require(:role).permit(:name, :display_name, :note)
   end

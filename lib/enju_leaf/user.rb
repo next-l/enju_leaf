@@ -60,8 +60,8 @@ module EnjuLeaf
         extend FriendlyId
         friendly_id :username
         #has_paper_trail
-        normalize_attributes :username
-        normalize_attributes :email, with: :strip
+        strip_attributes only: :username
+        strip_attributes only: :email, allow_empty: true
 
         attr_accessor :password_not_verified,
           :update_own_account, :auto_generated_password,

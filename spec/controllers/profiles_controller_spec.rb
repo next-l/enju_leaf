@@ -141,7 +141,7 @@ describe ProfilesController do
 
       it "should not assign the requested user as @profile" do
         get :new
-        assigns(:profile).should_not be_valid
+        assigns(:profile).should be_nil
         response.should be_forbidden
       end
     end
@@ -149,7 +149,7 @@ describe ProfilesController do
     describe "When not logged in" do
       it "should not assign the requested user as @profile" do
         get :new
-        assigns(:profile).should_not be_valid
+        assigns(:profile).should be_nil
         response.should redirect_to(new_user_session_url)
       end
     end

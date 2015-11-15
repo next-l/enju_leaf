@@ -103,7 +103,7 @@ describe UserGroupsController do
 
       it "should not assign the requested user_group as @user_group" do
         get :new
-        assigns(:user_group).should_not be_valid
+        assigns(:user_group).should be_nil
         expect(response).to be_forbidden
       end
     end
@@ -113,7 +113,7 @@ describe UserGroupsController do
 
       it "should not assign the requested user_group as @user_group" do
         get :new
-        assigns(:user_group).should_not be_valid
+        assigns(:user_group).should be_nil
         expect(response).to be_forbidden
       end
     end
@@ -121,7 +121,7 @@ describe UserGroupsController do
     describe "When not logged in" do
       it "should not assign the requested user_group as @user_group" do
         get :new
-        assigns(:user_group).should_not be_valid
+        assigns(:user_group).should be_nil
         expect(response).to redirect_to(new_user_session_url)
       end
     end
@@ -207,7 +207,7 @@ describe UserGroupsController do
       describe "with valid params" do
         it "assigns a newly created user_group as @user_group" do
           post :create, user_group: @attrs
-          assigns(:user_group).should be_valid
+          assigns(:user_group).should be_nil
         end
 
         it "should be forbidden" do
@@ -219,7 +219,7 @@ describe UserGroupsController do
       describe "with invalid params" do
         it "assigns a newly created but unsaved user_group as @user_group" do
           post :create, user_group: @invalid_attrs
-          assigns(:user_group).should_not be_valid
+          assigns(:user_group).should be_nil
         end
 
         it "should be forbidden" do
@@ -235,7 +235,7 @@ describe UserGroupsController do
       describe "with valid params" do
         it "assigns a newly created user_group as @user_group" do
           post :create, user_group: @attrs
-          assigns(:user_group).should be_valid
+          assigns(:user_group).should be_nil
         end
 
         it "should be forbidden" do
@@ -247,7 +247,7 @@ describe UserGroupsController do
       describe "with invalid params" do
         it "assigns a newly created but unsaved user_group as @user_group" do
           post :create, user_group: @invalid_attrs
-          assigns(:user_group).should_not be_valid
+          assigns(:user_group).should be_nil
         end
 
         it "should be forbidden" do
@@ -261,7 +261,7 @@ describe UserGroupsController do
       describe "with valid params" do
         it "assigns a newly created user_group as @user_group" do
           post :create, user_group: @attrs
-          assigns(:user_group).should be_valid
+          assigns(:user_group).should be_nil
         end
 
         it "should be forbidden" do
@@ -273,7 +273,7 @@ describe UserGroupsController do
       describe "with invalid params" do
         it "assigns a newly created but unsaved user_group as @user_group" do
           post :create, user_group: @invalid_attrs
-          assigns(:user_group).should_not be_valid
+          assigns(:user_group).should be_nil
         end
 
         it "should be forbidden" do

@@ -1,7 +1,7 @@
-# -*- encoding: utf-8 -*-
 class UserGroupsController < ApplicationController
-  load_and_authorize_resource
-  before_filter :prepare_options, only: [:new, :edit]
+  before_action :set_user_group, only: [:show, :edit, :update, :destroy]
+  before_action :check_policy, only: [:index, :new, :create]
+  before_action :prepare_options, only: [:new, :edit]
 
   # GET /user_groups
   # GET /user_groups.json
@@ -86,6 +86,15 @@ class UserGroupsController < ApplicationController
   end
 
   private
+  def set_user_group
+    @user_group = UserGroup.find(params[:id])
+    authorize @user_group
+  end
+
+  def check_policy
+    authorize UserGroup
+  end
+
   def user_group_params
     params.require(:user_group).permit(
       :name, :display_name, :note, :valid_period_for_new_user,

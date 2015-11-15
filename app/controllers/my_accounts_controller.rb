@@ -1,9 +1,8 @@
 class MyAccountsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
+  before_action :set_profile
 
   def show
-    @profile = current_user.profile
-
     respond_to do |format|
       format.html
       format.json { render json: @profile }
@@ -11,12 +10,10 @@ class MyAccountsController < ApplicationController
   end
 
   def edit
-    @profile = current_user.profile
     prepare_options
   end
 
   def update
-    @profile = current_user.profile
     user_attrs = [
       :id, :email, :current_password, :password, :password_confirmation
     ]
@@ -52,7 +49,6 @@ class MyAccountsController < ApplicationController
   end
 
   def destroy
-    @profile = current_user.profile
     @profile.destroy
 
     respond_to do |format|
@@ -62,6 +58,11 @@ class MyAccountsController < ApplicationController
   end
 
   private
+  def set_profile
+    @profile = current_user.profile
+    authorize @profile
+  end
+
   def profile_params
     attrs = [
       :full_name, :full_name_transcription, :user_number,
