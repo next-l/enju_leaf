@@ -6,10 +6,7 @@ describe "page/index" do
 
   before(:each) do
     assign(:tags, Tag.all)
-    view.stub(:current_user).and_return(User.find('enjuadmin'))
-    @ability = Object.new
-    @ability.extend(CanCan::Ability)
-    controller.stub(:current_ability) { @ability }
+    view.stub(:current_user).and_return(User.friendly.find('enjuadmin'))
   end
 
   it "renders attributes in <p>" do

@@ -546,8 +546,8 @@ describe ProfilesController do
 
       it "should not be able to delete other librarian user" do
         librarian = FactoryGirl.create(:librarian_profile)
-        ability = EnjuLeaf::Ability.new(@user, "0.0.0.0")
-        ability.should_not be_able_to( :destroy, librarian )
+        delete :destroy, id: librarian.id
+        response.should be_forbidden
       end
     end
 
