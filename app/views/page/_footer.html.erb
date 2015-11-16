@@ -5,7 +5,7 @@
     <%= link_to t('page.about_this_system'), page_about_path -%> |
     <%= link_to t('page.report_bugs'), "https://github.com/next-l/enju_leaf/issues" -%> |
     <%= link_to t('page.manual'), "https://next-l.github.io/manual/" %>
-    <% if is_mobile_request? %>
+    <% if browser.mobile? %>
       | <%= link_to t('page.mobile_view'), url_for(mobile_view: 'true') %>
     <% end %>
     <br />

@@ -40,6 +40,7 @@ Gem::Specification.new do |s|
   s.add_dependency "paperclip", "~> 4.3"
   s.add_dependency "statesman", "~> 1.3"
   s.add_dependency "kramdown"
+  s.add_dependency "browser", "~> 1.0"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mysql2"

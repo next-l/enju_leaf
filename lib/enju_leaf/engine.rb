@@ -16,6 +16,7 @@ require 'devise-encryptable'
 require 'sitemap_generator'
 require 'jquery-ui-rails'
 require 'statesman'
+require 'browser'
 
 module EnjuLeaf
   class Engine < ::Rails::Engine
