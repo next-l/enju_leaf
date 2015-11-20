@@ -9,7 +9,8 @@ gemspec
 # your gemspec. These might include edge Rails or gems from your path or
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
-gem 'attribute_normalizer', '~> 1.2'
+gem 'enju_biblio', github: 'next-l/enju_biblio', branch: '1.2'
+gem 'enju_circulation', github: 'next-l/enju_circulation', branch: '1.2'
 
 # To use debugger
 # gem 'debugger'
