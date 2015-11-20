@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.add_dependency "acts_as_list", "~> 0.7"
   s.add_dependency "strip_attributes", "~> 1.7"
   s.add_dependency "addressable"
-  s.add_dependency "sunspot_rails", "~> 2.2"
+  s.add_dependency "sunspot_rails", "~> 2.2.1"
   s.add_dependency "cocoon"
   s.add_dependency "sitemap_generator", "~> 5.1"
   s.add_dependency "devise-encryptable"
