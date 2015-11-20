@@ -24,7 +24,7 @@ describe "profiles/show" do
     end
 
     it "cannot be deletable by other librarian" do
-      allow(view).to receive(:policy).and_return double(destroy?: true)
+      allow(view).to receive(:policy).and_return double(updaate?: true, destroy?: true)
       render
     end
   end
