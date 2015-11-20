@@ -6,9 +6,6 @@ describe "page/configuration" do
 
   before(:each) do
     view.stub(:current_user).and_return(User.find('enjuadmin'))
-    @ability = Object.new
-    @ability.extend(CanCan::Ability)
-    controller.stub(:current_ability) { @ability }
   end
 
   it "renders attributes in <p>" do

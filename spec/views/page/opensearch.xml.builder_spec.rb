@@ -6,10 +6,7 @@ describe "page/opensearch" do
 
   before(:each) do
     assign(:library_group, LibraryGroup.site_config)
-    view.stub(:current_user).and_return(User.find('enjuadmin'))
-    @ability = Object.new
-    @ability.extend(CanCan::Ability)
-    controller.stub(:current_ability) { @ability }
+    view.stub(:current_user).and_return(User.friendly.find('enjuadmin'))
   end
 
   it "renders the XML template" do
