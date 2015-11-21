@@ -36,7 +36,6 @@ Gem::Specification.new do |s|
   s.add_dependency "devise-encryptable"
   s.add_dependency "rails_autolink"
   s.add_dependency "jquery-ui-rails", "~> 4.2.1"
-  s.add_dependency "resque-scheduler", "~> 4.0"
   s.add_dependency "paperclip", "~> 4.3"
   s.add_dependency "statesman", "~> 1.3"
   s.add_dependency "kramdown"
@@ -61,4 +60,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "redis-rails"
   s.add_development_dependency "coveralls"
   s.add_development_dependency "resque", "~> 1.25"
+  s.add_development_dependency "resque-scheduler", "~> 4.0"
 end
