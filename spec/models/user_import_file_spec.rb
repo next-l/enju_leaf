@@ -73,7 +73,7 @@ describe UserImportFile do
       @file.executed_at.should be_truthy
 
       @file.reload
-      @file.error_message.should eq "The following column(s) were ignored: invalid"
+      @file.error_message.should eq "次の列は無視されました。 invalid"
     end
 
     it "should send message when import is completed" do
