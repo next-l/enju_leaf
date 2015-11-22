@@ -10,11 +10,9 @@ require "enju_leaf/master_model"
 require "enju_leaf/url_validator"
 
 require 'csv'
-#require 'mathn'
 require 'rss'
 require 'nkf'
 require 'ipaddr'
-require 'plugins'
 
 module EnjuLeaf
   def self.included(base)
