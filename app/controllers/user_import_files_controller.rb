@@ -64,7 +64,7 @@ class UserImportFilesController < ApplicationController
     respond_to do |format|
       if @user_import_file.save
         if @user_import_file.mode == 'import'
-          Resque.enqueue(UserImportFileQueue, @user_import_file.id)
+          UserImportFileJob.perform_later(@user_import_file)
         end
         format.html { redirect_to @user_import_file, notice: t('import.successfully_created', model: t('activerecord.models.user_import_file')) }
         format.json { render json: @user_import_file, status: :created, location: @user_import_file }
@@ -82,7 +82,7 @@ class UserImportFilesController < ApplicationController
     respond_to do |format|
       if @user_import_file.update_attributes(user_import_file_params)
         if @user_import_file.mode == 'import'
-          Resque.enqueue(UserImportFileQueue, @user_import_file.id)
+          UserImportFileJob.perform_later(@user_import_file)
         end
         format.html { redirect_to @user_import_file, notice: t('controller.successfully_updated', model: t('activerecord.models.user_import_file')) }
         format.json { head :no_content }
