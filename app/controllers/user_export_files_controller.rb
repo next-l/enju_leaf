@@ -61,7 +61,7 @@ class UserExportFilesController < ApplicationController
     respond_to do |format|
       if @user_export_file.save
         if @user_export_file.mode == 'export'
-          UserExportFileJob.perform_later(@user_import_file)
+          UserExportFileJob.perform_later(@user_export_file)
         end
         format.html { redirect_to @user_export_file, notice: t('export.successfully_created', model: t('activerecord.models.user_export_file')) }
         format.json { render json: @user_export_file, status: :created, location: @user_export_file }
@@ -78,7 +78,7 @@ class UserExportFilesController < ApplicationController
     respond_to do |format|
       if @user_export_file.update_attributes(user_export_file_params)
         if @user_export_file.mode == 'export'
-          UserExportFileJob.perform_later(@user_import_file)
+          UserExportFileJob.perform_later(@user_export_file)
         end
         format.html { redirect_to @user_export_file, notice: t('controller.successfully_updated', model: t('activerecord.models.user_export_file')) }
         format.json { head :no_content }

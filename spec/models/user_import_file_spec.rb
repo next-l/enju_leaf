@@ -188,7 +188,7 @@ describe UserImportFile do
     file.default_user_group = UserGroup.find(2)
     file.default_library = Library.find(3)
     file.save
-    UserImportFileQueue.perform(file.id).should be_truthy
+    UserImportFileJob.perform_later(file).should be_truthy
   end
 end
 
