@@ -57,7 +57,7 @@ module EnjuLeaf
         format.mobile { render template: 'page/404', status: 404 }
         format.xml { render template: 'page/404', status: 404 }
         format.json { render text: '{"error": "not_found"}' }
-        format.xml { render template: 'page/404.xml', status: 404 }
+        format.rss { render template: 'page/404.xml', status: 404 }
       end
     end
 
