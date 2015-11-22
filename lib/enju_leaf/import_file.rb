@@ -55,7 +55,8 @@ module ImportFile
     # インポート完了時のメッセージを送信します。
     def send_message
       sender = User.find(1)
-      message_template = MessageTemplate.localized_template('import_completed', user.profile.locale)
+      locale = user.profile.try(:locale) || I18n.default_locale.to_s
+      message_template = MessageTemplate.localized_template('import_completed', locale)
       request = MessageRequest.new
       request.assign_attributes({sender: sender, receiver: user, message_template: message_template})
       request.save_message_body
