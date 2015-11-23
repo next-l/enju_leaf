@@ -1,7 +1,6 @@
 require "enju_leaf/engine"
 require "enju_leaf/version"
 require "enju_leaf/controller"
-require "enju_leaf/user"
 require "enju_leaf/calculate_stat"
 require "enju_leaf/import_file"
 require "enju_leaf/export_file"
@@ -230,5 +229,4 @@ module EnjuLeaf
   end
 end
 
-ActiveRecord::Base.send(:include, EnjuLeaf::EnjuUser)
 ActionController::Base.send(:include, EnjuLeaf)

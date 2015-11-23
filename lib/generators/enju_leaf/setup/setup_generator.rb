@@ -39,7 +39,7 @@ EOS
     gsub_file 'app/models/user.rb', /, :trackable, :validatable$/, <<EOS
 , :trackable, #:validatable, 
       :lockable, :lock_strategy => :none, :unlock_strategy => :none
-  enju_leaf_user_model
+  include EnjuLeaf::User
 EOS
     generate("sunspot_rails:install")
     generate("kaminari:config")
