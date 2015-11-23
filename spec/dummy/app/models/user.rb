@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
     :lockable, :lock_strategy => :none, :unlock_strategy => :none
 
   include EnjuLeaf::EnjuUser
-  enju_message_user_model
+  include EnjuMessage::EnjuUser
   enju_circulation_user_model
   enju_bookmark_user_model
 end
