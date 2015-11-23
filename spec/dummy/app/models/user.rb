@@ -5,6 +5,6 @@ class User < ActiveRecord::Base
 
   include EnjuLeaf::EnjuUser
   include EnjuMessage::EnjuUser
-  enju_circulation_user_model
+  include EnjuCirculation::EnjuUser
   enju_bookmark_user_model
 end
