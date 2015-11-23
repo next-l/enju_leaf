@@ -1,7 +1,6 @@
 class UserExportFile < ActiveRecord::Base
   include Statesman::Adapters::ActiveRecordQueries
   include ExportFile
-  enju_export_file_model
 
   if ENV['ENJU_STORAGE'] == 's3'
     has_attached_file :user_export, storage: :s3,
