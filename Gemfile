@@ -12,6 +12,7 @@ gemspec
 gem 'enju_biblio', github: 'next-l/enju_biblio', branch: '1.2'
 gem 'enju_circulation', github: 'next-l/enju_circulation', branch: '1.2'
 gem 'enju_message', github: 'next-l/enju_message', branch: '1.2'
+gem 'enju_bookmark', github: 'next-l/enju_bookmark', branch: '1.2'
 
 # To use debugger
 # gem 'debugger'
