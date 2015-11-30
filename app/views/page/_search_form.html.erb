@@ -1,0 +1,12 @@
+<div class="search_form">
+  <%= form_for :manifestations, url: manifestations_path, html: {method: 'get', class: 'form-inline'} do -%>
+    <div class="form-group">
+      <%= label_tag :query, t('page.search_term') -%>:
+      <%= search_field_tag 'query', nil, {id: 'search_form_top', class: 'form-control', placeholder: t('page.search_term')} -%>
+      <%= submit_tag t('page.search'), class: 'btn btn-default' -%>
+      <br />
+      (<%= link_to t('page.advanced_search'), page_advanced_search_path -%>)
+    </div>
+  <%- end -%>
+</div>
+<%= javascript_tag("$(function(){$('#query').focus()})") %>
