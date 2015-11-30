@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506105356) do
+ActiveRecord::Schema.define(version: 20151129070319) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer  "basket_id"
@@ -505,6 +505,7 @@ ActiveRecord::Schema.define(version: 20150506105356) do
     t.integer  "profile_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "provider"
   end
 
   add_index "identities", ["email"], name: "index_identities_on_email"
@@ -892,6 +893,19 @@ ActiveRecord::Schema.define(version: 20150506105356) do
   add_index "messages", ["parent_id"], name: "index_messages_on_parent_id"
   add_index "messages", ["receiver_id"], name: "index_messages_on_receiver_id"
   add_index "messages", ["sender_id"], name: "index_messages_on_sender_id"
+
+  create_table "names", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.integer  "language_id"
+    t.integer  "profile_id"
+    t.integer  "position"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "names", ["profile_id"], name: "index_names_on_profile_id"
 
   create_table "owns", force: :cascade do |t|
     t.integer  "agent_id",   null: false
