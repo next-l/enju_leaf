@@ -10,5 +10,6 @@
  *= require jquery.ui.menu
  *= require jquery.ui.datepicker
  *= require jquery.ui.menubar
+ *= require jquery.ui.autocomplete
  *= require portlets
 */
