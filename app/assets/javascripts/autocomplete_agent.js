@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  $("#hoge").on('cocoon:after-insert', function(e, added_task){
+  $("#creator_form").on('cocoon:after-insert', function(e, added_task){
     $('.creator_full_name').focus(function(){
       $(this).autocomplete({
         minLength: 1,
