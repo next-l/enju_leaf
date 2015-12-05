@@ -10,3 +10,4 @@
 //= require tab_view
 //= require jquery.powertip
 //= require cocoon
+//= require autocomplete_agent
