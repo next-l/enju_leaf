@@ -9,6 +9,8 @@ class Profile < ActiveRecord::Base
   belongs_to :user_group
   belongs_to :required_role, class_name: 'Role', foreign_key: 'required_role_id' #, validate: true
   has_many :identities
+  has_many :agents
+  has_many :names
   accepts_nested_attributes_for :identities, allow_destroy: true, reject_if: :all_blank
 
   validates_associated :user_group, :library
