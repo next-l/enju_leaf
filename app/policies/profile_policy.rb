@@ -4,10 +4,13 @@ class ProfilePolicy < ApplicationPolicy
   end
 
   def show?
-    if user.try(:has_role?, 'Librarian')
+    case user.role.name
+    when 'Administrator'
+      true
+    when 'Librarian'
       return true if record == user.profile
       true if %w(Librarian User Guest).include?(record.required_role.name)
-    elsif user.try(:has_role?, 'User')
+    when 'User'
       return true if record == user.profile
       true if %w(User Guest).include?(record.required_role.name)
     end
