@@ -76,7 +76,7 @@ module EnjuLeaf
       #flash[:notice] = t('page.connection_failed')
       respond_to do |format|
         format.html {render template: "page/500_nosolr", layout: false, status: 500}
-        format.html.phone {render template: "page/500_nosolr", layout: false, status: 500}
+        #format.html.phone {render template: "page/500_nosolr", layout: false, status: 500}
         format.xml {render template: 'page/500', status: 500}
         format.json { render text: '{"error": "server_error"}' }
         format.xml {render template: 'page/500.xml', status: 500}
