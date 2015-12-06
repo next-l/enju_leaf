@@ -68,9 +68,6 @@ EOS
     gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i'
     gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [:email]', 'config.authentication_keys = [:username]'
     gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
-    gsub_file 'config/initializers/devise.rb',
-      "# config.navigational_formats = ['*/*', :html]",
-      "config.navigational_formats = ['*/*', :html, :mobile]"
 
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
@@ -103,12 +100,6 @@ EOS
       <<"EOS"
 require 'rack/protection'
 use Rack::Protection, except: [:escaped_params, :json_csrf, :http_origin, :session_hijacking, :remote_token]
-EOS
-    end
-    create_file 'config/initializers/mobile.rb' do <<"EOS"
-ActionController::Responder.class_eval do
-  alias :to_mobile :to_html
-end
 EOS
     end
     remove_file "public/index.html"
