@@ -59,6 +59,13 @@ EOS
         ""
     end
     gsub_file 'config/routes.rb', /devise_for :users$/, "devise_for :users, skip: [:registration]"
+    inject_into_file 'config/routes.rb', after: /Rails.application.routes.draw do$\n/ do
+      <<"EOS"
+  authenticate :user, lambda {|u| u.role.try(:name) == 'Administrator' } do
+    mount Resque::Server.new, at: "/resque", as: :resque
+  end
+EOS
+    end
     gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i'
     gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [:email]', 'config.authentication_keys = [:username]'
     gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
