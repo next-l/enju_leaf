@@ -43,7 +43,7 @@
       <%- if policy(Profile).create? -%>
         <li><%= link_to t('page.new', model: t('activerecord.models.profile')), new_profile_path -%></li>
       <% end %>
-      <%- if profile(@profile).destroy? -%>
+      <%- if policy(@profile).destroy? -%>
         <li><%= link_to t('page.destroy'), @profile, data: {confirm: t('page.are_you_sure')}, method: :delete -%></li>
       <% end %>
     <%- end -%>
