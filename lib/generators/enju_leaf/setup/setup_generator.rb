@@ -20,7 +20,6 @@ EOS
     gsub_file 'config/application.rb', /# config.time_zone = 'Central Time \(US & Canada\)'$/,
       "config.time_zone = 'Tokyo'"
     gsub_file 'config/schedule.rb', /\/path\/to\/enju_leaf/, Rails.root.to_s
-    append_to_file("config/application.rb", "require 'resque/server'")
     append_to_file("Rakefile", "require 'resque/tasks'\n")
     append_to_file("Rakefile", "require 'resque/scheduler/tasks'")
     append_to_file("db/seeds.rb", File.open(File.expand_path('../templates', __FILE__) + '/db/seeds.rb').read)
@@ -58,7 +57,7 @@ EOS
         ""
     end
     gsub_file 'config/routes.rb', /devise_for :users$/, "devise_for :users, skip: [:registration]"
-    inject_into_file 'config/routes.rb', after: /Rails.application.routes.draw do\n$/ do
+    inject_into_file 'config/routes.rb', after: /Rails.application.routes.draw do$\n/ do
       <<"EOS"
   authenticate :user, lambda {|u| u.role.try(:name) == 'Administrator' } do
     mount Resque::Server.new, at: "/resque", as: :resque
