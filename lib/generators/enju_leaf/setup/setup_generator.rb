@@ -12,6 +12,7 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
       <<"EOS"
     config.i18n.available_locales = [:en, :ja]
     config.i18n.enforce_available_locales = true
+    config.active_job.queue_adapter = :resque
 EOS
     end
     gsub_file 'config/application.rb', /# config.i18n.default_locale = :de$/,
@@ -69,12 +70,7 @@ EOS
   enju_biblio
   enju_library
 
-  mobylette_config do |config|
-    config[:skip_xhr_requests] = false
-    config[:skip_user_agents] = ENV['ENJU_SKIP_MOBILE_AGENTS'].to_s.split(',').map{|a|
-      a.to_sym
-    }
-  end
+  include Pundit
 EOS
     end
 
