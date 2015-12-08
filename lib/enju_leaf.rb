@@ -202,15 +202,22 @@ module EnjuLeaf
     end
 
     def set_mobile_request
-      if params[:mobile_view]
-        case params[:mobile_view]
-        when 'true'
-          request.variant = :phone
-        when 'false'
-          unless params[:format]
-            request.variant = nil
-          end
-        end
+      case params[:view]
+      when 'phone'
+        session[:enju_view] = :phone
+      when 'desktop'
+        session[:enju_view] = :desktop
+      when 'reset'
+        session[:enju_view] = nil
+      end
+
+      case session[:enju_view].try(:to_sym)
+      when :phone
+        request.variant = :phone
+      when :desktop
+        request.variant = nil
+      else
+        request.variant = :phone if browser.mobile?
       end
     end
 
