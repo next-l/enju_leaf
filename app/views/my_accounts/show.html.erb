@@ -12,6 +12,10 @@
   </h2>
 
   <p><%= t('activerecord.attributes.profile.user_number') %>: <%= @profile.user_number %></p>
+  <% if defined?(EnjuOrcid) %>
+    <p><%= 'ORCID iD' %>: <%= link_to orcid_url(current_user.profile), orcid_url(current_user.profile) %></p>
+  <% end %>
+
   <%- if flash[:temporary_password] -%>
     <p><%= t('user.your_temporary_password_is') -%>: </p>
     <p style="font-size: 200%"><%= flash[:temporary_password] -%></p>
