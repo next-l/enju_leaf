@@ -5,6 +5,7 @@ class MyAccountsController < ApplicationController
   def show
     respond_to do |format|
       format.html
+      format.html.phone
       format.json { render json: @profile }
     end
   end
