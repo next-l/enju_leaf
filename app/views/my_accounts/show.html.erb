@@ -21,26 +21,42 @@
     <%= render 'profiles/submenu_checkout', profile: current_user.profile %>
   <% end %>
   <ul>
-    <li><%= link_to t('page.edit'), edit_my_account_path -%></li>
-    <li><%= link_to t('activerecord.models.registration'), edit_user_registration_path -%></li>
-    <%- if can? :destroy, current_user -%>
-      <li><%= link_to t('page.destroy'), curent_user, data: {confirm: t('page.are_you_sure')}, method: :delete -%></li>
+    <%- if flash[:query] -%>
+      <li><%= link_to t('page.back'), profiles_path(query: flash[:query]) -%></li>
+    <% else %>
+      <li><%= link_to t('page.back'), :back -%></li>
+    <% end %>
+    <% if user_signed_in? %>
+      <% if can?(:update, @profile) %>
+        <li><%= link_to t('page.edit'), edit_profile_path(@profile) -%></li>
+      <% end %>
+      <% if defined?(EnjuMessage) %>
+        <% if can?(:create, Message) %>
+          <li><%= link_to t('message.send'), new_message_path(recipient: @profile.user.username) -%></li>
+        <% end %>
+      <% end %>
+        <% if can?(:create, Profile) %>
+        <li><%= link_to t('page.new', model: t('activerecord.models.profile')), new_profile_path -%></li>
+      <% end %>
+      <%- if can?(:destroy, @profile) -%>
+        <li><%= link_to t('page.destroy'), @profile, data: {confirm: t('page.are_you_sure')}, method: :delete -%></li>
+      <% end %>
     <%- end -%>
     <% if defined?(EnjuSearchLog) %>
       <li><%= link_to t('activerecord.models.search_history'), search_histories_path %></li>
     <% end %>
     <% if defined?(EnjuCirculation) %>
-      <li><%= link_to t('activerecord.models.checkout'), checkouts_path %></li>
-      <li><%= link_to t('activerecord.models.reserve'), reserves_path %></li>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.checkout')), checkouts_path(user_id: @profile.user.username) %></li>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.reserve')), reserves_path(user_id: @profile.user.username) %></li>
     <% end %>
     <% if defined?(EnjuQuestion) %>
-      <li><%= link_to t('activerecord.models.question'), user_questions_path(current_user) %></li>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.question')), questions_path(user_id: @profile.user.username) %></li>
     <% end %>
     <% if defined?(EnjuBookmark) %>
-      <li><%= link_to t('activerecord.models.bookmark'), bookmarks_path %></li>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.bookmark')), bookmarks_path(user_id: @profile.user.username) %></li>
     <% end %>
     <% if defined?(EnjuPurchaseRequest) %>
-      <li><%= link_to t('activerecord.models.purchase_request'), purchase_requests_path %></li>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.purchase_request')), purchase_requests_path(user_id: @profile.user.username) %></li>
     <% end %>
   </ul>
 </div>
