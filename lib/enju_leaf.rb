@@ -220,7 +220,6 @@ module EnjuLeaf
       else
         request.variant = :phone if browser.mobile?
       end
-      logger.warn "view: #{session[:enju_view]}"
     end
 
     def move_position(resource, direction, redirect = true)
