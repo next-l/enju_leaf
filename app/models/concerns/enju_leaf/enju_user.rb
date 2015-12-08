@@ -47,13 +47,16 @@ module EnjuLeaf
 
       paginates_per 10
 
+      def send_devise_notification(notification, *args)
+        devise_mailer.send(notification, self, *args).deliver_later
+      end
+
       # 有効期限切れのユーザを一括で使用不可にします。
       def self.lock_expired_users
         User.find_each do |user|
           user.lock_access! if user.expired? and user.active_for_authentication?
         end
       end
-
 
       # ユーザの情報をエクスポートします。
       # @param [Hash] options
