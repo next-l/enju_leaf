@@ -4,7 +4,7 @@ class ProfilePolicy < ApplicationPolicy
   end
 
   def show?
-    case user.role.try(:name)
+    case user.try(:role).try(:name)
     when 'Administrator'
       true
     when 'Librarian'
