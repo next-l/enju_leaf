@@ -38,7 +38,7 @@
         <li><%= link_to t('page.edit'), edit_profile_path(@profile) -%></li>
       <% end %>
       <% if defined?(EnjuMessage) %>
-        <% if policy(Message).create? %>
+        <% if can? :create, Message %>
           <li><%= link_to t('message.send'), new_message_path(recipient: @profile.user.username) -%></li>
         <% end %>
       <% end %>
