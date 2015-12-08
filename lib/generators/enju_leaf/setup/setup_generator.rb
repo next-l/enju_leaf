@@ -45,6 +45,7 @@ EOS
     generate("kaminari:config")
     generate("kaminari:views bootstrap3")
     generate("simple_form:install")
+    generate("geocoder:config")
     gsub_file "config/sunspot.yml",
       /path: \/solr\/production/,
       "path: /solr/default"
