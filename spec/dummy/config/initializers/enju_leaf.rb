@@ -1,0 +1,1 @@
+UserGroup.include(EnjuCirculation::EnjuUserGroup)
