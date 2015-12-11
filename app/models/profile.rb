@@ -1,5 +1,4 @@
 class Profile < ActiveRecord::Base
-  enju_circulation_profile_model if defined?(EnjuCirculation)
   enju_search_log_profile_model if defined?(EnjuSearchLog)
 
   scope :administrators, -> { joins(user: :role).where('roles.name = ?', 'Administrator') }
