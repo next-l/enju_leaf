@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 class UserGroup < ActiveRecord::Base
   include MasterModel
   has_many :profiles
@@ -8,8 +7,6 @@ class UserGroup < ActiveRecord::Base
     allow_blank: true
 
   paginates_per 10
-
-  enju_circulation_user_group_model if defined?(EnjuCirculation)
 end
 
 # == Schema Information
