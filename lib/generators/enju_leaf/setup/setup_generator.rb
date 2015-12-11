@@ -12,7 +12,6 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
       <<"EOS"
     config.i18n.available_locales = [:en, :ja]
     config.i18n.enforce_available_locales = true
-
     config.active_job.queue_adapter = :resque
 EOS
     end
@@ -39,7 +38,7 @@ EOS
     gsub_file 'app/models/user.rb', /, :trackable, :validatable$/, <<EOS
 , :trackable, #:validatable, 
       :lockable, :lock_strategy => :none, :unlock_strategy => :none
-  include EnjuLeaf::User
+  include EnjuLeaf::EnjuUser
 EOS
     generate("sunspot_rails:install")
     generate("kaminari:config")
@@ -52,13 +51,11 @@ EOS
     gsub_file 'config/initializers/kaminari_config.rb',
       /# config.default_per_page = 25$/,
       "config.default_per_page = 10"
-    if Rails::VERSION::MAJOR >= 4
-      generate("friendly_id")
-      gsub_file 'config/initializers/friendly_id.rb', /# config.use :finders$/, "config.use :finders"
-      gsub_file "app/assets/javascripts/application.js",
-        /\/\/= require turbolinks$/,
-        ""
-    end
+    generate("friendly_id")
+    gsub_file 'config/initializers/friendly_id.rb', /# config.use :finders$/, "config.use :finders"
+    gsub_file "app/assets/javascripts/application.js",
+      /\/\/= require turbolinks$/,
+      ""
     gsub_file 'config/routes.rb', /devise_for :users$/, "devise_for :users, skip: [:registration]"
     inject_into_file 'config/routes.rb', after: /Rails.application.routes.draw do$\n/ do
       <<"EOS"
@@ -73,20 +70,11 @@ EOS
 
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
-  enju_leaf
-  enju_biblio
-  enju_library
+  inckude EnjuLeaf::Controller
+  inckude EnjuBiblio::Controller
+  inckude EnjuLibrary::Controller
 
   include Pundit
-
-EOS
-    end
-
-    inject_into_file "config/routes.rb", after: /^Rails.application.routes.draw do$\n/ do
-      <<"EOS"
-  authenticate :user, lambda {|u| u.role.try(:name) == 'Administrator' } do
-    mount Resque::Server.new, at: "/resque", as: :resque
-  end
 EOS
     end
 
