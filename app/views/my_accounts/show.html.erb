@@ -8,7 +8,10 @@
     <%= current_user.username -%>
   </h2>
 
-  <p><%= t('activerecord.attributes.profile.user_number') %>: <%= current_user.profile.user_number %></p>
+  <p><%= t('activerecord.attributes.profile.user_number') %>: <%= @profile.user_number %></p>
+  <% if defined?(EnjuOrcid) %>
+    <p><%= 'ORCID iD' %>: <%= link_to orcid_url(@profile), orcid_url(@profile) %></p>
+  <% end %>
 
   <% if defined?(EnjuCirculation) %>
     <%= render 'profiles/checkout_list', profile: current_user.profile %>
@@ -21,26 +24,10 @@
     <%= render 'profiles/submenu_checkout', profile: current_user.profile %>
   <% end %>
   <ul>
-    <%- if flash[:query] -%>
-      <li><%= link_to t('page.back'), profiles_path(query: flash[:query]) -%></li>
-    <% else %>
-      <li><%= link_to t('page.back'), :back -%></li>
-    <% end %>
-    <% if user_signed_in? %>
-      <% if can?(:update, @profile) %>
-        <li><%= link_to t('page.edit'), edit_profile_path(@profile) -%></li>
-      <% end %>
-      <% if defined?(EnjuMessage) %>
-        <% if can?(:create, Message) %>
-          <li><%= link_to t('message.send'), new_message_path(recipient: @profile.user.username) -%></li>
-        <% end %>
-      <% end %>
-        <% if can?(:create, Profile) %>
-        <li><%= link_to t('page.new', model: t('activerecord.models.profile')), new_profile_path -%></li>
-      <% end %>
-      <%- if can?(:destroy, @profile) -%>
-        <li><%= link_to t('page.destroy'), @profile, data: {confirm: t('page.are_you_sure')}, method: :delete -%></li>
-      <% end %>
+    <li><%= link_to t('page.edit'), edit_my_account_path -%></li>
+    <li><%= link_to t('activerecord.models.registration'), edit_user_registration_path -%></li>
+    <%- if can?(:destroy, @profile) -%>
+      <li><%= link_to t('page.destroy'), @profile, data: {confirm: t('page.are_you_sure')}, method: :delete -%></li>
     <%- end -%>
     <% if defined?(EnjuSearchLog) %>
       <li><%= link_to t('activerecord.models.search_history'), search_histories_path %></li>
