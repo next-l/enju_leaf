@@ -7,6 +7,7 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
     directory("solr", "example/solr")
     copy_file("Procfile", "Procfile")
     copy_file("config/schedule.rb", "config/schedule.rb")
+    copy_file("config/initializers/enju_leaf.rb", "config/initializers/enju_leaf.rb")
     copy_file("config/initializers/resque.rb", "config/initializers/resque.rb")
     inject_into_file 'config/application.rb', after: /# config.i18n.default_locale = :de$\n/ do
       <<"EOS"
@@ -50,13 +51,10 @@ EOS
     gsub_file 'config/initializers/kaminari_config.rb',
       /# config.default_per_page = 25$/,
       "config.default_per_page = 10"
-    if Rails::VERSION::MAJOR >= 4
-      generate("friendly_id")
-      gsub_file 'config/initializers/friendly_id.rb', /# config.use :finders$/, "config.use :finders"
-      gsub_file "app/assets/javascripts/application.js",
-        /\/\/= require turbolinks$/,
-        ""
-    end
+    generate("friendly_id")
+    gsub_file "app/assets/javascripts/application.js",
+      /\/\/= require turbolinks$/,
+      ""
     gsub_file 'config/routes.rb', /devise_for :users$/, "devise_for :users, skip: [:registration]"
     inject_into_file 'config/routes.rb', after: /Rails.application.routes.draw do$\n/ do
       <<"EOS"
@@ -71,11 +69,12 @@ EOS
 
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
-  enju_leaf
-  enju_biblio
-  enju_library
+  include EnjuLeaf::Controller
+  include EnjuBiblio::Controller
+  include EnjuLibrary::Controller
 
   include Pundit
+  after_action :verify_authorized
 EOS
     end
 
