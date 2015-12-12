@@ -7,6 +7,7 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
     directory("solr", "example/solr")
     copy_file("Procfile", "Procfile")
     copy_file("config/schedule.rb", "config/schedule.rb")
+    copy_file("config/initializers/enju_leaf.rb", "config/initializers/enju_leaf.rb")
     copy_file("config/initializers/resque.rb", "config/initializers/resque.rb")
     inject_into_file 'config/application.rb', after: /# config.i18n.default_locale = :de$\n/ do
       <<"EOS"
@@ -52,7 +53,6 @@ EOS
       /# config.default_per_page = 25$/,
       "config.default_per_page = 10"
     generate("friendly_id")
-    gsub_file 'config/initializers/friendly_id.rb', /# config.use :finders$/, "config.use :finders"
     gsub_file "app/assets/javascripts/application.js",
       /\/\/= require turbolinks$/,
       ""
@@ -70,11 +70,12 @@ EOS
 
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
-  inckude EnjuLeaf::Controller
-  inckude EnjuBiblio::Controller
-  inckude EnjuLibrary::Controller
+  include EnjuLeaf::Controller
+  include EnjuBiblio::Controller
+  include EnjuLibrary::Controller
 
   include Pundit
+  after_action :verify_authorized
 EOS
     end
 
