@@ -74,7 +74,7 @@ EOS
   include EnjuLibrary::Controller
 
   include Pundit
-  after_action :verify_authorized
+  after_action :verify_authorized, unless: :devise_controller?
 EOS
     end
 
