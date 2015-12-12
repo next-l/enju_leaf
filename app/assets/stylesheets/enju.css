@@ -531,6 +531,10 @@ div.book_jacket{
   width: 190px;
 }
 
+div.book_jacket img{
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
 div.search_form{
   margin-bottom: 10px;
 }
