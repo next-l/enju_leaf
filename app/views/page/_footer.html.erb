@@ -1,14 +1,19 @@
 <div class="header_and_footer">
   <div id="footer">
-    <a href="https://github.com/next-l/enju_leaf">Next-L Enju Leaf <%= EnjuLeaf::VERSION %></a>,
-    <%= t('page.open_source_integrated_library_system') -%> |
-    <%= link_to t('page.about_this_system'), page_about_path -%> |
-    <%= link_to t('page.report_bugs'), "https://github.com/next-l/enju_leaf/issues" -%> |
-    <%= link_to t('page.manual'), "https://next-l.github.io/manual/" %>
-    <% if browser.mobile? %>
-      | <%= link_to t('page.mobile_view'), url_for(view: 'phone') %>
-    <% end %>
-    <br />
-    Developed by <a href="https://github.com/nabeta">Kosuke Tanabe</a> and <a href="http://www.next-l.jp/">Project Next-L</a>.
+    <div>
+      <a href="https://github.com/next-l/enju_leaf">Next-L Enju Leaf <%= EnjuLeaf::VERSION %></a>,
+      <%= t('page.open_source_integrated_library_system') -%> |
+      <%= link_to t('page.about_this_system'), page_about_path -%> |
+      <%= link_to t('page.report_bugs'), "https://github.com/next-l/enju_leaf/issues" -%> |
+      <%= link_to t('page.manual'), "https://next-l.github.io/manual/" %>
+      <% if browser.mobile? %>
+        | <%= link_to t('page.mobile_view'), url_for(view: 'phone') %>
+      <% end %>
+      <br />
+      Developed by <a href="https://github.com/nabeta">Kosuke Tanabe</a> and <a href="http://www.next-l.jp/">Project Next-L</a>.
+    </div>
+    <div>
+      <%= markdown_helper(@library_group.footer_banner) -%>
+    </div>
   </div>
 </div>
