@@ -134,7 +134,7 @@ ja:
     checkout: "貸出"
     checkin: "返却"
     name: "名前"
-    are_you_sure: "ほんとうですか？"
+    are_you_sure: "本当に実行してもよろしいですか？"
     file: "ファイル"
     cancel: "取消"
     feed: "フィード"
