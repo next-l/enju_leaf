@@ -93,7 +93,7 @@ module EnjuLeaf
           lines << u.try(:profile).try(:full_name_transcription)
           lines << u.email
           lines << u.try(:profile).try(:user_number)
-          lines << u.role.name
+          lines << u.role.try(:name)
           lines << u.try(:profile).try(:user_group).try(:name)
           lines << u.try(:profile).try(:library).try(:name)
           lines << u.try(:profile).try(:locale)
