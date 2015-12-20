@@ -91,7 +91,10 @@ class UserImportFile < ActiveRecord::Base
             import_result.save!
             num[:user_imported] += 1
           else
-            import_result.error_message = new_user.errors.full_messages.join("\n")
+            error_message = ''
+            error_message += new_user.errors.full_messages.join("\n")
+            error_message += profile.errors.full_messages.join("\n")
+            import_result.error_message = error_message
             import_result.save
             num[:failed] += 1
           end
