@@ -8,19 +8,6 @@ module EnjuLeaf
       def enju_leaf_user_model
         include InstanceMethods
 
-        # Setup accessible (or protected) attributes for your model
-        #attr_accessible :email, :password, :password_confirmation, :current_password,
-        #  :remember_me, :email_confirmation,
-        #  :auto_generated_password,
-        #  :profile_attributes
-        #attr_accessible :email, :password, :password_confirmation, :username,
-        #  :current_password, :remember_me,
-        #  :email_confirmation,
-        #  :expired_at, :locked, :role_id,
-        #  :user_has_role_attributes, :auto_generated_password,
-        #  :profile_attributes,
-        #  as: :admin
-
         scope :administrators, -> { joins(:role).where('roles.name = ?', 'Administrator') }
         scope :librarians, -> { joins(:role).where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian') }
         scope :suspended, -> { where('locked_at IS NOT NULL') }
@@ -111,7 +98,7 @@ module EnjuLeaf
             lines << u.try(:profile).try(:full_name_transcription)
             lines << u.email
             lines << u.try(:profile).try(:user_number)
-            lines << u.role.name
+            lines << u.role.try(:name)
             lines << u.try(:profile).try(:user_group).try(:name)
             lines << u.try(:profile).try(:library).try(:name)
             lines << u.try(:profile).try(:locale)
