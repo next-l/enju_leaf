@@ -31,7 +31,7 @@ matrix:
     gemfile: gemfiles/rails_4.2.gemfile
   - rvm: 2.1.7
     gemfile: gemfiles/rails_3.2.gemfile
-  - rvm: 2.2.3
+  - rvm: 2.2.4
     gemfile: gemfiles/rails_3.2.gemfile
 notifications:
   slack:
