@@ -17,6 +17,7 @@ gem 'enju_message', github: 'next-l/enju_message', branch: '1.2'
 gem 'enju_bookmark', github: 'next-l/enju_bookmark', branch: '1.2'
 gem 'enju_search_log', github: 'next-l/enju_search_log', branch: '1.2'
 gem 'enju_manifestation_viewer', github: 'next-l/enju_manifestation_viewer', branch: '1.2'
+gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
