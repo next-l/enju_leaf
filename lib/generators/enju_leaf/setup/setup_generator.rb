@@ -8,6 +8,7 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
     copy_file("Procfile", "Procfile")
     copy_file("config/schedule.rb", "config/schedule.rb")
     copy_file("config/initializers/resque.rb", "config/initializers/resque.rb")
+    append_to_file("config/initializers/assets.rb", "Rails.application.config.assets.precompile += %w( *.png )")
     inject_into_file 'config/application.rb', after: /# config.i18n.default_locale = :de$\n/ do
       <<"EOS"
     config.i18n.available_locales = [:en, :ja]
