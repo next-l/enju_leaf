@@ -58,7 +58,7 @@
 
 <p>
   <strong><%= t('activerecord.attributes.user_import_file.error_message') -%>:</strong>
-  <%= @user_import_file.error_message -%>
+  <%= simple_format(@user_import_file.error_message) -%>
 </p>
 
 <p>
