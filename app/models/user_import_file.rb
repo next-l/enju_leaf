@@ -56,10 +56,10 @@ class UserImportFile < ActiveRecord::Base
 
     rows.each do |row|
       row_num += 1
-      next if row['dummy'].to_s.strip.present?
       import_result = UserImportResult.create!(
         user_import_file_id: id, body: row.fields.join("\t")
       )
+      next if row['dummy'].to_s.strip.present?
 
       username = row['username']
       new_user = User.where(username: username).first

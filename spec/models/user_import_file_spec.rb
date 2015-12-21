@@ -52,7 +52,7 @@ describe UserImportFile do
       user003.profile.save_search_history.should be_falsy
       user003.profile.share_bookmarks.should be_falsy
       User.where(username: 'user000').first.should be_nil
-      UserImportResult.count.should eq old_import_results_count + 9
+      UserImportResult.count.should eq old_import_results_count + 10
       UserImportResult.order('id DESC')[0].error_message.should eq 'line 10: User number has already been taken'
       UserImportResult.order('id DESC')[1].error_message.should eq 'line 9: User number is invalid'
       UserImportResult.order('id DESC')[2].error_message.should eq 'line 8: Password is too short (minimum is 6 characters)'
