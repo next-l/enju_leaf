@@ -28,7 +28,7 @@
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
-    <li><%= back_to_index(flash[:page_info]) -%></li>
+    <li><%= link_to t('page.back'), :back -%></li>
     <% if current_user.has_role?('Administrator') %>
       <li><%= link_to 'Resque', resque_path %></li>
     <% end %>
