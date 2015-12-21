@@ -33,6 +33,11 @@
       <% if policy(@profile).update? %>
         <li><%= link_to t('page.edit'), edit_profile_path(@profile) -%></li>
       <% end %>
+      <% if defined?(EnjuCirculation) %>
+        <% if policy(Checkout).create? and @profile.user_number %>
+          <li><%= link_to t('page.new', model: t('activerecord.models.checkout')), new_basket_path(user_number: @profile.user_number) -%></li>
+        <% end %>
+      <% end %>
       <% if defined?(EnjuMessage) %>
         <% if policy(Message).create? %>
           <li><%= link_to t('message.send'), new_message_path(recipient: @profile.user.username) -%></li>
