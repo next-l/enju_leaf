@@ -3,7 +3,7 @@
     <h2 class="title"><%= t('activerecord.models.library') -%></h2>
     <div class="config_box">
       <ul>
-        <li><%= link_to t('activerecord.models.library_group'), library_groups_path -%></li>
+        <li><%= link_to t('activerecord.models.library_group'), @library_group -%></li>
         <li><%= link_to t('activerecord.models.library'), libraries_path -%>
           <ul>
             <li><%= link_to t('activerecord.models.shelf'), shelves_path -%></li>
