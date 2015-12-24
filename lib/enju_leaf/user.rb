@@ -83,15 +83,14 @@ module EnjuLeaf
             expired_at
             keyword_list
             note
-	  )
-	  header += %w(
+          )
+          header += %w(
             checkout_icalendar_token
             save_checkout_history
-	  ) if defined? EnjuCirculation
-	  header << "save_search_history" if defined? EnjuSearchLog
-	  header << "share_bookmarks" if defined? EnjuBookmark
-	  header = header.join("\t")
-          users = User.all.map{|u|
+          ) if defined? EnjuCirculation
+          header << "save_search_history" if defined? EnjuSearchLog
+          header << "share_bookmarks" if defined? EnjuBookmark
+          users = User.find_each.map{|u|
             lines = []
             lines << u.username
             lines << u.try(:profile).try(:full_name)
@@ -109,20 +108,20 @@ module EnjuLeaf
             lines << u.try(:profile).try(:expired_at)
             lines << u.try(:profile).try(:keyword_list).try(:split).try(:join, "//")
             lines << u.try(:profile).try(:note)
-	    if defined? EnjuCirculation
+            if defined? EnjuCirculation
               lines << u.try(:profile).try(:checkout_icalendar_token)
               lines << u.try(:profile).try(:save_checkout_history)
-	    end
-	    if defined? EnjuSearchLog
+            end
+            if defined? EnjuSearchLog
               lines << u.try(:profile).try(:save_search_history)
-	    end
-	    if defined? EnjuBookmark
+            end
+            if defined? EnjuBookmark
               lines << u.try(:profile).try(:share_bookmarks)
-	    end
-	    lines
+            end
+            lines
           }
           if options[:format] == :txt
-            users.map{|u| u.to_csv(col_sep: "\t")}.unshift(header).join
+            users.map{|u| u.to_csv(col_sep: "\t")}.unshift(header.to_csv(col_sep: "\t")).join
           else
             users
           end
