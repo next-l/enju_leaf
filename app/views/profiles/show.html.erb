@@ -28,7 +28,11 @@
     <%= render 'submenu_checkout', profile: @profile %>
   <% end %>
   <ul>
-    <li><%= link_to t('page.back'), :back %></li>
+    <%- if flash[:query] -%>
+      <li><%= link_to t('page.back'), profiles_path(query: flash[:query]) -%></li>
+    <% else %>
+      <li><%= back_to_index %></li>
+    <% end %>
     <% if user_signed_in? %>
       <% if policy(@profile).update? %>
         <li><%= link_to t('page.edit'), edit_profile_path(@profile) -%></li>

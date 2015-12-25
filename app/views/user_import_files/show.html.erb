@@ -76,8 +76,7 @@
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <%= form_for(@user_import_file) do |f| %>
   <ul>
-    <li><%= link_to t('page.back'), :back -%></li>
-    <li><%= link_to t('page.listing', model: t('activerecord.models.user_import_file')), user_import_files_path -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
     <% if current_user.has_role?('Administrator') %>
       <li><%= link_to 'Resque', resque_path %></li>
     <% end %>
