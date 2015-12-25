@@ -7,22 +7,20 @@ Rails.application.routes.draw do
 
   resources :user_export_files
 
-  resources :user_import_results, :only => [:index, :show, :destroy]
+  resources :user_import_results, only: [:index, :show, :destroy]
 
-  resources :user_import_files do
-    resources :user_import_results, :only => [:index, :show, :destroy]
-  end
+  resources :user_import_files
 
   resource :my_account
 
-  resources :roles, :except => [:new, :create, :destroy]
+  resources :roles, except: [:new, :create, :destroy]
 
   resources :user_groups
 
   resources :accepts
 
   resources :baskets do
-    resources :accepts, :except => [:edit, :update]
+    resources :accepts, except: [:edit, :update]
   end
 
   as :user do
