@@ -91,7 +91,7 @@ module EnjuLeaf
           header << "save_search_history" if defined? EnjuSearchLog
           header << "share_bookmarks" if defined? EnjuBookmark
           lines = []
-          User.find_each.map{|u|
+          User.all.map{|u|
             line = []
             line << u.username
             line << u.try(:profile).try(:full_name)
