@@ -140,7 +140,7 @@ describe User do
   describe ".export" do
     it "should export all user's information" do
       lines = User.export
-      CSV.parse(lines)
+      CSV.parse(lines, col_sep: "\t")
       expect(lines).not_to be_empty
       expect(lines.split(/\r\n/).size).to eq User.all.size + 1
     end
