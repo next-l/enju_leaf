@@ -142,7 +142,7 @@ describe User do
       lines = User.export
       CSV.parse(lines, col_sep: "\t")
       expect(lines).not_to be_empty
-      expect(lines.split(/\r\n/).size).to eq User.all.size + 1
+      expect(lines.split(/\n/).size).to eq User.count + 1
     end
 
     it "should export share_bookmarks and save_search_history" do
@@ -164,7 +164,7 @@ describe User do
       Object.send(:remove_const, :EnjuBookmark)
       lines = User.export
       expect(lines).not_to be_empty
-      expect(lines.split(/\r\n/).size).to eq User.all.size + 1
+      expect(lines.split(/\n/).size).to eq User.count + 1
     end
   end
 end

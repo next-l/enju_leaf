@@ -104,18 +104,19 @@ module EnjuLeaf
           lines << u.try(:profile).try(:keyword_list).try(:split).try(:join, "//")
           lines << u.try(:profile).try(:note)
           if defined? EnjuCirculation
-            lines << u.try(:profile).try(:checkout_icalendar_token)
-            lines << u.try(:profile).try(:save_checkout_history)
+            line << u.try(:profile).try(:checkout_icalendar_token)
+            line << u.try(:profile).try(:save_checkout_history)
           end
           if defined? EnjuSearchLog
-            lines << u.try(:profile).try(:save_search_history)
+            line << u.try(:profile).try(:save_search_history)
           end
           if defined? EnjuBookmark
-            lines << u.try(:profile).try(:share_bookmarks)
+            line << u.try(:profile).try(:share_bookmarks)
           end
+          lines << line
         }
         if options[:format] == :txt
-          [lines.to_csv(col_sep: "\t")].unshift(header.to_csv(col_sep: "\t")).join
+          lines.map{|line| line.to_csv(col_sep: "\t")}.unshift(header.to_csv(col_sep: "\t")).join
         else
           lines
         end
