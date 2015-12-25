@@ -90,8 +90,8 @@ module EnjuLeaf
           ) if defined? EnjuCirculation
           header << "save_search_history" if defined? EnjuSearchLog
           header << "share_bookmarks" if defined? EnjuBookmark
+          lines = []
           User.find_each.map{|u|
-            lines = []
             lines << u.username
             lines << u.try(:profile).try(:full_name)
             lines << u.try(:profile).try(:full_name_transcription)
@@ -118,7 +118,6 @@ module EnjuLeaf
             if defined? EnjuBookmark
               lines << u.try(:profile).try(:share_bookmarks)
             end
-            lines
           }
           if options[:format] == :txt
             lines.map{|u| u.to_csv(col_sep: "\t")}.unshift(header.to_csv(col_sep: "\t")).join
