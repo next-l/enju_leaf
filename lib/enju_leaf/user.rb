@@ -121,7 +121,7 @@ module EnjuLeaf
             lines
           }
           if options[:format] == :txt
-            lines.map{|u| u.to_csv(col_sep: "\t")}.unshift(header.to_csv(col_sep: "\t")).join
+            [lines.to_csv(col_sep: "\t")].unshift(header.to_csv(col_sep: "\t")).join
           else
             lines
           end
