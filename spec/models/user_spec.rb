@@ -140,9 +140,11 @@ describe User do
   describe ".export" do
     it "should export all user's information" do
       lines = User.export
+      CSV.parse(lines)
       expect(lines).not_to be_empty
       expect(lines.split(/\r\n/).size).to eq User.all.size + 1
     end
+
     it "should export share_bookmarks and save_search_history" do
       user = FactoryGirl.create(:user,
         profile: FactoryGirl.create(:profile,
@@ -157,6 +159,7 @@ describe User do
         end
       end
     end
+
     it "should work even if EnjuBookmark module is undefined" do
       Object.send(:remove_const, :EnjuBookmark)
       lines = User.export
@@ -165,6 +168,7 @@ describe User do
     end
   end
 end
+
 # == Schema Information
 #
 # Table name: users
