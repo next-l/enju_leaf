@@ -149,6 +149,7 @@ describe User do
           share_bookmarks: true,
           save_search_history: true))
       lines = User.export
+      CSV.parse(lines)
       rows = CSV.new(lines, col_sep: "\t", headers: true)
       rows.each do |row|
         if row["username"] == user.username
