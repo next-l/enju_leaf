@@ -22,7 +22,7 @@ function saveOrder(year, month, day, root_path) {
 function restoreOrder() {
     $(".column").each(function(index, value) {
         var columnId = value.id;
-        var cookieName = "listOrder" + columnId
+        var cookieName = "listOrder" + columnId;
         var cookie = $.cookie(cookieName);
         if ( cookie == null ) { return; }
         var IDs = cookie.split(",");
@@ -32,7 +32,7 @@ function restoreOrder() {
                 continue;
             }
             var portletId = toks[0];
-            var visible = toks[1]
+            var visible = toks[1];
             var portlet = $(".column")
                 .find('#' + portletId)
                 .appendTo($('#' + columnId));
