@@ -289,7 +289,7 @@ ja:
     successfully_deleted: "%{model}は正常に削除されました。"
   advanced_search:
     from: ""
-    to: "から"
+    to: "〜"
     all_libraries: "全ての図書館"
     check_all: "全て選択/解除"
   work:
