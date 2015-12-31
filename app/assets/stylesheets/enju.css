@@ -341,7 +341,13 @@ li{
 }
 
 input.resource_title{
-  width: 30em;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input.resource_name{
+  width: 80%;
+  box-sizing: border-box;
 }
 
 input.resource_locale{
@@ -358,7 +364,8 @@ input.resource_zip_code{
 }
 
 input.resource_url{
-  width: 40em;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 input.resource_isbn_issn, input.resource_identifier, input.resource_user_number, input.resource_user, input.resource_item_identifier{
@@ -398,16 +405,9 @@ input.short_name{
 }
 
 textarea{
-  width: 40em;
+  width: 100%;
+  box-sizing: border-box;
   height: 10em;
-}
-
-p#post_to_twitter{
-  margin-left: 10px;
-}
-
-input.twitter_text{
-  width:40em;
 }
 
 textarea#message_body{
