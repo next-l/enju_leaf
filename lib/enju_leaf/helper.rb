@@ -97,7 +97,7 @@ module EnjuLeaf
       if options == nil
         options = {}
       else
-        options.reject!{|key, value| value.blank?}
+        options.reject!{|_key, value| value.blank?}
         options.delete(:page) if options[:page].to_i == 1
       end
       unless controller_name == 'test'

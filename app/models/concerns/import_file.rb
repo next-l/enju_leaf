@@ -34,12 +34,12 @@ module ImportFile
         else
           encoding = user_encoding
         end
-        string = line.encode('UTF-8', user_encoding, universal_newline: true)
+        line.encode('UTF-8', encoding, universal_newline: true)
       rescue StandardError
-        string = nkf_encode(line)
+        nkf_encode(line)
       end
     else
-      string = nkf_encode(line)
+      nkf_encode(line)
     end
   end
 

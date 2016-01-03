@@ -43,7 +43,6 @@ class UserExportFile < ActiveRecord::Base
     raise e
   end
 
-  private
   def self.transition_class
     UserExportFileTransition
   end

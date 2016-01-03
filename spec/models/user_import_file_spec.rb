@@ -94,6 +94,7 @@ describe UserImportFile do
       @file.import_start.should eq({:user_imported => 4, :user_found => 0, :failed => 1, error: 3})
       User.order('id DESC')[1].username.should eq 'user005'
       User.count.should eq old_users_count + 4
+      UserImportResult.count.should eq old_import_results_count + 10
     end
   end
 
@@ -177,11 +178,12 @@ describe UserImportFile do
 
     it "should not remove users if there are checkouts" do
       user001 = User.where(username: 'user001').first
-      checkout = FactoryGirl.create(:checkout, user: user001, item: FactoryGirl.create(:item))
+      FactoryGirl.create(:checkout, user: user001, item: FactoryGirl.create(:item))
       old_count = User.count
       @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_delete_file.tsv"), user: users(:admin)
       @file.remove
       User.where(username: 'user001').should_not be_blank
+      User.count.should eq old_count - 2
     end
   end
 

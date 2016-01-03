@@ -19,7 +19,7 @@ describe UserImportResultsController do
           @file.default_user_group = UserGroup.find(2)
           @file.default_library = Library.find(3)
           @file.save
-          result = @file.import_start
+          @file.import_start
         end
         render_views
         it "should assign all user_import_results for the user_import_file with a page parameter" do
