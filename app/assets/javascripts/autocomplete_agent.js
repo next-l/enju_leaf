@@ -15,6 +15,10 @@ $(document).ready(function(){
               response(data);
             }
           });
+        },
+        select: function(event, ui){
+          //console.log(added_task[0].getElementsByTagName('input')[0]);
+          added_task[0].getElementsByTagName('input')[0].value = ui.item.agent_id;
         }
       }).data("ui-autocomplete")._renderItem = function(ul, item) {
         return $( "<li>" )
