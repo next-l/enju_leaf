@@ -4,7 +4,6 @@
 //= require jquery.shortcut
 //= require jquery.cookie
 //= require jquery.ui.menubar
-//= require menu.enju
 //= require select_locale
 //= require portlets
 //= require tab_view

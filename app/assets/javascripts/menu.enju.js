@@ -1,6 +1,5 @@
-document.documentElement.className = 'hidden';
-
-$(function(){
+$(document).ready(function(){
+  $("#tabs").tabs();
   $('#bar1').menubar({
     position:{
       within: $("#demo-frame").add(window).first()
