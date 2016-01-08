@@ -6,7 +6,7 @@
 //= require jquery.ui.menubar
 //= require select_locale
 //= require portlets
-//= require tab_view
+//= require enju.menu
 //= require jquery.powertip
 //= require cocoon
 //= require autocomplete_agent
