@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency "friendly_id", "~> 5.1"
   s.add_dependency "kaminari", "~> 0.16.3"
   s.add_dependency "devise", "~> 3.5"
-  s.add_dependency "pundit", "~> 1.0"
+  s.add_dependency "pundit", "~> 1.1"
   s.add_dependency "acts_as_list", "~> 0.7"
   s.add_dependency "strip_attributes", "~> 1.7"
   s.add_dependency "addressable"
