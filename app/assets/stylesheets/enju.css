@@ -129,10 +129,6 @@ div#pickup_book_jacket{
   text-align: center;
 }
 
-img.book_jacket{
-  border: 1px solid;
-}
-
 img.screen_shot{
   border: 0;
 }
@@ -531,7 +527,7 @@ div.book_jacket{
   width: 190px;
 }
 
-div.book_jacket img{
+div.book_jacket img.book_jacket{
   border: 1px solid rgba(0, 0, 0, 0.25);
 }
 
