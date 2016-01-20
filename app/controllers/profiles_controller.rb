@@ -194,7 +194,7 @@ class ProfilesController < ApplicationController
   def profile_update_params
     attrs = [
       :full_name, :full_name_transcription,
-      :keyword_list, :locale, :profile_image,
+      :keyword_list, :locale,
       :save_checkout_history, :checkout_icalendar_token, # EnjuCirculation
       :save_search_history, # EnjuSearchLog
     ]
