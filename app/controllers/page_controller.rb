@@ -1,16 +1,9 @@
 class PageController < ApplicationController
+  before_action :skip_authorization
   before_action :clear_search_sessions, only: [:index, :advanced_search]
-  before_action :store_location, only: [
-    :advanced_search, :about, :add_on, :msie_accelerator, :statistics
-  ]
-  before_action :authenticate_user!, except: [
-    :index, :advanced_search, :about, :add_on, :msie_accelerator, :opensearch,
-    :statistics, :routing_error
-  ]
-  before_action :check_librarian, except: [
-    :index, :advanced_search, :about, :add_on, :msie_accelerator, :opensearch,
-    :statistics, :routing_error
-  ]
+  before_action :store_location, only: [:advanced_search, :about, :add_on, :msie_accelerator, :statistics]
+  before_action :authenticate_user!, except: [:index, :advanced_search, :about, :add_on, :msie_accelerator, :opensearch, :statistics, :routing_error]
+  before_action :check_librarian, except: [:index, :advanced_search, :about, :add_on, :msie_accelerator, :opensearch, :statistics, :routing_error]
   helper_method :get_libraries
 
   # トップページを表示します。
@@ -48,6 +41,7 @@ class PageController < ApplicationController
 
     respond_to do |format|
       format.html
+      format.html.phone
     end
   end
 
