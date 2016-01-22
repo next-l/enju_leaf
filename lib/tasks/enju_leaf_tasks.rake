@@ -33,7 +33,7 @@ namespace :enju_leaf do
   end
 
   desc "reindex all models"
-  task :reindex, [:batch_size, :models, :silence] => :environment do |t, args|
+  task :reindex, [:batch_size, :models, :silence] => :environment do |_t, args|
     Rails::Engine.subclasses.each{|engine| engine.instance.eager_load!}
     Rake::Task['sunspot:reindex'].execute(args)
   end
