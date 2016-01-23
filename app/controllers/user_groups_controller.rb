@@ -1,4 +1,23 @@
 # -*- encoding: utf-8 -*-
+# == Schema Information
+#
+# Table name: user_groups
+#
+#  id                               :integer          not null, primary key
+#  name                             :string
+#  display_name                     :text
+#  note                             :text
+#  position                         :integer
+#  created_at                       :datetime
+#  updated_at                       :datetime
+#  deleted_at                       :datetime
+#  valid_period_for_new_user        :integer          default(0), not null
+#  expired_at                       :datetime
+#  number_of_day_to_notify_overdue  :integer          default(1), not null
+#  number_of_day_to_notify_due_date :integer          default(7), not null
+#  number_of_time_to_notify_overdue :integer          default(3), not null
+#
+
 class UserGroupsController < ApplicationController
   before_action :set_user_group, only: [:show, :edit, :update, :destroy]
   before_action :check_policy, only: [:index, :new, :create]

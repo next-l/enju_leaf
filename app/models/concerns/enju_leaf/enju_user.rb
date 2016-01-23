@@ -85,24 +85,25 @@ module EnjuLeaf
         ) if defined? EnjuCirculation
         header << "save_search_history" if defined? EnjuSearchLog
         header << "share_bookmarks" if defined? EnjuBookmark
+        lines = []
         User.find_each.map{|u|
-          lines = []
-          lines << u.username
-          lines << u.try(:profile).try(:full_name)
-          lines << u.try(:profile).try(:full_name_transcription)
-          lines << u.email
-          lines << u.try(:profile).try(:user_number)
-          lines << u.role.name
-          lines << u.try(:profile).try(:user_group).try(:name)
-          lines << u.try(:profile).try(:library).try(:name)
-          lines << u.try(:profile).try(:locale)
-          lines << u.access_locked?
-          lines << u.try(:profile).try(:required_role).try(:name)
-          lines << u.created_at
-          lines << u.updated_at
-          lines << u.try(:profile).try(:expired_at)
-          lines << u.try(:profile).try(:keyword_list).try(:split).try(:join, "//")
-          lines << u.try(:profile).try(:note)
+          line = []
+          line << u.username
+          line << u.try(:profile).try(:full_name)
+          line << u.try(:profile).try(:full_name_transcription)
+          line << u.email
+          line << u.try(:profile).try(:user_number)
+          line << u.role.try(:name)
+          line << u.try(:profile).try(:user_group).try(:name)
+          line << u.try(:profile).try(:library).try(:name)
+          line << u.try(:profile).try(:locale)
+          line << u.access_locked?
+          line << u.try(:profile).try(:required_role).try(:name)
+          line << u.created_at
+          line << u.updated_at
+          line << u.try(:profile).try(:expired_at)
+          line << u.try(:profile).try(:keyword_list).try(:split).try(:join, "//")
+          line << u.try(:profile).try(:note)
           if defined? EnjuCirculation
             line << u.try(:profile).try(:checkout_icalendar_token)
             line << u.try(:profile).try(:save_checkout_history)

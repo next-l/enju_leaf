@@ -1,6 +1,7 @@
 class UserImportFile < ActiveRecord::Base
   include Statesman::Adapters::ActiveRecordQueries
   include ImportFile
+  default_scope {order('user_import_files.id DESC')}
   scope :not_imported, -> { in_state(:pending) }
   scope :stucked, -> { in_state(:pending).where('user_import_files.created_at < ?', 1.hour.ago) }
 
@@ -14,7 +15,7 @@ class UserImportFile < ActiveRecord::Base
 
   before_save :set_fingerprint
   attachment :user_import
-  enju_import_file_model
+
   attr_accessor :mode
 
   def state_machine
@@ -38,10 +39,10 @@ class UserImportFile < ActiveRecord::Base
 
     rows.each do |row|
       row_num += 1
-      next if row['dummy'].to_s.strip.present?
       import_result = UserImportResult.create!(
         user_import_file_id: id, body: row.fields.join("\t")
       )
+      next if row['dummy'].to_s.strip.present?
 
       username = row['username']
       new_user = User.where(username: username).first
@@ -65,12 +66,12 @@ class UserImportFile < ActiveRecord::Base
         profile = Profile.new
         profile.assign_attributes(set_profile_params(row))
 
-        if new_user.save
-          new_user.profile = profile
-          if profile.save
-            num[:user_imported] += 1
+        Profile.transaction do
+          if new_user.valid? and profile.valid?
+            new_user.profile = profile
             import_result.user = new_user
             import_result.save!
+            num[:user_imported] += 1
           else
             error_message = "line #{row_num}: "
             error_message += new_user.errors.full_messages.join(" ")
@@ -79,10 +80,6 @@ class UserImportFile < ActiveRecord::Base
             import_result.save
             num[:error] += 1
           end
-        else
-          import_result.error_message = new_user.errors.full_messages.join("\n")
-          import_result.save
-          num[:failed] += 1
         end
       end
     end
@@ -246,10 +243,6 @@ class UserImportFile < ActiveRecord::Base
     params = {}
     params[:email] = row['email'] if row['email'].present?
 
-    if %w(t true).include?(row['locked'].to_s.downcase.strip)
-      params[:locked] = '1'
-    end
-
     if row['password'].present?
       params[:password] = row['password']
     else
@@ -330,7 +323,7 @@ end
 #  user_id                  :integer
 #  note                     :text
 #  executed_at              :datetime
-#  user_import_file_name    :string
+#  user_import_filename     :string
 #  user_import_content_type :string
 #  user_import_file_size    :integer
 #  user_import_updated_at   :datetime

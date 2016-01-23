@@ -6,3 +6,5 @@ user004				001004		user													t
 user005				001005		faculty	2014-12-01		hoge	fuga										
 user006											usernameのみ									
 user007								test			パスワードが短い									
+user008				00001008あ		faculty	2016-12-01				利用者番号が不正									
+user009				001005		faculty	2016-12-01				利用者番号が重複									

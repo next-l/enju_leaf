@@ -1,4 +1,18 @@
-require 'rails_helper'
+# == Schema Information
+#
+# Table name: user_export_files
+#
+#  id                   :integer          not null, primary key
+#  user_id              :integer
+#  executed_at          :datetime
+#  created_at           :datetime
+#  updated_at           :datetime
+#  user_export_id       :string
+#  user_export_size     :integer
+#  user_import_filename :string
+#
+
+require 'spec_helper'
 
 describe UserExportFilesController do
   fixtures :all

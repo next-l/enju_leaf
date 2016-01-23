@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: user_export_files
+#
+#  id                   :integer          not null, primary key
+#  user_id              :integer
+#  executed_at          :datetime
+#  created_at           :datetime
+#  updated_at           :datetime
+#  user_export_id       :string
+#  user_export_size     :integer
+#  user_import_filename :string
+#
+
 class UserExportFilesController < ApplicationController
   before_action :set_user_export_file, only: [:show, :edit, :update, :destroy]
   before_action :check_policy, only: [:index, :new, :create]

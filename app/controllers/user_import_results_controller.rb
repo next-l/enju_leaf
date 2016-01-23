@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: user_import_results
+#
+#  id                  :integer          not null, primary key
+#  user_import_file_id :integer
+#  user_id             :integer
+#  body                :text
+#  created_at          :datetime
+#  updated_at          :datetime
+#  error_message       :text
+#
+
 class UserImportResultsController < ApplicationController
   before_action :set_user_import_result, only: [:show, :edit, :update, :destroy]
   before_action :check_policy, only: [:index, :new, :create]

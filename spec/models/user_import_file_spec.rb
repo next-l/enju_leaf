@@ -52,7 +52,7 @@ describe UserImportFile do
       user003.profile.save_search_history.should be_falsy
       user003.profile.share_bookmarks.should be_falsy
       User.where(username: 'user000').first.should be_nil
-      UserImportResult.count.should eq old_import_results_count + 9
+      UserImportResult.count.should eq old_import_results_count + 10
       UserImportResult.order('id DESC')[0].error_message.should eq 'line 10: User number has already been taken'
       UserImportResult.order('id DESC')[1].error_message.should eq 'line 9: User number is invalid'
       UserImportResult.order('id DESC')[2].error_message.should eq 'line 8: Password is too short (minimum is 6 characters)'
@@ -72,7 +72,6 @@ describe UserImportFile do
       user006.profile.user_group.name.should eq UserGroup.find(2).name
 
       @file.user_import_fingerprint.should be_truthy
-      @file.user_import_size.should eq 785
       @file.executed_at.should be_truthy
 
       @file.reload
@@ -95,6 +94,7 @@ describe UserImportFile do
       @file.import_start.should eq({:user_imported => 4, :user_found => 0, :failed => 1, error: 3})
       User.order('id DESC')[1].username.should eq 'user005'
       User.count.should eq old_users_count + 4
+      UserImportResult.count.should eq old_import_results_count + 10
     end
   end
 
@@ -102,12 +102,9 @@ describe UserImportFile do
     before(:each) do
       FactoryGirl.create(:user,
         username: 'user001',
-        profile: FactoryGirl.create(:profile,
-          full_name: 'User 001',
-          keyword_list: 'word term')
+        profile: FactoryGirl.create(:profile)
       )
     end
-
     it "should update users" do
       @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_update_file.tsv"), user: users(:admin)
       old_message_count = Message.count
@@ -143,7 +140,6 @@ describe UserImportFile do
       user001.profile.full_name_transcription.should eq 'User 001'
       user001.profile.keyword_list.should eq 'keyword1 keyword2'
     end
-
     it "should update user_number" do
       @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_update_file3.tsv"), user: users(:admin)
       result = @file.modify
@@ -151,7 +147,6 @@ describe UserImportFile do
       user001 = User.where(username: 'user001').first
       user001.profile.user_number.should eq '0001'
     end
-
     it "should update user's lock status" do
       @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_update_file4.tsv"), user: users(:admin)
       result = @file.modify
@@ -183,7 +178,7 @@ describe UserImportFile do
 
     it "should not remove users if there are checkouts" do
       user001 = User.where(username: 'user001').first
-      checkout = FactoryGirl.create(:checkout, user: user001, item: FactoryGirl.create(:item))
+      FactoryGirl.create(:checkout, user: user001, item: FactoryGirl.create(:item))
       old_count = User.count
       @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_delete_file.tsv"), user: users(:admin)
       @file.remove
@@ -210,7 +205,7 @@ end
 #  user_id                  :integer
 #  note                     :text
 #  executed_at              :datetime
-#  user_import_file_name    :string
+#  user_import_filename     :string
 #  user_import_content_type :string
 #  user_import_file_size    :integer
 #  user_import_updated_at   :datetime

@@ -253,51 +253,55 @@ item_00023:
   include_supplements: false
   created_at: 2007-08-24 23:46:20.484813 +09:00
 item_00024: 
-  updated_at: 2007-08-24 23:46:20.484813 +09:00
+  updated_at: 2007-08-24 23:46:08.607081 +09:00
   item_identifier: '00024'
-  circulation_status_id: 8
-  checkout_type_id: 3
-  shelf_id: 2
+  circulation_status_id: 2
+  checkout_type_id: 1
+  shelf_id: 3
   call_number: 
-  manifestation_id: 3
+  manifestation_id: 102
   id: 24
   include_supplements: false
-  created_at: 2007-08-24 23:46:20.484813 +09:00
+  created_at: 2007-08-24 23:46:08.607081 +09:00
+  acquired_at: 2015-08-25 23:46:08.607081 +09:00
 item_00025: 
-  updated_at: 2007-08-24 23:46:20.484813 +09:00
+  updated_at: 2007-08-24 23:46:08.607081 +09:00
   item_identifier: '00025'
-  circulation_status_id: 8
-  checkout_type_id: 3
-  shelf_id: 2
-  call_number: 
-  manifestation_id: 8
+  circulation_status_id: 2
+  checkout_type_id: 1
+  shelf_id: 3
+  call_number: '547|ヤ'
+  manifestation_id: 102
   id: 25
   include_supplements: false
-  created_at: 2007-08-24 23:46:20.484813 +09:00
+  created_at: 2007-08-24 23:46:08.607081 +09:00
+  acquired_at: 2015-09-25 23:46:08.607081 +09:00
 
 # == Schema Information
 #
 # Table name: items
 #
-#  id                    :integer          not null, primary key
-#  call_number           :string(255)
-#  item_identifier       :string(255)
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  deleted_at            :datetime
-#  shelf_id              :integer          default(1), not null
-#  include_supplements   :boolean          default(FALSE), not null
-#  note                  :text
-#  url                   :string(255)
-#  price                 :integer
-#  lock_version          :integer          default(0), not null
-#  required_role_id      :integer          default(1), not null
-#  state                 :string(255)
-#  required_score        :integer          default(0), not null
-#  acquired_at           :datetime
-#  bookstore_id          :integer
-#  budget_type_id        :integer
-#  circulation_status_id :integer          default(5), not null
-#  checkout_type_id      :integer          default(1), not null
+#  id                      :integer          not null, primary key
+#  call_number             :string
+#  item_identifier         :string
+#  created_at              :datetime
+#  updated_at              :datetime
+#  deleted_at              :datetime
+#  shelf_id                :integer          default(1), not null
+#  include_supplements     :boolean          default(FALSE), not null
+#  note                    :text
+#  url                     :string
+#  price                   :integer
+#  lock_version            :integer          default(0), not null
+#  required_role_id        :integer          default(1), not null
+#  required_score          :integer          default(0), not null
+#  acquired_at             :datetime
+#  bookstore_id            :integer
+#  budget_type_id          :integer
+#  circulation_status_id   :integer          default(5), not null
+#  checkout_type_id        :integer          default(1), not null
+#  binding_item_identifier :string
+#  binding_call_number     :string
+#  binded_at               :datetime
+#  manifestation_id        :integer
 #
-

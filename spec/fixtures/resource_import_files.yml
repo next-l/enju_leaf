@@ -18,27 +18,29 @@ resource_import_file_00003:
   resource_import_size: 1
   user_id: 1
   resource_import_content_type: text/csv
+  default_shelf_id: 1
 
 # == Schema Information
 #
 # Table name: resource_import_files
 #
-#  id                           :integer         not null, primary key
+#  id                           :integer          not null, primary key
 #  parent_id                    :integer
-#  content_type                 :string(255)
+#  content_type                 :string
 #  size                         :integer
 #  user_id                      :integer
 #  note                         :text
 #  executed_at                  :datetime
-#  state                        :string(255)
-#  resource_import_filename    :string(255)
-#  resource_import_content_type :string(255)
-#  resource_import_size    :integer
+#  resource_import_filename     :string
+#  resource_import_content_type :string
+#  resource_import_size         :integer
 #  resource_import_updated_at   :datetime
-#  created_at                   :datetime        not null
-#  updated_at                   :datetime        not null
-#  edit_mode                    :string(255)
-#  resource_import_fingerprint  :string(255)
+#  created_at                   :datetime
+#  updated_at                   :datetime
+#  edit_mode                    :string
+#  resource_import_fingerprint  :string
 #  error_message                :text
+#  user_encoding                :string
+#  default_shelf_id             :integer
+#  resource_import_id           :string
 #
-

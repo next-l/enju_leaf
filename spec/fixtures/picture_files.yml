@@ -2,7 +2,7 @@
 picture_file_00001: 
   picture_content_type: image/x-png
   updated_at: 2007-12-22 16:53:25.166728 +09:00
-  picture_file_size: 2353
+  picture_size: 2353
   id: 1
   picture_filename: test_00001.jpg
   picture_attachable_type: Shelf
@@ -12,7 +12,7 @@ picture_file_00001:
 picture_file_00002: 
   picture_content_type: image/pjpeg
   updated_at: 2007-12-22 14:06:40.293209 +09:00
-  picture_file_size: 157914
+  picture_size: 157914
   id: 2
   picture_filename: test_00001_geometry.jpg
   picture_attachable_type: Manifestation
@@ -22,7 +22,7 @@ picture_file_00002:
 picture_file_00003: 
   picture_content_type: image/gif
   updated_at: 2007-12-22 15:06:30.464930 +09:00
-  picture_file_size: 7028
+  picture_size: 7028
   id: 3
   picture_filename: overlay_spinner.gif
   picture_attachable_type: Shelf
@@ -32,10 +32,10 @@ picture_file_00003:
 picture_file_00004: 
   picture_content_type: image/gif
   updated_at: 2007-12-22 15:06:30.464930 +09:00
-  picture_file_size: 7028
+  picture_size: 7028
   id: 4
   picture_filename: overlay_spinner_geometry.gif
-  picture_attachable_type: Patron
+  picture_attachable_type: Agent
   picture_attachable_id: 1
   created_at: 2007-12-22 15:06:30.464930 +09:00
   position: 4
@@ -44,21 +44,20 @@ picture_file_00004:
 #
 # Table name: picture_files
 #
-#  id                      :integer         not null, primary key
+#  id                      :integer          not null, primary key
 #  picture_attachable_id   :integer
-#  picture_attachable_type :string(255)
-#  content_type            :string(255)
+#  picture_attachable_type :string
+#  content_type            :string
 #  title                   :text
-#  filename                :text
-#  thumbnail               :string(255)
+#  thumbnail               :string
 #  position                :integer
-#  created_at              :datetime        not null
-#  updated_at              :datetime        not null
-#  picture_filename       :string(255)
-#  picture_content_type    :string(255)
-#  picture_file_size       :integer
+#  created_at              :datetime
+#  updated_at              :datetime
+#  picture_filename        :string
+#  picture_content_type    :string
+#  picture_size            :integer
 #  picture_updated_at      :datetime
-#  picture_fingerprint     :string(255)
 #  picture_meta            :text
+#  picture_fingerprint     :string
+#  picture_id              :string
 #
-

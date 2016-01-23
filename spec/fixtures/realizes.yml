@@ -70,18 +70,15 @@ realize_00010:
   position: 2
   created_at: 2008-01-11 02:44:37.135721 +09:00
 
-
 # == Schema Information
 #
 # Table name: realizes
 #
-#  id              :integer         not null, primary key
-#  agent_id       :integer         not null
-#  expression_id   :integer         not null
+#  id              :integer          not null, primary key
+#  agent_id        :integer          not null
+#  expression_id   :integer          not null
 #  position        :integer
-#  type            :string(255)
 #  created_at      :datetime
 #  updated_at      :datetime
 #  realize_type_id :integer
 #
-

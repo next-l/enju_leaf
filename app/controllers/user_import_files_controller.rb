@@ -1,3 +1,27 @@
+# == Schema Information
+#
+# Table name: user_import_files
+#
+#  id                       :integer          not null, primary key
+#  user_id                  :integer
+#  note                     :text
+#  executed_at              :datetime
+#  user_import_filename     :string
+#  user_import_content_type :string
+#  user_import_file_size    :integer
+#  user_import_updated_at   :datetime
+#  user_import_fingerprint  :string
+#  edit_mode                :string
+#  error_message            :text
+#  created_at               :datetime
+#  updated_at               :datetime
+#  user_encoding            :string
+#  default_library_id       :integer
+#  default_user_group_id    :integer
+#  user_import_id           :string
+#  user_import_size         :integer
+#
+
 class UserImportFilesController < ApplicationController
   before_action :set_user_import_file, only: [:show, :edit, :update, :destroy]
   before_action :check_policy, only: [:index, :new, :create]

@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: roles
+#
+#  id           :integer          not null, primary key
+#  name         :string           not null
+#  display_name :string
+#  note         :text
+#  created_at   :datetime
+#  updated_at   :datetime
+#  score        :integer          default(0), not null
+#  position     :integer
+#
+
 require "spec_helper"
 
 describe RolesController do

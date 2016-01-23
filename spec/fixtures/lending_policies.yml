@@ -72,27 +72,21 @@ lending_policy_00008:
   fixed_due_date: 
   renewal: 1
   fine: 10
-lending_policy_00009:
-  item_id: 24
-  user_group_id: 2
-  loan_period: 1
-  fixed_due_date: 
-  renewal: 1
-  fine: 10
 
 # == Schema Information
 #
 # Table name: lending_policies
 #
-#  id             :integer          not null, primary key
-#  item_id        :integer          not null
-#  user_group_id  :integer          not null
-#  loan_period    :integer          default(0), not null
+#  id             :integer         not null, primary key
+#  item_id        :integer         not null
+#  user_group_id  :integer         not null
+#  loan_period    :integer         default(0), not null
 #  fixed_due_date :datetime
-#  renewal        :integer          default(0), not null
-#  fine           :integer          default(0), not null
+#  renewal        :integer         default(0), not null
+#  fine           :decimal(, )     default(0.0), not null
 #  note           :text
 #  position       :integer
-#  created_at     :datetime
-#  updated_at     :datetime
+#  created_at     :datetime        not null
+#  updated_at     :datetime        not null
 #
+

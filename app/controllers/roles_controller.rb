@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: roles
+#
+#  id           :integer          not null, primary key
+#  name         :string           not null
+#  display_name :string
+#  note         :text
+#  created_at   :datetime
+#  updated_at   :datetime
+#  score        :integer          default(0), not null
+#  position     :integer
+#
+
 class RolesController < ApplicationController
   before_action :set_role, only: [:show, :edit, :update, :destroy]
   before_action :check_policy, only: [:index, :new, :create]

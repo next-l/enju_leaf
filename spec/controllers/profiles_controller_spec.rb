@@ -1,4 +1,29 @@
 # -*- encoding: utf-8 -*-
+# == Schema Information
+#
+# Table name: profiles
+#
+#  id                       :integer          not null, primary key
+#  user_id                  :integer
+#  user_group_id            :integer
+#  library_id               :integer
+#  locale                   :string
+#  user_number              :string
+#  full_name                :text
+#  note                     :text
+#  keyword_list             :text
+#  required_role_id         :integer
+#  created_at               :datetime
+#  updated_at               :datetime
+#  checkout_icalendar_token :string
+#  save_checkout_history    :boolean          default(FALSE), not null
+#  expired_at               :datetime
+#  save_search_history      :boolean
+#  share_bookmarks          :boolean
+#  full_name_transcription  :text
+#  date_of_birth            :datetime
+#
+
 require 'rails_helper'
 
 describe ProfilesController do
@@ -101,7 +126,7 @@ describe ProfilesController do
         assert_redirected_to my_account_url
       end
 
-      it "should not show other user's account" do
+      it "should show other user's account" do
         get :show, id: profiles(:admin).id
         assigns(:profile).should eq(profiles(:admin))
         response.should be_forbidden
@@ -174,26 +199,23 @@ describe ProfilesController do
         get :edit, id: profile.id
         assigns(:profile).should eq(profile)
       end
-
       it "should not get edit page for admin required user" do
         admin = FactoryGirl.create(:admin_profile)
         get :edit, id: admin.id
         response.should be_forbidden
         #assigns(:profile).should_not eq(admin)
       end
-
       it "should get edit page for other librarian user" do
         librarian = FactoryGirl.create(:librarian_profile)
         get :edit, id: librarian.id
-        response.should be_success
+        response.should_not be_forbidden
         assigns(:profile).should eq librarian
       end
-
-      it "should get edit page for other admin user" do
+      it "should get edit page for other librarian user" do
         admin = FactoryGirl.create(:admin_profile, required_role_id: Role.where(name: 'Librarian').first.id)
         get :edit, id: admin.id
         response.should be_forbidden
-        #assigns(:profile).should eq admin
+        assigns(:profile).should eq admin
       end
 
       it "should show icalendar feed" do

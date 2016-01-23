@@ -39,8 +39,9 @@ shelf_00004:
 #  library_id   :integer         default(1), not null
 #  items_count  :integer         default(0), not null
 #  position     :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  created_at   :datetime        not null
+#  updated_at   :datetime        not null
 #  deleted_at   :datetime
+#  closed       :boolean         default(FALSE), not null
 #
 

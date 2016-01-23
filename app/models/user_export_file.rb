@@ -1,7 +1,6 @@
 class UserExportFile < ActiveRecord::Base
   include Statesman::Adapters::ActiveRecordQueries
   include ExportFile
-  enju_export_file_model
 
   attachment :user_export
   has_many :user_export_file_transitions
@@ -30,7 +29,6 @@ class UserExportFile < ActiveRecord::Base
     raise e
   end
 
-  private
   def self.transition_class
     UserExportFileTransition
   end
