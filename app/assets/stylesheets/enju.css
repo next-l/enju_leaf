@@ -544,3 +544,27 @@ div.search_form{
 
 .enju_table_header{
 }
+
+.bold {
+  font-weight: bold;
+}
+
+.normal-weight {
+  font-weight: normal;
+}
+
+.right {
+  text-align: right;
+}
+
+.center {
+  text-align: center;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.display-none {
+  display: none;
+}
