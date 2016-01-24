@@ -23,7 +23,7 @@ describe UserImportResultsController do
 
       it "assigns all user_import_results as @user_import_results" do
         get :index
-        assigns(:user_import_results).should eq(UserImportResult.page(1))
+        assigns(:user_import_results).should eq(UserImportResult.order(id: :desc).page(1))
       end
 
       describe "With @user_import_file parameter" do
@@ -52,7 +52,7 @@ describe UserImportResultsController do
 
       it "assigns all user_import_results as @user_import_results" do
         get :index
-        assigns(:user_import_results).should eq(UserImportResult.page(1))
+        assigns(:user_import_results).should eq(UserImportResult.order(id: :desc).page(1))
       end
     end
 

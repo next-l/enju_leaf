@@ -3,7 +3,8 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 
 Bundler.require(*Rails.groups)
-require "enju_leaf"
+require 'enju_leaf'
+require 'resque/server'
 
 module Dummy
   class Application < Rails::Application

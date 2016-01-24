@@ -33,7 +33,7 @@ describe UserImportFilesController do
 
       it "assigns all user_import_files as @user_import_files" do
         get :index
-        assigns(:user_import_files).should eq(UserImportFile.order('id DESC').page(1))
+        assigns(:user_import_files).should eq(UserImportFile.order(id: :desc).page(1))
       end
     end
 
@@ -42,7 +42,7 @@ describe UserImportFilesController do
 
       it "assigns all user_import_files as @user_import_files" do
         get :index
-        assigns(:user_import_files).should eq(UserImportFile.order('id DESC').page(1))
+        assigns(:user_import_files).should eq(UserImportFile.order(id: :desc).page(1))
       end
     end
 
