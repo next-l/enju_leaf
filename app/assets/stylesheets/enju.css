@@ -364,9 +364,13 @@ input.resource_url{
   box-sizing: border-box;
 }
 
-input.resource_isbn_issn, input.resource_identifier, input.resource_user_number, input.resource_user, input.resource_item_identifier{
-  width: 50%;
-  box-sizing: border-box;
+input.resource_isbn_issn{
+  width: 20em;
+  ime-mode: disabled;
+}
+
+input.resource_identifier, input.resource_user_number, input.resource_user, input.resource_item_identifier{
+  width: 20em;
   ime-mode: disabled;
 }
 
