@@ -365,7 +365,8 @@ input.resource_url{
 }
 
 input.resource_isbn_issn, input.resource_identifier, input.resource_user_number, input.resource_user, input.resource_item_identifier{
-  width: 10em;
+  width: 50%;
+  box-sizing: border-box;
   ime-mode: disabled;
 }
 
