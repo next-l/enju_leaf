@@ -66,6 +66,12 @@ describe ProfilesController do
         get :show, id: profiles(:admin).id
         assigns(:profile).should eq(profiles(:admin))
       end
+      it "assigns the another requested user as @profile" do
+        admin_profile = FactoryGirl.create :admin_profile
+        get :show, id: admin_profile.id
+        expect(response).not_to be_forbidden
+        expect(assigns(:profile)).to eq admin_profile
+      end
     end
 
     describe "When logged in as Librarian" do
