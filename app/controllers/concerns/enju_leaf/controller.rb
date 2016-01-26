@@ -24,7 +24,7 @@ module EnjuLeaf
         end
       else
         respond_to do |format|
-          format.html { redirect_to new_user_session_url }
+          format.html { redirect_to main_app.new_user_session_url }
           #format.html.phone { redirect_to new_user_session_url }
           format.xml { render template: 'page/403', status: 403 }
           format.json { render text: '{"error": "forbidden"}' }
