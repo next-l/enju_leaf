@@ -11,6 +11,6 @@
   .form-group
     = f.label :note
     br
-    = f.text_area :note
+    = f.text_area :note, class: 'form-control'
   .form-control
     = f.submit data: {confirm: t('page.are_you_sure')}, class: 'btn btn-default'
