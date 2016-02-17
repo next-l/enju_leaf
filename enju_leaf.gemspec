@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.add_dependency "acts_as_list", "~> 0.7"
   s.add_dependency "strip_attributes", "~> 1.7"
   s.add_dependency "addressable"
-  s.add_dependency "sunspot_rails", "~> 2.2.2"
+  s.add_dependency "sunspot_rails", "~> 2.2.4"
   s.add_dependency "cocoon"
   s.add_dependency "sitemap_generator", "~> 5.1"
   s.add_dependency "rails_autolink"
@@ -38,7 +38,7 @@ Gem::Specification.new do |s|
   s.add_dependency "paperclip", "~> 4.3"
   s.add_dependency "statesman", "~> 1.3"
   s.add_dependency "kramdown"
-  s.add_dependency "browser", "~> 1.0"
+  s.add_dependency "browser", "~> 1.1"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mysql2"
@@ -59,5 +59,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "redis-rails"
   s.add_development_dependency "coveralls"
   s.add_development_dependency "resque", "~> 1.25"
-  s.add_development_dependency "resque-scheduler", "~> 4.0"
+  s.add_development_dependency "resque-scheduler", "~> 4.1"
 end
