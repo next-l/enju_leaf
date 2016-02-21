@@ -380,7 +380,7 @@ input.resource_identifier, input.resource_user_number, input.resource_user, inpu
 }
 
 input.resource_identifier_body{
-  width: 20em;
+  width: 50em;
   ime-mode: disabled;
 }
 
