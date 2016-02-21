@@ -346,6 +346,11 @@ input.resource_name{
   box-sizing: border-box;
 }
 
+input.resource_subject{
+  width: 50%;
+  box-sizing: border-box;
+}
+
 input.resource_locale{
   width: 10em;
 }
