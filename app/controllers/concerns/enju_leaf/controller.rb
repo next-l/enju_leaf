@@ -213,7 +213,7 @@ module EnjuLeaf
       when :desktop
         request.variant = nil
       else
-        request.variant = :phone if browser.mobile?
+        request.variant = :phone if browser.device.mobile?
       end
     end
 
