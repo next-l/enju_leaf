@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
   s.add_dependency "refile-mini_magick"
   s.add_dependency "statesman", "~> 1.3"
   s.add_dependency "kramdown", "~> 1.9"
-  s.add_dependency "browser", "~> 1.1"
+  s.add_dependency "browser", "~> 2.0"
   s.add_dependency "sunspot_rails", "~> 2.2"
   s.add_dependency "bootstrap-sass", "~> 3.3.6"
   s.add_dependency "slim-rails"
