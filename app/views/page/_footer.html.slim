@@ -10,7 +10,7 @@ footer
   = link_to t('page.report_bugs'), "https://github.com/next-l/enju_leaf/issues"
   |  | 
   = link_to t('page.manual'), "https://next-l.github.io/manual/"
-  - if browser.mobile?
+  - if browser.device.mobile?
     |  | 
     = link_to t('page.mobile_view'), url_for(view: 'phone')
   br
