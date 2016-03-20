@@ -1,4 +1,5 @@
 class Name < ActiveRecord::Base
+  belongs_to :profile
 end
 
 # == Schema Information

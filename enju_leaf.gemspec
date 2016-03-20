@@ -19,13 +19,13 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids,default,development,test}/*"] - Dir["spec/dummy/tmp/*"]
 
-  s.add_dependency "rails", "~> 4.2.5"
+  s.add_dependency "rails", ">= 4.2.6"
   #s.add_dependency "enju_biblio", "~> 0.2.0.beta.1"
   #s.add_dependency "enju_library", "~> 0.2.0.beta.1"
   #s.add_dependency "enju_manifestation_viewer", "~> 0.2.0.beta.1"
   s.add_dependency "friendly_id", "~> 5.2.0.beta.1"
   s.add_dependency "kaminari", "~> 0.16.3"
-  s.add_dependency "devise", "~> 4.0.0.rc1"
+  s.add_dependency "devise", "~> 4.0.0.rc2"
   s.add_dependency "pundit", "~> 1.1"
   s.add_dependency "acts_as_list", "~> 0.7"
   s.add_dependency "strip_attributes", "~> 1.7"
