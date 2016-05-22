@@ -28,10 +28,10 @@ Gem::Specification.new do |s|
   s.add_dependency "devise", "~> 3.5"
   if RUBY_VERSION >= '2.0'
     s.add_dependency "cancancan", "~> 1.14"
-    s.add_dependency "mime-types", "~> 3.0"
+    s.add_dependency "mime-types"
     s.add_dependency "paperclip-meta", "~> 2.0"
   else
-    s.add_dependency "cancancan", "< 1.13"
+    s.add_dependency "cancancan", "~> 1.12.0"
     s.add_dependency "mime-types", "< 3.0"
     s.add_dependency "paperclip-meta", "< 2.0"
   end

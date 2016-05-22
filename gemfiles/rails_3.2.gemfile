@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "mobylette", :github => "eLocal/mobylette"
+gem "mobylette", :github => "petRUShka/mobylette"
 gem "rails", "~> 3.2.22"
 gem "jquery-rails"
 gem "strong_parameters"
