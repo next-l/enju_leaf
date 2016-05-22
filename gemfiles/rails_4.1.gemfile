@@ -2,7 +2,8 @@
 
 source "https://rubygems.org"
 
-gem "rails", "~> 4.1.14"
+gem "mobylette", :github => "eLocal/mobylette"
+gem "rails", "~> 4.1.15"
 gem "jquery-rails"
 gem "foreigner"
 gem "coveralls", :require => false

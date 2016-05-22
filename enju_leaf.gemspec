@@ -27,11 +27,13 @@ Gem::Specification.new do |s|
   s.add_dependency "kaminari", "~> 0.16.3"
   s.add_dependency "devise", "~> 3.5"
   if RUBY_VERSION >= '2.0'
-    s.add_dependency "cancancan", "~> 1.13"
-    s.add_dependency "mime-types-data", "~> 3.2015.1120"
+    s.add_dependency "cancancan", "~> 1.14"
+    s.add_dependency "mime-types", "~> 3.0"
+    s.add_dependency "paperclip-meta", "~> 2.0"
   else
     s.add_dependency "cancancan", "< 1.13"
-    s.add_dependency "mime-types-data", "< 3.2015.1120"
+    s.add_dependency "mime-types", "< 3.0"
+    s.add_dependency "paperclip-meta", "< 2.0"
   end
   s.add_dependency "acts_as_list", "~> 0.7"
   s.add_dependency "attribute_normalizer", "~> 1.2"
