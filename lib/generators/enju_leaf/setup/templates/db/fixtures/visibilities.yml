@@ -1,0 +1,19 @@
+--- 
+visibility_00001: 
+  name: private
+  display_name: Private
+  id: 1
+  position: 1
+  note: 
+visibility_00002: 
+  name: intranet
+  display_name: Intranet
+  id: 2
+  position: 2
+  note: 
+visibility_00003: 
+  name: internet
+  display_name: Internet
+  id: 3
+  position: 3
+  note: 
