@@ -2,7 +2,7 @@
   .col-md-3
     .panel.panel-default
       .panel-heading
-      - if defined?(EnjuCirculation)
+      - if defined?(EnjuCirculation) and @profile.user
         = render 'submenu_checkout'
       ul
         - if flash[:query]
@@ -63,5 +63,5 @@
               | : 
             p[style="font-size: 200%"]
               = flash[:temporary_password]
-            - if defined?(EnjuCirculation)
+            - if defined?(EnjuCirculation) and @profile.user
               = render 'checkout_list', profile: @profile

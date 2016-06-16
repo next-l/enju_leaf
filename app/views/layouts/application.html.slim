@@ -14,8 +14,9 @@ html lang="#{@locale.to_s}"
         = auto_discovery_link_tag(:atom, news_posts_url(format: :atom, locale: @locale), title: (t('news_post.library_group_news_post', library_group_name: @library_group.display_name.localize) + " (Atom)"))
     = book_jacket_header(@library_group.settings[:book_jacket_source])
   body[itemscope itemtype="http://schema.org/WebPage"]
-    .container
+    .container-fluid
       = render 'page/header'
       = render 'page/menu'
-      = yield
+      .content
+        = yield
       = render 'page/footer'
