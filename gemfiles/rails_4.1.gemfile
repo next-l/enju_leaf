@@ -2,7 +2,6 @@
 
 source "https://rubygems.org"
 
-gem "mobylette", :github => "petRUShka/mobylette"
 gem "rails", "~> 4.1.15"
 gem "jquery-rails"
 gem "foreigner"
