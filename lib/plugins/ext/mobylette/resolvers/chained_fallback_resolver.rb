@@ -45,7 +45,11 @@ module Mobylette
           details = details.dup
           details[:formats] = Array.wrap(@fallback_formats[details[:formats].first]) 
         end
-        super(name, prefix, partial, details, other)
+        if other
+          super(name, prefix, partial, details, other)
+        else
+          super(name, prefix, partial, details)
+        end
       end
 
       # Helper for building query glob string based on resolver's pattern.
