@@ -13,7 +13,7 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'vcr'
 require 'factory_girl'
-require 'sunspot-rails-tester'
+require 'sunspot_matchers'
 require 'rspec/active_model/mocks'
 require 'capybara/rspec'
 require 'pundit/rspec'
@@ -64,17 +64,10 @@ RSpec.configure do |config|
 
   config.extend ControllerMacros, :type => :controller
 
-  $original_sunspot_session = Sunspot.session
-
   config.before do
-    Sunspot.session = Sunspot::Rails::StubSessionProxy.new($original_sunspot_session)
+    Sunspot.session = SunspotMatchers::SunspotSessionSpy.new(Sunspot.session)
   end
-
-  config.before :each, :solr => true do
-    Sunspot::Rails::Tester.start_original_sunspot_session
-    Sunspot.session = $original_sunspot_session
-    Sunspot.remove_all!
-  end
+  config.include SunspotMatchers
 end
 
 FactoryGirl.definition_file_paths << "#{::Rails.root}/../../spec/factories"

@@ -13,16 +13,14 @@ describe UserImportFile do
       @file.save
     end
 
-    it "should be imported", solr: true do
+    it "should be imported" do
       old_users_count = User.count
       old_import_results_count = UserImportResult.count
-      old_profiles_solr_count = Profile.search.total
       @file.current_state.should eq 'pending'
       @file.import_start.should eq({:user_imported => 5, :user_found => 0, :failed => 0, error: 3})
       User.order('id DESC')[1].username.should eq 'user005'
       User.order('id DESC')[2].username.should eq 'user003'
       User.count.should eq old_users_count + 5
-      Profile.search.total.should eq old_profiles_solr_count + 5
 
       user001 = User.where(username: 'user001').first
       user001.profile.keyword_list.should eq "日本史\n地理"

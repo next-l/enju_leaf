@@ -1,19 +1,16 @@
-# -*- encoding: utf-8 -*-
 require 'rails_helper'
 
 describe ProfilesController do
   fixtures :all
 
-  describe "GET index", :solr => true do
-    before do
-      Profile.reindex
-    end
-
+  describe "GET index" do
     describe "When logged in as Administrator" do
       login_fixture_admin
 
       it "assigns all profiles as @profiles" do
         get :index
+        Sunspot.session.should be_a_search_for(Profile)
+        Sunspot.session.should have_search_params(:fulltext, '')
         assigns(:profiles).should_not be_nil
       end
     end
@@ -23,19 +20,26 @@ describe ProfilesController do
 
       it "assigns all profiles as @profiles" do
         get :index
+        Sunspot.session.should be_a_search_for(Profile)
+        Sunspot.session.should have_search_params(:fulltext, '')
         assigns(:profiles).should_not be_nil
       end
 
       it "should get index with query" do
         get :index, :query => 'user1'
         response.should be_success
-        assigns(:profiles).should_not be_empty
+        Sunspot.session.should be_a_search_for(Profile)
+        Sunspot.session.should have_search_params(:fulltext, 'user1')
+        assigns(:profiles).should_not be_nil
       end
 
       it "should get sorted index" do
         get :index, :query => 'user1', :sort_by => 'username', :order => 'desc'
         response.should be_success
-        assigns(:profiles).should_not be_empty
+        Sunspot.session.should be_a_search_for(Profile)
+        Sunspot.session.should have_search_params(:fulltext, 'user1')
+        Sunspot.session.should have_search_params(:order_by, :username, :desc)
+        assigns(:profiles).should_not be_nil
       end
     end
 
