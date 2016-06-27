@@ -160,14 +160,12 @@ ActiveRecord::Schema.define(version: 20160627232316) do
     t.string   "birth_date"
     t.string   "death_date"
     t.string   "agent_identifier"
-    t.integer  "profile_id"
   end
 
   add_index "agents", ["agent_identifier"], name: "index_agents_on_agent_identifier"
   add_index "agents", ["country_id"], name: "index_agents_on_country_id"
   add_index "agents", ["full_name"], name: "index_agents_on_full_name"
   add_index "agents", ["language_id"], name: "index_agents_on_language_id"
-  add_index "agents", ["profile_id"], name: "index_agents_on_profile_id"
   add_index "agents", ["required_role_id"], name: "index_agents_on_required_role_id"
 
   create_table "baskets", force: :cascade do |t|
@@ -365,34 +363,6 @@ ActiveRecord::Schema.define(version: 20160627232316) do
     t.datetime "updated_at"
   end
 
-  create_table "classification_types", force: :cascade do |t|
-    t.string   "name",         null: false
-    t.text     "display_name"
-    t.text     "note"
-    t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "classifications", force: :cascade do |t|
-    t.integer  "parent_id"
-    t.string   "category",               null: false
-    t.text     "note"
-    t.integer  "classification_type_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "lft"
-    t.integer  "rgt"
-    t.integer  "manifestation_id"
-    t.string   "url"
-    t.string   "label"
-  end
-
-  add_index "classifications", ["category"], name: "index_classifications_on_category"
-  add_index "classifications", ["classification_type_id"], name: "index_classifications_on_classification_type_id"
-  add_index "classifications", ["manifestation_id"], name: "index_classifications_on_manifestation_id"
-  add_index "classifications", ["parent_id"], name: "index_classifications_on_parent_id"
-
   create_table "content_types", force: :cascade do |t|
     t.string   "name",                    null: false
     t.text     "display_name"
@@ -575,36 +545,6 @@ ActiveRecord::Schema.define(version: 20160627232316) do
   add_index "import_requests", ["isbn"], name: "index_import_requests_on_isbn"
   add_index "import_requests", ["manifestation_id"], name: "index_import_requests_on_manifestation_id"
   add_index "import_requests", ["user_id"], name: "index_import_requests_on_user_id"
-
-  create_table "inventories", force: :cascade do |t|
-    t.integer  "item_id"
-    t.integer  "inventory_file_id"
-    t.text     "note"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "inventories", ["inventory_file_id"], name: "index_inventories_on_inventory_file_id"
-  add_index "inventories", ["item_id"], name: "index_inventories_on_item_id"
-
-  create_table "inventory_files", force: :cascade do |t|
-    t.string   "filename"
-    t.string   "content_type"
-    t.integer  "size"
-    t.integer  "user_id"
-    t.text     "note"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "inventory_filename"
-    t.string   "inventory_content_type"
-    t.integer  "inventory_size"
-    t.datetime "inventory_updated_at"
-    t.string   "inventory_fingerprint"
-    t.string   "inventory_id"
-  end
-
-  add_index "inventory_files", ["inventory_id"], name: "index_inventory_files_on_inventory_id"
-  add_index "inventory_files", ["user_id"], name: "index_inventory_files_on_user_id"
 
   create_table "item_has_use_restrictions", force: :cascade do |t|
     t.integer  "item_id",            null: false
@@ -983,13 +923,16 @@ ActiveRecord::Schema.define(version: 20160627232316) do
     t.string   "first_name"
     t.string   "middle_name"
     t.string   "last_name"
+    t.string   "full_name"
     t.integer  "language_id"
     t.integer  "profile_id"
     t.integer  "position"
+    t.string   "source"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
+  add_index "names", ["full_name"], name: "index_names_on_full_name"
   add_index "names", ["profile_id"], name: "index_names_on_profile_id"
 
   create_table "owns", force: :cascade do |t|
@@ -1368,49 +1311,6 @@ ActiveRecord::Schema.define(version: 20160627232316) do
 
   add_index "shelves", ["library_id"], name: "index_shelves_on_library_id"
 
-  create_table "subject_heading_types", force: :cascade do |t|
-    t.string   "name",         null: false
-    t.text     "display_name"
-    t.text     "note"
-    t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "subject_types", force: :cascade do |t|
-    t.string   "name",         null: false
-    t.text     "display_name"
-    t.text     "note"
-    t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "subjects", force: :cascade do |t|
-    t.integer  "parent_id"
-    t.integer  "use_term_id"
-    t.string   "term"
-    t.text     "term_transcription"
-    t.integer  "subject_type_id",                     null: false
-    t.text     "scope_note"
-    t.text     "note"
-    t.integer  "required_role_id",        default: 1, null: false
-    t.integer  "lock_version",            default: 0, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "deleted_at"
-    t.string   "url"
-    t.integer  "manifestation_id"
-    t.integer  "subject_heading_type_id"
-  end
-
-  add_index "subjects", ["manifestation_id"], name: "index_subjects_on_manifestation_id"
-  add_index "subjects", ["parent_id"], name: "index_subjects_on_parent_id"
-  add_index "subjects", ["required_role_id"], name: "index_subjects_on_required_role_id"
-  add_index "subjects", ["subject_type_id"], name: "index_subjects_on_subject_type_id"
-  add_index "subjects", ["term"], name: "index_subjects_on_term"
-  add_index "subjects", ["use_term_id"], name: "index_subjects_on_use_term_id"
-
   create_table "subscribes", force: :cascade do |t|
     t.integer  "subscription_id", null: false
     t.integer  "work_id",         null: false
@@ -1662,5 +1562,14 @@ ActiveRecord::Schema.define(version: 20160627232316) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   add_index "users", ["username"], name: "index_users_on_username", unique: true
+
+  create_table "visibilities", force: :cascade do |t|
+    t.string   "name",         null: false
+    t.text     "display_name"
+    t.text     "note"
+    t.integer  "position"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
 end
