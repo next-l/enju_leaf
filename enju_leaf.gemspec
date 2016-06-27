@@ -38,7 +38,7 @@ Gem::Specification.new do |s|
   s.add_dependency "paperclip", "~> 4.3"
   s.add_dependency "statesman", "~> 1.3"
   s.add_dependency "kramdown"
-  s.add_dependency "browser", "~> 2.0"
+  s.add_dependency "browser", "~> 2.2"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mysql2"
@@ -47,7 +47,7 @@ Gem::Specification.new do |s|
   #s.add_development_dependency "enju_circulation", "~> 0.1.0"
   #s.add_development_dependency "enju_bookmark", "~> 0.1.2"
   #s.add_development_dependency "enju_search_log", "~> 0.1.0"
-  s.add_development_dependency "vcr", "3.0.1"
+  s.add_development_dependency "vcr", "~> 3.0"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "factory_girl_rails"
   s.add_development_dependency "sunspot_solr", "2.2.0"
