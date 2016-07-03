@@ -3,8 +3,8 @@ class ApplicationController < ActionController::Base
   include EnjuLeaf::Controller
   include EnjuBiblio::Controller
   include EnjuLibrary::Controller
-  after_action :verify_authorized
   before_action :set_paper_trail_whodunnit
+  after_action :verify_authorized
 
   include Pundit
 end
