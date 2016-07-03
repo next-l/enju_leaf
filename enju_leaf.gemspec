@@ -39,6 +39,7 @@ Gem::Specification.new do |s|
   s.add_dependency "statesman", "~> 1.3"
   s.add_dependency "kramdown"
   s.add_dependency "browser", "~> 2.2"
+  s.add_dependency "json_pure", "~> 1.8.3"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mysql2"
@@ -57,5 +58,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency "redis-rails"
   s.add_development_dependency "coveralls"
   s.add_development_dependency "resque", "~> 1.26"
-  s.add_development_dependency "json_pure", "~> 1.8.3"
 end
