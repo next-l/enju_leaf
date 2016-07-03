@@ -906,19 +906,6 @@ ActiveRecord::Schema.define(version: 20160627232316) do
   add_index "messages", ["receiver_id"], name: "index_messages_on_receiver_id"
   add_index "messages", ["sender_id"], name: "index_messages_on_sender_id"
 
-  create_table "names", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "middle_name"
-    t.string   "last_name"
-    t.integer  "language_id"
-    t.integer  "profile_id"
-    t.integer  "position"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "names", ["profile_id"], name: "index_names_on_profile_id"
-
   create_table "owns", force: :cascade do |t|
     t.integer  "agent_id",   null: false
     t.integer  "item_id",    null: false
