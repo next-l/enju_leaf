@@ -17,6 +17,7 @@ gem "enju_event", github: "next-l/enju_event", branch: "master"
 gem "enju_message", github: "next-l/enju_message", branch: "master"
 gem "enju_search_log", github: "next-l/enju_search_log", branch: "master"
 gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer", branch: "master"
+gem "globalize", github: "globalize/globalize"
 gem "codeclimate-test-reporter", group: :test, require: false
 gem "jquery-rails"
 
