@@ -6,7 +6,7 @@
         <% if language.iso_639_1 == I18n.locale.to_s %>
           <strong><%= language.native_name || language.name %></strong>
         <% else %>
-          <%= link_to "#{language.native_name || language.name}", url_for(params.merge(locale: language.iso_639_1, only_path: true)) %>
+          <%= link_to "#{language.native_name || language.name}", url_for(params.permit.merge(locale: language.iso_639_1, only_path: true)) %>
         <% end %>
       <% end %>
     </div>

@@ -16,13 +16,13 @@
   <tr>
     <th><%= t('activerecord.attributes.profile.user_number') -%></th>
     <th><%= t('activerecord.attributes.user.username') -%>
-      <%= link_to image_tag('icons/arrow_up.png', size: '16x16', alt: t('page.asc')), url_for(params.merge(sort_by: 'username', order: 'asc', only_path: true)) -%>
-      <%= link_to image_tag('icons/arrow_down.png', size: '16x16', alt: t('page.desc')), url_for(params.merge(sort_by: 'username', order: 'desc', only_path: true)) -%>
+      <%= link_to image_tag('icons/arrow_up.png', size: '16x16', alt: t('page.asc')), url_for(params.permit.merge(sort_by: 'username', order: 'asc', only_path: true)) -%>
+      <%= link_to image_tag('icons/arrow_down.png', size: '16x16', alt: t('page.desc')), url_for(params.permit.merge(sort_by: 'username', order: 'desc', only_path: true)) -%>
     </th>
     <th>
       <%= t('page.created_at') -%>
-      <%= link_to image_tag('icons/arrow_up.png', size: '16x16', alt: t('page.asc')), url_for(params.merge(sort_by: 'created_at', order: 'asc', only_path: true)) -%>
-      <%= link_to image_tag('icons/arrow_down.png', size: '16x16', alt: t('page.desc')), url_for(params.merge(sort_by: 'created_at', order: 'desc', only_path: true)) -%>
+      <%= link_to image_tag('icons/arrow_up.png', size: '16x16', alt: t('page.asc')), url_for(params.permit.merge(sort_by: 'created_at', order: 'asc', only_path: true)) -%>
+      <%= link_to image_tag('icons/arrow_down.png', size: '16x16', alt: t('page.desc')), url_for(params.permit.merge(sort_by: 'created_at', order: 'desc', only_path: true)) -%>
     </th>
     <th style="width: 80px"></th>
   </tr>
