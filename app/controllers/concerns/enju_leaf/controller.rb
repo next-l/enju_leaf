@@ -4,6 +4,7 @@ module EnjuLeaf
 
     included do
       before_action :get_library_group, :set_locale, :set_available_languages, :set_mobile_request
+      before_action :store_current_location, unless: :devise_controller?
       rescue_from Pundit::NotAuthorizedError, with: :render_403
       #rescue_from ActiveRecord::RecordNotFound, with: :render_404
       rescue_from Errno::ECONNREFUSED, with: :render_500_nosolr
@@ -156,21 +157,11 @@ module EnjuLeaf
       end
     end
 
-    def store_location
-      if request.get? and request.format.try(:html?) and !request.xhr?
-        session[:user_return_to] = request.fullpath
-      end
-    end
-
     def set_role_query(user, search)
       role = user.try(:role) || Role.default_role
       search.build do
         with(:required_role_id).less_than_or_equal_to role.id
       end
-    end
-
-    def solr_commit
-      Sunspot.commit
     end
 
     def get_version
@@ -225,6 +216,10 @@ module EnjuLeaf
           return
         end
       end
+    end
+
+    def store_current_location
+      store_location_for(:user, request.url)
     end
   end
 end
