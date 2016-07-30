@@ -53,6 +53,7 @@ Gem::Specification.new do |s|
   s.add_dependency "statesman", "~> 1.3"
   s.add_dependency "kramdown"
   s.add_dependency "json_pure", "~> 1.8.3"
+  s.add_dependency "turbolinks", "~> 2.5.3"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mysql2", "~> 0.3.20"
