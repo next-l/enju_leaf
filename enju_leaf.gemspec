@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
     s.add_dependency "cancancan", "~> 1.14"
     s.add_dependency "mime-types"
     s.add_dependency "paperclip-meta", "~> 2.0"
+    s.add_dependency "tins", "< 1.7.0"
   else
     s.add_dependency "cancancan", "~> 1.12.0"
     s.add_dependency "mime-types", "< 3.0"
