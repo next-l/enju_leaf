@@ -1,7 +1,7 @@
 module Mobylette
   module Resolvers
     class ChainedFallbackResolver < ::ActionView::FileSystemResolver
-      DEFAULT_PATTERN = "{:path}/:prefix/:action{.:locale,}{.:formats,}{.:handlers,}"
+      #DEFAULT_PATTERN = "{:path}/:prefix/:action{.:locale,}{.:formats,}{.:handlers,}"
 
       # Initializes the fallback resolver with a default
       # mobile format.
