@@ -7,6 +7,7 @@ describe "profiles/index" do
     assign(:profiles, Profile.page(1))
     admin = User.friendly.find('enjuadmin')
     view.stub(:current_user).and_return(admin)
+    view.stub(:params).and_return(ActionController::Parameters.new)
   end
 
   it "renders a list of profiles" do
