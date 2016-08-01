@@ -60,6 +60,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec-activemodel-mocks"
   s.add_development_dependency "charlock_holmes"
   s.add_development_dependency "redis-rails"
-  s.add_development_dependency "resque-scheduler", "~> 4.2"
+  s.add_development_dependency "resque", "~> 1.26"
   s.add_development_dependency "capybara"
 end
