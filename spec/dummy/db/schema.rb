@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160703185015) do
+ActiveRecord::Schema.define(version: 20160703190209) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer  "basket_id"
@@ -338,6 +338,7 @@ ActiveRecord::Schema.define(version: 20160703185015) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "shelf_id"
+    t.integer  "library_id"
   end
 
   add_index "checkouts", ["basket_id"], name: "index_checkouts_on_basket_id"
@@ -345,6 +346,7 @@ ActiveRecord::Schema.define(version: 20160703185015) do
   add_index "checkouts", ["item_id", "basket_id"], name: "index_checkouts_on_item_id_and_basket_id", unique: true
   add_index "checkouts", ["item_id"], name: "index_checkouts_on_item_id"
   add_index "checkouts", ["librarian_id"], name: "index_checkouts_on_librarian_id"
+  add_index "checkouts", ["library_id"], name: "index_checkouts_on_library_id"
   add_index "checkouts", ["shelf_id"], name: "index_checkouts_on_shelf_id"
   add_index "checkouts", ["user_id"], name: "index_checkouts_on_user_id"
 
@@ -356,6 +358,17 @@ ActiveRecord::Schema.define(version: 20160703185015) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "colors", force: :cascade do |t|
+    t.integer  "library_group_id"
+    t.string   "property"
+    t.string   "code"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "colors", ["library_group_id"], name: "index_colors_on_library_group_id"
 
   create_table "content_types", force: :cascade do |t|
     t.string   "name",         null: false
@@ -401,6 +414,18 @@ ActiveRecord::Schema.define(version: 20160703185015) do
 
   add_index "creates", ["agent_id"], name: "index_creates_on_agent_id"
   add_index "creates", ["work_id"], name: "index_creates_on_work_id"
+
+  create_table "demands", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "item_id"
+    t.integer  "message_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "demands", ["item_id"], name: "index_demands_on_item_id"
+  add_index "demands", ["message_id"], name: "index_demands_on_message_id"
+  add_index "demands", ["user_id"], name: "index_demands_on_user_id"
 
   create_table "donates", force: :cascade do |t|
     t.integer  "agent_id",   null: false
@@ -644,7 +669,10 @@ ActiveRecord::Schema.define(version: 20160703185015) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.text     "opening_hour"
     t.string   "isil"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   add_index "libraries", ["library_group_id"], name: "index_libraries_on_library_group_id"
@@ -677,6 +705,7 @@ ActiveRecord::Schema.define(version: 20160703185015) do
     t.boolean  "allow_bookmark_external_url", default: false,                    null: false
     t.string   "url",                         default: "http://localhost:3000/"
     t.text     "settings"
+    t.text     "html_snippet"
   end
 
   add_index "library_groups", ["short_name"], name: "index_library_groups_on_short_name"
@@ -697,6 +726,7 @@ ActiveRecord::Schema.define(version: 20160703185015) do
     t.integer  "manifestation_checkout_stat_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent"
   end
 
   add_index "manifestation_checkout_stat_transitions", ["manifestation_checkout_stat_id"], name: "index_manifestation_checkout_stat_transitions_on_stat_id"
@@ -743,6 +773,7 @@ ActiveRecord::Schema.define(version: 20160703185015) do
     t.integer  "manifestation_reserve_stat_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent"
   end
 
   add_index "manifestation_reserve_stat_transitions", ["manifestation_reserve_stat_id"], name: "index_manifestation_reserve_stat_transitions_on_stat_id"
@@ -876,12 +907,11 @@ ActiveRecord::Schema.define(version: 20160703185015) do
 
   create_table "message_transitions", force: :cascade do |t|
     t.string   "to_state"
-    t.text     "metadata",    default: "{}"
+    t.text     "metadata",   default: "{}"
     t.integer  "sort_key"
     t.integer  "message_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "most_recent"
   end
 
   add_index "message_transitions", ["message_id"], name: "index_message_transitions_on_message_id"
@@ -1046,11 +1076,12 @@ ActiveRecord::Schema.define(version: 20160703185015) do
 
   create_table "reserve_transitions", force: :cascade do |t|
     t.string   "to_state"
-    t.text     "metadata",   default: "{}"
+    t.text     "metadata",    default: "{}"
     t.integer  "sort_key"
     t.integer  "reserve_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent"
   end
 
   add_index "reserve_transitions", ["reserve_id"], name: "index_reserve_transitions_on_reserve_id"
@@ -1069,6 +1100,7 @@ ActiveRecord::Schema.define(version: 20160703185015) do
     t.datetime "deleted_at"
     t.boolean  "expiration_notice_to_patron",  default: false
     t.boolean  "expiration_notice_to_library", default: false
+    t.integer  "pickup_location_id"
     t.datetime "retained_at"
     t.datetime "postponed_at"
     t.integer  "lock_version",                 default: 0,     null: false
@@ -1076,6 +1108,7 @@ ActiveRecord::Schema.define(version: 20160703185015) do
 
   add_index "reserves", ["item_id"], name: "index_reserves_on_item_id"
   add_index "reserves", ["manifestation_id"], name: "index_reserves_on_manifestation_id"
+  add_index "reserves", ["pickup_location_id"], name: "index_reserves_on_pickup_location_id"
   add_index "reserves", ["request_status_type_id"], name: "index_reserves_on_request_status_type_id"
   add_index "reserves", ["user_id"], name: "index_reserves_on_user_id"
 
@@ -1341,6 +1374,7 @@ ActiveRecord::Schema.define(version: 20160703185015) do
     t.integer  "user_checkout_stat_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent"
   end
 
   add_index "user_checkout_stat_transitions", ["sort_key", "user_checkout_stat_id"], name: "index_user_checkout_stat_transitions_on_sort_key_and_stat_id", unique: true
@@ -1475,6 +1509,7 @@ ActiveRecord::Schema.define(version: 20160703185015) do
     t.integer  "user_reserve_stat_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent"
   end
 
   add_index "user_reserve_stat_transitions", ["sort_key", "user_reserve_stat_id"], name: "index_user_reserve_stat_transitions_on_sort_key_and_stat_id", unique: true
@@ -1525,15 +1560,15 @@ ActiveRecord::Schema.define(version: 20160703185015) do
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   add_index "users", ["username"], name: "index_users_on_username", unique: true
 
-  create_table "versions", force: :cascade do |t|
-    t.string   "item_type",  null: false
-    t.integer  "item_id",    null: false
-    t.string   "event",      null: false
-    t.string   "whodunnit"
-    t.text     "object"
-    t.datetime "created_at"
+  create_table "withdraws", force: :cascade do |t|
+    t.integer  "basket_id"
+    t.integer  "item_id"
+    t.integer  "librarian_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+  add_index "withdraws", ["basket_id"], name: "index_withdraws_on_basket_id"
+  add_index "withdraws", ["item_id"], name: "index_withdraws_on_item_id"
 
 end
