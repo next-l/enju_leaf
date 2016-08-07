@@ -1,21 +1,7 @@
-require 'kaminari'
-require 'devise'
-require 'pundit'
-require 'acts_as_list'
-require 'strip_attributes'
-require 'friendly_id'
-require 'addressable/uri'
-require 'sunspot_rails'
-require 'cocoon'
 require 'enju_biblio'
 require 'enju_library'
-require 'enju_manifestation_viewer'
-require 'kramdown'
-require 'rails_autolink'
-require 'sitemap_generator'
+#require 'enju_manifestation_viewer'
 require 'jquery-ui-rails'
-require 'statesman'
-require 'browser'
 
 module EnjuLeaf
   class Engine < ::Rails::Engine

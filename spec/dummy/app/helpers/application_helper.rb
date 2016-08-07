@@ -1,4 +1,5 @@
 module ApplicationHelper
   include EnjuLeaf::EnjuLeafHelper
-  include EnjuBiblio::BiblioHelper if defined?(EnjuBiblio)
+  include EnjuBiblio::BiblioHelper
+  include EnjuManifestationViewer::BookJacketHelper
 end
