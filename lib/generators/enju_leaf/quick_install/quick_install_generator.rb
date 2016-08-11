@@ -6,12 +6,11 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
     gsub_file 'config/schedule.rb', /^set :environment, :development$/,
       "set :environment, :#{environment}"
     rake("enju_seed_engine:install:migrations")
-    rake("enju_leaf_engine:install:migrations")
-    rake("enju_biblio_engine:install:migrations")
     rake("enju_library_engine:install:migrations")
+    rake("enju_biblio_engine:install:migrations")
     if !ENV['ENJU_SKIP_CONFIG']
-      generate("enju_biblio:setup")
       generate("enju_library:setup")
+      generate("enju_biblio:setup")
       generate("enju_circulation:setup")
       generate("enju_subject:setup")
     end
