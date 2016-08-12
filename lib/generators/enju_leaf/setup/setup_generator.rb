@@ -70,7 +70,6 @@ EOS
 
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
-  include EnjuLeaf::Controller
   include EnjuBiblio::Controller
   include EnjuLibrary::Controller
 
