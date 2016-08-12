@@ -20,14 +20,12 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids,default,development,test}/*"] - Dir["spec/dummy/tmp/*"]
 
   s.add_dependency "rails", "~> 4.2"
-  s.add_dependency "enju_seed", "~> 0.2.0.beta.3"
-  s.add_dependency "enju_library", "~> 0.2.0.beta.2"
-  s.add_dependency "enju_biblio", "~> 0.2.0.beta.1"
+  s.add_dependency "enju_library", "~> 0.2.0.beta.3"
+  s.add_dependency "enju_biblio", "~> 0.2.0.beta.2"
   s.add_dependency "jquery-ui-rails", "~> 4.2.1"
 
-  s.add_development_dependency "enju_manifestation_viewer", "~> 0.2.0.beta.1"
+  s.add_development_dependency "enju_manifestation_viewer", "~> 0.2.0.beta.2"
   s.add_development_dependency "enju_circulation", "~> 0.2.0.beta.1"
-  s.add_development_dependency "enju_message", "~> 0.2.0.beta.1"
   s.add_development_dependency "enju_event", "~> 0.2.0.beta.1"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mysql2"
