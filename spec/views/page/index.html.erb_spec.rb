@@ -1,11 +1,9 @@
-# -*- encoding: utf-8 -*-
 require 'spec_helper'
 
 describe "page/index" do
   fixtures :all
 
   before(:each) do
-    assign(:tags, Tag.all)
     view.stub(:current_user).and_return(User.friendly.find('enjuadmin'))
   end
 

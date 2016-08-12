@@ -62,7 +62,7 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  config.extend ControllerMacros, :type => :controller
+  config.extend ControllerMacros, type: :controller
 
   config.before do
     Sunspot.session = SunspotMatchers::SunspotSessionSpy.new(Sunspot.session)

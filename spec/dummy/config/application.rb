@@ -7,8 +7,6 @@ require 'enju_leaf'
 require 'resque/server'
 require 'enju_manifestation_viewer'
 require 'enju_circulation'
-require 'enju_bookmark'
-require 'enju_search_log'
 
 module Dummy
   class Application < Rails::Application

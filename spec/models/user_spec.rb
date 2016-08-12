@@ -144,28 +144,6 @@ describe User do
       expect(lines).not_to be_empty
       expect(lines.split(/\n/).size).to eq User.count + 1
     end
-
-    it "should export share_bookmarks and save_search_history" do
-      user = FactoryGirl.create(:user,
-        profile: FactoryGirl.create(:profile,
-          share_bookmarks: true,
-          save_search_history: true))
-      lines = User.export
-      rows = CSV.new(lines, col_sep: "\t", headers: true)
-      rows.each do |row|
-        if row["username"] == user.username
-          expect(row["share_bookmarks"]).to eq "true"
-          expect(row["save_search_history"]).to eq "true"
-        end
-      end
-    end
-
-    it "should work even if EnjuBookmark module is undefined" do
-      Object.send(:remove_const, :EnjuBookmark)
-      lines = User.export
-      expect(lines).not_to be_empty
-      expect(lines.split(/\n/).size).to eq User.count + 1
-    end
   end
 end
 
