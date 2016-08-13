@@ -4,9 +4,11 @@ require 'rails/all'
 
 Bundler.require
 require 'enju_leaf'
-require 'resque/server'
+require 'enju_library'
 require 'enju_manifestation_viewer'
-require 'enju_circulation'
+require 'globalize'
+require 'globalize-accessors'
+require 'resque/server'
 
 module Dummy
   class Application < Rails::Application
