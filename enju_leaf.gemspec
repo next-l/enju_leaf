@@ -20,8 +20,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids,default,development,test}/*"] - Dir["spec/dummy/tmp/*"]
 
   s.add_dependency "rails", "~> 4.2"
-  s.add_dependency "enju_library", "~> 0.2.0.beta.3"
-  s.add_dependency "enju_biblio", "~> 0.2.0.beta.2"
+  s.add_dependency "enju_library", "~> 0.2.0.beta.6"
   s.add_dependency "turbolinks", "~> 2.5"
   s.add_dependency "jquery-ui-rails", "~> 4.2.1"
 

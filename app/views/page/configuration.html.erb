@@ -134,7 +134,9 @@
     <div class="config_box">
       <ul>
         <% if current_user.has_role?('Administrator') %>
-          <li><%= link_to 'Resque', resque_path %></li>
+          <% if defined?(Resque::Server) %>
+            <li><%= link_to 'Resque', resque_path %></li>
+          <% end %>
           <li><%= link_to t('page.system_information'), page_system_information_path %></li>
         <% end %>
       </ul>
