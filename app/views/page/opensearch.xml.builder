@@ -5,7 +5,7 @@ xml.OpenSearchDescription(
   xml.ShortName @library_group.display_name.localize
   xml.Description @library_group.display_name.localize
   xml.Tags 'Library Catalog'
-  xml.Contact @library_group.email
+  xml.Contact @library_group.user.email
   xml.Url type: 'text/html', template: "#{manifestations_url}?query={searchTerms}"
   xml.Url type: 'application/rss+xml', template: "#{manifestations_url(format: :rss)}?query={searchTerms}"
   xml.Query role: 'example', searchTerms: 'enju'
