@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160703190209) do
+ActiveRecord::Schema.define(version: 20160813130535) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer  "basket_id"
@@ -706,6 +706,7 @@ ActiveRecord::Schema.define(version: 20160703190209) do
     t.string   "url",                         default: "http://localhost:3000/"
     t.text     "settings"
     t.text     "html_snippet"
+    t.string   "email"
   end
 
   add_index "library_groups", ["short_name"], name: "index_library_groups_on_short_name"
@@ -907,11 +908,12 @@ ActiveRecord::Schema.define(version: 20160703190209) do
 
   create_table "message_transitions", force: :cascade do |t|
     t.string   "to_state"
-    t.text     "metadata",   default: "{}"
+    t.text     "metadata",    default: "{}"
     t.integer  "sort_key"
     t.integer  "message_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent"
   end
 
   add_index "message_transitions", ["message_id"], name: "index_message_transitions_on_message_id"
