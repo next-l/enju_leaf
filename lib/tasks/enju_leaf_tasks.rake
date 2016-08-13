@@ -21,14 +21,11 @@ namespace :enju_leaf do
 
   desc "upgrade enju_leaf"
   task :upgrade => :environment do
-    Rake::Task['enju_biblio:upgrade'].invoke
-    Rake::Task['enju_circulation:upgrade'].invoke
     Rake::Task['enju_library:upgrade'].invoke
+    Rake::Task['enju_biblio:upgrade'].invoke
+    Rake::Task['enju_event:upgrade'].invoke
     Rake::Task['enju_message:upgrade'].invoke
-    Rake::Task['enju_subject:upgrade'].invoke
-    Profile.transaction do
-      update_profile
-    end
+    Rake::Task['enju_circulation:upgrade'].invoke
     puts 'enju_leaf: The upgrade completed successfully.'
   end
 
