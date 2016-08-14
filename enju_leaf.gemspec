@@ -19,14 +19,13 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids,default,development,test}/*"] - Dir["spec/dummy/tmp/*"]
 
-  s.add_dependency "rails", "~> 4.2"
-  s.add_dependency "enju_library", "~> 0.2.0.beta.8"
-  s.add_dependency "turbolinks", "~> 2.5"
+  s.add_dependency "rails", ">= 4.2.7.1"
+  s.add_dependency "enju_biblio", "~> 0.2.0.beta.3"
   s.add_dependency "jquery-ui-rails", "~> 4.2.1"
 
   s.add_development_dependency "enju_manifestation_viewer", "~> 0.2.0.beta.3"
-  s.add_development_dependency "globalize"
-  s.add_development_dependency "globalize-accessors"
+  #s.add_development_dependency "globalize"
+  #s.add_development_dependency "globalize-accessors"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mysql2"
   s.add_development_dependency "pg"
@@ -41,4 +40,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "redis-rails"
   s.add_development_dependency "coveralls"
   s.add_development_dependency "resque", "~> 1.26"
+  s.add_development_dependency "appraisal"
 end

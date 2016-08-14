@@ -2,8 +2,9 @@
 
 source "https://rubygems.org"
 
-gem "rails", "~> 4.2.5"
 gem "jquery-rails"
-gem "coveralls", :require => false
+gem "rails", "~> 4.2.7"
+gem "globalize", "~> 5.0.1"
+gem "globalize-accessors"
 
 gemspec :path => "../"
