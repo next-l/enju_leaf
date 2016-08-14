@@ -4,7 +4,5 @@ source "https://rubygems.org"
 
 gem "jquery-rails"
 gem "rails", "~> 4.2.7"
-gem "globalize", "~> 5.0.1"
-gem "globalize-accessors"
 
 gemspec :path => "../"
