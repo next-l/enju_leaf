@@ -31,5 +31,7 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
         rake("sunspot:solr:stop", env: environment)
       end
     end
+
+    rake("enju_library:upgrade")
   end
 end

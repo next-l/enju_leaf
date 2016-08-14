@@ -10,7 +10,6 @@ namespace :enju_leaf do
 
     Rake::Task['enju_biblio:setup'].invoke
     Rake::Task['enju_library:setup'].invoke
-    Rake::Task['enju_library:upgrade'].invoke
 
     puts 'initial fixture files loaded.'
   end
