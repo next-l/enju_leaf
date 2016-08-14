@@ -23,7 +23,6 @@ EOS
       "config.time_zone = 'Tokyo'"
     gsub_file 'config/schedule.rb', /\/path\/to\/enju_leaf/, Rails.root.to_s
     append_to_file("Rakefile", "require 'resque/tasks'\n")
-    append_to_file("Rakefile", "require 'resque/scheduler/tasks'")
     append_to_file("db/seeds.rb", File.open(File.expand_path('../templates', __FILE__) + '/db/seeds.rb').read)
     application(nil, env: "development") do
       "config.action_mailer.default_url_options = {host: 'localhost:3000'}\n"
