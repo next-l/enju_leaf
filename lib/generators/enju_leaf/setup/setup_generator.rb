@@ -7,8 +7,6 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
     directory("solr", "example/solr")
     copy_file("Procfile", "Procfile")
     copy_file("config/schedule.rb", "config/schedule.rb")
-    copy_file("config/initializers/enju_leaf.rb", "config/initializers/enju_leaf.rb")
-    copy_file("config/initializers/resque.rb", "config/initializers/resque.rb")
     append_to_file("config/initializers/assets.rb", "Rails.application.config.assets.precompile += %w( *.png )")
     inject_into_file 'config/application.rb', after: /# config.i18n.default_locale = :de$\n/ do
       <<"EOS"
@@ -111,5 +109,6 @@ EOS
     gsub_file 'config/environments/production.rb',
       /# config.assets.precompile \+= %w\( search.js \)$/,
       "config.assets.precompile += %w( mobile.js mobile.css print.css )"
+    append_to_file("app/models/user.rb", "Item.include(EnjuLibrary::EnjuItem)")
   end
 end
