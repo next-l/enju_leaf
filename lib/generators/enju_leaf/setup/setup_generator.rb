@@ -109,6 +109,6 @@ EOS
     gsub_file 'config/environments/production.rb',
       /# config.assets.precompile \+= %w\( search.js \)$/,
       "config.assets.precompile += %w( mobile.js mobile.css print.css )"
-    append_to_file("app/models/user.rb", "Item.include(EnjuLibrary::EnjuItem)")
+    append_to_file("app/models/user.rb", "Item.include(EnjuLibrary::EnjuItem)\n")
   end
 end
