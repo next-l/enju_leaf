@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160813130535) do
+ActiveRecord::Schema.define(version: 20160813203039) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer  "basket_id"
@@ -691,9 +691,9 @@ ActiveRecord::Schema.define(version: 20160813130535) do
   add_index "library_group_translations", ["locale"], name: "index_library_group_translations_on_locale"
 
   create_table "library_groups", force: :cascade do |t|
-    t.string   "name",                                                           null: false
+    t.string   "name",                                                             null: false
     t.text     "display_name"
-    t.string   "short_name",                                                     null: false
+    t.string   "short_name",                                                       null: false
     t.text     "my_networks"
     t.text     "login_banner"
     t.text     "note"
@@ -702,14 +702,20 @@ ActiveRecord::Schema.define(version: 20160813130535) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "admin_networks"
-    t.boolean  "allow_bookmark_external_url", default: false,                    null: false
-    t.string   "url",                         default: "http://localhost:3000/"
+    t.boolean  "allow_bookmark_external_url",   default: false,                    null: false
+    t.string   "url",                           default: "http://localhost:3000/"
     t.text     "settings"
     t.text     "html_snippet"
-    t.string   "email"
+    t.string   "book_jacket_source"
+    t.integer  "max_number_of_results",         default: 500
+    t.boolean  "family_name_first",             default: true
+    t.string   "screenshot_generator"
+    t.integer  "pub_year_facet_range_interval", default: 10
+    t.integer  "user_id"
   end
 
   add_index "library_groups", ["short_name"], name: "index_library_groups_on_short_name"
+  add_index "library_groups", ["user_id"], name: "index_library_groups_on_user_id"
 
   create_table "licenses", force: :cascade do |t|
     t.string   "name",         null: false
