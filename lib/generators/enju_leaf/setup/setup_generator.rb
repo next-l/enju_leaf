@@ -67,10 +67,11 @@ EOS
 
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
-  include EnjuBiblio::Controller
   include EnjuLibrary::Controller
+  include EnjuBiblio::Controller
 
   include Pundit
+  before_action :set_paper_trail_whodunnit
   after_action :verify_authorized, unless: :devise_controller?
 EOS
     end
@@ -109,6 +110,5 @@ EOS
     gsub_file 'config/environments/production.rb',
       /# config.assets.precompile \+= %w\( search.js \)$/,
       "config.assets.precompile += %w( mobile.js mobile.css print.css )"
-    append_to_file("app/models/user.rb", "Item.include(EnjuLibrary::EnjuItem)\n")
   end
 end
