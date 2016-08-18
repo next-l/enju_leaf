@@ -4,12 +4,13 @@ require 'spec_helper'
 describe UserExportFile do
   fixtures :all
   
-  it "should export in background" do
+  it "should export and get a message" do
     message_count = Message.count
     file = UserExportFile.new
     file.user = users(:admin)
     file.save
-    UserExportFileJob.perform_later(file).should be_truthy
+    #UserExportFileJob.perform_later(file).should be_truthy
+    file.export!
     Message.count.should eq message_count + 1
     Message.order(:id).last.subject.should eq 'エクスポートが完了しました'
   end
