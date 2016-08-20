@@ -13,7 +13,7 @@
         <%= t('page.logged_in_as', login_name: current_user.username) -%>
         <br />
         <% if defined?(EnjuMessage) %>
-          <%= link_to image_tag('icons/email.png', size: '16x16', alt: t('activerecord.models.message')), messages_path %>
+          <%= link_to image_tag('icons/email.png', size: '16x16', class: 'enju_icon', alt: t('activerecord.models.message')), messages_path %>
           <% if messages_count(current_user) > 0 %>
             <%= link_to "(#{messages_count(current_user)})", messages_path %>
           <% else %>

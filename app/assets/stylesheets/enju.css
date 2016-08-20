@@ -573,3 +573,7 @@ div.search_form{
 .display-none {
   display: none;
 }
+
+img.enju_icon {
+  vertical-align: middle;
+}
