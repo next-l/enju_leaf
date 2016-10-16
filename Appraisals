@@ -10,6 +10,4 @@ appraise "rails-5.0" do
   gem 'activemodel-serializers-xml'
   gem 'rails-controller-testing'
   gem 'sinatra', '~> 2.0.0.beta2'
-  gem 'resque', github: 'resque/resque', require: 'resque/server'
-  gem 'resque-web'
 end
