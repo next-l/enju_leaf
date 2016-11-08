@@ -79,10 +79,10 @@ module EnjuLeaf
     end
   
     # HTMLのtitleを表示します。
-    def title(controller_name)
+    def title(controller_name, model_name = controller_name.singularize)
       string = ''
       unless ['page', 'routing_error', 'my_accounts'].include?(controller_name)
-        string << t("activerecord.models.#{controller_name.singularize}") + ' - '
+        string << t("activerecord.models.#{model_name}") + ' - '
       end
       if controller_name == 'routing_error'
         string << t("page.routing_error") + ' - '
