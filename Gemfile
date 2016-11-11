@@ -17,9 +17,9 @@ gem "enju_event", github: "next-l/enju_event"
 gem "enju_message", github: "next-l/enju_message"
 gem "enju_search_log", github: "next-l/enju_search_log"
 gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer"
-gem "globalize", github: "globalize/globalize"
 gem "codeclimate-test-reporter", group: :test, require: false
 gem "jquery-rails"
+gem "mini_magick"
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]

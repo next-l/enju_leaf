@@ -19,10 +19,9 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids,default,development,test}/*"] - Dir["spec/dummy/tmp/*"]
 
-  s.add_dependency "enju_seed", "~> 0.2.0.beta.6"
+  s.add_dependency "enju_seed", "~> 0.2.0"
   #s.add_dependency "enju_library", "~> 0.2.0.beta.1"
   #s.add_dependency "enju_manifestation_viewer", "~> 0.2.0.beta.1"
-  s.add_dependency "friendly_id", "~> 5.2.0.beta.1"
   s.add_dependency "kaminari", "~> 0.17"
   s.add_dependency "devise", "~> 4.1"
   s.add_dependency "pundit", "~> 1.1"
@@ -42,10 +41,8 @@ Gem::Specification.new do |s|
   s.add_dependency "slim-rails"
   s.add_dependency "postrank-uri"
 
-  s.add_development_dependency "sqlite3"
-  s.add_development_dependency "mysql2"
   s.add_development_dependency "pg"
-  s.add_development_dependency "rspec-rails", "~> 3.4"
+  s.add_development_dependency "rspec-rails", "~> 3.5"
   #s.add_development_dependency "enju_circulation", "~> 0.2.0.beta.1"
   #s.add_development_dependency "enju_bookmark", "~> 0.2.0.beta.1"
   #s.add_development_dependency "enju_search_log", "~> 0.2.0.beta.1"
