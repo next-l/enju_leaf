@@ -11,7 +11,7 @@ describe "profiles/new" do
     assign(:libraries, Library.all)
     assign(:roles, Role.all)
     assign(:available_languages, Language.available_languages)
-    view.stub(:current_user).and_return(User.find('enjuadmin'))
+    view.stub(:current_user).and_return(User.friendly.find('enjuadmin'))
   end
 
   it "renders new user form" do

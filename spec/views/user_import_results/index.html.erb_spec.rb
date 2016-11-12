@@ -5,7 +5,7 @@ describe "user_import_results/index" do
 
   before(:each) do
     assign(:user_import_results, UserImportResult.page(1))
-    admin = User.find('enjuadmin')
+    admin = User.friendly.find('enjuadmin')
     view.stub(:current_user).and_return(admin)
   end
 

@@ -5,7 +5,7 @@ describe "user_export_files/new" do
     assign(:user_export_file, stub_model(
       UserExportFile
     ).as_new_record)
-    view.stub(:current_user).and_return(User.find('enjuadmin'))
+    view.stub(:current_user).and_return(User.friendly.find('enjuadmin'))
   end
 
   it "renders new user form" do

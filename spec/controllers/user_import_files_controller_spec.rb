@@ -6,7 +6,7 @@
 #  user_id                  :integer
 #  note                     :text
 #  executed_at              :datetime
-#  user_import_filename     :string
+#  user_import_file_name     :string
 #  user_import_content_type :string
 #  user_import_file_size    :integer
 #  user_import_updated_at   :datetime

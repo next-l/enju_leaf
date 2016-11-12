@@ -6,7 +6,7 @@ describe "page/statistics" do
 
   before(:each) do
     @profile = assign(:profile, profiles(:admin))
-    view.stub(:current_user).and_return(User.find('enjuadmin'))
+    view.stub(:current_user).and_return(User.friendly.find('enjuadmin'))
   end
 
   it "renders attributes in <p>" do
