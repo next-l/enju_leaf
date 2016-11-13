@@ -96,7 +96,7 @@ content_type_00012:
 #  created_at              :datetime
 #  updated_at              :datetime
 #  attachment_id           :string
-#  attachment_filename     :string
+#  attachment_file_name     :string
 #  attachment_size         :integer
 #  attachment_content_type :string
 #

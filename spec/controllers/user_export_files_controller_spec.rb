@@ -9,7 +9,7 @@
 #  updated_at           :datetime
 #  user_export_id       :string
 #  user_export_size     :integer
-#  user_import_filename :string
+#  user_import_file_name :string
 #
 
 require 'spec_helper'

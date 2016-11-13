@@ -1,5 +1,5 @@
 class CreateLibraries < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :libraries do |t|
       t.string :name, :null => false
       t.text :display_name
@@ -24,9 +24,5 @@ class CreateLibraries < ActiveRecord::Migration
     end
     add_index :libraries, :library_group_id
     add_index :libraries, :name, :unique => true
-  end
-
-  def self.down
-    drop_table :libraries
   end
 end

@@ -21,5 +21,5 @@ user_export_file_00003:
 #  updated_at           :datetime
 #  user_export_id       :string
 #  user_export_size     :integer
-#  user_import_filename :string
+#  user_import_file_name :string
 #
