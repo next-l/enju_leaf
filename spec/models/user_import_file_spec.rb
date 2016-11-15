@@ -6,7 +6,7 @@ describe UserImportFile do
 
   describe "when its mode is 'create'" do
     before(:each) do
-      @file = UserImportFile.new user_import: File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv")
+      @file = UserImportFile.new attachment: File.open("#{Rails.root}/../../examples/user_import_file_sample.tsv")
       @file.default_user_group = UserGroup.find(2)
       @file.default_library = Library.find(3)
       @file.user = users(:admin)
@@ -106,7 +106,7 @@ describe UserImportFile do
       )
     end
     it "should update users" do
-      @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_update_file.tsv"), user: users(:admin)
+      @file = UserImportFile.create attachment: File.open("#{Rails.root}/../../examples/user_update_file.tsv"), user: users(:admin)
       old_message_count = Message.count
       result = @file.modify
       result.should have_key(:user_updated)
@@ -130,7 +130,7 @@ describe UserImportFile do
         note: 'Note',
         keyword_list: 'keyword1 keyword2',
         date_of_birth: 10.years.ago)
-      @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_update_file2.tsv"), user: users(:admin)
+      @file = UserImportFile.create attachment: File.open("#{Rails.root}/../../examples/user_update_file2.tsv"), user: users(:admin)
       result = @file.modify
       result.should have_key(:user_updated)
       user001 = User.find('user001')
@@ -141,14 +141,14 @@ describe UserImportFile do
       user001.profile.keyword_list.should eq 'keyword1 keyword2'
     end
     it "should update user_number" do
-      @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_update_file3.tsv"), user: users(:admin)
+      @file = UserImportFile.create attachment: File.open("#{Rails.root}/../../examples/user_update_file3.tsv"), user: users(:admin)
       result = @file.modify
       result.should have_key(:user_updated)
       user001 = User.where(username: 'user001').first
       user001.profile.user_number.should eq '0001'
     end
     it "should update user's lock status" do
-      @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_update_file4.tsv"), user: users(:admin)
+      @file = UserImportFile.create attachment: File.open("#{Rails.root}/../../examples/user_update_file4.tsv"), user: users(:admin)
       result = @file.modify
       result.should have_key(:user_updated)
       user001 = User.where(username: 'user001').first
@@ -158,7 +158,7 @@ describe UserImportFile do
 
   describe "when its mode is 'destroy'" do
     before(:each) do
-      @file = UserImportFile.new user_import: File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv"), user: users(:admin)
+      @file = UserImportFile.new attachment: File.open("#{Rails.root}/../../examples/user_import_file_sample.tsv"), user: users(:admin)
       @file.user = users(:admin)
       @file.default_user_group = UserGroup.find(2)
       @file.default_library = Library.find(3)
@@ -168,7 +168,7 @@ describe UserImportFile do
 
     it "should remove users" do
       old_count = User.count
-      @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_delete_file.tsv"), user: users(:admin)
+      @file = UserImportFile.create attachment: File.open("#{Rails.root}/../../examples/user_delete_file.tsv"), user: users(:admin)
       @file.user = users(:admin)
       old_message_count = Message.count
       @file.remove
@@ -180,7 +180,7 @@ describe UserImportFile do
       user001 = User.where(username: 'user001').first
       FactoryGirl.create(:checkout, user: user001, item: FactoryGirl.create(:item))
       old_count = User.count
-      @file = UserImportFile.create user_import: File.new("#{Rails.root}/../../examples/user_delete_file.tsv"), user: users(:admin)
+      @file = UserImportFile.create attachment: File.open("#{Rails.root}/../../examples/user_delete_file.tsv"), user: users(:admin)
       @file.remove
       User.where(username: 'user001').should_not be_blank
       User.count.should eq old_count - 2
@@ -188,7 +188,7 @@ describe UserImportFile do
   end
 
   it "should import in background" do
-    file = UserImportFile.new user_import: File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv"), user: users(:admin)
+    file = UserImportFile.new attachment: File.open("#{Rails.root}/../../examples/user_import_file_sample.tsv"), user: users(:admin)
     file.user = users(:admin)
     file.default_user_group = UserGroup.find(2)
     file.default_library = Library.find(3)
