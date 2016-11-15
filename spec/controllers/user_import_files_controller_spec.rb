@@ -162,7 +162,7 @@ describe UserImportFilesController do
       end
 
       it "should create agent_import_file" do
-        post :create, user_import_file: {user_import: fixture_file_upload("/../../examples/user_import_file_sample.tsv", 'text/csv') }
+        post :create, user_import_file: {attachment: fixture_file_upload("/../../examples/user_import_file_sample.tsv", 'text/csv') }
         assigns(:user_import_file).should be_valid
         assigns(:user_import_file).user.username.should eq @user.username
         expect(response).to redirect_to user_import_file_url(assigns(:user_import_file))
@@ -178,7 +178,7 @@ describe UserImportFilesController do
       end
 
       it "should be forbidden" do
-        post :create, user_import_file: {user_import: fixture_file_upload("/../../examples/user_import_file_sample.tsv", 'text/csv') }
+        post :create, user_import_file: {attachment: fixture_file_upload("/../../examples/user_import_file_sample.tsv", 'text/csv') }
         assigns(:user_import_file).should be_nil
         expect(response).to be_forbidden
       end
@@ -186,7 +186,7 @@ describe UserImportFilesController do
 
     describe "When not logged in" do
       it "should be redirected to new session url" do
-        post :create, user_import_file: {user_import: fixture_file_upload("/../../examples/user_import_file_sample.tsv", 'text/csv') }
+        post :create, user_import_file: {attachment: fixture_file_upload("/../../examples/user_import_file_sample.tsv", 'text/csv') }
         assigns(:user_import_file).should be_nil
         expect(response).to redirect_to new_user_session_url
       end
@@ -238,7 +238,7 @@ describe UserImportFilesController do
       login_fixture_admin
 
       it "should update user_import_file" do
-        post :create, user_import_file: {user_import: fixture_file_upload("/../../examples/user_import_file_sample.tsv", 'text/csv') }
+        post :create, user_import_file: {attachment: fixture_file_upload("/../../examples/user_import_file_sample.tsv", 'text/csv') }
         put :update, id: assigns(:user_import_file).id, user_import_file: { note: 'test' }
         expect(response).to redirect_to user_import_file_url(assigns(:user_import_file))
       end
@@ -248,7 +248,7 @@ describe UserImportFilesController do
       login_fixture_librarian
 
       it "should update user_import_file" do
-        post :create, user_import_file: {user_import: fixture_file_upload("/../../examples/user_import_file_sample.tsv", 'text/csv') }
+        post :create, user_import_file: {attachment: fixture_file_upload("/../../examples/user_import_file_sample.tsv", 'text/csv') }
         put :update, id: assigns(:user_import_file).id, user_import_file: { note: 'test' }
         expect(response).to redirect_to user_import_file_url(assigns(:user_import_file))
       end
