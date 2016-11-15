@@ -1,5 +1,4 @@
-# -*- encoding: utf-8 -*-
-require 'spec_helper'
+require 'rails_helper'
 
 describe "page/import" do
   fixtures :all

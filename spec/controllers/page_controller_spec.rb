@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe PageController do
   fixtures :all
@@ -72,7 +72,7 @@ describe PageController do
       it "should get advanced_search" do
         get :advanced_search
         expect(response).to be_success
-        expect(assigns(:libraries)).to eq Library.all
+        expect(assigns(:libraries)).to eq Library.order(:position)
       end
 
       it "should get about" do

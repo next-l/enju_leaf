@@ -1,102 +1,36 @@
---- 
-content_type_00001:
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
   id: 1
   name: text
-  display_name: "en: text\r\n\
-    ja: 文字"
-  note: 
+  display_name: text
+  note: MyText
   position: 1
-content_type_00002:
+
+two:
   id: 2
-  name: performed_music
-  display_name: "en: Performed music\r\n\
-    ja: 音楽"
-  note: 曲の演奏など
+  name: Cartographic Dataset
+  display_name: Cartographic Dataset
+  note: MyText
   position: 2
-content_type_00003:
+
+three:
   id: 3
-  name: two_dimensional_moving_image
-  display_name: "en: Two-dimensional moving image\r\n\
-    ja: 動画"
-  note: 
+  name: Cartographic Image
+  display_name: Cartographic Image
+  note: MyText
   position: 3
-content_type_00004:
-  id: 4
-  name: tactile_text
-  display_name: "en: Tactile text\r\n\
-    ja: 点字など"
-  note: 触ることのできる文字
-  position: 4
-content_type_00005:
-  id: 5
-  name: still_image
-  display_name: "en: Still image\r\n\
-    ja: 画像"
-  note: 静止画像
-  position: 5
-content_type_00006:
-  id: 6
-  name: cartographic_image
-  display_name: "en: Cartographic image\r\n\
-    ja: 地図"
-  note: 
-  position: 6
-content_type_00007:
-  id: 7
-  name: spoken_word
-  display_name: "en: Spoken word\r\n\
-    ja: 音声"
-  note: 読み上げ音声など
-  position: 7
-content_type_00008:
-  id: 8
-  name: sounds
-  display_name: "en: Sounds\r\n\
-    ja: 音"
-  note: 波音など
-  position: 8
-content_type_00009:
-  id: 9
-  name: notated_music
-  display_name: "en: Notated music\r\n\
-    ja: 楽譜"
-  note: 
-  position: 9
-content_type_00010:
-  id: 10
-  name: three_dimensional_moving_image
-  display_name: "en: Three-dimensional moving image\r\n\
-    ja: 3D動画"
-  note: 
-  position: 10
-content_type_00011:
-  id: 11
-  name: other
-  display_name: "en: Other\r\n\
-    ja: その他"
-  note: LCMARCに由来
-  position: 11
-content_type_00012:
-  id: 12
-  name: unspecified
-  display_name: "en: Unspecified\r\n\
-    ja: 不明"
-  note: LCMARCに由来
-  position: 12
 
 # == Schema Information
 #
 # Table name: content_types
 #
-#  id                      :integer          not null, primary key
-#  name                    :string           not null
-#  display_name            :text
-#  note                    :text
-#  position                :integer
-#  created_at              :datetime
-#  updated_at              :datetime
-#  attachment_id           :string
-#  attachment_file_name     :string
-#  attachment_size         :integer
-#  attachment_content_type :string
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
 #
+

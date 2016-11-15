@@ -14,14 +14,14 @@ two:
 #
 # Table name: message_requests
 #
-#  id                  :integer          not null, primary key
+#  id                  :integer         not null, primary key
 #  sender_id           :integer
 #  receiver_id         :integer
 #  message_template_id :integer
 #  sent_at             :datetime
 #  deleted_at          :datetime
 #  body                :text
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
+#  created_at          :datetime
+#  updated_at          :datetime
 #
 

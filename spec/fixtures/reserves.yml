@@ -1,28 +1,4 @@
 --- 
-reserve_00003: 
-  updated_at: 2007-09-02 17:46:52.791614 +09:00
-  manifestation_id: 6
-  user_id: 3
-  request_status_type_id: 4
-  id: 3
-  created_at: 2007-09-02 17:46:52.791614 +09:00
-  expired_at: <%= 1.week.from_now %>
-reserve_00004: 
-  updated_at: 2007-09-02 18:37:25.576087 +09:00
-  manifestation_id: 7
-  user_id: 1
-  request_status_type_id: 4
-  id: 4
-  created_at: 2007-09-02 18:37:25.576087 +09:00
-  expired_at: <%= 1.week.from_now %>
-reserve_00005: 
-  updated_at: 2007-09-02 19:16:55.714812 +09:00
-  manifestation_id: 8
-  user_id: 2
-  request_status_type_id: 4
-  id: 5
-  created_at: 2007-09-02 19:16:55.714812 +09:00
-  expired_at: <%= 1.week.from_now %>
 reserve_00001: 
   updated_at: 2007-09-02 17:51:54.887849 +09:00
   manifestation_id: 4
@@ -30,7 +6,8 @@ reserve_00001:
   request_status_type_id: 4
   id: 1
   created_at: 2007-09-01 14:14:52.356803 +09:00
-  expired_at: <%= 1.week.from_now %>
+  expired_at: <%= 1.week.from_now.to_s(:db) %>
+  lock_version: 0
 reserve_00002: 
   updated_at: 2007-09-01 14:20:05.530854 +09:00
   manifestation_id: 5
@@ -38,106 +15,148 @@ reserve_00002:
   request_status_type_id: 4
   id: 2
   created_at: 2007-09-01 14:20:05.530854 +09:00
-  expired_at: <%= 1.week.from_now %>
+  expired_at: <%= 1.week.from_now.to_s(:db) %>
+  lock_version: 0
+reserve_00003: 
+  updated_at: 2007-09-02 17:46:52.791614 +09:00
+  manifestation_id: 6
+  user_id: 3
+  request_status_type_id: 4
+  id: 3
+  created_at: 2007-09-02 17:46:52.791614 +09:00
+  expired_at: <%= 1.week.from_now.to_s(:db) %>
+  lock_version: 0
+reserve_00004: 
+  updated_at: 2007-09-02 18:37:25.576087 +09:00
+  manifestation_id: 7
+  user_id: 1
+  request_status_type_id: 4
+  id: 4
+  created_at: 2007-09-02 18:37:25.576087 +09:00
+  expired_at: <%= 1.week.from_now.to_s(:db) %>
+  lock_version: 0
+reserve_00005: 
+  updated_at: 2007-09-02 19:16:55.714812 +09:00
+  manifestation_id: 8
+  user_id: 2
+  request_status_type_id: 4
+  id: 5
+  created_at: 2007-09-02 19:16:55.714812 +09:00
+  expired_at: <%= 1.week.from_now.to_s(:db) %>
+  lock_version: 0
 reserve_00006: 
-  updated_at: 2007-09-01 14:20:05.530854 +09:00
+  updated_at: 2007-09-02 19:20:06.530854 +09:00
   manifestation_id: 4
   user_id: 2
   request_status_type_id: 4
   id: 6
-  created_at: 2007-09-01 14:20:05.530854 +09:00
-  expired_at: <%= 1.week.from_now %>
+  created_at: 2007-09-02 19:20:06.530854 +09:00
+  expired_at: <%= 1.week.from_now.to_s(:db) %>
+  lock_version: 0
 reserve_00007: 
-  updated_at: 2007-09-01 14:20:05.530854 +09:00
+  updated_at: 2007-09-02 19:20:07.530854 +09:00
   manifestation_id: 2
   user_id: 4
   request_status_type_id: 4
   id: 7
-  created_at: 2007-09-01 14:20:05.530854 +09:00
-  expired_at: <%= 1.week.from_now %>
+  created_at: 2007-09-02 19:20:07.530854 +09:00
+  expired_at: <%= 1.week.from_now.to_s(:db) %>
+  lock_version: 0
 reserve_00008: 
-  updated_at: 2007-09-02 17:46:52.791614 +09:00
+  updated_at: 2007-09-02 19:46:53.791614 +09:00
   manifestation_id: 6
   user_id: 3
   request_status_type_id: 3
   id: 8
-  created_at: 2007-09-02 17:46:52.791614 +09:00
-  expired_at: <%= 1.week.ago %>
+  created_at: 2007-09-02 19:46:53.791614 +09:00
+  expired_at: <%= 1.week.ago.to_s(:db) %>
+  lock_version: 0
 reserve_00009: 
-  updated_at: 2007-09-02 17:46:52.791614 +09:00
+  updated_at: 2007-09-02 19:46:54.791614 +09:00
   manifestation_id: 7
   user_id: 5
   request_status_type_id: 3
   id: 9
-  created_at: 2007-09-02 17:46:52.791614 +09:00
-  expired_at: <%= 1.day.ago %>
+  created_at: 2007-09-02 19:46:54.791614 +09:00
+  expired_at: <%= 1.day.ago.to_s(:db) %>
+  lock_version: 0
 reserve_00010: 
-  updated_at: 2007-09-02 17:46:52.791614 +09:00
+  updated_at: 2007-09-02 19:46:55.791614 +09:00
   manifestation_id: 8
   user_id: 5
   request_status_type_id: 3
   id: 10
-  created_at: 2007-09-02 17:46:52.791614 +09:00
-  expired_at: <%= 1.hour.ago %>
-  checked_out_at: <%= 1.week.ago %>
+  created_at: 2007-09-02 19:46:55.791614 +09:00
+  expired_at: <%= 1.hour.ago.to_s(:db) %>
+  checked_out_at: <%= 1.week.ago.to_s(:db) %>
+  item_id: 25
+  lock_version: 0
 reserve_00011: 
-  updated_at: 2007-09-01 14:20:05.530854 +09:00
+  updated_at: 2007-09-03 14:20:05.530854 +09:00
   manifestation_id: 7
   user_id: 2
   request_status_type_id: 3
   id: 11
-  created_at: 2007-09-01 14:20:05.530854 +09:00
-  expired_at: <%= 1.day.ago %>
+  created_at: 2007-09-03 14:20:05.530854 +09:00
+  expired_at: <%= 1.day.ago.to_s(:db) %>
+  lock_version: 0
 reserve_00012: 
-  updated_at: 2007-09-01 14:20:05.530854 +09:00
+  updated_at: 2007-09-03 14:20:06.530854 +09:00
   manifestation_id: 8
   user_id: 2
   request_status_type_id: 4
   id: 12
-  created_at: 2007-09-01 14:20:05.530854 +09:00
-  expired_at: <%= 1.day.ago %>
+  created_at: 2007-09-03 14:20:06.530854 +09:00
+  expired_at: <%= 1.day.ago.to_s(:db) %>
+  lock_version: 0
 reserve_00013: 
-  updated_at: 2007-09-01 14:20:05.530854 +09:00
+  updated_at: 2007-09-03 14:20:07.530854 +09:00
   manifestation_id: 11
   user_id: 4
   request_status_type_id: 3
   id: 13
-  created_at: 2007-09-01 14:20:05.530854 +09:00
-  expired_at: <%= 1.day.ago %>
+  created_at: 2007-09-03 14:20:07.530854 +09:00
+  expired_at: <%= 1.day.ago.to_s(:db) %>
+  lock_version: 0
 reserve_00014: 
-  updated_at: 2007-09-01 14:20:05.530854 +09:00
+  updated_at: 2007-09-03 14:20:08.530854 +09:00
   manifestation_id: 11
   user_id: 4
   request_status_type_id: 3
   id: 14
-  created_at: 2007-09-01 14:20:05.530854 +09:00
-  expired_at: <%= 1.day.from_now %>
+  created_at: 2007-09-03 14:20:08.530854 +09:00
+  retained_at: <%= 1.hour.from_now.to_s(:db) %>
+  expired_at: <%= 1.day.from_now.to_s(:db) %>
   item_id: 21
+  lock_version: 0
 reserve_00015: 
-  updated_at: 2007-09-01 14:20:05.530854 +09:00
+  updated_at: 2007-09-03 14:20:09.530854 +09:00
   manifestation_id: 11
   user_id: 4
   request_status_type_id: 3
   id: 15
-  created_at: 2007-09-01 14:20:05.530854 +09:00
-  expired_at: <%= 1.day.from_now %>
+  created_at: 2007-09-03 14:20:09.530854 +09:00
+  expired_at: <%= 1.day.from_now.to_s(:db) %>
+  lock_version: 0
 
 # == Schema Information
 #
 # Table name: reserves
 #
-#  id                           :integer         not null, primary key
-#  user_id                      :integer         not null
-#  manifestation_id             :integer         not null
+#  id                           :integer          not null, primary key
+#  user_id                      :integer          not null
+#  manifestation_id             :integer          not null
 #  item_id                      :integer
-#  request_status_type_id       :integer         not null
+#  request_status_type_id       :integer          not null
 #  checked_out_at               :datetime
-#  created_at                   :datetime        not null
-#  updated_at                   :datetime        not null
+#  created_at                   :datetime
+#  updated_at                   :datetime
 #  canceled_at                  :datetime
 #  expired_at                   :datetime
 #  deleted_at                   :datetime
-#  expiration_notice_to_agent  :boolean         default(FALSE)
-#  expiration_notice_to_library :boolean         default(FALSE)
+#  expiration_notice_to_patron  :boolean          default(FALSE)
+#  expiration_notice_to_library :boolean          default(FALSE)
+#  retained_at                  :datetime
+#  postponed_at                 :datetime
+#  lock_version                 :integer          default(0), not null
 #
-

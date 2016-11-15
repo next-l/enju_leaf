@@ -7,7 +7,7 @@ checkout_00001:
   id: 1
   librarian_id: 1
   checkout_renewal_count: 0
-  due_date: <%= 2.day.from_now.beginning_of_day %>
+  due_date: <%= 2.day.from_now.beginning_of_day.to_s(:db) %>
   created_at: 2007-09-08 01:19:02.285850 +09:00
   basket_id: 1
 checkout_00002: 
@@ -18,7 +18,7 @@ checkout_00002:
   id: 2
   librarian_id: 1
   checkout_renewal_count: 0
-  due_date: <%= 2.day.from_now.beginning_of_day %>
+  due_date: <%= 2.day.from_now.beginning_of_day.to_s(:db) %>
   created_at: 2007-09-08 01:34:07.363023 +09:00
   basket_id: 1
 checkout_00003: 
@@ -29,7 +29,7 @@ checkout_00003:
   id: 3
   librarian_id: 1
   checkout_renewal_count: 0
-  due_date: <%= 2.day.from_now.beginning_of_day %>
+  due_date: <%= 2.day.from_now.beginning_of_day.to_s(:db) %>
   created_at: 2007-09-08 01:39:03.210081 +09:00
   basket_id: 2
 checkout_00004: 
@@ -40,8 +40,8 @@ checkout_00004:
   id: 4
   librarian_id: 1
   checkout_renewal_count: 0
-  due_date: <%= 2.day.from_now.beginning_of_day %>
-  created_at: 2007-09-08 01:39:03.210081 +09:00
+  due_date: <%= 2.day.from_now.beginning_of_day.to_s(:db) %>
+  created_at: 2007-09-08 01:39:04.210081 +09:00
   basket_id: 3
 checkout_00005: 
   item_id: 5
@@ -51,8 +51,8 @@ checkout_00005:
   id: 5
   librarian_id: 1
   checkout_renewal_count: 0
-  due_date: <%= 2.day.from_now.beginning_of_day %>
-  created_at: 2007-09-08 01:39:03.210081 +09:00
+  due_date: <%= 2.day.from_now.beginning_of_day.to_s(:db) %>
+  created_at: 2007-09-08 01:39:05.210081 +09:00
   basket_id: 4
 checkout_00006:
   item_id: 7
@@ -63,7 +63,7 @@ checkout_00006:
   librarian_id: 2
   checkout_renewal_count: 0
   due_date: 2010-09-15 00:00:00 +09:00
-  created_at: 2007-09-08 01:39:03.210081 +09:00
+  created_at: 2007-09-08 01:39:06.210081 +09:00
 checkout_00007: 
   item_id: 7
   updated_at: 2007-09-09 21:15:11.648996 +09:00
@@ -72,8 +72,8 @@ checkout_00007:
   id: 7
   librarian_id: 1
   checkout_renewal_count: 0
-  due_date: <%= 2.day.from_now.beginning_of_day %>
-  created_at: 2007-09-08 01:39:03.210081 +09:00
+  due_date: <%= 2.day.from_now.beginning_of_day.to_s(:db) %>
+  created_at: 2007-09-08 01:39:07.210081 +09:00
   basket_id: 5
 checkout_00008: 
   item_id: 8
@@ -83,8 +83,8 @@ checkout_00008:
   id: 8
   librarian_id: 1
   checkout_renewal_count: 0
-  due_date: <%= 2.day.from_now.beginning_of_day %>
-  created_at: 2007-09-08 01:39:03.210081 +09:00
+  due_date: <%= 2.day.from_now.beginning_of_day.to_s(:db) %>
+  created_at: 2007-09-08 01:39:08.210081 +09:00
   basket_id: 6
 checkout_00009: 
   item_id: 9
@@ -94,8 +94,8 @@ checkout_00009:
   id: 9
   librarian_id: 1
   checkout_renewal_count: 1
-  due_date: <%= 2.day.from_now.beginning_of_day %>
-  created_at: 2007-09-08 01:39:03.210081 +09:00
+  due_date: <%= 2.day.from_now.beginning_of_day.to_s(:db) %>
+  created_at: 2007-09-08 01:39:09.210081 +09:00
   basket_id: 7
 checkout_00010: 
   item_id: 13
@@ -105,8 +105,8 @@ checkout_00010:
   id: 10
   librarian_id: 1
   checkout_renewal_count: 1
-  due_date: <%= 2.day.from_now.beginning_of_day %>
-  created_at: 2007-09-08 01:39:03.210081 +09:00
+  due_date: <%= 2.day.from_now.beginning_of_day.to_s(:db) %>
+  created_at: 2007-09-08 01:39:10.210081 +09:00
   basket_id: 7
 checkout_00011: 
   item_id: 14
@@ -116,8 +116,8 @@ checkout_00011:
   id: 11
   librarian_id: 1
   checkout_renewal_count: 1
-  due_date: <%= 180.days.ago.beginning_of_day %>
-  created_at: 2007-09-08 01:39:03.210081 +09:00
+  due_date: <%= 180.days.ago.beginning_of_day.to_s(:db) %>
+  created_at: 2007-09-08 01:39:11.210081 +09:00
   basket_id: 7
 checkout_00012: 
   item_id: 6
@@ -127,8 +127,8 @@ checkout_00012:
   id: 12
   librarian_id: 1
   checkout_renewal_count: 1
-  due_date: <%= 180.days.ago.beginning_of_day %>
-  created_at: 2007-09-08 01:39:03.210081 +09:00
+  due_date: <%= 180.days.ago.beginning_of_day.to_s(:db) %>
+  created_at: 2007-09-08 01:39:12.210081 +09:00
   basket_id: 8
   checkin_id: 5
 checkout_00013: 
@@ -139,24 +139,24 @@ checkout_00013:
   id: 13
   librarian_id: 1
   checkout_renewal_count: 1
-  due_date: <%= 180.days.ago.beginning_of_day %>
-  created_at: 2007-09-08 01:39:03.210081 +09:00
+  due_date: <%= 180.days.ago.beginning_of_day.to_s(:db) %>
+  created_at: 2007-09-08 01:39:13.210081 +09:00
   basket_id: 8
   checkin_id: 4
+
 # == Schema Information
 #
 # Table name: checkouts
 #
-#  id                     :integer         not null, primary key
+#  id                     :integer          not null, primary key
 #  user_id                :integer
-#  item_id                :integer         not null
+#  item_id                :integer          not null
 #  checkin_id             :integer
 #  librarian_id           :integer
 #  basket_id              :integer
 #  due_date               :datetime
-#  checkout_renewal_count :integer         default(0), not null
-#  lock_version           :integer         default(0), not null
-#  created_at             :datetime        not null
-#  updated_at             :datetime        not null
+#  checkout_renewal_count :integer          default(0), not null
+#  lock_version           :integer          default(0), not null
+#  created_at             :datetime
+#  updated_at             :datetime
 #
-
