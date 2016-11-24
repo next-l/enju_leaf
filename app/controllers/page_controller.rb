@@ -3,7 +3,7 @@ class PageController < ApplicationController
   before_action :clear_search_sessions, only: [:index, :advanced_search]
   before_action :authenticate_user!, except: [:index, :advanced_search, :about, :add_on, :msie_accelerator, :opensearch, :statistics, :routing_error]
   before_action :check_librarian, except: [:index, :advanced_search, :about, :add_on, :msie_accelerator, :opensearch, :statistics, :routing_error]
-  helper_method :get_libraries
+  helper_method :set_libraries
 
   # トップページを表示します。
   def index
@@ -35,7 +35,7 @@ class PageController < ApplicationController
       end
       @manifestation = Manifestation.pickup rescue nil
     end
-    get_top_page_content
+    set_top_page_content
     @numdocs = Manifestation.search.total
 
     respond_to do |format|
@@ -60,7 +60,7 @@ class PageController < ApplicationController
 
   # 詳細検索画面を表示します。
   def advanced_search
-    get_libraries
+    set_libraries
     @title = t('page.advanced_search')
   end
 

@@ -1,9 +1,9 @@
 class CreateCheckoutStatHasUsers < ActiveRecord::Migration
   def self.up
     create_table :checkout_stat_has_users do |t|
-      t.integer :user_checkout_stat_id, :null => false
-      t.integer :user_id, :null => false
-      t.integer :checkouts_count, :default => 0, :null => false
+      t.integer :user_checkout_stat_id, null: false
+      t.integer :user_id, null: false
+      t.integer :checkouts_count, default: 0, null: false
 
       t.timestamps
     end

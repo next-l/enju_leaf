@@ -1,7 +1,7 @@
 class CreateCirculationStatuses < ActiveRecord::Migration
   def self.up
     create_table :circulation_statuses do |t|
-      t.string :name, :null => false
+      t.string :name, null: false
       t.text :display_name
       t.text :note
       t.integer :position
