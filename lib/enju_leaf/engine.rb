@@ -8,7 +8,7 @@ require 'statesman'
 require 'shrine'
 require 'bootstrap-sass'
 require 'slim-rails'
-require 'postrank-uri'
+#require 'postrank-uri'
 
 module EnjuLeaf
   class Engine < ::Rails::Engine

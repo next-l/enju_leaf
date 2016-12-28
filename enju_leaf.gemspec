@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sunspot_rails", "~> 2.2"
   s.add_dependency "bootstrap-sass", "~> 3.3.6"
   s.add_dependency "slim-rails"
-  s.add_dependency "postrank-uri"
+  #s.add_dependency "postrank-uri"
 
   s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails", "~> 3.5"
