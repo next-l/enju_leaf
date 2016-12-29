@@ -5,15 +5,21 @@ visibility_00001:
   id: 1
   position: 1
   note: 
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
 visibility_00002: 
   name: intranet
   display_name: Intranet
   id: 2
   position: 2
   note: 
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
 visibility_00003: 
   name: internet
   display_name: Internet
   id: 3
   position: 3
   note: 
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
