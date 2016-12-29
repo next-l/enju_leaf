@@ -1,8 +1,11 @@
-if Rails::VERSION::MAJOR >= 4
-  username = 'enjuadmin'
-else
-  username = 'admin'
-end
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
+#   Character.create(name: 'Luke', movie: movies.first)
+username = 'enjuadmin'
 email = 'admin@example.jp'
 password = 'adminpassword'
 
@@ -18,6 +21,7 @@ def new_profile
   profile.user_group = UserGroup.first
   profile.library = Library.real.first
   profile.locale = I18n.default_locale.to_s
+  profile.full_name = 'System'
   profile
 end
 
@@ -25,7 +29,7 @@ end
 #Library.reindex
 #Shelf.reindex
 
-system_user = User.new
+system_user = User.find_by(username: 'system') || User.new
 system_user.username = 'system'
 system_user.password = SecureRandom.urlsafe_base64(32)
 system_user.email = 'root@library.example.jp'
