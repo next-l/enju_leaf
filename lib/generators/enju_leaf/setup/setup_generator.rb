@@ -7,7 +7,6 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
     directory("solr", "example/solr")
     copy_file("Procfile", "Procfile")
     copy_file("config/schedule.rb", "config/schedule.rb")
-    copy_file("config/initializers/enju_leaf.rb", "config/initializers/enju_leaf.rb")
     copy_file("config/initializers/resque.rb", "config/initializers/resque.rb")
     append_to_file("config/initializers/assets.rb", "Rails.application.config.assets.precompile += %w( *.png *.gif )")
     inject_into_file 'config/application.rb', after: /# config.i18n.default_locale = :de$\n/ do
