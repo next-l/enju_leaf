@@ -22,7 +22,6 @@ Gem::Specification.new do |s|
   s.add_dependency "enju_seed", "~> 0.3.0.beta.1"
   #s.add_dependency "enju_library", "~> 0.2.0.beta.1"
   #s.add_dependency "enju_manifestation_viewer", "~> 0.2.0.beta.1"
-  s.add_dependency "kaminari", "~> 0.17"
   s.add_dependency "devise", "~> 4.2"
   s.add_dependency "pundit", "~> 1.1"
   s.add_dependency "acts_as_list", "~> 0.8"
