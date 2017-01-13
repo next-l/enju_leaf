@@ -1,10 +1,11 @@
 language: ruby
 cache: bundler
 rvm:
-  - 2.2.5
-  - 2.3.1
+  - 2.2.6
+  - 2.3.3
 before_script:
-  - psql -c 'create database enju_leaf_dummy_test;' -U postgres
+  - psql -c 'CREATE DATABASE enju_leaf_dummy_test'
+  - psql enju_leaf_dummy_test -c 'CREATE EXTENSION pgcrypto'
   - bundle exec rake db:migrate
 after_script:
   - bundle exec codeclimate-test-reporter
