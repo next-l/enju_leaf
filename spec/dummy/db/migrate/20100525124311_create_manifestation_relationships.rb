@@ -1,13 +1,11 @@
-class CreateManifestationRelationships < ActiveRecord::Migration
+class CreateManifestationRelationships < ActiveRecord::Migration[5.0]
   def change
     create_table :manifestation_relationships do |t|
-      t.integer :parent_id
-      t.integer :child_id
-      t.integer :manifestation_relationship_type_id
+      t.uuid :parent_id, index: true
+      t.uuid :child_id, index: true
+      t.references :manifestation_relationship_type, index: {name: 'index_manifestation_relationships_on_relationship_type_id'}
 
       t.timestamps
     end
-    add_index :manifestation_relationships, :parent_id
-    add_index :manifestation_relationships, :child_id
   end
 end

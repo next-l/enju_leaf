@@ -1,15 +1,14 @@
-class CreateShelves < ActiveRecord::Migration
+class CreateShelves < ActiveRecord::Migration[5.0]
   def change
     create_table :shelves do |t|
-      t.string :name, :null => false
-      t.text :display_name
+      t.string :name, null: false
+      t.jsonb :display_name_translations
       t.text :note
-      t.integer :library_id, :default => 1, :null => false
-      t.integer :items_count, :default => 0, :null => false
+      t.references :library, foreign_key: true, null: false, type: :uuid
+      t.integer :items_count, default: 0, null: false
       t.integer :position
       t.timestamps
       t.datetime :deleted_at
     end
-    add_index :shelves, :library_id
   end
 end

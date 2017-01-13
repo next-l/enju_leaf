@@ -1,12 +1,11 @@
-class CreateBaskets < ActiveRecord::Migration
+class CreateBaskets < ActiveRecord::Migration[5.0]
   def change
     create_table :baskets do |t|
-      t.integer :user_id
+      t.references :user, foreign_key: true
       t.text :note
-      t.integer :lock_version, :default => 0, :null => false
+      t.integer :lock_version, default: 0, null: false
 
       t.timestamps
     end
-    add_index :baskets, :user_id
   end
 end

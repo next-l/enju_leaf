@@ -1,14 +1,11 @@
-class CreateImportRequests < ActiveRecord::Migration
+class CreateImportRequests < ActiveRecord::Migration[5.0]
   def change
     create_table :import_requests do |t|
-      t.string :isbn
-      t.integer :manifestation_id
-      t.integer :user_id
+      t.string :isbn, index: true
+      t.references :manifestation, foreign_key: true, type: :uuid
+      t.references :user, foreign_key: true
 
       t.timestamps
     end
-    add_index :import_requests, :isbn
-    add_index :import_requests, :manifestation_id
-    add_index :import_requests, :user_id
   end
 end

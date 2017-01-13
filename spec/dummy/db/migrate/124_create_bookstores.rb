@@ -1,7 +1,7 @@
-class CreateBookstores < ActiveRecord::Migration
+class CreateBookstores < ActiveRecord::Migration[5.0]
   def change
-    create_table :bookstores do |t|
-      t.text :name, :null => false
+    create_table :bookstores, id: :uuid, default: 'gen_random_uuid()' do |t|
+      t.string :name, null: false
       t.string :zip_code
       t.text :address
       t.text :note

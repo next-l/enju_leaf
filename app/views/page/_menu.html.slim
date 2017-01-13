@@ -107,7 +107,7 @@ nav.navbar.navbar-default
               = link_to t('event.all'), events_path
             - @library_group.real_libraries.each do |library|
               li
-                = link_to library.display_name.localize, events_path(library_id: library.name)
+                = link_to library.display_name, events_path(library_id: library.name)
               - if policy(Event).create?
                 li
                   = link_to t('page.import'), new_event_import_file_path

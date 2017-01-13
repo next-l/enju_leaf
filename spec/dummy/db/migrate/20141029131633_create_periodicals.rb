@@ -1,9 +1,9 @@
-class CreatePeriodicals < ActiveRecord::Migration
+class CreatePeriodicals < ActiveRecord::Migration[5.0]
   def change
     create_table :periodicals do |t|
       t.text :original_title
       t.string :periodical_type
-      t.references :manifestation, index: true, foreign_key: true
+      t.references :manifestation, foreign_key: true, type: :uuid
 
       t.timestamps
     end

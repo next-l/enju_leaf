@@ -1,12 +1,12 @@
-class CreateIssnRecords < ActiveRecord::Migration
+class CreateIssnRecords < ActiveRecord::Migration[5.0]
   def change
     create_table :issn_records do |t|
-      t.string :body, index: true, null: false
+      t.string :body, index: {unique: true}, null: false
       t.string :issn_type
       t.string :source
-      t.integer :manifestation_id, index: true
+      t.references :manifestation, foreign_key: true, type: :uuid
 
-      t.timestamps null: false
+      t.timestamps
     end
   end
 end

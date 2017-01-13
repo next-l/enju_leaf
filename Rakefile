@@ -33,14 +33,11 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = false
 end
 
-
 begin
-  require 'rspec/core/rake_task'
-
-  RSpec::Core::RakeTask.new(:spec)
-
+    require 'rspec/core/rake_task'
+      RSpec::Core::RakeTask.new(:spec)
 rescue LoadError
-  # no rspec available
 end
 
-task :default => :spec
+
+task default: :spec

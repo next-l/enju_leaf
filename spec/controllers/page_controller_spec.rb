@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe PageController do
+  fixtures :users, :manifestations, :items
   fixtures :all
 
   describe "GET page" do
