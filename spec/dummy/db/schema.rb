@@ -718,19 +718,19 @@ ActiveRecord::Schema.define(version: 20161115184756) do
 
   create_table "library_groups", force: :cascade do |t|
     t.string   "name",                                                             null: false
-    t.text     "display_name"
+    t.jsonb    "display_name_translations"
     t.string   "short_name",                                                       null: false
     t.cidr     "my_networks"
-    t.text     "login_banner"
+    t.jsonb    "login_banner_translations"
     t.text     "note"
     t.integer  "country_id"
     t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
     t.cidr     "admin_networks"
     t.boolean  "allow_bookmark_external_url",   default: false,                    null: false
     t.string   "url",                           default: "http://localhost:3000/"
-    t.jsonb    "footer_banner"
+    t.jsonb    "footer_banner_translations"
     t.text     "html_snippet"
     t.string   "book_jacket_source"
     t.integer  "max_number_of_results",         default: 500
@@ -738,7 +738,8 @@ ActiveRecord::Schema.define(version: 20161115184756) do
     t.string   "screenshot_generator"
     t.integer  "pub_year_facet_range_interval", default: 10
     t.integer  "user_id"
-    t.index ["short_name"], name: "index_library_groups_on_short_name", using: :btree
+    t.index ["name"], name: "index_library_groups_on_name", unique: true, using: :btree
+    t.index ["short_name"], name: "index_library_groups_on_short_name", unique: true, using: :btree
     t.index ["user_id"], name: "index_library_groups_on_user_id", using: :btree
   end
 
@@ -1072,21 +1073,23 @@ ActiveRecord::Schema.define(version: 20161115184756) do
   end
 
   create_table "request_status_types", force: :cascade do |t|
-    t.string   "name",         null: false
-    t.text     "display_name"
+    t.string   "name",                      null: false
+    t.jsonb    "display_name_translations"
     t.text     "note"
     t.integer  "position"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["name"], name: "index_request_status_types_on_name", unique: true, using: :btree
   end
 
   create_table "request_types", force: :cascade do |t|
-    t.string   "name",         null: false
-    t.text     "display_name"
+    t.string   "name",                      null: false
+    t.jsonb    "display_name_translations"
     t.text     "note"
     t.integer  "position"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["name"], name: "index_request_types_on_name", unique: true, using: :btree
   end
 
   create_table "reserve_stat_has_manifestations", force: :cascade do |t|
