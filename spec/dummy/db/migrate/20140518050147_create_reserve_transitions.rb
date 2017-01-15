@@ -1,15 +1,11 @@
 class CreateReserveTransitions < ActiveRecord::Migration
   def change
     create_table :reserve_transitions do |t|
-      t.string :to_state
-      if ActiveRecord::Base.configurations[Rails.env]['adapter'].try(:match, /mysql/)
-        t.text :metadata
-      else
-        t.text :metadata, default: '{}'
-      end
-      t.integer :sort_key
-      t.integer :reserve_id
-      t.timestamps
+      t.string :to_state, null: false
+      t.jsonb :metadata, default: '{}'
+      t.integer :sort_key, null: false
+      t.integer :reserve_id, null: false
+      t.timestamps null: false
     end
 
     add_index :reserve_transitions, :reserve_id

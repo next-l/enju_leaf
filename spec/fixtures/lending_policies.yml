@@ -1,8 +1,8 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 lending_policy_00001:
-  item_id: 1
-  user_group_id: 1
+  item_id: 17eaea41-eacb-4e08-8e0b-70c6e62e3ed3
+  user_group_id: bcb18f9e-1272-41a3-8011-0fc757553d78
   loan_period: 1
   fixed_due_date: 
   renewal: 1
@@ -10,8 +10,8 @@ lending_policy_00001:
   note: MyText
   position: 1
 lending_policy_00002:
-  item_id: 1
-  user_group_id: 2
+  item_id: 17eaea41-eacb-4e08-8e0b-70c6e62e3ed3
+  user_group_id: 40e0516e-30a5-4363-b5cf-f35aada5d050
   loan_period: 1
   fixed_due_date: 
   renewal: 1
@@ -19,8 +19,8 @@ lending_policy_00002:
   note: MyText
   position: 2
 lending_policy_00003:
-  item_id: 10
-  user_group_id: 2
+  item_id: 0f77c21a-6e9c-460e-b49c-3fd567dbd49c
+  user_group_id: 40e0516e-30a5-4363-b5cf-f35aada5d050
   loan_period: 1
   fixed_due_date: 
   renewal: 1
@@ -28,8 +28,8 @@ lending_policy_00003:
   note: MyText
   position: 1
 lending_policy_00004:
-  item_id: 6
-  user_group_id: 1
+  item_id: 804a744a-3d95-439e-8853-61c21ba704d1
+  user_group_id: bcb18f9e-1272-41a3-8011-0fc757553d78
   loan_period: 1
   fixed_due_date: 
   renewal: 1
@@ -37,8 +37,8 @@ lending_policy_00004:
   note: MyText
   position: 1
 lending_policy_00005:
-  item_id: 6
-  user_group_id: 2
+  item_id: 804a744a-3d95-439e-8853-61c21ba704d1
+  user_group_id: 40e0516e-30a5-4363-b5cf-f35aada5d050
   loan_period: 1
   fixed_due_date: 
   renewal: 1
@@ -46,8 +46,8 @@ lending_policy_00005:
   note: MyText
   position: 1
 lending_policy_00006:
-  item_id: 11
-  user_group_id: 1
+  item_id: 7cfd462a-4494-4a0d-86e0-c8eb4bef428c
+  user_group_id: bcb18f9e-1272-41a3-8011-0fc757553d78
   loan_period: 1
   fixed_due_date: 
   renewal: 1
@@ -57,8 +57,8 @@ lending_policy_00006:
   note: MyText
   position: 1
 lending_policy_00007:
-  item_id: 21
-  user_group_id: 1
+  item_id: d4255c14-f0bc-468d-95a0-94d01298343d
+  user_group_id: bcb18f9e-1272-41a3-8011-0fc757553d78
   loan_period: 1
   fixed_due_date: 
   renewal: 1
@@ -66,15 +66,15 @@ lending_policy_00007:
   note: MyText
   position: 1
 lending_policy_00008:
-  item_id: 11
-  user_group_id: 2
+  item_id: 7cfd462a-4494-4a0d-86e0-c8eb4bef428c
+  user_group_id: 40e0516e-30a5-4363-b5cf-f35aada5d050
   loan_period: 1
   fixed_due_date: 
   renewal: 1
   fine: 10
 lending_policy_00009:
-  item_id: 24
-  user_group_id: 2
+  item_id: 9dd697c1-b72a-4df9-81a1-06de53c5c6d8
+  user_group_id: 40e0516e-30a5-4363-b5cf-f35aada5d050
   loan_period: 1
   fixed_due_date: 
   renewal: 1
@@ -85,14 +85,14 @@ lending_policy_00009:
 # Table name: lending_policies
 #
 #  id             :integer          not null, primary key
-#  item_id        :integer          not null
-#  user_group_id  :integer          not null
+#  item_id        :uuid             not null
+#  user_group_id  :uuid             not null
 #  loan_period    :integer          default(0), not null
 #  fixed_due_date :datetime
 #  renewal        :integer          default(0), not null
 #  fine           :integer          default(0), not null
 #  note           :text
 #  position       :integer
-#  created_at     :datetime
-#  updated_at     :datetime
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #

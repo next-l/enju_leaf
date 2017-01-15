@@ -3,7 +3,6 @@ admin:
   updated_at: 2008-05-31 13:16:30.163731 +09:00
   user_group_id: 40e0516e-30a5-4363-b5cf-f35aada5d050
   id: 30ab045a-3b92-45bf-baba-0c74ed19ea94
-  user_id: 1
   note: 
   library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
   created_at: 2007-11-19 16:58:32.111941 +09:00
@@ -14,7 +13,6 @@ librarian1:
   updated_at: 2008-05-31 12:41:16.337474 +09:00
   user_group_id: bcb18f9e-1272-41a3-8011-0fc757553d78
   id: 2d4405c1-a6c3-4439-95f5-694e6e7ed7db
-  user_id: 2
   note: 
   library_id: 7b7d18f4-586f-4349-8422-a2dbb2e6084c
   created_at: 2007-11-19 16:58:33.172441 +09:00
@@ -25,7 +23,6 @@ user1:
   updated_at: 2008-05-31 13:02:25.101261 +09:00
   user_group_id: bcb18f9e-1272-41a3-8011-0fc757553d78
   id: e6082def-74e9-43ad-bdab-8f77f9eaeec8
-  user_id: 3
   note: 
   library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
   created_at: 2007-11-19 16:58:34.637413 +09:00
@@ -36,7 +33,6 @@ librarian2:
   updated_at: 2008-05-31 12:42:23.340575 +09:00
   user_group_id: bcb18f9e-1272-41a3-8011-0fc757553d78
   id: 2fe27c18-98f8-4cd5-ba2f-293dbb43e8a6
-  user_id: 4
   note: 
   library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
   created_at: 2008-01-18 12:24:04.222344 +09:00
@@ -47,7 +43,6 @@ user2:
   updated_at: 2008-05-31 12:42:44.711117 +09:00
   user_group_id: bcb18f9e-1272-41a3-8011-0fc757553d78
   id: e832240e-afac-437c-bf50-29aaeed00967
-  user_id: 5
   note: 
   library_id: 7b7d18f4-586f-4349-8422-a2dbb2e6084c
   created_at: 2008-01-18 13:29:06.922728 +09:00
@@ -58,7 +53,6 @@ user3:
   updated_at: 2008-05-31 13:02:25.101261 +09:00
   user_group_id: bcb18f9e-1272-41a3-8011-0fc757553d78
   id: 15e47edb-a9db-4cc4-92f2-58078a1a2510
-  user_id: 6
   note: 
   library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
   created_at: 2007-11-19 16:58:34.637413 +09:00
@@ -69,7 +63,6 @@ user4:
   updated_at: 2008-05-31 13:02:25.101261 +09:00
   user_group_id: bcb18f9e-1272-41a3-8011-0fc757553d78
   id: e77d4f87-4beb-42c8-ad9e-e99a59740512
-  user_id: 7
   note: 
   library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
   created_at: 2007-11-19 16:58:34.637413 +09:00
@@ -81,18 +74,20 @@ user4:
 #
 # Table name: profiles
 #
-#  id                       :integer          not null, primary key
-#  user_id                  :integer
-#  user_group_id            :integer
-#  library_id               :integer
-#  locale                   :string(255)
-#  user_number              :string(255)
+#  id                       :uuid             not null, primary key
+#  user_group_id            :uuid
+#  library_id               :uuid
+#  locale                   :string
+#  user_number              :string
 #  full_name                :text
 #  note                     :text
 #  keyword_list             :text
 #  required_role_id         :integer
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
-#  checkout_icalendar_token :string(255)
+#  checkout_icalendar_token :string
 #  save_checkout_history    :boolean          default(FALSE), not null
+#  expired_at               :datetime
+#  full_name_transcription  :text
+#  date_of_birth            :datetime
 #

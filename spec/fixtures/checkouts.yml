@@ -1,6 +1,6 @@
 --- 
 checkout_00001: 
-  item_id: 1
+  item_id: 17eaea41-eacb-4e08-8e0b-70c6e62e3ed3
   updated_at: 2007-09-08 01:20:22.000026 +09:00
   lock_version: 0
   user_id: 1
@@ -11,7 +11,7 @@ checkout_00001:
   created_at: 2007-09-08 01:19:02.285850 +09:00
   basket_id: 1
 checkout_00002: 
-  item_id: 2
+  item_id: d08f854f-07ef-46e6-a461-0bb658032c4b
   updated_at: 2007-09-08 01:34:25.103403 +09:00
   lock_version: 0
   user_id: 1
@@ -22,7 +22,7 @@ checkout_00002:
   created_at: 2007-09-08 01:34:07.363023 +09:00
   basket_id: 1
 checkout_00003: 
-  item_id: 3
+  item_id: 77a1c54a-d903-4b9d-b35c-4aa0be1c56ef
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 3
@@ -33,7 +33,7 @@ checkout_00003:
   created_at: 2007-09-08 01:39:03.210081 +09:00
   basket_id: 2
 checkout_00004: 
-  item_id: 4
+  item_id: deb7a2a8-7fde-4735-88cd-b4b8c5cf8b85
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 1
@@ -44,7 +44,7 @@ checkout_00004:
   created_at: 2007-09-08 01:39:04.210081 +09:00
   basket_id: 3
 checkout_00005: 
-  item_id: 5
+  item_id: 130bed42-5794-4403-9c8e-40a921a9258a
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 2
@@ -55,7 +55,7 @@ checkout_00005:
   created_at: 2007-09-08 01:39:05.210081 +09:00
   basket_id: 4
 checkout_00006:
-  item_id: 7
+  item_id: dc4cd3f3-0b3d-4b81-9a1a-9ebdfb484131
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 2
@@ -65,7 +65,7 @@ checkout_00006:
   due_date: 2010-09-15 00:00:00 +09:00
   created_at: 2007-09-08 01:39:06.210081 +09:00
 checkout_00007: 
-  item_id: 7
+  item_id: dc4cd3f3-0b3d-4b81-9a1a-9ebdfb484131
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 1
@@ -76,7 +76,7 @@ checkout_00007:
   created_at: 2007-09-08 01:39:07.210081 +09:00
   basket_id: 5
 checkout_00008: 
-  item_id: 8
+  item_id: 7236fc07-8294-46f6-98c4-b8f32a7ba0d6
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 2
@@ -87,7 +87,7 @@ checkout_00008:
   created_at: 2007-09-08 01:39:08.210081 +09:00
   basket_id: 6
 checkout_00009: 
-  item_id: 9
+  item_id: b1b7a3cb-27af-4220-8df9-7ed2ab1ad7ab
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 3
@@ -98,7 +98,7 @@ checkout_00009:
   created_at: 2007-09-08 01:39:09.210081 +09:00
   basket_id: 7
 checkout_00010: 
-  item_id: 13
+  item_id: 3fc74a1e-801c-4773-83bc-02755fee948a
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 3
@@ -109,7 +109,7 @@ checkout_00010:
   created_at: 2007-09-08 01:39:10.210081 +09:00
   basket_id: 7
 checkout_00011: 
-  item_id: 14
+  item_id: 3ac48dcb-7b69-42e6-a48c-06f017bf3ad2
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 1
@@ -120,7 +120,7 @@ checkout_00011:
   created_at: 2007-09-08 01:39:11.210081 +09:00
   basket_id: 7
 checkout_00012: 
-  item_id: 6
+  item_id: 804a744a-3d95-439e-8853-61c21ba704d1
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 3
@@ -132,7 +132,7 @@ checkout_00012:
   basket_id: 8
   checkin_id: 5
 checkout_00013: 
-  item_id: 7
+  item_id: dc4cd3f3-0b3d-4b81-9a1a-9ebdfb484131
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 3
@@ -150,13 +150,15 @@ checkout_00013:
 #
 #  id                     :integer          not null, primary key
 #  user_id                :integer
-#  item_id                :integer          not null
+#  item_id                :uuid             not null
 #  checkin_id             :integer
 #  librarian_id           :integer
 #  basket_id              :integer
 #  due_date               :datetime
 #  checkout_renewal_count :integer          default(0), not null
 #  lock_version           :integer          default(0), not null
-#  created_at             :datetime
-#  updated_at             :datetime
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  shelf_id               :integer
+#  library_id             :integer
 #

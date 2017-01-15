@@ -1,8 +1,8 @@
 --- 
 library_00001: 
   name: web
-  short_display_name_translations: {"ja": "Web"}
-  display_name_translations: {"ja": "World Wide Web"}
+  short_display_name_translations: {"en": "Web", "ja": "ウェブ"}
+  display_name_translations: {"en": "World Wide Web", "ja": "ウェブ"}
   fax_number: 
   updated_at: 2007-08-31 00:18:06.662349 +09:00
   telephone_number_1: 
@@ -18,8 +18,8 @@ library_00001:
   position: 1
 library_00002: 
   name: kamata
-  short_display_name_translations: {"ja": "蒲田"}
-  display_name_translations: {"ja": "Kamata Library"}
+  short_display_name_translations: {"en": "Kamata", "ja": "蒲田"}
+  display_name_translations: {"en": "Kamata Library", "ja": "蒲田図書館"}
   fax_number: ""
   updated_at: 2007-08-31 00:18:06.662349 +09:00
   telephone_number_1: 81-3-3732-5111
@@ -36,8 +36,8 @@ library_00002:
   isil: "JP-0000000"
 library_00003: 
   name: hachioji
-  short_display_name_translations: {"ja": "八王子"}
-  display_name_translations: {"ja": "Hachioji Library"}
+  short_display_name_translations: {"en": "Hachioji", "ja": "八王子"}
+  display_name_translations: {"en": "Hachioji Library", "ja": "八王子図書館"}
   fax_number: 042-637-2116
   updated_at: 2007-08-31 00:18:16.188285 +09:00
   telephone_number_1: 042-637-2033
@@ -53,8 +53,8 @@ library_00003:
   position: 3
 library_00004: 
   name: mita
-  short_display_name_translations: {"ja": "三田"}
-  display_name_translations: {"ja": "Mita Library"}
+  short_display_name_translations: {"en": "Mita", "ja": "三田"}
+  display_name_translations: {"en": "Mita Library", "ja": "三田図書館"}
   fax_number: ""
   updated_at: 2007-08-31 00:18:20.043951 +09:00
   telephone_number_1: ""

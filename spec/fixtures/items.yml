@@ -279,16 +279,16 @@ item_00025:
 #
 # Table name: items
 #
-#  id                      :uuid             not null, primary key
-#  call_number             :string
-#  item_identifier         :string
+#  id                      :integer          not null, primary key
+#  call_number             :string(255)
+#  item_identifier         :string(255)
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  deleted_at              :datetime
-#  shelf_id                :integer          default(1)
+#  shelf_id                :integer          default(1), not null
 #  include_supplements     :boolean          default(FALSE), not null
 #  note                    :text
-#  url                     :string
+#  url                     :string(255)
 #  price                   :integer
 #  lock_version            :integer          default(0), not null
 #  required_role_id        :integer          default(1), not null
@@ -298,8 +298,8 @@ item_00025:
 #  budget_type_id          :integer
 #  circulation_status_id   :integer          default(5), not null
 #  checkout_type_id        :integer          default(1), not null
-#  binding_item_identifier :string
-#  binding_call_number     :string
+#  binding_item_identifier :string(255)
+#  binding_call_number     :string(255)
 #  binded_at               :datetime
-#  manifestation_id        :uuid
+#  manifestation_id        :integer
 #

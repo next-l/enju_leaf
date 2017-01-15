@@ -1,0 +1,20 @@
+user_reserve_stat_transition_00001:
+  id: 1
+  to_state: pending
+  user_reserve_stat_id: 1
+  sort_key: 0
+  most_recent: true
+
+# == Schema Information
+#
+# Table name: user_reserve_stat_transitions
+#
+#  id                   :integer          not null, primary key
+#  to_state             :string           not null
+#  metadata             :jsonb
+#  sort_key             :integer          not null
+#  user_reserve_stat_id :integer          not null
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  most_recent          :boolean
+#
