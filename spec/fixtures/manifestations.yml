@@ -1817,43 +1817,48 @@ manifestation_00216:
 #
 # Table name: manifestations
 #
-#  id                              :uuid             not null, primary key
-#  original_title                  :text             not null
+#  id                              :integer         not null, primary key
+#  original_title                  :text            not null
 #  title_alternative               :text
 #  title_transcription             :text
-#  classification_number           :string
-#  manifestation_identifier        :string
+#  classification_number           :string(255)
+#  manifestation_identifier        :string(255)
 #  date_of_publication             :datetime
 #  date_copyrighted                :datetime
-#  created_at                      :datetime         not null
-#  updated_at                      :datetime         not null
+#  created_at                      :datetime        not null
+#  updated_at                      :datetime        not null
 #  deleted_at                      :datetime
-#  access_address                  :string
-#  language_id                     :integer          default(1), not null
-#  carrier_type_id                 :integer          not null
+#  access_address                  :string(255)
+#  language_id                     :integer         default(1), not null
+#  carrier_type_id                 :integer         default(1), not null
 #  start_page                      :integer
 #  end_page                        :integer
 #  height                          :integer
 #  width                           :integer
 #  depth                           :integer
+#  nbn                             :string(255)
+#  lccn                            :string(255)
+#  oclc_number                     :string(255)
 #  price                           :integer
 #  fulltext                        :text
-#  volume_number_string            :string
-#  issue_number_string             :string
-#  serial_number_string            :string
+#  volume_number_string            :string(255)
+#  issue_number_string             :string(255)
+#  serial_number_string            :string(255)
 #  edition                         :integer
 #  note                            :text
-#  repository_content              :boolean          default(FALSE), not null
-#  lock_version                    :integer          default(0), not null
-#  required_role_id                :integer          default(1), not null
-#  required_score                  :integer          default(0), not null
-#  frequency_id                    :integer          default(1), not null
-#  subscription_master             :boolean          default(FALSE), not null
-#  attachment_file_name            :string
-#  attachment_content_type         :string
-#  attachment_size                 :integer
+#  repository_content              :boolean         default(FALSE), not null
+#  lock_version                    :integer         default(0), not null
+#  required_role_id                :integer         default(1), not null
+#  state                           :string(255)
+#  required_score                  :integer         default(0), not null
+#  frequency_id                    :integer         default(1), not null
+#  subscription_master             :boolean         default(FALSE), not null
+#  ipaper_id                       :integer
+#  ipaper_access_key               :string(255)
+#  attachment_file_name            :string(255)
+#  attachment_content_type         :string(255)
+#  attachment_file_size            :integer
 #  attachment_updated_at           :datetime
-#  nii_type_id                     :integer
 #  title_alternative_transcription :text
 #  description                     :text
 #  abstract                        :text
@@ -1861,23 +1866,18 @@ manifestation_00216:
 #  valid_until                     :datetime
 #  date_submitted                  :datetime
 #  date_accepted                   :datetime
-#  date_captured                   :datetime
-#  pub_date                        :string
-#  edition_string                  :string
+#  date_caputured                  :datetime
+#  ndl_bib_id                      :string(255)
+#  pub_date                        :string(255)
+#  edition_string                  :string(255)
 #  volume_number                   :integer
 #  issue_number                    :integer
 #  serial_number                   :integer
-#  content_type_id                 :integer          default(1)
+#  ndc                             :string(255)
+#  content_type_id                 :integer         default(1)
 #  year_of_publication             :integer
+#  attachment_fingerprint          :string(255)
 #  attachment_meta                 :text
 #  month_of_publication            :integer
-#  fulltext_content                :boolean
-#  serial                          :boolean
-#  statement_of_responsibility     :text
-#  publication_place               :text
-#  extent                          :text
-#  dimensions                      :text
-#  attachment_id                   :string
-#  attachment_fingerprint          :string
-#  attachment_data                 :jsonb
 #
+

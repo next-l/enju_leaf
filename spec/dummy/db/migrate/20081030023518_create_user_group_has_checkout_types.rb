@@ -1,8 +1,8 @@
-class CreateUserGroupHasCheckoutTypes < ActiveRecord::Migration
-  def self.up
+class CreateUserGroupHasCheckoutTypes < ActiveRecord::Migration[5.0]
+  def change
     create_table :user_group_has_checkout_types do |t|
-      t.integer :user_group_id, null: false
-      t.integer :checkout_type_id, null: false
+      t.references :user_group, foreign_key: true, null: false, type: :uuid
+      t.references :checkout_type, foreign_key: true, null: false
       t.integer :checkout_limit, default: 0, null: false
       t.integer :checkout_period, default: 0, null: false
       t.integer :checkout_renewal_limit, default: 0, null: false
@@ -15,11 +15,5 @@ class CreateUserGroupHasCheckoutTypes < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :user_group_has_checkout_types, :user_group_id
-    add_index :user_group_has_checkout_types, :checkout_type_id
-  end
-
-  def self.down
-    drop_table :user_group_has_checkout_types
   end
 end

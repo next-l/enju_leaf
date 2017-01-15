@@ -1,7 +1,7 @@
 --- 
 user_group_00001: 
   name: not_specified
-  display_name_translations: (not specified)
+  display_name_translations: {"en": "(not specified)", "ja": "不明"}
   updated_at: 2007-12-13 21:00:51.564542 +09:00
   id: bcb18f9e-1272-41a3-8011-0fc757553d78
   note: ""
@@ -11,7 +11,7 @@ user_group_00001:
   number_of_day_to_notify_due_date: 2
 user_group_00002: 
   name: user
-  display_name_translations: User
+  display_name_translations: {"en": "User", "ja": "利用者"}
   updated_at: 2007-12-23 03:14:56.836548 +09:00
   id: 40e0516e-30a5-4363-b5cf-f35aada5d050
   note: ""
@@ -22,7 +22,7 @@ user_group_00002:
   number_of_time_to_notify_overdue: 6
 user_group_00003: 
   name: faculty
-  display_name_translations: Faculty
+  display_name_translations: {"en": "Faculty", "ja": "教職員"}
   updated_at: 2007-12-23 03:15:05.134351 +09:00
   id: 44882e36-86cd-4bf3-aba3-6298b472a76f
   note: ""
