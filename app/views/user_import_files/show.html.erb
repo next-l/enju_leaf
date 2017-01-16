@@ -43,12 +43,12 @@
 
 <p>
   <strong><%= t('activerecord.attributes.user_import_file.default_user_group_id') -%>:</strong>
-  <%= link_to @user_import_file.default_user_group.display_name.localize, @user_import_file.default_user_group if @user_import_file.default_user_group.try(:display_name) -%>
+  <%= link_to @user_import_file.default_user_group.display_name, @user_import_file.default_user_group if @user_import_file.default_user_group.try(:display_name) -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.user_import_file.default_library_id') -%>:</strong>
-  <%= link_to @user_import_file.default_library.display_name.localize, @user_import_file.default_library if @user_import_file.default_library.try(:display_name) -%>
+  <%= link_to @user_import_file.default_library.display_name, @user_import_file.default_library if @user_import_file.default_library.try(:display_name) -%>
 </p>
 
 <p>
