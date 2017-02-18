@@ -1,25 +1,19 @@
 --- 
 visibility_00001: 
-  name: private
-  display_name: Private
+  name: public
+  display_name_translations: {"ja": "公開", "en": "Public"}
   id: 1
+  note: 
   position: 1
-  note: 
-  created_at: <%= Time.zone.now %>
-  updated_at: <%= Time.zone.now %>
 visibility_00002: 
-  name: intranet
-  display_name: Intranet
+  name: restricted
+  display_name_translations: {"ja": "限定公開", "en": "Restricted"}
   id: 2
+  note: 
   position: 2
-  note: 
-  created_at: <%= Time.zone.now %>
-  updated_at: <%= Time.zone.now %>
 visibility_00003: 
-  name: internet
-  display_name: Internet
+  name: private
+  display_name_translations: {"ja": "非公開", "en": "Private"}
   id: 3
-  position: 3
   note: 
-  created_at: <%= Time.zone.now %>
-  updated_at: <%= Time.zone.now %>
+  position: 3
