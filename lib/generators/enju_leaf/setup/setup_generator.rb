@@ -41,6 +41,7 @@ EOS
       :lockable, :lock_strategy => :none, :unlock_strategy => :none
   include EnjuSeed::EnjuUser
 EOS
+    gsub_file 'app/controllers/application_controller.rb', /protect_from_forgery with: :exception$/, 'protect_from_forgery with: :exception, prepend: true'
     generate("sunspot_rails:install")
     generate("kaminari:config")
     generate("kaminari:views bootstrap3")
