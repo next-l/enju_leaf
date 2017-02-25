@@ -60,6 +60,10 @@
           <%= text_field_tag 'classification' -%>
         </td>
       </tr>
+      <tr>
+        <td><label><%= t('activerecord.models.subject') %>:</label></td>
+        <td><%= text_field_tag 'subject_text' -%></td>
+      </tr>
     <% end %>
     <tr>
       <td><label><%= t('activerecord.attributes.manifestation.date_of_publication') -%>:</label></td>
