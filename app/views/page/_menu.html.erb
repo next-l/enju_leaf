@@ -121,8 +121,8 @@
           <% if defined?(EnjuSearchLog) %>
             <li><%= link_to t('activerecord.models.search_history'), search_histories_path %></li>
           <% end %>
-          <% if @library_group.settings[:erms_url] %>
-            <li><%= link_to t('page.electronic_resource_management'), @library_group.settings[:erms_url] -%></li>
+          <% if @library_group.erms_url %>
+            <li><%= link_to t('page.electronic_resource_management'), @library_group.erms_url -%></li>
           <% end %>
           <li><%= link_to t('page.configuration'), page_configuration_path -%></li>
         </ul>

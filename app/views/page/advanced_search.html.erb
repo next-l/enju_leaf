@@ -4,15 +4,34 @@
 
 <%= form_tag({controller: 'manifestations'}, {method: 'get'}) do -%>
   <table style="width: 100%">
-    <tr>
-      <td><%= label_tag :library_adv, t('activerecord.models.library') %>:</td>
-      <td>
-        <% @libraries.sort_by{|l| l.position }.each do |library| %>
-          <label><%= check_box_tag "library_adv[]", library.name %><%= library.display_name.localize %></label>
-        <% end %>
-        <div class="check_all"><%= check_all_button "library_adv_", t('advanced_search.check_all') %></div>
-      </td>
-    </tr>
+    <% if current_user.try(:has_role?, 'Librarian') %>
+      <tr>
+        <td><%= label_tag :library_adv, t('activerecord.models.library') %>:</td>
+        <td>
+          <ul>
+            <% @libraries.sort_by{|l| l.position }.each do |library| %>
+              <li>
+                <%= label_tag :"#{library.name}_shelf", library.display_name.localize %>:
+                <% Shelf.where(library_id: library.id).sort_by{|s| s.position }.each do |shelf| %>
+                  <label><%= check_box_tag "#{library.name}_shelf[]", shelf.name %><%= shelf.display_name.localize %></label>
+                <% end %>
+                <span class="check_all"><%= check_all_button "#{library.name}_shelf_", t('advanced_search.check_all') %></span>
+              </li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    <% else %>
+      <tr>
+        <td><%= label_tag :library_adv, t('activerecord.models.library') %>:</td>
+        <td>
+          <% @libraries.sort_by{|l| l.position }.each do |library| %>
+            <label><%= check_box_tag "library_adv[]", library.name %><%= library.display_name.localize %></label>
+          <% end %>
+          <div class="check_all"><%= check_all_button "library_adv_", t('advanced_search.check_all') %></div>
+        </td>
+      </tr>
+    <% end %>
     <tr>
       <td><%= label_tag :query, t('page.search_term') -%>:</td>
       <td><%= search_field_tag 'query', nil, class: 'search_form_short', placeholder: t('page.search_term') -%></td>
@@ -59,6 +78,10 @@
           <%= select_tag 'classification_type', options_from_collection_for_select( types, :id, Proc.new{|e| e.display_name.localize } ) -%>
           <%= text_field_tag 'classification' -%>
         </td>
+      </tr>
+      <tr>
+        <td><label><%= t('activerecord.models.subject') %>:</label></td>
+        <td><%= text_field_tag 'subject_text' -%></td>
       </tr>
     <% end %>
     <tr>
