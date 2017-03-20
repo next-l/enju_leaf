@@ -7,7 +7,7 @@ end
 
 appraise "rails-5.0" do
   gem "rails", "~> 5.0.2"
-  gem 'globalize', github: 'globalize/globalize'
+  gem 'globalize', '~> 5.1.0.beta1'
   gem 'globalize-accessors'
   gem 'statesman', '~> 2.0'
   gem 'activemodel-serializers-xml'
