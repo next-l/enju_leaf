@@ -2,8 +2,6 @@ require 'enju_seed'
 require 'enju_biblio'
 require 'enju_library'
 require 'enju_manifestation_viewer'
-require 'statesman'
-require 'shrine'
 require 'bootstrap-sass'
 require 'slim-rails'
 
