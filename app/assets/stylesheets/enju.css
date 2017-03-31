@@ -382,6 +382,7 @@ input.year_field, input.month_field, input.day_field{
 }
 
 input.date_field{
+  width: 20em;
   ime-mode: disabled;
 }
 
