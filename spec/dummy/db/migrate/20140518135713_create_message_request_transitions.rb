@@ -1,12 +1,8 @@
-class CreateMessageRequestTransitions < ActiveRecord::Migration
+class CreateMessageRequestTransitions < ActiveRecord::Migration[5.0]
   def change
     create_table :message_request_transitions do |t|
       t.string :to_state
-      if ActiveRecord::Base.configurations[Rails.env]["adapter"].try(:match, /mysql/)
-        t.text :metadata
-      else
-        t.text :metadata, default: "{}"
-      end
+      t.jsonb :metadata, default: {}
       t.integer :sort_key
       t.integer :message_request_id
       t.timestamps

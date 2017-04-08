@@ -1,4 +1,4 @@
-class CreateCheckoutStatHasManifestations < ActiveRecord::Migration
+class CreateCheckoutStatHasManifestations < ActiveRecord::Migration[5.0]
   def self.up
     create_table :checkout_stat_has_manifestations do |t|
       t.integer :manifestation_checkout_stat_id, null: false

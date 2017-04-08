@@ -1,4 +1,4 @@
-class CreateReserveStatHasUsers < ActiveRecord::Migration
+class CreateReserveStatHasUsers < ActiveRecord::Migration[5.0]
   def self.up
     create_table :reserve_stat_has_users do |t|
       t.integer :user_reserve_stat_id, null: false

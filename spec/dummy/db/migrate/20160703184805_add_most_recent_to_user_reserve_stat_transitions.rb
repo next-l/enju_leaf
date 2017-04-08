@@ -1,4 +1,4 @@
-class AddMostRecentToUserReserveStatTransitions < ActiveRecord::Migration
+class AddMostRecentToUserReserveStatTransitions < ActiveRecord::Migration[5.0]
   def up
     add_column :user_reserve_stat_transitions, :most_recent, :boolean, null: true
   end

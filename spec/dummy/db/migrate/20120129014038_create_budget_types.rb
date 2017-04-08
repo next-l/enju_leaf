@@ -1,4 +1,4 @@
-class CreateBudgetTypes < ActiveRecord::Migration
+class CreateBudgetTypes < ActiveRecord::Migration[5.0]
   def change
     create_table :budget_types do |t|
       t.string :name

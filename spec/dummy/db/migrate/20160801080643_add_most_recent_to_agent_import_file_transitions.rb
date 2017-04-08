@@ -1,4 +1,4 @@
-class AddMostRecentToAgentImportFileTransitions < ActiveRecord::Migration
+class AddMostRecentToAgentImportFileTransitions < ActiveRecord::Migration[5.0]
   def up
     add_column :agent_import_file_transitions, :most_recent, :boolean, null: true
   end

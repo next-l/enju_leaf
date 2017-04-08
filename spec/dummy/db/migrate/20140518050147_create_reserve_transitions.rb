@@ -1,4 +1,4 @@
-class CreateReserveTransitions < ActiveRecord::Migration
+class CreateReserveTransitions < ActiveRecord::Migration[5.0]
   def change
     create_table :reserve_transitions do |t|
       t.string :to_state, null: false

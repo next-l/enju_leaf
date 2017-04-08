@@ -1,4 +1,4 @@
-class CreateBookmarkStats < ActiveRecord::Migration
+class CreateBookmarkStats < ActiveRecord::Migration[5.0]
   def change
     create_table :bookmark_stats do |t|
       t.datetime :start_date

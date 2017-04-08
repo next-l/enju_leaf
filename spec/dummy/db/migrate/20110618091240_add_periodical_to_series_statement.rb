@@ -1,4 +1,4 @@
-class AddPeriodicalToSeriesStatement < ActiveRecord::Migration
+class AddPeriodicalToSeriesStatement < ActiveRecord::Migration[5.0]
   def self.up
     add_column :series_statements, :periodical, :boolean
   end

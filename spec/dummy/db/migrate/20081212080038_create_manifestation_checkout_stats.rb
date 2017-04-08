@@ -1,4 +1,4 @@
-class CreateManifestationCheckoutStats < ActiveRecord::Migration
+class CreateManifestationCheckoutStats < ActiveRecord::Migration[5.0]
   def self.up
     create_table :manifestation_checkout_stats do |t|
       t.datetime :start_date

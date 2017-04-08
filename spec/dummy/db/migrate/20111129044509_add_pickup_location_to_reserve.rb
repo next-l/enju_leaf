@@ -1,4 +1,4 @@
-class AddPickupLocationToReserve < ActiveRecord::Migration
+class AddPickupLocationToReserve < ActiveRecord::Migration[5.0]
   def change
     add_column :reserves, :pickup_location_id, :integer
     add_index :reserves, :pickup_location_id

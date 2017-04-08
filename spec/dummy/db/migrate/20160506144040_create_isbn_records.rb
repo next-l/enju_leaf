@@ -4,7 +4,6 @@ class CreateIsbnRecords < ActiveRecord::Migration[5.0]
       t.string :body, index: {unique: true}, null: false
       t.string :isbn_type
       t.string :source
-      t.references :manifestation, foreign_key: true, type: :uuid
 
       t.timestamps
     end
