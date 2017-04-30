@@ -1,19 +1,23 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('user.forgot_your_password') %></h1>
-<div id="content_list">
+  <h1 class="title"><%= t('user.forgot_your_password') %></h1>
+  <div id="content_list">
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= devise_error_messages! %>
 
-  <p><%= f.label :email %></p>
-  <p><%= f.email_field :email %></p>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true %>
+  </div>
 
-  <p><%= f.submit t("user.send_me_reset_password_instruction") %></p>
+  <div class="actions">
+    <%= f.submit t('user.send_me_reset_password_instruction') %>
+  </div>
 <% end %>
 
-  <%= javascript_tag("$(function(){$('#user_email').focus()})") %>
-</div>
+  </div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
+  <%= render "devise/shared/links" %>
 </div>

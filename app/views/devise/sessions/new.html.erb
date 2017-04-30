@@ -1,37 +1,39 @@
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-<div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.sign_in') -%> : Next-L Enju</h1>
-<div id="content_list">
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div id="content_detail" class="ui-corner-all ui-widget-content">
+    <h1 class="title"><%= t('page.sign_in') -%> : Next-L Enju</h1>
+    <div id="content_list">
   <%= f.error_messages -%>
 
   <%= markdown_helper(@library_group.login_banner) %>
 
-</div>
+  </div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
-  <p>
-    <%= f.label t('activerecord.attributes.user.username') %><br />
-    <%= f.text_field :username, :class => 'login_password', :autofocus => true %>
-  </p>
 
-  <p>
-    <%= f.label t('activerecord.attributes.user.password') %><br />
-    <%= f.password_field :password, :class => 'login_password', :autocomplete => 'off' %>
-  </p>
+  <div class="field">
+    <%= f.label :username %><br />
+    <%= f.email_field :username, autofocus: true %>
+  </div>
 
-  <p id="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password, autocomplete: "off" %>
+  </div>
 
   <% if devise_mapping.rememberable? -%>
-    <p><%= f.check_box :remember_me %> <%= f.label :remember_me, t('user.remember_me') %></p>
+    <div class="field">
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me %>
+    </div>
   <% end -%>
 
-  <p><%= f.submit t('page.sign_in') %></p>
-
-<%= javascript_tag("$(function(){$('#user_username').focus()})") %>
+  <div class="actions">
+    <%= f.submit t('page.sign_in') %>
+  </div>
+<% end %>
 
 <%= render "devise/shared/links" %>
 
 </div>
-<% end -%>
+<% end %>
