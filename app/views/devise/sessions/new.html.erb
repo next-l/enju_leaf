@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :username %><br />
-    <%= f.email_field :username, autofocus: true %>
+    <%= f.text_field :username, autofocus: true %>
   </div>
 
   <div class="field">
@@ -31,7 +31,6 @@
   <div class="actions">
     <%= f.submit t('page.sign_in') %>
   </div>
-<% end %>
 
 <%= render "devise/shared/links" %>
 

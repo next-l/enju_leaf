@@ -44,6 +44,7 @@ en:
         password_confirmation: Password confirmation
         auto_generated_password: Set auto-generated password
         friendly_id: Username
+        remember_me: "Remember me"
       role:
         name: Name
         display_name: Display name
@@ -361,7 +362,6 @@ en:
     you_have_to_save_profile_to_deactivate_feed_url: "You have to save your profile to deactivate this url."
     could_not_setup_account: "We couldn't set up that account, sorry.  Please try again, or contact an admin."
     resend_confirmation_instruction: "Resend confirmation instructions"
-    remember_me: "Remember me"
     forgot_your_password: "Forgot your password?"
     send_me_reset_password_instruction: "Send me reset password instruction"
     change_my_password: "Change my password"
