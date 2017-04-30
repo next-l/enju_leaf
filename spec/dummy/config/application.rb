@@ -6,9 +6,6 @@ Bundler.require
 require 'enju_leaf'
 require 'enju_library'
 require 'enju_manifestation_viewer'
-require 'globalize'
-require 'globalize-accessors'
-require 'resque/server'
 
 module Dummy
   class Application < Rails::Application
