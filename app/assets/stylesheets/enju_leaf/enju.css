@@ -129,10 +129,6 @@ div#pickup_book_jacket{
   text-align: center;
 }
 
-img.book_jacket{
-  border: 1px solid;
-}
-
 img.screen_shot{
   border: 0;
 }
@@ -341,7 +337,18 @@ li{
 }
 
 input.resource_title{
-  width: 30em;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input.resource_name{
+  width: 80%;
+  box-sizing: border-box;
+}
+
+input.resource_subject{
+  width: 50%;
+  box-sizing: border-box;
 }
 
 input.resource_locale{
@@ -358,16 +365,22 @@ input.resource_zip_code{
 }
 
 input.resource_url{
-  width: 40em;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-input.resource_isbn_issn, input.resource_identifier, input.resource_user_number, input.resource_user, input.resource_item_identifier{
-  width: 10em;
+input.resource_isbn_issn{
+  width: 20em;
+  ime-mode: disabled;
+}
+
+input.resource_identifier, input.resource_user_number, input.resource_user, input.resource_item_identifier{
+  width: 20em;
   ime-mode: disabled;
 }
 
 input.resource_identifier_body{
-  width: 20em;
+  width: 40em;
   ime-mode: disabled;
 }
 
@@ -398,16 +411,9 @@ input.short_name{
 }
 
 textarea{
-  width: 40em;
+  width: 100%;
+  box-sizing: border-box;
   height: 10em;
-}
-
-p#post_to_twitter{
-  margin-left: 10px;
-}
-
-input.twitter_text{
-  width:40em;
 }
 
 textarea#message_body{
@@ -531,6 +537,10 @@ div.book_jacket{
   width: 190px;
 }
 
+div.book_jacket img.book_jacket{
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
 div.search_form{
   margin-bottom: 10px;
 }
@@ -538,4 +548,32 @@ div.search_form{
 .hidden {display: none;}
 
 .enju_table_header{
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.normal-weight {
+  font-weight: normal;
+}
+
+.right {
+  text-align: right;
+}
+
+.center {
+  text-align: center;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.display-none {
+  display: none;
+}
+
+img.enju_icon {
+  vertical-align: middle;
 }
