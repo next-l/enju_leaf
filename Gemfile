@@ -10,7 +10,6 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 gem 'jquery-rails'
-gem 'rails-controller-testing'
 
 # To use debugger
 # gem 'debugger'
