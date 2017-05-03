@@ -1,0 +1,35 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.system_information') %></h1>
+<div id="content_list">
+
+  <ul>
+    <li>Ruby: <%= RUBY_DESCRIPTION %></li>
+    <li>Environment: <%= Rails.env %></li>
+    <li>Gems:
+    <ul>
+      <% @specs.sort_by{|e| e.name }.each do |spec| %>
+        <li><%= spec.name %>: <%= spec.version.to_s %></li>
+      <% end %>
+    </ul>
+    </li>
+    <li>Languages:
+    <ul>
+      <% @available_languages.each do |language| %>
+        <li><%= language.iso_639_1 %>: <%= language.native_name || language.name %>
+        <% if language.iso_639_1 == I18n.locale.to_s %>
+          (<%= t('page.default_locale') %>)
+        <% end %>
+        </li>
+      <% end %>
+    </ul>
+    </li>
+  </ul>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.configuration'), page_configuration_path %></li>
+  </ul>
+</div>

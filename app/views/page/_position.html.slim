@@ -1,2 +1,0 @@
-= object.first? ? image_tag('icons/stop.png', size: '16x16') : link_to(image_tag('icons/arrow_up.png', size: '16x16', alt: t('page.asc')), {action: 'update', move: 'higher', id: object.id}, method: :put)
-= object.last? ? image_tag('icons/stop.png', size: '16x16') : link_to(image_tag('icons/arrow_down.png', size: '16x16', alt: t('page.desc')), {action: 'update', move: 'lower', id: object.id}, method: :put)
