@@ -2,22 +2,22 @@
 checked_item_00001:
   id: 1
   item_id: 0f77c21a-6e9c-460e-b49c-3fd567dbd49c
-  basket_id: 1
+  basket_id: 98b83092-3f28-4b34-a317-eefc073f8d2b
   due_date: <%= 1.week.from_now.to_s(:db) %>
 checked_item_00002:
   id: 2
   item_id: 804a744a-3d95-439e-8853-61c21ba704d1
-  basket_id: 2
+  basket_id: afa39d44-ab53-47ce-8506-28b1cf87d54c
   due_date: <%= 1.week.from_now.to_s(:db) %>
 checked_item_00003:
   id: 3
   item_id: 804a744a-3d95-439e-8853-61c21ba704d1
-  basket_id: 9
+  basket_id: d2f6b2ac-6b59-424f-84e8-610f9399650b
   due_date: <%= 1.week.from_now.to_s(:db) %>
 checked_item_00004:
   id: 4
   item_id: 18e9d7b1-18f9-47b8-b06e-01a4455ef12a
-  basket_id: 8
+  basket_id: 0d8b0653-01c7-4797-b845-27dd7e31e40b
   due_date: <%= 1.week.from_now.to_s(:db) %>
 
 # == Schema Information
@@ -26,7 +26,7 @@ checked_item_00004:
 #
 #  id           :integer          not null, primary key
 #  item_id      :uuid             not null
-#  basket_id    :integer          not null
+#  basket_id    :uuid             not null
 #  due_date     :datetime         not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null

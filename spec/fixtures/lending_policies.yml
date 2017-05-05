@@ -85,8 +85,8 @@ lending_policy_00009:
 # Table name: lending_policies
 #
 #  id             :integer          not null, primary key
-#  item_id        :uuid             not null
-#  user_group_id  :uuid             not null
+#  item_id        :integer          not null
+#  user_group_id  :integer          not null
 #  loan_period    :integer          default(0), not null
 #  fixed_due_date :datetime
 #  renewal        :integer          default(0), not null
@@ -96,3 +96,4 @@ lending_policy_00009:
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #
+

@@ -2,12 +2,12 @@
 
 one:
   user_id: 1
-  item_id: 1
+  item_id: 17eaea41-eacb-4e08-8e0b-70c6e62e3ed3
   message_id: 1
 
 two:
   user_id: 1
-  item_id: 1
+  item_id: 17eaea41-eacb-4e08-8e0b-70c6e62e3ed3
   message_id: 1
 
 # == Schema Information

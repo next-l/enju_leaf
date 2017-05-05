@@ -3,7 +3,6 @@ bookstore_00001:
   name: unknown
   fax_number: 
   updated_at: 2008-02-10 11:14:57.605329 +09:00
-  deleted_at: 
   telephone_number: 
   id: fd573f36-2c8d-435f-87cb-ee67e97739b0
   note: ""
@@ -16,7 +15,6 @@ bookstore_00002:
 
   fax_number: ""
   updated_at: 2008-02-10 12:15:14.840711 +09:00
-  deleted_at: 
   telephone_number: ""
   id: a37b8f58-40c3-4507-b920-98e06cbffbc6
   note: ""
@@ -29,7 +27,6 @@ bookstore_00003:
 
   fax_number: ""
   updated_at: 2008-02-10 12:15:33.555463 +09:00
-  deleted_at: 
   telephone_number: ""
   id: 91351582-03ef-41b0-b355-c12c15a24d56
   note: ""
@@ -42,7 +39,6 @@ bookstore_00004:
 
   fax_number: ""
   updated_at: 2008-02-10 12:16:07.726445 +09:00
-  deleted_at: 
   telephone_number: ""
   id: 3b649765-1682-40c6-bcd9-e2be749c2a46
   note: ""
@@ -55,7 +51,6 @@ bookstore_00005:
 
   fax_number: ""
   updated_at: 2008-02-10 12:16:17.990285 +09:00
-  deleted_at: 
   telephone_number: ""
   id: 0dccb7f7-62f5-4316-9902-8c96822e0c43
   note: ""
@@ -68,7 +63,6 @@ bookstore_00006:
 
   fax_number: ""
   updated_at: 2008-02-10 12:16:25.906073 +09:00
-  deleted_at: 
   telephone_number: ""
   id: 62ed8d27-18d5-4c29-bbf2-316857dfa120
   note: ""
@@ -79,7 +73,6 @@ bookstore_00007:
   name: Example store
   fax_number: ""
   updated_at: 2008-02-10 12:16:25.906073 +09:00
-  deleted_at: 
   telephone_number: ""
   id: 905044f9-9bb3-4dbe-9625-a2f1c90c0c4f
   note: ""
@@ -100,7 +93,6 @@ bookstore_00007:
 #  fax_number       :string
 #  url              :string
 #  position         :integer
-#  deleted_at       :datetime
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #

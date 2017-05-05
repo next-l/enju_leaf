@@ -1,8 +1,8 @@
 class CreateUserImportResults < ActiveRecord::Migration[5.0]
   def change
     create_table :user_import_results do |t|
-      t.integer :user_import_file_id
-      t.integer :user_id
+      t.references :user_import_file, foreign_key: true, null: false
+      t.references :user, foreign_key: true, null: false
       t.text :body
 
       t.timestamps

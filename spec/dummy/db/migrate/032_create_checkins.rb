@@ -1,11 +1,10 @@
 class CreateCheckins < ActiveRecord::Migration[5.0]
   def change
     create_table :checkins do |t|
-      t.references :item, null: false, type: :uuid
-      t.integer :librarian_id, null: false
-      t.references :basket, null: false
+      t.references :checkout, foreign_key: true, null: false, type: :uuid
+      t.references :librarian, foreign_key: {to_table: :users}, null: false
+      t.references :basket, foreign_key: true, null: false, type: :uuid
       t.timestamps
     end
-    add_index :checkins, :librarian_id
   end
 end

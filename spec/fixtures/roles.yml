@@ -1,25 +1,25 @@
 --- 
 role_00001: 
   name: Guest  
-  display_name_translations: Guest
+  display_name_translations: {"en": "Guest"}
   id: 1
   note: 
   position: 1
 role_00002: 
   name: User  
-  display_name_translations: User
+  display_name_translations: {"en": "User"}
   id: 2
   note: 
   position: 2
 role_00003: 
   name: Librarian  
-  display_name_translations: Librarian
+  display_name_translations: {"en": "Librarian"}
   id: 3
   note: 
   position: 3
 role_00004: 
   name: Administrator  
-  display_name_translations: Administrator
+  display_name_translations: {"en": "Administrator"}
   id: 4
   note:
   position: 4

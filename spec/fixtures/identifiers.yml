@@ -1,0 +1,119 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  body: 12345678
+  manifestation_id: 1
+  identifier_type_id: 1
+  primary: false
+  position: 2
+
+two:
+  body: 99999999
+  manifestation_id: 2
+  identifier_type_id: 2
+  primary: false
+
+identifier_00001:
+  manifestation_id: 1
+  identifier_type_id: 1
+  body: "4798002062"
+  position: 1
+
+identifier_00002:
+  manifestation_id: 2
+  identifier_type_id: 1
+  body: "4915724824"
+
+identifier_00003:
+  manifestation_id: 3
+  identifier_type_id: 1
+  body: "4897063590"
+
+identifier_00004:
+  manifestation_id: 4
+  identifier_type_id: 1
+  body: 0471412791
+
+identifier_00005:
+  manifestation_id: 7
+  identifier_type_id: 1
+  body: 0470844701
+
+identifier_00006:
+  manifestation_id: 8
+  identifier_type_id: 1
+  body: "4798101028"
+
+identifier_00007:
+  manifestation_id: 9
+  identifier_type_id: 1
+  body: "4641143331"
+
+identifier_00008:
+  manifestation_id: 10
+  identifier_type_id: 1
+  body: "9784774127804"
+
+identifier_00009:
+  manifestation_id: 21
+  identifier_type_id: 1
+  body: "4822281167"
+
+identifier_00114:
+  manifestation_id: 114
+  identifier_type_id: 1
+  body: "9784756137470"
+
+identifier_00116:
+  manifestation_id: 116
+  identifier_type_id: 1
+  body: "9784756100917"
+
+identifier_00120:
+  manifestation_id: 120
+  identifier_type_id: 1
+  body: "9784274063855"
+
+identifier_00192:
+  manifestation_id: 192
+  identifier_type_id: 1
+  body: "9784873113241"
+
+identifier_00193_1:
+  manifestation_id: 193
+  identifier_type_id: 1
+  body: "9784797340044"
+
+identifier_00193_2:
+  manifestation_id: 193
+  identifier_type_id: 1
+  body: "4797340045"
+
+identifier_00196:
+  manifestation_id: 196
+  identifier_type_id: 1
+  body: "9784797336610"
+
+identifier_00201:
+  manifestation_id: 201
+  identifier_type_id: 2
+  body: "09130000"
+
+identifier_00217:
+  manifestation_id: 217
+  identifier_type_id: 4
+  body: "BN15603730"
+
+# == Schema Information
+#
+# Table name: identifiers
+#
+#  id                 :integer          not null, primary key
+#  body               :string           not null
+#  identifier_type_id :integer          not null
+#  manifestation_id   :uuid
+#  primary            :boolean
+#  position           :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#

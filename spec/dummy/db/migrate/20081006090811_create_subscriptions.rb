@@ -6,7 +6,6 @@ class CreateSubscriptions < ActiveRecord::Migration[5.0]
       #t.integer :subscription_list_id, :integer
       t.references :user, foreign_key: true
       t.integer :order_list_id
-      t.datetime :deleted_at
       t.integer :subscribes_count, default: 0, null: false
 
       t.timestamps

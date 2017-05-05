@@ -1,4 +1,4 @@
-class AddOpeningHourToLibrary < ActiveRecord::Migration[5.0]
+class AddOpeningHourToLibrary < ActiveRecord::Migration
   def self.up
     add_column :libraries, :opening_hour, :text
   end

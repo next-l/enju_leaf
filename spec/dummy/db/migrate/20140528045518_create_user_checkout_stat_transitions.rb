@@ -1,8 +1,8 @@
-class CreateUserCheckoutStatTransitions < ActiveRecord::Migration[5.0]
+class CreateUserCheckoutStatTransitions < ActiveRecord::Migration
   def change
     create_table :user_checkout_stat_transitions do |t|
       t.string :to_state, null: false
-      t.jsonb :metadata, default: "{}"
+      t.jsonb :metadata, default: {}
       t.integer :sort_key, null: false
       t.integer :user_checkout_stat_id, null: false
       t.timestamps null: false

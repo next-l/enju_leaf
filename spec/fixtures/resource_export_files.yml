@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+resource_export_file_00001:
+  id: 1
+  user_id: 1
+resource_export_file_00002:
+  id: 2
+  user_id: 1
+resource_export_file_00003:
+  id: 3
+  user_id: 1
+
+# == Schema Information
+#
+# Table name: resource_export_files
+#
+#  id              :integer          not null, primary key
+#  user_id         :integer
+#  executed_at     :datetime
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  attachment_data :jsonb
+#

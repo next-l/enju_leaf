@@ -91,7 +91,7 @@
             <li><%= link_to t('page.calendar'), events_path(mode: 'calendar') -%></li>
             <li><%= link_to t('event.all'), events_path -%></li>
             <%- @library_group.real_libraries.each do |library| -%>
-              <li><%= link_to library.display_name.localize, events_path(library_id: library.name) -%></li>
+              <li><%= link_to library.display_name, events_path(library_id: library.name) -%></li>
             <%- end -%>
             <%- if policy(Event).create? -%>
               <li><%= link_to t('page.import'), new_event_import_file_path -%></li>
@@ -120,9 +120,6 @@
           <li><%= link_to t('page.statistics'), page_statistics_path -%></li>
           <% if defined?(EnjuSearchLog) %>
             <li><%= link_to t('activerecord.models.search_history'), search_histories_path %></li>
-          <% end %>
-          <% if @library_group.erms_url %>
-            <li><%= link_to t('page.electronic_resource_management'), @library_group.erms_url -%></li>
           <% end %>
           <li><%= link_to t('page.configuration'), page_configuration_path -%></li>
         </ul>

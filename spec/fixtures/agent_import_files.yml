@@ -14,18 +14,15 @@ agent_import_file_00003:
 #
 # Table name: agent_import_files
 #
-#  id                         :integer         not null, primary key
-#  parent_id                  :integer
-#  size                       :integer
-#  user_id                    :integer
-#  note                       :text
-#  executed_at                :datetime
-#  state                      :string(255)
-#  agent_import_updated_at   :datetime
-#  created_at                 :datetime        not null
-#  updated_at                 :datetime        not null
-#  edit_mode                  :string(255)
-#  agent_import_fingerprint  :string(255)
-#  error_message              :text
+#  id                       :integer          not null, primary key
+#  user_id                  :integer
+#  note                     :text
+#  executed_at              :datetime
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  agent_import_fingerprint :string
+#  error_message            :text
+#  edit_mode                :string
+#  user_encoding            :string
+#  attachment_data          :jsonb
 #
-

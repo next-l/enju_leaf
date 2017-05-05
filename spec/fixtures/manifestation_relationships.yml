@@ -1,30 +1,29 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  parent_id: 1
-  child_id: 2
+  parent_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  child_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
   manifestation_relationship_type_id: 1
 
 two:
-  parent_id: 2
-  child_id: 3
+  parent_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
+  child_id: 6bd50ef9-5c1a-413b-b6a3-faa832bead79
   manifestation_relationship_type_id: 1
 
 serial:
-  parent_id: 201
-  child_id: 202
+  parent_id: 28c029d5-f868-457c-9f04-bfb1a71ab8b7
+  child_id: 4e7bf5fa-21db-4171-bcec-50f20b9dd9f3
   manifestation_relationship_type_id: 1
 
 # == Schema Information
 #
 # Table name: manifestation_relationships
 #
-#  id                                 :integer         not null, primary key
-#  parent_id                          :integer
-#  child_id                           :integer
+#  id                                 :integer          not null, primary key
+#  parent_id                          :uuid
+#  child_id                           :uuid
 #  manifestation_relationship_type_id :integer
-#  created_at                         :datetime
-#  updated_at                         :datetime
+#  created_at                         :datetime         not null
+#  updated_at                         :datetime         not null
 #  position                           :integer
 #
-

@@ -1,12 +1,12 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 one:
   id: 1
-  name: enju_library
-  display_name_translations: {"en": "Enju Library", "ja": "えんじゅ図書館"}
-  short_name: enju_library
+  name: unknown
+  display_name_translations: {"en": "unknown", "ja": "不明"}
+  short_name: unknown
   note: 
   my_networks: "0.0.0.0/0"
-  url: "http://localhost/"
+  url: "http://localhost:3000/"
   position: 1
   login_banner_translations: {"en": "*Next-L Enju*", "ja": "*Next-L Enju*"}
   admin_networks: "0.0.0.0/0"

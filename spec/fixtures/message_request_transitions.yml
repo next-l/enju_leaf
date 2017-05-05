@@ -1,0 +1,20 @@
+message_request_transition_00001:
+  id: 1
+  to_state: pending
+  message_request_id: 1
+  sort_key: 0
+  most_recent: true
+
+# == Schema Information
+#
+# Table name: message_request_transitions
+#
+#  id                 :integer          not null, primary key
+#  to_state           :string
+#  metadata           :jsonb
+#  sort_key           :integer
+#  message_request_id :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  most_recent        :boolean
+#

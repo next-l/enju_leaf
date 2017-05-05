@@ -1,4 +1,4 @@
-class AddPostponedAtToReserve < ActiveRecord::Migration[5.0]
+class AddPostponedAtToReserve < ActiveRecord::Migration
   def change
     add_column :reserves, :postponed_at, :datetime
   end

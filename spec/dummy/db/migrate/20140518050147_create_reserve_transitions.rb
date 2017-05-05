@@ -2,9 +2,9 @@ class CreateReserveTransitions < ActiveRecord::Migration[5.0]
   def change
     create_table :reserve_transitions do |t|
       t.string :to_state, null: false
-      t.jsonb :metadata, default: '{}'
+      t.jsonb :metadata, default: {}
       t.integer :sort_key, null: false
-      t.integer :reserve_id, null: false
+      t.uuid :reserve_id, null: false
       t.timestamps null: false
     end
 

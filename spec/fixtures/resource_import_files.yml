@@ -9,23 +9,22 @@ resource_import_file_00002:
 resource_import_file_00003:
   id: 3
   user_id: 1
+  default_shelf_id: 1
 
 # == Schema Information
 #
 # Table name: resource_import_files
 #
-#  id                           :integer         not null, primary key
-#  parent_id                    :integer
-#  size                         :integer
-#  user_id                      :integer
-#  note                         :text
-#  executed_at                  :datetime
-#  state                        :string(255)
-#  resource_import_updated_at   :datetime
-#  created_at                   :datetime        not null
-#  updated_at                   :datetime        not null
-#  edit_mode                    :string(255)
-#  resource_import_fingerprint  :string(255)
-#  error_message                :text
+#  id                          :integer          not null, primary key
+#  user_id                     :integer
+#  note                        :text
+#  executed_at                 :datetime
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#  edit_mode                   :string
+#  resource_import_fingerprint :string
+#  error_message               :text
+#  user_encoding               :string
+#  default_shelf_id            :integer
+#  attachment_data             :jsonb
 #
-

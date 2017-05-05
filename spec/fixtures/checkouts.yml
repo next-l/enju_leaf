@@ -4,161 +4,171 @@ checkout_00001:
   updated_at: 2007-09-08 01:20:22.000026 +09:00
   lock_version: 0
   user_id: 1
-  id: 1
+  id: 5c70d8a6-7aba-4232-a809-dab3fa4194fd
   librarian_id: 1
   checkout_renewal_count: 0
   due_date: <%= 2.day.from_now.beginning_of_day.to_s(:db) %>
   created_at: 2007-09-08 01:19:02.285850 +09:00
-  basket_id: 1
+  library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
+  shelf_id: 7dcedc02-df58-4f89-8f5f-9a823430dd8a
 checkout_00002: 
   item_id: d08f854f-07ef-46e6-a461-0bb658032c4b
   updated_at: 2007-09-08 01:34:25.103403 +09:00
   lock_version: 0
   user_id: 1
-  id: 2
+  id: 8e4ce9cd-b543-4d75-8bb3-b0bb1b2c9670
   librarian_id: 1
   checkout_renewal_count: 0
   due_date: <%= 2.day.from_now.beginning_of_day.to_s(:db) %>
   created_at: 2007-09-08 01:34:07.363023 +09:00
-  basket_id: 1
+  library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
+  shelf_id: 7dcedc02-df58-4f89-8f5f-9a823430dd8a
 checkout_00003: 
   item_id: 77a1c54a-d903-4b9d-b35c-4aa0be1c56ef
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 3
-  id: 3
+  id: c9589c67-f6fe-4955-8dad-b726bef0033c
   librarian_id: 1
   checkout_renewal_count: 0
   due_date: <%= 2.day.from_now.beginning_of_day.to_s(:db) %>
   created_at: 2007-09-08 01:39:03.210081 +09:00
-  basket_id: 2
+  library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
+  shelf_id: 7dcedc02-df58-4f89-8f5f-9a823430dd8a
 checkout_00004: 
   item_id: deb7a2a8-7fde-4735-88cd-b4b8c5cf8b85
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 1
-  id: 4
+  id: 2c8bceed-c6b3-4f2e-8043-e92dd0494507
   librarian_id: 1
   checkout_renewal_count: 0
   due_date: <%= 2.day.from_now.beginning_of_day.to_s(:db) %>
   created_at: 2007-09-08 01:39:04.210081 +09:00
-  basket_id: 3
+  library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
+  shelf_id: 7dcedc02-df58-4f89-8f5f-9a823430dd8a
 checkout_00005: 
   item_id: 130bed42-5794-4403-9c8e-40a921a9258a
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 2
-  id: 5
+  id: b07f79b0-e074-46bf-a35e-974cc2db9efb
   librarian_id: 1
   checkout_renewal_count: 0
   due_date: <%= 2.day.from_now.beginning_of_day.to_s(:db) %>
   created_at: 2007-09-08 01:39:05.210081 +09:00
-  basket_id: 4
+  library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
+  shelf_id: 7dcedc02-df58-4f89-8f5f-9a823430dd8a
 checkout_00006:
   item_id: dc4cd3f3-0b3d-4b81-9a1a-9ebdfb484131
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 2
-  id: 6
+  id: e7d7d7c0-71e8-4485-bc4d-be90f68d1775
   librarian_id: 2
   checkout_renewal_count: 0
   due_date: 2010-09-15 00:00:00 +09:00
   created_at: 2007-09-08 01:39:06.210081 +09:00
+  library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
+  shelf_id: 7dcedc02-df58-4f89-8f5f-9a823430dd8a
 checkout_00007: 
   item_id: dc4cd3f3-0b3d-4b81-9a1a-9ebdfb484131
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 1
-  id: 7
+  id: 972c3f34-83f3-4289-b28b-c530961844e1
   librarian_id: 1
   checkout_renewal_count: 0
   due_date: <%= 2.day.from_now.beginning_of_day.to_s(:db) %>
   created_at: 2007-09-08 01:39:07.210081 +09:00
-  basket_id: 5
+  library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
+  shelf_id: 7dcedc02-df58-4f89-8f5f-9a823430dd8a
 checkout_00008: 
   item_id: 7236fc07-8294-46f6-98c4-b8f32a7ba0d6
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 2
-  id: 8
+  id: 09068395-4b5f-4910-9cb5-e011dee6dac8
   librarian_id: 1
   checkout_renewal_count: 0
   due_date: <%= 2.day.from_now.beginning_of_day.to_s(:db) %>
   created_at: 2007-09-08 01:39:08.210081 +09:00
-  basket_id: 6
+  library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
+  shelf_id: 7dcedc02-df58-4f89-8f5f-9a823430dd8a
 checkout_00009: 
   item_id: b1b7a3cb-27af-4220-8df9-7ed2ab1ad7ab
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 3
-  id: 9
+  id: cb949079-d5ad-4a3d-a3b0-25f047024989
   librarian_id: 1
   checkout_renewal_count: 1
   due_date: <%= 2.day.from_now.beginning_of_day.to_s(:db) %>
   created_at: 2007-09-08 01:39:09.210081 +09:00
-  basket_id: 7
+  library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
+  shelf_id: 7dcedc02-df58-4f89-8f5f-9a823430dd8a
 checkout_00010: 
   item_id: 3fc74a1e-801c-4773-83bc-02755fee948a
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 3
-  id: 10
+  id: c5210ddc-bd59-4b5d-bd32-ffce5e5e4a78
   librarian_id: 1
   checkout_renewal_count: 1
   due_date: <%= 2.day.from_now.beginning_of_day.to_s(:db) %>
   created_at: 2007-09-08 01:39:10.210081 +09:00
-  basket_id: 7
+  library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
+  shelf_id: 7dcedc02-df58-4f89-8f5f-9a823430dd8a
 checkout_00011: 
   item_id: 3ac48dcb-7b69-42e6-a48c-06f017bf3ad2
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 1
-  id: 11
+  id: 33981443-0d59-4f56-bfc1-204914bc4d1a
   librarian_id: 1
   checkout_renewal_count: 1
   due_date: <%= 180.days.ago.beginning_of_day.to_s(:db) %>
   created_at: 2007-09-08 01:39:11.210081 +09:00
-  basket_id: 7
+  library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
+  shelf_id: 7dcedc02-df58-4f89-8f5f-9a823430dd8a
 checkout_00012: 
   item_id: 804a744a-3d95-439e-8853-61c21ba704d1
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 3
-  id: 12
+  id: d0227e8b-0314-48af-99d0-eb60c6dc5270
   librarian_id: 1
   checkout_renewal_count: 1
   due_date: <%= 180.days.ago.beginning_of_day.to_s(:db) %>
   created_at: 2007-09-08 01:39:12.210081 +09:00
-  basket_id: 8
-  checkin_id: 5
+  library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
+  shelf_id: 7dcedc02-df58-4f89-8f5f-9a823430dd8a
 checkout_00013: 
   item_id: dc4cd3f3-0b3d-4b81-9a1a-9ebdfb484131
   updated_at: 2007-09-09 21:15:11.648996 +09:00
   lock_version: 0
   user_id: 3
-  id: 13
+  id: a15ef1ca-61fe-48c8-b148-ac80b5cd87bc
   librarian_id: 1
   checkout_renewal_count: 1
   due_date: <%= 180.days.ago.beginning_of_day.to_s(:db) %>
   created_at: 2007-09-08 01:39:13.210081 +09:00
-  basket_id: 8
-  checkin_id: 4
+  library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
+  shelf_id: 7dcedc02-df58-4f89-8f5f-9a823430dd8a
 
 # == Schema Information
 #
 # Table name: checkouts
 #
-#  id                     :integer          not null, primary key
+#  id                     :uuid             not null, primary key
 #  user_id                :integer
 #  item_id                :uuid             not null
-#  checkin_id             :integer
 #  librarian_id           :integer
-#  basket_id              :integer
 #  due_date               :datetime
 #  checkout_renewal_count :integer          default(0), not null
 #  lock_version           :integer          default(0), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  shelf_id               :integer
-#  library_id             :integer
+#  shelf_id               :uuid             not null
+#  library_id             :uuid             not null
 #

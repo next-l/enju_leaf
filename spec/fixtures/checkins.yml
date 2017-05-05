@@ -1,53 +1,53 @@
 --- 
 checkin_00001: 
-  item_id: 0f77c21a-6e9c-460e-b49c-3fd567dbd49c
   updated_at: 2008-01-22 12:58:54.347742 +09:00
   id: 1
   librarian_id: 1
   created_at: 2008-01-22 12:58:54.347742 +09:00
-  basket_id: 9
+  basket_id: d2f6b2ac-6b59-424f-84e8-610f9399650b
   lock_version: 0
+  checkout_id: 5c70d8a6-7aba-4232-a809-dab3fa4194fd
 checkin_00002: 
-  item_id: b1b7a3cb-27af-4220-8df9-7ed2ab1ad7ab
   updated_at: 2007-12-14 00:28:41.854022 +09:00
   id: 2
   librarian_id: 2
   created_at: 2007-12-14 00:28:41.854022 +09:00
-  basket_id: 10
+  basket_id: 34f2c1ec-93ee-4052-9980-ad90bf3b1999
   lock_version: 0
+  checkout_id: 8e4ce9cd-b543-4d75-8bb3-b0bb1b2c9670
 checkin_00003: 
-  item_id: 7236fc07-8294-46f6-98c4-b8f32a7ba0d6
   updated_at: 2007-12-20 21:24:18.729192 +09:00
-  id: 3
+  id: c9589c67-f6fe-4955-8dad-b726bef0033c
   librarian_id: 1
   created_at: 2007-12-20 21:24:18.729192 +09:00
-  basket_id: 10
+  basket_id: 34f2c1ec-93ee-4052-9980-ad90bf3b1999
   lock_version: 0
+  checkout_id: c9589c67-f6fe-4955-8dad-b726bef0033c
 checkin_00004: 
-  item_id: dc4cd3f3-0b3d-4b81-9a1a-9ebdfb484131
   updated_at: 2008-01-23 00:39:27.785676 +09:00
   id: 4
   librarian_id: 2
   created_at: 2008-01-23 00:39:27.785676 +09:00
-  basket_id: 10
+  basket_id: 34f2c1ec-93ee-4052-9980-ad90bf3b1999
   lock_version: 0
+  checkout_id: a15ef1ca-61fe-48c8-b148-ac80b5cd87bc
 checkin_00005: 
-  item_id: 804a744a-3d95-439e-8853-61c21ba704d1
   updated_at: 2007-12-20 21:25:04.619479 +09:00
   id: 5
   librarian_id: 1
   created_at: 2007-12-20 21:25:04.619479 +09:00
-  basket_id: 10
+  basket_id: 34f2c1ec-93ee-4052-9980-ad90bf3b1999
   lock_version: 0
+  checkout_id: d0227e8b-0314-48af-99d0-eb60c6dc5270
 
 # == Schema Information
 #
 # Table name: checkins
 #
 #  id           :integer          not null, primary key
-#  item_id      :uuid             not null
+#  checkout_id  :uuid             not null
 #  librarian_id :integer          not null
-#  basket_id    :integer          not null
+#  basket_id    :uuid             not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  lock_version :integer          default(0), not null

@@ -1,8 +1,8 @@
-class CreateUserReserveStatTransitions < ActiveRecord::Migration[5.0]
+class CreateUserReserveStatTransitions < ActiveRecord::Migration
   def change
     create_table :user_reserve_stat_transitions do |t|
       t.string :to_state, null: false
-      t.jsonb :metadata, default: "{}"
+      t.jsonb :metadata, default: {}
       t.integer :sort_key, null: false
       t.integer :user_reserve_stat_id, null: false
       t.timestamps null: false

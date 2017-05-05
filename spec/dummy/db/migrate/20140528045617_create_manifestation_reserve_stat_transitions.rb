@@ -1,8 +1,8 @@
-class CreateManifestationReserveStatTransitions < ActiveRecord::Migration[5.0]
+class CreateManifestationReserveStatTransitions < ActiveRecord::Migration
   def change
     create_table :manifestation_reserve_stat_transitions do |t|
       t.string :to_state, null: false
-      t.jsonb :metadata, default: "{}"
+      t.jsonb :metadata, default: {}
       t.integer :sort_key, null: false
       t.integer :manifestation_reserve_stat_id, null: false
       t.timestamps null: false

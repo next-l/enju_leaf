@@ -93,7 +93,7 @@ user_group_has_checkout_type_00008:
 # Table name: user_group_has_checkout_types
 #
 #  id                              :integer          not null, primary key
-#  user_group_id                   :uuid             not null
+#  user_group_id                   :integer          not null
 #  checkout_type_id                :integer          not null
 #  checkout_limit                  :integer          default(0), not null
 #  checkout_period                 :integer          default(0), not null
@@ -108,3 +108,4 @@ user_group_has_checkout_type_00008:
 #  updated_at                      :datetime         not null
 #  current_checkout_count          :integer
 #
+

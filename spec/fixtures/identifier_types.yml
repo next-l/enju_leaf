@@ -1,0 +1,42 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: isbn
+  display_name: ISBN
+  note: 
+  position: 1
+  id: 1
+
+two:
+  name: issn
+  display_name: ISSN
+  note: 
+  position: 2
+  id: 2
+
+three:
+  name: jpno
+  display_name: JPNO
+  note: 
+  position: 3
+  id: 3
+
+four:
+  name: ncid
+  display_name: NCID
+  note: 
+  position: 4
+  id: 4
+
+# == Schema Information
+#
+# Table name: identifier_types
+#
+#  id           :integer          not null, primary key
+#  name         :string
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#

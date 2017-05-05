@@ -1,6 +1,5 @@
 class AddPickupLocationToReserve < ActiveRecord::Migration[5.0]
   def change
-    add_column :reserves, :pickup_location_id, :integer
-    add_index :reserves, :pickup_location_id
+    add_reference :reserves, :pickup_location, foreign_key: {to_table: :libraries}, null: false, type: :uuid
   end
 end

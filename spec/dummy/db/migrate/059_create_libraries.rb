@@ -20,7 +20,6 @@ class CreateLibraries < ActiveRecord::Migration[5.0]
       t.integer :country_id
 
       t.timestamps
-      t.datetime :deleted_at
     end
     add_index :libraries, :library_group_id
   end

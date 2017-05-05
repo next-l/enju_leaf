@@ -1,6 +1,5 @@
 class AddShelfIdToCheckout < ActiveRecord::Migration[5.0]
   def change
-    add_column :checkouts, :shelf_id, :integer
-    add_index :checkouts, :shelf_id
+    add_reference :checkouts, :shelf, foreign_key: true, null: false, type: :uuid
   end
 end
