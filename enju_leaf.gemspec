@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency "enju_seed", "~> 0.3.0.beta.3"
   #s.add_dependency "enju_library", "~> 0.2.0.beta.1"
   #s.add_dependency "enju_manifestation_viewer", "~> 0.2.0.beta.1"
-  s.add_dependency "elasticsearch-rails", "~> 5.0"
+  #s.add_dependency "elasticsearch-rails", "~> 5.0"
   s.add_dependency "bootstrap-sass", "~> 3.3.7"
   s.add_dependency "slim-rails"
   #s.add_dependency "postrank-uri"
