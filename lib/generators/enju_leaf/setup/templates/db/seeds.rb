@@ -5,6 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
+#   Character.create(name: 'Luke', movie: movies.first)
 username = 'enjuadmin'
 email = 'admin@example.jp'
 password = 'adminpassword'
@@ -34,10 +41,10 @@ system_user.username = 'system'
 system_user.password = SecureRandom.urlsafe_base64(32)
 system_user.email = 'root@library.example.jp'
 system_user.role = Role.where(name: 'Administrator').first
-system_user.save!
 system_profile = new_profile
-system_profile.user = system_user
 system_profile.save!
+system_user.profile = system_profile
+system_user.save!
 
 user = User.new
 user.username = username
@@ -46,9 +53,9 @@ user.password = password
 user.password_confirmation = password
 #user.confirm!
 user.role = Role.where(name: 'Administrator').first
-user.save!
 profile = new_profile
 profile.user_number = '0'
-profile.user = user
 profile.save!
+user.profile = profile
+user.save!
 puts 'Administrator account created.'
