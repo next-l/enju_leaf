@@ -1,3 +1,4 @@
+//= require jquery3
 //= require jquery.ui.all
 //= require jquery.colorbox
 //= require jquery.highlight
