@@ -1,4 +1,4 @@
-class CreateColors < ActiveRecord::Migration[[5.1]1]
+class CreateColors < ActiveRecord::Migration[5.1]
   def change
     create_table :colors do |t|
       t.integer :library_group_id

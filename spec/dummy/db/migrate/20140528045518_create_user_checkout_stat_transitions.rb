@@ -1,4 +1,4 @@
-class CreateUserCheckoutStatTransitions < ActiveRecord::Migration[[5.1]1]
+class CreateUserCheckoutStatTransitions < ActiveRecord::Migration[5.1]
   def change
     create_table :user_checkout_stat_transitions do |t|
       t.string :to_state, null: false
