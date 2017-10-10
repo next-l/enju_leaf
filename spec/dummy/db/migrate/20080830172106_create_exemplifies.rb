@@ -1,4 +1,4 @@
-class CreateExemplifies < ActiveRecord::Migration[5.0]
+class CreateExemplifies < ActiveRecord::Migration[5.1]
   def change
     create_table :exemplifies do |t|
       t.references :manifestation, foreign_key: true, null: false, type: :uuid

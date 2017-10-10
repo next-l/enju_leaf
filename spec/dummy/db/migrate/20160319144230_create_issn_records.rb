@@ -1,4 +1,4 @@
-class CreateIssnRecords < ActiveRecord::Migration[5.0]
+class CreateIssnRecords < ActiveRecord::Migration[5.1]
   def change
     create_table :issn_records do |t|
       t.string :body, index: {unique: true}, null: false

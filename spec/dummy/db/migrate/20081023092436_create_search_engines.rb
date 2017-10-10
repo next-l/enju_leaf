@@ -1,4 +1,4 @@
-class CreateSearchEngines < ActiveRecord::Migration[5.0]
+class CreateSearchEngines < ActiveRecord::Migration[5.1]
   def change
     create_table :search_engines do |t|
       t.string :name, index: {unique: true}, null: false

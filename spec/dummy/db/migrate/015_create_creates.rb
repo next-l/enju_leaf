@@ -1,4 +1,4 @@
-class CreateCreates < ActiveRecord::Migration[5.0]
+class CreateCreates < ActiveRecord::Migration[5.1]
   def change
     create_table :creates do |t|
       t.references :agent, null: false, foreign_key: true

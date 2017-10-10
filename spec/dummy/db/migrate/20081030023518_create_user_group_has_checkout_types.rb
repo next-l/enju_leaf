@@ -1,4 +1,4 @@
-class CreateUserGroupHasCheckoutTypes < ActiveRecord::Migration[5.0]
+class CreateUserGroupHasCheckoutTypes < ActiveRecord::Migration[5.1]
   def change
     create_table :user_group_has_checkout_types do |t|
       t.references :user_group, foreign_key: true, null: false, type: :uuid

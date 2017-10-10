@@ -1,4 +1,4 @@
-class CreateCheckedItems < ActiveRecord::Migration[5.0]
+class CreateCheckedItems < ActiveRecord::Migration[5.1]
   def change
     create_table :checked_items do |t|
       t.references :item, null: false, foreign_key: true, type: :uuid

@@ -1,4 +1,4 @@
-class CreateUserHasRoles < ActiveRecord::Migration[5.0]
+class CreateUserHasRoles < ActiveRecord::Migration[5.1]
   def change
     create_table :user_has_roles do |t|
       t.references :user, foreign_key: {on_delete: :cascade}, null: false

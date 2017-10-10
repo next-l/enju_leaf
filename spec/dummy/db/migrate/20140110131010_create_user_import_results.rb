@@ -1,4 +1,4 @@
-class CreateUserImportResults < ActiveRecord::Migration[5.0]
+class CreateUserImportResults < ActiveRecord::Migration[5.1]
   def change
     create_table :user_import_results do |t|
       t.references :user_import_file, foreign_key: true, null: false

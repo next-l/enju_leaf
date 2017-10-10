@@ -1,4 +1,4 @@
-class CreateMessages < ActiveRecord::Migration[5.0]
+class CreateMessages < ActiveRecord::Migration[5.1]
   def change
     create_table :messages, force: true, id: :uuid, default: 'gen_random_uuid()' do |t|
       t.datetime :read_at

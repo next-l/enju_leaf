@@ -1,4 +1,4 @@
-class CreateProfiles < ActiveRecord::Migration[5.0]
+class CreateProfiles < ActiveRecord::Migration[5.1]
   def change
     create_table :profiles, id: :uuid, default: 'gen_random_uuid()' do |t|
       t.references :user_group, type: :uuid

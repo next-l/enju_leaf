@@ -1,4 +1,4 @@
-class CreateBudgetTypes < ActiveRecord::Migration[5.0]
+class CreateBudgetTypes < ActiveRecord::Migration[5.1]
   def change
     create_table :budget_types do |t|
       t.string :name, index: {unique: true}, null: false

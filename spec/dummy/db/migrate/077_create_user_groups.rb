@@ -1,4 +1,4 @@
-class CreateUserGroups < ActiveRecord::Migration[5.0]
+class CreateUserGroups < ActiveRecord::Migration[5.1]
   def change
     create_table :user_groups, id: :uuid, default: 'gen_random_uuid()' do |t|
       t.string :name, index: {unique: true}, null: true

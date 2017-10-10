@@ -1,4 +1,4 @@
-class CreateOwns < ActiveRecord::Migration[5.0]
+class CreateOwns < ActiveRecord::Migration[5.1]
   def change
     create_table :owns do |t|
       t.references :agent, null: false, foreign_key: true

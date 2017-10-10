@@ -1,4 +1,4 @@
-class CreateUserReserveStats < ActiveRecord::Migration
+class CreateUserReserveStats < ActiveRecord::Migration[[5.1]1]
   def self.up
     create_table :user_reserve_stats do |t|
       t.datetime :start_date

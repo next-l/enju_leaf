@@ -1,4 +1,4 @@
-class CreateRealizeTypes < ActiveRecord::Migration[5.0]
+class CreateRealizeTypes < ActiveRecord::Migration[5.1]
   def change
     create_table :realize_types do |t|
       t.string :name

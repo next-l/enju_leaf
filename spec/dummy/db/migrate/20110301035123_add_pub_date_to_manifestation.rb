@@ -1,4 +1,4 @@
-class AddPubDateToManifestation < ActiveRecord::Migration[5.0]
+class AddPubDateToManifestation < ActiveRecord::Migration[5.1]
   def self.up
     add_column :manifestations, :pub_date, :string
   end

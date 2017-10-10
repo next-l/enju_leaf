@@ -1,4 +1,4 @@
-class CreateMessageRequestTransitions < ActiveRecord::Migration[5.0]
+class CreateMessageRequestTransitions < ActiveRecord::Migration[5.1]
   def change
     create_table :message_request_transitions do |t|
       t.string :to_state

@@ -1,4 +1,4 @@
-class CreateItems < ActiveRecord::Migration[5.0]
+class CreateItems < ActiveRecord::Migration[5.1]
   def change
     create_table :items, id: :uuid, default: 'gen_random_uuid()' do |t|
       t.string :call_number

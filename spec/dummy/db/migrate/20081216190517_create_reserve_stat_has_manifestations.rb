@@ -1,4 +1,4 @@
-class CreateReserveStatHasManifestations < ActiveRecord::Migration[5.0]
+class CreateReserveStatHasManifestations < ActiveRecord::Migration[5.1]
   def change
     create_table :reserve_stat_has_manifestations do |t|
       t.integer :manifestation_reserve_stat_id, null: false

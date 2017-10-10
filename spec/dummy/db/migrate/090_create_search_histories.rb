@@ -1,9 +1,9 @@
-class CreateSearchHistories < ActiveRecord::Migration[5.0]
+class CreateSearchHistories < ActiveRecord::Migration[5.1]
   def self.up
     create_table :search_histories do |t|
       t.integer :user_id
       t.string :operation, :default => 'searchRetrieve'
-      t.float :version, :default => 1.2
+      t.float :version, :default => [5.1]2
       t.string :query
       t.integer :start_record
       t.integer :maximum_records

@@ -1,4 +1,4 @@
-class CreateRetainAndCheckouts < ActiveRecord::Migration[5.0]
+class CreateRetainAndCheckouts < ActiveRecord::Migration[5.1]
   def change
     create_table :retain_and_checkouts do |t|
       t.references :retain, foreign_key: {on_delete: :cascade}, null: false

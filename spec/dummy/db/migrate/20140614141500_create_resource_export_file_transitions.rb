@@ -1,4 +1,4 @@
-class CreateResourceExportFileTransitions < ActiveRecord::Migration[5.0]
+class CreateResourceExportFileTransitions < ActiveRecord::Migration[5.1]
   def change
     create_table :resource_export_file_transitions do |t|
       t.string :to_state

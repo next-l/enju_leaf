@@ -1,4 +1,4 @@
-class CreateManifestationRelationships < ActiveRecord::Migration[5.0]
+class CreateManifestationRelationships < ActiveRecord::Migration[5.1]
   def change
     create_table :manifestation_relationships do |t|
       t.uuid :parent_id, index: true

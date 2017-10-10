@@ -1,4 +1,4 @@
-class CreateUserImportFileTransitions < ActiveRecord::Migration[5.0]
+class CreateUserImportFileTransitions < ActiveRecord::Migration[5.1]
   def change
     create_table :user_import_file_transitions do |t|
       t.string :to_state

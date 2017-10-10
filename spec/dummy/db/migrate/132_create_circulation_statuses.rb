@@ -1,4 +1,4 @@
-class CreateCirculationStatuses < ActiveRecord::Migration[5.0]
+class CreateCirculationStatuses < ActiveRecord::Migration[5.1]
   def change
     create_table :circulation_statuses do |t|
       t.string :name, null: false, index: {unique: true}

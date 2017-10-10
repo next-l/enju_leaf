@@ -1,4 +1,4 @@
-class AddMostRecentToMessageRequestTransitions < ActiveRecord::Migration[5.0]
+class AddMostRecentToMessageRequestTransitions < ActiveRecord::Migration[5.1]
   def up
     add_column :message_request_transitions, :most_recent, :boolean, null: true
   end

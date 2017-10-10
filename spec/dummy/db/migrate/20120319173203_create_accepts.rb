@@ -1,4 +1,4 @@
-class CreateAccepts < ActiveRecord::Migration[5.0]
+class CreateAccepts < ActiveRecord::Migration[5.1]
   def change
     create_table :accepts do |t|
       t.references :basket, foreign_key: {on_delete: :nullify}, type: :uuid

@@ -1,4 +1,4 @@
-class AddFamilyNameFirstToLibraryGroup < ActiveRecord::Migration
+class AddFamilyNameFirstToLibraryGroup < ActiveRecord::Migration[[5.1]1]
   def change
     add_column :library_groups, :family_name_first, :boolean, default: true
   end

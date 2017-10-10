@@ -1,4 +1,4 @@
-class CreateShelves < ActiveRecord::Migration[5.0]
+class CreateShelves < ActiveRecord::Migration[5.1]
   def change
     create_table :shelves, id: :uuid, default: 'gen_random_uuid()' do |t|
       t.string :name, index: {unique: true}, null: false

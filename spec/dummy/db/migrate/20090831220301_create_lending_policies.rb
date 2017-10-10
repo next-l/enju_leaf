@@ -1,4 +1,4 @@
-class CreateLendingPolicies < ActiveRecord::Migration[5.0]
+class CreateLendingPolicies < ActiveRecord::Migration[5.1]
   def change
     create_table :lending_policies do |t|
       t.references :item, null: false, foreign_key: true, type: :uuid

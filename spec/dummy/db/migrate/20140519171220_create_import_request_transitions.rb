@@ -1,4 +1,4 @@
-class CreateImportRequestTransitions < ActiveRecord::Migration[5.0]
+class CreateImportRequestTransitions < ActiveRecord::Migration[5.1]
   def change
     create_table :import_request_transitions do |t|
       t.string :to_state

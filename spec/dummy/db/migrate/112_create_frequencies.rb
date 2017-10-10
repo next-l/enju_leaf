@@ -1,4 +1,4 @@
-class CreateFrequencies < ActiveRecord::Migration[5.0]
+class CreateFrequencies < ActiveRecord::Migration[5.1]
   def change
     create_table :frequencies do |t|
       t.string :name, index: {unique: true}, null: false

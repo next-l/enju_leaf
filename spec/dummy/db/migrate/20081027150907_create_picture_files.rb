@@ -1,4 +1,4 @@
-class CreatePictureFiles < ActiveRecord::Migration[5.0]
+class CreatePictureFiles < ActiveRecord::Migration[5.1]
   def change
     create_table :picture_files do |t|
       t.uuid :picture_attachable_id, null: false

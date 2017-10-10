@@ -1,4 +1,4 @@
-class CreateCheckouts < ActiveRecord::Migration[5.0]
+class CreateCheckouts < ActiveRecord::Migration[5.1]
   def change
     create_table :checkouts, id: :uuid, default: 'gen_random_uuid()' do |t|
       t.references :user, foreign_key: true

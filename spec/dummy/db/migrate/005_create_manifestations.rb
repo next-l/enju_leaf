@@ -1,4 +1,4 @@
-class CreateManifestations < ActiveRecord::Migration[5.0]
+class CreateManifestations < ActiveRecord::Migration[5.1]
   def change
     create_table :manifestations, id: :uuid, default: 'gen_random_uuid()' do |t|
       t.text :original_title, null: false

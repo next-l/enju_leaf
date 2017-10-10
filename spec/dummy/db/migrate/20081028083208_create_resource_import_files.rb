@@ -1,4 +1,4 @@
-class CreateResourceImportFiles < ActiveRecord::Migration[5.0]
+class CreateResourceImportFiles < ActiveRecord::Migration[5.1]
   def change
     create_table :resource_import_files do |t|
       t.references :user, foreign_key: true

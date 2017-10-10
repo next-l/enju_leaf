@@ -1,4 +1,4 @@
-class CreateBaskets < ActiveRecord::Migration[5.0]
+class CreateBaskets < ActiveRecord::Migration[5.1]
   def change
     create_table :baskets, id: :uuid, default: 'gen_random_uuid()' do |t|
       t.references :user, foreign_key: true
