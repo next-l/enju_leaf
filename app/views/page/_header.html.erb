@@ -1,7 +1,10 @@
 <div class="header_and_footer">
   <div id="header_left">
     <div id="library_system_name">
-      <h1 class="resource_title"><%= link_to LibraryGroup.system_name(@locale), root_path, title: LibraryGroup.system_name(@locale) %></h1>
+      <h1 class="resource_title">
+        <%# image_tag('enju_leaf/enju-logo-yoko-without-white.png', size: '180x90', style: 'margin-left: 20px; vertical-align: middle') %>
+        <%= link_to LibraryGroup.system_name(@locale), root_path, title: LibraryGroup.system_name(@locale) %>
+      </h1>
     </div>
     <div id="header_micro_advertisement"></div>
   </div>
