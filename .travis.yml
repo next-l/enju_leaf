@@ -9,9 +9,6 @@ before_script:
   - bundle exec rake db:migrate
 services:
   - redis-server
-gemfile:
-  - gemfiles/rails_4.2.gemfile
-  - gemfiles/rails_5.0.gemfile
 env:
   - DB=sqlite
   - DB=mysql
