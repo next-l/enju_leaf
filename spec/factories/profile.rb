@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :profile, :class => Profile do |f|
     f.user_group_id {UserGroup.first.id}
     f.required_role_id {Role.where(name: 'User').first.id}

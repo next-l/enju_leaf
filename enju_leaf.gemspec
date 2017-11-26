@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
   #s.add_development_dependency "enju_search_log", "~> 0.2.0.beta.1"
   s.add_development_dependency "vcr"
   s.add_development_dependency "simplecov"
-  s.add_development_dependency "factory_girl_rails"
+  s.add_development_dependency "factory_bot_rails"
   s.add_development_dependency "sunspot_matchers"
   s.add_development_dependency "rspec-activemodel-mocks"
   #s.add_development_dependency "charlock_holmes"
