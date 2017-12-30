@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :own do |f|
-    f.item_id{FactoryGirl.create(:item).id}
-    f.agent_id{FactoryGirl.create(:agent).id}
+    f.item_id{FactoryBot.create(:item).id}
+    f.agent_id{FactoryBot.create(:agent).id}
   end
 end

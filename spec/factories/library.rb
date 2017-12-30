@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :library do |f|
     f.sequence(:name){|n| "library#{n}"}
     f.sequence(:short_display_name){|n| "library_#{n}"}
@@ -6,7 +6,7 @@ FactoryGirl.define do
   end
 end
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :invalid_library, :class => Library do |f|
     f.library_group_id{LibraryGroup.first.id}
   end

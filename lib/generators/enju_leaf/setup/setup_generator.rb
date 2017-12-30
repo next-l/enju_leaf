@@ -33,7 +33,6 @@ EOS
     end
     generate("devise:install")
     generate("devise", "User")
-    gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
     gsub_file 'app/models/user.rb', /, :trackable, :validatable$/, <<EOS
 , :trackable, #:validatable, 
       :lockable, :lock_strategy => :none, :unlock_strategy => :none

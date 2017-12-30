@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :country do |f|
     f.sequence(:name){|n| "country_#{n}"}
     f.sequence(:alpha_2){|n| "alpha_2_#{n}"}

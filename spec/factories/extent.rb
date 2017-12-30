@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :extent do |f|
     f.sequence(:name){|n| "extent_#{n}"}
   end
