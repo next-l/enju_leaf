@@ -42,6 +42,9 @@ EOS
   include EnjuSeed::EnjuUser
 EOS
     gsub_file 'app/controllers/application_controller.rb', /protect_from_forgery with: :exception$/, 'protect_from_forgery with: :exception, prepend: true'
+    gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i'
+    gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [:email]', 'config.authentication_keys = [:username]'
+    gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
     generate("sunspot_rails:install")
     generate("kaminari:config")
     generate("kaminari:views bootstrap3")
@@ -65,9 +68,6 @@ EOS
   end
 EOS
     end
-    gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i'
-    gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [:email]', 'config.authentication_keys = [:username]'
-    gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
 
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
