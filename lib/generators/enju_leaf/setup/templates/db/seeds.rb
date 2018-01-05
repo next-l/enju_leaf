@@ -40,7 +40,7 @@ system_user = User.find_by(username: 'system') || User.new
 system_user.username = 'system'
 system_user.password = SecureRandom.urlsafe_base64(32)
 system_user.email = 'root@library.example.jp'
-system_user.role = Role.where(name: 'Administrator').first
+system_user.role = Role.find_by(name: 'Administrator')
 system_profile = new_profile
 system_profile.save!
 system_user.profile = system_profile
@@ -52,7 +52,7 @@ user.email = email
 user.password = password
 user.password_confirmation = password
 #user.confirm!
-user.role = Role.where(name: 'Administrator').first
+user.role = Role.find_by(name: 'Administrator')
 profile = new_profile
 profile.user_number = '0'
 profile.save!
