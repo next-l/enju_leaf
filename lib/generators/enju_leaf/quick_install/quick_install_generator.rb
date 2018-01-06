@@ -33,5 +33,6 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
     end
 
     rake("enju_library:upgrade")
+    rake("enju_leaf:load_asset_files")
   end
 end
