@@ -2,7 +2,7 @@
   <div id="header_left">
     <div id="library_system_name">
       <h1 class="resource_title">
-        <%= image_tag(library_group_path(@library_group, format: :download), style: 'margin-left: 20px; vertical-align: middle', size: @library_group.header_logo.image_size(:medium)) if @library_group.header_logo.path %>
+        <%= image_tag(library_group_path(@library_group, format: :download), style: 'margin-left: 20px; vertical-align: middle', size: @library_group.header_logo.image_size(:medium)) if @library_group.header_logo.exists? %>
         <%= link_to LibraryGroup.system_name(@locale), root_path, title: LibraryGroup.system_name(@locale) %>
       </h1>
     </div>
