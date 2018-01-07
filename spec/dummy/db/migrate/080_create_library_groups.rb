@@ -1,9 +1,9 @@
 class CreateLibraryGroups < ActiveRecord::Migration
   def change
     create_table :library_groups do |t|
-      t.string :name, :null => false
+      t.string :name, null: false
       t.text :display_name
-      t.string :short_name, :null => false
+      t.string :short_name, index: true, null: false
       t.text :my_networks
       t.text :login_banner
       t.text :note
@@ -12,6 +12,5 @@ class CreateLibraryGroups < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :library_groups, :short_name
   end
 end

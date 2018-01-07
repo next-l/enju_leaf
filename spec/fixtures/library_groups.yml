@@ -9,7 +9,6 @@ one:
     ::/0"
   url: "http://localhost:3000/"
   position: 1
-  login_banner: "*Next-L Enju*"
   admin_networks: "0.0.0.0/0\r\n\
     ::/0"
   user_id: 1
