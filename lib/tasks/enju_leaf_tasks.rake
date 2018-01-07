@@ -45,6 +45,7 @@ namespace :enju_leaf do
     library_group = LibraryGroup.order(created_at: :desc).first
     library_group.header_logo = File.open("#{File.dirname(__FILE__)}/../../app/assets/images/enju_leaf/enju-logo-yoko-without-white.png")
     library_group.save!
+    FileUtils.cp("#{File.dirname(__FILE__)}/../../app/assets/images/enju_leaf/favicon.ico", "#{Rails.root.to_s}/public/favicon.ico")
     puts 'enju_leaf: Default asset file(s) are loaded successfully.'
   end
 end
