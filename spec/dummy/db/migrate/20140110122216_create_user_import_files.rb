@@ -1,7 +1,7 @@
 class CreateUserImportFiles < ActiveRecord::Migration
   def change
     create_table :user_import_files do |t|
-      t.integer :user_id
+      t.references :user, index: true
       t.text :note
       t.datetime :executed_at
       t.string :user_import_file_name

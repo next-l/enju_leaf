@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160820004638) do
+ActiveRecord::Schema.define(version: 20180102162311) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer  "basket_id"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20160820004638) do
 
   add_index "accepts", ["basket_id"], name: "index_accepts_on_basket_id"
   add_index "accepts", ["item_id"], name: "index_accepts_on_item_id"
+  add_index "accepts", ["librarian_id"], name: "index_accepts_on_librarian_id"
 
   create_table "agent_import_file_transitions", force: :cascade do |t|
     t.string   "to_state"
@@ -159,12 +160,14 @@ ActiveRecord::Schema.define(version: 20160820004638) do
     t.string   "birth_date"
     t.string   "death_date"
     t.string   "agent_identifier"
+    t.integer  "profile_id"
   end
 
   add_index "agents", ["agent_identifier"], name: "index_agents_on_agent_identifier"
   add_index "agents", ["country_id"], name: "index_agents_on_country_id"
   add_index "agents", ["full_name"], name: "index_agents_on_full_name"
   add_index "agents", ["language_id"], name: "index_agents_on_language_id"
+  add_index "agents", ["profile_id"], name: "index_agents_on_profile_id"
   add_index "agents", ["required_role_id"], name: "index_agents_on_required_role_id"
 
   create_table "baskets", force: :cascade do |t|
@@ -611,7 +614,7 @@ ActiveRecord::Schema.define(version: 20160820004638) do
     t.string   "binding_item_identifier"
     t.string   "binding_call_number"
     t.datetime "binded_at"
-    t.integer  "manifestation_id"
+    t.integer  "manifestation_id",                        null: false
   end
 
   add_index "items", ["binding_item_identifier"], name: "index_items_on_binding_item_identifier"
@@ -668,7 +671,7 @@ ActiveRecord::Schema.define(version: 20160820004638) do
     t.text     "note"
     t.integer  "call_number_rows",      default: 1,   null: false
     t.string   "call_number_delimiter", default: "|", null: false
-    t.integer  "library_group_id",      default: 1,   null: false
+    t.integer  "library_group_id",                    null: false
     t.integer  "users_count",           default: 0,   null: false
     t.integer  "position"
     t.integer  "country_id"
@@ -682,7 +685,7 @@ ActiveRecord::Schema.define(version: 20160820004638) do
   end
 
   add_index "libraries", ["library_group_id"], name: "index_libraries_on_library_group_id"
-  add_index "libraries", ["name"], name: "index_libraries_on_name", unique: true
+  add_index "libraries", ["name"], name: "index_libraries_on_name"
 
   create_table "library_group_translations", force: :cascade do |t|
     t.integer  "library_group_id", null: false
@@ -701,7 +704,7 @@ ActiveRecord::Schema.define(version: 20160820004638) do
     t.text     "display_name"
     t.string   "short_name",                                                       null: false
     t.text     "my_networks"
-    t.text     "login_banner"
+    t.text     "old_login_banner"
     t.text     "note"
     t.integer  "country_id"
     t.integer  "position"
@@ -718,6 +721,12 @@ ActiveRecord::Schema.define(version: 20160820004638) do
     t.string   "screenshot_generator"
     t.integer  "pub_year_facet_range_interval", default: 10
     t.integer  "user_id"
+    t.boolean  "csv_charset_conversion",        default: false,                    null: false
+    t.string   "header_logo_file_name"
+    t.string   "header_logo_content_type"
+    t.integer  "header_logo_file_size"
+    t.datetime "header_logo_updated_at"
+    t.text     "header_logo_meta"
   end
 
   add_index "library_groups", ["short_name"], name: "index_library_groups_on_short_name"
@@ -848,7 +857,7 @@ ActiveRecord::Schema.define(version: 20160820004638) do
     t.datetime "valid_until"
     t.datetime "date_submitted"
     t.datetime "date_accepted"
-    t.datetime "date_caputured"
+    t.datetime "date_captured"
     t.string   "pub_date"
     t.string   "edition_string"
     t.integer  "volume_number"
@@ -1318,7 +1327,7 @@ ActiveRecord::Schema.define(version: 20160820004638) do
     t.string   "name",                         null: false
     t.text     "display_name"
     t.text     "note"
-    t.integer  "library_id",   default: 1,     null: false
+    t.integer  "library_id",                   null: false
     t.integer  "items_count",  default: 0,     null: false
     t.integer  "position"
     t.datetime "created_at"
@@ -1423,6 +1432,7 @@ ActiveRecord::Schema.define(version: 20160820004638) do
 
   add_index "user_export_file_transitions", ["sort_key", "user_export_file_id"], name: "index_user_export_file_transitions_on_sort_key_and_file_id", unique: true
   add_index "user_export_file_transitions", ["user_export_file_id"], name: "index_user_export_file_transitions_on_file_id"
+  add_index "user_export_file_transitions", ["user_export_file_id"], name: "index_user_export_file_transitions_on_user_export_file_id"
 
   create_table "user_export_files", force: :cascade do |t|
     t.integer  "user_id"
@@ -1434,6 +1444,8 @@ ActiveRecord::Schema.define(version: 20160820004638) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "user_export_files", ["user_id"], name: "index_user_export_files_on_user_id"
 
   create_table "user_group_has_checkout_types", force: :cascade do |t|
     t.integer  "user_group_id",                                   null: false
@@ -1511,6 +1523,8 @@ ActiveRecord::Schema.define(version: 20160820004638) do
     t.integer  "default_user_group_id"
   end
 
+  add_index "user_import_files", ["user_id"], name: "index_user_import_files_on_user_id"
+
   create_table "user_import_results", force: :cascade do |t|
     t.integer  "user_import_file_id"
     t.integer  "user_id"
@@ -1519,6 +1533,9 @@ ActiveRecord::Schema.define(version: 20160820004638) do
     t.datetime "updated_at"
     t.text     "error_message"
   end
+
+  add_index "user_import_results", ["user_id"], name: "index_user_import_results_on_user_id"
+  add_index "user_import_results", ["user_import_file_id"], name: "index_user_import_results_on_user_import_file_id"
 
   create_table "user_reserve_stat_transitions", force: :cascade do |t|
     t.string   "to_state"
@@ -1588,5 +1605,6 @@ ActiveRecord::Schema.define(version: 20160820004638) do
 
   add_index "withdraws", ["basket_id"], name: "index_withdraws_on_basket_id"
   add_index "withdraws", ["item_id"], name: "index_withdraws_on_item_id"
+  add_index "withdraws", ["librarian_id"], name: "index_withdraws_on_librarian_id"
 
 end
