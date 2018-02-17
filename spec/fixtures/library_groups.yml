@@ -1,35 +1,35 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 one:
-  id: 1
-  name: unknown
-  display_name_translations: {"en": "unknown", "ja": "不明"}
-  short_name: unknown
+  id: 7dbdeb02-98ff-4158-881b-ce5339742780
+  name: enju_library
+  display_name_translations: {"en": "Enju Library", "ja": "えんじゅ図書館"}
+  short_name: enju_library
   note: 
   my_networks: "0.0.0.0/0"
-  url: "http://localhost:3000/"
+  url: "http://localhost/"
   position: 1
   login_banner_translations: {"en": "*Next-L Enju*", "ja": "*Next-L Enju*"}
   admin_networks: "0.0.0.0/0"
-  user_id: 1
   pub_year_facet_range_interval: 10
   max_number_of_results: 1000
+  email: 'library@example.jp'
 
 # == Schema Information
 #
 # Table name: library_groups
 #
-#  id                            :integer          not null, primary key
+#  id                            :uuid             not null, primary key
 #  name                          :string           not null
 #  display_name_translations     :jsonb
 #  short_name                    :string           not null
-#  my_networks                   :cidr
+#  my_networks                   :text
 #  login_banner_translations     :jsonb
 #  note                          :text
 #  country_id                    :integer
 #  position                      :integer
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
-#  admin_networks                :cidr
+#  admin_networks                :text
 #  url                           :string           default("http://localhost:3000/")
 #  footer_banner_translations    :jsonb
 #  html_snippet                  :text
@@ -38,5 +38,7 @@ one:
 #  family_name_first             :boolean          default(TRUE)
 #  screenshot_generator          :string
 #  pub_year_facet_range_interval :integer          default(10)
-#  user_id                       :integer
+#  csv_charset_conversion        :boolean          default(FALSE), not null
+#  header_logo_data              :jsonb
+#  email                         :string           not null
 #

@@ -1,13 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  parent_id: 1
-  child_id: 2
+  parent_id: 727eae50-90a8-419b-ab0c-bd8f9a3a2873
+  child_id: 29ef327d-172b-451f-9e9c-36f8831ccefe
   agent_relationship_type_id: 1
 
 two:
-  parent_id: 2
-  child_id: 3
+  parent_id: 29ef327d-172b-451f-9e9c-36f8831ccefe
+  child_id: 68851dc9-c884-412a-92fb-a7586ca1dccf
   agent_relationship_type_id: 1
 
 # == Schema Information
@@ -15,9 +15,9 @@ two:
 # Table name: agent_relationships
 #
 #  id                         :integer          not null, primary key
-#  parent_id                  :integer
-#  child_id                   :integer
-#  agent_relationship_type_id :integer
+#  parent_id                  :uuid             not null
+#  child_id                   :uuid             not null
+#  agent_relationship_type_id :integer          not null
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #  position                   :integer

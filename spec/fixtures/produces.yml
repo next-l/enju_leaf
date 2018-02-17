@@ -2,133 +2,133 @@
 produce_00001: 
   updated_at: 2008-01-11 23:28:19.277110 +09:00
   manifestation_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
-  agent_id: 1
+  agent_id: 727eae50-90a8-419b-ab0c-bd8f9a3a2873
   id: 1
   position: 1
   created_at: 2008-01-11 23:28:19.277110 +09:00
 produce_00002: 
   updated_at: 2008-01-11 23:28:57.068191 +09:00
   manifestation_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
-  agent_id: 2
+  agent_id: 29ef327d-172b-451f-9e9c-36f8831ccefe
   id: 2
   position: 1
   created_at: 2008-01-11 23:28:57.068191 +09:00
 produce_00003: 
   updated_at: 2008-01-11 23:32:03.701425 +09:00
   manifestation_id: 6bd50ef9-5c1a-413b-b6a3-faa832bead79
-  agent_id: 3
+  agent_id: 68851dc9-c884-412a-92fb-a7586ca1dccf
   id: 3
   position: 1
   created_at: 2008-01-11 23:32:03.701425 +09:00
 produce_00004: 
   updated_at: 2008-01-11 02:34:20.183962 +09:00
   manifestation_id: e153878e-3001-4f0f-a576-2ec63ffb9bf9
-  agent_id: 1
+  agent_id: 727eae50-90a8-419b-ab0c-bd8f9a3a2873
   id: 4
   position: 1
   created_at: 2008-01-11 02:34:20.183962 +09:00
 produce_00005: 
   updated_at: 2008-01-11 02:34:32.352223 +09:00
   manifestation_id: ff12ea9b-177b-4765-af27-775d2e1f1895
-  agent_id: 2
+  agent_id: 29ef327d-172b-451f-9e9c-36f8831ccefe
   id: 5
   position: 2
   created_at: 2008-01-11 02:34:32.352223 +09:00
 produce_00006: 
   updated_at: 2008-01-11 23:35:36.467584 +09:00
   manifestation_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
-  agent_id: 3
+  agent_id: 68851dc9-c884-412a-92fb-a7586ca1dccf
   id: 6
   position: 2
   created_at: 2008-01-11 23:35:36.467584 +09:00
 produce_00007: 
   updated_at: 2008-01-11 02:40:24.038276 +09:00
   manifestation_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
-  agent_id: 1
+  agent_id: 727eae50-90a8-419b-ab0c-bd8f9a3a2873
   id: 7
   position: 1
   created_at: 2008-01-11 02:40:24.038276 +09:00
 produce_00008: 
   updated_at: 2008-01-11 02:40:40.316742 +09:00
   manifestation_id: 6bd50ef9-5c1a-413b-b6a3-faa832bead79
-  agent_id: 2
+  agent_id: 29ef327d-172b-451f-9e9c-36f8831ccefe
   id: 8
   position: 2
   created_at: 2008-01-11 02:40:40.316742 +09:00
 produce_00009: 
   updated_at: 2008-01-11 02:40:55.664604 +09:00
   manifestation_id: e153878e-3001-4f0f-a576-2ec63ffb9bf9
-  agent_id: 3
+  agent_id: 68851dc9-c884-412a-92fb-a7586ca1dccf
   id: 9
   position: 3
   created_at: 2008-01-11 02:40:55.664604 +09:00
 produce_00010: 
   updated_at: 2008-01-11 02:44:37.135721 +09:00
   manifestation_id: ff12ea9b-177b-4765-af27-775d2e1f1895
-  agent_id: 1
+  agent_id: 727eae50-90a8-419b-ab0c-bd8f9a3a2873
   id: 10
   position: 1
   created_at: 2008-01-11 02:44:37.135721 +09:00
 produce_00101:
   updated_at: 2010-03-03 20:00:00.135721 +09:00
   manifestation_id: 30875519-2fc4-45d0-a96e-b0a16155a597
-  agent_id: 102
+  agent_id: 0523081f-9f57-430a-99a8-4f17e6c34ddf
   id: 101
   position: 1
   created_at: 2010-03-03 20:00:00.135721 +09:00
 produce_00102:
   updated_at: 2010-03-03 20:00:00.135721 +09:00
   manifestation_id: 28c029d5-f868-457c-9f04-bfb1a71ab8b7
-  agent_id: 102
+  agent_id: 0523081f-9f57-430a-99a8-4f17e6c34ddf
   id: 102
   position: 1
   created_at: 2010-03-03 20:00:00.135721 +09:00
 produce_00103:
   updated_at: 2010-03-03 20:00:00.135721 +09:00
   manifestation_id: 4e7bf5fa-21db-4171-bcec-50f20b9dd9f3
-  agent_id: 102
+  agent_id: 0523081f-9f57-430a-99a8-4f17e6c34ddf
   id: 103
   position: 1
   created_at: 2010-03-03 20:00:00.135721 +09:00
 produce_00104:
   updated_at: 2010-03-16 11:00:00.135721 +09:00
   manifestation_id: 5b0d7b3d-968a-443e-8fa5-8f7bd957087c
-  agent_id: 101
+  agent_id: 0523081f-9f57-430a-99a8-4f17e6c34ddf
   id: 104
   position: 1
   created_at: 2010-03-16 11:00:00.135721 +09:00
 produce_00105:
   updated_at: 2010-03-16 19:00:00.135721 +09:00
   manifestation_id: 693ac3b9-e767-4fa5-a920-3db82324018e
-  agent_id: 104
+  agent_id: 0523081f-9f57-430a-99a8-4f17e6c34ddf
   id: 105
   position: 1
   created_at: 2010-03-16 19:00:00.135721 +09:00
 produce_00106:
   updated_at: 2010-03-16 19:00:00.135721 +09:00
   manifestation_id: 85c1415e-e04c-4cdc-8d7a-6b8fddfc694d
-  agent_id: 104
+  agent_id: 0523081f-9f57-430a-99a8-4f17e6c34ddf
   id: 106
   position: 1
   created_at: 2010-03-16 19:00:00.135721 +09:00
 produce_00107:
   updated_at: 2010-03-16 19:00:00.135721 +09:00
   manifestation_id: 2b892da6-f30b-43db-b8de-5ea09045f1fd
-  agent_id: 104
+  agent_id: 0523081f-9f57-430a-99a8-4f17e6c34ddf
   id: 107
   position: 1
   created_at: 2010-03-16 19:00:00.135721 +09:00
 produce_00201:
   updated_at: 2010-03-15 20:00:00.135721 +09:00
   manifestation_id: 9a7cdefd-019b-48aa-b01d-67b42cef0639
-  agent_id: 201
+  agent_id: d4ef4915-2088-4d44-8745-947e28482add
   id: 201
   position: 1
   created_at: 2010-03-15 20:00:00.135721 +09:00
 produce_00202:
   updated_at: 2010-03-15 20:00:00.135721 +09:00
   manifestation_id: c1a6af72-4512-45ed-be0b-187811a373ab
-  agent_id: 202
+  agent_id: 15f3ea67-9af8-474b-9b81-d93354330671
   id: 202
   position: 1
   created_at: 2010-03-15 20:00:00.135721 +09:00
@@ -138,7 +138,7 @@ produce_00202:
 # Table name: produces
 #
 #  id               :integer          not null, primary key
-#  agent_id         :integer          not null
+#  agent_id         :uuid             not null
 #  manifestation_id :uuid             not null
 #  position         :integer
 #  created_at       :datetime         not null

@@ -14,13 +14,12 @@ class CreateLibraries < ActiveRecord::Migration[5.1]
       t.text :note
       t.integer :call_number_rows, default: 1, null: false
       t.string :call_number_delimiter, default: "|", null: false
-      t.integer :library_group_id, default: 1, null: false
+      t.references :library_group, foreign_key: true, null: false, type: :uuid
       t.integer :users_count, default: 0, null: false
       t.integer :position
       t.integer :country_id
 
       t.timestamps
     end
-    add_index :libraries, :library_group_id
   end
 end

@@ -1,6 +1,7 @@
 class CreateItems < ActiveRecord::Migration[5.1]
   def change
     create_table :items, id: :uuid, default: 'gen_random_uuid()' do |t|
+      t.references :manifestation, type: :uuid, foreign_key: true, null: false
       t.string :call_number
       t.string :item_identifier, index: {unique: true}
       t.timestamps

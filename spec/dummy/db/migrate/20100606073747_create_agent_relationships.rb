@@ -1,13 +1,11 @@
 class CreateAgentRelationships < ActiveRecord::Migration[5.1]
   def change
     create_table :agent_relationships do |t|
-      t.integer :parent_id
-      t.integer :child_id
-      t.integer :agent_relationship_type_id
+      t.references :parent, foreign_key: {to_table: :agents}, type: :uuid, null: false
+      t.references :child, foreign_key: {to_table: :agents}, type: :uuid, null: false
+      t.references :agent_relationship_type, foreign_key: true, null: false
 
       t.timestamps
     end
-    add_index :agent_relationships, :parent_id
-    add_index :agent_relationships, :child_id
   end
 end

@@ -1,8 +1,8 @@
 language: ruby
 cache: bundler
 rvm:
-  - 2.2.6
-  - 2.3.3
+  - 2.3.4
+  - 2.4.1
 before_script:
   - psql -c 'CREATE DATABASE enju_leaf_dummy_test'
   - psql enju_leaf_dummy_test -c 'CREATE EXTENSION pgcrypto'
@@ -16,7 +16,6 @@ env:
 notifications:
   slack:
     secure: ZbjsNTloRj5xbP5nRcwrqAJKC+6Kwo4M+J7Z+aXcHtKTzWfxfJw/aN47CrLm1afd8m+JPgEP3FjsXkOSBxfHiSwitZv4F6PjDaNcRXsv6gMI4dI+AhGTeXQuGtXDdYljipMVYAg0+Og3aVV7ZyesiugkLLMGV5d0TF/7mSVbWVs=
-dist: trusty
 sudo: false
 addons:
-  postgresql: "9.4"
+  postgresql: "9.6"

@@ -1,6 +1,6 @@
 class AddAdminNetworksToLibraryGroup < ActiveRecord::Migration[5.1]
   def self.up
-    add_column :library_groups, :admin_networks, :cidr
+    add_column :library_groups, :admin_networks, :text
   end
 
   def self.down

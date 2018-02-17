@@ -13,7 +13,8 @@ library_00001:
   locality: 
   street: 
   created_at: 2007-08-13 18:10:00 +09:00
-  library_group_id: 1
+  library_group_id: 7dbdeb02-98ff-4158-881b-ce5339742780
+  country_id: 1
   call_number_delimiter: "|"
   position: 1
 library_00002: 
@@ -30,7 +31,8 @@ library_00002:
   locality: 
   street: 
   created_at: 2007-08-13 18:10:00 +09:00
-  library_group_id: 1
+  library_group_id: 7dbdeb02-98ff-4158-881b-ce5339742780
+  country_id: 1
   call_number_delimiter: "|"
   position: 2
   isil: "JP-0000000"
@@ -48,7 +50,8 @@ library_00003:
   locality: Hachioji
   street: 
   created_at: 2007-08-14 16:37:00 +09:00
-  library_group_id: 1
+  library_group_id: 7dbdeb02-98ff-4158-881b-ce5339742780
+  country_id: 1
   call_number_delimiter: "|"
   position: 3
 library_00004: 
@@ -65,7 +68,8 @@ library_00004:
   locality: Minato
   street: 
   created_at: 2007-08-23 19:51:00 +09:00
-  library_group_id: 1
+  library_group_id: 7dbdeb02-98ff-4158-881b-ce5339742780
+  country_id: 1
   call_number_delimiter: "|"
   position: 4
 
@@ -87,15 +91,15 @@ library_00004:
 #  note                            :text
 #  call_number_rows                :integer          default(1), not null
 #  call_number_delimiter           :string           default("|"), not null
-#  library_group_id                :integer          default(1), not null
+#  library_group_id                :uuid             not null
 #  users_count                     :integer          default(0), not null
 #  position                        :integer
 #  country_id                      :integer
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
-#  deleted_at                      :datetime
 #  opening_hour                    :text
 #  isil                            :string
 #  latitude                        :float
 #  longitude                       :float
+#  in_use                          :boolean          default(FALSE), not null
 #
