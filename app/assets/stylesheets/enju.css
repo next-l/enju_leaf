@@ -53,7 +53,7 @@ div.header_and_footer{
 }
 
 div#header_left{
-  width: 400px;
+  width: 800px;
   height: 65px;
   float: left;
   padding-left: 2px;
@@ -63,21 +63,12 @@ div#header_left{
 }
 
 div#library_system_name{
-  width: 400px;
+  width: 800px;
   height: 30px;
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 5px;
   padding-bottom: 5px;
-}
-
-div#header_micro_advertisement{
-  width: 400px;
-  height: 35px;
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
 }
 
 div#header_center{
