@@ -53,7 +53,7 @@ div.header_and_footer{
 }
 
 div#header_left{
-  width: 800px;
+  width: 700px;
   height: 65px;
   float: left;
   padding-left: 2px;
@@ -63,7 +63,7 @@ div#header_left{
 }
 
 div#library_system_name{
-  width: 800px;
+  width: 700px;
   height: 30px;
   padding-left: 2px;
   padding-right: 2px;
@@ -91,7 +91,7 @@ div#header_select_locale{
 }
 
 div#header_right{
-  width: 250px;
+  width: 200px;
   float: left;
   padding-left: 5px;
   padding-right: 5px;
