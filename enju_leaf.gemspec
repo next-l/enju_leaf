@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "enju_manifestation_viewer", "~> 0.2.4"
   s.add_development_dependency "sqlite3"
-  s.add_development_dependency "mysql2"
+  s.add_development_dependency "mysql2", "< 0.5"
   s.add_development_dependency "pg", "~> 0.21"
   s.add_development_dependency "rspec-rails", "~> 3.5"
   s.add_development_dependency "vcr", "~> 4.0"
