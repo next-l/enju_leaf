@@ -17,7 +17,6 @@ gem "enju_event", github: "next-l/enju_event"
 gem "enju_message", github: "next-l/enju_message"
 gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer"
 gem "jquery-rails"
-gem "mini_magick"
 gem "rails-controller-testing"
 
 # To use a debugger
