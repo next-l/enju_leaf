@@ -1,4 +1,4 @@
-class CreateBookmarkStatHasManifestations < ActiveRecord::Migration
+class CreateBookmarkStatHasManifestations < ActiveRecord::Migration[4.2]
   def change
     create_table :bookmark_stat_has_manifestations do |t|
       t.integer :bookmark_stat_id, :null => false

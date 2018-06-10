@@ -1,4 +1,4 @@
-class CreateCirculationStatuses < ActiveRecord::Migration
+class CreateCirculationStatuses < ActiveRecord::Migration[4.2]
   def self.up
     create_table :circulation_statuses do |t|
       t.string :name, :null => false

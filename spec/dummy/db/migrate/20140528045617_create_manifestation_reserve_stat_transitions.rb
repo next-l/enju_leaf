@@ -1,4 +1,4 @@
-class CreateManifestationReserveStatTransitions < ActiveRecord::Migration
+class CreateManifestationReserveStatTransitions < ActiveRecord::Migration[4.2]
   def change
     create_table :manifestation_reserve_stat_transitions do |t|
       t.string :to_state

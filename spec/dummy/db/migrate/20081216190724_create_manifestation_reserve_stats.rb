@@ -1,4 +1,4 @@
-class CreateManifestationReserveStats < ActiveRecord::Migration
+class CreateManifestationReserveStats < ActiveRecord::Migration[4.2]
   def self.up
     create_table :manifestation_reserve_stats do |t|
       t.datetime :start_date

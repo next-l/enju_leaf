@@ -1,4 +1,4 @@
-class CreateResourceImportFileTransitions < ActiveRecord::Migration
+class CreateResourceImportFileTransitions < ActiveRecord::Migration[4.2]
   def change
     create_table :resource_import_file_transitions do |t|
       t.string :to_state

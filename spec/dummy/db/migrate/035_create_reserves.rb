@@ -1,4 +1,4 @@
-class CreateReserves < ActiveRecord::Migration
+class CreateReserves < ActiveRecord::Migration[4.2]
   def self.up
     create_table :reserves do |t|
       t.integer :user_id, :null => false

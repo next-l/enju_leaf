@@ -1,4 +1,4 @@
-class CreateResourceImportFiles < ActiveRecord::Migration
+class CreateResourceImportFiles < ActiveRecord::Migration[4.2]
   def change
     create_table :resource_import_files do |t|
       t.integer :parent_id

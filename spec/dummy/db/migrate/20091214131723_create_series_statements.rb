@@ -1,4 +1,4 @@
-class CreateSeriesStatements < ActiveRecord::Migration
+class CreateSeriesStatements < ActiveRecord::Migration[4.2]
   def change
     create_table :series_statements do |t|
       t.text :title

@@ -1,4 +1,4 @@
-class CreateImportRequests < ActiveRecord::Migration
+class CreateImportRequests < ActiveRecord::Migration[4.2]
   def change
     create_table :import_requests do |t|
       t.string :isbn

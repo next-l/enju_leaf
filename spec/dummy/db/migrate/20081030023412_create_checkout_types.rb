@@ -1,4 +1,4 @@
-class CreateCheckoutTypes < ActiveRecord::Migration
+class CreateCheckoutTypes < ActiveRecord::Migration[4.2]
   def self.up
     create_table :checkout_types do |t|
       t.string :name, :null => false

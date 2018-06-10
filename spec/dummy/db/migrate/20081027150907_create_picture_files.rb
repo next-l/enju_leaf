@@ -1,4 +1,4 @@
-class CreatePictureFiles < ActiveRecord::Migration
+class CreatePictureFiles < ActiveRecord::Migration[4.2]
   def change
     create_table :picture_files do |t|
       t.integer :picture_attachable_id

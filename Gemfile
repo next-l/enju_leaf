@@ -13,3 +13,6 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+gem 'enju_seed', path: '../enju_seed'
+gem 'enju_library', path: '../enju_library'
+gem 'rails-controller-testing'

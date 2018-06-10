@@ -1,4 +1,4 @@
-class CreateSeriesStatementRelationships < ActiveRecord::Migration
+class CreateSeriesStatementRelationships < ActiveRecord::Migration[4.2]
   def change
     create_table :series_statement_relationships do |t|
       t.integer :parent_id

@@ -14,20 +14,20 @@ Gem::Specification.new do |s|
   s.description = "integrated library system"
   s.license     = "MIT"
 
-  s.required_ruby_version = ">= 2.1"
+  s.required_ruby_version = ">= 2.2"
 
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/{log,private,solr,tmp}/**/*"] - Dir["spec/dummy/db/*.sqlite3"]
 
-  s.add_dependency "rails", "~> 4.2.6"
+  s.add_dependency "rails", "~> 5.1.0"
   s.add_dependency "enju_biblio", "~> 0.2.5"
   s.add_dependency "jquery-ui-rails", "~> 4.2.1"
   s.add_dependency "turbolinks", "~> 2.5"
 
   s.add_development_dependency "enju_manifestation_viewer", "~> 0.2.4"
   s.add_development_dependency "sqlite3"
-  s.add_development_dependency "mysql2", "< 0.5"
-  s.add_development_dependency "pg", "~> 0.21"
+  s.add_development_dependency "mysql2"
+  s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails", "~> 3.5"
   s.add_development_dependency "vcr", "~> 4.0"
   s.add_development_dependency "simplecov"

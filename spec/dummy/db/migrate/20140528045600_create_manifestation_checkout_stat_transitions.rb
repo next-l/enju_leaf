@@ -1,4 +1,4 @@
-class CreateManifestationCheckoutStatTransitions < ActiveRecord::Migration
+class CreateManifestationCheckoutStatTransitions < ActiveRecord::Migration[4.2]
   def change
     create_table :manifestation_checkout_stat_transitions do |t|
       t.string :to_state

@@ -1,4 +1,4 @@
-class AddSeriesStatementIdentifierToSeriesStatement < ActiveRecord::Migration
+class AddSeriesStatementIdentifierToSeriesStatement < ActiveRecord::Migration[4.2]
   def self.up
     add_column :series_statements, :series_statement_identifier, :string
     add_index :series_statements, :series_statement_identifier

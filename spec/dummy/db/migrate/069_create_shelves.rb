@@ -1,4 +1,4 @@
-class CreateShelves < ActiveRecord::Migration
+class CreateShelves < ActiveRecord::Migration[4.2]
   def change
     create_table :shelves do |t|
       t.string :name, null: false

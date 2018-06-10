@@ -1,4 +1,4 @@
-class CreateDonates < ActiveRecord::Migration
+class CreateDonates < ActiveRecord::Migration[4.2]
   def change
     create_table :donates do |t|
       t.integer :agent_id, :null => false

@@ -1,4 +1,4 @@
-class RenameManifestationPeriodicalToSerial < ActiveRecord::Migration
+class RenameManifestationPeriodicalToSerial < ActiveRecord::Migration[4.2]
   def up
     rename_column :manifestations, :periodical, :serial
   end

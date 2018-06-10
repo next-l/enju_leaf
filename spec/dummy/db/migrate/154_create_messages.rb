@@ -1,4 +1,4 @@
-class CreateMessages < ActiveRecord::Migration
+class CreateMessages < ActiveRecord::Migration[4.2]
   def self.up
     create_table :messages, :force => true do |t|
       t.datetime :read_at

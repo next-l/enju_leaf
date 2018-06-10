@@ -1,4 +1,4 @@
-class CreateManifestationRelationships < ActiveRecord::Migration
+class CreateManifestationRelationships < ActiveRecord::Migration[4.2]
   def change
     create_table :manifestation_relationships do |t|
       t.integer :parent_id

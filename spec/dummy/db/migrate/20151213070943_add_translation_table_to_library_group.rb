@@ -1,5 +1,5 @@
 # This migration comes from enju_library_engine (originally 20151213070943)
-class AddTranslationTableToLibraryGroup < ActiveRecord::Migration
+class AddTranslationTableToLibraryGroup < ActiveRecord::Migration[4.2]
   def up
     if defined?(Globalize)
       LibraryGroup.create_translation_table!({

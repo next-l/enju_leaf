@@ -1,4 +1,4 @@
-class CreateResourceExportFiles < ActiveRecord::Migration
+class CreateResourceExportFiles < ActiveRecord::Migration[4.2]
   def change
     create_table :resource_export_files do |t|
       t.integer :user_id

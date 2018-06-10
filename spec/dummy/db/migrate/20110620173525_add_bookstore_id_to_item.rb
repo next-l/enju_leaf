@@ -1,4 +1,4 @@
-class AddBookstoreIdToItem < ActiveRecord::Migration
+class AddBookstoreIdToItem < ActiveRecord::Migration[4.2]
   def self.up
     add_column :items, :bookstore_id, :integer
     add_index :items, :bookstore_id

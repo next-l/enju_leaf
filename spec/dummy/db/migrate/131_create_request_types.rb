@@ -1,4 +1,4 @@
-class CreateRequestTypes < ActiveRecord::Migration
+class CreateRequestTypes < ActiveRecord::Migration[4.2]
   def change
     create_table :request_types do |t|
       t.string :name, :null => false

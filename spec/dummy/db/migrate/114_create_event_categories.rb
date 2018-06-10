@@ -1,4 +1,4 @@
-class CreateEventCategories < ActiveRecord::Migration
+class CreateEventCategories < ActiveRecord::Migration[4.2]
   def self.up
     create_table :event_categories do |t|
       t.string :name, :null => false

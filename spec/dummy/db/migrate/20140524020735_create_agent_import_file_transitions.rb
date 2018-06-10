@@ -1,4 +1,4 @@
-class CreateAgentImportFileTransitions < ActiveRecord::Migration
+class CreateAgentImportFileTransitions < ActiveRecord::Migration[4.2]
   def change
     create_table :agent_import_file_transitions do |t|
       t.string :to_state

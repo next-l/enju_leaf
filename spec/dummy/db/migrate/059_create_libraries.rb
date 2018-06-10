@@ -1,4 +1,4 @@
-class CreateLibraries < ActiveRecord::Migration
+class CreateLibraries < ActiveRecord::Migration[4.2]
   def change
     create_table :libraries do |t|
       t.string :name, index: true, null: false

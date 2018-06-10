@@ -1,4 +1,4 @@
-class CreateAgentMergeLists < ActiveRecord::Migration
+class CreateAgentMergeLists < ActiveRecord::Migration[4.2]
   def self.up
     create_table :agent_merge_lists do |t|
       t.string :title

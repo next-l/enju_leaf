@@ -1,4 +1,4 @@
-class AddUserIdToUserCheckoutStat < ActiveRecord::Migration
+class AddUserIdToUserCheckoutStat < ActiveRecord::Migration[4.2]
   def change
     add_column :user_checkout_stats, :user_id, :integer
     add_column :user_reserve_stats, :user_id, :integer

@@ -1,4 +1,4 @@
-class AddMostRecentToResourceImportFileTransitions < ActiveRecord::Migration
+class AddMostRecentToResourceImportFileTransitions < ActiveRecord::Migration[4.2]
   def up
     add_column :resource_import_file_transitions, :most_recent, :boolean, null: true
   end
