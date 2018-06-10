@@ -12,7 +12,7 @@ module EnjuLeaf
       end
     end
 
-    # HTMLのtitleに表示されるアクション名を設定します。  
+    # HTMLのtitleに表示されるアクション名を設定します。
     def title_action_name
       case controller.action_name
       when 'index'
@@ -25,19 +25,19 @@ module EnjuLeaf
         t('title.edit')
       end
     end
-  
+
     def link_to_wikipedia(string)
       link_to "Wikipedia", "http://#{I18n.locale}.wikipedia.org/wiki/#{URI.escape(string)}"
     end
-  
+
     def locale_display_name(locale)
       Language.where(iso_639_1: locale).first.display_name
     end
-  
+
     def locale_native_name(locale)
       Language.where(iso_639_1: locale).first.native_name
     end
-  
+
     def move_position(object)
       render partial: 'page/position', locals: {object: object}
     end
@@ -60,7 +60,7 @@ module EnjuLeaf
         state
       end
     end
-  
+
     # I18nに対応した状態名を表示します。
     # @param [Boolean] bool 状態名
     def localized_boolean(bool)
@@ -77,7 +77,7 @@ module EnjuLeaf
     def current_user_role_name
       current_user.try(:role).try(:name) || 'Guest'
     end
-  
+
     # HTMLのtitleを表示します。
     def title(controller_name, model_name = controller_name.singularize)
       string = ''
@@ -91,7 +91,7 @@ module EnjuLeaf
       string.html_safe
     end
 
-    # 前の画面に戻るリンクを表示します。 
+    # 前の画面に戻るリンクを表示します。
     # @param [Hash] options
     def back_to_index(options = {})
       if options == nil
@@ -105,13 +105,13 @@ module EnjuLeaf
       end
     end
 
-    # 検索フォームにフォーカスを移動するJavaScriptを表示します。 
+    # 検索フォームにフォーカスを移動するJavaScriptを表示します。
     def set_focus_on_search_form
       javascript_tag("$(function(){$('#search_form').focus()})") if @query.blank?
     end
 
     # Markdownの文字列をパースして表示します。
-    # @param [String] string Markdownの文字列 
+    # @param [String] string Markdownの文字列
     def markdown_helper(string)
       return unless string
       Kramdown::Document.new(string.to_s).to_html.html_safe
