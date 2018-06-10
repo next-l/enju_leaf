@@ -37,7 +37,7 @@ EOS
     generate("devise", "User")
     gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
     gsub_file 'app/models/user.rb', /, :trackable, :validatable$/, <<EOS
-, :trackable, #:validatable, 
+, :trackable, #:validatable,
       :lockable, :lock_strategy => :none, :unlock_strategy => :none
   include EnjuSeed::EnjuUser
 EOS
