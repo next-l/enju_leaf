@@ -1,0 +1,4 @@
+Rails:
+  Enabled: true
+Style/StringLiterals:
+  Enabled: false
