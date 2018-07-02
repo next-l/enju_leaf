@@ -22,7 +22,6 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 5.1.0"
   s.add_dependency "enju_biblio", "~> 0.2.5"
   s.add_dependency "jquery-ui-rails", "~> 4.2.1"
-  s.add_dependency "turbolinks", "~> 2.5"
 
   s.add_development_dependency "enju_manifestation_viewer", "~> 0.2.4"
   s.add_development_dependency "sqlite3"
