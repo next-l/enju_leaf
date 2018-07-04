@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = "integrated library system"
   s.license     = "MIT"
 
-  s.required_ruby_version = ">= 2.2"
+  s.required_ruby_version = ">= 2.3"
 
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/{log,private,solr,tmp}/**/*"] - Dir["spec/dummy/db/*.sqlite3"]
