@@ -69,6 +69,7 @@ EOS
     gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [:email]', 'config.authentication_keys = [:username]'
     gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
 
+    gsub_file 'app/controllers/application_controller.rb', /protect_from_forgery with: :exception$/, 'protect_from_forgery with: :exception, prepend: true'
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
   include EnjuLibrary::Controller
