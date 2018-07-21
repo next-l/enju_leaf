@@ -8,17 +8,15 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
     copy_file("Procfile", "Procfile")
     copy_file("config/schedule.rb", "config/schedule.rb")
     append_to_file("config/initializers/assets.rb", "Rails.application.config.assets.precompile += %w( *.png )")
-    inject_into_file 'config/application.rb', after: /# config.i18n.default_locale = :de$\n/ do
+    inject_into_class 'app/controllers/application_controller.rb', ApplicationController do
       <<"EOS"
     config.i18n.available_locales = [:en, :ja]
     config.i18n.enforce_available_locales = true
     config.active_job.queue_adapter = :resque
+    config.i18n.default_locale = :ja
+    config.time_zone = 'Tokyo'
 EOS
     end
-    gsub_file 'config/application.rb', /# config.i18n.default_locale = :de$/,
-      "config.i18n.default_locale = :ja"
-    gsub_file 'config/application.rb', /# config.time_zone = 'Central Time \(US & Canada\)'$/,
-      "config.time_zone = 'Tokyo'"
     gsub_file 'config/schedule.rb', /\/path\/to\/enju_leaf/, Rails.root.to_s
     append_to_file("Rakefile", "require 'resque/tasks'\n")
     append_to_file("db/seeds.rb", File.open(File.expand_path('../templates', __FILE__) + '/db/seeds.rb').read)
