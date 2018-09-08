@@ -15,6 +15,9 @@ Next-L Enju Leaf is an integrated library system developed by {Project Next-L}[h
 == 動作デモ (Demonstration)
 * https://enju.next-l.jp
 
+== マニュアル (Manual)
+* https://next-l.github.io/manual/
+
 == インストール (Install)
 * https://github.com/next-l/enju_leaf/wiki/Install
 
