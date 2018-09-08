@@ -31,8 +31,10 @@ EOS
     end
     generate("devise:install")
     generate("devise", "User")
-    gsub_file 'app/models/user.rb', /:validatable$/, <<EOS
-:lockable, lock_strategy: :none, unlock_strategy: :none
+    gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
+    gsub_file 'app/models/user.rb', /, :trackable, :validatable$/, <<EOS
+, :trackable, #:validatable,
+      :lockable, lock_strategy: :none, unlock_strategy: :none
   include EnjuSeed::EnjuUser
 EOS
     generate("sunspot_rails:install")
