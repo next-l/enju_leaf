@@ -82,8 +82,8 @@ EOS
 
     inject_into_file "app/helpers/application_helper.rb", after: /module ApplicationHelper$\n/ do
       <<"EOS"
-  include EnjuLeaf::EnjuLeafHelper
-  include EnjuBiblio::BiblioHelper if defined?(EnjuBiblio)
+  include EnjuLeaf::ApplicationHelper
+  include EnjuBiblio::ApplicationHelper if defined?(EnjuBiblio)
   if defined?(EnjuManifestationViewer)
     include EnjuManifestationViewer::BookJacketHelper
     include EnjuManifestationViewer::ManifestationViewerHelper
