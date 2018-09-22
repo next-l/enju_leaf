@@ -85,8 +85,8 @@ EOS
   include EnjuLeaf::ApplicationHelper
   include EnjuBiblio::ApplicationHelper if defined?(EnjuBiblio)
   if defined?(EnjuManifestationViewer)
+    include EnjuManifestationViewer::ApplicationHelper
     include EnjuManifestationViewer::BookJacketHelper
-    include EnjuManifestationViewer::ManifestationViewerHelper
   end
 EOS
     end
