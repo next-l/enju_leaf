@@ -1,7 +1,7 @@
 class CreateBookmarks < ActiveRecord::Migration[4.2]
   def self.up
-    create_table :bookmarks, :force => true do |t|
-      t.integer :user_id, :null => false
+    create_table :bookmarks, force: true do |t|
+      t.integer :user_id, null: false
       t.integer :manifestation_id
       t.text :title
       t.string :url

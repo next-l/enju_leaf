@@ -1,18 +1,18 @@
 class CreateLendingPolicies < ActiveRecord::Migration[4.2]
   def self.up
     create_table :lending_policies do |t|
-      t.integer :item_id, :null => false
-      t.integer :user_group_id, :null => false
-      t.integer :loan_period, :default => 0, :null => false
+      t.integer :item_id, null: false
+      t.integer :user_group_id, null: false
+      t.integer :loan_period, default: 0, null: false
       t.datetime :fixed_due_date
-      t.integer :renewal, :default => 0, :null => false
-      t.integer :fine, :default => 0, :null => false
+      t.integer :renewal, default: 0, null: false
+      t.integer :fine, default: 0, null: false
       t.text :note
       t.integer :position
 
       t.timestamps
     end
-    add_index :lending_policies, [:item_id, :user_group_id], :unique => true
+    add_index :lending_policies, %i[item_id user_group_id], unique: true
   end
 
   def self.down

@@ -2,8 +2,8 @@ class CreateSearchHistories < ActiveRecord::Migration[4.2]
   def self.up
     create_table :search_histories do |t|
       t.integer :user_id
-      t.string :operation, :default => 'searchRetrieve'
-      t.float :version, :default => 1.2
+      t.string :operation, default: 'searchRetrieve'
+      t.float :version, default: 1.2
       t.string :query
       t.integer :start_record
       t.integer :maximum_records
@@ -12,7 +12,7 @@ class CreateSearchHistories < ActiveRecord::Migration[4.2]
       t.integer :result_set_ttl
       t.string :stylesheet
       t.string :extra_request_data
-      t.integer :number_of_records, :default => 0
+      t.integer :number_of_records, default: 0
       t.string :result_set_id
       t.integer :result_set_idle_time
       t.text :records

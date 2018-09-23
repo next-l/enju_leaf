@@ -1,7 +1,7 @@
 class CreateBookstores < ActiveRecord::Migration[4.2]
   def change
     create_table :bookstores do |t|
-      t.text :name, :null => false
+      t.text :name, null: false
       t.string :zip_code
       t.text :address
       t.text :note

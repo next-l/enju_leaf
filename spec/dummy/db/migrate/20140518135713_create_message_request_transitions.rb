@@ -13,6 +13,6 @@ class CreateMessageRequestTransitions < ActiveRecord::Migration[4.2]
     end
 
     add_index :message_request_transitions, :message_request_id
-    add_index :message_request_transitions, [:sort_key, :message_request_id], unique: true, name: "index_message_request_transitions_on_sort_key_and_request_id"
+    add_index :message_request_transitions, %i[sort_key message_request_id], unique: true, name: "index_message_request_transitions_on_sort_key_and_request_id"
   end
 end

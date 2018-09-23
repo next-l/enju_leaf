@@ -1,9 +1,9 @@
 class CreateMessages < ActiveRecord::Migration[4.2]
   def self.up
-    create_table :messages, :force => true do |t|
+    create_table :messages, force: true do |t|
       t.datetime :read_at
       t.integer  :receiver_id, :sender_id
-      t.string   :subject, :null => false
+      t.string   :subject, null: false
       t.text     :body
       t.integer :message_request_id
       t.integer :parent_id

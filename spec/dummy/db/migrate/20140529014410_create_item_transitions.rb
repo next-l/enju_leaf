@@ -13,6 +13,6 @@ class CreateItemTransitions < ActiveRecord::Migration[4.2]
     end
 
     add_index :item_transitions, :item_id
-    add_index :item_transitions, [:sort_key, :item_id], unique: true
+    add_index :item_transitions, %i[sort_key item_id], unique: true
   end
 end

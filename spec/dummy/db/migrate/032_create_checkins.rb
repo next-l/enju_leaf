@@ -1,7 +1,7 @@
 class CreateCheckins < ActiveRecord::Migration[4.2]
   def self.up
     create_table :checkins do |t|
-      t.integer :item_id, :null => false
+      t.integer :item_id, null: false
       t.integer :librarian_id
       t.integer :basket_id
       t.timestamps

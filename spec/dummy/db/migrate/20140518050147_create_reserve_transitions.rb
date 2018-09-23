@@ -13,6 +13,6 @@ class CreateReserveTransitions < ActiveRecord::Migration[4.2]
     end
 
     add_index :reserve_transitions, :reserve_id
-    add_index :reserve_transitions, [:sort_key, :reserve_id], unique: true
+    add_index :reserve_transitions, %i[sort_key reserve_id], unique: true
   end
 end
