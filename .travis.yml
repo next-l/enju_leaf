@@ -4,14 +4,11 @@ rvm:
   - 2.3.7
   - 2.4.4
 before_script:
-  - mysql -e 'create database enju_test DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;'
   - psql -c 'create database enju_test;' -U postgres
   - bundle exec rake db:migrate
 services:
   - redis-server
 env:
-  - DB=sqlite
-  - DB=mysql
   - DB=postgresql
 notifications:
   slack:
