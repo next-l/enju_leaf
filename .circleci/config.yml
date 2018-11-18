@@ -26,7 +26,6 @@ jobs:
           command: sudo apt install -y openjdk-8-jre-headless
       - run: bundle exec rake db:create RAILS_ENV=test
       - run: bundle exec rake db:migrate RAILS_ENV=test
-      - run: bundle exec rake app:sunspot:solr:start RAILS_ENV=test
       - run:
           command: |
             mkdir /tmp/test-results
