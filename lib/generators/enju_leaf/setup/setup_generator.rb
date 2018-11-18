@@ -31,9 +31,9 @@ EOS
     end
     generate("devise:install")
     generate("devise", "User")
-    gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
-    gsub_file 'app/models/user.rb', /, :trackable, :validatable$/, <<EOS
-, :trackable, #:validatable,
+    gsub_file 'app/models/user.rb', /, :registerable,$/, ', # :registerable,'
+    gsub_file 'app/models/user.rb', /, :validatable$/, <<EOS
+, # :validatable,
       :lockable, lock_strategy: :none, unlock_strategy: :none
   include EnjuSeed::EnjuUser
 EOS
@@ -82,11 +82,11 @@ EOS
 
     inject_into_file "app/helpers/application_helper.rb", after: /module ApplicationHelper$\n/ do
       <<"EOS"
-  include EnjuLeaf::EnjuLeafHelper
-  include EnjuBiblio::BiblioHelper if defined?(EnjuBiblio)
+  include EnjuLeaf::ApplicationHelper
+  include EnjuBiblio::ApplicationHelper if defined?(EnjuBiblio)
   if defined?(EnjuManifestationViewer)
+    include EnjuManifestationViewer::ApplicationHelper
     include EnjuManifestationViewer::BookJacketHelper
-    include EnjuManifestationViewer::ManifestationViewerHelper
   end
 EOS
     end

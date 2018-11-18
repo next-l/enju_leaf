@@ -13,6 +13,6 @@ class CreateMessageTransitions < ActiveRecord::Migration[4.2]
     end
 
     add_index :message_transitions, :message_id
-    add_index :message_transitions, [:sort_key, :message_id], unique: true
+    add_index :message_transitions, %i[sort_key message_id], unique: true
   end
 end

@@ -13,6 +13,6 @@ class CreateBookmarkStatTransitions < ActiveRecord::Migration[4.2]
     end
 
     add_index :bookmark_stat_transitions, :bookmark_stat_id
-    add_index :bookmark_stat_transitions, [:sort_key, :bookmark_stat_id], unique: true, name: "index_bookmark_stat_transitions_on_sort_key_and_stat_id"
+    add_index :bookmark_stat_transitions, %i[sort_key bookmark_stat_id], unique: true, name: "index_bookmark_stat_transitions_on_sort_key_and_stat_id"
   end
 end

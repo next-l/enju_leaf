@@ -10,6 +10,6 @@ class CreatePictureFiles < ActiveRecord::Migration[4.2]
 
       t.timestamps
     end
-    add_index :picture_files, [:picture_attachable_id, :picture_attachable_type], :name => "index_picture_files_on_picture_attachable_id_and_type"
+    add_index :picture_files, %i[picture_attachable_id picture_attachable_type], name: "index_picture_files_on_picture_attachable_id_and_type"
   end
 end

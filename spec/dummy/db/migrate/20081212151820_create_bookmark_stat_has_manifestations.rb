@@ -1,8 +1,8 @@
 class CreateBookmarkStatHasManifestations < ActiveRecord::Migration[4.2]
   def change
     create_table :bookmark_stat_has_manifestations do |t|
-      t.integer :bookmark_stat_id, :null => false
-      t.integer :manifestation_id, :null => false
+      t.integer :bookmark_stat_id, null: false
+      t.integer :manifestation_id, null: false
       t.integer :bookmarks_count
 
       t.timestamps
