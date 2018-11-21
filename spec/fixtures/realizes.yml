@@ -1,87 +1,84 @@
 --- 
 realize_00001: 
   updated_at: 2008-01-11 23:28:19.277110 +09:00
-  expression_id: 1
-  agent_id: 1
+  expression_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  agent_id: 727eae50-90a8-419b-ab0c-bd8f9a3a2873
   id: 1
   position: 1
   created_at: 2008-01-11 23:28:19.277110 +09:00
 realize_00002: 
   updated_at: 2008-01-11 23:28:57.068191 +09:00
-  expression_id: 2
-  agent_id: 2
+  expression_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
+  agent_id: 29ef327d-172b-451f-9e9c-36f8831ccefe
   id: 2
   position: 2
   created_at: 2008-01-11 23:28:57.068191 +09:00
 realize_00003: 
   updated_at: 2008-01-11 23:32:03.701425 +09:00
-  expression_id: 3
-  agent_id: 3
+  expression_id: 6bd50ef9-5c1a-413b-b6a3-faa832bead79
+  agent_id: 68851dc9-c884-412a-92fb-a7586ca1dccf
   id: 3
   position: 1
   created_at: 2008-01-11 23:32:03.701425 +09:00
 realize_00004: 
   updated_at: 2008-01-11 02:34:20.183962 +09:00
-  expression_id: 4
-  agent_id: 1
+  expression_id: e153878e-3001-4f0f-a576-2ec63ffb9bf9
+  agent_id: 727eae50-90a8-419b-ab0c-bd8f9a3a2873
   id: 4
   position: 1
   created_at: 2008-01-11 02:34:20.183962 +09:00
 realize_00005: 
   updated_at: 2008-01-11 02:34:32.352223 +09:00
-  expression_id: 5
-  agent_id: 2
+  expression_id: ff12ea9b-177b-4765-af27-775d2e1f1895
+  agent_id: 29ef327d-172b-451f-9e9c-36f8831ccefe
   id: 5
   position: 1
   created_at: 2008-01-11 02:34:32.352223 +09:00
 realize_00006: 
   updated_at: 2008-01-11 23:35:36.467584 +09:00
-  expression_id: 1
-  agent_id: 3
+  expression_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  agent_id: 68851dc9-c884-412a-92fb-a7586ca1dccf
   id: 6
   position: 2
   created_at: 2008-01-11 23:35:36.467584 +09:00
 realize_00007: 
   updated_at: 2008-01-11 02:40:24.038276 +09:00
-  expression_id: 2
-  agent_id: 1
+  expression_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
+  agent_id: 727eae50-90a8-419b-ab0c-bd8f9a3a2873
   id: 7
   position: 2
   created_at: 2008-01-11 02:40:24.038276 +09:00
 realize_00008: 
   updated_at: 2008-01-11 02:40:40.316742 +09:00
-  expression_id: 3
-  agent_id: 2
+  expression_id: 6bd50ef9-5c1a-413b-b6a3-faa832bead79
+  agent_id: 29ef327d-172b-451f-9e9c-36f8831ccefe
   id: 8
   position: 2
   created_at: 2008-01-11 02:40:40.316742 +09:00
 realize_00009: 
   updated_at: 2008-01-11 02:40:55.664604 +09:00
-  expression_id: 4
-  agent_id: 3
+  expression_id: e153878e-3001-4f0f-a576-2ec63ffb9bf9
+  agent_id: 68851dc9-c884-412a-92fb-a7586ca1dccf
   id: 9
   position: 2
   created_at: 2008-01-11 02:40:55.664604 +09:00
 realize_00010: 
   updated_at: 2008-01-11 02:44:37.135721 +09:00
-  expression_id: 5
-  agent_id: 1
+  expression_id: ff12ea9b-177b-4765-af27-775d2e1f1895
+  agent_id: 727eae50-90a8-419b-ab0c-bd8f9a3a2873
   id: 10
   position: 2
   created_at: 2008-01-11 02:44:37.135721 +09:00
-
 
 # == Schema Information
 #
 # Table name: realizes
 #
-#  id              :integer         not null, primary key
-#  agent_id       :integer         not null
-#  expression_id   :integer         not null
+#  id              :integer          not null, primary key
+#  agent_id        :uuid             not null
+#  expression_id   :uuid             not null
 #  position        :integer
-#  type            :string(255)
-#  created_at      :datetime
-#  updated_at      :datetime
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #  realize_type_id :integer
 #
-

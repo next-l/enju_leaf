@@ -1,4 +1,4 @@
-class AddEditModeToResourceImportFile < ActiveRecord::Migration
+class AddEditModeToResourceImportFile < ActiveRecord::Migration[5.1]
   def self.up
     add_column :resource_import_files, :edit_mode, :string
   end

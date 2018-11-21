@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: names
+#
+#  id          :integer          not null, primary key
+#  first_name  :string
+#  middle_name :string
+#  last_name   :string
+#  language_id :integer
+#  profile_id  :integer
+#  position    :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 class NamesController < ApplicationController
   before_action :set_name, only: [:show, :edit, :update, :destroy]
   before_action :check_policy, only: [:index, :new, :create]

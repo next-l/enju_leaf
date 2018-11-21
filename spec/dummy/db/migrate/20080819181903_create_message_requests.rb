@@ -1,4 +1,4 @@
-class CreateMessageRequests < ActiveRecord::Migration
+class CreateMessageRequests < ActiveRecord::Migration[5.1]
   def self.up
     create_table :message_requests do |t|
       t.integer :sender_id

@@ -1,1 +1,0 @@
-Profile.include(EnjuCirculation::EnjuProfile)

@@ -4,10 +4,10 @@ item_00001:
   item_identifier: '00001'
   circulation_status_id: 2
   checkout_type_id: 1
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 1
-  id: 1
+  manifestation_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  id: 17eaea41-eacb-4e08-8e0b-70c6e62e3ed3
   include_supplements: false
   created_at: 2007-08-24 23:46:00.484813 +09:00
 item_00002: 
@@ -15,10 +15,10 @@ item_00002:
   item_identifier: '00002'
   circulation_status_id: 2
   checkout_type_id: 1
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 2
-  id: 2
+  manifestation_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
+  id: d08f854f-07ef-46e6-a461-0bb658032c4b
   include_supplements: false
   created_at: 2007-08-24 23:46:01.641413 +09:00
 item_00003: 
@@ -26,10 +26,10 @@ item_00003:
   item_identifier: '00003'
   circulation_status_id: 2
   checkout_type_id: 2
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 3
-  id: 3
+  manifestation_id: 6bd50ef9-5c1a-413b-b6a3-faa832bead79
+  id: 77a1c54a-d903-4b9d-b35c-4aa0be1c56ef
   include_supplements: false
   created_at: 2007-08-24 23:46:02.502569 +09:00
 item_00004: 
@@ -37,10 +37,10 @@ item_00004:
   item_identifier: '00004'
   circulation_status_id: 2
   checkout_type_id: 1
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 1
-  id: 4
+  manifestation_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  id: deb7a2a8-7fde-4735-88cd-b4b8c5cf8b85
   include_supplements: true
   created_at: 2007-08-24 23:46:03.520781 +09:00
 item_00005: 
@@ -48,10 +48,10 @@ item_00005:
   item_identifier: '00005'
   circulation_status_id: 2
   checkout_type_id: 2
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 2
-  id: 5
+  manifestation_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
+  id: 130bed42-5794-4403-9c8e-40a921a9258a
   include_supplements: false
   created_at: 2007-08-24 23:46:04.538073 +09:00
 item_00006: 
@@ -59,10 +59,10 @@ item_00006:
   item_identifier: '00006'
   circulation_status_id: 2
   checkout_type_id: 2
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 3
-  id: 6
+  manifestation_id: 6bd50ef9-5c1a-413b-b6a3-faa832bead79
+  id: 804a744a-3d95-439e-8853-61c21ba704d1
   include_supplements: true
   created_at: 2007-08-24 23:46:05.555353 +09:00
 item_00007: 
@@ -70,10 +70,10 @@ item_00007:
   item_identifier: '00007'
   circulation_status_id: 2
   checkout_type_id: 1
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 1
-  id: 7
+  manifestation_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  id: dc4cd3f3-0b3d-4b81-9a1a-9ebdfb484131
   include_supplements: false
   created_at: 2007-08-24 23:46:06.572631 +09:00
 item_00008: 
@@ -81,10 +81,10 @@ item_00008:
   item_identifier: '00008'
   circulation_status_id: 2
   checkout_type_id: 2
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 2
-  id: 8
+  manifestation_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
+  id: 7236fc07-8294-46f6-98c4-b8f32a7ba0d6
   include_supplements: true
   created_at: 2007-08-24 23:46:07.589909 +09:00
 item_00009: 
@@ -92,10 +92,10 @@ item_00009:
   item_identifier: '00009'
   circulation_status_id: 2
   checkout_type_id: 1
-  shelf_id: 4
+  shelf_id: 4927d822-b661-4d64-9565-f9f61173c7cd
   call_number: 
-  manifestation_id: 3
-  id: 9
+  manifestation_id: 6bd50ef9-5c1a-413b-b6a3-faa832bead79
+  id: b1b7a3cb-27af-4220-8df9-7ed2ab1ad7ab
   include_supplements: false
   created_at: 2007-08-24 23:46:08.607081 +09:00
 item_00010: 
@@ -103,10 +103,10 @@ item_00010:
   item_identifier: '00010'
   circulation_status_id: 2
   checkout_type_id: 2
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 1
-  id: 10
+  manifestation_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  id: 0f77c21a-6e9c-460e-b49c-3fd567dbd49c
   include_supplements: false
   created_at: 2007-08-24 23:46:09.624281 +09:00
 item_00011: 
@@ -114,10 +114,10 @@ item_00011:
   item_identifier: '00011'
   circulation_status_id: 2
   checkout_type_id: 1
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 1
-  id: 11
+  manifestation_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  id: 7cfd462a-4494-4a0d-86e0-c8eb4bef428c
   include_supplements: false
   created_at: 2007-08-24 23:46:10.484813 +09:00
 item_00012: 
@@ -125,10 +125,10 @@ item_00012:
   item_identifier: '00012'
   circulation_status_id: 3
   checkout_type_id: 2
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 2
-  id: 12
+  manifestation_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
+  id: 18e9d7b1-18f9-47b8-b06e-01a4455ef12a
   include_supplements: false
   created_at: 2007-08-24 23:46:11.484813 +09:00
 item_00013: 
@@ -136,10 +136,10 @@ item_00013:
   item_identifier: '00013'
   circulation_status_id: 10
   checkout_type_id: 1
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 2
-  id: 13
+  manifestation_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
+  id: 3fc74a1e-801c-4773-83bc-02755fee948a
   include_supplements: false
   created_at: 2007-08-24 23:46:12.484813 +09:00
 item_00014: 
@@ -147,10 +147,10 @@ item_00014:
   item_identifier: '00014'
   circulation_status_id: 10
   checkout_type_id: 2
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 2
-  id: 14
+  manifestation_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
+  id: 3ac48dcb-7b69-42e6-a48c-06f017bf3ad2
   include_supplements: false
   created_at: 2007-08-24 23:46:13.484813 +09:00
 item_00015: 
@@ -158,10 +158,10 @@ item_00015:
   item_identifier: '00015'
   circulation_status_id: 10
   checkout_type_id: 3
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 2
-  id: 15
+  manifestation_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
+  id: 8481a91c-82fd-401a-b088-48fe0942cc1a
   include_supplements: false
   created_at: 2007-08-24 23:46:14.484813 +09:00
 item_00016: 
@@ -169,10 +169,10 @@ item_00016:
   item_identifier: '00016'
   circulation_status_id: 10
   checkout_type_id: 2
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 3
-  id: 16
+  manifestation_id: 6bd50ef9-5c1a-413b-b6a3-faa832bead79
+  id: dde1ca18-9159-4e6e-8969-c586cf55f552
   include_supplements: true
   created_at: 2007-08-24 23:46:15.484813 +09:00
 item_00017: 
@@ -180,10 +180,10 @@ item_00017:
   item_identifier: '00017'
   circulation_status_id: 10
   checkout_type_id: 3
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 3
-  id: 17
+  manifestation_id: 6bd50ef9-5c1a-413b-b6a3-faa832bead79
+  id: 59e76f43-35a4-4087-8f7e-8c9654a55e79
   include_supplements: false
   created_at: 2007-08-24 23:46:16.484813 +09:00
 item_00018: 
@@ -191,10 +191,10 @@ item_00018:
   item_identifier: '00018'
   circulation_status_id: 10
   checkout_type_id: 3
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 1
-  id: 18
+  manifestation_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  id: 3d3e9a26-231d-4087-a86d-81412d0bd22b
   include_supplements: false
   created_at: 2007-08-24 23:46:17.484813 +09:00
 item_00019: 
@@ -202,10 +202,10 @@ item_00019:
   item_identifier: '00019'
   circulation_status_id: 2
   checkout_type_id: 3
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 1
-  id: 19
+  manifestation_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  id: c6c65db9-7ff2-4bb9-a324-eae8404da397
   include_supplements: false
   created_at: 2007-08-24 23:46:18.484813 +09:00
 item_00020: 
@@ -213,10 +213,10 @@ item_00020:
   item_identifier: '00020'
   circulation_status_id: 13
   checkout_type_id: 3
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 1
-  id: 20
+  manifestation_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  id: 987c97e3-bce2-4aad-8277-ff8d48f00247
   include_supplements: false
   created_at: 2007-08-24 23:46:19.484813 +09:00
 item_00021: 
@@ -224,10 +224,10 @@ item_00021:
   item_identifier: '00021'
   circulation_status_id: 2
   checkout_type_id: 3
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 11
-  id: 21
+  manifestation_id: 64c18638-dbd6-448a-8ae4-c837a6c99713
+  id: d4255c14-f0bc-468d-95a0-94d01298343d
   include_supplements: false
   created_at: 2007-08-24 23:46:20.484813 +09:00
 item_00022: 
@@ -235,10 +235,10 @@ item_00022:
   item_identifier: '00022'
   circulation_status_id: 2
   checkout_type_id: 3
-  shelf_id: 1
+  shelf_id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
   call_number: 
-  manifestation_id: 11
-  id: 22
+  manifestation_id: 64c18638-dbd6-448a-8ae4-c837a6c99713
+  id: 6f251646-98e1-441a-8009-405a0e8fa47c
   include_supplements: false
   created_at: 2007-08-24 23:46:20.484813 +09:00
 item_00023: 
@@ -246,58 +246,58 @@ item_00023:
   item_identifier: '00023'
   circulation_status_id: 15
   checkout_type_id: 3
-  shelf_id: 2
+  shelf_id: 7dcedc02-df58-4f89-8f5f-9a823430dd8a
   call_number: 
-  manifestation_id: 11
-  id: 23
+  manifestation_id: 64c18638-dbd6-448a-8ae4-c837a6c99713
+  id: 8641c205-8f22-4e50-90db-ff878eeb33e4
   include_supplements: false
   created_at: 2007-08-24 23:46:20.484813 +09:00
 item_00024: 
   updated_at: 2007-08-24 23:46:20.484813 +09:00
   item_identifier: '00024'
-  circulation_status_id: 8
+  circulation_status_id: 15
   checkout_type_id: 3
-  shelf_id: 2
+  shelf_id: 7dcedc02-df58-4f89-8f5f-9a823430dd8a
   call_number: 
-  manifestation_id: 3
-  id: 24
+  manifestation_id: 64c18638-dbd6-448a-8ae4-c837a6c99713
+  id: 9dd697c1-b72a-4df9-81a1-06de53c5c6d8
   include_supplements: false
   created_at: 2007-08-24 23:46:20.484813 +09:00
 item_00025: 
-  updated_at: 2007-08-24 23:46:20.484813 +09:00
+  updated_at: 2007-08-24 23:47:20.484813 +09:00
   item_identifier: '00025'
-  circulation_status_id: 8
+  circulation_status_id: 15
   checkout_type_id: 3
-  shelf_id: 2
+  shelf_id: 7dcedc02-df58-4f89-8f5f-9a823430dd8a
   call_number: 
-  manifestation_id: 8
-  id: 25
+  manifestation_id: 64c18638-dbd6-448a-8ae4-c837a6c99713
+  id: e190d0d4-672e-49b5-a996-b90bf2409b9b
   include_supplements: false
-  created_at: 2007-08-24 23:46:20.484813 +09:00
+  created_at: 2007-08-24 23:47:20.484813 +09:00
 
 # == Schema Information
 #
 # Table name: items
 #
-#  id                    :integer          not null, primary key
-#  call_number           :string(255)
-#  item_identifier       :string(255)
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  deleted_at            :datetime
-#  shelf_id              :integer          default(1), not null
-#  include_supplements   :boolean          default(FALSE), not null
-#  note                  :text
-#  url                   :string(255)
-#  price                 :integer
-#  lock_version          :integer          default(0), not null
-#  required_role_id      :integer          default(1), not null
-#  state                 :string(255)
-#  required_score        :integer          default(0), not null
-#  acquired_at           :datetime
-#  bookstore_id          :integer
-#  budget_type_id        :integer
-#  circulation_status_id :integer          default(5), not null
-#  checkout_type_id      :integer          default(1), not null
+#  id                      :uuid             not null, primary key
+#  call_number             :string
+#  item_identifier         :string
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  include_supplements     :boolean          default(FALSE), not null
+#  note                    :text
+#  url                     :string
+#  price                   :integer
+#  lock_version            :integer          default(0), not null
+#  required_role_id        :integer          default(1), not null
+#  acquired_at             :datetime
+#  bookstore_id            :integer
+#  budget_type_id          :integer
+#  circulation_status_id   :integer          default(1), not null
+#  checkout_type_id        :integer          default(1), not null
+#  binding_item_identifier :string
+#  binding_call_number     :string
+#  binded_at               :datetime
+#  manifestation_id        :uuid
+#  shelf_id                :uuid             not null
 #
-

@@ -1,4 +1,4 @@
-class AddUrlToLibraryGroup < ActiveRecord::Migration
+class AddUrlToLibraryGroup < ActiveRecord::Migration[5.1]
   def self.up
     add_column :library_groups, :url, :string, :default => 'http://localhost:3000/'
   end

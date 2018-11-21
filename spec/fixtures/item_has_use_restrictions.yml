@@ -1,48 +1,48 @@
 --- 
 item_has_use_restriction_00001: 
-  item_id: 1
+  item_id: 17eaea41-eacb-4e08-8e0b-70c6e62e3ed3
   updated_at: 2008-02-13 12:29:36.013448 +09:00
   id: 1
   use_restriction_id: 10
   created_at: 2008-02-13 12:29:36.013448 +09:00
 item_has_use_restriction_00002: 
-  item_id: 2
+  item_id: d08f854f-07ef-46e6-a461-0bb658032c4b
   updated_at: 2008-02-13 17:58:37.527556 +09:00
   id: 2
   use_restriction_id: 2
   created_at: 2008-02-13 17:58:37.527556 +09:00
 item_has_use_restriction_00003: 
-  item_id: 3
+  item_id: 77a1c54a-d903-4b9d-b35c-4aa0be1c56ef
   updated_at: 2008-02-13 17:58:49.490086 +09:00
   id: 3
   use_restriction_id: 3
   created_at: 2008-02-13 17:58:49.490086 +09:00
 item_has_use_restriction_00004: 
-  item_id: 17
+  item_id: 59e76f43-35a4-4087-8f7e-8c9654a55e79
   updated_at: 2008-02-13 12:29:36.013448 +09:00
   id: 4
   use_restriction_id: 4
   created_at: 2008-02-13 12:29:36.013448 +09:00
 item_has_use_restriction_00005:
-  item_id: 21
+  item_id: d4255c14-f0bc-468d-95a0-94d01298343d
   updated_at: 2008-02-13 12:29:36.013448 +09:00
   id: 5
   use_restriction_id: 4
   created_at: 2008-02-13 12:29:36.013448 +09:00
 item_has_use_restriction_00006:
-  item_id: 11
+  item_id: 7cfd462a-4494-4a0d-86e0-c8eb4bef428c
   updated_at: 2008-02-13 12:29:36.013448 +09:00
   id: 6
   use_restriction_id: 4
   created_at: 2008-02-13 12:29:36.013448 +09:00
 item_has_use_restriction_00007:
-  item_id: 6
+  item_id: 804a744a-3d95-439e-8853-61c21ba704d1
   updated_at: 2008-02-13 12:29:36.013448 +09:00
   id: 7
   use_restriction_id: 4
   created_at: 2008-02-13 12:29:36.013448 +09:00
 item_has_use_restriction_00008:
-  item_id: 24
+  item_id: 9dd697c1-b72a-4df9-81a1-06de53c5c6d8
   updated_at: 2008-02-13 12:29:36.013448 +09:00
   id: 8
   use_restriction_id: 4
@@ -55,6 +55,7 @@ item_has_use_restriction_00008:
 #  id                 :integer          not null, primary key
 #  item_id            :integer          not null
 #  use_restriction_id :integer          not null
-#  created_at         :datetime
-#  updated_at         :datetime
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
 #
+

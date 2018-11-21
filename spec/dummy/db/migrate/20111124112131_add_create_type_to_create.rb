@@ -1,4 +1,4 @@
-class AddCreateTypeToCreate < ActiveRecord::Migration
+class AddCreateTypeToCreate < ActiveRecord::Migration[5.1]
   def change
     add_column :creates, :create_type_id, :integer
     add_column :realizes, :realize_type_id, :integer

@@ -1,67 +1,67 @@
 --- 
 basket_00001: 
   updated_at: 2008-01-21 17:21:58.554146 +09:00
-  id: 1
+  id: 98b83092-3f28-4b34-a317-eefc073f8d2b
   note: 
   user_id: 1
   created_at: 2008-01-21 17:21:58.554146 +09:00
 basket_00002: 
   updated_at: 2008-01-21 17:26:14.585596 +09:00
-  id: 2
+  id: afa39d44-ab53-47ce-8506-28b1cf87d54c
   note: 
   user_id: 2
   created_at: 2008-01-21 17:26:14.585596 +09:00
 basket_00003: 
   updated_at: 2008-01-21 17:26:14.585596 +09:00
-  id: 3
+  id: 5b5bbf1d-3901-42e5-87f1-740e2b0597a3
   note: 
   user_id: 3
   created_at: 2008-01-21 17:26:14.585596 +09:00
 basket_00004: 
   updated_at: 2008-01-21 17:26:14.585596 +09:00
-  id: 4
+  id: bb1e8e77-f7fb-46f0-8635-703066e1dc7a
   note: 
   user_id: 2
   created_at: 2008-01-21 17:26:14.585596 +09:00
 basket_00005: 
   updated_at: 2008-01-21 17:26:14.585596 +09:00
-  id: 5
+  id: f828c552-e4a1-4c67-81ad-27c02c9a5b37
   note: 
   user_id: 1
   created_at: 2008-01-21 17:26:14.585596 +09:00
 basket_00006: 
   updated_at: 2008-01-21 17:26:14.585596 +09:00
-  id: 6
+  id: 9d521218-5531-4659-b59e-e21cdd928ddb
   note: 
   user_id: 2
   created_at: 2008-01-21 17:26:14.585596 +09:00
 basket_00007: 
   updated_at: 2008-01-21 17:26:14.585596 +09:00
-  id: 7
+  id: 73aaf9a3-0ad4-419a-a7b3-ea3d06202af7
   note: 
   user_id: 3
   created_at: 2008-01-21 17:26:14.585596 +09:00
 basket_00008: 
   updated_at: 2008-01-21 17:26:14.585596 +09:00
-  id: 8
+  id: 0d8b0653-01c7-4797-b845-27dd7e31e40b
   note: 
   user_id: 3
   created_at: 2008-01-21 17:26:14.585596 +09:00
 basket_00009: 
   updated_at: 2008-01-21 17:26:14.585596 +09:00
-  id: 9
+  id: d2f6b2ac-6b59-424f-84e8-610f9399650b
   note: 
   user_id: 2
   created_at: 2008-01-21 17:26:14.585596 +09:00
 basket_00010: 
   updated_at: 2008-01-21 17:26:14.585596 +09:00
-  id: 10
+  id: 34f2c1ec-93ee-4052-9980-ad90bf3b1999
   note: 
   user_id: 3
   created_at: 2008-01-21 17:26:14.585596 +09:00
 basket_00011: 
   updated_at: 2008-01-21 17:26:14.585596 +09:00
-  id: 11
+  id: 96362954-7efc-42d9-a847-df3aa87904bb
   note: 
   user_id: 4
   created_at: 2008-01-21 17:26:14.585596 +09:00
@@ -70,11 +70,10 @@ basket_00011:
 #
 # Table name: baskets
 #
-#  id           :integer          not null, primary key
+#  id           :uuid             not null, primary key
 #  user_id      :integer
 #  note         :text
 #  lock_version :integer          default(0), not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
-

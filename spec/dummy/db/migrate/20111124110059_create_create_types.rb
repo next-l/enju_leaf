@@ -1,4 +1,4 @@
-class CreateCreateTypes < ActiveRecord::Migration
+class CreateCreateTypes < ActiveRecord::Migration[5.1]
   def change
     create_table :create_types do |t|
       t.string :name

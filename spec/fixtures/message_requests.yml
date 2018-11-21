@@ -14,7 +14,7 @@ two:
 #
 # Table name: message_requests
 #
-#  id                  :integer         not null, primary key
+#  id                  :integer          not null, primary key
 #  sender_id           :integer
 #  receiver_id         :integer
 #  message_template_id :integer
@@ -24,4 +24,3 @@ two:
 #  created_at          :datetime
 #  updated_at          :datetime
 #
-

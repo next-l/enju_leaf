@@ -1,4 +1,4 @@
-class CreateSearchHistories < ActiveRecord::Migration
+class CreateSearchHistories < ActiveRecord::Migration[5.1]
   def self.up
     create_table :search_histories do |t|
       t.integer :user_id

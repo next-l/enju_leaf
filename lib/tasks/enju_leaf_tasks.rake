@@ -5,7 +5,7 @@ namespace :enju_leaf do
   desc "create initial records for enju_leaf"
   task :setup => :environment do
     Dir.glob(Rails.root.to_s + '/db/fixtures/enju_leaf/*.yml').each do |file|
-      ActiveRecord::Fixtures.create_fixtures('db/fixtures/enju_leaf', File.basename(file, '.*'))
+      ActiveRecord::FixtureSet.create_fixtures('db/fixtures/enju_leaf', File.basename(file, '.*'))
     end
 
     Rake::Task['enju_biblio:setup'].invoke
@@ -33,7 +33,7 @@ namespace :enju_leaf do
   end
 
   desc "reindex all models"
-  task :reindex, [:batch_size, :models, :silence] => :environment do |t, args|
+  task :reindex, [:batch_size, :models, :silence] => :environment do |_t, args|
     Rails::Engine.subclasses.each{|engine| engine.instance.eager_load!}
     Rake::Task['sunspot:reindex'].execute(args)
   end
@@ -41,5 +41,16 @@ namespace :enju_leaf do
   desc 'Export items'
   task :item => :environment do
     puts Manifestation.export(format: :txt)
+  end
+
+  desc 'Load default asset files'
+  task :load_asset_files => :environment do
+    library_group = LibraryGroup.order(created_at: :desc).first
+    library_group.header_logo = File.open("#{File.dirname(__FILE__)}/../../app/assets/images/enju_leaf/enju-logo-yoko-without-white.png")
+    library_group.save!
+    if File.stat("#{Rails.root.to_s}/public/favicon.ico").size == 0
+      FileUtils.cp("#{File.dirname(__FILE__)}/../../app/assets/images/enju_leaf/favicon.ico", "#{Rails.root.to_s}/public/favicon.ico")
+    end
+    puts 'enju_leaf: Default asset file(s) are loaded successfully.'
   end
 end

@@ -1,0 +1,58 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title">About this system</h1>
+<div id="content_list">
+
+<ul>
+  <li>This integrated library system software "Next-L Enju Leaf" is developed by <a href="https://github.com/nabeta">Kosuke Tanabe</a> and <a href="http://www.next-l.jp/">Project Next-L</a>.</li>
+  <li>Next-L Enju Leaf is released under MIT license. For more information, visit <a href="https://github.com/next-l/enju_leaf">our project website</a>.</li>
+</ul>
+
+<h2>Contact information</h2>
+
+<ul>
+  <li>Kosuke Tanabe: <%= mail_to 'nabeta@fastmail.fm', nil, replace_at: '_at_' -%></li>
+  <li>Project Next-L: <%= mail_to 'info@next-l.jp', nil, replace_at: '_at_' -%></li>
+</ul>
+
+<h2>Acknowledgment</h2>
+
+<ul>
+  <li>This system depends on the following sofrare.
+    <ul>
+      <li>
+        <a href="http://www.ruby-lang.org/">Ruby</a>,
+        <a href="http://www.rubyonrails.org/">Ruby on Rails</a>,
+        <%= database_adapter -%>,
+        <a href="http://lucene.apache.org/solr/">Apache Solr</a>
+      </li>
+    </ul>
+  </li>
+  <li>This system has been using bibliographic data from the following services and databases.
+  <ul>
+    <li><a href="http://iss.ndl.go.jp/">NDL Search</a></li>
+    <li><a href="http://crd.ndl.go.jp/jp/public/">National Diet Library Collaborative Reference Database</a></li>
+  </ul>
+  </li>
+  <li>This system has been using book jacket images from the following service.
+  <ul>
+    <li><%= book_jacket_source_link %></li>
+  </ul>
+  </li>
+  <li>This system has been using screenshots of websites from the following services.
+  <ul>
+    <li><%= screenshot_generator_link %></li>
+  </ul>
+  </li>
+  <li>The icons on this system are produced by <a href="http://www.famfamfam.com/lab/icons/silk/">famfamfam.com</a>.</li>
+</ul>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><a href="http://www.next-l.jp/">Project Next-L</a></li>
+    <li><a href="https://github.com/next-l/enju_leaf">this project on GitHub</a></li>
+    <li><a href="http://www.next-l.jp/?page=%A5%E1%A1%BC%A5%EA%A5%F3%A5%B0%A5%EA%A5%B9%A5%C8">Mailing list</a> (in Japanese)</li>
+  </ul>
+</div>

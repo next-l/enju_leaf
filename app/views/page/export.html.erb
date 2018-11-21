@@ -1,0 +1,26 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.export') -%></h1>
+<div id="content_list">
+
+<ul>
+  <% if current_user.try(:has_role?, 'Administrator') %>
+    <li>
+      <%= link_to t('activerecord.models.user_export_file'), user_export_files_path -%>
+    </li>
+  <% end %>
+  <li>
+    <%= link_to t('activerecord.models.resource_export_file'), resource_export_files_path -%>
+  </li>
+  <% if defined?(EnjuEvent) %>
+    <li>
+      <%= link_to t('activerecord.models.event_export_file'), event_export_files_path -%>
+    </li>
+  <% end %>
+</ul>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+  </ul>
+</div>

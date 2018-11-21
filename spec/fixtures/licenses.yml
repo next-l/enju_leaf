@@ -3,14 +3,14 @@
 one:
   id: 1
   name: unknown
-  display_name: unknown
+  display_name_translations: {"en": "unknown"}
   note: unknown
   position: 1
 
 two:
   id: 2
   name: mit
-  display_name: MIT
+  display_name_translations: {"en": "MIT"}
   note: MIT
   position: 2
 
@@ -18,12 +18,11 @@ two:
 #
 # Table name: licenses
 #
-#  id           :integer         not null, primary key
-#  name         :string(255)     not null
-#  display_name :string(255)
-#  note         :text
-#  position     :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  id                        :integer          not null, primary key
+#  name                      :string           not null
+#  display_name_translations :jsonb
+#  note                      :text
+#  position                  :integer
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
 #
-

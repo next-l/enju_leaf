@@ -1,34 +1,44 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 one:
-  id: 1
-  name: unknown
-  display_name: unknown
-  short_name: unknown
+  id: 7dbdeb02-98ff-4158-881b-ce5339742780
+  name: enju_library
+  display_name_translations: {"en": "Enju Library", "ja": "えんじゅ図書館"}
+  short_name: enju_library
   note: 
-  my_networks: "0.0.0.0/0\r\n\
-    ::/0"
-  url: "http://localhost:3000/"
-  settings: "{\"max_number_of_results\":200,\"family_name_first\":true}"
+  my_networks: "0.0.0.0/0"
+  url: "http://localhost/"
   position: 1
-  login_banner: "*Next-L Enju*"
-  admin_networks: "0.0.0.0/0\r\n\
-    ::/0"
+  login_banner_translations: {"en": "*Next-L Enju*", "ja": "*Next-L Enju*"}
+  admin_networks: "0.0.0.0/0"
+  pub_year_facet_range_interval: 10
+  max_number_of_results: 1000
+  email: 'library@example.jp'
 
 # == Schema Information
 #
 # Table name: library_groups
 #
-#  id             :integer          not null, primary key
-#  name           :string(255)      not null
-#  display_name   :text
-#  short_name     :string(255)      not null
-#  my_networks    :text
-#  login_banner   :text
-#  note           :text
-#  country_id     :integer
-#  position       :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  admin_networks :text
-#  url            :string(255)      default("http://localhost:3000/")
+#  id                            :uuid             not null, primary key
+#  name                          :string           not null
+#  display_name_translations     :jsonb
+#  short_name                    :string           not null
+#  my_networks                   :text
+#  login_banner_translations     :jsonb
+#  note                          :text
+#  country_id                    :integer
+#  position                      :integer
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
+#  admin_networks                :text
+#  url                           :string           default("http://localhost:3000/")
+#  footer_banner_translations    :jsonb
+#  html_snippet                  :text
+#  book_jacket_source            :string
+#  max_number_of_results         :integer          default(500)
+#  family_name_first             :boolean          default(TRUE)
+#  screenshot_generator          :string
+#  pub_year_facet_range_interval :integer          default(10)
+#  csv_charset_conversion        :boolean          default(FALSE), not null
+#  header_logo_data              :jsonb
+#  email                         :string           not null
 #

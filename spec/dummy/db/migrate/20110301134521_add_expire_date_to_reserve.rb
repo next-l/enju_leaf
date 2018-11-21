@@ -1,4 +1,4 @@
-class AddExpireDateToReserve < ActiveRecord::Migration
+class AddExpireDateToReserve < ActiveRecord::Migration[5.1]
   def self.up
     add_column :reserves, :expire_date, :string
   end

@@ -1,17 +1,11 @@
-class CreateCheckedItems < ActiveRecord::Migration
-  def self.up
+class CreateCheckedItems < ActiveRecord::Migration[5.1]
+  def change
     create_table :checked_items do |t|
-      t.integer :item_id, :null => false
-      t.integer :basket_id, :null => false
-      t.datetime :due_date, :null => false
+      t.references :item, null: false, foreign_key: true, type: :uuid
+      t.references :basket, null: false, foreign_key: {on_delete: :nullify}, type: :uuid
+      t.datetime :due_date, null: false
 
       t.timestamps
     end
-    add_index :checked_items, :item_id
-    add_index :checked_items, :basket_id
-  end
-
-  def self.down
-    drop_table :checked_items
   end
 end

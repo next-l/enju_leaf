@@ -1,9 +1,9 @@
-class CreateLibraries < ActiveRecord::Migration
-  def self.up
-    create_table :libraries do |t|
-      t.string :name, :null => false
-      t.text :display_name
-      t.string :short_display_name, :null => false
+class CreateLibraries < ActiveRecord::Migration[5.1]
+  def change
+    create_table :libraries, id: :uuid, default: 'gen_random_uuid()' do |t|
+      t.string :name, null: false, index: {unique: true}
+      t.jsonb :display_name_translations
+      t.jsonb :short_display_name_translations
       t.string :zip_code
       t.text :street
       t.text :locality
@@ -12,21 +12,14 @@ class CreateLibraries < ActiveRecord::Migration
       t.string :telephone_number_2
       t.string :fax_number
       t.text :note
-      t.integer :call_number_rows, :default => 1, :null => false
-      t.string :call_number_delimiter, :default => "|", :null => false
-      t.integer :library_group_id, :default => 1, :null => false
-      t.integer :users_count, :default => 0, :null => false
+      t.integer :call_number_rows, default: 1, null: false
+      t.string :call_number_delimiter, default: "|", null: false
+      t.references :library_group, foreign_key: true, null: false, type: :uuid
+      t.integer :users_count, default: 0, null: false
       t.integer :position
       t.integer :country_id
 
       t.timestamps
-      t.datetime :deleted_at
     end
-    add_index :libraries, :library_group_id
-    add_index :libraries, :name, :unique => true
-  end
-
-  def self.down
-    drop_table :libraries
   end
 end

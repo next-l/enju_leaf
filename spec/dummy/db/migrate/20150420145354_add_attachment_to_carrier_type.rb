@@ -1,4 +1,4 @@
-class AddAttachmentToCarrierType < ActiveRecord::Migration
+class AddAttachmentToCarrierType < ActiveRecord::Migration[5.1]
   def change
     add_column :carrier_types, :attachment_id, :string
     add_column :carrier_types, :attachment_filename, :string

@@ -1,12 +1,5 @@
 require 'simplecov'
-require 'codeclimate-test-reporter'
-SimpleCov.start do
-  formatter SimpleCov::Formatter::MultiFormatter[
-    SimpleCov::Formatter::HTMLFormatter,
-    CodeClimate::TestReporter::Formatter
-  ]
-end
-CodeClimate::TestReporter.start
+SimpleCov.start
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
@@ -16,12 +9,11 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
-require 'vcr'
-require 'factory_girl'
-require 'sunspot-rails-tester'
+require 'factory_bot'
+require 'sunspot_matchers'
 require 'rspec/active_model/mocks'
-require 'pundit/rspec'
 require 'capybara/rspec'
+require 'pundit/rspec'
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -41,7 +33,7 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
-ActiveRecord::Migration.maintain_test_schema!
+ActiveRecord::Migration.maintain_test_schema! if Rails::VERSION::MAJOR >= 4
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -67,21 +59,14 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  config.extend ControllerMacros, :type => :controller
-
-  $original_sunspot_session = Sunspot.session
+  config.extend ControllerMacros, type: :controller
 
   config.before do
-    Sunspot.session = Sunspot::Rails::StubSessionProxy.new($original_sunspot_session)
+    Sunspot.session = SunspotMatchers::SunspotSessionSpy.new(Sunspot.session)
   end
-
-  config.before :each, :solr => true do
-    Sunspot::Rails::Tester.start_original_sunspot_session
-    Sunspot.session = $original_sunspot_session
-    Sunspot.remove_all!
-  end
+  config.include SunspotMatchers
 end
 
-FactoryGirl.definition_file_paths << "#{::Rails.root}/../../spec/factories"
-FactoryGirl.find_definitions
+FactoryBot.definition_file_paths << "#{::Rails.root}/../../spec/factories"
+FactoryBot.find_definitions
 

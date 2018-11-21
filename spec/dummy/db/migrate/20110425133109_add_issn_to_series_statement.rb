@@ -1,4 +1,4 @@
-class AddIssnToSeriesStatement < ActiveRecord::Migration
+class AddIssnToSeriesStatement < ActiveRecord::Migration[5.1]
   def self.up
     add_column :series_statements, :issn, :string
   end

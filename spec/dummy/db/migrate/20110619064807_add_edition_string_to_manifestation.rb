@@ -1,4 +1,4 @@
-class AddEditionStringToManifestation < ActiveRecord::Migration
+class AddEditionStringToManifestation < ActiveRecord::Migration[5.1]
   def self.up
     add_column :manifestations, :edition_string, :string
   end

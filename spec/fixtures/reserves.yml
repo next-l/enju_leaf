@@ -1,162 +1,157 @@
 --- 
 reserve_00001: 
   updated_at: 2007-09-02 17:51:54.887849 +09:00
-  manifestation_id: 4
+  manifestation_id: e153878e-3001-4f0f-a576-2ec63ffb9bf9
   user_id: 1
   request_status_type_id: 4
-  id: 1
+  id: 20619a41-b75f-491a-83ac-4cc0b7e15dca
   created_at: 2007-09-01 14:14:52.356803 +09:00
-  expired_at: <%= 1.week.from_now.to_s(:db) %>
   lock_version: 0
+  pickup_location_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
 reserve_00002: 
   updated_at: 2007-09-01 14:20:05.530854 +09:00
-  manifestation_id: 5
+  manifestation_id: ff12ea9b-177b-4765-af27-775d2e1f1895
   user_id: 2
   request_status_type_id: 4
-  id: 2
+  id: 4df77b40-4a1e-4a55-8449-210292eb6243
   created_at: 2007-09-01 14:20:05.530854 +09:00
-  expired_at: <%= 1.week.from_now.to_s(:db) %>
   lock_version: 0
+  pickup_location_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
 reserve_00003: 
   updated_at: 2007-09-02 17:46:52.791614 +09:00
-  manifestation_id: 6
+  manifestation_id: 5b4b4db8-df7a-43f3-b226-baddc4d4690e
   user_id: 3
   request_status_type_id: 4
-  id: 3
+  id: dbb41197-1f6c-469b-a106-926ce2221de8
   created_at: 2007-09-02 17:46:52.791614 +09:00
-  expired_at: <%= 1.week.from_now.to_s(:db) %>
   lock_version: 0
+  pickup_location_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
 reserve_00004: 
   updated_at: 2007-09-02 18:37:25.576087 +09:00
-  manifestation_id: 7
+  manifestation_id: 4907ed27-9299-4494-8874-9b7896c3cb02
   user_id: 1
   request_status_type_id: 4
-  id: 4
+  id: f122709a-9376-48b5-87e3-f6494d467c08
   created_at: 2007-09-02 18:37:25.576087 +09:00
-  expired_at: <%= 1.week.from_now.to_s(:db) %>
   lock_version: 0
+  pickup_location_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
 reserve_00005: 
   updated_at: 2007-09-02 19:16:55.714812 +09:00
-  manifestation_id: 8
+  manifestation_id: 56c362a0-0e22-4d0d-ab26-e10d76be2db9
   user_id: 2
   request_status_type_id: 4
-  id: 5
+  id: 03796ec9-1a5d-48ed-a312-7c2592896e96
   created_at: 2007-09-02 19:16:55.714812 +09:00
-  expired_at: <%= 1.week.from_now.to_s(:db) %>
   lock_version: 0
+  pickup_location_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
 reserve_00006: 
   updated_at: 2007-09-02 19:20:06.530854 +09:00
-  manifestation_id: 4
+  manifestation_id: e153878e-3001-4f0f-a576-2ec63ffb9bf9
   user_id: 2
   request_status_type_id: 4
-  id: 6
+  id: eb4df3a6-ca32-4864-a462-f7523312b785
   created_at: 2007-09-02 19:20:06.530854 +09:00
-  expired_at: <%= 1.week.from_now.to_s(:db) %>
   lock_version: 0
+  pickup_location_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
 reserve_00007: 
   updated_at: 2007-09-02 19:20:07.530854 +09:00
-  manifestation_id: 2
+  manifestation_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
   user_id: 4
   request_status_type_id: 4
-  id: 7
+  id: bf8c705b-da52-4a10-8ebb-fbd2a45cfac3
   created_at: 2007-09-02 19:20:07.530854 +09:00
-  expired_at: <%= 1.week.from_now.to_s(:db) %>
   lock_version: 0
+  pickup_location_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
 reserve_00008: 
   updated_at: 2007-09-02 19:46:53.791614 +09:00
-  manifestation_id: 6
+  manifestation_id: 5b4b4db8-df7a-43f3-b226-baddc4d4690e
   user_id: 3
   request_status_type_id: 3
-  id: 8
+  id: 47473d66-cc1c-4733-bb1f-6460e1bbb2bb
   created_at: 2007-09-02 19:46:53.791614 +09:00
-  expired_at: <%= 1.week.ago.to_s(:db) %>
   lock_version: 0
+  pickup_location_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
 reserve_00009: 
   updated_at: 2007-09-02 19:46:54.791614 +09:00
-  manifestation_id: 7
+  manifestation_id: 4907ed27-9299-4494-8874-9b7896c3cb02
   user_id: 5
   request_status_type_id: 3
-  id: 9
+  id: 197d76e2-29b5-4ac9-ab12-5f178176065a
   created_at: 2007-09-02 19:46:54.791614 +09:00
-  expired_at: <%= 1.day.ago.to_s(:db) %>
   lock_version: 0
+  pickup_location_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
 reserve_00010: 
   updated_at: 2007-09-02 19:46:55.791614 +09:00
-  manifestation_id: 8
+  manifestation_id: 56c362a0-0e22-4d0d-ab26-e10d76be2db9
   user_id: 5
   request_status_type_id: 3
-  id: 10
+  id: 30a3df7a-0c26-430d-b175-4a318d68341d
   created_at: 2007-09-02 19:46:55.791614 +09:00
-  expired_at: <%= 1.hour.ago.to_s(:db) %>
-  checked_out_at: <%= 1.week.ago.to_s(:db) %>
-  item_id: 25
+  item_id: e190d0d4-672e-49b5-a996-b90bf2409b9b
   lock_version: 0
+  pickup_location_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
 reserve_00011: 
   updated_at: 2007-09-03 14:20:05.530854 +09:00
-  manifestation_id: 7
+  manifestation_id: 4907ed27-9299-4494-8874-9b7896c3cb02
   user_id: 2
   request_status_type_id: 3
-  id: 11
+  id: acfb70da-b47c-4fdb-ad89-e0801b7a915e
   created_at: 2007-09-03 14:20:05.530854 +09:00
-  expired_at: <%= 1.day.ago.to_s(:db) %>
   lock_version: 0
+  pickup_location_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
 reserve_00012: 
   updated_at: 2007-09-03 14:20:06.530854 +09:00
-  manifestation_id: 8
+  manifestation_id: 56c362a0-0e22-4d0d-ab26-e10d76be2db9
   user_id: 2
   request_status_type_id: 4
-  id: 12
+  id: d5ac61fc-5572-42a3-bedd-91ac3cf998d0
   created_at: 2007-09-03 14:20:06.530854 +09:00
-  expired_at: <%= 1.day.ago.to_s(:db) %>
   lock_version: 0
+  pickup_location_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
 reserve_00013: 
   updated_at: 2007-09-03 14:20:07.530854 +09:00
-  manifestation_id: 11
+  manifestation_id: 64c18638-dbd6-448a-8ae4-c837a6c99713
   user_id: 4
   request_status_type_id: 3
-  id: 13
+  id: c88b3714-fe69-435b-ba4b-a95b2674da9c
   created_at: 2007-09-03 14:20:07.530854 +09:00
-  expired_at: <%= 1.day.ago.to_s(:db) %>
   lock_version: 0
+  pickup_location_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
 reserve_00014: 
   updated_at: 2007-09-03 14:20:08.530854 +09:00
-  manifestation_id: 11
+  manifestation_id: 64c18638-dbd6-448a-8ae4-c837a6c99713
   user_id: 4
   request_status_type_id: 3
-  id: 14
+  id: 85bd226b-b4aa-45e7-939b-06d83b5fd0fd
   created_at: 2007-09-03 14:20:08.530854 +09:00
-  retained_at: <%= 1.hour.from_now.to_s(:db) %>
-  expired_at: <%= 1.day.from_now.to_s(:db) %>
-  item_id: 21
+#  retained_at: <%= 1.hour.from_now.to_s(:db) %>
+  item_id: d4255c14-f0bc-468d-95a0-94d01298343d
   lock_version: 0
+  pickup_location_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
 reserve_00015: 
   updated_at: 2007-09-03 14:20:09.530854 +09:00
-  manifestation_id: 11
+  manifestation_id: 64c18638-dbd6-448a-8ae4-c837a6c99713
   user_id: 4
   request_status_type_id: 3
-  id: 15
+  id: f6db7b55-49ac-4ed6-be56-c7c9977a888c
   created_at: 2007-09-03 14:20:09.530854 +09:00
-  expired_at: <%= 1.day.from_now.to_s(:db) %>
   lock_version: 0
+  pickup_location_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
 
 # == Schema Information
 #
 # Table name: reserves
 #
-#  id                           :integer          not null, primary key
+#  id                           :uuid             not null, primary key
 #  user_id                      :integer          not null
-#  manifestation_id             :integer          not null
-#  item_id                      :integer
+#  manifestation_id             :uuid             not null
+#  item_id                      :uuid
 #  request_status_type_id       :integer          not null
-#  checked_out_at               :datetime
-#  created_at                   :datetime
-#  updated_at                   :datetime
-#  canceled_at                  :datetime
-#  expired_at                   :datetime
-#  deleted_at                   :datetime
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
 #  expiration_notice_to_patron  :boolean          default(FALSE)
 #  expiration_notice_to_library :boolean          default(FALSE)
-#  retained_at                  :datetime
+#  pickup_location_id           :uuid             not null
 #  postponed_at                 :datetime
 #  lock_version                 :integer          default(0), not null
 #

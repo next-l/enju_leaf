@@ -1,4 +1,4 @@
-class CreateMessageTemplates < ActiveRecord::Migration
+class CreateMessageTemplates < ActiveRecord::Migration[5.1]
   def self.up
     create_table :message_templates do |t|
       t.string :status, :null => false

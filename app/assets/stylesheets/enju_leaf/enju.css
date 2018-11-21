@@ -1,0 +1,570 @@
+body{
+  margin-left: 5px;
+  margin-right: 5px;
+  text-align: left;
+}
+
+a.hover{:background-color: transparent}
+
+strong{
+  font-weight: bold;
+}
+
+div#narrow_search, div#narrow_library_search{
+  margin-top: 1em;
+}
+.line0{
+  background: #d7ebf9;
+}
+.line1{
+  background: white;
+}
+.overdue{
+  color: red;
+}
+.duedate_is_today{
+  color: blue;
+}
+.in_checkout{
+  color: black;
+}
+
+div#bd{
+  padding-left: 1px;
+}
+
+div#navibar{
+  clear: both;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 914px;
+}
+
+div#content{
+  padding-top: 8px;
+  padding-left: 4px;
+  padding-right: 4px;
+  clear: both;
+}
+
+div.header_and_footer{
+  padding: 2px;
+  clear: both;
+}
+
+div#header_left{
+  width: 800px;
+  height: 65px;
+  float: left;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+div#library_system_name{
+  width: 800px;
+  height: 30px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+div#header_center{
+  width: 240px;
+  height: 65px;
+  float: left;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+div#header_select_locale{
+  width: 150px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  display: inline-block;
+}
+
+div#header_right{
+  width: 250px;
+  float: left;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+div#search_footer{
+  clear: both;
+}
+
+div#submenu{
+  margin-left: 11px;
+  width: 190px;
+  padding: 5px;
+  float: left;
+}
+
+div#manifestation_book_jacket{
+  margin-top: 10px;
+  text-align: center;
+}
+
+div#pickup_book_jacket{
+  float: left;
+  text-align: center;
+}
+
+img.screen_shot{
+  border: 0;
+}
+
+div#manifestation_bookmark_buttons{
+  clear: both;
+  margin-top: 1em;
+}
+
+div#content_detail{
+  width: 700px;
+  float: left;
+  margin-bottom: 5px;
+}
+
+div#content_list{
+  padding: 10px;
+}
+
+div#manifestation_footer{
+  margin-top: 1em;
+  clear: both;
+}
+
+div#left_pane{
+  float: left;
+  width: 456px;
+  word-break: break-all;
+}
+
+div#right_pane{
+  float: left;
+  margin-left: 10px;
+  width: 456px;
+  word-break: break-all;
+}
+
+div#left_pane_detail{
+  margin-top: 5px;
+  float: left;
+  width: 330px;
+  word-break: break-all;
+}
+
+div#right_pane_detail{
+  margin-top: 5px;
+  float: left;
+  margin-left: 10px;
+  width: 330px;
+  word-break: break-all;
+}
+
+div#footer{
+  padding-top: 5px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-bottom: 5px;
+  clear: both;
+}
+
+h1{
+  font-size: 180%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  line-height: 120%;
+}
+
+h2{
+  font-size: 160%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+h1.resource_title, h2.resource_title, h3.resource_title{
+  line-height: 140%;
+}
+
+h3{
+  font-size: 150%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+h4{
+  font-size: 120%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+h1.title, h2.title, h3.title, h4.title{
+  /* color: white; */
+  /* background-color: #5970B2; */
+  padding: 5px;
+  margin: 0px;
+}
+
+a.title { color: white; }
+a.title:hover { color: white; }
+a.title:visited { color: white; }
+
+form{
+  padding: 0;
+}
+
+table{
+  border: 1px solid #2779aa;
+}
+
+td, th{
+  border: 1px solid #2779aa;
+  padding: 5px;
+  word-break: break-all
+}
+
+table#manifestation_list{
+  width: 100%;
+}
+
+table.index{
+  width: 100%;
+}
+
+div#search_form{
+  padding-top: 10px;
+}
+
+div#general_search_form{
+  clear: both;
+  padding-left: 4px;
+  padding-top: 10px;
+}
+
+table#manifestation_detail{
+  width: 100%;
+}
+
+div#services{
+  width: 920px;
+}
+
+div#bookmarks_for_manifestation{
+  border: 1px solid #5970B2;
+}
+
+div#user_search_form, div#message_box, div#news_feed_box, div#user_box{
+  padding: 10px;
+}
+
+div#picked_up_box{
+  padding: 10px;
+}
+
+div#tag_cloud_box{
+  padding: 10px;
+}
+
+div.config_box{
+  padding: 10px;
+}
+
+img{
+  border: 0;
+}
+
+div#tabview{
+  margin-top: 1em;
+}
+
+div#call_number_content{
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+div#call_number_content_left{
+  float: left;
+  width: 20px;
+}
+
+div#call_number_content_right{
+  float: left;
+  width: 20px;
+}
+
+table#call_number_label{
+  border: solid 1px green;
+}
+
+.call_number_table{
+  margin-left: auto;
+  margin-right: auto;
+  border: 0;
+}
+
+.call_number_label{
+  border: solid 1px green;
+  width: 50px;
+  padding: 0px;
+  text-align: center;
+}
+
+li{
+  line-height: 2em;
+}
+
+input.resource_title{
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input.resource_name{
+  width: 80%;
+  box-sizing: border-box;
+}
+
+input.resource_subject{
+  width: 50%;
+  box-sizing: border-box;
+}
+
+input.resource_locale{
+  width: 10em;
+}
+
+input.resource_email{
+  width: 20em;
+  ime-mode: disabled;
+}
+
+input.resource_zip_code{
+  width: 15em;
+}
+
+input.resource_url{
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input.resource_isbn_issn{
+  width: 20em;
+  ime-mode: disabled;
+}
+
+input.resource_identifier, input.resource_user_number, input.resource_user, input.resource_item_identifier{
+  width: 20em;
+  ime-mode: disabled;
+}
+
+input.resource_identifier_body{
+  width: 40em;
+  ime-mode: disabled;
+}
+
+input.resource_integer{
+  width: 5em;
+  ime-mode: disabled;
+}
+
+input.year_field, input.month_field, input.day_field{
+  width: 5em;
+  ime-mode: disabled;
+}
+
+input.date_field{
+  ime-mode: disabled;
+}
+
+input.date_text_field{
+  width: 100px;
+}
+
+input.wide_date_text_field{
+  width: 160px;
+}
+
+input.short_name{
+  ime-mode: disabled;
+}
+
+textarea{
+  width: 100%;
+  box-sizing: border-box;
+  height: 10em;
+}
+
+textarea#message_body{
+  width: 40em;
+  height: 20em;
+}
+
+th.checked_item_title{
+  width: 400px;
+}
+
+.error_message{
+  color: red;
+}
+
+div.holding_index{
+  margin-top: 10px;
+}
+
+label{
+  font-weight: bold;
+}
+
+input.editable_text_field{
+  width: 100%;
+}
+
+form.inplaceeditor-form input[type="text"]{
+  width: 100%;
+}
+
+form.inplaceeditor-form textarea{
+  width: 100%;
+}
+
+input.login_password{
+  width: 180px;
+  ime-mode: disabled;
+}
+
+input.search_form{
+  width: 350px;
+}
+
+input.search_form_short{
+  width: 250px;
+}
+
+th#position{
+  width: 40px;
+}
+
+.highlight { background-color: yellow }
+
+em{
+  font-style: normal;
+}
+
+div#flash_alert, div#flash_error{
+  color: red;
+}
+
+div#flash_notice{
+  color: green;
+}
+
+td#edit_icons, th#edit_icons{
+  width: 100px;
+  line-height: 200%;
+}
+
+img.icon{
+  border: 0;
+}
+
+#select_locale{
+  display: none;
+  z-index: 1;
+  position: absolute;
+  background-color: white;
+  padding: 10px;
+  max-width: 250px;
+}
+
+#user_account{
+  height: 40px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+li{
+  margin-left: 20px;
+}
+
+p{
+  line-height: 2em;
+}
+
+table#resource_detail{
+  background-color: white;
+  width: 100%;
+}
+
+div.holding{
+  margin-top: 10px;
+}
+
+table.holding{
+  background-color: white;
+  width: 100%;
+}
+
+abbr[title="required"]{
+  color: red;
+}
+
+div.book_jacket{
+  text-align: center;
+  width: 190px;
+}
+
+div.book_jacket img.book_jacket{
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+div.search_form{
+  margin-bottom: 10px;
+}
+
+.hidden {display: none;}
+
+.enju_table_header{
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.normal-weight {
+  font-weight: normal;
+}
+
+.right {
+  text-align: right;
+}
+
+.center {
+  text-align: center;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.display-none {
+  display: none;
+}
+
+img.enju_icon {
+  vertical-align: middle;
+}

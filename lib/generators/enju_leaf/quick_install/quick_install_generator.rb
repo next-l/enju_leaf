@@ -5,15 +5,20 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
     environment = ENV['RAILS_ENV'] || 'development'
     gsub_file 'config/schedule.rb', /^set :environment, :development$/,
       "set :environment, :#{environment}"
-    rake("enju_leaf_engine:install:migrations")
-    rake("enju_biblio_engine:install:migrations")
+    rake("enju_seed_engine:install:migrations")
     rake("enju_library_engine:install:migrations")
+    rake("enju_biblio_engine:install:migrations")
+    rake("enju_manifestation_viewer_engine:install:migrations")
     if !ENV['ENJU_SKIP_CONFIG']
-      generate("enju_biblio:setup")
       generate("enju_library:setup")
+      generate("enju_biblio:setup")
       generate("enju_circulation:setup")
       generate("enju_subject:setup")
+      generate("friendly_id")
     end
+    gsub_file Dir.glob("#{Rails.root.to_s}/db/migrate/*_create_friendly_id_slugs.rb").first,
+      /^class CreateFriendlyIdSlugs < ActiveRecord::Migration$/,
+      'class CreateFriendlyIdSlugs < ActiveRecord::Migration[5.1]'
     rake("db:migrate", env: environment)
     rake("enju_leaf:setup", env: environment)
     rake("enju_circulation:setup", env: environment)

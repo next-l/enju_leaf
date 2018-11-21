@@ -17,10 +17,9 @@ two:
 # Table name: user_import_results
 #
 #  id                  :integer          not null, primary key
-#  user_import_file_id :integer
-#  user_id             :integer
+#  user_import_file_id :integer          not null
+#  user_id             :integer          not null
 #  body                :text
-#  created_at          :datetime
-#  updated_at          :datetime
-#  error_message       :text
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
 #

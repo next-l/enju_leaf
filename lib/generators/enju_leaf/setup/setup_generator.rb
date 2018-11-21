@@ -7,8 +7,8 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
     directory("solr", "example/solr")
     copy_file("Procfile", "Procfile")
     copy_file("config/schedule.rb", "config/schedule.rb")
-    copy_file("config/initializers/enju_leaf.rb", "config/initializers/enju_leaf.rb")
     copy_file("config/initializers/resque.rb", "config/initializers/resque.rb")
+    append_to_file("config/initializers/assets.rb", "Rails.application.config.assets.precompile += %w( *.png *.gif enju_leaf/print.css )")
     inject_into_file 'config/application.rb', after: /# config.i18n.default_locale = :de$\n/ do
       <<"EOS"
     config.i18n.available_locales = [:en, :ja]
@@ -37,10 +37,14 @@ EOS
     generate("devise", "User")
     gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
     gsub_file 'app/models/user.rb', /, :trackable, :validatable$/, <<EOS
-, :trackable, #:validatable, 
+, # :trackable, :validatable,
       :lockable, :lock_strategy => :none, :unlock_strategy => :none
-  include EnjuLeaf::EnjuUser
+  include EnjuSeed::EnjuUser
 EOS
+    gsub_file 'app/controllers/application_controller.rb', /protect_from_forgery with: :exception$/, 'protect_from_forgery with: :exception, prepend: true'
+    gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i'
+    gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [:email]', 'config.authentication_keys = [:username]'
+    gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
     generate("sunspot_rails:install")
     generate("kaminari:config")
     generate("kaminari:views bootstrap3")
@@ -52,7 +56,6 @@ EOS
     gsub_file 'config/initializers/kaminari_config.rb',
       /# config.default_per_page = 25$/,
       "config.default_per_page = 10"
-    generate("friendly_id")
     gsub_file "app/assets/javascripts/application.js",
       /\/\/= require turbolinks$/,
       ""
@@ -64,13 +67,9 @@ EOS
   end
 EOS
     end
-    gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i'
-    gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [:email]', 'config.authentication_keys = [:username]'
-    gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
 
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
-  include EnjuLeaf::Controller
   include EnjuBiblio::Controller
   include EnjuLibrary::Controller
 
@@ -79,7 +78,7 @@ EOS
 EOS
     end
 
-    inject_into_file "app/assets/javascripts/application.js", after: /\/\/= require jquery_ujs$\n/ do
+    inject_into_file "app/assets/javascripts/application.js", after: /\/\/= require rails-ujs$\n/ do
       "//= require enju_leaf/application\n"
     end
     inject_into_file "app/assets/stylesheets/application.css", after: / *= require_self$\n/ do

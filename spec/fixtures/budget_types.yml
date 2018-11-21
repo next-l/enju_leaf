@@ -1,0 +1,28 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+public_fund:
+  name: Public fund
+  display_name_translations: {"en": "Public fund"}
+  note: 
+  position: 1
+  id: 1
+
+donation:
+  name: Donation
+  display_name_translations: {"en": "Donation"}
+  note: 
+  position: 2
+  id: 2
+
+# == Schema Information
+#
+# Table name: budget_types
+#
+#  id                        :integer          not null, primary key
+#  name                      :string           not null
+#  display_name_translations :jsonb
+#  note                      :text
+#  position                  :integer
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#

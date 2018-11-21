@@ -1,0 +1,26 @@
+<!--
+The following code was originally written by Ralph Bean. Thanks Ralph!
+http://groups.google.com/group/jquery-ui/msg/f11601f56737a129
+-->
+<script type="text/javascript">
+
+$(document).ready( function () {
+    <% if user_signed_in? %>
+      restoreOrder();
+    <% end %>
+    $(".portlet-header .ui-icon").click(function() {
+        $(this).toggleClass("ui-icon-minus");
+        $(this).toggleClass("ui-icon-plus");
+        $(this).parents(".portlet:first").find(".portlet-content").toggle();
+      <% if user_signed_in? %>
+        <% date = 1.week.from_now %>
+        saveOrder(<%= date.year %>, <%= date.month %>, <%= date.day %>, "<%= root_path %>"); // This is important
+      <% end %>
+    });
+    $(".portlet-header .ui-icon").hover(
+        function() {$(this).addClass("ui-icon-hover"); },
+        function() {$(this).removeClass('ui-icon-hover'); }
+    );
+});
+
+</script>

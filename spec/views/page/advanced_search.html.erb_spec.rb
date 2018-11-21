@@ -1,12 +1,11 @@
-# -*- encoding: utf-8 -*-
-require 'spec_helper'
+require 'rails_helper'
 
 describe "page/advanced_search" do
   fixtures :all
 
   before(:each) do
     assign(:libraries, Library.all)
-    view.stub(:current_user).and_return(User.find('enjuadmin'))
+    view.stub(:current_user).and_return(User.friendly.find('enjuadmin'))
   end
 
   it "renders attributes in <p>" do

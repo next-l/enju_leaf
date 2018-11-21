@@ -1,4 +1,4 @@
-class AddPositionToAgentRelationship < ActiveRecord::Migration
+class AddPositionToAgentRelationship < ActiveRecord::Migration[5.1]
   def self.up
     add_column :manifestation_relationships, :position, :integer
     add_column :agent_relationships, :position, :integer

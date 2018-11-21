@@ -1,4 +1,4 @@
-class AddNoteToSeriesStatement < ActiveRecord::Migration
+class AddNoteToSeriesStatement < ActiveRecord::Migration[5.1]
   def self.up
     add_column :series_statements, :note, :text
   end

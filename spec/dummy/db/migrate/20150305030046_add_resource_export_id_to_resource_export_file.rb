@@ -1,4 +1,4 @@
-class AddResourceExportIdToResourceExportFile < ActiveRecord::Migration
+class AddResourceExportIdToResourceExportFile < ActiveRecord::Migration[5.1]
   def change
     add_column :resource_export_files, :resource_export_id, :string
     add_column :resource_export_files, :resource_export_size, :integer

@@ -14,12 +14,10 @@ two:
 #
 # Table name: import_requests
 #
-#  id               :integer         not null, primary key
-#  isbn             :string(255)
-#  state            :string(255)
-#  manifestation_id :integer
+#  id               :integer          not null, primary key
+#  isbn             :string
+#  manifestation_id :uuid
 #  user_id          :integer
-#  created_at       :datetime
-#  updated_at       :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #
-

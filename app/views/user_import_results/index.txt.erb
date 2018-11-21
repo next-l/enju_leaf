@@ -1,4 +1,0 @@
-username
-<%- @user_import_results.each do |user_import_result| -%>
-"<%= user_import_result.user.try(:username) %>"	<%= user_import_result.body %><%= "\n" -%>
-<%- end -%>

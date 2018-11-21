@@ -1,4 +1,4 @@
-class AddDcndlSchema < ActiveRecord::Migration
+class AddDcndlSchema < ActiveRecord::Migration[5.1]
   def self.up
     add_column :manifestations, :title_alternative_transcription, :text
     add_column :agents, :full_name_alternative_transcription, :text
@@ -8,7 +8,7 @@ class AddDcndlSchema < ActiveRecord::Migration
     add_column :manifestations, :valid_until, :timestamp
     add_column :manifestations, :date_submitted, :timestamp
     add_column :manifestations, :date_accepted, :timestamp
-    add_column :manifestations, :date_caputured, :timestamp
+    add_column :manifestations, :date_captured, :timestamp
     rename_column :manifestations, :copyright_date, :date_copyrighted
   end
 
@@ -21,7 +21,7 @@ class AddDcndlSchema < ActiveRecord::Migration
     remove_column :manifestations, :valid_until
     remove_column :manifestations, :date_submitted
     remove_column :manifestations, :date_accepted
-    remove_column :manifestations, :date_caputured
+    remove_column :manifestations, :date_captured
     rename_column :manifestations, :date_copyrighted, :copyright_date
   end
 end

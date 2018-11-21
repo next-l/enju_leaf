@@ -1,4 +1,4 @@
-class CreateSeriesHasManifestations < ActiveRecord::Migration
+class CreateSeriesHasManifestations < ActiveRecord::Migration[5.1]
   def change
     create_table :series_has_manifestations do |t|
       t.integer :series_statement_id
