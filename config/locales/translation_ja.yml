@@ -44,6 +44,7 @@ ja:
         password_confirmation: パスワード（確認）
         auto_generated_password: パスワードの自動生成
         friendly_id: ユーザ名
+        remember_me: "ウインドウを閉じてもログインしたままにする"
       role:
         name: 名前
         display_name: 表示名
@@ -61,7 +62,7 @@ ja:
         number_of_day_to_notify_overdue: 貸出期限の何日後に督促を送るか
         number_of_time_to_notify_overdue: 貸出期限が切れた後に何回督促を送るか
       user_import_file:
-        user_import_filename: ファイル名
+        user_import_file_name: ファイル名
         user_import_content_type: Content-Type
         user_import_file_size: ファイルサイズ
         user_import_fingerprint: ファイルのハッシュ
@@ -75,11 +76,10 @@ ja:
         default_user_group_id: 既定の利用者グループ
         default_library_id: 既定の図書館
       user_import_result:
-        body: 本文
-        error_message: エラーメッセージ
+        body: 内容
         lineno: 行数
       user_export_file:
-        user_export_filename: ファイル名
+        user_export_file_name: ファイル名
         user_export_file_size: ファイルサイズ
         state: 状態
       profile:
@@ -276,7 +276,6 @@ ja:
     cannot_parse_yaml_header: "のYAMLヘッダを読み込めません。ヘッダのコロンの後には、半角スペースを含める必要があります。"
     notice: 注意
     system_information: システムの基本的な情報の表示
-    menu: メニュー
     default_locale: "既定の言語"
     nosolr_error: '検索サーバに不具合があるようです'
     nosolr_error_description: '検索サーバーの起動に時間がかかっている場合もこのエラーとなります。少し時間を置いてアクセスするとエラーが解消される場合もありますのでお試しください。'
@@ -291,7 +290,7 @@ ja:
     successfully_deleted: "%{model}は正常に削除されました。"
   advanced_search:
     from: ""
-    to: "から"
+    to: "〜"
     all_libraries: "全ての図書館"
     check_all: "全て選択/解除"
   work:
@@ -345,7 +344,6 @@ ja:
     you_have_to_save_profile_to_deactivate_feed_url: "URLを無効にするには、プロフィールを更新する必要があります。"
     could_not_setup_account: "利用者のアカウントを作成できませんでした。もう一度やり直すか、管理者に連絡してください。"
     resend_confirmation_instruction: '確認手順をもう一度取り寄せる'
-    remember_me: "ウインドウを閉じてもログインしたままにする"
     forgot_your_password: "パスワードを忘れましたか?"
     send_me_reset_password_instruction: "パスワードを再発行する"
     change_my_password: "パスワードを変更する"

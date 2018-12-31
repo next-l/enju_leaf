@@ -1,9 +1,9 @@
-class CreateLibraries < ActiveRecord::Migration[5.1]
+class CreateLibraries < ActiveRecord::Migration[4.2]
   def change
-    create_table :libraries, id: :uuid, default: 'gen_random_uuid()' do |t|
-      t.string :name, null: false, index: {unique: true}
-      t.jsonb :display_name_translations
-      t.jsonb :short_display_name_translations
+    create_table :libraries do |t|
+      t.string :name, index: true, null: false
+      t.text :display_name
+      t.string :short_display_name, null: false
       t.string :zip_code
       t.text :street
       t.text :locality
@@ -14,12 +14,13 @@ class CreateLibraries < ActiveRecord::Migration[5.1]
       t.text :note
       t.integer :call_number_rows, default: 1, null: false
       t.string :call_number_delimiter, default: "|", null: false
-      t.references :library_group, foreign_key: true, null: false, type: :uuid
+      t.references :library_group, index: true, null: false
       t.integer :users_count, default: 0, null: false
       t.integer :position
-      t.integer :country_id
+      t.references :country
 
       t.timestamps
+      t.datetime :deleted_at
     end
   end
 end

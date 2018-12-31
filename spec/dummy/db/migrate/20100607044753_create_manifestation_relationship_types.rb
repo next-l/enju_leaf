@@ -1,4 +1,4 @@
-class CreateManifestationRelationshipTypes < ActiveRecord::Migration[5.1]
+class CreateManifestationRelationshipTypes < ActiveRecord::Migration[4.2]
   def change
     create_table :manifestation_relationship_types do |t|
       t.string :name, null: false

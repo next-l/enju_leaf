@@ -14,30 +14,27 @@ Gem::Specification.new do |s|
   s.description = "integrated library system"
   s.license     = "MIT"
 
-  s.required_ruby_version = "~> 2.3"
+  s.required_ruby_version = ">= 2.3"
 
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
-  s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids,default,development,test}/*"] - Dir["spec/dummy/tmp/*"]
+  s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/{log,private,solr,tmp}/**/*"] - Dir["spec/dummy/db/*.sqlite3"]
 
-  s.add_dependency "enju_seed", "~> 0.4.0.beta.1"
-  # s.add_dependency "enju_library", "~> 0.2.0.beta.1"
-  # s.add_dependency "enju_manifestation_viewer", "~> 0.2.0.beta.1"
-  # s.add_dependency "elasticsearch-rails", "~> 5.0"
-  s.add_dependency "bootstrap-sass", "~> 3.3"
-  s.add_dependency "slim-rails"
-  # s.add_dependency "postrank-uri"
+  s.add_dependency "rails", "~> 5.2"
+  s.add_dependency "enju_library", "~> 0.4.0.beta.1"
+  s.add_dependency "enju_biblio", "~> 0.4.0.beta.1"
+  s.add_dependency "jquery-ui-rails", "~> 4.2.1"
 
+  s.add_development_dependency "enju_manifestation_viewer", "~> 0.4.0.beta.1"
+  s.add_development_dependency "sqlite3"
+  s.add_development_dependency "mysql2"
   s.add_development_dependency "pg"
-  s.add_development_dependency "rspec-rails", "~> 3.5"
-  # s.add_development_dependency "enju_circulation", "~> 0.2.0.beta.1"
-  # s.add_development_dependency "enju_bookmark", "~> 0.2.0.beta.1"
-  # s.add_development_dependency "enju_search_log", "~> 0.2.0.beta.1"
+  s.add_development_dependency "rspec-rails", "~> 3.7"
+  s.add_development_dependency "vcr", "~> 4.0"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "factory_bot_rails"
   s.add_development_dependency "sunspot_matchers"
   s.add_development_dependency "rspec-activemodel-mocks"
-  # s.add_development_dependency "charlock_holmes"
-  s.add_development_dependency "redis-rails"
   s.add_development_dependency "resque"
   s.add_development_dependency "capybara"
+  s.add_development_dependency "coveralls"
 end

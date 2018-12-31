@@ -1,9 +1,9 @@
-class CreateResourceImportResults < ActiveRecord::Migration[5.1]
+class CreateResourceImportResults < ActiveRecord::Migration[4.2]
   def change
     create_table :resource_import_results do |t|
       t.integer :resource_import_file_id
-      t.uuid :manifestation_id
-      t.uuid :item_id
+      t.integer :manifestation_id
+      t.integer :item_id
       t.text :body
 
       t.timestamps

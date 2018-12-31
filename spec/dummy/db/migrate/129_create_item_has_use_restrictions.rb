@@ -1,10 +1,16 @@
-class CreateItemHasUseRestrictions < ActiveRecord::Migration[5.1]
-  def change
+class CreateItemHasUseRestrictions < ActiveRecord::Migration[4.2]
+  def self.up
     create_table :item_has_use_restrictions do |t|
-      t.references :item, null: false, foreign_key: true, type: :uuid
-      t.references :use_restriction, null: false, foreign_key: true
+      t.integer :item_id, null: false
+      t.integer :use_restriction_id, null: false
 
       t.timestamps
     end
+    add_index :item_has_use_restrictions, :item_id
+    add_index :item_has_use_restrictions, :use_restriction_id
+  end
+
+  def self.down
+    drop_table :item_has_use_restrictions
   end
 end

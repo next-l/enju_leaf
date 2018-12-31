@@ -1,14 +1,16 @@
 language: ruby
 cache: bundler
 rvm:
-  - 2.3.4
-  - 2.4.1
+  - 2.3.7
+  - 2.4.4
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
   - psql -c 'CREATE DATABASE enju_leaf_dummy_test'
   - psql enju_leaf_dummy_test -c 'CREATE EXTENSION pgcrypto'
+before_script:
+  - psql -c 'create database enju_test;' -U postgres
   - bundle exec rake db:migrate
 script:
   - bundle exec rspec

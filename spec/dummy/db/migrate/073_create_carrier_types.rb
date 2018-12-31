@@ -1,8 +1,8 @@
-class CreateCarrierTypes < ActiveRecord::Migration[5.1]
+class CreateCarrierTypes < ActiveRecord::Migration[4.2]
   def change
     create_table :carrier_types do |t|
       t.string :name, null: false
-      t.jsonb :display_name_translations
+      t.text :display_name
       t.text :note
       t.integer :position
       t.timestamps

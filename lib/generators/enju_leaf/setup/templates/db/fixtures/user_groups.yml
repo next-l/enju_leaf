@@ -1,6 +1,7 @@
 --- 
 user_group_00001: 
   name: "first_group"
-  display_name_translations: {"ja": "最初のグループ", "en": "First group"}
+  display_name: "First group"
+  id: 1
   note: ""
   position: 1

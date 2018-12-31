@@ -1,5 +1,5 @@
-class AddIsilToLibrary < ActiveRecord::Migration[5.1]
+class AddIsilToLibrary < ActiveRecord::Migration[4.2]
   def change
-    add_column :libraries, :isil, :string, index: {unique: true}
+    add_column :libraries, :isil, :string
   end
 end

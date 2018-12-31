@@ -1,4 +1,4 @@
-class AddMostRecentToImportRequestTransitions < ActiveRecord::Migration[5.1]
+class AddMostRecentToImportRequestTransitions < ActiveRecord::Migration[4.2]
   def up
     add_column :import_request_transitions, :most_recent, :boolean, null: true
   end

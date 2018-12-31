@@ -44,6 +44,7 @@ en:
         password_confirmation: Password confirmation
         auto_generated_password: Set auto-generated password
         friendly_id: Username
+        remember_me: "Remember me"
       role:
         name: Name
         display_name: Display name
@@ -61,7 +62,7 @@ en:
         number_of_day_to_notify_overdue: Number of day to notify overdue
         number_of_time_to_notify_overdue: Number of time to notify overdue
       user_import_file:
-        user_import_filename: Filename
+        user_import_file_name: Filename
         user_import_content_type: Content type
         user_import_file_size: Size
         user_import_fingerprint: File hash
@@ -75,11 +76,10 @@ en:
         default_user_group_id: Default user group
         default_library_id: Default library
       user_import_result:
-        error_message: Error message
         body: Contents
         lineno: Line
       user_export_file:
-        user_export_filename: Filename
+        user_export_file_name: Filename
         user_export_file_size: Size
         state: State
       profile:
@@ -291,7 +291,6 @@ en:
     cannot_parse_yaml_header: "has an invalid YAML header. You must add a space after the header's colon."
     notice: Notice
     system_information: System information
-    menu: Menu
     default_locale: Default locale
     nosolr_error: 'There is an error on connecting to the search server.'
     nosolr_error_description: 'This error may be caused by a delay when the sever is still waiting for launching the search server. In that case, please wait for a while, and go back to this page later.'
@@ -363,7 +362,6 @@ en:
     you_have_to_save_profile_to_deactivate_feed_url: "You have to save your profile to deactivate this url."
     could_not_setup_account: "We couldn't set up that account, sorry.  Please try again, or contact an admin."
     resend_confirmation_instruction: "Resend confirmation instructions"
-    remember_me: "Remember me"
     forgot_your_password: "Forgot your password?"
     send_me_reset_password_instruction: "Send me reset password instruction"
     change_my_password: "Change my password"

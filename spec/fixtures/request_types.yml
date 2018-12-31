@@ -1,7 +1,7 @@
 --- 
 request_type_00005: 
   name: Stack Retrieval  
-  display_name_translations: {"en": "Stack Retrieval"}
+  display_name: Stack Retrieval
   updated_at: 2008-02-13 18:44:10.145739 +09:00
   id: 5
   position: 5
@@ -9,7 +9,7 @@ request_type_00005:
   created_at: 2008-02-13 18:44:10.145739 +09:00
 request_type_00001: 
   name: Estimate  
-  display_name_translations: {"en": "Estimate"}
+  display_name: Estimate
   updated_at: 2008-02-13 18:43:33.710810 +09:00
   id: 1
   position: 1
@@ -17,7 +17,7 @@ request_type_00001:
   created_at: 2008-02-13 18:43:33.710810 +09:00
 request_type_00002: 
   name: Hold  
-  display_name_translations: {"en": "Hold"}
+  display_name: Hold
   updated_at: 2008-02-13 18:43:42.151759 +09:00
   id: 2
   position: 2
@@ -25,7 +25,7 @@ request_type_00002:
   created_at: 2008-02-13 18:43:42.151759 +09:00
 request_type_00003: 
   name: Loan  
-  display_name_translations: {"en": "Loan"}
+  display_name: Loan
   updated_at: 2008-02-13 18:43:51.940315 +09:00
   id: 3
   position: 3
@@ -33,7 +33,7 @@ request_type_00003:
   created_at: 2008-02-13 18:43:51.940315 +09:00
 request_type_00004: 
   name: Non-Returnable Copy  
-  display_name_translations: {"en": "Non-Returnable Copy"}
+  display_name: Non-Returnable Copy
   updated_at: 2008-02-13 18:44:00.870893 +09:00
   id: 4
   position: 4
@@ -44,11 +44,12 @@ request_type_00004:
 #
 # Table name: request_types
 #
-#  id                        :integer          not null, primary key
-#  name                      :string           not null
-#  display_name_translations :jsonb
-#  note                      :text
-#  position                  :integer
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
 #
+

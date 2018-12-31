@@ -2,19 +2,19 @@
 
 agent_relationship_type_00001:
   id: 1
-  name: see_also
+  name: See also
   display_name: See also
   note: 
   position: 1
 agent_relationship_type_00002:
   id: 2
-  name: member
+  name: Member
   display_name: Member
   note: 
   position: 2
 agent_relationship_type_00003:
   id: 3
-  name: child
+  name: Child
   display_name: Child
   note: 
   position: 3
@@ -23,11 +23,12 @@ agent_relationship_type_00003:
 #
 # Table name: agent_relationship_types
 #
-#  id           :integer          not null, primary key
-#  name         :string           not null
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
 #  display_name :text
 #  note         :text
 #  position     :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  created_at   :datetime
+#  updated_at   :datetime
 #
+

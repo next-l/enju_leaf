@@ -2,15 +2,15 @@
 
 one:
   id: 1
-  name: unaccompanied
-  display_name_translations: Unaccompanied
+  name: Unaccompanied
+  display_name: Unaccompanied
   note: MyText
   position: 1
 
 two:
   id: 2
-  name: accompanied
-  display_name_translations: Accompanied
+  name: Accompanied
+  display_name: Accompanied
   note: MyText
   position: 2
 
@@ -18,11 +18,12 @@ two:
 #
 # Table name: medium_of_performances
 #
-#  id                        :integer          not null, primary key
-#  name                      :string           not null
-#  display_name_translations :jsonb
-#  note                      :text
-#  position                  :integer
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
 #
+

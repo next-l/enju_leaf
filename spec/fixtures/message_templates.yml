@@ -103,17 +103,3 @@ message_template_00015:
   body: エクスポートが完了しました。
   position: 15
   locale: ja
-
-# == Schema Information
-#
-# Table name: message_templates
-#
-#  id         :integer          not null, primary key
-#  status     :string           not null
-#  title      :text             not null
-#  body       :text             not null
-#  position   :integer
-#  locale     :string           default("en")
-#  created_at :datetime
-#  updated_at :datetime
-#

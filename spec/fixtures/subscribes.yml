@@ -2,31 +2,31 @@
 subscription_00001:
   id: 1
   subscription_id: 1
-  work_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  work_id: 1
   start_at: 2008-01-08 01:23:15.995345 +09:00
   end_at: 2009-01-08 01:23:15.995345 +09:00
 subscription_00002:
   id: 2
   subscription_id: 1
-  work_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
+  work_id: 2
   start_at: 2008-01-08 01:23:15.995345 +09:00
   end_at: 2009-01-08 01:23:15.995345 +09:00
 subscription_00003:
   id: 3
   subscription_id: 2
-  work_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  work_id: 1
   start_at: 2008-01-08 01:23:15.995345 +09:00
   end_at: 2009-01-08 01:23:15.995345 +09:00
 subscription_00004:
   id: 4
   subscription_id: 2
-  work_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
+  work_id: 2
   start_at: 2008-01-08 01:23:15.995345 +09:00
   end_at: 2009-01-08 01:23:15.995345 +09:00
 subscription_00005:
   id: 5
   subscription_id: 2
-  work_id: 6bd50ef9-5c1a-413b-b6a3-faa832bead79
+  work_id: 3
   start_at: 2008-01-08 01:23:15.995345 +09:00
   end_at: 2009-01-08 01:23:15.995345 +09:00
 
@@ -34,11 +34,12 @@ subscription_00005:
 #
 # Table name: subscribes
 #
-#  id              :integer          not null, primary key
-#  subscription_id :integer
-#  work_id         :uuid             not null
-#  start_at        :datetime         not null
-#  end_at          :datetime         not null
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id              :integer         not null, primary key
+#  subscription_id :integer         not null
+#  work_id         :integer         not null
+#  start_at        :datetime        not null
+#  end_at          :datetime        not null
+#  created_at      :datetime
+#  updated_at      :datetime
 #
+

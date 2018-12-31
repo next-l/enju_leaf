@@ -4,7 +4,7 @@ user_group_has_checkout_type_00001:
   updated_at: 2007-12-23 03:13:08.107022 +09:00
   checkout_limit: 3
   reservation_limit: 2
-  user_group_id: bcb18f9e-1272-41a3-8011-0fc757553d78
+  user_group_id: 1
   checkout_period: 0
   checkout_renewal_limit: 1
   id: 1
@@ -15,7 +15,7 @@ user_group_has_checkout_type_00002:
   updated_at: 2007-12-23 03:13:15.620143 +09:00
   checkout_limit: 3
   reservation_limit: 2
-  user_group_id: bcb18f9e-1272-41a3-8011-0fc757553d78
+  user_group_id: 1
   checkout_period: 10
   checkout_renewal_limit: 1
   id: 2
@@ -26,7 +26,7 @@ user_group_has_checkout_type_00003:
   updated_at: 2007-12-23 03:13:23.416856 +09:00
   checkout_limit: 3
   reservation_limit: 2
-  user_group_id: 40e0516e-30a5-4363-b5cf-f35aada5d050
+  user_group_id: 2
   checkout_period: 21
   checkout_renewal_limit: 1
   id: 3
@@ -37,7 +37,7 @@ user_group_has_checkout_type_00004:
   updated_at: 2007-12-23 03:13:29.880538 +09:00
   checkout_limit: 3
   reservation_limit: 2
-  user_group_id: 40e0516e-30a5-4363-b5cf-f35aada5d050
+  user_group_id: 2
   checkout_period: 21
   checkout_renewal_limit: 1
   id: 4
@@ -48,7 +48,7 @@ user_group_has_checkout_type_00005:
   updated_at: 2007-12-23 03:13:37.440462 +09:00
   checkout_limit: 3
   reservation_limit: 3
-  user_group_id: 44882e36-86cd-4bf3-aba3-6298b472a76f
+  user_group_id: 3
   checkout_period: 14
   checkout_renewal_limit: 1
   id: 5
@@ -59,7 +59,7 @@ user_group_has_checkout_type_00006:
   updated_at: 2007-12-23 03:13:46.312751 +09:00
   checkout_limit: 3
   reservation_limit: 3
-  user_group_id: 44882e36-86cd-4bf3-aba3-6298b472a76f
+  user_group_id: 3
   checkout_period: 7
   checkout_renewal_limit: 1
   id: 6
@@ -70,7 +70,7 @@ user_group_has_checkout_type_00007:
   updated_at: 2007-12-23 03:13:46.312751 +09:00
   checkout_limit: 3
   reservation_limit: 3
-  user_group_id: 40e0516e-30a5-4363-b5cf-f35aada5d050
+  user_group_id: 2
   checkout_period: 3
   checkout_renewal_limit: 1
   id: 7
@@ -81,7 +81,7 @@ user_group_has_checkout_type_00008:
   updated_at: 2007-12-23 03:13:46.312751 +09:00
   checkout_limit: 3
   reservation_limit: 3
-  user_group_id: bcb18f9e-1272-41a3-8011-0fc757553d78
+  user_group_id: 1
   checkout_period: 3
   checkout_renewal_limit: 1
   id: 8
@@ -104,8 +104,7 @@ user_group_has_checkout_type_00008:
 #  fixed_due_date                  :datetime
 #  note                            :text
 #  position                        :integer
-#  created_at                      :datetime         not null
-#  updated_at                      :datetime         not null
+#  created_at                      :datetime
+#  updated_at                      :datetime
 #  current_checkout_count          :integer
 #
-

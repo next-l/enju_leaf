@@ -1,4 +1,4 @@
-class AddMostRecentToUserCheckoutStatTransitions < ActiveRecord::Migration[5.1]
+class AddMostRecentToUserCheckoutStatTransitions < ActiveRecord::Migration[4.2]
   def up
     add_column :user_checkout_stat_transitions, :most_recent, :boolean, null: true
   end

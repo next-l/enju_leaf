@@ -14,11 +14,7 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
       generate("enju_biblio:setup")
       generate("enju_circulation:setup")
       generate("enju_subject:setup")
-      generate("friendly_id")
     end
-    gsub_file Dir.glob("#{Rails.root.to_s}/db/migrate/*_create_friendly_id_slugs.rb").first,
-      /^class CreateFriendlyIdSlugs < ActiveRecord::Migration$/,
-      'class CreateFriendlyIdSlugs < ActiveRecord::Migration[5.1]'
     rake("db:migrate", env: environment)
     rake("enju_leaf:setup", env: environment)
     rake("enju_circulation:setup", env: environment)
@@ -35,5 +31,8 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
         rake("sunspot:solr:stop", env: environment)
       end
     end
+
+    rake("enju_library:upgrade")
+    rake("enju_leaf:load_asset_files")
   end
 end

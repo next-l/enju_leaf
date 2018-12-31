@@ -9,6 +9,7 @@
 #
 # http://norman.github.io/friendly_id/file.Guide.html
 
+if Rails::VERSION::MAJOR == 4
 FriendlyId.defaults do |config|
   # ## Reserved Words
   #
@@ -85,4 +86,5 @@ FriendlyId.defaults do |config|
   #     text.to_slug.normalize! :transliterations => [:russian, :latin]
   #   end
   # }
+end
 end

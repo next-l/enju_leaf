@@ -1,5 +1,5 @@
-class AddBudgetTypeIdToItem < ActiveRecord::Migration[5.1]
+class AddBudgetTypeIdToItem < ActiveRecord::Migration[4.2]
   def change
-    add_reference :items, :budget_type, foreign_key: true
+    add_column :items, :budget_type_id, :integer
   end
 end

@@ -1,4 +1,4 @@
-class AddTaggingsCountToTag < ActiveRecord::Migration[5.1]
+class AddTaggingsCountToTag < ActiveRecord::Migration[4.2]
   def change
     add_column :tags, :taggings_count, :integer, default: 0
   end

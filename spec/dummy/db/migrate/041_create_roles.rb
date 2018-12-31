@@ -1,10 +1,11 @@
-class CreateRoles < ActiveRecord::Migration[5.1]
+class CreateRoles < ActiveRecord::Migration[4.2]
   def change
-    create_table 'roles' do |t|
-      t.string :name, null: false
-      t.jsonb :display_name_translations
-      t.text :note
-      t.timestamps
+    create_table "roles" do |t|
+      t.column :name, :string, null: false
+      t.column :display_name, :string
+      t.column :note, :text
+      t.column :created_at, :datetime
+      t.column :updated_at, :datetime
       t.integer :score, default: 0, null: false
       t.integer :position
     end

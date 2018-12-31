@@ -1,15 +1,18 @@
-class CreateItemTransitions < ActiveRecord::Migration[5.1]
+class CreateItemTransitions < ActiveRecord::Migration[4.2]
   def change
     create_table :item_transitions do |t|
-      t.string :to_state, null: false
-      t.jsonb :metadata, default: {}
-      t.integer :sort_key, null: false
-      t.uuid :item_id, null: false
-      t.boolean :most_recent, null: false
-      t.timestamps null: false
+      t.string :to_state
+      if ActiveRecord::Base.configurations[Rails.env]["adapter"].try(:match, /mysql/)
+        t.text :metadata
+      else
+        t.text :metadata, default: "{}"
+      end
+      t.integer :sort_key
+      t.integer :item_id
+      t.timestamps
     end
 
     add_index :item_transitions, :item_id
-    add_index :item_transitions, [:sort_key, :item_id], unique: true
+    add_index :item_transitions, %i[sort_key item_id], unique: true
   end
 end

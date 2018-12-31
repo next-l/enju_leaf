@@ -1,3 +1,3 @@
 module EnjuLeaf
-  VERSION = "2.0.0.beta.1"
+  VERSION = "1.4.0.beta.1"
 end

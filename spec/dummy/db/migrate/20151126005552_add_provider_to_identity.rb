@@ -1,5 +1,5 @@
-class AddProviderToIdentity < ActiveRecord::Migration[5.1]
+class AddProviderToIdentity < ActiveRecord::Migration[4.2]
   def change
-    add_column :identities, :provider, :string, null: false
+    add_column :identities, :provider, :string
   end
 end

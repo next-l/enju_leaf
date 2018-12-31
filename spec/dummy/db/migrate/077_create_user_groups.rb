@@ -1,11 +1,12 @@
-class CreateUserGroups < ActiveRecord::Migration[5.1]
+class CreateUserGroups < ActiveRecord::Migration[4.2]
   def change
-    create_table :user_groups, id: :uuid, default: 'gen_random_uuid()' do |t|
-      t.string :name, index: {unique: true}, null: true
-      t.jsonb :display_name_translations
+    create_table :user_groups do |t|
+      t.string :name, not_null: true
+      t.text :display_name
       t.text :note
       t.integer :position
       t.timestamps
+      t.datetime :deleted_at
     end
   end
 end

@@ -1,5 +1,5 @@
-class AddDefaultShelfIdToResourceImportFile < ActiveRecord::Migration[5.1]
+class AddDefaultShelfIdToResourceImportFile < ActiveRecord::Migration[4.2]
   def change
-    add_column :resource_import_files, :default_shelf_id, :uuid
+    add_column :resource_import_files, :default_shelf_id, :integer
   end
 end

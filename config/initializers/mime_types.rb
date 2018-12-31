@@ -7,7 +7,7 @@ Mime::Type.register_alias "text/plain", :txt
 Mime::Type.register "image/jpeg", :jpg
 Mime::Type.register "application/octet-stream",  :download
 Mime::Type.register "application/xml",  :sru
-# Mime::Type.register "application/xml",  :openurl
+#Mime::Type.register "application/xml",  :openurl
 Mime::Type.register "application/xml",  :mods
 Mime::Type.register "application/rdf+xml",  :rdf
 Mime::Type.register "application/svg+xml",  :svg

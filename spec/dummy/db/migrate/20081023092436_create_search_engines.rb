@@ -1,8 +1,8 @@
-class CreateSearchEngines < ActiveRecord::Migration[5.1]
+class CreateSearchEngines < ActiveRecord::Migration[4.2]
   def change
     create_table :search_engines do |t|
-      t.string :name, index: {unique: true}, null: false
-      t.jsonb :display_name_translations
+      t.string :name, null: false
+      t.text :display_name
       t.string :url, null: false
       t.text :base_url, null: false
       t.text :http_method, null: false

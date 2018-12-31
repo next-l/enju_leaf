@@ -1,4 +1,4 @@
-class AddAttachmentsAttachmentToManifestation < ActiveRecord::Migration[5.1]
+class AddAttachmentsAttachmentToManifestation < ActiveRecord::Migration[4.2]
   def self.up
     add_column :manifestations, :attachment_file_name, :string
     add_column :manifestations, :attachment_content_type, :string

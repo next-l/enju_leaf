@@ -1,45 +1,46 @@
 --- 
 shelf_00001: 
   name: web  
-  display_name_translations: {"ja": "Library bookmark"}
-  id: a3aec5ab-3e6a-4eea-b95d-bd691a0e8ab6
+  display_name: Library bookmark
+  id: 1
   note:
-  library_id: 7b7d18f4-586f-4349-8422-a2dbb2e6084c
+  library_id: 1
   position: 1
 shelf_00002: 
   name: first_shelf
-  display_name_translations: {"ja": "First shelf"}
-  id: 7dcedc02-df58-4f89-8f5f-9a823430dd8a
+  display_name: First shelf
+  id: 2
   note:
-  library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
+  library_id: 2
   position: 2
 shelf_00003: 
   name: second_shelf
-  display_name_translations: {"ja": "Second shelf"}
-  id: b8868fbc-7e83-4a78-887c-cb3335962b2d
+  display_name: Second shelf
+  id: 3
   note:
-  library_id: 3be887c1-ab28-472e-9bb0-b10bd1ae2164
+  library_id: 2
   position: 3
 shelf_00004: 
   name: third_shelf
-  display_name_translations: {"ja": "Third shelf"}
-  id: 4927d822-b661-4d64-9565-f9f61173c7cd
+  display_name: Third shelf
+  id: 4
   note:
-  library_id: 8fe7dd9b-7387-4f80-a656-109127a925eb
+  library_id: 3
   position: 4
 
 # == Schema Information
 #
 # Table name: shelves
 #
-#  id                        :uuid             not null, primary key
-#  name                      :string           not null
-#  display_name_translations :jsonb
-#  note                      :text
-#  library_id                :uuid             not null
-#  items_count               :integer          default(0), not null
-#  position                  :integer
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  closed                    :boolean          default(FALSE), not null
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  library_id   :integer         default(1), not null
+#  items_count  :integer         default(0), not null
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#  deleted_at   :datetime
 #
+

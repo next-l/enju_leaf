@@ -1,4 +1,4 @@
-class AddRetainedAtToReserve < ActiveRecord::Migration[5.1]
+class AddRetainedAtToReserve < ActiveRecord::Migration[4.2]
   def change
     add_column :reserves, :retained_at, :datetime
   end

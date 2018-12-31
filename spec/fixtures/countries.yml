@@ -2047,12 +2047,13 @@ country_00170:
 #
 # Table name: countries
 #
-#  id           :integer          not null, primary key
-#  name         :string           not null
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
 #  display_name :text
-#  alpha_2      :string
-#  alpha_3      :string
-#  numeric_3    :string
+#  alpha_2      :string(255)
+#  alpha_3      :string(255)
+#  numeric_3    :string(255)
 #  note         :text
 #  position     :integer
 #
+

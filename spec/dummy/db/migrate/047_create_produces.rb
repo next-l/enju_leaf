@@ -1,10 +1,12 @@
-class CreateProduces < ActiveRecord::Migration[5.1]
+class CreateProduces < ActiveRecord::Migration[4.2]
   def change
     create_table :produces do |t|
-      t.references :agent, null: false, foreign_key: true, type: :uuid
-      t.references :manifestation, null: false, foreign_key: true, type: :uuid
+      t.references :agent, null: false
+      t.references :manifestation, null: false
       t.integer :position
       t.timestamps
     end
+    add_index :produces, :agent_id
+    add_index :produces, :manifestation_id
   end
 end

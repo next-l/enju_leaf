@@ -1,154 +1,154 @@
 --- 
 exemplify_00001: 
   updated_at: 2008-01-11 23:28:19.277110 +09:00
-  item_id: 17eaea41-eacb-4e08-8e0b-70c6e62e3ed3
-  manifestation_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  item_id: 1
+  manifestation_id: 1
   id: 1
   created_at: 2008-01-11 23:28:19.277110 +09:00
   position: 1
 exemplify_00002: 
   updated_at: 2008-01-11 23:28:57.068191 +09:00
-  item_id: d08f854f-07ef-46e6-a461-0bb658032c4b
-  manifestation_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
+  item_id: 2
+  manifestation_id: 2
   id: 2
   created_at: 2008-01-11 23:28:57.068191 +09:00
 exemplify_00003: 
   updated_at: 2008-01-11 23:32:03.701425 +09:00
-  item_id: 77a1c54a-d903-4b9d-b35c-4aa0be1c56ef
-  manifestation_id: 6bd50ef9-5c1a-413b-b6a3-faa832bead79
+  item_id: 3
+  manifestation_id: 3
   id: 3
   created_at: 2008-01-11 23:32:03.701425 +09:00
 exemplify_00004: 
   updated_at: 2008-01-11 02:34:20.183962 +09:00
-  item_id: deb7a2a8-7fde-4735-88cd-b4b8c5cf8b85
-  manifestation_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  item_id: 4
+  manifestation_id: 1
   id: 4
   created_at: 2008-01-11 02:34:20.183962 +09:00
   position: 2
 exemplify_00005: 
   updated_at: 2008-01-11 02:34:32.352223 +09:00
-  item_id: 130bed42-5794-4403-9c8e-40a921a9258a
-  manifestation_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
+  item_id: 5
+  manifestation_id: 2
   id: 5
   created_at: 2008-01-11 02:34:32.352223 +09:00
 exemplify_00006: 
   updated_at: 2008-01-11 23:35:36.467584 +09:00
-  item_id: 804a744a-3d95-439e-8853-61c21ba704d1
-  manifestation_id: 6bd50ef9-5c1a-413b-b6a3-faa832bead79
+  item_id: 6
+  manifestation_id: 3
   id: 6
   created_at: 2008-01-11 23:35:36.467584 +09:00
 exemplify_00007: 
   updated_at: 2008-01-11 02:40:24.038276 +09:00
-  item_id: dc4cd3f3-0b3d-4b81-9a1a-9ebdfb484131
-  manifestation_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  item_id: 7
+  manifestation_id: 1
   id: 7
   created_at: 2008-01-11 02:40:24.038276 +09:00
 exemplify_00008: 
   updated_at: 2008-01-11 02:40:40.316742 +09:00
-  item_id: 7236fc07-8294-46f6-98c4-b8f32a7ba0d6
-  manifestation_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
+  item_id: 8
+  manifestation_id: 2
   id: 8
   created_at: 2008-01-11 02:40:40.316742 +09:00
 exemplify_00009: 
   updated_at: 2008-01-11 02:40:55.664604 +09:00
-  item_id: b1b7a3cb-27af-4220-8df9-7ed2ab1ad7ab
-  manifestation_id: 6bd50ef9-5c1a-413b-b6a3-faa832bead79
+  item_id: 9
+  manifestation_id: 3
   id: 9
   created_at: 2008-01-11 02:40:55.664604 +09:00
 exemplify_00010: 
   updated_at: 2008-01-11 02:44:37.135721 +09:00
-  item_id: 0f77c21a-6e9c-460e-b49c-3fd567dbd49c
-  manifestation_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  item_id: 10
+  manifestation_id: 1
   id: 10
   created_at: 2008-01-11 02:44:37.135721 +09:00
 exemplify_00011: 
   updated_at: 2008-01-11 02:44:37.135721 +09:00
-  item_id: 7cfd462a-4494-4a0d-86e0-c8eb4bef428c
-  manifestation_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  item_id: 11
+  manifestation_id: 1
   id: 11
   created_at: 2008-01-11 02:44:37.135721 +09:00
 exemplify_00012: 
   updated_at: 2008-01-11 02:44:37.135721 +09:00
-  item_id: 18e9d7b1-18f9-47b8-b06e-01a4455ef12a
-  manifestation_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
+  item_id: 12
+  manifestation_id: 2
   id: 12
   created_at: 2008-01-11 02:44:37.135721 +09:00
 exemplify_00013: 
   updated_at: 2008-01-11 02:44:37.135721 +09:00
-  item_id: 3fc74a1e-801c-4773-83bc-02755fee948a
-  manifestation_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
+  item_id: 13
+  manifestation_id: 2
   id: 13
   created_at: 2008-01-11 02:44:37.135721 +09:00
 exemplify_00014: 
   updated_at: 2008-01-11 02:44:37.135721 +09:00
-  item_id: 3ac48dcb-7b69-42e6-a48c-06f017bf3ad2
-  manifestation_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
+  item_id: 14
+  manifestation_id: 2
   id: 14
   created_at: 2008-01-11 02:44:37.135721 +09:00
 exemplify_00015: 
   updated_at: 2008-01-11 02:44:37.135721 +09:00
-  item_id: 8481a91c-82fd-401a-b088-48fe0942cc1a
-  manifestation_id: 32662cf8-82b1-4c27-a5c6-2561da75d0a2
+  item_id: 15
+  manifestation_id: 2
   id: 15
   created_at: 2008-01-11 02:44:37.135721 +09:00
 exemplify_00016: 
   updated_at: 2008-01-11 02:44:37.135721 +09:00
-  item_id: dde1ca18-9159-4e6e-8969-c586cf55f552
-  manifestation_id: 6bd50ef9-5c1a-413b-b6a3-faa832bead79
+  item_id: 16
+  manifestation_id: 3
   id: 16
   created_at: 2008-01-11 02:44:37.135721 +09:00
 exemplify_00017: 
   updated_at: 2008-01-11 02:44:37.135721 +09:00
-  item_id: 59e76f43-35a4-4087-8f7e-8c9654a55e79
-  manifestation_id: 6bd50ef9-5c1a-413b-b6a3-faa832bead79
+  item_id: 17
+  manifestation_id: 3
   id: 17
   created_at: 2008-01-11 02:44:37.135721 +09:00
 exemplify_00018: 
   updated_at: 2008-01-11 02:44:37.135721 +09:00
-  item_id: 3d3e9a26-231d-4087-a86d-81412d0bd22b
-  manifestation_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  item_id: 18
+  manifestation_id: 1
   id: 18
   created_at: 2008-01-11 02:44:37.135721 +09:00
 exemplify_00019: 
   updated_at: 2008-01-11 02:44:37.135721 +09:00
-  item_id: c6c65db9-7ff2-4bb9-a324-eae8404da397
-  manifestation_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  item_id: 19
+  manifestation_id: 1
   id: 19
   created_at: 2008-01-11 02:44:37.135721 +09:00
 exemplify_00020: 
   updated_at: 2008-01-11 02:44:37.135721 +09:00
-  item_id: 987c97e3-bce2-4aad-8277-ff8d48f00247
-  manifestation_id: 1ff5b88a-1964-4db0-acb3-ae1d9e3a307e
+  item_id: 20
+  manifestation_id: 1
   id: 20
   created_at: 2008-01-11 02:44:37.135721 +09:00
 exemplify_00021: 
   updated_at: 2008-01-11 02:44:37.135721 +09:00
-  item_id: d4255c14-f0bc-468d-95a0-94d01298343d
-  manifestation_id: 64c18638-dbd6-448a-8ae4-c837a6c99713
+  item_id: 21
+  manifestation_id: 11
   id: 21
   created_at: 2008-01-11 02:44:37.135721 +09:00
 exemplify_00022: 
   updated_at: 2008-01-11 02:44:37.135721 +09:00
-  item_id: 6f251646-98e1-441a-8009-405a0e8fa47c
-  manifestation_id: 64c18638-dbd6-448a-8ae4-c837a6c99713
+  item_id: 22
+  manifestation_id: 11
   id: 22
   created_at: 2008-01-11 02:44:37.135721 +09:00
 exemplify_00023: 
   updated_at: 2008-01-11 02:44:37.135721 +09:00
-  item_id: 8641c205-8f22-4e50-90db-ff878eeb33e4
-  manifestation_id: 64c18638-dbd6-448a-8ae4-c837a6c99713
+  item_id: 23
+  manifestation_id: 11
   id: 23
   created_at: 2008-01-11 02:44:37.135721 +09:00
 exemplify_00024: 
   updated_at: 2008-01-11 02:44:37.135721 +09:00
-  item_id: 9dd697c1-b72a-4df9-81a1-06de53c5c6d8
-  manifestation_id: 6bd50ef9-5c1a-413b-b6a3-faa832bead79
+  item_id: 24
+  manifestation_id: 3
   id: 24
   created_at: 2008-01-11 02:44:37.135721 +09:00
 exemplify_00025: 
   updated_at: 2008-01-11 02:44:37.135721 +09:00
-  item_id: e190d0d4-672e-49b5-a996-b90bf2409b9b
-  manifestation_id: 56c362a0-0e22-4d0d-ab26-e10d76be2db9
+  item_id: 25
+  manifestation_id: 8
   id: 25
   created_at: 2008-01-11 02:44:37.135721 +09:00
 

@@ -1,4 +1,4 @@
-class AddBindingItemIdentifierToItem < ActiveRecord::Migration[5.1]
+class AddBindingItemIdentifierToItem < ActiveRecord::Migration[4.2]
   def change
     add_column :items, :binding_item_identifier, :string
     add_column :items, :binding_call_number, :string

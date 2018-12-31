@@ -1,10 +1,12 @@
-class CreateDonates < ActiveRecord::Migration[5.1]
+class CreateDonates < ActiveRecord::Migration[4.2]
   def change
     create_table :donates do |t|
-      t.references :agent, null: false, foreign_key: true, type: :uuid
-      t.references :item, null: false, foreign_key: :true, type: :uuid
+      t.integer :agent_id, null: false
+      t.integer :item_id, null: false
 
       t.timestamps
     end
+    add_index :donates, :agent_id
+    add_index :donates, :item_id
   end
 end

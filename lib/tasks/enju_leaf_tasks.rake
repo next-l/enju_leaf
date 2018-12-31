@@ -21,14 +21,11 @@ namespace :enju_leaf do
 
   desc "upgrade enju_leaf"
   task :upgrade => :environment do
-    Rake::Task['enju_biblio:upgrade'].invoke
-    Rake::Task['enju_circulation:upgrade'].invoke
     Rake::Task['enju_library:upgrade'].invoke
+    Rake::Task['enju_biblio:upgrade'].invoke
+    Rake::Task['enju_event:upgrade'].invoke
     Rake::Task['enju_message:upgrade'].invoke
-    Rake::Task['enju_subject:upgrade'].invoke
-    Profile.transaction do
-      update_profile
-    end
+    Rake::Task['enju_circulation:upgrade'].invoke
     puts 'enju_leaf: The upgrade completed successfully.'
   end
 
@@ -46,8 +43,10 @@ namespace :enju_leaf do
   desc 'Load default asset files'
   task :load_asset_files => :environment do
     library_group = LibraryGroup.order(created_at: :desc).first
-    library_group.header_logo = File.open("#{File.dirname(__FILE__)}/../../app/assets/images/enju_leaf/enju-logo-yoko-without-white.png")
-    library_group.save!
+    unless library_group.header_logo.present?
+      library_group.header_logo = File.open("#{File.dirname(__FILE__)}/../../app/assets/images/enju_leaf/enju-logo-yoko-without-white.png")
+      library_group.save!
+    end
     if File.stat("#{Rails.root.to_s}/public/favicon.ico").size == 0
       FileUtils.cp("#{File.dirname(__FILE__)}/../../app/assets/images/enju_leaf/favicon.ico", "#{Rails.root.to_s}/public/favicon.ico")
     end

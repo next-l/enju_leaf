@@ -1,4 +1,4 @@
-class AddNdcToManifestation < ActiveRecord::Migration[5.1]
+class AddNdcToManifestation < ActiveRecord::Migration[4.2]
   def self.up
     add_column :manifestations, :ndc, :string
   end

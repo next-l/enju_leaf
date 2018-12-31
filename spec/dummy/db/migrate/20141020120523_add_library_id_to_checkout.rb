@@ -1,5 +1,6 @@
-class AddLibraryIdToCheckout < ActiveRecord::Migration[5.1]
+class AddLibraryIdToCheckout < ActiveRecord::Migration[4.2]
   def change
-    add_reference :checkouts, :library, foreign_key: true, null: false, type: :uuid
+    add_column :checkouts, :library_id, :integer
+    add_index :checkouts, :library_id
   end
 end

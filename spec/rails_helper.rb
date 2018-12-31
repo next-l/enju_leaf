@@ -1,5 +1,7 @@
 require 'simplecov'
-SimpleCov.start
+require 'coveralls'
+SimpleCov.start 'rails'
+Coveralls.wear!
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
@@ -9,6 +11,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
+require 'vcr'
 require 'factory_bot'
 require 'sunspot_matchers'
 require 'rspec/active_model/mocks'

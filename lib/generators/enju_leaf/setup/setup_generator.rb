@@ -7,22 +7,18 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
     directory("solr", "example/solr")
     copy_file("Procfile", "Procfile")
     copy_file("config/schedule.rb", "config/schedule.rb")
-    copy_file("config/initializers/resque.rb", "config/initializers/resque.rb")
-    append_to_file("config/initializers/assets.rb", "Rails.application.config.assets.precompile += %w( *.png *.gif enju_leaf/print.css )")
-    inject_into_file 'config/application.rb', after: /# config.i18n.default_locale = :de$\n/ do
+    append_to_file("config/initializers/assets.rb", "Rails.application.config.assets.precompile += %w( *.png )")
+    inject_into_class 'config/application.rb', 'Application' do
       <<"EOS"
     config.i18n.available_locales = [:en, :ja]
     config.i18n.enforce_available_locales = true
     config.active_job.queue_adapter = :resque
+    config.i18n.default_locale = :ja
+    config.time_zone = 'Tokyo'
 EOS
     end
-    gsub_file 'config/application.rb', /# config.i18n.default_locale = :de$/,
-      "config.i18n.default_locale = :ja"
-    gsub_file 'config/application.rb', /# config.time_zone = 'Central Time \(US & Canada\)'$/,
-      "config.time_zone = 'Tokyo'"
     gsub_file 'config/schedule.rb', /\/path\/to\/enju_leaf/, Rails.root.to_s
     append_to_file("Rakefile", "require 'resque/tasks'\n")
-    append_to_file("Rakefile", "require 'resque/scheduler/tasks'")
     append_to_file("db/seeds.rb", File.open(File.expand_path('../templates', __FILE__) + '/db/seeds.rb').read)
     application(nil, env: "development") do
       "config.action_mailer.default_url_options = {host: 'localhost:3000'}\n"
@@ -36,18 +32,13 @@ EOS
     generate("devise:install")
     generate("devise", "User")
     gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
-    gsub_file 'app/models/user.rb', /, :trackable, :validatable$/, <<EOS
-, # :trackable, :validatable,
-      :lockable, :lock_strategy => :none, :unlock_strategy => :none
+    gsub_file 'app/models/user.rb', /, :validatable$/, <<EOS
+, :trackable, #:validatable,
+      :lockable, lock_strategy: :none, unlock_strategy: :none
   include EnjuSeed::EnjuUser
 EOS
-    gsub_file 'app/controllers/application_controller.rb', /protect_from_forgery with: :exception$/, 'protect_from_forgery with: :exception, prepend: true'
-    gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i'
-    gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [:email]', 'config.authentication_keys = [:username]'
-    gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
     generate("sunspot_rails:install")
     generate("kaminari:config")
-    generate("kaminari:views bootstrap3")
     generate("simple_form:install")
     generate("geocoder:config")
     gsub_file "config/sunspot.yml",
@@ -56,6 +47,7 @@ EOS
     gsub_file 'config/initializers/kaminari_config.rb',
       /# config.default_per_page = 25$/,
       "config.default_per_page = 10"
+    generate("friendly_id")
     gsub_file "app/assets/javascripts/application.js",
       /\/\/= require turbolinks$/,
       ""
@@ -65,24 +57,48 @@ EOS
   authenticate :user, lambda {|u| u.role.try(:name) == 'Administrator' } do
     mount Resque::Server.new, at: "/resque", as: :resque
   end
+
+  as :user do
+    get 'users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
+    put 'users' => 'devise/registrations#update', as: 'user_registration'
+  end
 EOS
     end
+    gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i'
+    gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [:email]', 'config.authentication_keys = [:username]'
+    gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
 
+    gsub_file 'app/controllers/application_controller.rb', /protect_from_forgery with: :exception$/, 'protect_from_forgery with: :exception, prepend: true'
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
-  include EnjuBiblio::Controller
   include EnjuLibrary::Controller
+  include EnjuBiblio::Controller
 
   include Pundit
+  before_action :set_paper_trail_whodunnit
   after_action :verify_authorized, unless: :devise_controller?
 EOS
     end
 
+    inject_into_file "app/helpers/application_helper.rb", after: /module ApplicationHelper$\n/ do
+      <<"EOS"
+  include EnjuLeaf::ApplicationHelper
+  include EnjuBiblio::ApplicationHelper if defined?(EnjuBiblio)
+  if defined?(EnjuManifestationViewer)
+    include EnjuManifestationViewer::ApplicationHelper
+    include EnjuManifestationViewer::BookJacketHelper
+  end
+EOS
+    end
+
     inject_into_file "app/assets/javascripts/application.js", after: /\/\/= require rails-ujs$\n/ do
-      "//= require enju_leaf/application\n"
+      <<"EOS"
+//= require jquery2
+//= require enju_leaf
+EOS
     end
     inject_into_file "app/assets/stylesheets/application.css", after: / *= require_self$\n/ do
-      " *= require enju_leaf/application\n"
+      " *= require enju_leaf\n"
     end
     inject_into_file "config.ru", after: /require ::File.expand_path\(\'..\/config\/environment\',  __FILE__\)$\n/ do
       <<"EOS"

@@ -1,22 +1,22 @@
 --- 
 agent_type_00001:
   id: 1
-  name: person
-  display_name_translations: {"en": "Person", "ja": "個人"}
+  name: Person
+  display_name: Person
   note: 
   position: 1
 
 agent_type_00002:
   id: 2
-  name: corporate_body
-  display_name_translations: {"en": "CorporateBody", "ja": "団体"}
+  name: CorporateBody
+  display_name: CorporateBody
   note: 
   position: 2
 
 agent_type_00003:
   id: 3
-  name: conference
-  display_name_translations: {"en": "Conference", "ja": "会議"}
+  name: Conference
+  display_name: Conference
   note: 
   position: 3
 
@@ -24,11 +24,12 @@ agent_type_00003:
 #
 # Table name: agent_types
 #
-#  id                        :integer          not null, primary key
-#  name                      :string           not null
-#  display_name_translations :jsonb
-#  note                      :text
-#  position                  :integer
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
+#  id           :integer         not null, primary key
+#  name         :string(255)     not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
 #
+

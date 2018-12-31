@@ -97,7 +97,7 @@ module EnjuLeaf
       if options == nil
         options = {}
       else
-        options.reject!{|key, value| value.blank?}
+        options.reject!{|_key, value| value.blank?}
         options.delete(:page) if options[:page].to_i == 1
       end
       unless controller_name == 'test'
@@ -114,15 +114,7 @@ module EnjuLeaf
     # @param [String] string Markdownの文字列
     def markdown_helper(string)
       return unless string
-      if defined?(Redcarpet)
-        markdown = Redcarpet::Markdown.new(
-          Redcarpet::Render::HTML,
-          autolink: true, safe_links_only: true
-        )
-        markdown.render(string.to_s).html_safe
-      else
-        Kramdown::Document.new(string.to_s).to_html.html_safe
-      end
+      Kramdown::Document.new(string.to_s).to_html.html_safe
     end
 
     # ユーザの未読メッセージ数を表示します。
