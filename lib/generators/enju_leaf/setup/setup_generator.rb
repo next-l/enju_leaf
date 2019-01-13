@@ -50,7 +50,7 @@ EOS
     generate("friendly_id")
     generate("mobility:install")
     gsub_file 'config/initializers/mobility.rb',
-      /#config.default_backend = :key_value$/,
+      /config.default_backend = :key_value$/,
       "config.default_backend = :jsonb"
     gsub_file "app/assets/javascripts/application.js",
       /\/\/= require turbolinks$/,
