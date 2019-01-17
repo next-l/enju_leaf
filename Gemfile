@@ -14,10 +14,10 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
-gem 'rails-controller-testing'
+gem 'rails-controller-testing', group: :test
 gem 'mobility'
-gem 'enju_seed', github: 'next-l/enju_seed', branch: '1.4'
-gem 'enju_library', github: 'next-l/enju_library', branch: '1.4'
-gem 'enju_biblio', github: 'next-l/enju_biblio', branch: '1.4'
-gem 'enju_manifestation_viewer', github: 'next-l/enju_manifestation_viewer', branch: '1.4'
+gem 'enju_seed', github: 'next-l/enju_seed'
+gem 'enju_library', github: 'next-l/enju_library'
+gem 'enju_biblio', github: 'next-l/enju_biblio'
+gem 'enju_manifestation_viewer', github: 'next-l/enju_manifestation_viewer'
 gem 'rspec_junit_formatter', group: :test
