@@ -1,4 +1,4 @@
-class CreateUserExportFileTransitions < ActiveRecord::Migration[4.2]
+class CreateUserExportFileTransitions < ActiveRecord::Migration[5.2]
   def change
     create_table :user_export_file_transitions do |t|
       t.string :to_state
@@ -13,6 +13,6 @@ class CreateUserExportFileTransitions < ActiveRecord::Migration[4.2]
     end
 
     add_index :user_export_file_transitions, :user_export_file_id, name: "index_user_export_file_transitions_on_file_id"
-    add_index :user_export_file_transitions, %i[sort_key user_export_file_id], unique: true, name: "index_user_export_file_transitions_on_sort_key_and_file_id"
+    add_index :user_export_file_transitions, [:sort_key, :user_export_file_id], unique: true, name: "index_user_export_file_transitions_on_sort_key_and_file_id"
   end
 end

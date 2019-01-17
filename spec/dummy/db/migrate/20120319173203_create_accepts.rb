@@ -1,4 +1,4 @@
-class CreateAccepts < ActiveRecord::Migration[4.2]
+class CreateAccepts < ActiveRecord::Migration[5.2]
   def change
     create_table :accepts do |t|
       t.references :basket, index: true

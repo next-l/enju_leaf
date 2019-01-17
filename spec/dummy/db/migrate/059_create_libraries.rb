@@ -1,8 +1,8 @@
-class CreateLibraries < ActiveRecord::Migration[4.2]
+class CreateLibraries < ActiveRecord::Migration[5.2]
   def change
     create_table :libraries do |t|
-      t.string :name, index: true, null: false
-      t.text :display_name
+      t.string :name, index: {unique: true}, null: false
+      t.jsonb :display_name, default: {}, null: false
       t.string :short_display_name, null: false
       t.string :zip_code
       t.text :street
@@ -20,7 +20,6 @@ class CreateLibraries < ActiveRecord::Migration[4.2]
       t.references :country
 
       t.timestamps
-      t.datetime :deleted_at
     end
   end
 end

@@ -1,4 +1,4 @@
-class CreateColors < ActiveRecord::Migration[4.2]
+class CreateColors < ActiveRecord::Migration[5.2]
   def change
     create_table :colors do |t|
       t.references :library_group, index: true

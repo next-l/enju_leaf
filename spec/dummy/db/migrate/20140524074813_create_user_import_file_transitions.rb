@@ -1,4 +1,4 @@
-class CreateUserImportFileTransitions < ActiveRecord::Migration[4.2]
+class CreateUserImportFileTransitions < ActiveRecord::Migration[5.2]
   def change
     create_table :user_import_file_transitions do |t|
       t.string :to_state
@@ -12,6 +12,6 @@ class CreateUserImportFileTransitions < ActiveRecord::Migration[4.2]
       t.timestamps
     end
 
-    add_index :user_import_file_transitions, %i[sort_key user_import_file_id], unique: true, name: "index_user_import_file_transitions_on_sort_key_and_file_id"
+    add_index :user_import_file_transitions, [:sort_key, :user_import_file_id], unique: true, name: "index_user_import_file_transitions_on_sort_key_and_file_id"
   end
 end

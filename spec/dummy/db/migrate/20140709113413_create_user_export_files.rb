@@ -1,4 +1,4 @@
-class CreateUserExportFiles < ActiveRecord::Migration[4.2]
+class CreateUserExportFiles < ActiveRecord::Migration[5.2]
   def change
     create_table :user_export_files do |t|
       t.references :user, index: true
