@@ -1,4 +1,4 @@
-class AddLftAndRgtToMessage < ActiveRecord::Migration[4.2]
+class AddLftAndRgtToMessage < ActiveRecord::Migration[5.2]
   def self.up
     add_column :messages, :lft, :integer
     add_column :messages, :rgt, :integer

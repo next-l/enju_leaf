@@ -1,7 +1,7 @@
-class CreateMessageTemplates < ActiveRecord::Migration[4.2]
-  def self.up
+class CreateMessageTemplates < ActiveRecord::Migration[5.2]
+  def change
     create_table :message_templates do |t|
-      t.string :status, null: false
+      t.string :status, null: false, index: {unique: true}
       t.text :title, null: false
       t.text :body, null: false
       t.integer :position
@@ -9,10 +9,5 @@ class CreateMessageTemplates < ActiveRecord::Migration[4.2]
 
       t.timestamps
     end
-    add_index :message_templates, :status, unique: true
-  end
-
-  def self.down
-    drop_table :message_templates
   end
 end
