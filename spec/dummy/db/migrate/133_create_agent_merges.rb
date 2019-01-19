@@ -1,15 +1,10 @@
-class CreateAgentMerges < ActiveRecord::Migration[4.2]
-  def self.up
+class CreateAgentMerges < ActiveRecord::Migration[5.2]
+  def change
     create_table :agent_merges do |t|
-      t.integer :agent_id, :agent_merge_list_id, null: false
+      t.references :agent, foreign_key: true, null: false
+      t.references :agent_merge_list, null: false
 
       t.timestamps
     end
-    add_index :agent_merges, :agent_id
-    add_index :agent_merges, :agent_merge_list_id
-  end
-
-  def self.down
-    drop_table :agent_merges
   end
 end

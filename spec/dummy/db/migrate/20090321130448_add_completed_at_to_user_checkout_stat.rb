@@ -1,4 +1,4 @@
-class AddCompletedAtToUserCheckoutStat < ActiveRecord::Migration[4.2]
+class AddCompletedAtToUserCheckoutStat < ActiveRecord::Migration[5.2]
   def self.up
     add_column :user_checkout_stats, :started_at, :datetime
     add_column :user_checkout_stats, :completed_at, :datetime

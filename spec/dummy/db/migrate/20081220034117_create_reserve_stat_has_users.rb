@@ -1,14 +1,12 @@
-class CreateReserveStatHasUsers < ActiveRecord::Migration[4.2]
+class CreateReserveStatHasUsers < ActiveRecord::Migration[5.2]
   def self.up
     create_table :reserve_stat_has_users do |t|
-      t.integer :user_reserve_stat_id, null: false
-      t.integer :user_id, null: false
+      t.references :user_reserve_stat, index: true, foreign_key: true, null: false
+      t.references :user, index: true, foreign_key: true, null: false
       t.integer :reserves_count
 
       t.timestamps
     end
-    add_index :reserve_stat_has_users, :user_reserve_stat_id
-    add_index :reserve_stat_has_users, :user_id
   end
 
   def self.down

@@ -1,4 +1,4 @@
-class AddForeignKeyOnManifestationIdToReserve < ActiveRecord::Migration[4.2]
+class AddForeignKeyOnManifestationIdToReserve < ActiveRecord::Migration[5.2]
   def change
     add_foreign_key :reserves, :manifestations
   end

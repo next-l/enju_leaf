@@ -1,4 +1,4 @@
-class RenameSeriesStatementTitleToOriginalTitle < ActiveRecord::Migration[4.2]
+class RenameSeriesStatementTitleToOriginalTitle < ActiveRecord::Migration[5.2]
   def self.up
     rename_column :series_statements, :title, :original_title
     add_column :series_statements, :title_transcription, :text

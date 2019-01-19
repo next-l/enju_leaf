@@ -1,4 +1,4 @@
-class AddAttachmentAttachmentToCarrierTypes < ActiveRecord::Migration[4.2]
+class AddAttachmentAttachmentToCarrierTypes < ActiveRecord::Migration[5.2]
   def self.up
     change_table :carrier_types do |t|
       t.attachment :attachment

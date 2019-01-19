@@ -1,4 +1,4 @@
-class AddExtentToManifestation < ActiveRecord::Migration[4.2]
+class AddExtentToManifestation < ActiveRecord::Migration[5.2]
   def change
     add_column :manifestations, :extent, :text
   end

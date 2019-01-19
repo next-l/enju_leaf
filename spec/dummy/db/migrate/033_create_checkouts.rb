@@ -1,25 +1,16 @@
-class CreateCheckouts < ActiveRecord::Migration[4.2]
-  def self.up
+class CreateCheckouts < ActiveRecord::Migration[5.2]
+  def change
     create_table :checkouts do |t|
-      t.integer :user_id
-      t.integer :item_id, null: false
-      t.integer :checkin_id
-      t.integer :librarian_id
-      t.integer :basket_id
+      t.references :user, foreign_key: true
+      t.references :item, foreign_key: true, null: false
+      t.references :checkin, foreign_key: true
+      t.references :librarian, foreign_key: {to_table: :users}
+      t.references :basket, index: true
       t.datetime :due_date
       t.integer :checkout_renewal_count, default: 0, null: false
       t.integer :lock_version, default: 0, null: false
       t.timestamps
     end
-    add_index :checkouts, :user_id
-    add_index :checkouts, :item_id
-    add_index :checkouts, :basket_id
-    add_index :checkouts, %i[item_id basket_id], unique: true
-    add_index :checkouts, :librarian_id
-    add_index :checkouts, :checkin_id
-  end
-
-  def self.down
-    drop_table :checkouts
+    add_index :checkouts, [:item_id, :basket_id], unique: true
   end
 end
