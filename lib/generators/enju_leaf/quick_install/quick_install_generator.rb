@@ -15,6 +15,11 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
       generate("enju_circulation:setup")
       generate("enju_subject:setup")
     end
+    rake("enju_ndl_engine:install:migrations")
+    append_to_file "app/models/user.rb", <<EOS
+Manifestation.include(EnjuNdl::EnjuManifestation)
+EOS
+
     rake("db:migrate", env: environment)
     rake("enju_leaf:setup", env: environment)
     rake("enju_circulation:setup", env: environment)
