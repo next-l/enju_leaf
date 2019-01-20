@@ -30,10 +30,9 @@ system_user.username = 'system'
 system_user.password = SecureRandom.urlsafe_base64(32)
 system_user.email = 'root@library.example.jp'
 system_user.role = Role.where(name: 'Administrator').first
+system_user.profile = system_profile
+system_user.profile.save!
 system_user.save!
-system_profile = new_profile
-system_profile.user = system_user
-system_profile.save!
 
 user = User.new
 user.username = username
