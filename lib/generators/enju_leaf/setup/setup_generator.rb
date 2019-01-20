@@ -52,6 +52,10 @@ EOS
     gsub_file 'config/initializers/mobility.rb',
       /config.default_backend = :key_value$/,
       "config.default_backend = :jsonb"
+    gsub_file 'config/initializers/mobility.rb',
+      /# config.default_options\[:locale_accessors\] = true/,
+      "config.default_options[:locale_accessors] = true"
+
     gsub_file "app/assets/javascripts/application.js",
       /\/\/= require turbolinks$/,
       ""
