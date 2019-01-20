@@ -1,8 +1,4 @@
-if Rails::VERSION::MAJOR >= 4
-  username = 'enjuadmin'
-else
-  username = 'admin'
-end
+username = 'enjuadmin'
 email = 'admin@example.jp'
 password = 'adminpassword'
 
@@ -30,8 +26,9 @@ system_user.username = 'system'
 system_user.password = SecureRandom.urlsafe_base64(32)
 system_user.email = 'root@library.example.jp'
 system_user.role = Role.where(name: 'Administrator').first
-system_user.profile = system_profile
-system_user.profile.save!
+profile = new_profile
+profile.save!
+system_user.profile = profile
 system_user.save!
 
 user = User.new
@@ -41,9 +38,9 @@ user.password = password
 user.password_confirmation = password
 #user.confirm!
 user.role = Role.where(name: 'Administrator').first
-user.save!
 profile = new_profile
 profile.user_number = '0'
-profile.user = user
 profile.save!
+user.profile = profile
+user.save!
 puts 'Administrator account created.'
