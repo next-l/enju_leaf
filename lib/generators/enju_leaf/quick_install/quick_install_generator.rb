@@ -16,9 +16,9 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
       generate("enju_subject:setup")
     end
     rake("enju_ndl_engine:install:migrations")
-    append_to_file "app/models/user.rb", <<EOS
-Manifestation.include(EnjuManifestationViewer::EnjuManifestation)
-Manifestation.include(EnjuNdl::EnjuManifestation)
+    append_to_file "app/models/user.rb", <<EOS.strip_heredoc
+      Manifestation.include(EnjuManifestationViewer::EnjuManifestation)
+      Manifestation.include(EnjuNdl::EnjuManifestation)
 EOS
 
     rake("db:migrate", env: environment)
