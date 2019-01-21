@@ -459,15 +459,6 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "identifier_types", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.text "display_name"
-    t.text "note"
-    t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "identifiers", force: :cascade do |t|
     t.string "body", null: false
     t.integer "identifier_type_id", null: false
@@ -820,7 +811,6 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
     t.text "attachment_meta"
     t.integer "month_of_publication"
     t.boolean "fulltext_content"
-    t.string "doi"
     t.boolean "serial"
     t.text "statement_of_responsibility"
     t.text "publication_place"
@@ -828,7 +818,6 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
     t.text "dimensions"
     t.index ["access_address"], name: "index_manifestations_on_access_address"
     t.index ["date_of_publication"], name: "index_manifestations_on_date_of_publication"
-    t.index ["doi"], name: "index_manifestations_on_doi"
     t.index ["manifestation_identifier"], name: "index_manifestations_on_manifestation_identifier", unique: true
     t.index ["updated_at"], name: "index_manifestations_on_updated_at"
   end
