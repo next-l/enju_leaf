@@ -1,6 +1,6 @@
 class CreateManifestations < ActiveRecord::Migration[5.2]
   def change
-    create_table :manifestations do |t|
+    create_table :manifestations, id: :uuid do |t|
       t.text :original_title, null: false
       t.text :title_alternative
       t.text :title_transcription

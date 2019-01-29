@@ -6,7 +6,7 @@ agent_00001:
   full_name: Administrator
   updated_at: 2007-11-21 22:01:56.137409 +09:00
   other_designation: ""
-  id: 1
+  id: 90b48b67-7e0c-48ce-80a2-e40acdb5005f
   date_of_birth: 2000-01-01
   date_of_death: 
   address_1: 
@@ -22,7 +22,7 @@ agent_00002:
   full_name: Librarian1
   updated_at: 2007-11-21 22:02:10.359793 +09:00
   other_designation: ""
-  id: 2
+  id: 89a69872-dc33-40df-9541-fb38d453e767
   date_of_birth: 2000-01-01
   date_of_death: 
   address_1: 
@@ -38,7 +38,7 @@ agent_00003:
   full_name: Kosuke Tanabe
   updated_at: 2007-12-04 16:25:01.523618 +09:00
   other_designation: 
-  id: 3
+  id: 23e43300-a723-4432-b985-55c6d9db6027
   date_of_birth: 2000-01-01
   date_of_death: 
   address_1: 
@@ -54,7 +54,7 @@ agent_00004:
   full_name: Librarian2
   updated_at: 2007-12-04 16:25:01.785027 +09:00
   other_designation: 
-  id: 4
+  id: 8a99269f-8659-41fc-8cfd-f65dba791519
   date_of_birth: 2000-01-01
   date_of_death: 
   address_1: 
@@ -70,7 +70,7 @@ agent_00005:
   full_name: User2
   updated_at: 2007-11-21 22:02:35.579396 +09:00
   other_designation: ""
-  id: 5
+  id: b729439c-6beb-4613-b633-b13ea4d4f9c4
   date_of_birth: 2000-01-01
   date_of_death: 
   address_1: 
@@ -86,7 +86,7 @@ agent_00006:
   full_name: New agent 1
   updated_at: 2007-11-21 22:02:35.579396 +09:00
   other_designation: ""
-  id: 6
+  id: 2c10f824-c149-46a6-88af-682bfa2dc2e5
   date_of_birth: 2000-01-01
   date_of_death: 
   address_1: 
@@ -102,7 +102,7 @@ agent_00007:
   full_name: New agent 2
   updated_at: 2007-11-21 22:02:35.579396 +09:00
   other_designation: ""
-  id: 7
+  id: 0fe4a195-4900-4038-bb2d-b9d2e41be189
   date_of_birth: 2000-01-01
   date_of_death: 
   address_1: 
@@ -118,7 +118,7 @@ agent_00008:
   full_name: New agent 3
   updated_at: 2007-11-21 22:02:35.579396 +09:00
   other_designation: ""
-  id: 8
+  id: 9154b68f-1344-4199-8a45-8553165aa038
   date_of_birth: 2000-01-01
   date_of_death: 
   address_1: 
@@ -134,7 +134,7 @@ agent_00009:
   full_name:  New agent 4
   updated_at: 2007-11-21 22:02:35.579396 +09:00
   other_designation: ""
-  id: 9
+  id: 9c23beeb-90d5-4b9d-a029-b8bbabce8ea1
   date_of_birth: 2000-01-01
   date_of_death: 
   address_1: 
@@ -150,7 +150,7 @@ agent_00010:
   full_name: New agent 5
   updated_at: 2007-11-21 22:02:35.579396 +09:00
   other_designation: ""
-  id: 10
+  id: 96235766-ad91-42fa-b733-634ee0c920ee
   date_of_birth: 2000-01-01
   date_of_death: 
   address_1: 
@@ -166,7 +166,7 @@ agent_00011:
   full_name: User3
   updated_at: 2007-11-21 22:02:35.579396 +09:00
   other_designation: ""
-  id: 11
+  id: c7639f7b-6e5d-4888-b56f-e6fdb0f073c9
   date_of_birth: 2000-01-01
   date_of_death: 
   address_1: 
@@ -182,7 +182,7 @@ agent_00101:
   full_name: テスト正式名称
   updated_at: 2010-03-03 17:00:00.579396 +09:00
   other_designation: ""
-  id: 101
+  id: a0fb1fde-98a8-4482-a466-0896d6021df0
   date_of_birth: 2000-01-01
   date_of_death:
   address_1:
@@ -198,7 +198,7 @@ agent_00102:
   full_name: 出版社テスト
   updated_at: 2010-03-03 17:00:00.579396 +09:00
   other_designation: ""
-  id: 102
+  id: 455dfacd-2b04-43dc-a448-f7f9cd4f0df1
   date_of_birth:
   date_of_death:
   address_1:
@@ -214,7 +214,7 @@ agent_00103:
   full_name: 作者ダミー
   updated_at: 2010-03-16 19:00:00.579396 +09:00
   other_designation: ""
-  id: 103
+  id: d9a5e29b-8fd4-411b-9057-bf4447c4623c
   date_of_birth:
   date_of_death:
   address_1:
@@ -230,7 +230,7 @@ agent_00104:
   full_name: 試験用会社
   updated_at: 2010-03-16 19:00:00.579396 +09:00
   other_designation: ""
-  id: 104
+  id: 727d0cce-3ce6-4cc8-85ea-ebcac96f7eca
   date_of_birth:
   date_of_death:
   address_1:
@@ -246,7 +246,7 @@ agent_00201:
   full_name: オーム社
   updated_at: 2010-03-15 17:00:00.579396 +09:00
   other_designation: ""
-  id: 201
+  id: 81c0b3ef-7f7a-4b50-96bb-89ee79b3030d
   date_of_birth:
   date_of_death:
   address_1:
@@ -262,7 +262,7 @@ agent_00202:
   full_name: Ruby社
   updated_at: 2010-03-15 17:00:00.579396 +09:00
   other_designation: ""
-  id: 202
+  id: aeeda805-5e32-4f49-9e05-d04d10e70a49
   date_of_birth:
   date_of_death:
   address_1:
@@ -276,51 +276,50 @@ agent_00202:
 #
 # Table name: agents
 #
-#  id                                  :integer         not null, primary key
-#  last_name                           :string(255)
-#  middle_name                         :string(255)
-#  first_name                          :string(255)
-#  last_name_transcription             :string(255)
-#  middle_name_transcription           :string(255)
-#  first_name_transcription            :string(255)
-#  corporate_name                      :string(255)
-#  corporate_name_transcription        :string(255)
-#  full_name                           :string(255)
+#  id                                  :uuid             not null, primary key
+#  last_name                           :string
+#  middle_name                         :string
+#  first_name                          :string
+#  last_name_transcription             :string
+#  middle_name_transcription           :string
+#  first_name_transcription            :string
+#  corporate_name                      :string
+#  corporate_name_transcription        :string
+#  full_name                           :string
 #  full_name_transcription             :text
 #  full_name_alternative               :text
-#  created_at                          :datetime
-#  updated_at                          :datetime
-#  deleted_at                          :datetime
-#  zip_code_1                          :string(255)
-#  zip_code_2                          :string(255)
+#  created_at                          :datetime         not null
+#  updated_at                          :datetime         not null
+#  zip_code_1                          :string
+#  zip_code_2                          :string
 #  address_1                           :text
 #  address_2                           :text
 #  address_1_note                      :text
 #  address_2_note                      :text
-#  telephone_number_1                  :string(255)
-#  telephone_number_2                  :string(255)
-#  fax_number_1                        :string(255)
-#  fax_number_2                        :string(255)
+#  telephone_number_1                  :string
+#  telephone_number_2                  :string
+#  fax_number_1                        :string
+#  fax_number_2                        :string
 #  other_designation                   :text
 #  place                               :text
+#  postal_code                         :string
 #  street                              :text
 #  locality                            :text
 #  region                              :text
 #  date_of_birth                       :datetime
 #  date_of_death                       :datetime
-#  language_id                         :integer         default(1), not null
-#  country_id                          :integer         default(1), not null
-#  agent_type_id                      :integer         default(1), not null
-#  lock_version                        :integer         default(0), not null
+#  language_id                         :integer          default(1), not null
+#  country_id                          :integer          default(1), not null
+#  agent_type_id                       :integer          default(1), not null
+#  lock_version                        :integer          default(0), not null
 #  note                                :text
-#  required_role_id                    :integer         default(1), not null
-#  required_score                      :integer         default(0), not null
-#  state                               :string(255)
+#  required_role_id                    :integer          default(1), not null
+#  required_score                      :integer          default(0), not null
 #  email                               :text
 #  url                                 :text
 #  full_name_alternative_transcription :text
-#  title                               :string(255)
-#  birth_date                          :string(255)
-#  death_date                          :string(255)
+#  birth_date                          :string
+#  death_date                          :string
+#  agent_identifier                    :string
+#  profile_id                          :uuid
 #
-

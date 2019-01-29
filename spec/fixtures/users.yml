@@ -6,7 +6,7 @@ admin:
   username: enjuadmin
   email: tanabe@kamata.lib.teu.ac.jp
   created_at: 2007-11-19 16:58:32.111941 +09:00
-  profile_id: 1
+  profile_id: 4025f49c-6fac-4ff4-ac6c-31cfe1e4e446
 librarian1: 
   updated_at: 2008-05-31 12:41:16.337474 +09:00
   encrypted_password: $2a$10$9O2VuTccN4gHq36ARg0QReSrb1D7WrBBhZZ759RM9moHbB0W5zCzS
@@ -14,7 +14,7 @@ librarian1:
   username: librarian1
   email: librarian1@kamata.lib.teu.ac.jp
   created_at: 2007-11-19 16:58:33.172441 +09:00
-  profile_id: 2
+  profile_id: 42b03250-1cc1-4b0f-b491-bd6c221e601a
 user1: 
   updated_at: 2008-05-31 13:02:25.101261 +09:00
   encrypted_password: $2a$10$JthS59A0BNkDOoFpCXM0V.GhhffKaoWKbzpPahYp/vTFrOyM7h/uW
@@ -22,7 +22,7 @@ user1:
   username: user1
   email: user1@kamata.lib.teu.ac.jp
   created_at: 2007-11-19 16:58:34.637413 +09:00
-  profile_id: 3
+  profile_id: 9e1e2fff-5134-4ce9-a813-2eacafb0a2b5
 librarian2: 
   updated_at: 2008-05-31 12:42:23.340575 +09:00
   encrypted_password: $2a$10$YmmTGrYQ1Ir6oc7wXnp.GuNeO1eYLoP3sv8wMSIrTdaGw2BPwRrpS
@@ -30,7 +30,7 @@ librarian2:
   username: librarian2
   email: librarian2@library.example.jp
   created_at: 2008-01-18 12:24:04.222344 +09:00
-  profile_id: 4
+  profile_id: a7fed980-07e2-48aa-880a-7b2204c7fc73
 user2: 
   updated_at: 2008-05-31 12:42:44.711117 +09:00
   encrypted_password: $2a$10$i7UjJhLVrJM/J7qaTwW39OXw1NiwowUEbtNHVDV0sqMLjX9.UO9ca
@@ -38,7 +38,7 @@ user2:
   username: user2
   email: user2@library.example.jp
   created_at: 2008-01-18 13:29:06.922728 +09:00
-  profile_id: 5
+  profile_id: b92ac994-62a5-4997-9a38-3903bb31491b
 user3: 
   updated_at: 2008-05-31 13:02:25.101261 +09:00
   encrypted_password: cc53de0c2d9a1a228daa9a673ec824473747e17507a6c3c4f7e5eff8821f531d4b9e23616b3ddc66fe17006b2298a556fbd567ac080e87f00f37eef8cee6c417
@@ -46,7 +46,7 @@ user3:
   username: user3
   email: user3@kamata.lib.teu.ac.jp
   created_at: 2007-11-19 16:58:34.637413 +09:00
-  profile_id: 6
+  profile_id: 06bfb232-e063-45e8-b31f-37b38c98e69b
 user4: 
   updated_at: 2008-05-31 13:02:25.101261 +09:00
   encrypted_password: cc53de0c2d9a1a228daa9a673ec824473747e17507a6c3c4f7e5eff8821f531d4b9e23616b3ddc66fe17006b2298a556fbd567ac080e87f00f37eef8cee6c417
@@ -55,4 +55,4 @@ user4:
   email: user4@kamata.lib.teu.ac.jp
   created_at: 2007-11-19 16:58:34.637413 +09:00
   locked_at: <%= 1.day.ago.to_s(:db) %>
-  profile_id: 7
+  profile_id: a225c3bd-e6aa-47d3-b300-20e232054aa5

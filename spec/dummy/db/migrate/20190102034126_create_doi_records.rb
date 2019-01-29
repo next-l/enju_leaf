@@ -5,7 +5,7 @@ class CreateDoiRecords < ActiveRecord::Migration[5.2]
       t.string :display_body, null: false
       t.string :source
       t.jsonb :response, default: {}, null: false
-      t.references :manifestation, foreign_key: true, null: false
+      t.references :manifestation, foreign_key: true, null: false, type: :uuid
 
       t.timestamps
     end

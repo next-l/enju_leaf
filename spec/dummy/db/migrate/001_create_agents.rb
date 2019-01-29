@@ -1,6 +1,6 @@
 class CreateAgents < ActiveRecord::Migration[5.2]
   def change
-    create_table :agents do |t|
+    create_table :agents, id: :uuid do |t|
       t.string :last_name
       t.string :middle_name
       t.string :first_name

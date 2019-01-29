@@ -1,6 +1,6 @@
 class CreateLibraries < ActiveRecord::Migration[5.2]
   def change
-    create_table :libraries do |t|
+    create_table :libraries, id: :uuid do |t|
       t.string :name, index: {unique: true}, null: false
       t.jsonb :display_name, default: {}, null: false
       t.string :short_display_name, null: false
