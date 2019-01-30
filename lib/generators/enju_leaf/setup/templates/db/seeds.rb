@@ -25,11 +25,12 @@ system_user = User.new
 system_user.username = 'system'
 system_user.password = SecureRandom.urlsafe_base64(32)
 system_user.email = 'root@library.example.jp'
-system_user.role = Role.where(name: 'Administrator').first
+system_user.role = Role.find_by(name: 'Administrator')
 profile = new_profile
 profile.save!
 system_user.profile = profile
 system_user.save!
+LibraryGroup.first.update!(user: system_user)
 
 user = User.new
 user.username = username
@@ -37,7 +38,7 @@ user.email = email
 user.password = password
 user.password_confirmation = password
 #user.confirm!
-user.role = Role.where(name: 'Administrator').first
+user.role = Role.find_by(name: 'Administrator')
 profile = new_profile
 profile.user_number = '0'
 profile.save!
