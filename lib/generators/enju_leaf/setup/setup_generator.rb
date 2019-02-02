@@ -34,11 +34,10 @@ EOS
   include EnjuBiblio::Controller
 
   include Pundit
+  before_action :set_paper_trail_whodunnit
   after_action :verify_authorized, unless: :devise_controller?
 EOS
     end
-    rake("active_storage:install")
-    rake("sitemap:install")
     generate("devise:install")
     generate("devise", "User")
     gsub_file 'app/models/user.rb', /, :validatable$/, <<EOS
