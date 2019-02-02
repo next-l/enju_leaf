@@ -29,6 +29,16 @@ EOS
     application(nil, env: "production") do
       "config.action_mailer.default_url_options = {host: 'localhost:3000'}\n"
     end
+    inject_into_class "app/controllers/application_controller.rb", ApplicationController do
+      <<"EOS"
+  include EnjuLibrary::Controller
+  include EnjuBiblio::Controller
+
+  include Pundit
+  before_action :set_paper_trail_whodunnit
+  after_action :verify_authorized, unless: :devise_controller?
+EOS
+    end
     generate("devise:install")
     generate("devise", "User")
     gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
@@ -77,16 +87,6 @@ EOS
     gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
 
     gsub_file 'app/controllers/application_controller.rb', /protect_from_forgery with: :exception$/, 'protect_from_forgery with: :exception, prepend: true'
-    inject_into_class "app/controllers/application_controller.rb", ApplicationController do
-      <<"EOS"
-  include EnjuLibrary::Controller
-  include EnjuBiblio::Controller
-
-  include Pundit
-  before_action :set_paper_trail_whodunnit
-  after_action :verify_authorized, unless: :devise_controller?
-EOS
-    end
 
     inject_into_file "app/helpers/application_helper.rb", after: /module ApplicationHelper$\n/ do
       <<"EOS"
