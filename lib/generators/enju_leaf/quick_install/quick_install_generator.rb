@@ -1,7 +1,7 @@
-class EnjuLeaf::QuickSetupGenerator < Rails::Generators::Base
+class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
-  def quick_setup
+  def quick_install
     environment = ENV['RAILS_ENV'] || 'development'
     gsub_file 'config/schedule.rb', /^set :environment, :development$/,
       "set :environment, :#{environment}"
