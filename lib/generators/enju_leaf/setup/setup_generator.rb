@@ -35,7 +35,6 @@ EOS
   include EnjuBiblio::Controller
 
   include Pundit
-  before_action :set_paper_trail_whodunnit
   after_action :verify_authorized, unless: :devise_controller?
 EOS
     end
