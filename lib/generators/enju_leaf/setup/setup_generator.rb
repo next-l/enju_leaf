@@ -38,7 +38,7 @@ EOS
   after_action :verify_authorized, unless: :devise_controller?
 EOS
     end
-    generate("active_storage:install")
+    rake("active_storage:install")
     generate("devise:install")
     generate("devise", "User")
     gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
