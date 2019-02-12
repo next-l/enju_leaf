@@ -1,7 +1,6 @@
 require "enju_leaf/engine"
 require "enju_leaf/version"
 require 'csv'
-require 'rss'
 require 'nkf'
 require 'ipaddr'
 
