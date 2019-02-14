@@ -2,7 +2,7 @@
 library_00001: 
   name: web
   short_display_name: Web
-  display_name: {"en": "World Wide Web", "ja": "ウェブ"}
+  display_name_translations: {"en": "World Wide Web", "ja": "ウェブ"}
   fax_number: 
   updated_at: 2007-08-31 00:18:06.662349 +09:00
   telephone_number_1: 
@@ -19,7 +19,7 @@ library_00001:
 library_00002: 
   name: kamata
   short_display_name: 蒲田
-  display_name: {"en": "Kamata Library", "ja": "蒲田図書館"}
+  display_name_translations: {"en": "Kamata Library", "ja": "蒲田図書館"}
   fax_number: ""
   updated_at: 2007-08-31 00:18:06.662349 +09:00
   telephone_number_1: 81-3-3732-5111
@@ -37,7 +37,7 @@ library_00002:
 library_00003: 
   name: hachioji
   short_display_name: 八王子
-  display_name: {"en": "Hachioji Library", "ja": "八王子図書館"}
+  display_name_translations: {"en": "Hachioji Library", "ja": "八王子図書館"}
   fax_number: 042-637-2116
   updated_at: 2007-08-31 00:18:16.188285 +09:00
   telephone_number_1: 042-637-2033
@@ -54,7 +54,7 @@ library_00003:
 library_00004: 
   name: mita
   short_display_name: 三田
-  display_name: {"en": "Mita Library", "ja": "三田図書館"}
+  display_name_translations: {"en": "Mita Library", "ja": "三田図書館"}
   fax_number: ""
   updated_at: 2007-08-31 00:18:20.043951 +09:00
   telephone_number_1: ""
@@ -73,28 +73,28 @@ library_00004:
 #
 # Table name: libraries
 #
-#  id                    :uuid             not null, primary key
-#  name                  :string           not null
-#  display_name          :jsonb            not null
-#  short_display_name    :string           not null
-#  zip_code              :string
-#  street                :text
-#  locality              :text
-#  region                :text
-#  telephone_number_1    :string
-#  telephone_number_2    :string
-#  fax_number            :string
-#  note                  :text
-#  call_number_rows      :integer          default(1), not null
-#  call_number_delimiter :string           default("|"), not null
-#  library_group_id      :bigint(8)        not null
-#  users_count           :integer          default(0), not null
-#  position              :integer          default(1), not null
-#  country_id            :bigint(8)
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  opening_hour          :text
-#  isil                  :string
-#  latitude              :float
-#  longitude             :float
+#  id                        :uuid             not null, primary key
+#  name                      :string           not null
+#  display_name_translations :jsonb            not null
+#  short_display_name        :string           not null
+#  zip_code                  :string
+#  street                    :text
+#  locality                  :text
+#  region                    :text
+#  telephone_number_1        :string
+#  telephone_number_2        :string
+#  fax_number                :string
+#  note                      :text
+#  call_number_rows          :integer          default(1), not null
+#  call_number_delimiter     :string           default("|"), not null
+#  library_group_id          :bigint(8)        not null
+#  users_count               :integer          default(0), not null
+#  position                  :integer          default(1), not null
+#  country_id                :bigint(8)
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  opening_hour              :text
+#  isil                      :string
+#  latitude                  :float
+#  longitude                 :float
 #

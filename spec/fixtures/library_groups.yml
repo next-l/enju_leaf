@@ -2,16 +2,16 @@
 one:
   id: 1
   name: enju_library
-  display_name: {"en": "Enju Library", "ja": "えんじゅ図書館"}
+  display_name_translations: {"en": "Enju Library", "ja": "えんじゅ図書館"}
   short_name: enju_library
   note: 
   my_networks: "0.0.0.0/0\r\n\
     ::/0"
   url: "http://localhost:3000/"
   position: 1
-  login_banner: {"ja": "オープンソース図書館システム Next-L Enju です。このメッセージは管理者としてログインした後に変更することができます。",
+  login_banner_translations: {"ja": "オープンソース図書館システム Next-L Enju です。このメッセージは管理者としてログインした後に変更することができます。",
     "en": "Next-L Enju, an open-source integrated library system. You can edit this message after logging in as Administrator."}
-  footer_banner: {"en":"[Next-L Enju Leaf __VERSION__](https://github.com/next-l/enju_leaf), an open source integrated library system | [About this system](/page/about) | [Report bugs](https://github.com/next-l/enju_leaf/issues) | [Manual](https://next-l.github.io/manual/1.3/)",
+  footer_banner_translations: {"en":"[Next-L Enju Leaf __VERSION__](https://github.com/next-l/enju_leaf), an open source integrated library system | [About this system](/page/about) | [Report bugs](https://github.com/next-l/enju_leaf/issues) | [Manual](https://next-l.github.io/manual/1.3/)",
     "ja":"[Next-L Enju Leaf __VERSION__](https://github.com/next-l/enju_leaf), オープンソース統合図書館システム | [このシステムについて](/page/about) | [不具合を報告する](https://github.com/next-l/enju_leaf/issues) | [マニュアル](https://next-l.github.io/manual/1.3/)"}
   admin_networks: "0.0.0.0/0\r\n\
     ::/0"
@@ -24,7 +24,7 @@ one:
 #
 #  id                            :bigint(8)        not null, primary key
 #  name                          :string           not null
-#  display_name                  :jsonb            not null
+#  display_name_translations     :jsonb            not null
 #  short_name                    :string           not null
 #  my_networks                   :text
 #  old_login_banner              :text
@@ -34,7 +34,6 @@ one:
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
 #  admin_networks                :text
-#  allow_bookmark_external_url   :boolean          default(FALSE), not null
 #  url                           :string           default("http://localhost:3000/")
 #  settings                      :jsonb
 #  html_snippet                  :text
@@ -45,11 +44,7 @@ one:
 #  pub_year_facet_range_interval :integer          default(10)
 #  user_id                       :bigint(8)
 #  csv_charset_conversion        :boolean          default(FALSE), not null
-#  header_logo_file_name         :string
-#  header_logo_content_type      :string
-#  header_logo_file_size         :bigint(8)
-#  header_logo_updated_at        :datetime
 #  header_logo_meta              :text
-#  login_banner                  :jsonb            not null
-#  footer_banner                 :jsonb            not null
+#  login_banner_translations     :jsonb            not null
+#  footer_banner_translations    :jsonb            not null
 #
