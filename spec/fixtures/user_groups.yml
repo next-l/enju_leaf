@@ -1,7 +1,7 @@
 --- 
 user_group_00001: 
   name: not_specified
-  display_name: {"en": "(not specified)", "ja": "不明"}
+  display_name_translations: {"en": "(not specified)", "ja": "不明"}
   updated_at: 2007-12-13 21:00:51.564542 +09:00
   id: 2d387a28-f738-4afb-93d4-c42e0b593435
   note: ""
@@ -11,7 +11,7 @@ user_group_00001:
   number_of_day_to_notify_due_date: 2
 user_group_00002: 
   name: user
-  display_name: {"en": "User", "ja": "一般利用者"}
+  display_name_translations: {"en": "User", "ja": "一般利用者"}
   updated_at: 2007-12-23 03:14:56.836548 +09:00
   id: ded8b35c-5fa4-426a-92b8-da7a44cb6fec
   note: ""
@@ -22,7 +22,7 @@ user_group_00002:
   number_of_time_to_notify_overdue: 6
 user_group_00003: 
   name: faculty
-  display_name: {"en": "Faculty", "ja": "教職員"}
+  display_name_translations: {"en": "Faculty", "ja": "教職員"}
   updated_at: 2007-12-23 03:15:05.134351 +09:00
   id: ff963b6d-918f-43bb-b9a0-e9be7127c55a
   note: ""
@@ -36,7 +36,7 @@ user_group_00003:
 #
 #  id                               :uuid             not null, primary key
 #  name                             :string           not null
-#  display_name                     :jsonb            not null
+#  display_name_translations        :jsonb            not null
 #  note                             :text
 #  position                         :integer          default(1), not null
 #  created_at                       :datetime         not null
