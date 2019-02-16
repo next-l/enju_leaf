@@ -39,6 +39,7 @@ EOS
 EOS
     end
     rake("active_storage:install")
+    rake("sitemap:install")
     generate("devise:install")
     generate("devise", "User")
     gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
