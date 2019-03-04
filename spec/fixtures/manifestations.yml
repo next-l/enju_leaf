@@ -1,6 +1,6 @@
 --- 
 manifestation_00001: 
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2007-11-19 16:59:00.293393 +09:00
   original_title: "よくわかる最新Webサービス技術の基本と仕組み : 標準Webシステム技術とeコマース基盤技術入門"
@@ -19,7 +19,7 @@ manifestation_00001:
   extent: "123p"
   dimensions: "25cm"
 manifestation_00002: 
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2007-11-19 16:59:01.991512 +09:00
   original_title: "情報通信ハンドブック : 情報通信の最新データがわかる 2005年版"
@@ -34,7 +34,7 @@ manifestation_00002:
   created_at: 2007-11-19 16:59:01.991512 +09:00
   repository_content: false
 manifestation_00003: 
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2007-11-19 16:59:02.618359 +09:00
   original_title: !binary |
@@ -51,7 +51,7 @@ manifestation_00003:
   width: 
   created_at: 2007-11-19 16:59:02.618359 +09:00
 manifestation_00004: 
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2007-11-19 16:59:03.275738 +09:00
   original_title: THE BIOTECH INVESTOR'S BIBLE
@@ -65,7 +65,7 @@ manifestation_00004:
   width: 
   created_at: 2007-11-19 16:59:03.275738 +09:00
 manifestation_00005: 
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2007-11-19 16:59:04.333183 +09:00
   original_title: !binary |
@@ -81,7 +81,7 @@ manifestation_00005:
   width: 
   created_at: 2007-11-19 16:59:04.333183 +09:00
 manifestation_00006: 
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2007-11-19 16:59:05.255684 +09:00
   original_title: !binary |
@@ -97,7 +97,7 @@ manifestation_00006:
   width: 
   created_at: 2007-11-19 16:59:05.255684 +09:00
 manifestation_00007: 
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2007-11-19 16:59:06.892741 +09:00
   original_title: dictionary of e-business
@@ -111,7 +111,7 @@ manifestation_00007:
   width: 
   created_at: 2007-11-19 16:59:06.892741 +09:00
 manifestation_00008: 
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2007-11-19 16:59:07.463333 +09:00
   original_title: "Webサービス完全解説 : 基礎からわかる次世代インターネット・テクノロジー"
@@ -125,7 +125,7 @@ manifestation_00008:
   width: 
   created_at: 2007-11-19 16:59:07.463333 +09:00
 manifestation_00009: 
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2007-11-19 16:59:08.166195 +09:00
   original_title: !binary |
@@ -141,7 +141,7 @@ manifestation_00009:
   width: 
   created_at: 2007-11-19 16:59:08.166195 +09:00
 manifestation_00010: 
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2007-11-19 16:59:09.799724 +09:00
   original_title: "Apache Lucene入門 : Java・オープンソース・全文検索システムの構築"
@@ -155,7 +155,7 @@ manifestation_00010:
   width: 
   created_at: 2007-11-19 16:59:09.799724 +09:00
 manifestation_00021: 
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   updated_at: 2007-11-19 16:59:20.799724 +09:00
   original_title: "Web\xE3\x82\xB5\xE3\x83\xBC\xE3\x83\x93\xE3\x82\xB9\xE5\xAE\x8C\xE5\x85\xA8\xE6\xA7\x8B\xE7\xAF\x89\xE3\x82\xAC\xE3\x82\xA4\xE3\x83\x89"
   price: 
@@ -169,7 +169,7 @@ manifestation_00021:
   created_at: 2007-11-19 16:59:20.799724 +09:00
   required_role_id: 2
 manifestation_00022: 
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   updated_at: 2007-11-19 16:59:21.799724 +09:00
   original_title: "YouTube - Open Source ILS Song"
   price: 
@@ -183,7 +183,7 @@ manifestation_00022:
   created_at: 2008-04-17 00:34:01 +09:00
   required_role_id: 1
 manifestation_00023: 
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   updated_at: 2008-04-17 00:34:01 +09:00
   original_title: "世界の美しい図書館集めてみた【第一弾】"
   price: 
@@ -197,7 +197,7 @@ manifestation_00023:
   created_at: 2007-11-19 16:58:58.799724 +09:00
   required_role_id: 4
 manifestation_00101:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "CGI基礎講座 : Perl・プログラミング・日本語処理"
@@ -211,7 +211,7 @@ manifestation_00101:
   width:
   created_at: 2010-02-21 15:47:09 +9:00
 manifestation_00102:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "CGIレスキュー実践Perlプログラミング : Web裏技"
@@ -225,7 +225,7 @@ manifestation_00102:
   width:
   created_at: 2010-02-21 14:57:08 +9:00
 manifestation_00103:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perlクックブック. v．2"
@@ -239,7 +239,7 @@ manifestation_00103:
   width:
   created_at: 2010-02-21 10:51:48 +9:00
 manifestation_00104:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perlクックブック. v．1"
@@ -253,7 +253,7 @@ manifestation_00104:
   width:
   created_at: 2010-02-21 10:51:33 +9:00
 manifestation_00105:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "初めてのPerl. 続"
@@ -267,7 +267,7 @@ manifestation_00105:
   width:
   created_at: 2010-02-21 10:48:14 +9:00
 manifestation_00106:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl ＆ XML"
@@ -281,7 +281,7 @@ manifestation_00106:
   width:
   created_at: 2010-02-21 10:45:48 +9:00
 manifestation_00107:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "はじめてのPerlモジュール : 厳選実用モジュール集"
@@ -295,7 +295,7 @@ manifestation_00107:
   width:
   created_at: 2010-02-21 09:59:01 +9:00
 manifestation_00108:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl 5パワフルテクニック大全集"
@@ -309,7 +309,7 @@ manifestation_00108:
   width:
   created_at: 2010-02-21 08:13:17 +9:00
 manifestation_00109:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "CGI／Perlパワープログラミング"
@@ -323,7 +323,7 @@ manifestation_00109:
   width:
   created_at: 2010-02-20 17:26:08 +9:00
 manifestation_00110:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Ruby／GTKプログラミング入門 : Rubyで作って遊ぶGUIプログラミング"
@@ -337,7 +337,7 @@ manifestation_00110:
   width:
   created_at: 2010-02-19 13:09:56 +9:00
 manifestation_00111:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "すぐわかるPerl"
@@ -351,7 +351,7 @@ manifestation_00111:
   width:
   created_at: 2010-02-19 13:07:28 +9:00
 manifestation_00112:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "CGIのための実践入門Perl : 対話的・動きのあるWebページを作ろう"
@@ -365,7 +365,7 @@ manifestation_00112:
   width:
   created_at: 2010-02-19 13:06:51 +9:00
 manifestation_00113:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "プログラミングは難しくない！ : ウェブではじめるJavaScript／Perl／Java"
@@ -379,7 +379,7 @@ manifestation_00113:
   width:
   created_at: 2010-02-19 11:02:27 +9:00
 manifestation_00114:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Rubyを256倍使うための本. 魔道編"
@@ -393,7 +393,7 @@ manifestation_00114:
   width:
   created_at: 2010-02-19 05:46:08 +9:00
 manifestation_00115:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "入門Perl"
@@ -407,7 +407,7 @@ manifestation_00115:
   width:
   created_at: 2010-02-19 05:40:17 +9:00
 manifestation_00116:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "sed ＆ awkプログラミング : UNIX power tools"
@@ -421,7 +421,7 @@ manifestation_00116:
   width:
   created_at: 2010-02-19 05:39:01 +9:00
 manifestation_00117:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perlの達人"
@@ -435,7 +435,7 @@ manifestation_00117:
   width:
   created_at: 2010-02-18 10:23:27 +9:00
 manifestation_00118:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "ナチ強制・絶滅収容所 : 18施設内の生と死"
@@ -449,7 +449,7 @@ manifestation_00118:
   width:
   created_at: 2010-02-17 01:12:08 +9:00
 manifestation_00119:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl基礎講座"
@@ -463,7 +463,7 @@ manifestation_00119:
   width:
   created_at: 2010-02-16 04:30:37 +9:00
 manifestation_00120:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Rubyプログラミング入門"
@@ -477,7 +477,7 @@ manifestation_00120:
   width:
   created_at: 2010-02-16 04:29:59 +9:00
 manifestation_00121:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Django×Python"
@@ -491,7 +491,7 @@ manifestation_00121:
   width:
   created_at: 2010-01-30 06:22:35 +9:00
 manifestation_00122:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "みんなのPython"
@@ -505,7 +505,7 @@ manifestation_00122:
   width:
   created_at: 2010-01-30 06:17:32 +9:00
 manifestation_00123:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Rubyでgroonga使って全文検索 - ラングバ"
@@ -519,7 +519,7 @@ manifestation_00123:
   width:
   created_at: 2009-10-25 13:20:34 +9:00
 manifestation_00124:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "まちづくり三鷹図書館（Ruby図書館情報システム デモサイト）"
@@ -533,7 +533,7 @@ manifestation_00124:
   width:
   created_at: 2009-10-20 13:46:44 +9:00
 manifestation_00125:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Ruby on Rails入門 : 優しいRailsの育て方"
@@ -547,7 +547,7 @@ manifestation_00125:
   width:
   created_at: 2009-10-16 05:16:48 +9:00
 manifestation_00126:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Ruby Cookbook"
@@ -561,7 +561,7 @@ manifestation_00126:
   width:
   created_at: 2009-06-29 12:44:11 +9:00
 manifestation_00127:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "CGI programming on the World Wide Web"
@@ -575,7 +575,7 @@ manifestation_00127:
   width:
   created_at: 2009-06-19 13:45:14 +9:00
 manifestation_00128:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Genomic Perl"
@@ -589,7 +589,7 @@ manifestation_00128:
   width:
   created_at: 2009-06-19 13:27:46 +9:00
 manifestation_00129:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Indians of the Pacific Northwest"
@@ -603,7 +603,7 @@ manifestation_00129:
   width:
   created_at: 2009-06-19 12:16:23 +9:00
 manifestation_00130:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Massachusetts acid rain monitoring project / Massachusetts acid rain monitoring project A.R.M"
@@ -617,7 +617,7 @@ manifestation_00130:
   width:
   created_at: 2009-06-19 12:03:29 +9:00
 manifestation_00131:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "International Symposium Genes and Chromosomes Structure and Function"
@@ -631,7 +631,7 @@ manifestation_00131:
   width:
   created_at: 2009-06-19 12:02:48 +9:00
 manifestation_00132:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl black book, 2nd edition"
@@ -645,7 +645,7 @@ manifestation_00132:
   width:
   created_at: 2009-06-19 11:42:02 +9:00
 manifestation_00133:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Python scripting for computational science"
@@ -659,7 +659,7 @@ manifestation_00133:
   width:
   created_at: 2009-06-19 11:18:01 +9:00
 manifestation_00134:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Tests on a gold ore from the Ruby Basin, Black Hills"
@@ -673,7 +673,7 @@ manifestation_00134:
   width:
   created_at: 2009-06-19 11:06:07 +9:00
 manifestation_00135:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Official guide to programming with CGI.pm / Programming with CGI.pm / Official guide to programming with CGI.pm"
@@ -687,7 +687,7 @@ manifestation_00135:
   width:
   created_at: 2009-06-19 10:54:21 +9:00
 manifestation_00136:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Three little words [sound recording] / Nevertheless (I'm in love with you) / I love you so much / All alone Monday / Where did you get that girl? / Thinking of you / I wanna be loved by you / Who's sorry now? / My sunny Tennessee / So long Oolong / Three little words"
@@ -701,7 +701,7 @@ manifestation_00136:
   width:
   created_at: 2009-06-19 10:46:46 +9:00
 manifestation_00137:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Femtosecond time-resolved spectroscopy of organic molecular crystals / Time-resolved spectroscopy of organic molecular crystals, Femtosecond"
@@ -715,7 +715,7 @@ manifestation_00137:
   width:
   created_at: 2009-06-19 10:18:59 +9:00
 manifestation_00138:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "CGI programming with Perl"
@@ -729,7 +729,7 @@ manifestation_00138:
   width:
   created_at: 2009-06-19 09:19:08 +9:00
 manifestation_00139:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Python and XML / Python &amp; XML / XML processing with Python"
@@ -743,7 +743,7 @@ manifestation_00139:
   width:
   created_at: 2009-06-19 09:19:02 +9:00
 manifestation_00140:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl cookbook / Solutions and examples for Perl programmers"
@@ -757,7 +757,7 @@ manifestation_00140:
   width:
   created_at: 2009-06-19 09:19:01 +9:00
 manifestation_00141:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Mastering Perl/Tk / Perl/Tk"
@@ -771,7 +771,7 @@ manifestation_00141:
   width:
   created_at: 2009-06-19 09:19:00 +9:00
 manifestation_00142:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Mastering algorithms with Perl / Practical programming through computer science"
@@ -785,7 +785,7 @@ manifestation_00142:
   width:
   created_at: 2009-06-19 09:18:58 +9:00
 manifestation_00143:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Programming Perl"
@@ -799,7 +799,7 @@ manifestation_00143:
   width:
   created_at: 2009-06-19 09:18:45 +9:00
 manifestation_00144:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Fort Worth &amp; Tarrant County / Fort Worth and Tarrant County"
@@ -813,7 +813,7 @@ manifestation_00144:
   width:
   created_at: 2009-06-19 07:49:42 +9:00
 manifestation_00145:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Monty Python's Spamalot [sound recording] / Spamalot / Spamalot / Monty Python and the Holy Grail (Motion picture)"
@@ -827,7 +827,7 @@ manifestation_00145:
   width:
   created_at: 2009-06-19 06:44:35 +9:00
 manifestation_00146:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "AWK programming language"
@@ -841,7 +841,7 @@ manifestation_00146:
   width:
   created_at: 2009-06-19 06:28:27 +9:00
 manifestation_00147:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Toting the lead row"
@@ -855,7 +855,7 @@ manifestation_00147:
   width:
   created_at: 2009-06-19 02:16:22 +9:00
 manifestation_00148:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Afro-American blues and game songs"
@@ -869,7 +869,7 @@ manifestation_00148:
   width:
   created_at: 2009-06-19 02:09:17 +9:00
 manifestation_00149:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl/Tk pocket reference"
@@ -883,7 +883,7 @@ manifestation_00149:
   width:
   created_at: 2009-06-19 01:10:56 +9:00
 manifestation_00150:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "politics of improving urban air quality"
@@ -897,7 +897,7 @@ manifestation_00150:
   width:
   created_at: 2009-06-19 00:42:38 +9:00
 manifestation_00151:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl developer's dictionary"
@@ -911,7 +911,7 @@ manifestation_00151:
   width:
   created_at: 2009-06-19 00:13:13 +9:00
 manifestation_00152:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Andrテδゥ Poitiers"
@@ -925,7 +925,7 @@ manifestation_00152:
   width:
   created_at: 2009-06-18 23:58:14 +9:00
 manifestation_00153:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "PERL and CGI for the World Wide Web [electronic resource] / Visual QuickStart guide"
@@ -939,7 +939,7 @@ manifestation_00153:
   width:
   created_at: 2009-06-18 23:43:08 +9:00
 manifestation_00154:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Python tutorial"
@@ -953,7 +953,7 @@ manifestation_00154:
   width:
   created_at: 2009-06-18 23:17:40 +9:00
 manifestation_00155:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Line shapes of paramagnetic resonances in ruby"
@@ -967,7 +967,7 @@ manifestation_00155:
   width:
   created_at: 2009-06-18 22:44:00 +9:00
 manifestation_00156:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl programmer's reference"
@@ -981,7 +981,7 @@ manifestation_00156:
   width:
   created_at: 2009-06-18 22:19:34 +9:00
 manifestation_00157:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Technological capabilities in developing countries"
@@ -995,7 +995,7 @@ manifestation_00157:
   width:
   created_at: 2009-06-18 21:58:42 +9:00
 manifestation_00158:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "phenomena of vagueness"
@@ -1009,7 +1009,7 @@ manifestation_00158:
   width:
   created_at: 2009-06-18 21:44:38 +9:00
 manifestation_00159:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "theory of consumer's demand"
@@ -1023,7 +1023,7 @@ manifestation_00159:
   width:
   created_at: 2009-06-18 21:10:02 +9:00
 manifestation_00160:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "theory of consumer's demand"
@@ -1037,7 +1037,7 @@ manifestation_00160:
   width:
   created_at: 2009-06-18 21:10:01 +9:00
 manifestation_00161:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Monty Python, Shakespeare, and English Renaissance drama"
@@ -1051,7 +1051,7 @@ manifestation_00161:
   width:
   created_at: 2009-06-18 20:37:58 +9:00
 manifestation_00162:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Analyzing computer system performance with PERL::PDQ"
@@ -1065,7 +1065,7 @@ manifestation_00162:
   width:
   created_at: 2009-06-18 20:29:54 +9:00
 manifestation_00163:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "equilibrium of the reaction between the manganate, permanganate, and hydroxide of potassium, and manganese dioxide"
@@ -1079,7 +1079,7 @@ manifestation_00163:
   width:
   created_at: 2009-06-18 20:16:44 +9:00
 manifestation_00164:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Stimulated optical emission in ruby"
@@ -1093,7 +1093,7 @@ manifestation_00164:
   width:
   created_at: 2009-06-18 20:05:25 +9:00
 manifestation_00165:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Strategic planning and risk analysis"
@@ -1107,7 +1107,7 @@ manifestation_00165:
   width:
   created_at: 2009-06-18 17:41:41 +9:00
 manifestation_00166:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Performance assertion checking"
@@ -1121,7 +1121,7 @@ manifestation_00166:
   width:
   created_at: 2009-06-18 17:34:03 +9:00
 manifestation_00167:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Spin-lattice relaxation time of ruby"
@@ -1135,7 +1135,7 @@ manifestation_00167:
   width:
   created_at: 2009-06-18 16:26:38 +9:00
 manifestation_00168:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Mourning Ruby"
@@ -1149,7 +1149,7 @@ manifestation_00168:
   width:
   created_at: 2009-06-18 16:25:25 +9:00
 manifestation_00169:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "statistical analysis of banking performance in the Eastern Caribbean Currency Union in the 1990s"
@@ -1163,7 +1163,7 @@ manifestation_00169:
   width:
   created_at: 2009-06-18 15:53:44 +9:00
 manifestation_00170:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Professional Perl programming / Perl programming"
@@ -1177,7 +1177,7 @@ manifestation_00170:
   width:
   created_at: 2009-06-18 15:52:50 +9:00
 manifestation_00171:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl in a nutshell"
@@ -1191,7 +1191,7 @@ manifestation_00171:
   width:
   created_at: 2009-06-18 15:40:53 +9:00
 manifestation_00172:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Programming Web services with Perl"
@@ -1205,7 +1205,7 @@ manifestation_00172:
   width:
   created_at: 2009-06-18 15:34:21 +9:00
 manifestation_00173:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Proceedings of the Trieste Workshop on the search for New Elementary Particles / International journal of modern physics / Search for new elementary particles"
@@ -1219,7 +1219,7 @@ manifestation_00173:
   width:
   created_at: 2009-06-18 15:08:06 +9:00
 manifestation_00174:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Europeras 3 &amp; 4 / Europera"
@@ -1233,7 +1233,7 @@ manifestation_00174:
   width:
   created_at: 2009-06-18 15:05:43 +9:00
 manifestation_00175:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Retreats from realism in recent English drama"
@@ -1247,7 +1247,7 @@ manifestation_00175:
   width:
   created_at: 2009-06-18 15:03:06 +9:00
 manifestation_00176:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Python programming patterns"
@@ -1261,7 +1261,7 @@ manifestation_00176:
   width:
   created_at: 2009-06-18 14:52:11 +9:00
 manifestation_00177:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Beginning Perl for bioinformatics"
@@ -1275,7 +1275,7 @@ manifestation_00177:
   width:
   created_at: 2009-06-18 13:45:13 +9:00
 manifestation_00178:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Learning Perl"
@@ -1289,7 +1289,7 @@ manifestation_00178:
   width:
   created_at: 2009-06-18 13:45:11 +9:00
 manifestation_00179:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Effective awk programming"
@@ -1303,7 +1303,7 @@ manifestation_00179:
   width:
   created_at: 2009-06-18 13:45:09 +9:00
 manifestation_00180:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Python standard library / Annotated reference for Python 2.0"
@@ -1317,7 +1317,7 @@ manifestation_00180:
   width:
   created_at: 2009-06-18 13:45:04 +9:00
 manifestation_00181:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Programming Python"
@@ -1331,7 +1331,7 @@ manifestation_00181:
   width:
   created_at: 2009-06-18 13:45:04 +9:00
 manifestation_00182:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl CD bookshelf"
@@ -1345,7 +1345,7 @@ manifestation_00182:
   width:
   created_at: 2009-06-18 13:44:56 +9:00
 manifestation_00183:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Programming Perl"
@@ -1359,7 +1359,7 @@ manifestation_00183:
   width:
   created_at: 2009-06-18 13:44:55 +9:00
 manifestation_00184:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Sed &amp; awk pocket reference / Sed and awk pocket reference"
@@ -1373,7 +1373,7 @@ manifestation_00184:
   width:
   created_at: 2009-06-18 13:44:54 +9:00
 manifestation_00185:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Perl power!"
@@ -1387,7 +1387,7 @@ manifestation_00185:
   width:
   created_at: 2009-06-18 13:41:37 +9:00
 manifestation_00186:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "ATOKダイレクト API for Perl / Ruby?|?さらに使いこなす?|?ATOK.com"
@@ -1401,7 +1401,7 @@ manifestation_00186:
   width:
   created_at: 2008-12-19 17:52:47 +9:00
 manifestation_00187:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Welcome ― Ruby Enterprise Edition"
@@ -1415,7 +1415,7 @@ manifestation_00187:
   width:
   created_at: 2008-10-19 15:58:50 +9:00
 manifestation_00188:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Pythonクックブック"
@@ -1429,7 +1429,7 @@ manifestation_00188:
   width:
   created_at: 2008-08-22 00:27:29 +9:00
 manifestation_00189:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "みんなのPython インデントの世界へようこそ！　object oriented-lightweight language Python"
@@ -1443,7 +1443,7 @@ manifestation_00189:
   width:
   created_at: 2008-08-22 00:20:59 +9:00
 manifestation_00190:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Django | The Web framework for perfectionists with deadlines"
@@ -1457,7 +1457,7 @@ manifestation_00190:
   width:
   created_at: 2008-05-20 13:06:31 +9:00
 manifestation_00191:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "fac-back-opac - Google Code"
@@ -1471,7 +1471,7 @@ manifestation_00191:
   width:
   created_at: 2008-05-19 22:36:11 +9:00
 manifestation_00192:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Rubyクックブック"
@@ -1485,7 +1485,7 @@ manifestation_00192:
   width:
   created_at: 2008-03-05 01:37:55 +9:00
 manifestation_00193:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "Rubyレシピブック"
@@ -1499,7 +1499,7 @@ manifestation_00193:
   width:
   created_at: 2008-03-05 01:30:39 +9:00
 manifestation_00194:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "初めてのPerl 第3版"
@@ -1513,7 +1513,7 @@ manifestation_00194:
   width:
   created_at: 2007-11-19 17:56:37 +9:00
 manifestation_00195:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "続・初めてのPerl 改訂版"
@@ -1527,7 +1527,7 @@ manifestation_00195:
   width:
   created_at: 2007-11-19 17:55:42 +9:00
 manifestation_00196:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "たのしいRuby 第2版 Rubyではじめる気軽なプログラミング"
@@ -1541,7 +1541,7 @@ manifestation_00196:
   width:
   created_at: 2007-11-19 17:55:41 +9:00
 manifestation_00197:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-15 16:14:18 +09:00
   original_title: "Ruby"
@@ -1555,7 +1555,7 @@ manifestation_00197:
   width:
   created_at: 2007-11-19 17:55:41 +9:00
 manifestation_00198:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-15 16:14:18 +09:00
   original_title: "紅玉の本"
@@ -1569,7 +1569,7 @@ manifestation_00198:
   width:
   created_at: 2007-11-19 17:55:41 +9:00
 manifestation_00201:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "テスト雑誌2005年１月号"
@@ -1585,7 +1585,7 @@ manifestation_00201:
   frequency_id: 3
   serial: true
 manifestation_00202:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "テスト雑誌２月号"
@@ -1604,7 +1604,7 @@ manifestation_00202:
   issue_number: 2
   serial: true
 manifestation_00203:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-01 16:14:18 +09:00
   original_title: "テスト単行本記事2005"
@@ -1620,7 +1620,7 @@ manifestation_00203:
   frequency_id: 1
   serial: false
 manifestation_00204:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-03 20:00:00 +09:00
   original_title: "テスト雑誌１月号の記事１ 2005"
@@ -1635,7 +1635,7 @@ manifestation_00204:
   created_at: 2010-03-03 20:00:00 +9:00
   serial: true
 manifestation_00205:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-03 20:00:00 +09:00
   original_title: "テスト雑誌１月号の記事２"
@@ -1649,7 +1649,7 @@ manifestation_00205:
   width:
   created_at: 2010-03-03 20:00:00 +9:00
 manifestation_00206:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-03 20:00:00 +09:00
   original_title: "テスト雑誌２月号の記事１"
@@ -1663,7 +1663,7 @@ manifestation_00206:
   width:
   created_at: 2010-03-03 20:00:00 +9:00
 manifestation_00207:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-03 20:00:00 +09:00
   original_title: "試験単行本"
@@ -1677,7 +1677,7 @@ manifestation_00207:
   width:
   created_at: 2010-03-03 20:00:00 +9:00
 manifestation_00208:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-16 11:00:00 +09:00
   original_title: "ある出版物"
@@ -1691,7 +1691,7 @@ manifestation_00208:
   width:
   created_at: 2010-03-16 11:00:00 +9:00
 manifestation_00209:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認Admin専用１"
@@ -1706,7 +1706,7 @@ manifestation_00209:
   created_at: 2010-03-19 13:00:00 +9:00
   required_role_id: 4
 manifestation_00210:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認Admin専用２"
@@ -1722,7 +1722,7 @@ manifestation_00210:
   required_role_id: 4
   repository_content: true
 manifestation_00211:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認Librarian以上用１"
@@ -1738,7 +1738,7 @@ manifestation_00211:
   required_role_id: 3
   repository_content: true
 manifestation_00212:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認Librarian以上用２"
@@ -1754,7 +1754,7 @@ manifestation_00212:
   required_role_id: 3
   repository_content: true
 manifestation_00213:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認User以上用１"
@@ -1770,7 +1770,7 @@ manifestation_00213:
   required_role_id: 2
   repository_content: true
 manifestation_00214:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認User以上用２"
@@ -1786,7 +1786,7 @@ manifestation_00214:
   required_role_id: 2
   repository_content: false
 manifestation_00215:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認"
@@ -1802,7 +1802,7 @@ manifestation_00215:
   required_role_id: 1
   repository_content: true
 manifestation_00216:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 1
   updated_at: 2010-03-19 13:00:00 +09:00
   original_title: "権限確認"
@@ -1818,7 +1818,7 @@ manifestation_00216:
   required_role_id: 1
   repository_content: false
 manifestation_00217:
-  carrier_type_id: 1
+  carrier_type_id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
   language_id: 77
   updated_at: 2014-12-20 16:44:00 +09:00
   original_title: "VRML2.0 : 3Dサイバースペース構築言語"
@@ -1843,7 +1843,6 @@ manifestation_00217:
 #  updated_at                      :datetime         not null
 #  access_address                  :string
 #  language_id                     :integer          default(1), not null
-#  carrier_type_id                 :integer          default(1), not null
 #  start_page                      :integer
 #  end_page                        :integer
 #  height                          :integer
@@ -1861,10 +1860,7 @@ manifestation_00217:
 #  required_role_id                :integer          default(1), not null
 #  frequency_id                    :integer          default(1), not null
 #  subscription_master             :boolean          default(FALSE), not null
-#  attachment_file_name            :string
-#  attachment_content_type         :string
-#  attachment_file_size            :integer
-#  attachment_updated_at           :datetime
+#  carrier_type_id                 :uuid             not null
 #  nii_type_id                     :integer
 #  title_alternative_transcription :text
 #  description                     :text
@@ -1881,7 +1877,6 @@ manifestation_00217:
 #  serial_number                   :integer
 #  content_type_id                 :integer          default(1)
 #  year_of_publication             :integer
-#  attachment_meta                 :text
 #  month_of_publication            :integer
 #  fulltext_content                :boolean
 #  serial                          :boolean

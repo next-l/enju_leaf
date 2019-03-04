@@ -11,7 +11,6 @@ class CreateManifestations < ActiveRecord::Migration[5.2]
       t.timestamps
       t.string :access_address, index: true
       t.integer :language_id, default: 1, null: false
-      t.integer :carrier_type_id, default: 1, null: false
       t.integer :start_page
       t.integer :end_page
       t.integer :height
