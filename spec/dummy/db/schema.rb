@@ -392,19 +392,6 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
     t.index ["manifestation_id"], name: "index_identifiers_on_manifestation_id"
   end
 
-  create_table "identities", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password_digest"
-    t.uuid "profile_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "provider"
-    t.index ["email"], name: "index_identities_on_email"
-    t.index ["name"], name: "index_identities_on_name"
-    t.index ["profile_id"], name: "index_identities_on_profile_id"
-  end
-
   create_table "import_request_transitions", force: :cascade do |t|
     t.string "to_state"
     t.jsonb "metadata", default: {}
