@@ -4,7 +4,7 @@ class CreateImportRequestTransitions < ActiveRecord::Migration[5.2]
       t.string :to_state
       t.jsonb :metadata, default: {}
       t.integer :sort_key
-      t.references :import_request
+      t.references :import_request, type: :uuid
       t.timestamps
     end
 
