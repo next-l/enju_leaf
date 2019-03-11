@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "accepts", force: :cascade do |t|
-    t.bigint "basket_id"
+  create_table "accepts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "basket_id"
     t.uuid "item_id"
     t.bigint "librarian_id"
     t.datetime "created_at", null: false
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
     t.index ["agent_import_file_id"], name: "index_agent_import_results_on_agent_import_file_id"
   end
 
-  create_table "agent_merge_lists", force: :cascade do |t|
+  create_table "agent_merge_lists", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
 
   create_table "agent_merges", force: :cascade do |t|
     t.uuid "agent_id", null: false
-    t.bigint "agent_merge_list_id", null: false
+    t.uuid "agent_merge_list_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["agent_id"], name: "index_agent_merges_on_agent_id"
@@ -182,7 +182,7 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
     t.index ["required_role_id"], name: "index_agents_on_required_role_id"
   end
 
-  create_table "baskets", force: :cascade do |t|
+  create_table "baskets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "user_id"
     t.text "note"
     t.integer "lock_version", default: 0, null: false
@@ -405,7 +405,7 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
     t.index ["sort_key", "import_request_id"], name: "index_import_request_transitions_on_sort_key_and_request_id", unique: true
   end
 
-  create_table "import_requests", force: :cascade do |t|
+  create_table "import_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "isbn", null: false
     t.uuid "manifestation_id"
     t.bigint "user_id"
@@ -949,7 +949,7 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
     t.index ["series_statement_id"], name: "index_series_has_manifestations_on_series_statement_id"
   end
 
-  create_table "series_statement_merge_lists", force: :cascade do |t|
+  create_table "series_statement_merge_lists", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -957,7 +957,7 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
 
   create_table "series_statement_merges", force: :cascade do |t|
     t.bigint "series_statement_id", null: false
-    t.bigint "series_statement_merge_list_id", null: false
+    t.uuid "series_statement_merge_list_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["series_statement_id"], name: "index_series_statement_merges_on_series_statement_id"
@@ -1012,7 +1012,7 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
   end
 
   create_table "subscribes", force: :cascade do |t|
-    t.bigint "subscription_id", null: false
+    t.uuid "subscription_id", null: false
     t.uuid "work_id", null: false
     t.datetime "start_at", null: false
     t.datetime "end_at", null: false
@@ -1022,7 +1022,7 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
     t.index ["work_id"], name: "index_subscribes_on_work_id"
   end
 
-  create_table "subscriptions", force: :cascade do |t|
+  create_table "subscriptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "title", null: false
     t.text "note"
     t.bigint "user_id"
@@ -1067,7 +1067,7 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
     t.string "to_state"
     t.jsonb "metadata", default: {}
     t.integer "sort_key"
-    t.bigint "user_export_file_id"
+    t.uuid "user_export_file_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "most_recent", null: false
@@ -1076,7 +1076,7 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
     t.index ["user_export_file_id"], name: "index_user_export_file_transitions_on_user_export_file_id"
   end
 
-  create_table "user_export_files", force: :cascade do |t|
+  create_table "user_export_files", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "user_id"
     t.datetime "executed_at"
     t.datetime "created_at", null: false
@@ -1112,7 +1112,7 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
     t.string "to_state"
     t.jsonb "metadata", default: {}
     t.integer "sort_key"
-    t.bigint "user_import_file_id"
+    t.uuid "user_import_file_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "most_recent", null: false
@@ -1121,7 +1121,7 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
     t.index ["user_import_file_id"], name: "index_user_import_file_transitions_on_user_import_file_id"
   end
 
-  create_table "user_import_files", force: :cascade do |t|
+  create_table "user_import_files", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "user_id"
     t.text "note"
     t.datetime "executed_at"
@@ -1137,8 +1137,8 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
     t.index ["user_id"], name: "index_user_import_files_on_user_id"
   end
 
-  create_table "user_import_results", force: :cascade do |t|
-    t.bigint "user_import_file_id"
+  create_table "user_import_results", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_import_file_id"
     t.bigint "user_id"
     t.text "body"
     t.datetime "created_at", null: false
@@ -1176,8 +1176,8 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  create_table "withdraws", force: :cascade do |t|
-    t.bigint "basket_id"
+  create_table "withdraws", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "basket_id"
     t.uuid "item_id"
     t.bigint "librarian_id"
     t.datetime "created_at", null: false

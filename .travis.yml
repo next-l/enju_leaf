@@ -22,3 +22,4 @@ notifications:
 sudo: false
 addons:
   postgresql: "9.6"
+  chrome: stable
