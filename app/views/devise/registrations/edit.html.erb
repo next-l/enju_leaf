@@ -6,16 +6,16 @@
   <%= devise_error_messages! %>
 
   <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.label :current_password %><br />
     <%= f.password_field :current_password, autocomplete: "off" %>
   </div>
 
   <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.label :password %><br />
     <%= f.password_field :password, autocomplete: "off" %>
     <% if @minimum_password_length %>
       <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+      <em><%= @minimum_password_length %> <%= t('devise.registration.minimum_password_length', count: @minimum_password_length %>/em>
     <% end %>
   </div>
 
