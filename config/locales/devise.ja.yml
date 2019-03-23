@@ -38,6 +38,9 @@ ja:
       signed_up_but_unconfirmed: "A message with a confirmation link has been sent to your email address. Please follow the link to activate your account."
       update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and follow the confirm link to confirm your new email address."
       updated: "アカウントは正常に更新されました。"
+      minimum_password_length:
+        one: "%{count}文字以上"
+        other: "%{count}文字以上"
     sessions:
       signed_in: "ログインしました。"
       signed_out: "ログアウトしました。"
