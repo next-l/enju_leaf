@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180102162311) do
+ActiveRecord::Schema.define(version: 2018_01_02_162311) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer "basket_id"
