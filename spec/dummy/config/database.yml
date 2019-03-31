@@ -2,13 +2,6 @@ sqlite: &sqlite
   adapter: sqlite3
   database: db/<%= Rails.env %>.sqlite3
 
-mysql: &mysql
-  adapter: mysql2
-  username: root
-  password:
-  database: enju_<%= Rails.env %>
-  encoding: utf8
-
 postgresql: &postgresql
   adapter: postgresql
   username: postgres
