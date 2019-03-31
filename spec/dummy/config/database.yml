@@ -22,9 +22,12 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   user: postgres
 
-development:
-  <<: *default
-  database: enju_leaf_dummy_development
+mysql: &mysql
+  adapter: mysql2
+  username: root
+  password:
+  database: enju_<%= Rails.env %>
+  encoding: utf8
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
