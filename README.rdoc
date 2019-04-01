@@ -1,7 +1,7 @@
 = Next-L Enju Leaf
-{<img src="https://travis-ci.org/next-l/enju_leaf.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/next-l/enju_leaf]
-{<img src="https://coveralls.io/repos/next-l/enju_leaf/badge.svg?branch=master&service=github" alt="Coverage Status" />}[https://coveralls.io/github/next-l/enju_leaf?branch=master]
-{<img src="https://hakiri.io/github/next-l/enju_leaf/master.svg" alt="security" />}[https://hakiri.io/github/next-l/enju_leaf/master]
+{<img src="https://travis-ci.com/next-l/enju_leaf.svg?branch=1.3" alt="Build Status" />}[https://travis-ci.com/next-l/enju_leaf]
+{<img src="https://coveralls.io/repos/next-l/enju_leaf/badge.svg?branch=1.3&service=github" alt="Coverage Status" />}[https://coveralls.io/github/next-l/enju_leaf?branch=1.3]
+{<img src="https://hakiri.io/github/next-l/enju_leaf/1.3.svg" alt="security" />}[https://hakiri.io/github/next-l/enju_leaf/1.3]
 
 Next-L Enju Leaf は、{Project Next-L}[https://www.next-l.jp] で開発している図書館管理システムです。
 
