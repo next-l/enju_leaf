@@ -7,7 +7,7 @@ library_00001:
   updated_at: 2007-08-31 00:18:06.662349 +09:00
   telephone_number_1: 
   telephone_number_2: 
-  id: e1008b98-d49c-4145-a763-4ca6083fbc41
+  id: 1
   zip_code: 
   region: 
   locality: 
@@ -24,7 +24,7 @@ library_00002:
   updated_at: 2007-08-31 00:18:06.662349 +09:00
   telephone_number_1: 81-3-3732-5111
   telephone_number_2: ""
-  id: f6ba26aa-9481-4804-b30f-04692c0189ac
+  id: 2
   zip_code: 144-8535
   region: Tokyo
   locality: 
@@ -42,7 +42,7 @@ library_00003:
   updated_at: 2007-08-31 00:18:16.188285 +09:00
   telephone_number_1: 042-637-2033
   telephone_number_2: ""
-  id: 2ee21d56-b6ca-4518-85e0-50300957f31f
+  id: 3
   zip_code: 192-0982
   region: Tokyo
   locality: Hachioji
@@ -59,7 +59,7 @@ library_00004:
   updated_at: 2007-08-31 00:18:20.043951 +09:00
   telephone_number_1: ""
   telephone_number_2: ""
-  id: 89dbfc29-9c99-4f90-b240-2cf09520916f
+  id: 4
   zip_code: 108-8345
   region: Tokyo
   locality: Minato

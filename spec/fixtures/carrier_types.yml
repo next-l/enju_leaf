@@ -3,7 +3,7 @@ carrier_type_00001:
   name: volume
   display_name_translations: {"en": "Volume", "ja": "Volume"}
   updated_at: 2007-11-20 16:04:29.853828 +09:00
-  id: ca9805ad-e818-44cd-8f3a-1249b1bc7610
+  id: 1
   note: !binary |
     5pys44Gn44GZ44CC
 
@@ -13,7 +13,7 @@ carrier_type_00002:
   name: audio_disc
   display_name_translations: {"en": "Audio disc", "ja": "Audio disc"}
   updated_at: 2007-12-19 01:45:26.040674 +09:00
-  id: d500901e-4ef5-4bce-ac7c-17faf41df598
+  id: 2
   note: "\xE9\x9F\xB3\xE6\xA5\xBDCD\xE3\x81\xA7\xE3\x81\x99\xE3\x80\x82"
   created_at: 2007-12-19 01:45:26.040674 +09:00
   position: 2
@@ -21,7 +21,7 @@ carrier_type_00003:
   name: videodisc
   display_name_translations: {"en": "Video disc", "ja": "Video disc"}
   updated_at: 2007-12-23 04:24:23.151410 +09:00
-  id: d50c2a5a-6c11-42e3-bcff-f97b4b5a25ef
+  id: 3
   note: "DVD\xE3\x81\xA7\xE3\x81\x99\xE3\x80\x82"
   created_at: 2007-12-23 04:24:23.151410 +09:00
   position: 3
@@ -29,7 +29,7 @@ carrier_type_00004:
   name: online_resource
   display_name_translations: {"en": "online_resource", "ja": "online_resource"}
   updated_at: 2007-12-24 01:30:50.637433 +09:00
-  id: 72cf0ccb-7f29-4074-a646-2444d8892603
+  id: 4
   note: !binary |
     44Kz44Oz44OU44Ol44O844K/44Gu44OV44Kh44Kk44Or44Gn44GZ44CC
 

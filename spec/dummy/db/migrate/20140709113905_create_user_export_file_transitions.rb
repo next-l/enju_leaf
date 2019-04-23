@@ -4,7 +4,7 @@ class CreateUserExportFileTransitions < ActiveRecord::Migration[5.2]
       t.string :to_state
       t.jsonb :metadata, default: {}
       t.integer :sort_key
-      t.references :user_export_file, type: :uuid
+      t.references :user_export_file
       t.timestamps
     end
 

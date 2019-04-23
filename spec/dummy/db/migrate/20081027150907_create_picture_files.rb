@@ -1,7 +1,7 @@
 class CreatePictureFiles < ActiveRecord::Migration[5.2]
   def change
-    create_table :picture_files, id: :uuid do |t|
-      t.references :picture_attachable, null: false, type: :uuid
+    create_table :picture_files do |t|
+      t.references :picture_attachable, null: false
       t.string :picture_attachable_type, null: false
       t.text :title
       t.integer :position

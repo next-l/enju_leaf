@@ -1,8 +1,8 @@
 class CreateSeriesStatementMerges < ActiveRecord::Migration[5.2]
   def change
     create_table :series_statement_merges do |t|
-      t.references :series_statement, foreign_key: true, null: false, type: :uuid
-      t.references :series_statement_merge_list, foreign_key: true, index: false, null: false, type: :uuid
+      t.references :series_statement, foreign_key: true, null: false
+      t.references :series_statement_merge_list, foreign_key: true, index: false, null: false
 
       t.timestamps
     end

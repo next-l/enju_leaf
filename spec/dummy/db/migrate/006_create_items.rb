@@ -1,10 +1,10 @@
 class CreateItems < ActiveRecord::Migration[5.2]
   def change
-    create_table :items, id: :uuid do |t|
+    create_table :items do |t|
       t.string :call_number
       t.string :item_identifier, index: {unique: true}
       t.timestamps
-      t.references :shelf, type: :uuid
+      t.references :shelf
       t.boolean :include_supplements, default: false, null: false
       t.text :note
       t.string :url

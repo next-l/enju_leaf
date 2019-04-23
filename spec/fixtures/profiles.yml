@@ -1,70 +1,70 @@
 --- 
 admin: 
   updated_at: 2008-05-31 13:16:30.163731 +09:00
-  user_group_id: ded8b35c-5fa4-426a-92b8-da7a44cb6fec
-  id: 4025f49c-6fac-4ff4-ac6c-31cfe1e4e446
+  user_group_id: 2
+  id: 1
   note: 
-  library_id: f6ba26aa-9481-4804-b30f-04692c0189ac
+  library_id: 2
   created_at: 2007-11-19 16:58:32.111941 +09:00
   required_role_id: 4
   user_number: "00001"
   locale: "en"
 librarian1: 
   updated_at: 2008-05-31 12:41:16.337474 +09:00
-  user_group_id: 2d387a28-f738-4afb-93d4-c42e0b593435
-  id: 42b03250-1cc1-4b0f-b491-bd6c221e601a
+  user_group_id: 1
+  id: 2
   note: 
-  library_id: e1008b98-d49c-4145-a763-4ca6083fbc41
+  library_id: 1
   created_at: 2007-11-19 16:58:33.172441 +09:00
   required_role_id: 1
   user_number: "00002"
   locale: "ja"
 user1: 
   updated_at: 2008-05-31 13:02:25.101261 +09:00
-  user_group_id: 2d387a28-f738-4afb-93d4-c42e0b593435
-  id: 9e1e2fff-5134-4ce9-a813-2eacafb0a2b5
+  user_group_id: 1
+  id: 3
   note: 
-  library_id: f6ba26aa-9481-4804-b30f-04692c0189ac
+  library_id: 2
   created_at: 2007-11-19 16:58:34.637413 +09:00
   required_role_id: 3
   user_number: "00003"
   locale: "ja"
 librarian2: 
   updated_at: 2008-05-31 12:42:23.340575 +09:00
-  user_group_id: 2d387a28-f738-4afb-93d4-c42e0b593435
-  id: a7fed980-07e2-48aa-880a-7b2204c7fc73
+  user_group_id: 1
+  id: 4
   note: 
-  library_id: f6ba26aa-9481-4804-b30f-04692c0189ac
+  library_id: 2
   created_at: 2008-01-18 12:24:04.222344 +09:00
   required_role_id: 1
   user_number: "00004"
   locale: "ja"
 user2: 
   updated_at: 2008-05-31 12:42:44.711117 +09:00
-  user_group_id: 2d387a28-f738-4afb-93d4-c42e0b593435
-  id: b92ac994-62a5-4997-9a38-3903bb31491b
+  user_group_id: 1
+  id: 5
   note: 
-  library_id: e1008b98-d49c-4145-a763-4ca6083fbc41
+  library_id: 1
   created_at: 2008-01-18 13:29:06.922728 +09:00
   required_role_id: 2
 #  user_number: '00005'
   locale: "ja"
 user3: 
   updated_at: 2008-05-31 13:02:25.101261 +09:00
-  user_group_id: 2d387a28-f738-4afb-93d4-c42e0b593435
-  id: 06bfb232-e063-45e8-b31f-37b38c98e69b
+  user_group_id: 1
+  id: 6
   note: 
-  library_id: f6ba26aa-9481-4804-b30f-04692c0189ac
+  library_id: 2
   created_at: 2007-11-19 16:58:34.637413 +09:00
   required_role_id: 3
   user_number: "00006"
   locale: "ja"
 user4: 
   updated_at: 2008-05-31 13:02:25.101261 +09:00
-  user_group_id: 2d387a28-f738-4afb-93d4-c42e0b593435
-  id: a225c3bd-e6aa-47d3-b300-20e232054aa5
+  user_group_id: 1
+  id: 7
   note: 
-  library_id: f6ba26aa-9481-4804-b30f-04692c0189ac
+  library_id: 2
   created_at: 2007-11-19 16:58:34.637413 +09:00
   required_role_id: 3
   user_number: "00007"

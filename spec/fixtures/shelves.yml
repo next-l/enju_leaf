@@ -2,30 +2,30 @@
 shelf_00001: 
   name: web  
   display_name_translations: {"en": "Library bookmark", "ja": "ブックマーク"}
-  id: a2a7747c-f448-4549-bb2c-7e8dfc643ff4
+  id: 1
   note:
-  library_id: e1008b98-d49c-4145-a763-4ca6083fbc41
+  library_id: 1
   position: 1
 shelf_00002: 
   name: first_shelf
   display_name_translations: {"en": "First shelf", "ja": "最初の書棚"}
-  id: 20910712-52ec-4432-b47a-c72d01d27e3f
+  id: 2
   note:
-  library_id: f6ba26aa-9481-4804-b30f-04692c0189ac
+  library_id: 2
   position: 2
 shelf_00003: 
   name: second_shelf
   display_name_translations: {"en": "Second shelf", "ja": "二つ目の書棚"}
-  id: 08572ff9-87cb-4d7b-a25f-ad88ad1a58ad
+  id: 3
   note:
-  library_id: f6ba26aa-9481-4804-b30f-04692c0189ac
+  library_id: 2
   position: 3
 shelf_00004: 
   name: third_shelf
   display_name_translations: {"en": "Third shelf", "ja": "三つ目の書棚"}
-  id: 0b7b2a89-59c3-4d6a-85cf-1cdf537d0a09
+  id: 4
   note:
-  library_id: 2ee21d56-b6ca-4518-85e0-50300957f31f
+  library_id: 3
   position: 4
 
 # == Schema Information

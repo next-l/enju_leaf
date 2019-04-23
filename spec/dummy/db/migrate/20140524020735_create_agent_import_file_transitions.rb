@@ -4,7 +4,7 @@ class CreateAgentImportFileTransitions < ActiveRecord::Migration[5.2]
       t.string :to_state
       t.jsonb :metadata, default: {}
       t.integer :sort_key
-      t.references :agent_import_file, type: :uuid
+      t.references :agent_import_file
       t.timestamps
     end
 

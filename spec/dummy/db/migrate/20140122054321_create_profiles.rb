@@ -1,8 +1,8 @@
 class CreateProfiles < ActiveRecord::Migration[5.2]
   def change
-    create_table :profiles, id: :uuid do |t|
-      t.references :user_group, type: :uuid, null: false
-      t.references :library, type: :uuid
+    create_table :profiles do |t|
+      t.references :user_group, null: false
+      t.references :library
       t.string :locale
       t.string :user_number, unique: true
       t.text :full_name

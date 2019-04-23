@@ -1,6 +1,6 @@
 class CreateAgentMergeLists < ActiveRecord::Migration[5.2]
   def change
-    create_table :agent_merge_lists, id: :uuid do |t|
+    create_table :agent_merge_lists do |t|
       t.string :title
 
       t.timestamps

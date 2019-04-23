@@ -4,7 +4,7 @@ class CreateResourceImportFileTransitions < ActiveRecord::Migration[5.2]
       t.string :to_state
       t.jsonb :metadata, default: {}
       t.integer :sort_key
-      t.references :resource_import_file, index: false, type: :uuid
+      t.references :resource_import_file, index: false
       t.timestamps
     end
 
