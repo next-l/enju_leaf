@@ -23,5 +23,5 @@ group :test do
   gem 'rails-controller-testing'
   gem 'rspec_junit_formatter'
   gem 'chromedriver-helper'
-  gem 'sass-rails'
+  gem 'sassc-rails'
 end
