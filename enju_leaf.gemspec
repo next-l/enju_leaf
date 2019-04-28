@@ -20,11 +20,11 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/{log,private,solr,tmp}/**/*"] - Dir["spec/dummy/db/*.sqlite3"]
 
   s.add_dependency "rails", "~> 5.1"
-  s.add_dependency "enju_library", "~> 0.3.1"
-  s.add_dependency "enju_biblio", "~> 0.3.1"
+  s.add_dependency "enju_library", "~> 0.3.2"
+  s.add_dependency "enju_biblio", "~> 0.3.2"
   s.add_dependency "jquery-ui-rails", "~> 4.2.1"
 
-  s.add_development_dependency "enju_manifestation_viewer", "~> 0.3.1"
+  s.add_development_dependency "enju_manifestation_viewer", "~> 0.3.2"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mysql2"
   s.add_development_dependency "pg"
