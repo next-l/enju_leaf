@@ -12,5 +12,6 @@ xml.OpenSearchDescription(
   xml.Language @locale.to_s
   xml.OutputEncoding 'UTF-8'
   xml.InputEncoding 'UTF-8'
+  xml.Image "#{root_url}favicon.ico", width: 16, height: 16, type: 'image/x-icon'
   xml.tag! 'moz:SearchForm', root_url
 }
