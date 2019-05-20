@@ -9,6 +9,7 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
     rake("enju_library_engine:install:migrations")
     rake("enju_biblio_engine:install:migrations")
     rake("enju_manifestation_viewer_engine:install:migrations")
+    rake("enju_subject_engine:install:migrations")
     if !ENV['ENJU_SKIP_CONFIG']
       generate("enju_seed:setup")
       generate("enju_library:setup")
