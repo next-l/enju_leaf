@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "enju_manifestation_viewer", "~> 0.4.0.beta.1"
   s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails", "~> 3.7"
-  s.add_development_dependency "vcr", "~> 4.0"
+  s.add_development_dependency "vcr", "~> 5.0"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "factory_bot_rails"
   s.add_development_dependency "sunspot_matchers"
