@@ -8,7 +8,13 @@
     <li>Gems:
     <ul>
       <% @specs.sort_by{|e| e.name }.each do |spec| %>
-        <li><%= spec.name %>: <%= spec.version.to_s %></li>
+        <li>
+          <%= spec.name %>: <%= spec.version.to_s %>
+          <% if spec.source.is_a? Bundler::Source::Git %>
+            from <%= spec.source.uri %>
+            (at <%= spec.source.options['revision'].slice(0..7) %>)
+          <% end %>
+        </li>
       <% end %>
     </ul>
     </li>
