@@ -530,6 +530,8 @@ div.book_jacket{
 
 div.book_jacket img.book_jacket{
   border: 1px solid rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 div.search_form{
