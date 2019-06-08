@@ -8,6 +8,7 @@ namespace :enju_leaf do
       ActiveRecord::FixtureSet.create_fixtures('db/fixtures/enju_leaf', File.basename(file, '.*'))
     end
 
+    Rake::Task['enju_seed:setup'].invoke
     Rake::Task['enju_biblio:setup'].invoke
     Rake::Task['enju_library:setup'].invoke
 
