@@ -115,6 +115,6 @@ EOS
       "config.cache_store = :redis_store, ENV['REDIS_URL'], { expires_in: 1.day }"
     gsub_file 'config/environments/production.rb',
       /# config.assets.precompile \+= %w\( search.js \)$/,
-      "config.assets.precompile += %w( mobile.js mobile.css print.css )"
+      "config.assets.precompile += %w( enju_leaf/mobile.js enju_leaf/mobile.css enju_leaf/print.css )"
   end
 end
