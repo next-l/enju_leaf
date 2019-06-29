@@ -3,6 +3,7 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
   desc "Create a setup file for Next-L Enju"
 
   def copy_setup_files
+    directory("db/fixtures", "db/fixtures/enju_leaf")
     directory("solr", "example/solr")
     copy_file("Procfile", "Procfile")
     copy_file("config/schedule.rb", "config/schedule.rb")
@@ -92,11 +93,11 @@ EOS
     inject_into_file "app/assets/javascripts/application.js", after: /\/\/= require rails-ujs$\n/ do
       <<"EOS"
 //= require jquery2
-//= require enju_leaf/application
+//= require enju_leaf
 EOS
     end
     inject_into_file "app/assets/stylesheets/application.css", after: / *= require_self$\n/ do
-      " *= require enju_leaf/application\n"
+      " *= require enju_leaf\n"
     end
     inject_into_file "config.ru", after: /require ::File.expand_path\(\'..\/config\/environment\',  __FILE__\)$\n/ do
       <<"EOS"
@@ -115,7 +116,5 @@ EOS
     gsub_file 'config/environments/production.rb',
       /# config.assets.precompile \+= %w\( search.js \)$/,
       "config.assets.precompile += %w( mobile.js mobile.css print.css )"
-    remove_file "public/favicon.ico"
-    copy_file("../../../../../app/assets/images/enju_leaf/favicon.ico", "#{Rails.root.to_s}/public/favicon.ico")
   end
 end

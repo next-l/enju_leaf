@@ -65,7 +65,7 @@ describe PageController do
 
       it "should get routing_error" do
         get :routing_error
-        expect(response).to be_not_found
+        expect(response).to be_missing
         expect(response).to render_template("page/404")
       end
 

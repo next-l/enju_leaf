@@ -1,5 +1,6 @@
-class AddRootManifestationIdToSeriesStatement < ActiveRecord::Migration[5.2]
+class AddRootManifestationIdToSeriesStatement < ActiveRecord::Migration[4.2]
   def change
-    add_reference :series_statements, :root_manifestation, foreign_ley: {to_table: :manifestations}
+    add_column :series_statements, :root_manifestation_id, :integer
+    add_index :series_statements, :root_manifestation_id
   end
 end

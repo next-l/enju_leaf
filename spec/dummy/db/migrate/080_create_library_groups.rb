@@ -1,8 +1,8 @@
-class CreateLibraryGroups < ActiveRecord::Migration[5.2]
+class CreateLibraryGroups < ActiveRecord::Migration[4.2]
   def change
     create_table :library_groups do |t|
-      t.string :name, index: {unique: true}, null: false
-      t.jsonb :display_name_translations, default: {}, null: false
+      t.string :name, null: false
+      t.text :display_name
       t.string :short_name, index: true, null: false
       t.text :my_networks
       t.text :login_banner

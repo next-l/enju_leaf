@@ -1,47 +1,31 @@
-# Ruby CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-ruby/ for more details
-#
 version: 2
 jobs:
   build:
-    branches:
-      only:
-        - master
+    working_directory: ~/enju_leaf
     docker:
-      # specify the version you desire here
-       - image: circleci/ruby:2.5-node-browsers
-         environment:
-           PGHOST: 127.0.0.1
-           PGUSER: postgres
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-       - image: circleci/postgres:10
-         environment:
-           POSTGRES_USER: postgres
-           POSTGRES_DB: enju_leaf_dummy_test
-
-    working_directory: ~/repo
-
+      - image: circleci/ruby:2.4
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_PATH: vendor/bundle
+          PGHOST: 127.0.0.1
+          PGUSER: postgres
+      - image: circleci/postgres:9.6-alpine
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: enju_leaf_dummy_test
     steps:
       - checkout
-
-      # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "Gemfile.lock" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
+            - rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - rails-demo-bundle-v2-
+      - run: bundle update
       - run:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
           command: sudo apt install -y openjdk-8-jre-headless
       - run: bundle exec rake db:create RAILS_ENV=test
       - run: bundle exec rake db:migrate RAILS_ENV=test
-      - run: bundle exec rake app:sunspot:solr:start RAILS_ENV=test
       - run:
           command: |
             mkdir /tmp/test-results
@@ -50,6 +34,7 @@ jobs:
                               --out /tmp/test-results/rspec.xml \
                               --format progress
       - save_cache:
+          key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - store_test_results:

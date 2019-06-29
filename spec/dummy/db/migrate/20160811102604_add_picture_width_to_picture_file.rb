@@ -1,4 +1,4 @@
-class AddPictureWidthToPictureFile < ActiveRecord::Migration[5.2]
+class AddPictureWidthToPictureFile < ActiveRecord::Migration[4.2]
   def change
     add_column :picture_files, :picture_width, :integer
     add_column :picture_files, :picture_height, :integer

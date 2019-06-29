@@ -1,4 +1,4 @@
-class AddMostRecentToUserExportFileTransitions < ActiveRecord::Migration[5.2]
+class AddMostRecentToUserExportFileTransitions < ActiveRecord::Migration[4.2]
   def up
     add_column :user_export_file_transitions, :most_recent, :boolean, null: true
   end

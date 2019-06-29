@@ -1,11 +1,11 @@
-class CreateWithdraws < ActiveRecord::Migration[5.2]
+class CreateWithdraws < ActiveRecord::Migration[4.2]
   def change
     create_table :withdraws do |t|
-      t.references :basket, foreign_key: true
-      t.references :item
-      t.references :librarian, foreign_key: {to_table: :users}
+      t.references :basket, index: true
+      t.references :item, index: true
+      t.references :librarian, index: true
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

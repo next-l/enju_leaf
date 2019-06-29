@@ -44,8 +44,12 @@ namespace :enju_leaf do
   desc 'Load default asset files'
   task :load_asset_files => :environment do
     library_group = LibraryGroup.order(created_at: :desc).first
-    unless library_group.header_logo.attached?
-      library_group.header_logo.attach(io: File.open("#{File.dirname(__FILE__)}/../../app/assets/images/enju_leaf/enju-logo-yoko-without-white.png"), filename: 'enju-logo-yoko-without-white.png')
+    unless library_group.header_logo.present?
+      library_group.header_logo = File.open("#{File.dirname(__FILE__)}/../../app/assets/images/enju_leaf/enju-logo-yoko-without-white.png")
+      library_group.save!
+    end
+    if File.stat("#{Rails.root.to_s}/public/favicon.ico").size == 0
+      FileUtils.cp("#{File.dirname(__FILE__)}/../../app/assets/images/enju_leaf/favicon.ico", "#{Rails.root.to_s}/public/favicon.ico")
     end
     puts 'enju_leaf: Default asset file(s) are loaded successfully.'
   end

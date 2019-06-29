@@ -3,9 +3,9 @@ manifestation_00001:
   carrier_type_id: 1
   language_id: 1
   updated_at: 2007-11-19 16:59:00.293393 +09:00
-  original_title: "よくわかる最新Webサービス技術の基本と仕組み : 標準Webシステム技術とeコマース基盤技術入門"
+  original_title: "\xE3\x82\x88\xE3\x81\x8F\xE3\x82\x8F\xE3\x81\x8B\xE3\x82\x8B\xE6\x9C\x80\xE6\x96\xB0Web\xE3\x82\xB5\xE3\x83\xBC\xE3\x83\x93\xE3\x82\xB9\xE6\x8A\x80\xE8\xA1\x93"
   price: 
-  manifestation_identifier: 00001
+  manifestation_identifier: 
   depth: 
   date_of_publication: 
   access_address: 
@@ -16,13 +16,11 @@ manifestation_00001:
   start_page: 1
   end_page: 100
   repository_content: true
-  extent: "123p"
-  dimensions: "25cm"
 manifestation_00002: 
   carrier_type_id: 1
   language_id: 1
   updated_at: 2007-11-19 16:59:01.991512 +09:00
-  original_title: "情報通信ハンドブック : 情報通信の最新データがわかる 2005年版"
+  original_title: "\xE6\x83\x85\xE5\xA0\xB1\xE9\x80\x9A\xE4\xBF\xA1\xE3\x83\x8F\xE3\x83\xB3\xE3\x83\x89\xE3\x83\x96\xE3\x83\x83\xE3\x82\xAF2005"
   price: 
   manifestation_identifier: 
   depth: 
@@ -114,7 +112,7 @@ manifestation_00008:
   carrier_type_id: 1
   language_id: 1
   updated_at: 2007-11-19 16:59:07.463333 +09:00
-  original_title: "Webサービス完全解説 : 基礎からわかる次世代インターネット・テクノロジー"
+  original_title: "Web\xE3\x82\xB5\xE3\x83\xBC\xE3\x83\x93\xE3\x82\xB9\xE5\xAE\x8C\xE5\x85\xA8\xE8\xA7\xA3\xE8\xAA\xAC"
   price: 
   manifestation_identifier: 
   depth: 
@@ -163,7 +161,7 @@ manifestation_00021:
   depth: 
   date_of_publication: 
   access_address: 
-  id: 21
+  id: 11
   height: 
   width: 
   created_at: 2007-11-19 16:59:20.799724 +09:00
@@ -1817,32 +1815,26 @@ manifestation_00216:
   created_at: 2010-03-19 13:00:00 +9:00
   required_role_id: 1
   repository_content: false
-manifestation_00217:
-  carrier_type_id: 1
-  language_id: 77
-  updated_at: 2014-12-20 16:44:00 +09:00
-  original_title: "VRML2.0 : 3Dサイバースペース構築言語"
-  content_type_id: 1
-  year_of_publication: 1996
-  statement_of_responsibility: "三浦憲二郎著"
-  id: 217
 
 # == Schema Information
 #
 # Table name: manifestations
 #
-#  id                              :uuid             not null, primary key
+#  id                              :integer          not null, primary key
 #  original_title                  :text             not null
 #  title_alternative               :text
 #  title_transcription             :text
-#  classification_number           :string
-#  manifestation_identifier        :string
+#  classification_number           :string(255)
+#  manifestation_identifier        :string(255)
 #  date_of_publication             :datetime
 #  date_copyrighted                :datetime
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
-#  access_address                  :string
+#  deleted_at                      :datetime
+#  access_address                  :string(255)
 #  language_id                     :integer          default(1), not null
+#  carrier_type_id                 :integer          default(1), not null
+#  extent_id                       :integer          default(1), not null
 #  start_page                      :integer
 #  end_page                        :integer
 #  height                          :integer
@@ -1850,18 +1842,22 @@ manifestation_00217:
 #  depth                           :integer
 #  price                           :integer
 #  fulltext                        :text
-#  volume_number_string            :string
-#  issue_number_string             :string
-#  serial_number_string            :string
+#  volume_number_string            :string(255)
+#  issue_number_string             :string(255)
+#  serial_number_string            :string(255)
 #  edition                         :integer
 #  note                            :text
 #  repository_content              :boolean          default(FALSE), not null
 #  lock_version                    :integer          default(0), not null
 #  required_role_id                :integer          default(1), not null
+#  state                           :string(255)
+#  required_score                  :integer          default(0), not null
 #  frequency_id                    :integer          default(1), not null
 #  subscription_master             :boolean          default(FALSE), not null
-#  carrier_type_id                 :uuid             not null
-#  nii_type_id                     :integer
+#  attachment_file_name            :string(255)
+#  attachment_content_type         :string(255)
+#  attachment_file_size            :integer
+#  attachment_updated_at           :datetime
 #  title_alternative_transcription :text
 #  description                     :text
 #  abstract                        :text
@@ -1869,19 +1865,18 @@ manifestation_00217:
 #  valid_until                     :datetime
 #  date_submitted                  :datetime
 #  date_accepted                   :datetime
-#  date_captured                   :datetime
-#  pub_date                        :string
-#  edition_string                  :string
+#  date_caputured                  :datetime
+#  pub_date                        :string(255)
+#  edition_string                  :string(255)
 #  volume_number                   :integer
 #  issue_number                    :integer
 #  serial_number                   :integer
 #  content_type_id                 :integer          default(1)
 #  year_of_publication             :integer
+#  attachment_meta                 :text
 #  month_of_publication            :integer
 #  fulltext_content                :boolean
-#  serial                          :boolean
+#  serial                      :boolean
 #  statement_of_responsibility     :text
-#  publication_place               :text
-#  extent                          :text
-#  dimensions                      :text
 #
+

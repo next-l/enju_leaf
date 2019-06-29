@@ -1,8 +1,8 @@
-class CreateAgentImportResults < ActiveRecord::Migration[5.2]
+class CreateAgentImportResults < ActiveRecord::Migration[4.2]
   def change
     create_table :agent_import_results do |t|
-      t.references :agent_import_file, foreign_key: true, null: false
-      t.references :agent
+      t.integer :agent_import_file_id
+      t.integer :agent_id
       t.text :body
 
       t.timestamps

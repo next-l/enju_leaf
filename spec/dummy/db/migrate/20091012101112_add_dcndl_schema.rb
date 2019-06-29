@@ -1,4 +1,4 @@
-class AddDcndlSchema < ActiveRecord::Migration[5.2]
+class AddDcndlSchema < ActiveRecord::Migration[4.2]
   def self.up
     add_column :manifestations, :title_alternative_transcription, :text
     add_column :agents, :full_name_alternative_transcription, :text

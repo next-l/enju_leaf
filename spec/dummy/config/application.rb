@@ -4,6 +4,7 @@ require 'rails/all'
 
 Bundler.require(*Rails.groups)
 require "enju_leaf"
+require "enju_manifestation_viewer"
 
 module Dummy
   class Application < Rails::Application
@@ -11,9 +12,8 @@ module Dummy
     config.load_defaults 5.2
 
     # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
+    # Application configuration should go into files in config/initializers
+    # -- all .rb files in that directory are automatically loaded.
   end
 end
 
