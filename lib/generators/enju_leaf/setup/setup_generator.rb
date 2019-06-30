@@ -3,7 +3,6 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
   desc "Create a setup file for Next-L Enju"
 
   def copy_setup_files
-    directory("db/fixtures", "db/fixtures/enju_leaf")
     directory("solr", "example/solr")
     copy_file("Procfile", "Procfile")
     copy_file("config/schedule.rb", "config/schedule.rb")
