@@ -1,9 +1,9 @@
 /*
  *= require html5-doctor-reset-stylesheet.min
- *= require enju_leaf/scaffold_modified
- *= require enju_leaf/enju
+ *= require scaffold_modified
+ *= require enju
  *= require colorbox
- *= require enju_leaf/pagination
+ *= require pagination
  *= require jquery.powertip
  *= require jquery.ui.button
  *= require jquery.ui.tabs
@@ -12,5 +12,5 @@
  *= require jquery.ui.menubar
  *= require jquery.ui.autocomplete
  *= require jquery.ui.theme
- *= require enju_leaf/portlets
+ *= require portlets
 */
