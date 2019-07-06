@@ -541,8 +541,10 @@ ActiveRecord::Schema.define(version: 2019_06_30_151446) do
     t.string "url", default: "http://localhost:3000/"
     t.text "settings"
     t.text "html_snippet"
+    t.string "book_jacket_source"
     t.integer "max_number_of_results", default: 500
     t.boolean "family_name_first", default: true
+    t.string "screenshot_generator"
     t.integer "pub_year_facet_range_interval", default: 10
     t.integer "user_id"
     t.boolean "csv_charset_conversion", default: false, null: false

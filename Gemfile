@@ -22,6 +22,6 @@ gem 'enju_manifestation_viewer', github: 'next-l/enju_manifestation_viewer'
 group :test do
   gem 'rails-controller-testing'
   gem 'rspec_junit_formatter'
-  gem 'chromedriver-helper'
+  gem 'webdrivers'
   gem 'sassc-rails'
 end
