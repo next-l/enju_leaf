@@ -1,9 +1,9 @@
-class CreateAccepts < ActiveRecord::Migration[5.2]
+class CreateAccepts < ActiveRecord::Migration[4.2]
   def change
     create_table :accepts do |t|
-      t.references :basket, foreign_key: true
-      t.references :item
-      t.references :librarian, foreign_key: {to_table: :users}
+      t.references :basket, index: true
+      t.references :item, index: true
+      t.references :librarian, index: true
 
       t.timestamps
     end

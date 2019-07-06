@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "enju_manifestation_viewer", "~> 0.4.0.beta.1"
   s.add_development_dependency "pg"
-  s.add_development_dependency "rspec-rails", "~> 3.7"
+  s.add_development_dependency "rspec-rails", "~> 3.8"
   s.add_development_dependency "vcr", "~> 5.0"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "factory_bot_rails"
@@ -37,4 +37,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "coveralls"
   s.add_development_dependency "selenium-webdriver"
   s.add_development_dependency "puma"
+  s.add_development_dependency "annotate"
 end

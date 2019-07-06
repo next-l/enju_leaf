@@ -1,10 +1,14 @@
-class CreateUserImportFileTransitions < ActiveRecord::Migration[5.2]
+class CreateUserImportFileTransitions < ActiveRecord::Migration[4.2]
   def change
     create_table :user_import_file_transitions do |t|
       t.string :to_state
-      t.jsonb :metadata, default: {}
+      if ActiveRecord::Base.configurations[Rails.env]["adapter"].try(:match, /mysql/)
+        t.text :metadata
+      else
+        t.text :metadata, default: "{}"
+      end
       t.integer :sort_key
-      t.references :user_import_file
+      t.references :user_import_file, index: true
       t.timestamps
     end
 

@@ -1,10 +1,11 @@
-class CreateSubscriptions < ActiveRecord::Migration[5.2]
+class CreateSubscriptions < ActiveRecord::Migration[4.2]
   def change
     create_table :subscriptions do |t|
       t.text :title, null: false
       t.text :note
-      t.references :user, foreign_key: true
+      t.references :user, index: true
       t.references :order_list, index: true
+      t.datetime :deleted_at
       t.integer :subscribes_count, default: 0, null: false
 
       t.timestamps
