@@ -11,9 +11,9 @@
           <ul>
             <% @libraries.sort_by{|l| l.position }.each do |library| %>
               <li>
-                <%= label_tag :"#{library.name}_shelf", library.display_name %>:
+                <%= label_tag :"#{library.name}_shelf", library.display_name.localize %>:
                 <% Shelf.where(library_id: library.id).sort_by{|s| s.position }.each do |shelf| %>
-                  <label><%= check_box_tag "#{library.name}_shelf[]", shelf.name %><%= shelf.display_name %></label>
+                  <label><%= check_box_tag "#{library.name}_shelf[]", shelf.name %><%= shelf.display_name.localize %></label>
                 <% end %>
                 <span class="check_all"><%= check_all_button "#{library.name}_shelf_", t('advanced_search.check_all') %></span>
               </li>
@@ -26,7 +26,7 @@
         <td><%= label_tag :library_adv, t('activerecord.models.library') %>:</td>
         <td>
           <% @libraries.sort_by{|l| l.position }.each do |library| %>
-            <label><%= check_box_tag "library_adv[]", library.name %><%= library.display_name %></label>
+            <label><%= check_box_tag "library_adv[]", library.name %><%= library.display_name.localize %></label>
           <% end %>
           <div class="check_all"><%= check_all_button "library_adv_", t('advanced_search.check_all') %></div>
         </td>
@@ -75,7 +75,7 @@
         <td><label><%= t('activerecord.models.classification') %>:</label></td>
         <td>
           <%- types = ClassificationType.all.select{|t| ! t.classifications.empty? } -%> 
-          <%= select_tag 'classification_type', options_from_collection_for_select( types, :id, Proc.new{|e| e.display_name } ) -%>
+          <%= select_tag 'classification_type', options_from_collection_for_select( types, :id, Proc.new{|e| e.display_name.localize } ) -%>
           <%= text_field_tag 'classification' -%>
         </td>
       </tr>
@@ -106,7 +106,7 @@
         <select id="library_top" name="library">
           <option value=""><%= t('advanced_search.all_libraries') -%></option>
           <%- @libraries.each do |library| -%>
-            <option value="<%= library.name -%>"><%= library.display_name -%></option>
+            <option value="<%= library.name -%>"><%= library.display_name.localize -%></option>
           <%- end -%>
         </select>
       </td>
