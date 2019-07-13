@@ -1,4 +1,4 @@
-class AddVolumeNumberToManifestation < ActiveRecord::Migration[5.2]
+class AddVolumeNumberToManifestation < ActiveRecord::Migration[4.2]
   def self.up
     add_column :manifestations, :volume_number, :integer
     add_column :manifestations, :issue_number, :integer

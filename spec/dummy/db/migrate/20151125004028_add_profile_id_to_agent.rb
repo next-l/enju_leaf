@@ -1,5 +1,6 @@
-class AddProfileIdToAgent < ActiveRecord::Migration[5.2]
+class AddProfileIdToAgent < ActiveRecord::Migration[4.2]
   def change
-    add_reference :agents, :profile, foreign_key: true
+    add_column :agents, :profile_id, :integer
+    add_index :agents, :profile_id
   end
 end

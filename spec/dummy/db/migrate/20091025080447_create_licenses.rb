@@ -1,8 +1,8 @@
-class CreateLicenses < ActiveRecord::Migration[5.2]
+class CreateLicenses < ActiveRecord::Migration[4.2]
   def change
     create_table :licenses do |t|
       t.string :name, null: false
-      t.jsonb :display_name_translations, default: {}, null: false
+      t.string :display_name
       t.text :note
       t.integer :position
 
