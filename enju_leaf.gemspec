@@ -16,8 +16,8 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ">= 2.3"
 
-  s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
-  s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/{log,private,solr,tmp}/**/*"] - Dir["spec/dummy/db/*.sqlite3"]
+  s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
+  s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/{log,private,solr,tmp}/**/*"]
 
   s.add_dependency "rails", "~> 5.2"
   s.add_dependency "enju_library", "~> 0.4.0.beta.1"
