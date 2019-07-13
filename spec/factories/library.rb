@@ -7,7 +7,7 @@ FactoryBot.define do
 end
 
 FactoryBot.define do
-  factory :invalid_library, :class => Library do |f|
+  factory :invalid_library, class: Library do |f|
     f.library_group_id{LibraryGroup.first.id}
   end
 end

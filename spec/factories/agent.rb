@@ -8,6 +8,6 @@ FactoryBot.define do
 end
 
 FactoryBot.define do
-  factory :invalid_agent, :class => Agent do |f|
+  factory :invalid_agent, class: Agent do |f|
   end
 end
