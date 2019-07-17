@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/enju_leaf
     docker:
-      - image: circleci/ruby:2.4
+      - image: circleci/ruby:2.4-stretch-node-browsers
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_PATH: vendor/bundle
