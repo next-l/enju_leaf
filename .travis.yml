@@ -9,6 +9,8 @@ before_script:
   - bundle exec rake db:migrate
 services:
   - redis-server
+  - mysql
+  - postgresql
 env:
   - DB=sqlite
   - DB=mysql
