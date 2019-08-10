@@ -1,0 +1,7 @@
+en:
+  time:
+    am: am
+    formats:
+      only_date: "%B %d, %Y"
+      only_year_and_month: "%m, %Y"
+      only_month: "%m"

@@ -1,0 +1,7 @@
+ja:
+  time:
+    am: 午前
+    formats:
+      only_date: "%Y年%m月%d日"
+      only_year_and_month: "%Y年%m月"
+      only_month: "%m月"
