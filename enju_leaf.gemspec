@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 5.1"
   s.add_dependency "enju_library", "~> 0.3.5"
-  s.add_dependency "enju_biblio", "~> 0.3.4"
+  s.add_dependency "enju_biblio", "~> 0.3.5"
   s.add_dependency "jquery-ui-rails", "~> 4.2.1"
 
   s.add_development_dependency "enju_manifestation_viewer", "~> 0.3.3"
