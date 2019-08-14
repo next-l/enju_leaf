@@ -50,7 +50,7 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
-      - run: yarn add jquery@2 jquery-powertip
+      - run: yarn install
 
       # run tests!
       - run:

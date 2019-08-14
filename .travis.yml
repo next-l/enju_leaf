@@ -12,7 +12,7 @@ before_script:
   - psql -c 'CREATE DATABASE enju_leaf_dummy_test'
   - psql enju_leaf_dummy_test -c 'CREATE EXTENSION pgcrypto'
   - bundle exec rake db:migrate
-  - yarn add jquery@2 jquery-powertip
+  - yarn install
 script:
   - bundle exec rspec
 after_script:
