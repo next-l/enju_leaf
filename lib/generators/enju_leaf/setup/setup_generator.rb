@@ -93,7 +93,8 @@ EOS
 
     inject_into_file "app/assets/javascripts/application.js", after: /\/\/= require rails-ujs$\n/ do
       <<"EOS"
-//= require jquery2
+//= require jquery/dist/jquery
+//= require jquery-migrate/dist/jquery-migrate
 //= require enju_leaf/application
 EOS
     end

@@ -1,5 +1,5 @@
 //= require jquery.ui.all
-//= require jquery.colorbox
+//= require jquery-colorbox/jquery.colorbox
 //= require jquery.highlight
 //= require jquery.shortcut
 //= require jquery.cookie
