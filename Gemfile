@@ -19,6 +19,8 @@ gem 'enju_biblio', github: 'next-l/enju_biblio'
 gem 'enju_manifestation_viewer', github: 'next-l/enju_manifestation_viewer'
 gem 'paper_trail'
 gem 'sassc-rails'
+gem 'paperclip-meta'
+gem 'sassc-rails'
 gem 'rails-i18n'
 group :test do
   gem 'rails-controller-testing'
