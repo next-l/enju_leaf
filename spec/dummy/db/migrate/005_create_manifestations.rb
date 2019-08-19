@@ -1,4 +1,4 @@
-class CreateManifestations < ActiveRecord::Migration[4.2]
+class CreateManifestations < ActiveRecord::Migration[5.2]
   def change
     create_table :manifestations do |t|
       t.text :original_title, null: false
@@ -9,7 +9,6 @@ class CreateManifestations < ActiveRecord::Migration[4.2]
       t.datetime :date_of_publication
       t.datetime :copyright_date
       t.timestamps
-      t.datetime :deleted_at
       t.string :access_address
       t.integer :language_id, default: 1, null: false
       t.integer :carrier_type_id, default: 1, null: false

@@ -1,8 +1,7 @@
-class CreateSearchEngines < ActiveRecord::Migration[4.2]
+class CreateSearchEngines < ActiveRecord::Migration[5.2]
   def change
     create_table :search_engines do |t|
       t.string :name, null: false
-      t.text :display_name
       t.string :url, null: false
       t.text :base_url, null: false
       t.text :http_method, null: false

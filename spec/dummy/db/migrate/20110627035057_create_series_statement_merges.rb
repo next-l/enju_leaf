@@ -1,4 +1,4 @@
-class CreateSeriesStatementMerges < ActiveRecord::Migration[4.2]
+class CreateSeriesStatementMerges < ActiveRecord::Migration[5.2]
   def change
     create_table :series_statement_merges do |t|
       t.integer :series_statement_id, null: false

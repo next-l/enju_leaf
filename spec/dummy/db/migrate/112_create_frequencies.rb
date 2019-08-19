@@ -1,4 +1,4 @@
-class CreateFrequencies < ActiveRecord::Migration[4.2]
+class CreateFrequencies < ActiveRecord::Migration[5.2]
   def change
     create_table :frequencies do |t|
       t.string :name, null: false

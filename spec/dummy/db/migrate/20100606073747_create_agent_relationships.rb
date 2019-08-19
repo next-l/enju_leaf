@@ -1,4 +1,4 @@
-class CreateAgentRelationships < ActiveRecord::Migration[4.2]
+class CreateAgentRelationships < ActiveRecord::Migration[5.2]
   def change
     create_table :agent_relationships do |t|
       t.integer :parent_id

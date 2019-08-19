@@ -1,4 +1,4 @@
-class CreateBaskets < ActiveRecord::Migration[4.2]
+class CreateBaskets < ActiveRecord::Migration[5.2]
   def change
     create_table :baskets do |t|
       t.references :user, index: true

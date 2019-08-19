@@ -1,4 +1,4 @@
-class AddConstraintsToMostRecentForResourceImportFileTransitions < ActiveRecord::Migration[4.2]
+class AddConstraintsToMostRecentForResourceImportFileTransitions < ActiveRecord::Migration[5.2]
   disable_ddl_transaction!
 
   def up

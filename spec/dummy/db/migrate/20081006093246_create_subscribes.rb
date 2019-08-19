@@ -1,4 +1,4 @@
-class CreateSubscribes < ActiveRecord::Migration[4.2]
+class CreateSubscribes < ActiveRecord::Migration[5.2]
   def change
     create_table :subscribes do |t|
       t.references :subscription, index: true, null: false

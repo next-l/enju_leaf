@@ -1,4 +1,4 @@
-class CreateCountries < ActiveRecord::Migration[4.2]
+class CreateCountries < ActiveRecord::Migration[5.2]
 
   # ISO 3166 is the International Standard for country codes.
   #

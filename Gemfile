@@ -19,7 +19,7 @@ gem 'enju_library', github: 'next-l/enju_library'
 gem 'enju_biblio', github: 'next-l/enju_biblio'
 gem 'enju_manifestation_viewer', github: 'next-l/enju_manifestation_viewer'
 gem 'paper_trail'
-gem 'paperclip-meta'
+gem 'paperclip'
 gem 'sassc-rails'
 gem 'rails-i18n'
 group :test do
