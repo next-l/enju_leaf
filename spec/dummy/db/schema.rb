@@ -62,23 +62,15 @@ ActiveRecord::Schema.define(version: 2019_08_18_075628) do
   end
 
   create_table "agent_import_files", force: :cascade do |t|
-    t.integer "parent_id"
-    t.string "content_type"
-    t.integer "size"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.text "note"
     t.datetime "executed_at"
-    t.string "agent_import_file_name"
-    t.string "agent_import_content_type"
-    t.integer "agent_import_file_size"
-    t.datetime "agent_import_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "agent_import_fingerprint"
     t.text "error_message"
     t.string "edit_mode"
     t.string "user_encoding"
-    t.index ["parent_id"], name: "index_agent_import_files_on_parent_id"
     t.index ["user_id"], name: "index_agent_import_files_on_user_id"
   end
 
@@ -309,8 +301,8 @@ ActiveRecord::Schema.define(version: 2019_08_18_075628) do
   end
 
   create_table "donates", force: :cascade do |t|
-    t.integer "agent_id", null: false
-    t.integer "item_id", null: false
+    t.bigint "agent_id", null: false
+    t.bigint "item_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["agent_id"], name: "index_donates_on_agent_id"
@@ -392,13 +384,13 @@ ActiveRecord::Schema.define(version: 2019_08_18_075628) do
 
   create_table "identifiers", force: :cascade do |t|
     t.string "body", null: false
-    t.integer "identifier_type_id", null: false
-    t.integer "manifestation_id"
+    t.bigint "identifier_type_id", null: false
+    t.bigint "manifestation_id", null: false
     t.boolean "primary"
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["body", "identifier_type_id"], name: "index_identifiers_on_body_and_identifier_type_id"
+    t.index ["identifier_type_id"], name: "index_identifiers_on_identifier_type_id"
     t.index ["manifestation_id"], name: "index_identifiers_on_manifestation_id"
   end
 
@@ -417,8 +409,8 @@ ActiveRecord::Schema.define(version: 2019_08_18_075628) do
 
   create_table "import_requests", force: :cascade do |t|
     t.string "isbn"
-    t.integer "manifestation_id"
-    t.integer "user_id"
+    t.bigint "manifestation_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["isbn"], name: "index_import_requests_on_isbn"
@@ -912,16 +904,9 @@ ActiveRecord::Schema.define(version: 2019_08_18_075628) do
   end
 
   create_table "resource_import_files", force: :cascade do |t|
-    t.integer "parent_id"
-    t.string "content_type"
-    t.integer "size"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.text "note"
     t.datetime "executed_at"
-    t.string "resource_import_file_name"
-    t.string "resource_import_content_type"
-    t.integer "resource_import_file_size"
-    t.datetime "resource_import_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "edit_mode"
@@ -929,7 +914,6 @@ ActiveRecord::Schema.define(version: 2019_08_18_075628) do
     t.text "error_message"
     t.string "user_encoding"
     t.integer "default_shelf_id"
-    t.index ["parent_id"], name: "index_resource_import_files_on_parent_id"
     t.index ["user_id"], name: "index_resource_import_files_on_user_id"
   end
 
@@ -1246,7 +1230,14 @@ ActiveRecord::Schema.define(version: 2019_08_18_075628) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "agent_import_files", "users"
   add_foreign_key "doi_records", "manifestations"
+  add_foreign_key "donates", "agents"
+  add_foreign_key "donates", "items"
+  add_foreign_key "identifiers", "identifier_types"
+  add_foreign_key "identifiers", "manifestations"
+  add_foreign_key "import_requests", "manifestations"
+  add_foreign_key "import_requests", "users"
   add_foreign_key "isbn_record_and_manifestations", "isbn_records"
   add_foreign_key "isbn_record_and_manifestations", "manifestations"
   add_foreign_key "issn_record_and_manifestations", "issn_records"
@@ -1258,6 +1249,7 @@ ActiveRecord::Schema.define(version: 2019_08_18_075628) do
   add_foreign_key "periodical_and_manifestations", "periodicals"
   add_foreign_key "periodicals", "frequencies"
   add_foreign_key "profiles", "users"
+  add_foreign_key "resource_import_files", "users"
   add_foreign_key "subscriptions", "users"
   add_foreign_key "user_export_files", "users"
   add_foreign_key "user_has_roles", "roles"
