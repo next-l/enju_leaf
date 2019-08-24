@@ -20,6 +20,7 @@ gem 'enju_biblio', github: 'next-l/enju_biblio'
 gem 'enju_manifestation_viewer', github: 'next-l/enju_manifestation_viewer'
 gem 'sassc-rails'
 gem 'rails-i18n'
+gem 'webpacker'
 group :test do
   gem 'rails-controller-testing'
   gem 'rspec_junit_formatter'

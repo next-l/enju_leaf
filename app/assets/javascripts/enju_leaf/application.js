@@ -1,12 +1,1 @@
-//= require jquery.ui.all
-//= require jquery-colorbox/jquery.colorbox
-//= require jquery.highlight
-//= require jquery.shortcut
-//= require jquery.cookie
-//= require jquery.ui.menubar
-//= require enju_leaf/select_locale
-//= require enju_leaf/portlets
-//= require enju_leaf/menu
-//= require jquery-powertip/dist/jquery.powertip
 //= require cocoon
-//= require enju_leaf/autocomplete_agent
