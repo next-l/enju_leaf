@@ -6,6 +6,7 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
     directory("solr", "example/solr")
     copy_file("Procfile", "Procfile")
     copy_file("config/schedule.rb", "config/schedule.rb")
+    remove_file "config/webpack/environment.js"
     copy_file("config/webpack/environment.js", "config/webpack/environment.js")
     append_to_file("config/initializers/assets.rb", "Rails.application.config.assets.precompile += %w( *.png )")
     inject_into_class 'config/application.rb', 'Application' do
@@ -94,7 +95,7 @@ EOS
 
     remove_file "app/javascript/packs/application.js"
     copy_file("app/javascript/packs/application.js", "#{Rails.root.to_s}/app/javascript/packs/application.js")
-    directory("app/javascript/packs/src", "app/javascript/packs/src")
+    directory("app/javascript/src", "app/javascript/src")
     inject_into_file "app/assets/javascripts/application.js", after: /\/\/= require rails-ujs$\n/ do
       <<"EOS"
 //= require enju_leaf/application
