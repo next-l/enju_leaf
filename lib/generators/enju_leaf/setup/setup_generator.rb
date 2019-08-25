@@ -94,8 +94,8 @@ EOS
     end
 
     remove_file "app/javascript/packs/application.js"
-    copy_file("app/javascript/packs/application.js", "#{Rails.root.to_s}/app/javascript/packs/application.js")
-    directory("app/javascript/src", "app/javascript/src")
+    copy_file("../../../../../app/javascript/packs/application.js", "#{Rails.root.to_s}/app/javascript/packs/application.js")
+    directory("../../../../../app/javascript/src", "app/javascript/src")
     inject_into_file "app/assets/javascripts/application.js", after: /\/\/= require rails-ujs$\n/ do
       <<"EOS"
 //= require enju_leaf/application
