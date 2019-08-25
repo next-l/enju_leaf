@@ -5,6 +5,7 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
     environment = ENV['RAILS_ENV'] || 'development'
     gsub_file 'config/schedule.rb', /^set :environment, :development$/,
       "set :environment, :#{environment}"
+    rake("active_storage:install")
     generate("devise:install")
     generate("devise", "User")
     gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'

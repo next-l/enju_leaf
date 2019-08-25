@@ -39,7 +39,6 @@ EOS
   after_action :verify_authorized, unless: :devise_controller?
 EOS
     end
-    rake("active_storage:install")
     rake("sitemap:install")
     generate("sunspot_rails:install")
     generate("kaminari:config")
