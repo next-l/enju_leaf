@@ -5,6 +5,31 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
     environment = ENV['RAILS_ENV'] || 'development'
     gsub_file 'config/schedule.rb', /^set :environment, :development$/,
       "set :environment, :#{environment}"
+    generate("devise:install")
+    generate("devise", "User")
+    gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
+    gsub_file 'app/models/user.rb', /, :validatable$/, <<EOS
+, #:validatable,
+      :lockable, lock_strategy: :none, unlock_strategy: :none
+  include EnjuSeed::EnjuUser
+EOS
+    gsub_file 'config/routes.rb', /devise_for :users$/, "devise_for :users, skip: [:registration]"
+    inject_into_file 'config/routes.rb', after: /Rails.application.routes.draw do$\n/ do
+      <<"EOS"
+  authenticate :user, lambda {|u| u.role.try(:name) == 'Administrator' } do
+    mount Resque::Server.new, at: "/resque", as: :resque
+  end
+
+  as :user do
+    get 'users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
+    put 'users' => 'devise/registrations#update', as: 'user_registration'
+  end
+EOS
+    end
+    gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i'
+    gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [:email]', 'config.authentication_keys = [:username]'
+    gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
+
     rake("enju_seed_engine:install:migrations")
     rake("enju_library_engine:install:migrations")
     rake("enju_biblio_engine:install:migrations")
