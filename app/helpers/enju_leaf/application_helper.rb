@@ -94,7 +94,7 @@ module EnjuLeaf
     # 前の画面に戻るリンクを表示します。
     # @param [Hash] options
     def back_to_index(options = {})
-      if options == nil
+      if options.nil?
         options = {}
       else
         options.reject!{|_key, value| value.blank?}
