@@ -21,6 +21,7 @@ gem 'enju_manifestation_viewer', github: 'next-l/enju_manifestation_viewer'
 gem 'sassc-rails'
 gem 'rails-i18n'
 gem 'webpacker'
+gem 'sprockets', '~> 3.7'
 group :test do
   gem 'rails-controller-testing'
   gem 'rspec_junit_formatter'
