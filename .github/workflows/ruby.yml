@@ -31,5 +31,5 @@ jobs:
         bundle exec rake db:create
         bundle exec rake
       env:
-        DATABASE_URL: postgres://postgres:postgres@postgres:5432/dummy_test
+        DATABASE_URL: postgres://postgres:postgres@localhost:5432/dummy_test
         RAILS_ENV: test
