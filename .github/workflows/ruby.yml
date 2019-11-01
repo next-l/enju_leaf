@@ -25,11 +25,13 @@ jobs:
         ruby-version: 2.6.x
     - name: Build and test with Rake
       run: |
-        sudo apt-get install libpq-dev
+        sudo apt-get install libpq-dev redis
         gem install bundler
         bundle install --jobs 4 --retry 3
         mv spec/dummy/config/database.yml spec/dummy/config/database.yml.orig
         bundle exec rake db:create
+        bundle exec rake db:schema:load
+        yarn install
         bundle exec rake
       env:
         DATABASE_URL: postgres://postgres:postgres@localhost:5432/dummy_test
