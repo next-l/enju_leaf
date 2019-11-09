@@ -11,6 +11,7 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 gem 'jquery-rails'
+gem 'sprockets', '~> 3.7'
 
 # To use debugger
 # gem 'debugger'
