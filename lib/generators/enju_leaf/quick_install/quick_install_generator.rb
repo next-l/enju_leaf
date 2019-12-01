@@ -8,6 +8,7 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
     rake("active_storage:install")
     generate("devise:install")
     generate("devise", "User")
+    generate("friendly_id")
     gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
     gsub_file 'app/models/user.rb', /, :validatable$/, <<EOS
 , #:validatable,

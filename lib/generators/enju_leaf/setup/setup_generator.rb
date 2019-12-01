@@ -50,7 +50,6 @@ EOS
     gsub_file 'config/initializers/kaminari_config.rb',
       /# config.default_per_page = 25$/,
       "config.default_per_page = 10"
-    generate("friendly_id")
     gsub_file "app/assets/javascripts/application.js",
       /\/\/= require turbolinks$/,
       ""
