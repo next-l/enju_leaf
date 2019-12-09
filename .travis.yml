@@ -13,6 +13,7 @@ before_script:
   - psql enju_leaf_dummy_test -c 'CREATE EXTENSION pgcrypto'
   - bundle exec rake db:migrate
   - nvm install 12
+  - yarn install
   - spec/dummy/bin/yarn install
   - spec/dummy/bin/webpack
 script:
