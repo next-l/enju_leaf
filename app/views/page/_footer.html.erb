@@ -1,7 +1,5 @@
-<div class="header_and_footer">
+<div class="container">
   <div id="footer">
-    <div>
-      <%= markdown_helper(@library_group.footer_banner.try(:gsub, /__VERSION__/, EnjuLeaf::VERSION)) -%>
-    </div>
+    <%= markdown_helper(@library_group.footer_banner.try(:gsub, /__VERSION__/, EnjuLeaf::VERSION)) -%>
   </div>
 </div>
