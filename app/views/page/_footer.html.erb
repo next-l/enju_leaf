@@ -1,5 +1,5 @@
-<div class="container">
-  <div id="footer">
+<footer class="footer mt-auto py-4">
+  <div class="container">
     <%= markdown_helper(@library_group.footer_banner.try(:gsub, /__VERSION__/, EnjuLeaf::VERSION)) -%>
   </div>
-</div>
+</footer>

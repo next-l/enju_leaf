@@ -1,17 +1,13 @@
-<div class="pt-4"></div>
-
 <div class="row">
   <div class="col">
     <div class="card bg-info">
-      <div class="card-header text-light">
-        <h2 class="title">
-          <% if user_signed_in? %>
-            <%= t('page.user_title', login_name: current_user.username) -%>
-          <% else %>
-            <%= t('page.catalog_search') -%>
-          <% end %>
-        </h2>
-      </div>
+      <h2 class="card-header text-light">
+        <% if user_signed_in? %>
+          <%= t('page.user_title', login_name: current_user.username) -%>
+        <% else %>
+          <%= t('page.catalog_search') -%>
+        <% end %>
+      </h2>
       <div class="card-body bg-light" id="user_search_form">
         <p id="notice"><%= notice %></p>
 
@@ -27,9 +23,11 @@
     </div>
 
     <% if defined?(EnjuNews) %>
-      <div class="portlet" id="news_feed">
-        <h3 class="title"><%= t('page.news') -%></h3>
-        <div id="news_feed_box">
+      <div class="card bg-info">
+        <h2 class="card-header text-light" id="news_feed">
+          <%= t('page.news') -%>
+        </h2>
+        <div class="card-body bg-light" id="news_feed_box">
           <%= render partial: 'news_feeds/list', locals: {news_feeds: @news_feeds} -%>
         </div>
       </div>
@@ -38,24 +36,24 @@
 
   <div class="col">
     <div class="card bg-info" id="pickup">
-      <div class="card-header text-light">
-        <h3 class="title"><%= t('manifestation.pickup') -%></h3>
-      </div>
-      <div id="picked_up_box">
+      <h2 class="card-header text-light">
+        <%= t('manifestation.pickup') -%>
+      </h2>
+      <div class="card-body bg-light" id="picked_up_box">
         <%= render 'manifestations/pickup', manifestation: @manifestation -%>
       </div>
     </div>
 
     <% if defined?(EnjuBookmark) %>
-      <div class="portlet" id="tag_cloud">
-        <h3 class="title">
+      <div class="card bg-info" id="tag_cloud">
+        <h2 class="card-header text-light">
           <% if user_signed_in? %>
             <%= t('tag.my_tag') -%>
           <% else %>
             <%= t('tag.popular_tag') -%>
           <% end %>
-        </h3>
-        <div id="tag_cloud_box">
+        </h2>
+        <div class="card-body bg-light" id="tag_cloud_box">
           <%= render 'bookmarks/tag_cloud', tags: @tags -%>
           <p>(<%= link_to t('page.listing', model: t('activerecord.models.tag')), tags_path -%>)</p>
         </div>
@@ -63,5 +61,3 @@
     <% end %>
   </div>
 </div>
-
-<div class="pt-4"></div>
