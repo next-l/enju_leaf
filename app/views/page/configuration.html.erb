@@ -1,7 +1,7 @@
 <div class="column-fixed" id="col1">
-  <div class="portlet" id="library">
-    <h2 class="title"><%= t('activerecord.models.library') -%></h2>
-    <div class="config_box">
+  <div class="card" id="library">
+    <h2 class="card-header"><%= t('activerecord.models.library') -%></h2>
+    <div class="card-body">
       <ul>
         <li><%= link_to t('activerecord.models.library_group'), @library_group -%></li>
         <li><%= link_to t('activerecord.models.library'), libraries_path -%>
@@ -45,9 +45,9 @@
       </ul>
     </div>
   </div>
-  <div class="portlet" id="resource">
-    <h2 class="title"><%= t('page.resource') -%></h2>
-    <div class="config_box">
+  <div class="card" id="resource">
+    <h2 class="card-header"><%= t('page.resource') -%></h2>
+    <div class="card-body">
       <ul>
         <li><%= link_to t('activerecord.models.manifestation'), manifestations_path -%>
           <ul>
@@ -87,9 +87,9 @@
 
 <div class="column-fixed" id="col2">
   <% if defined?(EnjuSubject) %>
-    <div class="portlet" id="subject_and_classification">
-      <h2 class="title"><%= t('page.subject_and_classification') -%></h2>
-      <div class="config_box">
+    <div class="card" id="subject_and_classification">
+      <h2 class="card-header"><%= t('page.subject_and_classification') -%></h2>
+      <div class="card-body">
         <ul>
           <li><%= link_to t('activerecord.models.subject'), subjects_path -%></li>
           <li><%= link_to t('activerecord.models.subject_type'), subject_types_path -%></li>
@@ -100,9 +100,9 @@
       </div>
     </div>
   <% end %>
-  <div class="portlet" id="form">
-    <h2 class="title"><%= t('page.form') -%></h2>
-    <div class="config_box">
+  <div class="card" id="form">
+    <h2 class="card-header"><%= t('page.form') -%></h2>
+    <div class="card-body">
       <ul>
         <!--
         <li><%= link_to t('activerecord.models.form_of_work'), form_of_works_path -%></li>
@@ -129,9 +129,9 @@
     </div>
   </div>
 
-  <div class="portlet" id="system">
-    <h2 class="title"><%= t('page.system') -%></h2>
-    <div class="config_box">
+  <div class="card" id="system">
+    <h2 class="card-header"><%= t('page.system') -%></h2>
+    <div class="card-body">
       <ul>
         <% if current_user.has_role?('Administrator') %>
           <% if defined?(Resque::Server) %>
