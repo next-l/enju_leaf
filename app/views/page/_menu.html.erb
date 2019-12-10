@@ -139,9 +139,10 @@
         </li>
       <% end %>
     </ul>
+
     <ul class="navbar-nav">
-      <li class="nav-item dropdown">
-        <% if user_signed_in? %>
+      <% if user_signed_in? %>
+        <li class="nav-item dropdown">
           <a href="#account_menu" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <%= t('page.logged_in_as', login_name: current_user.username) -%>
           </a>
@@ -152,14 +153,14 @@
             <% end %>
             <%= link_to t('page.sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item' -%>
           </div>
-        <% else %>
-          <a href="#account_menu" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <% unless controller_name == 'sessions' %>
-              <%= link_to t('page.sign_in'), new_user_session_path, class: 'nav-link' -%>
-            <% end %>
-          </a>
+        </li>
+      <% else %>
+        <% unless controller_name == 'sessions' %>
+          <li class="nav-item">
+            <%= link_to t('page.sign_in'), new_user_session_path, class: 'nav-link' -%>
+          </li>
         <% end %>
-      </li>
+      <% end %>
     </ul>
   </div>
 </nav>
