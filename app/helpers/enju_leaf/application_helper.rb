@@ -2,12 +2,6 @@ require "webpacker/helper"
 
 module EnjuLeaf
   module ApplicationHelper
-    include ::Webpacker::Helper
-
-    def current_webpacker_instance
-      EnjuLeaf.webpacker
-    end
-
     # 使用中のデータベースのアダプタ名を表示します。
     def database_adapter
       case ActiveRecord::Base.connection.adapter_name

@@ -139,6 +139,28 @@
         </li>
       <% end %>
     </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown">
+        <% if user_signed_in? %>
+          <a href="#account_menu" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= t('page.logged_in_as', login_name: current_user.username) -%>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <%= link_to t('page.account'), my_account_path, class: 'dropdown-item' -%>
+            <% if defined?(EnjuMessage) %>
+              <%= link_to "#{t('activerecord.models.message')} (#{messages_count(current_user)})", messages_path, class: 'dropdown-item' %>
+            <% end %>
+            <%= link_to t('page.sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item' -%>
+          </div>
+        <% else %>
+          <a href="#account_menu" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <% unless controller_name == 'sessions' %>
+              <%= link_to t('page.sign_in'), new_user_session_path, class: 'nav-link' -%>
+            <% end %>
+          </a>
+        <% end %>
+      </li>
+    </ul>
   </div>
 </nav>
 
