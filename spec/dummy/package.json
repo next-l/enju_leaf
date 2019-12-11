@@ -2,6 +2,8 @@
   "name": "enju_boot",
   "private": true,
   "dependencies": {
+    "@rails/activestorage": "^6.0.1",
+    "@rails/ujs": "^6.0.1",
     "@rails/webpacker": "4.2.2",
     "bootstrap": "4.4",
     "jquery": "^3.4.1",
