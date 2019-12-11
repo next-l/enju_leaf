@@ -1,9 +1,9 @@
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="row">
-    <div id="content_detail" class="col-9">
-      <div class="card">
-        <div class="card-header"><%= t('page.sign_in') -%> : Next-L Enju</div>
-        <div class="card-body" id="content_list">
+    <div class="col-9">
+      <div class="card bg-info">
+        <div class="card-header text-light"><%= t('page.sign_in') -%> : Next-L Enju</div>
+        <div class="card-body bg-light" id="content_list">
           <%= f.error_messages -%>
 
           <%= markdown_helper(@library_group.login_banner) %>
@@ -11,9 +11,9 @@
       </div>
     </div>
 
-    <div id="submenu" class="col">
-      <div class="card">
-        <div class="card-body" id="content_list">
+    <div class="col">
+      <div class="card bg-info">
+        <div class="card-body bg-light" id="content_list">
           <div class="field">
             <%= f.label :username %><br />
             <%= f.text_field :username, autofocus: true %>
