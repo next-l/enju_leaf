@@ -6,5 +6,3 @@ Rails.start()
 
 import * as ActiveStorage from '@rails/activestorage'
 ActiveStorage.start()
-
-
