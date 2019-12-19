@@ -1,25 +1,4 @@
 Rails.application.routes.draw do
-  resources :names
-  resources :profiles
-
-  resources :user_export_files
-
-  resources :user_import_results, only: [:index, :show, :destroy]
-
-  resources :user_import_files
-
-  resource :my_account
-
-  resources :roles, except: [:new, :create, :destroy]
-
-  resources :user_groups
-
-  resources :accepts
-
-  resources :baskets do
-    resources :accepts, except: [:edit, :update]
-  end
-
   root :to => "page#index"
 
   get '/page/about' => 'page#about'
