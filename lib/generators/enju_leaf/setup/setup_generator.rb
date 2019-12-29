@@ -40,11 +40,6 @@ EOS
     end
     generate("devise:install")
     generate("devise", "User")
-    gsub_file 'app/models/user.rb', /, :validatable$/, <<EOS
-, # :validatable,
-      :lockable, lock_strategy: :none, unlock_strategy: :none
-  include EnjuSeed::EnjuUser
-EOS
     generate("sunspot_rails:install")
     generate("kaminari:config")
     generate("simple_form:install")
