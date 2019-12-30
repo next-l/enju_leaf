@@ -30,9 +30,6 @@ EOS
     end
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
-  include EnjuLibrary::Controller
-  include EnjuBiblio::Controller
-
   include Pundit
   before_action :set_paper_trail_whodunnit
   after_action :verify_authorized, unless: :devise_controller?
