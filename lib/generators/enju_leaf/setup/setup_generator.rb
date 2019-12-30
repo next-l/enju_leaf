@@ -32,9 +32,6 @@ EOS
     end
     inject_into_class "app/controllers/application_controller.rb", ApplicationController do
       <<"EOS"
-  include EnjuLibrary::Controller
-  include EnjuBiblio::Controller
-
   include Pundit
   after_action :verify_authorized, unless: :devise_controller?
 EOS
