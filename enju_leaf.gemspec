@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-ui-rails", "~> 4.2.1"
   s.add_dependency 'sprockets', '~> 3.7'
 
-  s.add_development_dependency "enju_manifestation_viewer", "~> 0.3.3"
+  s.add_development_dependency "enju_manifestation_viewer", "~> 0.3.4"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mysql2"
   s.add_development_dependency "pg"
