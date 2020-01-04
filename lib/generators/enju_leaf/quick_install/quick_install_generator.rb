@@ -13,7 +13,6 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
     gsub_file 'app/models/user.rb', /, :validatable$/, <<EOS
 , #:validatable,
       :lockable, lock_strategy: :none, unlock_strategy: :none
-  include EnjuLibrary::EnjuUser
 EOS
     gsub_file 'config/routes.rb', /devise_for :users$/, "devise_for :users, skip: [:registration]"
     inject_into_file 'config/routes.rb', after: /Rails.application.routes.draw do$\n/ do
