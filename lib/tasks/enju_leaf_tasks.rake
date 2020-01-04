@@ -25,7 +25,6 @@ namespace :enju_leaf do
     Rake::Task['enju_library:upgrade'].invoke
     Rake::Task['enju_biblio:upgrade'].invoke
     Rake::Task['enju_event:upgrade'].invoke
-    Rake::Task['enju_message:upgrade'].invoke
     Rake::Task['enju_circulation:upgrade'].invoke
     puts 'enju_leaf: The upgrade completed successfully.'
   end
