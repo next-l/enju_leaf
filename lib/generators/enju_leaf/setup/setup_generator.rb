@@ -36,8 +36,6 @@ EOS
   after_action :verify_authorized, unless: :devise_controller?
 EOS
     end
-    generate("devise:install")
-    generate("devise", "User")
     generate("sunspot_rails:install")
     generate("kaminari:config")
     generate("simple_form:install")
