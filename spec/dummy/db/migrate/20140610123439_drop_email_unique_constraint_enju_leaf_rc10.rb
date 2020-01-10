@@ -1,4 +1,4 @@
-class DropEmailUniqueConstraintEnjuLeafRc10 < ActiveRecord::Migration[4.2]
+class DropEmailUniqueConstraintEnjuLeafRc10 < ActiveRecord::Migration[5.2]
   def up
     remove_index :users, :email
     add_index :users, :email

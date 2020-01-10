@@ -30,7 +30,6 @@ profile = new_profile
 profile.save!
 system_user.profile = profile
 system_user.save!
-LibraryGroup.first.update!(user: system_user)
 
 user = User.new
 user.username = username
