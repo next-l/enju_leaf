@@ -806,25 +806,21 @@ ActiveRecord::Schema.define(version: 2019_08_18_075628) do
     t.index ["manifestation_id"], name: "index_produces_on_manifestation_id"
   end
 
-  create_table "profiles", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "user_group_id"
-    t.integer "library_id"
-    t.string "locale"
-    t.string "user_number"
-    t.text "full_name"
-    t.text "note"
-    t.text "keyword_list"
-    t.integer "required_role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "profiles", comment: "プロフィール", force: :cascade do |t|
+    t.string "locale", comment: "ロケール"
+    t.string "user_number", comment: "利用者番号"
+    t.text "full_name", comment: "氏名"
+    t.text "note", comment: "備考"
+    t.text "keyword_list", comment: "キーワードリスト"
+    t.bigint "required_role_id", comment: "参照に必要な権限"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.datetime "expired_at"
     t.boolean "save_search_history"
     t.text "full_name_transcription"
     t.datetime "date_of_birth"
-    t.index ["library_id"], name: "index_profiles_on_library_id"
-    t.index ["user_group_id"], name: "index_profiles_on_user_group_id"
-    t.index ["user_id"], name: "index_profiles_on_user_id"
+    t.jsonb "full_name_translations", default: {}, null: false
+    t.index ["required_role_id"], name: "index_profiles_on_required_role_id"
     t.index ["user_number"], name: "index_profiles_on_user_number", unique: true
   end
 
@@ -930,14 +926,13 @@ ActiveRecord::Schema.define(version: 2019_08_18_075628) do
     t.index ["resource_import_file_id"], name: "index_resource_import_results_on_resource_import_file_id"
   end
 
-  create_table "roles", id: :serial, force: :cascade do |t|
+  create_table "roles", comment: "権限", force: :cascade do |t|
     t.string "name", null: false
     t.string "display_name"
-    t.text "note"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "score", default: 0, null: false
+    t.text "note", comment: "備考"
     t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.jsonb "display_name_translations", default: {}, null: false
   end
 
@@ -1139,11 +1134,11 @@ ActiveRecord::Schema.define(version: 2019_08_18_075628) do
     t.jsonb "display_name_translations", default: {}, null: false
   end
 
-  create_table "user_has_roles", id: :serial, force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "role_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "user_has_roles", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "role_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["role_id"], name: "index_user_has_roles_on_role_id"
     t.index ["user_id"], name: "index_user_has_roles_on_user_id"
   end
@@ -1204,13 +1199,12 @@ ActiveRecord::Schema.define(version: 2019_08_18_075628) do
     t.datetime "updated_at"
     t.boolean "save_search_history", default: false, null: false
     t.string "username"
-    t.datetime "deleted_at"
     t.datetime "expired_at"
     t.integer "failed_attempts", default: 0
     t.string "unlock_token"
     t.datetime "locked_at"
     t.datetime "confirmed_at"
-    t.bigint "profile_id"
+    t.bigint "profile_id", comment: "プロフィールID"
     t.index ["email"], name: "index_users_on_email"
     t.index ["profile_id"], name: "index_users_on_profile_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -1248,12 +1242,12 @@ ActiveRecord::Schema.define(version: 2019_08_18_075628) do
   add_foreign_key "periodical_and_manifestations", "manifestations"
   add_foreign_key "periodical_and_manifestations", "periodicals"
   add_foreign_key "periodicals", "frequencies"
-  add_foreign_key "profiles", "users"
+  add_foreign_key "profiles", "roles", column: "required_role_id"
   add_foreign_key "resource_import_files", "users"
   add_foreign_key "subscriptions", "users"
   add_foreign_key "user_export_files", "users"
   add_foreign_key "user_has_roles", "roles"
   add_foreign_key "user_has_roles", "users"
   add_foreign_key "user_import_files", "users"
-  add_foreign_key "users", "profiles", on_delete: :cascade
+  add_foreign_key "users", "profiles"
 end
