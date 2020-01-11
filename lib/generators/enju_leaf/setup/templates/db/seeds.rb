@@ -31,6 +31,10 @@ profile.save!
 system_user.profile = profile
 system_user.save!
 LibraryGroup.first.update!(user: system_user)
+UserGroup.order(created_at: :desc).first.update!(
+  number_of_day_to_notify_overdue: 7,
+  number_of_day_to_notify_due_date: 3
+)
 
 user = User.new
 user.username = username
