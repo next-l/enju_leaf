@@ -11,3 +11,4 @@ solr/data/*
 spec/cassette_library/
 coverage/
 vendor/bundle
+node_modules
