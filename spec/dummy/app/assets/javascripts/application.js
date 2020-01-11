@@ -11,6 +11,5 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require jquery/dist/jquery
 //= require enju_leaf/application
 //= require_tree .

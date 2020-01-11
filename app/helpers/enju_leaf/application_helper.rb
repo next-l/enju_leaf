@@ -1,3 +1,5 @@
+require "webpacker/helper"
+
 module EnjuLeaf
   module ApplicationHelper
     # 使用中のデータベースのアダプタ名を表示します。
