@@ -7,7 +7,7 @@ class CreateSearchEngines < ActiveRecord::Migration[5.2]
       t.text :http_method, null: false
       t.text :query_param, null: false
       t.text :additional_param
-      t.text :note
+      t.text :note, comment: '備考'
       t.integer :position
 
       t.timestamps
