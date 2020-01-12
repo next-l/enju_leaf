@@ -46,9 +46,6 @@ EOS
     gsub_file 'config/initializers/kaminari_config.rb',
       /# config.default_per_page = 25$/,
       "config.default_per_page = 10"
-    gsub_file "app/assets/javascripts/application.js",
-      /\/\/= require turbolinks$/,
-      ""
     gsub_file 'app/controllers/application_controller.rb', /protect_from_forgery with: :exception$/, 'protect_from_forgery with: :exception, prepend: true'
 
     inject_into_file "app/helpers/application_helper.rb", after: /module ApplicationHelper$\n/ do
