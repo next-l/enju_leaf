@@ -29,7 +29,6 @@ EOS
     end
     gsub_file 'config/initializers/devise.rb', '# config.email_regexp = /\A[^@]+@[^@]+\z/', 'config.email_regexp = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i'
     gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [:email]', 'config.authentication_keys = [:username]'
-    gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
 
     if !ENV['ENJU_SKIP_CONFIG']
       generate("enju_seed:setup")
