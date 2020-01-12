@@ -12,6 +12,12 @@ class EnjuLeaf::SeedGenerator < Rails::Generators::Base
       end
     end
 
+    rake("enju_seed_engine:install:migrations")
+    rake("enju_library_engine:install:migrations")
+    rake("enju_biblio_engine:install:migrations")
+    rake("enju_manifestation_viewer_engine:install:migrations")
+    rake("enju_subject_engine:install:migrations")
+    rake("enju_inventory_engine:install:migrations")
     rake("db:migrate", env: environment)
     rake("enju_leaf:setup", env: environment)
     rake("enju_circulation:setup", env: environment)

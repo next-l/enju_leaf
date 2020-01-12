@@ -31,12 +31,6 @@ EOS
     gsub_file 'config/initializers/devise.rb', '# config.authentication_keys = [:email]', 'config.authentication_keys = [:username]'
     gsub_file 'config/initializers/devise.rb', '# config.secret_key', 'config.secret_key'
 
-    rake("enju_seed_engine:install:migrations")
-    rake("enju_library_engine:install:migrations")
-    rake("enju_biblio_engine:install:migrations")
-    rake("enju_manifestation_viewer_engine:install:migrations")
-    rake("enju_subject_engine:install:migrations")
-    rake("enju_inventory_engine:install:migrations")
     if !ENV['ENJU_SKIP_CONFIG']
       generate("enju_seed:setup")
       generate("enju_library:setup")
