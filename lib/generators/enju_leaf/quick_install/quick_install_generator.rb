@@ -39,7 +39,6 @@ EOS
       generate("enju_subject:setup")
       generate("enju_inventory:setup")
     end
-    rake("enju_ndl_engine:install:migrations")
     append_to_file "app/models/user.rb", <<EOS.strip_heredoc
       Manifestation.include(EnjuManifestationViewer::EnjuManifestation)
       Manifestation.include(EnjuNdl::EnjuManifestation)
