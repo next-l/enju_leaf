@@ -2,10 +2,10 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
   def quick_install
+    rake("active_storage:install")
     generate("devise:install")
     generate("devise", "User")
-    generate("friendly_id --skip-migration")
-    remove_dir "db/migrate"
+    generate("friendly_id")
     gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
     gsub_file 'app/models/user.rb', /, :validatable$/, <<EOS
 , #:validatable,
