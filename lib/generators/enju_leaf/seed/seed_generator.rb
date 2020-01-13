@@ -13,6 +13,7 @@ class EnjuLeaf::SeedGenerator < Rails::Generators::Base
     end
 
     rake("active_storage:install")
+    generate("activerecord:devise")
     generate("friendly_id")
     rake("enju_seed_engine:install:migrations")
     rake("enju_library_engine:install:migrations")

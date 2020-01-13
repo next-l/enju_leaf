@@ -2,6 +2,7 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
   def quick_install
+    generate("devise:install")
     generate("devise", "User")
     remove_file "db/migrate/*devise_create_users.rb"
     gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
@@ -13,7 +14,6 @@ EOS
     environment = ENV['RAILS_ENV'] || 'development'
     gsub_file 'config/schedule.rb', /^set :environment, :development$/,
       "set :environment, :#{environment}"
-    generate("devise:install")
     gsub_file 'config/routes.rb', /devise_for :users$/, "devise_for :users, skip: [:registration]"
     inject_into_file 'config/routes.rb', after: /Rails.application.routes.draw do$\n/ do
       <<"EOS"
