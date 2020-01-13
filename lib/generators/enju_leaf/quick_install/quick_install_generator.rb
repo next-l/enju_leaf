@@ -2,6 +2,14 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
   def quick_install
+    generate("devise", "User")
+    remove_file "db/migrate/*devise_create_users.rb"
+    gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
+    gsub_file 'app/models/user.rb', /, :validatable$/, <<EOS
+, #:validatable,
+      :lockable, lock_strategy: :none, unlock_strategy: :none
+EOS
+
     environment = ENV['RAILS_ENV'] || 'development'
     gsub_file 'config/schedule.rb', /^set :environment, :development$/,
       "set :environment, :#{environment}"
