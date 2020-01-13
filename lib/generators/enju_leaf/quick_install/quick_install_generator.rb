@@ -4,6 +4,7 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
   def quick_install
     generate("devise:install")
     generate("devise", "User")
+    generate("friendly_id --skip-migration")
     remove_dir "db/migrate"
     gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
     gsub_file 'app/models/user.rb', /, :validatable$/, <<EOS
