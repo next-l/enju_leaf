@@ -12,9 +12,6 @@ class EnjuLeaf::SeedGenerator < Rails::Generators::Base
       end
     end
 
-    rake("active_storage:install")
-    generate("activerecord:devise")
-    generate("friendly_id")
     rake("enju_seed_engine:install:migrations")
     rake("enju_library_engine:install:migrations")
     rake("enju_biblio_engine:install:migrations")
@@ -25,6 +22,10 @@ class EnjuLeaf::SeedGenerator < Rails::Generators::Base
     rake("enju_circulation_engine:install:migrations")
     rake("enju_inventory_engine:install:migrations")
     rake("enju_ndl_engine:install:migrations")
+    rake("active_storage:install")
+    generate("active_record:devise")
+    generate("friendly_id")
+
     rake("db:migrate", env: environment)
     rake("enju_leaf:setup", env: environment)
     rake("enju_circulation:setup", env: environment)
