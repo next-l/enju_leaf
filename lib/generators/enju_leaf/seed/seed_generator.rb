@@ -2,16 +2,6 @@ class EnjuLeaf::SeedGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
   def seed
-    environment = ENV['RAILS_ENV'] || 'development'
-    if !ENV['ENJU_SKIP_SOLR']
-      if ENV['OS'] == 'Windows_NT'
-        rake("sunspot:solr:run", env: environment)
-      else
-        rake("sunspot:solr:start", env: environment)
-        sleep 5
-      end
-    end
-
     rake("enju_seed_engine:install:migrations")
     rake("enju_library_engine:install:migrations")
     rake("enju_biblio_engine:install:migrations")
@@ -27,6 +17,17 @@ class EnjuLeaf::SeedGenerator < Rails::Generators::Base
     generate("friendly_id")
 
     rake("db:migrate", env: environment)
+
+    environment = ENV['RAILS_ENV'] || 'development'
+    if !ENV['ENJU_SKIP_SOLR']
+      if ENV['OS'] == 'Windows_NT'
+        rake("sunspot:solr:run", env: environment)
+      else
+        rake("sunspot:solr:start", env: environment)
+        sleep 5
+      end
+    end
+
     rake("enju_leaf:setup", env: environment)
     rake("enju_circulation:setup", env: environment)
     rake("enju_subject:setup", env: environment)
