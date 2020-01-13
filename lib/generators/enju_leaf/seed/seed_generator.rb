@@ -2,17 +2,6 @@ class EnjuLeaf::SeedGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
   def seed
-    rake("enju_seed_engine:install:migrations")
-    rake("enju_library_engine:install:migrations")
-    rake("enju_biblio_engine:install:migrations")
-    rake("enju_manifestation_viewer_engine:install:migrations")
-    rake("enju_subject_engine:install:migrations")
-    rake("enju_message_engine:install:migrations")
-    rake("enju_event_engine:install:migrations")
-    rake("enju_circulation_engine:install:migrations")
-    rake("enju_inventory_engine:install:migrations")
-    rake("enju_ndl_engine:install:migrations")
-
     rake("db:migrate", env: environment)
 
     environment = ENV['RAILS_ENV'] || 'development'
@@ -24,6 +13,17 @@ class EnjuLeaf::SeedGenerator < Rails::Generators::Base
         sleep 5
       end
     end
+
+    rake("enju_seed_engine:install:migrations")
+    rake("enju_library_engine:install:migrations")
+    rake("enju_biblio_engine:install:migrations")
+    rake("enju_manifestation_viewer_engine:install:migrations")
+    rake("enju_subject_engine:install:migrations")
+    rake("enju_message_engine:install:migrations")
+    rake("enju_event_engine:install:migrations")
+    rake("enju_circulation_engine:install:migrations")
+    rake("enju_inventory_engine:install:migrations")
+    rake("enju_ndl_engine:install:migrations")
 
     rake("enju_leaf:setup", env: environment)
     rake("enju_circulation:setup", env: environment)
