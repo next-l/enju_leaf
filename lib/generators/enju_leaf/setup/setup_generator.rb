@@ -39,6 +39,7 @@ EOS
     generate("sunspot_rails:install")
     generate("kaminari:config")
     generate("simple_form:install")
+    rake("sitemap:install")
     generate("geocoder:config")
     gsub_file "config/sunspot.yml",
       /path: \/solr\/production/,
