@@ -56,3 +56,24 @@ user4:
   created_at: 2007-11-19 16:58:34.637413 +09:00
   locked_at: <%= 1.day.ago.to_s(:db) %>
   profile_id: 7
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :bigint           not null, primary key
+#  username               :string           not null
+#  expired_at             :datetime
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  save_search_history    :boolean          default(FALSE), not null
+#  profile_id             :bigint
+#  email                  :string           default(""), not null
+#  encrypted_password     :string           default(""), not null
+#  reset_password_token   :string
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  failed_attempts        :integer          default(0), not null
+#  unlock_token           :string
+#  locked_at              :datetime
+#
