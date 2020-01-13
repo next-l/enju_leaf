@@ -2,6 +2,15 @@ class EnjuLeaf::SeedGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
   def seed
+    rake("active_storage:install")
+    generate("devise", "User")
+    generate("friendly_id")
+    gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
+    gsub_file 'app/models/user.rb', /, :validatable$/, <<EOS
+, #:validatable,
+      :lockable, lock_strategy: :none, unlock_strategy: :none
+EOS
+
     environment = ENV['RAILS_ENV'] || 'development'
     if !ENV['ENJU_SKIP_SOLR']
       if ENV['OS'] == 'Windows_NT'

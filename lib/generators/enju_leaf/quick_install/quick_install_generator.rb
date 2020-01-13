@@ -5,15 +5,7 @@ class EnjuLeaf::QuickInstallGenerator < Rails::Generators::Base
     environment = ENV['RAILS_ENV'] || 'development'
     gsub_file 'config/schedule.rb', /^set :environment, :development$/,
       "set :environment, :#{environment}"
-    rake("active_storage:install")
     generate("devise:install")
-    generate("devise", "User")
-    generate("friendly_id")
-    gsub_file 'app/models/user.rb', /, :registerable,$/, ', #:registerable,'
-    gsub_file 'app/models/user.rb', /, :validatable$/, <<EOS
-, #:validatable,
-      :lockable, lock_strategy: :none, unlock_strategy: :none
-EOS
     gsub_file 'config/routes.rb', /devise_for :users$/, "devise_for :users, skip: [:registration]"
     inject_into_file 'config/routes.rb', after: /Rails.application.routes.draw do$\n/ do
       <<"EOS"
