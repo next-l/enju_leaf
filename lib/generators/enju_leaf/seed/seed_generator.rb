@@ -2,8 +2,6 @@ class EnjuLeaf::SeedGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
   def seed
-    rake("db:migrate", env: environment)
-
     environment = ENV['RAILS_ENV'] || 'development'
     if !ENV['ENJU_SKIP_SOLR']
       if ENV['OS'] == 'Windows_NT'
@@ -24,6 +22,7 @@ class EnjuLeaf::SeedGenerator < Rails::Generators::Base
     rake("enju_circulation_engine:install:migrations")
     rake("enju_inventory_engine:install:migrations")
     rake("enju_ndl_engine:install:migrations")
+    rake("db:migrate", env: environment)
 
     rake("enju_leaf:setup", env: environment)
     rake("enju_circulation:setup", env: environment)
