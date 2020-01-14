@@ -1,168 +1,170 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-info">
-  <%= link_to "えんじゅ図書館", root_path, class: "navbar-brand" %>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
-        <% if defined?(EnjuCirculation) %>
-          <a href="#circulation_menu" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <% if current_user.try(:has_role?, 'Librarian') %>
-              <%= t('page.librarian_circulation') -%>
-            <% else %>
-              <%= t('page.user_circulation') -%>
-            <% end %>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <%- if user_signed_in? -%>
-              <%- if current_user.has_role?('Librarian') -%>
-                <%= link_to t('page.checkout'), new_basket_path, class: 'dropdown-item' -%>
-                <%= link_to t('page.checkin'), new_checkin_path, class: 'dropdown-item' -%>
+<div class="container">
+  <%= render 'page/header' %>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <% if defined?(EnjuCirculation) %>
+            <a href="#circulation_menu" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <% if current_user.try(:has_role?, 'Librarian') %>
+                <%= t('page.librarian_circulation') -%>
+              <% else %>
+                <%= t('page.user_circulation') -%>
               <% end %>
-              <%= link_to t('page.listing', model: t('activerecord.models.reserve')), reserves_path, class: 'dropdown-item' -%>
-              <% if defined?(EnjuInterLibraryLoan) %>
-                <% if current_user.has_role?('Librarian') -%>
-                  <%= link_to t('activerecord.models.inter_library_loan'), inter_library_loans_path, class: "dropdown-item" %>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%- if user_signed_in? -%>
+                <%- if current_user.has_role?('Librarian') -%>
+                  <%= link_to t('page.checkout'), new_basket_path, class: 'dropdown-item' -%>
+                  <%= link_to t('page.checkin'), new_checkin_path, class: 'dropdown-item' -%>
                 <% end %>
-              <% end %>
-              <%= link_to t('page.checkout_history'), checkouts_path, class: "dropdown-item" %>
-            <%- else -%>
-              <%= link_to t('page.checkout_history'), checkouts_path, class: "dropdown-item" %>
-              <%= link_to t('page.listing', model: t('activerecord.models.reserve')), reserves_path, class: "dropdown-item" %>
-            <%- end -%>
-            <%= link_to t('page.catalog_search'), manifestations_path, class: "dropdown-item" %>
-          </div>
-        <% end %>
-      </li>
-      <%- if user_signed_in? and (current_user.has_role?('Librarian') or defined?(EnjuBookmark)) -%>
-        <li class="nav-item dropdown">
-          <a href="#acquisition_menu" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= t('page.acquisition') -%>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <%- if current_user.has_role?('Librarian') -%>
-              <%= link_to t('import_request.enter_isbn'), new_import_request_path, class: "dropdown-item" %>
-              <% if defined?(EnjuNdl) %>
-                <%= link_to t('enju_ndl.import_from_ndl_search'), ndl_books_path, class: "dropdown-item" %>
-              <% end %>
-              <% if defined?(EnjuNii) %>
-                <%= link_to t('enju_nii.import_from_cinii_books'), cinii_books_path, class: "dropdown-item" %>
-              <% end %>
-              <% if defined?(EnjuLoc) %>
-                <%= link_to t('enju_loc.import_from_loc_search'), loc_search_index_path, class: "dropdown-item" %>
-              <% end %>
-              <%= link_to t('page.add_resource_manually'), new_manifestation_path, class: "dropdown-item" %>
-              <%= link_to t('page.serial'), manifestations_path(serial: true), class: "dropdown-item" -%>
-              <%= link_to t('page.import_from_file'), new_resource_import_file_path, class: "dropdown-item" %>
-              <%= link_to t('activerecord.models.accept'), new_accept_path, class: "dropdown-item" %>
-              <% if defined?(EnjuIr) %>
-                <%= link_to t('activemodel.models.resource'), resources_path, class: "dropdown-item" %>
-              <% end %>
-            <%- end -%>
-            <% if defined?(EnjuBookmark) %>
-              <%= link_to t('page.listing', model: t('activerecord.models.bookmark')), bookmarks_path, class: "dropdown-item" %>
-            <% end %>
-          </div>
-        </li>
-      <% end %>
-      <% if defined?(EnjuPurchaseRequest) or defined?(EnjuQuestion) %>
-        <li class="nav-item dropdown">
-          <a href="#request_menu" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= t('page.request') -%>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <%- if user_signed_in? -%>
-              <% if defined?(EnjuPurchaseRequest) %>
-                <%= link_to t('activerecord.models.purchase_request'), purchase_requests_path, class: "dropdown-item" %>
-              <% end %>
-              <% if defined?(EnjuQuestion) %>
-                <%= link_to t('activerecord.models.question'), questions_path, class: "dropdown-item" %>
-              <% end %>
-            <%- else -%>
-              <% if defined?(EnjuPurchaseRequest) %>
-                <%= link_to t('activerecord.models.purchase_request'), purchase_requests_path, class: "dropdown-item" %>
-              <% end %>
-              <% if defined?(EnjuQuestion) %>
-                <%= link_to t('activerecord.models.question'), questions_path, class: "dropdown-item" %>
-              <% end %>
-            <% end %>
-          </div>
-        </li>
-      <% end %>
-      <% if defined?(EnjuEvent) %>
-        <li class="nav-item dropdown">
-          <a href="#event_menu" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= t('activerecord.models.event') -%>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <%- unless @library_group.real_libraries.empty? -%>
-              <%= link_to t('page.calendar'), events_path(mode: 'calendar'), class: "dropdown-item" -%>
-              <%= link_to t('event.all'), events_path, class: "dropdown-item" %>
-              <%- @library_group.real_libraries.each do |library| -%>
-                <%= link_to library.display_name, events_path(library_id: library.name), class: "dropdown-item" -%>
+                <%= link_to t('page.listing', model: t('activerecord.models.reserve')), reserves_path, class: 'dropdown-item' -%>
+                <% if defined?(EnjuInterLibraryLoan) %>
+                  <% if current_user.has_role?('Librarian') -%>
+                    <%= link_to t('activerecord.models.inter_library_loan'), inter_library_loans_path, class: "dropdown-item" %>
+                  <% end %>
+                <% end %>
+                <%= link_to t('page.checkout_history'), checkouts_path, class: "dropdown-item" %>
+              <%- else -%>
+                <%= link_to t('page.checkout_history'), checkouts_path, class: "dropdown-item" %>
+                <%= link_to t('page.listing', model: t('activerecord.models.reserve')), reserves_path, class: "dropdown-item" %>
               <%- end -%>
-              <%- if policy(Event).create? -%>
-                <%= link_to t('page.import'), new_event_import_file_path, class: "dropdown-item" %>
+              <%= link_to t('page.catalog_search'), manifestations_path, class: "dropdown-item" %>
+            </div>
+          <% end %>
+        </li>
+        <%- if user_signed_in? and (current_user.has_role?('Librarian') or defined?(EnjuBookmark)) -%>
+          <li class="nav-item dropdown">
+            <a href="#acquisition_menu" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= t('page.acquisition') -%>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%- if current_user.has_role?('Librarian') -%>
+                <%= link_to t('import_request.enter_isbn'), new_import_request_path, class: "dropdown-item" %>
+                <% if defined?(EnjuNdl) %>
+                  <%= link_to t('enju_ndl.import_from_ndl_search'), ndl_books_path, class: "dropdown-item" %>
+                <% end %>
+                <% if defined?(EnjuNii) %>
+                  <%= link_to t('enju_nii.import_from_cinii_books'), cinii_books_path, class: "dropdown-item" %>
+                <% end %>
+                <% if defined?(EnjuLoc) %>
+                  <%= link_to t('enju_loc.import_from_loc_search'), loc_search_index_path, class: "dropdown-item" %>
+                <% end %>
+                <%= link_to t('page.add_resource_manually'), new_manifestation_path, class: "dropdown-item" %>
+                <%= link_to t('page.serial'), manifestations_path(serial: true), class: "dropdown-item" -%>
+                <%= link_to t('page.import_from_file'), new_resource_import_file_path, class: "dropdown-item" %>
+                <%= link_to t('activerecord.models.accept'), new_accept_path, class: "dropdown-item" %>
+                <% if defined?(EnjuIr) %>
+                  <%= link_to t('activemodel.models.resource'), resources_path, class: "dropdown-item" %>
+                <% end %>
               <%- end -%>
-            <%- end -%>
-          </div>
-        </li>
-      <% end %>
-      <%- if current_user.try(:has_role?, 'Librarian') -%>
-        <li class="nav-item dropdown">
-          <a href="#configuration_menu" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <% if current_user.try(:has_role?, 'Librarian') %>
-              <%= t('page.management') -%>
-            <% else %>
-              <%= t('page.configuration') -%>
-            <% end %>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <%= link_to t('user.management'), profiles_path, class: "dropdown-item" %>
-            <%= link_to t('page.agent_management'), agents_path, class: "dropdown-item" %>
-            <%= link_to t('page.import'), page_import_path, class: "dropdown-item" %>
-            <%= link_to t('page.export'), page_export_path, class: "dropdown-item" %>
-            <% if defined?(EnjuPurchaseRequest) %>
-              <%= link_to t('activerecord.models.order_list'), order_lists_path, class: "dropdown-item" %>
-            <% end %>
-            <%= link_to t('page.statistics'), page_statistics_path, class: "dropdown-item" %>
-            <% if defined?(EnjuSearchLog) %>
-              <%= link_to t('activerecord.models.search_history'), search_histories_path, class: "dropdown-item" %>
-            <% end %>
-            <% if @library_group.erms_url %>
-              <%= link_to t('page.electronic_resource_management'), @library_group.erms_url -%>
-            <% end %>
-            <%= link_to t('page.configuration'), page_configuration_path, class: "dropdown-item" %>
-          </div>
-        </li>
-      <% end %>
-    </ul>
-
-    <ul class="navbar-nav">
-      <% if user_signed_in? %>
-        <li class="nav-item dropdown">
-          <a href="#account_menu" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= t('page.logged_in_as', login_name: current_user.username) -%>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <%= link_to t('page.account'), my_account_path, class: 'dropdown-item' -%>
-            <% if defined?(EnjuMessage) %>
-              <%= link_to "#{t('activerecord.models.message')} (#{messages_count(current_user)})", messages_path, class: 'dropdown-item' %>
-            <% end %>
-            <%= link_to t('page.sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item' -%>
-          </div>
-        </li>
-      <% else %>
-        <% unless controller_name == 'sessions' %>
-          <li class="nav-item">
-            <%= link_to t('page.sign_in'), new_user_session_path, class: 'nav-link' -%>
+              <% if defined?(EnjuBookmark) %>
+                <%= link_to t('page.listing', model: t('activerecord.models.bookmark')), bookmarks_path, class: "dropdown-item" %>
+              <% end %>
+            </div>
           </li>
         <% end %>
-      <% end %>
-    </ul>
-  </div>
-</nav>
+        <% if defined?(EnjuPurchaseRequest) or defined?(EnjuQuestion) %>
+          <li class="nav-item dropdown">
+            <a href="#request_menu" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= t('page.request') -%>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%- if user_signed_in? -%>
+                <% if defined?(EnjuPurchaseRequest) %>
+                  <%= link_to t('activerecord.models.purchase_request'), purchase_requests_path, class: "dropdown-item" %>
+                <% end %>
+                <% if defined?(EnjuQuestion) %>
+                  <%= link_to t('activerecord.models.question'), questions_path, class: "dropdown-item" %>
+                <% end %>
+              <%- else -%>
+                <% if defined?(EnjuPurchaseRequest) %>
+                  <%= link_to t('activerecord.models.purchase_request'), purchase_requests_path, class: "dropdown-item" %>
+                <% end %>
+                <% if defined?(EnjuQuestion) %>
+                  <%= link_to t('activerecord.models.question'), questions_path, class: "dropdown-item" %>
+                <% end %>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+        <% if defined?(EnjuEvent) %>
+          <li class="nav-item dropdown">
+            <a href="#event_menu" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= t('activerecord.models.event') -%>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%- unless @library_group.real_libraries.empty? -%>
+                <%= link_to t('page.calendar'), events_path(mode: 'calendar'), class: "dropdown-item" -%>
+                <%= link_to t('event.all'), events_path, class: "dropdown-item" %>
+                <%- @library_group.real_libraries.each do |library| -%>
+                  <%= link_to library.display_name, events_path(library_id: library.name), class: "dropdown-item" -%>
+                <%- end -%>
+                <%- if policy(Event).create? -%>
+                  <%= link_to t('page.import'), new_event_import_file_path, class: "dropdown-item" %>
+                <%- end -%>
+              <%- end -%>
+            </div>
+          </li>
+        <% end %>
+        <%- if current_user.try(:has_role?, 'Librarian') -%>
+          <li class="nav-item dropdown">
+            <a href="#configuration_menu" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <% if current_user.try(:has_role?, 'Librarian') %>
+                <%= t('page.management') -%>
+              <% else %>
+                <%= t('page.configuration') -%>
+              <% end %>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to t('user.management'), profiles_path, class: "dropdown-item" %>
+              <%= link_to t('page.agent_management'), agents_path, class: "dropdown-item" %>
+              <%= link_to t('page.import'), page_import_path, class: "dropdown-item" %>
+              <%= link_to t('page.export'), page_export_path, class: "dropdown-item" %>
+              <% if defined?(EnjuPurchaseRequest) %>
+                <%= link_to t('activerecord.models.order_list'), order_lists_path, class: "dropdown-item" %>
+              <% end %>
+              <%= link_to t('page.statistics'), page_statistics_path, class: "dropdown-item" %>
+              <% if defined?(EnjuSearchLog) %>
+                <%= link_to t('activerecord.models.search_history'), search_histories_path, class: "dropdown-item" %>
+              <% end %>
+              <% if @library_group.erms_url %>
+                <%= link_to t('page.electronic_resource_management'), @library_group.erms_url -%>
+              <% end %>
+              <%= link_to t('page.configuration'), page_configuration_path, class: "dropdown-item" %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+
+      <ul class="navbar-nav">
+        <% if user_signed_in? %>
+          <li class="nav-item dropdown">
+            <a href="#account_menu" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= t('page.logged_in_as', login_name: current_user.username) -%>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to t('page.account'), my_account_path, class: 'dropdown-item' -%>
+              <% if defined?(EnjuMessage) %>
+                <%= link_to "#{t('activerecord.models.message')} (#{messages_count(current_user)})", messages_path, class: 'dropdown-item' %>
+              <% end %>
+              <%= link_to t('page.sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item' -%>
+            </div>
+          </li>
+        <% else %>
+          <% unless controller_name == 'sessions' %>
+            <li class="nav-item">
+              <%= link_to t('page.sign_in'), new_user_session_path, class: 'nav-link' -%>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+</div>
 
 <div class="pt-4"></div>
