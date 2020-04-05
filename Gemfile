@@ -13,7 +13,6 @@ gemspec
 
 # To use debugger
 # gem 'debugger'
-gem "rails", "~> 5.2.3"
 gem 'enju_seed', github: 'next-l/enju_seed'
 gem 'enju_library', github: 'next-l/enju_library'
 gem 'enju_biblio', github: 'next-l/enju_biblio'
