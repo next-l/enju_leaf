@@ -9,6 +9,7 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
     remove_file "config/webpack/environment.js"
     copy_file("config/webpack/environment.js", "config/webpack/environment.js")
     append_to_file("config/initializers/assets.rb", "Rails.application.config.assets.precompile += %w( *.png )")
+    append_to_file("app/assets/config/manifest.js", "//= link enju_leaf_manifest.js")
     inject_into_class 'config/application.rb', 'Application' do
       <<"EOS"
     config.i18n.available_locales = [:en, :ja]
