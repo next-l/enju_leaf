@@ -1,5 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-  <%= link_to @library_group.display_name, root_path, class: "navbar-brand" %>
+  <%= link_to root_path, class: "navbar-brand" do %>
+    <%= @library_group.display_name %>
+  <% end %>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
       aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -138,9 +140,7 @@
           </div>
         </li>
       <% end %>
-    </ul>
 
-    <ul class="navbar-nav">
       <% if user_signed_in? %>
         <li class="nav-item dropdown">
           <a href="#account_menu" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
