@@ -127,5 +127,9 @@ module EnjuLeaf
         with(:is_read).equal_to false
       end.hits.total_entries
     end
+
+    def current_language
+      Language.find_by(iso_639_1: @locale) || Language.order(:position).first
+    end
   end
 end
