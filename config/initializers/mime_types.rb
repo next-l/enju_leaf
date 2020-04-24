@@ -11,4 +11,4 @@ Mime::Type.register "application/xml",  :sru
 Mime::Type.register "application/xml",  :mods
 Mime::Type.register "application/rdf+xml",  :rdf
 Mime::Type.register "application/svg+xml",  :svg
-Mime::Type.register "text/turtle;, :ttl
+Mime::Type.register "text/turtle", :ttl
