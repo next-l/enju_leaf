@@ -11,9 +11,10 @@ class EnjuLeaf::SetupGenerator < Rails::Generators::Base
       <<"EOS"
     config.i18n.available_locales = [:en, :ja]
     config.i18n.enforce_available_locales = true
-    config.active_job.queue_adapter = :resque
     config.i18n.default_locale = :ja
+    config.i18n.fallbacks = [I18n.default_locale]
     config.time_zone = 'Tokyo'
+    config.active_job.queue_adapter = :resque
 EOS
     end
     gsub_file 'config/schedule.rb', /\/path\/to\/enju_leaf/, Rails.root.to_s
