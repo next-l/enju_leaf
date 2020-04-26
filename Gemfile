@@ -19,3 +19,5 @@ group :test do
   gem 'rails-controller-testing'
   gem 'rspec_junit_formatter'
 end
+
+gem 'enju_biblio', github: 'next-l/enju_biblio', branch: '1.3'
