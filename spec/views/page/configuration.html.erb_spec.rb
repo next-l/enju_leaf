@@ -4,7 +4,7 @@ describe "page/configuration" do
   fixtures :all
 
   before(:each) do
-    view.stub(:current_user).and_return(User.friendly.find('enjuadmin'))
+    view.stub(:current_user).and_return(User.find_by(username: 'enjuadmin'))
   end
 
   it "renders attributes in <p>" do
