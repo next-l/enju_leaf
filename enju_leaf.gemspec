@@ -20,8 +20,8 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/{log,private,solr,tmp}/**/*"] - Dir["spec/dummy/db/*.sqlite3"]
 
   s.add_dependency "rails", "~> 5.1"
-  s.add_dependency "enju_library", "~> 0.3.7"
-  s.add_dependency "enju_biblio", "~> 0.3.8"
+  s.add_dependency "enju_library", "~> 0.3.8.rc.1"
+  s.add_dependency "enju_biblio", "~> 0.3.10.rc.1"
   s.add_dependency "jquery-ui-rails", "~> 4.2.1"
   s.add_dependency 'sprockets', '~> 3.7'
 
@@ -29,15 +29,15 @@ Gem::Specification.new do |s|
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mysql2"
   s.add_development_dependency "pg"
-  s.add_development_dependency "rspec-rails", "~> 3.8"
-  s.add_development_dependency "vcr", "~> 5.0"
+  s.add_development_dependency "rspec-rails", "~> 4.0"
+  s.add_development_dependency "vcr", "~> 5.1"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "factory_bot_rails"
   s.add_development_dependency "sunspot_matchers"
   s.add_development_dependency "rspec-activemodel-mocks"
   s.add_development_dependency "resque"
   s.add_development_dependency "capybara"
-  s.add_development_dependency "coveralls"
+  s.add_development_dependency "coveralls", "~> 0.8.23"
   s.add_development_dependency "selenium-webdriver"
   s.add_development_dependency "puma"
   s.add_development_dependency "rails", "~> 5.2"
