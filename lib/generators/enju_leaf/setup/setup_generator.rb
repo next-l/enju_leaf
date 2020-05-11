@@ -102,9 +102,16 @@ EOS
     gsub_file 'config/environments/production.rb',
       /config.serve_static_assets = false$/,
       "config.serve_static_assets = true"
-    gsub_file 'config/environments/production.rb',
-      /# config.cache_store = :mem_cache_store$/,
-      "config.cache_store = :redis_store, ENV['REDIS_URL'], { expires_in: 1.day }"
+    if Rails::VERSION::STRING =~ /^5\.1/
+      gsub_file 'config/environments/production.rb',
+        /# config.cache_store = :mem_cache_store$/,
+        "config.cache_store = :redis_store, ENV['REDIS_URL'], { expires_in: 1.day }"
+    else
+      gsub_file 'config/environments/production.rb',
+        /# config.cache_store = :mem_cache_store$/,
+        "config.cache_store = :redis_cache_store, { url: ENV['REDIS_URL'], expires_in: 1.day }"
+    end
+
     gsub_file 'config/environments/production.rb',
       /# config.assets.precompile \+= %w\( search.js \)$/,
       "config.assets.precompile += %w( mobile.js mobile.css print.css )"
