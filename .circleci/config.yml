@@ -15,7 +15,7 @@ jobs:
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
-       - image: circleci/postgres:11-alpine
+       - image: circleci/postgres:12-alpine
          environment:
            POSTGRES_USER: postgres
            POSTGRES_DB: enju_leaf_dummy_test
