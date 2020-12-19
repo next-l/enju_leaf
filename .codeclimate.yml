@@ -1,6 +1,7 @@
 plugins:
   rubocop:
     enabled: true
+    channel: rubocop-0-90
     #checks:
     #  Rubocop/Metrics/ClassLength:
     #    enabled: false
