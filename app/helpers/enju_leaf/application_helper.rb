@@ -102,8 +102,8 @@ module EnjuLeaf
         options.reject!{|_key, value| value.blank?}
         options.delete(:page) if options[:page].to_i == 1
       end
-      unless controller_name == 'test'
-        link_to t('page.listing', model: t("activerecord.models.#{controller_name.singularize}")), url_for(filtered_params.merge(controller: controller_name, action: :index, page: nil, id: nil, only_path: true).merge(options))
+      unless controller.controller_name == 'test'
+        link_to t('page.listing', model: t("activerecord.models.#{controller.controller_name.singularize}")), url_for(filtered_params.merge(controller: controller.controller_name, action: :index, page: nil, id: nil, only_path: true).merge(options))
       end
     end
 
