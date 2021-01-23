@@ -81,7 +81,7 @@ module EnjuLeaf
     end
 
     # HTMLのtitleを表示します。
-    def title(controller_name, model_name = controller_name.singularize)
+    def title(controller_name, model_name = controller_name&.singularize)
       string = ''
       unless ['page', 'routing_error', 'my_accounts'].include?(controller_name)
         string << t("activerecord.models.#{model_name}") + ' - '
@@ -102,9 +102,7 @@ module EnjuLeaf
         options.reject!{|_key, value| value.blank?}
         options.delete(:page) if options[:page].to_i == 1
       end
-      unless controller.controller_name == 'test'
-        link_to t('page.listing', model: t("activerecord.models.#{controller.controller_name.singularize}")), url_for(filtered_params.merge(controller: controller.controller_name, action: :index, page: nil, id: nil, only_path: true).merge(options))
-      end
+      link_to t('page.listing', model: t("activerecord.models.#{controller_name&.singularize}")), url_for(filtered_params.merge(controller: controller_name, action: :index, page: nil, id: nil, only_path: true).merge(options))
     end
 
     # 検索フォームにフォーカスを移動するJavaScriptを表示します。
