@@ -2,18 +2,6 @@ require "webpacker/helper"
 
 module EnjuLeaf
   module ApplicationHelper
-    # 使用中のデータベースのアダプタ名を表示します。
-    def database_adapter
-      case ActiveRecord::Base.connection.adapter_name
-      when 'PostgreSQL'
-        link_to 'PostgreSQL', 'http://www.postgresql.org/'
-      when 'MySQL'
-        link_to 'MySQL', 'http://www.mysql.org/'
-      when 'SQLite'
-        link_to 'SQLite', 'http://www.sqlite.org/'
-      end
-    end
-
     # HTMLのtitleに表示されるアクション名を設定します。
     def title_action_name
       case controller.action_name
@@ -102,10 +90,9 @@ module EnjuLeaf
         options.reject!{|_key, value| value.blank?}
         options.delete(:page) if options[:page].to_i == 1
       end
-
       next unless controller_name
 
-      link_to t('page.listing', model: t("activerecord.models.#{controller_name&.singularize}")), url_for(filtered_params.merge(controller: controller_name, action: :index, page: nil, id: nil, only_path: true).merge(options))
+      link_to t('page.listing', model: t("activerecord.models.#{controller_name&.singularize}")), url_for(request.params.merge(controller: controller_name, action: :index, page: nil, id: nil, only_path: true).merge(options))
     end
 
     # 検索フォームにフォーカスを移動するJavaScriptを表示します。
