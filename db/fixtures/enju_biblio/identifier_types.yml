@@ -1,0 +1,57 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+identifier_type_00001:
+  name: isbn
+  display_name: ISBN
+  note: 
+  position: 1
+  id: 1
+
+identifier_type_00002:
+  name: issn
+  display_name: ISSN
+  note: 
+  position: 2
+  id: 2
+
+identifier_type_00003:
+  name: jpno
+  display_name: JPNO
+  note: 
+  position: 3
+  id: 3
+
+identifier_type_00004:
+  name: doi
+  display_name: DOI
+  note: 
+  position: 4
+  id: 4
+
+identifier_type_00005:
+  name: iss_itemno
+  display_name: NDL Search
+  note: 
+  position: 5
+  id: 5
+
+identifier_type_00006:
+  name: lccn
+  display_name: LCCN
+  note: 
+  position: 6
+  id: 6
+
+# == Schema Information
+#
+# Table name: identifier_types
+#
+#  id           :integer          not null, primary key
+#  name         :string(255)
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+

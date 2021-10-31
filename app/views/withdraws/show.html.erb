@@ -1,0 +1,31 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.withdraw')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.item') -%>:</strong>
+  <% if @withdraw.item %>
+    <%= link_to @withdraw.item.item_identifier, @withdraw.item -%>
+    (<%= link_to @withdraw.item.manifestation.original_title, @withdraw.item.manifestation %>)
+  <% end %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= link_to @withdraw.librarian.username, @withdraw.librarian.profile if @withdraw.librarian.try(:profile) -%>
+</p>
+
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%=l @withdraw.created_at %>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.back'), :back -%></li>
+  </ul>
+</div>

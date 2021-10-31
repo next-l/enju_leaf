@@ -1,0 +1,52 @@
+en:
+  activerecord:
+    models:
+      message: Message
+      message_template: Message template
+      message_request: Message request
+
+    attributes:
+      message:
+        subject: Subject
+        body: Body
+        sender: Sender
+        receiver: Receiver
+        recipient: Recipient
+      message_template:
+        status: Status
+        locale: Locale
+        title: Title
+        body: Body
+        position: Position
+      message_request:
+        sent_at: Sent at
+        deleted_at: Deleted at
+
+  message:
+    user_message: "%{login_name}'s messages"
+    sent_at: "Sent at"
+    inbox: "Inbox"
+    write: "Write"
+    outbox: "Outbox"
+    trash: "Trash"
+    recipient: "Recipient"
+    receiver: "Receiver"
+    sender: "Sender"
+    read: "Read"
+    unread: "Unread"
+    deleted: "Deleted"
+    send: "Send message"
+    reply: "Reply"
+    delete: "Delete"
+    sent_successfully: "Message was sent successfully."
+    no_new_message: "No new messages."
+    too_short: "Message is too short. The minimum length is %{count} characters."
+    too_long: "Message is too long. The maximum length is %{count} characters."
+    new_message_from_library: "New message arrived from %{library}"
+    messages_were_deleted: "Messages were deleted."
+    select_messages: "Select messages."
+  message_request:
+    not_sent: "Not sent"
+    sent: "Sent"
+    all: "All messages"
+

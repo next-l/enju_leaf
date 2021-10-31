@@ -1,0 +1,14 @@
+<div class="nested-fields">
+  <%= f.label :checkout_limit -%>
+  <%= f.text_field :checkout_limit, class: 'resource_integer' %>
+  <%= f.label :checkout_period -%>
+  <%= f.text_field :checkout_period, class: 'resource_integer' %>
+  <%= f.label :checkout_renewal_limit -%>
+  <%= f.text_field :checkout_renewal_limit, class: 'resource_integer' %>
+  <br />
+  <%= f.label :reservation_limit -%>
+  <%= f.text_field :reservation_limit, class: 'resource_integer' %>
+  <%= f.label :set_due_date_before_closing_day -%>
+  <%= f.check_box :set_due_date_before_closing_day %>
+  <%= link_to_remove_association t('page.remove'), f, data: {confirm: t('page.are_you_sure')} %>
+</div>

@@ -1,0 +1,13 @@
+<% if defined?(EnjuBookmark) %>
+  <%- if manifestation.tags.first -%>
+    (<%= link_to "#", { onclick: "$('#tag_#{manifestation.id}').toggle(); return false;" } do t('activerecord.models.tag') end %>)
+  <%- end -%>
+  <%= render 'manifestations/show_tag', manifestation: manifestation -%>
+<% end %>
+
+<% if manifestation.items.available_for(current_user).count >= 1 %>
+  <div id="holding_link_<%= manifestation.id %>">
+    (<%= link_to t('page.holding'), manifestation_path(manifestation), remote: true %>)
+  </div>
+  <div id="holding_<%= manifestation.id -%>"></div>
+<%- end -%>

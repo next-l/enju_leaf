@@ -1,0 +1,12 @@
+<%= form_for(@event_export_file) do |f| %>
+  <%= f.error_messages %>
+
+  <%= f.hidden_field :mode, value: 'export' if @event_export_file.new_record? %>
+  <div class="actions">
+    <% if @event_export_file.new_record? %>
+      <%= f.submit t('page.export') %>
+    <% else %>
+      <%= f.submit %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,47 @@
+<%= form_for(@series_statement) do |f| %>
+  <%= f.error_messages %>
+
+  <%- if !@series_statement.new_record? and @manifestation -%>
+    <div class="field">
+      <%= link_to @manifestation.original_title, @manifestation -%>
+      <%= f.hidden_field :manifestation_id %>
+    </div>
+  <%- end -%>
+
+  <div class="field">
+    <%= f.label :original_title %><br />
+    <%= f.text_field :original_title %>
+  </div>
+  <div class="field">
+    <%= f.label :title_transcription %><br />
+    <%= f.text_field :title_transcription %>
+  </div>
+  <div class="field">
+    <%= f.label :title_subseries %><br />
+    <%= f.text_field :title_subseries %>
+  </div>
+  <div class="field">
+    <%= f.label :title_subseries_transcription %><br />
+    <%= f.text_field :title_subseries_transcription %>
+  </div>
+  <div class="field">
+    <%= f.label :creator_string %><br />
+    <%= f.text_field :creator_string %>
+  </div>
+  <div class="field">
+    <%= f.label :volume_number_string %><br />
+    <%= f.text_field :volume_number_string %>
+  </div>
+  <div class="field">
+    <%= f.label :series_master %><br />
+    <%= f.check_box :series_master %>
+  </div>
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note, class: 'resource_textarea' -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

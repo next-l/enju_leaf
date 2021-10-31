@@ -1,0 +1,24 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.checkin')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.item') -%>:</strong>
+  <%= link_to @checkin.item.manifestation.original_title, @checkin.item -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= link_to @checkin.librarian.username, @checkin.librarian.profile -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_checkin_path(@checkin) -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
+  </ul>
+</div>

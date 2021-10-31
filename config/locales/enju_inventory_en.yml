@@ -1,0 +1,24 @@
+en:
+  activerecord:
+    models:
+      inventory: Inventory
+      inventory_file: Inventory file
+
+    attributes:
+      inventory:
+        note: Note
+        item_identifier: Item identifier
+        current_shelf_name: Current shelf
+        lineno: Line
+      inventory_file:
+        inventory_file_name: Filename
+        inventory_content_type: Content type
+        inventory_file_size: Size
+        inventory_fingerprint: File hash
+        note: Note
+        shelf: Shelf
+
+  inventory_file:
+    not_in_catalog: "Not in catalog"
+    not_on_shelf: "Not on shelf"
+

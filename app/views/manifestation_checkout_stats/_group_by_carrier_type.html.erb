@@ -1,0 +1,54 @@
+    <table class="table table-striped index">
+      <tr>
+        <th>
+          <%= t('activerecord.models.library') %>
+	</th>
+	<th>
+          <%= t('activerecord.models.shelf') %>
+        </th>
+        <% CarrierType.order(:position).each do |carrier_type| %>
+          <th><%= carrier_type.display_name.localize %></th>
+        <% end %>
+        <th><%= t('page.total') %></th>
+      </tr>
+      <% Library.order(:position).each do |library| %>
+        <% library.shelves.order(:position).each do |shelf| %>
+          <tr>
+	    <td>
+              <%= library.display_name.localize %>
+            </td>
+            <td>
+              <%= shelf.display_name.localize %>
+            </td>
+            <% CarrierType.order(:position).each do |carrier_type| %>
+              <td>
+                <%= @carrier_type_results[[shelf.id, carrier_type.id]] %>
+              </td>
+            <% end %>
+            <td>
+              <%= @carrier_type_results.select{|r| r[0] == shelf.id}.sum{|k, v| v} %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+      <tr>
+        <td colspan="2"><%= t('page.unknown') %></td>
+        <% CarrierType.order(:position).each do |carrier_type| %>
+          <td>
+            <%= @carrier_type_results[[nil, carrier_type.id]] %>
+          </td>
+	<% end %>
+        <td>
+          <%= @carrier_type_results.select{|r| r[0].nil?}.sum{|k, v| v} %>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2"><%= t('page.total') %></th>
+        <% CarrierType.order(:position).each do |carrier_type| %>
+          <td>
+            <%= @carrier_type_results.select{|r| r[1] == carrier_type.id}.sum{|k, v| v} %>
+          </td>
+        <% end %>
+        <td><%= @carrier_type_results.sum{|k, v| v} %></td>
+      </tr>
+    </table>

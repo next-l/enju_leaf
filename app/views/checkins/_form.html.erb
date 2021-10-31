@@ -1,0 +1,15 @@
+<%= simple_form_for(@checkin) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="form-inputs">
+    <%= f.input :item_id %>
+  </div>
+
+  <div class="form-inputs">
+    <%= f.input :librarian_id %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

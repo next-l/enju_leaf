@@ -1,0 +1,97 @@
+<%= simple_form_for(@library_group) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label :name -%><br />
+    <%= f.text_field :name, class: 'short_name' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :display_name -%><br />
+    <%= f.text_area :display_name, class: 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :header_logo -%><br />
+    <%= f.file_field :header_logo -%>
+    <br />
+    <%= f.check_box :delete_header_logo -%>
+    <%= t('page.destroy') %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email -%><br />
+    <%= f.fields_for :user do |user_form| %>
+      <%= user_form.email_field :email, class: 'resource_email' -%>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :url -%><br />
+    <%= f.url_field :url, class: 'resource_url' -%>
+  </div>
+
+  <% @available_languages.each do |language| -%>
+    <div class="field">
+      <%= f.label :login_banner -%> (<%= language.display_name.localize -%>)<br />
+      <%= f.text_area LibraryGroup.localized_attr_name_for(:login_banner, language.iso_639_1) -%>
+    </div>
+  <% end -%>
+
+  <% @available_languages.each do |language| -%>
+    <div>
+      <%= f.label :footer_banner -%> (<%= language.display_name.localize -%>)<br />
+      <%= f.text_area LibraryGroup.localized_attr_name_for(:footer_banner, language.iso_639_1) -%>
+    </div>
+  <% end -%>
+
+  <div class="field">
+    <%= f.label :max_number_of_results -%><br />
+    <%= f.number_field :max_number_of_results -%>
+  </div>
+
+  <% if defined?(EnjuManifestationViewer) %>
+    <div class="field">
+      <%= f.label :book_jacket_source -%>
+      <%= f.select :book_jacket_source, [[t('book_jacket.google'), 'google'], [t('book_jacket.openbd'), 'openbd'], [t('book_jacket.hanmotocom'), 'hanmotocom']] -%><br />
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :color -%><br />
+    <%= f.fields_for :colors do |color_form| %>
+      <%= render 'color_fields', f: color_form %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.country') -%><br />
+    <%= f.select(:country_id, @countries.collect{|c| [c.display_name.localize, c.id]}) -%>
+  </div>
+
+  <% if defined?(EnjuBookmark) %>
+    <div class="field">
+      <%= f.label :allow_bookmark_external_url -%>
+      <%= f.check_box :allow_bookmark_external_url -%>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :my_networks -%><br />
+    <%= f.text_area :my_networks -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :admin_networks -%><br />
+    <%= f.text_area :admin_networks -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>

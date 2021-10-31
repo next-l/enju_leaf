@@ -1,0 +1,172 @@
+<div style="color: red"><%= flash[:message] -%></div>
+
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+  <h1 class="title"><%= t('page.showing', model: t('activerecord.models.item')) -%></h1>
+  <div id="content_list">
+    <p id="notice"><%= notice %></p>
+
+    <%- if @item.manifestation -%>
+      <%= render 'manifestations/title', manifestation: @item.manifestation -%>
+    <%- end -%>
+
+    <p>
+      <strong><%= t('activerecord.attributes.item.item_identifier') -%>:</strong>
+      <%= @item.item_identifier -%>
+    </p>
+
+    <p>
+      <strong><%= t('activerecord.attributes.item.binding_item_identifier') -%>:</strong>
+      <%= @item.binding_item_identifier -%>
+    </p>
+
+    <p>
+      <strong><%= t('activerecord.models.shelf') -%>:</strong>
+      <%= link_to(@item.shelf_display_name.localize, @item.shelf, id: "shelf_item_#{@item.id}") -%>
+      <%= render 'items/shelf_picture', item: @item -%>
+      (<%= link_to(@item.shelf.library.display_name.localize, @item.shelf.library, id: "library_item_#{@item.id}") -%>)
+    </p>
+
+    <% if defined?(EnjuCirculation) %>
+      <p>
+        <strong><%= t('activerecord.attributes.item.checkout_type') -%>:</strong>
+        <%= link_to @item.checkout_type.display_name.localize, @item.checkout_type -%>
+      </p>
+
+      <p>
+        <strong><%= t('activerecord.models.circulation_status') -%>:</strong>
+        <%= link_to @item.circulation_status.display_name.localize, @item.circulation_status -%>
+        <%- if current_user.try(:has_role?, 'Librarian') -%>
+          <%- unless @item.checkouts.not_returned.blank? -%>
+            (<%= link_to t('item.current_checkout'), @item.checkouts.not_returned.first -%>)
+          <%- end -%>
+        <%- end -%>
+      </p>
+    <% end %>
+
+    <p>
+      <strong><%= t('activerecord.attributes.item.include_supplements') -%>:</strong>
+      <%= localized_boolean(@item.include_supplements) -%>
+    </p>
+
+    <p>
+      <strong><%= t('activerecord.attributes.item.call_number') -%>:</strong>
+      <%= @item.call_number -%>
+    </p>
+
+    <% if current_user.try(:has_role?, 'Librarian') %>
+      <% if defined?(EnjuCirculation) %>
+        <p>
+          <strong><%= t('activerecord.models.use_restriction') -%>:</strong>
+          <% if @item.use_restriction %>
+            <ul>
+              <li><%= @item.use_restriction.display_name.localize %></li>
+            </ul>
+          <% end %>
+        </p>
+      <% end %>
+
+      <p>
+        <strong><%= t('activerecord.attributes.item.required_role_id') -%>:</strong>
+        <%= @item.required_role.name -%>
+      </p>
+
+      <p>
+        <strong><%= t('activerecord.models.budget_type') -%>:</strong>
+        <%= @item.budget_type.try(:display_name).try(:localize) -%>
+      </p>
+
+      <p>
+        <strong><%= t('activerecord.models.bookstore') -%>:</strong>
+        <%= @item.bookstore.try(:name) -%>
+      </p>
+
+      <p>
+        <strong><%= t('activerecord.attributes.item.price') -%>:</strong>
+        <%= @item.price -%>
+      </p>
+    <% end %>
+
+    <p>
+      <strong><%= t('activerecord.attributes.item.url') -%>:</strong>
+      <%= auto_link(@item.url) -%>
+    </p>
+
+    <p>
+      <strong><%= t('activerecord.attributes.item.acquired_at') -%>:</strong>
+      <%= l(@item.acquired_at, format: :only_date) if @item.acquired_at -%>
+    </p>
+
+    <p>
+      <strong><%= t('activerecord.attributes.item.binding_call_number') -%>:</strong>
+      <%= @item.binding_call_number -%>
+    </p>
+
+    <p>
+      <strong><%= t('activerecord.attributes.item.binded_at') -%>:</strong>
+      <%= l(@item.binded_at, format: :only_date) if @item.binded_at -%>
+    </p>
+
+    <p>
+      <strong><%= t('activerecord.attributes.item.note') -%>:</strong>
+      <%= simple_format(@item.note) %>
+    </p>
+
+    <% if current_user.try(:has_role?, 'Librarian') %>
+      <% @item.item_custom_values.each do |value| %>
+        <p>
+          <strong><%= value.item_custom_property.display_name.localize -%>:</strong>
+          <%= value.value -%>
+        </p>
+      <% end %>
+      <p>
+        <strong><%= t('activerecord.attributes.item.memo') -%>:</strong>
+        <%= simple_format(@item.memo) %>
+      </p>
+    <% end %>
+
+    <p>
+      <strong><%= t('item.accepted_at') -%>:</strong>
+      <%= l(@item.accept.created_at) if @item.accept -%>
+    </p>
+
+    <p>
+      <strong><%= t('page.created_at') -%>:</strong>
+      <%= l(@item.created_at) -%>
+    </p>
+
+    <p>
+      <strong><%= t('page.updated_at') -%>:</strong>
+      <%= l(@item.updated_at) -%>
+    </p>
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <%= render 'manifestations/book_jacket', manifestation: @item.manifestation -%>
+  <ul>
+    <li><%= link_to t('page.back'), :back -%></li>
+    <% if policy(@item).update? %>
+      <li><%= link_to t('page.edit'), edit_item_path(@item) -%></li>
+    <% end %>
+    <% if defined?(EnjuInterLibraryLoan) %>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.inter_library_loan')), item_inter_library_loans_path(@item) -%></li>
+    <% end %>
+    <% if policy(@item).destroy? %>
+      <li><%= link_to t('page.destroy'), @item, data: {confirm: t('page.are_you_sure')}, method: :delete -%></li>
+    <% end %>
+    <% if defined?(EnjuInterLibraryLoan) %>
+      <%- if @item.inter_library_loans.empty? -%>
+        <li><%= link_to t('item.add_new_copy'), new_item_path(manifestation_id: @item.manifestation.id) -%></li>
+      <%- end -%>
+    <% end %>
+    <% if defined?(EnjuCirculation) %>
+      <% if policy(Checkout).index? %>
+        <li><%= link_to t('page.checkout_history'), checkouts_path(item_id: @item.id) -%></li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
+
+<% if policy(@item).update? %>
+  <%= render 'tooltip', item: @item %>
+<% end %>

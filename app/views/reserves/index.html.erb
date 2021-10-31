@@ -1,0 +1,117 @@
+<div style="color: red"><%= flash[:message] -%></div>
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.reserve')) -%></h1>
+<div id="content_list">
+
+<div class="search_form">
+<%= form_for :reserves, url: reserves_path, html: {method: 'get'} do -%>
+  <p>
+    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {id: 'search_form_top', class: 'search_form', placeholder: t('page.search_term')} -%>
+    <br />
+    <%= t('activerecord.attributes.reserve.created_at') %>:
+    <%= t('reserve.reserved_from') %> <%= text_field_tag 'reserved_from', @reserved_from, {class: 'date_field', placeholder: "#{t('page.example')}: 2012-04-12"} -%>
+    <%= t('reserve.reserved_until') %> <%= text_field_tag 'reserved_until', @reserved_until, {class: 'date_field', placeholder: "#{t('page.example')}: 2012-05-11"} -%>
+    <%= submit_tag t('page.search') -%>
+  </p>
+<%- end -%>
+</div>
+
+<p>
+  <%= t('page.sort_by') -%>:
+  <%- if @sort_by == :created_at -%>
+    <strong><%= t('activerecord.attributes.reserve.created_at') -%></strong>
+  <%- else -%>
+    <%= link_to t('activerecord.attributes.reserve.created_at'), url_for(filtered_params.merge(sort_by: nil, only_path: true)) -%>
+  <% end %>
+  <%- if @sort_by == :title -%>
+    <strong><%= t('page.title') -%></strong>
+  <%- else -%>
+    <%= link_to t('page.title'), url_for(filtered_params.merge(sort_by: 'title', only_path: true)) -%>
+  <%- end -%>
+</p>
+
+<table class="table table-striped index">
+  <tr>
+    <th style="width: 30px">Id</th>
+    <th><%= t('activerecord.models.manifestation') -%></th>
+    <th style="width: 80px"><%= t('activerecord.attributes.reserve.state') -%></th>
+    <%- if policy(Reserve).create? -%>
+      <th style="width: 70px"></th>
+    <% end %>
+  </tr>
+
+<%- @reserves.each_with_index do |reserve, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to reserve.id, reserve -%></td>
+    <td>
+      <%= render 'title', reserve: reserve -%>
+      <br />
+      <%= t('activerecord.models.user') -%>: <%= link_to reserve.user.username, reserve.user.profile -%>
+      <%= t('activerecord.attributes.reserve.created_at') %>: <%= l(reserve.created_at, format: :short) -%>
+      <br />
+      <%= t('activerecord.attributes.reserve.expired_at') %>: <%= l(reserve.expired_at, format: :short) if reserve.expired_at? -%>
+      <br />
+      <%= t('activerecord.attributes.reserve.pickup_location_id') %>: <%= link_to reserve.pickup_location.display_name.localize, reserve.pickup_location if reserve.pickup_location %>
+    </td>
+    <td>
+      <%= i18n_state(reserve.current_state) -%>
+      <% if reserve.item %>
+        <br />
+        (<%= link_to reserve.item.item_identifier, reserve.item %>)
+      <% end %>
+    </td>
+    <td>
+      <%- if policy(reserve).update? -%>
+        <%= link_to t('page.edit'), edit_reserve_path(reserve) -%>
+        <%- if reserve.user.reserves.waiting.include?(reserve) -%>
+          <br />
+          <%= link_to t('page.cancel'), reserve_path(reserve, mode: 'cancel'), data: {confirm: t('page.are_you_sure')}, method: :put -%>
+        <%- else -%>
+          <br />
+      <% end %>
+      <%- if policy(reserve).destroy? -%>
+          <%= link_to t('page.destroy'), reserve, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+        <%- end -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@reserves) -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li>
+    <%= link_to t('page.new', model: t('activerecord.models.reserve')), manifestations_path(reservable: true) -%>
+    <br />
+    (<%= t('page.search_resource', model: t('page.resource')) -%>)
+    </li>
+    <%- if current_user.has_role?('Librarian') -%>
+      <li><%= link_to t('reserve.all_reservation'), reserves_path -%></li>
+      <li><%= link_to t('reserve.my_reservation'), reserves_path(user_id: current_user.username) -%></li>
+    <%- end -%>
+    <%- if @user -%>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.checkout')), checkouts_path(user_id: @user.username) -%></li>
+    <%- end -%>
+  </ul>
+
+  <%= render 'state_facet' %>
+
+  <p>
+    <%- if @user -%>
+      <%= link_to image_tag('icons/feed.png', size: '16x16', class: 'enju_icon', alt: t('page.feed')), url_for(filtered_params.merge(user_id: @user.username, format: :rss)) -%>
+      (<%= link_to 'RSS', url_for(filtered_params.merge(user_id: @user.username, format: :rss)) -%>)
+      <%= link_to image_tag('icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), url_for(filtered_params.merge(user_id: @user.username, format: :text, locale: @locale.to_s)) -%>
+      (<%= link_to 'TSV', url_for(filtered_params.merge(user_id: @user.username, format: :text, locale: @locale.to_s)) -%>)
+    <%- else -%>
+      <%= link_to image_tag('icons/feed.png', size: '16x16', class: 'enju_icon', alt: t('page.feed')), url_for(filtered_params.merge(format: :rss)) -%>
+      (<%= link_to 'RSS', url_for(filtered_params.merge(format: :rss)) -%>)
+      <%= link_to image_tag('icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), url_for(filtered_params.merge(format: :text, locale: @locale.to_s)) -%>
+      (<%= link_to 'TSV', url_for(filtered_params.merge(format: :text, locale: @locale.to_s)) -%>)
+    <%- end -%>
+  </p>
+</div>

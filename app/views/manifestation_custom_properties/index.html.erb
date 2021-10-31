@@ -1,0 +1,43 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+  <h1 class="title"><%= t('page.listing', model: t('activerecord.models.manifestation_custom_property')) -%></h1>
+  <div id="content_list">
+    <p id="notice"><%= notice %></p>
+
+    <h1><%= t('page.listing', model: t('activerecord.models.manifestation_custom_property')) -%></h1>
+
+    <table class='table table-striped index'>
+      <thead>
+        <tr>
+          <th id="position"></th>
+          <th><%= t('activerecord.attributes.manifestation_custom_property.name') %></th>
+          <th><%= t('activerecord.attributes.manifestation_custom_property.display_name') %></th>
+          <th><%= t('activerecord.attributes.manifestation_custom_property.note') %></th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @manifestation_custom_properties.each do |manifestation_custom_property| %>
+          <tr>
+            <td>
+              <%- if policy(manifestation_custom_property).update? -%>
+                <%= move_position(manifestation_custom_property) -%>
+              <%- end -%>
+            </td>
+            <td><%= link_to manifestation_custom_property.name, manifestation_custom_property %></td>
+            <td><%= manifestation_custom_property.display_name.localize %></td>
+            <td><%= manifestation_custom_property.note %></td>
+            <td><%= link_to t('page.edit'), edit_manifestation_custom_property_path(manifestation_custom_property) %></td>
+            <td><%= link_to t('page.destroy'), manifestation_custom_property, method: :delete, data: { confirm: t('page.are_you_sure') } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.new', model: t('activerecord.models.manifestation_custom_property')), new_manifestation_custom_property_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,14 @@
+<%= @message.receiver.username -%> さん
+
+<%= @sender_name -%> さんから新しいメッセージが届きました。
+<%= messages_url %>
+
+-----
+
+<%=raw @message.body %>
+
+-----
+
+-- 
+<%= LibraryGroup.system_name(@message.receiver.profile.locale) %>
+<%= LibraryGroup.site_config.url %>

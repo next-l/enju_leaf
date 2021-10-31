@@ -1,0 +1,2 @@
+json.partial!(@manifestation)
+

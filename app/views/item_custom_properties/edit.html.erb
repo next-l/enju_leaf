@@ -1,0 +1,13 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+  <h1 class="title"><%= t('page.editing', model: t('activerecord.models.item_custom_property')) -%></h1>
+  <div id="content_list">
+    <%= render 'form', item_custom_property: @item_custom_property %>
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.show'), @item_custom_property %></li>
+    <li><%= link_to t('page.back'), item_custom_properties_path %></li>
+  </ul>
+</div>

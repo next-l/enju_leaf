@@ -1,0 +1,30 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.participate')) -%></h1>
+<div id="content_list">
+
+<table class="table table-striped index">
+  <tr>
+    <th><%= t('activerecord.models.agent') -%></th>
+    <th><%= t('activerecord.models.event') -%></th>
+  </tr>
+
+<%- @participates.each do |participate| %>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to participate.agent.full_name, participate.agent %>
+    <td><%= link_to participate.event.display_name.localize, participate.event %>
+    <td><%= link_to t('page.show'), participate %></td>
+    <td><%= link_to t('page.edit'), edit_participate_path(participate) %></td>
+    <td><%= link_to t('page.destroy'), participate, data: {confirm: t('page.are_you_sure')}, method: :delete %></td>
+  </tr>
+<%- end %>
+</table>
+
+<%= paginate(@participates) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.new', model: t('activerecord.models.participate')), new_participate_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,25 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.agent_merge')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.agent') -%>:</strong>
+  <%= link_to @agent_merge.agent.full_name, @agent_merge.agent -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.agent_merge_list') -%>:</strong>
+  <%= link_to @agent_merge.agent_merge_list.title, @agent_merge.agent_merge_list -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.add', model: t('activerecord.models.agent')), @agent_merge.agent_merge_list -%></li>
+    <li><%= link_to t('page.edit'), edit_agent_merge_path(@agent_merge) -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
+  </ul>
+</div>

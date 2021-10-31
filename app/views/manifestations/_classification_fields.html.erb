@@ -1,0 +1,5 @@
+<div class="nested-fields">
+  <%= f.select(:classification_type_id, @classification_types.collect{|c| [c.display_name.localize, c.id]}) %>
+  <%= f.text_field :category, class: 'resource_subject' %>
+  <%= link_to_remove_association t('page.remove'), f, data: {confirm: t('page.are_you_sure')} %>
+</div>

@@ -1,0 +1,7 @@
+<script type="text/javascript">
+  function displayVals() {
+    var libraryValue = $("#inventory_file_library_id").val();
+    $("#inventory_file_shelf_id").load('<%= shelves_path %>?mode=select&library_id=' + libraryValue);
+  }
+  $("#inventory_file_library_id").change(displayVals);
+</script>

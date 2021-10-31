@@ -1,0 +1,53 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.new', model: t('activerecord.models.reserve')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@reserve) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%- if @reserve.manifestation -%>
+      <%= render 'manifestations/title', manifestation: @reserve.manifestation -%>
+      <%= f.hidden_field :manifestation_id -%>
+    <%- else -%>
+      <%= f.label t('activerecord.models.manifestation') -%><br />
+      <%= f.text_field :manifestation_id -%>
+    <%- end -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :expired_at -%><br />
+    <%= f.text_field :expired_at, value: @reserve.expired_at.try(:strftime, "%Y-%m-%d"), class: 'date_field', placeholder: "#{t('page.example')}: 2011-04-12"-%>
+  </div>
+
+  <div class="field">
+    <%= f.label :pickup_location_id %>
+    <%= f.select :pickup_location_id, @libraries.map{|l| [l.display_name.localize, l.id]} %>
+  </div>
+
+  <% if current_user.has_role?('Librarian') %>
+    <div class="field">
+      <%= f.label t('activerecord.attributes.profile.user_number') -%><br />
+      <%= f.text_field :user_number, class: 'resource_user_number' -%>
+    </div>
+  <% else %>
+    <%= f.hidden_field :user_number, class: 'resource_user_number' -%>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+<%= javascript_tag("$(function(){$('#reserve_user_number').focus().select()})") %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <%= render 'manifestations/book_jacket', manifestation: @reserve.manifestation -%>
+  <ul>
+    <li><%= link_to t('page.listing', model: t('activerecord.models.reserve')), reserves_path -%></li>
+    <%- if @reserve.manifestation -%>
+      <li><%= link_to t('page.showing', model: t('activerecord.models.manifestation')), manifestation_path(@reserve.manifestation) -%></li>
+    <%- end -%>
+  </ul>
+</div>

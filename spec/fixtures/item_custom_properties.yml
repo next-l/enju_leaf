@@ -1,0 +1,24 @@
+one:
+  id: 1
+  name: custom_1
+  display_name: "カスタム項目1"
+  position: 1
+
+two:
+  id: 2
+  name: custom_2
+  display_name: "カスタム項目1"
+  position: 2
+
+# == Schema Information
+#
+# Table name: item_custom_properties
+#
+#  id           :bigint           not null, primary key
+#  name         :string           not null
+#  display_name :text             not null
+#  note         :text
+#  position     :integer          default(1), not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#

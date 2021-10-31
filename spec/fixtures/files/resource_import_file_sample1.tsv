@@ -1,0 +1,23 @@
+manifestation_identifier	manifestation_id	original_title	note	title_transcription	title_alternative	serial	series_original_title	series_title_transcription	series_title_subseries	series_title_subseries_transcription	creator	creator_transcription	series_creator_string	publisher	publisher_transcription	pub_date	volume_number_string	volume_number	series_volume_number_string	edition_string	edition	issue_number_string	issue_number	serial_number	isbn	issn	doi	carrier_type	content_type	frequency	manifestation_price	item_price	height	width	depth	extent	start_page	end_page	dimensions	shelf	call_number	item_identifier	include_supplements	binding_item_identifier	binding_call_number	binded_at	jpno	lccn	subject:ndlsh	budget_type	bookstore	classification:ndc9	classification:ddc	language	statement_of_responsibility	publication_place	item_note	item_url	manifestation:custom_1	manifestation:custom_2	item:custom_1	item:custom_2	dummy	invalid
+資料ID	データベース上のID	タイトル	注記	タイトルのヨミ	代替タイトル	定期刊行物フラグ	シリーズタイトル	シリーズタイトルのヨミ			著者	著者のヨミ	シリーズ著者	出版者	出版者のヨミ	出版日	巻（文字列）	巻（数字）	シリーズ巻号（文字列）	版（文字列）	版（数字）	号（文字列）	号（数字）	通号	ISBN	ISSN	DOI	資料の形態	資料の内容の種別	発行頻度	販売価格	受入価格	高さ	幅	厚さ	ページ数	開始ページ	終了ページ		本棚の名称	請求記号	個別資料ID	付録あり	製本資料ID	製本資料請求記号	製本日時	JPNO	LCCN	件名(NDLSH)	予算種別	書店	分類(NDC9)	分類(DDC)	言語	責任表示	出版地	個別資料の注記	個別資料のURL	書誌カスタム項目1	書誌カスタム項目2	所属カスタム項目1	所属カスタム項目2	インポート省略	この列は無視されます
+		test1	○ identifierなし、item_identifierなし								test	てすと		test2			invalid																																															
+		test2	○ identifierなし、item_identifierあり								test||author//test1||illustrator					2001												volume	text	monthly						xv, 213 pages	        		20cm			10101	t	9001	330|A	2014-08-16				Public fund	Example store	007		jpn	著者A; 著者B	東京	カバーなし	http://example.jp/item/1						
+101		test3	× ダミー								test			test2																																				Public fund	Example store												適当な値	
+101		test3	○ identifierあり、item_identifierなし				主シリーズ	しゅしりーず	副シリーズ	ふくしりーず	test			test2																																																		
+102		test4	○ identifierあり、item_identifierあり				主シリーズ		副シリーズ		test1		シリーズの著者	test		2001-1			シリーズ1号														257	182	12		1	200				10102												Japanese					カスタム項目テスト1	カスタム項目テスト2				
+101		“test 5”	△ identifier重複、item_identifier非重複								test1||author//test2||illustrator	てすと1//てすと2	シリーズの著者	test																												10103									Example store								カスタム項目テスト1	カスタム項目テスト2	カスタム項目テスト3	カスタム項目テスト4		
+102		test6	× identifier重複、item_identifier重複								test			test3																												10101																						
+		test7	○ ISBN不正、タイトルあり、所蔵情報あり													2001-1-1	第3巻	3		初版	1	第10号	10	120	9000000000000		example/2014.08.18	online_resource	still_image											first_shelf	007|A	10104							コンピュータ//図書館	Public fund		007	003//004											
+			× ISBN不正、タイトルなし																						22222222																	10105																						
+		test8	○ ISBNなし、所蔵情報あり								test			test4//test5	てすと4//てすと5											0387-5806 					1000	0										11111																						
+		test9	× item_identifier重複																																							11111																						
+			○ ISBN重複（シリーズ情報あり）、item_identifierなし																						4798002062																																							
+			△ ISBN重複（シリーズ情報なし）、item_identifier非重複																						4798002062																	11112																						
+			× ISBN重複、item_identifier重複																						4798002062																	11111																						
+			× ISBN重複（13桁）、item_identifierなし																						978-4798002064																																							
+103		"ダブル""クォート""を含む資料"	○ ダブルクォートを含む資料																																																													
+104		test10	○ TSV中にタイトルがあれば他の項目もTSVファイル優先								test3			test4											4797327030																																							
+104	99999		△ identifier重複、item_identifier非重複、タイトルなし。manifestation_identifierはmanifestation_idに優先する																																							11113																						
+	1		△ manifestation_id重複、item_identifier非重複、タイトルなし																																							11114																						
+101			△identifier重複、item_identifierなし、タイトルなし																																					first_shelf	007|A																							
+105		逐次刊行物	○serialがtrue			true																																		first_shelf	007|A																							

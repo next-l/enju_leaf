@@ -1,0 +1,36 @@
+en:
+  activerecord:
+    models:
+      subject: Subject
+      subject_type: Subject type
+      subject_heading_type: Subject heading type
+      classification: Classification
+      classification_type: Classification type
+
+    attributes:
+      subject:
+        term: Term
+        term_transcription: Term transcription
+        scope_note: Scope note
+        note: Note
+        lock_version: Lock version
+      subject_type:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      subject_heading_type:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      classification:
+        category: Category
+        label: Label
+        url: URL
+        note: Note
+      classification_type:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position

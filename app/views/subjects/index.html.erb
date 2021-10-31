@@ -1,0 +1,45 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.subject')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+  
+<div class="search_form">
+  <%= form_for :subjects, url: subjects_path, html: {method: 'get'} do -%>
+    <p>
+      <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {id: 'search_form_top', class: 'search_form', placeholder: t('page.search_term')} -%>
+      <%= submit_tag t('page.search') -%>
+    </p>
+  <%- end -%>
+</div>
+
+<table class="table table-striped index">
+  <tr>
+    <th><%= t('activerecord.attributes.subject.term') -%></th>
+    <th></th>
+  </tr>
+  <%- @subjects.each do |subject| -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td><%= link_to subject.term, subject -%></td>
+      <td>
+        <%- if policy(subject).update? -%>
+          <%= link_to t('page.edit'), edit_subject_path(subject) -%>
+        <%- end -%>
+        <%- if policy(subject).destroy? -%>
+          <%= link_to t('page.destroy'), subject, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+        <%- end -%>
+      </td>
+    </tr>
+  <%- end -%>
+</table>
+
+<%= paginate(@subjects) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(Subject).create? -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.subject')), new_subject_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

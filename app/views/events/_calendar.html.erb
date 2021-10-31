@@ -1,0 +1,13 @@
+    <p>
+    </p>
+
+    <div id="calendar"></div>
+
+<script>
+  $(document).ready(function() {
+    $('#calendar').fullCalendar({
+      events: '<%= url_for(params.permit.merge(format: :json, only_path: true)) %>',
+      lang: '<%= @locale.to_s %>'
+    });
+  });
+</script>

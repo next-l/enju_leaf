@@ -1,0 +1,125 @@
+<%= render 'manifestations/title', manifestation: @item.manifestation -%>
+<% if defined?(EnjuSubject) %>
+  <p>
+    <%= t('activerecord.models.classification') -%>:
+    <%- @item.manifestation.classifications.each do |classification| -%>
+      <%= link_to "#{classification.classification_type.display_name}: #{classification.category}", manifestations_path(query: "classification_sm:#{classification.classification_type.name}_#{classification.category}") -%>
+    <%- end -%>
+  </p>
+<% end %>
+<%= render 'page/required_field' %>
+<%= simple_form_for(@item) do |f| -%>
+  <%= f.error_messages -%>
+  <%= f.hidden_field :manifestation_id, value: @item.manifestation_id if @item.manifestation_id %>
+
+  <div class="field">
+    <%= f.label "#{t('activerecord.models.library')} / #{t('activerecord.models.shelf')}" -%>
+    <%= f.select :library_id, @libraries.map{|l| [l.display_name.localize, l.id]} %>
+    <%= f.select :shelf_id, @shelves.map{|s| [s.display_name.localize, s.id]} %>
+    <%= render 'observe_field' %>
+  </div>
+
+  <% if defined?(EnjuCirculation) %>
+    <div class="field">
+      <%= f.label t('activerecord.models.checkout_type') -%>
+      <%= f.select(:checkout_type_id, @checkout_types.collect{|c| [c.display_name.localize, c.id]}) -%>
+    </div>
+
+    <div class="field">
+      <%= f.label t('activerecord.models.circulation_status') -%>
+      <%= f.select(:circulation_status_id, @circulation_statuses.collect{|c| [c.display_name.localize, c.id]}) -%>
+    </div>
+
+    <div class="field">
+      <%= f.label t('activerecord.models.use_restriction') -%>
+      <%= f.fields_for :item_has_use_restriction do |i| %>
+        <%= i.select :use_restriction_id, @use_restrictions.collect{|r| [r.display_name.localize, r.id]} %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :include_supplements -%>
+    <%= f.check_box :include_supplements -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :call_number -%>
+    <%= f.text_field :call_number -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.budget_type') -%>
+    <%= f.select(:budget_type_id, @budget_types.collect{|b| [b.display_name.localize, b.id]}, include_blank: true) -%>
+
+    <%= f.label t('activerecord.models.bookstore') -%>
+    <%= f.select(:bookstore_id, @bookstores.collect{|b| [b.name, b.id]}, include_blank: true) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :price -%>
+    <%= f.text_field :price -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :url -%>
+    <%= f.url_field :url, class: 'resource_url' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('role.required_role') -%>
+    <%= f.select(:required_role_id, @roles.collect{|r| [r.display_name.localize, r.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :acquired_at -%>
+    <%= f.text_field :acquired_at, value: @item.acquired_at.try(:strftime, "%Y-%m-%d"), class: 'date_text_field', placeholder: "#{t('page.example')}: 2011-04-12"-%>
+  </div>
+
+  <div class="field">
+    <%= f.label :binding_call_number -%>
+    <%= f.text_field :binding_call_number -%>
+
+    <%= f.label :binded_at -%>
+    <%= f.text_field :binded_at, value: @item.binded_at.try(:strftime, "%Y-%m-%d"), class: 'date_text_field', placeholder: "#{t('page.example')}: 2014-07-20"-%>
+  </div>
+
+  <div class="field">
+    <%= f.label :binding_item_identifier -%>
+    <%= f.text_field :binding_item_identifier, class: 'resource_identifier' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note, class: 'resource_textarea' -%>
+  </div>
+
+  <% if ItemCustomProperty.first %>
+    <div class="field">
+      <% ItemCustomProperty.order(:position).each do |c| %>
+        <% @item.item_custom_values.new(item_custom_property: c) unless @item.item_custom_values.map{|value| value.item_custom_property_id}.include?(c.id) %>
+      <% end %>
+      <%= f.fields_for :item_custom_values do |custom_form| %>
+        <%= custom_form.label custom_form.object.item_custom_property.name.to_sym, custom_form.object.item_custom_property.display_name.localize %>
+        <%= custom_form.hidden_field :item_custom_property_id %>
+        <%= custom_form.text_field :value, class: 'form-control' %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :memo -%><br />
+    <%= f.text_area :memo, class: 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :item_identifier -%>
+    <%= f.text_field :item_identifier, class: 'resource_identifier' -%>
+  </div>
+
+  <div class="actions">
+    <%= f.hidden_field :lock_version %>
+    <%= f.submit data: {disable_with: t('page.saving')} -%>
+  </div>
+  <%= javascript_tag("$(function(){$('#library_id').focus()})") %>
+<%- end -%>

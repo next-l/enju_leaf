@@ -1,0 +1,24 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.checked_item')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.item') -%>:</strong>
+  <%= link_to @checked_item.item_identifier, @checked_item.item -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.basket') -%>:</strong>
+  <%= link_to @checked_item.basket.id, @checked_item.basket -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_checked_item_path(@checked_item) -%></li>
+    <li><%= link_to t('page.back'), checked_items_path(basket_id: @checked_item.basket_id) -%></li>
+  </ul>
+</div>

@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Demands</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Item</th>
+      <th>Message</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @demands.each do |demand| %>
+      <tr>
+        <td><%= demand.user.username %></td>
+        <td><%= demand.item.item_identifier %></td>
+        <td><%= demand.message.subject %></td>
+        <td><%= link_to 'Show', demand %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate(@demands) %>

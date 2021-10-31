@@ -1,0 +1,66 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.event')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<h2 class="resource_title">
+  <%= @event.display_name.localize -%>
+</h2>
+
+<p>
+  <strong><%= t('activerecord.attributes.event.name') -%>:</strong>
+  <%= @event.name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.event_category') -%>:</strong>
+  <%= @event.event_category.display_name.localize -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.library') -%>:</strong>
+  <%= link_to @event.library.display_name.localize, @event.library -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.event.start_at') -%>:</strong>
+  <% if @event.all_day %>
+    <%= l(@event.start_at, format: :only_date) -%>
+  <% else %>
+    <%= l(@event.start_at) -%>
+  <% end %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.event.end_at') -%>:</strong>
+  <% if @event.all_day %>
+    <%= l(@event.end_at, format: :only_date) -%>
+  <% else %>
+    <%= l(@event.end_at) -%>
+  <% end %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.event.all_day') -%>:</strong>
+  <%= localized_boolean(@event.all_day) %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.event.note') -%>:</strong>
+  <%= raw auto_link(simple_format(h(@event.note))) -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(@event).update? -%>
+      <li><%= link_to t('page.edit'), edit_event_path(@event) -%></li>
+    <% end %>
+    <% if policy(@event).destroy? %>
+      <li><%= link_to t('page.destroy'), @event, data: {confirm: t('page.are_you_sure')}, method: :delete -%></li>
+    <% end %>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
+  </ul>
+</div>

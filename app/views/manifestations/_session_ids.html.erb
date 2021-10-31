@@ -1,0 +1,12 @@
+<script>
+  $(function(){
+    if(typeof sessionStorage === "undefined"){
+      return;
+    }else{
+      var ids = <%= @manifestation_ids %>;
+      var query = '<%= request.query_string %>';
+      sessionStorage.setItem("ids_<%= @search_query %>", JSON.stringify(ids));
+      sessionStorage.setItem("query_<%= @search_query %>", query);
+    };
+  });
+</script>

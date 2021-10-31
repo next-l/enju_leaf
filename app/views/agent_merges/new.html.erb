@@ -1,0 +1,39 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.new', model: t('activerecord.models.agent_merge')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@agent_merge) do |f| -%>
+  <%= f.error_messages -%>
+  <div class="field">
+    <%= f.label t('activerecord.models.agent') -%><br />
+    <%- if @agent -%>
+      <%= link_to @agent.full_name, @agent -%>
+      <%= f.hidden_field :agent_id -%>
+    <%- else -%>
+      <%= f.text_field :agent_id -%>
+    <%- end -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.agent_merge_list') -%><br />
+    <%- if @agent_merge_list -%>
+      <%= link_to @agent_merge_list.title, agent_merge_list_path(@agent_merge_list) -%>
+      <%= f.hidden_field :agent_merge_list_id, value: @agent_merge_list.id -%>
+    <%- else -%>
+      <%= f.text_field :agent_merge_list_id, value: params[:agent_merge_list_id] -%>
+    <%- end -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.back'), agent_merges_path -%></li>
+  </ul>
+</div>

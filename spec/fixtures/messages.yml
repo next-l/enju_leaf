@@ -1,0 +1,56 @@
+user1_to_user2_1:
+  id: 1
+  sender_id: 3
+  receiver_id: 4
+  subject: 'First Message'
+  body: 'Abby, you get the first message'
+  created_at: 2007-07-04 12:10:47.0 
+  read_at: <%= 3.days.ago.to_s :db %>
+  lft: 1
+  rgt: 2
+user2_to_user1_1:
+  id: 2
+  sender_id: 4
+  receiver_id: 3
+  subject: 'RE: First Message'
+  body: 'Thanks Dad! You are the coolest!'
+  created_at: <%= 2.days.ago.to_s :db %>
+  lft: 3
+  rgt: 4
+user1_to_librarian_2:
+  id: 3
+  sender_id: 3
+  receiver_id: 4
+  subject: 'Second Message'
+  body: 'Catie, you get the 2nd message'
+  created_at: <%= 1.days.ago.to_s :db %>
+  lft: 5
+  rgt: 6
+librarian2_to_user2:
+  id: 6
+  sender_id: 4
+  receiver_id: 5
+  subject: 'Dad!'
+  body: 'He is sucha  dork.'
+  created_at: <%= 2.days.ago.to_s :db %>
+  lft: 7
+  rgt: 8
+
+# == Schema Information
+#
+# Table name: messages
+#
+#  id                 :bigint           not null, primary key
+#  read_at            :datetime
+#  sender_id          :bigint
+#  receiver_id        :bigint
+#  subject            :string           not null
+#  body               :text
+#  message_request_id :bigint
+#  parent_id          :bigint
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  lft                :integer
+#  rgt                :integer
+#  depth              :integer
+#

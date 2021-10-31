@@ -1,0 +1,7 @@
+name	display_name	event_category	library	start_at	end_at	all_day	note	dummy	invalid
+イベント名	イベントの表示名	カテゴリ。休館日の場合はclosed	図書館名	開始日	終了日	終日	注記	インポート省略	この列は無視されます
+hogehoge	ほげほげ	おはなし会	kamata	2009-04-01	2009-04-03		無視（dummyあり）	t	
+event1			hachioji				失敗（start_atなし、end_atなし）		
+休館日1		closed	kamata	2011-04-01	2011-04-03	t	成功		
+event2	イベント2		kamata	2014-07-01			失敗（end_atなし）		
+event3	イベント3			2014-07-01	2014-07-31 14:00		成功		

@@ -1,0 +1,35 @@
+<div data-role="header">
+  <a href="javascript:history.back()" data-icon="back" data-iconpos="notext" class="ui-btn-left"><%= t('page.back') %></a>
+  <h1 class="title"><%= @shelf.display_name.localize -%></h1>
+</div>
+<div data-role="content">
+  <div id="detail">
+  <% if current_user.try(:has_role?, 'Librarian') %>
+    <p>
+      <strong><%= t('activerecord.attributes.shelf.name') -%>:</strong>
+      <%= @shelf.name %>
+    </p>
+  <% end %>
+
+<p>
+  <strong><%= t('activerecord.attributes.shelf.closed') -%>:</strong>
+  <%= localized_boolean(@shelf.closed) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.shelf.note') -%>:</strong>
+  <%= @shelf.note -%>
+</p>
+
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@shelf.created_at) -%>
+</p>
+
+<p>
+  <strong><%= t('page.updated_at') -%>:</strong>
+  <%= l(@shelf.updated_at) -%>
+</p>
+
+</div>
+</div>

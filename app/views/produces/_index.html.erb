@@ -1,0 +1,36 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.produce')) -%></h1>
+<div id="content_list">
+
+<table class="table table-striped index">
+  <tr>
+    <th><%= t('activerecord.models.agent') -%></th>
+    <th><%= t('activerecord.models.manifestation') -%></th>
+    <th></th>
+  </tr>
+
+<%- @produces.each do |produce| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to produce.agent.full_name, produce.agent -%></td>
+    <td><%= link_to produce.manifestation_original_title, produce.manifestation -%></td>
+    <td>
+      <%- if policy(produce).destroy? -%>
+        <%= link_to t('page.show'), produce -%>
+        <%= link_to t('page.destroy'), produce, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@produces) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <%- if policy(Produce).create? -%>
+    <ul>
+      <li><%= link_to t('page.new', model: t('activerecord.models.produce')), new_produce_path -%></li>
+    </ul>
+  <%- end -%>
+</div>

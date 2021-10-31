@@ -1,0 +1,7 @@
+<%- if @agent -%>
+  <%= render 'index_agent', agent: @agent -%>
+<%- elsif @manifestation -%>
+  <%= render 'index_manifestation', manifestation: @manifestation -%>
+<%- else -%>
+  <%= render 'index' -%>
+<%- end -%>

@@ -1,0 +1,30 @@
+<% if manifestation %>
+  <% cache([manifestation, fragment: 'pickup_html', role: current_user_role_name, locale: @locale]) do %>
+    <div id="pickup_book_jacket">
+      <%= book_jacket(manifestation) -%>
+    </div>
+    <div style="float: left">
+      <% if defined?(EnjuSubject) %>
+        <p>
+          <strong><%= t('activerecord.models.subject') -%>:</strong>
+          <%- manifestation.subjects.each do |subject| -%>
+            <%= link_to subject.term, manifestations_path(query: "subject_sm:\"#{h(subject.term)}\"") -%>
+          <%- end -%>
+        </p>
+      <% end %>
+      <% if defined?(EnjuBookmark) %>
+        <p>
+          <strong><%= t('page.tag') -%>:</strong>
+          <%- manifestation.tags.each do |tag| -%>
+            <%= link_to tag.name, manifestations_path(tag: tag.name) -%>
+         <%- end -%>
+        </p>
+      <% end %>
+    </div>
+    <div style="clear: both"></div>
+    <div style="margin-top: 5px">
+      <%= render 'manifestations/show_index', manifestation: manifestation -%>
+      <%= render 'manifestations/holding', manifestation: manifestation -%>
+    </div>
+  <% end %>
+<% end %>

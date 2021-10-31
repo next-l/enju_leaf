@@ -1,0 +1,18 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.new', model: t('activerecord.models.shelf')) -%></h1>
+<div id="content_list">
+  <%= render 'form' %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li>
+      <%- if @shelf.library -%>
+        <%= link_to t('page.back'), shelves_path(library_id: @shelf.library_id) -%>
+      <%- else -%>
+        <%= link_to t('page.back'), shelves_path -%>
+      <%- end -%>
+    </li>
+  </ul>
+</div>

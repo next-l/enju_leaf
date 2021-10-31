@@ -1,0 +1,55 @@
+<table class="table table-striped index">
+  <tr>
+    <th><%= t('activerecord.models.user') %></th>
+    <th class="checked_item_title"><%= t('page.title') %></th>
+    <th><%= t('activerecord.attributes.checkout.due_date') %></th>
+  </tr>
+
+  <%- checkouts.each_with_index do |checkout, i| %>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <% if checkout.user %>
+        <%= link_to checkout.user_username, checkout.user.profile %>
+        <br />
+        (<%= link_to checkout.user.profile.user_number, checkout.user.profile %>)
+      <% end %>
+    </td>
+    <td>
+      <% if checkout.item %>
+        <%= render 'manifestations/show_index', manifestation: checkout.item.manifestation -%>
+        (<%= link_to checkout.item.item_identifier, checkout.item -%>)
+      <% end %>
+      <% if checkout.shelf %>
+        <%= t('activerecord.models.shelf') %>:
+        <%= link_to checkout.shelf.display_name.localize, checkout.shelf %>
+        (<%= link_to checkout.shelf.library.display_name.localize, checkout.shelf.library %>)
+      <% end %>
+      <% if checkout.item.manifestation.next_reservation %>
+        <br />
+        (<%= link_to_if(current_user.has_role?('Librarian'),
+            t('page.number_of_reservations',
+            count: Reserve.waiting.where(manifestation_id: checkout.item.manifestation.id, checked_out_at: nil).count),
+            reserves_path(query: "manifestation_id_i:#{checkout.item.manifestation.id}")) -%>)
+      <% end %>
+    </td>
+    <td>
+      <%= l(checkout.due_date, format: :only_date) -%>
+      <% if checkout.checkin %>
+        <br />
+        <strong><%= t('checkout.returned') %></strong>
+      <% end %>
+      <br />
+      <%- if policy(checkout).update? -%>
+        <% unless checkout.checkin %>
+          <%= link_to t('checkout.extend'), edit_checkout_path(checkout) -%>
+        <% end %>
+      <%- end -%>
+      <%- if policy(checkout).destroy? -%>
+        <%= link_to t('page.destroy'), checkout, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+  <%- end -%>
+</table>
+
+<%= paginate(checkouts) %>

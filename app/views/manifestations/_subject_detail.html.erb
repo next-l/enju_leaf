@@ -1,0 +1,14 @@
+<tr>
+  <td><%= t('activerecord.models.subject') -%>:</td>
+  <td>
+    <%- if manifestation.subjects.exists? -%>
+      <ul>
+        <%- manifestation.subjects.each do |subject| -%>
+          <li>
+            <%= link_to "#{subject.subject_heading_type.display_name.localize}: #{subject.term}", manifestations_path(query: "subject_sm:\"#{subject.term}\"") -%>
+          </li>
+        <%- end -%>
+      </ul>
+    <%- end -%>
+  </td>
+</tr>

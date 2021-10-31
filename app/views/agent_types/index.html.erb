@@ -1,0 +1,52 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.agent_type')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<table class="table table-striped index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.agent_type.name') -%></th>
+    <th>
+      <%= t('activerecord.attributes.agent_type.display_name') -%>
+      /
+      <%= t('activerecord.attributes.agent_type.note') -%>
+    </th>
+    <th></th>
+  </tr>
+
+<%- @agent_types.each do |agent_type| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if policy(agent_type).update? -%>
+        <%= move_position(agent_type) -%>
+      <%- end -%>
+    </td>
+    <td><%= agent_type.name -%></td>
+    <td>
+      <%= link_to agent_type.display_name.localize, agent_type -%>
+      <br />
+      <%= agent_type.note %>
+    </td>
+    <td>
+      <%- if policy(agent_type).update? -%>
+        <%= link_to t('page.edit'), edit_agent_type_path(agent_type) -%>
+      <% end %>
+      <%- if policy(agent_type).destroy? -%>
+        <%= link_to t('page.destroy'), agent_type_path(agent_type), data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(AgentType).create? -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.agent_type')), new_agent_type_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

@@ -1,0 +1,5 @@
+full_name	first_name	last_name	middle_name	language	country	address_1	address_2	zip_code_1	zip_code_2	telephone_number_1	telephone_number_2	fax_number_1	fax_number_2	birth_date	note	dummy
+フルネーム	名	姓	ミドルネーム	言語名	国名	住所1	住所2	郵便番号1	郵便番号2	電話番号1	電話番号2	ファックス番号1	ファックス番号2	誕生日	備考	インポート省略
+hogehoge														1978		
+田辺浩介				Japanese	Japan	東京都港区	東京都港区	108-8345	108-8345	03-xxxx-xxxx	03-xxxx-xxxx	03-xxxx-xxxx	03-xxxx-xxxx	1978-4-12	備考	
+	隆史	原田	ushi	English	Japan										備考	

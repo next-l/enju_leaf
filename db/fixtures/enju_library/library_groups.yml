@@ -1,0 +1,12 @@
+library_group_00001:
+  id: 1
+  name: enju_library
+  display_name: "en: Enju Library\r\n\
+    ja: えんじゅ図書館"
+  short_name: enju
+  note: 
+  my_networks: "0.0.0.0/0\r\n\
+    ::/0"
+  admin_networks: "0.0.0.0/0\r\n\
+    ::/0"
+  settings: "{\"max_number_of_results\":500, \"family_name_first\":true, \"skip_mobile_agents\":\"ipad\"}"

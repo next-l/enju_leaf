@@ -1,0 +1,27 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.new', model: t('activerecord.models.import_request')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<%= form_for(@import_request) do |f| -%>
+  <%= f.error_messages -%>
+  <div class="field">
+    <%= f.label :isbn -%><br />
+    <%= f.search_field :isbn, class: 'resource_isbn_issn' -%>
+
+    <%= f.submit 'data-disable-with' => t('page.saving') %>
+  </div>
+  <%= javascript_tag("$(function(){$('#import_request_isbn').focus()})") %>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.back'), :back -%></li>
+    <li><%= link_to t('page.listing', model: t('activerecord.models.import_request')), import_requests_path -%></li>
+    <li><%= link_to t('page.add_resource_manually'), new_manifestation_path -%></li>
+    <li><%= link_to t('page.import_from_file'), new_resource_import_file_path -%></li>
+  </ul>
+</div>

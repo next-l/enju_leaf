@@ -1,0 +1,14 @@
+<div class="search_form">
+<%= form_for :manifestations, url: manifestations_path(item_id: @item.id), html: {method: 'get'} do -%>
+  <p>
+    <%= label_tag :search_form_top, t('page.search_term') -%>:
+    <%= search_field_tag 'query', h(@query), {id: 'search_form_top', class: 'search_form', placeholder: t('page.search_term')} -%>
+    <% if policy(Create).create? %>
+      <%= render 'page/add' %>
+    <% end %>
+    <%= submit_tag t('page.search') -%>
+    <br />
+    <%= link_to t('page.advanced_search'), page_advanced_search_path -%>
+  </p>
+<%- end -%>
+</div>

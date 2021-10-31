@@ -1,0 +1,27 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+inventory_00001:
+  id: 1
+  item_id: 1
+  inventory_file_id: 1
+  note: MyText
+
+inventory_00002:
+  id: 2
+  item_id: 2
+  inventory_file_id: 1
+  note: MyText
+
+# == Schema Information
+#
+# Table name: inventories
+#
+#  id                 :integer          not null, primary key
+#  item_id            :integer
+#  inventory_file_id  :integer
+#  note               :text
+#  created_at         :datetime
+#  updated_at         :datetime
+#  item_identifier    :string
+#  current_shelf_name :string
+#

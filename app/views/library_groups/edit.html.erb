@@ -1,0 +1,12 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.editing', model: t('activerecord.models.library_group')) -%></h1>
+<div id="content_list">
+  <%= render 'form' %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.show'), @library_group -%></li>
+  </ul>
+</div>

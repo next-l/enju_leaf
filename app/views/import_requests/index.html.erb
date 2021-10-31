@@ -1,0 +1,46 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.import_request')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<table class="table table-striped index">
+  <tr>
+    <th>Id</th>
+    <th>
+      <%= t('activerecord.models.user') -%><br />
+      <%= t('activerecord.attributes.import_request.isbn') -%><br />
+      <%= t('page.created_at') -%>
+    </th>
+    <th><%= t('activerecord.attributes.import_request.state') -%></th>
+    <th><%= t('activerecord.models.manifestation') -%></th>
+    <th></th>
+  </tr>
+
+<%- @import_requests.each do |import_request| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to import_request.id, import_request -%></td>
+    <td>
+      <%= link_to import_request.user.username, import_request.user.profile if import_request.user.try(:profile) -%><br />
+      <%= import_request.isbn -%><br />
+      <%=l import_request.created_at -%>
+    </td>
+    <td><%= localized_state(import_request.current_state) -%></td>
+    <td><%= link_to import_request.manifestation.original_title, import_request.manifestation if import_request.manifestation -%></td>
+    <td>
+      <%- if policy(import_request).destroy? -%>
+        <%= link_to t('page.destroy'), import_request, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@import_requests) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.new', model: t('activerecord.models.import_request')), new_import_request_path -%></li>
+  </ul>
+</div>

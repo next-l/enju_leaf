@@ -1,0 +1,42 @@
+<table class="table table-striped index">
+  <tr>
+    <th><%= t('page.title') -%></th>
+    <th><%= t('activerecord.models.item') -%></th>
+    <th><%= t('activerecord.attributes.checkout.due_date') -%></th>
+    <th><%= t('activerecord.models.user') -%></th>
+  </tr>
+
+<%- @checkins.each_with_index do |checkin, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%= render 'manifestations/show_index', manifestation: checkin.item.manifestation if checkin.item.try(:manifestation) -%>
+    </td>
+    <td>
+      <% if checkin.item %>
+        <%= link_to checkin.item.item_identifier, checkin.item -%>
+        <br />
+        (<%= link_to checkin.item.shelf.library.display_name.localize, checkin.item.shelf.library %>)
+        <% if defined?(EnjuInterLibraryLoan) %>
+          <br />
+          <%- unless checkin.item.shelf.library == current_user.library -%>
+            <span style="color: red"><%= link_to t('activerecord.models.inter_library_loan'), item_inter_library_loans_path(checkin.item) -%></span>
+          <%- end -%>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <%- if checkin.checkout -%>
+        <%= l(checkin.checkout.due_date, format: :only_date) -%>
+      <%- end -%>
+    </td>
+    <td>
+      <% if checkin.checkout.try(:user) %>
+        <%= link_to checkin.checkout.user.username, checkin.checkout.user.profile -%>
+      <% end %>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= javascript_tag("$(function(){$('#checkin_item_identifier').focus().select()})") %>
+</script>

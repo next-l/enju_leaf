@@ -1,0 +1,34 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.inventory')) -%></h1>
+<div id="content_list">
+
+<table class="table table-striped index">
+  <tr>
+    <th><%= t('activerecord.models.inventory_file') -%> </th>
+    <th><%= t('activerecord.models.item') -%> </th>
+    <th></th>
+  </tr>
+
+<%- @inventories.each do |inventory| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to inventory.inventory_file_id, inventory.inventory_file -%></td>
+    <td><%= link_to inventory.item.item_identifier, inventory.item -%></td>
+    <td>
+      <%= link_to t('page.show'), inventory -%>
+      <%= link_to t('page.edit'), edit_inventory_path(inventory) -%>
+      <%= link_to t('page.destroy'), inventory, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@inventories) -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.inventory')), new_inventory_path -%></li>
+  </ul>
+</div>

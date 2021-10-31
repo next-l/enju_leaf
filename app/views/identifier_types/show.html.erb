@@ -1,0 +1,31 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.identifier_type')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.identifier_type.name') -%>:</strong>
+  <%= @identifier_type.name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.identifier_type.display_name') -%>:</strong>
+  <%= @identifier_type.display_name.localize -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.identifier_type.note') -%>:</strong>
+  <%= @identifier_type.note -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(@identifier_type).update? -%>
+      <li><%= link_to t('page.edit'), edit_identifier_type_path(@identifier_type) -%></li>
+    <%- end -%>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
+  </ul>
+</div>

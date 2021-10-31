@@ -1,42 +1,40 @@
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="row">
-    <div class="col-9">
-      <h1><%= t('page.sign_in') -%> : Next-L Enju</h1>
+  <div id="content_detail" class="ui-corner-all ui-widget-content">
+    <h1 class="title"><%= t('page.sign_in') -%> : Next-L Enju</h1>
+    <div id="content_list">
       <%= f.error_messages -%>
 
       <%= markdown_helper(@library_group.login_banner) %>
+
+    </div>
+  </div>
+
+  <div id="submenu" class="ui-corner-all ui-widget-content">
+
+    <div class="field">
+      <%= f.label :username %><br />
+      <%= f.text_field :username, autofocus: true %>
     </div>
 
-    <div class="col">
-      <div class="card bg-info">
-        <div class="card-body bg-light" id="content_list">
-          <div class="field">
-            <%= f.label :username %><br />
-            <%= f.text_field :username, autofocus: true %>
-          </div>
+    <div class="field">
+      <%= f.label :password %><br />
+      <%= f.password_field :password, autocomplete: "off" %>
+    </div>
 
-          <div class="field">
-            <%= f.label :password %><br />
-            <%= f.password_field :password, autocomplete: "off" %>
-          </div>
-
-          <% if devise_mapping.rememberable? -%>
-            <div class="field">
-              <%= f.check_box :remember_me %>
-              <%= f.label :remember_me %>
-            </div>
-          <% end -%>
-
-          <div class="actions">
-            <%= f.submit t('page.sign_in'), class: 'btn btn-primary' %>
-          </div>
-
-          <p class="alert"><%= alert %></p>
-
-          <%= render "devise/shared/links" %>
-
-        </div>
+    <% if devise_mapping.rememberable? -%>
+      <div class="field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
       </div>
+    <% end -%>
+
+    <div class="actions">
+      <%= f.submit t('page.sign_in') %>
     </div>
+
+    <p class="alert"><%= alert %></p>
+
+    <%= render "devise/shared/links" %>
+
   </div>
 <% end %>

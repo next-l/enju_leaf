@@ -1,0 +1,42 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.lending_policy')) -%></h1>
+<div id="content_list">
+
+<table class="table table-striped index">
+  <tr>
+    <th><%= t('activerecord.models.item') -%></th>
+    <th><%= t('activerecord.models.user_group') -%></th>
+    <th><%= t('activerecord.attributes.lending_policy.loan_period') -%></th>
+    <th><%= t('activerecord.attributes.lending_policy.fixed_due_date') -%></th>
+    <th><%= t('activerecord.attributes.lending_policy.renewal') -%></th>
+    <th><%= t('activerecord.attributes.lending_policy.fine') -%></th>
+    <th></th>
+  </tr>
+
+<%- @lending_policies.each do |lending_policy| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%= link_to lending_policy.item.item_identifier, lending_policy.item -%><br />
+      (<%= link_to lending_policy.item.manifestation.original_title, lending_policy.item.manifestation -%>)
+    </td>
+    <td><%= link_to lending_policy.user_group.display_name.localize, lending_policy.user_group -%></td>
+    <td><%= lending_policy.loan_period -%></td>
+    <td><%= lending_policy.fixed_due_date -%></td>
+    <td><%= lending_policy.renewal -%></td>
+    <td><%= lending_policy.fine -%></td>
+    <td>
+      <%= link_to t('page.show'), lending_policy -%>
+      <%= link_to t('page.edit'), edit_lending_policy_path(lending_policy) if policy(lending_policy).update?-%>
+      <%= link_to t('page.destroy'), lending_policy, data: {confirm: t('page.are_you_sure')}, method: :delete if policy(lending_policy).destroy? -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@lending_policies) -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+</div>

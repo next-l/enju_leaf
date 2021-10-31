@@ -1,0 +1,52 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.create_type')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<table class="table table-striped index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.create_type.name') -%></th>
+    <th>
+      <%= t('activerecord.attributes.create_type.display_name') -%>
+      /
+      <%= t('activerecord.attributes.create_type.note') -%>
+    </th>
+    <th></th>
+  </tr>
+
+<%- @create_types.each do |create_type| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if policy(create_type).update? -%>
+        <%= move_position(create_type) -%>
+      <%- end -%>
+    </td>
+    <td><%= create_type.name -%></td>
+    <td>
+      <%= link_to create_type.display_name.localize, create_type -%>
+      <br />
+      <%= create_type.note %>
+    </td>
+    <td>
+      <%- if policy(create_type).update? -%>
+        <%= link_to t('page.edit'), edit_create_type_path(create_type) -%>
+      <% end %>
+      <%- if policy(create_type).destroy? -%>
+        <%= link_to t('page.destroy'), create_type_path(create_type), data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(CreateType).create? -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.create_type')), new_create_type_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

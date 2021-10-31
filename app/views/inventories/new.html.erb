@@ -1,0 +1,32 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.new', :model => t('activerecord.models.inventory')) -%> </h1>
+<div id="content_list">
+
+<%= form_for(@inventory) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label :item_id -%> <br />
+    <%= f.text_field :item_id -%>
+  </div>
+  <div class="field">
+    <%= f.label :inventory_file_id -%> <br />
+    <%= f.text_field :inventory_file_id -%>
+  </div>
+  <div class="field">
+    <%= f.label :note -%> <br />
+    <%= f.text_area :note -%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.back'), inventories_path -%></li>
+  </ul>
+</div>

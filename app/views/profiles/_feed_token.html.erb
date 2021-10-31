@@ -1,0 +1,14 @@
+<%- if profile.respond_to?(:checkout_icalendar_token?) -%>
+  <%= checkouts_url(icalendar_token: profile.checkout_icalendar_token, format: :ics) if profile.checkout_icalendar_token -%>
+  <%= hidden_field_tag 'profile[checkout_icalendar_token]', profile.checkout_icalendar_token -%>
+<%- end -%>
+<br />
+<%- if profile.try(:checkout_icalendar_token?) -%>
+  <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_profile_path(profile, disable: true, mode: 'feed_token') %>'});" type="button" value="<%= t('page.delete') %>" />
+  <br />
+  <%= t('user.you_have_to_save_profile_to_activate_feed_url') -%>
+<%- else -%>
+  <input onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#feed_token').html(request);}, type:'get', url:'<%= edit_profile_path(profile, mode: 'feed_token') %>'});" type="button" value="<%= t('page.reset') %>" />
+  <br />
+  <%= t('user.you_have_to_save_profile_to_deactivate_feed_url') -%>
+<%- end -%>

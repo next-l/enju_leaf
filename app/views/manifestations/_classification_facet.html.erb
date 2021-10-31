@@ -1,0 +1,17 @@
+<h4><%= t('activerecord.models.classification') -%></h4>
+<%- unless @classification_facet.blank? -%>
+  <ul>
+    <% @classification_facet.each do |category| %>
+      <li>
+        <% if category.value == params[:classification].to_s.downcase %><strong><% end %>
+        <%= link_to "#{t('classification.category', number: category.value)} #{category_name(category.value)} (#{category.count})", url_for(request.params.merge(classification: category.value, page: nil, view: nil, only_path: true)) %>
+        <% if category.value == params[:classification].to_s.downcase %></strong><% end %>
+      </li>
+    <% end %>
+    <%- if params[:classification] -%>
+      <li><%= link_to t('page.remove_this_facet'), url_for(request.params.merge(classification: nil, page: nil, view: nil, only_path: true)) -%></li>
+    <%- end -%>
+  </ul>
+<%- else -%>
+  <p><%= t('page.no_subject') -%></p>
+<%- end -%>

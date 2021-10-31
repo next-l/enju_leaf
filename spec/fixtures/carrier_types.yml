@@ -1,30 +1,34 @@
 --- 
 carrier_type_00001: 
   name: volume
-  display_name_translations: {"en": "Volume", "ja": "Volume"}
+  display_name: Volume
   updated_at: 2007-11-20 16:04:29.853828 +09:00
   id: 1
+  note: "本です。"
   created_at: 2007-11-20 15:47:03.641530 +09:00
   position: 1
 carrier_type_00002: 
   name: audio_disc
-  display_name_translations: {"en": "Audio disc", "ja": "Audio disc"}
+  display_name: Audio disc
   updated_at: 2007-12-19 01:45:26.040674 +09:00
   id: 2
+  note: "音楽CDです。"
   created_at: 2007-12-19 01:45:26.040674 +09:00
   position: 2
 carrier_type_00003: 
   name: videodisc
-  display_name_translations: {"en": "Video disc", "ja": "Video disc"}
+  display_name: Video disc
   updated_at: 2007-12-23 04:24:23.151410 +09:00
   id: 3
+  note: "DVDです。"
   created_at: 2007-12-23 04:24:23.151410 +09:00
   position: 3
 carrier_type_00004: 
   name: online_resource
-  display_name_translations: {"en": "online_resource", "ja": "online_resource"}
+  display_name: online_resource
   updated_at: 2007-12-24 01:30:50.637433 +09:00
   id: 4
+  note: "コンピュータのファイルです。"
   created_at: 2007-12-24 01:30:50.637433 +09:00
   position: 4
 
@@ -32,11 +36,15 @@ carrier_type_00004:
 #
 # Table name: carrier_types
 #
-#  id                        :bigint           not null, primary key
-#  name                      :string           not null
-#  note                      :text
-#  position                  :integer
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  display_name_translations :jsonb            not null
+#  id                      :integer          not null, primary key
+#  name                    :string           not null
+#  display_name            :text
+#  note                    :text
+#  position                :integer
+#  created_at              :datetime
+#  updated_at              :datetime
+#  attachment_file_name    :string
+#  attachment_content_type :string
+#  attachment_file_size    :bigint
+#  attachment_updated_at   :datetime
 #

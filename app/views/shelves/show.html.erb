@@ -1,0 +1,65 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.shelf')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+  <h2 class="resource_title">
+    <%= link_to @shelf.library.display_name.localize, @shelf.library -%>
+    <%= @shelf.display_name.localize -%>
+  </h2>
+
+<% if current_user.try(:has_role?, 'Librarian') %>
+  <p>
+    <strong><%= t('activerecord.attributes.shelf.name') -%>:</strong>
+    <%= @shelf.name %>
+  </p>
+<% end %>
+
+<p>
+  <strong><%= t('activerecord.attributes.shelf.closed') -%>:</strong>
+  <%= localized_boolean(@shelf.closed) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.shelf.note') -%>:</strong>
+  <%= @shelf.note -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.picture_file') -%>:</strong><br />
+  <%- @shelf.picture_files.each do |picture_file| -%>
+    <%= render 'picture_files/link', picture_file: picture_file %>
+  <%- end -%>
+</p>
+
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@shelf.created_at) -%>
+</p>
+
+<p>
+  <strong><%= t('page.updated_at') -%>:</strong>
+  <%= l(@shelf.updated_at) -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <% if policy(Shelf).create? %>
+      <%- if @library -%>
+        <li><%= link_to t('page.new', model: t('activerecord.models.shelf')), new_shelf_path(library_id: @library.id) -%></li>
+      <%- else -%>
+        <li><%= link_to t('page.new', model: t('activerecord.models.shelf')), new_shelf_path -%></li>
+      <%- end -%>
+    <% end %>
+    <% if policy(@shelf).update? %>
+      <li><%= link_to t('page.edit'), edit_shelf_path(@shelf) -%></li>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.picture_file')), picture_files_path(shelf_id: @shelf.id) -%></li>
+    <% end %>
+    <li>
+      <%= link_to t('page.back'), :back -%>
+    </li>
+  </ul>
+</div>

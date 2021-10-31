@@ -1,0 +1,47 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.country')) -%></h1>
+<div id="content_list">
+
+<table class="table table-striped index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.country.name') -%></th>
+    <th><%= t('activerecord.attributes.country.display_name') -%></th>
+    <th>ISO-3166-1</th>
+    <th></th>
+  </tr>
+
+<%- @countries.each do |country| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if policy(country).update? -%>
+        <%= move_position(country) -%>
+      <%- end -%>
+    </td>
+    <td><%= country.name -%></td>
+    <td><%= link_to country.display_name.localize, country -%></td>
+    <td>
+      alpha-2: <%= country.alpha_2 -%></br>
+      alpha-3: <%= country.alpha_3 -%></br>
+      numeric: <%= country.numeric_3 -%>
+    </td>
+    <td>
+      <%- if policy(country).update? -%>
+        <%= link_to t('page.edit'), edit_country_path(country) -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@countries) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(Country).create? -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.country')), new_country_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

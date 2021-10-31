@@ -1,0 +1,12 @@
+<div id="library_map" style="width: 500px; height: 500px;"></div>
+<script>
+  var mymap = L.map('library_map').setView([<%= @library.latitude %>, <%= @library.longitude %>], 13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18
+}).addTo(mymap);
+  L.marker([<%= @library.latitude %>, <%= @library.longitude %>]).addTo(mymap).bindPopup('<%= @library.display_name.localize %>').openPopup();
+  jQuery(document).ready(function ($) {
+    mymap.invalidateSize();
+  });
+</script>

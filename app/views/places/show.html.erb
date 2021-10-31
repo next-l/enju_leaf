@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Term:</strong>
+  <%= @place.term %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @place.city %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @place.country_id %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @place.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @place.longitude %>
+</p>
+
+<%= link_to 'Edit', edit_place_path(@place) %> |
+<%= link_to 'Back', places_path %>

@@ -1,0 +1,52 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.license')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<table class="table table-striped index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.license.name') -%></th>
+    <th>
+      <%= t('activerecord.attributes.license.display_name') -%>
+      /
+      <%= t('activerecord.attributes.license.note') -%>
+    </th>
+    <th></th>
+  </tr>
+
+<%- @licenses.each do |license| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if policy(license).update? -%>
+        <%= move_position(license) -%>
+      <%- end -%>
+    </td>
+    <td><%= license.name -%></td>
+    <td>
+      <%= link_to license.display_name.localize, license -%>
+      <br />
+      <%= license.note %>
+    </td>
+    <td>
+      <%- if policy(license).update? -%>
+        <%= link_to t('page.edit'), edit_license_path(license) -%>
+      <% end %>
+      <%- if policy(license).destroy? -%>
+        <%= link_to t('page.destroy'), license_path(license), data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(License).create? -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.license')), new_license_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

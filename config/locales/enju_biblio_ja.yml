@@ -1,0 +1,489 @@
+ja:
+  activerecord:
+    models:
+      carrier_type: 資料の形態
+      content_type: 資料の内容の種別
+      create: 著作関係
+      create_type: 著作の関係
+      embody: 具体化
+      exemplify: 書誌と所蔵の関係
+      form_of_work: 著作の形態
+      frequency: 発行頻度
+      item: 所蔵情報
+      language: 言語
+      manifestation: 資料
+      manifestation_relationship: 資料の関係
+      manifestation_relationship_type: 資料の関係の種類
+      medium_of_performance: 演奏手段
+      license: ライセンス
+      import_request: ISBNインポートのリクエスト
+      own: 所有関係
+      agent: 人物・団体
+      agent_import_file: 人物・団体のインポート用ファイル
+      agent_import_result: 人物・団体インポートの結果
+      agent_relationship: 著者・編者・出版社の関係
+      agent_relationship_type: 人物・団体の関係の種類
+      agent_type: 人物・団体の種類
+      picture_file: 画像ファイル
+      produce: 出版関係
+      produce_type: 体現の関係
+      realize: 表現関係
+      realize_type: 表現の関係
+      resource_import_file: 資料のインポート用ファイル
+      resource_import_result: 資料インポートの結果
+      series_statement: シリーズ情報
+      country: 国と地域
+      donate: 寄贈
+      identifier: 識別子
+      identifier_type: 識別子の種類
+      resource_export_file: 書誌と所蔵のエクスポート
+      agent_export_file: 人物・団体情報のエクスポート
+      agent_merge_list: 人物・団体の統合リスト
+      agent_merge: 人物・団体の統合
+      series_statement_merge_list: シリーズ情報統合リスト
+      series_statement_merge: シリーズ情報の統合
+      periodical: 逐次刊行物
+      doi_record: DOI
+      manifestation_custom_property: 書誌カスタム項目
+      manifestation_custom_value: 書誌カスタム項目の値
+      item_custom_property: 所蔵カスタム項目
+      item_custom_value: 所蔵カスタム項目の値
+
+    attributes:
+      manifestation:
+        original_title: 原題
+        title_alternative: 代替タイトル
+        title_transcription: タイトルのヨミ
+        classification_number: 分類番号
+        manifestation_identifier: ローカル識別子
+        date_of_publication: 出版日
+        pub_date: 出版日
+        deleted_at: 削除時刻
+        access_address: アクセスアドレス
+        number_of_page_string: ページ数（文字列）
+        start_page: 最初のページ
+        end_page: 最後のページ
+        height: 高さ
+        width: 幅
+        depth: 奥行き
+        isbn: ISBN
+        isbn10: 10桁のISBN
+        wrong_isbn: 間違ったISBN
+        nbn: NBN
+        price: 価格
+        volume_number: 巻（数字）
+        volume_number_string: 巻
+        issue_number: 号（数字）
+        issue_number_string: 号
+        serial_number: 通号
+        serial_number_string: 通号（文字）
+        edition: 版（数字）
+        edition_string: 版
+        note: 注記
+        memo: 業務メモ
+        repository_content: リポジトリのコンテンツ
+        lock_version: ロックバージョン
+        carrier_type: 資料の形態
+        language: 言語
+        lccn: LCCN
+        issn: ISSN
+        subscription_master: 購読マスタ
+        abstract: 内容細目
+        description: 説明
+        creator_string: 著者
+        contributor_string: 協力者・編者
+        publisher_string: 出版者
+        series_statement_string: シリーズ情報
+        serial: 逐次刊行物
+        series_master: シリーズ情報マスタ
+        subject: 件名
+        classification: 分類
+        identifier: 識別子
+        statement_of_responsibility: 責任表示
+        publication_place: 出版地
+        parent_id: 親書誌
+        extent: ページ数
+        dimensions: 大きさ
+        fulltext_content: 全文あり
+        date_copyrighted: 著作権発行日
+      manifestation/subjects:
+        term: 件名
+      manifestation/classifications:
+        category: 分類
+      manifestation/identifiers:
+        body: 識別子
+      manifestation/manifesetation_custom_properties:
+        name: 項目名
+        value: 値
+      item:
+        call_number: 請求記号
+        item_identifier: 所蔵情報ID
+        deleted_at: 削除時刻
+        include_supplements: 付録を含む
+        note: 注記
+        memo: 業務メモ
+        url: URL
+        price: 購入価格
+        lock_version: ロックバージョン
+        acquired_at: 受入日
+        donation: 寄贈情報
+        binding_item_identifier: 製本後の所蔵情報ID
+        binding_call_number: 製本後の請求記号
+        binded_at: 製本日
+        budget_type_id: 予算種別
+        bookstore_id: 書店
+        required_role_id: 閲覧に必要な権限
+      item/item_custom_properties:
+        name: 項目名
+        value: 値
+      agent:
+        last_name: 姓
+        middle_name: ミドルネーム
+        first_name: 名
+        last_name_transcription: 姓（ヨミ）
+        middle_name_transcription: ミドルネーム（ヨミ）
+        first_name_transcription: 名（ヨミ）
+        corporate_name: 会社名
+        corporate_name_transcription: 企業名（ヨミ）
+        full_name: フルネーム
+        full_name_transcription: フルネーム（ヨミ）
+        full_name_alternative: フルネーム（代替）
+        deleted_at: 削除時刻
+        zip_code_1: 郵便番号1
+        zip_code_2: 郵便番号2
+        address_1: 住所1
+        address_2: 住所2
+        address_1_note: 住所1の注記
+        address_2_note: 住所2の注記
+        telephone_number_1: 電話番号1
+        telephone_number_2: 電話番号2
+        fax_number_1: ファックス番号1
+        fax_number_2: ファックス番号2
+        other_designation: 他の指定
+        place: 場所
+        date_of_birth: 生年月日
+        date_of_death: 没年月日
+        lock_version: ロックバージョン
+        note: 注記
+        country: 国籍
+        agent_type: 人物・団体の種類
+        language: 言語
+        email: 電子メール
+        url: URL
+      agent_import_file:
+        agent_import_file_name: ファイル名
+        agent_import_content_type: Content-Type
+        agent_import_file_size: ファイルサイズ
+        agent_import_fingerprint: ファイルのハッシュ
+        note: 注記
+        executed_at: 実行時刻
+        agent_import_updated_at: 更新時刻
+        state: 状態
+        edit_mode: 編集モード
+        error_message: エラーメッセージ
+        user_encoding: 文字コード
+      language:
+        name: 名前
+        native_name: ネイティブ名
+        display_name: 表示名
+        iso_639_1: ISO 639-1
+        iso_639_2: ISO 639-2
+        iso_639_3: ISO 639-3
+        note: 注記
+        position: 位置
+      resource_import_file:
+        resource_import_file_name: ファイル名
+        resource_import_content_type: Content-Type
+        resource_import_file_size: ファイルサイズ
+        resource_import_fingerprint: ファイルのハッシュ
+        note: 注記
+        executed_at: 実行時刻
+        resource_import_updated_at: 更新時刻
+        state: 状態
+        edit_mode: 編集モード
+        error_message: エラーメッセージ
+        user_encoding: 文字コード
+        default_shelf_id: 既定の本棚
+      series_statement:
+        original_title: シリーズ名
+        numbering: シリーズ番号
+        title_subseries: 副シリーズ名
+        title_subseries_transcription: 副シリーズ名のヨミ
+        numbering_subseries: 副シリーズ番号
+        work: 著作
+        series_statement_identifier: シリーズ識別子
+        issn: ISSN
+        title_transcription: シリーズ名のヨミ
+        note: 注記
+        series_master: マスタ
+        volume_number_string: シリーズ巻号
+        creator_string: シリーズ著者
+      country:
+        name: 名前
+        display_name: 表示名
+        alpha_2: ISO 3166-1 alpha-2
+        alpha_3: ISO 3166-1 alpha-3
+        numeric_3: ISO 3166-1 numeric
+        note: 注記
+        position: 位置
+      medium_of_performance:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      agent_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      agent_relationship_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      manifestation_relationship_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      license:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      import_request:
+        isbn: ISBN
+        state: 状態
+      agent_relationship:
+        parent: 派生元の人物・団体
+        child: 派生先の人物・団体
+        agent_relationship_type_id: 人物・団体の関係の種類
+      manifestation_relationship:
+        parent: 派生元の資料
+        child: 派生先の資料
+        manifestation_relationship_type_id: 資料の関係の種類
+      carrier_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      picture_file:
+        picture_attachable_type: 画像を添付可能な種類
+        picture_file_size: ファイルサイズ
+        picture_content_type: Content-Type
+        title: タイトル
+        picture_file_name: ファイル名
+        height: 高さ
+        width: 幅
+        thumbnail: サムネイル
+        picture_fingerprint: ファイルのハッシュ
+        picture_updated_at: 更新時刻
+      form_of_work:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      exemplify:
+        position: 位置
+      own:
+        position: 位置
+      produce:
+        position: 位置
+      realize:
+        position: 位置
+      frequency:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      content_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      agent_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      embody:
+        position: 位置
+      create:
+        position: 位置
+      resource_import_result:
+        body: 本文
+        error_message: エラーメッセージ
+        lineno: 行数
+      agent_import_result:
+        body: 本文
+      create_type:
+        name: 名称
+        display_name: 表示名
+        note: 注記
+      realize_type:
+        name: 名称
+        display_name: 表示名
+        note: 注記
+      produce_type:
+        name: 名称
+        display_name: 表示名
+        note: 注記
+      identifier_type:
+        name: 名称
+        display_name: 表示名
+        note: 注記
+      identifier:
+        body: 内容
+        manifestation_id: 体現形
+        primary: 主に使用
+      resource_export_file:
+        resource_export_file_name: ファイル名
+        resource_export_file_size: ファイルサイズ
+        state: 状態
+      agent_export_file:
+        agent_export_file_name: ファイル名
+        agent_export_file_size: ファイルサイズ
+        state: 状態
+      agent_merge_list:
+        title: タイトル
+      agent_merge:
+      series_statement_merge_list:
+        title: タイトル
+      series_statement_merge:
+      manifestation_custom_property:
+        name: 項目コード
+        display_name: 項目表示名
+        note: 注記
+      manifestation_custom_value:
+        value: 値
+      item_custom_property:
+        name: 項目コード
+        display_name: 項目表示名
+        note: 注記
+      item_custom_value:
+        value: 値
+
+  resource_import_file:
+    update_relationship: 関連を更新
+    default_shelf: TSVファイルで"shelf"列が指定されていない場合、この本棚が登録されます。
+
+  agent:
+    creator: 著者
+    contributor: 協力者・編者
+    publisher: 出版社
+    library_group_agent: "%{library_group_name} の人物・団体"
+    work_agent: "%{work_title} の著作者"
+    expression_agent: "%{expression_title} の編者"
+    manifestation_agent: "%{manifestation_title} の出版者"
+    activate_as_user: "利用者として登録する"
+    deactivate: "利用者登録を解除する"
+    add: "人物・団体を追加する"
+    publication: "出版物"
+    recent_publication: "最近の出版物"
+    all_publication: "全ての出版物"
+    other_address: "他の住所"
+    add_derivation: "派生人物・団体を追加"
+    creator: "著者"
+    contributor: "協力者・編者"
+    publisher: "出版者"
+    owner: "所有者"
+
+  manifestation:
+    date_of_acquisition: "受入日"
+    physical_description: "ページ数と大きさ"
+    add_next_issue: "次の号を追加"
+    edit_creator: "著者を編集"
+    edit_contributor: "編者を編集"
+    edit_publisher: "出版者を編集"
+    edit_expression: "協力した資料を編集"
+    edit_item: "所蔵を編集"
+    agent_manifestation: "%{agent_name} の資料"
+    expressions_manifestation: "%{expression_title} の出版した資料"
+    library_group_manifestation: "%{library_group_name} にある資料"
+    reserve_this: "この資料を予約する"
+    cancel_reservation: "この資料の予約を解除する"
+    user_who_bookmark_this_resource: "この資料をブックマークしている利用者"
+    query_search_result: "検索語 %{query} による %{library_group_name} の資料の検索結果"
+    serial: "定期刊行物"
+    number: "巻号"
+    invalid_isbn: "無効なISBNです。"
+    already_imported: "すでにインポートされています。"
+    record_not_found: "資料が見つかりませんでした。"
+    record_not_added: "資料がまだ登録されていません。"
+    add: "資料を追加する"
+    specify_expression: "協力した資料を指定してください。"
+    pickup: "ピックアップ"
+    showing_all_record: "すべての資料を表示しています。"
+    showing_reservable_record: "予約可能な資料のみを表示しています。"
+    reservable: "予約可能"
+    all_result: "すべての検索結果"
+    reservable_list: "予約可能な資料の一覧"
+    post_to_twitter: "Twitterに送信する"
+    web: "Web"
+    send_email: "書誌情報を電子メールで送信する"
+    attachment_file: "添付ファイル"
+    add_derivation: "派生資料を追加"
+    new_item: "新規作成"
+    this_year_checkouts: "過去一年間の貸出回数"
+    total_checkouts: "累計貸出回数"
+
+  item:
+    current_checkout: "現在の貸出"
+    donor: "寄贈者"
+    library_group_item: "%{library_group_name}にある所蔵情報"
+    add: "所蔵情報を追加する"
+    specify_manifestation: "資料を指定してください。"
+    this_item_is_reserved: "この資料は予約されています！"
+    create_shelf_first: "最初に本棚を作成してください。"
+    this_item_include_supplement: "この資料は付録を含んでいます。"
+    all_item: "全ての所蔵情報"
+    add_new_copy: "複本を追加"
+    no_manifestation: "資料なし"
+    no_number: "番号なし"
+    add_lending_policy: "貸出規則の追加"
+    edit_exemplification: "書誌の付け替え"
+    accepted_at: "検収時刻"
+
+  page:
+    add: 追加
+    remove: 削除
+    add_series_statement: 別のシリーズ情報を追加する
+    merge: "統合する（取り消しはできません）"
+    merge_resource: "%{model}を統合する"
+    new_acquisition: 新規受入
+    per_page: "%{num}件ずつ表示"
+    new_item: 所蔵作成
+    sort_criteria:
+      created_at: 書誌作成日
+      date_asc: 古い順
+      date_desc: 新しい順
+      score_asc: 適合度逆順
+      score_desc: 適合度順
+      title_asc: 50音順
+      title_desc: 50音逆順
+    score: スコア
+
+  merge_list:
+    successfully_merged: "%{model}は正常に統合されました。"
+    specify_id: "%{model}のIDを指定してください。"
+
+  import:
+    manifestation_found: "書誌インポート省略: すでに登録されている書誌が見つかりました。"
+    item_found: "所蔵インポート省略: すでに登録されている個別資料が見つかりました。"
+    isbn_invalid: "ISBNインポートエラー: ISBNは不正な値です。"
+    isbn_record_not_found: "ISBNインポートエラー: 外部サービスにおいてISBNに該当する書誌データが見つかりませんでした。"
+
+  import_request:
+    record_not_found: 書誌レコードが見つかりませんでした。
+    error: インポート中にエラーが発生しました。
+
+  resource_import_mailer:
+    completed:
+      subject: 'インポートが完了しました'
+    failed:
+      subject: 'インポートに失敗しました'
+  resource_export_mailer:
+    completed:
+      subject: 'エクスポートが完了しました'
+    failed:
+      subject: 'エクスポートに失敗しました'

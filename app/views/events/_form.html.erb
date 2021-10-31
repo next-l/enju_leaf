@@ -1,0 +1,44 @@
+<%= simple_form_for(@event, validate: true) do |f| -%>
+  <%= f.error_messages %>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.event_category') -%><br />
+    <%= f.select(:event_category_id, @event_categories.collect{|e| [e.display_name.localize, e.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.library') -%><br />
+    <%= f.select(:library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :name -%><br />
+    <%= f.text_field :name, class: 'resource_title' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :display_name -%><br />
+    <%= f.text_area :display_name, class: 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :start_at -%><br />
+    <%= f.datetime_select :start_at -%>
+    <%= f.label :all_day -%>
+    <%= f.check_box :all_day -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :end_at -%><br />
+    <%= f.datetime_select :end_at -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note, class: 'resource_textarea' -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>

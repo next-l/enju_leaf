@@ -1,0 +1,53 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.series_statement')) -%></h1>
+<div id="content_list">
+  <p id="notice"><%= notice %></p>
+  <% if @series_statement.root_manifestation and @manifestation_ids %>
+    <%= render 'manifestations/paginate_id_link', manifestation: @series_statement.root_manifestation , manifestation_ids: @manifestation_ids %>
+  <% end %>
+
+  <h2 class="resource_title">
+    <%= @series_statement.original_title %>
+  </h2>
+
+  <table id="resource_detail">
+    <tr>
+      <td style="width: 200px"><%= t('activerecord.attributes.series_statement.title_transcription') -%></td>
+      <td style="width: 490px"><%= @series_statement.title_transcription %></td>
+    </tr>
+    <tr>
+      <td style="width: 200px"><%= t('activerecord.attributes.series_statement.title_subseries') -%></td>
+      <td style="width: 490px"><%= @series_statement.title_subseries %>
+        <% if @series_statement.title_subseries_transcription? %>
+          (<%= @series_statement.title_subseries_transcription %>)
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= t('activerecord.attributes.series_statement.volume_number_string') -%></td>
+      <td><%= @series_statement.volume_number_string %></td>
+    </tr>
+    <tr>
+      <td><%= t('activerecord.attributes.series_statement.creator_string') -%></td>
+      <td><%= @series_statement.creator_string %></td>
+    </tr>
+    <tr>
+      <td><%= t('activerecord.attributes.series_statement.series_master') -%></td>
+      <td><%= localized_boolean(@series_statement.series_master) %></td>
+    </tr>
+    <tr>
+      <td><%= t('activerecord.attributes.series_statement.note') -%></td>
+      <td><%= @series_statement.note %></td>
+    </tr>
+  </table>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <% if policy(@series_statement).update? %>
+      <li><%= link_to t('page.edit'), edit_series_statement_path(@series_statement) %></li>
+    <% end %>
+    <li><%= back_to_index(flash[:page_info]) %></li>
+  </ul>
+</div>

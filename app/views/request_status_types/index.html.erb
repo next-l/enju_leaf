@@ -1,0 +1,42 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.request_status_type')) -%></h1>
+<div id="content_list">
+
+<table class="table table-striped index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.request_status_type.name') -%></th>
+    <th><%= t('activerecord.attributes.request_status_type.display_name') -%></th>
+    <th></th>
+  </tr>
+
+<%- @request_status_types.each do |request_status_type| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if policy(request_status_type).update? -%>
+        <%= move_position(request_status_type) -%>
+      <%- end -%>
+    </td>
+    <td><%= link_to request_status_type.name, request_status_type -%></td>
+    <td><%= link_to request_status_type.display_name.localize, request_status_type -%></td>
+    <td>
+      <%- if policy(request_status_type).update? -%>
+        <%= link_to t('page.edit'), edit_request_status_type_path(request_status_type) -%>
+      <% end %>
+      <%- if policy(request_status_type).destroy? -%>
+        <%= link_to t('page.destroy'), request_status_type, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <% end %>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <% if policy(RequestStatusType).create? %>
+      <li><%= link_to t('page.new', model: t('activerecord.models.request_status_type')), new_request_status_type_path -%></li>
+    <% end %>
+  </ul>
+</div>

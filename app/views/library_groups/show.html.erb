@@ -1,0 +1,108 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.library_group')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.name') -%>:</strong>
+  <%= @library_group.name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.display_name') -%>:</strong>
+  <%= @library_group.display_name.localize -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.header_logo') -%>:</strong>
+  <br />
+  <%= image_tag(library_group_path(@library_group, format: :download), size: @library_group.header_logo.image_size(:medium)) if @library_group.header_logo.exists? -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.email') -%>:</strong>
+  <%= @library_group.user.email -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.url') -%>:</strong>
+  <%= @library_group.url -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.login_banner') -%>:</strong>
+  <%= markdown_helper(@library_group.login_banner) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.footer_banner') -%>:</strong>
+  <%= markdown_helper(@library_group.footer_banner) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.max_number_of_results') -%>:</strong>
+  <%= @library_group.max_number_of_results -%>
+</p>
+
+<% if defined?(EnjuManifestationViewer) %>
+  <p>
+    <strong><%= t('activerecord.attributes.library_group.book_jacket_source') -%>:</strong>
+    <%= @library_group.book_jacket_source -%>
+  </p>
+<% end %>
+
+<div>
+  <strong><%= t('activerecord.attributes.library_group.color') -%>:</strong>
+  <ul>
+    <% @library_group.colors.each do |color| %>
+      <li>
+        <%= color.property %>:
+        <span style="color: transparent; background-color: #<%= color.code %>">sample</span>
+        ( <%= color.code %> )
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<% if defined?(EnjuBookmark) %>
+  <p>
+    <strong><%= t('activerecord.attributes.library_group.allow_bookmark_external_url') -%>:</strong>
+    <%= localized_boolean(@library_group.allow_bookmark_external_url) -%>
+  </p>
+<% end %>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.my_networks') -%>:</strong>
+  <%= @library_group.my_networks -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.admin_networks') -%>:</strong>
+  <%= @library_group.admin_networks -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.library_group.note') -%>:</strong>
+  <%= @library_group.note -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.library') -%>:</strong><br />
+</p>
+
+<ul>
+  <%- @library_group.real_libraries.each do |library| -%>
+    <li><%= link_to library.display_name.localize, library -%></li>
+  <%- end -%>
+</ul>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(@library_group).update? -%>
+      <li><%= link_to t('page.edit'), edit_library_group_path(@library_group) -%></li>
+    <%- end -%>
+  </ul>
+</div>

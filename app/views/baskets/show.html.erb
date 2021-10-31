@@ -1,0 +1,23 @@
+<div id="content_list">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.basket')) -%></h1>
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<p id="notice"><%= notice %></p>
+
+  <p>
+    <strong><%= t('activerecord.models.user') -%>:</strong>
+    <%= @basket.user.try(:username) -%>
+  </p>
+
+  <p>
+    <strong><%= t('activerecord.attributes.basket.note') -%>:</strong>
+    <%= @basket.note -%>
+  </p>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_basket_path(@basket) -%></li>
+    <li><%= link_to t('page.back'), baskets_path(user_id: @basket.user_id) -%></li>
+  </ul>
+</div>

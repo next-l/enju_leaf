@@ -1,0 +1,4 @@
+<%= @user_checkout_stat.start_date -%>	<%= @user_checkout_stat.end_date %>
+<%- @stats.each do |stat| -%>
+"<%= stat.user.username if stat.user -%>"	"<%= stat.checkouts_count %>"<%= "\n" -%>
+<%- end -%>

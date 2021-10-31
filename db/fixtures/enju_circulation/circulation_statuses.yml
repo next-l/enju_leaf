@@ -1,0 +1,129 @@
+--- 
+circulation_status_00001: 
+  name: Available For Pickup  
+  display_name: |-
+    en: Available For Pickup
+    ja: 持ち出し可能
+  id: 1
+  note: ""
+  position: 1
+circulation_status_00002: 
+  name: Available On Shelf  
+  display_name: |-
+    en: Available On Shelf
+    ja: 在架（利用可能）
+  id: 2
+  note: ""
+  position: 2
+circulation_status_00003: 
+  name: Circulation Status Undefined  
+  display_name: |-
+    en: Circulation Status Undefined
+    ja: 貸出状態未定義
+  id: 3
+  note: ""
+  position: 3
+circulation_status_00004: 
+  name: Claimed Returned Or Never Borrowed  
+  display_name: |-
+    en: Claimed Returned Or Never Borrowed
+    ja: 利用者が返却済み、または未貸出と主張
+  id: 4
+  note: ""
+  position: 4
+circulation_status_00005: 
+  name: In Process  
+  display_name: |-
+    en: In Process
+    ja: 作業中
+  id: 5
+  note: ""
+  position: 5
+circulation_status_00006: 
+  name: In Transit Between Library Locations  
+  display_name: |-
+    en: In Transit Between Library Locations
+    ja: 移動中
+  id: 6
+  note: ""
+  position: 6
+circulation_status_00007: 
+  name: Lost  
+  display_name: |-
+    en: Lost
+    ja: 紛失
+  id: 7
+  note: ""
+  position: 7
+circulation_status_00008: 
+  name: Missing  
+  display_name: |-
+    en: Missing
+    ja: 行方不明
+  id: 8
+  note: ""
+  position: 8
+circulation_status_00009: 
+  name: Not Available  
+  display_name: |-
+    en: Not Available
+    ja: 利用不可
+  id: 9
+  note: ""
+  position: 9
+circulation_status_00010: 
+  name: On Loan  
+  display_name: |-
+    en: On Loan
+    ja: 貸出中
+  id: 10
+  note: ""
+  position: 10
+circulation_status_00011: 
+  name: On Order  
+  display_name: |-
+    en: On Order
+    ja: 発注中
+  id: 11
+  note: ""
+  position: 11
+circulation_status_00012: 
+  name: Pending Transfer  
+  display_name: |-
+    en: Pending Transfer
+    ja: 移動予定
+  id: 12
+  note: ""
+  position: 12
+circulation_status_00013: 
+  name: Recalled  
+  display_name: |-
+    en: Recalled
+    ja: 返却依頼中
+  id: 13
+  note: ""
+  position: 13
+circulation_status_00014: 
+  name: Waiting To Be Reshelved  
+  display_name: |-
+    en: Waiting To Be Reshelved
+    ja: 再配架待ち
+  id: 14
+  note: ""
+  position: 14
+circulation_status_00015: 
+  name: Not arrived
+  display_name: |-
+    en: Not arrived
+    ja: 未着
+  id: 15
+  note: ""
+  position: 15
+circulation_status_00016: 
+  name: Removed
+  display_name: |-
+    en: Removed
+    ja: 除籍済み
+  id: 16
+  note: ""
+  position: 16

@@ -1,0 +1,27 @@
+<%= form_for(@subject) do |f| -%>
+  <%= f.error_messages -%>
+  <div class="field">
+    <%= f.label t('activerecord.models.subject_heading_type') -%>
+    <%= f.select(:subject_heading_type_id, @subject_heading_types.collect{|s| [s.display_name.localize, s.id]}) -%>
+  </div>
+  <div class="field">
+    <%= f.label t('activerecord.models.subject_type') -%>
+    <%= f.select(:subject_type_id, @subject_types.collect{|s| [s.display_name.localize, s.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :term -%><br />
+    <%= f.text_field :term -%>
+  </div>
+  <div class="field">
+    <%= f.label :term_transcription -%><br />
+    <%= f.text_field :term_transcription -%>
+  </div>
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note -%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>

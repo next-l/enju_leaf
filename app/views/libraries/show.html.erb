@@ -1,0 +1,136 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= @library.display_name.localize -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+  <p>
+    <%= t('activerecord.attributes.library.name') -%>: <%= @library.name -%>
+    <% unless @library.web? %>
+      (ISIL: <%= @library.isil %>)
+    <% end %>
+  </p>
+
+  <%- unless @library.web? -%>
+  <p>
+    <%= t('library.address') -%>: <%= @library.zip_code -%> <%= @library.address -%>
+    <br />
+    <%= t('activerecord.attributes.library.telephone_number_1') -%>: <%= @library.telephone_number_1 -%>
+    <%= t('activerecord.attributes.library.telephone_number_2') -%>: <%= @library.telephone_number_2 -%>
+    <br />
+    <%= t('activerecord.attributes.library.fax_number') -%>: <%= @library.fax_number -%>
+  </p>
+  <p>
+    <%= @library.opening_hour -%>
+  </p>
+  <p>
+    <%= @library.note -%>
+  </p>
+
+  <div id="tabs">
+      <ul>
+        <li title="active" class="selected"><a href="#tab1"><em><%= t('library.map') -%></em></a></li>
+      	<% if current_user.try(:has_role?, 'Librarian') %>
+       	  <li><a href="#tab2"><em><%= t('library.staff') -%></em></a></li>
+        <% end %>
+        <li><a href="#tab3"><em><%= t('activerecord.models.shelf') -%></em></a></li>
+        <% if defined?(EnjuEvent) %>
+          <li><a href="#tab4"><em><%= t('activerecord.models.event') -%></em></a></li>
+        <% end %>
+        <%- if policy(@library).update? -%>
+          <li><a href="#tab5"><em><%= t('page.configuration') -%></em></a></li>
+        <%- end -%>
+      </ul>
+      <div id="tab1">
+        <%= render 'libraries/map', library: @library if @library.latitude and @library.longitude -%>
+      </div>
+      <% if current_user.try(:has_role?, 'Librarian') %>
+      	<div id="tab2">
+          <%- if @library.profiles.librarians.exists? -%>
+            <ul>
+              <%- @library.profiles.librarians.each do |librarian| -%>
+                <li>
+                  <%= link_to librarian.user.username, librarian -%>
+                  <%- unless librarian.note.blank? -%>
+                    <br />
+                    <%= librarian.note -%>
+                  <%- end -%>
+                </li>
+              <%- end -%>
+            </ul>
+          <%- end -%>
+        </div>
+      <%- end -%>
+      <div id="tab3">
+        <p><%= link_to t('shelf.update_display_order'), shelves_path(library_id: @library.name) %>
+        <table class="table table-striped index">
+          <tr>
+            <th><%= t('activerecord.models.shelf') -%></th>
+            <th><%= t('library.number_of_item') -%></th>
+            <th><%= t('activerecord.attributes.shelf.note') -%></th>
+          </tr>
+          <%- @library.shelves.each do |shelf| -%>
+            <tr class="line<%= cycle("0", "1") -%>">
+              <td>
+                <%= link_to shelf.display_name.localize, shelf_path(shelf, library_id: @library.name) -%>
+                <%- shelf.picture_files.each do |picture_file| -%>
+                  <%= link_to image_tag('icons/picture.png', size: '16x16', class: 'enju_icon', alt: t('page.picture')), picture_file_path(picture_file, format: :download), rel: "shelf_#{h(shelf.id)}" -%>
+                <%- end -%>
+                <script type="text/javascript">
+                  $(document).ready(function(){
+                    $("a[rel='shelf_<%= shelf.id -%>']").colorbox({transition:"none", photo:true});
+                  })
+                </script>
+              </td>
+              <td><%= shelf.items_count -%></td>
+              <td><%= shelf.note -%></td>
+            </tr>
+          <%- end -%>
+        </table>
+      </div>
+
+      <% if defined?(EnjuEvent) %>
+        <div id="tab4">
+          <h3><%= link_to t('activerecord.models.event'), events_path(library_id: @library.name) -%></h3>
+          <div id="library_calendar" style="text-align:left">
+            <%= render 'calendar' -%>
+          </div>
+        </div>
+      <% end %>
+
+      <%- if policy(@library).update? -%>
+        <div id="tab5">
+          <h3><%= t('page.configuration') -%></h3>
+          <p>
+            <strong><%= t('activerecord.attributes.library.call_number_rows') -%>:</strong>
+            <%= @library.call_number_rows -%>
+          </p>
+
+          <p>
+            <strong><%= t('activerecord.attributes.library.call_number_delimiter') -%>:</strong>
+            <%= @library.call_number_delimiter -%>
+          </p>
+        </div>
+      <%- end -%>
+
+    </div>
+  <%- end -%>
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+  <%- if policy(@library).update? -%>
+    <li><%= link_to t('page.edit'), edit_library_path(@library) -%></li>
+  <%- end -%>
+
+  <%- if policy(Shelf).create? and !@library.web? -%>
+    <li><%= link_to t('page.new', model: t('activerecord.models.shelf')), new_shelf_path(library_id: @library.id) -%></li>
+  <%- end -%>
+  <% if defined?(EnjuEvent) %>
+    <%- if policy(Event).create? and !@library.web? -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.event')), new_event_path(library_id: @library.id) -%></li>
+    <%- end -%>
+  <%- end -%>
+  <li><%= link_to t('page.listing', model: t('activerecord.models.library')), libraries_path -%></li>
+  </ul>
+</div>

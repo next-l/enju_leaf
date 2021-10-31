@@ -1,0 +1,14 @@
+<h4><%= t('checkout.reserved') %></h4>
+<ul>
+  <%- @checkouts_facet.each do |facet| -%>
+    <% facet.value ? facet_reserved = true : facet_reserved = false %>
+    <li>
+      <%- if @reserved == facet_reserved -%><strong><%- end -%>
+      <%= link_to "#{localized_boolean(facet.value)} (#{facet.count})", url_for(filtered_params.merge(page: nil, reserved: facet.value.to_s, view: nil, only_path: true)) -%>
+      <%- if @reserved == facet_reserved -%></strong><%- end -%>
+    </li>
+  <%- end -%>
+  <%- unless @reserved.nil? -%>
+    <li><%= link_to t('page.remove_this_facet'), url_for(filtered_params.merge(reserved: nil, page: nil, view: nil, only_path: true)) -%></li>
+  <%- end -%>
+</ul>

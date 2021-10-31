@@ -1,0 +1,16 @@
+<% if @parent %>
+  <%= render 'manifestations/paginate_id_store', manifestation: @parent %>
+<% elsif @manifestation %>
+  <%= render 'manifestations/paginate_id_store', manifestation: @manifestation %>
+<% end %>
+<%= form_for :manifestations, url: manifestations_path, html: {method: 'get'} do -%>
+  <div>
+    <span id="next_link"><%= t('page.next') %></span>
+    <span id="prev_link"><%= t('page.previous') %></span>
+    <span id="back_link"><%= t('page.back_to_index') %></span>
+    <%= label_tag :search_form_top, t('page.search_term') -%>:
+    <%= search_field_tag 'query', @query, {id: 'search_form_top', class: 'search_form_short', placeholder: t('page.search_term')} -%>
+    <%= submit_tag t('page.search') -%>
+    <%= link_to t('page.advanced_search'), page_advanced_search_path -%>
+  </div>
+<%- end -%>

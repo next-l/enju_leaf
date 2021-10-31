@@ -1,0 +1,14 @@
+      <table class="table table-striped" id="resource_detail">
+        <tr>
+          <td style="width: 200px"><%= t('activerecord.attributes.series_statement.title_transcription') -%></td>
+          <td style="width: 490px"><%= @parent.title_transcription %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.series_statement.series_master') -%></td>
+          <td><%= localized_boolean(@parent.series_master?) %></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.series_statement.note') -%></td>
+          <td><%= @parent.note %></td>
+        </tr>
+    </table>

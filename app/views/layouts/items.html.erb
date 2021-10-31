@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @locale.to_s -%>" lang="<%= @locale.to_s -%>">
+<head>
+  <meta charset="UTF-8" />
+  <%= render 'page/include' %>
+  <title><%= title(controller.controller_name) %></title>
+  <% if %w(show edit index).include?(controller.action_name) && defined?(EnjuManifestationViewer) %>
+    <%= book_jacket_header(@library_group.book_jacket_source) %>
+  <% end %>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+
+<%= render 'page/header' %>
+<%= render 'page/menu' %>
+
+<div id="content">
+
+<%= yield %>
+
+</div>
+
+<%= render 'page/footer' %>
+
+</body>
+</html>

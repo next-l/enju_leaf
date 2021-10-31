@@ -1,0 +1,68 @@
+--- 
+frequency_00001: 
+  name: unknown
+  display_name: "en: unknown\r\n\
+    ja: 不明・不定期刊"
+  id: 1
+  position: 1
+frequency_00002: 
+  name: daily
+  display_name: "en: daily\r\n\
+    ja: 日刊"
+  id: 2
+  position: 2
+frequency_00003: 
+  name: weekly
+  display_name: "en: weekly\r\n\
+    ja: 週刊"
+  id: 3
+  position: 3
+frequency_00004: 
+  name: biweekly
+  display_name: "en: biweekly\r\n\
+    ja: 隔週刊"
+  id: 4
+  position: 4
+frequency_00005: 
+  name: monthly
+  display_name: "en: monthly\r\n\
+    ja: 月刊"
+  id: 5
+  position: 5
+frequency_00006: 
+  name: bimonthly
+  display_name: "en: bimonthly\r\n\
+    ja: 隔月刊"
+  id: 6
+  position: 6
+frequency_00007: 
+  name: quarterly
+  display_name: "en: quarterly\r\n\
+    ja: 季刊"
+  id: 7
+  position: 7
+frequency_00008: 
+  name: yearly
+  display_name: "en: yearly\r\n\
+    ja: 年刊"
+  id: 8
+  position: 8
+frequency_00009: 
+  name: biyearly
+  display_name: "en: biyearly\r\n\
+    ja: 隔年刊"
+  id: 9
+  position: 9
+
+# == Schema Information
+#
+# Table name: frequencies
+#
+#  id           :integer          not null, primary key
+#  name         :string           not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#

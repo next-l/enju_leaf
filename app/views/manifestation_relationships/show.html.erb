@@ -1,0 +1,24 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.manifestation_relationship')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_relationship.parent') -%>:</strong>
+  <%= link_to @manifestation_relationship.parent.original_title, @manifestation_relationship.parent %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_relationship.child') -%>:</strong>
+  <%= link_to @manifestation_relationship.child.original_title, @manifestation_relationship.child %>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_manifestation_relationship_path(@manifestation_relationship) %></li>
+    <li><%= back_to_index(flash[:page_info]) %></li>
+  </ul>
+</div>

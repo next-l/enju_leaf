@@ -1,0 +1,8 @@
+<%= render 'manifestations/carrier_type_facet' -%>
+<%= render 'manifestations/library_facet' -%>
+<%= render 'manifestations/language_facet' -%>
+<%= render 'manifestations/pub_year_facet' -%>
+<%=
+    #render 'manifestations/classification_facet'
+-%>
+<%= render 'manifestations/reservable_facet' if defined?(EnjuCirculation) -%>

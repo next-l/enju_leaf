@@ -1,0 +1,4 @@
+item_identifier	basket_id	withdrawed_at
+<% @withdraws.each do |withdraw| %>
+<%= withdraw.item.item_identifier %>	<%= withdraw.basket_id %>	<%= withdraw.created_at %>
+<% end %>

@@ -1,0 +1,38 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.event_export_file')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.user') %></strong>
+  <%= @event_export_file.user.try(:username) %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.event_export_file.event_export_file_name') -%></strong>
+  <%= link_to @event_export_file.event_export_file_name, event_export_file_path(@event_export_file, format: :download) if @event_export_file.event_export_file_name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.event_export_file.state') -%>:</strong>
+  <%= localized_state(@event_export_file.current_state) -%>
+</p>
+
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@event_export_file.created_at) if @event_export_file.created_at -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
+    <% if current_user.has_role?('Administrator') %>
+      <% if defined?(Resque) %>
+        <li><%= link_to 'Resque', resque_path %></li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

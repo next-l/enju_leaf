@@ -1,0 +1,484 @@
+en:
+  activerecord:
+    models:
+      carrier_type: Carrier Type
+      content_type: Content type
+      create: Create
+      create_type: Create type
+      embody: Embody
+      exemplify: Exemplify
+      form_of_work: Form of works
+      frequency: Frequency of issue
+      import_request: Import request
+      item: Item
+      language: Language
+      license: License
+      manifestation: Manifestation
+      manifestation_relationship: Resource relationship
+      manifestation_relationship_type: Resource relationship type
+      medium_of_performance: Medium of performance
+      own: Own
+      agent: Agent
+      agent_import_file: Agent import file
+      agent_import_result: Agent Import Result
+      agent_relationship: Agent relationship
+      agent_relationship_type: Agent relationship type
+      agent_type: Agent type
+      picture_file: Picture file
+      produce: Produce
+      produce_type: Produce type
+      realize: Realize
+      realize_type: Realize type
+      resource_import_file: Resource import file
+      resource_import_result: Resource import result
+      series_statement: Series statement
+      country: Country
+      donate: Donate
+      identifier: Identifier
+      identifier_type: Identifier type
+      resource_export_file: Resource export
+      agent_export_file: Agent export
+      agent_merge_list: Patron merge list
+      agent_merge: Patron merge
+      series_statement_merge: Series statement merge
+      series_statement_merge_list: Series statement merge list
+      periodical: Periodical
+      doi_record: DOI
+      manifestation_custom_property: Manifestation custom property
+      manifestation_custom_value: Manifestation custom value
+      item_custom_property: Item custom property
+      item_custom_value: Item custom value
+
+    attributes:
+      manifestation:
+        original_title: Original title
+        title_alternative: Title alternative
+        title_transcription: Title transcription
+        classification_number: Classification number
+        manifestation_identifier: Local manifestation identifier
+        date_of_publication: Date of publication
+        pub_date: Date of publication
+        deleted_at: Deleted at
+        access_address: Access address
+        number_of_page_string: Number of page (string)
+        start_page: Start page
+        end_page: End page
+        height: Height
+        width: Width
+        depth: Depth
+        isbn: ISBN
+        isbn10: ISBN 10
+        wrong_isbn: Wrong ISBN
+        nbn: NBN
+        price: Price
+        volume_number: Volume number (integer)
+        volume_number_string: Volume number
+        issue_number: Issue number (integer)
+        issue_number_string: Issue number
+        serial_number: Serial number
+        serial_number_string: Serial number (string)
+        edition: Edition (integer)
+        edition_string: Edition
+        note: Note
+        memo: Memo
+        repository_content: Repository content
+        lock_version: Lock version
+        carrier_type: Carrier type
+        language: Language
+        lccn: LCCN
+        issn: ISSN
+        subscription_master: Subscription master
+        abstract: Abstract
+        description: Description
+        creator_string: Creator
+        contributor_string: Contributor
+        publisher_string: Publisher
+        series_statement_string: Series statement
+        serial: Serial publication
+        series_master: Series master
+        subject: Subject
+        classification: Classification
+        identifier: Identifier
+        statement_of_responsibility: Statement of responsibility
+        publication_place: Publication place
+        parent_id: Parent
+        extent: Extent
+        dimensions: Dimensions
+        fulltext_content: Fulltext content
+        date_copyrighted: Date copyrighted
+      manifestation/subjects:
+          term: Subject
+      manifestation/classifications:
+          category: Classification
+      manifestation/identifiers:
+          body: Identifier
+      manifestation/manifestation_custom_properties:
+        name: Name
+        value: Value
+      item:
+        call_number: Call number
+        item_identifier: Item identifier
+        deleted_at: Deleted at
+        include_supplements: Include supplements
+        note: Note
+        memo: Memo
+        url: URL
+        price: Price
+        lock_version: Lock version
+        acquired_at: Acquired at
+        donation: Donation
+        binding_item_identifier: Binding item identifier
+        binding_call_number: Binding call number
+        binded_at: Binded at
+        budget_type_id: Budget type
+        bookstore_id: Bookstore
+        required_role_id: Required role
+      item/item_custom_properties:
+        name: Name
+        value: Value
+      agent:
+        last_name: Last name
+        middle_name: Middle name
+        first_name: First name
+        last_name_transcription: Last name transcription
+        middle_name_transcription: Middle name transcription
+        first_name_transcription: First name transcription
+        corporate_name: Corporate name
+        corporate_name_transcription: Corporate name transcription
+        full_name: Full name
+        full_name_transcription: Full name transcription
+        full_name_alternative: Full name alternative
+        deleted_at: Deleted at
+        zip_code_1: Zip code 1
+        zip_code_2: Zip code 2
+        address_1: Address 1
+        address_2: Address 2
+        address_1_note: Address 1 note
+        address_2_note: Address 2 note
+        telephone_number_1: Telephone number 1
+        telephone_number_2: Telephone number 2
+        fax_number_1: Fax number 1
+        fax_number_2: Fax number 2
+        other_designation: Other designation
+        place: Place
+        date_of_birth: Date of birth
+        date_of_death: Date of death
+        lock_version: Lock version
+        note: Note
+        country: Country
+        agent_type: Agent type
+        language: Language
+        email: Email
+        url: URL
+      agent_import_file:
+        agent_import_file_name: Filename
+        agent_import_content_type: Content type
+        agent_import_file_size: Size
+        agent_import_fingerprint: File hash
+        note: Note
+        executed_at: Executed at
+        agent_import_updated_at: Updated at
+        state: State
+        edit_mode: Edit mode
+        error_message: Error message
+        user_encoding: Encoding
+      language:
+        name: Name
+        native_name: Native name
+        display_name: Display name
+        iso_639_1: ISO 639 1
+        iso_639_2: ISO 639 2
+        iso_639_3: ISO 639 3
+        note: Note
+        position: Position
+      resource_import_file:
+        resource_import_file_name: Filename
+        resource_import_content_type: Content type
+        resource_import_file_size: Size
+        resource_import_fingerprint: File hash
+        note: Note
+        executed_at: Executed at
+        resource_import_updated_at: Updated at
+        state: State
+        edit_mode: Edit mode
+        error_message: Error message
+        user_encoding: Encoding
+        default_shelf_id: Default shelf
+      series_statement:
+        original_title: Title
+        numbering: Numbering
+        title_subseries: Title subseries
+        title_subseries_transcription: Title subseries transcription
+        numbering_subseries: Numbering subseries
+        work: Work
+        series_statement_identifier: Series statement identifier
+        issn: ISSN
+        title_transcription: Title transcription
+        note: Note
+        series_master: Master
+        volume_number_string: Volume number
+        creator_string: Creator
+      country:
+        name: Name
+        display_name: Display name
+        alpha_2: ISO 3166-1 alpha-2
+        alpha_3: ISO 3166-1 alpha-3
+        numeric_3: ISO 3166-1 numeric
+        note: Note
+        position: Position
+      medium_of_performance:
+        name: Name
+        display_name: Displayname
+        note: Note
+        position: Position
+      content_type:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      agent_relationship_type:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      manifestation_relationship_type:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      license:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      import_request:
+        isbn: ISBN
+        state: State
+      agent_relationship:
+        parent_id: Parent
+        child_id: Child
+        agent_relationship_type_id: Agent relationship type
+      manifestation_relationship:
+        parent_id: Parent
+        child_id: Child
+        manifestation_relationship_type_id: Manifestation relationship type
+      carrier_type:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      picture_file:
+        picture_attachable_type: Picture attachable type
+        picture_file_size: Size
+        picture_content_type: Content type
+        title: Title
+        picture_file_name: Filename
+        height: Height
+        width: Width
+        thumbnail: Thumbnail
+        picture_fingerprint: File hash
+        picture_updated_at: Updated at
+      form_of_work:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      exemplify:
+        position: Position
+      own:
+        position: Position
+      produce:
+        position: Position
+      realize:
+        position: Position
+      frequency:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      content_type:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      agent_type:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      embody:
+        position: Position
+      create:
+        position: Position
+      resource_import_result:
+        body: Body
+        error_message: Error message
+        lineno: Line
+      agent_import_result:
+        body: Body
+      create_type:
+        name: Name
+        display_name: Display name
+        note: Note
+      realize_type:
+        name: Name
+        display_name: Display name
+        note: Note
+      produce_type:
+        name: Name
+        display_name: Display name
+        note: Note
+      identifier_type:
+        name: Name
+        display_name: Display name
+        note: Note
+      identifier:
+        body: Body
+        manifestation_id: Manifestation
+        primary: Primary
+      resource_export_file:
+        resource_export_file_name: Filename
+        resource_export_file_size: Size
+        state: State
+      agent_merge_list:
+        title: Title
+      agent_merge:
+      series_statement_merge_list:
+        title: Title
+      series_statement_merge:
+      manifestation_custom_property:
+        name: Property name
+        display_name: Display name
+        note: Note
+      manifestation_custom_value:
+        value: Value
+      item_custom_property:
+        name: Property name
+        display_name: Display name
+        note: Note
+      item_custom_value:
+        value: Value
+
+  resource_import_file:
+    update_relationship: Update relationship
+    default_shelf: If "shelf" column is not set in the TSV file, this shelf is set to the new item.
+ 
+  agent:
+    creator: Creator
+    contributor: Contributor
+    publisher: Publisher
+    library_group_agent: "Agents of %{library_group_name}"
+    work_agent: "Creators of %{work_title}"
+    expression_agent: "Realizers of %{expression_title}"
+    manifestation_agent: "Producers of %{manifestation_title}"
+    activate_as_user: "Activate as an user"
+    deactivate: "Deactivate this user"
+    add: "Add a agent"
+    publication: "Publications"
+    recent_publication: "Recent publications"
+    all_publication: "All publications"
+    other_address: "The other address"
+    add_derivation: "Add derivation"
+    creator: "Creator"
+    contributor: "Contributor"
+    publisher: "Publisher"
+    owner: "Owner"
+
+  manifestation:
+    date_of_acquisition: "Date of acquisition"
+    physical_description: "Physical description"
+    edit: "Edit this manifestation"
+    add_next_issue: "Add a next issue"
+    edit_creator: "Edit creators"
+    edit_contributor: "Edit contributors"
+    edit_publisher: "Edit publishers"
+    edit_expression: "Edit expressions"
+    edit_item: "Edit items"
+    expressions_manifestation: "Manifestations for %{expression_title}"
+    library_group_manifestation: "Manifestations in %{library_group_name}"
+    reserve_this: "Reserve this manifestation"
+    cancel_reservation: "Cancel this reservation"
+    user_who_bookmark_this_resource: "Users who bookmark this resource"
+    query_search_result: "Search results for %{query} in %{library_group_name}"
+    serial: "Serial"
+    number: "Number"
+    invalid_isbn: "Invalid ISBN."
+    already_imported: "This manifestation is already imported."
+    record_not_found: "Record not found."
+    record_not_added: "Record not added."
+    add: "Add a manifestation"
+    specify_expression: "Specify the expression."
+    pickup: "Pick up"
+    showing_all_record: "Showing all records."
+    showing_reservable_record: "Showing reservable records."
+    reservable: "Reservable"
+    all_result: "All results"
+    reservable_list: "Reservable list"
+    post_to_twitter: "post to Twitter"
+    web: "Web"
+    send_email: "Email this information"
+    attachment_file: "Attachment file"
+    add_derivation: "Add a derivation"
+    new_item: "New item"
+    this_year_checkouts: "Checkouts for the past year"
+    total_checkouts: "Total checkouts"
+
+  item:
+    current_checkout: "Current checkout"
+    donor: "Donors"
+    library_group_item: "Items in %{library_group_name}"
+    add: "Add an item"
+    specify_manifestation: "Specify the manifestation."
+    this_item_is_reserved: "This item is reserved!"
+    create_shelf_first: "You should create a shelf first."
+    this_item_include_supplement: "This item includes supplements."
+    all_item: "All items"
+    add_new_copy: "Add a new copy"
+    no_manifestation: "No manifestation"
+    no_number: "No number"
+    add_lending_policy: "Add a new lending policy"
+    edit_exemplification: "Edit exemplification"
+    accepted_at: "Accepted at"
+
+  page:
+    add: Add
+    remove: Remove
+    add_series_statement: Add another series statement
+    merge: "Merge!"
+    merge_resource: "Merge %{model}"
+    new_acquisition: Acquisition
+    per_page: "%{num} records per page"
+    new_item: New item
+    sort_criteria:
+      created_at: "Created at"
+      date_asc: Oldest
+      date_desc: Newest
+      score_asc: Score Asc
+      score_desc: Score Desc
+      title_asc: A-Z
+      title_desc: Z-A
+    score: Score
+
+  merge_list:
+    successfully_merged: "%{model} were merged successfully."
+    specify_id: "Specify %{model} ID."
+
+  import:
+    manifestation_found: 'Manifestation skipped: This manifestation is already created.'
+    item_found: 'Item skipped: This item is already created.'
+    isbn_invalid: "ISBN import error: ISBN string is invalid."
+    isbn_record_not_found: "ISBN import error: Bibliographic record is not found in the external service."
+  import_request:
+    record_not_found: Record not found.
+    error: An error occured during import.
+
+  resource_import_mailer:
+    completed:
+      subject: 'Import completed'
+    failed:
+      subject: 'Import failed'
+  resource_export_mailer:
+    completed:
+      subject: 'Export completed'
+    failed:
+      subject: 'Export failed'

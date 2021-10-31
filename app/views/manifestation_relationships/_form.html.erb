@@ -1,0 +1,31 @@
+<%= form_for(@manifestation_relationship) do |f| %>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <% if @manifestation_relationship.try(:parent) %>
+      <%= f.label :parent %><br />
+      <%= link_to @manifestation_relationship.parent.original_title, @manifestation_relationship.parent %>
+      <%= f.hidden_field :parent_id %>
+    <% else %>
+      <%= f.label :parent %><br />
+      <%= f.text_field :parent_id %>
+    <% end %>
+  </div>
+  <div class="field">
+    <% if @manifestation_relationship.child.try(:original_title) %>
+      <%= f.label :child %><br />
+      <%= link_to @manifestation_relationship.child.original_title, @manifestation_relationship.child %>
+      <%= f.hidden_field :child_id %>
+    <% else %>
+      <%= f.label :child %><br />
+      <%= f.text_field :child_id %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :manifestation_relationship_type_id %><br />
+    <%= f.select(:manifestation_relationship_type_id, @manifestation_relationship_types.collect{|r| [r.display_name.localize, r.id]}) -%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

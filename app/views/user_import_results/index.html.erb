@@ -1,0 +1,14 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.user_import_result')) -%></h1>
+<div id="content_list">
+  <% if @user_import_file %>
+    <%= render 'list_lines' %>
+  <% else %>
+    <%= render 'list' %>
+  <% end %>
+  <%= paginate(@user_import_results) %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+</div>

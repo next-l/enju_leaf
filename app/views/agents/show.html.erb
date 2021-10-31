@@ -1,0 +1,112 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.agent')) -%></h1>
+<div id="content_list">
+  <p id="notice"><%= notice %></p>
+
+  <h2 class="resource_title">
+    [P]
+    <%= @agent.full_name -%>
+  </h2>
+
+<div id="tabs">
+  <ul>
+    <li title="active" class="selected"><a href="#detail"><em><%= t('page.detail') -%></em></a></li>
+    <%- if @agent.derived_agents.exists? or @agent.original_agents.exists? -%>
+      <li><a href="#related"><em><%= t('page.related') -%></em></a></li>
+    <%- end -%>
+  </ul>
+  <div id="detail">
+    <table class="table table-striped index vcard">
+      <tr>
+        <td><strong><%= t('activerecord.attributes.agent.full_name') -%>:</strong></td>
+        <td>
+          <span class="fn"><%= @agent.full_name -%></span>
+        </td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.attributes.agent.full_name_transcription') -%>:</strong></td>
+        <td><%= @agent.full_name_transcription -%></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.models.agent_type') -%>:</strong></td>
+        <td><%= @agent.agent_type.display_name.localize -%></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.attributes.agent.email') -%>:</strong></td>
+        <td>
+          <%= mail_to @agent.email, nil, class: 'email' -%>
+        </td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.attributes.agent.url') -%>:</strong></td>
+        <td>
+          <%= link_to @agent.url, @agent.url, class: 'url' if @agent.url? -%>
+        </td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.attributes.agent.other_designation') -%>:</strong></td>
+        <td><%= @agent.other_designation -%></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.attributes.agent.place') -%>:</strong></td>
+        <td><%= @agent.place -%></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.models.language') -%>:</strong></td>
+        <td><%= @agent.language.display_name.localize -%></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.attributes.agent.note') -%>:</strong></td>
+        <td><%= @agent.note -%></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('page.created_at') -%>:</strong></td>
+        <td><%= l(@agent.created_at) -%></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('page.updated_at') -%>:</strong></td>
+        <td><%= l(@agent.updated_at) -%></td>
+      </tr>
+    </table>
+  </div>
+  <%- unless @agent.derived_agents.empty? and @agent.original_agents.empty? -%>
+    <%= render 'agents/agent_list' -%>
+  <%- end -%>
+  </div>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <div id="manifestation_book_jacket">
+    <%= agent_custom_book_jacket(@agent) -%>
+  </div>
+  <ul>
+    <%- if @agent.picture_files.exists? -%>
+      <li><%= t('page.total') %>: <%= @agent.picture_files.count %> <%= t('page.number_of_pictures', count: @agent.picture_files.count) %></li>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.picture_file')), picture_files_path(agent_id: @agent.id) -%></li>
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $("a[rel='agent_<%= @agent.id -%>']").colorbox({transition:"none", photo:true});
+          $("a[rel='agent_<%= @agent.id -%>_other']").colorbox({transition:"none", photo:true});
+        })
+      </script>
+    <% end %>
+    <%- if policy(PictureFile).create? -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.picture_file')), new_picture_file_path(agent_id: @agent.id) -%></li>
+    <%- end -%>
+  </ul>
+  <ul>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
+    <%- if policy(Agent).create? -%>
+      <li><%= link_to t('page.edit'), edit_agent_path(@agent) -%></li>
+      <li><%= link_to t('agent.add_derivation'), agents_path(agent_id: @agent.id, mode: 'add') -%></li>
+    <%- end -%>
+    <%- if policy(@agent).destroy? -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.agent')), new_agent_path -%></li>
+      <li><%= link_to t('page.destroy'), @agent, data: {confirm: t('page.are_you_sure')}, method: :delete -%></li>
+    <%- end -%>
+  </ul>
+  <ul>
+    <li><%= link_to t('page.listing', model: t('activerecord.models.manifestation')), manifestations_path(query: "\"#{@agent.full_name}\"") -%></li>
+  </ul>
+</div>

@@ -1,0 +1,18 @@
+<div id="related">
+  <ul>
+    <%- @agent.parents.each do |agent_relationship| -%>
+      <li>
+        [P]
+        (<%= agent_relationship.agent_relationship_type.display_name.localize -%>)
+        <%= link_to agent_relationship.parent.full_name, agent_relationship.parent -%>
+      </li>
+    <%- end -%>
+    <%- @agent.children.each do |agent_relationship| -%>
+      <li>
+        [P]
+        (<%= agent_relationship.agent_relationship_type.display_name.localize -%>)
+        <%= link_to agent_relationship.child.full_name, agent_relationship.child -%>
+      </li>
+    <%- end -%>
+  </ul>
+</div>

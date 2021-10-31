@@ -1,0 +1,43 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.subject')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<h2 class="resource_title">
+  [S]
+  <%= @subject.term -%>
+</h2>
+
+  <p>
+    <strong><%= t('activerecord.models.subject_heading_type') -%>:</strong>
+    <%= link_to @subject.subject_heading_type.display_name.localize, @subject.subject_heading_type -%>
+  </p>
+
+  <p>
+    <strong><%= t('activerecord.models.subject_type') -%>:</strong>
+    <%= link_to @subject.subject_type.display_name.localize, @subject.subject_type -%>
+  </p>
+
+  <p>
+    <strong><%= t('activerecord.attributes.subject.term_transcription') -%>:</strong>
+    <%= @subject.term_transcription -%>
+  </p>
+
+  <p>
+    <strong><%= t('activerecord.attributes.subject.note') -%>:</strong>
+    <%= @subject.note -%>
+  </p>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.back'), :back -%></li>
+    <% if policy(@subject).update? %>
+      <li><%= link_to t('page.edit'), edit_subject_path(@subject) -%></li>
+    <% end %>
+    <% if policy(@subject).destroy? %>
+      <li><%= link_to t('page.destroy'), subject_path(@subject), data: {confirm: t('page.are_you_sure')}, method: :delete -%></li>
+    <% end %>
+  </ul>
+</div>

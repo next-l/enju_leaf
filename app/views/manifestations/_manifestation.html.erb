@@ -1,0 +1,53 @@
+      <tr class="line<%= cycle("0", "1") -%>">
+        <td style="width: 30px"><%= @manifestations.offset_value + 1 + manifestation_counter -%></td>
+        <% cache([manifestation, fragment: 'manifestation_html', role: current_user_role_name, locale: @locale]) do %>
+          <td style="480px">
+            <% if manifestation.root_series_statement %>
+              <%= render 'manifestations/show_series_index', manifestation: manifestation, series_statement: manifestation.root_series_statement -%>
+            <% else %>
+              <%= render 'manifestations/show_index', manifestation: manifestation -%>
+              <div class="access_address">
+                <%= link_to manifestation.access_address, manifestation.access_address if manifestation.access_address.present? -%>
+              </div>
+            <% end %>
+            <%= render 'manifestations/holding', manifestation: manifestation -%>
+          </td>
+          <% if signed_in? %>
+            <td id="edit_icons">
+              <% if defined?(EnjuCirculation) %>
+                <% unless params[:mode] == 'add' %>
+                  <% if manifestation.is_reservable_by?(current_user) %>
+                    <%- reserve = manifestation.is_reserved_by?(current_user) -%>
+                    <%- if reserve -%>
+                      <%= link_to t('reserve.show'), reserve -%><br />
+                    <%- else -%>
+                      <%= link_to t('activerecord.models.reserve'), new_reserve_path(manifestation_id: manifestation.id) if policy(Reserve).create? -%><br />
+                    <%- end -%>
+                  <% end %>
+                <% end %>
+              <% end %>
+              <%- if policy(manifestation).update? -%>
+                <% unless params[:mode] == 'add' %>
+                  <% if manifestation.serial? && manifestation.series_master? %>
+                    <%= link_to t('page.new_acquisition'), new_manifestation_path(parent_id: manifestation.id) %>
+                  <% end %>
+                  <%= link_to t('page.edit'), edit_manifestation_path(manifestation) -%>
+                  <%- if policy(Item).create? and not manifestation.series_master? -%>
+                    <br />
+                    <%= link_to t('page.new_item'), new_item_path(manifestation_id: manifestation.id) -%>
+                  <%- end -%>
+                <% else %>
+                  <% case %>
+                  <% when @parent %>
+                    <%= link_to t('page.add'), new_manifestation_relationship_path(manifestation_id: @parent.id, child_id: manifestation.id) unless @parent.derived_manifestations.include?(manifestation) or @parent == manifestation -%>
+                  <% when @item %>
+                    <%= link_to t('page.change'), edit_item_path(@item, manifestation_id: manifestation.id) unless @item.manifestation == manifestation -%>
+                  <% else %>
+                    <%= link_to image_tag('icons/arrow_divide.png', size: '16x16', class: 'enju_icon', alt: t('manifestation.add_derivation')), new_manifestation_path(parent_id: manifestation.id) -%>
+                  <% end %>
+                <%- end -%>
+              <%- end -%>
+            </td>
+          <% end %>
+        <% end %>
+      </tr>

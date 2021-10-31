@@ -1,0 +1,28 @@
+<% cache([manifestation, fragment: 'title_mobile', role: current_user_role_name, locale: @locale]) do %>
+  <h2 class="resource_title">
+    [M]
+    <%= link_to title_with_volume_number(manifestation), manifestation, itemprop: 'name' -%>
+    <%= link_to form_icon(manifestation.carrier_type), manifestation -%>
+  </h2>
+  <p>
+    <%= manifestation.statement_of_responsibility %><br />
+    <%- unless manifestation.creators.readable_by(current_user).empty? -%>
+      <%= t('agent.creator') -%>: <%= agents_list(manifestation.creators.readable_by(current_user), itemprop: 'author') -%>
+    <%- end -%>
+    <%- unless manifestation.contributors.readable_by(current_user).empty? -%>
+      <%= t('agent.contributor') -%>: <%= agents_list(manifestation.contributors.readable_by(current_user), itemprop: 'editor') -%>
+    <%- end -%>
+    <%- unless manifestation.publishers.readable_by(current_user).empty? -%>
+      <%= t('agent.publisher') -%>: <%= agents_list(manifestation.publishers.readable_by(current_user), itemprop: 'publisher') -%>
+    <% end %>
+    <%- if manifestation.date_of_publication? -%>
+      <meta itemprop="publishDate" content="<%= manifestation.date_of_publication.iso8601 %>" />
+      (<%= t('activerecord.attributes.manifestation.pub_date') %>: <%= manifestation.pub_date -%>)
+    <%- end -%>
+    <%- if manifestation.access_address? -%>
+      <br />
+      <%= link_to manifestation.access_address, manifestation.access_address -%>
+      <%= link_to image_tag('icons/world_go.png', size: '16x16', class: 'enju_icon', alt: t('manifestation.web')), manifestation.access_address -%>
+    <%- end -%>
+  </p>
+<% end %>

@@ -1,0 +1,32 @@
+<%= form_for(@create) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.agent') -%><br />
+    <%- if @create.agent -%>
+      <%= link_to @create.agent.full_name, @create.agent -%>
+      <%= f.hidden_field :agent_id -%>
+    <%- else -%>
+      <%= f.text_field :agent_id -%>
+    <%- end -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.work') -%><br />
+    <%- if @create.work -%>
+      <%= link_to @create.work.original_title, @create.work -%>
+      <%= f.hidden_field :work_id -%>
+    <%- else -%>
+      <%= f.text_field :work_id -%>
+    <%- end -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.create_type') -%><br />
+    <%= f.select :create_type_id, @create_types.map{|c| [c.display_name.localize, c.id]} %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end -%>

@@ -1,0 +1,4 @@
+id	name	event_category	library	start_at	end_at	all_day	note	dummy
+1	変更後のイベント名		kamata	2012-04-01	2012-04-02			
+2			mita		2012-04-03	FALSE		
+3	変更後のイベント名							この行は無視される

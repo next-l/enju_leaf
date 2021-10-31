@@ -1,0 +1,51 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.event_category')) -%></h1>
+<div id="content_list">
+
+<table class="table table-striped index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.event_category.name') -%></th>
+    <th>
+      <%= t('activerecord.attributes.event_category.display_name') -%>
+      /
+      <%= t('activerecord.attributes.event_category.note') -%>
+    </th>
+    <th></th>
+  </tr>
+
+<%- @event_categories.each do |event_category| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if policy(event_category).update? -%>
+        <%= move_position(event_category) -%>
+      <%- end -%>
+    </td>
+    <td><%= event_category.name -%></td>
+    <td>
+      <%= link_to event_category.display_name.localize, event_category -%>
+      <br />
+      <%= event_category.note %>
+    </td>
+    <td>
+      <%- if policy(event_category).update? -%>
+        <%= link_to t('page.edit'), edit_event_category_path(event_category) -%>
+      <% end %>
+      <%- if policy(event_category).destroy? -%>
+        <%= link_to t('page.destroy'), event_category_path(event_category), data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(EventCategory).create? -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.event_category')), new_event_category_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

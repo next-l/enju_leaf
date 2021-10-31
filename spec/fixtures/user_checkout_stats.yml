@@ -1,0 +1,30 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  start_date: 2008-12-15 18:43:02
+  end_date: 2008-12-16 18:43:02
+  note: MyText
+  user_id: 2
+
+two:
+  id: 2
+  start_date: 2008-12-15 18:43:02
+  end_date: 2008-12-16 18:43:02
+  note: MyText
+  user_id: 2
+
+# == Schema Information
+#
+# Table name: user_checkout_stats
+#
+#  id           :integer          not null, primary key
+#  start_date   :datetime
+#  end_date     :datetime
+#  note         :text
+#  created_at   :datetime
+#  updated_at   :datetime
+#  started_at   :datetime
+#  completed_at :datetime
+#  user_id      :integer
+#

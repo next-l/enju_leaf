@@ -1,0 +1,65 @@
+--- 
+create_00001: 
+  updated_at: 2007-12-13 19:56:07.002082 +09:00
+  agent_id: 1
+  create_type_id: 1
+  id: 1
+  work_id: 1
+  position: 1
+  created_at: 2007-12-13 19:56:07.002082 +09:00
+create_00002: 
+  updated_at: 2007-12-13 19:56:48.538796 +09:00
+  agent_id: 1
+  create_type_id: 1
+  id: 2
+  work_id: 2
+  position: 1
+  created_at: 2007-12-13 19:56:48.538796 +09:00
+create_00003: 
+  updated_at: 2007-12-13 19:56:48.538796 +09:00
+  agent_id: 2
+  id: 3
+  work_id: 1
+  position: 2
+  created_at: 2007-12-13 19:56:48.538796 +09:00
+create_00101:
+  updated_at: 2010-03-03 17:00:00.538796 +09:00
+  agent_id: 101
+  id: 101
+  work_id: 101
+  position: 2
+  created_at: 2010-03-03 17:00:00.538796 +09:00
+create_00102:
+  updated_at: 2010-03-16 19:00:00.538796 +09:00
+  agent_id: 103
+  id: 102
+  work_id: 102
+  position: 2
+  created_at: 2010-03-16 19:00:00.538796 +09:00
+create_00103:
+  updated_at: 2010-03-16 19:00:00.538796 +09:00
+  agent_id: 103
+  id: 103
+  work_id: 103
+  position: 2
+  created_at: 2010-03-16 19:00:00.538796 +09:00
+create_00104:
+  updated_at: 2010-03-16 19:00:00.538796 +09:00
+  agent_id: 103
+  id: 104
+  work_id: 104
+  position: 2
+  created_at: 2010-03-16 19:00:00.538796 +09:00
+
+# == Schema Information
+#
+# Table name: creates
+#
+#  id             :integer          not null, primary key
+#  agent_id       :integer          not null
+#  work_id        :integer          not null
+#  position       :integer
+#  created_at     :datetime
+#  updated_at     :datetime
+#  create_type_id :integer
+#

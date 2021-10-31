@@ -1,0 +1,22 @@
+<%= form_for(@resource_export_file) do |f| %>
+  <%= f.error_messages %>
+
+  <%= f.hidden_field :mode, value: 'export' if @resource_export_file.new_record? %><br>
+  <!--
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= @resource_export_file.user.username %>
+  </div>
+  <div class="field">
+    <%= f.label :resource_export %><br>
+    <%= f.file_field :resource_export %>
+  </div>
+  -->
+  <div class="actions">
+    <% if @resource_export_file.new_record? %>
+      <%= f.submit t('page.export') %>
+    <% else %>
+      <%= f.submit %>
+    <% end %>
+  </div>
+<% end %>

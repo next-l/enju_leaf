@@ -1,0 +1,54 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+  <h1 class="title"><%= t('page.listing', model: t('activerecord.models.picture_file')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<h2 class="resource_title"><%= link_to event.display_name.localize, event -%></h2>
+
+<table class="table table-striped index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('page.attachable') -%></th>
+    <th><%= t('activerecord.attributes.picture_file.picture_file_size') -%></th>
+    <th><%= t('activerecord.attributes.picture_file.picture_content_type') -%></th>
+    <th><%= t('activerecord.attributes.picture_file.picture_file_name') -%></th>
+    <th></th>
+  </tr>
+  <%- @picture_files.each do |picture_file| -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td>
+        <%- if policy(picture_file).update? -%>
+          <%= move_position(picture_file) -%>
+        <%- end -%>
+      </td>
+      <td>
+        <%= link_to "#{h(picture_file.picture_attachable_type)}/#{h(picture_file.picture_attachable_id)}", picture_file.picture_attachable if picture_file.picture_attachable -%>
+      </td>
+      <td><%= picture_file.picture_file_size -%></td>
+      <td><%= picture_file.picture_content_type -%></td>
+      <td><%= link_to picture_file.picture_file_name, picture_file_path(picture_file, format: :download, size: 'original') -%></td>
+      <td>
+        <%= link_to t('page.show'), picture_file -%>
+        <%- if policy(picture_file).update? -%>
+          <%= link_to t('page.edit'), edit_picture_file_path(picture_file) -%>
+        <% end %>
+        <%- if policy(picture_file).destroy? -%>
+          <%= link_to t('page.destroy'), picture_file, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+        <%- end -%>
+      </td>
+    </tr>
+  <%- end -%>
+</table>
+
+<%= paginate(@picture_files) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <%- if policy(PictureFile).create? -%>
+    <ul>
+      <li><%= link_to t('page.new', model: t('activerecord.models.picture_file')), new_picture_file_path(event_id: event.id) -%></li>
+      <li><%= link_to t('picture_file.all_picture'), picture_files_path -%></li>
+    </ul>
+  <%- end -%>
+</div>

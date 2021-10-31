@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <title>Next-L Enju Leaf</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <%= render 'page/include' %>
 </head>
 <body>
 
-  <%= render 'page/menu' %>
+<%= render 'page/header' %>
 
-  <div class="container">
-    <%= yield %>
-  </div>
+<div id="content">
 
-  <%= render 'page/footer' %>
+<%= yield %>
+
+</div>
+
+<%= render 'page/footer' %>
 
 </body>
 </html>

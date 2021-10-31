@@ -1,0 +1,21 @@
+one:
+  basket_id: 1
+  item_id: 1
+  librarian_id: 1
+
+two:
+  basket_id: 1
+  item_id: 2
+  librarian_id: 1
+
+# == Schema Information
+#
+# Table name: accepts
+#
+#  id           :integer          not null, primary key
+#  basket_id    :integer
+#  item_id      :integer
+#  librarian_id :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#

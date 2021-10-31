@@ -1,0 +1,229 @@
+<%= render 'page/required_field' %>
+<%= simple_form_for(@manifestation, html: { multipart: true }) do |f| -%>
+  <%= f.error_messages -%>
+
+  <% if @manifestation.original_manifestations.exists? or @parent %>
+    <%= f.label :parent_id -%><br />
+    <ul>
+      <% if @parent %>
+        <li><%= render 'show_parent_form', manifestation: @parent %></li>
+      <% end %>
+      <% @manifestation.original_manifestations.each do |manifestation| %>
+        <% if manifestation != @parent %>
+          <li><%= render 'show_parent_form', manifestation: @manifestation %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :original_title -%><br />
+    <%= f.text_field :original_title, class: 'resource_title' -%>
+  </div>
+  <div class="field">
+    <%= f.label :title_transcription -%><br />
+    <%= f.text_field :title_transcription, class: 'resource_title' -%>
+  </div>
+  <div class="field">
+    <%= f.label :title_alternative -%><br />
+    <%= f.text_field :title_alternative, class: 'resource_title' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :statement_of_responsibility %><br />
+    <%= f.text_field :statement_of_responsibility, class: 'resource_title' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :serial %>
+    <%= f.check_box :serial %>
+  </div>
+
+  <div class="field">
+    <%= f.label :edition_string -%>
+    <%= f.text_field :edition_string %>
+    <%= f.label :edition -%>
+    <%= f.text_field :edition, class: 'resource_integer' -%>
+    <br />
+    <%= f.label :volume_number_string -%>
+    <%= f.text_field :volume_number_string %>
+    <%= f.label :volume_number -%>
+    <%= f.text_field :volume_number, class: 'resource_integer' -%>
+    <br />
+    <%= f.label :issue_number_string -%>
+    <%= f.text_field :issue_number_string %>
+    <%= f.label :issue_number -%>
+    <%= f.text_field :issue_number, class: 'resource_integer' -%>
+    <br />
+    <%= f.label :serial_number -%>
+    <%= f.text_field :serial_number, class: 'resource_integer' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :series_statement_string -%><br />
+    <%= f.fields_for :series_statements do |series_form| %>
+      <%= render 'series_statement_fields', f: series_form %>
+    <% end %>
+    <div class="links">
+      <p><%= link_to_add_association t('page.add_series_statement'), f, :series_statements %></p>
+    </div>
+  </div>
+
+  <div class="field" id="creator_form">
+    <%= f.label :creator_string -%><br />
+    <%= f.fields_for :creators, @manifestation.creators.order(Create.arel_table[:position].asc) do |creator_form| %>
+      <%= render 'creator_fields', f: creator_form %>
+    <% end %>
+    <div class="links">
+      <p><%= link_to_add_association t('page.add'), f, :creators %></p>
+    </div>
+  </div>
+
+  <div class="field" id="contributor_form">
+    <%= f.label :contributor_string -%><br />
+    <%= f.fields_for :contributors, @manifestation.contributors.order(Realize.arel_table[:position].asc) do |contributor_form| %>
+      <%= render 'contributor_fields', f: contributor_form %>
+    <% end %>
+    <div class="links">
+      <p><%= link_to_add_association t('page.add'), f, :contributors %></p>
+    </div>
+  </div>
+
+  <div class="field" id="publisher_form">
+    <%= f.label :publisher_string -%><br />
+    <%= f.fields_for :publishers, @manifestation.publishers.order(Produce.arel_table[:position].asc) do |publisher_form| %>
+      <%= render 'publisher_fields', f: publisher_form %>
+    <% end %>
+    <div class="links">
+      <p><%= link_to_add_association t('page.add'), f, :publishers %></p>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :publication_place -%>
+      <%= f.text_field :publication_place, class: 'resource_title' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :pub_date -%>
+    <%= f.text_field :pub_date, class: 'date_field', placeholder: "#{t('page.example')}: 2011, 2011-04-12"-%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('page.file') -%>
+    <%= f.file_field :attachment -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.content_type') -%>
+    <%= f.select(:content_type_id, @content_types.collect{|c| [c.display_name.localize, c.id]}) -%>
+
+    <%= f.label t('activerecord.models.carrier_type') -%>
+    <%= f.select(:carrier_type_id, @carrier_types.collect{|c| [c.display_name.localize, c.id]}) -%>
+    <!-- TODO: Formの切り替え時に入力項目をAjaxで書き換える -->
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.frequency') -%>
+    <%= f.select(:frequency_id, @frequencies.collect{|frequency| [frequency.display_name.localize, frequency.id]}) -%>
+
+    <%= f.label t('activerecord.models.language') -%>
+    <%= f.select(:language_id, @languages.collect{|language| [language.display_name.localize, language.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :identifier -%><br />
+    <%= f.fields_for :identifiers do |identifier_form| %>
+      <%= render 'identifier_fields', f: identifier_form %>
+    <% end %>
+    <div class="links">
+      <p><%= link_to_add_association t('page.add'), f, :identifiers %></p>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :manifestation_identifier -%><br />
+    <%= f.text_field :manifestation_identifier, class: 'resource_identifier_body', style: 'ime-mode: disabled' -%>
+  </div>
+
+  <% if defined?(EnjuSubject) %>
+    <%= render 'manifestations/subject_form', f: f %>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :extent -%>
+    <%= f.text_field :extent, class: 'resource_subject' -%>
+    <br />
+    <%= f.label :start_page -%>
+    <%= f.text_field :start_page, class: 'resource_integer' -%>
+    <%= f.label :end_page -%>
+    <%= f.text_field :end_page, class: 'resource_integer' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :dimensions -%>
+    <%= f.text_field :dimensions, class: 'resource_subject' -%>
+    <br />
+    <%= f.label :height -%>(cm)
+    <%= f.text_field :height, class: 'resource_integer' -%>
+    <%= f.label :width -%>(cm)
+    <%= f.text_field :width, class: 'resource_integer' -%>
+    <%= f.label :depth -%>(cm)
+    <%= f.text_field :depth, class: 'resource_integer' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :price -%>
+    <%= f.text_field :price, class: 'resource_integer' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :access_address -%><br />
+    <%= f.url_field :access_address, class: 'resource_url' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('role.required_role') -%>
+    <%= f.select(:required_role_id, @roles.collect{|r| [r.display_name.localize, r.id]}) -%>
+  </div>
+
+  <% if ManifestationCustomProperty.first %>
+    <div class="field">
+      <% ManifestationCustomProperty.order(:position).each do |c| %>
+        <% @manifestation.manifestation_custom_values.new(manifestation_custom_property: c) unless @manifestation.manifestation_custom_values.map{|value| value.manifestation_custom_property_id}.include?(c.id) %>
+      <% end %>
+      <%= f.fields_for :manifestation_custom_values do |custom_form| %>
+        <%= custom_form.label custom_form.object.manifestation_custom_property.name.to_sym, custom_form.object.manifestation_custom_property.display_name.localize %>
+        <%= custom_form.hidden_field :manifestation_custom_property_id %>
+        <%= custom_form.text_field :value, class: 'form-control' %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :abstract -%><br />
+    <%= f.text_area :abstract, class: 'resource_textarea' -%>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description -%><br />
+    <%= f.text_area :description, class: 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note, class: 'resource_textarea' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :memo -%><br />
+    <%= f.text_area :memo, class: 'resource_textarea' -%>
+  </div>
+
+  <div class="actions">
+    <%= f.hidden_field :parent_id %>
+    <%= f.hidden_field :lock_version %>
+    <%= f.submit data: {disable_with: t('page.saving')} -%>
+  </div>
+  <%= javascript_tag("$(function(){$('#query').focus()})") %>
+<%- end -%>
