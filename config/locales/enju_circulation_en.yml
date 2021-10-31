@@ -1,0 +1,217 @@
+en:
+  activerecord:
+    models:
+      basket: Basket
+      checked_item: Checked item
+      checkout: Checkout
+      checkin: Checkin
+      circulation_status: Circulation status
+      use_restriction: Use restriction
+      checkout_type: Checkout type
+      lending_policy: Lending policy
+      reserve: Reserve
+      item_has_use_restriction: Item has use restriction
+      manifestation_checkout_stat: Manifestation checkout stat
+      user_checkout_stat: User checkout stat
+      manifestation_reserve_stat: Manifestation reserve stat
+      user_reserve_stat: User reserve stat
+      reserve_stat_has_manifestation: Reserve stat to manifestation relationship
+      reserve_stat_has_user: Reserve stat to user relationship
+      checkout_stat_has_manifestation: Checkout stat has manifestation
+      checkout_stat_has_user: Checkout stat has user
+      reserve_stat_has_manifestation: Reserve stat has manifestation
+      reserve_stat_has_user: Reserve stat has user
+      user_group_has_checkout_type: User group has checkout type
+      carrier_type_has_checkout_type: Carrier type and checkout type
+      demand: Demand
+
+    attributes:
+      basket:
+        user: User
+        note: Note
+        lock_version: Lock version
+      checked_item:
+        due_date: Due date
+        item: Item
+      checkin:
+        item_id: Item
+      checkout:
+        due_date: Due date
+        lock_version: Lock version
+      reserve:
+        user: User
+        checked_out_at: Checked out at
+        canceled_at: Canceled at
+        expired_at: Expired at
+        deleted_at: Deleted at
+        created_at: Reserved at
+        retained_at: Retained at
+        postponed_at: Postponed at
+        state: State
+        force_retaining: Force retaining
+        item_identifier: Item identifier
+        pickup_location_id: Pickup location
+      checkout_type:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      circulation_status:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      use_restriction:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      item_has_use_restriction:
+      user_group_has_checkout_type:
+        checkout_limit: Checkout limit
+        checkout_period: Checkout period
+        checkout_renewal_limit: Checkout renewal limit
+        reservation_limit: Reservation limit
+        reservation_expired_period: Reservation expired period
+        set_due_date_before_closing_day: Set due date before the closing day
+        fixed_due_date: Fixed due date
+        note: Note
+        position: Position
+        user_group_id: User group
+        checkout_type_id: Checkout type
+        current_checkout_count: Current checkout count
+      carrier_type_has_checkout_type:
+        note: Note
+        position: Position
+        checkout_type_id: Checkout type
+      manifestation_checkout_stat:
+        start_date: Start date
+        end_date: End date
+        note: Note
+        state: State
+      user_checkout_stat:
+        start_date: Start date
+        end_date: End date
+        note: Note
+        state: State
+      manifestation_reserve_stat:
+        start_date: Start date
+        end_date: End date
+        note: Note
+        state: State
+      user_reserve_stat:
+        start_date: Start date
+        end_date: End date
+        note: Note
+        state: State
+      checkout_stat_has_user:
+        checkouts_count: count by user
+      checkout_stat_has_manifestation:
+        checkouts_count: count by manifestation
+      reserve_stat_has_user:
+        reserves_count: count by user
+      reserve_stat_has_manifestation:
+        reserves_count: count by manifestation
+      lending_policy:
+        loan_period: Loan period
+        fixed_due_date: Fixed due date
+        renewal: Renewal
+        fine: Fine
+        note: Note
+        position: Position
+      item:
+        checkout_type: Checkout type
+        circulation_status: Circulation status
+      profile:
+        checkout_icalendar_token: Checkout iCalendar token
+        save_checkout_history: Save checkout history
+    errors:
+      models:
+        item:
+          attributes:
+            circulation_status_id:
+              is_rented: Circulation status is invalid. This item is rented.
+              is_reserved: Circulation status is invalid. This item is reserved.
+        withdraw:
+          attributes:
+            item_id:
+              is_rented: is rented.
+              is_reserved: is reserved.
+
+  basket:
+    this_account_is_suspended: "This account is suspended."
+    checkout_completed: "Checkout completed."
+  checked_item:
+    item_not_found: "Item not found."
+    not_available_for_checkout: "This item is not available for checkout."
+    previous_checkout: "Previous checkouts"
+    checkout: "Checkout!"
+    ignore_restriction: "Ignore restriction"
+    already_checked_out: "This item is already checked out."
+    already_checked_out_try_again: "Item already checked out. Try again."
+  checkout:
+    user_checkout: "%{login_name}'s checkouts"
+    library_group_checkout: "Checkouts in %{library_group_name}"
+    renewal: "Renewal"
+    renewal_count: "Renewal count"
+    new_due_date: "New due date"
+    editing_due_date: "Editing due date"
+    this_item_cant_be_renewed: "This item can't be renewed."
+    listing_overdue_item: "Listing overdue items"
+    current_user: "Current user"
+    this_item_is_reserved: "This item is reserved."
+    you_have_overdue_item: "You have overdue items."
+    excessed_renewal_limit: "Excessed checkout renewal limit."
+    all_checkout: "All checkouts"
+    no_checkout: "No checkouts."
+    number_of_day_overdue: "Number of days overdue"
+    extend: "Extend"
+    returned: "Returned"
+    my_checkout: "My checkout"
+    remove_all_history: "Remove all checkout history"
+    reserved: "Reserved"
+  checkin:
+    item_not_found: "Item not found."
+    enter_item_identifier: "Enter item identifier."
+    other_library_item: "This item is other library's item!"
+    already_checked_in: "This item is already checked in."
+    checkin: "Checkin!"
+    successfully_checked_in: "This items was successfully checked in."
+    missing_item_found: "A missing item is found."
+    not_checked_out: "This item is not checked out."
+  reserve:
+    user_reserve: "%{login_name}'s reservations"
+    library_group_reserve: "Reservations in %{library_group_name}"
+    my_reservation: "My reservations"
+    all_reservation: "All reservations"
+    this_manifestation_is_already_reserved: "This manifestation is already reserved."
+    this_manifestation_is_already_checked_out: "This manifestation is already checked out."
+    excessed_reservation_limit: "Excessed reservation limit."
+    this_patron_cannot_reserve: "This patron can't reserve this manifestation."
+    reservation_was_canceled: "Reservation was canceled."
+    this_item_is_not_reserved: "This item is not reserved."
+    invalid_item: "Invalid item."
+    show: "Show reservation"
+    invalid_date: "Invalid date."
+    pending: "Pending"
+    requested: "Requested"
+    retained: "Retained"
+    canceled: "Canceled"
+    expired: "Expired"
+    postponed: "Postponed"
+    completed: "Completed"
+    reserved_from: "From"
+    reserved_until: "Until"
+    attempt_to_update_retained_reservation: "You are attemping to update a retained reservation."
+    bibliographic_detail: "Bibliographic details"
+  page:
+    saving: "Saving..."
+    start_counting: "Start counting"
+  statistic:
+    successfully_created: "%{model} task was created successfully. When the task is completed, its status on the list will be updated to 'completed' and you can check the results by following the 'show' link."
+    breakdown: Brakedown
+    by_carrier_type: By carrier type
+    by_checkout_type: By checkout type
+    by_manifestation: By manifestation
+  manifestation:
+    currently_checked_out: Currently checked out

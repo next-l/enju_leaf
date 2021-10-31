@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @locale -%>" lang="<%= @locale -%>">
+<head>
+  <meta charset="UTF-8" />
+  <%- if @library -%>
+    <title><%= t('calendar.library_calendar', library_name: @library.display_name.localize) -%> - <%= LibraryGroup.system_name(@locale) -%></title>
+  <%- else -%>
+    <title><%= t('calendar.calendar') -%> - <%= LibraryGroup.system_name(@locale) -%></title>
+  <%- end -%>
+  <%= render 'page/include' -%>
+  <%= auto_discovery_link_tag(:rss, events_url(format: :rss), title: (t('event.library_group_event', library_group_name: @library_group.display_name.localize) + " (RSS)")) %>
+  <%= auto_discovery_link_tag(:atom, events_url(format: :atom), title: (t('event.library_group_event', library_group_name: @library_group.display_name.localize) + " (Atom)")) %>
+  <link rel="search" type="application/opensearchdescription+xml" href="<%= page_opensearch_url -%>" title="<%= @library_group.display_name.localize -%>" />
+</head>
+<body>
+
+<%= render 'page/header' -%>
+<%= render 'page/menu' -%>
+
+<div id="content">
+
+<%= yield  -%>
+
+</div>
+
+<%= render 'page/footer' -%>
+
+</body>
+</html>

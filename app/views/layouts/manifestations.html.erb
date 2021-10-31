@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @locale.to_s -%>" lang="<%= @locale.to_s -%>">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= resource_title(@manifestation, controller.action_name) %></title>
+  <%= render 'page/include' %>
+  <%- if controller.action_name == 'index' -%>
+    <%= auto_discovery_link_tag(:rss, url_for(request.params.merge(format: :rss, page: nil, commit: nil, only_path: true)), title: (t('manifestation.library_group_manifestation', library_group_name: @library_group.display_name.localize) + " (RSS)")) %>
+    <%= auto_discovery_link_tag(:atom, url_for(request.params.merge(format: :atom, page: nil, commit: nil, only_path: true)), title: (t('manifestation.library_group_manifestation', library_group_name: @library_group.display_name.localize) + " (Atom)")) %>
+  <%- end -%>
+  <% if %w(show edit index).include?(controller.action_name) && defined?(EnjuManifestationViewer) %>
+    <%= book_jacket_header(@library_group.book_jacket_source) %>
+  <% end %>
+  <link rel="search" type="application/opensearchdescription+xml" title="<%= LibraryGroup.site_config.display_name.localize %>" href="<%= page_opensearch_url(format: :xml) %>" />
+</head>
+<body>
+
+<%= render 'page/header' %>
+<%= render 'page/menu' %>
+
+<div id="content">
+
+<%= yield %>
+
+</div>
+
+<%= render 'page/footer' %>
+
+</body>
+</html>

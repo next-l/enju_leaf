@@ -1,0 +1,43 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+  <h1 class="title"><%= t('page.new', model: t('activerecord.models.message')) -%></h1>
+<div id="content_list">
+  <fieldset>
+
+    <%= simple_form_for(@message, url: messages_path, validate: true) do |f| -%>
+      <%= f.error_messages -%>
+
+      <div class="field">
+        <label for="message_recepient"><%= t('message.recipient') -%>:</label>
+        <%- if @message.receiver -%>
+          <%= link_to @message.receiver.username, profile_path(@message.receiver) -%>
+          <%= f.hidden_field :recipient, value: @message.recipient -%>
+        <%- else -%>
+          <%= f.text_field :recipient, class: 'resource_title', value: @message.recipient -%>
+        <%- end -%>
+      </div>
+
+      <div class="field">
+        <%= f.label :subject -%>:
+        <%= f.text_field :subject, class: 'resource_title' -%>
+      </div>
+
+      <div class="field">
+        <%= f.label :body -%>:<br />
+        <%= f.text_area :body, id: 'message_body' -%>
+      </div>
+
+      <div class="field">
+        <%= f.hidden_field :parent_id -%>
+        <%= f.submit t('message.send') -%>
+      </div>
+    <%- end -%>
+  </fieldset>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.listing', model: t('activerecord.models.message')), messages_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,49 @@
+<div data-role="header">
+  <a href="javascript:history.back()" data-icon="back" data-iconpos="notext" class="ui-btn-left"><%= t('page.back') %></a>
+  <h1 class="title"><%= t('page.showing', model: t('activerecord.models.shelf')) -%></h1>
+</div>
+<div data-role="content">
+
+<p>
+  <strong><%= t('page.attachable') -%>:</strong>
+  <%= link_to h("#{(@picture_file.picture_attachable_type)}/#{(@picture_file.picture_attachable_id)}"), @picture_file.picture_attachable if @picture_file.picture_attachable_type? -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.picture_file.picture_file_size') -%>:</strong>
+  <%= @picture_file.picture_file_size -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.picture_file.picture_content_type') -%>:</strong>
+  <%= @picture_file.picture_content_type -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.picture_file.picture_file_name') -%>:</strong>
+  <%= link_to @picture_file.picture_file_name, picture_file_path(@picture_file, format: :download, size: 'original') -%><br />
+  <%= render 'picture_files/link', picture_file: @picture_file %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.picture_file.width') -%>:</strong>
+  <%= @picture_file.picture_width -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.picture_file.height') -%>:</strong>
+  <%= @picture_file.picture_height -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.picture_file.picture_fingerprint') -%>:</strong>
+  <%= @picture_file.picture_fingerprint -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.picture_file.picture_updated_at') -%>:</strong>
+  <%= l(@picture_file.picture_updated_at) if @picture_file.picture_updated_at -%>
+</p>
+
+</div>
+</div>

@@ -1,0 +1,41 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.subscription')) -%></h1>
+<div id="content_list">
+
+<table class="table table-striped index">
+  <tr>
+    <th><%= t('page.title') -%></th>
+    <th><%= t('activerecord.attributes.subscription.subscribes_count') -%></th>
+    <th></th>
+  </tr>
+
+<%- @subscriptions.each do |subscription| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to subscription.title, subscription -%></td>
+    <td><%= subscription.works.size -%></td>
+    <td>
+      <% if policy(subscription).update? %>
+        <%= link_to t('page.edit'), edit_subscription_path(subscription) -%>
+      <% end %>
+      <% if policy(subscription).destroy? %>
+        <%= link_to t('page.destroy'), subscription, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <% end %>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@subscriptions) -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if @work -%>
+      <li><%= link_to t('page.add', model: t('activerecord.models.work')), subscriptions_path -%></li>
+    <%- else -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.subscription')), new_subscription_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

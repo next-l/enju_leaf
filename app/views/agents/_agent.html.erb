@@ -1,0 +1,13 @@
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td>
+        <%= link_to agent.full_name, agent -%><br />
+        <%= agent.full_name_transcription -%>
+      </td>
+      <td><%= agent.agent_type.display_name.localize -%></td>
+      <td>
+        <%- if policy(agent).destroy? -%>
+          <%= link_to t('page.edit'), edit_agent_path(agent) -%>
+          <%= link_to t('agent.add_derivation'), agents_path(agent_id: agent.id, mode: 'add') -%>
+        <%- end -%>
+      </td>
+    </tr>

@@ -1,0 +1,5 @@
+<div class="nested-fields">
+  <%= f.select(:identifier_type_id, @identifier_types.collect{|i| [i.display_name.localize, i.id]}) %>
+  <%= f.text_field :body, class: 'resource_identifier_body', style: 'ime-mode: disabled' -%>
+  <%= link_to_remove_association t('page.remove'), f, data: {confirm: t('page.are_you_sure')} %><br />
+</div>

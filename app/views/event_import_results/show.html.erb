@@ -1,0 +1,33 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.event_import_result')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= t('activerecord.models.event_import_file') %></b>
+  <%= @event_import_result.event_import_file.event_import_file_name %>
+</p>
+
+<p>
+  <b><%= t('activerecord.models.event') %></b>
+  <%= @event_import_result.event_id %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.event_import_result.body') %></b>
+  <%= @event_import_result.body %>
+</p>
+
+<p>
+  <b><%= t('page.created_at') %></b>
+  <%=l @event_import_result.created_at %>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
+  </ul>
+</div>

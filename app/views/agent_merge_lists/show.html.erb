@@ -1,0 +1,31 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.agent_merge_list')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<%= form_for(:agent_merge_list, url: agent_merge_list_path(@agent_merge_list, mode: 'merge'), html: { method: :put }) do |f| -%>
+  <p>
+  <strong><%= t('page.title') -%>:</strong>
+    <%= @agent_merge_list.title -%>
+  </p>
+
+  <ul>
+    <%- @agent_merge_list.agents.each do |agent| -%>
+      <li><%= radio_button_tag 'selected_agent_id', agent.id -%><%= link_to agent.full_name, agent -%></li>
+    <%- end -%>
+  </ul>
+  <%- if @agent_merge_list.agents.size > 1 -%>
+    <%= f.submit t('page.merge'), data: {confirm: t('page.are_you_sure')} -%>
+  <%- end -%>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.listing', model: t('activerecord.models.agent')), agent_merge_list_agents_path(@agent_merge_list) -%></li>
+    <li><%= link_to t('page.edit'), edit_agent_merge_list_path(@agent_merge_list) -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
+  </ul>
+</div>

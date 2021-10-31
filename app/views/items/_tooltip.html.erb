@@ -1,0 +1,20 @@
+<script>
+  $(function(){
+    $('a#shelf_item_<%=item.id%>').data(
+      'powertip',
+      'shelf: <%=item.shelf.name%>'
+    );
+    $('a#library_item_<%=item.id%>').data(
+      'powertip',
+      'library: <%=item.shelf.library.name%>'
+    );
+    $('a#shelf_item_<%=item.id%>').powerTip({
+      placement:'e',
+      mouseOnToPopup:true
+    });
+    $('a#library_item_<%=item.id%>').powerTip({
+      placement:'e',
+      mouseOnToPopup:true
+    });
+  });
+</script>

@@ -1,0 +1,20 @@
+<h3><%= t('checked_item.previous_checkout') -%></h3>
+
+<table class="table table-striped index">
+  <tr>
+    <th class="checked_item_title"><%= t('page.title') -%></th>
+    <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
+    <th><%= t('activerecord.attributes.checkout.due_date') -%></th>
+  </tr>
+
+  <%- @basket.user.checkouts.not_returned.each_with_index do |checkout, i| -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td>
+        <%= render 'manifestations/show_index', manifestation: checkout.item.manifestation -%>
+        <%= render 'manifestations/holding', manifestation: checkout.item.manifestation -%>
+      </td>
+      <td><%= link_to checkout.item.item_identifier, checkout.item -%></td>
+      <td><%= l(checkout.due_date, format: :only_date) -%></td>
+    </tr>
+  <%- end -%>
+</table>

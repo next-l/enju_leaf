@@ -1,0 +1,54 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.bookstore')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.bookstore.name') -%>:</strong>
+  <%= @bookstore.name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.bookstore.zip_code') -%>:</strong>
+  <%= @bookstore.zip_code -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.bookstore.address') -%>:</strong>
+  <%= @bookstore.address -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.bookstore.telephone_number') -%>:</strong>
+  <%= @bookstore.telephone_number -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.bookstore.fax_number') -%>:</strong>
+  <%= @bookstore.fax_number -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.bookstore.url') -%>:</strong>
+  <%= link_to @bookstore.url, @bookstore.url if @bookstore.url? -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.bookstore.note') -%>:</strong>
+  <%= @bookstore.note -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(@bookstore).update? -%>
+      <li><%= link_to t('page.edit'), edit_bookstore_path(@bookstore) -%></li>
+    <%- end -%>
+    <li><%= link_to t('page.back'), :back -%></li>
+    <% if defined?(EnjuPurchaseRequest) %>
+      <li><%= link_to t('activerecord.models.order_list'), bookstore_order_lists_path(@bookstore) -%></li>
+    <% end %>
+  </ul>
+</div>

@@ -1,0 +1,26 @@
+<%= simple_form_for(@carrier_type) do |f| %>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, required: true %>
+  </div>
+  <div class="field">
+    <%= f.label :display_name %><br />
+    <%= f.text_area :display_name %>
+  </div>
+  <div class="field">
+    <%= f.label t('page.file') -%>
+    <%= f.file_field :attachment -%>
+  </div>
+  <% if defined?(EnjuCirculation) and !@carrier_type.new_record? %>
+    <%= render 'carrier_types/checkout_form', f: f %>
+  <% end %>
+  <div class="field">
+    <%= f.label :note %><br />
+    <%= f.text_area :note %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

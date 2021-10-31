@@ -1,7 +1,17 @@
-require "webpacker/helper"
-
 module EnjuLeaf
   module ApplicationHelper
+    # 使用中のデータベースのアダプタ名を表示します。
+    def database_adapter
+      case ActiveRecord::Base.connection.adapter_name
+      when 'PostgreSQL'
+        link_to 'PostgreSQL', 'http://www.postgresql.org/'
+      when 'MySQL'
+        link_to 'MySQL', 'http://www.mysql.org/'
+      when 'SQLite'
+        link_to 'SQLite', 'http://www.sqlite.org/'
+      end
+    end
+
     # HTMLのtitleに表示されるアクション名を設定します。
     def title_action_name
       case controller.action_name
@@ -17,7 +27,7 @@ module EnjuLeaf
     end
 
     def link_to_wikipedia(string)
-      link_to "Wikipedia", "http://#{I18n.locale}.wikipedia.org/wiki/#{URI.escape(string)}"
+      link_to "Wikipedia", "http://#{I18n.locale}.wikipedia.org/wiki/#{URI.encode_www_form_component(string)}"
     end
 
     def locale_display_name(locale)
@@ -69,7 +79,7 @@ module EnjuLeaf
     end
 
     # HTMLのtitleを表示します。
-    def title(controller_name, model_name = controller_name&.singularize)
+    def title(controller_name, model_name = controller_name.singularize)
       string = ''
       unless ['page', 'routing_error', 'my_accounts'].include?(controller_name)
         string << t("activerecord.models.#{model_name}") + ' - '
@@ -84,16 +94,15 @@ module EnjuLeaf
     # 前の画面に戻るリンクを表示します。
     # @param [Hash] options
     def back_to_index(options = {})
-      if options.nil?
+      if options == nil
         options = {}
       else
         options.reject!{|_key, value| value.blank?}
         options.delete(:page) if options[:page].to_i == 1
       end
-
-      return unless controller_name
-
-      link_to t('page.listing', model: t("activerecord.models.#{controller_name&.singularize}")), url_for(request.params.merge(controller: controller_name, action: :index, page: nil, id: nil, only_path: true).merge(options))
+      unless controller_name == 'test'
+        link_to t('page.listing', model: t("activerecord.models.#{controller_name.singularize}")), url_for(filtered_params.merge(controller: controller_name, action: :index, page: nil, id: nil, only_path: true).merge(options))
+      end
     end
 
     # 検索フォームにフォーカスを移動するJavaScriptを表示します。
@@ -115,10 +124,6 @@ module EnjuLeaf
         with(:receiver_id).equal_to user.id
         with(:is_read).equal_to false
       end.hits.total_entries
-    end
-
-    def current_language
-      Language.find_by(iso_639_1: @locale) || Language.order(:position).first
     end
   end
 end

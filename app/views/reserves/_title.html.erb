@@ -1,0 +1,22 @@
+<% if reserve.manifestation %>
+  <strong><%= link_to title_with_volume_number(reserve.manifestation), reserve -%></strong>
+  (<%= link_to t('reserve.bibliographic_detail'), reserve.manifestation %>)
+    <br />
+    <%- if reserve.manifestation.creators.readable_by(current_user).exists? -%>
+      <%= t('agent.creator') -%>: <%= agents_list(reserve.manifestation.creators.readable_by(current_user)) -%>
+    <%- end -%>
+    <%- if reserve.manifestation.contributors.readable_by(current_user).exists? -%>
+      <%= t('agent.contributor') -%>: <%= agents_list(reserve.manifestation.contributors.readable_by(current_user)) -%>
+    <%- end -%>
+    <%- if reserve.manifestation.publishers.readable_by(current_user).exists? -%>
+      <%= t('agent.publisher') -%>: <%= agents_list(reserve.manifestation.publishers.readable_by(current_user)) -%>
+      <%- if reserve.manifestation.pub_date.present? -%>
+        (<%= reserve.manifestation.pub_date -%>)
+      <%- end -%>
+    <%- end -%>
+    <%- if reserve.manifestation.access_address? -%>
+      <br />
+      <%= link_to reserve.manifestation.access_address, reserve.manifestation.access_address -%>
+      <%= link_to image_tag('icons/world_go.png', size: '16x16', class: 'enju_icon', alt: 'Web'), reserve.manifestation.access_address -%>
+    <%- end -%>
+<% end %>

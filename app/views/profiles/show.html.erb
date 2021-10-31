@@ -1,0 +1,67 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.user')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+  <h2 class="resource_title">
+    [U]
+    <%= @profile.user.username -%>
+    <% if @profile.full_name? %>
+      (<%= @profile.full_name %>)
+    <% end %>
+  </h2>
+
+  <p><%= t('activerecord.attributes.profile.user_number') %>: <%= @profile.user_number %></p>
+  <%- if flash[:temporary_password] -%>
+    <p><%= t('user.your_temporary_password_is') -%>: </p>
+    <p style="font-size: 200%"><%= flash[:temporary_password] -%></p>
+  <%- end -%>
+
+  <% if defined?(EnjuCirculation) %>
+    <%= render 'checkout_list', profile: @profile %>
+  <% end %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <% if defined?(EnjuCirculation) %>
+    <%= render 'submenu_checkout', profile: @profile %>
+  <% end %>
+  <ul>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
+    <% if user_signed_in? %>
+      <% if policy(@profile).update? %>
+        <li><%= link_to t('page.edit'), edit_profile_path(@profile) -%></li>
+      <% end %>
+      <% if defined?(EnjuCirculation) %>
+        <% if policy(Checkout).create? and @profile.user_number %>
+          <li><%= link_to t('page.new', model: t('activerecord.models.checkout')), new_basket_path(user_number: @profile.user_number) -%></li>
+        <% end %>
+      <% end %>
+      <% if defined?(EnjuMessage) %>
+        <% if policy(Message).create? %>
+          <li><%= link_to t('message.send'), new_message_path(recipient: @profile.user.username) -%></li>
+        <% end %>
+      <% end %>
+      <%- if policy(Profile).create? -%>
+        <li><%= link_to t('page.new', model: t('activerecord.models.profile')), new_profile_path -%></li>
+      <% end %>
+      <%- if policy(@profile).destroy? -%>
+        <li><%= link_to t('page.destroy'), @profile, data: {confirm: t('page.are_you_sure')}, method: :delete -%></li>
+      <% end %>
+    <%- end -%>
+    <% if defined?(EnjuCirculation) %>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.checkout')), checkouts_path(user_id: @profile.user.username) %></li>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.reserve')), reserves_path(user_id: @profile.user.username) %></li>
+    <% end %>
+    <% if defined?(EnjuQuestion) %>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.question')), questions_path(user_id: @profile.user.username) %></li>
+    <% end %>
+    <% if defined?(EnjuBookmark) %>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.bookmark')), bookmarks_path(user_id: @profile.user.username) %></li>
+    <% end %>
+    <% if defined?(EnjuPurchaseRequest) %>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.purchase_request')), purchase_requests_path(user_id: @profile.user.username) %></li>
+    <% end %>
+  </ul>
+</div>

@@ -1,0 +1,14 @@
+<tr>
+  <td><%= t('activerecord.models.classification') -%>:</td>
+  <td>
+    <%- if manifestation.classifications.exists? -%>
+      <ul>
+        <%- manifestation.classifications.each do |classification| -%>
+          <li>
+            <%= link_to "#{classification.classification_type.display_name.localize}: #{classification.category}", manifestations_path(query: "classification_sm:#{classification.classification_type.name}_#{classification.category}") -%>
+          </li>
+        <%- end -%>
+      </ul>
+    <%- end -%>
+  </td>
+</tr>

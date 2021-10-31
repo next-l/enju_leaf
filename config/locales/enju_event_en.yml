@@ -1,0 +1,70 @@
+en:
+  activerecord:
+    models:
+      event_category: Event category
+      event: Event
+      event_import_file: Event import file
+      event_import_result: Event Import Result
+      participate: Participate
+      event_export_file: Event export
+
+    attributes:
+      event_category:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+      event:
+        name: Name
+        note: Note
+        start_at: Start at
+        end_at: End at
+        deleted_at: Deleted at
+        all_day: All day
+        display_name: Display name
+      event_import_file:
+        event_import_file_name: Filename
+        event_import_content_type: Content type
+        event_import_file_size: Size
+        event_import_fingerprint: File hash
+        note: Note
+        executed_at: Executed at
+        event_import_updated_at: Updated at
+        state: State
+        edit_mode: Edit mode
+        error_message: Error message
+        user_encoding: Encoding
+        default_library_id: Default library
+        default_event_category_id: Default event category
+      event_import_result:
+        body: Body
+        lineno: Line
+      event_export_file:
+        event_export_file_name: Filename
+        event_export_file_size: Size
+        state: State
+
+  event:
+    library_group_event: "Events at %{library_group_name}"
+    all_libraries: "All libraries"
+    import_event: "Import events"
+    all: "All events"
+    past: "Past events"
+    upcoming: "Upcoming events"
+  calendar:
+    calendar: "Calendar"
+    library_calendar: "Calendar of events at %{library_name}"
+  event_import_file:
+    default_library: If "library" column is not set in the TSV file, this library is set to the new event.
+    default_event_category: If "event_category" column is not set in the TSV file, this event category is set to the new event.
+
+  event_import_mailer:
+    completed:
+      subject: 'Import completed'
+    failed:
+      subject: 'Import failed'
+  event_export_mailer:
+    completed:
+      subject: 'Export completed'
+    failed:
+      subject: 'Export failed'

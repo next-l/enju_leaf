@@ -1,0 +1,26 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  sender_id: 1
+  receiver_id: 1
+  message_template_id: 1
+
+two:
+  sender_id: 1
+  receiver_id: 1
+  message_template_id: 1
+
+# == Schema Information
+#
+# Table name: message_requests
+#
+#  id                  :bigint           not null, primary key
+#  sender_id           :bigint
+#  receiver_id         :bigint
+#  message_template_id :bigint
+#  sent_at             :datetime
+#  body                :text
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#
+

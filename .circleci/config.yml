@@ -1,8 +1,7 @@
-# Ruby CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-ruby/ for more details
-#
-version: 2
+version: 2.1
+orbs:
+  ruby: circleci/ruby@0.1.2 
+
 jobs:
   build:
     docker:
@@ -25,22 +24,10 @@ jobs:
     steps:
       - checkout
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v2-dependencies-{{ checksum "Gemfile.lock" }}
-          # fallback to using the latest cache if no exact match is found
-          - v2-dependencies-
-
       - run:
           name: install dependencies
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
-
-      - save_cache:
-          key: v2-dependencies-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
 
       # Database setup
       - run:
@@ -60,7 +47,6 @@ jobs:
             bundle exec rspec --format progress \
                             --format RspecJunitFormatter \
                             --out /tmp/test-results/rspec.xml \
-                            --format progress \
                             $TEST_FILES
 
       # collect reports

@@ -1,0 +1,31 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.new', model: t('activerecord.models.basket')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@basket, html: {name: 'basket_form'}) do |f| -%>
+  <%= f.error_messages -%>
+  <div class="field">
+    <%= f.label t('activerecord.attributes.user.user_number') -%>
+    <%= f.search_field :user_number, class: 'resource_user_number' -%>
+
+  <!--
+  <div class="field">
+  <%= f.label :note -%><br />
+  <%= f.text_area :note, class: 'resource_textarea' -%>
+  </div>
+  -->
+    <%= f.submit t('page.read'), data: {disable_with: t('page.saving')} -%>
+  </div>
+<%- end -%>
+<%= javascript_tag("$(function(){$('#basket_user_number').focus().select()})") %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <% if defined?(EnjuCirculation) %>
+      <li><%= link_to t('page.new', model: t('activerecord.models.checkin')), new_checkin_path -%></li>
+    <% end %>
+    <li><%= link_to t('page.search_resource', model: t('activerecord.models.profile')), profiles_path -%></li>
+  </ul>
+</div>

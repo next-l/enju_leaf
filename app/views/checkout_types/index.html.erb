@@ -1,0 +1,51 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.checkout_type')) -%></h1>
+<div id="content_list">
+
+<table class="table table-striped index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.checkout_type.name') -%></th>
+    <th>
+      <%= t('activerecord.attributes.checkout_type.display_name') -%>
+      /
+      <%= t('activerecord.attributes.checkout_type.note') -%>
+    </th>
+    <th></th>
+  </tr>
+
+<%- @checkout_types.each do |checkout_type| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if policy(checkout_type).update? -%>
+        <%= move_position(checkout_type) -%>
+      <%- end -%>
+    </td>
+    <td><%= checkout_type.name -%></td>
+    <td>
+      <%= link_to checkout_type.display_name.localize, checkout_type -%>
+      <br />
+      <%= checkout_type.note %>
+    </td>
+    <td>
+      <%- if policy(checkout_type).update? -%>
+        <%= link_to t('page.edit'), edit_checkout_type_path(checkout_type) -%>
+      <% end %>
+      <%- if policy(checkout_type).destroy? -%>
+        <%= link_to t('page.destroy'), checkout_type_path(checkout_type), data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(CheckoutType).create? -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.checkout_type')), new_checkout_type_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

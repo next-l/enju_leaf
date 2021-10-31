@@ -1,0 +1,20 @@
+  <div class="field">
+    <%= f.label :subject -%><br />
+    <%= f.fields_for :subjects do |subject_form| %>
+      <%= render 'subject_fields', f: subject_form %>
+    <% end %>
+    <div class="links">
+      <p><%= link_to_add_association t('page.add'), f, :subjects %></p>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :classification -%><br />
+    <%= f.fields_for :classifications do |classification_form| %>
+      <%= render 'classification_fields', f: classification_form %>
+    <% end %>
+    <div class="links">
+      <p><%= link_to_add_association t('page.add'), f, :classifications %></p>
+    </div>
+  </div>
+

@@ -1,0 +1,28 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+  <h1 class="title"><%= t('page.showing', model: t('activerecord.models.manifestation_custom_property')) -%></h1>
+  <div id="content_list">
+    <p id="notice"><%= notice %></p>
+
+    <p>
+      <strong><%= t('activerecord.attributes.manifestation_custom_property.name') %>:</strong>
+      <%= @manifestation_custom_property.name %>
+    </p>
+
+    <p>
+      <strong><%= t('activerecord.attributes.manifestation_custom_property.display_name') %>:</strong>
+      <%= @manifestation_custom_property.display_name.localize %>
+    </p>
+
+    <p>
+      <strong><%= t('activerecord.attributes.manifestation_custom_property.note') %>:</strong>
+      <%= @manifestation_custom_property.note %>
+    </p>
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_manifestation_custom_property_path(@manifestation_custom_property) %></li>
+    <li><%= link_to t('page.back'), manifestation_custom_properties_path %></li>
+  </ul>
+</div>

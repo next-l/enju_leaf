@@ -1,0 +1,90 @@
+--- 
+bookstore_00001: 
+  name: unknown
+  fax_number: 
+  updated_at: 2008-02-10 11:14:57.605329 +09:00
+  telephone_number: 
+  id: 1
+  note: ""
+  address: ""
+  created_at: 2008-02-10 11:14:57.605329 +09:00
+  position: 1
+bookstore_00002: 
+  name: 寄贈
+  fax_number: ""
+  updated_at: 2008-02-10 12:15:14.840711 +09:00
+  telephone_number: ""
+  id: 2
+  note: ""
+  address: ""
+  created_at: 2008-02-10 11:16:02.598844 +09:00
+  position: 2
+bookstore_00003: 
+  name: 有隣堂
+  fax_number: ""
+  updated_at: 2008-02-10 12:15:33.555463 +09:00
+  telephone_number: ""
+  id: 3
+  note: ""
+  address: ""
+  created_at: 2008-02-10 11:16:11.585284 +09:00
+  position: 3
+bookstore_00004: 
+  name: 紀伊國屋書店
+  fax_number: ""
+  updated_at: 2008-02-10 12:16:07.726445 +09:00
+  telephone_number: ""
+  id: 4
+  note: ""
+  address: ""
+  created_at: 2008-02-10 11:16:22.565660 +09:00
+  position: 4
+bookstore_00005: 
+  name: 丸善
+  fax_number: ""
+  updated_at: 2008-02-10 12:16:17.990285 +09:00
+  telephone_number: ""
+  id: 5
+  note: ""
+  address: ""
+  created_at: 2008-02-10 12:15:44.923758 +09:00
+  position: 5
+bookstore_00006: 
+  name: 図書館流通センター
+  fax_number: ""
+  updated_at: 2008-02-10 12:16:25.906073 +09:00
+  telephone_number: ""
+  id: 6
+  note: ""
+  address: ""
+  created_at: 2008-02-10 12:15:54.558517 +09:00
+  position: 6
+bookstore_00007: 
+  name: Example store
+  fax_number: ""
+  updated_at: 2008-02-10 12:16:25.906073 +09:00
+  telephone_number: ""
+  id: 7
+  note: ""
+  address: ""
+  created_at: 2008-02-10 12:15:54.558517 +09:00
+  position: 7
+
+# == Schema Information
+#
+# Table name: bookstores
+#
+#  id               :integer          not null, primary key
+#  name             :text             not null
+#  zip_code         :string
+#  address          :text
+#  note             :text
+#  telephone_number :string
+#  fax_number       :string
+#  url              :string
+#  position         :integer
+#  deleted_at       :datetime
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+

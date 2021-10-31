@@ -1,0 +1,14 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.editing', model: t('activerecord.models.event')) -%></h1>
+<div id="content_list">
+  <%= render 'form' %>
+  <%= render 'all_day' %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.show'), @event -%></li>
+    <li><%= link_to t('page.back'), events_path(page: flash[:page] ||= nil) -%></li>
+  </ul>
+</div>

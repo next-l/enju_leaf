@@ -1,0 +1,25 @@
+--- 
+classification_type_00001: 
+  name: ndc9
+  display_name: NDC9
+  id: 1
+  note: ""
+  position: 1
+classification_type_00002: 
+  name: ddc
+  display_name: DDC
+  id: 2
+  note: ""
+  position: 2
+classification_type_00003: 
+  name: ndc8
+  display_name: NDC8
+  id: 3
+  note: ""
+  position: 3
+classification_type_00004: 
+  name: ndc10
+  display_name: NDC10
+  id: 4
+  note: ""
+  position: 4

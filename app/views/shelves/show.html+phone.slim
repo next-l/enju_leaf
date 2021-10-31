@@ -1,0 +1,33 @@
+div[data-role="header"]
+  a.ui-btn-left[href="javascript:history.back()" data-icon="back" data-iconpos="notext"]
+    = t('page.back')
+  .panel-heading
+    = @shelf.display_name.localize
+  div[data-role="content"]
+    #detail
+      - if current_user.try(:has_role?, 'Librarian')
+        p
+          strong
+            = t('activerecord.attributes.shelf.name')
+            | :
+          = @shelf.name
+      p
+        strong
+          = t('activerecord.attributes.shelf.closed')
+          | :
+        = localized_boolean(@shelf.closed)
+      p
+        strong
+          = t('activerecord.attributes.shelf.note')
+          | :
+        = @shelf.note
+      p
+        strong
+          = t('page.created_at')
+          | :
+        = l(@shelf.created_at)
+      p
+        strong
+          = t('page.updated_at')
+          | :
+        = l(@shelf.updated_at)

@@ -1,0 +1,14 @@
+<div id="work">
+  <%= paginate(@works, param_name: :work_list_page, remote: true) -%>
+  <ul>
+    <%- @works.each do |work| -%>
+      <li>
+        [W]
+        <%= link_to work.original_title, work -%>
+        <%= agents_list(work.creators.readable_by(current_user)) -%>
+      </li>
+    <%- end -%>
+  </ul>
+  <%= paginate(@works, param_name: :work_list_page, remote: true) -%>
+</div>
+

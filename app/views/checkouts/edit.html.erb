@@ -1,0 +1,60 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.editing', model: t('activerecord.models.checkout')) -%></h1>
+<div id="content_list">
+
+  <%= render 'manifestations/title', manifestation: @checkout.item.manifestation if @checkout.item -%>
+
+<h3><%= t('item.current_checkout') %></h3>
+
+<ul>
+  <li><%= t('activerecord.attributes.user.username') %>: 
+    <%= @checkout.user.username %></li>
+  <li><%= t('activerecord.attributes.profile.user_number') %>: 
+    <%= @checkout.user.profile.user_number %></li>
+</ul>
+
+<h3><%= t('checkout.renewal') -%></h3>
+<%- if @checkout.renewable? -%>
+  <%= form_for(@checkout) do |f| -%>
+    <%= t('checkout.new_due_date') -%>: <%= l(@new_due_date, format: :only_date) if @new_due_date -%>
+    <%= f.hidden_field :due_date, value: @new_due_date -%>
+    <br />
+    <%= f.submit %>
+  <%- end -%>
+<%- else -%>
+  <div class="field"><%= t('checkout.this_item_cant_be_renewed') -%></div>
+<%- end -%>
+
+<% if current_user.has_role?('Librarian') %>
+  <h3><%= t('checkout.editing_due_date') -%></h3>
+
+  <%= form_for(@checkout) do |f| -%>
+    <%= f.error_messages -%>
+
+    <div class="field">
+      <%= f.label :due_date -%>
+      <%= f.hidden_field :user_id -%>
+      <%= f.hidden_field :item_id -%>
+      <%= f.text_field :due_date, value: @checkout.due_date.try(:strftime, "%Y-%m-%d"), class: 'date_field', placeholder: "#{t('page.example')}: 2011-04-12"-%>
+    </div>
+    <div class="field">
+      <%= t('checkout.renewal_count') -%>: <%= f.text_field :checkout_renewal_count, class: 'resource_integer' -%>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <%- end -%>
+<%- end -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <%= render 'manifestations/book_jacket', manifestation: @checkout.item.manifestation if @checkout.item -%>
+  <ul>
+    <li><%= link_to t('page.show'), @checkout -%></li>
+    <% if @checkout.user %>
+      <li><%= link_to t('page.back'), :back -%></li>
+    <% end %>
+  </ul>
+</div>

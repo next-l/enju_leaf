@@ -1,0 +1,52 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.classification_type')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<table class="table table-striped index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.classification_type.name') -%></th>
+    <th>
+      <%= t('activerecord.attributes.classification_type.display_name') -%>
+      /
+      <%= t('activerecord.attributes.classification_type.note') -%>
+    </th>
+    <th></th>
+  </tr>
+
+<%- @classification_types.each do |classification_type| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if policy(classification_type).update? -%>
+        <%= move_position(classification_type) -%>
+      <%- end -%>
+    </td>
+    <td><%= classification_type.name -%></td>
+    <td>
+      <%= link_to classification_type.display_name.localize, classification_type -%>
+      <br />
+      <%= classification_type.note %>
+    </td>
+    <td>
+      <%- if policy(classification_type).update? -%>
+        <%= link_to t('page.edit'), edit_classification_type_path(classification_type) -%>
+      <% end %>
+      <%- if policy(classification_type).destroy? -%>
+        <%= link_to t('page.destroy'), classification_type_path(classification_type), data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(ClassificationType).create? -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.classification_type')), new_classification_type_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

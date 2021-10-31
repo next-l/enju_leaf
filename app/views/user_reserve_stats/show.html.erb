@@ -1,0 +1,55 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.user_reserve_stat')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_reserve_stat.start_date') -%>:</strong>
+  <%= l(@user_reserve_stat.start_date) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_reserve_stat.end_date') -%>:</strong>
+  <%= l(@user_reserve_stat.end_date) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_reserve_stat.state') -%>:</strong>
+  <%= localized_state(@user_reserve_stat.current_state) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.user_reserve_stat.note') -%>:</strong>
+  <%= @user_reserve_stat.note -%>
+</p>
+
+<table class="table table-striped index">
+  <tr>
+    <th><%= t('activerecord.models.user') -%></th>
+    <th><%= t('activerecord.attributes.reserve_stat_has_user.reserves_count') -%></th>
+  </tr>
+  <%- @stats.each do |stat| -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td>
+        <%= link_to stat.user.username, stat.user.profile if stat.user.try(:profile) -%>
+      </td>
+      <td><%= stat.reserves_count -%></td>
+    </tr>
+  <%- end -%>
+</table>
+
+<%= paginate(@stats) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <%= form_for(@user_reserve_stat) do |f| %>
+  <ul>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
+  </ul>
+  <% end %>
+  <h4><%= t('page.export') -%></h4>
+  <ul>
+    <li><%= link_to 'TSV', user_reserve_stat_path(@user_reserve_stat, format: :text, locale: @locale.to_s) -%></li>
+  </ul>
+</div>

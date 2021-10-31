@@ -1,0 +1,25 @@
+--- 
+color_00001: 
+  property: header_title
+  code: "5970B2"
+  id: 1
+  position: 1
+  library_group_id: 1
+color_00002: 
+  property: table_line0
+  code: "d7ebf9"
+  id: 2
+  position: 2
+  library_group_id: 1
+color_00003: 
+  property: table_line1
+  code: "ffffff"
+  id: 3
+  position: 3
+  library_group_id: 1
+color_00004: 
+  property: table_border
+  code: "2779aa"
+  id: 4
+  position: 4
+  library_group_id: 1

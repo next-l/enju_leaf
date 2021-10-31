@@ -1,0 +1,79 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.agent_import_file')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id:</strong>
+  <%= @agent_import_file.id -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.agent_import_file.agent_import_file_name') -%>:</strong>
+  <%= link_to @agent_import_file.agent_import_file_name, agent_import_file_path(@agent_import_file, format: :download) if @agent_import_file.agent_import_file_name %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.agent_import_file.agent_import_content_type') -%>:</strong>
+  <%= @agent_import_file.agent_import_content_type -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.agent_import_file.agent_import_file_size') -%>:</strong>
+  <%= @agent_import_file.agent_import_file_size -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.agent_import_file.agent_import_fingerprint') -%>:</strong>
+  <%= @agent_import_file.agent_import_fingerprint -%>
+</p>
+
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@agent_import_file.created_at) if @agent_import_file.created_at -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.agent_import_file.executed_at') -%>:</strong>
+  <%= l(@agent_import_file.executed_at) if @agent_import_file.executed_at -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.agent_import_file.edit_mode') -%>:</strong>
+  <%= @agent_import_file.edit_mode -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.agent_import_file.user_encoding') -%>:</strong>
+  <%= @agent_import_file.user_encoding -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_import_file.state') -%>:</strong>
+  <%= localized_state(@agent_import_file.current_state) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.agent_import_file.error_message') -%>:</strong>
+  <%= @agent_import_file.error_message -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= link_to @agent_import_file.user.username, @agent_import_file.user.profile if @agent_import_file.user.try(:profile) -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <%= form_for(@agent_import_file) do |f| %>
+  <ul>
+    <li><%= link_to t('activerecord.models.agent_import_result'), agent_import_results_path(agent_import_file_id: @agent_import_file.id) -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
+    <% if current_user.has_role?('Administrator') %>
+      <li><%= link_to 'Resque', resque_path %></li>
+    <% end %>
+  </ul>
+  <% end %>
+</div>

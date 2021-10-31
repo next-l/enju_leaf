@@ -1,0 +1,29 @@
+<h2><%= t('activerecord.models.resource_import_result') %></h2>
+
+<p>
+  <%= link_to((image_tag 'icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'enju_icon'), resource_import_results_path(resource_import_file_id: @resource_import_file.id, format: :text)) -%>
+  (<%= link_to 'TSV', resource_import_results_path(resource_import_file_id: @resource_import_file.id, format: :text) -%>)
+</p>
+
+<table class="table table-striped index">
+  <tr>
+    <th><%= t('activerecord.attributes.resource_import_result.lineno') %></th>
+    <th><%= t('activerecord.attributes.resource_import_result.body') %></th>
+    <th><%= t('activerecord.models.manifestation') %></th>
+    <th><%= t('activerecord.models.item') %></th>
+    <th></th>
+  </tr>
+<% @resource_import_results.each_with_index do |resource_import_result, idx| %>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= @resource_import_results.offset_value + idx + 1 %></td>
+    <td><%= resource_import_result.body.inspect.truncate(100) %></td>
+    <td><%= link_to resource_import_result.manifestation.original_title, resource_import_result.manifestation if resource_import_result.manifestation %></td>
+    <td><%= link_to resource_import_result.item.item_identifier, resource_import_result.item if resource_import_result.item %></td>
+    <td>
+      <%= link_to t('page.show'), resource_import_result %>
+      <%= link_to t('page.destroy'), resource_import_result, data: {confirm: t('page.are_you_sure')}, method: :delete %>
+    </td>
+  </tr>
+<% end %>
+</table>
+<%= paginate(@resource_import_results) %>

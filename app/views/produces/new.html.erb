@@ -1,0 +1,17 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.new', model: t('activerecord.models.produce')) -%></h1>
+<div id="content_list">
+  <%= render 'form' %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if @produce.agent -%>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.agent')), manifestations_path(publisher_id: @produce.agent_id) -%></li>
+    <%- end -%>
+    <%- if @produce.manifestation -%>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.manifestation')), agents_path(manifestation_id: @produce.manifestation_id) -%></li>
+    <%- end -%>
+  </ul>
+</div>

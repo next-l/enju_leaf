@@ -1,0 +1,82 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.item')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<%= render 'manifestations/title', manifestation: @manifestation if @manifestation -%>
+
+<div class="search_form">
+<%= form_for :items, url: items_path, html: {method: 'get'} do -%>
+  <p>
+    <%= label_tag :search_form_top, t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {id: 'search_form_top', class: 'search_form', placeholder: t('page.search_term')} -%>
+    <%= hidden_field_tag :manifestation_id, @manifestation.id if @manifestation -%>
+    <%= submit_tag t('page.search') -%>
+    <%= set_focus_on_search_form -%>
+    <br />
+    <%= t('activerecord.attributes.item.acquired_at') %>:
+    <%= t('advanced_search.from') %>
+    <%= text_field_tag 'acquired_from', @acquired_from, {class: 'date_field', placeholder: "#{t('page.example')}: 2012-04-12"} -%>
+    <%= t('advanced_search.to') %> <%= text_field_tag 'acquired_until', @acquired_until, {class: 'date_field', placeholder: "#{t('page.example')}: 2012-05-11"} -%>
+  </p>
+<%- end -%>
+</div>
+
+<table class="table table-striped index">
+  <tr>
+    <th><%= t('activerecord.attributes.item.item_identifier') -%></th>
+    <th><%= t('activerecord.models.library') -%></th>
+    <th><%= t('activerecord.models.shelf') -%></th>
+    <th><%= t('activerecord.attributes.item.call_number') -%></th>
+    <% if defined?(EnjuCirculation) %>
+      <th><%= t('activerecord.models.circulation_status') -%></th>
+    <% end %>
+  </tr>
+  <%- @items.each do |item| -%>
+    <tr class="line<%= cycle("0", "1") -%>">
+      <td>
+        <%- if item.item_identifier? -%>
+          <%= link_to item.item_identifier, item -%>
+        <%- else -%>
+          (<%= link_to t('item.no_number'), item -%>)
+        <%- end -%>
+      </td>
+      <td>
+        <%= link_to item.shelf.library.display_name.localize, item.shelf.library %>
+      </td>
+      <td>
+        <%= link_to item.shelf_display_name.localize, item.shelf -%>
+        <%= render 'items/shelf_picture', item: item -%>
+      </td>
+      <td>
+        <%= item.call_number -%>
+      </td>
+      <% if defined?(EnjuCirculation) %>
+        <td>
+          <%= item.circulation_status.display_name.localize if item.circulation_status -%>
+          <%- if item.rent? -%>
+            (
+              <%= t('activerecord.attributes.checkout.due_date') -%>:
+              <%= l(item.checkouts.first.due_date, format: :short) -%>
+            )
+          <%- end -%>
+        </td>
+      <% end %>
+    </tr>
+  <%- end -%>
+</table>
+
+<%= paginate(@items) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <%= render 'manifestations/book_jacket', manifestation: @manifestation if @manifestation -%>
+  <ul>
+    <%- if policy(Item).create? and @manifestation -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.item')), new_item_path(manifestation_id: @manifestation.id) -%></li>
+    <%- end -%>
+  </ul>
+  <% if defined?(EnjuCirculation) %>
+    <%= render 'items/circulation_status_facet' %>
+  <% end %>
+</div>

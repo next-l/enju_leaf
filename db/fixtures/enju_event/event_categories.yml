@@ -1,0 +1,15 @@
+--- 
+event_category_00001: 
+  name: unknown  
+  display_name: "en: unknown\r\n\
+    ja: 不明"
+  id: 1
+  note: ""
+  position: 1
+event_category_00002: 
+  name: closed  
+  display_name: "en: closed\r\n\
+    ja: 休館日"
+  id: 2
+  note: ""
+  position: 2

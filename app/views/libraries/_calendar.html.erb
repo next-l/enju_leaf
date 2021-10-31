@@ -1,0 +1,17 @@
+<div id="event_list">
+  (<%= link_to t('page.calendar'), events_path(library_id: @library.name, mode: 'calendar') -%>)
+  <ul>
+    <%- @events.each do |event| -%>
+      <li>
+        <%= link_to event.display_name.localize, event -%>
+        <% if event.all_day? %>
+          (<%= l(event.start_at, format: :only_date) -%> - <%= l(event.end_at, format: :only_date) -%>)
+        <% else %>
+          (<%= l(event.start_at) -%> - <%= l(event.end_at) -%>)
+        <% end %>
+      </li>
+    <%- end -%>
+  </ul>
+
+  <%= paginate(@events, param_name: :event_page, remote: true) -%>
+</div>

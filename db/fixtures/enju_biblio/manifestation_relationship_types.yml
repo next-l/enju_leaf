@@ -1,0 +1,14 @@
+--- 
+manifestation_relationship_type_00001: 
+  position: 1
+  name: reproduction
+  id: 1
+  display_name: "en: Reproduction\r\n\
+    ja: 複製"
+
+manifestation_relationship_type_00002: 
+  position: 2
+  name: alternate
+  id: 2
+  display_name: "en: Alternate\r\n\
+    ja: 代替"

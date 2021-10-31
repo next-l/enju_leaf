@@ -1,0 +1,14 @@
+<%= @message.receiver.username -%> :
+
+A new message arrived from <%= @sender_name -%>.
+<%= messages_url %>
+
+-----
+
+<%=raw @message.body %>
+
+-----
+
+-- 
+<%= LibraryGroup.system_name(@message.receiver.profile.locale) %>
+<%= LibraryGroup.site_config.url %>

@@ -1,0 +1,4 @@
+<%= @user_reserve_stat.start_date -%>	<%= @user_reserve_stat.end_date %>
+<%- @stats.each do |stat| -%>
+"<%= stat.user.username if stat.user -%>"	"<%= stat.reserves_count %>"<%= "\n" -%>
+<%- end -%>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module EnjuLeaf
-  VERSION = "3.0.0.beta.1".freeze
+  VERSION = "1.3.5".freeze
 end

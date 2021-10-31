@@ -1,0 +1,52 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.frequency')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<table class="table table-striped index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.frequency.name') -%></th>
+    <th>
+      <%= t('activerecord.attributes.frequency.display_name') -%>
+      /
+      <%= t('activerecord.attributes.frequency.note') -%>
+    </th>
+    <th></th>
+  </tr>
+
+<%- @frequencies.each do |frequency| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if policy(frequency).update? -%>
+        <%= move_position(frequency) -%>
+      <%- end -%>
+    </td>
+    <td><%= frequency.name -%></td>
+    <td>
+      <%= link_to frequency.display_name.localize, frequency -%>
+      <br />
+      <%= frequency.note %>
+    </td>
+    <td>
+      <%- if policy(frequency).update? -%>
+        <%= link_to t('page.edit'), edit_frequency_path(frequency) -%>
+      <% end %>
+      <%- if policy(frequency).destroy? -%>
+        <%= link_to t('page.destroy'), frequency_path(frequency), data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(Frequency).create? -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.frequency')), new_frequency_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

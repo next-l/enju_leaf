@@ -1,0 +1,11 @@
+  <ul>
+    <% if policy(Manifestation).create? %>
+      <li><%= link_to t('page.new', model: t('activerecord.models.manifestation')), new_manifestation_path(parent_id: @parent.id) %></li>
+    <% end %>
+    <% if policy(@parent).update? %>
+      <li><%= link_to t('page.edit'), edit_manifestation_path(@parent) %></li>
+    <% end %>
+    <% if policy(@parent).destroy? %>
+      <li><%= link_to t('page.destroy'), manifestation_path(@parent), data: {confirm: t('page.are_you_sure')}, method: :delete %></li>
+    <% end %>
+  </ul>

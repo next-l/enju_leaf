@@ -1,0 +1,17 @@
+<% if user_signed_in? %>
+  <% if @manifestation.is_reservable_by?(current_user) %>
+    <li><%= link_to_reservation(@manifestation, @reserve) %>
+    <br />
+    (<%= link_to_if(current_user.has_role?('Librarian'), t('page.number_of_reservations', count: @reserved_count), reserves_path(query: "manifestation_id_i:#{@manifestation.id}")) -%>)</li>
+  <%- else -%>
+    <% if defined?(EnjuPurchaseRequest) %>
+      <li><%= link_to t('activerecord.models.purchase_request'), new_purchase_request_path(purchase_request: {url: manifestation_url(@manifestation)}) %></li>
+    <% end %>
+  <%- end -%>
+<% else %>
+  <% unless @manifestation.items.for_checkout.empty? %>
+    <li><%= link_to_reservation(@manifestation, @reserve) %><br />
+    (<%= t('page.number_of_reservations', count: @reserved_count) -%>)</li>
+  <% end %>
+<% end %>
+

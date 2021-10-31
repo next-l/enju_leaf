@@ -1,0 +1,52 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.subject_heading_type')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<table class="table table-striped index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.subject_heading_type.name') -%></th>
+    <th>
+      <%= t('activerecord.attributes.subject_heading_type.display_name') -%>
+      /
+      <%= t('activerecord.attributes.subject_heading_type.note') -%>
+    </th>
+    <th></th>
+  </tr>
+
+<%- @subject_heading_types.each do |subject_heading_type| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if policy(subject_heading_type).update? -%>
+        <%= move_position(subject_heading_type) -%>
+      <%- end -%>
+    </td>
+    <td><%= subject_heading_type.name -%></td>
+    <td>
+      <%= link_to subject_heading_type.display_name.localize, subject_heading_type -%>
+      <br />
+      <%= subject_heading_type.note %>
+    </td>
+    <td>
+      <%- if policy(subject_heading_type).update? -%>
+        <%= link_to t('page.edit'), edit_subject_heading_type_path(subject_heading_type) -%>
+      <% end %>
+      <%- if policy(subject_heading_type).destroy? -%>
+        <%= link_to t('page.destroy'), subject_heading_type_path(subject_heading_type), data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(SubjectHeadingType).create? -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.subject_heading_type')), new_subject_heading_type_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

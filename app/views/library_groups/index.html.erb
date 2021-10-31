@@ -1,0 +1,32 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.library_group')) -%></h1>
+<div id="content_list">
+
+<table class="table table-striped index">
+  <tr>
+    <th><%= t('activerecord.attributes.library_group.display_name') -%></th>
+    <th><%= t('activerecord.attributes.library_group.name') -%></th>
+    <th><%= t('activerecord.attributes.library_group.email') -%></th>
+    <td></td>
+  </tr>
+
+<%- @library_groups.each do |library_group| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to h(library_group.display_name.localize), library_group -%></td>
+    <td><%= library_group.name -%></td>
+    <td><%= library_group.user.email -%></td>
+    <td>
+      <%= link_to t('page.edit'), edit_library_group_path(library_group) if policy(library_group).update? -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('activerecord.models.library'), libraries_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,42 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.classification')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.classification_type') -%>:</strong>
+  <%= link_to @classification.classification_type.display_name.localize, @classification.classification_type %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.classification.category') -%>:</strong>
+  <%= @classification.category %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.classification.label') -%>:</strong>
+  <%= @classification.label %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.classification.url') -%>:</strong>
+  <%= link_to @classification.url, @classification.url if @classification.url %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.classification.note') -%>:</strong>
+  <%= @classification.note %>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(@classification).update? -%>
+
+      <li><%= link_to t('page.edit'), edit_classification_path(@classification) %></li>
+    <%- end -%>
+    <li><%= link_to t('page.back'), :back -%></li>
+  </ul>
+</div>

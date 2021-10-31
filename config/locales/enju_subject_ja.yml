@@ -1,0 +1,36 @@
+ja:
+  activerecord:
+    models:
+      subject: 件名
+      subject_type: 件名の種類
+      subject_heading_type: 件名標目の種類
+      classification: 分類
+      classification_type: 分類の種類
+
+    attributes:
+      subject:
+        term: 用語
+        term_transcription: 用語よみ
+        scope_note: スコープ注記
+        note: 注記
+        lock_version: ロックバージョン
+      subject_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      subject_heading_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      classification:
+        category: 分類記号
+        label: 分類項目名
+        url: URL
+        note: 注記
+      classification_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置

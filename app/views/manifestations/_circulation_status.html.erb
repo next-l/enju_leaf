@@ -1,0 +1,19 @@
+<td>
+  <%= item.circulation_status.display_name.localize if item.circulation_status -%>
+  <% if item.use_restriction.name == 'Not For Loan' %>
+    <br />
+    <%= item.use_restriction.display_name.localize %>
+  <% else %>
+    <% if item.retained? %>
+      <br />
+      <%= t('reserve.retained') %>
+    <% end %>
+    <% if item.rent? %>
+      <br />
+      (
+        <%= t('activerecord.attributes.checkout.due_date') -%>:
+        <%= l(item.latest_checkout.due_date, format: :only_date) -%>
+      )
+    <% end %>
+  <% end %>
+</td>

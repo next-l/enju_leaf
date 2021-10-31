@@ -1,0 +1,14 @@
+<h4><%= t('manifestation.reservable') -%></h4>
+<ul>
+  <%- @reservable_facet.each do |facet| -%>
+    <% facet.value ? facet_reservable = true : facet_reservable = false %>
+    <li>
+      <%- if @reservable == facet_reservable -%><strong><%- end -%>
+      <%= link_to "#{localized_boolean(facet.value)} (#{facet.count})", url_for(request.params.merge(page: nil, reservable: facet.value.to_s, view: nil, only_path: true)) -%>
+      <%- if @reservable == facet_reservable -%></strong><%- end -%>
+    </li>
+  <%- end -%>
+  <%- unless @reservable.nil? -%>
+    <li><%= link_to t('page.remove_this_facet'), url_for(request.params.merge(reservable: nil, page: nil, view: nil, only_path: true)) -%></li>
+  <%- end -%>
+</ul>

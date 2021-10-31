@@ -1,0 +1,129 @@
+  <div id="tabs">
+    <%= render 'manifestations/tab_menu', manifestation: manifestation %>
+    <div id="detail">
+    <% cache([manifestation, fragment: 'show_detail_user_html', role: current_user_role_name, locale: @locale]) do %>
+      <table class="table table-striped" id="resource_detail">
+        <%= embed_content(manifestation) if defined?(EnjuManifestationViewer) -%>
+        <tr>
+          <td style="width: 200px"><%= t('activerecord.attributes.manifestation.original_title') -%>:</td>
+          <td style="width: 500px"><%= manifestation.original_title -%></td>
+        </tr>
+        <% if manifestation.title_transcription? %>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.title_transcription') -%>:</td>
+            <td><%= manifestation.title_transcription -%></td>
+          </tr>
+        <% end %>
+        <% if manifestation.title_alternative? %>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.title_alternative') -%>:</td>
+            <td><%= manifestation.title_alternative -%></td>
+          </tr>
+        <% end %>
+        <%- if manifestation.series_statements.exists? -%>
+          <tr>
+            <td><%= t('activerecord.models.series_statement') -%>:</td>
+            <td>
+              <%= render 'show_series_detail', manifestation: manifestation %>
+              <%- unless manifestation.identifier_contents(:issn).empty? -%>
+                (<%= t('activerecord.attributes.manifestation.issn') -%>: <%= manifestation.identifier_contents(:issn).join(" ") -%>)
+              <%- end -%>
+            </td>
+          </tr>
+        <% end %>
+        <%= render 'edition_and_number', manifestation: manifestation %>
+        <tr>
+          <td><%= t('page.form') -%>:</td>
+          <td>
+            <%= form_icon(manifestation.carrier_type) -%> <%= manifestation.carrier_type.display_name.localize -%> /
+            <%= content_type_icon(manifestation.manifestation_content_type) -%> <%= manifestation.manifestation_content_type.display_name.localize if manifestation.manifestation_content_type -%>
+          </td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.models.language') -%>:</td>
+          <td><span itemprop="inLanguage"><%= manifestation.language.display_name.localize -%></span></td>
+        </tr>
+        <tr>
+          <td><%= t('activerecord.attributes.manifestation.publication_place') -%>:</td>
+          <td><%= manifestation.publication_place %></td>
+        </tr>
+        <tr>
+          <td><%= t('manifestation.physical_description') -%>:</td>
+          <td>
+            <%= render 'manifestations/physical_description', manifestation: manifestation -%>
+          </td>
+        </tr>
+        <% if manifestation.price.present? %>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.price') -%>:</td>
+            <td><%= manifestation.price -%></td>
+          </tr>
+        <% end %>
+        <% if defined?(EnjuSubject) %>
+          <%= render 'manifestations/subject_detail', manifestation: manifestation %>
+          <%= render 'manifestations/classification_detail', manifestation: manifestation %>
+        <% end %>
+        <% if defined?(EnjuBookmark) %>
+          <tr>
+            <td><%= t('activerecord.models.tag') -%>:</td>
+            <td>
+              <%= render 'manifestations/tag_list', manifestation: manifestation -%>
+            </td>
+          </tr>
+        <% end %>
+        <tr>
+          <td><%= t('page.identifier') -%>:</td>
+          <td>
+            <ul>
+              <% manifestation.identifiers.each do |identifier| %>
+                <li>
+                  <%= identifier.identifier_type.display_name.localize %>:
+                  <%= identifier_link(identifier) %>
+                </li>
+              <% end %>
+            </ul>
+          </td>
+        </tr>
+        <%- unless manifestation.attachment_file_name.blank? -%>
+          <%= render 'manifestations/attachment_file', manifestation: manifestation -%>
+        <%- end -%>
+        <tr>
+          <td><%= t('page.created_at') -%>:</td>
+          <td><%=l manifestation.created_at if manifestation.created_at -%></td>
+        </tr>
+        <tr>
+          <td><%= t('page.updated_at') -%>:</td>
+          <td><%=l manifestation.updated_at if manifestation.updated_at -%></td>
+        </tr>
+        <% if manifestation.abstract.present? %>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.abstract') -%>:</td>
+            <td>
+              <%= raw simple_format(h(manifestation.abstract)) -%>
+            </td>
+          </tr>
+        <% end %>
+        <% if manifestation.description.present? %>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.description') -%>:</td>
+            <td>
+              <%= raw simple_format(h(manifestation.description)) -%>
+            </td>
+          </tr>
+        <% end %>
+        <% if manifestation.note.present? %>
+          <tr>
+            <td><%= t('activerecord.attributes.manifestation.note') -%>:</td>
+            <td>
+              <%= raw simple_format(h(manifestation.note)) -%>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+    <%- if manifestation.items.available.on_shelf.exists? -%>
+      <%= render 'manifestations/show_holding', manifestation: manifestation, items: manifestation.items.available.on_shelf %>
+    <%- end -%>
+    </div>
+    <%= render 'manifestations/tab_list', manifestation: manifestation %>
+  </div>

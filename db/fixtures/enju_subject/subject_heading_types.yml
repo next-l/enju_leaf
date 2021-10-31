@@ -1,0 +1,39 @@
+--- 
+subject_heading_type_00001: 
+  name: unknown
+  display_name: unknown
+  id: 1
+  note: ""
+  position: 1
+subject_heading_type_00002: 
+  name: ndlsh
+  display_name: NDLSH
+  id: 2
+  note: ""
+  position: 2
+subject_heading_type_00003: 
+  name: bsh
+  display_name: BSH
+  id: 3
+  note: ""
+  position: 3
+subject_heading_type_00004: 
+  name: lcsh
+  display_name: LCSH
+  id: 4
+  note: ""
+  position: 4
+
+# == Schema Information
+#
+# Table name: subject_heading_types
+#
+#  id           :integer          not null, primary key
+#  name         :string(255)      not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+

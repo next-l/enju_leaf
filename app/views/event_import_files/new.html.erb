@@ -1,0 +1,60 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+  <h1 class="title"><%= t('page.new', model: t('activerecord.models.event_import_file')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@event_import_file, html: { multipart: true }) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label t('page.file') -%><br />
+    <%= f.file_field :event_import -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :edit_mode -%><br />
+    <%= f.radio_button :edit_mode, 'create', checked: 'checked' %>
+    <%= f.label :edit_mode, t('page.create'), value: 'create' %>
+    <%= f.radio_button :edit_mode, 'update' %>
+    <%= f.label :edit_mode, t('page.update'), value: 'update' %>
+    <%= f.radio_button :edit_mode, 'destroy' %>
+    <%= f.label :edit_mode, t('page.destroy'), value: 'destroy' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :user_encoding -%><br />
+    <%= f.radio_button :user_encoding, 'auto_detect', checked: 'checked' %>
+    <%= f.label :user_encoding, t('import.auto_detect'), value: 'auto_detect' %>
+    <%= f.radio_button :user_encoding, 'utf-8' %>
+    <%= f.label :user_encoding, 'UTF-8', value: 'utf-8' %>
+    <%= f.radio_button :user_encoding, 'shift_jis' %>
+    <%= f.label :user_encoding, 'Shift_JIS', value: 'shift_jis' %>
+    <%= f.radio_button :user_encoding, 'euc-jp' %>
+    <%= f.label :user_encoding, 'EUC-JP', value: 'euc-jp' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :default_event_category_id -%>
+    <%= f.select(:default_event_category_id, @event_categories.collect{|e| [e.display_name.localize, e.id]}) -%><br />
+    <%= t('event_import_file.default_event_category') %>
+  </div>
+
+  <div class="field">
+    <%= f.label :default_library_id -%>
+    <%= f.select(:default_library_id, @libraries.collect{|l| [l.display_name.localize, l.id]}) -%><br />
+    <%= t('event_import_file.default_library') %>
+  </div>
+
+  <div class="actions">
+    <%= f.hidden_field :mode, value: 'import' %>
+    <%= f.submit t('page.start_import') %>
+  </div>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= back_to_index(flash[:page_info]) %></li>
+  </ul>
+</div>

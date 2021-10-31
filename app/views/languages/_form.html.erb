@@ -1,0 +1,42 @@
+<%= simple_form_for(@language, validate: true) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="field">
+    <%= f.label :name %>:<br />
+    <%= @language.name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :native_name %><br />
+    <%= f.text_field :native_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :display_name %><br />
+    <%= f.text_area :display_name, class: 'resource_textarea' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :iso_639_1 %><br />
+    <%= f.text_field :iso_639_1 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :iso_639_2 %><br />
+    <%= f.text_field :iso_639_2 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :iso_639_3 %><br />
+    <%= f.text_field :iso_639_3 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :note %><br />
+    <%= f.text_area :note, class: 'resource_textarea' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,215 @@
+ja:
+  activerecord:
+    models:
+      basket: 貸出セッション
+      checked_item: 貸出資料
+      checkout: 貸出
+      checkin: 返却
+      circulation_status: 貸出状態
+      use_restriction: 利用制限
+      checkout_type: 貸出区分
+      lending_policy: 貸出規則
+      reserve: 予約
+      item_has_use_restriction: 項目を制限している
+      manifestation_checkout_stat: 資料別貸出統計
+      user_checkout_stat: 利用者別貸出統計
+      manifestation_reserve_stat: 資料別予約統計
+      user_reserve_stat: 利用者別予約統計
+      checkout_stat_has_manifestation: 資料別貸出統計
+      checkout_stat_has_user: 利用者別貸出統計
+      reserve_stat_has_manifestation: 資料別予約統計
+      reserve_stat_has_user: 利用者別予約統計
+      user_group_has_checkout_type: 利用者グループと貸出区分の関係
+      carrier_type_has_checkout_type: 資料の形態と貸出区分の関係
+      demand: 督促
+
+    attributes:
+      basket:
+        user: 利用者
+        note: 注記
+        lock_version: ロックバージョン
+      checked_item:
+        due_date: 返却期限
+        item: 個別資料
+      checkin:
+        item_id: 個別資料
+      checkout:
+        due_date: 返却期限
+        lock_version: ロックバージョン
+      reserve:
+        user: 利用者
+        checked_out_at: 貸出時刻
+        canceled_at: 取消時刻
+        expired_at: 有効期限（この日以降は不要）
+        deleted_at: 削除時刻
+        created_at: 予約時刻
+        retained_at: 確保時刻
+        postponed_at: 取置取消時刻
+        state: 状態
+        force_retaining: 強制的に取り置きを行う
+        item_identifier: 個別資料ID
+        pickup_location_id: 受取館
+      checkout_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      circulation_status:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      use_restriction:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      item_has_use_restriction:
+      user_group_has_checkout_type:
+        checkout_limit: 貸出数の上限
+        checkout_period: 貸出期間
+        checkout_renewal_limit: 貸出更新回数の上限
+        reservation_limit: 予約数の上限
+        reservation_expired_period: 予約の期限切れまでの期間
+        set_due_date_before_closing_day: 返却日を閉館日の前日にする
+        fixed_due_date: 固定貸出期限
+        note: 注記
+        position: 位置
+        user_group_id: 利用者グループ
+        checkout_type_id: 貸出区分
+        current_checkout_count: 現在の貸出数
+      carrier_type_has_checkout_type:
+        note: 注記
+        position: 位置
+        checkout_type_id: 貸出区分
+      manifestation_checkout_stat:
+        start_date: 開始日
+        end_date: 終了日
+        note: 注記
+        state: 状態
+      user_checkout_stat:
+        start_date: 開始日
+        end_date: 終了日
+        note: 注記
+        state: 状態
+      manifestation_reserve_stat:
+        start_date: 開始日
+        end_date: 終了日
+        note: 注記
+        state: 状態
+      user_reserve_stat:
+        start_date: 開始日
+        end_date: 終了日
+        note: 注記
+        state: 状態
+      checkout_stat_has_user:
+        checkouts_count: 利用者の貸出回数
+      checkout_stat_has_manifestation:
+        checkouts_count: 資料の貸出回数
+      reserve_stat_has_user:
+        reserves_count: 利用者の予約回数
+      reserve_stat_has_manifestation:
+        reserves_count: 資料の予約回数
+      lending_policy:
+        loan_period: 貸出期間
+        fixed_due_date: 固定貸出期限
+        renewal: 貸出延長の回数
+        fine: 罰金
+        note: 注記
+        position: 位置
+      item:
+        checkout_type: 貸出区分
+        circulation_status: 貸出状態
+      profile:
+        checkout_icalendar_token: 貸出iCalendarのトークン
+        save_checkout_history: 貸出の履歴を保存する
+    errors:
+      models:
+        item:
+          attributes:
+            circulation_status_id:
+              is_rented: この貸出状態には変更できません。資料が貸し出されています。
+              is_reserved: この貸出状態には変更できません。資料が予約されています。
+        withdraw:
+          attributes:
+            item_id:
+              is_rented: は貸し出されています。
+              is_reserved: は予約されています。
+
+  basket:
+    this_account_is_suspended: "このアカウントは停止されています。"
+    checkout_completed: "貸出が完了しました。"
+  checked_item:
+    item_not_found: "資料が見つかりません。"
+    not_available_for_checkout: "この資料の貸出はできません。"
+    previous_checkout: "現在貸出中の資料"
+    checkout: "上記の資料を貸し出す"
+    ignore_restriction: "制限を無視する"
+    already_checked_out: "この資料はすでに貸し出されています。"
+    already_checked_out_try_again: "資料はすでに貸し出されています。もう一度やり直してください。"
+  checkout:
+    user_checkout: "%{login_name} さんの貸出資料"
+    library_group_checkout: "%{library_group_name} での貸出"
+    renewal: "貸出の更新"
+    renewal_count: "更新回数"
+    new_due_date: "新しい貸出期限日"
+    editing_due_date: "貸出期限日の編集"
+    this_item_cant_be_renewed: "この資料は更新できません。"
+    listing_overdue_item: "貸出期限切れの資料の一覧"
+    current_user: "現在の貸出利用者"
+    this_item_is_reserved: "この資料は予約されています。"
+    you_have_overdue_item: "貸出期限を過ぎている資料があります。"
+    excessed_renewal_limit: "貸出更新回数の上限を超えています。"
+    all_checkout: "全ての貸出"
+    no_checkout: "貸出中の資料はありません。"
+    number_of_day_overdue: "延滞日数"
+    extend: "貸出期間の延長"
+    returned: "返却済み"
+    my_checkout: "自分の貸出"
+    remove_all_history: "すべての貸出履歴を削除"
+    reserved: "予約あり"
+  checkin:
+    item_not_found: "資料が見つかりません。"
+    enter_item_identifier: "所蔵情報番号を入力してください。"
+    other_library_item: "この資料は他の図書館のものです！"
+    already_checked_in: "この資料はすでに返却されています。"
+    checkin: "返却（取り消しはできません）"
+    successfully_checked_in: "この資料は正常に返却されました。"
+    missing_item_found: "行方不明だった資料が見つかりました。"
+    not_checked_out: "この資料は未貸出の資料です。"
+  reserve:
+    user_reserve: "%{login_name} さんの予約資料"
+    library_group_reserve: "%{library_group_name} での予約資料"
+    my_reservation: "自分の予約"
+    all_reservation: "全ての予約"
+    this_manifestation_is_already_reserved: "この資料はすでに予約されています。"
+    this_manifestation_is_already_checked_out: "この資料はすでに貸し出されています。"
+    excessed_reservation_limit: "予約できる資料数の上限を超えています。"
+    this_patron_cannot_reserve: "この利用者はこの資料を予約できません。"
+    reservation_was_canceled: "予約は取り消されました。"
+    this_item_is_not_reserved: "この資料は予約されていません。"
+    invalid_item: "無効な所蔵情報です。"
+    show: "予約の詳細"
+    invalid_date: "無効な日付です。"
+    pending: "受付待ち"
+    requested: "受付済み"
+    retained: "取置済み"
+    canceled: "取消済み"
+    expired: "期限切れ"
+    postponed: "取置延期"
+    completed: "貸出済み"
+    reserved_from: ""
+    reserved_until: "から"
+    attempt_to_update_retained_reservation: "取り置き済みの予約を変更しようとしています。"
+    bibliographic_detail: "書誌詳細"
+  page:
+    saving: "保存中..."
+    start_counting: "集計を開始"
+  statistic:
+    successfully_created: "%{model}のタスクは正常に作成されました。タスクが完了すると「%{model}の一覧」の状態が「完了」となり、「表示」リンクをたどることで結果を確認できるようになります。"
+    breakdown: 内訳
+    by_carrier_type: 資料の形態別
+    by_checkout_type: 貸出区分別
+    by_manifestation: 書誌別
+  manifestation:
+    currently_checked_out: 貸出中

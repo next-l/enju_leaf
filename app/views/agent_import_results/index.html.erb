@@ -1,0 +1,50 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.agent_import_result')) -%></h1>
+<div id="content_list">
+  <% if @agent_import_file %>
+    <h2 class="agent_title">
+      <%= link_to @agent_import_file.agent_import_file_name, @agent_import_file %>
+    </h2>
+  <% end %>
+
+<table class="table table-striped index">
+  <tr>
+    <th><%= t('activerecord.models.agent_import_file') %></th>
+    <th><%= t('activerecord.models.agent') %></th>
+    <th></th>
+  </tr>
+
+<% @agent_import_results.each do |agent_import_result| %>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%= link_to agent_import_result.agent_import_file.agent_import_file_name, agent_import_result.agent_import_file %>
+      <br />
+      <%=l agent_import_result.created_at %>
+    </td>
+    <td><%= link_to agent_import_result.agent.full_name, agent_import_result.agent if agent_import_result.agent %></td>
+    <td>
+      <%= link_to t('page.show'), agent_import_result %>
+      <%= link_to t('page.destroy'), agent_import_result, data: {confirm: t('page.are_you_sure')}, method: :delete %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate(@agent_import_results) %>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li>
+    <% if @agent_import_file %>
+      <%= link_to((image_tag 'icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), agent_import_results_path(agent_import_file_id: @agent_import_file.id, format: :text)) -%>
+      (<%= link_to 'TSV', agent_import_results_path(agent_import_file_ud: @agent_import_file.id, format: :text) -%>)
+    <% else %>
+      <%= link_to((image_tag 'icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), agent_import_results_path(format: :text, locale: @locale.to_s)) -%>
+      (<%= link_to 'TSV', agent_import_results_path(format: :text, locale: @locale.to_s) -%>)
+    <% end %>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,11 @@
+<h4><%= t('activerecord.attributes.manifestation.date_of_publication') -%></h4>
+<ul>
+  <%- @pub_year_facet.each do |facet| -%>
+    <li>
+      <%= pub_year_facet(params[:pub_date_from].to_s, params[:pub_date_until].to_s, facet) %>
+    </li>
+  <%- end -%>
+  <%- if params[:pub_date_from] and params[:pub_date_until] -%>
+    <li><%= link_to t('page.remove_this_facet'), url_for(request.params.merge(pub_date_from: nil, pub_date_until: nil, page: nil, view: nil, only_path: true)) -%></li>
+  <%- end -%>
+</ul>

@@ -1,0 +1,29 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', :model => t('activerecord.models.inventory')) -%> </h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.item') -%>:</strong>
+  <%= link_to @inventory.item.item_identifier, @inventory.item -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.inventory_file') -%>:</strong>
+  <%= link_to @inventory.inventory_file.id, @inventory.inventory_file -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.inventory.note') -%>:</strong>
+  <%= @inventory.note -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_inventory_path(@inventory) -%></li>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
+  </ul>
+</div>

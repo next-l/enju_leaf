@@ -1,0 +1,14 @@
+<%- case when @work -%>
+  <%= render 'index_work', work: @work -%>
+<%- when @expression -%>
+  <%= render 'index_expression', expression: @expression -%>
+<%- when @manifestation -%>
+  <%= render 'index_manifestation', manifestation: @manifestation -%>
+<%- when @agent -%>
+  <%= render 'index_agent', agent: @agent -%>
+<%- when @agent_merge_list -%>
+  <%= render 'index_agent_merge_list', agent_merge_list: @agent_merge_list -%>
+<%- else -%>
+  <%= render 'index' -%>
+<%- end -%>
+<%= set_focus_on_search_form -%>

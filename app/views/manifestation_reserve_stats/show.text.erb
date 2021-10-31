@@ -1,0 +1,5 @@
+<%= @manifestation_reserve_stat.start_date -%><%= "\t" %><%= @manifestation_reserve_stat.end_date %>
+title<%= "\t" %>carrier_type<%= "\t" %>count
+<%- @stats.each do |stat| -%>
+<%= stat.manifestation.id if stat.manifestation %><%= "\t" %><%= stat.manifestation.original_title if stat.manifestation -%><%= "\t" %><%= stat.manifestation.carrier_type.name %><%= "\t" %><%= stat.reserves_count -%><%= "\n" %>
+<%- end -%>

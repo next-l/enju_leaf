@@ -1,0 +1,17 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.new', model: t('activerecord.models.event')) -%></h1>
+<div id="content_list">
+  <%= render 'form' %>
+  <%= render 'all_day' %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if @library -%>
+      <li><%= link_to t('page.back'), events_path(library_id: @library.name) -%></li>
+    <%- else -%>
+      <li><%= link_to t('page.back'), events_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

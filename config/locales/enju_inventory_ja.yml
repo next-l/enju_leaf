@@ -1,0 +1,24 @@
+ja:
+  activerecord:
+    models:
+      inventory: 蔵書点検
+      inventory_file: 蔵書点検ファイル
+
+    attributes:
+      inventory:
+        note: 注記
+        item_identifier: 個別資料ID
+        current_shelf_name: 現在の書棚
+        lineno: 行数
+      inventory_file:
+        inventory_file_name: ファイル名
+        inventory_content_type: Content-Type
+        inventory_file_size: ファイルサイズ
+        inventory_fingerprint: ファイルのハッシュ
+        note: 注記
+        shelf: 書棚
+
+  inventory_file:
+    not_in_catalog: "目録に存在しない資料"
+    not_on_shelf: "書架に存在しない資料"
+

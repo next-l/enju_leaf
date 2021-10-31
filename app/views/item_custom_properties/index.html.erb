@@ -1,0 +1,43 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+  <h1 class="title"><%= t('page.listing', model: t('activerecord.models.item_custom_property')) -%></h1>
+  <div id="content_list">
+    <p id="notice"><%= notice %></p>
+
+    <h1><%= t('page.listing', model: t('activerecord.models.item_custom_property')) -%></h1>
+
+    <table class='table table-striped index'>
+      <thead>
+        <tr>
+          <th id="position"></th>
+          <th><%= t('activerecord.attributes.item_custom_property.name') %></th>
+          <th><%= t('activerecord.attributes.item_custom_property.display_name') %></th>
+          <th><%= t('activerecord.attributes.item_custom_property.note') %></th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @item_custom_properties.each do |item_custom_property| %>
+          <tr>
+            <td>
+              <%- if policy(item_custom_property).update? -%>
+                <%= move_position(item_custom_property) -%>
+              <%- end -%>
+            </td>
+            <td><%= link_to item_custom_property.name, item_custom_property %></td>
+            <td><%= item_custom_property.display_name.localize %></td>
+            <td><%= item_custom_property.note %></td>
+            <td><%= link_to t('page.edit'), edit_item_custom_property_path(item_custom_property) %></td>
+            <td><%= link_to t('page.destroy'), item_custom_property, method: :delete, data: { confirm: t('page.are_you_sure') } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.new', model: t('activerecord.models.item_custom_property')), new_item_custom_property_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,49 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.bookstore')) -%></h1>
+<div id="content_list">
+
+<table class="table table-striped index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.bookstore.name') -%></th>
+    <th><%= t('activerecord.attributes.bookstore.telephone_number') -%></th>
+    <th><%= t('activerecord.attributes.bookstore.fax_number') -%></th>
+    <th></th>
+  </tr>
+
+<%- @bookstores.each_with_index do |bookstore, i| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if policy(bookstore).update? -%>
+        <%= move_position(bookstore) -%>
+      <%- end -%>
+    </td>
+    <td>
+      <%= link_to bookstore.name, bookstore -%><br />
+      <%= link_to bookstore.url, bookstore.url if bookstore.url? -%>
+    </td>
+    <td><%= bookstore.telephone_number -%></td>
+    <td><%= bookstore.fax_number -%></td>
+    <td>
+      <%- if policy(bookstore).update? -%>
+        <%= link_to t('page.edit'), edit_bookstore_path(bookstore) -%>
+      <% end %>
+      <%- if policy(bookstore).destroy? -%>
+        <%= link_to t('page.destroy'), bookstore, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@bookstores) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <%- if policy(Bookstore).create? -%>
+    <ul>
+      <li><%= link_to t('page.new', model: t('activerecord.models.bookstore')), new_bookstore_path -%></li>
+    </ul>
+  <%- end -%>
+</div>

@@ -1,0 +1,5 @@
+<%= @manifestation_checkout_stat.start_date -%><%= "\t" %><%= @manifestation_checkout_stat.end_date %>
+manifestation_id<%= "\t" %>title<%= "\t" %>carrier_type<%= "\t" %>count
+<%- @stats.count(:id).map{|manifestation_id, count| [Manifestation.where(id: manifestation_id).first, count] }.each do |stat| -%>
+<%= stat[0].id if stat[0] %><%= "\t" %><%= stat[0].original_title if stat[0] -%><%= "\t" %><%= stat[0].carrier_type.name if stat[0] %><%= "\t" %><%= stat[1] %>
+<%- end -%>

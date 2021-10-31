@@ -1,0 +1,15 @@
+<h4><%= t('activerecord.attributes.reserve.state') -%></h4>
+<%- unless @state_facet.blank? -%>
+  <ul>
+    <% @state_facet.each do |state| %>
+      <li>
+        <% if state.value == params[:state].to_s.downcase %><strong><% end %>
+        <%= link_to "#{i18n_state(state.value)} (#{state.count})", url_for(filtered_params.merge(state: state.value, page: nil, view: nil, only_path: true)) %>
+        <% if state.value == params[:state].to_s.downcase %></strong><% end %>
+      </li>
+    <% end %>
+    <%- if params[:state] -%>
+      <li><%= link_to t('page.remove_this_facet'), url_for(filtered_params.merge(state: nil, page: nil, view: nil, only_path: true)) -%></li>
+    <%- end -%>
+  </ul>
+<%- end -%>

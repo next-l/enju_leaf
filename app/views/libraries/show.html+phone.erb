@@ -1,0 +1,27 @@
+<div data-role="header">
+  <a href="javascript:history.back()" data-icon="back" data-iconpos="notext" class="ui-btn-left"><%= t('page.back') %></a>
+  <h1 class="title"><%= @library.display_name.localize -%></h1>
+</div>
+<div data-role="content">
+  <div id="detail">
+    <p>
+      <%= t('activerecord.attributes.library.name') -%>: <%= @library.name -%>
+    </p>
+  <%- unless @library.web? -%>
+    <p>
+      <%= t('library.address') -%>: <%= @library.zip_code -%> <%= @library.address -%>
+      <br />
+      <%= t('activerecord.attributes.library.telephone_number_1') -%>: <%= @library.telephone_number_1 -%>
+      <%= t('activerecord.attributes.library.telephone_number_2') -%>: <%= @library.telephone_number_2 -%>
+      <br />
+      <%= t('activerecord.attributes.library.fax_number') -%>: <%= @library.fax_number -%>
+    </p>
+    <p>
+      <%= @library.opening_hour -%>
+    </p>
+    <p>
+      <%= @library.note -%>
+    </p>
+  <%- end -%>
+  </div>
+</div>

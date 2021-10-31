@@ -1,0 +1,55 @@
+    <table class="table table-striped index">
+      <tr>
+        <th>
+          <%= t('activerecord.models.library') %>
+	</th>
+	<th>
+          <%= t('activerecord.models.shelf') %>
+        </th>
+        <% CheckoutType.order(:position).each do |checkout_type| %>
+          <th><%= checkout_type.display_name.localize %></th>
+        <% end %>
+        <th><%= t('page.total') %></th>
+      </tr>
+      <% Library.order(:position).each do |library| %>
+        <% library.shelves.order(:position).each do |shelf| %>
+          <tr>
+            <td>
+              <%= library.display_name.localize %>
+            </td>
+            <td>
+              <%= shelf.display_name.localize %>
+            </td>
+            <% CheckoutType.order(:position).each do |checkout_type| %>
+              <td>
+                <%= @checkout_type_results[[shelf.id, checkout_type.id]] %>
+              </td>
+            <% end %>
+            <td>
+              <%= @checkout_type_results.select{|r| r[0] == shelf.id}.sum{|k, v| v} %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+      <tr>
+        <td colspan="2"><%= t('page.unknown') %></th>
+        <% CheckoutType.order(:position).each do |checkout_type| %>
+          <td>
+            <%= @checkout_type_results[[nil, checkout_type.id]] %>
+          </td>
+        <% end %>
+        <td>
+          <%= @checkout_type_results.select{|r| r[0].nil?}.sum{|k, v| v} %>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2"><%= t('page.total') %></th>
+        <% CheckoutType.order(:position).each do |checkout_type| %>
+          <td>
+            <%= @checkout_type_results.select{|r| r[1] == checkout_type.id}.sum{|k, v| v} %>
+          </td>
+        <% end %>
+        <td><%= @checkout_type_results.sum{|k, v| v} %></td>
+      </tr>
+    </table>
+

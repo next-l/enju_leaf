@@ -1,0 +1,41 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.create')) -%></h1>
+<div id="content_list">
+  <h2 class="resource_title">
+    <%= link_to work.original_title, work -%>
+  </h2>
+
+<table class="table table-striped index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.models.agent') -%></th>
+    <th><%= t('page.created_at') -%></th>
+    <th><%= t('page.updated_at') -%></th>
+  </tr>
+
+<%- @creates.each do |create| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if policy(create).destroy? -%>
+        <%= create.first? ? image_tag('icons/stop.png', size: '16x16', class: 'enju_icon') : link_to(image_tag('icons/arrow_up.png', size: '16x16', class: 'enju_icon', alt: t('page.asc')), work_create_path(create.work, create, move: 'higher'), method: :put) -%>
+        <%= create.last? ? image_tag('icons/stop.png', size: '16x16', class: 'enju_icon') : link_to(image_tag('icons/arrow_down.png', size: '16x16', class: 'enju_icon', alt: t('page.desc')), work_create_path(create.work, create, move: 'lower'), method: :put) -%>
+      <%- end-%>
+    </td>
+    <td><%= link_to create.agent.try(:full_name), create.agent -%></td>
+    <td><%= l(create.created_at) -%></td>
+    <td><%= l(create.updated_at) -%></td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@creates) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(Create).create? -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.create')), new_work_create_path(work) -%></li>
+    <%- end -%>
+  </ul>
+</div>

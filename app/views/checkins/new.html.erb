@@ -1,0 +1,16 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.new', model: t('activerecord.models.checkin')) -%></h1>
+<div id="content_list">
+  <div id="checkin_list">
+    <p id="notice"><%= notice %></p>
+    <%= render 'list' -%>
+  </div>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.new', model: t('activerecord.models.checkout')), new_basket_path -%></li>
+    <li><%= link_to t('page.listing', model: t('activerecord.models.checkin')), checkins_path -%></li>
+  </ul>
+</div>

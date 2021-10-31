@@ -1,0 +1,146 @@
+ja:
+  activerecord:
+    models:
+      library: 図書館
+      library_group: システム全体の設定
+      shelf: 本棚
+      accept: 検収
+      budget_type: 予算種別
+      bookstore: 書店
+      subscribe: 購読
+      subscription: 購読
+      request_status_type: 依頼の状態の種類
+      request_type: 依頼の種類
+      search_engine: 検索エンジン
+      withdraw: 連続除籍
+
+    attributes:
+      library:
+        name: 名前
+        display_name: 表示名
+        short_display_name: 短縮表示名
+        zip_code: 郵便番号
+        region: 都道府県
+        locality: 市区町村
+        street: 番地
+        telephone_number_1: 電話番号1
+        telephone_number_2: 電話番号2
+        fax_number: ファックス番号
+        latitude: 緯度
+        longitude: 経度
+        note: 注記
+        call_number_rows: 請求記号の列数
+        call_number_delimiter: 請求番号の区切り文字
+        position: 位置
+        deleted_at: 削除時刻
+        opening_hour: 開館時間
+        isil: ISIL
+        address: 住所
+      shelf:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+        deleted_at: 削除時刻
+        closed: 閉架
+      library_group:
+        name: 名前
+        display_name: 表示名
+        short_name: 短縮名
+        email: メール
+        my_networks: LANとして扱うネットワーク
+        admin_networks: 管理用として扱うネットワーク
+        note: 注記
+        login_banner: ログイン画面でのメッセージ
+        footer_banner: フッターのメッセージ
+        post_to_union_catalog: 総合目録に登録する
+        url: URL
+        color: 色
+        max_number_of_results: 検索結果の最大件数
+        book_jacket_source: 書影の取得元
+        header_logo: ヘッダーのロゴ
+        default_custom_manifestation_label: 既定のカスタム項目（書誌）
+        default_custom_item_label: 既定のカスタム項目（所蔵）
+      bookstore:
+        name: 名前
+        zip_code: 郵便番号
+        address: 住所
+        note: 注記
+        telephone_number: 電話番号
+        fax_number: ファックス番号
+        url: URL
+        position: 位置
+        deleted_at: 削除時刻
+      budget_type:
+        name: 名称
+        display_name: 表示名
+        note: 注記
+      accept:
+        item_id: 個別資料
+      subscribe:
+        started_on: 開始日
+        ended_on: 終了日
+      subscription:
+        title: タイトル
+        note: 注記
+        deleted_at: 削除時刻
+        subscribes_count: 購読数
+      request_status_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      request_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+      search_engine:
+        name: 名前
+        url: URL
+        base_url: ベースURL
+        http_method: HTTPメソッド
+        query_param: クエリパラメータ
+        additional_param: 追加のパラメータ
+        note: 注記
+        position: 位置
+      withdraw:
+        item_id: 個別資料
+        removed_items: "%{status}の"
+
+  library:
+    map: "地図"
+    staff: "職員"
+    number_of_item: "所蔵冊数"
+    address: "住所"
+  shelf:
+    update_display_order: "表示順序を変更する"
+  page:
+    restart_required: "Webサーバの再起動が必要です"
+  accept:
+    item_not_found: "が見つかりません。"
+    enter_item_identifier: "所蔵情報番号を入力してください。"
+    already_accepted: "はすでに検収されています。"
+    accept: "検収"
+    successfully_accepted: "この資料は正常に検収されました。"
+  withdraw:
+    item_not_found: "が見つかりません。"
+    enter_item_identifier: "所蔵情報番号を入力してください。"
+    already_withdrawn: "はすでに除籍されています。"
+    withdraw: "除籍"
+    successfully_withdrawn: "この資料は正常に除籍されました。"
+  book_jacket:
+    google: Googleブックス
+    openbd: openBD
+    hanmotocom: 版元ドットコム
+
+  user_import_mailer:
+    completed:
+      subject: 'インポートが完了しました'
+    failed:
+      subject: 'インポートに失敗しました'
+  user_export_mailer:
+    completed:
+      subject: 'エクスポートが完了しました'
+    failed:
+      subject: 'エクスポートに失敗しました'

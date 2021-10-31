@@ -1,0 +1,27 @@
+<%= simple_form_for(@message_template, validate: true) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.text_field :status, class: 'resource_title' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :locale %><br />
+    <%= f.select(:locale, @available_languages.collect{|language| [language.display_name, language.iso_639_1]}) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title, class: 'resource_title' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :body %><br />
+    <%= f.text_area :body, class: 'resource_textarea' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

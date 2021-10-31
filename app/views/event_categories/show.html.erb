@@ -1,0 +1,31 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.event_category')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.event_category.name') -%>:</strong>
+  <%= @event_category.name -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.event_category.display_name') -%>:</strong>
+  <%= @event_category.display_name.localize -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.event_category.note') -%>:</strong>
+  <%= @event_category.note -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(@event_category).update? -%>
+      <li><%= link_to t('page.edit'), edit_event_category_path(@event_category) -%></li>
+    <%- end -%>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
+  </ul>
+</div>

@@ -1,0 +1,55 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.carrier_type')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<table class="table table-striped index">
+  <tr>
+    <th id="position"></th>
+    <th><%= t('activerecord.attributes.carrier_type.name') -%></th>
+    <th>
+      <%= t('activerecord.attributes.carrier_type.display_name') -%>
+      /
+      <%= t('activerecord.attributes.carrier_type.note') -%>
+    </th>
+    <th></th>
+  </tr>
+
+<%- @carrier_types.each do |carrier_type| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%- if policy(carrier_type).update? -%>
+        <%= move_position(carrier_type) -%>
+      <%- end -%>
+    </td>
+    <td>
+      <%= image_tag(carrier_type_path(carrier_type, format: :download), size: '16x16', class: 'enju_icon', alt: carrier_type.display_name.localize) %>
+      <%= carrier_type.name -%>
+    </td>
+    <td>
+      <%= link_to carrier_type.display_name.localize, carrier_type -%>
+      <br />
+      <%= carrier_type.note %>
+    </td>
+    <td>
+      <%- if policy(carrier_type).update? -%>
+        <%= link_to t('page.edit'), edit_carrier_type_path(carrier_type) -%>
+      <% end %>
+      <%- if policy(carrier_type).destroy? -%>
+        <%= link_to t('page.destroy'), carrier_type_path(carrier_type), data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(CarrierType).create? -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.carrier_type')), new_carrier_type_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

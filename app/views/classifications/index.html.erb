@@ -1,0 +1,53 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.classification')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<div class="search_form">
+  <%= form_for :classifications, url: classifications_path, html: {method: 'get'} do -%>
+    <p>
+      <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {id: 'search_form_top', class: 'search_form', placeholder: t('page.search_term')} -%>
+      <%= submit_tag t('page.search') -%>
+    </p>
+  <%- end -%>
+</div>
+
+<table class="table table-striped index">
+  <tr>
+    <th><%= t('activerecord.attributes.classification.category') -%></th>
+    <th><%= t('activerecord.attributes.classification.label') -%></th>
+    <th><%= t('activerecord.models.classification_type') -%></th>
+    <th></th>
+  </tr>
+
+<%- @classifications.each do |classification| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to classification.category, classification -%></td>
+    <td><%= classification.label -%></td>
+    <td><%= link_to classification.classification_type.display_name.localize, classification.classification_type -%></td>
+    <td>
+      <%- if policy(classification).destroy? -%>
+        <%= link_to t('page.edit'), edit_classification_path(classification) -%>
+        <%= link_to t('page.destroy'), classification, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <%- end -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@classifications) -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(Classification).create? -%>
+      <%- if @classification_type -%>
+        <li><%= link_to t('page.new', model: t('activerecord.models.classification')), new_classification_type_classification_path(@classification_type) -%></li>
+      <%- else -%>
+        <li><%= link_to t('page.new', model: t('activerecord.models.classification')), new_classification_path -%></li>
+      <%- end -%>
+    <%- end -%>
+  </ul>
+</div>

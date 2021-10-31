@@ -1,0 +1,19 @@
+<%- if current_user.has_role?('Librarian') -%>
+  <%- if @user -%>
+    <%= render 'index_user', user: @user -%>
+  <% elsif @item %>
+    <%= render 'index_item', item: @item -%>
+  <% else %>
+    <%- if params[:days_overdue].present? -%>
+      <%= render 'index_overdue' -%>
+    <%- else -%>
+      <%= render 'index' -%>
+    <% end %>
+  <% end %>
+<% else %>
+  <%- if params[:days_overdue].present? -%>
+    <%= render 'index_overdue' -%>
+  <%- else -%>
+    <%= render 'index_user', user: current_user -%>
+  <%- end -%>
+<%- end -%>

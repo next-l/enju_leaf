@@ -1,0 +1,46 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.event_import_file')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<table class="table table-striped index">
+  <thead>
+    <tr>
+      <th style="width: 30px">Id</th>
+      <th><%= t('activerecord.attributes.event_import_file.event_import_file_name') -%></th>
+      <th><%= t('activerecord.attributes.event_import_file.edit_mode') -%></th>
+      <th><%= t('activerecord.attributes.event_import_file.executed_at') -%></th>
+      <th><%= t('activerecord.attributes.event_import_file.state') -%></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @event_import_files.each do |event_import_file| %>
+      <tr class="line<%= cycle("0", "1") -%>">
+        <td><%= link_to (event_import_file.id), event_import_file -%></td>
+        <td>
+          <%= link_to event_import_file.event_import_file_name, event_import_file_path(event_import_file, format: :download) if event_import_file.event_import_file_name %>
+          <br />
+          <%= t('activerecord.models.user') -%>: <%= link_to event_import_file.user.username, event_import_file.user.profile if event_import_file.user.try(:profile) -%></td>
+        <td><%= event_import_file.edit_mode -%></td>
+        <td><%= l(event_import_file.executed_at) if event_import_file.executed_at -%></td>
+        <td><%= localized_state(event_import_file.current_state) -%></td>
+        <td>
+          <%= link_to t('page.show'), event_import_file -%>
+          <%= link_to t('page.destroy'), event_import_file, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate(@event_import_files) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.new', model: t('activerecord.models.event_import_file')), new_event_import_file_path -%></li>
+  </ul>
+</div>

@@ -1,0 +1,105 @@
+message_template_00001:
+  id: 1
+  status: reservation_accepted_for_patron
+  title: 予約を受け付けました
+  body: 予約を受け付けました。
+  position: 1
+  locale: ja
+message_template_00002:
+  id: 2
+  status: item_received_for_patron
+  title: 資料を確保しました
+  body: 資料を確保しました。
+  position: 2
+  locale: ja
+message_template_00003:
+  id: 3
+  status: reservation_expired_for_patron
+  title: 予約の期限が切れました
+  body: 予約の期限が切れました。
+  position: 3
+  locale: ja
+message_template_00004:
+  id: 4
+  status: reservation_expired_for_library
+  title: 予約の期限が切れました
+  body: 予約の期限が切れました。
+  position: 4
+  locale: ja
+message_template_00005:
+  id: 5
+  status: reservation_canceled_for_patron
+  title: 予約を取り消しました
+  body: 予約を取り消しました。
+  position: 5
+  locale: ja
+message_template_00006:
+  id: 6
+  status: reservation_canceled_for_library
+  title: 予約を取り消しました
+  body: 予約を取り消しました。
+  position: 6
+  locale: ja
+message_template_00007:
+  id: 7
+  status: recall_item
+  title: Recall item
+  body: Recall item
+  position: 7
+  locale: ja
+message_template_00008:
+  id: 8
+  status: recall_overdue_item
+  title: Recall overdue item
+  body: Recall overdue item
+  position: 8
+  locale: ja
+message_template_00009:
+  id: 9
+  status: reservation_accepted_for_library
+  title: 予約を受け付けました
+  body: 予約を受け付けました。
+  position: 9
+  locale: ja
+message_template_00010:
+  id: 10
+  status: item_received_for_library
+  title: 資料を確保しました
+  body: 資料を確保しました。
+  position: 10
+  locale: ja
+message_template_00011:
+  id: 11
+  status: reservation_postponed_for_patron
+  title: 予約を延期しました
+  body: 予約を延期しました。
+  position: 11
+  locale: ja
+message_template_00012:
+  id: 12
+  status: reservation_postponed_for_library
+  title: 予約を延期しました
+  body: 予約を延期しました。
+  position: 12
+  locale: ja
+message_template_00013:
+  id: 13
+  status: import_completed
+  title: インポートが完了しました
+  body: インポートが完了しました。
+  position: 13
+  locale: ja
+message_template_00014:
+  id: 14
+  status: counting_completed
+  title: 集計が完了しました
+  body: 集計が完了しました。
+  position: 14
+  locale: ja
+message_template_00015:
+  id: 15
+  status: export_completed
+  title: エクスポートが完了しました
+  body: エクスポートが完了しました。
+  position: 15
+  locale: ja

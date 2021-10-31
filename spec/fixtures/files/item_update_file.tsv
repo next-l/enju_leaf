@@ -1,0 +1,6 @@
+item_identifier	item_id	original_title	creator	publisher	subject:ndlsh	acquired_at	include_supplements	binding_item_identifier	binding_call_number	binded_at	manifestation:custom_2	item:custom_1
+00001			たなべ// こうすけ	test1	test1//test2			900001	336|A	2014-08-16	カスタム項目5	カスタム項目6
+00002				test2								
+00003		テスト3				2012-01-01	true					
+00004							false					
+	25	テスト4			test2//test3	2020-05-17	false					

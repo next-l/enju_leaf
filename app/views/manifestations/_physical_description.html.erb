@@ -1,0 +1,16 @@
+<%- if manifestation.extent.present? -%>
+  <%= manifestation.extent %>
+<%- elsif manifestation.number_of_pages -%>
+  <span itemprop="numPages"><%= manifestation.number_of_pages -%></span> p.
+  (<%= manifestation.start_page -%> - <%= manifestation.end_page -%>)
+<%- end -%>
+<%- if ( manifestation.extent.present? or manifestation.number_of_pages ) and ( manifestation.dimensions.present? or manifestation.height ) -%>
+  ;
+<%- end -%>
+<!-- TODO: センチメートル以外の単位 -->
+<% if manifestation.dimensions.present? %>
+  <%= manifestation.dimensions -%>
+<%- elsif manifestation.height -%>
+  <!-- TODO: センチメートル以外の単位 -->
+  <%= manifestation.height -%> cm.
+<%- end -%>

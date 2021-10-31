@@ -1,0 +1,94 @@
+<%= render 'page/required_field' %>
+<%= simple_form_for(@agent) do |f| -%>
+  <%= f.error_messages -%>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.agent_type') -%>
+    <%= f.select(:agent_type_id, @agent_types.collect{|p| [p.display_name.localize, p.id]}) -%>
+  </div>
+
+  <div class="field">
+    <span id="name_person">
+      <%- if @library_group.family_name_first -%>
+        <%= render 'agents/form_family_name_first', f: f -%>
+      <%- else -%>
+        <%= render 'agents/form_family_name_last', f: f -%>
+      <%- end -%>
+    </span>
+    <%= f.label :full_name -%><br />
+    <%= f.text_field :full_name, class: 'resource_title' -%><br />
+    <%= f.label :full_name_transcription -%><br />
+    <%= f.text_field :full_name_transcription, class: 'resource_title' -%><br />
+    <%= link_to "#", { onclick: "$('#full_name_alternative').toggle(); return false;"} do t('activerecord.attributes.agent.full_name_alternative') end %>
+    <span id="full_name_alternative" style="display: none">
+      <br />
+      <%= f.text_area :full_name_alternative, class: 'resource_textarea' -%>
+    </span>
+  </div>
+
+  <script>
+    $("select#agent_agent_type_id").change(function(){
+      str = $("select#agent_agent_type_id option:selected").val();
+      if(str == <%= @agent_type.id %>){
+        $("#name_person").show();
+      }else{
+        $("#name_person").hide();
+      }
+    })
+    .change();
+  </script>
+
+  <div class="field">
+    <%= f.label :date_of_birth -%><br />
+    <%= f.text_field :birth_date, class: 'date_field' -%>
+  </div>
+
+  <% unless @user %>
+    <div class="field">
+      <%= f.label :date_of_death -%><br />
+      <%= f.text_field :death_date, class: 'date_field' -%>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.language') -%>
+    <%= f.select(:language_id, @languages.collect{|l| [l.display_name.localize, l.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.country') -%>
+    <%= f.select(:country_id, @countries.collect{|c| [c.display_name.localize, c.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :email -%><br />
+    <%= f.email_field :email, class: 'resource_email'  -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :url -%><br />
+    <%= f.url_field :url, class: 'resource_url' -%>
+  </div>
+
+  <div class="field">
+    <%= f.label t('role.required_role') -%>
+    <%= f.select(:required_role_id, @roles.collect{|r| [r.display_name.localize, r.id]}) -%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+  <div class="field">
+    <%= f.label :note -%><br />
+    <%= f.text_area :note, class: 'resource_textarea' -%>
+  </div>
+
+  <div class="actions">
+    <%= hidden_field_tag 'work_id', @work.id if @work -%>
+    <%= hidden_field_tag 'expression_id', @expression.id if @expression -%>
+    <%= hidden_field_tag 'manifestation_id', @manifestation.id if @manifestation -%>
+    <%= hidden_field_tag 'item_id', @item.id if @item -%>
+    <%= f.submit %>
+  </div>
+<%- end -%>

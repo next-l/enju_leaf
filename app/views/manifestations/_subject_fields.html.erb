@@ -1,0 +1,6 @@
+<div class="nested-fields">
+  <%= f.select(:subject_heading_type_id, @subject_heading_types.collect{|s| [s.display_name.localize, s.id]}) %>
+  <%= f.text_field :term, class: 'resource_subject' %>
+  <%= f.select(:subject_type_id, @subject_types.collect{|s| [s.display_name.localize, s.id]}) %>
+  <%= link_to_remove_association t('page.remove'), f, data: {confirm: t('page.are_you_sure')} %>
+</div>

@@ -1,0 +1,52 @@
+ja:
+  activerecord:
+    models:
+      message: メッセージ
+      message_template: メッセージテンプレート
+      message_request: メッセージの送信リクエスト
+
+    attributes:
+      message:
+        subject: 件名
+        body: 本文
+        sender: 差出人
+        receiver: 宛て先
+        recipient: 宛て先
+      message_template:
+        status: 状態
+        locale: 言語
+        title: タイトル
+        body: 本文
+        position: 位置
+      message_request:
+        sent_at: 送信時刻
+        deleted_at: 削除時刻
+
+  message:
+    user_message: "%{login_name} さんのメッセージ"
+    sent_at: "送信時刻"
+    inbox: "受信箱"
+    write: "メッセージを作成する"
+    outbox: "送信箱"
+    trash: "ごみ箱"
+    recipient: "宛て先"
+    receiver: "受信者"
+    sender: "送信者"
+    read: "既読"
+    unread: "未読"
+    deleted: "削除済み"
+    send: "メッセージを送信する"
+    reply: "メッセージに返信する"
+    delete: "メッセージを削除する"
+    sent_successfully: "メッセージは正しく送信されました。"
+    no_new_message: "新しいメッセージはありません。"
+    too_short: "メッセージが短すぎます。最小 %{count} 文字以上必要です。"
+    too_long: "メッセージが長すぎます。最大 %{count} 文字までです。"
+    new_message_from_library: "%{library} から新しいお知らせが届いています"
+    messages_were_deleted: "メッセージは削除されました。"
+    select_messages: "メッセージを選択してください。"
+  message_request:
+    not_sent: "送信待ち"
+    sent: "送信済み"
+    all: "全てのメッセージ"
+

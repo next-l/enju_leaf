@@ -1,0 +1,43 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.agent_import_file')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<table class="table table-striped index">
+  <tr>
+    <th>Id</th>
+    <th><%= t('activerecord.attributes.agent_import_file.agent_import_file_name') -%></th>
+    <th><%= t('activerecord.attributes.agent_import_file.executed_at') -%></th>
+    <th><%= t('activerecord.models.user') -%></th>
+    <th><%= t('activerecord.attributes.agent_import_file.edit_mode') -%></th>
+    <th><%= t('activerecord.attributes.agent_import_file.state') -%></th>
+    <th></th>
+  </tr>
+
+<%- @agent_import_files.each do |agent_import_file| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to agent_import_file.id, agent_import_file -%></td>
+    <td>
+      <%= link_to agent_import_file.agent_import_file_name, agent_import_file_path(agent_import_file, format: :download) if agent_import_file.agent_import_file_name %>
+    </td>
+    <td><%= l(agent_import_file.executed_at) if agent_import_file.executed_at -%></td>
+    <td><%= link_to agent_import_file.user.username, agent_import_file.user.profile if agent_import_file.user.try(:profile) -%></td>
+    <td><%= agent_import_file.edit_mode -%></td>
+    <td><%= localized_state(agent_import_file.current_state) -%></td>
+    <td>
+      <%= link_to t('page.show'), agent_import_file -%>
+      <%= link_to t('page.destroy'), agent_import_file, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+    </td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@agent_import_files) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.new', model: t('activerecord.models.agent_import_file')), new_agent_import_file_path -%></li>
+  </ul>
+</div>

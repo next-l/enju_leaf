@@ -1,0 +1,4 @@
+item_identifier	basket_id	accepted_at
+<% @accepts.each do |accept| %>
+<%= accept.item.item_identifier %>	<%= accept.basket_id %>	<%= accept.created_at %>
+<% end %>

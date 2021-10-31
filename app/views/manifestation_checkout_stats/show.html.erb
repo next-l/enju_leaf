@@ -1,0 +1,58 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.manifestation_checkout_stat')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_checkout_stat.start_date') -%>:</strong>
+  <%= l(@manifestation_checkout_stat.start_date) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_checkout_stat.end_date') -%>:</strong>
+  <%= l(@manifestation_checkout_stat.end_date) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_checkout_stat.state') -%>:</strong>
+  <%= localized_state(@manifestation_checkout_stat.current_state) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.manifestation_checkout_stat.note') -%>:</strong>
+  <%= @manifestation_checkout_stat.note -%>
+</p>
+
+<div id="tabs">
+  <ul>
+    <li title="active" class="selected"><a href="#tab1"><em><%= t('statistic.by_carrier_type') -%></em></a></li>
+    <li><a href="#tab2"><em><%= t('statistic.by_checkout_type') -%></em></a></li>
+    <li><a href="#tab3"><em><%= t('statistic.by_manifestation') -%></em></a></li>
+  </ul>
+  <div id="tab1">
+    <%= render 'group_by_carrier_type' %>
+  </div>
+  <div id="tab2">
+    <%= render 'group_by_checkout_type' %>
+  </div>
+  <div id="tab3">
+    <div id="group_by_manifestation">
+      <%= render 'group_by_manifestation', stats: @stats %>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <%= form_for(@manifestation_checkout_stat) do |f| %>
+  <ul>
+    <li><%= back_to_index(flash[:page_info]) -%></li>
+  </ul>
+  <% end %>
+  <h4><%= t('page.export') -%></h4>
+  <ul>
+    <li><%= link_to 'TSV', manifestation_checkout_stat_path(@manifestation_checkout_stat, format: :text, locale: @locale.to_s) -%></li>
+  </ul>
+</div>

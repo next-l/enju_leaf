@@ -1,0 +1,28 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  name: unaccompanied
+  display_name: Unaccompanied
+  note: MyText
+  position: 1
+
+two:
+  id: 2
+  name: accompanied
+  display_name: Accompanied
+  note: MyText
+  position: 2
+
+# == Schema Information
+#
+# Table name: medium_of_performances
+#
+#  id           :integer          not null, primary key
+#  name         :string           not null
+#  display_name :text
+#  note         :text
+#  position     :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#

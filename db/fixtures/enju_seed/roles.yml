@@ -1,0 +1,38 @@
+--- 
+role_00001: 
+  name: Guest  
+  display_name: Guest
+  id: 1
+  note: 
+  position: 1
+role_00002: 
+  name: User  
+  display_name: User
+  id: 2
+  note: 
+  position: 2
+role_00003: 
+  name: Librarian  
+  display_name: Librarian
+  id: 3
+  note: 
+  position: 3
+role_00004: 
+  name: Administrator  
+  display_name: Administrator
+  id: 4
+  note:
+  position: 4
+
+# == Schema Information
+#
+# Table name: roles
+#
+#  id                        :bigint(8)        not null, primary key
+#  name                      :string           not null
+#  display_name_translations :jsonb            not null
+#  note                      :text
+#  position                  :integer
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#
