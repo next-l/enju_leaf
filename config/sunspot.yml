@@ -10,13 +10,13 @@ production:
 development:
   solr:
     hostname: solr
-    port: 8981
+    port: 8983
     log_level: INFO
     path: /solr/enju_leaf_<%= Rails.env %>
 
 test:
   solr:
     hostname: localhost
-    port: 8983
+    port: 8981
     log_level: WARNING
     path: /solr/enju_leaf_<%= Rails.env %>
