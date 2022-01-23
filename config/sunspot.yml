@@ -10,7 +10,7 @@ production:
 development:
   solr:
     hostname: solr
-    port: 8983
+    port: 8981
     log_level: INFO
     path: /solr/enju_leaf_<%= Rails.env %>
 
