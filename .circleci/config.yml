@@ -6,7 +6,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-       - image: circleci/ruby:2.7-stretch-node-browsers
+       - image: circleci/ruby:2.6-stretch-node-browsers
          environment:
            PGHOST: 127.0.0.1
            PGUSER: postgres
