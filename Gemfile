@@ -101,4 +101,5 @@ group :test do
   gem 'rails-controller-testing'
   gem 'simplecov'
   gem 'parallel_tests'
+  gem 'rspec_junit_formatter', require: false
 end
