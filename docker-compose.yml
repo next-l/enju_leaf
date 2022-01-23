@@ -112,7 +112,7 @@ services:
     volumes:
       - minio:/data
     entrypoint:
-      /bin/sh -c "mkdir -p /data/${ENJU_RDM_STORAGE_BUCKET} && minio server /data --console-address \":9001\""
+      /bin/sh -c "mkdir -p /data/${ENJU_LEAF_STORAGE_BUCKET} && minio server /data --console-address \":9001\""
     ports:
       - 9000:9000
       - 9001:9001
