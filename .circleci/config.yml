@@ -10,6 +10,7 @@ jobs:
          environment:
            POSTGRES_HOST: 127.0.0.1
            POSTGRES_USER: postgres
+           POSTGRES_PASSWORD: password
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -17,6 +18,7 @@ jobs:
        - image: circleci/postgres:12-alpine
          environment:
            POSTGRES_USER: postgres
+           POSTGRES_PASSWORD: password
            POSTGRES_DB: enju_leaf_dummy_test
 
     working_directory: ~/repo
