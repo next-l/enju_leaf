@@ -36,7 +36,7 @@ jobs:
           bundler-cache: true
       # Add or replace test runners here
       - name: Start containers
-        run: docker-compose up solr -d
+        run: cp .env.template .env && docker-compose up solr -d
       # Add or replace database setup steps here
       - name: Set up database schema
         run: bin/rails db:schema:load
