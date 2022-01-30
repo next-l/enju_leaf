@@ -1,10 +1,9 @@
 class ItemsController < ApplicationController
+  include EnjuInventory::Controller
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :check_policy, only: [:index, :new, :create]
   before_action :get_agent, :get_manifestation, :get_shelf, except: [:create, :update, :destroy]
-  if defined?(EnjuInventory)
-    before_action :get_inventory_file
-  end
+  before_action :get_inventory_file
   before_action :get_library, :get_item, except: [:create, :update, :destroy]
   before_action :prepare_options, only: [:new, :edit]
   before_action :get_version, only: [:show]

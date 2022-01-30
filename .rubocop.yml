@@ -1,5 +1,9 @@
 require: rubocop-rails
 
+Rails:
+  Enabled: true
+AllCops:
+  TargetRubyVersion: 2.5
 Layout/SpaceInsideHashLiteralBraces:
   Enabled: false
 Layout/SpaceInsideBlockBraces:
@@ -19,4 +23,10 @@ Metrics/MethodLength:
 Metrics/LineLength:
   Enabled: false
 Metrics/BlockLength:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/SymbolArray:
+  Enabled: false
+Style/BlockDelimiters:
   Enabled: false
