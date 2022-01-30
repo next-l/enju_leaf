@@ -68,7 +68,7 @@ class AgentsController < ApplicationController
     end
 
     page = params[:page].to_i || 1
-    page = 1 if page == 0
+    page = 1 if page.zero?
     search.query.paginate(page, Agent.default_per_page)
     @agents = search.execute!.results
 

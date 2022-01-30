@@ -34,7 +34,7 @@ class Library < ApplicationRecord
   after_destroy :clear_all_cache
 
   def self.all_cache
-    if Rails.env == 'production'
+    if Rails.env.production?
       Rails.cache.fetch('library_all'){ Library.all }
     else
       Library.all

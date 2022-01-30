@@ -84,7 +84,7 @@ class AcceptsController < ApplicationController
       if @accept.save
         flash[:message] << t('accept.successfully_accepted', model: t('activerecord.models.accept'))
         format.html { redirect_to accepts_url(basket_id: @basket.id) }
-        format.json { render json: @accept, status: :created, location:  @accept }
+        format.json { render json: @accept, status: :created, location: @accept }
         format.js { redirect_to accepts_url(basket_id: @basket.id, format: :js) }
       else
         @accepts = @basket.accepts.page(params[:page])

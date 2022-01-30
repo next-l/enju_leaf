@@ -44,7 +44,7 @@ class ClassificationTypesController < ApplicationController
 
     respond_to do |format|
       if @classification_type.save
-        format.html { redirect_to @classification_type, notice:  t('controller.successfully_created', model:  t('activerecord.models.classification_type')) }
+        format.html { redirect_to @classification_type, notice:  t('controller.successfully_created', model: t('activerecord.models.classification_type')) }
         format.json { render json: @classification_type, status: :created, location: @classification_type }
       else
         format.html { render action: "new" }
@@ -63,7 +63,7 @@ class ClassificationTypesController < ApplicationController
 
     respond_to do |format|
       if @classification_type.update(classification_type_params)
-        format.html { redirect_to @classification_type, notice:  t('controller.successfully_updated', model:  t('activerecord.models.classification_type')) }
+        format.html { redirect_to @classification_type, notice:  t('controller.successfully_updated', model: t('activerecord.models.classification_type')) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

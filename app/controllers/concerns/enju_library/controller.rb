@@ -37,6 +37,7 @@ module EnjuLibrary
 
     def render_404
       return if performed?
+
       respond_to do |format|
         format.html { render template: 'page/404', status: :not_found }
         # format.html.phone { render template: 'page/404', status: 404 }
@@ -48,13 +49,13 @@ module EnjuLibrary
 
     def render_404_invalid_format
       return if performed?
-      render file: "#{Rails.root}/public/404", formats: [:html]
+      render file: Rails.root.join('public/404.html').to_s, formats: [:html]
     end
 
     def render_500
       return if performed?
       respond_to do |format|
-        format.html {render file: "#{Rails.root}/public/500", layout: false, status: :internal_server_error}
+        format.html {render file: Rails.root.join('public/500.html').to_s, layout: false, status: :internal_server_error}
         # format.html.phone {render file: "#{Rails.root}/public/500", layout: false, status: 500}
         format.xml {render template: 'page/500', status: :internal_server_error}
         format.json { render json: {"error": "server_error"} }
@@ -106,7 +107,7 @@ module EnjuLibrary
     end
 
     def set_available_languages
-      if Rails.env == 'production'
+      if Rails.env.production?
         @available_languages = Rails.cache.fetch('available_languages'){
           Language.where(iso_639_1: I18n.available_locales.map{|l| l.to_s}).select([:id, :iso_639_1, :name, :native_name, :display_name, :position]).all
         }

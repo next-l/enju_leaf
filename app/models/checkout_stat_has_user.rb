@@ -1,6 +1,4 @@
 class CheckoutStatHasUser < ApplicationRecord
-  # attr_accessible :user_checkout_stat_id, :user_id,
-  #  as: :admin
   belongs_to :user_checkout_stat
   belongs_to :user
 

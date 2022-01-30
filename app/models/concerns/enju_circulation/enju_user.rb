@@ -24,7 +24,7 @@ module EnjuCirculation
 
     def checked_item_count
       checkout_count = {}
-      CheckoutType.all.each do |checkout_type|
+      CheckoutType.find_each do |checkout_type|
         # 資料種別ごとの貸出中の冊数を計算
         checkout_count[:"#{checkout_type.name}"] = checkouts.count_by_sql(["
           SELECT count(item_id) FROM checkouts

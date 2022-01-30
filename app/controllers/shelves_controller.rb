@@ -65,7 +65,7 @@ class ShelvesController < ApplicationController
   # GET /shelves/new.json
   def new
     @shelf = Shelf.new
-    @library = current_user.profile.library unless @library
+    @library ||= current_user.profile.library
     @shelf.library = @library
     # @shelf.user = current_user
 
@@ -93,7 +93,7 @@ class ShelvesController < ApplicationController
     respond_to do |format|
       if @shelf.save
         format.html { redirect_to @shelf, notice: t('controller.successfully_created', model: t('activerecord.models.shelf')) }
-        format.json { render json: @shelf, status: :created, location:  @shelf }
+        format.json { render json: @shelf, status: :created, location: @shelf }
       else
         @library = Library.first if @shelf.library.nil?
         format.html { render action: "new" }

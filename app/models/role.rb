@@ -14,7 +14,7 @@ class Role < ApplicationRecord
   end
 
   def self.all_cache
-    if Rails.env == 'production'
+    if Rails.env.production?
       Rails.cache.fetch('role_all'){ Role.select(:name).all }
     else
       Role.select(:name)

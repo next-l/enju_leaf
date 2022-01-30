@@ -3,7 +3,6 @@ class ReserveTransition < ApplicationRecord
 
   
   belongs_to :reserve, inverse_of: :reserve_transitions
-  # attr_accessible :to_state, :sort_key, :metadata
 end
 
 # == Schema Information

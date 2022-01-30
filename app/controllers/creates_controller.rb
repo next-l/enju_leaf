@@ -35,10 +35,8 @@ class CreatesController < ApplicationController
   def new
     if @agent && @work.blank?
       redirect_to agent_works_url(@patorn)
-      return
     elsif @work && @agent.blank?
       redirect_to work_agents_url(@work)
-      return
     else
       @create = Create.new
       @create.work = @work

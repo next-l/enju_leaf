@@ -51,7 +51,7 @@ class SubscriptionsController < ApplicationController
     respond_to do |format|
       if @subscription.save
         format.html { redirect_to @subscription, notice: t('controller.successfully_created', model: t('activerecord.models.subscription')) }
-        format.json { render json: @subscription, status: :created, location:  @subscription }
+        format.json { render json: @subscription, status: :created, location: @subscription }
       else
         format.html { render action: "new" }
         format.json { render json: @subscription.errors, status: :unprocessable_entity }

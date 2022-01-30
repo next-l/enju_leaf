@@ -3,7 +3,6 @@ class ManifestationCheckoutStatTransition < ApplicationRecord
 
   
   belongs_to :manifestation_checkout_stat, inverse_of: :manifestation_checkout_stat_transitions
-  # attr_accessible :to_state, :sort_key, :metadata
 end
 
 # == Schema Information

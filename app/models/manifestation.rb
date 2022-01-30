@@ -683,7 +683,7 @@ class Manifestation < ApplicationRecord
   end
 
   def set_custom_property(row)
-    ManifestationCustomProperty.all.each do |property|
+    ManifestationCustomProperty.find_each do |property|
       if row[property]
         custom_value = ManifestationCustomValue.new(
           manifestation: self,

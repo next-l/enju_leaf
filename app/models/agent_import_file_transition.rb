@@ -3,7 +3,6 @@ class AgentImportFileTransition < ApplicationRecord
 
   
   belongs_to :agent_import_file, inverse_of: :agent_import_file_transitions
-  #attr_accessible :to_state, :sort_key, :metadata
 end
 
 # == Schema Information
