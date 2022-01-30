@@ -37,6 +37,8 @@ jobs:
       - name: Set up database schema
         run: bin/rails db:schema:load
       # Add or replace test runners here
+      - name: Start containers
+        run: cp .env.template .env && docker-compose up -d
       - name: Run tests
         run: bin/rake
 
@@ -50,9 +52,9 @@ jobs:
         with:
           bundler-cache: true
       # Add or replace any other lints here
-      - name: Security audit dependencies
-        run: bin/bundler-audit --update
-      - name: Security audit application code
-        run: bin/brakeman -q -w2
-      - name: Lint Ruby files
-        run: bin/rubocop --parallel
+      #- name: Security audit dependencies
+      #  run: bin/bundler-audit --update
+      #- name: Security audit application code
+      #  run: bin/brakeman -q -w2
+      #- name: Lint Ruby files
+      #  run: bin/rubocop --parallel
