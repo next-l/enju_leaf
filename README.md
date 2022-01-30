@@ -1,6 +1,6 @@
 # Next-L Enju Leaf
 [![Ruby on Rails CI](https://github.com/next-l/enju_leaf/actions/workflows/rubyonrails.yml/badge.svg?branch=docker-1.3)](https://github.com/next-l/enju_leaf/actions/workflows/rubyonrails.yml)
-[![Coverage Status](https://coveralls.io/repos/github/next-l/enju_leaf/badge.svg?branch=master)](https://coveralls.io/github/next-l/enju_leaf?branch=master)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/94c718eb65bff900f95f/test_coverage)](https://codeclimate.com/github/next-l/enju_leaf/test_coverage)
 
 Next-L Enju Leaf は、[Project Next-L](https://www.next-l.jp) で開発している図書館管理システムです。
 
