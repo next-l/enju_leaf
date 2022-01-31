@@ -19,6 +19,7 @@ x-app: &app
       - GID=${GID}
       - http_proxy=${http_proxy}
       - https_proxy=${http_proxy}
+  image: projectnextl/enju_leaf:latest
   networks:
     internal:
   volumes:
