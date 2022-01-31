@@ -1,0 +1,9 @@
+.env
+.rubocop.yml
+.rubocop_todo.yml
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/tmp/*
+/log/*
+/coverage/
+/private/
