@@ -1,4 +1,4 @@
-require "spec_helper.rb"
+require "spec_helper"
 
 describe "cinii_books/index" do
   describe "cinii books search menu" do
@@ -12,5 +12,3 @@ describe "cinii_books/index" do
     end
   end
 end
-
-

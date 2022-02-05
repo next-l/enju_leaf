@@ -30,3 +30,7 @@ Style/SymbolArray:
   Enabled: false
 Style/BlockDelimiters:
   Enabled: false
+Naming/VariableNumber:
+  Enabled: false
+Rails/SkipsModelValidations:
+  Enabled: false

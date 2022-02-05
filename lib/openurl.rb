@@ -3,6 +3,7 @@
 # 文法上の誤りをエラーとする
 #-------------------------------------------
 class OpenurlQuerySyntaxError < RuntimeError; end
+
 #-------------------------------------------
 # Openurlクラス
 #-------------------------------------------
@@ -40,7 +41,7 @@ class Openurl
 
   def initialize(params)
     # @openurl_queryに検索項目ごとの検索文を格納
-    if params.key?(:any) then
+    if params.key?(:any)
       # anyの場合は他に条件が指定されていても無視
       @openurl_query = [params[:any].strip]
     else
@@ -76,11 +77,11 @@ class Openurl
     query = []
     params.each_pair do |key, _value|
       key = key.to_sym
-      if MATCH_EXACT.include?(key) then # 完全一致
+      if MATCH_EXACT.include?(key) # 完全一致
         query << to_sunspot_match_exact(ENJU_FIELD[key], params[key].strip)
-      elsif MATCH_PART.include?(key) then # 部分一致
+      elsif MATCH_PART.include?(key) # 部分一致
         query << to_sunspot_match_part(key, ENJU_FIELD[key], params[key].strip)
-      elsif MATCH_AHEAD.include?(key) then # 前方一致
+      elsif MATCH_AHEAD.include?(key) # 前方一致
         query << to_sunspot_match_ahead(key, ENJU_FIELD[key], params[key].strip)
       end
     end
@@ -106,7 +107,7 @@ class Openurl
   def to_sunspot_match_part(key, field, val)
     # 途中に空白がある場合は複数語が指定されているとみなし、ANDでつなぐ。
     if /\s+/ =~ val
-      if LOGIC_MULTI_AND.include?(key) then
+      if LOGIC_MULTI_AND.include?(key)
         "%s:(%s)" % [field, val.gsub(/\s+/, ' AND ')]
       else
         raise OpenurlQuerySyntaxError, "the key \"#{key}\" not allow multi words"
@@ -121,7 +122,7 @@ class Openurl
     # 既定の桁より大きい場合、または、数値でない文字列の場合エラー
     # 数値でない文字列には空白がある場合も含むので複数指定はエラーとなる
     # このチェックはANY検索の時外す
-    if NUM_CHECK.include?(key) then
+    if NUM_CHECK.include?(key)
       if [:issn, :isbn].include?(key.to_sym)
         val.gsub!('-', '')
       end
@@ -139,21 +140,22 @@ class Openurl
     au_flg = false
     reg = Regexp.compile(/\A#{str}/)
     query.each do |q|
-      if reg =~ q then
+      if reg =~ q
         au_flg = true
         au_item.push(q[str.length..q.length])
       else
         new_query.push(q)
       end
     end
-    if au_flg then
-      if au_item.size > 1 then
+    if au_flg
+      if au_item.size > 1
         str = str + "(%s)" % [au_item.join(' AND ')]
       else
-        str = str + au_item[0]
+        str += au_item[0]
       end
       new_query.push(str)
     end
-    return new_query
+
+    new_query
   end
 end

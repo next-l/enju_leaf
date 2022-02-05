@@ -30,7 +30,7 @@ end
 #  user_id                      :integer
 #  resource_export_file_name    :string
 #  resource_export_content_type :string
-#  resource_export_file_size    :integer
+#  resource_export_file_size    :bigint
 #  resource_export_updated_at   :datetime
 #  executed_at                  :datetime
 #  created_at                   :datetime

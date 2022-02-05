@@ -53,6 +53,7 @@ end
 #  attachment_content_type         :string
 #  attachment_file_size            :integer
 #  attachment_updated_at           :datetime
+#  nii_type_id                     :integer
 #  title_alternative_transcription :text
 #  description                     :text
 #  abstract                        :text

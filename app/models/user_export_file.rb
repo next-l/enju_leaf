@@ -39,11 +39,11 @@ class UserExportFile < ApplicationRecord
     self.user_export = File.new(tempfile.path, 'r')
     save!
     transition_to!(:completed)
-    mailer = UserExportMailer.completed(self)
+    UserExportMailer.completed(self)
     send_message(mailer)
   rescue => e
     transition_to!(:failed)
-    mailer = UserExportMailer.failed(self)
+    UserExportMailer.failed(self)
     raise e
   end
 end
