@@ -7,9 +7,9 @@
 name: "Ruby on Rails CI"
 on:
   push:
-    branches: [ docker-1.3 ]
+    branches: [ docker-1.4 ]
   pull_request:
-    branches: [ docker-1.3 ]
+    branches: [ docker-1.4 ]
 jobs:
   test:
     runs-on: ubuntu-latest
