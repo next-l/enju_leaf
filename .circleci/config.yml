@@ -4,9 +4,6 @@ orbs:
 
 jobs:
   build:
-    branches:
-      ignore:
-        - docker-1.4
     docker:
       # specify the version you desire here
        - image: circleci/ruby:2.6-stretch-node-browsers
@@ -58,3 +55,11 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
+
+workflows:
+  workflow:
+    jobs:
+      - build:
+        filters:
+          branches:
+            ignore: docker-1.4
