@@ -1,0 +1,176 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://ci.nii.ac.jp/books/opensearch/search?count=10&format=rss&p=1&q=test
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: '200'
+    headers:
+      Date:
+      - Sat, 05 Feb 2022 08:15:22 GMT
+      Content-Type:
+      - application/rss+xml;charset=UTF-8
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Frame-Options:
+      - SAMEORIGIN
+      Set-Cookie:
+      - TS01b7c0b3=01bdee84565e54e411b557666d0715b18df48e733574147464e33a273ca71c9b1fbe7225e425900a61012c18da15d081d1a523ae49;
+        Path=/
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?><rdf:RDF xml:lang="ja" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:cinii="http://ci.nii.ac.jp/ns/1.0/" xmlns="http://purl.org/rss/1.0/">
+        <channel rdf:about="https://ci.nii.ac.jp/books/opensearch/search?p=1&amp;q=test&amp;count=10&amp;format=rss">
+        <title>CiNii Books OpenSearch - 1 test 10</title>
+        <description>CiNii Books OpenSearch - 1 test 10</description>
+        <link>https://ci.nii.ac.jp/books/opensearch/search?p=1&amp;q=test&amp;count=10&amp;format=rss</link>
+        <dc:date>2022-02-05T17:15:22+09:00</dc:date>
+        <opensearch:totalResults>31923</opensearch:totalResults>
+        <opensearch:startIndex>0</opensearch:startIndex>
+        <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+        <items>
+        <rdf:Seq>
+        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA73037253"/>
+        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA25648121"/>
+        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA14163018"/>
+        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA04846659"/>
+        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/AA00203637"/>
+        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA02976245"/>
+        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/AA11170085"/>
+        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA76205081"/>
+        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA06846219"/>
+        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA41795240"/>
+        </rdf:Seq>
+        </items>
+        </channel>
+        <item rdf:about="https://ci.nii.ac.jp/ncid/BA73037253">
+        <title>Catalog of cooperative tests</title>
+        <link>https://ci.nii.ac.jp/ncid/BA73037253</link>
+        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA73037253.rdf"/>
+        <dc:creator/>
+        <dc:publisher>Cooperative Test Division, Educational Testing Service</dc:publisher>
+        <prism:publicationDate>1953</prism:publicationDate>
+        <dc:date>1953</dc:date>
+        <cinii:ownerCount>1</cinii:ownerCount>
+        </item>
+        <item rdf:about="https://ci.nii.ac.jp/ncid/BA25648121">
+        <title>Achievement tests and measurement devices</title>
+        <link>https://ci.nii.ac.jp/ncid/BA25648121</link>
+        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA25648121.rdf"/>
+        <dc:creator>compiled by Test Collection, Educational Testing Service</dc:creator>
+        <dc:publisher>Oryx Press</dc:publisher>
+        <prism:publicationDate>1986</prism:publicationDate>
+        <dc:date>1986</dc:date>
+        <dcterms:isPartOf rdf:resource="https://ci.nii.ac.jp/ncid/BA14163266" dc:title="The ETS Test Collection catalog, v.1"/>
+        <dcterms:hasPart rdf:resource="urn:isbn:0897742486"/>
+        <cinii:ownerCount>2</cinii:ownerCount>
+        </item>
+        <item rdf:about="https://ci.nii.ac.jp/ncid/BA14163018">
+        <title>Affective measures and personality tests</title>
+        <link>https://ci.nii.ac.jp/ncid/BA14163018</link>
+        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA14163018.rdf"/>
+        <dc:creator>compiled by Test Collection, Educational Testing Service</dc:creator>
+        <dc:publisher>Oryx Press</dc:publisher>
+        <prism:publicationDate>1992</prism:publicationDate>
+        <dc:date>1992</dc:date>
+        <dcterms:isPartOf rdf:resource="https://ci.nii.ac.jp/ncid/BA14163266" dc:title="The ETS Test Collection catalog, v.6"/>
+        <dcterms:hasPart rdf:resource="urn:isbn:0897746929"/>
+        <cinii:ownerCount>1</cinii:ownerCount>
+        </item>
+        <item rdf:about="https://ci.nii.ac.jp/ncid/BA04846659">
+        <title>Computer automation of materials testing : a symposium sponsored by ASTM Committee E-24 on Fracture Testing and Committee E-28 on Mechanical Testing, American Society for Testing and Materials, Philadelphia, Pa., 5-11 Nov. 1978</title>
+        <link>https://ci.nii.ac.jp/ncid/BA04846659</link>
+        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA04846659.rdf"/>
+        <dc:creator>B.C. Wonsiewicz, editor</dc:creator>
+        <dc:publisher>ASTM</dc:publisher>
+        <prism:publicationDate>1980</prism:publicationDate>
+        <dc:date>1980</dc:date>
+        <dcterms:isPartOf rdf:resource="https://ci.nii.ac.jp/ncid/BA00068096" dc:title="ASTM special technical publication, 710"/>
+        <cinii:ownerCount>12</cinii:ownerCount>
+        </item>
+        <item rdf:about="https://ci.nii.ac.jp/ncid/AA00203637">
+        <title>Geotechnical testing journal</title>
+        <link>https://ci.nii.ac.jp/ncid/AA00203637</link>
+        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/AA00203637.rdf"/>
+        <dc:creator>American Society for Testing and Materials</dc:creator>
+        <dc:publisher>American Society for Testing and Materials</dc:publisher>
+        <prism:publicationDate>1978</prism:publicationDate>
+        <dc:date>1978</dc:date>
+        <dcterms:hasPart rdf:resource="urn:issn:01496115"/>
+        <cinii:ownerCount>48</cinii:ownerCount>
+        </item>
+        <item rdf:about="https://ci.nii.ac.jp/ncid/BA02976245">
+        <title>Impact testing of metals</title>
+        <link>https://ci.nii.ac.jp/ncid/BA02976245</link>
+        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA02976245.rdf"/>
+        <dc:creator/>
+        <dc:publisher>American Society for Testing and Materials</dc:publisher>
+        <prism:publicationDate>1970</prism:publicationDate>
+        <dc:date>1970</dc:date>
+        <dcterms:isPartOf rdf:resource="https://ci.nii.ac.jp/ncid/BA00068096" dc:title="ASTM special technical publication, 466"/>
+        <dcterms:hasPart rdf:resource="urn:isbn:0803100523"/>
+        <cinii:ownerCount>32</cinii:ownerCount>
+        </item>
+        <item rdf:about="https://ci.nii.ac.jp/ncid/AA11170085">
+        <title>Directory of testing laboratories</title>
+        <link>https://ci.nii.ac.jp/ncid/AA11170085</link>
+        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/AA11170085.rdf"/>
+        <dc:creator>compiled by ASTM</dc:creator>
+        <dc:publisher>American Society for Testing and Materials</dc:publisher>
+        <prism:publicationDate>198-</prism:publicationDate>
+        <dc:date>198-</dc:date>
+        <dcterms:hasPart rdf:resource="urn:issn:08957886"/>
+        <cinii:ownerCount>1</cinii:ownerCount>
+        </item>
+        <item rdf:about="https://ci.nii.ac.jp/ncid/BA76205081">
+        <title>Specimen set of Durrell-Sullivan reading capacity and achievement tests</title>
+        <link>https://ci.nii.ac.jp/ncid/BA76205081</link>
+        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA76205081.rdf"/>
+        <dc:creator/>
+        <dc:publisher>World Book</dc:publisher>
+        <prism:publicationDate>1937</prism:publicationDate>
+        <dc:date>1937</dc:date>
+        <cinii:ownerCount>4</cinii:ownerCount>
+        </item>
+        <item rdf:about="https://ci.nii.ac.jp/ncid/BA06846219">
+        <title>Directory of selected national testing programs</title>
+        <link>https://ci.nii.ac.jp/ncid/BA06846219</link>
+        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA06846219.rdf"/>
+        <dc:creator>compiled by Test Collection, Educational Testing Service</dc:creator>
+        <dc:publisher>Oryx Press</dc:publisher>
+        <prism:publicationDate>1987</prism:publicationDate>
+        <dc:date>1987</dc:date>
+        <dcterms:hasPart rdf:resource="urn:isbn:0897743865"/>
+        <cinii:ownerCount>2</cinii:ownerCount>
+        </item>
+        <item rdf:about="https://ci.nii.ac.jp/ncid/BA41795240">
+        <title>Nondestructive testing of nuclear graphite : a symposium presented at the Seventieth Annual Meeting American Society for Testing and Materials, Boston, Mass., 25-30 June, 1967</title>
+        <link>https://ci.nii.ac.jp/ncid/BA41795240</link>
+        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA41795240.rdf"/>
+        <dc:creator/>
+        <dc:publisher>American Society for Testing and Materials</dc:publisher>
+        <prism:publicationDate>1968</prism:publicationDate>
+        <dc:date>1968</dc:date>
+        <dcterms:isPartOf rdf:resource="https://ci.nii.ac.jp/ncid/BA00068096" dc:title="ASTM special technical publication, 439"/>
+        <cinii:ownerCount>3</cinii:ownerCount>
+        </item>
+        </rdf:RDF>
+  recorded_at: Sat, 05 Feb 2022 08:15:22 GMT
+recorded_with: VCR 6.0.0

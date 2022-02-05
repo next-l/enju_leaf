@@ -1,0 +1,41 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://ci.nii.ac.jp/books/opensearch/search?count=10&format=rss&p=1&q=BA85746967
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: '200'
+    headers:
+      Date:
+      - Sat, 05 Feb 2022 08:13:14 GMT
+      Content-Type:
+      - application/rss+xml;charset=UTF-8
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Frame-Options:
+      - SAMEORIGIN
+      Set-Cookie:
+      - TS01b7c0b3=01bdee84566a2a0b5bd16cd8f1ad09a46a2af59ad97e8152c1a33886f1b1f4d87cedfd3112eee19122a5bfa93b1bb0cb5d3eb4c8ce;
+        Path=/
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48cmRmOlJERiB4bWw6bGFuZz0iamEiIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6ZGN0ZXJtcz0iaHR0cDovL3B1cmwub3JnL2RjL3Rlcm1zLyIgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIiB4bWxuczpvcGVuc2VhcmNoPSJodHRwOi8vYTkuY29tLy0vc3BlYy9vcGVuc2VhcmNoLzEuMS8iIHhtbG5zOnJkZnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvMDEvcmRmLXNjaGVtYSMiIHhtbG5zOnByaXNtPSJodHRwOi8vcHJpc21zdGFuZGFyZC5vcmcvbmFtZXNwYWNlcy9iYXNpYy8yLjAvIiB4bWxuczpjaW5paT0iaHR0cDovL2NpLm5paS5hYy5qcC9ucy8xLjAvIiB4bWxucz0iaHR0cDovL3B1cmwub3JnL3Jzcy8xLjAvIj4KPGNoYW5uZWwgcmRmOmFib3V0PSJodHRwczovL2NpLm5paS5hYy5qcC9ib29rcy9vcGVuc2VhcmNoL3NlYXJjaD9wPTEmYW1wO3E9QkE4NTc0Njk2NyZhbXA7Y291bnQ9MTAmYW1wO2Zvcm1hdD1yc3MiPgo8dGl0bGU+Q2lOaWkgQm9va3MgT3BlblNlYXJjaCAtIDEgQkE4NTc0Njk2NyAxMDwvdGl0bGU+CjxkZXNjcmlwdGlvbj5DaU5paSBCb29rcyBPcGVuU2VhcmNoIC0gMSBCQTg1NzQ2OTY3IDEwPC9kZXNjcmlwdGlvbj4KPGxpbms+aHR0cHM6Ly9jaS5uaWkuYWMuanAvYm9va3Mvb3BlbnNlYXJjaC9zZWFyY2g/cD0xJmFtcDtxPUJBODU3NDY5NjcmYW1wO2NvdW50PTEwJmFtcDtmb3JtYXQ9cnNzPC9saW5rPgo8ZGM6ZGF0ZT4yMDIyLTAyLTA1VDE3OjEzOjE0KzA5OjAwPC9kYzpkYXRlPgo8b3BlbnNlYXJjaDp0b3RhbFJlc3VsdHM+MTwvb3BlbnNlYXJjaDp0b3RhbFJlc3VsdHM+CjxvcGVuc2VhcmNoOnN0YXJ0SW5kZXg+MDwvb3BlbnNlYXJjaDpzdGFydEluZGV4Pgo8b3BlbnNlYXJjaDppdGVtc1BlclBhZ2U+MTwvb3BlbnNlYXJjaDppdGVtc1BlclBhZ2U+CjxpdGVtcz4KPHJkZjpTZXE+CjxyZGY6bGkgcmRmOnJlc291cmNlPSJodHRwczovL2NpLm5paS5hYy5qcC9uY2lkL0JBODU3NDY5NjciLz4KPC9yZGY6U2VxPgo8L2l0ZW1zPgo8L2NoYW5uZWw+CjxpdGVtIHJkZjphYm91dD0iaHR0cHM6Ly9jaS5uaWkuYWMuanAvbmNpZC9CQTg1NzQ2OTY3Ij4KPHRpdGxlPuWbuuS9k+mrmOWIhuWtkOW9oueHg+aWmembu+axoOimgee0oOadkOaWmeODu+awtOe0oOiyr+iUteadkOaWmeOBruefpeeahOioreioiCA9IEludGVsbGlnZW50L2RpcmVjdGVkIG1hdGVyaWFscyBkZXNpZ24gZm9yIHBvbHltZXIgZWxlY3Ryb2x5dGUgZnVlbCBjZWxscyBhbmQgaHlkcm9nZW4gc3RvcmFnZSBhcHBsaWNhdGlvbnM8L3RpdGxlPgo8bGluaz5odHRwczovL2NpLm5paS5hYy5qcC9uY2lkL0JBODU3NDY5Njc8L2xpbms+CjxyZGZzOnNlZUFsc28gcmRmOnJlc291cmNlPSJodHRwczovL2NpLm5paS5hYy5qcC9uY2lkL0JBODU3NDY5NjcucmRmIi8+CjxkYzpjcmVhdG9yPuesoOS6leengOaYjiwg5rSl55Sw5a6X5bm46JGXID0gSGlkZWFraSBLYXNhaSwgTXVuZXl1a2kgVHN1ZGE8L2RjOmNyZWF0b3I+CjxkYzpwdWJsaXNoZXI+5aSn6Ziq5aSn5a2m5Ye654mI5LyaPC9kYzpwdWJsaXNoZXI+CjxwcmlzbTpwdWJsaWNhdGlvbkRhdGU+MjAwODwvcHJpc206cHVibGljYXRpb25EYXRlPgo8ZGM6ZGF0ZT4yMDA4PC9kYzpkYXRlPgo8ZGN0ZXJtczppc1BhcnRPZiByZGY6cmVzb3VyY2U9Imh0dHBzOi8vY2kubmlpLmFjLmpwL25jaWQvQkE2MTYzNjA2OCIgZGM6dGl0bGU9IuWkp+mYquWkp+WtpuaWsOS4lue0gOODrOOCr+ODgeODo+ODvCwgLiDoqIjnrpfmqZ/jg57jg4bjg6rjgqLjg6vjg4fjgrbjgqTjg7PlhYjnq6/noJTnqbbkuovkvot8fOOCseOCpOOCteODs+OCrSDjg57jg4bjg6rjgqLjg6sg44OH44K244Kk44OzIOOCu+ODs+OCv+ODsyDjgrHjg7Pjgq3jg6XjgqYg44K444Os44KkIDsgMSIvPgo8ZGN0ZXJtczpoYXNQYXJ0IHJkZjpyZXNvdXJjZT0idXJuOmlzYm46OTc4NDg3MjU5MjU0MiIvPgo8Y2luaWk6b3duZXJDb3VudD41MDwvY2luaWk6b3duZXJDb3VudD4KPC9pdGVtPgo8L3JkZjpSREY+Cg==
+  recorded_at: Sat, 05 Feb 2022 08:13:14 GMT
+recorded_with: VCR 6.0.0
