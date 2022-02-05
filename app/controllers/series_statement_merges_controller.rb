@@ -90,6 +90,7 @@ class SeriesStatementMergesController < ApplicationController
   end
 
   private
+
   def set_series_statement_merge
     @series_statement_merge = SeriesStatementMerge.find(params[:id])
     authorize @series_statement_merge

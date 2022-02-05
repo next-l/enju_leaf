@@ -36,7 +36,7 @@ class ResourceExportFile < ApplicationRecord
     tsv = Manifestation.export(role: role_name)
     file = StringIO.new(tsv)
     file.class.class_eval { attr_accessor :original_filename, :content_type }
-    file.original_filename =  'resource_export.txt'
+    file.original_filename = 'resource_export.txt'
     self.resource_export = file
     save!
     transition_to!(:completed)

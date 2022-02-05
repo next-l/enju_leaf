@@ -79,7 +79,7 @@ xml_builder.tag! "rdf:RDF",
           xml_builder.tag! "foaf:Agent" do
             xml_builder.tag! "foaf:name", creator.full_name
             if creator.full_name_transcription?
-             xml_builder.tag! "dcndl:transcription", creator.full_name_transcription
+              xml_builder.tag! "dcndl:transcription", creator.full_name_transcription
             end
           end
         end
@@ -188,7 +188,7 @@ xml_builder.tag! "rdf:RDF",
     when :sound
       xml_builder.tag! "dcndl:materialType", "rdf:resource" => "http://purl.org/dc/dcmitype/Sound", "rdfs:label" => "録音資料"
     end
-    if manifestation.serial and manifestation.frequency
+    if manifestation.serial && manifestation.frequency
       xml_builder.tag! "dcndl:publicationPeriodicity", manifestation.frequency.name
     end
   end

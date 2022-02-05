@@ -84,6 +84,7 @@ class SubjectHeadingTypesController < ApplicationController
   end
 
   private
+
   def set_subject_heading_type
     @subject_heading_type = SubjectHeadingType.find(params[:id])
     authorize @subject_heading_type

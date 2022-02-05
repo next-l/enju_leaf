@@ -20,21 +20,21 @@ xml.rss('version' => "2.0",
     end
     if @manifestations
       @manifestations.each do |manifestation|
-          xml.item do
-            xml.title manifestation.original_title
-            #xml.description(manifestation.original_title)
-            # rfc822
-            manifestation.creators.readable_by(current_user).each do |creator|
-              xml.tag! "dc:creator", creator.full_name
-            end
-            xml.pubDate manifestation.date_of_publication.try(:utc).try(:rfc822)
-            xml.link manifestation_url(manifestation)
-            xml.guid manifestation_url(manifestation), isPermaLink: "true"
-            manifestation.identifier_contents(:isbn).each do |i|
-              xml.tag! "dc:identifier", i
-            end
+        xml.item do
+          xml.title manifestation.original_title
+          #xml.description(manifestation.original_title)
+          # rfc822
+          manifestation.creators.readable_by(current_user).each do |creator|
+            xml.tag! "dc:creator", creator.full_name
+          end
+          xml.pubDate manifestation.date_of_publication.try(:utc).try(:rfc822)
+          xml.link manifestation_url(manifestation)
+          xml.guid manifestation_url(manifestation), isPermaLink: "true"
+          manifestation.identifier_contents(:isbn).each do |i|
+            xml.tag! "dc:identifier", i
           end
         end
+      end
     end
   }
 }

@@ -1,7 +1,7 @@
 xml.instruct! :xml, version: "1.0"
 xml.rdf(:RDF,
-        'xmlns'  => "http://purl.org/rss/1.0/",
-        'xmlns:rdf'  => "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        'xmlns' => "http://purl.org/rss/1.0/",
+        'xmlns:rdf' => "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
         'xmlns:dc' => "http://purl.org/dc/elements/1.1/",
         'xmlns:dcterms' => "http://purl.org/dc/terms/",
         'xmlns:dcndl' => "http://ndl.go.jp/dcndl/terms/",

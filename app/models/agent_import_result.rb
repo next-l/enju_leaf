@@ -5,8 +5,6 @@ class AgentImportResult < ApplicationRecord
 
   belongs_to :agent_import_file
   belongs_to :agent, optional: true
-
-  validates_presence_of :agent_import_file_id
 end
 
 # == Schema Information

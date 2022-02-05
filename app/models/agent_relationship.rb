@@ -3,7 +3,6 @@ class AgentRelationship < ApplicationRecord
   belongs_to :child, foreign_key: 'child_id', class_name: 'Agent'
   belongs_to :agent_relationship_type, optional: true
   validate :check_parent
-  validates_presence_of :parent_id, :child_id
   acts_as_list scope: :parent_id
 
   def check_parent

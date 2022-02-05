@@ -29,8 +29,8 @@ module EnjuSubject
     end
 
     def subject_index!
-      subjects.map{|subject| subject.index}
-      classifications.map{|classification| classification.index}
+      subjects.map(&:index)
+      classifications.map(&:index)
       Sunspot.commit
     end
   end

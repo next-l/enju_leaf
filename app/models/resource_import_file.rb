@@ -124,8 +124,7 @@ class ResourceImportFile < ApplicationRecord
       unless manifestation
         if row['jpno'].present?
           jpno = row['jpno'].to_s.strip
-          identifier_type_jpno = IdentifierType.find_by(name: 'jpno')
-          identifier_type_jpno = IdentifierType.create!(name: 'jpno') unless identifier_type_jpno
+          identifier_type_jpno = IdentifierType.find_or_create_by!(name: 'jpno')
           manifestation = Identifier.find_by(body: jpno, identifier_type_id: identifier_type_jpno.id).try(:manifestation)
         end
       end
@@ -133,8 +132,7 @@ class ResourceImportFile < ApplicationRecord
       unless manifestation
         if row['ncid'].present?
           ncid = row['ncid'].to_s.strip
-          identifier_type_ncid = IdentifierType.find_by(name: 'ncid')
-          identifier_type_ncid = IdentifierType.where(name: 'ncid').create! unless identifier_type_ncid
+          identifier_type_ncid = IdentifierType.find_or_create_by!(name: 'ncid')
           manifestation = Identifier.find_by(body: ncid, identifier_type_id: identifier_type_ncid.id).try(:manifestation)
         end
       end
@@ -143,8 +141,7 @@ class ResourceImportFile < ApplicationRecord
         if row['isbn'].present?
           if StdNum::ISBN.valid?(row['isbn'])
             isbn = StdNum::ISBN.normalize(row['isbn'])
-            identifier_type_isbn = IdentifierType.find_by(name: 'isbn')
-            identifier_type_isbn = IdentifierType.where(name: 'isbn').create! unless identifier_type_isbn
+            identifier_type_isbn = IdentifierType.find_or_create_by!(name: 'isbn')
             m = Identifier.find_by(body: isbn, identifier_type_id: identifier_type_isbn.id).try(:manifestation)
             if m
               if m.series_statements.exists?
@@ -497,6 +494,7 @@ class ResourceImportFile < ApplicationRecord
       subject_list.map{|value|
         subject_heading_type = SubjectHeadingType.find_by(name: type)
         next unless subject_heading_type
+
         subject = Subject.new(term: value)
         subject.subject_heading_type = subject_heading_type
         # TODO: Subject typeの設定
@@ -836,6 +834,7 @@ class ResourceImportFile < ApplicationRecord
       value = nil
       property = column_name.split(':').last
       next if row[column_name].blank?
+
       if manifestation
         value = manifestation.manifestation_custom_values.find_by(manifestation_custom_property: property)
       end
@@ -859,9 +858,8 @@ class ResourceImportFile < ApplicationRecord
       value = nil
       property = column_name.split(':').last
       next if row[column_name].blank?
-      if item
-        value = item.item_custom_values.find_by(item_custom_property: property)
-      end
+
+      value = item.item_custom_values.find_by(item_custom_property: property) if item
 
       if value
         value.value = row[column_name]

@@ -115,6 +115,7 @@ class SeriesStatementsController < ApplicationController
   end
 
   private
+
   def set_series_statement
     @series_statement = SeriesStatement.find(params[:id])
     authorize @series_statement

@@ -34,3 +34,23 @@ Naming/VariableNumber:
   Enabled: false
 Rails/SkipsModelValidations:
   Enabled: false
+Style/EmptyMethod:
+  Enabled: false
+Layout/LeadingCommentSpace:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Layout/ArgumentAlignment:
+  Enabled: false
+Layout/ArgumentAlignment:
+  Enabled: false
+Layout/ArgumentAlignment:
+  Enabled: false
+Layout/ArgumentAlignment:
+  Enabled: false
+Layout/HashAlignment:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
+Style/PercentLiteralDelimiters:
+  Enabled: false

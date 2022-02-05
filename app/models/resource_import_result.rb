@@ -7,8 +7,6 @@ class ResourceImportResult < ApplicationRecord
   belongs_to :resource_import_file
   belongs_to :manifestation, optional: true
   belongs_to :item, optional: true
-
-  validates_presence_of :resource_import_file_id
 end
 
 # == Schema Information

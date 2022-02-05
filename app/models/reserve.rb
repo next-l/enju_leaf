@@ -152,7 +152,7 @@ class Reserve < ApplicationRecord
 
   def check_expired_at
     if canceled_at.blank? && expired_at?
-      if !completed?
+      unless completed?
         if expired_at.beginning_of_day < Time.zone.now
           errors.add(:base, I18n.t('reserve.invalid_date'))
         end

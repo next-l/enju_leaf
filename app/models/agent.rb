@@ -249,7 +249,7 @@ class Agent < ApplicationRecord
   end
 
   def agents
-    self.original_agents + self.derived_agents
+    original_agents + derived_agents
   end
 
   def self.new_agents(agents_params)

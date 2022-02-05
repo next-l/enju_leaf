@@ -89,7 +89,7 @@ class AgentImportFile < ApplicationRecord
     transition_to!(:completed)
     mailer = AgentImportMailer.completed(self)
     send_message(mailer)
-    return num
+    num
   rescue => e
     self.error_message = "line #{row_num}: #{e.message}"
     transition_to!(:failed)
@@ -215,12 +215,12 @@ class AgentImportFile < ApplicationRecord
     agent.birth_date = row['birth_date'] if row['birth_date']
     agent.death_date = row['death_date'] if row['death_date']
 
-    #if row['username'].to_s.strip.blank?
+    # if row['username'].to_s.strip.blank?
       agent.email = row['email'].to_s.strip
       agent.required_role = Role.find_by(name: row['required_role'].to_s.strip.camelize) || Role.find_by(name: 'Guest')
-    #else
-    #  agent.required_role = Role.where(name: row['required_role'].to_s.strip.camelize).first || Role.where('Librarian').first
-    #end
+    # else
+    #   agent.required_role = Role.where(name: row['required_role'].to_s.strip.camelize).first || Role.where('Librarian').first
+    # end
     language = Language.find_by(name: row['language'].to_s.strip.camelize)
     language = Language.find_by(iso_639_2: row['language'].to_s.strip.downcase) unless language
     language = Language.find_by(iso_639_1: row['language'].to_s.strip.downcase) unless language

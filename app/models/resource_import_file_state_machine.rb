@@ -14,6 +14,6 @@ class ResourceImportFileStateMachine
   end
 
   before_transition(from: :started, to: :completed) do |resource_import_file|
-    #resource_import_file.error_message = nil
+    # resource_import_file.error_message = nil
   end
 end

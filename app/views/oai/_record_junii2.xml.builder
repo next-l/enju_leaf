@@ -4,9 +4,7 @@ xml_builder.junii2 :version => '3.1',
   "xmlns" => "http://irdb.nii.ac.jp/oai",
   "xmlns:dc" => "http://purl.org/dc/elements/1.1/" do
   xml_builder.title manifestation.original_title
-  if manifestation.title_alternative.present?
-    xml_builder.alternative manifestation.title_alternative
-  end
+  xml_builder.alternative manifestation.title_alternative if manifestation.title_alternative.present?
   manifestation.creators.readable_by(current_user).each do |patron|
     xml_builder.creator patron.full_name
   end
@@ -18,27 +16,27 @@ xml_builder.junii2 :version => '3.1',
     end
   end
   if manifestation.try(:classifications)
-    %w[ NDC NDLC ].each do |c|
-      manifestation.classifications.each do |classification| 
-        if classification.classification_type.name =~ /#{ c }/i
+    %w[NDC NDLC].each do |c|
+      manifestation.classifications.each do |classification|
+        if classification.classification_type.name =~ /#{c}/i
           xml_builder.tag! c, classification.category
         end
       end
     end
   end
   if manifestation.try(:subjects)
-    %w[ BSH NDLSH MeSH ].each do |s|
+    %w[BSH NDLSH MeSH].each do |s|
       manifestation.subjects.each do |subject|
-        if subject.subject_type.name =~ /#{ s }/i
+        if subject.subject_type.name =~ /#{s}/i
           xml_builder.tag! subject, subject.term
         end
       end
     end
   end
   if manifestation.try(:classifications)
-    %w[ DDC LCC UDC ].each do |c|
-      manifestation.classifications.each do |classification| 
-        if classification.classification_type.name =~ /#{ c }/i
+    %w[DDC LCC UDC].each do |c|
+      manifestation.classifications.each do |classification|
+        if classification.classification_type.name =~ /#{c}/i
           xml_builder.tag! c, classification.category
         end
       end
@@ -78,11 +76,11 @@ xml_builder.junii2 :version => '3.1',
       xml_builder.identifier identifier.body
     end
   end
-  xml_builder.URI manifestation_url( manifestation )
+  xml_builder.URI manifestation_url(manifestation)
   if manifestation.attachment.present?
     xml_builder.fulltextURL manifestation_url(id: manifestation.id, format: :download)
   end
-  %w[ isbn issn NCID ].each do |identifier|
+  %w[isbn issn NCID].each do |identifier|
     manifestation.identifier_contents(identifier.downcase).each do |val|
       xml_builder.tag! identifier, val
     end
@@ -97,20 +95,20 @@ xml_builder.junii2 :version => '3.1',
   if manifestation.pub_date?
     xml_builder.dateofissued manifestation.pub_date
   end
-  #TODO: junii2: source
-  if manifestation.language.blank? or manifestation.language.name == 'unknown'
+  # TODO: junii2: source
+  if manifestation.language.blank? || manifestation.language.name == 'unknown'
     xml_builder.language "und"
   else
     xml_builder.language manifestation.language.iso_639_2
   end
-  %w[ pmid doi NAID ichushi ].each do |identifier|
+  %w[pmid doi NAID ichushi].each do |identifier|
     manifestation.identifier_contents(identifier.downcase).each do |val|
       xml_builder.tag! identifier, val
     end
   end
-  #TODO: junii2: isVersionOf, hasVersion, isReplaceBy, replaces, isRequiredBy, requires, isPartOf, hasPart, isReferencedBy, references, isFormatOf, hasFormat
-  #TODO: junii2: coverage, spatial, NIIspatial, temporal, NIItemporal
-  #TODO: junii2: rights
-  #TODO: junii2: textversion
-  #TODO: junii2: grantid, dateofgranted, degreename, grantor
+  # TODO: junii2: isVersionOf, hasVersion, isReplaceBy, replaces, isRequiredBy, requires, isPartOf, hasPart, isReferencedBy, references, isFormatOf, hasFormat
+  # TODO: junii2: coverage, spatial, NIIspatial, temporal, NIItemporal
+  # TODO: junii2: rights
+  # TODO: junii2: textversion
+  # TODO: junii2: grantid, dateofgranted, degreename, grantor
 end

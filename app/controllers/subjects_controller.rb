@@ -15,7 +15,7 @@ class SubjectsController < ApplicationController
 
     search = Subject.search
     query = params[:query].to_s.strip
-    unless query.blank?
+    if query.present?
       @query = query.dup
       query = query.gsub('　', ' ')
       search.build do
@@ -129,6 +129,7 @@ class SubjectsController < ApplicationController
   end
 
   private
+
   def set_subject
     @subject = Subject.find(params[:id])
     authorize @subject

@@ -34,9 +34,9 @@ class Openurl
                 pub: 'publisher_text',
                 issn: 'issn_sm',
                 isbn: 'isbn_sm',
-                ndl_jpno: 'ndl_jpno_text', # TODO:現在対応項目はないので保留。
-                ndl_dpid: 'ndl_dpid_sm',   # TODO:現在対応項目はないので保留。これのみ完全一致であることに注意。
-                associate: ''              # TODO:フィールド名ではないので削除？
+                ndl_jpno: 'ndl_jpno_text', # TODO: 現在対応項目はないので保留。
+                ndl_dpid: 'ndl_dpid_sm',   # TODO: 現在対応項目はないので保留。これのみ完全一致であることに注意。
+                associate: ''              # TODO: フィールド名ではないので削除？
   }
 
   def initialize(params)

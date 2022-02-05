@@ -84,6 +84,7 @@ class SubjectTypesController < ApplicationController
   end
 
   private
+
   def set_subject_type
     @subject_type = SubjectType.find(params[:id])
     authorize @subject_type

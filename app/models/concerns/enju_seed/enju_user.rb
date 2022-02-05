@@ -51,7 +51,7 @@ module EnjuSeed
       # 有効期限切れのユーザを一括で使用不可にします。
       def self.lock_expired_users
         User.find_each do |user|
-          user.lock_access! if user.expired? and user.active_for_authentication?
+          user.lock_access! if user.expired? && user.active_for_authentication?
         end
       end
 
@@ -147,9 +147,9 @@ module EnjuSeed
 
     # ユーザに使用不可の設定を反映させます。
     def set_lock_information
-      if locked == '1' and active_for_authentication?
+      if locked == '1' && active_for_authentication?
         lock_access!
-      elsif locked == '0' and !active_for_authentication?
+      elsif locked == '0' && !active_for_authentication?
         unlock_access!
       end
     end
@@ -303,4 +303,3 @@ end
 #  save_search_history      :boolean
 #  answer_feed_token        :string(255)
 #
-

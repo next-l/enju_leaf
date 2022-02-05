@@ -11,7 +11,7 @@ class Country < ApplicationRecord
   # alias_attribute :numeric, :numeric_3
 
   # Validations
-  validates_presence_of :alpha_2, :alpha_3, :numeric_3
+  validates :alpha_2, :alpha_3, :numeric_3, presence: true
   validates :name, presence: true, format: { with: /\A[0-9A-Za-z][0-9A-Za-z_\-\s,]*[0-9a-z]\Z/ }
 
   after_save :clear_all_cache

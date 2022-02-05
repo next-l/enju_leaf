@@ -9,9 +9,11 @@ class ProfilePolicy < ApplicationPolicy
       true
     when 'Librarian'
       return true if record == user.profile
+
       true if %w(Librarian User Guest).include?(record.required_role.name)
     when 'User'
       return true if record == user.profile
+
       true if %w(User Guest).include?(record.required_role.name)
     end
   end
@@ -42,8 +44,8 @@ class ProfilePolicy < ApplicationPolicy
           if record.user.checkouts.not_returned.empty?
             true if record.user.deletable_by?(user)
           end
-        else
-          true if record.user.deletable_by?(user)
+        elsif record.user.deletable_by?(user)
+          true
         end
       else
         false
