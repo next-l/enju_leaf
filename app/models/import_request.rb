@@ -6,7 +6,7 @@ class ImportRequest < ApplicationRecord
   default_scope { order('import_requests.id DESC') }
   belongs_to :manifestation, optional: true
   belongs_to :user
-  validates_presence_of :isbn
+  validates :isbn, presence: true
   validate :check_isbn
   #validate :check_imported, on: :create
   #validates_uniqueness_of :isbn, if: Proc.new{|request| ImportRequest.where("created_at > ?", 1.day.ago).collect(&:isbn).include?(request.isbn)}
@@ -21,9 +21,9 @@ class ImportRequest < ApplicationRecord
     to: :state_machine
 
   def check_isbn
-    if isbn.present?
-      errors.add(:isbn) unless StdNum::ISBN.valid?(isbn)
-    end
+    return if isbn.blank?
+
+    errors.add(:isbn) unless StdNum::ISBN.valid?(isbn)
   end
 
   def check_imported
@@ -36,12 +36,13 @@ class ImportRequest < ApplicationRecord
   end
 
   def import!
-    exceptions = [ ActiveRecord::RecordInvalid, NameError, URI::InvalidURIError ]
+    exceptions = [ActiveRecord::RecordInvalid, NameError, URI::InvalidURIError]
     not_found_exceptions = []
     not_found_exceptions << EnjuNdl::RecordNotFound if defined? EnjuNdl
     not_found_exceptions << EnjuNii::RecordNotFound if defined? EnjuNii
     begin
       return nil unless Manifestation.respond_to?(:import_isbn)
+
       unless manifestation
         manifestation = Manifestation.import_isbn(isbn)
         if manifestation
@@ -56,10 +57,10 @@ class ImportRequest < ApplicationRecord
       save
     rescue *not_found_exceptions => e
       transition_to!(:failed)
-      return :record_not_found
+      record_not_found
     rescue *exceptions => e
       transition_to!(:failed)
-      return :error
+      :error
     end
   end
 end

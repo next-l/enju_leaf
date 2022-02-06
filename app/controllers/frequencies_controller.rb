@@ -84,6 +84,7 @@ class FrequenciesController < ApplicationController
   end
 
   private
+
   def set_frequency
     @frequency = Frequency.find(params[:id])
     authorize @frequency

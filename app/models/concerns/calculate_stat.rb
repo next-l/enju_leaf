@@ -15,7 +15,7 @@ module CalculateStat
 
   # 利用統計の日付をチェックします。
   def check_date
-    if self.start_date and self.end_date
+    if self.start_date && self.end_date
       if self.start_date >= self.end_date
         errors.add(:start_date)
         errors.add(:end_date)

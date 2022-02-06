@@ -2,7 +2,7 @@ class Identifier < ApplicationRecord
   belongs_to :identifier_type
   belongs_to :manifestation, touch: true, optional: true
 
-  validates_presence_of :body
+  validates :body, presence: true
   validates_uniqueness_of :body, scope: [:identifier_type_id, :manifestation_id]
   validate :check_identifier
   before_validation :normalize

@@ -1,13 +1,12 @@
 class Subscription < ApplicationRecord
   has_many :subscribes, dependent: :destroy
   has_many :works, through: :subscribes
-  belongs_to :user, validate: true
+  belongs_to :user
   if defined?(EnjuPurchasRequest)
-    belongs_to :order_list, validate: true
+    belongs_to :order_list
   end
 
-  validates_presence_of :title, :user
-  validates_associated :user
+  validates :title, presence: :title
 
   searchable do
     text :title, :note
@@ -21,7 +20,6 @@ class Subscription < ApplicationRecord
   def subscribed(work)
     subscribes.where(work_id: work.id).first
   end
-
 end
 
 # == Schema Information

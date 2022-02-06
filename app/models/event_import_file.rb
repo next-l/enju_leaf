@@ -28,7 +28,7 @@ class EventImportFile < ApplicationRecord
     'application/vnd.ms-excel'
   ]
   validates_attachment_presence :event_import
-  belongs_to :user, validate: true
+  belongs_to :user
   belongs_to :default_library, class_name: 'Library', optional: true
   belongs_to :default_event_category, class_name: 'EventCategory', optional: true
   has_many :event_import_results

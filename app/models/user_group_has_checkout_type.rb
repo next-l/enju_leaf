@@ -2,11 +2,9 @@ class UserGroupHasCheckoutType < ApplicationRecord
   scope :available_for_item, lambda{|item| where(checkout_type_id: item.checkout_type.id)}
   scope :available_for_carrier_type, lambda{|carrier_type| includes(checkout_type: :carrier_types).where('carrier_types.id' => carrier_type.id)}
 
-  belongs_to :user_group, validate: true
-  belongs_to :checkout_type, validate: true
+  belongs_to :user_group
+  belongs_to :checkout_type
 
-  validates :user_group, :checkout_type, presence: true
-  validates_associated :user_group, :checkout_type
   validates :checkout_type_id, uniqueness: { scope: :user_group_id }
   validates :checkout_limit, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validates :checkout_period, numericality: {only_integer: true, greater_than_or_equal_to: 0}

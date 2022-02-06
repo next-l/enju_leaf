@@ -5,7 +5,7 @@ class Library < ApplicationRecord
   default_scope { order('libraries.position') }
   scope :real, -> { where('id != 1') }
   has_many :shelves
-  belongs_to :library_group, validate: true
+  belongs_to :library_group
   has_many :profiles
   belongs_to :country, optional: true
 
@@ -20,9 +20,7 @@ class Library < ApplicationRecord
     integer :position
   end
 
-  validates_associated :library_group
   validates :short_display_name, presence: true
-  validates :library_group, presence: true
   validates_uniqueness_of :short_display_name, case_sensitive: false
   validates_uniqueness_of :isil, allow_blank: true
   validates :display_name, uniqueness: true

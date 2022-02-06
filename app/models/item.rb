@@ -28,7 +28,6 @@ class Item < ApplicationRecord
   accepts_nested_attributes_for :item_custom_values, reject_if: :all_blank
 
   scope :accepted_between, lambda{|from, to| includes(:accept).where('items.created_at BETWEEN ? AND ?', Time.zone.parse(from).beginning_of_day, Time.zone.parse(to).end_of_day)}
-  validates_associated :bookstore
   validates :manifestation_id, presence: true
   validates :item_identifier, allow_blank: true, uniqueness: true,
     format: {with: /\A[0-9A-Za-z_]+\Z/}
@@ -89,7 +88,7 @@ class Item < ApplicationRecord
   end
 
   def manifestation_url
-    Addressable::URI.parse("#{LibraryGroup.site_config.url}manifestations/#{self.manifestation.id}").normalize.to_s if self.manifestation
+    Addressable::URI.parse("#{LibraryGroup.site_config.url}manifestations/#{manifestation.id}").normalize.to_s if manifestation
   end
 
   def removable?

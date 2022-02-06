@@ -174,7 +174,7 @@ class ResourceImportFile < ApplicationRecord
             import_result.error_message = "line #{row_num}: #{I18n.t('import.isbn_record_not_found')}"
           end
         end
-        if manifestation.nil? and row['ndl_bib_id']
+        if manifestation.nil? && row['ndl_bib_id']
           manifestation = Manifestation.import_ndl_bib_id(row['ndl_bib_id'])
           if manifestation
             num[:manifestation_imported] += 1
@@ -442,6 +442,7 @@ class ResourceImportFile < ApplicationRecord
   end
 
   private
+
   def open_import_file(tempfile)
     file = CSV.open(tempfile, col_sep: "\t")
     header_columns = %w(
@@ -671,13 +672,13 @@ class ResourceImportFile < ApplicationRecord
 
     creators = row['creator'].to_s.split('//')
     creator_transcriptions = row['creator_transcription'].to_s.split('//')
-    creators_list = creators.zip(creator_transcriptions).map{|f,t| {full_name: f.to_s.strip, full_name_transcription: t.to_s.strip}}
+    creators_list = creators.zip(creator_transcriptions).map{|f, t| {full_name: f.to_s.strip, full_name_transcription: t.to_s.strip}}
     contributors = row['contributor'].to_s.split('//')
     contributor_transcriptions = row['contributor_transcription'].to_s.split('//')
-    contributors_list = contributors.zip(contributor_transcriptions).map{|f,t| {full_name: f.to_s.strip, full_name_transcription: t.to_s.strip}}
+    contributors_list = contributors.zip(contributor_transcriptions).map{|f, t| {full_name: f.to_s.strip, full_name_transcription: t.to_s.strip}}
     publishers = row['publisher'].to_s.split('//')
     publisher_transcriptions = row['publisher_transcription'].to_s.split('//')
-    publishers_list = publishers.zip(publisher_transcriptions).map{|f,t| {full_name: f.to_s.strip, full_name_transcription: t.to_s.strip}}
+    publishers_list = publishers.zip(publisher_transcriptions).map{|f, t| {full_name: f.to_s.strip, full_name_transcription: t.to_s.strip}}
     ResourceImportFile.transaction do
       creator_agents = Agent.import_agents(creators_list)
       contributor_agents = Agent.import_agents(contributors_list)

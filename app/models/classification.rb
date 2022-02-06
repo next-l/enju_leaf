@@ -2,8 +2,7 @@ class Classification < ApplicationRecord
   belongs_to :classification_type
   belongs_to :manifestation, touch: true, optional: true
 
-  validates_associated :classification_type
-  validates_presence_of :category, :classification_type
+  validates :category, presence: true
   searchable do
     text :category, :note
     integer :classification_type_id

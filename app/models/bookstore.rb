@@ -3,7 +3,7 @@ class Bookstore < ApplicationRecord
   has_many :items
 
   acts_as_list
-  validates_presence_of :name
+  validates :name, presence: true
   validates :url, url: true, allow_blank: true, length: { maximum: 255 }
 
   paginates_per 10

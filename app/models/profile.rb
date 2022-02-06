@@ -5,14 +5,13 @@ class Profile < ApplicationRecord
   belongs_to :user, dependent: :destroy, optional: true
   belongs_to :library
   belongs_to :user_group
-  belongs_to :required_role, class_name: 'Role', foreign_key: 'required_role_id' #, validate: true
+  belongs_to :required_role, class_name: 'Role', foreign_key: 'required_role_id'
   has_many :identities
   has_many :agents
   accepts_nested_attributes_for :identities, allow_destroy: true, reject_if: :all_blank
 
-  validates_associated :user_group, :library
   validates :user, uniqueness: true, associated: true, allow_blank: true
-  validates_presence_of :user_group, :library, :locale #, :user_number
+  validates :locale, presence: true
   validates :user_number, uniqueness: true, format: { with: /\A[0-9A-Za-z_]+\z/ }, allow_blank: true
   validates :user_id, uniqueness: true, allow_blank: true
   validates :birth_date, format: { with: /\A\d{4}-\d{1,2}-\d{1,2}\z/ }, allow_blank: true

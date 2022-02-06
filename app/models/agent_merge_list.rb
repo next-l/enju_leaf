@@ -1,7 +1,7 @@
 class AgentMergeList < ApplicationRecord
   has_many :agent_merges, dependent: :destroy
   has_many :agents, through: :agent_merges
-  validates_presence_of :title
+  validates :title, presence: true
 
   paginates_per 10
 

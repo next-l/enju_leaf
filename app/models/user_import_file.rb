@@ -87,7 +87,7 @@ class UserImportFile < ApplicationRecord
         profile.assign_attributes(set_profile_params(row))
 
         Profile.transaction do
-          if new_user.valid? and profile.valid?
+          if new_user.valid? && profile.valid?
             new_user.profile = profile
             import_result.user = new_user
             import_result.save!
@@ -153,7 +153,7 @@ class UserImportFile < ApplicationRecord
         new_user.assign_attributes(set_user_params(row))
         new_user.profile.assign_attributes(set_profile_params(row))
         Profile.transaction do
-          if new_user.save and new_user.profile.save
+          if new_user.save && new_user.profile.save
             num[:user_updated] += 1
             import_result.user = new_user
             import_result.save!

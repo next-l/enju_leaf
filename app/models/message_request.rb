@@ -5,13 +5,11 @@ class MessageRequest < ApplicationRecord
   ]
   scope :not_sent, -> {in_state(:pending).where('sent_at IS NULL')}
   scope :sent, -> {in_state(:sent)}
-  belongs_to :message_template, validate: true
-  belongs_to :sender, class_name: "User", foreign_key: "sender_id", validate: true
-  belongs_to :receiver, class_name: "User", foreign_key: "receiver_id", validate: true
+  belongs_to :message_template
+  belongs_to :sender, class_name: "User", foreign_key: "sender_id"
+  belongs_to :receiver, class_name: "User", foreign_key: "receiver_id"
   has_many :messages
 
-  validates_associated :sender, :receiver, :message_template
-  validates :sender, :receiver, :message_template, presence: true
   validates :body, presence: { on: :update }
 
   paginates_per 10
@@ -43,7 +41,8 @@ class MessageRequest < ApplicationRecord
         end
       end
     end
-    return message
+
+    message
   end
 
   def subject

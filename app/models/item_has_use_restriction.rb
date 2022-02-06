@@ -1,10 +1,8 @@
 class ItemHasUseRestriction < ApplicationRecord
-  belongs_to :item, validate: true
-  belongs_to :use_restriction, validate: true
+  belongs_to :item
+  belongs_to :use_restriction
   accepts_nested_attributes_for :use_restriction
 
-  validates_associated :item, :use_restriction
-  validates :use_restriction, presence: true
   validates :item, presence: { on: :update }
 
   paginates_per 10

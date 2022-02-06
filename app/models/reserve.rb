@@ -26,9 +26,6 @@ class Reserve < ApplicationRecord
   belongs_to :request_status_type
   belongs_to :pickup_location, class_name: 'Library', optional: true
 
-  validates_associated :user, :librarian, :request_status_type
-  validates :manifestation, associated: true # , on: :create
-  validates :user, :request_status_type, presence: true
   validates :manifestation, presence: true, unless: Proc.new{|reserve|
     reserve.completed?
   }
@@ -139,6 +136,7 @@ class Reserve < ApplicationRecord
 
   def retained_by_other_user?
     return nil if force_retaining == '1'
+
     if item && !retained?
       if Reserve.retained.where(item_id: item.id).count > 0
         errors.add(:base, I18n.t('reserve.attempt_to_update_retained_reservation'))
@@ -311,6 +309,7 @@ class Reserve < ApplicationRecord
 
   def retained?
     return true if current_state == 'retained'
+
     false
   end
 

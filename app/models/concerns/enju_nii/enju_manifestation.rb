@@ -38,7 +38,7 @@ module EnjuNii
         pub_date = doc.at('//dc:date').try(:content)
         if pub_date
           date = pub_date.split('-')
-          if date[0] and date[1]
+          if date[0] && date[1]
             date = sprintf("%04d-%02d", date[0], date[1])
           else
             date = pub_date
@@ -200,7 +200,7 @@ module EnjuNii
 
       def create_cinii_series_statements(doc, manifestation)
         series = doc.at("//dcterms:isPartOf")
-        if series and parent_url = series["rdf:resource"]
+        if series && parent_url = series["rdf:resource"]
           ptbl = series["dc:title"]
           parent_url = parent_url.gsub(/\#\w+\Z/, "")
           conn = Faraday.new("#{parent_url}.rdf") do |faraday|

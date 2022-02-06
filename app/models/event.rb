@@ -1,12 +1,20 @@
 class Event < ApplicationRecord
   scope :closing_days, -> { includes(:event_category).where('event_categories.name' => 'closed') }
-  scope :on, lambda {|datetime| where('start_at >= ? AND start_at < ?', datetime.beginning_of_day, datetime.tomorrow.beginning_of_day + 1)}
-  scope :past, lambda {|datetime| where('end_at <= ?', Time.zone.parse(datetime).beginning_of_day)}
-  scope :upcoming, lambda {|datetime| where('start_at >= ?', Time.zone.parse(datetime).beginning_of_day)}
-  scope :at, lambda {|library| where(library_id: library.id)}
+  scope :on, lambda {|datetime|
+    where('start_at >= ? AND start_at < ?', datetime.beginning_of_day, datetime.tomorrow.beginning_of_day + 1)
+  }
+  scope :past, lambda {|datetime|
+    where('end_at <= ?', Time.zone.parse(datetime).beginning_of_day)
+  }
+  scope :upcoming, lambda {|datetime|
+    where('start_at >= ?', Time.zone.parse(datetime).beginning_of_day)
+  }
+  scope :at, lambda {|library|
+    where(library_id: library.id)
+  }
 
-  belongs_to :event_category, validate: true
-  belongs_to :library, validate: true
+  belongs_to :event_category
+  belongs_to :library
   belongs_to :place, optional: true
   has_many :picture_files, as: :picture_attachable
   has_many :participates, dependent: :destroy
@@ -22,8 +30,7 @@ class Event < ApplicationRecord
     time :end_at
   end
 
-  validates :name, :library, :event_category, :start_at, :end_at, presence: true
-  validates_associated :library, :event_category
+  validates :name, :start_at, :end_at, presence: true
   validate :check_date
   before_validation :set_date
   before_validation :set_display_name, on: :create
@@ -37,14 +44,14 @@ class Event < ApplicationRecord
   end
 
   def set_all_day
-    if start_at and end_at
+    if start_at && end_at
       self.start_at = start_at.beginning_of_day
       self.end_at = end_at.end_of_day
     end
   end
 
   def check_date
-    if start_at and end_at
+    if start_at && end_at
       if start_at >= end_at
         errors.add(:start_at)
         errors.add(:end_at)
@@ -85,7 +92,7 @@ class Event < ApplicationRecord
   # @param [String] role 権限
   # @param [String] col_sep 区切り文字
   def self.export(role: 'Guest', col_sep: "\t")
-    file = Tempfile.create('event_export') do |f|
+    Tempfile.create('event_export') do |f|
       f.write Event.csv_header(role: role).to_csv(col_sep: col_sep)
       Event.find_each do |event|
         f.write event.to_hash(role: role).values.to_csv(col_sep: col_sep)

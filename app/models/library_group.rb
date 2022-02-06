@@ -9,8 +9,8 @@ class LibraryGroup < ApplicationRecord
 
   validates :url, presence: true, url: true
   validates :max_number_of_results, numericality: {
-      greater_than_or_equal_to: 0
-    }
+    greater_than_or_equal_to: 0
+  }
   accepts_nested_attributes_for :colors, update_only: true
   accepts_nested_attributes_for :user, update_only: true
   store :settings, accessors: [
@@ -65,14 +65,13 @@ class LibraryGroup < ApplicationRecord
       allowed_networks = my_networks.to_s.split
     end
     allowed_networks.each do |allowed_network|
-      begin
-        network = IPAddr.new(allowed_network)
-        return true if network.include?(client_ip)
-      rescue ArgumentError
-        nil
-      end
+      network = IPAddr.new(allowed_network)
+      return true if network.include?(client_ip)
+    rescue ArgumentError
+      nil
     end
-    return false
+
+    false
   end
 end
 

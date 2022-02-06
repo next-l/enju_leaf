@@ -15,10 +15,9 @@ class Checkout < ApplicationRecord
   belongs_to :shelf, optional: true
   belongs_to :library, optional: true
 
-  validates_associated :user, :item, :librarian, :checkin # , :basket
   # TODO: 貸出履歴を保存しない場合は、ユーザ名を削除する
-  # validates_presence_of :user, :item, :basket
-  validates :item_id, :basket_id, :due_date, presence: true
+  # validates :user, :item, :basket, presence: true
+  validates :due_date, presence: true
   validates :item_id, uniqueness: { scope: [:basket_id, :user_id] }
   validate :is_not_checked?, on: :create
   validate :renewable?, on: :update

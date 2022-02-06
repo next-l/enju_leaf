@@ -228,8 +228,7 @@ class Manifestation < ApplicationRecord
   end
   do_not_validate_attachment_file_type :attachment
 
-  validates_presence_of :original_title, :carrier_type, :language
-  validates_associated :carrier_type, :language
+  validates :original_title, presence: true
   validates :start_page, numericality: {greater_than_or_equal_to: 0}, allow_blank: true
   validates :end_page, numericality: {greater_than_or_equal_to: 0}, allow_blank: true
   validates :height, numericality: {greater_than_or_equal_to: 0}, allow_blank: true

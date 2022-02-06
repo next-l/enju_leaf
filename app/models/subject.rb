@@ -4,8 +4,7 @@ class Subject < ApplicationRecord
   belongs_to :subject_heading_type
   belongs_to :required_role, class_name: 'Role', foreign_key: 'required_role_id'
 
-  validates_associated :subject_type, :subject_heading_type
-  validates_presence_of :term, :subject_type_id, :subject_heading_type_id
+  validates :term, :subject_type_id, :subject_heading_type_id, presence: true
 
   searchable do
     text :term
