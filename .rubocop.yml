@@ -54,3 +54,5 @@ Style/IfUnlessModifier:
   Enabled: false
 Style/PercentLiteralDelimiters:
   Enabled: false
+Rails/InverseOf:
+  Enabled: false

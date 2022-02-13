@@ -30,6 +30,7 @@ class Role < ApplicationRecord
   end
 
   private
+
   def valid_name?
     true
   end

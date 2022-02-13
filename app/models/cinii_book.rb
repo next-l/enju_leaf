@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 class CiniiBook
   attr_reader :title, :creator, :publisher, :link, :ncid, :issued
 

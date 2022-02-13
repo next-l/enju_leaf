@@ -193,7 +193,7 @@ class EventImportFile < ApplicationRecord
     if [field['name']].reject{|f| f.to_s.strip == ""}.empty?
       raise "You should specify a name in the first line"
     end
-    if [field['start_at'], field['end_at']].reject{|field| field.to_s.strip == ""}.empty?
+    if [field['start_at'], field['end_at']].reject{|f| f.to_s.strip == ""}.empty?
       raise "You should specify dates in the first line"
     end
   end

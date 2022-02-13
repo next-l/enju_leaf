@@ -22,7 +22,7 @@ class SearchEngine < ApplicationRecord
         p = param.split('=')
         params[p[0].to_sym] = p[1]
       end
-      return params
+      params
     end
   end
 end

@@ -174,7 +174,7 @@ class Manifestation < ApplicationRecord
         end
       end
     end
-    text :isbn do  # 前方一致検索のためtext指定を追加
+    text :isbn do # 前方一致検索のためtext指定を追加
       isbn_characters
     end
     text :issn do # 前方一致検索のためtext指定を追加
@@ -257,6 +257,7 @@ class Manifestation < ApplicationRecord
 
   def set_date_of_publication
     return if pub_date.blank?
+
     year = Time.utc(pub_date.rjust(4, "0")).year rescue nil
     begin
       date = Time.zone.parse(pub_date.rjust(4, "0"))
@@ -356,6 +357,7 @@ class Manifestation < ApplicationRecord
   # TODO: よりよい推薦方法
   def self.pickup(keyword = nil, current_user = nil)
     return nil if self.cached_numdocs < 5
+
     if current_user&.role
       current_role_id = current_user.role.id
     else
@@ -375,6 +377,7 @@ class Manifestation < ApplicationRecord
   def extract_text
     return nil if attachment.path.nil?
     return nil unless ENV['ENJU_EXTRACT_TEXT'] == 'true'
+
     if ENV['ENJU_STORAGE'] == 's3'
       body = Faraday.get(attachment.expiring_url(10)).body.force_encoding('UTF-8')
     else
@@ -428,6 +431,7 @@ class Manifestation < ApplicationRecord
   def self.find_by_isbn(isbn)
     identifier_type = IdentifierType.find_by(name: 'isbn')
     return nil unless identifier_type
+
     Manifestation.includes(identifiers: :identifier_type).where("identifiers.body": isbn, "identifier_types.name": 'isbn')
   end
 
@@ -488,6 +492,7 @@ class Manifestation < ApplicationRecord
 
   def pub_dates
     return [] unless pub_date
+
     pub_date_array = pub_date.split(';')
     pub_date_array.map{|pub_date_string|
       date = nil

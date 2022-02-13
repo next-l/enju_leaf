@@ -135,6 +135,7 @@ module EnjuSeed
     def has_role?(role_in_question)
       return false unless role
       return true if role.name == role_in_question
+
       case role.name
       when 'Administrator'
         return true
@@ -165,6 +166,7 @@ module EnjuSeed
     # @return [Object]
     def check_expiration
       return if has_role?('Administrator')
+
       if expired_at
         if expired_at.beginning_of_day < Time.zone.now.beginning_of_day
           lock_access! if active_for_authentication?
@@ -211,6 +213,7 @@ module EnjuSeed
       if has_role?('Librarian')
         role = Role.find_by(name: 'Librarian')
         return true if role.users.count == 1
+
         false
       end
     end
@@ -224,6 +227,7 @@ module EnjuSeed
     # @return [Object]
     def deletable_by?(current_user)
       return nil unless current_user
+
       if defined?(EnjuCirculation)
         # 未返却の資料のあるユーザを削除しようとした
         if checkouts.count > 0

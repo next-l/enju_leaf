@@ -2,7 +2,7 @@ module CalculateStat
   extend ActiveSupport::Concern
 
   included do
-    validates_presence_of :start_date, :end_date
+    validates :start_date, :end_date, presence: true
     validate :check_date
 
     # 利用統計の集計を開始します。

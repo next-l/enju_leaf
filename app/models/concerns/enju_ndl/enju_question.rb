@@ -17,7 +17,7 @@ module EnjuNdl
         delimiter = '.'
         url = "http://crd.ndl.go.jp/refapi/servlet/refapi.RSearchAPI?query=#{Addressable::URI.encode(query.join(delimiter))}&query_logic=#{params[:query_logic]}&results_get_position=#{params[:results_get_position]}&results_num=#{params[:results_num]}&sort=#{params[:sort]}"
 
-        open(url).read.to_s
+        URI.parse(url).open.read
       end
 
       def self.search_crd(options)

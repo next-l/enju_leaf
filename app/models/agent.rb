@@ -40,17 +40,17 @@ class Agent < ApplicationRecord
   before_validation :set_role_and_name, on: :create
   before_save :set_date_of_birth, :set_date_of_death
   after_save do |agent|
-    agent.works.map{|work| work.touch; work.index}
-    agent.expressions.map{|expression| expression.touch; expression.index}
-    agent.manifestations.map{|manifestation| manifestation.touch; manifestation.index}
-    agent.items.map{|item| item.touch; item.index}
+    agent.works.map{|work| work.touch && work.index}
+    agent.expressions.map{|expression| expression.touch && expression.index}
+    agent.manifestations.map{|manifestation| manifestation.touch && manifestation.index}
+    agent.items.map{|item| item.touch && item.index}
     Sunspot.commit
   end
   after_destroy do |agent|
-    agent.works.map{|work| work.touch; work.index}
-    agent.expressions.map{|expression| expression.touch; expression.index}
-    agent.manifestations.map{|manifestation| manifestation.touch; manifestation.index}
-    agent.items.map{|item| item.touch; item.index}
+    agent.works.map{|work| work.touch && work.index}
+    agent.expressions.map{|expression| expression.touch && expression.index}
+    agent.manifestations.map{|manifestation| manifestation.touch && manifestation.index}
+    agent.items.map{|item| item.touch && item.index}
     Sunspot.commit
   end
 
@@ -235,7 +235,7 @@ class Agent < ApplicationRecord
           full_name_transcription: agent_list[:full_name_transcription],
           agent_identifier: agent_list[:agent_identifier],
           place: agent_list[:place],
-          language_id: 1,
+          language_id: 1
         )
         agent.required_role = Role.find_by(name: 'Guest')
         agent.save

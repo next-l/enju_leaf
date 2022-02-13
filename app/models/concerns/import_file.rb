@@ -78,7 +78,7 @@ module ImportFile
       tempfile.write Faraday.get(attachment.expiring_url(10)).body.force_encoding('UTF-8')
     else
       uploaded_file_path = attachment.path
-      open(uploaded_file_path){|f|
+      File.open(uploaded_file_path){|f|
         f.each{|line|
           tempfile.puts(convert_encoding(line))
         }

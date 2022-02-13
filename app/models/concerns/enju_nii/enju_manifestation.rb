@@ -121,7 +121,7 @@ module EnjuNii
         end
         url = "https://ci.nii.ac.jp/books/opensearch/search?q=#{CGI.escape(query)}&p=#{options[:p]}&count=#{options[:count]}&format=rss"
         if options[:raw] == true
-          URI.open(url).read
+          URI.parse(url).open.read
         else
           RSS::RDF::Channel.install_text_element("opensearch:totalResults", "http://a9.com/-/spec/opensearch/1.1/", "?", "totalResults", :text, "opensearch:totalResults")
           RSS::BaseListener.install_get_text_element("http://a9.com/-/spec/opensearch/1.1/", "totalResults", "totalResults=")
@@ -131,7 +131,7 @@ module EnjuNii
 
       def return_rdf(isbn)
         rss = self.search_cinii_by_isbn(isbn)
-        if rss.channel.totalResults.to_i == 0
+        if rss.channel.totalResults.to_i.zero?
           rss = self.search_cinii_by_isbn(cinii_normalize_isbn(isbn))
         end
         if rss.items.first

@@ -274,7 +274,7 @@ module EnjuNdl
 
       def return_xml(isbn)
         rss = search_ndl(isbn, dpid: 'iss-ndl-opac', item: 'isbn')
-        if rss.channel.totalResults.to_i == 0
+        if rss.channel.totalResults.to_i.zero?
           isbn = normalize_isbn(isbn)
           rss = search_ndl(isbn, dpid: 'iss-ndl-opac', item: 'isbn')
         end

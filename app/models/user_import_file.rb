@@ -283,16 +283,10 @@ class UserImportFile < ApplicationRecord
   # @param [Hash] row 利用者情報のハッシュ
   def set_profile_params(row)
     params = {}
-    user_group = UserGroup.find_by(name: row['user_group'])
-    unless user_group
-      user_group = default_user_group
-    end
+    user_group = UserGroup.find_by(name: row['user_group']) || default_user_group
     params[:user_group_id] = user_group.id if user_group
 
-    required_role = Role.find_by(name: row['required_role'])
-    unless required_role
-      required_role = Role.find_by(name: 'Librarian')
-    end
+    required_role = Role.find_by(name: row['required_role']) || Role.find_by(name: 'Librarian')
     params[:required_role_id] = required_role.id if required_role
 
     params[:user_number] = row['user_number'] if row['user_number']
@@ -313,10 +307,7 @@ class UserImportFile < ApplicationRecord
       params[:locale] = row['locale']
     end
 
-    library = Library.find_by(name: row['library'].to_s.strip)
-    unless library
-      library = default_library || Library.web
-    end
+    library = Library.find_by(name: row['library'].to_s.strip) || default_library || Library.web
     params[:library_id] = library.id if library
 
     if defined?(EnjuCirculation)

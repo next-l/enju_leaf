@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 module CiniiBooksHelper
   def link_to_import_from_cinii(ncid)
     if ncid.blank?

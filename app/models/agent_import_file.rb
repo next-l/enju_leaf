@@ -115,20 +115,21 @@ class AgentImportFile < ApplicationRecord
     rows.each do |row|
       row_num += 1
       next if row['dummy'].to_s.strip.present?
+
       agent = Agent.find_by(id: row['id'])
-      if agent
-        agent.full_name = row['full_name'] if row['full_name'].to_s.strip.present?
-        agent.full_name_transcription = row['full_name_transcription'] if row['full_name_transcription'].to_s.strip.present?
-        agent.first_name = row['first_name'] if row['first_name'].to_s.strip.present?
-        agent.first_name_transcription = row['first_name_transcription'] if row['first_name_transcription'].to_s.strip.present?
-        agent.middle_name = row['middle_name'] if row['middle_name'].to_s.strip.present?
-        agent.middle_name_transcription = row['middle_name_transcription'] if row['middle_name_transcription'].to_s.strip.present?
-        agent.last_name = row['last_name'] if row['last_name'].to_s.strip.present?
-        agent.last_name_transcription = row['last_name_transcription'] if row['last_name_transcription'].to_s.strip.present?
-        agent.address_1 = row['address_1'] if row['address_1'].to_s.strip.present?
-        agent.address_2 = row['address_2'] if row['address_2'].to_s.strip.present?
-        agent.save!
-      end
+      next unless agent
+
+      agent.full_name = row['full_name'] if row['full_name'].to_s.strip.present?
+      agent.full_name_transcription = row['full_name_transcription'] if row['full_name_transcription'].to_s.strip.present?
+      agent.first_name = row['first_name'] if row['first_name'].to_s.strip.present?
+      agent.first_name_transcription = row['first_name_transcription'] if row['first_name_transcription'].to_s.strip.present?
+      agent.middle_name = row['middle_name'] if row['middle_name'].to_s.strip.present?
+      agent.middle_name_transcription = row['middle_name_transcription'] if row['middle_name_transcription'].to_s.strip.present?
+      agent.last_name = row['last_name'] if row['last_name'].to_s.strip.present?
+      agent.last_name_transcription = row['last_name_transcription'] if row['last_name_transcription'].to_s.strip.present?
+      agent.address_1 = row['address_1'] if row['address_1'].to_s.strip.present?
+      agent.address_2 = row['address_2'] if row['address_2'].to_s.strip.present?
+      agent.save!
     end
     transition_to!(:completed)
     mailer = AgentImportMailer.completed(self)
@@ -150,12 +151,13 @@ class AgentImportFile < ApplicationRecord
     rows.each do |row|
       row_num += 1
       next if row['dummy'].to_s.strip.present?
+
       agent = Agent.find_by(id: row['id'].to_s.strip)
-      if agent
-        agent.picture_files.destroy_all
-        agent.reload
-        agent.destroy
-      end
+      next unless agent
+
+      agent.picture_files.destroy_all
+      agent.reload
+      agent.destroy
     end
     transition_to!(:completed)
     mailer = AgentImportMailer.completed(self)
@@ -177,7 +179,7 @@ class AgentImportFile < ApplicationRecord
     else
       uploaded_file_path = agent_import.path
     end
-    open(uploaded_file_path){|f|
+    File.open(uploaded_file_path){|f|
       f.each{|line|
         tempfile.puts(convert_encoding(line))
       }
@@ -221,9 +223,7 @@ class AgentImportFile < ApplicationRecord
     # else
     #   agent.required_role = Role.where(name: row['required_role'].to_s.strip.camelize).first || Role.where('Librarian').first
     # end
-    language = Language.find_by(name: row['language'].to_s.strip.camelize)
-    language = Language.find_by(iso_639_2: row['language'].to_s.strip.downcase) unless language
-    language = Language.find_by(iso_639_1: row['language'].to_s.strip.downcase) unless language
+    language = Language.find_by(name: row['language'].to_s.strip.camelize) || Language.find_by(iso_639_2: row['language'].to_s.strip.downcase) || Language.find_by(iso_639_1: row['language'].to_s.strip.downcase)
     agent.language = language if language
     country = Country.find_by(name: row['country'].to_s.strip)
     agent.country = country if country
