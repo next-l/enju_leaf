@@ -1,4 +1,13 @@
-title	isbn	item_identifier	call_number	created_at
-<%- @items.each do |item| -%>
-"<%=h item.manifestation.original_title.gsub(/"/, '""') if item.manifestation -%>"	<%=h item.manifestation.identifier_contents(:isbn).join("; ") %>	<%=h item.item_identifier -%>	<%=h item.call_number -%>	<%=h item.created_at %><%= "\n" -%>
-<%- end -%>
+csv = %w[title isbn item_identifier call_number created_at].to_csv(col_sep: "\t")
+
+@items.map{|item|
+  [
+    item.manifestation.original_title,
+    item.manifestation.identifier_contents(:isbn).join("; "),
+    item.item_identifier,
+    item.call_number,
+    item.created_at
+  ]
+}
+
+csv
