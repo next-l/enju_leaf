@@ -47,9 +47,8 @@ class ReservesController < ApplicationController
       search.build do
         with(:hold).equal_to true
       end
-    else
-      if @user
-        user = @user
+    elsif @user
+      user = @user
         if current_user.has_role?('Librarian')
           search.build do
             with(:username).equal_to user.username
@@ -64,7 +63,6 @@ class ReservesController < ApplicationController
             with(:username).equal_to current_user.username
           end
         end
-      end
     end
 
     begin
@@ -167,13 +165,11 @@ class ReservesController < ApplicationController
       unless @reserve.user
         @reserve.user = @user
       end
-    else
-      if @reserve.user != current_user
-        if @user != current_user
+    elsif @reserve.user != current_user
+      if @user != current_user
           access_denied
           return
         end
-      end
     end
 
     respond_to do |format|
@@ -204,14 +200,13 @@ class ReservesController < ApplicationController
     if @reserve.valid?
       if params[:mode] == 'cancel'
         @reserve.transition_to!(:canceled)
-      else
-        if @reserve.retained?
-          if @reserve.item_identifier.present? && (@reserve.force_retaining == '1')
+      elsif @reserve.retained?
+        if @reserve.item_identifier.present? && (@reserve.force_retaining == '1')
             @reserve.transition_to!(:retained)
           end
-        else
-          @reserve.transition_to!(:retained) if @reserve.item_identifier.present?
-        end
+        elsif @reserve.item_identifier.present?
+          @reserve.transition_to!(:retained)
+end
       end
     end
 

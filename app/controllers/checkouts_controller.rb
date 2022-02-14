@@ -38,14 +38,12 @@ class CheckoutsController < ApplicationController
           search.build do
             with(:username).equal_to user.username
           end
+        elsif current_user == user
+          redirect_to checkouts_url(format: params[:format])
+          return
         else
-          if current_user == user
-            redirect_to checkouts_url(format: params[:format])
-            return
-          else
-            access_denied
-            return
-          end
+          access_denied
+          return
         end
       else
         unless current_user.try(:has_role?, 'Librarian')

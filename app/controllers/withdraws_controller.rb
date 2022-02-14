@@ -16,12 +16,10 @@ class WithdrawsController < ApplicationController
 
       if item
         @withdraws = Withdraw.order('withdraws.created_at DESC').where(item_id: item.id).page(params[:page])
+      elsif @basket
+        @withdraws = @basket.withdraws.order('withdraws.created_at DESC').page(params[:page])
       else
-        if @basket
-          @withdraws = @basket.withdraws.order('withdraws.created_at DESC').page(params[:page])
-        else
-          @withdraws = Withdraw.order('withdraws.created_at DESC').page(params[:page])
-        end
+        @withdraws = Withdraw.order('withdraws.created_at DESC').page(params[:page])
       end
     end
 

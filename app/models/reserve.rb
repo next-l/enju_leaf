@@ -26,14 +26,14 @@ class Reserve < ApplicationRecord
   belongs_to :request_status_type
   belongs_to :pickup_location, class_name: 'Library', optional: true
 
-  validates :manifestation, presence: true, unless: Proc.new{|reserve|
+  validates :manifestation, presence: true, unless: proc{|reserve|
     reserve.completed?
   }
   # validates_uniqueness_of :manifestation_id, scope: :user_id
   validates_date :expired_at, allow_blank: true
   validate :manifestation_must_include_item
   validate :available_for_reservation?, on: :create
-  validates :item_id, presence: true, if: Proc.new{|reserve|
+  validates :item_id, presence: true, if: proc{|reserve|
     if item_id_changed?
       if reserve.completed? || reserve.retained?
         if item_id_change[0]
@@ -46,10 +46,8 @@ class Reserve < ApplicationRecord
           false
         end
       end
-    else
-      if reserve.retained?
-        true
-      end
+    elsif reserve.retained?
+      true
     end
   }
   validate :valid_item?

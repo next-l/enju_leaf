@@ -3,8 +3,8 @@ class Own < ApplicationRecord
   belongs_to :item
 
   validates :item_id, uniqueness: { scope: :agent_id }
-  after_save :reindex
   after_destroy :reindex
+  after_save :reindex
 
   acts_as_list scope: :item
 

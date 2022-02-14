@@ -31,7 +31,7 @@ class ResourceImportFile < ApplicationRecord
   ]
   validates_attachment_presence :resource_import
   validates :resource_import, presence: true, on: :create
-  validates :default_shelf_id, presence: true, if: Proc.new{|model| model.edit_mode == 'create'}
+  validates :default_shelf_id, presence: true, if: proc{|model| model.edit_mode == 'create'}
   belongs_to :user
   belongs_to :default_shelf, class_name: 'Shelf', optional: true
   has_many :resource_import_results, dependent: :destroy
@@ -599,9 +599,9 @@ class ResourceImportFile < ApplicationRecord
     if row['include_supplements']
       if %w(t true).include?(row['include_supplements'].downcase.strip)
         item.include_supplements = true
-      else
-        item.include_supplements = false if item.include_supplements
-      end
+      elsif item.include_supplements
+        item.include_supplements = false
+end
     end
 
     item

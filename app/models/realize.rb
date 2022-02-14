@@ -4,8 +4,8 @@ class Realize < ApplicationRecord
   belongs_to :realize_type, optional: true
 
   validates :expression_id, uniqueness: { scope: :agent_id }
-  after_save :reindex
   after_destroy :reindex
+  after_save :reindex
 
   acts_as_list scope: :expression
 

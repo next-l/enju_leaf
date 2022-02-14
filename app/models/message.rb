@@ -10,9 +10,10 @@ class Message < ApplicationRecord
   validates :subject, :body, presence: true # , :sender
   validates :receiver, presence: { message: :invalid }
   before_validation :set_receiver
-  after_save :index
-  after_destroy :remove_from_index
   after_create :send_notification
+  after_create :set_default_state
+  after_destroy :remove_from_index
+  after_save :index
 
   acts_as_nested_set
   attr_accessor :recipient
@@ -35,7 +36,6 @@ class Message < ApplicationRecord
 
   paginates_per 10
   has_many :message_transitions, autosave: false
-  after_create :set_default_state
 
   def state_machine
     @state_machine ||= MessageStateMachine.new(self, transition_class: MessageTransition)

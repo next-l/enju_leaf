@@ -242,10 +242,10 @@ class Manifestation < ApplicationRecord
   validates :volume_number, numericality: {greater_than_or_equal_to: 0}, allow_blank: true
   validates :serial_number, numericality: {greater_than_or_equal_to: 0}, allow_blank: true
   validates :edition, numericality: {greater_than_or_equal_to: 0}, allow_blank: true
-  after_create :clear_cached_numdocs
   before_save :set_date_of_publication, :set_number
-  after_save :index_series_statement, :extract_text!
+  after_create :clear_cached_numdocs
   after_destroy :index_series_statement
+  after_save :index_series_statement, :extract_text!
   after_touch do |manifestation|
     manifestation.index
     manifestation.index_series_statement
@@ -421,12 +421,10 @@ class Manifestation < ApplicationRecord
       else
         root_series_statement.original_title
       end
-    else
-      if title_transcription?
-        NKF.nkf('-w --katakana', title_transcription)
+    elsif title_transcription?
+      NKF.nkf('-w --katakana', title_transcription)
       else
         original_title
-      end
     end
   end
 

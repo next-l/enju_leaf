@@ -100,10 +100,8 @@ class ManifestationsController < ApplicationController
             #else
             #  with(:serial).equal_to false
             #end
-          else
-            if mode != 'add'
-              with(:resource_master).equal_to true
-            end
+          elsif mode != 'add'
+            with(:resource_master).equal_to true
           end
         end
         facet :reservable if defined?(EnjuCirculation)
@@ -148,15 +146,13 @@ class ManifestationsController < ApplicationController
         @search_query = Digest::SHA1.hexdigest(Marshal.dump(search.query.to_params).force_encoding('UTF-8'))
         if flash[:search_query] == @search_query
           flash.keep(:search_query)
+        elsif @series_statement
+          flash.keep(:search_query)
         else
-          if @series_statement
-            flash.keep(:search_query)
-          else
-            flash[:search_query] = @search_query
-            @manifestation_ids = search.build do
-              paginate page: 1, per_page: @max_number_of_results
-            end.execute.raw_results.collect(&:primary_key).map{|id| id.to_i}
-          end
+          flash[:search_query] = @search_query
+          @manifestation_ids = search.build do
+            paginate page: 1, per_page: @max_number_of_results
+          end.execute.raw_results.collect(&:primary_key).map{|id| id.to_i}
         end
 
         if defined?(EnjuBookmark)
@@ -329,10 +325,8 @@ class ManifestationsController < ApplicationController
         if @manifestation.attachment.path
           if ENV['ENJU_STORAGE'] == 's3'
             send_data data, filename: File.basename(@manifestation.attachment_file_name), type: 'application/octet-stream'
-          else
-            if File.exist?(file) && File.file?(file)
-              send_file file, filename: File.basename(@manifestation.attachment_file_name), type: 'application/octet-stream'
-            end
+          elsif File.exist?(file) && File.file?(file)
+            send_file file, filename: File.basename(@manifestation.attachment_file_name), type: 'application/octet-stream'
           end
         else
           render template: 'page/404', status: 404

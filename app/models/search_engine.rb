@@ -6,8 +6,8 @@ class SearchEngine < ApplicationRecord
   validates :http_method, presence: true, inclusion: %w(get post)
   validates :url, presence: true, url: true, length: { maximum: 255 }
   validates :base_url, presence: true, url: true, length: { maximum: 255 }
-  after_save :clear_all_cache
   after_destroy :clear_all_cache
+  after_save :clear_all_cache
 
   paginates_per 10
 

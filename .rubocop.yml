@@ -58,3 +58,5 @@ Rails/InverseOf:
   Enabled: false
 Style/SoleNestedConditional:
   Enabled: false
+Rails/ActiveRecordCallbacksOrder: # new in 2.7
+  Enabled: true

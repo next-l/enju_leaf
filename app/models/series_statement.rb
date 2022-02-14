@@ -6,8 +6,8 @@ class SeriesStatement < ApplicationRecord
   validates :original_title, presence: true
   validates :root_manifestation_id, uniqueness: true, allow_nil: true
   before_save :create_root_series_statement
-  after_save :reindex
   after_destroy :reindex
+  after_save :reindex
 
   acts_as_list
   searchable do

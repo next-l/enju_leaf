@@ -56,9 +56,9 @@ class MessagesController < ApplicationController
     @message = current_user.sent_messages.new
     if params[:recipient] && current_user.has_role?('Librarian')
       @message.recipient = params[:recipient]
-    else
-      @message.recipient = parent.sender.username if parent
-    end
+    elsif parent
+      @message.recipient = parent.sender.username
+end
     @message.receiver = User.find_by(username: @message.recipient) if @message.recipient
 
     respond_to do |format|

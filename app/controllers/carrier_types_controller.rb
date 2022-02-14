@@ -135,10 +135,8 @@ class CarrierTypesController < ApplicationController
     if @carrier_type.attachment.path
       if ENV['ENJU_STORAGE'] == 's3'
         send_data file, filename: File.basename(@carrier_type.attachment_file_name), type: @carrier_type.attachment_content_type, disposition: 'inline'
-      else
-        if File.exist?(file) && File.file?(file)
-          send_file file, filename: File.basename(@carrier_type.attachment_file_name), type: @carrier_type.attachment_content_type, disposition: 'inline'
-        end
+      elsif File.exist?(file) && File.file?(file)
+        send_file file, filename: File.basename(@carrier_type.attachment_file_name), type: @carrier_type.attachment_content_type, disposition: 'inline'
       end
     end
   end

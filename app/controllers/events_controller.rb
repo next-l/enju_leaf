@@ -75,23 +75,23 @@ class EventsController < ApplicationController
   # GET /events/new.json
   def new
     prepare_options
-     if params[:date]
-       begin
-         date = Time.zone.parse(params[:date])
-       rescue ArgumentError
-         date = Time.zone.now.beginning_of_day
-         flash[:notice] = t('page.invalid_date')
-       end
-     else
-       date = Time.zone.now.beginning_of_day
-     end
-     @event = Event.new(start_at: date, end_at: date)
-     @event.library = @library
+    if params[:date]
+      begin
+        date = Time.zone.parse(params[:date])
+      rescue ArgumentError
+        date = Time.zone.now.beginning_of_day
+        flash[:notice] = t('page.invalid_date')
+      end
+    else
+      date = Time.zone.now.beginning_of_day
+    end
+    @event = Event.new(start_at: date, end_at: date)
+    @event.library = @library
 
-     respond_to do |format|
-       format.html # new.html.erb
-       format.json { render json: @event }
-     end
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @event }
+    end
   end
 
   # GET /events/1/edit

@@ -14,8 +14,8 @@ class Country < ApplicationRecord
   validates :alpha_2, :alpha_3, :numeric_3, presence: true
   validates :name, presence: true, format: { with: /\A[0-9A-Za-z][0-9A-Za-z_\-\s,]*[0-9a-z]\Z/ }
 
-  after_save :clear_all_cache
   after_destroy :clear_all_cache
+  after_save :clear_all_cache
 
   def self.all_cache
     Rails.cache.fetch('country_all'){Country.all.to_a}

@@ -3,8 +3,8 @@ class Role < ApplicationRecord
   validates :name, presence: true, format: { with: /\A[A-Za-z][a-z_,]*[a-z]\z/ }
   has_many :user_has_roles
   has_many :users, through: :user_has_roles
-  after_save :clear_all_cache
   after_destroy :clear_all_cache
+  after_save :clear_all_cache
 
   extend FriendlyId
   friendly_id :name

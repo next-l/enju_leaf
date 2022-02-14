@@ -92,8 +92,8 @@ class MyAccountsController < ApplicationController
     @languages = Language.order(:position)
     current_user.locked = if current_user.active_for_authentication?
                             '0'
-    else
-      '1'
+                          else
+                            '1'
     end
   end
 end

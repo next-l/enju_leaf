@@ -16,12 +16,10 @@ class AcceptsController < ApplicationController
 
       if item
         @accepts = Accept.order('accepts.created_at DESC').where(item_id: item.id).page(params[:page])
+      elsif @basket
+        @accepts = @basket.accepts.order('accepts.created_at DESC').page(params[:page])
       else
-        if @basket
-          @accepts = @basket.accepts.order('accepts.created_at DESC').page(params[:page])
-        else
-          @accepts = Accept.order('accepts.created_at DESC').page(params[:page])
-        end
+        @accepts = Accept.order('accepts.created_at DESC').page(params[:page])
       end
     end
 
