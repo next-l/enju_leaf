@@ -3,7 +3,6 @@ class LendingPolicy < ApplicationRecord
   belongs_to :item
   belongs_to :user_group
 
-  validates :item, :user_group, presence: true
   validates :user_group_id, uniqueness: { scope: :item_id }
   validates_date :fixed_due_date, allow_blank: true
 

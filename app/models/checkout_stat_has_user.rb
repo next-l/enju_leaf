@@ -3,7 +3,6 @@ class CheckoutStatHasUser < ApplicationRecord
   belongs_to :user
 
   validates :user_id, uniqueness: { scope: :user_checkout_stat_id }
-  validates :user_checkout_stat_id, :user_id, presence: true
 
   paginates_per 10
 end

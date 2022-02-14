@@ -2,7 +2,7 @@ class Item < ApplicationRecord
   include EnjuLibrary::EnjuItem
   include EnjuCirculation::EnjuItem
   include EnjuInventory::EnjuItem
-  scope :on_shelf, -> { includes(:shelf).references(:shelf).where('shelves.name != ?', 'web') }
+  scope :on_shelf, -> { includes(:shelf).references(:shelf).where.not(shelves: { name: 'web' }) }
   scope :on_web, -> { includes(:shelf).references(:shelf).where('shelves.name = ?', 'web') }
   scope :available, -> {}
   scope :available_for, -> user {
@@ -28,7 +28,6 @@ class Item < ApplicationRecord
   accepts_nested_attributes_for :item_custom_values, reject_if: :all_blank
 
   scope :accepted_between, lambda{|from, to| includes(:accept).where('items.created_at BETWEEN ? AND ?', Time.zone.parse(from).beginning_of_day, Time.zone.parse(to).end_of_day)}
-  validates :manifestation_id, presence: true
   validates :item_identifier, allow_blank: true, uniqueness: true,
     format: {with: /\A[0-9A-Za-z_]+\Z/}
   validates :binding_item_identifier, allow_blank: true,

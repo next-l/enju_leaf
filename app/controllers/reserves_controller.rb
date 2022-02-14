@@ -200,13 +200,14 @@ class ReservesController < ApplicationController
     if @reserve.valid?
       if params[:mode] == 'cancel'
         @reserve.transition_to!(:canceled)
-      elsif @reserve.retained?
-        if @reserve.item_identifier.present? && (@reserve.force_retaining == '1')
+      else
+        if @reserve.retained?
+          if @reserve.item_identifier.present? && (@reserve.force_retaining == '1')
             @reserve.transition_to!(:retained)
           end
-        elsif @reserve.item_identifier.present?
-          @reserve.transition_to!(:retained)
-end
+        else
+          @reserve.transition_to!(:retained) if @reserve.item_identifier.present?
+        end
       end
     end
 

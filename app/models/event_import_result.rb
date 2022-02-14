@@ -5,8 +5,6 @@ class EventImportResult < ApplicationRecord
   belongs_to :event_import_file
   belongs_to :event, optional: true
 
-  validates :event_import_file_id, presence: true
-
   def self.header
     %w(
       id name display_name library event_category start_at end_at all_day note dummy

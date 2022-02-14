@@ -27,7 +27,7 @@ module EnjuCirculation
           'use_restrictions.name' => FOR_CHECKOUT_USE_RESTRICTION
         ).where(identifier_conditions)
       }
-      scope :on_shelf, -> { includes(:shelf).references(:shelf).where('shelves.name != ?', 'web').where.not(circulation_status_id: CirculationStatus.find_by(name: 'Removed').id) }
+      scope :on_shelf, -> { includes(:shelf).references(:shelf).where.not(shelves: { name: 'web' }).where.not(circulation_status_id: CirculationStatus.find_by(name: 'Removed').id) }
       scope :available, -> { includes(:circulation_status).where.not('circulation_statuses.name' => 'Removed') }
       scope :removed, -> { includes(:circulation_status).where('circulation_statuses.name' => 'Removed') }
 
@@ -41,7 +41,6 @@ module EnjuCirculation
       has_many :lending_policies, dependent: :destroy
       has_one :item_has_use_restriction, dependent: :destroy
       has_one :use_restriction, through: :item_has_use_restriction
-      validates :circulation_status, :checkout_type, presence: true
       validate :check_circulation_status
 
       searchable do

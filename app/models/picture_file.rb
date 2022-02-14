@@ -1,5 +1,5 @@
 class PictureFile < ApplicationRecord
-  scope :attached, -> { where('picture_attachable_id IS NOT NULL') }
+  scope :attached, -> { where.not(picture_attachable_id: nil) }
   belongs_to :picture_attachable, polymorphic: true
   before_save :extract_dimensions
 

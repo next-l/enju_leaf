@@ -4,7 +4,7 @@ class Subject < ApplicationRecord
   belongs_to :subject_heading_type
   belongs_to :required_role, class_name: 'Role'
 
-  validates :term, :subject_type_id, :subject_heading_type_id, presence: true
+  validates :term, presence: true
 
   searchable do
     text :term

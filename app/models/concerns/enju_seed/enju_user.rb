@@ -5,7 +5,7 @@ module EnjuSeed
     included do
       scope :administrators, -> { joins(:role).where('roles.name = ?', 'Administrator') }
       scope :librarians, -> { joins(:role).where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian') }
-      scope :suspended, -> { where('locked_at IS NOT NULL') }
+      scope :suspended, -> { where.not(locked_at: nil) }
       has_one :profile
       if defined?(EnjuBiblio)
         has_many :import_requests

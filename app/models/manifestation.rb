@@ -515,13 +515,13 @@ class Manifestation < ApplicationRecord
 
   def latest_issue
     if series_master?
-      derived_manifestations.where('date_of_publication IS NOT NULL').order('date_of_publication DESC').first
+      derived_manifestations.where.not(date_of_publication: nil).order('date_of_publication DESC').first
     end
   end
 
   def first_issue
     if series_master?
-      derived_manifestations.where('date_of_publication IS NOT NULL').order('date_of_publication DESC').first
+      derived_manifestations.where.not(date_of_publication: nil).order('date_of_publication DESC').first
     end
   end
 

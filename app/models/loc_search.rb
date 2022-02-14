@@ -59,9 +59,9 @@ class LocSearch
   # http://www.loc.gov/z3950/lcserver.html
   LOC_SRU_BASEURL = "http://lx2.loc.gov:210/LCDB"
   def self.make_sru_request_uri(query, options = {})
-    if options[ :page ]
-      page = options[ :page ].to_i
-      options[ :startRecord ] = (page - 1) * 10 + 1
+    if options[:page]
+      page = options[:page].to_i
+      options[:startRecord] = (page - 1) * 10 + 1
       options.delete :page
     end
     options = { maximumRecords: 10, recordSchema: :mods }.merge(options)

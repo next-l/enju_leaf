@@ -3,13 +3,13 @@ class Reserve < ApplicationRecord
     transition_class: ReserveTransition,
     initial_state: ReserveStateMachine.initial_state
   ]
-  scope :hold, -> { where('item_id IS NOT NULL') }
+  scope :hold, -> { where.not(item_id: nil) }
   scope :not_hold, -> { where(item_id: nil) }
   scope :waiting, -> {not_in_state(:completed, :expired).where('canceled_at IS NULL AND (expired_at > ? OR expired_at IS NULL)', Time.zone.now).order('reserves.id DESC')}
-  scope :retained, -> {in_state(:retained).where('retained_at IS NOT NULL')}
-  scope :completed, -> {in_state(:completed).where('checked_out_at IS NOT NULL')}
-  scope :canceled, -> {in_state(:canceled).where('canceled_at IS NOT NULL')}
-  scope :postponed, -> {in_state(:postponed).where('postponed_at IS NOT NULL')}
+  scope :retained, -> {in_state(:retained).where.not(retained_at: nil)}
+  scope :completed, -> {in_state(:completed).where.not(checked_out_at: nil)}
+  scope :canceled, -> {in_state(:canceled).where.not(canceled_at: nil)}
+  scope :postponed, -> {in_state(:postponed).where.not(postponed_at: nil)}
   scope :will_expire_retained, lambda {|datetime| in_state(:retained).where('checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ?', datetime).order('expired_at')}
   scope :will_expire_pending, lambda {|datetime| in_state(:pending).where('checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ?', datetime).order('expired_at')}
   scope :created, lambda {|start_date, end_date| where('created_at >= ? AND created_at < ?', start_date, end_date)}

@@ -3,7 +3,6 @@ class ReserveStatHasManifestation < ApplicationRecord
   belongs_to :manifestation
 
   validates :manifestation_id, uniqueness: { scope: :manifestation_reserve_stat_id }
-  validates :manifestation_reserve_stat_id, :manifestation_id, presence: true
 
   paginates_per 10
 end

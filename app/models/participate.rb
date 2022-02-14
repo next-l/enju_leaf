@@ -2,7 +2,6 @@ class Participate < ApplicationRecord
   belongs_to :agent
   belongs_to :event
 
-  validates :agent_id, :event_id, presence: true
   validates :agent_id, uniqueness: { scope: :event_id }
   acts_as_list scope: :event_id
 

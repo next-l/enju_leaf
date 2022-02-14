@@ -70,8 +70,8 @@ module EnjuLoc
         issn_l = StdNum::ISSN.normalize(doc.at('/mods:mods/mods:identifier[@type="issn-l"]', NS).try(:content).to_s)
 
         types = get_mods_carrier_and_content_types(doc)
-        content_type = types[ :content_type ]
-        carrier_type = types[ :carrier_type ]
+        content_type = types[:content_type]
+        carrier_type = types[:carrier_type]
 
         record_identifier = doc.at('//mods:recordInfo/mods:recordIdentifier', NS).try(:content)
         description = doc.xpath('//mods:abstract', NS).collect(&:content).join("\n")

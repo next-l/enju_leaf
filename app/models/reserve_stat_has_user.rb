@@ -3,7 +3,6 @@ class ReserveStatHasUser < ApplicationRecord
   belongs_to :user
 
   validates :user_id, uniqueness: { scope: :user_reserve_stat_id }
-  validates :user_reserve_stat_id, :user_id, presence: true
 
   paginates_per 10
 end
