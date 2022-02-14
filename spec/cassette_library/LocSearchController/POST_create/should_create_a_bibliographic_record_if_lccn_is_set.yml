@@ -1,0 +1,138 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://lx2.loc.gov:210/LCDB?maximumRecords=10&operation=searchRetrieve&query=bath.lccn=%22%5E2013385616%22&recordSchema=mods&version=1.1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '9468'
+      Server:
+      - Metaproxy/1.19.1
+      Connection:
+      - Keep-Alive
+      Content-Type:
+      - text/xml
+    body:
+      encoding: UTF-8
+      string: "<?xml version=\"1.0\"?>\n<zs:searchRetrieveResponse xmlns:zs=\"http://www.loc.gov/zing/srw/\"><zs:version>1.1</zs:version><zs:numberOfRecords>1</zs:numberOfRecords><zs:records><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo altRepGroup=\"01\" script=\"Latn\">\n    <title>Entotsu no mieru
+        basho</title>\n  </titleInfo>\n  <titleInfo type=\"alternative\" altRepGroup=\"15\"
+        script=\"Latn\">\n    <title>Mujaki na hitobito</title>\n  </titleInfo>\n
+        \ <name type=\"personal\" altRepGroup=\"06\" script=\"Latn\">\n    <namePart>Gosho,
+        Heinosuke</namePart>\n    <namePart type=\"date\">1902-1981</namePart>\n  </name>\n
+        \ <name type=\"personal\" altRepGroup=\"07\" script=\"Latn\">\n    <namePart>Oguni,
+        Hideo</namePart>\n    <namePart type=\"date\">1904-1996</namePart>\n  </name>\n
+        \ <name type=\"personal\" altRepGroup=\"08\" script=\"Latn\">\n    <namePart>Akutagawa,
+        Yasushi</namePart>\n    <namePart type=\"date\">1925-1989</namePart>\n  </name>\n
+        \ <name type=\"personal\" altRepGroup=\"09\" script=\"Latn\">\n    <namePart>Tanaka,
+        Kinuyo</namePart>\n    <namePart type=\"date\">1909-1977</namePart>\n  </name>\n
+        \ <name type=\"personal\" altRepGroup=\"10\" script=\"Latn\">\n    <namePart>Uehara,
+        Ken</namePart>\n    <namePart type=\"date\">1909-1991</namePart>\n  </name>\n
+        \ <name type=\"personal\" altRepGroup=\"11\" script=\"Latn\">\n    <namePart>Takamine,
+        Hideko</namePart>\n    <namePart type=\"date\">1924-2010</namePart>\n  </name>\n
+        \ <name type=\"personal\" altRepGroup=\"12\" script=\"Latn\">\n    <namePart>Akutagawa,
+        Hiroshi</namePart>\n    <namePart type=\"date\">1920-1981</namePart>\n  </name>\n
+        \ <name type=\"personal\" altRepGroup=\"13\" script=\"Latn\">\n    <namePart>Tanaka,
+        Haruo</namePart>\n    <namePart type=\"date\">1912-1992</namePart>\n  </name>\n
+        \ <name type=\"corporate\" altRepGroup=\"16\" script=\"Latn\">\n    <namePart>Shinto&#x304;ho&#x304;
+        Kabushiki Kaisha</namePart>\n  </name>\n  <typeOfResource>moving image</typeOfResource>\n
+        \ <genre authority=\"marcgt\">videorecording</genre>\n  <genre authority=\"lcgft\">Fiction
+        films.</genre>\n  <genre authority=\"lcgft\">Feature films.</genre>\n  <originInfo
+        script=\"Latn\" altRepGroup=\"02\">\n    <place>\n      <placeTerm type=\"code\"
+        authority=\"marccountry\">ja</placeTerm>\n    </place>\n    <place>\n      <placeTerm
+        type=\"text\">Tokyo]</placeTerm>\n    </place>\n    <publisher>hatsubaimoto
+        Kabushiki Kaisha IMAGICA</publisher>\n    <publisher>hanbaimoto Kabushiki
+        Kaisha Bappu</publisher>\n    <dateIssued>2005</dateIssued>\n    <issuance>monographic</issuance>\n
+        \ </originInfo>\n  <originInfo script=\"CJK\" altRepGroup=\"02\">\n    <place>\n
+        \     <placeTerm type=\"text\">[Tokyo] :</placeTerm>\n    </place>\n    <publisher>&#x767A;&#x58F2;&#x5143;&#x682A;&#x5F0F;&#x4F1A;&#x793E;IMAGICA
+        :</publisher>\n    <dateIssued>2005.</dateIssued>\n  </originInfo>\n  <language>\n
+        \   <languageTerm authority=\"iso639-2b\" type=\"code\">jpn</languageTerm>\n
+        \ </language>\n  <physicalDescription>\n    <form authority=\"gmd\">videorecording</form>\n
+        \   <form authority=\"marccategory\">videorecording</form>\n    <form authority=\"marcsmd\">videodisc</form>\n
+        \   <extent>1 DVD (108 min.) : sd., b&amp;w ; 4 3/4 in.</extent>\n  </physicalDescription>\n
+        \ <abstract type=\"Summary\">Based on \"Mujaki na hitobito\" by Shiina Rinzo&#x304;.
+        \ The big chimneys at Kitasenju in To&#x304;kyo&#x304; are called \"obake
+        entotsu (ghost chimneys)\" because the number of chimneys that are visible
+        changes according to the spot one is looking at them from. Ogata Ryu&#x304;kichi
+        is an ordinary man living where the chimneys are a part of the view. His life
+        is turned upside down when he finds a baby on the veranda of his house. Left
+        there by his wife Hiroko's former husband, Tsukahara.</abstract>\n  <note
+        type=\"statement of responsibility\" altRepGroup=\"00\" script=\"Latn\">gensaku
+        Shiia Rinzo&#x304; ; kyakuhon Oguni Hideo ; kantoku Gosho Heinosuke.</note>\n
+        \ <note>Originally released as a motion picture in 1953.</note>\n  <note type=\"creation/production
+        credits\" altRepGroup=\"05\" script=\"Latn\">Seisaku, Uchiyama Yoshishige
+        ; kyakuhon, Oguni Hideo ; satsuei, Miura Mitsuo ; ongaku, Akutagawa Yasushi.</note>\n
+        \ <note type=\"performers\" altRepGroup=\"04\" script=\"Latn\">Tanaka Kinuyo,
+        Uehara Ken, Takamine Hideko, Akutagawa Hiroshi, Seki Chieko, Tanaka Haruo.</note>\n
+        \ <note type=\"system details\">DVD ; Region Code 2 ; NTSC ; Dolby Digital.</note>\n
+        \ <note type=\"language\">In Japanese.</note>\n  <subject authority=\"lcsh\">\n
+        \   <topic>Feature films</topic>\n  </subject>\n  <classification authority=\"lcc\">DVD
+        7269 (viewing copy)</classification>\n  <location>\n    <physicalLocation>c-Moving
+        Image</physicalLocation>\n  </location>\n  <relatedItem type=\"series\" altRepGroup=\"03\"
+        script=\"Latn\">\n    <titleInfo>\n      <title>Shin To&#x304;ho&#x304; meiga
+        kessakusen</title>\n    </titleInfo>\n  </relatedItem>\n  <relatedItem type=\"constituent\">\n
+        \   <titleInfo>\n      <title>Mujaki na hitobito</title>\n    </titleInfo>\n
+        \   <name type=\"personal\">\n      <namePart>Shiina, Rinzo&#x304;,</namePart>\n
+        \     <namePart type=\"date\">1911-1973</namePart>\n    </name>\n  </relatedItem>\n
+        \ <relatedItem type=\"constituent\">\n    <titleInfo>\n      <title>Mujaki
+        na hitobito</title>\n    </titleInfo>\n  </relatedItem>\n  <relatedItem type=\"series\">\n
+        \   <titleInfo>\n      <title>East Asian film collection</title>\n    </titleInfo>\n
+        \ </relatedItem>\n  <titleInfo altRepGroup=\"01\" script=\"CJK\">\n    <title>&#x7159;&#x7A81;&#x306E;&#x898B;&#x3048;&#x308B;&#x5834;&#x6240;</title>\n
+        \ </titleInfo>\n  <note type=\"statement of responsibility\" altRepGroup=\"00\"
+        script=\"CJK\">&#x539F;&#x4F5C;&#x690E;&#x540D;&#x9E9F;&#x4E09; ; &#x811A;&#x672C;&#x5C0F;&#x56FD;&#x82F1;&#x96C4;
+        ; &#x76E3;&#x7763;&#x4E94;&#x6240;&#x5E73;&#x4E4B;&#x52A9;.</note>\n  <relatedItem
+        type=\"series\" altRepGroup=\"03\" script=\"CJK\">\n    <titleInfo>\n      <title>&#x65B0;&#x6771;&#x5B9D;&#x540D;&#x753B;&#x5091;&#x4F5C;&#x9078;</title>\n
+        \   </titleInfo>\n  </relatedItem>\n  <note type=\"performers\" altRepGroup=\"04\"
+        script=\"CJK\">&#x7530;&#x4E2D;&#x7D79;&#x4EE3;, &#x4E0A;&#x539F;&#x8B19;,
+        &#x9AD8;&#x5CF0;&#x79C0;&#x5B50;, &#x82A5;&#x5DDD;&#x6BD4;&#x5442;&#x5FD7;,
+        &#x95A2;&#x5343;&#x6075;&#x5B50;, &#x7530;&#x4E2D;&#x6625;&#x7537;.</note>\n
+        \ <note type=\"creation/production credits\" altRepGroup=\"05\" script=\"CJK\">&#x88FD;&#x4F5C;,
+        &#x4E0A;&#x5C71;&#x7FA9;&#x91CD; ; &#x811A;&#x672C;, &#x5C0F;&#x570B;&#x82F1;&#x96C4;
+        ; &#x64AE;&#x5F71;, &#x4E09;&#x6D66;&#x5149;&#x96C4; ; &#x97F3;&#x697D;, &#x82A5;&#x5DDD;&#x4E5F;&#x5BF8;&#x5FD7;.</note>\n
+        \ <name type=\"personal\" altRepGroup=\"06\" script=\"CJK\">\n    <namePart>&#x4E94;&#x6240;&#x5E73;&#x4E4B;&#x52A9;</namePart>\n
+        \   <namePart type=\"date\">1902-1981</namePart>\n  </name>\n  <name type=\"personal\"
+        altRepGroup=\"07\" script=\"CJK\">\n    <namePart>&#x5C0F;&#x56FD;&#x82F1;&#x96C4;</namePart>\n
+        \   <namePart type=\"date\">1904-1996</namePart>\n  </name>\n  <name type=\"personal\"
+        altRepGroup=\"08\" script=\"CJK\">\n    <namePart>&#x82A5;&#x5DDD;&#x4E5F;&#x5BF8;&#x5FD7;</namePart>\n
+        \   <namePart type=\"date\">1925-1989</namePart>\n  </name>\n  <name type=\"personal\"
+        altRepGroup=\"09\" script=\"CJK\">\n    <namePart>&#x7530;&#x4E2D;&#x7D79;&#x4EE3;</namePart>\n
+        \   <namePart type=\"date\">1909-1977</namePart>\n  </name>\n  <name type=\"personal\"
+        altRepGroup=\"10\" script=\"CJK\">\n    <namePart>&#x4E0A;&#x539F;&#x8B19;</namePart>\n
+        \   <namePart type=\"date\">1909-1991</namePart>\n  </name>\n  <name type=\"personal\"
+        altRepGroup=\"11\" script=\"CJK\">\n    <namePart>&#x9AD8;&#x5CF0;&#x79C0;&#x5B50;</namePart>\n
+        \   <namePart type=\"date\">1924-</namePart>\n  </name>\n  <name type=\"personal\"
+        altRepGroup=\"12\" script=\"CJK\">\n    <namePart>&#x82A5;&#x5DDD;&#x6BD4;&#x5442;&#x5FD7;</namePart>\n
+        \   <namePart type=\"date\">1920-1981</namePart>\n  </name>\n  <name type=\"personal\"
+        altRepGroup=\"13\" script=\"CJK\">\n    <namePart>&#x7530;&#x4E2D;&#x6625;&#x7537;</namePart>\n
+        \   <namePart type=\"date\">1912-1992</namePart>\n  </name>\n  <name type=\"personal\"
+        altRepGroup=\"14\" script=\"CJK\">\n    <namePart>&#x690E;&#x540D;&#x9E9F;&#x4E09;</namePart>\n
+        \   <namePart type=\"date\">1911-1973</namePart>\n  </name>\n  <titleInfo
+        type=\"alternative\" altRepGroup=\"15\" script=\"CJK\">\n    <title>&#x7121;&#x90AA;&#x6C17;&#x306A;&#x4EBA;&#x3005;</title>\n
+        \ </titleInfo>\n  <name type=\"corporate\" altRepGroup=\"16\" script=\"CJK\">\n
+        \   <namePart>&#x65B0;&#x6771;&#x5B9D;&#x682A;&#x5F0F;&#x4F1A;&#x793E;</namePart>\n
+        \ </name>\n  <identifier type=\"lccn\">2013385616</identifier>\n  <identifier
+        type=\"videorecording identifier\">VPBT15262</identifier>\n  <identifier type=\"oclc\">ocn213415869</identifier>\n
+        \ <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n    <recordContentSource
+        authority=\"marcorg\">KKU</recordContentSource>\n    <recordCreationDate encoding=\"marc\">130509</recordCreationDate>\n
+        \   <recordChangeDate encoding=\"iso8601\">20150402132546.0</recordChangeDate>\n
+        \   <recordIdentifier>17731062</recordIdentifier>\n    <recordOrigin>Converted
+        from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>1</zs:recordPosition></zs:record></zs:records><zs:echoedSearchRetrieveRequest><zs:version>1.1</zs:version><zs:query>bath.lccn=\"^2013385616\"</zs:query><zs:maximumRecords>10</zs:maximumRecords><zs:recordPacking>xml</zs:recordPacking><zs:recordSchema>mods</zs:recordSchema></zs:echoedSearchRetrieveRequest></zs:searchRetrieveResponse>\n"
+  recorded_at: Mon, 14 Feb 2022 03:12:35 GMT
+recorded_with: VCR 6.0.0

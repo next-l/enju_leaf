@@ -1,0 +1,92 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://lx2.loc.gov:210/LCDB?maximumRecords=10&operation=searchRetrieve&query=bath.lccn=%22%5E88651712%22&recordSchema=mods&version=1.1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '5395'
+      Server:
+      - Metaproxy/1.19.1
+      Connection:
+      - Keep-Alive
+      Content-Type:
+      - text/xml
+    body:
+      encoding: UTF-8
+      string: "<?xml version=\"1.0\"?>\n<zs:searchRetrieveResponse xmlns:zs=\"http://www.loc.gov/zing/srw/\"><zs:version>1.1</zs:version><zs:numberOfRecords>1</zs:numberOfRecords><zs:records><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>Superconductor science &amp; technology</title>\n
+        \ </titleInfo>\n  <titleInfo type=\"abbreviated\">\n    <title>Supercond.
+        sci. technol</title>\n  </titleInfo>\n  <titleInfo type=\"alternative\">\n
+        \   <title>Superconductor science and technology</title>\n  </titleInfo>\n
+        \ <name type=\"corporate\">\n    <namePart>Institute of Physics (Great Britain)</namePart>\n
+        \ </name>\n  <name type=\"corporate\">\n    <namePart>American Institute of
+        Physics</namePart>\n  </name>\n  <typeOfResource>text</typeOfResource>\n  <genre
+        authority=\"marcgt\">periodical</genre>\n  <genre authority=\"rdacontent\">text</genre>\n
+        \ <genre authority=\"fast\">Periodicals.</genre>\n  <originInfo>\n    <place>\n
+        \     <placeTerm type=\"code\" authority=\"marccountry\">enk</placeTerm>\n
+        \   </place>\n    <place>\n      <placeTerm type=\"text\">Bristol, UK]</placeTerm>\n
+        \   </place>\n    <publisher>IOP Pub.</publisher>\n    <dateIssued>[&#xA9;1988]-</dateIssued>\n
+        \   <dateIssued encoding=\"marc\" point=\"start\">1988</dateIssued>\n    <dateIssued
+        encoding=\"marc\" point=\"end\">9999</dateIssued>\n    <issuance>serial</issuance>\n
+        \   <frequency>Monthly</frequency>\n    <frequency authority=\"marcfrequency\">Monthly</frequency>\n
+        \ </originInfo>\n  <language>\n    <languageTerm authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n
+        \ </language>\n  <physicalDescription>\n    <form authority=\"marcform\">print</form>\n
+        \   <extent>volumes : illustrations ; 29 cm</extent>\n    <form type=\"media\"
+        authority=\"rdamedia\">unmediated</form>\n    <form type=\"carrier\" authority=\"rdacarrier\">volume</form>\n
+        \ </physicalDescription>\n  <note type=\"date/sequential designation\">Vol.
+        1, no. 1-</note>\n  <note>Title from cover.</note>\n  <note type=\"numbering\">Issues
+        for &lt;v. 2, no. 3-&gt; called also: &lt;Sept. 1989-&gt;</note>\n  <note
+        type=\"additional physical form\">Also issued on microfiche and online.</note>\n
+        \ <note>Occasionally supplemented by special issues.</note>\n  <note>An Institute
+        of Physics journal published by IOP Publishing Ltd in association with the
+        American Institute of Physics.</note>\n  <subject authority=\"lcsh\">\n    <topic>Superconductivity</topic>\n
+        \   <genre>Periodicals</genre>\n  </subject>\n  <subject authority=\"lcsh\">\n
+        \   <topic>Superconductors</topic>\n    <genre>Periodicals</genre>\n  </subject>\n
+        \ <subject authority=\"lcsh\">\n    <topic>Electronics</topic>\n    <topic>Materials</topic>\n
+        \   <genre>Periodicals</genre>\n  </subject>\n  <subject authority=\"fast\">\n
+        \   <topic>Electronics</topic>\n    <topic>Materials</topic>\n  </subject>\n
+        \ <subject authority=\"fast\">\n    <topic>Superconductivity</topic>\n  </subject>\n
+        \ <subject authority=\"fast\">\n    <topic>Superconductors</topic>\n  </subject>\n
+        \ <subject authority=\"gtt\">\n    <topic>Supergeleidend materiaal</topic>\n
+        \ </subject>\n  <classification authority=\"lcc\">QC611.9 .S86</classification>\n
+        \ <classification authority=\"ddc\" edition=\"19\">537.6/23</classification>\n
+        \ <relatedItem type=\"isReferencedBy\">\n    <titleInfo>\n      <title>Chemical
+        abstracts</title>\n    </titleInfo>\n    <part>\n      <detail type=\"part\">\n
+        \       <number/>\n      </detail>\n    </part>\n  </relatedItem>\n  <relatedItem
+        type=\"otherFormat\">\n    <titleInfo>\n      <title>Superconductor science
+        &amp; technology (Online)</title>\n    </titleInfo>\n    <identifier type=\"issn\">1361-6668</identifier>\n
+        \   <identifier type=\"local\">(DLC)sn 96036203</identifier>\n    <identifier
+        type=\"local\">(OCoLC)34482308</identifier>\n  </relatedItem>\n  <relatedItem
+        type=\"otherFormat\" otherType=\"Online version:\" displayLabel=\"Online version:\">\n
+        \   <titleInfo>\n      <title>Superconductor science &amp; technology</title>\n
+        \   </titleInfo>\n    <identifier type=\"local\">(OCoLC)746111558</identifier>\n
+        \ </relatedItem>\n  <identifier type=\"issn\">0953-2048</identifier>\n  <identifier
+        type=\"issn-l\">0953-2048</identifier>\n  <identifier type=\"lccn\">88651712</identifier>\n
+        \ <identifier type=\"lccn\" invalid=\"yes\">sn 88038157</identifier>\n  <identifier
+        type=\"oclc\">ocm18126477</identifier>\n  <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n
+        \   <recordContentSource authority=\"marcorg\">COP</recordContentSource>\n
+        \   <recordCreationDate encoding=\"marc\">880623</recordCreationDate>\n    <recordChangeDate
+        encoding=\"iso8601\">20220211065718.0</recordChangeDate>\n    <recordIdentifier>11347004</recordIdentifier>\n
+        \   <recordOrigin>Converted from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n    <languageOfCataloging>\n      <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n    </languageOfCataloging>\n
+        \ </recordInfo>\n</mods></zs:recordData><zs:recordPosition>1</zs:recordPosition></zs:record></zs:records><zs:echoedSearchRetrieveRequest><zs:version>1.1</zs:version><zs:query>bath.lccn=\"^88651712\"</zs:query><zs:maximumRecords>10</zs:maximumRecords><zs:recordPacking>xml</zs:recordPacking><zs:recordSchema>mods</zs:recordSchema></zs:echoedSearchRetrieveRequest></zs:searchRetrieveResponse>\n"
+  recorded_at: Mon, 14 Feb 2022 03:17:50 GMT
+recorded_with: VCR 6.0.0

@@ -1,0 +1,418 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://lx2.loc.gov:210/LCDB?maximumRecords=10&operation=searchRetrieve&query=library&recordSchema=mods&startRecord=11&version=1.1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '34107'
+      Server:
+      - Metaproxy/1.19.1
+      Connection:
+      - Keep-Alive
+      Content-Type:
+      - text/xml
+    body:
+      encoding: UTF-8
+      string: "<?xml version=\"1.0\"?>\n<zs:searchRetrieveResponse xmlns:zs=\"http://www.loc.gov/zing/srw/\"><zs:version>1.1</zs:version><zs:numberOfRecords>10000</zs:numberOfRecords><zs:records><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title/>\n    <subTitle/>\n  </titleInfo>\n  <typeOfResource>text</typeOfResource>\n
+        \ <genre authority=\"rdacontent\">text</genre>\n  <originInfo>\n    <place>\n
+        \     <placeTerm type=\"code\" authority=\"marccountry\">ii</placeTerm>\n
+        \   </place>\n    <dateIssued encoding=\"marc\">2013</dateIssued>\n    <issuance>monographic</issuance>\n
+        \ </originInfo>\n  <originInfo eventType=\"publication\">\n    <place>\n      <placeTerm
+        type=\"text\">New Delhi :</placeTerm>\n    </place>\n    <publisher>,</publisher>\n
+        \   <dateIssued>2013.</dateIssued>\n  </originInfo>\n  <language>\n    <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n  </language>\n
+        \ <physicalDescription>\n    <form authority=\"marcform\">print</form>\n    <extent>pages</extent>\n
+        \   <form type=\"media\" authority=\"rdamedia\">unmediated</form>\n    <form
+        type=\"carrier\" authority=\"rdacarrier\">volume</form>\n  </physicalDescription>\n
+        \ <note type=\"statement of responsibility\" altRepGroup=\"00\">.</note>\n
+        \ <identifier type=\"lccn\"/>\n  <identifier type=\"stock number\">Library
+        of Congress -- New Delhi Overseas Office</identifier>\n  <recordInfo>\n    <descriptionStandard>rda</descriptionStandard>\n
+        \   <recordContentSource authority=\"marcorg\">DLC</recordContentSource>\n
+        \   <recordCreationDate encoding=\"marc\">160104</recordCreationDate>\n    <recordChangeDate
+        encoding=\"iso8601\">20160104054453.0</recordChangeDate>\n    <recordIdentifier>18924045</recordIdentifier>\n
+        \   <recordOrigin>Converted from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n    <languageOfCataloging>\n      <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n    </languageOfCataloging>\n
+        \ </recordInfo>\n</mods></zs:recordData><zs:recordPosition>11</zs:recordPosition></zs:record><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title># 13 American Red Cross ambulance</title>\n  </titleInfo>\n
+        \ <typeOfResource>still image</typeOfResource>\n  <genre authority=\"marcgt\">graphic</genre>\n
+        \ <genre authority=\"gmgpc\">Glass negatives.</genre>\n  <originInfo>\n    <place>\n
+        \     <placeTerm type=\"code\" authority=\"marccountry\">xxu</placeTerm>\n
+        \   </place>\n    <dateIssued>[between 1910 and 1935]</dateIssued>\n    <dateIssued
+        encoding=\"marc\" point=\"start\" qualifier=\"questionable\">1910</dateIssued>\n
+        \   <dateIssued encoding=\"marc\" point=\"end\" qualifier=\"questionable\">1935</dateIssued>\n
+        \   <issuance>monographic</issuance>\n  </originInfo>\n  <language>\n    <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n  </language>\n
+        \ <physicalDescription>\n    <form authority=\"gmd\">graphic</form>\n    <form
+        authority=\"marccategory\">electronic resource</form>\n    <form authority=\"marcsmd\">remote</form>\n
+        \   <form authority=\"marccategory\">nonprojected graphic</form>\n    <form
+        authority=\"marcsmd\">photonegative</form>\n    <extent>1 negative : glass
+        ; 8 x 10 in. or smaller</extent>\n  </physicalDescription>\n  <accessCondition
+        type=\"use and reproduction\">No known restrictions on publication. For more
+        information, see National Photo Company Collection - Rights and Restrictions
+        Information</accessCondition>\n  <note>Title from unverified data provided
+        by the National Photo Company on the negative or negative sleeve.</note>\n
+        \ <note>Date from negatives in same range.</note>\n  <note>Copy neg.; caption
+        inside envelope.</note>\n  <note type=\"acquisition\">Gift; Herbert A. French;
+        1947.</note>\n  <note xmlns:xlink=\"http://www.w3.org/1999/xlink\" type=\"biographical/historical\"
+        xlink:href=\"http://hdl.loc.gov/loc.pnp/pp.npco\">General information about
+        the National Photo Company collection is available at http://hdl.loc.gov/loc.pnp/pp.npco</note>\n
+        \ <note type=\"action\">This glass negative might show streaks and other blemishes
+        resulting from a natural deterioration in the original coatings.</note>\n
+        \ <classification authority=\"lcc\">LC-F82- 10391</classification>\n  <location>\n
+        \   <physicalLocation>Library of Congress Prints and Photographs Division
+        Washington, D.C. 20540 USA</physicalLocation>\n    <physicalLocation xmlns:xlink=\"http://www.w3.org/1999/xlink\"
+        xlink:href=\"http://hdl.loc.gov/loc.pnp/pp.print\">http://hdl.loc.gov/loc.pnp/pp.print</physicalLocation>\n
+        \ </location>\n  <location>\n    <url displayLabel=\"digital file from original\"
+        usage=\"primary display\">http://hdl.loc.gov/loc.pnp/npcc.31085</url>\n  </location>\n
+        \ <relatedItem type=\"host\">\n    <titleInfo>\n      <title>National Photo
+        Company Collection (Library of Congress)</title>\n    </titleInfo>\n    <identifier
+        type=\"local\">(DLC)  2005684470</identifier>\n  </relatedItem>\n  <identifier
+        type=\"lccn\">2016824645</identifier>\n  <identifier type=\"stock number\"
+        displayLabel=\"(digital file from original)\">LC-DIG-npcc-31085 DLC</identifier>\n
+        \ <identifier type=\"hdl\">hdl:loc.pnp/npcc.31085</identifier>\n  <recordInfo>\n
+        \   <descriptionStandard>aacr</descriptionStandard>\n    <descriptionStandard>gihc</descriptionStandard>\n
+        \   <recordContentSource authority=\"marcorg\">DLC</recordContentSource>\n
+        \   <recordCreationDate encoding=\"marc\">080702</recordCreationDate>\n    <recordChangeDate
+        encoding=\"iso8601\">20211027100553.0</recordChangeDate>\n    <recordIdentifier>20173605</recordIdentifier>\n
+        \   <recordOrigin>Converted from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>12</zs:recordPosition></zs:record><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title># 158 Peru</title>\n  </titleInfo>\n  <typeOfResource>still
+        image</typeOfResource>\n  <genre authority=\"marcgt\">graphic</genre>\n  <genre
+        authority=\"gmgpc\">Glass negatives.</genre>\n  <originInfo>\n    <place>\n
+        \     <placeTerm type=\"code\" authority=\"marccountry\">xxu</placeTerm>\n
+        \   </place>\n    <dateIssued>[between 1910 and 1935]</dateIssued>\n    <dateIssued
+        encoding=\"marc\" point=\"start\" qualifier=\"questionable\">1910</dateIssued>\n
+        \   <dateIssued encoding=\"marc\" point=\"end\" qualifier=\"questionable\">1935</dateIssued>\n
+        \   <issuance>monographic</issuance>\n  </originInfo>\n  <language>\n    <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n  </language>\n
+        \ <physicalDescription>\n    <form authority=\"gmd\">graphic</form>\n    <form
+        authority=\"marccategory\">electronic resource</form>\n    <form authority=\"marcsmd\">remote</form>\n
+        \   <form authority=\"marccategory\">nonprojected graphic</form>\n    <form
+        authority=\"marcsmd\">photonegative</form>\n    <extent>1 negative : glass
+        ; 8 x 6 in.</extent>\n  </physicalDescription>\n  <accessCondition type=\"use
+        and reproduction\">No known restrictions on publication. For more information,
+        see National Photo Company Collection - Rights and Restrictions Information</accessCondition>\n
+        \ <note>Title from unverified data provided by the National Photo Company
+        on the negative or negative sleeve.</note>\n  <note>Date from negatives in
+        same range.</note>\n  <note>Copy neg.</note>\n  <note type=\"acquisition\">Gift;
+        Herbert A. French; 1947.</note>\n  <note xmlns:xlink=\"http://www.w3.org/1999/xlink\"
+        type=\"biographical/historical\" xlink:href=\"http://hdl.loc.gov/loc.pnp/pp.npco\">General
+        information about the National Photo Company collection is available at http://hdl.loc.gov/loc.pnp/pp.npco</note>\n
+        \ <note type=\"action\">This glass negative might show streaks and other blemishes
+        resulting from a natural deterioration in the original coatings.</note>\n
+        \ <subject>\n    <hierarchicalGeographic>\n      <country>Peru</country>\n
+        \   </hierarchicalGeographic>\n  </subject>\n  <classification authority=\"lcc\">LC-F82-
+        10442</classification>\n  <location>\n    <physicalLocation>Library of Congress
+        Prints and Photographs Division Washington, D.C. 20540 USA</physicalLocation>\n
+        \   <physicalLocation xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:href=\"http://hdl.loc.gov/loc.pnp/pp.print\">http://hdl.loc.gov/loc.pnp/pp.print</physicalLocation>\n
+        \ </location>\n  <location>\n    <url displayLabel=\"digital file from original\"
+        usage=\"primary display\">http://hdl.loc.gov/loc.pnp/npcc.31136</url>\n  </location>\n
+        \ <relatedItem type=\"host\">\n    <titleInfo>\n      <title>National Photo
+        Company Collection (Library of Congress)</title>\n    </titleInfo>\n    <identifier
+        type=\"local\">(DLC)  2005684470</identifier>\n  </relatedItem>\n  <identifier
+        type=\"lccn\">2016824696</identifier>\n  <identifier type=\"stock number\"
+        displayLabel=\"(digital file from original)\">LC-DIG-npcc-31136 DLC</identifier>\n
+        \ <identifier type=\"hdl\">hdl:loc.pnp/npcc.31136</identifier>\n  <recordInfo>\n
+        \   <descriptionStandard>aacr</descriptionStandard>\n    <descriptionStandard>gihc</descriptionStandard>\n
+        \   <recordContentSource authority=\"marcorg\">DLC</recordContentSource>\n
+        \   <recordCreationDate encoding=\"marc\">080702</recordCreationDate>\n    <recordChangeDate
+        encoding=\"iso8601\">20171208103953.0</recordChangeDate>\n    <recordIdentifier>20173657</recordIdentifier>\n
+        \   <recordOrigin>Converted from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>13</zs:recordPosition></zs:record><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title># 19 American Red [Cross] Allentown camp; Red Cross
+        dogs &amp; stretcher bearers</title>\n  </titleInfo>\n  <typeOfResource>still
+        image</typeOfResource>\n  <genre authority=\"marcgt\">graphic</genre>\n  <genre
+        authority=\"gmgpc\">Glass negatives.</genre>\n  <originInfo>\n    <place>\n
+        \     <placeTerm type=\"code\" authority=\"marccountry\">xxu</placeTerm>\n
+        \   </place>\n    <dateIssued>[between 1910 and 1935]</dateIssued>\n    <dateIssued
+        encoding=\"marc\" point=\"start\" qualifier=\"questionable\">1910</dateIssued>\n
+        \   <dateIssued encoding=\"marc\" point=\"end\" qualifier=\"questionable\">1935</dateIssued>\n
+        \   <issuance>monographic</issuance>\n  </originInfo>\n  <language>\n    <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n  </language>\n
+        \ <physicalDescription>\n    <form authority=\"gmd\">graphic</form>\n    <form
+        authority=\"marccategory\">electronic resource</form>\n    <form authority=\"marcsmd\">remote</form>\n
+        \   <form authority=\"marccategory\">nonprojected graphic</form>\n    <form
+        authority=\"marcsmd\">photonegative</form>\n    <extent>1 negative : glass
+        ; 8 x 10 in. or smaller</extent>\n  </physicalDescription>\n  <accessCondition
+        type=\"use and reproduction\">No known restrictions on publication. For more
+        information, see National Photo Company Collection - Rights and Restrictions
+        Information</accessCondition>\n  <note>Title from unverified data provided
+        by the National Photo Company on the negative or negative sleeve.</note>\n
+        \ <note>Date from negatives in same range.</note>\n  <note>Copy neg.; caption
+        inside envelope.</note>\n  <note type=\"acquisition\">Gift; Herbert A. French;
+        1947.</note>\n  <note xmlns:xlink=\"http://www.w3.org/1999/xlink\" type=\"biographical/historical\"
+        xlink:href=\"http://hdl.loc.gov/loc.pnp/pp.npco\">General information about
+        the National Photo Company collection is available at http://hdl.loc.gov/loc.pnp/pp.npco</note>\n
+        \ <note type=\"action\">This glass negative might show streaks and other blemishes
+        resulting from a natural deterioration in the original coatings.</note>\n
+        \ <classification authority=\"lcc\">LC-F82- 10389</classification>\n  <location>\n
+        \   <physicalLocation>Library of Congress Prints and Photographs Division
+        Washington, D.C. 20540 USA</physicalLocation>\n    <physicalLocation xmlns:xlink=\"http://www.w3.org/1999/xlink\"
+        xlink:href=\"http://hdl.loc.gov/loc.pnp/pp.print\">http://hdl.loc.gov/loc.pnp/pp.print</physicalLocation>\n
+        \ </location>\n  <location>\n    <url displayLabel=\"digital file from original\"
+        usage=\"primary display\">http://hdl.loc.gov/loc.pnp/npcc.31083</url>\n  </location>\n
+        \ <relatedItem type=\"host\">\n    <titleInfo>\n      <title>National Photo
+        Company Collection (Library of Congress)</title>\n    </titleInfo>\n    <identifier
+        type=\"local\">(DLC)  2005684470</identifier>\n  </relatedItem>\n  <identifier
+        type=\"lccn\">2016824643</identifier>\n  <identifier type=\"stock number\"
+        displayLabel=\"(digital file from original)\">LC-DIG-npcc-31083 DLC</identifier>\n
+        \ <identifier type=\"hdl\">hdl:loc.pnp/npcc.31083</identifier>\n  <recordInfo>\n
+        \   <descriptionStandard>aacr</descriptionStandard>\n    <descriptionStandard>gihc</descriptionStandard>\n
+        \   <recordContentSource authority=\"marcorg\">DLC</recordContentSource>\n
+        \   <recordCreationDate encoding=\"marc\">080702</recordCreationDate>\n    <recordChangeDate
+        encoding=\"iso8601\">20171208103835.0</recordChangeDate>\n    <recordIdentifier>20173603</recordIdentifier>\n
+        \   <recordOrigin>Converted from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>14</zs:recordPosition></zs:record><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>$#*! my dad says</title>\n    <partName>Code Ed</partName>\n
+        \ </titleInfo>\n  <titleInfo type=\"alternative\">\n    <title>Code Ed</title>\n
+        \ </titleInfo>\n  <titleInfo type=\"alternative\" displayLabel=\"Copyright
+        application title:\">\n    <title>S#*! my dad says</title>\n    <partName>Code
+        Ed</partName>\n  </titleInfo>\n  <titleInfo type=\"alternative\">\n    <title>Shit
+        my dad says</title>\n    <partName>Code Ed</partName>\n  </titleInfo>\n  <titleInfo
+        type=\"alternative\">\n    <title>Bleep my dad says</title>\n    <partName>Code
+        Ed</partName>\n  </titleInfo>\n  <name type=\"corporate\">\n    <namePart>Copyright
+        Collection (Library of Congress)</namePart>\n  </name>\n  <typeOfResource>moving
+        image</typeOfResource>\n  <genre authority=\"marcgt\">motion picture</genre>\n
+        \ <genre authority=\"lcgft\">Situation comedies (Television programs)</genre>\n
+        \ <genre authority=\"lcgft\">Fiction television programs.</genre>\n  <originInfo>\n
+        \   <place>\n      <placeTerm type=\"code\" authority=\"marccountry\">xxu</placeTerm>\n
+        \   </place>\n    <dateIssued>2010-10-14</dateIssued>\n    <dateIssued encoding=\"marc\">2010</dateIssued>\n
+        \   <dateCaptured encoding=\"iso8601\">20101014</dateCaptured>\n    <issuance>monographic</issuance>\n
+        \ </originInfo>\n  <language>\n    <languageTerm authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n
+        \ </language>\n  <physicalDescription>\n    <form authority=\"marccategory\">videorecording</form>\n
+        \   <form authority=\"marcsmd\">videocassette</form>\n    <extent>viewing
+        copy 1 videocassette of 1 (Betacam SP) (30 min.) : sd., col. ; 1/2 in.</extent>\n
+        \ </physicalDescription>\n  <note type=\"statement of responsibility\" altRepGroup=\"00\">directed
+        by Rob Schiller ; written by Michael Lisbe and Nate Reger.</note>\n  <note>Production
+        no. 2J5654.</note>\n  <note>Sources used: video container; Copyright catalog
+        online; Copyright description; Wikipedia WWW site, viewed June 4, 2014.</note>\n
+        \ <note type=\"performers\">William Shatner, Jonathan Sadowski, Will Sasso.</note>\n
+        \ <classification authority=\"lcc\">VAQ 3023 (viewing copy)</classification>\n
+        \ <identifier type=\"lccn\">2014604741</identifier>\n  <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n
+        \   <descriptionStandard>amim</descriptionStandard>\n    <recordContentSource
+        authority=\"marcorg\">DLC</recordContentSource>\n    <recordCreationDate encoding=\"marc\">140604</recordCreationDate>\n
+        \   <recordChangeDate encoding=\"iso8601\">20140605152157.0</recordChangeDate>\n
+        \   <recordIdentifier>18176739</recordIdentifier>\n    <recordOrigin>Converted
+        from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>15</zs:recordPosition></zs:record><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>$#*! my dad says</title>\n    <partName>Corn star</partName>\n
+        \ </titleInfo>\n  <titleInfo type=\"alternative\">\n    <title>Corn star</title>\n
+        \ </titleInfo>\n  <titleInfo type=\"alternative\" displayLabel=\"Copyright
+        application title:\">\n    <title>S#*! my dad says</title>\n    <partName>Corn
+        star</partName>\n  </titleInfo>\n  <titleInfo type=\"alternative\">\n    <title>Shit
+        my dad says</title>\n    <partName>Corn star</partName>\n  </titleInfo>\n
+        \ <titleInfo type=\"alternative\">\n    <title>Bleep my dad says</title>\n
+        \   <partName>Corn star</partName>\n  </titleInfo>\n  <name type=\"corporate\">\n
+        \   <namePart>Copyright Collection (Library of Congress)</namePart>\n  </name>\n
+        \ <typeOfResource>moving image</typeOfResource>\n  <genre authority=\"marcgt\">motion
+        picture</genre>\n  <genre authority=\"lcgft\">Situation comedies (Television
+        programs)</genre>\n  <genre authority=\"lcgft\">Fiction television programs.</genre>\n
+        \ <originInfo>\n    <place>\n      <placeTerm type=\"code\" authority=\"marccountry\">xxu</placeTerm>\n
+        \   </place>\n    <dateIssued>2011-01-20</dateIssued>\n    <dateIssued encoding=\"marc\">2011</dateIssued>\n
+        \   <dateCaptured encoding=\"iso8601\">20110120</dateCaptured>\n    <issuance>monographic</issuance>\n
+        \ </originInfo>\n  <language>\n    <languageTerm authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n
+        \ </language>\n  <physicalDescription>\n    <form authority=\"marccategory\">videorecording</form>\n
+        \   <form authority=\"marcsmd\">videocassette</form>\n    <extent>viewing
+        copy 1 videocassette of 1 (Betacam SP) (30 min.) : sd., col. ; 1/2 in.</extent>\n
+        \ </physicalDescription>\n  <abstract type=\"Summary\">\"When the height of
+        Ed's corn stalks becomes an issue with the home owners' association, he decides
+        to fix the problem by running for president of the association\"--Wikipedia
+        WWW site, viewed June 9, 2014.</abstract>\n  <note type=\"statement of responsibility\"
+        altRepGroup=\"00\">directed by Peter Bonerz ; written by Justin Halpern and
+        Patrick Schumacker.</note>\n  <note>Episode no. 14.</note>\n  <note>Production
+        no. 2J5664.</note>\n  <note>Sources used: video container; Copyright catalog
+        online; Copyright description; Wikipedia WWW site, viewed June 9, 2014.</note>\n
+        \ <note type=\"performers\">William Shatner.</note>\n  <note type=\"performers\">Guest
+        stars: Jean Smart, Rachael Harris.</note>\n  <classification authority=\"lcc\">VAQ
+        1398 (viewing copy)</classification>\n  <identifier type=\"lccn\">2014603998</identifier>\n
+        \ <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n    <descriptionStandard>amim</descriptionStandard>\n
+        \   <recordContentSource authority=\"marcorg\">DLC</recordContentSource>\n
+        \   <recordCreationDate encoding=\"marc\">140609</recordCreationDate>\n    <recordChangeDate
+        encoding=\"iso8601\">20140609084709.0</recordChangeDate>\n    <recordIdentifier>18181141</recordIdentifier>\n
+        \   <recordOrigin>Converted from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>16</zs:recordPosition></zs:record><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>$#*! my dad says</title>\n    <partName>Dog Ed pursuit</partName>\n
+        \ </titleInfo>\n  <titleInfo type=\"alternative\">\n    <title>Dog Ed pursuit</title>\n
+        \ </titleInfo>\n  <titleInfo type=\"alternative\" displayLabel=\"Copyright
+        application title:\">\n    <title>S#*! my dad says</title>\n    <partName>Dog
+        Ed pursuit</partName>\n  </titleInfo>\n  <titleInfo type=\"alternative\">\n
+        \   <title>Shit my dad says</title>\n    <partName>Dog Ed pursuit</partName>\n
+        \ </titleInfo>\n  <titleInfo type=\"alternative\">\n    <title>Bleep my dad
+        says</title>\n    <partName>Dog Ed pursuit</partName>\n  </titleInfo>\n  <name
+        type=\"corporate\">\n    <namePart>Copyright Collection (Library of Congress)</namePart>\n
+        \ </name>\n  <typeOfResource>moving image</typeOfResource>\n  <genre authority=\"marcgt\">motion
+        picture</genre>\n  <genre authority=\"lcgft\">Situation comedies (Television
+        programs)</genre>\n  <genre authority=\"lcgft\">Fiction television programs.</genre>\n
+        \ <originInfo>\n    <place>\n      <placeTerm type=\"code\" authority=\"marccountry\">xxu</placeTerm>\n
+        \   </place>\n    <dateIssued>2010-11-04</dateIssued>\n    <dateIssued encoding=\"marc\">2010</dateIssued>\n
+        \   <dateCaptured encoding=\"iso8601\">20101104</dateCaptured>\n    <issuance>monographic</issuance>\n
+        \ </originInfo>\n  <language>\n    <languageTerm authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n
+        \ </language>\n  <physicalDescription>\n    <form authority=\"marccategory\">videorecording</form>\n
+        \   <form authority=\"marcsmd\">videocassette</form>\n    <extent>viewing
+        copy 1 videocassette of 1 (Betacam SP) (30 min.) : sd., col. ; 1/2 in.</extent>\n
+        \ </physicalDescription>\n  <abstract type=\"Summary\">\"Ed finds himself
+        attached to Root Beer, Vince and Bonnie's dog. Meanwhile, Henry has very rough
+        sex with Vince and Bonnie's supervisor as Bonnie tells Ed to do the same human-canine
+        attachment to Vince\"--Wikipedia WWW site, viewed June 9, 2014.</abstract>\n
+        \ <note type=\"statement of responsibility\" altRepGroup=\"00\">directed by
+        Gail Mancuso ; written by Jeff Astrof.</note>\n  <note>Episode no. 7.</note>\n
+        \ <note>Production no. 2J5658.</note>\n  <note>Sources used: video container;
+        Copyright catalog online; Copyright description; Wikipedia WWW site, viewed
+        June 9, 2014.</note>\n  <note type=\"performers\">William Shatner.</note>\n
+        \ <note type=\"performers\">Guest star: Missi Pyle.</note>\n  <classification
+        authority=\"lcc\">VAP 8699 (viewing copy)</classification>\n  <identifier
+        type=\"lccn\">2014603699</identifier>\n  <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n
+        \   <descriptionStandard>amim</descriptionStandard>\n    <recordContentSource
+        authority=\"marcorg\">DLC</recordContentSource>\n    <recordCreationDate encoding=\"marc\">140609</recordCreationDate>\n
+        \   <recordChangeDate encoding=\"iso8601\">20140609133830.0</recordChangeDate>\n
+        \   <recordIdentifier>18181703</recordIdentifier>\n    <recordOrigin>Converted
+        from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>17</zs:recordPosition></zs:record><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>$#*! my dad says</title>\n    <partName>Easy writer</partName>\n
+        \ </titleInfo>\n  <titleInfo type=\"alternative\">\n    <title>Easy writer</title>\n
+        \ </titleInfo>\n  <titleInfo type=\"alternative\" displayLabel=\"Copyright
+        application title:\">\n    <title>S#*! my dad says</title>\n    <partName>Easy,
+        writer</partName>\n  </titleInfo>\n  <titleInfo type=\"alternative\">\n    <title>Shit
+        my dad says</title>\n    <partName>Easy, writer</partName>\n  </titleInfo>\n
+        \ <titleInfo type=\"alternative\">\n    <title>Bleep my dad says</title>\n
+        \   <partName>Easy, writer</partName>\n  </titleInfo>\n  <name type=\"corporate\">\n
+        \   <namePart>Copyright Collection (Library of Congress)</namePart>\n  </name>\n
+        \ <typeOfResource>moving image</typeOfResource>\n  <genre authority=\"marcgt\">motion
+        picture</genre>\n  <genre authority=\"lcgft\">Situation comedies (Television
+        programs)</genre>\n  <genre authority=\"lcgft\">Fiction television programs.</genre>\n
+        \ <originInfo>\n    <place>\n      <placeTerm type=\"code\" authority=\"marccountry\">xxu</placeTerm>\n
+        \   </place>\n    <dateIssued>2010-10-28</dateIssued>\n    <dateIssued encoding=\"marc\">2010</dateIssued>\n
+        \   <dateCaptured encoding=\"iso8601\">20101028</dateCaptured>\n    <issuance>monographic</issuance>\n
+        \ </originInfo>\n  <language>\n    <languageTerm authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n
+        \ </language>\n  <physicalDescription>\n    <form authority=\"marccategory\">videorecording</form>\n
+        \   <form authority=\"marcsmd\">videocassette</form>\n    <extent>viewing
+        copy 1 videocassette of 1 (Betacam SP) (30 min.) : sd., col. ; 1/2 in.</extent>\n
+        \ </physicalDescription>\n  <abstract type=\"Summary\">\"Ed is embarrassed
+        when Henry writes an article about him\"--Copyright description.</abstract>\n
+        \ <note type=\"statement of responsibility\" altRepGroup=\"00\">directed by
+        Rob Schiller ; written by Jeff Astrof.</note>\n  <note>Episode no. 6.</note>\n
+        \ <note>Production no. 2J5657.</note>\n  <note>Sources used: video container;
+        Copyright catalog online; Copyright description; Wikipedia WWW site, viewed
+        June 9, 2014.</note>\n  <note type=\"performers\">William Shatner.</note>\n
+        \ <note type=\"performers\">Guest stars: Todd Stashwick, Rebecca Creskoff.</note>\n
+        \ <classification authority=\"lcc\">VAP 8698 (viewing copy)</classification>\n
+        \ <identifier type=\"lccn\">2014603698</identifier>\n  <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n
+        \   <descriptionStandard>amim</descriptionStandard>\n    <recordContentSource
+        authority=\"marcorg\">DLC</recordContentSource>\n    <recordCreationDate encoding=\"marc\">140609</recordCreationDate>\n
+        \   <recordChangeDate encoding=\"iso8601\">20151125184709.0</recordChangeDate>\n
+        \   <recordIdentifier>18181694</recordIdentifier>\n    <recordOrigin>Converted
+        from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>18</zs:recordPosition></zs:record><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>$#*! my dad says</title>\n    <partName>Ed goes
+        to court</partName>\n  </titleInfo>\n  <titleInfo type=\"alternative\">\n
+        \   <title>Ed goes to court</title>\n  </titleInfo>\n  <titleInfo type=\"alternative\"
+        displayLabel=\"Copyright application title:\">\n    <title>S#*! my dad says</title>\n
+        \   <partName>Ed goes to court</partName>\n  </titleInfo>\n  <titleInfo type=\"alternative\">\n
+        \   <title>Shit my dad says</title>\n    <partName>Ed goes to court</partName>\n
+        \ </titleInfo>\n  <titleInfo type=\"alternative\">\n    <title>Bleep my dad
+        says</title>\n    <partName>Ed goes to court</partName>\n  </titleInfo>\n
+        \ <name type=\"corporate\">\n    <namePart>Copyright Collection (Library of
+        Congress)</namePart>\n  </name>\n  <typeOfResource>moving image</typeOfResource>\n
+        \ <genre authority=\"marcgt\">motion picture</genre>\n  <genre authority=\"lcgft\">Situation
+        comedies (Television programs)</genre>\n  <genre authority=\"lcgft\">Fiction
+        television programs.</genre>\n  <originInfo>\n    <place>\n      <placeTerm
+        type=\"code\" authority=\"marccountry\">xxu</placeTerm>\n    </place>\n    <dateIssued>2011-01-27</dateIssued>\n
+        \   <dateIssued encoding=\"marc\">2011</dateIssued>\n    <dateCaptured encoding=\"iso8601\">20110127</dateCaptured>\n
+        \   <issuance>monographic</issuance>\n  </originInfo>\n  <language>\n    <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n  </language>\n
+        \ <physicalDescription>\n    <form authority=\"marccategory\">videorecording</form>\n
+        \   <form authority=\"marcsmd\">videocassette</form>\n    <extent>viewing
+        copy 1 videocassette of 1 (Betacam SP) (30 min.) : sd., col. ; 1/2 in.</extent>\n
+        \ </physicalDescription>\n  <abstract type=\"Summary\">\"As the newly-elected
+        head of the Homeowners' Association, Ed is more concerned with pursuing his
+        neighbor Rosemary Pernworth than passing any legislation\"--Wikipedia WWW
+        site, viewed June 9, 2014.</abstract>\n  <note type=\"statement of responsibility\"
+        altRepGroup=\"00\">directed by Ted Wass ; written by Jeff Astrof.</note>\n
+        \ <note>Episode no. 15.</note>\n  <note>Production no. 2J5665.</note>\n  <note>Sources
+        used: video container; Copyright catalog online; Copyright description; Wikipedia
+        WWW site, viewed June 9, 2014.</note>\n  <note type=\"performers\">William
+        Shatner.</note>\n  <note type=\"performers\">Guest stars: Jean Smart, Tila
+        Tequila.</note>\n  <classification authority=\"lcc\">VAQ 1399 (viewing copy)</classification>\n
+        \ <identifier type=\"lccn\">2014603999</identifier>\n  <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n
+        \   <descriptionStandard>amim</descriptionStandard>\n    <recordContentSource
+        authority=\"marcorg\">DLC</recordContentSource>\n    <recordCreationDate encoding=\"marc\">140609</recordCreationDate>\n
+        \   <recordChangeDate encoding=\"iso8601\">20140609100925.0</recordChangeDate>\n
+        \   <recordIdentifier>18181286</recordIdentifier>\n    <recordOrigin>Converted
+        from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>19</zs:recordPosition></zs:record><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>$#*! my dad says</title>\n    <partName>Family dinner
+        for schmucks</partName>\n  </titleInfo>\n  <titleInfo type=\"alternative\">\n
+        \   <title>Family dinner for schmucks</title>\n  </titleInfo>\n  <titleInfo
+        type=\"alternative\" displayLabel=\"Copyright application title:\">\n    <title>S#*!
+        my dad says</title>\n    <partName>Family dinner for schmucks</partName>\n
+        \ </titleInfo>\n  <titleInfo type=\"alternative\">\n    <title>Shit my dad
+        says</title>\n    <partName>Family dinner for schmucks</partName>\n  </titleInfo>\n
+        \ <titleInfo type=\"alternative\">\n    <title>Bleep my dad says</title>\n
+        \   <partName>Family dinner for schmucks</partName>\n  </titleInfo>\n  <name
+        type=\"corporate\">\n    <namePart>Copyright Collection (Library of Congress)</namePart>\n
+        \ </name>\n  <typeOfResource>moving image</typeOfResource>\n  <genre authority=\"marcgt\">motion
+        picture</genre>\n  <genre authority=\"lcgft\">Situation comedies (Television
+        programs)</genre>\n  <genre authority=\"lcgft\">Fiction television programs.</genre>\n
+        \ <originInfo>\n    <place>\n      <placeTerm type=\"code\" authority=\"marccountry\">xxu</placeTerm>\n
+        \   </place>\n    <dateIssued>2010-12-16</dateIssued>\n    <dateIssued encoding=\"marc\">2010</dateIssued>\n
+        \   <dateCaptured encoding=\"iso8601\">20101216</dateCaptured>\n    <issuance>monographic</issuance>\n
+        \ </originInfo>\n  <language>\n    <languageTerm authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n
+        \ </language>\n  <physicalDescription>\n    <form authority=\"marccategory\">videorecording</form>\n
+        \   <form authority=\"marcsmd\">videocassette</form>\n    <extent>viewing
+        copy 1 videocassette of 1 (Betacam SP) (30 min.) : sd., col. ; 1/2 in.</extent>\n
+        \ </physicalDescription>\n  <abstract type=\"Summary\">\"Bonnie tries to start
+        a family tradition. Henry gets in trouble for taking the blame for a friend's
+        mistake. Ed makes a friend at the hospital with his personality\"--Wikipedia
+        WWW site, viewed June 9, 2014.</abstract>\n  <note type=\"statement of responsibility\"
+        altRepGroup=\"00\">directed by Rob Schiller ; written by Chris Kelly.</note>\n
+        \ <note>Episode no. 11.</note>\n  <note>Production no. 2J5661.</note>\n  <note>Sources
+        used: video container; Copyright catalog online; Copyright description; Wikipedia
+        WWW site, viewed June 9, 2014.</note>\n  <note type=\"performers\">William
+        Shatner.</note>\n  <note type=\"performers\">Guest stars: Andrew J. West,
+        Todd Stashwick.</note>\n  <classification authority=\"lcc\">VAQ 1396 (viewing
+        copy)</classification>\n  <identifier type=\"lccn\">2014603961</identifier>\n
+        \ <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n    <descriptionStandard>amim</descriptionStandard>\n
+        \   <recordContentSource authority=\"marcorg\">DLC</recordContentSource>\n
+        \   <recordCreationDate encoding=\"marc\">140609</recordCreationDate>\n    <recordChangeDate
+        encoding=\"iso8601\">20140609081554.0</recordChangeDate>\n    <recordIdentifier>18181095</recordIdentifier>\n
+        \   <recordOrigin>Converted from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>20</zs:recordPosition></zs:record></zs:records><zs:nextRecordPosition>21</zs:nextRecordPosition><zs:echoedSearchRetrieveRequest><zs:version>1.1</zs:version><zs:query>library</zs:query><zs:startRecord>11</zs:startRecord><zs:maximumRecords>10</zs:maximumRecords><zs:recordPacking>xml</zs:recordPacking><zs:recordSchema>mods</zs:recordSchema></zs:echoedSearchRetrieveRequest></zs:searchRetrieveResponse>\n"
+  recorded_at: Mon, 14 Feb 2022 03:12:34 GMT
+recorded_with: VCR 6.0.0

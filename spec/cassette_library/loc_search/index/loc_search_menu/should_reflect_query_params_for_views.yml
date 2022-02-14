@@ -1,0 +1,490 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://lx2.loc.gov:210/LCDB?maximumRecords=10&operation=searchRetrieve&query=test&recordSchema=mods&version=1.1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '39208'
+      Server:
+      - Metaproxy/1.19.1
+      Connection:
+      - Keep-Alive
+      Content-Type:
+      - text/xml
+    body:
+      encoding: UTF-8
+      string: "<?xml version=\"1.0\"?>\n<zs:searchRetrieveResponse xmlns:zs=\"http://www.loc.gov/zing/srw/\"><zs:version>1.1</zs:version><zs:numberOfRecords>10000</zs:numberOfRecords><zs:records><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>$#*! my dad says</title>\n    <partName>The truth
+        about dads and moms</partName>\n  </titleInfo>\n  <titleInfo type=\"alternative\">\n
+        \   <title>Truth about dads and moms</title>\n  </titleInfo>\n  <titleInfo
+        type=\"alternative\" displayLabel=\"Copyright application title:\">\n    <title>S#*!
+        my dad says</title>\n    <partName>The truth about dads and moms</partName>\n
+        \ </titleInfo>\n  <titleInfo type=\"alternative\">\n    <title>Shit my dad
+        says</title>\n    <partName>The truth about dads and moms</partName>\n  </titleInfo>\n
+        \ <titleInfo type=\"alternative\">\n    <title>Bleep my dad says</title>\n
+        \   <partName>The truth about dads and moms</partName>\n  </titleInfo>\n  <name
+        type=\"corporate\">\n    <namePart>Copyright Collection (Library of Congress)</namePart>\n
+        \ </name>\n  <typeOfResource>moving image</typeOfResource>\n  <genre authority=\"marcgt\">motion
+        picture</genre>\n  <genre authority=\"lcgft\">Situation comedies (Television
+        programs)</genre>\n  <genre authority=\"lcgft\">Fiction television programs.</genre>\n
+        \ <originInfo>\n    <place>\n      <placeTerm type=\"code\" authority=\"marccountry\">xxu</placeTerm>\n
+        \   </place>\n    <dateIssued>2010-10-07</dateIssued>\n    <dateIssued encoding=\"marc\">2010</dateIssued>\n
+        \   <dateCaptured encoding=\"iso8601\">20101007</dateCaptured>\n    <issuance>monographic</issuance>\n
+        \ </originInfo>\n  <language>\n    <languageTerm authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n
+        \ </language>\n  <physicalDescription>\n    <form authority=\"marccategory\">videorecording</form>\n
+        \   <form authority=\"marcsmd\">videocassette</form>\n    <extent>viewing
+        copy 1 videocassette of 1 (Betacam SP) (30 min.) : sd., col. ; 1/2 in.</extent>\n
+        \ </physicalDescription>\n  <abstract type=\"Summary\">\"After Ed takes Henry
+        out to an early dinner one night, they bump into Tim (Tim Bagley), who was
+        fired for forging Ed's driver's test. Henry disagrees with Ed on what should
+        be done to fix it. Meanwhile Bonnie gets an expensive make-up job and is determined
+        to make it last to get her money out it. Also Vince tells Henry of what really
+        happened when they were younger\"--Wikipedia WWW site, viewed June 9, 2014.</abstract>\n
+        \ <note type=\"statement of responsibility\" altRepGroup=\"00\">directed by
+        \ Rob Schiller ; written by Erin Ehrlich.</note>\n  <note>Episode no. 3.</note>\n
+        \ <note>Production no. 2J5633.</note>\n  <note>Sources used: video container;
+        Copyright catalog online; Copyright description; Wikipedia WWW site, viewed
+        June 9, 2014.</note>\n  <note type=\"performers\">William Shatner, Tim Bagley.</note>\n
+        \ <classification authority=\"lcc\">VAP 8696 (viewing copy)</classification>\n
+        \ <identifier type=\"lccn\">2014603696</identifier>\n  <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n
+        \   <descriptionStandard>amim</descriptionStandard>\n    <recordContentSource
+        authority=\"marcorg\">DLC</recordContentSource>\n    <recordCreationDate encoding=\"marc\">140609</recordCreationDate>\n
+        \   <recordChangeDate encoding=\"iso8601\">20140609105314.0</recordChangeDate>\n
+        \   <recordIdentifier>18181426</recordIdentifier>\n    <recordOrigin>Converted
+        from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>1</zs:recordPosition></zs:record><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>#TheLateBatsby</title>\n  </titleInfo>\n  <titleInfo
+        type=\"alternative\" displayLabel=\"Copyright application title:\">\n    <title>Late
+        Batsby</title>\n  </titleInfo>\n  <titleInfo type=\"alternative\" displayLabel=\"Alternative
+        title on Copyright application:\">\n    <title>Last Batsby</title>\n  </titleInfo>\n
+        \ <name type=\"corporate\">\n    <namePart>Copyright Collection (Library of
+        Congress)</namePart>\n  </name>\n  <typeOfResource>moving image</typeOfResource>\n
+        \ <genre authority=\"marcgt\">motion picture</genre>\n  <genre authority=\"lcgft\">Animated
+        films.</genre>\n  <genre authority=\"lcgft\">Short films.</genre>\n  <genre
+        authority=\"lcgft\">Fiction films.</genre>\n  <originInfo>\n    <place>\n
+        \     <placeTerm type=\"code\" authority=\"marccountry\">xxu</placeTerm>\n
+        \   </place>\n    <dateIssued>2018-07-27</dateIssued>\n    <dateIssued encoding=\"marc\">2018</dateIssued>\n
+        \   <issuance>monographic</issuance>\n  </originInfo>\n  <language>\n    <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n  </language>\n
+        \ <physicalDescription>\n    <form authority=\"marccategory\">videorecording</form>\n
+        \   <form authority=\"marcsmd\">videocassette</form>\n    <extent>viewing
+        copy 1 videocassette of 1 (HDCAM SR) (4 min., 11 sec.) : sd., col. ; 1/2 in.</extent>\n
+        \ </physicalDescription>\n  <abstract type=\"Summary\">\"Batgirl has to wait
+        for her Dad to fall asleep before she can join her friends and fight Mr. Freeze\"--Internet
+        movie database WWW site, viewed February 25, 2021.</abstract>\n  <note type=\"statement
+        of responsibility\" altRepGroup=\"00\">directors, Lauren Faust and Jennifer
+        Kluska ; screenplay, Lauren Faust and M.A. Larson ; story, Lauren Faust.</note>\n
+        \ <note>Originally released as a theatrical short accompanying the feature
+        film Teen Titans go! to the movies in 2018.</note>\n  <note>\"Test pilot of
+        the DC Super Hero Girls television series\"--Fandom WWW site, viewed February
+        24, 2021.</note>\n  <note>Partially viewed.</note>\n  <note>Sources used:
+        video container; Copyright catalog online; Copyright description; Internet
+        movie database WWW site, viewed February 25, 2021; YouTube WWW site, viewed
+        February 25, 2021.</note>\n  <classification authority=\"lcc\">VAS 9553 (viewing
+        copy)</classification>\n  <identifier type=\"lccn\">2021601710</identifier>\n
+        \ <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n    <descriptionStandard>amim</descriptionStandard>\n
+        \   <recordContentSource authority=\"marcorg\">DLC</recordContentSource>\n
+        \   <recordCreationDate encoding=\"marc\">210225</recordCreationDate>\n    <recordChangeDate
+        encoding=\"iso8601\">20210607113456.0</recordChangeDate>\n    <recordIdentifier>21916158</recordIdentifier>\n
+        \   <recordOrigin>Converted from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>2</zs:recordPosition></zs:record><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>1 &amp; 2 Tesalonika, James, 1, 2, &amp; 3 John</title>\n
+        \ </titleInfo>\n  <titleInfo type=\"uniform\">\n    <title>Bible</title>\n
+        \   <partName>New Testament. Selections. Mayoyao Ifugao</partName>\n  </titleInfo>\n
+        \ <typeOfResource>text</typeOfResource>\n  <originInfo>\n    <place>\n      <placeTerm
+        type=\"code\" authority=\"marccountry\">cou</placeTerm>\n    </place>\n    <place>\n
+        \     <placeTerm type=\"text\">Colorado Springs, CO</placeTerm>\n    </place>\n
+        \   <publisher>International Bible Society</publisher>\n    <dateIssued>1995</dateIssued>\n
+        \   <edition>Test ed.</edition>\n    <issuance>monographic</issuance>\n  </originInfo>\n
+        \ <language>\n    <languageTerm authority=\"iso639-2b\" type=\"code\">phi</languageTerm>\n
+        \ </language>\n  <physicalDescription>\n    <form authority=\"marcform\">print</form>\n
+        \   <extent>36 p. : ill. ; 22 cm.</extent>\n  </physicalDescription>\n  <note
+        type=\"language\">In Mayoyao Ifugao.</note>\n  <classification authority=\"lcc\">BS335
+        .I36 1995</classification>\n  <identifier type=\"lccn\">2002534380</identifier>\n
+        \ <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n    <recordContentSource
+        authority=\"marcorg\">DLC</recordContentSource>\n    <recordCreationDate encoding=\"marc\">020614</recordCreationDate>\n
+        \   <recordChangeDate encoding=\"iso8601\">20130528124142.0</recordChangeDate>\n
+        \   <recordIdentifier>12818077</recordIdentifier>\n    <recordOrigin>Converted
+        from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>3</zs:recordPosition></zs:record><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>1,001 best low-carb recipes</title>\n    <subTitle>delicious,
+        healthy, easy-to-make recipes for cutting carbs</subTitle>\n  </titleInfo>\n
+        \ <titleInfo type=\"alternative\">\n    <title>One thousand one low-carb recipes</title>\n
+        \ </titleInfo>\n  <titleInfo type=\"uniform\">\n    <title>1,001 low-carb
+        recipes for life</title>\n  </titleInfo>\n  <name type=\"personal\">\n    <namePart>Spitler,
+        Sue</namePart>\n    <role>\n      <roleTerm type=\"text\">editor.</roleTerm>\n
+        \   </role>\n  </name>\n  <name type=\"personal\">\n    <namePart>Yoakam,
+        Linda R.</namePart>\n    <role>\n      <roleTerm type=\"text\">editor.</roleTerm>\n
+        \   </role>\n  </name>\n  <typeOfResource>text</typeOfResource>\n  <genre
+        authority=\"rdacontent\">text</genre>\n  <originInfo>\n    <place>\n      <placeTerm
+        type=\"code\" authority=\"marccountry\">ilu</placeTerm>\n    </place>\n    <dateIssued
+        encoding=\"marc\">2016</dateIssued>\n    <copyrightDate encoding=\"marc\">2016</copyrightDate>\n
+        \   <issuance>monographic</issuance>\n  </originInfo>\n  <originInfo eventType=\"publication\">\n
+        \   <place>\n      <placeTerm type=\"text\">Chicago :</placeTerm>\n    </place>\n
+        \   <publisher>Surrey Books, an imprint of Agate Publishing, Inc.,</publisher>\n
+        \   <dateIssued>[2016]</dateIssued>\n  </originInfo>\n  <language>\n    <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n  </language>\n
+        \ <physicalDescription>\n    <form authority=\"marcform\">print</form>\n    <extent>x,
+        518 pages ; 26 cm.</extent>\n    <form type=\"media\" authority=\"rdamedia\">unmediated</form>\n
+        \   <form type=\"carrier\" authority=\"rdacarrier\">volume</form>\n  </physicalDescription>\n
+        \ <abstract type=\"Summary\">\"A redesigned and reformatted version of a title
+        now returning to print, this second edition of 1,001 Best Low-Carb Recipes
+        is an extensive collection of great dishes for the health-conscious home cook
+        looking for more low-carb options. Enlarged and beautifully repackaged, this
+        new edition features a sleek, updated cover design and a broader, more useful
+        format that sits flat when open for maximum convenience.  Interest in low-carb
+        diets is spiking, as more and more people believe carb consumption is an obstacle
+        to weight loss and general good health. A 2014 randomized trial by the National
+        Institutes of Health found that participants on a low-carb diet experienced
+        greater weight loss than those on a low-fat diet.  1,001 Best Low-Carb Recipes
+        shows readers how to maximize the benefits of low-carb eating for good health,
+        without sacrificing flavor. This cookbook teaches readers how to eat healthily
+        during the maintenance phase of a low-carb diet, why the low-carb diet works,
+        what to eat or avoid eating, and how to keep the pounds off. It also discusses
+        weight loss expectations and safety concerns, and provides complete nutritional
+        data for each recipe.  Above all, the recipes in the cookbook prove that a
+        low-carb diet does not have to be bland or boring. Recipes include Caribbean
+        Potato Salad, Sesame Shrimp Stir-Fry, and some surprises like Black Bottom
+        Pie and Soft Molasses Cookies.  The award-winning 1,001 cookbook series-which
+        has sold 750,000 copies across all titles-has earned its popularity through
+        how its writers and editors curate and test the recipes, as well as by featuring
+        complete nutritional data, such as calories, fat, cholesterol, carbohydrates,
+        and diabetic exchanges. This latest offering in the bestselling series has
+        been completely refreshed and updated for maximum ease of use.  \"--</abstract>\n
+        \ <abstract type=\"Summary\">\"A collection of low-carbohydrate recipes for
+        the home cook\"--</abstract>\n  <tableOfContents>Machine generated contents
+        note: Introduction -- Chapter 1: Breakfast and Breads -- Chapter 2: Soups,
+        Chowders, and Chilis -- Chapter 3: Poultry -- Chapter 4: Meats -- Chapter
+        5: Seafood -- Chapter 6: Vegetables and Side Dishes -- Chapter 7: Salads and
+        Dressings -- Chapter 8: Snacks, Appetizers, and Pizza -- Chapter 9: Desserts
+        -- Index.</tableOfContents>\n  <note type=\"statement of responsibility\"
+        altRepGroup=\"00\">edited by Sue Spitler with Linda R. Yoakam, MS, RD.</note>\n
+        \ <note>Includes index.</note>\n  <note>Revision of: 1,001 low-carb recipes
+        for life / edited by Sue Spitler with Linda R. Yoakam. c2004.</note>\n  <note>Includes
+        index.</note>\n  <subject authority=\"lcsh\">\n    <topic>Low-carbohydrate
+        diet</topic>\n    <genre>Recipes</genre>\n  </subject>\n  <subject authority=\"bisacsh\">\n
+        \   <topic>COOKING / Health &amp; Healing / Low Carbohydrate</topic>\n  </subject>\n
+        \ <subject authority=\"bisacsh\">\n    <topic>COOKING / Courses &amp; Dishes
+        / General</topic>\n  </subject>\n  <subject authority=\"bisacsh\">\n    <topic>COOKING
+        / Methods / Quick &amp; Easy</topic>\n  </subject>\n  <subject authority=\"bisacsh\">\n
+        \   <topic>COOKING / Health &amp; Healing / General</topic>\n  </subject>\n
+        \ <classification authority=\"lcc\">RM237.73 .A15 2016</classification>\n
+        \ <classification authority=\"ddc\" edition=\"23\">641.5/6383</classification>\n
+        \ <classification authority=\"bisacsh\">CKB108000 CKB101000 CKB070000 CKB039000</classification>\n
+        \ <relatedItem type=\"series\">\n    <titleInfo>\n      <title>1,001</title>\n
+        \   </titleInfo>\n  </relatedItem>\n  <identifier type=\"isbn\">9781572841840
+        (paperback)</identifier>\n  <identifier type=\"isbn\">1572841842 (paperback)</identifier>\n
+        \ <identifier type=\"isbn\" invalid=\"yes\">9781572847705 (ebook)</identifier>\n
+        \ <identifier type=\"isbn\" invalid=\"yes\">1572847700 (ebook)</identifier>\n
+        \ <identifier type=\"lccn\">2015031870</identifier>\n  <recordInfo>\n    <descriptionStandard>rda</descriptionStandard>\n
+        \   <recordContentSource authority=\"marcorg\">DLC</recordContentSource>\n
+        \   <recordCreationDate encoding=\"marc\">150909</recordCreationDate>\n    <recordChangeDate
+        encoding=\"iso8601\">20170710144843.0</recordChangeDate>\n    <recordIdentifier>18776592</recordIdentifier>\n
+        \   <recordOrigin>Converted from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n    <languageOfCataloging>\n      <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n    </languageOfCataloging>\n
+        \ </recordInfo>\n</mods></zs:recordData><zs:recordPosition>4</zs:recordPosition></zs:record><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>1,001 ingenious gardening ideas</title>\n    <subTitle>new,
+        fun, and fabulous tips that will change the way you garden-forever!</subTitle>\n
+        \ </titleInfo>\n  <titleInfo type=\"alternative\">\n    <title>One thousand
+        one ingenious gardening ideas</title>\n  </titleInfo>\n  <titleInfo type=\"alternative\">\n
+        \   <title>One thousand and one ingenious gardening ideas</title>\n  </titleInfo>\n
+        \ <name type=\"personal\">\n    <namePart>Martin, Deborah L.</namePart>\n
+        \ </name>\n  <name type=\"personal\">\n    <namePart>Cunningham, Sally Jean.</namePart>\n
+        \ </name>\n  <typeOfResource>text</typeOfResource>\n  <genre authority=\"marcgt\">bibliography</genre>\n
+        \ <originInfo>\n    <place>\n      <placeTerm type=\"code\" authority=\"marccountry\">pau</placeTerm>\n
+        \   </place>\n    <place>\n      <placeTerm type=\"text\">Emmaus, Pa</placeTerm>\n
+        \   </place>\n    <place>\n      <placeTerm type=\"text\">New York]</placeTerm>\n
+        \   </place>\n    <publisher>Rodale Press</publisher>\n    <publisher>Distributed
+        in the book trade by St. Martin's Press</publisher>\n    <dateIssued>c1999</dateIssued>\n
+        \   <dateIssued encoding=\"marc\">1999</dateIssued>\n    <issuance>monographic</issuance>\n
+        \ </originInfo>\n  <language>\n    <languageTerm authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n
+        \ </language>\n  <physicalDescription>\n    <form authority=\"marcform\">print</form>\n
+        \   <extent>ix, 342 p. : ill., map ; 24 cm.</extent>\n  </physicalDescription>\n
+        \ <note type=\"statement of responsibility\" altRepGroup=\"00\">Deborah L.
+        Martin, editor ; contributing writers, Sally Jean Cunningham ... [et al.].</note>\n
+        \ <note type=\"bibliography\">Includes bibliographical references (p. 327-329)
+        and index.</note>\n  <subject authority=\"lcsh\">\n    <topic>Gardening</topic>\n
+        \   <topic>Miscellanea</topic>\n  </subject>\n  <subject authority=\"lcsh\">\n
+        \   <topic>Organic gardening</topic>\n    <topic>Miscellanea</topic>\n  </subject>\n
+        \ <classification authority=\"lcc\">SB453 .A125 1999</classification>\n  <classification
+        authority=\"ddc\" edition=\"21\">635</classification>\n  <relatedItem type=\"series\">\n
+        \   <titleInfo>\n      <title>A Rodale garden book</title>\n    </titleInfo>\n
+        \ </relatedItem>\n  <identifier type=\"isbn\">0875968090 (hardcover : acid-free
+        paper)</identifier>\n  <identifier type=\"lccn\">99006038</identifier>\n  <recordInfo>\n
+        \   <descriptionStandard>aacr</descriptionStandard>\n    <recordContentSource
+        authority=\"marcorg\">DLC</recordContentSource>\n    <recordCreationDate encoding=\"marc\">990115</recordCreationDate>\n
+        \   <recordChangeDate encoding=\"iso8601\">20161013093819.0</recordChangeDate>\n
+        \   <recordIdentifier>739641</recordIdentifier>\n    <recordOrigin>Converted
+        from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>5</zs:recordPosition></zs:record><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>1,001 statistics practice problems for dummies</title>\n
+        \ </titleInfo>\n  <titleInfo type=\"alternative\">\n    <title>Statistics
+        for dummies</title>\n  </titleInfo>\n  <titleInfo type=\"alternative\">\n
+        \   <title>One thousand one statistics practice problems for dummies</title>\n
+        \ </titleInfo>\n  <titleInfo type=\"alternative\">\n    <title>One thousand
+        and one statistics practice problems for dummies</title>\n  </titleInfo>\n
+        \ <titleInfo type=\"alternative\">\n    <title>1,001 practice problems</title>\n
+        \   <subTitle>statistics for dummies</subTitle>\n  </titleInfo>\n  <titleInfo
+        type=\"alternative\">\n    <title>Statistics for dummies</title>\n  </titleInfo>\n
+        \ <name type=\"personal\">\n    <namePart>Lefevere, Lindsay Sandman.</namePart>\n
+        \ </name>\n  <typeOfResource>text</typeOfResource>\n  <genre authority=\"rdacontent\">text</genre>\n
+        \ <genre authority=\"fast\">Problems, exercises, etc.</genre>\n  <originInfo>\n
+        \   <place>\n      <placeTerm type=\"code\" authority=\"marccountry\">nju</placeTerm>\n
+        \   </place>\n    <dateIssued encoding=\"marc\">2014</dateIssued>\n    <copyrightDate
+        encoding=\"marc\">2014</copyrightDate>\n    <issuance>monographic</issuance>\n
+        \ </originInfo>\n  <originInfo eventType=\"publication\">\n    <place>\n      <placeTerm
+        type=\"text\">Hoboken, NJ :</placeTerm>\n    </place>\n    <publisher>John
+        Wiley &amp; Sons,</publisher>\n    <dateIssued>[2014]</dateIssued>\n  </originInfo>\n
+        \ <language>\n    <languageTerm authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n
+        \ </language>\n  <physicalDescription>\n    <form authority=\"marcform\">print</form>\n
+        \   <extent>x, 488 pages : illustrations ; 26 cm.</extent>\n    <form type=\"media\"
+        authority=\"rdamedia\">unmediated</form>\n    <form type=\"carrier\" authority=\"rdacarrier\">volume</form>\n
+        \ </physicalDescription>\n  <abstract type=\"Summary\">1001 practice statistics
+        problems with answers and solution explanations.</abstract>\n  <tableOfContents>pt.
+        I. The questions -- 1. Basic vocabulary -- Picking out the population, sample,
+        parameter, and statistic -- Distinguishing quantitative and categorical variables
+        -- Getting a handle on bias, variables and the mean -- Understanding different
+        statistics and data analysis terms -- Using statistical techniques -- Working
+        with the standard deviation -- 2. Descriptive statistics -- Understanding
+        the mean and the median -- Surveying standard deviation and variance -- Employing
+        the Empirical Rule -- Measuring relative standing with percentiles -- Delving
+        into data sets and descriptive statistics -- 3. Graphing -- Interpreting pie
+        charts -- Considering three-dimensional pie charts -- Interpreting bar charts
+        -- Introducing other graphs -- Interpreting histograms -- Describing the center
+        of a distribution -- Interpreting box plots -- Interpreting time charts --
+        4. Random variables and the binomial distribution -- Comparing discrete and
+        continuous random variables -- Understanding the probability distribution
+        of a random variable -- Determining the mean of a discrete random variable
+        -- Working with the variance of a discrete random variable -- Putting together
+        the mean, variance, and standard deviation of a random variable -- Introducing
+        binomial random variables -- Figuring out the mean, variance, and standard
+        deviation of a binomial random variable -- Finding binomial probabilities
+        with a formula -- Finding binomial probabilities with the binomial table --
+        Using the normal approximation to the binomial -- 5. The normal distribution
+        -- Working with z-Scores and values of X -- Writing probability notations
+        -- Introducing the Z-Table -- Finding probabilities for a normal distribution
+        -- Digging deeper into z-Scores and probabilities -- Figuring out percentiles
+        for a normal distribution -- 6. The t-Distribution -- Understanding the t-Distribution
+        and comparing it to the Z-Distribution -- Using the t-Table -- Using the t-Distribution
+        to calculate confidence intervals -- 7. Sampling distribution and the central
+        limit theorem -- The basics of sampling distributions -- checking out random
+        variables and sample means -- Examining standard error -- Surveying notation
+        and symbols -- Understanding what affects standard error -- Connecting sample
+        means and sampling distributions -- Looking at the Central Limit Theorem --
+        Sample mean calculations -- Finding probabilities for sample means -- Adding
+        proportions to the mix -- Figuring out the standard error of the sample proportion
+        -- Using the Central Limit theorem for proportions -- Matching z-Scores to
+        sample proportions -- Finding approximate probabilities -- 8. Finding room
+        for a margin of error -- Defining and calculating margin of error -- Using
+        the formula for margin of error when estimating a population mean -- Finding
+        appropriate z*-Values for given confidence levels -- Connecting margin of
+        error to sample size -- Linking margin of error and population proportion
+        --</tableOfContents>\n  <tableOfContents>9. Confidence intervals: basics for
+        single population means and proportions -- Introducing confidence intervals
+        -- Components of confidence intervals -- Interpreting confidence intervals
+        -- Spotting misleading confidence intervals -- Calculating a confidence interval
+        for a population mean -- Determining the needed sample size -- Population
+        proportion -- Connecting a population proportion to a survey -- Calculating
+        a confidence interval for a population proportion -- 10. Confidence intervals
+        for two population means and proportions -- Working with confidence intervals
+        and population proportions -- Working with confidence intervals and population
+        means -- Making calculations when population standard deviations are known
+        -- Working with unknown population standard deviations and small sample sizes
+        -- 11. Claims, tests, and conclusions -- Knowing when to use a hypothesis
+        test -- Setting up null and alternative hypotheses -- Finding the test statistic
+        and the p-Value -- Making decision based on alpha levels and test statistics
+        -- Making conclusions -- Understanding type I and type II errors -- 12. Hypothesis
+        testing basics for a single population mean: z- and t-Tests -- What you need
+        to run a z-Test -- Determining null and alternative hypotheses -- Introducing
+        p-Values -- Calculating the z-Test statistic -- Finding p-Values by doing
+        a test of one population mean -- Drawing conclusion about hypotheses -- Knowing
+        when to use a t-Test -- Connecting hypotheses to t-Tests -- Calculating test
+        statistics -- Working with critical values of t -- Linking p-Values and t-Tests
+        -- Drawing conclusion from t-Tests -- Performing a t-Test for a single population
+        mean -- 13. Hypothesis tests for one proportion, two proportions, or two population
+        means -- Comparing two independent population means -- Using the paired t-Test
+        -- Comparing two population proportions -- 14. Surveys -- Planning and designing
+        surveys -- Selecting samples and conducting surveys -- 15. Correlation --
+        Scatter plots -- Correlations -- 16. Simple linear regression -- Introducing
+        the regression line -- Knowing the conditions for regression -- Examining
+        the equation for calculating the least-squares regression line -- Finding
+        the slope and y-intercept of a regression line -- Seeing how variables can
+        change in a regression line -- Finding a regression line -- Connecting to
+        correlation and linear relationships -- Determining whether variables are
+        candidates for a linear regression analysis -- Describing linear relationships
+        -- Making predictions -- Figuring out expected values and differences -- 17.
+        Two-way tables and independence -- Introducing variables and two-way tables
+        -- Reading a two-way table -- Interpreting a two-way table by using percentages
+        -- Interpreting a two-way table by using counts -- Connecting conditional
+        probabilities to two-way tables -- Investigating independent variables --
+        Calculating marginal probability and more -- Adding joint probability into
+        the mix -- Conditional and marginal probabilities -- Figuring out the number
+        of cells in a two-way table -- Including conditional probability -- Research
+        designs -- pt. II. The answers -- 18. Answers -- Appendix : Tables for reference.</tableOfContents>\n
+        \ <note type=\"statement of responsibility\" altRepGroup=\"00\">[executive
+        editor, Lindsay Sandman Lefevere].</note>\n  <note>Includes index.</note>\n
+        \ <subject authority=\"lcsh\">\n    <topic>Statistics</topic>\n    <genre>Problems,
+        exercises, etc</genre>\n  </subject>\n  <subject authority=\"bisacsh\">\n
+        \   <topic>MATHEMATICS / Probability &amp; Statistics / General</topic>\n
+        \ </subject>\n  <subject authority=\"fast\">\n    <topic>Statistics</topic>\n
+        \ </subject>\n  <classification authority=\"lcc\">QA276.2 .A16 2014</classification>\n
+        \ <classification authority=\"ddc\" edition=\"23\">519.5/076</classification>\n
+        \ <relatedItem type=\"series\">\n    <titleInfo>\n      <title>--For dummies</title>\n
+        \   </titleInfo>\n  </relatedItem>\n  <identifier type=\"isbn\">9781118776049
+        (pbk.)</identifier>\n  <identifier type=\"isbn\">1118776046 (pbk.)</identifier>\n
+        \ <identifier type=\"isbn\" invalid=\"yes\">9781118776056 (ebk.)</identifier>\n
+        \ <identifier type=\"isbn\" invalid=\"yes\">9781118776162 (ebk.)</identifier>\n
+        \ <identifier type=\"lccn\">2013954236</identifier>\n  <identifier type=\"oclc\">ocn887816807</identifier>\n
+        \ <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n    <recordContentSource
+        authority=\"marcorg\">ZGD</recordContentSource>\n    <recordCreationDate encoding=\"marc\">131031</recordCreationDate>\n
+        \   <recordChangeDate encoding=\"iso8601\">20150508162158.0</recordChangeDate>\n
+        \   <recordIdentifier>17924313</recordIdentifier>\n    <recordOrigin>Converted
+        from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n    <languageOfCataloging>\n      <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n    </languageOfCataloging>\n
+        \ </recordInfo>\n</mods></zs:recordData><zs:recordPosition>6</zs:recordPosition></zs:record><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>1 2 3 the farm and me</title>\n    <subTitle>following
+        food from the farm to your family</subTitle>\n  </titleInfo>\n  <titleInfo
+        type=\"alternative\">\n    <title>One two three the farm and me</title>\n
+        \ </titleInfo>\n  <name type=\"personal\">\n    <namePart>Frost, Maddie</namePart>\n
+        \   <role>\n      <roleTerm type=\"text\">illustrator.</roleTerm>\n    </role>\n
+        \ </name>\n  <name type=\"corporate\">\n    <namePart>America's Test Kitchen
+        (Firm)</namePart>\n  </name>\n  <typeOfResource>text</typeOfResource>\n  <genre
+        authority=\"rdacontent\">text</genre>\n  <originInfo>\n    <place>\n      <placeTerm
+        type=\"code\" authority=\"marccountry\">ilu</placeTerm>\n    </place>\n    <dateIssued
+        encoding=\"marc\">2018</dateIssued>\n    <issuance>monographic</issuance>\n
+        \ </originInfo>\n  <originInfo eventType=\"publication\">\n    <place>\n      <placeTerm
+        type=\"text\">Naperville :</placeTerm>\n    </place>\n    <publisher>Sourcebooks
+        Jabberwocky, an imprint of Sourcebooks, Inc.,</publisher>\n    <dateIssued>[2018]</dateIssued>\n
+        \ </originInfo>\n  <language>\n    <languageTerm authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n
+        \ </language>\n  <physicalDescription>\n    <form authority=\"marcform\">print</form>\n
+        \   <extent>pages cm</extent>\n    <form type=\"media\" authority=\"rdamedia\">unmediated</form>\n
+        \   <form type=\"carrier\" authority=\"rdacarrier\">volume</form>\n  </physicalDescription>\n
+        \ <targetAudience>Age 0-3.</targetAudience>\n  <targetAudience>Grade Pre-school,
+        excluding K.</targetAudience>\n  <targetAudience authority=\"marctarget\">juvenile</targetAudience>\n
+        \ <note type=\"statement of responsibility\" altRepGroup=\"00\">by America's
+        Test Kitchen ; pictures by Maddie Frost.</note>\n  <subject authority=\"lcsh\">\n
+        \   <topic>Farm produce</topic>\n    <genre>Juvenile literature</genre>\n
+        \ </subject>\n  <subject authority=\"lcsh\">\n    <topic>Food</topic>\n    <genre>Juvenile
+        literature</genre>\n  </subject>\n  <classification authority=\"lcc\">S519
+        .A14 2018</classification>\n  <classification authority=\"ddc\" edition=\"23\">338.1/7</classification>\n
+        \ <identifier type=\"isbn\">9781492670049 (board book : alk. paper)</identifier>\n
+        \ <identifier type=\"lccn\">2018046226</identifier>\n  <recordInfo>\n    <descriptionStandard>rda</descriptionStandard>\n
+        \   <recordContentSource authority=\"marcorg\">DLC</recordContentSource>\n
+        \   <recordCreationDate encoding=\"marc\">180927</recordCreationDate>\n    <recordChangeDate
+        encoding=\"iso8601\">20180927104310.0</recordChangeDate>\n    <recordIdentifier>20683699</recordIdentifier>\n
+        \   <recordOrigin>Converted from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n    <languageOfCataloging>\n      <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n    </languageOfCataloging>\n
+        \ </recordInfo>\n</mods></zs:recordData><zs:recordPosition>7</zs:recordPosition></zs:record><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>10 real SATs</title>\n  </titleInfo>\n  <titleInfo
+        type=\"alternative\">\n    <title>Ten real SATs</title>\n  </titleInfo>\n
+        \ <name type=\"corporate\">\n    <namePart>College Entrance Examination Board</namePart>\n
+        \ </name>\n  <typeOfResource>text</typeOfResource>\n  <originInfo>\n    <place>\n
+        \     <placeTerm type=\"code\" authority=\"marccountry\">nyu</placeTerm>\n
+        \   </place>\n    <place>\n      <placeTerm type=\"text\">New York</placeTerm>\n
+        \   </place>\n    <publisher>College Entrance Examination Board</publisher>\n
+        \   <dateIssued>c1997</dateIssued>\n    <dateIssued encoding=\"marc\">1997</dateIssued>\n
+        \   <issuance>monographic</issuance>\n  </originInfo>\n  <language>\n    <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n  </language>\n
+        \ <physicalDescription>\n    <form authority=\"marcform\">print</form>\n    <extent>664
+        p. : ill. ; 28 cm. + 1 diskette (3 1/2 in., requires Windows)</extent>\n  </physicalDescription>\n
+        \ <subject authority=\"lcsh\">\n    <topic>SAT (Educational test)</topic>\n
+        \   <topic>Study guides</topic>\n  </subject>\n  <classification authority=\"lcc\">LB2353.57
+        .A156 1997</classification>\n  <classification authority=\"ddc\" edition=\"21\">378.1/662</classification>\n
+        \ <identifier type=\"isbn\">0874475678</identifier>\n  <identifier type=\"lccn\">97067530</identifier>\n
+        \ <identifier type=\"oclc\">37314041</identifier>\n  <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n
+        \   <recordContentSource authority=\"marcorg\">IStc</recordContentSource>\n
+        \   <recordCreationDate encoding=\"marc\">970516</recordCreationDate>\n    <recordChangeDate
+        encoding=\"iso8601\">20050929180225.0</recordChangeDate>\n    <recordIdentifier>4019494</recordIdentifier>\n
+        \   <recordOrigin>Converted from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>8</zs:recordPosition></zs:record><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>10 SATs</title>\n    <subTitle>plus advice from
+        the College Board on how to prepare for them</subTitle>\n  </titleInfo>\n
+        \ <titleInfo type=\"alternative\">\n    <title>Ten SATs</title>\n  </titleInfo>\n
+        \ <name type=\"corporate\">\n    <namePart>College Entrance Examination Board</namePart>\n
+        \ </name>\n  <name type=\"corporate\">\n    <namePart>Educational Testing
+        Service</namePart>\n  </name>\n  <typeOfResource>text</typeOfResource>\n  <originInfo>\n
+        \   <place>\n      <placeTerm type=\"code\" authority=\"marccountry\">nyu</placeTerm>\n
+        \   </place>\n    <place>\n      <placeTerm type=\"text\">New York</placeTerm>\n
+        \   </place>\n    <publisher>College Entrance Examination Board</publisher>\n
+        \   <dateIssued>c1988</dateIssued>\n    <dateIssued encoding=\"marc\">1988</dateIssued>\n
+        \   <edition>3rd ed.</edition>\n    <issuance>monographic</issuance>\n  </originInfo>\n
+        \ <language>\n    <languageTerm authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n
+        \ </language>\n  <physicalDescription>\n    <form authority=\"marcform\">print</form>\n
+        \   <extent>298 p. : ill. ; 28 cm.</extent>\n  </physicalDescription>\n  <note>\"Prepared
+        and produced by Educational Testing Service (ETS)\"--T.p. verso.</note>\n
+        \ <subject authority=\"lcsh\">\n    <topic>SAT (Educational test)</topic>\n
+        \ </subject>\n  <subject authority=\"lcsh\">\n    <topic>SAT (Educational
+        test)</topic>\n    <topic>Study guides</topic>\n  </subject>\n  <classification
+        authority=\"lcc\">LB2353.57 .A157 1988</classification>\n  <classification
+        authority=\"ddc\" edition=\"19\">371.2/6</classification>\n  <identifier type=\"isbn\">0874473039
+        (pbk.) :</identifier>\n  <identifier type=\"lccn\">87063591</identifier>\n
+        \ <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n    <recordContentSource
+        authority=\"marcorg\">DLC</recordContentSource>\n    <recordCreationDate encoding=\"marc\">871230</recordCreationDate>\n
+        \   <recordChangeDate encoding=\"iso8601\">20161117090338.0</recordChangeDate>\n
+        \   <recordIdentifier>2424452</recordIdentifier>\n    <recordOrigin>Converted
+        from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>9</zs:recordPosition></zs:record><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>10 SATs</title>\n    <subTitle>scholastic aptitude
+        tests of the College Board</subTitle>\n  </titleInfo>\n  <titleInfo type=\"alternative\">\n
+        \   <title>10 S.A.T.s</title>\n  </titleInfo>\n  <titleInfo type=\"alternative\">\n
+        \   <title>Ten SATs</title>\n  </titleInfo>\n  <name type=\"corporate\">\n
+        \   <namePart>College Entrance Examination Board</namePart>\n  </name>\n  <typeOfResource>text</typeOfResource>\n
+        \ <originInfo>\n    <place>\n      <placeTerm type=\"code\" authority=\"marccountry\">nyu</placeTerm>\n
+        \   </place>\n    <place>\n      <placeTerm type=\"text\">New York</placeTerm>\n
+        \   </place>\n    <publisher>College Entrance Examination Board</publisher>\n
+        \   <dateIssued>c1983</dateIssued>\n    <dateIssued encoding=\"marc\">1983</dateIssued>\n
+        \   <issuance>monographic</issuance>\n  </originInfo>\n  <language>\n    <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n  </language>\n
+        \ <physicalDescription>\n    <form authority=\"marcform\">print</form>\n    <extent>304
+        p. : ill. ; 28 cm.</extent>\n  </physicalDescription>\n  <subject authority=\"lcsh\">\n
+        \   <topic>SAT (Educational test)</topic>\n  </subject>\n  <subject authority=\"lcsh\">\n
+        \   <topic>SAT (Educational test)</topic>\n    <topic>Study guides</topic>\n
+        \ </subject>\n  <classification authority=\"lcc\">LB2353.57 .A16 1983</classification>\n
+        \ <classification authority=\"ddc\" edition=\"19\">378/.1664</classification>\n
+        \ <identifier type=\"isbn\">0874471613 (pbk.) :</identifier>\n  <identifier
+        type=\"lccn\">83071936</identifier>\n  <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n
+        \   <recordContentSource authority=\"marcorg\">DLC</recordContentSource>\n
+        \   <recordCreationDate encoding=\"marc\">840130</recordCreationDate>\n    <recordChangeDate
+        encoding=\"iso8601\">20161117082749.0</recordChangeDate>\n    <recordIdentifier>3298317</recordIdentifier>\n
+        \   <recordOrigin>Converted from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>10</zs:recordPosition></zs:record></zs:records><zs:nextRecordPosition>11</zs:nextRecordPosition><zs:echoedSearchRetrieveRequest><zs:version>1.1</zs:version><zs:query>test</zs:query><zs:maximumRecords>10</zs:maximumRecords><zs:recordPacking>xml</zs:recordPacking><zs:recordSchema>mods</zs:recordSchema></zs:echoedSearchRetrieveRequest></zs:searchRetrieveResponse>\n"
+  recorded_at: Mon, 14 Feb 2022 03:19:54 GMT
+recorded_with: VCR 6.0.0

@@ -24,7 +24,7 @@ module EnjuNii
 
         ncid = doc.at('//cinii:ncid').try(:content)
         identifier_type = IdentifierType.find_or_create_by!(name: 'ncid')
-        identifier = Identifier.where(body: ncid, identifier_type_id: identifier_type.id).first
+        identifier = Identifier.find_by(body: ncid, identifier_type_id: identifier_type.id)
         return identifier.manifestation if identifier
 
         creators = get_cinii_creator(doc)
@@ -50,7 +50,7 @@ module EnjuNii
         manifestation.extent = doc.at('//dcterms:extent').try(:content)
         manifestation.dimensions = doc.at('//cinii:size').try(:content)
 
-        language = Language.where(iso_639_3: get_cinii_language(doc)).first
+        language = Language.find_by(iso_639_3: get_cinii_language(doc))
         if language
           manifestation.language_id = language.id
         else

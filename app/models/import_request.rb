@@ -40,6 +40,7 @@ class ImportRequest < ApplicationRecord
     not_found_exceptions = []
     not_found_exceptions << EnjuNdl::RecordNotFound if defined? EnjuNdl
     not_found_exceptions << EnjuNii::RecordNotFound if defined? EnjuNii
+    not_found_exceptions << EnjuLoc::RecordNotFound if defined? EnjuLoc
     begin
       return nil unless Manifestation.respond_to?(:import_isbn)
 

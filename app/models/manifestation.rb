@@ -3,6 +3,7 @@ class Manifestation < ApplicationRecord
   include EnjuSubject::EnjuManifestation
   include EnjuNdl::EnjuManifestation
   include EnjuNii::EnjuManifestation
+  include EnjuLoc::EnjuManifestation
   include EnjuManifestationViewer::EnjuManifestation
 
   has_many :creates, -> { order('creates.position') }, dependent: :destroy, foreign_key: 'work_id'

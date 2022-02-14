@@ -1,0 +1,79 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://lx2.loc.gov:210/LCDB?maximumRecords=10&operation=searchRetrieve&query=bath.lccn=%22%5E2012471967%22&recordSchema=mods&version=1.1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '4335'
+      Server:
+      - Metaproxy/1.19.1
+      Connection:
+      - Keep-Alive
+      Content-Type:
+      - text/xml
+    body:
+      encoding: UTF-8
+      string: "<?xml version=\"1.0\"?>\n<zs:searchRetrieveResponse xmlns:zs=\"http://www.loc.gov/zing/srw/\"><zs:version>1.1</zs:version><zs:numberOfRecords>1</zs:numberOfRecords><zs:records><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <nonSort xml:space=\"preserve\">The </nonSort>\n    <title>Rails
+        View</title>\n    <subTitle>Creating a Beautiful and Maintainable User Experience</subTitle>\n
+        \ </titleInfo>\n  <name type=\"personal\" usage=\"primary\">\n    <namePart>Athayde,
+        John</namePart>\n    <role>\n      <roleTerm type=\"text\">author.</roleTerm>\n
+        \   </role>\n  </name>\n  <name type=\"personal\">\n    <namePart>Williams,
+        Bruce</namePart>\n    <namePart type=\"termsOfAddress\">(Software engineer)</namePart>\n
+        \   <role>\n      <roleTerm type=\"text\">author.</roleTerm>\n    </role>\n
+        \ </name>\n  <typeOfResource>text</typeOfResource>\n  <genre authority=\"marcgt\">bibliography</genre>\n
+        \ <genre authority=\"rdacontent\">text</genre>\n  <originInfo>\n    <place>\n
+        \     <placeTerm type=\"code\" authority=\"marccountry\">txu</placeTerm>\n
+        \   </place>\n    <dateIssued encoding=\"marc\">2012</dateIssued>\n    <issuance>monographic</issuance>\n
+        \ </originInfo>\n  <originInfo eventType=\"publication\">\n    <place>\n      <placeTerm
+        type=\"text\">Dallas, Texas :</placeTerm>\n    </place>\n    <publisher>The
+        Pragmatic Bookshelf,</publisher>\n    <dateIssued>[2012]</dateIssued>\n  </originInfo>\n
+        \ <language>\n    <languageTerm authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n
+        \ </language>\n  <physicalDescription>\n    <form authority=\"marcform\">print</form>\n
+        \   <extent>xiv, 245 pages : illustrations ; 23 cm.</extent>\n    <form type=\"media\"
+        authority=\"rdamedia\">unmediated</form>\n    <form type=\"carrier\" authority=\"rdacarrier\">volume</form>\n
+        \ </physicalDescription>\n  <abstract type=\"Summary\">\"Break free from tangles
+        of logic and markup in your views, and implement your user interface in Rails
+        cleanly and maintainably. Build up solid, sustainable layouts with HTML5.
+        Then learn to manage your forms and keep your markup clean. Learn when (and
+        when not) to use Presenters, and how to tame HTML emails. Master the asset
+        pipeline introduced in Rails 3.1 as you use Sass and CoffeeScript to create
+        easy-to-manage code for enjoyable user interfaces\"--P. [4] of cover.</abstract>\n
+        \ <note type=\"statement of responsibility\" altRepGroup=\"00\">John Athayde,
+        Bruce Williams.</note>\n  <note type=\"bibliography\">Includes bibliographical
+        references (pages 235) and index.</note>\n  <subject authority=\"lcsh\">\n
+        \   <titleInfo>\n      <title>Ruby on rails (Electronic resource)</title>\n
+        \   </titleInfo>\n  </subject>\n  <subject authority=\"lcsh\">\n    <topic>Web
+        site development</topic>\n  </subject>\n  <classification authority=\"lcc\">MLCM
+        2015/43138 (T)</classification>\n  <relatedItem type=\"series\">\n    <titleInfo>\n
+        \     <title>The Pragmatic Programmers</title>\n    </titleInfo>\n  </relatedItem>\n
+        \ <relatedItem type=\"series\">\n    <titleInfo>\n      <title>The Facets
+        of Ruby Series</title>\n    </titleInfo>\n  </relatedItem>\n  <identifier
+        type=\"isbn\">9781934356876 (alk. paper)</identifier>\n  <identifier type=\"lccn\">2012471967</identifier>\n
+        \ <recordInfo>\n    <descriptionStandard>rda</descriptionStandard>\n    <recordContentSource
+        authority=\"marcorg\">DLC</recordContentSource>\n    <recordCreationDate encoding=\"marc\">121102</recordCreationDate>\n
+        \   <recordChangeDate encoding=\"iso8601\">20200115150339.0</recordChangeDate>\n
+        \   <recordIdentifier>17516814</recordIdentifier>\n    <recordOrigin>Converted
+        from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n    <languageOfCataloging>\n      <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n    </languageOfCataloging>\n
+        \ </recordInfo>\n</mods></zs:recordData><zs:recordPosition>1</zs:recordPosition></zs:record></zs:records><zs:echoedSearchRetrieveRequest><zs:version>1.1</zs:version><zs:query>bath.lccn=\"^2012471967\"</zs:query><zs:maximumRecords>10</zs:maximumRecords><zs:recordPacking>xml</zs:recordPacking><zs:recordSchema>mods</zs:recordSchema></zs:echoedSearchRetrieveRequest></zs:searchRetrieveResponse>\n"
+  recorded_at: Mon, 14 Feb 2022 03:17:39 GMT
+recorded_with: VCR 6.0.0

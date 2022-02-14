@@ -3,6 +3,6 @@ class ApplicationController < ActionController::Base
   include EnjuBiblio::Controller
   include EnjuEvent::Controller
   include EnjuSubject::Controller
-  include Pundit
+  include Pundit::Authorization
   after_action :verify_authorized, unless: :devise_controller?
 end

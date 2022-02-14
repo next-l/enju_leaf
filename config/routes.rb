@@ -112,6 +112,8 @@ Rails.application.routes.draw do
   resources :nii_types
   resources :cinii_books, only: [:index, :create]
 
+  resources :loc_search, only: [:index, :create]
+
   devise_for :users
 
   get '/page/about' => 'page#about'

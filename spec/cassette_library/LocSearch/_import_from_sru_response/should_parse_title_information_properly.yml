@@ -1,0 +1,82 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://lx2.loc.gov:210/LCDB?maximumRecords=10&operation=searchRetrieve&query=bath.lccn=%22%5E2012532441%22&recordSchema=mods&version=1.1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '4587'
+      Server:
+      - Metaproxy/1.19.1
+      Connection:
+      - Keep-Alive
+      Content-Type:
+      - text/xml
+    body:
+      encoding: UTF-8
+      string: "<?xml version=\"1.0\"?>\n<zs:searchRetrieveResponse xmlns:zs=\"http://www.loc.gov/zing/srw/\"><zs:version>1.1</zs:version><zs:numberOfRecords>1</zs:numberOfRecords><zs:records><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <nonSort xml:space=\"preserve\">The </nonSort>\n    <title>data
+        journalism handbook</title>\n  </titleInfo>\n  <titleInfo type=\"alternative\"
+        displayLabel=\"Subtitle on cover:\">\n    <title>How journalists can use data
+        to improve the news</title>\n  </titleInfo>\n  <name type=\"personal\">\n
+        \   <namePart>Gray, Jonathan</namePart>\n    <namePart type=\"date\">1983-</namePart>\n
+        \ </name>\n  <name type=\"personal\">\n    <namePart>Bounegru, Liliana.</namePart>\n
+        \ </name>\n  <name type=\"personal\">\n    <namePart>Chambers, Lucy.</namePart>\n
+        \ </name>\n  <name type=\"corporate\">\n    <namePart>European Journalism
+        Centre</namePart>\n  </name>\n  <name type=\"corporate\">\n    <namePart>Open
+        Knowledge Foundation</namePart>\n  </name>\n  <typeOfResource>text</typeOfResource>\n
+        \ <originInfo>\n    <place>\n      <placeTerm type=\"code\" authority=\"marccountry\">cau</placeTerm>\n
+        \   </place>\n    <place>\n      <placeTerm type=\"text\">Sebastopol, CA</placeTerm>\n
+        \   </place>\n    <publisher>O'Reilly Media</publisher>\n    <dateIssued>2012</dateIssued>\n
+        \   <edition>1st ed.</edition>\n    <issuance>monographic</issuance>\n  </originInfo>\n
+        \ <language>\n    <languageTerm authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n
+        \ </language>\n  <physicalDescription>\n    <form authority=\"marcform\">print</form>\n
+        \   <extent>xvii, 220 p. : ill., maps ; 24 cm.</extent>\n  </physicalDescription>\n
+        \ <abstract type=\"Summary\">With The Data Journalism Handbook, you'll explore
+        the potential, limits, and applied use of this new and fascinating field.
+        This handbook has attracted scores of contributors since the European Journalism
+        Centre and the Open Knowledge Foundation launched the project at MozFest 2011.
+        Through a collection of tips and techniques form leading journalists, professors,
+        software developers, and data analysts, you'll learn how data can be wither
+        the source of data journalism or a tool with which the story is told--or both.</abstract>\n
+        \ <tableOfContents>In the newsroom -- Case studies -- Getting data -- Understanding
+        data -- Delivering data.</tableOfContents>\n  <note type=\"statement of responsibility\"
+        altRepGroup=\"00\">edited by Jonathan Gray, Liliana Bounegru, and Lucy Chambers.</note>\n
+        \ <note>\"A project of the European Journalism Centre and the Open Knowledge
+        Foundation.\"--T.p. verso.</note>\n  <note>\"Strata: making data work\"--Cover
+        p. [4].</note>\n  <subject authority=\"lcsh\">\n    <topic>Journalism</topic>\n
+        \   <topic>Data processing</topic>\n  </subject>\n  <subject authority=\"lcsh\">\n
+        \   <topic>Data mining</topic>\n  </subject>\n  <subject authority=\"lcsh\">\n
+        \   <topic>Information visualization</topic>\n  </subject>\n  <classification
+        authority=\"lcc\">PN4784.E5 D36 2012</classification>\n  <classification authority=\"ddc\"
+        edition=\"23\">070.4/30285</classification>\n  <location>\n    <url displayLabel=\"electronic
+        resource\" usage=\"primary display\">http://datajournalismhandbook.org/1.0/en/</url>\n
+        \ </location>\n  <identifier type=\"isbn\">9781449330064 (pbk.)</identifier>\n
+        \ <identifier type=\"isbn\">1449330061 (pbk.)</identifier>\n  <identifier
+        type=\"lccn\">2012532441</identifier>\n  <identifier type=\"oclc\">ocn781679351</identifier>\n
+        \ <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n    <recordContentSource
+        authority=\"marcorg\">BTCTA</recordContentSource>\n    <recordCreationDate
+        encoding=\"marc\">130808</recordCreationDate>\n    <recordChangeDate encoding=\"iso8601\">20200520122017.0</recordChangeDate>\n
+        \   <recordIdentifier>17845092</recordIdentifier>\n    <recordOrigin>Converted
+        from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n    <languageOfCataloging>\n      <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n    </languageOfCataloging>\n
+        \ </recordInfo>\n</mods></zs:recordData><zs:recordPosition>1</zs:recordPosition></zs:record></zs:records><zs:echoedSearchRetrieveRequest><zs:version>1.1</zs:version><zs:query>bath.lccn=\"^2012532441\"</zs:query><zs:maximumRecords>10</zs:maximumRecords><zs:recordPacking>xml</zs:recordPacking><zs:recordSchema>mods</zs:recordSchema></zs:echoedSearchRetrieveRequest></zs:searchRetrieveResponse>\n"
+  recorded_at: Mon, 14 Feb 2022 03:17:36 GMT
+recorded_with: VCR 6.0.0

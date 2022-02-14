@@ -1,0 +1,73 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://lx2.loc.gov:210/LCDB?maximumRecords=10&operation=searchRetrieve&query=bath.lccn=%22%5E2005568297%22&recordSchema=mods&version=1.1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '3971'
+      Server:
+      - Metaproxy/1.19.1
+      Connection:
+      - Keep-Alive
+      Content-Type:
+      - text/xml
+    body:
+      encoding: UTF-8
+      string: "<?xml version=\"1.0\"?>\n<zs:searchRetrieveResponse xmlns:zs=\"http://www.loc.gov/zing/srw/\"><zs:version>1.1</zs:version><zs:numberOfRecords>1</zs:numberOfRecords><zs:records><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>ACM portal</title>\n    <subTitle>the ACM Digital
+        Library</subTitle>\n  </titleInfo>\n  <titleInfo type=\"alternative\">\n    <title>Association
+        for Computing Machinery portal</title>\n  </titleInfo>\n  <titleInfo type=\"alternative\"
+        displayLabel=\"Title on HTML header:\">\n    <title>ACM Digital Library</title>\n
+        \ </titleInfo>\n  <name type=\"corporate\">\n    <namePart>ACM Digital Library</namePart>\n
+        \ </name>\n  <name type=\"corporate\">\n    <namePart>Association for Computing
+        Machinery</namePart>\n  </name>\n  <typeOfResource>text</typeOfResource>\n
+        \ <originInfo>\n    <place>\n      <placeTerm type=\"code\" authority=\"marccountry\">nyu</placeTerm>\n
+        \   </place>\n    <place>\n      <placeTerm type=\"text\">New York]</placeTerm>\n
+        \   </place>\n    <publisher>Association for Computing Machinery</publisher>\n
+        \   <dateIssued encoding=\"marc\" point=\"start\">1997</dateIssued>\n    <dateIssued
+        encoding=\"marc\" point=\"end\">9999</dateIssued>\n    <issuance>monographic</issuance>\n
+        \ </originInfo>\n  <language>\n    <languageTerm authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n
+        \ </language>\n  <physicalDescription>\n    <form authority=\"marcform\">electronic</form>\n
+        \   <form authority=\"gmd\">electronic resource</form>\n    <form authority=\"marccategory\">electronic
+        resource</form>\n    <form authority=\"marcsmd\">remote</form>\n  </physicalDescription>\n
+        \ <abstract type=\"Summary\">Provides access to citations of published articles
+        from a variety of ACM publications.</abstract>\n  <accessCondition type=\"restriction
+        on access\">ACM members or full-level subscribers have access to full text
+        context, plus all searching functionality. Provides access for non-scribers
+        and the general public to search/browse options offered on the main home page
+        for ACM publications.</accessCondition>\n  <note type=\"date/sequential designation\">Began
+        in 1997?</note>\n  <note>Title from home page (viewed on Jan. 12, 2005).</note>\n
+        \ <note type=\"system details\">Mode of access: World Wide Web.</note>\n  <subject
+        authority=\"lcsh\">\n    <topic>Computer science</topic>\n    <genre>Bibliography</genre>\n
+        \ </subject>\n  <subject authority=\"lcsh\">\n    <topic>Information storage
+        and retrieval systems</topic>\n    <genre>Bibliography</genre>\n  </subject>\n
+        \ <subject authority=\"lcsh\">\n    <topic>Electronic data processing</topic>\n
+        \   <genre>Bibliography</genre>\n  </subject>\n  <classification authority=\"lcc\">Z5640</classification>\n
+        \ <classification authority=\"lcc\">QA76</classification>\n  <location>\n
+        \   <url displayLabel=\"electronic resource\" usage=\"primary display\">http://portal.acm.org/dl.cfm</url>\n
+        \ </location>\n  <identifier type=\"lccn\">2005568297</identifier>\n  <recordInfo>\n
+        \   <descriptionStandard>aacr</descriptionStandard>\n    <recordContentSource
+        authority=\"marcorg\">DLC</recordContentSource>\n    <recordCreationDate encoding=\"marc\">050113</recordCreationDate>\n
+        \   <recordChangeDate encoding=\"iso8601\">20150915173637.0</recordChangeDate>\n
+        \   <recordIdentifier>13841460</recordIdentifier>\n    <recordOrigin>Converted
+        from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>1</zs:recordPosition></zs:record></zs:records><zs:echoedSearchRetrieveRequest><zs:version>1.1</zs:version><zs:query>bath.lccn=\"^2005568297\"</zs:query><zs:maximumRecords>10</zs:maximumRecords><zs:recordPacking>xml</zs:recordPacking><zs:recordSchema>mods</zs:recordSchema></zs:echoedSearchRetrieveRequest></zs:searchRetrieveResponse>\n"
+  recorded_at: Mon, 14 Feb 2022 03:17:45 GMT
+recorded_with: VCR 6.0.0

@@ -32,9 +32,8 @@ module EnjuNdl
 
       def import_record(doc)
         iss_itemno = URI.parse(doc.at('//dcndl:BibAdminResource[@rdf:about]').values.first).path.split('/').last
-        identifier_type = IdentifierType.where(name: 'iss_itemno').first
-        identifier_type ||= IdentifierType.where(name: 'iss_itemno').create!
-        identifier = Identifier.where(body: iss_itemno, identifier_type_id: identifier_type.id).first
+        identifier_type = IdentifierType.find_or_create_by!(name: 'iss_itemno')
+        identifier = Identifier.find_by(body: iss_itemno, identifier_type_id: identifier_type.id)
         return identifier.manifestation if identifier
 
         jpno = doc.at('//dcterms:identifier[@rdf:datatype="http://ndl.go.jp/dcndl/terms/JPNO"]').try(:content)
@@ -56,7 +55,7 @@ module EnjuNdl
                  end
         end
 
-        language = Language.where(iso_639_2: get_language(doc)).first
+        language = Language.find_by(iso_639_2: get_language(doc))
         language_id = if language
                         language.id
                       else
@@ -72,34 +71,34 @@ module EnjuNdl
         doc.xpath('//dcndl:materialType[@rdf:resource]').each do |d|
           case d.attributes['resource'].try(:content)
           when 'http://ndl.go.jp/ndltype/Book'
-            carrier_type = CarrierType.where(name: 'print').first
-            content_type = ContentType.where(name: 'text').first
+            carrier_type = CarrierType.find_by(name: 'print')
+            content_type = ContentType.find_by(name: 'text')
           when 'http://ndl.go.jp/ndltype/Braille'
-            content_type = ContentType.where(name: 'tactile_text').first
+            content_type = ContentType.find_by(name: 'tactile_text')
           # when 'http://ndl.go.jp/ndltype/ComputerProgram'
-          #  content_type = ContentType.where(name: 'computer_program').first
+          #  content_type = ContentType.find_by(name: 'computer_program')
           when 'http://ndl.go.jp/ndltype/ElectronicResource'
-            carrier_type = CarrierType.where(name: 'file').first
+            carrier_type = CarrierType.find_by(name: 'file')
           when 'http://ndl.go.jp/ndltype/Journal'
             is_serial = true
           when 'http://ndl.go.jp/ndltype/Map'
-            content_type = ContentType.where(name: 'cartographic_image').first
+            content_type = ContentType.find_by(name: 'cartographic_image')
           when 'http://ndl.go.jp/ndltype/Music'
-            content_type = ContentType.where(name: 'performed_music').first
+            content_type = ContentType.find_by(name: 'performed_music')
           when 'http://ndl.go.jp/ndltype/MusicScore'
-            content_type = ContentType.where(name: 'notated_music').first
+            content_type = ContentType.find_by(name: 'notated_music')
           when 'http://ndl.go.jp/ndltype/Painting'
-            content_type = ContentType.where(name: 'still_image').first
+            content_type = ContentType.find_by(name: 'still_image')
           when 'http://ndl.go.jp/ndltype/Photograph'
-            content_type = ContentType.where(name: 'still_image').first
+            content_type = ContentType.find_by(name: 'still_image')
           when 'http://ndl.go.jp/ndltype/PicturePostcard'
-            content_type = ContentType.where(name: 'still_image').first
+            content_type = ContentType.find_by(name: 'still_image')
           when 'http://purl.org/dc/dcmitype/MovingImage'
-            content_type = ContentType.where(name: 'two_dimensional_moving_image').first
+            content_type = ContentType.find_by(name: 'two_dimensional_moving_image')
           when 'http://purl.org/dc/dcmitype/Sound'
-            content_type = ContentType.where(name: 'sounds').first
+            content_type = ContentType.find_by(name: 'sounds')
           when 'http://purl.org/dc/dcmitype/StillImage'
-            content_type = ContentType.where(name: 'still_image').first
+            content_type = ContentType.find_by(name: 'still_image')
           end
         end
 
@@ -113,7 +112,7 @@ module EnjuNdl
         publication_place = doc.at('//dcterms:publisher/foaf:Agent/dcndl:location').try(:content)
         edition_string = doc.at('//dcndl:edition').try(:content)
 
-        manifestation = Manifestation.where(manifestation_identifier: admin_identifier).first
+        manifestation = Manifestation.find_by(manifestation_identifier: admin_identifier)
         return manifestation if manifestation
 
         Agent.transaction do
@@ -126,7 +125,7 @@ module EnjuNdl
             title_alternative: title[:alternative],
             title_alternative_transcription: title[:alternative_transcription],
             # TODO: NDLサーチに入っている図書以外の資料を調べる
-            #:carrier_type_id => CarrierType.where(name: 'print').first.id,
+            #:carrier_type_id => CarrierType.find_by(name: 'print').id,
             language_id: language_id,
             pub_date: date,
             description: description,
@@ -153,15 +152,15 @@ module EnjuNdl
           end
           if jpno
             identifier[:jpno] = Identifier.new(body: jpno)
-            identifier[:jpno].identifier_type = IdentifierType.find_by(name: 'jpno') || IdentifierType.create!(name: 'jpno')
+            identifier[:jpno].identifier_type = IdentifierType.find_or_create_by!(name: 'jpno')
           end
           if issn
             identifier[:issn] = Identifier.new(body: issn)
-            identifier[:issn].identifier_type = IdentifierType.find_by(name: 'issn') || IdentifierType.create!(name: 'issn')
+            identifier[:issn].identifier_type = IdentifierType.find_or_create_by!(name: 'issn')
           end
           if issn_l
             identifier[:issn_l] = Identifier.new(body: issn_l)
-            identifier[:issn_l].identifier_type = IdentifierType.where(name: 'issn_l').first || IdentifierType.create!(name: 'issn_l')
+            identifier[:issn_l].identifier_type = IdentifierType.find_or_create_by!(name: 'issn_l')
           end
           manifestation.carrier_type = carrier_type if carrier_type
           manifestation.manifestation_content_type = content_type if content_type
@@ -201,20 +200,20 @@ module EnjuNdl
         Agent.transaction do
           creator_agents = Agent.import_agents(creators)
           content_type_id = begin
-                              ContentType.where(name: 'text').first.id
+                              ContentType.find_by(name: 'text').id
                             rescue
                               1
                             end
           manifestation.creators << creator_agents
 
           if defined?(EnjuSubject)
-            subject_heading_type = SubjectHeadingType.where(name: 'ndlsh').first || SubjectHeadingType.create!(name: 'ndlsh')
+            subject_heading_type = SubjectHeadingType.find_or_create_by!(name: 'ndlsh')
             subjects.each do |term|
-              subject = Subject.where(term: term[:term]).first
+              subject = Subject.find_by(term: term[:term])
               unless subject
                 subject = Subject.new(term)
                 subject.subject_heading_type = subject_heading_type
-                subject.subject_type = SubjectType.where(name: 'concept').first || SubjectType.create!(name: 'concept')
+                subject.subject_type = SubjectType.find_or_create_by!(name: 'concept')
               end
               # if subject.valid?
               manifestation.subjects << subject
@@ -231,7 +230,7 @@ module EnjuNdl
                 ndc_type = ndc_url.path.split('/').reverse[1]
                 next unless (ndc_type == 'ndc9') || (ndc_type == 'ndc10')
                 ndc = ndc_url.path.split('/').last
-                classification_type = ClassificationType.where(name: ndc_type).first || ClassificationType.create!(name: ndc_type)
+                classification_type = ClassificationType.find_or_create_by!(name: ndc_type)
                 classification = Classification.new(category: ndc)
                 classification.classification_type = classification_type
                 manifestation.classifications << classification if classification.valid?
@@ -239,7 +238,7 @@ module EnjuNdl
             end
             ndc8 = doc.xpath('//dc:subject[@rdf:datatype="http://ndl.go.jp/dcndl/terms/NDC8"]').first
             if ndc8
-              classification_type = ClassificationType.where(name: 'ndc8').first || ClassificationType.create!(name: 'ndc8')
+              classification_type = ClassificationType.find_or_create_by!(name: 'ndc8')
               classification = Classification.new(category: ndc8.content)
               classification.classification_type = classification_type
               manifestation.classifications << classification if classification.valid?
@@ -381,7 +380,7 @@ module EnjuNdl
         end
 
         if series_title[:title]
-          series_statement = SeriesStatement.where(original_title: series_title[:title]).first
+          series_statement = SeriesStatement.find_by(original_title: series_title[:title])
           series_statement ||= SeriesStatement.new(
             original_title: series_title[:title],
             title_transcription: series_title[:title_transcription],
@@ -402,5 +401,11 @@ module EnjuNdl
 
     class AlreadyImported < StandardError
     end
+  end
+
+  class RecordNotFound < StandardError
+  end
+
+  class InvalidIsbn < StandardError
   end
 end

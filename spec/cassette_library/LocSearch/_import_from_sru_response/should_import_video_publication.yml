@@ -1,0 +1,205 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://lx2.loc.gov:210/LCDB?maximumRecords=10&operation=searchRetrieve&query=bath.lccn=%22%5E2013602064%22&recordSchema=mods&version=1.1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '13980'
+      Server:
+      - Metaproxy/1.19.1
+      Connection:
+      - Keep-Alive
+      Content-Type:
+      - text/xml
+    body:
+      encoding: UTF-8
+      string: "<?xml version=\"1.0\"?>\n<zs:searchRetrieveResponse xmlns:zs=\"http://www.loc.gov/zing/srw/\"><zs:version>1.1</zs:version><zs:numberOfRecords>1</zs:numberOfRecords><zs:records><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>Clint Eastwood</title>\n  </titleInfo>\n  <titleInfo
+        type=\"uniform\">\n    <title>Dirty Harry (Motion picture)</title>\n  </titleInfo>\n
+        \ <titleInfo type=\"uniform\">\n    <title>Magnum force (Motion picture)</title>\n
+        \ </titleInfo>\n  <titleInfo type=\"uniform\">\n    <title>Enforcer (Motion
+        picture)</title>\n  </titleInfo>\n  <titleInfo type=\"uniform\">\n    <title>Gauntlet
+        (Motion picture)</title>\n  </titleInfo>\n  <titleInfo type=\"uniform\">\n
+        \   <title>Sudden impact (Motion picture)</title>\n  </titleInfo>\n  <titleInfo
+        type=\"uniform\">\n    <title>Tightrope (Motion picture)</title>\n  </titleInfo>\n
+        \ <titleInfo type=\"uniform\">\n    <title>Dead pool (Motion picture)</title>\n
+        \ </titleInfo>\n  <titleInfo type=\"uniform\">\n    <title>Rookie (Motion
+        picture : 1990)</title>\n  </titleInfo>\n  <titleInfo type=\"uniform\">\n
+        \   <title>Where eagles dare (Motion picture)</title>\n  </titleInfo>\n  <titleInfo
+        type=\"uniform\">\n    <title>Kelly's heroes (Motion picture)</title>\n  </titleInfo>\n
+        \ <titleInfo type=\"uniform\">\n    <title>Firefox (Motion picture)</title>\n
+        \ </titleInfo>\n  <titleInfo type=\"uniform\">\n    <title>Heartbreak Ridge
+        (Motion picture)</title>\n  </titleInfo>\n  <titleInfo type=\"uniform\">\n
+        \   <title>Absolute power (Motion picture)</title>\n  </titleInfo>\n  <titleInfo
+        type=\"uniform\">\n    <title>True crime (Motion picture)</title>\n  </titleInfo>\n
+        \ <titleInfo type=\"uniform\">\n    <title>Space cowboys (Motion picture)</title>\n
+        \ </titleInfo>\n  <titleInfo type=\"uniform\">\n    <title>Blood work (Motion
+        picture)</title>\n  </titleInfo>\n  <titleInfo type=\"uniform\">\n    <title>Every
+        which way but loose (Motion picture)</title>\n  </titleInfo>\n  <titleInfo
+        type=\"uniform\">\n    <title>Any which way you can (Motion picture)</title>\n
+        \ </titleInfo>\n  <titleInfo type=\"uniform\">\n    <title>Bronco Billy (Motion
+        picture)</title>\n  </titleInfo>\n  <titleInfo type=\"uniform\">\n    <title>Honkytonk
+        man (Motion picture)</title>\n  </titleInfo>\n  <titleInfo type=\"uniform\">\n
+        \   <title>City heat (Motion picture)</title>\n  </titleInfo>\n  <titleInfo
+        type=\"uniform\">\n    <title>Pink Cadillac (Motion picture)</title>\n  </titleInfo>\n
+        \ <titleInfo type=\"uniform\">\n    <title>Perfect world (Motion picture)</title>\n
+        \ </titleInfo>\n  <titleInfo type=\"uniform\">\n    <title>Bridges of Madison
+        County (Motion picture)</title>\n  </titleInfo>\n  <titleInfo type=\"uniform\">\n
+        \   <title>Outlaw Josey Wales (Motion picture)</title>\n  </titleInfo>\n  <titleInfo
+        type=\"uniform\">\n    <title>Pale rider (Motion picture)</title>\n  </titleInfo>\n
+        \ <titleInfo type=\"uniform\">\n    <title>Unforgiven (Motion picture)</title>\n
+        \ </titleInfo>\n  <titleInfo type=\"uniform\">\n    <title>Bird (Motion picture)</title>\n
+        \ </titleInfo>\n  <titleInfo type=\"uniform\">\n    <title>White hunter, black
+        heart (Motion picture)</title>\n  </titleInfo>\n  <titleInfo type=\"uniform\">\n
+        \   <title>Midnight in the garden of good and evil (Motion picture)</title>\n
+        \ </titleInfo>\n  <titleInfo type=\"uniform\">\n    <title>Mystic River (Motion
+        picture)</title>\n  </titleInfo>\n  <titleInfo type=\"uniform\">\n    <title>Million
+        dollar baby (Motion picture : 2004)</title>\n  </titleInfo>\n  <titleInfo
+        type=\"uniform\">\n    <title>Letters from Iwo Jima (Motion picture)</title>\n
+        \ </titleInfo>\n  <titleInfo type=\"uniform\">\n    <title>Gran Torino (Motion
+        picture)</title>\n  </titleInfo>\n  <titleInfo type=\"uniform\">\n    <title>Eastwood
+        factor (Motion picture)</title>\n  </titleInfo>\n  <name type=\"personal\">\n
+        \   <namePart>Eastwood, Clint</namePart>\n    <namePart type=\"date\">1930-</namePart>\n
+        \ </name>\n  <name type=\"corporate\">\n    <namePart>Warner Bros. Pictures
+        (1969- )</namePart>\n  </name>\n  <name type=\"corporate\">\n    <namePart>Warner
+        Home Video (Firm)</namePart>\n  </name>\n  <name type=\"corporate\">\n    <namePart>Malpaso
+        (Company)</namePart>\n  </name>\n  <name type=\"corporate\">\n    <namePart>LC
+        Purchase Collection (Library of Congress)</namePart>\n  </name>\n  <typeOfResource>moving
+        image</typeOfResource>\n  <genre authority=\"marcgt\">motion picture</genre>\n
+        \ <genre authority=\"lcgft\">Feature films.</genre>\n  <genre authority=\"lcgft\">Fiction
+        films.</genre>\n  <genre authority=\"lcgft\">Video recordings for the hearing
+        impaired.</genre>\n  <originInfo>\n    <place>\n      <placeTerm type=\"code\"
+        authority=\"marccountry\">xxu</placeTerm>\n    </place>\n    <place>\n      <placeTerm
+        type=\"text\">Burbank, CA</placeTerm>\n    </place>\n    <publisher>Distributed
+        by Warner Home Video</publisher>\n    <dateIssued>[2010]</dateIssued>\n    <dateIssued
+        encoding=\"marc\">2010</dateIssued>\n    <issuance>monographic</issuance>\n
+        \ </originInfo>\n  <language>\n    <languageTerm authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n
+        \ </language>\n  <physicalDescription>\n    <form authority=\"marccategory\">videorecording</form>\n
+        \   <form authority=\"marcsmd\">videodisc</form>\n    <extent>viewing copy
+        19 videodiscs (4244 min.) : sd., col. ; 4 3/4 in. + 1 booklet (24 p. : ill.
+        (some col.) ; 20 x 28 cm.)</extent>\n  </physicalDescription>\n  <abstract
+        type=\"Summary\">\"Hollywood legend Clint Eastwood has touched generations
+        of filmgoers for over half a century. The five-time Academy Award winner has
+        made an indelible mark as one of Hollywood's most iconic actors and insightful
+        directors. In honor of Eastwood's long standing 35 year relationship with
+        Warner Bros. through Malpaso Productions, this definitive collection celebrates
+        Eastwood's entire filmography at the studio from Where Eagles Dare (1968)
+        through Gran Torino (2008) all packaged in an elegant giftset. Also included
+        is an all-new documentary about Eastwood's life and career produced by esteemed
+        film critic and historian Richard Schickel, featuring in-depth interviews
+        and revealing, intimate footage never-before-seen plus rare photos and letters\"--Publisher's
+        web site.</abstract>\n  <tableOfContents>Disc 1. Dirty Harry ; Magnum force
+        -- disc 2. The enforcer ; The gauntlet -- disc 3. Sudden impact ; Tightrope
+        -- disc 4. The dead pool ; The rookie -- disc 5. Where eagles dare ; Kelly's
+        heroes -- disc 6. Firefox ; Heartbreak ridge -- disc 7. Absolute power ; True
+        crime -- disc 8. Space cowboys ; Blood work -- disc 9. Every which way but
+        loose ; Any which way you can -- disc 10. Bronco Billy ; Honkytonk man --
+        disc 11. City heat ; Pink Cadillac -- disc 12. A perfect world ; Bridges of
+        Madison County -- disc 13. The outlaw Josey Wales ; Pale rider -- disc 14.
+        Unforgiven -- disc 15. Bird ; White hunter, black heart -- disc 16. Midnight
+        in the garden of good and evil ; Mystic river -- disc 17. Million dollar baby
+        ; Letters from Iwo Jima -- disc 18. Gran Torino -- disc 19. The Eastwood factor.</tableOfContents>\n
+        \ <note type=\"statement of responsibility\" altRepGroup=\"00\">Warner Brothers
+        Pictures.</note>\n  <note>Title from container.</note>\n  <note>\"35 films
+        35 years\"--Container sleeve.</note>\n  <note>Irregular original packaging.</note>\n
+        \ <note type=\"creation/production credits\">Directed by Eastwood, except
+        where noted.</note>\n  <note type=\"performers\">Clint Eastwood ... [et al.].</note>\n
+        \ <note type=\"system details\">DVD; region 1; NTSC; widescreen.</note>\n
+        \ <note type=\"language\">In English with optional subtitles in English, French,
+        and Spanish; English subtitles for the deaf and hard of hearing.</note>\n
+        \ <subject authority=\"lcsh\">\n    <name type=\"personal\">\n      <namePart>Eastwood,
+        Clint</namePart>\n      <namePart type=\"date\">1930-</namePart>\n    </name>\n
+        \ </subject>\n  <classification authority=\"lcc\">DXA 0027 (viewing copy)</classification>\n
+        \ <classification authority=\"ddc\" edition=\"22\">791.43/75</classification>\n
+        \ <relatedItem type=\"constituent\">\n    <titleInfo>\n      <title>Dirty
+        Harry (Motion picture)</title>\n    </titleInfo>\n  </relatedItem>\n  <relatedItem
+        type=\"constituent\">\n    <titleInfo>\n      <title>Magnum force (Motion
+        picture)</title>\n    </titleInfo>\n  </relatedItem>\n  <relatedItem type=\"constituent\">\n
+        \   <titleInfo>\n      <title>Enforcer (Motion picture)</title>\n    </titleInfo>\n
+        \ </relatedItem>\n  <relatedItem type=\"constituent\">\n    <titleInfo>\n
+        \     <title>Gauntlet (Motion picture)</title>\n    </titleInfo>\n  </relatedItem>\n
+        \ <relatedItem type=\"constituent\">\n    <titleInfo>\n      <title>Sudden
+        impact (Motion picture)</title>\n    </titleInfo>\n  </relatedItem>\n  <relatedItem
+        type=\"constituent\">\n    <titleInfo>\n      <title>Tightrope (Motion picture)</title>\n
+        \   </titleInfo>\n  </relatedItem>\n  <relatedItem type=\"constituent\">\n
+        \   <titleInfo>\n      <title>Dead pool (Motion picture)</title>\n    </titleInfo>\n
+        \ </relatedItem>\n  <relatedItem type=\"constituent\">\n    <titleInfo>\n
+        \     <title>Rookie (Motion picture : 1990)</title>\n    </titleInfo>\n  </relatedItem>\n
+        \ <relatedItem type=\"constituent\">\n    <titleInfo>\n      <title>Where
+        eagles dare (Motion picture)</title>\n    </titleInfo>\n  </relatedItem>\n
+        \ <relatedItem type=\"constituent\">\n    <titleInfo>\n      <title>Kelly's
+        heroes (Motion picture)</title>\n    </titleInfo>\n  </relatedItem>\n  <relatedItem
+        type=\"constituent\">\n    <titleInfo>\n      <title>Firefox (Motion picture)</title>\n
+        \   </titleInfo>\n  </relatedItem>\n  <relatedItem type=\"constituent\">\n
+        \   <titleInfo>\n      <title>Heartbreak Ridge (Motion picture)</title>\n
+        \   </titleInfo>\n  </relatedItem>\n  <relatedItem type=\"constituent\">\n
+        \   <titleInfo>\n      <title>Absolute power (Motion picture)</title>\n    </titleInfo>\n
+        \ </relatedItem>\n  <relatedItem type=\"constituent\">\n    <titleInfo>\n
+        \     <title>True crime (Motion picture)</title>\n    </titleInfo>\n  </relatedItem>\n
+        \ <relatedItem type=\"constituent\">\n    <titleInfo>\n      <title>Space
+        cowboys (Motion picture)</title>\n    </titleInfo>\n  </relatedItem>\n  <relatedItem
+        type=\"constituent\">\n    <titleInfo>\n      <title>Blood work (Motion picture)</title>\n
+        \   </titleInfo>\n  </relatedItem>\n  <relatedItem type=\"constituent\">\n
+        \   <titleInfo>\n      <title>Every which way but loose (Motion picture)</title>\n
+        \   </titleInfo>\n  </relatedItem>\n  <relatedItem type=\"constituent\">\n
+        \   <titleInfo>\n      <title>Any which way you can (Motion picture)</title>\n
+        \   </titleInfo>\n  </relatedItem>\n  <relatedItem type=\"constituent\">\n
+        \   <titleInfo>\n      <title>Bronco Billy (Motion picture)</title>\n    </titleInfo>\n
+        \ </relatedItem>\n  <relatedItem type=\"constituent\">\n    <titleInfo>\n
+        \     <title>Honkytonk man (Motion picture)</title>\n    </titleInfo>\n  </relatedItem>\n
+        \ <relatedItem type=\"constituent\">\n    <titleInfo>\n      <title>City heat
+        (Motion picture)</title>\n    </titleInfo>\n  </relatedItem>\n  <relatedItem
+        type=\"constituent\">\n    <titleInfo>\n      <title>Pink Cadillac (Motion
+        picture)</title>\n    </titleInfo>\n  </relatedItem>\n  <relatedItem type=\"constituent\">\n
+        \   <titleInfo>\n      <title>Perfect world (Motion picture)</title>\n    </titleInfo>\n
+        \ </relatedItem>\n  <relatedItem type=\"constituent\">\n    <titleInfo>\n
+        \     <title>Bridges of Madison County (Motion picture)</title>\n    </titleInfo>\n
+        \ </relatedItem>\n  <relatedItem type=\"constituent\">\n    <titleInfo>\n
+        \     <title>Outlaw Josey Wales (Motion picture)</title>\n    </titleInfo>\n
+        \ </relatedItem>\n  <relatedItem type=\"constituent\">\n    <titleInfo>\n
+        \     <title>Pale rider (Motion picture)</title>\n    </titleInfo>\n  </relatedItem>\n
+        \ <relatedItem type=\"constituent\">\n    <titleInfo>\n      <title>Unforgiven
+        (Motion picture)</title>\n    </titleInfo>\n  </relatedItem>\n  <relatedItem
+        type=\"constituent\">\n    <titleInfo>\n      <title>Bird (Motion picture)</title>\n
+        \   </titleInfo>\n  </relatedItem>\n  <relatedItem type=\"constituent\">\n
+        \   <titleInfo>\n      <title>White hunter, black heart (Motion picture)</title>\n
+        \   </titleInfo>\n  </relatedItem>\n  <relatedItem type=\"constituent\">\n
+        \   <titleInfo>\n      <title>Midnight in the garden of good and evil (Motion
+        picture)</title>\n    </titleInfo>\n  </relatedItem>\n  <relatedItem type=\"constituent\">\n
+        \   <titleInfo>\n      <title>Mystic River (Motion picture)</title>\n    </titleInfo>\n
+        \ </relatedItem>\n  <relatedItem type=\"constituent\">\n    <titleInfo>\n
+        \     <title>Million dollar baby (Motion picture : 2004)</title>\n    </titleInfo>\n
+        \ </relatedItem>\n  <relatedItem type=\"constituent\">\n    <titleInfo>\n
+        \     <title>Letters from Iwo Jima (Motion picture)</title>\n    </titleInfo>\n
+        \ </relatedItem>\n  <relatedItem type=\"constituent\">\n    <titleInfo>\n
+        \     <title>Gran Torino (Motion picture)</title>\n    </titleInfo>\n  </relatedItem>\n
+        \ <relatedItem type=\"constituent\">\n    <titleInfo>\n      <title>Eastwood
+        factor (Motion picture)</title>\n    </titleInfo>\n  </relatedItem>\n  <identifier
+        type=\"lccn\">2013602064</identifier>\n  <identifier type=\"oclc\">ocn641973755</identifier>\n
+        \ <identifier type=\"oclc\">641973755</identifier>\n  <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n
+        \   <recordContentSource authority=\"marcorg\">SZR</recordContentSource>\n
+        \   <recordCreationDate encoding=\"marc\">130410</recordCreationDate>\n    <recordChangeDate
+        encoding=\"iso8601\">20180725115403.0</recordChangeDate>\n    <recordIdentifier>17691505</recordIdentifier>\n
+        \   <recordOrigin>Converted from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n    <languageOfCataloging>\n      <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n    </languageOfCataloging>\n
+        \ </recordInfo>\n</mods></zs:recordData><zs:recordPosition>1</zs:recordPosition></zs:record></zs:records><zs:echoedSearchRetrieveRequest><zs:version>1.1</zs:version><zs:query>bath.lccn=\"^2013602064\"</zs:query><zs:maximumRecords>10</zs:maximumRecords><zs:recordPacking>xml</zs:recordPacking><zs:recordSchema>mods</zs:recordSchema></zs:echoedSearchRetrieveRequest></zs:searchRetrieveResponse>\n"
+  recorded_at: Mon, 14 Feb 2022 03:17:48 GMT
+recorded_with: VCR 6.0.0

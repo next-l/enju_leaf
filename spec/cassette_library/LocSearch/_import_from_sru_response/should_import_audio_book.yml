@@ -1,0 +1,93 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://lx2.loc.gov:210/LCDB?maximumRecords=10&operation=searchRetrieve&query=bath.lccn=%22%5E2007576782%22&recordSchema=mods&version=1.1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '5575'
+      Server:
+      - Metaproxy/1.19.1
+      Connection:
+      - Keep-Alive
+      Content-Type:
+      - text/xml
+    body:
+      encoding: UTF-8
+      string: "<?xml version=\"1.0\"?>\n<zs:searchRetrieveResponse xmlns:zs=\"http://www.loc.gov/zing/srw/\"><zs:version>1.1</zs:version><zs:numberOfRecords>1</zs:numberOfRecords><zs:records><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>Harry Potter and the prisoner of Azkaban</title>\n
+        \ </titleInfo>\n  <name type=\"personal\" usage=\"primary\">\n    <namePart>Rowling,
+        J. K.</namePart>\n  </name>\n  <name type=\"personal\">\n    <namePart>Dale,
+        Jim.</namePart>\n    <role>\n      <roleTerm authority=\"marcrelator\" type=\"code\">nrt</roleTerm>\n
+        \   </role>\n  </name>\n  <typeOfResource>sound recording-nonmusical</typeOfResource>\n
+        \ <genre authority=\"marcgt\">fiction</genre>\n  <originInfo>\n    <place>\n
+        \     <placeTerm type=\"code\" authority=\"marccountry\">nyu</placeTerm>\n
+        \   </place>\n    <place>\n      <placeTerm type=\"text\">New York</placeTerm>\n
+        \   </place>\n    <publisher>Random House</publisher>\n    <dateIssued>p2000</dateIssued>\n
+        \   <dateIssued encoding=\"marc\">2000</dateIssued>\n    <issuance>monographic</issuance>\n
+        \ </originInfo>\n  <language>\n    <languageTerm authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n
+        \ </language>\n  <physicalDescription>\n    <form authority=\"gmd\">sound
+        recording</form>\n    <form authority=\"marccategory\">sound recording</form>\n
+        \   <form authority=\"marcsmd\">sound disc</form>\n    <extent>10 sound discs
+        (ca. 12 hr.) : digital ; 4 3/4 in.</extent>\n  </physicalDescription>\n  <abstract
+        type=\"Summary\">\"For twelve years, the dread fortress of Azkaban held an
+        infamous prisoner named Sirius Black. Convicted of killing thirteen people
+        with a single curse, he was said to be the heir apparent to the Dark Lord,
+        Voldemort. Now he has escaped, leaving only two clues as to where he might
+        be headed: Harry Potter's defeat of You-Know-Who was Black's downfall as well.
+        And the Azkaban guards heard Black muttering in his sleep, \"He's at Hogwarts.\"
+        Harry Potter isn't safe, not even within the walls of his magical school,
+        surrounded by his friends. Because on top of it all, there may well be a traitor
+        in their midst\"--Container.</abstract>\n  <targetAudience authority=\"marctarget\">juvenile</targetAudience>\n
+        \ <note type=\"statement of responsibility\" altRepGroup=\"00\">[J.K. Rowling].</note>\n
+        \ <note>Unabridged.</note>\n  <note>Compact discs.</note>\n  <note>Statement
+        of responsibility from container.</note>\n  <note>Third in the Harry Potter
+        series.</note>\n  <note type=\"performers\">Read by Jim Dale.</note>\n  <subject>\n
+        \   <geographicCode authority=\"marcgac\">e-uk-en</geographicCode>\n  </subject>\n
+        \ <subject authority=\"lcsh\">\n    <name type=\"personal\">\n      <namePart>Potter,
+        Harry</namePart>\n      <namePart type=\"termsOfAddress\">(Fictitious character)</namePart>\n
+        \   </name>\n    <genre>Juvenile fiction</genre>\n  </subject>\n  <subject
+        authority=\"lcsh\">\n    <topic>Hogwarts School of Witchcraft and Wizardry
+        (Imaginary organization)</topic>\n    <genre>Juvenile fiction</genre>\n  </subject>\n
+        \ <subject authority=\"lcsh\">\n    <topic>Wizards</topic>\n    <genre>Juvenile
+        fiction</genre>\n  </subject>\n  <subject authority=\"lcsh\">\n    <topic>Magic</topic>\n
+        \   <genre>Juvenile fiction</genre>\n  </subject>\n  <subject authority=\"lcsh\">\n
+        \   <topic>Schools</topic>\n    <genre>Juvenile fiction</genre>\n  </subject>\n
+        \ <subject authority=\"lcshac\">\n    <topic>Wizards</topic>\n    <genre>Fiction</genre>\n
+        \ </subject>\n  <subject authority=\"lcshac\">\n    <topic>Magic</topic>\n
+        \   <genre>Fiction</genre>\n  </subject>\n  <subject authority=\"lcshac\">\n
+        \   <topic>Schools</topic>\n    <genre>Fiction</genre>\n  </subject>\n  <subject
+        authority=\"lcsh\">\n    <geographic>England</geographic>\n    <genre>Juvenile
+        fiction</genre>\n  </subject>\n  <subject authority=\"lcshac\">\n    <geographic>England</geographic>\n
+        \   <genre>Fiction</genre>\n  </subject>\n  <classification authority=\"lcc\">SDB
+        61665</classification>\n  <identifier type=\"isbn\">0807282324</identifier>\n
+        \ <identifier type=\"lccn\">2007576782</identifier>\n  <identifier type=\"issue
+        number\">YA 160 CD Random House</identifier>\n  <identifier type=\"oclc\">ocm43963972</identifier>\n
+        \ <identifier type=\"oclc\">43963972</identifier>\n  <relatedItem>\n    <location>\n
+        \     <url displayLabel=\"Contributor biographical information\">http://www.loc.gov/catdir/enhancements/fy0727/2007576782-b.html</url>\n
+        \   </location>\n  </relatedItem>\n  <relatedItem>\n    <location>\n      <url
+        displayLabel=\"Publisher description\">http://www.loc.gov/catdir/enhancements/fy0727/2007576782-d.html</url>\n
+        \   </location>\n  </relatedItem>\n  <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n
+        \   <recordContentSource authority=\"marcorg\">OCO</recordContentSource>\n
+        \   <recordCreationDate encoding=\"marc\">070531</recordCreationDate>\n    <recordChangeDate
+        encoding=\"iso8601\">20140905142926.0</recordChangeDate>\n    <recordIdentifier>14872104</recordIdentifier>\n
+        \   <recordOrigin>Converted from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>1</zs:recordPosition></zs:record></zs:records><zs:echoedSearchRetrieveRequest><zs:version>1.1</zs:version><zs:query>bath.lccn=\"^2007576782\"</zs:query><zs:maximumRecords>10</zs:maximumRecords><zs:recordPacking>xml</zs:recordPacking><zs:recordSchema>mods</zs:recordSchema></zs:echoedSearchRetrieveRequest></zs:searchRetrieveResponse>\n"
+  recorded_at: Mon, 14 Feb 2022 03:17:46 GMT
+recorded_with: VCR 6.0.0

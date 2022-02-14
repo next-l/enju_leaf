@@ -1,0 +1,68 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://lx2.loc.gov:210/LCDB?maximumRecords=10&operation=searchRetrieve&query=bath.lccn=%22%5E2011281911%22&recordSchema=mods&version=1.1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '3478'
+      Server:
+      - Metaproxy/1.19.1
+      Connection:
+      - Keep-Alive
+      Content-Type:
+      - text/xml
+    body:
+      encoding: UTF-8
+      string: "<?xml version=\"1.0\"?>\n<zs:searchRetrieveResponse xmlns:zs=\"http://www.loc.gov/zing/srw/\"><zs:version>1.1</zs:version><zs:numberOfRecords>1</zs:numberOfRecords><zs:records><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <nonSort xml:space=\"preserve\">The </nonSort>\n    <title>RSpec
+        book</title>\n    <subTitle>behaviour-driven development with RSpec, Cucumber,
+        and Friends</subTitle>\n  </titleInfo>\n  <name type=\"personal\">\n    <namePart>Chelimsky,
+        David.</namePart>\n  </name>\n  <typeOfResource>text</typeOfResource>\n  <genre
+        authority=\"marcgt\">bibliography</genre>\n  <originInfo>\n    <place>\n      <placeTerm
+        type=\"code\" authority=\"marccountry\">txu</placeTerm>\n    </place>\n    <place>\n
+        \     <placeTerm type=\"text\">Lewisville, Tex</placeTerm>\n    </place>\n
+        \   <publisher>Pragmatic</publisher>\n    <dateIssued>2010</dateIssued>\n
+        \   <issuance>monographic</issuance>\n  </originInfo>\n  <language>\n    <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n  </language>\n
+        \ <physicalDescription>\n    <form authority=\"marcform\">print</form>\n    <extent>xxiii,
+        420 p. : ill. ; 23 cm.</extent>\n  </physicalDescription>\n  <abstract type=\"Summary\">Provides
+        information on developing Rails 3 applications using RSpec and Cucumber.</abstract>\n
+        \ <note type=\"statement of responsibility\" altRepGroup=\"00\">by David Chelimsky
+        ... [et al.].</note>\n  <note type=\"bibliography\">Includes bibliographical
+        references (p. [399]-400) and index.</note>\n  <subject authority=\"sears\">\n
+        \   <titleInfo>\n      <title>Ruby on rails (Electronic resource)</title>\n
+        \   </titleInfo>\n  </subject>\n  <subject authority=\"lcsh\">\n    <topic>Computer
+        software</topic>\n    <topic>Development</topic>\n  </subject>\n  <subject
+        authority=\"lcsh\">\n    <topic>Ruby (Computer program language)</topic>\n
+        \ </subject>\n  <subject authority=\"sears\">\n    <topic>Computer software</topic>\n
+        \   <topic>Design</topic>\n  </subject>\n  <subject authority=\"sears\">\n
+        \   <topic>Ruby (Computer language)</topic>\n  </subject>\n  <classification
+        authority=\"lcc\">TK5105.8885.R83 C44 2010</classification>\n  <classification
+        authority=\"ddc\" edition=\"22\">005.117</classification>\n  <identifier type=\"isbn\">9781934356371
+        (pbk.)</identifier>\n  <identifier type=\"isbn\">1934356379 (pbk.)</identifier>\n
+        \ <identifier type=\"lccn\">2011281911</identifier>\n  <identifier type=\"oclc\">ocn551430947</identifier>\n
+        \ <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n    <recordContentSource
+        authority=\"marcorg\">UKM</recordContentSource>\n    <recordCreationDate encoding=\"marc\">110516</recordCreationDate>\n
+        \   <recordChangeDate encoding=\"iso8601\">20161005085021.0</recordChangeDate>\n
+        \   <recordIdentifier>16781422</recordIdentifier>\n    <recordOrigin>Converted
+        from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n  </recordInfo>\n</mods></zs:recordData><zs:recordPosition>1</zs:recordPosition></zs:record></zs:records><zs:echoedSearchRetrieveRequest><zs:version>1.1</zs:version><zs:query>bath.lccn=\"^2011281911\"</zs:query><zs:maximumRecords>10</zs:maximumRecords><zs:recordPacking>xml</zs:recordPacking><zs:recordSchema>mods</zs:recordSchema></zs:echoedSearchRetrieveRequest></zs:searchRetrieveResponse>\n"
+  recorded_at: Mon, 14 Feb 2022 03:17:40 GMT
+recorded_with: VCR 6.0.0

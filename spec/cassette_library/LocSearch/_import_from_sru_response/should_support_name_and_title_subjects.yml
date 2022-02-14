@@ -1,0 +1,78 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://lx2.loc.gov:210/LCDB?maximumRecords=10&operation=searchRetrieve&query=bath.lccn=%22%5E2013433146%22&recordSchema=mods&version=1.1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.9.3
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '4267'
+      Server:
+      - Metaproxy/1.19.1
+      Connection:
+      - Keep-Alive
+      Content-Type:
+      - text/xml
+    body:
+      encoding: UTF-8
+      string: "<?xml version=\"1.0\"?>\n<zs:searchRetrieveResponse xmlns:zs=\"http://www.loc.gov/zing/srw/\"><zs:version>1.1</zs:version><zs:numberOfRecords>1</zs:numberOfRecords><zs:records><zs:record><zs:recordSchema>mods</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><mods
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.loc.gov/mods/v3\"
+        version=\"3.6\" xsi:schemaLocation=\"http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd\">\n
+        \ <titleInfo>\n    <title>Anne around the world</title>\n    <subTitle>L.M.
+        Montgomery and her classic</subTitle>\n  </titleInfo>\n  <name type=\"personal\">\n
+        \   <namePart>Ledwell, Jane</namePart>\n    <namePart type=\"date\">1972-</namePart>\n
+        \ </name>\n  <name type=\"personal\">\n    <namePart>Mitchell, Jean</namePart>\n
+        \   <namePart type=\"date\">1953-</namePart>\n  </name>\n  <typeOfResource>text</typeOfResource>\n
+        \ <genre authority=\"marcgt\">bibliography</genre>\n  <originInfo>\n    <place>\n
+        \     <placeTerm type=\"code\" authority=\"marccountry\">quc</placeTerm>\n
+        \   </place>\n    <place>\n      <placeTerm type=\"text\">Montre&#x301;al</placeTerm>\n
+        \   </place>\n    <publisher>McGill-Queen's University Press</publisher>\n
+        \   <dateIssued>c2013</dateIssued>\n    <dateIssued encoding=\"marc\">2013</dateIssued>\n
+        \   <issuance>monographic</issuance>\n  </originInfo>\n  <language>\n    <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n  </language>\n
+        \ <physicalDescription>\n    <form authority=\"marcform\">print</form>\n    <extent>x,
+        302 p. ; 23 cm.</extent>\n  </physicalDescription>\n  <note type=\"statement
+        of responsibility\" altRepGroup=\"00\">edited by Jane Ledwell and Jean Mitchell.</note>\n
+        \ <note type=\"bibliography\">Includes bibliographical references and index.</note>\n
+        \ <note type=\"additional physical form\">Issued also in electronic format.</note>\n
+        \ <subject authority=\"lcsh\">\n    <name type=\"personal\">\n      <namePart>Montgomery,
+        L. M. (Lucy Maud)</namePart>\n      <namePart type=\"date\">1874-1942</namePart>\n
+        \   </name>\n    <titleInfo>\n      <title>Anne of Green Gables</title>\n
+        \   </titleInfo>\n  </subject>\n  <subject authority=\"lcsh\">\n    <name
+        type=\"personal\">\n      <namePart>Montgomery, L. M. (Lucy Maud)</namePart>\n
+        \     <namePart type=\"date\">1874-1942</namePart>\n    </name>\n    <topic>Criticism
+        and interpretation</topic>\n  </subject>\n  <subject authority=\"lcsh\">\n
+        \   <name type=\"personal\">\n      <namePart>Montgomery, L. M. (Lucy Maud)</namePart>\n
+        \     <namePart type=\"date\">1874-1942</namePart>\n    </name>\n    <topic>Influence</topic>\n
+        \ </subject>\n  <subject authority=\"gnd\">\n    <name type=\"personal\">\n
+        \     <namePart>Montgomery, Lucy M</namePart>\n      <namePart type=\"date\">1874-1942</namePart>\n
+        \   </name>\n    <titleInfo>\n      <title>Anne of Green Gables</title>\n
+        \   </titleInfo>\n  </subject>\n  <classification authority=\"lcc\">PR9199.3.M6
+        Z5193 2013</classification>\n  <classification authority=\"ddc\" edition=\"23\">C813/.52</classification>\n
+        \ <identifier type=\"isbn\">9780773541399 (bound)</identifier>\n  <identifier
+        type=\"isbn\">9780773541405 (pbk.)</identifier>\n  <identifier type=\"isbn\">9780773588585
+        (ePDF)</identifier>\n  <identifier type=\"isbn\">9780773588592 (ePUB)</identifier>\n
+        \ <identifier type=\"lccn\">2013433146</identifier>\n  <identifier type=\"oclc\">ocn818414672</identifier>\n
+        \ <recordInfo>\n    <descriptionStandard>aacr</descriptionStandard>\n    <recordContentSource
+        authority=\"marcorg\">NLC</recordContentSource>\n    <recordCreationDate encoding=\"marc\">130903</recordCreationDate>\n
+        \   <recordChangeDate encoding=\"iso8601\">20130924105652.0</recordChangeDate>\n
+        \   <recordIdentifier>17873351</recordIdentifier>\n    <recordOrigin>Converted
+        from MARCXML to MODS version 3.6 using MARC21slim2MODS3-6.xsl\n\t\t\t\t(Revision
+        1.119 2018/06/21)</recordOrigin>\n    <languageOfCataloging>\n      <languageTerm
+        authority=\"iso639-2b\" type=\"code\">eng</languageTerm>\n    </languageOfCataloging>\n
+        \ </recordInfo>\n</mods></zs:recordData><zs:recordPosition>1</zs:recordPosition></zs:record></zs:records><zs:echoedSearchRetrieveRequest><zs:version>1.1</zs:version><zs:query>bath.lccn=\"^2013433146\"</zs:query><zs:maximumRecords>10</zs:maximumRecords><zs:recordPacking>xml</zs:recordPacking><zs:recordSchema>mods</zs:recordSchema></zs:echoedSearchRetrieveRequest></zs:searchRetrieveResponse>\n"
+  recorded_at: Mon, 14 Feb 2022 03:17:41 GMT
+recorded_with: VCR 6.0.0
