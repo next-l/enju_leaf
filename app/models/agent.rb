@@ -14,8 +14,8 @@ class Agent < ApplicationRecord
   has_many :expressions, through: :realizes
   has_many :produces, dependent: :destroy
   has_many :manifestations, through: :produces
-  has_many :children, foreign_key: 'parent_id', class_name: 'AgentRelationship', dependent: :destroy
-  has_many :parents, foreign_key: 'child_id', class_name: 'AgentRelationship', dependent: :destroy
+  has_many :children, foreign_key: 'parent_id', class_name: 'AgentRelationship', dependent: :destroy, inverse_of: :parent
+  has_many :parents, foreign_key: 'child_id', class_name: 'AgentRelationship', dependent: :destroy, inverse_of: :child
   has_many :derived_agents, through: :children, source: :child
   has_many :original_agents, through: :parents, source: :parent
   has_many :picture_files, as: :picture_attachable, dependent: :destroy

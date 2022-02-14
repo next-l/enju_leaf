@@ -54,8 +54,6 @@ Style/IfUnlessModifier:
   Enabled: false
 Style/PercentLiteralDelimiters:
   Enabled: false
-Rails/InverseOf:
-  Enabled: false
 Style/SoleNestedConditional:
   Enabled: false
 Rails/ActiveRecordCallbacksOrder: # new in 2.7
@@ -64,3 +62,5 @@ Rails/WhereNot: # new in 2.8
   Enabled: true
 Rails/RedundantPresenceValidationOnBelongsTo: # new in 2.13
   Enabled: true
+Style/GuardClause:
+  Enabled: false

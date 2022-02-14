@@ -6,15 +6,15 @@ class Manifestation < ApplicationRecord
   include EnjuLoc::EnjuManifestation
   include EnjuManifestationViewer::EnjuManifestation
 
-  has_many :creates, -> { order('creates.position') }, dependent: :destroy, foreign_key: 'work_id'
+  has_many :creates, -> { order('creates.position') }, dependent: :destroy, foreign_key: 'work_id', inverse_of: :work
   has_many :creators, through: :creates, source: :agent
-  has_many :realizes, -> { order('realizes.position') }, dependent: :destroy, foreign_key: 'expression_id'
+  has_many :realizes, -> { order('realizes.position') }, dependent: :destroy, foreign_key: 'expression_id', inverse_of: :expression
   has_many :contributors, through: :realizes, source: :agent
-  has_many :produces, -> { order('produces.position') }, dependent: :destroy, foreign_key: 'manifestation_id'
+  has_many :produces, -> { order('produces.position') }, dependent: :destroy, foreign_key: 'manifestation_id', inverse_of: :manifestation
   has_many :publishers, through: :produces, source: :agent
   has_many :items, dependent: :destroy
-  has_many :children, foreign_key: 'parent_id', class_name: 'ManifestationRelationship', dependent: :destroy
-  has_many :parents, foreign_key: 'child_id', class_name: 'ManifestationRelationship', dependent: :destroy
+  has_many :children, foreign_key: 'parent_id', class_name: 'ManifestationRelationship', dependent: :destroy, inverse_of: :parent
+  has_many :parents, foreign_key: 'child_id', class_name: 'ManifestationRelationship', dependent: :destroy, inverse_of: :child
   has_many :derived_manifestations, through: :children, source: :child
   has_many :original_manifestations, through: :parents, source: :parent
   has_many :picture_files, as: :picture_attachable, dependent: :destroy
@@ -26,7 +26,7 @@ class Manifestation < ApplicationRecord
   belongs_to :required_role, class_name: 'Role'
   has_one :resource_import_result
   has_many :identifiers, dependent: :destroy
-  has_many :manifestation_custom_values, -> { joins(:manifestation_custom_property).order(:position) }
+  has_many :manifestation_custom_values, -> { joins(:manifestation_custom_property).order(:position) }, inverse_of: :manifestation
   accepts_nested_attributes_for :creators, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :contributors, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :publishers, allow_destroy: true, reject_if: :all_blank

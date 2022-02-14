@@ -88,7 +88,7 @@ class Library < ApplicationRecord
   end
 
   if defined?(EnjuInterLibraryLoan)
-    has_many :inter_library_loans, foreign_key: 'borrowing_library_id'
+    has_many :inter_library_loans, foreign_key: 'borrowing_library_id', inverse_of: :library
   end
 end
 
