@@ -5,7 +5,7 @@ class AgentImportResultsController < ApplicationController
   # GET /agent_import_results
   # GET /agent_import_results.json
   def index
-    @agent_import_file = AgentImportFile.where(id: params[:agent_import_file_id]).first
+    @agent_import_file = AgentImportFile.find_by(id: params[:agent_import_file_id])
     if @agent_import_file
       @agent_import_results = @agent_import_file.agent_import_results.page(params[:page])
     else

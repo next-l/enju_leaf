@@ -10,7 +10,8 @@ module EnjuCirculation
     end
 
     def basket_checkout(librarian)
-      return nil if checked_items.size == 0
+      return nil if checked_items.size.zero?
+
       Item.transaction do
         checked_items.each do |checked_item|
           checkout = user.checkouts.new

@@ -66,6 +66,7 @@ class AgentImportFile < ApplicationRecord
     if [field['first_name'], field['last_name'], field['full_name']].reject{|field| field.to_s.strip == ""}.empty?
       raise "You should specify first_name, last_name or full_name in the first line"
     end
+
     #rows.shift
 
     AgentImportResult.create!(agent_import_file_id: id, body: rows.headers.join("\t"))
@@ -90,7 +91,7 @@ class AgentImportFile < ApplicationRecord
     mailer = AgentImportMailer.completed(self)
     send_message(mailer)
     num
-  rescue => e
+  rescue StandardError => e
     self.error_message = "line #{row_num}: #{e.message}"
     transition_to!(:failed)
     mailer = AgentImportMailer.failed(self)
@@ -102,7 +103,7 @@ class AgentImportFile < ApplicationRecord
     AgentImportFile.not_imported.each do |file|
       file.import_start
     end
-  rescue
+  rescue StandardError
     Rails.logger.info "#{Time.zone.now} importing agents failed!"
   end
 
@@ -134,7 +135,7 @@ class AgentImportFile < ApplicationRecord
     transition_to!(:completed)
     mailer = AgentImportMailer.completed(self)
     send_message(mailer)
-  rescue => e
+  rescue StandardError => e
     self.error_message = "line #{row_num}: #{e.message}"
     transition_to!(:failed)
     mailer = AgentImportMailer.failed(self)
@@ -162,7 +163,7 @@ class AgentImportFile < ApplicationRecord
     transition_to!(:completed)
     mailer = AgentImportMailer.completed(self)
     send_message(mailer)
-  rescue => e
+  rescue StandardError => e
     self.error_message = "line #{row_num}: #{e.message}"
     transition_to!(:failed)
     mailer = AgentImportMailer.failed(self)
@@ -218,8 +219,8 @@ class AgentImportFile < ApplicationRecord
     agent.death_date = row['death_date'] if row['death_date']
 
     # if row['username'].to_s.strip.blank?
-      agent.email = row['email'].to_s.strip
-      agent.required_role = Role.find_by(name: row['required_role'].to_s.strip.camelize) || Role.find_by(name: 'Guest')
+    agent.email = row['email'].to_s.strip
+    agent.required_role = Role.find_by(name: row['required_role'].to_s.strip.camelize) || Role.find_by(name: 'Guest')
     # else
     #   agent.required_role = Role.where(name: row['required_role'].to_s.strip.camelize).first || Role.where('Librarian').first
     # end

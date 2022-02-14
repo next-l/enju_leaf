@@ -5,7 +5,7 @@ class UserImportResultsController < ApplicationController
   # GET /user_import_results
   # GET /user_import_results.json
   def index
-    @user_import_file = UserImportFile.where(id: params[:user_import_file_id]).first
+    @user_import_file = UserImportFile.find_by(id: params[:user_import_file_id])
     if @user_import_file
       @user_import_results = @user_import_file.user_import_results.page(params[:page])
     else

@@ -29,16 +29,15 @@ class InventoryFile < ApplicationRecord
     reader.split.each do |row|
       identifier = row.to_s.strip
       item = Item.find_by(item_identifier: identifier)
-      if item
-        unless self.items.where(id: item.id).select('items.id').first
-          Inventory.create(
-            inventory_file: self,
-            item: item,
-            current_shelf_name: shelf.name,
-            item_identifier: identifier
-          )
-        end
-      end
+      next unless item
+      next if self.items.where(id: item.id).select('items.id').first
+
+      Inventory.create(
+        inventory_file: self,
+        item: item,
+        current_shelf_name: shelf.name,
+        item_identifier: identifier
+      )
     end
     file.close
     true

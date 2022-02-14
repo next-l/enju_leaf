@@ -2,7 +2,7 @@ class Subject < ApplicationRecord
   belongs_to :manifestation, touch: true, optional: true
   belongs_to :subject_type
   belongs_to :subject_heading_type
-  belongs_to :required_role, class_name: 'Role', foreign_key: 'required_role_id'
+  belongs_to :required_role, class_name: 'Role'
 
   validates :term, :subject_type_id, :subject_heading_type_id, presence: true
 

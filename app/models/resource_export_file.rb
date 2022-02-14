@@ -42,7 +42,7 @@ class ResourceExportFile < ApplicationRecord
     transition_to!(:completed)
     mailer = ResourceExportMailer.completed(self)
     send_message(mailer)
-  rescue => e
+  rescue StandardError => e
     transition_to!(:failed)
     mailer = ResourceExportMailer.failed(self)
     send_message(mailer)

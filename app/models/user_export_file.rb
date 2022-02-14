@@ -41,11 +41,11 @@ class UserExportFile < ApplicationRecord
     transition_to!(:completed)
     mailer = UserExportMailer.completed(self)
     send_message(mailer)
-  rescue => e
+  rescue StandardError => e
     transition_to!(:failed)
     mailer = UserExportMailer.failed(self)
     send_message(mailer)
-  rescue => e
+  rescue StandardError => e
     raise e
   end
 end

@@ -17,7 +17,7 @@ class MessageTemplate < ApplicationRecord
   end
 
   def self.localized_template(status, locale)
-    MessageTemplate.where(status: status, locale: locale).first || MessageTemplate.where(status: status).first
+    MessageTemplate.find_by(status: status, locale: locale) || MessageTemplate.find_by(status: status)
   end
 end
 

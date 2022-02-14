@@ -115,8 +115,7 @@ class ResourceImportFile < ApplicationRecord
       unless manifestation
         if row['doi'].present?
           doi = URI.parse(row['doi']).path.gsub(/^\//, "")
-          identifier_type_doi = IdentifierType.find_by(name: 'doi')
-          identifier_type_doi = IdentifierType.create!(name: 'doi') unless identifier_type_doi
+          identifier_type_doi = IdentifierType.find_or_create_by!(name: 'doi')
           manifestation = Identifier.find_by(body: doi, identifier_type_id: identifier_type_doi.id).try(:manifestation)
         end
       end
@@ -231,7 +230,7 @@ class ResourceImportFile < ApplicationRecord
     send_message(mailer)
     Rails.cache.write("manifestation_search_total", Manifestation.search.total)
     num
-  rescue => e
+  rescue StandardError => e
     self.error_message = "line #{row_num}: #{e.message}"
     save
     transition_to!(:failed)
@@ -281,7 +280,7 @@ class ResourceImportFile < ApplicationRecord
     #end
 
     # TODO
-    for record in reader
+    reader.each do |record|
       manifestation = Manifestation.new(original_title: expression.original_title)
       manifestation.carrier_type = CarrierType.find(1)
       manifestation.frequency = Frequency.find(1)
@@ -302,7 +301,7 @@ class ResourceImportFile < ApplicationRecord
     ResourceImportFile.not_imported.each do |file|
       file.import_start
     end
-  rescue
+  rescue StandardError
     Rails.logger.info "#{Time.zone.now} importing resources failed!"
   end
 
@@ -346,9 +345,7 @@ class ResourceImportFile < ApplicationRecord
       else
         manifestation_identifier = row['manifestation_identifier'].to_s.strip
         manifestation = Manifestation.find_by(manifestation_identifier: manifestation_identifier) if manifestation_identifier.present?
-        unless manifestation
-          manifestation = Manifestation.find_by(id: row['manifestation_id'])
-        end
+        manifestation ||= Manifestation.find_by(id: row['manifestation_id'])
         if manifestation
           fetch(row, edit_mode: 'update')
           ResourceImportFile.import_manifestation_custom_value(row, manifestation).each do |value|
@@ -362,7 +359,7 @@ class ResourceImportFile < ApplicationRecord
     transition_to!(:completed)
     mailer = ResourceImportMailer.completed(self)
     send_message(mailer)
-  rescue => e
+  rescue StandardError => e
     self.error_message = "line #{row_num}: #{e.message}"
     save
     transition_to!(:failed)
@@ -391,7 +388,7 @@ class ResourceImportFile < ApplicationRecord
     transition_to!(:completed)
     mailer = ResourceImportMailer.completed(self)
     send_message(mailer)
-  rescue => e
+  rescue StandardError => e
     self.error_message = "line #{row_num}: #{e.message}"
     save
     transition_to!(:failed)
@@ -414,9 +411,7 @@ class ResourceImportFile < ApplicationRecord
 
       manifestation_identifier = row['manifestation_identifier'].to_s.strip
       manifestation = Manifestation.find_by(manifestation_identifier: manifestation_identifier)
-      unless manifestation
-        manifestation = Manifestation.find_by(id: row['manifestation_id'].to_s.strip)
-      end
+      manifestation ||= Manifestation.find_by(id: row['manifestation_id'].to_s.strip)
 
       if item && manifestation
         item.manifestation = manifestation
@@ -432,7 +427,7 @@ class ResourceImportFile < ApplicationRecord
     transition_to!(:completed)
     mailer = ResourceImportMailer.completed(self)
     send_message(mailer)
-  rescue => e
+  rescue StandardError => e
     self.error_message = "line #{row_num}: #{e.message}"
     save
     transition_to!(:failed)
@@ -515,6 +510,7 @@ class ResourceImportFile < ApplicationRecord
       classification_list.map{|value|
         classification_type = ClassificationType.find_by(name: type)
         next unless classification_type
+
         classification = Classification.new(category: value)
         classification.classification_type = classification_type
         classification.save!
@@ -526,9 +522,7 @@ class ResourceImportFile < ApplicationRecord
 
   def create_item(row, manifestation)
     shelf = Shelf.find_by(name: row['shelf'].to_s.strip)
-    unless shelf
-      shelf = default_shelf || Shelf.web
-    end
+    shelf ||= default_shelf || Shelf.web
     bookstore = Bookstore.find_by(name: row['bookstore'].to_s.strip)
     budget_type = BudgetType.find_by(name: row['budget_type'].to_s.strip)
     acquired_at = Time.zone.parse(row['acquired_at']) rescue nil
@@ -550,9 +544,7 @@ class ResourceImportFile < ApplicationRecord
       circulation_status = CirculationStatus.find_by(name: row['circulation_status'].to_s.strip) || CirculationStatus.find_by(name: 'In Process')
       item.circulation_status = circulation_status
       use_restriction = UseRestriction.find_by(name: row['use_restriction'].to_s.strip)
-      unless use_restriction
-        use_restriction = UseRestriction.find_by(name: 'Not For Loan')
-      end
+      use_restriction ||= UseRestriction.find_by(name: 'Not For Loan')
       item.use_restriction = use_restriction
     end
     item.bookstore = bookstore
@@ -632,7 +624,7 @@ class ResourceImportFile < ApplicationRecord
       unless manifestation
         manifestation_identifier = row['manifestation_identifier'].to_s.strip
         manifestation = Manifestation.find_by(manifestation_identifier: manifestation_identifier) if manifestation_identifier
-        manifestation = Manifestation.find_by(id: row['manifestation_id']) unless manifestation
+        manifestation ||= Manifestation.find_by(id: row['manifestation_id'])
       end
     end
 
@@ -653,10 +645,8 @@ class ResourceImportFile < ApplicationRecord
     end
 
     # TODO: 小数点以下の表現
-    language = Language.find_by(name: row['language'].to_s.strip.camelize)
-    language = Language.find_by(iso_639_2: row['language'].to_s.strip.downcase) unless language
-    language = Language.find_by(iso_639_1: row['language'].to_s.strip.downcase) unless language
-    
+    language = Language.find_by(name: row['language'].to_s.strip.camelize) || Language.find_by(iso_639_2: row['language'].to_s.strip.downcase) || Language.find_by(iso_639_1: row['language'].to_s.strip.downcase)
+
     carrier_type = CarrierType.find_by(name: row['carrier_type'].to_s.strip)
     content_type = ContentType.find_by(name: row['content_type'].to_s.strip)
     frequency = Frequency.find_by(name: row['frequency'].to_s.strip)
@@ -769,7 +759,7 @@ class ResourceImportFile < ApplicationRecord
               title_subseries: row['series_title_subseries'],
               title_subseries_transcription: row['series_title_subseries_transcription'],
               volume_number_string: row['series_volume_number_string'],
-              creator_string: row['series_creator_string'],
+              creator_string: row['series_creator_string']
             )
             series_statement.manifestation = manifestation
             series_statement.save!
@@ -816,14 +806,13 @@ class ResourceImportFile < ApplicationRecord
   def set_identifier(row)
     identifiers = []
     %w(isbn issn doi jpno ncid).each do |id_type|
-      if row[id_type.to_s].present?
-        row[id_type].split(/\/\//).each do |identifier_s|
-          import_id = Identifier.new(body: identifier_s)
-          identifier_type = IdentifierType.find_by(name: id_type)
-          identifier_type = IdentifierType.create!(name: id_type) unless identifier_type
-          import_id.identifier_type = identifier_type
-          identifiers << import_id if import_id.valid?
-        end
+      next unless row[id_type.to_s].present?
+
+      row[id_type].split(/\/\//).each do |identifier_s|
+        import_id = Identifier.new(body: identifier_s)
+        identifier_type = IdentifierType.find_or_create_by!(name: id_type)
+        import_id.identifier_type = identifier_type
+        identifiers << import_id if import_id.valid?
       end
     end
     identifiers

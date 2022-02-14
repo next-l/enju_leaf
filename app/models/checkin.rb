@@ -25,7 +25,7 @@ class Checkin < ApplicationRecord
       return
     end
 
-    if basket.items.where('item_id = ?', item.id).first
+    if basket.items.find_by('item_id = ?', item.id)
       errors[:base] << I18n.t('checkin.already_checked_in')
     end
   end

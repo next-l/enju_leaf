@@ -7,7 +7,7 @@ class LocSearch
     def title
       title = @node.xpath('.//mods:titleInfo/mods:title', MODS_NS).first.content
       subtitle = @node.xpath('.//mods:titleInfo/mods:subTitle', MODS_NS).first
-      title += " : #{ subtitle.content }" if subtitle
+      title += " : #{subtitle.content}" if subtitle
       title
     end
     def lccn
@@ -67,9 +67,9 @@ class LocSearch
     options = { maximumRecords: 10, recordSchema: :mods }.merge(options)
     options = options.merge({ query: query, version: "1.1", operation: "searchRetrieve" })
     params = options.map do |k, v|
-      "#{ CGI.escape(k.to_s) }=#{ CGI.escape(v.to_s) }"
+        "#{CGI.escape(k.to_s)}=#{CGI.escape(v.to_s)}"
       end.join('&')
-    uri = "#{ LOC_SRU_BASEURL }?#{ params }"
+    uri = "#{LOC_SRU_BASEURL}?#{params}"
   end
 
   def self.search(query, options = {})
@@ -88,10 +88,12 @@ class LocSearch
     identifier_type_lccn = IdentifierType.find_or_create_by!(name: 'lccn')
     identifier = Identifier.find_by(body: lccn, identifier_type_id: identifier_type_lccn.id)
     return if identifier
-    url = make_sru_request_uri("bath.lccn=\"^#{ lccn }\"")
+
+    url = make_sru_request_uri("bath.lccn=\"^#{lccn}\"")
     response = Nokogiri::XML(Faraday.get(url).body)
     record = response.at('//zs:recordData', {"zs" => "http://www.loc.gov/zing/srw/"})
     return unless record.try(:content)
+
     doc = Nokogiri::XML::Document.new
     doc << record.at("//mods:mods", { "mods" => "http://www.loc.gov/mods/v3" })
     Manifestation.import_record_from_loc(doc)

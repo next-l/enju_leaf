@@ -193,7 +193,7 @@ class PictureFilesController < ApplicationController
     get_shelf
     if @shelf
       @attachable = @shelf
-      return
+      nil
     end
   end
 

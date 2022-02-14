@@ -17,6 +17,7 @@ class UserGroupPolicy < ApplicationPolicy
 
   def destroy?
     return false unless record.profiles.empty?
+
     user.try(:has_role?, 'Administrator')
   end
 end

@@ -35,10 +35,10 @@ class RealizesController < ApplicationController
   def new
     if @expression && @agent.blank?
       redirect_to expression_agents_url(@expression)
-      return
+      nil
     elsif @agent && @expression.blank?
       redirect_to agent_expressions_url(@agent)
-      return
+      nil
     else
       @realize = Realize.new
       @realize.expression = @expression

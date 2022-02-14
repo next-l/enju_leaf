@@ -33,7 +33,7 @@ class AgentRelationshipsController < ApplicationController
   def new
     if @agent.blank?
       redirect_to agents_url
-      return
+      nil
     else
       @agent_relationship = AgentRelationship.new
       @agent_relationship.agent = @agent

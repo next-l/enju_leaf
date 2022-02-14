@@ -17,7 +17,8 @@ class CheckoutsController < ApplicationController
       end
     else
       unless current_user
-        access_denied; return
+        access_denied
+        return
       end
     end
 
@@ -154,7 +155,8 @@ class CheckoutsController < ApplicationController
     if @user
       unless current_user.has_role?('Librarian')
         if @user != current_user
-          access_denied; return
+          access_denied
+          return
         end
       end
       Checkout.remove_all_history(@user)

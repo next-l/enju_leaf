@@ -11,14 +11,14 @@ class Item < ApplicationRecord
     end
   }
   delegate :display_name, to: :shelf, prefix: true
-  has_many :owns
+  has_many :owns, dependent: :destroy
   has_many :agents, through: :owns
   has_many :donates, dependent: :destroy
   has_many :donors, through: :donates, source: :agent
   has_one :resource_import_result
   belongs_to :manifestation, touch: true
   belongs_to :bookstore, optional: true
-  belongs_to :required_role, class_name: 'Role', foreign_key: 'required_role_id'
+  belongs_to :required_role, class_name: 'Role'
   belongs_to :budget_type, optional: true
   has_one :accept, dependent: :destroy
   has_one :withdraw, dependent: :destroy
@@ -95,6 +95,7 @@ class Item < ApplicationRecord
     if defined?(EnjuCirculation)
       return false if circulation_status.name == 'Removed'
       return false if checkouts.exists?
+
       true
     else
       true

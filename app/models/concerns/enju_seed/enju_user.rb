@@ -204,6 +204,7 @@ module EnjuSeed
     # @return [Boolean]
     def is_admin?
       return true if has_role?('Administrator')
+
       false
     end
 
@@ -230,7 +231,7 @@ module EnjuSeed
 
       if defined?(EnjuCirculation)
         # 未返却の資料のあるユーザを削除しようとした
-        if checkouts.count > 0
+        if checkouts.count.positive?
           errors.add(:base, I18n.t('user.this_user_has_checked_out_item'))
         end
       end

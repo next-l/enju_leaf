@@ -1,6 +1,6 @@
 class ItemCustomPropertiesController < ApplicationController
   before_action :set_item_custom_property, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create ]
+  before_action :check_policy, only: [:index, :new, :create]
 
   # GET /item_custom_properties
   def index
@@ -53,17 +53,17 @@ class ItemCustomPropertiesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_item_custom_property
-      @item_custom_property = ItemCustomProperty.find(params[:id])
-      authorize @item_custom_property
-    end
+  def set_item_custom_property
+    @item_custom_property = ItemCustomProperty.find(params[:id])
+    authorize @item_custom_property
+  end
 
-    def check_policy
-      authorize ItemCustomProperty
-    end
+  def check_policy
+    authorize ItemCustomProperty
+  end
 
     # Only allow a trusted parameter "white list" through.
-    def item_custom_property_params
-      params.require(:item_custom_property).permit(:name, :display_name, :note)
-    end
+  def item_custom_property_params
+    params.require(:item_custom_property).permit(:name, :display_name, :note)
+  end
 end

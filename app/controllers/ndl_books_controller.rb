@@ -2,7 +2,7 @@ class NdlBooksController < ApplicationController
   before_action :check_policy, only: %i[index create]
 
   def index
-    page = if params[:page].to_i == 0
+    page = if params[:page].to_i.zero?
              1
            else
              params[:page]

@@ -40,10 +40,10 @@ class ProducesController < ApplicationController
   def new
     if @agent && @manifestation.blank?
       redirect_to agent_manifestations_url(@agent)
-      return
+      nil
     elsif @manifestation && @agent.blank?
       redirect_to manifestation_agents_url(@manifestation)
-      return
+      nil
     else
       @produce = Produce.new
       @produce.manifestation = @manifestation

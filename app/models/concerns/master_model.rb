@@ -3,7 +3,7 @@ module MasterModel
 
   included do
     acts_as_list
-    validates_uniqueness_of :name, case_sensitive: false
+    validates :name, uniqueness: { case_sensitive: false }
     validates :name, presence: true
     validate :name do
       valid_name?

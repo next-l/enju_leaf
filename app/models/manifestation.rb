@@ -23,7 +23,7 @@ class Manifestation < ApplicationRecord
   belongs_to :manifestation_content_type, class_name: 'ContentType', foreign_key: 'content_type_id'
   has_many :series_statements
   belongs_to :frequency
-  belongs_to :required_role, class_name: 'Role', foreign_key: 'required_role_id'
+  belongs_to :required_role, class_name: 'Role'
   has_one :resource_import_result
   has_many :identifiers, dependent: :destroy
   has_many :manifestation_custom_values, -> { joins(:manifestation_custom_property).order(:position) }
@@ -38,7 +38,7 @@ class Manifestation < ApplicationRecord
     text :title, default_boost: 2 do
       titles
     end
-    [ :fulltext, :note, :creator, :contributor, :publisher, :description, :statement_of_responsibility ].each do |field|
+    [:fulltext, :note, :creator, :contributor, :publisher, :description, :statement_of_responsibility].each do |field|
       text field do
         if series_master?
           derived_manifestations.map{|c| c.send(field) }.flatten.compact
@@ -276,6 +276,7 @@ class Manifestation < ApplicationRecord
       while date.nil? do
         pub_date_string += '-01'
         break if pub_date_string =~ /-01-01-01$/
+
         begin
           date = Time.zone.parse(pub_date_string)
           if date.year != year
@@ -294,7 +295,7 @@ class Manifestation < ApplicationRecord
     if date
       self.year_of_publication = date.year
       self.month_of_publication = date.month
-      if date.year > 0
+      if date.year.positive?
         self.date_of_publication = date
       end
     end
@@ -437,7 +438,8 @@ class Manifestation < ApplicationRecord
   end
 
   def index_series_statement
-    series_statements.map{|s| s.index; s.root_manifestation&.index}
+    series_statements.map{|s| s.index
+                              s.root_manifestation&.index}
   end
 
   def acquired_at
@@ -446,6 +448,7 @@ class Manifestation < ApplicationRecord
 
   def series_master?
     return true if root_series_statement
+
     false
   end
 
@@ -459,8 +462,9 @@ class Manifestation < ApplicationRecord
       if agent_list[:agent_identifier].present?
         agent = Agent.find_by(agent_identifier: agent_list[:agent_identifier])
       end
-      agent = Agent.find_by(full_name: name_and_role[0]) unless agent
+      agent ||= Agent.find_by(full_name: name_and_role[0])
       next unless agent
+
       type = name_and_role[1].to_s.strip
 
       case options[:scope]
@@ -500,6 +504,7 @@ class Manifestation < ApplicationRecord
       while date.nil? do
         pub_date_string += '-01'
         break if pub_date_string =~ /-01-01-01$/
+
         begin
           date = Time.zone.parse(pub_date_string)
         rescue ArgumentError
@@ -679,7 +684,7 @@ class Manifestation < ApplicationRecord
     identifier_contents(:isbn).map{|i|
       isbn10 = isbn13 = isbn10_dash = isbn13_dash = nil
       isbn10 = Lisbn.new(i).isbn10
-      isbn13 =  Lisbn.new(i).isbn13
+      isbn13 = Lisbn.new(i).isbn13
       isbn10_dash = Lisbn.new(isbn10).isbn_with_dash if isbn10
       isbn13_dash = Lisbn.new(isbn13).isbn_with_dash if isbn13
       [

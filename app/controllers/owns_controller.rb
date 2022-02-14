@@ -33,10 +33,10 @@ class OwnsController < ApplicationController
   def new
     if @item && @agent.blank?
       redirect_to item_agents_url(@item)
-      return
+      nil
     elsif @agent && @item.blank?
       redirect_to agent_items_url(@agent)
-      return
+      nil
     else
       @own = Own.new
       @own.item = @item

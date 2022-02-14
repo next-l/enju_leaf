@@ -66,7 +66,8 @@ class AcceptsController < ApplicationController
   # POST /accepts.json
   def create
     unless @basket
-      access_denied; return
+      access_denied
+      return
     end
     @accept = Accept.new(accept_params)
     @accept.basket = @basket

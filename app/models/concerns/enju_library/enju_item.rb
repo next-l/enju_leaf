@@ -21,6 +21,7 @@ module EnjuLibrary
 
     def hold?(library)
       return true if shelf.library == library
+
       false
     end
 

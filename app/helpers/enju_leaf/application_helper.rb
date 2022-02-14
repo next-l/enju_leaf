@@ -114,6 +114,7 @@ module EnjuLeaf
     # @param [String] string Markdownの文字列
     def markdown_helper(string)
       return unless string
+
       Kramdown::Document.new(string.to_s).to_html.html_safe
     end
 

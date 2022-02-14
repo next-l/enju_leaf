@@ -11,7 +11,8 @@ class AgentsController < ApplicationController
   def index
     if params[:mode] == 'add'
       unless current_user.try(:has_role?, 'Librarian')
-        access_denied; return
+        access_denied
+        return
       end
     end
     query = params[:query].to_s.strip
@@ -130,8 +131,8 @@ class AgentsController < ApplicationController
   # GET /agents/new.json
   def new
     @agent = Agent.new
-    @agent.required_role = Role.where(name: 'Guest').first
-    @agent.language = Language.where(iso_639_1: I18n.default_locale.to_s).first || Language.first
+    @agent.required_role = Role.find_by(name: 'Guest')
+    @agent.language = Language.find_by(iso_639_1: I18n.default_locale.to_s) || Language.first
     @agent.country = current_user.profile.library.country
     prepare_options
 
@@ -225,6 +226,6 @@ class AgentsController < ApplicationController
     @agent_types = AgentType.all
     @roles = Role.all
     @languages = Language.all
-    @agent_type = AgentType.where(name: 'person').first
+    @agent_type = AgentType.find_by(name: 'person')
   end
 end

@@ -7,6 +7,7 @@ module EnjuNii
         # if options[:isbn]
         lisbn = Lisbn.new(options[:isbn])
         raise EnjuNii::InvalidIsbn unless lisbn.valid?
+
         # end
 
         manifestation = Manifestation.find_by_isbn(lisbn.isbn)
@@ -14,6 +15,7 @@ module EnjuNii
 
         doc = return_rdf(lisbn.isbn)
         raise EnjuNii::RecordNotFound unless doc
+
         # raise EnjuNii::RecordNotFound if doc.at('//openSearch:totalResults').content.to_i == 0
         import_record_from_cinii_books(doc)
       end
@@ -219,7 +221,7 @@ module EnjuNii
               series_statement = SeriesStatement.new(
                 original_title: original_title,
                 title_transcription: title_transcription,
-                volume_number_string: volume_number,
+                volume_number_string: volume_number
               )
               manifestation.series_statements << series_statement
             end

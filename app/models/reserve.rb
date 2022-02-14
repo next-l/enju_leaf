@@ -138,7 +138,7 @@ class Reserve < ApplicationRecord
     return nil if force_retaining == '1'
 
     if item && !retained?
-      if Reserve.retained.where(item_id: item.id).count > 0
+      if Reserve.retained.where(item_id: item.id).count.positive?
         errors.add(:base, I18n.t('reserve.attempt_to_update_retained_reservation'))
       end
     end

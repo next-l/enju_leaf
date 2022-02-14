@@ -54,6 +54,7 @@ class EventImportFile < ApplicationRecord
     rows.each do |row|
       row_num += 1
       next if row['dummy'].to_s.strip.present?
+
       event_import_result = EventImportResult.new(event_import_file_id: id, body: row.fields.join("\t"))
 
       event = Event.new
@@ -89,7 +90,7 @@ class EventImportFile < ApplicationRecord
     mailer = EventImportMailer.completed(self)
     send_message(mailer)
     num
-  rescue => e
+  rescue StandardError => e
     self.error_message = "line #{row_num}: #{e.message}"
     save
     transition_to!(:failed)
@@ -107,8 +108,9 @@ class EventImportFile < ApplicationRecord
     rows.each do |row|
       row_num += 1
       next if row['dummy'].to_s.strip.present?
+
       event = Event.find(row['id'].to_s.strip)
-      event_category = EventCategory.where(name: row['event_category'].to_s.strip).first
+      event_category = EventCategory.find_by(name: row['event_category'].to_s.strip)
       event.event_category = event_category if event_category
       library = Library.find_by(name: row['library'].to_s.strip)
       event.library = library if library
@@ -126,7 +128,7 @@ class EventImportFile < ApplicationRecord
     transition_to!(:completed)
     mailer = EventImportMailer.completed(self)
     send_message(mailer)
-  rescue => e
+  rescue StandardError => e
     self.error_message = "line #{row_num}: #{e.message}"
     save
     transition_to!(:failed)
@@ -144,6 +146,7 @@ class EventImportFile < ApplicationRecord
     rows.each do |row|
       row_num += 1
       next if row['dummy'].to_s.strip.present?
+
       event = Event.find(row['id'].to_s.strip)
       event.picture_files.destroy_all # workaround
       event.reload
@@ -152,7 +155,7 @@ class EventImportFile < ApplicationRecord
     transition_to!(:completed)
     mailer = EventImportMailer.completed(self)
     send_message(mailer)
-  rescue => e
+  rescue StandardError => e
     self.error_message = "line #{row_num}: #{e.message}"
     save
     transition_to!(:failed)
@@ -165,7 +168,7 @@ class EventImportFile < ApplicationRecord
     EventImportFile.not_imported.each do |file|
       file.import_start
     end
-  rescue
+  rescue StandardError
     Rails.logger.info "#{Time.zone.now} importing events failed!"
   end
 

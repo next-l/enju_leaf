@@ -18,7 +18,7 @@ class Subscription < ApplicationRecord
   paginates_per 10
 
   def subscribed(work)
-    subscribes.where(work_id: work.id).first
+    subscribes.find_by(work_id: work.id)
   end
 end
 

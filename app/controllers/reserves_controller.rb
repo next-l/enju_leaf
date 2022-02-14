@@ -17,7 +17,8 @@ class ReservesController < ApplicationController
           redirect_to reserves_url(format: params[:format])
           return
         else
-          access_denied; return
+          access_denied
+          return
         end
       end
     end
@@ -54,7 +55,8 @@ class ReservesController < ApplicationController
             with(:username).equal_to user.username
           end
         else
-          access_denied; return
+          access_denied
+          return
         end
       else
         unless current_user.has_role?('Librarian')
@@ -68,14 +70,14 @@ class ReservesController < ApplicationController
     begin
       reserved_from = Time.zone.parse(params[:reserved_from])
       @reserved_from = params[:reserved_from].to_s.strip
-    rescue
+    rescue StandardError
       reserved_from = nil
     end
 
     begin
       reserved_until = Time.zone.parse(params[:reserved_until])
       @reserved_until = params[:reserved_until].to_s.strip
-    rescue
+    rescue StandardError
       reserved_until = nil
     end
 
@@ -128,13 +130,14 @@ class ReservesController < ApplicationController
     else
       if @user.present?
         if @user != current_user
-          access_denied; return
+          access_denied
+          return
         end
       end
       @reserve.user_number = current_user.profile.user_number
     end
 
-    @manifestation = Manifestation.where(id: params[:manifestation_id]).first
+    @manifestation = Manifestation.find_by(id: params[:manifestation_id])
     if @manifestation
       authorize @manifestation, :show?
       @reserve.manifestation = @manifestation
@@ -143,7 +146,7 @@ class ReservesController < ApplicationController
         if @manifestation.is_reserved_by?(@reserve.user)
           flash[:notice] = t('reserve.this_manifestation_is_already_reserved')
           redirect_to @manifestation
-          return
+          nil
         end
       end
     end
@@ -167,7 +170,8 @@ class ReservesController < ApplicationController
     else
       if @reserve.user != current_user
         if @user != current_user
-          access_denied; return
+          access_denied
+          return
         end
       end
     end
@@ -191,7 +195,8 @@ class ReservesController < ApplicationController
   def update
     unless current_user.has_role?('Librarian')
       if @reserve.user != current_user
-        access_denied; return
+        access_denied
+        return
       end
     end
     @reserve.assign_attributes(reserve_update_params)

@@ -53,7 +53,8 @@ class CheckedItemsController < ApplicationController
   # POST /checked_items.json
   def create
     unless @basket
-      access_denied; return
+      access_denied
+      return
     end
     @checked_item = CheckedItem.new(checked_item_params)
     @checked_item.basket = @basket

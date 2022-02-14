@@ -33,7 +33,7 @@ class ManifestationRelationshipsController < ApplicationController
   def new
     if @manifestation.blank?
       redirect_to manifestations_url
-      return
+      nil
     else
       @manifestation_relationship = ManifestationRelationship.new
       @manifestation_relationship.manifestation = @manifestation

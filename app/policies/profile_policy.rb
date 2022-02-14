@@ -38,6 +38,7 @@ class ProfilePolicy < ApplicationPolicy
   def destroy?
     return false unless user
     return false unless user.try(:has_role?, 'Librarian')
+
     if record.user
       if record != user.profile && record.user.id != 1
         if defined?(EnjuCirculation)

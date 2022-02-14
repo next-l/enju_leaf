@@ -36,6 +36,7 @@ module EnjuBiblio
 
     def agents_list(agents = [], options = {})
       return nil if agents.blank?
+
       agents_list = []
       if options[:nolink]
         agents_list = agents.map{|agent| agent.full_name}

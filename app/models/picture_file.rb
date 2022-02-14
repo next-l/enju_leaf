@@ -32,6 +32,7 @@ class PictureFile < ApplicationRecord
   private
   def extract_dimensions
     return nil unless picture.queued_for_write[:original]
+
     geometry = Paperclip::Geometry.from_file(picture.queued_for_write[:original])
     self.picture_width = geometry.width.to_i
     self.picture_height = geometry.height.to_i

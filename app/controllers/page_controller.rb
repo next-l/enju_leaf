@@ -107,6 +107,7 @@ class PageController < ApplicationController
   private
   def check_librarian
     return true if current_user.has_role?('Librarian')
+
     access_denied
   end
 end

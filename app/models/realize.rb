@@ -1,9 +1,9 @@
 class Realize < ApplicationRecord
   belongs_to :agent
-  belongs_to :expression, class_name: 'Manifestation', foreign_key: 'expression_id', touch: true
+  belongs_to :expression, class_name: 'Manifestation', touch: true
   belongs_to :realize_type, optional: true
 
-  validates_uniqueness_of :expression_id, scope: :agent_id
+  validates :expression_id, uniqueness: { scope: :agent_id }
   after_save :reindex
   after_destroy :reindex
 

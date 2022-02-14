@@ -24,11 +24,11 @@ class ReserveStateMachine
       if reserve.item
         other_reserves = reserve.item.reserves.waiting
         other_reserves.each{|r|
-          if r != reserve
-            r.transition_to!(:postponed)
-            r.item = nil
-            r.save!
-          end
+          next unless r != reserve
+
+          r.transition_to!(:postponed)
+          r.item = nil
+          r.save!
         }
       end
     end

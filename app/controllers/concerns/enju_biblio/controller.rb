@@ -63,7 +63,7 @@ module EnjuBiblio
         language = params[:language]
         if defined?(EnjuSubject)
           subject = params[:subject]
-          subject_by_term = Subject.where(term: params[:subject]).first
+          subject_by_term = Subject.find_by(term: params[:subject])
           @subject_by_term = subject_by_term
         end
 
@@ -93,7 +93,7 @@ module EnjuBiblio
           end
         end
       end
-      return search
+      search
     end
   end
 end

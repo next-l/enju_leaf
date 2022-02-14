@@ -19,6 +19,7 @@ module EnjuNdl
         # if options[:isbn]
         lisbn = Lisbn.new(options[:isbn])
         raise EnjuNdl::InvalidIsbn unless lisbn.valid?
+
         # end
 
         manifestation = Manifestation.find_by_isbn(lisbn.isbn)
@@ -26,6 +27,7 @@ module EnjuNdl
 
         doc = return_xml(lisbn.isbn)
         raise EnjuNdl::RecordNotFound unless doc
+
         # raise EnjuNdl::RecordNotFound if doc.at('//openSearch:totalResults').content.to_i == 0
         import_record(doc)
       end
@@ -201,7 +203,7 @@ module EnjuNdl
           creator_agents = Agent.import_agents(creators)
           content_type_id = begin
                               ContentType.find_by(name: 'text').id
-                            rescue
+                            rescue StandardError
                               1
                             end
           manifestation.creators << creator_agents
@@ -227,8 +229,10 @@ module EnjuNdl
                 rescue URI::InvalidURIError
                 end
                 next unless ndc_url
+
                 ndc_type = ndc_url.path.split('/').reverse[1]
                 next unless (ndc_type == 'ndc9') || (ndc_type == 'ndc10')
+
                 ndc = ndc_url.path.split('/').last
                 classification_type = ClassificationType.find_or_create_by!(name: ndc_type)
                 classification = Classification.new(category: ndc)

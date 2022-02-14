@@ -18,7 +18,7 @@ module EnjuInventory
         when 'not_in_catalog'
           Item.where(id: (inventory_item_ids - item_ids))
         end
-      rescue
+      rescue StandardError
         nil
       end
     end

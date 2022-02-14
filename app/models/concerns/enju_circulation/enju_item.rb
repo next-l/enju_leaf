@@ -62,22 +62,26 @@ module EnjuCirculation
       #circulation_status.name_will_change!
       #return unless circulation_status.name_change.first == 'Removed'
       return unless circulation_status.name == 'Removed'
+
       errors[:base] << I18n.t('activerecord.errors.models.item.attributes.circulation_status_id.is_rented') if rented?
       errors[:base] << I18n.t('activerecord.errors.models.item.attributes.circulation_status_id.is_reserved') if reserved?
     end
 
     def checkout_status(user)
       return nil unless user
-       user.profile.user_group.user_group_has_checkout_types.find_by(checkout_type_id: checkout_type.id)
+
+      user.profile.user_group.user_group_has_checkout_types.find_by(checkout_type_id: checkout_type.id)
     end
 
     def reserved?
       return true if manifestation.next_reservation
+
       false
     end
 
     def rent?
       return true if checkouts.not_returned.select(:item_id).detect{|checkout| checkout.item_id == id}
+
       false
     end
 
@@ -152,6 +156,7 @@ module EnjuCirculation
     def create_lending_policy(user)
       rule = user.profile.user_group.user_group_has_checkout_types.find_by(checkout_type_id: checkout_type_id)
       return nil unless rule
+
       LendingPolicy.create!(
         item_id: id,
         user_group_id: rule.user_group_id,
@@ -163,6 +168,7 @@ module EnjuCirculation
 
     def delete_lending_policy
       return nil unless changes[:checkout_type_id]
+
       lending_policies.delete_all
     end
 

@@ -79,6 +79,7 @@ class CheckedItem < ApplicationRecord
 
   def set_due_date
     return nil unless item_checkout_type
+
     if due_date_string.present?
       self.due_date = Time.zone.parse(due_date_string).try(:end_of_day)
     else
@@ -116,6 +117,7 @@ class CheckedItem < ApplicationRecord
 
   def check_due_date
     return nil unless due_date
+
     if due_date <= Time.zone.now
       errors.add(:due_date)
     end

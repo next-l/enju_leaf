@@ -42,7 +42,7 @@ class EventExportFile < ApplicationRecord
     end
     mailer = EventExportMailer.completed(self)
     send_message(mailer)
-  rescue => e
+  rescue StandardError => e
     transition_to!(:failed)
     mailer = EventExportMailer.failed(self)
     send_message(mailer)

@@ -16,6 +16,7 @@ module EnjuLibrary
 
     def render_403
       return if performed?
+
       if user_signed_in?
         respond_to do |format|
           format.html {render template: 'page/403', status: :forbidden}
@@ -49,11 +50,13 @@ module EnjuLibrary
 
     def render_404_invalid_format
       return if performed?
+
       render file: Rails.root.join('public/404.html').to_s, formats: [:html]
     end
 
     def render_500
       return if performed?
+
       respond_to do |format|
         format.html {render file: Rails.root.join('public/500.html').to_s, layout: false, status: :internal_server_error}
         # format.html.phone {render file: "#{Rails.root}/public/500", layout: false, status: 500}
@@ -66,6 +69,7 @@ module EnjuLibrary
     def render_500_nosolr
       Rails.logger.fatal("please confirm that the Solr is running.")
       return if performed?
+
       # flash[:notice] = t('page.connection_failed')
       respond_to do |format|
         format.html {render template: "page/500_nosolr", layout: false, status: :internal_server_error}
@@ -129,7 +133,7 @@ module EnjuLibrary
     end
 
     def get_user
-      @user = User.where(username: params[:user_id]).first if params[:user_id]
+      @user = User.find_by(username: params[:user_id]) if params[:user_id]
       # authorize! :show, @user if @user
     end
 
@@ -141,6 +145,7 @@ module EnjuLibrary
       case params[:format]
       when 'csv'
         return unless LibraryGroup.site_config.csv_charset_conversion
+
         # TODO: 他の言語
         if @locale.to_sym == :ja
           headers["Content-Type"] = "text/csv; charset=Shift_JIS"
@@ -156,7 +161,7 @@ module EnjuLibrary
 
     def store_page
       if request.get? && request.format.try(:html?) && !request.xhr?
-        flash[:page] = params[:page] if params[:page].to_i > 0
+        flash[:page] = params[:page] if params[:page].to_i.positive?
       end
     end
 
@@ -216,7 +221,7 @@ module EnjuLibrary
         resource.send("move_#{direction}")
         if redirect
           redirect_to url_for(controller: resource.class.to_s.pluralize.underscore)
-          return
+          nil
         end
       end
     end

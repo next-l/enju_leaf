@@ -3,7 +3,7 @@ class Identifier < ApplicationRecord
   belongs_to :manifestation, touch: true, optional: true
 
   validates :body, presence: true
-  validates_uniqueness_of :body, scope: [:identifier_type_id, :manifestation_id]
+  validates :body, uniqueness: { scope: [:identifier_type_id, :manifestation_id] }
   validate :check_identifier
   before_validation :normalize
   before_save :convert_isbn

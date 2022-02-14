@@ -60,7 +60,7 @@ class AgentMergeListsController < ApplicationController
     respond_to do |format|
       if @agent_merge_list.update(agent_merge_list_params)
         if params[:mode] == 'merge'
-          selected_agent = Agent.where(id: params[:selected_agent_id]).first
+          selected_agent = Agent.find_by(id: params[:selected_agent_id])
           if selected_agent
             @agent_merge_list.merge_agents(selected_agent)
             flash[:notice] = t('merge_list.successfully_merged', model: t('activerecord.models.agent'))

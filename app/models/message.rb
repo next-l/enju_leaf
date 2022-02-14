@@ -16,6 +16,7 @@ class Message < ApplicationRecord
 
   acts_as_nested_set
   attr_accessor :recipient
+
   validates :recipient, presence: true, on: :create
 
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
@@ -59,6 +60,7 @@ class Message < ApplicationRecord
 
   def read?
     return true if current_state == 'read'
+
     false
   end
 

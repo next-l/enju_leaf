@@ -4,7 +4,8 @@ class OaiController < ApplicationController
   def provider
     @oai = check_oai_params(params)
     if params[:verb] == 'GetRecord'
-      get_record; return
+      get_record
+      return
     else
       from_and_until_times = set_from_and_until(Manifestation, params[:from], params[:until])
       from_time = @from_time = from_and_until_times[:from]

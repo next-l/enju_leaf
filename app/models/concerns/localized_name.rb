@@ -4,6 +4,7 @@ module LocalizedName
     if string.is_a?(Hash) && string[locale.to_s]
       return string[locale.to_s]
     end
+
     self
   rescue NoMethodError
     self

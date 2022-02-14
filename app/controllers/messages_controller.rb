@@ -59,7 +59,7 @@ class MessagesController < ApplicationController
     else
       @message.recipient = parent.sender.username if parent
     end
-    @message.receiver = User.where(username: @message.recipient).first if @message.recipient
+    @message.receiver = User.find_by(username: @message.recipient) if @message.recipient
 
     respond_to do |format|
       format.html # new.html.erb
@@ -79,7 +79,7 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
     @message.sender = current_user
     get_parent(@message.parent_id)
-    @message.receiver = User.where(username: @message.recipient).first
+    @message.receiver = User.find_by(username: @message.recipient)
 
     respond_to do |format|
       if @message.save
@@ -125,7 +125,7 @@ class MessagesController < ApplicationController
     end
     respond_to do |format|
       if params[:delete].present?
-        messages = params[:delete].map{|m| Message.where(id: m).first}
+        messages = params[:delete].map{|m| Message.find_by(id: m)}
       end
       if messages.present?
         messages.each do |message|
@@ -147,7 +147,8 @@ class MessagesController < ApplicationController
       @message = current_user.received_messages.find(params[:id])
       authorize @message
     else
-      access_denied; return
+      access_denied
+      return
     end
   end
 
@@ -162,13 +163,14 @@ class MessagesController < ApplicationController
   end
 
   def get_parent(id)
-    parent = Message.where(id: id).first
-    unless current_user.has_role?('Librarian')
-      unless parent.try(:receiver) == current_user
-        access_denied; return
-      end
-    else
+    parent = Message.find_by(id: id)
+    if current_user.has_role?('Librarian')
       parent
+    else
+      unless parent.try(:receiver) == current_user
+        access_denied
+        return
+      end
     end
   end
 

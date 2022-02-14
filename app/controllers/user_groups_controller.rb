@@ -107,7 +107,7 @@ class UserGroupsController < ApplicationController
       {user_group_has_checkout_types_attributes: [
         :id, :checkout_type_id, :checkout_limit, :checkout_period, :checkout_renewal_limit,
         :reservation_limit, :reservation_expired_period, :set_due_date_before_closing_day
-      ]},
+      ]}
     )
   end
 

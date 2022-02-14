@@ -88,7 +88,7 @@ class LibraryGroupsController < ApplicationController
       {
         user_attributes: [:email]
       },
-      *LibraryGroup.globalize_attribute_names,
+      *LibraryGroup.globalize_attribute_names
     )
   end
 end

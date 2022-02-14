@@ -57,6 +57,7 @@ class Checkout < ApplicationRecord
 
   def renewable?
     return nil if checkin
+
     messages = []
     if !operator && overdue?
       messages << I18n.t('checkout.you_have_overdue_item')
@@ -79,6 +80,7 @@ class Checkout < ApplicationRecord
 
   def reserved?
     return true if item.try(:reserved?)
+
     false
   end
 
@@ -110,6 +112,7 @@ class Checkout < ApplicationRecord
 
   def get_new_due_date
     return nil unless user
+
     if item
       if checkout_renewal_count <= item.checkout_status(user).checkout_renewal_limit
         new_due_date = Time.zone.now.advance(days: item.checkout_status(user).checkout_period).beginning_of_day

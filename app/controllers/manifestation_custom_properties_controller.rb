@@ -1,6 +1,6 @@
 class ManifestationCustomPropertiesController < ApplicationController
   before_action :set_manifestation_custom_property, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create ]
+  before_action :check_policy, only: [:index, :new, :create]
 
   # GET /manifestation_custom_properties
   def index
@@ -53,17 +53,17 @@ class ManifestationCustomPropertiesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_manifestation_custom_property
-      @manifestation_custom_property = ManifestationCustomProperty.find(params[:id])
-      authorize @manifestation_custom_property
-    end
+  def set_manifestation_custom_property
+    @manifestation_custom_property = ManifestationCustomProperty.find(params[:id])
+    authorize @manifestation_custom_property
+  end
 
-    def check_policy
-      authorize ManifestationCustomProperty
-    end
+  def check_policy
+    authorize ManifestationCustomProperty
+  end
 
     # Only allow a trusted parameter "white list" through.
-    def manifestation_custom_property_params
-      params.require(:manifestation_custom_property).permit(:name, :display_name, :note)
-    end
+  def manifestation_custom_property_params
+    params.require(:manifestation_custom_property).permit(:name, :display_name, :note)
+  end
 end

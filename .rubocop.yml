@@ -56,3 +56,5 @@ Style/PercentLiteralDelimiters:
   Enabled: false
 Rails/InverseOf:
   Enabled: false
+Style/SoleNestedConditional:
+  Enabled: false

@@ -2,7 +2,7 @@ class CiniiBooksController < ApplicationController
   before_action :check_policy, only: [:index, :create]
 
   def index
-    if params[:page].to_i == 0
+    if params[:page].to_i.zero?
       page = 1
     else
       page = params[:page]

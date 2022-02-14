@@ -81,6 +81,7 @@ module ManifestationsHelper
   def library_facet(current_libraries, facet)
     library = Library.where(name: facet.value).select([:name, :display_name]).first
     return nil unless library
+
     string = ''
     current = true if current_libraries.include?(library.name)
     content_tag :li do
@@ -129,7 +130,7 @@ module ManifestationsHelper
     end
     if manifestation.serial?
       if manifestation.issue_number_string?
-        title <<  " (#{manifestation.issue_number_string})"
+        title << " (#{manifestation.issue_number_string})"
       end
       if manifestation.serial_number?
         title << " " + manifestation.serial_number.to_s
@@ -138,10 +139,10 @@ module ManifestationsHelper
     title
   end
 
-  def holding_item_sort_criteria( item )
+  def holding_item_sort_criteria(item)
     own_library = 2
     own_library = 1 if signed_in? and current_user.profile.library_id == item.shelf.library_id
-    [ own_library, Library.find(item.shelf.library_id).position, item.shelf.position, item.id ]
+    [own_library, Library.find(item.shelf.library_id).position, item.shelf.position, item.id]
   end
 
   if defined?(EnjuBookmark)

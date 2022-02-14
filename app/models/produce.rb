@@ -4,7 +4,7 @@ class Produce < ApplicationRecord
   belongs_to :produce_type, optional: true
   delegate :original_title, to: :manifestation, prefix: true
 
-  validates_uniqueness_of :manifestation_id, scope: :agent_id
+  validates :manifestation_id, uniqueness: { scope: :agent_id }
   after_save :reindex
   after_destroy :reindex
 

@@ -3,9 +3,9 @@ class UserGroup < ApplicationRecord
   include EnjuCirculation::EnjuUserGroup
   has_many :profiles
 
-  validates_numericality_of :valid_period_for_new_user,
-    greater_than_or_equal_to: 0,
-    allow_blank: true
+  validates :valid_period_for_new_user,
+    numericality: { greater_than_or_equal_to: 0,
+    allow_blank: true }
 
   paginates_per 10
 end

@@ -59,7 +59,8 @@ class CheckinsController < ApplicationController
   # POST /checkins.json
   def create
     unless @basket
-      access_denied; return
+      access_denied
+      return
     end
     @checkin = Checkin.new(checkin_params)
     @checkin.basket = @basket

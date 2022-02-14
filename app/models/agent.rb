@@ -26,7 +26,7 @@ class Agent < ApplicationRecord
   has_many :agent_merges, dependent: :destroy
   has_many :agent_merge_lists, through: :agent_merges
   belongs_to :agent_type
-  belongs_to :required_role, class_name: 'Role', foreign_key: 'required_role_id'
+  belongs_to :required_role, class_name: 'Role'
   belongs_to :language
   belongs_to :country
   has_one :agent_import_result
@@ -96,6 +96,7 @@ class Agent < ApplicationRecord
 
   def set_date_of_birth
     return if birth_date.blank?
+
     begin
       date = Time.zone.parse(birth_date.to_s)
     rescue ArgumentError
@@ -104,7 +105,7 @@ class Agent < ApplicationRecord
       rescue ArgumentError
         begin
           date = Time.zone.parse("#{birth_date}-01-01")
-        rescue
+        rescue StandardError
           nil
         end
       end
@@ -114,6 +115,7 @@ class Agent < ApplicationRecord
 
   def set_date_of_death
     return if death_date.blank?
+
     begin
       date = Time.zone.parse(death_date.to_s)
     rescue ArgumentError
@@ -122,7 +124,7 @@ class Agent < ApplicationRecord
       rescue ArgumentError
         begin
           date = Time.zone.parse("#{death_date}-01-01")
-        rescue
+        rescue StandardError
           nil
         end
       end
@@ -252,6 +254,7 @@ class Agent < ApplicationRecord
 
   def self.new_agents(agents_params)
     return [] unless agents_params
+
     agents = []
     Agent.transaction do
       agents_params.each do |k, v|

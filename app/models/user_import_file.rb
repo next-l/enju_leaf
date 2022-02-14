@@ -121,7 +121,7 @@ class UserImportFile < ApplicationRecord
     mailer = UserImportMailer.completed(self)
     send_message(mailer)
     num
-  rescue => e
+  rescue StandardError => e
     transition_to!(:failed)
     mailer = UserImportMailer.failed(self)
     send_message(mailer)
@@ -143,6 +143,7 @@ class UserImportFile < ApplicationRecord
     rows.each do |row|
       row_num += 1
       next if row['dummy'].to_s.strip.present?
+
       import_result = UserImportResult.create!(
         user_import_file_id: id, body: row.fields.join("\t")
       )
@@ -172,7 +173,7 @@ class UserImportFile < ApplicationRecord
     mailer = UserImportMailer.completed(self)
     send_message(mailer)
     num
-  rescue => e
+  rescue StandardError => e
     self.error_message = "line #{row_num}: #{e.message}"
     save
     transition_to!(:failed)
@@ -196,17 +197,17 @@ class UserImportFile < ApplicationRecord
       row_num += 1
       username = row['username'].to_s.strip
       remove_user = User.find_by(username: username)
-      if remove_user.try(:deletable_by?, user)
-        UserImportFile.transaction do
-          remove_user.destroy
-          remove_user.profile.destroy
-        end
+      next unless remove_user.try(:deletable_by?, user)
+
+      UserImportFile.transaction do
+        remove_user.destroy
+        remove_user.profile.destroy
       end
     end
     transition_to!(:completed)
     mailer = UserImportMailer.completed(self)
     send_message(mailer)
-  rescue => e
+  rescue StandardError => e
     self.error_message = "line #{row_num}: #{e.message}"
     save
     transition_to!(:failed)
@@ -254,7 +255,7 @@ class UserImportFile < ApplicationRecord
     UserImportFile.not_imported.each do |file|
       file.import_start
     end
-  rescue
+  rescue StandardError
     Rails.logger.info "#{Time.zone.now} importing resources failed!"
   end
 

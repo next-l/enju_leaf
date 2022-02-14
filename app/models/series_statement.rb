@@ -2,7 +2,7 @@ class SeriesStatement < ApplicationRecord
   has_many :series_statement_merges, dependent: :destroy
   has_many :series_statement_merge_lists, through: :series_statement_merges
   belongs_to :manifestation, touch: true, optional: true
-  belongs_to :root_manifestation, foreign_key: :root_manifestation_id, class_name: 'Manifestation', touch: true, optional: true
+  belongs_to :root_manifestation, class_name: 'Manifestation', touch: true, optional: true
   validates :original_title, presence: true
   validates :root_manifestation_id, uniqueness: true, allow_nil: true
   before_save :create_root_series_statement
@@ -21,6 +21,7 @@ class SeriesStatement < ApplicationRecord
   end
 
   attr_accessor :selected
+
   strip_attributes only: :original_title
 
   paginates_per 10

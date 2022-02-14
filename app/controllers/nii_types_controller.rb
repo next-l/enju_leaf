@@ -44,7 +44,7 @@ class NiiTypesController < ApplicationController
 
     respond_to do |format|
       if @nii_type.save
-        format.html { redirect_to @nii_type, notice:  t('controller.successfully_created', model:  t('activerecord.models.nii_type')) }
+        format.html { redirect_to @nii_type, notice:  t('controller.successfully_created', model: t('activerecord.models.nii_type')) }
         format.json { render json: @nii_type, status: :created, location: @nii_type }
       else
         format.html { render action: "new" }
@@ -63,7 +63,7 @@ class NiiTypesController < ApplicationController
 
     respond_to do |format|
       if @nii_type.update(nii_type_params)
-        format.html { redirect_to @nii_type, notice:  t('controller.successfully_updated', model:  t('activerecord.models.nii_type')) }
+        format.html { redirect_to @nii_type, notice:  t('controller.successfully_updated', model: t('activerecord.models.nii_type')) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

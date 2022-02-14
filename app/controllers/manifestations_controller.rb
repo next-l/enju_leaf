@@ -19,7 +19,8 @@ class ManifestationsController < ApplicationController
     mode = params[:mode]
     if mode == 'add'
       unless current_user.try(:has_role?, 'Librarian')
-        access_denied; return
+        access_denied
+        return
       end
     end
 
@@ -64,7 +65,7 @@ class ManifestationsController < ApplicationController
       @index_agent = agent
       manifestation = @manifestation if @manifestation
       series_statement = @series_statement if @series_statement
-      parent = @parent = Manifestation.where(id: params[:parent_id]).first if params[:parent_id].present?
+      parent = @parent = Manifestation.find_by(id: params[:parent_id]) if params[:parent_id].present?
 
       if defined?(EnjuSubject)
         subject = @subject if @subject
@@ -175,7 +176,7 @@ class ManifestationsController < ApplicationController
       end
 
       page ||= params[:page] || 1
-      if params[:per_page].to_i > 0
+      if params[:per_page].to_i.positive?
         per_page = params[:per_page].to_i
       else
         per_page = Manifestation.default_per_page
@@ -251,8 +252,8 @@ class ManifestationsController < ApplicationController
       format.html.phone
       format.xml  { render xml: @manifestations }
       format.rss  { render layout: false }
-      format.text  { render layout: false }
-      format.rdf  { render layout: false }
+      format.text { render layout: false }
+      format.rdf { render layout: false }
       format.atom
       format.mods
       format.json
@@ -275,7 +276,8 @@ class ManifestationsController < ApplicationController
         redirect_to @manifestation
         return
       else
-        access_denied; return
+        access_denied
+        return
       end
     end
 
@@ -310,7 +312,7 @@ class ManifestationsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.html.phone
-      format.xml  {
+      format.xml {
         case params[:mode]
         when 'related'
           render template: 'manifestations/related'
@@ -347,13 +349,13 @@ class ManifestationsController < ApplicationController
     @parent = Manifestation.find_by(id: params[:parent_id]) if params[:parent_id].present?
     if @parent
       @manifestation.parent_id = @parent.id
-      [ :original_title, :title_transcription,
+      [:original_title, :title_transcription,
         :serial, :title_alternative, :statement_of_responsibility, :publication_place,
         :height, :width, :depth, :price, :access_address, :language, :frequency, :required_role,
-      ].each do |attribute|
+].each do |attribute|
         @manifestation.send("#{attribute}=", @parent.send(attribute))
       end
-      [ :creators, :contributors, :publishers, :classifications, :subjects ].each do |attribute|
+      [:creators, :contributors, :publishers, :classifications, :subjects].each do |attribute|
         @manifestation.send(attribute).build(@parent.send(attribute).collect(&:attributes))
       end
     end
@@ -368,7 +370,8 @@ class ManifestationsController < ApplicationController
   def edit
     unless current_user.has_role?('Librarian')
       unless params[:mode] == 'tag_edit'
-        access_denied; return
+        access_denied
+        return
       end
     end
     if defined?(EnjuBookmark)
@@ -651,7 +654,7 @@ class ManifestationsController < ApplicationController
       #  end
     end
 
-    return query
+    query
   end
 
   def set_search_result_order(sort_by, order)

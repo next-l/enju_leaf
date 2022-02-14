@@ -11,7 +11,7 @@ class WithdrawsController < ApplicationController
     else
       if params[:withdraw]
         @query = params[:withdraw][:item_identifier].to_s.strip
-        item = Item.where(item_identifier: @query).first if @query.present?
+        item = Item.find_by(item_identifier: @query) if @query.present?
       end
 
       if item
@@ -67,7 +67,8 @@ class WithdrawsController < ApplicationController
   # POST /withdraws.json
   def create
     unless @basket
-      access_denied; return
+      access_denied
+      return
     end
     @withdraw = Withdraw.new(withdraw_params)
     @withdraw.basket = @basket
@@ -77,7 +78,7 @@ class WithdrawsController < ApplicationController
     if @withdraw.item_identifier.blank?
       flash[:message] << t('withdraw.enter_item_identifier') if @withdraw.item_identifier.blank?
     else
-      item = Item.where(item_identifier: @withdraw.item_identifier.to_s.strip).first
+      item = Item.find_by(item_identifier: @withdraw.item_identifier.to_s.strip)
     end
     @withdraw.item = item
 

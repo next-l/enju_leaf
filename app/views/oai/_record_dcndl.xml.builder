@@ -16,7 +16,7 @@ xml_builder.tag! "rdf:RDF",
     manifestation.identifiers.each do |identifier|
       case identifier.identifier_type.try(:name)
       when 'isbn'
-        xml_builder.tag! "rdfs:seeAlso", "rdf:resource" => "http://iss.ndl.go.jp/isbn/#{ identifier.body }"
+        xml_builder.tag! "rdfs:seeAlso", "rdf:resource" => "http://iss.ndl.go.jp/isbn/#{identifier.body}"
         xml_builder.tag! "dcterms:identifier", identifier.body, "rdf:datatype" => "http://ndl.go.jp/dcndl/terms/ISBN"
       when 'issn'
         xml_builder.tag! "dcterms:identifier", identifier.body, "rdf:datatype" => "http://ndl.go.jp/dcndl/terms/ISSN"
@@ -123,11 +123,11 @@ xml_builder.tag! "rdf:RDF",
     manifestation.classifications.each do |classification|
       case classification.classification_type.name
       when 'ndlc'
-        xml_builder.tag! "dcterms:subject", "rdf:resource" => "http://id.ndl.go.jp/class/ndlc/"+classification.category
+        xml_builder.tag! "dcterms:subject", "rdf:resource" => "http://id.ndl.go.jp/class/ndlc/" + classification.category
       when 'ndc9'
-        xml_builder.tag! "dcterms:subject", "rdf:resource" => "http://id.ndl.go.jp/class/ndc9/"+classification.category
+        xml_builder.tag! "dcterms:subject", "rdf:resource" => "http://id.ndl.go.jp/class/ndc9/" + classification.category
       when 'ddc'
-        xml_builder.tag! "dcterms:subject", "rdf:resource" => "http://dewey.info/class/"+classification.category
+        xml_builder.tag! "dcterms:subject", "rdf:resource" => "http://dewey.info/class/" + classification.category
       when 'ndc8'
         xml_builder.tag! "dc:subject", classification.category, "rdf:datatype" => "http://ndl.go.jp/dcndl/terms/NDC8"
       when 'ndc'
@@ -141,7 +141,7 @@ xml_builder.tag! "rdf:RDF",
     xml_builder.tag! "dcterms:language", manifestation.language.iso_639_2, "rdf:datatype" => "http://purl.org/dc/terms/ISO639-2"
     xml_builder.tag! "dcndl:price", manifestation.price if manifestation.price?
     if manifestation.extent? or manifestation.dimensions?
-      xml_builder.tag! "dcterms:extent", [ manifestation.extent, manifestation.dimensions ].compact.join(" ; ")
+      xml_builder.tag! "dcterms:extent", [manifestation.extent, manifestation.dimensions].compact.join(" ; ")
     end
     material_type = nil
     case manifestation.carrier_type.name

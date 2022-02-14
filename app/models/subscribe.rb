@@ -3,7 +3,7 @@ class Subscribe < ApplicationRecord
   belongs_to :work, class_name: 'Manifestation'
 
   validates :start_at, :end_at, presence: true
-  validates_uniqueness_of :work_id, scope: :subscription_id
+  validates :work_id, uniqueness: { scope: :subscription_id }
 end
 
 # == Schema Information
