@@ -25,7 +25,7 @@ class LibraryGroupsController < ApplicationController
             file = Faraday.get(@library_group.header_logo.expiring_url(3600, :medium)).body.force_encoding('UTF-8')
             send_data file, filename: File.basename(@library_group.header_logo_file_name), type: @library_group.header_logo_content_type, disposition: :inline
           else
-            file = @library_group.header_logo.path(:medium)
+            file = File.expand_path(@library_group.header_logo.path(:medium))
             if File.exist?(file) && File.file?(file)
               send_file file, filename: File.basename(@library_group.header_logo_file_name), type: @library_group.header_logo_content_type, disposition: :inline
             end

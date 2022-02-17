@@ -30,7 +30,7 @@
 
 <p>
   <strong><%= t('activerecord.attributes.bookstore.url') -%>:</strong>
-  <%= link_to @bookstore.url, @bookstore.url if @bookstore.url? -%>
+  <%= link_to @bookstore.url, URI.parse(@bookstore.url).to_s if @bookstore.url? -%>
 </p>
 
 <p>

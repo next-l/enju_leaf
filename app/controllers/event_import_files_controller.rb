@@ -19,7 +19,7 @@ class EventImportFilesController < ApplicationController
   def show
     if @event_import_file.event_import.path
       unless ENV['ENJU_STORAGE'] == 's3'
-        file = @event_import_file.event_import.path
+        file = File.expand_path(@event_import_file.event_import.path)
       end
     end
     @event_import_results = @event_import_file.event_import_results.page(params[:page])
@@ -29,7 +29,7 @@ class EventImportFilesController < ApplicationController
       format.json { render json: @event_import_file }
       format.download {
         if ENV['ENJU_STORAGE'] == 's3'
-          redirect_to @event_import_file.event_import.expiring_url(10)
+          redirect_to URI.parse(@event_import_file.event_import.expiring_url(10)).to_s
         else
           send_file file, filename: @event_import_file.event_import_file_name, type: 'application/octet-stream'
         end

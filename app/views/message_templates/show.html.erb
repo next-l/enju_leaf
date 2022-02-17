@@ -20,7 +20,7 @@
 
 <p>
   <strong><%= t('activerecord.attributes.message_template.body') -%>:</strong><br />
-  <%=raw @message_template.body.gsub("\n", '<br />') -%>
+  <%= simple_format(@message_template.body) -%>
 </p>
 </div>
 </div>

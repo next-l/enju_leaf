@@ -10,7 +10,7 @@ class ProfilesController < ApplicationController
     if params[:username].present?
       profile = User.find_by(username: params[:username]).try(:profile)
       if profile
-        redirect_to profile
+        redirect_to profile_url(profile)
         return
       end
     end

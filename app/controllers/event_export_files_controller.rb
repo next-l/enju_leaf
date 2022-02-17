@@ -18,7 +18,7 @@ class EventExportFilesController < ApplicationController
   def show
     if @event_export_file.event_export.path
       unless ENV['ENJU_STORAGE'] == 's3'
-        file = @event_export_file.event_export.path
+        file = File.expand_path(@event_export_file.event_export.path)
       end
     end
 

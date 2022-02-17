@@ -20,7 +20,7 @@
 
 <p>
   <strong><%= t('activerecord.attributes.classification.url') -%>:</strong>
-  <%= link_to @classification.url, @classification.url if @classification.url %>
+  <%= link_to @classification.url, URI.parse(@classification.url).to_s if @classification.url %>
 </p>
 
 <p>

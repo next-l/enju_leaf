@@ -19,7 +19,7 @@ class ResourceImportFilesController < ApplicationController
   def show
     if @resource_import_file.resource_import.path
       unless ENV['ENJU_STORAGE'] == 's3'
-        file = @resource_import_file.resource_import.path
+        file = File.expand_path(@resource_import_file.resource_import.path)
       end
     end
     @resource_import_results = @resource_import_file.resource_import_results.page(params[:page])
@@ -29,9 +29,9 @@ class ResourceImportFilesController < ApplicationController
       format.json { render json: @resource_import_file }
       format.download {
         if ENV['ENJU_STORAGE'] == 's3'
-          redirect_to @resource_import_file.resource_import.expiring_url(10)
+          redirect_to URI.parse(@resource_import_file.resource_import.expiring_url(10)).to_s
         else
-          send_file file, filename: @resource_import_file.resource_import_file_name, type: 'application/octet-stream'
+          send_file file, filename: File.basename(@resource_import_file.resource_import_file_name), type: 'application/octet-stream'
         end
       }
     end

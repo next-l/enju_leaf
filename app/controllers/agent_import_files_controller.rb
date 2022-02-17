@@ -18,7 +18,7 @@ class AgentImportFilesController < ApplicationController
   def show
     if @agent_import_file.agent_import.path
       unless ENV['ENJU_STORAGE'] == 's3'
-        file = @agent_import_file.agent_import.path
+        file = File.expand_path(agent_import_file.agent_import.path)
       end
     end
 
@@ -27,7 +27,7 @@ class AgentImportFilesController < ApplicationController
       format.json { render json: @agent_import_file }
       format.download {
         if ENV['ENJU_STORAGE'] == 's3'
-          redirect_to @agent_import_file.agent_import.expiring_url(10)
+          redirect_to URI.parse(@agent_import_file.agent_import.expiring_url(10)).to_s
         else
           send_file file, filename: @agent_import_file.agent_import_file_name, type: 'application/octet-stream'
         end

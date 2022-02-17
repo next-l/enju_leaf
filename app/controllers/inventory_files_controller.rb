@@ -19,7 +19,7 @@ class InventoryFilesController < ApplicationController
   def show
     if @inventory_file.inventory.path
       unless ENV['ENJU_STORAGE'] == 's3'
-        file = @inventory_file.inventory.path
+        file = File.expand_path(@inventory_file.inventory.path)
       end
     end
     @inventories = @inventory_file.inventories.page(params[:page])
@@ -32,7 +32,7 @@ class InventoryFilesController < ApplicationController
           send_data Faraday.get(@inventory_file.inventory.expiring_url).body.force_encoding('UTF-8'),
             filename: File.basename(@inventory_file.inventory_file_name), type: 'application/octet-stream'
         else
-          send_file file, filename: @inventory_file.inventory_file_name, type: 'application/octet-stream'
+          send_file file, filename: File.basename(@inventory_file.inventory_file_name), type: 'application/octet-stream'
         end
       }
     end

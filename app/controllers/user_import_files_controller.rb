@@ -19,7 +19,7 @@ class UserImportFilesController < ApplicationController
   def show
     if @user_import_file.user_import.path
       unless ENV['ENJU_STORAGE'] == 's3'
-        file = @user_import_file.user_import.path
+        file = File.expand_path(@user_import_file.user_import.path)
       end
     end
     @user_import_results = @user_import_file.user_import_results.page(params[:page])
@@ -32,7 +32,7 @@ class UserImportFilesController < ApplicationController
           send_data Faraday.get(@user_import_file.user_import.expiring_url).body.force_encoding('UTF-8'),
             filename: File.basename(@user_import_file.user_import_file_name), type: 'application/octet-stream'
         else
-          send_file file, filename: @user_import_file.user_import_file_name, type: 'application/octet-stream'
+          send_file file, filename: File.basename(@user_import_file.user_import_file_name), type: 'application/octet-stream'
         end
       }
     end

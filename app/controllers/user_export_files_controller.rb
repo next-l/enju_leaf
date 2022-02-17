@@ -18,7 +18,7 @@ class UserExportFilesController < ApplicationController
   def show
     if @user_export_file.user_export.path
       unless ENV['ENJU_STORAGE'] == 's3'
-        file = @user_export_file.user_export.path
+        file = File.expand_path(@user_export_file.user_export.path)
       end
     end
 
@@ -30,7 +30,7 @@ class UserExportFilesController < ApplicationController
           send_data Faraday.get(@user_export_file.user_export.expiring_url).body.force_encoding('UTF-8'),
             filename: File.basename(@user_export_file.user_export_file_name), type: 'application/octet-stream'
         else
-          send_file file, filename: @user_export_file.user_export_file_name, type: 'application/octet-stream'
+          send_file file, filename: File.basename(@user_export_file.user_export_file_name), type: 'application/octet-stream'
         end
       }
     end
