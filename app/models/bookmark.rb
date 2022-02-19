@@ -6,9 +6,8 @@ class Bookmark < ApplicationRecord
   belongs_to :user
 
   validates :title, presence: :true
-  validates_presence_of :url, on: :create
-  validates_presence_of :manifestation_id, on: :update
-  validates_associated :manifestation
+  validates :url, presence: { on: :create }
+  validates :manifestation_id, presence: { on: :update }
   validates_uniqueness_of :manifestation_id, scope: :user_id
   validates :url, url: true, presence: true, length: {maximum: 255}
   validate :bookmarkable_url?
