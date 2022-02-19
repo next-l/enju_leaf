@@ -1,0 +1,24 @@
+<%- if manifestation.bookmarks.exists? -%>
+  <ul>
+    <%- manifestation.bookmarks.each do |bookmark| -%>
+      <% if bookmark.shared? %>
+        <li><%= link_to bookmark.user.username, bookmark -%>
+          <%- bookmark.tags.each do |tag| -%>
+            [<%= link_to tag.name, manifestations_path(tag: tag.name) -%>]
+          <%- end -%>
+          <%= bookmark.note -%>
+          <%- if user_signed_in? and current_user == bookmark.user -%>
+            <%= link_to image_tag('icons/page_edit.png', alt: t('page.edit'), size: '16x16', class: 'enju_icon'), edit_bookmark_path(bookmark) -%>
+          <%- end -%>
+        </li>
+      <%- end -%>
+    <%- end -%>
+  </ul>
+<%- else -%>
+  <p>
+    <%= t('bookmark.not_bookmarked') -%>
+    <%- if user_signed_in? -%>
+      <%= link_to t('bookmark.add_to_my_bookmark'), new_bookmark_path(bookmark: {url: manifestation_url(manifestation)}) -%>
+    <%- end -%>
+  </p>
+<%- end -%>

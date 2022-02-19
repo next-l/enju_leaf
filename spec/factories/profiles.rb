@@ -35,6 +35,7 @@ end
 #  checkout_icalendar_token :string
 #  save_checkout_history    :boolean          default(FALSE), not null
 #  expired_at               :datetime
+#  share_bookmarks          :boolean          default(FALSE), not null
 #  full_name_transcription  :text
 #  date_of_birth            :datetime
 #

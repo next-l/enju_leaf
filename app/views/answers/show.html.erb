@@ -1,0 +1,55 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.answer')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= link_to @answer.user.username, @answer.user.profile if @answer.user.try(:profile) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.question') -%>:</strong>
+  <%= link_to @answer.question.user.username, @answer.question.user.profile if @answer.question.user.try(:profile) -%>:
+  <%= link_to @answer.question.body, @answer.question -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.answer.body') -%>:</strong>
+  <%= raw auto_link(textilize(h(@answer.body)))  -%>
+</p>
+
+<p>
+  <ul>
+    <%- @answer.items.each do |item| -%>
+      <li>
+        <%= link_to item.manifestation.original_title, item.manifestation -%>
+        <% if item.item_identifier? %>
+          (<%= link_to item.item_identifier, item -%>)
+        <% end %>
+      </li>
+    <%- end -%>
+  </ul>
+</p>
+
+<p>
+  <strong><%= t('page.created_at') -%>:</strong>
+  <%= l(@answer.created_at) -%>
+</p>
+
+<p>
+  <strong><%= t('page.updated_at') -%>:</strong>
+  <%= l(@answer.updated_at) -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(@answer).update? -%>
+      <li><%= link_to t('page.edit'), edit_answer_path(@answer) -%></li>
+    <%- end -%>
+    <li><%= link_to t('page.back'), question_answers_path(@answer.question) -%></li>
+  </ul>
+</div>

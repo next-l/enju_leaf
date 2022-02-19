@@ -88,6 +88,7 @@ gem 'kramdown'
 gem 'resque', require: 'resque/server'
 gem 'paper_trail'
 gem 'sassc', '~> 2.1.0'
+gem 'acts-as-taggable-on'
 
 group :development, :test do
   gem 'annotate'
@@ -102,4 +103,5 @@ group :test do
   gem 'simplecov'
   gem 'parallel_tests'
   gem 'rspec_junit_formatter', require: false
+  gem 'webdrivers'
 end

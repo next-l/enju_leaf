@@ -1,0 +1,14 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.new', model: t('activerecord.models.answer')) -%></h1>
+<div id="content_list">
+  <%= render 'form' %>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if @answer.question -%>
+      <li><%= link_to t('page.back'), question_answers_path(@answer.question) -%></li>
+    <%- end -%>
+  </ul>
+</div>

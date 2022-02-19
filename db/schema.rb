@@ -167,6 +167,31 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.index ["required_role_id"], name: "index_agents_on_required_role_id"
   end
 
+  create_table "answer_has_items", id: :serial, force: :cascade do |t|
+    t.integer "answer_id"
+    t.integer "item_id"
+    t.integer "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["answer_id"], name: "index_answer_has_items_on_answer_id"
+    t.index ["item_id"], name: "index_answer_has_items_on_item_id"
+  end
+
+  create_table "answers", id: :serial, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "question_id", null: false
+    t.text "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+    t.boolean "shared", default: true, null: false
+    t.string "state"
+    t.text "item_identifier_list"
+    t.text "url_list"
+    t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["user_id"], name: "index_answers_on_user_id"
+  end
+
   create_table "baskets", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.text "note"
@@ -174,6 +199,53 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["user_id"], name: "index_baskets_on_user_id"
+  end
+
+  create_table "bookmark_stat_has_manifestations", id: :serial, force: :cascade do |t|
+    t.integer "bookmark_stat_id", null: false
+    t.integer "manifestation_id", null: false
+    t.integer "bookmarks_count"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["bookmark_stat_id"], name: "index_bookmark_stat_has_manifestations_on_bookmark_stat_id"
+    t.index ["manifestation_id"], name: "index_bookmark_stat_has_manifestations_on_manifestation_id"
+  end
+
+  create_table "bookmark_stat_transitions", id: :serial, force: :cascade do |t|
+    t.string "to_state"
+    t.text "metadata", default: "{}"
+    t.integer "sort_key"
+    t.integer "bookmark_stat_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean "most_recent", null: false
+    t.index ["bookmark_stat_id", "most_recent"], name: "index_bookmark_stat_transitions_parent_most_recent", unique: true, where: "most_recent"
+    t.index ["bookmark_stat_id"], name: "index_bookmark_stat_transitions_on_bookmark_stat_id"
+    t.index ["sort_key", "bookmark_stat_id"], name: "index_bookmark_stat_transitions_on_sort_key_and_stat_id", unique: true
+  end
+
+  create_table "bookmark_stats", id: :serial, force: :cascade do |t|
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "started_at"
+    t.datetime "completed_at"
+    t.text "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bookmarks", id: :serial, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "manifestation_id"
+    t.text "title"
+    t.string "url"
+    t.text "note"
+    t.boolean "shared"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["manifestation_id"], name: "index_bookmarks_on_manifestation_id"
+    t.index ["url"], name: "index_bookmarks_on_url"
+    t.index ["user_id"], name: "index_bookmarks_on_user_id"
   end
 
   create_table "bookstores", id: :serial, force: :cascade do |t|
@@ -770,6 +842,7 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text "admin_networks"
+    t.boolean "allow_bookmark_external_url", default: false, null: false
     t.string "url", default: "http://localhost:3000/"
     t.text "settings"
     t.text "html_snippet"
@@ -1148,6 +1221,7 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.string "checkout_icalendar_token"
     t.boolean "save_checkout_history", default: false, null: false
     t.datetime "expired_at"
+    t.boolean "share_bookmarks"
     t.text "full_name_transcription"
     t.datetime "date_of_birth"
     t.index ["checkout_icalendar_token"], name: "index_profiles_on_checkout_icalendar_token", unique: true
@@ -1155,6 +1229,20 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.index ["user_group_id"], name: "index_profiles_on_user_group_id"
     t.index ["user_id"], name: "index_profiles_on_user_id"
     t.index ["user_number"], name: "index_profiles_on_user_number", unique: true
+  end
+
+  create_table "questions", id: :serial, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.text "body"
+    t.boolean "shared", default: true, null: false
+    t.integer "answers_count", default: 0, null: false
+    t.datetime "deleted_at"
+    t.string "state"
+    t.boolean "solved", default: false, null: false
+    t.text "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
   create_table "realize_types", id: :serial, force: :cascade do |t|
@@ -1466,6 +1554,33 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
+  create_table "taggings", id: :serial, force: :cascade do |t|
+    t.integer "tag_id"
+    t.string "taggable_type"
+    t.integer "taggable_id"
+    t.string "tagger_type"
+    t.integer "tagger_id"
+    t.string "context", limit: 128
+    t.datetime "created_at"
+    t.index ["context"], name: "index_taggings_on_context"
+    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+    t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy"
+    t.index ["taggable_id"], name: "index_taggings_on_taggable_id"
+    t.index ["taggable_type"], name: "index_taggings_on_taggable_type"
+    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
+    t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
+  end
+
+  create_table "tags", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.integer "taggings_count", default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
   create_table "use_restrictions", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.text "display_name"
@@ -1645,6 +1760,7 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "answer_feed_token"
     t.string "username"
     t.datetime "deleted_at"
     t.datetime "expired_at"
@@ -1652,6 +1768,7 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.string "unlock_token"
     t.datetime "locked_at"
     t.datetime "confirmed_at"
+    t.index ["answer_feed_token"], name: "index_users_on_answer_feed_token", unique: true
     t.index ["email"], name: "index_users_on_email"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true

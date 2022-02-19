@@ -18,7 +18,7 @@ class AgentImportFilesController < ApplicationController
   def show
     if @agent_import_file.agent_import.path
       unless ENV['ENJU_STORAGE'] == 's3'
-        file = File.expand_path(agent_import_file.agent_import.path)
+        file = File.expand_path(@agent_import_file.agent_import.path)
       end
     end
 

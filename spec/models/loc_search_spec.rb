@@ -43,7 +43,7 @@ describe LocSearch do
       expect(manifestation.identifier_contents("isbn").first).to eq "9780805080438"
       expect(manifestation.identifier_contents("lccn").first).to eq "2007012024"
     end
-    
+
     it "should parse title information properly", vcr: true do
       manifestation = LocSearch.import_from_sru_response("2012532441")
       expect(manifestation.original_title).to eq "The data journalism handbook"
@@ -198,11 +198,11 @@ describe LocSearch do
       url = LocSearch.make_sru_request_uri("test")
       uri = URI.parse(url)
       expect(Hash[uri.query.split(/\&/).collect{|e| e.split(/=/) }]).to eq({
-	"query" => "test", 
-	"version" => "1.1",
-	"operation" => "searchRetrieve",
-	"maximumRecords" => "10",
-	"recordSchema" => "mods"
+        "query" => "test",
+        "version" => "1.1",
+        "operation" => "searchRetrieve",
+        "maximumRecords" => "10",
+        "recordSchema" => "mods"
       })
     end
 
@@ -210,12 +210,12 @@ describe LocSearch do
       url = LocSearch.make_sru_request_uri("test", page: 2)
       uri = URI.parse(url)
       expect(Hash[uri.query.split(/\&/).collect{|e| e.split(/=/) }]).to eq({
-	"query" => "test", 
-	"version" => "1.1",
-	"operation" => "searchRetrieve",
-	"maximumRecords" => "10",
-	"recordSchema" => "mods",
-	"startRecord" => "11",
+        "query" => "test",
+        "version" => "1.1",
+        "operation" => "searchRetrieve",
+        "maximumRecords" => "10",
+        "recordSchema" => "mods",
+        "startRecord" => "11",
       })
     end
   end

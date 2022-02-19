@@ -2,14 +2,14 @@
 
 public_fund:
   name: Public fund
-  display_name: {"en": "Public fund"}
+  display_name: "en: Public fund"
   note: 
   position: 1
   id: 1
 
 donation:
   name: Donation
-  display_name: {"en": "Donation"}
+  display_name: "en: Donation"
   note: 
   position: 2
   id: 2

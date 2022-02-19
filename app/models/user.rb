@@ -6,6 +6,8 @@ class User < ApplicationRecord
   include EnjuSeed::EnjuUser
   include EnjuCirculation::EnjuUser
   include EnjuMessage::EnjuUser
+  include EnjuBookmark::EnjuUser
+  include EnjuQuestion::EnjuUser
 end
 
 # == Schema Information
@@ -27,4 +29,5 @@ end
 #  unlock_token           :string
 #  locked_at              :datetime
 #  confirmed_at           :datetime
+#  answer_feed_token      :string
 #

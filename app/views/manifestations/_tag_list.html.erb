@@ -1,0 +1,13 @@
+<div id="tag_list">
+  <%- if manifestation.tags -%>
+    <%- manifestation.tags.each do |tag| -%>
+      <%= link_to_tag(tag) -%>
+      <%- if policy(tag).destroy? -%>
+        <%= link_to image_tag('icons/tag_blue_edit.png', alt: t('page.edit'), size: '16x16', class: 'enju_icon'), tag_path(tag.name) -%>
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+  <%- if user_signed_in? -%>
+    (<a href="#" onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#tag_list').html(request);}, type:'get', url:'<%= edit_manifestation_path(manifestation, mode: 'tag_edit') %>'}); return false;"><%= t('page.edit') %></a>)
+  <%- end -%>
+</div>

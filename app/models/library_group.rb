@@ -106,7 +106,7 @@ end
 #  header_logo_file_size         :bigint
 #  header_logo_updated_at        :datetime
 #  header_logo_meta              :text
-#  library_group_id              :integer          not null
+#  allow_bookmark_external_url   :boolean          default(FALSE), not null
 #  login_banner                  :text
 #  footer_banner                 :text
 #

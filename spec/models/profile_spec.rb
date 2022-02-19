@@ -38,18 +38,6 @@ describe Profile do
     profile2.should be_valid
   end
 
-  if defined?(EnjuQuestion)
-    it "should reset answer_feed_token" do
-      profiles(:profile_user1).reset_answer_feed_token
-      profiles(:profile_user1).answer_feed_token.should be_truthy
-    end
-
-    it "should delete answer_feed_token" do
-      profiles(:profile_user1).delete_answer_feed_token
-      profiles(:profile_user1).answer_feed_token.should be_nil
-    end
-  end
-
   if defined?(EnjuCirculation)
     it "should reset checkout_icalendar_token" do
       profiles(:profile_user1).reset_checkout_icalendar_token
@@ -90,6 +78,7 @@ end
 #  checkout_icalendar_token :string
 #  save_checkout_history    :boolean          default(FALSE), not null
 #  expired_at               :datetime
+#  share_bookmarks          :boolean          default(FALSE), not null
 #  full_name_transcription  :text
 #  date_of_birth            :datetime
 #
