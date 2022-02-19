@@ -1,0 +1,48 @@
+ja:
+  activerecord:
+    models:
+      bookmark: ブックマーク
+      bookmark_stat: ブックマーク統計
+      tag: タグ
+      bookmark_stat_has_manifestation: ブックマーク統計と資料の関係
+    attributes:
+      bookmark:
+        note: 注記
+        shared: 共有する
+        url: URL
+      tag:
+        name: 名前
+        synonym: 同義語
+        taggings_count: タグ付けされた回数
+      user:
+        share_bookmarks: ブックマークを他の人物・団体と共有する
+      library_group:
+        allow_bookmark_external_url: 外部サイトのURLをブックマークできるようにする
+      bookmark_stat:
+        start_date: 開始日
+        end_date: 終了日
+        note: 注記
+        state: 状態
+      bookmark_stat_has_manifestation:
+        bookmarks_count: ブックマーク回数
+
+  bookmark:
+    new: "新しいブックマーク"
+    not_bookmarked: "ブックマークされていません。"
+    add_to_my_bookmark: "ブックマークに追加する"
+    add_to_library_bookmark: "図書館のブックマークに追加する"
+    remove_from_my_bookmark: "ブックマークから削除する"
+    invalid_url: "無効なURLです。"
+    specify_title_and_url: "タイトルとURLを指定してください。"
+    already_bookmarked: "すでにブックマークに登録されています。"
+    user_bookmark: "%{login_name} さんのブックマーク"
+    only_manifestation_should_be_bookmarked: "サイト内のブックマークは資料に対してのみ行えます。"
+    not_our_holding: "当館の所蔵資料ではありません。"
+  tag:
+    popular_tag: "人気のあるタグ"
+    my_tag: "自分のつけたタグ"
+    user_tag: "%{login_name} さんのタグ"
+    use_space_as_delimiter: "半角スペースで区切ってください。"
+  manifestation:
+    user_who_bookmark_this_resource: "この資料をブックマークしている利用者"
+

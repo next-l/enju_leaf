@@ -1,0 +1,50 @@
+en:
+  activerecord:
+    models:
+      bookmark: Bookmark
+      bookmark_stat: Bookmark stat
+      tag: Tag
+      bookmark_stat_has_manifestation: Bookmark stat has manifestation
+    attributes:
+      bookmark:
+        note: Note
+        shared: Share
+        url: URL
+      tag:
+        name: Name
+        synonym: Synonym
+        taggings_count: Taggings count
+      user:
+        share_bookmarks: Share bookmarks
+      library_group:
+        allow_bookmark_external_url: Allow users to bookmark external url
+      bookmark_stat:
+        start_date: Start date
+        end_date: End date
+        note: Note
+        state: State
+      bookmark_stat_has_manifestation:
+        bookmarks_count: Bookmarks count
+
+  bookmark:
+    new: "New bookmark"
+    not_bookmarked: "Not bookmarked."
+    add_to_my_bookmark: "Add to my bookmark"
+    add_to_library_bookmark: "Add to my library bookmark"
+    remove_from_my_bookmark: "Remove from my bookmark"
+    invalid_url: "Invalid URL."
+    specify_title_and_url: "Specify the title and URL of the page."
+    already_bookmarked: "This resource is already bookmarked."
+    only_manifestation_should_be_bookmarked: "You can bookmark only manifestatons in this site."
+    not_our_holding: "This resource is not our holding."
+    user_bookmark: "%{login_name}'s bookmark"
+    only_manifestation_should_be_bookmarked: "Only manifestations should be bookmarked."
+    not_our_holding: "Not our holding."
+  tag:
+    popular_tag: "Popular tags"
+    my_tag: "My tags"
+    user_tag: "%{login_name}'s tags"
+    use_space_as_delimiter: "Use space as a delimiter."
+  manifestation:
+    user_who_bookmark_this_resource: "Users who bookmark this resource"
+
