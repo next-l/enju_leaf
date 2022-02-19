@@ -449,7 +449,7 @@ class ResourceImportFile < ApplicationRecord
       series_title_subseries series_title_subseries_transcription
       creator creator_transcription publisher
       publisher_transcription pub_date creator creator_transcription
-      contributor contributor_transcription description access_address
+      contributor contributor_transcription abstract description access_address
       volume_number volume_number_string issue_number issue_number_string
       edition edition_string serial_number isbn issn manifestation_price
       width height depth number_of_pages jpno lccn budget_type bookstore
@@ -708,6 +708,7 @@ end
         depth: row['depth'],
         height: row['height'],
         price: row['manifestation_price'],
+        abstract: row['abstract'].try(:gsub, /\\n/, "\n"),
         description: row['description'].try(:gsub, /\\n/, "\n"),
         #:description_transcription => row['description_transcription'],
         note: row['note'].try(:gsub, /\\n/, "\n"),

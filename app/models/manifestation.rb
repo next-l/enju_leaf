@@ -40,7 +40,7 @@ class Manifestation < ApplicationRecord
     text :title, default_boost: 2 do
       titles
     end
-    [:fulltext, :note, :creator, :contributor, :publisher, :description, :statement_of_responsibility].each do |field|
+    [:fulltext, :note, :creator, :contributor, :publisher, :abstract, :description, :statement_of_responsibility].each do |field|
       text field do
         if series_master?
           derived_manifestations.map{|c| c.send(field) }.flatten.compact
@@ -597,6 +597,7 @@ class Manifestation < ApplicationRecord
       price: price,
       access_address: access_address,
       manifestation_required_role: required_role.name,
+      abstract: abstract,
       description: description,
       note: note
     }
