@@ -1,4 +1,4 @@
-class Question < ActiveRecord::Base
+class Question < ApplicationRecord
   default_scope { order('id DESC') }
   scope :public_questions, -> {where(shared: true)}
   scope :private_questions, -> {where(shared: false)}
@@ -35,15 +35,15 @@ class Question < ActiveRecord::Base
 
   def answer_body
     text = ""
-    self.reload
-    self.answers.each do |answer|
+    reload
+    answers.each do |answer|
       text += answer.body
     end
-    return text
+    text
   end
 
   def username
-    self.user.try(:username)
+    user.try(:username)
   end
 
   def last_updated_at
@@ -60,7 +60,6 @@ class Question < ActiveRecord::Base
       updated_at
     end
   end
-
 end
 
 # == Schema Information

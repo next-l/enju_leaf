@@ -103,5 +103,4 @@ group :test do
   gem 'simplecov'
   gem 'parallel_tests'
   gem 'rspec_junit_formatter', require: false
-  gem 'webdrivers'
 end

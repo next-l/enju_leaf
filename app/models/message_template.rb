@@ -1,5 +1,5 @@
 class MessageTemplate < ApplicationRecord
-  has_many :message_requests
+  has_many :message_requests, dependent: :destroy
 
   validates :status, uniqueness: true
   validates :status, :title, :body, presence: true

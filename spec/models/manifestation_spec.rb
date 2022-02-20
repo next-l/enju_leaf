@@ -201,7 +201,7 @@ describe Manifestation, solr: true do
       lines = Manifestation.export()
       csv = CSV.parse(lines, headers: true, col_sep: "\t")
       m = csv.find{|row| row["manifestation_id"].to_i == manifestation.id }
-      expect(m["identifier:isbn"]).to eq "9784043898039//9784840239219"
+      expect(m["identifier:isbn"].split('//').sort).to eq ['9784043898039', '9784840239219']
     end
 
     it "should respect the role of the user" do

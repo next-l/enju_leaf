@@ -1,7 +1,7 @@
 class UserGroup < ApplicationRecord
   include MasterModel
   include EnjuCirculation::EnjuUserGroup
-  has_many :profiles
+  has_many :profiles, dependent: :destroy
 
   validates :valid_period_for_new_user,
     numericality: { greater_than_or_equal_to: 0,

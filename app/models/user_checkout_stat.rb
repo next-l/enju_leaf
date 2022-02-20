@@ -6,7 +6,7 @@ class UserCheckoutStat < ApplicationRecord
   include CalculateStat
   default_scope {order('user_checkout_stats.id DESC')}
   scope :not_calculated, -> {in_state(:pending)}
-  has_many :checkout_stat_has_users
+  has_many :checkout_stat_has_users, dependent: :destroy
   has_many :users, through: :checkout_stat_has_users
   belongs_to :user
 

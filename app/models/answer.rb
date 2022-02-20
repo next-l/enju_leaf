@@ -1,4 +1,4 @@
-class Answer < ActiveRecord::Base
+class Answer < ApplicationRecord
   default_scope { order('answers.id ASC') }
   #scope :public_answers, where(:shared => true)
   #scope :private_answers, where(:shared => false)
@@ -7,8 +7,8 @@ class Answer < ActiveRecord::Base
   has_many :answer_has_items, dependent: :destroy
   has_many :items, through: :answer_has_items
 
-  after_save :save_questions
   before_save :add_items
+  after_save :save_questions
 
   validates :body, presence: true
   validate :check_url_list

@@ -1,7 +1,4 @@
 class NdlBook
-  attr_reader :jpno, :permalink, :title, :creator, :publisher, :issued, :isbn,
-              :itemno
-
   def initialize(node)
     @node = node
   end

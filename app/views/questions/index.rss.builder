@@ -21,7 +21,7 @@ xml.rss('version' => "2.0",
       xml.tag! "atom:link", rel: 'alternate', href: questions_url
     end
     #xml.tag! "atom:link", rel: 'search', :type => 'application/opensearchdescription+xml', href: page_opensearch_url(format: :xml)
-    unless params[:query].blank?
+    if params[:query].present?
       xml.tag! "opensearch:totalResults", @count[:query_result]
       xml.tag! "opensearch:startIndex", @questions.offset + 1
       xml.tag! "opensearch:itemsPerPage", @questions.per_page

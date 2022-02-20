@@ -1,6 +1,6 @@
 class NiiType < ApplicationRecord
   include MasterModel
-  has_many :manifestations
+  has_many :manifestations, dependent: :destroy
 end
 
 # == Schema Information

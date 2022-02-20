@@ -23,7 +23,7 @@ class Manifestation < ApplicationRecord
   belongs_to :language
   belongs_to :carrier_type
   belongs_to :manifestation_content_type, class_name: 'ContentType', foreign_key: 'content_type_id'
-  has_many :series_statements
+  has_many :series_statements, dependent: :destroy
   belongs_to :frequency
   belongs_to :required_role, class_name: 'Role'
   has_one :resource_import_result

@@ -6,7 +6,7 @@ class ManifestationCheckoutStat < ApplicationRecord
   include CalculateStat
   default_scope {order('manifestation_checkout_stats.id DESC')}
   scope :not_calculated, -> {in_state(:pending)}
-  has_many :checkout_stat_has_manifestations
+  has_many :checkout_stat_has_manifestations, dependent: :destroy
   has_many :manifestations, through: :checkout_stat_has_manifestations
   belongs_to :user
 

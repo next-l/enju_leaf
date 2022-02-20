@@ -6,7 +6,7 @@ class UserReserveStat < ApplicationRecord
   include CalculateStat
   default_scope {order('user_reserve_stats.id DESC')}
   scope :not_calculated, -> {in_state(:pending)}
-  has_many :reserve_stat_has_users
+  has_many :reserve_stat_has_users, dependent: :destroy
   has_many :users, through: :reserve_stat_has_users
   belongs_to :user
 

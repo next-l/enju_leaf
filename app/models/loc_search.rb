@@ -2,6 +2,7 @@ class LocSearch
   def initialize(node)
     @node = node
   end
+
   class ModsRecord < LocSearch
     MODS_NS = { "mods" => "http://www.loc.gov/mods/v3" }
     def title
@@ -10,12 +11,15 @@ class LocSearch
       title += " : #{subtitle.content}" if subtitle
       title
     end
+
     def lccn
       @node.xpath('.//mods:mods/mods:identifier[@type="lccn"]', MODS_NS).first.try(:content)
     end
+
     def isbn
       @node.xpath('.//mods:mods/mods:identifier[@type="isbn"]', MODS_NS).first.try(:content)
     end
+
     def creator
       statement_of_responsibility = @node.at('.//mods:note[@type="statement of responsibility"]', MODS_NS).try(:content)
       if statement_of_responsibility
@@ -34,11 +38,13 @@ class LocSearch
         creator
       end
     end
+
     def publisher
       @node.xpath('.//mods:publisher', MODS_NS).map do |e|
         e.content
       end.join(", ")
     end
+
     def pubyear
       @node.xpath('.//mods:dateIssued', MODS_NS).first.try(:content)
     end
@@ -49,15 +55,17 @@ class LocSearch
     def title
       @node.xpath('.//dc:title', DC_NS).first.content
     end
+
     def lccn
       @node.xpath('.//dc:identifier[@type="lccn"]', DC_NS).first.content
     end
+
     def creator
     end
   end
 
   # http://www.loc.gov/z3950/lcserver.html
-  LOC_SRU_BASEURL = "http://lx2.loc.gov:210/LCDB"
+  LOC_SRU_BASEURL = "http://lx2.loc.gov:210/LCDB".freeze
   def self.make_sru_request_uri(query, options = {})
     if options[:page]
       page = options[:page].to_i
@@ -73,7 +81,7 @@ class LocSearch
   end
 
   def self.search(query, options = {})
-    if query and !query.empty?
+    if query.present?
       url = make_sru_request_uri(query, options)
       doc = Nokogiri::XML(Faraday.get(url).body)
       items = doc.search('//zs:record').map{|e| ModsRecord.new e }
@@ -99,4 +107,3 @@ class LocSearch
     Manifestation.import_record_from_loc(doc)
   end
 end
-

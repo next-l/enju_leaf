@@ -1,8 +1,8 @@
 class Country < ApplicationRecord
   include MasterModel
   default_scope { order('countries.position') }
-  has_many :agents
-  has_many :libraries
+  has_many :agents, dependent: :destroy
+  has_many :libraries, dependent: :destroy
   has_one :library_group
 
   # If you wish to change the field names for brevity, feel free to enable/modify these.

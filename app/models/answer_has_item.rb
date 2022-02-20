@@ -1,8 +1,8 @@
-class AnswerHasItem < ActiveRecord::Base
+class AnswerHasItem < ApplicationRecord
   belongs_to :answer
   belongs_to :item
 
-  validates_uniqueness_of :item_id, scope: :answer_id
+  validates :item_id, uniqueness: { scope: :answer_id }
   acts_as_list scope: :answer_id
 end
 
