@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://example.com/invalid_feed
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Age:
+      - '11937'
+      Cache-Control:
+      - max-age=604800
+      Content-Type:
+      - text/html; charset=UTF-8
+      Date:
+      - Sat, 05 Mar 2022 11:47:35 GMT
+      Expires:
+      - Sat, 12 Mar 2022 11:47:35 GMT
+      Last-Modified:
+      - Sat, 05 Mar 2022 08:28:38 GMT
+      Server:
+      - ECS (oxr/836C)
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - 404-HIT
+      Content-Length:
+      - '312'
+    body:
+      encoding: ASCII-8BIT
+      string: "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n<!DOCTYPE html PUBLIC
+        \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\n         \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html
+        xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">\n\t<head>\n\t\t<title>404
+        - Not Found</title>\n\t</head>\n\t<body>\n\t\t<h1>404 - Not Found</h1>\n\t\t<script
+        type=\"text/javascript\" src=\"//wpc.75674.betacdn.net/0075674/www/ec_tpm_bcon.js\"></script>\n\t</body>\n</html>\n"
+  recorded_at: Sat, 05 Mar 2022 11:47:35 GMT
+recorded_with: VCR 6.0.0
