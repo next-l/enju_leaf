@@ -1,9 +1,8 @@
 class NewsFeed < ActiveRecord::Base
   default_scope { order("news_feeds.position") }
-  belongs_to :library_group, validate: true
+  belongs_to :library_group
 
-  validates :title, :url, :library_group, presence: true
-  validates_associated :library_group
+  validates :title, :url, presence: true
   validates :url, length: { maximum: 255 }
   before_save :fetch
 

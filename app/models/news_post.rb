@@ -3,10 +3,9 @@ class NewsPost < ActiveRecord::Base
   scope :current, -> { where('start_date <= ? AND end_date >= ?', Time.zone.now, Time.zone.now) }
   default_scope { order('news_posts.start_date DESC') }
   belongs_to :user
-  belongs_to :required_role, class_name: 'Role', foreign_key: 'required_role_id', validate: true
+  belongs_to :required_role, class_name: 'Role', foreign_key: 'required_role_id'
 
-  validates :title, :body, :user_id, presence: true
-  validates_associated :user
+  validates :title, :body, presence: true
   validate :check_date
 
   acts_as_list
