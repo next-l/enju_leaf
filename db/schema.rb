@@ -167,31 +167,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.index ["required_role_id"], name: "index_agents_on_required_role_id"
   end
 
-  create_table "answer_has_items", id: :serial, force: :cascade do |t|
-    t.integer "answer_id"
-    t.integer "item_id"
-    t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["answer_id"], name: "index_answer_has_items_on_answer_id"
-    t.index ["item_id"], name: "index_answer_has_items_on_item_id"
-  end
-
-  create_table "answers", id: :serial, force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "question_id", null: false
-    t.text "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "deleted_at"
-    t.boolean "shared", default: true, null: false
-    t.string "state"
-    t.text "item_identifier_list"
-    t.text "url_list"
-    t.index ["question_id"], name: "index_answers_on_question_id"
-    t.index ["user_id"], name: "index_answers_on_user_id"
-  end
-
   create_table "baskets", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.text "note"
@@ -1231,20 +1206,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.index ["user_number"], name: "index_profiles_on_user_number", unique: true
   end
 
-  create_table "questions", id: :serial, force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.text "body"
-    t.boolean "shared", default: true, null: false
-    t.integer "answers_count", default: 0, null: false
-    t.datetime "deleted_at"
-    t.string "state"
-    t.boolean "solved", default: false, null: false
-    t.text "note"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["user_id"], name: "index_questions_on_user_id"
-  end
-
   create_table "realize_types", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "display_name"
@@ -1760,7 +1721,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "answer_feed_token"
     t.string "username"
     t.datetime "deleted_at"
     t.datetime "expired_at"
@@ -1768,7 +1728,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.string "unlock_token"
     t.datetime "locked_at"
     t.datetime "confirmed_at"
-    t.index ["answer_feed_token"], name: "index_users_on_answer_feed_token", unique: true
     t.index ["email"], name: "index_users_on_email"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true

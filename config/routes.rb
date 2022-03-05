@@ -118,15 +118,6 @@ Rails.application.routes.draw do
   resources :tags
   resources :bookmark_stats
 
-  resources :users do
-    resources :questions, only: :index
-    resources :answers, only: :index
-  end
-  resources :questions do
-    resources :answers, only: [:index, :new]
-  end
-  resources :answers
-
   devise_for :users
 
   get '/page/about' => 'page#about'
