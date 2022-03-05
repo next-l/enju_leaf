@@ -1101,6 +1101,32 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.index ["body"], name: "index_ndla_records_on_body", unique: true
   end
 
+  create_table "news_feeds", id: :serial, force: :cascade do |t|
+    t.integer "library_group_id", default: 1, null: false
+    t.string "title"
+    t.string "url"
+    t.text "body"
+    t.integer "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "news_posts", id: :serial, force: :cascade do |t|
+    t.text "title"
+    t.text "body"
+    t.integer "user_id"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer "required_role_id", default: 1, null: false
+    t.text "note"
+    t.integer "position"
+    t.boolean "draft", default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string "url"
+    t.index ["user_id"], name: "index_news_posts_on_user_id"
+  end
+
   create_table "nii_types", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.text "display_name"

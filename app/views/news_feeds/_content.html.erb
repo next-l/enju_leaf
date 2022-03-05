@@ -1,0 +1,7 @@
+<% cache([news_feed, role: current_user_role_name, locale: @locale]) do %>
+  <%- if news_feed.content.is_a?(RSS::Atom::Feed) -%>
+    <%= render partial: 'news_feeds/content_atom', locals: {news_feed: news_feed} -%>
+  <%- else -%>
+    <%= render partial: 'news_feeds/content_rss', locals: {news_feed: news_feed} -%>
+  <%- end -%>
+<%- end -%>

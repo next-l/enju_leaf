@@ -1,0 +1,49 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.showing', model: t('activerecord.models.news_post')) -%></h1>
+<div id="content_list">
+<p>
+  <strong><%= t('activerecord.attributes.news_post.title') -%>:</strong>
+  <%= @news_post.title -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.news_post.body') -%>:</strong>
+  <%= raw auto_link(simple_format(h(@news_post.body))) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.models.user') -%>:</strong>
+  <%= link_to h(@news_post.user.username), user_path(@news_post.user.username) -%>
+</p>
+
+<!--
+<p>
+  <strong><%= t('role.required_role') -%>:</strong>
+  <%= @news_post.required_role.display_name.localize -%>
+</p>
+-->
+
+<p>
+  <strong><%= t('activerecord.attributes.news_post.start_date') -%>:</strong>
+  <%= l(@news_post.start_date) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.news_post.end_date') -%>:</strong>
+  <%= l(@news_post.end_date) -%>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.news_post.note') -%>:</strong>
+  <%= @news_post.note -%>
+</p>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.edit'), edit_news_post_path(@news_post) -%></li>
+    <li><%= link_to t('page.back'), news_posts_path -%></li>
+  </ul>
+</div>
