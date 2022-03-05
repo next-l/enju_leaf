@@ -159,6 +159,22 @@ describe ResourceImportFile do
         expect(manifestation.identifier_contents(:isbn)).to include("9784840239219")
         expect(manifestation.identifier_contents(:isbn)).to include("9784043898039")
       end
+
+      it "should import multiple rows in a cell" do
+        file = ResourceImportFile.create(
+          resource_import: fixture_file_upload("resource_import_file_sample5.tsv"),
+          default_shelf_id: 3,
+          user: users(:admin),
+          edit_mode: 'create'
+        )
+        file.import_start
+
+        manifestation = Manifestation.find_by(manifestation_identifier: 10201)
+        expect(manifestation.original_title).to eq "改行を含む\nタイトル"
+        expect(manifestation.abstract).to eq "改行を含む\n目次の\n情報"
+        expect(manifestation.note).to eq "改行を\n含む\n注記の\n情報"
+        expect(manifestation.description).to eq "改行を\n含む\n説明の情報"
+      end
     end
 
     describe "ISBN import" do
@@ -171,6 +187,7 @@ describe ResourceImportFile do
           expect(resource_import_result.error_message).not_to be_empty
         end
       end
+
       context "with ISBN invalid" do
         it "should record an error message", vcr: true do
           file = ResourceImportFile.create resource_import: StringIO.new("isbn\n978000726455x"), user: users(:admin)
