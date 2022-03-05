@@ -11,6 +11,7 @@ namespace :enju_leaf do
     Rake::Task['enju_seed:setup'].invoke
     Rake::Task['enju_biblio:setup'].invoke
     Rake::Task['enju_library:setup'].invoke
+    Rake::Task['enju_circulation:setup'].invoke
     Rake::Task['enju_subject:setup'].invoke
 
     puts 'initial fixture files loaded.'
