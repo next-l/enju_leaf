@@ -5,7 +5,7 @@ describe UserImportFile do
 
   describe "when its mode is 'create'" do
     before(:each) do
-      @file = UserImportFile.new user_import: File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv")
+      @file = UserImportFile.new user_import: fixture_file_upload("/user_import_file_sample.tsv")
       @file.default_user_group = UserGroup.find(2)
       @file.default_library = Library.find(3)
       @file.user = users(:admin)
@@ -13,7 +13,7 @@ describe UserImportFile do
     end
 
     it "should be imported" do
-      file = UserImportFile.new user_import: File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv")
+      file = UserImportFile.new user_import: fixture_file_upload("user_import_file_sample.tsv")
       file.default_user_group = UserGroup.find(2)
       file.default_library = Library.find(3)
       file.user = users(:admin)
@@ -26,14 +26,14 @@ describe UserImportFile do
       User.order('id DESC')[2].username.should eq 'user003'
       User.count.should eq old_users_count + 5
 
-      user001 = User.where(username: 'user001').first
+      user001 = User.find_by(username: 'user001')
       user001.profile.keyword_list.should eq "日本史\n地理"
       user001.profile.full_name.should eq '田辺 浩介'
       user001.profile.full_name_transcription.should eq 'たなべ こうすけ'
       user001.profile.required_role.name.should eq 'User'
       user001.locked_at.should be_truthy
 
-      user002 = User.where(username: 'user002').first
+      user002 = User.find_by(username: 'user002')
       user002.profile.user_group.name.should eq 'faculty'
       user002.profile.expired_at.to_i.should eq Time.zone.parse('2013-12-01').end_of_day.to_i
       user002.valid_password?('4NsxXPLy')
@@ -43,7 +43,7 @@ describe UserImportFile do
       user002.profile.required_role.name.should eq 'Librarian'
       user002.locked_at.should be_nil
 
-      user003 = User.where(username: 'user003').first
+      user003 = User.find_by(username: 'user003')
       user003.profile.note.should eq 'テストユーザ'
       user003.role.name.should eq 'Librarian'
       user003.profile.user_number.should eq '001003'
@@ -51,22 +51,21 @@ describe UserImportFile do
       user003.profile.locale.should eq 'ja'
       user003.profile.checkout_icalendar_token.should eq 'secrettoken'
       user003.profile.save_checkout_history.should be_truthy
-      user003.profile.save_search_history.should be_falsy
       user003.profile.share_bookmarks.should be_falsy
       User.where(username: 'user000').first.should be_nil
       UserImportResult.count.should eq old_import_results_count + 10
-      UserImportResult.order('id DESC')[0].error_message.should eq 'line 10: 利用者番号はすでに存在します'
-      UserImportResult.order('id DESC')[1].error_message.should eq 'line 9: 利用者番号は不正な値です'
-      UserImportResult.order('id DESC')[2].error_message.should eq 'line 8: パスワードは6文字以上で入力してください'
+      UserImportResult.order('id DESC')[0].error_message.should eq 'line 10: User number has already been taken'
+      UserImportResult.order('id DESC')[1].error_message.should eq 'line 9: User number is invalid'
+      UserImportResult.order('id DESC')[2].error_message.should eq 'line 8: Password is too short (minimum is 6 characters)'
 
-      user005 = User.where(username: 'user005').first
+      user005 = User.find_by(username: 'user005')
       user005.role.name.should eq 'User'
       user005.profile.library.name.should eq 'hachioji'
       user005.profile.locale.should eq 'en'
       user005.profile.user_number.should eq '001005'
       user005.profile.user_group.name.should eq 'faculty'
 
-      user006 = User.where(username: 'user006').first
+      user006 = User.find_by(username: 'user006')
       user006.role.name.should eq 'User'
       user006.profile.library.name.should eq 'hachioji'
       user006.profile.locale.should eq 'en'
@@ -77,16 +76,16 @@ describe UserImportFile do
       file.executed_at.should be_truthy
 
       file.reload
-      file.error_message.should eq "次の列は無視されました。 save_search_history, share_bookmarks, invalid\nline 8: パスワードは6文字以上で入力してください\nline 9: 利用者番号は不正な値です\nline 10: 利用者番号はすでに存在します"
+      file.error_message.should eq "The following column(s) were ignored: save_search_history, invalid\nline 8: Password is too short (minimum is 6 characters)\nline 9: User number is invalid\nline 10: User number has already been taken"
       file.current_state.should eq 'failed'
     end
 
     it "should send message when import is completed" do
       old_message_count = Message.count
-      @file.user = User.where(username: 'librarian1').first
+      @file.user = User.find_by(username: 'librarian1')
       @file.import_start
       Message.count.should eq old_message_count + 1
-      Message.order(:created_at).last.subject.should eq "インポートが完了しました: #{@file.id}"
+      Message.order(:created_at).last.subject.should eq "Import completed: #{@file.id}"
     end
 
     it "should not import users that have higher roles than current user's role" do
@@ -107,9 +106,10 @@ describe UserImportFile do
         profile: FactoryBot.create(:profile)
       )
     end
+
     it "should update users" do
       @file = UserImportFile.create!(
-        user_import: File.new("#{Rails.root}/../../examples/user_update_file.tsv"),
+        user_import: fixture_file_upload("user_update_file.tsv"),
         user: users(:admin),
         default_library: libraries(:library_00001),
         default_user_group: user_groups(:user_group_00001)
@@ -138,7 +138,7 @@ describe UserImportFile do
         keyword_list: 'keyword1 keyword2',
         date_of_birth: 10.years.ago)
       file = UserImportFile.create!(
-        user_import: File.new("#{Rails.root}/../../examples/user_update_file2.tsv"),
+        user_import: fixture_file_upload("user_update_file2.tsv"),
         user: users(:admin),
         default_user_group: UserGroup.find(2),
         default_library: Library.find(3)
@@ -152,9 +152,10 @@ describe UserImportFile do
       user001.profile.full_name_transcription.should eq 'User 001'
       user001.profile.keyword_list.should eq 'keyword1 keyword2'
     end
+
     it "should update user_number" do
       file = UserImportFile.create!(
-        user_import: File.new("#{Rails.root}/../../examples/user_update_file3.tsv"),
+        user_import: fixture_file_upload("user_update_file3.tsv"),
         user: users(:admin),
         default_user_group: UserGroup.find(2),
         default_library: Library.find(3)
@@ -164,9 +165,10 @@ describe UserImportFile do
       user001 = User.where(username: 'user001').first
       user001.profile.user_number.should eq '0001'
     end
+
     it "should update user's lock status" do
       file = UserImportFile.create!(
-        user_import: File.new("#{Rails.root}/../../examples/user_update_file4.tsv"),
+        user_import: fixture_file_upload("user_update_file4.tsv"),
         user: users(:admin),
         default_user_group: UserGroup.find(2),
         default_library: Library.find(3)
@@ -181,7 +183,7 @@ describe UserImportFile do
   describe "when its mode is 'destroy'" do
     before(:each) do
       file = UserImportFile.create!(
-        user_import: File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv"),
+        user_import: fixture_file_upload("user_import_file_sample.tsv"),
         user: users(:admin),
         default_user_group: UserGroup.find(2),
         default_library: Library.find(3)
@@ -192,7 +194,7 @@ describe UserImportFile do
     it "should remove users" do
       old_count = User.count
       file = UserImportFile.create!(
-        user_import: File.new("#{Rails.root}/../../examples/user_delete_file.tsv"),
+        user_import: fixture_file_upload("user_delete_file.tsv"),
         user: users(:admin),
         default_user_group: UserGroup.find(2),
         default_library: Library.find(3)
@@ -208,7 +210,7 @@ describe UserImportFile do
       FactoryBot.create(:checkout, user: user001, item: FactoryBot.create(:item))
       old_count = User.count
       file = UserImportFile.create!(
-        user_import: File.new("#{Rails.root}/../../examples/user_delete_file.tsv"),
+        user_import: fixture_file_upload("user_delete_file.tsv"),
         user: users(:admin),
         default_user_group: UserGroup.find(2),
         default_library: Library.find(3)
@@ -220,7 +222,7 @@ describe UserImportFile do
   end
 
   it "should import in background" do
-    file = UserImportFile.new user_import: File.new("#{Rails.root}/../../examples/user_import_file_sample.tsv"), user: users(:admin)
+    file = UserImportFile.new user_import: fixture_file_upload("user_import_file_sample.tsv"), user: users(:admin)
     file.user = users(:admin)
     file.default_user_group = UserGroup.find(2)
     file.default_library = Library.find(3)

@@ -2,7 +2,7 @@ class Profile < ApplicationRecord
   include EnjuCirculation::EnjuProfile
   scope :administrators, -> { joins(user: :role).where('roles.name = ?', 'Administrator') }
   scope :librarians, -> { joins(user: :role).where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian') }
-  belongs_to :user, dependent: :destroy, optional: true
+  belongs_to :user, optional: true
   belongs_to :library
   belongs_to :user_group
   belongs_to :required_role, class_name: 'Role'
@@ -92,7 +92,7 @@ end
 #  checkout_icalendar_token :string
 #  save_checkout_history    :boolean          default(FALSE), not null
 #  expired_at               :datetime
-#  share_bookmarks          :boolean          default(FALSE), not null
+#  share_bookmarks          :boolean
 #  full_name_transcription  :text
 #  date_of_birth            :datetime
 #

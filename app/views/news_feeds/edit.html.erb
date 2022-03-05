@@ -1,0 +1,29 @@
+<div id="content_detail" class="ui-corner-all">
+<h1 class="title"><%= t('page.editing', model: t('activerecord.models.news_feed')) -%></h1>
+<div id="content_list">
+
+<%= form_for(@news_feed) do |f| -%>
+  <%= f.error_messages -%>
+
+  <p>
+    <%= f.label t('activerecord.attributes.news_feed.title') -%><br />
+    <%= f.text_field :title, class: 'resource_class' -%>
+  </p>
+  <p>
+    <%= f.label t('activerecord.attributes.news_feed.url') -%><br />
+    <%= f.text_field :url, class: 'resource_url' -%>
+  </p>
+  <p>
+    <%= f.submit t('page.update') -%>
+  </p>
+<%- end -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all">
+  <ul>
+    <li><%= link_to t('page.show'), @news_feed -%></li>
+    <li><%= link_to t('page.back'), news_feeds_path -%></li>
+  </ul>
+</div>

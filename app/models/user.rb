@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :lockable
+         :recoverable, :rememberable, :lockable
   include EnjuSeed::EnjuUser
   include EnjuCirculation::EnjuUser
   include EnjuMessage::EnjuUser
@@ -28,5 +28,4 @@ end
 #  unlock_token           :string
 #  locked_at              :datetime
 #  confirmed_at           :datetime
-#  answer_feed_token      :string
 #

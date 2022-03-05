@@ -1,6 +1,7 @@
 .env
 .rubocop.yml
 .rubocop_todo.yml
+brakeman.html
 /db/*.sqlite3
 /db/*.sqlite3-journal
 /tmp/*

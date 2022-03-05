@@ -5,7 +5,7 @@ describe Accept do
 
   it "should change circulation_status" do
     accept = FactoryBot.create(:accept)
-    accept.item.circulation_status.name.should eq 'Available On Shelf'
+    accept.item.circulation_status.name.should eq 'Available For Pickup'
     accept.item.use_restriction.name.should eq 'Limited Circulation, Normal Loan Period'
   end
 end

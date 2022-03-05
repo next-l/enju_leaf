@@ -118,6 +118,9 @@ Rails.application.routes.draw do
   resources :tags
   resources :bookmark_stats
 
+  resources :news_posts
+  resources :news_feeds
+
   devise_for :users
 
   get '/page/about' => 'page#about'
