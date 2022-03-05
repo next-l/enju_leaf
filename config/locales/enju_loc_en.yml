@@ -1,0 +1,14 @@
+en:
+  enju_loc:
+    import_from_loc_search: Import from LoC Search
+    record_not_found: Record not found.
+    not_available: Not available
+    add: Add
+    already_exists: Already exists
+    number_of_search_results:
+      one: "1 record found."
+      other: "%{count} records found."
+    same_query_in_loc_search: Search LC Online Catalog with the same query.
+  activerecord:
+    models:
+      loc_search: LoC Catalog Search

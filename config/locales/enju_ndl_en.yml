@@ -1,0 +1,11 @@
+en:
+  enju_ndl:
+    import_from_ndl_search: Import from NDL Search
+    record_not_found: Record not found.
+    not_available: Not available
+    add: Add
+    already_exists: Already exists
+    number_of_search_results:
+      one: "1 record found."
+      other: "%{count} records found."
+    same_query_in_ndl_search: Search NDL Search with the same query.

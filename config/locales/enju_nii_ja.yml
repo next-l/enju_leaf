@@ -1,0 +1,9 @@
+ja:
+  enju_nii:
+    import_from_cinii_books: CiNii Books検索によるインポート
+    record_not_found: 資料が見つかりません。
+    not_available: 利用不可
+    add: 追加
+    already_exists: 登録済み
+    number_of_search_results: "%{count} 件の資料が見つかりました。"
+    same_query_in_cinii_books: 同じ検索語でCiNii Booksを検索する
