@@ -1,0 +1,16 @@
+<%- if news_feed.content -%>
+  <h3><%= link_to h(news_feed.content.title.content), h(news_feed.content.link.href) -%></h3>
+  <ul>
+    <%- news_feed.content.items[0..2].each do |item| -%>
+      <li><%= link_to h(item.title.content), h(item.link.href) -%>
+      <%- if date = Time.zone.parse(item.updated.content.to_s) rescue nil -%>
+        (<%= l(date, format: :short) -%>)
+      <%- end -%>
+      <%- if item.summary -%>
+        <br />
+        <%= truncate(h(item.summary.content)) -%>
+      <%- end -%>
+      </li>
+    <%- end -%>
+  </ul>
+<%- end -%>

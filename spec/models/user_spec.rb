@@ -146,6 +146,5 @@ end
 #  unlock_token           :string
 #  locked_at              :datetime
 #  confirmed_at           :datetime
-#  answer_feed_token      :string
 #
 

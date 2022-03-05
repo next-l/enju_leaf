@@ -1,0 +1,7 @@
+<%- if @news_feeds -%>
+  <%- @news_feeds.each do |news_feed| -%>
+    <%= render partial: 'news_feeds/content', locals: {news_feed: news_feed} -%>
+  <%- end -%>
+<%- else -%>
+  <p><%= t('news_feed.failed_to_fetch_feed') -%></p>
+<%- end -%>
