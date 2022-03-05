@@ -1,5 +1,5 @@
 # Next-L Enju Leaf
-[![Ruby on Rails CI](https://github.com/next-l/enju_leaf/actions/workflows/rubyonrails.yml/badge.svg?branch=docker-1.3)](https://github.com/next-l/enju_leaf/actions/workflows/rubyonrails.yml)
+[![Ruby on Rails CI](https://github.com/next-l/enju_leaf/actions/workflows/rubyonrails.yml/badge.svg)](https://github.com/next-l/enju_leaf/actions/workflows/rubyonrails.yml)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/94c718eb65bff900f95f/test_coverage)](https://codeclimate.com/github/next-l/enju_leaf/test_coverage)
 
 Next-L Enju Leaf は、[Project Next-L](https://www.next-l.jp) で開発している図書館管理システムです。
@@ -25,7 +25,7 @@ library system maintained by Japanese volunteers interested in libraries.
 ## インストール (Install)
 
 ```sh
-$ git clone -b docker-1.3 https://github.com/next-l/enju_leaf.git
+$ git clone https://github.com/next-l/enju_leaf.git
 $ cd enju_leaf
 $ cp .env.template .env
 $ docker compose run --rm web rake db:create
