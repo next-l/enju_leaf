@@ -9,7 +9,7 @@ profile_admin:
   created_at: 2007-11-19 16:58:32.111941 +09:00
   required_role_id: 4
   user_number: "00001"
-  locale: "en"
+  locale: en
   checkout_icalendar_token: 577830b08ecf9c4c4333d599a57a6f44a7fe76c0
   save_checkout_history: true
 profile_librarian1: 
@@ -22,7 +22,7 @@ profile_librarian1:
   created_at: 2007-11-19 16:58:33.172441 +09:00
   required_role_id: 1
   user_number: "00002"
-  locale: "ja"
+  locale: ja
   save_checkout_history: false
 profile_user1: 
   updated_at: 2008-05-31 13:02:25.101261 +09:00
@@ -34,7 +34,7 @@ profile_user1:
   created_at: 2007-11-19 16:58:34.637413 +09:00
   required_role_id: 3
   user_number: "00003"
-  locale: "ja"
+  locale: ja
   save_checkout_history: true
 profile_librarian2: 
   updated_at: 2008-05-31 12:42:23.340575 +09:00
@@ -46,7 +46,7 @@ profile_librarian2:
   created_at: 2008-01-18 12:24:04.222344 +09:00
   required_role_id: 1
   user_number: "00004"
-  locale: "ja"
+  locale: ja
 profile_user2: 
   updated_at: 2008-05-31 12:42:44.711117 +09:00
   user_group_id: 1
@@ -57,7 +57,7 @@ profile_user2:
   created_at: 2008-01-18 13:29:06.922728 +09:00
   required_role_id: 2
 #  user_number: '00005'
-  locale: "ja"
+  locale: ja
 profile_user3: 
   updated_at: 2008-05-31 13:02:25.101261 +09:00
   user_group_id: 1
@@ -68,7 +68,7 @@ profile_user3:
   created_at: 2007-11-19 16:58:34.637413 +09:00
   required_role_id: 3
   user_number: "00006"
-  locale: "ja"
+  locale: ja
 profile_user4: 
   updated_at: 2008-05-31 13:02:25.101261 +09:00
   user_group_id: 1
@@ -79,7 +79,7 @@ profile_user4:
   created_at: 2007-11-19 16:58:34.637413 +09:00
   required_role_id: 3
   user_number: "00007"
-  locale: "ja"
+  locale: ja
   checkout_icalendar_token: e3e0277cbba03183c3a12d2b740f3eabebd7df0d
 
 # == Schema Information

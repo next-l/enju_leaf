@@ -6,7 +6,7 @@ module EnjuSeed
       scope :administrators, -> { joins(:role).where('roles.name = ?', 'Administrator') }
       scope :librarians, -> { joins(:role).where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian') }
       scope :suspended, -> { where.not(locked_at: nil) }
-      has_one :profile
+      has_one :profile, dependent: :nullify
       if defined?(EnjuBiblio)
         has_many :import_requests
         has_many :picture_files, as: :picture_attachable, dependent: :destroy
