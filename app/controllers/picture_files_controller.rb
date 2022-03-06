@@ -211,6 +211,8 @@ class PictureFilesController < ApplicationController
       elsif File.exist?(file) && File.file?(file)
         send_file file, filename: File.basename(@picture_file.picture_file_name), type: @picture_file.picture_content_type, disposition: disposition
       end
+    else
+      render body: nil
     end
   end
 end
