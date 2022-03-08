@@ -69,6 +69,8 @@ describe ResourceImportFile do
         item_10101.manifestation.frequency.name.should eq 'monthly'
         item_10101.manifestation.extent.should eq 'xv, 213 pages'
         item_10101.manifestation.dimensions.should eq '20cm'
+        expect(item_10101.memo).to eq '個別資料メモ1'
+        expect(item_10101.manifestation.memo).to eq '書誌メモ1'
 
         item_10102 = Item.find_by(item_identifier: '10102')
         item_10102.manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
@@ -117,8 +119,8 @@ describe ResourceImportFile do
         manifestation_104 = Manifestation.find_by(manifestation_identifier: '104')
         manifestation_104.identifier_contents(:isbn).should eq ['9784797327038']
         manifestation_104.original_title.should eq 'test10'
-        manifestation_104.creators.collect(&:full_name).should eq ['test3']
-        manifestation_104.publishers.collect(&:full_name).should eq ['test4']
+        manifestation_104.creators.pluck(:full_name).should eq ['test3']
+        manifestation_104.publishers.pluck(:full_name).should eq ['test4']
         manifestation_105 = Manifestation.find_by(manifestation_identifier: '105')
         manifestation_105.serial.should be_truthy
 
@@ -382,7 +384,7 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
       item_00001.binded_at.should eq Time.zone.parse('2014-08-16')
       item_00001.manifestation.subjects.order(:id).map{|subject| {subject.subject_heading_type.name => subject.term}}.should eq [{"ndlsh" => "test1"}, {"ndlsh" => "test2"}]
       item_00001.manifestation.identifier_contents(:isbn).should eq ["4798002062", "12345678"]
-      Item.find_by(item_identifier: '00002').manifestation.publishers.collect(&:full_name).should eq ['test2']
+      Item.find_by(item_identifier: '00002').manifestation.publishers.pluck(:full_name).should eq ['test2']
 
       item_00003 = Item.find_by(item_identifier: '00003')
       item_00003.acquired_at.should eq Time.zone.parse('2012-01-01')
