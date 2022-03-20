@@ -141,8 +141,6 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
-    #@item = Item.find(params[:id])
-    @item = @item.versions.find(@version).item if @version
     @manifestation = @item.manifestation unless @manifestation
 
     respond_to do |format|

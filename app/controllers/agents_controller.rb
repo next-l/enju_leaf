@@ -95,10 +95,6 @@ class AgentsController < ApplicationController
       @agent = @manifestation.publishers.find(params[:id])
     when @item
       @agent = @item.agents.find(params[:id])
-    else
-      if @version
-        @agent = @agent.versions.find(@version).item if @version
-      end
     end
 
     agent = @agent
