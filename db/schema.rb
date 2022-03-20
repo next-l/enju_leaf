@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_25_090703) do
+ActiveRecord::Schema.define(version: 2022_03_19_174806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1754,6 +1754,11 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.string "unlock_token"
     t.datetime "locked_at"
     t.datetime "confirmed_at"
+    t.string "encrypted_otp_secret"
+    t.string "encrypted_otp_secret_iv"
+    t.string "encrypted_otp_secret_salt"
+    t.integer "consumed_timestep"
+    t.boolean "otp_required_for_login"
     t.index ["email"], name: "index_users_on_email"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
