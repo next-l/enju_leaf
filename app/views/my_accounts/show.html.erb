@@ -13,12 +13,12 @@
     <p><%= 'ORCID iD' %>: <%= link_to orcid_url(@profile), orcid_url(@profile) %></p>
   <% end %>
 
-  <% if defined?(EnjuCirculation) %>
-    <%= render 'profiles/checkout_list', profile: @profile %>
+  <% if current_user.otp_required_for_login %>
+    <div><%= otp_barcode %></div>
   <% end %>
 
-  <% if current_otp_required_for_login %>
-    <div><%= otp_barcode %></div>
+  <% if defined?(EnjuCirculation) %>
+    <%= render 'profiles/checkout_list', profile: @profile %>
   <% end %>
 </div>
 </div>
