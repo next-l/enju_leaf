@@ -91,6 +91,7 @@ gem 'paper_trail'
 gem 'sassc', '~> 2.1.0'
 gem 'acts-as-taggable-on'
 gem 'devise-two-factor'
+gem 'barby'
 
 group :development, :test do
   gem 'annotate'

@@ -4,6 +4,6 @@ class AddDeviseTwoFactorToUsers < ActiveRecord::Migration[6.1]
     add_column :users, :encrypted_otp_secret_iv, :string
     add_column :users, :encrypted_otp_secret_salt, :string
     add_column :users, :consumed_timestep, :integer
-    add_column :users, :otp_required_for_login, :boolean
+    add_column :users, :otp_required_for_login, :boolean, default: false, null: false
   end
 end
