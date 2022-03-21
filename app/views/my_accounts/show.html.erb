@@ -16,6 +16,10 @@
   <% if defined?(EnjuCirculation) %>
     <%= render 'profiles/checkout_list', profile: @profile %>
   <% end %>
+
+  <% if current_otp_required_for_login %>
+    <div><%= otp_barcode %></div>
+  <% end %>
 </div>
 </div>
 

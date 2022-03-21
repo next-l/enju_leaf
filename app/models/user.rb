@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  devise :two_factor_authenticatable,
+  devise :two_factor_authenticatable, :two_factor_backupable,
          :otp_secret_encryption_key => ENV['ENJU_LEAF_2FA_ENCRYPTION_KEY']
 
   # Include default devise modules. Others available are:
