@@ -205,12 +205,14 @@ class PictureFilesController < ApplicationController
       disposition = 'inline'
     end
 
-    if @picture_file.picture.path
+    if @picture_file.picture.path && file
       if ENV['ENJU_STORAGE'] == 's3'
         send_data file, filename: File.basename(@picture_file.picture_file_name), type: @picture_file.picture_content_type, disposition: disposition
       elsif File.exist?(file) && File.file?(file)
         send_file file, filename: File.basename(@picture_file.picture_file_name), type: @picture_file.picture_content_type, disposition: disposition
       end
+    else
+      render body: nil
     end
   end
 end
