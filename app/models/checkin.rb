@@ -7,7 +7,6 @@ class Checkin < ApplicationRecord
   belongs_to :basket
 
   validates :item_id, uniqueness: { scope: :basket_id }
-  validates :item_id, :basket_id, presence: true
   validate :available_for_checkin?, on: :create
   before_validation :set_item
 

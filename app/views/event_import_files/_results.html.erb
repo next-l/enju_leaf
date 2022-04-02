@@ -1,7 +1,7 @@
 <h2><%= t('activerecord.models.event_import_result') %></h2>
 <p>
-  <%= link_to((image_tag 'icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), event_import_results_path(event_import_file_id: @event_import_file.id, format: :text, locale: @locale.to_s)) -%>
-  (<%= link_to 'TSV', event_import_results_path(event_import_file_id: @event_import_file.id, format: :text, locale: @locale.to_s) -%>)
+  <%= link_to((image_tag 'icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), event_import_results_path(event_import_file_id: @event_import_file.id, format: :txt, locale: @locale.to_s)) -%>
+  (<%= link_to 'TSV', event_import_results_path(event_import_file_id: @event_import_file.id, format: :txt, locale: @locale.to_s) -%>)
 </p>
 
 <table class="table table-striped index">

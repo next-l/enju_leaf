@@ -593,7 +593,7 @@ class Manifestation < ApplicationRecord
       height: height,
       width: width,
       depth: depth,
-      price: price,
+      manifestation_price: price,
       access_address: access_address,
       manifestation_required_role: required_role.name,
       abstract: abstract,

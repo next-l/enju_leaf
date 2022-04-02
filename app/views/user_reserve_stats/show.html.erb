@@ -50,6 +50,6 @@
   <% end %>
   <h4><%= t('page.export') -%></h4>
   <ul>
-    <li><%= link_to 'TSV', user_reserve_stat_path(@user_reserve_stat, format: :text, locale: @locale.to_s) -%></li>
+    <li><%= link_to 'TSV', user_reserve_stat_path(@user_reserve_stat, format: :txt, locale: @locale.to_s) -%></li>
   </ul>
 </div>
