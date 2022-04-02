@@ -1760,16 +1760,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  create_table "versions", id: :serial, force: :cascade do |t|
-    t.string "item_type", null: false
-    t.integer "item_id", null: false
-    t.string "event", null: false
-    t.string "whodunnit"
-    t.text "object"
-    t.datetime "created_at"
-    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
-  end
-
   create_table "withdraws", id: :serial, force: :cascade do |t|
     t.integer "basket_id"
     t.integer "item_id"
