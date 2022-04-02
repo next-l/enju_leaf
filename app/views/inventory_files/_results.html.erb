@@ -1,8 +1,8 @@
 <h2><%= t('activerecord.models.inventory') %></h2>
 
 <p>
-  <%= link_to((image_tag 'icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'enju_icon'), inventories_path(inventory_file_id: @inventory_file.id, format: :text)) -%>
-  (<%= link_to 'TSV', inventories_path(inventory_file_id: @inventory_file.id, format: :text) -%>)
+  <%= link_to((image_tag 'icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'enju_icon'), inventories_path(inventory_file_id: @inventory_file.id, format: :txt)) -%>
+  (<%= link_to 'TSV', inventories_path(inventory_file_id: @inventory_file.id, format: :txt) -%>)
 </p>
 
 <table class="table table-striped index">
