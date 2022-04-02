@@ -254,6 +254,7 @@ class ManifestationsController < ApplicationController
       format.mods
       format.json
       format.js
+      format.xlsx
     end
   end
 
@@ -321,6 +322,7 @@ class ManifestationsController < ApplicationController
       format.json
       format.text
       format.js
+      format.xlsx
       format.download {
         if @manifestation.attachment.path
           if ENV['ENJU_STORAGE'] == 's3'

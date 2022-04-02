@@ -1,0 +1,4 @@
+wb = xlsx_package.workbook
+wb.add_worksheet do |sheet|
+  sheet.add_row [@manifestation.original_title]
+end
