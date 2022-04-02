@@ -104,16 +104,16 @@
     <%- if @library -%>
       <%= link_to (image_tag 'icons/feed.png', size: '16x16', class: 'enju_icon', alt: t('page.feed')), url_for(filtered_params.merge(library_id: @library.name, format: :rss, page: nil)) -%>
       (<%= link_to 'RSS', url_for(filtered_params.merge(library_id: @library.name, format: :rss, page: nil)) -%>)
-      <%= link_to (image_tag 'icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), url_for(filtered_params.merge(library_id: @library.name, format: :text, locale: @locale.to_s)) -%>
-      (<%= link_to 'TSV', url_for(filtered_params.merge(library_id: @library.name, format: :text, locale: @locale.to_s)) -%>)
+      <%= link_to (image_tag 'icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), url_for(filtered_params.merge(library_id: @library.name, format: :txt, locale: @locale.to_s)) -%>
+      (<%= link_to 'TSV', url_for(filtered_params.merge(library_id: @library.name, format: :txt, locale: @locale.to_s)) -%>)
       <br />
       <%= link_to (image_tag 'icons/calendar.png', size: '16x16', class: 'enju_icon', alt: 'iCalendar'), url_for(filtered_params.merge(library_id: @library.name, format: :ics, locale: @locale.to_s)) -%>
       (<%= link_to 'iCalendar', url_for(filtered_params.merge(library_id: @library.name, format: :ics, locale: @locale.to_s)) -%>)
     <%- else -%>
       <%= link_to (image_tag 'icons/feed.png', size: '16x16', class: 'enju_icon', alt: t('page.feed')), url_for(filtered_params.merge(format: :rss)) -%>
       (<%= link_to 'RSS', url_for(filtered_params.merge(format: :rss)) -%>)
-      <%= link_to (image_tag 'icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), url_for(filtered_params.merge(format: :text, locale: @locale.to_s)) -%>
-      (<%= link_to 'TSV', url_for(filtered_params.merge(format: :text, locale: @locale.to_s)) -%>)
+      <%= link_to (image_tag 'icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), url_for(filtered_params.merge(format: :txt, locale: @locale.to_s)) -%>
+      (<%= link_to 'TSV', url_for(filtered_params.merge(format: :txt, locale: @locale.to_s)) -%>)
       <br />
       <%= link_to (image_tag 'icons/calendar.png', size: '16x16', class: 'enju_icon', alt: 'iCalendar'), url_for(filtered_params.merge(format: :ics, locale: @locale.to_s)) -%>
       (<%= link_to 'iCalendar', url_for(filtered_params.merge(format: :ics, locale: @locale.to_s)) -%>)

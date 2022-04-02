@@ -1,8 +1,8 @@
 <h2><%= t('activerecord.models.resource_import_result') %></h2>
 
 <p>
-  <%= link_to((image_tag 'icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'enju_icon'), resource_import_results_path(resource_import_file_id: @resource_import_file.id, format: :text)) -%>
-  (<%= link_to 'TSV', resource_import_results_path(resource_import_file_id: @resource_import_file.id, format: :text) -%>)
+  <%= link_to((image_tag 'icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'enju_icon'), resource_import_results_path(resource_import_file_id: @resource_import_file.id, format: :txt)) -%>
+  (<%= link_to 'TSV', resource_import_results_path(resource_import_file_id: @resource_import_file.id, format: :txt) -%>)
 </p>
 
 <table class="table table-striped index">

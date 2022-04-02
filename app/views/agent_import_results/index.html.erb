@@ -39,11 +39,11 @@
   <ul>
     <li>
     <% if @agent_import_file %>
-      <%= link_to((image_tag 'icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), agent_import_results_path(agent_import_file_id: @agent_import_file.id, format: :text)) -%>
-      (<%= link_to 'TSV', agent_import_results_path(agent_import_file_ud: @agent_import_file.id, format: :text) -%>)
+      <%= link_to((image_tag 'icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), agent_import_results_path(agent_import_file_id: @agent_import_file.id, format: :txt)) -%>
+      (<%= link_to 'TSV', agent_import_results_path(agent_import_file_ud: @agent_import_file.id, format: :txt) -%>)
     <% else %>
-      <%= link_to((image_tag 'icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), agent_import_results_path(format: :text, locale: @locale.to_s)) -%>
-      (<%= link_to 'TSV', agent_import_results_path(format: :text, locale: @locale.to_s) -%>)
+      <%= link_to((image_tag 'icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), agent_import_results_path(format: :txt, locale: @locale.to_s)) -%>
+      (<%= link_to 'TSV', agent_import_results_path(format: :txt, locale: @locale.to_s) -%>)
     <% end %>
     </li>
   </ul>
