@@ -2,7 +2,7 @@
   <%= t('activerecord.models.checkout') %>
   <%= link_to image_tag('icons/date.png', size: '16x16', class: 'enju_icon', alt: 'iCalendar'), checkouts_path(icalendar_token: current_user.profile.checkout_icalendar_token, format: :ics) if current_user.profile.checkout_icalendar_token? %>
   <%= link_to image_tag('icons/feed.png', size: '16x16', class: 'enju_icon', alt: 'RSS'), checkouts_path(user_id: current_user.username, format: :rss) %>
-  <%= link_to image_tag('icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), checkouts_path(user_id: current_user.username, format: :text) %>
+  <%= link_to image_tag('icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), checkouts_path(user_id: current_user.username, format: :txt) %>
 </h2>
 <% if profile.user %>
   <%= render 'checkouts/list', checkouts: profile.user.checkouts.order('created_at DESC').page(params[:page]) %>
