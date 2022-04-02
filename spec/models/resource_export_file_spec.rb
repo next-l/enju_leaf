@@ -14,6 +14,8 @@ describe ResourceExportFile do
     export_file.export!
     file = export_file.resource_export
     CSV.open(file.path, {headers: true, col_sep: "\t"}).each do |row|
+      expect(row).to have_key "library"
+      expect(row).to have_key "shelf"
       expect(row).to have_key "ncid"
       if row['manifestation_id'] == identifier.manifestation_id
         expect(row["ncid"]).to eq identifier.body
