@@ -160,6 +160,10 @@ describe Manifestation, solr: true do
       csv["classification:ndc9"].compact.inject(0){|count, a| count += 1 if a == '400'; count}.should eq manifestations(:manifestation_00001).items.count
       csv["extent"].compact.should_not be_empty
       csv["dimensions"].compact.should_not be_empty
+      expect(csv["manifestation_memo"].compact).to be_empty
+      expect(csv["item_memo"].compact).to be_empty
+      expect(csv["manifestation_price"].compact.first).to eq "1980"
+      expect(csv["item_price"].compact.first).to eq nil
       expect(csv["library"].compact.first).to eq "web"
       expect(csv["shelf"].compact.first).to eq "web"
     end
