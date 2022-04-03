@@ -52,10 +52,9 @@ end
 #  csv_charset_conversion        :boolean          default(FALSE), not null
 #  header_logo_file_name         :string
 #  header_logo_content_type      :string
-#  header_logo_file_size         :integer
+#  header_logo_file_size         :bigint
 #  header_logo_updated_at        :datetime
 #  header_logo_meta              :text
-#  library_group_id              :integer          not null
 #  login_banner                  :text
 #  footer_banner                 :text
 #
