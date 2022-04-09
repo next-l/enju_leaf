@@ -1,5 +1,5 @@
 graph = RDF::Graph.new
 @manifestations.each do |manifestation|
-  graph << manifestation.rdf_statement
+  graph << rdf_statement(manifestation)
 end
 graph.dump(:turtle)

@@ -1,3 +1,3 @@
 graph = RDF::Graph.new
-graph << @manifestation.rdf_statement
+graph << rdf_statement(@manifestation)
 graph.dump(:turtle)

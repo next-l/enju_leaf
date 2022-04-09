@@ -706,14 +706,6 @@ class Manifestation < ApplicationRecord
       end
     end
   end
-
-  def rdf_statement
-    [
-      RDF::URI.new(Rails.application.routes.url_helpers.manifestation_path(self)),
-      RDF::Vocab::DC.title,
-      RDF::Literal.new(original_title)
-    ]
-  end
 end
 
 # == Schema Information

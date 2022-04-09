@@ -259,10 +259,6 @@ describe Manifestation, solr: true do
         expect(m["manifestation:#{custom_value.manifestation_custom_property.name}"]).to eq custom_value.value
       end
     end
-
-    it 'should export rdf_statement"' do
-      expect(manifestations(:manifestation_00001).rdf_statement.last.to_s).to eq 'よくわかる最新Webサービス技術の基本と仕組み : 標準Webシステム技術とeコマース基盤技術入門'
-    end
   end
 end
 

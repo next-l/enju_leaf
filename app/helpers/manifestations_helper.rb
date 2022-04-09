@@ -174,5 +174,16 @@ module ManifestationsHelper
         link_to t('bookmark.add_to_my_bookmark'), new_bookmark_path(bookmark: {url: manifestation_url(manifestation)})
       end
     end
+
+    def rdf_statement(manifestation)
+      nextl = RDF::Vocabulary.new('https://next-l.jp/vocab/')
+      statements = [
+        RDF::URI.new(manifestation_url(manifestation)),
+        nextl.original_title,
+        RDF::Literal.new(manifestation.original_title)
+      ]
+
+      statements
+    end
   end
 end
