@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 class Resourcesync
   def initialize
     @base_url = LibraryGroup.site_config.url + "/resourcesync"
