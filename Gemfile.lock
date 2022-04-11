@@ -236,6 +236,8 @@ GEM
       parallel
     pg (1.3.5)
     pr_geohash (1.0.0)
+    pretender (0.4.0)
+      actionpack (>= 5.2)
     progress_bar (1.3.3)
       highline (>= 1.6, < 3)
       options (~> 2.3.0)
@@ -448,6 +450,7 @@ DEPENDENCIES
   paperclip-meta
   parallel_tests
   pg (~> 1.1)
+  pretender
   progress_bar
   puma (~> 5.0)
   pundit

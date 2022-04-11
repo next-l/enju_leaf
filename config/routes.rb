@@ -58,7 +58,10 @@ Rails.application.routes.draw do
   resources :user_export_files
   resources :library_groups
   resources :roles
-  resources :profiles
+  resources :profiles do
+    post :impersonate, on: :member
+    post :stop_impersonating, on: :collection
+  end
   resource :my_account
 
   resources :subjects
