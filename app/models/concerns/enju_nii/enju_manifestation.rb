@@ -204,8 +204,8 @@ module EnjuNii
         series = doc.at("//dcterms:isPartOf")
         if series && parent_url = series["rdf:resource"]
           ptbl = series["dc:title"]
-          parent_url = parent_url.gsub(/\#\w+\Z/, "")
-          conn = Faraday.new("#{parent_url}.rdf") do |faraday|
+          rdf_url = "#{URI.parse(parent_url.gsub(/\#\w+\Z/, '')).to_s}.rdf"
+          conn = Faraday.new(rdf_url) do |faraday|
             faraday.use FaradayMiddleware::FollowRedirects
             faraday.adapter :net_http
           end
