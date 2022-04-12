@@ -204,15 +204,15 @@ module EnjuNii
         series = doc.at("//dcterms:isPartOf")
         if series && parent_url = series["rdf:resource"]
           ptbl = series["dc:title"]
-          rdf_url = "#{URI.parse(parent_url.gsub(/\#\w+\Z/, '')).to_s}.rdf"
-          conn = Faraday.new(rdf_url) do |faraday|
+          rdf_url = "#{URI.parse(parent_url.gsub(/\#\w+\Z/, '')).to_s}"
+          conn = Faraday.new("#{rdf_url}.rdf") do |faraday|
             faraday.use FaradayMiddleware::FollowRedirects
             faraday.adapter :net_http
           end
           parent_doc = Nokogiri::XML(conn.get.body)
           parent_titles = get_cinii_title(parent_doc)
           series_statement = SeriesStatement.new(parent_titles)
-          series_statement.series_statement_identifier = parent_url
+          series_statement.series_statement_identifier = rdf_url
           manifestation.series_statements << series_statement
           if parts = ptbl.split(/ \. /)
             parts[1..-1].each do |part|
