@@ -23,7 +23,7 @@ namespace :enju_leaf do
       end
 
       resourcelist_xml.each_with_index do |resourcelist_xml, i|
-        File.open(Rails.root.join("public/resourcesync/resourcelist_#{i}.xml"), 'w') do |f|
+        File.open(Rails.root.join("public/resourcelist_#{i}.xml"), 'w') do |f|
           formatter.write(resourcelist_xml, f)
         end
       end
@@ -42,7 +42,7 @@ namespace :enju_leaf do
       end
 
       changelist_xml.each_with_index do |changelist_xml, i|
-        File.open(Rails.root.join("public/resourcesync/changelist_#{i}.xml"), 'w') do |f|
+        File.open(Rails.root.join("public/changelist_#{i}.xml"), 'w') do |f|
           formatter.write(changelist_xml, f)
         end
       end
