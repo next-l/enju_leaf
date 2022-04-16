@@ -100,7 +100,8 @@ class Resourcesync
             uri: "#{LibraryGroup.site_config.url}/manifestations/#{m.id}",
             modified_time: m.updated_at,
             metadata: Resync::Metadata.new(
-              change: Resync::Types::Change::UPDATED
+              change: Resync::Types::Change::UPDATED,
+              datetime: m.updated_at
             )
           )
         }

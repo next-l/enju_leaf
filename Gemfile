@@ -90,7 +90,7 @@ gem 'resque', require: 'resque/server'
 gem 'paper_trail'
 gem 'sassc', '~> 2.1.0'
 gem 'acts-as-taggable-on'
-gem 'resync'
+gem 'resync', github: 'nabeta/resync', branch: 'add-datetime'
 
 group :development, :test do
   gem 'annotate'

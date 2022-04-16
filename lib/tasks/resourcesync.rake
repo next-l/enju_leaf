@@ -37,12 +37,12 @@ namespace :enju_leaf do
       changelist_xml = Resourcesync.new.generate_changelist(manifestations)
       formatter = REXML::Formatters::Default.new
 
-      File.open(Rails.root.join("public/changelist.xml"), 'w') do |f|
-        formatter.write(changelist_index_xml, f)
-      end
+      # File.open(Rails.root.join("public/changelist.xml"), 'w') do |f|
+      #   formatter.write(changelist_index_xml, f)
+      # end
 
-      changelist_xml.each_with_index do |changelist_xml, i|
-        File.open(Rails.root.join("public/changelist_#{i}.xml"), 'w') do |f|
+      File.open(Rails.root.join("public/changelist.xml"), 'w') do |f|
+        changelist_xml.each_with_index do |changelist_xml, i|
           formatter.write(changelist_xml, f)
         end
       end
