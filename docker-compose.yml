@@ -19,7 +19,7 @@ x-app: &app
       - GID=${GID}
       - http_proxy=${http_proxy}
       - https_proxy=${http_proxy}
-  image: projectnextl/enju_leaf:latest
+  image: ghcr.io/next-l/enju_leaf:latest
   networks:
     internal:
   volumes:
@@ -48,16 +48,16 @@ services:
       - QUEUE=*
     command: bundle exec rake resque:work
 
-  webpacker:
-    <<: *app
-    environment:
-      - NODE_ENV=development
-      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
-    profiles:
-      - develop
-    command: ./bin/webpack-dev-server
-    ports:
-      - '3035:3035'
+  # webpacker:
+  #   <<: *app
+  #   environment:
+  #     - NODE_ENV=development
+  #     - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
+  #   profiles:
+  #     - develop
+  #   command: ./bin/webpack-dev-server
+  #   ports:
+  #     - '3035:3035'
 
   solr:
     image: solr:6
