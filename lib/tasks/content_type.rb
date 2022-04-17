@@ -1,5 +1,5 @@
 def update_content_type
-  content_types = YAML.load(open('db/fixtures/enju_biblio/content_types.yml').read)
+  content_types = YAML.safe_load(open('db/fixtures/enju_biblio/content_types.yml').read)
   content_types.each do |line|
     l = line[1].select!{|k, v| %w(name display_name note).include?(k)}
 

@@ -14,6 +14,10 @@ class Identifier < ApplicationRecord
   acts_as_list scope: :manifestation_id
   strip_attributes only: :body
 
+  after_destroy do
+    manifestation&.touch
+  end
+
   def check_identifier
     case identifier_type.try(:name)
     when 'isbn'

@@ -58,7 +58,10 @@ Rails.application.routes.draw do
   resources :user_export_files
   resources :library_groups
   resources :roles
-  resources :profiles
+  resources :profiles do
+    post :impersonate, on: :member
+    post :stop_impersonating, on: :collection
+  end
   resource :my_account
 
   resources :subjects
@@ -101,8 +104,8 @@ Rails.application.routes.draw do
   end
   resources :message_templates
   resources :message_requests
-  resources :request_status_types
-  resources :request_types
+  resources :request_status_types, only: [:index, :show, :edit, :update]
+  resources :request_types, only: [:index, :show, :edit, :update]
 
   resources :inventories
   resources :inventory_files
