@@ -112,10 +112,15 @@
   <div class="field">
     <%= f.label t('page.file') -%>
     <%= f.file_field :attachment -%>
-    <br />
-    <%= f.label t('page.delete_file') -%>
-    <%= f.check_box :delete_attachment -%>
   </div>
+
+  <% if f.object.attachment.present? %>
+    <div class="field">
+      <%= f.label t('page.delete_file') -%>
+      <%= f.check_box :delete_attachment -%>
+      <%= f.object.attachment.original_filename %>
+    </div>
+  <% end %>
 
   <div class="field">
     <%= f.label t('activerecord.models.content_type') -%>
