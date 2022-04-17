@@ -14,5 +14,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag enju_leaf:$(date +%s)
+    - name: Docker Login
+      uses: docker/login-action@v1.14.1
+      with:
+        registry: ghcr.io
+    - name: Build and push Docker images
+      uses: docker/build-push-action@v2.10.0
+      with:
+        push: true
+        tag: enju_leaf:$(date +%s)
