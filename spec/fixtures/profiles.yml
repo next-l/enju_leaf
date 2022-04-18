@@ -12,6 +12,7 @@ profile_admin:
   locale: en
   checkout_icalendar_token: 577830b08ecf9c4c4333d599a57a6f44a7fe76c0
   save_checkout_history: true
+  share_bookmarks: true
 profile_librarian1: 
   updated_at: 2008-05-31 12:41:16.337474 +09:00
   user_group_id: 1
