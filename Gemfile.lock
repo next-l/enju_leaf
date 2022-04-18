@@ -220,9 +220,6 @@ GEM
     nori (2.6.0)
     options (2.3.2)
     orm_adapter (0.5.0)
-    paper_trail (12.3.0)
-      activerecord (>= 5.2)
-      request_store (~> 1.1)
     paperclip (6.1.0)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
@@ -443,7 +440,6 @@ DEPENDENCIES
   library_stdnums
   lisbn
   listen (~> 3.3)
-  paper_trail
   paperclip
   paperclip-meta
   parallel_tests

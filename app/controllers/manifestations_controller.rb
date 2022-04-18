@@ -260,10 +260,6 @@ class ManifestationsController < ApplicationController
   # GET /manifestations/1
   # GET /manifestations/1.json
   def show
-    if @version
-      @manifestation = @manifestation.versions.find(@version).item if @version
-    end
-
     case params[:mode]
     when 'send_email'
       if user_signed_in?
