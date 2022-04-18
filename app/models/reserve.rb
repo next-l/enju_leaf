@@ -165,66 +165,38 @@ class Reserve < ApplicationRecord
   def send_message(sender = nil)
     sender ||= User.find(1) # TODO: システムからのメッセージの発信者
     Reserve.transaction do
+      mailer = nil
+
       case current_state
       when 'requested'
-        message_template_to_patron = MessageTemplate.localized_template('reservation_accepted_for_patron', user.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: user, message_template: message_template_to_patron)
-        request.save_message_body(manifestations: Array[manifestation], user: user)
-        request.transition_to!(:sent) # 受付時は即時送信
-        message_template_to_library = MessageTemplate.localized_template('reservation_accepted_for_library', user.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: sender, message_template: message_template_to_library)
-        request.save_message_body(manifestations: Array[manifestation], user: user)
-        request.transition_to!(:sent) # 受付時は即時送信
+        mailer = ReserveMailer.accepted(self)
       when 'canceled'
-        message_template_to_patron = MessageTemplate.localized_template('reservation_canceled_for_patron', user.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: user, message_template: message_template_to_patron)
-        request.save_message_body(manifestations: Array[manifestation], user: user)
-        request.transition_to!(:sent) # キャンセル時は即時送信
-        message_template_to_library = MessageTemplate.localized_template('reservation_canceled_for_library', user.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: sender, message_template: message_template_to_library)
-        request.save_message_body(manifestations: Array[manifestation], user: user)
-        request.transition_to!(:sent) # キャンセル時は即時送信
+        mailer = ReserveMailer.canceled(self)
       when 'expired'
-        message_template_to_patron = MessageTemplate.localized_template('reservation_expired_for_patron', user.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: user, message_template: message_template_to_patron)
-        request.save_message_body(manifestations: Array[manifestation], user: user)
-        request.transition_to!(:sent)
-        reload
-        update_attribute(:expiration_notice_to_patron, true)
-        message_template_to_library = MessageTemplate.localized_template('reservation_expired_for_library', sender.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: sender, message_template: message_template_to_library)
-        request.save_message_body(manifestations: Array[manifestation], user: sender)
-        request.transition_to!(:sent)
+        mailer = ReserveMailer.expired(self)
       when 'retained'
-        message_template_for_patron = MessageTemplate.localized_template('item_received_for_patron', user.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: user, message_template: message_template_for_patron)
-        request.save_message_body(manifestations: Array[item.manifestation], user: user)
-        request.transition_to!(:sent)
-        message_template_for_library = MessageTemplate.localized_template('item_received_for_library', user.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: sender, message_template: message_template_for_library)
-        request.save_message_body(manifestations: Array[item.manifestation], user: user)
-        request.transition_to!(:sent)
+        mailer = ReserveMailer.retained(self)
       when 'postponed'
-        message_template_for_patron = MessageTemplate.localized_template('reservation_postponed_for_patron', user.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: user, message_template: message_template_for_patron)
-        request.save_message_body(manifestations: Array[manifestation], user: user)
-        request.transition_to!(:sent)
-        message_template_for_library = MessageTemplate.localized_template('reservation_postponed_for_library', user.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: sender, message_template: message_template_for_library)
-        request.save_message_body(manifestations: Array[manifestation], user: user)
-        request.transition_to!(:sent)
+        mailer = ReserveMailer.postponed(self)
       else
         raise 'status not defined'
+      end
+
+      if mailer
+        mailer.deliver_later
+        Message.create!(
+          subject: mailer.subject,
+          sender: sender,
+          recipient: user.username,
+          body: mailer.body.to_s
+        )
+
+        Message.create!(
+          subject: mailer.subject,
+          sender: sender,
+          recipient: sender.username,
+          body: mailer.body.to_s
+        )
       end
     end
   end

@@ -1,0 +1,11 @@
+<%= @checkout.user.profile.full_name %> 様
+
+以下の資料は貸出期限を過ぎています。至急返却してください。
+
+<%= @checkout.item.manifestation.original_title %>
+<%= manifestation_url(@checkout.item.manifestation) %>
+
+貸出期限: <%= l(@checkout.due_date) %>
+
+-- 
+<%= @library_group.display_name %>

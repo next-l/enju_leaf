@@ -1,0 +1,11 @@
+<%= @checkout.user.profile.full_name %> 様
+
+以下の資料の貸出期限が近づいています。
+
+<%= @checkout.item.manifestation.original_title %>
+<%= manifestation_url(@checkout.item.manifestation) %>
+
+貸出期限: <%= l(@checkout.due_date) %>
+
+-- 
+<%= @library_group.display_name %>
