@@ -64,6 +64,8 @@ Rails.application.routes.draw do
   end
   resource :my_account
 
+  resources :iiif_images, only: :show
+
   resources :subjects
   resources :subject_heading_types
   resources :subject_types
