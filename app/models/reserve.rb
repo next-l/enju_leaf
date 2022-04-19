@@ -201,50 +201,17 @@ class Reserve < ApplicationRecord
     end
   end
 
-  def self.send_message_to_library(status, options = {})
-    sender = User.find(1) # TODO: システムからのメッセージの発信者
-    case status
-    when 'expired'
-      message_template_to_library = MessageTemplate.localized_template('reservation_expired_for_library', sender.profile.locale)
-      request = MessageRequest.new
-      request.assign_attributes(sender: sender, receiver: sender, message_template: message_template_to_library)
-      request.save_message_body(manifestations: options[:manifestations])
-      not_sent_expiration_notice_to_library.readonly(false).each do |reserve|
-        reserve.expiration_notice_to_library = true
-        reserve.save(validate: false)
-      end
-    # when 'canceled'
-    #  message_template_to_library = MessageTemplate.localized_template('reservation_canceled_for_library', sender.locale)
-    #  request = MessageRequest.new
-    #  request.assign_attributes({sender: sender, receiver: sender, message_template: message_template_to_library})
-    #  request.save_message_body(manifestations: self.not_sent_expiration_notice_to_library.collect(&:manifestation))
-    #  self.not_sent_cancel_notice_to_library.each do |reserve|
-    #    reserve.update_attribute(:expiration_notice_to_library, true)
-    #  end
-    else
-      raise 'status not defined'
-    end
-  end
-
   def self.expire
     Reserve.transaction do
-      will_expire_retained(Time.zone.now.beginning_of_day).readonly(false).map{|r| r.transition_to!(:expired)}
-      will_expire_pending(Time.zone.now.beginning_of_day).readonly(false).map{|r| r.transition_to!(:expired)}
-
-      # キューに登録した時点では本文は作られないので
-      # 予約の連絡をすませたかどうかを識別できるようにしなければならない
-      # reserve.send_message('expired')
-      User.find_each do |user|
-        unless user.reserves.not_sent_expiration_notice_to_patron.empty?
-          user.send_message('reservation_expired_for_patron', manifestations: user.reserves.not_sent_expiration_notice_to_patron.collect(&:manifestation))
-        end
-      end
-      unless Reserve.not_sent_expiration_notice_to_library.empty?
-        Reserve.send_message_to_library('expired', manifestations: Reserve.not_sent_expiration_notice_to_library.collect(&:manifestation))
-      end
+      will_expire_retained(Time.zone.now.beginning_of_day).readonly(false).map{|r|
+        r.transition_to!(:expired)
+        r.send_message
+      }
+      will_expire_pending(Time.zone.now.beginning_of_day).readonly(false).map{|r|
+        r.transition_to!(:expired)
+        r.send_message
+      }
     end
-  # rescue
-  #  logger.info "#{Time.zone.now} expiring reservations failed!"
   end
 
   def checked_out_now?
