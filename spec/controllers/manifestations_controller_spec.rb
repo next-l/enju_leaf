@@ -58,6 +58,13 @@ describe ManifestationsController do
         expect(response).to render_template('manifestations/index')
       end
 
+      it 'assigns all manifestations as @manifestations in xlsx format' do
+        get :index, format: :xlsx
+        expect(response).to be_successful
+        expect(assigns(:manifestations)).to_not be_nil
+        expect(response).to render_template('manifestations/index')
+      end
+
       it 'assigns all manifestations as @manifestations in openurl' do
         get :index, params: { api: 'openurl', title: 'ruby' }
         expect(assigns(:manifestations)).to_not be_nil
@@ -317,6 +324,12 @@ describe ManifestationsController do
 
       it 'should show manifestation rdf template' do
         get :show, params: { id: 22, format: 'rdf' }
+        expect(assigns(:manifestation)).to eq Manifestation.find(22)
+        expect(response).to render_template('manifestations/show')
+      end
+
+      it 'should show manifestation xlsx template' do
+        get :show, params: { id: 22, format: 'xlsx' }
         expect(assigns(:manifestation)).to eq Manifestation.find(22)
         expect(response).to render_template('manifestations/show')
       end
