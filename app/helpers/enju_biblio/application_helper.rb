@@ -2,8 +2,7 @@ module EnjuBiblio
   module ApplicationHelper
     def form_icon(carrier_type)
       unless carrier_type
-        image_tag('icons/help.png', size: '16x16', class: 'enju_icon', alt: t('page.unknown'))
-        return
+        return image_tag('icons/help.png', size: '16x16', class: 'enju_icon', alt: t('page.unknown'))
       end
 
       if carrier_type.attachment.present?
