@@ -6,6 +6,8 @@ class AgentImportResultsController < ApplicationController
   # GET /agent_import_results.json
   def index
     @agent_import_file = AgentImportFile.find_by(id: params[:agent_import_file_id])
+    authorize @agent_import_file, :show?, policy_class: AgentImportFilePolicy
+
     if @agent_import_file
       @agent_import_results = @agent_import_file.agent_import_results.page(params[:page])
     else
