@@ -55,4 +55,23 @@ namespace :enju_leaf do
     end
     puts 'enju_leaf: Default asset file(s) are loaded successfully.'
   end
+
+  desc 'Backfill migration versions before Next-L Enju Leaf 1.4'
+  task :backfill_migration_versions => :environment do
+    Rake::Task['db:migrate'].invoke
+
+    Dir.glob(Rails.root.join('db/migrate/*.rb')).each do |file|
+			entry = File.basename(file).split('_', 3)
+      table_name = entry[2].gsub(/\.rb\z/, '')
+      version = entry[0].to_i
+
+      # このバージョンより新しいマイグレーションファイルは対象外
+      next if version > 20201025090703
+
+      next if ActiveRecord::Base.connection.exec_query('SELECT version FROM schema_migrations WHERE version = $1', 'SQL', [[nil, version]]).first
+
+      ActiveRecord::Base.connection.exec_query('INSERT INTO schema_migrations (version) VALUES ($1)', 'SQL', [[nil, version]])
+      puts "Added #{entry[0]}"
+    end
+  end
 end

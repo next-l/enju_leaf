@@ -1,8 +1,8 @@
 FROM ruby:2.7.6
 LABEL maintainer="nabeta@fastmail.fm"
 
-ARG UID=10000
-ARG GID=10000
+ARG UID=1000
+ARG GID=1000
 ARG http_proxy
 ARG https_proxy
 
