@@ -94,7 +94,6 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
-    @event = Event.find(params[:id])
     prepare_options
   end
 
