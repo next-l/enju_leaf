@@ -108,7 +108,6 @@ GEM
       railties (>= 3.2)
     dynamic_form (1.1.4)
     erubi (1.10.0)
-    erubis (2.7.0)
     execjs (2.8.1)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -424,7 +423,6 @@ DEPENDENCIES
   devise
   dotenv-rails
   dynamic_form
-  erubis
   factory_bot_rails
   faraday_middleware
   friendly_id

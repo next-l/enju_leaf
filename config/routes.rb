@@ -102,8 +102,6 @@ Rails.application.routes.draw do
       post :destroy_selected
     end
   end
-  resources :message_templates
-  resources :message_requests
   resources :request_status_types, only: [:index, :show, :edit, :update]
   resources :request_types, only: [:index, :show, :edit, :update]
 
