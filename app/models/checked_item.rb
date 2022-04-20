@@ -81,28 +81,22 @@ class CheckedItem < ApplicationRecord
     return nil unless item_checkout_type
 
     if due_date_string.present?
-      self.due_date = Time.zone.parse(due_date_string).try(:end_of_day)
+      date = Time.zone.parse(due_date_string).try(:end_of_day)
     else
-      lending_rule = item.lending_rule(basket.user)
-      return nil if lending_rule.nil?
-
-      if lending_rule.fixed_due_date.blank?
-        # self.due_date = item_checkout_type.checkout_period.days.since Time.zone.today
-        self.due_date = lending_rule.loan_period.days.since(Time.zone.now).end_of_day
-      else
-        # self.due_date = item_checkout_type.fixed_due_date
-        self.due_date = lending_rule.fixed_due_date.tomorrow.end_of_day
-      end
       # 返却期限日が閉館日の場合
-      while item.shelf.library.closed?(due_date)
+      if item.shelf.library.closed?(item_checkout_type.checkout_period.days.from_now)
         if item_checkout_type.set_due_date_before_closing_day
-          self.due_date = due_date.yesterday.end_of_day
+          date = (item_checkout_type.checkout_period - 1).days.from_now.end_of_day
         else
-          self.due_date = due_date.tomorrow.end_of_day
+          date = (item_checkout_type.checkout_period + 1).days.from_now.end_of_day
         end
+      else
+        date = (item_checkout_type.checkout_period + 1).days.from_now.end_of_day
       end
     end
-    return due_date
+
+    self.due_date = date
+    due_date
   end
 
   def set_item
