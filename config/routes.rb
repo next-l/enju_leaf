@@ -6,24 +6,14 @@ Rails.application.routes.draw do
   resources :items
   resources :picture_files
   resources :agents
-  resources :agents
-  resources :produces
-  resources :realizes
-  resources :creates
-  resources :owns
   resources :manifestation_relationships
-  resources :manifestation_relationship_types
   resources :agent_relationships
-  resources :agent_relationship_types
   resources :resource_import_files
-  resources :resource_import_results
+  resources :resource_import_results, only: [:index, :show, :destroy]
   resources :resource_export_files
-  resources :resource_export_results
+  resources :resource_export_results, only: [:index, :show, :destroy]
   resources :agent_import_files
-  resources :agent_import_results
-  resources :licenses
-  resources :languages
-  resources :countries
+  resources :agent_import_results, only: [:index, :show, :destroy]
   resources :series_statements
   resources :series_statement_merges
   resources :series_statement_merge_lists
@@ -32,10 +22,19 @@ Rails.application.routes.draw do
   resources :import_requests
 
   constraints format: :html do
+    resources :produces
+    resources :realizes
+    resources :creates
+    resources :owns
+    resources :manifestation_relationship_types
+    resources :agent_relationship_types
     resources :agent_types
     resources :produce_types
     resources :realize_types
     resources :create_types
+    resources :languages
+    resources :countries
+    resources :licenses
     resources :form_of_works
     resources :medium_of_performances
     resources :identifier_types
@@ -45,6 +44,8 @@ Rails.application.routes.draw do
     resources :item_custom_properties
     resources :search_engines
     resources :frequencies
+    resources :user_groups
+    resources :roles
   end
 
   resources :carrier_types
@@ -52,16 +53,14 @@ Rails.application.routes.draw do
   resources :donates
   resources :libraries
   resources :shelves
-  resources :user_groups
   resources :accepts
   resources :withdraws
   resources :subscribes
   resources :subscriptions
   resources :user_import_files
-  resources :user_import_results
+  resources :user_import_results, only: [:index, :show, :destroy]
   resources :user_export_files
-  resources :library_groups
-  resources :roles
+  resources :library_groups, except: [:new, :create, :destroy]
   resources :profiles do
     post :impersonate, on: :member
     post :stop_impersonating, on: :collection
@@ -86,7 +85,6 @@ Rails.application.routes.draw do
   resources :user_reserve_stats
   resources :manifestation_checkout_stats
   resources :manifestation_reserve_stats
-  resources :lending_policies
 
   constraints format: :html do
     resources :circulation_statuses
@@ -100,10 +98,12 @@ Rails.application.routes.draw do
   resources :checked_items
   resources :baskets
 
+  constraints format: :html do
+    resources :event_categories
+  end
   resources :events
-  resources :event_categories
   resources :event_import_files
-  resources :event_import_results
+  resources :event_import_results, only: [:index, :show, :destroy]
   resources :event_export_files
   resources :participates
 
