@@ -5,11 +5,11 @@ RSpec.describe CheckoutMailer, type: :mailer do
 
   it "should send due_date mail" do
     mailer = CheckoutMailer.due_date(checkouts(:checkout_00001))
-    expect(mailer.body).to match(/^えんじゅ図書館\r\n/)
+    expect(mailer.body).to match(/^Enju Library\r\n/)
   end
 
   it "should send overdue mail" do
     mailer = CheckoutMailer.overdue(checkouts(:checkout_00001))
-    expect(mailer.body).to match(/^えんじゅ図書館\r\n/)
+    expect(mailer.body).to match(/^Enju Library\r\n/)
   end
 end

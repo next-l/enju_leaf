@@ -5,11 +5,11 @@ RSpec.describe ReserveMailer, type: :mailer do
 
   it "should send accepted mail" do
     mailer = ReserveMailer.accepted(reserves(:reserve_00001))
-    expect(mailer.body).to match(/^えんじゅ図書館\r\n/)
+    expect(mailer.body).to match(/^Enju Library\r\n/)
   end
 
   it "should send expired mail" do
     mailer = ReserveMailer.expired(reserves(:reserve_00001))
-    expect(mailer.body).to match(/^えんじゅ図書館\r\n/)
+    expect(mailer.body).to match(/^Enju Library\r\n/)
   end
 end

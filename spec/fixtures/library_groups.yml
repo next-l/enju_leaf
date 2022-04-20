@@ -2,7 +2,7 @@
 one:
   id: 1
   name: enju
-  display_name: えんじゅ図書館
+  display_name: Enju Library
   short_name: Enju
   note: 
   my_networks: 0.0.0.0/0
