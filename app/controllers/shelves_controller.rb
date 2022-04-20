@@ -77,7 +77,6 @@ class ShelvesController < ApplicationController
 
   # GET /shelves/1/edit
   def edit
-    @shelf = Shelf.includes(:library).find(params[:id])
   end
 
   # POST /shelves
