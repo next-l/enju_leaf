@@ -5,6 +5,11 @@ RSpec.describe UserExportMailer, type: :mailer do
 
   it "should send completed mail" do
     mailer = UserExportMailer.completed(user_export_files(:user_export_file_00001))
-    expect(mailer.body.to_s).to match(/^Enju Library\r\n/)
+    expect(mailer.body.to_s).to match(/^Enju Library\n/)
+  end
+
+  it "should send failed mail" do
+    mailer = UserExportMailer.failed(user_export_files(:user_export_file_00001))
+    expect(mailer.body.to_s).to match(/^Enju Library\n/)
   end
 end
