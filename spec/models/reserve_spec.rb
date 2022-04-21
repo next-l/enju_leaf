@@ -42,13 +42,9 @@ describe Reserve do
   end
 
   it "should send expired message" do
-    old_count = MessageRequest.count
+    old_count = Message.count
     reserves(:reserve_00006).send_message.should be_truthy
-    MessageRequest.count.should eq old_count + 2
-  end
-
-  it "should send message to library" do
-    Reserve.send_message_to_library('expired', manifestations: Reserve.not_sent_expiration_notice_to_library.collect(&:manifestation)).should be_truthy
+    Message.count.should eq old_count + 2
   end
 
   it "should have reservations that will be expired" do
@@ -81,7 +77,7 @@ describe Reserve do
   it "should nullify the first reservation's item_id if the second reservation is retained" do
     reservation = reserves(:reserve_00015)
     old_reservation = reserves(:reserve_00014)
-    old_count = MessageRequest.count
+    old_count = Message.count
 
     reservation.item = old_reservation.item
     expect(reservation).not_to be_retained
@@ -92,7 +88,7 @@ describe Reserve do
 #    old_reservation.retained_at.should be_nil
 #    old_reservation.postponed_at.should be_truthy
     old_reservation.current_state.should eq 'postponed'
-    MessageRequest.count.should eq old_count + 4
+    Message.count.should eq old_count + 4
     reservation.item.retained?.should be_truthy
   end
 

@@ -37,7 +37,10 @@ class ManifestationCheckoutStat < ApplicationRecord
     end
     self.completed_at = Time.zone.now
     transition_to!(:completed)
-    send_message
+
+    mailer = ManifestationCheckoutStatMailer.completed(self)
+    mailer.deliver_later
+    send_message(mailer)
   end
 end
 

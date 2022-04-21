@@ -2,8 +2,6 @@ ja:
   activerecord:
     models:
       message: メッセージ
-      message_template: メッセージテンプレート
-      message_request: メッセージの送信リクエスト
 
     attributes:
       message:
@@ -12,15 +10,6 @@ ja:
         sender: 差出人
         receiver: 宛て先
         recipient: 宛て先
-      message_template:
-        status: 状態
-        locale: 言語
-        title: タイトル
-        body: 本文
-        position: 位置
-      message_request:
-        sent_at: 送信時刻
-        deleted_at: 削除時刻
 
   message:
     user_message: "%{login_name} さんのメッセージ"

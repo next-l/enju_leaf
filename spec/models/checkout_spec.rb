@@ -41,7 +41,7 @@ describe Checkout do
   end
 
   it "should respond to send_due_date_notification" do
-    Checkout.send_due_date_notification.should eq 2
+    Checkout.send_due_date_notification.should eq 5
   end
 
   it "should respond to send_overdue_notification" do
