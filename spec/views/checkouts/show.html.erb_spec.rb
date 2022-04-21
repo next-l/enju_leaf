@@ -6,7 +6,6 @@ describe "checkouts/show" do
   before(:each) do
     @checkout = assign(:checkout, checkouts(:checkout_00001))
     assign(:library_group, LibraryGroup.site_config)
-    I18n.locale = :en
     view.stub(:current_user).and_return(User.find_by(username: 'enjuadmin'))
   end
 

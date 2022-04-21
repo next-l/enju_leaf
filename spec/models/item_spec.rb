@@ -23,10 +23,10 @@ describe Item do
   end
 
   it "should be retained" do
-    old_count = MessageRequest.count
+    old_count = Message.count
     items(:item_00013).retain(users(:librarian1)).should be_truthy
     items(:item_00013).reserves.first.current_state.should eq 'retained'
-    MessageRequest.count.should eq old_count + 4
+    Message.count.should eq old_count + 4
   end
 
   it "should not be checked out when it is reserved" do
