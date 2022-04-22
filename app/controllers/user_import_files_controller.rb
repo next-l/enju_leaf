@@ -10,7 +10,6 @@ class UserImportFilesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @user_import_files }
     end
   end
 
@@ -26,7 +25,6 @@ class UserImportFilesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @user_import_file }
       format.download {
         if ENV['ENJU_STORAGE'] == 's3'
           send_data Faraday.get(@user_import_file.user_import.expiring_url).body.force_encoding('UTF-8'),
@@ -39,16 +37,10 @@ class UserImportFilesController < ApplicationController
   end
 
   # GET /user_import_files/new
-  # GET /user_import_files/new.json
   def new
     @user_import_file = UserImportFile.new
     @user_import_file.default_user_group = current_user.profile.user_group
     @user_import_file.default_library = current_user.profile.library
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @user_import_file }
-    end
   end
 
   # GET /user_import_files/1/edit

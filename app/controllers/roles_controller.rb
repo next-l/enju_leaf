@@ -9,7 +9,6 @@ class RolesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @roles }
     end
   end
 
@@ -18,7 +17,6 @@ class RolesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @role }
     end
   end
 

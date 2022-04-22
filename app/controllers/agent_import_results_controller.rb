@@ -16,7 +16,6 @@ class AgentImportResultsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @agent_import_results }
       format.text
     end
   end
@@ -26,7 +25,6 @@ class AgentImportResultsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @agent_import_result }
     end
   end
 

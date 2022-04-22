@@ -8,7 +8,6 @@ class NewsFeedsController < ApplicationController
     @news_feeds = NewsFeed.page(params[:page])
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @news_feeds }
     end
   end
 
@@ -21,19 +20,12 @@ class NewsFeedsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @news_feed }
     end
   end
 
   # GET /news_feeds/new
-  # GET /news_feeds/new.json
   def new
     @news_feed = NewsFeed.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @news_feed }
-    end
   end
 
   # GET /news_feeds/1/edit

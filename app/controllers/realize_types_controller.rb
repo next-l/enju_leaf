@@ -9,7 +9,6 @@ class RealizeTypesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @realize_types }
     end
   end
 
@@ -18,19 +17,12 @@ class RealizeTypesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @realize_type }
     end
   end
 
   # GET /realize_types/new
-  # GET /realize_types/new.json
   def new
     @realize_type = RealizeType.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @realize_type }
-    end
   end
 
   # GET /realize_types/1/edit

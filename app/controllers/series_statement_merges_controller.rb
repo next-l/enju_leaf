@@ -16,7 +16,6 @@ class SeriesStatementMergesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @series_statement_merges }
     end
   end
 
@@ -25,21 +24,14 @@ class SeriesStatementMergesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @series_statement_merge }
     end
   end
 
   # GET /series_statement_merges/new
-  # GET /series_statement_merges/new.json
   def new
     @series_statement_merge = SeriesStatementMerge.new
     @series_statement_merge.series_statement = @series_statement
     @series_statement_merge.series_statement_merge_list = @series_statement_merge_list
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @series_statement_merge }
-    end
   end
 
   # GET /series_statement_merges/1/edit

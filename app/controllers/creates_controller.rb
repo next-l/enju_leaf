@@ -18,7 +18,6 @@ class CreatesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @creates }
     end
   end
 
@@ -27,7 +26,6 @@ class CreatesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @create }
     end
   end
 

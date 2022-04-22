@@ -26,7 +26,6 @@ class TagsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @tags }
       format.rss
       format.atom
     end
@@ -35,7 +34,6 @@ class TagsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @tag }
     end
   end
 

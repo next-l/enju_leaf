@@ -9,7 +9,6 @@ class ParticipatesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @participates }
     end
   end
 
@@ -18,19 +17,12 @@ class ParticipatesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @participate }
     end
   end
 
   # GET /participates/new
-  # GET /participates/new.json
   def new
     @participate = Participate.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @participate }
-    end
   end
 
   # GET /participates/1/edit

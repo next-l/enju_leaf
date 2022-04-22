@@ -10,7 +10,6 @@ class UserGroupsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @user_groups }
     end
   end
 
@@ -19,18 +18,12 @@ class UserGroupsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @user_group }
     end
   end
 
   # GET /user_groups/new
   def new
     @user_group = UserGroup.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @user_group }
-    end
   end
 
   # GET /user_groups/1/edit

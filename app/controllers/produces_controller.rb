@@ -18,13 +18,7 @@ class ProducesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @produces }
     end
-  #rescue
-  #  respond_to do |format|
-  #    format.html { render action: "new" }
-  #    format.json { render json: @produce.errors, status: :unprocessable_entity }
-  #  end
   end
 
   # GET /produces/1
@@ -32,7 +26,6 @@ class ProducesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @produce }
     end
   end
 

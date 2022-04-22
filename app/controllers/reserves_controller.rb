@@ -102,8 +102,7 @@ class ReservesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @reserves }
-      format.rss  { render layout: false }
+      format.rss
       format.atom
       format.text
     end
@@ -114,12 +113,10 @@ class ReservesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @reserve }
     end
   end
 
   # GET /reserves/new
-  # GET /reserves/new.json
   def new
     @reserve = Reserve.new
 

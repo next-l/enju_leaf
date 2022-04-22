@@ -12,7 +12,6 @@ class CarrierTypeHasCheckoutTypesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @carrier_type_has_checkout_types }
     end
   end
 
@@ -21,21 +20,14 @@ class CarrierTypeHasCheckoutTypesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @carrier_type_has_checkout_type }
     end
   end
 
   # GET /carrier_type_has_checkout_types/new
-  # GET /carrier_type_has_checkout_types/new.json
   def new
     @carrier_type_has_checkout_type = CarrierTypeHasCheckoutType.new
     @carrier_type_has_checkout_type.carrier_type = @carrier_type
     @carrier_type_has_checkout_type.checkout_type = @checkout_type
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @carrier_type_has_checkout_type }
-    end
   end
 
   # GET /carrier_type_has_checkout_types/1/edit
