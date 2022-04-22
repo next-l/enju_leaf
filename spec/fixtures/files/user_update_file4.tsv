@@ -1,2 +1,3 @@
-username	locked
-user001	TRUE
+username	locked	password
+user001	TRUE	testpassword
+librarian1	FALSE	
