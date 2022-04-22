@@ -1,6 +1,10 @@
 class Resourcesync
   def initialize
-    @base_url = LibraryGroup.site_config.url + "/resourcesync"
+    @base_url = if ENV['ENJU_LEAF_RESOURCESYNC_BASE_URL'].present?
+                  URI.parse(ENV['ENJU_LEAF_RESOURCESYNC_BASE_URL']).to_s
+                else
+                  URI.parse(LibraryGroup.site_config.url).to_s
+                end
   end
 
   def generate_capabilitylist
@@ -96,7 +100,8 @@ class Resourcesync
             uri: "#{LibraryGroup.site_config.url}/manifestations/#{m.id}",
             modified_time: m.updated_at,
             metadata: Resync::Metadata.new(
-              change: Resync::Types::Change::UPDATED
+              change: Resync::Types::Change::UPDATED,
+              datetime: m.updated_at
             )
           )
         }
