@@ -16,7 +16,6 @@ class ManifestationRelationshipsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @manifestation_relationships }
     end
   end
 
@@ -25,7 +24,6 @@ class ManifestationRelationshipsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @manifestation_relationship }
     end
   end
 

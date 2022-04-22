@@ -10,7 +10,6 @@ class ResourceImportFilesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @resource_import_files }
     end
   end
 
@@ -26,7 +25,6 @@ class ResourceImportFilesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @resource_import_file }
       format.download {
         if ENV['ENJU_STORAGE'] == 's3'
           redirect_to URI.parse(@resource_import_file.resource_import.expiring_url(10)).to_s
@@ -38,15 +36,9 @@ class ResourceImportFilesController < ApplicationController
   end
 
   # GET /resource_import_files/new
-  # GET /resource_import_files/new.json
   def new
     @resource_import_file = ResourceImportFile.new
     @resource_import_file.library_id = current_user.profile.library_id
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @resource_import_file }
-    end
   end
 
   # GET /resource_import_files/1/edit

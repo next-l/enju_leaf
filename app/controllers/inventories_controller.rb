@@ -9,7 +9,6 @@ class InventoriesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @inventories }
     end
   end
 
@@ -18,7 +17,6 @@ class InventoriesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @inventory }
     end
   end
 

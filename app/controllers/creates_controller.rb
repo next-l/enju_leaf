@@ -5,6 +5,7 @@ class CreatesController < ApplicationController
   before_action :prepare_options, only: [:new, :edit]
 
   # GET /creates
+  # GET /creates.json
   def index
     case
     when @agent
@@ -14,10 +15,18 @@ class CreatesController < ApplicationController
     else
       @creates = Create.page(params[:page])
     end
+
+    respond_to do |format|
+      format.html # index.html.erb
+    end
   end
 
   # GET /creates/1
+  # GET /creates/1.json
   def show
+    respond_to do |format|
+      format.html # show.html.erb
+    end
   end
 
   # GET /creates/new
@@ -38,20 +47,24 @@ class CreatesController < ApplicationController
   end
 
   # POST /creates
+  # POST /creates.json
   def create
     @create = Create.new(create_params)
 
     respond_to do |format|
       if @create.save
         format.html { redirect_to @create, notice: t('controller.successfully_created', model: t('activerecord.models.create')) }
+        format.json { render json: @create, status: :created, location: @create }
       else
         prepare_options
         format.html { render action: "new" }
+        format.json { render json: @create.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PUT /creates/1
+  # PUT /creates/1.json
   def update
     # 並べ替え
     if @work && params[:move]
@@ -63,25 +76,33 @@ class CreatesController < ApplicationController
     respond_to do |format|
       if @create.update(create_params)
         format.html { redirect_to @create, notice: t('controller.successfully_updated', model: t('activerecord.models.create')) }
+        format.json { head :no_content }
       else
         prepare_options
         format.html { render action: "edit" }
+        format.json { render json: @create.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /creates/1
+  # DELETE /creates/1.json
   def destroy
     @create.destroy
 
-    flash[:notice] = t('controller.successfully_deleted', model: t('activerecord.models.create'))
-    case
-    when @agent
-      redirect_to agent_works_url(@agent)
-    when @work
-      redirect_to work_agents_url(@work)
-    else
-      redirect_to creates_url
+    respond_to do |format|
+      flash[:notice] = t('controller.successfully_deleted', model: t('activerecord.models.create'))
+      case
+      when @agent
+        format.html { redirect_to agent_works_url(@agent) }
+        format.json { head :no_content }
+      when @work
+        format.html { redirect_to work_agents_url(@work) }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to creates_url }
+        format.json { head :no_content }
+      end
     end
   end
 

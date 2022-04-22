@@ -10,7 +10,6 @@ class BookmarkStatsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @bookmark_stats }
     end
   end
 
@@ -26,20 +25,13 @@ class BookmarkStatsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @bookmark_stat }
       format.text
     end
   end
 
   # GET /bookmark_stats/new
-  # GET /bookmark_stats/new.json
   def new
     @bookmark_stat = BookmarkStat.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @bookmark_stat }
-    end
   end
 
   # GET /bookmark_stats/1/edit

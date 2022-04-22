@@ -4,6 +4,7 @@ class OwnsController < ApplicationController
   before_action :get_agent, :get_item
 
   # GET /owns
+  # GET /owns.json
   def index
     if @agent
       @owns = @agent.owns.order('owns.position').page(params[:page])
@@ -12,10 +13,18 @@ class OwnsController < ApplicationController
     else
       @owns = Own.page(params[:page])
     end
+
+    respond_to do |format|
+      format.html # index.html.erb
+    end
   end
 
   # GET /owns/1
+  # GET /owns/1.json
   def show
+    respond_to do |format|
+      format.html # show.html.erb
+    end
   end
 
   # GET /owns/new
@@ -38,19 +47,23 @@ class OwnsController < ApplicationController
   end
 
   # POST /owns
+  # POST /owns.json
   def create
     @own = Own.new(own_params)
 
     respond_to do |format|
       if @own.save
         format.html { redirect_to @own, notice: t('controller.successfully_created', model: t('activerecord.models.own')) }
+        format.json { render json: @own, status: :created, location: @own }
       else
         format.html { render action: "new" }
+        format.json { render json: @own.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PUT /owns/1
+  # PUT /owns/1.json
   def update
     if @item && params[:move]
       move_position(@own, params[:move], false)
@@ -61,24 +74,32 @@ class OwnsController < ApplicationController
     respond_to do |format|
       if @own.update(own_params)
         format.html { redirect_to @own, notice: t('controller.successfully_updated', model: t('activerecord.models.own')) }
+        format.json { head :no_content }
       else
         format.html { render action: "edit" }
+        format.json { render json: @own.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /owns/1
+  # DELETE /owns/1.json
   def destroy
     @own.destroy
 
-    flash[:notice] = t('controller.successfully_deleted', model: t('activerecord.models.own'))
-    case
-    when @agent
-      redirect_to agent_owns_url(@agent)
-    when @item
-      redirect_to item_owns_url(@item)
-    else
-      redirect_to owns_url
+    respond_to do |format|
+      format.html {
+        flash[:notice] = t('controller.successfully_deleted', model: t('activerecord.models.own'))
+        case
+        when @agent
+          redirect_to agent_owns_url(@agent)
+        when @item
+          redirect_to item_owns_url(@item)
+        else
+          redirect_to owns_url
+        end
+      }
+      format.json { head :no_content }
     end
   end
 

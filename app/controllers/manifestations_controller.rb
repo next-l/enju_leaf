@@ -334,7 +334,6 @@ class ManifestationsController < ApplicationController
   end
 
   # GET /manifestations/new
-  # GET /manifestations/new.json
   def new
     @manifestation = Manifestation.new
     @manifestation.language = Language.find_by(iso_639_1: @locale)
@@ -350,11 +349,6 @@ class ManifestationsController < ApplicationController
       [:creators, :contributors, :publishers, :classifications, :subjects].each do |attribute|
         @manifestation.send(attribute).build(@parent.send(attribute).collect(&:attributes))
       end
-    end
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @manifestation }
     end
   end
 

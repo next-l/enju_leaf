@@ -3,12 +3,21 @@ class LanguagesController < ApplicationController
   before_action :check_policy, only: [:index, :new, :create]
 
   # GET /languages
+  # GET /languages.json
   def index
     @languages = Language.page(params[:page])
+
+    respond_to do |format|
+      format.html # index.html.erb
+    end
   end
 
   # GET /languages/1
+  # GET /languages/1.json
   def show
+    respond_to do |format|
+      format.html # show.html.erb
+    end
   end
 
   # GET /languages/new
@@ -21,19 +30,23 @@ class LanguagesController < ApplicationController
   end
 
   # POST /languages
+  # POST /languages.json
   def create
     @language = Language.new(language_params)
 
     respond_to do |format|
       if @language.save
         format.html { redirect_to @language, notice: t('controller.successfully_created', model: t('activerecord.models.language')) }
+        format.json { render json: @language, status: :created, location: @language }
       else
         format.html { render action: "new" }
+        format.json { render json: @language.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PUT /languages/1
+  # PUT /languages/1.json
   def update
     if params[:move]
       move_position(@language, params[:move])
@@ -43,16 +56,23 @@ class LanguagesController < ApplicationController
     respond_to do |format|
       if @language.update(language_params)
         format.html { redirect_to @language, notice: t('controller.successfully_updated', model: t('activerecord.models.language')) }
+        format.json { head :no_content }
       else
         format.html { render action: "edit" }
+        format.json { render json: @language.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /languages/1
+  # DELETE /languages/1.json
   def destroy
     @language.destroy
-    redirect_to languages_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.language'))
+
+    respond_to do |format|
+      format.html { redirect_to languages_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.language')) }
+      format.json { head :no_content }
+    end
   end
 
   private

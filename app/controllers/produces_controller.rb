@@ -5,6 +5,7 @@ class ProducesController < ApplicationController
   before_action :prepare_options, only: [:new, :edit]
 
   # GET /produces
+  # GET /produces.json
   def index
     case
     when @agent
@@ -14,10 +15,18 @@ class ProducesController < ApplicationController
     else
       @produces = Produce.page(params[:page])
     end
+
+    respond_to do |format|
+      format.html # index.html.erb
+    end
   end
 
   # GET /produces/1
+  # GET /produces/1.json
   def show
+    respond_to do |format|
+      format.html # show.html.erb
+    end
   end
 
   # GET /produces/new
@@ -40,20 +49,24 @@ class ProducesController < ApplicationController
   end
 
   # POST /produces
+  # POST /produces.json
   def create
     @produce = Produce.new(produce_params)
 
     respond_to do |format|
       if @produce.save
         format.html { redirect_to @produce, notice: t('controller.successfully_created', model: t('activerecord.models.produce')) }
+        format.json { render json: @produce, status: :created, location: @produce }
       else
         prepare_options
         format.html { render action: "new" }
+        format.json { render json: @produce.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PUT /produces/1
+  # PUT /produces/1.json
   def update
     if @manifestation && params[:move]
       move_position(@produce, params[:move], false)
@@ -64,25 +77,33 @@ class ProducesController < ApplicationController
     respond_to do |format|
       if @produce.update(produce_params)
         format.html { redirect_to @produce, notice: t('controller.successfully_updated', model: t('activerecord.models.produce')) }
+        format.json { head :no_content }
       else
         prepare_options
         format.html { render action: "edit" }
+        format.json { render json: @produce.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /produces/1
+  # DELETE /produces/1.json
   def destroy
     @produce.destroy
 
-    flash[:notice] = t('controller.successfully_deleted', model: t('activerecord.models.produce'))
-    case
-    when @agent
-      redirect_to agent_manifestations_url(@agent)
-    when @manifestation
-      redirect_to manifestation_agents_url(@manifestation)
-    else
-      redirect_to produces_url
+    respond_to do |format|
+      format.html {
+        flash[:notice] = t('controller.successfully_deleted', model: t('activerecord.models.produce'))
+        case
+        when @agent
+          redirect_to agent_manifestations_url(@agent)
+        when @manifestation
+          redirect_to manifestation_agents_url(@manifestation)
+        else
+          redirect_to produces_url
+        end
+      }
+      format.json { head :no_content }
     end
   end
 

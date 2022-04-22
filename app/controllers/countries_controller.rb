@@ -3,12 +3,21 @@ class CountriesController < ApplicationController
   before_action :check_policy, only: [:index, :new, :create]
 
   # GET /countries
+  # GET /countries.json
   def index
     @countries = Country.page(params[:page])
+
+    respond_to do |format|
+      format.html # index.html.erb
+    end
   end
 
   # GET /countries/1
+  # GET /countries/1.json
   def show
+    respond_to do |format|
+      format.html # show.html.erb
+    end
   end
 
   # GET /countries/new
@@ -21,19 +30,23 @@ class CountriesController < ApplicationController
   end
 
   # POST /countries
+  # POST /countries.json
   def create
     @country = Country.new(country_params)
 
     respond_to do |format|
       if @country.save
         format.html { redirect_to @country, notice: t('controller.successfully_created', model: t('activerecord.models.country')) }
+        format.json { render json: @country, status: :created, location: @country }
       else
         format.html { render action: "new" }
+        format.json { render json: @country.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PUT /countries/1
+  # PUT /countries/1.json
   def update
     if params[:move]
       move_position(@country, params[:move])
@@ -43,16 +56,23 @@ class CountriesController < ApplicationController
     respond_to do |format|
       if @country.update(country_params)
         format.html { redirect_to @country, notice: t('controller.successfully_updated', model: t('activerecord.models.country')) }
+        format.json { head :no_content }
       else
         format.html { render action: "edit" }
+        format.json { render json: @country.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /countries/1
+  # DELETE /countries/1.json
   def destroy
     @country.destroy
-    redirect_to countries_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.country'))
+
+    respond_to do |format|
+      format.html { redirect_to countries_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.country')) }
+      format.json { head :no_content }
+    end
   end
 
   private

@@ -52,7 +52,7 @@ class EventsController < ApplicationController
       format.html # index.html.erb
       format.html.phone
       format.json
-      format.rss { render layout: false }
+      format.rss
       format.text
       format.atom
       format.ics
@@ -65,12 +65,10 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.html.phone
-      format.json { render json: @event }
     end
   end
 
   # GET /events/new
-  # GET /events/new.json
   def new
     prepare_options
     if params[:date]
@@ -85,11 +83,6 @@ class EventsController < ApplicationController
     end
     @event = Event.new(start_at: date, end_at: date)
     @event.library = @library
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @event }
-    end
   end
 
   # GET /events/1/edit

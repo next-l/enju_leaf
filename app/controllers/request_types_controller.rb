@@ -3,12 +3,21 @@ class RequestTypesController < ApplicationController
   before_action :check_policy, only: [:index]
 
   # GET /request_types
+  # GET /request_types.json
   def index
     @request_types = RequestType.order(:position)
+
+    respond_to do |format|
+      format.html # index.html.erb
+    end
   end
 
   # GET /request_types/1
+  # GET /request_types/1.json
   def show
+    respond_to do |format|
+      format.html # show.html.erb
+    end
   end
 
   # GET /request_types/1/edit
@@ -16,6 +25,7 @@ class RequestTypesController < ApplicationController
   end
 
   # PUT /request_types/1
+  # PUT /request_types/1.json
   def update
     if params[:move]
       move_position(@request_type, params[:move])
@@ -25,8 +35,10 @@ class RequestTypesController < ApplicationController
     respond_to do |format|
       if @request_type.update(request_type_params)
         format.html { redirect_to @request_type, notice: t('controller.successfully_updated', model: t('activerecord.models.request_type')) }
+        format.json { head :no_content }
       else
         format.html { render action: "edit" }
+        format.json { render json: @request_type.errors, status: :unprocessable_entity }
       end
     end
   end
