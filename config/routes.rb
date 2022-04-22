@@ -6,58 +6,61 @@ Rails.application.routes.draw do
   resources :items
   resources :picture_files
   resources :agents
-  resources :agents
-  resources :agent_types
-  resources :produces
-  resources :realizes
-  resources :creates
-  resources :owns
-  resources :produce_types
-  resources :realize_types
-  resources :create_types
   resources :manifestation_relationships
-  resources :manifestation_relationship_types
   resources :agent_relationships
-  resources :agent_relationship_types
   resources :resource_import_files
-  resources :resource_import_results
+  resources :resource_import_results, only: [:index, :show, :destroy]
   resources :resource_export_files
-  resources :resource_export_results
+  resources :resource_export_results, only: [:index, :show, :destroy]
   resources :agent_import_files
-  resources :agent_import_results
-  resources :licenses
-  resources :languages
-  resources :countries
+  resources :agent_import_results, only: [:index, :show, :destroy]
   resources :series_statements
   resources :series_statement_merges
   resources :series_statement_merge_lists
   resources :agent_merges
   resources :agent_merge_lists
-  resources :manifestation_custom_properties
-  resources :item_custom_properties
   resources :import_requests
+
+  constraints format: :html do
+    resources :produces
+    resources :realizes
+    resources :creates
+    resources :owns
+    resources :manifestation_relationship_types
+    resources :agent_relationship_types
+    resources :agent_types
+    resources :produce_types
+    resources :realize_types
+    resources :create_types
+    resources :languages
+    resources :countries
+    resources :licenses
+    resources :form_of_works
+    resources :medium_of_performances
+    resources :identifier_types
+    resources :budget_types
+    resources :bookstores
+    resources :manifestation_custom_properties
+    resources :item_custom_properties
+    resources :search_engines
+    resources :frequencies
+    resources :user_groups
+    resources :roles
+  end
+
   resources :carrier_types
   resources :content_types
-  resources :form_of_works
-  resources :medium_of_performances
   resources :donates
-  resources :frequencies
-  resources :identifier_types
   resources :libraries
   resources :shelves
-  resources :search_engines
-  resources :user_groups
   resources :accepts
   resources :withdraws
-  resources :bookstores
-  resources :budget_types
   resources :subscribes
   resources :subscriptions
   resources :user_import_files
-  resources :user_import_results
+  resources :user_import_results, only: [:index, :show, :destroy]
   resources :user_export_files
-  resources :library_groups
-  resources :roles
+  resources :library_groups, except: [:new, :create, :destroy]
   resources :profiles do
     post :impersonate, on: :member
     post :stop_impersonating, on: :collection
@@ -65,10 +68,12 @@ Rails.application.routes.draw do
   resource :my_account
 
   resources :subjects
-  resources :subject_heading_types
-  resources :subject_types
+  constraints format: :html do
+    resources :subject_heading_types
+    resources :subject_types
+    resources :classification_types
+  end
   resources :classifications
-  resources :classification_types
 
   resources :checkouts
   resources :checkouts, only: :index do
@@ -80,20 +85,25 @@ Rails.application.routes.draw do
   resources :user_reserve_stats
   resources :manifestation_checkout_stats
   resources :manifestation_reserve_stats
-  resources :lending_policies
-  resources :circulation_statuses
-  resources :use_restrictions
-  resources :carrier_type_has_checkout_types
-  resources :user_group_has_checkout_types
-  resources :checkout_types
+
+  constraints format: :html do
+    resources :circulation_statuses
+    resources :use_restrictions
+    resources :carrier_type_has_checkout_types
+    resources :user_group_has_checkout_types
+    resources :item_has_use_restrictions
+    resources :checkout_types
+  end
+
   resources :checked_items
-  resources :item_has_use_restrictions
   resources :baskets
 
+  constraints format: :html do
+    resources :event_categories
+  end
   resources :events
-  resources :event_categories
   resources :event_import_files
-  resources :event_import_results
+  resources :event_import_results, only: [:index, :show, :destroy]
   resources :event_export_files
   resources :participates
 
@@ -102,13 +112,16 @@ Rails.application.routes.draw do
       post :destroy_selected
     end
   end
-  resources :request_status_types, only: [:index, :show, :edit, :update]
-  resources :request_types, only: [:index, :show, :edit, :update]
+
+  constraints format: :html do
+    resources :request_status_types, only: [:index, :show, :edit, :update]
+    resources :request_types, only: [:index, :show, :edit, :update]
+  end
 
   resources :inventories
   resources :inventory_files
 
-  resources :ndl_books
+  resources :ndl_books, only: [:index, :create]
 
   resources :nii_types
   resources :cinii_books, only: [:index, :create]

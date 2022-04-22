@@ -150,7 +150,6 @@ class ItemsController < ApplicationController
   end
 
   # GET /items/new
-  # GET /items/new.json
   def new
     if Shelf.real.blank?
       flash[:notice] = t('item.create_shelf_first')
@@ -183,11 +182,6 @@ class ItemsController < ApplicationController
       @item.checkout_type = @manifestation.carrier_type.checkout_types.first
       @item.item_has_use_restriction = ItemHasUseRestriction.new
       @item.item_has_use_restriction.use_restriction = UseRestriction.find_by(name: 'Not For Loan')
-    end
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @item }
     end
   end
 

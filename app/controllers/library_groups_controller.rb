@@ -9,7 +9,6 @@ class LibraryGroupsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @library_groups }
     end
   end
 
@@ -18,7 +17,6 @@ class LibraryGroupsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @library_group }
       format.download {
         if @library_group.header_logo.exists?
           if ENV['ENJU_STORAGE'] == 's3'

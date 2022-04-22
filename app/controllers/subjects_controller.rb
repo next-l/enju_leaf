@@ -42,7 +42,6 @@ class SubjectsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @subjects }
       format.rss
       format.atom
     end
@@ -67,18 +66,12 @@ class SubjectsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @subject }
     end
   end
 
   # GET /subjects/new
   def new
     @subject = Subject.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @subject }
-    end
   end
 
   # GET /subjects/1/edit

@@ -9,7 +9,6 @@ class MediumOfPerformancesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @medium_of_performances }
     end
   end
 
@@ -18,19 +17,12 @@ class MediumOfPerformancesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @medium_of_performance }
     end
   end
 
   # GET /medium_of_performances/new
-  # GET /medium_of_performances/new.json
   def new
     @medium_of_performance = MediumOfPerformance.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @medium_of_performance }
-    end
   end
 
   # GET /medium_of_performances/1/edit

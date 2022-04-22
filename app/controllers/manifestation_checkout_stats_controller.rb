@@ -10,7 +10,6 @@ class ManifestationCheckoutStatsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @manifestation_checkout_stats }
     end
   end
 
@@ -51,23 +50,16 @@ class ManifestationCheckoutStatsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @manifestation_checkout_stat }
       format.text
       format.js
     end
   end
 
   # GET /manifestation_checkout_stats/new
-  # GET /manifestation_checkout_stats/new.json
   def new
     @manifestation_checkout_stat = ManifestationCheckoutStat.new
     @manifestation_checkout_stat.start_date = Time.zone.now.beginning_of_day
     @manifestation_checkout_stat.end_date = Time.zone.now.beginning_of_day
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @manifestation_checkout_stat }
-    end
   end
 
   # GET /manifestation_checkout_stats/1/edit

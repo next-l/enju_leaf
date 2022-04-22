@@ -9,7 +9,6 @@ class DemandsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @demands }
     end
   end
 
@@ -18,20 +17,13 @@ class DemandsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @demand }
       format.text
     end
   end
 
   # GET /demands/new
-  # GET /demands/new.json
   def new
     @demand = Demand.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @demand }
-    end
   end
 
   # GET /demands/1/edit
