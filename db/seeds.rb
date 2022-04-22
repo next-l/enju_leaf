@@ -1,6 +1,6 @@
 username = 'enjuadmin'
 email = 'admin@example.jp'
-password = ENV.fetch('ENJU_LEAF_DEFAULT_ADMIN_PASSWORD')
+password = 'adminpassword'
 
 # Don't edit the following lines!
 
