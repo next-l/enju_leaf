@@ -9,7 +9,6 @@ class EventExportFilesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @event_export_files }
     end
   end
 
@@ -24,7 +23,6 @@ class EventExportFilesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @event_export_file }
       format.download {
         if ENV['ENJU_STORAGE'] == 's3'
           send_data Faraday.get(@event_export_file.event_export.expiring_url).body.force_encoding('UTF-8'),
@@ -37,15 +35,9 @@ class EventExportFilesController < ApplicationController
   end
 
   # GET /event_export_files/new
-  # GET /event_export_files/new.json
   def new
     @event_export_file = EventExportFile.new
     @event_export_file.user = current_user
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @event_export_file }
-    end
   end
 
   # GET /event_export_files/1/edit

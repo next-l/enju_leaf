@@ -32,7 +32,6 @@ class ClassificationsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @classifications }
     end
   end
 
@@ -41,21 +40,14 @@ class ClassificationsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @classification }
     end
   end
 
   # GET /classifications/new
-  # GET /classifications/new.json
   def new
     @classification_types = ClassificationType.all
     @classification = Classification.new
     @classification.classification_type = @classification_type
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @classification }
-    end
   end
 
   # GET /classifications/1/edit

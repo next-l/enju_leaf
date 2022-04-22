@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.5'
+ruby '2.7.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.5'
@@ -84,13 +84,13 @@ gem 'progress_bar'
 gem 'dynamic_form'
 gem 'rails_autolink'
 gem 'faraday_middleware'
-gem 'erubis'
 gem 'kramdown'
 gem 'resque', require: 'resque/server'
-gem 'paper_trail'
 gem 'sassc', '~> 2.1.0'
 gem 'acts-as-taggable-on'
 gem 'resync', github: 'nabeta/resync', branch: 'add-datetime'
+gem 'caxlsx'
+gem 'caxlsx_rails'
 
 group :development, :test do
   gem 'annotate'

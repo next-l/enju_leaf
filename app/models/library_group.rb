@@ -73,6 +73,10 @@ class LibraryGroup < ApplicationRecord
 
     false
   end
+
+  def email
+    user&.email
+  end
 end
 
 # == Schema Information

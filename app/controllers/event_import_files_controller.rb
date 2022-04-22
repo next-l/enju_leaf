@@ -10,7 +10,6 @@ class EventImportFilesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @event_import_files }
     end
   end
 
@@ -26,7 +25,6 @@ class EventImportFilesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @event_import_file }
       format.download {
         if ENV['ENJU_STORAGE'] == 's3'
           redirect_to URI.parse(@event_import_file.event_import.expiring_url(10)).to_s
@@ -38,16 +36,10 @@ class EventImportFilesController < ApplicationController
   end
 
   # GET /event_import_files/new
-  # GET /event_import_files/new.json
   def new
     @event_import_file = EventImportFile.new
     @event_import_file.default_library = current_user.profile.library
     @event_import_file.default_event_category = @event_categories.first
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @event_import_file }
-    end
   end
 
   # GET /event_import_files/1/edit

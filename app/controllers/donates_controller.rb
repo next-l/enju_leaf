@@ -9,7 +9,6 @@ class DonatesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @donates }
     end
   end
 
@@ -18,19 +17,12 @@ class DonatesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @donate }
     end
   end
 
   # GET /donates/new
-  # GET /donates/new.json
   def new
     @donate = Donate.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @donate }
-    end
   end
 
   # GET /donates/1/edit

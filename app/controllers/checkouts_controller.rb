@@ -96,8 +96,7 @@ class CheckoutsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @checkouts }
-      format.rss  { render layout: false }
+      format.rss
       format.ics
       format.text
       format.atom
@@ -109,7 +108,6 @@ class CheckoutsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @checkout }
     end
   end
 

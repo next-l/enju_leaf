@@ -10,7 +10,6 @@ class UserReserveStatsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @user_reserve_stats }
     end
   end
 
@@ -26,20 +25,13 @@ class UserReserveStatsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @user_reserve_stat }
       format.text
     end
   end
 
   # GET /user_reserve_stats/new
-  # GET /user_reserve_stats/new.json
   def new
     @user_reserve_stat = UserReserveStat.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @user_reserve_stat }
-    end
   end
 
   # GET /user_reserve_stats/1/edit

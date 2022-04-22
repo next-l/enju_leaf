@@ -36,7 +36,10 @@ class UserCheckoutStat < ApplicationRecord
     end
     self.completed_at = Time.zone.now
     transition_to!(:completed)
-    send_message
+
+    mailer = UserCheckoutStatMailer.completed(self)
+    mailer.deliver_later
+    send_message(mailer)
   end
 end
 

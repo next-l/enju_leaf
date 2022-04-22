@@ -9,7 +9,6 @@ class ManifestationRelationshipTypesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @manifestation_relationship_types }
     end
   end
 
@@ -18,19 +17,12 @@ class ManifestationRelationshipTypesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @manifestation_relationship_type }
     end
   end
 
   # GET /manifestation_relationship_types/new
-  # GET /manifestation_relationship_types/new.json
   def new
     @manifestation_relationship_type = ManifestationRelationshipType.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @manifestation_relationship_type }
-    end
   end
 
   # GET /manifestation_relationship_types/1/edit

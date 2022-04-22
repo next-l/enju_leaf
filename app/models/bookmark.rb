@@ -142,7 +142,7 @@ class Bookmark < ApplicationRecord
       return
     end
     manifestation = Manifestation.new(access_address: url)
-    manifestation.carrier_type = CarrierType.where(name: 'file').first
+    manifestation.carrier_type = CarrierType.find_by(name: 'online_resource')
     if title.present?
       manifestation.original_title = title
     else

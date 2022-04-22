@@ -9,7 +9,6 @@ class EventCategoriesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @event_categories }
     end
   end
 
@@ -18,19 +17,12 @@ class EventCategoriesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @event_category }
     end
   end
 
   # GET /event_categories/new
-  # GET /event_categories/new.json
   def new
     @event_category = EventCategory.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @event_category }
-    end
   end
 
   # GET /event_categories/1/edit

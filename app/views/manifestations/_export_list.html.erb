@@ -2,6 +2,7 @@
 <ul>
   <li><%= link_to 'RDF/XML', url_for(request.params.merge(format: :rdf, only_path: true)) %>
   <li><%= link_to 'MODS', url_for(request.params.merge(format: :mods, only_path: true)) %></li>
+  <li><%= link_to 'XLSX', url_for(request.params.merge(format: :xlsx, only_path: true)) %></li>
   <li><%= link_to 'TSV', url_for(request.params.merge(format: :txt, only_path: true)) %></li>
   <li><%= link_to 'JSON', url_for(request.params.merge(format: :json, only_path: true)) %></li>
 </ul>

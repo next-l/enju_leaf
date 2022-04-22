@@ -9,7 +9,6 @@ class BookstoresController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @bookstores }
     end
   end
 
@@ -18,19 +17,12 @@ class BookstoresController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @bookstore }
     end
   end
 
   # GET /bookstores/new
-  # GET /bookstores/new.json
   def new
     @bookstore = Bookstore.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @bookstore }
-    end
   end
 
   # GET /bookstores/1/edit

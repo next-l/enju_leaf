@@ -15,7 +15,6 @@ class PictureFilesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @picture_files }
     end
   end
 
@@ -41,7 +40,6 @@ class PictureFilesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @picture_file }
       format.html.phone {
         if params[:format] == 'download'
           render_image(file)
@@ -54,7 +52,6 @@ class PictureFilesController < ApplicationController
   end
 
   # GET /picture_files/new
-  # GET /picture_files/new.json
   def new
     unless @attachable
       redirect_to picture_files_url
@@ -63,11 +60,6 @@ class PictureFilesController < ApplicationController
     #raise unless @event or @manifestation or @shelf or @agent
     @picture_file = PictureFile.new
     @picture_file.picture_attachable = @attachable
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @picture_file }
-    end
   end
 
   # GET /picture_files/1/edit
