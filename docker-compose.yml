@@ -70,7 +70,7 @@ services:
     networks:
       internal:
     volumes:
-      - solr:/usr/share/solr/data
+      - solr:/opt/solr/server/solr/mycores
       - ./solr:/mnt/solr
     restart: always
     command: bash -c "precreate-core enju_leaf_${RAILS_ENV} /mnt/solr/configsets/sunspot/conf/; precreate-core enju_leaf_test /mnt/solr/configsets/sunspot/conf/; exec solr -f"

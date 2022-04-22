@@ -215,3 +215,20 @@ en:
     by_manifestation: By manifestation
   manifestation:
     currently_checked_out: Currently checked out
+  checkout_mailer:
+    due_date: Your due date is approaching
+    overdue: You have an overdue item
+  reserve_mailer:
+    accepted: Reservation accepted
+    canceled: Reservation canceled
+    expired: Reservation expired
+    retained: Reservation retained
+    postponed: Reservation postponed
+  user_checkout_stat_mailer:
+    completed: Calculation completed
+  user_reserve_stat_mailer:
+    completed: Calculation completed
+  manifestation_checkout_stat_mailer:
+    completed: Calculation completed
+  manifestation_reserve_stat_mailer:
+    completed: Calculation completed

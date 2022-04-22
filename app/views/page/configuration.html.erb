@@ -35,9 +35,6 @@
         <% end %>
         <li><%= link_to t('activerecord.models.budget_type'), budget_types_path -%></li>
         <li><%= link_to t('activerecord.models.bookstore'), bookstores_path -%></li>
-        <% if defined?(EnjuMessage) %>
-          <li><%= link_to t('activerecord.models.message_template'), message_templates_path -%></li>
-        <% end %>
         <li><%= link_to t('activerecord.models.search_engine'), search_engines_path -%></li>
         <% if defined?(EnjuBarcode) %>
           <li><%= link_to t('activerecord.models.barcode'), barcodes_path -%></li>

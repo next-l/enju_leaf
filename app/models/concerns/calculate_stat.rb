@@ -24,12 +24,13 @@ module CalculateStat
   end
 
   # 利用統計の集計完了メッセージを送信します。
-  def send_message
+  def send_message(mailer)
     sender = User.find(1) #system
-    message_template = MessageTemplate.localized_template('counting_completed', user.profile.locale)
-    request = MessageRequest.new
-    request.assign_attributes({sender: sender, receiver: user, message_template: message_template})
-    request.save_message_body
-    request.transition_to!(:sent)
+    message = Message.create!(
+      recipient: user.username,
+      sender: sender,
+      body: mailer.body.raw_source,
+      subject: mailer.subject
+    )
   end
 end

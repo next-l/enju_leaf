@@ -112,8 +112,6 @@ Rails.application.routes.draw do
       post :destroy_selected
     end
   end
-  resources :message_templates
-  resources :message_requests
 
   constraints format: :html do
     resources :request_status_types, only: [:index, :show, :edit, :update]
