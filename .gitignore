@@ -31,3 +31,5 @@
 /config/master.key
 
 /.env
+/coverage/*
+/private/*
