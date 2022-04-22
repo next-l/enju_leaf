@@ -118,15 +118,7 @@
 </div>
 
 <% if defined?(EnjuBookmark) %>
-  <script type="text/javascript">
-    window.onload = function() {
-      $("#tag_cloud_list").load('<%= url_for(request.params.merge(view: "tag_cloud", only_path: true)) -%>', hideTagCloudSpinner);
-    }
-
-    function hideTagCloudSpinner(){
-      $("#spinner_tag_cloud").hide();
-    }
-  </script>
+  <%# render 'manifestations/_render_tag_cloud' %>
 <% end %>
 
 <% if @manifestation_ids and @search_query %>
