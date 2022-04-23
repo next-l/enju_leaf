@@ -30,6 +30,19 @@ RSpec.describe 'Manifestations', type: :system do
       visit manifestation_path(@item.manifestation.id, locale: :ja)
       expect(page).to have_content @item.manifestation.manifestation_custom_values.first.value
     end
+
+    it 'should display delete_attachment if a file is attached' do
+      @item.manifestation.attachment = File.open(Rails.root.join('spec/fixtures/files/resource_import_file_sample1.tsv'))
+      @item.manifestation.save
+
+      visit edit_manifestation_path(@item.manifestation.id, locale: :ja)
+      expect(page).to have_field('manifestation[delete_attachment]')
+    end
+
+    it 'should not display delete_attachment if a manifestation is a new record' do
+      visit new_manifestation_path
+      expect(page).not_to have_field('manifestation[delete_attachment]')
+    end
   end
 
   describe 'When logged in as User' do
