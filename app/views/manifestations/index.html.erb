@@ -78,12 +78,7 @@
       <br />
     </div>
     <% if defined?(EnjuBookmark) %>
-      <div id="tag_cloud">
-        <h3 class="resource_title"><%= t('activerecord.models.tag') -%></h3>
-        <div id="tag_cloud_list"></div>
-        <%= image_tag 'spinner.gif', id: 'spinner_tag_cloud',
-          style: 'padding-bottom: 15px; padding-left: 40px;' -%>
-      </div>
+      <%# render 'manifestations/_render_tag_cloud' %>
     <% end %>
   <%- else -%>
     <%- if @parent -%>
@@ -116,18 +111,6 @@
   </div>
   <%= render 'manifestations/export_list' %>
 </div>
-
-<% if defined?(EnjuBookmark) %>
-  <script type="text/javascript">
-    window.onload = function() {
-      $("#tag_cloud_list").load('<%= url_for(request.params.merge(view: "tag_cloud", only_path: true)) -%>', hideTagCloudSpinner);
-    }
-
-    function hideTagCloudSpinner(){
-      $("#spinner_tag_cloud").hide();
-    }
-  </script>
-<% end %>
 
 <% if @manifestation_ids and @search_query %>
   <%= render 'session_ids' %>

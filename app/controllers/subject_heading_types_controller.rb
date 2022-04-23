@@ -9,7 +9,6 @@ class SubjectHeadingTypesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @subject_heading_types }
     end
   end
 
@@ -18,19 +17,12 @@ class SubjectHeadingTypesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @subject_heading_type }
     end
   end
 
   # GET /subject_heading_types/new
-  # GET /subject_heading_types/new.json
   def new
     @subject_heading_type = SubjectHeadingType.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @subject_heading_type }
-    end
   end
 
   # GET /subject_heading_types/1/edit

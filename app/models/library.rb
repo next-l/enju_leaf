@@ -28,20 +28,6 @@ class Library < ApplicationRecord
   validates :isil, format: { with: /\A[A-Za-z]{1,4}-[A-Za-z0-9\/:\-]{2,11}\z/ }, allow_blank: true
   after_validation :geocode, if: :address_changed?
   after_create :create_shelf
-  after_destroy :clear_all_cache
-  after_save :clear_all_cache
-
-  def self.all_cache
-    if Rails.env.production?
-      Rails.cache.fetch('library_all'){ Library.all }
-    else
-      Library.all
-    end
-  end
-
-  def clear_all_cache
-    Rails.cache.delete('library_all')
-  end
 
   def create_shelf
     shelf = Shelf.new

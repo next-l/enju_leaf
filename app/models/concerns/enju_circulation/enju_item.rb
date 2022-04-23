@@ -38,7 +38,6 @@ module EnjuCirculation
       has_many :baskets, through: :checked_items
       belongs_to :circulation_status
       belongs_to :checkout_type
-      has_many :lending_policies, dependent: :destroy
       has_one :item_has_use_restriction, dependent: :destroy
       has_one :use_restriction, through: :item_has_use_restriction
       validate :check_circulation_status
@@ -49,8 +48,6 @@ module EnjuCirculation
         end
       end
       accepts_nested_attributes_for :item_has_use_restriction
-
-      before_update :delete_lending_policy
     end
 
     def set_circulation_status
@@ -139,36 +136,8 @@ module EnjuCirculation
       false
     end
 
-    def lending_rule(user)
-      policy = lending_policies.find_by(user_group_id: user.profile.user_group.id)
-      if policy
-        policy
-      else
-        create_lending_policy(user)
-      end
-    end
-
     def not_for_loan?
       !manifestation.items.for_checkout.include?(self)
-    end
-
-    def create_lending_policy(user)
-      rule = user.profile.user_group.user_group_has_checkout_types.find_by(checkout_type_id: checkout_type_id)
-      return nil unless rule
-
-      LendingPolicy.create!(
-        item_id: id,
-        user_group_id: rule.user_group_id,
-        fixed_due_date: rule.fixed_due_date,
-        loan_period: rule.checkout_period,
-        renewal: rule.checkout_renewal_limit
-      )
-    end
-
-    def delete_lending_policy
-      return nil unless changes[:checkout_type_id]
-
-      lending_policies.delete_all
     end
 
     def next_reservation

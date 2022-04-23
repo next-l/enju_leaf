@@ -9,7 +9,6 @@ class ResourceExportFilesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @resource_export_files }
     end
   end
 
@@ -24,7 +23,6 @@ class ResourceExportFilesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @resource_export_file }
       format.download {
         if ENV['ENJU_STORAGE'] == 's3'
           send_data Faraday.get(@resource_export_file.resource_export.expiring_url).body.force_encoding('UTF-8'),
@@ -37,15 +35,9 @@ class ResourceExportFilesController < ApplicationController
   end
 
   # GET /resource_export_files/new
-  # GET /resource_export_files/new.json
   def new
     @resource_export_file = ResourceExportFile.new
     @resource_export_file.user = current_user
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @resource_export_file }
-    end
   end
 
   # GET /resource_export_files/1/edit

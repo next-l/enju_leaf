@@ -11,7 +11,6 @@ class ManifestationReserveStatsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @manifestation_reserve_stats }
     end
   end
 
@@ -27,20 +26,13 @@ class ManifestationReserveStatsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @manifestation_reserve_stat }
       format.text
     end
   end
 
   # GET /manifestation_reserve_stats/new
-  # GET /manifestation_reserve_stats/new.json
   def new
     @manifestation_reserve_stat = ManifestationReserveStat.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @manifestation_reserve_stat }
-    end
   end
 
   # GET /manifestation_reserve_stats/1/edit

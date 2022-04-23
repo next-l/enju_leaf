@@ -8,3 +8,4 @@ brakeman.html
 /log/*
 /coverage/
 /private/
+/config/master.key

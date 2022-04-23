@@ -178,6 +178,22 @@ describe UserImportFile do
       user001 = User.where(username: 'user001').first
       user001.access_locked?.should be_truthy
     end
+
+    it "should update user's password" do
+      file = UserImportFile.create!(
+        user_import: fixture_file_upload("user_update_file4.tsv"),
+        user: users(:admin),
+        default_user_group: UserGroup.find(2),
+        default_library: Library.find(3)
+      )
+      result = file.modify
+      result.should have_key(:user_updated)
+      user001 = User.find_by(username: 'user001')
+      user001.access_locked?.should be_truthy
+      expect(user001.valid_password?('testpassword')).to be_truthy
+      user002 = User.find_by(username: 'librarian1')
+      expect(user002.valid_password?('librarian1password')).to be_truthy
+    end
   end
 
   describe "when its mode is 'destroy'" do

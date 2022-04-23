@@ -6,7 +6,9 @@ class AgentImportResultsController < ApplicationController
   # GET /agent_import_results.json
   def index
     @agent_import_file = AgentImportFile.find_by(id: params[:agent_import_file_id])
+
     if @agent_import_file
+      authorize @agent_import_file, :show?, policy_class: AgentImportFilePolicy
       @agent_import_results = @agent_import_file.agent_import_results.page(params[:page])
     else
       @agent_import_results = AgentImportResult.page(params[:page])
@@ -14,7 +16,6 @@ class AgentImportResultsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @agent_import_results }
       format.text
     end
   end
@@ -24,7 +25,6 @@ class AgentImportResultsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @agent_import_result }
     end
   end
 

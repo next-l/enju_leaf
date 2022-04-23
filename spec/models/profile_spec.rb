@@ -49,14 +49,6 @@ describe Profile do
       profiles(:profile_user1).checkout_icalendar_token.should be_nil
     end
   end
-
-  if defined?(EnjuCirculation)
-    it "should send_message" do
-      assert profiles(:profile_librarian1).user.send_message('reservation_expired_for_patron', manifestations: profiles(:profile_librarian1).user.reserves.not_sent_expiration_notice_to_patron.collect(&:manifestation))
-      profiles(:profile_librarian1).reload
-      profiles(:profile_librarian1).user.reserves.not_sent_expiration_notice_to_patron.should be_empty
-    end
-  end
 end
 
 # == Schema Information

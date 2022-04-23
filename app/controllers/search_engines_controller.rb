@@ -9,7 +9,6 @@ class SearchEnginesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @search_engines }
     end
   end
 
@@ -18,19 +17,12 @@ class SearchEnginesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @search_engine }
     end
   end
 
   # GET /search_engines/new
-  # GET /search_engines/new.json
   def new
     @search_engine = SearchEngine.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @search_engine }
-    end
   end
 
   # GET /search_engines/1/edit

@@ -1,5 +1,5 @@
 def update_agent_type
-  agent_types = YAML.load(open('db/fixtures/enju_biblio/agent_types.yml').read)
+  agent_types = YAML.safe_load(open('db/fixtures/enju_biblio/agent_types.yml').read)
   agent_types.each do |line|
     l = line[1].select!{|k, v| %w(name display_name note).include?(k)}
 

@@ -45,7 +45,6 @@ class ShelvesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @shelves }
     end
   end
 
@@ -56,28 +55,20 @@ class ShelvesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @shelf }
       format.html.phone
     end
   end
 
   # GET /shelves/new
-  # GET /shelves/new.json
   def new
     @shelf = Shelf.new
     @library ||= current_user.profile.library
     @shelf.library = @library
     # @shelf.user = current_user
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @shelf }
-    end
   end
 
   # GET /shelves/1/edit
   def edit
-    @shelf = Shelf.includes(:library).find(params[:id])
   end
 
   # POST /shelves
