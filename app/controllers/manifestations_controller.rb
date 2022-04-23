@@ -462,7 +462,7 @@ class ManifestationsController < ApplicationController
       :ndl_bib_id, :pub_date, :edition_string, :volume_number, :issue_number,
       :serial_number, :content_type_id, :attachment, :lock_version,
       :dimensions, :fulltext_content, :extent, :memo,
-      :parent_id,
+      :parent_id, :delete_attachment,
       :serial, :statement_of_responsibility,
       {creators_attributes: [
         :id, :last_name, :middle_name, :first_name,
