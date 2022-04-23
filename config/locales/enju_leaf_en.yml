@@ -295,6 +295,9 @@ en:
     default_locale: Default locale
     nosolr_error: 'There is an error on connecting to the search server.'
     nosolr_error_description: 'This error may be caused by a delay when the sever is still waiting for launching the search server. In that case, please wait for a while, and go back to this page later.'
+    delegated: Delegated
+    impersonate: "Impersonate"
+    stop_impersonating: "Back to %{username}"
   title:
     index: "index"
     show: "show"

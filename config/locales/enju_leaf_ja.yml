@@ -280,6 +280,9 @@ ja:
     default_locale: "既定の言語"
     nosolr_error: '検索サーバに不具合があるようです'
     nosolr_error_description: '検索サーバーの起動に時間がかかっている場合もこのエラーとなります。少し時間を置いてアクセスするとエラーが解消される場合もありますのでお試しください。'
+    delegated: 代理
+    impersonate: "ログインユーザを切り替える"
+    stop_impersonating: "%{username}に戻る"
   title:
     index: "一覧"
     show: "表示"
