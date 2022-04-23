@@ -12,6 +12,11 @@
     <div id="user_account">
       <% if user_signed_in? %>
         <%= t('page.logged_in_as', login_name: current_user.username) -%>
+        <% if current_user != true_user %>
+          (<%= t('page.delegated') %>)
+          <br />
+          <%= link_to t('page.stop_impersonating', username: true_user.username), stop_impersonating_dashboard_profiles_path, method: :post %>
+        <% end %>
         <br />
         <% if defined?(EnjuMessage) %>
           <%= link_to image_tag('icons/email.png', size: '16x16', class: 'enju_icon', alt: t('activerecord.models.message')), messages_path %>
