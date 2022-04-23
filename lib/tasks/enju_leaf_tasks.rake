@@ -47,11 +47,12 @@ namespace :enju_leaf do
   task :load_asset_files => :environment do
     library_group = LibraryGroup.order(created_at: :desc).first
     if library_group.header_logo.blank?
-      library_group.header_logo = File.open("#{File.dirname(__FILE__)}/../../app/assets/images/enju_leaf/enju-logo-yoko-without-white.png")
+      library_group.header_logo = File.open(Rails.root.join("app/assets/images/enju_leaf/enju-logo-yoko-without-white.png"))
       library_group.save!
     end
+
     if File.stat(Rails.root.join('public/favicon.ico').to_s).size.zero?
-      FileUtils.cp("#{File.dirname(__FILE__)}/../../app/assets/images/enju_leaf/favicon.ico", Rails.root.join('public/favicon.ico').to_s)
+      FileUtils.cp(Rails.root.join("app/assets/images/enju_leaf/favicon.ico"), Rails.root.join('public/favicon.ico'))
     end
     puts 'enju_leaf: Default asset file(s) are loaded successfully.'
   end
