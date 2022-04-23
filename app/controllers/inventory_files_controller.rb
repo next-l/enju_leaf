@@ -10,7 +10,6 @@ class InventoryFilesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @inventory_files }
     end
   end
 
@@ -26,7 +25,6 @@ class InventoryFilesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @inventory_file }
       format.download {
         if ENV['ENJU_STORAGE'] == 's3'
           send_data Faraday.get(@inventory_file.inventory.expiring_url).body.force_encoding('UTF-8'),
@@ -39,14 +37,8 @@ class InventoryFilesController < ApplicationController
   end
 
   # GET /inventory_files/new
-  # GET /inventory_files/new.json
   def new
     @inventory_file = InventoryFile.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @inventory_file }
-    end
   end
 
   # GET /inventory_files/1/edit

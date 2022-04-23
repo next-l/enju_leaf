@@ -2,8 +2,6 @@ en:
   activerecord:
     models:
       message: Message
-      message_template: Message template
-      message_request: Message request
 
     attributes:
       message:
@@ -12,15 +10,6 @@ en:
         sender: Sender
         receiver: Receiver
         recipient: Recipient
-      message_template:
-        status: Status
-        locale: Locale
-        title: Title
-        body: Body
-        position: Position
-      message_request:
-        sent_at: Sent at
-        deleted_at: Deleted at
 
   message:
     user_message: "%{login_name}'s messages"

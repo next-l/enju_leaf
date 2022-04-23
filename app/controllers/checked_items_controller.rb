@@ -15,7 +15,6 @@ class CheckedItemsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @checked_items }
       format.js
     end
   end
@@ -25,12 +24,10 @@ class CheckedItemsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @checked_item }
     end
   end
 
   # GET /checked_items/new
-  # GET /checked_items/new.json
   def new
     unless @basket
       redirect_to new_basket_url
@@ -38,11 +35,6 @@ class CheckedItemsController < ApplicationController
     end
     @checked_item = CheckedItem.new
     @checked_items = @basket.checked_items
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @checked_item }
-    end
   end
 
   # GET /checked_items/1/edit

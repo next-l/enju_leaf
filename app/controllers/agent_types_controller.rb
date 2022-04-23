@@ -9,7 +9,6 @@ class AgentTypesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @agent_types }
     end
   end
 
@@ -18,19 +17,12 @@ class AgentTypesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @agent_type }
     end
   end
 
   # GET /agent_types/new
-  # GET /agent_types/new.json
   def new
     @agent_type = AgentType.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @agent_type }
-    end
   end
 
   # GET /agent_types/1/edit

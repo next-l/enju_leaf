@@ -143,6 +143,7 @@ en:
     name: "Name"
     are_you_sure: "Are you sure?"
     file: "File"
+    delete_file: "Delete file"
     cancel: "Cancel"
     author: "Author"
     editor: "Editor"

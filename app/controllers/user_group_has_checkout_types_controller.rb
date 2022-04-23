@@ -12,7 +12,6 @@ class UserGroupHasCheckoutTypesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @user_group_has_checkout_types }
     end
   end
 
@@ -21,22 +20,15 @@ class UserGroupHasCheckoutTypesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @user_group_has_checkout_type }
     end
   end
 
   # GET /user_group_has_checkout_types/new
-  # GET /user_group_has_checkout_types/new.json
   def new
     @user_group_has_checkout_type = UserGroupHasCheckoutType.new(
       checkout_type: get_checkout_type,
       user_group: get_user_group
     )
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @user_group_has_checkout_type }
-    end
   end
 
   # GET /user_group_has_checkout_types/1/edit

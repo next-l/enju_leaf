@@ -13,7 +13,6 @@ namespace :enju_circulation do
     end
 
     Rake::Task['enju_event:setup'].invoke
-    Rake::Task['enju_message:setup'].invoke
 
     puts 'initial fixture files loaded.'
   end

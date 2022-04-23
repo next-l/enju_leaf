@@ -9,7 +9,6 @@ class AgentMergeListsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @agent_merge_lists }
     end
   end
 
@@ -18,19 +17,12 @@ class AgentMergeListsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @agent_merge_list }
     end
   end
 
   # GET /agent_merge_lists/new
-  # GET /agent_merge_lists/new.json
   def new
     @agent_merge_list = AgentMergeList.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @agent_merge_list }
-    end
   end
 
   # GET /agent_merge_lists/1/edit

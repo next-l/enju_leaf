@@ -9,7 +9,6 @@ class ContentTypesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @content_types }
     end
   end
 
@@ -18,19 +17,12 @@ class ContentTypesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @content_type }
     end
   end
 
   # GET /content_types/new
-  # GET /content_types/new.json
   def new
     @content_type = ContentType.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @content_type }
-    end
   end
 
   # GET /content_types/1/edit

@@ -1,7 +1,6 @@
 class Notifier < ApplicationMailer
   def message_notification(message_id)
     message = Message.find(message_id)
-    I18n.locale = message.receiver.profile.locale.try(:to_sym) || I18n.default_locale
     from = "#{LibraryGroup.system_name(message.receiver.profile.locale)} <#{LibraryGroup.site_config.user.email}>"
     if message.subject
       subject = message.subject

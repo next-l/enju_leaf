@@ -23,7 +23,6 @@ class LibrariesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @libraries }
     end
   end
 
@@ -45,7 +44,6 @@ class LibrariesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.html.phone
-      format.json { render json: @library }
       format.js
     end
   end
@@ -56,11 +54,6 @@ class LibrariesController < ApplicationController
     @library.library_group = LibraryGroup.first
     @library.country = LibraryGroup.site_config.country
     prepare_options
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @library }
-    end
   end
 
   # GET /libraries/1/edit

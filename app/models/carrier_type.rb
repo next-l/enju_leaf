@@ -20,6 +20,12 @@ class CarrierType < ApplicationRecord
   end
   validates_attachment_content_type :attachment, content_type: /\Aimage\/.*\Z/
 
+  before_save do
+    attachment.clear if delete_attachment == '1'
+  end
+
+  attr_accessor :delete_attachment
+
   def mods_type
     case name
     when 'volume'

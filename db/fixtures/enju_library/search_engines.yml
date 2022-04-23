@@ -1,0 +1,9 @@
+search_engine_00001:
+  id: 1
+  name: NDL Search
+  url: https://iss.ndl.go.jp
+  base_url: https://iss.ndl.go.jp/books
+  http_method: get
+  query_param: any
+  note: 
+  position: 1

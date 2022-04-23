@@ -9,7 +9,6 @@ class NiiTypesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @nii_types }
     end
   end
 
@@ -18,19 +17,12 @@ class NiiTypesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @nii_type }
     end
   end
 
   # GET /nii_types/new
-  # GET /nii_types/new.json
   def new
     @nii_type = NiiType.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @nii_type }
-    end
   end
 
   # GET /nii_types/1/edit

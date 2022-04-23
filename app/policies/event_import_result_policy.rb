@@ -7,14 +7,6 @@ class EventImportResultPolicy < ApplicationPolicy
     true if user.try(:has_role?, 'Librarian')
   end
 
-  def create?
-    false
-  end
-
-  def update?
-    false
-  end
-
   def destroy?
     false
   end

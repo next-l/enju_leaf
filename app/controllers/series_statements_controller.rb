@@ -34,7 +34,6 @@ class SeriesStatementsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @series_statements }
     end
   end
 
@@ -43,21 +42,12 @@ class SeriesStatementsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @series_statement }
-      #format.js
-      #format.mobile
     end
   end
 
   # GET /series_statements/new
-  # GET /series_statements/new.json
   def new
     @series_statement = SeriesStatement.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @series_statement }
-    end
   end
 
   # GET /series_statements/1/edit

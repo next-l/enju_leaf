@@ -9,7 +9,6 @@ class FrequenciesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @frequencies }
     end
   end
 
@@ -18,19 +17,12 @@ class FrequenciesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @frequency }
     end
   end
 
   # GET /frequencies/new
-  # GET /frequencies/new.json
   def new
     @frequency = Frequency.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @frequency }
-    end
   end
 
   # GET /frequencies/1/edit
