@@ -641,7 +641,7 @@ class Manifestation < ApplicationRecord
         record[:"subject:#{type.name}"] = subjects.where(subject_heading_type: type).pluck(:term).join('//')
       end
       ClassificationType.find_each do |type|
-        record[:"classification:#{type.name}"] = classifications.where(classification_type: type).pluck(:category).join('//')
+        record[:"classification:#{type.name}"] = classifications.where(classification_type: type).pluck(:category).map(&:to_s).join('//')
       end
     end
 
