@@ -15,7 +15,7 @@
         <% if current_user != true_user %>
           (<%= t('page.delegated') %>)
           <br />
-          <%= link_to t('page.stop_impersonating', username: true_user.username), stop_impersonating_dashboard_profiles_path, method: :post %>
+          <%= link_to t('page.stop_impersonating', username: true_user.username), stop_impersonating_profiles_path, method: :post %>
         <% end %>
         <br />
         <% if defined?(EnjuMessage) %>
