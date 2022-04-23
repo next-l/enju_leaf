@@ -676,11 +676,6 @@ class ManifestationsController < ApplicationController
     case mode
     when 'holding'
       render partial: 'manifestations/show_holding', locals: {manifestation: @manifestation}
-    when 'barcode'
-      if defined?(EnjuBarcode)
-        barcode = Barby::QrCode.new(@manifestation.id)
-        send_data(barcode.to_svg, disposition: 'inline', type: 'image/svg+xml')
-      end
     when 'tag_edit'
       if defined?(EnjuBookmark)
         render partial: 'manifestations/tag_edit', locals: {manifestation: @manifestation}

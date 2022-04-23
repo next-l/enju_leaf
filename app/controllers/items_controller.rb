@@ -121,13 +121,6 @@ class ItemsController < ApplicationController
       @count[:total] = @items.total_entries
     end
 
-    if defined?(EnjuBarcode)
-      if params[:mode] == 'barcode'
-        render action: 'barcode', layout: false
-        return
-      end
-    end
-
     flash[:page_info] = { page: page, query: query }
 
     respond_to do |format|
