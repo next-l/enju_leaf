@@ -4,7 +4,7 @@ class Library < ApplicationRecord
 
   default_scope { order('libraries.position') }
   scope :real, -> { where('id != 1') }
-  has_many :shelves, dependent: :destroy
+  has_many :shelves, -> { order('shelves.position') }, dependent: :destroy
   belongs_to :library_group
   has_many :profiles
   belongs_to :country, optional: true

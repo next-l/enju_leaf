@@ -159,7 +159,7 @@ class ItemsController < ApplicationController
       redirect_to manifestations_url(parent_id: @manifestation.id)
       return
     end
-    @item = Item.new
+    @item = Item.new(library_id: @library.id)
     @item.shelf = @library.shelves.first
     @item.manifestation = @manifestation
     if defined?(EnjuCirculation)
