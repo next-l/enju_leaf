@@ -9,7 +9,6 @@ class SeriesStatementMergeListsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @series_statement_merge_lists }
     end
   end
 
@@ -18,19 +17,12 @@ class SeriesStatementMergeListsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @series_statement_merge_list }
     end
   end
 
   # GET /series_statement_merge_lists/new
-  # GET /series_statement_merge_lists/new.json
   def new
     @series_statement_merge_list = SeriesStatementMergeList.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @series_statement_merge_list }
-    end
   end
 
   # GET /series_statement_merge_lists/1/edit

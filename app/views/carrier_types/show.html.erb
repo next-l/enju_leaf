@@ -27,7 +27,7 @@
   </p>
   <ul>
     <% @carrier_type.checkout_types.each do |checkout_type| %>
-      <li><%= link_to checkout_type.display_name.localize, checkout_type %></li>
+      <li><%= link_to checkout_type.display_name.localize, checkout_type_path(checkout_type) %></li>
     <% end %>
   </ul>
 <% end %>

@@ -11,30 +11,8 @@ class UserGroupHasCheckoutType < ApplicationRecord
   validates :checkout_renewal_limit, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validates :reservation_limit, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validates :reservation_expired_period, numericality: {only_integer: true, greater_than_or_equal_to: 0}
-  after_update :update_lending_policy
 
   acts_as_list scope: :user_group_id
-
-  def create_lending_policy
-    checkout_type.items.find_each do |item|
-      policy = LendingPolicy.where(item_id: item.id, user_group_id: user_group_id).select(:id).first
-      unless policy
-        sql = ['INSERT INTO lending_policies (item_id, user_group_id, loan_period, renewal, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)', item.id, user_group_id, checkout_period, checkout_renewal_limit, Time.zone.now, Time.zone.now]
-        ActiveRecord::Base.connection.execute(
-          self.class.send(:sanitize_sql_array, sql)
-        )
-      end
-    end
-  end
-
-  def update_lending_policy
-    checkout_type.items.each do |item|
-      sql = ['UPDATE lending_policies SET loan_period = ?, renewal = ?, updated_at = ? WHERE user_group_id = ? AND item_id = ?', checkout_period, checkout_renewal_limit, Time.zone.now, user_group_id, item.id]
-      ActiveRecord::Base.connection.execute(
-        self.class.send(:sanitize_sql_array, sql)
-      )
-    end
-  end
 
   def self.update_current_checkout_count
     sql = [

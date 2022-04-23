@@ -14,7 +14,6 @@ class CheckoutTypesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @checkout_types }
     end
   end
 
@@ -27,22 +26,15 @@ class CheckoutTypesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @checkout_type }
     end
   end
 
   # GET /checkout_types/new
-  # GET /checkout_types/new.json
   def new
     if @user_group
       @checkout_type = @user_group.checkout_types.new
     else
       @checkout_type = CheckoutType.new
-    end
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @checkout_type }
     end
   end
 

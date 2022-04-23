@@ -751,20 +751,6 @@ ActiveRecord::Schema.define(version: 2022_03_21_071104) do
     t.index ["name"], name: "index_languages_on_name", unique: true
   end
 
-  create_table "lending_policies", id: :serial, force: :cascade do |t|
-    t.integer "item_id", null: false
-    t.integer "user_group_id", null: false
-    t.integer "loan_period", default: 0, null: false
-    t.datetime "fixed_due_date"
-    t.integer "renewal", default: 0, null: false
-    t.integer "fine", default: 0, null: false
-    t.text "note"
-    t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["item_id", "user_group_id"], name: "index_lending_policies_on_item_id_and_user_group_id", unique: true
-  end
-
   create_table "libraries", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.text "display_name"
@@ -1012,43 +998,6 @@ ActiveRecord::Schema.define(version: 2022_03_21_071104) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "message_request_transitions", force: :cascade do |t|
-    t.string "to_state"
-    t.text "metadata", default: "{}"
-    t.integer "sort_key"
-    t.bigint "message_request_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "most_recent", null: false
-    t.index ["message_request_id", "most_recent"], name: "index_message_request_transitions_parent_most_recent", unique: true, where: "most_recent"
-    t.index ["message_request_id"], name: "index_message_request_transitions_on_message_request_id"
-    t.index ["sort_key", "message_request_id"], name: "index_message_request_transitions_on_sort_key_and_request_id", unique: true
-  end
-
-  create_table "message_requests", force: :cascade do |t|
-    t.bigint "sender_id"
-    t.bigint "receiver_id"
-    t.bigint "message_template_id"
-    t.datetime "sent_at"
-    t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["message_template_id"], name: "index_message_requests_on_message_template_id"
-    t.index ["receiver_id"], name: "index_message_requests_on_receiver_id"
-    t.index ["sender_id"], name: "index_message_requests_on_sender_id"
-  end
-
-  create_table "message_templates", force: :cascade do |t|
-    t.string "status", null: false
-    t.text "title", null: false
-    t.text "body", null: false
-    t.integer "position"
-    t.string "locale", default: "en"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["status"], name: "index_message_templates_on_status", unique: true
   end
 
   create_table "message_transitions", force: :cascade do |t|
@@ -1766,16 +1715,6 @@ ActiveRecord::Schema.define(version: 2022_03_21_071104) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  create_table "versions", id: :serial, force: :cascade do |t|
-    t.string "item_type", null: false
-    t.integer "item_id", null: false
-    t.string "event", null: false
-    t.string "whodunnit"
-    t.text "object"
-    t.datetime "created_at"
-    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
-  end
-
   create_table "withdraws", id: :serial, force: :cascade do |t|
     t.integer "basket_id"
     t.integer "item_id"
@@ -1812,8 +1751,6 @@ ActiveRecord::Schema.define(version: 2022_03_21_071104) do
   add_foreign_key "item_has_use_restrictions", "use_restrictions"
   add_foreign_key "items", "manifestations"
   add_foreign_key "jpno_records", "manifestations"
-  add_foreign_key "lending_policies", "items"
-  add_foreign_key "lending_policies", "user_groups"
   add_foreign_key "libraries", "library_groups"
   add_foreign_key "library_groups", "users"
   add_foreign_key "manifestation_checkout_stats", "users"

@@ -47,12 +47,32 @@ namespace :enju_leaf do
   task :load_asset_files => :environment do
     library_group = LibraryGroup.order(created_at: :desc).first
     if library_group.header_logo.blank?
-      library_group.header_logo = File.open("#{File.dirname(__FILE__)}/../../app/assets/images/enju_leaf/enju-logo-yoko-without-white.png")
+      library_group.header_logo = File.open(Rails.root.join("app/assets/images/enju_leaf/enju-logo-yoko-without-white.png"))
       library_group.save!
     end
+
     if File.stat(Rails.root.join('public/favicon.ico').to_s).size.zero?
-      FileUtils.cp("#{File.dirname(__FILE__)}/../../app/assets/images/enju_leaf/favicon.ico", Rails.root.join('public/favicon.ico').to_s)
+      FileUtils.cp(Rails.root.join("app/assets/images/enju_leaf/favicon.ico"), Rails.root.join('public/favicon.ico'))
     end
     puts 'enju_leaf: Default asset file(s) are loaded successfully.'
+  end
+
+  desc 'Backfill migration versions before Next-L Enju Leaf 1.4'
+  task :backfill_migration_versions => :environment do
+    Rake::Task['db:migrate'].invoke
+
+    Dir.glob(Rails.root.join('db/migrate/*.rb')).each do |file|
+			entry = File.basename(file).split('_', 3)
+      table_name = entry[2].gsub(/\.rb\z/, '')
+      version = entry[0].to_i
+
+      # このバージョンより新しいマイグレーションファイルは対象外
+      next if version > 20201025090703
+
+      next if ActiveRecord::Base.connection.exec_query('SELECT version FROM schema_migrations WHERE version = $1', 'SQL', [[nil, version]]).first
+
+      ActiveRecord::Base.connection.exec_query('INSERT INTO schema_migrations (version) VALUES ($1)', 'SQL', [[nil, version]])
+      puts "Added #{entry[0]}"
+    end
   end
 end

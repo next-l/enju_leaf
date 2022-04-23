@@ -25,7 +25,6 @@ class AcceptsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @accepts }
       format.js { @accept = Accept.new }
       format.text
     end
@@ -36,23 +35,16 @@ class AcceptsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @accept }
     end
   end
 
   # GET /new
-  # GET /new.json
   def new
     @basket = Basket.new
     @basket.user = current_user
     @basket.save!
     @accept = Accept.new
     @accepts = []
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @accept }
-    end
   end
 
   # GET /accepts/new

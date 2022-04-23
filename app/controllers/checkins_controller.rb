@@ -14,7 +14,6 @@ class CheckinsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @checkins }
       format.js
     end
   end
@@ -26,7 +25,6 @@ class CheckinsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @checkin }
     end
   end
 
@@ -43,11 +41,6 @@ class CheckinsController < ApplicationController
     @checkin = Checkin.new
     @checkins = Kaminari::paginate_array([]).page(1)
     flash[:checkin_basket_id] = @basket.id
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @checkin }
-    end
   end
 
   # GET /checkins/1/edit

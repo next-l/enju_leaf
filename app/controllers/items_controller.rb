@@ -121,13 +121,6 @@ class ItemsController < ApplicationController
       @count[:total] = @items.total_entries
     end
 
-    if defined?(EnjuBarcode)
-      if params[:mode] == 'barcode'
-        render action: 'barcode', layout: false
-        return
-      end
-    end
-
     flash[:page_info] = { page: page, query: query }
 
     respond_to do |format|
@@ -141,8 +134,6 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
-    #@item = Item.find(params[:id])
-    @item = @item.versions.find(@version).item if @version
     @manifestation = @item.manifestation unless @manifestation
 
     respond_to do |format|
@@ -152,7 +143,6 @@ class ItemsController < ApplicationController
   end
 
   # GET /items/new
-  # GET /items/new.json
   def new
     if Shelf.real.blank?
       flash[:notice] = t('item.create_shelf_first')
@@ -169,7 +159,7 @@ class ItemsController < ApplicationController
       redirect_to manifestations_url(parent_id: @manifestation.id)
       return
     end
-    @item = Item.new
+    @item = Item.new(library_id: @library.id)
     @item.shelf = @library.shelves.first
     @item.manifestation = @manifestation
     if defined?(EnjuCirculation)
@@ -185,11 +175,6 @@ class ItemsController < ApplicationController
       @item.checkout_type = @manifestation.carrier_type.checkout_types.first
       @item.item_has_use_restriction = ItemHasUseRestriction.new
       @item.item_has_use_restriction.use_restriction = UseRestriction.find_by(name: 'Not For Loan')
-    end
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @item }
     end
   end
 

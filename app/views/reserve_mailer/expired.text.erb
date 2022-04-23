@@ -1,0 +1,12 @@
+<%= @reserve.user.profile.full_name %> 様
+
+以下の資料の予約の期限が切れました。
+
+<%= @reserve.manifestation.original_title %>
+<%= manifestation_url(@reserve.manifestation) %>
+
+予約日時: <%= l(@reserve.created_at) %>
+取消日時: <%= l(@reserve.updated_at) %>
+
+-- 
+<%= @library_group.display_name.localize %>

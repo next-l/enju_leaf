@@ -14,7 +14,6 @@ class SubscriptionsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @subscriptions }
     end
   end
 
@@ -23,19 +22,12 @@ class SubscriptionsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @subscription }
     end
   end
 
   # GET /subscriptions/new
-  # GET /subscriptions/new.json
   def new
     @subscription = Subscription.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @subscription }
-    end
   end
 
   # GET /subscriptions/1/edit

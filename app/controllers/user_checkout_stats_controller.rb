@@ -10,7 +10,6 @@ class UserCheckoutStatsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @user_checkout_stats }
     end
   end
 
@@ -26,20 +25,13 @@ class UserCheckoutStatsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @user_checkout_stat }
       format.text
     end
   end
 
   # GET /user_checkout_stats/new
-  # GET /user_checkout_stats/new.json
   def new
     @user_checkout_stat = UserCheckoutStat.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @user_checkout_stat }
-    end
   end
 
   # GET /user_checkout_stats/1/edit
