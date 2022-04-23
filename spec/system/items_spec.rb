@@ -45,6 +45,11 @@ RSpec.describe 'Manifestations', type: :system do
       visit item_path(@item.id, locale: :ja)
       expect(page).to have_content @item.item_custom_values.first.value
     end
+
+    it 'should show new item' do
+      visit new_item_path(manifestation_id: @item.manifestation_id, locale: :ja)
+      expect(page).to have_select('item[shelf_id]', selected: 'Second shelf')
+    end
   end
 
   describe 'When logged in as User' do
