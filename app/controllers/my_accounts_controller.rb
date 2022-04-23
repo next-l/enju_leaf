@@ -6,7 +6,6 @@ class MyAccountsController < ApplicationController
     respond_to do |format|
       format.html
       format.html.phone
-      format.json { render json: @profile }
     end
   end
 

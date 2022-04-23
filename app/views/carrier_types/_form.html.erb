@@ -13,6 +13,15 @@
     <%= f.label t('page.file') -%>
     <%= f.file_field :attachment -%>
   </div>
+
+  <% if f.object.attachment.present? %>
+    <div class="field">
+      <%= f.label t('page.delete_file') -%>
+      <%= f.check_box :delete_attachment -%>
+      <%= f.object.attachment.original_filename %>
+    </div>
+  <% end %>
+
   <% if defined?(EnjuCirculation) and !@carrier_type.new_record? %>
     <%= render 'carrier_types/checkout_form', f: f %>
   <% end %>

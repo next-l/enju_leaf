@@ -137,6 +137,7 @@ ja:
     name: "名前"
     are_you_sure: "本当に実行してもよろしいですか？"
     file: "ファイル"
+    delete_file: "ファイルを削除"
     cancel: "取消"
     feed: "フィード"
     back_to_index: "一覧に戻る"

@@ -9,7 +9,6 @@ class CreateTypesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @create_types }
     end
   end
 
@@ -18,19 +17,12 @@ class CreateTypesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @create_type }
     end
   end
 
   # GET /create_types/new
-  # GET /create_types/new.json
   def new
     @create_type = CreateType.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @create_type }
-    end
   end
 
   # GET /create_types/1/edit

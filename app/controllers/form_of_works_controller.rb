@@ -9,7 +9,6 @@ class FormOfWorksController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @form_of_works }
     end
   end
 
@@ -18,19 +17,12 @@ class FormOfWorksController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @form_of_work }
     end
   end
 
   # GET /form_of_works/new
-  # GET /form_of_works/new.json
   def new
     @form_of_work = FormOfWork.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @form_of_work }
-    end
   end
 
   # GET /form_of_works/1/edit

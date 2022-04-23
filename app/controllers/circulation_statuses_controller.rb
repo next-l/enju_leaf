@@ -23,14 +23,8 @@ class CirculationStatusesController < ApplicationController
   end
 
   # GET /circulation_statuses/new
-  # GET /circulation_statuses/new.json
   def new
     @circulation_status = CirculationStatus.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @circulation_status }
-    end
   end
 
   # GET /circulation_statuses/1/edit

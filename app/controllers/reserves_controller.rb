@@ -102,8 +102,7 @@ class ReservesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @reserves }
-      format.rss  { render layout: false }
+      format.rss
       format.atom
       format.text
     end
@@ -114,17 +113,18 @@ class ReservesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @reserve }
     end
   end
 
   # GET /reserves/new
-  # GET /reserves/new.json
   def new
     @reserve = Reserve.new
 
-    if current_user.has_role?('Librarian')
-      @reserve.user = @user
+    if current_user.has_role?('Librarian') && @user
+      @reserve.assign_attributes(
+        user: @user,
+        pickup_location: @user.profile.library
+      )
     else
       if @user.present?
         if @user != current_user
@@ -132,7 +132,10 @@ class ReservesController < ApplicationController
           return
         end
       end
-      @reserve.user_number = current_user.profile.user_number
+      @reserve.assign_attributes(
+        user_number: current_user.profile.user_number,
+        pickup_location: current_user.profile.library
+      )
     end
 
     @manifestation = Manifestation.find_by(id: params[:manifestation_id])

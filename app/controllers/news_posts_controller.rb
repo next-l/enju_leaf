@@ -14,8 +14,7 @@ class NewsPostsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @news_posts }
-      format.rss  { render layout: false }
+      format.rss
       format.atom
     end
   end
@@ -25,19 +24,12 @@ class NewsPostsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @news_post }
     end
   end
 
   # GET /news_posts/new
-  # GET /news_posts/new.json
   def new
     @news_post = NewsPost.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @news_post }
-    end
   end
 
   # GET /news_posts/1/edit

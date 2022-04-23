@@ -244,6 +244,9 @@ class Manifestation < ApplicationRecord
   validates :serial_number, numericality: {greater_than_or_equal_to: 0}, allow_blank: true
   validates :edition, numericality: {greater_than_or_equal_to: 0}, allow_blank: true
   before_save :set_date_of_publication, :set_number
+  before_save do
+    attachment.clear if delete_attachment == '1'
+  end
   after_create :clear_cached_numdocs
   after_destroy :index_series_statement
   after_save :index_series_statement, :extract_text!
@@ -255,7 +258,7 @@ class Manifestation < ApplicationRecord
   strip_attributes only: [:manifestation_identifier, :pub_date, :original_title]
   paginates_per 10
 
-  attr_accessor :during_import, :parent_id
+  attr_accessor :during_import, :parent_id, :delete_attachment
 
   def set_date_of_publication
     return if pub_date.blank?
