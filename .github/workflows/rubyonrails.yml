@@ -15,7 +15,7 @@ jobs:
         ports:
           - "5432:5432"
         env:
-          POSTGRES_DB: enju_leaf_14_test
+          POSTGRES_DB: enju_leaf_test
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
     env:

@@ -90,6 +90,7 @@ gem 'sassc', '~> 2.1.0'
 gem 'acts-as-taggable-on'
 gem 'devise-two-factor'
 gem 'rqrcode'
+gem 'pretender'
 gem 'caxlsx'
 gem 'caxlsx_rails'
 
