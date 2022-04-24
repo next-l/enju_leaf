@@ -88,6 +88,7 @@ gem 'kramdown'
 gem 'resque', require: 'resque/server'
 gem 'sassc', '~> 2.1.0'
 gem 'acts-as-taggable-on'
+gem 'pretender'
 gem 'caxlsx'
 gem 'caxlsx_rails'
 
