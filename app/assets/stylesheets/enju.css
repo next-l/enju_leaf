@@ -570,3 +570,8 @@ div.search_form{
 img.enju_icon {
   vertical-align: middle;
 }
+
+h4.facet-header {
+  margin-top: 1em;
+  margin-bottom: 0em;
+}
