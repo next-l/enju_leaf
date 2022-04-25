@@ -16,6 +16,17 @@ describe CheckedItem do
     checked_item.save!
     items(:item_00024).circulation_status.name.should eq 'Available On Shelf'
   end
+
+  it "should checkout an item that its reservation is expired" do
+    item = items(:item_00024)
+    reserve = FactoryBot.create(:reserve, manifestation: item.manifestation)
+    reserve.transition_to!(:requested)
+    reserve.transition_to!(:expired)
+    checked_item = CheckedItem.new
+    checked_item.item = item
+    checked_item.basket = Basket.new(user: users(:admin))
+    expect(checked_item.save).to be_truthy
+  end
 end
 
 # == Schema Information
