@@ -1,0 +1,28 @@
+ja:
+  activerecord:
+    models:
+      news_feed: お知らせのフィード
+      news_post: 図書館からのお知らせ
+    attributes:
+      news_feed:
+        title: タイトル
+        url: URL
+        body: 本文
+        note: 注記
+        position: 位置
+      news_post:
+        title: タイトル
+        body: 本文
+        note: 注記
+        position: 位置
+        start_date: 開始日
+        end_date: 終了日
+        url: URL
+        draft: 下書き
+
+  page:
+    news: "お知らせ"
+  news_post:
+    library_group_news_post: "%{library_group_name} からのお知らせ"
+  news_feed:
+    failed_to_fetch_feed: フィードの読み込みに失敗しました。
