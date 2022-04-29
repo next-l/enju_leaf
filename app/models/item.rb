@@ -22,7 +22,7 @@ class Item < ApplicationRecord
   belongs_to :budget_type, optional: true
   has_one :accept, dependent: :destroy
   has_one :withdraw, dependent: :destroy
-  has_many :item_custom_values, -> { joins(:item_custom_property).order(:position) }, inverse_of: :item
+  has_many :item_custom_values, -> { joins(:item_custom_property).order(:position) }, inverse_of: :item, dependent: :destroy
 
   belongs_to :shelf, counter_cache: true
   accepts_nested_attributes_for :item_custom_values, reject_if: :all_blank
