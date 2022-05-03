@@ -341,7 +341,7 @@ class Manifestation < ApplicationRecord
 
   def url
     #access_address
-    "#{LibraryGroup.site_config.url}#{self.class.to_s.tableize}/#{self.id}"
+    "#{LibraryGroup.site_config.url}#{self.class.to_s.tableize}/#{id}"
   end
 
   def creator

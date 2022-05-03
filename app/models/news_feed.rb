@@ -1,4 +1,4 @@
-class NewsFeed < ActiveRecord::Base
+class NewsFeed < ApplicationRecord
   default_scope { order("news_feeds.position") }
   belongs_to :library_group
 
@@ -46,7 +46,7 @@ class NewsFeed < ActiveRecord::Base
   end
 
   def self.fetch_feeds
-    NewsFeed.all.each do |news_feed|
+    NewsFeed.find_each do |news_feed|
       news_feed.touch
     end
   end

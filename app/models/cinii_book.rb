@@ -1,6 +1,4 @@
 class CiniiBook
-  attr_reader :title, :creator, :publisher, :link, :ncid, :issued
-
   def initialize(node)
     @node = node
   end
