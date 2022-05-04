@@ -1,6 +1,6 @@
 class Bookstore < ApplicationRecord
   default_scope { order('bookstores.position') }
-  has_many :items
+  has_many :items, dependent: :nullify
 
   acts_as_list
   validates :name, presence: true

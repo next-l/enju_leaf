@@ -1,6 +1,6 @@
 class AgentType < ApplicationRecord
   include MasterModel
-  has_many :agents
+  has_many :agents, dependent: :nullify
 end
 
 # == Schema Information
