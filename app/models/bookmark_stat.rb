@@ -6,7 +6,7 @@ class BookmarkStat < ApplicationRecord
   include CalculateStat
   default_scope { order('bookmark_stats.id DESC') }
   scope :not_calculated, -> {in_state(:pending)}
-  has_many :bookmark_stat_has_manifestations
+  has_many :bookmark_stat_has_manifestations, dependent: :destroy
   has_many :manifestations, through: :bookmark_stat_has_manifestations
 
   paginates_per 10

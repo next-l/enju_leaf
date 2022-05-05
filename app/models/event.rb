@@ -16,7 +16,7 @@ class Event < ApplicationRecord
   belongs_to :event_category
   belongs_to :library
   belongs_to :place, optional: true
-  has_many :picture_files, as: :picture_attachable
+  has_many :picture_files, as: :picture_attachable, dependent: :destroy
   has_many :participates, dependent: :destroy
   has_many :agents, through: :participates
   has_one :event_import_result

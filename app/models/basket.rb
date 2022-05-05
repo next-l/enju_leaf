@@ -3,8 +3,8 @@ class Basket < ApplicationRecord
   default_scope { order('baskets.id DESC') }
   scope :will_expire, lambda {|date| where('created_at < ?', date)}
   belongs_to :user
-  has_many :accepts
-  has_many :withdraws
+  has_many :accepts, dependent: :destroy
+  has_many :withdraws, dependent: :destroy
 
   # 貸出完了後にかごのユーザidは破棄する
   validates :user, presence: { on: :create }
