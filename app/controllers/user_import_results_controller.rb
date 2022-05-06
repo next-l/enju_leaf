@@ -1,6 +1,6 @@
 class UserImportResultsController < ApplicationController
-  before_action :set_user_import_result, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_user_import_result, only: [:show, :destroy]
+  before_action :check_policy, only: [:index]
 
   # GET /user_import_results
   # GET /user_import_results.json

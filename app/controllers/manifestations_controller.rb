@@ -327,7 +327,7 @@ class ManifestationsController < ApplicationController
             send_file file, filename: File.basename(@manifestation.attachment_file_name), type: 'application/octet-stream'
           end
         else
-          render template: 'page/404', status: 404
+          render template: 'page/404', status: :not_found
         end
       }
     end

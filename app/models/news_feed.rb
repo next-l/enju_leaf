@@ -15,7 +15,7 @@ class NewsFeed < ApplicationRecord
   def fetch
     begin
       feed = Faraday.get(url).body.force_encoding('UTF-8')
-      if rss = RSS::Parser.parse(feed, false)
+      if RSS::Parser.parse(feed, false)
         self.body = feed
       end
     rescue StandardError, Timeout::Error

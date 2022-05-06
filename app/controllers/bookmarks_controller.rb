@@ -8,7 +8,7 @@ class BookmarksController < ApplicationController
   def index
     search = Bookmark.search(include: [:manifestation])
     query = params[:query].to_s.strip
-    unless query.blank?
+    if query.present?
       @query = query.dup
     end
     user = @user
