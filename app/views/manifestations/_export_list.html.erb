@@ -1,4 +1,4 @@
-<h4><%= t('page.other_format') %></h4>
+<h4 class="facet-header"><%= t('page.other_format') %></h4>
 <ul>
   <li><%= link_to 'RDF/XML', url_for(request.params.merge(format: :rdf, only_path: true)) %>
   <li><%= link_to 'MODS', url_for(request.params.merge(format: :mods, only_path: true)) %></li>

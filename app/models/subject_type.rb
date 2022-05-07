@@ -1,6 +1,6 @@
 class SubjectType < ApplicationRecord
   include MasterModel
-  has_many :subjects, dependent: :destroy
+  has_many :subjects, dependent: :restrict_with_exception
   validates :name, format: {with: /\A[0-9A-Za-z][0-9a-z_\-]*[0-9a-z]\Z/}
 end
 

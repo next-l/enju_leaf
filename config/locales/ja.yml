@@ -16,3 +16,12 @@ ja:
       only_year_and_month: "%Y年%m月"
       only_month: "%m月"
     pm: 午後
+
+  helpers:
+    submit:
+      create: "%{model}を作成"
+      update: "%{model}を更新"
+  cocoon:
+    defaults:
+      add: "行を追加"
+      remove: "行を削除"

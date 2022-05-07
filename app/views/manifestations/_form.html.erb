@@ -114,6 +114,14 @@
     <%= f.file_field :attachment -%>
   </div>
 
+  <% if f.object.attachment.present? %>
+    <div class="field">
+      <%= f.label t('page.delete_file') -%>
+      <%= f.check_box :delete_attachment -%>
+      <%= f.object.attachment.original_filename %>
+    </div>
+  <% end %>
+
   <div class="field">
     <%= f.label t('activerecord.models.content_type') -%>
     <%= f.select(:content_type_id, @content_types.collect{|c| [c.display_name.localize, c.id]}) -%>

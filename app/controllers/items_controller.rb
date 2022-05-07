@@ -121,13 +121,6 @@ class ItemsController < ApplicationController
       @count[:total] = @items.total_entries
     end
 
-    if defined?(EnjuBarcode)
-      if params[:mode] == 'barcode'
-        render action: 'barcode', layout: false
-        return
-      end
-    end
-
     flash[:page_info] = { page: page, query: query }
 
     respond_to do |format|
@@ -166,7 +159,7 @@ class ItemsController < ApplicationController
       redirect_to manifestations_url(parent_id: @manifestation.id)
       return
     end
-    @item = Item.new
+    @item = Item.new(library_id: @library.id)
     @item.shelf = @library.shelves.first
     @item.manifestation = @manifestation
     if defined?(EnjuCirculation)

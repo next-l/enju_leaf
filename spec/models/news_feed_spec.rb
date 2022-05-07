@@ -20,7 +20,7 @@ describe NewsFeed do
   end
 
   it "should fetch feeds", vcr: true do
-    NewsFeed.fetch_feeds.should be_truthy
+    expect(NewsFeed.fetch_feeds).to be_nil
   end
 end
 

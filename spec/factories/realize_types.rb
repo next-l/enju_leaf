@@ -1,4 +1,4 @@
-# Read about factories at http://github.com/thoughtbot/factory_girl
+# Read about factories at http://github.com/thoughtbot/factory_bot
 
 FactoryBot.define do
   factory :realize_type do

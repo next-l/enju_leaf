@@ -27,7 +27,7 @@ class Manifestation < ApplicationRecord
   belongs_to :required_role, class_name: 'Role'
   has_one :resource_import_result
   has_many :identifiers, dependent: :destroy
-  has_many :manifestation_custom_values, -> { joins(:manifestation_custom_property).order(:position) }, inverse_of: :manifestation
+  has_many :manifestation_custom_values, -> { joins(:manifestation_custom_property).order(:position) }, inverse_of: :manifestation, dependent: :destroy
   accepts_nested_attributes_for :creators, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :contributors, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :publishers, allow_destroy: true, reject_if: :all_blank
@@ -244,6 +244,9 @@ class Manifestation < ApplicationRecord
   validates :serial_number, numericality: {greater_than_or_equal_to: 0}, allow_blank: true
   validates :edition, numericality: {greater_than_or_equal_to: 0}, allow_blank: true
   before_save :set_date_of_publication, :set_number
+  before_save do
+    attachment.clear if delete_attachment == '1'
+  end
   after_create :clear_cached_numdocs
   after_destroy :index_series_statement
   after_save :index_series_statement, :extract_text!
@@ -255,7 +258,7 @@ class Manifestation < ApplicationRecord
   strip_attributes only: [:manifestation_identifier, :pub_date, :original_title]
   paginates_per 10
 
-  attr_accessor :during_import, :parent_id
+  attr_accessor :during_import, :parent_id, :delete_attachment
 
   def set_date_of_publication
     return if pub_date.blank?
@@ -338,7 +341,7 @@ class Manifestation < ApplicationRecord
 
   def url
     #access_address
-    "#{LibraryGroup.site_config.url}#{self.class.to_s.tableize}/#{self.id}"
+    "#{LibraryGroup.site_config.url}#{self.class.to_s.tableize}/#{id}"
   end
 
   def creator
@@ -638,7 +641,7 @@ class Manifestation < ApplicationRecord
         record[:"subject:#{type.name}"] = subjects.where(subject_heading_type: type).pluck(:term).join('//')
       end
       ClassificationType.find_each do |type|
-        record[:"classification:#{type.name}"] = classifications.where(classification_type: type).pluck(:category).join('//')
+        record[:"classification:#{type.name}"] = classifications.where(classification_type: type).pluck(:category).map(&:to_s).join('//')
       end
     end
 

@@ -33,7 +33,7 @@ class Checkin < ApplicationRecord
     message = ''
     Checkin.transaction do
       item.checkin!
-      Checkout.not_returned.where(item_id: item_id).each do |checkout|
+      Checkout.not_returned.where(item_id: item_id).find_each do |checkout|
         # TODO: ILL時の処理
         checkout.checkin = self
         checkout.operator = current_user
@@ -64,11 +64,8 @@ class Checkin < ApplicationRecord
       # ReservationNotifier.deliver_reserved(item.manifestation.reserves.first.user, item.manifestation)
       # Message.create(sender: current_user, receiver: item.manifestation.next_reservation.user, subject: message_template.title, body: message_template.body, recipient: item.manifestation.next_reservation.user)
     end
-    if message.present?
-      message
-    else
-      nil
-    end
+
+    message.presence
   end
 
   def set_item

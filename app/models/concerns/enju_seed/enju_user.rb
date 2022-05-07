@@ -8,7 +8,7 @@ module EnjuSeed
       scope :suspended, -> { where.not(locked_at: nil) }
       has_one :profile, dependent: :nullify
       if defined?(EnjuBiblio)
-        has_many :import_requests
+        has_many :import_requests, dependent: :restrict_with_exception
         has_many :picture_files, as: :picture_attachable, dependent: :destroy
       end
       has_one :user_has_role, dependent: :destroy

@@ -8,7 +8,7 @@ class ClassificationsController < ApplicationController
   def index
     search = Sunspot.new_search(Classification)
     query = params[:query].to_s.strip
-    unless query.blank?
+    if query.present?
       @query = query.dup
       search.build do
         fulltext query
