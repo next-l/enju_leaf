@@ -290,7 +290,6 @@ end
 #  authentication_token     :string(255)
 #  created_at               :datetime        not null
 #  updated_at               :datetime        not null
-#  deleted_at               :datetime
 #  username                 :string(255)     not null
 #  library_id               :integer         default(1), not null
 #  user_group_id            :integer         default(1), not null

@@ -112,7 +112,6 @@ class Manifestation < ApplicationRecord
     end
     time :created_at
     time :updated_at
-    time :deleted_at
     time :pub_date, multiple: true do
       if series_master?
         root_series_statement.root_manifestation.pub_dates
