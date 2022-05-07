@@ -20,7 +20,7 @@ class NewsPost < ApplicationRecord
   end
 
   def check_date
-    if start_date and end_date
+    if start_date && end_date
       self.end_date = end_date.end_of_day
       if start_date >= end_date
         errors.add(:start_date)

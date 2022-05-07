@@ -77,7 +77,7 @@ class LocSearch
     params = options.map do |k, v|
         "#{CGI.escape(k.to_s)}=#{CGI.escape(v.to_s)}"
       end.join('&')
-    uri = "#{LOC_SRU_BASEURL}?#{params}"
+    "#{LOC_SRU_BASEURL}?#{params}"
   end
 
   def self.search(query, options = {})
