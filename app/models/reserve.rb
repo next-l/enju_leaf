@@ -26,10 +26,6 @@ class Reserve < ApplicationRecord
   belongs_to :request_status_type
   belongs_to :pickup_location, class_name: 'Library', optional: true
 
-  validates :manifestation, presence: true, unless: proc{|reserve|
-    reserve.completed?
-  }
-  # validates_uniqueness_of :manifestation_id, scope: :user_id
   validates_date :expired_at, allow_blank: true
   validate :manifestation_must_include_item
   validate :available_for_reservation?, on: :create
@@ -72,7 +68,7 @@ class Reserve < ApplicationRecord
     ReserveStateMachine.new(self, transition_class: ReserveTransition)
   end
 
-  has_many :reserve_transitions, autosave: false
+  has_many :reserve_transitions, autosave: false, dependent: :destroy
 
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
            to: :state_machine

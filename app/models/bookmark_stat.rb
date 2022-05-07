@@ -11,7 +11,7 @@ class BookmarkStat < ApplicationRecord
 
   paginates_per 10
 
-  has_many :bookmark_stat_transitions, autosave: false
+  has_many :bookmark_stat_transitions, autosave: false, dependent: :destroy
 
   def state_machine
     BookmarkStatStateMachine.new(self, transition_class: BookmarkStatTransition)

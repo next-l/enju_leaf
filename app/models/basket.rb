@@ -2,7 +2,7 @@ class Basket < ApplicationRecord
   include EnjuCirculation::EnjuBasket
   default_scope { order('baskets.id DESC') }
   scope :will_expire, lambda {|date| where('created_at < ?', date)}
-  belongs_to :user
+  belongs_to :user, optional: true
   has_many :accepts, dependent: :destroy
   has_many :withdraws, dependent: :destroy
 
