@@ -172,11 +172,6 @@ module EnjuLibrary
       end
     end
 
-    def get_version
-      @version = params[:version_id].to_i if params[:version_id]
-      @version = nil if @version == 0
-    end
-
     def clear_search_sessions
       session[:query] = nil
       session[:params] = nil
