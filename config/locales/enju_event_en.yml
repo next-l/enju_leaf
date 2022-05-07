@@ -19,7 +19,6 @@ en:
         note: Note
         start_at: Start at
         end_at: End at
-        deleted_at: Deleted at
         all_day: All day
         display_name: Display name
       event_import_file:
