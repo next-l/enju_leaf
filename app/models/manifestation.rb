@@ -112,7 +112,6 @@ class Manifestation < ApplicationRecord
     end
     time :created_at
     time :updated_at
-    time :deleted_at
     time :pub_date, multiple: true do
       if series_master?
         root_series_statement.root_manifestation.pub_dates
@@ -723,7 +722,6 @@ end
 #  date_copyrighted                :datetime
 #  created_at                      :datetime
 #  updated_at                      :datetime
-#  deleted_at                      :datetime
 #  access_address                  :string
 #  language_id                     :integer          default(1), not null
 #  carrier_type_id                 :integer          default(1), not null

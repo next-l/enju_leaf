@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_25_090703) do
+ActiveRecord::Schema.define(version: 2022_05_07_153151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,7 +126,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.text "full_name_alternative"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "deleted_at"
     t.string "zip_code_1"
     t.string "zip_code_2"
     t.text "address_1"
@@ -232,7 +231,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.string "fax_number"
     t.string "url"
     t.integer "position"
-    t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -544,7 +542,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.datetime "start_at"
     t.datetime "end_at"
     t.boolean "all_day", default: false, null: false
-    t.datetime "deleted_at"
     t.text "display_name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -697,7 +694,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.string "item_identifier"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "deleted_at"
     t.integer "shelf_id", default: 1, null: false
     t.boolean "include_supplements", default: false, null: false
     t.text "note"
@@ -771,7 +767,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.integer "country_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "deleted_at"
     t.text "opening_hour"
     t.string "isil"
     t.float "latitude"
@@ -933,7 +928,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.datetime "date_copyrighted"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "deleted_at"
     t.string "access_address"
     t.integer "language_id", default: 1, null: false
     t.integer "carrier_type_id", default: 1, null: false
@@ -1262,7 +1256,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.datetime "updated_at"
     t.datetime "canceled_at"
     t.datetime "expired_at"
-    t.datetime "deleted_at"
     t.boolean "expiration_notice_to_patron", default: false
     t.boolean "expiration_notice_to_library", default: false
     t.integer "pickup_location_id"
@@ -1419,7 +1412,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "deleted_at"
     t.boolean "closed", default: false, null: false
     t.index ["library_id"], name: "index_shelves_on_library_id"
   end
@@ -1454,7 +1446,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "deleted_at"
     t.string "url"
     t.integer "manifestation_id"
     t.integer "subject_heading_type_id"
@@ -1482,7 +1473,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.text "note"
     t.integer "user_id"
     t.integer "order_list_id"
-    t.datetime "deleted_at"
     t.integer "subscribes_count", default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1603,7 +1593,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "deleted_at"
     t.integer "valid_period_for_new_user", default: 0, null: false
     t.datetime "expired_at"
     t.integer "number_of_day_to_notify_overdue", default: 0, null: false
@@ -1697,7 +1686,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "username"
-    t.datetime "deleted_at"
     t.datetime "expired_at"
     t.integer "failed_attempts", default: 0
     t.string "unlock_token"

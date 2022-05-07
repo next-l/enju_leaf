@@ -43,7 +43,6 @@ en:
         checked_out_at: Checked out at
         canceled_at: Canceled at
         expired_at: Expired at
-        deleted_at: Deleted at
         created_at: Reserved at
         retained_at: Retained at
         postponed_at: Postponed at

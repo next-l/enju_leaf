@@ -21,7 +21,6 @@ en:
         email_confirmation: Email (confirmation)
         crypted_password: Crypted password
         salt: Salt
-        deleted_at: Deleted at
         remember_token: Remember token
         remember_token_expires_at: Remember token expires at
         activation_code: Activation code
@@ -56,7 +55,6 @@ en:
         display_name: Display name
         note: Note
         position: Position
-        deleted_at: Deleted at
         valid_period_for_new_user: Valid period for new user
         number_of_day_to_notify_due_date: Number of day to notify due date
         number_of_day_to_notify_overdue: Number of day to notify overdue

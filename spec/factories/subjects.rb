@@ -22,7 +22,6 @@ end
 #  lock_version            :integer          default(0), not null
 #  created_at              :datetime
 #  updated_at              :datetime
-#  deleted_at              :datetime
 #  url                     :string
 #  manifestation_id        :integer
 #  subject_heading_type_id :integer
