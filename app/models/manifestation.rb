@@ -723,7 +723,6 @@ end
 #  date_copyrighted                :datetime
 #  created_at                      :datetime
 #  updated_at                      :datetime
-#  deleted_at                      :datetime
 #  access_address                  :string
 #  language_id                     :integer          default(1), not null
 #  carrier_type_id                 :integer          default(1), not null
