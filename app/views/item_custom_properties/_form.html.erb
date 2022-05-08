@@ -4,7 +4,7 @@
       <h2><%= pluralize(item_custom_property.errors.count, "error") %> prohibited this item_custom_property from being saved:</h2>
 
       <ul>
-        <% item_custom_property.errors.full_messages.each do |message| %>
+        <% item_custom_property.errors.map(&:full_message).each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>

@@ -4,7 +4,7 @@
       <h2><%= pluralize(manifestation_custom_property.errors.count, "error") %> prohibited this manifestation_custom_property from being saved:</h2>
 
       <ul>
-        <% manifestation_custom_property.errors.full_messages.each do |message| %>
+        <% manifestation_custom_property.errors.map(&:full_message).each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
