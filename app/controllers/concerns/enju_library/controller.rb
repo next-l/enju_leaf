@@ -7,7 +7,6 @@ module EnjuLibrary
       before_action :store_current_location, unless: :devise_controller?
       rescue_from Pundit::NotAuthorizedError, with: :render_403
       # rescue_from ActiveRecord::RecordNotFound, with: :render_404
-      rescue_from Errno::ECONNREFUSED, with: :render_500_nosolr
       # rescue_from ActionView::MissingTemplate, with: :render_404_invalid_format
       helper_method :filtered_params
     end
@@ -60,20 +59,6 @@ module EnjuLibrary
       respond_to do |format|
         format.html {render file: Rails.root.join('public/500.html').to_s, layout: false, status: :internal_server_error}
         # format.html.phone {render file: "#{Rails.root}/public/500", layout: false, status: 500}
-        format.xml {render template: 'page/500', status: :internal_server_error}
-        format.json { render json: {"error": "server_error"} }
-        format.rss {render template: 'page/500.xml', status: :internal_server_error}
-      end
-    end
-
-    def render_500_nosolr
-      Rails.logger.fatal("please confirm that the Solr is running.")
-      return if performed?
-
-      # flash[:notice] = t('page.connection_failed')
-      respond_to do |format|
-        format.html {render template: "page/500_nosolr", layout: false, status: :internal_server_error}
-        # format.html.phone {render template: "page/500_nosolr", layout: false, status: 500}
         format.xml {render template: 'page/500', status: :internal_server_error}
         format.json { render json: {"error": "server_error"} }
         format.rss {render template: 'page/500.xml', status: :internal_server_error}
