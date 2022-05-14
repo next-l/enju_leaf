@@ -20,5 +20,12 @@ module EnjuLeaf
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    base_url = URI.parse(ENV['ENJU_LEAF_BASE_URL'] || 'http://localhost:3000')
+    config.action_mailer.default_url_options = {
+      host: base_url.host,
+      protocol: base_url.scheme,
+      port: base_url.port
+    }
   end
 end
