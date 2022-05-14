@@ -91,6 +91,7 @@ gem 'acts-as-taggable-on'
 gem 'pretender'
 gem 'caxlsx'
 gem 'caxlsx_rails'
+gem 'rails-i18n'
 
 group :development, :test do
   gem 'annotate'
