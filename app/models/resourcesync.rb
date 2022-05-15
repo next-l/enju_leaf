@@ -3,13 +3,13 @@ class Resourcesync
     @base_url = if ENV['ENJU_LEAF_RESOURCESYNC_BASE_URL'].present?
                   URI.parse(ENV['ENJU_LEAF_RESOURCESYNC_BASE_URL']).to_s
                 else
-                  URI.parse(LibraryGroup.site_config.url).to_s
+                  URI.parse(ENV['ENJU_LEAF_BASE_URL']).to_s
                 end
   end
 
   def generate_capabilitylist
     capabilitylist = Resync::CapabilityList.new(
-      links: [Resync::Link.new(rel: 'up', uri: LibraryGroup.site_config.url)],
+      links: [Resync::Link.new(rel: 'up', uri: @base_url)],
       resources: [
         Resync::Resource.new(uri: "#{@base_url}/resourcelist.xml", metadata: Resync::Metadata.new(capability: 'resourcelist')),
         Resync::Resource.new(uri: "#{@base_url}/changelist.xml", metadata: Resync::Metadata.new(capability: 'changelist'))
@@ -52,7 +52,7 @@ class Resourcesync
         ),
         resources: manifestations.map{|m|
           Resync::Resource.new(
-            uri: "#{LibraryGroup.site_config.url}/manifestations/#{m.id}",
+            uri: "#{@base_url}/manifestations/#{m.id}",
             modified_time: m.updated_at
           )
         }
@@ -97,7 +97,7 @@ class Resourcesync
         ),
         resources: manifestations.map{|m|
           Resync::Resource.new(
-            uri: "#{LibraryGroup.site_config.url}/manifestations/#{m.id}",
+            uri: "#{@base_url}/manifestations/#{m.id}",
             modified_time: m.updated_at,
             metadata: Resync::Metadata.new(
               change: Resync::Types::Change::UPDATED,
