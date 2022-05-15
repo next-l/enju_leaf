@@ -31,9 +31,9 @@ module EnjuCirculation
       scope :available, -> { includes(:circulation_status).where.not('circulation_statuses.name' => 'Removed') }
       scope :removed, -> { includes(:circulation_status).where('circulation_statuses.name' => 'Removed') }
 
-      has_many :checkouts
+      has_many :checkouts, dependent: :restrict_with_exception
       has_many :checkins, dependent: :destroy
-      has_many :reserves
+      has_many :reserves, dependent: :nullify
       has_many :checked_items, dependent: :destroy
       has_many :baskets, through: :checked_items
       belongs_to :circulation_status
@@ -55,8 +55,6 @@ module EnjuCirculation
     end
 
     def check_circulation_status
-      #circulation_status.name_will_change!
-      #return unless circulation_status.name_change.first == 'Removed'
       return unless circulation_status.name == 'Removed'
 
       errors.add(:base, I18n.t('activerecord.errors.models.item.attributes.circulation_status_id.is_rented')) if rented?

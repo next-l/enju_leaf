@@ -1,5 +1,5 @@
 class ResourceImportResultsController < ApplicationController
-  before_action :set_resource_import_result, only: [:show, :edit, :update, :destroy]
+  before_action :set_resource_import_result, only: [:show, :destroy]
   before_action :check_policy, only: [:index]
 
   # GET /resource_import_results

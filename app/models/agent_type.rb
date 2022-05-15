@@ -1,6 +1,6 @@
 class AgentType < ApplicationRecord
   include MasterModel
-  has_many :agents
+  has_many :agents, dependent: :restrict_with_exception
 end
 
 # == Schema Information

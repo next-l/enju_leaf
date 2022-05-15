@@ -1,6 +1,6 @@
 class IdentifierType < ApplicationRecord
   include MasterModel
-  has_many :identifiers
+  has_many :identifiers, dependent: :destroy
   validates :name, format: { with: /\A[0-9a-z][0-9a-z_\-]*[0-9a-z]\Z/ }
 end
 

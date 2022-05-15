@@ -11,7 +11,7 @@ class ImportRequest < ApplicationRecord
   #validate :check_imported, on: :create
   #validates_uniqueness_of :isbn, if: Proc.new{|request| ImportRequest.where("created_at > ?", 1.day.ago).collect(&:isbn).include?(request.isbn)}
 
-  has_many :import_request_transitions, autosave: false
+  has_many :import_request_transitions, autosave: false, dependent: :destroy
 
   def state_machine
     ImportRequestStateMachine.new(self, transition_class: ImportRequestTransition)

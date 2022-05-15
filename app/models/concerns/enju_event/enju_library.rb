@@ -3,7 +3,7 @@ module EnjuEvent
     extend ActiveSupport::Concern
 
     included do
-      has_many :events
+      has_many :events, dependent: :destroy
     end
 
     def closed?(date)

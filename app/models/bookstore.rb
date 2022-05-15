@@ -1,6 +1,6 @@
 class Bookstore < ApplicationRecord
   default_scope { order('bookstores.position') }
-  has_many :items
+  has_many :items, dependent: :restrict_with_exception
 
   acts_as_list
   validates :name, presence: true
@@ -9,7 +9,7 @@ class Bookstore < ApplicationRecord
   paginates_per 10
 
   if defined?(EnjuPurchaseRequest)
-    has_many :order_lists
+    has_many :order_lists, dependent: :restrict_with_exception
   end
 end
 
@@ -26,7 +26,6 @@ end
 #  fax_number       :string
 #  url              :string
 #  position         :integer
-#  deleted_at       :datetime
 #  created_at       :datetime
 #  updated_at       :datetime
 #

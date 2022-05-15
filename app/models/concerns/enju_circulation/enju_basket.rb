@@ -5,8 +5,8 @@ module EnjuCirculation
     included do
       has_many :checked_items, dependent: :destroy
       has_many :items, through: :checked_items
-      has_many :checkouts
-      has_many :checkins
+      has_many :checkouts, dependent: :restrict_with_exception
+      has_many :checkins, dependent: :restrict_with_exception
     end
 
     def basket_checkout(librarian)

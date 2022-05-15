@@ -3,12 +3,12 @@ module EnjuCirculation
     extend ActiveSupport::Concern
 
     included do
-      has_many :checkouts, dependent: :nullify
+      has_many :checkouts, dependent: :restrict_with_exception
       has_many :reserves, dependent: :destroy
-      has_many :reserved_manifestations, through: :reserves, source: :manifestation
-      has_many :checkout_stat_has_users
+      has_many :reserved_manifestations, through: :reserves, source: :manifestation, dependent: :destroy
+      has_many :checkout_stat_has_users, dependent: :destroy
       has_many :user_checkout_stats, through: :checkout_stat_has_users
-      has_many :reserve_stat_has_users
+      has_many :reserve_stat_has_users, dependent: :destroy
       has_many :user_reserve_stats, through: :reserve_stat_has_users
       has_many :baskets, dependent: :destroy
 

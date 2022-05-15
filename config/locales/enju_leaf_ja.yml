@@ -21,7 +21,6 @@ ja:
         email_confirmation: メールアドレス（確認）
         crypted_password: 暗号化パスワード
         salt: ソルト
-        deleted_at: 削除時刻
         remember_token: 覚えているトークン
         remember_token_expires_at: トークンを忘れないで期限が切れる
         activation_code: 活性化コード
@@ -56,7 +55,6 @@ ja:
         display_name: 表示名
         note: 注記
         position: 位置
-        deleted_at: 削除時刻
         valid_period_for_new_user: 新規ユーザの有効日数
         number_of_day_to_notify_due_date: 貸出期限の何日前に督促を送るか
         number_of_day_to_notify_overdue: 貸出期限の何日後に督促を送るか
@@ -280,6 +278,9 @@ ja:
     default_locale: "既定の言語"
     nosolr_error: '検索サーバに不具合があるようです'
     nosolr_error_description: '検索サーバーの起動に時間がかかっている場合もこのエラーとなります。少し時間を置いてアクセスするとエラーが解消される場合もありますのでお試しください。'
+    delegated: 代理
+    impersonate: "ログインユーザを切り替える"
+    stop_impersonating: "%{username}に戻る"
   title:
     index: "一覧"
     show: "表示"

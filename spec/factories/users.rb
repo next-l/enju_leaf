@@ -55,7 +55,6 @@ end
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  username               :string
-#  deleted_at             :datetime
 #  expired_at             :datetime
 #  failed_attempts        :integer          default(0)
 #  unlock_token           :string

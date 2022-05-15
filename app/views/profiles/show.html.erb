@@ -33,6 +33,9 @@
       <% if policy(@profile).update? %>
         <li><%= link_to t('page.edit'), edit_profile_path(@profile) -%></li>
       <% end %>
+      <% if current_user.has_role?('Librarian') && @profile.user %>
+        <li><%= link_to t('page.impersonate'), impersonate_profile_path(@profile), method: :post %></li>
+      <% end %>
       <% if defined?(EnjuCirculation) %>
         <% if policy(Checkout).create? and @profile.user_number %>
           <li><%= link_to t('page.new', model: t('activerecord.models.checkout')), new_basket_path(user_number: @profile.user_number) -%></li>

@@ -6,12 +6,12 @@ class BookmarkStat < ApplicationRecord
   include CalculateStat
   default_scope { order('bookmark_stats.id DESC') }
   scope :not_calculated, -> {in_state(:pending)}
-  has_many :bookmark_stat_has_manifestations
+  has_many :bookmark_stat_has_manifestations, dependent: :destroy
   has_many :manifestations, through: :bookmark_stat_has_manifestations
 
   paginates_per 10
 
-  has_many :bookmark_stat_transitions, autosave: false
+  has_many :bookmark_stat_transitions, autosave: false, dependent: :destroy
 
   def state_machine
     BookmarkStatStateMachine.new(self, transition_class: BookmarkStatTransition)

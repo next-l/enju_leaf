@@ -237,7 +237,7 @@ module EnjuLoc
             partnumber = e.at('./mods:partNumber', NS).try(:content)
             partname = e.at('./mods:partName', NS).try(:content)
             partname = [partnumber, partname].compact.join(": ")
-            original_title << ". #{partname}" unless partname.blank?
+            original_title << ". #{partname}" if partname.present?
           end
         end
         { original_title: original_title, title_alternative: title_alternatives.join(" ; ") }
@@ -299,7 +299,7 @@ module EnjuLoc
           next if type == "statement of responsibility"
 
           note_s = note.try(:content)
-          notes << note_s unless note_s.blank?
+          notes << note_s if note_s.present?
         end
         if notes.empty?
           nil
