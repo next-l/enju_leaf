@@ -22,5 +22,12 @@ module EnjuLeaf
     # the framework and any gems in your application.
     config.i18n.default_locale = (ENV['ENJU_LEAF_DEFAULT_LOCALE'] || 'en').to_sym
     config.time_zone = ENV['ENJU_LEAF_TIME_ZONE'] || 'UTC'
+
+    base_url = URI.parse(ENV['ENJU_LEAF_BASE_URL'] || 'http://localhost:3000')
+    config.action_mailer.default_url_options = {
+      host: base_url.host,
+      protocol: base_url.scheme,
+      port: base_url.port
+    }
   end
 end
