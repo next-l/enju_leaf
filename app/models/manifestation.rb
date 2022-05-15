@@ -21,7 +21,7 @@ class Manifestation < ApplicationRecord
   has_many :picture_files, as: :picture_attachable, dependent: :destroy
   belongs_to :language
   belongs_to :carrier_type
-  belongs_to :manifestation_content_type, class_name: 'ContentType', foreign_key: 'content_type_id'
+  belongs_to :manifestation_content_type, class_name: 'ContentType', foreign_key: 'content_type_id', inverse_of: :manifestations
   has_many :series_statements, dependent: :destroy
   belongs_to :frequency
   belongs_to :required_role, class_name: 'Role'
@@ -112,7 +112,6 @@ class Manifestation < ApplicationRecord
     end
     time :created_at
     time :updated_at
-    time :deleted_at
     time :pub_date, multiple: true do
       if series_master?
         root_series_statement.root_manifestation.pub_dates
@@ -723,7 +722,6 @@ end
 #  date_copyrighted                :datetime
 #  created_at                      :datetime
 #  updated_at                      :datetime
-#  deleted_at                      :datetime
 #  access_address                  :string
 #  language_id                     :integer          default(1), not null
 #  carrier_type_id                 :integer          default(1), not null

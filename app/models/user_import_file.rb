@@ -101,8 +101,8 @@ class UserImportFile < ApplicationRecord
             num[:user_imported] += 1
           else
             error_message = "line #{row_num}: "
-            error_message += new_user.errors.full_messages.join(" ")
-            error_message += profile.errors.full_messages.join(" ")
+            error_message += new_user.errors.map(&:full_message).join(' ')
+            error_message += profile.errors.map(&:full_message).join(' ')
             import_result.error_message = error_message
             import_result.save
             num[:error] += 1

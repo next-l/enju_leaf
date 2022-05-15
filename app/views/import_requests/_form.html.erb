@@ -3,7 +3,7 @@
   <div id="errorExplanation">
     <h2><%= pluralize(@import_request.errors.count, "error") %> prohibited this import_request from being saved:</h2>
     <ul>
-    <% @import_request.errors.full_messages.each do |msg| %>
+    <% @import_request.errors.map(&:full_message).each do |msg| %>
       <li><%= msg %></li>
     <% end %>
     </ul>

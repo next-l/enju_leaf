@@ -32,7 +32,6 @@ ja:
         call_number_rows: 請求記号の列数
         call_number_delimiter: 請求番号の区切り文字
         position: 位置
-        deleted_at: 削除時刻
         opening_hour: 開館時間
         isil: ISIL
         address: 住所
@@ -41,7 +40,6 @@ ja:
         display_name: 表示名
         note: 注記
         position: 位置
-        deleted_at: 削除時刻
         closed: 閉架
       library_group:
         name: 名前
@@ -70,7 +68,6 @@ ja:
         fax_number: ファックス番号
         url: URL
         position: 位置
-        deleted_at: 削除時刻
       budget_type:
         name: 名称
         display_name: 表示名
@@ -83,7 +80,6 @@ ja:
       subscription:
         title: タイトル
         note: 注記
-        deleted_at: 削除時刻
         subscribes_count: 購読数
       request_status_type:
         name: 名前

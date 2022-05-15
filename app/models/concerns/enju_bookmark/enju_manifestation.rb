@@ -3,7 +3,7 @@ module EnjuBookmark
     extend ActiveSupport::Concern
 
     included do
-      has_many :bookmarks, dependent: :destroy, foreign_key: :manifestation_id
+      has_many :bookmarks, dependent: :destroy, foreign_key: :manifestation_id, inverse_of: :manifestation
       has_many :users, through: :bookmarks
 
       searchable do

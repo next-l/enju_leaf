@@ -301,7 +301,6 @@ end
 #  full_name_alternative               :text
 #  created_at                          :datetime
 #  updated_at                          :datetime
-#  deleted_at                          :datetime
 #  zip_code_1                          :string
 #  zip_code_2                          :string
 #  address_1                           :text

@@ -4,7 +4,7 @@ class Library < ApplicationRecord
 
   default_scope { order('libraries.position') }
   scope :real, -> { where('id != 1') }
-  has_many :shelves, -> { order('shelves.position') }, dependent: :destroy
+  has_many :shelves, -> { order('shelves.position') }, dependent: :destroy, inverse_of: :library
   belongs_to :library_group
   has_many :profiles, dependent: :restrict_with_exception
   belongs_to :country, optional: true
@@ -102,7 +102,6 @@ end
 #  country_id            :integer
 #  created_at            :datetime
 #  updated_at            :datetime
-#  deleted_at            :datetime
 #  opening_hour          :text
 #  isil                  :string
 #  latitude              :float
