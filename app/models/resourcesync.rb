@@ -101,7 +101,7 @@ class Resourcesync
             modified_time: m.updated_at,
             metadata: Resync::Metadata.new(
               change: Resync::Types::Change::UPDATED,
-              datetime: m.updated_at
+              # datetime: m.updated_at
             )
           )
         }
