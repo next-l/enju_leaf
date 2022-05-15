@@ -25,7 +25,6 @@ class WithdrawsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @withdraws }
       format.js { @withdraw = Withdraw.new }
       format.text
     end
@@ -36,12 +35,10 @@ class WithdrawsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @withdraw }
     end
   end
 
   # GET /new
-  # GET /new.json
   def new
     @basket = Basket.new
     @basket.user = current_user
@@ -49,11 +46,6 @@ class WithdrawsController < ApplicationController
     @withdraw = Withdraw.new
     authorize @withdraw, :new?
     @withdraws = []
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @withdraw }
-    end
   end
 
   # GET /withdraws/new

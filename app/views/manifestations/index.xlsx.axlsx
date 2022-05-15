@@ -1,0 +1,13 @@
+wb = xlsx_package.workbook
+wb.add_worksheet do |sheet|
+  sheet.add_row (Manifestation.csv_header(role: current_user_role_name) + Item.csv_header(role: current_user_role_name))
+  @manifestations.each do |manifestation|
+    if manifestation.items.empty?
+      sheet.add_row manifestation.to_hash(role: current_user_role_name).values
+    else
+      manifestation.items.each do |item|
+        sheet.add_row (manifestation.to_hash(role: current_user_role_name).values + item.to_hash(role: current_user_role_name).values)
+      end
+    end
+  end
+end

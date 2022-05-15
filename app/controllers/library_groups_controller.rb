@@ -1,6 +1,6 @@
 class LibraryGroupsController < ApplicationController
-  before_action :set_library_group, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_library_group, only: [:show, :edit, :update]
+  before_action :check_policy, only: [:index]
 
   # GET /library_groups
   # GET /library_groups.json
@@ -9,7 +9,6 @@ class LibraryGroupsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @library_groups }
     end
   end
 
@@ -18,7 +17,6 @@ class LibraryGroupsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @library_group }
       format.download {
         if @library_group.header_logo.exists?
           if ENV['ENJU_STORAGE'] == 's3'

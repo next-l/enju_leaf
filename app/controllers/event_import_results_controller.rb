@@ -1,6 +1,6 @@
 class EventImportResultsController < ApplicationController
-  before_action :set_event_import_result, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_event_import_result, only: [:show, :destroy]
+  before_action :check_policy, only: [:index]
 
   # GET /event_import_results
   # GET /event_import_results.json
@@ -14,7 +14,6 @@ class EventImportResultsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @event_import_results }
       format.text
     end
   end
@@ -24,7 +23,6 @@ class EventImportResultsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @event_import_result }
     end
   end
 

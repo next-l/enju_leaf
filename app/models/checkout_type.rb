@@ -9,7 +9,7 @@ class CheckoutType < ApplicationRecord
   has_many :carrier_types, through: :carrier_type_has_checkout_types
   # has_many :item_has_checkout_types, dependent: :destroy
   # has_many :items, through: :item_has_checkout_types
-  has_many :items
+  has_many :items, dependent: :restrict_with_exception
 
   paginates_per 10
 end

@@ -5,7 +5,7 @@ class Reserve < ApplicationRecord
   ]
   scope :hold, -> { where.not(item_id: nil) }
   scope :not_hold, -> { where(item_id: nil) }
-  scope :waiting, -> {not_in_state(:completed, :expired).where('canceled_at IS NULL AND (expired_at > ? OR expired_at IS NULL)', Time.zone.now).order('reserves.id DESC')}
+  scope :waiting, -> {not_in_state(:completed, :canceled, :expired).where('canceled_at IS NULL AND (expired_at > ? OR expired_at IS NULL)', Time.zone.now).order('reserves.id DESC')}
   scope :retained, -> {in_state(:retained).where.not(retained_at: nil)}
   scope :completed, -> {in_state(:completed).where.not(checked_out_at: nil)}
   scope :canceled, -> {in_state(:canceled).where.not(canceled_at: nil)}
@@ -26,10 +26,6 @@ class Reserve < ApplicationRecord
   belongs_to :request_status_type
   belongs_to :pickup_location, class_name: 'Library', optional: true
 
-  validates :manifestation, presence: true, unless: proc{|reserve|
-    reserve.completed?
-  }
-  # validates_uniqueness_of :manifestation_id, scope: :user_id
   validates_date :expired_at, allow_blank: true
   validate :manifestation_must_include_item
   validate :available_for_reservation?, on: :create
@@ -72,7 +68,7 @@ class Reserve < ApplicationRecord
     ReserveStateMachine.new(self, transition_class: ReserveTransition)
   end
 
-  has_many :reserve_transitions, autosave: false
+  has_many :reserve_transitions, autosave: false, dependent: :destroy
 
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
            to: :state_machine
@@ -165,114 +161,53 @@ class Reserve < ApplicationRecord
   def send_message(sender = nil)
     sender ||= User.find(1) # TODO: システムからのメッセージの発信者
     Reserve.transaction do
+      mailer = nil
+
       case current_state
       when 'requested'
-        message_template_to_patron = MessageTemplate.localized_template('reservation_accepted_for_patron', user.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: user, message_template: message_template_to_patron)
-        request.save_message_body(manifestations: Array[manifestation], user: user)
-        request.transition_to!(:sent) # 受付時は即時送信
-        message_template_to_library = MessageTemplate.localized_template('reservation_accepted_for_library', user.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: sender, message_template: message_template_to_library)
-        request.save_message_body(manifestations: Array[manifestation], user: user)
-        request.transition_to!(:sent) # 受付時は即時送信
+        mailer = ReserveMailer.accepted(self)
       when 'canceled'
-        message_template_to_patron = MessageTemplate.localized_template('reservation_canceled_for_patron', user.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: user, message_template: message_template_to_patron)
-        request.save_message_body(manifestations: Array[manifestation], user: user)
-        request.transition_to!(:sent) # キャンセル時は即時送信
-        message_template_to_library = MessageTemplate.localized_template('reservation_canceled_for_library', user.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: sender, message_template: message_template_to_library)
-        request.save_message_body(manifestations: Array[manifestation], user: user)
-        request.transition_to!(:sent) # キャンセル時は即時送信
+        mailer = ReserveMailer.canceled(self)
       when 'expired'
-        message_template_to_patron = MessageTemplate.localized_template('reservation_expired_for_patron', user.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: user, message_template: message_template_to_patron)
-        request.save_message_body(manifestations: Array[manifestation], user: user)
-        request.transition_to!(:sent)
-        reload
-        update_attribute(:expiration_notice_to_patron, true)
-        message_template_to_library = MessageTemplate.localized_template('reservation_expired_for_library', sender.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: sender, message_template: message_template_to_library)
-        request.save_message_body(manifestations: Array[manifestation], user: sender)
-        request.transition_to!(:sent)
+        mailer = ReserveMailer.expired(self)
       when 'retained'
-        message_template_for_patron = MessageTemplate.localized_template('item_received_for_patron', user.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: user, message_template: message_template_for_patron)
-        request.save_message_body(manifestations: Array[item.manifestation], user: user)
-        request.transition_to!(:sent)
-        message_template_for_library = MessageTemplate.localized_template('item_received_for_library', user.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: sender, message_template: message_template_for_library)
-        request.save_message_body(manifestations: Array[item.manifestation], user: user)
-        request.transition_to!(:sent)
+        mailer = ReserveMailer.retained(self)
       when 'postponed'
-        message_template_for_patron = MessageTemplate.localized_template('reservation_postponed_for_patron', user.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: user, message_template: message_template_for_patron)
-        request.save_message_body(manifestations: Array[manifestation], user: user)
-        request.transition_to!(:sent)
-        message_template_for_library = MessageTemplate.localized_template('reservation_postponed_for_library', user.profile.locale)
-        request = MessageRequest.new
-        request.assign_attributes(sender: sender, receiver: sender, message_template: message_template_for_library)
-        request.save_message_body(manifestations: Array[manifestation], user: user)
-        request.transition_to!(:sent)
+        mailer = ReserveMailer.postponed(self)
       else
         raise 'status not defined'
       end
-    end
-  end
 
-  def self.send_message_to_library(status, options = {})
-    sender = User.find(1) # TODO: システムからのメッセージの発信者
-    case status
-    when 'expired'
-      message_template_to_library = MessageTemplate.localized_template('reservation_expired_for_library', sender.profile.locale)
-      request = MessageRequest.new
-      request.assign_attributes(sender: sender, receiver: sender, message_template: message_template_to_library)
-      request.save_message_body(manifestations: options[:manifestations])
-      not_sent_expiration_notice_to_library.readonly(false).each do |reserve|
-        reserve.expiration_notice_to_library = true
-        reserve.save(validate: false)
+      if mailer
+        mailer.deliver_later
+        Message.create!(
+          subject: mailer.subject,
+          sender: sender,
+          recipient: user.username,
+          body: mailer.body.to_s
+        )
+
+        Message.create!(
+          subject: mailer.subject,
+          sender: sender,
+          recipient: sender.username,
+          body: mailer.body.to_s
+        )
       end
-    # when 'canceled'
-    #  message_template_to_library = MessageTemplate.localized_template('reservation_canceled_for_library', sender.locale)
-    #  request = MessageRequest.new
-    #  request.assign_attributes({sender: sender, receiver: sender, message_template: message_template_to_library})
-    #  request.save_message_body(manifestations: self.not_sent_expiration_notice_to_library.collect(&:manifestation))
-    #  self.not_sent_cancel_notice_to_library.each do |reserve|
-    #    reserve.update_attribute(:expiration_notice_to_library, true)
-    #  end
-    else
-      raise 'status not defined'
     end
   end
 
   def self.expire
     Reserve.transaction do
-      will_expire_retained(Time.zone.now.beginning_of_day).readonly(false).map{|r| r.transition_to!(:expired)}
-      will_expire_pending(Time.zone.now.beginning_of_day).readonly(false).map{|r| r.transition_to!(:expired)}
-
-      # キューに登録した時点では本文は作られないので
-      # 予約の連絡をすませたかどうかを識別できるようにしなければならない
-      # reserve.send_message('expired')
-      User.find_each do |user|
-        unless user.reserves.not_sent_expiration_notice_to_patron.empty?
-          user.send_message('reservation_expired_for_patron', manifestations: user.reserves.not_sent_expiration_notice_to_patron.collect(&:manifestation))
-        end
-      end
-      unless Reserve.not_sent_expiration_notice_to_library.empty?
-        Reserve.send_message_to_library('expired', manifestations: Reserve.not_sent_expiration_notice_to_library.collect(&:manifestation))
-      end
+      will_expire_retained(Time.zone.now.beginning_of_day).readonly(false).map{|r|
+        r.transition_to!(:expired)
+        r.send_message
+      }
+      will_expire_pending(Time.zone.now.beginning_of_day).readonly(false).map{|r|
+        r.transition_to!(:expired)
+        r.send_message
+      }
     end
-  # rescue
-  #  logger.info "#{Time.zone.now} expiring reservations failed!"
   end
 
   def checked_out_now?
@@ -395,7 +330,6 @@ end
 #  updated_at                   :datetime
 #  canceled_at                  :datetime
 #  expired_at                   :datetime
-#  deleted_at                   :datetime
 #  expiration_notice_to_patron  :boolean          default(FALSE)
 #  expiration_notice_to_library :boolean          default(FALSE)
 #  pickup_location_id           :integer

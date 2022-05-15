@@ -1,6 +1,6 @@
 class RolesController < ApplicationController
-  before_action :set_role, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_role, only: [:show, :edit, :update]
+  before_action :check_policy, only: [:index]
 
   # GET /roles
   # GET /roles.json
@@ -9,7 +9,6 @@ class RolesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @roles }
     end
   end
 
@@ -18,7 +17,6 @@ class RolesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @role }
     end
   end
 

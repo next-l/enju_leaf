@@ -32,7 +32,6 @@ en:
         call_number_rows: Call number rows
         call_number_delimiter: Call number delimiter
         position: Position
-        deleted_at: Deleted at
         opening_hour: Opening hour
         isil: ISIL
         address: Address
@@ -41,7 +40,6 @@ en:
         display_name: Display name
         note: Note
         position: Position
-        deleted_at: Deleted at
         closed: Closed
       library_group:
         name: Name
@@ -70,7 +68,6 @@ en:
         fax_number: Fax number
         url: URL
         position: Position
-        deleted_at: Deleted at
       budget_type:
         name: Name
         display_name: Display name
@@ -83,7 +80,6 @@ en:
       subscription:
         title: Title
         note: Note
-        deleted_at: Deleted at
         subscribes_count: Count
       request_status_type:
         name: Name

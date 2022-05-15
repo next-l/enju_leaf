@@ -14,7 +14,6 @@ class ItemHasUseRestrictionsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @item_has_use_restrictions }
     end
   end
 
@@ -23,20 +22,13 @@ class ItemHasUseRestrictionsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @item_has_use_restriction }
     end
   end
 
   # GET /item_has_use_restrictions/new
-  # GET /item_has_use_restrictions/new.json
   def new
     @item_has_use_restriction = ItemHasUseRestriction.new
     @use_restrictions = UseRestriction.all
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @item_has_use_restriction }
-    end
   end
 
   # GET /item_has_use_restrictions/1/edit

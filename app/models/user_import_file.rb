@@ -83,6 +83,13 @@ class UserImportFile < ApplicationRecord
         end
         new_user.username = username
         new_user.assign_attributes(set_user_params(row))
+
+        if row['password'].to_s.strip.present?
+          new_user.password = row['password']
+        else
+          new_user.password = Devise.friendly_token[0..7]
+        end
+
         profile = Profile.new
         profile.assign_attributes(set_profile_params(row))
 
@@ -94,8 +101,8 @@ class UserImportFile < ApplicationRecord
             num[:user_imported] += 1
           else
             error_message = "line #{row_num}: "
-            error_message += new_user.errors.full_messages.join(" ")
-            error_message += profile.errors.full_messages.join(" ")
+            error_message += new_user.errors.map(&:full_message).join(' ')
+            error_message += profile.errors.map(&:full_message).join(' ')
             import_result.error_message = error_message
             import_result.save
             num[:error] += 1
@@ -152,6 +159,7 @@ class UserImportFile < ApplicationRecord
       new_user = User.find_by(username: username)
       if new_user.try(:profile)
         new_user.assign_attributes(set_user_params(row))
+        new_user.password = row['password'] if row['password'].to_s.strip.present?
         new_user.profile.assign_attributes(set_profile_params(row))
         Profile.transaction do
           if new_user.save && new_user.profile.save
@@ -266,12 +274,6 @@ class UserImportFile < ApplicationRecord
   def set_user_params(row)
     params = {}
     params[:email] = row['email'] if row['email'].present?
-
-    if row['password'].present?
-      params[:password] = row['password']
-    else
-      params[:password] = Devise.friendly_token[0..7]
-    end
 
     if %w(t true).include?(row['locked'].to_s.downcase.strip)
       params[:locked] = '1'

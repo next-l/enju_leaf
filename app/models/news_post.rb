@@ -1,4 +1,4 @@
-class NewsPost < ActiveRecord::Base
+class NewsPost < ApplicationRecord
   scope :published, -> { where(draft: false) }
   scope :current, -> { where('start_date <= ? AND end_date >= ?', Time.zone.now, Time.zone.now) }
   default_scope { order('news_posts.start_date DESC') }
@@ -20,7 +20,7 @@ class NewsPost < ActiveRecord::Base
   end
 
   def check_date
-    if start_date and end_date
+    if start_date && end_date
       self.end_date = end_date.end_of_day
       if start_date >= end_date
         errors.add(:start_date)

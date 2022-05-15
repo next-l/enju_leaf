@@ -24,18 +24,8 @@ library system maintained by Japanese volunteers interested in libraries.
 
 ## インストール (Install)
 
-```sh
-$ git clone https://github.com/next-l/enju_leaf.git
-$ cd enju_leaf
-$ cp .env.template .env
-$ docker compose run --rm web rake db:create
-$ docker compose run --rm web rake db:migrate
-$ docker compose run --rm web rake enju_leaf:setup
-$ docker compose run --rm web rake db:seed
-$ docker compose up
-```
+* https://github.com/next-l/enju_leaf/wiki/Install
 
-アプリケーションは http://localhost:3000 で動作します。初期ユーザ名は`enjuadmin`、パスワードは`adminpassword`です。
 
 ## 関連するプロジェクト (Related projects)
 * [Next-L Enju Root](https://github.com/next-l/enju_root)

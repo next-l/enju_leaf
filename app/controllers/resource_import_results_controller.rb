@@ -1,5 +1,5 @@
 class ResourceImportResultsController < ApplicationController
-  before_action :set_resource_import_result, only: [:show, :edit, :update, :destroy]
+  before_action :set_resource_import_result, only: [:show, :destroy]
   before_action :check_policy, only: [:index]
 
   # GET /resource_import_results
@@ -18,7 +18,6 @@ class ResourceImportResultsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @resource_import_results }
       format.text
     end
   end
@@ -28,7 +27,6 @@ class ResourceImportResultsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @resource_import_result }
     end
   end
 

@@ -3,7 +3,7 @@ class EventCategory < ApplicationRecord
   validates :name, presence: true
   acts_as_list
   default_scope { order('position') }
-  has_many :events
+  has_many :events, dependent: :restrict_with_exception
 
   paginates_per 10
 end

@@ -21,7 +21,6 @@ en:
         email_confirmation: Email (confirmation)
         crypted_password: Crypted password
         salt: Salt
-        deleted_at: Deleted at
         remember_token: Remember token
         remember_token_expires_at: Remember token expires at
         activation_code: Activation code
@@ -56,7 +55,6 @@ en:
         display_name: Display name
         note: Note
         position: Position
-        deleted_at: Deleted at
         valid_period_for_new_user: Valid period for new user
         number_of_day_to_notify_due_date: Number of day to notify due date
         number_of_day_to_notify_overdue: Number of day to notify overdue
@@ -143,6 +141,7 @@ en:
     name: "Name"
     are_you_sure: "Are you sure?"
     file: "File"
+    delete_file: "Delete file"
     cancel: "Cancel"
     author: "Author"
     editor: "Editor"
@@ -294,6 +293,9 @@ en:
     default_locale: Default locale
     nosolr_error: 'There is an error on connecting to the search server.'
     nosolr_error_description: 'This error may be caused by a delay when the sever is still waiting for launching the search server. In that case, please wait for a while, and go back to this page later.'
+    delegated: Delegated
+    impersonate: "Impersonate"
+    stop_impersonating: "Back to %{username}"
   title:
     index: "index"
     show: "show"

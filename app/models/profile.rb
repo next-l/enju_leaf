@@ -6,8 +6,8 @@ class Profile < ApplicationRecord
   belongs_to :library
   belongs_to :user_group
   belongs_to :required_role, class_name: 'Role'
-  has_many :identities
-  has_many :agents
+  has_many :identities, dependent: :destroy
+  has_many :agents, dependent: :nullify
   accepts_nested_attributes_for :identities, allow_destroy: true, reject_if: :all_blank
 
   validates :user, uniqueness: true, associated: true, allow_blank: true

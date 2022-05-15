@@ -9,7 +9,6 @@ class CountriesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @countries }
     end
   end
 
@@ -18,19 +17,12 @@ class CountriesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @country }
     end
   end
 
   # GET /countries/new
-  # GET /countries/new.json
   def new
     @country = Country.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @country }
-    end
   end
 
   # GET /countries/1/edit

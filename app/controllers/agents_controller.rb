@@ -4,7 +4,6 @@ class AgentsController < ApplicationController
   before_action :get_work, :get_expression, :get_manifestation, :get_item, :get_agent, except: [:update, :destroy]
   before_action :get_agent_merge_list, except: [:create, :update, :destroy]
   before_action :prepare_options, only: [:new, :edit]
-  before_action :get_version, only: [:show]
 
   # GET /agents
   # GET /agents.json
@@ -95,10 +94,6 @@ class AgentsController < ApplicationController
       @agent = @manifestation.publishers.find(params[:id])
     when @item
       @agent = @item.agents.find(params[:id])
-    else
-      if @version
-        @agent = @agent.versions.find(@version).item if @version
-      end
     end
 
     agent = @agent
@@ -121,25 +116,19 @@ class AgentsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @agent }
+      format.json
       format.js
       format.html.phone
     end
   end
 
   # GET /agents/new
-  # GET /agents/new.json
   def new
     @agent = Agent.new
     @agent.required_role = Role.find_by(name: 'Guest')
     @agent.language = Language.find_by(iso_639_1: I18n.default_locale.to_s) || Language.first
     @agent.country = current_user.profile.library.country
     prepare_options
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @agent }
-    end
   end
 
   # GET /agents/1/edit

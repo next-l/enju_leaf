@@ -9,7 +9,6 @@ class LicensesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @licenses }
     end
   end
 
@@ -18,19 +17,12 @@ class LicensesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @license }
     end
   end
 
   # GET /licenses/new
-  # GET /licenses/new.json
   def new
     @license = License.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @license }
-    end
   end
 
   # GET /licenses/1/edit

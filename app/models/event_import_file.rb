@@ -31,9 +31,9 @@ class EventImportFile < ApplicationRecord
   belongs_to :user
   belongs_to :default_library, class_name: 'Library', optional: true
   belongs_to :default_event_category, class_name: 'EventCategory', optional: true
-  has_many :event_import_results
+  has_many :event_import_results, dependent: :destroy
 
-  has_many :event_import_file_transitions, autosave: false
+  has_many :event_import_file_transitions, autosave: false, dependent: :destroy
 
   attr_accessor :mode
 

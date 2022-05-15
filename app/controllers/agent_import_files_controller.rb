@@ -9,7 +9,6 @@ class AgentImportFilesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @agent_import_files }
     end
   end
 
@@ -24,7 +23,6 @@ class AgentImportFilesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @agent_import_file }
       format.download {
         if ENV['ENJU_STORAGE'] == 's3'
           redirect_to URI.parse(@agent_import_file.agent_import.expiring_url(10)).to_s
@@ -36,14 +34,8 @@ class AgentImportFilesController < ApplicationController
   end
 
   # GET /agent_import_files/new
-  # GET /agent_import_files/new.json
   def new
     @agent_import_file = AgentImportFile.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @agent_import_file }
-    end
   end
 
   # GET /agent_import_files/1/edit

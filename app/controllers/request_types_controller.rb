@@ -9,7 +9,6 @@ class RequestTypesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @request_types }
     end
   end
 
@@ -18,7 +17,6 @@ class RequestTypesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @request_type }
     end
   end
 

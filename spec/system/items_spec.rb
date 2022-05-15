@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Manifestations', type: :system do
+RSpec.describe 'Items', type: :system do
   include Devise::Test::IntegrationHelpers
   fixtures :all
   before do
@@ -44,6 +44,11 @@ RSpec.describe 'Manifestations', type: :system do
       @item.item_custom_values << FactoryBot.build(:item_custom_value)
       visit item_path(@item.id, locale: :ja)
       expect(page).to have_content @item.item_custom_values.first.value
+    end
+
+    it 'should show new item' do
+      visit new_item_path(manifestation_id: @item.manifestation_id, locale: :ja)
+      expect(page).to have_select('item[shelf_id]', selected: 'First shelf')
     end
   end
 

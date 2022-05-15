@@ -9,7 +9,6 @@ class IdentifierTypesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @identifier_types }
     end
   end
 
@@ -18,19 +17,12 @@ class IdentifierTypesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @identifier_type }
     end
   end
 
   # GET /identifier_types/new
-  # GET /identifier_types/new.json
   def new
     @identifier_type = IdentifierType.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @identifier_type }
-    end
   end
 
   # GET /identifier_types/1/edit

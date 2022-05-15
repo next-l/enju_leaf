@@ -1,9 +1,9 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 one:
   id: 1
-  name: unknown
-  display_name: unknown
-  short_name: unknown
+  name: enju
+  display_name: Enju Library
+  short_name: Enju
   note: 
   my_networks: 0.0.0.0/0
   url: "http://localhost:3000/"
@@ -29,6 +29,7 @@ one:
 #  created_at                    :datetime
 #  updated_at                    :datetime
 #  admin_networks                :text
+#  allow_bookmark_external_url   :boolean          default(FALSE), not null
 #  url                           :string           default("http://localhost:3000/")
 #  settings                      :text
 #  html_snippet                  :text
@@ -44,7 +45,6 @@ one:
 #  header_logo_file_size         :bigint
 #  header_logo_updated_at        :datetime
 #  header_logo_meta              :text
-#  allow_bookmark_external_url   :boolean          default(FALSE), not null
 #  login_banner                  :text
 #  footer_banner                 :text
 #

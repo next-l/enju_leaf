@@ -9,7 +9,6 @@ class LanguagesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @languages }
     end
   end
 
@@ -18,19 +17,12 @@ class LanguagesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @language }
     end
   end
 
   # GET /languages/new
-  # GET /languages/new.json
   def new
     @language = Language.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @language }
-    end
   end
 
   # GET /languages/1/edit

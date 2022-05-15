@@ -16,7 +16,7 @@ class Event < ApplicationRecord
   belongs_to :event_category
   belongs_to :library
   belongs_to :place, optional: true
-  has_many :picture_files, as: :picture_attachable
+  has_many :picture_files, as: :picture_attachable, dependent: :destroy
   has_many :participates, dependent: :destroy
   has_many :agents, through: :participates
   has_one :event_import_result
@@ -116,7 +116,6 @@ end
 #  start_at          :datetime
 #  end_at            :datetime
 #  all_day           :boolean          default(FALSE), not null
-#  deleted_at        :datetime
 #  display_name      :text
 #  created_at        :datetime
 #  updated_at        :datetime

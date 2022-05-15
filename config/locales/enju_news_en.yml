@@ -1,0 +1,28 @@
+en:
+  activerecord:
+    models:
+      news_feed: News feed
+      news_post: News post
+    attributes:
+      news_feed:
+        title: Title
+        url: URL
+        body: Body
+        note: Note
+        position: Position
+      news_post:
+        title: Title
+        body: Body
+        note: Note
+        position: Position
+        start_date: Start date
+        end_date: End date
+        url: URL
+        draft: Draft
+
+  page:
+    news: "News"
+  news_post:
+    library_group_news_post: "News from %{library_group_name}"
+  news_feed:
+    failed_to_fetch_feed: Failed to fetch feeds.

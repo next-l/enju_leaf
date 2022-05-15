@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_25_090703) do
+ActiveRecord::Schema.define(version: 2022_05_07_153151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,7 +126,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.text "full_name_alternative"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "deleted_at"
     t.string "zip_code_1"
     t.string "zip_code_2"
     t.text "address_1"
@@ -232,7 +231,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.string "fax_number"
     t.string "url"
     t.integer "position"
-    t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -544,7 +542,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.datetime "start_at"
     t.datetime "end_at"
     t.boolean "all_day", default: false, null: false
-    t.datetime "deleted_at"
     t.text "display_name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -697,7 +694,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.string "item_identifier"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "deleted_at"
     t.integer "shelf_id", default: 1, null: false
     t.boolean "include_supplements", default: false, null: false
     t.text "note"
@@ -751,20 +747,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.index ["name"], name: "index_languages_on_name", unique: true
   end
 
-  create_table "lending_policies", id: :serial, force: :cascade do |t|
-    t.integer "item_id", null: false
-    t.integer "user_group_id", null: false
-    t.integer "loan_period", default: 0, null: false
-    t.datetime "fixed_due_date"
-    t.integer "renewal", default: 0, null: false
-    t.integer "fine", default: 0, null: false
-    t.text "note"
-    t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["item_id", "user_group_id"], name: "index_lending_policies_on_item_id_and_user_group_id", unique: true
-  end
-
   create_table "libraries", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.text "display_name"
@@ -785,7 +767,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.integer "country_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "deleted_at"
     t.text "opening_hour"
     t.string "isil"
     t.float "latitude"
@@ -947,7 +928,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.datetime "date_copyrighted"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "deleted_at"
     t.string "access_address"
     t.integer "language_id", default: 1, null: false
     t.integer "carrier_type_id", default: 1, null: false
@@ -1012,43 +992,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "message_request_transitions", force: :cascade do |t|
-    t.string "to_state"
-    t.text "metadata", default: "{}"
-    t.integer "sort_key"
-    t.bigint "message_request_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "most_recent", null: false
-    t.index ["message_request_id", "most_recent"], name: "index_message_request_transitions_parent_most_recent", unique: true, where: "most_recent"
-    t.index ["message_request_id"], name: "index_message_request_transitions_on_message_request_id"
-    t.index ["sort_key", "message_request_id"], name: "index_message_request_transitions_on_sort_key_and_request_id", unique: true
-  end
-
-  create_table "message_requests", force: :cascade do |t|
-    t.bigint "sender_id"
-    t.bigint "receiver_id"
-    t.bigint "message_template_id"
-    t.datetime "sent_at"
-    t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["message_template_id"], name: "index_message_requests_on_message_template_id"
-    t.index ["receiver_id"], name: "index_message_requests_on_receiver_id"
-    t.index ["sender_id"], name: "index_message_requests_on_sender_id"
-  end
-
-  create_table "message_templates", force: :cascade do |t|
-    t.string "status", null: false
-    t.text "title", null: false
-    t.text "body", null: false
-    t.integer "position"
-    t.string "locale", default: "en"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["status"], name: "index_message_templates_on_status", unique: true
   end
 
   create_table "message_transitions", force: :cascade do |t|
@@ -1313,7 +1256,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.datetime "updated_at"
     t.datetime "canceled_at"
     t.datetime "expired_at"
-    t.datetime "deleted_at"
     t.boolean "expiration_notice_to_patron", default: false
     t.boolean "expiration_notice_to_library", default: false
     t.integer "pickup_location_id"
@@ -1470,7 +1412,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "deleted_at"
     t.boolean "closed", default: false, null: false
     t.index ["library_id"], name: "index_shelves_on_library_id"
   end
@@ -1505,7 +1446,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "deleted_at"
     t.string "url"
     t.integer "manifestation_id"
     t.integer "subject_heading_type_id"
@@ -1533,7 +1473,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.text "note"
     t.integer "user_id"
     t.integer "order_list_id"
-    t.datetime "deleted_at"
     t.integer "subscribes_count", default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1654,7 +1593,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.integer "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "deleted_at"
     t.integer "valid_period_for_new_user", default: 0, null: false
     t.datetime "expired_at"
     t.integer "number_of_day_to_notify_overdue", default: 0, null: false
@@ -1748,7 +1686,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "username"
-    t.datetime "deleted_at"
     t.datetime "expired_at"
     t.integer "failed_attempts", default: 0
     t.string "unlock_token"
@@ -1758,16 +1695,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
-  end
-
-  create_table "versions", id: :serial, force: :cascade do |t|
-    t.string "item_type", null: false
-    t.integer "item_id", null: false
-    t.string "event", null: false
-    t.string "whodunnit"
-    t.text "object"
-    t.datetime "created_at"
-    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   create_table "withdraws", id: :serial, force: :cascade do |t|
@@ -1806,8 +1733,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_090703) do
   add_foreign_key "item_has_use_restrictions", "use_restrictions"
   add_foreign_key "items", "manifestations"
   add_foreign_key "jpno_records", "manifestations"
-  add_foreign_key "lending_policies", "items"
-  add_foreign_key "lending_policies", "user_groups"
   add_foreign_key "libraries", "library_groups"
   add_foreign_key "library_groups", "users"
   add_foreign_key "manifestation_checkout_stats", "users"
