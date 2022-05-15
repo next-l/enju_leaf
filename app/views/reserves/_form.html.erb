@@ -3,7 +3,7 @@
   <div id="errorExplanation">
     <h2><%= pluralize(@reserve.errors.count, "error") %> prohibited this reserve from being saved:</h2>
     <ul>
-    <% @reserve.errors.full_messages.each do |msg| %>
+    <% @reserve.errors.map(&:full_message).each do |msg| %>
       <li><%= msg %></li>
     <% end %>
     </ul>

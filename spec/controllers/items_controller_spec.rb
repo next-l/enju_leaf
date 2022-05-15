@@ -196,7 +196,7 @@ describe ItemsController do
       it 'should work without exception, even if library and shelf is unavailable' do
         Library.real.each do |library|
           library.try(:shelves).to_a.each(&:destroy)
-          library.destroy
+          library.delete
         end
         get :new, params: { manifestation_id: @manifestation.id }
         expect(response).to redirect_to(libraries_url)

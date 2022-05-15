@@ -1,0 +1,48 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+  <h1 class="title"><%= t('page.listing', model: t('activerecord.models.tag')) -%></h1>
+<div id="content_list">
+
+<%= form_for :tags, url: tags_path, html: {method: 'get'} do -%>
+  <p>
+    <%= label_tag :search_form_top, t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {id: 'search_form_top', class: 'search_form', placeholder: t('page.search_term')} -%>
+    <%= submit_tag t('page.search') -%>
+  </p>
+<%- end -%>
+
+<p>
+  <%= t('page.sort_by') -%>:
+  <%= link_to t('activerecord.attributes.tag.name'), tags_path(order: 'name') -%>
+  <%= link_to t('activerecord.attributes.tag.taggings_count'), tags_path(sort_by: 'taggings_count') -%>
+  <%= link_to t('page.created_at'), tags_path(sort_by: 'created_at') -%>
+</p>
+
+<table class="table table-striped index">
+  <tr>
+    <th><%= t('activerecord.attributes.tag.name') -%></th>
+    <th><%= t('activerecord.attributes.tag.taggings_count') -%></th>
+    <th><%= t('page.created_at') -%></th>
+  </tr>
+<%- @tags.each do |tag| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td>
+      <%= link_to tag.name, tag_path(tag.name) -%>
+    </td>
+    <!--
+    <td>
+      <%= link_to_wikipedia(tag.name) -%>
+    </td>
+    -->
+    <td><%= tag.taggings.size -%></td>
+    <td><%= l(tag.created_at) -%></td>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@tags) -%>
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+  </ul>
+</div>

@@ -1,0 +1,38 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+  <h1 class="title"><%= t('page.showing', model: t('activerecord.models.tag')) -%></h1>
+  <div id="content_list">
+<p id="notice"><%= notice %></p>
+
+    <h2 class="resource_title">
+      [T]
+      <%= @tag.name -%>
+    </h2>
+
+    <p>
+      (<%= link_to_wikipedia(@tag.name) -%>)
+    </p>
+
+    <p>
+      <strong><%= t('activerecord.attributes.tag.taggings_count') -%>:</strong>
+      <%= @tag.taggings.size -%>
+      (<%= link_to t('page.search'), manifestations_path(tag: @tag.name) -%>)
+    </p>
+
+    <p>
+      <strong><%= t('page.created_at') -%>:</strong>
+      <%= l(@tag.created_at) -%>
+    </p>
+
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.back'), :back -%></li>
+    <li><%= link_to t('page.edit'), edit_tag_path(@tag.name) -%></li>
+    <li><%= link_to t('page.search_resource', model: t('activerecord.models.resource')), manifestations_path(tag: @tag.name) -%></li>
+    <%- if user_signed_in? -%>
+      <li><%= link_to t('page.search_resource', model: t('activerecord.models.bookmark')), bookmarks_path(user_id: current_user.username, tag: @tag.name) -%></li>
+    <%- end -%>
+  </ul>
+</div>

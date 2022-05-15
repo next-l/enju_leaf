@@ -61,7 +61,9 @@
         </div>
       <%- end -%>
       <div id="tab3">
-        <p><%= link_to t('shelf.update_display_order'), shelves_path(library_id: @library.name) %>
+        <% if policy(@library).update? %>
+          <p><%= link_to t('shelf.update_display_order'), shelves_path(library_id: @library.name) %></p>
+        <% end %>
         <table class="table table-striped index">
           <tr>
             <th><%= t('activerecord.models.shelf') -%></th>

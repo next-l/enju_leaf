@@ -6,7 +6,6 @@ class ItemsController < ApplicationController
   before_action :get_inventory_file
   before_action :get_library, :get_item, except: [:create, :update, :destroy]
   before_action :prepare_options, only: [:new, :edit]
-  before_action :get_version, only: [:show]
   after_action :convert_charset, only: :index
 
   # GET /items
@@ -121,13 +120,6 @@ class ItemsController < ApplicationController
       @count[:total] = @items.total_entries
     end
 
-    if defined?(EnjuBarcode)
-      if params[:mode] == 'barcode'
-        render action: 'barcode', layout: false
-        return
-      end
-    end
-
     flash[:page_info] = { page: page, query: query }
 
     respond_to do |format|
@@ -166,7 +158,7 @@ class ItemsController < ApplicationController
       redirect_to manifestations_url(parent_id: @manifestation.id)
       return
     end
-    @item = Item.new
+    @item = Item.new(library_id: @library.id)
     @item.shelf = @library.shelves.first
     @item.manifestation = @manifestation
     if defined?(EnjuCirculation)

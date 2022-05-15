@@ -156,6 +156,19 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def impersonate
+    skip_authorization
+    user = Profile.find(params[:id]).user
+    impersonate_user(user)
+    redirect_to root_path
+  end
+
+  def stop_impersonating
+    skip_authorization
+    stop_impersonating_user
+    redirect_to root_path
+  end
+
   private
   def set_profile
     @profile = Profile.find(params[:id])

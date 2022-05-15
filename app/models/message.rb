@@ -34,7 +34,7 @@ class Message < ApplicationRecord
   end
 
   paginates_per 10
-  has_many :message_transitions, autosave: false
+  has_many :message_transitions, autosave: false, dependent: :destroy
 
   def state_machine
     @state_machine ||= MessageStateMachine.new(self, transition_class: MessageTransition)

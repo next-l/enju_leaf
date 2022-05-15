@@ -95,6 +95,7 @@ end
 #  created_at                    :datetime
 #  updated_at                    :datetime
 #  admin_networks                :text
+#  allow_bookmark_external_url   :boolean          default(FALSE), not null
 #  url                           :string           default("http://localhost:3000/")
 #  settings                      :text
 #  html_snippet                  :text
@@ -110,7 +111,6 @@ end
 #  header_logo_file_size         :bigint
 #  header_logo_updated_at        :datetime
 #  header_logo_meta              :text
-#  allow_bookmark_external_url   :boolean          default(FALSE), not null
 #  login_banner                  :text
 #  footer_banner                 :text
 #

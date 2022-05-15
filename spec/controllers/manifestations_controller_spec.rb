@@ -732,6 +732,15 @@ describe ManifestationsController do
           expect(assigns(:manifestation).manifestation_custom_values.count).to eq 1
           expect(assigns(:manifestation).manifestation_custom_values.first.value).to eq ''
         end
+
+        it 'deletes an attachment file' do
+          @manifestation.attachment = File.open(Rails.root.join('spec/fixtures/files/resource_import_file_sample1.tsv'))
+          @manifestation.save
+          expect(@manifestation.attachment.present?).to be_truthy
+
+          put :update, params: { id: @manifestation.id, manifestation: @attrs.merge(delete_attachment: '1') }
+          expect(assigns(:manifestation).attachment.present?).to be_falsy
+        end
       end
 
       describe 'with invalid params' do

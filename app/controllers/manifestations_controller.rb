@@ -10,7 +10,6 @@ class ManifestationsController < ApplicationController
   before_action :get_series_statement, only: [:index, :new, :edit]
   before_action :get_item, :get_libraries, only: :index
   before_action :prepare_options, only: [:new, :edit]
-  before_action :get_version, only: [:show]
   after_action :convert_charset, only: :index
 
   # GET /manifestations
@@ -246,7 +245,7 @@ class ManifestationsController < ApplicationController
     respond_to do |format|
       format.html
       format.html.phone
-      format.xml  { render xml: @manifestations }
+      format.xml
       format.rss  { render layout: false }
       format.text { render layout: false }
       format.rdf { render layout: false }
@@ -327,7 +326,7 @@ class ManifestationsController < ApplicationController
             send_file file, filename: File.basename(@manifestation.attachment_file_name), type: 'application/octet-stream'
           end
         else
-          render template: 'page/404', status: 404
+          render template: 'page/404', status: :not_found
         end
       }
     end
@@ -462,7 +461,7 @@ class ManifestationsController < ApplicationController
       :ndl_bib_id, :pub_date, :edition_string, :volume_number, :issue_number,
       :serial_number, :content_type_id, :attachment, :lock_version,
       :dimensions, :fulltext_content, :extent, :memo,
-      :parent_id,
+      :parent_id, :delete_attachment,
       :serial, :statement_of_responsibility,
       {creators_attributes: [
         :id, :last_name, :middle_name, :first_name,
@@ -676,11 +675,6 @@ class ManifestationsController < ApplicationController
     case mode
     when 'holding'
       render partial: 'manifestations/show_holding', locals: {manifestation: @manifestation}
-    when 'barcode'
-      if defined?(EnjuBarcode)
-        barcode = Barby::QrCode.new(@manifestation.id)
-        send_data(barcode.to_svg, disposition: 'inline', type: 'image/svg+xml')
-      end
     when 'tag_edit'
       if defined?(EnjuBookmark)
         render partial: 'manifestations/tag_edit', locals: {manifestation: @manifestation}

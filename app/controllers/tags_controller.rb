@@ -1,6 +1,6 @@
 class TagsController < ApplicationController
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :check_policy, only: [:index]
 
   def index
     session[:params] ={} unless session[:params]
@@ -45,7 +45,7 @@ class TagsController < ApplicationController
     # @tag = Tag.find(params[:id])
 
     respond_to do |format|
-      if @tag.update_attributes(tag_params)
+      if @tag.update(tag_params)
         format.html { redirect_to @tag, notice: t('controller.successfully_updated', model: t('activerecord.models.tag')) }
         format.json { head :no_content }
       else

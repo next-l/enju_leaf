@@ -47,7 +47,6 @@ end
 #  item_identifier         :string
 #  created_at              :datetime
 #  updated_at              :datetime
-#  deleted_at              :datetime
 #  shelf_id                :integer          default(1), not null
 #  include_supplements     :boolean          default(FALSE), not null
 #  note                    :text

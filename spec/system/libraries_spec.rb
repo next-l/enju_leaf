@@ -24,6 +24,11 @@ RSpec.describe 'Libraries', type: :system do
       visit library_path(libraries(:library_00002).id, locale: :ja)
       expect(page).not_to have_link '設定'
     end
+
+    it 'should show shelves' do
+      visit library_path(libraries(:library_00002).id, locale: :ja, anchor: 'tab3')
+      expect(find(:xpath, '//div[@id="tab3"]')).to have_content "First shelf 0\nSecond shelf 0"
+    end
   end
 
   describe 'When logged in as User' do

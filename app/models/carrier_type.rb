@@ -1,7 +1,7 @@
 class CarrierType < ApplicationRecord
   include MasterModel
   include EnjuCirculation::EnjuCarrierType
-  has_many :manifestations
+  has_many :manifestations, dependent: :restrict_with_exception
   if ENV['ENJU_STORAGE'] == 's3'
     has_attached_file :attachment, storage: :s3,
       styles: { thumb: "16x16#" },
@@ -19,6 +19,12 @@ class CarrierType < ApplicationRecord
       path: ":rails_root/private/system/:class/:attachment/:id_partition/:style/:filename"
   end
   validates_attachment_content_type :attachment, content_type: /\Aimage\/.*\Z/
+
+  before_save do
+    attachment.clear if delete_attachment == '1'
+  end
+
+  attr_accessor :delete_attachment
 
   def mods_type
     case name
