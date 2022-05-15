@@ -92,6 +92,7 @@ gem 'pretender'
 gem 'caxlsx'
 gem 'caxlsx_rails'
 gem 'rails-i18n'
+gem 'sitemap_generator'
 
 group :development, :test do
   gem 'annotate'
