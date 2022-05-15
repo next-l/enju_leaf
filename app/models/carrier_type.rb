@@ -1,7 +1,7 @@
 class CarrierType < ApplicationRecord
   include MasterModel
   include EnjuCirculation::EnjuCarrierType
-  has_many :manifestations
+  has_many :manifestations, dependent: :restrict_with_exception
   if ENV['ENJU_STORAGE'] == 's3'
     has_attached_file :attachment, storage: :s3,
       styles: { thumb: "16x16#" },

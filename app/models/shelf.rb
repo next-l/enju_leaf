@@ -2,7 +2,7 @@ class Shelf < ApplicationRecord
   include MasterModel
   scope :real, -> { where('library_id != 1') }
   belongs_to :library
-  has_many :items
+  has_many :items, dependent: :restrict_with_exception
   has_many :picture_files, as: :picture_attachable, dependent: :destroy
 
   validates :display_name, uniqueness: { scope: :library_id }
@@ -61,6 +61,5 @@ end
 #  position     :integer
 #  created_at   :datetime
 #  updated_at   :datetime
-#  deleted_at   :datetime
 #  closed       :boolean          default(FALSE), not null
 #

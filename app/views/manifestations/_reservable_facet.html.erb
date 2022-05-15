@@ -1,4 +1,4 @@
-<h4><%= t('manifestation.reservable') -%></h4>
+<h4 class="facet-header"><%= t('manifestation.reservable') -%></h4>
 <ul>
   <%- @reservable_facet.each do |facet| -%>
     <% facet.value ? facet_reservable = true : facet_reservable = false %>

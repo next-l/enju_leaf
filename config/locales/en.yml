@@ -47,3 +47,12 @@ en:
       only_year_and_month: "%m, %Y"
       only_month: "%m"
     pm: pm
+
+  helpers:
+    submit:
+      create: "Create %{model}"
+      update: "Update %{model}"
+  cocoon:
+    defaults:
+      add: "Add"
+      remove: "Remove"

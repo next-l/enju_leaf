@@ -13,7 +13,7 @@ class UserCheckoutStat < ApplicationRecord
   paginates_per 10
   attr_accessor :mode
 
-  has_many :user_checkout_stat_transitions, autosave: false
+  has_many :user_checkout_stat_transitions, autosave: false, dependent: :destroy
 
   def state_machine
     UserCheckoutStatStateMachine.new(self, transition_class: UserCheckoutStatTransition)

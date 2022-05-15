@@ -4,9 +4,9 @@ class Library < ApplicationRecord
 
   default_scope { order('libraries.position') }
   scope :real, -> { where('id != 1') }
-  has_many :shelves, -> { order('shelves.position') }, dependent: :destroy
+  has_many :shelves, -> { order('shelves.position') }, dependent: :destroy, inverse_of: :library
   belongs_to :library_group
-  has_many :profiles
+  has_many :profiles, dependent: :restrict_with_exception
   belongs_to :country, optional: true
 
   extend FriendlyId
@@ -64,7 +64,7 @@ class Library < ApplicationRecord
   end
 
   if defined?(EnjuEvent)
-    has_many :events
+    has_many :events, dependent: :restrict_with_exception
 
     def closed?(date)
       events.closing_days.map{ |c|
@@ -74,7 +74,7 @@ class Library < ApplicationRecord
   end
 
   if defined?(EnjuInterLibraryLoan)
-    has_many :inter_library_loans, foreign_key: 'borrowing_library_id', inverse_of: :library
+    has_many :inter_library_loans, foreign_key: 'borrowing_library_id', inverse_of: :library, dependent: :restrict_with_exception
   end
 end
 
@@ -102,7 +102,6 @@ end
 #  country_id            :integer
 #  created_at            :datetime
 #  updated_at            :datetime
-#  deleted_at            :datetime
 #  opening_hour          :text
 #  isil                  :string
 #  latitude              :float

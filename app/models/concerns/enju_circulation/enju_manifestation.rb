@@ -3,7 +3,7 @@ module EnjuCirculation
     extend ActiveSupport::Concern
 
     included do
-      has_many :reserves, foreign_key: :manifestation_id, inverse_of: :manifestation
+      has_many :reserves, foreign_key: :manifestation_id, inverse_of: :manifestation, dependent: :restrict_with_exception
 
       searchable do
         boolean :reservable do
