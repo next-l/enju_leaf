@@ -133,3 +133,19 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
+
+  nginx:
+    image: nginx:stable
+    ports:
+      - 8080:80
+    volumes:
+      - ./nginx/templates:/etc/nginx/templates
+      - ./public:/opt/enju_leaf/public
+    restart: always
+    networks:
+      internal:
+    healthcheck:
+      test: ["CMD", "service", "nginx", "status"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
