@@ -452,13 +452,14 @@ class ResourceImportFile < ApplicationRecord
       volume_number volume_number_string issue_number issue_number_string
       edition edition_string serial_number isbn issn manifestation_price
       width height depth number_of_pages jpno lccn budget_type bookstore
-      language fulltext_content required_role doi content_type frequency
-      extent start_page end_page dimensions manifestation_memo
+      language fulltext_content manifestation_required_role doi content_type
+      frequency extent start_page end_page dimensions manifestation_memo
       ncid
       ndl_bib_id
       statement_of_responsibility acquired_at call_number circulation_status
       binding_item_identifier binding_call_number binded_at item_price
       use_restriction include_supplements item_note item_url item_memo
+      item_required_role
       dummy
     )
     header_columns += ManifestationCustomProperty.order(:position).pluck(:name).map{|c| "manifestation:#{c}"}
@@ -562,7 +563,7 @@ class ResourceImportFile < ApplicationRecord
   def update_item(item, row)
     shelf = Shelf.find_by(name: row['shelf'].to_s.strip)
     bookstore = Bookstore.find_by(name: row['bookstore'])
-    required_role = Role.find_by(name: row['required_role'])
+    required_role = Role.find_by(name: row['item_required_role'])
 
     item.shelf = shelf if shelf
     item.bookstore = bookstore if bookstore
@@ -729,8 +730,8 @@ end
         edit_mode: options[:edit_mode]
       })
 
-      required_role = Role.find_by(name: row['required_role_name'].to_s.strip.camelize)
-      if required_role && row['required_role_name'].present?
+      required_role = Role.find_by(name: row['manifestation_required_role'].to_s.strip.camelize)
+      if required_role && row['manifestation_required_role'].present?
         manifestation.required_role = required_role
       else
         manifestation.required_role = Role.find_by(name: 'Guest') unless manifestation.required_role

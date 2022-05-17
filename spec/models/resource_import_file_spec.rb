@@ -43,6 +43,7 @@ describe ResourceImportFile do
         manifestation_101.series_statements.first.title_subseries_transcription.should eq 'ふくしりーず'
         manifestation_101.items.order(:id).last.call_number.should eq '007|A'
         manifestation_101.serial.should be_falsy
+        expect(manifestation_101.required_role.name).to eq 'Administrator'
 
         item_10101 = Item.find_by(item_identifier: '10101')
         item_10101.manifestation.creators.size.should eq 2
@@ -71,6 +72,8 @@ describe ResourceImportFile do
         item_10101.manifestation.dimensions.should eq '20cm'
         expect(item_10101.memo).to eq '個別資料メモ1'
         expect(item_10101.manifestation.memo).to eq '書誌メモ1'
+        expect(item_10101.manifestation.required_role.name).to eq 'Guest'
+        expect(item_10101.required_role.name).to eq 'Guest'
 
         item_10102 = Item.find_by(item_identifier: '10102')
         item_10102.manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
@@ -82,6 +85,8 @@ describe ResourceImportFile do
         item_10102.manifestation.end_page.should eq 200
         item_10102.manifestation.series_statements.first.creator_string.should eq 'シリーズの著者'
         item_10102.manifestation.series_statements.first.volume_number_string.should eq 'シリーズ1号'
+        expect(item_10102.manifestation.required_role.name).to eq 'Librarian'
+        expect(item_10102.required_role.name).to eq 'Guest'
 
         Manifestation.find_by(manifestation_identifier: '103').original_title.should eq 'ダブル"クォート"を含む資料'
         item = Item.find_by(item_identifier: '11111')
@@ -93,6 +98,9 @@ describe ResourceImportFile do
         item_10103 = Item.find_by(item_identifier: '10103')
         item_10103.budget_type.should be_nil
         item_10103.bookstore.name.should eq 'Example store'
+        # 同じTSVファイル内では上書きされない
+        expect(item_10103.manifestation.required_role.name).to eq 'Administrator'
+        expect(item_10103.required_role.name).to eq 'Guest'
 
         item_10104 = Item.find_by(item_identifier: '10104')
         item_10104.manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
@@ -115,6 +123,8 @@ describe ResourceImportFile do
         item_10104.manifestation.depth.should be_nil
         item_10104.manifestation.subjects.order(:id).map{|s| {s.subject_heading_type.name => s.term}}.should eq [{"ndlsh" => "コンピュータ"}, {"ndlsh" => "図書館"}]
         item_10104.manifestation.classifications.order(:id).map{|c| {c.classification_type.name => c.category}}.should eq [{"ndc9" => "007"}, {"ddc" => "003"}, {"ddc" => "004"}]
+        expect(item_10104.manifestation.required_role.name).to eq 'Guest'
+        expect(item_10104.required_role.name).to eq 'Guest'
 
         manifestation_104 = Manifestation.find_by(manifestation_identifier: '104')
         manifestation_104.identifier_contents(:isbn).should eq ['9784797327038']
@@ -384,11 +394,19 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
       item_00001.binded_at.should eq Time.zone.parse('2014-08-16')
       item_00001.manifestation.subjects.order(:id).map{|subject| {subject.subject_heading_type.name => subject.term}}.should eq [{"ndlsh" => "test1"}, {"ndlsh" => "test2"}]
       item_00001.manifestation.identifier_contents(:isbn).should eq ["4798002062", "12345678"]
-      Item.find_by(item_identifier: '00002').manifestation.publishers.pluck(:full_name).should eq ['test2']
+      expect(item_00001.manifestation.required_role.name).to eq 'Librarian'
+      expect(item_00001.required_role.name).to eq 'Guest'
+
+      item_00002 = Item.find_by(item_identifier: '00002')
+      expect(item_00002.manifestation.publishers.pluck(:full_name)).to eq ['test2']
+      expect(item_00002.manifestation.required_role.name).to eq 'Guest'
+      expect(item_00002.required_role.name).to eq 'Guest'
 
       item_00003 = Item.find_by(item_identifier: '00003')
       item_00003.acquired_at.should eq Time.zone.parse('2012-01-01')
       item_00003.include_supplements.should be_truthy
+      expect(item_00003.manifestation.required_role.name).to eq 'User'
+      expect(item_00003.required_role.name).to eq 'Administrator'
 
       Item.find_by(item_identifier: '00004').include_supplements.should be_falsy
 
