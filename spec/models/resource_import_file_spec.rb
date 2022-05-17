@@ -394,11 +394,19 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
       item_00001.binded_at.should eq Time.zone.parse('2014-08-16')
       item_00001.manifestation.subjects.order(:id).map{|subject| {subject.subject_heading_type.name => subject.term}}.should eq [{"ndlsh" => "test1"}, {"ndlsh" => "test2"}]
       item_00001.manifestation.identifier_contents(:isbn).should eq ["4798002062", "12345678"]
-      Item.find_by(item_identifier: '00002').manifestation.publishers.pluck(:full_name).should eq ['test2']
+      expect(item_00001.manifestation.required_role.name).to eq 'Librarian'
+      expect(item_00001.required_role.name).to eq 'Guest'
+
+      item_00002 = Item.find_by(item_identifier: '00002')
+      expect(item_00002.manifestation.publishers.pluck(:full_name)).to eq ['test2']
+      expect(item_00002.manifestation.required_role.name).to eq 'Guest'
+      expect(item_00002.required_role.name).to eq 'Guest'
 
       item_00003 = Item.find_by(item_identifier: '00003')
       item_00003.acquired_at.should eq Time.zone.parse('2012-01-01')
       item_00003.include_supplements.should be_truthy
+      expect(item_00003.manifestation.required_role.name).to eq 'User'
+      expect(item_00003.required_role.name).to eq 'Administrator'
 
       Item.find_by(item_identifier: '00004').include_supplements.should be_falsy
 
