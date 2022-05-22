@@ -115,8 +115,8 @@ services:
     entrypoint:
       /bin/sh -c "mkdir -p /data/${ENJU_LEAF_STORAGE_BUCKET} && minio server /data --console-address \":9001\""
     expose:
-      - 9000:9000
-      - 9001:9001
+      - 9000
+      - 9001
     env_file:
       - .env
     restart: always
