@@ -3,6 +3,7 @@ server{
   server_name _;
 
   root /opt/enju_leaf/public;
+  client_max_body_size 5m;
 
   location / {
     try_files $uri @web;
