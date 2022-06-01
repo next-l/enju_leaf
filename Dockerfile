@@ -1,4 +1,4 @@
-FROM ruby:2.7.6
+FROM ruby:3.0.4
 LABEL maintainer="nabeta@fastmail.fm"
 
 ARG UID=1000
