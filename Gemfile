@@ -93,6 +93,7 @@ gem 'caxlsx'
 gem 'caxlsx_rails'
 gem 'rails-i18n'
 gem 'sitemap_generator'
+gem 'rss'
 
 group :development, :test do
   gem 'annotate'
