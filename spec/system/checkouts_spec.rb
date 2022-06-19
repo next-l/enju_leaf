@@ -16,6 +16,13 @@ RSpec.describe 'Checkouts', type: :system do
       expect(page).to have_content checkouts(:checkout_00001).user.username
       expect(page).to have_content checkouts(:checkout_00001).user.profile.user_number
     end
+
+    it 'should get checkouts with item_id' do
+      sign_in users(:librarian1)
+      visit checkouts_path(item_id: 1)
+      expect(page).to have_content checkouts(:checkout_00001).user.username
+      expect(page).to have_content checkouts(:checkout_00001).user.profile.user_number
+    end
   end
 
   describe 'When not logged in', solr: true do
