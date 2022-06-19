@@ -117,5 +117,5 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
-  config.action_mailer.delivery_method = ENV['ENJU_LEAF_ACTION_MAILER_DELIVERY_METHOD'].to_sym
+  config.action_mailer.delivery_method = (ENV['ENJU_LEAF_ACTION_MAILER_DELIVERY_METHOD'] || 'test').to_sym
 end
