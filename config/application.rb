@@ -25,7 +25,7 @@ module EnjuLeaf
     config.i18n.available_locales = [default_locale, :ja, :en].uniq
     config.time_zone = ENV['ENJU_LEAF_TIME_ZONE'] || 'UTC'
 
-    base_url = URI.parse(ENV['ENJU_LEAF_BASE_URL'] || 'http://localhost:3000')
+    base_url = URI.parse(ENV['ENJU_LEAF_BASE_URL'] || 'http://localhost:8080')
     config.action_mailer.default_url_options = {
       host: base_url.host,
       protocol: base_url.scheme,
