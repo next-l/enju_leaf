@@ -93,7 +93,6 @@ gem 'caxlsx'
 gem 'caxlsx_rails'
 gem 'rails-i18n'
 gem 'sitemap_generator'
-gem 'damerau-levenshtein'
 
 group :development, :test do
   gem 'annotate'
