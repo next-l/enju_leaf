@@ -22,7 +22,7 @@ module EnjuLeaf
     # the framework and any gems in your application.
     default_locale = (ENV['ENJU_LEAF_DEFAULT_LOCALE'] || 'en').to_sym
     config.i18n.default_locale = default_locale
-    config.i18n.available_locales = [default_locale, :en]
+    config.i18n.available_locales = [default_locale, :ja, :en].uniq
     config.time_zone = ENV['ENJU_LEAF_TIME_ZONE'] || 'UTC'
 
     base_url = URI.parse(ENV['ENJU_LEAF_BASE_URL'] || 'http://localhost:8080')
