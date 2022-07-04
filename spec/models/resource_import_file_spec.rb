@@ -152,7 +152,7 @@ describe ResourceImportFile do
         Manifestation.search{ keywords "item_identifier_sm:10101" }.total.should > 0
 
         Message.count.should eq old_message_count + 1
-        Message.order(:created_at).last.subject.should eq "Import completed: #{@file.id}"
+        Message.order(:created_at).last.subject.should eq "Resource import completed: #{@file.id}"
 
         @file.resource_import_fingerprint.should be_truthy
         @file.executed_at.should be_truthy
