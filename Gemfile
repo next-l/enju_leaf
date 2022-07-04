@@ -91,7 +91,7 @@ gem 'resync' # , github: 'nabeta/resync', branch: 'add-datetime'
 gem 'pretender'
 gem 'caxlsx'
 gem 'caxlsx_rails'
-gem 'rails-i18n'
+gem 'rails-i18n', '~> 6.0'
 gem 'sitemap_generator'
 
 group :development, :test do
