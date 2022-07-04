@@ -471,11 +471,11 @@ en:
 
   resource_import_mailer:
     completed:
-      subject: 'Import completed'
+      subject: 'Resource import completed'
     failed:
-      subject: 'Import failed'
+      subject: 'Resource import failed'
   resource_export_mailer:
     completed:
-      subject: 'Export completed'
+      subject: 'Resource export completed'
     failed:
-      subject: 'Export failed'
+      subject: 'Resource export failed'
