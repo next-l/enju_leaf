@@ -1,4 +1,5 @@
 graph = RDF::Graph.new
+nextl = RDF::Vocabulary.new('https://next-l.jp/vocab/')
 @manifestations.each do |manifestation|
   graph << RDF::Statement.new(
     RDF::URI.new(manifestation_url(manifestation)),
