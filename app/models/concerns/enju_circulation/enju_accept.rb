@@ -4,14 +4,14 @@ module EnjuCirculation
 
     included do
       before_create :accept!
+      after_create do
+        item.save
+      end
     end
 
     def accept!
-      circulation_status = CirculationStatus.find_by(name: 'Available On Shelf')
-      item.circulation_status = circulation_status if circulation_status
-      use_restriction = UseRestriction.find_by(name: 'Limited Circulation, Normal Loan Period')
-      item.use_restriction = use_restriction if use_restriction
-      item.index
+      item.circulation_status = CirculationStatus.find_by(name: 'Available On Shelf')
+      item.use_restriction = UseRestriction.find_by(name: 'Limited Circulation, Normal Loan Period')
     end
   end
 end
