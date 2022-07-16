@@ -1,4 +1,5 @@
 class Accept < ApplicationRecord
+  include EnjuCirculation::EnjuAccept
   default_scope { order('accepts.id DESC') }
   belongs_to :basket
   belongs_to :item, touch: true
