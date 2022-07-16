@@ -177,13 +177,30 @@ module ManifestationsHelper
 
     def rdf_statement(manifestation)
       nextl = RDF::Vocabulary.new('https://next-l.jp/vocab/')
-      statements = [
-        RDF::URI.new(manifestation_url(manifestation)),
+      subject = RDF::URI.new(manifestation_url(manifestation))
+      graph = RDF::Graph.new
+
+      graph << RDF::Statement.new(
+        subject,
         nextl.original_title,
         RDF::Literal.new(manifestation.original_title)
-      ]
+      )
 
-      statements
+      graph << RDF::Statement.new(
+        subject,
+        nextl.description,
+        RDF::Literal.new(manifestation.description)
+      )
+
+      manifestation.creators.each do |i|
+        graph << RDF::Statement.new(
+          subject,
+          nextl.creators,
+          RDF::Literal.new(creator.full_name)
+        )
+      end
+
+      graph.dump(:turtle)
     end
   end
 end
