@@ -196,7 +196,7 @@ module ManifestationsHelper
         graph << RDF::Statement.new(
           subject,
           nextl.creators,
-          RDF::Literal.new(creator.full_name)
+          RDF::Literal.new(i.full_name)
         )
       end
 
