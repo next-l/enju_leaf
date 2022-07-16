@@ -93,6 +93,8 @@ gem 'caxlsx'
 gem 'caxlsx_rails'
 gem 'rails-i18n', '~> 6.0'
 gem 'sitemap_generator'
+gem 'rdf-turtle', require: 'rdf/turtle'
+gem 'rdf-vocab', require: 'rdf/vocab'
 
 group :development, :test do
   gem 'annotate'

@@ -245,6 +245,7 @@ class ManifestationsController < ApplicationController
       format.json
       format.js
       format.xlsx
+      format.ttl
     end
   end
 
@@ -304,6 +305,7 @@ class ManifestationsController < ApplicationController
         end
       }
       format.rdf
+      format.ttl
       format.mods
       format.json
       format.text

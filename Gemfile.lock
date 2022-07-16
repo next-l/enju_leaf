@@ -66,6 +66,7 @@ GEM
       activerecord (>= 4.2)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
+    amazing_print (1.4.0)
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
@@ -115,6 +116,13 @@ GEM
       dotenv (= 2.7.6)
       railties (>= 3.2)
     dynamic_form (1.1.4)
+    ebnf (2.3.1)
+      amazing_print (~> 1.4)
+      htmlentities (~> 4.3)
+      rdf (~> 3.2)
+      scanf (~> 1.0)
+      sxp (~> 1.2)
+      unicode-types (~> 1.7)
     erubi (1.10.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -190,6 +198,7 @@ GEM
     kramdown (2.4.0)
       rexml
     library_stdnums (1.6.0)
+    link_header (0.0.8)
     lisbn (0.3.2)
       nokogiri
       nori (~> 2.0)
@@ -297,6 +306,13 @@ GEM
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    rdf (3.2.8)
+      link_header (~> 0.0, >= 0.0.8)
+    rdf-turtle (3.2.1)
+      ebnf (~> 2.3)
+      rdf (~> 3.2)
+    rdf-vocab (3.2.1)
+      rdf (~> 3.2, >= 3.2.4)
     redis (4.7.1)
     redis-namespace (1.8.2)
       redis (>= 3.0.4)
@@ -353,6 +369,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    scanf (1.0.0)
     selenium-webdriver (4.3.0)
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -390,6 +407,9 @@ GEM
     sunspot_rails (2.6.0)
       rails (>= 3)
       sunspot (= 2.6.0)
+    sxp (1.2.2)
+      matrix
+      rdf (~> 3.2)
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
     thor (1.2.1)
@@ -398,6 +418,7 @@ GEM
     typesafe_enum (0.3.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
+    unicode-types (1.7.0)
     validates_timeliness (6.0.0.beta2)
       activemodel (>= 6.0.0, < 7)
       timeliness (>= 0.3.10, < 1)
@@ -477,6 +498,8 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n (~> 6.0)
   rails_autolink
+  rdf-turtle
+  rdf-vocab
   redis (~> 4.0)
   resque
   resync
