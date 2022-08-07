@@ -107,7 +107,7 @@ services:
       retries: 3
 
   minio:
-    image: quay.io/minio/minio:RELEASE.2022-06-03T01-40-53Z
+    image: quay.io/minio/minio:RELEASE.2022-07-15T03-44-22Z
     profiles:
       - develop
     volumes:
