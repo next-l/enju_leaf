@@ -63,6 +63,7 @@
       <analyzer>
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.SnowballPorterFilterFactory"/>
         <filter class="solr.CJKWidthFilterFactory"/>
         <filter class="solr.CJKBigramFilterFactory"/>
       </analyzer>
