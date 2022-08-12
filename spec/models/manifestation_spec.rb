@@ -90,7 +90,7 @@ describe Manifestation, solr: true do
       results.size.should eq 3
       openurl = Openurl.new({jtitle: "テスト", pub: "テスト"})
       results = openurl.search
-      results.size.should eq 3
+      results.size.should eq 2
     end
 
     it "shoulld get search_error in openurl" do
