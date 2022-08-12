@@ -87,7 +87,7 @@ describe Manifestation, solr: true do
     it "should search multi in openurl" do
       openurl = Openurl.new({btitle: "CGI Perl プログラミング"})
       results = openurl.search
-      results.size.should eq 2
+      results.size.should eq 3
       openurl = Openurl.new({jtitle: "テスト", pub: "テスト"})
       results = openurl.search
       results.size.should eq 3
