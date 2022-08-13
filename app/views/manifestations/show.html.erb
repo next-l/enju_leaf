@@ -5,9 +5,6 @@
     <%= render 'paginate_id_link', manifestation: @manifestation, manifestation_ids: @manifestation_ids %>
 
     <%= render 'manifestations/title', manifestation: @manifestation -%>
-    <%- if @version -%>
-      <p>(<%= l(@manifestation.versions.find(@version).created_at) -%>)</p>
-    <%- end -%>
     <% if current_user.try(:has_role?, 'Librarian') %>
       <%= render 'manifestations/show_detail_librarian', manifestation: @manifestation %>
     <% else %>

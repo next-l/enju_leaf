@@ -4,18 +4,17 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 6.1.5'
+gem 'rails', '~> 6.1.6'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-
+# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
+# gem 'webpacker', '~> 5.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+# gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -64,11 +63,11 @@ gem 'paperclip-meta'
 gem 'acts_as_list'
 gem 'kaminari'
 gem 'strip_attributes'
-gem 'statesman', '~> 9.0'
+gem 'statesman', '~> 10.0'
 gem 'friendly_id'
 gem 'globalize'
 gem 'globalize-accessors'
-gem 'validates_timeliness'
+gem 'validates_timeliness', '~> 6.0.0.beta2'
 gem 'browser'
 gem 'lisbn'
 gem 'library_stdnums'
@@ -84,12 +83,16 @@ gem 'progress_bar'
 gem 'dynamic_form'
 gem 'rails_autolink'
 gem 'faraday_middleware'
-gem 'erubis'
 gem 'kramdown'
 gem 'resque', require: 'resque/server'
-gem 'paper_trail'
 gem 'sassc', '~> 2.1.0'
 gem 'acts-as-taggable-on'
+gem 'resync' # , github: 'nabeta/resync', branch: 'add-datetime'
+gem 'pretender'
+gem 'caxlsx'
+gem 'caxlsx_rails'
+gem 'rails-i18n', '~> 6.0'
+gem 'sitemap_generator'
 
 group :development, :test do
   gem 'annotate'

@@ -5,7 +5,6 @@ event_00001:
   end_at: 2008-01-14 02:54:00 +09:00
   name: 仕事始め
   display_name: 仕事始め
-  deleted_at: 
   start_at: 2008-01-13 02:54:00 +09:00
   id: 1
   note: なんとかかんとか
@@ -17,7 +16,6 @@ event_00002:
   end_at: 2008-01-14 02:54:00 +09:00
   name: テスト
   display_name: テスト
-  deleted_at: 
   start_at: 2008-01-13 02:54:00 +09:00
   id: 2
   note: テスト用のイベントです。
@@ -29,7 +27,6 @@ event_00003:
   end_at: 2008-02-05 00:00:00 +09:00
   name: ミーティング
   display_name: ミーティング
-  deleted_at: 
   start_at: 2008-01-13 00:00:00 +09:00
   id: 3
   note: ""
@@ -41,7 +38,6 @@ event_00004:
   end_at: 2008-02-06 00:00:00 +09:00
   name: テスト
   display_name: テスト
-  deleted_at: 
   start_at: 2008-02-05 00:00:00 +09:00
   id: 4
   note: なんとかかんとか
@@ -53,7 +49,6 @@ event_00005:
   end_at: 2008-02-08 00:00:00 +09:00
   name: test
   display_name: test
-  deleted_at: 
   start_at: 2008-02-05 00:00:00 +09:00
   id: 5
   note: ""
@@ -65,7 +60,6 @@ event_00006:
   end_at: 2008-02-08 00:00:00 +09:00
   name: なんとかかんとか
   display_name: なんとかかんとか
-  deleted_at: 
   start_at: 2008-02-05 00:00:00 +09:00
   id: 6
   note: ""
@@ -77,7 +71,6 @@ event_00007:
   end_at: 2008-02-08 00:00:00 +09:00
   name: test
   display_name: test
-  deleted_at: 
   start_at: 2008-02-05 00:00:00 +09:00
   id: 7
   note: test
@@ -89,7 +82,6 @@ event_00008:
   end_at: 2008-02-05 15:00:00 +09:00
   name: test
   display_name: test
-  deleted_at: 
   start_at: 2008-02-05 15:00:00 +09:00
   id: 8
   note: test
@@ -108,7 +100,6 @@ event_00008:
 #  start_at          :datetime
 #  end_at            :datetime
 #  all_day           :boolean          default(FALSE), not null
-#  deleted_at        :datetime
 #  display_name      :text
 #  created_at        :datetime
 #  updated_at        :datetime

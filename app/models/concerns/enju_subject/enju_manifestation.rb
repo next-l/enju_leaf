@@ -3,8 +3,8 @@ module EnjuSubject
     extend ActiveSupport::Concern
 
     included do
-      has_many :subjects
-      has_many :classifications
+      has_many :subjects, dependent: :destroy
+      has_many :classifications, dependent: :destroy
       accepts_nested_attributes_for :subjects, allow_destroy: true, reject_if: :all_blank
       accepts_nested_attributes_for :classifications, allow_destroy: true, reject_if: :all_blank
       after_save do

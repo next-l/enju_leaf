@@ -1,6 +1,6 @@
 class CheckoutsController < ApplicationController
   before_action :set_checkout, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create, :remove_all]
+  before_action :check_policy, only: [:index, :remove_all]
   before_action :get_user, only: [:index, :remove_all]
   before_action :get_item, only: :index
   after_action :convert_charset, only: :index
@@ -96,8 +96,7 @@ class CheckoutsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @checkouts }
-      format.rss  { render layout: false }
+      format.rss
       format.ics
       format.text
       format.atom
@@ -109,7 +108,6 @@ class CheckoutsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @checkout }
     end
   end
 

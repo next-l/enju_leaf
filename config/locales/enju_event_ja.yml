@@ -19,7 +19,6 @@ ja:
         note: 注記
         start_at: 開始時刻
         end_at: 終了時刻
-        deleted_at: 削除時刻
         all_day: 終日
         display_name: 表示名
       event_import_file:

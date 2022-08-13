@@ -14,7 +14,6 @@ class BasketsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @baskets }
     end
   end
 
@@ -23,20 +22,13 @@ class BasketsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @basket }
     end
   end
 
   # GET /baskets/new
-  # GET /baskets/new.json
   def new
     @basket = Basket.new
     @basket.user_number = params[:user_number]
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @basket }
-    end
   end
 
   # GET /baskets/1/edit

@@ -11,7 +11,6 @@ class CarrierTypesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @carrier_types }
     end
   end
 
@@ -32,7 +31,6 @@ class CarrierTypesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @carrier_type }
       format.download {
         render_image(file)
       }
@@ -40,14 +38,8 @@ class CarrierTypesController < ApplicationController
   end
 
   # GET /carrier_types/new
-  # GET /carrier_types/new.json
   def new
     @carrier_type = CarrierType.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @carrier_type }
-    end
   end
 
   # GET /carrier_types/1/edit
@@ -115,7 +107,7 @@ class CarrierTypesController < ApplicationController
   def carrier_type_params
     params.require(:carrier_type).permit(
       :name, :display_name, :note, :position,
-      :attachment,
+      :attachment, :delete_attachment,
       # EnjuCirculation
       {
         carrier_type_has_checkout_types_attributes: [

@@ -12,7 +12,7 @@ xml.rss('version' => "2.0",
     xml.tag! "atom:link", rel: 'self', href: news_posts_url(format: :rss)
     xml.tag! "atom:link", rel: 'alternate', href: root_url
     xml.tag! "atom:link", rel: 'search', type: 'application/opensearchdescription+xml', href: page_opensearch_url
-    unless params[:query].blank?
+    if params[:query].present?
       xml.tag! "opensearch:startIndex", @news_posts.offset + 1
       xml.tag! "opensearch:itemsPerPage", @news_posts.per_page
     end

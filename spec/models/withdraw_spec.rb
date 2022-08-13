@@ -5,14 +5,22 @@ RSpec.describe Withdraw, type: :model do
 
   it "should change circulation_status" do
     withdraw = FactoryBot.create(:withdraw)
-    withdraw.item.circulation_status.name.should eq 'Removed'
-    withdraw.item.use_restriction.name.should eq 'Not For Loan'
+    expect(withdraw.item.circulation_status.name).to eq 'Removed'
+    expect(withdraw.item.use_restriction.name).to eq 'Not For Loan'
   end
 
   it "should not withdraw rented item" do
     withdraw = Withdraw.new(librarian: users(:librarian1))
     withdraw.item = items(:item_00013)
-    withdraw.valid?.should be_falsy
+    expect(withdraw.valid?).to be_falsy
+    expect(withdraw.errors.messages[:item_id]).to include('is rented.')
+  end
+
+  it "should not withdraw reserved item" do
+    reserve = FactoryBot.create(:reserve)
+    withdraw = FactoryBot.build(:withdraw, item: reserve.manifestation.items.first)
+    expect(withdraw.valid?).to be_falsy
+    expect(withdraw.errors.messages[:item_id]).to include('is reserved.')
   end
 end
 

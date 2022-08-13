@@ -1,6 +1,6 @@
 class InventoriesController < ApplicationController
-  before_action :set_inventory, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_inventory, only: [:show]
+  before_action :check_policy, only: [:index]
 
   # GET /inventories
   # GET /inventories.json
@@ -9,7 +9,6 @@ class InventoriesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @inventories }
     end
   end
 
@@ -18,7 +17,6 @@ class InventoriesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @inventory }
     end
   end
 

@@ -4,7 +4,6 @@ class Message < ApplicationRecord
     initial_state: MessageStateMachine.initial_state
   ]
   scope :unread, -> {in_state('unread')}
-  belongs_to :message_request, optional: true
   belongs_to :sender, class_name: 'User'
   belongs_to :receiver, class_name: 'User'
   validates :subject, :body, presence: true # , :sender
@@ -13,7 +12,7 @@ class Message < ApplicationRecord
   after_create :send_notification
   after_create :set_default_state
   after_destroy :remove_from_index
-  after_save :index
+  after_save :index!
 
   acts_as_nested_set
   attr_accessor :recipient
@@ -35,7 +34,7 @@ class Message < ApplicationRecord
   end
 
   paginates_per 10
-  has_many :message_transitions, autosave: false
+  has_many :message_transitions, autosave: false, dependent: :destroy
 
   def state_machine
     @state_machine ||= MessageStateMachine.new(self, transition_class: MessageTransition)

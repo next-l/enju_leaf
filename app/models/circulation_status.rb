@@ -4,7 +4,7 @@ class CirculationStatus < ApplicationRecord
 
   default_scope { order('circulation_statuses.position') }
   scope :available_for_checkout, -> { where(name: 'Available On Shelf') }
-  has_many :items
+  has_many :items, dependent: :restrict_with_exception
 
   private
 

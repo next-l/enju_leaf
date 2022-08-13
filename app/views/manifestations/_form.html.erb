@@ -114,6 +114,14 @@
     <%= f.file_field :attachment -%>
   </div>
 
+  <% if f.object.attachment.present? %>
+    <div class="field">
+      <%= f.label t('page.delete_file') -%>
+      <%= f.check_box :delete_attachment -%>
+      <%= f.object.attachment.original_filename %>
+    </div>
+  <% end %>
+
   <div class="field">
     <%= f.label t('activerecord.models.content_type') -%>
     <%= f.select(:content_type_id, @content_types.collect{|c| [c.display_name.localize, c.id]}) -%>
@@ -188,16 +196,16 @@
   </div>
 
   <% if ManifestationCustomProperty.first %>
-    <div class="field">
-      <% ManifestationCustomProperty.order(:position).each do |c| %>
+    <% ManifestationCustomProperty.order(:position).each do |c| %>
+      <div class="field">
         <% @manifestation.manifestation_custom_values.new(manifestation_custom_property: c) unless @manifestation.manifestation_custom_values.map{|value| value.manifestation_custom_property_id}.include?(c.id) %>
       <% end %>
       <%= f.fields_for :manifestation_custom_values do |custom_form| %>
         <%= custom_form.label custom_form.object.manifestation_custom_property.name.to_sym, custom_form.object.manifestation_custom_property.display_name.localize %>
         <%= custom_form.hidden_field :manifestation_custom_property_id %>
         <%= custom_form.text_field :value, class: 'form-control' %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   <% end %>
 
   <div class="field">

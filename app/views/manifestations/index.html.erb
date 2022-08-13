@@ -78,12 +78,7 @@
       <br />
     </div>
     <% if defined?(EnjuBookmark) %>
-      <div id="tag_cloud">
-        <h3 class="resource_title"><%= t('activerecord.models.tag') -%></h3>
-        <div id="tag_cloud_list"></div>
-        <%= image_tag 'spinner.gif', id: 'spinner_tag_cloud',
-          style: 'padding-bottom: 15px; padding-left: 40px;' -%>
-      </div>
+      <%# render 'manifestations/_render_tag_cloud' %>
     <% end %>
   <%- else -%>
     <%- if @parent -%>
@@ -104,9 +99,6 @@
     <%= render 'submenu_parent' %>
   <% end %>
   <h3><%= link_to h("#{t('page.total')}: #{@count[:query_result]}"), url_for(request.params.merge(action: 'index', view: nil, carrier_type: nil, library: nil, language: nil, subject: nil, only_path: true))  -%></h3>
-    <%- if @manifestations.total_count > 0 -%>
-      <%= render 'manifestations/all_facet' -%>
-    <%- end -%>
   <div>
     <%- if params[:library_id].blank? -%>
       <%= link_to((image_tag 'icons/feed.png', size: '16x16', alt: t('page.feed'), class: 'enju_icon'), url_for(request.params.merge(format: :rss, page: nil, library_id: nil, only_path: true))) -%> <%= link_to t('page.search_result_feed'), url_for(request.params.merge(format: :rss, page: nil, library_id: nil, commit: nil, only_path: true)) -%>
@@ -114,20 +106,12 @@
       <%= link_to((image_tag 'icons/feed.png', size: '16x16', alt: t('page.feed'), class: 'enju_icon'), url_for(request.params.merge(format: :rss, page: nil, only_path: true))) -%> <%= link_to t('page.search_result_feed'), url_for(request.params.merge(format: :rss, page: nil, commit: nil, only_path: true)) -%>
     <%- end -%>
   </div>
+
+  <%- if @manifestations.total_count > 0 -%>
+    <%= render 'manifestations/all_facet' -%>
+  <%- end -%>
   <%= render 'manifestations/export_list' %>
 </div>
-
-<% if defined?(EnjuBookmark) %>
-  <script type="text/javascript">
-    window.onload = function() {
-      $("#tag_cloud_list").load('<%= url_for(request.params.merge(view: "tag_cloud", only_path: true)) -%>', hideTagCloudSpinner);
-    }
-
-    function hideTagCloudSpinner(){
-      $("#spinner_tag_cloud").hide();
-    }
-  </script>
-<% end %>
 
 <% if @manifestation_ids and @search_query %>
   <%= render 'session_ids' %>

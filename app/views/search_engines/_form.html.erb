@@ -3,7 +3,7 @@
   <div id="errorExplanation">
     <h2><%= pluralize(@search_engine.errors.count, "error") %> prohibited this search_engine from being saved:</h2>
     <ul>
-    <% @search_engine.errors.full_messages.each do |msg| %>
+    <% @search_engine.errors.map(&:full_message).each do |msg| %>
       <li><%= msg %></li>
     <% end %>
     </ul>

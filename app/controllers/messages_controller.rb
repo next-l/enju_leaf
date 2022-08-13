@@ -33,7 +33,6 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @messages }
       format.rss
       format.atom
     end
@@ -42,11 +41,10 @@ class MessagesController < ApplicationController
   # GET /messages/1
   # GET /messages/1.json
   def show
-    @message.transition_to!(:read) if @message.current_state != 'read'
+    @message.read unless @message.read?
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @message }
     end
   end
 
@@ -60,11 +58,6 @@ class MessagesController < ApplicationController
       @message.recipient = parent.sender.username
 end
     @message.receiver = User.find_by(username: @message.recipient) if @message.recipient
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @message }
-    end
   end
 
   # GET /messages/1/edit

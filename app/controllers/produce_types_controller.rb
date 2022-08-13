@@ -9,7 +9,6 @@ class ProduceTypesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @produce_types }
     end
   end
 
@@ -18,19 +17,12 @@ class ProduceTypesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @produce_type }
     end
   end
 
   # GET /produce_types/new
-  # GET /produce_types/new.json
   def new
     @produce_type = ProduceType.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @produce_type }
-    end
   end
 
   # GET /produce_types/1/edit

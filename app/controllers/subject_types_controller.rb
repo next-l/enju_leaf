@@ -9,7 +9,6 @@ class SubjectTypesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @subject_types }
     end
   end
 
@@ -18,19 +17,12 @@ class SubjectTypesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @subject_type }
     end
   end
 
   # GET /subject_types/new
-  # GET /subject_types/new.json
   def new
     @subject_type = SubjectType.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @subject_type }
-    end
   end
 
   # GET /subject_types/1/edit

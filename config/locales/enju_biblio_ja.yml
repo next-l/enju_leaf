@@ -58,7 +58,6 @@ ja:
         manifestation_identifier: ローカル識別子
         date_of_publication: 出版日
         pub_date: 出版日
-        deleted_at: 削除時刻
         access_address: アクセスアドレス
         number_of_page_string: ページ数（文字列）
         start_page: 最初のページ
@@ -118,7 +117,6 @@ ja:
       item:
         call_number: 請求記号
         item_identifier: 所蔵情報ID
-        deleted_at: 削除時刻
         include_supplements: 付録を含む
         note: 注記
         memo: 業務メモ
@@ -148,7 +146,6 @@ ja:
         full_name: フルネーム
         full_name_transcription: フルネーム（ヨミ）
         full_name_alternative: フルネーム（代替）
-        deleted_at: 削除時刻
         zip_code_1: 郵便番号1
         zip_code_2: 郵便番号2
         address_1: 住所1
@@ -479,11 +476,11 @@ ja:
 
   resource_import_mailer:
     completed:
-      subject: 'インポートが完了しました'
+      subject: '資料のインポートが完了しました'
     failed:
-      subject: 'インポートに失敗しました'
+      subject: '資料のインポートに失敗しました'
   resource_export_mailer:
     completed:
-      subject: 'エクスポートが完了しました'
+      subject: '資料のエクスポートが完了しました'
     failed:
-      subject: 'エクスポートに失敗しました'
+      subject: '資料のエクスポートに失敗しました'

@@ -1,9 +1,7 @@
-The following import task is completed.
+ID: <%= @user_import_file.id %> (Created at: <%= @user_import_file.created_at %>) import task is completed.
 
-ID: <%= @user_import_file.id %>
-Created at: <%= @user_import_file.created_at %>
 Detail: <%= user_import_file_url(@user_import_file) %>
 
 --  
-<%= @library_group.display_name %>
+<%= @library_group.display_name.localize %>
 <%= root_url %>

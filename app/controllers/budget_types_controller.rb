@@ -9,7 +9,6 @@ class BudgetTypesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @budget_types }
     end
   end
 
@@ -18,19 +17,12 @@ class BudgetTypesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @budget_type }
     end
   end
 
   # GET /budget_types/new
-  # GET /budget_types/new.json
   def new
     @budget_type = BudgetType.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @budget_type }
-    end
   end
 
   # GET /budget_types/1/edit

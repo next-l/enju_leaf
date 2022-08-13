@@ -31,7 +31,7 @@ describe Manifestation, solr: true do
       openurl = Openurl.new({title: "プログラミング"})
       results = openurl.search
       openurl.query_text.should eq "btitle_text:プログラミング"
-      results.size.should eq 7
+      results.size.should eq 8
       openurl = Openurl.new({jtitle: "テスト"})
       results = openurl.search
       results.size.should eq 3
@@ -87,7 +87,7 @@ describe Manifestation, solr: true do
     it "should search multi in openurl" do
       openurl = Openurl.new({btitle: "CGI Perl プログラミング"})
       results = openurl.search
-      results.size.should eq 2
+      results.size.should eq 3
       openurl = Openurl.new({jtitle: "テスト", pub: "テスト"})
       results = openurl.search
       results.size.should eq 2
@@ -276,7 +276,6 @@ end
 #  date_copyrighted                :datetime
 #  created_at                      :datetime
 #  updated_at                      :datetime
-#  deleted_at                      :datetime
 #  access_address                  :string
 #  language_id                     :integer          default(1), not null
 #  carrier_type_id                 :integer          default(1), not null

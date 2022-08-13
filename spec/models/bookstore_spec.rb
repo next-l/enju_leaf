@@ -18,7 +18,6 @@ end
 #  fax_number       :string
 #  url              :string
 #  position         :integer
-#  deleted_at       :datetime
 #  created_at       :datetime
 #  updated_at       :datetime
 #

@@ -46,7 +46,6 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @profiles }
     end
   end
 
@@ -61,7 +60,6 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.html.phone
-      format.json { render json: @profile }
     end
   end
 
@@ -72,11 +70,6 @@ class ProfilesController < ApplicationController
     @profile.user_group = current_user.profile.user_group
     @profile.library = current_user.profile.library
     @profile.locale = current_user.profile.locale
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @profile }
-    end
   end
 
   # GET /profiles/1/edit
@@ -161,6 +154,19 @@ class ProfilesController < ApplicationController
       format.html { redirect_to profiles_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.profile')) }
       format.json { head :no_content }
     end
+  end
+
+  def impersonate
+    skip_authorization
+    user = Profile.find(params[:id]).user
+    impersonate_user(user)
+    redirect_to root_path
+  end
+
+  def stop_impersonating
+    skip_authorization
+    stop_impersonating_user
+    redirect_to root_path
   end
 
   private

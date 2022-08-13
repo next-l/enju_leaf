@@ -13,7 +13,7 @@ class ManifestationCheckoutStat < ApplicationRecord
   paginates_per 10
   attr_accessor :mode
 
-  has_many :manifestation_checkout_stat_transitions, autosave: false
+  has_many :manifestation_checkout_stat_transitions, autosave: false, dependent: :destroy
 
   def state_machine
     ManifestationCheckoutStatStateMachine.new(self, transition_class: ManifestationCheckoutStatTransition)
@@ -37,7 +37,10 @@ class ManifestationCheckoutStat < ApplicationRecord
     end
     self.completed_at = Time.zone.now
     transition_to!(:completed)
-    send_message
+
+    mailer = ManifestationCheckoutStatMailer.completed(self)
+    mailer.deliver_later
+    send_message(mailer)
   end
 end
 
