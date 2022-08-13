@@ -1,8 +1,14 @@
 require 'rails_helper'
 
 describe PictureFile do
-  # pending "add some examples to (or delete) #{__FILE__}"
+  fixtures :all
 
+  it "should move position" do
+    picture_file = PictureFile.find(1)
+    expect(picture_file.first?).to be_truthy
+    picture_file.move_lower
+    expect(picture_file.last?).to be_truthy
+  end
 end
 
 # == Schema Information
