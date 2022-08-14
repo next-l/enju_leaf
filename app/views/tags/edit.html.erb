@@ -3,7 +3,7 @@
 <div id="content_list">
 
 <%= form_for(@tag, url: tag_path(@tag.name)) do |f| -%>
-  <%= f.error_messages -%>
+  <%= error_messages(@tag) -%>
   <div class="field">
     <%= f.label :name -%><br />
     <%= f.text_field :name, value: @tag.name -%>

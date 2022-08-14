@@ -1,25 +1,8 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.editing', model: t('activerecord.models.donate')) -%></h1>
-<div id="content_list">
-
-<%= form_for(@donate) do |f| -%>
-  <%= f.error_messages -%>
-  <div class="field">
-    <%= f.label t('activerecord.models.agent') -%><br />
-    <%= f.text_field :agent_id -%>
+  <h1 class="title"><%= t('page.editing', model: t('activerecord.models.donate')) -%></h1>
+  <div id="content_list">
+    <%= render 'form' %>
   </div>
-
-  <div class="field">
-    <%= f.label t('activerecord.models.item') -%><br />
-    <%= f.text_field :item_id -%>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<%- end -%>
-
-</div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">

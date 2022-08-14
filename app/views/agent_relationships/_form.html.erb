@@ -1,5 +1,5 @@
 <%= form_for(@agent_relationship) do |f| %>
-  <%= f.error_messages -%>
+  <%= error_messages(@agent_relationship) -%>
 
   <div class="field">
     <% if @agent_relationship.try(:parent) %>

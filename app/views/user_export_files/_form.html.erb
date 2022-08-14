@@ -1,5 +1,5 @@
 <%= form_for(@user_export_file) do |f| %>
-  <%= f.error_messages %>
+  <%= error_messages(@user_export_file) %>
 
   <%= f.hidden_field :mode, value: 'export' if @user_export_file.new_record? %><br>
   <div class="actions">
