@@ -107,7 +107,7 @@ class CarrierTypesController < ApplicationController
   def carrier_type_params
     params.require(:carrier_type).permit(
       :name, :display_name, :note, :position,
-      :attachment,
+      :attachment, :delete_attachment,
       # EnjuCirculation
       {
         carrier_type_has_checkout_types_attributes: [

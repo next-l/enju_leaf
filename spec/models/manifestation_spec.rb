@@ -31,7 +31,7 @@ describe Manifestation, solr: true do
       openurl = Openurl.new({title: "プログラミング"})
       results = openurl.search
       openurl.query_text.should eq "btitle_text:プログラミング"
-      results.size.should eq 7
+      results.size.should eq 8
       openurl = Openurl.new({jtitle: "テスト"})
       results = openurl.search
       results.size.should eq 3
@@ -87,7 +87,7 @@ describe Manifestation, solr: true do
     it "should search multi in openurl" do
       openurl = Openurl.new({btitle: "CGI Perl プログラミング"})
       results = openurl.search
-      results.size.should eq 2
+      results.size.should eq 3
       openurl = Openurl.new({jtitle: "テスト", pub: "テスト"})
       results = openurl.search
       results.size.should eq 2
@@ -166,6 +166,13 @@ describe Manifestation, solr: true do
       expect(csv["item_price"].compact.first).to eq nil
       expect(csv["library"].compact.first).to eq "web"
       expect(csv["shelf"].compact.first).to eq "web"
+      expect(csv["jpno"].compact).not_to be_empty
+      expect(csv["ncid"].compact).not_to be_empty
+      expect(csv["lccn"].compact).not_to be_empty
+      # expect(csv["doi"].compact).not_to be_empty
+      expect(csv["identifier:jpno"].compact).to be_empty
+      expect(csv["identifier:ncid"].compact).to be_empty
+      expect(csv["identifier:lccn"].compact).to be_empty
     end
 
     it "should export edition fields" do
@@ -207,7 +214,8 @@ describe Manifestation, solr: true do
       lines = Manifestation.export()
       csv = CSV.parse(lines, headers: true, col_sep: "\t")
       m = csv.find{|row| row["manifestation_id"].to_i == manifestation.id }
-      expect(m["identifier:isbn"].split('//').sort).to eq ['9784043898039', '9784840239219']
+      expect(m["isbn"].split('//').sort).to eq ['9784043898039', '9784840239219']
+      expect(m["identifier:isbn"]).to be_nil
     end
 
     it "should respect the role of the user" do

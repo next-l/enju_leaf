@@ -1,9 +1,9 @@
-<%= simple_form_for(@user_group) do |f| %>
-  <%= f.error_notification -%>
+<%= form_for(@user_group) do |f| %>
+  <%= error_messages(@user_group) -%>
 
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.text_field :name, required: true %>
   </div>
   <div class="field">
     <%= f.label :display_name %><br />

@@ -1,9 +1,9 @@
-<%= simple_form_for(@country, validate: true) do |f| %>
-  <%= f.error_messages %>
+<%= form_for(@country) do |f| %>
+  <%= error_messages(@country) %>
 
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name, class: 'resource_title' -%>
+    <%= f.text_field :name, required: true, class: 'resource_title' -%>
   </div>
 
   <div class="field">

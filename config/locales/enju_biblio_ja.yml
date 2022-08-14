@@ -476,11 +476,11 @@ ja:
 
   resource_import_mailer:
     completed:
-      subject: 'インポートが完了しました'
+      subject: '資料のインポートが完了しました'
     failed:
-      subject: 'インポートに失敗しました'
+      subject: '資料のインポートに失敗しました'
   resource_export_mailer:
     completed:
-      subject: 'エクスポートが完了しました'
+      subject: '資料のエクスポートが完了しました'
     failed:
-      subject: 'エクスポートに失敗しました'
+      subject: '資料のエクスポートに失敗しました'

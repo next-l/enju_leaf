@@ -1,6 +1,6 @@
 <%= render 'page/required_field' %>
-<%= simple_form_for(@agent_type) do |f| %>
-  <%= f.error_messages %>
+<%= form_for(@agent_type) do |f| %>
+  <%= error_messages(@agent_type) %>
 
   <div class="field">
     <%= f.label :name %><br />

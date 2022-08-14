@@ -59,6 +59,12 @@ item_has_use_restriction_00010:
   id: 10
   use_restriction_id: 7
   created_at: 2008-02-13 12:29:36.013448 +09:00
+item_has_use_restriction_00011:
+  item_id: 12
+  updated_at: 2008-02-13 12:29:36.013448 +09:00
+  id: 11
+  use_restriction_id: 7
+  created_at: 2008-02-13 12:29:36.013448 +09:00
 
 # == Schema Information
 #

@@ -1,5 +1,5 @@
 <%= form_for(@series_statement_merge_list) do |f| %>
-  <%= f.error_messages %>
+  <%= error_messages(@series_statement_merge_list) %>
   <div class="field">
     <%= f.label :title -%><br />
     <%= f.text_field :title -%>
