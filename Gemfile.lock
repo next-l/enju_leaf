@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/kshnurov/paperclip-meta.git
+  revision: c005cefe85f5aa269741f016fd7ec31dad400704
+  specs:
+    paperclip-meta (4.0.0)
+      kt-paperclip (>= 5.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -188,6 +195,12 @@ GEM
     kaminari-core (1.2.2)
     kramdown (2.4.0)
       rexml
+    kt-paperclip (7.1.1)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
+      marcel (~> 1.0.1)
+      mime-types
+      terrapin (~> 0.6.0)
     library_stdnums (1.6.0)
     lisbn (0.3.2)
       nokogiri
@@ -206,9 +219,6 @@ GEM
     mime-types (3.4.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2022.0105)
-    mimemagic (0.3.10)
-      nokogiri (~> 1)
-      rake
     mini_magick (4.11.0)
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
@@ -226,14 +236,6 @@ GEM
     nori (2.6.0)
     options (2.3.2)
     orm_adapter (0.5.0)
-    paperclip (6.1.0)
-      activemodel (>= 4.2.0)
-      activesupport (>= 4.2.0)
-      mime-types
-      mimemagic (~> 0.3.0)
-      terrapin (~> 0.6.0)
-    paperclip-meta (3.1.0)
-      paperclip (>= 5.0)
     parallel (1.22.1)
     parallel_tests (3.11.1)
       parallel
@@ -458,11 +460,11 @@ DEPENDENCIES
   jquery-ui-rails (~> 4.2.1)
   kaminari
   kramdown
+  kt-paperclip
   library_stdnums
   lisbn
   listen (~> 3.3)
-  paperclip
-  paperclip-meta
+  paperclip-meta!
   parallel_tests
   pg (~> 1.1)
   pretender
