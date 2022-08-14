@@ -298,8 +298,8 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     redis (4.7.1)
-    redis-namespace (1.8.2)
-      redis (>= 3.0.4)
+    redis-namespace (1.9.0)
+      redis (>= 4)
     regexp_parser (2.5.0)
     request_store (1.5.1)
       rack (>= 1.4)
@@ -358,9 +358,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    simple_form (5.1.0)
-      actionpack (>= 5.2)
-      activemodel (>= 5.2)
     simplecov (0.21.2)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -485,7 +482,6 @@ DEPENDENCIES
   sass-rails (>= 6)
   sassc (~> 2.1.0)
   selenium-webdriver
-  simple_form
   simplecov
   sitemap_generator
   statesman (~> 10.0)

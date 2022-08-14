@@ -8,8 +8,8 @@
   </p>
 <% end %>
 <%= render 'page/required_field' %>
-<%= simple_form_for(@item) do |f| -%>
-  <%= f.error_messages -%>
+<%= form_for(@item) do |f| -%>
+  <%= error_messages(@item) -%>
   <%= f.hidden_field :manifestation_id, value: @item.manifestation_id if @item.manifestation_id %>
 
   <div class="field">
