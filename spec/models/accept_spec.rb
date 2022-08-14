@@ -4,9 +4,12 @@ describe Accept do
   fixtures :all
 
   it "should change circulation_status" do
-    accept = FactoryBot.create(:accept)
-    accept.item.circulation_status.name.should eq 'Available For Pickup'
-    accept.item.use_restriction.name.should eq 'Limited Circulation, Normal Loan Period'
+    expect(items(:item_00012).circulation_status.name).to eq 'Circulation Status Undefined'
+    expect(items(:item_00012).use_restriction.name).to eq 'Not For Loan'
+
+    accept = FactoryBot.create(:accept, item: items(:item_00012))
+    expect(accept.item.circulation_status.name).to eq 'Available On Shelf'
+    expect(accept.item.use_restriction.name).to eq 'Limited Circulation, Normal Loan Period'
   end
 end
 
