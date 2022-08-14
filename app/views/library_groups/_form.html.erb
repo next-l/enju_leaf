@@ -1,5 +1,5 @@
-<%= simple_form_for(@library_group) do |f| -%>
-  <%= f.error_messages -%>
+<%= form_for(@library_group) do |f| -%>
+  <%= error_messages(@library_group) %>
 
   <div class="field">
     <%= f.label :name -%><br />

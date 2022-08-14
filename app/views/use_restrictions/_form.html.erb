@@ -1,9 +1,9 @@
-<%= simple_form_for(@use_restriction, validate: true) do |f| %>
-  <%= f.error_messages %>
+<%= form_for(@use_restriction) do |f| %>
+  <%= error_messages(@use_restriction) %>
 
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.text_field :name, required: true %>
   </div>
   <div class="field">
     <%= f.label :display_name %><br />

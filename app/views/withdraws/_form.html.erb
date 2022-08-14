@@ -1,8 +1,8 @@
-<%= simple_form_for(@withdraw) do |f| %>
-  <%= f.error_messages %>
+<%= form_for(@withdraw) do |f| %>
+  <%= error_messages(@withdraw) %>
 
   <div class="form-inputs">
-    <%= f.input :item_id %>
+    <%= f.text_field :item_id %>
   </div>
 
   <div class="form-actions">

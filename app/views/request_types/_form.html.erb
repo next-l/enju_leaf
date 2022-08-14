@@ -1,9 +1,9 @@
 <%= form_for(@request_type) do |f| %>
-  <%= f.error_messages %>
+  <%= error_messages(@request_type) %>
 
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.text_field :name, required: true %>
   </div>
   <div class="field">
     <%= f.label :display_name %><br />

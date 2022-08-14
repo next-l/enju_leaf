@@ -1,5 +1,5 @@
-<%= simple_form_for(@checkin) do |f| %>
-  <%= f.error_messages %>
+<%= form_for(@checkin) do |f| %>
+  <%= error_messages(@checkin) %>
 
   <div class="form-inputs">
     <%= f.input :item_id %>

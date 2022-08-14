@@ -1,5 +1,5 @@
 <%= form_for(@series_statement) do |f| %>
-  <%= f.error_messages %>
+  <%= error_messages(@series_statement) %>
 
   <%- if !@series_statement.new_record? and @manifestation -%>
     <div class="field">

@@ -1,5 +1,5 @@
 <%= form_for(@bookstore) do |f| -%>
-  <%= f.error_messages -%>
+  <%= error_messages(@bookstore) -%>
 
   <div class="field">
     <%= f.label :name -%><br />

@@ -1,5 +1,5 @@
 <%= form_for(@create) do |f| -%>
-  <%= f.error_messages -%>
+  <%= error_messages(@create) -%>
 
   <div class="field">
     <%= f.label t('activerecord.models.agent') -%><br />

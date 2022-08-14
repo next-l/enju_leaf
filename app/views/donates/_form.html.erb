@@ -1,8 +1,7 @@
-<%= form_for(@own) do |f| -%>
-  <%= error_messages(@own) -%>
-
+<%= form_for(@donate) do |f| -%>
+  <%= error_messages(@donate) -%>
   <div class="field">
-    <%= f.label t('activerecord.models.library') -%><br />
+    <%= f.label t('activerecord.models.agent') -%><br />
     <%= f.text_field :agent_id -%>
   </div>
 
@@ -14,4 +13,4 @@
   <div class="actions">
     <%= f.submit %>
   </div>
-<%- end -%>
+<% end %>
