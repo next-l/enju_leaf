@@ -1,11 +1,11 @@
 <%= form_for(@accept) do |f| %>
   <%= error_messages(@accept) %>
 
-  <div class="form-inputs">
+  <div class="field">
     <%= f.text_field :item_id %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="actions">
+    <%= f.submit %>
   </div>
 <% end %>
