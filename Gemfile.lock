@@ -114,7 +114,6 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
-    dynamic_form (1.1.4)
     erubi (1.11.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -360,9 +359,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    simple_form (5.1.0)
-      actionpack (>= 5.2)
-      activemodel (>= 5.2)
     simplecov (0.21.2)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -450,7 +446,6 @@ DEPENDENCIES
   cocoon
   devise
   dotenv-rails
-  dynamic_form
   factory_bot_rails
   faraday_middleware
   friendly_id
@@ -488,7 +483,6 @@ DEPENDENCIES
   sass-rails (>= 6)
   sassc (~> 2.1.0)
   selenium-webdriver
-  simple_form
   simplecov
   sitemap_generator
   statesman (~> 10.0)

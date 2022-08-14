@@ -1,5 +1,5 @@
 <%= form_for(@frequency) do |f| %>
-  <%= f.error_messages %>
+  <%= error_messages(@frequency) %>
 
   <div class="field">
     <%= f.label :name %><br />

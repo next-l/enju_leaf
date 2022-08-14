@@ -16,7 +16,7 @@
 </div>
 
 <%= form_for(@news_feed, url: news_feed_url(@news_feed, mode: 'force_reload')) do |f| -%>
-  <%= f.error_messages -%>
+  <%= error_messages(@news_feed) -%>
 
   <p>
     <%= f.submit t('page.force_reload') -%>

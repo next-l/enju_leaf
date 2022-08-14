@@ -1,5 +1,5 @@
 <%= form_for(@agent_merge_list) do |f| -%>
-  <%= f.error_messages -%>
+  <%= error_messages(@agent_merge_list) -%>
   <div class="field">
     <%= f.label :title -%><br />
     <%= f.text_field :title -%>

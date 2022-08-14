@@ -1,6 +1,6 @@
 <%= render 'page/required_field' %>
-<%= simple_form_for(@agent) do |f| -%>
-  <%= f.error_messages -%>
+<%= form_for(@agent) do |f| -%>
+  <%= error_messages(@agent) -%>
 
   <div class="field">
     <%= f.label t('activerecord.models.agent_type') -%>
