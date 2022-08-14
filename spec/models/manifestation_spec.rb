@@ -166,6 +166,10 @@ describe Manifestation, solr: true do
       expect(csv["item_price"].compact.first).to eq nil
       expect(csv["library"].compact.first).to eq "web"
       expect(csv["shelf"].compact.first).to eq "web"
+      expect(csv["jpno"].compact).not_to be_empty
+      expect(csv["ncid"].compact).not_to be_empty
+      expect(csv["lccn"].compact).not_to be_empty
+      # expect(csv["doi"].compact).not_to be_empty
     end
 
     it "should export edition fields" do
@@ -207,7 +211,7 @@ describe Manifestation, solr: true do
       lines = Manifestation.export()
       csv = CSV.parse(lines, headers: true, col_sep: "\t")
       m = csv.find{|row| row["manifestation_id"].to_i == manifestation.id }
-      expect(m["identifier:isbn"].split('//').sort).to eq ['9784043898039', '9784840239219']
+      expect(m["isbn"].split('//').sort).to eq ['9784043898039', '9784840239219']
     end
 
     it "should respect the role of the user" do

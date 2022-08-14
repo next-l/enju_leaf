@@ -22,15 +22,15 @@ identifier_type_00003:
   id: 3
 
 identifier_type_00004:
-  name: doi
-  display_name: DOI
+  name: ncid
+  display_name: NCID
   note: 
   position: 4
   id: 4
 
 identifier_type_00005:
-  name: iss_itemno
-  display_name: NDL Search
+  name: lccn
+  display_name: LCCN
   note: 
   position: 5
   id: 5
@@ -42,16 +42,30 @@ identifier_type_00006:
   position: 6
   id: 6
 
+identifier_type_00006:
+  name: doi
+  display_name: DOI
+  note: 
+  position: 6
+  id: 6
+
+identifier_type_00007:
+  name: iss_itemno
+  display_name: NDL Search
+  note: 
+  position: 7
+  id: 7
+
 # == Schema Information
 #
 # Table name: identifier_types
 #
 #  id           :integer          not null, primary key
-#  name         :string(255)
+#  name         :string
 #  display_name :text
 #  note         :text
 #  position     :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  created_at   :datetime
+#  updated_at   :datetime
 #
 

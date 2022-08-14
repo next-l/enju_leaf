@@ -109,6 +109,16 @@ identifier_00001a:
   identifier_type_id: 5
   body: "custom1111"
 
+identifier_00002a:
+  manifestation_id: 2
+  identifier_type_id: 3
+  body: "20792291"
+
+identifier_00004a:
+  manifestation_id: 4
+  identifier_type_id: 6
+  body: "2001024898"
+
 # == Schema Information
 #
 # Table name: identifiers

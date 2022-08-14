@@ -604,7 +604,7 @@ class Manifestation < ApplicationRecord
     }
 
     IdentifierType.find_each do |type|
-      next if ['issn', 'isbn', 'jpno', 'ncid'].include?(type.name.downcase.strip)
+      next if ['issn', 'isbn', 'jpno', 'ncid', 'lccn', 'doi'].include?(type.name.downcase.strip)
 
       record[:"identifier:#{type.name.to_sym}"] = identifiers.where(identifier_type: type).pluck(:body).join('//')
     end
@@ -648,6 +648,9 @@ class Manifestation < ApplicationRecord
 
     record["jpno"] = identifier_contents(:jpno).first
     record["ncid"] = identifier_contents(:ncid).first
+    record["lccn"] = identifier_contents(:lccn).first
+    record["doi"] = identifier_contents(:doi).first
+    record["iss_itemno"] = identifier_contents(:iss_itemno).first
 
     record
   end
