@@ -112,8 +112,16 @@ class ResourceImportFile < ApplicationRecord
       end
 
       unless manifestation
+        if row['iss_itemno'].present?
+          iss_itemno = URI.parse(row['iss_itemno']).path.gsub(/^\//, "")
+          identifier_type_iss_itemno = IdentifierType.find_or_create_by!(name: 'iss_itemno')
+          manifestation = Identifier.find_by(body: iss_itemno, identifier_type_id: identifier_type_iss_itemno.id).try(:manifestation)
+        end
+      end
+
+      unless manifestation
         if row['doi'].present?
-          doi = URI.parse(row['doi']).path.gsub(/^\//, "")
+          doi = URI.parse(row['doi'].downcase).path.gsub(/^\//, "")
           identifier_type_doi = IdentifierType.find_or_create_by!(name: 'doi')
           manifestation = Identifier.find_by(body: doi, identifier_type_id: identifier_type_doi.id).try(:manifestation)
         end
@@ -132,6 +140,14 @@ class ResourceImportFile < ApplicationRecord
           ncid = row['ncid'].to_s.strip
           identifier_type_ncid = IdentifierType.find_or_create_by!(name: 'ncid')
           manifestation = Identifier.find_by(body: ncid, identifier_type_id: identifier_type_ncid.id).try(:manifestation)
+        end
+      end
+
+      unless manifestation
+        if row['lccn'].present?
+          lccn = row['lccn'].to_s.strip
+          identifier_type_lccn = IdentifierType.find_or_create_by!(name: 'lccn')
+          manifestation = Identifier.find_by(body: lccn, identifier_type_id: identifier_type_lccn.id).try(:manifestation)
         end
       end
 
@@ -809,7 +825,7 @@ end
 
   def set_identifier(row)
     identifiers = []
-    %w(isbn issn doi jpno ncid).each do |id_type|
+    %w(isbn issn doi jpno ncid lccn iss_itemno).each do |id_type|
       next unless row[id_type.to_s].present?
 
       row[id_type].split(/\/\//).each do |identifier_s|
