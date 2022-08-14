@@ -604,6 +604,8 @@ class Manifestation < ApplicationRecord
     }
 
     IdentifierType.find_each do |type|
+      next if ['issn', 'isbn', 'jpno', 'ncid'].include?(type.name.downcase.strip)
+
       record[:"identifier:#{type.name.to_sym}"] = identifiers.where(identifier_type: type).pluck(:body).join('//')
     end
 
@@ -644,13 +646,8 @@ class Manifestation < ApplicationRecord
       end
     end
 
-    if defined?(EnjuNdl)
-      record["jpno"] = identifier_contents(:jpno).first
-    end
-
-    if defined?(EnjuNii)
-      record["ncid"] = identifier_contents(:ncid).first
-    end
+    record["jpno"] = identifier_contents(:jpno).first
+    record["ncid"] = identifier_contents(:ncid).first
 
     record
   end
