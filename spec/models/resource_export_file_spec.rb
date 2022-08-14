@@ -13,7 +13,7 @@ describe ResourceExportFile do
     export_file.save!
     export_file.export!
     file = export_file.resource_export
-    CSV.open(file.path, {headers: true, col_sep: "\t"}).each do |row|
+    CSV.open(file.path, headers: true, col_sep: "\t").each do |row|
       expect(row).to have_key "library"
       expect(row).to have_key "shelf"
       expect(row).to have_key "ncid"
