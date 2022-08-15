@@ -12,14 +12,20 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - uses: docker/metadata-action@v4.0.1
+      id: meta
+      with:
+        images: ghcr.io/next-l/enju_leaf
+        tags: |
+          type=semver,pattern={{version}}
     - name: Docker Login
-      uses: docker/login-action@v1.14.1
+      uses: docker/login-action@v2
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build and push Docker images
-      uses: docker/build-push-action@v2.10.0
+      uses: docker/build-push-action@v3
       with:
         push: true
-        tags: ghcr.io/next-l/enju_leaf:latest
+        tags: ${{ steps.meta.outputs.tags }}
