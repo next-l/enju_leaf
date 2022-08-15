@@ -19,7 +19,7 @@ x-app: &app
       - GID=${GID}
       - http_proxy=${http_proxy}
       - https_proxy=${http_proxy}
-  image: ghcr.io/next-l/enju_leaf:latest
+  image: ghcr.io/next-l/enju_leaf:1.4.0-rc.1
   networks:
     internal:
   volumes:
