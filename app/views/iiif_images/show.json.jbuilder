@@ -3,7 +3,7 @@ json.set!('@type', 'sc:Manifest')
 json.set!('@id', iiif_image_url(@manifestation.id, format: :json))
 json.label @manifestation.original_title
 json.seeAlso manifestation_url(@manifestation, format: :download)
-json.thumbnail "#{ENV['ENJU_LEAF_BASE_URL']}/image-service/#{@manifestation.id}")
+json.thumbnail "#{ENV['ENJU_LEAF_BASE_URL']}/iiif_images/#{@manifestation.id}"
 json.sequences do
   json.array! [0] do |a|
     json.set!('@type', 'sc:Sequence')
@@ -25,7 +25,7 @@ json.sequences do
               json.set!('@type', 'dctypes:Image')
               json.service do
                 json.set!('@context', 'http://iiif.io/api.image/2/context.json')
-                json.set!('@id', "#{ENV['ENJU_LEAF_BASE_URL']}/image-service/#{@manifestation.id}")
+                json.set!('@id', "#{ENV['ENJU_LEAF_BASE_URL']}/iiif_images/#{@manifestation.id}")
                 json.profile 'http://iiif.io/api/image/2/level1.json'
               end
             end
