@@ -2,7 +2,7 @@
 
 <div class="search_form">
 <%= form_for(:accept, url: accepts_path(basket_id: @basket.id), remote: true) do |f| %>
-  <%= f.error_messages %>
+  <%= error_messages(@accept) if @accept %>
   <p>
     <%= label_tag :item_identifier, t('activerecord.attributes.item.item_identifier') -%>:
     <%= f.search_field :item_identifier, class: 'resource_item_identifier', value: nil -%>

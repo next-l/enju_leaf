@@ -1,37 +1,37 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.editing', model: t('activerecord.models.message')) -%></h1>
-<div id="content_list">
+  <h1 class="title"><%= t('page.editing', model: t('activerecord.models.message')) -%></h1>
+  <div id="content_list">
 
-<%= form_for(@message) do |f| -%>
-  <%= f.error_messages -%>
+  <%= form_for(@message) do |f| -%>
+    <%= error_messages(@message) -%>
 
-  <div class="field">
-    <%= f.label t('message.sender') -%><br />
-    <%= @message.sender.username -%>
-    <%= f.hidden_field :sender_id -%>
+    <div class="field">
+      <%= f.label t('message.sender') -%><br />
+      <%= @message.sender.username -%>
+      <%= f.hidden_field :sender_id -%>
+    </div>
+
+    <div class="field">
+      <%= f.label t('message.receiver') -%><br />
+      <%= f.text_field :recipient, class: 'resource_title', value: @message.receiver.username -%>
+    </div>
+
+    <div class="field">
+      <%= f.label :subject -%><br />
+      <%= f.text_field :subject, class: 'resource_title' -%>
+    </div>
+
+    <div class="field">
+      <%= f.label :body -%><br />
+      <%= f.text_area :body, id: 'message_body' -%>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <%- end -%>
+
   </div>
-
-  <div class="field">
-    <%= f.label t('message.receiver') -%><br />
-    <%= f.text_field :recipient, class: 'resource_title', value: @message.receiver.username -%>
-  </div>
-
-  <div class="field">
-    <%= f.label :subject -%><br />
-    <%= f.text_field :subject, class: 'resource_title' -%>
-  </div>
-
-  <div class="field">
-    <%= f.label :body -%><br />
-    <%= f.text_area :body, id: 'message_body' -%>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<%- end -%>
-
-</div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">

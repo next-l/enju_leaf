@@ -3,8 +3,8 @@
 <div id="content_list">
   <fieldset>
 
-    <%= simple_form_for(@message, url: messages_path, validate: true) do |f| -%>
-      <%= f.error_messages -%>
+    <%= form_for(@message, url: messages_path) do |f| -%>
+      <%= error_messages(@message) -%>
 
       <div class="field">
         <label for="message_recepient"><%= t('message.recipient') -%>:</label>

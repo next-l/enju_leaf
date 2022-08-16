@@ -1,25 +1,25 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.editing', model: t('activerecord.models.basket')) -%></h1>
-<div id="content_list">
+  <h1 class="title"><%= t('page.editing', model: t('activerecord.models.basket')) -%></h1>
+  <div id="content_list">
 
-<%= form_for(@basket) do |f| -%>
-  <%= f.error_messages -%>
-  <div class="field">
-    <%= f.label t('activerecord.models.user') -%><br />
-    <%= @basket.user.username -%>
-    <%= f.hidden_field :user_id -%>
-  </div>
+  <%= form_for(@basket) do |f| -%>
+    <%= error_messages(@basket) -%>
+    <div class="field">
+      <%= f.label t('activerecord.models.user') -%><br />
+      <%= @basket.user.username -%>
+      <%= f.hidden_field :user_id -%>
+    </div>
 
-  <div class="field">
-    <%= f.label :note -%><br />
-    <%= f.text_area :note, class: 'resource_textarea' -%>
-  </div>
+    <div class="field">
+      <%= f.label :note -%><br />
+      <%= f.text_area :note, class: 'resource_textarea' -%>
+    </div>
 
-  <div class="actions">
-    <%= f.submit %>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <%- end -%>
   </div>
-<%- end -%>
-</div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">

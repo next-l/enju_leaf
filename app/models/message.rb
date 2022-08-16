@@ -12,7 +12,7 @@ class Message < ApplicationRecord
   after_create :send_notification
   after_create :set_default_state
   after_destroy :remove_from_index
-  after_save :index
+  after_save :index!
 
   acts_as_nested_set
   attr_accessor :recipient

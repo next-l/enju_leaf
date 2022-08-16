@@ -2,8 +2,8 @@
 <h1 class="title"><%= t('page.new', model: t('activerecord.models.profile')) -%></h1>
 <div id="content_list">
 <%= render 'page/required_field' %>
-<%= simple_form_for(@profile, validate: true) do |f| -%>
-  <%= f.error_messages -%>
+<%= form_for(@profile) do |f| -%>
+  <%= error_messages(@profile) -%>
 
   <%= f.fields_for :user do |user_form| %>
     <div class="field">
