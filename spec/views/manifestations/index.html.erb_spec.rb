@@ -16,6 +16,7 @@ describe "manifestations/index" do
 
   describe "sort_by menu" do
     it "should reflect per_page params for views" do
+      allow(view).to receive(:policy).and_return double(create?: true, update?: true, destroy?: true)
       params[:per_page] = 50
       render
       expect(rendered).to have_selector "select#per_page option[value='50'][selected='selected']"

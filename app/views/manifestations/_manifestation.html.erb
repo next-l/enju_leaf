@@ -33,7 +33,7 @@
                   <%= link_to t('page.new_acquisition'), new_manifestation_path(parent_id: manifestation.id) %>
                 <% end %>
                 <%= link_to t('page.edit'), edit_manifestation_path(manifestation) -%>
-                <%- if policy(Item).create? and not manifestation.series_master? -%>
+                <%- if policy(Item).create? && !manifestation.series_master? -%>
                   <br />
                   <%= link_to t('page.new_item'), new_item_path(manifestation_id: manifestation.id) -%>
                 <%- end -%>
