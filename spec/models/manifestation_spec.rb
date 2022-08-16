@@ -267,6 +267,11 @@ describe Manifestation, solr: true do
         expect(m["manifestation:#{custom_value.manifestation_custom_property.name}"]).to eq custom_value.value
       end
     end
+
+    it 'should respond to reservable?' do
+      expect(manifestations(:manifestation_00001).reservable?).to be_truthy
+      expect(manifestations(:manifestation_00101).reservable?).to be_falsy
+    end
   end
 end
 
