@@ -1,5 +1,5 @@
 <%= form_for(@manifestation_relationship) do |f| %>
-  <%= f.error_messages -%>
+  <%= error_messages(@manifestation_relationship) -%>
 
   <div class="field">
     <% if @manifestation_relationship.try(:parent) %>

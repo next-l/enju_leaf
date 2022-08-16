@@ -1,5 +1,5 @@
 <%= form_for(@user_reserve_stat) do |f| -%>
-  <%= f.error_messages -%>
+  <%= error_messages(@user_reserve_stat) -%>
 
   <div class="field">
     <%= f.label :start_date -%><br />

@@ -1,5 +1,5 @@
-<%= simple_form_for(@language, validate: true) do |f| %>
-  <%= f.error_messages %>
+<%= form_for(@language) do |f| %>
+  <%= error_messages(@language) %>
 
   <div class="field">
     <%= f.label :name %>:<br />

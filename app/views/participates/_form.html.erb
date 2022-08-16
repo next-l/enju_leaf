@@ -1,0 +1,15 @@
+<%= form_for(@participate) do |f| %>
+  <%= error_messages(@participate) %>
+
+  <div class="field">
+    <%= f.label t('activerecord.models.agent') -%><br />
+    <%= f.text_field :agent_id %>
+  </div>
+  <div class="field">
+    <%= f.label t('activerecord.models.event') -%><br />
+    <%= f.text_field :event_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%- end %>

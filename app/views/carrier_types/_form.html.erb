@@ -1,5 +1,5 @@
-<%= simple_form_for(@carrier_type) do |f| %>
-  <%= f.error_messages -%>
+<%= form_with(model: carrier_type) do |f| %>
+  <%= error_messages(carrier_type) %>
 
   <div class="field">
     <%= f.label :name %><br />

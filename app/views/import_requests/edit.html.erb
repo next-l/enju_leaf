@@ -1,19 +1,19 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.editing', model: t('activerecord.models.import_request')) -%></h1>
-<div id="content_list">
+  <h1 class="title"><%= t('page.editing', model: t('activerecord.models.import_request')) -%></h1>
+  <div id="content_list">
 
-<%= form_for(@import_request) do |f| -%>
-  <%= f.error_messages -%>
-  <div class="field">
-    <%= f.label :isbn -%><br />
-    <%= f.text_field :isbn, class: 'resource_isbn_issn' -%>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<%- end -%>
+  <%= form_for(@import_request) do |f| -%>
+    <%= error_messages(@import_request) -%>
+    <div class="field">
+      <%= f.label :isbn -%><br />
+      <%= f.text_field :isbn, class: 'resource_isbn_issn' -%>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <%- end -%>
 
-</div>
+  </div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">

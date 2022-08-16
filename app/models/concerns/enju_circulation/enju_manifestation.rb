@@ -7,7 +7,7 @@ module EnjuCirculation
 
       searchable do
         boolean :reservable do
-          items.for_checkout.exists?
+          reservable?
         end
       end
     end
@@ -24,6 +24,7 @@ module EnjuCirculation
 
     def is_reservable_by?(user)
       return false if items.for_checkout.empty?
+      return false unless user
 
       unless user.has_role?('Librarian')
         unless items.size == (items.size - user.checkouts.overdue(Time.zone.now).collect(&:item).size)
@@ -74,6 +75,10 @@ module EnjuCirculation
       else
         false
       end
+    end
+
+    def reservable?
+      items.for_checkout.exists?
     end
   end
 end

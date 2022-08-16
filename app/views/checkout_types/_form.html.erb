@@ -1,9 +1,9 @@
-<%= simple_form_for(@checkout_type, validate: true) do |f| %>
-  <%= f.error_messages %>
+<%= form_for(@checkout_type) do |f| %>
+  <%= error_messages(@checkout_type) %>
 
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.text_field :name, required: true %>
   </div>
   <div class="field">
     <%= f.label :display_name %><br />

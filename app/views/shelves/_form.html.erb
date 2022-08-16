@@ -1,10 +1,10 @@
 <%= render 'page/required_field' %>
-<%= simple_form_for(@shelf, validate: true) do |f| -%>
-  <%= f.error_messages -%>
+<%= form_for(@shelf) do |f| -%>
+  <%= error_messages(@shelf) -%>
 
   <div class="field">
     <%= f.label :name -%><br />
-    <%= f.text_field :name, class: 'short_name' -%>
+    <%= f.text_field :name, required: true, class: 'short_name' -%>
   </div>
 
   <div class="field">

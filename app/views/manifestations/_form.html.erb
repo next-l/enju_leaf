@@ -1,6 +1,6 @@
 <%= render 'page/required_field' %>
-<%= simple_form_for(@manifestation, html: { multipart: true }) do |f| -%>
-  <%= f.error_messages -%>
+<%= form_for(@manifestation, html: { multipart: true }) do |f| -%>
+  <%= error_messages(@manifestation) -%>
 
   <% if @manifestation.original_manifestations.exists? or @parent %>
     <%= f.label :parent_id -%><br />

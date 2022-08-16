@@ -1,6 +1,6 @@
 <%= render 'page/required_field' %>
-<%= simple_form_for(@library) do |f| -%>
-  <%= f.error_messages -%>
+<%= form_for(@library) do |f| -%>
+  <%= error_messages(@library) %>
 
   <div class="field">
     <%= f.label :name -%><br />

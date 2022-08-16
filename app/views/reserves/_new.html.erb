@@ -3,7 +3,7 @@
 <div id="content_list">
 
 <%= form_for(@reserve) do |f| -%>
-  <%= f.error_messages -%>
+  <%= error_messages(@reserve) -%>
 
   <div class="field">
     <%- if @reserve.manifestation -%>
