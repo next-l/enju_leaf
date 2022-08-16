@@ -2,6 +2,7 @@ name: Docker Image CI
 
 on:
   push:
+    branches: [ main ]
     tags:
     - 'v*'
 
@@ -18,6 +19,7 @@ jobs:
       with:
         images: ghcr.io/next-l/enju_leaf
         tags: |
+          type=ref,event=branch
           type=semver,pattern={{version}}
     - name: Docker Login
       uses: docker/login-action@v2
@@ -30,3 +32,4 @@ jobs:
       with:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
