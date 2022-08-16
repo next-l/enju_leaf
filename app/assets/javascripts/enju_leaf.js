@@ -10,3 +10,4 @@
 //= require jquery.powertip
 //= require cocoon
 //= require autocomplete_agent
+//= require enju_event/application

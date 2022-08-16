@@ -13,4 +13,5 @@
  *= require jquery.ui.autocomplete
  *= require jquery.ui.theme
  *= require portlets
+ *= require enju_event/application
 */
