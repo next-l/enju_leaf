@@ -1,8 +1,8 @@
 <%= form_for(@news_post) do |f| -%>
-  <%= f.error_messages -%>
+  <%= error_messages(@news_post) -%>
   <div class="field">
     <%= f.label t('activerecord.attributes.news_post.title') -%><br />
-    <%= f.text_field :title, class: 'resource_title' -%>
+    <%= f.text_field :title, required: true, class: 'resource_title' -%>
   </div>
   <div class="field">
     <%= f.label t('activerecord.attributes.news_post.body') -%><br />

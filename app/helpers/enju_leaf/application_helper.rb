@@ -126,5 +126,12 @@ module EnjuLeaf
         with(:is_read).equal_to false
       end.hits.total_entries
     end
+
+    # フォームでのエラーメッセージを表示します。
+    def error_messages(model)
+      if model.errors.any?
+        render('page/error_message', model: model)
+      end
+    end
   end
 end

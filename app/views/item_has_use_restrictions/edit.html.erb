@@ -1,7 +1,7 @@
 <h1 class="title"><%= t('page.editing', model: t('activerecord.models.item_has_use_restriction')) -%></h1>
 
 <%= form_for(@item_has_use_restriction) do |f| -%>
-  <%= f.error_messages -%>
+  <%= error_messages(@item_has_use_restriction) -%>
   <div class="field">
     <%= f.label t('activerecord.models.item') -%><br />
     <%- if @item_has_use_restriction.item -%>

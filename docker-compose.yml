@@ -39,8 +39,6 @@ services:
       - WEBPACKER_DEV_SERVER_HOST=webpacker
     expose:
       - 3000
-    ports:
-      - 3000:3000
 
   workers:
     <<: *app
@@ -60,17 +58,15 @@ services:
   #     - '3035:3035'
 
   solr:
-    image: solr:6
-    expose:
-      - 8983
+    image: solr:8
     ports:
-      - 8983:8983
+      - 127.0.0.1:8983:8983
     env_file:
       - .env
     networks:
       internal:
     volumes:
-      - solr:/opt/solr/server/solr/mycores
+      - solr:/var/solr/data
       - ./solr:/mnt/solr
     restart: always
     command: bash -c "precreate-core enju_leaf_${RAILS_ENV} /mnt/solr/configsets/sunspot/conf/; precreate-core enju_leaf_test /mnt/solr/configsets/sunspot/conf/; exec solr -f"
@@ -89,9 +85,7 @@ services:
     env_file:
       - .env
     ports:
-      - 5432:5432
-    expose:
-      - 5432
+      - 127.0.0.1:5432:5432
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "POSTGRES_PASSWORD=${POSTGRES_PASSWORD} pg_isready -U ${POSTGRES_USER} -h localhost -d template1"]
@@ -113,16 +107,16 @@ services:
       retries: 3
 
   minio:
-    image: quay.io/minio/minio:RELEASE.2022-01-08T03-11-54Z
+    image: quay.io/minio/minio:RELEASE.2022-08-13T21-54-44Z
     profiles:
       - develop
     volumes:
       - minio:/data
     entrypoint:
       /bin/sh -c "mkdir -p /data/${ENJU_LEAF_STORAGE_BUCKET} && minio server /data --console-address \":9001\""
-    ports:
-      - 9000:9000
-      - 9001:9001
+    expose:
+      - 9000
+      - 9001
     env_file:
       - .env
     restart: always
@@ -130,6 +124,44 @@ services:
       internal:
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  cantaloupe:
+    image: uclalibrary/cantaloupe:5.0.5-1
+    expose:
+      - 8182
+    restart: always
+    environment:
+      no_proxy: localhost,web
+      SOURCE_STATIC: HttpSource
+      HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX: http://web:3000/picture_files/
+      HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_SUFFIX: '.download'
+      ENDPOINT_API_ENABLED: 'true'
+    networks:
+      internal:
+    depends_on:
+      - nginx
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8182/health"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  nginx:
+    image: nginx:stable
+    ports:
+      - 8080:80
+      - 8182:8182
+    volumes:
+      - ./nginx/templates:/etc/nginx/templates:ro
+      - ./public:/opt/enju_leaf/public
+    restart: always
+    networks:
+      internal:
+    healthcheck:
+      test: ["CMD", "service", "nginx", "status"]
       interval: 30s
       timeout: 20s
       retries: 3

@@ -1,0 +1,1 @@
+rdf_statement(@manifestation)

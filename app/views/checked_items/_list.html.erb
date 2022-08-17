@@ -2,7 +2,7 @@
 
 <div class="search_form">
 <%= form_for :checked_item, html: {method: :post}, url: checked_items_path(basket_id: @basket.id), remote: true do |f| -%>
-  <%= f.error_messages -%>
+  <%= error_messages(@checked_item) if @checked_item -%>
   <p>
     <%= f.label :item_identifier, t('activerecord.attributes.item.item_identifier') -%>: <%= f.search_field :item_identifier, class: 'resource_item_identifier' -%>
     <%= f.submit t('page.read'), 'data-disable-with' => t('page.saving') -%><br />

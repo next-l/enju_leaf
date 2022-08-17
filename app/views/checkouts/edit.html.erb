@@ -29,7 +29,7 @@
   <h3><%= t('checkout.editing_due_date') -%></h3>
 
   <%= form_for(@checkout) do |f| -%>
-    <%= f.error_messages -%>
+    <%= error_messages(@checkout) -%>
 
     <div class="field">
       <%= f.label :due_date -%>
@@ -52,7 +52,7 @@
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <%= render 'manifestations/book_jacket', manifestation: @checkout.item.manifestation if @checkout.item -%>
   <ul>
-    <li><%= link_to t('page.show'), @checkout -%></li>
+    <li><%= link_to t('page.showing', model: t('activerecord.models.checkout')), @checkout -%></li>
     <% if @checkout.user %>
       <li><%= link_to t('page.back'), :back -%></li>
     <% end %>

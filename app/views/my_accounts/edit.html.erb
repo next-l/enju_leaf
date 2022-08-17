@@ -2,8 +2,8 @@
 <h1 class="title"><%= t('page.edit_user_profile', login_name: @profile.user.username) -%></h1>
 <div id="content_list">
 <%= render 'page/required_field' %>
-<%= simple_form_for(@profile, url: my_account_path) do |f| -%>
-  <%= f.error_messages -%>
+<%= form_for(@profile, url: my_account_path) do |f| -%>
+  <%= error_messages(@profile) -%>
 
   <%= render partial: 'edit_credential', locals: {f: f, profile: @profile} -%>
 

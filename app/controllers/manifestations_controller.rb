@@ -226,15 +226,6 @@ class ManifestationsController < ApplicationController
 
       @search_engines = SearchEngine.order(:position)
 
-      if defined?(EnjuBookmark)
-        # TODO: 検索結果が少ない場合にも表示させる
-        if @manifestation_ids.blank?
-          if query.respond_to?(:suggest_tags)
-            @suggested_tag = query.suggest_tags.first
-          end
-        end
-      end
-
       if defined?(EnjuSearchLog)
         if current_user.try(:save_search_history)
           current_user.save_history(query, @manifestations.offset_value + 1, @count[:query_result], params[:format])
@@ -254,6 +245,7 @@ class ManifestationsController < ApplicationController
       format.json
       format.js
       format.xlsx
+      format.ttl
     end
   end
 
@@ -313,6 +305,7 @@ class ManifestationsController < ApplicationController
         end
       }
       format.rdf
+      format.ttl
       format.mods
       format.json
       format.text

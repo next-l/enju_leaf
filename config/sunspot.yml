@@ -4,8 +4,10 @@ production:
     port: 8983
     log_level: WARNING
     path: /solr/enju_leaf_<%= Rails.env %>
-    # read_timeout: 2
-    # open_timeout: 0.5
+    read_timeout: 20
+    open_timeout: 1
+  auto_index_callback: after_commit
+  auto_remove_callback: after_commit
 
 development:
   solr:
@@ -13,6 +15,8 @@ development:
     port: 8983
     log_level: INFO
     path: /solr/enju_leaf_<%= Rails.env %>
+  auto_index_callback: after_commit
+  auto_remove_callback: after_commit
 
 test:
   solr:
@@ -20,3 +24,5 @@ test:
     port: 8983
     log_level: WARNING
     path: /solr/enju_leaf_<%= Rails.env %>
+  auto_index_callback: after_commit
+  auto_remove_callback: after_commit

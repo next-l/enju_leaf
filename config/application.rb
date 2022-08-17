@@ -20,10 +20,12 @@ module EnjuLeaf
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    config.i18n.default_locale = (ENV['ENJU_LEAF_DEFAULT_LOCALE'] || 'en').to_sym
+    default_locale = (ENV['ENJU_LEAF_DEFAULT_LOCALE'] || 'en').to_sym
+    config.i18n.default_locale = default_locale
+    config.i18n.available_locales = [default_locale, :ja, :en].uniq
     config.time_zone = ENV['ENJU_LEAF_TIME_ZONE'] || 'UTC'
 
-    base_url = URI.parse(ENV['ENJU_LEAF_BASE_URL'] || 'http://localhost:3000')
+    base_url = URI.parse(ENV['ENJU_LEAF_BASE_URL'] || 'http://localhost:8080')
     config.action_mailer.default_url_options = {
       host: base_url.host,
       protocol: base_url.scheme,

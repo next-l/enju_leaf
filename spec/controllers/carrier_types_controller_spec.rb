@@ -129,6 +129,16 @@ describe CarrierTypesController do
           expect(response).to redirect_to carrier_types_url
           assigns(:carrier_type).reload.position.should eq position - 1
         end
+
+        it 'deletes an attachment file' do
+          carrier_type = carrier_types(:carrier_type_00001)
+          carrier_type.attachment = File.open(Rails.root.join('app/assets/images/icons/book.png'))
+          carrier_type.save
+          expect(carrier_type.attachment.present?).to be_truthy
+
+          put :update, params: { id: carrier_type.id, carrier_type: { delete_attachment: '1' } }
+          expect(assigns(:carrier_type).attachment.present?).to be_falsy
+        end
       end
 
       describe 'with invalid params' do

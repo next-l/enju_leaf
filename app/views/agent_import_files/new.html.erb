@@ -3,7 +3,7 @@
 <div id="content_list">
 
 <%= form_for(@agent_import_file, html: { multipart: true }) do |f| -%>
-  <%= f.error_messages -%>
+  <%= error_messages(@agent_import_file) -%>
 
   <div class="field">
     <%= f.label t('page.file') -%><br />
