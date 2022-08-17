@@ -139,6 +139,7 @@ services:
       HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX: http://web:3000/picture_files/
       HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_SUFFIX: '.download'
       ENDPOINT_API_ENABLED: 'true'
+      BASE_URI: ${CANTALOUPE_BASE_URI}
     networks:
       internal:
     depends_on:
