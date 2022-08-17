@@ -31,6 +31,5 @@ module EnjuLeaf
       protocol: base_url.scheme,
       port: base_url.port
     }
-    config.hosts += ['web', '127.0.0.1']
   end
 end
