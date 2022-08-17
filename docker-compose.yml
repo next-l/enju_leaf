@@ -138,7 +138,7 @@ services:
       SOURCE_STATIC: HttpSource
       HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX: http://web:3000/picture_files/
       HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_SUFFIX: '.download'
-      ENDPOINT_API_ENABLED: true
+      ENDPOINT_API_ENABLED: 'true'
     networks:
       internal:
     depends_on:
