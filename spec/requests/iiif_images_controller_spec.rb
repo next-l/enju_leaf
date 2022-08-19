@@ -8,7 +8,7 @@ RSpec.describe "IiifImagesControllers", type: :request do
     end
 
     it "should get show" do
-      get iiif_image_path(@manifestation, format: :ttl)
+      get iiif_image_path(@manifestation)
       expect(response).to be_successful
       expect(JSON.parse(response.body)['label']).to eq 'よくわかる最新Webサービス技術の基本と仕組み : 標準Webシステム技術とeコマース基盤技術入門'
     end
