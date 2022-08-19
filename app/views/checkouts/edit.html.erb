@@ -52,7 +52,7 @@
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <%= render 'manifestations/book_jacket', manifestation: @checkout.item.manifestation if @checkout.item -%>
   <ul>
-    <li><%= link_to t('page.show'), @checkout -%></li>
+    <li><%= link_to t('page.showing', model: t('activerecord.models.checkout')), @checkout -%></li>
     <% if @checkout.user %>
       <li><%= link_to t('page.back'), :back -%></li>
     <% end %>
