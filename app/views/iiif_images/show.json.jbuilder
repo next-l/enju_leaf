@@ -21,14 +21,14 @@ json.sequences do
             json.on picture_file_url(picture_file)
             json.motivation 'sc:painting'
             json.resource do
-              json.set!('@id', "#{ENV['ENJU_LEAF_BASE_URL']}/iiif/3/#{picture_file.id}/full/max/0/default.jpg")
+              json.set!('@id', "#{ENV['CANTALOUPE_BASE_URI']}/iiif/3/#{picture_file.id}/full/max/0/default.jpg")
               json.set!('@type', 'dctypes:Image')
               json.width picture_file.picture_width
               json.height picture_file.picture_height
               json.format picture_file.picture_content_type
               json.service do
                 json.set!('@context', 'http://iiif.io/api/image/3/context.json')
-                json.set!('@id', "#{ENV['ENJU_LEAF_BASE_URL']}/iiif/3/#{picture_file.id}")
+                json.set!('@id', "#{ENV['CANTALOUPE_BASE_URI']}/iiif/3/#{picture_file.id}")
                 json.profile 'http://iiif.io/api/image/3/level1.json'
               end
             end
