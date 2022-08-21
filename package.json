@@ -1,5 +1,7 @@
 {
   "name": "enju_leaf",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "mirador": "^3.3.0"
+  }
 }

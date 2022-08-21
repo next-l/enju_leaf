@@ -1,6 +1,6 @@
 json.set!('@context', 'http://iiif.io/api/presentation/2/context.json')
 json.set!('@type', 'sc:Manifest')
-json.set!('@id', iiif_image_url(@manifestation.id))
+json.set!('@id', iiif_presentation_url(@manifestation))
 json.label @manifestation.original_title
 json.description @manifestation.description
 json.sequences do

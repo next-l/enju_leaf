@@ -67,7 +67,7 @@ Rails.application.routes.draw do
   end
   resource :my_account
 
-  resources :iiif_presentations, only: :show, defaults: { format: :json }
+  resources :iiif_presentations, only: :show, defaults: { format: :html }
 
   resources :subjects
   constraints format: :html do
