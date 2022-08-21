@@ -6,7 +6,8 @@ ARG GID=1000
 ARG http_proxy
 ARG https_proxy
 
-RUN apt-get update -qq && apt-get install -y npm postgresql-client libpq-dev imagemagick mupdf-tools ffmpeg && npm install -g yarn
+RUN apt-get update -qq && curl -sL https://deb.nodesource.com/setup_lts.x | bash - && \
+apt-get install -y nodejs postgresql-client libpq-dev imagemagick mupdf-tools ffmpeg && npm install -g yarn && yarn install
 RUN groupadd --gid ${GID} enju && useradd -m --uid ${UID} --gid ${GID} enju
 RUN mkdir /enju && chown -R enju:enju /enju
 

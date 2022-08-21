@@ -137,7 +137,7 @@ services:
       no_proxy: localhost,web
       SOURCE_STATIC: HttpSource
       HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX: http://web:3000/picture_files/
-      HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_SUFFIX: '.download'
+      HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_SUFFIX: '.download?size=original'
       ENDPOINT_API_ENABLED: 'true'
       BASE_URI: ${CANTALOUPE_BASE_URI}
     networks:
