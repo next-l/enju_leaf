@@ -8,16 +8,15 @@ json.sequences do
     json.set!('@type', 'sc:Sequence')
     json.viewingHint 'individuals'
     json.canvases do
-      json.array! [0] do |c|
-        json.set!('@id', manifestation_url(@manifestation.id))
+      json.array! @manifestation.picture_files do |picture_file|
+        json.set!('@id', picture_file_url(picture_file))
         json.set!('@type', 'sc:Canvas')
         json.label @manifestation.original_title
-        json.width 1024
-        json.height 1024
+        json.width picture_file.picture_width
+        json.height picture_file.picture_height
         json.images do
-          json.array! @manifestation.picture_files do |picture_file|
+          json.array! [0] do |c|
             json.set!('@type', 'oa:Annotation')
-            json.set!('@id', picture_file_url(picture_file))
             json.on picture_file_url(picture_file)
             json.motivation 'sc:painting'
             json.resource do
