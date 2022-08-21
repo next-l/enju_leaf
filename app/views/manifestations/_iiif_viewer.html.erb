@@ -1,7 +1,16 @@
-<tr>
-  <td style="width: 200px"><%= 'IIIF viewer' %>:</td>
-  <td style="width: 500px">
-    <%= link_to 'Open in IIIF Viewer', iiif_presentation_path(manifestation), target: '_blank' %>
-  </td>
-</tr>
-
+    <div id="app"></div>
+    <script>
+      Mirador.viewer({
+        id: "app",
+        windows: [
+          {
+            manifestId: "<%= iiif_presentation_path(@manifestation, format: :json) %>",
+          }
+        ],
+        window: {
+          allowTopMenuButton: false,
+          sideBarOpenByDefault: false
+        }
+      });
+    </script>
+    <p><%= link_to t('iiif.open_in_new_window'), iiif_presentation_path(manifestation), target: '_blank' %></p>

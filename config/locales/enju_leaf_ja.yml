@@ -386,3 +386,5 @@ ja:
     default_library: TSVファイルで"library"列が指定されていない場合、この図書館が登録されます。
   profile:
     no_number: 番号なし
+  iiif:
+    open_in_new_window: 新しいウインドウで開く
