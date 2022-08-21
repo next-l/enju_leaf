@@ -11,7 +11,7 @@ json.sequences do
       json.array! @manifestation.picture_files do |picture_file|
         json.set!('@id', picture_file_url(picture_file))
         json.set!('@type', 'sc:Canvas')
-        json.label @manifestation.original_title
+        json.label picture_file.picture_file_name
         json.width picture_file.picture_width
         json.height picture_file.picture_height
         json.images do
