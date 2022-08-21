@@ -1,4 +1,4 @@
-class IiifImagesController < ActionController::API
+class IiifPresentationsController < ActionController::API
   include Pundit::Authorization
   after_action :verify_authorized
   
