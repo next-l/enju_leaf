@@ -44,6 +44,7 @@ en:
         auto_generated_password: Set auto-generated password
         friendly_id: Username
         remember_me: "Remember me"
+        otp_attempt: Authentication code
       role:
         name: Name
         display_name: Display name

@@ -44,6 +44,7 @@ ja:
         auto_generated_password: パスワードの自動生成
         friendly_id: ユーザ名
         remember_me: "ウインドウを閉じてもログインしたままにする"
+        otp_attempt: 2要素認証コード
       role:
         name: 名前
         display_name: 表示名
