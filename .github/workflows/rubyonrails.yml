@@ -44,6 +44,10 @@ jobs:
         run: bin/rails db:schema:load
       - name: Generate asset files
         run: bin/rake assets:precompile
+      - name: Generate secrets
+        run: |
+          echo ENJU_LEAF_2FA_ENCRYPTION_KEY=`rake secret` >> .env
+          echo SECRET_KEY_BASE=`rake secret` >> .env
       - name: Run tests
         run: |
           ./cc-test-reporter before-build
