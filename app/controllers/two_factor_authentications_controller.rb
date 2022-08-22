@@ -6,7 +6,6 @@ class TwoFactorAuthenticationsController < ApplicationController
 
   def create
     current_user.update!(
-      otp_required_for_login: true,
       otp_secret: User.generate_otp_secret
     )
 

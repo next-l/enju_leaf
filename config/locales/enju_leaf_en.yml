@@ -412,3 +412,4 @@ en:
     enable: Enable
     disable: Disable
     verify: Verify
+    already_enabled: Two factor authentication is enabled.

@@ -394,3 +394,4 @@ ja:
     enable: 有効化
     disable: 無効化
     verify: 確認
+    already_enabled: 2要素認証は有効になっています。
