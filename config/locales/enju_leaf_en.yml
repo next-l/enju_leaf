@@ -404,3 +404,5 @@ en:
     default_library: If "library" column is not set in the TSV file, this library is set to the new user.
   profile:
     no_number: No number
+  iiif:
+    open_in_new_window: Open in new window

@@ -42,6 +42,8 @@ jobs:
       # Add or replace database setup steps here
       - name: Set up database schema
         run: bin/rails db:schema:load
+      - name: Generate asset files
+        run: bin/rake assets:precompile
       - name: Run tests
         run: |
           ./cc-test-reporter before-build

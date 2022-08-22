@@ -2,6 +2,9 @@
     <%= render 'manifestations/tab_menu', manifestation: manifestation %>
     <div id="detail">
     <% cache([manifestation, fragment: 'show_detail_librarian_html', role: current_user_role_name, locale: @locale]) do %>
+      <% if manifestation.picture_files.exists? %>
+        <%= render 'iiif_viewer', manifestation: manifestation %>
+      <% end %>
       <table class="table table-striped" id="resource_detail">
         <%= embed_content(manifestation) if defined?(EnjuManifestationViewer) -%>
         <tr>

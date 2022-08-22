@@ -69,6 +69,12 @@ RSpec.describe 'Manifestations', type: :system do
   end
 
   describe 'When not logged in' do
+    it 'should display a reservation link' do
+      manifestations(:manifestation_00001).index!
+      visit manifestations_path(query: 'よくわかるWeb')
+      expect(page).to have_content 'Reserve'
+    end
+
     it 'should show default item' do
       visit manifestation_path(@item.manifestation.id, locale: :ja)
       expect(page).to have_content @item.item_identifier
