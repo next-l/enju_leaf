@@ -296,6 +296,7 @@ en:
     delegated: Delegated
     impersonate: "Impersonate"
     stop_impersonating: "Back to %{username}"
+    two_factor_authentication: Two factor authentication
   title:
     index: "index"
     show: "show"
@@ -406,3 +407,7 @@ en:
     no_number: No number
   iiif:
     open_in_new_window: Open in new window
+  two_factor_authentication:
+    enable: Enable
+    disable: Disable
+    verify: Verify

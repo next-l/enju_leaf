@@ -1,0 +1,18 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+  <h1 class="title"><%= t('page.two_factor_authentication') -%></h1>
+  <div id="content_list">
+    <% if current_user.otp_secret %>
+      <div><%= otp_barcode %></div>
+      <%= button_to 'Disable', two_factor_authentication_path, method: :delete %>
+    <% else %>
+      <div><%= otp_barcode %></div>
+      <%= form_with url: two_factor_authentication_path, method: :post do |f| %>
+        <%= f.text_field :otp_attempt %>
+        <%= f.submit 'Enable' %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+</div>

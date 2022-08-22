@@ -1,0 +1,25 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+  <h1 class="title"><%= t('page.two_factor_authentication') -%></h1>
+  <div id="content_list">
+    <% if current_user.otp_secret %>
+      <div><%= otp_barcode %></div>
+
+      <% if current_user.otp_required_for_login %>
+        <%= form_with url: otp_secret_path, method: :post do |f| %>
+          <%= f.text_field :otp_attempt %>
+          <%= f.submit t('two_factor_authentication.verify') %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <% if current_user.otp_required_for_login %>
+      <li><%= link_to t('two_factor_authentication.disable'), two_factor_authentication_path, method: :delete, data: {confirm: t('page.are_you_sure')} %></li>
+    <% else %>
+      <li><%= link_to t('two_factor_authentication.enable'), two_factor_authentication_path, method: :post, data: {confirm: t('page.are_you_sure')} %></li>
+    <% end %>
+  </ul>
+</div>

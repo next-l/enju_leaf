@@ -137,6 +137,8 @@ Rails.application.routes.draw do
   resources :news_posts
   resources :news_feeds
 
+  resource :two_factor_authentication, only: [:show, :create, :destroy]
+  resource :otp_secret, only: :create
   devise_for :users
 
   get '/page/about' => 'page#about'
