@@ -24,6 +24,8 @@ jobs:
       POSTGRES_PASSWORD: password
       CC_TEST_REPORTER_ID: c193cb8ea058a7d62fd62d6d05adaaf95f6bdf882c1039500b30b54494a36e52
       ENJU_LEAF_TIMEZONE: UTC
+      ENJU_LEAF_2FA_ENCRYPTION_KEY: 64aba18129eb855d71a785b0aca726dd5eb8f4104cc779e97f2868d9a8cf796105f4599d9320793a5dfb58cc3ccbe93b293d5db1a12cba05ab79d15d5710cb51
+      SECRET_KEY_BASE: 4a54f07a6c5e604edac920225ab6f4d9a919edf8597f61ff85dbce0b3ab64433de86a54c192df1e242022c64108923d5382705a1e221c1ca39b79d902824d948
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -44,10 +46,6 @@ jobs:
         run: bin/rails db:schema:load
       - name: Generate asset files
         run: bin/rake assets:precompile
-      - name: Generate secrets
-        run: |
-          echo ENJU_LEAF_2FA_ENCRYPTION_KEY=`rake secret` >> .env
-          echo SECRET_KEY_BASE=`rake secret` >> .env
       - name: Run tests
         run: |
           ./cc-test-reporter before-build
