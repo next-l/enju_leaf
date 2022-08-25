@@ -1,4 +1,6 @@
 class OaiController < ApplicationController
+  skip_after_action :verify_authorized
+
   def index
     provider = OaiProvider.new
     response =  provider.process_request(oai_params.to_h)

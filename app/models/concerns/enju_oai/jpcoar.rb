@@ -1,5 +1,5 @@
-module OAI::Provider::Metadata
-  class Jpcoar < Format
+module EnjuOai
+  class Jpcoar < OAI::Provider::Metadata::Format
 
     def initialize
       @prefix = 'jpcoar'

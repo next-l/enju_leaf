@@ -1,9 +1,7 @@
-require_dependency 'oai/provider/metadata_format/jpcoar'
-
 module EnjuOai
   module OaiModel
     extend ActiveSupport::Concern
-    OAI::Provider::Base.register_format(OAI::Provider::Metadata::Jpcoar.instance)
+    OAI::Provider::Base.register_format(EnjuOai::Jpcoar.instance)
 
     def to_oai_dc
       xml = Builder::XmlMarkup.new
