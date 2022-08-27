@@ -40,9 +40,9 @@ module EnjuOai
         "xmlns:jpcoar" => "https://github.com/JPCOAR/schema/blob/master/1.0/") do
         xml.tag! 'dc:title', original_title
         xml.tag! 'dc:language', language.iso_639_2
-        xml.creators do
+        xml.tag! 'jpcoar:creators' do
           creators.readable_by(nil).each do |creator|
-            xml.creatorName creator.full_name
+            xml.tag! 'jpcoar:creatorName', creator.full_name
           end
         end
 
