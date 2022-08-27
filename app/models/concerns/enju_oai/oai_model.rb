@@ -39,9 +39,20 @@ module EnjuOai
         "xmlns:dc" => "http://purl.org/dc/elements/1.1/",
         "xmlns:jpcoar" => "https://github.com/JPCOAR/schema/blob/master/1.0/") do
         xml.tag! 'dc:title', original_title
+        xml.tag! 'dc:language', language.iso_639_2
         xml.creators do
           creators.readable_by(nil).each do |creator|
             xml.creatorName creator.full_name
+          end
+        end
+
+        subjects.each do |subject|
+          xml.tag! 'jpcoar:subject', subject.term
+        end
+
+        if attachment
+          xml.tag! 'jpcoar:file' do
+            xml.tag! 'jpcoar:URI', URI.join(ENV['ENJU_LEAF_BASE_URL'], "/manifestations/#{id}?format=download")
           end
         end
       end
@@ -334,8 +345,8 @@ module EnjuOai
           end
         end
         xml.URI URI.join(ENV['ENJU_LEAF_BASE_URL'], "/manifestations/#{id}")
-        if attachment.present?
-          xml.fulltextURL manifestation_url(id: id, format: :download)
+        if attachment
+          xml.fulltextURL URI.join(ENV['ENJU_LEAF_BASE_URL'], "/manifestations/#{id}?format=download")
         end
         %w[isbn issn NCID].each do |identifier|
           identifier_contents(identifier.downcase).each do |val|
