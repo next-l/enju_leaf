@@ -6,6 +6,7 @@ class Manifestation < ApplicationRecord
   include EnjuLoc::EnjuManifestation
   include EnjuManifestationViewer::EnjuManifestation
   include EnjuBookmark::EnjuManifestation
+  include EnjuOai::OaiModel
 
   has_many :creates, -> { order('creates.position') }, dependent: :destroy, foreign_key: 'work_id', inverse_of: :work
   has_many :creators, through: :creates, source: :agent
