@@ -103,6 +103,9 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
+    date_validator (0.12.0)
+      activemodel (>= 3)
+      activesupport (>= 3)
     devise (4.8.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -416,14 +419,10 @@ GEM
       climate_control (>= 0.0.3, < 1.0)
     thor (1.2.1)
     tilt (2.0.11)
-    timeliness (0.4.4)
     typesafe_enum (0.3.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     unicode-types (1.8.0)
-    validates_timeliness (6.0.0.beta2)
-      activemodel (>= 6.0.0, < 7)
-      timeliness (>= 0.3.10, < 1)
     vcr (6.1.0)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -469,6 +468,7 @@ DEPENDENCIES
   caxlsx
   caxlsx_rails
   cocoon
+  date_validator
   devise
   dotenv-rails
   factory_bot_rails
@@ -516,7 +516,6 @@ DEPENDENCIES
   strip_attributes
   sunspot_rails
   tzinfo-data
-  validates_timeliness (~> 6.0.0.beta2)
   vcr
   web-console (>= 4.1.0)
   webdrivers

@@ -17,11 +17,10 @@ class Checkout < ApplicationRecord
 
   # TODO: 貸出履歴を保存しない場合は、ユーザ名を削除する
   # validates :user, :item, :basket, presence: true
-  validates :due_date, presence: true
+  validates :due_date, date: true, presence: true
   validates :item_id, uniqueness: { scope: [:basket_id, :user_id] }
   validate :is_not_checked?, on: :create
   validate :renewable?, on: :update
-  validates_date :due_date
   before_update :set_new_due_date
 
   searchable do

@@ -33,7 +33,7 @@ class Item < ApplicationRecord
   validates :binding_item_identifier, allow_blank: true,
     format: {with: /\A[0-9A-Za-z_]+\Z/}
   validates :url, url: true, allow_blank: true, length: { maximum: 255 }
-  validates_date :acquired_at, allow_blank: true
+  validates :acquired_at, date: true, allow_blank: true
 
   strip_attributes only: [:item_identifier, :binding_item_identifier,
     :call_number, :binding_call_number, :url]

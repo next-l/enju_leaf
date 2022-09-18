@@ -19,7 +19,7 @@ module EnjuSeed
         with: /\A[0-9A-Za-z][0-9A-Za-z_\-]*[0-9A-Za-z]\z/
       }
       validates :email, format: Devise::email_regexp, allow_blank: true, uniqueness: true
-      validates_date :expired_at, allow_blank: true
+      validates :expired_at, date: true, allow_blank: true
 
       with_options if: :password_required? do |v|
         v.validates_presence_of     :password

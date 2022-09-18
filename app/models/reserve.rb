@@ -26,7 +26,7 @@ class Reserve < ApplicationRecord
   belongs_to :request_status_type
   belongs_to :pickup_location, class_name: 'Library', optional: true
 
-  validates_date :expired_at, allow_blank: true
+  validates :expired_at, date: true, allow_blank: true
   validate :manifestation_must_include_item
   validate :available_for_reservation?, on: :create
   validates :item_id, presence: true, if: proc{|reserve|
