@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_07_153151) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_09_18_091044) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,8 +18,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "basket_id"
     t.integer "item_id"
     t.integer "librarian_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["basket_id"], name: "index_accepts_on_basket_id"
     t.index ["item_id"], name: "index_accepts_on_item_id"
     t.index ["librarian_id"], name: "index_accepts_on_librarian_id"
@@ -31,8 +30,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "metadata", default: "{}"
     t.integer "sort_key"
     t.integer "agent_import_file_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "most_recent", null: false
     t.index ["agent_import_file_id", "most_recent"], name: "index_agent_import_file_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["agent_import_file_id"], name: "index_agent_import_file_transitions_on_agent_import_file_id"
@@ -45,13 +44,13 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "size"
     t.integer "user_id"
     t.text "note"
-    t.datetime "executed_at"
+    t.datetime "executed_at", precision: nil
     t.string "agent_import_file_name"
     t.string "agent_import_content_type"
     t.integer "agent_import_file_size"
-    t.datetime "agent_import_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "agent_import_updated_at", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "agent_import_fingerprint"
     t.text "error_message"
     t.string "edit_mode"
@@ -64,21 +63,21 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "agent_import_file_id"
     t.integer "agent_id"
     t.text "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "agent_merge_lists", id: :serial, force: :cascade do |t|
     t.string "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "agent_merges", id: :serial, force: :cascade do |t|
     t.integer "agent_id", null: false
     t.integer "agent_merge_list_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["agent_id"], name: "index_agent_merges_on_agent_id"
     t.index ["agent_merge_list_id"], name: "index_agent_merges_on_agent_merge_list_id"
   end
@@ -88,16 +87,16 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "agent_relationships", id: :serial, force: :cascade do |t|
     t.integer "parent_id"
     t.integer "child_id"
     t.integer "agent_relationship_type_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "position"
     t.index ["child_id"], name: "index_agent_relationships_on_child_id"
     t.index ["parent_id"], name: "index_agent_relationships_on_parent_id"
@@ -108,8 +107,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "agents", id: :serial, force: :cascade do |t|
@@ -124,8 +123,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.string "full_name"
     t.text "full_name_transcription"
     t.text "full_name_alternative"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "zip_code_1"
     t.string "zip_code_2"
     t.text "address_1"
@@ -142,8 +141,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "street"
     t.text "locality"
     t.text "region"
-    t.datetime "date_of_birth"
-    t.datetime "date_of_death"
+    t.datetime "date_of_birth", precision: nil
+    t.datetime "date_of_death", precision: nil
     t.integer "language_id", default: 1, null: false
     t.integer "country_id", default: 1, null: false
     t.integer "agent_type_id", default: 1, null: false
@@ -170,8 +169,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "user_id"
     t.text "note"
     t.integer "lock_version", default: 0, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["user_id"], name: "index_baskets_on_user_id"
   end
 
@@ -179,8 +178,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "bookmark_stat_id", null: false
     t.integer "manifestation_id", null: false
     t.integer "bookmarks_count"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["bookmark_stat_id"], name: "index_bookmark_stat_has_manifestations_on_bookmark_stat_id"
     t.index ["manifestation_id"], name: "index_bookmark_stat_has_manifestations_on_manifestation_id"
   end
@@ -190,8 +189,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "metadata", default: "{}"
     t.integer "sort_key"
     t.integer "bookmark_stat_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "most_recent", null: false
     t.index ["bookmark_stat_id", "most_recent"], name: "index_bookmark_stat_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["bookmark_stat_id"], name: "index_bookmark_stat_transitions_on_bookmark_stat_id"
@@ -199,13 +198,13 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
   end
 
   create_table "bookmark_stats", id: :serial, force: :cascade do |t|
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.datetime "started_at"
-    t.datetime "completed_at"
+    t.datetime "start_date", precision: nil
+    t.datetime "end_date", precision: nil
+    t.datetime "started_at", precision: nil
+    t.datetime "completed_at", precision: nil
     t.text "note"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "bookmarks", id: :serial, force: :cascade do |t|
@@ -215,8 +214,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.string "url"
     t.text "note"
     t.boolean "shared"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["manifestation_id"], name: "index_bookmarks_on_manifestation_id"
     t.index ["url"], name: "index_bookmarks_on_url"
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
@@ -231,8 +230,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.string "fax_number"
     t.string "url"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "budget_types", id: :serial, force: :cascade do |t|
@@ -240,8 +239,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "carrier_type_has_checkout_types", id: :serial, force: :cascade do |t|
@@ -249,8 +248,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "checkout_type_id", null: false
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["carrier_type_id"], name: "index_carrier_type_has_checkout_types_on_m_form_id"
     t.index ["checkout_type_id"], name: "index_carrier_type_has_checkout_types_on_checkout_type_id"
   end
@@ -260,21 +259,21 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "attachment_file_name"
     t.string "attachment_content_type"
     t.bigint "attachment_file_size"
-    t.datetime "attachment_updated_at"
+    t.datetime "attachment_updated_at", precision: nil
   end
 
   create_table "checked_items", id: :serial, force: :cascade do |t|
     t.integer "item_id", null: false
     t.integer "basket_id", null: false
     t.integer "librarian_id"
-    t.datetime "due_date", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "due_date", precision: nil, null: false
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "user_id"
     t.index ["basket_id"], name: "index_checked_items_on_basket_id"
     t.index ["item_id"], name: "index_checked_items_on_item_id"
@@ -286,8 +285,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "item_id", null: false
     t.integer "librarian_id"
     t.integer "basket_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "lock_version", default: 0, null: false
     t.index ["basket_id"], name: "index_checkins_on_basket_id"
     t.index ["item_id"], name: "index_checkins_on_item_id"
@@ -298,8 +297,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "manifestation_checkout_stat_id", null: false
     t.integer "manifestation_id", null: false
     t.integer "checkouts_count"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["manifestation_checkout_stat_id"], name: "index_checkout_stat_has_manifestations_on_checkout_stat_id"
     t.index ["manifestation_id"], name: "index_checkout_stat_has_manifestations_on_manifestation_id"
   end
@@ -308,8 +307,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "user_checkout_stat_id", null: false
     t.integer "user_id", null: false
     t.integer "checkouts_count", default: 0, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["user_checkout_stat_id"], name: "index_checkout_stat_has_users_on_user_checkout_stat_id"
     t.index ["user_id"], name: "index_checkout_stat_has_users_on_user_id"
   end
@@ -319,8 +318,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["name"], name: "index_checkout_types_on_name"
   end
 
@@ -330,11 +329,11 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "checkin_id"
     t.integer "librarian_id"
     t.integer "basket_id"
-    t.datetime "due_date"
+    t.datetime "due_date", precision: nil
     t.integer "checkout_renewal_count", default: 0, null: false
     t.integer "lock_version", default: 0, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "shelf_id"
     t.integer "library_id"
     t.index ["basket_id"], name: "index_checkouts_on_basket_id"
@@ -352,8 +351,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "classification_types", id: :serial, force: :cascade do |t|
@@ -361,8 +360,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "classifications", id: :serial, force: :cascade do |t|
@@ -370,8 +369,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.string "category", null: false
     t.text "note"
     t.integer "classification_type_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "lft"
     t.integer "rgt"
     t.integer "manifestation_id"
@@ -388,8 +387,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.string "property"
     t.string "code"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["library_group_id"], name: "index_colors_on_library_group_id"
   end
 
@@ -398,8 +397,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "countries", id: :serial, force: :cascade do |t|
@@ -421,16 +420,16 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "creates", id: :serial, force: :cascade do |t|
     t.integer "agent_id", null: false
     t.integer "work_id", null: false
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "create_type_id"
     t.index ["agent_id"], name: "index_creates_on_agent_id"
     t.index ["work_id"], name: "index_creates_on_work_id"
@@ -440,8 +439,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "user_id"
     t.integer "item_id"
     t.integer "message_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["item_id"], name: "index_demands_on_item_id"
     t.index ["message_id"], name: "index_demands_on_message_id"
     t.index ["user_id"], name: "index_demands_on_user_id"
@@ -450,8 +449,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
   create_table "donates", id: :serial, force: :cascade do |t|
     t.integer "agent_id", null: false
     t.integer "item_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["agent_id"], name: "index_donates_on_agent_id"
     t.index ["item_id"], name: "index_donates_on_item_id"
   end
@@ -461,8 +460,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "event_export_file_transitions", id: :serial, force: :cascade do |t|
@@ -470,8 +469,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "metadata", default: "{}"
     t.integer "sort_key"
     t.integer "event_export_file_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "most_recent", null: false
     t.index ["event_export_file_id", "most_recent"], name: "index_event_export_file_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["event_export_file_id"], name: "index_event_export_file_transitions_on_file_id"
@@ -483,10 +482,10 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.string "event_export_file_name"
     t.string "event_export_content_type"
     t.bigint "event_export_file_size"
-    t.datetime "event_export_updated_at"
-    t.datetime "executed_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "event_export_updated_at", precision: nil
+    t.datetime "executed_at", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["user_id"], name: "index_event_export_files_on_user_id"
   end
 
@@ -495,8 +494,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "metadata", default: "{}"
     t.integer "sort_key"
     t.integer "event_import_file_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "most_recent", null: false
     t.index ["event_import_file_id", "most_recent"], name: "index_event_import_file_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["event_import_file_id"], name: "index_event_import_file_transitions_on_event_import_file_id"
@@ -509,14 +508,14 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "size"
     t.integer "user_id"
     t.text "note"
-    t.datetime "executed_at"
+    t.datetime "executed_at", precision: nil
     t.string "event_import_file_name"
     t.string "event_import_content_type"
     t.integer "event_import_file_size"
-    t.datetime "event_import_updated_at"
+    t.datetime "event_import_updated_at", precision: nil
     t.string "edit_mode"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "event_import_fingerprint"
     t.text "error_message"
     t.string "user_encoding"
@@ -530,8 +529,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "event_import_file_id"
     t.integer "event_id"
     t.text "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "events", id: :serial, force: :cascade do |t|
@@ -539,12 +538,12 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "event_category_id", null: false
     t.string "name"
     t.text "note"
-    t.datetime "start_at"
-    t.datetime "end_at"
+    t.datetime "start_at", precision: nil
+    t.datetime "end_at", precision: nil
     t.boolean "all_day", default: false, null: false
     t.text "display_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "place_id"
     t.index ["event_category_id"], name: "index_events_on_event_category_id"
     t.index ["library_id"], name: "index_events_on_library_id"
@@ -556,8 +555,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "frequencies", id: :serial, force: :cascade do |t|
@@ -565,8 +564,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "identifier_types", id: :serial, force: :cascade do |t|
@@ -574,8 +573,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "identifiers", id: :serial, force: :cascade do |t|
@@ -584,8 +583,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "manifestation_id"
     t.boolean "primary"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["body", "identifier_type_id"], name: "index_identifiers_on_body_and_identifier_type_id"
     t.index ["manifestation_id"], name: "index_identifiers_on_manifestation_id"
   end
@@ -595,8 +594,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.string "email"
     t.string "password_digest"
     t.integer "profile_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "provider"
     t.index ["email"], name: "index_identities_on_email"
     t.index ["name"], name: "index_identities_on_name"
@@ -608,8 +607,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "metadata", default: "{}"
     t.integer "sort_key"
     t.integer "import_request_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "most_recent", null: false
     t.index ["import_request_id", "most_recent"], name: "index_import_request_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["import_request_id"], name: "index_import_request_transitions_on_import_request_id"
@@ -620,8 +619,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.string "isbn"
     t.integer "manifestation_id"
     t.integer "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["isbn"], name: "index_import_requests_on_isbn"
     t.index ["manifestation_id"], name: "index_import_requests_on_manifestation_id"
     t.index ["user_id"], name: "index_import_requests_on_user_id"
@@ -631,8 +630,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "item_id"
     t.integer "inventory_file_id"
     t.text "note"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "item_identifier"
     t.string "current_shelf_name"
     t.index ["current_shelf_name"], name: "index_inventories_on_current_shelf_name"
@@ -647,12 +646,12 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "size"
     t.integer "user_id"
     t.text "note"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "inventory_file_name"
     t.string "inventory_content_type"
     t.integer "inventory_file_size"
-    t.datetime "inventory_updated_at"
+    t.datetime "inventory_updated_at", precision: nil
     t.string "inventory_fingerprint"
     t.bigint "shelf_id"
     t.index ["shelf_id"], name: "index_inventory_files_on_shelf_id"
@@ -664,8 +663,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name", null: false, comment: "表示名"
     t.text "note", comment: "備考"
     t.integer "position", default: 1, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["name"], name: "index_item_custom_properties_on_name", unique: true
   end
 
@@ -673,8 +672,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.bigint "item_custom_property_id", null: false
     t.bigint "item_id", null: false
     t.text "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["item_custom_property_id", "item_id"], name: "index_item_custom_values_on_custom_item_property_and_item_id", unique: true
     t.index ["item_custom_property_id"], name: "index_item_custom_values_on_custom_property_id"
     t.index ["item_id"], name: "index_item_custom_values_on_item_id"
@@ -683,8 +682,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
   create_table "item_has_use_restrictions", id: :serial, force: :cascade do |t|
     t.integer "item_id", null: false
     t.integer "use_restriction_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["item_id"], name: "index_item_has_use_restrictions_on_item_id"
     t.index ["use_restriction_id"], name: "index_item_has_use_restrictions_on_use_restriction_id"
   end
@@ -692,8 +691,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
   create_table "items", id: :serial, force: :cascade do |t|
     t.string "call_number"
     t.string "item_identifier"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "shelf_id", default: 1, null: false
     t.boolean "include_supplements", default: false, null: false
     t.text "note"
@@ -702,14 +701,14 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "lock_version", default: 0, null: false
     t.integer "required_role_id", default: 1, null: false
     t.integer "required_score", default: 0, null: false
-    t.datetime "acquired_at"
+    t.datetime "acquired_at", precision: nil
     t.integer "bookstore_id"
     t.integer "budget_type_id"
     t.integer "circulation_status_id", default: 5, null: false
     t.integer "checkout_type_id", default: 1, null: false
     t.string "binding_item_identifier"
     t.string "binding_call_number"
-    t.datetime "binded_at"
+    t.datetime "binded_at", precision: nil
     t.integer "manifestation_id", null: false
     t.text "memo"
     t.date "missing_since"
@@ -726,8 +725,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
   create_table "jpno_records", force: :cascade do |t|
     t.string "body", null: false
     t.bigint "manifestation_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["body"], name: "index_jpno_records_on_body", unique: true
     t.index ["manifestation_id"], name: "index_jpno_records_on_manifestation_id"
   end
@@ -765,8 +764,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "users_count", default: 0, null: false
     t.integer "position"
     t.integer "country_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.text "opening_hour"
     t.string "isil"
     t.float "latitude"
@@ -778,8 +777,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
   create_table "library_group_translations", force: :cascade do |t|
     t.integer "library_group_id", null: false
     t.string "locale", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.text "login_banner"
     t.text "footer_banner"
     t.index ["library_group_id"], name: "index_library_group_translations_on_library_group_id"
@@ -795,8 +794,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "note"
     t.integer "country_id"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.text "admin_networks"
     t.boolean "allow_bookmark_external_url", default: false, null: false
     t.string "url", default: "http://localhost:3000/"
@@ -812,7 +811,7 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.string "header_logo_file_name"
     t.string "header_logo_content_type"
     t.bigint "header_logo_file_size"
-    t.datetime "header_logo_updated_at"
+    t.datetime "header_logo_updated_at", precision: nil
     t.text "header_logo_meta"
     t.index ["short_name"], name: "index_library_groups_on_short_name"
     t.index ["user_id"], name: "index_library_groups_on_user_id"
@@ -823,8 +822,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.string "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "manifestation_checkout_stat_transitions", id: :serial, force: :cascade do |t|
@@ -832,8 +831,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "metadata", default: "{}"
     t.integer "sort_key"
     t.integer "manifestation_checkout_stat_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "most_recent", null: false
     t.index ["manifestation_checkout_stat_id", "most_recent"], name: "index_manifestation_checkout_stat_transitions_parent_most_rece", unique: true, where: "most_recent"
     t.index ["manifestation_checkout_stat_id"], name: "index_manifestation_checkout_stat_transitions_on_stat_id"
@@ -841,13 +840,13 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
   end
 
   create_table "manifestation_checkout_stats", id: :serial, force: :cascade do |t|
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.datetime "start_date", precision: nil
+    t.datetime "end_date", precision: nil
     t.text "note"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "started_at"
-    t.datetime "completed_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.datetime "started_at", precision: nil
+    t.datetime "completed_at", precision: nil
     t.integer "user_id"
     t.index ["user_id"], name: "index_manifestation_checkout_stats_on_user_id"
   end
@@ -857,8 +856,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name", null: false, comment: "表示名"
     t.text "note", comment: "備考"
     t.integer "position", default: 1, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["name"], name: "index_manifestation_custom_properties_on_name", unique: true
   end
 
@@ -866,8 +865,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.bigint "manifestation_custom_property_id", null: false
     t.bigint "manifestation_id", null: false
     t.text "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["manifestation_custom_property_id", "manifestation_id"], name: "index_manifestation_custom_values_on_property_manifestation", unique: true
     t.index ["manifestation_custom_property_id"], name: "index_manifestation_custom_values_on_custom_property_id"
     t.index ["manifestation_id"], name: "index_manifestation_custom_values_on_manifestation_id"
@@ -878,16 +877,16 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "manifestation_relationships", id: :serial, force: :cascade do |t|
     t.integer "parent_id"
     t.integer "child_id"
     t.integer "manifestation_relationship_type_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "position"
     t.index ["child_id"], name: "index_manifestation_relationships_on_child_id"
     t.index ["parent_id"], name: "index_manifestation_relationships_on_parent_id"
@@ -898,8 +897,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "metadata", default: "{}"
     t.integer "sort_key"
     t.integer "manifestation_reserve_stat_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "most_recent", null: false
     t.index ["manifestation_reserve_stat_id", "most_recent"], name: "index_manifestation_reserve_stat_transitions_parent_most_recen", unique: true, where: "most_recent"
     t.index ["manifestation_reserve_stat_id"], name: "index_manifestation_reserve_stat_transitions_on_stat_id"
@@ -907,13 +906,13 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
   end
 
   create_table "manifestation_reserve_stats", id: :serial, force: :cascade do |t|
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.datetime "start_date", precision: nil
+    t.datetime "end_date", precision: nil
     t.text "note"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "started_at"
-    t.datetime "completed_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.datetime "started_at", precision: nil
+    t.datetime "completed_at", precision: nil
     t.integer "user_id"
     t.index ["user_id"], name: "index_manifestation_reserve_stats_on_user_id"
   end
@@ -924,10 +923,10 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "title_transcription"
     t.string "classification_number"
     t.string "manifestation_identifier"
-    t.datetime "date_of_publication"
-    t.datetime "date_copyrighted"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "date_of_publication", precision: nil
+    t.datetime "date_copyrighted", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "access_address"
     t.integer "language_id", default: 1, null: false
     t.integer "carrier_type_id", default: 1, null: false
@@ -952,16 +951,16 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.string "attachment_file_name"
     t.string "attachment_content_type"
     t.integer "attachment_file_size"
-    t.datetime "attachment_updated_at"
+    t.datetime "attachment_updated_at", precision: nil
     t.integer "nii_type_id"
     t.text "title_alternative_transcription"
     t.text "description"
     t.text "abstract"
-    t.datetime "available_at"
-    t.datetime "valid_until"
-    t.datetime "date_submitted"
-    t.datetime "date_accepted"
-    t.datetime "date_captured"
+    t.datetime "available_at", precision: nil
+    t.datetime "valid_until", precision: nil
+    t.datetime "date_submitted", precision: nil
+    t.datetime "date_accepted", precision: nil
+    t.datetime "date_captured", precision: nil
     t.string "pub_date"
     t.string "edition_string"
     t.integer "volume_number"
@@ -990,8 +989,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "message_transitions", force: :cascade do |t|
@@ -999,8 +998,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "metadata", default: "{}"
     t.integer "sort_key"
     t.bigint "message_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "most_recent", null: false
     t.index ["message_id", "most_recent"], name: "index_message_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["message_id"], name: "index_message_transitions_on_message_id"
@@ -1008,15 +1007,15 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.datetime "read_at"
+    t.datetime "read_at", precision: nil
     t.bigint "sender_id"
     t.bigint "receiver_id"
     t.string "subject", null: false
     t.text "body"
     t.bigint "message_request_id"
     t.bigint "parent_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "lft"
     t.integer "rgt"
     t.integer "depth"
@@ -1029,8 +1028,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
   create_table "ndl_bib_id_records", force: :cascade do |t|
     t.string "body", null: false
     t.bigint "manifestation_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["body"], name: "index_ndl_bib_id_records_on_body", unique: true
     t.index ["manifestation_id"], name: "index_ndl_bib_id_records_on_manifestation_id"
   end
@@ -1038,8 +1037,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
   create_table "ndla_records", force: :cascade do |t|
     t.bigint "agent_id"
     t.string "body", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["agent_id"], name: "index_ndla_records_on_agent_id"
     t.index ["body"], name: "index_ndla_records_on_body", unique: true
   end
@@ -1050,22 +1049,22 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.string "url"
     t.text "body"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "news_posts", id: :serial, force: :cascade do |t|
     t.text "title"
     t.text "body"
     t.integer "user_id"
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.datetime "start_date", precision: nil
+    t.datetime "end_date", precision: nil
     t.integer "required_role_id", default: 1, null: false
     t.text "note"
     t.integer "position"
     t.boolean "draft", default: false, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "url"
     t.index ["user_id"], name: "index_news_posts_on_user_id"
   end
@@ -1075,8 +1074,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["name"], name: "index_nii_types_on_name", unique: true
   end
 
@@ -1084,8 +1083,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "agent_id", null: false
     t.integer "item_id", null: false
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["agent_id"], name: "index_owns_on_agent_id"
     t.index ["item_id"], name: "index_owns_on_item_id"
   end
@@ -1094,8 +1093,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "agent_id", null: false
     t.integer "event_id", null: false
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["agent_id"], name: "index_participates_on_agent_id"
     t.index ["event_id"], name: "index_participates_on_event_id"
   end
@@ -1105,12 +1104,12 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.string "picture_attachable_type"
     t.text "title"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "picture_file_name"
     t.string "picture_content_type"
     t.integer "picture_file_size"
-    t.datetime "picture_updated_at"
+    t.datetime "picture_updated_at", precision: nil
     t.text "picture_meta"
     t.string "picture_fingerprint"
     t.integer "picture_width"
@@ -1124,8 +1123,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "country_id"
     t.float "latitude"
     t.float "longitude"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["country_id"], name: "index_places_on_country_id"
     t.index ["term"], name: "index_places_on_term"
   end
@@ -1135,16 +1134,16 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "produces", id: :serial, force: :cascade do |t|
     t.integer "agent_id", null: false
     t.integer "manifestation_id", null: false
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "produce_type_id"
     t.index ["agent_id"], name: "index_produces_on_agent_id"
     t.index ["manifestation_id"], name: "index_produces_on_manifestation_id"
@@ -1160,14 +1159,14 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "note"
     t.text "keyword_list"
     t.integer "required_role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "checkout_icalendar_token"
     t.boolean "save_checkout_history", default: false, null: false
-    t.datetime "expired_at"
+    t.datetime "expired_at", precision: nil
     t.boolean "share_bookmarks"
     t.text "full_name_transcription"
-    t.datetime "date_of_birth"
+    t.datetime "date_of_birth", precision: nil
     t.index ["checkout_icalendar_token"], name: "index_profiles_on_checkout_icalendar_token", unique: true
     t.index ["library_id"], name: "index_profiles_on_library_id"
     t.index ["user_group_id"], name: "index_profiles_on_user_group_id"
@@ -1180,16 +1179,16 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "realizes", id: :serial, force: :cascade do |t|
     t.integer "agent_id", null: false
     t.integer "expression_id", null: false
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "realize_type_id"
     t.index ["agent_id"], name: "index_realizes_on_agent_id"
     t.index ["expression_id"], name: "index_realizes_on_expression_id"
@@ -1200,8 +1199,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "request_types", id: :serial, force: :cascade do |t|
@@ -1209,16 +1208,16 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "reserve_stat_has_manifestations", id: :serial, force: :cascade do |t|
     t.integer "manifestation_reserve_stat_id", null: false
     t.integer "manifestation_id", null: false
     t.integer "reserves_count"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["manifestation_id"], name: "index_reserve_stat_has_manifestations_on_manifestation_id"
     t.index ["manifestation_reserve_stat_id"], name: "index_reserve_stat_has_manifestations_on_m_reserve_stat_id"
   end
@@ -1227,8 +1226,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "user_reserve_stat_id", null: false
     t.integer "user_id", null: false
     t.integer "reserves_count"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["user_id"], name: "index_reserve_stat_has_users_on_user_id"
     t.index ["user_reserve_stat_id"], name: "index_reserve_stat_has_users_on_user_reserve_stat_id"
   end
@@ -1238,8 +1237,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "metadata", default: "{}"
     t.integer "sort_key"
     t.integer "reserve_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "most_recent", null: false
     t.index ["reserve_id", "most_recent"], name: "index_reserve_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["reserve_id"], name: "index_reserve_transitions_on_reserve_id"
@@ -1251,16 +1250,16 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "manifestation_id", null: false
     t.integer "item_id"
     t.integer "request_status_type_id", null: false
-    t.datetime "checked_out_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "canceled_at"
-    t.datetime "expired_at"
+    t.datetime "checked_out_at", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.datetime "canceled_at", precision: nil
+    t.datetime "expired_at", precision: nil
     t.boolean "expiration_notice_to_patron", default: false
     t.boolean "expiration_notice_to_library", default: false
     t.integer "pickup_location_id"
-    t.datetime "retained_at"
-    t.datetime "postponed_at"
+    t.datetime "retained_at", precision: nil
+    t.datetime "postponed_at", precision: nil
     t.integer "lock_version", default: 0, null: false
     t.index ["item_id"], name: "index_reserves_on_item_id"
     t.index ["manifestation_id"], name: "index_reserves_on_manifestation_id"
@@ -1273,8 +1272,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "metadata", default: "{}"
     t.integer "sort_key"
     t.integer "resource_export_file_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "most_recent", null: false
     t.index ["resource_export_file_id", "most_recent"], name: "index_resource_export_file_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["resource_export_file_id"], name: "index_resource_export_file_transitions_on_file_id"
@@ -1286,10 +1285,10 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.string "resource_export_file_name"
     t.string "resource_export_content_type"
     t.bigint "resource_export_file_size"
-    t.datetime "resource_export_updated_at"
-    t.datetime "executed_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "resource_export_updated_at", precision: nil
+    t.datetime "executed_at", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "resource_import_file_transitions", id: :serial, force: :cascade do |t|
@@ -1297,8 +1296,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "metadata", default: "{}"
     t.integer "sort_key"
     t.integer "resource_import_file_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "most_recent", null: false
     t.index ["resource_import_file_id", "most_recent"], name: "index_resource_import_file_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["resource_import_file_id"], name: "index_resource_import_file_transitions_on_file_id"
@@ -1311,13 +1310,13 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "size"
     t.integer "user_id"
     t.text "note"
-    t.datetime "executed_at"
+    t.datetime "executed_at", precision: nil
     t.string "resource_import_file_name"
     t.string "resource_import_content_type"
     t.integer "resource_import_file_size"
-    t.datetime "resource_import_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "resource_import_updated_at", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "edit_mode"
     t.string "resource_import_fingerprint"
     t.text "error_message"
@@ -1332,8 +1331,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "manifestation_id"
     t.integer "item_id"
     t.text "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.text "error_message"
     t.index ["item_id"], name: "index_resource_import_results_on_item_id"
     t.index ["manifestation_id"], name: "index_resource_import_results_on_manifestation_id"
@@ -1344,8 +1343,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.string "name", null: false
     t.string "display_name"
     t.text "note"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "score", default: 0, null: false
     t.integer "position"
   end
@@ -1360,21 +1359,21 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "additional_param"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "series_statement_merge_lists", id: :serial, force: :cascade do |t|
     t.string "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "series_statement_merges", id: :serial, force: :cascade do |t|
     t.integer "series_statement_id", null: false
     t.integer "series_statement_merge_list_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["series_statement_id"], name: "index_series_statement_merges_on_series_statement_id"
     t.index ["series_statement_merge_list_id"], name: "index_series_statement_merges_on_list_id"
   end
@@ -1385,8 +1384,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "title_subseries"
     t.text "numbering_subseries"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.text "title_transcription"
     t.text "title_alternative"
     t.string "series_statement_identifier"
@@ -1410,8 +1409,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "library_id", null: false
     t.integer "items_count", default: 0, null: false
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "closed", default: false, null: false
     t.index ["library_id"], name: "index_shelves_on_library_id"
   end
@@ -1421,8 +1420,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "subject_types", id: :serial, force: :cascade do |t|
@@ -1430,8 +1429,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "subjects", id: :serial, force: :cascade do |t|
@@ -1444,8 +1443,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "note"
     t.integer "required_role_id", default: 1, null: false
     t.integer "lock_version", default: 0, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "url"
     t.integer "manifestation_id"
     t.integer "subject_heading_type_id"
@@ -1460,10 +1459,10 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
   create_table "subscribes", id: :serial, force: :cascade do |t|
     t.integer "subscription_id", null: false
     t.integer "work_id", null: false
-    t.datetime "start_at", null: false
-    t.datetime "end_at", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "start_at", precision: nil, null: false
+    t.datetime "end_at", precision: nil, null: false
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["subscription_id"], name: "index_subscribes_on_subscription_id"
     t.index ["work_id"], name: "index_subscribes_on_work_id"
   end
@@ -1474,8 +1473,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "user_id"
     t.integer "order_list_id"
     t.integer "subscribes_count", default: 0, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["order_list_id"], name: "index_subscriptions_on_order_list_id"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
@@ -1487,7 +1486,7 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.string "tagger_type"
     t.integer "tagger_id"
     t.string "context", limit: 128
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["context"], name: "index_taggings_on_context"
     t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
     t.index ["tag_id"], name: "index_taggings_on_tag_id"
@@ -1502,8 +1501,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
   create_table "tags", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "taggings_count", default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
@@ -1512,8 +1511,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "user_checkout_stat_transitions", id: :serial, force: :cascade do |t|
@@ -1521,8 +1520,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "metadata", default: "{}"
     t.integer "sort_key"
     t.integer "user_checkout_stat_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "most_recent", null: false
     t.index ["sort_key", "user_checkout_stat_id"], name: "index_user_checkout_stat_transitions_on_sort_key_and_stat_id", unique: true
     t.index ["user_checkout_stat_id", "most_recent"], name: "index_user_checkout_stat_transitions_parent_most_recent", unique: true, where: "most_recent"
@@ -1530,13 +1529,13 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
   end
 
   create_table "user_checkout_stats", id: :serial, force: :cascade do |t|
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.datetime "start_date", precision: nil
+    t.datetime "end_date", precision: nil
     t.text "note"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "started_at"
-    t.datetime "completed_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.datetime "started_at", precision: nil
+    t.datetime "completed_at", precision: nil
     t.integer "user_id"
     t.index ["user_id"], name: "index_user_checkout_stats_on_user_id"
   end
@@ -1546,8 +1545,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "metadata", default: "{}"
     t.integer "sort_key"
     t.integer "user_export_file_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "most_recent", null: false
     t.index ["sort_key", "user_export_file_id"], name: "index_user_export_file_transitions_on_sort_key_and_file_id", unique: true
     t.index ["user_export_file_id", "most_recent"], name: "index_user_export_file_transitions_parent_most_recent", unique: true, where: "most_recent"
@@ -1560,10 +1559,10 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.string "user_export_file_name"
     t.string "user_export_content_type"
     t.bigint "user_export_file_size"
-    t.datetime "user_export_updated_at"
-    t.datetime "executed_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "user_export_updated_at", precision: nil
+    t.datetime "executed_at", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["user_id"], name: "index_user_export_files_on_user_id"
   end
 
@@ -1576,11 +1575,11 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "reservation_limit", default: 0, null: false
     t.integer "reservation_expired_period", default: 7, null: false
     t.boolean "set_due_date_before_closing_day", default: false, null: false
-    t.datetime "fixed_due_date"
+    t.datetime "fixed_due_date", precision: nil
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "current_checkout_count"
     t.index ["checkout_type_id"], name: "index_user_group_has_checkout_types_on_checkout_type_id"
     t.index ["user_group_id"], name: "index_user_group_has_checkout_types_on_user_group_id"
@@ -1591,10 +1590,10 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "valid_period_for_new_user", default: 0, null: false
-    t.datetime "expired_at"
+    t.datetime "expired_at", precision: nil
     t.integer "number_of_day_to_notify_overdue", default: 0, null: false
     t.integer "number_of_day_to_notify_due_date", default: 0, null: false
     t.integer "number_of_time_to_notify_overdue", default: 0, null: false
@@ -1603,8 +1602,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
   create_table "user_has_roles", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "role_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["role_id"], name: "index_user_has_roles_on_role_id"
     t.index ["user_id"], name: "index_user_has_roles_on_user_id"
   end
@@ -1614,8 +1613,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "metadata", default: "{}"
     t.integer "sort_key"
     t.integer "user_import_file_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "most_recent", null: false
     t.index ["sort_key", "user_import_file_id"], name: "index_user_import_file_transitions_on_sort_key_and_file_id", unique: true
     t.index ["user_import_file_id", "most_recent"], name: "index_user_import_file_transitions_parent_most_recent", unique: true, where: "most_recent"
@@ -1625,16 +1624,16 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
   create_table "user_import_files", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.text "note"
-    t.datetime "executed_at"
+    t.datetime "executed_at", precision: nil
     t.string "user_import_file_name"
     t.string "user_import_content_type"
     t.integer "user_import_file_size"
-    t.datetime "user_import_updated_at"
+    t.datetime "user_import_updated_at", precision: nil
     t.string "user_import_fingerprint"
     t.string "edit_mode"
     t.text "error_message"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "user_encoding"
     t.integer "default_library_id"
     t.integer "default_user_group_id"
@@ -1645,8 +1644,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "user_import_file_id"
     t.integer "user_id"
     t.text "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.text "error_message"
     t.index ["user_id"], name: "index_user_import_results_on_user_id"
     t.index ["user_import_file_id"], name: "index_user_import_results_on_user_import_file_id"
@@ -1657,8 +1656,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.text "metadata", default: "{}"
     t.integer "sort_key"
     t.integer "user_reserve_stat_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "most_recent", null: false
     t.index ["sort_key", "user_reserve_stat_id"], name: "index_user_reserve_stat_transitions_on_sort_key_and_stat_id", unique: true
     t.index ["user_reserve_stat_id", "most_recent"], name: "index_user_reserve_stat_transitions_parent_most_recent", unique: true, where: "most_recent"
@@ -1666,13 +1665,13 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
   end
 
   create_table "user_reserve_stats", id: :serial, force: :cascade do |t|
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.datetime "start_date", precision: nil
+    t.datetime "end_date", precision: nil
     t.text "note"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "started_at"
-    t.datetime "completed_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.datetime "started_at", precision: nil
+    t.datetime "completed_at", precision: nil
     t.integer "user_id"
     t.index ["user_id"], name: "index_user_reserve_stats_on_user_id"
   end
@@ -1681,16 +1680,16 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "username"
-    t.datetime "expired_at"
+    t.datetime "expired_at", precision: nil
     t.integer "failed_attempts", default: 0
     t.string "unlock_token"
-    t.datetime "locked_at"
-    t.datetime "confirmed_at"
+    t.datetime "locked_at", precision: nil
+    t.datetime "confirmed_at", precision: nil
     t.index ["email"], name: "index_users_on_email"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
@@ -1701,8 +1700,8 @@ ActiveRecord::Schema.define(version: 2022_05_07_153151) do
     t.integer "basket_id"
     t.integer "item_id"
     t.integer "librarian_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["basket_id"], name: "index_withdraws_on_basket_id"
     t.index ["item_id"], name: "index_withdraws_on_item_id"
     t.index ["librarian_id"], name: "index_withdraws_on_librarian_id"
