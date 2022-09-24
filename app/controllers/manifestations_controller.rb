@@ -130,7 +130,7 @@ class ManifestationsController < ApplicationController
         :edition,
         :serial,
         :statement_of_responsibility
-      ] if params[:format] == 'html' or params[:format].nil?
+      ] if params[:format] == 'html' || params[:format].nil?
       all_result = search.execute
       @count[:query_result] = all_result.total
       @reservable_facet = all_result.facet(:reservable).rows if defined?(EnjuCirculation)
@@ -141,7 +141,7 @@ class ManifestationsController < ApplicationController
         @max_number_of_results = max_number_of_results
       end
 
-      if params[:format] == 'html' or params[:format].nil?
+      if params[:format] == 'html' || params[:format].nil?
         @search_query = Digest::SHA1.hexdigest(Marshal.dump(search.query.to_params).force_encoding('UTF-8'))
         if flash[:search_query] == @search_query
           flash.keep(:search_query)
@@ -217,7 +217,7 @@ class ManifestationsController < ApplicationController
         search_result.results, total_count: max_count
       ).page(page).per(per_page)
 
-      if params[:format].blank? or params[:format] == 'html'
+      if params[:format].blank? || params[:format] == 'html'
         @carrier_type_facet = search_result.facet(:carrier_type).rows
         @language_facet = search_result.facet(:language).rows
         @library_facet = search_result.facet(:library).rows
@@ -401,7 +401,7 @@ class ManifestationsController < ApplicationController
     respond_to do |format|
       if @manifestation.save
         set_creators
-        
+
         format.html { redirect_to @manifestation, notice: t('controller.successfully_updated', model: t('activerecord.models.manifestation')) }
         format.json { head :no_content }
       else

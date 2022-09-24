@@ -56,7 +56,7 @@ class MessagesController < ApplicationController
       @message.recipient = params[:recipient]
     elsif parent
       @message.recipient = parent.sender.username
-end
+    end
     @message.receiver = User.find_by(username: @message.recipient) if @message.recipient
   end
 
