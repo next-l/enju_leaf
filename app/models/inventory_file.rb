@@ -23,8 +23,8 @@ class InventoryFile < ApplicationRecord
   paginates_per 10
 
   def import
-    self.reload
-    file = File.open(self.inventory.path)
+    reload
+    file = File.open(inventory.path)
     reader = file.read
     reader.split.each do |row|
       identifier = row.to_s.strip

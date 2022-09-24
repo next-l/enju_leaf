@@ -42,12 +42,6 @@ Metrics/AbcSize:
   Enabled: false
 Layout/ArgumentAlignment:
   Enabled: false
-Layout/ArgumentAlignment:
-  Enabled: false
-Layout/ArgumentAlignment:
-  Enabled: false
-Layout/ArgumentAlignment:
-  Enabled: false
 Layout/HashAlignment:
   Enabled: false
 Style/IfUnlessModifier:
