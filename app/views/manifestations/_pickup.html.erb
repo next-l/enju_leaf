@@ -1,7 +1,7 @@
 <% if manifestation %>
   <% cache([manifestation, fragment: 'pickup_html', role: current_user_role_name, locale: @locale]) do %>
     <div id="pickup_book_jacket">
-      <%= book_jacket(manifestation) -%>
+      <%= render 'manifestations/book_jacket', manifestation: manifestation -%>
     </div>
     <div style="float: left">
       <% if defined?(EnjuSubject) %>
