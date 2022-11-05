@@ -107,7 +107,7 @@ services:
       retries: 3
 
   minio:
-    image: quay.io/minio/minio:RELEASE.2022-08-13T21-54-44Z
+    image: quay.io/minio/minio:RELEASE.2022-10-29T06-21-33Z
     profiles:
       - develop
     volumes:
@@ -129,7 +129,7 @@ services:
       retries: 3
 
   cantaloupe:
-    image: uclalibrary/cantaloupe:5.0.5-1
+    image: uclalibrary/cantaloupe:5.0.5-2
     expose:
       - 8182
     restart: always
