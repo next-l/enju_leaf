@@ -153,8 +153,8 @@ services:
   nginx:
     image: nginx:stable
     ports:
-      - ${ENJU_LEAF_HOST}:8080:80
-      - ${ENJU_LEAF_HOST}:8182:8182
+      - ${ENJU_LEAF_BIND_ADDRESS}:8080:80
+      - ${ENJU_LEAF_BIND_ADDRESS}:8182:8182
     volumes:
       - ./nginx/templates:/etc/nginx/templates:ro
       - ./public:/opt/enju_leaf/public
