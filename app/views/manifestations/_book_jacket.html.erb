@@ -1,5 +1,7 @@
-<div id="manifestation_book_jacket">
-  <%- if manifestation and defined?(EnjuManifestationViewer) -%>
+<% if manifestation %>
+  <%= render 'manifestations/colorbox', manifestation: manifestation %>
+
+  <div id="manifestation_book_jacket">
     <%= book_jacket(manifestation) -%>
-  <%- end -%>
-</div>
+  </div>
+<% end %>
