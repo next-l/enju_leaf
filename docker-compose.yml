@@ -46,16 +46,16 @@ services:
       - QUEUE=*
     command: bundle exec rake resque:work
 
-  # webpacker:
-  #   <<: *app
-  #   environment:
-  #     - NODE_ENV=development
-  #     - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
-  #   profiles:
-  #     - develop
-  #   command: ./bin/webpack-dev-server
-  #   ports:
-  #     - '3035:3035'
+  webpacker:
+    <<: *app
+    environment:
+      - NODE_ENV=development
+      - WEBPACKER_DEV_SERVER_HOST=127.0.0.1
+    profiles:
+      - develop
+    command: ./bin/webpack-dev-server
+    ports:
+      - 127.0.0.1:3035:3035
 
   solr:
     image: solr:8
