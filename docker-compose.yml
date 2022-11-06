@@ -142,8 +142,6 @@ services:
       BASE_URI: ${CANTALOUPE_BASE_URI}
     networks:
       internal:
-    depends_on:
-      - nginx
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8182/health"]
       interval: 30s
@@ -153,14 +151,18 @@ services:
   nginx:
     image: nginx:stable
     ports:
-      - 8080:80
-      - 8182:8182
+      - ${ENJU_LEAF_BIND_ADDRESS}:8080:80
+      - ${ENJU_LEAF_BIND_ADDRESS}:8182:8182
     volumes:
       - ./nginx/templates:/etc/nginx/templates:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
       - ./public:/opt/enju_leaf/public
     restart: always
     networks:
       internal:
+    depends_on:
+      - web
+      - cantaloupe
     healthcheck:
       test: ["CMD", "service", "nginx", "status"]
       interval: 30s
