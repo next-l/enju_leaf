@@ -31,11 +31,11 @@ Next-L Enju, an open-source integrated library system. You can edit this message
 EOS
     footer_ja = <<"EOS"
 [Next-L Enju Leaf __VERSION__](https://github.com/next-l/enju_leaf), オープンソース統合図書館システム  
-Developed by [Kosuke Tanabe](https://github.com/nabeta) and [Project Next-L](https://www.next-l.jp) \| [このシステムについて](/page/about) \| [不具合を報告する](https://github.com/next-l/enju_leaf/discussions) \| [マニュアル](https://next-l.github.com/manual/1.3/)
+Developed by [Kosuke Tanabe](https://github.com/nabeta) and [Project Next-L](https://www.next-l.jp) \| [このシステムについて](/page/about) \| [不具合を報告する](https://github.com/next-l/enju_leaf/discussions) \| [マニュアル](https://next-l.github.com/manual/1.4/)
 EOS
     footer_en = <<"EOS"
 [Next-L Enju Leaf __VERSION__](https://github.com/next-l/enju_leaf), an open source integrated library system  
-Developed by [Kosuke Tanabe](https://github.com/nabeta) and [Project Next-L](https://www.next-l.jp) \| [About this system](/page/about) \| [Report bugs](https://github.com/next-l/enju_leaf/discussions) \| [Manual](https://next-l.github.com/manual/1.3/)
+Developed by [Kosuke Tanabe](https://github.com/nabeta) and [Project Next-L](https://www.next-l.jp) \| [About this system](/page/about) \| [Report bugs](https://github.com/next-l/enju_leaf/discussions) \| [Manual](https://next-l.github.com/manual/1.4/)
 EOS
     library_group.login_banner_ja = login_ja if library_group.login_banner_ja.blank?
     library_group.login_banner_en = login_en if library_group.login_banner_en.blank?
