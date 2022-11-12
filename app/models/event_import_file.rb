@@ -218,8 +218,8 @@ end
 #  event_import_file_size    :integer
 #  event_import_updated_at   :datetime
 #  edit_mode                 :string
-#  created_at                :datetime
-#  updated_at                :datetime
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
 #  event_import_fingerprint  :string
 #  error_message             :text
 #  user_encoding             :string

@@ -24,6 +24,6 @@ end
 #  agent_id   :integer          not null
 #  item_id    :integer          not null
 #  position   :integer
-#  created_at :datetime
-#  updated_at :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #

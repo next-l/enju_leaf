@@ -15,6 +15,6 @@ end
 #  agent_import_file_id :integer
 #  agent_id             :integer
 #  body                 :text
-#  created_at           :datetime
-#  updated_at           :datetime
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
 #

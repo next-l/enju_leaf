@@ -97,8 +97,8 @@ profile_user4:
 #  note                     :text
 #  keyword_list             :text
 #  required_role_id         :integer
-#  created_at               :datetime
-#  updated_at               :datetime
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
 #  checkout_icalendar_token :string
 #  save_checkout_history    :boolean          default(FALSE), not null
 #  expired_at               :datetime

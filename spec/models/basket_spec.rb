@@ -60,6 +60,6 @@ end
 #  user_id      :integer
 #  note         :text
 #  lock_version :integer          default(0), not null
-#  created_at   :datetime
-#  updated_at   :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #

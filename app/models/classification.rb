@@ -21,8 +21,8 @@ end
 #  category               :string           not null
 #  note                   :text
 #  classification_type_id :integer          not null
-#  created_at             :datetime
-#  updated_at             :datetime
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
 #  lft                    :integer
 #  rgt                    :integer
 #  manifestation_id       :integer

@@ -34,8 +34,8 @@ end
 #  users_count           :integer          default(0), not null
 #  position              :integer
 #  country_id            :integer
-#  created_at            :datetime
-#  updated_at            :datetime
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
 #  opening_hour          :text
 #  isil                  :string
 #  latitude              :float

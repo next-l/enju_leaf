@@ -75,8 +75,8 @@ end
 #  size                   :integer
 #  user_id                :integer
 #  note                   :text
-#  created_at             :datetime
-#  updated_at             :datetime
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
 #  inventory_file_name    :string
 #  inventory_content_type :string
 #  inventory_file_size    :integer
