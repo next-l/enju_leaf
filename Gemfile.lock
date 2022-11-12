@@ -103,6 +103,8 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
+    database_consistency (1.3.4)
+      activerecord (>= 3.2)
     date_validator (0.12.0)
       activemodel (>= 3)
       activesupport (>= 3)
@@ -271,7 +273,7 @@ GEM
     rack (2.2.4)
     rack-mini-profiler (2.3.4)
       rack (>= 1.2.0)
-    rack-protection (3.0.2)
+    rack-protection (3.0.3)
       rack
     rack-proxy (0.7.4)
       rack
@@ -392,10 +394,10 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
-    sinatra (3.0.2)
+    sinatra (3.0.3)
       mustermann (~> 3.0)
       rack (~> 2.2, >= 2.2.4)
-      rack-protection (= 3.0.2)
+      rack-protection (= 3.0.3)
       tilt (~> 2.0)
     sitemap_generator (6.3.0)
       builder (~> 3.0)
@@ -476,6 +478,7 @@ DEPENDENCIES
   caxlsx
   caxlsx_rails
   cocoon
+  database_consistency
   date_validator
   devise
   dotenv-rails
