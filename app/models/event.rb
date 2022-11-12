@@ -109,7 +109,7 @@ end
 # Table name: events
 #
 #  id                :bigint           not null, primary key
-#  library_id        :integer          not null
+#  library_id        :bigint           not null
 #  event_category_id :integer          not null
 #  name              :string           not null
 #  note              :text

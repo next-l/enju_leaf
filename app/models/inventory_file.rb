@@ -73,7 +73,7 @@ end
 #  filename               :string
 #  content_type           :string
 #  size                   :integer
-#  user_id                :integer
+#  user_id                :bigint
 #  note                   :text
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null

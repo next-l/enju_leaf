@@ -25,7 +25,7 @@ end
 #  updated_at             :datetime         not null
 #  lft                    :integer
 #  rgt                    :integer
-#  manifestation_id       :integer
+#  manifestation_id       :bigint
 #  url                    :string
 #  label                  :string
 #

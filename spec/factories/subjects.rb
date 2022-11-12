@@ -23,6 +23,6 @@ end
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  url                     :string
-#  manifestation_id        :integer
+#  manifestation_id        :bigint
 #  subject_heading_type_id :integer
 #

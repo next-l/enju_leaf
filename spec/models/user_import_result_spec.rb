@@ -11,7 +11,7 @@ end
 #
 #  id                  :bigint           not null, primary key
 #  user_import_file_id :integer
-#  user_id             :integer
+#  user_id             :bigint
 #  body                :text
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null

@@ -10,8 +10,8 @@ end
 # Table name: produces
 #
 #  id               :bigint           not null, primary key
-#  agent_id         :integer          not null
-#  manifestation_id :integer          not null
+#  agent_id         :bigint           not null
+#  manifestation_id :bigint           not null
 #  position         :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null

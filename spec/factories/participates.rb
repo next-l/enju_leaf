@@ -10,7 +10,7 @@ end
 # Table name: participates
 #
 #  id         :bigint           not null, primary key
-#  agent_id   :integer          not null
+#  agent_id   :bigint           not null
 #  event_id   :integer          not null
 #  position   :integer
 #  created_at :datetime         not null

@@ -186,8 +186,8 @@ end
 # Table name: bookmarks
 #
 #  id               :bigint           not null, primary key
-#  user_id          :integer          not null
-#  manifestation_id :integer
+#  user_id          :bigint           not null
+#  manifestation_id :bigint
 #  title            :text
 #  url              :string
 #  note             :text

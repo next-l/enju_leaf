@@ -21,9 +21,9 @@ end
 # Table name: profiles
 #
 #  id                       :bigint           not null, primary key
-#  user_id                  :integer
+#  user_id                  :bigint
 #  user_group_id            :integer
-#  library_id               :integer
+#  library_id               :bigint
 #  locale                   :string
 #  user_number              :string
 #  full_name                :text

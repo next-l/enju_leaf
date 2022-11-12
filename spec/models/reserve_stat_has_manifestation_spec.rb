@@ -11,7 +11,7 @@ end
 #
 #  id                            :bigint           not null, primary key
 #  manifestation_reserve_stat_id :integer          not null
-#  manifestation_id              :integer          not null
+#  manifestation_id              :bigint           not null
 #  reserves_count                :integer
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
