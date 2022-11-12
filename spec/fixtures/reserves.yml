@@ -149,8 +149,8 @@ reserve_00015:
 #  item_id                      :integer
 #  request_status_type_id       :integer          not null
 #  checked_out_at               :datetime
-#  created_at                   :datetime
-#  updated_at                   :datetime
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
 #  canceled_at                  :datetime
 #  expired_at                   :datetime
 #  expiration_notice_to_patron  :boolean          default(FALSE)

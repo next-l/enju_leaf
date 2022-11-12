@@ -127,7 +127,7 @@ end
 #  basket_id    :integer          not null
 #  librarian_id :integer
 #  due_date     :datetime         not null
-#  created_at   :datetime
-#  updated_at   :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #  user_id      :integer
 #

@@ -11,6 +11,6 @@ end
 #  id             :integer          not null, primary key
 #  name           :string
 #  taggings_count :integer          default(0)
-#  created_at     :datetime
-#  updated_at     :datetime
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #

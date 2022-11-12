@@ -21,8 +21,8 @@ end
 #  title_subseries                    :text
 #  numbering_subseries                :text
 #  position                           :integer
-#  created_at                         :datetime
-#  updated_at                         :datetime
+#  created_at                         :datetime         not null
+#  updated_at                         :datetime         not null
 #  title_transcription                :text
 #  title_alternative                  :text
 #  series_statement_identifier        :string

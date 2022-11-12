@@ -721,8 +721,8 @@ end
 #  manifestation_identifier        :string
 #  date_of_publication             :datetime
 #  date_copyrighted                :datetime
-#  created_at                      :datetime
-#  updated_at                      :datetime
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
 #  access_address                  :string
 #  language_id                     :integer          default(1), not null
 #  carrier_type_id                 :integer          default(1), not null

@@ -900,8 +900,8 @@ end
 #  resource_import_content_type :string
 #  resource_import_file_size    :integer
 #  resource_import_updated_at   :datetime
-#  created_at                   :datetime
-#  updated_at                   :datetime
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
 #  edit_mode                    :string
 #  resource_import_fingerprint  :string
 #  error_message                :text

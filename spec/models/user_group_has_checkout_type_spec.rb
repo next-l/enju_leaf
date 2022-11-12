@@ -24,7 +24,7 @@ end
 #  fixed_due_date                  :datetime
 #  note                            :text
 #  position                        :integer
-#  created_at                      :datetime
-#  updated_at                      :datetime
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
 #  current_checkout_count          :integer
 #

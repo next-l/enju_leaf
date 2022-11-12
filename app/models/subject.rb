@@ -31,8 +31,8 @@ end
 #  note                    :text
 #  required_role_id        :integer          default(1), not null
 #  lock_version            :integer          default(0), not null
-#  created_at              :datetime
-#  updated_at              :datetime
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
 #  url                     :string
 #  manifestation_id        :integer
 #  subject_heading_type_id :integer
