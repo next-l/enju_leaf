@@ -17,7 +17,7 @@ end
 #
 # Table name: user_export_files
 #
-#  id                       :integer          not null, primary key
+#  id                       :bigint           not null, primary key
 #  user_id                  :integer
 #  user_export_file_name    :string
 #  user_export_content_type :string

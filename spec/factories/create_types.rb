@@ -12,8 +12,8 @@ end
 #
 # Table name: create_types
 #
-#  id           :integer          not null, primary key
-#  name         :string
+#  id           :bigint           not null, primary key
+#  name         :string           not null
 #  display_name :text
 #  note         :text
 #  position     :integer

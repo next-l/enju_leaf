@@ -9,7 +9,7 @@ end
 #
 # Table name: realizes
 #
-#  id              :integer          not null, primary key
+#  id              :bigint           not null, primary key
 #  agent_id        :integer          not null
 #  expression_id   :integer          not null
 #  position        :integer

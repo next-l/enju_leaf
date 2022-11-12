@@ -15,7 +15,7 @@ end
 #
 # Table name: picture_files
 #
-#  id                      :integer          not null, primary key
+#  id                      :bigint           not null, primary key
 #  picture_attachable_id   :integer
 #  picture_attachable_type :string
 #  title                   :text

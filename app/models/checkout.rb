@@ -190,7 +190,7 @@ end
 #
 # Table name: checkouts
 #
-#  id                     :integer          not null, primary key
+#  id                     :bigint           not null, primary key
 #  user_id                :integer
 #  item_id                :integer          not null
 #  checkin_id             :integer

@@ -8,7 +8,7 @@ end
 #
 # Table name: medium_of_performances
 #
-#  id           :integer          not null, primary key
+#  id           :bigint           not null, primary key
 #  name         :string           not null
 #  display_name :text
 #  note         :text

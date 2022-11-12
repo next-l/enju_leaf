@@ -8,8 +8,8 @@ end
 #
 # Table name: user_groups
 #
-#  id                               :integer          not null, primary key
-#  name                             :string
+#  id                               :bigint           not null, primary key
+#  name                             :string           not null
 #  display_name                     :text
 #  note                             :text
 #  position                         :integer

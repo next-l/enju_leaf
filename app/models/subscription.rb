@@ -26,7 +26,7 @@ end
 #
 # Table name: subscriptions
 #
-#  id               :integer          not null, primary key
+#  id               :bigint           not null, primary key
 #  title            :text             not null
 #  note             :text
 #  user_id          :integer

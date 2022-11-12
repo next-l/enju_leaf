@@ -12,10 +12,10 @@ end
 #
 # Table name: events
 #
-#  id                :integer          not null, primary key
+#  id                :bigint           not null, primary key
 #  library_id        :integer          not null
 #  event_category_id :integer          not null
-#  name              :string
+#  name              :string           not null
 #  note              :text
 #  start_at          :datetime
 #  end_at            :datetime

@@ -27,7 +27,7 @@ end
 #
 # Table name: library_groups
 #
-#  id                            :integer          not null, primary key
+#  id                            :bigint           not null, primary key
 #  name                          :string           not null
 #  display_name                  :text
 #  short_name                    :string           not null

@@ -9,7 +9,7 @@ end
 #
 # Table name: manifestation_relationships
 #
-#  id                                 :integer          not null, primary key
+#  id                                 :bigint           not null, primary key
 #  parent_id                          :integer
 #  child_id                           :integer
 #  manifestation_relationship_type_id :integer

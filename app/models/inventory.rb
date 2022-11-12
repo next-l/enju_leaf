@@ -38,7 +38,7 @@ end
 #
 # Table name: inventories
 #
-#  id                 :integer          not null, primary key
+#  id                 :bigint           not null, primary key
 #  item_id            :integer
 #  inventory_file_id  :integer
 #  note               :text

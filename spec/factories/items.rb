@@ -15,7 +15,7 @@ end
 #
 # Table name: items
 #
-#  id                      :integer          not null, primary key
+#  id                      :bigint           not null, primary key
 #  call_number             :string
 #  item_identifier         :string
 #  created_at              :datetime         not null

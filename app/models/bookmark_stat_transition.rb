@@ -9,7 +9,7 @@ end
 #
 # Table name: bookmark_stat_transitions
 #
-#  id               :integer          not null, primary key
+#  id               :bigint           not null, primary key
 #  to_state         :string
 #  metadata         :text             default({})
 #  sort_key         :integer

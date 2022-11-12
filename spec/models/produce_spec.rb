@@ -9,7 +9,7 @@ end
 #
 # Table name: produces
 #
-#  id               :integer          not null, primary key
+#  id               :bigint           not null, primary key
 #  agent_id         :integer          not null
 #  manifestation_id :integer          not null
 #  position         :integer

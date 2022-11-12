@@ -279,7 +279,7 @@ end
 #
 # Table name: manifestations
 #
-#  id                              :integer          not null, primary key
+#  id                              :bigint           not null, primary key
 #  original_title                  :text             not null
 #  title_alternative               :text
 #  title_transcription             :text

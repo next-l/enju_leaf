@@ -10,7 +10,7 @@ end
 #
 # Table name: series_statement_merge_lists
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  title      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

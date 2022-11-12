@@ -21,7 +21,7 @@ end
 #
 # Table name: subjects
 #
-#  id                      :integer          not null, primary key
+#  id                      :bigint           not null, primary key
 #  parent_id               :integer
 #  use_term_id             :integer
 #  term                    :string

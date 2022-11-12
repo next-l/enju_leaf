@@ -10,7 +10,7 @@ end
 #
 # Table name: colors
 #
-#  id               :integer          not null, primary key
+#  id               :bigint           not null, primary key
 #  library_group_id :integer
 #  property         :string
 #  code             :string
