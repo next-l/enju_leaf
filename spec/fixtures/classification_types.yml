@@ -52,7 +52,7 @@ classification_type_00006:
 #
 # Table name: classification_types
 #
-#  id           :integer          not null, primary key
+#  id           :bigint           not null, primary key
 #  name         :string           not null
 #  display_name :text
 #  note         :text

@@ -12,7 +12,7 @@ end
 #
 # Table name: identities
 #
-#  id              :integer          not null, primary key
+#  id              :bigint           not null, primary key
 #  name            :string           not null
 #  email           :string
 #  password_digest :string

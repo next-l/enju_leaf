@@ -28,7 +28,7 @@ form_of_work_00003:
 #
 # Table name: form_of_works
 #
-#  id           :integer          not null, primary key
+#  id           :bigint           not null, primary key
 #  name         :string           not null
 #  display_name :text
 #  note         :text

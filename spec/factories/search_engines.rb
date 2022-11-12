@@ -12,7 +12,7 @@ end
 #
 # Table name: search_engines
 #
-#  id               :integer          not null, primary key
+#  id               :bigint           not null, primary key
 #  name             :string           not null
 #  display_name     :text
 #  url              :string           not null

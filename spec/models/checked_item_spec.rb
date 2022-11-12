@@ -33,7 +33,7 @@ end
 #
 # Table name: checked_items
 #
-#  id           :integer          not null, primary key
+#  id           :bigint           not null, primary key
 #  item_id      :integer          not null
 #  basket_id    :integer          not null
 #  librarian_id :integer

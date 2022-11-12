@@ -10,7 +10,7 @@ end
 #
 # Table name: demands
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  user_id    :integer
 #  item_id    :integer
 #  message_id :integer

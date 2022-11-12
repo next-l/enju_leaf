@@ -69,7 +69,7 @@ end
 #
 # Table name: inventory_files
 #
-#  id                     :integer          not null, primary key
+#  id                     :bigint           not null, primary key
 #  filename               :string
 #  content_type           :string
 #  size                   :integer

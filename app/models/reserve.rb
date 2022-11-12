@@ -320,7 +320,7 @@ end
 #
 # Table name: reserves
 #
-#  id                           :integer          not null, primary key
+#  id                           :bigint           not null, primary key
 #  user_id                      :integer          not null
 #  manifestation_id             :integer          not null
 #  item_id                      :integer

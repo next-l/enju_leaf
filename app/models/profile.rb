@@ -77,7 +77,7 @@ end
 #
 # Table name: profiles
 #
-#  id                       :integer          not null, primary key
+#  id                       :bigint           not null, primary key
 #  user_id                  :integer
 #  user_group_id            :integer
 #  library_id               :integer

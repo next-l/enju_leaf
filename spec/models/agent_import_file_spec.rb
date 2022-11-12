@@ -88,7 +88,7 @@ end
 #
 # Table name: agent_import_files
 #
-#  id                        :integer          not null, primary key
+#  id                        :bigint           not null, primary key
 #  parent_id                 :integer
 #  content_type              :string
 #  size                      :integer

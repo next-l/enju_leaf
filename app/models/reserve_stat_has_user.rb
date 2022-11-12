@@ -11,7 +11,7 @@ end
 #
 # Table name: reserve_stat_has_users
 #
-#  id                   :integer          not null, primary key
+#  id                   :bigint           not null, primary key
 #  user_reserve_stat_id :integer          not null
 #  user_id              :integer          not null
 #  reserves_count       :integer

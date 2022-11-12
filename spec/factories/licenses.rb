@@ -8,7 +8,7 @@ end
 #
 # Table name: licenses
 #
-#  id           :integer          not null, primary key
+#  id           :bigint           not null, primary key
 #  name         :string           not null
 #  display_name :string
 #  note         :text

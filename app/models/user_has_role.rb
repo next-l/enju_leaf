@@ -8,7 +8,7 @@ end
 #
 # Table name: user_has_roles
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  user_id    :integer          not null
 #  role_id    :integer          not null
 #  created_at :datetime         not null

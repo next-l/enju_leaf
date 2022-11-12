@@ -56,7 +56,7 @@ end
 #
 # Table name: news_feeds
 #
-#  id               :integer          not null, primary key
+#  id               :bigint           not null, primary key
 #  library_group_id :integer          default(1), not null
 #  title            :string
 #  url              :string

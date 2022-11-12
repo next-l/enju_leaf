@@ -11,7 +11,7 @@ end
 #
 # Table name: bookmark_stat_has_manifestations
 #
-#  id               :integer          not null, primary key
+#  id               :bigint           not null, primary key
 #  bookmark_stat_id :integer          not null
 #  manifestation_id :integer          not null
 #  bookmarks_count  :integer

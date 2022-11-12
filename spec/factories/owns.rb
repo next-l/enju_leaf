@@ -9,7 +9,7 @@ end
 #
 # Table name: owns
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  agent_id   :integer          not null
 #  item_id    :integer          not null
 #  position   :integer

@@ -51,7 +51,7 @@ end
 #
 # Table name: series_statements
 #
-#  id                                 :integer          not null, primary key
+#  id                                 :bigint           not null, primary key
 #  original_title                     :text
 #  numbering                          :text
 #  title_subseries                    :text

@@ -8,7 +8,7 @@ end
 #
 # Table name: tags
 #
-#  id             :integer          not null, primary key
+#  id             :bigint           not null, primary key
 #  name           :string           not null
 #  taggings_count :integer          default(0)
 #  created_at     :datetime         not null

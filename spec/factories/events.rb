@@ -12,7 +12,7 @@ end
 #
 # Table name: events
 #
-#  id                :integer          not null, primary key
+#  id                :bigint           not null, primary key
 #  library_id        :integer          not null
 #  event_category_id :integer          not null
 #  name              :string           not null

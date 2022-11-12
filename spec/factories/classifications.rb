@@ -9,7 +9,7 @@ end
 #
 # Table name: classifications
 #
-#  id                     :integer          not null, primary key
+#  id                     :bigint           not null, primary key
 #  parent_id              :integer
 #  category               :string           not null
 #  note                   :text

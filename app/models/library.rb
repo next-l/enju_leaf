@@ -82,7 +82,7 @@ end
 #
 # Table name: libraries
 #
-#  id                    :integer          not null, primary key
+#  id                    :bigint           not null, primary key
 #  name                  :string           not null
 #  display_name          :text
 #  short_display_name    :string           not null

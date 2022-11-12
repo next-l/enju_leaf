@@ -10,7 +10,7 @@ end
 #
 # Table name: identifiers
 #
-#  id                 :integer          not null, primary key
+#  id                 :bigint           not null, primary key
 #  body               :string           not null
 #  identifier_type_id :integer          not null
 #  manifestation_id   :integer
