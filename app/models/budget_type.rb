@@ -15,7 +15,7 @@ end
 # Table name: budget_types
 #
 #  id           :integer          not null, primary key
-#  name         :string
+#  name         :string           not null
 #  display_name :text
 #  note         :text
 #  position     :integer

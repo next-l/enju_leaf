@@ -9,7 +9,7 @@ end
 # Table name: user_groups
 #
 #  id                               :integer          not null, primary key
-#  name                             :string
+#  name                             :string           not null
 #  display_name                     :text
 #  note                             :text
 #  position                         :integer
