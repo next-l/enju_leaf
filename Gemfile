@@ -97,6 +97,7 @@ gem 'oai'
 
 group :development, :test do
   gem 'annotate'
+  gem 'database_consistency'
 end
 
 group :test do
