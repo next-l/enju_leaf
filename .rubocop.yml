@@ -3,7 +3,7 @@ require: rubocop-rails
 Rails:
   Enabled: true
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 2.6
 Layout/SpaceInsideHashLiteralBraces:
   Enabled: false
 Layout/SpaceInsideBlockBraces:
@@ -39,12 +39,6 @@ Style/EmptyMethod:
 Layout/LeadingCommentSpace:
   Enabled: false
 Metrics/AbcSize:
-  Enabled: false
-Layout/ArgumentAlignment:
-  Enabled: false
-Layout/ArgumentAlignment:
-  Enabled: false
-Layout/ArgumentAlignment:
   Enabled: false
 Layout/ArgumentAlignment:
   Enabled: false

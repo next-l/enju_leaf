@@ -12,7 +12,7 @@ gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-# gem 'webpacker', '~> 5.0'
+gem 'webpacker', '~> 5.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 # gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -67,7 +67,7 @@ gem 'statesman', '~> 10.0'
 gem 'friendly_id'
 gem 'globalize'
 gem 'globalize-accessors'
-gem 'validates_timeliness', '~> 6.0.0.beta2'
+gem 'date_validator'
 gem 'browser'
 gem 'lisbn'
 gem 'library_stdnums'
@@ -95,9 +95,11 @@ gem 'rails-i18n', '~> 6.0'
 gem 'sitemap_generator'
 gem 'rdf-turtle', require: 'rdf/turtle'
 gem 'rdf-vocab', require: 'rdf/vocab'
+gem 'oai'
 
 group :development, :test do
   gem 'annotate'
+  gem 'database_consistency'
 end
 
 group :test do

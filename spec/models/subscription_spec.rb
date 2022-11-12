@@ -12,12 +12,12 @@ end
 #
 # Table name: subscriptions
 #
-#  id               :integer          not null, primary key
+#  id               :bigint           not null, primary key
 #  title            :text             not null
 #  note             :text
-#  user_id          :integer
+#  user_id          :bigint
 #  order_list_id    :integer
 #  subscribes_count :integer          default(0), not null
-#  created_at       :datetime
-#  updated_at       :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #

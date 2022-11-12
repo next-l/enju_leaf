@@ -28,7 +28,7 @@ jobs:
       SECRET_KEY_BASE: 4a54f07a6c5e604edac920225ab6f4d9a919edf8597f61ff85dbce0b3ab64433de86a54c192df1e242022c64108923d5382705a1e221c1ca39b79d902824d948
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       # Add or replace dependency steps here
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:

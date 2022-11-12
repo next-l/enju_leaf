@@ -1,8 +1,8 @@
 class PageController < ApplicationController
   before_action :skip_authorization
   before_action :clear_search_sessions, only: [:index, :advanced_search]
-  before_action :authenticate_user!, except: [:index, :advanced_search, :about, :add_on, :msie_accelerator, :opensearch, :statistics, :routing_error]
-  before_action :check_librarian, except: [:index, :advanced_search, :about, :add_on, :msie_accelerator, :opensearch, :statistics, :routing_error]
+  before_action :authenticate_user!, except: [:index, :advanced_search, :about, :opensearch, :statistics, :routing_error]
+  before_action :check_librarian, except: [:index, :advanced_search, :about, :opensearch, :statistics, :routing_error]
   helper_method :get_libraries
 
   # トップページを表示します。
@@ -41,13 +41,6 @@ class PageController < ApplicationController
     respond_to do |format|
       format.html
       format.html.phone
-    end
-  end
-
-  # Internet Explorer用のアクセラレータを表示します。
-  def msie_accelerator
-    respond_to do |format|
-      format.xml { render layout: false }
     end
   end
 
@@ -92,11 +85,6 @@ class PageController < ApplicationController
   # 「このシステムについて」を表示します。
   def about
     @title = t('page.about_this_system')
-  end
-
-  # 「アドオン」を表示します。
-  def add_on
-    @title = t('page.add_on')
   end
 
   # ルーティングエラー画面を表示します。

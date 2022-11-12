@@ -263,7 +263,7 @@ module EnjuNdl
         else
           RSS::Rss::Channel.install_text_element('openSearch:totalResults', 'http://a9.com/-/spec/opensearchrss/1.0/', '?', 'totalResults', :text, 'openSearch:totalResults')
           RSS::BaseListener.install_get_text_element 'http://a9.com/-/spec/opensearchrss/1.0/', 'totalResults', 'totalResults='
-          feed = RSS::Parser.parse(url, false)
+          RSS::Parser.parse(url, false)
         end
       end
 

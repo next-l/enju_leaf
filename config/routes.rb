@@ -152,6 +152,7 @@ Rails.application.routes.draw do
   get '/page/statistics' => 'page#statistics'
   get '/page/system_information' => 'page#system_information'
   get '/page/routing_error' => 'page#routing_error'
+  match 'oai', to: "oai#index", via: [:get, :post]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root :to => "page#index"
 end

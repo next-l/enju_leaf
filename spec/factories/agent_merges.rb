@@ -9,9 +9,9 @@ end
 #
 # Table name: agent_merges
 #
-#  id                  :integer          not null, primary key
-#  agent_id            :integer          not null
+#  id                  :bigint           not null, primary key
+#  agent_id            :bigint           not null
 #  agent_merge_list_id :integer          not null
-#  created_at          :datetime
-#  updated_at          :datetime
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
 #

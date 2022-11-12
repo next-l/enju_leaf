@@ -9,12 +9,12 @@ end
 #
 # Table name: event_import_file_transitions
 #
-#  id                   :integer          not null, primary key
+#  id                   :bigint           not null, primary key
 #  to_state             :string
 #  metadata             :text             default({})
 #  sort_key             :integer
 #  event_import_file_id :integer
-#  created_at           :datetime
-#  updated_at           :datetime
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
 #  most_recent          :boolean          not null
 #

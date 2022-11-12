@@ -83,7 +83,7 @@ end
 #
 # Table name: library_groups
 #
-#  id                            :integer          not null, primary key
+#  id                            :bigint           not null, primary key
 #  name                          :string           not null
 #  display_name                  :text
 #  short_name                    :string           not null
@@ -92,8 +92,8 @@ end
 #  note                          :text
 #  country_id                    :integer
 #  position                      :integer
-#  created_at                    :datetime
-#  updated_at                    :datetime
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
 #  admin_networks                :text
 #  allow_bookmark_external_url   :boolean          default(FALSE), not null
 #  url                           :string           default("http://localhost:3000/")
@@ -104,7 +104,7 @@ end
 #  family_name_first             :boolean          default(TRUE)
 #  screenshot_generator          :string
 #  pub_year_facet_range_interval :integer          default(10)
-#  user_id                       :integer
+#  user_id                       :bigint
 #  csv_charset_conversion        :boolean          default(FALSE), not null
 #  header_logo_file_name         :string
 #  header_logo_content_type      :string

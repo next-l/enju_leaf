@@ -19,7 +19,7 @@ x-app: &app
       - GID=${GID}
       - http_proxy=${http_proxy}
       - https_proxy=${http_proxy}
-  image: ghcr.io/next-l/enju_leaf:latest
+  image: ghcr.io/next-l/enju_leaf:1.4
   networks:
     internal:
   volumes:
@@ -46,16 +46,16 @@ services:
       - QUEUE=*
     command: bundle exec rake resque:work
 
-  # webpacker:
-  #   <<: *app
-  #   environment:
-  #     - NODE_ENV=development
-  #     - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
-  #   profiles:
-  #     - develop
-  #   command: ./bin/webpack-dev-server
-  #   ports:
-  #     - '3035:3035'
+  webpacker:
+    <<: *app
+    environment:
+      - NODE_ENV=development
+      - WEBPACKER_DEV_SERVER_HOST=127.0.0.1
+    profiles:
+      - develop
+    command: ./bin/webpack-dev-server
+    ports:
+      - 127.0.0.1:3035:3035
 
   solr:
     image: solr:8
@@ -107,7 +107,7 @@ services:
       retries: 3
 
   minio:
-    image: quay.io/minio/minio:RELEASE.2022-08-13T21-54-44Z
+    image: quay.io/minio/minio:RELEASE.2022-10-29T06-21-33Z
     profiles:
       - develop
     volumes:
@@ -129,7 +129,7 @@ services:
       retries: 3
 
   cantaloupe:
-    image: uclalibrary/cantaloupe:5.0.5-1
+    image: uclalibrary/cantaloupe:5.0.5-2
     expose:
       - 8182
     restart: always
@@ -142,8 +142,6 @@ services:
       BASE_URI: ${CANTALOUPE_BASE_URI}
     networks:
       internal:
-    depends_on:
-      - nginx
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8182/health"]
       interval: 30s
@@ -153,14 +151,18 @@ services:
   nginx:
     image: nginx:stable
     ports:
-      - 8080:80
-      - 8182:8182
+      - ${ENJU_LEAF_BIND_ADDRESS}:8080:80
+      - ${ENJU_LEAF_BIND_ADDRESS}:8182:8182
     volumes:
       - ./nginx/templates:/etc/nginx/templates:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
       - ./public:/opt/enju_leaf/public
     restart: always
     networks:
       internal:
+    depends_on:
+      - web
+      - cantaloupe
     healthcheck:
       test: ["CMD", "service", "nginx", "status"]
       interval: 30s

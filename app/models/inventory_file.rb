@@ -23,8 +23,8 @@ class InventoryFile < ApplicationRecord
   paginates_per 10
 
   def import
-    self.reload
-    file = File.open(self.inventory.path)
+    reload
+    file = File.open(inventory.path)
     reader = file.read
     reader.split.each do |row|
       identifier = row.to_s.strip
@@ -69,14 +69,14 @@ end
 #
 # Table name: inventory_files
 #
-#  id                     :integer          not null, primary key
+#  id                     :bigint           not null, primary key
 #  filename               :string
 #  content_type           :string
 #  size                   :integer
-#  user_id                :integer
+#  user_id                :bigint
 #  note                   :text
-#  created_at             :datetime
-#  updated_at             :datetime
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
 #  inventory_file_name    :string
 #  inventory_content_type :string
 #  inventory_file_size    :integer

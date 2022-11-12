@@ -11,13 +11,13 @@ end
 #
 # Table name: bookmarks
 #
-#  id               :integer          not null, primary key
-#  user_id          :integer          not null
-#  manifestation_id :integer
+#  id               :bigint           not null, primary key
+#  user_id          :bigint           not null
+#  manifestation_id :bigint
 #  title            :text
 #  url              :string
 #  note             :text
 #  shared           :boolean
-#  created_at       :datetime
-#  updated_at       :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #

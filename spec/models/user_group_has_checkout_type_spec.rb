@@ -12,7 +12,7 @@ end
 #
 # Table name: user_group_has_checkout_types
 #
-#  id                              :integer          not null, primary key
+#  id                              :bigint           not null, primary key
 #  user_group_id                   :integer          not null
 #  checkout_type_id                :integer          not null
 #  checkout_limit                  :integer          default(0), not null
@@ -24,7 +24,7 @@ end
 #  fixed_due_date                  :datetime
 #  note                            :text
 #  position                        :integer
-#  created_at                      :datetime
-#  updated_at                      :datetime
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
 #  current_checkout_count          :integer
 #
