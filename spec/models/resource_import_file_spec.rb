@@ -476,7 +476,7 @@ end
 #  parent_id                    :integer
 #  content_type                 :string
 #  size                         :integer
-#  user_id                      :integer
+#  user_id                      :bigint
 #  note                         :text
 #  executed_at                  :datetime
 #  resource_import_file_name    :string

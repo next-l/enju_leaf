@@ -9,7 +9,7 @@ end
 # Table name: user_has_roles
 #
 #  id         :bigint           not null, primary key
-#  user_id    :integer          not null
+#  user_id    :bigint           not null
 #  role_id    :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

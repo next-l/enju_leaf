@@ -332,7 +332,7 @@ end
 # Table name: user_import_files
 #
 #  id                       :bigint           not null, primary key
-#  user_id                  :integer
+#  user_id                  :bigint
 #  note                     :text
 #  executed_at              :datetime
 #  user_import_file_name    :string

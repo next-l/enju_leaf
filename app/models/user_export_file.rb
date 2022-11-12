@@ -55,7 +55,7 @@ end
 # Table name: user_export_files
 #
 #  id                       :bigint           not null, primary key
-#  user_id                  :integer
+#  user_id                  :bigint
 #  user_export_file_name    :string
 #  user_export_content_type :string
 #  user_export_file_size    :bigint

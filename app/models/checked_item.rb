@@ -123,11 +123,11 @@ end
 # Table name: checked_items
 #
 #  id           :bigint           not null, primary key
-#  item_id      :integer          not null
+#  item_id      :bigint           not null
 #  basket_id    :integer          not null
-#  librarian_id :integer
+#  librarian_id :bigint
 #  due_date     :datetime         not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  user_id      :integer
+#  user_id      :bigint
 #

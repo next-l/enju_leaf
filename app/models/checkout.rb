@@ -191,10 +191,10 @@ end
 # Table name: checkouts
 #
 #  id                     :bigint           not null, primary key
-#  user_id                :integer
-#  item_id                :integer          not null
+#  user_id                :bigint
+#  item_id                :bigint           not null
 #  checkin_id             :integer
-#  librarian_id           :integer
+#  librarian_id           :bigint
 #  basket_id              :integer
 #  due_date               :datetime
 #  checkout_renewal_count :integer          default(0), not null
@@ -202,5 +202,5 @@ end
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  shelf_id               :integer
-#  library_id             :integer
+#  library_id             :bigint
 #

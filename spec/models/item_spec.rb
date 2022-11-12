@@ -63,7 +63,7 @@ end
 #  binding_item_identifier :string
 #  binding_call_number     :string
 #  binded_at               :datetime
-#  manifestation_id        :integer          not null
+#  manifestation_id        :bigint           not null
 #  memo                    :text
 #  missing_since           :date
 #

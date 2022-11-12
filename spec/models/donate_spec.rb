@@ -10,8 +10,8 @@ end
 # Table name: donates
 #
 #  id         :bigint           not null, primary key
-#  agent_id   :integer          not null
-#  item_id    :integer          not null
+#  agent_id   :bigint           not null
+#  item_id    :bigint           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
