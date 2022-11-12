@@ -3,7 +3,7 @@ class Realize < ApplicationRecord
   belongs_to :expression, class_name: 'Manifestation', touch: true
   belongs_to :realize_type, optional: true
 
-  validates :expression_id, uniqueness: { scope: :agent_id }
+  validates :agent_id, uniqueness: { scope: :expression_id }
   after_destroy :reindex
   after_save :reindex
 

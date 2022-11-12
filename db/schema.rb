@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_12_015501) do
+ActiveRecord::Schema.define(version: 2022_11_12_065100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -433,7 +433,7 @@ ActiveRecord::Schema.define(version: 2022_11_12_015501) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "create_type_id"
     t.index ["agent_id"], name: "index_creates_on_agent_id"
-    t.index ["work_id"], name: "index_creates_on_work_id"
+    t.index ["work_id", "agent_id"], name: "index_creates_on_work_id_and_agent_id", unique: true
   end
 
   create_table "demands", id: :serial, force: :cascade do |t|
@@ -1087,7 +1087,7 @@ ActiveRecord::Schema.define(version: 2022_11_12_015501) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["agent_id"], name: "index_owns_on_agent_id"
-    t.index ["item_id"], name: "index_owns_on_item_id"
+    t.index ["item_id", "agent_id"], name: "index_owns_on_item_id_and_agent_id", unique: true
   end
 
   create_table "participates", id: :serial, force: :cascade do |t|
@@ -1147,7 +1147,7 @@ ActiveRecord::Schema.define(version: 2022_11_12_015501) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "produce_type_id"
     t.index ["agent_id"], name: "index_produces_on_agent_id"
-    t.index ["manifestation_id"], name: "index_produces_on_manifestation_id"
+    t.index ["manifestation_id", "agent_id"], name: "index_produces_on_manifestation_id_and_agent_id", unique: true
   end
 
   create_table "profiles", id: :serial, force: :cascade do |t|
@@ -1192,7 +1192,7 @@ ActiveRecord::Schema.define(version: 2022_11_12_015501) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "realize_type_id"
     t.index ["agent_id"], name: "index_realizes_on_agent_id"
-    t.index ["expression_id"], name: "index_realizes_on_expression_id"
+    t.index ["expression_id", "agent_id"], name: "index_realizes_on_expression_id_and_agent_id", unique: true
   end
 
   create_table "request_status_types", id: :serial, force: :cascade do |t|
