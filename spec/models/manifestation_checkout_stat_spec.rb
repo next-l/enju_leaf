@@ -23,8 +23,8 @@ end
 #  start_date   :datetime
 #  end_date     :datetime
 #  note         :text
-#  created_at   :datetime
-#  updated_at   :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #  started_at   :datetime
 #  completed_at :datetime
 #  user_id      :integer

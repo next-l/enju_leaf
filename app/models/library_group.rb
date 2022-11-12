@@ -92,8 +92,8 @@ end
 #  note                          :text
 #  country_id                    :integer
 #  position                      :integer
-#  created_at                    :datetime
-#  updated_at                    :datetime
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
 #  admin_networks                :text
 #  allow_bookmark_external_url   :boolean          default(FALSE), not null
 #  url                           :string           default("http://localhost:3000/")

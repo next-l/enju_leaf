@@ -61,6 +61,6 @@ end
 #  event_export_file_size    :bigint
 #  event_export_updated_at   :datetime
 #  executed_at               :datetime
-#  created_at                :datetime
-#  updated_at                :datetime
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
 #

@@ -117,7 +117,7 @@ end
 #  end_at            :datetime
 #  all_day           :boolean          default(FALSE), not null
 #  display_name      :text
-#  created_at        :datetime
-#  updated_at        :datetime
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #  place_id          :integer
 #

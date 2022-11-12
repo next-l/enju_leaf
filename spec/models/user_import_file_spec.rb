@@ -262,8 +262,8 @@ end
 #  user_import_fingerprint  :string
 #  edit_mode                :string
 #  error_message            :text
-#  created_at               :datetime
-#  updated_at               :datetime
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
 #  user_encoding            :string
 #  default_library_id       :integer
 #  default_user_group_id    :integer

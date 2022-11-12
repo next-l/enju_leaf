@@ -14,7 +14,7 @@ end
 #  metadata    :text             default({})
 #  sort_key    :integer
 #  reserve_id  :integer
-#  created_at  :datetime
-#  updated_at  :datetime
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #  most_recent :boolean          not null
 #
