@@ -696,7 +696,7 @@ ActiveRecord::Schema.define(version: 2022_11_12_165013) do
     t.integer "use_restriction_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["item_id"], name: "index_item_has_use_restrictions_on_item_id"
+    t.index ["item_id", "use_restriction_id"], name: "index_item_has_use_restrictions_on_item_and_use_restriction", unique: true
     t.index ["use_restriction_id"], name: "index_item_has_use_restrictions_on_use_restriction_id"
   end
 
