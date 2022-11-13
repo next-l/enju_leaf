@@ -12,44 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="field">
     <%= f.label :note %><br>
     <%= f.text_area :note %>
-  </div>
-  <div class="field">
-    <%= f.label :executed_at %><br>
-    <%= f.datetime_select :executed_at %>
-  </div>
-  <div class="field">
-    <%= f.label :user_import_file_name %><br>
-    <%= f.text_field :user_import_file_name %>
-  </div>
-  <div class="field">
-    <%= f.label :user_import_content_type %><br>
-    <%= f.text_field :user_import_content_type %>
-  </div>
-  <div class="field">
-    <%= f.label :user_import_file_size %><br>
-    <%= f.text_field :user_import_file_size %>
-  </div>
-  <div class="field">
-    <%= f.label :user_import_updated_at %><br>
-    <%= f.datetime_select :user_import_updated_at %>
-  </div>
-  <div class="field">
-    <%= f.label :user_import_fingerprint %><br>
-    <%= f.text_field :user_import_fingerprint %>
-  </div>
-  <div class="field">
-    <%= f.label :edit_mode %><br>
-    <%= f.text_field :edit_mode %>
-  </div>
-  <div class="field">
-    <%= f.label :error_message %><br>
-    <%= f.text_area :error_message %>
   </div>
   <div class="actions">
     <%= f.submit %>

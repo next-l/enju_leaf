@@ -1,7 +1,6 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
   <h1 class="title"><%= t('page.new', model: t('activerecord.models.produce')) -%></h1>
-  <div id="content_list">
-    <%= render 'form' %>
+    <%= render 'form', produce: @produce %>
   </div>
 </div>
 

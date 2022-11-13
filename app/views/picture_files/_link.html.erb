@@ -1,3 +1,3 @@
-<a href="<%= picture_file_path(picture_file, format: :download, size: 'original') -%>">
+<a href="<%= rails_blob_path(picture_file.attachment) -%>">
   <%= show_image(picture_file) %>
 </a>

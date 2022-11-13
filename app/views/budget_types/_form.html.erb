@@ -1,5 +1,5 @@
-<%= form_for(@budget_type) do |f| %>
-  <%= error_messages(@budget_type) %>
+<%= form_with(model: budget_type) do |f| %>
+  <%= error_messages(budget_type) %>
 
   <div class="field">
     <%= f.label :name %><br />

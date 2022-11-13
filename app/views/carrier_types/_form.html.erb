@@ -18,7 +18,7 @@
     <div class="field">
       <%= f.label t('page.delete_file') -%>
       <%= f.check_box :delete_attachment -%>
-      <%= f.object.attachment.original_filename %>
+      <%= f.object.attachment.filename.to_s %>
     </div>
   <% end %>
 

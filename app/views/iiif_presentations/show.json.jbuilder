@@ -11,9 +11,9 @@ json.sequences do
       json.array! @manifestation.picture_files do |picture_file|
         json.set!('@id', picture_file_url(picture_file))
         json.set!('@type', 'sc:Canvas')
-        json.label picture_file.picture_file_name
-        json.width picture_file.picture_width
-        json.height picture_file.picture_height
+        json.label picture_file.attachment.filename
+        json.width picture_file.attachment.metadata['width']
+        json.height picture_file.attachment.metadata['height']
         json.images do
           json.array! [0] do |c|
             json.set!('@type', 'oa:Annotation')
@@ -22,9 +22,9 @@ json.sequences do
             json.resource do
               json.set!('@id', "#{ENV['CANTALOUPE_BASE_URI']}/iiif/3/#{picture_file.id}/full/max/0/default.jpg")
               json.set!('@type', 'dctypes:Image')
-              json.width picture_file.picture_width
-              json.height picture_file.picture_height
-              json.format picture_file.picture_content_type
+              json.width picture_file.attachment.metadata['width']
+              json.height picture_file.attachment.metadata['height']
+              json.height picture_file.attachment.content_type
               json.service do
                 json.set!('@context', 'http://iiif.io/api/image/3/context.json')
                 json.set!('@id', "#{ENV['CANTALOUPE_BASE_URI']}/iiif/3/#{picture_file.id}")

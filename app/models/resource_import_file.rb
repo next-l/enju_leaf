@@ -8,28 +8,7 @@ class ResourceImportFile < ApplicationRecord
   scope :not_imported, -> { in_state(:pending) }
   scope :stucked, -> { in_state(:pending).where('resource_import_files.created_at < ?', 1.hour.ago) }
 
-  if ENV['ENJU_STORAGE'] == 's3'
-    has_attached_file :resource_import, storage: :s3,
-      s3_credentials: {
-        access_key: ENV['AWS_ACCESS_KEY_ID'],
-        secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-        bucket: ENV['S3_BUCKET_NAME'],
-        s3_host_name: ENV['S3_HOST_NAME'],
-        s3_region: ENV['S3_REGION']
-      },
-      s3_permissions: :private
-  else
-    has_attached_file :resource_import,
-      path: ":rails_root/private/system/:class/:attachment/:id_partition/:style/:filename"
-  end
-  validates_attachment_content_type :resource_import, content_type: [
-    'text/csv',
-    'text/plain',
-    'text/tab-separated-values',
-    'application/octet-stream',
-    'application/vnd.ms-excel'
-  ]
-  validates_attachment_presence :resource_import
+  has_one_attached :attachment
   validates :default_shelf_id, presence: true, if: proc{|model| model.edit_mode == 'create'}
   belongs_to :user
   belongs_to :default_shelf, class_name: 'Shelf', optional: true
@@ -69,7 +48,7 @@ class ResourceImportFile < ApplicationRecord
       item_found: 0,
       failed: 0
     }
-    rows = open_import_file(create_import_temp_file(resource_import))
+    rows = open_import_file(create_import_temp_file(attachment))
     rows.shift
     #if [field['manifestation_id'], field['manifestation_identifier'], field['isbn'], field['original_title']].reject{|f|
     #  f.to_s.strip == ''
@@ -279,7 +258,7 @@ class ResourceImportFile < ApplicationRecord
   end
 
   def import_marc(marc_type)
-    file = File.open(resource_import.path)
+    file = attachment.download
     case marc_type
     when 'marcxml'
       reader = MARC::XMLReader.new(file)
@@ -328,7 +307,7 @@ class ResourceImportFile < ApplicationRecord
 
   def modify
     transition_to!(:started)
-    rows = open_import_file(create_import_temp_file(resource_import))
+    rows = open_import_file(create_import_temp_file(attachment))
     rows.shift
     row_num = 1
 
@@ -385,7 +364,7 @@ class ResourceImportFile < ApplicationRecord
 
   def remove
     transition_to!(:started)
-    rows = open_import_file(create_import_temp_file(resource_import))
+    rows = open_import_file(create_import_temp_file(attachment))
     rows.shift
     row_num = 1
 
@@ -414,7 +393,7 @@ class ResourceImportFile < ApplicationRecord
 
   def update_relationship
     transition_to!(:started)
-    rows = open_import_file(create_import_temp_file(resource_import))
+    rows = open_import_file(create_import_temp_file(attachment))
     rows.shift
     row_num = 1
 
