@@ -10,9 +10,9 @@ end
 #
 # Table name: demands
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  item_id    :integer
+#  id         :bigint           not null, primary key
+#  user_id    :bigint
+#  item_id    :bigint
 #  message_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

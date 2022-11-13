@@ -73,7 +73,7 @@ end
 #
 # Table name: agents
 #
-#  id                                  :integer          not null, primary key
+#  id                                  :bigint           not null, primary key
 #  last_name                           :string
 #  middle_name                         :string
 #  first_name                          :string
@@ -85,8 +85,8 @@ end
 #  full_name                           :string
 #  full_name_transcription             :text
 #  full_name_alternative               :text
-#  created_at                          :datetime
-#  updated_at                          :datetime
+#  created_at                          :datetime         not null
+#  updated_at                          :datetime         not null
 #  zip_code_1                          :string
 #  zip_code_2                          :string
 #  address_1                           :text

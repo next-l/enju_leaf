@@ -20,18 +20,18 @@ end
 #
 # Table name: profiles
 #
-#  id                       :integer          not null, primary key
-#  user_id                  :integer
+#  id                       :bigint           not null, primary key
+#  user_id                  :bigint
 #  user_group_id            :integer
-#  library_id               :integer
+#  library_id               :bigint
 #  locale                   :string
 #  user_number              :string
 #  full_name                :text
 #  note                     :text
 #  keyword_list             :text
 #  required_role_id         :integer
-#  created_at               :datetime
-#  updated_at               :datetime
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
 #  checkout_icalendar_token :string
 #  save_checkout_history    :boolean          default(FALSE), not null
 #  expired_at               :datetime

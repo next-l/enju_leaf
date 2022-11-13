@@ -11,7 +11,7 @@ end
 #
 # Table name: countries
 #
-#  id           :integer          not null, primary key
+#  id           :bigint           not null, primary key
 #  name         :string           not null
 #  display_name :text
 #  alpha_2      :string

@@ -42,11 +42,11 @@ end
 #
 # Table name: items
 #
-#  id                      :integer          not null, primary key
+#  id                      :bigint           not null, primary key
 #  call_number             :string
 #  item_identifier         :string
-#  created_at              :datetime
-#  updated_at              :datetime
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
 #  shelf_id                :integer          default(1), not null
 #  include_supplements     :boolean          default(FALSE), not null
 #  note                    :text
@@ -63,7 +63,7 @@ end
 #  binding_item_identifier :string
 #  binding_call_number     :string
 #  binded_at               :datetime
-#  manifestation_id        :integer          not null
+#  manifestation_id        :bigint           not null
 #  memo                    :text
 #  missing_since           :date
 #
