@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_14_063534) do
+ActiveRecord::Schema.define(version: 2022_11_14_110340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "accepts", force: :cascade do |t|
-    t.integer "basket_id"
+    t.bigint "basket_id"
     t.bigint "item_id"
     t.bigint "librarian_id"
     t.datetime "created_at", precision: 6, null: false
@@ -302,7 +302,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_063534) do
 
   create_table "checked_items", force: :cascade do |t|
     t.bigint "item_id", null: false
-    t.integer "basket_id", null: false
+    t.bigint "basket_id", null: false
     t.bigint "librarian_id"
     t.datetime "due_date", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -317,7 +317,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_063534) do
   create_table "checkins", force: :cascade do |t|
     t.bigint "item_id", null: false
     t.bigint "librarian_id"
-    t.integer "basket_id"
+    t.bigint "basket_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "lock_version", default: 0, null: false
@@ -361,7 +361,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_063534) do
     t.bigint "item_id", null: false
     t.integer "checkin_id"
     t.bigint "librarian_id"
-    t.integer "basket_id"
+    t.bigint "basket_id"
     t.datetime "due_date"
     t.integer "checkout_renewal_count", default: 0, null: false
     t.integer "lock_version", default: 0, null: false
@@ -1751,7 +1751,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_063534) do
   end
 
   create_table "withdraws", force: :cascade do |t|
-    t.integer "basket_id"
+    t.bigint "basket_id"
     t.bigint "item_id"
     t.bigint "librarian_id"
     t.datetime "created_at", precision: 6, null: false
