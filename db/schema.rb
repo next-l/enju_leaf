@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_14_110340) do
+ActiveRecord::Schema.define(version: 2022_11_14_163530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1764,6 +1764,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_110340) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "agent_import_files", "users"
+  add_foreign_key "agents", "roles", column: "required_role_id"
   add_foreign_key "baskets", "users"
   add_foreign_key "bookmarks", "users"
   add_foreign_key "carrier_type_has_checkout_types", "carrier_types"
@@ -1793,6 +1794,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_110340) do
   add_foreign_key "item_has_use_restrictions", "items"
   add_foreign_key "item_has_use_restrictions", "use_restrictions"
   add_foreign_key "items", "manifestations"
+  add_foreign_key "items", "roles", column: "required_role_id"
   add_foreign_key "jpno_records", "manifestations"
   add_foreign_key "libraries", "library_groups"
   add_foreign_key "library_groups", "users"
@@ -1800,10 +1802,13 @@ ActiveRecord::Schema.define(version: 2022_11_14_110340) do
   add_foreign_key "manifestation_custom_values", "manifestation_custom_properties"
   add_foreign_key "manifestation_custom_values", "manifestations"
   add_foreign_key "manifestation_reserve_stats", "users"
+  add_foreign_key "manifestations", "roles", column: "required_role_id"
   add_foreign_key "messages", "messages", column: "parent_id"
   add_foreign_key "ndl_bib_id_records", "manifestations"
   add_foreign_key "ndla_records", "agents"
+  add_foreign_key "news_posts", "roles", column: "required_role_id"
   add_foreign_key "news_posts", "users"
+  add_foreign_key "profiles", "roles", column: "required_role_id"
   add_foreign_key "profiles", "users"
   add_foreign_key "reserve_stat_has_manifestations", "manifestations"
   add_foreign_key "reserve_stat_has_users", "user_reserve_stats"
@@ -1812,6 +1817,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_110340) do
   add_foreign_key "reserves", "users"
   add_foreign_key "resource_export_files", "users"
   add_foreign_key "resource_import_files", "users"
+  add_foreign_key "subjects", "roles", column: "required_role_id"
   add_foreign_key "subscriptions", "users"
   add_foreign_key "user_checkout_stats", "users"
   add_foreign_key "user_export_files", "users"
