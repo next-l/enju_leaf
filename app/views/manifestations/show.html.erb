@@ -24,7 +24,6 @@
       <li><%= link_to t('page.new', model: t('activerecord.models.picture_file')), new_picture_file_path(manifestation_id: @manifestation.id) -%></li>
     <%- end -%>
   </ul>
-  <%= render 'manifestations/colorbox' %>
   <%- if user_signed_in? -%>
     <div id="call_number_content">
       <%- @manifestation.items.on_shelf.each do |item| -%>

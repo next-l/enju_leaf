@@ -139,7 +139,7 @@ describe UserImportFilesController do
 
       it 'should create agent_import_file' do
         post :create, params: { user_import_file: {
-          user_import: fixture_file_upload('user_import_file_sample.tsv', 'text/csv'),
+          attachment: fixture_file_upload('user_import_file_sample.tsv', 'text/csv'),
           default_library_id: 1,
           default_user_group_id: 1
         }}
@@ -158,7 +158,7 @@ describe UserImportFilesController do
       end
 
       it 'should be forbidden' do
-        post :create, params: { user_import_file: { user_import: fixture_file_upload('user_import_file_sample.tsv', 'text/csv') } }
+        post :create, params: { user_import_file: { attachment: fixture_file_upload('user_import_file_sample.tsv', 'text/csv') } }
         assigns(:user_import_file).should be_nil
         expect(response).to be_forbidden
       end
@@ -166,7 +166,7 @@ describe UserImportFilesController do
 
     describe 'When not logged in' do
       it 'should be redirected to new session url' do
-        post :create, params: { user_import_file: { user_import: fixture_file_upload('user_import_file_sample.tsv', 'text/csv') } }
+        post :create, params: { user_import_file: { attachment: fixture_file_upload('user_import_file_sample.tsv', 'text/csv') } }
         assigns(:user_import_file).should be_nil
         expect(response).to redirect_to new_user_session_url
       end
@@ -219,7 +219,7 @@ describe UserImportFilesController do
 
       it 'should update user_import_file' do
         user_import_file = UserImportFile.create!(
-          user_import: fixture_file_upload('user_import_file_sample.tsv', 'text/csv'),
+          attachment: fixture_file_upload('user_import_file_sample.tsv', 'text/csv'),
           user: users(:admin),
           default_library_id: 1,
           default_user_group_id: 1
@@ -234,7 +234,7 @@ describe UserImportFilesController do
 
       it 'should update user_import_file' do
         user_import_file = UserImportFile.create!(
-          user_import: fixture_file_upload('user_import_file_sample.tsv', 'text/csv'),
+          attachment: fixture_file_upload('user_import_file_sample.tsv', 'text/csv'),
           user: users(:admin),
           default_library_id: 1,
           default_user_group_id: 1

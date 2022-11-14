@@ -26,7 +26,7 @@ class Reserve < ApplicationRecord
   belongs_to :request_status_type
   belongs_to :pickup_location, class_name: 'Library', optional: true
 
-  validates_date :expired_at, allow_blank: true
+  validates :expired_at, date: true, allow_blank: true
   validate :manifestation_must_include_item
   validate :available_for_reservation?, on: :create
   validates :item_id, presence: true, if: proc{|reserve|
@@ -320,14 +320,14 @@ end
 #
 # Table name: reserves
 #
-#  id                           :integer          not null, primary key
-#  user_id                      :integer          not null
-#  manifestation_id             :integer          not null
-#  item_id                      :integer
+#  id                           :bigint           not null, primary key
+#  user_id                      :bigint           not null
+#  manifestation_id             :bigint           not null
+#  item_id                      :bigint
 #  request_status_type_id       :integer          not null
 #  checked_out_at               :datetime
-#  created_at                   :datetime
-#  updated_at                   :datetime
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
 #  canceled_at                  :datetime
 #  expired_at                   :datetime
 #  expiration_notice_to_patron  :boolean          default(FALSE)

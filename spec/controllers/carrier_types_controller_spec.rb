@@ -132,7 +132,7 @@ describe CarrierTypesController do
 
         it 'deletes an attachment file' do
           carrier_type = carrier_types(:carrier_type_00001)
-          carrier_type.attachment = File.open(Rails.root.join('app/assets/images/icons/book.png'))
+          carrier_type.attachment.attach(io: File.open(Rails.root.join('app/assets/images/icons/book.png')), filename: 'book.png')
           carrier_type.save
           expect(carrier_type.attachment.present?).to be_truthy
 

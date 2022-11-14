@@ -1,5 +1,6 @@
 require 'active_record/fixtures'
 require 'tasks/profile'
+require 'tasks/attachment'
 
 namespace :enju_leaf do
   desc "create initial records for enju_leaf"
@@ -73,6 +74,15 @@ namespace :enju_leaf do
 
       ActiveRecord::Base.connection.exec_query('INSERT INTO schema_migrations (version) VALUES ($1)', 'SQL', [[nil, version]])
       puts "Added #{entry[0]}"
+    end
+  end
+
+  desc 'Migrate attachments'
+  task :migrate_attachments => :environment do
+    if ENV['ENJU_STORAGE'] == 's3'
+      migrate_attachment_s3
+    else
+      migrate_attachment
     end
   end
 end

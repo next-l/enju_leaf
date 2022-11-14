@@ -5,7 +5,7 @@ RSpec.describe 'Manifestations', type: :system do
   fixtures :all
   before do
     @item = FactoryBot.create(:item, shelf: shelves(:shelf_00002))
-    CarrierType.find_by(name: 'volume').update(attachment: File.open("#{Rails.root.to_s}/app/assets/images/icons/book.png"))
+    CarrierType.find_by(name: 'volume').attachment.attach(io: File.open("#{Rails.root.to_s}/app/assets/images/icons/book.png"), filename: 'book.png')
     FactoryBot.create(:withdraw, item: @item)
   end
 
@@ -32,7 +32,7 @@ RSpec.describe 'Manifestations', type: :system do
     end
 
     it 'should display delete_attachment if a file is attached' do
-      @item.manifestation.attachment = File.open(Rails.root.join('spec/fixtures/files/resource_import_file_sample1.tsv'))
+      @item.manifestation.attachment.attach(io: File.open(Rails.root.join('spec/fixtures/files/resource_import_file_sample1.tsv')), filename: 'attachment.txt')
       @item.manifestation.save
 
       visit edit_manifestation_path(@item.manifestation.id, locale: :ja)
@@ -69,6 +69,12 @@ RSpec.describe 'Manifestations', type: :system do
   end
 
   describe 'When not logged in' do
+    it 'should display a reservation link' do
+      manifestations(:manifestation_00001).index!
+      visit manifestations_path(query: 'よくわかるWeb')
+      expect(page).to have_content 'Reserve'
+    end
+
     it 'should show default item' do
       visit manifestation_path(@item.manifestation.id, locale: :ja)
       expect(page).to have_content @item.item_identifier

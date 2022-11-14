@@ -170,9 +170,9 @@ class ReservesController < ApplicationController
       end
     elsif @reserve.user != current_user
       if @user != current_user
-          access_denied
-          return
-        end
+        access_denied
+        return
+      end
     end
 
     respond_to do |format|

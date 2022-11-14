@@ -19,7 +19,7 @@
         <td><%= link_to user_export_file.id, user_export_file %></td>
         <td><%= user_export_file.user.try(:username) %></td>
         <td>
-          <%= link_to user_export_file.user_export_file_name, user_export_file_path(user_export_file, format: :download) if user_export_file.user_export_file_name %>
+          <%= link_to user_export_file.user_export.filename, rails_blob_path(user_export_file.user_export) if user_export_file.user_export.attached? %>
           <br />
           <%= user_export_file.created_at %>
         </td>

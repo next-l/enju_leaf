@@ -174,5 +174,345 @@ module ManifestationsHelper
         link_to t('bookmark.add_to_my_bookmark'), new_bookmark_path(bookmark: {url: manifestation_url(manifestation)})
       end
     end
+
+    def rdf_statement(manifestation)
+      nextl = RDF::Vocabulary.new('https://next-l.jp/vocab/')
+      subject = RDF::URI.new(manifestation_url(manifestation))
+      graph = RDF::Graph.new
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.original_title,
+        RDF::Literal.new(manifestation.original_title)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.title_alternative,
+        RDF::Literal.new(manifestation.title_alternative)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.title_transcription,
+        RDF::Literal.new(manifestation.title_transcription)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.manifestation_identifier,
+        RDF::Literal.new(manifestation.manifestation_identifier)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.pub_date,
+        RDF::Literal.new(manifestation.pub_date)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.publication_place,
+        RDF::Literal.new(manifestation.publication_place)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.manifestation_created_at,
+        RDF::Literal.new(manifestation.created_at)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.manifestation_updated_at,
+        RDF::Literal.new(manifestation.updated_at)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.carrier_type,
+        RDF::Literal.new(manifestation.carrier_type.name)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.content_type,
+        RDF::Literal.new(manifestation.manifestation_content_type.name)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.frequency,
+        RDF::Literal.new(manifestation.frequency.name)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.language,
+        RDF::Literal.new(manifestation.language.name)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.volume_number,
+        RDF::Literal.new(manifestation.volume_number)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.volume_number_string,
+        RDF::Literal.new(manifestation.volume_number_string)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.edition,
+        RDF::Literal.new(manifestation.edition)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.edition_string,
+        RDF::Literal.new(manifestation.edition_string)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.serial_number,
+        RDF::Literal.new(manifestation.serial_number)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.extent,
+        RDF::Literal.new(manifestation.extent)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.start_page,
+        RDF::Literal.new(manifestation.start_page)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.end_page,
+        RDF::Literal.new(manifestation.end_page)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.dimensions,
+        RDF::Literal.new(manifestation.dimensions)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.height,
+        RDF::Literal.new(manifestation.height)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.width,
+        RDF::Literal.new(manifestation.width)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.depth,
+        RDF::Literal.new(manifestation.depth)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.manifestation_price,
+        RDF::Literal.new(manifestation.price)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.access_address,
+        RDF::Literal.new(manifestation.access_address)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.manifestation_required_role,
+        RDF::Literal.new(manifestation.required_role.name)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.abstract,
+        RDF::Literal.new(manifestation.abstract)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.description,
+        RDF::Literal.new(manifestation.description)
+      )
+
+      graph << RDF::Statement.new(
+        subject,
+        nextl.note,
+        RDF::Literal.new(manifestation.note)
+      )
+
+      manifestation.identifier_contents(:isbn).each do |i|
+        graph << RDF::Statement.new(
+          subject,
+          nextl.isbn,
+          RDF::Literal.new(i)
+        )
+      end
+
+      manifestation.identifier_contents(:issn).each do |i|
+        graph << RDF::Statement.new(
+          subject,
+          nextl.issn,
+          RDF::Literal.new(i)
+        )
+      end
+
+      manifestation.identifier_contents(:jpno).each do |i|
+        graph << RDF::Statement.new(
+          subject,
+          nextl.jpno,
+          RDF::Literal.new(i)
+        )
+      end
+
+      manifestation.identifier_contents(:doi).each do |i|
+        graph << RDF::Statement.new(
+          subject,
+          nextl.doi,
+          RDF::Literal.new(i)
+        )
+      end
+
+      manifestation.identifier_contents(:iss_itemno).each do |i|
+        graph << RDF::Statement.new(
+          subject,
+          nextl.iss_itemno,
+          RDF::Literal.new(i)
+        )
+      end
+
+      manifestation.identifier_contents(:lccn).each do |i|
+        graph << RDF::Statement.new(
+          subject,
+          nextl.lccn,
+          RDF::Literal.new(i)
+        )
+      end
+
+      manifestation.identifier_contents(:ncid).each do |i|
+        graph << RDF::Statement.new(
+          subject,
+          nextl.ncid,
+          RDF::Literal.new(i)
+        )
+      end
+
+      manifestation.identifier_contents(:loc_identifier).each do |i|
+        graph << RDF::Statement.new(
+          subject,
+          nextl.loc_identifier,
+          RDF::Literal.new(i)
+        )
+      end
+
+      manifestation.identifier_contents(:issn_l).each do |i|
+        graph << RDF::Statement.new(
+          subject,
+          nextl.issn_l,
+          RDF::Literal.new(i)
+        )
+      end
+
+      manifestation.identifier_contents(:epi).each do |i|
+        graph << RDF::Statement.new(
+          subject,
+          nextl.epi,
+          RDF::Literal.new(i)
+        )
+      end
+
+      manifestation.series_statements.each do |i|
+        graph << RDF::Statement.new(
+          subject,
+          nextl.series_statement_id,
+          RDF::Literal.new(i.id)
+        )
+
+        graph << RDF::Statement.new(
+          subject,
+          nextl.series_statement_original_title,
+          RDF::Literal.new(i.original_title)
+        )
+
+        graph << RDF::Statement.new(
+          subject,
+          nextl.series_statement_title_subseries_transcription,
+          RDF::Literal.new(i.title_subseries_transcription)
+        )
+
+        graph << RDF::Statement.new(
+          subject,
+          nextl.series_statement_title_transcription,
+          RDF::Literal.new(i.title_transcription)
+        )
+
+        graph << RDF::Statement.new(
+          subject,
+          nextl.series_statement_title_subseries,
+          RDF::Literal.new(i.title_subseries)
+        )
+      end
+
+      manifestation.creators.each do |i|
+        graph << RDF::Statement.new(
+          subject,
+          nextl.creators,
+          RDF::Literal.new(i.full_name)
+        )
+      end
+
+      manifestation.contributors.each do |i|
+        graph << RDF::Statement.new(
+          subject,
+          nextl.contributors,
+          RDF::Literal.new(i.full_name)
+        )
+      end
+
+      manifestation.publishers.each do |i|
+        graph << RDF::Statement.new(
+          subject,
+          nextl.publishers,
+          RDF::Literal.new(i.full_name)
+        )
+      end
+
+      manifestation.subjects.each do |i|
+        graph << RDF::Statement.new(
+          subject,
+          nextl.subject,
+          RDF::Literal.new(i.term)
+        )
+      end
+
+      manifestation.classifications.each do |i|
+        graph << RDF::Statement.new(
+          subject,
+          nextl.classification,
+          RDF::Literal.new(i.category)
+        )
+      end
+
+      graph.dump(:turtle)
+    end
   end
 end

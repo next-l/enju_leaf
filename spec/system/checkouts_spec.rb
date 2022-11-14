@@ -5,7 +5,7 @@ RSpec.describe 'Checkouts', type: :system do
   fixtures :all
 
   before(:each) do
-    CarrierType.find_by(name: 'volume').update(attachment: File.open("#{Rails.root.to_s}/app/assets/images/icons/book.png"))
+    CarrierType.find_by(name: 'volume').attachment.attach(io: File.open("#{Rails.root.to_s}/app/assets/images/icons/book.png"), filename: 'book.png')
   end
 
   describe 'When logged in as Librarian' do
@@ -15,6 +15,12 @@ RSpec.describe 'Checkouts', type: :system do
       expect(page).to have_content '利用者番号'
       expect(page).to have_content checkouts(:checkout_00001).user.username
       expect(page).to have_content checkouts(:checkout_00001).user.profile.user_number
+    end
+
+    it 'should edit checkout' do
+      sign_in users(:librarian1)
+      visit edit_checkout_path(checkouts(:checkout_00001))
+      expect(page).to have_content '貸出の表示'
     end
 
     it 'should get checkouts with item_id' do

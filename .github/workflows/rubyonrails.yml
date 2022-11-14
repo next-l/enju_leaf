@@ -26,7 +26,7 @@ jobs:
       ENJU_LEAF_TIMEZONE: UTC
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       # Add or replace dependency steps here
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
@@ -42,6 +42,8 @@ jobs:
       # Add or replace database setup steps here
       - name: Set up database schema
         run: bin/rails db:schema:load
+      - name: Generate asset files
+        run: bin/rake assets:precompile
       - name: Run tests
         run: |
           ./cc-test-reporter before-build
@@ -52,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:

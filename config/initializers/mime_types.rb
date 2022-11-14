@@ -6,3 +6,4 @@ Mime::Type.register "application/octet-stream",  :download
 Mime::Type.register "application/xml",  :mods
 Mime::Type.register "application/rdf+xml",  :rdf
 Mime::Type.register "application/svg+xml",  :svg
+Mime::Type.register "text/turtle",  :ttl

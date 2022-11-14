@@ -20,11 +20,11 @@ end
 #
 # Table name: produces
 #
-#  id               :integer          not null, primary key
-#  agent_id         :integer          not null
-#  manifestation_id :integer          not null
+#  id               :bigint           not null, primary key
+#  agent_id         :bigint           not null
+#  manifestation_id :bigint           not null
 #  position         :integer
-#  created_at       :datetime
-#  updated_at       :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #  produce_type_id  :integer
 #

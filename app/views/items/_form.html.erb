@@ -1,16 +1,16 @@
-<%= render 'manifestations/title', manifestation: @item.manifestation -%>
+<%= render 'manifestations/title', manifestation: item.manifestation -%>
 <% if defined?(EnjuSubject) %>
   <p>
     <%= t('activerecord.models.classification') -%>:
-    <%- @item.manifestation.classifications.each do |classification| -%>
+    <%- item.manifestation.classifications.each do |classification| -%>
       <%= link_to "#{classification.classification_type.display_name}: #{classification.category}", manifestations_path(query: "classification_sm:#{classification.classification_type.name}_#{classification.category}") -%>
     <%- end -%>
   </p>
 <% end %>
 <%= render 'page/required_field' %>
-<%= form_for(@item) do |f| -%>
-  <%= error_messages(@item) -%>
-  <%= f.hidden_field :manifestation_id, value: @item.manifestation_id if @item.manifestation_id %>
+<%= form_with(model: item) do |f| -%>
+  <%= error_messages(item) -%>
+  <%= f.hidden_field :manifestation_id, value: item.manifestation_id if item.manifestation_id %>
 
   <div class="field">
     <%= f.label "#{t('activerecord.models.library')} / #{t('activerecord.models.shelf')}" -%>
@@ -73,7 +73,7 @@
 
   <div class="field">
     <%= f.label :acquired_at -%>
-    <%= f.text_field :acquired_at, value: @item.acquired_at.try(:strftime, "%Y-%m-%d"), class: 'date_text_field', placeholder: "#{t('page.example')}: 2011-04-12"-%>
+    <%= f.text_field :acquired_at, value: item.acquired_at.try(:strftime, "%Y-%m-%d"), class: 'date_text_field', placeholder: "#{t('page.example')}: 2011-04-12"-%>
   </div>
 
   <div class="field">
@@ -81,7 +81,7 @@
     <%= f.text_field :binding_call_number -%>
 
     <%= f.label :binded_at -%>
-    <%= f.text_field :binded_at, value: @item.binded_at.try(:strftime, "%Y-%m-%d"), class: 'date_text_field', placeholder: "#{t('page.example')}: 2014-07-20"-%>
+    <%= f.text_field :binded_at, value: item.binded_at.try(:strftime, "%Y-%m-%d"), class: 'date_text_field', placeholder: "#{t('page.example')}: 2014-07-20"-%>
   </div>
 
   <div class="field">
@@ -97,7 +97,7 @@
   <% if ItemCustomProperty.first %>
     <div class="field">
       <% ItemCustomProperty.order(:position).each do |c| %>
-        <% @item.item_custom_values.new(item_custom_property: c) unless @item.item_custom_values.map{|value| value.item_custom_property_id}.include?(c.id) %>
+        <% item.item_custom_values.new(item_custom_property: c) unless item.item_custom_values.map{|value| value.item_custom_property_id}.include?(c.id) %>
       <% end %>
       <%= f.fields_for :item_custom_values do |custom_form| %>
         <%= custom_form.label custom_form.object.item_custom_property.name.to_sym, custom_form.object.item_custom_property.display_name.localize %>

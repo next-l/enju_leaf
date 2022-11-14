@@ -9,12 +9,12 @@ end
 #
 # Table name: resource_import_results
 #
-#  id                      :integer          not null, primary key
+#  id                      :bigint           not null, primary key
 #  resource_import_file_id :integer
-#  manifestation_id        :integer
-#  item_id                 :integer
+#  manifestation_id        :bigint
+#  item_id                 :bigint
 #  body                    :text
-#  created_at              :datetime
-#  updated_at              :datetime
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
 #  error_message           :text
 #

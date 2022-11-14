@@ -267,6 +267,11 @@ describe Manifestation, solr: true do
         expect(m["manifestation:#{custom_value.manifestation_custom_property.name}"]).to eq custom_value.value
       end
     end
+
+    it 'should respond to reservable?' do
+      expect(manifestations(:manifestation_00001).reservable?).to be_truthy
+      expect(manifestations(:manifestation_00101).reservable?).to be_falsy
+    end
   end
 end
 
@@ -274,7 +279,7 @@ end
 #
 # Table name: manifestations
 #
-#  id                              :integer          not null, primary key
+#  id                              :bigint           not null, primary key
 #  original_title                  :text             not null
 #  title_alternative               :text
 #  title_transcription             :text
@@ -282,8 +287,8 @@ end
 #  manifestation_identifier        :string
 #  date_of_publication             :datetime
 #  date_copyrighted                :datetime
-#  created_at                      :datetime
-#  updated_at                      :datetime
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
 #  access_address                  :string
 #  language_id                     :integer          default(1), not null
 #  carrier_type_id                 :integer          default(1), not null

@@ -33,7 +33,7 @@ class Item < ApplicationRecord
   validates :binding_item_identifier, allow_blank: true,
     format: {with: /\A[0-9A-Za-z_]+\Z/}
   validates :url, url: true, allow_blank: true, length: { maximum: 255 }
-  validates_date :acquired_at, allow_blank: true
+  validates :acquired_at, date: true, allow_blank: true
 
   strip_attributes only: [:item_identifier, :binding_item_identifier,
     :call_number, :binding_call_number, :url]
@@ -152,11 +152,11 @@ end
 #
 # Table name: items
 #
-#  id                      :integer          not null, primary key
+#  id                      :bigint           not null, primary key
 #  call_number             :string
 #  item_identifier         :string
-#  created_at              :datetime
-#  updated_at              :datetime
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
 #  shelf_id                :integer          default(1), not null
 #  include_supplements     :boolean          default(FALSE), not null
 #  note                    :text
@@ -173,7 +173,7 @@ end
 #  binding_item_identifier :string
 #  binding_call_number     :string
 #  binded_at               :datetime
-#  manifestation_id        :integer          not null
+#  manifestation_id        :bigint           not null
 #  memo                    :text
 #  missing_since           :date
 #

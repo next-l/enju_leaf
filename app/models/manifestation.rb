@@ -6,6 +6,7 @@ class Manifestation < ApplicationRecord
   include EnjuLoc::EnjuManifestation
   include EnjuManifestationViewer::EnjuManifestation
   include EnjuBookmark::EnjuManifestation
+  include EnjuOai::OaiModel
 
   has_many :creates, -> { order('creates.position') }, dependent: :destroy, foreign_key: 'work_id', inverse_of: :work
   has_many :creators, through: :creates, source: :agent
@@ -213,21 +214,7 @@ class Manifestation < ApplicationRecord
     time :acquired_at
   end
 
-  if ENV['ENJU_STORAGE'] == 's3'
-    has_attached_file :attachment, storage: :s3,
-      s3_credentials: {
-        access_key: ENV['AWS_ACCESS_KEY_ID'],
-        secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-        bucket: ENV['S3_BUCKET_NAME'],
-        s3_host_name: ENV['S3_HOST_NAME'],
-        s3_region: ENV["S3_REGION"]
-      },
-      s3_permissions: :private
-  else
-    has_attached_file :attachment,
-      path: ":rails_root/private/system/:class/:attachment/:id_partition/:style/:filename"
-  end
-  do_not_validate_attachment_file_type :attachment
+  has_one_attached :attachment
 
   validates :original_title, presence: true
   validates :start_page, numericality: {greater_than_or_equal_to: 0}, allow_blank: true
@@ -244,7 +231,7 @@ class Manifestation < ApplicationRecord
   validates :edition, numericality: {greater_than_or_equal_to: 0}, allow_blank: true
   before_save :set_date_of_publication, :set_number
   before_save do
-    attachment.clear if delete_attachment == '1'
+    attachment.purge if delete_attachment == '1'
   end
   after_create :clear_cached_numdocs
   after_destroy :index_series_statement
@@ -380,21 +367,16 @@ class Manifestation < ApplicationRecord
   end
 
   def extract_text
-    return nil if attachment.path.nil?
+    return nil unless attachment.attached?
     return nil unless ENV['ENJU_EXTRACT_TEXT'] == 'true'
 
-    if ENV['ENJU_STORAGE'] == 's3'
-      body = Faraday.get(attachment.expiring_url(10)).body.force_encoding('UTF-8')
-    else
-      body = File.open(attachment.path).read
-    end
     client = Faraday.new(url: ENV['SOLR_URL'] || Sunspot.config.solr.url) do |conn|
       conn.request :multipart
       conn.adapter :net_http
     end
     response = client.post('update/extract?extractOnly=true&wt=json&extractFormat=text') do |req|
       req.headers['Content-type'] = 'text/html'
-      req.body = body
+      req.body = attachment.download
     end
     update_column(:fulltext, JSON.parse(response.body)[""])
   end
@@ -712,7 +694,7 @@ end
 #
 # Table name: manifestations
 #
-#  id                              :integer          not null, primary key
+#  id                              :bigint           not null, primary key
 #  original_title                  :text             not null
 #  title_alternative               :text
 #  title_transcription             :text
@@ -720,8 +702,8 @@ end
 #  manifestation_identifier        :string
 #  date_of_publication             :datetime
 #  date_copyrighted                :datetime
-#  created_at                      :datetime
-#  updated_at                      :datetime
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
 #  access_address                  :string
 #  language_id                     :integer          default(1), not null
 #  carrier_type_id                 :integer          default(1), not null
