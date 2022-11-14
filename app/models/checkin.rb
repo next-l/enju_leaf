@@ -84,7 +84,7 @@ end
 #  id           :bigint           not null, primary key
 #  item_id      :bigint           not null
 #  librarian_id :bigint
-#  basket_id    :integer
+#  basket_id    :bigint
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  lock_version :integer          default(0), not null

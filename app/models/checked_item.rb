@@ -124,7 +124,7 @@ end
 #
 #  id           :bigint           not null, primary key
 #  item_id      :bigint           not null
-#  basket_id    :integer          not null
+#  basket_id    :bigint           not null
 #  librarian_id :bigint
 #  due_date     :datetime         not null
 #  created_at   :datetime         not null
