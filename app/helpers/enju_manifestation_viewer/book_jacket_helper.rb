@@ -4,6 +4,8 @@ module EnjuManifestationViewer
       if manifestation.picture_files.exists?
         link = ''
         manifestation.picture_files.each_with_index do |picture_file, i|
+          next unless picture_file.attachment.attached?
+
           link += if i == 0
                     link_to(show_image(picture_file, size: :thumb), rails_blob_url(picture_file.attachment), rel: "manifestation_#{manifestation.id}")
                   else
