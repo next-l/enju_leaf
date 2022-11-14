@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.6'
+ruby '3.0.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.6'
@@ -90,6 +90,7 @@ gem 'caxlsx'
 gem 'caxlsx_rails'
 gem 'rails-i18n', '~> 6.0'
 gem 'sitemap_generator'
+gem 'rss'
 gem 'rdf-turtle', require: 'rdf/turtle'
 gem 'rdf-vocab', require: 'rdf/vocab'
 gem 'oai'
