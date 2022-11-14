@@ -19,7 +19,7 @@
         <td><%= link_to event_export_file.id, event_export_file %></td>
         <td><%= event_export_file.user.try(:username) %></td>
         <td>
-          <%= link_to event_export_file.event_export.filename, rails_blob_path(event_export_file.attachment) if event_export_file.attachment.attached? %>
+          <%= link_to event_export_file.attachment.filename, rails_blob_path(event_export_file.attachment) if event_export_file.attachment.attached? %>
           <br />
           <%= event_export_file.created_at %>
         </td>
