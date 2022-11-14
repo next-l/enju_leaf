@@ -16,23 +16,10 @@ class UserImportFilesController < ApplicationController
   # GET /user_import_files/1
   # GET /user_import_files/1.json
   def show
-    if @user_import_file.user_import.path
-      unless ENV['ENJU_STORAGE'] == 's3'
-        file = File.expand_path(@user_import_file.user_import.path)
-      end
-    end
     @user_import_results = @user_import_file.user_import_results.page(params[:page])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.download {
-        if ENV['ENJU_STORAGE'] == 's3'
-          send_data Faraday.get(@user_import_file.user_import.expiring_url).body.force_encoding('UTF-8'),
-            filename: File.basename(@user_import_file.user_import_file_name), type: 'application/octet-stream'
-        else
-          send_file file, filename: File.basename(@user_import_file.user_import_file_name), type: 'application/octet-stream'
-        end
-      }
     end
   end
 
@@ -110,7 +97,7 @@ class UserImportFilesController < ApplicationController
 
   def user_import_file_params
     params.require(:user_import_file).permit(
-      :user_import, :edit_mode, :user_encoding, :mode,
+      :attachment, :edit_mode, :user_encoding, :mode,
       :default_user_group_id, :default_library_id
     )
   end

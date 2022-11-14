@@ -10,15 +10,15 @@
 
 <p>
   <strong><%= t('activerecord.attributes.resource_import_file.resource_import_file_name') -%>:</strong>
-  <% if @resource_import_file.resource_import_file_name %>
-    <%= link_to @resource_import_file.resource_import_file_name, resource_import_file_path(@resource_import_file, format: :download) %>
-    (<%= @resource_import_file.resource_import_content_type -%>)
+  <% if @resource_import_file.attachment.attached? %>
+    <%= link_to @resource_import_file.attachment.filename, rails_blob_path(@resource_import_file.attachment) %>
+    (<%= @resource_import_file.attachment.content_type -%>)
   <% end %>
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.resource_import_file.resource_import_file_size') -%>:</strong>
-  <%= @resource_import_file.resource_import_file_size -%>
+  <%= @resource_import_file.attachment.byte_size -%>
 </p>
 
 <p>

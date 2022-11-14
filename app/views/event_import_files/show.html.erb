@@ -8,16 +8,16 @@
       <%= @event_import_file.id -%>
     </p>
 
-    <% if @event_import_file.event_import_file_name %>
+    <% if @event_import_file.attachment.attached? %>
     <p>
       <strong><%= t('activerecord.attributes.event_import_file.event_import_file_name') -%>:</strong>
-      <%= link_to @event_import_file.event_import_file_name, event_import_file_path(@event_import_file, format: :download) %>
-      (<%= @event_import_file.event_import_content_type -%>)
+      <%= link_to @event_import_file.attachment.filename, rails_blob_path(@event_import_file.attachment) %>
+      (<%= @event_import_file.attachment.content_type -%>)
     </p>
 
     <p>
       <strong><%= t('activerecord.attributes.event_import_file.event_import_file_size') -%>:</strong>
-      <%= @event_import_file.event_import_file_size -%>
+      <%= @event_import_file.attachment.byte_size -%>
     </p>
     <% end %>
 

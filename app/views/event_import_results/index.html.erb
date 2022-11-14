@@ -3,7 +3,7 @@
 <div id="content_list">
   <% if @event_import_file %>
     <h2 class="event_title">
-      <%= link_to @event_import_file.event_import_file_name, event_import_file_path(@event_import_file) %>
+      <%= link_to @event_import_file.attachment.filename, event_import_file_path(@event_import_file) %>
     </h2>
   <% end %>
 
@@ -17,7 +17,7 @@
 <% @event_import_results.each do |event_import_result| %>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%= link_to event_import_result.event_import_file.event_import_file_name, event_import_result.event_import_file %>
+      <%= link_to event_import_result.event_import_file.attachment.filename, event_import_result.event_import_file %>
       <br />
       <%=l event_import_result.created_at %>
     </td>

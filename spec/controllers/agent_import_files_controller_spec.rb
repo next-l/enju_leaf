@@ -123,7 +123,7 @@ describe AgentImportFilesController do
       login_fixture_librarian
 
       it 'should create agent_import_file' do
-        post :create, params: { agent_import_file: { agent_import: fixture_file_upload('agent_import_file_sample1.tsv', 'text/csv') } }
+        post :create, params: { agent_import_file: { attachment: fixture_file_upload('agent_import_file_sample1.tsv', 'text/csv') } }
         expect(assigns(:agent_import_file)).to be_valid
         assigns(:agent_import_file).user.username.should eq @user.username
         expect(response).to redirect_to agent_import_file_url(assigns(:agent_import_file))
@@ -131,7 +131,7 @@ describe AgentImportFilesController do
 
       it 'should import user' do
         old_agents_count = Agent.count
-        post :create, params: { agent_import_file: { agent_import: fixture_file_upload('agent_import_file_sample2.tsv', 'text/csv') } }
+        post :create, params: { agent_import_file: { attachment: fixture_file_upload('agent_import_file_sample2.tsv', 'text/csv') } }
         assigns(:agent_import_file).import_start
         Agent.count.should eq old_agents_count + 3
         expect(response).to redirect_to agent_import_file_url(assigns(:agent_import_file))
@@ -142,14 +142,14 @@ describe AgentImportFilesController do
       login_fixture_user
 
       it 'should be forbidden' do
-        post :create, params: { agent_import_file: { agent_import: fixture_file_upload('agent_import_file_sample1.tsv', 'text/csv') } }
+        post :create, params: { agent_import_file: { attachment: fixture_file_upload('agent_import_file_sample1.tsv', 'text/csv') } }
         expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should be redirect to new session url' do
-        post :create, params: { agent_import_file: { agent_import: fixture_file_upload('agent_import_file_sample1.tsv', 'text/csv') } }
+        post :create, params: { agent_import_file: { attachment: fixture_file_upload('agent_import_file_sample1.tsv', 'text/csv') } }
         expect(response).to redirect_to new_user_session_url
       end
     end

@@ -2,7 +2,7 @@
   <h1 class="title"><%= t('page.new', model: t('activerecord.models.reserve')) -%></h1>
   <div id="content_list">
 
-  <%= form_for(@reserve, url: reserves_path(user_id: @user.username)) do |f| -%>
+  <%= form_with(model: @reserve, url: reserves_path(user_id: @user.username)) do |f| -%>
     <%= error_messages(@reserve) -%>
 
     <div class="field">

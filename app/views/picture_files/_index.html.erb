@@ -19,9 +19,9 @@
       <td>
         <%= link_to h("#{h(picture_file.picture_attachable_type)}/#{h(picture_file.picture_attachable_id)}"), picture_file.picture_attachable if picture_file.picture_attachable -%>
       </td>
-      <td><%= picture_file.picture_file_size -%></td>
-      <td><%= picture_file.picture_content_type -%></td>
-      <td><%= link_to h(picture_file.picture_file_name), picture_file_path(picture_file, format: :download, size: 'original') -%></td>
+      <td><%= picture_file.attachment.filesize -%></td>
+      <td><%= picture_file.attachment.content_type -%></td>
+      <td><%= link_to picture_file.attachment.filename, rails_blob_path(picture_file.attachment) if picture_file.attachment.attached? -%></td>
       <td>
         <%= link_to t('page.show'), picture_file -%>
         <%- if policy(picture_file).update? -%>

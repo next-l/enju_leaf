@@ -1,10 +1,10 @@
-<%= form_for(@realize) do |f| -%>
-  <%= error_messages(@realize) -%>
+<%= form_with(model: realize) do |f| -%>
+  <%= error_messages(realize) -%>
 
   <div class="field">
     <%= f.label t('activerecord.models.agent') -%><br />
-    <%- if @realize.agent -%>
-      <%= link_to @realize.agent.full_name, @realize.agent -%>
+    <%- if realize.agent -%>
+      <%= link_to realize.agent.full_name, realize.agent -%>
       <%= f.hidden_field :agent_id -%>
     <%- else -%>
       <%= f.text_field :agent_id -%>
@@ -13,8 +13,8 @@
 
   <div class="field">
     <%= f.label t('activerecord.models.manifestation') -%><br />
-    <%- if @realize.expression -%>
-      <%= link_to @realize.expression.original_title, @realize.expression -%>
+    <%- if realize.expression -%>
+      <%= link_to realize.expression.original_title, realize.expression -%>
       <%= f.hidden_field :expression_id -%>
     <%- else -%>
       <%= f.text_field :expression_id -%>

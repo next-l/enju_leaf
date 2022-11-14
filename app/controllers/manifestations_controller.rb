@@ -285,14 +285,6 @@ class ManifestationsController < ApplicationController
       @questions = @manifestation.questions(user: current_user, page: params[:question_page])
     end
 
-    if @manifestation.attachment.path
-      if ENV['ENJU_STORAGE'] == 's3'
-        data = Faraday.get(@manifestation.attachment.expiring_url).body.force_encoding('UTF-8')
-      else
-        file = File.expand_path(@manifestation.attachment.path)
-      end
-    end
-
     respond_to do |format|
       format.html # show.html.erb
       format.html.phone
@@ -311,17 +303,6 @@ class ManifestationsController < ApplicationController
       format.text
       format.js
       format.xlsx
-      format.download {
-        if @manifestation.attachment.path
-          if ENV['ENJU_STORAGE'] == 's3'
-            send_data data, filename: File.basename(@manifestation.attachment_file_name), type: 'application/octet-stream'
-          elsif File.exist?(file) && File.file?(file)
-            send_file file, filename: File.basename(@manifestation.attachment_file_name), type: 'application/octet-stream'
-          end
-        else
-          render template: 'page/404', status: :not_found
-        end
-      }
     end
   end
 
@@ -366,7 +347,7 @@ class ManifestationsController < ApplicationController
     @manifestation = Manifestation.new(manifestation_params)
     parent = Manifestation.find_by(id: @manifestation.parent_id)
     unless @manifestation.original_title?
-      @manifestation.original_title = @manifestation.attachment_file_name
+      @manifestation.original_title = @manifestation.attachment.filename
     end
 
     respond_to do |format|

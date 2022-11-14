@@ -7,7 +7,7 @@ describe ResourceImportFile do
     describe "when it is written in utf-8" do
       before(:each) do
         @file = ResourceImportFile.create(
-          resource_import: fixture_file_upload("resource_import_file_sample1.tsv"),
+          attachment: fixture_file_upload("resource_import_file_sample1.tsv"),
           default_shelf_id: 3,
           user: users(:admin),
           edit_mode: 'create'
@@ -154,7 +154,6 @@ describe ResourceImportFile do
         Message.count.should eq old_message_count + 1
         Message.order(:created_at).last.subject.should eq "Resource import completed: #{@file.id}"
 
-        @file.resource_import_fingerprint.should be_truthy
         @file.executed_at.should be_truthy
 
         @file.reload
@@ -162,7 +161,8 @@ describe ResourceImportFile do
       end
 
       it "should import multiple ISBNs", vcr: true do
-        file = ResourceImportFile.create resource_import: StringIO.new("original_title\tisbn\noriginal_title_multiple_isbns\t978-4840239219//978-4043898039\n"), user: users(:admin)
+        file = ResourceImportFile.create(user: users(:admin))
+        file.attachment.attach(io: StringIO.new("original_title\tisbn\noriginal_title_multiple_isbns\t978-4840239219//978-4043898039\n"), filename: 'test.txt')
         result = file.import_start
         expect(result[:manifestation_imported]).to eq 1
         resource_import_result = file.resource_import_results.last
@@ -174,7 +174,7 @@ describe ResourceImportFile do
 
       it "should import multiple rows in a cell" do
         file = ResourceImportFile.create(
-          resource_import: fixture_file_upload("resource_import_file_sample5.tsv"),
+          attachment: fixture_file_upload("resource_import_file_sample5.tsv"),
           default_shelf_id: 3,
           user: users(:admin),
           edit_mode: 'create'
@@ -192,7 +192,8 @@ describe ResourceImportFile do
     describe "ISBN import" do
       context "with record not found" do
         it "should record an error message", vcr: true do
-          file = ResourceImportFile.create resource_import: StringIO.new("isbn\n9780007264551"), user: users(:admin)
+          file = ResourceImportFile.create(user: users(:admin))
+          file.attachment.attach(io: StringIO.new("isbn\n9780007264551"), filename: 'test.txt')
           result = file.import_start
           expect(result[:failed]).to eq 1
           resource_import_result = file.resource_import_results.last
@@ -202,7 +203,8 @@ describe ResourceImportFile do
 
       context "with ISBN invalid" do
         it "should record an error message", vcr: true do
-          file = ResourceImportFile.create resource_import: StringIO.new("isbn\n978000726455x"), user: users(:admin)
+          file = ResourceImportFile.create(user: users(:admin))
+          file.attachment.attach(io: StringIO.new("isbn\n978000726455x"), filename: 'test.txt')
           result = file.import_start
           expect(result[:failed]).to eq 1
           resource_import_result = file.resource_import_results.last
@@ -213,7 +215,8 @@ describe ResourceImportFile do
 
     describe "NCID import" do
       it "should import ncid value" do
-        file = ResourceImportFile.create resource_import: StringIO.new("original_title\tncid\noriginal_title_ncid\tBA67656964\n"), user: users(:admin)
+        file = ResourceImportFile.create(user: users(:admin))
+        file.attachment.attach(io: StringIO.new("original_title\tncid\noriginal_title_ncid\tBA67656964\n"), filename: 'test.txt')
         result = file.import_start
         expect(result[:manifestation_imported]).to eq 1
         resource_import_result = file.resource_import_results.last
@@ -226,7 +229,8 @@ describe ResourceImportFile do
 
     describe "NDLBibID" do
       it "should import NDLBibID", vcr: true do
-        file = ResourceImportFile.create resource_import: StringIO.new("ndl_bib_id\n000000471440\n"), user: users(:admin)
+        file = ResourceImportFile.create(user: users(:admin))
+        file.attachment.attach(io: StringIO.new("ndl_bib_id\n000000471440\n"), filename: 'test.txt')
         result = file.import_start
         expect(result[:manifestation_imported]).to eq 1
         resource_import_result = file.resource_import_results.last
@@ -238,7 +242,7 @@ describe ResourceImportFile do
     describe "when it is written in shift_jis" do
       before(:each) do
         @file = ResourceImportFile.create!(
-          resource_import: fixture_file_upload("resource_import_file_sample2.tsv"),
+          attachment: fixture_file_upload("resource_import_file_sample2.tsv"),
           user: users(:admin)
         )
       end
@@ -268,7 +272,6 @@ describe ResourceImportFile do
         item.price.should eq 0
         item.manifestation.publishers.size.should eq 2
 
-        @file.resource_import_fingerprint.should be_truthy
         @file.executed_at.should be_truthy
       end
     end
@@ -276,7 +279,7 @@ describe ResourceImportFile do
     describe "when it has only isbn" do
       before(:each) do
         @file = ResourceImportFile.create!(
-          resource_import: fixture_file_upload("isbn_sample.txt"),
+          attachment: fixture_file_upload("isbn_sample.txt"),
           user: users(:admin)
         )
       end
@@ -298,9 +301,9 @@ original_title	call_number	item_note
 resource_import_file_test1	007.6	note for the item.
         EOF
         file = ResourceImportFile.create(
-          resource_import: StringIO.new(import_file),
           user: users(:admin)
         )
+        file.attachment.attach(io: StringIO.new(import_file), filename: 'test.txt')
         old_manifestations_count = Manifestation.count
         old_items_count = Item.count
         result = file.import_start
@@ -319,9 +322,9 @@ original_title	edition	edition_string
 resource_import_file_test_edition	2	Revised Ed.
         EOF
         file = ResourceImportFile.create(
-          resource_import: StringIO.new(import_file),
           user: users(:admin)
         )
+        file.attachment.attach(io: StringIO.new(import_file), filename: 'test.txt')
         old_manifestations_count = Manifestation.count
         result = file.import_start
         expect(Manifestation.count).to eq old_manifestations_count + 1
@@ -337,9 +340,9 @@ original_title	title_transcription
 resource_import_file_test_transcription	transcription
         EOF
         file = ResourceImportFile.create(
-          resource_import: StringIO.new(import_file),
           user: users(:admin)
         )
+        file.attachment.attach(io: StringIO.new(import_file), filename: 'test.txt')
         old_manifestations_count = Manifestation.count
         result = file.import_start
         expect(Manifestation.count).to eq old_manifestations_count + 1
@@ -355,9 +358,9 @@ original_title	description	note	call_number	item_note
 resource_import_file_test_description	test\\ntest	test\\ntest	test_description	test\\ntest
         EOF
         file = ResourceImportFile.create(
-          resource_import: StringIO.new(import_file),
           user: users(:admin)
         )
+        file.attachment.attach(io: StringIO.new(import_file), filename: 'test.txt')
         old_manifestations_count = Manifestation.count
         result = file.import_start
         expect(Manifestation.count).to eq old_manifestations_count + 1
@@ -377,7 +380,7 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
   describe "when its mode is 'update'" do
     before(:each) do
       @file = ResourceImportFile.create!(
-        resource_import: fixture_file_upload("item_update_file.tsv"),
+        attachment: fixture_file_upload("item_update_file.tsv"),
         user: users(:admin),
         edit_mode: 'update'
       )
@@ -425,7 +428,7 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
 
     # it "should update series_statement", vcr: true do
     #  manifestation = Manifestation.find(10)
-    #  file = ResourceImportFile.create resource_import: fixture_file_upload("update_series_statement.tsv"), edit_mode: 'update'
+    #  file = ResourceImportFile.create attachment: fixture_file_upload("update_series_statement.tsv"), edit_mode: 'update'
     #  file.modify
     #  manifestation.reload
     #  manifestation.series_statements.should eq [SeriesStatement.find(2)]
@@ -433,7 +436,8 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
 
     describe "NCID import" do
       it "should import ncid value" do
-        file = ResourceImportFile.create resource_import: StringIO.new("manifestation_id\tncid\n1\tBA67656964\n"), user: users(:admin), edit_mode: 'update'
+        file = ResourceImportFile.create(user: users(:admin), edit_mode: 'update')
+        file.attachment.attach(io: StringIO.new("manifestation_id\tncid\n1\tBA67656964\n"), filename: 'test.txt')
         result = file.import_start
         # expect(result[:manifestation_found]).to eq 1
         expect(file.error_message).to be_nil
@@ -450,10 +454,10 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
     it "should remove items", vcr: true do
       old_count = Item.count
       file = ResourceImportFile.create!(
-        resource_import: fixture_file_upload("item_delete_file.tsv"),
         user: users(:admin),
         edit_mode: 'destroy'
       )
+      file.attachment.attach(io: File.open("spec/fixtures/files/item_delete_file.tsv"), filename: 'test.txt')
       file.remove
       Item.count.should eq old_count - 1
     end
@@ -461,9 +465,9 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
 
   it "should import in background", vcr: true do
     file = ResourceImportFile.create!(
-      resource_import: fixture_file_upload("resource_import_file_sample1.tsv"),
       user: users(:admin)
     )
+    file.attachment.attach(io: File.open("spec/fixtures/files/resource_import_file_sample1.tsv"), filename: 'test.txt')
     ResourceImportFileJob.perform_later(file).should be_truthy
   end
 end

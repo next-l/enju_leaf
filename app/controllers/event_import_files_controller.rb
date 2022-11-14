@@ -16,22 +16,10 @@ class EventImportFilesController < ApplicationController
   # GET /event_import_files/1
   # GET /event_import_files/1.json
   def show
-    if @event_import_file.event_import.path
-      unless ENV['ENJU_STORAGE'] == 's3'
-        file = File.expand_path(@event_import_file.event_import.path)
-      end
-    end
     @event_import_results = @event_import_file.event_import_results.page(params[:page])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.download {
-        if ENV['ENJU_STORAGE'] == 's3'
-          redirect_to URI.parse(@event_import_file.event_import.expiring_url(10)).to_s
-        else
-          send_file file, filename: @event_import_file.event_import_file_name, type: 'application/octet-stream'
-        end
-      }
     end
   end
 
@@ -108,7 +96,7 @@ class EventImportFilesController < ApplicationController
 
   def event_import_file_params
     params.require(:event_import_file).permit(
-      :event_import, :edit_mode, :user_encoding, :mode,
+      :attachment, :edit_mode, :user_encoding, :mode,
       :default_library_id, :default_event_category_id
     )
   end

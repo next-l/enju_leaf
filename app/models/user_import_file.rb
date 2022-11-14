@@ -8,27 +8,7 @@ class UserImportFile < ApplicationRecord
   scope :not_imported, -> { in_state(:pending) }
   scope :stucked, -> { in_state(:pending).where('user_import_files.created_at < ?', 1.hour.ago) }
 
-  if ENV['ENJU_STORAGE'] == 's3'
-    has_attached_file :user_import, storage: :s3,
-      s3_credentials: {
-        access_key: ENV['AWS_ACCESS_KEY_ID'],
-        secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-        bucket: ENV['S3_BUCKET_NAME'],
-        s3_host_name: ENV['S3_HOST_NAME']
-      },
-      s3_permissions: :private
-  else
-    has_attached_file :user_import,
-      path: ":rails_root/private/system/:class/:attachment/:id_partition/:style/:filename"
-  end
-  validates_attachment_content_type :user_import, content_type: [
-    'text/csv',
-    'text/plain',
-    'text/tab-separated-values',
-    'application/octet-stream',
-    'application/vnd.ms-excel'
-  ]
-  validates_attachment_presence :user_import
+  has_one_attached :attachment
   belongs_to :user
   belongs_to :default_user_group, class_name: 'UserGroup'
   belongs_to :default_library, class_name: 'Library'
@@ -49,7 +29,7 @@ class UserImportFile < ApplicationRecord
   def import
     transition_to!(:started)
     num = { user_imported: 0, user_found: 0, failed: 0, error: 0 }
-    rows = open_import_file(create_import_temp_file(user_import))
+    rows = open_import_file(create_import_temp_file(attachment))
     row_num = 1
 
     field = rows.first
@@ -139,7 +119,7 @@ class UserImportFile < ApplicationRecord
   def modify
     transition_to!(:started)
     num = { user_updated: 0, user_not_found: 0, failed: 0 }
-    rows = open_import_file(create_import_temp_file(user_import))
+    rows = open_import_file(create_import_temp_file(attachment))
     row_num = 1
 
     field = rows.first
@@ -194,7 +174,7 @@ class UserImportFile < ApplicationRecord
   def remove
     transition_to!(:started)
     row_num = 1
-    rows = open_import_file(create_import_temp_file(user_import))
+    rows = open_import_file(create_import_temp_file(attachment))
 
     field = rows.first
     if [field['username']].reject{ |f| f.to_s.strip == "" }.empty?
