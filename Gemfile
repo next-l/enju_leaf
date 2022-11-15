@@ -58,7 +58,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'pundit'
 gem 'sunspot_rails'
-gem 'paperclip'
+gem 'kt-paperclip'
 gem 'acts_as_list'
 gem 'kaminari'
 gem 'strip_attributes'
