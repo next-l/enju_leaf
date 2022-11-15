@@ -85,12 +85,5 @@ RSpec.describe 'Manifestations', type: :system do
       visit manifestation_path(@item.manifestation.id, locale: :ja)
       expect(page).not_to have_content @item.manifestation.memo
     end
-
-    it 'should not download an attachment file' do
-      manifestation = manifestations(:manifestation_00022)
-      manifestation.attachment.attach(io: File.open(Rails.root.join('app/assets/images/spinner.gif')), filename: 'spinner.gif')
-      visit rails_blob_path(manifestation.attachment)
-      expect(response).to be_forbidden
-    end
   end
 end
