@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "IiifPresentationsControllers", type: :request do
+RSpec.describe "IiifPresentationsController", type: :request do
   describe "GET /show" do
     fixtures :all
     before(:each) do
