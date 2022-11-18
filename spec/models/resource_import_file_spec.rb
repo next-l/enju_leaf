@@ -493,5 +493,5 @@ end
 #  resource_import_fingerprint  :string
 #  error_message                :text
 #  user_encoding                :string
-#  default_shelf_id             :integer
+#  default_shelf_id             :bigint
 #
