@@ -72,6 +72,6 @@ end
 #  lock_version           :integer          default(0), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  shelf_id               :integer
+#  shelf_id               :bigint
 #  library_id             :bigint
 #

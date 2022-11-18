@@ -44,7 +44,7 @@ end
 #  note                            :text
 #  repository_content              :boolean          default(FALSE), not null
 #  lock_version                    :integer          default(0), not null
-#  required_role_id                :integer          default(1), not null
+#  required_role_id                :bigint           default(1), not null
 #  required_score                  :integer          default(0), not null
 #  frequency_id                    :integer          default(1), not null
 #  subscription_master             :boolean          default(FALSE), not null

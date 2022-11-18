@@ -324,7 +324,7 @@ end
 #  agent_type_id                       :integer          default(1), not null
 #  lock_version                        :integer          default(0), not null
 #  note                                :text
-#  required_role_id                    :integer          default(1), not null
+#  required_role_id                    :bigint           default(1), not null
 #  required_score                      :integer          default(0), not null
 #  email                               :text
 #  url                                 :text
