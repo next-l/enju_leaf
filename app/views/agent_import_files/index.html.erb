@@ -18,7 +18,7 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to agent_import_file.id, agent_import_file -%></td>
     <td>
-      <%= link_to agent_import_file.agent_import_file_name, agent_import_file_path(agent_import_file, format: :download) if agent_import_file.agent_import_file_name %>
+      <%= link_to agent_import_file.attachment.filename, rails_blob_path(agent_import_file.attachment) if agent_import_file.attachment.attached? %>
     </td>
     <td><%= l(agent_import_file.executed_at) if agent_import_file.executed_at -%></td>
     <td><%= link_to agent_import_file.user.username, agent_import_file.user.profile if agent_import_file.user.try(:profile) -%></td>

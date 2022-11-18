@@ -10,13 +10,13 @@ end
 #
 # Table name: user_reserve_stats
 #
-#  id           :integer          not null, primary key
+#  id           :bigint           not null, primary key
 #  start_date   :datetime
 #  end_date     :datetime
 #  note         :text
-#  created_at   :datetime
-#  updated_at   :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #  started_at   :datetime
 #  completed_at :datetime
-#  user_id      :integer
+#  user_id      :bigint
 #

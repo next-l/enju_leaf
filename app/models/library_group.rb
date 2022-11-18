@@ -21,22 +21,8 @@ class LibraryGroup < ApplicationRecord
   translates :login_banner, :footer_banner
   globalize_accessors
 
-  if ENV['ENJU_STORAGE'] == 's3'
-    has_attached_file :header_logo, storage: :s3, styles: { medium: 'x80'},
-      s3_credentials: {
-        access_key: ENV['AWS_ACCESS_KEY_ID'],
-        secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-        bucket: ENV['S3_BUCKET_NAME'],
-        s3_host_name: ENV['S3_HOST_NAME'],
-        s3_region: ENV["S3_REGION"]
-      },
-      s3_permissions: :private
-  else
-    has_attached_file :header_logo, styles: { medium: 'x80'},
-      path: ":rails_root/private/system/:class/:attachment/:id_partition/:style/:filename"
-  end
+  has_one_attached :header_logo
 
-  validates_attachment_content_type :header_logo, content_type: /\Aimage\/.*\Z/
   attr_accessor :delete_header_logo
 
   def self.site_config
@@ -83,7 +69,7 @@ end
 #
 # Table name: library_groups
 #
-#  id                            :integer          not null, primary key
+#  id                            :bigint           not null, primary key
 #  name                          :string           not null
 #  display_name                  :text
 #  short_name                    :string           not null
@@ -92,8 +78,8 @@ end
 #  note                          :text
 #  country_id                    :integer
 #  position                      :integer
-#  created_at                    :datetime
-#  updated_at                    :datetime
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
 #  admin_networks                :text
 #  allow_bookmark_external_url   :boolean          default(FALSE), not null
 #  url                           :string           default("http://localhost:3000/")
@@ -104,7 +90,7 @@ end
 #  family_name_first             :boolean          default(TRUE)
 #  screenshot_generator          :string
 #  pub_year_facet_range_interval :integer          default(10)
-#  user_id                       :integer
+#  user_id                       :bigint
 #  csv_charset_conversion        :boolean          default(FALSE), not null
 #  header_logo_file_name         :string
 #  header_logo_content_type      :string

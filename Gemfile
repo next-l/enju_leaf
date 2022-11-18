@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.6'
+ruby '3.0.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 7.0.4'
@@ -58,8 +58,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'pundit'
 gem 'sunspot_rails'
-gem 'paperclip'
-gem 'paperclip-meta'
+gem 'kt-paperclip'
 gem 'acts_as_list'
 gem 'kaminari'
 gem 'strip_attributes'
@@ -91,16 +90,18 @@ gem 'caxlsx'
 gem 'caxlsx_rails'
 gem 'rails-i18n', '~> 7.0'
 gem 'sitemap_generator'
+gem 'rss'
 gem 'rdf-turtle', require: 'rdf/turtle'
 gem 'rdf-vocab', require: 'rdf/vocab'
 gem 'oai'
 
 group :development, :test do
   gem 'annotate'
+  gem 'database_consistency'
 end
 
 group :test do
-  gem 'rspec-rails', '~> 6.0.0.beta.2'
+  gem 'rspec-rails'
   gem 'vcr'
   gem 'webmock'
   gem 'factory_bot_rails'

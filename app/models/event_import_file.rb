@@ -7,27 +7,7 @@ class EventImportFile < ApplicationRecord
   scope :not_imported, -> {in_state(:pending)}
   scope :stucked, -> {in_state(:pending).where('event_import_files.created_at < ?', 1.hour.ago)}
 
-  if ENV['ENJU_STORAGE'] == 's3'
-    has_attached_file :event_import, storage: :s3,
-      s3_credentials: {
-        access_key: ENV['AWS_ACCESS_KEY_ID'],
-        secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-        bucket: ENV['S3_BUCKET_NAME'],
-        s3_host_name: ENV['S3_HOST_NAME']
-      },
-      s3_permissions: :private
-  else
-    has_attached_file :event_import,
-      path: ":rails_root/private/system/:class/:attachment/:id_partition/:style/:filename"
-  end
-  validates_attachment_content_type :event_import, content_type: [
-    'text/csv',
-    'text/plain',
-    'text/tab-separated-values',
-    'application/octet-stream',
-    'application/vnd.ms-excel'
-  ]
-  validates_attachment_presence :event_import
+  has_one_attached :attachment
   belongs_to :user
   belongs_to :default_library, class_name: 'Library', optional: true
   belongs_to :default_event_category, class_name: 'EventCategory', optional: true
@@ -47,7 +27,7 @@ class EventImportFile < ApplicationRecord
   def import
     transition_to!(:started)
     num = { imported: 0, failed: 0 }
-    rows = open_import_file(create_import_temp_file(event_import))
+    rows = open_import_file(create_import_temp_file(attachment))
     check_field(rows.first)
     row_num = 1
 
@@ -101,7 +81,7 @@ class EventImportFile < ApplicationRecord
 
   def modify
     transition_to!(:started)
-    rows = open_import_file(create_import_temp_file(event_import))
+    rows = open_import_file(create_import_temp_file(attachment))
     check_field(rows.first)
     row_num = 1
 
@@ -139,7 +119,7 @@ class EventImportFile < ApplicationRecord
 
   def remove
     transition_to!(:started)
-    rows = open_import_file(create_import_temp_file(event_import))
+    rows = open_import_file(create_import_temp_file(attachment))
     rows.shift
     row_num = 1
 
@@ -206,11 +186,11 @@ end
 #
 # Table name: event_import_files
 #
-#  id                        :integer          not null, primary key
+#  id                        :bigint           not null, primary key
 #  parent_id                 :integer
 #  content_type              :string
 #  size                      :integer
-#  user_id                   :integer
+#  user_id                   :bigint
 #  note                      :text
 #  executed_at               :datetime
 #  event_import_file_name    :string
@@ -218,8 +198,8 @@ end
 #  event_import_file_size    :integer
 #  event_import_updated_at   :datetime
 #  edit_mode                 :string
-#  created_at                :datetime
-#  updated_at                :datetime
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
 #  event_import_fingerprint  :string
 #  error_message             :text
 #  user_encoding             :string

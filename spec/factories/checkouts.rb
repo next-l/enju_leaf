@@ -12,17 +12,17 @@ end
 #
 # Table name: checkouts
 #
-#  id                     :integer          not null, primary key
-#  user_id                :integer
-#  item_id                :integer          not null
+#  id                     :bigint           not null, primary key
+#  user_id                :bigint
+#  item_id                :bigint           not null
 #  checkin_id             :integer
-#  librarian_id           :integer
-#  basket_id              :integer
+#  librarian_id           :bigint
+#  basket_id              :bigint
 #  due_date               :datetime
 #  checkout_renewal_count :integer          default(0), not null
 #  lock_version           :integer          default(0), not null
-#  created_at             :datetime
-#  updated_at             :datetime
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
 #  shelf_id               :integer
-#  library_id             :integer
+#  library_id             :bigint
 #

@@ -33,12 +33,12 @@ end
 #
 # Table name: checked_items
 #
-#  id           :integer          not null, primary key
-#  item_id      :integer          not null
-#  basket_id    :integer          not null
-#  librarian_id :integer
+#  id           :bigint           not null, primary key
+#  item_id      :bigint           not null
+#  basket_id    :bigint           not null
+#  librarian_id :bigint
 #  due_date     :datetime         not null
-#  created_at   :datetime
-#  updated_at   :datetime
-#  user_id      :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  user_id      :bigint
 #

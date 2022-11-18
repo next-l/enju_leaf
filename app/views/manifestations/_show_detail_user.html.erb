@@ -84,7 +84,7 @@
             </ul>
           </td>
         </tr>
-        <%- unless manifestation.attachment_file_name.blank? -%>
+        <%- if manifestation.attachment.attached? -%>
           <%= render 'manifestations/attachment_file', manifestation: manifestation -%>
         <%- end -%>
         <tr>

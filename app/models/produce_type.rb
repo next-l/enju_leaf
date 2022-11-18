@@ -7,11 +7,11 @@ end
 #
 # Table name: produce_types
 #
-#  id           :integer          not null, primary key
-#  name         :string
+#  id           :bigint           not null, primary key
+#  name         :string           not null
 #  display_name :text
 #  note         :text
 #  position     :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #

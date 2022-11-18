@@ -5,7 +5,7 @@ describe UserImportFile do
 
   describe "when its mode is 'create'" do
     before(:each) do
-      @file = UserImportFile.new user_import: fixture_file_upload("/user_import_file_sample.tsv")
+      @file = UserImportFile.new attachment: fixture_file_upload("/user_import_file_sample.tsv")
       @file.default_user_group = UserGroup.find(2)
       @file.default_library = Library.find(3)
       @file.user = users(:admin)
@@ -13,7 +13,7 @@ describe UserImportFile do
     end
 
     it "should be imported" do
-      file = UserImportFile.new user_import: fixture_file_upload("user_import_file_sample.tsv")
+      file = UserImportFile.new attachment: fixture_file_upload("user_import_file_sample.tsv")
       file.default_user_group = UserGroup.find(2)
       file.default_library = Library.find(3)
       file.user = users(:admin)
@@ -72,7 +72,6 @@ describe UserImportFile do
       user006.profile.user_number.should be_nil
       user006.profile.user_group.name.should eq UserGroup.find(2).name
 
-      file.user_import_fingerprint.should be_truthy
       file.executed_at.should be_truthy
 
       file.reload
@@ -109,7 +108,7 @@ describe UserImportFile do
 
     it "should update users" do
       @file = UserImportFile.create!(
-        user_import: fixture_file_upload("user_update_file.tsv"),
+        attachment: fixture_file_upload("user_update_file.tsv"),
         user: users(:admin),
         default_library: libraries(:library_00001),
         default_user_group: user_groups(:user_group_00001)
@@ -138,7 +137,7 @@ describe UserImportFile do
         keyword_list: 'keyword1 keyword2',
         date_of_birth: 10.years.ago)
       file = UserImportFile.create!(
-        user_import: fixture_file_upload("user_update_file2.tsv"),
+        attachment: fixture_file_upload("user_update_file2.tsv"),
         user: users(:admin),
         default_user_group: UserGroup.find(2),
         default_library: Library.find(3)
@@ -155,7 +154,7 @@ describe UserImportFile do
 
     it "should update user_number" do
       file = UserImportFile.create!(
-        user_import: fixture_file_upload("user_update_file3.tsv"),
+        attachment: fixture_file_upload("user_update_file3.tsv"),
         user: users(:admin),
         default_user_group: UserGroup.find(2),
         default_library: Library.find(3)
@@ -168,7 +167,7 @@ describe UserImportFile do
 
     it "should update user's lock status" do
       file = UserImportFile.create!(
-        user_import: fixture_file_upload("user_update_file4.tsv"),
+        attachment: fixture_file_upload("user_update_file4.tsv"),
         user: users(:admin),
         default_user_group: UserGroup.find(2),
         default_library: Library.find(3)
@@ -181,7 +180,7 @@ describe UserImportFile do
 
     it "should update user's password" do
       file = UserImportFile.create!(
-        user_import: fixture_file_upload("user_update_file4.tsv"),
+        attachment: fixture_file_upload("user_update_file4.tsv"),
         user: users(:admin),
         default_user_group: UserGroup.find(2),
         default_library: Library.find(3)
@@ -199,7 +198,7 @@ describe UserImportFile do
   describe "when its mode is 'destroy'" do
     before(:each) do
       file = UserImportFile.create!(
-        user_import: fixture_file_upload("user_import_file_sample.tsv"),
+        attachment: fixture_file_upload("user_import_file_sample.tsv"),
         user: users(:admin),
         default_user_group: UserGroup.find(2),
         default_library: Library.find(3)
@@ -210,7 +209,7 @@ describe UserImportFile do
     it "should remove users" do
       old_count = User.count
       file = UserImportFile.create!(
-        user_import: fixture_file_upload("user_delete_file.tsv"),
+        attachment: fixture_file_upload("user_delete_file.tsv"),
         user: users(:admin),
         default_user_group: UserGroup.find(2),
         default_library: Library.find(3)
@@ -226,7 +225,7 @@ describe UserImportFile do
       FactoryBot.create(:checkout, user: user001, item: FactoryBot.create(:item))
       old_count = User.count
       file = UserImportFile.create!(
-        user_import: fixture_file_upload("user_delete_file.tsv"),
+        attachment: fixture_file_upload("user_delete_file.tsv"),
         user: users(:admin),
         default_user_group: UserGroup.find(2),
         default_library: Library.find(3)
@@ -238,7 +237,7 @@ describe UserImportFile do
   end
 
   it "should import in background" do
-    file = UserImportFile.new user_import: fixture_file_upload("user_import_file_sample.tsv"), user: users(:admin)
+    file = UserImportFile.new attachment: fixture_file_upload("user_import_file_sample.tsv"), user: users(:admin)
     file.user = users(:admin)
     file.default_user_group = UserGroup.find(2)
     file.default_library = Library.find(3)
@@ -251,8 +250,8 @@ end
 #
 # Table name: user_import_files
 #
-#  id                       :integer          not null, primary key
-#  user_id                  :integer
+#  id                       :bigint           not null, primary key
+#  user_id                  :bigint
 #  note                     :text
 #  executed_at              :datetime
 #  user_import_file_name    :string
@@ -262,8 +261,8 @@ end
 #  user_import_fingerprint  :string
 #  edit_mode                :string
 #  error_message            :text
-#  created_at               :datetime
-#  updated_at               :datetime
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
 #  user_encoding            :string
 #  default_library_id       :integer
 #  default_user_group_id    :integer

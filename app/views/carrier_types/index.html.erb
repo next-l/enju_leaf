@@ -23,7 +23,7 @@
       <%- end -%>
     </td>
     <td>
-      <%= image_tag(carrier_type_path(carrier_type, format: :download), size: '16x16', class: 'enju_icon', alt: carrier_type.display_name.localize) %>
+      <%= image_tag(carrier_type.attachment.representation(resize_to_limit: [16, 16]), size: '16x16', class: 'enju_icon', alt: carrier_type.display_name.localize) %>
       <%= carrier_type.name -%>
     </td>
     <td>

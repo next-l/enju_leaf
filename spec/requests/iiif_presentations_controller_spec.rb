@@ -1,10 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "IiifPresentationsControllers", type: :request do
+RSpec.describe "IiifPresentationsController", type: :request do
   describe "GET /show" do
     fixtures :all
     before(:each) do
       @manifestation = manifestations(:manifestation_00001)
+      @manifestation.picture_files.first.attachment.attach(io: File.open(Rails.root.join('app/assets/images/spinner.gif')), filename: 'spinner.gif')
     end
 
     it "should get show" do
