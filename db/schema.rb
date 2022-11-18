@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_14_163530) do
+ActiveRecord::Schema.define(version: 2022_11_18_181737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -179,7 +179,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.integer "agent_type_id", default: 1, null: false
     t.integer "lock_version", default: 0, null: false
     t.text "note"
-    t.integer "required_role_id", default: 1, null: false
+    t.bigint "required_role_id", default: 1, null: false
     t.integer "required_score", default: 0, null: false
     t.text "email"
     t.text "url"
@@ -367,7 +367,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "shelf_id"
+    t.bigint "shelf_id"
     t.bigint "library_id"
     t.index ["basket_id"], name: "index_checkouts_on_basket_id"
     t.index ["checkin_id"], name: "index_checkouts_on_checkin_id"
@@ -418,7 +418,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
   end
 
   create_table "colors", force: :cascade do |t|
-    t.integer "library_group_id"
+    t.bigint "library_group_id"
     t.string "property"
     t.string "code"
     t.integer "position"
@@ -733,13 +733,13 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.string "item_identifier"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "shelf_id", default: 1, null: false
+    t.bigint "shelf_id", default: 1, null: false
     t.boolean "include_supplements", default: false, null: false
     t.text "note"
     t.string "url"
     t.integer "price"
     t.integer "lock_version", default: 0, null: false
-    t.integer "required_role_id", default: 1, null: false
+    t.bigint "required_role_id", default: 1, null: false
     t.integer "required_score", default: 0, null: false
     t.datetime "acquired_at"
     t.integer "bookstore_id"
@@ -800,7 +800,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.text "note"
     t.integer "call_number_rows", default: 1, null: false
     t.string "call_number_delimiter", default: "|", null: false
-    t.integer "library_group_id", null: false
+    t.bigint "library_group_id", null: false
     t.integer "users_count", default: 0, null: false
     t.integer "position"
     t.integer "country_id"
@@ -815,7 +815,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
   end
 
   create_table "library_group_translations", force: :cascade do |t|
-    t.integer "library_group_id", null: false
+    t.bigint "library_group_id", null: false
     t.string "locale", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -987,7 +987,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.text "note"
     t.boolean "repository_content", default: false, null: false
     t.integer "lock_version", default: 0, null: false
-    t.integer "required_role_id", default: 1, null: false
+    t.bigint "required_role_id", default: 1, null: false
     t.integer "required_score", default: 0, null: false
     t.integer "frequency_id", default: 1, null: false
     t.boolean "subscription_master", default: false, null: false
@@ -1088,7 +1088,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
   end
 
   create_table "news_feeds", force: :cascade do |t|
-    t.integer "library_group_id", default: 1, null: false
+    t.bigint "library_group_id", default: 1, null: false
     t.string "title"
     t.string "url"
     t.text "body"
@@ -1103,7 +1103,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.bigint "user_id"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.integer "required_role_id", default: 1, null: false
+    t.bigint "required_role_id", default: 1, null: false
     t.text "note"
     t.integer "position"
     t.boolean "draft", default: false, null: false
@@ -1203,7 +1203,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.text "full_name"
     t.text "note"
     t.text "keyword_list"
-    t.integer "required_role_id"
+    t.bigint "required_role_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "checkout_icalendar_token"
@@ -1369,7 +1369,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.string "resource_import_fingerprint"
     t.text "error_message"
     t.string "user_encoding"
-    t.integer "default_shelf_id"
+    t.bigint "default_shelf_id"
     t.index ["parent_id"], name: "index_resource_import_files_on_parent_id"
     t.index ["user_id"], name: "index_resource_import_files_on_user_id"
   end
@@ -1493,7 +1493,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.integer "subject_type_id", null: false
     t.text "scope_note"
     t.text "note"
-    t.integer "required_role_id", default: 1, null: false
+    t.bigint "required_role_id", default: 1, null: false
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -1655,7 +1655,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
 
   create_table "user_has_roles", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.integer "role_id", null: false
+    t.bigint "role_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["role_id"], name: "index_user_has_roles_on_role_id"
