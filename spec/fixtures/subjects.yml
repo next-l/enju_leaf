@@ -68,7 +68,7 @@ subject_00005:
 #  subject_type_id         :integer          not null
 #  scope_note              :text
 #  note                    :text
-#  required_role_id        :integer          default(1), not null
+#  required_role_id        :bigint           default(1), not null
 #  lock_version            :integer          default(0), not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null

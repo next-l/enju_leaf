@@ -40,7 +40,7 @@ end
 #  user_id          :bigint
 #  start_date       :datetime
 #  end_date         :datetime
-#  required_role_id :integer          default(1), not null
+#  required_role_id :bigint           default(1), not null
 #  note             :text
 #  position         :integer
 #  draft            :boolean          default(FALSE), not null

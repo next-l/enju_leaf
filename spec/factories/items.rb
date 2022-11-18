@@ -20,13 +20,13 @@ end
 #  item_identifier         :string
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  shelf_id                :integer          default(1), not null
+#  shelf_id                :bigint           default(1), not null
 #  include_supplements     :boolean          default(FALSE), not null
 #  note                    :text
 #  url                     :string
 #  price                   :integer
 #  lock_version            :integer          default(0), not null
-#  required_role_id        :integer          default(1), not null
+#  required_role_id        :bigint           default(1), not null
 #  required_score          :integer          default(0), not null
 #  acquired_at             :datetime
 #  bookstore_id            :integer
