@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_18_170433) do
+ActiveRecord::Schema.define(version: 2022_11_18_181737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -418,7 +418,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_170433) do
   end
 
   create_table "colors", force: :cascade do |t|
-    t.integer "library_group_id"
+    t.bigint "library_group_id"
     t.string "property"
     t.string "code"
     t.integer "position"
@@ -800,7 +800,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_170433) do
     t.text "note"
     t.integer "call_number_rows", default: 1, null: false
     t.string "call_number_delimiter", default: "|", null: false
-    t.integer "library_group_id", null: false
+    t.bigint "library_group_id", null: false
     t.integer "users_count", default: 0, null: false
     t.integer "position"
     t.integer "country_id"
@@ -815,7 +815,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_170433) do
   end
 
   create_table "library_group_translations", force: :cascade do |t|
-    t.integer "library_group_id", null: false
+    t.bigint "library_group_id", null: false
     t.string "locale", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -1088,7 +1088,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_170433) do
   end
 
   create_table "news_feeds", force: :cascade do |t|
-    t.integer "library_group_id", default: 1, null: false
+    t.bigint "library_group_id", default: 1, null: false
     t.string "title"
     t.string "url"
     t.text "body"
