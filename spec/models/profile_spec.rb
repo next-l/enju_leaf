@@ -57,7 +57,7 @@ end
 #
 #  id                       :bigint           not null, primary key
 #  user_id                  :bigint
-#  user_group_id            :integer
+#  user_group_id            :bigint
 #  library_id               :bigint
 #  locale                   :string
 #  user_number              :string

@@ -11,11 +11,11 @@ end
 # Table name: subjects
 #
 #  id                      :bigint           not null, primary key
-#  parent_id               :integer
-#  use_term_id             :integer
+#  parent_id               :bigint
+#  use_term_id             :bigint
 #  term                    :string
 #  term_transcription      :text
-#  subject_type_id         :integer          not null
+#  subject_type_id         :bigint           not null
 #  scope_note              :text
 #  note                    :text
 #  required_role_id        :bigint           default(1), not null
@@ -24,5 +24,5 @@ end
 #  updated_at              :datetime         not null
 #  url                     :string
 #  manifestation_id        :bigint
-#  subject_heading_type_id :integer
+#  subject_heading_type_id :bigint
 #

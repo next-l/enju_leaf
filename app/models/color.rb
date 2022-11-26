@@ -11,7 +11,7 @@ end
 # Table name: colors
 #
 #  id               :bigint           not null, primary key
-#  library_group_id :integer
+#  library_group_id :bigint
 #  property         :string
 #  code             :string
 #  position         :integer

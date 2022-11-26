@@ -1,6 +1,6 @@
 class ItemCustomValue < ApplicationRecord
   belongs_to :item_custom_property
-  belongs_to :item, optional: true
+  belongs_to :item
   validates :item_custom_property, uniqueness: {scope: :item_id}
 end
 

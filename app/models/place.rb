@@ -10,7 +10,7 @@ end
 #  id         :bigint           not null, primary key
 #  term       :string
 #  city       :text
-#  country_id :integer
+#  country_id :bigint
 #  latitude   :float
 #  longitude  :float
 #  created_at :datetime         not null

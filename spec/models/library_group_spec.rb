@@ -34,7 +34,7 @@ end
 #  my_networks                   :text
 #  old_login_banner              :text
 #  note                          :text
-#  country_id                    :integer
+#  country_id                    :bigint
 #  position                      :integer
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null

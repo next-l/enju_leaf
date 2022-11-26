@@ -477,7 +477,7 @@ end
 # Table name: resource_import_files
 #
 #  id                           :bigint           not null, primary key
-#  parent_id                    :integer
+#  parent_id                    :bigint
 #  content_type                 :string
 #  size                         :integer
 #  user_id                      :bigint

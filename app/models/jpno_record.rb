@@ -1,5 +1,6 @@
 class JpnoRecord < ApplicationRecord
   belongs_to :manifestation
+  validates :body, presence: true
 end
 
 # == Schema Information

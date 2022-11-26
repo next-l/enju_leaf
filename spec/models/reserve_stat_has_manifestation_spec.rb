@@ -10,7 +10,7 @@ end
 # Table name: reserve_stat_has_manifestations
 #
 #  id                            :bigint           not null, primary key
-#  manifestation_reserve_stat_id :integer          not null
+#  manifestation_reserve_stat_id :bigint           not null
 #  manifestation_id              :bigint           not null
 #  reserves_count                :integer
 #  created_at                    :datetime         not null

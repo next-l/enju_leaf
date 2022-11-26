@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_18_181737) do
+ActiveRecord::Schema.define(version: 2022_11_14_163530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.string "to_state"
     t.text "metadata", default: "{}"
     t.integer "sort_key"
-    t.integer "agent_import_file_id"
+    t.bigint "agent_import_file_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "most_recent", null: false
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "agent_import_files", force: :cascade do |t|
-    t.integer "parent_id"
+    t.bigint "parent_id"
     t.string "content_type"
     t.integer "size"
     t.bigint "user_id"
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "agent_import_results", force: :cascade do |t|
-    t.integer "agent_import_file_id"
+    t.bigint "agent_import_file_id"
     t.bigint "agent_id"
     t.text "body"
     t.datetime "created_at", precision: 6, null: false
@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
 
   create_table "agent_merges", force: :cascade do |t|
     t.bigint "agent_id", null: false
-    t.integer "agent_merge_list_id", null: false
+    t.bigint "agent_merge_list_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["agent_id"], name: "index_agent_merges_on_agent_id"
@@ -122,9 +122,9 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "agent_relationships", force: :cascade do |t|
-    t.integer "parent_id"
-    t.integer "child_id"
-    t.integer "agent_relationship_type_id"
+    t.bigint "parent_id"
+    t.bigint "child_id"
+    t.bigint "agent_relationship_type_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "position"
@@ -174,9 +174,9 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.text "region"
     t.datetime "date_of_birth"
     t.datetime "date_of_death"
-    t.integer "language_id", default: 1, null: false
-    t.integer "country_id", default: 1, null: false
-    t.integer "agent_type_id", default: 1, null: false
+    t.bigint "language_id", default: 1, null: false
+    t.bigint "country_id", default: 1, null: false
+    t.bigint "agent_type_id", default: 1, null: false
     t.integer "lock_version", default: 0, null: false
     t.text "note"
     t.bigint "required_role_id", default: 1, null: false
@@ -187,7 +187,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.string "birth_date"
     t.string "death_date"
     t.string "agent_identifier"
-    t.integer "profile_id"
+    t.bigint "profile_id"
     t.index ["agent_identifier"], name: "index_agents_on_agent_identifier"
     t.index ["country_id"], name: "index_agents_on_country_id"
     t.index ["full_name"], name: "index_agents_on_full_name"
@@ -206,7 +206,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "bookmark_stat_has_manifestations", force: :cascade do |t|
-    t.integer "bookmark_stat_id", null: false
+    t.bigint "bookmark_stat_id", null: false
     t.bigint "manifestation_id", null: false
     t.integer "bookmarks_count"
     t.datetime "created_at", precision: 6, null: false
@@ -219,7 +219,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.string "to_state"
     t.text "metadata", default: "{}"
     t.integer "sort_key"
-    t.integer "bookmark_stat_id"
+    t.bigint "bookmark_stat_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "most_recent", null: false
@@ -276,8 +276,8 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "carrier_type_has_checkout_types", force: :cascade do |t|
-    t.integer "carrier_type_id", null: false
-    t.integer "checkout_type_id", null: false
+    t.bigint "carrier_type_id", null: false
+    t.bigint "checkout_type_id", null: false
     t.text "note"
     t.integer "position"
     t.datetime "created_at", precision: 6, null: false
@@ -327,7 +327,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "checkout_stat_has_manifestations", force: :cascade do |t|
-    t.integer "manifestation_checkout_stat_id", null: false
+    t.bigint "manifestation_checkout_stat_id", null: false
     t.bigint "manifestation_id", null: false
     t.integer "checkouts_count"
     t.datetime "created_at", precision: 6, null: false
@@ -337,7 +337,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "checkout_stat_has_users", force: :cascade do |t|
-    t.integer "user_checkout_stat_id", null: false
+    t.bigint "user_checkout_stat_id", null: false
     t.bigint "user_id", null: false
     t.integer "checkouts_count", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
@@ -359,7 +359,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   create_table "checkouts", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "item_id", null: false
-    t.integer "checkin_id"
+    t.bigint "checkin_id"
     t.bigint "librarian_id"
     t.bigint "basket_id"
     t.datetime "due_date"
@@ -400,10 +400,10 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "classifications", force: :cascade do |t|
-    t.integer "parent_id"
+    t.bigint "parent_id"
     t.string "category", null: false
     t.text "note"
-    t.integer "classification_type_id", null: false
+    t.bigint "classification_type_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "lft"
@@ -463,11 +463,11 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
 
   create_table "creates", force: :cascade do |t|
     t.bigint "agent_id", null: false
-    t.integer "work_id", null: false
+    t.bigint "work_id", null: false
     t.integer "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "create_type_id"
+    t.bigint "create_type_id"
     t.index ["agent_id"], name: "index_creates_on_agent_id"
     t.index ["work_id", "agent_id"], name: "index_creates_on_work_id_and_agent_id", unique: true
   end
@@ -475,7 +475,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   create_table "demands", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "item_id"
-    t.integer "message_id"
+    t.bigint "message_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["item_id"], name: "index_demands_on_item_id"
@@ -505,7 +505,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.string "to_state"
     t.text "metadata", default: "{}"
     t.integer "sort_key"
-    t.integer "event_export_file_id"
+    t.bigint "event_export_file_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "most_recent", null: false
@@ -530,7 +530,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.string "to_state"
     t.text "metadata", default: "{}"
     t.integer "sort_key"
-    t.integer "event_import_file_id"
+    t.bigint "event_import_file_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "most_recent", null: false
@@ -540,7 +540,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "event_import_files", force: :cascade do |t|
-    t.integer "parent_id"
+    t.bigint "parent_id"
     t.string "content_type"
     t.integer "size"
     t.bigint "user_id"
@@ -556,15 +556,15 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.string "event_import_fingerprint"
     t.text "error_message"
     t.string "user_encoding"
-    t.integer "default_library_id"
-    t.integer "default_event_category_id"
+    t.bigint "default_library_id"
+    t.bigint "default_event_category_id"
     t.index ["parent_id"], name: "index_event_import_files_on_parent_id"
     t.index ["user_id"], name: "index_event_import_files_on_user_id"
   end
 
   create_table "event_import_results", force: :cascade do |t|
-    t.integer "event_import_file_id"
-    t.integer "event_id"
+    t.bigint "event_import_file_id"
+    t.bigint "event_id"
     t.text "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -572,7 +572,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
 
   create_table "events", force: :cascade do |t|
     t.bigint "library_id", null: false
-    t.integer "event_category_id", null: false
+    t.bigint "event_category_id", null: false
     t.string "name", null: false
     t.text "note"
     t.datetime "start_at"
@@ -581,7 +581,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.text "display_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "place_id"
+    t.bigint "place_id"
     t.index ["event_category_id"], name: "index_events_on_event_category_id"
     t.index ["library_id"], name: "index_events_on_library_id"
     t.index ["place_id"], name: "index_events_on_place_id"
@@ -619,7 +619,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
 
   create_table "identifiers", force: :cascade do |t|
     t.string "body", null: false
-    t.integer "identifier_type_id", null: false
+    t.bigint "identifier_type_id", null: false
     t.bigint "manifestation_id"
     t.boolean "primary"
     t.integer "position"
@@ -633,7 +633,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.string "name", null: false
     t.string "email"
     t.string "password_digest"
-    t.integer "profile_id"
+    t.bigint "profile_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "provider"
@@ -646,7 +646,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.string "to_state"
     t.text "metadata", default: "{}"
     t.integer "sort_key"
-    t.integer "import_request_id"
+    t.bigint "import_request_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "most_recent", null: false
@@ -668,7 +668,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
 
   create_table "inventories", force: :cascade do |t|
     t.bigint "item_id"
-    t.integer "inventory_file_id"
+    t.bigint "inventory_file_id"
     t.text "note"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -721,7 +721,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
 
   create_table "item_has_use_restrictions", force: :cascade do |t|
     t.bigint "item_id", null: false
-    t.integer "use_restriction_id", null: false
+    t.bigint "use_restriction_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["item_id", "use_restriction_id"], name: "index_item_has_use_restrictions_on_item_and_use_restriction", unique: true
@@ -742,10 +742,10 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.bigint "required_role_id", default: 1, null: false
     t.integer "required_score", default: 0, null: false
     t.datetime "acquired_at"
-    t.integer "bookstore_id"
-    t.integer "budget_type_id"
-    t.integer "circulation_status_id", default: 5, null: false
-    t.integer "checkout_type_id", default: 1, null: false
+    t.bigint "bookstore_id"
+    t.bigint "budget_type_id"
+    t.bigint "circulation_status_id", default: 5, null: false
+    t.bigint "checkout_type_id", default: 1, null: false
     t.string "binding_item_identifier"
     t.string "binding_call_number"
     t.datetime "binded_at"
@@ -803,7 +803,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.bigint "library_group_id", null: false
     t.integer "users_count", default: 0, null: false
     t.integer "position"
-    t.integer "country_id"
+    t.bigint "country_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "opening_hour"
@@ -832,7 +832,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.text "my_networks"
     t.text "old_login_banner"
     t.text "note"
-    t.integer "country_id"
+    t.bigint "country_id"
     t.integer "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -872,7 +872,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.string "to_state"
     t.text "metadata", default: "{}"
     t.integer "sort_key"
-    t.integer "manifestation_checkout_stat_id"
+    t.bigint "manifestation_checkout_stat_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "most_recent", null: false
@@ -925,9 +925,9 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "manifestation_relationships", force: :cascade do |t|
-    t.integer "parent_id"
-    t.integer "child_id"
-    t.integer "manifestation_relationship_type_id"
+    t.bigint "parent_id"
+    t.bigint "child_id"
+    t.bigint "manifestation_relationship_type_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "position"
@@ -939,7 +939,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.string "to_state"
     t.text "metadata", default: "{}"
     t.integer "sort_key"
-    t.integer "manifestation_reserve_stat_id"
+    t.bigint "manifestation_reserve_stat_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "most_recent", null: false
@@ -971,8 +971,8 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "access_address"
-    t.integer "language_id", default: 1, null: false
-    t.integer "carrier_type_id", default: 1, null: false
+    t.bigint "language_id", default: 1, null: false
+    t.bigint "carrier_type_id", default: 1, null: false
     t.integer "start_page"
     t.integer "end_page"
     t.integer "height"
@@ -989,13 +989,13 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.integer "lock_version", default: 0, null: false
     t.bigint "required_role_id", default: 1, null: false
     t.integer "required_score", default: 0, null: false
-    t.integer "frequency_id", default: 1, null: false
+    t.bigint "frequency_id", default: 1, null: false
     t.boolean "subscription_master", default: false, null: false
     t.string "attachment_file_name"
     t.string "attachment_content_type"
     t.integer "attachment_file_size"
     t.datetime "attachment_updated_at"
-    t.integer "nii_type_id"
+    t.bigint "nii_type_id"
     t.text "title_alternative_transcription"
     t.text "description"
     t.text "abstract"
@@ -1009,7 +1009,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.integer "volume_number"
     t.integer "issue_number"
     t.integer "serial_number"
-    t.integer "content_type_id", default: 1
+    t.bigint "content_type_id", default: 1
     t.integer "year_of_publication"
     t.text "attachment_meta"
     t.integer "month_of_publication"
@@ -1135,7 +1135,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
 
   create_table "participates", force: :cascade do |t|
     t.bigint "agent_id", null: false
-    t.integer "event_id", null: false
+    t.bigint "event_id", null: false
     t.integer "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -1144,7 +1144,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "picture_files", force: :cascade do |t|
-    t.integer "picture_attachable_id"
+    t.bigint "picture_attachable_id"
     t.string "picture_attachable_type"
     t.text "title"
     t.integer "position"
@@ -1164,7 +1164,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   create_table "places", force: :cascade do |t|
     t.string "term"
     t.text "city"
-    t.integer "country_id"
+    t.bigint "country_id"
     t.float "latitude"
     t.float "longitude"
     t.datetime "created_at", precision: 6, null: false
@@ -1189,14 +1189,14 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.integer "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "produce_type_id"
+    t.bigint "produce_type_id"
     t.index ["agent_id"], name: "index_produces_on_agent_id"
     t.index ["manifestation_id", "agent_id"], name: "index_produces_on_manifestation_id_and_agent_id", unique: true
   end
 
   create_table "profiles", force: :cascade do |t|
     t.bigint "user_id"
-    t.integer "user_group_id"
+    t.bigint "user_group_id"
     t.bigint "library_id"
     t.string "locale"
     t.string "user_number"
@@ -1231,11 +1231,11 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
 
   create_table "realizes", force: :cascade do |t|
     t.bigint "agent_id", null: false
-    t.integer "expression_id", null: false
+    t.bigint "expression_id", null: false
     t.integer "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "realize_type_id"
+    t.bigint "realize_type_id"
     t.index ["agent_id"], name: "index_realizes_on_agent_id"
     t.index ["expression_id", "agent_id"], name: "index_realizes_on_expression_id_and_agent_id", unique: true
   end
@@ -1261,7 +1261,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "reserve_stat_has_manifestations", force: :cascade do |t|
-    t.integer "manifestation_reserve_stat_id", null: false
+    t.bigint "manifestation_reserve_stat_id", null: false
     t.bigint "manifestation_id", null: false
     t.integer "reserves_count"
     t.datetime "created_at", precision: 6, null: false
@@ -1271,7 +1271,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "reserve_stat_has_users", force: :cascade do |t|
-    t.integer "user_reserve_stat_id", null: false
+    t.bigint "user_reserve_stat_id", null: false
     t.bigint "user_id", null: false
     t.integer "reserves_count"
     t.datetime "created_at", precision: 6, null: false
@@ -1284,7 +1284,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.string "to_state"
     t.text "metadata", default: "{}"
     t.integer "sort_key"
-    t.integer "reserve_id"
+    t.bigint "reserve_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "most_recent", null: false
@@ -1297,7 +1297,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.bigint "user_id", null: false
     t.bigint "manifestation_id", null: false
     t.bigint "item_id"
-    t.integer "request_status_type_id", null: false
+    t.bigint "request_status_type_id", null: false
     t.datetime "checked_out_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -1305,7 +1305,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.datetime "expired_at"
     t.boolean "expiration_notice_to_patron", default: false
     t.boolean "expiration_notice_to_library", default: false
-    t.integer "pickup_location_id"
+    t.bigint "pickup_location_id"
     t.datetime "retained_at"
     t.datetime "postponed_at"
     t.integer "lock_version", default: 0, null: false
@@ -1319,7 +1319,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.string "to_state"
     t.text "metadata", default: "{}"
     t.integer "sort_key"
-    t.integer "resource_export_file_id"
+    t.bigint "resource_export_file_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "most_recent", null: false
@@ -1343,7 +1343,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.string "to_state"
     t.text "metadata", default: "{}"
     t.integer "sort_key"
-    t.integer "resource_import_file_id"
+    t.bigint "resource_import_file_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "most_recent", null: false
@@ -1353,7 +1353,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "resource_import_files", force: :cascade do |t|
-    t.integer "parent_id"
+    t.bigint "parent_id"
     t.string "content_type"
     t.integer "size"
     t.bigint "user_id"
@@ -1375,7 +1375,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "resource_import_results", force: :cascade do |t|
-    t.integer "resource_import_file_id"
+    t.bigint "resource_import_file_id"
     t.bigint "manifestation_id"
     t.bigint "item_id"
     t.text "body"
@@ -1419,8 +1419,8 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "series_statement_merges", force: :cascade do |t|
-    t.integer "series_statement_id", null: false
-    t.integer "series_statement_merge_list_id", null: false
+    t.bigint "series_statement_id", null: false
+    t.bigint "series_statement_merge_list_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["series_statement_id"], name: "index_series_statement_merges_on_series_statement_id"
@@ -1445,7 +1445,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.text "volume_number_string"
     t.text "volume_number_transcription_string"
     t.boolean "series_master"
-    t.integer "root_manifestation_id"
+    t.bigint "root_manifestation_id"
     t.index ["manifestation_id"], name: "index_series_statements_on_manifestation_id"
     t.index ["root_manifestation_id"], name: "index_series_statements_on_root_manifestation_id"
     t.index ["series_statement_identifier"], name: "index_series_statements_on_series_statement_identifier"
@@ -1486,11 +1486,11 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "subjects", force: :cascade do |t|
-    t.integer "parent_id"
-    t.integer "use_term_id"
+    t.bigint "parent_id"
+    t.bigint "use_term_id"
     t.string "term"
     t.text "term_transcription"
-    t.integer "subject_type_id", null: false
+    t.bigint "subject_type_id", null: false
     t.text "scope_note"
     t.text "note"
     t.bigint "required_role_id", default: 1, null: false
@@ -1499,7 +1499,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "url"
     t.bigint "manifestation_id"
-    t.integer "subject_heading_type_id"
+    t.bigint "subject_heading_type_id"
     t.index ["manifestation_id"], name: "index_subjects_on_manifestation_id"
     t.index ["parent_id"], name: "index_subjects_on_parent_id"
     t.index ["required_role_id"], name: "index_subjects_on_required_role_id"
@@ -1509,8 +1509,8 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "subscribes", force: :cascade do |t|
-    t.integer "subscription_id", null: false
-    t.integer "work_id", null: false
+    t.bigint "subscription_id", null: false
+    t.bigint "work_id", null: false
     t.datetime "start_at", null: false
     t.datetime "end_at", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -1523,7 +1523,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.text "title", null: false
     t.text "note"
     t.bigint "user_id"
-    t.integer "order_list_id"
+    t.bigint "order_list_id"
     t.integer "subscribes_count", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -1532,11 +1532,11 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "taggings", force: :cascade do |t|
-    t.integer "tag_id"
+    t.bigint "tag_id"
     t.string "taggable_type"
-    t.integer "taggable_id"
+    t.bigint "taggable_id"
     t.string "tagger_type"
-    t.integer "tagger_id"
+    t.bigint "tagger_id"
     t.string "context", limit: 128
     t.datetime "created_at", precision: 6, null: false
     t.index ["context"], name: "index_taggings_on_context"
@@ -1572,7 +1572,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.string "to_state"
     t.text "metadata", default: "{}"
     t.integer "sort_key"
-    t.integer "user_checkout_stat_id"
+    t.bigint "user_checkout_stat_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "most_recent", null: false
@@ -1597,7 +1597,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.string "to_state"
     t.text "metadata", default: "{}"
     t.integer "sort_key"
-    t.integer "user_export_file_id"
+    t.bigint "user_export_file_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "most_recent", null: false
@@ -1620,8 +1620,8 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
   end
 
   create_table "user_group_has_checkout_types", force: :cascade do |t|
-    t.integer "user_group_id", null: false
-    t.integer "checkout_type_id", null: false
+    t.bigint "user_group_id", null: false
+    t.bigint "checkout_type_id", null: false
     t.integer "checkout_limit", default: 0, null: false
     t.integer "checkout_period", default: 0, null: false
     t.integer "checkout_renewal_limit", default: 0, null: false
@@ -1666,7 +1666,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.string "to_state"
     t.text "metadata", default: "{}"
     t.integer "sort_key"
-    t.integer "user_import_file_id"
+    t.bigint "user_import_file_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "most_recent", null: false
@@ -1689,13 +1689,13 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "user_encoding"
-    t.integer "default_library_id"
-    t.integer "default_user_group_id"
+    t.bigint "default_library_id"
+    t.bigint "default_user_group_id"
     t.index ["user_id"], name: "index_user_import_files_on_user_id"
   end
 
   create_table "user_import_results", force: :cascade do |t|
-    t.integer "user_import_file_id"
+    t.bigint "user_import_file_id"
     t.bigint "user_id"
     t.text "body"
     t.datetime "created_at", precision: 6, null: false
@@ -1709,7 +1709,7 @@ ActiveRecord::Schema.define(version: 2022_11_18_181737) do
     t.string "to_state"
     t.text "metadata", default: "{}"
     t.integer "sort_key"
-    t.integer "user_reserve_stat_id"
+    t.bigint "user_reserve_stat_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "most_recent", null: false

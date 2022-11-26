@@ -11,7 +11,7 @@ end
 #
 #  id                 :bigint           not null, primary key
 #  item_id            :bigint
-#  inventory_file_id  :integer
+#  inventory_file_id  :bigint
 #  note               :text
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null

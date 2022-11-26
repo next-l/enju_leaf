@@ -20,8 +20,7 @@ class Library < ApplicationRecord
     integer :position
   end
 
-  validates :short_display_name, presence: true
-  validates :short_display_name, uniqueness: { case_sensitive: false }
+  validates :short_display_name, presence: true, uniqueness: { case_sensitive: false }
   validates :isil, uniqueness: { allow_blank: true }
   validates :display_name, uniqueness: true
   validates :name, format: { with: /\A[a-z][0-9a-z\-_]{1,253}[0-9a-z]\Z/ }
@@ -96,10 +95,10 @@ end
 #  note                  :text
 #  call_number_rows      :integer          default(1), not null
 #  call_number_delimiter :string           default("|"), not null
-#  library_group_id      :integer          not null
+#  library_group_id      :bigint           not null
 #  users_count           :integer          default(0), not null
 #  position              :integer
-#  country_id            :integer
+#  country_id            :bigint
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  opening_hour          :text
