@@ -16,7 +16,7 @@ end
 #  name            :string           not null
 #  email           :string
 #  password_digest :string
-#  profile_id      :integer
+#  profile_id      :bigint
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  provider        :string

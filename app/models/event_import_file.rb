@@ -187,7 +187,7 @@ end
 # Table name: event_import_files
 #
 #  id                        :bigint           not null, primary key
-#  parent_id                 :integer
+#  parent_id                 :bigint
 #  content_type              :string
 #  size                      :integer
 #  user_id                   :bigint
@@ -203,6 +203,6 @@ end
 #  event_import_fingerprint  :string
 #  error_message             :text
 #  user_encoding             :string
-#  default_library_id        :integer
-#  default_event_category_id :integer
+#  default_library_id        :bigint
+#  default_event_category_id :bigint
 #

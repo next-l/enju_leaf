@@ -8,6 +8,7 @@ class LibraryGroup < ApplicationRecord
   belongs_to :user, optional: true
 
   validates :url, presence: true, url: true
+  validates :short_name, presence: true
   validates :max_number_of_results, numericality: {
     greater_than_or_equal_to: 0
   }
@@ -76,7 +77,7 @@ end
 #  my_networks                   :text
 #  old_login_banner              :text
 #  note                          :text
-#  country_id                    :integer
+#  country_id                    :bigint
 #  position                      :integer
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null

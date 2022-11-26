@@ -166,10 +166,10 @@ end
 #  required_role_id        :bigint           default(1), not null
 #  required_score          :integer          default(0), not null
 #  acquired_at             :datetime
-#  bookstore_id            :integer
-#  budget_type_id          :integer
-#  circulation_status_id   :integer          default(5), not null
-#  checkout_type_id        :integer          default(1), not null
+#  bookstore_id            :bigint
+#  budget_type_id          :bigint
+#  circulation_status_id   :bigint           default(5), not null
+#  checkout_type_id        :bigint           default(1), not null
 #  binding_item_identifier :string
 #  binding_call_number     :string
 #  binded_at               :datetime

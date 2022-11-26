@@ -193,7 +193,7 @@ end
 #  id                     :bigint           not null, primary key
 #  user_id                :bigint
 #  item_id                :bigint           not null
-#  checkin_id             :integer
+#  checkin_id             :bigint
 #  librarian_id           :bigint
 #  basket_id              :bigint
 #  due_date               :datetime

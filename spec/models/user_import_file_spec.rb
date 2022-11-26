@@ -264,6 +264,6 @@ end
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  user_encoding            :string
-#  default_library_id       :integer
-#  default_user_group_id    :integer
+#  default_library_id       :bigint
+#  default_user_group_id    :bigint
 #

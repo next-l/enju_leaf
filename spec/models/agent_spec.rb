@@ -105,9 +105,9 @@ end
 #  region                              :text
 #  date_of_birth                       :datetime
 #  date_of_death                       :datetime
-#  language_id                         :integer          default(1), not null
-#  country_id                          :integer          default(1), not null
-#  agent_type_id                       :integer          default(1), not null
+#  language_id                         :bigint           default(1), not null
+#  country_id                          :bigint           default(1), not null
+#  agent_type_id                       :bigint           default(1), not null
 #  lock_version                        :integer          default(0), not null
 #  note                                :text
 #  required_role_id                    :bigint           default(1), not null
@@ -118,5 +118,5 @@ end
 #  birth_date                          :string
 #  death_date                          :string
 #  agent_identifier                    :string
-#  profile_id                          :integer
+#  profile_id                          :bigint
 #

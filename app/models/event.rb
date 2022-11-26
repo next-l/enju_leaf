@@ -110,7 +110,7 @@ end
 #
 #  id                :bigint           not null, primary key
 #  library_id        :bigint           not null
-#  event_category_id :integer          not null
+#  event_category_id :bigint           not null
 #  name              :string           not null
 #  note              :text
 #  start_at          :datetime
@@ -119,5 +119,5 @@ end
 #  display_name      :text
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  place_id          :integer
+#  place_id          :bigint
 #
