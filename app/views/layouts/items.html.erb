@@ -10,16 +10,18 @@
 </head>
 <body itemscope itemtype="http://schema.org/WebPage">
 
-<%= render 'page/header' %>
-<%= render 'page/menu' %>
+<div class="container">
+  <%= render 'page/header' %>
+  <%= render 'page/menu' %>
 
-<div id="content">
+  <div id="content">
 
-<%= yield %>
+    <%= yield %>
 
+  </div>
+
+  <%= render 'page/footer' %>
 </div>
-
-<%= render 'page/footer' %>
 
 </body>
 </html>

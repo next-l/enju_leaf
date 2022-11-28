@@ -2,7 +2,9 @@
   "name": "enju_leaf",
   "private": true,
   "dependencies": {
+    "@popperjs/core": "^2.11.6",
     "@rails/webpacker": "5.4.3",
+    "bootstrap": "^5.2.3",
     "mirador": "^3.3.0",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
