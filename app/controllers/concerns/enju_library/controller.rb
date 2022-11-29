@@ -3,7 +3,7 @@ module EnjuLibrary
     extend ActiveSupport::Concern
 
     included do
-      before_action :get_library_group, :set_locale, :set_available_languages, :set_mobile_request
+      before_action :get_library_group, :set_locale, :set_available_languages
       before_action :store_current_location, unless: :devise_controller?
       rescue_from Pundit::NotAuthorizedError, with: :render_403
       # rescue_from ActiveRecord::RecordNotFound, with: :render_404
@@ -174,26 +174,6 @@ module EnjuLibrary
         @news_posts = NewsPost.limit(LibraryGroup.site_config.news_post_number_top_page || 10)
       end
       @libraries = Library.real
-    end
-
-    def set_mobile_request
-      case params[:view]
-      when 'phone'
-        session[:enju_view] = :phone
-      when 'desktop'
-        session[:enju_view] = :desktop
-      when 'reset'
-        session[:enju_view] = nil
-      end
-
-      case session[:enju_view].try(:to_sym)
-      when :phone
-        request.variant = :phone
-      when :desktop
-        request.variant = nil
-      else
-        request.variant = :phone if browser.device.mobile?
-      end
     end
 
     def move_position(resource, direction, redirect = true)
