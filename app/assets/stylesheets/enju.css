@@ -182,14 +182,12 @@ div#footer{
 }
 
 h1{
-  font-size: 180%;
   margin-top: 5px;
   margin-bottom: 10px;
   line-height: 120%;
 }
 
 h2{
-  font-size: 160%;
   margin-top: 5px;
   margin-bottom: 10px;
 }
@@ -322,10 +320,6 @@ table#call_number_label{
   width: 50px;
   padding: 0px;
   text-align: center;
-}
-
-li{
-  line-height: 2em;
 }
 
 input.resource_title{
@@ -498,10 +492,6 @@ img.icon{
   padding-bottom: 0.5em;
 }
 
-li{
-  margin-left: 20px;
-}
-
 p{
   line-height: 2em;
 }
@@ -573,6 +563,5 @@ img.enju_icon {
 }
 
 h4.facet-header {
-  margin-top: 1em;
   margin-bottom: 0em;
 }
