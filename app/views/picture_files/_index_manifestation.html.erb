@@ -28,7 +28,7 @@
       </td>
       <td><%= picture_file.attachment.byte_size -%></td>
       <td><%= picture_file.attachment.content_type -%></td>
-      <td><%= link_to picture_file.attahcment.filename, rails_blob_path(picture_file.attachment) if picture_file.attachment.attached? -%></td>
+      <td><%= link_to picture_file.attachment.filename, rails_blob_path(picture_file.attachment) if picture_file.attachment.attached? -%></td>
       <td>
         <%= link_to t('page.show'), picture_file -%>
         <%- if policy(picture_file).update? -%>
