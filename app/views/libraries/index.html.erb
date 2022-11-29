@@ -1,7 +1,7 @@
 <% if flash[:notice] %>
 <div style="color:red"><%= flash[:notice] %></div>
 <% end %>
-<div id="content_detail" class="ui-corner-all ui-widget-content">
+<div id="content_detail" class="col col-md-9">
 <h1 class="title"><%= t('page.listing', model: t('activerecord.models.library')) -%></h1>
 <div id="content_list">
 
@@ -81,7 +81,7 @@
 </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
   <ul>
     <%- if policy(Library).create? -%>
       <li><%= link_to t('page.new', model: t('activerecord.models.library')), new_library_path -%></li>

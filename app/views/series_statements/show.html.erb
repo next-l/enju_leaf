@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
+<div id="content_detail" class="col col-md-9">
 <h1 class="title"><%= t('page.showing', model: t('activerecord.models.series_statement')) -%></h1>
 <div id="content_list">
   <p id="notice"><%= notice %></p>
@@ -43,7 +43,7 @@
 </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
   <ul>
     <% if policy(@series_statement).update? %>
       <li><%= link_to t('page.edit'), edit_series_statement_path(@series_statement) %></li>

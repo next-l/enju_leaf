@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
+<div id="content_detail" class="col col-md-9">
 <h1 class="title"><%= t('page.new', model: t('activerecord.models.checked_item')) -%></h1>
 <div id="content_list">
 
@@ -10,7 +10,7 @@
 </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
   <ul>
     <li><%= t('activerecord.attributes.user.username') %>: <%= link_to @basket.user.username, @basket.user.profile -%></li>
     <li><%= t('activerecord.attributes.user.user_number') %>: <%= @basket.user.profile.user_number %></li>

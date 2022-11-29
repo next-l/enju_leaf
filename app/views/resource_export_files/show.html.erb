@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
+<div id="content_detail" class="col col-md-9">
 <h1 class="title"><%= t('page.showing', model: t('activerecord.models.resource_export_file')) -%></h1>
 <div id="content_list">
 <p id="notice"><%= notice %></p>
@@ -26,7 +26,7 @@
 </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
   <ul>
     <li><%= back_to_index(flash[:page_info]) -%></li>
     <% if current_user.has_role?('Administrator') %>

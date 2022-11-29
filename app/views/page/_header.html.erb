@@ -1,5 +1,5 @@
 <div class="row header_and_footer">
-  <div id="header_left">
+  <div id="header_left" class="col-md-9">
     <div id="library_system_name">
       <h1 class="resource_title">
         <%= link_to image_tag(@library_group.header_logo.representation,
@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div id="header_right">
+  <div id="header_right" class="col-md-3">
     <div id="user_account">
       <% if user_signed_in? %>
         <%= t('page.logged_in_as', login_name: current_user.username) -%>

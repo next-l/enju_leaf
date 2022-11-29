@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
+<div id="content_detail" class="col col-md-9">
   <h1 class="title"><%= t('page.editing', model: t('activerecord.models.message')) -%></h1>
   <div id="content_list">
 
@@ -34,7 +34,7 @@
   </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
   <ul>
     <li><%= link_to t('page.show'), @message -%></li>
     <li><%= link_to t('page.listing', model: t('activerecord.models.message')), messages_path -%></li>

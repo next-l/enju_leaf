@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
+<div id="content_detail" class="col col-md-9">
 <h1 class="title"><%= t('page.listing', model: t('activerecord.models.produce')) -%></h1>
 <div id="content_list">
   <h2 class="resource_title">
@@ -33,7 +33,7 @@
 </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
   <ul>
     <li><%= link_to t('page.listing', model: t('activerecord.models.agent')), agents_path(manifestation_id: manifestation.id) -%></li>
     <%- if policy(Produce).create? -%>

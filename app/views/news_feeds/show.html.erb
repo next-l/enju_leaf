@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all">
+<div id="content_detail" class="col col-md-9 ui-corner-all">
 <h1 class="title"><%= t('page.showing', model: t('activerecord.models.news_feed')) -%></h1>
 <div id="content_list">
 <p>
@@ -26,7 +26,7 @@
 </div>
 </div>
 
-<div id="submenu" class="ui-corner-all">
+<div id="submenu" class="col ui-corner-all">
   <ul>
     <li><%= link_to t('page.edit'), edit_news_feed_path(@news_feed) -%></li>
     <li><%= link_to t('page.back'), news_feeds_path -%></li>

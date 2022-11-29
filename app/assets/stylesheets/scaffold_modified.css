@@ -11,7 +11,6 @@ pre {
 }
 
 a { color: #000; }
-a:visited { color: #666; }
 /* a:hover { color: #fff; background-color:#000; } */
 
 div.field, div.actions {

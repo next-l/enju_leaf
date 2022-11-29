@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
+<div id="content_detail" class="col col-md-9">
 <h1 class="title"><%= t('page.listing', model: t('agent.publisher')) -%></h1>
 <div id="content_list">
   <%= render 'manifestations/title', manifestation: manifestation -%>
@@ -46,7 +46,7 @@
 </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
   <%= render 'manifestations/book_jacket', manifestation: manifestation -%>
   <ul>
     <li><%= link_to t('activerecord.models.manifestation'), manifestations_path -%></li>

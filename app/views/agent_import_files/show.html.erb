@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
+<div id="content_detail" class="col col-md-9">
 <h1 class="title"><%= t('page.showing', model: t('activerecord.models.agent_import_file')) -%></h1>
 <div id="content_list">
 <p id="notice"><%= notice %></p>
@@ -61,7 +61,7 @@
 </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
   <%= form_for(@agent_import_file) do |f| %>
   <ul>
     <li><%= link_to t('activerecord.models.agent_import_result'), agent_import_results_path(agent_import_file_id: @agent_import_file.id) -%></li>

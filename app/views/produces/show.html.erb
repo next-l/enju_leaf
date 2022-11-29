@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
+<div id="content_detail" class="col col-md-9">
 <h1 class="title"><%= t('page.showing', model: t('activerecord.models.produce')) -%></h1>
 <div id="content_list">
 <p id="notice"><%= notice %></p>
@@ -16,7 +16,7 @@
 </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
   <ul>
     <li><%= link_to t('page.back_to', model: t('activerecord.models.agent')), agents_path(manifestation_id: @produce.manifestation_id) -%></li>
     <li><%= link_to t('page.back_to', model: t('activerecord.models.manifestation')), manifestations_path(publisher_id: @produce.agent_id) -%></li>

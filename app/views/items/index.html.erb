@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
+<div id="content_detail" class="col col-md-9">
 <h1 class="title"><%= t('page.listing', model: t('activerecord.models.item')) -%></h1>
 <div id="content_list">
 <p id="notice"><%= notice %></p>
@@ -69,7 +69,7 @@
 </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
   <%= render 'manifestations/book_jacket', manifestation: @manifestation if @manifestation -%>
   <ul>
     <%- if policy(Item).create? and @manifestation -%>

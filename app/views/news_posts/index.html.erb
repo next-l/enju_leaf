@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all">
+<div id="content_detail" class="col col-md-9 ui-corner-all">
 <h1 class="title"><%= t('page.listing', model: t('activerecord.models.news_post')) -%></h1>
 <div id="content_list">
 
@@ -37,7 +37,7 @@
 </div>
 </div>
 
-<div id="submenu" class="ui-corner-all">
+<div id="submenu" class="col ui-corner-all">
   <ul>
     <li><%= link_to t('page.new', model: t('activerecord.models.news_post')), new_news_post_path -%></li>
   </ul>

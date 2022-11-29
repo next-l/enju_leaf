@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
+<div id="content_detail" class="col col-md-9">
 <h1 class="title"><%= t('enju_ndl.import_from_ndl_search') %></h1>
 <div id="content_list">
   <p id="notice"><%= notice %></p>
@@ -47,7 +47,7 @@
 </div>
 
 <% if @query.present? %>
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
   <ul>
     <li><%= link_to t('enju_ndl.same_query_in_ndl_search'), "https://iss.ndl.go.jp/books?any=#{u(@query)}" -%></li>
   </ul>

@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content" itemscope="itemscope" itemtype="http://schema.org/Book">
+<div id="content_detail" class="col col-md-9" itemscope="itemscope" itemtype="http://schema.org/Book">
   <h1 class="title"><%= t('page.showing', model: t('activerecord.models.manifestation')) -%></h1>
   <div id="content_list">
     <p id="notice"><%= notice %></p>
@@ -13,7 +13,7 @@
   </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
   <%= render 'manifestations/book_jacket', manifestation: @manifestation -%>
   <ul>
     <%- if @manifestation.picture_files.exists? -%>
@@ -35,26 +35,26 @@
   <%- end -%>
 
   <div id="resource_bookmark_buttons">
-      <ul>
-        <%- if user_signed_in? -%>
-          <%- if current_user.email.present? -%>
-            <li><%= link_to t('manifestation.send_email'), manifestation_path(@manifestation, mode: 'send_email'), data: {confirm: t('page.are_you_sure')} -%></li>
-          <%- end -%>
-          <% if defined?(EnjuBookmark) %>
-            <li><%= link_to_bookmark(@manifestation) %></li>
-          <% end %>
-        <% end %>
-
-        <%- unless @manifestation.carrier_type.name == 'file' -%>
-          <% if defined?(EnjuCirculation) %>
-            <%= render 'manifestations/reservation' %>
-          <% end %>
+    <ul>
+      <%- if user_signed_in? -%>
+        <%- if current_user.email.present? -%>
+          <li><%= link_to t('manifestation.send_email'), manifestation_path(@manifestation, mode: 'send_email'), data: {confirm: t('page.are_you_sure')} -%></li>
         <%- end -%>
-      </ul>
-
-      <%- if current_user.try(:has_role?, 'Librarian') -%>
-        <%= render 'manifestations/edit_detail' %>
+        <% if defined?(EnjuBookmark) %>
+          <li><%= link_to_bookmark(@manifestation) %></li>
+        <% end %>
       <% end %>
-      <%= render 'manifestations/export_detail' %>
+
+      <%- unless @manifestation.carrier_type.name == 'file' -%>
+        <% if defined?(EnjuCirculation) %>
+          <%= render 'manifestations/reservation' %>
+        <% end %>
+      <%- end -%>
+    </ul>
+
+    <%- if current_user.try(:has_role?, 'Librarian') -%>
+      <%= render 'manifestations/edit_detail' %>
+    <% end %>
+    <%= render 'manifestations/export_detail' %>
   </div>
 </div>

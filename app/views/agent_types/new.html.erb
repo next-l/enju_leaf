@@ -1,11 +1,11 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
+<div id="content_detail" class="col col-md-9">
 <h1 class="title"><%= t('page.new', model: t('activerecord.models.agent_type')) -%></h1>
 <div id="content_list">
   <%= render 'form' %>
 </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
   <ul>
     <li><%= link_to t('page.back'), agent_types_path -%></li>
   </ul>
