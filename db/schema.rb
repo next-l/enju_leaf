@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_14_163530) do
+ActiveRecord::Schema.define(version: 2022_11_30_155729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,15 +69,9 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
 
   create_table "agent_import_files", force: :cascade do |t|
     t.bigint "parent_id"
-    t.string "content_type"
-    t.integer "size"
     t.bigint "user_id"
     t.text "note"
     t.datetime "executed_at"
-    t.string "agent_import_file_name"
-    t.string "agent_import_content_type"
-    t.integer "agent_import_file_size"
-    t.datetime "agent_import_updated_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "agent_import_fingerprint"
@@ -293,10 +287,6 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.integer "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "attachment_file_name"
-    t.string "attachment_content_type"
-    t.bigint "attachment_file_size"
-    t.datetime "attachment_updated_at"
     t.index "lower((name)::text)", name: "index_carrier_types_on_lower_name", unique: true
   end
 
@@ -516,10 +506,6 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
 
   create_table "event_export_files", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "event_export_file_name"
-    t.string "event_export_content_type"
-    t.bigint "event_export_file_size"
-    t.datetime "event_export_updated_at"
     t.datetime "executed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -541,15 +527,9 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
 
   create_table "event_import_files", force: :cascade do |t|
     t.bigint "parent_id"
-    t.string "content_type"
-    t.integer "size"
     t.bigint "user_id"
     t.text "note"
     t.datetime "executed_at"
-    t.string "event_import_file_name"
-    t.string "event_import_content_type"
-    t.integer "event_import_file_size"
-    t.datetime "event_import_updated_at"
     t.string "edit_mode"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -681,17 +661,10 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
   end
 
   create_table "inventory_files", force: :cascade do |t|
-    t.string "filename"
-    t.string "content_type"
-    t.integer "size"
     t.bigint "user_id"
     t.text "note"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "inventory_file_name"
-    t.string "inventory_content_type"
-    t.integer "inventory_file_size"
-    t.datetime "inventory_updated_at"
     t.string "inventory_fingerprint"
     t.bigint "shelf_id"
     t.index ["shelf_id"], name: "index_inventory_files_on_shelf_id"
@@ -848,10 +821,6 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.integer "pub_year_facet_range_interval", default: 10
     t.bigint "user_id"
     t.boolean "csv_charset_conversion", default: false, null: false
-    t.string "header_logo_file_name"
-    t.string "header_logo_content_type"
-    t.bigint "header_logo_file_size"
-    t.datetime "header_logo_updated_at"
     t.text "header_logo_meta"
     t.index "lower((name)::text)", name: "index_library_groups_on_lower_name", unique: true
     t.index ["short_name"], name: "index_library_groups_on_short_name"
@@ -991,10 +960,6 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.integer "required_score", default: 0, null: false
     t.bigint "frequency_id", default: 1, null: false
     t.boolean "subscription_master", default: false, null: false
-    t.string "attachment_file_name"
-    t.string "attachment_content_type"
-    t.integer "attachment_file_size"
-    t.datetime "attachment_updated_at"
     t.bigint "nii_type_id"
     t.text "title_alternative_transcription"
     t.text "description"
@@ -1011,7 +976,6 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.integer "serial_number"
     t.bigint "content_type_id", default: 1
     t.integer "year_of_publication"
-    t.text "attachment_meta"
     t.integer "month_of_publication"
     t.boolean "fulltext_content"
     t.boolean "serial"
@@ -1150,11 +1114,6 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.integer "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "picture_file_name"
-    t.string "picture_content_type"
-    t.integer "picture_file_size"
-    t.datetime "picture_updated_at"
-    t.text "picture_meta"
     t.string "picture_fingerprint"
     t.integer "picture_width"
     t.integer "picture_height"
@@ -1330,10 +1289,6 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
 
   create_table "resource_export_files", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "resource_export_file_name"
-    t.string "resource_export_content_type"
-    t.bigint "resource_export_file_size"
-    t.datetime "resource_export_updated_at"
     t.datetime "executed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -1354,15 +1309,9 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
 
   create_table "resource_import_files", force: :cascade do |t|
     t.bigint "parent_id"
-    t.string "content_type"
-    t.integer "size"
     t.bigint "user_id"
     t.text "note"
     t.datetime "executed_at"
-    t.string "resource_import_file_name"
-    t.string "resource_import_content_type"
-    t.integer "resource_import_file_size"
-    t.datetime "resource_import_updated_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "edit_mode"
@@ -1609,10 +1558,6 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
 
   create_table "user_export_files", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "user_export_file_name"
-    t.string "user_export_content_type"
-    t.bigint "user_export_file_size"
-    t.datetime "user_export_updated_at"
     t.datetime "executed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -1679,10 +1624,6 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.bigint "user_id"
     t.text "note"
     t.datetime "executed_at"
-    t.string "user_import_file_name"
-    t.string "user_import_content_type"
-    t.integer "user_import_file_size"
-    t.datetime "user_import_updated_at"
     t.string "user_import_fingerprint"
     t.string "edit_mode"
     t.text "error_message"

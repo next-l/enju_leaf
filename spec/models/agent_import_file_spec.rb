@@ -86,21 +86,15 @@ end
 #
 # Table name: agent_import_files
 #
-#  id                        :bigint           not null, primary key
-#  parent_id                 :bigint
-#  content_type              :string
-#  size                      :integer
-#  user_id                   :bigint
-#  note                      :text
-#  executed_at               :datetime
-#  agent_import_file_name    :string
-#  agent_import_content_type :string
-#  agent_import_file_size    :integer
-#  agent_import_updated_at   :datetime
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  agent_import_fingerprint  :string
-#  error_message             :text
-#  edit_mode                 :string
-#  user_encoding             :string
+#  id                       :bigint           not null, primary key
+#  parent_id                :bigint
+#  user_id                  :bigint
+#  note                     :text
+#  executed_at              :datetime
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  agent_import_fingerprint :string
+#  error_message            :text
+#  edit_mode                :string
+#  user_encoding            :string
 #

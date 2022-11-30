@@ -2,40 +2,24 @@
 
 inventory_file_00001:
   id: 1
-  inventory_file_name: MyString
-  inventory_file_size: 1
   user_id: 1
-  inventory_content_type: text/csv
 inventory_file_00002:
   id: 2
-  inventory_file_name: MyString
-  inventory_file_size: 1
   user_id: 1
-  inventory_content_type: text/csv
 inventory_file_00003:
   id: 3
-  inventory_file_name: MyString
-  inventory_file_size: 1
   user_id: 1
-  inventory_content_type: text/csv
 
 # == Schema Information
 #
 # Table name: inventory_files
 #
-#  id                     :bigint           not null, primary key
-#  filename               :string
-#  content_type           :string
-#  size                   :integer
-#  user_id                :bigint
-#  note                   :text
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  inventory_file_name    :string
-#  inventory_content_type :string
-#  inventory_file_size    :integer
-#  inventory_updated_at   :datetime
-#  inventory_fingerprint  :string
-#  shelf_id               :bigint
+#  id                    :bigint           not null, primary key
+#  user_id               :bigint
+#  note                  :text
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  inventory_fingerprint :string
+#  shelf_id              :bigint
 #
 
