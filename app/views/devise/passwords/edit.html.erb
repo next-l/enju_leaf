@@ -1,6 +1,6 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t('user.change_my_password') %></h1>
-  <div id="content_list">
+  <h1 class="title card-header"><%= t('user.change_my_password') %></h1>
+  <div id="content_list" class="card-body">
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>

@@ -1,8 +1,8 @@
 <div style="color: red"><%= flash[:message] -%></div>
 
 <div id="content_detail" class="col col-md-9">
-  <h1 class="title"><%= t('page.showing', model: t('activerecord.models.item')) -%></h1>
-  <div id="content_list">
+  <h1 class="title card-header"><%= t('page.showing', model: t('activerecord.models.item')) -%></h1>
+  <div id="content_list" class="card-body">
     <p id="notice"><%= notice %></p>
 
     <%- if @item.manifestation -%>

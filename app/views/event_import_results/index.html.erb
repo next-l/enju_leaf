@@ -1,6 +1,6 @@
 <div id="content_detail" class="col col-md-9">
-<h1 class="title"><%= t('page.listing', model: t('activerecord.models.event_import_result')) -%></h1>
-<div id="content_list">
+<h1 class="title card-header"><%= t('page.listing', model: t('activerecord.models.event_import_result')) -%></h1>
+<div id="content_list" class="card-body">
   <% if @event_import_file %>
     <h2 class="event_title">
       <%= link_to @event_import_file.attachment.filename, event_import_file_path(@event_import_file) %>

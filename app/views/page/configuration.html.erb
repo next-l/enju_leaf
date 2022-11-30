@@ -1,5 +1,5 @@
 <div class="column-fixed" id="col1">
-  <div class="portlet" id="library">
+  <div class="card" id="library">
     <h2 class="title"><%= t('activerecord.models.library') -%></h2>
     <div class="config_box">
       <ul>
@@ -39,7 +39,7 @@
       </ul>
     </div>
   </div>
-  <div class="portlet" id="resource">
+  <div class="card" id="resource">
     <h2 class="title"><%= t('page.resource') -%></h2>
     <div class="config_box">
       <ul>
@@ -81,7 +81,7 @@
 
 <div class="column-fixed" id="col2">
   <% if defined?(EnjuSubject) %>
-    <div class="portlet" id="subject_and_classification">
+    <div class="card" id="subject_and_classification">
       <h2 class="title"><%= t('page.subject_and_classification') -%></h2>
       <div class="config_box">
         <ul>
@@ -94,7 +94,7 @@
       </div>
     </div>
   <% end %>
-  <div class="portlet" id="form">
+  <div class="card" id="form">
     <h2 class="title"><%= t('page.form') -%></h2>
     <div class="config_box">
       <ul>
@@ -125,7 +125,7 @@
     </div>
   </div>
 
-  <div class="portlet" id="system">
+  <div class="card" id="system">
     <h2 class="title"><%= t('page.system') -%></h2>
     <div class="config_box">
       <ul>

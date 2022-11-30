@@ -2,8 +2,8 @@
 <div style="color:red"><%= flash[:notice] %></div>
 <% end %>
 <div id="content_detail" class="col col-md-9">
-<h1 class="title"><%= t('page.listing', model: t('activerecord.models.library')) -%></h1>
-<div id="content_list">
+<h1 class="title card-header"><%= t('page.listing', model: t('activerecord.models.library')) -%></h1>
+<div id="content_list" class="card-body">
 
 <%= form_for :libraries, url: libraries_path, html: {method: 'get'} do -%>
   <p>

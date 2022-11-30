@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-6" id="col1">
-    <div class="portlet" id="search">
+    <div class="card" id="search">
       <h2 class="title">
         <% if user_signed_in? %>
           <%= t('page.user_title', login_name: current_user.username) -%>
@@ -23,7 +23,7 @@
     </div>
 
     <% if defined?(EnjuNews) %>
-      <div class="portlet" id="news_feed">
+      <div class="card" id="news_feed">
         <h3 class="title"><%= t('page.news') -%></h3>
         <div id="news_feed_box">
           <%= render partial: 'news_feeds/list', locals: {news_feeds: @news_feeds} -%>
@@ -33,7 +33,7 @@
   </div>
 
   <div class="col-md-6" id="col2">
-    <div class="portlet" id="pickup">
+    <div class="card" id="pickup">
       <h3 class="title"><%= t('manifestation.pickup') -%></h3>
       <div id="picked_up_box">
         <%= render 'manifestations/pickup', manifestation: @manifestation -%>
@@ -41,7 +41,7 @@
     </div>
 
     <% if defined?(EnjuBookmark) %>
-      <div class="portlet" id="tag_cloud">
+      <div class="card" id="tag_cloud">
         <h3 class="title">
           <% if user_signed_in? %>
             <%= t('tag.my_tag') -%>

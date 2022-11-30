@@ -1,6 +1,6 @@
 <div id="content_detail" class="col col-md-9 ui-corner-all">
-<h1 class="title"><%= t('page.listing', model: t('activerecord.models.agent')) -%></h1>
-<div id="content_list">
+<h1 class="title card-header"><%= t('page.listing', model: t('activerecord.models.agent')) -%></h1>
+<div id="content_list" class="card-body">
 
 <div class="search_form">
 <%= form_for :agents, url: agent_merge_list_agents_path(@agent_merge_list), html: {method: 'get'} do -%>

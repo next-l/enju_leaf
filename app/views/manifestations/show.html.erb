@@ -1,60 +1,66 @@
 <div id="content_detail" class="col col-md-9" itemscope="itemscope" itemtype="http://schema.org/Book">
-  <h1 class="title"><%= t('page.showing', model: t('activerecord.models.manifestation')) -%></h1>
-  <div id="content_list">
-    <p id="notice"><%= notice %></p>
-    <%= render 'paginate_id_link', manifestation: @manifestation, manifestation_ids: @manifestation_ids %>
+  <div class="card">
+    <h1 class="title card-header"><%= t('page.showing', model: t('activerecord.models.manifestation')) -%></h1>
+    <div id="content_list" class="card-body">
+      <p id="notice"><%= notice %></p>
+      <%= render 'paginate_id_link', manifestation: @manifestation, manifestation_ids: @manifestation_ids %>
 
-    <%= render 'manifestations/title', manifestation: @manifestation -%>
-    <% if current_user.try(:has_role?, 'Librarian') %>
-      <%= render 'manifestations/show_detail_librarian', manifestation: @manifestation %>
-    <% else %>
-      <%= render 'manifestations/show_detail_user', manifestation: @manifestation %>
-    <% end %>
+      <%= render 'manifestations/title', manifestation: @manifestation -%>
+      <% if current_user.try(:has_role?, 'Librarian') %>
+        <%= render 'manifestations/show_detail_librarian', manifestation: @manifestation %>
+      <% else %>
+        <%= render 'manifestations/show_detail_user', manifestation: @manifestation %>
+      <% end %>
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <%= render 'manifestations/book_jacket', manifestation: @manifestation -%>
-  <ul>
-    <%- if @manifestation.picture_files.exists? -%>
-      <li><%= t('page.total') %>: <%= @manifestation.picture_files.count %> <%= t('page.number_of_pictures', count: @manifestation.picture_files.count) %></li>
-      <li><%= link_to t('page.listing', model: t('activerecord.models.picture_file')), picture_files_path(manifestation_id: @manifestation.id) -%></li>
-    <% end %>
-    <%- if policy(PictureFile).create? -%>
-      <li><%= link_to t('page.new', model: t('activerecord.models.picture_file')), new_picture_file_path(manifestation_id: @manifestation.id) -%></li>
-    <%- end -%>
-  </ul>
-  <%- if user_signed_in? -%>
-    <div id="call_number_content">
-      <%- @manifestation.items.on_shelf.each do |item| -%>
-        <%- if item.hold?(current_user.profile.library) -%>
-          <%= call_number_label(item) -%>
+  <div class="card">
+    <div class="card-body">
+      <%= render 'manifestations/book_jacket', manifestation: @manifestation -%>
+      <ul>
+        <%- if @manifestation.picture_files.exists? -%>
+          <li><%= t('page.total') %>: <%= @manifestation.picture_files.count %> <%= t('page.number_of_pictures', count: @manifestation.picture_files.count) %></li>
+          <li><%= link_to t('page.listing', model: t('activerecord.models.picture_file')), picture_files_path(manifestation_id: @manifestation.id) -%></li>
+        <% end %>
+        <%- if policy(PictureFile).create? -%>
+          <li><%= link_to t('page.new', model: t('activerecord.models.picture_file')), new_picture_file_path(manifestation_id: @manifestation.id) -%></li>
         <%- end -%>
-      <%- end -%>
-    </div>
-  <%- end -%>
-
-  <div id="resource_bookmark_buttons">
-    <ul>
+      </ul>
       <%- if user_signed_in? -%>
-        <%- if current_user.email.present? -%>
-          <li><%= link_to t('manifestation.send_email'), manifestation_path(@manifestation, mode: 'send_email'), data: {confirm: t('page.are_you_sure')} -%></li>
-        <%- end -%>
-        <% if defined?(EnjuBookmark) %>
-          <li><%= link_to_bookmark(@manifestation) %></li>
-        <% end %>
-      <% end %>
-
-      <%- unless @manifestation.carrier_type.name == 'file' -%>
-        <% if defined?(EnjuCirculation) %>
-          <%= render 'manifestations/reservation' %>
-        <% end %>
+        <div id="call_number_content">
+          <%- @manifestation.items.on_shelf.each do |item| -%>
+            <%- if item.hold?(current_user.profile.library) -%>
+              <%= call_number_label(item) -%>
+            <%- end -%>
+          <%- end -%>
+        </div>
       <%- end -%>
-    </ul>
 
-    <%- if current_user.try(:has_role?, 'Librarian') -%>
-      <%= render 'manifestations/edit_detail' %>
-    <% end %>
-    <%= render 'manifestations/export_detail' %>
+      <div id="resource_bookmark_buttons">
+        <ul>
+          <%- if user_signed_in? -%>
+            <%- if current_user.email.present? -%>
+              <li><%= link_to t('manifestation.send_email'), manifestation_path(@manifestation, mode: 'send_email'), data: {confirm: t('page.are_you_sure')} -%></li>
+            <%- end -%>
+            <% if defined?(EnjuBookmark) %>
+              <li><%= link_to_bookmark(@manifestation) %></li>
+            <% end %>
+          <% end %>
+
+          <%- unless @manifestation.carrier_type.name == 'file' -%>
+            <% if defined?(EnjuCirculation) %>
+              <%= render 'manifestations/reservation' %>
+            <% end %>
+          <%- end -%>
+        </ul>
+
+        <%- if current_user.try(:has_role?, 'Librarian') -%>
+          <%= render 'manifestations/edit_detail' %>
+        <% end %>
+        <%= render 'manifestations/export_detail' %>
+      </div>
+    </div>
   </div>
 </div>

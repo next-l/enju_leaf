@@ -1,6 +1,6 @@
 <div id="content_detail" class="col col-md-9">
-<h1 class="title"><%= t('checkout.listing_overdue_item') -%></h1>
-<div id="content_list">
+<h1 class="title card-header"><%= t('checkout.listing_overdue_item') -%></h1>
+<div id="content_list" class="card-body">
 
   <%= form_for(:checkouts, url: checkouts_path, html: {method: 'get'}) do -%>
     <p>

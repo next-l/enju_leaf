@@ -1,13 +1,13 @@
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="row">
-    <div id="content_detail" class="col-9 ui-corner-all ui-widget-content">
-      <h1 class="title"><%= t('page.sign_in') -%> : Next-L Enju</h1>
-      <div id="content_list">
+    <div id="content_detail" class="col-9 card">
+      <h1 class="title card-header"><%= t('page.sign_in') -%> : Next-L Enju</h1>
+      <div id="content_list" class="card-body">
         <%= markdown_helper(@library_group.login_banner) %>
       </div>
     </div>
 
-    <div id="submenu" class="col-3 ui-corner-all ui-widget-content">
+    <div id="submenu" class="col-3 card">
 
       <div class="field">
         <%= f.label :username %><br />

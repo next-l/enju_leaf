@@ -1,6 +1,6 @@
 <div id="content_detail" class="col col-md-9 ui-corner-all">
-<h1 class="title"><%= t('page.showing', model: t('activerecord.models.news_feed')) -%></h1>
-<div id="content_list">
+<h1 class="title card-header"><%= t('page.showing', model: t('activerecord.models.news_feed')) -%></h1>
+<div id="content_list" class="card-body">
 <p>
   <strong><%= t('activerecord.attributes.news_feed.title') -%>:</strong>
   <%= @news_feed.title -%>

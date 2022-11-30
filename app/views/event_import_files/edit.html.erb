@@ -1,6 +1,6 @@
 <div id="content_detail" class="col col-md-9">
-<h1 class="title"><%= t('page.editing', model: t('activerecord.models.event_import_file')) -%></h1>
-<div id="content_list">
+<h1 class="title card-header"><%= t('page.editing', model: t('activerecord.models.event_import_file')) -%></h1>
+<div id="content_list" class="card-body">
 
 <%= form_for(@event_import_file) do |f| -%>
   <%= error_messages(@event_import_file) -%>

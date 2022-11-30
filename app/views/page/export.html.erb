@@ -1,6 +1,6 @@
 <div id="content_detail" class="col col-md-9">
-<h1 class="title"><%= t('page.export') -%></h1>
-<div id="content_list">
+<h1 class="title card-header"><%= t('page.export') -%></h1>
+<div id="content_list" class="card-body">
 
 <ul>
   <% if current_user.try(:has_role?, 'Administrator') %>
