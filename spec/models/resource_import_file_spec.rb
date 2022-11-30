@@ -476,22 +476,16 @@ end
 #
 # Table name: resource_import_files
 #
-#  id                           :bigint           not null, primary key
-#  parent_id                    :bigint
-#  content_type                 :string
-#  size                         :integer
-#  user_id                      :bigint
-#  note                         :text
-#  executed_at                  :datetime
-#  resource_import_file_name    :string
-#  resource_import_content_type :string
-#  resource_import_file_size    :integer
-#  resource_import_updated_at   :datetime
-#  created_at                   :datetime         not null
-#  updated_at                   :datetime         not null
-#  edit_mode                    :string
-#  resource_import_fingerprint  :string
-#  error_message                :text
-#  user_encoding                :string
-#  default_shelf_id             :bigint
+#  id                          :bigint           not null, primary key
+#  parent_id                   :bigint
+#  user_id                     :bigint
+#  note                        :text
+#  executed_at                 :datetime
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#  edit_mode                   :string
+#  resource_import_fingerprint :string
+#  error_message               :text
+#  user_encoding               :string
+#  default_shelf_id            :bigint
 #
