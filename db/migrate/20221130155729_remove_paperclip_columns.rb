@@ -36,6 +36,7 @@ class RemovePaperclipColumns < ActiveRecord::Migration[6.1]
     remove_column :library_groups, :header_logo_content_type
     remove_column :library_groups, :header_logo_file_size
     remove_column :library_groups, :header_logo_updated_at
+    remove_column :library_groups, :header_logo_meta
 
     remove_column :manifestations, :attachment_file_name
     remove_column :manifestations, :attachment_content_type

@@ -821,7 +821,6 @@ ActiveRecord::Schema.define(version: 2022_11_30_155729) do
     t.integer "pub_year_facet_range_interval", default: 10
     t.bigint "user_id"
     t.boolean "csv_charset_conversion", default: false, null: false
-    t.text "header_logo_meta"
     t.index "lower((name)::text)", name: "index_library_groups_on_lower_name", unique: true
     t.index ["short_name"], name: "index_library_groups_on_short_name"
     t.index ["user_id"], name: "index_library_groups_on_user_id"
