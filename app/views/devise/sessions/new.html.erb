@@ -1,39 +1,41 @@
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="row">
-    <div id="content_detail" class="col-9 card">
+  <div id="content_detail" class="col col-md-9">
+    <div class="card">
       <h1 class="title card-header"><%= t('page.sign_in') -%> : Next-L Enju</h1>
       <div id="content_list" class="card-body">
         <%= markdown_helper(@library_group.login_banner) %>
       </div>
     </div>
+  </div>
 
-    <div id="submenu" class="col-3 card">
-
-      <div class="field">
-        <%= f.label :username %><br />
-        <%= f.text_field :username, autofocus: true %>
-      </div>
-
-      <div class="field">
-        <%= f.label :password %><br />
-        <%= f.password_field :password, autocomplete: "off" %>
-      </div>
-
-      <% if devise_mapping.rememberable? -%>
+  <div id="submenu" class="col">
+    <div class="card">
+      <div class="card-body">
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="field">
-          <%= f.check_box :remember_me %>
-          <%= f.label :remember_me %>
+          <%= f.label :username %><br />
+          <%= f.text_field :username, autofocus: true %>
         </div>
-      <% end -%>
 
-      <div class="actions">
-        <%= f.submit t('page.sign_in') %>
+        <div class="field">
+          <%= f.label :password %><br />
+          <%= f.password_field :password, autocomplete: "off" %>
+        </div>
+
+        <% if devise_mapping.rememberable? -%>
+          <div class="field">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+          </div>
+        <% end -%>
+
+        <div class="actions">
+          <%= f.submit t('page.sign_in') %>
+        </div>
+
+        <p class="alert"><%= alert %></p>
+
+        <%= render "devise/shared/links" %>
+<% end %>
       </div>
-
-      <p class="alert"><%= alert %></p>
-
-      <%= render "devise/shared/links" %>
-
     </div>
   </div>
-<% end %>
