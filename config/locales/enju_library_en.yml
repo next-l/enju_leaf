@@ -13,6 +13,7 @@ en:
       request_type: Request type
       search_engine: Search engine
       withdraw: Bulk Withdraw
+      barcode: Barcode
 
     attributes:
       library:

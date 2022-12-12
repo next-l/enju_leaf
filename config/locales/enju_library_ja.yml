@@ -13,6 +13,7 @@ ja:
       request_type: 依頼の種類
       search_engine: 検索エンジン
       withdraw: 連続除籍
+      barcode: バーコード
 
     attributes:
       library:

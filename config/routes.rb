@@ -118,6 +118,7 @@ Rails.application.routes.draw do
   constraints format: :html do
     resources :request_status_types, only: [:index, :show, :edit, :update]
     resources :request_types, only: [:index, :show, :edit, :update]
+    resources :barcodes, only: :new
   end
 
   resources :inventories
