@@ -12,9 +12,9 @@ end
 #
 #  id             :bigint           not null, primary key
 #  agent_id       :bigint           not null
-#  work_id        :integer          not null
+#  work_id        :bigint           not null
 #  position       :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
-#  create_type_id :integer
+#  create_type_id :bigint
 #

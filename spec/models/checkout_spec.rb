@@ -64,7 +64,7 @@ end
 #  id                     :bigint           not null, primary key
 #  user_id                :bigint
 #  item_id                :bigint           not null
-#  checkin_id             :integer
+#  checkin_id             :bigint
 #  librarian_id           :bigint
 #  basket_id              :bigint
 #  due_date               :datetime
@@ -72,6 +72,6 @@ end
 #  lock_version           :integer          default(0), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  shelf_id               :integer
+#  shelf_id               :bigint
 #  library_id             :bigint
 #

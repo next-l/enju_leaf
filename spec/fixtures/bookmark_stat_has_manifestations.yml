@@ -15,7 +15,7 @@ two:
 # Table name: bookmark_stat_has_manifestations
 #
 #  id               :bigint           not null, primary key
-#  bookmark_stat_id :integer          not null
+#  bookmark_stat_id :bigint           not null
 #  manifestation_id :bigint           not null
 #  bookmarks_count  :integer
 #  created_at       :datetime         not null

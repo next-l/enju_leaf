@@ -226,11 +226,8 @@ GEM
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    mail (2.8.0)
+    mail (2.7.1)
       mini_mime (>= 0.1.1)
-      net-imap
-      net-pop
-      net-smtp
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
@@ -281,7 +278,7 @@ GEM
     pundit (2.3.0)
       activesupport (>= 3.0.0)
     racc (1.6.2)
-    rack (2.2.4)
+    rack (2.2.5)
     rack-mini-profiler (2.3.4)
       rack (>= 1.2.0)
     rack-protection (3.0.5)
@@ -511,6 +508,7 @@ DEPENDENCIES
   library_stdnums
   lisbn
   listen (~> 3.3)
+  mail (~> 2.7.1)
   oai
   parallel_tests
   pg (~> 1.1)

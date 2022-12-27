@@ -10,7 +10,7 @@ end
 # Table name: resource_import_results
 #
 #  id                      :bigint           not null, primary key
-#  resource_import_file_id :integer
+#  resource_import_file_id :bigint
 #  manifestation_id        :bigint
 #  item_id                 :bigint
 #  body                    :text

@@ -17,10 +17,10 @@ end
 # Table name: classifications
 #
 #  id                     :bigint           not null, primary key
-#  parent_id              :integer
+#  parent_id              :bigint
 #  category               :string           not null
 #  note                   :text
-#  classification_type_id :integer          not null
+#  classification_type_id :bigint           not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  lft                    :integer

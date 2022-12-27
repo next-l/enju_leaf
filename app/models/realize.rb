@@ -21,9 +21,9 @@ end
 #
 #  id              :bigint           not null, primary key
 #  agent_id        :bigint           not null
-#  expression_id   :integer          not null
+#  expression_id   :bigint           not null
 #  position        :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  realize_type_id :integer
+#  realize_type_id :bigint
 #

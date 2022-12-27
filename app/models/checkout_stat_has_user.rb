@@ -12,7 +12,7 @@ end
 # Table name: checkout_stat_has_users
 #
 #  id                    :bigint           not null, primary key
-#  user_checkout_stat_id :integer          not null
+#  user_checkout_stat_id :bigint           not null
 #  user_id               :bigint           not null
 #  checkouts_count       :integer          default(0), not null
 #  created_at            :datetime         not null
