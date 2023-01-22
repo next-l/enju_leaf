@@ -235,7 +235,7 @@ class Manifestation < ApplicationRecord
   end
   after_create :clear_cached_numdocs
   after_destroy :index_series_statement
-  after_save :index_series_statement, :extract_text!
+  after_save :index_series_statement
   after_touch do |manifestation|
     manifestation.index
     manifestation.index_series_statement
@@ -367,24 +367,21 @@ class Manifestation < ApplicationRecord
   end
 
   def extract_text
-    return nil unless attachment.attached?
-    return nil unless ENV['ENJU_EXTRACT_TEXT'] == 'true'
+    return unless attachment.attached?
+    return unless ENV['ENJU_LEAF_EXTRACT_TEXT'] == 'true'
 
-    client = Faraday.new(url: ENV['SOLR_URL'] || Sunspot.config.solr.url) do |conn|
-      conn.request :multipart
+    client = Faraday.new(url: ENV['TIKA_URL'] || 'http://tika:9998') do |conn|
       conn.adapter :net_http
     end
-    response = client.post('update/extract?extractOnly=true&wt=json&extractFormat=text') do |req|
-      req.headers['Content-type'] = 'text/html'
-      req.body = attachment.download
-    end
-    update_column(:fulltext, JSON.parse(response.body)[""])
-  end
 
-  def extract_text!
-    extract_text
-    index
-    Sunspot.commit
+    response = client.put('/tika/text') do |req|
+      req.headers['Content-Type'] = attachment.content_type
+      req.headers['Content-Length'] = attachment.byte_size.to_s
+      req.body = Faraday::UploadIO.new(StringIO.new(attachment.download), attachment.content_type)
+    end
+
+    payload = JSON.parse(response.body)['X-TIKA:content'].strip.tr("\t", " ").gsub(/\r?\n/, "")
+    payload
   end
 
   def created(agent)
