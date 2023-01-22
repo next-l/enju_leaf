@@ -2,10 +2,10 @@
   <div id="header_left">
     <div id="library_system_name">
       <h1 class="resource_title">
-        <%= link_to image_tag(@library_group.header_logo.representation(resize_to_limit: [300, nil]),
+        <%= link_to image_tag(@library_group.header_logo.representation(resize_to_limit: [nil, 80]),
             style: 'margin-left: 20px; vertical-align: middle',
             alt: LibraryGroup.system_name(@locale),
-            width: 300
+            height: 80
           ), root_path if @library_group.header_logo.attached? %>
         <%= link_to LibraryGroup.system_name(@locale), root_path, title: LibraryGroup.system_name(@locale) %>
       </h1>
