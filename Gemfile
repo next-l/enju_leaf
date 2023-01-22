@@ -94,7 +94,6 @@ gem 'rss'
 gem 'rdf-turtle', require: 'rdf/turtle'
 gem 'rdf-vocab', require: 'rdf/vocab'
 gem 'oai'
-gem 'mail', '~> 2.7.1'
 
 group :development, :test do
   gem 'annotate'
