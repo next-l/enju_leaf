@@ -76,7 +76,7 @@ def migrate_attachment
         file,
         option
       ).path),
-      filename: file.attahcment_file_name
+      filename: file.attachment_file_name
     )
   end
 
