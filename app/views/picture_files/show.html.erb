@@ -41,11 +41,6 @@
   <%= Base64.decode64(@picture_file.attachment.checksum).unpack("H*").first %>
 </p>
 
-<p>
-  <strong><%= t('activerecord.attributes.picture_file.picture_updated_at') -%>:</strong>
-  <%= l(@picture_file.picture_updated_at) if @picture_file.picture_updated_at -%>
-</p>
-
 </div>
 </div>
 
