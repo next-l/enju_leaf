@@ -168,3 +168,11 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
+
+  tika:
+    image: apache/tika:2.6.0.1
+    ports:
+      - 127.0.0.1:9998:9998
+    restart: always
+    networks:
+      internal:
