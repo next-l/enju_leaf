@@ -115,7 +115,7 @@ services:
     volumes:
       - minio:/data
     entrypoint:
-      /bin/sh -c "mkdir -p /data/${ENJU_LEAF_STORAGE_BUCKET} && minio server /data --console-address \":9001\""
+      /bin/sh -c "mkdir -p /data/${ENJU_LEAF_STORAGE_BUCKET}-${RAILS_ENV} && minio server /data --console-address \":9001\""
     expose:
       - 9000
       - 9001
