@@ -273,6 +273,11 @@ describe Manifestation, solr: true do
       expect(manifestations(:manifestation_00101).reservable?).to be_falsy
     end
   end
+
+  it 'should extract fulltext' do
+    manifestation = manifestations(:manifestation_00001).attachment.attach(io: File.open("spec/fixtures/files/resource_import_file_sample1.tsv"), filename: 'sample.txt')
+    expect(manifestation.extract_text).to match(/資料ID/)
+  end
 end
 
 # == Schema Information
