@@ -11,7 +11,7 @@ minio:
   access_key_id: <%= ENV['MINIO_ROOT_USER'] || Rails.application.credentials.dig(:minio, :access_key_id) %>
   secret_access_key: <%= ENV['MINIO_ROOT_PASSWORD'] || Rails.application.credentials.dig(:minio, :secret_access_key) %>
   region: us-east-1
-  bucket: <%= ENV['ENJU_LEAF_STORAGE_BUCKET'] || 'enju-leaf' %>-<%= Rails.env %>
+  bucket: <%= ENV['ENJU_LEAF_STORAGE_BUCKET'] %>-<%= Rails.env %>
   force_path_style: true
   endpoint: <%= ENV['ENJU_LEAF_STORAGE_ENDPOINT'] || 'http://minio:9000' %>
 
