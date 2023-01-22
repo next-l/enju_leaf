@@ -121,6 +121,7 @@ def migrate_attachment
         file,
         option
       ).path),
+      filename: file.user_export_file_name
     )
   end
 
