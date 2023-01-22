@@ -10,7 +10,7 @@ describe LocSearch do
       expect(manifestation.original_title).to eq "Everything is miscellaneous : the power of the new digital disorder"
       expect(manifestation.manifestation_content_type.name).to eq "text"
       expect(manifestation.carrier_type.name).to eq "volume"
-      expect(manifestation.publishers.size).to eq 1
+      expect(manifestation.publishers.count).to eq 1
       expect(manifestation.publishers.first.full_name).to eq "Times Books"
       expect(manifestation.publication_place).to eq "New York"
       expect(manifestation.creators.size).to eq 1

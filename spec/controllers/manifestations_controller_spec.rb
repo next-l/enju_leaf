@@ -238,6 +238,7 @@ describe ManifestationsController do
         manifestation = FactoryBot.create(:manifestation, description: "foo")
         periodical.derived_manifestations << manifestation
         periodical.save!
+        manifestation.save!
         get :index, params: { query: "foo" }
         manifestations = assigns(:manifestations)
         expect(manifestations).not_to be_blank
