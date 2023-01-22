@@ -59,7 +59,7 @@ def migrate_attachment
   end
 
   LibraryGroup.where.not(header_logo_file_name: nil).find_each do |file|
-    file.attachment.attach(
+    file.header_logo.attach(
       io: File.open(Paperclip::Attachment.new(
         :header_logo,
         file,
