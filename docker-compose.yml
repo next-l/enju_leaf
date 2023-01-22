@@ -12,6 +12,8 @@ networks:
 x-app: &app
   env_file:
     - .env
+  environment:
+    - no_proxy: localhost,web,workers,tika
   build:
     context: .
     args:
