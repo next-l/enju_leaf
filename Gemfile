@@ -94,6 +94,7 @@ gem 'rss'
 gem 'rdf-turtle', require: 'rdf/turtle'
 gem 'rdf-vocab', require: 'rdf/vocab'
 gem 'oai'
+gem 'active_storage_validations'
 
 group :development, :test do
   gem 'annotate'
