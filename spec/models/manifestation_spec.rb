@@ -275,7 +275,7 @@ describe Manifestation, solr: true do
   end
 
   it 'should extract fulltext' do
-    manifestation = manifestations(:manifestation_00001)
+    manifestation = FactoryBot.create(:manifestation)
     manifestation.attachment.attach(io: File.open("spec/fixtures/files/resource_import_file_sample1.tsv"), filename: 'sample.txt')
     expect(manifestation.extract_text).to match(/資料ID/)
   end
