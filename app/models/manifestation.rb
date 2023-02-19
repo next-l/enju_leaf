@@ -366,22 +366,44 @@ class Manifestation < ApplicationRecord
     response.results.first
   end
 
+  # ファイルから本文テキストを抽出する
+  # @return [String]
   def extract_text
     return unless attachment.attached?
     return unless ENV['ENJU_LEAF_EXTRACT_TEXT'] == 'true'
 
-    client = Faraday.new(url: ENV['TIKA_URL'] || 'http://tika:9998') do |conn|
+    if attachment.byte_size > ENV['ENJU_LEAF_EXTRACT_FILESIZE_LIMIT'].to_i
+      logger.error("#{attachment.filename.to_s} (#{attachment.byte_size.to_s} byte(s)) exceeds file size limit #{ENV['ENJU_LEAF_EXTRACT_FILESIZE_LIMIT']}.")
+      return
+    end
+
+    client = Faraday.new(url: URI.parse(ENV['TIKA_URL']).to_s || 'http://tika:9998') do |conn|
       conn.adapter :net_http
     end
 
-    response = client.put('/tika/text') do |req|
-      req.headers['Content-Type'] = attachment.content_type
-      req.headers['Content-Length'] = attachment.byte_size.to_s
-      req.body = Faraday::UploadIO.new(StringIO.new(attachment.download), attachment.content_type)
+    begin
+      response = client.put('/tika/text') do |req|
+        req.headers['Content-Type'] = attachment.content_type
+        req.headers['Content-Length'] = attachment.byte_size.to_s
+        req.body = Faraday::UploadIO.new(StringIO.new(attachment.download), attachment.content_type)
+      end
+      # 抽出結果のJSONからテキスト本文を取得する
+      payload = JSON.parse(response.body)['X-TIKA:content'].strip.tr("\t", " ").gsub(/\r?\n/, "")
+      payload
+    rescue => e
+      logger.error("#{attachment.filename.to_s}: #{e.message}")
+      return
     end
+  end
 
-    payload = JSON.parse(response.body)['X-TIKA:content'].strip.tr("\t", " ").gsub(/\r?\n/, "")
-    payload
+  # 抽出した本文テキストを保存する
+  def extract_text!
+    text = extract_text
+    return unless text
+
+    update(fulltext: text)
+    index
+    Sunspot.commit
   end
 
   def created(agent)
