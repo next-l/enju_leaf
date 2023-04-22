@@ -537,7 +537,7 @@ DEPENDENCIES
   selenium-webdriver
   simplecov
   sitemap_generator
-  statesman (~> 10.0)
+  statesman (~> 10.2.2)
   strip_attributes
   sunspot_rails
   tzinfo-data
