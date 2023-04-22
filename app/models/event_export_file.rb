@@ -29,14 +29,14 @@ class EventExportFile < ApplicationRecord
     to: :state_machine
 
   def export!
-    role_name = user.try(:role).try(:name)
+    role_name = user&.role&.name || 'Guest'
     tsv = Event.export(role: role_name)
+    file = StringIO.new(tsv)
+    file.class.class_eval { attr_accessor :original_filename, :content_type }
+    file.original_filename = 'event_export.txt'
 
     EventExportFile.transaction do
       transition_to!(:started)
-      role_name = user.try(:role).try(:name)
-      self.event_export = StringIO.new(tsv)
-      self.event_export.instance_write(:filename, "event_export.txt")
       save!
       transition_to!(:completed)
     end
