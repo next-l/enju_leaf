@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.4'
+ruby '3.1.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.6'
@@ -62,7 +62,7 @@ gem 'kt-paperclip'
 gem 'acts_as_list'
 gem 'kaminari'
 gem 'strip_attributes'
-gem 'statesman', '~> 10.0'
+gem 'statesman', '~> 10.2.2'
 gem 'friendly_id'
 gem 'globalize'
 gem 'globalize-accessors'
@@ -95,7 +95,7 @@ gem 'rdf-turtle', require: 'rdf/turtle'
 gem 'rdf-vocab', require: 'rdf/vocab'
 gem 'oai'
 gem 'active_storage_validations'
-gem 'mail', '~> 2.7.1'
+gem 'mail', '~> 2.8'
 
 group :development, :test do
   gem 'annotate'

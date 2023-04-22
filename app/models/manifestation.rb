@@ -249,7 +249,7 @@ class Manifestation < ApplicationRecord
   def set_date_of_publication
     return if pub_date.blank?
 
-    year = Time.utc(pub_date.rjust(4, "0")).year rescue nil
+    year = Time.utc(pub_date.rjust(4, "0").to_i).year rescue nil
     begin
       date = Time.zone.parse(pub_date.rjust(4, "0"))
       if date.year != year
