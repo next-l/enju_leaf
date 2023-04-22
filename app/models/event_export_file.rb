@@ -37,6 +37,7 @@ class EventExportFile < ApplicationRecord
 
     EventExportFile.transaction do
       transition_to!(:started)
+      self.event_export = file
       save!
       transition_to!(:completed)
     end
