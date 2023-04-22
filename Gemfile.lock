@@ -108,6 +108,7 @@ GEM
     crass (1.0.6)
     database_consistency (1.7.6)
       activerecord (>= 3.2)
+    date (3.3.3)
     date_validator (0.12.0)
       activemodel (>= 3)
       activesupport (>= 3)
@@ -222,8 +223,11 @@ GEM
     loofah (2.20.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    mail (2.7.1)
+    mail (2.8.1)
       mini_mime (>= 0.1.1)
+      net-imap
+      net-pop
+      net-smtp
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
@@ -239,6 +243,15 @@ GEM
     multipart-post (2.3.0)
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
+    net-imap (0.3.4)
+      date
+      net-protocol
+    net-pop (0.1.2)
+      net-protocol
+    net-protocol (0.2.1)
+      timeout
+    net-smtp (0.3.3)
+      net-protocol
     nio4r (2.5.9)
     nokogiri (1.14.3-x86_64-linux)
       racc (~> 1.4)
@@ -422,6 +435,7 @@ GEM
       climate_control (>= 0.0.3, < 1.0)
     thor (1.2.1)
     tilt (2.1.0)
+    timeout (0.3.2)
     typesafe_enum (0.3.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
@@ -497,7 +511,7 @@ DEPENDENCIES
   library_stdnums
   lisbn
   listen (~> 3.3)
-  mail (~> 2.7.1)
+  mail (~> 2.8)
   oai
   parallel_tests
   pg (~> 1.1)
