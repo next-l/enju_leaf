@@ -96,6 +96,7 @@ gem 'rdf-vocab', require: 'rdf/vocab'
 gem 'oai'
 gem 'active_storage_validations'
 gem 'mail', '~> 2.8'
+gem 'sprockets', '~> 3.7'
 
 group :development, :test do
   gem 'annotate'
