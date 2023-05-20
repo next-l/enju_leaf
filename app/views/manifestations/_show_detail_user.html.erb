@@ -121,8 +121,8 @@
         <% end %>
       </table>
     <% end %>
-    <%- if manifestation.items.available.on_shelf.exists? -%>
-      <%= render 'manifestations/show_holding', manifestation: manifestation, items: manifestation.items.available.on_shelf %>
+    <%- if policy_scope(manifestation.items).available.on_shelf.exists? -%>
+      <%= render 'manifestations/show_holding', manifestation: manifestation, items: policy_scope(manifestation.items).available.on_shelf %>
     <%- end -%>
     </div>
     <%= render 'manifestations/tab_list', manifestation: manifestation %>

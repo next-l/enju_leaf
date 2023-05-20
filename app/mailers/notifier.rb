@@ -23,6 +23,7 @@ class Notifier < ApplicationMailer
     from = "#{LibraryGroup.system_name(user.profile.locale)} <#{LibraryGroup.site_config.user.email}>"
     subject = "#{manifestation.original_title} : #{LibraryGroup.system_name(user.profile.locale)}"
     @user = user
+    @items = Pundit.policy_scope!(user, manifestation.items)
     @manifestation = manifestation
     mail(from: from, to: user.email, subject: subject)
   end

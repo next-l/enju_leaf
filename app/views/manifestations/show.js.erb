@@ -1,2 +1,2 @@
 $("#holding_link_<%= @manifestation.id %>").html("<%= escape_javascript(render("show_holding_toggle", manifestation: @manifestation)) %>");
-$("#holding_<%= @manifestation.id %>").html("<%= escape_javascript(render("show_holding", manifestation: @manifestation, items: @manifestation.items.available_for(current_user))) %>");
+$("#holding_<%= @manifestation.id %>").html("<%= escape_javascript(render("show_holding", manifestation: @manifestation, items: policy_scope(@manifestation.items).available_for(current_user))) %>");
