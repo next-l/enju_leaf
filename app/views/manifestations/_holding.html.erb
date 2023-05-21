@@ -5,7 +5,7 @@
   <%= render 'manifestations/show_tag', manifestation: manifestation -%>
 <% end %>
 
-<% if policy_scope(manifestation.items).available_for(current_user).count >= 1 %>
+<% if Pundit.policy_scope!(current_user, manifestation.items).available_for(current_user).count >= 1 %>
   <div id="holding_link_<%= manifestation.id %>">
     (<%= link_to t('page.holding'), manifestation_path(manifestation), remote: true %>)
   </div>

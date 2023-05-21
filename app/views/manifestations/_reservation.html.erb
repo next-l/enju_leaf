@@ -9,7 +9,7 @@
     <% end %>
   <%- end -%>
 <% else %>
-  <% unless policy_scope(@manifestation.items).for_checkout.empty? %>
+  <% unless Pundit.policy_scope!(current_user, @manifestation.items).for_checkout.empty? %>
     <li><%= link_to_reservation(@manifestation, @reserve) %><br />
     (<%= t('page.number_of_reservations', count: @reserved_count) -%>)</li>
   <% end %>
