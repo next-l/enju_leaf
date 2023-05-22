@@ -100,5 +100,11 @@ RSpec.describe 'Manifestations', type: :system do
       visit manifestation_path(@item.manifestation.id, locale: :ja)
       expect(page).not_to have_content @item.manifestation.memo
     end
+
+    it 'should not show removed item' do
+      manifestation = manifestations(:manifestation_00010)
+      visit manifestation_path(manifestation)
+      expect(page).not_to have_content '00026'
+    end
   end
 end
