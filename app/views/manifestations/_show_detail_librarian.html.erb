@@ -137,7 +137,7 @@
       <%- if Pundit.policy_scope!(current_user, manifestation.items).exists? -%>
         <div class="manifestation_total_checkouts">
           <%= t('manifestation.total_checkouts') %>: <%= manifestation.checkouts(manifestation.created_at, Date.today).size %>
-          (<%= t('manifestation.this_year_checkouts') %>: <%= manifestation.checkouts(Date.today-1.year, Date.today).size %>)
+          (<%= t('manifestation.this_year_checkouts') %>: <%= manifestation.checkouts(Date.today - 1.year, Date.today).size %>)
         </div>
       <% end %>
     <%- end -%>

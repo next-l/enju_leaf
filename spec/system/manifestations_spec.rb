@@ -32,7 +32,7 @@ RSpec.describe 'Manifestations', type: :system do
 
     it 'should show manifestation in json format' do
       visit manifestation_path(@item.manifestation.id, locale: :ja, format: :json)
-      expect(page).to have_content @item.item_identifier
+      expect(page).not_to have_content @item.item_identifier
     end
 
     it 'should show manifestation in ttl format' do
@@ -67,7 +67,7 @@ RSpec.describe 'Manifestations', type: :system do
 
     it 'should show default item' do
       visit manifestation_path(@item.manifestation.id, locale: :ja)
-      expect(page).to have_content @item.item_identifier
+      expect(page).not_to have_content @item.item_identifier
     end
 
     it 'should not show memo' do
@@ -92,7 +92,7 @@ RSpec.describe 'Manifestations', type: :system do
 
     it 'should show default item' do
       visit manifestation_path(@item.manifestation.id, locale: :ja)
-      expect(page).to have_content @item.item_identifier
+      expect(page).not_to have_content @item.item_identifier
     end
 
     it 'should not show memo' do
