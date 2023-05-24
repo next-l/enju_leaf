@@ -121,8 +121,8 @@
         <% end %>
       </table>
     <% end %>
-    <%- if Pundit.policy_scope!(current_user, manifestation.items).available.on_shelf.exists? -%>
-      <%= render 'manifestations/show_holding', manifestation: manifestation, items: Pundit.policy_scope!(current_user, manifestation.items).available.on_shelf %>
+    <%- if Pundit.policy_scope!(current_user, manifestation.items).on_shelf.exists? -%>
+      <%= render 'manifestations/show_holding', manifestation: manifestation, items: Pundit.policy_scope!(current_user, manifestation.items).on_shelf %>
     <%- end -%>
     </div>
     <%= render 'manifestations/tab_list', manifestation: manifestation %>
