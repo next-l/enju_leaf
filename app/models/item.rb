@@ -1,15 +1,17 @@
 class Item < ApplicationRecord
-  include EnjuLibrary::EnjuItem
-  include EnjuCirculation::EnjuItem
-  include EnjuInventory::EnjuItem
+  scope :available, -> {}
   scope :on_shelf, -> { includes(:shelf).references(:shelf).where.not(shelves: { name: 'web' }) }
   scope :on_web, -> { includes(:shelf).references(:shelf).where('shelves.name = ?', 'web') }
-  scope :available, -> {}
   scope :available_for, -> user {
     unless user.try(:has_role?, 'Librarian')
       on_shelf
     end
   }
+
+  include EnjuLibrary::EnjuItem
+  include EnjuCirculation::EnjuItem
+  include EnjuInventory::EnjuItem
+
   delegate :display_name, to: :shelf, prefix: true
   has_many :owns, dependent: :destroy
   has_many :agents, through: :owns
