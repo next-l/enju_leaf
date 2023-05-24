@@ -1,7 +1,7 @@
 <ul class="hidden">
   <li class="selected"><a href="#detail"><em><%= t('page.detail') -%></em></a></li>
-  <%- if policy_scope(manifestation.original_manifestations).exists? || policy_scope(manifestation.derived_manifestations).exists? -%>
-    <li><a href="#related_manifestation"><em><%= t('page.related_manifestation') -%> (<%= policy_scope(manifestation.original_manifestations).count + policy_scope(manifestation.derived_manifestations).count -%>)</em></a></li>
+  <%- if Pundit.policy_scope!(current_user, manifestation.original_manifestations).exists? || Pundit.policy_scope!(current_user, manifestation.derived_manifestations).exists? -%>
+    <li><a href="#related_manifestation"><em><%= t('page.related_manifestation') -%> (<%= Pundit.policy_scope!(current_user, manifestation.original_manifestations).count + Pundit.policy_scope!(current_user, manifestation.derived_manifestations).count -%>)</em></a></li>
   <%- end -%>
   <% if defined?(EnjuQuestion) %>
     <%- unless manifestation.questions(user: current_user).empty? -%>
