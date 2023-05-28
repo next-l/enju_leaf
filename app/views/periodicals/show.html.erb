@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Original title:</strong>
+  <%= @periodical.original_title %>
+</p>
+
+<p>
+  <strong>Manifestation:</strong>
+  <%= @periodical.manifestation_id %>
+</p>
+
+<p>
+  <strong>Frequency:</strong>
+  <%= @periodical.frequency_id %>
+</p>
+
+<%= link_to 'Edit', edit_periodical_path(@periodical) %> |
+<%= link_to 'Back', periodicals_path %>

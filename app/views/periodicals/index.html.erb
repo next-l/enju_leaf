@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Periodicals</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Original title</th>
+      <th>Manifestation</th>
+      <th>Frequency</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @periodicals.each do |periodical| %>
+      <tr>
+        <td><%= periodical.original_title %></td>
+        <td><%= periodical.manifestation_id %></td>
+        <td><%= periodical.frequency_id %></td>
+        <td><%= link_to 'Show', periodical %></td>
+        <td><%= link_to 'Edit', edit_periodical_path(periodical) %></td>
+        <td><%= link_to 'Destroy', periodical, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= paginate(@periodicals) %>
+
+<%= link_to 'New Periodical', new_periodical_path %>
