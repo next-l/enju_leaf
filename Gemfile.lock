@@ -124,7 +124,7 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
-    ebnf (2.3.2)
+    ebnf (2.3.3)
       htmlentities (~> 4.3)
       rdf (~> 3.2)
       scanf (~> 1.0)
@@ -178,7 +178,7 @@ GEM
     hashdiff (1.0.1)
     highline (2.1.0)
     htmlentities (4.3.4)
-    i18n (1.13.0)
+    i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
       mini_magick (>= 4.9.5, < 5)
@@ -206,7 +206,7 @@ GEM
     kaminari-core (1.2.2)
     kramdown (2.4.0)
       rexml
-    kt-paperclip (7.1.1)
+    kt-paperclip (7.2.0)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
       marcel (~> 1.0.1)
@@ -253,7 +253,7 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.9)
-    nokogiri (1.15.1-x86_64-linux)
+    nokogiri (1.15.2-x86_64-linux)
       racc (~> 1.4)
     nori (2.6.0)
     oai (1.2.1)
@@ -265,7 +265,7 @@ GEM
     parallel (1.23.0)
     parallel_tests (4.2.1)
       parallel
-    pg (1.5.3)
+    pg (1.4.6)
     pr_geohash (1.0.0)
     pretender (0.4.0)
       actionpack (>= 5.2)
@@ -309,8 +309,9 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.5.0)
-      loofah (~> 2.19, >= 2.19.1)
+    rails-html-sanitizer (1.6.0)
+      loofah (~> 2.21)
+      nokogiri (~> 1.14)
     rails-i18n (6.0.0)
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 7)
@@ -366,7 +367,7 @@ GEM
     rspec-mocks (3.12.5)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.12.0)
-    rspec-rails (6.0.2)
+    rspec-rails (6.0.3)
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       railties (>= 6.1)
@@ -434,7 +435,7 @@ GEM
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
     thor (1.2.2)
-    tilt (2.1.0)
+    tilt (2.2.0)
     timeout (0.3.2)
     typesafe_enum (0.3.1)
     tzinfo (2.0.6)
@@ -514,7 +515,7 @@ DEPENDENCIES
   mail (~> 2.8)
   oai
   parallel_tests
-  pg (~> 1.1)
+  pg (~> 1.4.6)
   pretender
   progress_bar
   puma (~> 5.0)
