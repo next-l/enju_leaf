@@ -18,9 +18,11 @@ ARG GID=1000
 
 RUN groupadd --gid ${GID} enju && useradd -m --uid ${UID} --gid ${GID} enju
 RUN apt-get update -qq && curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
-apt-get install -y nodejs postgresql-client imagemagick mupdf-tools ffmpeg && npm install -g yarn && yarn install
+  apt-get install -y nodejs postgresql-client imagemagick poppler-utils ffmpeg && npm install -g yarn
 RUN mkdir /enju && chown -R enju:enju /enju
 USER enju
 WORKDIR /enju
+ADD package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 COPY --from=builder /usr/local/bundle /usr/local/bundle
 COPY . /enju/
