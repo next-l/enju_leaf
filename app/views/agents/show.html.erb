@@ -11,7 +11,7 @@
 <div id="tabs">
   <ul>
     <li title="active" class="selected"><a href="#detail"><em><%= t('page.detail') -%></em></a></li>
-    <%- if @agent.derived_agents.exists? or @agent.original_agents.exists? -%>
+    <%- if policy_scope(@agent.derived_agents).exists? || policy_scope(@agent.original_agents).exists? -%>
       <li><a href="#related"><em><%= t('page.related') -%></em></a></li>
     <%- end -%>
   </ul>
@@ -69,7 +69,7 @@
       </tr>
     </table>
   </div>
-  <%- unless @agent.derived_agents.empty? and @agent.original_agents.empty? -%>
+  <%- unless policy_scope(@agent.derived_agents).empty? and policy_scope(@agent.original_agents).empty? -%>
     <%= render 'agents/agent_list' -%>
   <%- end -%>
   </div>

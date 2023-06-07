@@ -25,6 +25,21 @@ RSpec.describe 'Manifestations', type: :system do
       expect(page).to have_content @item.manifestation.memo
     end
 
+    it 'should show manifestation in text format' do
+      visit manifestation_path(@item.manifestation.id, locale: :ja, format: :txt)
+      expect(page).to have_content @item.manifestation.original_title
+    end
+
+    it 'should show manifestation in json format' do
+      visit manifestation_path(@item.manifestation.id, locale: :ja, format: :json)
+      expect(page).not_to have_content @item.item_identifier
+    end
+
+    it 'should show manifestation in ttl format' do
+      visit manifestation_path(@item.manifestation.id, locale: :ja, format: :ttl)
+      expect(page).to have_content @item.manifestation.original_title
+    end
+
     it 'should show custom properties' do
       @item.manifestation.manifestation_custom_values << FactoryBot.build(:manifestation_custom_value)
       visit manifestation_path(@item.manifestation.id, locale: :ja)
@@ -52,7 +67,7 @@ RSpec.describe 'Manifestations', type: :system do
 
     it 'should show default item' do
       visit manifestation_path(@item.manifestation.id, locale: :ja)
-      expect(page).to have_content @item.item_identifier
+      expect(page).not_to have_content @item.item_identifier
     end
 
     it 'should not show memo' do
@@ -77,13 +92,19 @@ RSpec.describe 'Manifestations', type: :system do
 
     it 'should show default item' do
       visit manifestation_path(@item.manifestation.id, locale: :ja)
-      expect(page).to have_content @item.item_identifier
+      expect(page).not_to have_content @item.item_identifier
     end
 
     it 'should not show memo' do
       @item.manifestation.update(memo: 'memo')
       visit manifestation_path(@item.manifestation.id, locale: :ja)
       expect(page).not_to have_content @item.manifestation.memo
+    end
+
+    it 'should not show removed item' do
+      manifestation = manifestations(:manifestation_00010)
+      visit manifestation_path(manifestation)
+      expect(page).not_to have_content '00026'
     end
   end
 end

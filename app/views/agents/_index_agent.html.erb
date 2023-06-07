@@ -42,7 +42,7 @@
       <td>
         <%- if policy(agent).destroy? -%>
           <%- if params[:mode] == "add" -%>
-            <%= link_to t('page.add'), new_agent_relationship_path(agent_id: agent.id, child_id: agent.id) unless agent.derived_agents.include?(agent) or agent == agent -%>
+            <%= link_to t('page.add'), new_agent_relationship_path(agent_id: agent.id, child_id: agent.id) unless policy_scope(agent.derived_agents).include?(agent) or agent == agent -%>
           <%- else -%>
             <%- agent_relationship = agent.to_agents.where(child_id: agent.id).first -%>
             <%= link_to t('page.destroy'), agent_relationship, data: {confirm: t('page.are_you_sure')}, method: :delete if agent_relationship -%>
