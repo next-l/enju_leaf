@@ -27,9 +27,6 @@ module EnjuCirculation
           'use_restrictions.name' => FOR_CHECKOUT_USE_RESTRICTION
         ).where(identifier_conditions)
       }
-      scope :on_shelf, -> { includes(:shelf).references(:shelf).where.not(shelves: { name: 'web' }).where.not(circulation_status_id: CirculationStatus.find_by(name: 'Removed').id) }
-      scope :available, -> { includes(:circulation_status).where.not('circulation_statuses.name' => 'Removed') }
-      scope :removed, -> { includes(:circulation_status).where('circulation_statuses.name' => 'Removed') }
 
       has_many :checkouts, dependent: :restrict_with_exception
       has_many :checkins, dependent: :destroy
