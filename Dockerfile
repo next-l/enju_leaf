@@ -1,4 +1,4 @@
-FROM ruby:2.7.7 as builder
+FROM ruby:2.7.8 as builder
 LABEL maintainer="nabeta@fastmail.fm"
 
 ARG http_proxy
@@ -8,7 +8,7 @@ COPY Gemfile /
 COPY Gemfile.lock /
 RUN apt-get update -qq && apt-get install -y libpq-dev && bundle install
 
-FROM ruby:2.7.7
+FROM ruby:2.7.8
 LABEL maintainer="nabeta@fastmail.fm"
 
 ARG http_proxy
