@@ -134,14 +134,14 @@
       </table>
     <% end %>
     <% if defined?(EnjuCirculation) %>
-      <%- if manifestation.items.exists? -%>
+      <%- if Pundit.policy_scope!(current_user, manifestation.items).exists? -%>
         <div class="manifestation_total_checkouts">
           <%= t('manifestation.total_checkouts') %>: <%= manifestation.checkouts(manifestation.created_at, Date.today).size %>
-          (<%= t('manifestation.this_year_checkouts') %>: <%= manifestation.checkouts(Date.today-1.year, Date.today).size %>)
+          (<%= t('manifestation.this_year_checkouts') %>: <%= manifestation.checkouts(Date.today - 1.year, Date.today).size %>)
         </div>
       <% end %>
     <%- end -%>
-    <%= render 'manifestations/show_holding', manifestation: manifestation, items: manifestation.items %>
+    <%= render 'manifestations/show_holding', manifestation: manifestation, items: Pundit.policy_scope!(current_user, manifestation.items) %>
     <%- if policy(Item).create? -%>
       <p><%= link_to t('page.new', model: t('activerecord.models.item')), new_item_path(manifestation_id: manifestation.id) -%></p>
     <%- end -%>

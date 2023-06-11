@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.3'
+ruby '3.1.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 7.0.4'
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 1.1'
+gem 'pg', '~> 1.4.6'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
@@ -62,7 +62,7 @@ gem 'kt-paperclip'
 gem 'acts_as_list'
 gem 'kaminari'
 gem 'strip_attributes'
-gem 'statesman', '~> 10.0'
+gem 'statesman', '~> 10.2.2'
 gem 'friendly_id'
 gem 'globalize'
 gem 'globalize-accessors'
@@ -94,7 +94,9 @@ gem 'rss'
 gem 'rdf-turtle', require: 'rdf/turtle'
 gem 'rdf-vocab', require: 'rdf/vocab'
 gem 'oai'
-gem 'mail', '~> 2.7.1'
+gem 'active_storage_validations'
+gem 'mail', '~> 2.8'
+gem 'sprockets', '~> 3.7'
 
 group :development, :test do
   gem 'annotate'

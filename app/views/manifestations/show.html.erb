@@ -26,7 +26,7 @@
   </ul>
   <%- if user_signed_in? -%>
     <div id="call_number_content">
-      <%- @manifestation.items.on_shelf.each do |item| -%>
+      <%- policy_scope(@manifestation.items).on_shelf.each do |item| -%>
         <%- if item.hold?(current_user.profile.library) -%>
           <%= call_number_label(item) -%>
         <%- end -%>

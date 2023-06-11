@@ -9,7 +9,7 @@ def migrate_attachment
         :agent_import,
         file,
         option
-      )),
+      ).path),
       filename: file.agent_import_file_name
     )
   end
@@ -31,7 +31,7 @@ def migrate_attachment
         :event_export,
         file,
         option
-      )),
+      ).path),
       filename: file.event_export_file_name
     )
   end
@@ -42,7 +42,7 @@ def migrate_attachment
         :event_import,
         file,
         option
-      )),
+      ).path),
       filename: file.event_import_file_name
     )
   end
@@ -53,18 +53,18 @@ def migrate_attachment
         :inventory,
         file,
         option
-      )),
+      ).path),
       filename: file.inventory_file_name
     )
   end
 
   LibraryGroup.where.not(header_logo_file_name: nil).find_each do |file|
-    file.attachment.attach(
+    file.header_logo.attach(
       io: File.open(Paperclip::Attachment.new(
         :header_logo,
         file,
         option
-      )),
+      ).path),
       filename: file.header_logo_file_name
     )
   end
@@ -75,8 +75,8 @@ def migrate_attachment
         :attachment,
         file,
         option
-      )),
-      filename: file.attahcment_file_name
+      ).path),
+      filename: file.attachment_file_name
     )
   end
 
@@ -98,7 +98,7 @@ def migrate_attachment
         :resource_export,
         file,
         option
-      )),
+      ).path),
       filename: file.resource_export_file_name
     )
   end
@@ -109,7 +109,7 @@ def migrate_attachment
         :resource_import,
         file,
         option
-      )),
+      ).path),
       filename: file.resource_import_file_name
     )
   end
@@ -120,7 +120,7 @@ def migrate_attachment
         :user_export,
         file,
         option
-      )),
+      ).path),
       filename: file.user_export_file_name
     )
   end
@@ -131,7 +131,7 @@ def migrate_attachment
         :user_import,
         file,
         option
-      )),
+      ).path),
       filename: file.user_import_file_name
     )
   end

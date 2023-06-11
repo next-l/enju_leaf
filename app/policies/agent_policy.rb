@@ -1,4 +1,20 @@
 class AgentPolicy < ApplicationPolicy
+  class Scope
+    def initialize(user, scope)
+      @user  = user
+      @scope = scope
+    end
+
+    def resolve
+      role_id = user&.role&.id || 1
+      scope.where('agents.required_role_id <= ?', role_id)
+    end
+
+    private
+
+    attr_reader :user, :scope
+  end
+
   def index?
     true
   end

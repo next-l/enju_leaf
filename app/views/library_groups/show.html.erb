@@ -16,9 +16,9 @@
 <p>
   <strong><%= t('activerecord.attributes.library_group.header_logo') -%>:</strong>
   <br />
-  <%= image_tag(@library_group.header_logo.representation,
-    width: @library_group.header_logo.metadata['width'],
-    height: @library_group.header_logo.metadata['height']
+  <%= image_tag(@library_group.header_logo.representation(resize_to_limit: [300, nil]),
+    #width: @library_group.header_logo.metadata['width'],
+    #height: @library_group.header_logo.metadata['height']
   ) if @library_group.header_logo.attached? -%>
 </p>
 
