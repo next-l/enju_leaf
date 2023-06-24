@@ -94,7 +94,8 @@ gem 'sitemap_generator'
 gem 'rdf-turtle', require: 'rdf/turtle'
 gem 'rdf-vocab', require: 'rdf/vocab'
 gem 'oai'
-gem 'mail', '~> 2.7.1'
+gem 'mail', '~> 2.8'
+gem 'rss'
 
 group :development, :test do
   gem 'annotate'
