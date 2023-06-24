@@ -378,8 +378,6 @@ GEM
     rspec-support (3.12.0)
     rspec_junit_formatter (0.6.0)
       rspec-core (>= 2, < 4, != 2.12.0)
-    rss (0.2.9)
-      rexml
     ruby-vips (2.1.4)
       ffi (~> 1.12)
     ruby2_keywords (0.0.5)
@@ -395,7 +393,7 @@ GEM
       sprockets-rails
       tilt
     scanf (1.0.0)
-    selenium-webdriver (4.10.0)
+    selenium-webdriver (4.9.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
@@ -509,7 +507,6 @@ DEPENDENCIES
   library_stdnums
   lisbn
   listen (~> 3.3)
-  mail (~> 2.8)
   oai
   paperclip
   paperclip-meta
@@ -531,7 +528,6 @@ DEPENDENCIES
   resync
   rspec-rails
   rspec_junit_formatter
-  rss
   sass-rails (>= 6)
   sassc (~> 2.1.0)
   selenium-webdriver
@@ -548,7 +544,7 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 RUBY VERSION
-   ruby 3.1.4p223
+   ruby 2.7.8p225
 
 BUNDLED WITH
-   2.3.26
+   2.1.4
