@@ -58,7 +58,7 @@ class ImportRequest < ApplicationRecord
       save
     rescue *not_found_exceptions => e
       transition_to!(:failed)
-      record_not_found
+      "record_not_found"
     rescue *exceptions => e
       transition_to!(:failed)
       :error
