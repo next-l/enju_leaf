@@ -384,19 +384,33 @@ class Manifestation < ApplicationRecord
     return nil if attachment.path.nil?
     return nil unless ENV['ENJU_EXTRACT_TEXT'] == 'true'
 
+    if ENV['ENJU_LEAF_EXTRACT_FILESIZE_LIMIT'].present?
+      filesize_limit = ENV['ENJU_LEAF_EXTRACT_FILESIZE_LIMIT'].to_i
+    else
+      filesize_limit = 2097152
+    end
+
+    if attachment_file_size > filesize_limit
+      Rails.logger.error("#{attachment_file_name} (size: #{attachment_file_size} byte(s)) exceeds filesize limit #{ENV['ENJU_LEAF_EXTRACT_FILESIZE_LIMIT']} bytes")
+      return ''
+    end
+
     if ENV['ENJU_STORAGE'] == 's3'
       body = Faraday.get(attachment.expiring_url(10)).body.force_encoding('UTF-8')
     else
       body = File.open(attachment.path).read
     end
+
     client = Faraday.new(url: ENV['SOLR_URL'] || Sunspot.config.solr.url) do |conn|
       conn.request :multipart
       conn.adapter :net_http
     end
+
     response = client.post('update/extract?extractOnly=true&wt=json&extractFormat=text') do |req|
       req.headers['Content-type'] = 'text/html'
       req.body = body
     end
+
     update_column(:fulltext, JSON.parse(response.body)[""])
   end
 
