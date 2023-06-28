@@ -31,6 +31,7 @@ x-app: &app
     - solr
     - redis
     # - minio
+    # - selenium
   restart: always
 
 services:
@@ -39,6 +40,7 @@ services:
     command: bash -c "rm -f tmp/pids/server.pid && rails s -b 0.0.0.0"
     environment:
       - WEBPACKER_DEV_SERVER_HOST=webpacker
+      # - SELENIUM_DRIVER_URL=http://selenium:4444/wd/hub
     expose:
       - 3000
 
@@ -178,3 +180,11 @@ services:
     restart: always
     networks:
       internal:
+
+  # selenium:
+  #   image: selenium/standalone-chrome:114.0
+  #   ports:
+  #     - 4444:4444
+  #     - 7900:7900
+  #     - 5900:5900
+  #   shm_size: 2gb
