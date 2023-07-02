@@ -97,9 +97,7 @@ gem 'oai'
 
 group :development, :test do
   gem 'annotate'
-end
-
-group :test do
+  gem 'database_consistency'
   gem 'rspec-rails'
   gem 'vcr'
   gem 'webmock'
