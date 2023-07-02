@@ -101,9 +101,6 @@ gem 'sprockets', '~> 3.7'
 group :development, :test do
   gem 'annotate'
   gem 'database_consistency'
-end
-
-group :test do
   gem 'rspec-rails'
   gem 'vcr'
   gem 'webmock'
