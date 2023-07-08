@@ -7,7 +7,13 @@ class NdlBooksController < ApplicationController
            else
              params[:page]
            end
-    @query = params[:query].to_s.strip
+    query = params[:query].to_s.strip
+    if query.blank?
+      @query = '*'
+    else
+      @query = query
+    end
+
     books = NdlBook.search(params[:query], page)
     @books = Kaminari.paginate_array(
       books[:items], total_count: books[:total_entries]
