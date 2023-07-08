@@ -7,11 +7,17 @@ class CiniiBooksController < ApplicationController
     else
       page = params[:page]
     end
+
     @query = params[:query].to_s.strip
-    books = CiniiBook.search(params[:query], page)
-    @books = Kaminari.paginate_array(
-      books[:items], total_count: books[:total_entries]
-    ).page(page).per(10)
+
+    begin
+      books = CiniiBook.search(params[:query], page)
+      @books = Kaminari.paginate_array(
+        books[:items], total_count: books[:total_entries]
+      ).page(page).per(10)
+    rescue OpenURI::HTTPError
+      @books = Kaminari.paginate_array([], total_count: 0).page(page).per(10)
+    end
 
     respond_to do |format|
       format.html
