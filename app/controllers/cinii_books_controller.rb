@@ -16,6 +16,7 @@ class CiniiBooksController < ApplicationController
         books[:items], total_count: books[:total_entries]
       ).page(page).per(10)
     rescue OpenURI::HTTPError
+      flash[:notice] = t('enju_nii.record_not_found')
       @books = Kaminari.paginate_array([], total_count: 0).page(page).per(10)
     end
 
