@@ -101,7 +101,7 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
-    database_consistency (1.7.11)
+    database_consistency (1.7.12)
       activerecord (>= 3.2)
     date (3.3.3)
     date_validator (0.12.0)
@@ -161,7 +161,7 @@ GEM
     ffi (1.15.5)
     friendly_id (5.5.0)
       activerecord (>= 4.0.0)
-    geocoder (1.8.1)
+    geocoder (1.8.2)
     globalid (1.1.0)
       activesupport (>= 5.0)
     globalize (6.2.1)
@@ -246,7 +246,7 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.9)
-    nokogiri (1.15.2)
+    nokogiri (1.15.3)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     nori (2.6.0)
