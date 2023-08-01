@@ -101,7 +101,7 @@ class BookmarksController < ApplicationController
       access_denied; return
     end
     @bookmark.title = @bookmark.manifestation.try(:original_title)
-    @bookmark.taggings.where(tagger_id: @bookmark.user.id).map{|t| t.destroy}
+    @bookmark.taggings.where(tagger_id: @bookmark.user.id).destroy_all
 
     respond_to do |format|
       if @bookmark.update(bookmark_params)
