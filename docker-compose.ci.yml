@@ -1,10 +1,5 @@
 version: '3.8'
 
-volumes:
-  postgres:
-  solr:
-  redis:
-
 networks:
   internal:
 
@@ -59,60 +54,38 @@ services:
 
   solr:
     image: solr:8
-    expose:
-      - 8983
+    ports:
+      - 127.0.0.1:8983:8983
     env_file:
       - .env
     networks:
       internal:
     volumes:
-      - solr:/var/solr/data
       - ./solr:/mnt/solr
     restart: always
     command: bash -c "precreate-core enju_leaf_${RAILS_ENV} /mnt/solr/configsets/sunspot/conf/; precreate-core enju_leaf_test /mnt/solr/configsets/sunspot/conf/; exec solr -f"
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8983/solr/enju_leaf_${RAILS_ENV}/admin/ping"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
 
   postgres:
     image: postgres:13
-    volumes:
-      - postgres:/var/lib/postgresql/data
     networks:
       internal:
     env_file:
       - .env
     ports:
       - 127.0.0.1:5432:5432
-    restart: always
-    healthcheck:
-      test: ["CMD-SHELL", "POSTGRES_PASSWORD=${POSTGRES_PASSWORD} pg_isready -U ${POSTGRES_USER} -h localhost -d template1"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
 
   redis:
     image: redis:6
-    volumes:
-      - redis:/data
     command: redis-server --appendonly yes
     networks:
       internal:
     expose:
       - 6379
-    healthcheck:
-      test: ["CMD-SHELL", "redis-cli ping"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
 
   cantaloupe:
     image: uclalibrary/cantaloupe:5.0.5-4
     expose:
       - 8182
-    restart: always
     environment:
       no_proxy: localhost,web
       SOURCE_STATIC: HttpSource
@@ -122,37 +95,11 @@ services:
       BASE_URI: ${CANTALOUPE_BASE_URI}
     networks:
       internal:
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8182/health"]
-      interval: 30s
-      timeout: 20s
-      retries: 3
-
-  nginx:
-    image: nginx:stable
-    ports:
-      - ${ENJU_LEAF_BIND_ADDRESS}:8080:80
-      - ${ENJU_LEAF_BIND_ADDRESS}:8182:8182
-    volumes:
-      - ./nginx/templates:/etc/nginx/templates:ro
-      - ./nginx/certs:/etc/nginx/certs:ro
-      - ./public:/opt/enju_leaf/public
-    restart: always
-    networks:
-      internal:
-    depends_on:
-      - web
-      - cantaloupe
-    healthcheck:
-      test: ["CMD", "service", "nginx", "status"]
-      interval: 30s
-      timeout: 20s
-      retries: 3
 
   tika:
     image: apache/tika:2.8.0.0
-    expose:
-      - 9998
+    ports:
+      - 127.0.0.1:9998:9998
     restart: always
     networks:
       internal:
