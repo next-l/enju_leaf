@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_14_163530) do
+ActiveRecord::Schema.define(version: 2023_08_15_095350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1578,6 +1578,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "current_checkout_count"
+    t.integer "due_date_offset", default: 1, null: false
     t.index ["checkout_type_id"], name: "index_user_group_has_checkout_types_on_checkout_type_id"
     t.index ["user_group_id"], name: "index_user_group_has_checkout_types_on_user_group_id"
   end

@@ -59,4 +59,5 @@ end
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #  current_checkout_count          :integer
+#  due_date_offset                 :integer          default(1), not null
 #
