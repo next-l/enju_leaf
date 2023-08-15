@@ -95,6 +95,8 @@ services:
 
   redis:
     image: redis:6
+    volumes:
+      - redis:/data
     command: redis-server --appendonly yes
     networks:
       internal:
