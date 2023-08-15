@@ -4,7 +4,6 @@ volumes:
   postgres:
   solr:
   redis:
-  minio:
 
 networks:
   internal:
@@ -30,7 +29,6 @@ x-app: &app
     - postgres
     - solr
     - redis
-    # - minio
   restart: always
 
 services:
@@ -108,28 +106,6 @@ services:
       timeout: 5s
       retries: 3
 
-  minio:
-    image: quay.io/minio/minio:RELEASE.2022-10-29T06-21-33Z
-    profiles:
-      - develop
-    volumes:
-      - minio:/data
-    entrypoint:
-      /bin/sh -c "mkdir -p /data/${ENJU_LEAF_STORAGE_BUCKET}-${RAILS_ENV} && minio server /data --console-address \":9001\""
-    expose:
-      - 9000
-      - 9001
-    env_file:
-      - .env
-    restart: always
-    networks:
-      internal:
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
-      interval: 30s
-      timeout: 20s
-      retries: 3
-
   cantaloupe:
     image: uclalibrary/cantaloupe:5.0.5-4
     expose:
@@ -172,7 +148,7 @@ services:
       retries: 3
 
   tika:
-    image: apache/tika:2.6.0.1
+    image: apache/tika:2.8.0.0
     ports:
       - 127.0.0.1:9998:9998
     restart: always

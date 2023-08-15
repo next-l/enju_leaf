@@ -97,13 +97,9 @@ class ProfilesController < ApplicationController
   # POST /profiles
   # POST /profiles.json
   def create
-    if current_user.has_role?('Librarian')
-      @profile = Profile.new(profile_params)
-      if @profile.user
-        password = @profile.user.set_auto_generated_password
-      end
-    else
-      @profile = Profile.new(profile_params)
+    @profile = Profile.new(profile_params)
+    if current_user.has_role?('Librarian') && @profile.user
+      password = @profile.user.set_auto_generated_password
     end
 
     respond_to do |format|

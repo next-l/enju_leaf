@@ -40,7 +40,7 @@
               <% else %>
                 <% case %>
                 <% when @parent %>
-                  <%= link_to t('page.add'), new_manifestation_relationship_path(manifestation_id: @parent.id, child_id: manifestation.id) unless @parent.derived_manifestations.include?(manifestation) or @parent == manifestation -%>
+                  <%= link_to t('page.add'), new_manifestation_relationship_path(manifestation_id: @parent.id, child_id: manifestation.id) unless policy_scope(@parent.derived_manifestations).include?(manifestation) or @parent == manifestation -%>
                 <% when @item %>
                   <%= link_to t('page.change'), edit_item_path(@item, manifestation_id: manifestation.id) unless @item.manifestation == manifestation -%>
                 <% else %>

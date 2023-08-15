@@ -6,6 +6,9 @@ server {
   # アップロードできるファイルの最大サイズ
   client_max_body_size 5m;
 
+  proxy_buffers 8 16K;
+  proxy_buffer_size 16k;
+
   root /opt/enju_leaf/public;
 
   # Enjuのその他の機能へのアクセスの設定

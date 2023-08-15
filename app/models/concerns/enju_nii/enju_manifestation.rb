@@ -229,11 +229,5 @@ module EnjuNii
         end
       end
     end
-
-    class AlreadyImported < StandardError
-    end
-  end
-
-  class RecordNotFound < StandardError
   end
 end

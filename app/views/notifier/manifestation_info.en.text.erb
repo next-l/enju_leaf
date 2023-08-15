@@ -7,7 +7,7 @@ Publisher(s): <%= @manifestation.publishers.readable_by(@user).collect(&:full_na
 ISBN: <%= @manifestation.identifier_contents(:isbn).join(" ") %>
 URL: <%= @manifestation.access_address %>
 Holding:
-<% @manifestation.items.on_shelf.each do |item| -%>
+<% @items.on_shelf.each do |item| -%>
  <%= item.shelf_display_name.localize %> <%= item.call_number %> <%= item.item_identifier %>
 <% end -%>
 
