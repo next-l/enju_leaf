@@ -21,15 +21,6 @@ class PictureFilesController < ApplicationController
   # GET /picture_files/1
   # GET /picture_files/1.json
   def show
-    case params[:size]
-    when 'original'
-      size = 'original'
-    when 'thumb'
-      size = 'thumb'
-    else
-      size = 'medium'
-    end
-
     respond_to do |format|
       format.html # show.html.erb
       format.html.phone
