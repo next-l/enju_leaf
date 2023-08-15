@@ -7,14 +7,14 @@ describe Event do
     event = events(:event_00001)
     event.all_day = true
     event.set_all_day
-    event.all_day.should be_truthy
+    expect(event.all_day).to be_truthy
   end
 
   it "should set all_day and beginning_of_day" do
     event = events(:event_00008)
     event.all_day = true
     event.set_all_day
-    event.start_at.should eq event.end_at.beginning_of_day
+    expect(event.start_at).to eq event.end_at.beginning_of_day
   end
 
   it "should export events" do

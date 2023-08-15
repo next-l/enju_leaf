@@ -11,39 +11,39 @@ describe EventImportFile do
         default_event_category: EventCategory.find(3),
         user: users(:admin)
       )
-      @file.attachment.attach(io: File.new("#{Rails.root}/../fixtures/files/event_import_file_sample1.tsv"), filename: 'attachment.txt')
+      @file.attachment.attach(io: File.new("#{Rails.root}/spec/fixtures/files/event_import_file_sample1.tsv"), filename: 'attachment.txt')
     end
 
     it "should be imported" do
       closing_days_size = Event.closing_days.size
       old_events_count = Event.count
       old_import_results_count = EventImportResult.count
-      @file.import_start.should eq({imported: 2, failed: 2})
-      Event.count.should eq old_events_count + 2
-      Event.closing_days.size.should eq closing_days_size + 1
-      EventImportResult.count.should eq old_import_results_count + 5
-      Event.order(:id).last.library.name.should eq 'hachioji'
-      Event.order(:id).last.name.should eq 'event3'
-      Event.where(name: 'event2').first.should be_nil
+      expect(@file.import_start).to eq({imported: 2, failed: 2})
+      expect(Event.count).to eq old_events_count + 2
+      expect(Event.closing_days.size).to eq closing_days_size + 1
+      expect(EventImportResult.count).to eq old_import_results_count + 5
+      expect(Event.order(:id).last.library.name).to eq 'hachioji'
+      expect(Event.order(:id).last.name).to eq 'event3'
+      expect(Event.where(name: 'event2').first).to be_nil
       event3 = Event.where(name: 'event3').first
-      event3.display_name.should eq 'イベント3'
-      event3.event_category.name.should eq 'book_talk'
+      expect(event3.display_name).to eq 'イベント3'
+      expect(event3.event_category.name).to eq 'book_talk'
       event4 = Event.where(name: '休館日1').first
-      event4.event_category.name.should eq 'closed'
+      expect(event4.event_category.name).to eq 'closed'
 
       # @file.event_import_fingerprint.should be_truthy
-      @file.executed_at.should be_truthy
+      expect(@file.executed_at).to be_truthy
 
       @file.reload
-      @file.error_message.should eq "The following column(s) were ignored: invalid"
+      expect(@file.error_message).to eq "The following column(s) were ignored: invalid"
     end
 
     it "should send message when import is completed" do
       old_message_count = Message.count
       @file.user = User.find_by(username: 'librarian1')
       @file.import_start
-      Message.count.should eq old_message_count + 1
-      Message.order(:created_at).last.subject.should eq "Import completed: #{@file.id}"
+      expect(Message.count).to eq old_message_count + 1
+      expect(Message.order(:created_at).last.subject).to eq "Import completed: #{@file.id}"
     end
   end
 
@@ -54,7 +54,7 @@ describe EventImportFile do
         default_event_category: EventCategory.find(3),
         user: users(:admin)
       )
-      @file.attachment.attach(io: File.new("#{Rails.root}/../fixtures/files/event_import_file_sample2.tsv"), filename: 'attachment.txt')
+      @file.attachment.attach(io: File.new("#{Rails.root}/spec/fixtures/files/event_import_file_sample2.tsv"), filename: 'attachment.txt')
     end
 
     it "should be imported" do
@@ -74,7 +74,7 @@ describe EventImportFile do
       @file = EventImportFile.create!(
         user: users(:admin)
       )
-      @file.attachment.attach(io: File.new("#{Rails.root}/../fixtures/files/invalid_file.tsv"), filename: 'attachment.txt')
+      @file.attachment.attach(io: File.new("#{Rails.root}/spec/fixtures/files/invalid_file.tsv"), filename: 'attachment.txt')
     end
 
     it "should not be imported" do
@@ -91,7 +91,7 @@ describe EventImportFile do
       file = EventImportFile.create!(
         user: users(:admin)
       )
-      file.attachment.attach(io: File.new("#{Rails.root}/../fixtures/files/event_update_file.tsv"), filename: 'attachment.txt')
+      file.attachment.attach(io: File.new("#{Rails.root}/spec/fixtures/files/event_update_file.tsv"), filename: 'attachment.txt')
       file.modify
       event1 = Event.find(1)
       event1.name.should eq '変更後のイベント名'
@@ -115,7 +115,7 @@ describe EventImportFile do
       file = EventImportFile.create!(
         user: users(:admin)
       )
-      file.attachment.attach(io: File.new("#{Rails.root}/../fixtures/files/event_destroy_file.tsv"), filename: 'attachment.txt')
+      file.attachment.attach(io: File.new("#{Rails.root}/spec/fixtures/files/event_destroy_file.tsv"), filename: 'attachment.txt')
       file.remove
       Event.count.should eq old_event_count - 2
     end
@@ -125,7 +125,7 @@ describe EventImportFile do
     file = EventImportFile.create!(
       user: users(:admin)
     )
-    file.attachment.attach(io: File.new("#{Rails.root}/../fixtures/files/event_import_file_sample1.tsv"), filename: 'attachment.txt')
+    file.attachment.attach(io: File.new("#{Rails.root}/spec/fixtures/files/event_import_file_sample1.tsv"), filename: 'attachment.txt')
     EventImportFileJob.perform_later(file).should be_truthy
   end
 end
