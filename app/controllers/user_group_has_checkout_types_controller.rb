@@ -94,7 +94,7 @@ class UserGroupHasCheckoutTypesController < ApplicationController
       :user_group_id, :checkout_type_id,
       :checkout_limit, :checkout_period, :checkout_renewal_limit,
       :reservation_limit, :reservation_expired_period,
-      :set_due_date_before_closing_day, :fixed_due_date, :note, :position,
+      :due_date_offset, :fixed_due_date, :note, :position,
       :user_group, :checkout_type
     )
   end
