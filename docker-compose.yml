@@ -61,8 +61,8 @@ services:
 
   solr:
     image: solr:8
-    ports:
-      - 127.0.0.1:8983:8983
+    expose:
+      - 8983
     env_file:
       - .env
     networks:
@@ -173,8 +173,8 @@ services:
 
   tika:
     image: apache/tika:2.8.0.0
-    ports:
-      - 127.0.0.1:9998:9998
+    expose:
+      - 9998
     restart: always
     networks:
       internal:
