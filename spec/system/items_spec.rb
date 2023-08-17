@@ -30,7 +30,7 @@ RSpec.describe 'Items', type: :system do
       budget_type = BudgetType.find(1)
       @item.update(budget_type: budget_type)
       visit item_path(@item.id, locale: :ja)
-      expect(page).to have_content budget_type.display_name
+      expect(page).to have_content budget_type.display_name.localize
     end
 
     it 'should show bookstore' do
