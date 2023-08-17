@@ -18,13 +18,15 @@ jobs:
           POSTGRES_DB: enju_leaf_test
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
+      redis:
+        image: redis:6
+        ports:
+          - "6379:6379"
     env:
       RAILS_ENV: test
       POSTGRES_USER: rails
       POSTGRES_PASSWORD: password
       CC_TEST_REPORTER_ID: c193cb8ea058a7d62fd62d6d05adaaf95f6bdf882c1039500b30b54494a36e52
-      UID: 1000
-      GID: 1000
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -33,26 +35,26 @@ jobs:
         with:
           node-version: 16
       # Add or replace dependency steps here
-      # - name: Install Ruby and gems
-      #   uses: ruby/setup-ruby@v1
-      #   with:
-      #     bundler-cache: true
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
       # Add or replace test runners here
       - name: Start containers
-        run: cp .env.test .env && docker-compose up -d
+        run: cp .env.test .env && cp docker-compose.ci.yml docker-compose.override.yml && docker-compose up -d solr tika
       - name: Setup Code Climate test-reporter
         run: |
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
           chmod +x ./cc-test-reporter
       # Add or replace database setup steps here
       - name: Set up database schema
-        run: docker compose run --rm web rails db:schema:load
+        run: rails db:schema:load
       - name: Generate asset files
-        run: docker compose run --rm web assets:precompile
+        run: rake assets:precompile
       - name: Run tests
         run: |
           ./cc-test-reporter before-build
-          docker compose run --rm web rake
+          rake
           ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
 
   lint:
@@ -65,8 +67,8 @@ jobs:
         with:
           bundler-cache: true
       # Add or replace any other lints here
-      #- name: Security audit dependencies
-      #  run: bin/bundler-audit --update
+      - name: Security audit dependencies
+        run: bin/bundler-audit --update
       #- name: Security audit application code
       #  run: bin/brakeman -q -w2
       #- name: Lint Ruby files
