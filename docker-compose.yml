@@ -26,7 +26,6 @@ x-app: &app
   volumes:
     - ./:/enju
   depends_on:
-    - postgres
     - solr
     - redis
   restart: always
@@ -46,21 +45,10 @@ services:
       - QUEUE=*
     command: bundle exec rake resque:work
 
-  webpacker:
-    <<: *app
-    environment:
-      - NODE_ENV=development
-      - WEBPACKER_DEV_SERVER_HOST=127.0.0.1
-    profiles:
-      - develop
-    command: ./bin/webpack-dev-server
-    ports:
-      - 127.0.0.1:3035:3035
-
   solr:
     image: solr:8
-    ports:
-      - 127.0.0.1:8983:8983
+    expose:
+      - 8983
     env_file:
       - .env
     networks:
@@ -84,8 +72,8 @@ services:
       internal:
     env_file:
       - .env
-    ports:
-      - 127.0.0.1:5432:5432
+    expose:
+      - 5432
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "POSTGRES_PASSWORD=${POSTGRES_PASSWORD} pg_isready -U ${POSTGRES_USER} -h localhost -d template1"]
@@ -109,7 +97,7 @@ services:
       retries: 3
 
   cantaloupe:
-    image: uclalibrary/cantaloupe:5.0.5-4
+    image: uclalibrary/cantaloupe:5.0.5-7
     expose:
       - 8182
     restart: always
@@ -128,31 +116,10 @@ services:
       timeout: 20s
       retries: 3
 
-  nginx:
-    image: nginx:stable
-    ports:
-      - ${ENJU_LEAF_BIND_ADDRESS}:8080:80
-      - ${ENJU_LEAF_BIND_ADDRESS}:8182:8182
-    volumes:
-      - ./nginx/templates:/etc/nginx/templates:ro
-      - ./nginx/certs:/etc/nginx/certs:ro
-      - ./public:/opt/enju_leaf/public
-    restart: always
-    networks:
-      internal:
-    depends_on:
-      - web
-      - cantaloupe
-    healthcheck:
-      test: ["CMD", "service", "nginx", "status"]
-      interval: 30s
-      timeout: 20s
-      retries: 3
-
   tika:
     image: apache/tika:2.8.0.0
-    ports:
-      - 127.0.0.1:9998:9998
+    expose:
+      - 9998
     restart: always
     networks:
       internal:
