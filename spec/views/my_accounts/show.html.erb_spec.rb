@@ -18,7 +18,7 @@ describe "my_accounts/show" do
       allow(view).to receive(:policy).and_return double(update?: true, destroy?: true)
       render
       # Run the generator again with the --webrat flag if you want to use webrat matchers
-      rendered.should match(/Checkout/)
+      rendered.should match(/貸出/)
     end
 
     it "cannot be deletable by other librarian" do
@@ -37,7 +37,7 @@ describe "my_accounts/show" do
     it "renders attributes in <p>" do
       allow(view).to receive(:policy).and_return double(update?: true, destroy?: true)
       render
-      rendered.should match(/Checkout/)
+      rendered.should match(/貸出/)
     end
   end
 end
