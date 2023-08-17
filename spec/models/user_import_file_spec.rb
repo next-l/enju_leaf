@@ -61,14 +61,14 @@ describe UserImportFile do
       user005 = User.find_by(username: 'user005')
       user005.role.name.should eq 'User'
       user005.profile.library.name.should eq 'hachioji'
-      user005.profile.locale.should eq 'en'
+      user005.profile.locale.should eq 'ja'
       user005.profile.user_number.should eq '001005'
       user005.profile.user_group.name.should eq 'faculty'
 
       user006 = User.find_by(username: 'user006')
       user006.role.name.should eq 'User'
       user006.profile.library.name.should eq 'hachioji'
-      user006.profile.locale.should eq 'en'
+      user006.profile.locale.should eq 'ja'
       user006.profile.user_number.should be_nil
       user006.profile.user_group.name.should eq UserGroup.find(2).name
 
