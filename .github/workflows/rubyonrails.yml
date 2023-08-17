@@ -33,10 +33,10 @@ jobs:
         with:
           node-version: 16
       # Add or replace dependency steps here
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
+      # - name: Install Ruby and gems
+      #   uses: ruby/setup-ruby@v1
+      #   with:
+      #     bundler-cache: true
       # Add or replace test runners here
       - name: Start containers
         run: cp .env.test .env && docker-compose up -d
@@ -46,13 +46,13 @@ jobs:
           chmod +x ./cc-test-reporter
       # Add or replace database setup steps here
       - name: Set up database schema
-        run: docker compose exec web rails db:schema:load
+        run: docker compose run --rm web rails db:schema:load
       - name: Generate asset files
-        run: docker compose exec web assets:precompile
+        run: docker compose run --rm web assets:precompile
       - name: Run tests
         run: |
           ./cc-test-reporter before-build
-          docker compose exec web rake
+          docker compose run --rm web rake
           ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
 
   lint:
