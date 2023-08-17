@@ -41,7 +41,7 @@ jobs:
           bundler-cache: true
       # Add or replace test runners here
       - name: Start containers
-        run: cp .env.test .env && cp docker-compose.ci.yml docker-compose.override.yml && docker-compose up -d solr tika
+        run: cp .env.test.ci .env && cp docker-compose.ci.yml docker-compose.override.yml && docker-compose up -d solr tika
       - name: Setup Code Climate test-reporter
         run: |
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
