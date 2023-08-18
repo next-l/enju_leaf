@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_18_052023) do
+ActiveRecord::Schema.define(version: 2023_08_18_154419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -766,6 +766,15 @@ ActiveRecord::Schema.define(version: 2023_08_18_052023) do
     t.index ["iso_639_1"], name: "index_languages_on_iso_639_1"
     t.index ["iso_639_2"], name: "index_languages_on_iso_639_2"
     t.index ["iso_639_3"], name: "index_languages_on_iso_639_3"
+  end
+
+  create_table "lccn_records", force: :cascade do |t|
+    t.string "body", null: false
+    t.bigint "manifestation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["body"], name: "index_lccn_records_on_body", unique: true
+    t.index ["manifestation_id"], name: "index_lccn_records_on_manifestation_id"
   end
 
   create_table "libraries", force: :cascade do |t|
@@ -1774,6 +1783,7 @@ ActiveRecord::Schema.define(version: 2023_08_18_052023) do
   add_foreign_key "items", "manifestations"
   add_foreign_key "items", "roles", column: "required_role_id"
   add_foreign_key "jpno_records", "manifestations"
+  add_foreign_key "lccn_records", "manifestations"
   add_foreign_key "libraries", "library_groups"
   add_foreign_key "library_groups", "users"
   add_foreign_key "manifestation_checkout_stats", "users"

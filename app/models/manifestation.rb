@@ -96,7 +96,7 @@ class Manifestation < ApplicationRecord
       identifier_contents(:lccn)
     end
     string :jpno, multiple: true do
-      identifier_contents(:jpno)
+      jpno_record&.body
     end
     string :carrier_type do
       carrier_type.name
