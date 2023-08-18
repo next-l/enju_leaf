@@ -764,6 +764,7 @@ end
 
       manifestation.doi_record = set_doi(row)
       manifestation.create_ncid_record(body: row['ncid']) if row['ncid'].present?
+      manifestation.issn_records.find_or_create_by(body: row['issn']) if row['issn'].present?
 
       identifiers = set_identifier(row)
 

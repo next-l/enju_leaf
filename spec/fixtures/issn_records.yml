@@ -1,0 +1,17 @@
+issn_record_00001:
+  id: 1
+  body: 99999999
+
+issn_record_00002:
+  id: 2
+  body: "09130000"
+
+# == Schema Information
+#
+# Table name: issn_records
+#
+#  id         :bigint           not null, primary key
+#  body       :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#

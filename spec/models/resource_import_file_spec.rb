@@ -28,7 +28,7 @@ describe ResourceImportFile do
         manifestation.publishers.second.full_name_transcription.should eq 'てすと5'
         manifestation.produces.first.produce_type.name.should eq 'publisher'
         manifestation.creates.first.create_type.name.should eq 'author'
-        manifestation.identifier_contents(:issn).should eq ['03875806']
+        expect(manifestation.issn_records.pluck(:body)).to eq ['03875806']
         Manifestation.count.should eq old_manifestations_count + 10
         Item.count.should eq old_items_count + 10
         Agent.count.should eq old_agents_count + 9

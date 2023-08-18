@@ -696,6 +696,22 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.index ["body"], name: "index_isbn_records_on_body"
   end
 
+  create_table "issn_record_and_manifestations", comment: "書誌とISSNの関係", force: :cascade do |t|
+    t.bigint "issn_record_id", null: false
+    t.bigint "manifestation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["issn_record_id"], name: "index_issn_record_and_manifestations_on_issn_record_id"
+    t.index ["manifestation_id", "issn_record_id"], name: "index_issn_record_and_manifestations_on_manifestation_id", unique: true
+  end
+
+  create_table "issn_records", comment: "ISSN", force: :cascade do |t|
+    t.string "body", null: false, comment: "ISSN"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["body"], name: "index_issn_records_on_body", unique: true
+  end
+
   create_table "item_custom_properties", force: :cascade do |t|
     t.string "name", null: false, comment: "ラベル名"
     t.text "display_name", null: false, comment: "表示名"
@@ -1785,6 +1801,8 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
   add_foreign_key "inventory_files", "users"
   add_foreign_key "isbn_record_and_manifestations", "isbn_records"
   add_foreign_key "isbn_record_and_manifestations", "manifestations"
+  add_foreign_key "issn_record_and_manifestations", "issn_records"
+  add_foreign_key "issn_record_and_manifestations", "manifestations"
   add_foreign_key "item_custom_values", "item_custom_properties"
   add_foreign_key "item_custom_values", "items"
   add_foreign_key "item_has_use_restrictions", "items"
