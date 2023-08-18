@@ -35,6 +35,7 @@ class Manifestation < ApplicationRecord
   has_many :isbn_record_and_manifestations, dependent: :destroy
   has_many :isbn_records, through: :isbn_record_and_manifestations
   has_one :doi_record, dependent: :destroy
+  has_one :lccn_record, dependent: :destroy
 
   accepts_nested_attributes_for :creators, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :contributors, allow_destroy: true, reject_if: :all_blank
@@ -43,6 +44,7 @@ class Manifestation < ApplicationRecord
   accepts_nested_attributes_for :identifiers, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :manifestation_custom_values, reject_if: :all_blank
   accepts_nested_attributes_for :isbn_records, reject_if: :all_blank
+  accepts_nested_attributes_for :lccn_record, allow_destroy: true, reject_if: :all_blank
 
   searchable do
     text :title, default_boost: 2 do
@@ -90,8 +92,8 @@ class Manifestation < ApplicationRecord
         identifier_contents(:issn)
       end
     end
-    string :lccn, multiple: true do
-      identifier_contents(:lccn)
+    string :lccn do
+      lccn_record&.body
     end
     string :jpno, multiple: true do
       identifier_contents(:jpno)
@@ -643,7 +645,7 @@ class Manifestation < ApplicationRecord
 
     record["jpno"] = identifier_contents(:jpno).first
     record["ncid"] = identifier_contents(:ncid).first
-    record["lccn"] = identifier_contents(:lccn).first
+    record["lccn"] = lccn_record&.body
     record["doi"] = identifier_contents(:doi).first
     record["iss_itemno"] = identifier_contents(:iss_itemno).first
 
