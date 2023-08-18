@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_14_163530) do
+ActiveRecord::Schema.define(version: 2023_05_27_182821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1106,6 +1106,25 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.index ["event_id"], name: "index_participates_on_event_id"
   end
 
+  create_table "periodical_and_manifestations", force: :cascade do |t|
+    t.bigint "periodical_id", null: false
+    t.bigint "manifestation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["manifestation_id"], name: "index_periodical_and_manifestations_on_manifestation_id"
+    t.index ["periodical_id"], name: "index_periodical_and_manifestations_on_periodical_id"
+  end
+
+  create_table "periodicals", force: :cascade do |t|
+    t.text "original_title", null: false
+    t.bigint "manifestation_id", null: false
+    t.bigint "frequency_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["frequency_id"], name: "index_periodicals_on_frequency_id"
+    t.index ["manifestation_id"], name: "index_periodicals_on_manifestation_id"
+  end
+
   create_table "picture_files", force: :cascade do |t|
     t.bigint "picture_attachable_id"
     t.string "picture_attachable_type"
@@ -1748,6 +1767,10 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
   add_foreign_key "ndla_records", "agents"
   add_foreign_key "news_posts", "roles", column: "required_role_id"
   add_foreign_key "news_posts", "users"
+  add_foreign_key "periodical_and_manifestations", "manifestations"
+  add_foreign_key "periodical_and_manifestations", "periodicals"
+  add_foreign_key "periodicals", "frequencies"
+  add_foreign_key "periodicals", "manifestations"
   add_foreign_key "profiles", "roles", column: "required_role_id"
   add_foreign_key "profiles", "users"
   add_foreign_key "reserve_stat_has_manifestations", "manifestations"

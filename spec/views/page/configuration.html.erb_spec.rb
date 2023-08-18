@@ -10,6 +10,6 @@ describe "page/configuration" do
   it "renders attributes in <p>" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/システム全体の設定/)
+    rendered.should match(/System configuration/)
   end
 end

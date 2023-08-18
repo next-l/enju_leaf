@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :agent_merges
   resources :agent_merge_lists
   resources :import_requests
+  resources :periodicals
 
   constraints format: :html do
     resources :produces
