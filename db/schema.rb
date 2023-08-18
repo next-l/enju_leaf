@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_27_182821) do
+ActiveRecord::Schema.define(version: 2023_08_18_052023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -471,6 +471,15 @@ ActiveRecord::Schema.define(version: 2023_05_27_182821) do
     t.index ["item_id"], name: "index_demands_on_item_id"
     t.index ["message_id"], name: "index_demands_on_message_id"
     t.index ["user_id"], name: "index_demands_on_user_id"
+  end
+
+  create_table "doi_records", force: :cascade do |t|
+    t.string "body", null: false
+    t.bigint "manifestation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index "lower((body)::text), manifestation_id", name: "index_doi_records_on_lower_body_manifestation_id", unique: true
+    t.index ["manifestation_id"], name: "index_doi_records_on_manifestation_id"
   end
 
   create_table "donates", force: :cascade do |t|
@@ -1743,6 +1752,7 @@ ActiveRecord::Schema.define(version: 2023_05_27_182821) do
   add_foreign_key "demands", "items"
   add_foreign_key "demands", "messages"
   add_foreign_key "demands", "users"
+  add_foreign_key "doi_records", "manifestations"
   add_foreign_key "event_export_files", "users"
   add_foreign_key "events", "event_categories"
   add_foreign_key "import_requests", "users"
