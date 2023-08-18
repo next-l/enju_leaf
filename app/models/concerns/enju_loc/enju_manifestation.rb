@@ -114,14 +114,14 @@ module EnjuLoc
             identifier[:isbn] = Identifier.new(
               manifestation: manifestation,
               body: isbn,
-              identifier_type: IdentifierType.find_by(name: 'isbn') || IdnetifierType.create!(name: 'isbn')
+              identifier_type: IdentifierType.find_by(name: 'isbn') || IdentifierType.create!(name: 'isbn')
             )
           end
           if loc_identifier
             identifier[:loc_identifier] = Identifier.new(
               manifestation: manifestation,
               body: loc_identifier,
-              identifier_type: IdentifierType.find_by(name: 'loc_identifier') || IdnetifierType.create!(name: 'loc_identifier')
+              identifier_type: IdentifierType.find_by(name: 'loc_identifier') || IdentifierType.create!(name: 'loc_identifier')
             )
           end
           if lccn
