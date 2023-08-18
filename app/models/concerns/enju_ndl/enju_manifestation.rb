@@ -163,7 +163,7 @@ module EnjuNdl
           manifestation.carrier_type = carrier_type if carrier_type
           manifestation.manifestation_content_type = content_type if content_type
           if manifestation.save
-            manifestation.isbn_records.find_or_create_by(body: isbn) if isbn
+            manifestation.isbn_records.find_or_create_by(body: isbn) if isbn.present?
 
             identifier.each do |_k, v|
               manifestation.identifiers << v if v.valid?

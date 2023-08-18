@@ -146,7 +146,7 @@ module EnjuLoc
           identifier.each do |k, v|
             manifestation.identifiers << v if v.valid?
           end
-          manifestation.isbn_records.create(body: isbn) if isbn
+          manifestation.isbn_records.create(body: isbn) if isbn.present?
           manifestation.publishers << publisher_agents
           manifestation.creators << creator_agents
           create_loc_subject_related_elements(doc, manifestation)

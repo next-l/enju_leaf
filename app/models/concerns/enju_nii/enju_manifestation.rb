@@ -83,7 +83,7 @@ module EnjuNii
         if manifestation.valid?
           Agent.transaction do
             manifestation.save!
-            manifestation.isbn_records.create(body: isbn) if isbn
+            manifestation.isbn_records.create(body: isbn) if isbn.present?
             create_cinii_series_statements(doc, manifestation)
             publisher_patrons = Agent.import_agents(publishers)
             creator_patrons = Agent.import_agents(creators)
