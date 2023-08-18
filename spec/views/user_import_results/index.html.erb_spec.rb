@@ -5,13 +5,12 @@ describe "user_import_results/index" do
 
   before(:each) do
     assign(:user_import_results, UserImportResult.page(1))
-    admin = User.friendly.find('enjuadmin')
-    view.stub(:current_user).and_return(admin)
+    view.stub(:current_user).and_return(User.find_by(username: 'enjuadmin'))
   end
 
   it "renders a list of user_import_results" do
     render
-    expect(rendered).to match /MyString/
+    expect(rendered).to match /enjuadmin/
   end
 
   context "with @user_import_file" do
@@ -22,7 +21,6 @@ describe "user_import_results/index" do
     it "renders a list of user_import_results for the user_import_file" do
       render
       expect(view).to render_template "user_import_results/_list_lines"
-      expect(rendered).to match /MyString/
       expect(rendered).to match /<td>1<\/td>/
     end
   end

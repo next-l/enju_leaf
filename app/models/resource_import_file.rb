@@ -8,28 +8,7 @@ class ResourceImportFile < ApplicationRecord
   scope :not_imported, -> { in_state(:pending) }
   scope :stucked, -> { in_state(:pending).where('resource_import_files.created_at < ?', 1.hour.ago) }
 
-  if ENV['ENJU_STORAGE'] == 's3'
-    has_attached_file :resource_import, storage: :s3,
-      s3_credentials: {
-        access_key: ENV['AWS_ACCESS_KEY_ID'],
-        secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-        bucket: ENV['S3_BUCKET_NAME'],
-        s3_host_name: ENV['S3_HOST_NAME'],
-        s3_region: ENV['S3_REGION']
-      },
-      s3_permissions: :private
-  else
-    has_attached_file :resource_import,
-      path: ":rails_root/private/system/:class/:attachment/:id_partition/:style/:filename"
-  end
-  validates_attachment_content_type :resource_import, content_type: [
-    'text/csv',
-    'text/plain',
-    'text/tab-separated-values',
-    'application/octet-stream',
-    'application/vnd.ms-excel'
-  ]
-  validates_attachment_presence :resource_import
+  has_one_attached :attachment
   validates :default_shelf_id, presence: true, if: proc{|model| model.edit_mode == 'create'}
   belongs_to :user
   belongs_to :default_shelf, class_name: 'Shelf', optional: true
@@ -69,7 +48,7 @@ class ResourceImportFile < ApplicationRecord
       item_found: 0,
       failed: 0
     }
-    rows = open_import_file(create_import_temp_file(resource_import))
+    rows = open_import_file(create_import_temp_file(attachment))
     rows.shift
     #if [field['manifestation_id'], field['manifestation_identifier'], field['isbn'], field['original_title']].reject{|f|
     #  f.to_s.strip == ''
@@ -122,24 +101,21 @@ class ResourceImportFile < ApplicationRecord
       unless manifestation
         if row['doi'].present?
           doi = URI.parse(row['doi'].downcase).path.gsub(/^\//, "")
-          identifier_type_doi = IdentifierType.find_or_create_by!(name: 'doi')
-          manifestation = Identifier.find_by(body: doi, identifier_type_id: identifier_type_doi.id).try(:manifestation)
+          manifestation = DoiRecord.find_by(body: doi)&.manifestation
         end
       end
 
       unless manifestation
         if row['jpno'].present?
           jpno = row['jpno'].to_s.strip
-          identifier_type_jpno = IdentifierType.find_or_create_by!(name: 'jpno')
-          manifestation = Identifier.find_by(body: jpno, identifier_type_id: identifier_type_jpno.id).try(:manifestation)
+          manifestation = JpnoRecord.find_by(body: jpno)&.manifestation
         end
       end
 
       unless manifestation
         if row['ncid'].present?
           ncid = row['ncid'].to_s.strip
-          identifier_type_ncid = IdentifierType.find_or_create_by!(name: 'ncid')
-          manifestation = Identifier.find_by(body: ncid, identifier_type_id: identifier_type_ncid.id).try(:manifestation)
+          manifestation = NcidRecord.find_by(body: ncid)&.manifestation
         end
       end
 
@@ -155,8 +131,7 @@ class ResourceImportFile < ApplicationRecord
         if row['isbn'].present?
           if StdNum::ISBN.valid?(row['isbn'])
             isbn = StdNum::ISBN.normalize(row['isbn'])
-            identifier_type_isbn = IdentifierType.find_or_create_by!(name: 'isbn')
-            m = Identifier.find_by(body: isbn, identifier_type_id: identifier_type_isbn.id).try(:manifestation)
+            m = IsbnRecord.find_by(body: isbn)&.manifestations&.first
             if m
               if m.series_statements.exists?
                 manifestation = m
@@ -279,7 +254,7 @@ class ResourceImportFile < ApplicationRecord
   end
 
   def import_marc(marc_type)
-    file = File.open(resource_import.path)
+    file = attachment.download
     case marc_type
     when 'marcxml'
       reader = MARC::XMLReader.new(file)
@@ -328,7 +303,7 @@ class ResourceImportFile < ApplicationRecord
 
   def modify
     transition_to!(:started)
-    rows = open_import_file(create_import_temp_file(resource_import))
+    rows = open_import_file(create_import_temp_file(attachment))
     rows.shift
     row_num = 1
 
@@ -385,7 +360,7 @@ class ResourceImportFile < ApplicationRecord
 
   def remove
     transition_to!(:started)
-    rows = open_import_file(create_import_temp_file(resource_import))
+    rows = open_import_file(create_import_temp_file(attachment))
     rows.shift
     row_num = 1
 
@@ -414,7 +389,7 @@ class ResourceImportFile < ApplicationRecord
 
   def update_relationship
     transition_to!(:started)
-    rows = open_import_file(create_import_temp_file(resource_import))
+    rows = open_import_file(create_import_temp_file(attachment))
     rows.shift
     row_num = 1
 
@@ -787,6 +762,10 @@ end
         end
       end
 
+      manifestation.doi_record = set_doi(row)
+      manifestation.create_ncid_record(body: row['ncid']) if row['ncid'].present?
+      manifestation.issn_records.find_or_create_by(body: row['issn']) if row['issn'].present?
+
       identifiers = set_identifier(row)
 
       if manifestation.save
@@ -825,7 +804,7 @@ end
 
   def set_identifier(row)
     identifiers = []
-    %w(isbn issn doi jpno ncid lccn iss_itemno).each do |id_type|
+    %w(isbn issn jpno ncid lccn iss_itemno).each do |id_type|
       next unless row[id_type.to_s].present?
 
       row[id_type].split(/\/\//).each do |identifier_s|
@@ -835,7 +814,17 @@ end
         identifiers << import_id if import_id.valid?
       end
     end
+
     identifiers
+  end
+
+  def set_doi(row)
+    return if row['doi'].blank?
+
+    doi = URI.parse(row['doi'].downcase).path.gsub(/^\//, "")
+    doi_record = DoiRecord.new(body: doi)
+
+    doi_record
   end
 
   def self.import_manifestation_custom_value(row, manifestation)
@@ -889,22 +878,16 @@ end
 #
 # Table name: resource_import_files
 #
-#  id                           :bigint           not null, primary key
-#  parent_id                    :integer
-#  content_type                 :string
-#  size                         :integer
-#  user_id                      :bigint
-#  note                         :text
-#  executed_at                  :datetime
-#  resource_import_file_name    :string
-#  resource_import_content_type :string
-#  resource_import_file_size    :integer
-#  resource_import_updated_at   :datetime
-#  created_at                   :datetime         not null
-#  updated_at                   :datetime         not null
-#  edit_mode                    :string
-#  resource_import_fingerprint  :string
-#  error_message                :text
-#  user_encoding                :string
-#  default_shelf_id             :integer
+#  id                          :bigint           not null, primary key
+#  parent_id                   :bigint
+#  user_id                     :bigint
+#  note                        :text
+#  executed_at                 :datetime
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#  edit_mode                   :string
+#  resource_import_fingerprint :string
+#  error_message               :text
+#  user_encoding               :string
+#  default_shelf_id            :bigint
 #

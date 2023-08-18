@@ -25,8 +25,7 @@ module EnjuNii
         # return nil
 
         ncid = doc.at('//cinii:ncid').try(:content)
-        identifier_type = IdentifierType.find_or_create_by!(name: 'ncid')
-        identifier = Identifier.find_by(body: ncid, identifier_type_id: identifier_type.id)
+        identifier = NcidRecord.find_by(body: ncid)
         return identifier.manifestation if identifier
 
         creators = get_cinii_creator(doc)
@@ -67,27 +66,14 @@ module EnjuNii
           end
         end
 
-        identifier = {}
-        if ncid
-          identifier[:ncid] = Identifier.new(body: ncid)
-          identifier_type_ncid = IdentifierType.find_or_create_by!(name: 'ncid')
-          identifier[:ncid].identifier_type = identifier_type_ncid
-        end
-        if isbn
-          identifier[:isbn] = Identifier.new(body: isbn)
-          identifier_type_isbn = IdentifierType.find_or_create_by!(name: 'isbn')
-          identifier[:isbn].identifier_type = identifier_type_isbn
-        end
-        identifier.each do |k, v|
-          manifestation.identifiers << v
-        end
-
         manifestation.carrier_type = CarrierType.find_by(name: 'volume')
         manifestation.manifestation_content_type = ContentType.find_by(name: 'text')
 
         if manifestation.valid?
           Agent.transaction do
             manifestation.save!
+            manifestation.create_ncid_record(body: ncid) if ncid.present?
+            manifestation.isbn_records.create(body: isbn) if isbn.present?
             create_cinii_series_statements(doc, manifestation)
             publisher_patrons = Agent.import_agents(publishers)
             creator_patrons = Agent.import_agents(creators)
@@ -229,11 +215,5 @@ module EnjuNii
         end
       end
     end
-
-    class AlreadyImported < StandardError
-    end
-  end
-
-  class RecordNotFound < StandardError
   end
 end

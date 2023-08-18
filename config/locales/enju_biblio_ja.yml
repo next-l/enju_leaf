@@ -359,6 +359,10 @@ ja:
         note: 注記
       item_custom_value:
         value: 値
+      periodical:
+        original_title: タイトル
+        manifestation_id: 資料
+        frequency_id: 発行頻度
 
   resource_import_file:
     update_relationship: 関連を更新

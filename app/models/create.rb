@@ -3,7 +3,7 @@ class Create < ApplicationRecord
   belongs_to :work, class_name: 'Manifestation', touch: true
   belongs_to :create_type, optional: true
 
-  validates :agent_id, uniqueness: { scope: :work_id }
+  validates :work_id, uniqueness: { scope: :agent_id }
   after_destroy :reindex
   after_save :reindex
 
@@ -21,9 +21,9 @@ end
 #
 #  id             :bigint           not null, primary key
 #  agent_id       :bigint           not null
-#  work_id        :integer          not null
+#  work_id        :bigint           not null
 #  position       :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
-#  create_type_id :integer
+#  create_type_id :bigint
 #

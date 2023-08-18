@@ -118,7 +118,7 @@
     <div class="field">
       <%= f.label t('page.delete_file') -%>
       <%= f.check_box :delete_attachment -%>
-      <%= f.object.attachment.original_filename %>
+      <%= f.object.attachment.filename.to_s %>
     </div>
   <% end %>
 
@@ -137,6 +137,26 @@
 
     <%= f.label t('activerecord.models.language') -%>
     <%= f.select(:language_id, @languages.collect{|language| [language.display_name.localize, language.id]}) -%>
+  </div>
+
+  <div class="field">
+    <%= f.label :isbn_records -%><br />
+    <%= f.fields_for :isbn_records do |isbn_record_form| %>
+      <%= render 'isbn_record_fields', f: isbn_record_form %>
+    <% end %>
+    <div class="links">
+      <p><%= link_to_add_association t('page.add'), f, :isbn_records %></p>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :issn_records -%><br />
+    <%= f.fields_for :issn_records do |issn_record_form| %>
+      <%= render 'issn_record_fields', f: issn_record_form %>
+    <% end %>
+    <div class="links">
+      <p><%= link_to_add_association t('page.add'), f, :issn_records %></p>
+    </div>
   </div>
 
   <div class="field">

@@ -15,21 +15,8 @@ class AgentImportFilesController < ApplicationController
   # GET /agent_import_files/1
   # GET /agent_import_files/1.json
   def show
-    if @agent_import_file.agent_import.path
-      unless ENV['ENJU_STORAGE'] == 's3'
-        file = File.expand_path(@agent_import_file.agent_import.path)
-      end
-    end
-
     respond_to do |format|
       format.html # show.html.erb
-      format.download {
-        if ENV['ENJU_STORAGE'] == 's3'
-          redirect_to URI.parse(@agent_import_file.agent_import.expiring_url(10)).to_s
-        else
-          send_file file, filename: @agent_import_file.agent_import_file_name, type: 'application/octet-stream'
-        end
-      }
     end
   end
 
@@ -102,7 +89,7 @@ class AgentImportFilesController < ApplicationController
 
   def agent_import_file_params
     params.require(:agent_import_file).permit(
-      :agent_import, :edit_mode, :user_encoding, :mode
+      :attachment, :edit_mode, :user_encoding, :mode
     )
   end
 end

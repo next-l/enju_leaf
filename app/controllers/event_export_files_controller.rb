@@ -15,22 +15,8 @@ class EventExportFilesController < ApplicationController
   # GET /event_export_files/1
   # GET /event_export_files/1.json
   def show
-    if @event_export_file.event_export.path
-      unless ENV['ENJU_STORAGE'] == 's3'
-        file = File.expand_path(@event_export_file.event_export.path)
-      end
-    end
-
     respond_to do |format|
       format.html # show.html.erb
-      format.download {
-        if ENV['ENJU_STORAGE'] == 's3'
-          send_data Faraday.get(@event_export_file.event_export.expiring_url).body.force_encoding('UTF-8'),
-            filename: File.basename(@event_export_file.event_export_file_name), type: 'application/octet-stream'
-        else
-          send_file file, filename: @event_export_file.event_export_file_name, type: 'application/octet-stream'
-        end
-      }
     end
   end
 

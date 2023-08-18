@@ -212,7 +212,7 @@ class Reserve < ApplicationRecord
 
   def checked_out_now?
     if user && manifestation
-      true if !(user.checkouts.not_returned.pluck(:item_id) & manifestation.items.pluck('items.id')).empty?
+      true unless (user.checkouts.not_returned.pluck(:item_id) & manifestation.items.pluck('items.id')).empty?
     end
   end
 
@@ -324,7 +324,7 @@ end
 #  user_id                      :bigint           not null
 #  manifestation_id             :bigint           not null
 #  item_id                      :bigint
-#  request_status_type_id       :integer          not null
+#  request_status_type_id       :bigint           not null
 #  checked_out_at               :datetime
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
@@ -332,7 +332,7 @@ end
 #  expired_at                   :datetime
 #  expiration_notice_to_patron  :boolean          default(FALSE)
 #  expiration_notice_to_library :boolean          default(FALSE)
-#  pickup_location_id           :integer
+#  pickup_location_id           :bigint
 #  retained_at                  :datetime
 #  postponed_at                 :datetime
 #  lock_version                 :integer          default(0), not null

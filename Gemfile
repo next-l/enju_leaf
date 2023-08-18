@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.6'
+ruby '3.1.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.6'
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 1.1'
+gem 'pg', '~> 1.4.6'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
@@ -49,7 +49,7 @@ group :test do
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
+  # gem 'webdrivers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -58,12 +58,11 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'pundit'
 gem 'sunspot_rails'
-gem 'paperclip'
-gem 'paperclip-meta'
+gem 'kt-paperclip'
 gem 'acts_as_list'
 gem 'kaminari'
 gem 'strip_attributes'
-gem 'statesman', '~> 10.0'
+gem 'statesman', '~> 10.2.2'
 gem 'friendly_id'
 gem 'globalize'
 gem 'globalize-accessors'
@@ -93,16 +92,17 @@ gem 'caxlsx'
 gem 'caxlsx_rails'
 gem 'rails-i18n', '~> 6.0'
 gem 'sitemap_generator'
+gem 'rss'
 gem 'rdf-turtle', require: 'rdf/turtle'
 gem 'rdf-vocab', require: 'rdf/vocab'
 gem 'oai'
+gem 'active_storage_validations'
+gem 'mail', '~> 2.8'
+gem 'sprockets', '~> 3.7'
 
 group :development, :test do
   gem 'annotate'
   gem 'database_consistency'
-end
-
-group :test do
   gem 'rspec-rails'
   gem 'vcr'
   gem 'webmock'

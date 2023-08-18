@@ -22,14 +22,14 @@ end
 #
 #  id                       :bigint           not null, primary key
 #  user_id                  :bigint
-#  user_group_id            :integer
+#  user_group_id            :bigint
 #  library_id               :bigint
 #  locale                   :string
 #  user_number              :string
 #  full_name                :text
 #  note                     :text
 #  keyword_list             :text
-#  required_role_id         :integer
+#  required_role_id         :bigint
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  checkout_icalendar_token :string

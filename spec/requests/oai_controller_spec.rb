@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "OaiControllers", type: :request do
+RSpec.describe "OaiController", type: :request do
   describe "GET /oai" do
     fixtures :all
     before(:each) do

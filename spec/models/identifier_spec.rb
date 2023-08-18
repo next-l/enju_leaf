@@ -11,7 +11,7 @@ end
 #
 #  id                 :bigint           not null, primary key
 #  body               :string           not null
-#  identifier_type_id :integer          not null
+#  identifier_type_id :bigint           not null
 #  manifestation_id   :bigint
 #  primary            :boolean
 #  position           :integer

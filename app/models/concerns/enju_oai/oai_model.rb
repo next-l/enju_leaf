@@ -50,9 +50,9 @@ module EnjuOai
           xml.tag! 'jpcoar:subject', subject.term
         end
 
-        if attachment
+        if attachment.attached?
           xml.tag! 'jpcoar:file' do
-            xml.tag! 'jpcoar:URI', URI.join(ENV['ENJU_LEAF_BASE_URL'], "/manifestations/#{id}?format=download")
+            xml.tag! 'jpcoar:URI', Rails.application.routes.url_helpers.rails_storage_proxy_url(fileset.attachment, host: ENV['ENJU_LEAF_BASE_URL'])
           end
         end
       end
@@ -89,6 +89,8 @@ module EnjuOai
             when 'ncid'
               xml.tag! "dcterms:identifier", identifier.body, "rdf:datatype" => "http://ndl.go.jp/dcndl/terms/NIIBibID"
             end
+
+            xml.tag! "dcterms:identifier", doi_record.body, "rdf:datatype" => "http://ndl.go.jp/dcndl/terms/DOI" if doi_record
           end
           xml.tag! "dcterms:title", original_title
           xml.tag! "dc:title" do
@@ -333,7 +335,7 @@ module EnjuOai
         else
           xml.NIItype 'Others'
         end
-        if attachment
+        if attachment.attached?
           xml.format attachment.content_type
         end
         if manifestation_identifier?
@@ -345,8 +347,8 @@ module EnjuOai
           end
         end
         xml.URI URI.join(ENV['ENJU_LEAF_BASE_URL'], "/manifestations/#{id}")
-        if attachment
-          xml.fulltextURL URI.join(ENV['ENJU_LEAF_BASE_URL'], "/manifestations/#{id}?format=download")
+        if attachment.attached?
+          xml.fulltextURL Rails.application.routes.url_helpers.rails_storage_proxy_url(fileset.attachment, host: ENV['ENJU_LEAF_BASE_URL'])
         end
         %w[isbn issn NCID].each do |identifier|
           identifier_contents(identifier.downcase).each do |val|

@@ -8,28 +8,7 @@ class AgentImportFile < ApplicationRecord
   scope :not_imported, -> { in_state(:pending) }
   scope :stucked, -> { in_state(:pending).where('agent_import_files.created_at < ?', 1.hour.ago) }
 
-  if ENV['ENJU_STORAGE'] == 's3'
-    has_attached_file :agent_import, storage: :s3,
-      s3_credentials: {
-        access_key: ENV['AWS_ACCESS_KEY_ID'],
-        secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-        bucket: ENV['S3_BUCKET_NAME'],
-        s3_host_name: ENV['S3_HOST_NAME'],
-        s3_region: ENV['S3_REGION']
-      },
-      s3_permissions: :private
-  else
-    has_attached_file :agent_import,
-      path: ":rails_root/private/system/:class/:attachment/:id_partition/:style/:filename"
-  end
-  validates_attachment_content_type :agent_import, content_type: [
-    'text/csv',
-    'text/plain',
-    'text/tab-separated-values',
-    'application/octet-stream',
-    'application/vnd.ms-excel'
-  ]
-  validates_attachment_presence :agent_import
+  has_one_attached :attachment
   belongs_to :user
   has_many :agent_import_results, dependent: :destroy
 
@@ -175,16 +154,7 @@ class AgentImportFile < ApplicationRecord
 
   def open_import_file
     tempfile = Tempfile.new(self.class.name.underscore)
-    if ENV['ENJU_STORAGE'] == 's3'
-      uploaded_file_path = agent_import.expiring_url(10)
-    else
-      uploaded_file_path = agent_import.path
-    end
-    File.open(uploaded_file_path){|f|
-      f.each{|line|
-        tempfile.puts(convert_encoding(line))
-      }
-    }
+    tempfile.puts(convert_encoding(attachment.download))
     tempfile.close
 
     file = CSV.open(tempfile, col_sep: "\t")
@@ -236,21 +206,15 @@ end
 #
 # Table name: agent_import_files
 #
-#  id                        :bigint           not null, primary key
-#  parent_id                 :integer
-#  content_type              :string
-#  size                      :integer
-#  user_id                   :bigint
-#  note                      :text
-#  executed_at               :datetime
-#  agent_import_file_name    :string
-#  agent_import_content_type :string
-#  agent_import_file_size    :integer
-#  agent_import_updated_at   :datetime
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  agent_import_fingerprint  :string
-#  error_message             :text
-#  edit_mode                 :string
-#  user_encoding             :string
+#  id                       :bigint           not null, primary key
+#  parent_id                :bigint
+#  user_id                  :bigint
+#  note                     :text
+#  executed_at              :datetime
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  agent_import_fingerprint :string
+#  error_message            :text
+#  edit_mode                :string
+#  user_encoding            :string
 #

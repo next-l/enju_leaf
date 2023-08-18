@@ -1,0 +1,40 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://ci.nii.ac.jp/books/opensearch/search?count=10&format=rss&p=1&q=
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 400
+      message: '400'
+    headers:
+      Date:
+      - Sun, 09 Jul 2023 01:18:01 GMT
+      Content-Type:
+      - text/xml
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Server:
+      - Apache
+      Vary:
+      - Accept-Encoding
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: <?xml version="1.0"?><error><code>400</code><reason>Bad Request</reason><detail>Required
+        Parameter is Empty</detail></error>
+  recorded_at: Sun, 09 Jul 2023 01:18:01 GMT
+recorded_with: VCR 6.2.0

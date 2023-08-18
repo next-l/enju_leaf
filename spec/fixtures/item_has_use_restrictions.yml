@@ -65,6 +65,14 @@ item_has_use_restriction_00011:
   id: 11
   use_restriction_id: 7
   created_at: 2008-02-13 12:29:36.013448 +09:00
+item_has_use_restriction_00012:
+  item_id: 25
+  id: 12
+  use_restriction_id: 7
+item_has_use_restriction_00013:
+  item_id: 26
+  id: 13
+  use_restriction_id: 7
 
 # == Schema Information
 #
@@ -72,7 +80,7 @@ item_has_use_restriction_00011:
 #
 #  id                 :bigint           not null, primary key
 #  item_id            :bigint           not null
-#  use_restriction_id :integer          not null
+#  use_restriction_id :bigint           not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #

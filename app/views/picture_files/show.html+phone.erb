@@ -11,33 +11,35 @@
 
 <p>
   <strong><%= t('activerecord.attributes.picture_file.picture_file_size') -%>:</strong>
-  <%= @picture_file.picture_file_size -%>
+  <%= @picture_file.attachment.byte_size -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.picture_file.picture_content_type') -%>:</strong>
-  <%= @picture_file.picture_content_type -%>
+  <%= @picture_file.attachment.content_type -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.picture_file.picture_file_name') -%>:</strong>
-  <%= link_to @picture_file.picture_file_name, picture_file_path(@picture_file, format: :download, size: 'original') -%><br />
-  <%= render 'picture_files/link', picture_file: @picture_file %>
+  <%- if @picture_file.attachment.attached? -%><br />
+    <%= link_to @picture_file.attachment.filename, rails_blob_path(@picture_file.attachment) -%><br />
+    <%= render 'picture_files/link', picture_file: @picture_file %>
+  <% end %>
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.picture_file.width') -%>:</strong>
-  <%= @picture_file.picture_width -%>
+  <%= @picture_file.attachment.metadata['width'] -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.picture_file.height') -%>:</strong>
-  <%= @picture_file.picture_height -%>
+  <%= @picture_file.attachment.metadata['height'] -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.picture_file.picture_fingerprint') -%>:</strong>
-  <%= @picture_file.picture_fingerprint -%>
+  <%= Base64.decode64(@picture_file.attachment.checksum).unpack("H*").first %>
 </p>
 
 <p>

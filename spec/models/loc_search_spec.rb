@@ -10,7 +10,7 @@ describe LocSearch do
       expect(manifestation.original_title).to eq "Everything is miscellaneous : the power of the new digital disorder"
       expect(manifestation.manifestation_content_type.name).to eq "text"
       expect(manifestation.carrier_type.name).to eq "volume"
-      expect(manifestation.publishers.size).to eq 1
+      expect(manifestation.publishers.count).to eq 1
       expect(manifestation.publishers.first.full_name).to eq "Times Books"
       expect(manifestation.publication_place).to eq "New York"
       expect(manifestation.creators.size).to eq 1
@@ -40,7 +40,7 @@ describe LocSearch do
       classification = manifestation.classifications.first
       expect(classification.classification_type.name).to eq "ddc"
       expect(classification.category).to eq "303.48"
-      expect(manifestation.identifier_contents("isbn").first).to eq "9780805080438"
+      expect(manifestation.isbn_records.first.body).to eq "9780805080438"
       expect(manifestation.identifier_contents("lccn").first).to eq "2007012024"
     end
 
@@ -125,7 +125,7 @@ describe LocSearch do
       m = LocSearch.import_from_sru_response("00200486")
       expect(m.original_title).to eq "Science and technology of advanced materials"
       expect(m.serial).to be_truthy
-      expect(m.identifier_contents(:issn).first).to eq "14686996"
+      expect(m.issn_records.first.body).to eq "14686996"
       expect(m.identifier_contents(:issn_l).first).to eq "14686996"
       expect(m.frequency.name).to eq "bimonthly"
       series_statement = m.series_statements.first
@@ -137,7 +137,7 @@ describe LocSearch do
       expect(m.original_title).to eq "Superconductor science & technology"
       expect(m.title_alternative).to eq "Supercond. sci. technol ; Superconductor science and technology"
       expect(m.serial).to be_truthy
-      expect(m.identifier_contents(:issn).first).to eq "09532048"
+      expect(m.issn_records.first.body).to eq "09532048"
       expect(m.identifier_contents(:issn_l).first).to eq "09532048"
       expect(m.frequency.name).to eq "monthly"
       series_statement = m.series_statements.first

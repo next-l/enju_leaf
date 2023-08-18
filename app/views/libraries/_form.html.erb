@@ -1,6 +1,6 @@
 <%= render 'page/required_field' %>
-<%= form_for(@library) do |f| -%>
-  <%= error_messages(@library) %>
+<%= form_with(model: library) do |f| -%>
+  <%= error_messages(library) %>
 
   <div class="field">
     <%= f.label :name -%><br />
@@ -17,7 +17,7 @@
     <%= f.text_area :display_name, class: 'resource_textarea' -%>
   </div>
 
-  <% unless @library.web? %>
+  <% unless library.web? %>
   <div class="field">
     <%= f.label :isil -%><br />
     <%= f.text_field :isil, class: 'resource_identifier' -%>

@@ -5,21 +5,7 @@ class ResourceExportFile < ApplicationRecord
   ]
   include ExportFile
 
-  if ENV['ENJU_STORAGE'] == 's3'
-    has_attached_file :resource_export, storage: :s3,
-      s3_credentials: {
-        access_key: ENV['AWS_ACCESS_KEY_ID'],
-        secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-        bucket: ENV['S3_BUCKET_NAME'],
-        s3_host_name: ENV['S3_HOST_NAME'],
-        s3_region: ENV['S3_REGION']
-      },
-      s3_permissions: :private
-  else
-    has_attached_file :resource_export,
-      path: ":rails_root/private/system/:class/:attachment/:id_partition/:style/:filename"
-  end
-  validates_attachment_content_type :resource_export, content_type: /\Atext\/plain\Z/
+  has_one_attached :attachment
 
   has_many :resource_export_file_transitions, autosave: false, dependent: :destroy
 
@@ -35,9 +21,8 @@ class ResourceExportFile < ApplicationRecord
     role_name = user.try(:role).try(:name)
     tsv = Manifestation.export(role: role_name)
     file = StringIO.new(tsv)
-    file.class.class_eval { attr_accessor :original_filename, :content_type }
-    file.original_filename = 'resource_export.txt'
-    self.resource_export = file
+    # file.class.class_eval { attr_accessor :original_filename, :content_type }
+    attachment.attach(io: file, filename: 'resource_export.txt')
     save!
     transition_to!(:completed)
     mailer = ResourceExportMailer.completed(self)
@@ -54,13 +39,9 @@ end
 #
 # Table name: resource_export_files
 #
-#  id                           :bigint           not null, primary key
-#  user_id                      :bigint
-#  resource_export_file_name    :string
-#  resource_export_content_type :string
-#  resource_export_file_size    :bigint
-#  resource_export_updated_at   :datetime
-#  executed_at                  :datetime
-#  created_at                   :datetime         not null
-#  updated_at                   :datetime         not null
+#  id          :bigint           not null, primary key
+#  user_id     :bigint
+#  executed_at :datetime
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #

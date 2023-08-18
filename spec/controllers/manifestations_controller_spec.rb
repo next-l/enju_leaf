@@ -134,14 +134,14 @@ describe ManifestationsController do
         get :index, params: { query: '2005', pub_date_from: '2000' }
         expect(response).to be_successful
         expect(assigns(:manifestations)).to be_truthy
-        assigns(:query).should eq '2005 date_of_publication_d:[2000-01-01T00:00:00Z TO *]'
+        assigns(:query).should eq '2005 date_of_publication_d:[1999-12-31T15:00:00Z TO *]'
       end
 
       it 'should get index with pub_date_until' do
         get :index, params: { query: '2005', pub_date_until: '2000' }
         expect(response).to be_successful
         expect(assigns(:manifestations)).to be_truthy
-        assigns(:query).should eq '2005 date_of_publication_d:[* TO 2000-12-31T23:59:59Z]'
+        assigns(:query).should eq '2005 date_of_publication_d:[* TO 2000-12-31T14:59:59Z]'
       end
 
       it 'should show manifestation with isbn', solr: true do
@@ -238,6 +238,7 @@ describe ManifestationsController do
         manifestation = FactoryBot.create(:manifestation, description: "foo")
         periodical.derived_manifestations << manifestation
         periodical.save!
+        manifestation.save!
         get :index, params: { query: "foo" }
         manifestations = assigns(:manifestations)
         expect(manifestations).not_to be_blank
@@ -734,12 +735,12 @@ describe ManifestationsController do
         end
 
         it 'deletes an attachment file' do
-          @manifestation.attachment = File.open(Rails.root.join('spec/fixtures/files/resource_import_file_sample1.tsv'))
+          @manifestation.attachment.attach(io: File.open(Rails.root.join('spec/fixtures/files/resource_import_file_sample1.tsv')), filename: 'attachment.txt')
           @manifestation.save
-          expect(@manifestation.attachment.present?).to be_truthy
+          expect(@manifestation.attachment.attached?).to be_truthy
 
           put :update, params: { id: @manifestation.id, manifestation: @attrs.merge(delete_attachment: '1') }
-          expect(assigns(:manifestation).attachment.present?).to be_falsy
+          expect(assigns(:manifestation).attachment.attached?).to be_falsy
         end
       end
 

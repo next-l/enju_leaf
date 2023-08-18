@@ -16,22 +16,10 @@ class ResourceImportFilesController < ApplicationController
   # GET /resource_import_files/1
   # GET /resource_import_files/1.json
   def show
-    if @resource_import_file.resource_import.path
-      unless ENV['ENJU_STORAGE'] == 's3'
-        file = File.expand_path(@resource_import_file.resource_import.path)
-      end
-    end
     @resource_import_results = @resource_import_file.resource_import_results.page(params[:page])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.download {
-        if ENV['ENJU_STORAGE'] == 's3'
-          redirect_to URI.parse(@resource_import_file.resource_import.expiring_url(10)).to_s
-        else
-          send_file file, filename: File.basename(@resource_import_file.resource_import_file_name), type: 'application/octet-stream'
-        end
-      }
     end
   end
 
@@ -107,7 +95,7 @@ class ResourceImportFilesController < ApplicationController
 
   def resource_import_file_params
     params.require(:resource_import_file).permit(
-      :resource_import, :edit_mode, :user_encoding, :mode,
+      :attachment, :edit_mode, :user_encoding, :mode,
       :default_shelf_id, :library_id
     )
   end

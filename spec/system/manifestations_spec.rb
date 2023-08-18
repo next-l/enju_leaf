@@ -5,7 +5,7 @@ RSpec.describe 'Manifestations', type: :system do
   fixtures :all
   before do
     @item = FactoryBot.create(:item, shelf: shelves(:shelf_00002))
-    CarrierType.find_by(name: 'volume').update(attachment: File.open("#{Rails.root.to_s}/app/assets/images/icons/book.png"))
+    CarrierType.find_by(name: 'volume').attachment.attach(io: File.open("#{Rails.root.to_s}/app/assets/images/icons/book.png"), filename: 'book.png')
     FactoryBot.create(:withdraw, item: @item)
   end
 
@@ -25,6 +25,21 @@ RSpec.describe 'Manifestations', type: :system do
       expect(page).to have_content @item.manifestation.memo
     end
 
+    it 'should show manifestation in text format' do
+      visit manifestation_path(@item.manifestation.id, locale: :ja, format: :txt)
+      expect(page).to have_content @item.manifestation.original_title
+    end
+
+    it 'should show manifestation in json format' do
+      visit manifestation_path(@item.manifestation.id, locale: :ja, format: :json)
+      expect(page).not_to have_content @item.item_identifier
+    end
+
+    it 'should show manifestation in ttl format' do
+      visit manifestation_path(@item.manifestation.id, locale: :ja, format: :ttl)
+      expect(page).to have_content @item.manifestation.original_title
+    end
+
     it 'should show custom properties' do
       @item.manifestation.manifestation_custom_values << FactoryBot.build(:manifestation_custom_value)
       visit manifestation_path(@item.manifestation.id, locale: :ja)
@@ -32,7 +47,7 @@ RSpec.describe 'Manifestations', type: :system do
     end
 
     it 'should display delete_attachment if a file is attached' do
-      @item.manifestation.attachment = File.open(Rails.root.join('spec/fixtures/files/resource_import_file_sample1.tsv'))
+      @item.manifestation.attachment.attach(io: File.open(Rails.root.join('spec/fixtures/files/resource_import_file_sample1.tsv')), filename: 'attachment.txt')
       @item.manifestation.save
 
       visit edit_manifestation_path(@item.manifestation.id, locale: :ja)
@@ -52,7 +67,7 @@ RSpec.describe 'Manifestations', type: :system do
 
     it 'should show default item' do
       visit manifestation_path(@item.manifestation.id, locale: :ja)
-      expect(page).to have_content @item.item_identifier
+      expect(page).not_to have_content @item.item_identifier
     end
 
     it 'should not show memo' do
@@ -77,13 +92,19 @@ RSpec.describe 'Manifestations', type: :system do
 
     it 'should show default item' do
       visit manifestation_path(@item.manifestation.id, locale: :ja)
-      expect(page).to have_content @item.item_identifier
+      expect(page).not_to have_content @item.item_identifier
     end
 
     it 'should not show memo' do
       @item.manifestation.update(memo: 'memo')
       visit manifestation_path(@item.manifestation.id, locale: :ja)
       expect(page).not_to have_content @item.manifestation.memo
+    end
+
+    it 'should not show removed item' do
+      manifestation = manifestations(:manifestation_00010)
+      visit manifestation_path(manifestation)
+      expect(page).not_to have_content '00026'
     end
   end
 end

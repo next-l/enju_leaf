@@ -69,5 +69,5 @@ end
 #  volume_number_string               :text
 #  volume_number_transcription_string :text
 #  series_master                      :boolean
-#  root_manifestation_id              :integer
+#  root_manifestation_id              :bigint
 #

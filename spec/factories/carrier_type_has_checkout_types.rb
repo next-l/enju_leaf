@@ -10,8 +10,8 @@ end
 # Table name: carrier_type_has_checkout_types
 #
 #  id               :bigint           not null, primary key
-#  carrier_type_id  :integer          not null
-#  checkout_type_id :integer          not null
+#  carrier_type_id  :bigint           not null
+#  checkout_type_id :bigint           not null
 #  note             :text
 #  position         :integer
 #  created_at       :datetime         not null

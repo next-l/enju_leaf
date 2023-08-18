@@ -20,7 +20,7 @@
       <tr class="line<%= cycle("0", "1") -%>">
         <td><%= link_to (event_import_file.id), event_import_file -%></td>
         <td>
-          <%= link_to event_import_file.event_import_file_name, event_import_file_path(event_import_file, format: :download) if event_import_file.event_import_file_name %>
+          <%= link_to event_import_file.attachment.filename, rails_blob_path(event_import_file.attachment) if event_import_file.attachment.attached? %>
           <br />
           <%= t('activerecord.models.user') -%>: <%= link_to event_import_file.user.username, event_import_file.user.profile if event_import_file.user.try(:profile) -%></td>
         <td><%= event_import_file.edit_mode -%></td>
