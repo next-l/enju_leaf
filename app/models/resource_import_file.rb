@@ -108,16 +108,14 @@ class ResourceImportFile < ApplicationRecord
       unless manifestation
         if row['jpno'].present?
           jpno = row['jpno'].to_s.strip
-          identifier_type_jpno = IdentifierType.find_or_create_by!(name: 'jpno')
-          manifestation = Identifier.find_by(body: jpno, identifier_type_id: identifier_type_jpno.id).try(:manifestation)
+          manifestation = JpnoRecord.find_by(body: jpno)&.manifestation
         end
       end
 
       unless manifestation
         if row['ncid'].present?
           ncid = row['ncid'].to_s.strip
-          identifier_type_ncid = IdentifierType.find_or_create_by!(name: 'ncid')
-          manifestation = Identifier.find_by(body: ncid, identifier_type_id: identifier_type_ncid.id).try(:manifestation)
+          manifestation = NcidRecord.find_by(body: ncid)&.manifestation
         end
       end
 

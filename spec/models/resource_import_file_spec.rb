@@ -223,7 +223,7 @@ describe ResourceImportFile do
         expect(resource_import_result.error_message).to be_blank
         expect(resource_import_result.manifestation).not_to be_blank
         manifestation = resource_import_result.manifestation
-        expect(manifestation.identifier_contents(:ncid).first).to eq "BA67656964"
+        expect(manifestation.ncid_record.body).to eq "BA67656964"
       end
     end
 
@@ -445,7 +445,7 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
         expect(resource_import_result.error_message).to be_blank
         expect(resource_import_result.manifestation).not_to be_blank
         manifestation = resource_import_result.manifestation
-        expect(manifestation.identifier_contents(:ncid).first).to eq "BA67656964"
+        expect(manifestation.ncid_record.body).to eq "BA67656964"
       end
     end
   end

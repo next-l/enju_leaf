@@ -42,6 +42,9 @@ class Manifestation < ApplicationRecord
   accepts_nested_attributes_for :series_statements, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :identifiers, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :manifestation_custom_values, reject_if: :all_blank
+  accepts_nested_attributes_for :doi_record, reject_if: :all_blank
+  accepts_nested_attributes_for :jpno_record, reject_if: :all_blank
+  accepts_nested_attributes_for :ncid_record, reject_if: :all_blank
 
   searchable do
     text :title, default_boost: 2 do
@@ -643,10 +646,10 @@ class Manifestation < ApplicationRecord
       end
     end
 
-    record["jpno"] = identifier_contents(:jpno).first
-    record["ncid"] = identifier_contents(:ncid).first
+    record["jpno"] = jpno_record&.body
+    record["ncid"] = ncid_record&.body
     record["lccn"] = identifier_contents(:lccn).first
-    record["doi"] = identifier_contents(:doi).first
+    record["doi"] = doi_record&.body
     record["iss_itemno"] = identifier_contents(:iss_itemno).first
 
     record
