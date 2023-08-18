@@ -89,6 +89,8 @@ module EnjuOai
             when 'ncid'
               xml.tag! "dcterms:identifier", identifier.body, "rdf:datatype" => "http://ndl.go.jp/dcndl/terms/NIIBibID"
             end
+
+            xml.tag! "dcterms:identifier", doi_record.body, "rdf:datatype" => "http://ndl.go.jp/dcndl/terms/DOI" if doi_record
           end
           xml.tag! "dcterms:title", original_title
           xml.tag! "dc:title" do

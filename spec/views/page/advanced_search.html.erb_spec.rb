@@ -11,7 +11,7 @@ describe "page/advanced_search" do
     it "renders attributes in <p>" do
       render
       # Run the generator again with the --webrat flag if you want to use webrat matchers
-      rendered.should match(/条件を詳しく指定して検索/)
+      rendered.should match(/Advanced search/)
     end
   end
 
@@ -23,7 +23,7 @@ describe "page/advanced_search" do
     it "renders attributes in <p>" do
       render
       # Run the generator again with the --webrat flag if you want to use webrat matchers
-      rendered.should match(/条件を詳しく指定して検索/)
+      rendered.should match(/Advanced search/)
     end
   end
 end

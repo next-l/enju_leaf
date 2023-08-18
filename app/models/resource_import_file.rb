@@ -101,24 +101,21 @@ class ResourceImportFile < ApplicationRecord
       unless manifestation
         if row['doi'].present?
           doi = URI.parse(row['doi'].downcase).path.gsub(/^\//, "")
-          identifier_type_doi = IdentifierType.find_or_create_by!(name: 'doi')
-          manifestation = Identifier.find_by(body: doi, identifier_type_id: identifier_type_doi.id).try(:manifestation)
+          manifestation = DoiRecord.find_by(body: doi)&.manifestation
         end
       end
 
       unless manifestation
         if row['jpno'].present?
           jpno = row['jpno'].to_s.strip
-          identifier_type_jpno = IdentifierType.find_or_create_by!(name: 'jpno')
-          manifestation = Identifier.find_by(body: jpno, identifier_type_id: identifier_type_jpno.id).try(:manifestation)
+          manifestation = JpnoRecord.find_by(body: jpno)&.manifestation
         end
       end
 
       unless manifestation
         if row['ncid'].present?
           ncid = row['ncid'].to_s.strip
-          identifier_type_ncid = IdentifierType.find_or_create_by!(name: 'ncid')
-          manifestation = Identifier.find_by(body: ncid, identifier_type_id: identifier_type_ncid.id).try(:manifestation)
+          manifestation = NcidRecord.find_by(body: ncid)&.manifestation
         end
       end
 
@@ -134,8 +131,7 @@ class ResourceImportFile < ApplicationRecord
         if row['isbn'].present?
           if StdNum::ISBN.valid?(row['isbn'])
             isbn = StdNum::ISBN.normalize(row['isbn'])
-            identifier_type_isbn = IdentifierType.find_or_create_by!(name: 'isbn')
-            m = Identifier.find_by(body: isbn, identifier_type_id: identifier_type_isbn.id).try(:manifestation)
+            m = IsbnRecord.find_by(body: isbn)&.manifestations&.first
             if m
               if m.series_statements.exists?
                 manifestation = m
@@ -766,6 +762,10 @@ end
         end
       end
 
+      manifestation.doi_record = set_doi(row)
+      manifestation.create_ncid_record(body: row['ncid']) if row['ncid'].present?
+      manifestation.issn_records.find_or_create_by(body: row['issn']) if row['issn'].present?
+
       identifiers = set_identifier(row)
 
       if manifestation.save
@@ -804,7 +804,7 @@ end
 
   def set_identifier(row)
     identifiers = []
-    %w(isbn issn doi jpno ncid lccn iss_itemno).each do |id_type|
+    %w(isbn issn jpno ncid lccn iss_itemno).each do |id_type|
       next unless row[id_type.to_s].present?
 
       row[id_type].split(/\/\//).each do |identifier_s|
@@ -814,7 +814,17 @@ end
         identifiers << import_id if import_id.valid?
       end
     end
+
     identifiers
+  end
+
+  def set_doi(row)
+    return if row['doi'].blank?
+
+    doi = URI.parse(row['doi'].downcase).path.gsub(/^\//, "")
+    doi_record = DoiRecord.new(body: doi)
+
+    doi_record
   end
 
   def self.import_manifestation_custom_value(row, manifestation)

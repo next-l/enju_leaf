@@ -10,6 +10,6 @@ describe "page/export" do
   it "renders attributes in <p>" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/エクスポート/)
+    rendered.should match(/Export/)
   end
 end

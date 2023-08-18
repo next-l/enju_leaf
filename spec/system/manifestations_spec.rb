@@ -87,7 +87,7 @@ RSpec.describe 'Manifestations', type: :system do
     it 'should display a reservation link' do
       manifestations(:manifestation_00001).index!
       visit manifestations_path(query: 'よくわかるWeb')
-      expect(page).to have_content '予約'
+      expect(page).to have_content 'Reserve'
     end
 
     it 'should show default item' do

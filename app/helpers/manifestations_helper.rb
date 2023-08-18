@@ -360,19 +360,19 @@ module ManifestationsHelper
         RDF::Literal.new(manifestation.note)
       )
 
-      manifestation.identifier_contents(:isbn).each do |i|
+      manifestation.isbn_records.each do |i|
         graph << RDF::Statement.new(
           subject,
           nextl.isbn,
-          RDF::Literal.new(i)
+          RDF::Literal.new(i.body)
         )
       end
 
-      manifestation.identifier_contents(:issn).each do |i|
+      manifestation.issn_records.each do |i|
         graph << RDF::Statement.new(
           subject,
           nextl.issn,
-          RDF::Literal.new(i)
+          RDF::Literal.new(i.body)
         )
       end
 
@@ -400,11 +400,11 @@ module ManifestationsHelper
         )
       end
 
-      manifestation.identifier_contents(:lccn).each do |i|
+      if manifestation.lccn_record
         graph << RDF::Statement.new(
           subject,
           nextl.lccn,
-          RDF::Literal.new(i)
+          RDF::Literal.new(manifestation.lccn_record)
         )
       end
 
@@ -420,14 +420,6 @@ module ManifestationsHelper
         graph << RDF::Statement.new(
           subject,
           nextl.loc_identifier,
-          RDF::Literal.new(i)
-        )
-      end
-
-      manifestation.identifier_contents(:issn_l).each do |i|
-        graph << RDF::Statement.new(
-          subject,
-          nextl.issn_l,
           RDF::Literal.new(i)
         )
       end

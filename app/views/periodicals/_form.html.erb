@@ -1,0 +1,32 @@
+<%= form_with(model: periodical) do |form| %>
+  <% if periodical.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(periodical.errors.count, "error") %> prohibited this periodical from being saved:</h2>
+
+      <ul>
+        <% periodical.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :original_title %>
+    <%= form.text_area :original_title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :manifestation_id %>
+    <%= form.text_field :manifestation_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :frequency_id %>
+    <%= form.text_field :frequency_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

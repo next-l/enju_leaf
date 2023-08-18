@@ -28,7 +28,7 @@ describe ResourceImportFile do
         manifestation.publishers.second.full_name_transcription.should eq 'てすと5'
         manifestation.produces.first.produce_type.name.should eq 'publisher'
         manifestation.creates.first.create_type.name.should eq 'author'
-        manifestation.identifier_contents(:issn).should eq ['03875806']
+        expect(manifestation.issn_records.pluck(:body)).to eq ['03875806']
         Manifestation.count.should eq old_manifestations_count + 10
         Item.count.should eq old_items_count + 10
         Agent.count.should eq old_agents_count + 9
@@ -117,7 +117,7 @@ describe ResourceImportFile do
         item_10104.manifestation.edition_string.should eq '初版'
         item_10104.manifestation.edition.should eq 1
         item_10104.manifestation.serial_number.should eq 120
-        item_10104.manifestation.identifier_contents(:doi).should eq ['example/2014.08.18']
+        expect(item_10104.manifestation.doi_record.body).to eq 'example/2014.08.18'
         item_10104.manifestation.height.should be_nil
         item_10104.manifestation.width.should be_nil
         item_10104.manifestation.depth.should be_nil
@@ -223,7 +223,7 @@ describe ResourceImportFile do
         expect(resource_import_result.error_message).to be_blank
         expect(resource_import_result.manifestation).not_to be_blank
         manifestation = resource_import_result.manifestation
-        expect(manifestation.identifier_contents(:ncid).first).to eq "BA67656964"
+        expect(manifestation.ncid_record.body).to eq "BA67656964"
       end
     end
 
@@ -445,7 +445,7 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
         expect(resource_import_result.error_message).to be_blank
         expect(resource_import_result.manifestation).not_to be_blank
         manifestation = resource_import_result.manifestation
-        expect(manifestation.identifier_contents(:ncid).first).to eq "BA67656964"
+        expect(manifestation.ncid_record.body).to eq "BA67656964"
       end
     end
   end

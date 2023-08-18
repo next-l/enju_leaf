@@ -11,6 +11,6 @@ describe "page/index" do
   it "renders attributes in <p>" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/資料の検索/)
+    rendered.should match(/Catalog search/)
   end
 end

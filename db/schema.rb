@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_14_163530) do
+ActiveRecord::Schema.define(version: 2023_08_18_154419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -473,6 +473,15 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.index ["user_id"], name: "index_demands_on_user_id"
   end
 
+  create_table "doi_records", force: :cascade do |t|
+    t.string "body", null: false
+    t.bigint "manifestation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index "lower((body)::text), manifestation_id", name: "index_doi_records_on_lower_body_manifestation_id", unique: true
+    t.index ["manifestation_id"], name: "index_doi_records_on_manifestation_id"
+  end
+
   create_table "donates", force: :cascade do |t|
     t.bigint "agent_id", null: false
     t.bigint "item_id", null: false
@@ -671,6 +680,38 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.index ["user_id"], name: "index_inventory_files_on_user_id"
   end
 
+  create_table "isbn_record_and_manifestations", comment: "書誌とISBNの関係", force: :cascade do |t|
+    t.bigint "isbn_record_id", null: false
+    t.bigint "manifestation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["isbn_record_id"], name: "index_isbn_record_and_manifestations_on_isbn_record_id"
+    t.index ["manifestation_id", "isbn_record_id"], name: "index_isbn_record_and_manifestations_on_manifestation_id", unique: true
+  end
+
+  create_table "isbn_records", comment: "ISBN", force: :cascade do |t|
+    t.string "body", null: false, comment: "ISBN"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["body"], name: "index_isbn_records_on_body"
+  end
+
+  create_table "issn_record_and_manifestations", comment: "書誌とISSNの関係", force: :cascade do |t|
+    t.bigint "issn_record_id", null: false
+    t.bigint "manifestation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["issn_record_id"], name: "index_issn_record_and_manifestations_on_issn_record_id"
+    t.index ["manifestation_id", "issn_record_id"], name: "index_issn_record_and_manifestations_on_manifestation_id", unique: true
+  end
+
+  create_table "issn_records", comment: "ISSN", force: :cascade do |t|
+    t.string "body", null: false, comment: "ISSN"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["body"], name: "index_issn_records_on_body", unique: true
+  end
+
   create_table "item_custom_properties", force: :cascade do |t|
     t.string "name", null: false, comment: "ラベル名"
     t.text "display_name", null: false, comment: "表示名"
@@ -757,6 +798,15 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.index ["iso_639_1"], name: "index_languages_on_iso_639_1"
     t.index ["iso_639_2"], name: "index_languages_on_iso_639_2"
     t.index ["iso_639_3"], name: "index_languages_on_iso_639_3"
+  end
+
+  create_table "lccn_records", force: :cascade do |t|
+    t.string "body", null: false
+    t.bigint "manifestation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["body"], name: "index_lccn_records_on_body", unique: true
+    t.index ["manifestation_id"], name: "index_lccn_records_on_manifestation_id"
   end
 
   create_table "libraries", force: :cascade do |t|
@@ -1032,6 +1082,15 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.index ["sender_id"], name: "index_messages_on_sender_id"
   end
 
+  create_table "ncid_records", force: :cascade do |t|
+    t.bigint "manifestation_id", null: false
+    t.string "body", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["body"], name: "index_ncid_records_on_body", unique: true
+    t.index ["manifestation_id"], name: "index_ncid_records_on_manifestation_id"
+  end
+
   create_table "ndl_bib_id_records", force: :cascade do |t|
     t.string "body", null: false
     t.bigint "manifestation_id", null: false
@@ -1104,6 +1163,25 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["agent_id"], name: "index_participates_on_agent_id"
     t.index ["event_id"], name: "index_participates_on_event_id"
+  end
+
+  create_table "periodical_and_manifestations", force: :cascade do |t|
+    t.bigint "periodical_id", null: false
+    t.bigint "manifestation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["manifestation_id"], name: "index_periodical_and_manifestations_on_manifestation_id"
+    t.index ["periodical_id"], name: "index_periodical_and_manifestations_on_periodical_id"
+  end
+
+  create_table "periodicals", force: :cascade do |t|
+    t.text "original_title", null: false
+    t.bigint "manifestation_id", null: false
+    t.bigint "frequency_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["frequency_id"], name: "index_periodicals_on_frequency_id"
+    t.index ["manifestation_id"], name: "index_periodicals_on_manifestation_id"
   end
 
   create_table "picture_files", force: :cascade do |t|
@@ -1724,11 +1802,16 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
   add_foreign_key "demands", "items"
   add_foreign_key "demands", "messages"
   add_foreign_key "demands", "users"
+  add_foreign_key "doi_records", "manifestations"
   add_foreign_key "event_export_files", "users"
   add_foreign_key "events", "event_categories"
   add_foreign_key "import_requests", "users"
   add_foreign_key "inventory_files", "shelves"
   add_foreign_key "inventory_files", "users"
+  add_foreign_key "isbn_record_and_manifestations", "isbn_records"
+  add_foreign_key "isbn_record_and_manifestations", "manifestations"
+  add_foreign_key "issn_record_and_manifestations", "issn_records"
+  add_foreign_key "issn_record_and_manifestations", "manifestations"
   add_foreign_key "item_custom_values", "item_custom_properties"
   add_foreign_key "item_custom_values", "items"
   add_foreign_key "item_has_use_restrictions", "items"
@@ -1736,6 +1819,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
   add_foreign_key "items", "manifestations"
   add_foreign_key "items", "roles", column: "required_role_id"
   add_foreign_key "jpno_records", "manifestations"
+  add_foreign_key "lccn_records", "manifestations"
   add_foreign_key "libraries", "library_groups"
   add_foreign_key "library_groups", "users"
   add_foreign_key "manifestation_checkout_stats", "users"
@@ -1744,10 +1828,15 @@ ActiveRecord::Schema.define(version: 2022_11_14_163530) do
   add_foreign_key "manifestation_reserve_stats", "users"
   add_foreign_key "manifestations", "roles", column: "required_role_id"
   add_foreign_key "messages", "messages", column: "parent_id"
+  add_foreign_key "ncid_records", "manifestations"
   add_foreign_key "ndl_bib_id_records", "manifestations"
   add_foreign_key "ndla_records", "agents"
   add_foreign_key "news_posts", "roles", column: "required_role_id"
   add_foreign_key "news_posts", "users"
+  add_foreign_key "periodical_and_manifestations", "manifestations"
+  add_foreign_key "periodical_and_manifestations", "periodicals"
+  add_foreign_key "periodicals", "frequencies"
+  add_foreign_key "periodicals", "manifestations"
   add_foreign_key "profiles", "roles", column: "required_role_id"
   add_foreign_key "profiles", "users"
   add_foreign_key "reserve_stat_has_manifestations", "manifestations"
