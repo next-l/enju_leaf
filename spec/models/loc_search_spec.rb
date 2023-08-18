@@ -137,7 +137,7 @@ describe LocSearch do
       expect(m.original_title).to eq "Superconductor science & technology"
       expect(m.title_alternative).to eq "Supercond. sci. technol ; Superconductor science and technology"
       expect(m.serial).to be_truthy
-      expect(m.issn_record.first.body).to eq "09532048"
+      expect(m.issn_records.first.body).to eq "09532048"
       expect(m.identifier_contents(:issn_l).first).to eq "09532048"
       expect(m.frequency.name).to eq "monthly"
       series_statement = m.series_statements.first
