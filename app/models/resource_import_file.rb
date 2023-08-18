@@ -763,6 +763,7 @@ end
       end
 
       manifestation.doi_record = set_doi(row)
+      manifestation.create_ncid_record(body: row['ncid']) if row['ncid'].present?
 
       identifiers = set_identifier(row)
 
