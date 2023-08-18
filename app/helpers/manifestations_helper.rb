@@ -400,11 +400,11 @@ module ManifestationsHelper
         )
       end
 
-      manifestation.identifier_contents(:lccn).each do |i|
+      if manifestation.lccn_record
         graph << RDF::Statement.new(
           subject,
           nextl.lccn,
-          RDF::Literal.new(i)
+          RDF::Literal.new(manifestation.lccn_record)
         )
       end
 

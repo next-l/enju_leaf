@@ -160,6 +160,27 @@
   </div>
 
   <div class="field">
+    <%= f.label :doi_record -%><br />
+    <%= f.fields_for :doi_record do |doi_record_form| %>
+      <%= doi_record_form.text_field :body %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ncid_record -%><br />
+    <%= f.fields_for :ncid_record do |ncid_record_form| %>
+      <%= ncid_record_form.text_field :body %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :jpno_record -%><br />
+    <%= f.fields_for :jpno_record do |jpno_record_form| %>
+      <%= jpno_record_form.text_field :body %>
+    <% end %>
+  </div>
+
+  <div class="field">
     <%= f.label :identifier -%><br />
     <%= f.fields_for :identifiers do |identifier_form| %>
       <%= render 'identifier_fields', f: identifier_form %>
