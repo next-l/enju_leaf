@@ -23,7 +23,7 @@ class Resourcesync
     last_updated = manifestations.order(:updated_at).first&.updated_at
 
     resourcelist_index = Resync::ResourceListIndex.new(
-      links: [ Resync::Link.new(rel: 'up', uri: "#{@base_url}/capabilitylist.xml") ],
+      links: [Resync::Link.new(rel: 'up', uri: "#{@base_url}/capabilitylist.xml")],
       metadata: Resync::Metadata.new(
         capability: 'resourcelist',
         from_time: manifestations.order(:updated_at).pick(:updated_at)
@@ -45,7 +45,7 @@ class Resourcesync
 
     manifestations.find_in_batches(batch_size: 50000).with_index do |works, i|
       resourcelist = Resync::ResourceList.new(
-        links: [ Resync::Link.new(rel: 'up', uri: URI.parse("#{@base_url}/capabilitylist.xml").to_s) ],
+        links: [Resync::Link.new(rel: 'up', uri: URI.parse("#{@base_url}/capabilitylist.xml").to_s)],
         metadata: Resync::Metadata.new(
           capability: 'resourcelist',
           from_time: last_updated
@@ -68,7 +68,7 @@ class Resourcesync
     last_updated = manifestations.order(:updated_at).first&.updated_at
 
     changelist_index = Resync::ChangeListIndex.new(
-      links: [ Resync::Link.new(rel: 'up', uri: URI.parse("#{@base_url}/capabilitylist.xml").to_s) ],
+      links: [Resync::Link.new(rel: 'up', uri: URI.parse("#{@base_url}/capabilitylist.xml").to_s)],
       metadata: Resync::Metadata.new(
         capability: 'changelist',
         from_time: manifestations.order(:updated_at).pick(:updated_at)
@@ -90,7 +90,7 @@ class Resourcesync
 
     manifestations.find_in_batches(batch_size: 50000).with_index do |works, i|
       changelist = Resync::ChangeList.new(
-        links: [ Resync::Link.new(rel: 'up', uri: URI.parse("#{@base_url}/capabilitylist.xml").to_s) ],
+        links: [Resync::Link.new(rel: 'up', uri: URI.parse("#{@base_url}/capabilitylist.xml").to_s)],
         metadata: Resync::Metadata.new(
           capability: 'changelist',
           from_time: last_updated

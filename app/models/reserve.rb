@@ -212,7 +212,7 @@ class Reserve < ApplicationRecord
 
   def checked_out_now?
     if user && manifestation
-      true if !(user.checkouts.not_returned.pluck(:item_id) & manifestation.items.pluck('items.id')).empty?
+      true unless (user.checkouts.not_returned.pluck(:item_id) & manifestation.items.pluck('items.id')).empty?
     end
   end
 
