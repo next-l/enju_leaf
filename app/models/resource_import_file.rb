@@ -765,6 +765,7 @@ end
       end
 
       manifestation.doi_record = set_doi(row)
+      manifestation.issn_records.find_or_create_by(body: row['issn']) if row['issn'].present?
 
       identifiers = set_identifier(row)
 
