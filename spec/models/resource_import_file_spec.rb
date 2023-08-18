@@ -117,7 +117,7 @@ describe ResourceImportFile do
         item_10104.manifestation.edition_string.should eq '初版'
         item_10104.manifestation.edition.should eq 1
         item_10104.manifestation.serial_number.should eq 120
-        item_10104.manifestation.identifier_contents(:doi).should eq ['example/2014.08.18']
+        expect(item_10104.manifestation.doi_record.body).to eq 'example/2014.08.18'
         item_10104.manifestation.height.should be_nil
         item_10104.manifestation.width.should be_nil
         item_10104.manifestation.depth.should be_nil
