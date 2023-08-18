@@ -820,7 +820,7 @@ end
   end
 
   def set_doi(row)
-    next if row['doi'].blank?
+    return if row['doi'].blank?
 
     doi = URI.parse(row['doi'].downcase).path.gsub(/^\//, "")
     doi_record = DoiRecord.new(body: doi)
