@@ -33,7 +33,7 @@ class Manifestation < ApplicationRecord
   has_one :periodical_and_manifestation, dependent: :destroy
   has_one :periodical, through: :periodical_and_manifestation, dependent: :destroy
   has_many :isbn_record_and_manifestations, dependent: :destroy
-  has_many :isbn_records, through: isbn_record_and_manifestations
+  has_many :isbn_records, through: :isbn_record_and_manifestations
 
   accepts_nested_attributes_for :creators, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :contributors, allow_destroy: true, reject_if: :all_blank
@@ -193,7 +193,7 @@ class Manifestation < ApplicationRecord
       end
     end
     text :identifier do
-      other_identifiers = identifiers.joins(:identifier_type).merge(IdentifierType.where.not(name: [:isbn, :issn]))
+      other_identifiers = identifiers.joins(:identifier_type).merge(IdentifierType.where.not(name: [:issn]))
       other_identifiers.pluck(:body)
     end
     string :sort_title
@@ -428,10 +428,7 @@ class Manifestation < ApplicationRecord
   end
 
   def self.find_by_isbn(isbn)
-    identifier_type = IdentifierType.find_by(name: 'isbn')
-    return nil unless identifier_type
-
-    Manifestation.includes(identifiers: :identifier_type).where("identifiers.body": isbn, "identifier_types.name": 'isbn')
+    IsbnRecord.find_by(body: isbn).manifestations
   end
 
   def index_series_statement
@@ -575,7 +572,7 @@ class Manifestation < ApplicationRecord
       content_type: manifestation_content_type.name,
       frequency: frequency.name,
       language: language.name,
-      isbn: identifier_contents(:isbn).join('//'),
+      isbn: isbn_records.pluck(:body).join('//'),
       issn: identifier_contents(:issn).join('//'),
       volume_number: volume_number,
       volume_number_string: volume_number_string,
@@ -600,7 +597,7 @@ class Manifestation < ApplicationRecord
     }
 
     IdentifierType.find_each do |type|
-      next if ['issn', 'isbn', 'jpno', 'ncid', 'lccn', 'doi'].include?(type.name.downcase.strip)
+      next if ['issn', 'jpno', 'ncid', 'lccn', 'doi'].include?(type.name.downcase.strip)
 
       record[:"identifier:#{type.name.to_sym}"] = identifiers.where(identifier_type: type).pluck(:body).join('//')
     end
