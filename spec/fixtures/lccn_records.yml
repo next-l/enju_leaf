@@ -1,0 +1,15 @@
+lccn_record_00001:
+  id: 1
+  manifestation_id: 1
+  body: "custom1111"
+
+# == Schema Information
+#
+# Table name: ncid_records
+#
+#  id               :bigint           not null, primary key
+#  manifestation_id :bigint           not null
+#  body             :string           not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
