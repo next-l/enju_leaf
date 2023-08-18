@@ -139,7 +139,6 @@ module EnjuLoc
             )
           end
 
-          manifestation.isbn_records.create(body: isbn) if isbn
           manifestation.carrier_type = carrier_type if carrier_type
           manifestation.manifestation_content_type = content_type if content_type
           manifestation.frequency = frequency if frequency
@@ -147,6 +146,7 @@ module EnjuLoc
           identifier.each do |k, v|
             manifestation.identifiers << v if v.valid?
           end
+          manifestation.isbn_records.create(body: isbn) if isbn
           manifestation.publishers << publisher_agents
           manifestation.creators << creator_agents
           create_loc_subject_related_elements(doc, manifestation)

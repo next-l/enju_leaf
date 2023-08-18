@@ -77,13 +77,13 @@ module EnjuNii
           manifestation.identifiers << v
         end
 
-        manifestation.isbn_records.create(body: isbn) if isbn
         manifestation.carrier_type = CarrierType.find_by(name: 'volume')
         manifestation.manifestation_content_type = ContentType.find_by(name: 'text')
 
         if manifestation.valid?
           Agent.transaction do
             manifestation.save!
+            manifestation.isbn_records.create(body: isbn) if isbn
             create_cinii_series_statements(doc, manifestation)
             publisher_patrons = Agent.import_agents(publishers)
             creator_patrons = Agent.import_agents(creators)
