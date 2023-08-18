@@ -73,11 +73,6 @@ module EnjuNii
           identifier_type_ncid = IdentifierType.find_or_create_by!(name: 'ncid')
           identifier[:ncid].identifier_type = identifier_type_ncid
         end
-        if isbn
-          identifier[:isbn] = Identifier.new(body: isbn)
-          identifier_type_isbn = IdentifierType.find_or_create_by!(name: 'isbn')
-          identifier[:isbn].identifier_type = identifier_type_isbn
-        end
         identifier.each do |k, v|
           manifestation.identifiers << v
         end
@@ -88,6 +83,7 @@ module EnjuNii
         if manifestation.valid?
           Agent.transaction do
             manifestation.save!
+            manifestation.isbn_records.create(body: isbn) if isbn.present?
             create_cinii_series_statements(doc, manifestation)
             publisher_patrons = Agent.import_agents(publishers)
             creator_patrons = Agent.import_agents(creators)
