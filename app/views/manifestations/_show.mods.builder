@@ -74,8 +74,8 @@ if defined?(EnjuSubject)
 end
 xml.abstract manifestation.description
 xml.note manifestation.note
-manifestation.identifier_contents(:isbn).each do |i|
-  xml.identifier i, type: 'isbn'
+manifestation.isbn_records.each do |i|
+  xml.identifier i.body, type: 'isbn'
 end
 manifestation.identifier_contents(:lccn).each do |l|
   xml.identifier l, type: 'lccn'

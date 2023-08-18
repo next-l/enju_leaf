@@ -1,6 +1,6 @@
-<% unless manifestation.identifier_contents(:isbn).empty? %>
+<% unless manifestation.isbn_records.empty? %>
   <div id="gbsthumbnail<%= manifestation.id %>" class="book_jacket"></div>
-    <%= image_tag("https://www.hanmoto.com/bd/img/#{ Lisbn.new(manifestation.identifier_contents(:isbn).first).isbn13 }.jpg") %>
+    <%= image_tag("https://www.hanmoto.com/bd/img/#{ Lisbn.new(manifestation.isbn_records.first.body).isbn13 }.jpg") %>
 <% else %>
   <% if @library_group.settings[:book_jacket_unknown_resource] %>
     <%= @library_group.settings[:book_jacket_unknown_resource] %>
