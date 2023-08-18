@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "periodicals/edit", type: :view do
+  fixtures :all
+
   let(:periodical) {
-    Periodical.create!()
+    periodicals(:periodical_00001)
   }
 
   before(:each) do

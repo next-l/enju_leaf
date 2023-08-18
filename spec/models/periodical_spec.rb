@@ -9,7 +9,7 @@ end
 # Table name: periodicals
 #
 #  id               :bigint           not null, primary key
-#  original_title   :text
+#  original_title   :text             not null
 #  manifestation_id :bigint           not null
 #  frequency_id     :bigint           not null
 #  created_at       :datetime         not null

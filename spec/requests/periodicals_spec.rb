@@ -18,12 +18,18 @@ RSpec.describe "/periodicals", type: :request do
   # Periodical. As you add validations to Periodical, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    FactoryBot.attributes_for(:periodical).merge(manifestation_id: 1)
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {manifestation_id: nil}
   }
+
+  fixtures :all
+  before(:each) do
+    @user = users(:admin)
+    sign_in @user
+  end
 
   describe "GET /index" do
     it "renders a successful response" do
@@ -80,7 +86,7 @@ RSpec.describe "/periodicals", type: :request do
     
       it "renders a successful response (i.e. to display the 'new' template)" do
         post periodicals_url, params: { periodical: invalid_attributes }
-        expect(response).to be_successful
+        expect(response).not_to be_successful
       end
     
     end
@@ -112,7 +118,7 @@ RSpec.describe "/periodicals", type: :request do
       it "renders a successful response (i.e. to display the 'edit' template)" do
         periodical = Periodical.create! valid_attributes
         patch periodical_url(periodical), params: { periodical: invalid_attributes }
-        expect(response).to be_successful
+        expect(response).not_to be_successful
       end
     
     end

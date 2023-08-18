@@ -1116,7 +1116,7 @@ ActiveRecord::Schema.define(version: 2023_05_27_182821) do
   end
 
   create_table "periodicals", force: :cascade do |t|
-    t.text "original_title"
+    t.text "original_title", null: false
     t.bigint "manifestation_id", null: false
     t.bigint "frequency_id", null: false
     t.datetime "created_at", precision: 6, null: false

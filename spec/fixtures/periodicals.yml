@@ -1,11 +1,10 @@
-class Periodical < ApplicationRecord
-  belongs_to :manifestation
-  belongs_to :frequency
-  has_many :periodical_and_manifestations, dependent: :destroy
-  has_many :manifestations, through: :periodical_and_manifestations
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-  validates :original_title, presence: true
-end
+periodical_00001:
+  id: 1
+  original_title: Periodical1
+  manifestation_id: 201
+  frequency_id: 1
 
 # == Schema Information
 #
