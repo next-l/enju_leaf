@@ -355,6 +355,10 @@ en:
         note: Note
       item_custom_value:
         value: Value
+      periodical:
+        original_title: Title
+        manifestation_id: Manifestation
+        frequency_id: Frequency
 
   resource_import_file:
     update_relationship: Update relationship

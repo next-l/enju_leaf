@@ -1,19 +1,37 @@
-<p id="notice"><%= notice %></p>
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+  <h1 class="title"><%= t('page.showing', model: t('activerecord.models.periodical')) -%></h1>
+  <div id="content_list">
+    <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Original title:</strong>
-  <%= @periodical.original_title %>
-</p>
+    <p>
+      <strong><%= t('activerecord.attributes.periodical.original_title') -%>:</strong>
+      <%= @periodical.original_title -%>
+    </p>
 
-<p>
-  <strong>Manifestation:</strong>
-  <%= @periodical.manifestation_id %>
-</p>
+    <p>
+      <strong><%= t('activerecord.models.manifestation') -%>:</strong>
+      <%= link_to @periodical.manifestation_original_title, @periodical.manifestation -%>
+    </p>
 
-<p>
-  <strong>Frequency:</strong>
-  <%= @periodical.frequency_id %>
-</p>
+    <p>
+      <strong><%= t('activerecord.models.frequency') -%>:</strong>
+      <%= link_to @periodical.frequency.display_name.localize, @periodical.frequency -%>
+    </p>
 
-<%= link_to 'Edit', edit_periodical_path(@periodical) %> |
-<%= link_to 'Back', periodicals_path %>
+    <p>
+      <strong><%= t('page.created_at') -%>:</strong>
+      <%= l(@periodical.created_at) -%>
+    </p>
+
+    <p>
+      <strong><%= t('page.updated_at') -%>:</strong>
+      <%= l(@periodical.updated_at) -%>
+    </p>
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.listing', model: t('activerecord.models.periodical')), periodicals_path -%></li>
+  </ul>
+</div>

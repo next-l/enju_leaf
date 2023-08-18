@@ -1,33 +1,38 @@
-<p id="notice"><%= notice %></p>
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+  <h1 class="title"><%= t('page.listing', model: t('activerecord.models.periodical')) -%></h1>
+  <div id="content_list">
+    <p id="notice"><%= notice %></p>
 
-<h1>Periodicals</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Original title</th>
-      <th>Manifestation</th>
-      <th>Frequency</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @periodicals.each do |periodical| %>
+    <table class="table table-striped index">
       <tr>
-        <td><%= periodical.original_title %></td>
-        <td><%= periodical.manifestation_id %></td>
-        <td><%= periodical.frequency_id %></td>
-        <td><%= link_to 'Show', periodical %></td>
-        <td><%= link_to 'Edit', edit_periodical_path(periodical) %></td>
-        <td><%= link_to 'Destroy', periodical, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th><%= t('activerecord.attributes.periodical.original_title') -%></th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
+      <%- @periodicals.each do |periodical| -%>
+        <tr class="line<%= cycle("0", "1") -%>">
+          <td>
+            <%= link_to periodical.original_title, periodical -%>
+          </td>
+          <td>
+            <%- if policy(periodical).update? -%>
+              <%= link_to t('page.edit'), edit_periodical_path(periodical) -%>
+            <% end %>
+            <%- if policy(periodical).destroy? -%>
+              <%= link_to t('page.destroy'), periodical_path(periodical), data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+            <%- end -%>
+          </td>
+        </tr>
+      <%- end -%>
+    </table>
 
-<%= paginate(@periodicals) %>
+  </div>
+</div>
 
-<%= link_to 'New Periodical', new_periodical_path %>
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(ProduceType).create? -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.periodical')), new_periodical_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

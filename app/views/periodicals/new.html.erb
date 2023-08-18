@@ -1,5 +1,12 @@
-<h1>New Periodical</h1>
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+  <h1 class="title"><%= t('page.new', model: t('activerecord.models.periodical')) -%></h1>
+  <div id="content_list">
+    <%= render 'form', periodical: @periodical %>
+  </div>
+</div>
 
-<%= render 'form', periodical: @periodical %>
-
-<%= link_to 'Back', periodicals_path %>
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.listing', model: t('activerecord.models.periodical')), periodicals_path -%></li>
+  </ul>
+</div>
