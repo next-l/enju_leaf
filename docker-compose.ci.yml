@@ -47,8 +47,8 @@ services:
 
   solr:
     image: solr:8
-    expose:
-      - 8983
+    ports:
+      - 8983:8983
     env_file:
       - .env
     networks:
@@ -64,42 +64,10 @@ services:
       timeout: 5s
       retries: 3
 
-  postgres:
-    image: postgres:13
-    volumes:
-      - postgres:/var/lib/postgresql/data
-    networks:
-      internal:
-    env_file:
-      - .env
-    expose:
-      - 5432
-    restart: always
-    healthcheck:
-      test: ["CMD-SHELL", "POSTGRES_PASSWORD=${POSTGRES_PASSWORD} pg_isready -U ${POSTGRES_USER} -h localhost -d template1"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-
-  redis:
-    image: redis:6
-    volumes:
-      - redis:/data
-    command: redis-server --appendonly yes
-    networks:
-      internal:
-    expose:
-      - 6379
-    healthcheck:
-      test: ["CMD-SHELL", "redis-cli ping"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-
   cantaloupe:
     image: uclalibrary/cantaloupe:5.0.5-7
-    expose:
-      - 8182
+    ports:
+      - 127.0.0.1:8182:8182
     restart: always
     environment:
       no_proxy: localhost,web
@@ -118,8 +86,8 @@ services:
 
   tika:
     image: apache/tika:2.8.0.0
-    expose:
-      - 9998
+    ports:
+      - 127.0.0.1:9998:9998
     restart: always
     networks:
       internal:

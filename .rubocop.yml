@@ -58,3 +58,5 @@ Rails/RedundantPresenceValidationOnBelongsTo: # new in 2.13
   Enabled: true
 Style/GuardClause:
   Enabled: false
+Layout/EmptyLinesAroundAccessModifier:
+  Enabled: false

@@ -374,6 +374,17 @@ class Manifestation < ApplicationRecord
     return unless attachment.attached?
     return unless ENV['ENJU_LEAF_EXTRACT_TEXT'] == 'true'
 
+    if ENV['ENJU_LEAF_EXTRACT_FILESIZE_LIMIT'].present?
+      filesize_limit = ENV['ENJU_LEAF_EXTRACT_FILESIZE_LIMIT'].to_i
+    else
+      filesize_limit = 2097152
+    end
+
+    if attachment.byte_size > filesize_limit
+      Rails.logger.error("#{attachment.filename} (size: #{attachment.byte_size} byte(s)) exceeds filesize limit #{ENV['ENJU_LEAF_EXTRACT_FILESIZE_LIMIT']} bytes")
+      return ''
+    end
+
     client = Faraday.new(url: ENV['TIKA_URL'] || 'http://tika:9998') do |conn|
       conn.adapter :net_http
     end
