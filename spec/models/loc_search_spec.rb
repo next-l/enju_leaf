@@ -41,7 +41,7 @@ describe LocSearch do
       expect(classification.classification_type.name).to eq "ddc"
       expect(classification.category).to eq "303.48"
       expect(manifestation.isbn_records.first.body).to eq "9780805080438"
-      expect(manifestation.identifier_contents("lccn").first).to eq "2007012024"
+      expect(manifestation.lccn_record.body).to eq "2007012024"
     end
 
     it "should parse title information properly", vcr: true do
