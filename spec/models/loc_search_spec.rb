@@ -125,7 +125,7 @@ describe LocSearch do
       m = LocSearch.import_from_sru_response("00200486")
       expect(m.original_title).to eq "Science and technology of advanced materials"
       expect(m.serial).to be_truthy
-      expect(m.identifier_contents(:issn).first).to eq "14686996"
+      expect(m.issn_records.first.body).to eq "14686996"
       expect(m.identifier_contents(:issn_l).first).to eq "14686996"
       expect(m.frequency.name).to eq "bimonthly"
       series_statement = m.series_statements.first
@@ -137,7 +137,7 @@ describe LocSearch do
       expect(m.original_title).to eq "Superconductor science & technology"
       expect(m.title_alternative).to eq "Supercond. sci. technol ; Superconductor science and technology"
       expect(m.serial).to be_truthy
-      expect(m.identifier_contents(:issn).first).to eq "09532048"
+      expect(m.issn_records.first.body).to eq "09532048"
       expect(m.identifier_contents(:issn_l).first).to eq "09532048"
       expect(m.frequency.name).to eq "monthly"
       series_statement = m.series_statements.first

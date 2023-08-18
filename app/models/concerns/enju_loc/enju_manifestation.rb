@@ -117,13 +117,6 @@ module EnjuLoc
               identifier_type: IdentifierType.find_by(name: 'loc_identifier') || IdentifierType.create!(name: 'loc_identifier')
             )
           end
-          if issn
-            identifier[:issn] = Identifier.new(
-              manifestation: manifestation,
-              body: issn,
-              identifier_type: IdentifierType.find_by(name: 'issn') || IdentifierType.create!(name: 'issn')
-            )
-          end
           if issn_l
             identifier[:issn_l] = Identifier.new(
               manifestation: manifestation,
@@ -140,6 +133,7 @@ module EnjuLoc
             manifestation.identifiers << v if v.valid?
           end
           manifestation.isbn_records.create(body: isbn) if isbn.present?
+          manifestation.issn_records.create(body: issn) if issn.present?
           manifestation.create_lccn_record(body: lccn) if lccn.present?
           manifestation.publishers << publisher_agents
           manifestation.creators << creator_agents

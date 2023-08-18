@@ -1,14 +1,14 @@
-lccn_record_00001:
-  id: 1
-  manifestation_id: 1
-  body: "custom1111"
+class IssnRecordAndManifestation < ApplicationRecord
+  belongs_to :issn_record
+  belongs_to :manifestation
+end
 
 # == Schema Information
 #
-# Table name: lccn_records
+# Table name: issn_record_and_manifestations
 #
 #  id               :bigint           not null, primary key
-#  body             :string           not null
+#  issn_record_id   :bigint           not null
 #  manifestation_id :bigint           not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
