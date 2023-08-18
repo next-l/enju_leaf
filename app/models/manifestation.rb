@@ -32,6 +32,8 @@ class Manifestation < ApplicationRecord
   has_one :periodical_record, class_name: 'Periodical', dependent: :destroy
   has_one :periodical_and_manifestation, dependent: :destroy
   has_one :periodical, through: :periodical_and_manifestation, dependent: :destroy
+  has_many :isbn_record_and_manifestations, dependent: :destroy
+  has_many :isbn_records, through: isbn_record_and_manifestations
 
   accepts_nested_attributes_for :creators, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :contributors, allow_destroy: true, reject_if: :all_blank
@@ -677,7 +679,7 @@ class Manifestation < ApplicationRecord
   end
 
   def isbn_characters
-    identifier_contents(:isbn).map{|i|
+    isbn_records.pluck(:body).map{|i|
       isbn10 = isbn13 = isbn10_dash = isbn13_dash = nil
       isbn10 = Lisbn.new(i).isbn10
       isbn13 = Lisbn.new(i).isbn13
