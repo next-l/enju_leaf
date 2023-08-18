@@ -11,6 +11,6 @@ describe "page/statistics" do
   it "renders attributes in <p>" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/統計/)
+    rendered.should match(/Statistics/)
   end
 end
