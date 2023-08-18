@@ -32,6 +32,8 @@ class Manifestation < ApplicationRecord
   has_one :periodical_record, class_name: 'Periodical', dependent: :destroy
   has_one :periodical_and_manifestation, dependent: :destroy
   has_one :periodical, through: :periodical_and_manifestation, dependent: :destroy
+  has_many :isbn_record_and_manifestations, dependent: :destroy
+  has_many :isbn_records, through: :isbn_record_and_manifestations
   has_many :issn_record_and_manifestations, dependent: :destroy
   has_many :issn_records, through: :issn_record_and_manifestations
   has_one :doi_record, dependent: :destroy
@@ -42,6 +44,7 @@ class Manifestation < ApplicationRecord
   accepts_nested_attributes_for :series_statements, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :identifiers, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :manifestation_custom_values, reject_if: :all_blank
+  accepts_nested_attributes_for :isbn_records, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :issn_records, allow_destroy: true, reject_if: :all_blank
 
   searchable do
@@ -195,7 +198,7 @@ class Manifestation < ApplicationRecord
       end
     end
     text :identifier do
-      other_identifiers = identifiers.joins(:identifier_type).merge(IdentifierType.where.not(name: [:isbn, :issn]))
+      other_identifiers = identifiers.joins(:identifier_type).merge(IdentifierType.where.not(name: [:issn]))
       other_identifiers.pluck(:body)
     end
     string :sort_title
@@ -430,10 +433,7 @@ class Manifestation < ApplicationRecord
   end
 
   def self.find_by_isbn(isbn)
-    identifier_type = IdentifierType.find_by(name: 'isbn')
-    return nil unless identifier_type
-
-    Manifestation.includes(identifiers: :identifier_type).where("identifiers.body": isbn, "identifier_types.name": 'isbn')
+    IsbnRecord.find_by(body: isbn)&.manifestations
   end
 
   def index_series_statement
@@ -577,7 +577,7 @@ class Manifestation < ApplicationRecord
       content_type: manifestation_content_type.name,
       frequency: frequency.name,
       language: language.name,
-      isbn: identifier_contents(:isbn).join('//'),
+      isbn: isbn_records.pluck(:body).join('//'),
       issn: issn_records.pluck(:body).join('//'),
       volume_number: volume_number,
       volume_number_string: volume_number_string,
@@ -602,7 +602,7 @@ class Manifestation < ApplicationRecord
     }
 
     IdentifierType.find_each do |type|
-      next if ['isbn', 'jpno', 'ncid', 'lccn', 'doi'].include?(type.name.downcase.strip)
+      next if ['isbn', 'issn', 'jpno', 'ncid', 'lccn', 'doi'].include?(type.name.downcase.strip)
 
       record[:"identifier:#{type.name.to_sym}"] = identifiers.where(identifier_type: type).pluck(:body).join('//')
     end
@@ -681,7 +681,7 @@ class Manifestation < ApplicationRecord
   end
 
   def isbn_characters
-    identifier_contents(:isbn).map{|i|
+    isbn_records.pluck(:body).map{|i|
       isbn10 = isbn13 = isbn10_dash = isbn13_dash = nil
       isbn10 = Lisbn.new(i).isbn10
       isbn13 = Lisbn.new(i).isbn13

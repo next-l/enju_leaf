@@ -680,6 +680,22 @@ ActiveRecord::Schema.define(version: 2023_08_18_052023) do
     t.index ["user_id"], name: "index_inventory_files_on_user_id"
   end
 
+  create_table "isbn_record_and_manifestations", comment: "書誌とISBNの関係", force: :cascade do |t|
+    t.bigint "isbn_record_id", null: false
+    t.bigint "manifestation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["isbn_record_id"], name: "index_isbn_record_and_manifestations_on_isbn_record_id"
+    t.index ["manifestation_id", "isbn_record_id"], name: "index_isbn_record_and_manifestations_on_manifestation_id", unique: true
+  end
+
+  create_table "isbn_records", comment: "ISBN", force: :cascade do |t|
+    t.string "body", null: false, comment: "ISBN"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["body"], name: "index_isbn_records_on_body"
+  end
+
   create_table "issn_record_and_manifestations", comment: "書誌とISSNの関係", force: :cascade do |t|
     t.bigint "issn_record_id", null: false
     t.bigint "manifestation_id", null: false
@@ -1774,6 +1790,8 @@ ActiveRecord::Schema.define(version: 2023_08_18_052023) do
   add_foreign_key "import_requests", "users"
   add_foreign_key "inventory_files", "shelves"
   add_foreign_key "inventory_files", "users"
+  add_foreign_key "isbn_record_and_manifestations", "isbn_records"
+  add_foreign_key "isbn_record_and_manifestations", "manifestations"
   add_foreign_key "issn_record_and_manifestations", "issn_records"
   add_foreign_key "issn_record_and_manifestations", "manifestations"
   add_foreign_key "item_custom_values", "item_custom_properties"

@@ -1,14 +1,15 @@
-class IssnRecordAndManifestation < ApplicationRecord
-  belongs_to :issn_record
+class IsbnRecordAndManifestation < ApplicationRecord
+  belongs_to :isbn_record
   belongs_to :manifestation
+  validates :isbn_record_id, uniqueness: {scope: :manifestation_id}
 end
 
 # == Schema Information
 #
-# Table name: issn_record_and_manifestations
+# Table name: isbn_record_and_manifestations
 #
 #  id               :bigint           not null, primary key
-#  issn_record_id   :bigint           not null
+#  isbn_record_id   :bigint           not null
 #  manifestation_id :bigint           not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null

@@ -360,11 +360,11 @@ module ManifestationsHelper
         RDF::Literal.new(manifestation.note)
       )
 
-      manifestation.identifier_contents(:isbn).each do |i|
+      manifestation.isbn_records.each do |i|
         graph << RDF::Statement.new(
           subject,
           nextl.isbn,
-          RDF::Literal.new(i)
+          RDF::Literal.new(i.body)
         )
       end
 
