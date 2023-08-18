@@ -34,6 +34,8 @@ class Manifestation < ApplicationRecord
   has_one :periodical, through: :periodical_and_manifestation, dependent: :destroy
   has_many :isbn_record_and_manifestations, dependent: :destroy
   has_many :isbn_records, through: :isbn_record_and_manifestations
+  has_many :issn_record_and_manifestations, dependent: :destroy
+  has_many :issn_records, through: :issn_record_and_manifestations
   has_one :doi_record, dependent: :destroy
 
   accepts_nested_attributes_for :creators, allow_destroy: true, reject_if: :all_blank
@@ -42,7 +44,8 @@ class Manifestation < ApplicationRecord
   accepts_nested_attributes_for :series_statements, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :identifiers, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :manifestation_custom_values, reject_if: :all_blank
-  accepts_nested_attributes_for :isbn_records, reject_if: :all_blank
+  accepts_nested_attributes_for :isbn_records, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :issn_records, allow_destroy: true, reject_if: :all_blank
 
   searchable do
     text :title, default_boost: 2 do
@@ -85,9 +88,9 @@ class Manifestation < ApplicationRecord
     end
     string :issn, multiple: true do
       if series_statements.exists?
-        [identifier_contents(:issn), (series_statements.map{|s| s.manifestation.identifier_contents(:issn)})].flatten.uniq.compact
+        [issn_records.pluck(:body), (series_statements.map{|s| s.manifestation.issn_records.pluck(:body)})].flatten.uniq.compact
       else
-        identifier_contents(:issn)
+        issn_records.pluck(:body)
       end
     end
     string :lccn, multiple: true do
@@ -189,9 +192,9 @@ class Manifestation < ApplicationRecord
     end
     text :issn do # 前方一致検索のためtext指定を追加
       if series_statements.exists?
-        [identifier_contents(:issn), (series_statements.map{|s| s.manifestation.identifier_contents(:issn)})].flatten.uniq.compact
+        [issn_records.pluck(:body), (series_statements.map{|s| s.manifestation.issn_records.pluck(:body)})].flatten.uniq.compact
       else
-        identifier_contents(:issn)
+        issn_records.pluck(:body)
       end
     end
     text :identifier do
@@ -575,7 +578,7 @@ class Manifestation < ApplicationRecord
       frequency: frequency.name,
       language: language.name,
       isbn: isbn_records.pluck(:body).join('//'),
-      issn: identifier_contents(:issn).join('//'),
+      issn: issn_records.pluck(:body).join('//'),
       volume_number: volume_number,
       volume_number_string: volume_number_string,
       edition: edition,
