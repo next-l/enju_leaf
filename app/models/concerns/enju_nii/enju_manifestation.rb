@@ -73,15 +73,11 @@ module EnjuNii
           identifier_type_ncid = IdentifierType.find_or_create_by!(name: 'ncid')
           identifier[:ncid].identifier_type = identifier_type_ncid
         end
-        if isbn
-          identifier[:isbn] = Identifier.new(body: isbn)
-          identifier_type_isbn = IdentifierType.find_or_create_by!(name: 'isbn')
-          identifier[:isbn].identifier_type = identifier_type_isbn
-        end
         identifier.each do |k, v|
           manifestation.identifiers << v
         end
 
+        manifestation.isbn_records.create(body: isbn) if isbn
         manifestation.carrier_type = CarrierType.find_by(name: 'volume')
         manifestation.manifestation_content_type = ContentType.find_by(name: 'text')
 

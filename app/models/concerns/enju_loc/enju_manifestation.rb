@@ -110,13 +110,6 @@ module EnjuLoc
             serial: is_serial
           )
           identifier = {}
-          if isbn
-            identifier[:isbn] = Identifier.new(
-              manifestation: manifestation,
-              body: isbn,
-              identifier_type: IdentifierType.find_by(name: 'isbn') || IdnetifierType.create!(name: 'isbn')
-            )
-          end
           if loc_identifier
             identifier[:loc_identifier] = Identifier.new(
               manifestation: manifestation,
@@ -145,6 +138,8 @@ module EnjuLoc
               identifier_type: IdentifierType.find_by(name: 'issn_l') || IdentifierType.create!(name: 'issn_l')
             )
           end
+
+          manifestation.isbn_records.create(body: isbn) if isbn
           manifestation.carrier_type = carrier_type if carrier_type
           manifestation.manifestation_content_type = content_type if content_type
           manifestation.frequency = frequency if frequency
