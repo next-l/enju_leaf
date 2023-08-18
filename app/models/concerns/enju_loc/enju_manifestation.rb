@@ -114,7 +114,7 @@ module EnjuLoc
             identifier[:loc_identifier] = Identifier.new(
               manifestation: manifestation,
               body: loc_identifier,
-              identifier_type: IdentifierType.find_by(name: 'loc_identifier') || IdnetifierType.create!(name: 'loc_identifier')
+              identifier_type: IdentifierType.find_by(name: 'loc_identifier') || IdentifierType.create!(name: 'loc_identifier')
             )
           end
           if lccn
