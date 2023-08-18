@@ -146,7 +146,7 @@ module EnjuNdl
           identifier = {}
           if isbn
             identifier[:isbn] = Identifier.new(body: isbn)
-            identifier[:isbn].identifier_type = IdentifierType.find_by(name: 'isbn') || IdnetifierType.create!(name: 'isbn')
+            identifier[:isbn].identifier_type = IdentifierType.find_by(name: 'isbn') || IdentifierType.create!(name: 'isbn')
           end
           if iss_itemno
             identifier[:iss_itemno] = Identifier.new(body: iss_itemno)
