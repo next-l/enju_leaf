@@ -1,0 +1,90 @@
+isbn_record_and_manifestation_00001:
+  id: 1
+  manifestation_id: 1
+  isbn_record_id: 1
+
+isbn_record_and_manifestation_00002:
+  id: 2
+  manifestation_id: 2
+  isbn_record_id: 2
+
+isbn_record_and_manifestation_00003:
+  id: 3
+  manifestation_id: 3
+  isbn_record_id: 3
+
+isbn_record_and_manifestation_00004:
+  id: 4
+  manifestation_id: 4
+  isbn_record_id: 4
+
+isbn_record_and_manifestation_00005:
+  id: 5
+  manifestation_id: 5
+  isbn_record_id: 5
+
+isbn_record_and_manifestation_00006:
+  id: 6
+  manifestation_id: 6
+  isbn_record_id: 6
+
+isbn_record_and_manifestation_00007:
+  id: 7
+  manifestation_id: 7
+  isbn_record_id: 7
+
+isbn_record_and_manifestation_00008:
+  id: 8
+  manifestation_id: 8
+  isbn_record_id: 8
+
+isbn_record_and_manifestation_00009:
+  id: 9
+  manifestation_id: 9
+  isbn_record_id: 9
+
+isbn_record_and_manifestation_00114:
+  id: 114
+  manifestation_id: 114
+  isbn_record_id: 114
+
+isbn_record_and_manifestation_00116:
+  id: 116
+  manifestation_id: 116
+  isbn_record_id: 116
+
+isbn_record_and_manifestation_00120:
+  id: 120
+  manifestation_id: 120
+  isbn_record_id: 120
+
+isbn_record_and_manifestation_00192:
+  id: 192
+  manifestation_id: 192
+  isbn_record_id: 192
+
+isbn_record_and_manifestation_00193:
+  id: 193
+  manifestation_id: 193
+  isbn_record_id: 193
+
+isbn_record_and_manifestation_00194:
+  id: 194
+  manifestation_id: 194
+  isbn_record_id: 194
+
+isbn_record_and_manifestation_00196:
+  id: 196
+  manifestation_id: 196
+  isbn_record_id: 196
+
+# == Schema Information
+#
+# Table name: isbn_record_and_manifestations
+#
+#  id               :bigint           not null, primary key
+#  isbn_record_id   :bigint           not null
+#  manifestation_id :bigint           not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#

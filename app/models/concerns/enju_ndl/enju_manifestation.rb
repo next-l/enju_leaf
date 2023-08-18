@@ -144,10 +144,6 @@ module EnjuNdl
           )
           manifestation.serial = true if is_serial
           identifier = {}
-          if isbn
-            identifier[:isbn] = Identifier.new(body: isbn)
-            identifier[:isbn].identifier_type = IdentifierType.find_by(name: 'isbn') || IdentifierType.create!(name: 'isbn')
-          end
           if iss_itemno
             identifier[:iss_itemno] = Identifier.new(body: iss_itemno)
             identifier[:iss_itemno].identifier_type = IdentifierType.find_by(name: 'iss_itemno') || IdentifierType.create!(name: 'iss_itemno')
@@ -167,6 +163,8 @@ module EnjuNdl
           manifestation.carrier_type = carrier_type if carrier_type
           manifestation.manifestation_content_type = content_type if content_type
           if manifestation.save
+            manifestation.isbn_records.find_or_create_by(body: isbn) if isbn.present?
+
             identifier.each do |_k, v|
               manifestation.identifiers << v if v.valid?
             end
