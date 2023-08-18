@@ -1,16 +1,15 @@
-class JpnoRecord < ApplicationRecord
-  belongs_to :manifestation
-  validates :body, presence: true
-  strip_attributes
-end
+jpno_record_00001:
+  id: 1
+  manifestation_id: 2
+  body: "20792291"
 
 # == Schema Information
 #
 # Table name: jpno_records
 #
 #  id               :bigint           not null, primary key
-#  body             :string           not null
 #  manifestation_id :bigint           not null
+#  body             :string           not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #

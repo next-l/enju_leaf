@@ -37,6 +37,8 @@ class Manifestation < ApplicationRecord
   has_many :issn_record_and_manifestations, dependent: :destroy
   has_many :issn_records, through: :issn_record_and_manifestations
   has_one :doi_record, dependent: :destroy
+  has_one :jpno_record, dependent: :destroy
+  has_one :ncid_record, dependent: :destroy
 
   accepts_nested_attributes_for :creators, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :contributors, allow_destroy: true, reject_if: :all_blank
@@ -44,6 +46,9 @@ class Manifestation < ApplicationRecord
   accepts_nested_attributes_for :series_statements, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :identifiers, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :manifestation_custom_values, reject_if: :all_blank
+  accepts_nested_attributes_for :doi_record, reject_if: :all_blank
+  accepts_nested_attributes_for :jpno_record, reject_if: :all_blank
+  accepts_nested_attributes_for :ncid_record, reject_if: :all_blank
   accepts_nested_attributes_for :isbn_records, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :issn_records, allow_destroy: true, reject_if: :all_blank
 
@@ -97,7 +102,7 @@ class Manifestation < ApplicationRecord
       identifier_contents(:lccn)
     end
     string :jpno, multiple: true do
-      identifier_contents(:jpno)
+      jpno_record&.body
     end
     string :carrier_type do
       carrier_type.name
@@ -644,10 +649,10 @@ class Manifestation < ApplicationRecord
       end
     end
 
-    record["jpno"] = identifier_contents(:jpno).first
-    record["ncid"] = identifier_contents(:ncid).first
+    record["jpno"] = jpno_record&.body
+    record["ncid"] = ncid_record&.body
     record["lccn"] = identifier_contents(:lccn).first
-    record["doi"] = identifier_contents(:doi).first
+    record["doi"] = doi_record&.body
     record["iss_itemno"] = identifier_contents(:iss_itemno).first
 
     record
