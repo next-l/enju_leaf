@@ -140,6 +140,16 @@
   </div>
 
   <div class="field">
+    <%= f.label :isbn_records -%><br />
+    <%= f.fields_for :isbn_records do |isbn_record_form| %>
+      <%= render 'isbn_record_fields', f: isbn_record_form %>
+    <% end %>
+    <div class="links">
+      <p><%= link_to_add_association t('page.add'), f, :isbn_records %></p>
+    </div>
+  </div>
+
+  <div class="field">
     <%= f.label :identifier -%><br />
     <%= f.fields_for :identifiers do |identifier_form| %>
       <%= render 'identifier_fields', f: identifier_form %>

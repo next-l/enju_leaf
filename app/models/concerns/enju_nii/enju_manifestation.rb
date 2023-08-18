@@ -66,16 +66,6 @@ module EnjuNii
           end
         end
 
-        identifier = {}
-        if isbn
-          identifier[:isbn] = Identifier.new(body: isbn)
-          identifier_type_isbn = IdentifierType.find_or_create_by!(name: 'isbn')
-          identifier[:isbn].identifier_type = identifier_type_isbn
-        end
-        identifier.each do |k, v|
-          manifestation.identifiers << v
-        end
-
         manifestation.carrier_type = CarrierType.find_by(name: 'volume')
         manifestation.manifestation_content_type = ContentType.find_by(name: 'text')
 
@@ -83,6 +73,7 @@ module EnjuNii
           Agent.transaction do
             manifestation.save!
             manifestation.create_ncid_record(body: ncid) if ncid.present?
+            manifestation.isbn_records.create(body: isbn) if isbn.present?
             create_cinii_series_statements(doc, manifestation)
             publisher_patrons = Agent.import_agents(publishers)
             creator_patrons = Agent.import_agents(creators)

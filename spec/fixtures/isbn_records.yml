@@ -1,0 +1,73 @@
+isbn_record_00001:
+  id: 1
+  body: "4798002062"
+
+isbn_record_00002:
+  id: 2
+  body: "4915724824"
+
+isbn_record_00003:
+  id: 3
+  body: "4897063590"
+
+isbn_record_00004:
+  id: 4
+  body: '0471412791'
+
+isbn_record_00005:
+  id: 5
+  body: "0470844701"
+
+isbn_record_00006:
+  id: 6
+  body: "4798101028"
+
+isbn_record_00007:
+  id: 7
+  body: "4641143331"
+
+isbn_record_00008:
+  id: 8
+  body: "9784774127804"
+
+isbn_record_00009:
+  id: 9
+  body: "4822281167"
+
+isbn_record_00114:
+  id: 114
+  body: "9784756137470"
+
+isbn_record_00116:
+  id: 116
+  body: "9784756100917"
+
+isbn_record_00120:
+  id: 120
+  body: "9784274063855"
+
+isbn_record_00192:
+  id: 192
+  body: "9784873113241"
+
+isbn_record_00193:
+  id: 193
+  body: "9784797340044"
+
+isbn_record_00194:
+  id: 194
+  body: "4797340045"
+
+isbn_record_00196:
+  id: 196
+  body: "9784797336610"
+
+# == Schema Information
+#
+# Table name: isbn_records
+#
+#  id         :bigint           not null, primary key
+#  body       :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#

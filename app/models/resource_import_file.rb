@@ -131,8 +131,7 @@ class ResourceImportFile < ApplicationRecord
         if row['isbn'].present?
           if StdNum::ISBN.valid?(row['isbn'])
             isbn = StdNum::ISBN.normalize(row['isbn'])
-            identifier_type_isbn = IdentifierType.find_or_create_by!(name: 'isbn')
-            m = Identifier.find_by(body: isbn, identifier_type_id: identifier_type_isbn.id).try(:manifestation)
+            m = IsbnRecord.find_by(body: isbn)&.manifestations&.first
             if m
               if m.series_statements.exists?
                 manifestation = m
