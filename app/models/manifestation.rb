@@ -187,7 +187,7 @@ class Manifestation < ApplicationRecord
     end
     text :issn do # 前方一致検索のためtext指定を追加
       if series_statements.exists?
-        [issn_records.pluck(:body), (series_statements.map{|s| s.manifestation.issn_records.pluck(:body))})].flatten.uniq.compact
+        [issn_records.pluck(:body), (series_statements.map{|s| s.manifestation.issn_records.pluck(:body)})].flatten.uniq.compact
       else
         issn_records.pluck(:body)
       end
