@@ -82,9 +82,9 @@ class Manifestation < ApplicationRecord
     end
     string :issn, multiple: true do
       if series_statements.exists?
-        [identifier_contents(:issn), (series_statements.map{|s| s.manifestation.identifier_contents(:issn)})].flatten.uniq.compact
+        [issn_records.pluck(:body), (series_statements.map{|s| s.manifestation.issn_records.pluck(:body))})].flatten.uniq.compact
       else
-        identifier_contents(:issn)
+        issn_records.pluck(:body)
       end
     end
     string :lccn, multiple: true do
@@ -186,9 +186,9 @@ class Manifestation < ApplicationRecord
     end
     text :issn do # 前方一致検索のためtext指定を追加
       if series_statements.exists?
-        [identifier_contents(:issn), (series_statements.map{|s| s.manifestation.identifier_contents(:issn)})].flatten.uniq.compact
+        [issn_records.pluck(:body), (series_statements.map{|s| s.manifestation.issn_records.pluck(:body))})].flatten.uniq.compact
       else
-        identifier_contents(:issn)
+        issn_records.pluck(:body)
       end
     end
     text :identifier do
@@ -575,7 +575,7 @@ class Manifestation < ApplicationRecord
       frequency: frequency.name,
       language: language.name,
       isbn: identifier_contents(:isbn).join('//'),
-      issn: identifier_contents(:issn).join('//'),
+      issn: issn_records.pluck(:body).join('//'),
       volume_number: volume_number,
       volume_number_string: volume_number_string,
       edition: edition,
@@ -599,7 +599,7 @@ class Manifestation < ApplicationRecord
     }
 
     IdentifierType.find_each do |type|
-      next if ['issn', 'isbn', 'jpno', 'ncid', 'lccn', 'doi'].include?(type.name.downcase.strip)
+      next if ['isbn', 'jpno', 'ncid', 'lccn', 'doi'].include?(type.name.downcase.strip)
 
       record[:"identifier:#{type.name.to_sym}"] = identifiers.where(identifier_type: type).pluck(:body).join('//')
     end
