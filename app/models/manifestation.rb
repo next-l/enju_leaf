@@ -83,7 +83,7 @@ class Manifestation < ApplicationRecord
     end
     string :issn, multiple: true do
       if series_statements.exists?
-        [issn_records.pluck(:body), (series_statements.map{|s| s.manifestation.issn_records.pluck(:body))})].flatten.uniq.compact
+        [issn_records.pluck(:body), (series_statements.map{|s| s.manifestation.issn_records.pluck(:body)})].flatten.uniq.compact
       else
         issn_records.pluck(:body)
       end
