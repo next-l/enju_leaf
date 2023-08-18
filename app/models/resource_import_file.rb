@@ -101,8 +101,7 @@ class ResourceImportFile < ApplicationRecord
       unless manifestation
         if row['doi'].present?
           doi = URI.parse(row['doi'].downcase).path.gsub(/^\//, "")
-          identifier_type_doi = IdentifierType.find_or_create_by!(name: 'doi')
-          manifestation = Identifier.find_by(body: doi, identifier_type_id: identifier_type_doi.id).try(:manifestation)
+          manifestation = DoiRecord.find_by(body: doi)&.manifestation
         end
       end
 
@@ -766,6 +765,8 @@ end
         end
       end
 
+      manifestation.doi_record = set_doi(row)
+
       identifiers = set_identifier(row)
 
       if manifestation.save
@@ -804,7 +805,7 @@ end
 
   def set_identifier(row)
     identifiers = []
-    %w(isbn issn doi jpno ncid lccn iss_itemno).each do |id_type|
+    %w(isbn issn jpno ncid lccn iss_itemno).each do |id_type|
       next unless row[id_type.to_s].present?
 
       row[id_type].split(/\/\//).each do |identifier_s|
@@ -814,7 +815,17 @@ end
         identifiers << import_id if import_id.valid?
       end
     end
+
     identifiers
+  end
+
+  def set_doi(row)
+    next if row['doi'].blank?
+
+    doi = URI.parse(row['doi'].downcase).path.gsub(/^\//, "")
+    doi_record = DoiRecord.new(body: doi)
+
+    doi_record
   end
 
   def self.import_manifestation_custom_value(row, manifestation)
