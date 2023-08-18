@@ -34,6 +34,7 @@ class Manifestation < ApplicationRecord
   has_one :periodical, through: :periodical_and_manifestation, dependent: :destroy
   has_many :isbn_record_and_manifestations, dependent: :destroy
   has_many :isbn_records, through: :isbn_record_and_manifestations
+  has_one :doi_record, dependent: :destroy
 
   accepts_nested_attributes_for :creators, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :contributors, allow_destroy: true, reject_if: :all_blank
