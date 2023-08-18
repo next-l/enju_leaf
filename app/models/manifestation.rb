@@ -429,7 +429,7 @@ class Manifestation < ApplicationRecord
   end
 
   def self.find_by_isbn(isbn)
-    IsbnRecord.find_by(body: isbn).manifestations
+    IsbnRecord.find_by(body: isbn)&.manifestations
   end
 
   def index_series_statement
