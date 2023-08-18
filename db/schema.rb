@@ -1041,6 +1041,15 @@ ActiveRecord::Schema.define(version: 2023_08_18_052023) do
     t.index ["sender_id"], name: "index_messages_on_sender_id"
   end
 
+  create_table "ncid_records", force: :cascade do |t|
+    t.bigint "manifestation_id", null: false
+    t.string "body", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["body"], name: "index_ncid_records_on_body", unique: true
+    t.index ["manifestation_id"], name: "index_ncid_records_on_manifestation_id"
+  end
+
   create_table "ndl_bib_id_records", force: :cascade do |t|
     t.string "body", null: false
     t.bigint "manifestation_id", null: false
@@ -1773,6 +1782,7 @@ ActiveRecord::Schema.define(version: 2023_08_18_052023) do
   add_foreign_key "manifestation_reserve_stats", "users"
   add_foreign_key "manifestations", "roles", column: "required_role_id"
   add_foreign_key "messages", "messages", column: "parent_id"
+  add_foreign_key "ncid_records", "manifestations"
   add_foreign_key "ndl_bib_id_records", "manifestations"
   add_foreign_key "ndla_records", "agents"
   add_foreign_key "news_posts", "roles", column: "required_role_id"

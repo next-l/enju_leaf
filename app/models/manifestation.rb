@@ -33,6 +33,8 @@ class Manifestation < ApplicationRecord
   has_one :periodical_and_manifestation, dependent: :destroy
   has_one :periodical, through: :periodical_and_manifestation, dependent: :destroy
   has_one :doi_record, dependent: :destroy
+  has_one :jpno_record, dependent: :destroy
+  has_one :ncid_record, dependent: :destroy
 
   accepts_nested_attributes_for :creators, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :contributors, allow_destroy: true, reject_if: :all_blank
