@@ -28,7 +28,7 @@ describe NdlBook do
       expect(manifestation.language.name).to eq "Japanese"
       expect(manifestation.creators.first.full_name).to eq '秋葉, 拓哉'
       expect(manifestation.creators.first.full_name_transcription).to eq 'アキバ, タクヤ'
-      expect(manifestation.creators.first.agent_identifier).to eq 'http://id.ndl.go.jp/auth/entity/01208840'
+      expect(manifestation.creators.first.ndla_record.body).to eq 'http://id.ndl.go.jp/auth/entity/01208840'
       manifestation.price.should eq 3280
       manifestation.start_page.should eq 1
       manifestation.end_page.should eq 315
