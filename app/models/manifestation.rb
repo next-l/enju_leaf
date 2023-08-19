@@ -29,12 +29,31 @@ class Manifestation < ApplicationRecord
   has_one :resource_import_result
   has_many :identifiers, dependent: :destroy
   has_many :manifestation_custom_values, -> { joins(:manifestation_custom_property).order(:position) }, inverse_of: :manifestation, dependent: :destroy
+  has_one :periodical_record, class_name: 'Periodical', dependent: :destroy
+  has_one :periodical_and_manifestation, dependent: :destroy
+  has_one :periodical, through: :periodical_and_manifestation, dependent: :destroy
+  has_many :isbn_record_and_manifestations, dependent: :destroy
+  has_many :isbn_records, through: :isbn_record_and_manifestations
+  has_many :issn_record_and_manifestations, dependent: :destroy
+  has_many :issn_records, through: :issn_record_and_manifestations
+  has_one :doi_record, dependent: :destroy
+  has_one :jpno_record, dependent: :destroy
+  has_one :ncid_record, dependent: :destroy
+  has_one :lccn_record, dependent: :destroy
+  has_one :ndl_bib_id_record, dependent: :destroy
+
   accepts_nested_attributes_for :creators, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :contributors, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :publishers, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :series_statements, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :identifiers, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :manifestation_custom_values, reject_if: :all_blank
+  accepts_nested_attributes_for :doi_record, reject_if: :all_blank
+  accepts_nested_attributes_for :jpno_record, reject_if: :all_blank
+  accepts_nested_attributes_for :ncid_record, reject_if: :all_blank
+  accepts_nested_attributes_for :lccn_record, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :isbn_records, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :issn_records, allow_destroy: true, reject_if: :all_blank
 
   searchable do
     text :title, default_boost: 2 do
@@ -77,16 +96,16 @@ class Manifestation < ApplicationRecord
     end
     string :issn, multiple: true do
       if series_statements.exists?
-        [identifier_contents(:issn), (series_statements.map{|s| s.manifestation.identifier_contents(:issn)})].flatten.uniq.compact
+        [issn_records.pluck(:body), (series_statements.map{|s| s.manifestation.issn_records.pluck(:body)})].flatten.uniq.compact
       else
-        identifier_contents(:issn)
+        issn_records.pluck(:body)
       end
     end
-    string :lccn, multiple: true do
-      identifier_contents(:lccn)
+    string :lccn do
+      lccn_record&.body
     end
     string :jpno, multiple: true do
-      identifier_contents(:jpno)
+      jpno_record&.body
     end
     string :carrier_type do
       carrier_type.name
@@ -181,18 +200,18 @@ class Manifestation < ApplicationRecord
     end
     text :issn do # 前方一致検索のためtext指定を追加
       if series_statements.exists?
-        [identifier_contents(:issn), (series_statements.map{|s| s.manifestation.identifier_contents(:issn)})].flatten.uniq.compact
+        [issn_records.pluck(:body), (series_statements.map{|s| s.manifestation.issn_records.pluck(:body)})].flatten.uniq.compact
       else
-        identifier_contents(:issn)
+        issn_records.pluck(:body)
       end
     end
     text :identifier do
-      other_identifiers = identifiers.joins(:identifier_type).merge(IdentifierType.where.not(name: [:isbn, :issn]))
+      other_identifiers = identifiers.joins(:identifier_type).merge(IdentifierType.where.not(name: [:issn]))
       other_identifiers.pluck(:body)
     end
     string :sort_title
-    string :doi, multiple: true do
-      identifier_contents(:doi)
+    string :doi do
+      doi_record&.body
     end
     boolean :serial do
       serial?
@@ -235,7 +254,7 @@ class Manifestation < ApplicationRecord
   end
   after_create :clear_cached_numdocs
   after_destroy :index_series_statement
-  after_save :index_series_statement, :extract_text!
+  after_save :index_series_statement
   after_touch do |manifestation|
     manifestation.index
     manifestation.index_series_statement
@@ -249,7 +268,7 @@ class Manifestation < ApplicationRecord
   def set_date_of_publication
     return if pub_date.blank?
 
-    year = Time.utc(pub_date.rjust(4, "0")).year rescue nil
+    year = Time.utc(pub_date.rjust(4, "0").to_i).year rescue nil
     begin
       date = Time.zone.parse(pub_date.rjust(4, "0"))
       if date.year != year
@@ -263,7 +282,7 @@ class Manifestation < ApplicationRecord
     if pub_date_string.length == 4
       date = Time.zone.parse(Time.utc(pub_date_string).to_s).beginning_of_day
     else
-      while date.nil? do
+      while date.nil?
         pub_date_string += '-01'
         break if pub_date_string =~ /-01-01-01$/
 
@@ -367,24 +386,32 @@ class Manifestation < ApplicationRecord
   end
 
   def extract_text
-    return nil unless attachment.attached?
-    return nil unless ENV['ENJU_EXTRACT_TEXT'] == 'true'
+    return unless attachment.attached?
+    return unless ENV['ENJU_LEAF_EXTRACT_TEXT'] == 'true'
 
-    client = Faraday.new(url: ENV['SOLR_URL'] || Sunspot.config.solr.url) do |conn|
-      conn.request :multipart
+    if ENV['ENJU_LEAF_EXTRACT_FILESIZE_LIMIT'].present?
+      filesize_limit = ENV['ENJU_LEAF_EXTRACT_FILESIZE_LIMIT'].to_i
+    else
+      filesize_limit = 2097152
+    end
+
+    if attachment.byte_size > filesize_limit
+      Rails.logger.error("#{attachment.filename} (size: #{attachment.byte_size} byte(s)) exceeds filesize limit #{ENV['ENJU_LEAF_EXTRACT_FILESIZE_LIMIT']} bytes")
+      return ''
+    end
+
+    client = Faraday.new(url: ENV['TIKA_URL'] || 'http://tika:9998') do |conn|
       conn.adapter :net_http
     end
-    response = client.post('update/extract?extractOnly=true&wt=json&extractFormat=text') do |req|
-      req.headers['Content-type'] = 'text/html'
-      req.body = attachment.download
-    end
-    update_column(:fulltext, JSON.parse(response.body)[""])
-  end
 
-  def extract_text!
-    extract_text
-    index
-    Sunspot.commit
+    response = client.put('/tika/text') do |req|
+      req.headers['Content-Type'] = attachment.content_type
+      req.headers['Content-Length'] = attachment.byte_size.to_s
+      req.body = Faraday::UploadIO.new(StringIO.new(attachment.download), attachment.content_type)
+    end
+
+    payload = JSON.parse(response.body)['X-TIKA:content'].strip.tr("\t", " ").gsub(/\r?\n/, "")
+    payload
   end
 
   def created(agent)
@@ -414,10 +441,7 @@ class Manifestation < ApplicationRecord
   end
 
   def self.find_by_isbn(isbn)
-    identifier_type = IdentifierType.find_by(name: 'isbn')
-    return nil unless identifier_type
-
-    Manifestation.includes(identifiers: :identifier_type).where("identifiers.body": isbn, "identifier_types.name": 'isbn')
+    IsbnRecord.find_by(body: isbn)&.manifestations
   end
 
   def index_series_statement
@@ -561,8 +585,8 @@ class Manifestation < ApplicationRecord
       content_type: manifestation_content_type.name,
       frequency: frequency.name,
       language: language.name,
-      isbn: identifier_contents(:isbn).join('//'),
-      issn: identifier_contents(:issn).join('//'),
+      isbn: isbn_records.pluck(:body).join('//'),
+      issn: issn_records.pluck(:body).join('//'),
       volume_number: volume_number,
       volume_number_string: volume_number_string,
       edition: edition,
@@ -586,7 +610,7 @@ class Manifestation < ApplicationRecord
     }
 
     IdentifierType.find_each do |type|
-      next if ['issn', 'isbn', 'jpno', 'ncid', 'lccn', 'doi'].include?(type.name.downcase.strip)
+      next if ['isbn', 'issn', 'jpno', 'ncid', 'lccn', 'doi'].include?(type.name.downcase.strip)
 
       record[:"identifier:#{type.name.to_sym}"] = identifiers.where(identifier_type: type).pluck(:body).join('//')
     end
@@ -628,11 +652,11 @@ class Manifestation < ApplicationRecord
       end
     end
 
-    record["jpno"] = identifier_contents(:jpno).first
-    record["ncid"] = identifier_contents(:ncid).first
-    record["lccn"] = identifier_contents(:lccn).first
-    record["doi"] = identifier_contents(:doi).first
-    record["iss_itemno"] = identifier_contents(:iss_itemno).first
+    record["doi"] = doi_record&.body
+    record["jpno"] = jpno_record&.body
+    record["ncid"] = ncid_record&.body
+    record["lccn"] = lccn_record&.body
+    record["iss_itemno"] = ndl_bib_id_record&.body
 
     record
   end
@@ -665,7 +689,7 @@ class Manifestation < ApplicationRecord
   end
 
   def isbn_characters
-    identifier_contents(:isbn).map{|i|
+    isbn_records.pluck(:body).map{|i|
       isbn10 = isbn13 = isbn10_dash = isbn13_dash = nil
       isbn10 = Lisbn.new(i).isbn10
       isbn13 = Lisbn.new(i).isbn13

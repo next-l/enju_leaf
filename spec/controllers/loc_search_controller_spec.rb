@@ -31,7 +31,7 @@ describe LocSearchController do
 
     it "should create a bibliographic record if lccn is set", vcr: true do
       post :create, params: { book: {lccn: '2013385616'} }
-      expect(assigns(:manifestation).identifier_contents(:lccn)).to eq ['2013385616']
+      expect(assigns(:manifestation).lccn_record.body).to eq '2013385616'
       expect(response).to redirect_to manifestation_url(assigns(:manifestation))
     end
 

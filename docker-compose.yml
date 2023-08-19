@@ -4,7 +4,6 @@ volumes:
   postgres:
   solr:
   redis:
-  minio:
 
 networks:
   internal:
@@ -12,6 +11,8 @@ networks:
 x-app: &app
   env_file:
     - .env
+  environment:
+    - no_proxy: localhost,web,workers,tika
   build:
     context: .
     args:
@@ -25,10 +26,8 @@ x-app: &app
   volumes:
     - ./:/enju
   depends_on:
-    - postgres
     - solr
     - redis
-    # - minio
   restart: always
 
 services:
@@ -46,21 +45,10 @@ services:
       - QUEUE=*
     command: bundle exec rake resque:work
 
-  webpacker:
-    <<: *app
-    environment:
-      - NODE_ENV=development
-      - WEBPACKER_DEV_SERVER_HOST=127.0.0.1
-    profiles:
-      - develop
-    command: ./bin/webpack-dev-server
-    ports:
-      - 127.0.0.1:3035:3035
-
   solr:
     image: solr:8
-    ports:
-      - 127.0.0.1:8983:8983
+    expose:
+      - 8983
     env_file:
       - .env
     networks:
@@ -84,8 +72,8 @@ services:
       internal:
     env_file:
       - .env
-    ports:
-      - 127.0.0.1:5432:5432
+    expose:
+      - 5432
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "POSTGRES_PASSWORD=${POSTGRES_PASSWORD} pg_isready -U ${POSTGRES_USER} -h localhost -d template1"]
@@ -95,6 +83,8 @@ services:
 
   redis:
     image: redis:6
+    volumes:
+      - redis:/data
     command: redis-server --appendonly yes
     networks:
       internal:
@@ -106,30 +96,8 @@ services:
       timeout: 5s
       retries: 3
 
-  minio:
-    image: quay.io/minio/minio:RELEASE.2022-10-29T06-21-33Z
-    profiles:
-      - develop
-    volumes:
-      - minio:/data
-    entrypoint:
-      /bin/sh -c "mkdir -p /data/${ENJU_LEAF_STORAGE_BUCKET} && minio server /data --console-address \":9001\""
-    expose:
-      - 9000
-      - 9001
-    env_file:
-      - .env
-    restart: always
-    networks:
-      internal:
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
-      interval: 30s
-      timeout: 20s
-      retries: 3
-
   cantaloupe:
-    image: uclalibrary/cantaloupe:5.0.5-2
+    image: uclalibrary/cantaloupe:5.0.5-7
     expose:
       - 8182
     restart: always
@@ -148,23 +116,10 @@ services:
       timeout: 20s
       retries: 3
 
-  nginx:
-    image: nginx:stable
-    ports:
-      - ${ENJU_LEAF_BIND_ADDRESS}:8080:80
-      - ${ENJU_LEAF_BIND_ADDRESS}:8182:8182
-    volumes:
-      - ./nginx/templates:/etc/nginx/templates:ro
-      - ./nginx/certs:/etc/nginx/certs:ro
-      - ./public:/opt/enju_leaf/public
+  tika:
+    image: apache/tika:2.8.0.0
+    expose:
+      - 9998
     restart: always
     networks:
       internal:
-    depends_on:
-      - web
-      - cantaloupe
-    healthcheck:
-      test: ["CMD", "service", "nginx", "status"]
-      interval: 30s
-      timeout: 20s
-      retries: 3

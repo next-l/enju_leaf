@@ -1,19 +1,19 @@
 <div id="content_detail" class="col col-md-9">
-<h1 class="title card-header"><%= t('page.showing', model: t('activerecord.models.produce')) -%></h1>
-<div id="content_list" class="card-body">
-<p id="notice"><%= notice %></p>
+  <h1 class="title card-header"><%= t('page.showing', model: t('activerecord.models.produce')) -%></h1>
+  <div id="content_list" class="card-body">
+    <p id="notice"><%= notice %></p>
 
-<p>
-  <strong><%= t('activerecord.models.agent') -%>:</strong>
-  <%=link_to @produce.agent.full_name, @produce.agent -%>
-</p>
+    <p>
+      <strong><%= t('activerecord.models.agent') -%>:</strong>
+      <%= link_to @produce.agent.full_name, @produce.agent -%>
+    </p>
 
-<p>
-  <strong><%= t('activerecord.models.manifestation') -%>:</strong>
-  <%= link_to @produce.manifestation_original_title, @produce.manifestation -%>
-</p>
+    <p>
+      <strong><%= t('activerecord.models.manifestation') -%>:</strong>
+      <%= link_to @produce.manifestation_original_title, @produce.manifestation -%>
+    </p>
 
-</div>
+  </div>
 </div>
 
 <div id="submenu" class="col">

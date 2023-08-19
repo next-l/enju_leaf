@@ -1,0 +1,20 @@
+<div data-role="header">
+  <a href="javascript:history.back()" data-icon="back" data-iconpos="notext" class="ui-btn-left"><%= t('page.back') %></a>
+  <h1 class="title"><%= t('page.showing', model: t('activerecord.models.manifestation')) -%></h1>
+</div>
+<div data-role="content">
+<%= render 'title', manifestation: @manifestation %>
+<table class="table table-striped">
+<tr>
+<th>ISBN</th>
+<td><%= @manifestation.isbn_records.pluck(:body).join(' ') %></td>
+</tr>
+<tr>
+<th><%= t('activerecord.attributes.manifestation.price') %></th>
+<td><%= @manifestation.price %></td>
+</tr>
+</table>
+<%- if policy_scope(@manifestation.items).for_checkout.on_shelf.exists? -%>
+  <%= render 'manifestations/show_holding', manifestation: @manifestation, items: policy_scope(@manifestation.items).for_checkout.on_shelf %>
+<%- end -%>
+</div>

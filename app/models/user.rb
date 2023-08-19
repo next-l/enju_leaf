@@ -7,6 +7,7 @@ class User < ApplicationRecord
   include EnjuCirculation::EnjuUser
   include EnjuMessage::EnjuUser
   include EnjuBookmark::EnjuUser
+  include EnjuPurchaseRequest::EnjuUser
 end
 
 # == Schema Information

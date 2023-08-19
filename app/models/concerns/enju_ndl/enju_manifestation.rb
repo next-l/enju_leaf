@@ -34,9 +34,8 @@ module EnjuNdl
 
       def import_record(doc)
         iss_itemno = URI.parse(doc.at('//dcndl:BibAdminResource[@rdf:about]').values.first).path.split('/').last
-        identifier_type = IdentifierType.find_or_create_by!(name: 'iss_itemno')
-        identifier = Identifier.find_by(body: iss_itemno, identifier_type_id: identifier_type.id)
-        return identifier.manifestation if identifier
+        ndl_bib_id_record =NdlBibIdRecord.find_by(body: iss_itemno)
+        return ndl_bib_id_record.manifestation if ndl_bib_id_record
 
         jpno = doc.at('//dcterms:identifier[@rdf:datatype="http://ndl.go.jp/dcndl/terms/JPNO"]').try(:content)
 
@@ -143,33 +142,16 @@ module EnjuNdl
             edition_string: edition_string
           )
           manifestation.serial = true if is_serial
-          identifier = {}
-          if isbn
-            identifier[:isbn] = Identifier.new(body: isbn)
-            identifier[:isbn].identifier_type = IdentifierType.find_by(name: 'isbn') || IdnetifierType.create!(name: 'isbn')
-          end
-          if iss_itemno
-            identifier[:iss_itemno] = Identifier.new(body: iss_itemno)
-            identifier[:iss_itemno].identifier_type = IdentifierType.find_by(name: 'iss_itemno') || IdentifierType.create!(name: 'iss_itemno')
-          end
-          if jpno
-            identifier[:jpno] = Identifier.new(body: jpno)
-            identifier[:jpno].identifier_type = IdentifierType.find_or_create_by!(name: 'jpno')
-          end
-          if issn
-            identifier[:issn] = Identifier.new(body: issn)
-            identifier[:issn].identifier_type = IdentifierType.find_or_create_by!(name: 'issn')
-          end
-          if issn_l
-            identifier[:issn_l] = Identifier.new(body: issn_l)
-            identifier[:issn_l].identifier_type = IdentifierType.find_or_create_by!(name: 'issn_l')
-          end
+
           manifestation.carrier_type = carrier_type if carrier_type
           manifestation.manifestation_content_type = content_type if content_type
           if manifestation.save
-            identifier.each do |_k, v|
-              manifestation.identifiers << v if v.valid?
-            end
+            manifestation.isbn_records.find_or_create_by(body: isbn) if isbn.present?
+            manifestation.issn_records.find_or_create_by(body: issn) if issn.present?
+            manifestation.issn_records.find_or_create_by(body: issn_l) if issn_l.present?
+            manifestation.create_jpno_record(body: jpno) if jpno.present?
+            manifestation.create_ndl_bib_id_record(body: iss_itemno) if iss_itemno.present?
+
             manifestation.publishers << publisher_agents
             create_additional_attributes(doc, manifestation)
             if is_serial

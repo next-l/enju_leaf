@@ -13,6 +13,6 @@ module PictureFilesHelper
       end
     end
 
-    image_tag picture_file.attachment.representation, alt: "*", width: picture_file.attachment.metadata['width'], height: picture_file.attachment.metadata['height']
+    image_tag picture_file.attachment, alt: "*", width: picture_file.attachment.metadata['width'], height: picture_file.attachment.metadata['height']
   end
 end
