@@ -102,7 +102,7 @@ class OrderListsController < ApplicationController
 
   def set_bookstore
     @bookstore = Bookstore.find_by(id: params[:bookstore_id])
-    authorize @bookstore
+    authorize @bookstore if @bookstore
   end
 
   def check_policy
