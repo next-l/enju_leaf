@@ -128,7 +128,7 @@ class ResourceImportFile < ApplicationRecord
       unless manifestation
         if row['isbn'].present?
           row['isbn'].to_s.split("//").each do |isbn|
-            m = IsbnRecord.find_by(body: StdNum::ISBN.normalize(isbn))&.manifestations&.first
+            m = IsbnRecord.find_by(body: Lisbn.new(isbn).isbn13)&.manifestations&.first
             if m
               if m.series_statements.exists?
                 manifestation = m
@@ -148,8 +148,10 @@ class ResourceImportFile < ApplicationRecord
       if row['original_title'].blank?
         unless manifestation
           begin
-            isbn = row['isbn'].to_s.split("//").first
-            manifestation = Manifestation.import_isbn(isbn) if isbn
+            row['isbn'].to_s.split("//").each do |isbn|
+              lisbn = Lisbn.new(isbn)
+              manifestation = Manifestation.import_isbn(lisbn.isbn13) if lisbn.isbn13
+            end
             if manifestation
               num[:manifestation_imported] += 1
             end
@@ -765,7 +767,8 @@ end
       manifestation.create_ncid_record(body: row['ncid']) if row['ncid'].present?
       if row['isbn'].present?
         row['isbn'].to_s.split("//").each do |isbn|
-          manifestation.isbn_records.find_or_create_by(body: isbn) if isbn.present?
+          lisbn = Lisbn.new(isbn)
+          manifestation.isbn_records.find_or_create_by(body: lisbn.isbn13) if lisbn.isbn13
         end
       end
 
