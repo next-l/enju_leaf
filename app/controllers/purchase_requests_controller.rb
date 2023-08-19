@@ -136,7 +136,7 @@ class PurchaseRequestsController < ApplicationController
   end
 
   private
-  def set_purchase_request
+  def get_purchase_request
     @purchase_request = PurchaseRequest.find(params[:id])
     authorize @purchase_request
   end
