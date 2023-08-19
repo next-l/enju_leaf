@@ -14,7 +14,7 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to h(library_group.display_name.localize), library_group -%></td>
     <td><%= library_group.name -%></td>
-    <td><%= library_group.user.email -%></td>
+    <td><%= library_group.email -%></td>
     <td>
       <%= link_to t('page.edit'), edit_library_group_path(library_group) if policy(library_group).update? -%>
     </td>

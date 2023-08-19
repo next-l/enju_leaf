@@ -28,8 +28,8 @@ class ImportRequest < ApplicationRecord
 
   def check_imported
     if isbn.present?
-      identifier_type = IdentifierType.find_by_or_create!(name: 'isbn')
-      if Identifier.find_by(body: isbn, identifier_type_id: identifier_type.id)&.manifestation
+      lisbn = Lisbn.new(isbn)
+      if IsbnRecord.find_by(body: lisbn.isbn13)&.manifestations
         errors.add(:isbn, I18n.t('import_request.isbn_taken'))
       end
     end

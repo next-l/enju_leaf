@@ -7,14 +7,14 @@ describe Event do
     event = events(:event_00001)
     event.all_day = true
     event.set_all_day
-    event.all_day.should be_truthy
+    expect(event.all_day).to be_truthy
   end
 
   it "should set all_day and beginning_of_day" do
     event = events(:event_00008)
     event.all_day = true
     event.set_all_day
-    event.start_at.should eq event.end_at.beginning_of_day
+    expect(event.start_at).to eq event.end_at.beginning_of_day
   end
 
   it "should export events" do
@@ -29,17 +29,16 @@ end
 #
 # Table name: events
 #
-#  id                        :bigint           not null, primary key
-#  library_id                :bigint           not null
-#  event_category_id         :bigint           not null
-#  name                      :string           not null
-#  note                      :text
-#  start_at                  :datetime
-#  end_at                    :datetime
-#  all_day                   :boolean          default(FALSE), not null
-#  display_name              :text
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  place_id                  :bigint
-#  display_name_translations :jsonb            not null
+#  id                :bigint           not null, primary key
+#  library_id        :bigint           not null
+#  event_category_id :bigint           not null
+#  name              :string           not null
+#  note              :text
+#  start_at          :datetime
+#  end_at            :datetime
+#  all_day           :boolean          default(FALSE), not null
+#  display_name      :text
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  place_id          :bigint
 #

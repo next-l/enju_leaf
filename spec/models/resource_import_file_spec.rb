@@ -28,7 +28,7 @@ describe ResourceImportFile do
         manifestation.publishers.second.full_name_transcription.should eq 'てすと5'
         manifestation.produces.first.produce_type.name.should eq 'publisher'
         manifestation.creates.first.create_type.name.should eq 'author'
-        manifestation.identifier_contents(:issn).should eq ['03875806']
+        expect(manifestation.issn_records.pluck(:body)).to eq ['03875806']
         Manifestation.count.should eq old_manifestations_count + 10
         Item.count.should eq old_items_count + 10
         Agent.count.should eq old_agents_count + 9
@@ -117,7 +117,7 @@ describe ResourceImportFile do
         item_10104.manifestation.edition_string.should eq '初版'
         item_10104.manifestation.edition.should eq 1
         item_10104.manifestation.serial_number.should eq 120
-        item_10104.manifestation.identifier_contents(:doi).should eq ['example/2014.08.18']
+        expect(item_10104.manifestation.doi_record.body).to eq 'example/2014.08.18'
         item_10104.manifestation.height.should be_nil
         item_10104.manifestation.width.should be_nil
         item_10104.manifestation.depth.should be_nil
@@ -127,8 +127,8 @@ describe ResourceImportFile do
         expect(item_10104.required_role.name).to eq 'Guest'
 
         manifestation_104 = Manifestation.find_by(manifestation_identifier: '104')
-        manifestation_104.identifier_contents(:isbn).should eq ['9784797327038']
-        manifestation_104.original_title.should eq 'test10'
+        expect(manifestation_104.isbn_records.pluck(:body)).to eq ['9784797327038']
+        expect(manifestation_104.original_title).to eq 'test10'
         manifestation_104.creators.pluck(:full_name).should eq ['test3']
         manifestation_104.publishers.pluck(:full_name).should eq ['test4']
         manifestation_105 = Manifestation.find_by(manifestation_identifier: '105')
@@ -168,8 +168,8 @@ describe ResourceImportFile do
         resource_import_result = file.resource_import_results.last
         expect(resource_import_result.manifestation).not_to be_blank
         manifestation = resource_import_result.manifestation
-        expect(manifestation.identifier_contents(:isbn)).to include("9784840239219")
-        expect(manifestation.identifier_contents(:isbn)).to include("9784043898039")
+        expect(manifestation.isbn_records.pluck(:body)).to include("9784840239219")
+        expect(manifestation.isbn_records.pluck(:body)).to include("9784043898039")
       end
 
       it "should import multiple rows in a cell" do
@@ -223,7 +223,7 @@ describe ResourceImportFile do
         expect(resource_import_result.error_message).to be_blank
         expect(resource_import_result.manifestation).not_to be_blank
         manifestation = resource_import_result.manifestation
-        expect(manifestation.identifier_contents(:ncid).first).to eq "BA67656964"
+        expect(manifestation.ncid_record.body).to eq "BA67656964"
       end
     end
 
@@ -291,6 +291,23 @@ describe ResourceImportFile do
         Manifestation.count.should eq old_manifestations_count + 1
         Agent.count.should eq old_agents_count + 4
         Manifestation.order(:id).last.publication_place.should eq '東京'
+      end
+    end
+
+    describe "when it has only ncid" do
+      before(:each) do
+        @file = ResourceImportFile.create!(
+          attachment: fixture_file_upload("ncid_sample.txt"),
+          user: users(:admin)
+        )
+      end
+
+      it "should be imported", vcr: true do
+        old_manifestations_count = Manifestation.count
+        old_agents_count = Agent.count
+        @file.import_start
+        Manifestation.count.should eq old_manifestations_count + 2
+        Agent.count.should eq old_agents_count + 16
       end
     end
 
@@ -396,7 +413,7 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
       item_00001.binding_call_number.should eq '336|A'
       item_00001.binded_at.should eq Time.zone.parse('2014-08-16')
       item_00001.manifestation.subjects.order(:id).map{|subject| {subject.subject_heading_type.name => subject.term}}.should eq [{"ndlsh" => "test1"}, {"ndlsh" => "test2"}]
-      item_00001.manifestation.identifier_contents(:isbn).should eq ["4798002062", "12345678"]
+      expect(item_00001.manifestation.isbn_records.pluck(:body)).to eq ["4798002062"]
       expect(item_00001.manifestation.required_role.name).to eq 'Librarian'
       expect(item_00001.required_role.name).to eq 'Guest'
 
@@ -445,7 +462,7 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
         expect(resource_import_result.error_message).to be_blank
         expect(resource_import_result.manifestation).not_to be_blank
         manifestation = resource_import_result.manifestation
-        expect(manifestation.identifier_contents(:ncid).first).to eq "BA67656964"
+        expect(manifestation.ncid_record.body).to eq "BA67656964"
       end
     end
   end

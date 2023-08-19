@@ -110,32 +110,11 @@ module EnjuLoc
             serial: is_serial
           )
           identifier = {}
-          if isbn
-            identifier[:isbn] = Identifier.new(
-              manifestation: manifestation,
-              body: isbn,
-              identifier_type: IdentifierType.find_by(name: 'isbn') || IdnetifierType.create!(name: 'isbn')
-            )
-          end
           if loc_identifier
             identifier[:loc_identifier] = Identifier.new(
               manifestation: manifestation,
               body: loc_identifier,
-              identifier_type: IdentifierType.find_by(name: 'loc_identifier') || IdnetifierType.create!(name: 'loc_identifier')
-            )
-          end
-          if lccn
-            identifier[:lccn] = Identifier.new(
-              manifestation: manifestation,
-              body: lccn,
-              identifier_type: IdentifierType.find_by(name: 'lccn') || IdentifierType.create!(name: 'lccn')
-            )
-          end
-          if issn
-            identifier[:issn] = Identifier.new(
-              manifestation: manifestation,
-              body: issn,
-              identifier_type: IdentifierType.find_by(name: 'issn') || IdentifierType.create!(name: 'issn')
+              identifier_type: IdentifierType.find_by(name: 'loc_identifier') || IdentifierType.create!(name: 'loc_identifier')
             )
           end
           if issn_l
@@ -145,6 +124,7 @@ module EnjuLoc
               identifier_type: IdentifierType.find_by(name: 'issn_l') || IdentifierType.create!(name: 'issn_l')
             )
           end
+
           manifestation.carrier_type = carrier_type if carrier_type
           manifestation.manifestation_content_type = content_type if content_type
           manifestation.frequency = frequency if frequency
@@ -152,6 +132,9 @@ module EnjuLoc
           identifier.each do |k, v|
             manifestation.identifiers << v if v.valid?
           end
+          manifestation.isbn_records.create(body: isbn) if isbn.present?
+          manifestation.issn_records.create(body: issn) if issn.present?
+          manifestation.create_lccn_record(body: lccn) if lccn.present?
           manifestation.publishers << publisher_agents
           manifestation.creators << creator_agents
           create_loc_subject_related_elements(doc, manifestation)

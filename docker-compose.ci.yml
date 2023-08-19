@@ -1,0 +1,93 @@
+version: '3.8'
+
+volumes:
+  postgres:
+  solr:
+  redis:
+
+networks:
+  internal:
+
+x-app: &app
+  env_file:
+    - .env
+  environment:
+    - no_proxy: localhost,web,workers,tika
+  build:
+    context: .
+    args:
+      - UID=${UID}
+      - GID=${GID}
+      - http_proxy=${http_proxy}
+      - https_proxy=${http_proxy}
+  image: ghcr.io/next-l/enju_leaf:latest
+  networks:
+    internal:
+  volumes:
+    - ./:/enju
+  depends_on:
+    - solr
+    - redis
+  restart: always
+
+services:
+  web:
+    <<: *app
+    command: bash -c "rm -f tmp/pids/server.pid && rails s -b 0.0.0.0"
+    environment:
+      - WEBPACKER_DEV_SERVER_HOST=webpacker
+    expose:
+      - 3000
+
+  workers:
+    <<: *app
+    environment:
+      - QUEUE=*
+    command: bundle exec rake resque:work
+
+  solr:
+    image: solr:8
+    ports:
+      - 8983:8983
+    env_file:
+      - .env
+    networks:
+      internal:
+    volumes:
+      - solr:/var/solr/data
+      - ./solr:/mnt/solr
+    restart: always
+    command: bash -c "precreate-core enju_leaf_${RAILS_ENV} /mnt/solr/configsets/sunspot/conf/; precreate-core enju_leaf_test /mnt/solr/configsets/sunspot/conf/; exec solr -f"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8983/solr/enju_leaf_${RAILS_ENV}/admin/ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  cantaloupe:
+    image: uclalibrary/cantaloupe:5.0.5-7
+    ports:
+      - 127.0.0.1:8182:8182
+    restart: always
+    environment:
+      no_proxy: localhost,web
+      SOURCE_STATIC: HttpSource
+      HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX: http://web:3000/picture_files/
+      HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_SUFFIX: '.download?size=original'
+      ENDPOINT_API_ENABLED: 'true'
+      BASE_URI: ${CANTALOUPE_BASE_URI}
+    networks:
+      internal:
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8182/health"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  tika:
+    image: apache/tika:2.8.0.0
+    ports:
+      - 127.0.0.1:9998:9998
+    restart: always
+    networks:
+      internal:

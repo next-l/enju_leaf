@@ -2,14 +2,14 @@
 
 public_fund:
   name: Public fund
-  display_name: "en: Public fund"
+  display_name: "en: Public fund\nja: 公費"
   note: 
   position: 1
   id: 1
 
 donation:
   name: Donation
-  display_name: "en: Donation"
+  display_name: "en: Donation\nja: 寄贈"
   note: 
   position: 2
   id: 2

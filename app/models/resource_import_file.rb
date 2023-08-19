@@ -93,56 +93,49 @@ class ResourceImportFile < ApplicationRecord
       unless manifestation
         if row['iss_itemno'].present?
           iss_itemno = URI.parse(row['iss_itemno']).path.gsub(/^\//, "")
-          identifier_type_iss_itemno = IdentifierType.find_or_create_by!(name: 'iss_itemno')
-          manifestation = Identifier.find_by(body: iss_itemno, identifier_type_id: identifier_type_iss_itemno.id).try(:manifestation)
+          manifestation = NdlBibIdRecord.find_by(body: iss_itemno).manifestation
         end
       end
 
       unless manifestation
         if row['doi'].present?
           doi = URI.parse(row['doi'].downcase).path.gsub(/^\//, "")
-          identifier_type_doi = IdentifierType.find_or_create_by!(name: 'doi')
-          manifestation = Identifier.find_by(body: doi, identifier_type_id: identifier_type_doi.id).try(:manifestation)
+          manifestation = DoiRecord.find_by(body: doi)&.manifestation
         end
       end
 
       unless manifestation
         if row['jpno'].present?
           jpno = row['jpno'].to_s.strip
-          identifier_type_jpno = IdentifierType.find_or_create_by!(name: 'jpno')
-          manifestation = Identifier.find_by(body: jpno, identifier_type_id: identifier_type_jpno.id).try(:manifestation)
+          manifestation = JpnoRecord.find_by(body: jpno)&.manifestation
         end
       end
 
       unless manifestation
         if row['ncid'].present?
           ncid = row['ncid'].to_s.strip
-          identifier_type_ncid = IdentifierType.find_or_create_by!(name: 'ncid')
-          manifestation = Identifier.find_by(body: ncid, identifier_type_id: identifier_type_ncid.id).try(:manifestation)
+          manifestation = NcidRecord.find_by(body: ncid)&.manifestation
         end
       end
 
       unless manifestation
         if row['lccn'].present?
           lccn = row['lccn'].to_s.strip
-          identifier_type_lccn = IdentifierType.find_or_create_by!(name: 'lccn')
-          manifestation = Identifier.find_by(body: lccn, identifier_type_id: identifier_type_lccn.id).try(:manifestation)
+          manifestation = LccnRecord.find_by(body: lccn).manifestation
         end
       end
 
       unless manifestation
         if row['isbn'].present?
-          if StdNum::ISBN.valid?(row['isbn'])
-            isbn = StdNum::ISBN.normalize(row['isbn'])
-            identifier_type_isbn = IdentifierType.find_or_create_by!(name: 'isbn')
-            m = Identifier.find_by(body: isbn, identifier_type_id: identifier_type_isbn.id).try(:manifestation)
+          row['isbn'].to_s.split("//").each do |isbn|
+            m = IsbnRecord.find_by(body: Lisbn.new(isbn).isbn13)&.manifestations&.first
             if m
               if m.series_statements.exists?
                 manifestation = m
               end
+            else
+              import_result.error_message = "line #{row_num}: #{I18n.t('import.isbn_invalid')}"
             end
-          else
-            import_result.error_message = "line #{row_num}: #{I18n.t('import.isbn_invalid')}"
           end
         end
       end
@@ -155,14 +148,22 @@ class ResourceImportFile < ApplicationRecord
       if row['original_title'].blank?
         unless manifestation
           begin
-            manifestation = Manifestation.import_isbn(isbn) if isbn
+            row['isbn'].to_s.split("//").each do |isbn|
+              lisbn = Lisbn.new(isbn)
+              manifestation = Manifestation.import_isbn(lisbn.isbn13) if lisbn.isbn13
+            end
+
+            if row['ncid'].present?
+              manifestation = Manifestation.import_from_cinii_books(ncid: row['ncid'])
+            end
+
             if manifestation
               num[:manifestation_imported] += 1
             end
           rescue EnjuNdl::InvalidIsbn
             manifestation = nil
             import_result.error_message = "line #{row_num}: #{I18n.t('import.isbn_invalid')}"
-          rescue EnjuNdl::RecordNotFound
+          rescue EnjuNdl::RecordNotFound, EnjuNii::RecordNotFound
             manifestation = nil
             import_result.error_message = "line #{row_num}: #{I18n.t('import.isbn_record_not_found')}"
           end
@@ -766,6 +767,22 @@ end
         end
       end
 
+      manifestation.doi_record = set_doi(row)
+      manifestation.create_jpno_record(body: row['jpno']) if row['jpno'].present?
+      manifestation.create_ncid_record(body: row['ncid']) if row['ncid'].present?
+      if row['isbn'].present?
+        row['isbn'].to_s.split("//").each do |isbn|
+          lisbn = Lisbn.new(isbn)
+          manifestation.isbn_records.find_or_create_by(body: lisbn.isbn13) if lisbn.isbn13
+        end
+      end
+
+      if row['issn'].present?
+        row['issn'].to_s.split("//").each do |issn|
+          manifestation.issn_records.find_or_create_by(body: issn) if issn.present?
+        end
+      end
+
       identifiers = set_identifier(row)
 
       if manifestation.save
@@ -804,7 +821,7 @@ end
 
   def set_identifier(row)
     identifiers = []
-    %w(isbn issn doi jpno ncid lccn iss_itemno).each do |id_type|
+    %w(isbn issn jpno ncid lccn iss_itemno).each do |id_type|
       next unless row[id_type.to_s].present?
 
       row[id_type].split(/\/\//).each do |identifier_s|
@@ -814,7 +831,17 @@ end
         identifiers << import_id if import_id.valid?
       end
     end
+
     identifiers
+  end
+
+  def set_doi(row)
+    return if row['doi'].blank?
+
+    doi = URI.parse(row['doi'].downcase).path.gsub(/^\//, "")
+    doi_record = DoiRecord.new(body: doi)
+
+    doi_record
   end
 
   def self.import_manifestation_custom_value(row, manifestation)

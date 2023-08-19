@@ -9,7 +9,7 @@ CSV.generate(col_sep: "\t", row_sep: "\r\n") do |csv|
       reserve.manifestation.creators.pluck(:full_name).join('//'),
       reserve.manifestation.publishers.pluck(:full_name).join('//'),
       reserve.manifestation.pub_date,
-      reserve.manifestation.identifier_contents(:isbn).join('//'),
+      reserve.manifestation.isbn_records.pluck(:body).join('//'),
       reserve.item.try(:item_identifier),
       reserve.item.try(:call_number),
       reserve.user.profile.try(:user_number),

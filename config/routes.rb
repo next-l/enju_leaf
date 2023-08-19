@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :agent_merges
   resources :agent_merge_lists
   resources :import_requests
+  resources :periodicals
 
   constraints format: :html do
     resources :produces
@@ -136,6 +137,20 @@ Rails.application.routes.draw do
 
   resources :news_posts
   resources :news_feeds
+
+  resources :purchase_requests do
+    resource :order
+  end
+  resources :order_lists do
+    resources :purchase_requests
+  end
+  resources :order_lists do
+    resource :order
+  end
+  resources :orders
+  resources :bookstores do
+    resources :order_lists
+  end
 
   devise_for :users
 
