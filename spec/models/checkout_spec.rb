@@ -6,9 +6,9 @@ describe Checkout do
 
   it "should respond to renewable?" do
     checkouts(:checkout_00001).save
-    checkouts(:checkout_00001).errors[:base].should eq []
+    expect(checkouts(:checkout_00001).errors[:base]).to eq []
     checkouts(:checkout_00002).save
-    checkouts(:checkout_00002).errors[:base].should eq [I18n.t('checkout.this_item_is_reserved')]
+    expect(checkouts(:checkout_00002).errors[:base]).to eq [I18n.t('checkout.this_item_is_reserved')]
   end
 
   it "should respond to reserved?" do
@@ -41,19 +41,19 @@ describe Checkout do
   end
 
   it "should respond to send_due_date_notification" do
-    Checkout.send_due_date_notification.should eq 5
+    expect(Checkout.send_due_date_notification).to eq 5
   end
 
   it "should respond to send_overdue_notification" do
-    Checkout.send_overdue_notification.should eq 1
+    expect(Checkout.send_overdue_notification).to eq 1
   end
 
   it "should destroy all history" do
     user = users(:user1)
     old_count = Checkout.count
     Checkout.remove_all_history(user)
-    user.checkouts.returned.count.should eq 0
-    Checkout.count.should eq old_count
+    expect(user.checkouts.returned.count).to eq 0
+    expect(Checkout.count).to eq old_count
   end
 end
 
