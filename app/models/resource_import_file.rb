@@ -93,8 +93,7 @@ class ResourceImportFile < ApplicationRecord
       unless manifestation
         if row['iss_itemno'].present?
           iss_itemno = URI.parse(row['iss_itemno']).path.gsub(/^\//, "")
-          identifier_type_iss_itemno = IdentifierType.find_or_create_by!(name: 'iss_itemno')
-          manifestation = Identifier.find_by(body: iss_itemno, identifier_type_id: identifier_type_iss_itemno.id).try(:manifestation)
+          manifestation = NdlBibIdRecord.find_by(body: iss_itemno).manifestation
         end
       end
 
@@ -122,23 +121,21 @@ class ResourceImportFile < ApplicationRecord
       unless manifestation
         if row['lccn'].present?
           lccn = row['lccn'].to_s.strip
-          identifier_type_lccn = IdentifierType.find_or_create_by!(name: 'lccn')
-          manifestation = Identifier.find_by(body: lccn, identifier_type_id: identifier_type_lccn.id).try(:manifestation)
+          manifestation = LccnRecord.find_by(body: lccn).manifestation
         end
       end
 
       unless manifestation
         if row['isbn'].present?
-          if StdNum::ISBN.valid?(row['isbn'])
-            isbn = StdNum::ISBN.normalize(row['isbn'])
-            m = IsbnRecord.find_by(body: isbn)&.manifestations&.first
+          row['isbn'].to_s.split("//").each do |isbn|
+            m = IsbnRecord.find_by(body: Lisbn.new(isbn).isbn13)&.manifestations&.first
             if m
               if m.series_statements.exists?
                 manifestation = m
               end
+            else
+              import_result.error_message = "line #{row_num}: #{I18n.t('import.isbn_invalid')}"
             end
-          else
-            import_result.error_message = "line #{row_num}: #{I18n.t('import.isbn_invalid')}"
           end
         end
       end
@@ -151,10 +148,13 @@ class ResourceImportFile < ApplicationRecord
       if row['original_title'].blank?
         unless manifestation
           begin
+            row['isbn'].to_s.split("//").each do |isbn|
+              lisbn = Lisbn.new(isbn)
+              manifestation = Manifestation.import_isbn(lisbn.isbn13) if lisbn.isbn13
+            end
+
             if row['ncid'].present?
               manifestation = Manifestation.import_from_cinii_books(ncid: row['ncid'])
-            elsif isbn
-              manifestation = Manifestation.import_isbn(isbn)
             end
 
             if manifestation
@@ -772,7 +772,8 @@ end
       manifestation.create_ncid_record(body: row['ncid']) if row['ncid'].present?
       if row['isbn'].present?
         row['isbn'].to_s.split("//").each do |isbn|
-          manifestation.isbn_records.find_or_create_by(body: isbn) if isbn.present?
+          lisbn = Lisbn.new(isbn)
+          manifestation.isbn_records.find_or_create_by(body: lisbn.isbn13) if lisbn.isbn13
         end
       end
 
