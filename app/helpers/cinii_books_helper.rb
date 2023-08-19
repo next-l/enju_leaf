@@ -3,7 +3,7 @@ module CiniiBooksHelper
     if ncid.blank?
       t('enju_nii.not_available')
     else
-      ncid_record = NcidRecord.find_by(name: 'ncid')
+      ncid_record = NcidRecord.find_by(body: 'ncid')
       if ncid_record
         link_to t('enju_nii.already_exists'), ncid_record.manifestation
       else

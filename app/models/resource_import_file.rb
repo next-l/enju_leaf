@@ -155,8 +155,6 @@ class ResourceImportFile < ApplicationRecord
 
             if row['ncid'].present?
               manifestation = Manifestation.import_from_cinii_books(ncid: row['ncid'])
-            elsif isbn
-              manifestation = Manifestation.import_isbn(isbn)
             end
 
             if manifestation
