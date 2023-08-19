@@ -1,12 +1,3 @@
-server {
-  listen 80 default_server;
-  server_name _;
-
-  location / {
-    return 301 https://$host$request_uri;
-  }
-}
-
 # Enju本体へのアクセスの設定
 server {
   listen 443 ssl http2;
