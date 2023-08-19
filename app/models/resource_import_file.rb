@@ -148,6 +148,7 @@ class ResourceImportFile < ApplicationRecord
       if row['original_title'].blank?
         unless manifestation
           begin
+            isbn = row['isbn'].to_s.split("//").first
             manifestation = Manifestation.import_isbn(isbn) if isbn
             if manifestation
               num[:manifestation_imported] += 1
