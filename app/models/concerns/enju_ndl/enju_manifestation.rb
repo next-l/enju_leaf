@@ -35,7 +35,7 @@ module EnjuNdl
       def import_record(doc)
         iss_itemno = URI.parse(doc.at('//dcndl:BibAdminResource[@rdf:about]').values.first).path.split('/').last
         ndl_bib_id_record =NdlBibIdRecord.find_by(body: iss_itemno)
-        return ndl_bib_id_record.manifestation if identifier
+        return ndl_bib_id_record.manifestation if ndl_bib_id_record
 
         jpno = doc.at('//dcterms:identifier[@rdf:datatype="http://ndl.go.jp/dcndl/terms/JPNO"]').try(:content)
 
