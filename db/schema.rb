@@ -1176,7 +1176,6 @@ ActiveRecord::Schema.define(version: 2023_08_18_154419) do
     t.bigint "order_list_id", null: false
     t.bigint "purchase_request_id", null: false
     t.integer "position"
-    t.string "state"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["order_list_id"], name: "index_orders_on_order_list_id"
