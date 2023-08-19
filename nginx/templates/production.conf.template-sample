@@ -1,3 +1,13 @@
+# httpでのアクセスをすべてhttpsに転送する
+server {
+  listen 80;
+  server_name enju.example.jp; # Enju本体の外部公開ホスト名
+
+  location / {
+    return 301 https://$host$request_uri;
+  }
+}
+
 # Enju本体へのアクセスの設定
 server {
   listen 443 ssl http2;
