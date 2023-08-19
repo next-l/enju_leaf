@@ -2,7 +2,7 @@ class OrderListsController < ApplicationController
   before_action :set_order_list, only: [:show, :edit, :update, :destroy]
   before_action :check_policy, only: [:index, :new, :create]
   before_action :prepare_options, only: [:new, :edit]
-  before_action :get_bookstore, only: :index
+  before_action :set_bookstore, only: :index
 
   # GET /order_lists
   # GET /order_lists.json
@@ -98,6 +98,11 @@ class OrderListsController < ApplicationController
   def set_order_list
     @order_list = OrderList.find(params[:id])
     authorize @order_list
+  end
+
+  def set_bookstore
+    @bookstore = Bookstore.find_by(id: params[:bookstore_id])
+    authorize @bookstore
   end
 
   def check_policy

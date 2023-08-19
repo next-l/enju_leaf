@@ -1,9 +1,8 @@
 class PurchaseRequestsController < ApplicationController
   before_action :store_page, only: :index
   before_action :set_purchase_request, only: [:show, :edit, :update, :destroy]
+  before_action :set_order_list
   before_action :check_policy, only: [:index, :new, :create]
-  before_action :get_user
-  before_action :get_order_list
   after_action :convert_charset, only: :index
 
   # GET /purchase_requests
@@ -20,13 +19,13 @@ class PurchaseRequestsController < ApplicationController
     @query = query.dup
     mode = params[:mode]
 
-    user = @user
-    unless current_user.has_role?('Librarian')
-      if user and user != current_user
-        access_denied; return
-      end
-      if current_user == @user
+    user = User.find_by(username: params[:user_id])
+    if user
+      if user == current_user && !current_user.has_role?('Librarian')
         redirect_to purchase_requests_url(format: params[:format])
+        return
+      elsif user != current_user && !current_user.has_role?('Librarian')
+        access_denied
         return
       end
     end
@@ -136,9 +135,14 @@ class PurchaseRequestsController < ApplicationController
   end
 
   private
-  def get_purchase_request
+  def set_purchase_request
     @purchase_request = PurchaseRequest.find(params[:id])
     authorize @purchase_request
+  end
+
+  def set_order_list
+    @order_list = OrderList.find_by(id: params[:order_list_id])
+    authorize @order_list if @order_list
   end
 
   def check_policy

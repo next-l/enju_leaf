@@ -68,9 +68,9 @@ describe PurchaseRequestsController do
         assigns(:purchase_requests).should be_nil
       end
 
-      it 'should get my index in csv format' do
-        get :index, params: { user_id: users(:user1).username, format: 'csv' }
-        response.should redirect_to purchase_requests_url(format: :csv)
+      it 'should get my index in txt format' do
+        get :index, params: { user_id: users(:user1).username, format: :txt }
+        response.should redirect_to purchase_requests_url(format: :txt)
         assigns(:purchase_requests).should be_nil
       end
 

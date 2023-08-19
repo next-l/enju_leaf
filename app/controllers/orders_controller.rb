@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   before_action :check_policy, only: [:index, :new, :create]
-  before_action :get_order_list
-  before_action :get_purchase_request
+  before_action :set_order_list
+  before_action :set_purchase_request
 
   # GET /orders
   # GET /orders.json
@@ -127,6 +127,16 @@ class OrdersController < ApplicationController
   def set_order
     @order = Order.find(params[:id])
     authorize @order
+  end
+
+  def set_order_list
+    @order_list = OrderList.find_by(id: params[:order_list_id])
+    authorize @order_list if @order_list
+  end
+
+  def set_purchase_request
+    @purchase_request = PurchaseRequest.find_by(id: params[:purchase_request_id])
+    authorize @purchase_request if @purchase_request
   end
 
   def check_policy
