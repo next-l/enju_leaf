@@ -24,9 +24,9 @@ module EnjuSeed
       with_options if: :password_required? do |v|
         v.validates_presence_of     :password
         v.validates_confirmation_of :password
-        v.validates_length_of       :password, allow_blank: true,
-          within: Devise::password_length
       end
+      validates_length_of :password, allow_blank: true,
+        within: Devise::password_length
 
       before_validation :set_lock_information
       before_destroy :check_role_before_destroy
