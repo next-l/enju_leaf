@@ -18,7 +18,7 @@ module EnjuNii
 
         return manifestation if manifestation.present?
 
-        doc = return_rdf(isbn: lisbn.isbn, ncid: ncid)
+        doc = return_rdf(isbn: lisbn&.isbn, ncid: ncid)
 
         raise EnjuNii::RecordNotFound unless doc
 
@@ -123,7 +123,7 @@ module EnjuNii
         end
       end
 
-      def return_rdf(isbn:, ncid:)
+      def return_rdf(isbn: nil, ncid: nil)
         if ncid
           rss = self.search_cinii_opensearch(ncid: ncid)
         elsif isbn
@@ -138,11 +138,11 @@ module EnjuNii
             faraday.use FaradayMiddleware::FollowRedirects
             faraday.adapter :net_http
           end
-          conn.get.body
+          Nokogiri::XML(conn.get.body)
         end
       end
 
-      def search_cinii_opensearch(ncid:, isbn:)
+      def search_cinii_opensearch(ncid: nil, isbn: nil)
         if ncid
           url = "https://ci.nii.ac.jp/books/opensearch/search?ncid=#{ncid}&format=rss"
         elsif isbn

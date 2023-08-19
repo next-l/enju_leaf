@@ -294,6 +294,23 @@ describe ResourceImportFile do
       end
     end
 
+    describe "when it has only ncid" do
+      before(:each) do
+        @file = ResourceImportFile.create!(
+          attachment: fixture_file_upload("ncid_sample.txt"),
+          user: users(:admin)
+        )
+      end
+
+      it "should be imported", vcr: true do
+        old_manifestations_count = Manifestation.count
+        old_agents_count = Agent.count
+        @file.import_start
+        Manifestation.count.should eq old_manifestations_count + 2
+        Agent.count.should eq old_agents_count + 16
+      end
+    end
+
     describe "when it contains item related fields" do
       it "should create an item as well" do
         import_file = <<-EOF
