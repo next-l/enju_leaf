@@ -20,15 +20,15 @@ describe NdlBook do
   context "import" do
     it "should import bibliographic record", vcr: true do
       manifestation = NdlBook.import_from_sru_response('R100000002-I000010980901-00')
-      manifestation.manifestation_identifier.should eq 'http://iss.ndl.go.jp/books/R100000002-I000010980901-00'
+      expect(manifestation.manifestation_identifier).to eq 'http://iss.ndl.go.jp/books/R100000002-I000010980901-00'
       expect(manifestation.isbn_records.pluck(:body)).to eq ['9784839931995']
-      manifestation.classifications.pluck(:category).should eq ["007.64"]
-      manifestation.identifier_contents(:iss_itemno).should eq ["R100000002-I000010980901-00"]
-      manifestation.identifier_contents(:jpno).should eq ["21816393"]
-      manifestation.language.name.should eq "Japanese"
-      manifestation.creators.first.full_name.should eq '秋葉, 拓哉'
-      manifestation.creators.first.full_name_transcription.should eq 'アキバ, タクヤ'
-      manifestation.creators.first.agent_identifier.should eq 'http://id.ndl.go.jp/auth/entity/01208840'
+      expect(manifestation.classifications.pluck(:category)).to eq ["007.64"]
+      expect(manifestation.ndl_bib_id_record.body).to eq "R100000002-I000010980901-00"
+      expect(manifestation.jpno_record.body).to eq "21816393"
+      expect(manifestation.language.name).to eq "Japanese"
+      expect(manifestation.creators.first.full_name).to eq '秋葉, 拓哉'
+      expect(manifestation.creators.first.full_name_transcription).to eq 'アキバ, タクヤ'
+      expect(manifestation.creators.first.agent_identifier).to eq 'http://id.ndl.go.jp/auth/entity/01208840'
       manifestation.price.should eq 3280
       manifestation.start_page.should eq 1
       manifestation.end_page.should eq 315
