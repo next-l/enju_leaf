@@ -152,13 +152,20 @@ class ResourceImportFile < ApplicationRecord
               lisbn = Lisbn.new(isbn)
               manifestation = Manifestation.import_isbn(lisbn.isbn13) if lisbn.isbn13
             end
+
+            if row['ncid'].present?
+              manifestation = Manifestation.import_from_cinii_books(ncid: row['ncid'])
+            elsif isbn
+              manifestation = Manifestation.import_isbn(isbn)
+            end
+
             if manifestation
               num[:manifestation_imported] += 1
             end
           rescue EnjuNdl::InvalidIsbn
             manifestation = nil
             import_result.error_message = "line #{row_num}: #{I18n.t('import.isbn_invalid')}"
-          rescue EnjuNdl::RecordNotFound
+          rescue EnjuNdl::RecordNotFound, EnjuNii::RecordNotFound
             manifestation = nil
             import_result.error_message = "line #{row_num}: #{I18n.t('import.isbn_record_not_found')}"
           end

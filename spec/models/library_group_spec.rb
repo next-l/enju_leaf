@@ -50,6 +50,7 @@ end
 #  pub_year_facet_range_interval :integer          default(10)
 #  user_id                       :bigint
 #  csv_charset_conversion        :boolean          default(FALSE), not null
+#  email                         :string
 #  login_banner                  :text
 #  footer_banner                 :text
 #
