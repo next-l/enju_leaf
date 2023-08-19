@@ -40,6 +40,7 @@ class Manifestation < ApplicationRecord
   has_one :jpno_record, dependent: :destroy
   has_one :ncid_record, dependent: :destroy
   has_one :lccn_record, dependent: :destroy
+  has_one :ndl_bib_id_record, dependent: :destroy
 
   accepts_nested_attributes_for :creators, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :contributors, allow_destroy: true, reject_if: :all_blank
@@ -209,8 +210,8 @@ class Manifestation < ApplicationRecord
       other_identifiers.pluck(:body)
     end
     string :sort_title
-    string :doi, multiple: true do
-      identifier_contents(:doi)
+    string :doi do
+      doi_record&.body
     end
     boolean :serial do
       serial?
@@ -655,7 +656,7 @@ class Manifestation < ApplicationRecord
     record["jpno"] = jpno_record&.body
     record["ncid"] = ncid_record&.body
     record["lccn"] = lccn_record&.body
-    record["iss_itemno"] = identifier_contents(:iss_itemno).first
+    record["iss_itemno"] = ndl_bib_id_record&.body
 
     record
   end

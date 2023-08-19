@@ -14,7 +14,7 @@ describe EnjuManifestationViewer::ApplicationHelper do
   fixtures :all
 
   it "should render google_books preview template" do
-    helper.google_book_search_preview(manifestations(:manifestation_00001).identifier_contents(:isbn).first).should =~ /<div id='google_book_search_content'>/
+    helper.google_book_search_preview(manifestations(:manifestation_00001).isbn_records.first.body).should =~ /<div id='google_book_search_content'>/
   end
 
   it "should render youtube template" do
