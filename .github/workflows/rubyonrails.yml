@@ -24,6 +24,7 @@ jobs:
           - "6379:6379"
     env:
       RAILS_ENV: test
+      ENJU_LEAF_BIND_ADDRESS: 127.0.0.1
       POSTGRES_USER: rails
       POSTGRES_PASSWORD: password
       CC_TEST_REPORTER_ID: c193cb8ea058a7d62fd62d6d05adaaf95f6bdf882c1039500b30b54494a36e52
