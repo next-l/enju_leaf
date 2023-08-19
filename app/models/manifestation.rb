@@ -206,8 +206,7 @@ class Manifestation < ApplicationRecord
       end
     end
     text :identifier do
-      other_identifiers = identifiers.joins(:identifier_type).merge(IdentifierType.where.not(name: [:issn]))
-      other_identifiers.pluck(:body)
+      identifiers.pluck(:body)
     end
     string :sort_title
     string :doi do
