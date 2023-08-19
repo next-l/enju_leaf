@@ -4,16 +4,22 @@ module EnjuNii
 
     module ClassMethods
       def import_from_cinii_books(options)
-        # if options[:isbn]
-        lisbn = Lisbn.new(options[:isbn])
-        raise EnjuNii::InvalidIsbn unless lisbn.valid?
+        lisbn = ncid = nil
 
-        # end
+        if options[:ncid]
+          ncid = options[:ncid]
+          manifestation = NcidRecord.find_by(body: ncid)&.manifestation
+        elsif options[:isbn]
+          lisbn = Lisbn.new(options[:isbn])
+          raise EnjuNii::InvalidIsbn unless lisbn.valid?
 
-        manifestation = Manifestation.find_by_isbn(lisbn.isbn)
+          manifestation = Manifestation.find_by_isbn(lisbn.isbn)
+        end
+
         return manifestation if manifestation.present?
 
-        doc = return_rdf(lisbn.isbn)
+        doc = return_rdf(isbn: lisbn&.isbn, ncid: ncid)
+
         raise EnjuNii::RecordNotFound unless doc
 
         # raise EnjuNii::RecordNotFound if doc.at('//openSearch:totalResults').content.to_i == 0
@@ -117,22 +123,31 @@ module EnjuNii
         end
       end
 
-      def return_rdf(isbn)
-        rss = self.search_cinii_by_isbn(isbn)
-        if rss.channel.totalResults.to_i.zero?
-          rss = self.search_cinii_by_isbn(cinii_normalize_isbn(isbn))
+      def return_rdf(isbn: nil, ncid: nil)
+        if ncid
+          rss = self.search_cinii_opensearch(ncid: ncid)
+        elsif isbn
+          rss = self.search_cinii_opensearch(isbn: isbn)
+          if rss.channel.totalResults.to_i.zero?
+            rss = self.search_cinii_opensearch(isbn: cinii_normalize_isbn(isbn))
+          end
         end
+
         if rss.items.first
           conn = Faraday.new("#{rss.items.first.link}.rdf") do |faraday|
             faraday.use FaradayMiddleware::FollowRedirects
             faraday.adapter :net_http
           end
-          conn.get.body
+          Nokogiri::XML(conn.get.body)
         end
       end
 
-      def search_cinii_by_isbn(isbn)
-        url = "https://ci.nii.ac.jp/books/opensearch/search?isbn=#{isbn}&format=rss"
+      def search_cinii_opensearch(ncid: nil, isbn: nil)
+        if ncid
+          url = "https://ci.nii.ac.jp/books/opensearch/search?ncid=#{ncid}&format=rss"
+        elsif isbn
+          url = "https://ci.nii.ac.jp/books/opensearch/search?isbn=#{isbn}&format=rss"
+        end
         RSS::RDF::Channel.install_text_element("opensearch:totalResults", "http://a9.com/-/spec/opensearch/1.1/", "?", "totalResults", :text, "opensearch:totalResults")
         RSS::BaseListener.install_get_text_element("http://a9.com/-/spec/opensearch/1.1/", "totalResults", "totalResults=")
         RSS::Parser.parse(url, false)
