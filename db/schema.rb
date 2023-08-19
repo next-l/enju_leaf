@@ -1147,6 +1147,42 @@ ActiveRecord::Schema.define(version: 2023_08_18_154419) do
     t.index "lower((name)::text)", name: "index_nii_types_on_lower_name", unique: true
   end
 
+  create_table "order_list_transitions", force: :cascade do |t|
+    t.string "to_state"
+    t.text "metadata", default: "{}"
+    t.integer "sort_key"
+    t.integer "order_list_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "most_recent", null: false
+    t.index ["order_list_id", "most_recent"], name: "index_order_list_transitions_parent_most_recent", unique: true, where: "most_recent"
+    t.index ["order_list_id"], name: "index_order_list_transitions_on_order_list_id"
+    t.index ["sort_key", "order_list_id"], name: "index_order_list_transitions_on_sort_key_and_order_list_id", unique: true
+  end
+
+  create_table "order_lists", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "bookstore_id", null: false
+    t.text "title", null: false
+    t.text "note"
+    t.datetime "ordered_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bookstore_id"], name: "index_order_lists_on_bookstore_id"
+    t.index ["user_id"], name: "index_order_lists_on_user_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "order_list_id", null: false
+    t.bigint "purchase_request_id", null: false
+    t.integer "position"
+    t.string "state"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_list_id"], name: "index_orders_on_order_list_id"
+    t.index ["purchase_request_id"], name: "index_orders_on_purchase_request_id"
+  end
+
   create_table "owns", force: :cascade do |t|
     t.bigint "agent_id", null: false
     t.bigint "item_id", null: false
@@ -1255,6 +1291,26 @@ ActiveRecord::Schema.define(version: 2023_08_18_154419) do
     t.index ["user_group_id"], name: "index_profiles_on_user_group_id"
     t.index ["user_id"], name: "index_profiles_on_user_id"
     t.index ["user_number"], name: "index_profiles_on_user_number", unique: true
+  end
+
+  create_table "purchase_requests", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.text "title", null: false
+    t.text "author"
+    t.text "publisher"
+    t.string "isbn"
+    t.datetime "date_of_publication"
+    t.integer "price"
+    t.string "url"
+    t.text "note"
+    t.datetime "accepted_at"
+    t.datetime "denied_at"
+    t.string "state"
+    t.string "pub_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["state"], name: "index_purchase_requests_on_state"
+    t.index ["user_id"], name: "index_purchase_requests_on_user_id"
   end
 
   create_table "realize_types", force: :cascade do |t|
@@ -1835,12 +1891,17 @@ ActiveRecord::Schema.define(version: 2023_08_18_154419) do
   add_foreign_key "ndla_records", "agents"
   add_foreign_key "news_posts", "roles", column: "required_role_id"
   add_foreign_key "news_posts", "users"
+  add_foreign_key "order_lists", "bookstores"
+  add_foreign_key "order_lists", "users"
+  add_foreign_key "orders", "order_lists"
+  add_foreign_key "orders", "purchase_requests"
   add_foreign_key "periodical_and_manifestations", "manifestations"
   add_foreign_key "periodical_and_manifestations", "periodicals"
   add_foreign_key "periodicals", "frequencies"
   add_foreign_key "periodicals", "manifestations"
   add_foreign_key "profiles", "roles", column: "required_role_id"
   add_foreign_key "profiles", "users"
+  add_foreign_key "purchase_requests", "users"
   add_foreign_key "reserve_stat_has_manifestations", "manifestations"
   add_foreign_key "reserve_stat_has_users", "user_reserve_stats"
   add_foreign_key "reserve_stat_has_users", "users"
