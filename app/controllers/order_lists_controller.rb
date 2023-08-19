@@ -116,6 +116,6 @@ class OrderListsController < ApplicationController
   end
 
   def prepare_options
-    @bookstores = Bookstore.all
+    @bookstores = Bookstore.order(:position)
   end
 end

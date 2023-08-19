@@ -16,7 +16,7 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to order_list.user.username, order_list.user.profile %></td>
     <td>
-      <%= link_to order_list.title, order_list %>
+      <%= link_to order_list.title, order_list_path(order_list) %>
       <br />
       <%= link_to order_list.bookstore.name, order_list.bookstore %>
       <br />
@@ -26,7 +26,7 @@
     <td><%= l(order_list.ordered_at) if order_list.ordered_at %></td>
     <td>
       <%= link_to t('page.edit'), edit_order_list_path(order_list) -%>
-      <%= link_to t('page.destroy'), order_list, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <%= link_to t('page.destroy'), order_list_path(order_list), data: {confirm: t('page.are_you_sure')}, method: :delete -%>
   </tr>
 <%- end -%>
 </table>
