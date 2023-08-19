@@ -396,7 +396,7 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
       item_00001.binding_call_number.should eq '336|A'
       item_00001.binded_at.should eq Time.zone.parse('2014-08-16')
       item_00001.manifestation.subjects.order(:id).map{|subject| {subject.subject_heading_type.name => subject.term}}.should eq [{"ndlsh" => "test1"}, {"ndlsh" => "test2"}]
-      expect(item_00001.manifestation.isbn_recors.pluck(:body)).to eq ["4798002062", "12345678"]
+      expect(item_00001.manifestation.isbn_records.pluck(:body)).to eq ["4798002062"]
       expect(item_00001.manifestation.required_role.name).to eq 'Librarian'
       expect(item_00001.required_role.name).to eq 'Guest'
 

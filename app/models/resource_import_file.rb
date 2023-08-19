@@ -763,8 +763,19 @@ end
       end
 
       manifestation.doi_record = set_doi(row)
+      manifestation.create_jpno_record(body: row['jpno']) if row['jpno'].present?
       manifestation.create_ncid_record(body: row['ncid']) if row['ncid'].present?
-      manifestation.issn_records.find_or_create_by(body: row['issn']) if row['issn'].present?
+      if row['isbn'].present?
+        row['isbn'].to_s.split("//").each do |isbn|
+          manifestation.isbn_records.find_or_create_by(body: isbn) if isbn.present?
+        end
+      end
+
+      if row['issn'].present?
+        row['issn'].to_s.split("//").each do |issn|
+          manifestation.issn_records.find_or_create_by(body: issn) if issn.present?
+        end
+      end
 
       identifiers = set_identifier(row)
 
