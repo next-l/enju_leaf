@@ -13,7 +13,6 @@ end
 #  order_list_id       :bigint           not null
 #  purchase_request_id :bigint           not null
 #  position            :integer
-#  state               :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #
