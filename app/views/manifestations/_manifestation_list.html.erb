@@ -1,6 +1,6 @@
 <div id="related_manifestation">
   <ul>
-    <%- manifestation.original_manifestations.each do |manifestation| -%>
+    <%- policy_scope(manifestation.original_manifestations).each do |manifestation| -%>
         <li>
           [M]
           <%= link_to manifestation.original_title, manifestation -%>
@@ -14,7 +14,7 @@
           <%- end -%>
         </li>
     <%- end -%>
-    <%- manifestation.derived_manifestations.each do |manifestation| -%>
+    <%- policy_scope(manifestation.derived_manifestations).each do |manifestation| -%>
         <li>
           [M]
           <%= link_to manifestation.original_title, manifestation -%>

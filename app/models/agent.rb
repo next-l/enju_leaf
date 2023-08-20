@@ -223,7 +223,9 @@ class Agent < ApplicationRecord
     agents = []
     agent_lists.each do |agent_list|
       name_and_role = agent_list[:full_name].split('||')
-      if agent_list[:agent_identifier].present?
+      if agent_list[:ndla_identifier].present?
+        agent = NdlaRecord.find_by(body: agent_list[:ndla_identifier])&.agent
+      elsif agent_list[:agent_identifier].present?
         agent = Agent.find_by(agent_identifier: agent_list[:agent_identifier])
       else
         agents_matched = Agent.where(full_name: name_and_role[0])
@@ -231,6 +233,7 @@ class Agent < ApplicationRecord
         agent = agents_matched.first
       end
       role_type = name_and_role[1].to_s.strip
+
       unless agent
         agent = Agent.new(
           full_name: name_and_role[0],
@@ -241,6 +244,10 @@ class Agent < ApplicationRecord
         )
         agent.required_role = Role.find_by(name: 'Guest')
         agent.save
+
+        if agent_list[:ndla_identifier].present?
+          agent.create_ndla_record(body: agent_list[:ndla_identifier])
+        end
       end
       agents << agent
     end

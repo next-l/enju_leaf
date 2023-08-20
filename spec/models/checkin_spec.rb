@@ -19,7 +19,7 @@ describe Checkin do
     # checkin.item_identifier = checkin.item.item_identifier
     checkin.save!
     checkin.item_checkin(user)
-    user.checkouts.count.should eq checkouts_count
+    expect(user.checkouts.count).to eq checkouts_count
   end
 
   it "should not save checkout history if save_checkout_history is false" do
@@ -31,7 +31,7 @@ describe Checkin do
     checkin.librarian = users(:librarian1)
     checkin.save!
     checkin.item_checkin(user)
-    user.checkouts.count.should eq checkouts_count - 1
+    expect(user.checkouts.count).to eq checkouts_count - 1
   end
 end
 

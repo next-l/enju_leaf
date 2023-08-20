@@ -208,9 +208,8 @@ describe Manifestation, solr: true do
 
     it "should export multiple identifiers" do
       manifestation = FactoryBot.create(:manifestation)
-      isbn_type = IdentifierType.find_by(name: :isbn)
-      manifestation.identifiers << FactoryBot.create(:identifier, body: "978-4043898039", identifier_type: isbn_type)
-      manifestation.identifiers << FactoryBot.create(:identifier, body: "978-4840239219", identifier_type: isbn_type)
+      manifestation.isbn_records.create(body: "978-4043898039")
+      manifestation.isbn_records.create(body: "978-4840239219")
       lines = Manifestation.export()
       csv = CSV.parse(lines, headers: true, col_sep: "\t")
       m = csv.find{|row| row["manifestation_id"].to_i == manifestation.id }
@@ -272,6 +271,12 @@ describe Manifestation, solr: true do
       expect(manifestations(:manifestation_00001).reservable?).to be_truthy
       expect(manifestations(:manifestation_00101).reservable?).to be_falsy
     end
+  end
+
+  it 'should extract fulltext' do
+    manifestation = FactoryBot.create(:manifestation)
+    manifestation.attachment.attach(io: File.open("spec/fixtures/files/resource_import_file_sample1.tsv"), filename: 'sample.txt')
+    expect(manifestation.extract_text).to match(/資料ID/)
   end
 end
 

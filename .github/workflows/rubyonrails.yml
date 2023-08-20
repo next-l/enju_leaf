@@ -11,22 +11,30 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:12-alpine
+        image: postgres:13-alpine
         ports:
           - "5432:5432"
         env:
           POSTGRES_DB: enju_leaf_test
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
+      redis:
+        image: redis:6
+        ports:
+          - "6379:6379"
     env:
       RAILS_ENV: test
+      ENJU_LEAF_BIND_ADDRESS: 127.0.0.1
       POSTGRES_USER: rails
       POSTGRES_PASSWORD: password
       CC_TEST_REPORTER_ID: c193cb8ea058a7d62fd62d6d05adaaf95f6bdf882c1039500b30b54494a36e52
-      ENJU_LEAF_TIMEZONE: UTC
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
       # Add or replace dependency steps here
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
@@ -36,7 +44,7 @@ jobs:
         run: yarn install
       # Add or replace test runners here
       - name: Start containers
-        run: cp .env.template .env && docker-compose up -d solr
+        run: cp .env.test.ci .env.test && cp .env.test .env && cp docker-compose.ci.yml docker-compose.override.yml && docker-compose up -d solr tika
       - name: Setup Code Climate test-reporter
         run: |
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter

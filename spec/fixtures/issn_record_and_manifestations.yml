@@ -1,0 +1,20 @@
+issn_record_and_manifestation_00001:
+  id: 1
+  manifestation_id: 2
+  issn_record_id: 1
+
+issn_record_and_manifestation_00002:
+  id: 2
+  manifestation_id: 201
+  issn_record_id: 2
+
+# == Schema Information
+#
+# Table name: issn_record_and_manifestations
+#
+#  id               :bigint           not null, primary key
+#  issn_record_id   :bigint           not null
+#  manifestation_id :bigint           not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#

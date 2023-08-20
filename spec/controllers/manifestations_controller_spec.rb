@@ -134,14 +134,14 @@ describe ManifestationsController do
         get :index, params: { query: '2005', pub_date_from: '2000' }
         expect(response).to be_successful
         expect(assigns(:manifestations)).to be_truthy
-        assigns(:query).should eq '2005 date_of_publication_d:[2000-01-01T00:00:00Z TO *]'
+        assigns(:query).should eq '2005 date_of_publication_d:[1999-12-31T15:00:00Z TO *]'
       end
 
       it 'should get index with pub_date_until' do
         get :index, params: { query: '2005', pub_date_until: '2000' }
         expect(response).to be_successful
         expect(assigns(:manifestations)).to be_truthy
-        assigns(:query).should eq '2005 date_of_publication_d:[* TO 2000-12-31T23:59:59Z]'
+        assigns(:query).should eq '2005 date_of_publication_d:[* TO 2000-12-31T14:59:59Z]'
       end
 
       it 'should show manifestation with isbn', solr: true do
@@ -238,6 +238,7 @@ describe ManifestationsController do
         manifestation = FactoryBot.create(:manifestation, description: "foo")
         periodical.derived_manifestations << manifestation
         periodical.save!
+        manifestation.save!
         get :index, params: { query: "foo" }
         manifestations = assigns(:manifestations)
         expect(manifestations).not_to be_blank

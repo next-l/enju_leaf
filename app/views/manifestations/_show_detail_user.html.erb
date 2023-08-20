@@ -25,8 +25,8 @@
             <td><%= t('activerecord.models.series_statement') -%>:</td>
             <td>
               <%= render 'show_series_detail', manifestation: manifestation %>
-              <%- unless manifestation.identifier_contents(:issn).empty? -%>
-                (<%= t('activerecord.attributes.manifestation.issn') -%>: <%= manifestation.identifier_contents(:issn).join(" ") -%>)
+              <%- unless manifestation.issn_records.empty? -%>
+                (<%= t('activerecord.attributes.manifestation.issn') -%>: <%= manifestation.issn_records.pluck(:body).join(" ") -%>)
               <%- end -%>
             </td>
           </tr>
@@ -121,8 +121,8 @@
         <% end %>
       </table>
     <% end %>
-    <%- if manifestation.items.available.on_shelf.exists? -%>
-      <%= render 'manifestations/show_holding', manifestation: manifestation, items: manifestation.items.available.on_shelf %>
+    <%- if Pundit.policy_scope!(current_user, manifestation.items).on_shelf.exists? -%>
+      <%= render 'manifestations/show_holding', manifestation: manifestation, items: Pundit.policy_scope!(current_user, manifestation.items).on_shelf %>
     <%- end -%>
     </div>
     <%= render 'manifestations/tab_list', manifestation: manifestation %>
