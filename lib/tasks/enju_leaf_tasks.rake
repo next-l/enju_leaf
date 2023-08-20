@@ -85,4 +85,71 @@ namespace :enju_leaf do
       migrate_attachment
     end
   end
+
+  desc 'Migrate identifiers'
+  task :migrate_identifiers => :environment do
+    isbn = IdentifierType.find_by(name: 'isbn')
+    Identifier.where(identifier_type: isbn).find_each do |identifier|
+      IsbnRecordAndManifestation.create(
+        manifestation: identifier.manifestation,
+        isbn_record: IsbnRecord.find_by(body: identifier.body)
+      )
+    end
+
+    issn = IdentifierType.find_by(name: 'issn')
+    Identifier.where(identifier_type: issn).find_each do |identifier|
+      IssnRecordAndManifestation.create(
+        manifestation: identifier.manifestation,
+        issn_record: IssnRecord.find_by(body: identifier.body)
+      )
+    end
+
+    issn_l = IdentifierType.find_by(name: 'issn_l')
+    Identifier.where(identifier_type: issn).find_each do |identifier|
+      IssnRecordAndManifestation.create(
+        manifestation: identifier.manifestation,
+        issn_record: IssnRecord.find_by(body: identifier.body)
+      )
+    end
+
+    jpno = IdentifierType.find_by(name: 'jpno')
+    Identifier.where(identifier_type: jpno).find_each do |identifier|
+      JpnoRecord.create(
+        manifestation: identifier.manifestation,
+        body: identifier.body
+      )
+    end
+
+    iss_itemno = IdentifierType.find_by(name: 'iss_itemno')
+    Identifier.where(identifier_type: jpno).find_each do |identifier|
+      NdiBibIdRecord.create(
+        manifestation: identifier.manifestation,
+        body: identifier.body
+      )
+    end
+
+    ncid = IdentifierType.find_by(name: 'ncid')
+    Identifier.where(identifier_type: ncid).find_each do |identifier|
+      NcidRecord.create(
+        manifestation: identifier.manifestation,
+        body: identifier.body
+      )
+    end
+
+    lccn = IdentifierType.find_by(name: 'lccn')
+    Identifier.where(identifier_type: lccn).find_each do |identifier|
+      LccnRecord.create(
+        manifestation: identifier.manifestation,
+        body: identifier.body
+      )
+    end
+
+    doi = IdentifierType.find_by(name: 'doi')
+    Identifier.where(identifier_type: doi).find_each do |identifier|
+      DoiRecord.create(
+        manifestation: identifier.manifestation,
+        body: identifier.body
+      )
+    end
+  end
 end
