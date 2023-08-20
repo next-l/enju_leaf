@@ -148,13 +148,17 @@ class ResourceImportFile < ApplicationRecord
       if row['original_title'].blank?
         unless manifestation
           begin
-            row['isbn'].to_s.split("//").each do |isbn|
-              lisbn = Lisbn.new(isbn)
-              manifestation = Manifestation.import_isbn(lisbn.isbn13) if lisbn.isbn13
+            if row['jpno'].present?
+              manifestation = Manifestation.import_from_ndl_search(jpno: row['jpno'])
             end
 
             if row['ncid'].present?
               manifestation = Manifestation.import_from_cinii_books(ncid: row['ncid'])
+            end
+
+            row['isbn'].to_s.split("//").each do |isbn|
+              lisbn = Lisbn.new(isbn)
+              manifestation = Manifestation.from_ndl_search(lisbn.isbn13) if lisbn.isbn13
             end
 
             if manifestation
