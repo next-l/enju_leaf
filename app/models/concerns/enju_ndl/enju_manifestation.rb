@@ -20,9 +20,10 @@ module EnjuNdl
         if options[:jpno]
           manifestation = JpnoRecord.find_by(body: options[:jpno])&.manifestation
         elsif options[:isbn]
-          isbn = lisbn = Lisbn.new(options[:isbn]).isbn13
+          lisbn = Lisbn.new(options[:isbn])
           raise EnjuNdl::InvalidIsbn unless lisbn.valid?
 
+          isbn = lisbn.isbn13
           manifestation = Manifestation.find_by_isbn(isbn)
         end
 
