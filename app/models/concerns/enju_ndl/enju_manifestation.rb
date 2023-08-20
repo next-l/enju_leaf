@@ -295,7 +295,7 @@ module EnjuNdl
           creators << {
             full_name: creator.at('./foaf:name').content,
             full_name_transcription: creator.at('./dcndl:transcription').try(:content),
-            agent_identifier: creator.attributes['about'].try(:content)
+            ndla_identifier: creator.attributes['about'].try(:content)
           }
         end
         creators
