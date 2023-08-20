@@ -63,9 +63,7 @@ class NdlBook
   end
 
   def self.import_from_sru_response(itemno)
-    identifier_type = IdentifierType.find_by(name: 'iss_itemno')
-    identifier_type ||= IdentifierType.create!(name: 'iss_itemno')
-    identifier = Identifier.find_by(body: itemno, identifier_type_id: identifier_type.id)
+    identifier = NdlBibIdRecord.find_by(body: itemno)
     return if identifier
 
     url = "https://iss.ndl.go.jp/api/sru?operation=searchRetrieve&recordSchema=dcndl&maximumRecords=1&query=%28itemno=#{itemno}%29&onlyBib=true"

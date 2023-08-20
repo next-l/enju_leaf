@@ -126,6 +126,27 @@ services:
     networks:
       internal:
 
+  nginx:
+    image: nginx:stable
+    ports:
+      - ${ENJU_LEAF_BIND_ADDRESS}:8080:80
+      - ${ENJU_LEAF_BIND_ADDRESS}:8182:8182
+    volumes:
+      - ./nginx/templates:/etc/nginx/templates:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+      - ./public:/opt/enju_leaf/public
+    restart: always
+    networks:
+      internal:
+    depends_on:
+      - web
+      - cantaloupe
+    healthcheck:
+      test: ["CMD", "service", "nginx", "status"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
   # selenium:
   #   image: selenium/standalone-chrome:114.0
   #   ports:
