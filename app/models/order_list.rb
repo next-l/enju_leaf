@@ -1,4 +1,4 @@
-class OrderList < ActiveRecord::Base
+class OrderList < ApplicationRecord
   include Statesman::Adapters::ActiveRecordQueries[
     transition_class: OrderListTransition,
     initial_state: :pending
