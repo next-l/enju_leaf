@@ -1,4 +1,4 @@
-class OrderListTransition < ActiveRecord::Base
+class OrderListTransition < ApplicationRecord
   include Statesman::Adapters::ActiveRecordTransition
 
   

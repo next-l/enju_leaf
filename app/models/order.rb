@@ -1,4 +1,4 @@
-class Order < ActiveRecord::Base
+class Order < ApplicationRecord
   belongs_to :order_list, validate: true
   belongs_to :purchase_request, validate: true
 
