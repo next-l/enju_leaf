@@ -149,6 +149,8 @@ services:
 
   # selenium:
   #   image: selenium/standalone-chrome:114.0
+  #   networks:
+  #     internal:
   #   ports:
   #     - 4444:4444
   #     - 7900:7900
