@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  web:
+    environment:
+      - WEBPACKER_DEV_SERVER_HOST=webpacker
+
+  selenium:
+    image: selenium/standalone-chrome:114.0
+    networks:
+      internal:
+    expose:
+      - 4444
+      - 7900
+      - 5900
+    shm_size: 2gb
