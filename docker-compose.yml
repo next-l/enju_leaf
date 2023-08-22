@@ -28,7 +28,6 @@ x-app: &app
   depends_on:
     - solr
     - redis
-    # - selenium
   restart: always
 
 services:
