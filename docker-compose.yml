@@ -37,7 +37,6 @@ services:
     command: bash -c "rm -f tmp/pids/server.pid && rails s -b 0.0.0.0"
     environment:
       - WEBPACKER_DEV_SERVER_HOST=webpacker
-      # - SELENIUM_DRIVER_URL=http://selenium:4444/wd/hub
     expose:
       - 3000
 
@@ -146,13 +145,3 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
-
-  # selenium:
-  #   image: selenium/standalone-chrome:114.0
-  #   networks:
-  #     internal:
-  #   ports:
-  #     - 4444:4444
-  #     - 7900:7900
-  #     - 5900:5900
-  #   shm_size: 2gb
