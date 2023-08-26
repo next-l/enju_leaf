@@ -85,4 +85,59 @@ namespace :enju_leaf do
       migrate_attachment
     end
   end
+
+  desc 'Migrate identifiers'
+  task :migrate_identifiers => :environment do
+    IdentifierType.find_each do |identifier_type|
+      Identifier.where(identifier_type: identifier_type).find_each do |identifier|
+        Manifestation.transaction do
+          case identifier_type.name
+          when 'isbn'
+            IsbnRecordAndManifestation.create(
+              manifestation: identifier.manifestation,
+              isbn_record: IsbnRecord.find_by(body: identifier.body)
+            )
+          when 'issn'
+            IssnRecordAndManifestation.create(
+              manifestation: identifier.manifestation,
+              issn_record: IssnRecord.find_by(body: identifier.body)
+            )
+          when 'issn_l'
+            IssnRecordAndManifestation.create(
+              manifestation: identifier.manifestation,
+              issn_record: IssnRecord.find_by(body: identifier.body)
+            )
+          when 'jpno'
+            JpnoRecord.create(
+              manifestation: identifier.manifestation,
+              body: identifier.body
+            )
+          when 'iss_itemno'
+            NdlBibIdRecord.create(
+              manifestation: identifier.manifestation,
+              body: identifier.body
+            )
+          when 'ncid'
+            NcidRecord.create(
+              manifestation: identifier.manifestation,
+              body: identifier.body
+            )
+          when 'lccn'
+            LccnRecord.create(
+              manifestation: identifier.manifestation,
+              body: identifier.body
+            )
+          when 'doi'
+            DoiRecord.create(
+              manifestation: identifier.manifestation,
+              body: identifier.body
+            )
+          end
+
+          identifier.destroy
+          Rails.logger.info "#{identifier_type.name} #{identifier.body} migrated"
+        end
+      end
+    end
+  end
 end
