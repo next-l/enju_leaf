@@ -52,7 +52,9 @@ Rails.application.routes.draw do
   resources :carrier_types
   resources :content_types
   resources :donates
-  resources :libraries
+  resources :libraries do
+    resources :barcodes, only: [:new, :create], module: 'calil'
+  end
   resources :shelves
   resources :accepts
   resources :withdraws
