@@ -1,2 +1,27 @@
-<h1>Calil::Barcodes#new</h1>
-<p>Find me in app/views/calil/barcodes/new.html.erb</p>
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+  <h1 class="title"><%= @library.display_name.localize -%></h1>
+  <div id="content_list">
+    <%= render 'page/required_field' %>
+    <%= form_with(model: @calil_barcode, url: library_barcodes_path, method: :post) do |f| %>
+      <%= error_messages(@calil_barcode) %>
+      <div class="field">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'short_name' %>
+      </div>
+
+      <div class="field">
+        <%= f.label :initial_number %>
+        <%= f.text_field :initial_number, class: 'short_name' %>
+      </div>
+
+      <div class="field">
+        <%= f.label :number_of_sheets %>
+        <%= f.number_field :number_of_sheets, class: 'short_name' %>
+      </div>
+
+    <% end %>
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+</div>
