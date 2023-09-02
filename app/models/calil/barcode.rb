@@ -1,7 +1,10 @@
 module Calil
   class Barcode
     include ActiveModel::Model
-    attr_accessor :name, :initial_number, :number_of_sheets
+    include ActiveModel::Attributes
+    attributes :name, :string
+    attributes :initial_number, :string
+    attribuets :number_of_sheets, :integer, default: 1
 
     with_options presence: true do
       validates :name # 図書館名
