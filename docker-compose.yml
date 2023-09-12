@@ -90,6 +90,7 @@ services:
       internal:
     expose:
       - 6379
+    restart: always
     healthcheck:
       test: ["CMD-SHELL", "redis-cli ping"]
       interval: 30s
