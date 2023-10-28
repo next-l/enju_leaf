@@ -770,7 +770,7 @@ ActiveRecord::Schema.define(version: 2023_10_28_035847) do
     t.index ["bookstore_id"], name: "index_items_on_bookstore_id"
     t.index ["checkout_type_id"], name: "index_items_on_checkout_type_id"
     t.index ["circulation_status_id"], name: "index_items_on_circulation_status_id"
-    t.index ["item_identifier"], name: "index_items_on_item_identifier", unique: true
+    t.index ["item_identifier"], name: "index_items_on_item_identifier", unique: true, where: "(((item_identifier)::text <> ''::text) AND (item_identifier IS NOT NULL))"
     t.index ["manifestation_id"], name: "index_items_on_manifestation_id"
     t.index ["required_role_id"], name: "index_items_on_required_role_id"
     t.index ["shelf_id"], name: "index_items_on_shelf_id"
@@ -834,6 +834,7 @@ ActiveRecord::Schema.define(version: 2023_10_28_035847) do
     t.float "latitude"
     t.float "longitude"
     t.index "lower((name)::text)", name: "index_libraries_on_lower_name", unique: true
+    t.index ["isil"], name: "index_libraries_on_isil", unique: true, where: "(((isil)::text <> ''::text) AND (isil IS NOT NULL))"
     t.index ["library_group_id"], name: "index_libraries_on_library_group_id"
     t.index ["name"], name: "index_libraries_on_name", unique: true
   end
