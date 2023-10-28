@@ -7,6 +7,6 @@ class AddUniqueIndexToCheckedItemsOnBasketIdAndItemId < ActiveRecord::Migration[
     add_index :checkins, [:item_id, :basket_id], unique: true
 
     remove_index :checkouts, [:item_id, :basket_id]
-    add_index :checkouts, [:item_id, :basket_id], unique: true
+    add_index :checkouts, [:item_id, :basket_id, :user_id], unique: true
   end
 end

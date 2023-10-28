@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_27_175624) do
+ActiveRecord::Schema.define(version: 2023_10_28_035847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -276,7 +276,7 @@ ActiveRecord::Schema.define(version: 2023_10_27_175624) do
     t.integer "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["carrier_type_id"], name: "index_carrier_type_has_checkout_types_on_m_form_id"
+    t.index ["carrier_type_id", "checkout_type_id"], name: "index_carrier_type_has_checkout_types_on_carrier_type_id", unique: true
     t.index ["checkout_type_id"], name: "index_carrier_type_has_checkout_types_on_checkout_type_id"
   end
 
@@ -361,7 +361,7 @@ ActiveRecord::Schema.define(version: 2023_10_27_175624) do
     t.bigint "library_id"
     t.index ["basket_id"], name: "index_checkouts_on_basket_id"
     t.index ["checkin_id"], name: "index_checkouts_on_checkin_id"
-    t.index ["item_id", "basket_id"], name: "index_checkouts_on_item_id_and_basket_id", unique: true
+    t.index ["item_id", "basket_id", "user_id"], name: "index_checkouts_on_item_id_and_basket_id_and_user_id", unique: true
     t.index ["item_id"], name: "index_checkouts_on_item_id"
     t.index ["librarian_id"], name: "index_checkouts_on_librarian_id"
     t.index ["library_id"], name: "index_checkouts_on_library_id"
@@ -1715,7 +1715,7 @@ ActiveRecord::Schema.define(version: 2023_10_27_175624) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "current_checkout_count"
     t.index ["checkout_type_id"], name: "index_user_group_has_checkout_types_on_checkout_type_id"
-    t.index ["user_group_id"], name: "index_user_group_has_checkout_types_on_user_group_id"
+    t.index ["user_group_id", "checkout_type_id"], name: "index_user_group_has_checkout_types_on_user_group_id", unique: true
   end
 
   create_table "user_groups", force: :cascade do |t|
