@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_18_154419) do
+ActiveRecord::Schema.define(version: 2023_10_28_035847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2023_08_18_154419) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["basket_id"], name: "index_accepts_on_basket_id"
-    t.index ["item_id"], name: "index_accepts_on_item_id"
+    t.index ["item_id"], name: "index_accepts_on_item_id", unique: true
     t.index ["librarian_id"], name: "index_accepts_on_librarian_id"
   end
 
@@ -276,7 +276,7 @@ ActiveRecord::Schema.define(version: 2023_08_18_154419) do
     t.integer "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["carrier_type_id"], name: "index_carrier_type_has_checkout_types_on_m_form_id"
+    t.index ["carrier_type_id", "checkout_type_id"], name: "index_carrier_type_has_checkout_types_on_carrier_type_id", unique: true
     t.index ["checkout_type_id"], name: "index_carrier_type_has_checkout_types_on_checkout_type_id"
   end
 
@@ -299,7 +299,7 @@ ActiveRecord::Schema.define(version: 2023_08_18_154419) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
     t.index ["basket_id"], name: "index_checked_items_on_basket_id"
-    t.index ["item_id"], name: "index_checked_items_on_item_id"
+    t.index ["item_id", "basket_id"], name: "index_checked_items_on_item_id_and_basket_id", unique: true
     t.index ["librarian_id"], name: "index_checked_items_on_librarian_id"
     t.index ["user_id"], name: "index_checked_items_on_user_id"
   end
@@ -312,7 +312,7 @@ ActiveRecord::Schema.define(version: 2023_08_18_154419) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "lock_version", default: 0, null: false
     t.index ["basket_id"], name: "index_checkins_on_basket_id"
-    t.index ["item_id"], name: "index_checkins_on_item_id"
+    t.index ["item_id", "basket_id"], name: "index_checkins_on_item_id_and_basket_id", unique: true
     t.index ["librarian_id"], name: "index_checkins_on_librarian_id"
   end
 
@@ -361,7 +361,7 @@ ActiveRecord::Schema.define(version: 2023_08_18_154419) do
     t.bigint "library_id"
     t.index ["basket_id"], name: "index_checkouts_on_basket_id"
     t.index ["checkin_id"], name: "index_checkouts_on_checkin_id"
-    t.index ["item_id", "basket_id"], name: "index_checkouts_on_item_id_and_basket_id", unique: true
+    t.index ["item_id", "basket_id", "user_id"], name: "index_checkouts_on_item_id_and_basket_id_and_user_id", unique: true
     t.index ["item_id"], name: "index_checkouts_on_item_id"
     t.index ["librarian_id"], name: "index_checkouts_on_librarian_id"
     t.index ["library_id"], name: "index_checkouts_on_library_id"
@@ -770,7 +770,7 @@ ActiveRecord::Schema.define(version: 2023_08_18_154419) do
     t.index ["bookstore_id"], name: "index_items_on_bookstore_id"
     t.index ["checkout_type_id"], name: "index_items_on_checkout_type_id"
     t.index ["circulation_status_id"], name: "index_items_on_circulation_status_id"
-    t.index ["item_identifier"], name: "index_items_on_item_identifier"
+    t.index ["item_identifier"], name: "index_items_on_item_identifier", unique: true, where: "(((item_identifier)::text <> ''::text) AND (item_identifier IS NOT NULL))"
     t.index ["manifestation_id"], name: "index_items_on_manifestation_id"
     t.index ["required_role_id"], name: "index_items_on_required_role_id"
     t.index ["shelf_id"], name: "index_items_on_shelf_id"
@@ -834,7 +834,9 @@ ActiveRecord::Schema.define(version: 2023_08_18_154419) do
     t.float "latitude"
     t.float "longitude"
     t.index "lower((name)::text)", name: "index_libraries_on_lower_name", unique: true
+    t.index ["isil"], name: "index_libraries_on_isil", unique: true, where: "(((isil)::text <> ''::text) AND (isil IS NOT NULL))"
     t.index ["library_group_id"], name: "index_libraries_on_library_group_id"
+    t.index ["name"], name: "index_libraries_on_name", unique: true
   end
 
   create_table "library_group_translations", force: :cascade do |t|
@@ -1714,7 +1716,7 @@ ActiveRecord::Schema.define(version: 2023_08_18_154419) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "current_checkout_count"
     t.index ["checkout_type_id"], name: "index_user_group_has_checkout_types_on_checkout_type_id"
-    t.index ["user_group_id"], name: "index_user_group_has_checkout_types_on_user_group_id"
+    t.index ["user_group_id", "checkout_type_id"], name: "index_user_group_has_checkout_types_on_user_group_id", unique: true
   end
 
   create_table "user_groups", force: :cascade do |t|
@@ -1832,7 +1834,7 @@ ActiveRecord::Schema.define(version: 2023_08_18_154419) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["basket_id"], name: "index_withdraws_on_basket_id"
-    t.index ["item_id"], name: "index_withdraws_on_item_id"
+    t.index ["item_id"], name: "index_withdraws_on_item_id", unique: true
     t.index ["librarian_id"], name: "index_withdraws_on_librarian_id"
   end
 

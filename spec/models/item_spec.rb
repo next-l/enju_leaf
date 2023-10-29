@@ -19,14 +19,14 @@ describe Item do
 
   it "should be checked in" do
     items(:item_00001).checkin!.should be_truthy
-    items(:item_00001).circulation_status.name.should eq 'Available On Shelf'
+    expect(items(:item_00001).circulation_status.name).to eq 'Available On Shelf'
   end
 
   it "should be retained" do
     old_count = Message.count
     items(:item_00013).retain(users(:librarian1)).should be_truthy
-    items(:item_00013).reserves.first.current_state.should eq 'retained'
-    Message.count.should eq old_count + 4
+    expect(items(:item_00013).reserves.first.current_state).to eq 'retained'
+    expect(Message.count).to eq old_count + 4
   end
 
   it "should not be checked out when it is reserved" do

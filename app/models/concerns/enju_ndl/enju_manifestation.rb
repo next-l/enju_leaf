@@ -16,16 +16,20 @@ module EnjuNdl
       end
 
       def import_from_ndl_search(options)
-        # if options[:isbn]
-        lisbn = Lisbn.new(options[:isbn])
-        raise EnjuNdl::InvalidIsbn unless lisbn.valid?
+        manifestation = isbn = nil
+        if options[:jpno]
+          manifestation = JpnoRecord.find_by(body: options[:jpno])&.manifestation
+        elsif options[:isbn]
+          lisbn = Lisbn.new(options[:isbn])
+          raise EnjuNdl::InvalidIsbn unless lisbn.valid?
 
-        # end
+          isbn = lisbn.isbn13
+          manifestation = Manifestation.find_by_isbn(isbn)
+        end
 
-        manifestation = Manifestation.find_by_isbn(lisbn.isbn)
-        return manifestation.first if manifestation.present?
+        return manifestation if manifestation
 
-        doc = return_xml(lisbn.isbn)
+        doc = return_xml(jpno: options[:jpno], isbn: isbn)
         raise EnjuNdl::RecordNotFound unless doc
 
         # raise EnjuNdl::RecordNotFound if doc.at('//openSearch:totalResults').content.to_i == 0
@@ -257,12 +261,13 @@ module EnjuNdl
         end
       end
 
-      def return_xml(isbn)
-        rss = search_ndl(isbn, dpid: 'iss-ndl-opac', item: 'isbn')
-        if rss.channel.totalResults.to_i.zero?
-          isbn = normalize_isbn(isbn)
+      def return_xml(isbn: nil, jpno: nil)
+        if jpno.present?
+          rss = search_ndl(jpno, dpid: 'iss-ndl-opac', item: 'jpno')
+        else
           rss = search_ndl(isbn, dpid: 'iss-ndl-opac', item: 'isbn')
         end
+
         if rss.items.first
           doc = Nokogiri::XML(Faraday.get("#{rss.items.first.link}.rdf").body)
         end
@@ -290,7 +295,7 @@ module EnjuNdl
           creators << {
             full_name: creator.at('./foaf:name').content,
             full_name_transcription: creator.at('./dcndl:transcription').try(:content),
-            agent_identifier: creator.attributes['about'].try(:content)
+            ndla_identifier: creator.attributes['about'].try(:content)
           }
         end
         creators

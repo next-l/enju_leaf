@@ -1,4 +1,4 @@
-class PurchaseRequest < ActiveRecord::Base
+class PurchaseRequest < ApplicationRecord
   scope :not_ordered, -> {includes(:order_list).where('order_lists.ordered_at IS NULL') }
   scope :ordered, -> { includes(:order_list).where('order_lists.ordered_at IS NOT NULL') }
 
