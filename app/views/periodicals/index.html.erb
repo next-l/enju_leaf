@@ -1,0 +1,38 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+  <h1 class="title"><%= t('page.listing', model: t('activerecord.models.periodical')) -%></h1>
+  <div id="content_list">
+    <p id="notice"><%= notice %></p>
+
+    <table class="table table-striped index">
+      <tr>
+        <th><%= t('activerecord.attributes.periodical.original_title') -%></th>
+        <th></th>
+      </tr>
+
+      <%- @periodicals.each do |periodical| -%>
+        <tr class="line<%= cycle("0", "1") -%>">
+          <td>
+            <%= link_to periodical.original_title, periodical -%>
+          </td>
+          <td>
+            <%- if policy(periodical).update? -%>
+              <%= link_to t('page.edit'), edit_periodical_path(periodical) -%>
+            <% end %>
+            <%- if policy(periodical).destroy? -%>
+              <%= link_to t('page.destroy'), periodical_path(periodical), data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+            <%- end -%>
+          </td>
+        </tr>
+      <%- end -%>
+    </table>
+
+  </div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <%- if policy(ProduceType).create? -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.periodical')), new_periodical_path -%></li>
+    <%- end -%>
+  </ul>
+</div>

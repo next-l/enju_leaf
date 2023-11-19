@@ -1,6 +1,6 @@
 class NdlBibIdRecord < ApplicationRecord
   belongs_to :manifestation
-  validates :body, presence: true
+  validates :body, presence: true, uniqueness: true
 end
 
 # == Schema Information

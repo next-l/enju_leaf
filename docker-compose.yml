@@ -4,7 +4,6 @@ volumes:
   postgres:
   solr:
   redis:
-  minio:
 
 networks:
   internal:
@@ -27,10 +26,8 @@ x-app: &app
   volumes:
     - ./:/enju
   depends_on:
-    - postgres
     - solr
     - redis
-    # - minio
   restart: always
 
 services:
@@ -48,21 +45,10 @@ services:
       - QUEUE=*
     command: bundle exec rake resque:work
 
-  webpacker:
-    <<: *app
-    environment:
-      - NODE_ENV=development
-      - WEBPACKER_DEV_SERVER_HOST=127.0.0.1
-    profiles:
-      - develop
-    command: ./bin/webpack-dev-server
-    ports:
-      - 127.0.0.1:3035:3035
-
   solr:
     image: solr:8
-    ports:
-      - 127.0.0.1:8983:8983
+    expose:
+      - 8983
     env_file:
       - .env
     networks:
@@ -86,8 +72,8 @@ services:
       internal:
     env_file:
       - .env
-    ports:
-      - 127.0.0.1:5432:5432
+    expose:
+      - 5432
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "POSTGRES_PASSWORD=${POSTGRES_PASSWORD} pg_isready -U ${POSTGRES_USER} -h localhost -d template1"]
@@ -97,6 +83,8 @@ services:
 
   redis:
     image: redis:6
+    volumes:
+      - redis:/data
     command: redis-server --appendonly yes
     networks:
       internal:
@@ -108,30 +96,8 @@ services:
       timeout: 5s
       retries: 3
 
-  minio:
-    image: quay.io/minio/minio:RELEASE.2023-05-18T00-05-36Z
-    profiles:
-      - develop
-    volumes:
-      - minio:/data
-    entrypoint:
-      /bin/sh -c "mkdir -p /data/${ENJU_LEAF_STORAGE_BUCKET}-${RAILS_ENV} && minio server /data --console-address \":9001\""
-    expose:
-      - 9000
-      - 9001
-    env_file:
-      - .env
-    restart: always
-    networks:
-      internal:
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
-      interval: 30s
-      timeout: 20s
-      retries: 3
-
   cantaloupe:
-    image: uclalibrary/cantaloupe:5.0.5-4
+    image: uclalibrary/cantaloupe:5.0.5-7
     expose:
       - 8182
     restart: always
@@ -149,6 +115,14 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
+
+  tika:
+    image: apache/tika:2.8.0.0
+    expose:
+      - 9998
+    restart: always
+    networks:
+      internal:
 
   nginx:
     image: nginx:stable
@@ -170,11 +144,3 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
-
-  tika:
-    image: apache/tika:2.6.0.1
-    ports:
-      - 127.0.0.1:9998:9998
-    restart: always
-    networks:
-      internal:

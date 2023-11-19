@@ -36,13 +36,6 @@ identifier_type_00005:
   id: 5
 
 identifier_type_00006:
-  name: lccn
-  display_name: LCCN
-  note: 
-  position: 6
-  id: 6
-
-identifier_type_00006:
   name: doi
   display_name: DOI
   note: 

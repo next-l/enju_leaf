@@ -49,7 +49,7 @@ group :test do
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
+  # gem 'webdrivers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -101,9 +101,6 @@ gem 'sprockets', '~> 3.7'
 group :development, :test do
   gem 'annotate'
   gem 'database_consistency'
-end
-
-group :test do
   gem 'rspec-rails'
   gem 'vcr'
   gem 'webmock'

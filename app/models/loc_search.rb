@@ -93,9 +93,8 @@ class LocSearch
   end
 
   def self.import_from_sru_response(lccn)
-    identifier_type_lccn = IdentifierType.find_or_create_by!(name: 'lccn')
-    identifier = Identifier.find_by(body: lccn, identifier_type_id: identifier_type_lccn.id)
-    return if identifier
+    lccn_record = LccnRecord.find_by(body: lccn)
+    return if lccn_record
 
     url = make_sru_request_uri("bath.lccn=\"^#{lccn}\"")
     response = Nokogiri::XML(Faraday.get(url).body)
