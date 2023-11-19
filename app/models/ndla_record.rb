@@ -1,6 +1,6 @@
 class NdlaRecord < ApplicationRecord
   belongs_to :agent
-  validates :body, presence: true
+  validates :body, presence: true, uniqueness: true
 end
 
 # == Schema Information

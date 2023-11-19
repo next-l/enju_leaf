@@ -13,7 +13,6 @@ class Profile < ApplicationRecord
   validates :user, uniqueness: true, associated: true, allow_blank: true
   validates :locale, presence: true
   validates :user_number, uniqueness: true, format: { with: /\A[0-9A-Za-z_]+\z/ }, allow_blank: true
-  validates :user_id, uniqueness: true, allow_blank: true
   validates :birth_date, format: { with: /\A\d{4}-\d{1,2}-\d{1,2}\z/ }, allow_blank: true
 
   strip_attributes only: :user_number
