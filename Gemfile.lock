@@ -71,9 +71,9 @@ GEM
       rake (>= 10.4, < 14.0)
     awesome_nested_set (3.6.0)
       activerecord (>= 4.0.0, < 7.2)
-    bcrypt (3.1.19)
+    bcrypt (3.1.20)
     bindex (0.8.1)
-    bootsnap (1.16.0)
+    bootsnap (1.17.0)
       msgpack (~> 1.2)
     browser (5.3.1)
     builder (3.2.4)
@@ -87,7 +87,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
-    caxlsx (3.4.1)
+    caxlsx (4.0.0)
       htmlentities (~> 4.3, >= 4.3.4)
       marcel (~> 1.0)
       nokogiri (~> 1.10, >= 1.10.4)
@@ -101,9 +101,9 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
-    database_consistency (1.7.21)
+    database_consistency (1.7.22)
       activerecord (>= 3.2)
-    date (3.3.3)
+    date (3.3.4)
     date_validator (0.12.0)
       activemodel (>= 3)
       activesupport (>= 3)
@@ -159,7 +159,7 @@ GEM
     faraday_middleware (1.2.0)
       faraday (~> 1.0)
     ffi (1.16.3)
-    friendly_id (5.5.0)
+    friendly_id (5.5.1)
       activerecord (>= 4.0.0)
     geocoder (1.8.2)
     globalid (1.2.1)
@@ -209,7 +209,7 @@ GEM
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    loofah (2.21.4)
+    loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     mail (2.8.1)
@@ -236,17 +236,17 @@ GEM
     multipart-post (2.3.0)
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
-    net-imap (0.4.2)
+    net-imap (0.4.5)
       date
       net-protocol
     net-pop (0.1.2)
       net-protocol
-    net-protocol (0.2.1)
+    net-protocol (0.2.2)
       timeout
     net-smtp (0.4.0)
       net-protocol
-    nio4r (2.5.9)
-    nokogiri (1.15.4)
+    nio4r (2.6.0)
+    nokogiri (1.15.5)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     nori (2.6.0)
@@ -274,12 +274,12 @@ GEM
     progress_bar (1.3.3)
       highline (>= 1.6, < 3)
       options (~> 2.3.0)
-    public_suffix (5.0.3)
+    public_suffix (5.0.4)
     puma (5.6.7)
       nio4r (~> 2.0)
     pundit (2.3.1)
       activesupport (>= 3.0.0)
-    racc (1.7.1)
+    racc (1.7.3)
     rack (2.2.8)
     rack-mini-profiler (2.3.4)
       rack (>= 1.2.0)
@@ -437,7 +437,7 @@ GEM
       climate_control (>= 0.0.3, < 1.0)
     thor (1.3.0)
     tilt (2.3.0)
-    timeout (0.4.0)
+    timeout (0.4.1)
     typesafe_enum (0.3.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
@@ -492,7 +492,7 @@ DEPENDENCIES
   date_validator
   devise
   dotenv-rails
-  factory_bot_rails
+  factory_bot_rails (~> 6.2.0)
   faraday_middleware
   friendly_id
   geocoder
