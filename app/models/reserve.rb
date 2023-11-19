@@ -5,7 +5,7 @@ class Reserve < ApplicationRecord
   ]
   scope :hold, -> { where.not(item_id: nil) }
   scope :not_hold, -> { where(item_id: nil) }
-  scope :waiting, -> {not_in_state(:completed, :canceled, :expired).where('canceled_at IS NULL AND (expired_at > ? OR expired_at IS NULL)', Time.zone.now).order('reserves.id DESC')}
+  scope :waiting, -> {not_in_state(:completed, :canceled, :expired).where('canceled_at IS NULL AND (expired_at > ? OR expired_at IS NULL)', Time.zone.now).order('reserves.id')}
   scope :retained, -> {in_state(:retained).where.not(retained_at: nil)}
   scope :completed, -> {in_state(:completed).where.not(checked_out_at: nil)}
   scope :canceled, -> {in_state(:canceled).where.not(canceled_at: nil)}
@@ -153,9 +153,7 @@ class Reserve < ApplicationRecord
   end
 
   def next_reservation
-    if item
-      Reserve.waiting.where(manifestation_id: item.manifestation.id).readonly(false).first
-    end
+    Reserve.where(manifestation_id: manifestation_id).waiting.where('reserves.created_at > ?', created_at).first
   end
 
   def send_message(sender = nil)

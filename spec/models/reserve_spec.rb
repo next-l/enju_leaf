@@ -4,16 +4,16 @@ describe Reserve do
   fixtures :all
 
   it "should have next reservation" do
-    reserves(:reserve_00014).next_reservation.should be_truthy
+    expect(reserves(:reserve_00014).next_reservation.id).to eq reserves(:reserve_00015).id
   end
 
   it "should notify a next reservation" do
     old_count = Message.count
     reserve = reserves(:reserve_00014)
-    item = reserve.next_reservation.item
+    item = reserve.item
     reserve.transition_to!(:expired)
-    reserve.current_state.should eq 'expired'
-    item.should eq reserve.item
+    expect(reserve.current_state).to eq 'expired'
+    expect(item).to eq reserve.next_reservation.item
     Message.count.should eq old_count + 4
   end
 
