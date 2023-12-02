@@ -71,31 +71,31 @@
 
   <div class="field" id="creator_form">
     <%= f.label :creator_string -%><br />
-    <%= f.fields_for :creators, @manifestation.creators.order(Create.arel_table[:position].asc) do |creator_form| %>
-      <%= render 'creator_fields', f: creator_form %>
+    <%= f.fields_for :creates, @manifestation.creates.order(:position) do |create_form| %>
+      <%= render 'create_fields', f: create_form %>
     <% end %>
     <div class="links">
-      <p><%= link_to_add_association t('page.add'), f, :creators %></p>
+      <p><%= link_to_add_association t('page.add'), f, :creates %></p>
     </div>
   </div>
 
   <div class="field" id="contributor_form">
     <%= f.label :contributor_string -%><br />
-    <%= f.fields_for :contributors, @manifestation.contributors.order(Realize.arel_table[:position].asc) do |contributor_form| %>
-      <%= render 'contributor_fields', f: contributor_form %>
+    <%= f.fields_for :realizes, @manifestation.realizes.order(:position) do |realize_form| %>
+      <%= render 'realize_fields', f: realize_form %>
     <% end %>
     <div class="links">
-      <p><%= link_to_add_association t('page.add'), f, :contributors %></p>
+      <p><%= link_to_add_association t('page.add'), f, :realizes %></p>
     </div>
   </div>
 
   <div class="field" id="publisher_form">
     <%= f.label :publisher_string -%><br />
-    <%= f.fields_for :publishers, @manifestation.publishers.order(Produce.arel_table[:position].asc) do |publisher_form| %>
-      <%= render 'publisher_fields', f: publisher_form %>
+    <%= f.fields_for :produces, @manifestation.produces.order(:position) do |produce_form| %>
+      <%= render 'produce_fields', f: produce_form %>
     <% end %>
     <div class="links">
-      <p><%= link_to_add_association t('page.add'), f, :publishers %></p>
+      <p><%= link_to_add_association t('page.add'), f, :produces %></p>
     </div>
   </div>
 
