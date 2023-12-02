@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_28_035847) do
+ActiveRecord::Schema.define(version: 2023_10_30_062425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -458,6 +458,7 @@ ActiveRecord::Schema.define(version: 2023_10_28_035847) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "create_type_id"
+    t.text "name"
     t.index ["agent_id"], name: "index_creates_on_agent_id"
     t.index ["work_id", "agent_id"], name: "index_creates_on_work_id_and_agent_id", unique: true
   end
@@ -1265,6 +1266,7 @@ ActiveRecord::Schema.define(version: 2023_10_28_035847) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "produce_type_id"
+    t.text "name"
     t.index ["agent_id"], name: "index_produces_on_agent_id"
     t.index ["manifestation_id", "agent_id"], name: "index_produces_on_manifestation_id_and_agent_id", unique: true
   end
@@ -1331,6 +1333,7 @@ ActiveRecord::Schema.define(version: 2023_10_28_035847) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "realize_type_id"
+    t.text "name"
     t.index ["agent_id"], name: "index_realizes_on_agent_id"
     t.index ["expression_id", "agent_id"], name: "index_realizes_on_expression_id_and_agent_id", unique: true
   end
