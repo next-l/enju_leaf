@@ -9,14 +9,14 @@
   </h2>
   <p>
     <%= manifestation.statement_of_responsibility %><br />
-    <%- unless manifestation.creators.readable_by(current_user).empty? -%>
-      <%= t('agent.creator') -%>: <%= agents_list(manifestation.creators.readable_by(current_user), itemprop: 'author') -%>
+    <%- unless manifestation.creates.empty? -%>
+      <%= t('agent.creator') -%>: <%= agents_list(manifestation.creates, itemprop: 'author') -%>
     <%- end -%>
-    <%- unless manifestation.contributors.readable_by(current_user).empty? -%>
-      <%= t('agent.contributor') -%>: <%= agents_list(manifestation.contributors.readable_by(current_user), itemprop: 'editor') -%>
+    <%- unless manifestation.realizes.empty? -%>
+      <%= t('agent.contributor') -%>: <%= agents_list(manifestation.realizes, itemprop: 'editor') -%>
     <%- end -%>
-    <%- unless manifestation.publishers.readable_by(current_user).empty? -%>
-      <%= t('agent.publisher') -%>: <%= agents_list(manifestation.publishers.readable_by(current_user), itemprop: 'publisher') -%>
+    <%- unless manifestation.produces.empty? -%>
+      <%= t('agent.publisher') -%>: <%= agents_list(manifestation.produces, itemprop: 'publisher') -%>
     <% end %>
     <%- if manifestation.date_of_publication? -%>
       <meta itemprop="publishDate" content="<%= manifestation.date_of_publication.iso8601 %>" />

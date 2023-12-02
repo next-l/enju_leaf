@@ -3,13 +3,13 @@
   (<%= link_to t('reserve.bibliographic_detail'), reserve.manifestation %>)
     <br />
     <%- if reserve.manifestation.creators.readable_by(current_user).exists? -%>
-      <%= t('agent.creator') -%>: <%= agents_list(reserve.manifestation.creators.readable_by(current_user)) -%>
+      <%= t('agent.creator') -%>: <%= agents_list(reserve.manifestation.creates) -%>
     <%- end -%>
     <%- if reserve.manifestation.contributors.readable_by(current_user).exists? -%>
-      <%= t('agent.contributor') -%>: <%= agents_list(reserve.manifestation.contributors.readable_by(current_user)) -%>
+      <%= t('agent.contributor') -%>: <%= agents_list(reserve.manifestation.realizes) -%>
     <%- end -%>
     <%- if reserve.manifestation.publishers.readable_by(current_user).exists? -%>
-      <%= t('agent.publisher') -%>: <%= agents_list(reserve.manifestation.publishers.readable_by(current_user)) -%>
+      <%= t('agent.publisher') -%>: <%= agents_list(reserve.manifestation.produces) -%>
       <%- if reserve.manifestation.pub_date.present? -%>
         (<%= reserve.manifestation.pub_date -%>)
       <%- end -%>
