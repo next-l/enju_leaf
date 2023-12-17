@@ -1,14 +1,14 @@
 ja:
   activerecord:
     models:
-      carrier_type: 資料の形態
-      content_type: 資料の内容の種別
+      carrier_type: キャリア種別
+      content_type: 表現種別
       create: 著作関係
       create_type: 著作の関係
       embody: 具体化
       exemplify: 書誌と所蔵の関係
       form_of_work: 著作の形態
-      frequency: 発行頻度
+      frequency: 刊行頻度
       item: 所蔵情報
       language: 言語
       manifestation: 資料
@@ -51,14 +51,14 @@ ja:
 
     attributes:
       manifestation:
-        original_title: 原題
+        original_title: 本タイトル
         title_alternative: 代替タイトル
         title_transcription: タイトルのヨミ
         classification_number: 分類番号
         manifestation_identifier: ローカル識別子
-        date_of_publication: 出版日
+        date_of_publication: 出版日付
         pub_date: 出版日
-        access_address: アクセスアドレス
+        access_address: URL
         number_of_page_string: ページ数（文字列）
         start_page: 最初のページ
         end_page: 最後のページ
@@ -76,8 +76,8 @@ ja:
         issue_number_string: 号
         serial_number: 通号
         serial_number_string: 通号（文字）
-        edition: 版（数字）
-        edition_string: 版
+        edition: 版次（数字）
+        edition_string: 版次
         note: 注記
         memo: 業務メモ
         repository_content: リポジトリのコンテンツ
@@ -101,10 +101,10 @@ ja:
         statement_of_responsibility: 責任表示
         publication_place: 出版地
         parent_id: 親書誌
-        extent: ページ数
+        extent: 数量
         dimensions: 大きさ
         fulltext_content: 全文あり
-        date_copyrighted: 著作権発行日
+        date_copyrighted: 著作権日付
       manifestation/subjects:
         term: 件名
       manifestation/classifications:
