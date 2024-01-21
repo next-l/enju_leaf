@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.1.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 6.1.6'
+gem 'rails', '~> 7.0.4'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.4.6'
 # Use Puma as the app server
@@ -88,7 +88,7 @@ gem 'resync' # , github: 'nabeta/resync', branch: 'add-datetime'
 gem 'pretender'
 gem 'caxlsx'
 gem 'caxlsx_rails'
-gem 'rails-i18n', '~> 6.0'
+gem 'rails-i18n', '~> 7.0'
 gem 'sitemap_generator'
 gem 'rss'
 gem 'rdf-turtle', require: 'rdf/turtle'
