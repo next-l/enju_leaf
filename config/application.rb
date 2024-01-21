@@ -5,7 +5,7 @@ require 'csv'
 require 'nkf'
 require 'rss'
 require_relative '../lib/enju_leaf/version'
-require_relative '../lib/openurl
+require_relative '../lib/openurl'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
