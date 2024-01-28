@@ -41,7 +41,7 @@ jobs:
         with:
           bundler-cache: true
       - name: Install dependencies
-        run: yarn install
+        run: yarn install && sudo apt-get install libvips42
       # Add or replace test runners here
       - name: Start containers
         run: cp .env.test.ci .env.test && cp .env.test .env && cp docker-compose.ci.yml docker-compose.override.yml && docker-compose up -d solr tika
