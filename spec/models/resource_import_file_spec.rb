@@ -226,12 +226,12 @@ describe ResourceImportFile do
 
     describe "NDLBibID" do
       it "should import NDLBibID", vcr: true do
-        file = ResourceImportFile.create resource_import: StringIO.new("ndl_bib_id\n000000471440\n"), user: users(:admin)
+        file = ResourceImportFile.create resource_import: StringIO.new("ndl_bib_id\nR100000002-000000471440\n"), user: users(:admin)
         result = file.import_start
         expect(result[:manifestation_imported]).to eq 1
         resource_import_result = file.resource_import_results.last
         manifestation = resource_import_result.manifestation
-        expect(manifestation.manifestation_identifier).to eq "http://iss.ndl.go.jp/books/R100000002-I000000471440-00"
+        expect(manifestation.manifestation_identifier).to eq "https://ndlsearch.ndl.go.jp/books/R100000002-I000000471440"
       end
     end
 
@@ -286,7 +286,7 @@ describe ResourceImportFile do
         old_agents_count = Agent.count
         @file.import_start
         Manifestation.count.should eq old_manifestations_count + 1
-        Agent.count.should eq old_agents_count + 4
+        Agent.count.should eq old_agents_count + 5
         Manifestation.order(:id).last.publication_place.should eq '東京'
       end
     end
