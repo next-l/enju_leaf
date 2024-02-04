@@ -9,7 +9,7 @@ describe NdlBook do
 
   context 'search' do
     it 'should search bibliographic record', vcr: true do
-      NdlBook.search('library system')[:total_entries].should eq 5688
+      NdlBook.search('library system')[:total_entries].should eq 1165
     end
 
     it "should not distinguish double byte space from one-byte space in a query", vcr: true do
@@ -19,11 +19,11 @@ describe NdlBook do
 
   context "import" do
     it "should import bibliographic record", vcr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000002-I000010980901-00')
-      expect(manifestation.manifestation_identifier).to eq 'http://iss.ndl.go.jp/books/R100000002-I000010980901-00'
+      manifestation = NdlBook.import_from_sru_response('R100000002-I000010980901')
+      expect(manifestation.manifestation_identifier).to eq 'https://ndlsearch.ndl.go.jp/books/R100000002-I000010980901'
       expect(manifestation.isbn_records.pluck(:body)).to eq ['9784839931995']
       expect(manifestation.classifications.pluck(:category)).to eq ["007.64"]
-      expect(manifestation.ndl_bib_id_record.body).to eq "R100000002-I000010980901-00"
+      expect(manifestation.ndl_bib_id_record.body).to eq "R100000002-I000010980901"
       expect(manifestation.jpno_record.body).to eq "21816393"
       expect(manifestation.language.name).to eq "Japanese"
       expect(manifestation.creators.first.full_name).to eq '秋葉, 拓哉'
@@ -43,43 +43,44 @@ describe NdlBook do
     end
 
     it "should import bibliographic record that does not have any classifications", vcr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000002-I000003641700-00')
+      manifestation = NdlBook.import_from_sru_response('R100000002-I000003641700')
       manifestation.original_title.should eq "アンパンマンとどうぶつえん"
       manifestation.title_transcription.should eq "アンパンマン ト ドウブツエン"
     end
 
     it "should import volume_number_string", vcr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000002-I000011037191-00')
+      manifestation = NdlBook.import_from_sru_response('R100000002-I000011037191')
       manifestation.volume_number_string.should eq '上'
     end
 
     it "should import title_alternative", vcr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000002-I000010926074-00')
+      manifestation = NdlBook.import_from_sru_response('R100000002-I000010926074')
       manifestation.title_alternative.should eq 'PLATINADATA'
       manifestation.title_alternative_transcription.should eq 'PLATINA DATA'
     end
 
     it "should import series_statement", vcr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000002-I000004152429-00')
+      manifestation = NdlBook.import_from_sru_response('R100000002-I000004152429')
       manifestation.original_title.should eq "ズッコケ三人組のダイエット講座"
       manifestation.series_statements.first.original_title.should eq "ポプラ社文庫. ズッコケ文庫"
       manifestation.serial.should be_falsy
     end
 
     it "should import series_statement's creator", vcr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000002-I000008369884-00')
+      manifestation = NdlBook.import_from_sru_response('R100000002-I000008369884')
       manifestation.series_statements.first.original_title.should eq "新・図書館学シリーズ"
       manifestation.series_statements.first.creator_string.should eq "高山正也, 植松貞夫 監修"
     end
 
     it "should import series_statement transctiption", vcr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000002-I000011242276-00')
+      manifestation = NdlBook.import_from_sru_response('R100000002-I000011242276')
       manifestation.series_statements.first.original_title.should eq "講談社現代新書"
       manifestation.series_statements.first.title_transcription.should eq "コウダンシャ ゲンダイ シンショ"
     end
 
     it "should import series_statement if the resource is serial", vcr: true, solr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000039-I001413988-00')
+      skip # 2024年の更新で、mediatype=booksに含まれなくなった
+      manifestation = NdlBook.import_from_sru_response('R100000039-I001413988')
       manifestation.original_title.should eq "週刊新潮"
       manifestation.series_statements.first.original_title.should eq "週刊新潮"
       manifestation.series_statements.first.series_master.should be_truthy
@@ -98,25 +99,26 @@ describe NdlBook do
     end
 
     it "should import pud_date is nil", vcr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000002-I000000017951-00')
+      manifestation = NdlBook.import_from_sru_response('R100000002-I000000017951')
       manifestation.original_title.should eq "西日本哲学会会報"
       manifestation.pub_date.should be_nil
     end
 
     it "should import url contain whitespace", vcr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000002-I000002109818-00')
+      manifestation = NdlBook.import_from_sru_response('R100000002-I000002109818')
       manifestation.original_title.should eq 'ザ・スコット・フィッツジェラルド・ブック'
       manifestation.pub_date.should eq '1991'
     end
 
     it "should import audio cd", vcr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000002-I000010273695-00')
+      manifestation = NdlBook.import_from_sru_response('R100000002-I000010273695')
       manifestation.original_title.should eq "劇場版天元突破グレンラガン螺巌篇サウンドトラック・プラス"
-      manifestation.manifestation_content_type.name.should eq 'performed_music'
+      # 2024年の更新でSoundとして返ってくるようになった
+      manifestation.manifestation_content_type.name.should eq 'sounds'
     end
 
     it "should import video dvd", vcr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000002-I000009149656-00')
+      manifestation = NdlBook.import_from_sru_response('R100000002-I000009149656')
       manifestation.original_title.should eq "天元突破グレンラガン"
       manifestation.manifestation_content_type.name.should eq 'two_dimensional_moving_image'
     end
@@ -144,85 +146,93 @@ describe NdlBook do
     end
 
     it "should import publication_place", vcr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000002-I000007725666-00')
+      manifestation = NdlBook.import_from_sru_response('R100000002-I000007725666')
       manifestation.publication_place.should eq "つくば"
     end
 
     it "should import tactile_text", vcr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000002-I000002368034-00')
-      manifestation.manifestation_content_type.name.should eq 'tactile_text'
+      manifestation = NdlBook.import_from_sru_response('R100000002-I000002368034')
+      # 2024年の更新でBookとして返ってくるようになった
+      # manifestation.manifestation_content_type.name.should eq 'tactile_text'
+      manifestation.manifestation_content_type.name.should eq 'text'
     end
     #it "should import computer_program", :vcr => true do
-    #  manifestation = NdlBook.import_from_sru_response('R100000002-I000003048761-00')
+    #  manifestation = NdlBook.import_from_sru_response('R100000002-I000003048761')
     #  manifestation.manifestation_content_type.name.should eq 'computer_program'
     #end
     it "should import map", vcr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000002-I025478296-00')
+      manifestation = NdlBook.import_from_sru_response('R100000002-I025478296')
       manifestation.manifestation_content_type.name.should eq 'cartographic_image'
     end
     it "should import notated_music", vcr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000002-I025516419-00')
+      manifestation = NdlBook.import_from_sru_response('R100000002-I025516419')
       manifestation.manifestation_content_type.name.should eq 'notated_music'
     end
     it "should import photograph", vcr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000002-I000010677225-00')
+      manifestation = NdlBook.import_from_sru_response('R100000002-I000010677225')
       manifestation.manifestation_content_type.name.should eq 'still_image'
     end
     it "should import painting", vcr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000002-I000009199930-00')
+      manifestation = NdlBook.import_from_sru_response('R100000002-I000009199930')
       manifestation.manifestation_content_type.name.should eq 'still_image'
     end
     it "should import picture postcard", vcr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000002-I024847245-00')
+      manifestation = NdlBook.import_from_sru_response('R100000002-I024847245')
       manifestation.manifestation_content_type.name.should eq 'still_image'
     end
     it "should import still_image", vcr: true do
-      manifestation = NdlBook.import_from_sru_response('R100000002-I024016497-00')
+      manifestation = NdlBook.import_from_sru_response('R100000002-I024016497')
       manifestation.manifestation_content_type.name.should eq 'still_image'
     end
 
     it "should import ndc8 classification", vcr: true do
-      manifestation = NdlBook.import_from_sru_response("R100000002-I000002467093-00")
+      manifestation = NdlBook.import_from_sru_response("R100000002-I000002467093")
       manifestation.classifications.should_not be_empty
       manifestation.classifications.first.classification_type.name.should eq "ndc8"
       manifestation.classifications.first.category.should eq "547.48"
     end
 
     it "should import edition", vcr: true do
-      manifestation = NdlBook.import_from_sru_response("R100000002-I025107686-00")
+      manifestation = NdlBook.import_from_sru_response("R100000002-I025107686")
       manifestation.edition_string.should eq "改訂第2版"
     end
 
     it "should import volume title", vcr: true do
-      manifestation = NdlBook.import_from_sru_response("R100000002-I000011225479-00")
+      manifestation = NdlBook.import_from_sru_response("R100000002-I000011225479")
       manifestation.original_title.should eq "じゃらん 関東・東北"
       manifestation.title_transcription.should eq "ジャラン カントウ トウホク"
     end
 
     it "should import even with invalid url", vcr: true do
-      manifestation = NdlBook.import_from_sru_response("R100000002-I000003523406-00 ")
-      expect(manifestation.original_title).to eq "The little boat / written by Kathy Henderson ; illustrated by Patrick Benson"
+      manifestation = NdlBook.import_from_sru_response("R100000002-I000003523406 ")
+      expect(manifestation.original_title).to eq "The little boat / written by Kathy Henderson ; illustrated by Patrick Benson."
       expect(manifestation.language.name).to eq "English"
       expect(manifestation.extent).to eq "1 v. (unpaged) : col. ill."
-      expect(manifestation.dimensions).to eq "25 x 29 cm"
+      expect(manifestation.dimensions).to eq "25 x 29 cm."
     end
 
     it "should import with DDC [Fic]", vcr: true do
-      manifestation = NdlBook.import_from_sru_response("R100000002-I000008410444-00")
-      expect(manifestation.original_title).to eq "A single shard / Linda Sue Park"
+      manifestation = NdlBook.import_from_sru_response("R100000002-I000008410444")
+      expect(manifestation.original_title).to eq "A single shard / Linda Sue Park."
     end
 
     it 'should get subject IDs from NDLA', vcr: true do
-      url = "https://iss.ndl.go.jp/books/R100000002-I028087126-00.rdf"
-      doc = Nokogiri::XML(Faraday.get(url).body)
+      itemno = "R100000002-I028087126"
+      url = "https://ndlsearch.ndl.go.jp/api/sru?operation=searchRetrieve&recordSchema=dcndl&maximumRecords=1&query=%28itemno=#{itemno}%29&onlyBib=true"
+      xml = URI.parse(url).read
+      doc = Nokogiri::XML(Nokogiri::XML(xml).at('//xmlns:recordData').content)
+
       ndl_book = NdlBook.new(doc)
       ndl_book.subjects[0].should eq({id: 'http://id.ndl.go.jp/auth/ndlsh/01058852', value: 'ウェブアプリケーション'})
       ndl_book.subjects[1].should eq({id: 'http://id.ndl.go.jp/auth/ndlsh/00569223', value: 'プログラミング (コンピュータ)'})
     end
 
     it 'should get author IDs from NDLA', vcr: true do
-      url = "https://iss.ndl.go.jp/books/R100000002-I028087126-00.rdf"
-      doc = Nokogiri::XML(Faraday.get(url).body)
+      itemno = "R100000002-I028087126"
+      url = "https://ndlsearch.ndl.go.jp/api/sru?operation=searchRetrieve&recordSchema=dcndl&maximumRecords=1&query=%28itemno=#{itemno}%29&onlyBib=true"
+      xml = Faraday.get(url).body
+      doc = Nokogiri::XML(Nokogiri::XML(xml).at('//xmlns:recordData').content)
+
       ndl_book = NdlBook.new(doc)
       ndl_book.authors[0].should eq({id: "http://id.ndl.go.jp/auth/entity/00730574", name: "山田, 祥寛", transcription: "ヤマダ, ヨシヒロ"})
     end
