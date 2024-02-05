@@ -79,7 +79,7 @@ module EnjuOai
           identifiers.each do |identifier|
             case identifier.identifier_type.try(:name)
             when 'isbn'
-              xml.tag! "rdfs:seeAlso", "rdf:resource" => "http://iss.ndl.go.jp/isbn/#{identifier.body}"
+              # xml.tag! "rdfs:seeAlso", "rdf:resource" => "http://iss.ndl.go.jp/isbn/#{identifier.body}"
               xml.tag! "dcterms:identifier", identifier.body, "rdf:datatype" => "http://ndl.go.jp/dcndl/terms/ISBN"
             when 'issn'
               xml.tag! "dcterms:identifier", identifier.body, "rdf:datatype" => "http://ndl.go.jp/dcndl/terms/ISSN"
