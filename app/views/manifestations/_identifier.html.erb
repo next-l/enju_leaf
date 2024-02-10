@@ -1,0 +1,17 @@
+<ul>
+  <% if manifestation.isbn_records.exists? %>
+    <li>ISBN: <%= manifestation.isbn_records.pluck(:body).join(' ') %></li>
+  <% end %>
+  <% if manifestation.issn_records.exists? %>
+    <li>ISSN: <%= manifestation.issn_records.pluck(:body).join(' ') %></li>
+  <% end %>
+  <% if manifestation.ndl_bib_id_record %>
+    <li>NDL Search: <%= link_to manifestation.ndl_bib_id_record.body, "https://ndlsearch.ndl.go.jp/books/#{manifestation.bdl_bib_id_record.body}" %></li>
+  <% end %>
+  <% if manifestation.ncid_record %>
+    <li>NCID: <%= link_to manifestation.ncid_record.body, "https://ci.nii.ac.jp/ncid/#{manifestation.ncid_record.body}" %></li>
+  <% end %>
+  <% if manifestation.doi_record %>
+    <li>DOI: <%= link_to manifestation.doi_record.display_body, "https://doi.org/#{manifestation.doi_record.display_body}" %></li>
+  <% end %>
+</ul>
