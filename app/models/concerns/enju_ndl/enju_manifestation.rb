@@ -28,7 +28,7 @@ module EnjuNdl
         manifestation = Manifestation.find_by_isbn(lisbn.isbn)
         return manifestation.first if manifestation.present?
 
-        doc = return_xml(lisbn.isbn)
+        doc = return_xml(isbn: lisbn.isbn)
         raise EnjuNdl::RecordNotFound unless doc
 
         # raise EnjuNdl::RecordNotFound if doc.at('//openSearch:totalResults').content.to_i == 0
