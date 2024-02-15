@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "5.4.3",
+    "@rails/ujs": "~7.0.8",
     "mirador": "^3.3.0",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
