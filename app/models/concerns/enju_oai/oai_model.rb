@@ -27,8 +27,8 @@ module EnjuOai
       xml.target!
     end
 
-    # jpcoarフォーマットでの出力
-    def to_jpcoar
+    # jpcoar_2.0フォーマットでの出力
+    def to_jpcoar_20
       xml = Builder::XmlMarkup.new
       xml.tag!(
         'jpcoar:jpcoar', "xsi:schemaLocation" => "https://github.com/JPCOAR/schema/blob/master/2.0/jpcoar_scm.xsd",
