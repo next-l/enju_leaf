@@ -84,7 +84,7 @@ module EnjuOai
 
         # 日付
         # https://schema.irdb.nii.ac.jp/ja/schema/2.0/12
-        xml.tag! 'datacite:date', date_of_publication&.iso8601, dateType: 'Issued' if date_published
+        xml.tag! 'datacite:date', date_of_publication&.iso8601, dateType: 'Issued' if date_of_publication
         xml.tag! 'datacite:date', updated_at.to_date.iso8601, dateType: 'Updated'
         xml.tag! 'dcterms:date', pub_date if pub_date
 
