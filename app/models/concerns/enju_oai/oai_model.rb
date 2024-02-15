@@ -1,7 +1,8 @@
 module EnjuOai
   module OaiModel
     extend ActiveSupport::Concern
-    OAI::Provider::Base.register_format(EnjuOai::Jpcoar.instance)
+    OAI::Provider::Base.register_format(EnjuOai::Jpcoar20.instance)
+    OAI::Provider::Base.register_format(EnjuOai::Jpcoar20dummy.instance)
     OAI::Provider::Base.register_format(EnjuOai::Dcndl.instance)
 
     def to_oai_dc
@@ -26,9 +27,11 @@ module EnjuOai
       xml.target!
     end
 
+    # jpcoarフォーマットでの出力
     def to_jpcoar
       xml = Builder::XmlMarkup.new
-      xml.tag!('jpcoar:jpcoar', "xsi:schemaLocation" => "https://github.com/JPCOAR/schema/blob/master/1.0/jpcoar_scm.xsd",
+      xml.tag!(
+        'jpcoar:jpcoar', "xsi:schemaLocation" => "https://github.com/JPCOAR/schema/blob/master/2.0/jpcoar_scm.xsd",
         "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
         "xmlns:rdf" => "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
         "xmlns:rioxxterms" => "http://www.rioxx.net/schema/v2.0/rioxxterms/",
@@ -36,24 +39,84 @@ module EnjuOai
         "xmlns:oaire" => "http://namespace.openaire.eu/schema/oaire/",
         "xmlns:dcndl" => "http://ndl.go.jp/dcndl/terms/",
         "xmlns:dc" => "http://purl.org/dc/elements/1.1/",
-        "xmlns:jpcoar" => "https://github.com/JPCOAR/schema/blob/master/1.0/") do
+        "xmlns:dcterms" => "http://purl.org/dc/terms/",
+        "xmlns:jpcoar" => "https://github.com/JPCOAR/schema/blob/master/2.0/"
+      ) do
+        # タイトル
+        # https://schema.irdb.nii.ac.jp/ja/schema/2.0/1
         xml.tag! 'dc:title', original_title
-        xml.tag! 'dc:language', language.iso_639_2
-        xml.tag! 'jpcoar:creators' do
-          creators.readable_by(nil).each do |creator|
-            xml.tag! 'jpcoar:creatorName', creator.full_name
+
+        # 作成者
+        # https://schema.irdb.nii.ac.jp/ja/schema/2.0/3
+        creators.readable_by(nil).each do |creator|
+          xml.tag! 'jpcoar:creator' do
+            xml.target! << creator.to_jpcoar
           end
         end
 
+        # 寄与者
+        # https://schema.irdb.nii.ac.jp/ja/schema/2.0/4
+        contributors.readable_by(nil).each do |contributor|
+          xml.tag! 'jpcoar:contributor' do
+            xml.target! << contributor.to_jpcoar
+          end
+        end
+
+        # アクセス権
+        # https://schema.irdb.nii.ac.jp/ja/schema/2.0/5
+        # TBD
+
+        # 権利情報
+        # https://schema.irdb.nii.ac.jp/ja/schema/2.0/6
+        # TBD
+
+        # 主題
+        # https://schema.irdb.nii.ac.jp/ja/schema/2.0/8
         subjects.each do |subject|
-          xml.tag! 'jpcoar:subject', subject.term
+          xml.tag! 'jpcoar:subject', subject.term, subjectScheme: 'Other'
         end
 
-        if attachment.attached?
-          xml.tag! 'jpcoar:file' do
-            xml.tag! 'jpcoar:URI', Rails.application.routes.url_helpers.rails_storage_proxy_url(fileset.attachment, host: ENV['ENJU_LEAF_BASE_URL'])
-          end
+        # 出版者
+        # https://schema.irdb.nii.ac.jp/ja/schema/2.0/10
+        if publishers.first
+          xml.tag! 'dc:publisher', publishers.first.full_name
         end
+
+        # 日付
+        # https://schema.irdb.nii.ac.jp/ja/schema/2.0/12
+        xml.tag! 'datacite:date', date_of_publication&.iso8601, dateType: 'Issued' if date_published
+        xml.tag! 'datacite:date', updated_at.to_date.iso8601, dateType: 'Updated'
+        xml.tag! 'dcterms:date', pub_date if pub_date
+
+        # 資源タイプ
+        # https://schema.irdb.nii.ac.jp/ja/schema/2.0/15
+        # TBD
+
+        # 出版タイプ
+        # https://schema.irdb.nii.ac.jp/ja/schema/2.0/17
+        # TBD
+
+        # 識別子
+        # https://schema.irdb.nii.ac.jp/ja/schema/2.0/18
+        xml.tag! 'jpcoar:identifier', Rails.application.routes.url_helpers.manifestation_url(self, host: ENV['ENJU_LEAF_BASE_URL']), identifierType: 'URI'
+
+        # 関連情報
+        # https://schema.irdb.nii.ac.jp/ja/schema/2.0/20
+        # TBD
+
+        # 収録物識別子
+        # https://schema.irdb.nii.ac.jp/ja/schema/2.0/24
+        # 収録物名
+        # https://schema.irdb.nii.ac.jp/ja/schema/2.0/25
+        # TBD
+
+        # 会議記述
+        # https://schema.irdb.nii.ac.jp/ja/schema/2.0/35
+        # TBD
+
+        # ファイル情報
+        # https://schema.irdb.nii.ac.jp/ja/schema/2.0/43
+        # TBD
       end
 
       xml.target!
@@ -262,10 +325,14 @@ module EnjuOai
       xml.target!
     end
 
+    # OAI-PMHのbaseURLを取得する
+    # @return [String]
     def self.repository_url
       URI.join(ENV['ENJU_LEAF_BASE_URL'], '/oai')
     end
 
+    # OAI-PMHのレコードプレフィックスを取得する
+    # @return [String]
     def self.record_prefix
       "oai:#{URI.parse(ENV['ENJU_LEAF_BASE_URL']).host}:manifestations"
     end
