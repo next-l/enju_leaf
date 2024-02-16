@@ -10,7 +10,4 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require activestorage
-//= require jquery2
-//= require jquery_ujs
 //= require enju_leaf
