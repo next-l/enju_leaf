@@ -245,7 +245,7 @@ module EnjuNdl
       end
 
       def search_ndl(query, options = {})
-        options = { dpid: 'iss-ndl-opac', item: 'any', idx: 1, per_page: 10, raw: false, mediatype: 'books periodicals video audio' }.merge(options)
+        options = { dpid: 'iss-ndl-opac', item: 'any', idx: 1, per_page: 10, raw: false, mediatype: 'books periodicals video audio scores' }.merge(options)
         doc = nil
         results = {}
         startrecord = options[:idx].to_i
