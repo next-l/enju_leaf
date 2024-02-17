@@ -4,9 +4,11 @@
     <br />
     (<%= link_to_if(current_user.has_role?('Librarian'), t('page.number_of_reservations', count: @reserved_count), reserves_path(query: "manifestation_id_i:#{@manifestation.id}")) -%>)</li>
   <%- else -%>
+    <!--
     <% if defined?(EnjuPurchaseRequest) %>
       <li><%= link_to t('activerecord.models.purchase_request'), new_purchase_request_path(purchase_request: {url: manifestation_url(@manifestation)}) %></li>
     <% end %>
+    -->
   <%- end -%>
 <% else %>
   <% unless Pundit.policy_scope!(current_user, @manifestation.items).for_checkout.empty? %>
