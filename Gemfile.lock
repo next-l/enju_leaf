@@ -268,7 +268,7 @@ GEM
     paperclip-meta (3.1.0)
       paperclip (>= 5.0)
     parallel (1.24.0)
-    parallel_tests (4.5.0)
+    parallel_tests (4.5.1)
       parallel
     pg (1.4.6)
     pr_geohash (1.0.0)

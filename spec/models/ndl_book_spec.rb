@@ -9,7 +9,7 @@ describe NdlBook do
 
   context 'search' do
     it 'should search bibliographic record', vcr: true do
-      NdlBook.search('library system')[:total_entries].should eq 1165
+      NdlBook.search('library system')[:total_entries].should eq 2266
     end
 
     it "should not distinguish double byte space from one-byte space in a query", vcr: true do
@@ -79,8 +79,7 @@ describe NdlBook do
     end
 
     it "should import series_statement if the resource is serial", vcr: true, solr: true do
-      skip # 2024年の更新で、mediatype=booksに含まれなくなった
-      manifestation = NdlBook.import_from_sru_response('R100000039-I001413988')
+      manifestation = NdlBook.import_from_sru_response('R100000039-I3377584')
       manifestation.original_title.should eq "週刊新潮"
       manifestation.series_statements.first.original_title.should eq "週刊新潮"
       manifestation.series_statements.first.series_master.should be_truthy

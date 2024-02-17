@@ -52,7 +52,7 @@ class NdlBook
       cnt = per_page
       page = 1 if page.to_i < 1
       idx = (page.to_i - 1) * cnt + 1
-      doc = Nokogiri::XML(Manifestation.search_ndl(query, cnt: cnt, page: page, idx: idx, raw: true, mediatype: 'books').to_s)
+      doc = Nokogiri::XML(Manifestation.search_ndl(query, cnt: cnt, page: page, idx: idx, raw: true, mediatype: 'books periodicals video audio scores').to_s)
       items = doc.xpath('//channel/item').map{|node| new node }
       total_entries = doc.at('//channel/openSearch:totalResults').content.to_i
 

@@ -15,4 +15,15 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-console.log('Hello World from Webpacker')
+//console.log('Hello World from Webpacker')
+
+import Rails from "@rails/ujs"
+import * as ActiveStorage from "@rails/activestorage"
+import "channels"
+import "jquery"
+import $ from 'jquery'
+global.$ = $
+global.jQuery = $
+
+Rails.start()
+ActiveStorage.start()
