@@ -73,7 +73,7 @@ RUN groupadd --gid ${GID} enju && \
 USER enju:enju
 
 # Entrypoint prepares the database.
-# ENTRYPOINT ["/enju/bin/docker-entrypoint"]
+ENTRYPOINT ["/enju/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
