@@ -25,9 +25,9 @@ http_interactions:
       Connection:
       - keep-alive
       Date:
-      - Sun, 04 Feb 2024 15:16:00 GMT
+      - Fri, 16 Feb 2024 15:02:57 GMT
       X-Track-Id:
-      - '546840301'
+      - '1471945906'
       X-Content-Type-Options:
       - nosniff
       X-Xss-Protection:
@@ -52,13 +52,13 @@ http_interactions:
       X-Cache:
       - Miss from cloudfront
       Via:
-      - 1.1 1e5ca059f48c688576a90d719b9ff148.cloudfront.net (CloudFront)
+      - 1.1 360cdb248de2ad362090d67754f85dba.cloudfront.net (CloudFront)
       X-Amz-Cf-Pop:
       - NRT57-P2
       Alt-Svc:
       - h3=":443"; ma=86400
       X-Amz-Cf-Id:
-      - A2Hgfi01qOBMsjTp-JWxw_b7A6mGmu2c3ScClOESibpvdHl3jfVzPw==
+      - EHWiX8iCj5xXUtZ_gLgauSiTplmYZB89NAQN8Oup1MGZcQTRvnBV_A==
       Referrer-Policy:
       - no-referrer
       Content-Security-Policy:
@@ -82,5 +82,5 @@ http_interactions:
             </diagnostic>
           </diagnostics>
         </searchRetrieveResponse>
-  recorded_at: Sun, 04 Feb 2024 15:16:00 GMT
+  recorded_at: Fri, 16 Feb 2024 15:02:57 GMT
 recorded_with: VCR 6.2.0
