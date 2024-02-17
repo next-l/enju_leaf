@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://iss.ndl.go.jp/api/opensearch?cnt=10&dpid=iss-ndl-opac&idx=1&isbn=9780007264551&mediatype=1
+    uri: https://ndlsearch.ndl.go.jp/api/sru?onlyBib=true&operation=searchRetrieve&query=isbn=9780007264551&recordSchema=dcndl&version=1.2
     body:
       encoding: US-ASCII
       string: ''
@@ -18,116 +18,69 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
       Date:
-      - Mon, 04 Oct 2021 23:03:50 GMT
-      Cache-Control:
-      - max-age=0, private, must-revalidate
-      Referrer-Policy:
-      - strict-origin-when-cross-origin
-      X-Permitted-Cross-Domain-Policies:
-      - none
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Request-Id:
-      - 4bbd7bc9-6d43-485e-a6f3-088a4dbaf1c0
-      X-Download-Options:
-      - noopen
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Runtime:
-      - '0.034629'
+      - Sun, 04 Feb 2024 15:37:34 GMT
+      X-Track-Id:
+      - '1495833057'
       X-Content-Type-Options:
       - nosniff
-      Etag:
-      - W/"ff7a4595cad02ee6291ad5a44bee98bc"
-      Content-Length:
-      - '1014'
-      Status:
-      - 200 OK
-      Content-Type:
-      - application/xml; charset=utf-8
-      Set-Cookie:
-      - HTTP_Z308_KEY_DATA_01=; domain=.ndl.go.jp; path=/; expires=Thu, 01 Jan 1970
-        00:00:00 -0000
-      - ROUTEID=.ps06; path=/
-      - TS0162cc8a=01e7b2f67f90e74e386ba4391aabe8a3e650f9c9886cff110137ec85abb8e0ef25830b9264e41d5c211b792647f853bbca878fbf50c19197721813ff9f0168fb965107f007070110c808688f72298b6b4d4e21ae5f4078cad6ea93bcae483ed1f9157a0699;
-        path=/; domain=.ndl.go.jp
-      - TS01f3cfdf=01e7b2f67f6256f2b46500fa2267e83e7d82574de46cff110137ec85abb8e0ef25830b9264575a14d1a03a0dba6a09dd602e4821391d9c65ffb62723f9844aa9bf640e24d92cd1f5a7468adaa4212cfbb3876b7d4ec54c3c4a895f5a681101dc645cab2340f9a2495f69fdc33cefa446b50c31d073;
-        Path=/
-      - _front_session_id=0b88d243af35550ba6f378caa7a1d534; path=/; expires=Tue, 05
-        Oct 2021 00:03:50 -0000; HttpOnly;Secure
-      - cookieId=; domain=.ndl.go.jp; path=/; expires=Thu, 01 Jan 1970 00:00:00 -0000;Secure
-      - ndl.go.jp=rd2o00000000000000000000ffff0a024f76o80; path=/; Httponly; Secure
-      - serverid=1103; path=/
-      - sessionId=; domain=.ndl.go.jp; path=/; expires=Thu, 01 Jan 1970 00:00:00 -0000
-    body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHJzcyB2ZXJzaW9uPSIyLjAiIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6b3BlblNlYXJjaD0iaHR0cDovL2E5LmNvbS8tL3NwZWMvb3BlbnNlYXJjaHJzcy8xLjAvIiB4bWxuczpkY25kbD0iaHR0cDovL25kbC5nby5qcC9kY25kbC90ZXJtcy8iIHhtbG5zOmRjbWl0eXBlPSJodHRwOi8vcHVybC5vcmcvZGMvZGNtaXR5cGUvIiB4bWxuczpkY3Rlcm1zPSJodHRwOi8vcHVybC5vcmcvZGMvdGVybXMvIiB4bWxuczp4c2k9Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvWE1MU2NoZW1hLWluc3RhbmNlIiB4bWxuczpyZGZzPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzAxL3JkZi1zY2hlbWEjIiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogIDxjaGFubmVsPgogICAgPHRpdGxlPjEgOTc4MDAwNzI2NDU1MSBpc3MtbmRsLW9wYWMgLSDlm73nq4vlm73kvJrlm7Pmm7jppKjjgrXjg7zjg4EgT3BlblNlYXJjaDwvdGl0bGU+CiAgICA8bGluaz5odHRwczovL2lzcy5uZGwuZ28uanAvYXBpL29wZW5zZWFyY2g/Y250PTEwJmFtcDtkcGlkPWlzcy1uZGwtb3BhYyZhbXA7aWR4PTEmYW1wO2lzYm49OTc4MDAwNzI2NDU1MSZhbXA7bWVkaWF0eXBlPTE8L2xpbms+CiAgICA8ZGVzY3JpcHRpb24+U2VhcmNoIHJlc3VsdHMgZm9yIGRwaWQ9aXNzLW5kbC1vcGFjIGlzYm49OTc4MDAwNzI2NDU1MSBjbnQ9MTAgbWVkaWF0eXBlPTEgPC9kZXNjcmlwdGlvbj4KICAgIDxsYW5ndWFnZT5qYTwvbGFuZ3VhZ2U+CiAgICA8b3BlblNlYXJjaDp0b3RhbFJlc3VsdHM+MDwvb3BlblNlYXJjaDp0b3RhbFJlc3VsdHM+CiAgICA8b3BlblNlYXJjaDpzdGFydEluZGV4PjE8L29wZW5TZWFyY2g6c3RhcnRJbmRleD4KICAgIDxvcGVuU2VhcmNoOml0ZW1zUGVyUGFnZT4xMDwvb3BlblNlYXJjaDppdGVtc1BlclBhZ2U+CiAgPC9jaGFubmVsPgo8L3Jzcz4K
-  recorded_at: Mon, 04 Oct 2021 23:03:50 GMT
-- request:
-    method: get
-    uri: https://iss.ndl.go.jp/api/opensearch?cnt=10&dpid=iss-ndl-opac&idx=1&isbn=0007264550&mediatype=1
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Mon, 04 Oct 2021 23:03:51 GMT
-      Cache-Control:
-      - max-age=0, private, must-revalidate
-      Referrer-Policy:
-      - strict-origin-when-cross-origin
-      X-Permitted-Cross-Domain-Policies:
-      - none
       X-Xss-Protection:
       - 1; mode=block
-      X-Request-Id:
-      - 11cd08b9-b84d-4077-92d3-e2b06d4a9bdf
-      X-Download-Options:
-      - noopen
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000
       X-Frame-Options:
       - SAMEORIGIN
-      X-Runtime:
-      - '0.047195'
-      X-Content-Type-Options:
-      - nosniff
-      Etag:
-      - W/"b1b8750ad837b23591fe1f68fa683329"
-      Content-Length:
-      - '1005'
-      Status:
-      - 200 OK
-      Content-Type:
-      - application/xml; charset=utf-8
       Set-Cookie:
-      - HTTP_Z308_KEY_DATA_01=; domain=.ndl.go.jp; path=/; expires=Thu, 01 Jan 1970
-        00:00:00 -0000
-      - ROUTEID=.ps14; path=/
-      - TS0162cc8a=01e7b2f67fc03cbd8349047befe9879ea25b7e3033f5396b7fd0e2f0a8ecc62851683ea7fc466ec47018707464b05e4a41547fde49306ea32d7d852f9c3a90d688e7803a78ea76d2ff474848cb396290d18d423fc4476f400066f8ef4dfd4f83da8bbc52af;
-        path=/; domain=.ndl.go.jp
-      - TS01f3cfdf=01e7b2f67f2521a214fe0a1d7ab2957c829661a639f5396b7fd0e2f0a8ecc62851683ea7fc85b88cc139015b95c087232df9e08d0fecf639953a154d0751b5045091713d2293a0d454c8f2c808f2c54c381072803dfe28adb7c6242075fa37d85129ef62032812ca54f26c705cc6fc742537e1615e;
-        Path=/
-      - _front_session_id=5883269194917d9b415d0d1060d49b0c; path=/; expires=Tue, 05
-        Oct 2021 00:03:51 -0000; HttpOnly;Secure
-      - cookieId=; domain=.ndl.go.jp; path=/; expires=Thu, 01 Jan 1970 00:00:00 -0000;Secure
-      - ndl.go.jp=rd2o00000000000000000000ffff0a024f77o80; path=/; Httponly; Secure
-      - serverid=1103; path=/
-      - sessionId=; domain=.ndl.go.jp; path=/; expires=Thu, 01 Jan 1970 00:00:00 -0000
+      - NDLS_SESSION=; Max-Age=0; Expires=Thu, 1 Jan 1970 00:00:00 GMT; Domain=ndl.go.jp;
+        Path=/; Secure; HttpOnly; SameSite=Lax
+      - NDLS_SESSION=; Max-Age=0; Expires=Thu, 1 Jan 1970 00:00:00 GMT; Domain=ndl.go.jp;
+        Path=/; Secure; HttpOnly; SameSite=Lax
+      Vary:
+      - Origin
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 b93822242d240fe957b16155421ce866.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - NRT57-P2
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - WW6pBy9RgDUPO3gxL_CRgyiFAcR3ILVfsbyovRVDdSQ3uctgPwLU7w==
+      Referrer-Policy:
+      - no-referrer
+      Content-Security-Policy:
+      - 'default-src ''self''; script-src ''self'' ''unsafe-inline'' ''unsafe-eval''
+        https://www.googletagmanager.com https://www.datadoghq-browser-agent.com https://jpsearch.go.jp;
+        style-src ''self'' ''unsafe-inline'' https://fonts.googleapis.com https://jpsearch.go.jp
+        https://cdn.jsdelivr.net; img-src * blob: data:; connect-src ''self'' https://*.browser-intake-datadoghq.com
+        https://9v7tjveeei.execute-api.ap-northeast-1.amazonaws.com https://www.google-analytics.com
+        https://jpsearch.go.jp; font-src ''self'' https://fonts.gstatic.com https://jpsearch.go.jp
+        https://cdn.jsdelivr.net; form-action ''self''; media-src ''self'' blob: data:;
+        frame-ancestors ''none''; worker-src blob:;'
     body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHJzcyB2ZXJzaW9uPSIyLjAiIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6b3BlblNlYXJjaD0iaHR0cDovL2E5LmNvbS8tL3NwZWMvb3BlbnNlYXJjaHJzcy8xLjAvIiB4bWxuczpkY25kbD0iaHR0cDovL25kbC5nby5qcC9kY25kbC90ZXJtcy8iIHhtbG5zOmRjbWl0eXBlPSJodHRwOi8vcHVybC5vcmcvZGMvZGNtaXR5cGUvIiB4bWxuczpkY3Rlcm1zPSJodHRwOi8vcHVybC5vcmcvZGMvdGVybXMvIiB4bWxuczp4c2k9Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvWE1MU2NoZW1hLWluc3RhbmNlIiB4bWxuczpyZGZzPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzAxL3JkZi1zY2hlbWEjIiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogIDxjaGFubmVsPgogICAgPHRpdGxlPjAwMDcyNjQ1NTAgMSBpc3MtbmRsLW9wYWMgLSDlm73nq4vlm73kvJrlm7Pmm7jppKjjgrXjg7zjg4EgT3BlblNlYXJjaDwvdGl0bGU+CiAgICA8bGluaz5odHRwczovL2lzcy5uZGwuZ28uanAvYXBpL29wZW5zZWFyY2g/Y250PTEwJmFtcDtkcGlkPWlzcy1uZGwtb3BhYyZhbXA7aWR4PTEmYW1wO2lzYm49MDAwNzI2NDU1MCZhbXA7bWVkaWF0eXBlPTE8L2xpbms+CiAgICA8ZGVzY3JpcHRpb24+U2VhcmNoIHJlc3VsdHMgZm9yIGRwaWQ9aXNzLW5kbC1vcGFjIGlzYm49MDAwNzI2NDU1MCBjbnQ9MTAgbWVkaWF0eXBlPTEgPC9kZXNjcmlwdGlvbj4KICAgIDxsYW5ndWFnZT5qYTwvbGFuZ3VhZ2U+CiAgICA8b3BlblNlYXJjaDp0b3RhbFJlc3VsdHM+MDwvb3BlblNlYXJjaDp0b3RhbFJlc3VsdHM+CiAgICA8b3BlblNlYXJjaDpzdGFydEluZGV4PjE8L29wZW5TZWFyY2g6c3RhcnRJbmRleD4KICAgIDxvcGVuU2VhcmNoOml0ZW1zUGVyUGFnZT4xMDwvb3BlblNlYXJjaDppdGVtc1BlclBhZ2U+CiAgPC9jaGFubmVsPgo8L3Jzcz4K
-  recorded_at: Mon, 04 Oct 2021 23:03:51 GMT
-recorded_with: VCR 6.0.0
+      encoding: UTF-8
+      string: |-
+        <searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
+          <diagnostics>
+            <diagnostic xmlns="http://www.loc.gov/zing/srw/diagnostic/">
+              <uri>info:srw/diagnostic/1/1</uri>
+              <details>An error occurred</details>
+              <message>Record does not exist</message>
+            </diagnostic>
+          </diagnostics>
+        </searchRetrieveResponse>
+  recorded_at: Sun, 04 Feb 2024 15:37:34 GMT
+recorded_with: VCR 6.2.0

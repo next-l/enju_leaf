@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: get
-    uri: https://iss.ndl.go.jp/api/sru?maximumRecords=1&onlyBib=true&operation=searchRetrieve&query=(itemno=)&recordSchema=dcndl
+    uri: https://ndlsearch.ndl.go.jp/api/sru?maximumRecords=1&onlyBib=true&operation=searchRetrieve&query=(itemno=)&recordSchema=dcndl
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Faraday v1.8.0
+      - Faraday v1.10.3
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -18,60 +18,69 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
       Date:
-      - Fri, 08 Oct 2021 05:23:29 GMT
-      Cache-Control:
-      - max-age=0, private, must-revalidate
-      Referrer-Policy:
-      - strict-origin-when-cross-origin
-      X-Permitted-Cross-Domain-Policies:
-      - none
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Request-Id:
-      - 43ce2032-919c-49c4-9f49-85be31461901
-      X-Download-Options:
-      - noopen
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Runtime:
-      - '0.020116'
+      - Fri, 16 Feb 2024 15:02:57 GMT
+      X-Track-Id:
+      - '1471945906'
       X-Content-Type-Options:
       - nosniff
-      Etag:
-      - W/"1d7e4b41a9229db9fccb91d98434c986"
-      Content-Length:
-      - '393'
-      Status:
-      - 200 OK
-      Content-Type:
-      - application/xml; charset=utf-8
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Frame-Options:
+      - SAMEORIGIN
       Set-Cookie:
-      - HTTP_Z308_KEY_DATA_01=; domain=.ndl.go.jp; path=/; expires=Thu, 01 Jan 1970
-        00:00:00 -0000
-      - ROUTEID=.ps04; path=/
-      - TS0162cc8a=01e7b2f67f9bd53d19aa738412a0068438552cbf4e89304f72a843bb7a1f0ea546145c990b01299fe0bbbba31699d1840cfa38490232b3ce1e6de57fa8f3b697f65f06d54b3ef34b2a94ed27d5d49b50b7355f375a9cadd1e9214c9f3b140ecd0a93fe344a;
-        path=/; domain=.ndl.go.jp
-      - TS01f3cfdf=01e7b2f67f6519b75a267930000c321f4d987f3b1589304f72a843bb7a1f0ea546145c990b3f0602e133bad13c72cb2f73dca2a52671f7768415e80f762f62c71013d2d784d22fb6f87f3f1f7444976b047485d473c5ed2f38dfb59ecf4fd7f9d41e1d98772de608428a57eeae29051c8c4fb62f24;
-        Path=/
-      - _front_session_id=6d23b6166dee49cd7ebb88d5d1883047; path=/; expires=Fri, 08
-        Oct 2021 06:23:30 -0000; HttpOnly;Secure
-      - cookieId=; domain=.ndl.go.jp; path=/; expires=Thu, 01 Jan 1970 00:00:00 -0000;Secure
-      - ndl.go.jp=rd2o00000000000000000000ffff0a024f77o80; path=/; Httponly; Secure
-      - serverid=1103; path=/
-      - sessionId=; domain=.ndl.go.jp; path=/; expires=Thu, 01 Jan 1970 00:00:00 -0000
+      - NDLS_SESSION=; Max-Age=0; Expires=Thu, 1 Jan 1970 00:00:00 GMT; Domain=ndl.go.jp;
+        Path=/; Secure; HttpOnly; SameSite=Lax
+      - NDLS_SESSION=; Max-Age=0; Expires=Thu, 1 Jan 1970 00:00:00 GMT; Domain=ndl.go.jp;
+        Path=/; Secure; HttpOnly; SameSite=Lax
+      Vary:
+      - Origin
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 360cdb248de2ad362090d67754f85dba.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - NRT57-P2
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - EHWiX8iCj5xXUtZ_gLgauSiTplmYZB89NAQN8Oup1MGZcQTRvnBV_A==
+      Referrer-Policy:
+      - no-referrer
+      Content-Security-Policy:
+      - 'default-src ''self''; script-src ''self'' ''unsafe-inline'' ''unsafe-eval''
+        https://www.googletagmanager.com https://www.datadoghq-browser-agent.com https://jpsearch.go.jp;
+        style-src ''self'' ''unsafe-inline'' https://fonts.googleapis.com https://jpsearch.go.jp
+        https://cdn.jsdelivr.net; img-src * blob: data:; connect-src ''self'' https://*.browser-intake-datadoghq.com
+        https://9v7tjveeei.execute-api.ap-northeast-1.amazonaws.com https://www.google-analytics.com
+        https://jpsearch.go.jp; font-src ''self'' https://fonts.gstatic.com https://jpsearch.go.jp
+        https://cdn.jsdelivr.net; form-action ''self''; media-src ''self'' blob: data:;
+        frame-ancestors ''none''; worker-src blob:;'
     body:
       encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8"?>
+      string: |-
         <searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/">
           <diagnostics>
             <diagnostic xmlns="http://www.loc.gov/zing/srw/diagnostic/">
               <uri>info:srw/diagnostic/1/1</uri>
               <details>An error occurred</details>
-              <message>search term(s) is requested in 'itemno='</message>
+              <message>illegal query syntax</message>
             </diagnostic>
           </diagnostics>
         </searchRetrieveResponse>
-  recorded_at: Fri, 08 Oct 2021 05:23:30 GMT
-recorded_with: VCR 6.0.0
+  recorded_at: Fri, 16 Feb 2024 15:02:57 GMT
+recorded_with: VCR 6.2.0

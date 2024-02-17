@@ -2,10 +2,14 @@
   "name": "enju_leaf",
   "private": true,
   "dependencies": {
+    "@rails/actioncable": "~7.0.8",
+    "@rails/activestorage": "~7.0.8",
+    "@rails/ujs": "~7.0.8",
     "@rails/webpacker": "5.4.3",
     "mirador": "^3.3.0",
     "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^3.3.12",
+    "jquery": "^2.2.4"
   },
   "devDependencies": {
     "webpack-dev-server": "^3"

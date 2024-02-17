@@ -52,7 +52,7 @@ class NdlBook
       cnt = per_page
       page = 1 if page.to_i < 1
       idx = (page.to_i - 1) * cnt + 1
-      doc = Nokogiri::XML(Manifestation.search_ndl(query, cnt: cnt, page: page, idx: idx, raw: true, mediatype: 1).to_s)
+      doc = Nokogiri::XML(Manifestation.search_ndl(query, cnt: cnt, page: page, idx: idx, raw: true, mediatype: 'books periodicals video audio scores').to_s)
       items = doc.xpath('//channel/item').map{|node| new node }
       total_entries = doc.at('//channel/openSearch:totalResults').content.to_i
 
@@ -66,7 +66,7 @@ class NdlBook
     identifier = NdlBibIdRecord.find_by(body: itemno)
     return if identifier
 
-    url = "https://iss.ndl.go.jp/api/sru?operation=searchRetrieve&recordSchema=dcndl&maximumRecords=1&query=%28itemno=#{itemno}%29&onlyBib=true"
+    url = "https://ndlsearch.ndl.go.jp/api/sru?operation=searchRetrieve&recordSchema=dcndl&maximumRecords=1&query=%28itemno=#{itemno}%29&onlyBib=true"
     xml = Faraday.get(url).body
     response = Nokogiri::XML(xml).at('//xmlns:recordData')
     return unless response.try(:content)
@@ -75,7 +75,12 @@ class NdlBook
   end
 
   def subjects
-    @node.xpath('//dcterms:subject/rdf:Description').map{|a| {id: a.attributes['about'].content, value: a.at('./rdf:value').content}}
+    @node.xpath('//dcterms:subject/rdf:Description').map{|a|
+      {
+        id: a.attributes['about'].content,
+        value: a.at('./rdf:value').content
+      }
+    }
   end
 
   def authors
