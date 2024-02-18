@@ -49,7 +49,7 @@
 <% if @query.present? %>
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
-    <li><%= link_to t('enju_ndl.same_query_in_ndl_search'), "https://ndlsearch.ndl.go.jp/books?any=#{u(@query)}" -%></li>
+    <li><%= link_to t('enju_ndl.same_query_in_ndl_search'), "https://ndlsearch.ndl.go.jp/search?keyword=#{u(@query)}&cs=bib&f-ht=ndl&display=panel" -%></li>
   </ul>
 </div>
 <% end %>
