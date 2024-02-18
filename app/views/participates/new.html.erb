@@ -1,7 +1,7 @@
 <div id="content_detail" class="col col-md-9">
   <h1 class="title card-header"><%= t('page.new', model: t('activerecord.models.participate')) -%></h1>
   <div id="content_list" class="card-body">
-    <%= render 'form' %>
+    <%= render 'form', participate: @participate %>
   </div>
 </div>
 

@@ -57,7 +57,11 @@ module EnjuBiblio
       when 'doi'
         link_to identifier.body, "https://doi.org/#{identifier.body}"
       when 'iss_itemno'
-        link_to identifier.body, "https://iss.ndl.go.jp/books/#{identifier.body}"
+        if identifier.body =~ /\AR[0-9A-Za-z]+?-I[0-9A-Za-z]+?-00\z/
+          link_to identifier.body, "https://iss.ndl.go.jp/books/#{identifier.body}"
+        else
+          link_to identifier.body, "https://ndlsearch.ndl.go.jp/books/#{identifier.body}"
+        end
       when 'lccn'
         link_to identifier.body, "https://lccn.loc.gov/#{identifier.body}"
       when 'ncid'

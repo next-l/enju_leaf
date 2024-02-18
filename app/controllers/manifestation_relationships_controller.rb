@@ -33,8 +33,10 @@ class ManifestationRelationshipsController < ApplicationController
       redirect_to manifestations_url
       nil
     else
-      @manifestation_relationship = ManifestationRelationship.new
-      @manifestation_relationship.manifestation = @manifestation
+      @manifestation_relationship = ManifestationRelationship.new(
+        parent: @manifestation,
+        child: Manifestation.find(params[:child_id])
+      )
     end
   end
 
