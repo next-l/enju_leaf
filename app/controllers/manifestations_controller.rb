@@ -323,6 +323,10 @@ class ManifestationsController < ApplicationController
         @manifestation.send(attribute).build(@parent.send(attribute).collect(&:attributes))
       end
     end
+
+    @manifestation.build_doi_record
+    @manifestation.build_ncid_record
+    @manifestation.build_jpno_record
   end
 
   # GET /manifestations/1/edit
@@ -339,6 +343,10 @@ class ManifestationsController < ApplicationController
         render partial: 'manifestations/tag_edit', locals: {manifestation: @manifestation}
       end
     end
+
+    @manifestation.build_doi_record unless @manifestation.doi_record
+    @manifestation.build_ncid_record unless @manifestation.ncid_record
+    @manifestation.build_jpno_record unless @manifestation.jpno_record
   end
 
   # POST /manifestations
