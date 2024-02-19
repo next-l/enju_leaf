@@ -59,8 +59,6 @@ namespace :enju_leaf do
 
   desc 'Backfill migration versions before Next-L Enju Leaf 1.4'
   task :backfill_migration_versions => :environment do
-    Rake::Task['db:migrate'].invoke
-
     Dir.glob(Rails.root.join('db/migrate/*.rb')).each do |file|
 			entry = File.basename(file).split('_', 3)
       table_name = entry[2].gsub(/\.rb\z/, '')
@@ -68,6 +66,19 @@ namespace :enju_leaf do
 
       # このバージョンより新しいマイグレーションファイルは対象外
       next if version > 20201025090703
+
+      # enju_bookmark
+      next if [
+        55, 20081212151614, 20081212151820, 20100222124420, 20140524135607,
+        20140812093836, 20160815045420, 20180107172413,
+        20180709023035, 20180709023036, 20180709023037, 20180709023038,
+        20180709023039, 20180709023040, 20180709161346
+      ].include?(version)
+
+      # enju_news
+      next if [
+        20081031033632, 20090126071155, 20110220103937
+      ].include?(version)
 
       next if ActiveRecord::Base.connection.exec_query('SELECT version FROM schema_migrations WHERE version = $1', 'SQL', [[nil, version]]).first
 
