@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.new', model: t('activerecord.models.picture_file')) -%></h1>
 <div id="content_list">
 
-<%= form_for(@picture_file, url: picture_files_path, html: { multipart: true, method: :post }) do |f| -%>
+<%= form_with(model: @picture_file) do |f| -%>
   <% if @picture_file.errors.any? %>
     <div id="error_explanation">
       <ul>

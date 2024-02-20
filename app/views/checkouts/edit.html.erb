@@ -15,7 +15,7 @@
 
 <h3><%= t('checkout.renewal') -%></h3>
 <%- if @checkout.renewable? -%>
-  <%= form_for(@checkout) do |f| -%>
+  <%= form_with(model: @checkout) do |f| -%>
     <%= t('checkout.new_due_date') -%>: <%= l(@new_due_date, format: :only_date) if @new_due_date -%>
     <%= f.hidden_field :due_date, value: @new_due_date -%>
     <br />
@@ -28,7 +28,7 @@
 <% if current_user.has_role?('Librarian') %>
   <h3><%= t('checkout.editing_due_date') -%></h3>
 
-  <%= form_for(@checkout) do |f| -%>
+  <%= form_with(model: @checkout) do |f| -%>
     <%= error_messages(@checkout) -%>
 
     <div class="field">

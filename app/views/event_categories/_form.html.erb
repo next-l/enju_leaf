@@ -1,5 +1,5 @@
-<%= form_for(@event_category) do |f| %>
-  <%= error_messages(@event_category) %>
+<%= form_with(model: event_category) do |f| %>
+  <%= error_messages(event_category) %>
 
   <div class="field">
     <%= f.label :name %><br />
