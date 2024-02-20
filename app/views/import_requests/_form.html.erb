@@ -1,9 +1,9 @@
-<%= form_for(@import_request) do |f| %>
-  <% if @import_request.errors.any? %>
+<%= form_with(model: import_request) do |f| %>
+  <% if import_request.errors.any? %>
   <div id="errorExplanation">
-    <h2><%= pluralize(@import_request.errors.count, "error") %> prohibited this import_request from being saved:</h2>
+    <h2><%= pluralize(import_request.errors.count, "error") %> prohibited this import_request from being saved:</h2>
     <ul>
-    <% @import_request.errors.map(&:full_message).each do |msg| %>
+    <% import_request.errors.map(&:full_message).each do |msg| %>
       <li><%= msg %></li>
     <% end %>
     </ul>

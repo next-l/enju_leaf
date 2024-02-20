@@ -1,20 +1,20 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.editing', model: t('activerecord.models.resource_import_file')) -%></h1>
-<div id="content_list">
+  <h1 class="title"><%= t('page.editing', model: t('activerecord.models.resource_import_file')) -%></h1>
+  <div id="content_list">
 
-<%= form_for(@resource_import_file) do |f| -%>
-  <%= error_messages(@resource_import_file) -%>
+  <%= form_with(model: @resource_import_file) do |f| -%>
+    <%= error_messages(@resource_import_file) -%>
 
-  <div class="field">
-    <%= f.label :resource_import_file_name -%><br />
-    <%= f.text_field :resource_import_file_name -%>
+    <div class="field">
+      <%= f.label :resource_import_file_name -%><br />
+      <%= f.text_field :resource_import_file_name -%>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <%- end -%>
+
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<%- end -%>
-
-</div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
