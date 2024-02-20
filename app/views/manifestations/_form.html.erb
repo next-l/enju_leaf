@@ -1,5 +1,5 @@
 <%= render 'page/required_field' %>
-<%= form_for(@manifestation, html: { multipart: true }) do |f| -%>
+<%= form_with(model: @manifestation) do |f| -%>
   <%= error_messages(@manifestation) -%>
 
   <% if @manifestation.original_manifestations.exists? or @parent %>

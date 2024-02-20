@@ -2,7 +2,7 @@
   <h1 class="title"><%= t('page.editing', model: t('activerecord.models.agent_import_file')) -%></h1>
   <div id="content_list">
 
-  <%= form_for(@agent_import_file) do |f| -%>
+  <%= form_with(model: @agent_import_file) do |f| -%>
     <%= error_messages(@agent_import_file) -%>
 
     <div class="field">

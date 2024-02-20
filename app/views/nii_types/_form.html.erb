@@ -1,5 +1,5 @@
-<%= form_for(@nii_type) do |f| -%>
-  <%= error_messages(@nii_type) -%>
+<%= form_with(model: nii_type) do |f| -%>
+  <%= error_messages(nii_type) -%>
   <p>
     <%= f.label t('activerecord.attributes.nii_type.name') -%><br />
     <%= f.text_field :name, required: true, class: 'short_name' -%>
