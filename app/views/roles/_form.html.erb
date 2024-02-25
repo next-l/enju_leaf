@@ -1,5 +1,5 @@
-<%= form_for(@role) do |f| %>
-  <%= error_messages(@role) %>
+<%= form_with(model: role) do |f| %>
+  <%= error_messages(role) %>
 
   <div class="field">
     <%= f.label :name %><br />
