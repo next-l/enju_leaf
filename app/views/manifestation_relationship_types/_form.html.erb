@@ -1,5 +1,5 @@
-<%= form_for(@manifestation_relationship_type) do |f| %>
-  <%= error_messages(@manifestation_relationship_type) %>
+<%= form_with(model: manifestation_relationship_type) do |f| %>
+  <%= error_messages(manifestation_relationship_type) %>
 
   <div class="field">
     <%= f.label :name %><br />
