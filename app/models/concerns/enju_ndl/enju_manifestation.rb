@@ -249,7 +249,7 @@ module EnjuNdl
         doc = nil
         results = {}
         startrecord = options[:idx].to_i
-        startrecord = 1 if startrecord == 0
+        startrecord = 1 if startrecord.zero?
         url = "https://ndlsearch.ndl.go.jp/api/opensearch?dpid=#{options[:dpid]}&#{options[:item]}=#{format_query(query)}&cnt=#{options[:per_page]}&idx=#{startrecord}&mediatype=#{options[:mediatype]}"
 
         if options[:raw] == true
