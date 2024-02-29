@@ -1,11 +1,11 @@
 <%- if params[:mode] == 'show_all_creators' -%>
   <%= agents_list(manifestation.creates) %>
-  <%- if manifestation.creators.readable_by(current_user).size > 5 -%>
+  <%- if manifestation.creates.count > 5 -%>
     (<a href="#" onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#creator_list_<%= manifestation.id %>').html(request);}, type:'get', url:'<%= manifestation_path(manifestation, index_num: manifestation.id, mode: 'show_creators') %>'}); return false;"><%= t('page.hide') %></a>)
   <%- end -%>
 <%- else -%>
   <%= agents_list(manifestation.creates[0..2]) %>
-  <%- if manifestation.creators.readable_by(current_user).size > 5 -%>
+  <%- if manifestation.creates.count > 5 -%>
     (<a href="#" onclick="$.ajax({data:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>'), success:function(request){$('#creator_list_<%= manifestation.id %>').html(request);}, type:'get', url:'<%= manifestation_path(manifestation, index_num: manifestation.id, mode: 'show_all_creators') %>'}); return false;"><%= t('page.show_all') %></a>)
   <%- end -%>
 <%- end -%>

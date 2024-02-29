@@ -2,10 +2,10 @@
   <strong><%= link_to title_with_volume_number(reserve.manifestation), reserve -%></strong>
   (<%= link_to t('reserve.bibliographic_detail'), reserve.manifestation %>)
     <br />
-    <%- if reserve.manifestation.creators.readable_by(current_user).exists? -%>
+    <%- if reserve.manifestation.creates.exists? -%>
       <%= t('agent.creator') -%>: <%= agents_list(reserve.manifestation.creates) -%>
     <%- end -%>
-    <%- if reserve.manifestation.contributors.readable_by(current_user).exists? -%>
+    <%- if reserve.manifestation.realizes.exists? -%>
       <%= t('agent.contributor') -%>: <%= agents_list(reserve.manifestation.realizes) -%>
     <%- end -%>
     <%- if reserve.manifestation.publishers.readable_by(current_user).exists? -%>
