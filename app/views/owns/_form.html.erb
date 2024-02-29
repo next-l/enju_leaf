@@ -1,5 +1,5 @@
-<%= form_for(@own) do |f| -%>
-  <%= error_messages(@own) -%>
+<%= form_with(model: own) do |f| -%>
+  <%= error_messages(own) -%>
 
   <div class="field">
     <%= f.label t('activerecord.models.library') -%><br />

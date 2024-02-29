@@ -1,5 +1,5 @@
-<%= form_for(@checkout_type) do |f| %>
-  <%= error_messages(@checkout_type) %>
+<%= form_with(model: checkout_type) do |f| %>
+  <%= error_messages(checkout_type) %>
 
   <div class="field">
     <%= f.label :name %><br />

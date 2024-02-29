@@ -1,6 +1,6 @@
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails/all'
+require "rails/all"
 require 'csv'
 require 'nkf'
 require 'rss'
@@ -14,12 +14,15 @@ Bundler.require(*Rails.groups)
 module EnjuLeaf
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
+    config.load_defaults 7.0
 
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.time_zone = "Central Time (US & Canada)"
+    # config.eager_load_paths << Rails.root.join("extras")
     default_locale = (ENV['ENJU_LEAF_DEFAULT_LOCALE'] || 'en').to_sym
     config.i18n.default_locale = default_locale
     config.i18n.available_locales = [default_locale, :ja, :en].uniq

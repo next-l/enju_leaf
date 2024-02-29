@@ -1,5 +1,5 @@
-<%= form_for(@license) do |f| %>
-  <%= error_messages(@license) %>
+<%= form_with(model: license) do |f| %>
+  <%= error_messages(license) %>
 
   <div class="field">
     <%= f.label :name %><br />

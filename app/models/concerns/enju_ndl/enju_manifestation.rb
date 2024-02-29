@@ -8,11 +8,14 @@ module EnjuNdl
         manifestation
       end
 
+      def ndl_bib_doc(ndl_bib_id)
+        url = "https://ndlsearch.ndl.go.jp/api/sru?operation=searchRetrieve&version=1.2&query=itemno=#{ndl_bib_id}&recordSchema=dcndl&onlyBib=true"
+        Nokogiri::XML(Nokogiri::XML(URI.parse(url).read).at('//xmlns:recordData').content)
+      end
+
       # Use http://www.ndl.go.jp/jp/dlib/standards/opendataset/aboutIDList.txt
       def import_ndl_bib_id(ndl_bib_id)
-        url = "https://iss.ndl.go.jp/books/R100000002-I#{ndl_bib_id}-00.rdf"
-        doc = Nokogiri::XML(Faraday.get(url).body)
-        import_record(doc)
+        import_record(ndl_bib_doc(ndl_bib_id))
       end
 
       def import_from_ndl_search(options)
@@ -105,6 +108,10 @@ module EnjuNdl
           when 'http://purl.org/dc/dcmitype/StillImage'
             content_type = ContentType.find_by(name: 'still_image')
           end
+
+          # NDLサーチのmaterialTypeは複数設定されているが、
+          # content_typeはその最初の1件を用いて取得する
+          break if content_type
         end
 
         admin_identifier = doc.at('//dcndl:BibAdminResource[@rdf:about]').attributes['about'].value
@@ -238,14 +245,15 @@ module EnjuNdl
       end
 
       def search_ndl(query, options = {})
-        options = { dpid: 'iss-ndl-opac', item: 'any', idx: 1, per_page: 10, raw: false, mediatype: 1 }.merge(options)
+        options = { dpid: 'iss-ndl-opac', item: 'any', idx: 1, per_page: 10, raw: false, mediatype: 'books periodicals video audio scores' }.merge(options)
         doc = nil
         results = {}
         startrecord = options[:idx].to_i
-        startrecord = 1 if startrecord == 0
-        url = "https://iss.ndl.go.jp/api/opensearch?dpid=#{options[:dpid]}&#{options[:item]}=#{format_query(query)}&cnt=#{options[:per_page]}&idx=#{startrecord}&mediatype=#{options[:mediatype]}"
+        startrecord = 1 if startrecord.zero?
+        url = "https://ndlsearch.ndl.go.jp/api/opensearch?dpid=#{options[:dpid]}&#{options[:item]}=#{format_query(query)}&cnt=#{options[:per_page]}&idx=#{startrecord}&mediatype=#{options[:mediatype]}"
+
         if options[:raw] == true
-          Faraday.get(url).body
+          URI.parse(url).read
         else
           RSS::Rss::Channel.install_text_element('openSearch:totalResults', 'http://a9.com/-/spec/opensearchrss/1.0/', '?', 'totalResults', :text, 'openSearch:totalResults')
           RSS::BaseListener.install_get_text_element 'http://a9.com/-/spec/opensearchrss/1.0/', 'totalResults', 'totalResults='
@@ -263,14 +271,16 @@ module EnjuNdl
 
       def return_xml(isbn: nil, jpno: nil)
         if jpno.present?
-          rss = search_ndl(jpno, dpid: 'iss-ndl-opac', item: 'jpno')
+          url = "https://ndlsearch.ndl.go.jp/api/sru?operation=searchRetrieve&version=1.2&query=jpno=#{jpno}&recordSchema=dcndl&onlyBib=true"
+        elsif isbn.present?
+          url = "https://ndlsearch.ndl.go.jp/api/sru?operation=searchRetrieve&version=1.2&query=isbn=#{isbn}&recordSchema=dcndl&onlyBib=true"
         else
-          rss = search_ndl(isbn, dpid: 'iss-ndl-opac', item: 'isbn')
+          return
         end
 
-        if rss.items.first
-          doc = Nokogiri::XML(Faraday.get("#{rss.items.first.link}.rdf").body)
-        end
+        response = Nokogiri::XML(URI.parse(url).read).at('//xmlns:recordData')&.content
+
+        Nokogiri::XML(response) if response
       end
 
       private

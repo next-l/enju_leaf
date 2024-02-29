@@ -1,5 +1,5 @@
-<%= form_for(@bookmark_stat) do |f| -%>
-  <%= error_messages(@bookmark_stat) -%>
+<%= form_with(model: bookmark_stat) do |f| -%>
+  <%= error_messages(bookmark_stat) -%>
 
   <div class="field">
     <%= f.label :start_date -%><br />

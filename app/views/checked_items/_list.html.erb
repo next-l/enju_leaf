@@ -1,8 +1,8 @@
 <div style="color: red"><%= flash[:message] -%></div>
 
 <div class="search_form">
-<%= form_with(model: checked_item, html: {method: :post}, url: checked_items_path(basket_id: @basket.id)) do |f| -%>
-  <%= error_messages(@checked_item) if @checked_item -%>
+<%= form_with(model: checked_item, html: {method: :post}, url: checked_items_path(basket_id: @basket.id), local: false) do |f| -%>
+  <%= error_messages(checked_item) if checked_item -%>
   <p>
     <%= f.label :item_identifier, t('activerecord.attributes.item.item_identifier') -%>: <%= f.search_field :item_identifier, class: 'resource_item_identifier' -%>
     <%= f.submit t('page.read'), 'data-disable-with' => t('page.saving') -%><br />

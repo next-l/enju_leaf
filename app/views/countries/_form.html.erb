@@ -1,5 +1,5 @@
-<%= form_for(@country) do |f| %>
-  <%= error_messages(@country) %>
+<%= form_with(model: country) do |f| %>
+  <%= error_messages(country) %>
 
   <div class="field">
     <%= f.label :name %><br />

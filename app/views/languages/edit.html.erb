@@ -1,8 +1,8 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.editing', model: t('activerecord.models.language')) -%></h1>
-<div id="content_list">
-  <%= render 'form' %>
-</div>
+  <h1 class="title"><%= t('page.editing', model: t('activerecord.models.language')) -%></h1>
+  <div id="content_list">
+    <%= render 'form', language: @language %>
+  </div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">

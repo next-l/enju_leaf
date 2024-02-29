@@ -81,7 +81,8 @@ class PurchaseRequestsController < ApplicationController
   def new
     @purchase_request = current_user.purchase_requests.new(purchase_request_params)
     if defined?(EnjuBookmark)
-      @purchase_request.title = Bookmark.get_title_from_url(@purchase_request.url) unless @purchase_request.title?
+      bookmark = Bookmark.new
+      @purchase_request.title = bookmark.get_title_from_url(@purchase_request.url) unless @purchase_request.title?
     end
   end
 

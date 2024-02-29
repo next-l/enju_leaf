@@ -1,5 +1,5 @@
-<%= form_for(@user_checkout_stat) do |f| -%>
-  <%= error_messages(@user_checkout_stat) -%>
+<%= form_with(model: user_checkout_stat) do |f| -%>
+  <%= error_messages(user_checkout_stat) -%>
 
   <div class="field">
     <%= f.label :start_date -%><br />
