@@ -133,7 +133,7 @@ describe ResourceImportFile do
         expect(manifestation_104.original_title).to eq 'test10'
         manifestation_104.creators.pluck(:full_name).should eq ['test3']
         manifestation_104.publishers.pluck(:full_name).should eq ['test4']
-        expect(item_10104.manifestation.pub_Date).to eq '2001-1-1'
+        expect(item_10104.manifestation.pub_date).to eq '2001-1-1'
         expect(item_10104.manifestation.date_of_publication).to eq '2001-01-01'
 
         manifestation_105 = Manifestation.find_by(manifestation_identifier: '105')
