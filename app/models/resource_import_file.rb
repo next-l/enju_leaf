@@ -447,7 +447,8 @@ class ResourceImportFile < ApplicationRecord
       series_title_transcription series_volume_number_string
       series_title_subseries series_title_subseries_transcription
       creator creator_transcription publisher
-      publisher_transcription pub_date creator creator_transcription
+      publisher_transcription pub_date date_of_publication year_of_publication
+      creator creator_transcription
       contributor contributor_transcription abstract description access_address
       volume_number volume_number_string issue_number issue_number_string
       edition edition_string serial_number isbn issn manifestation_price

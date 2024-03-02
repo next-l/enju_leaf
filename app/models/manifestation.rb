@@ -576,6 +576,7 @@ class Manifestation < ApplicationRecord
         end
       }.join('//'),
       pub_date: date_of_publication,
+      date_of_publication: date_of_publication,
       year_of_publication: year_of_publication,
       publication_place: publication_place,
       manifestation_created_at: created_at,
