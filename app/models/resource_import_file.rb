@@ -700,6 +700,8 @@ end
         title_alternative: title[:title_alternative],
         title_alternative_transcription: title[:title_alternative_transcription],
         pub_date: row['pub_date'],
+        date_of_publication: row['date_of_publication'],
+        year_of_publication: row['year_of_publication'],
         volume_number: row['volume_number'],
         volume_number_string: row['volume_number_string'],
         issue_number: row['issue_number'],

@@ -44,6 +44,8 @@ describe ResourceImportFile do
         manifestation_101.items.order(:id).last.call_number.should eq '007|A'
         manifestation_101.serial.should be_falsy
         expect(manifestation_101.required_role.name).to eq 'Administrator'
+        expect(manifestation_101.date_of_publication).to eq Time.zone.parse('2001-01-01')
+        expect(manifestation_101.year_of_publication).to eq 2001
 
         item_10101 = Item.find_by(item_identifier: '10101')
         item_10101.manifestation.creators.size.should eq 2

@@ -3,7 +3,7 @@ manifestation_identifier	manifestation_id	original_title	note	title_transcriptio
 		test1	○ identifierなし、item_identifierなし								test	てすと		test2					invalid																																																			
 		test2	○ identifierなし、item_identifierあり								test||author//test1||illustrator					2001		2001												volume	text	monthly						xv, 213 pages	        		20cm	Guest			10101	t	9001	330|A	2014-08-16				Public fund	Example store	007		jpn	著者A; 著者B	東京	書誌メモ1	カバーなし	http://example.jp/item/1	個別資料メモ1							
 101		test3	× ダミー								test			test2																																							Public fund	Example store															適当な値	
-101		test3	○ identifierあり、item_identifierなし				主シリーズ	しゅしりーず	副シリーズ	ふくしりーず	test			test2																												Administrator																												
+101		test3	○ identifierあり、item_identifierなし				主シリーズ	しゅしりーず	副シリーズ	ふくしりーず	test			test2			2001-01-01	2001																								Administrator																												
 102		test4	○ identifierあり、item_identifierあり				主シリーズ		副シリーズ		test1		シリーズの著者	test		2001-1					シリーズ1号														257	182	12		1	200		Librarian			10102												Japanese								カスタム項目テスト1	カスタム項目テスト2				
 101		“test 5”	△ identifier重複、item_identifier非重複								test1||author//test2||illustrator	てすと1//てすと2	シリーズの著者	test																												User			10103									Example store											カスタム項目テスト1	カスタム項目テスト2	カスタム項目テスト3	カスタム項目テスト4		
 102		test6	× identifier重複、item_identifier重複								test			test3																															10101																									
