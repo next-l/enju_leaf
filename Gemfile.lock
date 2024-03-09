@@ -176,7 +176,7 @@ GEM
     hashdiff (1.1.0)
     highline (2.1.0)
     htmlentities (4.3.4)
-    i18n (1.14.1)
+    i18n (1.14.4)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
       mini_magick (>= 4.9.5, < 5)
@@ -225,7 +225,7 @@ GEM
     method_source (1.0.0)
     mime-types (3.5.2)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2024.0206)
+    mime-types-data (3.2024.0305)
     mimemagic (0.3.10)
       nokogiri (~> 1)
       rake
@@ -268,7 +268,7 @@ GEM
     paperclip-meta (3.1.0)
       paperclip (>= 5.0)
     parallel (1.24.0)
-    parallel_tests (4.5.1)
+    parallel_tests (4.5.2)
       parallel
     pg (1.4.6)
     pr_geohash (1.0.0)
