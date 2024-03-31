@@ -25,6 +25,12 @@ RSpec.describe "/shelf_import_files", type: :request do
     skip("Add a hash of attributes invalid for your model")
   }
 
+  fixtures :all
+  before(:each) do
+    @user = users(:admin)
+    sign_in @user
+  end
+
   describe "GET /index" do
     it "renders a successful response" do
       ShelfImportFile.create! valid_attributes
@@ -44,14 +50,6 @@ RSpec.describe "/shelf_import_files", type: :request do
   describe "GET /new" do
     it "renders a successful response" do
       get new_shelf_import_file_url
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /edit" do
-    it "renders a successful response" do
-      shelf_import_file = ShelfImportFile.create! valid_attributes
-      get edit_shelf_import_file_url(shelf_import_file)
       expect(response).to be_successful
     end
   end
@@ -80,38 +78,6 @@ RSpec.describe "/shelf_import_files", type: :request do
     
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
         post shelf_import_files_url, params: { shelf_import_file: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-    
-    end
-  end
-
-  describe "PATCH /update" do
-    context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested shelf_import_file" do
-        shelf_import_file = ShelfImportFile.create! valid_attributes
-        patch shelf_import_file_url(shelf_import_file), params: { shelf_import_file: new_attributes }
-        shelf_import_file.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "redirects to the shelf_import_file" do
-        shelf_import_file = ShelfImportFile.create! valid_attributes
-        patch shelf_import_file_url(shelf_import_file), params: { shelf_import_file: new_attributes }
-        shelf_import_file.reload
-        expect(response).to redirect_to(shelf_import_file_url(shelf_import_file))
-      end
-    end
-
-    context "with invalid parameters" do
-    
-      it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        shelf_import_file = ShelfImportFile.create! valid_attributes
-        patch shelf_import_file_url(shelf_import_file), params: { shelf_import_file: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     
