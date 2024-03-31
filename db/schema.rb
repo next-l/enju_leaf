@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_28_035847) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_31_091349) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1535,6 +1535,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_28_035847) do
     t.index ["series_statement_identifier"], name: "index_series_statements_on_series_statement_identifier"
   end
 
+  create_table "shelf_import_files", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_shelf_import_files_on_user_id"
+  end
+
   create_table "shelves", force: :cascade do |t|
     t.string "name", null: false
     t.text "display_name"
@@ -1909,6 +1916,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_28_035847) do
   add_foreign_key "reserves", "users"
   add_foreign_key "resource_export_files", "users"
   add_foreign_key "resource_import_files", "users"
+  add_foreign_key "shelf_import_files", "users"
   add_foreign_key "subjects", "roles", column: "required_role_id"
   add_foreign_key "subscriptions", "users"
   add_foreign_key "user_checkout_stats", "users"
