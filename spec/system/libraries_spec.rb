@@ -27,7 +27,7 @@ RSpec.describe 'Libraries', type: :system do
 
     it 'should show shelves' do
       visit library_path(libraries(:library_00002).id, locale: :ja, anchor: 'tab3')
-      expect(find(:xpath, '//div[@id="tab3"]')).to have_content "First shelf 0\nSecond shelf 0"
+      expect(find(:xpath, '//div[@id="tab3"]')).to have_content "First shelf 4\nSecond shelf 0"
     end
   end
 
