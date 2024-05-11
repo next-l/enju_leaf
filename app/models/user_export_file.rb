@@ -22,6 +22,10 @@ class UserExportFile < ApplicationRecord
 
   has_many :user_export_file_transitions, autosave: false, dependent: :destroy
 
+  def self.transition_class
+    UserExportFileTransition
+  end
+
   def state_machine
     UserExportFileStateMachine.new(self, transition_class: UserExportFileTransition)
   end

@@ -19,8 +19,11 @@ namespace :enju_library do
 
   desc "upgrade enju_library"
   task :upgrade => :environment do
-    Rake::Task['statesman:backfill_most_recent'].invoke('UserExportFile')
-    Rake::Task['statesman:backfill_most_recent'].invoke('UserImportFile')
+    %w(UserExportFile UserImportFile).each do |klass|
+      Rake::Task['statesman:backfill_most_recent'].invoke(klass)
+      Rake::Task['statesman:backfill_most_recent'].reenable
+    end
+
     library_group = LibraryGroup.site_config
     library_group.user = User.find(1)
     login_ja = <<"EOS"

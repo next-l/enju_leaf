@@ -15,6 +15,10 @@ class UserCheckoutStat < ApplicationRecord
 
   has_many :user_checkout_stat_transitions, autosave: false, dependent: :destroy
 
+  def self.transition_class
+    UserCheckoutStatTransition
+  end
+
   def state_machine
     UserCheckoutStatStateMachine.new(self, transition_class: UserCheckoutStatTransition)
   end

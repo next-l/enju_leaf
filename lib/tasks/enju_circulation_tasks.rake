@@ -39,11 +39,10 @@ namespace :enju_circulation do
 
   desc "upgrade enju_circulation"
   task upgrade: :environment do
-    Rake::Task['statesman:backfill_most_recent'].invoke('ManifestationCheckoutStat')
-    Rake::Task['statesman:backfill_most_recent'].invoke('ManifestationReserveStat')
-    Rake::Task['statesman:backfill_most_recent'].invoke('UserCheckoutStat')
-    Rake::Task['statesman:backfill_most_recent'].invoke('UserReserveStat')
-    Rake::Task['statesman:backfill_most_recent'].invoke('Reserve')
+    %w(ManifestationCheckoutStat ManifestationReserveStat UserCheckoutStat UserReserveStat Reserve).each do |klass|
+      Rake::Task['statesman:backfill_most_recent'].invoke(klass)
+      Rake::Task['statesman:backfill_most_recent'].reenable
+    end
     puts 'enju_circulation: The upgrade completed successfully.'
   end
 

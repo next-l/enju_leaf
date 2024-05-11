@@ -14,7 +14,9 @@ namespace :enju_event do
 
   desc "upgrade enju_circulation"
   task upgrade: :environment do
-    Rake::Task['statesman:backfill_most_recent'].invoke('EventExportFile')
-    Rake::Task['statesman:backfill_most_recent'].invoke('EventImportFile')
+    %w(EventExportFile EventImportFile).each do |klass|
+      Rake::Task['statesman:backfill_most_recent'].invoke(klass)
+      Rake::Task['statesman:backfill_most_recent'].reenable
+    end
   end
 end
