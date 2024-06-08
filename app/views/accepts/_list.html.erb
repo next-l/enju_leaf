@@ -1,14 +1,14 @@
 <div style="color: red"><%= flash[:message] -%></div>
 
 <div class="search_form">
-<%= form_for(:accept, url: accepts_path(basket_id: @basket.id), remote: true) do |f| %>
-  <%= error_messages(@accept) if @accept %>
-  <p>
-    <%= label_tag :item_identifier, t('activerecord.attributes.item.item_identifier') -%>:
-    <%= f.search_field :item_identifier, class: 'resource_item_identifier', value: nil -%>
-    <%= f.submit t('accept.accept'), 'data-disable-with' => t('page.saving') -%>
-  </p>
-<%- end -%>
+  <%= form_for(:accept, url: accepts_path(basket_id: @basket.id), local: false) do |f| %>
+    <%= error_messages(@accept) if @accept %>
+    <p>
+      <%= label_tag :item_identifier, t('activerecord.attributes.item.item_identifier') -%>:
+      <%= f.search_field :item_identifier, class: 'resource_item_identifier', value: nil -%>
+      <%= f.submit t('accept.accept'), 'data-disable-with' => t('page.saving') -%>
+    </p>
+  <%- end -%>
 </div>
 
 <table class="index">
