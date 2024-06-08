@@ -38,6 +38,10 @@ class ResourceImportFile < ApplicationRecord
 
   attr_accessor :mode, :library_id
 
+  def self.transition_class
+    ResourceImportFileTransition
+  end
+
   def state_machine
     ResourceImportFileStateMachine.new(self, transition_class: ResourceImportFileTransition)
   end

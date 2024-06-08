@@ -37,6 +37,10 @@ class AgentImportFile < ApplicationRecord
 
   attr_accessor :mode
 
+  def self.transition_class
+    AgentImportFileTransition
+  end
+
   def state_machine
     AgentImportFileStateMachine.new(self, transition_class: AgentImportFileTransition)
   end

@@ -23,6 +23,10 @@ class ResourceExportFile < ApplicationRecord
 
   has_many :resource_export_file_transitions, autosave: false, dependent: :destroy
 
+  def self.transition_class
+    ResourceExportFileTransition
+  end
+
   def state_machine
     ResourceExportFileStateMachine.new(self, transition_class: ResourceExportFileTransition)
   end

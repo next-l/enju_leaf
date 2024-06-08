@@ -38,6 +38,10 @@ class UserImportFile < ApplicationRecord
 
   attr_accessor :mode
 
+  def self.transition_class
+    UserImportFileTransition
+  end
+
   def state_machine
     UserImportFileStateMachine.new(self, transition_class: UserImportFileTransition)
   end
