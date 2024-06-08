@@ -57,7 +57,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 gem 'pundit'
-gem 'sunspot_rails'
+gem 'sunspot_rails', '~> 2.7'
 gem 'paperclip'
 gem 'paperclip-meta'
 gem 'acts_as_list'
