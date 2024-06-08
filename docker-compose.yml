@@ -130,7 +130,7 @@ services:
       retries: 3
 
   cantaloupe:
-    image: uclalibrary/cantaloupe:5.0.5-2
+    image: uclalibrary/cantaloupe:5.0.6-4
     expose:
       - 8182
     restart: always
