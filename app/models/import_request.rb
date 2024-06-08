@@ -13,6 +13,10 @@ class ImportRequest < ApplicationRecord
 
   has_many :import_request_transitions, autosave: false, dependent: :destroy
 
+  def self.transition_class
+    ImportRequestTransition
+  end
+
   def state_machine
     ImportRequestStateMachine.new(self, transition_class: ImportRequestTransition)
   end

@@ -15,6 +15,10 @@ class ManifestationCheckoutStat < ApplicationRecord
 
   has_many :manifestation_checkout_stat_transitions, autosave: false, dependent: :destroy
 
+  def self.transition_class
+    ManifestationCheckoutStatTransition
+  end
+
   def state_machine
     ManifestationCheckoutStatStateMachine.new(self, transition_class: ManifestationCheckoutStatTransition)
   end

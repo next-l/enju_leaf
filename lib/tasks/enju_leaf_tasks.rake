@@ -59,6 +59,8 @@ namespace :enju_leaf do
 
   desc 'Backfill migration versions before Next-L Enju Leaf 1.4'
   task :backfill_migration_versions => :environment do
+    Rake::Task['enju_leaf:upgrade'].invoke
+
     Dir.glob(Rails.root.join('db/migrate/*.rb')).each do |file|
 			entry = File.basename(file).split('_', 3)
       table_name = entry[2].gsub(/\.rb\z/, '')
@@ -78,6 +80,44 @@ namespace :enju_leaf do
       # enju_news
       next if [
         20081031033632, 20090126071155, 20110220103937
+      ].include?(version)
+
+      # enju_biblio
+      next if [
+        20170116150432, 20180107161347, 20180107161410,
+        20200425072340, 20200425072349, 20200425074758, 20200425074822
+      ].include?(version)
+
+      # enju_ndl
+      next if [
+        20171126072934, 20190501043418
+      ].include?(version)
+
+      # enju_inventory
+      next if [
+        20081117143156, 20081117143455, 20090706125521,
+        20120413100431, 20191224083828, 20191224091957, 20191230082846
+      ].include?(version)
+
+      # enju_event
+      next if [
+        20180107164558, 20180107164617
+      ].include?(version)
+
+      # enju_circulation
+      next if [
+        20180107161035, 20180107161951, 20180107162009,
+        20180107162029, 20180107162048
+      ].include?(version)
+
+      # enju_seed
+      next if [
+        20180107160726, 20180107160740
+      ].include?(version)
+
+      # enju_message
+      next if [
+        20180107162659
       ].include?(version)
 
       next if ActiveRecord::Base.connection.exec_query('SELECT version FROM schema_migrations WHERE version = $1', 'SQL', [[nil, version]]).first

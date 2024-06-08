@@ -547,7 +547,7 @@ DEPENDENCIES
   sitemap_generator
   statesman (~> 10.1.0)
   strip_attributes
-  sunspot_rails
+  sunspot_rails (~> 2.7)
   tzinfo-data
   vcr
   web-console (>= 4.1.0)

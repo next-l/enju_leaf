@@ -37,6 +37,10 @@ class EventImportFile < ApplicationRecord
 
   attr_accessor :mode
 
+  def self.transition_class
+    EventImportFileTransition
+  end
+
   def state_machine
     EventImportFileStateMachine.new(self, transition_class: EventImportFileTransition)
   end

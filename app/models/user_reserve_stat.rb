@@ -15,6 +15,10 @@ class UserReserveStat < ApplicationRecord
 
   has_many :user_reserve_stat_transitions, autosave: false, dependent: :destroy
 
+  def self.transition_class
+    UserReserveStatTransition
+  end
+
   def state_machine
     UserReserveStatStateMachine.new(self, transition_class: UserReserveStatTransition)
   end

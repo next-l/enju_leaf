@@ -1,15 +1,15 @@
 <div style="color: red"><%= flash[:message] -%></div>
 
 <div class="search_form">
-<%= form_for :checkin, html: {method: :post}, url: checkins_path(basket_id: @basket.id), remote: true do |f| -%>
-  <%= error_messages(@checkin) if @checkin %>
-  <p>
-    <%= label_tag :item_identifier, t('activerecord.attributes.item.item_identifier') -%>:
-    <%= f.search_field :item_identifier, class: 'resource_item_identifier' -%>
-    <%= f.submit t('checkin.checkin'), 'data-disable-with' => t('page.saving') -%>
-  </p>
-<%- end -%>
-<%= javascript_tag("$(function(){$('#checkin_item_identifier').focus().select()})") %>
+  <%= form_with(model: checkin, html: {method: :post}, url: checkins_path(basket_id: @basket.id), local: false) do |f| -%>
+    <%= error_messages(checkin) %>
+    <p>
+      <%= label_tag :item_identifier, t('activerecord.attributes.item.item_identifier') -%>:
+      <%= f.search_field :item_identifier, class: 'resource_item_identifier' -%>
+      <%= f.submit t('checkin.checkin'), 'data-disable-with' => t('page.saving') -%>
+    </p>
+  <%- end -%>
+  <%= javascript_tag("$(function(){$('#checkin_item_identifier').focus().select()})") %>
 </div>
 
 <%= render 'checkin' %>

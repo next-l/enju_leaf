@@ -15,6 +15,10 @@ class ManifestationReserveStat < ApplicationRecord
 
   has_many :manifestation_reserve_stat_transitions, autosave: false, dependent: :destroy
 
+  def self.transition_class
+    ManifestationReserveStatTransition
+  end
+
   def state_machine
     ManifestationReserveStatStateMachine.new(self, transition_class: ManifestationReserveStatTransition)
   end

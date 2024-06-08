@@ -64,6 +64,10 @@ class Reserve < ApplicationRecord
 
   paginates_per 10
 
+  def self.transition_class
+    ReserveTransition
+  end
+
   def state_machine
     ReserveStateMachine.new(self, transition_class: ReserveTransition)
   end

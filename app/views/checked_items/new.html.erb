@@ -1,13 +1,13 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.new', model: t('activerecord.models.checked_item')) -%></h1>
-<div id="content_list">
+  <h1 class="title"><%= t('page.new', model: t('activerecord.models.checked_item')) -%></h1>
+  <div id="content_list">
 
-  <div id="checked_item_list">
-    <p id="notice"><%= notice %></p>
-    <%= render 'list' -%>
+    <div id="checked_item_list">
+      <p id="notice"><%= notice %></p>
+      <%= render 'list', checked_item: @checked_item -%>
+    </div>
+    <%= render 'checkout' -%>
   </div>
-  <%= render 'checkout' -%>
-</div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
