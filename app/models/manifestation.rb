@@ -42,9 +42,9 @@ class Manifestation < ApplicationRecord
   has_one :lccn_record, dependent: :destroy
   has_one :ndl_bib_id_record, dependent: :destroy
 
-  accepts_nested_attributes_for :creators, allow_destroy: true, reject_if: :all_blank
-  accepts_nested_attributes_for :contributors, allow_destroy: true, reject_if: :all_blank
-  accepts_nested_attributes_for :publishers, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :creates, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :realizes, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :produces, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :series_statements, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :identifiers, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :manifestation_custom_values, reject_if: :all_blank
