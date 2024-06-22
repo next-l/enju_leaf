@@ -98,7 +98,7 @@ services:
       retries: 3
 
   cantaloupe:
-    image: uclalibrary/cantaloupe:5.0.5-7
+    image: uclalibrary/cantaloupe:5.0.6-4
     expose:
       - 8182
     restart: always
@@ -118,7 +118,7 @@ services:
       retries: 3
 
   tika:
-    image: apache/tika:2.9.1.0
+    image: apache/tika:2.9.2.1
     expose:
       - 9998
     restart: always
