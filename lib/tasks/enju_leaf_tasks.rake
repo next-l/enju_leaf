@@ -68,7 +68,7 @@ namespace :enju_leaf do
       version = entry[0].to_i
 
       # このバージョンより新しいマイグレーションファイルは対象外
-      next if version > 20201025090703
+      next if version >= 20201025090703
 
       # enju_bookmark
       next if [
