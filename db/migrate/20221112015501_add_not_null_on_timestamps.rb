@@ -8,7 +8,8 @@ class AddNotNullOnTimestamps < ActiveRecord::Migration[6.1]
         'active_storage_blobs',
         'active_storage_attachments',
         'active_storage_variant_records',
-        'friendly_id_slugs'
+        'friendly_id_slugs',
+        'versions'
       ].include?(table)
 
       change_column_null table, :created_at, false
