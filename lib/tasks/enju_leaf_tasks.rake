@@ -93,12 +93,6 @@ namespace :enju_leaf do
         20171126072934, 20190501043418
       ].include?(version)
 
-      # enju_inventory
-      next if [
-        20081117143156, 20081117143455, 20090706125521,
-        20120413100431, 20191224083828, 20191224091957, 20191230082846
-      ].include?(version)
-
       next if ActiveRecord::Base.connection.exec_query('SELECT version FROM schema_migrations WHERE version = $1', 'SQL', [[nil, version]]).first
 
       ActiveRecord::Base.connection.exec_query('INSERT INTO schema_migrations (version) VALUES ($1)', 'SQL', [[nil, version]])
