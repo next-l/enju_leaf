@@ -48,11 +48,16 @@ class Reserve < ApplicationRecord
   }
   validate :valid_item?
   validate :retained_by_other_user?
+  validate :check_expired_at
   before_validation :set_manifestation, on: :create
   before_validation :set_item
-  validate :check_expired_at
   before_validation :set_user, on: :update
   before_validation :set_request_status, on: :create
+
+  after_create do
+    transition_to!(:requested)
+  end
+
   after_save do
     if item
       item.checkouts.map{|checkout| checkout.index}

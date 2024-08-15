@@ -20,7 +20,6 @@ describe CheckedItem do
   it "should checkout an item that its reservation is expired" do
     item = items(:item_00024)
     reserve = FactoryBot.create(:reserve, manifestation: item.manifestation)
-    reserve.transition_to!(:requested)
     reserve.transition_to!(:expired)
     checked_item = CheckedItem.new
     checked_item.item = item
