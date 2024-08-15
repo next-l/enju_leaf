@@ -1,0 +1,73 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+@import 'bootstrap/scss/bootstrap';
+
+$fa-font-path: ".";
+
+@import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "@fortawesome/fontawesome-free/scss/solid.scss";
+
+div.container {
+  max-width: 1170px;
+}
+
+header {
+  background-color: #F0FFF0;
+}
+
+section.border {
+  background-color: #F5F5F5;
+}
+
+div.form-group-row {
+  padding: 0.5rem 2rem;
+}
+.form-group-row h3 { padding-top: 0.5rem; font-size: 1.5rem; }
+@media (min-width: 576px) {
+ .form-group-row .one-line { margin-top: 0.4rem; display:flex; }
+ .form-group-row .one-line>label { min-width: 8rem; }
+ .form-group-row .one-line .with-matvoc { min-width: 8rem; }
+}
+
+div.form-group-outer {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color:#fff; padding:0.6rem 1rem;
+}
+
+header {
+  box-shadow: 0 0.2rem 0.125rem 0 rgba(0,0,0,0.05);
+  margin-bottom: 1rem;
+}
+
+.bg-in_review {
+  background-color: #ed9121;
+  color: #fff;
+}
+
+.bg-rejected {
+  background-color: #ed9121;
+  color: #fff;
+}
+
+.bg-approved {
+  background-color: #cc338b;
+  color: #fff;
+}
+
+.bg-under-embargo {
+  background-color: #808080;
+  color: #fff;
+}

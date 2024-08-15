@@ -116,6 +116,8 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
+    cssbundling-rails (1.4.1)
+      railties (>= 6.0.0)
     csv (3.3.0)
     database_consistency (1.7.23)
       activerecord (>= 3.2)
@@ -213,6 +215,8 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (4.2.1)
       railties (>= 3.2.16)
+    jsbundling-rails (1.3.1)
+      railties (>= 6.0.0)
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.2)
@@ -304,8 +308,6 @@ GEM
     rack-protection (3.2.0)
       base64 (>= 0.1.0)
       rack (~> 2.2, >= 2.2.4)
-    rack-proxy (0.7.7)
-      rack
     rack-test (2.1.0)
       rack (>= 1.3)
     rails (7.0.8.4)
@@ -428,7 +430,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    semantic_range (3.0.0)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -442,10 +443,9 @@ GEM
       tilt (~> 2.0)
     sitemap_generator (6.3.0)
       builder (~> 3.0)
-    sprockets (3.7.3)
-      base64
+    sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
-      rack (> 1, < 3)
+      rack (>= 2.2.4, < 4)
     sprockets-rails (3.5.2)
       actionpack (>= 6.1)
       activesupport (>= 6.1)
@@ -486,11 +486,6 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webpacker (5.4.4)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     websocket (1.2.11)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
@@ -520,6 +515,7 @@ DEPENDENCIES
   caxlsx
   caxlsx_rails
   cocoon
+  cssbundling-rails
   database_consistency
   date_validator
   debug
@@ -535,6 +531,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   jquery-ui-rails (~> 4.2.1)
+  jsbundling-rails
   kaminari
   kramdown
   kt-paperclip
@@ -563,7 +560,6 @@ DEPENDENCIES
   selenium-webdriver
   simplecov
   sitemap_generator
-  sprockets (~> 3.7)
   sprockets-rails
   statesman (~> 12.1)
   strip_attributes
@@ -572,7 +568,6 @@ DEPENDENCIES
   vcr
   web-console
   webmock
-  webpacker (~> 5.0)
 
 RUBY VERSION
    ruby 3.2.4p170

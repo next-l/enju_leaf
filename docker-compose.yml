@@ -10,7 +10,7 @@ x-app: &app
   env_file:
     - .env
   environment:
-    - no_proxy: localhost,web,workers,tika
+    no_proxy: localhost,web,workers,tika
   build:
     context: .
     args:
@@ -32,10 +32,8 @@ services:
   web:
     <<: *app
     command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -b 0.0.0.0"
-    environment:
-      - WEBPACKER_DEV_SERVER_HOST=webpacker
-    expose:
-      - 3000
+    ports:
+      - 3000:3000
 
   workers:
     <<: *app
