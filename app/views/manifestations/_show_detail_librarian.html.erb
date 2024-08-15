@@ -144,6 +144,6 @@
     <%- if policy(Item).create? -%>
       <p><%= link_to t('page.new', model: t('activerecord.models.item')), new_item_path(manifestation_id: manifestation.id) -%></p>
     <%- end -%>
-    <%= render 'manifestations/tab_list', manifestation: manifestation %>
     </div>
+    <%= render 'manifestations/tab_list', manifestation: manifestation %>
   </div>

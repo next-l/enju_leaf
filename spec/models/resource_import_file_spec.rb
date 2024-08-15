@@ -44,6 +44,8 @@ describe ResourceImportFile do
         manifestation_101.items.order(:id).last.call_number.should eq '007|A'
         manifestation_101.serial.should be_falsy
         expect(manifestation_101.required_role.name).to eq 'Administrator'
+        expect(manifestation_101.date_of_publication).to eq Time.zone.parse('2001-01-01')
+        expect(manifestation_101.year_of_publication).to eq 2001
 
         item_10101 = Item.find_by(item_identifier: '10101')
         item_10101.manifestation.creators.size.should eq 2
@@ -74,6 +76,8 @@ describe ResourceImportFile do
         expect(item_10101.manifestation.memo).to eq '書誌メモ1'
         expect(item_10101.manifestation.required_role.name).to eq 'Guest'
         expect(item_10101.required_role.name).to eq 'Guest'
+        expect(item_10101.manifestation.pub_date).to eq '2001'
+        expect(item_10101.manifestation.year_of_publication).to eq 2001
 
         item_10102 = Item.find_by(item_identifier: '10102')
         item_10102.manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
@@ -131,6 +135,9 @@ describe ResourceImportFile do
         expect(manifestation_104.original_title).to eq 'test10'
         manifestation_104.creators.pluck(:full_name).should eq ['test3']
         manifestation_104.publishers.pluck(:full_name).should eq ['test4']
+        expect(item_10104.manifestation.pub_date).to eq '2001-1-1'
+        expect(item_10104.manifestation.date_of_publication).to eq Time.zone.parse('2001-01-01')
+
         manifestation_105 = Manifestation.find_by(manifestation_identifier: '105')
         manifestation_105.serial.should be_truthy
 

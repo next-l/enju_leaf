@@ -1,5 +1,5 @@
-<%= form_for(@identifier_type) do |f| -%>
-  <%= error_messages(@identifier_type) -%>
+<%= form_with(model: identifier_type) do |f| -%>
+  <%= error_messages(identifier_type) -%>
 
   <div class="field">
     <%= f.label :name -%><br />

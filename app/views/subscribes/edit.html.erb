@@ -2,7 +2,7 @@
   <h1 class="title card-header"><%= t('page.editing', model: t('activerecord.models.subscribe')) -%></h1>
   <div id="content_list" class="card-body">
 
-  <%= form_for(@subscribe) do |f| -%>
+  <%= form_with(model: @subscribe) do |f| -%>
     <%= error_messages(@subscribe) -%>
 
     <div class="field">

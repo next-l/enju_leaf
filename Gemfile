@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.2.3"
+ruby "3.2.4"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.8"
@@ -73,7 +73,7 @@ end
 
 gem 'devise'
 gem 'pundit'
-gem 'sunspot_rails'
+gem 'sunspot_rails', '~> 2.7'
 gem 'kt-paperclip'
 gem 'acts_as_list'
 gem 'kaminari'

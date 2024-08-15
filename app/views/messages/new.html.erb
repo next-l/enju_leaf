@@ -3,7 +3,7 @@
 <div id="content_list" class="card-body">
   <fieldset>
 
-    <%= form_for(@message, url: messages_path) do |f| -%>
+    <%= form_with(model: @message) do |f| -%>
       <%= error_messages(@message) -%>
 
       <div class="field">

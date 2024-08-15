@@ -1,7 +1,7 @@
 <div id="content_detail" class="col col-md-9 ui-corner-all">
   <h1 class="title card-header"><%= t('page.editing', model: t('activerecord.models.news_feed')) -%></h1>
   <div id="content_list" class="card-body">
-    <%= render 'form' %>
+    <%= render 'form', news_feed: @news_feed %>
   </div>
 </div>
 

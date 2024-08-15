@@ -1,5 +1,5 @@
-<%= form_for(@carrier_type_has_checkout_type) do |f| -%>
-  <%= error_messages(@carrier_type_has_checkout_type) -%>
+<%= form_with(model: carrier_type_has_checkout_type) do |f| -%>
+  <%= error_messages(carrier_type_has_checkout_type) -%>
 
   <div class="field">
     <%= f.label t('activerecord.models.carrier_type') -%><br />

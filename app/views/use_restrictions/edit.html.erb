@@ -1,8 +1,8 @@
 <div id="content_detail" class="col col-md-9">
-<h1 class="title card-header"><%= t('page.editing', model: t('activerecord.models.use_restriction')) -%></h1>
-<div id="content_list" class="card-body">
-  <%= render 'form' %>
-</div>
+  <h1 class="title card-header"><%= t('page.editing', model: t('activerecord.models.use_restriction')) -%></h1>
+  <div id="content_list" class="card-body">
+    <%= render 'form', use_restriction: @use_restriction %>
+  </div>
 </div>
 
 <div id="submenu" class="col">

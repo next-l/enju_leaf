@@ -2,7 +2,7 @@
   <h1 class="title card-header"><%= t('page.editing', model: t('activerecord.models.series_statement_merge')) -%></h1>
   <div id="content_list" class="card-body">
 
-  <%= form_for(@series_statement_merge) do |f| -%>
+  <%= form_with(model: @series_statement_merge) do |f| -%>
     <%= error_messages(@series_statement_merge) -%>
 
     <div class="field">

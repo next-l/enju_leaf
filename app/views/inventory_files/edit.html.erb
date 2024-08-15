@@ -1,9 +1,7 @@
 <div id="content_detail" class="col col-md-9">
   <h1 class="title card-header"><%= t('page.editing', :model => t('activerecord.models.inventory_file')) -%></h1>
   <div id="content_list" class="card-body">
-
-    <%= render 'form' %>
-
+    <%= render 'form', inventory_file: @inventory_file %>
   </div>
 </div>
 

@@ -2,7 +2,7 @@
   <h1 class="title card-header"><%= t('page.new', model: t('activerecord.models.user_import_file')) -%></h1>
   <div id="content_list" class="card-body">
 
-  <%= form_for(@user_import_file, html: { multipart: true }) do |f| %>
+  <%= form_with(model: @user_import_file) do |f| %>
     <%= error_messages(@user_import_file) -%>
 
     <div class="field">

@@ -1,10 +1,10 @@
-<%= form_for(@agent_relationship) do |f| %>
-  <%= error_messages(@agent_relationship) -%>
+<%= form_with(model: agent_relationship) do |f| %>
+  <%= error_messages(agent_relationship) -%>
 
   <div class="field">
-    <% if @agent_relationship.try(:parent) %>
+    <% if agent_relationship.try(:parent) %>
       <%= f.label :parent %><br />
-      <%= link_to @agent_relationship.parent.full_name, @agent_relationship.parent %>
+      <%= link_to agent_relationship.parent.full_name, agent_relationship.parent %>
       <%= f.hidden_field :parent_id %>
     <% else %>
       <%= f.label :parent %><br />
@@ -12,9 +12,9 @@
     <% end %>
   </div>
   <div class="field">
-    <% if @agent_relationship.child.try(:full_name) %>
+    <% if agent_relationship.child.try(:full_name) %>
       <%= f.label :child %><br />
-      <%= link_to @agent_relationship.child.full_name, @agent_relationship.child %>
+      <%= link_to agent_relationship.child.full_name, agent_relationship.child %>
       <%= f.hidden_field :child_id %>
     <% else %>
       <%= f.label :child %><br />
@@ -23,7 +23,7 @@
   </div>
   <div class="field">
     <%= f.label :agent_relationship_type_id %><br />
-    <%= f.select(:agent_relationship_type_id, @agent_relationship_types.collect{|r| [r.display_name.localize, r.id]}) -%>
+    <%= f.select(:agent_relationship_type_id, agent_relationship_types.collect{|r| [r.display_name.localize, r.id]}) -%>
   </div>
   <div class="actions">
     <%= f.submit %>

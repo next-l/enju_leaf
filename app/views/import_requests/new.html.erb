@@ -3,7 +3,7 @@
   <div id="content_list" class="card-body">
   <p id="notice"><%= notice %></p>
 
-  <%= form_for(@import_request) do |f| -%>
+  <%= form_with(model: @import_request) do |f| -%>
     <%= error_messages(@import_request) -%>
     <div class="field">
       <%= f.label :isbn -%><br />
