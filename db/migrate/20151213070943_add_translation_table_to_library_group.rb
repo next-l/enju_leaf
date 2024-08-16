@@ -12,7 +12,7 @@ class AddTranslationTableToLibraryGroup < ActiveRecord::Migration[4.2]
 
   def down
     if defined?(Globalize)
-      LibraryGroup.drop_translation_table! migrate_data: true
+      LibraryGroup.drop_translation_table! # migrate_data: true
     end
   end
 end

@@ -1,5 +1,5 @@
 class CreateCheckouts < ActiveRecord::Migration[4.2]
-  def self.up
+  def up
     create_table :checkouts do |t|
       t.references :user, index: true, foreign_key: true
       t.references :item, index: true, foreign_key: true, null: false
@@ -14,7 +14,7 @@ class CreateCheckouts < ActiveRecord::Migration[4.2]
     add_index :checkouts, [:item_id, :basket_id], unique: true
   end
 
-  def self.down
+  def down
     drop_table :checkouts
   end
 end

@@ -1,10 +1,10 @@
 class AddManifestaitonIdToSeriesStatement < ActiveRecord::Migration[4.2]
-  def self.up
+  def up
     add_column :series_statements, :manifestation_id, :integer
     add_index :series_statements, :manifestation_id
   end
 
-  def self.down
+  def down
     remove_column :series_statements, :manifestation_id
   end
 end
