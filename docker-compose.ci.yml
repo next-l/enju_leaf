@@ -1,5 +1,3 @@
-version: '3.8'
-
 volumes:
   postgres:
   solr:
@@ -12,7 +10,7 @@ x-app: &app
   env_file:
     - .env
   environment:
-    - no_proxy: localhost,web,workers,tika
+    no_proxy: localhost,web,workers,tika
   build:
     context: .
     args:
@@ -33,9 +31,7 @@ x-app: &app
 services:
   web:
     <<: *app
-    command: bash -c "rm -f tmp/pids/server.pid && rails s -b 0.0.0.0"
-    environment:
-      - WEBPACKER_DEV_SERVER_HOST=webpacker
+    command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -b 0.0.0.0"
     expose:
       - 3000
 
@@ -65,7 +61,7 @@ services:
       retries: 3
 
   cantaloupe:
-    image: uclalibrary/cantaloupe:5.0.5-7
+    image: uclalibrary/cantaloupe:5.0.6-4
     ports:
       - 127.0.0.1:8182:8182
     restart: always
@@ -85,7 +81,7 @@ services:
       retries: 3
 
   tika:
-    image: apache/tika:2.8.0.0
+    image: apache/tika:2.9.2.1
     ports:
       - 127.0.0.1:9998:9998
     restart: always
