@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :message do
-    recipient{ FactoryBot.create(:user).username }
+    recipient { 'user1' }
     association :sender, factory: :user
     subject { 'new message' }
     body { 'new message body is really short' }
