@@ -23,7 +23,7 @@ class AddIndexToLibrariesOnName < ActiveRecord::Migration[6.1]
       :manifestation_custom_properties,
       :nii_types,
     ].each do |table|
-      remove_index table, :name
+      remove_index table, :name, if_exists: true
     end
 
     [
