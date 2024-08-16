@@ -1,10 +1,10 @@
 <div id="content_detail" class="col col-md-9">
-<h1 class="title card-header"><%= t('page.new', model: t('activerecord.models.withdraw')) -%></h1>
-<div id="content_list" class="card-body">
-  <div id="withdraw_list">
-    <%= render 'list' -%>
+  <h1 class="title card-header"><%= t('page.new', model: t('activerecord.models.withdraw')) -%></h1>
+  <div id="content_list" class="card-body">
+    <div id="withdraw_list">
+      <%= render 'list', withdraw: @withdraw -%>
+    </div>
   </div>
-</div>
 </div>
 
 <div id="submenu" class="col">

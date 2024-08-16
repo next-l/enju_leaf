@@ -1,1 +1,1 @@
-$("#withdraw_list").html("<%= escape_javascript(render('withdraws/list')) %>");
+$("#withdraw_list").html("<%= escape_javascript(render('withdraws/list', withdraw: @withdraw)) %>");
