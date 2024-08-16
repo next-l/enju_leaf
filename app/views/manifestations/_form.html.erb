@@ -18,20 +18,20 @@
 
   <div class="field">
     <%= f.label :original_title -%><br />
-    <%= f.text_field :original_title, class: 'resource_title' -%>
+    <%= f.text_field :original_title, class: 'form-control' -%>
   </div>
   <div class="field">
     <%= f.label :title_transcription -%><br />
-    <%= f.text_field :title_transcription, class: 'resource_title' -%>
+    <%= f.text_field :title_transcription, class: 'form-control' -%>
   </div>
   <div class="field">
     <%= f.label :title_alternative -%><br />
-    <%= f.text_field :title_alternative, class: 'resource_title' -%>
+    <%= f.text_field :title_alternative, class: 'form-control' -%>
   </div>
 
   <div class="field">
     <%= f.label :statement_of_responsibility %><br />
-    <%= f.text_field :statement_of_responsibility, class: 'resource_title' -%>
+    <%= f.text_field :statement_of_responsibility, class: 'form-control' -%>
   </div>
 
   <div class="field">
@@ -101,7 +101,7 @@
 
   <div class="field">
     <%= f.label :publication_place -%>
-      <%= f.text_field :publication_place, class: 'resource_title' %>
+      <%= f.text_field :publication_place, class: 'form-control' %>
   </div>
 
   <div class="field">
@@ -111,7 +111,7 @@
 
   <div class="field">
     <%= f.label t('page.file') -%>
-    <%= f.file_field :attachment -%>
+    <%= f.file_field :attachment, class: 'form-control' -%>
   </div>
 
   <% if f.object.attachment.present? %>
@@ -192,7 +192,7 @@
 
   <div class="field">
     <%= f.label :manifestation_identifier -%><br />
-    <%= f.text_field :manifestation_identifier, class: 'resource_identifier_body', style: 'ime-mode: disabled' -%>
+    <%= f.text_field :manifestation_identifier, class: 'form-control', style: 'ime-mode: disabled' -%>
   </div>
 
   <% if defined?(EnjuSubject) %>
@@ -228,7 +228,7 @@
 
   <div class="field">
     <%= f.label :access_address -%><br />
-    <%= f.url_field :access_address, class: 'resource_url' -%>
+    <%= f.url_field :access_address, class: 'form-control' -%>
   </div>
 
   <div class="field">
@@ -251,22 +251,22 @@
 
   <div class="field">
     <%= f.label :abstract -%><br />
-    <%= f.text_area :abstract, class: 'resource_textarea' -%>
+    <%= f.text_area :abstract, class: 'form-control' -%>
   </div>
 
   <div class="form-group">
     <%= f.label :description -%><br />
-    <%= f.text_area :description, class: 'resource_textarea' -%>
+    <%= f.text_area :description, class: 'form-control' -%>
   </div>
 
   <div class="field">
     <%= f.label :note -%><br />
-    <%= f.text_area :note, class: 'resource_textarea' -%>
+    <%= f.text_area :note, class: 'form-control' -%>
   </div>
 
   <div class="field">
     <%= f.label :memo -%><br />
-    <%= f.text_area :memo, class: 'resource_textarea' -%>
+    <%= f.text_area :memo, class: 'form-control' -%>
   </div>
 
   <div class="actions">
