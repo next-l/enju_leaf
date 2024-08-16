@@ -6,7 +6,7 @@
     maxZoom: 18
 }).addTo(mymap);
   L.marker([<%= @library.latitude %>, <%= @library.longitude %>]).addTo(mymap).bindPopup('<%= @library.display_name.localize %>').openPopup();
-  jQuery(document).ready(function ($) {
+  document.addEventListener('DOMContentLoaded', function() {
     mymap.invalidateSize();
   });
 </script>

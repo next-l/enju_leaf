@@ -12,8 +12,8 @@
     </p>
   <%- end -%>
 
-  <script type="text/javascript">
-  $(document).ready(function(){
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
     $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
     $('#checked_item_item_identifier').focus().select();
   });

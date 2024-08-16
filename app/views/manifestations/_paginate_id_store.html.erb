@@ -1,19 +1,19 @@
 <% if flash[:search_query] %>
   <script>
-    $(function(){
+    document.addEventListener('DOMContentLoaded', function() {
       if(typeof sessionStorage === "undefined"){
         return;
       }else{
-        var ids = JSON.parse(sessionStorage.getItem("ids_<%= flash[:search_query] %>"));
-        var query = sessionStorage.getItem("query_<%= flash[:search_query] %>");
-        var index = $.inArray(<%= manifestation.id %>, ids);
+        const ids = JSON.parse(sessionStorage.getItem("ids_<%= flash[:search_query] %>"));
+        const query = sessionStorage.getItem("query_<%= flash[:search_query] %>");
+        const index = $.inArray(<%= manifestation.id %>, ids);
         if(ids[index - 1] > 0){
-          $("#prev_link").html('<a href="<%= manifestations_path %>/' + ids[index - 1] + '"><%= t('page.previous') %></a>');
+          document.getElementById("prev_link").html('<a href="<%= manifestations_path %>/' + ids[index - 1] + '"><%= t('page.previous') %></a>');
         };
         if(ids[index + 1] > 0){
-          $("#next_link").html('<a href="<%= manifestations_path %>/' + ids[index + 1] + '"><%= t('page.next') %></a>');
+          document.getElementById("next_link").html('<a href="<%= manifestations_path %>/' + ids[index + 1] + '"><%= t('page.next') %></a>');
         };
-        $("#back_link").html('<a href="<%= manifestations_path %>?' + query + '"><%= t('page.back_to_index') %></a>');
+        document.getElementById("back_link").html('<a href="<%= manifestations_path %>?' + query + '"><%= t('page.back_to_index') %></a>');
       };
     });
   </script>

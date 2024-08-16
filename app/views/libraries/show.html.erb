@@ -77,8 +77,8 @@
                 <%- shelf.picture_files.each do |picture_file| -%>
                   <%= link_to image_tag('icons/picture.png', size: '16x16', class: 'enju_icon', alt: t('page.picture')), rails_blob_path(picture_file.attachment), rel: "shelf_#{h(shelf.id)}" if picture_file.attachment.attached? -%>
                 <%- end -%>
-                <script type="text/javascript">
-                  $(document).ready(function(){
+                <script>
+                  document.addEventListener('DOMContentLoaded', function() {
                     $("a[rel='shelf_<%= shelf.id -%>']").colorbox({transition:"none", photo:true});
                   })
                 </script>
