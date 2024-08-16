@@ -293,7 +293,7 @@ GEM
       faraday-follow_redirects (>= 0.3.0, < 2)
     options (2.3.2)
     orm_adapter (0.5.0)
-    parallel (1.26.2)
+    parallel (1.26.3)
     parallel_tests (4.7.1)
       parallel
     pg (1.5.7)
@@ -593,7 +593,7 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 RUBY VERSION
-   ruby 3.2.4p170
+   ruby 3.2.5p208
 
 BUNDLED WITH
    2.4.19

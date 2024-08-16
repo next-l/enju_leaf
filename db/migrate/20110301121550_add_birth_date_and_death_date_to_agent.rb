@@ -1,10 +1,10 @@
 class AddBirthDateAndDeathDateToAgent < ActiveRecord::Migration[4.2]
-  def self.up
+  def up
     add_column :agents, :birth_date, :string
     add_column :agents, :death_date, :string
   end
 
-  def self.down
+  def down
     remove_column :agents, :death_date
     remove_column :agents, :birth_date
   end
