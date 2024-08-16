@@ -4,7 +4,7 @@ module Paperclip
     def type_from_file_command
       begin
         Paperclip.run("LANG=C file", "-b --mime-type :file", :file => @file.path)
-      rescue Cocaine::CommandLineError
+      rescue Terrapin::CommandLineError
         ""
       end
     end

@@ -32,7 +32,7 @@ x-app: &app
 services:
   web:
     <<: *app
-    command: bash -c "rm -f tmp/pids/server.pid && rails s -b 0.0.0.0"
+    command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -b 0.0.0.0"
     environment:
       - WEBPACKER_DEV_SERVER_HOST=webpacker
     expose:
