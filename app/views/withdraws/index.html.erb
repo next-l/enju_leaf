@@ -36,7 +36,11 @@
     </tr>
   <%- end -%>
 </table>
-  <%= javascript_tag("$(function(){$('#withdraw_item_identifier').focus()})") %>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('withdraw_item_identifier').focus();
+    });
+  </script>
 
   <%= paginate(@withdraws) %>
 </div>

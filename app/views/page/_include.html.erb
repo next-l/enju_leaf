@@ -23,24 +23,3 @@
   }
 <% end %>
 </style>
-
-<script>
-  $(function(){
-    <% @library_group.colors.each do |color|
-    case color.property
-    when 'header_title' %>
-      $('.title').addClass('enju_<%= color.property %>');
-      $('div.digg_pagination>span.current').addClass('enju_<%= color.property %>');
-    <% when 'table_line0' %>
-      $('tr.line0').addClass('enju_<%= color.property %>');
-    <% when 'table_line1' %>
-      $('tr.line1').addClass('enju_<%= color.property %>');
-    <% when 'table_border' %>
-      $('tr>th').addClass('enju_<%= color.property %>');
-      $('tr>td').addClass('enju_<%= color.property %>');
-      $('div.digg_pagination>span.current').addClass('enju_<%= color.property %>');
-      $('div.digg_pagination>a').addClass('enju_<%= color.property %>');
-    <% end %>
-  <% end %>
-});
-</script>

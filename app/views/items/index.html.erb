@@ -11,7 +11,6 @@
     <%= label_tag :search_form_top, t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {id: 'search_form_top', class: 'search_form', placeholder: t('page.search_term')} -%>
     <%= hidden_field_tag :manifestation_id, @manifestation.id if @manifestation -%>
     <%= submit_tag t('page.search') -%>
-    <%= set_focus_on_search_form -%>
     <br />
     <%= t('activerecord.attributes.item.acquired_at') %>:
     <%= t('advanced_search.from') %>
@@ -80,3 +79,9 @@
     <%= render 'items/circulation_status_facet' %>
   <% end %>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('search_form_top').focus();
+  });
+</script>

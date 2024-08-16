@@ -8,4 +8,9 @@
     </p>
   <%- end -%>
 </div>
-<%= javascript_tag("$(function(){$('#query').focus()})") %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('query').focus();
+  });
+</script>

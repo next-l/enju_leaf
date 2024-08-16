@@ -107,7 +107,10 @@ module EnjuLeaf
 
     # 検索フォームにフォーカスを移動するJavaScriptを表示します。
     def set_focus_on_search_form
-      javascript_tag("$(function(){$('#search_form').focus()})") if @query.blank?
+      javascript_tag("
+        document.addEventListener('DOMContentLoaded', function() {
+          document.getElementById('search_form_top').focus();
+      });") if @query.blank?
     end
 
     # Markdownの文字列をパースして表示します。

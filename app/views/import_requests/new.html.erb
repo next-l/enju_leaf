@@ -11,7 +11,11 @@
 
       <%= f.submit 'data-disable-with' => t('page.saving') %>
     </div>
-    <%= javascript_tag("$(function(){$('#import_request_isbn').focus()})") %>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('import_request_isbn').focus();
+      });
+    </script>
   <%- end -%>
 
   </div>

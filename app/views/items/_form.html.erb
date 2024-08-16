@@ -121,5 +121,10 @@
     <%= f.hidden_field :lock_version %>
     <%= f.submit data: {disable_with: t('page.saving')} -%>
   </div>
-  <%= javascript_tag("$(function(){$('#library_id').focus()})") %>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('library_id').focus();
+    });
+  </script>
 <%- end -%>

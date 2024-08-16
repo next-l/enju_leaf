@@ -21,7 +21,6 @@
       <% else %>
         <%= render 'index_form' %>
       <% end %>
-      <%= set_focus_on_search_form %>
 
       <% if @parent %>
         <%= render 'show_parent' %>
@@ -119,6 +118,12 @@
   </div>
 </div>
 
-  <% if @manifestation_ids and @search_query %>
-    <%= render 'session_ids' %>
-  <% end %>
+<% if @manifestation_ids and @search_query %>
+  <%= render 'session_ids' %>
+<% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('search_form_top').focus();
+  });
+</script>

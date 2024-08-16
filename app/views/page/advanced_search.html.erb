@@ -121,7 +121,11 @@
     </tr>
   </table>
 <%- end -%>
-<%= javascript_tag("$(function(){$('#query').focus()})") %>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('query').focus();
+  });
+</script>
 </div>
 </div>
 

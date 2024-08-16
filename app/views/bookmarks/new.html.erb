@@ -38,7 +38,11 @@
     <div class="actions">
       <%= f.submit %>
     </div>
-    <%= javascript_tag("$(function(){$('#bookmark_tag_list').focus()})") %>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('bookmark_tag_list').focus();
+      });
+    </script>
   <%- end -%>
   </div>
 </div>

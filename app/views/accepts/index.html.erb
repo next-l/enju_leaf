@@ -36,7 +36,11 @@
     </tr>
   <%- end -%>
 </table>
-  <%= javascript_tag("$(function(){$('#accept_item_identifier').focus()})") %>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('accept_item_identifier').focus();
+    });
+  </script>
 
   <%= paginate(@accepts) %>
 </div>

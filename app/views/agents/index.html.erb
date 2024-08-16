@@ -11,4 +11,9 @@
 <%- else -%>
   <%= render 'index' -%>
 <%- end -%>
-<%= set_focus_on_search_form -%>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('search_form_top').focus();
+  });
+</script>

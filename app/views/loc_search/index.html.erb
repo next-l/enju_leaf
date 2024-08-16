@@ -39,7 +39,11 @@
 <%= paginate(@books) %>
 
 <% else %>
-  <%= javascript_tag("$(function(){$('#search_form_top').focus()})") -%>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('search_form_top').focus();
+    });
+  </script>
 <% end %>
 
 </div>
