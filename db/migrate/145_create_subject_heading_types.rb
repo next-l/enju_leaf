@@ -1,5 +1,5 @@
 class CreateSubjectHeadingTypes < ActiveRecord::Migration[4.2]
-  def self.up
+  def up
     create_table :subject_heading_types do |t|
       t.string :name, null: false
       t.text :display_name
@@ -10,7 +10,7 @@ class CreateSubjectHeadingTypes < ActiveRecord::Migration[4.2]
     end
   end
 
-  def self.down
+  def down
     drop_table :subject_heading_types
   end
 end

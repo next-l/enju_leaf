@@ -1,12 +1,12 @@
 class AddAttachmentsInventoryToInventoryFile < ActiveRecord::Migration[4.2]
-  def self.up
-    add_column :inventory_files, :inventory_file_name, :string
-    add_column :inventory_files, :inventory_content_type, :string
-    add_column :inventory_files, :inventory_file_size, :integer
-    add_column :inventory_files, :inventory_updated_at, :datetime
+  def up
+    add_column :inventory_files, :inventory_file_name, :string, if_not_exists: true
+    add_column :inventory_files, :inventory_content_type, :string, if_not_exists: true
+    add_column :inventory_files, :inventory_file_size, :integer, if_not_exists: true
+    add_column :inventory_files, :inventory_updated_at, :datetime, if_not_exists: true
   end
 
-  def self.down
+  def down
     remove_column :inventory_files, :inventory_file_name
     remove_column :inventory_files, :inventory_content_type
     remove_column :inventory_files, :inventory_file_size
