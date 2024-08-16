@@ -1,5 +1,5 @@
 class CreateCheckins < ActiveRecord::Migration[4.2]
-  def self.up
+  def up
     create_table :checkins do |t|
       t.references :item, index: true, foreign_key: true, null: false
       t.references :librarian, index: true
@@ -8,7 +8,7 @@ class CreateCheckins < ActiveRecord::Migration[4.2]
     end
   end
 
-  def self.down
+  def down
     drop_table :checkins
   end
 end
