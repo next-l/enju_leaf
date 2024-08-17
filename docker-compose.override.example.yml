@@ -1,5 +1,6 @@
 volumes:
   minio:
+  redis:
 
 x-app: &app
   env_file:
@@ -11,7 +12,6 @@ x-app: &app
       - GID=${GID}
       - http_proxy=${http_proxy}
       - https_proxy=${http_proxy}
-  image: ghcr.io/next-l/enju_leaf:1.4
   networks:
     internal:
   volumes:
@@ -28,8 +28,6 @@ services:
     environment:
       - NODE_ENV=development
       - WEBPACKER_DEV_SERVER_HOST=127.0.0.1
-    profiles:
-      - develop
     command: ./bin/webpack-dev-server
     ports:
       - 127.0.0.1:3035:3035
@@ -54,6 +52,24 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
       timeout: 20s
+      retries: 3
+    profiles:
+      - develop
+
+  redis:
+    image: redis:6
+    volumes:
+      - redis:/data
+    command: redis-server --appendonly yes
+    networks:
+      internal:
+    expose:
+      - 6379
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping"]
+      interval: 30s
+      timeout: 5s
       retries: 3
     profiles:
       - develop
