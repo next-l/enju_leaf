@@ -30,9 +30,7 @@
   <ul>
     <li><%= back_to_index(flash[:page_info]) -%></li>
     <% if current_user.has_role?('Administrator') %>
-      <% if defined?(Resque) %>
-        <li><%= link_to 'Resque', resque_path %></li>
-      <% end %>
+      <li><%= link_to 'Queue', mission_control_jobs %></li>
     <% end %>
   </ul>
 </div>

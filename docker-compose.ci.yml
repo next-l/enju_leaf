@@ -37,9 +37,7 @@ services:
 
   workers:
     <<: *app
-    environment:
-      - QUEUE=*
-    command: bundle exec rake resque:work
+    command: bundle exec rake solid_queue:start
 
   solr:
     image: solr:8
