@@ -376,43 +376,43 @@ module ManifestationsHelper
         )
       end
 
-      manifestation.identifier_contents(:jpno).each do |i|
+      if manifestation.jpno_record
         graph << RDF::Statement.new(
           subject,
           nextl.jpno,
-          RDF::Literal.new(i)
+          RDF::Literal.new(manifestation.jpno_record.body)
         )
       end
 
-      manifestation.identifier_contents(:doi).each do |i|
+      if manifestation.doi_record
         graph << RDF::Statement.new(
           subject,
           nextl.doi,
-          RDF::Literal.new(i)
+          RDF::Literal.new(manifestation.doi_record.body)
         )
       end
 
-      manifestation.identifier_contents(:iss_itemno).each do |i|
+      if manifestation.ndl_bib_id_record
         graph << RDF::Statement.new(
           subject,
           nextl.iss_itemno,
-          RDF::Literal.new(i)
+          RDF::Literal.new(manifestation.ndl_bib_id_record.body)
         )
       end
 
-      manifestation.identifier_contents(:lccn).each do |i|
+      if manifestation.lccn_record
         graph << RDF::Statement.new(
           subject,
           nextl.lccn,
-          RDF::Literal.new(i)
+          RDF::Literal.new(manifestation.lccn_record.body)
         )
       end
 
-      manifestation.identifier_contents(:ncid).each do |i|
+      if manifestation.ncid_record
         graph << RDF::Statement.new(
           subject,
           nextl.ncid,
-          RDF::Literal.new(i)
+          RDF::Literal.new(manifestation.ncid_record.body)
         )
       end
 

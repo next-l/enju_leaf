@@ -25,8 +25,8 @@ describe NdlBooksController do
     login_fixture_admin
 
     it "should create a bibliographic record if jpno is set", vcr: true do
-      post :create, params: { book: {iss_itemno: 'R100000002-I000002539673-00'} }
-      assigns(:manifestation).identifier_contents(:jpno).should eq ['97024234']
+      post :create, params: { book: {iss_itemno: 'R100000002-I000002539673'} }
+      expect(assigns(:manifestation).jpno_record.body).to eq '97024234'
       response.should redirect_to manifestation_url(assigns(:manifestation))
     end
 
@@ -37,8 +37,8 @@ describe NdlBooksController do
     end
 
     it "should create a serial record", vcr: true do
-      post :create, params: { book: {iss_itemno: 'R100000002-I000000029371-00'} }
-      assigns(:manifestation).identifier_contents(:jpno).should eq ['00029793']
+      post :create, params: { book: {iss_itemno: 'R100000002-I000000029371'} }
+      expect(assigns(:manifestation).jpno_record.body).to eq '00029793'
       response.should redirect_to manifestation_url(assigns(:manifestation))
     end
   end

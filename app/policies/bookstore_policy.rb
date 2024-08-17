@@ -17,7 +17,7 @@ class BookstorePolicy < ApplicationPolicy
 
   def destroy?
     if user.try(:has_role?, 'Administrator')
-      true if record.items.empty?
+      true if record.items.empty? and record.order_lists.empty?
     end
   end
 end

@@ -1,5 +1,5 @@
 class CreateEventImportFiles < ActiveRecord::Migration[4.2]
-  def self.up
+  def up
     create_table :event_import_files do |t|
       t.references :parent, index: true
       t.references :user, index: true
@@ -11,7 +11,7 @@ class CreateEventImportFiles < ActiveRecord::Migration[4.2]
     end
   end
 
-  def self.down
+  def down
     drop_table :event_import_files
   end
 end

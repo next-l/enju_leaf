@@ -77,9 +77,7 @@ xml.note manifestation.note
 manifestation.isbn_records.each do |i|
   xml.identifier i.body, type: 'isbn'
 end
-manifestation.identifier_contents(:lccn).each do |l|
-  xml.identifier l, type: 'lccn'
-end
+xml.identifier manifestation.lccn_record.body, type: 'lccn' if manifestation.lccn_record
 xml.recordInfo{
   xml.recordCreationDate manifestation.created_at
   xml.recordChangeDate manifestation.updated_at

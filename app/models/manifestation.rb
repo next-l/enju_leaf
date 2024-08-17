@@ -39,6 +39,8 @@ class Manifestation < ApplicationRecord
   has_one :doi_record, dependent: :destroy
   has_one :jpno_record, dependent: :destroy
   has_one :ncid_record, dependent: :destroy
+  has_one :lccn_record, dependent: :destroy
+  has_one :ndl_bib_id_record, dependent: :destroy
 
   accepts_nested_attributes_for :creators, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :contributors, allow_destroy: true, reject_if: :all_blank
@@ -49,6 +51,7 @@ class Manifestation < ApplicationRecord
   accepts_nested_attributes_for :doi_record, reject_if: :all_blank
   accepts_nested_attributes_for :jpno_record, reject_if: :all_blank
   accepts_nested_attributes_for :ncid_record, reject_if: :all_blank
+  accepts_nested_attributes_for :lccn_record, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :isbn_records, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :issn_records, allow_destroy: true, reject_if: :all_blank
 
@@ -98,8 +101,8 @@ class Manifestation < ApplicationRecord
         issn_records.pluck(:body)
       end
     end
-    string :lccn, multiple: true do
-      identifier_contents(:lccn)
+    string :lccn do
+      lccn_record&.body
     end
     string :jpno, multiple: true do
       jpno_record&.body
@@ -203,12 +206,11 @@ class Manifestation < ApplicationRecord
       end
     end
     text :identifier do
-      other_identifiers = identifiers.joins(:identifier_type).merge(IdentifierType.where.not(name: [:issn]))
-      other_identifiers.pluck(:body)
+      identifiers.pluck(:body)
     end
     string :sort_title
-    string :doi, multiple: true do
-      identifier_contents(:doi)
+    string :doi do
+      doi_record&.body
     end
     boolean :serial do
       serial?
@@ -573,7 +575,8 @@ class Manifestation < ApplicationRecord
           "#{produce.agent.full_name}"
         end
       }.join('//'),
-      pub_date: date_of_publication,
+      pub_date: pub_date,
+      date_of_publication: date_of_publication,
       year_of_publication: year_of_publication,
       publication_place: publication_place,
       manifestation_created_at: created_at,
@@ -649,11 +652,11 @@ class Manifestation < ApplicationRecord
       end
     end
 
+    record["doi"] = doi_record&.body
     record["jpno"] = jpno_record&.body
     record["ncid"] = ncid_record&.body
-    record["lccn"] = identifier_contents(:lccn).first
-    record["doi"] = doi_record&.body
-    record["iss_itemno"] = identifier_contents(:iss_itemno).first
+    record["lccn"] = lccn_record&.body
+    record["iss_itemno"] = ndl_bib_id_record&.body
 
     record
   end
@@ -746,6 +749,10 @@ end
 #  required_score                  :integer          default(0), not null
 #  frequency_id                    :bigint           default(1), not null
 #  subscription_master             :boolean          default(FALSE), not null
+#  attachment_file_name            :string
+#  attachment_content_type         :string
+#  attachment_file_size            :integer
+#  attachment_updated_at           :datetime
 #  nii_type_id                     :bigint
 #  title_alternative_transcription :text
 #  description                     :text

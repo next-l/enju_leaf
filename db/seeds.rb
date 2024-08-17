@@ -17,6 +17,8 @@ def new_profile
   profile
 end
 
+Rake::Task['enju_leaf:setup'].invoke
+
 system_user = User.new
 system_user.username = 'system'
 system_user.password = SecureRandom.urlsafe_base64(32)
@@ -26,7 +28,10 @@ profile = new_profile
 profile.save!
 system_user.profile = profile
 system_user.save!
-LibraryGroup.first.update!(user: system_user, url: ENV['ENJU_LEAF_BASE_URL'])
+LibraryGroup.first.update!(
+  email: system_user.email,
+  url: ENV['ENJU_LEAF_BASE_URL']
+)
 UserGroup.order(created_at: :desc).first.update!(
   number_of_day_to_notify_overdue: 7,
   number_of_day_to_notify_due_date: 3

@@ -1,9 +1,6 @@
-version: '3.8'
-
 volumes:
   postgres:
   solr:
-  redis:
 
 networks:
   internal:
@@ -12,7 +9,7 @@ x-app: &app
   env_file:
     - .env
   environment:
-    - no_proxy: localhost,web,workers,tika
+    no_proxy: localhost,web,workers,tika
   build:
     context: .
     args:
@@ -27,13 +24,12 @@ x-app: &app
     - ./:/enju
   depends_on:
     - solr
-    - redis
   restart: always
 
 services:
   web:
     <<: *app
-    command: bash -c "rm -f tmp/pids/server.pid && rails s -b 0.0.0.0"
+    command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -b 0.0.0.0"
     environment:
       - WEBPACKER_DEV_SERVER_HOST=webpacker
     expose:
@@ -41,9 +37,7 @@ services:
 
   workers:
     <<: *app
-    environment:
-      - QUEUE=*
-    command: bundle exec rake resque:work
+    command: bundle exec rake solid_queue:start
 
   solr:
     image: solr:8
@@ -81,23 +75,8 @@ services:
       timeout: 5s
       retries: 3
 
-  redis:
-    image: redis:6
-    volumes:
-      - redis:/data
-    command: redis-server --appendonly yes
-    networks:
-      internal:
-    expose:
-      - 6379
-    healthcheck:
-      test: ["CMD-SHELL", "redis-cli ping"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-
   cantaloupe:
-    image: uclalibrary/cantaloupe:5.0.5-7
+    image: uclalibrary/cantaloupe:5.0.6-4
     expose:
       - 8182
     restart: always
@@ -117,9 +96,30 @@ services:
       retries: 3
 
   tika:
-    image: apache/tika:2.8.0.0
+    image: apache/tika:2.9.2.1
     expose:
       - 9998
     restart: always
     networks:
       internal:
+
+  nginx:
+    image: nginx:stable
+    ports:
+      - ${ENJU_LEAF_BIND_ADDRESS}:8080:80
+      - ${ENJU_LEAF_BIND_ADDRESS}:8182:8182
+    volumes:
+      - ./nginx/templates:/etc/nginx/templates:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+      - ./public:/opt/enju_leaf/public
+    restart: always
+    networks:
+      internal:
+    depends_on:
+      - web
+      - cantaloupe
+    healthcheck:
+      test: ["CMD", "service", "nginx", "status"]
+      interval: 30s
+      timeout: 20s
+      retries: 3

@@ -52,6 +52,10 @@
         <td><%= @agent.place -%></td>
       </tr>
       <tr>
+        <td><strong><%= t('activerecord.models.ndla_record') -%>:</strong></td>
+        <td><%= @agent.ndla_record&.body -%></td>
+      </tr>
+      <tr>
         <td><strong><%= t('activerecord.models.language') -%>:</strong></td>
         <td><%= @agent.language.display_name.localize -%></td>
       </tr>

@@ -8,24 +8,31 @@ module EnjuNdl
         manifestation
       end
 
+      def ndl_bib_doc(ndl_bib_id)
+        url = "https://ndlsearch.ndl.go.jp/api/sru?operation=searchRetrieve&version=1.2&query=itemno=#{ndl_bib_id}&recordSchema=dcndl&onlyBib=true"
+        Nokogiri::XML(Nokogiri::XML(URI.parse(url).read).at('//xmlns:recordData').content)
+      end
+
       # Use http://www.ndl.go.jp/jp/dlib/standards/opendataset/aboutIDList.txt
       def import_ndl_bib_id(ndl_bib_id)
-        url = "https://iss.ndl.go.jp/books/R100000002-I#{ndl_bib_id}-00.rdf"
-        doc = Nokogiri::XML(Faraday.get(url).body)
-        import_record(doc)
+        import_record(ndl_bib_doc(ndl_bib_id))
       end
 
       def import_from_ndl_search(options)
-        # if options[:isbn]
-        lisbn = Lisbn.new(options[:isbn])
-        raise EnjuNdl::InvalidIsbn unless lisbn.valid?
+        manifestation = isbn = nil
+        if options[:jpno]
+          manifestation = JpnoRecord.find_by(body: options[:jpno])&.manifestation
+        elsif options[:isbn]
+          lisbn = Lisbn.new(options[:isbn])
+          raise EnjuNdl::InvalidIsbn unless lisbn.valid?
 
-        # end
+          isbn = lisbn.isbn13
+          manifestation = Manifestation.find_by_isbn(isbn)
+        end
 
-        manifestation = Manifestation.find_by_isbn(lisbn.isbn)
-        return manifestation.first if manifestation.present?
+        return manifestation if manifestation
 
-        doc = return_xml(lisbn.isbn)
+        doc = return_xml(jpno: options[:jpno], isbn: isbn)
         raise EnjuNdl::RecordNotFound unless doc
 
         # raise EnjuNdl::RecordNotFound if doc.at('//openSearch:totalResults').content.to_i == 0
@@ -34,9 +41,8 @@ module EnjuNdl
 
       def import_record(doc)
         iss_itemno = URI.parse(doc.at('//dcndl:BibAdminResource[@rdf:about]').values.first).path.split('/').last
-        identifier_type = IdentifierType.find_or_create_by!(name: 'iss_itemno')
-        identifier = Identifier.find_by(body: iss_itemno, identifier_type_id: identifier_type.id)
-        return identifier.manifestation if identifier
+        ndl_bib_id_record =NdlBibIdRecord.find_by(body: iss_itemno)
+        return ndl_bib_id_record.manifestation if ndl_bib_id_record
 
         jpno = doc.at('//dcterms:identifier[@rdf:datatype="http://ndl.go.jp/dcndl/terms/JPNO"]').try(:content)
 
@@ -102,6 +108,10 @@ module EnjuNdl
           when 'http://purl.org/dc/dcmitype/StillImage'
             content_type = ContentType.find_by(name: 'still_image')
           end
+
+          # NDLサーチのmaterialTypeは複数設定されているが、
+          # content_typeはその最初の1件を用いて取得する
+          break if content_type
         end
 
         admin_identifier = doc.at('//dcndl:BibAdminResource[@rdf:about]').attributes['about'].value
@@ -143,31 +153,16 @@ module EnjuNdl
             edition_string: edition_string
           )
           manifestation.serial = true if is_serial
-          identifier = {}
-          if iss_itemno
-            identifier[:iss_itemno] = Identifier.new(body: iss_itemno)
-            identifier[:iss_itemno].identifier_type = IdentifierType.find_by(name: 'iss_itemno') || IdentifierType.create!(name: 'iss_itemno')
-          end
-          if jpno
-            identifier[:jpno] = Identifier.new(body: jpno)
-            identifier[:jpno].identifier_type = IdentifierType.find_or_create_by!(name: 'jpno')
-          end
-          if issn
-            identifier[:issn] = Identifier.new(body: issn)
-            identifier[:issn].identifier_type = IdentifierType.find_or_create_by!(name: 'issn')
-          end
-          if issn_l
-            identifier[:issn_l] = Identifier.new(body: issn_l)
-            identifier[:issn_l].identifier_type = IdentifierType.find_or_create_by!(name: 'issn_l')
-          end
+
           manifestation.carrier_type = carrier_type if carrier_type
           manifestation.manifestation_content_type = content_type if content_type
           if manifestation.save
             manifestation.isbn_records.find_or_create_by(body: isbn) if isbn.present?
+            manifestation.issn_records.find_or_create_by(body: issn) if issn.present?
+            manifestation.issn_records.find_or_create_by(body: issn_l) if issn_l.present?
+            manifestation.create_jpno_record(body: jpno) if jpno.present?
+            manifestation.create_ndl_bib_id_record(body: iss_itemno) if iss_itemno.present?
 
-            identifier.each do |_k, v|
-              manifestation.identifiers << v if v.valid?
-            end
             manifestation.publishers << publisher_agents
             create_additional_attributes(doc, manifestation)
             if is_serial
@@ -250,14 +245,15 @@ module EnjuNdl
       end
 
       def search_ndl(query, options = {})
-        options = { dpid: 'iss-ndl-opac', item: 'any', idx: 1, per_page: 10, raw: false, mediatype: 1 }.merge(options)
+        options = { dpid: 'iss-ndl-opac', item: 'any', idx: 1, per_page: 10, raw: false, mediatype: 'books periodicals video audio scores' }.merge(options)
         doc = nil
         results = {}
         startrecord = options[:idx].to_i
-        startrecord = 1 if startrecord == 0
-        url = "https://iss.ndl.go.jp/api/opensearch?dpid=#{options[:dpid]}&#{options[:item]}=#{format_query(query)}&cnt=#{options[:per_page]}&idx=#{startrecord}&mediatype=#{options[:mediatype]}"
+        startrecord = 1 if startrecord.zero?
+        url = "https://ndlsearch.ndl.go.jp/api/opensearch?dpid=#{options[:dpid]}&#{options[:item]}=#{format_query(query)}&cnt=#{options[:per_page]}&idx=#{startrecord}&mediatype=#{options[:mediatype]}"
+
         if options[:raw] == true
-          Faraday.get(url).body
+          URI.parse(url).read
         else
           RSS::Rss::Channel.install_text_element('openSearch:totalResults', 'http://a9.com/-/spec/opensearchrss/1.0/', '?', 'totalResults', :text, 'openSearch:totalResults')
           RSS::BaseListener.install_get_text_element 'http://a9.com/-/spec/opensearchrss/1.0/', 'totalResults', 'totalResults='
@@ -273,15 +269,18 @@ module EnjuNdl
         end
       end
 
-      def return_xml(isbn)
-        rss = search_ndl(isbn, dpid: 'iss-ndl-opac', item: 'isbn')
-        if rss.channel.totalResults.to_i.zero?
-          isbn = normalize_isbn(isbn)
-          rss = search_ndl(isbn, dpid: 'iss-ndl-opac', item: 'isbn')
+      def return_xml(isbn: nil, jpno: nil)
+        if jpno.present?
+          url = "https://ndlsearch.ndl.go.jp/api/sru?operation=searchRetrieve&version=1.2&query=jpno=#{jpno}&recordSchema=dcndl&onlyBib=true"
+        elsif isbn.present?
+          url = "https://ndlsearch.ndl.go.jp/api/sru?operation=searchRetrieve&version=1.2&query=isbn=#{isbn}&recordSchema=dcndl&onlyBib=true"
+        else
+          return
         end
-        if rss.items.first
-          doc = Nokogiri::XML(Faraday.get("#{rss.items.first.link}.rdf").body)
-        end
+
+        response = Nokogiri::XML(URI.parse(url).read).at('//xmlns:recordData')&.content
+
+        Nokogiri::XML(response) if response
       end
 
       private
@@ -306,7 +305,7 @@ module EnjuNdl
           creators << {
             full_name: creator.at('./foaf:name').content,
             full_name_transcription: creator.at('./dcndl:transcription').try(:content),
-            agent_identifier: creator.attributes['about'].try(:content)
+            ndla_identifier: creator.attributes['about'].try(:content)
           }
         end
         creators

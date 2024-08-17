@@ -2,7 +2,6 @@ module EnjuOai
   module OaiModel
     extend ActiveSupport::Concern
     OAI::Provider::Base.register_format(EnjuOai::Jpcoar.instance)
-    OAI::Provider::Base.register_format(EnjuOai::Junii2.instance)
     OAI::Provider::Base.register_format(EnjuOai::Dcndl.instance)
 
     def to_oai_dc
@@ -80,7 +79,7 @@ module EnjuOai
           identifiers.each do |identifier|
             case identifier.identifier_type.try(:name)
             when 'isbn'
-              xml.tag! "rdfs:seeAlso", "rdf:resource" => "http://iss.ndl.go.jp/isbn/#{identifier.body}"
+              # xml.tag! "rdfs:seeAlso", "rdf:resource" => "http://iss.ndl.go.jp/isbn/#{identifier.body}"
               xml.tag! "dcterms:identifier", identifier.body, "rdf:datatype" => "http://ndl.go.jp/dcndl/terms/ISBN"
             when 'issn'
               xml.tag! "dcterms:identifier", identifier.body, "rdf:datatype" => "http://ndl.go.jp/dcndl/terms/ISSN"
@@ -261,127 +260,6 @@ module EnjuOai
       end
 
       xml.target!
-    end
-
-    def to_junii2
-      xml = Builder::XmlMarkup.new
-      xml.junii2 :version => '3.1',
-        "xsi:schemaLocation" => "http://irdb.nii.ac.jp/oai http://irdb.nii.ac.jp/oai/junii2-3-1.xsd",
-        "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
-        "xmlns" => "http://irdb.nii.ac.jp/oai",
-        "xmlns:dc" => "http://purl.org/dc/elements/1.1/" do
-        xml.title original_title
-        xml.alternative title_alternative if title_alternative.present?
-
-        creators.readable_by(nil).each do |patron|
-          xml.creator patron.full_name
-        end
-
-        subjects.each do |subject|
-          unless subject.subject_type.name =~ /BSH|NDLSH|MeSH|LCSH/io
-            xml.subject subject.term
-          end
-        end
-
-        if try(:classifications)
-          %w[NDC NDLC].each do |c|
-            classifications.each do |classification|
-              if classification.classification_type.name =~ /#{c}/i
-                xml.tag! c, classification.category
-              end
-            end
-          end
-        end
-
-        if try(:subjects)
-          %w[BSH NDLSH MeSH].each do |s|
-            subjects.each do |subject|
-              if subject.subject_type.name =~ /#{s}/i
-                xml.tag! subject, subject.term
-              end
-            end
-          end
-        end
-
-        if try(:classifications)
-          %w[DDC LCC UDC].each do |c|
-            classifications.each do |classification|
-              if classification.classification_type.name =~ /#{c}/i
-                xml.tag! c, classification.category
-              end
-            end
-          end
-        end
-
-        subjects.each do |s|
-          if s.subject_type.name =~ /LCSH/i
-            xml.tag! subject, subject.term
-          end
-        end
-
-        if description?
-          xml.description description
-        end
-        publishers.readable_by(nil).each do |patron|
-          xml.publisher patron.full_name
-        end
-        contributors.readable_by(nil).each do |patron|
-          xml.contributor patron.full_name
-        end
-        xml.date created_at.to_date.iso8601
-        xml.type manifestation_content_type&.name
-        if try(:nii_type)
-          xml.NIItype nii_type.name
-        else
-          xml.NIItype 'Others'
-        end
-        if attachment.attached?
-          xml.format attachment.content_type
-        end
-        if manifestation_identifier?
-          xml.identifier manifestation_identifier
-        end
-        identifiers.each do |identifier|
-          unless identifier.identifier_type.name =~ /isbn|issn|ncid|doi|naid|pmid|ichushi/io
-            xml.identifier identifier.body
-          end
-        end
-        xml.URI URI.join(ENV['ENJU_LEAF_BASE_URL'], "/manifestations/#{id}")
-        if attachment.attached?
-          xml.fulltextURL Rails.application.routes.url_helpers.rails_storage_proxy_url(fileset.attachment, host: ENV['ENJU_LEAF_BASE_URL'])
-        end
-        %w[isbn issn NCID].each do |identifier|
-          identifier_contents(identifier.downcase).each do |val|
-            xml.tag! identifier, val
-          end
-        end
-        if root_series_statement
-          xml.jtitle root_series_statement.original_title
-        end
-        xml.volume volume_number_string
-        xml.issue issue_number_string
-        xml.spage start_page
-        xml.epage end_page
-        if pub_date?
-          xml.dateofissued pub_date
-        end
-        # TODO: junii2: source
-        if language.blank? || language.name == 'unknown'
-          xml.language "und"
-        else
-          xml.language language.iso_639_2
-        end
-        %w[pmid doi NAID ichushi].each do |identifier|
-          identifier_contents(identifier.downcase).each do |val|
-            xml.tag! identifier, val
-          end
-        end
-        # TODO: junii2: isVersionOf, hasVersion, isReplaceBy, replaces, isRequiredBy, requires, isPartOf, hasPart, isReferencedBy, references, isFormatOf, hasFormat
-        # TODO: junii2: coverage, spatial, NIIspatial, temporal, NIItemporal
-        # TODO: junii2: rights
-        # TODO: junii2: textversion
-        # TODO: junii2: grantid, dateofgranted, degreename, grantor
-      end
     end
 
     def self.repository_url

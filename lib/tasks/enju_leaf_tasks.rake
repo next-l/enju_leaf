@@ -70,6 +70,17 @@ namespace :enju_leaf do
       # このバージョンより新しいマイグレーションファイルは対象外
       next if version > 20201025090703
 
+      # enju_nii
+      next if [
+        20090913173236, 20090913185239
+      ].include?(version)
+
+      # enju_inventory
+      next if [
+        20081117143156, 20081117143455, 20090706125521, 20120413100431,
+        20191224083828, 20191224091957, 20191230082846
+      ].include?(version)
+
       next if ActiveRecord::Base.connection.exec_query('SELECT version FROM schema_migrations WHERE version = $1', 'SQL', [[nil, version]]).first
 
       ActiveRecord::Base.connection.exec_query('INSERT INTO schema_migrations (version) VALUES ($1)', 'SQL', [[nil, version]])
@@ -83,6 +94,61 @@ namespace :enju_leaf do
       migrate_attachment_s3
     else
       migrate_attachment
+    end
+  end
+
+  desc 'Migrate identifiers'
+  task :migrate_identifiers => :environment do
+    IdentifierType.find_each do |identifier_type|
+      Identifier.where(identifier_type: identifier_type).find_each do |identifier|
+        Manifestation.transaction do
+          case identifier_type.name
+          when 'isbn'
+            IsbnRecordAndManifestation.create(
+              manifestation: identifier.manifestation,
+              isbn_record: IsbnRecord.find_by(body: identifier.body)
+            )
+          when 'issn'
+            IssnRecordAndManifestation.create(
+              manifestation: identifier.manifestation,
+              issn_record: IssnRecord.find_by(body: identifier.body)
+            )
+          when 'issn_l'
+            IssnRecordAndManifestation.create(
+              manifestation: identifier.manifestation,
+              issn_record: IssnRecord.find_by(body: identifier.body)
+            )
+          when 'jpno'
+            JpnoRecord.create(
+              manifestation: identifier.manifestation,
+              body: identifier.body
+            )
+          when 'iss_itemno'
+            NdlBibIdRecord.create(
+              manifestation: identifier.manifestation,
+              body: identifier.body
+            )
+          when 'ncid'
+            NcidRecord.create(
+              manifestation: identifier.manifestation,
+              body: identifier.body
+            )
+          when 'lccn'
+            LccnRecord.create(
+              manifestation: identifier.manifestation,
+              body: identifier.body
+            )
+          when 'doi'
+            DoiRecord.create(
+              manifestation: identifier.manifestation,
+              body: identifier.body
+            )
+          end
+
+          identifier.destroy
+          Rails.logger.info "#{identifier_type.name} #{identifier.body} migrated"
+        end
+      end
     end
   end
 end

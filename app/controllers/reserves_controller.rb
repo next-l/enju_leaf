@@ -177,8 +177,6 @@ class ReservesController < ApplicationController
 
     respond_to do |format|
       if @reserve.save
-        @reserve.transition_to!(:requested)
-
         format.html { redirect_to @reserve, notice: t('controller.successfully_created', model: t('activerecord.models.reserve')) }
         format.json { render json: @reserve, status: :created, location: reserve_url(@reserve) }
       else

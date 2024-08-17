@@ -2,7 +2,7 @@
   <h1 class="title"><%= t('page.editing', model: t('activerecord.models.agent_merge')) -%></h1>
   <div id="content_list">
 
-  <%= form_for(@agent_merge) do |f| -%>
+  <%= form_with(model: @agent_merge) do |f| -%>
     <%= error_messages(@agent_merge) -%>
 
     <div class="field">

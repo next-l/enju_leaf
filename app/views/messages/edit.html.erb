@@ -2,7 +2,7 @@
   <h1 class="title"><%= t('page.editing', model: t('activerecord.models.message')) -%></h1>
   <div id="content_list">
 
-  <%= form_for(@message) do |f| -%>
+  <%= form_with(model: @message) do |f| -%>
     <%= error_messages(@message) -%>
 
     <div class="field">

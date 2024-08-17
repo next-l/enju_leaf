@@ -1,0 +1,113 @@
+--- 
+purchase_request_00001: 
+  date_of_publication: 
+  isbn: ""
+  accepted_at: 
+  url: ""
+  updated_at: 2008-02-09 18:53:28.893662 +09:00
+  denied_at: 
+  title: なんとかかんとか
+  price: 
+  author: なんたらかんたら
+  id: 1
+  publisher: ""
+  note: ""
+  user_id: 1
+  created_at: 2008-02-09 18:53:28.893662 +09:00
+purchase_request_00002: 
+  date_of_publication: 
+  isbn: ""
+  accepted_at: 
+  url: ""
+  updated_at: 2008-02-09 19:26:43.085258 +09:00
+  denied_at: 
+  title: ほげほげ
+  price: 
+  author: なんとか
+  id: 2
+  publisher: かんとか
+  note: テスト用
+  user_id: 2
+  created_at: 2008-02-09 19:21:11.162568 +09:00
+purchase_request_00003: 
+  date_of_publication: 
+  isbn: ""
+  accepted_at: 
+  url: ""
+  updated_at: 2008-02-11 13:36:48.698469 +09:00
+  denied_at: 
+  title: "test1"
+  price: 
+  author: なんたらかんたら
+  id: 3
+  publisher: ほげほげ
+  note: ""
+  user_id: 3
+  created_at: 2008-02-11 13:36:48.698469 +09:00
+purchase_request_00004: 
+  date_of_publication: 
+  isbn: ""
+  accepted_at: 
+  url: ""
+  updated_at: 2008-02-11 13:36:48.698469 +09:00
+  denied_at: 
+  title: "test2"
+  price: 
+  author: なんたらかんたら
+  id: 4
+  publisher: ほげほげ
+  note: ""
+  user_id: 1
+  created_at: 2008-02-11 13:36:48.698469 +09:00
+purchase_request_00005: 
+  date_of_publication: 
+  isbn: ""
+  accepted_at: 
+  url: ""
+  updated_at: 2008-02-11 13:36:48.698469 +09:00
+  denied_at: 
+  title: "test3"
+  price: 
+  author: なんたらかんたら
+  id: 5
+  publisher: ほげほげ
+  note: ""
+  user_id: 2
+  created_at: 2008-02-11 13:36:48.698469 +09:00
+purchase_request_00006: 
+  date_of_publication: 
+  isbn: ""
+  accepted_at: 
+  url: ""
+  updated_at: 2008-02-11 13:36:48.698469 +09:00
+  denied_at: 
+  title: "test4"
+  price: 1000
+  author: なんたらかんたら
+  id: 6
+  publisher: ほげほげ
+  note: ""
+  user_id: 2
+  created_at: 2008-02-11 13:36:48.698469 +09:00
+
+# == Schema Information
+#
+# Table name: purchase_requests
+#
+#  id                  :bigint           not null, primary key
+#  user_id             :bigint           not null
+#  title               :text             not null
+#  author              :text
+#  publisher           :text
+#  isbn                :string
+#  date_of_publication :datetime
+#  price               :integer
+#  url                 :string
+#  note                :text
+#  accepted_at         :datetime
+#  denied_at           :datetime
+#  state               :string
+#  pub_date            :string
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#

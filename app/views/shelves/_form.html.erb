@@ -1,6 +1,6 @@
 <%= render 'page/required_field' %>
-<%= form_for(@shelf) do |f| -%>
-  <%= error_messages(@shelf) -%>
+<%= form_with(model: shelf) do |f| -%>
+  <%= error_messages(shelf) -%>
 
   <div class="field">
     <%= f.label :name -%><br />

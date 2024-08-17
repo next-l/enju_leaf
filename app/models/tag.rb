@@ -1,8 +1,8 @@
 class Tag < ApplicationRecord
   has_many :taggings, dependent: :destroy, class_name: 'ActsAsTaggableOn::Tagging'
   validates :name, presence: true
-  after_save :save_taggings
   after_destroy :save_taggings
+  after_save :save_taggings
 
   extend FriendlyId
   friendly_id :name
@@ -24,7 +24,7 @@ class Tag < ApplicationRecord
 
   def self.bookmarked(bookmark_ids, options = {})
     count = Tag.count
-    count = Tag.default_per_page if count == 0
+    count = Tag.default_per_page if count.zero?
     unless bookmark_ids.empty?
       Tag.search do
         with(:bookmark_ids).any_of bookmark_ids
@@ -35,11 +35,11 @@ class Tag < ApplicationRecord
   end
 
   def save_taggings
-    taggings.collect(&:taggable).each do |t| t.save end
+    taggings.map do |t| t.taggable.save end
   end
 
   def tagged(taggable_type)
-    self.taggings.where(taggable_type: taggable_type.to_s).includes(:taggable).collect(&:taggable)
+    taggings.where(taggable_type: taggable_type.to_s).includes(:taggable).collect(&:taggable)
   end
 end
 

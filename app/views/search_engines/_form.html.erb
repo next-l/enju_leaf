@@ -1,9 +1,9 @@
-<%= form_for(@search_engine) do |f| -%>
-  <% if @search_engine.errors.any? %>
+<%= form_with(model: search_engine) do |f| -%>
+  <% if search_engine.errors.any? %>
   <div id="errorExplanation">
-    <h2><%= pluralize(@search_engine.errors.count, "error") %> prohibited this search_engine from being saved:</h2>
+    <h2><%= pluralize(search_engine.errors.count, "error") %> prohibited this search_engine from being saved:</h2>
     <ul>
-    <% @search_engine.errors.map(&:full_message).each do |msg| %>
+    <% search_engine.errors.map(&:full_message).each do |msg| %>
       <li><%= msg %></li>
     <% end %>
     </ul>

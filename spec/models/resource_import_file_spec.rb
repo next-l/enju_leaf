@@ -44,6 +44,8 @@ describe ResourceImportFile do
         manifestation_101.items.order(:id).last.call_number.should eq '007|A'
         manifestation_101.serial.should be_falsy
         expect(manifestation_101.required_role.name).to eq 'Administrator'
+        expect(manifestation_101.date_of_publication).to eq Time.zone.parse('2001-01-01')
+        expect(manifestation_101.year_of_publication).to eq 2001
 
         item_10101 = Item.find_by(item_identifier: '10101')
         item_10101.manifestation.creators.size.should eq 2
@@ -74,6 +76,8 @@ describe ResourceImportFile do
         expect(item_10101.manifestation.memo).to eq '書誌メモ1'
         expect(item_10101.manifestation.required_role.name).to eq 'Guest'
         expect(item_10101.required_role.name).to eq 'Guest'
+        expect(item_10101.manifestation.pub_date).to eq '2001'
+        expect(item_10101.manifestation.year_of_publication).to eq 2001
 
         item_10102 = Item.find_by(item_identifier: '10102')
         item_10102.manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
@@ -127,10 +131,13 @@ describe ResourceImportFile do
         expect(item_10104.required_role.name).to eq 'Guest'
 
         manifestation_104 = Manifestation.find_by(manifestation_identifier: '104')
-        manifestation_104.identifier_contents(:isbn).should eq ['9784797327038']
-        manifestation_104.original_title.should eq 'test10'
+        expect(manifestation_104.isbn_records.pluck(:body)).to eq ['9784797327038']
+        expect(manifestation_104.original_title).to eq 'test10'
         manifestation_104.creators.pluck(:full_name).should eq ['test3']
         manifestation_104.publishers.pluck(:full_name).should eq ['test4']
+        expect(item_10104.manifestation.pub_date).to eq '2001-1-1'
+        expect(item_10104.manifestation.date_of_publication).to eq Time.zone.parse('2001-01-01')
+
         manifestation_105 = Manifestation.find_by(manifestation_identifier: '105')
         manifestation_105.serial.should be_truthy
 
@@ -168,8 +175,8 @@ describe ResourceImportFile do
         resource_import_result = file.resource_import_results.last
         expect(resource_import_result.manifestation).not_to be_blank
         manifestation = resource_import_result.manifestation
-        expect(manifestation.identifier_contents(:isbn)).to include("9784840239219")
-        expect(manifestation.identifier_contents(:isbn)).to include("9784043898039")
+        expect(manifestation.isbn_records.pluck(:body)).to include("9784840239219")
+        expect(manifestation.isbn_records.pluck(:body)).to include("9784043898039")
       end
 
       it "should import multiple rows in a cell" do
@@ -230,12 +237,12 @@ describe ResourceImportFile do
     describe "NDLBibID" do
       it "should import NDLBibID", vcr: true do
         file = ResourceImportFile.create(user: users(:admin))
-        file.attachment.attach(io: StringIO.new("ndl_bib_id\n000000471440\n"), filename: 'test.txt')
+        file.attachment.attach(io: StringIO.new("ndl_bib_id\nR100000002-I000000471440\n"), filename: 'test.txt')
         result = file.import_start
         expect(result[:manifestation_imported]).to eq 1
         resource_import_result = file.resource_import_results.last
         manifestation = resource_import_result.manifestation
-        expect(manifestation.manifestation_identifier).to eq "http://iss.ndl.go.jp/books/R100000002-I000000471440-00"
+        expect(manifestation.manifestation_identifier).to eq "https://ndlsearch.ndl.go.jp/books/R100000002-I000000471440"
       end
     end
 
@@ -289,8 +296,42 @@ describe ResourceImportFile do
         old_agents_count = Agent.count
         @file.import_start
         Manifestation.count.should eq old_manifestations_count + 1
-        Agent.count.should eq old_agents_count + 4
+        Agent.count.should eq old_agents_count + 5
         Manifestation.order(:id).last.publication_place.should eq '東京'
+      end
+    end
+
+    describe "when it has only ncid" do
+      before(:each) do
+        @file = ResourceImportFile.create!(
+          attachment: fixture_file_upload("ncid_sample.txt"),
+          user: users(:admin)
+        )
+      end
+
+      it "should be imported", vcr: true do
+        old_manifestations_count = Manifestation.count
+        old_agents_count = Agent.count
+        @file.import_start
+        Manifestation.count.should eq old_manifestations_count + 2
+        Agent.count.should eq old_agents_count + 16
+      end
+    end
+
+    describe "when it has only jpno" do
+      before(:each) do
+        @file = ResourceImportFile.create!(
+          attachment: fixture_file_upload("jpno_sample.txt"),
+          user: users(:admin)
+        )
+      end
+
+      it "should be imported", vcr: true do
+        old_manifestations_count = Manifestation.count
+        old_agents_count = Agent.count
+        @file.import_start
+        Manifestation.count.should eq old_manifestations_count + 2
+        Agent.count.should eq old_agents_count + 11
       end
     end
 
@@ -396,7 +437,7 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
       item_00001.binding_call_number.should eq '336|A'
       item_00001.binded_at.should eq Time.zone.parse('2014-08-16')
       item_00001.manifestation.subjects.order(:id).map{|subject| {subject.subject_heading_type.name => subject.term}}.should eq [{"ndlsh" => "test1"}, {"ndlsh" => "test2"}]
-      item_00001.manifestation.identifier_contents(:isbn).should eq ["4798002062", "12345678"]
+      expect(item_00001.manifestation.isbn_records.pluck(:body)).to eq ["4798002062"]
       expect(item_00001.manifestation.required_role.name).to eq 'Librarian'
       expect(item_00001.required_role.name).to eq 'Guest'
 

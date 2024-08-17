@@ -5,7 +5,6 @@ class LibraryGroup < ApplicationRecord
   has_many :libraries, dependent: :destroy
   has_many :colors, dependent: :destroy
   belongs_to :country, optional: true
-  belongs_to :user, optional: true
 
   validates :url, presence: true, url: true
   validates :short_name, presence: true
@@ -13,7 +12,6 @@ class LibraryGroup < ApplicationRecord
     greater_than_or_equal_to: 0
   }
   accepts_nested_attributes_for :colors, update_only: true
-  accepts_nested_attributes_for :user, update_only: true
   store :settings, accessors: [
     :book_jacket_unknown_resource,
     :erms_url
@@ -60,10 +58,6 @@ class LibraryGroup < ApplicationRecord
 
     false
   end
-
-  def email
-    user&.email
-  end
 end
 
 # == Schema Information
@@ -93,6 +87,11 @@ end
 #  pub_year_facet_range_interval :integer          default(10)
 #  user_id                       :bigint
 #  csv_charset_conversion        :boolean          default(FALSE), not null
+#  header_logo_file_name         :string
+#  header_logo_content_type      :string
+#  header_logo_file_size         :bigint
+#  header_logo_updated_at        :datetime
+#  email                         :string
 #  login_banner                  :text
 #  footer_banner                 :text
 #

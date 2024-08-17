@@ -21,9 +21,7 @@
 
   <div class="field">
     <%= f.label :email -%><br />
-    <%= f.fields_for :user do |user_form| %>
-      <%= user_form.email_field :email, class: 'resource_email' -%>
-    <% end %>
+    <%= f.email_field :email, class: 'resource_email' -%>
   </div>
 
   <div class="field">

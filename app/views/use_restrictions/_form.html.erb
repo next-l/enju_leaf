@@ -1,5 +1,5 @@
-<%= form_for(@use_restriction) do |f| %>
-  <%= error_messages(@use_restriction) %>
+<%= form_with(model: use_restriction) do |f| %>
+  <%= error_messages(use_restriction) %>
 
   <div class="field">
     <%= f.label :name %><br />

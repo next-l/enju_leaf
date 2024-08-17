@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   authenticate :user, lambda {|u| u.role.try(:name) == 'Administrator' } do
-    mount Resque::Server.new, at: "/resque", as: :resque
+    mount MissionControl::Jobs::Engine, at: "/jobs"
   end
   resources :manifestations
   resources :items
@@ -138,8 +138,23 @@ Rails.application.routes.draw do
   resources :news_posts
   resources :news_feeds
 
+  resources :purchase_requests do
+    resource :order
+  end
+  resources :order_lists do
+    resources :purchase_requests
+  end
+  resources :order_lists do
+    resource :order
+  end
+  resources :orders
+  resources :bookstores do
+    resources :order_lists
+  end
+
   resource :two_factor_authentication, only: [:show, :create, :destroy]
   resource :otp_secret, only: :create
+
   devise_for :users
 
   get '/page/about' => 'page#about'

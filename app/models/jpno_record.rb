@@ -1,6 +1,6 @@
 class JpnoRecord < ApplicationRecord
   belongs_to :manifestation
-  validates :body, presence: true
+  validates :body, presence: true, uniqueness: true
   strip_attributes
 end
 

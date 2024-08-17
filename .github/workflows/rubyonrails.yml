@@ -24,26 +24,30 @@ jobs:
           - "6379:6379"
     env:
       RAILS_ENV: test
+      ENJU_LEAF_BIND_ADDRESS: 127.0.0.1
       POSTGRES_USER: rails
       POSTGRES_PASSWORD: password
       CC_TEST_REPORTER_ID: c193cb8ea058a7d62fd62d6d05adaaf95f6bdf882c1039500b30b54494a36e52
       ENJU_LEAF_2FA_ENCRYPTION_KEY: 64aba18129eb855d71a785b0aca726dd5eb8f4104cc779e97f2868d9a8cf796105f4599d9320793a5dfb58cc3ccbe93b293d5db1a12cba05ab79d15d5710cb51
       SECRET_KEY_BASE: 4a54f07a6c5e604edac920225ab6f4d9a919edf8597f61ff85dbce0b3ab64433de86a54c192df1e242022c64108923d5382705a1e221c1ca39b79d902824d948
+      NODE_OPTIONS: --openssl-legacy-provider
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       # Add or replace dependency steps here
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+      - name: Install dependencies
+        run: yarn install && sudo apt-get install libvips42
       # Add or replace test runners here
       - name: Start containers
-        run: cp .env.test.ci .env.test && cp .env.test .env && cp docker-compose.ci.yml docker-compose.override.yml && docker-compose up -d solr tika
+        run: cp .env.test.ci .env.test && cp .env.test .env && cp docker-compose.ci.yml docker-compose.override.yml && docker compose up -d solr tika
       - name: Setup Code Climate test-reporter
         run: |
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -63,7 +67,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
