@@ -1,7 +1,6 @@
 volumes:
   postgres:
   solr:
-  redis:
 
 networks:
   internal:
@@ -10,7 +9,7 @@ x-app: &app
   env_file:
     - .env
   environment:
-    - no_proxy: localhost,web,workers,tika
+    no_proxy: localhost,web,workers,tika
   build:
     context: .
     args:
@@ -25,7 +24,6 @@ x-app: &app
     - ./:/enju
   depends_on:
     - solr
-    - redis
   restart: always
 
 services:
@@ -39,9 +37,7 @@ services:
 
   workers:
     <<: *app
-    environment:
-      - QUEUE=*
-    command: bundle exec rake resque:work
+    command: bundle exec rake solid_queue:start
 
   solr:
     image: solr:8
@@ -75,22 +71,6 @@ services:
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "POSTGRES_PASSWORD=${POSTGRES_PASSWORD} pg_isready -U ${POSTGRES_USER} -h localhost -d template1"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-
-  redis:
-    image: redis:6
-    volumes:
-      - redis:/data
-    command: redis-server --appendonly yes
-    networks:
-      internal:
-    expose:
-      - 6379
-    restart: always
-    healthcheck:
-      test: ["CMD-SHELL", "redis-cli ping"]
       interval: 30s
       timeout: 5s
       retries: 3
