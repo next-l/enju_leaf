@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_16_112305) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_16_112305) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -884,11 +884,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_16_112305) do
     t.integer "pub_year_facet_range_interval", default: 10
     t.bigint "user_id"
     t.boolean "csv_charset_conversion", default: false, null: false
-    t.string "email"
     t.string "header_logo_file_name"
     t.string "header_logo_content_type"
     t.bigint "header_logo_file_size"
     t.datetime "header_logo_updated_at", precision: nil
+    t.string "email"
     t.index "lower((name)::text)", name: "index_library_groups_on_lower_name", unique: true
     t.index ["email"], name: "index_library_groups_on_email"
     t.index ["short_name"], name: "index_library_groups_on_short_name"
