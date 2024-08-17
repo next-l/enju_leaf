@@ -67,7 +67,7 @@
     <li><%= link_to t('activerecord.models.agent_import_result'), agent_import_results_path(agent_import_file_id: @agent_import_file.id) -%></li>
     <li><%= back_to_index(flash[:page_info]) -%></li>
     <% if current_user.has_role?('Administrator') %>
-      <li><%= link_to 'Queue', mission_control_jobs %></li>
+      <li><%= link_to 'Queue', mission_control_jobs_path %></li>
     <% end %>
   </ul>
   <% end %>
