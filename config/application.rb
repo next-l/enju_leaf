@@ -39,5 +39,6 @@ module EnjuLeaf
       protocol: base_url.scheme,
       port: base_url.port
     }
+    config.mission_control.jobs.base_controller_class = "MissionControlController"
   end
 end
