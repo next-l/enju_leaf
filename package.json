@@ -2,6 +2,7 @@
   "name": "enju_leaf",
   "private": true,
   "dependencies": {
+    "@rails/actioncable": "^6.1.7",
     "@rails/webpacker": "5.4.4",
     "mirador": "^3.3.0",
     "webpack": "^4.46.0",
