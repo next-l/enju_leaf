@@ -21,11 +21,15 @@ end
 #
 # Table name: inventory_files
 #
-#  id                    :bigint           not null, primary key
-#  user_id               :bigint
-#  note                  :text
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  inventory_fingerprint :string
-#  shelf_id              :bigint
+#  id                     :bigint           not null, primary key
+#  user_id                :bigint
+#  note                   :text
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  inventory_file_name    :string
+#  inventory_content_type :string
+#  inventory_file_size    :integer
+#  inventory_updated_at   :datetime
+#  inventory_fingerprint  :string
+#  shelf_id               :bigint
 #

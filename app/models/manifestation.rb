@@ -749,6 +749,10 @@ end
 #  required_score                  :integer          default(0), not null
 #  frequency_id                    :bigint           default(1), not null
 #  subscription_master             :boolean          default(FALSE), not null
+#  attachment_file_name            :string
+#  attachment_content_type         :string
+#  attachment_file_size            :integer
+#  attachment_updated_at           :datetime
 #  nii_type_id                     :bigint
 #  title_alternative_transcription :text
 #  description                     :text
