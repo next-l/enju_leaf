@@ -1,5 +1,5 @@
 class AddCompletedAtToUserCheckoutStat < ActiveRecord::Migration[4.2]
-  def self.up
+  def up
     add_column :user_checkout_stats, :started_at, :datetime
     add_column :user_checkout_stats, :completed_at, :datetime
     add_column :user_reserve_stats, :started_at, :datetime
@@ -10,7 +10,7 @@ class AddCompletedAtToUserCheckoutStat < ActiveRecord::Migration[4.2]
     add_column :manifestation_reserve_stats, :completed_at, :datetime
   end
 
-  def self.down
+  def down
     remove_column :user_checkout_stats, :started_at
     remove_column :user_checkout_stats, :completed_at
     remove_column :user_reserve_stats, :started_at

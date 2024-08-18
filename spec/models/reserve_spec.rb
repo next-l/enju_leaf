@@ -49,7 +49,6 @@ describe Reserve do
 
   it "should have reservations that will be expired" do
     reserve = FactoryBot.create(:reserve)
-    reserve.transition_to!(:requested)
     item = FactoryBot.create(:item, manifestation_id: reserve.manifestation.id)
     item.retain(reserve.user)
     reserve.reload
@@ -60,7 +59,6 @@ describe Reserve do
 
   it "should have completed reservation" do
     reserve = FactoryBot.create(:reserve)
-    reserve.transition_to!(:requested)
     item = FactoryBot.create(:item, manifestation_id: reserve.manifestation.id)
     item.checkout!(reserve.user)
     expect(Reserve.completed).to include reserve
@@ -115,7 +113,6 @@ describe Reserve do
 
   it "should not retain against reserves with already retained" do
     reserve = FactoryBot.create(:reserve)
-    reserve.transition_to!(:requested)
     manifestation = reserve.manifestation
     item = FactoryBot.create(:item, manifestation_id: manifestation.id)
     expect{item.retain(reserve.user)}.not_to raise_error

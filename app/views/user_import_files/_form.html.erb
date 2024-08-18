@@ -1,10 +1,10 @@
-<%= form_for(@user_import_file) do |f| %>
-  <% if @user_import_file.errors.any? %>
+<%= form_with(model: user_import_file) do |f| %>
+  <% if user_import_file.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@user_import_file.errors.count, "error") %> prohibited this user_import_file from being saved:</h2>
+      <h2><%= pluralize(user_import_file.errors.count, "error") %> prohibited this user_import_file from being saved:</h2>
 
       <ul>
-      <% @user_import_file.errors.map(&:full_message).each do |msg| %>
+      <% user_import_file.errors.map(&:full_message).each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>

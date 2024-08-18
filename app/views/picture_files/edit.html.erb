@@ -1,24 +1,7 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
   <h1 class="title"><%= t('page.editing', model: t('activerecord.models.picture_file')) -%></h1>
   <div id="content_list">
-
-  <%= form_for(@picture_file) do |f| -%>
-    <%= error_messages(@picture_file) -%>
-
-    <div class="field">
-      <%= f.label t('page.file') -%><br />
-      <%= f.file_field :attachment -%>
-    </div>
-
-    <div class="field">
-      <%= render 'picture_files/link', picture_file: @picture_file %>
-    </div>
-
-    <div class="actions">
-      <%= f.submit %>
-    </div>
-  <%- end -%>
-
+    <%= render 'form', picture_file: @picture_file %>
   </div>
 </div>
 
