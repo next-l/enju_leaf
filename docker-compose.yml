@@ -87,7 +87,7 @@ services:
     networks:
       internal:
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://cantaloupe:8182/iiif/3"]
+      test: ["CMD-SHELL", "curl -f http://cantaloupe:8182/health"]
       interval: 30s
       timeout: 20s
       retries: 3
