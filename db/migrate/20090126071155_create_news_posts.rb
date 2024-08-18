@@ -1,6 +1,6 @@
 class CreateNewsPosts < ActiveRecord::Migration[4.2]
-  def change
-    create_table :news_posts do |t|
+  def up
+    create_table :news_posts, if_not_exists: true do |t|
       t.text :title
       t.text :body
       t.integer :user_id
@@ -14,5 +14,9 @@ class CreateNewsPosts < ActiveRecord::Migration[4.2]
       t.timestamps
     end
     add_index :news_posts, :user_id
+  end
+
+  def down
+    drop_table :news_posts
   end
 end

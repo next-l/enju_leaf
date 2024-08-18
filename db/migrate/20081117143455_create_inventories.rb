@@ -1,6 +1,6 @@
 class CreateInventories < ActiveRecord::Migration[4.2]
-  def self.up
-    create_table :inventories do |t|
+  def up
+    create_table :inventories, if_not_exists: true do |t|
       t.references :item, index: true
       t.references :inventory_file, index: true
       t.text :note
@@ -9,7 +9,7 @@ class CreateInventories < ActiveRecord::Migration[4.2]
     end
   end
 
-  def self.down
+  def down
     drop_table :inventories
   end
 end

@@ -17,13 +17,4 @@
 
 //console.log('Hello World from Webpacker')
 
-import Rails from "@rails/ujs"
-import * as ActiveStorage from "@rails/activestorage"
 import "channels"
-import "jquery"
-import $ from 'jquery'
-global.$ = $
-global.jQuery = $
-
-Rails.start()
-ActiveStorage.start()

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   authenticate :user, lambda {|u| u.role.try(:name) == 'Administrator' } do
-    mount Resque::Server.new, at: "/resque", as: :resque
+    mount MissionControl::Jobs::Engine, at: "/jobs"
   end
   resources :manifestations
   resources :items
