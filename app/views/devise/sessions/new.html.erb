@@ -18,6 +18,11 @@
       <%= f.password_field :password, autocomplete: "off" %>
     </div>
 
+    <div class="field">
+      <%= f.label :otp_attempt %><br />
+      <%= f.password_field :otp_attempt, autocomplete: "off" %>
+    </div>
+
     <% if devise_mapping.rememberable? -%>
       <div class="field">
         <%= f.check_box :remember_me %>

@@ -44,6 +44,7 @@ ja:
         auto_generated_password: パスワードの自動生成
         friendly_id: ユーザ名
         remember_me: "ウインドウを閉じてもログインしたままにする"
+        otp_attempt: 2要素認証コード
       role:
         name: 名前
         display_name: 表示名
@@ -281,6 +282,7 @@ ja:
     delegated: 代理
     impersonate: "ログインユーザを切り替える"
     stop_impersonating: "%{username}に戻る"
+    two_factor_authentication: 2要素認証
   title:
     index: "一覧"
     show: "表示"
@@ -388,3 +390,8 @@ ja:
     no_number: 番号なし
   iiif:
     open_in_new_window: 新しいウインドウで開く
+  two_factor_authentication:
+    enable: 有効化
+    disable: 無効化
+    verify: 確認
+    already_enabled: 2要素認証は有効になっています。
