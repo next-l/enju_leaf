@@ -81,6 +81,12 @@ namespace :enju_leaf do
         20191224083828, 20191224091957, 20191230082846
       ].include?(version)
 
+      # enju_purchase_request
+      next if [
+        123, 20081009062129, 20081009062130, 20140528155058, 20160703190738,
+        20180107155817
+      ].include?(version)
+
       next if ActiveRecord::Base.connection.exec_query('SELECT version FROM schema_migrations WHERE version = $1', 'SQL', [[nil, version]]).first
 
       ActiveRecord::Base.connection.exec_query('INSERT INTO schema_migrations (version) VALUES ($1)', 'SQL', [[nil, version]])
