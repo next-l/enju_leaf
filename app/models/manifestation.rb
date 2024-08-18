@@ -406,7 +406,7 @@ class Manifestation < ApplicationRecord
     response = client.put('/tika/text') do |req|
       req.headers['Content-Type'] = attachment.content_type
       req.headers['Content-Length'] = attachment.byte_size.to_s
-      req.body = Faraday::UploadIO.new(StringIO.new(attachment.download), attachment.content_type)
+      req.body = Faraday::FilePart.new(StringIO.new(attachment.download), attachment.content_type)
     end
 
     payload = JSON.parse(response.body)['X-TIKA:content'].strip.tr("\t", " ").gsub(/\r?\n/, "")
