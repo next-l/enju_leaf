@@ -4,11 +4,11 @@ module EnjuLeaf
     def database_adapter
       case ActiveRecord::Base.connection.adapter_name
       when 'PostgreSQL'
-        link_to 'PostgreSQL', 'http://www.postgresql.org/'
+        link_to 'PostgreSQL', 'https://www.postgresql.org/'
       when 'MySQL'
-        link_to 'MySQL', 'http://www.mysql.org/'
+        link_to 'MySQL', 'https://www.mysql.org/'
       when 'SQLite'
-        link_to 'SQLite', 'http://www.sqlite.org/'
+        link_to 'SQLite', 'https://www.sqlite.org/'
       end
     end
 
