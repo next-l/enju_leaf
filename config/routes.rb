@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   end
   resources :manifestations
   resources :items
-  resources :picture_files
+  resources :picture_files do
+    get :download
+  end
   resources :agents
   resources :manifestation_relationships
   resources :agent_relationships

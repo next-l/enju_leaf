@@ -51,6 +51,12 @@ class PictureFilesController < ApplicationController
     end
   end
 
+  def download
+    picture_file = PictureFile.find(params[:picture_file_id])
+    authorize picture_file, policy_class: PictureFilePolicy
+    redirect_to rails_storage_proxy_url(picture_file.attachment)
+  end
+
   # GET /picture_files/new
   def new
     unless @attachable

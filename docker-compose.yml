@@ -128,21 +128,17 @@ services:
       retries: 3
 
   cantaloupe:
-    image: uclalibrary/cantaloupe:5.0.6-4
+    image: islandora/cantaloupe:3
     expose:
       - 8182
     restart: always
     environment:
-      no_proxy: localhost,web
-      SOURCE_STATIC: HttpSource
-      HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX: http://web:3000/picture_files/
-      HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_SUFFIX: '.download?size=original'
-      ENDPOINT_API_ENABLED: 'true'
-      BASE_URI: ${CANTALOUPE_BASE_URI}
+      - CANTALOUPE_HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX=http://web:3000/picture_files/
+      - CANTALOUPE_HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_SUFFIX=/download
     networks:
       internal:
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8182/health"]
+      test: ["CMD-SHELL", "curl -f http://cantaloupe:8182/health"]
       interval: 30s
       timeout: 20s
       retries: 3
