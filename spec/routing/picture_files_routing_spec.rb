@@ -35,7 +35,7 @@ RSpec.describe PictureFilesController, type: :routing do
     end
 
     it "routes to #download" do
-      expect(get: "/picture_files/1/download").to route_to("picture_files#download", id: "1")
+      expect(get: "/picture_files/1/download").to route_to("picture_files#download", picture_file_id: "1")
     end
   end
 end
