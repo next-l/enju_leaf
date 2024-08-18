@@ -19,7 +19,7 @@ http_interactions:
       message: '400'
     headers:
       Date:
-      - Sun, 09 Jul 2023 01:18:01 GMT
+      - Sun, 18 Aug 2024 01:38:30 GMT
       Content-Type:
       - text/xml
       Transfer-Encoding:
@@ -36,5 +36,5 @@ http_interactions:
       encoding: ASCII-8BIT
       string: <?xml version="1.0"?><error><code>400</code><reason>Bad Request</reason><detail>Required
         Parameter is Empty</detail></error>
-  recorded_at: Sun, 09 Jul 2023 01:18:01 GMT
+  recorded_at: Sun, 18 Aug 2024 01:38:30 GMT
 recorded_with: VCR 6.2.0
