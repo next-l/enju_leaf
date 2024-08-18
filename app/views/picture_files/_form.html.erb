@@ -6,7 +6,7 @@
     <%= f.file_field :picture, accept: 'image/*', required: true -%>
   </div>
 
-  <% if picture_file.attachment.attached? %>
+  <% if picture_file.picture.exists? %>
     <div class="field">
       <%= render 'picture_files/link', picture_file: picture_file %>
     </div>
