@@ -168,6 +168,8 @@ GEM
       logger
     faraday-follow_redirects (0.3.0)
       faraday (>= 1, < 3)
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
     faraday-net_http (3.1.1)
       net-http
     ffi (1.17.0-x86_64-linux-gnu)
@@ -262,6 +264,7 @@ GEM
       stimulus-rails
       turbo-rails
     msgpack (1.7.2)
+    multipart-post (2.4.1)
     mutex_m (0.2.0)
     net-http (0.4.1)
       uri
@@ -534,6 +537,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   factory_bot_rails (~> 6.4.0)
+  faraday-multipart
   friendly_id
   geocoder
   globalize
