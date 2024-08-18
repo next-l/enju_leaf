@@ -20,8 +20,7 @@ class Library < ApplicationRecord
     integer :position
   end
 
-  validates :short_display_name, presence: true
-  validates :short_display_name, uniqueness: { case_sensitive: false }
+  validates :short_display_name, presence: true, uniqueness: { case_sensitive: false }
   validates :isil, uniqueness: { allow_blank: true }
   validates :display_name, uniqueness: true
   validates :name, format: { with: /\A[a-z][0-9a-z\-_]{1,253}[0-9a-z]\Z/ }
