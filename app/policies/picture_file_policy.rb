@@ -29,4 +29,8 @@ class PictureFilePolicy < ApplicationPolicy
   def destroy?
     true if user.try(:has_role?, 'Librarian')
   end
+
+  def download?
+    show?
+  end
 end

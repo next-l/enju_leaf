@@ -4,7 +4,7 @@ describe CiniiBook do
   fixtures :all
 
   it "should search bibliographic records", vcr: true do
-    CiniiBook.search("library system")[:total_entries].should eq 3837
+    CiniiBook.search("library system")[:total_entries].should eq 3924
   end
 
   it "should search with ncid", vcr: true do

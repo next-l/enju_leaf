@@ -135,7 +135,6 @@ module EnjuNii
 
         if rss.items.first
           conn = Faraday.new("#{rss.items.first.link}.rdf") do |faraday|
-            faraday.use FaradayMiddleware::FollowRedirects
             faraday.adapter :net_http
           end
           Nokogiri::XML(conn.get.body)
@@ -165,7 +164,7 @@ module EnjuNii
       def get_cinii_creator(doc)
         doc.xpath("//foaf:maker/foaf:Person").map{|e|
           {
-            full_name: e.at("./foaf:name").content,
+            full_name: e.at("./foaf:name").content&.strip,
             full_name_transcription: e.xpath("./foaf:name[@xml:lang]").map{|n| n.content}.join("\n"),
             patron_identifier: e.attributes["about"].try(:content)
           }
@@ -207,7 +206,6 @@ module EnjuNii
           ptbl = series["dc:title"]
           rdf_url = "#{URI.parse(parent_url.gsub(/\#\w+\Z/, '')).to_s}"
           conn = Faraday.new("#{rdf_url}.rdf") do |faraday|
-            faraday.use FaradayMiddleware::FollowRedirects
             faraday.adapter :net_http
           end
           parent_doc = Nokogiri::XML(conn.get.body)

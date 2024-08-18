@@ -96,5 +96,5 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
   config.active_job.queue_adapter = :solid_queue
 
-  config.hosts += ['web', '127.0.0.1']
+  config.hosts += ['web', '127.0.0.1', 'localhost']
 end
