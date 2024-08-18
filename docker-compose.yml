@@ -81,9 +81,9 @@ services:
       - 8182
     restart: always
     environment:
-      no_proxy: localhost,web
-      CANTALOUPE_HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX: http://web:3000/picture_files/
-      CANTALOUPE_HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_SUFFIX: .download?size=original
+      - no_proxy=localhost,web
+      - CANTALOUPE_HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX=http://web:3000/picture_files/
+      - CANTALOUPE_HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_SUFFIX=/download
     networks:
       internal:
     healthcheck:
