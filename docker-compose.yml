@@ -39,6 +39,17 @@ services:
     <<: *app
     command: bundle exec rake solid_queue:start
 
+  webpacker:
+    <<: *app
+    environment:
+      - NODE_ENV=development
+      - WEBPACKER_DEV_SERVER_HOST=127.0.0.1
+    command: ./bin/webpack-dev-server
+    ports:
+      - 127.0.0.1:3035:3035
+    profiles:
+      - develop
+
   solr:
     image: solr:8
     expose:
