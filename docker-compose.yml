@@ -135,6 +135,7 @@ services:
     environment:
       - CANTALOUPE_HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX=http://web:3000/picture_files/
       - CANTALOUPE_HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_SUFFIX=/download
+      - CANTALOUPE_ENDPOINT_API_ENABLED=true
     networks:
       internal:
     healthcheck:
