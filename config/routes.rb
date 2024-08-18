@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     resources :frequencies
     resources :user_groups
     resources :roles
+    resources :shelf_import_files, except: [:edit, :update]
   end
 
   resources :carrier_types
