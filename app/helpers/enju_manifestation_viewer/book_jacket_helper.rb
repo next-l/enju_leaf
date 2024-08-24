@@ -59,7 +59,7 @@ module EnjuManifestationViewer
       end
     end
 
-    def amazon_link(asin, hostname = LibraryGroup.site_config.settings[:amazon_hostname])
+    def amazon_link(asin, hostname = LibraryGroup.site_config.amazon_hostname)
       return nil if asin.blank?
 
       "https://#{hostname}/dp/#{asin}"
