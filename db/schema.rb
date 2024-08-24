@@ -505,7 +505,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_034303) do
 
   create_table "event_export_file_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "event_export_file_id"
     t.datetime "created_at", null: false

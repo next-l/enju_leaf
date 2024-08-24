@@ -2,7 +2,7 @@ class ConvertStatesmanMetadataColumnToJsonb < ActiveRecord::Migration[7.1]
   def up
     %w(
       agent_import_file event_import_file resource_import_file user_import_file
-      resource_export_file user_export_file
+      event_export_file resource_export_file user_export_file
       manifestation_checkout_stat manifestation_reserve_stat
       user_checkout_stat user_reserve_stat bookmark_stat
       import_request message order_list reserve
@@ -17,7 +17,7 @@ class ConvertStatesmanMetadataColumnToJsonb < ActiveRecord::Migration[7.1]
   def down
     %w(
       agent_import_file event_import_file resource_import_file user_import_file
-      resource_export_file user_export_file
+      event_export_file resource_export_file user_export_file
       manifestation_checkout_stat manifestation_reserve_stat
       user_checkout_stat user_reserve_stat bookmark_stat
       import_request message order_list reserve
