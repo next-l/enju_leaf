@@ -14,7 +14,7 @@ class LibraryGroup < ApplicationRecord
   accepts_nested_attributes_for :colors, update_only: true
   store_accessor :settings,
     :book_jacket_unknown_resource,
-    :erms_url
+    :erms_url, :amazon_hostname
 
   translates :login_banner, :footer_banner
   globalize_accessors
