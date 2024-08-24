@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_23_175740) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_24_034303) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,7 +55,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_175740) do
 
   create_table "agent_import_file_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "agent_import_file_id"
     t.datetime "created_at", null: false
@@ -210,7 +210,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_175740) do
 
   create_table "bookmark_stat_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "bookmark_stat_id"
     t.datetime "created_at", null: false
@@ -505,7 +505,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_175740) do
 
   create_table "event_export_file_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "event_export_file_id"
     t.datetime "created_at", null: false
@@ -530,7 +530,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_175740) do
 
   create_table "event_import_file_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "event_import_file_id"
     t.datetime "created_at", null: false
@@ -640,7 +640,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_175740) do
 
   create_table "import_request_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "import_request_id"
     t.datetime "created_at", null: false
@@ -907,7 +907,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_175740) do
 
   create_table "manifestation_checkout_stat_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "manifestation_checkout_stat_id"
     t.datetime "created_at", null: false
@@ -974,7 +974,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_175740) do
 
   create_table "manifestation_reserve_stat_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "manifestation_reserve_stat_id"
     t.datetime "created_at", null: false
@@ -1075,7 +1075,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_175740) do
 
   create_table "message_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "message_id"
     t.datetime "created_at", null: false
@@ -1170,7 +1170,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_175740) do
 
   create_table "order_list_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.integer "order_list_id"
     t.datetime "created_at", null: false
@@ -1400,7 +1400,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_175740) do
 
   create_table "reserve_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "reserve_id"
     t.datetime "created_at", null: false
@@ -1435,7 +1435,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_175740) do
 
   create_table "resource_export_file_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "resource_export_file_id"
     t.datetime "created_at", null: false
@@ -1459,7 +1459,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_175740) do
 
   create_table "resource_import_file_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "resource_import_file_id"
     t.datetime "created_at", null: false
@@ -1805,7 +1805,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_175740) do
 
   create_table "user_checkout_stat_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "user_checkout_stat_id"
     t.datetime "created_at", null: false
@@ -1830,7 +1830,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_175740) do
 
   create_table "user_export_file_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "user_export_file_id"
     t.datetime "created_at", null: false
@@ -1899,7 +1899,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_175740) do
 
   create_table "user_import_file_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "user_import_file_id"
     t.datetime "created_at", null: false
@@ -1938,7 +1938,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_175740) do
 
   create_table "user_reserve_stat_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "user_reserve_stat_id"
     t.datetime "created_at", null: false

@@ -1,7 +1,4 @@
 class ManifestationReserveStatTransition < ApplicationRecord
-  include Statesman::Adapters::ActiveRecordTransition
-
-  
   belongs_to :manifestation_reserve_stat, inverse_of: :manifestation_reserve_stat_transitions
 end
 
@@ -11,7 +8,7 @@ end
 #
 #  id                            :bigint           not null, primary key
 #  to_state                      :string
-#  metadata                      :text             default({})
+#  metadata                      :jsonb            not null
 #  sort_key                      :integer
 #  manifestation_reserve_stat_id :bigint
 #  created_at                    :datetime         not null
