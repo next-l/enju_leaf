@@ -128,7 +128,7 @@ GEM
       rexml
     crass (1.0.6)
     csv (3.3.0)
-    database_consistency (1.7.24)
+    database_consistency (1.7.25)
       activerecord (>= 3.2)
     date (3.3.4)
     date_validator (0.12.0)
