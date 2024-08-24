@@ -1,6 +1,4 @@
 class MessageTransition < ApplicationRecord
-  include Statesman::Adapters::ActiveRecordTransition
-  
   belongs_to :message, inverse_of: :message_transitions
 end
 
@@ -10,7 +8,7 @@ end
 #
 #  id          :bigint           not null, primary key
 #  to_state    :string
-#  metadata    :text             default({})
+#  metadata    :jsonb            not null
 #  sort_key    :integer
 #  message_id  :bigint
 #  created_at  :datetime         not null

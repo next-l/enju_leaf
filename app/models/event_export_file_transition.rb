@@ -1,7 +1,4 @@
 class EventExportFileTransition < ApplicationRecord
-  include Statesman::Adapters::ActiveRecordTransition
-
-
   belongs_to :event_export_file, inverse_of: :event_export_file_transitions
 end
 
@@ -11,7 +8,7 @@ end
 #
 #  id                   :bigint           not null, primary key
 #  to_state             :string
-#  metadata             :text             default({})
+#  metadata             :text             default("{}")
 #  sort_key             :integer
 #  event_export_file_id :bigint
 #  created_at           :datetime         not null
