@@ -230,6 +230,9 @@ class Manifestation < ApplicationRecord
       end
     end
     time :acquired_at
+    string :agent_id, multiple: true do
+      creators.map{|a| a.id}
+    end
   end
 
   has_one_attached :attachment
