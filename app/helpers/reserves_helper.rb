@@ -18,4 +18,8 @@ module ReservesHelper
       t('reserve.completed')
     end
   end
+
+  def filtered_params
+    params.permit([:user_id, :reserved_from, :reserved_until, :query, :sort_by, :state])
+  end
 end
