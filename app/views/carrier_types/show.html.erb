@@ -1,43 +1,43 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.showing', model: t('activerecord.models.carrier_type')) -%></h1>
-<div id="content_list">
-<p id="notice"><%= notice %></p>
+  <h1 class="title"><%= t('page.showing', model: t('activerecord.models.carrier_type')) -%></h1>
+  <div id="content_list">
+    <p id="notice"><%= notice %></p>
 
-<p>
-  <strong><%= t('activerecord.attributes.carrier_type.name') -%>:</strong>
-  <%= @carrier_type.name -%>
-</p>
+    <p>
+      <strong><%= t('activerecord.attributes.carrier_type.name') -%>:</strong>
+      <%= @carrier_type.name -%>
+    </p>
 
-<p>
-  <strong><%= t('activerecord.attributes.carrier_type.display_name') -%>:</strong>
-  <%= @carrier_type.display_name.localize -%>
-</p>
+    <p>
+      <strong><%= t('activerecord.attributes.carrier_type.display_name') -%>:</strong>
+      <%= @carrier_type.display_name.localize -%>
+    </p>
 
-<p>
-  <strong><%= t('page.file') -%>:</strong>
-  <%= link_to rails_blob_path(@carrier_type.attachment) do -%>
-    <%= image_tag(@carrier_type.attachment.representation(resize_to_limit: [16, 16]), size: '16x16', class: 'enju_icon', alt: @carrier_type.display_name.localize) %>
-    <%= @carrier_type.attachment.filename %>
-  <% end %>
-</p>
+    <p>
+      <strong><%= t('page.file') -%>:</strong>
+      <%= link_to rails_blob_path(@carrier_type.attachment) do -%>
+        <%= image_tag(@carrier_type.attachment.representation(resize_to_limit: [16, 16]), size: '16x16', class: 'enju_icon', alt: @carrier_type.display_name.localize) %>
+        <%= @carrier_type.attachment.filename %>
+      <% end %>
+    </p>
 
-<% if defined?(EnjuCirculation) %>
-  <p>
-    <strong><%= t('activerecord.models.checkout_type') -%>:</strong>
-  </p>
-  <ul>
-    <% @carrier_type.checkout_types.each do |checkout_type| %>
-      <li><%= link_to checkout_type.display_name.localize, checkout_type_path(checkout_type) %></li>
+    <% if defined?(EnjuCirculation) %>
+      <p>
+        <strong><%= t('activerecord.models.checkout_type') -%>:</strong>
+      </p>
+      <ul>
+        <% @carrier_type.checkout_types.each do |checkout_type| %>
+          <li><%= link_to checkout_type.display_name.localize, checkout_type_path(checkout_type) %></li>
+        <% end %>
+      </ul>
     <% end %>
-  </ul>
-<% end %>
 
-<p>
-  <strong><%= t('activerecord.attributes.carrier_type.note') -%>:</strong>
-  <%= @carrier_type.note -%>
-</p>
+    <p>
+      <strong><%= t('activerecord.attributes.carrier_type.note') -%>:</strong>
+      <%= @carrier_type.note -%>
+    </p>
 
-</div>
+  </div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
