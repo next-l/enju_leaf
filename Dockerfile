@@ -28,7 +28,7 @@ RUN apt-get update -qq && apt-get install --no-install-recommends -y curl gnupg 
     apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config nodejs yarn
 
 # Install application gems
-COPY Gemfile Gemfile.lock package.json ./
+COPY Gemfile Gemfile.lock package.json yarn.lock ./
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
     bundle exec bootsnap precompile --gemfile && \
