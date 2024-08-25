@@ -21,12 +21,12 @@
   <%- if @sort_by == :created_at -%>
     <strong><%= t('activerecord.attributes.reserve.created_at') -%></strong>
   <%- else -%>
-    <%= link_to t('activerecord.attributes.reserve.created_at'), url_for(request.params.merge(sort_by: nil, only_path: true)) -%>
+    <%= link_to t('activerecord.attributes.reserve.created_at'), url_for(filterer_params.merge(sort_by: nil, only_path: true)) -%>
   <% end %>
   <%- if @sort_by == :title -%>
     <strong><%= t('page.title') -%></strong>
   <%- else -%>
-    <%= link_to t('page.title'), url_for(request.params.merge(sort_by: 'title', only_path: true)) -%>
+    <%= link_to t('page.title'), url_for(filterer_params.merge(sort_by: 'title', only_path: true)) -%>
   <%- end -%>
 </p>
 
@@ -103,15 +103,15 @@
 
   <p>
     <%- if @user -%>
-      <%= link_to image_tag('icons/feed.png', size: '16x16', class: 'enju_icon', alt: t('page.feed')), url_for(request.params.merge(user_id: @user.username, format: :rss)) -%>
-      (<%= link_to 'RSS', url_for(request.params.merge(user_id: @user.username, format: :rss)) -%>)
-      <%= link_to image_tag('icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), url_for(request.params.merge(user_id: @user.username, format: :txt, locale: @locale.to_s)) -%>
-      (<%= link_to 'TSV', url_for(request.params.merge(user_id: @user.username, format: :txt, locale: @locale.to_s)) -%>)
+      <%= link_to image_tag('icons/feed.png', size: '16x16', class: 'enju_icon', alt: t('page.feed')), url_for(filterer_params.merge(user_id: @user.username, format: :rss)) -%>
+      (<%= link_to 'RSS', url_for(filterer_params.merge(user_id: @user.username, format: :rss)) -%>)
+      <%= link_to image_tag('icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), url_for(filterer_params.merge(user_id: @user.username, format: :txt, locale: @locale.to_s)) -%>
+      (<%= link_to 'TSV', url_for(filterer_params.merge(user_id: @user.username, format: :txt, locale: @locale.to_s)) -%>)
     <%- else -%>
-      <%= link_to image_tag('icons/feed.png', size: '16x16', class: 'enju_icon', alt: t('page.feed')), url_for(request.params.merge(format: :rss)) -%>
-      (<%= link_to 'RSS', url_for(request.params.merge(format: :rss)) -%>)
-      <%= link_to image_tag('icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), url_for(request.params.merge(format: :txt, locale: @locale.to_s)) -%>
-      (<%= link_to 'TSV', url_for(request.params.merge(format: :txt, locale: @locale.to_s)) -%>)
+      <%= link_to image_tag('icons/feed.png', size: '16x16', class: 'enju_icon', alt: t('page.feed')), url_for(filterer_params.merge(format: :rss)) -%>
+      (<%= link_to 'RSS', url_for(filterer_params.merge(format: :rss)) -%>)
+      <%= link_to image_tag('icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), url_for(filterer_params.merge(format: :txt, locale: @locale.to_s)) -%>
+      (<%= link_to 'TSV', url_for(filterer_params.merge(format: :txt, locale: @locale.to_s)) -%>)
     <%- end -%>
   </p>
 </div>
