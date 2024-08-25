@@ -22,17 +22,17 @@
   <p>
     <%- case params[:mode]
       when 'upcoming' -%>
-      <%= link_to t('event.all'), url_for(filtered_params.merge(mode: nil, only_path: true)) -%>
+      <%= link_to t('event.all'), url_for(filtered_params.merge(only_path: true, mode: nil, only_path: true)) -%>
       <strong><%= t('event.upcoming') -%></strong>
-      <%= link_to t('event.past'), url_for(filtered_params.merge(mode: 'past', only_path: true)) -%>
+      <%= link_to t('event.past'), url_for(filtered_params.merge(only_path: true, mode: 'past', only_path: true)) -%>
     <%- when 'past' -%>
-      <%= link_to t('event.all'), url_for(filtered_params.merge(mode: nil, only_path: true)) -%>
-      <%= link_to t('event.upcoming'), url_for(filtered_params.merge(mode: 'upcoming', only_path: true)) -%>
+      <%= link_to t('event.all'), url_for(filtered_params.merge(only_path: true, mode: nil, only_path: true)) -%>
+      <%= link_to t('event.upcoming'), url_for(filtered_params.merge(only_path: true, mode: 'upcoming', only_path: true)) -%>
       <strong><%= t('event.past') -%></strong>
     <%- else -%>
       <strong><%= t('event.all') -%></strong>
-      <%= link_to t('event.upcoming'), url_for(filtered_params.merge(mode: 'upcoming', only_path: true)) -%>
-      <%= link_to t('event.past'), url_for(filtered_params.merge(mode: 'past', only_path: true)) -%>
+      <%= link_to t('event.upcoming'), url_for(filtered_params.merge(only_path: true, mode: 'upcoming', only_path: true)) -%>
+      <%= link_to t('event.past'), url_for(filtered_params.merge(only_path: true, mode: 'past', only_path: true)) -%>
     <%- end -%>
   </p>
 
@@ -77,9 +77,9 @@
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
     <% if params[:mode] == 'calendar' %>
-      <li><%= link_to t('event.table'), url_for(filtered_params.merge(mode: nil)) -%></li>
+      <li><%= link_to t('event.table'), url_for(filtered_params.merge(only_path: true, mode: nil)) -%></li>
     <% else %>
-      <li><%= link_to t('event.calendar'), url_for(filtered_params.merge(mode: 'calendar')) -%></li>
+      <li><%= link_to t('event.calendar'), url_for(filtered_params.merge(only_path: true, mode: 'calendar')) -%></li>
     <% end %>
   </ul>
   <ul>
@@ -95,28 +95,28 @@
     <%- end -%>
   </ul>
   <ul>
-    <li><%= link_to t('event.all_libraries'), url_for(filtered_params.merge(library_id: nil, page: nil)) -%></li>
+    <li><%= link_to t('event.all_libraries'), url_for(filtered_params.merge(only_path: true, library_id: nil, page: nil)) -%></li>
     <%- @libraries.each do |library| -%>
-      <li><%= link_to library.display_name.localize, url_for(filtered_params.merge(library_id: library.name, mode: params[:mode])) -%></li>
+      <li><%= link_to library.display_name.localize, url_for(filtered_params.merge(only_path: true, library_id: library.name, mode: params[:mode])) -%></li>
     <%- end -%>
   </ul>
   <p>
     <%- if @library -%>
-      <%= link_to (image_tag 'icons/feed.png', size: '16x16', class: 'enju_icon', alt: t('page.feed')), url_for(filtered_params.merge(library_id: @library.name, format: :rss, page: nil)) -%>
-      (<%= link_to 'RSS', url_for(filtered_params.merge(library_id: @library.name, format: :rss, page: nil)) -%>)
-      <%= link_to (image_tag 'icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), url_for(filtered_params.merge(library_id: @library.name, format: :txt, locale: @locale.to_s)) -%>
-      (<%= link_to 'TSV', url_for(filtered_params.merge(library_id: @library.name, format: :txt, locale: @locale.to_s)) -%>)
+      <%= link_to (image_tag 'icons/feed.png', size: '16x16', class: 'enju_icon', alt: t('page.feed')), url_for(filtered_params.merge(only_path: true, library_id: @library.name, format: :rss, page: nil)) -%>
+      (<%= link_to 'RSS', url_for(filtered_params.merge(only_path: true, library_id: @library.name, format: :rss, page: nil)) -%>)
+      <%= link_to (image_tag 'icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), url_for(filtered_params.merge(only_path: true, library_id: @library.name, format: :txt, locale: @locale.to_s)) -%>
+      (<%= link_to 'TSV', url_for(filtered_params.merge(only_path: true, library_id: @library.name, format: :txt, locale: @locale.to_s)) -%>)
       <br />
-      <%= link_to (image_tag 'icons/calendar.png', size: '16x16', class: 'enju_icon', alt: 'iCalendar'), url_for(filtered_params.merge(library_id: @library.name, format: :ics, locale: @locale.to_s)) -%>
-      (<%= link_to 'iCalendar', url_for(filtered_params.merge(library_id: @library.name, format: :ics, locale: @locale.to_s)) -%>)
+      <%= link_to (image_tag 'icons/calendar.png', size: '16x16', class: 'enju_icon', alt: 'iCalendar'), url_for(filtered_params.merge(only_path: true, library_id: @library.name, format: :ics, locale: @locale.to_s)) -%>
+      (<%= link_to 'iCalendar', url_for(filtered_params.merge(only_path: true, library_id: @library.name, format: :ics, locale: @locale.to_s)) -%>)
     <%- else -%>
-      <%= link_to (image_tag 'icons/feed.png', size: '16x16', class: 'enju_icon', alt: t('page.feed')), url_for(filtered_params.merge(format: :rss)) -%>
-      (<%= link_to 'RSS', url_for(filtered_params.merge(format: :rss)) -%>)
-      <%= link_to (image_tag 'icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), url_for(filtered_params.merge(format: :txt, locale: @locale.to_s)) -%>
-      (<%= link_to 'TSV', url_for(filtered_params.merge(format: :txt, locale: @locale.to_s)) -%>)
+      <%= link_to (image_tag 'icons/feed.png', size: '16x16', class: 'enju_icon', alt: t('page.feed')), url_for(filtered_params.merge(only_path: true, format: :rss)) -%>
+      (<%= link_to 'RSS', url_for(filtered_params.merge(only_path: true, format: :rss)) -%>)
+      <%= link_to (image_tag 'icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), url_for(filtered_params.merge(only_path: true, format: :txt, locale: @locale.to_s)) -%>
+      (<%= link_to 'TSV', url_for(filtered_params.merge(only_path: true, format: :txt, locale: @locale.to_s)) -%>)
       <br />
-      <%= link_to (image_tag 'icons/calendar.png', size: '16x16', class: 'enju_icon', alt: 'iCalendar'), url_for(filtered_params.merge(format: :ics, locale: @locale.to_s)) -%>
-      (<%= link_to 'iCalendar', url_for(filtered_params.merge(format: :ics, locale: @locale.to_s)) -%>)
+      <%= link_to (image_tag 'icons/calendar.png', size: '16x16', class: 'enju_icon', alt: 'iCalendar'), url_for(filtered_params.merge(only_path: true, format: :ics, locale: @locale.to_s)) -%>
+      (<%= link_to 'iCalendar', url_for(filtered_params.merge(only_path: true, format: :ics, locale: @locale.to_s)) -%>)
     <%- end -%>
   </p>
 </div>
