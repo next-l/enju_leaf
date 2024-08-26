@@ -18,8 +18,7 @@ jobs:
       id: meta
       with:
         images: |
-          projectnextl/enju_leaf
-          ghcr.io/next-l/enju_leaf
+          enju_leaf
         tags: |
           type=ref,event=branch
           type=ref,event=pr
@@ -41,6 +40,6 @@ jobs:
       with:
         push: true
         tags: |
-          ${{ steps.meta.outputs.tags }}
-          ghcr.io/${{ steps.meta.outputs.tags }}
+          projectnextl/${{ steps.meta.outputs.tags }}
+          ghcr.io/next-l/${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
