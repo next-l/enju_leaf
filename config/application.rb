@@ -34,6 +34,7 @@ module EnjuLeaf
     config.time_zone = ENV['ENJU_LEAF_TIME_ZONE'] || 'UTC'
 
     base_url = URI.parse(ENV['ENJU_LEAF_BASE_URL'] || 'http://localhost:8080')
+    config.hosts << base_url.host
     config.action_mailer.default_url_options = {
       host: base_url.host,
       protocol: base_url.scheme,
