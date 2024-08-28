@@ -281,6 +281,7 @@ ja:
     delegated: 代理
     impersonate: "ログインユーザを切り替える"
     stop_impersonating: "%{username}に戻る"
+    background_job: 非同期処理
   title:
     index: "一覧"
     show: "表示"
