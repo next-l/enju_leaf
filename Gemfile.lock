@@ -191,7 +191,7 @@ GEM
     globalize-accessors (0.3.0)
       globalize (>= 5.0.0)
     hashdiff (1.1.1)
-    highline (3.1.0)
+    highline (3.1.1)
       reline
     htmlentities (4.3.4)
     i18n (1.14.5)
@@ -269,7 +269,7 @@ GEM
     mutex_m (0.2.0)
     net-http (0.4.1)
       uri
-    net-imap (0.4.14)
+    net-imap (0.4.15)
       date
       net-protocol
     net-pop (0.1.2)
@@ -428,7 +428,7 @@ GEM
       sprockets-rails
       tilt
     scanf (1.0.0)
-    selenium-webdriver (4.23.0)
+    selenium-webdriver (4.24.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
