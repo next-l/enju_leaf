@@ -87,9 +87,9 @@ namespace :enju_leaf do
         20180107155817
       ].include?(version)
 
-      next if ActiveRecord::Base.connection.exec_query('SELECT version FROM schema_migrations WHERE version = $1', 'SQL', [[nil, version]]).first
+      next if ActiveRecord::Base.connection.select_one("SELECT version FROM schema_migrations WHERE version = '#{version.to_i}'")
 
-      ActiveRecord::Base.connection.exec_query('INSERT INTO schema_migrations (version) VALUES ($1)', 'SQL', [[nil, version]])
+      ActiveRecord::Base.connection.execute("INSERT INTO schema_migrations (version) VALUES ('#{version.to_i}')")
       puts "Added #{entry[0]}"
     end
   end
