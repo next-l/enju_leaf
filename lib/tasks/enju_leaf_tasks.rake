@@ -134,48 +134,48 @@ namespace :enju_leaf do
         Manifestation.transaction do
           case identifier_type.name
           when 'isbn'
-            IsbnRecordAndManifestation.create(
+            IsbnRecordAndManifestation.create!(
               manifestation: identifier.manifestation,
               isbn_record: IsbnRecord.find_by(body: identifier.body)
             )
           when 'issn'
-            IssnRecordAndManifestation.create(
+            IssnRecordAndManifestation.create!(
               manifestation: identifier.manifestation,
               issn_record: IssnRecord.find_by(body: identifier.body)
             )
           when 'issn_l'
-            IssnRecordAndManifestation.create(
+            IssnRecordAndManifestation.create!(
               manifestation: identifier.manifestation,
               issn_record: IssnRecord.find_by(body: identifier.body)
             )
           when 'jpno'
-            JpnoRecord.create(
+            JpnoRecord.create!(
               manifestation: identifier.manifestation,
               body: identifier.body
             )
           when 'iss_itemno'
-            NdlBibIdRecord.create(
+            NdlBibIdRecord.create!(
               manifestation: identifier.manifestation,
               body: identifier.body
             )
           when 'ncid'
-            NcidRecord.create(
+            NcidRecord.create!(
               manifestation: identifier.manifestation,
               body: identifier.body
             )
           when 'lccn'
-            LccnRecord.create(
+            LccnRecord.create!(
               manifestation: identifier.manifestation,
               body: identifier.body
             )
           when 'doi'
-            DoiRecord.create(
+            DoiRecord.create!(
               manifestation: identifier.manifestation,
               body: identifier.body
             )
           end
 
-          identifier.destroy
+          # identifier.destroy
           Rails.logger.info "#{identifier_type.name} #{identifier.body} migrated"
         end
       end
