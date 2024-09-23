@@ -24,6 +24,7 @@ x-app: &app
     - ./:/enju
   depends_on:
     - solr
+    - postgres
   restart: always
 
 services:
