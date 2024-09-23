@@ -54,25 +54,16 @@ module EnjuBiblio
       agents_list.join(" ").html_safe
     end
 
-    def identifier_link(identifier)
-      case identifier.identifier_type.name
-      when 'doi'
-        link_to identifier.body, "https://doi.org/#{identifier.body}"
-      when 'iss_itemno'
-        if identifier.body =~ /\AR[0-9A-Za-z]+?-I[0-9A-Za-z]+?-00\z/
-          link_to identifier.body, "https://iss.ndl.go.jp/books/#{identifier.body}"
-        else
-          link_to identifier.body, "https://ndlsearch.ndl.go.jp/books/#{identifier.body}"
-        end
-      when 'lccn'
-        link_to identifier.body, "https://lccn.loc.gov/#{identifier.body}"
-      when 'ncid'
-        link_to identifier.body, "https://ci.nii.ac.jp/ncid/#{identifier.body}"
-      when 'isbn'
-        Lisbn.new(identifier.body).isbn_with_dash
+    def ndl_bib_id_record_link(ndl_bib_id_record)
+      if ndl_bib_id_record.body =~ /\AR[0-9A-Za-z]+?-I[0-9A-Za-z]+?-00\z/
+        link_to ndl_bib_id_record.body, "https://iss.ndl.go.jp/books/#{ndl_bib_id_record.body}"
       else
-        identifier.body
+        link_to ndl_bib_id_record.body, "https://ndlsearch.ndl.go.jp/books/#{ndl_bib_id_record.body}"
       end
+    end
+
+    def identifier_link(identifier)
+      identifier.body
     end
   end
 end
