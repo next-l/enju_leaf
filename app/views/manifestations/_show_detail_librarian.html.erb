@@ -72,6 +72,7 @@
         <tr>
           <td><%= t('page.identifier') -%>:</td>
           <td>
+            <%= render 'identifier', manifestation: manifestation %>
             <ul>
               <% manifestation.identifiers.each do |identifier| %>
                 <li>
