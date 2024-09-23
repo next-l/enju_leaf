@@ -25,6 +25,7 @@ namespace :enju_leaf do
 
   desc "upgrade enju_leaf"
   task :upgrade => :environment do
+    Rails::Engine.subclasses.each{|engine| engine.instance.eager_load!}
     Rake::Task['enju_library:upgrade'].invoke
     Rake::Task['enju_biblio:upgrade'].invoke
     Rake::Task['enju_event:upgrade'].invoke
@@ -134,45 +135,45 @@ namespace :enju_leaf do
         Manifestation.transaction do
           case identifier_type.name
           when 'isbn'
-            IsbnRecordAndManifestation.create!(
+            IsbnRecordAndManifestation.create(
               manifestation: identifier.manifestation,
-              isbn_record: IsbnRecord.find_by(body: identifier.body)
+              isbn_record: IsbnRecord.find_or_create_by!(body: identifier.body)
             )
           when 'issn'
-            IssnRecordAndManifestation.create!(
+            IssnRecordAndManifestation.create(
               manifestation: identifier.manifestation,
-              issn_record: IssnRecord.find_by(body: identifier.body)
+              issn_record: IssnRecord.find_or_create_by!(body: identifier.body)
             )
           when 'issn_l'
-            IssnRecordAndManifestation.create!(
+            IssnRecordAndManifestation.create(
               manifestation: identifier.manifestation,
-              issn_record: IssnRecord.find_by(body: identifier.body)
+              issn_record: IssnRecord.find_or_create_by!(body: identifier.body)
             )
           when 'jpno'
-            JpnoRecord.create!(
-              manifestation: identifier.manifestation,
+            jpno_record = JpnoRecord.find_or_initialize_by(
               body: identifier.body
             )
+            jpno_record.update!(manifestation: identifier.manifestation)
           when 'iss_itemno'
-            NdlBibIdRecord.create!(
-              manifestation: identifier.manifestation,
+            ndl_bib_id_record = NdlBibIdRecord.find_or_initialize_by(
               body: identifier.body
             )
+            ndl_bib_id_record.update!(manifestation: identifier.manifestation)
           when 'ncid'
-            NcidRecord.create!(
-              manifestation: identifier.manifestation,
+            ncid_record = NcidRecord.find_or_initialize_by(
               body: identifier.body
             )
+            ncid_record.update!(manifestation: identifier.manifestation)
           when 'lccn'
-            LccnRecord.create!(
-              manifestation: identifier.manifestation,
+            lccn_record = LccnRecord.find_or_initialize_by(
               body: identifier.body
             )
+            lccn_record.update!(manifestation: identifier.manifestation)
           when 'doi'
-            DoiRecord.create!(
-              manifestation: identifier.manifestation,
+            doi_record = DoiRecord.find_or_initialize_by(
               body: identifier.body
             )
+            doi_record.update!(manifestation: identifier.manifestation)
           end
 
           # identifier.destroy
