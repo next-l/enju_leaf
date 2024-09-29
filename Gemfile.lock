@@ -50,7 +50,7 @@ GEM
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
-    active_storage_validations (1.1.4)
+    active_storage_validations (1.2.0)
       activejob (>= 5.2.0)
       activemodel (>= 5.2.0)
       activestorage (>= 5.2.0)
@@ -205,7 +205,7 @@ GEM
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
     io-console (0.7.2)
-    irb (1.14.0)
+    irb (1.14.1)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jbuilder (2.13.0)
@@ -391,7 +391,7 @@ GEM
       typesafe_enum (~> 0.1, >= 0.1.5)
       xml-mapping (~> 0.10)
       xml-mapping_extensions (~> 0.4, >= 0.4.8)
-    rexml (3.3.7)
+    rexml (3.3.8)
     rsolr (2.6.0)
       builder (>= 2.1.2)
       faraday (>= 0.9, < 3, != 2.0.0)
@@ -429,7 +429,7 @@ GEM
       sprockets-rails
       tilt
     scanf (1.0.0)
-    selenium-webdriver (4.24.0)
+    selenium-webdriver (4.25.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
@@ -444,7 +444,7 @@ GEM
     simplecov_json_formatter (0.1.4)
     sitemap_generator (6.3.0)
       builder (~> 3.0)
-    solid_queue (0.9.0)
+    solid_queue (1.0.0)
       activejob (>= 7.1)
       activerecord (>= 7.1)
       concurrent-ruby (>= 1.3.1)
@@ -479,7 +479,7 @@ GEM
     thor (1.3.2)
     tilt (2.4.0)
     timeout (0.4.1)
-    turbo-rails (2.0.9)
+    turbo-rails (2.0.10)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
     typesafe_enum (0.3.1)
@@ -505,7 +505,7 @@ GEM
       rack-proxy (>= 0.6.1)
       railties (>= 5.2)
       semantic_range (>= 2.3.0)
-    webrick (1.8.1)
+    webrick (1.8.2)
     websocket (1.2.11)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
@@ -578,7 +578,7 @@ DEPENDENCIES
   selenium-webdriver
   simplecov
   sitemap_generator
-  solid_queue
+  solid_queue (~> 1.0)
   sprockets-rails
   statesman (~> 12.1)
   strip_attributes
