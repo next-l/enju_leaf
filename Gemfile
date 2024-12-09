@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.2.5"
+ruby "3.2.6"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.4"
@@ -96,7 +96,7 @@ gem 'progress_bar'
 gem 'rails_autolink'
 gem 'kramdown'
 gem 'solid_queue', "~> 1.0"
-gem 'mission_control-jobs'
+gem 'mission_control-jobs', "< 1.0"
 gem 'acts-as-taggable-on'
 gem 'resync' # , github: 'nabeta/resync', branch: 'add-datetime'
 gem 'pretender'
