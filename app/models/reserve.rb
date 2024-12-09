@@ -162,9 +162,7 @@ class Reserve < ApplicationRecord
   end
 
   def next_reservation
-    if item
-      Reserve.waiting.where(manifestation_id: item.manifestation.id).readonly(false).first
-    end
+    Reserve.waiting.find_by(manifestation_id: manifestation_id)
   end
 
   def send_message(sender = nil)
