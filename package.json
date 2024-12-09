@@ -2,7 +2,7 @@
   "name": "enju_leaf",
   "private": true,
   "dependencies": {
-    "@babel/runtime": "^7.26.0",
+    "@babel/runtime": "^7.25.0",
     "@mui/system": "^5.16.7",
     "@rails/actioncable": "~7.1.3",
     "@rails/webpacker": "5.4.4",
