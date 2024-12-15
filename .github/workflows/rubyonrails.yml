@@ -25,6 +25,8 @@ jobs:
       CC_TEST_REPORTER_ID: c193cb8ea058a7d62fd62d6d05adaaf95f6bdf882c1039500b30b54494a36e52
       ENJU_LEAF_TIMEZONE: UTC
     steps:
+      - name: Install packages
+        run: sudo apt-get install -y imagemagick
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Setup node
