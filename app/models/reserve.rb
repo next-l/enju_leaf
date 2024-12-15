@@ -162,7 +162,7 @@ class Reserve < ApplicationRecord
   end
 
   def next_reservation
-    Reserve.waiting.find_by(manifestation_id: manifestation_id)
+    Reserve.waiting.where.not(id: id).find_by(manifestation_id: manifestation_id)
   end
 
   def send_message(sender = nil)
