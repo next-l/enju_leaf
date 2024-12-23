@@ -43,7 +43,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
 # Use Sass to process CSS
-gem "sassc-rails", "~> 2.1.0"
+gem "sassc-rails"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
@@ -111,6 +111,7 @@ gem 'oai'
 gem 'active_storage_validations'
 gem 'webpacker', '~> 5.0'
 gem 'faraday-multipart'
+gem 'sassc', "~> 2.1.0"
 
 group :development, :test do
   gem 'annotate'
