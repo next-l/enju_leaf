@@ -112,7 +112,7 @@ reserve_00012:
 reserve_00013: 
   updated_at: 2007-09-03 14:20:07.530854 +09:00
   manifestation_id: 11
-  user_id: 4
+  user_id: 5
   request_status_type_id: 3
   id: 13
   created_at: 2007-09-03 14:20:07.530854 +09:00
@@ -121,7 +121,7 @@ reserve_00013:
 reserve_00014: 
   updated_at: 2007-09-03 14:20:08.530854 +09:00
   manifestation_id: 11
-  user_id: 5
+  user_id: 4
   request_status_type_id: 3
   id: 14
   created_at: 2007-09-03 14:20:08.530854 +09:00
