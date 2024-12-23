@@ -2,11 +2,8 @@
   "name": "enju_leaf",
   "private": true,
   "dependencies": {
-    "@babel/runtime": "^7.25.0",
-    "@mui/system": "^5.16.7",
-    "@rails/actioncable": "~7.1.3",
+    "@rails/actioncable": "^7.1.5",
     "@rails/webpacker": "5.4.4",
-    "dnd-core": "^16.0.1",
     "mirador": "^4.0.0-alpha.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
