@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.2.5"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1.3"
+gem "rails", "~> 7.1.3", ">= 7.1.3.4"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -94,9 +94,8 @@ gem 'jquery-rails'
 gem 'addressable'
 gem 'progress_bar'
 gem 'rails_autolink'
-gem 'faraday_middleware'
 gem 'kramdown'
-gem 'solid_queue'
+gem 'solid_queue', "~> 1.0"
 gem 'mission_control-jobs'
 gem 'acts-as-taggable-on'
 gem 'resync' # , github: 'nabeta/resync', branch: 'add-datetime'
@@ -110,6 +109,11 @@ gem 'rdf-turtle', require: 'rdf/turtle'
 gem 'rdf-vocab', require: 'rdf/vocab'
 gem 'oai'
 gem 'active_storage_validations'
+<<<<<<< HEAD
+=======
+gem 'webpacker', '~> 5.0'
+gem 'faraday-multipart'
+>>>>>>> main
 
 group :development, :test do
   gem 'annotate'

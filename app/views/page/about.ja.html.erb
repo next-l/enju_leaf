@@ -3,50 +3,49 @@
     <h1 class="title card-header">このシステムについて</h1>
     <div id="content_list" class="card-body">
 
-    <ul>
-      <li>この図書館システム"Next-L Enju Leaf"は、<a href="https://github.com/nabeta">田辺浩介</a>と<a href="http://www.next-l.jp/">Project Next-L</a>によって開発されています。</li>
-      <li>Next-L Enju LeafはMITライセンスのもとに公開されています。詳しくは<a href="https://github.com/next-l/enju_leaf">プロジェクトのホームページ</a>をごらんください。</li>
-    </ul>
+      <ul>
+        <li>この図書館システム"Next-L Enju Leaf"は、<a href="https://github.com/nabeta">田辺浩介</a>と<a href="https://www.next-l.jp/">Project Next-L</a>によって開発されています。</li>
+        <li>Next-L Enju LeafはMITライセンスのもとに公開されています。詳しくは<a href="https://github.com/next-l/enju_leaf">プロジェクトのホームページ</a>をごらんください。</li>
+      </ul>
 
-    <h2>連絡先</h2>
+      <h2>連絡先</h2>
 
-    <ul>
-      <li>田辺浩介: <%= mail_to 'nabeta@fastmail.fm', nil, replace_at: '_at_' -%></li>
-      <li>Project Next-L: <%= mail_to 'info@next-l.jp', nil, replace_at: '_at_' -%></li>
-    </ul>
+      <ul>
+        <li>田辺浩介: <%= mail_to 'nabeta@fastmail.fm', nil, replace_at: '_at_' -%></li>
+        <li>Project Next-L: <%= mail_to 'info@next-l.jp', nil, replace_at: '_at_' -%></li>
+      </ul>
 
-    <h2>謝辞</h2>
-    <ul>
-      <li>このシステムは、以下のソフトウェアを利用しています。
+      <h2>謝辞</h2>
+      <ul>
+        <li>このシステムは、以下のソフトウェアを利用しています。
+          <ul>
+            <li>
+              <a href="https://www.ruby-lang.org/">Ruby</a>,
+              <a href="https://www.rubyonrails.org/">Ruby on Rails</a>,
+              <%= database_adapter -%>,
+              <a href="https://solr.apache.org/">Apache Solr</a>
+              <a href="https://lucene.apache.org/solr/">Apache Solr</a>
+            </li>
+          </ul>
+        </li>
+        <li>このシステムは、以下のサービスやデータベースから得た書誌データを利用しています。
         <ul>
-          <li>
-            <a href="https://www.ruby-lang.org/">Ruby</a>,
-            <a href="https://www.rubyonrails.org/">Ruby on Rails</a>,
-            <%= database_adapter -%>,
-            <a href="https://solr.apache.org/">Apache Solr</a>
-            <a href="https://lucene.apache.org/solr/">Apache Solr</a>
-          </li>
+          <li><a href="https://ndlsearch.ndl.go.jp/">国立国会図書館サーチ (NDLサーチ)</a></li>
+          <li><a href="https://crd.ndl.go.jp/jp/public/">国立国会図書館レファレンス協同データベース</a></li>
         </ul>
-      </li>
-      <li>このシステムは、以下のサービスやデータベースから得た書誌データを利用しています。
-      <ul>
-        <li><a href="https://ndlsearch.ndl.go.jp/">国立国会図書館サーチ (NDLサーチ)</a></li>
-        <li><a href="https://crd.ndl.go.jp/jp/public/">国立国会図書館レファレンス協同データベース</a></li>
+        </li>
+        <li>このシステムは、以下のサービスから得た書影を利用しています。
+        <ul>
+          <li><%= book_jacket_source_link %></li>
+        </ul>
+        </li>
+        <li>このシステムは、以下のサービスから得たWebサイトのスクリーンショットを利用しています。
+        <ul>
+          <li><%= screenshot_generator_link %></li>
+        </ul>
+        </li>
+        <li>このシステムで利用しているアイコンは、<a href="http://www.famfamfam.com/lab/icons/silk/">famfamfam.com</a>によって製作されています。</li>
       </ul>
-      </li>
-      <li>このシステムは、以下のサービスから得た書影を利用しています。
-      <ul>
-        <li><%= book_jacket_source_link %></li>
-      </ul>
-      </li>
-      <li>このシステムは、以下のサービスから得たWebサイトのスクリーンショットを利用しています。
-      <ul>
-        <li><%= screenshot_generator_link %></li>
-      </ul>
-      </li>
-      <li>このシステムで利用しているアイコンは、<a href="http://www.famfamfam.com/lab/icons/silk/">famfamfam.com</a>によって製作されています。</li>
-    </ul>
-
     </div>
   </div>
 </div>

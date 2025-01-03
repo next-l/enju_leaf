@@ -2,7 +2,7 @@ class AddConstraintsToMostRecentForOrderListTransitions < ActiveRecord::Migratio
   disable_ddl_transaction!
 
   def up
-    add_index :order_list_transitions, [:order_list_id, :most_recent], unique: true, where: "most_recent", name: "index_order_list_transitions_parent_most_recent" #, algorithm: :concurrently
+    add_index :order_list_transitions, [:order_list_id, :most_recent], unique: true, where: "most_recent", name: "index_order_list_transitions_parent_most_recent", if_not_exists: true #, algorithm: :concurrently
     change_column_null :order_list_transitions, :most_recent, false
   end
 

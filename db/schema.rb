@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,7 +55,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
 
   create_table "agent_import_file_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "agent_import_file_id"
     t.datetime "created_at", null: false
@@ -210,7 +210,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
 
   create_table "bookmark_stat_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "bookmark_stat_id"
     t.datetime "created_at", null: false
@@ -505,7 +505,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
 
   create_table "event_export_file_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "event_export_file_id"
     t.datetime "created_at", null: false
@@ -530,7 +530,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
 
   create_table "event_import_file_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "event_import_file_id"
     t.datetime "created_at", null: false
@@ -640,7 +640,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
 
   create_table "import_request_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "import_request_id"
     t.datetime "created_at", null: false
@@ -875,7 +875,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
     t.text "admin_networks"
     t.boolean "allow_bookmark_external_url", default: false, null: false
     t.string "url", default: "http://localhost:3000/"
-    t.text "settings"
+    t.jsonb "settings", default: {}, null: false
     t.text "html_snippet"
     t.string "book_jacket_source"
     t.integer "max_number_of_results", default: 1000
@@ -907,7 +907,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
 
   create_table "manifestation_checkout_stat_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "manifestation_checkout_stat_id"
     t.datetime "created_at", null: false
@@ -974,7 +974,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
 
   create_table "manifestation_reserve_stat_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "manifestation_reserve_stat_id"
     t.datetime "created_at", null: false
@@ -1075,7 +1075,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
 
   create_table "message_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "message_id"
     t.datetime "created_at", null: false
@@ -1170,7 +1170,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
 
   create_table "order_list_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.integer "order_list_id"
     t.datetime "created_at", null: false
@@ -1400,7 +1400,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
 
   create_table "reserve_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "reserve_id"
     t.datetime "created_at", null: false
@@ -1435,7 +1435,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
 
   create_table "resource_export_file_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "resource_export_file_id"
     t.datetime "created_at", null: false
@@ -1459,7 +1459,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
 
   create_table "resource_import_file_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "resource_import_file_id"
     t.datetime "created_at", null: false
@@ -1636,7 +1636,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
     t.string "hostname"
     t.text "metadata"
     t.datetime "created_at", null: false
+    t.string "name", null: false
     t.index ["last_heartbeat_at"], name: "index_solid_queue_processes_on_last_heartbeat_at"
+    t.index ["name", "supervisor_id"], name: "index_solid_queue_processes_on_name_and_supervisor_id", unique: true
     t.index ["supervisor_id"], name: "index_solid_queue_processes_on_supervisor_id"
   end
 
@@ -1667,7 +1669,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
     t.text "arguments"
     t.string "queue_name"
     t.integer "priority", default: 0
-    t.boolean "static", default: true
+    t.boolean "static", default: true, null: false
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -1770,6 +1772,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
     t.bigint "tagger_id"
     t.string "context", limit: 128
     t.datetime "created_at", null: false
+    t.string "tenant", limit: 128
     t.index ["context"], name: "index_taggings_on_context"
     t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
     t.index ["tag_id"], name: "index_taggings_on_tag_id"
@@ -1779,6 +1782,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
     t.index ["taggable_type"], name: "index_taggings_on_taggable_type"
     t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
     t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
+    t.index ["tenant"], name: "index_taggings_on_tenant"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -1801,7 +1805,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
 
   create_table "user_checkout_stat_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "user_checkout_stat_id"
     t.datetime "created_at", null: false
@@ -1826,7 +1830,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
 
   create_table "user_export_file_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "user_export_file_id"
     t.datetime "created_at", null: false
@@ -1895,7 +1899,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
 
   create_table "user_import_file_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "user_import_file_id"
     t.datetime "created_at", null: false
@@ -1934,7 +1938,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_052051) do
 
   create_table "user_reserve_stat_transitions", force: :cascade do |t|
     t.string "to_state"
-    t.text "metadata", default: "{}"
+    t.jsonb "metadata", default: {}, null: false
     t.integer "sort_key"
     t.bigint "user_reserve_stat_id"
     t.datetime "created_at", null: false

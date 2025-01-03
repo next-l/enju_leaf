@@ -296,6 +296,7 @@ en:
     delegated: Delegated
     impersonate: "Impersonate"
     stop_impersonating: "Back to %{username}"
+    background_job: Background job
   title:
     index: "index"
     show: "show"

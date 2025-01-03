@@ -71,6 +71,9 @@ class Agent < ApplicationRecord
     integer :original_agent_ids, multiple: true
     integer :required_role_id
     integer :agent_type_id
+    string :agent_id do
+      id
+    end
   end
 
   paginates_per 10
