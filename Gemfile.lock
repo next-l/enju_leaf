@@ -200,6 +200,9 @@ GEM
       request_store (~> 1.0)
     globalize-accessors (0.3.0)
       globalize (>= 5.0.0)
+    google-protobuf (4.29.2-x86_64-linux)
+      bigdecimal
+      rake (>= 13)
     hashdiff (1.1.2)
     highline (3.1.1)
       reline
@@ -434,6 +437,8 @@ GEM
       ffi (~> 1.12)
       logger
     rubyzip (2.3.2)
+    sass-embedded (1.83.0-x86_64-linux-gnu)
+      google-protobuf (~> 4.28)
     scanf (1.0.0)
     securerandom (0.4.1)
     selenium-webdriver (4.27.0)
@@ -575,6 +580,7 @@ DEPENDENCIES
   rspec-rails
   rspec_junit_formatter
   rss
+  sass-embedded
   selenium-webdriver
   simplecov
   sitemap_generator
