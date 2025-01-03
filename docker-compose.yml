@@ -92,7 +92,7 @@ services:
       retries: 3
 
   tika:
-    image: apache/tika:2.9.2.1
+    image: apache/tika:3.0.0.0
     expose:
       - 9998
     restart: always
