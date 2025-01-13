@@ -173,7 +173,7 @@ class ResourceImportFile < ApplicationRecord
           end
         end
         if manifestation.nil? && row['ndl_bib_id']
-          manifestation = Manifestation.import_ndl_bib_id(row['ndl_bib_id'])
+          manifestation = Manifestation.import_ndl_bib_id("R100000002-I#{row['ndl_bib_id']}")
           if manifestation
             num[:manifestation_imported] += 1
           end
