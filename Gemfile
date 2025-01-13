@@ -96,7 +96,7 @@ gem 'progress_bar'
 gem 'rails_autolink'
 gem 'kramdown'
 gem 'solid_queue', "~> 1.0"
-gem 'mission_control-jobs', "~> 0.6.0"
+gem 'mission_control-jobs'
 gem 'acts-as-taggable-on'
 gem 'resync' # , github: 'nabeta/resync', branch: 'add-datetime'
 gem 'pretender'
