@@ -96,7 +96,7 @@ gem 'progress_bar'
 gem 'rails_autolink'
 gem 'kramdown'
 gem 'solid_queue', "~> 1.0"
-gem 'mission_control-jobs', "< 1.0"
+gem 'mission_control-jobs', "~> 0.5.0"
 gem 'acts-as-taggable-on'
 gem 'resync' # , github: 'nabeta/resync', branch: 'add-datetime'
 gem 'pretender'
@@ -111,7 +111,6 @@ gem 'oai'
 gem 'active_storage_validations'
 gem 'webpacker', '~> 5.0'
 gem 'faraday-multipart'
-gem 'sassc', "~> 2.1.0"
 
 group :development, :test do
   gem 'annotate'
