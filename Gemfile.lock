@@ -487,7 +487,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-types (1.10.0)
-    uri (0.13.1)
+    uri (1.0.2)
     vcr (6.3.1)
       base64
     warden (1.2.9)
