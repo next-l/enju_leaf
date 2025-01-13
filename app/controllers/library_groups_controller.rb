@@ -65,7 +65,7 @@ class LibraryGroupsController < ApplicationController
       :name, :display_name, :short_name, :my_networks,
       :login_banner, :note, :country_id, :admin_networks, :url,
       :max_number_of_results, :footer_banner, :email,
-      :book_jacket_source, :screenshot_generator, :erms_url,
+      :book_jacket_source, :screenshot_generator,
       :header_logo, :delete_header_logo,
       :allow_bookmark_external_url, # EnjuBookmark
       {

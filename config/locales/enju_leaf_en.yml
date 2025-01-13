@@ -284,7 +284,6 @@ en:
     only_lowercase_letters_and_numbers_are_allowed: "is invalid. Only lowercase letters, numbers and underscore are allowed. The first character must be alphabetic."
     not_logged_in: "Not logged in"
     add_child: "Add a child"
-    electronic_resource_management: "Electronic resource management"
     system: System
     manual: Manual
     cannot_parse_yaml_header: "has an invalid YAML header. You must add a space after the header's colon."
