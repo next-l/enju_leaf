@@ -233,7 +233,7 @@ describe ResourceImportFile do
 
     describe "NDLBibID" do
       it "should import NDLBibID", vcr: true do
-        file = ResourceImportFile.create resource_import: StringIO.new("ndl_bib_id\nR100000002-I000000471440\n"), user: users(:admin)
+        file = ResourceImportFile.create resource_import: StringIO.new("ndl_bib_id\n000000471440\n"), user: users(:admin)
         result = file.import_start
         expect(result[:manifestation_imported]).to eq 1
         resource_import_result = file.resource_import_results.last
