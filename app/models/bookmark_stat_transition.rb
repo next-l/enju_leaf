@@ -1,7 +1,4 @@
 class BookmarkStatTransition < ApplicationRecord
-  include Statesman::Adapters::ActiveRecordTransition
-
-
   belongs_to :bookmark_stat, inverse_of: :bookmark_stat_transitions
 end
 
@@ -11,7 +8,7 @@ end
 #
 #  id               :bigint           not null, primary key
 #  to_state         :string
-#  metadata         :text             default({})
+#  metadata         :jsonb            not null
 #  sort_key         :integer
 #  bookmark_stat_id :bigint
 #  created_at       :datetime         not null

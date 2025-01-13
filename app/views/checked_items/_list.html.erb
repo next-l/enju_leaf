@@ -1,23 +1,23 @@
 <div style="color: red"><%= flash[:message] -%></div>
 
 <div class="search_form">
-<%= form_with(model: checked_item, html: {method: :post}, url: checked_items_path(basket_id: @basket.id)) do |f| -%>
-  <%= error_messages(@checked_item) if @checked_item -%>
-  <p>
-    <%= f.label :item_identifier, t('activerecord.attributes.item.item_identifier') -%>: <%= f.search_field :item_identifier, class: 'resource_item_identifier' -%>
-    <%= f.submit t('page.read'), 'data-disable-with' => t('page.saving') -%><br />
-    <%= f.label :due_date %>
-    <%= f.text_field :due_date_string, class: 'datepicker' %>
-    <%= t('checked_item.ignore_restriction') -%>: <%= f.check_box :ignore_restriction -%>
-  </p>
-<%- end -%>
+  <%= form_with(model: checked_item, html: {method: :post}, url: checked_items_path(basket_id: @basket.id), local: false) do |f| -%>
+    <%= error_messages(checked_item) if checked_item -%>
+    <p>
+      <%= f.label :item_identifier, t('activerecord.attributes.item.item_identifier') -%>: <%= f.search_field :item_identifier, class: 'resource_item_identifier' -%>
+      <%= f.submit t('page.read'), 'data-disable-with' => t('page.saving') -%><br />
+      <%= f.label :due_date %>
+      <%= f.text_field :due_date_string, class: 'datepicker' %>
+      <%= t('checked_item.ignore_restriction') -%>: <%= f.check_box :ignore_restriction -%>
+    </p>
+  <%- end -%>
 
-<script type="text/javascript">
-$(document).ready(function(){
-  $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
-  $('#checked_item_item_identifier').focus().select();
-});
-</script>
+  <script type="text/javascript">
+  $(document).ready(function(){
+    $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#checked_item_item_identifier').focus().select();
+  });
+  </script>
 </div>
 
 <%= render 'checked_item' %>

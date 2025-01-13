@@ -1,5 +1,5 @@
-<%= form_for(@content_type) do |f| -%>
-  <%= error_messages(@content_type) -%>
+<%= form_with(model: content_type) do |f| -%>
+  <%= error_messages(content_type) -%>
 
   <div class="field">
     <%= f.label :name -%><br />

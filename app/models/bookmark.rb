@@ -64,11 +64,12 @@ class Bookmark < ApplicationRecord
     end
   end
 
-  def self.get_title_from_url(url)
+  def get_title_from_url(url)
     return if url.blank?
     return unless Addressable::URI.parse(url).host
-    if manifestation_id = url.bookmarkable_id
-      self.manifestation = Manifestation.find(manifestation_id)
+
+    if manifestation_id == url.bookmarkable_id
+      bookmark.manifestation = Manifestation.find(manifestation_id)
       return manifestation.original_title
     end
     unless manifestation

@@ -15,6 +15,7 @@ class IssnRecord < ApplicationRecord
 
   def self.new_records(issn_records_params)
     return [] unless issn_records_params
+
     issn_records = []
     IssnRecord.transaction do
       issn_records_params.each do |k, v|

@@ -50,6 +50,19 @@ describe Basket do
     basket.basket_checkout(users(:librarian1))
     checked_item.item.circulation_status.name.should eq 'On Loan'
   end
+
+  it "should checkout retained item" do
+    checkout = users(:user1).checkouts.order(:created_at).first
+    reserve = users(:user2).reserves.create!(manifestation: checkout.item.manifestation)
+    basket1 = Basket.new(user: users(:librarian1))
+    checkin = Checkin.create!(basket: basket1, librarian: users(:librarian1), item: checkout.item)
+    checkin.item_checkin(checkin.librarian)
+    basket2 = Basket.create!(user: users(:user2))
+    basket2.checked_items.create(item: checkout.item)
+    basket2.basket_checkout(basket2.user)
+    expect(checkout.item.circulation_status.name).to eq 'On Loan'
+    expect(checkout.item.manifestation.reserves.order(created_at: :desc).first.current_state).to eq 'completed'
+  end
 end
 
 # == Schema Information

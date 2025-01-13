@@ -1,6 +1,7 @@
 class IssnRecordAndManifestation < ApplicationRecord
   belongs_to :issn_record
   belongs_to :manifestation
+  validates :issn_record_id, uniqueness: {scope: :manifestation_id}
 end
 
 # == Schema Information

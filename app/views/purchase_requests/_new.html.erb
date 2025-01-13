@@ -3,7 +3,7 @@
 <div id="content_list">
 
 <%= form_for(@purchase_request) do |f| -%>
-  <%= f.error_messages -%>
+  <%= error_messages(@purchase_request) -%>
 
   <div class="field">
     <%= f.label t('activerecord.models.user') -%><br />

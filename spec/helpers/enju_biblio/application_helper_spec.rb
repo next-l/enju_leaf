@@ -13,11 +13,10 @@ describe EnjuBiblio::ApplicationHelper do
 
   it "should link to old NDL search if iss_itemno ends with '-00'" do
     expect(
-      helper.identifier_link(
-        FactoryBot.build(
-          :identifier,
+      helper.ndl_bib_id_record_link(
+        NdlBibIdRecord.new(
           body: 'R100000039-I001413988-00',
-          identifier_type: IdentifierType.find_by(name: 'iss_itemno')
+          manifestation: manifestations(:manifestation_00001)
         )
       )
     ).to eq "<a href=\"https://iss.ndl.go.jp/books/R100000039-I001413988-00\">R100000039-I001413988-00</a>"
@@ -25,11 +24,10 @@ describe EnjuBiblio::ApplicationHelper do
 
   it "should link to new NDL search if iss_itemno doesn't end with '-00'" do
     expect(
-      helper.identifier_link(
-        FactoryBot.build(
-          :identifier,
+      helper.ndl_bib_id_record_link(
+        NdlBibIdRecord.new(
           body: 'R100000039-I001413988',
-          identifier_type: IdentifierType.find_by(name: 'iss_itemno')
+          manifestation: manifestations(:manifestation_00001)
         )
       )
     ).to eq "<a href=\"https://ndlsearch.ndl.go.jp/books/R100000039-I001413988\">R100000039-I001413988</a>"

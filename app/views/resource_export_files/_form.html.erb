@@ -1,9 +1,9 @@
-<%= form_for(@resource_export_file) do |f| %>
-  <%= error_messages(@resource_export_file) %>
+<%= form_with(model: resource_export_file) do |f| %>
+  <%= error_messages(resource_export_file) %>
 
-  <%= f.hidden_field :mode, value: 'export' if @resource_export_file.new_record? %><br>
+  <%= f.hidden_field :mode, value: 'export' if resource_export_file.new_record? %><br>
   <div class="actions">
-    <% if @resource_export_file.new_record? %>
+    <% if resource_export_file.new_record? %>
       <%= f.submit t('page.export') %>
     <% else %>
       <%= f.submit %>

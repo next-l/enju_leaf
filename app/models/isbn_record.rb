@@ -7,6 +7,7 @@ class IsbnRecord < ApplicationRecord
 
   def self.new_records(isbn_records_params)
     return [] unless isbn_records_params
+
     isbn_records = []
     IsbnRecord.transaction do
       isbn_records_params.each do |k, v|

@@ -1,4 +1,15 @@
 ja:
+  activerecord:
+    models:
+      nii_type: NIIメタデータタイプ
+
+    attributes:
+      nii_type:
+        name: 名前
+        display_name: 表示名
+        note: 注記
+        position: 位置
+
   enju_nii:
     import_from_cinii_books: CiNii Books検索によるインポート
     record_not_found: 資料が見つかりません。

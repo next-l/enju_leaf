@@ -1,5 +1,5 @@
-<%= form_for(@request_status_type) do |f| %>
-  <%= error_messages(@request_status_type) %>
+<%= form_with(model: request_status_type) do |f| %>
+  <%= error_messages(request_status_type) %>
 
   <div class="field">
     <%= f.label :name %><br />

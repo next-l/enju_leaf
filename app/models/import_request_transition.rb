@@ -1,7 +1,4 @@
 class ImportRequestTransition < ApplicationRecord
-  include Statesman::Adapters::ActiveRecordTransition
-
-  
   belongs_to :import_request, inverse_of: :import_request_transitions
 end
 
@@ -11,7 +8,7 @@ end
 #
 #  id                :bigint           not null, primary key
 #  to_state          :string
-#  metadata          :text             default({})
+#  metadata          :jsonb            not null
 #  sort_key          :integer
 #  import_request_id :bigint
 #  created_at        :datetime         not null

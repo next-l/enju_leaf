@@ -12,10 +12,9 @@ class LibraryGroup < ApplicationRecord
     greater_than_or_equal_to: 0
   }
   accepts_nested_attributes_for :colors, update_only: true
-  store :settings, accessors: [
+  store_accessor :settings,
     :book_jacket_unknown_resource,
-    :erms_url
-  ], coder: JSON
+    :amazon_hostname
 
   translates :login_banner, :footer_banner
   globalize_accessors
@@ -78,7 +77,7 @@ end
 #  admin_networks                :text
 #  allow_bookmark_external_url   :boolean          default(FALSE), not null
 #  url                           :string           default("http://localhost:3000/")
-#  settings                      :text
+#  settings                      :jsonb            not null
 #  html_snippet                  :text
 #  book_jacket_source            :string
 #  max_number_of_results         :integer          default(1000)
@@ -87,6 +86,10 @@ end
 #  pub_year_facet_range_interval :integer          default(10)
 #  user_id                       :bigint
 #  csv_charset_conversion        :boolean          default(FALSE), not null
+#  header_logo_file_name         :string
+#  header_logo_content_type      :string
+#  header_logo_file_size         :bigint
+#  header_logo_updated_at        :datetime
 #  email                         :string
 #  login_banner                  :text
 #  footer_banner                 :text

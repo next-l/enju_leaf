@@ -11,6 +11,7 @@ class CheckinsController < ApplicationController
     else
       @checkins = Checkin.page(params[:page])
     end
+    @checkin = Checkin.new
 
     respond_to do |format|
       format.html # index.html.erb

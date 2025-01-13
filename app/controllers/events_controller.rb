@@ -160,10 +160,4 @@ class EventsController < ApplicationController
   def prepare_options
     @event_categories = EventCategory.all
   end
-
-  def filtered_params
-    params.permit([:format, :library_id, :mode, :query, :page, :per_page])
-  end
-
-  helper_method :filtered_params
 end

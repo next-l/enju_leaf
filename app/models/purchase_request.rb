@@ -10,8 +10,8 @@ class PurchaseRequest < ApplicationRecord
   validates_presence_of :user, :title
   validate :check_price
   validates :url, url: true, allow_blank: true, length: {maximum: 255}
-  after_save :index!
   after_destroy :index!
+  after_save :index!
   before_save :set_date_of_publication
 
   strip_attributes only: [:url, :pub_date]
@@ -43,7 +43,7 @@ class PurchaseRequest < ApplicationRecord
   paginates_per 10
 
   def check_price
-    errors.add(:price) unless self.price.nil? || self.price > 0
+    errors.add(:price) unless price.nil? || price.positive?
   end
 
   def set_date_of_publication

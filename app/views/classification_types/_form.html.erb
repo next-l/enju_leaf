@@ -1,5 +1,5 @@
-<%= form_for(@classification_type) do |f| %>
-  <%= error_messages(@classification_type) %>
+<%= form_with(model: classification_type) do |f| %>
+  <%= error_messages(classification_type) %>
 
   <div class="field">
     <%= f.label :name %><br />
