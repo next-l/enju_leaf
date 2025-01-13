@@ -275,7 +275,7 @@ GEM
     mini_magick (4.13.2)
     mini_mime (1.1.5)
     minitest (5.25.4)
-    mission_control-jobs (1.0.1)
+    mission_control-jobs (0.5.0)
       actioncable (>= 7.1)
       actionpack (>= 7.1)
       activejob (>= 7.1)
@@ -563,7 +563,7 @@ DEPENDENCIES
   kt-paperclip
   library_stdnums
   lisbn
-  mission_control-jobs
+  mission_control-jobs (~> 0.5.0)
   oai
   parallel_tests
   pg (~> 1.1)
