@@ -83,7 +83,7 @@ GEM
     acts-as-taggable-on (11.0.0)
       activerecord (>= 7.0, < 8.0)
       zeitwerk (>= 2.4, < 3.0)
-    acts_as_list (1.2.3)
+    acts_as_list (1.2.4)
       activerecord (>= 6.1)
       activesupport (>= 6.1)
     addressable (2.8.7)
@@ -91,8 +91,8 @@ GEM
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
-    awesome_nested_set (3.7.0)
-      activerecord (>= 4.0.0, < 8.0)
+    awesome_nested_set (3.8.0)
+      activerecord (>= 4.0.0, < 8.1)
     base64 (0.2.0)
     bcp47_spec (0.2.1)
     bcrypt (3.1.20)
@@ -100,7 +100,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.18.4)
       msgpack (~> 1.2)
-    browser (6.0.0)
+    browser (6.2.0)
     builder (3.3.0)
     capybara (3.40.0)
       addressable
@@ -127,8 +127,8 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
-    csv (3.3.0)
-    database_consistency (1.7.26)
+    csv (3.3.2)
+    database_consistency (2.0.3)
       activerecord (>= 3.2)
     date (3.4.1)
     date_validator (0.12.0)
@@ -150,7 +150,8 @@ GEM
       dotenv (= 3.1.7)
       railties (>= 6.1)
     drb (2.2.1)
-    ebnf (2.5.0)
+    ebnf (2.6.0)
+      base64 (~> 0.2)
       htmlentities (~> 4.3)
       rdf (~> 3.3)
       scanf (~> 1.0)
@@ -164,23 +165,23 @@ GEM
     factory_bot_rails (6.4.4)
       factory_bot (~> 6.5)
       railties (>= 5.0.0)
-    faraday (2.12.0)
-      faraday-net_http (>= 2.0, < 3.4)
+    faraday (2.12.2)
+      faraday-net_http (>= 2.0, < 3.5)
       json
       logger
     faraday-follow_redirects (0.3.0)
       faraday (>= 1, < 3)
-    faraday-multipart (1.0.4)
-      multipart-post (~> 2)
-    faraday-net_http (3.3.0)
-      net-http
-    ffi (1.17.0-x86_64-linux-gnu)
+    faraday-multipart (1.1.0)
+      multipart-post (~> 2.0)
+    faraday-net_http (3.4.0)
+      net-http (>= 0.5.0)
+    ffi (1.17.1-x86_64-linux-gnu)
     friendly_id (5.5.1)
       activerecord (>= 4.0.0)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
-    geocoder (1.8.3)
+    geocoder (1.8.5)
       base64 (>= 0.1.0)
       csv (>= 3.0.0)
     globalid (1.2.1)
@@ -193,7 +194,7 @@ GEM
     globalize-accessors (0.3.0)
       globalize (>= 5.0.0)
     hashdiff (1.1.1)
-    highline (3.1.1)
+    highline (3.1.2)
       reline
     htmlentities (4.3.4)
     i18n (1.14.6)
@@ -218,7 +219,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (4.2.1)
       railties (>= 3.2.16)
-    json (2.7.4)
+    json (2.9.1)
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.2)
@@ -231,8 +232,8 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
-    kramdown (2.4.0)
-      rexml
+    kramdown (2.5.1)
+      rexml (>= 3.3.9)
     kt-paperclip (7.2.2)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
@@ -244,7 +245,7 @@ GEM
     lisbn (0.3.2)
       nokogiri
       nori (~> 2.0)
-    logger (1.6.1)
+    logger (1.6.5)
     loofah (2.24.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -258,7 +259,7 @@ GEM
     mime-types (3.6.0)
       logger
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2024.1001)
+    mime-types-data (3.2025.0107)
     mini_magick (4.13.2)
     mini_mime (1.1.5)
     minitest (5.25.4)
@@ -268,12 +269,12 @@ GEM
       rails (>= 7.1)
       stimulus-rails
       turbo-rails
-    msgpack (1.7.3)
+    msgpack (1.7.5)
     multipart-post (2.4.1)
     mutex_m (0.3.0)
-    net-http (0.4.1)
+    net-http (0.6.0)
       uri
-    net-imap (0.5.0)
+    net-imap (0.5.5)
       date
       net-protocol
     net-pop (0.1.2)
@@ -282,7 +283,7 @@ GEM
       timeout
     net-smtp (0.5.0)
       net-protocol
-    nio4r (2.7.3)
+    nio4r (2.7.4)
     nokogiri (1.18.1-x86_64-linux-gnu)
       racc (~> 1.4)
     nori (2.7.1)
@@ -294,7 +295,7 @@ GEM
     options (2.3.2)
     orm_adapter (0.5.0)
     parallel (1.26.3)
-    parallel_tests (4.7.2)
+    parallel_tests (4.9.0)
       parallel
     pg (1.5.9)
     pr_geohash (1.0.0)
@@ -307,7 +308,7 @@ GEM
       date
       stringio
     public_suffix (6.0.1)
-    puma (6.4.3)
+    puma (6.5.0)
       nio4r (~> 2.0)
     pundit (2.4.0)
       activesupport (>= 3.0.0)
@@ -381,7 +382,7 @@ GEM
       redis-client (>= 0.22.0)
     redis-client (0.23.1)
       connection_pool
-    regexp_parser (2.9.2)
+    regexp_parser (2.10.0)
     reline (0.6.0)
       io-console (~> 0.5)
     request_store (1.7.0)
@@ -438,7 +439,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    semantic_range (3.0.0)
+    semantic_range (3.1.0)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -465,8 +466,8 @@ GEM
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.1.2)
-    strip_attributes (1.13.0)
-      activemodel (>= 3.0, < 8.0)
+    strip_attributes (1.14.1)
+      activemodel (>= 3.0, < 9.0)
     sunspot (2.7.1)
       bigdecimal
       pr_geohash (~> 1.0)
