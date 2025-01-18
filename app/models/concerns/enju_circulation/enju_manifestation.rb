@@ -13,7 +13,7 @@ module EnjuCirculation
     end
 
     def next_reservation
-      reserves.waiting.order('reserves.created_at ASC').readonly(false).first
+      reserves.waiting.not_in_state(:retained).order('reserves.created_at ASC').readonly(false).first
     end
 
     def available_checkout_types(user)
