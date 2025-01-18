@@ -27,8 +27,7 @@ class ReserveStateMachine
           next unless r != reserve
 
           r.transition_to!(:postponed)
-          r.item = nil
-          r.save!
+          r.update!(item: nil)
         }
       end
     end
@@ -40,8 +39,7 @@ class ReserveStateMachine
       next_reserve = reserve.next_reservation
       if next_reserve
         next_reserve.item = reserve.item
-        reserve.item = nil
-        reserve.save!
+        reserve.update!(item: nil)
         next_reserve.transition_to!(:retained)
       end
     end
@@ -54,8 +52,7 @@ class ReserveStateMachine
       if next_reserve
         next_reserve.item = reserve.item
         next_reserve.transition_to!(:retained)
-        reserve.item = nil
-        reserve.save!
+        reserve.update!(item: nil)
       end
     end
     Rails.logger.info "#{Time.zone.now} reserve_id #{reserve.id} expired!"
