@@ -95,7 +95,7 @@ module EnjuCirculation
     def checkout!(user)
       Item.transaction do
         reserve = user_reservation(user)
-        if reserve && reserve.state_machine.not_in_state?(:completed)
+        if reserve && !reserve.state_machine.in_state?(:completed)
           reserve.checked_out_at = Time.zone.now
           reserve.state_machine.transition_to!(:completed)
         end
