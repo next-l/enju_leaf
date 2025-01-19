@@ -94,11 +94,10 @@ module EnjuCirculation
 
     def checkout!(user)
       Item.transaction do
-        if user_reservation(user)
-          unless user_reservation.state_machine.in_state?(:completed)
-            user_reservation.checked_out_at = Time.zone.now
-            user_reservation.state_machine.transition_to!(:completed)
-          end
+        reserve = user_reservation(user)
+        if reserve && !reserve.state_machine.in_state?(:completed)
+          reserve.checked_out_at = Time.zone.now
+          reserve.state_machine.transition_to!(:completed)
         end
 
         update!(circulation_status: CirculationStatus.find_by(name: "On Loan"))
