@@ -8,22 +8,22 @@ class ReserveStateMachine
   state :expired
   state :completed
 
-  transition from: :pending, to: [:requested]
-  transition from: :postponed, to: [:requested, :retained, :canceled, :expired]
-  transition from: :retained, to: [:postponed, :canceled, :expired, :completed]
-  transition from: :requested, to: [:retained, :canceled, :expired, :completed]
+  transition from: :pending, to: [ :requested ]
+  transition from: :postponed, to: [ :requested, :retained, :canceled, :expired ]
+  transition from: :retained, to: [ :postponed, :canceled, :expired, :completed ]
+  transition from: :requested, to: [ :retained, :canceled, :expired, :completed ]
 
   after_transition(to: :requested) do |reserve|
-    reserve.update(request_status_type: RequestStatusType.find_by(name: 'In Process'), item_id: nil, retained_at: nil)
+    reserve.update(request_status_type: RequestStatusType.find_by(name: "In Process"), item_id: nil, retained_at: nil)
   end
 
   after_transition(to: :retained) do |reserve|
     # TODO: 「取り置き中」の状態を正しく表す
-    reserve.update(request_status_type: RequestStatusType.find_by(name: 'In Process'), retained_at: Time.zone.now)
+    reserve.update(request_status_type: RequestStatusType.find_by(name: "In Process"), retained_at: Time.zone.now)
     Reserve.transaction do
       if reserve.item
         other_reserves = reserve.item.reserves.waiting
-        other_reserves.each{|r|
+        other_reserves.each { |r|
           next unless r != reserve
 
           r.transition_to!(:postponed)
@@ -35,7 +35,7 @@ class ReserveStateMachine
 
   after_transition(to: :canceled) do |reserve|
     Reserve.transaction do
-      reserve.update(request_status_type: RequestStatusType.find_by(name: 'Cannot Fulfill Request'), canceled_at: Time.zone.now)
+      reserve.update(request_status_type: RequestStatusType.find_by(name: "Cannot Fulfill Request"), canceled_at: Time.zone.now)
       next_reserve = reserve.next_reservation
       if next_reserve
         next_reserve.item = reserve.item
@@ -47,7 +47,7 @@ class ReserveStateMachine
 
   after_transition(to: :expired) do |reserve|
     Reserve.transaction do
-      reserve.update(request_status_type: RequestStatusType.find_by(name: 'Expired'), canceled_at: Time.zone.now)
+      reserve.update(request_status_type: RequestStatusType.find_by(name: "Expired"), canceled_at: Time.zone.now)
       next_reserve = reserve.next_reservation
       if next_reserve
         next_reserve.item = reserve.item
@@ -64,7 +64,7 @@ class ReserveStateMachine
 
   after_transition(to: :completed) do |reserve|
     reserve.update(
-      request_status_type: RequestStatusType.find_by(name: 'Available For Pickup'),
+      request_status_type: RequestStatusType.find_by(name: "Available For Pickup"),
       checked_out_at: Time.zone.now
     )
   end

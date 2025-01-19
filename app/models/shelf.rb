@@ -1,6 +1,6 @@
 class Shelf < ApplicationRecord
   include MasterModel
-  scope :real, -> { where('library_id != 1') }
+  scope :real, -> { where("library_id != 1") }
   belongs_to :library
   has_many :items, dependent: :restrict_with_exception
   has_many :picture_files, as: :picture_attachable, dependent: :destroy
@@ -19,7 +19,7 @@ class Shelf < ApplicationRecord
       library.name
     end
     text :name do
-      [name, library.name, display_name, library.display_name]
+      [ name, library.name, display_name, library.display_name ]
     end
     integer :position
   end

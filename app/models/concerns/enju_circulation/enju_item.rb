@@ -4,27 +4,27 @@ module EnjuCirculation
 
     included do
       FOR_CHECKOUT_CIRCULATION_STATUS = [
-        'Available On Shelf',
-        'On Loan',
-        'Waiting To Be Reshelved'
+        "Available On Shelf",
+        "On Loan",
+        "Waiting To Be Reshelved"
       ]
       FOR_CHECKOUT_USE_RESTRICTION = [
-        'Available For Supply Without Return',
-        'Limited Circulation, Long Loan Period',
-        'Limited Circulation, Short Loan Period',
-        'No Reproduction',
-        'Overnight Only',
-        'Renewals Not Permitted',
-        'Supervision Required',
-        'Term Loan',
-        'User Signature Required',
-        'Limited Circulation, Normal Loan Period'
+        "Available For Supply Without Return",
+        "Limited Circulation, Long Loan Period",
+        "Limited Circulation, Short Loan Period",
+        "No Reproduction",
+        "Overnight Only",
+        "Renewals Not Permitted",
+        "Supervision Required",
+        "Term Loan",
+        "User Signature Required",
+        "Limited Circulation, Normal Loan Period"
       ]
 
-      scope :for_checkout, ->(identifier_conditions = 'item_identifier IS NOT NULL') {
+      scope :for_checkout, ->(identifier_conditions = "item_identifier IS NOT NULL") {
         includes(:circulation_status, :use_restriction).where(
-          'circulation_statuses.name' => FOR_CHECKOUT_CIRCULATION_STATUS,
-          'use_restrictions.name' => FOR_CHECKOUT_USE_RESTRICTION
+          "circulation_statuses.name" => FOR_CHECKOUT_CIRCULATION_STATUS,
+          "use_restrictions.name" => FOR_CHECKOUT_USE_RESTRICTION
         ).where(identifier_conditions)
       }
 
@@ -48,14 +48,14 @@ module EnjuCirculation
     end
 
     def set_circulation_status
-      self.circulation_status = CirculationStatus.find_by(name: 'In Process') if circulation_status.nil?
+      self.circulation_status = CirculationStatus.find_by(name: "In Process") if circulation_status.nil?
     end
 
     def check_circulation_status
-      return unless circulation_status.name == 'Removed'
+      return unless circulation_status.name == "Removed"
 
-      errors.add(:base, I18n.t('activerecord.errors.models.item.attributes.circulation_status_id.is_rented')) if rented?
-      errors.add(:base, I18n.t('activerecord.errors.models.item.attributes.circulation_status_id.is_reserved')) if reserved?
+      errors.add(:base, I18n.t("activerecord.errors.models.item.attributes.circulation_status_id.is_rented")) if rented?
+      errors.add(:base, I18n.t("activerecord.errors.models.item.attributes.circulation_status_id.is_reserved")) if reserved?
     end
 
     def checkout_status(user)
@@ -71,7 +71,7 @@ module EnjuCirculation
     end
 
     def rent?
-      return true if checkouts.not_returned.select(:item_id).detect{|checkout| checkout.item_id == id}
+      return true if checkouts.not_returned.select(:item_id).detect { |checkout| checkout.item_id == id }
 
       false
     end
@@ -85,7 +85,7 @@ module EnjuCirculation
     end
 
     def available_for_checkout?
-      if circulation_status.name == 'On Loan'
+      if circulation_status.name == "On Loan"
         false
       else
         manifestation.items.for_checkout.include?(self)
@@ -101,12 +101,12 @@ module EnjuCirculation
           end
         end
 
-        update!(circulation_status: CirculationStatus.find_by(name: 'On Loan'))
+        update!(circulation_status: CirculationStatus.find_by(name: "On Loan"))
       end
     end
 
     def checkin!
-      self.circulation_status = CirculationStatus.find_by(name: 'Available On Shelf')
+      self.circulation_status = CirculationStatus.find_by(name: "Available On Shelf")
       save!
     end
 

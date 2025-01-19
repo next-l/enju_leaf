@@ -13,7 +13,7 @@ module EnjuCirculation
     end
 
     def next_reservation
-      reserves.waiting.not_in_state(:retained).order('reserves.created_at ASC').readonly(false).first
+      reserves.waiting.not_in_state(:retained).order("reserves.created_at ASC").readonly(false).first
     end
 
     def available_checkout_types(user)
@@ -26,7 +26,7 @@ module EnjuCirculation
       return false if items.for_checkout.empty?
       return false unless user
 
-      unless user.has_role?('Librarian')
+      unless user.has_role?("Librarian")
         unless items.size == (items.size - user.checkouts.overdue(Time.zone.now).collect(&:item).size)
           return false
         end

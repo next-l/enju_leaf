@@ -1,7 +1,7 @@
 class Bookmark < ApplicationRecord
-  scope :bookmarked, lambda {|start_date, end_date| where('created_at >= ? AND created_at < ?', start_date, end_date)}
-  scope :user_bookmarks, lambda {|user| where(user_id: user.id)}
-  scope :shared, -> {where(shared: true)}
+  scope :bookmarked, lambda { |start_date, end_date| where("created_at >= ? AND created_at < ?", start_date, end_date) }
+  scope :user_bookmarks, lambda { |user| where(user_id: user.id) }
+  scope :shared, -> { where(shared: true) }
   belongs_to :manifestation, touch: true, optional: true
   belongs_to :user
 
@@ -9,7 +9,7 @@ class Bookmark < ApplicationRecord
   validates :url, presence: { on: :create }
   validates :manifestation_id, presence: { on: :update }
   validates :manifestation_id, uniqueness: { scope: :user_id }
-  validates :url, url: true, presence: true, length: {maximum: 255}
+  validates :url, url: true, presence: true, length: { maximum: 255 }
   validate :bookmarkable_url?
   validate :already_bookmarked?, if: :url_changed?
   before_save :create_manifestation, if: :url_changed?
@@ -37,7 +37,7 @@ class Bookmark < ApplicationRecord
 
   def replace_space_in_tags
     # タグに含まれている全角スペースを除去する
-    self.tag_list = tag_list.map{|tag| tag.gsub('　', ' ').gsub(' ', ', ')}
+    self.tag_list = tag_list.map { |tag| tag.gsub("　", " ").gsub(" ", ", ") }
   end
 
   def save_tagger
@@ -78,7 +78,7 @@ class Bookmark < ApplicationRecord
       # TODO: 日本語以外
       # charsets = ['iso-2022-jp', 'euc-jp', 'shift_jis', 'iso-8859-1']
       # if charsets.include?(page.charset.downcase)
-        title = NKF.nkf('-w', CGI.unescapeHTML((doc.at("title").inner_text))).to_s.gsub(/\r\n|\r|\n/, '').gsub(/\s+/, ' ').strip
+        title = NKF.nkf("-w", CGI.unescapeHTML((doc.at("title").inner_text))).to_s.gsub(/\r\n|\r|\n/, "").gsub(/\s+/, " ").strip
         if title.blank?
           title = url
         end
@@ -95,7 +95,7 @@ class Bookmark < ApplicationRecord
 
   def self.get_canonical_url(url)
     doc = Nokogiri::HTML(Faraday.get(url).body)
-    canonical_url = doc.search("/html/head/link[@rel='canonical']").first['href']
+    canonical_url = doc.search("/html/head/link[@rel='canonical']").first["href"]
     # TODO: URLを相対指定している時
     Addressable::URI.parse(canonical_url).normalize.to_s
   rescue
@@ -111,10 +111,10 @@ class Bookmark < ApplicationRecord
   def bookmarkable_url?
     if url.try(:my_host?)
       unless url.try(:bookmarkable_id)
-        errors.add(:base, I18n.t('bookmark.not_our_holding'))
+        errors.add(:base, I18n.t("bookmark.not_our_holding"))
       end
       unless my_host_resource
-        errors.add(:base, I18n.t('bookmark.not_our_holding'))
+        errors.add(:base, I18n.t("bookmark.not_our_holding"))
       end
     end
   end
@@ -131,7 +131,7 @@ class Bookmark < ApplicationRecord
   def already_bookmarked?
     if manifestation
       if manifestation.bookmarked?(user)
-        errors.add(:base, 'already_bookmarked')
+        errors.add(:base, "already_bookmarked")
       end
     end
   end
@@ -143,7 +143,7 @@ class Bookmark < ApplicationRecord
       return
     end
     manifestation = Manifestation.new(access_address: url)
-    manifestation.carrier_type = CarrierType.find_by(name: 'online_resource')
+    manifestation.carrier_type = CarrierType.find_by(name: "online_resource")
     if title.present?
       manifestation.original_title = title
     else
@@ -156,12 +156,12 @@ class Bookmark < ApplicationRecord
       item.shelf = Shelf.web
       item.manifestation = manifestation
       if defined?(EnjuCirculation)
-        item.circulation_status = CirculationStatus.where(name: 'Not Available').first
+        item.circulation_status = CirculationStatus.where(name: "Not Available").first
       end
 
       item.save!
       if defined?(EnjuCirculation)
-        item.use_restriction = UseRestriction.where(name: 'Not For Loan').first
+        item.use_restriction = UseRestriction.where(name: "Not For Loan").first
       end
     end
   end
@@ -177,7 +177,7 @@ class Bookmark < ApplicationRecord
   def tag_index!
     manifestation.reload
     manifestation.index
-    taggings.map{|tagging| Tag.find(tagging.tag_id).index}
+    taggings.map { |tagging| Tag.find(tagging.tag_id).index }
     Sunspot.commit
   end
 end
