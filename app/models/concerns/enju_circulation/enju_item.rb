@@ -80,11 +80,8 @@ module EnjuCirculation
       rent?
     end
 
-    def reserved_by_user?(user)
-      if manifestation.next_reservation
-        return true if manifestation.next_reservation.user == user
-      end
-      false
+    def user_reservation(user)
+      user.reserves.waiting.order("reserves.created_at").find_by(manifestation: manifestation)
     end
 
     def available_for_checkout?
@@ -96,14 +93,16 @@ module EnjuCirculation
     end
 
     def checkout!(user)
-      if reserved_by_user?(user)
-        manifestation.next_reservation.update(checked_out_at: Time.zone.now)
-        manifestation.next_reservation.transition_to!(:completed)
-        manifestation.reload
-      end
+      Item.transaction do
+        if user_reservation(user)
+          unless user_reservation.state_machine.in_state?(:completed)
+            user_reservation.checked_out_at = Time.zone.now
+            user_reservation.state_machine.transition_to!(:completed)
+          end
+        end
 
-      reload
-      update!(circulation_status: CirculationStatus.find_by(name: 'On Loan'))
+        update!(circulation_status: CirculationStatus.find_by(name: 'On Loan'))
+      end
     end
 
     def checkin!
