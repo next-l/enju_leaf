@@ -95,6 +95,7 @@ gem 'rdf-turtle', require: 'rdf/turtle'
 gem 'rdf-vocab', require: 'rdf/vocab'
 gem 'oai'
 gem 'ffi', '~> 1.16.3'
+gem "concurrent-ruby", "1.3.4"
 
 group :development, :test do
   gem 'annotate'

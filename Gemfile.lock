@@ -100,7 +100,7 @@ GEM
       caxlsx (>= 3.0)
     climate_control (0.2.0)
     cocoon (1.2.15)
-    concurrent-ruby (1.3.5)
+    concurrent-ruby (1.3.4)
     crack (1.0.0)
       bigdecimal
       rexml
@@ -502,6 +502,7 @@ DEPENDENCIES
   caxlsx
   caxlsx_rails
   cocoon
+  concurrent-ruby (= 1.3.4)
   database_consistency
   date_validator
   devise
