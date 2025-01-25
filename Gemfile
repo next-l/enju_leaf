@@ -73,7 +73,7 @@ gem 'lisbn'
 gem 'library_stdnums'
 gem 'geocoder'
 gem 'awesome_nested_set'
-gem 'dotenv-rails'
+gem 'dotenv-rails', "~> 2.8"
 gem 'jquery-ui-rails', '~> 4.2.1'
 gem 'cocoon'
 gem 'jquery-rails'
