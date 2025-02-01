@@ -45,14 +45,8 @@ module EnjuBiblio
       if options[:nolink]
         return authors.pluck(:name)
       else
-<<<<<<< HEAD
         list = authors.map{|author| link_to(author.name, manifestations_path(query: "\"#{author.name}\""), options)}
         list.join(" ").html_safe
-=======
-        agents_list = agents.map{|agent|
-          link_to(agent.full_name, manifestations_path(query: "\"#{agent.full_name}\""), options) + ' ' + (link_to("[A]", agent_path(agent)) if agent.ndla_record)
-        }
->>>>>>> main
       end
     end
 
