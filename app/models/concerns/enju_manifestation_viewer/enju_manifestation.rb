@@ -23,8 +23,8 @@ module EnjuManifestationViewer
     def flickr
       if access_address
         url = ::Addressable::URI.parse(access_address)
-        paths = url.path.split('/')
-        if url.host =~ /^www\.flickr\.com$/ && (paths[1] == 'photos') && paths[2]
+        paths = url.path.split("/")
+        if url.host =~ /^www\.flickr\.com$/ && (paths[1] == "photos") && paths[2]
           info = {}
           if paths[3] == "sets"
             info[:user] = paths[2]

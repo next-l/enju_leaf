@@ -1,6 +1,6 @@
 class Country < ApplicationRecord
   include MasterModel
-  default_scope { order('countries.position') }
+  default_scope { order("countries.position") }
   has_many :agents, dependent: :destroy
   has_many :libraries, dependent: :destroy
   has_one :library_group
@@ -18,11 +18,11 @@ class Country < ApplicationRecord
   after_save :clear_all_cache
 
   def self.all_cache
-    Rails.cache.fetch('country_all'){Country.all.to_a}
+    Rails.cache.fetch("country_all") { Country.all.to_a }
   end
 
   def clear_all_cache
-    Rails.cache.delete('country_all')
+    Rails.cache.delete("country_all")
   end
 
   private

@@ -178,10 +178,4 @@ class CheckoutsController < ApplicationController
   def checkout_params
     params.fetch(:checkout, {}).permit(:due_date)
   end
-
-  def filtered_params
-    params.permit([:user_id, :days_overdue, :reserved])
-  end
-
-  helper_method :filtered_params
 end

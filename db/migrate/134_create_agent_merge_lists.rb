@@ -1,5 +1,5 @@
 class CreateAgentMergeLists < ActiveRecord::Migration[4.2]
-  def self.up
+  def up
     create_table :agent_merge_lists do |t|
       t.string :title
 
@@ -7,7 +7,7 @@ class CreateAgentMergeLists < ActiveRecord::Migration[4.2]
     end
   end
 
-  def self.down
+  def down
     drop_table :agent_merge_lists
   end
 end
