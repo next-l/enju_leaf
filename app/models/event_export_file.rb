@@ -22,7 +22,7 @@ class EventExportFile < ApplicationRecord
     EventExportFile.transaction do
       transition_to!(:started)
       role_name = user.try(:role).try(:name)
-      attachment.attach(io: StringIO.new(tsv), filename: 'event_export.txt')
+      attachment.attach(io: StringIO.new(tsv), filename: "event_export.txt")
       save!
       transition_to!(:completed)
     end

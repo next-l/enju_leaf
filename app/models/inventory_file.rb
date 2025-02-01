@@ -16,7 +16,7 @@ class InventoryFile < ApplicationRecord
       identifier = row.to_s.strip
       item = Item.find_by(item_identifier: identifier)
       next unless item
-      next if self.items.where(id: item.id).select('items.id').first
+      next if self.items.where(id: item.id).select("items.id").first
 
       Inventory.create(
         inventory_file: self,
@@ -30,7 +30,7 @@ class InventoryFile < ApplicationRecord
   end
 
   def export(col_sep: "\t")
-    file = Tempfile.create('inventory_file') do |f|
+    file = Tempfile.create("inventory_file") do |f|
       inventories.each do |inventory|
         f.write inventory.to_hash.values.to_csv(col_sep)
       end
@@ -43,7 +43,7 @@ class InventoryFile < ApplicationRecord
   end
 
   def missing_items
-    Item.where(Inventory.where('items.id = inventories.item_id AND inventories.inventory_file_id = ?', id).exists.not)
+    Item.where(Inventory.where("items.id = inventories.item_id AND inventories.inventory_file_id = ?", id).exists.not)
   end
 
   def found_items

@@ -1,16 +1,16 @@
 class Checkout < ApplicationRecord
   scope :not_returned, -> { where(checkin_id: nil) }
   scope :returned, -> { where.not(checkin_id: nil) }
-  scope :overdue, lambda {|date| where('checkin_id IS NULL AND due_date < ?', date)}
-  scope :due_date_on, lambda {|date| where(checkin_id: nil, due_date: date.beginning_of_day .. date.end_of_day)}
-  scope :completed, lambda {|start_date, end_date| where('checkouts.created_at >= ? AND checkouts.created_at < ?', start_date, end_date)}
-  scope :on, lambda {|date| where('created_at >= ? AND created_at < ?', date.beginning_of_day, date.tomorrow.beginning_of_day)}
+  scope :overdue, lambda { |date| where("checkin_id IS NULL AND due_date < ?", date) }
+  scope :due_date_on, lambda { |date| where(checkin_id: nil, due_date: date.beginning_of_day .. date.end_of_day) }
+  scope :completed, lambda { |start_date, end_date| where("checkouts.created_at >= ? AND checkouts.created_at < ?", start_date, end_date) }
+  scope :on, lambda { |date| where("created_at >= ? AND created_at < ?", date.beginning_of_day, date.tomorrow.beginning_of_day) }
 
   belongs_to :user, optional: true
   delegate :username, :user_number, to: :user, prefix: true
   belongs_to :item, touch: true
   belongs_to :checkin, optional: true
-  belongs_to :librarian, class_name: 'User'
+  belongs_to :librarian, class_name: "User"
   belongs_to :basket
   belongs_to :shelf, optional: true
   belongs_to :library, optional: true
@@ -18,7 +18,7 @@ class Checkout < ApplicationRecord
   # TODO: 貸出履歴を保存しない場合は、ユーザ名を削除する
   # validates :user, :item, :basket, presence: true
   validates :due_date, date: true, presence: true
-  validates :item_id, uniqueness: { scope: [:basket_id, :user_id] }
+  validates :item_id, uniqueness: { scope: [ :basket_id, :user_id ] }
   validate :is_not_checked?, on: :create
   validate :renewable?, on: :update
   before_update :set_new_due_date
@@ -50,7 +50,7 @@ class Checkout < ApplicationRecord
   def is_not_checked?
     checkout = Checkout.not_returned.where(item_id: item_id)
     unless checkout.empty?
-      errors.add(:base, I18n.t('activerecord.errors.messages.checkin.already_checked_out'))
+      errors.add(:base, I18n.t("activerecord.errors.messages.checkin.already_checked_out"))
     end
   end
 
@@ -59,13 +59,13 @@ class Checkout < ApplicationRecord
 
     messages = []
     if !operator && overdue?
-      messages << I18n.t('checkout.you_have_overdue_item')
+      messages << I18n.t("checkout.you_have_overdue_item")
     end
     if !operator && reserved?
-      messages << I18n.t('checkout.this_item_is_reserved')
+      messages << I18n.t("checkout.this_item_is_reserved")
     end
     if !operator && over_checkout_renewal_limit?
-      messages << I18n.t('checkout.excessed_renewal_limit')
+      messages << I18n.t("checkout.excessed_renewal_limit")
     end
     if messages.empty?
       true
@@ -150,7 +150,7 @@ class Checkout < ApplicationRecord
       arel_table[:created_at].lt end_date
     )
     .where(
-      item_id: manifestation.items.pluck('items.id')
+      item_id: manifestation.items.pluck("items.id")
     ).count
   end
 

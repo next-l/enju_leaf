@@ -25,6 +25,7 @@ namespace :enju_leaf do
 
   desc "upgrade enju_leaf"
   task :upgrade => :environment do
+    Rails::Engine.subclasses.each{|engine| engine.instance.eager_load!}
     Rake::Task['enju_library:upgrade'].invoke
     Rake::Task['enju_biblio:upgrade'].invoke
     Rake::Task['enju_event:upgrade'].invoke
@@ -60,15 +61,39 @@ namespace :enju_leaf do
 
   desc 'Backfill migration versions before Next-L Enju Leaf 1.4'
   task :backfill_migration_versions => :environment do
-    Rake::Task['db:migrate'].invoke
+    Rake::Task['enju_leaf:upgrade'].invoke
+    Rake::Task['enju_leaf:upgrade'].reenable
 
     Dir.glob(Rails.root.join('db/migrate/*.rb')).each do |file|
-			entry = File.basename(file).split('_', 3)
+      entry = File.basename(file).split('_', 3)
       table_name = entry[2].gsub(/\.rb\z/, '')
       version = entry[0].to_i
 
       # このバージョンより新しいマイグレーションファイルは対象外
-      next if version > 20201025090703
+      next if version >= 20201025090703
+
+      # enju_bookmark
+      next if [
+        55, 20081212151614, 20081212151820, 20100222124420, 20140524135607,
+        20140812093836, 20160815045420, 20180107172413,
+        20180709023035, 20180709023036, 20180709023037, 20180709023038,
+        20180709023039, 20180709023040, 20180709161346
+      ].include?(version)
+
+      # enju_news
+      next if [
+        20081031033632, 20090126071155, 20110220103937
+      ].include?(version)
+
+      # enju_biblio
+      next if [
+        20170116150432
+      ].include?(version)
+
+      # enju_ndl
+      next if [
+        20171126072934, 20190501043418
+      ].include?(version)
 
       # enju_nii
       next if [
@@ -81,9 +106,15 @@ namespace :enju_leaf do
         20191224083828, 20191224091957, 20191230082846
       ].include?(version)
 
-      next if ActiveRecord::Base.connection.exec_query('SELECT version FROM schema_migrations WHERE version = $1', 'SQL', [[nil, version]]).first
+      # enju_purchase_request
+      next if [
+        123, 20081009062129, 20081009062130, 20140528155058, 20160703190738,
+        20180107155817
+      ].include?(version)
 
-      ActiveRecord::Base.connection.exec_query('INSERT INTO schema_migrations (version) VALUES ($1)', 'SQL', [[nil, version]])
+      next if ActiveRecord::Base.connection.select_one("SELECT version FROM schema_migrations WHERE version = '#{version.to_i}'")
+
+      ActiveRecord::Base.connection.execute("INSERT INTO schema_migrations (version) VALUES ('#{version.to_i}')")
       puts "Added #{entry[0]}"
     end
   end
@@ -106,46 +137,46 @@ namespace :enju_leaf do
           when 'isbn'
             IsbnRecordAndManifestation.create(
               manifestation: identifier.manifestation,
-              isbn_record: IsbnRecord.find_by(body: identifier.body)
+              isbn_record: IsbnRecord.find_or_create_by!(body: identifier.body)
             )
           when 'issn'
             IssnRecordAndManifestation.create(
               manifestation: identifier.manifestation,
-              issn_record: IssnRecord.find_by(body: identifier.body)
+              issn_record: IssnRecord.find_or_create_by!(body: identifier.body)
             )
           when 'issn_l'
             IssnRecordAndManifestation.create(
               manifestation: identifier.manifestation,
-              issn_record: IssnRecord.find_by(body: identifier.body)
+              issn_record: IssnRecord.find_or_create_by!(body: identifier.body)
             )
           when 'jpno'
-            JpnoRecord.create(
-              manifestation: identifier.manifestation,
+            jpno_record = JpnoRecord.find_or_initialize_by(
               body: identifier.body
             )
+            jpno_record.update!(manifestation: identifier.manifestation)
           when 'iss_itemno'
-            NdlBibIdRecord.create(
-              manifestation: identifier.manifestation,
+            ndl_bib_id_record = NdlBibIdRecord.find_or_initialize_by(
               body: identifier.body
             )
+            ndl_bib_id_record.update!(manifestation: identifier.manifestation)
           when 'ncid'
-            NcidRecord.create(
-              manifestation: identifier.manifestation,
+            ncid_record = NcidRecord.find_or_initialize_by(
               body: identifier.body
             )
+            ncid_record.update!(manifestation: identifier.manifestation)
           when 'lccn'
-            LccnRecord.create(
-              manifestation: identifier.manifestation,
+            lccn_record = LccnRecord.find_or_initialize_by(
               body: identifier.body
             )
+            lccn_record.update!(manifestation: identifier.manifestation)
           when 'doi'
-            DoiRecord.create(
-              manifestation: identifier.manifestation,
+            doi_record = DoiRecord.find_or_initialize_by(
               body: identifier.body
             )
+            doi_record.update!(manifestation: identifier.manifestation)
           end
 
-          identifier.destroy
+          # identifier.destroy
           Rails.logger.info "#{identifier_type.name} #{identifier.body} migrated"
         end
       end

@@ -48,6 +48,7 @@ en:
       manifestation_custom_value: Manifestation custom value
       item_custom_property: Item custom property
       item_custom_value: Item custom value
+      ndla_record: NDL authority record
 
     attributes:
       manifestation:

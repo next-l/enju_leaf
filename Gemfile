@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.2.5"
+ruby "3.2.6"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.4"
@@ -51,6 +51,9 @@ gem "image_processing", "~> 1.2"
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
+
+  # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
+  gem "rubocop-rails-omakase", require: false
 end
 
 group :development do
@@ -95,8 +98,8 @@ gem 'addressable'
 gem 'progress_bar'
 gem 'rails_autolink'
 gem 'kramdown'
-gem 'solid_queue'
-gem 'mission_control-jobs'
+gem 'solid_queue', "~> 1.0"
+gem 'mission_control-jobs', "~> 0.5.0"
 gem 'acts-as-taggable-on'
 gem 'resync' # , github: 'nabeta/resync', branch: 'add-datetime'
 gem 'pretender'
@@ -109,7 +112,6 @@ gem 'rdf-turtle', require: 'rdf/turtle'
 gem 'rdf-vocab', require: 'rdf/vocab'
 gem 'oai'
 gem 'active_storage_validations'
-gem 'sprockets', '~> 3.7'
 gem 'webpacker', '~> 5.0'
 gem 'faraday-multipart'
 

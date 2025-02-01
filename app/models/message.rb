@@ -3,9 +3,9 @@ class Message < ApplicationRecord
     transition_class: MessageTransition,
     initial_state: MessageStateMachine.initial_state
   ]
-  scope :unread, -> {in_state('unread')}
-  belongs_to :sender, class_name: 'User'
-  belongs_to :receiver, class_name: 'User'
+  scope :unread, -> { in_state("unread") }
+  belongs_to :sender, class_name: "User"
+  belongs_to :receiver, class_name: "User"
   validates :subject, :body, presence: true # , :sender
   validates :receiver, presence: { message: :invalid }
   before_validation :set_receiver
@@ -58,7 +58,7 @@ class Message < ApplicationRecord
   end
 
   def read?
-    return true if current_state == 'read'
+    return true if current_state == "read"
 
     false
   end

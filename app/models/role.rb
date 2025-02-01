@@ -12,7 +12,7 @@ class Role < ApplicationRecord
   end
 
   def self.default
-    Role.find_by(name: 'Guest')
+    Role.find_by(name: "Guest")
   end
 
   private

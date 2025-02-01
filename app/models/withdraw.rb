@@ -2,10 +2,10 @@ class Withdraw < ApplicationRecord
   include EnjuCirculation::EnjuWithdraw
   belongs_to :basket
   belongs_to :item, touch: true
-  belongs_to :librarian, class_name: 'User'
+  belongs_to :librarian, class_name: "User"
 
   validates :item_id,
-    uniqueness: true #{ message: I18n.t('withdraw.already_withdrawn', locale: I18n.default_locale) }
+    uniqueness: true # { message: I18n.t('withdraw.already_withdrawn', locale: I18n.default_locale) }
 
   attr_accessor :item_identifier
 

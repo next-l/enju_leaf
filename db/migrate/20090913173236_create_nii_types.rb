@@ -8,6 +8,6 @@ class CreateNiiTypes < ActiveRecord::Migration[4.2]
 
       t.timestamps
     end
-    add_index :nii_types, :name, unique: true
+    add_index :nii_types, :name, unique: true, if_not_exists: true
   end
 end

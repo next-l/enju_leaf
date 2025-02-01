@@ -4,7 +4,11 @@ describe Reserve do
   fixtures :all
 
   it "should have next reservation" do
-    reserves(:reserve_00014).next_reservation.should be_truthy
+    expect(reserves(:reserve_00014).state_machine.current_state).to eq "retained"
+    expect(reserves(:reserve_00014).next_reservation).to eq reserves(:reserve_00015)
+    reserves(:reserve_00014).transition_to!(:canceled)
+    expect(reserves(:reserve_00015).state_machine.current_state).to eq "retained"
+    expect(reserves(:reserve_00015).next_reservation).to eq reserves(:reserve_00016)
   end
 
   it "should notify a next reservation" do

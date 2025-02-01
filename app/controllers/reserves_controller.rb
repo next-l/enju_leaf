@@ -298,10 +298,4 @@ class ReservesController < ApplicationController
   def prepare_options
     @libraries = Library.real.order(:position)
   end
-
-  def filtered_params
-    params.permit([:user_id, :reserved_from, :reserved_until, :query, :sort_by, :state])
-  end
-
-  helper_method :filtered_params
 end

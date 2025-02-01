@@ -1,7 +1,4 @@
 class UserCheckoutStatTransition < ApplicationRecord
-  include Statesman::Adapters::ActiveRecordTransition
-
-  
   belongs_to :user_checkout_stat, inverse_of: :user_checkout_stat_transitions
 end
 
@@ -11,7 +8,7 @@ end
 #
 #  id                    :bigint           not null, primary key
 #  to_state              :string
-#  metadata              :text             default({})
+#  metadata              :jsonb            not null
 #  sort_key              :integer
 #  user_checkout_stat_id :bigint
 #  created_at            :datetime         not null
