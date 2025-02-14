@@ -16,4 +16,5 @@ end
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  realize_type_id :bigint
+#  name            :text
 #

@@ -9,9 +9,9 @@ atom_feed(url: manifestations_url(format: :atom)) do |feed|
         entry.content(manifestation.tags.join(' '), type: 'html')
       end
 
-      manifestation.creators.readable_by(current_user).each do |agent|
+      manifestation.creates.each do |create|
         entry.author do |author|
-          author.name(agent.full_name)
+          author.name(create.name)
         end
       end
     end

@@ -27,4 +27,5 @@ end
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  produce_type_id  :bigint
+#  name             :text
 #

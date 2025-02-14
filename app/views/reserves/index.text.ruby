@@ -6,7 +6,7 @@ CSV.generate(col_sep: "\t", row_sep: "\r\n") do |csv|
       reserve.current_state,
       reserve.manifestation_id,
       reserve.manifestation.original_title,
-      reserve.manifestation.creators.pluck(:full_name).join('//'),
+      reserve.manifestation.creates.pluck(:name).join('//'),
       reserve.manifestation.publishers.pluck(:full_name).join('//'),
       reserve.manifestation.pub_date,
       reserve.manifestation.isbn_records.pluck(:body).join('//'),
