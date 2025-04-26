@@ -10,11 +10,18 @@ end
 # Table name: inventories
 #
 #  id                 :bigint           not null, primary key
-#  item_id            :bigint
-#  inventory_file_id  :bigint
+#  current_shelf_name :string
+#  item_identifier    :string
 #  note               :text
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  item_identifier    :string
-#  current_shelf_name :string
+#  inventory_file_id  :bigint
+#  item_id            :bigint
+#
+# Indexes
+#
+#  index_inventories_on_current_shelf_name  (current_shelf_name)
+#  index_inventories_on_inventory_file_id   (inventory_file_id)
+#  index_inventories_on_item_id             (item_id)
+#  index_inventories_on_item_identifier     (item_identifier)
 #

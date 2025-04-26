@@ -7,11 +7,17 @@ end
 # Table name: event_import_file_transitions
 #
 #  id                   :bigint           not null, primary key
-#  to_state             :string
 #  metadata             :jsonb            not null
+#  most_recent          :boolean          not null
 #  sort_key             :integer
-#  event_import_file_id :bigint
+#  to_state             :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
-#  most_recent          :boolean          not null
+#  event_import_file_id :bigint
+#
+# Indexes
+#
+#  index_event_import_file_transitions_on_event_import_file_id  (event_import_file_id)
+#  index_event_import_file_transitions_on_sort_key_and_file_id  (sort_key,event_import_file_id) UNIQUE
+#  index_event_import_file_transitions_parent_most_recent       (event_import_file_id,most_recent) UNIQUE WHERE most_recent
 #

@@ -70,19 +70,28 @@ end
 # Table name: purchase_requests
 #
 #  id                  :bigint           not null, primary key
-#  user_id             :bigint           not null
-#  title               :text             not null
-#  author              :text
-#  publisher           :text
-#  isbn                :string
-#  date_of_publication :datetime
-#  price               :integer
-#  url                 :string
-#  note                :text
 #  accepted_at         :datetime
+#  author              :text
+#  date_of_publication :datetime
 #  denied_at           :datetime
-#  state               :string
+#  isbn                :string
+#  note                :text
+#  price               :integer
 #  pub_date            :string
+#  publisher           :text
+#  state               :string
+#  title               :text             not null
+#  url                 :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  user_id             :bigint           not null
+#
+# Indexes
+#
+#  index_purchase_requests_on_state    (state)
+#  index_purchase_requests_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #

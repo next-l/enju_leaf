@@ -518,15 +518,24 @@ end
 # Table name: resource_import_files
 #
 #  id                          :bigint           not null, primary key
-#  parent_id                   :bigint
-#  user_id                     :bigint
-#  note                        :text
+#  edit_mode                   :string
+#  error_message               :text
 #  executed_at                 :datetime
+#  note                        :text
+#  resource_import_fingerprint :string
+#  user_encoding               :string
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
-#  edit_mode                   :string
-#  resource_import_fingerprint :string
-#  error_message               :text
-#  user_encoding               :string
 #  default_shelf_id            :bigint
+#  parent_id                   :bigint
+#  user_id                     :bigint
+#
+# Indexes
+#
+#  index_resource_import_files_on_parent_id  (parent_id)
+#  index_resource_import_files_on_user_id    (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #
