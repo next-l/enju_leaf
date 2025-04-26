@@ -5,7 +5,7 @@ def update_carrier_type
       carrier_type = CarrierType.find_by(name: 'volume')
       if carrier_type
         unless carrier_type.attachment.attached?
-          carrier_type.attachment.attach(io: File.open("#{File.dirname(__FILE__)}/../../app/assets/images/icons/book.png"), filename: 'book.png')
+          carrier_type.attachment.attach(io: File.open("#{Rails.root}/app/assets/images/icons/book.png"), filename: 'book.png')
           carrier_type.save!
         end
       end
@@ -13,7 +13,7 @@ def update_carrier_type
       carrier_type = CarrierType.find_by(name: 'audio_disc')
       if carrier_type
         unless carrier_type.attachment.attached?
-          carrier_type.attachment.attach(io: File.open("#{File.dirname(__FILE__)}/../../app/assets/images/icons/cd.png"), filename: 'cd.png')
+          carrier_type.attachment.attach(io: File.open("#{Rails.root}/app/assets/images/icons/cd.png"), filename: 'cd.png')
           carrier_type.save!
         end
       end
@@ -21,7 +21,7 @@ def update_carrier_type
       carrier_type = CarrierType.find_by(name: 'videodisc')
       if carrier_type
         unless carrier_type.attachment.attached?
-          carrier_type.attachment.attach(io: File.open("#{File.dirname(__FILE__)}/../../app/assets/images/icons/dvd.png"), filename: 'dvd.png')
+          carrier_type.attachment.attach(io: File.open("#{Rails.root}/app/assets/images/icons/dvd.png"), filename: 'dvd.png')
           carrier_type.save!
         end
       end
@@ -29,7 +29,7 @@ def update_carrier_type
       carrier_type = CarrierType.find_by(name: 'online_resource')
       if carrier_type
         unless carrier_type.attachment.attached?
-          carrier_type.attachment.attach(io: File.open("#{File.dirname(__FILE__)}/../../app/assets/images/icons/monitor.png"), filename: 'monitor.png')
+          carrier_type.attachment.attach(io: File.open("#{Rails.root}/app/assets/images/icons/monitor.png"), filename: 'monitor.png')
           carrier_type.save!
         end
       end

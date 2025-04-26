@@ -1,6 +1,7 @@
 require 'active_record/fixtures'
 require 'tasks/profile'
 require 'tasks/attachment'
+require 'tasks/carrier_type'
 
 namespace :enju_leaf do
   desc "create initial records for enju_leaf"
@@ -118,6 +119,8 @@ namespace :enju_leaf do
 
   desc 'Migrate attachments'
   task :migrate_attachments => :environment do
+    update_carrier_type
+
     if ENV['ENJU_STORAGE'] == 's3'
       migrate_attachment_s3
     else
