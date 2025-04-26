@@ -1,6 +1,6 @@
 class Realize < ApplicationRecord
   belongs_to :agent
-  belongs_to :expression, class_name: 'Manifestation', touch: true
+  belongs_to :expression, class_name: "Manifestation", touch: true
   belongs_to :realize_type, optional: true
 
   validates :expression_id, uniqueness: { scope: :agent_id }

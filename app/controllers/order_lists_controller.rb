@@ -1,7 +1,7 @@
 class OrderListsController < ApplicationController
-  before_action :set_order_list, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :set_order_list, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :prepare_options, only: [ :new, :edit ]
   before_action :set_bookstore, only: :index
 
   # GET /order_lists
@@ -38,8 +38,8 @@ class OrderListsController < ApplicationController
 
   # GET /order_lists/1/edit
   def edit
-    if params[:mode] == 'order'
-      @order_list.edit_mode = 'order'
+    if params[:mode] == "order"
+      @order_list.edit_mode = "order"
     end
   end
 
@@ -51,7 +51,7 @@ class OrderListsController < ApplicationController
 
     respond_to do |format|
       if @order_list.save
-        format.html { redirect_to @order_list, notice: t('controller.successfully_created', model: t('activerecord.models.order_list')) }
+        format.html { redirect_to @order_list, notice: t("controller.successfully_created", model: t("activerecord.models.order_list")) }
         format.json { render json: @order_list, status: :created, location: @order_list }
       else
         prepare_options
@@ -64,15 +64,14 @@ class OrderListsController < ApplicationController
   # PUT /order_lists/1
   # PUT /order_lists/1.json
   def update
-
     respond_to do |format|
       if @order_list.update(order_list_params)
-        if @order_list.edit_mode == 'order'
+        if @order_list.edit_mode == "order"
           @order_list.transition_to(:ordered)
           @order_list.save(validate: false)
-          format.html { redirect_to purchase_requests_url(order_list_id: @order_list.id), notice: t('controller.successfully_updated', model: t('activerecord.models.order_list')) }
+          format.html { redirect_to purchase_requests_url(order_list_id: @order_list.id), notice: t("controller.successfully_updated", model: t("activerecord.models.order_list")) }
         else
-          format.html { redirect_to @order_list , notice: t('controller.successfully_updated', model: t('activerecord.models.order_list')) }
+          format.html { redirect_to @order_list, notice: t("controller.successfully_updated", model: t("activerecord.models.order_list")) }
         end
         format.json { head :no_content }
       else

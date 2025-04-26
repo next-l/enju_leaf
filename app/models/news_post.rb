@@ -1,9 +1,9 @@
 class NewsPost < ApplicationRecord
   scope :published, -> { where(draft: false) }
-  scope :current, -> { where('start_date <= ? AND end_date >= ?', Time.zone.now, Time.zone.now) }
-  default_scope { order('news_posts.start_date DESC') }
+  scope :current, -> { where("start_date <= ? AND end_date >= ?", Time.zone.now, Time.zone.now) }
+  default_scope { order("news_posts.start_date DESC") }
   belongs_to :user
-  belongs_to :required_role, class_name: 'Role'
+  belongs_to :required_role, class_name: "Role"
 
   validates :title, :body, presence: true
   validate :check_date

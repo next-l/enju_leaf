@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :doi_record do
-    sequence(:body){|n| "body_#{n}"}
+    sequence(:body) {|n| "body_#{n}"}
     association :manifestation
   end
 end

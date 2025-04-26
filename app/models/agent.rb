@@ -1,11 +1,11 @@
 class Agent < ApplicationRecord
   include EnjuNdl::EnjuAgent
 
-  scope :readable_by, lambda{ |user|
+  scope :readable_by, lambda { |user|
     if user
-      where('required_role_id <= ?', user.try(:user_has_role).try(:role_id))
+      where("required_role_id <= ?", user.try(:user_has_role).try(:role_id))
     else
-      where('required_role_id <= 1')
+      where("required_role_id <= 1")
     end
   }
   has_many :creates, dependent: :destroy
@@ -14,8 +14,8 @@ class Agent < ApplicationRecord
   has_many :expressions, through: :realizes
   has_many :produces, dependent: :destroy
   has_many :manifestations, through: :produces
-  has_many :children, foreign_key: 'parent_id', class_name: 'AgentRelationship', dependent: :destroy, inverse_of: :parent
-  has_many :parents, foreign_key: 'child_id', class_name: 'AgentRelationship', dependent: :destroy, inverse_of: :child
+  has_many :children, foreign_key: "parent_id", class_name: "AgentRelationship", dependent: :destroy, inverse_of: :parent
+  has_many :parents, foreign_key: "child_id", class_name: "AgentRelationship", dependent: :destroy, inverse_of: :child
   has_many :derived_agents, through: :children, source: :child
   has_many :original_agents, through: :parents, source: :parent
   has_many :picture_files, as: :picture_attachable, dependent: :destroy
@@ -26,7 +26,7 @@ class Agent < ApplicationRecord
   has_many :agent_merges, dependent: :destroy
   has_many :agent_merge_lists, through: :agent_merges
   belongs_to :agent_type
-  belongs_to :required_role, class_name: 'Role'
+  belongs_to :required_role, class_name: "Role"
   belongs_to :language
   belongs_to :country
   has_one :agent_import_result
@@ -40,17 +40,17 @@ class Agent < ApplicationRecord
   before_validation :set_role_and_name, on: :create
   before_save :set_date_of_birth, :set_date_of_death
   after_save do |agent|
-    agent.works.map{|work| work.touch && work.index}
-    agent.expressions.map{|expression| expression.touch && expression.index}
-    agent.manifestations.map{|manifestation| manifestation.touch && manifestation.index}
-    agent.items.map{|item| item.touch && item.index}
+    agent.works.map { |work| work.touch && work.index }
+    agent.expressions.map { |expression| expression.touch && expression.index }
+    agent.manifestations.map { |manifestation| manifestation.touch && manifestation.index }
+    agent.items.map { |item| item.touch && item.index }
     Sunspot.commit
   end
   after_destroy do |agent|
-    agent.works.map{|work| work.touch && work.index}
-    agent.expressions.map{|expression| expression.touch && expression.index}
-    agent.manifestations.map{|manifestation| manifestation.touch && manifestation.index}
-    agent.items.map{|item| item.touch && item.index}
+    agent.works.map { |work| work.touch && work.index }
+    agent.expressions.map { |expression| expression.touch && expression.index }
+    agent.manifestations.map { |manifestation| manifestation.touch && manifestation.index }
+    agent.items.map { |item| item.touch && item.index }
     Sunspot.commit
   end
 
@@ -79,22 +79,22 @@ class Agent < ApplicationRecord
   paginates_per 10
 
   def set_role_and_name
-    self.required_role = Role.find_by(name: 'Librarian') if required_role_id.nil?
+    self.required_role = Role.find_by(name: "Librarian") if required_role_id.nil?
     set_full_name
   end
 
   def set_full_name
     if full_name.blank?
       if LibraryGroup.site_config.family_name_first
-        self.full_name = [last_name, middle_name, first_name].compact.join(" ").to_s.strip
+        self.full_name = [ last_name, middle_name, first_name ].compact.join(" ").to_s.strip
       else
-        self.full_name = [first_name, last_name, middle_name].compact.join(" ").to_s.strip
+        self.full_name = [ first_name, last_name, middle_name ].compact.join(" ").to_s.strip
       end
     end
     if full_name_transcription.blank?
-      self.full_name_transcription = [last_name_transcription, middle_name_transcription, first_name_transcription].join(" ").to_s.strip
+      self.full_name_transcription = [ last_name_transcription, middle_name_transcription, first_name_transcription ].join(" ").to_s.strip
     end
-    [full_name, full_name_transcription]
+    [ full_name, full_name_transcription ]
   end
 
   def set_date_of_birth
@@ -145,7 +145,7 @@ class Agent < ApplicationRecord
     end
   end
 
-  #def full_name_generate
+  # def full_name_generate
   #  # TODO: 日本人以外は？
   #  name = []
   #  name << self.last_name.to_s.strip
@@ -153,7 +153,7 @@ class Agent < ApplicationRecord
   #  name << self.first_name.to_s.strip
   #  name << self.corporate_name.to_s.strip
   #  name.join(" ").strip
-  #end
+  # end
 
   def full_name_without_space
     full_name.gsub(/[\s,]/, "")
@@ -180,11 +180,11 @@ class Agent < ApplicationRecord
     name << full_name_transcription.to_s.strip
     name << full_name_alternative.to_s.strip
     name << full_name_without_space
-    #name << full_name_transcription_without_space
-    #name << full_name_alternative_without_space
-    #name << full_name.wakati rescue nil
-    #name << full_name_transcription.wakati rescue nil
-    #name << full_name_alternative.wakati rescue nil
+    # name << full_name_transcription_without_space
+    # name << full_name_alternative_without_space
+    # name << full_name.wakati rescue nil
+    # name << full_name_transcription.wakati rescue nil
+    # name << full_name_alternative.wakati rescue nil
     name
   end
 
@@ -225,7 +225,7 @@ class Agent < ApplicationRecord
   def self.import_agents(agent_lists)
     agents = []
     agent_lists.each do |agent_list|
-      name_and_role = agent_list[:full_name].split('||')
+      name_and_role = agent_list[:full_name].split("||")
       if agent_list[:ndla_identifier].present?
         agent = NdlaRecord.find_by(body: agent_list[:ndla_identifier])&.agent
       elsif agent_list[:agent_identifier].present?
@@ -245,7 +245,7 @@ class Agent < ApplicationRecord
           place: agent_list[:place],
           language_id: 1
         )
-        agent.required_role = Role.find_by(name: 'Guest')
+        agent.required_role = Role.find_by(name: "Guest")
         agent.save
 
         if agent_list[:ndla_identifier].present?
@@ -268,20 +268,20 @@ class Agent < ApplicationRecord
     agents = []
     Agent.transaction do
       agents_params.each do |k, v|
-        next if v['_destroy'] == '1'
+        next if v["_destroy"] == "1"
 
         agent = nil
 
-        if v['agent_id'].present?
-          agent = Agent.find(v['agent_id'])
-        elsif v['id'].present?
-          agent = Agent.find(v['id'])
+        if v["agent_id"].present?
+          agent = Agent.find(v["agent_id"])
+        elsif v["id"].present?
+          agent = Agent.find(v["id"])
         end
 
-        if !agent or agent.full_name != v['full_name']
-          v.delete('id')
-          v.delete('agent_id')
-          v.delete('_destroy')
+        if !agent or agent.full_name != v["full_name"]
+          v.delete("id")
+          v.delete("agent_id")
+          v.delete("_destroy")
           agent = Agent.create(v)
         end
 

@@ -5,7 +5,7 @@ class Notifier < ApplicationMailer
     if message.subject
       subject = message.subject
     else
-      subject = I18n.t('message.new_message_from_library', library: LibraryGroup.system_name(message.receiver.user.profile.locale))
+      subject = I18n.t("message.new_message_from_library", library: LibraryGroup.system_name(message.receiver.user.profile.locale))
     end
     if message.sender
       @sender_name = message.sender.username

@@ -18,7 +18,7 @@ describe EventImportFile do
       closing_days_size = Event.closing_days.size
       old_events_count = Event.count
       old_import_results_count = EventImportResult.count
-      expect(@file.import_start).to eq({imported: 2, failed: 2})
+      expect(@file.import_start).to eq({ imported: 2, failed: 2 })
       expect(Event.count).to eq old_events_count + 2
       expect(Event.closing_days.size).to eq closing_days_size + 1
       expect(EventImportResult.count).to eq old_import_results_count + 5
@@ -80,7 +80,7 @@ describe EventImportFile do
     it "should not be imported" do
       old_event_count = Event.count
       old_import_results_count = EventImportResult.count
-      lambda{@file.import_start}.should raise_error(RuntimeError)
+      lambda {@file.import_start}.should raise_error(RuntimeError)
       Event.count.should eq Event.count
       EventImportResult.count.should eq EventImportResult.count
     end

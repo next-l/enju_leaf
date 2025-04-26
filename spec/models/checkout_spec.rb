@@ -8,7 +8,7 @@ describe Checkout do
     checkouts(:checkout_00001).save
     expect(checkouts(:checkout_00001).errors[:base]).to eq []
     checkouts(:checkout_00002).save
-    expect(checkouts(:checkout_00002).errors[:base]).to eq [I18n.t('checkout.this_item_is_reserved')]
+    expect(checkouts(:checkout_00002).errors[:base]).to eq [ I18n.t('checkout.this_item_is_reserved') ]
   end
 
   it "should respond to reserved?" do

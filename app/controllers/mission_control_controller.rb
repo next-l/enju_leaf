@@ -5,6 +5,6 @@ class MissionControlController < ActionController::Base
 
   def authenticate_admin!
     authenticate_user!
-    current_user.role.name == 'Administrator'
+    current_user.role.name == "Administrator"
   end
 end

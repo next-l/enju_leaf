@@ -1,8 +1,8 @@
 class EventsController < ApplicationController
   include EnjuEvent::EnjuLibrariesController
   before_action :store_page, only: :index
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_event, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
   before_action :get_library, :get_agent
   before_action :get_libraries, except: :destroy
   before_action :prepare_options
@@ -14,7 +14,7 @@ class EventsController < ApplicationController
     @count = {}
     query = params[:query].to_s.strip
     @query = query.dup
-    query = query.gsub('　', ' ')
+    query = query.gsub("　", " ")
     tag = params[:tag].to_s if params[:tag].present?
     date = params[:date].to_s if params[:date].present?
     per_page = (params[:format] == "json") ? 500 : Event.default_per_page
@@ -35,9 +35,9 @@ class EventsController < ApplicationController
         with(:end_at).less_than_or_equal_to Time.zone.parse(params[:end]).end_of_day
       end
       case mode
-      when 'upcoming'
+      when "upcoming"
         with(:start_at).greater_than Time.zone.now.beginning_of_day
-      when 'past'
+      when "past"
         with(:start_at).less_than Time.zone.now.beginning_of_day
       end
       order_by(:start_at, :desc)
@@ -76,7 +76,7 @@ class EventsController < ApplicationController
         date = Time.zone.parse(params[:date])
       rescue ArgumentError
         date = Time.zone.now.beginning_of_day
-        flash[:notice] = t('page.invalid_date')
+        flash[:notice] = t("page.invalid_date")
       end
     else
       date = Time.zone.now.beginning_of_day
@@ -98,7 +98,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.event'))
+        flash[:notice] = t("controller.successfully_created", model: t("activerecord.models.event"))
         format.html { redirect_to(@event) }
         format.json { render json: @event, status: :created, location: @event }
       else
@@ -118,7 +118,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.update(event_params)
 
-        flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.event'))
+        flash[:notice] = t("controller.successfully_updated", model: t("activerecord.models.event"))
         format.html { redirect_to(@event) }
         format.json { head :no_content }
       else

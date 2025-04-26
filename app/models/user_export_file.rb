@@ -19,11 +19,11 @@ class UserExportFile < ApplicationRecord
   # エクスポートの処理を実行します。
   def export!
     transition_to!(:started)
-    tempfile = Tempfile.new(['user_export_file_', '.txt'])
+    tempfile = Tempfile.new([ "user_export_file_", ".txt" ])
     file = User.export(format: :text)
     tempfile.puts(file)
     tempfile.close
-    attachment.attach(io: File.new(tempfile.path, 'r'), filename: 'user_export.txt')
+    attachment.attach(io: File.new(tempfile.path, "r"), filename: "user_export.txt")
     save!
     transition_to!(:completed)
     mailer = UserExportMailer.completed(self)
