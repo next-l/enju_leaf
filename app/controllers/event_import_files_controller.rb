@@ -42,10 +42,10 @@ class EventImportFilesController < ApplicationController
 
     respond_to do |format|
       if @event_import_file.save
-        if @event_import_file.mode == 'import'
+        if @event_import_file.mode == "import"
           EventImportFileJob.perform_later(@event_import_file)
         end
-        format.html { redirect_to @event_import_file, notice: t('import.successfully_created', model: t('activerecord.models.event_import_file')) }
+        format.html { redirect_to @event_import_file, notice: t("import.successfully_created", model: t("activerecord.models.event_import_file")) }
         format.json { render json: @event_import_file, status: :created, location: @event_import_file }
       else
         prepare_options
@@ -60,10 +60,10 @@ class EventImportFilesController < ApplicationController
   def update
     respond_to do |format|
       if @event_import_file.update(event_import_file_params)
-        if @event_import_file.mode == 'import'
+        if @event_import_file.mode == "import"
           EventImportFileJob.perform_later(@event_import_file)
         end
-        format.html { redirect_to @event_import_file, notice: t('controller.successfully_updated', model: t('activerecord.models.event_import_file')) }
+        format.html { redirect_to @event_import_file, notice: t("controller.successfully_updated", model: t("activerecord.models.event_import_file")) }
         format.json { head :no_content }
       else
         prepare_options

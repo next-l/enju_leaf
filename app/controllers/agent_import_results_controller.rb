@@ -34,7 +34,7 @@ class AgentImportResultsController < ApplicationController
     @agent_import_result.destroy
 
     respond_to do |format|
-      format.html { redirect_to agent_import_results_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.agent_import_result')) }
+      format.html { redirect_to agent_import_results_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.agent_import_result")) }
       format.json { head :no_content }
     end
   end

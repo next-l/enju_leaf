@@ -60,15 +60,15 @@ class CheckinsController < ApplicationController
     @checkin.basket = @basket
     @checkin.librarian = current_user
 
-    flash[:message] = ''
+    flash[:message] = ""
 
     respond_to do |format|
       if @checkin.save
         message = @checkin.item_checkin(current_user)
         if @checkin.checkout
-          flash[:message] << t('checkin.successfully_checked_in')
+          flash[:message] << t("checkin.successfully_checked_in")
         else
-          flash[:message] << t('checkin.not_checked_out')
+          flash[:message] << t("checkin.not_checked_out")
         end
         flash[:message] << message if message
         format.html { redirect_to checkins_url(basket_id: @checkin.basket_id) }
@@ -91,7 +91,7 @@ class CheckinsController < ApplicationController
 
     respond_to do |format|
       if @checkin.save
-        format.html { redirect_to @checkin, notice: t('controller.successfully_updated', model: t('activerecord.models.checkin')) }
+        format.html { redirect_to @checkin, notice: t("controller.successfully_updated", model: t("activerecord.models.checkin")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

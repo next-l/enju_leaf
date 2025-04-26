@@ -36,7 +36,7 @@ class MediumOfPerformancesController < ApplicationController
 
     respond_to do |format|
       if @medium_of_performance.save
-        format.html { redirect_to @medium_of_performance, notice: t('controller.successfully_created', model: t('activerecord.models.medium_of_performance')) }
+        format.html { redirect_to @medium_of_performance, notice: t("controller.successfully_created", model: t("activerecord.models.medium_of_performance")) }
         format.json { render json: @medium_of_performance, status: :created, location: @medium_of_performance }
       else
         format.html { render action: "new" }
@@ -55,7 +55,7 @@ class MediumOfPerformancesController < ApplicationController
 
     respond_to do |format|
       if @medium_of_performance.update(medium_of_performance_params)
-        format.html { redirect_to @medium_of_performance, notice: t('controller.successfully_updated', model: t('activerecord.models.medium_of_performance')) }
+        format.html { redirect_to @medium_of_performance, notice: t("controller.successfully_updated", model: t("activerecord.models.medium_of_performance")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -70,7 +70,7 @@ class MediumOfPerformancesController < ApplicationController
     @medium_of_performance.destroy
 
     respond_to do |format|
-      format.html { redirect_to medium_of_performances_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.medium_of_performance')) }
+      format.html { redirect_to medium_of_performances_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.medium_of_performance")) }
       format.json { head :no_content }
     end
   end

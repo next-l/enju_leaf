@@ -13,7 +13,7 @@ class SeriesStatementsController < ApplicationController
 
     if query.present?
       @query = query.dup
-      query = query.gsub('　', ' ')
+      query = query.gsub("　", " ")
     end
     search.build do
       fulltext query if query.present?
@@ -63,7 +63,7 @@ class SeriesStatementsController < ApplicationController
     respond_to do |format|
       if @series_statement.save
         @series_statement.manifestations << manifestation if manifestation
-        format.html { redirect_to @series_statement, notice: t('controller.successfully_created', model: t('activerecord.models.series_statement')) }
+        format.html { redirect_to @series_statement, notice: t("controller.successfully_created", model: t("activerecord.models.series_statement")) }
         format.json { render json: @series_statement, status: :created, location: @series_statement }
       else
         @frequencies = Frequency.all
@@ -83,7 +83,7 @@ class SeriesStatementsController < ApplicationController
 
     respond_to do |format|
       if @series_statement.update(series_statement_params)
-        format.html { redirect_to @series_statement, notice: t('controller.successfully_updated', model: t('activerecord.models.series_statement')) }
+        format.html { redirect_to @series_statement, notice: t("controller.successfully_updated", model: t("activerecord.models.series_statement")) }
         format.json { head :no_content }
       else
         @frequencies = Frequency.all

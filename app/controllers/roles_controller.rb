@@ -34,7 +34,7 @@ class RolesController < ApplicationController
 
     respond_to do |format|
       if @role.update(role_params)
-        format.html { redirect_to @role, notice: t('controller.successfully_updated', model: t('activerecord.models.role')) }
+        format.html { redirect_to @role, notice: t("controller.successfully_updated", model: t("activerecord.models.role")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

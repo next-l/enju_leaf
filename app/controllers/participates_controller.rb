@@ -36,7 +36,7 @@ class ParticipatesController < ApplicationController
 
     respond_to do |format|
       if @participate.save
-        flash[:notice] = 'Participate was successfully created.'
+        flash[:notice] = "Participate was successfully created."
         format.html { redirect_to(@participate) }
         format.json { render json: @participate, status: :created, location: @participate }
       else
@@ -51,7 +51,7 @@ class ParticipatesController < ApplicationController
   def update
     respond_to do |format|
       if @participate.update(participate_params)
-        flash[:notice] = 'Participate was successfully updated.'
+        flash[:notice] = "Participate was successfully updated."
         format.html { redirect_to(@participate) }
         format.json { head :no_content }
       else

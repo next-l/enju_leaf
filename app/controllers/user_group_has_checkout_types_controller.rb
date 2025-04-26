@@ -8,7 +8,7 @@ class UserGroupHasCheckoutTypesController < ApplicationController
   # GET /user_group_has_checkout_types
   # GET /user_group_has_checkout_types.json
   def index
-    @user_group_has_checkout_types = UserGroupHasCheckoutType.includes([:user_group, :checkout_type]).order('user_groups.position, checkout_types.position').page(params[:page])
+    @user_group_has_checkout_types = UserGroupHasCheckoutType.includes([:user_group, :checkout_type]).order("user_groups.position, checkout_types.position").page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -42,7 +42,7 @@ class UserGroupHasCheckoutTypesController < ApplicationController
 
     respond_to do |format|
       if @user_group_has_checkout_type.save
-        format.html { redirect_to(@user_group_has_checkout_type, notice: t('controller.successfully_created', model: t('activerecord.models.user_group_has_checkout_type'))) }
+        format.html { redirect_to(@user_group_has_checkout_type, notice: t("controller.successfully_created", model: t("activerecord.models.user_group_has_checkout_type"))) }
         format.json { render json: @user_group_has_checkout_type, status: :created, location: @user_group_has_checkout_type }
       else
         prepare_options
@@ -57,7 +57,7 @@ class UserGroupHasCheckoutTypesController < ApplicationController
   def update
     respond_to do |format|
       if @user_group_has_checkout_type.update(user_group_has_checkout_type_params)
-        format.html { redirect_to @user_group_has_checkout_type, notice: t('controller.successfully_updated', model: t('activerecord.models.user_group_has_checkout_type')) }
+        format.html { redirect_to @user_group_has_checkout_type, notice: t("controller.successfully_updated", model: t("activerecord.models.user_group_has_checkout_type")) }
         format.json { head :no_content }
       else
         prepare_options

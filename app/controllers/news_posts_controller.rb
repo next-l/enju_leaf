@@ -6,7 +6,7 @@ class NewsPostsController < ApplicationController
   # GET /news_posts
   # GET /news_posts.json
   def index
-    if current_user.try(:has_role?, 'Librarian')
+    if current_user.try(:has_role?, "Librarian")
       @news_posts = NewsPost.page(params[:page])
     else
       @news_posts = NewsPost.published.page(params[:page])
@@ -44,7 +44,7 @@ class NewsPostsController < ApplicationController
 
     respond_to do |format|
       if @news_post.save
-        format.html { redirect_to(@news_post, notice: t('controller.successfully_created', model: t('activerecord.models.news_post'))) }
+        format.html { redirect_to(@news_post, notice: t("controller.successfully_created", model: t("activerecord.models.news_post"))) }
         format.json { render json: @news_post, status: :created, location: @news_post }
       else
         prepare_options
@@ -64,7 +64,7 @@ class NewsPostsController < ApplicationController
 
     respond_to do |format|
       if @news_post.update(news_post_params)
-        format.html { redirect_to(@news_post, notice: t('controller.successfully_updated', model: t('activerecord.models.news_post'))) }
+        format.html { redirect_to(@news_post, notice: t("controller.successfully_updated", model: t("activerecord.models.news_post"))) }
         format.json { head :no_content }
       else
         prepare_options

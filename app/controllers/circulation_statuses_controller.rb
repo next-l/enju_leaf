@@ -38,7 +38,7 @@ class CirculationStatusesController < ApplicationController
 
     respond_to do |format|
       if @circulation_status.save
-        format.html { redirect_to @circulation_status, notice: t('controller.successfully_created', model: t('activerecord.models.circulation_status')) }
+        format.html { redirect_to @circulation_status, notice: t("controller.successfully_created", model: t("activerecord.models.circulation_status")) }
         format.json { render json: @circulation_status, status: :created, location: @circulation_status }
       else
         format.html { render action: "new" }
@@ -57,7 +57,7 @@ class CirculationStatusesController < ApplicationController
 
     respond_to do |format|
       if @circulation_status.update(circulation_status_params)
-        format.html { redirect_to @circulation_status, notice: t('controller.successfully_updated', model: t('activerecord.models.circulation_status')) }
+        format.html { redirect_to @circulation_status, notice: t("controller.successfully_updated", model: t("activerecord.models.circulation_status")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

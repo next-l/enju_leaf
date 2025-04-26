@@ -18,16 +18,16 @@ class ProfilesController < ApplicationController
     @query = query.dup
     @count = {}
 
-    sort = {sort_by: 'created_at', order: 'desc'}
+    sort = {sort_by: "created_at", order: "desc"}
     case params[:sort_by]
-    when 'username'
-      sort[:sort_by] = 'username'
+    when "username"
+      sort[:sort_by] = "username"
     end
     case params[:order]
-    when 'asc'
-      sort[:order] = 'asc'
-    when 'desc'
-      sort[:order] = 'desc'
+    when "asc"
+      sort[:order] = "asc"
+    when "desc"
+      sort[:order] = "desc"
     end
 
     query = params[:query]
@@ -75,13 +75,13 @@ class ProfilesController < ApplicationController
   # GET /profiles/1/edit
   def edit
     if defined?(EnjuCirculation)
-      if params[:mode] == 'feed_token'
-        if params[:disable] == 'true'
+      if params[:mode] == "feed_token"
+        if params[:disable] == "true"
           @profile.delete_checkout_icalendar_token
         else
           @profile.reset_checkout_icalendar_token
         end
-        render partial: 'feed_token', locals: {profile: @profile}
+        render partial: "feed_token", locals: {profile: @profile}
         return
       end
     end
@@ -98,17 +98,17 @@ class ProfilesController < ApplicationController
   # POST /profiles.json
   def create
     @profile = Profile.new(profile_params)
-    if current_user.has_role?('Librarian') && @profile.user
+    if current_user.has_role?("Librarian") && @profile.user
       password = @profile.user.set_auto_generated_password
     end
 
     respond_to do |format|
       if @profile.save
         if @profile.user
-          @profile.user.role = Role.find_by(name: 'User')
+          @profile.user.role = Role.find_by(name: "User")
           flash[:temporary_password] = password
         end
-        format.html { redirect_to @profile, notice: t('controller.successfully_created', model: t('activerecord.models.profile')) }
+        format.html { redirect_to @profile, notice: t("controller.successfully_created", model: t("activerecord.models.profile")) }
         format.json { render json: @profile, status: :created, location: @profile }
       else
         prepare_options
@@ -131,7 +131,7 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       if @profile.save
         flash[:temporary_password] = password
-        format.html { redirect_to @profile, notice: t('controller.successfully_updated', model: t('activerecord.models.profile')) }
+        format.html { redirect_to @profile, notice: t("controller.successfully_updated", model: t("activerecord.models.profile")) }
         format.json { head :no_content }
       else
         prepare_options
@@ -147,7 +147,7 @@ class ProfilesController < ApplicationController
     @profile.destroy
 
     respond_to do |format|
-      format.html { redirect_to profiles_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.profile')) }
+      format.html { redirect_to profiles_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.profile")) }
       format.json { head :no_content }
     end
   end
@@ -190,7 +190,7 @@ class ProfilesController < ApplicationController
           {user_has_role_attributes: [:id, :role_id]}
         ]
       }
-    ] if current_user.has_role?('Librarian')
+    ] if current_user.has_role?("Librarian")
     params.require(:profile).permit(*attrs)
   end
 
@@ -211,7 +211,7 @@ class ProfilesController < ApplicationController
           {user_has_role_attributes: [:id, :role_id]}
         ]
       }
-    ] if current_user.has_role?('Librarian')
+    ] if current_user.has_role?("Librarian")
     params.require(:profile).permit(*attrs)
   end
 

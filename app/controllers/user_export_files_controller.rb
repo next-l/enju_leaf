@@ -5,7 +5,7 @@ class UserExportFilesController < ApplicationController
   # GET /user_export_files
   # GET /user_export_files.json
   def index
-    @user_export_files = UserExportFile.order('id DESC').page(params[:page])
+    @user_export_files = UserExportFile.order("id DESC").page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -38,10 +38,10 @@ class UserExportFilesController < ApplicationController
 
     respond_to do |format|
       if @user_export_file.save
-        if @user_export_file.mode == 'export'
+        if @user_export_file.mode == "export"
           UserExportFileJob.perform_later(@user_export_file)
         end
-        format.html { redirect_to @user_export_file, notice: t('export.successfully_created', model: t('activerecord.models.user_export_file')) }
+        format.html { redirect_to @user_export_file, notice: t("export.successfully_created", model: t("activerecord.models.user_export_file")) }
         format.json { render json: @user_export_file, status: :created, location: @user_export_file }
       else
         format.html { render action: "new" }
@@ -55,10 +55,10 @@ class UserExportFilesController < ApplicationController
   def update
     respond_to do |format|
       if @user_export_file.update(user_export_file_params)
-        if @user_export_file.mode == 'export'
+        if @user_export_file.mode == "export"
           UserExportFileJob.perform_later(@user_export_file)
         end
-        format.html { redirect_to @user_export_file, notice: t('controller.successfully_updated', model: t('activerecord.models.user_export_file')) }
+        format.html { redirect_to @user_export_file, notice: t("controller.successfully_updated", model: t("activerecord.models.user_export_file")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

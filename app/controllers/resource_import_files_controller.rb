@@ -41,10 +41,10 @@ class ResourceImportFilesController < ApplicationController
 
     respond_to do |format|
       if @resource_import_file.save
-        if @resource_import_file.mode == 'import'
+        if @resource_import_file.mode == "import"
           ResourceImportFileJob.perform_later(@resource_import_file)
         end
-        format.html { redirect_to @resource_import_file, notice: t('import.successfully_created', model: t('activerecord.models.resource_import_file')) }
+        format.html { redirect_to @resource_import_file, notice: t("import.successfully_created", model: t("activerecord.models.resource_import_file")) }
         format.json { render json: @resource_import_file, status: :created, location: @resource_import_file }
       else
         prepare_options
@@ -59,10 +59,10 @@ class ResourceImportFilesController < ApplicationController
   def update
     respond_to do |format|
       if @resource_import_file.update(resource_import_file_params)
-        if @resource_import_file.mode == 'import'
+        if @resource_import_file.mode == "import"
           ResourceImportFileJob.perform_later(@resource_import_file)
         end
-        format.html { redirect_to @resource_import_file, notice: t('controller.successfully_updated', model: t('activerecord.models.resource_import_file')) }
+        format.html { redirect_to @resource_import_file, notice: t("controller.successfully_updated", model: t("activerecord.models.resource_import_file")) }
         format.json { head :no_content }
       else
         prepare_options
@@ -78,7 +78,7 @@ class ResourceImportFilesController < ApplicationController
     @resource_import_file.destroy
 
     respond_to do |format|
-      format.html { redirect_to resource_import_files_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.resource_import_file')) }
+      format.html { redirect_to resource_import_files_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.resource_import_file")) }
       format.json { head :no_content }
     end
   end

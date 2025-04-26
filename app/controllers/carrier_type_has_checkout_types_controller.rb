@@ -8,7 +8,7 @@ class CarrierTypeHasCheckoutTypesController < ApplicationController
   # GET /carrier_type_has_checkout_types
   # GET /carrier_type_has_checkout_types.json
   def index
-    @carrier_type_has_checkout_types = CarrierTypeHasCheckoutType.includes([:carrier_type, :checkout_type]).order('carrier_types.position, checkout_types.position').page(params[:page])
+    @carrier_type_has_checkout_types = CarrierTypeHasCheckoutType.includes([:carrier_type, :checkout_type]).order("carrier_types.position, checkout_types.position").page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,7 +41,7 @@ class CarrierTypeHasCheckoutTypesController < ApplicationController
 
     respond_to do |format|
       if @carrier_type_has_checkout_type.save
-        flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.carrier_type_has_checkout_type'))
+        flash[:notice] = t("controller.successfully_created", model: t("activerecord.models.carrier_type_has_checkout_type"))
         format.html { redirect_to @carrier_type_has_checkout_type }
         format.json { render json: @carrier_type_has_checkout_type, status: :created, location: @carrier_type_has_checkout_type }
       else
@@ -57,7 +57,7 @@ class CarrierTypeHasCheckoutTypesController < ApplicationController
   def update
     respond_to do |format|
       if @carrier_type_has_checkout_type.update(carrier_type_has_checkout_type_params)
-        flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.carrier_type_has_checkout_type'))
+        flash[:notice] = t("controller.successfully_updated", model: t("activerecord.models.carrier_type_has_checkout_type"))
         format.html { redirect_to @carrier_type_has_checkout_type }
         format.json { head :no_content }
       else

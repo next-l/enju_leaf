@@ -16,7 +16,7 @@ class CiniiBooksController < ApplicationController
         books[:items], total_count: books[:total_entries]
       ).page(page).per(10)
     rescue OpenURI::HTTPError
-      flash[:notice] = t('enju_nii.record_not_found')
+      flash[:notice] = t("enju_nii.record_not_found")
       @books = Kaminari.paginate_array([], total_count: 0).page(page).per(10)
     end
 
@@ -30,10 +30,10 @@ class CiniiBooksController < ApplicationController
       @manifestation = CiniiBook.import_ncid(params[:book][:ncid])
       respond_to do |format|
         if @manifestation.try(:save)
-          flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.manifestation'))
+          flash[:notice] = t("controller.successfully_created", model: t("activerecord.models.manifestation"))
           format.html { redirect_to manifestation_url(@manifestation) }
         else
-          flash[:notice] = t('enju_nii.record_not_found')
+          flash[:notice] = t("enju_nii.record_not_found")
           format.html { redirect_to cinii_books_url }
         end
       end

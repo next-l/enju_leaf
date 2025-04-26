@@ -14,7 +14,7 @@ class NewsFeedsController < ApplicationController
   # GET /news_feeds/1
   # GET /news_feeds/1.json
   def show
-    if params[:mode] == 'force_reload'
+    if params[:mode] == "force_reload"
       @news_feed.force_reload
     end
 
@@ -39,7 +39,7 @@ class NewsFeedsController < ApplicationController
 
     respond_to do |format|
       if @news_feed.save
-        flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.news_feed'))
+        flash[:notice] = t("controller.successfully_created", model: t("activerecord.models.news_feed"))
         format.html { redirect_to(@news_feed) }
         format.json { render json: @news_feed, status: :created, location: @news_feed }
       else
@@ -56,13 +56,13 @@ class NewsFeedsController < ApplicationController
       move_position(@news_feed, params[:move])
       return
     end
-    if params[:mode] == 'force_reload'
+    if params[:mode] == "force_reload"
       expire_cache
     end
 
     respond_to do |format|
       if @news_feed.update(news_feed_params)
-        flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.news_feed'))
+        flash[:notice] = t("controller.successfully_updated", model: t("activerecord.models.news_feed"))
         format.html { redirect_to(@news_feed) }
         format.json { head :no_content }
       else

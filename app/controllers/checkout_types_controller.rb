@@ -7,7 +7,7 @@ class CheckoutTypesController < ApplicationController
   # GET /checkout_types.json
   def index
     if @user_group
-      @checkout_types = @user_group.checkout_types.order('checkout_types.position')
+      @checkout_types = @user_group.checkout_types.order("checkout_types.position")
     else
       @checkout_types = CheckoutType.order(:position)
     end
@@ -53,7 +53,7 @@ class CheckoutTypesController < ApplicationController
 
     respond_to do |format|
       if @checkout_type.save
-        format.html { redirect_to @checkout_type, notice: t('controller.successfully_created', model: t('activerecord.models.checkout_type')) }
+        format.html { redirect_to @checkout_type, notice: t("controller.successfully_created", model: t("activerecord.models.checkout_type")) }
         format.json { render json: @checkout_type, status: :created, location: @checkout_type }
       else
         format.html { render action: "new" }
@@ -72,7 +72,7 @@ class CheckoutTypesController < ApplicationController
 
     respond_to do |format|
       if @checkout_type.update(checkout_type_params)
-        format.html { redirect_to @checkout_type, notice: t('controller.successfully_updated', model: t('activerecord.models.checkout_type')) }
+        format.html { redirect_to @checkout_type, notice: t("controller.successfully_updated", model: t("activerecord.models.checkout_type")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

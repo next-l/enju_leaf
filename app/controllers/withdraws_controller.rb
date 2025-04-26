@@ -7,7 +7,7 @@ class WithdrawsController < ApplicationController
   # GET /withdraws.json
   def index
     if request.format.text?
-      @withdraws = Withdraw.order('withdraws.created_at DESC').page(params[:page]).per(65534)
+      @withdraws = Withdraw.order("withdraws.created_at DESC").page(params[:page]).per(65534)
     else
       if params[:withdraw]
         @query = params[:withdraw][:item_identifier].to_s.strip
@@ -15,11 +15,11 @@ class WithdrawsController < ApplicationController
       end
 
       if item
-        @withdraws = Withdraw.order('withdraws.created_at DESC').where(item_id: item.id).page(params[:page])
+        @withdraws = Withdraw.order("withdraws.created_at DESC").where(item_id: item.id).page(params[:page])
       elsif @basket
-        @withdraws = @basket.withdraws.order('withdraws.created_at DESC').page(params[:page])
+        @withdraws = @basket.withdraws.order("withdraws.created_at DESC").page(params[:page])
       else
-        @withdraws = Withdraw.order('withdraws.created_at DESC').page(params[:page])
+        @withdraws = Withdraw.order("withdraws.created_at DESC").page(params[:page])
       end
     end
 
@@ -64,9 +64,9 @@ class WithdrawsController < ApplicationController
     @withdraw.basket = @basket
     @withdraw.librarian = current_user
 
-    flash[:message] = ''
+    flash[:message] = ""
     if @withdraw.item_identifier.blank?
-      flash[:message] << t('withdraw.enter_item_identifier') if @withdraw.item_identifier.blank?
+      flash[:message] << t("withdraw.enter_item_identifier") if @withdraw.item_identifier.blank?
     else
       item = Item.find_by(item_identifier: @withdraw.item_identifier.to_s.strip)
     end
@@ -74,7 +74,7 @@ class WithdrawsController < ApplicationController
 
     respond_to do |format|
       if @withdraw.save
-        flash[:message] << t('withdraw.successfully_withdrawn', model: t('activerecord.models.withdraw'))
+        flash[:message] << t("withdraw.successfully_withdrawn", model: t("activerecord.models.withdraw"))
         format.html { redirect_to withdraws_url(basket_id: @basket.id) }
         format.json { render json: @withdraw, status: :created, location: @withdraw }
         format.js { redirect_to withdraws_url(basket_id: @basket.id, format: :js) }
@@ -92,7 +92,7 @@ class WithdrawsController < ApplicationController
   def update
     respond_to do |format|
       if @withdraw.update(withdraw_params)
-        format.html { redirect_to @withdraw, notice: t('controller.successfully_updated', model: t('activerecord.models.withdraw')) }
+        format.html { redirect_to @withdraw, notice: t("controller.successfully_updated", model: t("activerecord.models.withdraw")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -107,7 +107,7 @@ class WithdrawsController < ApplicationController
     @withdraw.destroy
 
     respond_to do |format|
-      format.html { redirect_to withdraws_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.withdraw')) }
+      format.html { redirect_to withdraws_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.withdraw")) }
       format.json { head :no_content }
     end
   end

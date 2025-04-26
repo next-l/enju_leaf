@@ -9,9 +9,9 @@ class ProducesController < ApplicationController
   def index
     case
     when @agent
-      @produces = @agent.produces.order('produces.position').page(params[:page])
+      @produces = @agent.produces.order("produces.position").page(params[:page])
     when @manifestation
-      @produces = @manifestation.produces.order('produces.position').page(params[:page])
+      @produces = @manifestation.produces.order("produces.position").page(params[:page])
     else
       @produces = Produce.page(params[:page])
     end
@@ -55,7 +55,7 @@ class ProducesController < ApplicationController
 
     respond_to do |format|
       if @produce.save
-        format.html { redirect_to @produce, notice: t('controller.successfully_created', model: t('activerecord.models.produce')) }
+        format.html { redirect_to @produce, notice: t("controller.successfully_created", model: t("activerecord.models.produce")) }
         format.json { render json: @produce, status: :created, location: @produce }
       else
         prepare_options
@@ -76,7 +76,7 @@ class ProducesController < ApplicationController
 
     respond_to do |format|
       if @produce.update(produce_params)
-        format.html { redirect_to @produce, notice: t('controller.successfully_updated', model: t('activerecord.models.produce')) }
+        format.html { redirect_to @produce, notice: t("controller.successfully_updated", model: t("activerecord.models.produce")) }
         format.json { head :no_content }
       else
         prepare_options
@@ -93,7 +93,7 @@ class ProducesController < ApplicationController
 
     respond_to do |format|
       format.html {
-        flash[:notice] = t('controller.successfully_deleted', model: t('activerecord.models.produce'))
+        flash[:notice] = t("controller.successfully_deleted", model: t("activerecord.models.produce"))
         case
         when @agent
           redirect_to agent_manifestations_url(@agent)

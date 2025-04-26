@@ -6,7 +6,7 @@ class UserCheckoutStatsController < ApplicationController
   # GET /user_checkout_stats
   # GET /user_checkout_stats.json
   def index
-    @user_checkout_stats = UserCheckoutStat.order('id DESC').page(params[:page])
+    @user_checkout_stats = UserCheckoutStat.order("id DESC").page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -21,7 +21,7 @@ class UserCheckoutStatsController < ApplicationController
     else
       per_page = CheckoutStatHasUser.default_per_page
     end
-    @stats = @user_checkout_stat.checkout_stat_has_users.order('checkouts_count DESC, user_id').page(params[:page]).per(per_page)
+    @stats = @user_checkout_stat.checkout_stat_has_users.order("checkouts_count DESC, user_id").page(params[:page]).per(per_page)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -47,7 +47,7 @@ class UserCheckoutStatsController < ApplicationController
     respond_to do |format|
       if @user_checkout_stat.save
         UserCheckoutStatJob.perform_later(@user_checkout_stat)
-        format.html { redirect_to @user_checkout_stat, notice: t('statistic.successfully_created', model: t('activerecord.models.user_checkout_stat')) }
+        format.html { redirect_to @user_checkout_stat, notice: t("statistic.successfully_created", model: t("activerecord.models.user_checkout_stat")) }
         format.json { render json: @user_checkout_stat, status: :created, location: @user_checkout_stat }
       else
         format.html { render action: "new" }
@@ -61,10 +61,10 @@ class UserCheckoutStatsController < ApplicationController
   def update
     respond_to do |format|
       if @user_checkout_stat.update(user_checkout_stat_params)
-        if @user_checkout_stat.mode == 'import'
+        if @user_checkout_stat.mode == "import"
           UserCheckoutStatJob.perform_later(@user_checkout_stat)
         end
-        format.html { redirect_to @user_checkout_stat, notice: t('controller.successfully_updated', model: t('activerecord.models.user_checkout_stat')) }
+        format.html { redirect_to @user_checkout_stat, notice: t("controller.successfully_updated", model: t("activerecord.models.user_checkout_stat")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -7,7 +7,7 @@ class AcceptsController < ApplicationController
   # GET /accepts.json
   def index
     if request.format.text?
-      @accepts = Accept.order('accepts.created_at DESC').page(params[:page]).per(65534)
+      @accepts = Accept.order("accepts.created_at DESC").page(params[:page]).per(65534)
     else
       if params[:accept]
         @query = params[:accept][:item_identifier].to_s.strip
@@ -15,11 +15,11 @@ class AcceptsController < ApplicationController
       end
 
       if item
-        @accepts = Accept.order('accepts.created_at DESC').where(item_id: item.id).page(params[:page])
+        @accepts = Accept.order("accepts.created_at DESC").where(item_id: item.id).page(params[:page])
       elsif @basket
-        @accepts = @basket.accepts.order('accepts.created_at DESC').page(params[:page])
+        @accepts = @basket.accepts.order("accepts.created_at DESC").page(params[:page])
       else
-        @accepts = Accept.order('accepts.created_at DESC').page(params[:page])
+        @accepts = Accept.order("accepts.created_at DESC").page(params[:page])
       end
     end
 
@@ -63,9 +63,9 @@ class AcceptsController < ApplicationController
     @accept.basket = @basket
     @accept.librarian = current_user
 
-    flash[:message] = ''
+    flash[:message] = ""
     if @accept.item_identifier.blank?
-      flash[:message] << t('accept.enter_item_identifier') if @accept.item_identifier.blank?
+      flash[:message] << t("accept.enter_item_identifier") if @accept.item_identifier.blank?
     else
       item = Item.where(item_identifier: @accept.item_identifier.to_s.strip).first
     end
@@ -73,7 +73,7 @@ class AcceptsController < ApplicationController
 
     respond_to do |format|
       if @accept.save
-        flash[:message] << t('accept.successfully_accepted', model: t('activerecord.models.accept'))
+        flash[:message] << t("accept.successfully_accepted", model: t("activerecord.models.accept"))
         format.html { redirect_to accepts_url(basket_id: @basket.id) }
         format.json { render json: @accept, status: :created, location: @accept }
         format.js { redirect_to accepts_url(basket_id: @basket.id, format: :js) }
@@ -91,7 +91,7 @@ class AcceptsController < ApplicationController
   def update
     respond_to do |format|
       if @accept.update(accept_params)
-        format.html { redirect_to @accept, notice: t('controller.successfully_updated', model: t('activerecord.models.accept')) }
+        format.html { redirect_to @accept, notice: t("controller.successfully_updated", model: t("activerecord.models.accept")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -106,7 +106,7 @@ class AcceptsController < ApplicationController
     @accept.destroy
 
     respond_to do |format|
-      format.html { redirect_to accepts_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.accept')) }
+      format.html { redirect_to accepts_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.accept")) }
       format.json { head :no_content }
     end
   end

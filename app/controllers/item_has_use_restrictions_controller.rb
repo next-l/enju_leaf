@@ -7,9 +7,9 @@ class ItemHasUseRestrictionsController < ApplicationController
   # GET /item_has_use_restrictions.json
   def index
     if @item
-      @item_has_use_restrictions = @item.item_has_use_restrictions.order('item_has_use_restrictions.id DESC').page(params[:page])
+      @item_has_use_restrictions = @item.item_has_use_restrictions.order("item_has_use_restrictions.id DESC").page(params[:page])
     else
-      @item_has_use_restrictions = ItemHasUseRestriction.order('id DESC').page(params[:page])
+      @item_has_use_restrictions = ItemHasUseRestriction.order("id DESC").page(params[:page])
     end
 
     respond_to do |format|
@@ -43,7 +43,7 @@ class ItemHasUseRestrictionsController < ApplicationController
 
     respond_to do |format|
       if @item_has_use_restriction.save
-        format.html { redirect_to @item_has_use_restriction, notice: t('controller.successfully_created', model: t('activerecord.models.item_has_use_restriction')) }
+        format.html { redirect_to @item_has_use_restriction, notice: t("controller.successfully_created", model: t("activerecord.models.item_has_use_restriction")) }
         format.json { render json: @item_has_use_restriction, status: :created, location: @item_has_use_restriction }
       else
         @use_restrictions = UseRestriction.all
@@ -59,7 +59,7 @@ class ItemHasUseRestrictionsController < ApplicationController
     @item_has_use_restriction.assign_attributes(item_has_use_restriction_params)
     respond_to do |format|
       if @item_has_use_restriction.save
-        format.html { redirect_to @item_has_use_restriction, notice: t('controller.successfully_updated', model: t('activerecord.models.item_has_use_restriction')) }
+        format.html { redirect_to @item_has_use_restriction, notice: t("controller.successfully_updated", model: t("activerecord.models.item_has_use_restriction")) }
         format.json { head :no_content }
       else
         @use_restrictions = UseRestriction.all

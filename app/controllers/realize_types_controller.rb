@@ -36,7 +36,7 @@ class RealizeTypesController < ApplicationController
 
     respond_to do |format|
       if @realize_type.save
-        format.html { redirect_to @realize_type, notice: t('controller.successfully_created', model: t('activerecord.models.realize_type')) }
+        format.html { redirect_to @realize_type, notice: t("controller.successfully_created", model: t("activerecord.models.realize_type")) }
         format.json { render json: @realize_type, status: :created, location: @realize_type }
       else
         format.html { render action: "new" }
@@ -55,7 +55,7 @@ class RealizeTypesController < ApplicationController
 
     respond_to do |format|
       if @realize_type.update(realize_type_params)
-        format.html { redirect_to @realize_type, notice: t('controller.successfully_updated', model: t('activerecord.models.realize_type')) }
+        format.html { redirect_to @realize_type, notice: t("controller.successfully_updated", model: t("activerecord.models.realize_type")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -70,7 +70,7 @@ class RealizeTypesController < ApplicationController
     @realize_type.destroy
 
     respond_to do |format|
-      format.html { redirect_to realize_types_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.realize_type')) }
+      format.html { redirect_to realize_types_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.realize_type")) }
       format.json { head :no_content }
     end
   end

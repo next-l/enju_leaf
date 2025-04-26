@@ -31,11 +31,11 @@ class LibraryGroupsController < ApplicationController
   def update
     respond_to do |format|
       if @library_group.update(library_group_params)
-        if @library_group.delete_header_logo == '1'
+        if @library_group.delete_header_logo == "1"
           @library_group.header_logo.destroy
         end
 
-        format.html { redirect_to @library_group, notice: t('controller.successfully_updated', model: t('activerecord.models.library_group')) }
+        format.html { redirect_to @library_group, notice: t("controller.successfully_updated", model: t("activerecord.models.library_group")) }
         format.json { head :no_content }
       else
         @countries = Country.order(:position)

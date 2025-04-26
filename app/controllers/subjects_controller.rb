@@ -6,18 +6,18 @@ class SubjectsController < ApplicationController
   # GET /subjects
   # GET /subjects.json
   def index
-    sort = {sort_by: 'created_at', order: 'desc'}
+    sort = {sort_by: "created_at", order: "desc"}
     case params[:sort_by]
-    when 'name'
-      sort[:sort_by] = 'term'
+    when "name"
+      sort[:sort_by] = "term"
     end
-    sort[:order] = 'asc' if params[:order] == 'asc'
+    sort[:order] = "asc" if params[:order] == "asc"
 
     search = Subject.search
     query = params[:query].to_s.strip
     if query.present?
       @query = query.dup
-      query = query.gsub('　', ' ')
+      query = query.gsub("　", " ")
       search.build do
         fulltext query
       end
@@ -85,7 +85,7 @@ class SubjectsController < ApplicationController
 
     respond_to do |format|
       if @subject.save
-        format.html { redirect_to @subject, notice: t('controller.successfully_created', model: t('activerecord.models.subject')) }
+        format.html { redirect_to @subject, notice: t("controller.successfully_created", model: t("activerecord.models.subject")) }
         format.json { render json: @subject, status: :created, location: @subject }
       else
         prepare_options
@@ -100,7 +100,7 @@ class SubjectsController < ApplicationController
   def update
     respond_to do |format|
       if @subject.update(subject_params)
-        format.html { redirect_to @subject, notice: t('controller.successfully_updated', model: t('activerecord.models.subject')) }
+        format.html { redirect_to @subject, notice: t("controller.successfully_updated", model: t("activerecord.models.subject")) }
         format.json { head :no_content }
       else
         prepare_options
@@ -116,7 +116,7 @@ class SubjectsController < ApplicationController
     @subject.destroy
 
     respond_to do |format|
-      format.html { redirect_to subjects_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.subject')) }
+      format.html { redirect_to subjects_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.subject")) }
       format.json { head :no_content }
     end
   end

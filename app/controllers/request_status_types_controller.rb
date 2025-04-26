@@ -36,7 +36,7 @@ class RequestStatusTypesController < ApplicationController
 
     respond_to do |format|
       if @request_status_type.update(request_status_type_params)
-        format.html { redirect_to @request_status_type, notice: t('controller.successfully_updated', model: t('activerecord.models.request_status_type')) }
+        format.html { redirect_to @request_status_type, notice: t("controller.successfully_updated", model: t("activerecord.models.request_status_type")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

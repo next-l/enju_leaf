@@ -55,7 +55,7 @@ class PictureFilesController < ApplicationController
 
     respond_to do |format|
       if @picture_file.save
-        format.html { redirect_to @picture_file, notice: t('controller.successfully_created', model: t('activerecord.models.picture_file')) }
+        format.html { redirect_to @picture_file, notice: t("controller.successfully_created", model: t("activerecord.models.picture_file")) }
         format.json { render json: @picture_file, status: :created, location: @picture_file }
       else
         format.html { render action: "new" }
@@ -91,7 +91,7 @@ class PictureFilesController < ApplicationController
 
     respond_to do |format|
       if @picture_file.update(picture_file_params)
-        format.html { redirect_to @picture_file, notice: t('controller.successfully_updated', model: t('activerecord.models.picture_file')) }
+        format.html { redirect_to @picture_file, notice: t("controller.successfully_updated", model: t("activerecord.models.picture_file")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -107,18 +107,18 @@ class PictureFilesController < ApplicationController
     @picture_file.destroy
 
     respond_to do |format|
-      flash[:notice] = t('controller.successfully_deleted', model: t('activerecord.models.picture_file'))
+      flash[:notice] = t("controller.successfully_deleted", model: t("activerecord.models.picture_file"))
       format.html {
         case attachable.class.name
-        when 'Manifestation'
+        when "Manifestation"
           redirect_to picture_files_url(manifestation_id: attachable.id)
-        when 'Agent'
+        when "Agent"
           redirect_to picture_files_url(agent_id: attachable.id)
-        when 'Shelf'
+        when "Shelf"
           redirect_to picture_files_url(shelf_id: attachable.id)
         else
           if defined?(EnjuEvent)
-            if attachable.class.name == 'Event'
+            if attachable.class.name == "Event"
               redirect_to picture_files_url(event_id: attachable.id)
             else
               redirect_to picture_files_url

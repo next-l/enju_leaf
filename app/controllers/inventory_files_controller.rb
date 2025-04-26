@@ -40,7 +40,7 @@ class InventoryFilesController < ApplicationController
 
     respond_to do |format|
       if @inventory_file.save
-        flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.inventory_file'))
+        flash[:notice] = t("controller.successfully_created", model: t("activerecord.models.inventory_file"))
         @inventory_file.import
         format.html { redirect_to(@inventory_file) }
         format.json { render json: @inventory_file, status: :created, location: @inventory_file }
@@ -57,7 +57,7 @@ class InventoryFilesController < ApplicationController
   def update
     respond_to do |format|
       if @inventory_file.update(inventory_file_params)
-        flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.inventory_file'))
+        flash[:notice] = t("controller.successfully_updated", model: t("activerecord.models.inventory_file"))
         format.html { redirect_to(@inventory_file) }
         format.json { head :no_content }
       else

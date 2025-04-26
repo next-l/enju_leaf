@@ -37,7 +37,7 @@ class UserGroupsController < ApplicationController
 
     respond_to do |format|
       if @user_group.save
-        format.html { redirect_to @user_group, notice: t('controller.successfully_created', model: t('activerecord.models.user_group')) }
+        format.html { redirect_to @user_group, notice: t("controller.successfully_created", model: t("activerecord.models.user_group")) }
         format.json { render json: @user_group, status: :created, location: @user_group }
       else
         prepare_options
@@ -57,7 +57,7 @@ class UserGroupsController < ApplicationController
 
     respond_to do |format|
       if @user_group.update(user_group_params)
-        format.html { redirect_to @user_group, notice: t('controller.successfully_updated', model: t('activerecord.models.user_group')) }
+        format.html { redirect_to @user_group, notice: t("controller.successfully_updated", model: t("activerecord.models.user_group")) }
         format.json { head :no_content }
       else
         prepare_options

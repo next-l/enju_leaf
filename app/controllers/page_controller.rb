@@ -54,17 +54,17 @@ class PageController < ApplicationController
   # 詳細検索画面を表示します。
   def advanced_search
     get_libraries
-    @title = t('page.advanced_search')
+    @title = t("page.advanced_search")
   end
 
   # 統計画面を表示します。
   def statistics
-    @title = t('page.statistics')
+    @title = t("page.statistics")
   end
 
   # システム設定画面を表示します。
   def configuration
-    @title = t('page.configuration')
+    @title = t("page.configuration")
   end
 
   # システム情報画面を表示します。
@@ -74,17 +74,17 @@ class PageController < ApplicationController
 
   # インポート画面を表示します。
   def import
-    @title = t('page.import')
+    @title = t("page.import")
   end
 
   # エクスポート画面を表示します。
   def export
-    @title = t('page.export')
+    @title = t("page.export")
   end
 
   # 「このシステムについて」を表示します。
   def about
-    @title = t('page.about_this_system')
+    @title = t("page.about_this_system")
   end
 
   # ルーティングエラー画面を表示します。
@@ -94,7 +94,7 @@ class PageController < ApplicationController
 
   private
   def check_librarian
-    return true if current_user.has_role?('Librarian')
+    return true if current_user.has_role?("Librarian")
 
     access_denied
   end

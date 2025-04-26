@@ -14,7 +14,7 @@ class ClassificationsController < ApplicationController
         fulltext query
       end
     end
-    unless params[:mode] == 'add'
+    unless params[:mode] == "add"
       subject = @subject
       classification_type = @classification_type
       search.build do
@@ -62,7 +62,7 @@ class ClassificationsController < ApplicationController
 
     respond_to do |format|
       if @classification.save
-        format.html { redirect_to @classification, notice: t('controller.successfully_created', model: t('activerecord.models.classification')) }
+        format.html { redirect_to @classification, notice: t("controller.successfully_created", model: t("activerecord.models.classification")) }
         format.json { render json: @classification, status: :created, location: @classification }
       else
         @classification_types = ClassificationType.all
@@ -77,7 +77,7 @@ class ClassificationsController < ApplicationController
   def update
     respond_to do |format|
       if @classification.update(classification_params)
-        format.html { redirect_to @classification, notice: t('controller.successfully_updated', model: t('activerecord.models.classification')) }
+        format.html { redirect_to @classification, notice: t("controller.successfully_updated", model: t("activerecord.models.classification")) }
         format.json { head :no_content }
       else
         @classification_types = ClassificationType.all
@@ -94,7 +94,7 @@ class ClassificationsController < ApplicationController
     @classification.destroy
 
     respond_to do |format|
-      format.html { redirect_to classifications_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.classification')) }
+      format.html { redirect_to classifications_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.classification")) }
       format.json { head :no_content }
     end
   end

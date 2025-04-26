@@ -22,7 +22,7 @@ class ManifestationReserveStatsController < ApplicationController
     else
       per_page = ReserveStatHasManifestation.default_per_page
     end
-    @stats = @manifestation_reserve_stat.reserve_stat_has_manifestations.order('reserves_count DESC, manifestation_id').page(params[:page]).per(per_page)
+    @stats = @manifestation_reserve_stat.reserve_stat_has_manifestations.order("reserves_count DESC, manifestation_id").page(params[:page]).per(per_page)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -48,7 +48,7 @@ class ManifestationReserveStatsController < ApplicationController
     respond_to do |format|
       if @manifestation_reserve_stat.save
         ManifestationReserveStatJob.perform_later(@manifestation_reserve_stat)
-        format.html { redirect_to @manifestation_reserve_stat, notice: t('statistic.successfully_created', model: t('activerecord.models.manifestation_reserve_stat')) }
+        format.html { redirect_to @manifestation_reserve_stat, notice: t("statistic.successfully_created", model: t("activerecord.models.manifestation_reserve_stat")) }
         format.json { render json: @manifestation_reserve_stat, status: :created, location: @manifestation_reserve_stat }
       else
         format.html { render action: "new" }
@@ -62,10 +62,10 @@ class ManifestationReserveStatsController < ApplicationController
   def update
     respond_to do |format|
       if @manifestation_reserve_stat.update(manifestation_reserve_stat_params)
-        if @manifestation_reserve_stat.mode == 'import'
+        if @manifestation_reserve_stat.mode == "import"
           ManifestationReserveStatJob.perform_later(@manifestation_reserve_stat)
         end
-        format.html { redirect_to @manifestation_reserve_stat, notice: t('controller.successfully_created', model: t('activerecord.models.manifestation_reserve_stat')) }
+        format.html { redirect_to @manifestation_reserve_stat, notice: t("controller.successfully_created", model: t("activerecord.models.manifestation_reserve_stat")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

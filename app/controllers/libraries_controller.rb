@@ -5,12 +5,12 @@ class LibrariesController < ApplicationController
   # GET /libraries
   # GET /libraries.json
   def index
-    sort = {sort_by: 'position', order: 'asc'}
+    sort = {sort_by: "position", order: "asc"}
     case params[:sort_by]
-    when 'name'
-      sort[:sort_by] = 'name'
+    when "name"
+      sort[:sort_by] = "name"
     end
-    sort[:order] = 'desc' if params[:order] == 'desc'
+    sort[:order] = "desc" if params[:order] == "desc"
 
     query = @query = params[:query].to_s.strip
     page = params[:page] || 1
@@ -68,7 +68,7 @@ class LibrariesController < ApplicationController
 
     respond_to do |format|
       if @library.save
-        format.html { redirect_to @library, notice: t('controller.successfully_created', model: t('activerecord.models.library')) }
+        format.html { redirect_to @library, notice: t("controller.successfully_created", model: t("activerecord.models.library")) }
         format.json { render json: @library, status: :created }
       else
         prepare_options
@@ -88,7 +88,7 @@ class LibrariesController < ApplicationController
 
     respond_to do |format|
       if @library.update(library_params)
-        format.html { redirect_to @library, notice: t('controller.successfully_updated', model: t('activerecord.models.library')) }
+        format.html { redirect_to @library, notice: t("controller.successfully_updated", model: t("activerecord.models.library")) }
         format.json { head :no_content }
       else
         @library.name = @library.name_was

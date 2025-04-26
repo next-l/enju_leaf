@@ -7,9 +7,9 @@ class OwnsController < ApplicationController
   # GET /owns.json
   def index
     if @agent
-      @owns = @agent.owns.order('owns.position').page(params[:page])
+      @owns = @agent.owns.order("owns.position").page(params[:page])
     elsif @item
-      @owns = @item.owns.order('owns.position').page(params[:page])
+      @owns = @item.owns.order("owns.position").page(params[:page])
     else
       @owns = Own.page(params[:page])
     end
@@ -53,7 +53,7 @@ class OwnsController < ApplicationController
 
     respond_to do |format|
       if @own.save
-        format.html { redirect_to @own, notice: t('controller.successfully_created', model: t('activerecord.models.own')) }
+        format.html { redirect_to @own, notice: t("controller.successfully_created", model: t("activerecord.models.own")) }
         format.json { render json: @own, status: :created, location: @own }
       else
         format.html { render action: "new" }
@@ -73,7 +73,7 @@ class OwnsController < ApplicationController
 
     respond_to do |format|
       if @own.update(own_params)
-        format.html { redirect_to @own, notice: t('controller.successfully_updated', model: t('activerecord.models.own')) }
+        format.html { redirect_to @own, notice: t("controller.successfully_updated", model: t("activerecord.models.own")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -89,7 +89,7 @@ class OwnsController < ApplicationController
 
     respond_to do |format|
       format.html {
-        flash[:notice] = t('controller.successfully_deleted', model: t('activerecord.models.own'))
+        flash[:notice] = t("controller.successfully_deleted", model: t("activerecord.models.own"))
         case
         when @agent
           redirect_to agent_owns_url(@agent)

@@ -41,7 +41,7 @@ class CarrierTypesController < ApplicationController
 
     respond_to do |format|
       if @carrier_type.save
-        format.html { redirect_to @carrier_type, notice: t('controller.successfully_created', model: t('activerecord.models.carrier_type')) }
+        format.html { redirect_to @carrier_type, notice: t("controller.successfully_created", model: t("activerecord.models.carrier_type")) }
         format.json { render json: @carrier_type, status: :created, location: @carrier_type }
       else
         prepare_options
@@ -61,7 +61,7 @@ class CarrierTypesController < ApplicationController
 
     respond_to do |format|
       if @carrier_type.update(carrier_type_params)
-        format.html { redirect_to @carrier_type, notice: t('controller.successfully_updated', model: t('activerecord.models.carrier_type')) }
+        format.html { redirect_to @carrier_type, notice: t("controller.successfully_updated", model: t("activerecord.models.carrier_type")) }
         format.json { head :no_content }
       else
         prepare_options
@@ -77,7 +77,7 @@ class CarrierTypesController < ApplicationController
     @carrier_type.destroy
 
     respond_to do |format|
-      format.html { redirect_to carrier_types_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.carrier_type')) }
+      format.html { redirect_to carrier_types_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.carrier_type")) }
       format.json { head :no_content }
     end
   end

@@ -36,7 +36,7 @@ class LanguagesController < ApplicationController
 
     respond_to do |format|
       if @language.save
-        format.html { redirect_to @language, notice: t('controller.successfully_created', model: t('activerecord.models.language')) }
+        format.html { redirect_to @language, notice: t("controller.successfully_created", model: t("activerecord.models.language")) }
         format.json { render json: @language, status: :created, location: @language }
       else
         format.html { render action: "new" }
@@ -55,7 +55,7 @@ class LanguagesController < ApplicationController
 
     respond_to do |format|
       if @language.update(language_params)
-        format.html { redirect_to @language, notice: t('controller.successfully_updated', model: t('activerecord.models.language')) }
+        format.html { redirect_to @language, notice: t("controller.successfully_updated", model: t("activerecord.models.language")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -70,7 +70,7 @@ class LanguagesController < ApplicationController
     @language.destroy
 
     respond_to do |format|
-      format.html { redirect_to languages_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.language')) }
+      format.html { redirect_to languages_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.language")) }
       format.json { head :no_content }
     end
   end

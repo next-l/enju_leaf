@@ -3,21 +3,21 @@ module ManifestationsHelper
 
   def resource_title(manifestation, action)
     string = LibraryGroup.site_config.display_name.localize.dup
-    unless action == ('index' or 'new')
+    unless action == ("index" or "new")
       if manifestation.try(:original_title)
-        string << ' - ' + manifestation.original_title.to_s
+        string << " - " + manifestation.original_title.to_s
       end
     end
-    string << ' - Next-L Enju Leaf'
+    string << " - Next-L Enju Leaf"
     string.html_safe
   end
 
   def back_to_manifestation_index
     if session[:params]
       params = session[:params].merge(view: nil, controller: :manifestations)
-      link_to t('page.back_to_search_results'), url_for(params)
+      link_to t("page.back_to_search_results"), url_for(params)
     else
-      link_to t('page.back'), :back
+      link_to t("page.back"), :back
     end
   #rescue
   #  link_to t('page.listing', model: t('activerecord.models.manifestation')), manifestations_path
@@ -32,7 +32,7 @@ module ManifestationsHelper
         numbers.each do |number|
           call_numbers << h(number.to_s)
         end
-        render partial: 'manifestations/call_number', locals: { item: item, call_numbers: call_numbers }
+        render partial: "manifestations/call_number", locals: { item: item, call_numbers: call_numbers }
       end
     end
   end
@@ -40,7 +40,7 @@ module ManifestationsHelper
   def language_list(languages)
     list = []
     languages.each do |language|
-      list << language.display_name.localize if language.name != 'unknown'
+      list << language.display_name.localize if language.name != "unknown"
     end
     list.join("; ")
   end
@@ -51,14 +51,14 @@ module ManifestationsHelper
       current_seq = manifestation_ids.index(manifestation.id)
       if current_seq
         unless manifestation.id == manifestation_ids.last
-          links << link_to(t('page.next'), manifestation_path(manifestation_ids[current_seq + 1]))
+          links << link_to(t("page.next"), manifestation_path(manifestation_ids[current_seq + 1]))
         else
-          links << t('page.next').to_s
+          links << t("page.next").to_s
         end
         unless manifestation.id == manifestation_ids.first
-          links << link_to(t('page.previous'), manifestation_path(manifestation_ids[current_seq - 1]))
+          links << link_to(t("page.previous"), manifestation_path(manifestation_ids[current_seq - 1]))
         else
-          links << t('page.previous').to_s
+          links << t("page.previous").to_s
         end
       end
     end
@@ -66,7 +66,7 @@ module ManifestationsHelper
   end
 
   def language_facet(language, current_languages, facet)
-    string = ''
+    string = ""
     languages = current_languages.dup
     current = true if languages.include?(language.name)
     if current
@@ -82,21 +82,21 @@ module ManifestationsHelper
     library = Library.where(name: facet.value).select([:name, :display_name]).first
     return nil unless library
 
-    string = ''
+    string = ""
     current = true if current_libraries.include?(library.name)
     content_tag :li do
       if current
         content_tag :strong do
-          link_to("#{library.display_name.localize} (" + facet.count.to_s + ")", url_for(request.params.merge(page: nil, library: (current_libraries << library.name).uniq.join(' '), view: nil, only_path: true)))
+          link_to("#{library.display_name.localize} (" + facet.count.to_s + ")", url_for(request.params.merge(page: nil, library: (current_libraries << library.name).uniq.join(" "), view: nil, only_path: true)))
         end
       else
-        link_to("#{library.display_name.localize} (" + facet.count.to_s + ")", url_for(request.params.merge(page: nil, library: (current_libraries << library.name).uniq.join(' '), view: nil, only_path: true)))
+        link_to("#{library.display_name.localize} (" + facet.count.to_s + ")", url_for(request.params.merge(page: nil, library: (current_libraries << library.name).uniq.join(" "), view: nil, only_path: true)))
       end
     end
   end
 
   def carrier_type_facet(facet)
-    string = ''
+    string = ""
     carrier_type = CarrierType.where(name: facet.value).select([:id, :name, :display_name]).first
     if carrier_type
       string << form_icon(carrier_type)
@@ -146,22 +146,22 @@ module ManifestationsHelper
 
   def link_to_reservation(manifestation, reserve)
     if current_user
-      if current_user.has_role?('Librarian')
-        link_to t('manifestation.reserve_this'), new_reserve_path(manifestation_id: manifestation.id)
+      if current_user.has_role?("Librarian")
+        link_to t("manifestation.reserve_this"), new_reserve_path(manifestation_id: manifestation.id)
       else
         if manifestation.is_checked_out_by?(current_user)
-          I18n.t('manifestation.currently_checked_out')
+          I18n.t("manifestation.currently_checked_out")
         else
           if manifestation.is_reserved_by?(current_user)
-            link_to t('manifestation.cancel_reservation'), reserve, confirm: t('page.are_you_sure'), method: :delete
+            link_to t("manifestation.cancel_reservation"), reserve, confirm: t("page.are_you_sure"), method: :delete
           else
-            link_to t('manifestation.reserve_this'), new_reserve_path(manifestation_id: manifestation.id)
+            link_to t("manifestation.reserve_this"), new_reserve_path(manifestation_id: manifestation.id)
           end
         end
       end
     else
       unless manifestation.items.for_checkout.empty?
-        link_to t('manifestation.reserve_this'), new_reserve_path(manifestation_id: manifestation.id)
+        link_to t("manifestation.reserve_this"), new_reserve_path(manifestation_id: manifestation.id)
       end
     end
   end
@@ -169,14 +169,14 @@ module ManifestationsHelper
   if defined?(EnjuBookmark)
     def link_to_bookmark(manifestation)
       if manifestation.bookmarked?(current_user)
-        link_to t('bookmark.remove_from_my_bookmark'), bookmark_path(Bookmark.where(user_id: current_user.id, manifestation_id: manifestation.id).first), confirm: t('page.are_you_sure'), method: :delete
+        link_to t("bookmark.remove_from_my_bookmark"), bookmark_path(Bookmark.where(user_id: current_user.id, manifestation_id: manifestation.id).first), confirm: t("page.are_you_sure"), method: :delete
       else
-        link_to t('bookmark.add_to_my_bookmark'), new_bookmark_path(bookmark: {url: manifestation_url(manifestation)})
+        link_to t("bookmark.add_to_my_bookmark"), new_bookmark_path(bookmark: {url: manifestation_url(manifestation)})
       end
     end
 
     def rdf_statement(manifestation)
-      nextl = RDF::Vocabulary.new('https://next-l.jp/vocab/')
+      nextl = RDF::Vocabulary.new("https://next-l.jp/vocab/")
       subject = RDF::URI.new(manifestation_url(manifestation))
       graph = RDF::Graph.new
 

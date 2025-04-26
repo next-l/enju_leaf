@@ -2,7 +2,7 @@ module EnjuManifestationViewer
   module BookJacketHelper
     def book_jacket(manifestation)
       if manifestation.picture_files.exists?
-        link = ''
+        link = ""
         manifestation.picture_files.each_with_index do |picture_file, i|
           next unless picture_file.attachment.attached?
 
@@ -20,7 +20,7 @@ module EnjuManifestationViewer
         link ||= screenshot_tag(manifestation)
       end
 
-      link ||= link_to image_tag('unknown_resource.png', width: '100', height: '100', alt: '*', itemprop: 'image'), manifestation
+      link ||= link_to image_tag("unknown_resource.png", width: "100", height: "100", alt: "*", itemprop: "image"), manifestation
       link
     end
 
@@ -29,13 +29,13 @@ module EnjuManifestationViewer
 
       case generator
       when "mozshot"
-        link_to image_tag("https://blinky.nemui.org/shot?#{manifestation.access_address}", width: 128, height: 128, alt: manifestation.original_title, border: 0, itemprop: 'image'), manifestation.access_address
+        link_to image_tag("https://blinky.nemui.org/shot?#{manifestation.access_address}", width: 128, height: 128, alt: manifestation.original_title, border: 0, itemprop: "image"), manifestation.access_address
       when "simpleapi"
-        link_to image_tag("http://img.simpleapi.net/small/#{manifestation.access_address}", width: 128, height: 128, alt: manifestation.original_title, border: 0, itemprop: 'image'), manifestation.access_address
+        link_to image_tag("http://img.simpleapi.net/small/#{manifestation.access_address}", width: 128, height: 128, alt: manifestation.original_title, border: 0, itemprop: "image"), manifestation.access_address
       when "heartrails"
-        link_to image_tag("http://capture.heartrails.com/medium?#{manifestation.access_address}", width: 120, height: 90, alt: manifestation.original_title, border: 0, itemprop: 'image'), manifestation.access_address
+        link_to image_tag("http://capture.heartrails.com/medium?#{manifestation.access_address}", width: 120, height: 90, alt: manifestation.original_title, border: 0, itemprop: "image"), manifestation.access_address
       when "thumbalizr"
-        link_to image_tag("http://api.thumbalizr.com/?url=#{manifestation.access_address}&width=128", width: 128, height: 144, alt: manifestation.original_title, border: 0, itemprop: 'image'), manifestation.access_address
+        link_to image_tag("http://api.thumbalizr.com/?url=#{manifestation.access_address}&width=128", width: 128, height: 144, alt: manifestation.original_title, border: 0, itemprop: "image"), manifestation.access_address
       end
     end
 
@@ -48,14 +48,14 @@ module EnjuManifestationViewer
 
         book_jacket = manifestation.amazon_book_jacket
         if book_jacket
-          link_to image_tag(book_jacket[:url], width: book_jacket[:width], height: book_jacket[:height], alt: manifestation.original_title, class: 'book_jacket', itemprop: 'image'), "https://#{LibraryGroup.site_config.amazon_hostname}/dp/#{book_jacket[:asin]}"
+          link_to image_tag(book_jacket[:url], width: book_jacket[:width], height: book_jacket[:height], alt: manifestation.original_title, class: "book_jacket", itemprop: "image"), "https://#{LibraryGroup.site_config.amazon_hostname}/dp/#{book_jacket[:asin]}"
         end
       when "google"
-        render partial: 'manifestations/google_book_thumbnail', locals: {manifestation: manifestation}
+        render partial: "manifestations/google_book_thumbnail", locals: {manifestation: manifestation}
       when "hanmotocom"
-        render partial: 'manifestations/hanmotocom_thumbnail', locals: {manifestation: manifestation}
+        render partial: "manifestations/hanmotocom_thumbnail", locals: {manifestation: manifestation}
       when "openbd"
-        render partial: 'manifestations/openbd_thumbnail', locals: {manifestation: manifestation}
+        render partial: "manifestations/openbd_thumbnail", locals: {manifestation: manifestation}
       end
     end
 
@@ -75,13 +75,13 @@ module EnjuManifestationViewer
     end
 
     def book_jacket_header(source = LibraryGroup.site_config.book_jacket_source)
-      string = ''
+      string = ""
       case source
       when "google"
         string << javascript_tag(nil, src: "https://www.google.com/jsapi")
-        string << render('manifestations/google_book_thumbnail_header')
+        string << render("manifestations/google_book_thumbnail_header")
       when "openbd"
-        string << render('manifestations/openbd_thumbnail_header')
+        string << render("manifestations/openbd_thumbnail_header")
       end
       string.html_safe
     end

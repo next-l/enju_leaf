@@ -21,10 +21,10 @@ class PurchaseRequestsController < ApplicationController
 
     user = User.find_by(username: params[:user_id])
     if user
-      if user == current_user && !current_user.has_role?('Librarian')
+      if user == current_user && !current_user.has_role?("Librarian")
         redirect_to purchase_requests_url(format: params[:format])
         return
-      elsif user != current_user && !current_user.has_role?('Librarian')
+      elsif user != current_user && !current_user.has_role?("Librarian")
         access_denied
         return
       end
@@ -37,15 +37,15 @@ class PurchaseRequestsController < ApplicationController
       if user
         with(:user_id).equal_to user.id
       else
-        unless current_user.has_role?('Librarian')
+        unless current_user.has_role?("Librarian")
           with(:user_id).equal_to current_user.id
         end
       end
       with(:order_list_id).equal_to order_list.id if order_list
       case mode
-      when 'not_ordered'
+      when "not_ordered"
         with(:ordered).equal_to false
-      when 'ordered'
+      when "ordered"
         with(:ordered).equal_to true
       end
       order_by(:created_at, :desc)
@@ -98,7 +98,7 @@ class PurchaseRequestsController < ApplicationController
     respond_to do |format|
       if @purchase_request.save
         @order_list.purchase_requests << @purchase_request if @order_list
-        flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.purchase_request'))
+        flash[:notice] = t("controller.successfully_created", model: t("activerecord.models.purchase_request"))
         format.html { redirect_to(@purchase_request) }
         format.json { render json: @purchase_request, status: :created, location: @purchase_request }
       else
@@ -114,7 +114,7 @@ class PurchaseRequestsController < ApplicationController
     respond_to do |format|
       if @purchase_request.update(purchase_request_params)
         @order_list.purchase_requests << @purchase_request if @order_list
-        flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.purchase_request'))
+        flash[:notice] = t("controller.successfully_updated", model: t("activerecord.models.purchase_request"))
         format.html { redirect_to(@purchase_request) }
         format.json { head :no_content }
       else

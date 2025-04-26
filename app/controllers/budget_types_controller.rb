@@ -36,7 +36,7 @@ class BudgetTypesController < ApplicationController
 
     respond_to do |format|
       if @budget_type.save
-        format.html { redirect_to @budget_type, notice: t('controller.successfully_created', model: t('activerecord.models.budget_type')) }
+        format.html { redirect_to @budget_type, notice: t("controller.successfully_created", model: t("activerecord.models.budget_type")) }
         format.json { render json: @budget_type, status: :created, location: @budget_type }
       else
         format.html { render action: "new" }
@@ -55,7 +55,7 @@ class BudgetTypesController < ApplicationController
 
     respond_to do |format|
       if @budget_type.update(budget_type_params)
-        format.html { redirect_to @budget_type, notice: t('controller.successfully_updated', model: t('activerecord.models.budget_type')) }
+        format.html { redirect_to @budget_type, notice: t("controller.successfully_updated", model: t("activerecord.models.budget_type")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -70,7 +70,7 @@ class BudgetTypesController < ApplicationController
     @budget_type.destroy
 
     respond_to do |format|
-      format.html { redirect_to budget_types_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.budget_type')) }
+      format.html { redirect_to budget_types_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.budget_type")) }
       format.json { head :no_content }
     end
   end

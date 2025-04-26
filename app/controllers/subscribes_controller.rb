@@ -39,7 +39,7 @@ class SubscribesController < ApplicationController
 
     respond_to do |format|
       if @subscribe.save
-        format.html { redirect_to @subscribe, notice: t('controller.successfully_created', model: t('activerecord.models.subscribe')) }
+        format.html { redirect_to @subscribe, notice: t("controller.successfully_created", model: t("activerecord.models.subscribe")) }
         format.json { render json: @subscribe, status: :created, location: @subscribe }
       else
         format.html { render action: "new" }
@@ -53,7 +53,7 @@ class SubscribesController < ApplicationController
   def update
     respond_to do |format|
       if @subscribe.update(subscribe_params)
-        format.html { redirect_to @subscribe, notice: t('controller.successfully_updated', model: t('activerecord.models.subscribe')) }
+        format.html { redirect_to @subscribe, notice: t("controller.successfully_updated", model: t("activerecord.models.subscribe")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

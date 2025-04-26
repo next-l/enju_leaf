@@ -7,9 +7,9 @@ class CheckedItemsController < ApplicationController
   # GET /checked_items.json
   def index
     if @basket
-      @checked_items = @basket.checked_items.order('created_at DESC').page(params[:page])
+      @checked_items = @basket.checked_items.order("created_at DESC").page(params[:page])
     else
-      @checked_items = CheckedItem.order('created_at DESC').page(params[:page])
+      @checked_items = CheckedItem.order("created_at DESC").page(params[:page])
     end
     @checked_item = CheckedItem.new
 
@@ -52,18 +52,18 @@ class CheckedItemsController < ApplicationController
     @checked_item.basket = @basket
     @checked_item.librarian = current_user
 
-    flash[:message] = ''
+    flash[:message] = ""
 
     respond_to do |format|
       if @checked_item.save
         if @checked_item.item.include_supplements
-          flash[:message] << t('item.this_item_include_supplement')
+          flash[:message] << t("item.this_item_include_supplement")
         end
-        format.html { redirect_to(checked_items_url(basket_id: @basket.id), notice: t('controller.successfully_created', model: t('activerecord.models.checked_item'))) }
+        format.html { redirect_to(checked_items_url(basket_id: @basket.id), notice: t("controller.successfully_created", model: t("activerecord.models.checked_item"))) }
         format.json { render json: @checked_item, status: :created, location: @checked_item }
         format.js { redirect_to(checked_items_url(basket_id: @basket.id, format: :js)) }
       else
-        @checked_items = @basket.checked_items.order('created_at DESC').page(1)
+        @checked_items = @basket.checked_items.order("created_at DESC").page(1)
         format.html { render action: "index" }
         format.json { render json: @checked_item.errors, status: :unprocessable_entity }
         format.js { render action: "index" }
@@ -83,7 +83,7 @@ class CheckedItemsController < ApplicationController
 
     respond_to do |format|
       if @checked_item.update(checked_item_params)
-        format.html { redirect_to checked_item_url(@checked_item), notice: t('controller.successfully_updated', model: t('activerecord.models.checked_item')) }
+        format.html { redirect_to checked_item_url(@checked_item), notice: t("controller.successfully_updated", model: t("activerecord.models.checked_item")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
