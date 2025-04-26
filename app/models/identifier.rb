@@ -7,7 +7,7 @@ class Identifier < ApplicationRecord
   validate :check_identifier
   before_validation :normalize
   before_save :convert_isbn
-  scope :id_type, -> type {
+  scope :id_type, ->(type) {
     where(identifier_type: IdentifierType.find_by(name: type))
   }
 

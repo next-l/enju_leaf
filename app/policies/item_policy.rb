@@ -7,7 +7,7 @@ class ItemPolicy < ApplicationPolicy
 
     def resolve
       role_id = user&.role&.id || 1
-      scope.where('items.required_role_id <= ?', role_id)
+      scope.where("items.required_role_id <= ?", role_id)
     end
 
     private
@@ -24,19 +24,19 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def create?
-    true if user.try(:has_role?, 'Librarian')
+    true if user.try(:has_role?, "Librarian")
   end
 
   def edit?
-    true if user.try(:has_role?, 'Librarian')
+    true if user.try(:has_role?, "Librarian")
   end
 
   def update?
-    true if user.try(:has_role?, 'Librarian')
+    true if user.try(:has_role?, "Librarian")
   end
 
   def destroy?
-    if user.try(:has_role?, 'Librarian')
+    if user.try(:has_role?, "Librarian")
       record.removable?
     end
   end

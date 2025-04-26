@@ -3,7 +3,7 @@ class Item < ApplicationRecord
   scope :removed, -> { includes(:circulation_status).where("circulation_statuses.name" => "Removed") }
   scope :on_shelf, -> { available.includes(:shelf).references(:shelf).where.not(shelves: { name: "web" }) }
   scope :on_web, -> { available.includes(:shelf).references(:shelf).where("shelves.name = ?", "web") }
-  scope :available_for, -> user {
+  scope :available_for, ->(user) {
     unless user.try(:has_role?, "Librarian")
       on_shelf
     end

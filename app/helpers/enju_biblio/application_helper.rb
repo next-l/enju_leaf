@@ -2,41 +2,41 @@ module EnjuBiblio
   module ApplicationHelper
     def form_icon(carrier_type)
       unless carrier_type
-        return image_tag('icons/help.png', size: '16x16', class: 'enju_icon', alt: t('page.unknown'))
+        return image_tag("icons/help.png", size: "16x16", class: "enju_icon", alt: t("page.unknown"))
       end
 
       if carrier_type.attachment.attached?
-        image_tag(carrier_type.attachment.representation(resize_to_limit: [16, 16]), size: '16x16', class: 'enju_icon', alt: carrier_type.display_name.localize)
+        image_tag(carrier_type.attachment.representation(resize_to_limit: [ 16, 16 ]), size: "16x16", class: "enju_icon", alt: carrier_type.display_name.localize)
       else
-        image_tag('icons/help.png', size: '16x16', class: 'enju_icon', alt: t('page.unknown'))
+        image_tag("icons/help.png", size: "16x16", class: "enju_icon", alt: t("page.unknown"))
       end
     end
 
     def content_type_icon(content_type)
       case content_type.name
-      when 'text'
-        image_tag('icons/page_white_text.png', size: '16x16', class: 'enju_icon', alt: content_type.display_name.localize)
-      when 'still_image'
-        image_tag('icons/picture.png', size: '16x16', class: 'enju_icon', alt: content_type.display_name.localize)
-      when 'sounds'
-        image_tag('icons/sound.png', size: '16x16', class: 'enju_icon', alt: content_type.display_name.localize)
-      when 'two_dimensional_moving_image'
-        image_tag('icons/film.png', size: '16x16', class: 'enju_icon', alt: content_type.display_name.localize)
+      when "text"
+        image_tag("icons/page_white_text.png", size: "16x16", class: "enju_icon", alt: content_type.display_name.localize)
+      when "still_image"
+        image_tag("icons/picture.png", size: "16x16", class: "enju_icon", alt: content_type.display_name.localize)
+      when "sounds"
+        image_tag("icons/sound.png", size: "16x16", class: "enju_icon", alt: content_type.display_name.localize)
+      when "two_dimensional_moving_image"
+        image_tag("icons/film.png", size: "16x16", class: "enju_icon", alt: content_type.display_name.localize)
       else
-        image_tag('icons/help.png', size: '16x16', class: 'enju_icon', alt: t('page.unknown'))
+        image_tag("icons/help.png", size: "16x16", class: "enju_icon", alt: t("page.unknown"))
       end
     rescue NoMethodError
-      image_tag('icons/help.png', size: '16x16', class: 'enju_icon', alt: t('page.unknown'))
+      image_tag("icons/help.png", size: "16x16", class: "enju_icon", alt: t("page.unknown"))
     end
 
     def agent_type_icon(agent_type)
       case agent_type
-      when 'person'
-        image_tag('icons/user.png', size: '16x16', class: 'enju_icon', alt: 'Person')
-      when 'corporate_body'
-        image_tag('icons/group.png', size: '16x16', class: 'enju_icon', alt: 'CorporateBody')
+      when "person"
+        image_tag("icons/user.png", size: "16x16", class: "enju_icon", alt: "Person")
+      when "corporate_body"
+        image_tag("icons/group.png", size: "16x16", class: "enju_icon", alt: "CorporateBody")
       else
-        image_tag('icons/help.png', size: '16x16', class: 'enju_icon', alt: t('page.unknown'))
+        image_tag("icons/help.png", size: "16x16", class: "enju_icon", alt: t("page.unknown"))
       end
     end
 

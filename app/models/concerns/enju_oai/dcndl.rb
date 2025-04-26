@@ -1,6 +1,5 @@
 module EnjuOai
   class Dcndl < OAI::Provider::Metadata::Format
-
     def initialize
       @prefix = "dcndl"
       @schema = nil

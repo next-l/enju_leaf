@@ -1,6 +1,5 @@
 module EnjuOai
   class Jpcoar < OAI::Provider::Metadata::Format
-
     def initialize
       @prefix = "jpcoar"
       @schema = "https://github.com/JPCOAR/schema/blob/master/1.0/jpcoar_scm.xsd"
@@ -21,6 +20,5 @@ module EnjuOai
             jpcoar_scm.xsd).gsub(/\s+/, " ")
       }
     end
-
   end
 end

@@ -119,11 +119,11 @@ describe Reserve do
     reserve = FactoryBot.create(:reserve)
     manifestation = reserve.manifestation
     item = FactoryBot.create(:item, manifestation_id: manifestation.id)
-    expect{item.retain(reserve.user)}.not_to raise_error
+    expect {item.retain(reserve.user)}.not_to raise_error
     expect(reserve.retained?).to be true
     expect(item.retained?).to be true
     item = FactoryBot.create(:item, manifestation_id: manifestation.id)
-    expect{item.retain(reserve.user)}.not_to raise_error
+    expect {item.retain(reserve.user)}.not_to raise_error
     expect(reserve.retained?).to be true
     expect(item.retained?).to be false
   end

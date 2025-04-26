@@ -360,7 +360,7 @@ module EnjuLoc
             type = subelement.name
             case subelement.name
             when "topic", "geographic", "genre", "temporal"
-              subject << { type: type , term: subelement.try(:content) }
+              subject << { type: type, term: subelement.try(:content) }
             when "titleInfo"
               subject << { type: type, term: subelement.at("./mods:title", NS).try(:content) }
             when "name"
@@ -383,7 +383,7 @@ module EnjuLoc
   # TODO:support only DDC.
       def self.get_mods_classifications(doc)
         classifications = []
-        doc.xpath('//mods:classification[@authority="ddc"]', NS).each do|c|
+        doc.xpath('//mods:classification[@authority="ddc"]', NS).each do |c|
           ddc = c.content
           if ddc
             classifications << ddc.split(/[^\d\.]/).first.try(:strip)
@@ -510,9 +510,9 @@ module EnjuLoc
           content_type = ContentType.find_by(name: "text")
         when "sound recording"
           content_type = ContentType.find_by(name: "sounds")
-        when"sound recording-musical"
+        when "sound recording-musical"
           content_type = ContentType.find_by(name: "performed_music")
-        when"sound recording-nonmusical"
+        when "sound recording-nonmusical"
           content_type = ContentType.find_by(name: "spoken_word")
         when "moving image"
           content_type = ContentType.find_by(name: "two_dimensional_moving_image")

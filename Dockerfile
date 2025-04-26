@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
-ARG RUBY_VERSION=3.2.6
+ARG RUBY_VERSION=3.2.8
 FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
 
 # Rails app lives here
@@ -25,7 +25,7 @@ RUN apt-get update -qq && apt-get install --no-install-recommends -y curl gnupg 
   echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
   echo "deb [signed-by=/etc/apt/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config nodejs yarn
+    apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config nodejs yarn libyaml-dev
 
 # Install application gems
 COPY Gemfile Gemfile.lock package.json yarn.lock ./

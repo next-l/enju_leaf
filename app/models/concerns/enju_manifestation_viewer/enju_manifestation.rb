@@ -6,7 +6,7 @@ module EnjuManifestationViewer
       if access_address
         url = ::Addressable::URI.parse(access_address)
         if url.host =~ /youtube\.com$/ && (url.path == "/watch")
-          return CGI.parse(url.query)["v"][0]
+          CGI.parse(url.query)["v"][0]
         end
       end
     end
@@ -15,7 +15,7 @@ module EnjuManifestationViewer
       if access_address
         url = ::Addressable::URI.parse(access_address)
         if url.host =~ /nicovideo\.jp$/ && url.path =~ /^\/watch/
-          return url.path.split("/")[2]
+          url.path.split("/")[2]
         end
       end
     end
@@ -29,7 +29,7 @@ module EnjuManifestationViewer
           if paths[3] == "sets"
             info[:user] = paths[2]
             info[:set_id] = paths[4]
-            return info
+            info
           end
         end
       end

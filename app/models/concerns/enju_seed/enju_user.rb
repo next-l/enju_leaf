@@ -138,9 +138,9 @@ module EnjuSeed
 
       case role.name
       when "Administrator"
-        return true
+        true
       when "Librarian"
-        return true if role_in_question == "User"
+        true if role_in_question == "User"
       else
         false
       end

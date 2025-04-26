@@ -21,8 +21,8 @@ describe NdlBook do
     it "should import bibliographic record", vcr: true do
       manifestation = NdlBook.import_from_sru_response('R100000002-I000010980901')
       expect(manifestation.manifestation_identifier).to eq 'https://ndlsearch.ndl.go.jp/books/R100000002-I000010980901'
-      expect(manifestation.isbn_records.pluck(:body)).to eq ['9784839931995']
-      expect(manifestation.classifications.pluck(:category)).to eq ["007.64"]
+      expect(manifestation.isbn_records.pluck(:body)).to eq [ '9784839931995' ]
+      expect(manifestation.classifications.pluck(:category)).to eq [ "007.64" ]
       expect(manifestation.ndl_bib_id_record.body).to eq "R100000002-I000010980901"
       expect(manifestation.jpno_record.body).to eq "21816393"
       expect(manifestation.language.name).to eq "Japanese"
@@ -222,8 +222,8 @@ describe NdlBook do
       doc = Nokogiri::XML(Nokogiri::XML(xml).at('//xmlns:recordData').content)
 
       ndl_book = NdlBook.new(doc)
-      ndl_book.subjects[0].should eq({id: 'http://id.ndl.go.jp/auth/ndlsh/01058852', value: 'ウェブアプリケーション'})
-      ndl_book.subjects[1].should eq({id: 'http://id.ndl.go.jp/auth/ndlsh/00569223', value: 'プログラミング (コンピュータ)'})
+      ndl_book.subjects[0].should eq({ id: 'http://id.ndl.go.jp/auth/ndlsh/01058852', value: 'ウェブアプリケーション' })
+      ndl_book.subjects[1].should eq({ id: 'http://id.ndl.go.jp/auth/ndlsh/00569223', value: 'プログラミング (コンピュータ)' })
     end
 
     it 'should get author IDs from NDLA', vcr: true do
@@ -233,7 +233,7 @@ describe NdlBook do
       doc = Nokogiri::XML(Nokogiri::XML(xml).at('//xmlns:recordData').content)
 
       ndl_book = NdlBook.new(doc)
-      ndl_book.authors[0].should eq({id: "http://id.ndl.go.jp/auth/entity/00730574", name: "山田, 祥寛", transcription: "ヤマダ, ヨシヒロ"})
+      ndl_book.authors[0].should eq({ id: "http://id.ndl.go.jp/auth/entity/00730574", name: "山田, 祥寛", transcription: "ヤマダ, ヨシヒロ" })
     end
   end
 end

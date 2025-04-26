@@ -1,21 +1,21 @@
 class LibrariesController < ApplicationController
-  before_action :set_library, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_library, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /libraries
   # GET /libraries.json
   def index
-    sort = {sort_by: 'position', order: 'asc'}
+    sort = { sort_by: "position", order: "asc" }
     case params[:sort_by]
-    when 'name'
-      sort[:sort_by] = 'name'
+    when "name"
+      sort[:sort_by] = "name"
     end
-    sort[:order] = 'desc' if params[:order] == 'desc'
+    sort[:order] = "desc" if params[:order] == "desc"
 
     query = @query = params[:query].to_s.strip
     page = params[:page] || 1
 
-    @libraries = Library.search(include: [:shelves]) do
+    @libraries = Library.search(include: [ :shelves ]) do
       fulltext query if query.present?
       paginate page: page.to_i, per_page: Library.default_per_page
       order_by sort[:sort_by], sort[:order]
@@ -68,7 +68,7 @@ class LibrariesController < ApplicationController
 
     respond_to do |format|
       if @library.save
-        format.html { redirect_to @library, notice: t('controller.successfully_created', model: t('activerecord.models.library')) }
+        format.html { redirect_to @library, notice: t("controller.successfully_created", model: t("activerecord.models.library")) }
         format.json { render json: @library, status: :created }
       else
         prepare_options
@@ -88,7 +88,7 @@ class LibrariesController < ApplicationController
 
     respond_to do |format|
       if @library.update(library_params)
-        format.html { redirect_to @library, notice: t('controller.successfully_updated', model: t('activerecord.models.library')) }
+        format.html { redirect_to @library, notice: t("controller.successfully_updated", model: t("activerecord.models.library")) }
         format.json { head :no_content }
       else
         @library.name = @library.name_was

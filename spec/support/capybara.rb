@@ -20,7 +20,7 @@ RSpec.configure do |config|
       Capybara.app_host = "http://#{Capybara.server_host}"
       driven_by :remote_chrome
     else
-      driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
+      driven_by :selenium, using: :headless_chrome, screen_size: [ 1400, 1400 ]
     end
   end
 end

@@ -1,6 +1,6 @@
 class LicensesController < ApplicationController
-  before_action :set_license, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_license, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /licenses
   # GET /licenses.json
@@ -36,7 +36,7 @@ class LicensesController < ApplicationController
 
     respond_to do |format|
       if @license.save
-        format.html { redirect_to @license, notice: t('controller.successfully_created', model: t('activerecord.models.license')) }
+        format.html { redirect_to @license, notice: t("controller.successfully_created", model: t("activerecord.models.license")) }
         format.json { render json: @license, status: :created, location: @license }
       else
         format.html { render action: "new" }
@@ -55,7 +55,7 @@ class LicensesController < ApplicationController
 
     respond_to do |format|
       if @license.update(license_params)
-        format.html { redirect_to @license, notice: t('controller.successfully_updated', model: t('activerecord.models.license')) }
+        format.html { redirect_to @license, notice: t("controller.successfully_updated", model: t("activerecord.models.license")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -70,7 +70,7 @@ class LicensesController < ApplicationController
     @license.destroy
 
     respond_to do |format|
-      format.html { redirect_to licenses_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.license')) }
+      format.html { redirect_to licenses_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.license")) }
       format.json { head :no_content }
     end
   end

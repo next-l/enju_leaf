@@ -9,7 +9,7 @@ describe CarrierTypeHasCheckoutTypesController do
 
       it 'assigns all carrier_type_has_checkout_types as @carrier_type_has_checkout_types' do
         get :index
-        assigns(:carrier_type_has_checkout_types).should eq(CarrierTypeHasCheckoutType.includes([:carrier_type, :checkout_type]).order('carrier_types.position, checkout_types.position').page(1))
+        assigns(:carrier_type_has_checkout_types).should eq(CarrierTypeHasCheckoutType.includes([ :carrier_type, :checkout_type ]).order('carrier_types.position, checkout_types.position').page(1))
       end
     end
 
@@ -18,7 +18,7 @@ describe CarrierTypeHasCheckoutTypesController do
 
       it 'assigns all carrier_type_has_checkout_types as @carrier_type_has_checkout_types' do
         get :index
-        assigns(:carrier_type_has_checkout_types).should eq(CarrierTypeHasCheckoutType.includes([:carrier_type, :checkout_type]).order('carrier_types.position, checkout_types.position').page(1))
+        assigns(:carrier_type_has_checkout_types).should eq(CarrierTypeHasCheckoutType.includes([ :carrier_type, :checkout_type ]).order('carrier_types.position, checkout_types.position').page(1))
       end
     end
 
