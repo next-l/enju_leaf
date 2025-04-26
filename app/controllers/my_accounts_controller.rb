@@ -55,7 +55,7 @@ class MyAccountsController < ApplicationController
       :save_search_history, { # EnjuSearchLog
         user_attributes: [
           :id, :username, :email, :locked,
-          { user_has_role_attributes: [:id, :role_id] }
+          { user_has_role_attributes: [ :id, :role_id ] }
         ]
       }
     ]
@@ -76,7 +76,7 @@ class MyAccountsController < ApplicationController
         :user_group_id, :required_role_id, :note, :user_number, {
           user_attributes: [
             :id, :email, :locked,
-            { user_has_role_attributes: [:id, :role_id] }
+            { user_has_role_attributes: [ :id, :role_id ] }
           ]
         }
       ]

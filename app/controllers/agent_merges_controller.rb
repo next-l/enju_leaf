@@ -1,6 +1,6 @@
 class AgentMergesController < ApplicationController
-  before_action :set_agent_merge, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_agent_merge, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
   before_action :get_agent, :get_agent_merge_list
 
   # GET /agent_merges

@@ -1,6 +1,6 @@
 class BudgetTypesController < ApplicationController
-  before_action :set_budget_type, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_budget_type, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /budget_types
   # GET /budget_types.json

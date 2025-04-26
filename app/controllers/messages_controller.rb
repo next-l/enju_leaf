@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create, :destroy_selected]
+  before_action :set_message, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create, :destroy_selected ]
   before_action :get_user, only: :index
 
   # GET /messages

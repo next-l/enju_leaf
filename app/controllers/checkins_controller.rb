@@ -1,7 +1,7 @@
 class CheckinsController < ApplicationController
-  before_action :set_checkin, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :get_basket, only: [:index, :create]
+  before_action :set_checkin, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :get_basket, only: [ :index, :create ]
 
   # GET /checkins
   # GET /checkins.json
@@ -72,12 +72,12 @@ class CheckinsController < ApplicationController
         end
         flash[:message] << message if message
         format.html { redirect_to checkins_url(basket_id: @checkin.basket_id) }
-        format.json { render json: {result: @checkin, messages: flash[:message]}, status: :created, location: @checkin }
+        format.json { render json: { result: @checkin, messages: flash[:message] }, status: :created, location: @checkin }
         format.js { redirect_to checkins_url(basket_id: @basket.id, format: :js) }
       else
         @checkins = @basket.checkins.page(1)
         format.html { render action: "new" }
-        format.json { render json: {messages: @checkin.errors}, status: :unprocessable_entity }
+        format.json { render json: { messages: @checkin.errors }, status: :unprocessable_entity }
         format.js { render action: "index" }
       end
     end

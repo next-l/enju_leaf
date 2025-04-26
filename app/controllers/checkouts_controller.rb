@@ -1,7 +1,7 @@
 class CheckoutsController < ApplicationController
-  before_action :set_checkout, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :remove_all]
-  before_action :get_user, only: [:index, :remove_all]
+  before_action :set_checkout, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :remove_all ]
+  before_action :get_user, only: [ :index, :remove_all ]
   before_action :get_item, only: :index
   after_action :convert_charset, only: :index
 
@@ -22,7 +22,7 @@ class CheckoutsController < ApplicationController
       end
     end
 
-    if ["text", "rss"].include?(params[:format].to_s.downcase)
+    if [ "text", "rss" ].include?(params[:format].to_s.downcase)
       per_page = 500
       page = 1
     else

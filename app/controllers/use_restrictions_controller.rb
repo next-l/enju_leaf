@@ -1,6 +1,6 @@
 class UseRestrictionsController < ApplicationController
-  before_action :set_use_restriction, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_use_restriction, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /use_restrictions
   # GET /use_restrictions.json

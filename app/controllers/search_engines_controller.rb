@@ -1,6 +1,6 @@
 class SearchEnginesController < ApplicationController
-  before_action :set_search_engine, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_search_engine, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /search_engines
   # GET /search_engines.json

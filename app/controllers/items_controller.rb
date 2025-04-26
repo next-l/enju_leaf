@@ -1,11 +1,11 @@
 class ItemsController < ApplicationController
   include EnjuInventory::Controller
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :get_agent, :get_manifestation, :get_shelf, except: [:create, :update, :destroy]
+  before_action :set_item, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :get_agent, :get_manifestation, :get_shelf, except: [ :create, :update, :destroy ]
   before_action :get_inventory_file
-  before_action :get_library, :get_item, except: [:create, :update, :destroy]
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :get_library, :get_item, except: [ :create, :update, :destroy ]
+  before_action :prepare_options, only: [ :new, :edit ]
   after_action :convert_charset, only: :index
 
   # GET /items
@@ -168,7 +168,7 @@ class ItemsController < ApplicationController
           "Available For Pickup",
           "Available On Shelf",
           "Claimed Returned Or Never Borrowed",
-          "Not Available"]
+          "Not Available" ]
       ).order(:position)
       @item.circulation_status = CirculationStatus.find_by(name: "In Process")
       @item.checkout_type = @manifestation.carrier_type.checkout_types.first
@@ -267,10 +267,10 @@ class ItemsController < ApplicationController
       :lock_version, :manifestation_id, :library_id, :required_role_id,
       :binding_item_identifier, :binding_call_number, :binded_at,
       :use_restriction_id, :memo,
-      {item_has_use_restriction_attributes: :use_restriction_id}, # EnjuCirculation
-      {item_custom_values_attributes: [
+      { item_has_use_restriction_attributes: :use_restriction_id }, # EnjuCirculation
+      { item_custom_values_attributes: [
         :id, :item_custom_property_id, :item_id, :value, :_destroy
-      ]}
+      ] }
     )
   end
 

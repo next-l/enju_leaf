@@ -51,11 +51,11 @@ module EnjuManifestationViewer
           link_to image_tag(book_jacket[:url], width: book_jacket[:width], height: book_jacket[:height], alt: manifestation.original_title, class: "book_jacket", itemprop: "image"), "https://#{LibraryGroup.site_config.amazon_hostname}/dp/#{book_jacket[:asin]}"
         end
       when "google"
-        render partial: "manifestations/google_book_thumbnail", locals: {manifestation: manifestation}
+        render partial: "manifestations/google_book_thumbnail", locals: { manifestation: manifestation }
       when "hanmotocom"
-        render partial: "manifestations/hanmotocom_thumbnail", locals: {manifestation: manifestation}
+        render partial: "manifestations/hanmotocom_thumbnail", locals: { manifestation: manifestation }
       when "openbd"
-        render partial: "manifestations/openbd_thumbnail", locals: {manifestation: manifestation}
+        render partial: "manifestations/openbd_thumbnail", locals: { manifestation: manifestation }
       end
     end
 

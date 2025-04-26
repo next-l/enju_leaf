@@ -39,7 +39,7 @@ module EnjuLeaf
     end
 
     def move_position(object)
-      render partial: "page/position", locals: {object: object}
+      render partial: "page/position", locals: { object: object }
     end
 
     # I18nに対応した状態名を表示します。
@@ -81,7 +81,7 @@ module EnjuLeaf
     # HTMLのtitleを表示します。
     def title(controller_name, model_name = controller_name.singularize)
       string = ""
-      unless ["page", "routing_error", "my_accounts"].include?(controller_name)
+      unless [ "page", "routing_error", "my_accounts" ].include?(controller_name)
         string << t("activerecord.models.#{model_name}") + " - "
       end
       if controller_name == "routing_error"

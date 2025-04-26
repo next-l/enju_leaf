@@ -79,7 +79,7 @@ module ManifestationsHelper
   end
 
   def library_facet(current_libraries, facet)
-    library = Library.where(name: facet.value).select([:name, :display_name]).first
+    library = Library.where(name: facet.value).select([ :name, :display_name ]).first
     return nil unless library
 
     string = ""
@@ -97,7 +97,7 @@ module ManifestationsHelper
 
   def carrier_type_facet(facet)
     string = ""
-    carrier_type = CarrierType.where(name: facet.value).select([:id, :name, :display_name]).first
+    carrier_type = CarrierType.where(name: facet.value).select([ :id, :name, :display_name ]).first
     if carrier_type
       string << form_icon(carrier_type)
       current = true if params[:carrier_type] == carrier_type.name
@@ -141,7 +141,7 @@ module ManifestationsHelper
   def holding_item_sort_criteria(item)
     own_library = 2
     own_library = 1 if signed_in? and current_user.profile.library_id == item.shelf.library_id
-    [own_library, Library.find(item.shelf.library_id).position, item.shelf.position, item.id]
+    [ own_library, Library.find(item.shelf.library_id).position, item.shelf.position, item.id ]
   end
 
   def link_to_reservation(manifestation, reserve)
@@ -171,7 +171,7 @@ module ManifestationsHelper
       if manifestation.bookmarked?(current_user)
         link_to t("bookmark.remove_from_my_bookmark"), bookmark_path(Bookmark.where(user_id: current_user.id, manifestation_id: manifestation.id).first), confirm: t("page.are_you_sure"), method: :delete
       else
-        link_to t("bookmark.add_to_my_bookmark"), new_bookmark_path(bookmark: {url: manifestation_url(manifestation)})
+        link_to t("bookmark.add_to_my_bookmark"), new_bookmark_path(bookmark: { url: manifestation_url(manifestation) })
       end
     end
 

@@ -20,7 +20,7 @@ module EnjuLibrary
           format.html {render template: "page/403", status: :forbidden}
           # format.html.phone {render template: 'page/403', status: 403}
           format.xml {render template: "page/403", status: :forbidden}
-          format.json { render json: {"error": "forbidden"} }
+          format.json { render json: { "error": "forbidden" } }
           format.rss {render template: "page/403.xml", status: :forbidden}
         end
       else
@@ -28,7 +28,7 @@ module EnjuLibrary
           format.html { redirect_to main_app.new_user_session_url }
           # format.html.phone { redirect_to new_user_session_url }
           format.xml { render template: "page/403", status: :forbidden }
-          format.json { render json: {"error": "forbidden"} }
+          format.json { render json: { "error": "forbidden" } }
           format.rss { render template: "page/403.xml", status: :forbidden }
         end
       end
@@ -41,7 +41,7 @@ module EnjuLibrary
         format.html { render template: "page/404", status: :not_found }
         # format.html.phone { render template: 'page/404', status: 404 }
         format.xml { render template: "page/404", status: :not_found }
-        format.json { render json: {"error": "not_found"} }
+        format.json { render json: { "error": "not_found" } }
         format.rss { render template: "page/404.xml", status: :not_found }
       end
     end
@@ -49,7 +49,7 @@ module EnjuLibrary
     def render_404_invalid_format
       return if performed?
 
-      render file: Rails.root.join("public/404.html").to_s, formats: [:html]
+      render file: Rails.root.join("public/404.html").to_s, formats: [ :html ]
     end
 
     def render_500
@@ -59,7 +59,7 @@ module EnjuLibrary
         format.html {render file: Rails.root.join("public/500.html").to_s, layout: false, status: :internal_server_error}
         # format.html.phone {render file: "#{Rails.root}/public/500", layout: false, status: 500}
         format.xml {render template: "page/500", status: :internal_server_error}
-        format.json { render json: {"error": "server_error"} }
+        format.json { render json: { "error": "server_error" } }
         format.rss {render template: "page/500.xml", status: :internal_server_error}
       end
     end
@@ -91,13 +91,13 @@ module EnjuLibrary
     end
 
     def default_url_options(options={})
-      {locale: nil}
+      { locale: nil }
     end
 
     def set_available_languages
       if Rails.env.production?
         @available_languages = Rails.cache.fetch("available_languages"){
-          Language.where(iso_639_1: I18n.available_locales.map{|l| l.to_s}).select([:id, :iso_639_1, :name, :native_name, :display_name, :position]).all
+          Language.where(iso_639_1: I18n.available_locales.map{|l| l.to_s}).select([ :id, :iso_639_1, :name, :native_name, :display_name, :position ]).all
         }
       else
         @available_languages = Language.where(iso_639_1: I18n.available_locales.map{|l| l.to_s})
@@ -196,7 +196,7 @@ module EnjuLibrary
     end
 
     def move_position(resource, direction, redirect = true)
-      if ["higher", "lower"].include?(direction)
+      if [ "higher", "lower" ].include?(direction)
         resource.send("move_#{direction}")
         if redirect
           redirect_to url_for(controller: resource.class.to_s.pluralize.underscore)

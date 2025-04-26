@@ -1,15 +1,15 @@
 class ManifestationsController < ApplicationController
-  before_action :set_manifestation, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_manifestation, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
   before_action :authenticate_user!, only: :edit
-  before_action :get_agent, :get_manifestation, except: [:create, :update, :destroy]
+  before_action :get_agent, :get_manifestation, except: [ :create, :update, :destroy ]
   before_action :get_expression, only: :new
   if defined?(EnjuSubject)
-    before_action :get_subject, except: [:create, :update, :destroy]
+    before_action :get_subject, except: [ :create, :update, :destroy ]
   end
-  before_action :get_series_statement, only: [:index, :new, :edit]
+  before_action :get_series_statement, only: [ :index, :new, :edit ]
   before_action :get_item, :get_libraries, only: :index
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :prepare_options, only: [ :new, :edit ]
   after_action :convert_charset, only: :index
 
   # GET /manifestations
@@ -47,7 +47,7 @@ class ManifestationsController < ApplicationController
       @query = query.dup
       query = query.gsub("　", " ")
 
-      includes = [:series_statements]
+      includes = [ :series_statements ]
       includes << :classifications if defined?(EnjuSubject)
       includes << :bookmarks if defined?(EnjuBookmark)
       search = Manifestation.search(include: includes)
@@ -313,13 +313,13 @@ class ManifestationsController < ApplicationController
     @parent = Manifestation.find_by(id: params[:parent_id]) if params[:parent_id].present?
     if @parent
       @manifestation.parent_id = @parent.id
-      [:original_title, :title_transcription,
+      [ :original_title, :title_transcription,
         :serial, :title_alternative, :statement_of_responsibility, :publication_place,
         :height, :width, :depth, :price, :access_address, :language, :frequency, :required_role,
 ].each do |attribute|
         @manifestation.send("#{attribute}=", @parent.send(attribute))
       end
-      [:creators, :contributors, :publishers, :classifications, :subjects].each do |attribute|
+      [ :creators, :contributors, :publishers, :classifications, :subjects ].each do |attribute|
         @manifestation.send(attribute).build(@parent.send(attribute).collect(&:attributes))
       end
     end
@@ -340,7 +340,7 @@ class ManifestationsController < ApplicationController
     if defined?(EnjuBookmark)
       if params[:mode] == "tag_edit"
         @bookmark = current_user.bookmarks.where(manifestation_id: @manifestation.id).first if @manifestation rescue nil
-        render partial: "manifestations/tag_edit", locals: {manifestation: @manifestation}
+        render partial: "manifestations/tag_edit", locals: { manifestation: @manifestation }
       end
     end
 
@@ -445,7 +445,7 @@ class ManifestationsController < ApplicationController
       :dimensions, :fulltext_content, :extent, :memo,
       :parent_id, :delete_attachment,
       :serial, :statement_of_responsibility,
-      {creators_attributes: [
+      { creators_attributes: [
         :id, :last_name, :middle_name, :first_name,
         :last_name_transcription, :middle_name_transcription,
         :first_name_transcription, :corporate_name,
@@ -456,8 +456,8 @@ class ManifestationsController < ApplicationController
         :full_name_alternative_transcription, :title,
         :agent_identifier, :agent_id,
         :_destroy
-      ]},
-      {contributors_attributes: [
+      ] },
+      { contributors_attributes: [
         :id, :last_name, :middle_name, :first_name,
         :last_name_transcription, :middle_name_transcription,
         :first_name_transcription, :corporate_name,
@@ -468,8 +468,8 @@ class ManifestationsController < ApplicationController
         :full_name_alternative_transcription, :title,
         :agent_identifier,
         :_destroy
-      ]},
-      {publishers_attributes: [
+      ] },
+      { publishers_attributes: [
         :id, :last_name, :middle_name, :first_name,
         :last_name_transcription, :middle_name_transcription,
         :first_name_transcription, :corporate_name,
@@ -480,30 +480,30 @@ class ManifestationsController < ApplicationController
         :full_name_alternative_transcription, :title,
         :agent_identifier,
         :_destroy
-      ]},
-      {series_statements_attributes: [
+      ] },
+      { series_statements_attributes: [
         :id, :original_title, :numbering, :title_subseries,
         :numbering_subseries, :title_transcription, :title_alternative,
         :title_subseries_transcription, :creator_string, :volume_number_string,
         :volume_number_transcription_string, :series_master,
         :_destroy
-      ]},
-      {subjects_attributes: [
+      ] },
+      { subjects_attributes: [
         :id, :parent_id, :use_term_id, :term, :term_transcription,
         :subject_type_id, :note, :required_role_id, :subject_heading_type_id,
         :_destroy
-      ]},
-      {classifications_attributes: [
+      ] },
+      { classifications_attributes: [
         :id, :parent_id, :category, :note, :classification_type_id,
         :_destroy
-      ]},
-      {identifiers_attributes: [
+      ] },
+      { identifiers_attributes: [
         :id, :body, :identifier_type_id,
         :_destroy
-      ]},
-      {manifestation_custom_values_attributes: [
+      ] },
+      { manifestation_custom_values_attributes: [
         :id, :manifestation_custom_property_id, :manifestation_id, :value,:_destroy
-      ]}
+      ] }
     )
   end
 
@@ -656,26 +656,26 @@ class ManifestationsController < ApplicationController
   def render_mode(mode)
     case mode
     when "holding"
-      render partial: "manifestations/show_holding", locals: {manifestation: @manifestation}
+      render partial: "manifestations/show_holding", locals: { manifestation: @manifestation }
     when "tag_edit"
       if defined?(EnjuBookmark)
-        render partial: "manifestations/tag_edit", locals: {manifestation: @manifestation}
+        render partial: "manifestations/tag_edit", locals: { manifestation: @manifestation }
       end
     when "tag_list"
       if defined?(EnjuBookmark)
-        render partial: "manifestations/tag_list", locals: {manifestation: @manifestation}
+        render partial: "manifestations/tag_list", locals: { manifestation: @manifestation }
       end
     when "show_index"
-      render partial: "manifestations/show_index", locals: {manifestation: @manifestation}
+      render partial: "manifestations/show_index", locals: { manifestation: @manifestation }
     when "show_creators"
-      render partial: "manifestations/show_creators", locals: {manifestation: @manifestation}
+      render partial: "manifestations/show_creators", locals: { manifestation: @manifestation }
     when "show_all_creators"
-      render partial: "manifestations/show_creators", locals: {manifestation: @manifestation}
+      render partial: "manifestations/show_creators", locals: { manifestation: @manifestation }
     when "pickup"
-      render partial: "manifestations/pickup", locals: {manifestation: @manifestation}
+      render partial: "manifestations/pickup", locals: { manifestation: @manifestation }
     when "calil_list"
       if defined?(EnjuCalil)
-        render partial: "manifestations/calil_list", locals: {manifestation: @manifestation}
+        render partial: "manifestations/calil_list", locals: { manifestation: @manifestation }
       end
     else
       false
@@ -683,17 +683,17 @@ class ManifestationsController < ApplicationController
   end
 
   def prepare_options
-    @carrier_types = CarrierType.order(:position).select([:id, :display_name, :position])
-    @content_types = ContentType.order(:position).select([:id, :display_name, :position])
-    @roles = Role.select([:id, :display_name, :position])
-    @languages = Language.order(:position).select([:id, :display_name, :position])
-    @frequencies = Frequency.order(:position).select([:id, :display_name, :position])
-    @identifier_types = IdentifierType.order(:position).select([:id, :display_name, :position])
-    @nii_types = NiiType.select([:id, :display_name, :position]) if defined?(EnjuNii)
+    @carrier_types = CarrierType.order(:position).select([ :id, :display_name, :position ])
+    @content_types = ContentType.order(:position).select([ :id, :display_name, :position ])
+    @roles = Role.select([ :id, :display_name, :position ])
+    @languages = Language.order(:position).select([ :id, :display_name, :position ])
+    @frequencies = Frequency.order(:position).select([ :id, :display_name, :position ])
+    @identifier_types = IdentifierType.order(:position).select([ :id, :display_name, :position ])
+    @nii_types = NiiType.select([ :id, :display_name, :position ]) if defined?(EnjuNii)
     if defined?(EnjuSubject)
-      @subject_types = SubjectType.select([:id, :display_name, :position])
-      @subject_heading_types = SubjectHeadingType.select([:id, :display_name, :position])
-      @classification_types = ClassificationType.select([:id, :display_name, :position])
+      @subject_types = SubjectType.select([ :id, :display_name, :position ])
+      @subject_heading_types = SubjectHeadingType.select([ :id, :display_name, :position ])
+      @classification_types = ClassificationType.select([ :id, :display_name, :position ])
     end
   end
 

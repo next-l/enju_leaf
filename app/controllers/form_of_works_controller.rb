@@ -1,6 +1,6 @@
 class FormOfWorksController < ApplicationController
-  before_action :set_form_of_work, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_form_of_work, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /form_of_works
   # GET /form_of_works.json

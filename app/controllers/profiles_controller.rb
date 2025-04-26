@@ -1,8 +1,8 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_profile, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :set_profile, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :prepare_options, only: [ :new, :edit ]
 
   # GET /profiles
   # GET /profiles.json
@@ -18,7 +18,7 @@ class ProfilesController < ApplicationController
     @query = query.dup
     @count = {}
 
-    sort = {sort_by: "created_at", order: "desc"}
+    sort = { sort_by: "created_at", order: "desc" }
     case params[:sort_by]
     when "username"
       sort[:sort_by] = "username"
@@ -81,7 +81,7 @@ class ProfilesController < ApplicationController
         else
           @profile.reset_checkout_icalendar_token
         end
-        render partial: "feed_token", locals: {profile: @profile}
+        render partial: "feed_token", locals: { profile: @profile }
         return
       end
     end
@@ -187,7 +187,7 @@ class ProfilesController < ApplicationController
       :user_group_id, :required_role_id, :note, :user_number, {
         user_attributes: [
           :id, :username, :email, :current_password, :locked,
-          {user_has_role_attributes: [:id, :role_id]}
+          { user_has_role_attributes: [ :id, :role_id ] }
         ]
       }
     ] if current_user.has_role?("Librarian")
@@ -208,7 +208,7 @@ class ProfilesController < ApplicationController
       {
         user_attributes: [
           :id, :email, :current_password, :auto_generated_password, :locked,
-          {user_has_role_attributes: [:id, :role_id]}
+          { user_has_role_attributes: [ :id, :role_id ] }
         ]
       }
     ] if current_user.has_role?("Librarian")

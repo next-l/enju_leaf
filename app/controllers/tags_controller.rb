@@ -1,12 +1,12 @@
 class TagsController < ApplicationController
-  before_action :set_tag, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index]
+  before_action :set_tag, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index ]
 
   def index
     session[:params] ={} unless session[:params]
     session[:params][:tag] = params
 
-    sort = {sort_by: "created_at", order: "desc"}
+    sort = { sort_by: "created_at", order: "desc" }
     case params[:sort_by]
     when "name"
       sort[:sort_by] = "name"

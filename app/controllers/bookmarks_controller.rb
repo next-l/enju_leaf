@@ -1,12 +1,12 @@
 class BookmarksController < ApplicationController
-  before_action :set_bookmark, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_bookmark, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
   before_action :get_user, only: :index
 
   # GET /bookmarks
   # GET /bookmarks.json
   def index
-    search = Bookmark.search(include: [:manifestation])
+    search = Bookmark.search(include: [ :manifestation ])
     query = params[:query].to_s.strip
     if query.present?
       @query = query.dup

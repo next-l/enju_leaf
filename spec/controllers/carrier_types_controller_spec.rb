@@ -187,7 +187,7 @@ describe CarrierTypesController do
 
       it 'assigns the requested carrier_type as @carrier_type when the format is download' do
         carrier_type = CarrierType.create! valid_attributes
-        expect{
+        expect {
           get :show, params: { id: carrier_type.id, format: :download }
         }.to raise_error(ActionController::UnknownFormat)
         #expect(assigns(:carrier_type)).to raise_error(ActionView::MissingTemplate)

@@ -1,6 +1,6 @@
 class CountriesController < ApplicationController
-  before_action :set_country, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_country, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /countries
   # GET /countries.json

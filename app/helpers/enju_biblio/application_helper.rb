@@ -6,7 +6,7 @@ module EnjuBiblio
       end
 
       if carrier_type.attachment.attached?
-        image_tag(carrier_type.attachment.representation(resize_to_limit: [16, 16]), size: "16x16", class: "enju_icon", alt: carrier_type.display_name.localize)
+        image_tag(carrier_type.attachment.representation(resize_to_limit: [ 16, 16 ]), size: "16x16", class: "enju_icon", alt: carrier_type.display_name.localize)
       else
         image_tag("icons/help.png", size: "16x16", class: "enju_icon", alt: t("page.unknown"))
       end

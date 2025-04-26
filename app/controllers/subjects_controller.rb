@@ -1,12 +1,12 @@
 class SubjectsController < ApplicationController
-  before_action :set_subject, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :set_subject, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :prepare_options, only: [ :new, :edit ]
 
   # GET /subjects
   # GET /subjects.json
   def index
-    sort = {sort_by: "created_at", order: "desc"}
+    sort = { sort_by: "created_at", order: "desc" }
     case params[:sort_by]
     when "name"
       sort[:sort_by] = "term"
@@ -38,7 +38,7 @@ class SubjectsController < ApplicationController
     session[:params] = {} unless session[:params]
     session[:params][:subject] = params
 
-    flash[:page_info] = {page: page, query: query}
+    flash[:page_info] = { page: page, query: query }
 
     respond_to do |format|
       format.html # index.html.erb
@@ -140,7 +140,7 @@ class SubjectsController < ApplicationController
   end
 
   def prepare_options
-    @subject_heading_types = SubjectHeadingType.select([:id, :display_name, :position])
-    @subject_types = SubjectType.select([:id, :display_name, :position])
+    @subject_heading_types = SubjectHeadingType.select([ :id, :display_name, :position ])
+    @subject_types = SubjectType.select([ :id, :display_name, :position ])
   end
 end

@@ -1,6 +1,6 @@
 class RealizeTypesController < ApplicationController
-  before_action :set_realize_type, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_realize_type, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /realize_types
   # GET /realize_types.json

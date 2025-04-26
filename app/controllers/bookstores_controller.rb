@@ -1,6 +1,6 @@
 class BookstoresController < ApplicationController
-  before_action :set_bookstore, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_bookstore, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /bookstores
   # GET /bookstores.json

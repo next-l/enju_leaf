@@ -1,6 +1,6 @@
 class SeriesStatementMergeListsController < ApplicationController
-  before_action :set_series_statement_merge_list, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_series_statement_merge_list, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /series_statement_merge_lists
   # GET /series_statement_merge_lists.json

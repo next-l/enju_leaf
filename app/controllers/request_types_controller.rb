@@ -1,6 +1,6 @@
 class RequestTypesController < ApplicationController
-  before_action :set_request_type, only: [:show, :edit, :update]
-  before_action :check_policy, only: [:index]
+  before_action :set_request_type, only: [ :show, :edit, :update ]
+  before_action :check_policy, only: [ :index ]
 
   # GET /request_types
   # GET /request_types.json

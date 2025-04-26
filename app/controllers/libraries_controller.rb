@@ -1,11 +1,11 @@
 class LibrariesController < ApplicationController
-  before_action :set_library, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_library, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /libraries
   # GET /libraries.json
   def index
-    sort = {sort_by: "position", order: "asc"}
+    sort = { sort_by: "position", order: "asc" }
     case params[:sort_by]
     when "name"
       sort[:sort_by] = "name"
@@ -15,7 +15,7 @@ class LibrariesController < ApplicationController
     query = @query = params[:query].to_s.strip
     page = params[:page] || 1
 
-    @libraries = Library.search(include: [:shelves]) do
+    @libraries = Library.search(include: [ :shelves ]) do
       fulltext query if query.present?
       paginate page: page.to_i, per_page: Library.default_per_page
       order_by sort[:sort_by], sort[:order]

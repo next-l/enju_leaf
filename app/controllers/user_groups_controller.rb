@@ -1,7 +1,7 @@
 class UserGroupsController < ApplicationController
-  before_action :set_user_group, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :set_user_group, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :prepare_options, only: [ :new, :edit ]
 
   # GET /user_groups
   # GET /user_groups.json
@@ -97,16 +97,16 @@ class UserGroupsController < ApplicationController
       :number_of_day_to_notify_due_date,
       :number_of_time_to_notify_overdue,
       # EnjuCirculation
-      {user_group_has_checkout_types_attributes: [
+      { user_group_has_checkout_types_attributes: [
         :id, :checkout_type_id, :checkout_limit, :checkout_period, :checkout_renewal_limit,
         :reservation_limit, :reservation_expired_period, :set_due_date_before_closing_day
-      ]}
+      ] }
     )
   end
 
   def prepare_options
     if defined?(EnjuCirculation)
-      @checkout_types = CheckoutType.select([:id, :display_name, :position])
+      @checkout_types = CheckoutType.select([ :id, :display_name, :position ])
     end
   end
 end

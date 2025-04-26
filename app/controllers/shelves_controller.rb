@@ -1,8 +1,8 @@
 class ShelvesController < ApplicationController
-  before_action :set_shelf, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_shelf, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
   before_action :get_library
-  before_action :get_libraries, only: [:new, :edit, :create, :update]
+  before_action :get_libraries, only: [ :new, :edit, :create, :update ]
 
   # GET /shelves
   # GET /shelves.json
@@ -16,7 +16,7 @@ class ShelvesController < ApplicationController
       render partial: "select_form"
       return
     else
-      sort = {sort_by: "shelf_name", order: "asc"}
+      sort = { sort_by: "shelf_name", order: "asc" }
       # case params[:sort_by]
       # when 'name'
       #  sort[:sort_by] = 'name'
@@ -27,7 +27,7 @@ class ShelvesController < ApplicationController
       page = params[:page] || 1
       library = @library if @library
 
-      search = Shelf.search(include: [:library]) do
+      search = Shelf.search(include: [ :library ]) do
         fulltext query if query.present?
         paginate page: page.to_i, per_page: Shelf.default_per_page
         if library

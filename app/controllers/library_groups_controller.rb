@@ -1,6 +1,6 @@
 class LibraryGroupsController < ApplicationController
-  before_action :set_library_group, only: [:show, :edit, :update]
-  before_action :check_policy, only: [:index]
+  before_action :set_library_group, only: [ :show, :edit, :update ]
+  before_action :check_policy, only: [ :index ]
 
   # GET /library_groups
   # GET /library_groups.json
@@ -69,10 +69,10 @@ class LibraryGroupsController < ApplicationController
       :header_logo, :delete_header_logo,
       :allow_bookmark_external_url, # EnjuBookmark
       {
-        colors_attributes: [:id, :property, :code]
+        colors_attributes: [ :id, :property, :code ]
       },
       {
-        user_attributes: [:email]
+        user_attributes: [ :email ]
       },
       *LibraryGroup.globalize_attribute_names
     )

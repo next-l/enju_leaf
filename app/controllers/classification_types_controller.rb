@@ -1,6 +1,6 @@
 class ClassificationTypesController < ApplicationController
-  before_action :set_classification_type, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_classification_type, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /classification_types
   # GET /classification_types.json

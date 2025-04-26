@@ -1,6 +1,6 @@
 class CheckoutTypesController < ApplicationController
-  before_action :set_checkout_type, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_checkout_type, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
   before_action :get_user_group
 
   # GET /checkout_types

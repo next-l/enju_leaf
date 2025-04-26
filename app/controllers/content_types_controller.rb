@@ -1,6 +1,6 @@
 class ContentTypesController < ApplicationController
-  before_action :set_content_type, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_content_type, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /content_types
   # GET /content_types.json

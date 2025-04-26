@@ -1,6 +1,6 @@
 class MediumOfPerformancesController < ApplicationController
-  before_action :set_medium_of_performance, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_medium_of_performance, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /medium_of_performances
   # GET /medium_of_performances.json

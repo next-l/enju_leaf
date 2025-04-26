@@ -1,6 +1,6 @@
 class SubjectHeadingTypesController < ApplicationController
-  before_action :set_subject_heading_type, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_subject_heading_type, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /subject_heading_types
   # GET /subject_heading_types.json

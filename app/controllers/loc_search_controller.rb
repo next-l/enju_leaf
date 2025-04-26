@@ -1,5 +1,5 @@
 class LocSearchController < ApplicationController
-  before_action :check_policy, only: [:index, :create]
+  before_action :check_policy, only: [ :index, :create ]
 
   def index
     if params[:page].to_i <= 0

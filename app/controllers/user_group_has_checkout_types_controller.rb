@@ -1,14 +1,14 @@
 class UserGroupHasCheckoutTypesController < ApplicationController
   include EnjuCirculation::Controller
-  before_action :set_user_group_has_checkout_type, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_user_group_has_checkout_type, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
   helper_method :get_user_group, :get_checkout_type
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :prepare_options, only: [ :new, :edit ]
 
   # GET /user_group_has_checkout_types
   # GET /user_group_has_checkout_types.json
   def index
-    @user_group_has_checkout_types = UserGroupHasCheckoutType.includes([:user_group, :checkout_type]).order("user_groups.position, checkout_types.position").page(params[:page])
+    @user_group_has_checkout_types = UserGroupHasCheckoutType.includes([ :user_group, :checkout_type ]).order("user_groups.position, checkout_types.position").page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

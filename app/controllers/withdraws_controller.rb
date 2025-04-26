@@ -1,7 +1,7 @@
 class WithdrawsController < ApplicationController
-  before_action :set_withdraw, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :get_basket, only: [:index, :create]
+  before_action :set_withdraw, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :get_basket, only: [ :index, :create ]
 
   # GET /withdraws
   # GET /withdraws.json

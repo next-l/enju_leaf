@@ -1,6 +1,6 @@
 class RequestStatusTypesController < ApplicationController
-  before_action :set_request_status_type, only: [:show, :edit, :update]
-  before_action :check_policy, only: [:index]
+  before_action :set_request_status_type, only: [ :show, :edit, :update ]
+  before_action :check_policy, only: [ :index ]
 
   # GET /request_status_types
   # GET /request_status_types.json

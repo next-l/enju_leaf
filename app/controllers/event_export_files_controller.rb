@@ -1,6 +1,6 @@
 class EventExportFilesController < ApplicationController
-  before_action :set_event_export_file, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_event_export_file, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /event_export_files
   # GET /event_export_files.json

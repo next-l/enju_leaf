@@ -1,6 +1,6 @@
 class LicensesController < ApplicationController
-  before_action :set_license, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_license, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /licenses
   # GET /licenses.json

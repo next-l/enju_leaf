@@ -1,6 +1,6 @@
 class NewsFeedsController < ApplicationController
-  before_action :set_news_feed, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_news_feed, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /news_feeds
   # GET /news_feeds.json

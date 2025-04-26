@@ -1,6 +1,6 @@
 class UserCheckoutStatsController < ApplicationController
-  before_action :set_user_checkout_stat, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_user_checkout_stat, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
   after_action :convert_charset, only: :show
 
   # GET /user_checkout_stats

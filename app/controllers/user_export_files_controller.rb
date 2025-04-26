@@ -1,6 +1,6 @@
 class UserExportFilesController < ApplicationController
-  before_action :set_user_export_file, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_user_export_file, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /user_export_files
   # GET /user_export_files.json

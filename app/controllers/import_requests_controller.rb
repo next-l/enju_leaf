@@ -1,6 +1,6 @@
 class ImportRequestsController < ApplicationController
-  before_action :set_import_request, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_import_request, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /import_requests
   # GET /import_requests.json

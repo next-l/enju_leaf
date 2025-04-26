@@ -1,7 +1,7 @@
 class CheckedItemsController < ApplicationController
-  before_action :set_checked_item, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :get_basket, only: [:index, :new, :create, :update]
+  before_action :set_checked_item, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :get_basket, only: [ :index, :new, :create, :update ]
 
   # GET /checked_items
   # GET /checked_items.json

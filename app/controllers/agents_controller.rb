@@ -1,9 +1,9 @@
 class AgentsController < ApplicationController
-  before_action :set_agent, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :get_work, :get_expression, :get_manifestation, :get_item, :get_agent, except: [:update, :destroy]
-  before_action :get_agent_merge_list, except: [:create, :update, :destroy]
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :set_agent, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :get_work, :get_expression, :get_manifestation, :get_item, :get_agent, except: [ :update, :destroy ]
+  before_action :get_agent_merge_list, except: [ :create, :update, :destroy ]
+  before_action :prepare_options, only: [ :new, :edit ]
 
   # GET /agents
   # GET /agents.json
@@ -25,7 +25,7 @@ class AgentsController < ApplicationController
     order = nil
     @count = {}
 
-    search = Agent.search(include: [:agent_type, :required_role])
+    search = Agent.search(include: [ :agent_type, :required_role ])
     search.data_accessor_for(Agent).select = [
       :id,
       :full_name,

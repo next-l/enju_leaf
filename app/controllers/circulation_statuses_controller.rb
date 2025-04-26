@@ -1,6 +1,6 @@
 class CirculationStatusesController < ApplicationController
-  before_action :set_circulation_status, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_circulation_status, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /circulation_statuses
   # GET /circulation_statuses.json

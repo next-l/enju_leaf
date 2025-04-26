@@ -13,11 +13,11 @@ json.items do
     json.height picture_file.attachment.metadata["height"]
     json.format picture_file.attachment.content_type
     json.items do
-      json.array! [0] do
+      json.array! [ 0 ] do
         json.id picture_file_url(picture_file)
         json.type "AnnotationPage"
         json.items do
-          json.array! [0] do
+          json.array! [ 0 ] do
             json.id picture_file_url(picture_file)
             json.type "Annotation"
             json.body do

@@ -1,6 +1,6 @@
 class ResourceExportFilesController < ApplicationController
-  before_action :set_resource_export_file, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_resource_export_file, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /resource_export_files
   # GET /resource_export_files.json

@@ -1,7 +1,7 @@
 class NewsPostsController < ApplicationController
-  before_action :set_news_post, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :set_news_post, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :prepare_options, only: [ :new, :edit ]
 
   # GET /news_posts
   # GET /news_posts.json

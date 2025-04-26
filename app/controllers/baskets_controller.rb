@@ -1,6 +1,6 @@
 class BasketsController < ApplicationController
-  before_action :set_basket, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_basket, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /baskets
   # GET /baskets.json

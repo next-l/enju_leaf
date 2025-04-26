@@ -1,6 +1,6 @@
 class CreateTypesController < ApplicationController
-  before_action :set_create_type, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_create_type, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /create_types
   # GET /create_types.json
