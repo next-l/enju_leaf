@@ -41,10 +41,14 @@ end
 
 # == Schema Information
 #
-# Table name: isbn_records
+# Table name: isbn_records(ISBN)
 #
-#  id         :bigint           not null, primary key
-#  body       :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :bigint           not null, primary key
+#  body(ISBN)   :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+# Indexes
+#
+#  index_isbn_records_on_body  (body)
 #

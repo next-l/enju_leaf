@@ -40,10 +40,20 @@ end
 # Table name: checkins
 #
 #  id           :bigint           not null, primary key
-#  item_id      :bigint           not null
-#  librarian_id :bigint
-#  basket_id    :bigint
+#  lock_version :integer          default(0), not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  lock_version :integer          default(0), not null
+#  basket_id    :bigint
+#  item_id      :bigint           not null
+#  librarian_id :bigint
+#
+# Indexes
+#
+#  index_checkins_on_basket_id              (basket_id)
+#  index_checkins_on_item_id_and_basket_id  (item_id,basket_id) UNIQUE
+#  index_checkins_on_librarian_id           (librarian_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (item_id => items.id)
 #

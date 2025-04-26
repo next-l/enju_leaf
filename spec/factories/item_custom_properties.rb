@@ -9,11 +9,15 @@ end
 #
 # Table name: item_custom_properties
 #
-#  id           :bigint           not null, primary key
-#  name         :string           not null
-#  display_name :text             not null
-#  note         :text
-#  position     :integer          default(1), not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id                   :bigint           not null, primary key
+#  display_name(表示名) :text             not null
+#  name(ラベル名)       :string           not null
+#  note(備考)           :text
+#  position             :integer          default(1), not null
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#
+# Indexes
+#
+#  index_item_custom_properties_on_lower_name  (lower((name)::text)) UNIQUE
 #
