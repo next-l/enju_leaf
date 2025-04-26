@@ -61,9 +61,6 @@ namespace :enju_leaf do
 
   desc 'Backfill migration versions before Next-L Enju Leaf 1.4'
   task :backfill_migration_versions => :environment do
-    Rake::Task['enju_leaf:upgrade'].invoke
-    Rake::Task['enju_leaf:upgrade'].reenable
-
     Dir.glob(Rails.root.join('db/migrate/*.rb')).each do |file|
       entry = File.basename(file).split('_', 3)
       table_name = entry[2].gsub(/\.rb\z/, '')
