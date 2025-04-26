@@ -1,6 +1,6 @@
 class UseRestrictionsController < ApplicationController
-  before_action :set_use_restriction, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_use_restriction, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /use_restrictions
   # GET /use_restrictions.json
@@ -36,7 +36,7 @@ class UseRestrictionsController < ApplicationController
 
     respond_to do |format|
       if @use_restriction.save
-        format.html { redirect_to @use_restriction, notice: t('controller.successfully_created', model: t('activerecord.models.use_restriction')) }
+        format.html { redirect_to @use_restriction, notice: t("controller.successfully_created", model: t("activerecord.models.use_restriction")) }
         format.json { render json: @use_restriction, status: :created, location: @use_restriction }
       else
         format.html { render action: "new" }
@@ -55,7 +55,7 @@ class UseRestrictionsController < ApplicationController
 
     respond_to do |format|
       if @use_restriction.update(use_restriction_params)
-        format.html { redirect_to @use_restriction, notice: t('controller.successfully_updated', model: t('activerecord.models.use_restriction')) }
+        format.html { redirect_to @use_restriction, notice: t("controller.successfully_updated", model: t("activerecord.models.use_restriction")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

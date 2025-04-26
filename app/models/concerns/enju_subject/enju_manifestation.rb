@@ -16,13 +16,13 @@ module EnjuSubject
 
       searchable do
         text :subject do
-          subjects.map{|s| [s.term, s.term_transcription]}.flatten.compact
+          subjects.map { |s| [ s.term, s.term_transcription ] }.flatten.compact
         end
         string :subject, multiple: true do
-          subjects.map{|s| [s.term, s.term_transcription]}.flatten.compact
+          subjects.map { |s| [ s.term, s.term_transcription ] }.flatten.compact
         end
         string :classification, multiple: true do
-          classifications.map{|c| "#{c.classification_type.name}_#{c.category}"}
+          classifications.map { |c| "#{c.classification_type.name}_#{c.category}" }
         end
         integer :subject_ids, multiple: true
       end

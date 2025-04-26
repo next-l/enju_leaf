@@ -12,7 +12,7 @@ describe AgentImportFile do
       old_agents_count = Agent.count
       old_import_results_count = AgentImportResult.count
       @file.current_state.should eq 'pending'
-      @file.import_start.should eq({agent_imported: 3, user_imported: 0, failed: 0})
+      @file.import_start.should eq({ agent_imported: 3, user_imported: 0, failed: 0 })
       Agent.order('id DESC')[0].full_name.should eq '原田 ushi 隆史'
       Agent.order('id DESC')[1].full_name.should eq '田辺浩介'
       Agent.order('id DESC')[2].date_of_birth.should eq Time.zone.parse('1978-01-01')
@@ -36,7 +36,7 @@ describe AgentImportFile do
       old_agents_count = Agent.count
       old_import_results_count = AgentImportResult.count
       @file.current_state.should eq 'pending'
-      @file.import_start.should eq({agent_imported: 4, user_imported: 0, failed: 0})
+      @file.import_start.should eq({ agent_imported: 4, user_imported: 0, failed: 0 })
       Agent.count.should eq old_agents_count + 4
       Agent.order('id DESC')[0].full_name.should eq '原田 ushi 隆史'
       Agent.order('id DESC')[1].full_name.should eq '田辺浩介'

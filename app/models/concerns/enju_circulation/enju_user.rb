@@ -18,7 +18,7 @@ module EnjuCirculation
     def check_item_before_destroy
       # TODO: 貸出記録を残す場合
       if checkouts.size.positive?
-        raise 'This user has items still checked out.'
+        raise "This user has items still checked out."
       end
     end
 
@@ -26,13 +26,13 @@ module EnjuCirculation
       checkout_count = {}
       CheckoutType.find_each do |checkout_type|
         # 資料種別ごとの貸出中の冊数を計算
-        checkout_count[:"#{checkout_type.name}"] = checkouts.count_by_sql(["
+        checkout_count[:"#{checkout_type.name}"] = checkouts.count_by_sql([ "
           SELECT count(item_id) FROM checkouts
             WHERE item_id IN (
               SELECT id FROM items
                 WHERE checkout_type_id = ?
             )
-            AND user_id = ? AND checkin_id IS NULL", checkout_type.id, id]
+            AND user_id = ? AND checkin_id IS NULL", checkout_type.id, id ]
         )
       end
       checkout_count

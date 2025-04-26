@@ -222,7 +222,7 @@ describe EventsController do
   describe "POST create" do
     before(:each) do
       @attrs = FactoryBot.attributes_for(:event)
-      @invalid_attrs = {name: ''}
+      @invalid_attrs = { name: '' }
     end
 
     describe "When logged in as Administrator" do
@@ -340,7 +340,7 @@ describe EventsController do
     before(:each) do
       @event = FactoryBot.create(:event)
       @attrs = FactoryBot.attributes_for(:event)
-      @invalid_attrs = {name: ''}
+      @invalid_attrs = { name: '' }
     end
 
     describe "When logged in as Administrator" do

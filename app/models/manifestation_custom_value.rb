@@ -1,7 +1,7 @@
 class ManifestationCustomValue < ApplicationRecord
   belongs_to :manifestation_custom_property
   belongs_to :manifestation
-  validates :manifestation_custom_property, uniqueness: {scope: :manifestation_id}
+  validates :manifestation_custom_property, uniqueness: { scope: :manifestation_id }
 end
 
 # == Schema Information

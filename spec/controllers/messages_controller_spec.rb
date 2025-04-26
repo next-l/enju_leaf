@@ -513,7 +513,7 @@ describe MessagesController do
       login_fixture_librarian
       it 'should destroy own message' do
         message = FactoryBot.create(:message, recipient: @user.username)
-        post :destroy_selected, params: { delete: [message.id] }
+        post :destroy_selected, params: { delete: [ message.id ] }
         response.should_not be_forbidden
         response.should redirect_to(messages_url)
       end
@@ -523,7 +523,7 @@ describe MessagesController do
       login_fixture_user
       it 'should destroy own message' do
         message = FactoryBot.create(:message, recipient: @user.username)
-        post :destroy_selected, params: { delete: [message.id] }
+        post :destroy_selected, params: { delete: [ message.id ] }
         response.should_not be_forbidden
         response.should redirect_to(messages_url)
       end

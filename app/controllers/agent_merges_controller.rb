@@ -1,15 +1,15 @@
 class AgentMergesController < ApplicationController
-  before_action :set_agent_merge, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_agent_merge, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
   before_action :get_agent, :get_agent_merge_list
 
   # GET /agent_merges
   # GET /agent_merges.json
   def index
     if @agent
-      @agent_merges = @agent.agent_merges.order('agent_merges.id').page(params[:page])
+      @agent_merges = @agent.agent_merges.order("agent_merges.id").page(params[:page])
     elsif @agent_merge_list
-      @agent_merges = @agent_merge_list.agent_merges.order('agent_merges.id').includes(:agent).page(params[:page])
+      @agent_merges = @agent_merge_list.agent_merges.order("agent_merges.id").includes(:agent).page(params[:page])
     else
       @agent_merges = AgentMerge.page(params[:page])
     end
@@ -45,7 +45,7 @@ class AgentMergesController < ApplicationController
 
     respond_to do |format|
       if @agent_merge.save
-        format.html { redirect_to(@agent_merge, notice: t('controller.successfully_created', model: t('activerecord.models.agent_merge'))) }
+        format.html { redirect_to(@agent_merge, notice: t("controller.successfully_created", model: t("activerecord.models.agent_merge"))) }
         format.json { render json: @agent_merge, status: :created, location: @agent_merge }
       else
         format.html { render action: "new" }
@@ -59,7 +59,7 @@ class AgentMergesController < ApplicationController
   def update
     respond_to do |format|
       if @agent_merge.update(agent_merge_params)
-        format.html { redirect_to(@agent_merge, notice: t('controller.successfully_updated', model: t('activerecord.models.agent_merge'))) }
+        format.html { redirect_to(@agent_merge, notice: t("controller.successfully_updated", model: t("activerecord.models.agent_merge"))) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

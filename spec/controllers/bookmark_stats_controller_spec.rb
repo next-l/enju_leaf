@@ -166,7 +166,7 @@ describe BookmarkStatsController do
   describe "POST create" do
     before(:each) do
       @attrs = FactoryBot.attributes_for(:bookmark_stat)
-      @invalid_attrs = {start_date: ''}
+      @invalid_attrs = { start_date: '' }
     end
 
     describe "When logged in as Administrator" do
@@ -284,7 +284,7 @@ describe BookmarkStatsController do
     before(:each) do
       @bookmark_stat = FactoryBot.create(:bookmark_stat)
       @attrs = FactoryBot.attributes_for(:bookmark_stat)
-      @invalid_attrs = {start_date: ''}
+      @invalid_attrs = { start_date: '' }
     end
 
     describe "When logged in as Administrator" do

@@ -1,5 +1,5 @@
 class LibraryGroup < ApplicationRecord
-  #include Singleton
+  # include Singleton
   include MasterModel
 
   has_many :libraries, dependent: :destroy
@@ -36,7 +36,7 @@ class LibraryGroup < ApplicationRecord
   end
 
   def real_libraries
-    libraries.where.not(name: 'web')
+    libraries.where.not(name: "web")
   end
 
   def network_access_allowed?(ip_address, options = {})
