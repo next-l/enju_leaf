@@ -1,6 +1,6 @@
 class Subscribe < ApplicationRecord
   belongs_to :subscription, counter_cache: true
-  belongs_to :work, class_name: 'Manifestation'
+  belongs_to :work, class_name: "Manifestation"
 
   validates :start_at, :end_at, presence: true
   validates :work_id, uniqueness: { scope: :subscription_id }

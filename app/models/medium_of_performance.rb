@@ -1,6 +1,6 @@
 class MediumOfPerformance < ApplicationRecord
   include MasterModel
-  has_many :works, class_name: 'Manifestation'
+  has_many :works, class_name: "Manifestation"
 end
 
 # == Schema Information

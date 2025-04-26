@@ -5,7 +5,7 @@ user1_to_user2_1:
   subject: 'First Message'
   body: 'Abby, you get the first message'
   created_at: 2007-07-04 12:10:47.0 
-  read_at: <%= 3.days.ago.to_s :db %>
+  read_at: <%= 3.days.ago.to_fs :db %>
   lft: 1
   rgt: 2
 user2_to_user1_1:
@@ -14,7 +14,7 @@ user2_to_user1_1:
   receiver_id: 3
   subject: 'RE: First Message'
   body: 'Thanks Dad! You are the coolest!'
-  created_at: <%= 2.days.ago.to_s :db %>
+  created_at: <%= 2.days.ago.to_fs :db %>
   lft: 3
   rgt: 4
 user1_to_librarian_2:
@@ -23,7 +23,7 @@ user1_to_librarian_2:
   receiver_id: 4
   subject: 'Second Message'
   body: 'Catie, you get the 2nd message'
-  created_at: <%= 1.days.ago.to_s :db %>
+  created_at: <%= 1.days.ago.to_fs :db %>
   lft: 5
   rgt: 6
 librarian2_to_user2:
@@ -32,7 +32,7 @@ librarian2_to_user2:
   receiver_id: 5
   subject: 'Dad!'
   body: 'He is sucha  dork.'
-  created_at: <%= 2.days.ago.to_s :db %>
+  created_at: <%= 2.days.ago.to_fs :db %>
   lft: 7
   rgt: 8
 

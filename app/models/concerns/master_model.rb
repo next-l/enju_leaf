@@ -24,7 +24,7 @@ module MasterModel
   private
   def valid_name?
     unless name =~ /\A[a-z][0-9a-z_]*[0-9a-z]\z/
-      errors.add(:name, I18n.t('page.only_lowercase_letters_and_numbers_are_allowed'))
+      errors.add(:name, I18n.t("page.only_lowercase_letters_and_numbers_are_allowed"))
     end
   end
 
@@ -32,7 +32,7 @@ module MasterModel
     begin
       YAML.load(display_name)
     rescue Psych::SyntaxError
-      errors.add(:display_name, I18n.t('page.cannot_parse_yaml_header'))
+      errors.add(:display_name, I18n.t("page.cannot_parse_yaml_header"))
     end
   end
 end

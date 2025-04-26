@@ -1,5 +1,5 @@
-<%= form_for(@participate) do |f| %>
-  <%= error_messages(@participate) %>
+<%= form_with(model: participate) do |f| %>
+  <%= error_messages(participate) %>
 
   <div class="field">
     <%= f.label t('activerecord.models.agent') -%><br />

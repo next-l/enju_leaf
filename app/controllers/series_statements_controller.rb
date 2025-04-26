@@ -1,8 +1,8 @@
 class SeriesStatementsController < ApplicationController
-  before_action :set_series_statement, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :get_manifestation, except: [:create, :update, :destroy]
-  before_action :get_series_statement_merge_list, except: [:create, :update, :destroy]
+  before_action :set_series_statement, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :get_manifestation, except: [ :create, :update, :destroy ]
+  before_action :get_series_statement_merge_list, except: [ :create, :update, :destroy ]
 
   # GET /series_statements
   # GET /series_statements.json
@@ -13,14 +13,14 @@ class SeriesStatementsController < ApplicationController
 
     if query.present?
       @query = query.dup
-      query = query.gsub('　', ' ')
+      query = query.gsub("　", " ")
     end
     search.build do
       fulltext query if query.present?
       paginate page: page.to_i, per_page: SeriesStatement.default_per_page
       order_by :position, :asc
     end
-    #work = @work
+    # work = @work
     manifestation = @manifestation
     series_statement_merge_list = @series_statement_merge_list
     search.build do
@@ -63,7 +63,7 @@ class SeriesStatementsController < ApplicationController
     respond_to do |format|
       if @series_statement.save
         @series_statement.manifestations << manifestation if manifestation
-        format.html { redirect_to @series_statement, notice: t('controller.successfully_created', model: t('activerecord.models.series_statement')) }
+        format.html { redirect_to @series_statement, notice: t("controller.successfully_created", model: t("activerecord.models.series_statement")) }
         format.json { render json: @series_statement, status: :created, location: @series_statement }
       else
         @frequencies = Frequency.all
@@ -83,7 +83,7 @@ class SeriesStatementsController < ApplicationController
 
     respond_to do |format|
       if @series_statement.update(series_statement_params)
-        format.html { redirect_to @series_statement, notice: t('controller.successfully_updated', model: t('activerecord.models.series_statement')) }
+        format.html { redirect_to @series_statement, notice: t("controller.successfully_updated", model: t("activerecord.models.series_statement")) }
         format.json { head :no_content }
       else
         @frequencies = Frequency.all

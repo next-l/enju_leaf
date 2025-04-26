@@ -1,6 +1,6 @@
 class ManifestationRelationshipType < ApplicationRecord
   include MasterModel
-  default_scope { order('manifestation_relationship_types.position') }
+  default_scope { order("manifestation_relationship_types.position") }
   has_many :manifestation_relationships, dependent: :destroy
 end
 

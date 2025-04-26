@@ -1,5 +1,5 @@
-<%= form_for(@create_type) do |f| %>
-  <%= error_messages(@create_type) %>
+<%= form_with(model: create_type) do |f| %>
+  <%= error_messages(create_type) %>
 
   <div class="field">
     <%= f.label :name %><br />

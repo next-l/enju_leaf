@@ -1,15 +1,15 @@
 class AgentsController < ApplicationController
-  before_action :set_agent, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :get_work, :get_expression, :get_manifestation, :get_item, :get_agent, except: [:update, :destroy]
-  before_action :get_agent_merge_list, except: [:create, :update, :destroy]
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :set_agent, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :get_work, :get_expression, :get_manifestation, :get_item, :get_agent, except: [ :update, :destroy ]
+  before_action :get_agent_merge_list, except: [ :create, :update, :destroy ]
+  before_action :prepare_options, only: [ :new, :edit ]
 
   # GET /agents
   # GET /agents.json
   def index
-    if params[:mode] == 'add'
-      unless current_user.try(:has_role?, 'Librarian')
+    if params[:mode] == "add"
+      unless current_user.try(:has_role?, "Librarian")
         access_denied
         return
       end
@@ -21,11 +21,11 @@ class AgentsController < ApplicationController
     end
 
     @query = query.dup
-    query = query.gsub('　', ' ')
+    query = query.gsub("　", " ")
     order = nil
     @count = {}
 
-    search = Agent.search(include: [:agent_type, :required_role])
+    search = Agent.search(include: [ :agent_type, :required_role ])
     search.data_accessor_for(Agent).select = [
       :id,
       :full_name,
@@ -38,7 +38,7 @@ class AgentsController < ApplicationController
     ]
     set_role_query(current_user, search)
 
-    if params[:mode] == 'recent'
+    if params[:mode] == "recent"
       query = "#{query} created_at_d:[NOW-1MONTH TO NOW]"
     end
     if query.present?
@@ -47,7 +47,7 @@ class AgentsController < ApplicationController
       end
     end
 
-    unless params[:mode] == 'add'
+    unless params[:mode] == "add"
       work = @work
       expression = @expression
       manifestation = @manifestation
@@ -125,7 +125,7 @@ class AgentsController < ApplicationController
   # GET /agents/new
   def new
     @agent = Agent.new
-    @agent.required_role = Role.find_by(name: 'Guest')
+    @agent.required_role = Role.find_by(name: "Guest")
     @agent.language = Language.find_by(iso_639_1: I18n.default_locale.to_s) || Language.first
     @agent.country = current_user.profile.library.country
     prepare_options
@@ -151,7 +151,7 @@ class AgentsController < ApplicationController
         when @item
           @agent.items << @item
         end
-        format.html { redirect_to @agent, notice: t('controller.successfully_created', model: t('activerecord.models.agent')) }
+        format.html { redirect_to @agent, notice: t("controller.successfully_created", model: t("activerecord.models.agent")) }
         format.json { render json: @agent, status: :created, location: @agent }
       else
         prepare_options
@@ -166,7 +166,7 @@ class AgentsController < ApplicationController
   def update
     respond_to do |format|
       if @agent.update(agent_params)
-        format.html { redirect_to @agent, notice: t('controller.successfully_updated', model: t('activerecord.models.agent')) }
+        format.html { redirect_to @agent, notice: t("controller.successfully_updated", model: t("activerecord.models.agent")) }
         format.json { head :no_content }
       else
         prepare_options
@@ -182,7 +182,7 @@ class AgentsController < ApplicationController
     @agent.destroy
 
     respond_to do |format|
-      format.html { redirect_to agents_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.agent')) }
+      format.html { redirect_to agents_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.agent")) }
       format.json { head :no_content }
     end
   end
@@ -215,6 +215,6 @@ class AgentsController < ApplicationController
     @agent_types = AgentType.all
     @roles = Role.all
     @languages = Language.all
-    @agent_type = AgentType.find_by(name: 'person')
+    @agent_type = AgentType.find_by(name: "person")
   end
 end

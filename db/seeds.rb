@@ -17,6 +17,8 @@ def new_profile
   profile
 end
 
+Rake::Task['enju_leaf:setup'].invoke
+
 system_user = User.new
 system_user.username = 'system'
 system_user.password = SecureRandom.urlsafe_base64(32)

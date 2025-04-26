@@ -4,7 +4,11 @@ describe Reserve do
   fixtures :all
 
   it "should have next reservation" do
-    expect(reserves(:reserve_00014).next_reservation.id).to eq reserves(:reserve_00015).id
+    expect(reserves(:reserve_00014).state_machine.current_state).to eq "retained"
+    expect(reserves(:reserve_00014).next_reservation).to eq reserves(:reserve_00015)
+    reserves(:reserve_00014).transition_to!(:canceled)
+    expect(reserves(:reserve_00015).state_machine.current_state).to eq "retained"
+    expect(reserves(:reserve_00015).next_reservation).to eq reserves(:reserve_00016)
   end
 
   it "should notify a next reservation" do
@@ -49,7 +53,6 @@ describe Reserve do
 
   it "should have reservations that will be expired" do
     reserve = FactoryBot.create(:reserve)
-    reserve.transition_to!(:requested)
     item = FactoryBot.create(:item, manifestation_id: reserve.manifestation.id)
     item.retain(reserve.user)
     reserve.reload
@@ -60,7 +63,6 @@ describe Reserve do
 
   it "should have completed reservation" do
     reserve = FactoryBot.create(:reserve)
-    reserve.transition_to!(:requested)
     item = FactoryBot.create(:item, manifestation_id: reserve.manifestation.id)
     item.checkout!(reserve.user)
     expect(Reserve.completed).to include reserve
@@ -115,14 +117,13 @@ describe Reserve do
 
   it "should not retain against reserves with already retained" do
     reserve = FactoryBot.create(:reserve)
-    reserve.transition_to!(:requested)
     manifestation = reserve.manifestation
     item = FactoryBot.create(:item, manifestation_id: manifestation.id)
-    expect{item.retain(reserve.user)}.not_to raise_error
+    expect {item.retain(reserve.user)}.not_to raise_error
     expect(reserve.retained?).to be true
     expect(item.retained?).to be true
     item = FactoryBot.create(:item, manifestation_id: manifestation.id)
-    expect{item.retain(reserve.user)}.not_to raise_error
+    expect {item.retain(reserve.user)}.not_to raise_error
     expect(reserve.retained?).to be true
     expect(item.retained?).to be false
   end

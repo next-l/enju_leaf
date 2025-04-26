@@ -1,4 +1,15 @@
 en:
+  activerecord:
+    models:
+      nii_type: NII metadata type
+
+    attributes:
+      nii_type:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
+
   enju_nii:
     import_from_cinii_books: Import from CiNii Books
     record_not_found: Record not found.

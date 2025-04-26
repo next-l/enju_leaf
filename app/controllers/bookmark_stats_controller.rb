@@ -1,6 +1,6 @@
 class BookmarkStatsController < ApplicationController
-  before_action :set_bookmark_stat, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_bookmark_stat, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
   after_action :convert_charset, only: :show
 
   # GET /bookmark_stats
@@ -21,7 +21,7 @@ class BookmarkStatsController < ApplicationController
     else
       per_page = BookmarkStatHasManifestation.default_per_page
     end
-    @stats = @bookmark_stat.bookmark_stat_has_manifestations.order('bookmarks_count DESC, manifestation_id').page(params[:page]).per(per_page)
+    @stats = @bookmark_stat.bookmark_stat_has_manifestations.order("bookmarks_count DESC, manifestation_id").page(params[:page]).per(per_page)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -45,7 +45,7 @@ class BookmarkStatsController < ApplicationController
 
     respond_to do |format|
       if @bookmark_stat.save
-        format.html { redirect_to @bookmark_stat, notice: t('controller.successfully_created', model: t('activerecord.models.bookmark_stat')) }
+        format.html { redirect_to @bookmark_stat, notice: t("controller.successfully_created", model: t("activerecord.models.bookmark_stat")) }
         format.json { render json: @bookmark_stat, status: :created, location: @bookmark_stat }
       else
         format.html { render action: "new" }
@@ -59,7 +59,7 @@ class BookmarkStatsController < ApplicationController
   def update
     respond_to do |format|
       if @bookmark_stat.update(bookmark_stat_params)
-        format.html { redirect_to @bookmark_stat, notice: t('controller.successfully_updated', model: t('activerecord.models.bookmark_stat')) }
+        format.html { redirect_to @bookmark_stat, notice: t("controller.successfully_updated", model: t("activerecord.models.bookmark_stat")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

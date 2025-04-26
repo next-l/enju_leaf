@@ -1,4 +1,4 @@
-<%= form_for(@checkout) do |f| %>
+<%= form_with(model: @checkout) do |f| %>
   <% if @checkout.errors.any? %>
   <div id="errorExplanation">
     <h2><%= pluralize(@checkout.errors.count, "error") %> prohibited this checkout from being saved:</h2>

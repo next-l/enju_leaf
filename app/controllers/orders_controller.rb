@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_order, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
   before_action :set_order_list
   before_action :set_purchase_request
 
@@ -41,12 +41,12 @@ class OrdersController < ApplicationController
   def new
     @order_lists = OrderList.not_ordered
     if @order_lists.blank?
-      flash[:notice] = t('order.create_order_list')
+      flash[:notice] = t("order.create_order_list")
       redirect_to new_order_list_url
       return
     end
     unless @purchase_request
-      flash[:notice] = t('order.specify_purchase_request')
+      flash[:notice] = t("order.specify_purchase_request")
       redirect_to purchase_requests_url
       return
     end
@@ -66,7 +66,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
-        flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.order'))
+        flash[:notice] = t("controller.successfully_created", model: t("activerecord.models.order"))
         if @purchase_request
           format.html { redirect_to purchase_request_order_url(@order.purchase_request, @order) }
           format.json { render json: @order, status: :created, location: @order }
@@ -89,7 +89,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.update(order_params)
-        flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.order'))
+        flash[:notice] = t("controller.successfully_updated", model: t("activerecord.models.order"))
         if @purchase_request
           format.html { redirect_to purchase_request_order_url(@order.purchase_request, @order) }
           format.json { head :no_content }
