@@ -20,7 +20,7 @@ class SeriesStatementsController < ApplicationController
       paginate page: page.to_i, per_page: SeriesStatement.default_per_page
       order_by :position, :asc
     end
-    #work = @work
+    # work = @work
     manifestation = @manifestation
     series_statement_merge_list = @series_statement_merge_list
     search.build do

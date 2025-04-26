@@ -82,7 +82,6 @@ class BasketsController < ApplicationController
         format.json { render json: @basket.errors, status: :unprocessable_entity }
       end
     end
-
   end
 
   # DELETE /baskets/1

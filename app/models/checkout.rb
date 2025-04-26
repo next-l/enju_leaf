@@ -85,23 +85,23 @@ class Checkout < ApplicationRecord
 
   def over_checkout_renewal_limit?
     return nil unless item.checkout_status(user)
-    return true if item.checkout_status(user).checkout_renewal_limit < checkout_renewal_count
+    true if item.checkout_status(user).checkout_renewal_limit < checkout_renewal_count
   end
 
   def overdue?
     return false unless due_date
     if Time.zone.now > due_date.tomorrow.beginning_of_day
-      return true
+      true
     else
-      return false
+      false
     end
   end
 
   def is_today_due_date?
     if Time.zone.now.beginning_of_day == due_date.beginning_of_day
-      return true
+      true
     else
-      return false
+      false
     end
   end
 

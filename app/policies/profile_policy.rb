@@ -31,7 +31,7 @@ class ProfilePolicy < ApplicationPolicy
         true if %w(User Guest Librarian).include?(record.required_role.name)
       end
     when "User"
-      return true if record == user.profile
+      true if record == user.profile
     end
   end
 

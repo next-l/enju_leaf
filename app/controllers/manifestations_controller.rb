@@ -90,15 +90,15 @@ class ManifestationsController < ApplicationController
           if params[:serial].to_s.downcase == "true"
             with(:series_master).equal_to true unless parent
             with(:serial).equal_to true
-            #if series_statement.serial?
+            # if series_statement.serial?
             #  if mode != 'add'
             #    order_by :volume_number, sort[:order]
             #    order_by :issue_number, sort[:order]
             #    order_by :serial_number, sort[:order]
             #  end
-            #else
+            # else
             #  with(:serial).equal_to false
-            #end
+            # end
           elsif mode != "add"
             with(:resource_master).equal_to true
           end
@@ -151,7 +151,7 @@ class ManifestationsController < ApplicationController
           flash[:search_query] = @search_query
           @manifestation_ids = search.build do
             paginate page: 1, per_page: @max_number_of_results
-          end.execute.raw_results.collect(&:primary_key).map{|id| id.to_i}
+          end.execute.raw_results.collect(&:primary_key).map { |id| id.to_i }
         end
 
         if defined?(EnjuBookmark)
@@ -159,9 +159,9 @@ class ManifestationsController < ApplicationController
             unless @manifestation_ids
               @manifestation_ids = search.build do
                 paginate page: 1, per_page: @max_number_of_results
-              end.execute.raw_results.collect(&:primary_key).map{|id| id.to_i}
+              end.execute.raw_results.collect(&:primary_key).map { |id| id.to_i }
             end
-            #bookmark_ids = Bookmark.where(manifestation_id: flash[:manifestation_ids]).limit(1000).pluck(:id)
+            # bookmark_ids = Bookmark.where(manifestation_id: flash[:manifestation_ids]).limit(1000).pluck(:id)
             bookmark_ids = Bookmark.where(manifestation_id: @manifestation_ids).limit(1000).pluck(:id)
             @tags = Tag.bookmarked(bookmark_ids)
             render partial: "manifestations/tag_cloud"
@@ -502,7 +502,7 @@ class ManifestationsController < ApplicationController
         :_destroy
       ] },
       { manifestation_custom_values_attributes: [
-        :id, :manifestation_custom_property_id, :manifestation_id, :value,:_destroy
+        :id, :manifestation_custom_property_id, :manifestation_id, :value, :_destroy
       ] }
     )
   end
@@ -519,9 +519,9 @@ class ManifestationsController < ApplicationController
       query = "#{query} created_at_d:[NOW-1MONTH TO NOW]"
     end
 
-    #unless options[:carrier_type].blank?
+    # unless options[:carrier_type].blank?
     #  query = "#{query} carrier_type_s:#{options[:carrier_type]}"
-    #end
+    # end
 
     if options[:library_adv].present?
       library_list = options[:library_adv].split.uniq.join(" OR ")
@@ -538,9 +538,9 @@ class ManifestationsController < ApplicationController
       query += " shelf_sm:(#{shelf_list.join(" OR ")})"
     end
 
-    #unless options[:language].blank?
+    # unless options[:language].blank?
     #  query = "#{query} language_sm:#{options[:language]}"
-    #end
+    # end
 
     if options[:subject].present?
       query = "#{query} subject_sm:#{options[:subject]}"

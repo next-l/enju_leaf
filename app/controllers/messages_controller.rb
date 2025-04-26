@@ -118,7 +118,7 @@ class MessagesController < ApplicationController
     end
     respond_to do |format|
       if params[:delete].present?
-        messages = params[:delete].map{|m| Message.find_by(id: m)}
+        messages = params[:delete].map { |m| Message.find_by(id: m) }
       end
       if messages.present?
         messages.each do |message|
@@ -141,7 +141,7 @@ class MessagesController < ApplicationController
       authorize @message
     else
       access_denied
-      return
+      nil
     end
   end
 
@@ -162,7 +162,7 @@ class MessagesController < ApplicationController
     else
       unless parent.try(:receiver) == current_user
         access_denied
-        return
+        nil
       end
     end
   end

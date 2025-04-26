@@ -39,7 +39,7 @@ class PictureFilesController < ApplicationController
       redirect_to picture_files_url
       return
     end
-    #raise unless @event or @manifestation or @shelf or @agent
+    # raise unless @event or @manifestation or @shelf or @agent
     @picture_file = PictureFile.new
     @picture_file.picture_attachable = @attachable
   end

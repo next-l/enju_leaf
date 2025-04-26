@@ -78,10 +78,10 @@ class BookmarksController < ApplicationController
       if @bookmark.save
         @bookmark.tag_index!
         if params[:mode] == "tag_edit"
-          format.html { redirect_to @bookmark.manifestation , notice: t("controller.successfully_created", model: t("activerecord.models.bookmark")) }
+          format.html { redirect_to @bookmark.manifestation, notice: t("controller.successfully_created", model: t("activerecord.models.bookmark")) }
           format.json { render json: @bookmark, status: :created, location: @bookmark }
         else
-          format.html { redirect_to @bookmark , notice: t("controller.successfully_created", model: t("activerecord.models.bookmark")) }
+          format.html { redirect_to @bookmark, notice: t("controller.successfully_created", model: t("activerecord.models.bookmark")) }
           format.json { render json: @bookmark, status: :created, location: @bookmark }
         end
       else

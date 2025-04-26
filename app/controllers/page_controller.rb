@@ -9,17 +9,17 @@ class PageController < ApplicationController
   def index
     if user_signed_in?
       session[:user_return_to] = nil
-      #unless current_user.agent
+      # unless current_user.agent
       #  redirect_to new_user_agent_url(current_user); return
-      #end
+      # end
       if defined?(EnjuBookmark)
-        @tags = current_user.bookmarks.tag_counts.sort{|a, b|
+        @tags = current_user.bookmarks.tag_counts.sort { |a, b|
           a.count <=> b.count
         }.reverse
       end
       if current_user.profile
         @manifestation = Manifestation.pickup(
-          current_user.profile.keyword_list.to_s.split.sort_by{rand}.first,
+          current_user.profile.keyword_list.to_s.split.sort_by { rand }.first,
           current_user
         )
       else
@@ -28,8 +28,8 @@ class PageController < ApplicationController
     else
       if defined?(EnjuBookmark)
         # TODO: タグ下限の設定
-        #@tags = Tag.all(limit: 50, order: 'taggings_count DESC')
-        @tags = Bookmark.tag_counts.sort{|a, b|
+        # @tags = Tag.all(limit: 50, order: 'taggings_count DESC')
+        @tags = Bookmark.tag_counts.sort { |a, b|
           a.count <=> b.count
         }.reverse[0..49]
       end

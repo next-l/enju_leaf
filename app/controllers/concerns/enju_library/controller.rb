@@ -17,11 +17,11 @@ module EnjuLibrary
 
       if user_signed_in?
         respond_to do |format|
-          format.html {render template: "page/403", status: :forbidden}
+          format.html { render template: "page/403", status: :forbidden }
           # format.html.phone {render template: 'page/403', status: 403}
-          format.xml {render template: "page/403", status: :forbidden}
+          format.xml { render template: "page/403", status: :forbidden }
           format.json { render json: { "error": "forbidden" } }
-          format.rss {render template: "page/403.xml", status: :forbidden}
+          format.rss { render template: "page/403.xml", status: :forbidden }
         end
       else
         respond_to do |format|
@@ -56,11 +56,11 @@ module EnjuLibrary
       return if performed?
 
       respond_to do |format|
-        format.html {render file: Rails.root.join("public/500.html").to_s, layout: false, status: :internal_server_error}
+        format.html { render file: Rails.root.join("public/500.html").to_s, layout: false, status: :internal_server_error }
         # format.html.phone {render file: "#{Rails.root}/public/500", layout: false, status: 500}
-        format.xml {render template: "page/500", status: :internal_server_error}
+        format.xml { render template: "page/500", status: :internal_server_error }
         format.json { render json: { "error": "server_error" } }
-        format.rss {render template: "page/500.xml", status: :internal_server_error}
+        format.rss { render template: "page/500.xml", status: :internal_server_error }
       end
     end
 
@@ -90,17 +90,17 @@ module EnjuLibrary
       @locale = I18n.default_locale
     end
 
-    def default_url_options(options={})
+    def default_url_options(options = {})
       { locale: nil }
     end
 
     def set_available_languages
       if Rails.env.production?
-        @available_languages = Rails.cache.fetch("available_languages"){
-          Language.where(iso_639_1: I18n.available_locales.map{|l| l.to_s}).select([ :id, :iso_639_1, :name, :native_name, :display_name, :position ]).all
+        @available_languages = Rails.cache.fetch("available_languages") {
+          Language.where(iso_639_1: I18n.available_locales.map { |l| l.to_s }).select([ :id, :iso_639_1, :name, :native_name, :display_name, :position ]).all
         }
       else
-        @available_languages = Language.where(iso_639_1: I18n.available_locales.map{|l| l.to_s})
+        @available_languages = Language.where(iso_639_1: I18n.available_locales.map { |l| l.to_s })
       end
     end
 
@@ -169,7 +169,7 @@ module EnjuLibrary
 
     def get_top_page_content
       if defined?(EnjuNews)
-        @news_feeds = Rails.cache.fetch("news_feed_all"){NewsFeed.order(:position)}
+        @news_feeds = Rails.cache.fetch("news_feed_all") { NewsFeed.order(:position) }
         @news_posts = NewsPost.limit(LibraryGroup.site_config.news_post_number_top_page || 10)
       end
       @libraries = Library.real

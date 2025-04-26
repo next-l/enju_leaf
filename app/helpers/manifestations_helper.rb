@@ -19,7 +19,7 @@ module ManifestationsHelper
     else
       link_to t("page.back"), :back
     end
-  #rescue
+  # rescue
   #  link_to t('page.listing', model: t('activerecord.models.manifestation')), manifestations_path
   end
 

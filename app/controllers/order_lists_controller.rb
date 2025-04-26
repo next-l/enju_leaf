@@ -64,7 +64,6 @@ class OrderListsController < ApplicationController
   # PUT /order_lists/1
   # PUT /order_lists/1.json
   def update
-
     respond_to do |format|
       if @order_list.update(order_list_params)
         if @order_list.edit_mode == "order"
@@ -72,7 +71,7 @@ class OrderListsController < ApplicationController
           @order_list.save(validate: false)
           format.html { redirect_to purchase_requests_url(order_list_id: @order_list.id), notice: t("controller.successfully_updated", model: t("activerecord.models.order_list")) }
         else
-          format.html { redirect_to @order_list , notice: t("controller.successfully_updated", model: t("activerecord.models.order_list")) }
+          format.html { redirect_to @order_list, notice: t("controller.successfully_updated", model: t("activerecord.models.order_list")) }
         end
         format.json { head :no_content }
       else

@@ -2,8 +2,8 @@ xml.instruct! :xml, version: "1.0"
 xml.rss("version" => "2.0",
         "xmlns:opensearch" => "http://a9.com/-/spec/opensearch/1.1/",
         "xmlns:dc" => "http://purl.org/dc/elements/1.1/",
-        "xmlns:atom" => "http://www.w3.org/2005/Atom"){
-  xml.channel{
+        "xmlns:atom" => "http://www.w3.org/2005/Atom") {
+  xml.channel {
     xml.title t("manifestation.query_search_result", query: @query, library_group_name: @library_group.display_name.localize)
     xml.link "#{request.protocol}#{request.host_with_port}#{url_for(request.params.merge(format: nil, only_path: true))}"
     xml.description "Next-L Enju, an open source integrated library system developed by Project Next-L"
@@ -22,7 +22,7 @@ xml.rss("version" => "2.0",
       @manifestations.each do |manifestation|
         xml.item do
           xml.title manifestation.original_title
-          #xml.description(manifestation.original_title)
+          # xml.description(manifestation.original_title)
           # rfc822
           manifestation.creators.readable_by(current_user).each do |creator|
             xml.tag! "dc:creator", creator.full_name

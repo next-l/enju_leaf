@@ -45,9 +45,9 @@ module EnjuBiblio
 
       agents_list = []
       if options[:nolink]
-        agents_list = agents.map{|agent| agent.full_name}
+        agents_list = agents.map { |agent| agent.full_name }
       else
-        agents_list = agents.map{|agent|
+        agents_list = agents.map { |agent|
           link_to(agent.full_name, manifestations_path(query: "\"#{agent.full_name}\""), options) + " " + (link_to("[A]", agent_path(agent)) if agent.ndla_record)
         }
       end

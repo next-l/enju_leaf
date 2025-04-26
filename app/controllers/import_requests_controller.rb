@@ -45,17 +45,17 @@ class ImportRequestsController < ApplicationController
             redirect_to new_import_request_url, notice: t("import_request.#{@error_type}")
           end
         }
-        #format.html.phone {
+        # format.html.phone {
         #  if @import_request.manifestation
         #    redirect_to @import_request.manifestation, notice: t('controller.successfully_created', model: t('activerecord.models.import_request'))
         #  else
         #    redirect_to new_import_request_url, notice: t('import_request.record_not_found')
         #  end
-        #}
+        # }
         format.json { render json: @import_request, status: :created, location: @import_request }
       else
         format.html { render action: "new" }
-        #format.html.phone { render action: "new" }
+        # format.html.phone { render action: "new" }
         format.json { render json: @import_request.errors, status: :unprocessable_entity }
       end
     end

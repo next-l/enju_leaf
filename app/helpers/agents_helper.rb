@@ -7,7 +7,7 @@ module AgentsHelper
         link += link_to(show_image(picture_file, size: :thumb), rails_blob_url(picture_file.attachment), rel: "agent_#{agent.id}")
       else
         link += content_tag :span, style: "display: none" do
-          link_to(show_image(picture_file, size: :thumb),rails_blob_url(picture_file.attachment), rel: "agent_#{agent.id}")
+          link_to(show_image(picture_file, size: :thumb), rails_blob_url(picture_file.attachment), rel: "agent_#{agent.id}")
         end
       end
     end
