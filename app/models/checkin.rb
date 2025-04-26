@@ -1,9 +1,9 @@
 class Checkin < ApplicationRecord
-  default_scope { order('checkins.id DESC') }
-  scope :on, lambda {|date| where('created_at >= ? AND created_at < ?', date.beginning_of_day, date.tomorrow.beginning_of_day)}
+  default_scope { order("checkins.id DESC") }
+  scope :on, lambda { |date| where("created_at >= ? AND created_at < ?", date.beginning_of_day, date.tomorrow.beginning_of_day) }
   has_one :checkout
   belongs_to :item, touch: true
-  belongs_to :librarian, class_name: 'User'
+  belongs_to :librarian, class_name: "User"
   belongs_to :basket
 
   validates :item_id, uniqueness: { scope: :basket_id }
@@ -20,17 +20,17 @@ class Checkin < ApplicationRecord
     end
 
     if item.blank?
-      errors.add(:base, I18n.t('checkin.item_not_found'))
+      errors.add(:base, I18n.t("checkin.item_not_found"))
       return
     end
 
-    if basket.items.find_by('item_id = ?', item.id)
-      errors[:base] << I18n.t('checkin.already_checked_in')
+    if basket.items.find_by("item_id = ?", item.id)
+      errors[:base] << I18n.t("checkin.already_checked_in")
     end
   end
 
   def item_checkin(current_user)
-    message = ''
+    message = ""
     Checkin.transaction do
       item.checkin!
       Checkout.not_returned.where(item_id: item_id).find_each do |checkout|
@@ -42,22 +42,22 @@ class Checkin < ApplicationRecord
         end
         checkout.save(validate: false)
         unless checkout.item.shelf.library == current_user.profile.library
-          message << I18n.t('checkin.other_library_item')
+          message << I18n.t("checkin.other_library_item")
         end
       end
 
       if item.reserved?
         # TODO: もっと目立たせるために別画面を表示するべき？
-        message << I18n.t('item.this_item_is_reserved')
+        message << I18n.t("item.this_item_is_reserved")
         item.retain(current_user)
       end
 
       if item.include_supplements?
-        message << I18n.t('item.this_item_include_supplement')
+        message << I18n.t("item.this_item_include_supplement")
       end
 
-      if item.circulation_status.name == 'Missing'
-        message << I18n.t('checkout.missing_item_found')
+      if item.circulation_status.name == "Missing"
+        message << I18n.t("checkout.missing_item_found")
       end
 
       # メールとメッセージの送信

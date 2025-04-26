@@ -1,5 +1,5 @@
 class LibraryGroup < ApplicationRecord
-  #include Singleton
+  # include Singleton
   include MasterModel
 
   has_many :libraries, dependent: :destroy
@@ -14,7 +14,7 @@ class LibraryGroup < ApplicationRecord
   accepts_nested_attributes_for :colors, update_only: true
   store_accessor :settings,
     :book_jacket_unknown_resource,
-    :erms_url, :amazon_hostname
+    :amazon_hostname
 
   translates :login_banner, :footer_banner
   globalize_accessors
@@ -36,7 +36,7 @@ class LibraryGroup < ApplicationRecord
   end
 
   def real_libraries
-    libraries.where.not(name: 'web')
+    libraries.where.not(name: "web")
   end
 
   def network_access_allowed?(ip_address, options = {})

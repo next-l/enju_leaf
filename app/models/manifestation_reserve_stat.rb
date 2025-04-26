@@ -4,8 +4,8 @@ class ManifestationReserveStat < ApplicationRecord
     initial_state: ManifestationReserveStatStateMachine.initial_state
   ]
   include CalculateStat
-  default_scope {order('manifestation_reserve_stats.id DESC')}
-  scope :not_calculated, -> {in_state(:pending)}
+  default_scope { order("manifestation_reserve_stats.id DESC") }
+  scope :not_calculated, -> { in_state(:pending) }
   has_many :reserve_stat_has_manifestations, dependent: :destroy
   has_many :manifestations, through: :reserve_stat_has_manifestations
   belongs_to :user
@@ -29,7 +29,7 @@ class ManifestationReserveStat < ApplicationRecord
       # manifestation.update_attributes({daily_reserves_count: daily_count, total_count: manifestation.total_count + daily_count})
       if daily_count.positive?
         manifestations << manifestation
-        sql = ['UPDATE reserve_stat_has_manifestations SET reserves_count = ? WHERE manifestation_reserve_stat_id = ? AND manifestation_id = ?', daily_count, id, manifestation.id]
+        sql = [ "UPDATE reserve_stat_has_manifestations SET reserves_count = ? WHERE manifestation_reserve_stat_id = ? AND manifestation_id = ?", daily_count, id, manifestation.id ]
         ManifestationReserveStat.connection.execute(
           self.class.send(:sanitize_sql_array, sql)
         )

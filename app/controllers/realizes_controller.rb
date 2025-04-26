@@ -1,17 +1,17 @@
 class RealizesController < ApplicationController
-  before_action :set_realize, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_realize, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
   before_action :get_agent, :get_expression
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :prepare_options, only: [ :new, :edit ]
 
   # GET /realizes
   # GET /realizes.json
   def index
     case
     when @agent
-      @realizes = @agent.realizes.order('realizes.position').page(params[:page])
+      @realizes = @agent.realizes.order("realizes.position").page(params[:page])
     when @expression
-      @realizes = @expression.realizes.order('realizes.position').page(params[:page])
+      @realizes = @expression.realizes.order("realizes.position").page(params[:page])
     else
       @realizes = Realize.page(params[:page])
     end
@@ -55,7 +55,7 @@ class RealizesController < ApplicationController
 
     respond_to do |format|
       if @realize.save
-        format.html { redirect_to @realize, notice: t('controller.successfully_created', model: t('activerecord.models.realize')) }
+        format.html { redirect_to @realize, notice: t("controller.successfully_created", model: t("activerecord.models.realize")) }
         format.json { render json: @realize, status: :created, location: @realize }
       else
         prepare_options
@@ -77,7 +77,7 @@ class RealizesController < ApplicationController
 
     respond_to do |format|
       if @realize.update(realize_params)
-        format.html { redirect_to @realize, notice: t('controller.successfully_updated', model: t('activerecord.models.realize')) }
+        format.html { redirect_to @realize, notice: t("controller.successfully_updated", model: t("activerecord.models.realize")) }
         format.json { head :no_content }
       else
         prepare_options
@@ -94,7 +94,7 @@ class RealizesController < ApplicationController
 
     respond_to do |format|
       format.html {
-        flash[:notice] = t('controller.successfully_deleted', model: t('activerecord.models.realize'))
+        flash[:notice] = t("controller.successfully_deleted", model: t("activerecord.models.realize"))
         case
         when @expression
           redirect_to expression_agents_url(@expression)

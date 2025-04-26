@@ -14,7 +14,7 @@ class NewsFeed < ApplicationRecord
 
   def fetch
     begin
-      feed = Faraday.get(url).body.force_encoding('UTF-8')
+      feed = Faraday.get(url).body.force_encoding("UTF-8")
       if RSS::Parser.parse(feed, false)
         self.body = feed
       end

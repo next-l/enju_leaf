@@ -204,7 +204,7 @@ describe ImportRequestsController do
         end
       end
       it "should import without errors", vcr: true do
-        expect{ post :create, params: { import_request: { isbn: "0744521815" } } }.not_to raise_error
+        expect { post :create, params: { import_request: { isbn: "0744521815" } } }.not_to raise_error
       end
     end
 

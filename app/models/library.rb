@@ -2,9 +2,9 @@ class Library < ApplicationRecord
   include MasterModel
   include EnjuEvent::EnjuLibrary
 
-  default_scope { order('libraries.position') }
-  scope :real, -> { where('id != 1') }
-  has_many :shelves, -> { order('shelves.position') }, dependent: :destroy, inverse_of: :library
+  default_scope { order("libraries.position") }
+  scope :real, -> { where("id != 1") }
+  has_many :shelves, -> { order("shelves.position") }, dependent: :destroy, inverse_of: :library
   belongs_to :library_group
   has_many :profiles, dependent: :restrict_with_exception
   belongs_to :country, optional: true
@@ -66,14 +66,14 @@ class Library < ApplicationRecord
     has_many :events, dependent: :restrict_with_exception
 
     def closed?(date)
-      events.closing_days.map{ |c|
+      events.closing_days.map { |c|
         c.start_at.beginning_of_day
       }.include?(date.beginning_of_day)
     end
   end
 
   if defined?(EnjuInterLibraryLoan)
-    has_many :inter_library_loans, foreign_key: 'borrowing_library_id', inverse_of: :library, dependent: :restrict_with_exception
+    has_many :inter_library_loans, foreign_key: "borrowing_library_id", inverse_of: :library, dependent: :restrict_with_exception
   end
 end
 

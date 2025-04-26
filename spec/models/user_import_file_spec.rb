@@ -21,7 +21,7 @@ describe UserImportFile do
       old_users_count = User.count
       old_import_results_count = UserImportResult.count
       file.current_state.should eq 'pending'
-      file.import_start.should eq({user_imported: 5, user_found: 0, failed: 0, error: 3})
+      file.import_start.should eq({ user_imported: 5, user_found: 0, failed: 0, error: 3 })
       User.order('id DESC')[1].username.should eq 'user005'
       User.order('id DESC')[2].username.should eq 'user003'
       User.count.should eq old_users_count + 5
@@ -91,7 +91,7 @@ describe UserImportFile do
       old_users_count = User.count
       old_import_results_count = UserImportResult.count
       @file.user = User.where(username: 'librarian1').first
-      @file.import_start.should eq({user_imported: 4, user_found: 0, failed: 1, error: 3})
+      @file.import_start.should eq({ user_imported: 4, user_found: 0, failed: 1, error: 3 })
       User.order('id DESC')[1].username.should eq 'user005'
       User.count.should eq old_users_count + 4
       UserImportResult.count.should eq old_import_results_count + 10

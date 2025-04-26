@@ -215,14 +215,14 @@ describe EventExportFilesController do
       login_fixture_user
 
       it "should not update event_export_file" do
-        put :update, params: { id: event_export_files(:event_export_file_00003).id, event_export_file: { } }
+        put :update, params: { id: event_export_files(:event_export_file_00003).id, event_export_file: {} }
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "should not update event_export_file" do
-        put :update, params: { id: event_export_files(:event_export_file_00003).id, event_export_file: { } }
+        put :update, params: { id: event_export_files(:event_export_file_00003).id, event_export_file: {} }
         response.should redirect_to new_user_session_url
       end
     end

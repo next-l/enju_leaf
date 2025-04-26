@@ -8,10 +8,10 @@ module EnjuBookmark
 
       searchable do
         string :tag, multiple: true do
-          bookmarks.map{|bookmark| bookmark.tag_list}.flatten
+          bookmarks.map { |bookmark| bookmark.tag_list }.flatten
         end
         text :tag do
-          bookmarks.map{|bookmark| bookmark.tag_list}.flatten
+          bookmarks.map { |bookmark| bookmark.tag_list }.flatten
         end
       end
     end
@@ -22,7 +22,7 @@ module EnjuBookmark
     end
 
     def tags
-      bookmarks.map{|bookmark| bookmark.tags}.flatten
+      bookmarks.map { |bookmark| bookmark.tags }.flatten
     end
   end
 end

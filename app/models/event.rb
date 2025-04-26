@@ -1,15 +1,15 @@
 class Event < ApplicationRecord
-  scope :closing_days, -> { includes(:event_category).where('event_categories.name' => 'closed') }
-  scope :on, lambda {|datetime|
-    where('start_at >= ? AND start_at < ?', datetime.beginning_of_day, datetime.tomorrow.beginning_of_day + 1)
+  scope :closing_days, -> { includes(:event_category).where("event_categories.name" => "closed") }
+  scope :on, lambda { |datetime|
+    where("start_at >= ? AND start_at < ?", datetime.beginning_of_day, datetime.tomorrow.beginning_of_day + 1)
   }
-  scope :past, lambda {|datetime|
-    where('end_at <= ?', Time.zone.parse(datetime).beginning_of_day)
+  scope :past, lambda { |datetime|
+    where("end_at <= ?", Time.zone.parse(datetime).beginning_of_day)
   }
-  scope :upcoming, lambda {|datetime|
-    where('start_at >= ?', Time.zone.parse(datetime).beginning_of_day)
+  scope :upcoming, lambda { |datetime|
+    where("start_at >= ?", Time.zone.parse(datetime).beginning_of_day)
   }
-  scope :at, lambda {|library|
+  scope :at, lambda { |library|
     where(library_id: library.id)
   }
 
@@ -65,13 +65,13 @@ class Event < ApplicationRecord
 
   # CSVのヘッダ
   # @param [String] role 権限
-  def self.csv_header(role: 'Guest')
+  def self.csv_header(role: "Guest")
     Event.new.to_hash(role: role).keys
   end
 
   # CSV出力用のハッシュ
   # @param [String] role 権限
-  def to_hash(role: 'Guest')
+  def to_hash(role: "Guest")
     record = {
       name: name,
       display_name: display_name,
@@ -91,8 +91,8 @@ class Event < ApplicationRecord
   # TSVでのエクスポート
   # @param [String] role 権限
   # @param [String] col_sep 区切り文字
-  def self.export(role: 'Guest', col_sep: "\t")
-    Tempfile.create('event_export') do |f|
+  def self.export(role: "Guest", col_sep: "\t")
+    Tempfile.create("event_export") do |f|
       f.write Event.csv_header(role: role).to_csv(col_sep: col_sep)
       Event.find_each do |event|
         f.write event.to_hash(role: role).values.to_csv(col_sep: col_sep)

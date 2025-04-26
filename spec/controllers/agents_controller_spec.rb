@@ -342,19 +342,19 @@ describe AgentsController do
         it 'should create a relationship if work_id is set' do
           post :create, params: { agent: @attrs, work_id: 1 }
           expect(response).to redirect_to(agent_url(assigns(:agent)))
-          assigns(:agent).works.should eq [Manifestation.find(1)]
+          assigns(:agent).works.should eq [ Manifestation.find(1) ]
         end
 
         it 'should create a relationship if manifestation_id is set' do
           post :create, params: { agent: @attrs, manifestation_id: 1 }
           expect(response).to redirect_to(agent_url(assigns(:agent)))
-          assigns(:agent).manifestations.should eq [Manifestation.find(1)]
+          assigns(:agent).manifestations.should eq [ Manifestation.find(1) ]
         end
 
         it 'should create a relationship if item_id is set' do
           post :create, params: { agent: @attrs, item_id: 1 }
           expect(response).to redirect_to(agent_url(assigns(:agent)))
-          assigns(:agent).items.should eq [Item.find(1)]
+          assigns(:agent).items.should eq [ Item.find(1) ]
         end
       end
 

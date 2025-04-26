@@ -1,10 +1,10 @@
 class ResourceImportResultPolicy < ApplicationPolicy
   def index?
-    true if user.try(:has_role?, 'Librarian')
+    true if user.try(:has_role?, "Librarian")
   end
 
   def show?
-    true if user.try(:has_role?, 'Librarian')
+    true if user.try(:has_role?, "Librarian")
   end
 
   def destroy?

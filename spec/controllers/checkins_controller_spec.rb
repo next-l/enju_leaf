@@ -364,7 +364,7 @@ describe CheckinsController do
         assigns(:checkin).should_not be_valid
         expect(response).to have_http_status(:unprocessable_entity)
         json = JSON.parse(response.body)
-        expect(json['messages']['base']).to match_array([I18n.t('checkin.item_not_found')])
+        expect(json['messages']['base']).to match_array([ I18n.t('checkin.item_not_found') ])
       end
     end
 

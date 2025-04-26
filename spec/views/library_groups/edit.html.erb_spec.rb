@@ -5,7 +5,7 @@ describe "library_groups/edit" do
 
   before(:each) do
     @library_group = LibraryGroup.site_config
-    @available_languages = Language.where(iso_639_1: I18n.available_locales.map{|l| l.to_s})
+    @available_languages = Language.where(iso_639_1: I18n.available_locales.map {|l| l.to_s})
     @countries = Country.all
   end
 

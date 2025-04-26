@@ -4,7 +4,7 @@ describe "manifestations/index.text.ruby" do
   before(:each) do
     manifestation = FactoryBot.create(:manifestation)
     manifestation.items << FactoryBot.create(:item, bookstore_id: 1, budget_type_id: 1, price: 100)
-    @manifestations = assign(:manifestations, [manifestation] )
+    @manifestations = assign(:manifestations, [ manifestation ] )
   end
 
   it "should excludes librarian specific fields" do

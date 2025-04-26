@@ -1,6 +1,6 @@
 class SubjectTypesController < ApplicationController
-  before_action :set_subject_type, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_subject_type, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /subject_types
   # GET /subject_types.json
@@ -36,7 +36,7 @@ class SubjectTypesController < ApplicationController
 
     respond_to do |format|
       if @subject_type.save
-        format.html { redirect_to @subject_type, notice:  t('controller.successfully_created', model: t('activerecord.models.subject_type')) }
+        format.html { redirect_to @subject_type, notice:  t("controller.successfully_created", model: t("activerecord.models.subject_type")) }
         format.json { render json: @subject_type, status: :created, location: @subject_type }
       else
         format.html { render action: "new" }
@@ -55,7 +55,7 @@ class SubjectTypesController < ApplicationController
 
     respond_to do |format|
       if @subject_type.update(subject_type_params)
-        format.html { redirect_to @subject_type, notice:  t('controller.successfully_updated', model: t('activerecord.models.subject_type')) }
+        format.html { redirect_to @subject_type, notice:  t("controller.successfully_updated", model: t("activerecord.models.subject_type")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -70,7 +70,7 @@ class SubjectTypesController < ApplicationController
     @subject_type.destroy
 
     respond_to do |format|
-      format.html { redirect_to subject_types_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.subject_type')) }
+      format.html { redirect_to subject_types_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.subject_type")) }
       format.json { head :no_content }
     end
   end

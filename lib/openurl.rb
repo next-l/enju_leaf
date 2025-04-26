@@ -9,41 +9,41 @@ class OpenurlQuerySyntaxError < RuntimeError; end
 #-------------------------------------------
 class Openurl
   # 一致条件ごとの分類
-  MATCH_EXACT = [:ndl_dpid] # 完全一致
-  MATCH_PART = [:aulast, :aufirst, :au, :title, :atitle, :jtitle, :btitle, :pub] # 部分一致
-  MATCH_AHEAD = [:issn, :isbn, :ndl_jpno] # 前方一致
+  MATCH_EXACT = [ :ndl_dpid ] # 完全一致
+  MATCH_PART = [ :aulast, :aufirst, :au, :title, :atitle, :jtitle, :btitle, :pub ] # 部分一致
+  MATCH_AHEAD = [ :issn, :isbn, :ndl_jpno ] # 前方一致
 
   # ある項目に対して複数語指定時の検索方法ごとの分類
-  LOGIC_MULTI_AND = [:au, :title, :atitle, :jtitle, :btitle, :pub] # AND検索
-  LOGIC_MULTI_OR = [:ndl_dpid] # OR検索
+  LOGIC_MULTI_AND = [ :au, :title, :atitle, :jtitle, :btitle, :pub ] # AND検索
+  LOGIC_MULTI_OR = [ :ndl_dpid ] # OR検索
 
   # 桁チェックが必要な項目
-  NUM_CHECK = {issn: 8, isbn: 13}
+  NUM_CHECK = { issn: 8, isbn: 13 }
 
   # 集約される項目
-  SYNONYMS = [:title, :aulast, :aufirst]
+  SYNONYMS = [ :title, :aulast, :aufirst ]
 
   # enjuのフィールド名（検索用）管理
-  ENJU_FIELD = {aulast: 'au_text', # aulast=au
-                aufirst: 'au_text', # aufirst=au
-                au: 'au_text',
-                title: 'btitle_text',  # title=btitle
-                atitle: 'atitle_text',
-                btitle: 'btitle_text',
-                jtitle: 'jtitle_text',
-                pub: 'publisher_text',
-                issn: 'issn_sm',
-                isbn: 'isbn_sm',
-                ndl_jpno: 'ndl_jpno_text', # TODO: 現在対応項目はないので保留。
-                ndl_dpid: 'ndl_dpid_sm',   # TODO: 現在対応項目はないので保留。これのみ完全一致であることに注意。
-                associate: ''              # TODO: フィールド名ではないので削除？
+  ENJU_FIELD = { aulast: "au_text", # aulast=au
+                aufirst: "au_text", # aufirst=au
+                au: "au_text",
+                title: "btitle_text",  # title=btitle
+                atitle: "atitle_text",
+                btitle: "btitle_text",
+                jtitle: "jtitle_text",
+                pub: "publisher_text",
+                issn: "issn_sm",
+                isbn: "isbn_sm",
+                ndl_jpno: "ndl_jpno_text", # TODO: 現在対応項目はないので保留。
+                ndl_dpid: "ndl_dpid_sm",   # TODO: 現在対応項目はないので保留。これのみ完全一致であることに注意。
+                associate: ""              # TODO: フィールド名ではないので削除？
   }
 
   def initialize(params)
     # @openurl_queryに検索項目ごとの検索文を格納
     if params.key?(:any)
       # anyの場合は他に条件が指定されていても無視
-      @openurl_query = [params[:any].strip]
+      @openurl_query = [ params[:any].strip ]
     else
       @openurl_query = to_sunspot(params)
     end
@@ -94,9 +94,9 @@ class Openurl
   def to_sunspot_match_exact(field, val)
     # 途中に空白がある場合は複数語が指定されているとみなし、ORでつなぐ。
     if /\s+/ =~ val
-      "%s:%s" % [field, val.gsub(/\s+/, ' OR ')]
+      "%s:%s" % [ field, val.gsub(/\s+/, " OR ") ]
     else
-      "%s:%s" % [field, val]
+      "%s:%s" % [ field, val ]
     end
   end
 
@@ -108,12 +108,12 @@ class Openurl
     # 途中に空白がある場合は複数語が指定されているとみなし、ANDでつなぐ。
     if /\s+/ =~ val
       if LOGIC_MULTI_AND.include?(key)
-        "%s:(%s)" % [field, val.gsub(/\s+/, ' AND ')]
+        "%s:(%s)" % [ field, val.gsub(/\s+/, " AND ") ]
       else
         raise OpenurlQuerySyntaxError, "the key \"#{key}\" not allow multi words"
       end
     else
-      "%s:%s" % [field, val]  # fieldに対して語が１つならばこれ
+      "%s:%s" % [ field, val ]  # fieldに対して語が１つならばこれ
     end
   end
 
@@ -123,12 +123,12 @@ class Openurl
     # 数値でない文字列には空白がある場合も含むので複数指定はエラーとなる
     # このチェックはANY検索の時外す
     if NUM_CHECK.include?(key)
-      if [:issn, :isbn].include?(key.to_sym)
-        val.gsub!('-', '')
+      if [ :issn, :isbn ].include?(key.to_sym)
+        val.gsub!("-", "")
       end
       raise OpenurlQuerySyntaxError unless /\A\d{1,#{NUM_CHECK[key]}}X?\Z/i =~ val
     end
-    "%s:%s*" % [field, val]
+    "%s:%s*" % [ field, val ]
   end
 
   # au項目の統合
@@ -149,7 +149,7 @@ class Openurl
     end
     if au_flg
       if au_item.size > 1
-        str = str + "(%s)" % [au_item.join(' AND ')]
+        str = str + "(%s)" % [ au_item.join(" AND ") ]
       else
         str += au_item[0]
       end

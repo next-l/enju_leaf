@@ -1,7 +1,7 @@
 class CheckoutsController < ApplicationController
-  before_action :set_checkout, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :remove_all]
-  before_action :get_user, only: [:index, :remove_all]
+  before_action :set_checkout, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :remove_all ]
+  before_action :get_user, only: [ :index, :remove_all ]
   before_action :get_item, only: :index
   after_action :convert_charset, only: :index
 
@@ -13,7 +13,7 @@ class CheckoutsController < ApplicationController
       if icalendar_user.blank?
         raise ActiveRecord::RecordNotFound
       else
-        @checkouts = icalendar_user.checkouts.not_returned.order('checkouts.id DESC')
+        @checkouts = icalendar_user.checkouts.not_returned.order("checkouts.id DESC")
       end
     else
       unless current_user
@@ -22,7 +22,7 @@ class CheckoutsController < ApplicationController
       end
     end
 
-    if ['text', 'rss'].include?(params[:format].to_s.downcase)
+    if [ "text", "rss" ].include?(params[:format].to_s.downcase)
       per_page = 500
       page = 1
     else
@@ -34,7 +34,7 @@ class CheckoutsController < ApplicationController
       search = Checkout.search
       if @user
         user = @user
-        if current_user.try(:has_role?, 'Librarian')
+        if current_user.try(:has_role?, "Librarian")
           search.build do
             with(:username).equal_to user.username
           end
@@ -46,7 +46,7 @@ class CheckoutsController < ApplicationController
           return
         end
       else
-        unless current_user.try(:has_role?, 'Librarian')
+        unless current_user.try(:has_role?, "Librarian")
           search.build do
             with(:username).equal_to current_user.username
             unless current_user.profile.save_checkout_history?
@@ -73,9 +73,9 @@ class CheckoutsController < ApplicationController
       end
 
       if params[:reserved].present?
-        if params[:reserved] == 'true'
+        if params[:reserved] == "true"
           @reserved = reserved = true
-        elsif params[:reserved] == 'false'
+        elsif params[:reserved] == "false"
           @reserved = reserved = false
         end
         search.build do
@@ -124,7 +124,7 @@ class CheckoutsController < ApplicationController
 
     respond_to do |format|
       if @checkout.save
-        format.html { redirect_to @checkout, notice: t('controller.successfully_updated', model: t('activerecord.models.checkout')) }
+        format.html { redirect_to @checkout, notice: t("controller.successfully_updated", model: t("activerecord.models.checkout")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -142,14 +142,14 @@ class CheckoutsController < ApplicationController
     @checkout.save!
 
     respond_to do |format|
-      format.html { redirect_to checkouts_url(user_id: user.username), notice: t('controller.successfully_deleted', model: t('activerecord.models.checkout')) }
+      format.html { redirect_to checkouts_url(user_id: user.username), notice: t("controller.successfully_deleted", model: t("activerecord.models.checkout")) }
       format.json { head :no_content }
     end
   end
 
   def remove_all
     if @user
-      unless current_user.has_role?('Librarian')
+      unless current_user.has_role?("Librarian")
         if @user != current_user
           access_denied
           return
@@ -159,7 +159,7 @@ class CheckoutsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to checkouts_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.checkout')) }
+      format.html { redirect_to checkouts_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.checkout")) }
       format.json { head :no_content }
     end
   end

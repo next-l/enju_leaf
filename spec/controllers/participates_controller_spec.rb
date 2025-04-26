@@ -166,7 +166,7 @@ describe ParticipatesController do
   describe "POST create" do
     before(:each) do
       @attrs = valid_attributes
-      @invalid_attrs = {event_id: ''}
+      @invalid_attrs = { event_id: '' }
     end
 
     describe "When logged in as Administrator" do
@@ -284,7 +284,7 @@ describe ParticipatesController do
     before(:each) do
       @participate = FactoryBot.create(:participate)
       @attrs = valid_attributes
-      @invalid_attrs = {event_id: ''}
+      @invalid_attrs = { event_id: '' }
     end
 
     describe "When logged in as Administrator" do

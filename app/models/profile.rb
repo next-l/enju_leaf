@@ -1,11 +1,11 @@
 class Profile < ApplicationRecord
   include EnjuCirculation::EnjuProfile
-  scope :administrators, -> { joins(user: :role).where('roles.name = ?', 'Administrator') }
-  scope :librarians, -> { joins(user: :role).where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian') }
+  scope :administrators, -> { joins(user: :role).where("roles.name = ?", "Administrator") }
+  scope :librarians, -> { joins(user: :role).where("roles.name = ? OR roles.name = ?", "Administrator", "Librarian") }
   belongs_to :user, optional: true
   belongs_to :library
   belongs_to :user_group
-  belongs_to :required_role, class_name: 'Role'
+  belongs_to :required_role, class_name: "Role"
   has_many :identities, dependent: :destroy
   has_many :agents, dependent: :nullify
   accepts_nested_attributes_for :identities, allow_destroy: true, reject_if: :all_blank
@@ -49,7 +49,7 @@ class Profile < ApplicationRecord
   # 既定のユーザ権限を設定します。
   # @return [void]
   def set_role_and_agent
-    self.required_role = Role.find_by(name: 'Librarian') unless required_role
+    self.required_role = Role.find_by(name: "Librarian") unless required_role
     self.locale = I18n.default_locale.to_s unless locale
   end
 

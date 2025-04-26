@@ -1,18 +1,18 @@
 class BookmarksController < ApplicationController
-  before_action :set_bookmark, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_bookmark, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
   before_action :get_user, only: :index
 
   # GET /bookmarks
   # GET /bookmarks.json
   def index
-    search = Bookmark.search(include: [:manifestation])
+    search = Bookmark.search(include: [ :manifestation ])
     query = params[:query].to_s.strip
     if query.present?
       @query = query.dup
     end
     user = @user
-    unless current_user.has_role?('Librarian')
+    unless current_user.has_role?("Librarian")
       if user and user != current_user and !user.profile.try(:share_bookmarks)
         access_denied; return
       end
@@ -55,7 +55,7 @@ class BookmarksController < ApplicationController
     manifestation = @bookmark.get_manifestation
     if manifestation
       if manifestation.bookmarked?(current_user)
-        flash[:notice] = t('bookmark.already_bookmarked')
+        flash[:notice] = t("bookmark.already_bookmarked")
         redirect_to manifestation
         return
       end
@@ -77,11 +77,11 @@ class BookmarksController < ApplicationController
     respond_to do |format|
       if @bookmark.save
         @bookmark.tag_index!
-        if params[:mode] == 'tag_edit'
-          format.html { redirect_to @bookmark.manifestation , notice: t('controller.successfully_created', model: t('activerecord.models.bookmark')) }
+        if params[:mode] == "tag_edit"
+          format.html { redirect_to @bookmark.manifestation, notice: t("controller.successfully_created", model: t("activerecord.models.bookmark")) }
           format.json { render json: @bookmark, status: :created, location: @bookmark }
         else
-          format.html { redirect_to @bookmark , notice: t('controller.successfully_created', model: t('activerecord.models.bookmark')) }
+          format.html { redirect_to @bookmark, notice: t("controller.successfully_created", model: t("activerecord.models.bookmark")) }
           format.json { render json: @bookmark, status: :created, location: @bookmark }
         end
       else
@@ -107,11 +107,11 @@ class BookmarksController < ApplicationController
       if @bookmark.update(bookmark_params)
         @bookmark.tag_index!
         case params[:mode]
-        when 'tag_edit'
-          format.html { redirect_to @bookmark.manifestation, notice: t('controller.successfully_updated', model: t('activerecord.models.bookmark')) }
+        when "tag_edit"
+          format.html { redirect_to @bookmark.manifestation, notice: t("controller.successfully_updated", model: t("activerecord.models.bookmark")) }
           format.json { head :no_content }
         else
-          format.html { redirect_to @bookmark, notice: t('controller.successfully_updated', model: t('activerecord.models.bookmark')) }
+          format.html { redirect_to @bookmark, notice: t("controller.successfully_updated", model: t("activerecord.models.bookmark")) }
           format.json { head :no_content }
         end
       else
@@ -128,12 +128,12 @@ class BookmarksController < ApplicationController
 
     if @user
       respond_to do |format|
-        format.html { redirect_to bookmarks_url(user_id: @user.username), notice: t('controller.successfully_deleted', model: t('activerecord.models.bookmark')) }
+        format.html { redirect_to bookmarks_url(user_id: @user.username), notice: t("controller.successfully_deleted", model: t("activerecord.models.bookmark")) }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to bookmarks_url(user_id: @bookmark.user.username), notice: t('controller.successfully_deleted', model: t('activerecord.models.bookmark')) }
+        format.html { redirect_to bookmarks_url(user_id: @bookmark.user.username), notice: t("controller.successfully_deleted", model: t("activerecord.models.bookmark")) }
         format.json { head :no_content }
       end
     end

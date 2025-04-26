@@ -19,31 +19,30 @@ http_interactions:
       message: '200'
     headers:
       Date:
-      - Sun, 18 Aug 2024 01:38:30 GMT
+      - Sat, 05 Feb 2022 08:06:54 GMT
       Content-Type:
       - application/rss+xml;charset=UTF-8
-      Transfer-Encoding:
-      - chunked
       Connection:
       - keep-alive
-      Server:
-      - Apache
       Access-Control-Allow-Origin:
       - "*"
-      Vary:
-      - Accept-Encoding
       X-Frame-Options:
       - SAMEORIGIN
+      Set-Cookie:
+      - TS01b7c0b3=01bdee8456e14a386f8052855a56c041ee03c282a0a7df33cd2fc6cbfdb0519ba7ce732d9a455a9ec9e91070688ac99c5c9279f305;
+        Path=/
+      Transfer-Encoding:
+      - chunked
     body:
-      encoding: ASCII-8BIT
+      encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8"?><rdf:RDF xml:lang="ja" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:cinii="http://ci.nii.ac.jp/ns/1.0/" xmlns="http://purl.org/rss/1.0/">
         <channel rdf:about="https://ci.nii.ac.jp/books/opensearch/search?p=1&amp;q=library&amp;count=10&amp;format=rss">
         <title>CiNii Books OpenSearch - 1 library 10</title>
         <description>CiNii Books OpenSearch - 1 library 10</description>
         <link>https://ci.nii.ac.jp/books/opensearch/search?p=1&amp;q=library&amp;count=10&amp;format=rss</link>
-        <dc:date>2024-08-18T10:38:30+09:00</dc:date>
-        <opensearch:totalResults>190170</opensearch:totalResults>
+        <dc:date>2022-02-05T17:06:54+09:00</dc:date>
+        <opensearch:totalResults>185060</opensearch:totalResults>
         <opensearch:startIndex>0</opensearch:startIndex>
         <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
         <items>
@@ -52,11 +51,11 @@ http_interactions:
         <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA21367696"/>
         <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA8523466X"/>
         <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA85231592"/>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/AA00039103"/>
         <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BB23724204"/>
         <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BB08423246"/>
         <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA71932023"/>
         <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA71931122"/>
+        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/AA00039103"/>
         <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BB26309402"/>
         </rdf:Seq>
         </items>
@@ -100,17 +99,6 @@ http_interactions:
         <dc:date>1967</dc:date>
         <cinii:ownerCount>1</cinii:ownerCount>
         </item>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/AA00039103">
-        <title>Asian bibliography</title>
-        <link>https://ci.nii.ac.jp/ncid/AA00039103</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/AA00039103.rdf"/>
-        <dc:creator/>
-        <dc:publisher>Economic Commission for Asia and the Far East Library</dc:publisher>
-        <prism:publicationDate>1952</prism:publicationDate>
-        <dc:date>1952</dc:date>
-        <dcterms:hasPart rdf:resource="urn:issn:04979400"/>
-        <cinii:ownerCount>12</cinii:ownerCount>
-        </item>
         <item rdf:about="https://ci.nii.ac.jp/ncid/BB23724204">
         <title>A journey around the world mind</title>
         <link>https://ci.nii.ac.jp/ncid/BB23724204</link>
@@ -120,7 +108,7 @@ http_interactions:
         <prism:publicationDate>2010</prism:publicationDate>
         <dc:date>2010</dc:date>
         <dcterms:hasPart rdf:resource="urn:isbn:9780902205666"/>
-        <cinii:ownerCount>3</cinii:ownerCount>
+        <cinii:ownerCount>2</cinii:ownerCount>
         </item>
         <item rdf:about="https://ci.nii.ac.jp/ncid/BB08423246">
         <title>The University library Cambridge</title>
@@ -160,6 +148,17 @@ http_interactions:
         <dcterms:hasPart rdf:resource="urn:isbn:0816103976"/>
         <cinii:ownerCount>1</cinii:ownerCount>
         </item>
+        <item rdf:about="https://ci.nii.ac.jp/ncid/AA00039103">
+        <title>Asian bibliography</title>
+        <link>https://ci.nii.ac.jp/ncid/AA00039103</link>
+        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/AA00039103.rdf"/>
+        <dc:creator/>
+        <dc:publisher>Economic Commission for Asia and the Far East Library</dc:publisher>
+        <prism:publicationDate>1952</prism:publicationDate>
+        <dc:date>1952</dc:date>
+        <dcterms:hasPart rdf:resource="urn:issn:04979400"/>
+        <cinii:ownerCount>12</cinii:ownerCount>
+        </item>
         <item rdf:about="https://ci.nii.ac.jp/ncid/BB26309402">
         <title>Buddhist Sanskrit manuscripts as fimed [i.e. filmed] by Cambridge University Library</title>
         <link>https://ci.nii.ac.jp/ncid/BB26309402</link>
@@ -169,5 +168,5 @@ http_interactions:
         <cinii:ownerCount>0</cinii:ownerCount>
         </item>
         </rdf:RDF>
-  recorded_at: Sun, 18 Aug 2024 01:38:30 GMT
-recorded_with: VCR 6.2.0
+  recorded_at: Sat, 05 Feb 2022 08:06:54 GMT
+recorded_with: VCR 6.0.0

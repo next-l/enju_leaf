@@ -197,7 +197,7 @@ describe LocSearch do
     it "should construct a valid uri" do
       url = LocSearch.make_sru_request_uri("test")
       uri = URI.parse(url)
-      expect(Hash[uri.query.split(/\&/).collect{|e| e.split(/=/) }]).to eq({
+      expect(Hash[uri.query.split(/\&/).collect {|e| e.split(/=/) }]).to eq({
         "query" => "test",
         "version" => "1.1",
         "operation" => "searchRetrieve",
@@ -209,7 +209,7 @@ describe LocSearch do
     it "should support pagination" do
       url = LocSearch.make_sru_request_uri("test", page: 2)
       uri = URI.parse(url)
-      expect(Hash[uri.query.split(/\&/).collect{|e| e.split(/=/) }]).to eq({
+      expect(Hash[uri.query.split(/\&/).collect {|e| e.split(/=/) }]).to eq({
         "query" => "test",
         "version" => "1.1",
         "operation" => "searchRetrieve",

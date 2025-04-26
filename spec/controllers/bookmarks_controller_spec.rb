@@ -159,17 +159,17 @@ describe BookmarksController do
       end
 
       it "should not get new template with url already bookmarked" do
-        get :new, params: { bookmark: {url: 'http://www.slis.keio.ac.jp/'} }
+        get :new, params: { bookmark: { url: 'http://www.slis.keio.ac.jp/' } }
         expect(response).to be_successful
       end
 
       it "should get my new template with external url" do
-        get :new, params: { bookmark: {title: 'example', url: 'http://example.com'} }
+        get :new, params: { bookmark: { title: 'example', url: 'http://example.com' } }
         expect(response).to be_successful
       end
 
       it "should get my new template with internal url" do
-        get :new, params: { bookmark: {url: "#{LibraryGroup.site_config.url}/manifestations/1"} }
+        get :new, params: { bookmark: { url: "#{LibraryGroup.site_config.url}/manifestations/1" } }
         expect(response).to be_successful
       end
     end
@@ -223,7 +223,7 @@ describe BookmarksController do
     before(:each) do
       @bookmark = bookmarks(:bookmark_00001)
       @attrs = FactoryBot.attributes_for(:bookmark)
-      @invalid_attrs = {url: ''}
+      @invalid_attrs = { url: '' }
     end
 
     describe "When logged in as User" do
@@ -234,21 +234,21 @@ describe BookmarksController do
       #      end
 
       it "should create bookmark" do
-        post :create, params: { bookmark: {title: 'example', url: 'http://www1.example.com/'} }
+        post :create, params: { bookmark: { title: 'example', url: 'http://www1.example.com/' } }
         assigns(:bookmark).save!
         expect(response).to redirect_to bookmark_url(assigns(:bookmark))
       end
 
       it "should create bookmark with local url" do
-        post :create, params: { bookmark: {title: 'example', url: "#{LibraryGroup.site_config.url}manifestations/10"} }
+        post :create, params: { bookmark: { title: 'example', url: "#{LibraryGroup.site_config.url}manifestations/10" } }
         expect(assigns(:bookmark)).to be_valid
         expect(response).to redirect_to bookmark_url(assigns(:bookmark))
       end
 
       it "should create bookmark with tag_list" do
         old_tag_count = Tag.count
-        post :create, params: { bookmark: {tag_list: 'search', title: 'example', url: 'http://example.com/'} }
-        assigns(:bookmark).tag_list.should eq ['search']
+        post :create, params: { bookmark: { tag_list: 'search', title: 'example', url: 'http://example.com/' } }
+        assigns(:bookmark).tag_list.should eq [ 'search' ]
         assigns(:bookmark).taggings.size.should eq 1
         Tag.count.should eq old_tag_count + 1
         expect(response).to redirect_to bookmark_url(assigns(:bookmark))
@@ -256,26 +256,26 @@ describe BookmarksController do
 
       it "should create bookmark with tag_list include wide space" do
         old_tag_count = Tag.count
-        post :create, params: { bookmark: {tag_list: 'タグの　テスト', title: 'example', url: 'http://example.com/'} }
+        post :create, params: { bookmark: { tag_list: 'タグの　テスト', title: 'example', url: 'http://example.com/' } }
         Tag.count.should eq old_tag_count + 2
         expect(response).to redirect_to bookmark_url(assigns(:bookmark))
       end
 
       it "should not create bookmark without url" do
-        post :create, params: { bookmark: {title: 'test'} }
+        post :create, params: { bookmark: { title: 'test' } }
         expect(assigns(:bookmark)).not_to be_valid
         expect(response).to be_successful
       end
 
       it "should not create bookmark already bookmarked" do
-        post :create, params: { bookmark: {user_id: users(:user1).id, url: 'http://www.slis.keio.ac.jp/'} }
+        post :create, params: { bookmark: { user_id: users(:user1).id, url: 'http://www.slis.keio.ac.jp/' } }
         expect(assigns(:bookmark)).not_to be_valid
         expect(response).to be_successful
       end
 
       it "should not create other user's bookmark" do
         old_bookmark_counts = users(:user2).bookmarks.count
-        post :create, params: { bookmark: {user_id: users(:user2).id, title: 'example', url: 'http://example.com/'} }
+        post :create, params: { bookmark: { user_id: users(:user2).id, title: 'example', url: 'http://example.com/' } }
         users(:user2).bookmarks.count.should eq old_bookmark_counts
         assigns(:bookmark).user.should eq users(:user1)
         expect(response).to redirect_to bookmark_url(assigns(:bookmark))
@@ -313,7 +313,7 @@ describe BookmarksController do
     before(:each) do
       @bookmark = bookmarks(:bookmark_00001)
       @attrs = FactoryBot.attributes_for(:bookmark)
-      @invalid_attrs = {url: ''}
+      @invalid_attrs = { url: '' }
     end
 
     describe "When logged in as Administrator" do
@@ -399,31 +399,31 @@ describe BookmarksController do
       end
 
       it "should add tags to bookmark" do
-        put :update, params: { id: 3, bookmark: {user_id: users(:user1).id, tag_list: 'search', title: 'test'} }
+        put :update, params: { id: 3, bookmark: { user_id: users(:user1).id, tag_list: 'search', title: 'test' } }
         expect(response).to redirect_to bookmark_url(assigns(:bookmark))
-        assigns(:bookmark).tag_list.should eq ['search']
+        assigns(:bookmark).tag_list.should eq [ 'search' ]
       end
 
       it "should remove tags from bookmark" do
-        put :update, params: { id: 3, bookmark: {user_id: users(:user1).id, tag_list: nil, title: 'test'} }
+        put :update, params: { id: 3, bookmark: { user_id: users(:user1).id, tag_list: nil, title: 'test' } }
         expect(response).to redirect_to bookmark_url(assigns(:bookmark))
         assigns(:bookmark).tag_list.should be_empty
       end
 
       it "should not update other user's bookmark" do
-        put :update, params: { id: 1, bookmark: { } }
+        put :update, params: { id: 1, bookmark: {} }
         expect(response).to be_forbidden
       end
 
       it "should not update missing bookmark" do
-        lambda{
-          put :update, params: { id: 'missing', bookmark: { } }
+        lambda {
+          put :update, params: { id: 'missing', bookmark: {} }
         }.should raise_error(ActiveRecord::RecordNotFound)
         # expect(response).to be_missing
       end
 
       it "should update bookmark without manifestation_id" do
-        put :update, params: { id: 3, bookmark: {manifestation_id: nil} }
+        put :update, params: { id: 3, bookmark: { manifestation_id: nil } }
         expect(assigns(:bookmark)).to be_valid
         expect(response).to redirect_to bookmark_url(assigns(:bookmark))
         assigns(:bookmark).manifestation.should_not be_nil

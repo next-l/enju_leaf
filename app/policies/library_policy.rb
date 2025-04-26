@@ -8,15 +8,15 @@ class LibraryPolicy < ApplicationPolicy
   end
 
   def create?
-    true if user.try(:has_role?, 'Administrator')
+    true if user.try(:has_role?, "Administrator")
   end
 
   def update?
-    true if user.try(:has_role?, 'Administrator')
+    true if user.try(:has_role?, "Administrator")
   end
 
   def destroy?
-    if user.try(:has_role?, 'Administrator')
+    if user.try(:has_role?, "Administrator")
       if record.profiles.empty?
         true if record.shelves.empty? && !record.web?
       end

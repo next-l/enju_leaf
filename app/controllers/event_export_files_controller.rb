@@ -1,11 +1,11 @@
 class EventExportFilesController < ApplicationController
-  before_action :set_event_export_file, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_event_export_file, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /event_export_files
   # GET /event_export_files.json
   def index
-    @event_export_files = EventExportFile.order('id DESC').page(params[:page])
+    @event_export_files = EventExportFile.order("id DESC").page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -38,10 +38,10 @@ class EventExportFilesController < ApplicationController
 
     respond_to do |format|
       if @event_export_file.save
-        if @event_export_file.mode == 'export'
+        if @event_export_file.mode == "export"
           EventExportFileJob.perform_later(@event_export_file)
         end
-        format.html { redirect_to @event_export_file, notice: t('export.successfully_created', model: t('activerecord.models.event_export_file')) }
+        format.html { redirect_to @event_export_file, notice: t("export.successfully_created", model: t("activerecord.models.event_export_file")) }
         format.json { render json: @event_export_file, status: :created, location: @event_export_file }
       else
         format.html { render action: "new" }
@@ -55,10 +55,10 @@ class EventExportFilesController < ApplicationController
   def update
     respond_to do |format|
       if @event_export_file.update(event_export_file_params)
-        if @event_export_file.mode == 'export'
+        if @event_export_file.mode == "export"
           EventExportFileJob.perform_later(@event_export_file)
         end
-        format.html { redirect_to @event_export_file, notice: t('controller.successfully_updated', model: t('activerecord.models.event_export_file')) }
+        format.html { redirect_to @event_export_file, notice: t("controller.successfully_updated", model: t("activerecord.models.event_export_file")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

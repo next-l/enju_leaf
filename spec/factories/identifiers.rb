@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :identifier do
-    sequence(:body){|n| "identifier_body_#{n}"}
+    sequence(:body) {|n| "identifier_body_#{n}"}
     association :identifier_type
     association :manifestation
   end

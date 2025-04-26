@@ -3,13 +3,13 @@ class ImportRequest < ApplicationRecord
     transition_class: ImportRequestTransition,
     initial_state: ImportRequestStateMachine.initial_state
   ]
-  default_scope { order('import_requests.id DESC') }
+  default_scope { order("import_requests.id DESC") }
   belongs_to :manifestation, optional: true
   belongs_to :user
   validates :isbn, presence: true
   validate :check_isbn
-  #validate :check_imported, on: :create
-  #validates_uniqueness_of :isbn, if: Proc.new{|request| ImportRequest.where("created_at > ?", 1.day.ago).collect(&:isbn).include?(request.isbn)}
+  # validate :check_imported, on: :create
+  # validates_uniqueness_of :isbn, if: Proc.new{|request| ImportRequest.where("created_at > ?", 1.day.ago).collect(&:isbn).include?(request.isbn)}
 
   has_many :import_request_transitions, autosave: false, dependent: :destroy
 
@@ -30,13 +30,13 @@ class ImportRequest < ApplicationRecord
     if isbn.present?
       lisbn = Lisbn.new(isbn)
       if IsbnRecord.find_by(body: lisbn.isbn13)&.manifestations
-        errors.add(:isbn, I18n.t('import_request.isbn_taken'))
+        errors.add(:isbn, I18n.t("import_request.isbn_taken"))
       end
     end
   end
 
   def import!
-    exceptions = [ActiveRecord::RecordInvalid, NameError, URI::InvalidURIError]
+    exceptions = [ ActiveRecord::RecordInvalid, NameError, URI::InvalidURIError ]
     not_found_exceptions = []
     not_found_exceptions << EnjuNdl::RecordNotFound if defined? EnjuNdl
     not_found_exceptions << EnjuNii::RecordNotFound if defined? EnjuNii

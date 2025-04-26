@@ -1,6 +1,6 @@
 class Create < ApplicationRecord
   belongs_to :agent
-  belongs_to :work, class_name: 'Manifestation', touch: true
+  belongs_to :work, class_name: "Manifestation", touch: true
   belongs_to :create_type, optional: true
 
   validates :work_id, uniqueness: { scope: :agent_id }

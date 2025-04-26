@@ -1,9 +1,9 @@
 class Accept < ApplicationRecord
   include EnjuCirculation::EnjuAccept
-  default_scope { order('accepts.id DESC') }
+  default_scope { order("accepts.id DESC") }
   belongs_to :basket
   belongs_to :item, touch: true
-  belongs_to :librarian, class_name: 'User'
+  belongs_to :librarian, class_name: "User"
 
   validates :item_id, uniqueness: true # , message:  I18n.t('accept.already_accepted')
 

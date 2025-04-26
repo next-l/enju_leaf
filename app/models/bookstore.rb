@@ -1,5 +1,5 @@
 class Bookstore < ApplicationRecord
-  default_scope { order('bookstores.position') }
+  default_scope { order("bookstores.position") }
   has_many :items, dependent: :restrict_with_exception
 
   acts_as_list

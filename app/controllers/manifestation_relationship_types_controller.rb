@@ -1,6 +1,6 @@
 class ManifestationRelationshipTypesController < ApplicationController
-  before_action :set_manifestation_relationship_type, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_manifestation_relationship_type, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /manifestation_relationship_types
   # GET /manifestation_relationship_types.json
@@ -36,7 +36,7 @@ class ManifestationRelationshipTypesController < ApplicationController
 
     respond_to do |format|
       if @manifestation_relationship_type.save
-        format.html { redirect_to @manifestation_relationship_type, notice: t('controller.successfully_created', model: t('activerecord.models.manifestation_relationship_type')) }
+        format.html { redirect_to @manifestation_relationship_type, notice: t("controller.successfully_created", model: t("activerecord.models.manifestation_relationship_type")) }
         format.json { render json: @manifestation_relationship_type, status: :created, location: @manifestation_relationship_type }
       else
         format.html { render action: "new" }
@@ -55,7 +55,7 @@ class ManifestationRelationshipTypesController < ApplicationController
 
     respond_to do |format|
       if @manifestation_relationship_type.update(manifestation_relationship_type_params)
-        format.html { redirect_to @manifestation_relationship_type, notice: t('controller.successfully_updated', model: t('activerecord.models.manifestation_relationship_type')) }
+        format.html { redirect_to @manifestation_relationship_type, notice: t("controller.successfully_updated", model: t("activerecord.models.manifestation_relationship_type")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -70,7 +70,7 @@ class ManifestationRelationshipTypesController < ApplicationController
     @manifestation_relationship_type.destroy
 
     respond_to do |format|
-      format.html { redirect_to manifestation_relationship_types_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.manifestation_relationship_type')) }
+      format.html { redirect_to manifestation_relationship_types_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.manifestation_relationship_type")) }
       format.json { head :no_content }
     end
   end

@@ -88,6 +88,12 @@ reserve_transition_00015:
   reserve_id: 15
   sort_key: 0
   most_recent: true
+reserve_transition_00016:
+  id: 16
+  to_state: requested
+  reserve_id: 16
+  sort_key: 0
+  most_recent: true
 
 # == Schema Information
 #

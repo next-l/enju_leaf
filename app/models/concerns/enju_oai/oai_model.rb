@@ -7,20 +7,20 @@ module EnjuOai
     def to_oai_dc
       xml = Builder::XmlMarkup.new
       xml.tag!("oai_dc:dc",
-        'xmlns:oai_dc' => "http://www.openarchives.org/OAI/2.0/oai_dc/",
-        'xmlns:dc' => "http://purl.org/dc/elements/1.1/",
-        'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
-        'xsi:schemaLocation' =>
-          %{http://www.openarchives.org/OAI/2.0/oai_dc/
-            http://www.openarchives.org/OAI/2.0/oai_dc.xsd}) do
-        xml.tag! 'dc:title', original_title
+        "xmlns:oai_dc" => "http://www.openarchives.org/OAI/2.0/oai_dc/",
+        "xmlns:dc" => "http://purl.org/dc/elements/1.1/",
+        "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
+        "xsi:schemaLocation" =>
+          %(http://www.openarchives.org/OAI/2.0/oai_dc/
+            http://www.openarchives.org/OAI/2.0/oai_dc.xsd)) do
+        xml.tag! "dc:title", original_title
         creators.readable_by(nil).each do |creator|
-          xml.tag! 'dc:creator', creator.full_name
+          xml.tag! "dc:creator", creator.full_name
         end
         subjects.each do |subject|
-          xml.tag! 'dc:subject', subject.term
+          xml.tag! "dc:subject", subject.term
         end
-        xml.tag! 'dc:description', description
+        xml.tag! "dc:description", description
       end
 
       xml.target!
@@ -28,7 +28,7 @@ module EnjuOai
 
     def to_jpcoar
       xml = Builder::XmlMarkup.new
-      xml.tag!('jpcoar:jpcoar', "xsi:schemaLocation" => "https://github.com/JPCOAR/schema/blob/master/1.0/jpcoar_scm.xsd",
+      xml.tag!("jpcoar:jpcoar", "xsi:schemaLocation" => "https://github.com/JPCOAR/schema/blob/master/1.0/jpcoar_scm.xsd",
         "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
         "xmlns:rdf" => "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
         "xmlns:rioxxterms" => "http://www.rioxx.net/schema/v2.0/rioxxterms/",
@@ -37,21 +37,21 @@ module EnjuOai
         "xmlns:dcndl" => "http://ndl.go.jp/dcndl/terms/",
         "xmlns:dc" => "http://purl.org/dc/elements/1.1/",
         "xmlns:jpcoar" => "https://github.com/JPCOAR/schema/blob/master/1.0/") do
-        xml.tag! 'dc:title', original_title
-        xml.tag! 'dc:language', language.iso_639_2
-        xml.tag! 'jpcoar:creators' do
+        xml.tag! "dc:title", original_title
+        xml.tag! "dc:language", language.iso_639_2
+        xml.tag! "jpcoar:creators" do
           creators.readable_by(nil).each do |creator|
-            xml.tag! 'jpcoar:creatorName', creator.full_name
+            xml.tag! "jpcoar:creatorName", creator.full_name
           end
         end
 
         subjects.each do |subject|
-          xml.tag! 'jpcoar:subject', subject.term
+          xml.tag! "jpcoar:subject", subject.term
         end
 
         if attachment.attached?
-          xml.tag! 'jpcoar:file' do
-            xml.tag! 'jpcoar:URI', Rails.application.routes.url_helpers.rails_storage_proxy_url(fileset.attachment, host: ENV['ENJU_LEAF_BASE_URL'])
+          xml.tag! "jpcoar:file" do
+            xml.tag! "jpcoar:URI", Rails.application.routes.url_helpers.rails_storage_proxy_url(fileset.attachment, host: ENV["ENJU_LEAF_BASE_URL"])
           end
         end
       end
@@ -69,23 +69,23 @@ module EnjuOai
         "xmlns:rdfs" => "http://www.w3.org/2000/01/rdf-schema#",
         "xmlns:owl" => "http://www.w3.org/2002/07/owl#",
         "xmlns:foaf" => "http://xmlns.com/foaf/0.1/" do
-        get_record_url = URI.join(ENV['ENJU_LEAF_BASE_URL'], "/oai?verb=GetRecord&metadataPrefix=dcndl&identifier=#{oai_identifier}")
+        get_record_url = URI.join(ENV["ENJU_LEAF_BASE_URL"], "/oai?verb=GetRecord&metadataPrefix=dcndl&identifier=#{oai_identifier}")
         xml.tag! "dcndl:BibAdminResource", "rdf:about" => get_record_url do
           xml.tag! "dcndl:record", "rdf:resource" => get_record_url + "#material"
-          xml.tag! "dcndl:bibRecordCategory", ENV['DCNDL_BIBRECORDCATEGORY']
+          xml.tag! "dcndl:bibRecordCategory", ENV["DCNDL_BIBRECORDCATEGORY"]
         end
         xml.tag! "dcndl:BibResource", "rdf:about" => get_record_url + "#material" do
-          xml.tag! "rdfs:seeAlso", "rdf:resource" => URI.join(ENV['ENJU_LEAF_BASE_URL'], "/manifestations/#{id}")
+          xml.tag! "rdfs:seeAlso", "rdf:resource" => URI.join(ENV["ENJU_LEAF_BASE_URL"], "/manifestations/#{id}")
           identifiers.each do |identifier|
             case identifier.identifier_type.try(:name)
-            when 'isbn'
+            when "isbn"
               # xml.tag! "rdfs:seeAlso", "rdf:resource" => "http://iss.ndl.go.jp/isbn/#{identifier.body}"
               xml.tag! "dcterms:identifier", identifier.body, "rdf:datatype" => "http://ndl.go.jp/dcndl/terms/ISBN"
-            when 'issn'
+            when "issn"
               xml.tag! "dcterms:identifier", identifier.body, "rdf:datatype" => "http://ndl.go.jp/dcndl/terms/ISSN"
-            when 'doi'
+            when "doi"
               xml.tag! "dcterms:identifier", identifier.body, "rdf:datatype" => "http://ndl.go.jp/dcndl/terms/DOI"
-            when 'ncid'
+            when "ncid"
               xml.tag! "dcterms:identifier", identifier.body, "rdf:datatype" => "http://ndl.go.jp/dcndl/terms/NIIBibID"
             end
 
@@ -187,26 +187,26 @@ module EnjuOai
           end
           classifications.each do |classification|
             case classification.classification_type.name
-            when 'ndlc'
+            when "ndlc"
               xml.tag! "dcterms:subject", "rdf:resource" => "http://id.ndl.go.jp/class/ndlc/" + classification.category
-            when 'ndc9'
+            when "ndc9"
               xml.tag! "dcterms:subject", "rdf:resource" => "http://id.ndl.go.jp/class/ndc9/" + classification.category
-            when 'ddc'
+            when "ddc"
               xml.tag! "dcterms:subject", "rdf:resource" => "http://dewey.info/class/" + classification.category
-            when 'ndc8'
+            when "ndc8"
               xml.tag! "dc:subject", classification.category, "rdf:datatype" => "http://ndl.go.jp/dcndl/terms/NDC8"
-            when 'ndc'
+            when "ndc"
               xml.tag! "dc:subject", classification.category, "rdf:datatype" => "http://ndl.go.jp/dcndl/terms/NDC"
-            when 'lcc'
+            when "lcc"
               xml.tag! "dc:subject", classification.category, "rdf:datatype" => "http://ndl.go.jp/dcndl/terms/LCC"
-            when 'udc'
+            when "udc"
               xml.tag! "dc:subject", classification.category, "rdf:datatype" => "http://ndl.go.jp/dcndl/terms/UDC"
             end
           end
           xml.tag! "dcterms:language", language.iso_639_2, "rdf:datatype" => "http://purl.org/dc/terms/ISO639-2"
           xml.tag! "dcndl:price", price if price?
           if extent? || dimensions?
-            xml.tag! "dcterms:extent", [extent, dimensions].compact.join(" ; ")
+            xml.tag! "dcterms:extent", [ extent, dimensions ].compact.join(" ; ")
           end
           material_type = nil
           case carrier_type.name
@@ -263,7 +263,7 @@ module EnjuOai
     end
 
     def self.repository_url
-      URI.join(ENV['ENJU_LEAF_BASE_URL'], '/oai')
+      URI.join(ENV["ENJU_LEAF_BASE_URL"], "/oai")
     end
 
     def self.record_prefix
@@ -271,7 +271,7 @@ module EnjuOai
     end
 
     def oai_identifier
-      [EnjuOai::OaiModel.record_prefix, id].join(':')
+      [ EnjuOai::OaiModel.record_prefix, id ].join(":")
     end
   end
 end

@@ -3,11 +3,11 @@ class Identifier < ApplicationRecord
   belongs_to :manifestation, touch: true, optional: true
 
   validates :body, presence: true
-  validates :body, uniqueness: { scope: [:identifier_type_id, :manifestation_id] }
+  validates :body, uniqueness: { scope: [ :identifier_type_id, :manifestation_id ] }
   validate :check_identifier
   before_validation :normalize
   before_save :convert_isbn
-  scope :id_type, -> type {
+  scope :id_type, ->(type) {
     where(identifier_type: IdentifierType.find_by(name: type))
   }
 
@@ -20,22 +20,22 @@ class Identifier < ApplicationRecord
 
   def check_identifier
     case identifier_type.try(:name)
-    when 'isbn'
+    when "isbn"
       unless StdNum::ISBN.valid?(body)
         errors.add(:body)
       end
 
-    when 'issn'
+    when "issn"
       unless StdNum::ISSN.valid?(body)
         errors.add(:body)
       end
 
-    when 'lccn'
+    when "lccn"
       unless StdNum::LCCN.valid?(body)
         errors.add(:body)
       end
 
-    when 'doi'
+    when "doi"
       if URI.parse(body).scheme
         errors.add(:body)
       end
@@ -43,7 +43,7 @@ class Identifier < ApplicationRecord
   end
 
   def convert_isbn
-    if identifier_type.name == 'isbn'
+    if identifier_type.name == "isbn"
       lisbn = Lisbn.new(body)
       if lisbn.isbn
         if lisbn.isbn.length == 10
@@ -54,19 +54,19 @@ class Identifier < ApplicationRecord
   end
 
   def hyphenated_isbn
-    if identifier_type.name == 'isbn'
+    if identifier_type.name == "isbn"
       lisbn = Lisbn.new(body)
-      lisbn.parts.join('-')
+      lisbn.parts.join("-")
     end
   end
 
   def normalize
     case identifier_type.try(:name)
-    when 'isbn'
+    when "isbn"
       self.body = StdNum::ISBN.normalize(body)
-    when 'issn'
+    when "issn"
       self.body = StdNum::ISSN.normalize(body)
-    when 'lccn'
+    when "lccn"
       self.body = StdNum::LCCN.normalize(body)
     end
   end

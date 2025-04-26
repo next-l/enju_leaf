@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :periodical do
-    sequence(:original_title){|n| "periodical_title_#{n}"}
+    sequence(:original_title) {|n| "periodical_title_#{n}"}
     association :manifestation
     frequency_id { 1 }
   end

@@ -1,15 +1,15 @@
 class ManifestationRelationshipsController < ApplicationController
-  before_action :set_manifestation_relationship, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_manifestation_relationship, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
   before_action :get_manifestation
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :prepare_options, only: [ :new, :edit ]
 
   # GET /manifestation_relationships
   # GET /manifestation_relationships.json
   def index
     case
     when @manifestation
-      @manifestation_relationships = @manifestation.manifestation_relationships.order('manifestation_relationships.position').page(params[:page])
+      @manifestation_relationships = @manifestation.manifestation_relationships.order("manifestation_relationships.position").page(params[:page])
     else
       @manifestation_relationships = ManifestationRelationship.page(params[:page])
     end
@@ -51,7 +51,7 @@ class ManifestationRelationshipsController < ApplicationController
 
     respond_to do |format|
       if @manifestation_relationship.save
-        format.html { redirect_to @manifestation_relationship, notice: t('controller.successfully_created', model: t('activerecord.models.manifestation_relationship')) }
+        format.html { redirect_to @manifestation_relationship, notice: t("controller.successfully_created", model: t("activerecord.models.manifestation_relationship")) }
         format.json { render json: @manifestation_relationship, status: :created, location: @manifestation_relationship }
       else
         prepare_options
@@ -73,7 +73,7 @@ class ManifestationRelationshipsController < ApplicationController
 
     respond_to do |format|
       if @manifestation_relationship.update(manifestation_relationship_params)
-        format.html { redirect_to @manifestation_relationship, notice: t('controller.successfully_updated', model: t('activerecord.models.manifestation_relationship')) }
+        format.html { redirect_to @manifestation_relationship, notice: t("controller.successfully_updated", model: t("activerecord.models.manifestation_relationship")) }
         format.json { head :no_content }
       else
         prepare_options
@@ -90,7 +90,7 @@ class ManifestationRelationshipsController < ApplicationController
 
     respond_to do |format|
       format.html {
-        flash[:notice] = t('controller.successfully_deleted', model: t('activerecord.models.manifestation_relationship'))
+        flash[:notice] = t("controller.successfully_deleted", model: t("activerecord.models.manifestation_relationship"))
         if @manifestation
           redirect_to manifestations_url(manifestation_id: @manifestation.id)
         else

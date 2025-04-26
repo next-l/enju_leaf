@@ -1,6 +1,6 @@
 class RealizeType < ApplicationRecord
   include MasterModel
-  default_scope { order('realize_types.position') }
+  default_scope { order("realize_types.position") }
 end
 
 # == Schema Information

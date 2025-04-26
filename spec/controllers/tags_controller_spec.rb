@@ -127,7 +127,7 @@ describe TagsController do
     before(:each) do
       @tag = FactoryBot.create(:tag)
       @attrs = FactoryBot.attributes_for(:tag)
-      @invalid_attrs = {name: ''}
+      @invalid_attrs = { name: '' }
     end
 
     describe "When logged in as Administrator" do

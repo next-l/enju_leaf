@@ -7,7 +7,7 @@ class Classification < ApplicationRecord
     text :category, :note
     integer :classification_type_id
   end
-  strip_attributes only: [:category, :url]
+  strip_attributes only: [ :category, :url ]
 
   paginates_per 10
 end

@@ -1,19 +1,19 @@
 class TagsController < ApplicationController
-  before_action :set_tag, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index]
+  before_action :set_tag, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index ]
 
   def index
     session[:params] ={} unless session[:params]
     session[:params][:tag] = params
 
-    sort = {sort_by: 'created_at', order: 'desc'}
+    sort = { sort_by: "created_at", order: "desc" }
     case params[:sort_by]
-    when 'name'
-      sort[:sort_by] = 'name'
-    when 'taggings_count'
-      sort[:sort_by] = 'taggings_count'
+    when "name"
+      sort[:sort_by] = "name"
+    when "taggings_count"
+      sort[:sort_by] = "taggings_count"
     end
-    sort[:order] = 'asc' if params[:order] == 'asc'
+    sort[:order] = "asc" if params[:order] == "asc"
 
     query = @query = params[:query].to_s.strip
     page = params[:page] || 1
@@ -46,7 +46,7 @@ class TagsController < ApplicationController
 
     respond_to do |format|
       if @tag.update(tag_params)
-        format.html { redirect_to @tag, notice: t('controller.successfully_updated', model: t('activerecord.models.tag')) }
+        format.html { redirect_to @tag, notice: t("controller.successfully_updated", model: t("activerecord.models.tag")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

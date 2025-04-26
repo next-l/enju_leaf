@@ -1,27 +1,27 @@
-require 'active_record/fixtures'
-require 'tasks/color'
+require "active_record/fixtures"
+require "tasks/color"
 
 desc "create initial records for enju_library"
 namespace :enju_library do
   task :setup => :environment do
-    ActiveRecord::FixtureSet.create_fixtures('db/fixtures/enju_library', 'library_groups')
-    Dir.glob(Rails.root.to_s + '/db/fixtures/enju_library/**/*.yml').each do |file|
+    ActiveRecord::FixtureSet.create_fixtures("db/fixtures/enju_library", "library_groups")
+    Dir.glob(Rails.root.to_s + "/db/fixtures/enju_library/**/*.yml").each do |file|
       dirname = File.basename(File.dirname file)
       dirname = nil if dirname == "enju_library"
       basename = [ dirname, File.basename(file, ".*") ].compact
       basename = File.join(*basename)
-      next if basename == 'library_groups'
-      ActiveRecord::FixtureSet.create_fixtures('db/fixtures/enju_library', basename)
+      next if basename == "library_groups"
+      ActiveRecord::FixtureSet.create_fixtures("db/fixtures/enju_library", basename)
     end
-    Shelf.create!(name: 'web', library: Library.find_by(name: 'web'))
-    Shelf.create!(name: 'first_shelf', library: Library.find_by(name: 'yours'))
+    Shelf.create!(name: "web", library: Library.find_by(name: "web"))
+    Shelf.create!(name: "first_shelf", library: Library.find_by(name: "yours"))
   end
 
   desc "upgrade enju_library"
   task :upgrade => :environment do
     %w(UserExportFile UserImportFile).each do |klass|
-      Rake::Task['statesman:backfill_most_recent'].invoke(klass)
-      Rake::Task['statesman:backfill_most_recent'].reenable
+      Rake::Task["statesman:backfill_most_recent"].invoke(klass)
+      Rake::Task["statesman:backfill_most_recent"].reenable
     end
     library_group = LibraryGroup.site_config
     library_group.user = User.find(1)
@@ -43,9 +43,9 @@ EOS
     library_group.login_banner_en = login_en if library_group.login_banner_en.blank?
     library_group.footer_banner_ja = footer_ja if library_group.footer_banner_ja.blank?
     library_group.footer_banner_en = footer_en if library_group.footer_banner_en.blank?
-    library_group.book_jacket_source = 'google'
-    library_group.screenshot_generator = 'mozshot'
+    library_group.book_jacket_source = "google"
+    library_group.screenshot_generator = "mozshot"
     library_group.save
-    puts 'enju_library: The upgrade completed successfully.'
+    puts "enju_library: The upgrade completed successfully."
   end
 end

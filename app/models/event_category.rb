@@ -2,7 +2,7 @@ class EventCategory < ApplicationRecord
   # include MasterModel
   validates :name, presence: true
   acts_as_list
-  default_scope { order('position') }
+  default_scope { order("position") }
   has_many :events, dependent: :restrict_with_exception
 
   paginates_per 10

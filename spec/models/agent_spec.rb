@@ -42,7 +42,7 @@ describe Agent do
 
   describe ".import_agents" do
     it "should import agents" do
-      agent_list = [{full_name: "Agent 1"}, {full_name: "Agent 2"}]
+      agent_list = [ { full_name: "Agent 1" }, { full_name: "Agent 2" } ]
       agents = Agent.import_agents(agent_list)
       expect(agents).to be_truthy
       expect(agents.first).to be_truthy
@@ -51,18 +51,18 @@ describe Agent do
       expect(agents.last.full_name).to eq "Agent 2"
     end
     it "should import place" do
-      agent_list = [{full_name: "Agent 1", place: "place"}]
+      agent_list = [ { full_name: "Agent 1", place: "place" } ]
       agents = Agent.import_agents(agent_list)
       expect(agents.first).to be_truthy
       expect(agents.first.place).to eq "place"
     end
     it "should unique the same agent" do
-      agent_list = [{full_name: "Agent 1", place: "place"}, {full_name: "Agent 1"}]
+      agent_list = [ { full_name: "Agent 1", place: "place" }, { full_name: "Agent 1" } ]
       agents = Agent.import_agents(agent_list)
       expect(agents.size).to be 1
     end
     it "should distinguish the agents even with the same full_name" do
-      agent_list = [{full_name: "Agent 1", place: "place 1"}, {full_name: "Agent 1", place: "place 2"}]
+      agent_list = [ { full_name: "Agent 1", place: "place 1" }, { full_name: "Agent 1", place: "place 2" } ]
       agents = Agent.import_agents(agent_list)
       expect(agents.size).to be 2
     end

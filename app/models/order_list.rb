@@ -3,7 +3,7 @@ class OrderList < ApplicationRecord
     transition_class: OrderListTransition,
     initial_state: :pending
   ]
-  scope :not_ordered, -> {in_state(:not_ordered)}
+  scope :not_ordered, -> { in_state(:not_ordered) }
 
   has_many :orders, dependent: :destroy
   has_many :purchase_requests, through: :orders
@@ -40,7 +40,7 @@ class OrderList < ApplicationRecord
   end
 
   def ordered?
-    true if current_state == 'ordered'
+    true if current_state == "ordered"
   end
 end
 

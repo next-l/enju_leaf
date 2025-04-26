@@ -1,6 +1,6 @@
 class UserImportResultsController < ApplicationController
-  before_action :set_user_import_result, only: [:show, :destroy]
-  before_action :check_policy, only: [:index]
+  before_action :set_user_import_result, only: [ :show, :destroy ]
+  before_action :check_policy, only: [ :index ]
 
   # GET /user_import_results
   # GET /user_import_results.json
@@ -32,7 +32,7 @@ class UserImportResultsController < ApplicationController
     @user_import_result.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_import_results_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.user_import_result')) }
+      format.html { redirect_to user_import_results_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.user_import_result")) }
       format.json { head :no_content }
     end
   end

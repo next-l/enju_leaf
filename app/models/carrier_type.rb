@@ -5,18 +5,18 @@ class CarrierType < ApplicationRecord
   has_one_attached :attachment
 
   before_save do
-    attachment.purge if delete_attachment == '1'
+    attachment.purge if delete_attachment == "1"
   end
 
   attr_accessor :delete_attachment
 
   def mods_type
     case name
-    when 'volume'
-      'text'
+    when "volume"
+      "text"
     else
       # TODO: その他のタイプ
-      'software, multimedia'
+      "software, multimedia"
     end
   end
 end

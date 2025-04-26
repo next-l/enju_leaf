@@ -22,7 +22,7 @@ class ResourceExportFile < ApplicationRecord
     tsv = Manifestation.export(role: role_name)
     file = StringIO.new(tsv)
     # file.class.class_eval { attr_accessor :original_filename, :content_type }
-    attachment.attach(io: file, filename: 'resource_export.txt')
+    attachment.attach(io: file, filename: "resource_export.txt")
     save!
     transition_to!(:completed)
     mailer = ResourceExportMailer.completed(self)

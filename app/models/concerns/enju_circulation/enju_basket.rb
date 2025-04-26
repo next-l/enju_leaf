@@ -14,7 +14,9 @@ module EnjuCirculation
 
       Item.transaction do
         checked_items.each do |checked_item|
-          checkout = user.checkouts.new(
+          checked_item.item.reload
+
+          checkout = user.checkouts.create!(
             librarian: librarian,
             item: checked_item.item,
             basket: self,
@@ -22,7 +24,6 @@ module EnjuCirculation
             shelf: checked_item.item.shelf,
             due_date: checked_item.due_date
           )
-          checkout.save!
           checked_item.item.checkout!(user)
         end
         CheckedItem.where(basket_id: id).destroy_all

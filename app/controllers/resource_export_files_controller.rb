@@ -1,11 +1,11 @@
 class ResourceExportFilesController < ApplicationController
-  before_action :set_resource_export_file, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_resource_export_file, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /resource_export_files
   # GET /resource_export_files.json
   def index
-    @resource_export_files = ResourceExportFile.order('id DESC').page(params[:page])
+    @resource_export_files = ResourceExportFile.order("id DESC").page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -38,10 +38,10 @@ class ResourceExportFilesController < ApplicationController
 
     respond_to do |format|
       if @resource_export_file.save
-        if @resource_export_file.mode == 'export'
+        if @resource_export_file.mode == "export"
           ResourceExportFileJob.perform_later(@resource_export_file)
         end
-        format.html { redirect_to @resource_export_file, notice: t('export.successfully_created', model: t('activerecord.models.resource_export_file')) }
+        format.html { redirect_to @resource_export_file, notice: t("export.successfully_created", model: t("activerecord.models.resource_export_file")) }
         format.json { render json: @resource_export_file, status: :created, location: @resource_export_file }
       else
         format.html { render action: "new" }
@@ -55,10 +55,10 @@ class ResourceExportFilesController < ApplicationController
   def update
     respond_to do |format|
       if @resource_export_file.update(resource_export_file_params)
-        if @resource_export_file.mode == 'export'
+        if @resource_export_file.mode == "export"
           ResourceExportFileJob.perform_later(@resource_export_file)
         end
-        format.html { redirect_to @resource_export_file, notice: t('controller.successfully_updated', model: t('activerecord.models.resource_export_file')) }
+        format.html { redirect_to @resource_export_file, notice: t("controller.successfully_updated", model: t("activerecord.models.resource_export_file")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

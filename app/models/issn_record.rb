@@ -19,13 +19,13 @@ class IssnRecord < ApplicationRecord
     issn_records = []
     IssnRecord.transaction do
       issn_records_params.each do |k, v|
-        next if v['_destroy'] == '1'
-        if v['body'].present?
-          issn_record = IssnRecord.where(body: v['body'].gsub(/[^0-9x]/i, '')).first_or_create!
-        elsif v['id'].present?
-          issn_record = IssnRecord.find(v['id'])
+        next if v["_destroy"] == "1"
+        if v["body"].present?
+          issn_record = IssnRecord.where(body: v["body"].gsub(/[^0-9x]/i, "")).first_or_create!
+        elsif v["id"].present?
+          issn_record = IssnRecord.find(v["id"])
         else
-          v.delete('_destroy')
+          v.delete("_destroy")
           issn_record = IssnRecord.create(v)
         end
         issn_records << issn_record

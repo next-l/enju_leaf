@@ -1,8 +1,8 @@
 atom_feed(url: purchase_requests_url(format: :atom)) do |feed|
   if @user
-    feed.title t('purchase_request.user_purchase_request', login_name: @user.username)
+    feed.title t("purchase_request.user_purchase_request", login_name: @user.username)
   else
-    feed.title t('purchase_request.library_group_purchase_request', library_group_name: @library_group.display_name)
+    feed.title t("purchase_request.library_group_purchase_request", library_group_name: @library_group.display_name)
   end
   feed.updated(@purchase_requests.first ? @purchase_requests.first.created_at : Time.zone.now)
 
