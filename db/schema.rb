@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -617,7 +617,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.string "body", null: false
     t.bigint "identifier_type_id", null: false
     t.bigint "manifestation_id"
-    t.boolean "primary"
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
