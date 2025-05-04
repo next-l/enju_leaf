@@ -75,9 +75,9 @@ class Bookmark < ApplicationRecord
     unless manifestation
       normalized_url = Addressable::URI.parse(url).normalize.to_s
       doc = Nokogiri::HTML(Faraday.get(normalized_url).body)
-      # TODO: 日本語以外
-      # charsets = ['iso-2022-jp', 'euc-jp', 'shift_jis', 'iso-8859-1']
-      # if charsets.include?(page.charset.downcase)
+        # TODO: 日本語以外
+        # charsets = ['iso-2022-jp', 'euc-jp', 'shift_jis', 'iso-8859-1']
+        # if charsets.include?(page.charset.downcase)
         title = NKF.nkf("-w", CGI.unescapeHTML((doc.at("title").inner_text))).to_s.gsub(/\r\n|\r|\n/, "").gsub(/\s+/, " ").strip
         if title.blank?
           title = url
@@ -90,7 +90,7 @@ class Bookmark < ApplicationRecord
   rescue OpenURI::HTTPError
     # TODO: 404などの場合の処理
     raise "unable to access: #{url}"
-  #  nil
+    #  nil
   end
 
   def self.get_canonical_url(url)

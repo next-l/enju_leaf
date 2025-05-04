@@ -38,11 +38,11 @@ class CiniiBooksController < ApplicationController
         end
       end
     end
-  # rescue ActiveRecord::RecordInvalid => e
-  #  respond_to do |format|
-  #    flash[:notice] = e.message
-  #    format.html { render :action => "index" }
-  #  end
+    # rescue ActiveRecord::RecordInvalid => e
+    #  respond_to do |format|
+    #    flash[:notice] = e.message
+    #    format.html { render :action => "index" }
+    #  end
   end
 
   private

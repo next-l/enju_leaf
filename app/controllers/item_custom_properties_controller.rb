@@ -52,7 +52,7 @@ class ItemCustomPropertiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+  # Use callbacks to share common setup or constraints between actions.
   def set_item_custom_property
     @item_custom_property = ItemCustomProperty.find(params[:id])
     authorize @item_custom_property
@@ -62,7 +62,7 @@ class ItemCustomPropertiesController < ApplicationController
     authorize ItemCustomProperty
   end
 
-    # Only allow a trusted parameter "white list" through.
+  # Only allow a trusted parameter "white list" through.
   def item_custom_property_params
     params.require(:item_custom_property).permit(:name, :display_name, :note)
   end

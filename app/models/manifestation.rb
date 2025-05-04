@@ -437,7 +437,7 @@ class Manifestation < ApplicationRecord
       end
     elsif title_transcription?
       NKF.nkf("-w --katakana", title_transcription)
-      else
+    else
         original_title
     end
   end

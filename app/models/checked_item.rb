@@ -9,7 +9,7 @@ class CheckedItem < ApplicationRecord
   validate :available_for_checkout?, on: :create
   validates :due_date_string, format: { with: /\A\[{0,1}\d+([\/-]\d{0,2}){0,2}\]{0,1}\z/ }, allow_blank: true
   validate :check_due_date
- 
+
   before_validation :set_item
   before_validation :set_due_date, on: :create
   strip_attributes only: :item_identifier
@@ -63,7 +63,7 @@ class CheckedItem < ApplicationRecord
     if checkout_count[:"#{checkout_type.name}"] >= item_checkout_type.checkout_limit
       errors.add(:base, I18n.t("activerecord.errors.messages.checked_item.excessed_checkout_limit"))
     end
-    
+
     if errors[:base].empty?
       true
     else

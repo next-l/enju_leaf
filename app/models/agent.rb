@@ -157,13 +157,13 @@ class Agent < ApplicationRecord
 
   def full_name_without_space
     full_name.gsub(/[\s,]/, "")
-  #  # TODO: 日本人以外は？
-  #  name = []
-  #  name << self.last_name.to_s.strip
-  #  name << self.middle_name.to_s.strip
-  #  name << self.first_name.to_s.strip
-  #  name << self.corporate_name.to_s.strip
-  #  name.join("").strip
+    #  # TODO: 日本人以外は？
+    #  name = []
+    #  name << self.last_name.to_s.strip
+    #  name << self.middle_name.to_s.strip
+    #  name << self.first_name.to_s.strip
+    #  name << self.corporate_name.to_s.strip
+    #  name.join("").strip
   end
 
   def full_name_transcription_without_space

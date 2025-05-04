@@ -57,7 +57,7 @@ class ReservesController < ApplicationController
           access_denied
           return
         end
-      else
+    else
         unless current_user.has_role?("Librarian")
           search.build do
             with(:username).equal_to current_user.username

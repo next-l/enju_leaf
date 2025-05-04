@@ -4,9 +4,9 @@ class NdlBooksController < ApplicationController
   def index
     page = if params[:page].to_i.zero?
              1
-           else
+    else
              params[:page]
-           end
+    end
     @query = params[:query].to_s.strip
     books = NdlBook.search(params[:query], page)
     @books = Kaminari.paginate_array(

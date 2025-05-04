@@ -2,9 +2,9 @@ class Resourcesync
   def initialize
     @base_url = if ENV["ENJU_LEAF_RESOURCESYNC_BASE_URL"].present?
                   URI.parse(ENV["ENJU_LEAF_RESOURCESYNC_BASE_URL"]).to_s
-                else
+    else
                   URI.parse(ENV["ENJU_LEAF_BASE_URL"]).to_s
-                end
+    end
   end
 
   def generate_capabilitylist

@@ -604,7 +604,7 @@ class ResourceImportFile < ApplicationRecord
         item.include_supplements = true
       elsif item.include_supplements
         item.include_supplements = false
-end
+      end
     end
 
     item
