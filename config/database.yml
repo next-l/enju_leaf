@@ -90,5 +90,5 @@ production:
     # password: <%= ENV['ENJU_LEAF_DATABASE_PASSWORD'] %>
   queue:
     <<: *primary_production
-    database: enju_rdm_production_queue
+    database: enju_leaf_production_queue
     migrations_paths: db/queue_migrate
