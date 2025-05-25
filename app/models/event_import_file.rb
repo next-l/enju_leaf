@@ -187,11 +187,17 @@ end
 # Table name: event_import_files
 #
 #  id                        :bigint           not null, primary key
+#  content_type              :string
 #  edit_mode                 :string
 #  error_message             :text
+#  event_import_content_type :string
+#  event_import_file_name    :string
+#  event_import_file_size    :integer
 #  event_import_fingerprint  :string
+#  event_import_updated_at   :datetime
 #  executed_at               :datetime
 #  note                      :text
+#  size                      :integer
 #  user_encoding             :string
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null

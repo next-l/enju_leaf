@@ -206,17 +206,23 @@ end
 #
 # Table name: agent_import_files
 #
-#  id                       :bigint           not null, primary key
-#  agent_import_fingerprint :string
-#  edit_mode                :string
-#  error_message            :text
-#  executed_at              :datetime
-#  note                     :text
-#  user_encoding            :string
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
-#  parent_id                :bigint
-#  user_id                  :bigint
+#  id                        :bigint           not null, primary key
+#  agent_import_content_type :string
+#  agent_import_file_name    :string
+#  agent_import_file_size    :integer
+#  agent_import_fingerprint  :string
+#  agent_import_updated_at   :datetime
+#  content_type              :string
+#  edit_mode                 :string
+#  error_message             :text
+#  executed_at               :datetime
+#  note                      :text
+#  size                      :integer
+#  user_encoding             :string
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  parent_id                 :bigint
+#  user_id                   :bigint
 #
 # Indexes
 #

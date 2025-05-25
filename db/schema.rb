@@ -68,9 +68,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
 
   create_table "agent_import_files", force: :cascade do |t|
     t.bigint "parent_id"
+    t.string "content_type"
+    t.integer "size"
     t.bigint "user_id"
     t.text "note"
     t.datetime "executed_at", precision: nil
+    t.string "agent_import_file_name"
+    t.string "agent_import_content_type"
+    t.integer "agent_import_file_size"
+    t.datetime "agent_import_updated_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "agent_import_fingerprint"
@@ -543,9 +549,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
 
   create_table "event_import_files", force: :cascade do |t|
     t.bigint "parent_id"
+    t.string "content_type"
+    t.integer "size"
     t.bigint "user_id"
     t.text "note"
     t.datetime "executed_at", precision: nil
+    t.string "event_import_file_name"
+    t.string "event_import_content_type"
+    t.integer "event_import_file_size"
+    t.datetime "event_import_updated_at", precision: nil
     t.string "edit_mode"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -1471,9 +1483,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
 
   create_table "resource_import_files", force: :cascade do |t|
     t.bigint "parent_id"
+    t.string "content_type"
+    t.integer "size"
     t.bigint "user_id"
     t.text "note"
     t.datetime "executed_at", precision: nil
+    t.string "resource_import_file_name"
+    t.string "resource_import_content_type"
+    t.integer "resource_import_file_size"
+    t.datetime "resource_import_updated_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "edit_mode"
@@ -1913,6 +1931,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
     t.bigint "user_id"
     t.text "note"
     t.datetime "executed_at", precision: nil
+    t.string "user_import_file_name"
+    t.string "user_import_content_type"
+    t.integer "user_import_file_size"
+    t.datetime "user_import_updated_at", precision: nil
     t.string "user_import_fingerprint"
     t.string "edit_mode"
     t.text "error_message"
