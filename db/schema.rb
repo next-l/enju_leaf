@@ -688,6 +688,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
   end
 
   create_table "inventory_files", force: :cascade do |t|
+    t.string "filename"
+    t.string "content_type"
+    t.integer "size"
     t.bigint "user_id"
     t.text "note"
     t.datetime "created_at", null: false
@@ -899,6 +902,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
     t.string "header_logo_content_type"
     t.bigint "header_logo_file_size"
     t.datetime "header_logo_updated_at", precision: nil
+    t.text "header_logo_meta"
     t.string "email"
     t.index "lower((name)::text)", name: "index_library_groups_on_lower_name", unique: true
     t.index ["email"], name: "index_library_groups_on_email"
@@ -1059,6 +1063,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
     t.integer "serial_number"
     t.bigint "content_type_id", default: 1
     t.integer "year_of_publication"
+    t.text "attachment_meta"
     t.integer "month_of_publication"
     t.boolean "fulltext_content"
     t.boolean "serial"
@@ -1264,6 +1269,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
     t.string "picture_content_type"
     t.integer "picture_file_size"
     t.datetime "picture_updated_at", precision: nil
+    t.text "picture_meta"
     t.string "picture_fingerprint"
     t.integer "picture_width"
     t.integer "picture_height"

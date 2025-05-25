@@ -25,6 +25,7 @@ end
 #  picture_file_size       :integer
 #  picture_fingerprint     :string
 #  picture_height          :integer
+#  picture_meta            :text
 #  picture_updated_at      :datetime
 #  picture_width           :integer
 #  position                :integer
