@@ -41,7 +41,7 @@ if User.count.zero?
 
   user = User.new(
     username: username,
-    email: email
+    email: email,
     role: Role.find_by(name: 'Administrator')
   )
   user.password = password
