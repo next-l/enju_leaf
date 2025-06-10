@@ -1586,6 +1586,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
     t.index ["series_statement_identifier"], name: "index_series_statements_on_series_statement_identifier"
   end
 
+  create_table "shelf_import_files", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_shelf_import_files_on_user_id"
+  end
+
   create_table "shelves", force: :cascade do |t|
     t.string "name", null: false
     t.text "display_name"
@@ -2091,6 +2098,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
   add_foreign_key "reserves", "users"
   add_foreign_key "resource_export_files", "users"
   add_foreign_key "resource_import_files", "users"
+  add_foreign_key "shelf_import_files", "users"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
