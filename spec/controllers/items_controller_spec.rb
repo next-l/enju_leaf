@@ -331,13 +331,13 @@ describe ItemsController do
       it 'should not create item already created' do
         post :create, params: { item: { circulation_status_id: 1, item_identifier: '00001', manifestation_id: 1 } }
         expect(assigns(:item)).to_not be_valid
-        expect(response).to redirect_to(item_url(assigns(:item)))
+        expect(response).to be_successful
       end
 
       it 'should create item already reserved' do
         post :create, params: { item: @attrs.merge(manifestation_id: 11) }
         expect(assigns(:item)).to be_valid
-        expect(response).to be_successful
+        expect(response).to redirect_to(item_url(assigns(:item)))
       end
     end
 
