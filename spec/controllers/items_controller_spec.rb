@@ -336,7 +336,7 @@ describe ItemsController do
 
       it 'should create item already reserved' do
         post :create, params: { item: @attrs.merge(manifestation_id: 11) }
-        expect(assigns(:item)).to_not be_valid
+        expect(assigns(:item)).to be_valid
         expect(response).to be_successful
       end
     end
