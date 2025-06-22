@@ -335,6 +335,13 @@ describe ItemsController do
       end
     end
 
+      it 'should create item already reserved' do
+        post :create, params: { item: @attrs.merge(manifestation_id: 11) }
+        expect(assigns(:item)).to_not be_valid
+        expect(response).to be_successful
+      end
+    end
+
     describe 'When logged in as Librarian' do
       login_fixture_librarian
 
