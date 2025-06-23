@@ -120,7 +120,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'vcr'
   gem 'webmock'
-  gem 'factory_bot_rails', '~> 6.4.0'
+  gem 'factory_bot_rails'
   gem 'rails-controller-testing'
   gem 'simplecov'
   gem 'parallel_tests'
