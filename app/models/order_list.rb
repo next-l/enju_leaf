@@ -3,7 +3,7 @@ class OrderList < ApplicationRecord
     transition_class: OrderListTransition,
     initial_state: :pending
   ]
-  scope :not_ordered, -> {in_state(:not_ordered)}
+  scope :not_ordered, -> { in_state(:not_ordered) }
 
   has_many :orders, dependent: :destroy
   has_many :purchase_requests, through: :orders
@@ -40,7 +40,7 @@ class OrderList < ApplicationRecord
   end
 
   def ordered?
-    true if current_state == 'ordered'
+    true if current_state == "ordered"
   end
 end
 
@@ -49,11 +49,21 @@ end
 # Table name: order_lists
 #
 #  id           :bigint           not null, primary key
-#  user_id      :bigint           not null
-#  bookstore_id :bigint           not null
-#  title        :text             not null
 #  note         :text
 #  ordered_at   :datetime
+#  title        :text             not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  bookstore_id :bigint           not null
+#  user_id      :bigint           not null
+#
+# Indexes
+#
+#  index_order_lists_on_bookstore_id  (bookstore_id)
+#  index_order_lists_on_user_id       (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (bookstore_id => bookstores.id)
+#  fk_rails_...  (user_id => users.id)
 #

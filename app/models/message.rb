@@ -3,9 +3,9 @@ class Message < ApplicationRecord
     transition_class: MessageTransition,
     initial_state: MessageStateMachine.initial_state
   ]
-  scope :unread, -> {in_state('unread')}
-  belongs_to :sender, class_name: 'User'
-  belongs_to :receiver, class_name: 'User'
+  scope :unread, -> { in_state("unread") }
+  belongs_to :sender, class_name: "User"
+  belongs_to :receiver, class_name: "User"
   validates :subject, :body, presence: true # , :sender
   validates :receiver, presence: { message: :invalid }
   before_validation :set_receiver
@@ -58,7 +58,7 @@ class Message < ApplicationRecord
   end
 
   def read?
-    return true if current_state == 'read'
+    return true if current_state == "read"
 
     false
   end
@@ -75,16 +75,27 @@ end
 # Table name: messages
 #
 #  id                 :bigint           not null, primary key
-#  read_at            :datetime
-#  sender_id          :bigint
-#  receiver_id        :bigint
-#  subject            :string           not null
 #  body               :text
-#  message_request_id :bigint
-#  parent_id          :bigint
+#  depth              :integer
+#  lft                :integer
+#  read_at            :datetime
+#  rgt                :integer
+#  subject            :string           not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  lft                :integer
-#  rgt                :integer
-#  depth              :integer
+#  message_request_id :bigint
+#  parent_id          :bigint
+#  receiver_id        :bigint
+#  sender_id          :bigint
+#
+# Indexes
+#
+#  index_messages_on_message_request_id  (message_request_id)
+#  index_messages_on_parent_id           (parent_id)
+#  index_messages_on_receiver_id         (receiver_id)
+#  index_messages_on_sender_id           (sender_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (parent_id => messages.id)
 #

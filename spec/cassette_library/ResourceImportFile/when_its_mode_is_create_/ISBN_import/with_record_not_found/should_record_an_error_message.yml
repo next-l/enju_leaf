@@ -25,17 +25,17 @@ http_interactions:
       Connection:
       - keep-alive
       Date:
-      - Mon, 13 Jan 2025 05:18:02 GMT
+      - Sun, 25 May 2025 16:07:51 GMT
       Vary:
       - Access-Control-Request-Headers
       - Access-Control-Request-Method
       - Origin
       X-Track-Id:
-      - '732532435'
+      - '862588154'
       Etag:
       - '"0b48a69c31db7ebf12f51c41ba6b042687ef9afcf124fc5561e4baafd809c373"'
       Cache-Control:
-      - max-age=9717, public
+      - max-age=57128, public
       X-Content-Type-Options:
       - nosniff
       X-Xss-Protection:
@@ -47,13 +47,13 @@ http_interactions:
       X-Cache:
       - Miss from cloudfront
       Via:
-      - 1.1 6065845b5bedcd91c464ef08e3c4885a.cloudfront.net (CloudFront)
+      - 1.1 3358dad524ffe91108e2a678aaa49dca.cloudfront.net (CloudFront)
       X-Amz-Cf-Pop:
-      - KIX50-P3
+      - NRT57-P2
       Alt-Svc:
       - h3=":443"; ma=86400
       X-Amz-Cf-Id:
-      - FoMqo9vz7NQ0irqmXQ_4UCI8BNL2TvkEnAXS2dt0Dq0n-5zVlbZrDw==
+      - vMQiHJT7EEm_ZveEaRauiOK4qww3A2xZwhIN6akqNHoB8L009YajGw==
       Referrer-Policy:
       - strict-origin-when-cross-origin
       Content-Security-Policy:
@@ -78,5 +78,5 @@ http_interactions:
             </diagnostic>
           </diagnostics>
         </searchRetrieveResponse>
-  recorded_at: Mon, 13 Jan 2025 05:18:02 GMT
+  recorded_at: Sun, 25 May 2025 16:07:51 GMT
 recorded_with: VCR 6.3.1

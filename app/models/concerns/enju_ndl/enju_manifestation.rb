@@ -10,7 +10,7 @@ module EnjuNdl
 
       def ndl_bib_doc(ndl_bib_id)
         url = "https://ndlsearch.ndl.go.jp/api/sru?operation=searchRetrieve&version=1.2&query=itemno=#{ndl_bib_id}&recordSchema=dcndl&onlyBib=true"
-        Nokogiri::XML(Nokogiri::XML(URI.parse(url).read).at('//xmlns:recordData').content)
+        Nokogiri::XML(Nokogiri::XML(URI.parse(url).read).at("//xmlns:recordData").content)
       end
 
       # Use http://www.ndl.go.jp/jp/dlib/standards/opendataset/aboutIDList.txt
@@ -40,7 +40,7 @@ module EnjuNdl
       end
 
       def import_record(doc)
-        iss_itemno = URI.parse(doc.at('//dcndl:BibAdminResource[@rdf:about]').values.first).path.split('/').last
+        iss_itemno = URI.parse(doc.at("//dcndl:BibAdminResource[@rdf:about]").values.first).path.split("/").last
         ndl_bib_id_record =NdlBibIdRecord.find_by(body: iss_itemno)
         return ndl_bib_id_record.manifestation if ndl_bib_id_record
 
@@ -52,23 +52,23 @@ module EnjuNdl
         title = get_title(doc)
 
         # date of publication
-        pub_date = doc.at('//dcterms:issued').try(:content).to_s.tr('.', '-')
+        pub_date = doc.at("//dcterms:issued").try(:content).to_s.tr(".", "-")
         pub_date = nil unless pub_date =~ /^\d+(-\d{0,2}){0,2}$/
         if pub_date
-          date = pub_date.split('-')
+          date = pub_date.split("-")
           date = if date[0] && date[1]
-                   format('%04d-%02d', date[0], date[1])
-                 else
+                   format("%04d-%02d", date[0], date[1])
+          else
                    pub_date
-                 end
+          end
         end
 
         language = Language.find_by(iso_639_2: get_language(doc))
         language_id = if language
                         language.id
-                      else
+        else
                         1
-                      end
+        end
 
         isbn = Lisbn.new(doc.at('//dcterms:identifier[@rdf:datatype="http://ndl.go.jp/dcndl/terms/ISBN"]').try(:content).to_s).try(:isbn)
         issn = StdNum::ISSN.normalize(doc.at('//dcterms:identifier[@rdf:datatype="http://ndl.go.jp/dcndl/terms/ISSN"]').try(:content))
@@ -76,37 +76,37 @@ module EnjuNdl
 
         carrier_type = content_type = nil
         is_serial = nil
-        doc.xpath('//dcndl:materialType[@rdf:resource]').each do |d|
-          case d.attributes['resource'].try(:content)
-          when 'http://ndl.go.jp/ndltype/Book'
-            carrier_type = CarrierType.find_by(name: 'print')
-            content_type = ContentType.find_by(name: 'text')
-          when 'http://ndl.go.jp/ndltype/Braille'
-            content_type = ContentType.find_by(name: 'tactile_text')
+        doc.xpath("//dcndl:materialType[@rdf:resource]").each do |d|
+          case d.attributes["resource"].try(:content)
+          when "http://ndl.go.jp/ndltype/Book"
+            carrier_type = CarrierType.find_by(name: "print")
+            content_type = ContentType.find_by(name: "text")
+          when "http://ndl.go.jp/ndltype/Braille"
+            content_type = ContentType.find_by(name: "tactile_text")
           # when 'http://ndl.go.jp/ndltype/ComputerProgram'
           #  content_type = ContentType.find_by(name: 'computer_program')
-          when 'http://ndl.go.jp/ndltype/ElectronicResource'
-            carrier_type = CarrierType.find_by(name: 'file')
-          when 'http://ndl.go.jp/ndltype/Journal'
+          when "http://ndl.go.jp/ndltype/ElectronicResource"
+            carrier_type = CarrierType.find_by(name: "file")
+          when "http://ndl.go.jp/ndltype/Journal"
             is_serial = true
-          when 'http://ndl.go.jp/ndltype/Map'
-            content_type = ContentType.find_by(name: 'cartographic_image')
-          when 'http://ndl.go.jp/ndltype/Music'
-            content_type = ContentType.find_by(name: 'performed_music')
-          when 'http://ndl.go.jp/ndltype/MusicScore'
-            content_type = ContentType.find_by(name: 'notated_music')
-          when 'http://ndl.go.jp/ndltype/Painting'
-            content_type = ContentType.find_by(name: 'still_image')
-          when 'http://ndl.go.jp/ndltype/Photograph'
-            content_type = ContentType.find_by(name: 'still_image')
-          when 'http://ndl.go.jp/ndltype/PicturePostcard'
-            content_type = ContentType.find_by(name: 'still_image')
-          when 'http://purl.org/dc/dcmitype/MovingImage'
-            content_type = ContentType.find_by(name: 'two_dimensional_moving_image')
-          when 'http://purl.org/dc/dcmitype/Sound'
-            content_type = ContentType.find_by(name: 'sounds')
-          when 'http://purl.org/dc/dcmitype/StillImage'
-            content_type = ContentType.find_by(name: 'still_image')
+          when "http://ndl.go.jp/ndltype/Map"
+            content_type = ContentType.find_by(name: "cartographic_image")
+          when "http://ndl.go.jp/ndltype/Music"
+            content_type = ContentType.find_by(name: "performed_music")
+          when "http://ndl.go.jp/ndltype/MusicScore"
+            content_type = ContentType.find_by(name: "notated_music")
+          when "http://ndl.go.jp/ndltype/Painting"
+            content_type = ContentType.find_by(name: "still_image")
+          when "http://ndl.go.jp/ndltype/Photograph"
+            content_type = ContentType.find_by(name: "still_image")
+          when "http://ndl.go.jp/ndltype/PicturePostcard"
+            content_type = ContentType.find_by(name: "still_image")
+          when "http://purl.org/dc/dcmitype/MovingImage"
+            content_type = ContentType.find_by(name: "two_dimensional_moving_image")
+          when "http://purl.org/dc/dcmitype/Sound"
+            content_type = ContentType.find_by(name: "sounds")
+          when "http://purl.org/dc/dcmitype/StillImage"
+            content_type = ContentType.find_by(name: "still_image")
           end
 
           # NDLサーチのmaterialTypeは複数設定されているが、
@@ -114,15 +114,15 @@ module EnjuNdl
           break if content_type
         end
 
-        admin_identifier = doc.at('//dcndl:BibAdminResource[@rdf:about]').attributes['about'].value
-        description = doc.at('//dcterms:abstract').try(:content)
-        price = doc.at('//dcndl:price').try(:content)
-        volume_number_string = doc.at('//dcndl:volume/rdf:Description/rdf:value').try(:content)
+        admin_identifier = doc.at("//dcndl:BibAdminResource[@rdf:about]").attributes["about"].value
+        description = doc.at("//dcterms:abstract").try(:content)
+        price = doc.at("//dcndl:price").try(:content)
+        volume_number_string = doc.at("//dcndl:volume/rdf:Description/rdf:value").try(:content)
         extent = get_extent(doc)
-        publication_periodicity = doc.at('//dcndl:publicationPeriodicity').try(:content)
-        statement_of_responsibility = doc.xpath('//dcndl:BibResource/dc:creator').map(&:content).join('; ')
-        publication_place = doc.at('//dcterms:publisher/foaf:Agent/dcndl:location').try(:content)
-        edition_string = doc.at('//dcndl:edition').try(:content)
+        publication_periodicity = doc.at("//dcndl:publicationPeriodicity").try(:content)
+        statement_of_responsibility = doc.xpath("//dcndl:BibResource/dc:creator").map(&:content).join("; ")
+        publication_place = doc.at("//dcterms:publisher/foaf:Agent/dcndl:location").try(:content)
+        edition_string = doc.at("//dcndl:edition").try(:content)
 
         manifestation = Manifestation.find_by(manifestation_identifier: admin_identifier)
         return manifestation if manifestation
@@ -137,7 +137,7 @@ module EnjuNdl
             title_alternative: title[:alternative],
             title_alternative_transcription: title[:alternative_transcription],
             # TODO: NDLサーチに入っている図書以外の資料を調べる
-            #:carrier_type_id => CarrierType.find_by(name: 'print').id,
+            # :carrier_type_id => CarrierType.find_by(name: 'print').id,
             language_id: language_id,
             pub_date: date,
             description: description,
@@ -190,25 +190,25 @@ module EnjuNdl
         creators = get_creators(doc).uniq
         subjects = get_subjects(doc).uniq
         classifications = get_classifications(doc).uniq
-        classification_urls = doc.xpath('//dcterms:subject[@rdf:resource]').map { |subject| subject.attributes['resource'].value }
+        classification_urls = doc.xpath("//dcterms:subject[@rdf:resource]").map { |subject| subject.attributes["resource"].value }
 
         Agent.transaction do
           creator_agents = Agent.import_agents(creators)
           content_type_id = begin
-                              ContentType.find_by(name: 'text').id
+                              ContentType.find_by(name: "text").id
                             rescue StandardError
                               1
                             end
           manifestation.creators << creator_agents
 
           if defined?(EnjuSubject)
-            subject_heading_type = SubjectHeadingType.find_or_create_by!(name: 'ndlsh')
+            subject_heading_type = SubjectHeadingType.find_or_create_by!(name: "ndlsh")
             subjects.each do |term|
               subject = Subject.find_by(term: term[:term])
               unless subject
                 subject = Subject.new(term)
                 subject.subject_heading_type = subject_heading_type
-                subject.subject_type = SubjectType.find_or_create_by!(name: 'concept')
+                subject.subject_type = SubjectType.find_or_create_by!(name: "concept")
               end
               # if subject.valid?
               manifestation.subjects << subject
@@ -223,10 +223,10 @@ module EnjuNdl
                 end
                 next unless ndc_url
 
-                ndc_type = ndc_url.path.split('/').reverse[1]
-                next unless (ndc_type == 'ndc9') || (ndc_type == 'ndc10')
+                ndc_type = ndc_url.path.split("/").reverse[1]
+                next unless (ndc_type == "ndc9") || (ndc_type == "ndc10")
 
-                ndc = ndc_url.path.split('/').last
+                ndc = ndc_url.path.split("/").last
                 classification_type = ClassificationType.find_or_create_by!(name: ndc_type)
                 classification = Classification.new(category: ndc)
                 classification.classification_type = classification_type
@@ -235,7 +235,7 @@ module EnjuNdl
             end
             ndc8 = doc.xpath('//dc:subject[@rdf:datatype="http://ndl.go.jp/dcndl/terms/NDC8"]').first
             if ndc8
-              classification_type = ClassificationType.find_or_create_by!(name: 'ndc8')
+              classification_type = ClassificationType.find_or_create_by!(name: "ndc8")
               classification = Classification.new(category: ndc8.content)
               classification.classification_type = classification_type
               manifestation.classifications << classification if classification.valid?
@@ -245,7 +245,7 @@ module EnjuNdl
       end
 
       def search_ndl(query, options = {})
-        options = { dpid: 'iss-ndl-opac', item: 'any', idx: 1, per_page: 10, raw: false, mediatype: 'books periodicals video audio scores' }.merge(options)
+        options = { dpid: "iss-ndl-opac", item: "any", idx: 1, per_page: 10, raw: false, mediatype: "books periodicals video audio scores" }.merge(options)
         doc = nil
         results = {}
         startrecord = options[:idx].to_i
@@ -255,8 +255,8 @@ module EnjuNdl
         if options[:raw] == true
           URI.parse(url).read
         else
-          RSS::Rss::Channel.install_text_element('openSearch:totalResults', 'http://a9.com/-/spec/opensearchrss/1.0/', '?', 'totalResults', :text, 'openSearch:totalResults')
-          RSS::BaseListener.install_get_text_element 'http://a9.com/-/spec/opensearchrss/1.0/', 'totalResults', 'totalResults='
+          RSS::Rss::Channel.install_text_element("openSearch:totalResults", "http://a9.com/-/spec/opensearchrss/1.0/", "?", "totalResults", :text, "openSearch:totalResults")
+          RSS::BaseListener.install_get_text_element "http://a9.com/-/spec/opensearchrss/1.0/", "totalResults", "totalResults="
           RSS::Parser.parse(url, false)
         end
       end
@@ -278,7 +278,7 @@ module EnjuNdl
           return
         end
 
-        response = Nokogiri::XML(URI.parse(url).read).at('//xmlns:recordData')&.content
+        response = Nokogiri::XML(URI.parse(url).read).at("//xmlns:recordData")&.content
 
         Nokogiri::XML(response) if response
       end
@@ -287,13 +287,13 @@ module EnjuNdl
 
       def get_title(doc)
         title = {
-          manifestation: doc.xpath('//dc:title/rdf:Description/rdf:value').collect(&:content).join(' '),
-          transcription: doc.xpath('//dc:title/rdf:Description/dcndl:transcription').collect(&:content).join(' '),
-          alternative: doc.at('//dcndl:alternative/rdf:Description/rdf:value').try(:content),
-          alternative_transcription: doc.at('//dcndl:alternative/rdf:Description/dcndl:transcription').try(:content)
+          manifestation: doc.xpath("//dc:title/rdf:Description/rdf:value").collect(&:content).join(" "),
+          transcription: doc.xpath("//dc:title/rdf:Description/dcndl:transcription").collect(&:content).join(" "),
+          alternative: doc.at("//dcndl:alternative/rdf:Description/rdf:value").try(:content),
+          alternative_transcription: doc.at("//dcndl:alternative/rdf:Description/dcndl:transcription").try(:content)
         }
-        volumeTitle = doc.at('//dcndl:volumeTitle/rdf:Description/rdf:value').try(:content)
-        volumeTitle_transcription = doc.at('//dcndl:volumeTitle/rdf:Description/dcndl:transcription').try(:content)
+        volumeTitle = doc.at("//dcndl:volumeTitle/rdf:Description/rdf:value").try(:content)
+        volumeTitle_transcription = doc.at("//dcndl:volumeTitle/rdf:Description/dcndl:transcription").try(:content)
         title[:manifestation] << " #{volumeTitle}" if volumeTitle
         title[:transcription] << " #{volumeTitle_transcription}" if volumeTitle_transcription
         title
@@ -301,11 +301,11 @@ module EnjuNdl
 
       def get_creators(doc)
         creators = []
-        doc.xpath('//dcterms:creator/foaf:Agent').each do |creator|
+        doc.xpath("//dcterms:creator/foaf:Agent").each do |creator|
           creators << {
-            full_name: creator.at('./foaf:name').content,
-            full_name_transcription: creator.at('./dcndl:transcription').try(:content),
-            ndla_identifier: creator.attributes['about'].try(:content)
+            full_name: creator.at("./foaf:name").content,
+            full_name_transcription: creator.at("./dcndl:transcription").try(:content),
+            ndla_identifier: creator.attributes["about"].try(:content)
           }
         end
         creators
@@ -313,10 +313,10 @@ module EnjuNdl
 
       def get_subjects(doc)
         subjects = []
-        doc.xpath('//dcterms:subject/rdf:Description').each do |subject|
+        doc.xpath("//dcterms:subject/rdf:Description").each do |subject|
           subjects << {
-            term: subject.at('./rdf:value').content,
-            #:url => subject.attribute('about').try(:content)
+            term: subject.at("./rdf:value").content,
+            # :url => subject.attribute('about').try(:content)
           }
         end
         subjects
@@ -324,9 +324,9 @@ module EnjuNdl
 
       def get_classifications(doc)
         classifications = []
-        doc.xpath('//dcterms:subject[@rdf:resource]').each do |classification|
+        doc.xpath("//dcterms:subject[@rdf:resource]").each do |classification|
           classifications << {
-            url: classification.attributes['resource'].content
+            url: classification.attributes["resource"].content
           }
         end
         classifications
@@ -340,21 +340,21 @@ module EnjuNdl
 
       def get_publishers(doc)
         publishers = []
-        doc.xpath('//dcterms:publisher/foaf:Agent').each do |publisher|
+        doc.xpath("//dcterms:publisher/foaf:Agent").each do |publisher|
           publishers << {
-            full_name: publisher.at('./foaf:name').content,
-            full_name_transcription: publisher.at('./dcndl:transcription').try(:content),
-            agent_identifier: publisher.attributes['about'].try(:content)
+            full_name: publisher.at("./foaf:name").content,
+            full_name_transcription: publisher.at("./dcndl:transcription").try(:content),
+            agent_identifier: publisher.attributes["about"].try(:content)
           }
         end
         publishers
       end
 
       def get_extent(doc)
-        extent = doc.at('//dcterms:extent').try(:content)
+        extent = doc.at("//dcterms:extent").try(:content)
         value = { start_page: nil, end_page: nil, height: nil }
         if extent
-          extent = extent.split(';')
+          extent = extent.split(";")
           page = extent[0].try(:strip)
           value[:extent] = page
           if page =~ /\d+p/
@@ -370,13 +370,13 @@ module EnjuNdl
 
       def create_series_statement(doc, manifestation)
         series = series_title = {}
-        series[:title] = doc.at('//dcndl:seriesTitle/rdf:Description/rdf:value').try(:content)
-        series[:title_transcription] = doc.at('//dcndl:seriesTitle/rdf:Description/dcndl:transcription').try(:content)
-        series[:creator] = doc.at('//dcndl:seriesCreator').try(:content)
+        series[:title] = doc.at("//dcndl:seriesTitle/rdf:Description/rdf:value").try(:content)
+        series[:title_transcription] = doc.at("//dcndl:seriesTitle/rdf:Description/dcndl:transcription").try(:content)
+        series[:creator] = doc.at("//dcndl:seriesCreator").try(:content)
         if series[:title]
-          series_title[:title] = series[:title].split(';')[0].strip
+          series_title[:title] = series[:title].split(";")[0].strip
           if series[:title_transcription]
-            series_title[:title_transcription] = series[:title_transcription].split(';')[0].strip
+            series_title[:title_transcription] = series[:title_transcription].split(";")[0].strip
           end
         end
 
@@ -396,7 +396,7 @@ module EnjuNdl
       end
 
       def format_query(query)
-        Addressable::URI.encode(query.to_s.tr('　', ' '))
+        Addressable::URI.encode(query.to_s.tr("　", " "))
       end
     end
 

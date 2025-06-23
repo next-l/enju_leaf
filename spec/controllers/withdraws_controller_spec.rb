@@ -32,7 +32,7 @@ RSpec.describe WithdrawsController, type: :controller do
   end
   let(:valid_create_attributes) do
     { basket_id: Basket.find(valid_attributes[:basket_id]).id,
-      withdraw: { item_identifier: Item.find(valid_attributes[:item_id]).item_identifier }}
+      withdraw: { item_identifier: Item.find(valid_attributes[:item_id]).item_identifier } }
   end
 
   # This should return the minimal set of values that should be in the session

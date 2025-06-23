@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,9 +68,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
 
   create_table "agent_import_files", force: :cascade do |t|
     t.bigint "parent_id"
+    t.string "content_type"
+    t.integer "size"
     t.bigint "user_id"
     t.text "note"
     t.datetime "executed_at", precision: nil
+    t.string "agent_import_file_name"
+    t.string "agent_import_content_type"
+    t.integer "agent_import_file_size"
+    t.datetime "agent_import_updated_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "agent_import_fingerprint"
@@ -543,9 +549,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
 
   create_table "event_import_files", force: :cascade do |t|
     t.bigint "parent_id"
+    t.string "content_type"
+    t.integer "size"
     t.bigint "user_id"
     t.text "note"
     t.datetime "executed_at", precision: nil
+    t.string "event_import_file_name"
+    t.string "event_import_content_type"
+    t.integer "event_import_file_size"
+    t.datetime "event_import_updated_at", precision: nil
     t.string "edit_mode"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -617,7 +629,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.string "body", null: false
     t.bigint "identifier_type_id", null: false
     t.bigint "manifestation_id"
-    t.boolean "primary"
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -677,6 +688,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
   end
 
   create_table "inventory_files", force: :cascade do |t|
+    t.string "filename"
+    t.string "content_type"
+    t.integer "size"
     t.bigint "user_id"
     t.text "note"
     t.datetime "created_at", null: false
@@ -888,6 +902,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.string "header_logo_content_type"
     t.bigint "header_logo_file_size"
     t.datetime "header_logo_updated_at", precision: nil
+    t.text "header_logo_meta"
     t.string "email"
     t.index "lower((name)::text)", name: "index_library_groups_on_lower_name", unique: true
     t.index ["email"], name: "index_library_groups_on_email"
@@ -1048,6 +1063,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.integer "serial_number"
     t.bigint "content_type_id", default: 1
     t.integer "year_of_publication"
+    t.text "attachment_meta"
     t.integer "month_of_publication"
     t.boolean "fulltext_content"
     t.boolean "serial"
@@ -1253,6 +1269,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.string "picture_content_type"
     t.integer "picture_file_size"
     t.datetime "picture_updated_at", precision: nil
+    t.text "picture_meta"
     t.string "picture_fingerprint"
     t.integer "picture_width"
     t.integer "picture_height"
@@ -1472,9 +1489,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
 
   create_table "resource_import_files", force: :cascade do |t|
     t.bigint "parent_id"
+    t.string "content_type"
+    t.integer "size"
     t.bigint "user_id"
     t.text "note"
     t.datetime "executed_at", precision: nil
+    t.string "resource_import_file_name"
+    t.string "resource_import_content_type"
+    t.integer "resource_import_file_size"
+    t.datetime "resource_import_updated_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "edit_mode"
@@ -1914,6 +1937,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.bigint "user_id"
     t.text "note"
     t.datetime "executed_at", precision: nil
+    t.string "user_import_file_name"
+    t.string "user_import_content_type"
+    t.integer "user_import_file_size"
+    t.datetime "user_import_updated_at", precision: nil
     t.string "user_import_fingerprint"
     t.string "edit_mode"
     t.text "error_message"

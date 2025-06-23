@@ -1,12 +1,12 @@
 class UserReserveStatsController < ApplicationController
-  before_action :set_user_reserve_stat, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_user_reserve_stat, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
   after_action :convert_charset, only: :show
 
   # GET /user_reserve_stats
   # GET /user_reserve_stats.json
   def index
-    @user_reserve_stats = UserReserveStat.order('id DESC').page(params[:page])
+    @user_reserve_stats = UserReserveStat.order("id DESC").page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -21,7 +21,7 @@ class UserReserveStatsController < ApplicationController
     else
       per_page = ReserveStatHasUser.default_per_page
     end
-    @stats = @user_reserve_stat.reserve_stat_has_users.order('reserves_count DESC, user_id').page(params[:page]).per(per_page)
+    @stats = @user_reserve_stat.reserve_stat_has_users.order("reserves_count DESC, user_id").page(params[:page]).per(per_page)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -47,7 +47,7 @@ class UserReserveStatsController < ApplicationController
     respond_to do |format|
       if @user_reserve_stat.save
         UserReserveStatJob.perform_later(@user_reserve_stat)
-        format.html { redirect_to @user_reserve_stat, notice: t('statistic.successfully_created', model: t('activerecord.models.user_reserve_stat')) }
+        format.html { redirect_to @user_reserve_stat, notice: t("statistic.successfully_created", model: t("activerecord.models.user_reserve_stat")) }
         format.json { render json: @user_reserve_stat, status: :created, location: @user_reserve_stat }
       else
         format.html { render action: "new" }
@@ -61,10 +61,10 @@ class UserReserveStatsController < ApplicationController
   def update
     respond_to do |format|
       if @user_reserve_stat.update(user_reserve_stat_params)
-        if @user_reserve_stat.mode == 'import'
+        if @user_reserve_stat.mode == "import"
           UserReserveStatJob.perform_later(@user_reserve_stat)
         end
-        format.html { redirect_to @user_reserve_stat, notice: t('controller.successfully_updated', model: t('activerecord.models.user_reserve_stat')) }
+        format.html { redirect_to @user_reserve_stat, notice: t("controller.successfully_updated", model: t("activerecord.models.user_reserve_stat")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
