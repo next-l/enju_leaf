@@ -31,25 +31,12 @@ services:
   web:
     <<: *app
     command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -b 0.0.0.0"
-    environment:
-      - WEBPACKER_DEV_SERVER_HOST=webpacker
     expose:
       - 3000
 
   workers:
     <<: *app
     command: bundle exec rake solid_queue:start
-
-  webpacker:
-    <<: *app
-    environment:
-      - NODE_ENV=development
-      - WEBPACKER_DEV_SERVER_HOST=127.0.0.1
-    command: ./bin/webpack-dev-server
-    ports:
-      - 127.0.0.1:3035:3035
-    profiles:
-      - develop
 
   solr:
     image: solr:8

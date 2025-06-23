@@ -112,7 +112,6 @@ gem 'rdf-turtle', require: 'rdf/turtle'
 gem 'rdf-vocab', require: 'rdf/vocab'
 gem 'oai'
 gem 'active_storage_validations'
-gem 'webpacker', '~> 5.0'
 gem 'faraday-multipart'
 
 group :development, :test do
