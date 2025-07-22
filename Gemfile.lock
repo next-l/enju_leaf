@@ -163,9 +163,9 @@ GEM
       tzinfo
     factory_bot (6.5.4)
       activesupport (>= 6.1.0)
-    factory_bot_rails (6.4.4)
+    factory_bot_rails (6.5.0)
       factory_bot (~> 6.5)
-      railties (>= 5.0.0)
+      railties (>= 6.1.0)
     faraday (2.13.3)
       faraday-net_http (>= 2.0, < 3.5)
       json
@@ -402,10 +402,6 @@ GEM
       psych (>= 4.0.0)
     readline (0.0.4)
       reline
-    redis (5.4.1)
-      redis-client (>= 0.22.0)
-    redis-client (0.25.1)
-      connection_pool
     regexp_parser (2.10.0)
     reline (0.6.2)
       io-console (~> 0.5)
@@ -502,6 +498,10 @@ GEM
     simplecov_json_formatter (0.1.4)
     sitemap_generator (6.3.0)
       builder (~> 3.0)
+    solid_cache (1.0.7)
+      activejob (>= 7.2)
+      activerecord (>= 7.2)
+      railties (>= 7.2)
     solid_queue (1.2.0)
       activejob (>= 7.1)
       activerecord (>= 7.1)
@@ -603,7 +603,7 @@ DEPENDENCIES
   debug
   devise
   dotenv-rails
-  factory_bot_rails (~> 6.4.0)
+  factory_bot_rails
   faraday-multipart
   friendly_id
   geocoder
@@ -632,7 +632,6 @@ DEPENDENCIES
   rails_autolink
   rdf-turtle
   rdf-vocab
-  redis (>= 4.0.1)
   resync
   rspec-rails
   rspec_junit_formatter
@@ -642,6 +641,7 @@ DEPENDENCIES
   selenium-webdriver
   simplecov
   sitemap_generator
+  solid_cache
   solid_queue (~> 1.0)
   sprockets-rails
   statesman (~> 12.1)
