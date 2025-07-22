@@ -53,9 +53,12 @@ jobs:
         run: bin/rake assets:precompile
       - name: Run tests
         run: |
-          ./cc-test-reporter before-build
           bin/rake
-          ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
+      - name: Upload coverage reports
+        uses: qltysh/qlty-action/coverage@v1
+        with:
+          token: {{secrets.QLTY_COVERAGE_TOKEN}}
+          files: coverage/.resultset.json
 
   lint:
     runs-on: ubuntu-latest
