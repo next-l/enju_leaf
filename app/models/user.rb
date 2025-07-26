@@ -8,6 +8,7 @@ class User < ApplicationRecord
   include EnjuMessage::EnjuUser
   include EnjuBookmark::EnjuUser
   include EnjuPurchaseRequest::EnjuUser
+  validates :profile, uniqueness: true
 end
 
 # == Schema Information
