@@ -33,9 +33,9 @@ RSpec.describe "OaiController", type: :request do
       end
     end
 
-    describe 'jpcoar' do
+    describe 'jpcoar_2.0' do
       before(:each) do
-        @metadata_format = 'jpcoar'
+        @metadata_format = 'jpcoar_2.0'
       end
 
       it "should get ListRecords" do
@@ -52,22 +52,6 @@ RSpec.describe "OaiController", type: :request do
     describe 'dcndl' do
       before(:each) do
         @metadata_format = 'dcndl'
-      end
-
-      it "should get ListRecords" do
-        get oai_path(verb: 'ListRecords', metadataPrefix: @metadata_format)
-        expect(response).to be_successful
-      end
-
-      it "should get GetRecord" do
-        get oai_path(verb: 'GetRecord', identifier: "oai:localhost:manifestations:#{@manifestation.id}", metadataPrefix: @metadata_format)
-        expect(response).to be_successful
-      end
-    end
-
-    describe 'junii2' do
-      before(:each) do
-        @metadata_format = 'junii2'
       end
 
       it "should get ListRecords" do
