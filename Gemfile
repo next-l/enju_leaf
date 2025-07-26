@@ -27,12 +27,6 @@ gem "puma", ">= 5.0"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
-# Use Redis adapter to run Action Cable in production
-gem "redis", ">= 4.0.1"
-
-# Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
-# gem "kredis"
-
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
@@ -97,6 +91,7 @@ gem 'addressable'
 gem 'progress_bar'
 gem 'rails_autolink'
 gem 'kramdown'
+gem 'solid_cache'
 gem 'solid_queue', "~> 1.0"
 gem 'mission_control-jobs', "~> 0.5.0"
 gem 'acts-as-taggable-on'
@@ -120,7 +115,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'vcr'
   gem 'webmock'
-  gem 'factory_bot_rails', '~> 6.4.0'
+  gem 'factory_bot_rails'
   gem 'rails-controller-testing'
   gem 'simplecov'
   gem 'parallel_tests'
