@@ -187,6 +187,8 @@ class ResourceImportFile < ApplicationRecord
       import_result.manifestation = manifestation
 
       if manifestation
+        manifestaton.reload
+
         ResourceImportFile.import_manifestation_custom_value(row, manifestation).each do |value|
           value.update!(manifestation: manifestation)
         end
