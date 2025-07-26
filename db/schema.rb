@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_26_135437) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -70,7 +70,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
     t.bigint "parent_id"
     t.string "content_type"
     t.integer "size"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.text "note"
     t.datetime "executed_at", precision: nil
     t.string "agent_import_file_name"
@@ -472,7 +472,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
   end
 
   create_table "demands", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.bigint "item_id"
     t.bigint "message_id"
     t.datetime "created_at", null: false
@@ -523,7 +523,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
   end
 
   create_table "event_export_files", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.string "event_export_file_name"
     t.string "event_export_content_type"
     t.bigint "event_export_file_size"
@@ -551,7 +551,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
     t.bigint "parent_id"
     t.string "content_type"
     t.integer "size"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.text "note"
     t.datetime "executed_at", precision: nil
     t.string "event_import_file_name"
@@ -665,7 +665,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
   create_table "import_requests", force: :cascade do |t|
     t.string "isbn"
     t.bigint "manifestation_id"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["isbn"], name: "index_import_requests_on_isbn"
@@ -691,7 +691,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
     t.string "filename"
     t.string "content_type"
     t.integer "size"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -896,7 +896,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
     t.boolean "family_name_first", default: true
     t.string "screenshot_generator"
     t.integer "pub_year_facet_range_interval", default: 10
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.boolean "csv_charset_conversion", default: false, null: false
     t.string "header_logo_file_name"
     t.string "header_logo_content_type"
@@ -941,7 +941,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
     t.datetime "updated_at", null: false
     t.datetime "started_at", precision: nil
     t.datetime "completed_at", precision: nil
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_manifestation_checkout_stats_on_user_id"
   end
 
@@ -1008,7 +1008,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
     t.datetime "updated_at", null: false
     t.datetime "started_at", precision: nil
     t.datetime "completed_at", precision: nil
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_manifestation_reserve_stats_on_user_id"
   end
 
@@ -1161,7 +1161,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
   create_table "news_posts", force: :cascade do |t|
     t.text "title"
     t.text "body"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "start_date", precision: nil
     t.datetime "end_date", precision: nil
     t.bigint "required_role_id", default: 1, null: false
@@ -1464,7 +1464,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
   end
 
   create_table "resource_export_files", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.string "resource_export_file_name"
     t.string "resource_export_content_type"
     t.bigint "resource_export_file_size"
@@ -1491,7 +1491,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
     t.bigint "parent_id"
     t.string "content_type"
     t.integer "size"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.text "note"
     t.datetime "executed_at", precision: nil
     t.string "resource_import_file_name"
@@ -1778,7 +1778,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
   create_table "subscriptions", force: :cascade do |t|
     t.text "title", null: false
     t.text "note"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.bigint "order_list_id"
     t.integer "subscribes_count", default: 0, null: false
     t.datetime "created_at", null: false
@@ -1847,7 +1847,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
     t.datetime "updated_at", null: false
     t.datetime "started_at", precision: nil
     t.datetime "completed_at", precision: nil
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_user_checkout_stats_on_user_id"
   end
 
@@ -1866,7 +1866,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
   end
 
   create_table "user_export_files", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.string "user_export_file_name"
     t.string "user_export_content_type"
     t.bigint "user_export_file_size"
@@ -1934,7 +1934,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
   end
 
   create_table "user_import_files", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.text "note"
     t.datetime "executed_at", precision: nil
     t.string "user_import_file_name"
@@ -1984,7 +1984,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_125356) do
     t.datetime "updated_at", null: false
     t.datetime "started_at", precision: nil
     t.datetime "completed_at", precision: nil
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_user_reserve_stats_on_user_id"
   end
 
