@@ -1,7 +1,7 @@
 class InventoryFilesController < ApplicationController
-  before_action :set_inventory_file, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :set_inventory_file, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :prepare_options, only: [ :new, :edit ]
 
   # GET /inventory_files
   # GET /inventory_files.json
@@ -16,23 +16,10 @@ class InventoryFilesController < ApplicationController
   # GET /inventory_files/1
   # GET /inventory_files/1.json
   def show
-    if @inventory_file.inventory.path
-      unless ENV['ENJU_STORAGE'] == 's3'
-        file = File.expand_path(@inventory_file.inventory.path)
-      end
-    end
     @inventories = @inventory_file.inventories.page(params[:page])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.download {
-        if ENV['ENJU_STORAGE'] == 's3'
-          send_data Faraday.get(@inventory_file.inventory.expiring_url).body.force_encoding('UTF-8'),
-            filename: File.basename(@inventory_file.inventory_file_name), type: 'application/octet-stream'
-        else
-          send_file file, filename: File.basename(@inventory_file.inventory_file_name), type: 'application/octet-stream'
-        end
-      }
     end
   end
 
@@ -53,7 +40,7 @@ class InventoryFilesController < ApplicationController
 
     respond_to do |format|
       if @inventory_file.save
-        flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.inventory_file'))
+        flash[:notice] = t("controller.successfully_created", model: t("activerecord.models.inventory_file"))
         @inventory_file.import
         format.html { redirect_to(@inventory_file) }
         format.json { render json: @inventory_file, status: :created, location: @inventory_file }
@@ -70,7 +57,7 @@ class InventoryFilesController < ApplicationController
   def update
     respond_to do |format|
       if @inventory_file.update(inventory_file_params)
-        flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.inventory_file'))
+        flash[:notice] = t("controller.successfully_updated", model: t("activerecord.models.inventory_file"))
         format.html { redirect_to(@inventory_file) }
         format.json { head :no_content }
       else
@@ -108,6 +95,6 @@ class InventoryFilesController < ApplicationController
   end
 
   def inventory_file_params
-    params.require(:inventory_file).permit(:inventory, :shelf_id, :note)
+    params.require(:inventory_file).permit(:attachment, :shelf_id, :note)
   end
 end

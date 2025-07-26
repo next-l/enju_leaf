@@ -1,45 +1,44 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.listing', model: t('activerecord.models.withdraw')) -%></h1>
-<div id="content_list">
+  <h1 class="title"><%= t('page.listing', model: t('activerecord.models.withdraw')) -%></h1>
+  <div id="content_list">
+    <div class="search_form">
+      <%= form_for(:withdraw, html: {method: :get}) do |f| %>
+        <p>
+          <%= label_tag :item_identifier, t('activerecord.attributes.item.item_identifier') -%>:
+          <%= f.search_field :item_identifier, value: @query, class: 'resource_item_identifier' -%>
+          <%= f.submit t('page.search') -%>
+        </p>
+      <%- end -%>
+    </div>
 
-<div class="search_form">
-  <%= form_for(:withdraw, html: {method: :get}) do |f| %>
-    <p>
-      <%= label_tag :item_identifier, t('activerecord.attributes.item.item_identifier') -%>:
-      <%= f.search_field :item_identifier, value: @query, class: 'resource_item_identifier' -%>
-      <%= f.submit t('page.search') -%>
-    </p>
-  <%- end -%>
-</div>
+    <table class="table table-striped index">
+      <tr>
+        <th><%= t('activerecord.models.item') -%></th>
+        <th></th>
+      </tr>
+      <%- @withdraws.each_with_index do |withdraw, i| -%>
+        <tr class="line<%= cycle("0", "1") -%>">
+          <td>
+            <% if withdraw.item %>
+              <%= render 'manifestations/show_index', manifestation: withdraw.item.manifestation %>
+              <%= link_to withdraw.item.item_identifier, withdraw.item -%> / <%= withdraw.item.call_number %>
+              (<%= link_to withdraw.item.shelf.library.display_name.localize, withdraw.item.shelf.library %> /
+              <%= link_to withdraw.item.shelf.display_name.localize, withdraw.item.shelf %>)<br />
+              <%=l withdraw.created_at %>
+            <% end %>
+          </td>
+          <td>
+            <%- if policy(withdraw).destroy? -%>
+              <%= link_to t('page.destroy'), withdraw, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+            <%- end -%>
+          </td>
+        </tr>
+      <%- end -%>
+    </table>
+    <%= javascript_tag("$(function(){$('#withdraw_item_identifier').focus()})") %>
 
-<table class="table table-striped index">
-  <tr>
-    <th><%= t('activerecord.models.item') -%></th>
-    <th></th>
-  </tr>
-  <%- @withdraws.each_with_index do |withdraw, i| -%>
-    <tr class="line<%= cycle("0", "1") -%>">
-      <td>
-        <% if withdraw.item %>
-          <%= render 'manifestations/show_index', manifestation: withdraw.item.manifestation %>
-          <%= link_to withdraw.item.item_identifier, withdraw.item -%> / <%= withdraw.item.call_number %>
-          (<%= link_to withdraw.item.shelf.library.display_name.localize, withdraw.item.shelf.library %> /
-          <%= link_to withdraw.item.shelf.display_name.localize, withdraw.item.shelf %>)<br />
-          <%=l withdraw.created_at %>
-        <% end %>
-      </td>
-      <td>
-        <%- if policy(withdraw).destroy? -%>
-          <%= link_to t('page.destroy'), withdraw, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
-        <%- end -%>
-      </td>
-    </tr>
-  <%- end -%>
-</table>
-  <%= javascript_tag("$(function(){$('#withdraw_item_identifier').focus()})") %>
-
-  <%= paginate(@withdraws) %>
-</div>
+    <%= paginate(@withdraws) %>
+  </div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">

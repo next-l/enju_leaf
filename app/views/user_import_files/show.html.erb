@@ -8,16 +8,16 @@
   <%= @user_import_file.id -%>
 </p>
 
-<% if @user_import_file.user_import_file_name %>
+<% if @user_import_file.attachment.attached? %>
 <p>
   <strong><%= t('activerecord.attributes.user_import_file.user_import_file_name') -%>:</strong>
-  <%= link_to @user_import_file.user_import_file_name, user_import_file_path(@user_import_file, format: :download) %>
-  (<%= @user_import_file.user_import_content_type -%>)
+  <%= link_to @user_import_file.attachment.filename, rails_blob_path(@user_import_file.attachment) if @user_import_file.attachment.attached? %>
+  (<%= @user_import_file.attachment.content_type -%>)
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.user_import_file.user_import_file_size') -%>:</strong>
-  <%= @user_import_file.user_import_file_size -%>
+  <%= @user_import_file.attachment.byte_size -%>
 </p>
 <% end %>
 
@@ -78,7 +78,7 @@
   <ul>
     <li><%= back_to_index(flash[:page_info]) -%></li>
     <% if current_user.has_role?('Administrator') %>
-      <li><%= link_to 'Resque', resque_path %></li>
+      <li><%= link_to t('page.background_job'), mission_control_jobs_path %></li>
     <% end %>
   </ul>
   <% end %>

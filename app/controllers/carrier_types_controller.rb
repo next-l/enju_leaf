@@ -1,7 +1,7 @@
 class CarrierTypesController < ApplicationController
-  before_action :set_carrier_type, only: [:edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :set_carrier_type, only: [ :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :prepare_options, only: [ :new, :edit ]
   skip_after_action :verify_authorized
 
   # GET /carrier_types
@@ -18,22 +18,10 @@ class CarrierTypesController < ApplicationController
   # GET /carrier_types/1.json
   def show
     @carrier_type = CarrierType.find(params[:id])
-    unless params[:format] == 'download'
-      authorize @carrier_type
-    end
-    if @carrier_type.attachment.path
-      if ENV['ENJU_STORAGE'] == 's3'
-        file = Faraday.get(@carrier_type.attachment.expiring_url).body.force_encoding('UTF-8')
-      else
-        file = @carrier_type.attachment.path
-      end
-    end
+    authorize @carrier_type
 
     respond_to do |format|
       format.html # show.html.erb
-      format.download {
-        render_image(file)
-      }
     end
   end
 
@@ -53,7 +41,7 @@ class CarrierTypesController < ApplicationController
 
     respond_to do |format|
       if @carrier_type.save
-        format.html { redirect_to @carrier_type, notice: t('controller.successfully_created', model: t('activerecord.models.carrier_type')) }
+        format.html { redirect_to @carrier_type, notice: t("controller.successfully_created", model: t("activerecord.models.carrier_type")) }
         format.json { render json: @carrier_type, status: :created, location: @carrier_type }
       else
         prepare_options
@@ -73,7 +61,7 @@ class CarrierTypesController < ApplicationController
 
     respond_to do |format|
       if @carrier_type.update(carrier_type_params)
-        format.html { redirect_to @carrier_type, notice: t('controller.successfully_updated', model: t('activerecord.models.carrier_type')) }
+        format.html { redirect_to @carrier_type, notice: t("controller.successfully_updated", model: t("activerecord.models.carrier_type")) }
         format.json { head :no_content }
       else
         prepare_options
@@ -89,7 +77,7 @@ class CarrierTypesController < ApplicationController
     @carrier_type.destroy
 
     respond_to do |format|
-      format.html { redirect_to carrier_types_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.carrier_type')) }
+      format.html { redirect_to carrier_types_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.carrier_type")) }
       format.json { head :no_content }
     end
   end
@@ -119,17 +107,7 @@ class CarrierTypesController < ApplicationController
 
   def prepare_options
     if defined?(EnjuCirculation)
-      @checkout_types = CheckoutType.select([:id, :display_name, :position])
-    end
-  end
-
-  def render_image(file)
-    if @carrier_type.attachment.path
-      if ENV['ENJU_STORAGE'] == 's3'
-        send_data file, filename: File.basename(@carrier_type.attachment_file_name), type: @carrier_type.attachment_content_type, disposition: 'inline'
-      elsif File.exist?(file) && File.file?(file)
-        send_file file, filename: File.basename(@carrier_type.attachment_file_name), type: @carrier_type.attachment_content_type, disposition: 'inline'
-      end
+      @checkout_types = CheckoutType.select([ :id, :display_name, :position ])
     end
   end
 end

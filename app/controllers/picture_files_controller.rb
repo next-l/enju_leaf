@@ -1,7 +1,7 @@
 class PictureFilesController < ApplicationController
-  before_action :set_picture_file, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :get_attachable, only: [:index, :new]
+  before_action :set_picture_file, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :get_attachable, only: [ :index, :new ]
   skip_before_action :store_current_location, only: :show
 
   # GET /picture_files
@@ -21,34 +21,16 @@ class PictureFilesController < ApplicationController
   # GET /picture_files/1
   # GET /picture_files/1.json
   def show
-    case params[:size]
-    when 'original'
-      size = 'original'
-    when 'thumb'
-      size = 'thumb'
-    else
-      size = 'medium'
-    end
-
-    if @picture_file.picture.exists?
-      if ENV['ENJU_STORAGE'] == 's3'
-        file = Faraday.get(@picture_file.picture.expiring_url).body.force_encoding('UTF-8')
-      else
-        file = File.expand_path(@picture_file.picture.path(size.to_sym))
-      end
-    end
-
     respond_to do |format|
       format.html # show.html.erb
-      format.html.phone {
-        if params[:format] == 'download'
-          render_image(file)
-        end
-      }
-      format.download {
-        render_image(file)
-      }
+      format.html.phone
     end
+  end
+
+  def download
+    picture_file = PictureFile.find(params[:picture_file_id])
+    authorize picture_file, policy_class: PictureFilePolicy
+    redirect_to rails_storage_proxy_url(picture_file.attachment)
   end
 
   # GET /picture_files/new
@@ -57,7 +39,7 @@ class PictureFilesController < ApplicationController
       redirect_to picture_files_url
       return
     end
-    #raise unless @event or @manifestation or @shelf or @agent
+    # raise unless @event or @manifestation or @shelf or @agent
     @picture_file = PictureFile.new
     @picture_file.picture_attachable = @attachable
   end
@@ -73,7 +55,7 @@ class PictureFilesController < ApplicationController
 
     respond_to do |format|
       if @picture_file.save
-        format.html { redirect_to @picture_file, notice: t('controller.successfully_created', model: t('activerecord.models.picture_file')) }
+        format.html { redirect_to @picture_file, notice: t("controller.successfully_created", model: t("activerecord.models.picture_file")) }
         format.json { render json: @picture_file, status: :created, location: @picture_file }
       else
         format.html { render action: "new" }
@@ -109,7 +91,7 @@ class PictureFilesController < ApplicationController
 
     respond_to do |format|
       if @picture_file.update(picture_file_params)
-        format.html { redirect_to @picture_file, notice: t('controller.successfully_updated', model: t('activerecord.models.picture_file')) }
+        format.html { redirect_to @picture_file, notice: t("controller.successfully_updated", model: t("activerecord.models.picture_file")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -125,18 +107,18 @@ class PictureFilesController < ApplicationController
     @picture_file.destroy
 
     respond_to do |format|
-      flash[:notice] = t('controller.successfully_deleted', model: t('activerecord.models.picture_file'))
+      flash[:notice] = t("controller.successfully_deleted", model: t("activerecord.models.picture_file"))
       format.html {
         case attachable.class.name
-        when 'Manifestation'
+        when "Manifestation"
           redirect_to picture_files_url(manifestation_id: attachable.id)
-        when 'Agent'
+        when "Agent"
           redirect_to picture_files_url(agent_id: attachable.id)
-        when 'Shelf'
+        when "Shelf"
           redirect_to picture_files_url(shelf_id: attachable.id)
         else
           if defined?(EnjuEvent)
-            if attachable.class.name == 'Event'
+            if attachable.class.name == "Event"
               redirect_to picture_files_url(event_id: attachable.id)
             else
               redirect_to picture_files_url
@@ -162,7 +144,7 @@ class PictureFilesController < ApplicationController
 
   def picture_file_params
     params.require(:picture_file).permit(
-      :picture, :picture_attachable_id, :picture_attachable_type
+      :attachment, :picture_attachable_id, :picture_attachable_type
     )
   end
 
@@ -186,25 +168,6 @@ class PictureFilesController < ApplicationController
     if @shelf
       @attachable = @shelf
       nil
-    end
-  end
-
-  def render_image(file)
-    case params[:mode]
-    when 'download'
-      disposition = 'attachment'
-    else
-      disposition = 'inline'
-    end
-
-    if @picture_file.picture.path && file
-      if ENV['ENJU_STORAGE'] == 's3'
-        send_data file, filename: File.basename(@picture_file.picture_file_name), type: @picture_file.picture_content_type, disposition: disposition
-      elsif File.exist?(file) && File.file?(file)
-        send_file file, filename: File.basename(@picture_file.picture_file_name), type: @picture_file.picture_content_type, disposition: disposition
-      end
-    else
-      render body: nil
     end
   end
 end

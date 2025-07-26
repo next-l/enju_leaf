@@ -1,9 +1,9 @@
 class Accept < ApplicationRecord
   include EnjuCirculation::EnjuAccept
-  default_scope { order('accepts.id DESC') }
+  default_scope { order("accepts.id DESC") }
   belongs_to :basket
   belongs_to :item, touch: true
-  belongs_to :librarian, class_name: 'User'
+  belongs_to :librarian, class_name: "User"
 
   validates :item_id, uniqueness: true # , message:  I18n.t('accept.already_accepted')
 
@@ -16,10 +16,16 @@ end
 #
 # Table name: accepts
 #
-#  id           :integer          not null, primary key
-#  basket_id    :integer
-#  item_id      :integer
-#  librarian_id :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  id           :bigint           not null, primary key
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  basket_id    :bigint
+#  item_id      :bigint
+#  librarian_id :bigint
+#
+# Indexes
+#
+#  index_accepts_on_basket_id     (basket_id)
+#  index_accepts_on_item_id       (item_id) UNIQUE
+#  index_accepts_on_librarian_id  (librarian_id)
 #

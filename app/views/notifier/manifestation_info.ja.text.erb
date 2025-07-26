@@ -4,10 +4,10 @@
 著者: <%= @manifestation.creators.readable_by(@user).collect(&:full_name).join("/") %>
 編者: <%= @manifestation.contributors.readable_by(@user).collect(&:full_name).join("/") %> 
 出版者: <%= @manifestation.publishers.readable_by(@user).collect(&:full_name).join("/") %>
-ISBN: <%= @manifestation.identifier_contents(:isbn).join(" ") %>
+ISBN: <%= @manifestation.isbn_records.pluck(:body).join(" ") %>
 URL: <%= @manifestation.access_address %>
 所蔵場所:
-<% @manifestation.items.on_shelf.each do |item| -%>
+<% @items.on_shelf.each do |item| -%>
  <%= item.shelf_display_name.localize %> <%= item.call_number %> <%= item.item_identifier %>
 <% end -%>
 

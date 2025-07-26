@@ -9,11 +9,16 @@ end
 #
 # Table name: realizes
 #
-#  id              :integer          not null, primary key
-#  agent_id        :integer          not null
-#  expression_id   :integer          not null
+#  id              :bigint           not null, primary key
 #  position        :integer
-#  created_at      :datetime
-#  updated_at      :datetime
-#  realize_type_id :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  agent_id        :bigint           not null
+#  expression_id   :bigint           not null
+#  realize_type_id :bigint
+#
+# Indexes
+#
+#  index_realizes_on_agent_id                    (agent_id)
+#  index_realizes_on_expression_id_and_agent_id  (expression_id,agent_id) UNIQUE
 #

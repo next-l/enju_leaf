@@ -17,10 +17,16 @@ end
 #
 # Table name: accepts
 #
-#  id           :integer          not null, primary key
-#  basket_id    :integer
-#  item_id      :integer
-#  librarian_id :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  id           :bigint           not null, primary key
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  basket_id    :bigint
+#  item_id      :bigint
+#  librarian_id :bigint
+#
+# Indexes
+#
+#  index_accepts_on_basket_id     (basket_id)
+#  index_accepts_on_item_id       (item_id) UNIQUE
+#  index_accepts_on_librarian_id  (librarian_id)
 #

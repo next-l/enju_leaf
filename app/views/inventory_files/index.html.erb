@@ -15,11 +15,11 @@
   <tr class="line<%= cycle("0", "1") -%>">
     <td><%= link_to inventory_file.shelf.display_name, inventory_file.shelf %></td>
     <td>
-      <%= link_to inventory_file.inventory_file_name, inventory_file -%>
+      <%= link_to inventory_file.attachment.filename, inventory_file -%>
       <br />
       <%= inventory_file.created_at -%>
     </td>
-    <td><%= inventory_file.inventory_file_size -%> </td>
+    <td><%= inventory_file.attachment.byte_size -%> </td>
     <td><%= link_to inventory_file.user.username, inventory_file.user.profile if inventory_file.user.try(:profile) -%> </td>
     <td>
       <%= link_to t('page.edit'), edit_inventory_file_path(inventory_file) -%>

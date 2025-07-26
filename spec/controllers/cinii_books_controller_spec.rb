@@ -16,7 +16,7 @@ describe CiniiBooksController do
     end
 
     it "should be empty if a query is not set", vcr: true do
-      get :index
+      get :index, params: { query: '' }
       assigns(:books).should be_empty
     end
   end

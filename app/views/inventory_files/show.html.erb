@@ -10,17 +10,17 @@
 
     <p>
       <strong><%= t('activerecord.attributes.inventory_file.inventory_file_name') -%> :</strong>
-      <%= @inventory_file.inventory_file_name -%>
+      <%= @inventory_file.attachment.filename -%>
     </p>
 
     <p>
       <strong><%= t('activerecord.attributes.inventory_file.inventory_content_type') -%> :</strong>
-      <%= @inventory_file.inventory_content_type -%>
+      <%= @inventory_file.attachment.content_type -%>
     </p>
 
     <p>
       <strong><%= t('activerecord.attributes.inventory_file.inventory_file_size') -%> :</strong>
-      <%= @inventory_file.inventory_file_size -%>
+      <%= @inventory_file.attachment.byte_size -%>
     </p>
 
     <p>

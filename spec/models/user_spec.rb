@@ -132,18 +132,25 @@ end
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  confirmed_at           :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  reset_password_token   :string
-#  reset_password_sent_at :datetime
-#  remember_created_at    :datetime
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  username               :string
 #  expired_at             :datetime
 #  failed_attempts        :integer          default(0)
-#  unlock_token           :string
 #  locked_at              :datetime
-#  confirmed_at           :datetime
+#  remember_created_at    :datetime
+#  reset_password_sent_at :datetime
+#  reset_password_token   :string
+#  unlock_token           :string
+#  username               :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#
+# Indexes
+#
+#  index_users_on_email                 (email)
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_unlock_token          (unlock_token) UNIQUE
+#  index_users_on_username              (username) UNIQUE
 #
 

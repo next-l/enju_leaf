@@ -1,6 +1,6 @@
 class Create < ApplicationRecord
   belongs_to :agent
-  belongs_to :work, class_name: 'Manifestation', touch: true
+  belongs_to :work, class_name: "Manifestation", touch: true
   belongs_to :create_type, optional: true
 
   validates :work_id, uniqueness: { scope: :agent_id }
@@ -19,11 +19,16 @@ end
 #
 # Table name: creates
 #
-#  id             :integer          not null, primary key
-#  agent_id       :integer          not null
-#  work_id        :integer          not null
+#  id             :bigint           not null, primary key
 #  position       :integer
-#  created_at     :datetime
-#  updated_at     :datetime
-#  create_type_id :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  agent_id       :bigint           not null
+#  create_type_id :bigint
+#  work_id        :bigint           not null
+#
+# Indexes
+#
+#  index_creates_on_agent_id              (agent_id)
+#  index_creates_on_work_id_and_agent_id  (work_id,agent_id) UNIQUE
 #

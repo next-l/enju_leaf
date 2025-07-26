@@ -1,11 +1,11 @@
-<% unless manifestation.identifier_contents(:isbn).empty? %>
+<% unless manifestation.isbn_records.empty? %>
   <div id="gbsthumbnail<%= manifestation.id %>" class="book_jacket"></div>
   <script type="text/javascript">
-    gbs_addTheCover( '<%= manifestation.identifier_contents(:isbn).first %>', 'gbsthumbnail<%= manifestation.id %>' );
+    gbs_addTheCover( '<%= manifestation.isbn_records.first.body %>', 'gbsthumbnail<%= manifestation.id %>' );
   </script>
 <% else %>
-  <% if @library_group.settings[:book_jacket_unknown_resource] %>
-    <%= @library_group.settings[:book_jacket_unknown_resource] %>
+  <% if @library_group.settings['book_jacket_unknown_resource'] %>
+    <%= @library_group.settings['book_jacket_unknown_resource'] %>
   <% else %>
     <%= image_tag("unknown_resource.png", size: "100x100", alt: "No Image", class: "book_jacket") %>
   <% end %>

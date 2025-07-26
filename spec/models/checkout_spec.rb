@@ -6,9 +6,9 @@ describe Checkout do
 
   it "should respond to renewable?" do
     checkouts(:checkout_00001).save
-    checkouts(:checkout_00001).errors[:base].should eq []
+    expect(checkouts(:checkout_00001).errors[:base]).to eq []
     checkouts(:checkout_00002).save
-    checkouts(:checkout_00002).errors[:base].should eq [I18n.t('checkout.this_item_is_reserved')]
+    expect(checkouts(:checkout_00002).errors[:base]).to eq [ I18n.t('checkout.this_item_is_reserved') ]
   end
 
   it "should respond to reserved?" do
@@ -41,19 +41,19 @@ describe Checkout do
   end
 
   it "should respond to send_due_date_notification" do
-    Checkout.send_due_date_notification.should eq 5
+    expect(Checkout.send_due_date_notification).to eq 5
   end
 
   it "should respond to send_overdue_notification" do
-    Checkout.send_overdue_notification.should eq 1
+    expect(Checkout.send_overdue_notification).to eq 1
   end
 
   it "should destroy all history" do
     user = users(:user1)
     old_count = Checkout.count
     Checkout.remove_all_history(user)
-    user.checkouts.returned.count.should eq 0
-    Checkout.count.should eq old_count
+    expect(user.checkouts.returned.count).to eq 0
+    expect(Checkout.count).to eq old_count
   end
 end
 
@@ -61,17 +61,36 @@ end
 #
 # Table name: checkouts
 #
-#  id                     :integer          not null, primary key
-#  user_id                :integer
-#  item_id                :integer          not null
-#  checkin_id             :integer
-#  librarian_id           :integer
-#  basket_id              :integer
-#  due_date               :datetime
+#  id                     :bigint           not null, primary key
 #  checkout_renewal_count :integer          default(0), not null
+#  due_date               :datetime
 #  lock_version           :integer          default(0), not null
-#  created_at             :datetime
-#  updated_at             :datetime
-#  shelf_id               :integer
-#  library_id             :integer
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  basket_id              :bigint
+#  checkin_id             :bigint
+#  item_id                :bigint           not null
+#  librarian_id           :bigint
+#  library_id             :bigint
+#  shelf_id               :bigint
+#  user_id                :bigint
+#
+# Indexes
+#
+#  index_checkouts_on_basket_id                          (basket_id)
+#  index_checkouts_on_checkin_id                         (checkin_id)
+#  index_checkouts_on_item_id                            (item_id)
+#  index_checkouts_on_item_id_and_basket_id_and_user_id  (item_id,basket_id,user_id) UNIQUE
+#  index_checkouts_on_librarian_id                       (librarian_id)
+#  index_checkouts_on_library_id                         (library_id)
+#  index_checkouts_on_shelf_id                           (shelf_id)
+#  index_checkouts_on_user_id                            (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (checkin_id => checkins.id)
+#  fk_rails_...  (item_id => items.id)
+#  fk_rails_...  (library_id => libraries.id)
+#  fk_rails_...  (shelf_id => shelves.id)
+#  fk_rails_...  (user_id => users.id)
 #

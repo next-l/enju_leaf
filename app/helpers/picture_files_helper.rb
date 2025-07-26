@@ -1,15 +1,14 @@
 module PictureFilesHelper
-  def show_image(picture_file, options = {size: :medium})
+  def show_image(picture_file, options = { size: :medium })
+    return unless picture_file.attachment.attached?
+
     case options[:size]
     when :medium
-      if picture_file.picture_width.to_i >= 600
-        return image_tag picture_file_path(picture_file, format: :download, size: :medium), alt: "*", width: 600
-      end
+      image_tag picture_file.attachment.variant(resize_to_limit: [ 600, nil ]), alt: "*", width: 600
     when :thumb
-      if picture_file.picture_width.to_i >= 100
-        return image_tag picture_file_path(picture_file, format: :download, size: :thumb), alt: "*", width: 100
-      end
+      image_tag picture_file.attachment.variant(resize_to_limit: [ 100, nil ]), alt: "*", width: 100
+    else
+      image_tag picture_file.attachment, alt: "*", width: picture_file.attachment.metadata["width"], height: picture_file.attachment.metadata["height"]
     end
-    image_tag picture_file_path(picture_file, format: :download, size: :original), alt: "*", width: picture_file.picture_width, height: picture_file.picture_height
   end
 end

@@ -19,13 +19,21 @@ end
 #
 # Table name: user_reserve_stats
 #
-#  id           :integer          not null, primary key
-#  start_date   :datetime
+#  id           :bigint           not null, primary key
+#  completed_at :datetime
 #  end_date     :datetime
 #  note         :text
-#  created_at   :datetime
-#  updated_at   :datetime
+#  start_date   :datetime
 #  started_at   :datetime
-#  completed_at :datetime
-#  user_id      :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  user_id      :bigint           not null
+#
+# Indexes
+#
+#  index_user_reserve_stats_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #

@@ -1,19 +1,19 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.showing', model: t('activerecord.models.create')) -%></h1>
-<div id="content_list">
-<p id="notice"><%= notice %></p>
+  <h1 class="title"><%= t('page.showing', model: t('activerecord.models.create')) -%></h1>
+  <div id="content_list">
+    <p id="notice"><%= notice %></p>
 
-<p>
-  <strong><%= t('activerecord.models.agent') -%>:</strong>
-  <%= link_to @create.agent.full_name, @create.agent -%>
-</p>
+    <p>
+      <strong><%= t('activerecord.models.agent') -%>:</strong>
+      <%= link_to @create.agent.full_name, @create.agent -%>
+    </p>
 
-<p>
-  <strong><%= t('activerecord.models.work') -%>:</strong>
-  <%= link_to @create.work.original_title, @create.work -%>
-</p>
+    <p>
+      <strong><%= t('activerecord.models.work') -%>:</strong>
+      <%= link_to @create.work.original_title, @create.work -%>
+    </p>
 
-</div>
+  </div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">

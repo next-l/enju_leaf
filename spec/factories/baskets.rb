@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :basket do |f|
-    f.user_id{FactoryBot.create(:user).id}
+    f.user_id {FactoryBot.create(:user).id}
   end
 end
 
@@ -8,10 +8,18 @@ end
 #
 # Table name: baskets
 #
-#  id           :integer          not null, primary key
-#  user_id      :integer
-#  note         :text
+#  id           :bigint           not null, primary key
 #  lock_version :integer          default(0), not null
-#  created_at   :datetime
-#  updated_at   :datetime
+#  note         :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  user_id      :bigint
+#
+# Indexes
+#
+#  index_baskets_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #

@@ -1,6 +1,6 @@
 class AgentImportResult < ApplicationRecord
-  default_scope { order('agent_import_results.id') }
-  scope :file_id, proc{|file_id| where(agent_import_file_id: file_id)}
+  default_scope { order("agent_import_results.id") }
+  scope :file_id, proc { |file_id| where(agent_import_file_id: file_id) }
   scope :failed, -> { where(agent_id: nil) }
 
   belongs_to :agent_import_file
@@ -11,10 +11,10 @@ end
 #
 # Table name: agent_import_results
 #
-#  id                   :integer          not null, primary key
-#  agent_import_file_id :integer
-#  agent_id             :integer
+#  id                   :bigint           not null, primary key
+#  agent_import_file_id :bigint
+#  agent_id             :bigint
 #  body                 :text
-#  created_at           :datetime
-#  updated_at           :datetime
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
 #

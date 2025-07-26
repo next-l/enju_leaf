@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:12-alpine
+        image: postgres:13-alpine
         ports:
           - "5432:5432"
         env:
@@ -20,39 +20,47 @@ jobs:
           POSTGRES_PASSWORD: password
     env:
       RAILS_ENV: test
+      ENJU_LEAF_BIND_ADDRESS: 127.0.0.1
       POSTGRES_USER: rails
       POSTGRES_PASSWORD: password
       CC_TEST_REPORTER_ID: c193cb8ea058a7d62fd62d6d05adaaf95f6bdf882c1039500b30b54494a36e52
-      ENJU_LEAF_TIMEZONE: UTC
+      NODE_OPTIONS: --openssl-legacy-provider
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
       # Add or replace dependency steps here
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+      - name: Install dependencies
+        run: yarn install && sudo apt-get install libvips42
       # Add or replace test runners here
       - name: Start containers
-        run: cp .env.template .env && docker-compose up -d solr
-      - name: Setup Code Climate test-reporter
-        run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter
+        run: cp .env.test.ci .env.test && cp .env.test .env && cp docker-compose.ci.yml docker-compose.override.yml && docker compose up -d solr tika
       # Add or replace database setup steps here
       - name: Set up database schema
         run: bin/rails db:schema:load
+      - name: Generate asset files
+        run: bin/rake assets:precompile
       - name: Run tests
         run: |
-          ./cc-test-reporter before-build
           bin/rake
-          ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
+      - name: Upload coverage reports
+        uses: qltysh/qlty-action/coverage@v1
+        with:
+          token: ${{secrets.QLTY_COVERAGE_TOKEN}}
+          files: coverage/.resultset.json
 
   lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:

@@ -1,6 +1,6 @@
 class CreateInventoryFiles < ActiveRecord::Migration[4.2]
-  def self.up
-    create_table :inventory_files do |t|
+  def up
+    create_table :inventory_files, if_not_exists: true do |t|
       t.string :filename
       t.string :content_type
       t.integer :size
@@ -11,7 +11,7 @@ class CreateInventoryFiles < ActiveRecord::Migration[4.2]
     end
   end
 
-  def self.down
+  def down
     drop_table :inventory_files
   end
 end

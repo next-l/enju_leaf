@@ -58,11 +58,6 @@ describe PageController do
         expect(response).to be_successful
       end
 
-      it "should get msie_accelerator" do
-        get :msie_accelerator, format: :xml
-        expect(response).to be_successful
-      end
-
       it "should get routing_error" do
         get :routing_error
         expect(response).to be_not_found
@@ -77,11 +72,6 @@ describe PageController do
 
       it "should get about" do
         get :about
-        expect(response).to be_successful
-      end
-
-      it "should get add_on" do
-        get :add_on
         expect(response).to be_successful
       end
 

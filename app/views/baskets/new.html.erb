@@ -4,6 +4,7 @@
 
   <%= form_for(@basket, html: {name: 'basket_form'}) do |f| -%>
     <%= error_messages(@basket) -%>
+
     <div class="field">
       <%= f.label t('activerecord.attributes.user.user_number') -%>
       <%= f.search_field :user_number, class: 'resource_user_number' -%>

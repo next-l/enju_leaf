@@ -13,14 +13,19 @@ end
 #
 # Table name: shelves
 #
-#  id           :integer          not null, primary key
-#  name         :string           not null
-#  display_name :text
-#  note         :text
-#  library_id   :integer          not null
-#  items_count  :integer          default(0), not null
-#  position     :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  id           :bigint           not null, primary key
 #  closed       :boolean          default(FALSE), not null
+#  display_name :text
+#  items_count  :integer          default(0), not null
+#  name         :string           not null
+#  note         :text
+#  position     :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  library_id   :bigint           not null
+#
+# Indexes
+#
+#  index_shelves_on_library_id  (library_id)
+#  index_shelves_on_lower_name  (lower((name)::text)) UNIQUE
 #

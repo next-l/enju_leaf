@@ -4,33 +4,13 @@ class EventImportFile < ApplicationRecord
     initial_state: EventImportFileStateMachine.initial_state
   ]
   include ImportFile
-  scope :not_imported, -> {in_state(:pending)}
-  scope :stucked, -> {in_state(:pending).where('event_import_files.created_at < ?', 1.hour.ago)}
+  scope :not_imported, -> { in_state(:pending) }
+  scope :stucked, -> { in_state(:pending).where("event_import_files.created_at < ?", 1.hour.ago) }
 
-  if ENV['ENJU_STORAGE'] == 's3'
-    has_attached_file :event_import, storage: :s3,
-      s3_credentials: {
-        access_key: ENV['AWS_ACCESS_KEY_ID'],
-        secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-        bucket: ENV['S3_BUCKET_NAME'],
-        s3_host_name: ENV['S3_HOST_NAME']
-      },
-      s3_permissions: :private
-  else
-    has_attached_file :event_import,
-      path: ":rails_root/private/system/:class/:attachment/:id_partition/:style/:filename"
-  end
-  validates_attachment_content_type :event_import, content_type: [
-    'text/csv',
-    'text/plain',
-    'text/tab-separated-values',
-    'application/octet-stream',
-    'application/vnd.ms-excel'
-  ]
-  validates_attachment_presence :event_import
+  has_one_attached :attachment
   belongs_to :user
-  belongs_to :default_library, class_name: 'Library', optional: true
-  belongs_to :default_event_category, class_name: 'EventCategory', optional: true
+  belongs_to :default_library, class_name: "Library", optional: true
+  belongs_to :default_event_category, class_name: "EventCategory", optional: true
   has_many :event_import_results, dependent: :destroy
 
   has_many :event_import_file_transitions, autosave: false, dependent: :destroy
@@ -47,32 +27,32 @@ class EventImportFile < ApplicationRecord
   def import
     transition_to!(:started)
     num = { imported: 0, failed: 0 }
-    rows = open_import_file(create_import_temp_file(event_import))
+    rows = open_import_file(create_import_temp_file(attachment))
     check_field(rows.first)
     row_num = 1
 
     rows.each do |row|
       row_num += 1
-      next if row['dummy'].to_s.strip.present?
+      next if row["dummy"].to_s.strip.present?
 
       event_import_result = EventImportResult.new(event_import_file_id: id, body: row.fields.join("\t"))
 
       event = Event.new
-      event.name = row['name'].to_s.strip
-      event.display_name = row['display_name']
-      event.note = row['note']
-      event.start_at = Time.zone.parse(row['start_at']) if row['start_at'].present?
-      event.end_at = Time.zone.parse(row['end_at']) if row['end_at'].present?
-      category = row['event_category'].to_s.strip
-      if %w(t true TRUE).include?(row['all_day'].to_s.strip)
+      event.name = row["name"].to_s.strip
+      event.display_name = row["display_name"]
+      event.note = row["note"]
+      event.start_at = Time.zone.parse(row["start_at"]) if row["start_at"].present?
+      event.end_at = Time.zone.parse(row["end_at"]) if row["end_at"].present?
+      category = row["event_category"].to_s.strip
+      if %w[t true TRUE].include?(row["all_day"].to_s.strip)
         event.all_day = true
       else
         event.all_day = false
       end
-      library = Library.find_by(name: row['library'])
+      library = Library.find_by(name: row["library"])
       library = default_library || Library.web if library.blank?
       event.library = library
-      event_category = EventCategory.find_by(name: row['event_category'])
+      event_category = EventCategory.find_by(name: row["event_category"])
       event_category = default_event_category if event_category.blank?
       event.event_category = event_category
 
@@ -101,24 +81,24 @@ class EventImportFile < ApplicationRecord
 
   def modify
     transition_to!(:started)
-    rows = open_import_file(create_import_temp_file(event_import))
+    rows = open_import_file(create_import_temp_file(attachment))
     check_field(rows.first)
     row_num = 1
 
     rows.each do |row|
       row_num += 1
-      next if row['dummy'].to_s.strip.present?
+      next if row["dummy"].to_s.strip.present?
 
-      event = Event.find(row['id'].to_s.strip)
-      event_category = EventCategory.find_by(name: row['event_category'].to_s.strip)
+      event = Event.find(row["id"].to_s.strip)
+      event_category = EventCategory.find_by(name: row["event_category"].to_s.strip)
       event.event_category = event_category if event_category
-      library = Library.find_by(name: row['library'].to_s.strip)
+      library = Library.find_by(name: row["library"].to_s.strip)
       event.library = library if library
-      event.name = row['name'] if row['name'].to_s.strip.present?
-      event.start_at = Time.zone.parse(row['start_at']) if row['start_at'].present?
-      event.end_at = Time.zone.parse(row['end_at']) if row['end_at'].present?
-      event.note = row['note'] if row['note'].to_s.strip.present?
-      if %w(t true TRUE).include?(row['all_day'].to_s.strip)
+      event.name = row["name"] if row["name"].to_s.strip.present?
+      event.start_at = Time.zone.parse(row["start_at"]) if row["start_at"].present?
+      event.end_at = Time.zone.parse(row["end_at"]) if row["end_at"].present?
+      event.note = row["note"] if row["note"].to_s.strip.present?
+      if %w[t true TRUE].include?(row["all_day"].to_s.strip)
         event.all_day = true
       else
         event.all_day = false
@@ -139,15 +119,15 @@ class EventImportFile < ApplicationRecord
 
   def remove
     transition_to!(:started)
-    rows = open_import_file(create_import_temp_file(event_import))
+    rows = open_import_file(create_import_temp_file(attachment))
     rows.shift
     row_num = 1
 
     rows.each do |row|
       row_num += 1
-      next if row['dummy'].to_s.strip.present?
+      next if row["dummy"].to_s.strip.present?
 
-      event = Event.find(row['id'].to_s.strip)
+      event = Event.find(row["id"].to_s.strip)
       event.picture_files.destroy_all # workaround
       event.reload
       event.destroy
@@ -180,7 +160,7 @@ class EventImportFile < ApplicationRecord
     header = file.first
     ignored_columns = header - header_columns
     unless ignored_columns.empty?
-      self.error_message = I18n.t('import.following_column_were_ignored', column: ignored_columns.join(', '))
+      self.error_message = I18n.t("import.following_column_were_ignored", column: ignored_columns.join(", "))
       save!
     end
     rows = CSV.open(tempfile, headers: header, col_sep: "\t")
@@ -193,10 +173,10 @@ class EventImportFile < ApplicationRecord
   end
 
   def check_field(field)
-    if [field['name']].reject{|f| f.to_s.strip == ""}.empty?
+    if [ field["name"] ].reject { |f| f.to_s.strip == "" }.empty?
       raise "You should specify a name in the first line"
     end
-    if [field['start_at'], field['end_at']].reject{|f| f.to_s.strip == ""}.empty?
+    if [ field["start_at"], field["end_at"] ].reject { |f| f.to_s.strip == "" }.empty?
       raise "You should specify dates in the first line"
     end
   end
@@ -206,23 +186,28 @@ end
 #
 # Table name: event_import_files
 #
-#  id                        :integer          not null, primary key
-#  parent_id                 :integer
+#  id                        :bigint           not null, primary key
 #  content_type              :string
-#  size                      :integer
-#  user_id                   :integer
-#  note                      :text
-#  executed_at               :datetime
-#  event_import_file_name    :string
-#  event_import_content_type :string
-#  event_import_file_size    :integer
-#  event_import_updated_at   :datetime
 #  edit_mode                 :string
-#  created_at                :datetime
-#  updated_at                :datetime
-#  event_import_fingerprint  :string
 #  error_message             :text
+#  event_import_content_type :string
+#  event_import_file_name    :string
+#  event_import_file_size    :integer
+#  event_import_fingerprint  :string
+#  event_import_updated_at   :datetime
+#  executed_at               :datetime
+#  note                      :text
+#  size                      :integer
 #  user_encoding             :string
-#  default_library_id        :integer
-#  default_event_category_id :integer
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  default_event_category_id :bigint
+#  default_library_id        :bigint
+#  parent_id                 :bigint
+#  user_id                   :bigint           not null
+#
+# Indexes
+#
+#  index_event_import_files_on_parent_id  (parent_id)
+#  index_event_import_files_on_user_id    (user_id)
 #

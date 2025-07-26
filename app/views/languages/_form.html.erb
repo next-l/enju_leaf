@@ -1,9 +1,9 @@
-<%= form_for(@language) do |f| %>
-  <%= error_messages(@language) %>
+<%= form_with(model: language) do |f| %>
+  <%= error_messages(language) %>
 
   <div class="field">
     <%= f.label :name %>:<br />
-    <%= @language.name %>
+    <%= language.name %>
   </div>
 
   <div class="field">

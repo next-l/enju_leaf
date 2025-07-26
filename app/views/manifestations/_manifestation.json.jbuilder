@@ -43,7 +43,7 @@ json.classfifications do
 end
 json.access_address manifestation.access_address
 json.items do
-  json.array!(manifestation.items.available.on_shelf) do |item|
+  json.array!(Pundit.policy_scope!(current_user, manifestation.items).on_shelf) do |item|
     json.item_identifier item.item_identifier
     json.shelf item.shelf.display_name
     json.circulation_status item.circulation_status.display_name if defined?(EnjuCirculationStatus)

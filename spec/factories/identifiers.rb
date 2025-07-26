@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :identifier do
-    sequence(:body){|n| "identifier_body_#{n}"}
-    identifier_type_id{FactoryBot.create(:identifier_type).id}
-    association(:manifestation)
+    sequence(:body) {|n| "identifier_body_#{n}"}
+    association :identifier_type
+    association :manifestation
   end
 end
 
@@ -10,12 +10,16 @@ end
 #
 # Table name: identifiers
 #
-#  id                 :integer          not null, primary key
+#  id                 :bigint           not null, primary key
 #  body               :string           not null
-#  identifier_type_id :integer          not null
-#  manifestation_id   :integer
-#  primary            :boolean
 #  position           :integer
-#  created_at         :datetime
-#  updated_at         :datetime
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  identifier_type_id :bigint           not null
+#  manifestation_id   :bigint
+#
+# Indexes
+#
+#  index_identifiers_on_body_and_identifier_type_id  (body,identifier_type_id)
+#  index_identifiers_on_manifestation_id             (manifestation_id)
 #

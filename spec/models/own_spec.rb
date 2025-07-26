@@ -9,10 +9,15 @@ end
 #
 # Table name: owns
 #
-#  id         :integer          not null, primary key
-#  agent_id   :integer          not null
-#  item_id    :integer          not null
+#  id         :bigint           not null, primary key
 #  position   :integer
-#  created_at :datetime
-#  updated_at :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  agent_id   :bigint           not null
+#  item_id    :bigint           not null
+#
+# Indexes
+#
+#  index_owns_on_agent_id              (agent_id)
+#  index_owns_on_item_id_and_agent_id  (item_id,agent_id) UNIQUE
 #

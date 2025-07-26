@@ -10,7 +10,7 @@ class Language < ApplicationRecord
   validates :name, presence: true, format: { with: /\A[0-9A-Za-z][0-9A-Za-z_\-\s,]*[0-9a-z]\Z/ }
 
   def self.available_languages
-    Language.where(iso_639_1: I18n.available_locales.map{|l| l.to_s}).order(:position)
+    Language.where(iso_639_1: I18n.available_locales.map { |l| l.to_s }).order(:position)
   end
 
   private
@@ -24,13 +24,20 @@ end
 #
 # Table name: languages
 #
-#  id           :integer          not null, primary key
-#  name         :string           not null
-#  native_name  :string
+#  id           :bigint           not null, primary key
 #  display_name :text
 #  iso_639_1    :string
 #  iso_639_2    :string
 #  iso_639_3    :string
+#  name         :string           not null
+#  native_name  :string
 #  note         :text
 #  position     :integer
+#
+# Indexes
+#
+#  index_languages_on_iso_639_1   (iso_639_1)
+#  index_languages_on_iso_639_2   (iso_639_2)
+#  index_languages_on_iso_639_3   (iso_639_3)
+#  index_languages_on_lower_name  (lower((name)::text)) UNIQUE
 #

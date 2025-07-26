@@ -2,14 +2,14 @@
 
 public_fund:
   name: Public fund
-  display_name: "en: Public fund"
+  display_name: "en: Public fund\nja: 公費"
   note: 
   position: 1
   id: 1
 
 donation:
   name: Donation
-  display_name: "en: Donation"
+  display_name: "en: Donation\nja: 寄贈"
   note: 
   position: 2
   id: 2
@@ -18,12 +18,16 @@ donation:
 #
 # Table name: budget_types
 #
-#  id           :integer          not null, primary key
-#  name         :string
+#  id           :bigint           not null, primary key
 #  display_name :text
+#  name         :string           not null
 #  note         :text
 #  position     :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+# Indexes
+#
+#  index_budget_types_on_lower_name  (lower((name)::text)) UNIQUE
 #
 

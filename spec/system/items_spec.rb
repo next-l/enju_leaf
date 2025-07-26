@@ -5,7 +5,7 @@ RSpec.describe 'Items', type: :system do
   fixtures :all
   before do
     @item = FactoryBot.create(:item, shelf: shelves(:shelf_00002))
-    CarrierType.find_by(name: 'volume').update(attachment: File.open("#{Rails.root.to_s}/app/assets/images/icons/book.png"))
+    CarrierType.find_by(name: 'volume').attachment.attach(io: File.open("#{Rails.root.to_s}/app/assets/images/icons/book.png"), filename: 'book.png')
     FactoryBot.create(:withdraw, item: @item)
   end
 
@@ -30,7 +30,7 @@ RSpec.describe 'Items', type: :system do
       budget_type = BudgetType.find(1)
       @item.update(budget_type: budget_type)
       visit item_path(@item.id, locale: :ja)
-      expect(page).to have_content budget_type.display_name
+      expect(page).to have_content '公費'
     end
 
     it 'should show bookstore' do

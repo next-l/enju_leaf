@@ -1,7 +1,4 @@
 class ResourceImportFileTransition < ApplicationRecord
-  include Statesman::Adapters::ActiveRecordTransition
-
-  
   belongs_to :resource_import_file, inverse_of: :resource_import_file_transitions
 end
 
@@ -9,12 +6,18 @@ end
 #
 # Table name: resource_import_file_transitions
 #
-#  id                      :integer          not null, primary key
-#  to_state                :string
-#  metadata                :text             default({})
-#  sort_key                :integer
-#  resource_import_file_id :integer
-#  created_at              :datetime
-#  updated_at              :datetime
+#  id                      :bigint           not null, primary key
+#  metadata                :jsonb            not null
 #  most_recent             :boolean          not null
+#  sort_key                :integer
+#  to_state                :string
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  resource_import_file_id :bigint
+#
+# Indexes
+#
+#  index_resource_import_file_transitions_on_file_id               (resource_import_file_id)
+#  index_resource_import_file_transitions_on_sort_key_and_file_id  (sort_key,resource_import_file_id) UNIQUE
+#  index_resource_import_file_transitions_parent_most_recent       (resource_import_file_id,most_recent) UNIQUE WHERE most_recent
 #

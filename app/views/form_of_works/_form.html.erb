@@ -1,5 +1,5 @@
-<%= form_for(@form_of_work) do |f| %>
-  <%= error_messages(@form_of_work) %>
+<%= form_with(model: form_of_work) do |f| %>
+  <%= error_messages(form_of_work) %>
 
   <div class="field">
     <%= f.label :name %><br />

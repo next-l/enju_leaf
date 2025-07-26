@@ -1,7 +1,7 @@
-<%= form_for(@series_statement) do |f| %>
-  <%= error_messages(@series_statement) %>
+<%= form_with(model: series_statement) do |f| %>
+  <%= error_messages(series_statement) %>
 
-  <%- if !@series_statement.new_record? and @manifestation -%>
+  <%- if !series_statement.new_record? and @manifestation -%>
     <div class="field">
       <%= link_to @manifestation.original_title, @manifestation -%>
       <%= f.hidden_field :manifestation_id %>

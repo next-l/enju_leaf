@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
   authenticate :user, lambda {|u| u.role.try(:name) == 'Administrator' } do
-    mount Resque::Server.new, at: "/resque", as: :resque
+    mount MissionControl::Jobs::Engine, at: "/jobs"
   end
   resources :manifestations
   resources :items
-  resources :picture_files
+  resources :picture_files do
+    get :download
+  end
   resources :agents
   resources :manifestation_relationships
   resources :agent_relationships
@@ -20,6 +22,7 @@ Rails.application.routes.draw do
   resources :agent_merges
   resources :agent_merge_lists
   resources :import_requests
+  resources :periodicals
 
   constraints format: :html do
     resources :produces
@@ -66,6 +69,8 @@ Rails.application.routes.draw do
     post :stop_impersonating, on: :collection
   end
   resource :my_account
+
+  resources :iiif_presentations, only: :show, defaults: { format: :html }
 
   resources :subjects
   constraints format: :html do
@@ -135,19 +140,39 @@ Rails.application.routes.draw do
   resources :news_posts
   resources :news_feeds
 
+  resources :purchase_requests do
+    resource :order
+  end
+  resources :order_lists do
+    resources :purchase_requests
+  end
+  resources :order_lists do
+    resource :order
+  end
+  resources :orders
+  resources :bookstores do
+    resources :order_lists
+  end
+
   devise_for :users
 
   get '/page/about' => 'page#about'
   get '/page/configuration' => 'page#configuration'
   get '/page/advanced_search' => 'page#advanced_search'
-  get '/page/add_on' => 'page#add_on'
   get '/page/export' => 'page#export'
   get '/page/import' => 'page#import'
-  get '/page/msie_accelerator' => 'page#msie_accelerator'
   get '/page/opensearch' => 'page#opensearch'
   get '/page/statistics' => 'page#statistics'
   get '/page/system_information' => 'page#system_information'
   get '/page/routing_error' => 'page#routing_error'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  match 'oai', to: "oai#index", via: [:get, :post]
+
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
+  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
+  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  get "up" => "rails/health#show", as: :rails_health_check
+
+  # Defines the root path route ("/")
   root :to => "page#index"
 end

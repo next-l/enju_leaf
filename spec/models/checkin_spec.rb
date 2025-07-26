@@ -19,7 +19,7 @@ describe Checkin do
     # checkin.item_identifier = checkin.item.item_identifier
     checkin.save!
     checkin.item_checkin(user)
-    user.checkouts.count.should eq checkouts_count
+    expect(user.checkouts.count).to eq checkouts_count
   end
 
   it "should not save checkout history if save_checkout_history is false" do
@@ -31,7 +31,7 @@ describe Checkin do
     checkin.librarian = users(:librarian1)
     checkin.save!
     checkin.item_checkin(user)
-    user.checkouts.count.should eq checkouts_count - 1
+    expect(user.checkouts.count).to eq checkouts_count - 1
   end
 end
 
@@ -39,11 +39,21 @@ end
 #
 # Table name: checkins
 #
-#  id           :integer          not null, primary key
-#  item_id      :integer          not null
-#  librarian_id :integer
-#  basket_id    :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  id           :bigint           not null, primary key
 #  lock_version :integer          default(0), not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  basket_id    :bigint
+#  item_id      :bigint           not null
+#  librarian_id :bigint
+#
+# Indexes
+#
+#  index_checkins_on_basket_id              (basket_id)
+#  index_checkins_on_item_id_and_basket_id  (item_id,basket_id) UNIQUE
+#  index_checkins_on_librarian_id           (librarian_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (item_id => items.id)
 #

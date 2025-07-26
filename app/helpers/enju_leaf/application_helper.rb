@@ -3,26 +3,26 @@ module EnjuLeaf
     # 使用中のデータベースのアダプタ名を表示します。
     def database_adapter
       case ActiveRecord::Base.connection.adapter_name
-      when 'PostgreSQL'
-        link_to 'PostgreSQL', 'http://www.postgresql.org/'
-      when 'MySQL'
-        link_to 'MySQL', 'http://www.mysql.org/'
-      when 'SQLite'
-        link_to 'SQLite', 'http://www.sqlite.org/'
+      when "PostgreSQL"
+        link_to "PostgreSQL", "https://www.postgresql.org/"
+      when "MySQL"
+        link_to "MySQL", "https://www.mysql.com/"
+      when "SQLite"
+        link_to "SQLite", "https://www.sqlite.org/"
       end
     end
 
     # HTMLのtitleに表示されるアクション名を設定します。
     def title_action_name
       case controller.action_name
-      when 'index'
-        t('title.index')
-      when 'show'
-        t('title.show')
-      when 'new'
-        t('title.new')
-      when 'edit'
-        t('title.edit')
+      when "index"
+        t("title.index")
+      when "show"
+        t("title.show")
+      when "new"
+        t("title.new")
+      when "edit"
+        t("title.edit")
       end
     end
 
@@ -39,23 +39,23 @@ module EnjuLeaf
     end
 
     def move_position(object)
-      render partial: 'page/position', locals: {object: object}
+      render partial: "page/position", locals: { object: object }
     end
 
     # I18nに対応した状態名を表示します。
     # @param [String] state 状態名
     def localized_state(state)
       case state
-      when 'pending'
-        t('state.pending')
-      when 'canceled'
-        t('state.canceled')
-      when 'started'
-        t('state.started')
-      when 'failed'
-        t('state.failed')
-      when 'completed'
-        t('state.completed')
+      when "pending"
+        t("state.pending")
+      when "canceled"
+        t("state.canceled")
+      when "started"
+        t("state.started")
+      when "failed"
+        t("state.failed")
+      when "completed"
+        t("state.completed")
       else
         state
       end
@@ -67,27 +67,27 @@ module EnjuLeaf
       case bool.to_s
       when nil
       when "true"
-        t('page.boolean.true')
+        t("page.boolean.true")
       when "false"
-        t('page.boolean.false')
+        t("page.boolean.false")
       end
     end
 
     # ログイン中のユーザの権限名を表示します。
     def current_user_role_name
-      current_user.try(:role).try(:name) || 'Guest'
+      current_user.try(:role).try(:name) || "Guest"
     end
 
     # HTMLのtitleを表示します。
     def title(controller_name, model_name = controller_name.singularize)
-      string = ''
-      unless ['page', 'routing_error', 'my_accounts'].include?(controller_name)
-        string << t("activerecord.models.#{model_name}") + ' - '
+      string = ""
+      unless [ "page", "routing_error", "my_accounts" ].include?(controller_name)
+        string << t("activerecord.models.#{model_name}") + " - "
       end
-      if controller_name == 'routing_error'
-        string << t("page.routing_error") + ' - '
+      if controller_name == "routing_error"
+        string << t("page.routing_error") + " - "
       end
-      string << LibraryGroup.system_name + ' - Next-L Enju Leaf'
+      string << LibraryGroup.system_name + " - Next-L Enju Leaf"
       string.html_safe
     end
 
@@ -97,11 +97,11 @@ module EnjuLeaf
       if options == nil
         options = {}
       else
-        options.reject!{|_key, value| value.blank?}
+        options.reject! { |_key, value| value.blank? }
         options.delete(:page) if options[:page].to_i == 1
       end
-      unless controller_name == 'test'
-        link_to t('page.listing', model: t("activerecord.models.#{controller_name.singularize}")), url_for(filtered_params.merge(controller: controller_name, action: :index, page: nil, id: nil, only_path: true).merge(options))
+      unless controller_name == "test"
+        link_to t("page.listing", model: t("activerecord.models.#{controller_name.singularize}")), url_for(filtered_params.merge(controller: controller_name, action: :index, page: nil, id: nil, only_path: true).merge(options))
       end
     end
 
@@ -130,7 +130,7 @@ module EnjuLeaf
     # フォームでのエラーメッセージを表示します。
     def error_messages(model)
       if model.errors.any?
-        render('page/error_message', model: model)
+        render("page/error_message", model: model)
       end
     end
   end

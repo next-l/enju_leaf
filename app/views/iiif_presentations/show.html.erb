@@ -1,0 +1,11 @@
+<div id="app"></div>
+<script>
+  Mirador.viewer({
+    id: "app",
+    windows: [
+      {
+        manifestId: "<%= iiif_presentation_path(@manifestation, format: :json) %>"
+      }
+    ]
+  });
+</script>

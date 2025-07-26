@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :search_engine do |f|
-    f.sequence(:name){|n| "search_engine_#{n}"}
-    f.sequence(:url){|n| "http://search-engine-#{n}.example.jp"}
-    f.sequence(:base_url){|n| "http://search-engine-#{n}.example.jp"}
+    f.sequence(:name) {|n| "search_engine_#{n}"}
+    f.sequence(:url) {|n| "http://search-engine-#{n}.example.jp"}
+    f.sequence(:base_url) {|n| "http://search-engine-#{n}.example.jp"}
     f.query_param { 'q' }
     f.http_method { 'get' }
   end
@@ -12,7 +12,7 @@ end
 #
 # Table name: search_engines
 #
-#  id               :integer          not null, primary key
+#  id               :bigint           not null, primary key
 #  name             :string           not null
 #  display_name     :text
 #  url              :string           not null
@@ -22,6 +22,6 @@ end
 #  additional_param :text
 #  note             :text
 #  position         :integer
-#  created_at       :datetime
-#  updated_at       :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #

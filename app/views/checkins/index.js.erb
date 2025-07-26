@@ -1,1 +1,1 @@
-$("#checkin_list").html("<%= escape_javascript(render('checkins/list')) %>");
+$("#checkin_list").html("<%= escape_javascript(render('checkins/list', checkin: @checkin)) %>");

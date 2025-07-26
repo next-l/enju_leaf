@@ -123,7 +123,7 @@ describe InventoryFilesController do
       login_fixture_librarian
 
       it "should create inventory_file" do
-        post :create, params: { inventory_file: { shelf_id: 1, inventory: fixture_file_upload("inventory_file_sample.tsv", 'text/csv') } }
+        post :create, params: { inventory_file: { shelf_id: 1, attachment: fixture_file_upload("inventory_file_sample.tsv", 'text/csv') } }
         expect(assigns(:inventory_file)).to be_valid
         expect(assigns(:inventory_file).user.username).to eq @user.username
         expect(response).to redirect_to inventory_file_url(assigns(:inventory_file))
@@ -134,14 +134,14 @@ describe InventoryFilesController do
       login_fixture_user
 
       it "should be forbidden" do
-        post :create, params: { inventory_file: { shelf_id: 1, inventory: fixture_file_upload("inventory_file_sample.tsv", 'text/csv') } }
+        post :create, params: { inventory_file: { shelf_id: 1, attachment: fixture_file_upload("inventory_file_sample.tsv", 'text/csv') } }
         expect(response).to be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "should be redirect to new session url" do
-        post :create, params: { inventory_file: { shelf_id: 1, inventory: fixture_file_upload("inventory_file_sample.tsv", 'text/csv') } }
+        post :create, params: { inventory_file: { shelf_id: 1, attachment: fixture_file_upload("inventory_file_sample.tsv", 'text/csv') } }
         expect(response).to redirect_to new_user_session_url
       end
     end

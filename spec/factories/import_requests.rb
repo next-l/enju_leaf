@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :import_request do
-    sequence(:isbn){|n| "isbn_#{n}"}
+    sequence(:isbn) {|n| "isbn_#{n}"}
     association :user, factory: :librarian
   end
 end
@@ -9,10 +9,20 @@ end
 #
 # Table name: import_requests
 #
-#  id               :integer          not null, primary key
+#  id               :bigint           not null, primary key
 #  isbn             :string
-#  manifestation_id :integer
-#  user_id          :integer
-#  created_at       :datetime
-#  updated_at       :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  manifestation_id :bigint
+#  user_id          :bigint           not null
+#
+# Indexes
+#
+#  index_import_requests_on_isbn              (isbn)
+#  index_import_requests_on_manifestation_id  (manifestation_id)
+#  index_import_requests_on_user_id           (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #

@@ -1,12 +1,12 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.new', model: t('activerecord.models.resource_export_file')) -%></h1>
-<div id="content_list">
+  <h1 class="title"><%= t('page.new', model: t('activerecord.models.resource_export_file')) -%></h1>
+  <div id="content_list">
 
-  <p><%= t('export.are_you_sure_to_export') %></p>
+    <p><%= t('export.are_you_sure_to_export') %></p>
 
-<%= render 'form' %>
+    <%= render 'form', resource_export_file: @resource_export_file %>
 
-</div>
+  </div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">

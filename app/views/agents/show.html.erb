@@ -4,14 +4,14 @@
   <p id="notice"><%= notice %></p>
 
   <h2 class="resource_title">
-    [P]
+    [A]
     <%= @agent.full_name -%>
   </h2>
 
 <div id="tabs">
   <ul>
     <li title="active" class="selected"><a href="#detail"><em><%= t('page.detail') -%></em></a></li>
-    <%- if @agent.derived_agents.exists? or @agent.original_agents.exists? -%>
+    <%- if policy_scope(@agent.derived_agents).exists? || policy_scope(@agent.original_agents).exists? -%>
       <li><a href="#related"><em><%= t('page.related') -%></em></a></li>
     <%- end -%>
   </ul>
@@ -52,6 +52,14 @@
         <td><%= @agent.place -%></td>
       </tr>
       <tr>
+        <td><strong><%= t('activerecord.models.ndla_record') -%>:</strong></td>
+        <td>
+          <% if @agent.ndla_record %>
+            <%= link_to @agent.ndla_record.body, URI.parse(@agent.ndla_record.body).to_s -%>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
         <td><strong><%= t('activerecord.models.language') -%>:</strong></td>
         <td><%= @agent.language.display_name.localize -%></td>
       </tr>
@@ -69,7 +77,7 @@
       </tr>
     </table>
   </div>
-  <%- unless @agent.derived_agents.empty? and @agent.original_agents.empty? -%>
+  <%- unless policy_scope(@agent.derived_agents).empty? and policy_scope(@agent.original_agents).empty? -%>
     <%= render 'agents/agent_list' -%>
   <%- end -%>
   </div>
@@ -107,6 +115,10 @@
     <%- end -%>
   </ul>
   <ul>
-    <li><%= link_to t('page.listing', model: t('activerecord.models.manifestation')), manifestations_path(query: "\"#{@agent.full_name}\"") -%></li>
+    <% if @agent.ndla_record %>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.manifestation')), manifestations_path(query: "agent_id_sm:\"#{@agent.id}\"") -%></li>
+    <% else %>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.manifestation')), manifestations_path(query: "\"#{@agent.full_name}\"") -%></li>
+    <% end %>
   </ul>
 </div>

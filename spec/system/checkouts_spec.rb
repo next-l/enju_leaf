@@ -5,7 +5,7 @@ RSpec.describe 'Checkouts', type: :system do
   fixtures :all
 
   before(:each) do
-    CarrierType.find_by(name: 'volume').update(attachment: File.open("#{Rails.root.to_s}/app/assets/images/icons/book.png"))
+    CarrierType.find_by(name: 'volume').attachment.attach(io: File.open("#{Rails.root.to_s}/app/assets/images/icons/book.png"), filename: 'book.png')
   end
 
   describe 'When logged in as Librarian' do

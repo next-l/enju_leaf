@@ -1,4 +1,4 @@
-<%- if manifestation.original_manifestations.first or manifestation.derived_manifestations.first -%>
+<%- if Pundit.policy_scope!(current_user, manifestation.original_manifestations).exists? || Pundit.policy_scope!(current_user, manifestation.derived_manifestations).exists? -%>
   <%= render 'manifestations/manifestation_list', manifestation: manifestation -%>
 <%- end -%>
 <%-if defined?(EnjuQuestion) -%>

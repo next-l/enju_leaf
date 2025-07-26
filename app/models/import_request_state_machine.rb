@@ -5,5 +5,5 @@ class ImportRequestStateMachine
   state :completed
   state :failed
 
-  transition from: :pending, to: [:completed, :failed]
+  transition from: :pending, to: [ :completed, :failed ]
 end

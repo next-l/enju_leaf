@@ -7,12 +7,17 @@ end
 #
 # Table name: places
 #
-#  id         :integer          not null, primary key
-#  term       :string
+#  id         :bigint           not null, primary key
 #  city       :text
-#  country_id :integer
 #  latitude   :float
 #  longitude  :float
+#  term       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  country_id :bigint
+#
+# Indexes
+#
+#  index_places_on_country_id  (country_id)
+#  index_places_on_term        (term)
 #

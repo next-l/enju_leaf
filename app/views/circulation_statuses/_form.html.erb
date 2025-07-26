@@ -1,5 +1,5 @@
-<%= form_for(@circulation_status) do |f| %>
-  <%= error_messages(@circulation_status) %>
+<%= form_with(model: circulation_status) do |f| %>
+  <%= error_messages(circulation_status) %>
 
   <div class="field">
     <%= f.label :name %><br />

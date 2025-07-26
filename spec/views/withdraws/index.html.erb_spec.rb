@@ -9,7 +9,7 @@ RSpec.describe "withdraws/index", type: :view do
     basket = FactoryBot.create(:basket)
     assign(:basket, basket)
     assign(:withdraw, basket.withdraws.new)
-    view.stub(:current_user).and_return(User.friendly.find('enjuadmin'))
+    view.stub(:current_user).and_return(User.find_by(username: 'enjuadmin'))
   end
 
   it "renders a list of withdraws" do

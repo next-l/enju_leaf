@@ -1,27 +1,26 @@
 class Checkout < ApplicationRecord
   scope :not_returned, -> { where(checkin_id: nil) }
   scope :returned, -> { where.not(checkin_id: nil) }
-  scope :overdue, lambda {|date| where('checkin_id IS NULL AND due_date < ?', date)}
-  scope :due_date_on, lambda {|date| where(checkin_id: nil, due_date: date.beginning_of_day .. date.end_of_day)}
-  scope :completed, lambda {|start_date, end_date| where('checkouts.created_at >= ? AND checkouts.created_at < ?', start_date, end_date)}
-  scope :on, lambda {|date| where('created_at >= ? AND created_at < ?', date.beginning_of_day, date.tomorrow.beginning_of_day)}
+  scope :overdue, lambda { |date| where("checkin_id IS NULL AND due_date < ?", date) }
+  scope :due_date_on, lambda { |date| where(checkin_id: nil, due_date: date.beginning_of_day .. date.end_of_day) }
+  scope :completed, lambda { |start_date, end_date| where("checkouts.created_at >= ? AND checkouts.created_at < ?", start_date, end_date) }
+  scope :on, lambda { |date| where("created_at >= ? AND created_at < ?", date.beginning_of_day, date.tomorrow.beginning_of_day) }
 
   belongs_to :user, optional: true
   delegate :username, :user_number, to: :user, prefix: true
   belongs_to :item, touch: true
   belongs_to :checkin, optional: true
-  belongs_to :librarian, class_name: 'User'
+  belongs_to :librarian, class_name: "User"
   belongs_to :basket
   belongs_to :shelf, optional: true
   belongs_to :library, optional: true
 
   # TODO: 貸出履歴を保存しない場合は、ユーザ名を削除する
   # validates :user, :item, :basket, presence: true
-  validates :due_date, presence: true
-  validates :item_id, uniqueness: { scope: [:basket_id, :user_id] }
+  validates :due_date, date: true, presence: true
+  validates :item_id, uniqueness: { scope: [ :basket_id, :user_id ] }
   validate :is_not_checked?, on: :create
   validate :renewable?, on: :update
-  validates_date :due_date
   before_update :set_new_due_date
 
   searchable do
@@ -51,7 +50,7 @@ class Checkout < ApplicationRecord
   def is_not_checked?
     checkout = Checkout.not_returned.where(item_id: item_id)
     unless checkout.empty?
-      errors.add(:base, I18n.t('activerecord.errors.messages.checkin.already_checked_out'))
+      errors.add(:base, I18n.t("activerecord.errors.messages.checkin.already_checked_out"))
     end
   end
 
@@ -60,13 +59,13 @@ class Checkout < ApplicationRecord
 
     messages = []
     if !operator && overdue?
-      messages << I18n.t('checkout.you_have_overdue_item')
+      messages << I18n.t("checkout.you_have_overdue_item")
     end
     if !operator && reserved?
-      messages << I18n.t('checkout.this_item_is_reserved')
+      messages << I18n.t("checkout.this_item_is_reserved")
     end
     if !operator && over_checkout_renewal_limit?
-      messages << I18n.t('checkout.excessed_renewal_limit')
+      messages << I18n.t("checkout.excessed_renewal_limit")
     end
     if messages.empty?
       true
@@ -86,23 +85,23 @@ class Checkout < ApplicationRecord
 
   def over_checkout_renewal_limit?
     return nil unless item.checkout_status(user)
-    return true if item.checkout_status(user).checkout_renewal_limit < checkout_renewal_count
+    true if item.checkout_status(user).checkout_renewal_limit < checkout_renewal_count
   end
 
   def overdue?
     return false unless due_date
     if Time.zone.now > due_date.tomorrow.beginning_of_day
-      return true
+      true
     else
-      return false
+      false
     end
   end
 
   def is_today_due_date?
     if Time.zone.now.beginning_of_day == due_date.beginning_of_day
-      return true
+      true
     else
-      return false
+      false
     end
   end
 
@@ -151,7 +150,7 @@ class Checkout < ApplicationRecord
       arel_table[:created_at].lt end_date
     )
     .where(
-      item_id: manifestation.items.pluck('items.id')
+      item_id: manifestation.items.pluck("items.id")
     ).count
   end
 
@@ -191,17 +190,36 @@ end
 #
 # Table name: checkouts
 #
-#  id                     :integer          not null, primary key
-#  user_id                :integer
-#  item_id                :integer          not null
-#  checkin_id             :integer
-#  librarian_id           :integer
-#  basket_id              :integer
-#  due_date               :datetime
+#  id                     :bigint           not null, primary key
 #  checkout_renewal_count :integer          default(0), not null
+#  due_date               :datetime
 #  lock_version           :integer          default(0), not null
-#  created_at             :datetime
-#  updated_at             :datetime
-#  shelf_id               :integer
-#  library_id             :integer
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  basket_id              :bigint
+#  checkin_id             :bigint
+#  item_id                :bigint           not null
+#  librarian_id           :bigint
+#  library_id             :bigint
+#  shelf_id               :bigint
+#  user_id                :bigint
+#
+# Indexes
+#
+#  index_checkouts_on_basket_id                          (basket_id)
+#  index_checkouts_on_checkin_id                         (checkin_id)
+#  index_checkouts_on_item_id                            (item_id)
+#  index_checkouts_on_item_id_and_basket_id_and_user_id  (item_id,basket_id,user_id) UNIQUE
+#  index_checkouts_on_librarian_id                       (librarian_id)
+#  index_checkouts_on_library_id                         (library_id)
+#  index_checkouts_on_shelf_id                           (shelf_id)
+#  index_checkouts_on_user_id                            (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (checkin_id => checkins.id)
+#  fk_rails_...  (item_id => items.id)
+#  fk_rails_...  (library_id => libraries.id)
+#  fk_rails_...  (shelf_id => shelves.id)
+#  fk_rails_...  (user_id => users.id)
 #

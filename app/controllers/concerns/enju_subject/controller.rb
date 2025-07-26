@@ -1,6 +1,5 @@
 module EnjuSubject
   module Controller
-
     private
 
     def get_subject_heading_type

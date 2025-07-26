@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :budget_type do |f|
-    f.sequence(:name){|n| "budget_type_#{n}"}
+    f.sequence(:name) {|n| "budget_type_#{n}"}
   end
 end
 
@@ -8,11 +8,15 @@ end
 #
 # Table name: budget_types
 #
-#  id           :integer          not null, primary key
-#  name         :string
+#  id           :bigint           not null, primary key
 #  display_name :text
+#  name         :string           not null
 #  note         :text
 #  position     :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+# Indexes
+#
+#  index_budget_types_on_lower_name  (lower((name)::text)) UNIQUE
 #

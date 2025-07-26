@@ -9,12 +9,19 @@ end
 #
 # Table name: countries
 #
-#  id           :integer          not null, primary key
-#  name         :string           not null
-#  display_name :text
+#  id           :bigint           not null, primary key
 #  alpha_2      :string
 #  alpha_3      :string
-#  numeric_3    :string
+#  display_name :text
+#  name         :string           not null
 #  note         :text
+#  numeric_3    :string
 #  position     :integer
+#
+# Indexes
+#
+#  index_countries_on_alpha_2     (alpha_2)
+#  index_countries_on_alpha_3     (alpha_3)
+#  index_countries_on_lower_name  (lower((name)::text)) UNIQUE
+#  index_countries_on_numeric_3   (numeric_3)
 #

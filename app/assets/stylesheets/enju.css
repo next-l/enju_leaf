@@ -50,6 +50,7 @@ div#content{
 div.header_and_footer{
   padding: 2px;
   clear: both;
+  width: 914px;
 }
 
 div#header_left{

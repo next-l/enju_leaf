@@ -10,11 +10,11 @@ module ImportFile
 
   def import_start
     case edit_mode
-    when 'create'
+    when "create"
       import
-    when 'update'
+    when "update"
       modify
-    when 'destroy'
+    when "destroy"
       remove
     else
       import
@@ -27,14 +27,14 @@ module ImportFile
     if defined?(CharlockHolmes::EncodingDetector)
       begin
         case user_encoding
-        when 'auto_detect'
+        when "auto_detect"
           encoding = CharlockHolmes::EncodingDetector.detect(line)[:encoding]
         when nil
           encoding = CharlockHolmes::EncodingDetector.detect(line)[:encoding]
         else
           encoding = user_encoding
         end
-        line.encode('UTF-8', encoding, universal_newline: true)
+        line.encode("UTF-8", encoding, universal_newline: true)
       rescue StandardError
         nkf_encode(line)
       end
@@ -58,32 +58,23 @@ module ImportFile
 
   def nkf_encode(line)
     case user_encoding
-    when 'auto_detect'
-      output_encoding = '-w'
-    when 'UTF-8'
-      output_encoding = ''
-    when 'Shift_JIS'
-      output_encoding = '-Sw'
-    when 'EUC-JP'
-      output_encoding = '-Ew'
+    when "auto_detect"
+      output_encoding = "-w"
+    when "UTF-8"
+      output_encoding = ""
+    when "Shift_JIS"
+      output_encoding = "-Sw"
+    when "EUC-JP"
+      output_encoding = "-Ew"
     else
-      output_encoding = '-w'
+      output_encoding = "-w"
     end
     NKF.nkf("#{output_encoding} -Lu", line)
   end
 
   def create_import_temp_file(attachment)
     tempfile = Tempfile.new(self.class.name.underscore)
-    if ENV['ENJU_STORAGE'] == 's3'
-      tempfile.write Faraday.get(attachment.expiring_url(10)).body.force_encoding('UTF-8')
-    else
-      uploaded_file_path = attachment.path
-      File.open(uploaded_file_path){|f|
-        f.each{|line|
-          tempfile.puts(convert_encoding(line))
-        }
-      }
-    end
+    tempfile.write convert_encoding(attachment.download)
     tempfile.close
     tempfile
   end

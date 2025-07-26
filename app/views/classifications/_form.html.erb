@@ -1,5 +1,5 @@
-<%= form_for(@classification) do |f| -%>
-  <%= error_messages(@classification) -%>
+<%= form_with(model: classification) do |f| -%>
+  <%= error_messages(classification) -%>
 
   <div class="field">
     <%= f.label t('activerecord.models.classification_type') -%><br />

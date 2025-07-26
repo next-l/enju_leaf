@@ -10,22 +10,17 @@
 
 <p>
   <strong><%= t('activerecord.attributes.agent_import_file.agent_import_file_name') -%>:</strong>
-  <%= link_to @agent_import_file.agent_import_file_name, agent_import_file_path(@agent_import_file, format: :download) if @agent_import_file.agent_import_file_name %>
+  <%= link_to @agent_import_file.attachment.filename, rails_blob_path(@agent_import_file.attachment) if @agent_import_file.attachment.attached? %>
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.agent_import_file.agent_import_content_type') -%>:</strong>
-  <%= @agent_import_file.agent_import_content_type -%>
+  <%= @agent_import_file.attachment.content_type -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.agent_import_file.agent_import_file_size') -%>:</strong>
-  <%= @agent_import_file.agent_import_file_size -%>
-</p>
-
-<p>
-  <strong><%= t('activerecord.attributes.agent_import_file.agent_import_fingerprint') -%>:</strong>
-  <%= @agent_import_file.agent_import_fingerprint -%>
+  <%= @agent_import_file.attachment.byte_size -%>
 </p>
 
 <p>
@@ -72,7 +67,7 @@
     <li><%= link_to t('activerecord.models.agent_import_result'), agent_import_results_path(agent_import_file_id: @agent_import_file.id) -%></li>
     <li><%= back_to_index(flash[:page_info]) -%></li>
     <% if current_user.has_role?('Administrator') %>
-      <li><%= link_to 'Resque', resque_path %></li>
+      <li><%= link_to t('page.background_job'), mission_control_jobs_path %></li>
     <% end %>
   </ul>
   <% end %>

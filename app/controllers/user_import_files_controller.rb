@@ -1,12 +1,12 @@
 class UserImportFilesController < ApplicationController
-  before_action :set_user_import_file, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :set_user_import_file, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :prepare_options, only: [ :new, :edit ]
 
   # GET /user_import_files
   # GET /user_import_files.json
   def index
-    @user_import_files = UserImportFile.order('id DESC').page(params[:page])
+    @user_import_files = UserImportFile.order("id DESC").page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,23 +16,10 @@ class UserImportFilesController < ApplicationController
   # GET /user_import_files/1
   # GET /user_import_files/1.json
   def show
-    if @user_import_file.user_import.path
-      unless ENV['ENJU_STORAGE'] == 's3'
-        file = File.expand_path(@user_import_file.user_import.path)
-      end
-    end
     @user_import_results = @user_import_file.user_import_results.page(params[:page])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.download {
-        if ENV['ENJU_STORAGE'] == 's3'
-          send_data Faraday.get(@user_import_file.user_import.expiring_url).body.force_encoding('UTF-8'),
-            filename: File.basename(@user_import_file.user_import_file_name), type: 'application/octet-stream'
-        else
-          send_file file, filename: File.basename(@user_import_file.user_import_file_name), type: 'application/octet-stream'
-        end
-      }
     end
   end
 
@@ -55,10 +42,10 @@ class UserImportFilesController < ApplicationController
 
     respond_to do |format|
       if @user_import_file.save
-        if @user_import_file.mode == 'import'
+        if @user_import_file.mode == "import"
           UserImportFileJob.perform_later(@user_import_file)
         end
-        format.html { redirect_to @user_import_file, notice: t('import.successfully_created', model: t('activerecord.models.user_import_file')) }
+        format.html { redirect_to @user_import_file, notice: t("import.successfully_created", model: t("activerecord.models.user_import_file")) }
         format.json { render json: @user_import_file, status: :created, location: @user_import_file }
       else
         prepare_options
@@ -73,10 +60,10 @@ class UserImportFilesController < ApplicationController
   def update
     respond_to do |format|
       if @user_import_file.update(user_import_file_params)
-        if @user_import_file.mode == 'import'
+        if @user_import_file.mode == "import"
           UserImportFileJob.perform_later(@user_import_file)
         end
-        format.html { redirect_to @user_import_file, notice: t('controller.successfully_updated', model: t('activerecord.models.user_import_file')) }
+        format.html { redirect_to @user_import_file, notice: t("controller.successfully_updated", model: t("activerecord.models.user_import_file")) }
         format.json { head :no_content }
       else
         prepare_options
@@ -110,7 +97,7 @@ class UserImportFilesController < ApplicationController
 
   def user_import_file_params
     params.require(:user_import_file).permit(
-      :user_import, :edit_mode, :user_encoding, :mode,
+      :attachment, :edit_mode, :user_encoding, :mode,
       :default_user_group_id, :default_library_id
     )
   end

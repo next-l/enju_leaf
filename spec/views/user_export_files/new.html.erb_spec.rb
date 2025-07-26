@@ -3,7 +3,7 @@ require 'rails_helper'
 describe "user_export_files/new" do
   before(:each) do
     assign(:user_export_file, UserExportFile.new)
-    view.stub(:current_user).and_return(User.friendly.find('enjuadmin'))
+    view.stub(:current_user).and_return(User.find_by(username: 'enjuadmin'))
   end
 
   it "renders new user form" do

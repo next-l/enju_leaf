@@ -15,19 +15,23 @@ end
 #
 # Table name: picture_files
 #
-#  id                      :integer          not null, primary key
-#  picture_attachable_id   :integer
+#  id                      :bigint           not null, primary key
 #  picture_attachable_type :string
-#  title                   :text
-#  position                :integer
-#  created_at              :datetime
-#  updated_at              :datetime
-#  picture_file_name       :string
 #  picture_content_type    :string
+#  picture_file_name       :string
 #  picture_file_size       :integer
-#  picture_updated_at      :datetime
-#  picture_meta            :text
 #  picture_fingerprint     :string
-#  picture_width           :integer
 #  picture_height          :integer
+#  picture_meta            :text
+#  picture_updated_at      :datetime
+#  picture_width           :integer
+#  position                :integer
+#  title                   :text
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  picture_attachable_id   :bigint
+#
+# Indexes
+#
+#  index_picture_files_on_picture_attachable_id_and_type  (picture_attachable_id,picture_attachable_type)
 #

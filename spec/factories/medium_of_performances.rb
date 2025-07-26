@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :medium_of_performance do |f|
-    f.sequence(:name){|n| "medium_of_performance_#{n}"}
+    f.sequence(:name) {|n| "medium_of_performance_#{n}"}
   end
 end
 
@@ -8,11 +8,15 @@ end
 #
 # Table name: medium_of_performances
 #
-#  id           :integer          not null, primary key
-#  name         :string           not null
+#  id           :bigint           not null, primary key
 #  display_name :text
+#  name         :string           not null
 #  note         :text
 #  position     :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+# Indexes
+#
+#  index_medium_of_performances_on_lower_name  (lower((name)::text)) UNIQUE
 #

@@ -4,7 +4,7 @@ class CirculationStatusPolicy < ApplicationPolicy
   end
 
   def show?
-    true if user.try(:has_role?, 'Librarian')
+    true if user.try(:has_role?, "Librarian")
   end
 
   def create?
@@ -12,7 +12,7 @@ class CirculationStatusPolicy < ApplicationPolicy
   end
 
   def update?
-    if user.try(:has_role?, 'Administrator')
+    if user.try(:has_role?, "Administrator")
       true
     end
   end
