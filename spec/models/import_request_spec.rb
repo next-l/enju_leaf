@@ -35,7 +35,7 @@ end
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  manifestation_id :bigint
-#  user_id          :bigint
+#  user_id          :bigint           not null
 #
 # Indexes
 #
