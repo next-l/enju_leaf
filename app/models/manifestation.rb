@@ -724,11 +724,6 @@ end
 #  id                              :bigint           not null, primary key
 #  abstract                        :text
 #  access_address                  :string
-#  attachment_content_type         :string
-#  attachment_file_name            :string
-#  attachment_file_size            :integer
-#  attachment_meta                 :text
-#  attachment_updated_at           :datetime
 #  available_at                    :datetime
 #  classification_number           :string
 #  date_accepted                   :datetime
