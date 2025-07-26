@@ -25,13 +25,17 @@ end
 #
 # Table name: carrier_types
 #
-#  id           :bigint           not null, primary key
-#  display_name :text
-#  name         :string           not null
-#  note         :text
-#  position     :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id                      :bigint           not null, primary key
+#  attachment_content_type :string
+#  attachment_file_name    :string
+#  attachment_file_size    :bigint
+#  attachment_updated_at   :datetime
+#  display_name            :text
+#  name                    :string           not null
+#  note                    :text
+#  position                :integer
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
 #
 # Indexes
 #

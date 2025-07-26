@@ -20,7 +20,13 @@ end
 #
 #  id                      :bigint           not null, primary key
 #  picture_attachable_type :string
+#  picture_content_type    :string
+#  picture_file_name       :string
+#  picture_file_size       :integer
 #  picture_fingerprint     :string
+#  picture_height          :integer
+#  picture_meta            :text
+#  picture_updated_at      :datetime
 #  picture_width           :integer
 #  position                :integer
 #  title                   :text

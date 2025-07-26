@@ -41,11 +41,15 @@ end
 #
 # Table name: user_export_files
 #
-#  id          :bigint           not null, primary key
-#  executed_at :datetime
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  user_id     :bigint           not null
+#  id                       :bigint           not null, primary key
+#  executed_at              :datetime
+#  user_export_content_type :string
+#  user_export_file_name    :string
+#  user_export_file_size    :bigint
+#  user_export_updated_at   :datetime
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  user_id                  :bigint           not null
 #
 # Indexes
 #
