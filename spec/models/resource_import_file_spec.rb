@@ -528,7 +528,7 @@ end
 #  updated_at                  :datetime         not null
 #  default_shelf_id            :bigint
 #  parent_id                   :bigint
-#  user_id                     :bigint
+#  user_id                     :bigint           not null
 #
 # Indexes
 #

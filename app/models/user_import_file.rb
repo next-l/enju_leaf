@@ -322,7 +322,7 @@ end
 #  updated_at              :datetime         not null
 #  default_library_id      :bigint
 #  default_user_group_id   :bigint
-#  user_id                 :bigint
+#  user_id                 :bigint           not null
 #
 # Indexes
 #

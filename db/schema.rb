@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_26_132106) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,7 +68,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_132106) do
 
   create_table "agent_import_files", force: :cascade do |t|
     t.bigint "parent_id"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.text "note"
     t.datetime "executed_at", precision: nil
     t.datetime "created_at", null: false
@@ -513,7 +513,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_132106) do
   end
 
   create_table "event_export_files", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "executed_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -535,7 +535,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_132106) do
 
   create_table "event_import_files", force: :cascade do |t|
     t.bigint "parent_id"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.text "note"
     t.datetime "executed_at", precision: nil
     t.string "edit_mode"
@@ -668,7 +668,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_132106) do
   end
 
   create_table "inventory_files", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -1419,7 +1419,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_132106) do
   end
 
   create_table "resource_export_files", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "executed_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -1440,7 +1440,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_132106) do
 
   create_table "resource_import_files", force: :cascade do |t|
     t.bigint "parent_id"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.text "note"
     t.datetime "executed_at", precision: nil
     t.datetime "created_at", null: false
@@ -1690,7 +1690,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_132106) do
   end
 
   create_table "user_export_files", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "executed_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
