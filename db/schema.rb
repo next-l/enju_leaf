@@ -668,7 +668,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_121509) do
   end
 
   create_table "inventory_files", force: :cascade do |t|
-    t.string "filename"
     t.bigint "user_id"
     t.text "note"
     t.datetime "created_at", null: false

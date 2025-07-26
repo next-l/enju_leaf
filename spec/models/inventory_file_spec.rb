@@ -22,7 +22,6 @@ end
 # Table name: inventory_files
 #
 #  id                    :bigint           not null, primary key
-#  filename              :string
 #  inventory_fingerprint :string
 #  note                  :text
 #  created_at            :datetime         not null

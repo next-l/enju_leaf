@@ -20,6 +20,7 @@ class RemovePaperclipAttachmentColumns < ActiveRecord::Migration[7.1]
     remove_column :event_import_files, :event_import_updated_at, :datetime, if_exists: true
     remove_column :event_import_files, :content_type, :string
     remove_column :event_import_files, :size, :integer
+    remove_column :inventory_files, :filename, :string
     remove_column :inventory_files, :inventory_content_type, :string
     remove_column :inventory_files, :inventory_file_name, :string
     remove_column :inventory_files, :inventory_file_size, :integer
