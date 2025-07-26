@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_26_143606) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_26_140939) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1308,6 +1308,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_143606) do
   end
 
   create_table "profiles", force: :cascade do |t|
+    t.bigint "user_id"
     t.bigint "user_group_id"
     t.bigint "library_id"
     t.string "locale"
@@ -1327,6 +1328,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_143606) do
     t.index ["checkout_icalendar_token"], name: "index_profiles_on_checkout_icalendar_token", unique: true
     t.index ["library_id"], name: "index_profiles_on_library_id"
     t.index ["user_group_id"], name: "index_profiles_on_user_group_id"
+    t.index ["user_id"], name: "index_profiles_on_user_id"
     t.index ["user_number"], name: "index_profiles_on_user_number", unique: true
   end
 
@@ -1999,9 +2001,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_143606) do
     t.string "unlock_token"
     t.datetime "locked_at", precision: nil
     t.datetime "confirmed_at", precision: nil
-    t.bigint "profile_id", null: false
     t.index ["email"], name: "index_users_on_email"
-    t.index ["profile_id"], name: "index_users_on_profile_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
@@ -2080,6 +2080,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_143606) do
   add_foreign_key "periodicals", "frequencies"
   add_foreign_key "periodicals", "manifestations"
   add_foreign_key "profiles", "roles", column: "required_role_id"
+  add_foreign_key "profiles", "users"
   add_foreign_key "purchase_requests", "users"
   add_foreign_key "reserve_stat_has_manifestations", "manifestations"
   add_foreign_key "reserve_stat_has_users", "user_reserve_stats"
@@ -2104,5 +2105,4 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_143606) do
   add_foreign_key "user_has_roles", "users"
   add_foreign_key "user_import_files", "users"
   add_foreign_key "user_reserve_stats", "users"
-  add_foreign_key "users", "profiles"
 end
