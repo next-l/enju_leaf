@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.2.6"
+ruby "3.2.8"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.4"
@@ -116,7 +116,7 @@ gem 'webpacker', '~> 5.0'
 gem 'faraday-multipart'
 
 group :development, :test do
-  gem 'annotate'
+  gem 'annotaterb'
   gem 'database_consistency'
   gem 'rspec-rails'
   gem 'vcr'

@@ -35,7 +35,7 @@ describe Basket do
     checked_item_2.item = items(:item_00011)
     checked_item_2.save
     basket_1.basket_checkout(users(:librarian1))
-    lambda{basket_2.basket_checkout(users(:librarian1))}.should raise_exception ActiveRecord::RecordInvalid
+    lambda {basket_2.basket_checkout(users(:librarian1))}.should raise_exception ActiveRecord::RecordInvalid
     items(:item_00011).checkouts.order('id DESC').first.user.should eq users(:admin)
   end
 
@@ -70,9 +70,17 @@ end
 # Table name: baskets
 #
 #  id           :bigint           not null, primary key
-#  user_id      :bigint
-#  note         :text
 #  lock_version :integer          default(0), not null
+#  note         :text
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  user_id      :bigint
+#
+# Indexes
+#
+#  index_baskets_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #

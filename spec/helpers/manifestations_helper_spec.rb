@@ -8,7 +8,7 @@ describe ManifestationsHelper do
   end
 
   it "should get paginate_id_link" do
-    helper.paginate_id_link(manifestations(:manifestation_00003), [1, 2, 3]).should =~ /Next <a href=\"\/manifestations\/2\">Previous<\/a>/
+    helper.paginate_id_link(manifestations(:manifestation_00003), [ 1, 2, 3 ]).should =~ /Next <a href=\"\/manifestations\/2\">Previous<\/a>/
   end
 
   it 'should export rdf_statement"' do

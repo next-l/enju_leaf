@@ -75,9 +75,9 @@ class Bookmark < ApplicationRecord
     unless manifestation
       normalized_url = Addressable::URI.parse(url).normalize.to_s
       doc = Nokogiri::HTML(Faraday.get(normalized_url).body)
-      # TODO: 日本語以外
-      # charsets = ['iso-2022-jp', 'euc-jp', 'shift_jis', 'iso-8859-1']
-      # if charsets.include?(page.charset.downcase)
+        # TODO: 日本語以外
+        # charsets = ['iso-2022-jp', 'euc-jp', 'shift_jis', 'iso-8859-1']
+        # if charsets.include?(page.charset.downcase)
         title = NKF.nkf("-w", CGI.unescapeHTML((doc.at("title").inner_text))).to_s.gsub(/\r\n|\r|\n/, "").gsub(/\s+/, " ").strip
         if title.blank?
           title = url
@@ -90,7 +90,7 @@ class Bookmark < ApplicationRecord
   rescue OpenURI::HTTPError
     # TODO: 404などの場合の処理
     raise "unable to access: #{url}"
-  #  nil
+    #  nil
   end
 
   def self.get_canonical_url(url)
@@ -187,12 +187,22 @@ end
 # Table name: bookmarks
 #
 #  id               :bigint           not null, primary key
-#  user_id          :bigint           not null
-#  manifestation_id :bigint
-#  title            :text
-#  url              :string
 #  note             :text
 #  shared           :boolean
+#  title            :text
+#  url              :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  manifestation_id :bigint
+#  user_id          :bigint           not null
+#
+# Indexes
+#
+#  index_bookmarks_on_manifestation_id  (manifestation_id)
+#  index_bookmarks_on_url               (url)
+#  index_bookmarks_on_user_id           (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #

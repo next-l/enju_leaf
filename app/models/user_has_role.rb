@@ -9,8 +9,18 @@ end
 # Table name: user_has_roles
 #
 #  id         :bigint           not null, primary key
-#  user_id    :bigint           not null
-#  role_id    :bigint           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  role_id    :bigint           not null
+#  user_id    :bigint           not null
+#
+# Indexes
+#
+#  index_user_has_roles_on_role_id              (role_id)
+#  index_user_has_roles_on_user_id_and_role_id  (user_id,role_id) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (role_id => roles.id)
+#  fk_rails_...  (user_id => users.id)
 #

@@ -21,14 +21,14 @@ describe ResourceImportFile do
         old_import_results_count = ResourceImportResult.count
         old_message_count = Message.count
 
-        @file.import_start.should eq({manifestation_imported: 10, item_imported: 10, manifestation_found: 6, item_found: 3, failed: 7})
+        @file.import_start.should eq({ manifestation_imported: 10, item_imported: 10, manifestation_found: 6, item_found: 3, failed: 7 })
         manifestation = Item.find_by(item_identifier: '11111').manifestation
         manifestation.publishers.first.full_name.should eq 'test4'
         manifestation.publishers.first.full_name_transcription.should eq 'てすと4'
         manifestation.publishers.second.full_name_transcription.should eq 'てすと5'
         manifestation.produces.first.produce_type.name.should eq 'publisher'
         manifestation.creates.first.create_type.name.should eq 'author'
-        expect(manifestation.issn_records.pluck(:body)).to eq ['03875806']
+        expect(manifestation.issn_records.pluck(:body)).to eq [ '03875806' ]
         Manifestation.count.should eq old_manifestations_count + 10
         Item.count.should eq old_items_count + 10
         Agent.count.should eq old_agents_count + 9
@@ -125,16 +125,16 @@ describe ResourceImportFile do
         item_10104.manifestation.height.should be_nil
         item_10104.manifestation.width.should be_nil
         item_10104.manifestation.depth.should be_nil
-        item_10104.manifestation.subjects.order(:id).map{|s| {s.subject_heading_type.name => s.term}}.should eq [{"ndlsh" => "コンピュータ"}, {"ndlsh" => "図書館"}]
-        item_10104.manifestation.classifications.order(:id).map{|c| {c.classification_type.name => c.category}}.should eq [{"ndc9" => "007"}, {"ddc" => "003"}, {"ddc" => "004"}]
+        item_10104.manifestation.subjects.order(:id).map {|s| { s.subject_heading_type.name => s.term }}.should eq [ { "ndlsh" => "コンピュータ" }, { "ndlsh" => "図書館" } ]
+        item_10104.manifestation.classifications.order(:id).map {|c| { c.classification_type.name => c.category }}.should eq [ { "ndc9" => "007" }, { "ddc" => "003" }, { "ddc" => "004" } ]
         expect(item_10104.manifestation.required_role.name).to eq 'Guest'
         expect(item_10104.required_role.name).to eq 'Guest'
 
         manifestation_104 = Manifestation.find_by(manifestation_identifier: '104')
-        expect(manifestation_104.isbn_records.pluck(:body)).to eq ['9784797327038']
+        expect(manifestation_104.isbn_records.pluck(:body)).to eq [ '9784797327038' ]
         expect(manifestation_104.original_title).to eq 'test10'
-        manifestation_104.creators.pluck(:full_name).should eq ['test3']
-        manifestation_104.publishers.pluck(:full_name).should eq ['test4']
+        manifestation_104.creators.pluck(:full_name).should eq [ 'test3' ]
+        manifestation_104.publishers.pluck(:full_name).should eq [ 'test4' ]
         expect(item_10104.manifestation.pub_date).to eq '2001-1-1'
         expect(item_10104.manifestation.date_of_publication).to eq Time.zone.parse('2001-01-01')
 
@@ -148,15 +148,15 @@ describe ResourceImportFile do
         Item.find_by(item_identifier: '11114').manifestation.id.should eq 1
 
         item_10102 = Item.find_by(item_identifier: '10102')
-        expect(item_10102.manifestation.manifestation_custom_values.pluck(:value)).to eq ['カスタム項目テスト1', 'カスタム項目テスト2']
+        expect(item_10102.manifestation.manifestation_custom_values.pluck(:value)).to eq [ 'カスタム項目テスト1', 'カスタム項目テスト2' ]
         expect(item_10102.item_custom_values.pluck(:value)).to eq []
         item_10103 = Item.find_by(item_identifier: '10103')
-        expect(item_10103.manifestation.manifestation_custom_values.pluck(:value)).to eq ["カスタム項目テスト1", "カスタム項目テスト2"]
-        expect(item_10103.item_custom_values.pluck(:value)).to eq ['カスタム項目テスト3', 'カスタム項目テスト4']
+        expect(item_10103.manifestation.manifestation_custom_values.pluck(:value)).to eq [ "カスタム項目テスト1", "カスタム項目テスト2" ]
+        expect(item_10103.item_custom_values.pluck(:value)).to eq [ 'カスタム項目テスト3', 'カスタム項目テスト4' ]
 
-        Manifestation.search{ keywords "10101" }.total.should > 0
-        Manifestation.search{ keywords "10101", fields: [:item_identifier] }.total.should > 0
-        Manifestation.search{ keywords "item_identifier_sm:10101" }.total.should > 0
+        Manifestation.search { keywords "10101" }.total.should > 0
+        Manifestation.search { keywords "10101", fields: [ :item_identifier ] }.total.should > 0
+        Manifestation.search { keywords "item_identifier_sm:10101" }.total.should > 0
 
         Message.count.should eq old_message_count + 1
         Message.order(:created_at).last.subject.should eq "Resource import completed: #{@file.id}"
@@ -259,7 +259,7 @@ describe ResourceImportFile do
         old_items_count = Item.count
         old_agents_count = Agent.count
         old_import_results_count = ResourceImportResult.count
-        @file.import_start.should eq({manifestation_imported: 10, item_imported: 10, manifestation_found: 6, item_found: 3, failed: 7})
+        @file.import_start.should eq({ manifestation_imported: 10, item_imported: 10, manifestation_found: 6, item_found: 3, failed: 7 })
         manifestation = Item.find_by(item_identifier: '11111').manifestation
         manifestation.publishers.first.full_name.should eq 'test4'
         manifestation.publishers.first.full_name_transcription.should eq 'てすと4'
@@ -369,7 +369,7 @@ resource_import_file_test_edition	2	Revised Ed.
         old_manifestations_count = Manifestation.count
         result = file.import_start
         expect(Manifestation.count).to eq old_manifestations_count + 1
-        manifestation = Manifestation.all.find{|m| m.original_title == "resource_import_file_test_edition" }
+        manifestation = Manifestation.all.find {|m| m.original_title == "resource_import_file_test_edition" }
         expect(manifestation.edition).to eq 2
         expect(manifestation.edition_string).to eq "Revised Ed."
       end
@@ -387,7 +387,7 @@ resource_import_file_test_transcription	transcription
         old_manifestations_count = Manifestation.count
         result = file.import_start
         expect(Manifestation.count).to eq old_manifestations_count + 1
-        manifestation = Manifestation.all.find{|m| m.original_title == "resource_import_file_test_transcription" }
+        manifestation = Manifestation.all.find {|m| m.original_title == "resource_import_file_test_transcription" }
         expect(manifestation.title_transcription).to eq "transcription"
       end
     end
@@ -405,7 +405,7 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
         old_manifestations_count = Manifestation.count
         result = file.import_start
         expect(Manifestation.count).to eq old_manifestations_count + 1
-        manifestation = Manifestation.all.find{|m| m.original_title == "resource_import_file_test_description" }
+        manifestation = Manifestation.all.find {|m| m.original_title == "resource_import_file_test_description" }
         expect(manifestation.description).to eq "test\ntest"
         expect(manifestation.note).to eq "test\ntest"
         expect(manifestation.items.first.note).to eq "test\ntest"
@@ -432,17 +432,17 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
       expect(@file.resource_import_results.first).to be_truthy
       expect(@file.resource_import_results.first.body).to match /item_identifier/
       item_00001 = Item.find_by(item_identifier: '00001')
-      item_00001.manifestation.creators.order('agents.id').pluck(:full_name).should eq ['たなべ', 'こうすけ']
+      item_00001.manifestation.creators.order('agents.id').pluck(:full_name).should eq [ 'たなべ', 'こうすけ' ]
       item_00001.binding_item_identifier.should eq '900001'
       item_00001.binding_call_number.should eq '336|A'
       item_00001.binded_at.should eq Time.zone.parse('2014-08-16')
-      item_00001.manifestation.subjects.order(:id).map{|subject| {subject.subject_heading_type.name => subject.term}}.should eq [{"ndlsh" => "test1"}, {"ndlsh" => "test2"}]
-      expect(item_00001.manifestation.isbn_records.pluck(:body)).to eq ["4798002062"]
+      item_00001.manifestation.subjects.order(:id).map {|subject| { subject.subject_heading_type.name => subject.term }}.should eq [ { "ndlsh" => "test1" }, { "ndlsh" => "test2" } ]
+      expect(item_00001.manifestation.isbn_records.pluck(:body)).to eq [ "4798002062" ]
       expect(item_00001.manifestation.required_role.name).to eq 'Librarian'
       expect(item_00001.required_role.name).to eq 'Guest'
 
       item_00002 = Item.find_by(item_identifier: '00002')
-      expect(item_00002.manifestation.publishers.pluck(:full_name)).to eq ['test2']
+      expect(item_00002.manifestation.publishers.pluck(:full_name)).to eq [ 'test2' ]
       expect(item_00002.manifestation.required_role.name).to eq 'Guest'
       expect(item_00002.required_role.name).to eq 'Guest'
 
@@ -456,14 +456,14 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
 
       item_00025 = Item.find_by(item_identifier: '00025')
       expect(item_00025.manifestation.original_title).to eq "テスト4"
-      expect(item_00025.manifestation.subjects.pluck(:term)).to eq ['test2', 'test3']
+      expect(item_00025.manifestation.subjects.pluck(:term)).to eq [ 'test2', 'test3' ]
       expect(item_00025.call_number).to eq "547|ヤ"
     end
 
     it "should update custom values", vcr: true do
       @file.import_start
       item_00001 = Item.find_by(item_identifier: '00001')
-      expect(item_00001.manifestation.manifestation_custom_values.pluck(:manifestation_custom_property_id, :value)).to eq [[2, "カスタム項目5"]]
+      expect(item_00001.manifestation.manifestation_custom_values.pluck(:manifestation_custom_property_id, :value)).to eq [ [ 2, "カスタム項目5" ] ]
       expect(item_00001.item_custom_values.order(:item_custom_property_id).first.value).to eq "カスタム項目6"
     end
 
@@ -517,16 +517,31 @@ end
 #
 # Table name: resource_import_files
 #
-#  id                          :bigint           not null, primary key
-#  parent_id                   :bigint
-#  user_id                     :bigint
-#  note                        :text
-#  executed_at                 :datetime
-#  created_at                  :datetime         not null
-#  updated_at                  :datetime         not null
-#  edit_mode                   :string
-#  resource_import_fingerprint :string
-#  error_message               :text
-#  user_encoding               :string
-#  default_shelf_id            :bigint
+#  id                           :bigint           not null, primary key
+#  content_type                 :string
+#  edit_mode                    :string
+#  error_message                :text
+#  executed_at                  :datetime
+#  note                         :text
+#  resource_import_content_type :string
+#  resource_import_file_name    :string
+#  resource_import_file_size    :integer
+#  resource_import_fingerprint  :string
+#  resource_import_updated_at   :datetime
+#  size                         :integer
+#  user_encoding                :string
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
+#  default_shelf_id             :bigint
+#  parent_id                    :bigint
+#  user_id                      :bigint
+#
+# Indexes
+#
+#  index_resource_import_files_on_parent_id  (parent_id)
+#  index_resource_import_files_on_user_id    (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #

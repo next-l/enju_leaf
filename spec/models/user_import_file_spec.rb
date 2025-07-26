@@ -21,7 +21,7 @@ describe UserImportFile do
       old_users_count = User.count
       old_import_results_count = UserImportResult.count
       file.current_state.should eq 'pending'
-      file.import_start.should eq({user_imported: 5, user_found: 0, failed: 0, error: 3})
+      file.import_start.should eq({ user_imported: 5, user_found: 0, failed: 0, error: 3 })
       User.order('id DESC')[1].username.should eq 'user005'
       User.order('id DESC')[2].username.should eq 'user003'
       User.count.should eq old_users_count + 5
@@ -91,7 +91,7 @@ describe UserImportFile do
       old_users_count = User.count
       old_import_results_count = UserImportResult.count
       @file.user = User.where(username: 'librarian1').first
-      @file.import_start.should eq({user_imported: 4, user_found: 0, failed: 1, error: 3})
+      @file.import_start.should eq({ user_imported: 4, user_found: 0, failed: 1, error: 3 })
       User.order('id DESC')[1].username.should eq 'user005'
       User.count.should eq old_users_count + 4
       UserImportResult.count.should eq old_import_results_count + 10
@@ -250,16 +250,28 @@ end
 #
 # Table name: user_import_files
 #
-#  id                      :bigint           not null, primary key
-#  user_id                 :bigint
-#  note                    :text
-#  executed_at             :datetime
-#  user_import_fingerprint :string
-#  edit_mode               :string
-#  error_message           :text
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  user_encoding           :string
-#  default_library_id      :bigint
-#  default_user_group_id   :bigint
+#  id                       :bigint           not null, primary key
+#  edit_mode                :string
+#  error_message            :text
+#  executed_at              :datetime
+#  note                     :text
+#  user_encoding            :string
+#  user_import_content_type :string
+#  user_import_file_name    :string
+#  user_import_file_size    :integer
+#  user_import_fingerprint  :string
+#  user_import_updated_at   :datetime
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  default_library_id       :bigint
+#  default_user_group_id    :bigint
+#  user_id                  :bigint
+#
+# Indexes
+#
+#  index_user_import_files_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #

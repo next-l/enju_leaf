@@ -21,10 +21,15 @@ end
 # Table name: produces
 #
 #  id               :bigint           not null, primary key
-#  agent_id         :bigint           not null
-#  manifestation_id :bigint           not null
 #  position         :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  agent_id         :bigint           not null
+#  manifestation_id :bigint           not null
 #  produce_type_id  :bigint
+#
+# Indexes
+#
+#  index_produces_on_agent_id                       (agent_id)
+#  index_produces_on_manifestation_id_and_agent_id  (manifestation_id,agent_id) UNIQUE
 #

@@ -8,11 +8,16 @@ end
 # Table name: places
 #
 #  id         :bigint           not null, primary key
-#  term       :string
 #  city       :text
-#  country_id :bigint
 #  latitude   :float
 #  longitude  :float
+#  term       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  country_id :bigint
+#
+# Indexes
+#
+#  index_places_on_country_id  (country_id)
+#  index_places_on_term        (term)
 #

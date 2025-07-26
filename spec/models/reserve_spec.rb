@@ -119,11 +119,11 @@ describe Reserve do
     reserve = FactoryBot.create(:reserve)
     manifestation = reserve.manifestation
     item = FactoryBot.create(:item, manifestation_id: manifestation.id)
-    expect{item.retain(reserve.user)}.not_to raise_error
+    expect {item.retain(reserve.user)}.not_to raise_error
     expect(reserve.retained?).to be true
     expect(item.retained?).to be true
     item = FactoryBot.create(:item, manifestation_id: manifestation.id)
-    expect{item.retain(reserve.user)}.not_to raise_error
+    expect {item.retain(reserve.user)}.not_to raise_error
     expect(reserve.retained?).to be true
     expect(item.retained?).to be false
   end
@@ -134,19 +134,31 @@ end
 # Table name: reserves
 #
 #  id                           :bigint           not null, primary key
-#  user_id                      :bigint           not null
-#  manifestation_id             :bigint           not null
-#  item_id                      :bigint
-#  request_status_type_id       :bigint           not null
+#  canceled_at                  :datetime
 #  checked_out_at               :datetime
+#  expiration_notice_to_library :boolean          default(FALSE)
+#  expiration_notice_to_patron  :boolean          default(FALSE)
+#  expired_at                   :datetime
+#  lock_version                 :integer          default(0), not null
+#  postponed_at                 :datetime
+#  retained_at                  :datetime
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
-#  canceled_at                  :datetime
-#  expired_at                   :datetime
-#  expiration_notice_to_patron  :boolean          default(FALSE)
-#  expiration_notice_to_library :boolean          default(FALSE)
+#  item_id                      :bigint
+#  manifestation_id             :bigint           not null
 #  pickup_location_id           :bigint
-#  retained_at                  :datetime
-#  postponed_at                 :datetime
-#  lock_version                 :integer          default(0), not null
+#  request_status_type_id       :bigint           not null
+#  user_id                      :bigint           not null
+#
+# Indexes
+#
+#  index_reserves_on_item_id             (item_id)
+#  index_reserves_on_manifestation_id    (manifestation_id)
+#  index_reserves_on_pickup_location_id  (pickup_location_id)
+#  index_reserves_on_user_id             (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (manifestation_id => manifestations.id)
+#  fk_rails_...  (user_id => users.id)
 #

@@ -1,7 +1,7 @@
 class InventoryFilesController < ApplicationController
-  before_action :set_inventory_file, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :set_inventory_file, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :prepare_options, only: [ :new, :edit ]
 
   # GET /inventory_files
   # GET /inventory_files.json
@@ -40,7 +40,7 @@ class InventoryFilesController < ApplicationController
 
     respond_to do |format|
       if @inventory_file.save
-        flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.inventory_file'))
+        flash[:notice] = t("controller.successfully_created", model: t("activerecord.models.inventory_file"))
         @inventory_file.import
         format.html { redirect_to(@inventory_file) }
         format.json { render json: @inventory_file, status: :created, location: @inventory_file }
@@ -57,7 +57,7 @@ class InventoryFilesController < ApplicationController
   def update
     respond_to do |format|
       if @inventory_file.update(inventory_file_params)
-        flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.inventory_file'))
+        flash[:notice] = t("controller.successfully_updated", model: t("activerecord.models.inventory_file"))
         format.html { redirect_to(@inventory_file) }
         format.json { head :no_content }
       else

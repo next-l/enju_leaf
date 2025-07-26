@@ -7,7 +7,7 @@ class PeriodicalPolicy < ApplicationPolicy
 
     def resolve
       role_id = user&.role&.id || 1
-      scope.joins(:manifestation).where('manifestations.required_role_id <= ?', role_id)
+      scope.joins(:manifestation).where("manifestations.required_role_id <= ?", role_id)
     end
 
     private
@@ -16,23 +16,23 @@ class PeriodicalPolicy < ApplicationPolicy
   end
 
   def index?
-    true if user.try(:has_role?, 'Librarian')
+    true if user.try(:has_role?, "Librarian")
   end
 
   def show?
-    true if user.try(:has_role?, 'Librarian')
+    true if user.try(:has_role?, "Librarian")
   end
 
   def create?
-    true if user.try(:has_role?, 'Librarian')
+    true if user.try(:has_role?, "Librarian")
   end
 
   def update?
-    true if user.try(:has_role?, 'Librarian')
+    true if user.try(:has_role?, "Librarian")
   end
 
   def destroy?
-    if user.try(:has_role?, 'Librarian')
+    if user.try(:has_role?, "Librarian")
       true if record.manifestations.empty?
     end
   end

@@ -437,7 +437,7 @@ class Manifestation < ApplicationRecord
       end
     elsif title_transcription?
       NKF.nkf("-w --katakana", title_transcription)
-      else
+    else
         original_title
     end
   end
@@ -722,62 +722,75 @@ end
 # Table name: manifestations
 #
 #  id                              :bigint           not null, primary key
-#  original_title                  :text             not null
-#  title_alternative               :text
-#  title_transcription             :text
-#  classification_number           :string
-#  manifestation_identifier        :string
-#  date_of_publication             :datetime
-#  date_copyrighted                :datetime
-#  created_at                      :datetime         not null
-#  updated_at                      :datetime         not null
-#  access_address                  :string
-#  language_id                     :bigint           default(1), not null
-#  carrier_type_id                 :bigint           default(1), not null
-#  start_page                      :integer
-#  end_page                        :integer
-#  height                          :integer
-#  width                           :integer
-#  depth                           :integer
-#  price                           :integer
-#  fulltext                        :text
-#  volume_number_string            :string
-#  issue_number_string             :string
-#  serial_number_string            :string
-#  edition                         :integer
-#  note                            :text
-#  repository_content              :boolean          default(FALSE), not null
-#  lock_version                    :integer          default(0), not null
-#  required_role_id                :bigint           default(1), not null
-#  required_score                  :integer          default(0), not null
-#  frequency_id                    :bigint           default(1), not null
-#  subscription_master             :boolean          default(FALSE), not null
-#  attachment_file_name            :string
-#  attachment_content_type         :string
-#  attachment_file_size            :integer
-#  attachment_updated_at           :datetime
-#  nii_type_id                     :bigint
-#  title_alternative_transcription :text
-#  description                     :text
 #  abstract                        :text
+#  access_address                  :string
+#  attachment_content_type         :string
+#  attachment_file_name            :string
+#  attachment_file_size            :integer
+#  attachment_meta                 :text
+#  attachment_updated_at           :datetime
 #  available_at                    :datetime
-#  valid_until                     :datetime
-#  date_submitted                  :datetime
+#  classification_number           :string
 #  date_accepted                   :datetime
 #  date_captured                   :datetime
-#  pub_date                        :string
-#  edition_string                  :string
-#  volume_number                   :integer
-#  issue_number                    :integer
-#  serial_number                   :integer
-#  content_type_id                 :bigint           default(1)
-#  year_of_publication             :integer
-#  month_of_publication            :integer
-#  fulltext_content                :boolean
-#  serial                          :boolean
-#  statement_of_responsibility     :text
-#  publication_place               :text
-#  extent                          :text
+#  date_copyrighted                :datetime
+#  date_of_publication             :datetime
+#  date_submitted                  :datetime
+#  depth                           :integer
+#  description                     :text
 #  dimensions                      :text
+#  edition                         :integer
+#  edition_string                  :string
+#  end_page                        :integer
+#  extent                          :text
+#  fulltext                        :text
+#  fulltext_content                :boolean
+#  height                          :integer
+#  issue_number                    :integer
+#  issue_number_string             :string
+#  lock_version                    :integer          default(0), not null
+#  manifestation_identifier        :string
 #  memo                            :text
+#  month_of_publication            :integer
+#  note                            :text
+#  original_title                  :text             not null
+#  price                           :integer
+#  pub_date                        :string
+#  publication_place               :text
+#  repository_content              :boolean          default(FALSE), not null
+#  required_score                  :integer          default(0), not null
+#  serial                          :boolean
+#  serial_number                   :integer
+#  serial_number_string            :string
+#  start_page                      :integer
+#  statement_of_responsibility     :text
+#  subscription_master             :boolean          default(FALSE), not null
+#  title_alternative               :text
+#  title_alternative_transcription :text
+#  title_transcription             :text
+#  valid_until                     :datetime
+#  volume_number                   :integer
+#  volume_number_string            :string
+#  width                           :integer
+#  year_of_publication             :integer
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
+#  carrier_type_id                 :bigint           default(1), not null
+#  content_type_id                 :bigint           default(1)
+#  frequency_id                    :bigint           default(1), not null
+#  language_id                     :bigint           default(1), not null
+#  nii_type_id                     :bigint
+#  required_role_id                :bigint           default(1), not null
+#
+# Indexes
+#
+#  index_manifestations_on_access_address            (access_address)
+#  index_manifestations_on_date_of_publication       (date_of_publication)
+#  index_manifestations_on_manifestation_identifier  (manifestation_identifier)
+#  index_manifestations_on_nii_type_id               (nii_type_id)
+#  index_manifestations_on_updated_at                (updated_at)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (required_role_id => roles.id)
 #

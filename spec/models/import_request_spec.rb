@@ -32,8 +32,18 @@ end
 #
 #  id               :bigint           not null, primary key
 #  isbn             :string
-#  manifestation_id :bigint
-#  user_id          :bigint
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  manifestation_id :bigint
+#  user_id          :bigint
+#
+# Indexes
+#
+#  index_import_requests_on_isbn              (isbn)
+#  index_import_requests_on_manifestation_id  (manifestation_id)
+#  index_import_requests_on_user_id           (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #
