@@ -5,24 +5,18 @@ class AgentMerge < ApplicationRecord
   paginates_per 10
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `agent_merges`
+# Table name: agent_merges
 #
-# ### Columns
+#  id                  :bigint           not null, primary key
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  agent_id            :bigint           not null
+#  agent_merge_list_id :bigint           not null
 #
-# Name                       | Type               | Attributes
-# -------------------------- | ------------------ | ---------------------------
-# **`id`**                   | `bigint`           | `not null, primary key`
-# **`created_at`**           | `datetime`         | `not null`
-# **`updated_at`**           | `datetime`         | `not null`
-# **`agent_id`**             | `bigint`           | `not null`
-# **`agent_merge_list_id`**  | `bigint`           | `not null`
+# Indexes
 #
-# ### Indexes
-#
-# * `index_agent_merges_on_agent_id`:
-#     * **`agent_id`**
-# * `index_agent_merges_on_agent_merge_list_id`:
-#     * **`agent_merge_list_id`**
+#  index_agent_merges_on_agent_id             (agent_id)
+#  index_agent_merges_on_agent_merge_list_id  (agent_merge_list_id)
 #

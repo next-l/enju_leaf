@@ -3,24 +3,19 @@ class MediumOfPerformance < ApplicationRecord
   has_many :works, class_name: "Manifestation"
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `medium_of_performances`
+# Table name: medium_of_performances
 #
-# ### Columns
+#  id           :bigint           not null, primary key
+#  display_name :text
+#  name         :string           not null
+#  note         :text
+#  position     :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
-# Name                | Type               | Attributes
-# ------------------- | ------------------ | ---------------------------
-# **`id`**            | `bigint`           | `not null, primary key`
-# **`display_name`**  | `text`             |
-# **`name`**          | `string`           | `not null`
-# **`note`**          | `text`             |
-# **`position`**      | `integer`          |
-# **`created_at`**    | `datetime`         | `not null`
-# **`updated_at`**    | `datetime`         | `not null`
+# Indexes
 #
-# ### Indexes
-#
-# * `index_medium_of_performances_on_lower_name` (_unique_):
-#     * **`lower((name)::text)`**
+#  index_medium_of_performances_on_lower_name  (lower((name)::text)) UNIQUE
 #

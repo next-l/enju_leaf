@@ -8,29 +8,22 @@ class Identity < ApplicationRecord
   end
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `identities`
+# Table name: identities
 #
-# ### Columns
+#  id              :bigint           not null, primary key
+#  email           :string
+#  name            :string           not null
+#  password_digest :string
+#  provider        :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  profile_id      :bigint
 #
-# Name                   | Type               | Attributes
-# ---------------------- | ------------------ | ---------------------------
-# **`id`**               | `bigint`           | `not null, primary key`
-# **`email`**            | `string`           |
-# **`name`**             | `string`           | `not null`
-# **`password_digest`**  | `string`           |
-# **`provider`**         | `string`           |
-# **`created_at`**       | `datetime`         | `not null`
-# **`updated_at`**       | `datetime`         | `not null`
-# **`profile_id`**       | `bigint`           |
+# Indexes
 #
-# ### Indexes
-#
-# * `index_identities_on_email`:
-#     * **`email`**
-# * `index_identities_on_name`:
-#     * **`name`**
-# * `index_identities_on_profile_id`:
-#     * **`profile_id`**
+#  index_identities_on_email       (email)
+#  index_identities_on_name        (name)
+#  index_identities_on_profile_id  (profile_id)
 #

@@ -18,24 +18,18 @@ donate_00003:
   id: 3
   created_at: 2008-02-10 13:24:14.793431 +09:00
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `donates`
+# Table name: donates
 #
-# ### Columns
+#  id         :bigint           not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  agent_id   :bigint           not null
+#  item_id    :bigint           not null
 #
-# Name              | Type               | Attributes
-# ----------------- | ------------------ | ---------------------------
-# **`id`**          | `bigint`           | `not null, primary key`
-# **`created_at`**  | `datetime`         | `not null`
-# **`updated_at`**  | `datetime`         | `not null`
-# **`agent_id`**    | `bigint`           | `not null`
-# **`item_id`**     | `bigint`           | `not null`
+# Indexes
 #
-# ### Indexes
-#
-# * `index_donates_on_agent_id`:
-#     * **`agent_id`**
-# * `index_donates_on_item_id`:
-#     * **`item_id`**
+#  index_donates_on_agent_id  (agent_id)
+#  index_donates_on_item_id   (item_id)
 #

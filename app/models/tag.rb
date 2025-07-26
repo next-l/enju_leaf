@@ -43,22 +43,17 @@ class Tag < ApplicationRecord
   end
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `tags`
+# Table name: tags
 #
-# ### Columns
+#  id             :bigint           not null, primary key
+#  name           :string           not null
+#  taggings_count :integer          default(0)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #
-# Name                  | Type               | Attributes
-# --------------------- | ------------------ | ---------------------------
-# **`id`**              | `bigint`           | `not null, primary key`
-# **`name`**            | `string`           | `not null`
-# **`taggings_count`**  | `integer`          | `default(0)`
-# **`created_at`**      | `datetime`         | `not null`
-# **`updated_at`**      | `datetime`         | `not null`
+# Indexes
 #
-# ### Indexes
-#
-# * `index_tags_on_name` (_unique_):
-#     * **`name`**
+#  index_tags_on_name  (name) UNIQUE
 #

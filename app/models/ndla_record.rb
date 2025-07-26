@@ -3,29 +3,22 @@ class NdlaRecord < ApplicationRecord
   validates :body, presence: true, uniqueness: true
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `ndla_records`
+# Table name: ndla_records
 #
-# ### Columns
+#  id         :bigint           not null, primary key
+#  body       :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  agent_id   :bigint
 #
-# Name              | Type               | Attributes
-# ----------------- | ------------------ | ---------------------------
-# **`id`**          | `bigint`           | `not null, primary key`
-# **`body`**        | `string`           | `not null`
-# **`created_at`**  | `datetime`         | `not null`
-# **`updated_at`**  | `datetime`         | `not null`
-# **`agent_id`**    | `bigint`           |
+# Indexes
 #
-# ### Indexes
+#  index_ndla_records_on_agent_id  (agent_id)
+#  index_ndla_records_on_body      (body) UNIQUE
 #
-# * `index_ndla_records_on_agent_id`:
-#     * **`agent_id`**
-# * `index_ndla_records_on_body` (_unique_):
-#     * **`body`**
+# Foreign Keys
 #
-# ### Foreign Keys
-#
-# * `fk_rails_...`:
-#     * **`agent_id => agents.id`**
+#  fk_rails_...  (agent_id => agents.id)
 #

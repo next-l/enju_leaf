@@ -4,19 +4,15 @@ FactoryBot.define do
   end
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `event_categories`
+# Table name: event_categories
 #
-# ### Columns
-#
-# Name                | Type               | Attributes
-# ------------------- | ------------------ | ---------------------------
-# **`id`**            | `bigint`           | `not null, primary key`
-# **`display_name`**  | `text`             |
-# **`name`**          | `string`           | `not null`
-# **`note`**          | `text`             |
-# **`position`**      | `integer`          |
-# **`created_at`**    | `datetime`         | `not null`
-# **`updated_at`**    | `datetime`         | `not null`
+#  id           :bigint           not null, primary key
+#  display_name :text
+#  name         :string           not null
+#  note         :text
+#  position     :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #

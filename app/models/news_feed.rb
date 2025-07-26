@@ -52,20 +52,16 @@ class NewsFeed < ApplicationRecord
   end
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `news_feeds`
+# Table name: news_feeds
 #
-# ### Columns
-#
-# Name                    | Type               | Attributes
-# ----------------------- | ------------------ | ---------------------------
-# **`id`**                | `bigint`           | `not null, primary key`
-# **`body`**              | `text`             |
-# **`position`**          | `integer`          |
-# **`title`**             | `string`           |
-# **`url`**               | `string`           |
-# **`created_at`**        | `datetime`         | `not null`
-# **`updated_at`**        | `datetime`         | `not null`
-# **`library_group_id`**  | `bigint`           | `default(1), not null`
+#  id               :bigint           not null, primary key
+#  body             :text
+#  position         :integer
+#  title            :string
+#  url              :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  library_group_id :bigint           default(1), not null
 #

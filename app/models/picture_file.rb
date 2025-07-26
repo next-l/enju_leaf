@@ -14,33 +14,27 @@ class PictureFile < ApplicationRecord
   paginates_per 10
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `picture_files`
+# Table name: picture_files
 #
-# ### Columns
+#  id                      :bigint           not null, primary key
+#  picture_attachable_type :string
+#  picture_content_type    :string
+#  picture_file_name       :string
+#  picture_file_size       :integer
+#  picture_fingerprint     :string
+#  picture_height          :integer
+#  picture_meta            :text
+#  picture_updated_at      :datetime
+#  picture_width           :integer
+#  position                :integer
+#  title                   :text
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  picture_attachable_id   :bigint
 #
-# Name                           | Type               | Attributes
-# ------------------------------ | ------------------ | ---------------------------
-# **`id`**                       | `bigint`           | `not null, primary key`
-# **`picture_attachable_type`**  | `string`           |
-# **`picture_content_type`**     | `string`           |
-# **`picture_file_name`**        | `string`           |
-# **`picture_file_size`**        | `integer`          |
-# **`picture_fingerprint`**      | `string`           |
-# **`picture_height`**           | `integer`          |
-# **`picture_meta`**             | `text`             |
-# **`picture_updated_at`**       | `datetime`         |
-# **`picture_width`**            | `integer`          |
-# **`position`**                 | `integer`          |
-# **`title`**                    | `text`             |
-# **`created_at`**               | `datetime`         | `not null`
-# **`updated_at`**               | `datetime`         | `not null`
-# **`picture_attachable_id`**    | `bigint`           |
+# Indexes
 #
-# ### Indexes
-#
-# * `index_picture_files_on_picture_attachable_id_and_type`:
-#     * **`picture_attachable_id`**
-#     * **`picture_attachable_type`**
+#  index_picture_files_on_picture_attachable_id_and_type  (picture_attachable_id,picture_attachable_type)
 #

@@ -24,24 +24,19 @@ color_00004:
   position: 4
   library_group_id: 1
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `colors`
+# Table name: colors
 #
-# ### Columns
+#  id               :bigint           not null, primary key
+#  code             :string
+#  position         :integer
+#  property         :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  library_group_id :bigint
 #
-# Name                    | Type               | Attributes
-# ----------------------- | ------------------ | ---------------------------
-# **`id`**                | `bigint`           | `not null, primary key`
-# **`code`**              | `string`           |
-# **`position`**          | `integer`          |
-# **`property`**          | `string`           |
-# **`created_at`**        | `datetime`         | `not null`
-# **`updated_at`**        | `datetime`         | `not null`
-# **`library_group_id`**  | `bigint`           |
+# Indexes
 #
-# ### Indexes
-#
-# * `index_colors_on_library_group_id`:
-#     * **`library_group_id`**
+#  index_colors_on_library_group_id  (library_group_id)
 #

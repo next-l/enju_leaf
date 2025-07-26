@@ -6,37 +6,30 @@ FactoryBot.define do
   end
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `news_posts`
+# Table name: news_posts
 #
-# ### Columns
+#  id               :bigint           not null, primary key
+#  body             :text
+#  draft            :boolean          default(FALSE), not null
+#  end_date         :datetime
+#  note             :text
+#  position         :integer
+#  start_date       :datetime
+#  title            :text
+#  url              :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  required_role_id :bigint           default(1), not null
+#  user_id          :bigint           not null
 #
-# Name                    | Type               | Attributes
-# ----------------------- | ------------------ | ---------------------------
-# **`id`**                | `bigint`           | `not null, primary key`
-# **`body`**              | `text`             |
-# **`draft`**             | `boolean`          | `default(FALSE), not null`
-# **`end_date`**          | `datetime`         |
-# **`note`**              | `text`             |
-# **`position`**          | `integer`          |
-# **`start_date`**        | `datetime`         |
-# **`title`**             | `text`             |
-# **`url`**               | `string`           |
-# **`created_at`**        | `datetime`         | `not null`
-# **`updated_at`**        | `datetime`         | `not null`
-# **`required_role_id`**  | `bigint`           | `default(1), not null`
-# **`user_id`**           | `bigint`           | `not null`
+# Indexes
 #
-# ### Indexes
+#  index_news_posts_on_user_id  (user_id)
 #
-# * `index_news_posts_on_user_id`:
-#     * **`user_id`**
+# Foreign Keys
 #
-# ### Foreign Keys
-#
-# * `fk_rails_...`:
-#     * **`required_role_id => roles.id`**
-# * `fk_rails_...`:
-#     * **`user_id => users.id`**
+#  fk_rails_...  (required_role_id => roles.id)
+#  fk_rails_...  (user_id => users.id)
 #

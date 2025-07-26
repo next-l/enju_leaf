@@ -129,46 +129,36 @@ describe Reserve do
   end
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `reserves`
+# Table name: reserves
 #
-# ### Columns
+#  id                           :bigint           not null, primary key
+#  canceled_at                  :datetime
+#  checked_out_at               :datetime
+#  expiration_notice_to_library :boolean          default(FALSE)
+#  expiration_notice_to_patron  :boolean          default(FALSE)
+#  expired_at                   :datetime
+#  lock_version                 :integer          default(0), not null
+#  postponed_at                 :datetime
+#  retained_at                  :datetime
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
+#  item_id                      :bigint
+#  manifestation_id             :bigint           not null
+#  pickup_location_id           :bigint
+#  request_status_type_id       :bigint           not null
+#  user_id                      :bigint           not null
 #
-# Name                                | Type               | Attributes
-# ----------------------------------- | ------------------ | ---------------------------
-# **`id`**                            | `bigint`           | `not null, primary key`
-# **`canceled_at`**                   | `datetime`         |
-# **`checked_out_at`**                | `datetime`         |
-# **`expiration_notice_to_library`**  | `boolean`          | `default(FALSE)`
-# **`expiration_notice_to_patron`**   | `boolean`          | `default(FALSE)`
-# **`expired_at`**                    | `datetime`         |
-# **`lock_version`**                  | `integer`          | `default(0), not null`
-# **`postponed_at`**                  | `datetime`         |
-# **`retained_at`**                   | `datetime`         |
-# **`created_at`**                    | `datetime`         | `not null`
-# **`updated_at`**                    | `datetime`         | `not null`
-# **`item_id`**                       | `bigint`           |
-# **`manifestation_id`**              | `bigint`           | `not null`
-# **`pickup_location_id`**            | `bigint`           |
-# **`request_status_type_id`**        | `bigint`           | `not null`
-# **`user_id`**                       | `bigint`           | `not null`
+# Indexes
 #
-# ### Indexes
+#  index_reserves_on_item_id             (item_id)
+#  index_reserves_on_manifestation_id    (manifestation_id)
+#  index_reserves_on_pickup_location_id  (pickup_location_id)
+#  index_reserves_on_user_id             (user_id)
 #
-# * `index_reserves_on_item_id`:
-#     * **`item_id`**
-# * `index_reserves_on_manifestation_id`:
-#     * **`manifestation_id`**
-# * `index_reserves_on_pickup_location_id`:
-#     * **`pickup_location_id`**
-# * `index_reserves_on_user_id`:
-#     * **`user_id`**
+# Foreign Keys
 #
-# ### Foreign Keys
-#
-# * `fk_rails_...`:
-#     * **`manifestation_id => manifestations.id`**
-# * `fk_rails_...`:
-#     * **`user_id => users.id`**
+#  fk_rails_...  (manifestation_id => manifestations.id)
+#  fk_rails_...  (user_id => users.id)
 #

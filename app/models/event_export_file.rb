@@ -36,31 +36,25 @@ class EventExportFile < ApplicationRecord
   end
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `event_export_files`
+# Table name: event_export_files
 #
-# ### Columns
+#  id                        :bigint           not null, primary key
+#  event_export_content_type :string
+#  event_export_file_name    :string
+#  event_export_file_size    :bigint
+#  event_export_updated_at   :datetime
+#  executed_at               :datetime
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  user_id                   :bigint           not null
 #
-# Name                             | Type               | Attributes
-# -------------------------------- | ------------------ | ---------------------------
-# **`id`**                         | `bigint`           | `not null, primary key`
-# **`event_export_content_type`**  | `string`           |
-# **`event_export_file_name`**     | `string`           |
-# **`event_export_file_size`**     | `bigint`           |
-# **`event_export_updated_at`**    | `datetime`         |
-# **`executed_at`**                | `datetime`         |
-# **`created_at`**                 | `datetime`         | `not null`
-# **`updated_at`**                 | `datetime`         | `not null`
-# **`user_id`**                    | `bigint`           | `not null`
+# Indexes
 #
-# ### Indexes
+#  index_event_export_files_on_user_id  (user_id)
 #
-# * `index_event_export_files_on_user_id`:
-#     * **`user_id`**
+# Foreign Keys
 #
-# ### Foreign Keys
-#
-# * `fk_rails_...`:
-#     * **`user_id => users.id`**
+#  fk_rails_...  (user_id => users.id)
 #

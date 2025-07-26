@@ -5,27 +5,20 @@ describe Create do
 
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `creates`
+# Table name: creates
 #
-# ### Columns
+#  id             :bigint           not null, primary key
+#  position       :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  agent_id       :bigint           not null
+#  create_type_id :bigint
+#  work_id        :bigint           not null
 #
-# Name                  | Type               | Attributes
-# --------------------- | ------------------ | ---------------------------
-# **`id`**              | `bigint`           | `not null, primary key`
-# **`position`**        | `integer`          |
-# **`created_at`**      | `datetime`         | `not null`
-# **`updated_at`**      | `datetime`         | `not null`
-# **`agent_id`**        | `bigint`           | `not null`
-# **`create_type_id`**  | `bigint`           |
-# **`work_id`**         | `bigint`           | `not null`
+# Indexes
 #
-# ### Indexes
-#
-# * `index_creates_on_agent_id`:
-#     * **`agent_id`**
-# * `index_creates_on_work_id_and_agent_id` (_unique_):
-#     * **`work_id`**
-#     * **`agent_id`**
+#  index_creates_on_agent_id              (agent_id)
+#  index_creates_on_work_id_and_agent_id  (work_id,agent_id) UNIQUE
 #

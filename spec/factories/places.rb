@@ -4,27 +4,21 @@ FactoryBot.define do
   end
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `places`
+# Table name: places
 #
-# ### Columns
+#  id         :bigint           not null, primary key
+#  city       :text
+#  latitude   :float
+#  longitude  :float
+#  term       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  country_id :bigint
 #
-# Name              | Type               | Attributes
-# ----------------- | ------------------ | ---------------------------
-# **`id`**          | `bigint`           | `not null, primary key`
-# **`city`**        | `text`             |
-# **`latitude`**    | `float`            |
-# **`longitude`**   | `float`            |
-# **`term`**        | `string`           |
-# **`created_at`**  | `datetime`         | `not null`
-# **`updated_at`**  | `datetime`         | `not null`
-# **`country_id`**  | `bigint`           |
+# Indexes
 #
-# ### Indexes
-#
-# * `index_places_on_country_id`:
-#     * **`country_id`**
-# * `index_places_on_term`:
-#     * **`term`**
+#  index_places_on_country_id  (country_id)
+#  index_places_on_term        (term)
 #

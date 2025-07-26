@@ -5,35 +5,27 @@ FactoryBot.define do
   end
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `classifications`
+# Table name: classifications
 #
-# ### Columns
+#  id                     :bigint           not null, primary key
+#  category               :string           not null
+#  label                  :string
+#  lft                    :integer
+#  note                   :text
+#  rgt                    :integer
+#  url                    :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  classification_type_id :bigint           not null
+#  manifestation_id       :bigint
+#  parent_id              :bigint
 #
-# Name                          | Type               | Attributes
-# ----------------------------- | ------------------ | ---------------------------
-# **`id`**                      | `bigint`           | `not null, primary key`
-# **`category`**                | `string`           | `not null`
-# **`label`**                   | `string`           |
-# **`lft`**                     | `integer`          |
-# **`note`**                    | `text`             |
-# **`rgt`**                     | `integer`          |
-# **`url`**                     | `string`           |
-# **`created_at`**              | `datetime`         | `not null`
-# **`updated_at`**              | `datetime`         | `not null`
-# **`classification_type_id`**  | `bigint`           | `not null`
-# **`manifestation_id`**        | `bigint`           |
-# **`parent_id`**               | `bigint`           |
+# Indexes
 #
-# ### Indexes
-#
-# * `index_classifications_on_category`:
-#     * **`category`**
-# * `index_classifications_on_classification_type_id`:
-#     * **`classification_type_id`**
-# * `index_classifications_on_manifestation_id`:
-#     * **`manifestation_id`**
-# * `index_classifications_on_parent_id`:
-#     * **`parent_id`**
+#  index_classifications_on_category                (category)
+#  index_classifications_on_classification_type_id  (classification_type_id)
+#  index_classifications_on_manifestation_id        (manifestation_id)
+#  index_classifications_on_parent_id               (parent_id)
 #

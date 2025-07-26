@@ -35,26 +35,21 @@ class ResourceExportFile < ApplicationRecord
   end
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `resource_export_files`
+# Table name: resource_export_files
 #
-# ### Columns
+#  id                           :bigint           not null, primary key
+#  executed_at                  :datetime
+#  resource_export_content_type :string
+#  resource_export_file_name    :string
+#  resource_export_file_size    :bigint
+#  resource_export_updated_at   :datetime
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
+#  user_id                      :bigint           not null
 #
-# Name                                | Type               | Attributes
-# ----------------------------------- | ------------------ | ---------------------------
-# **`id`**                            | `bigint`           | `not null, primary key`
-# **`executed_at`**                   | `datetime`         |
-# **`resource_export_content_type`**  | `string`           |
-# **`resource_export_file_name`**     | `string`           |
-# **`resource_export_file_size`**     | `bigint`           |
-# **`resource_export_updated_at`**    | `datetime`         |
-# **`created_at`**                    | `datetime`         | `not null`
-# **`updated_at`**                    | `datetime`         | `not null`
-# **`user_id`**                       | `bigint`           | `not null`
+# Foreign Keys
 #
-# ### Foreign Keys
-#
-# * `fk_rails_...`:
-#     * **`user_id => users.id`**
+#  fk_rails_...  (user_id => users.id)
 #

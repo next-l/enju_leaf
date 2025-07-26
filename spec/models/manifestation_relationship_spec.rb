@@ -5,26 +5,20 @@ describe ManifestationRelationship do
 
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `manifestation_relationships`
+# Table name: manifestation_relationships
 #
-# ### Columns
+#  id                                 :bigint           not null, primary key
+#  position                           :integer
+#  created_at                         :datetime         not null
+#  updated_at                         :datetime         not null
+#  child_id                           :bigint
+#  manifestation_relationship_type_id :bigint
+#  parent_id                          :bigint
 #
-# Name                                      | Type               | Attributes
-# ----------------------------------------- | ------------------ | ---------------------------
-# **`id`**                                  | `bigint`           | `not null, primary key`
-# **`position`**                            | `integer`          |
-# **`created_at`**                          | `datetime`         | `not null`
-# **`updated_at`**                          | `datetime`         | `not null`
-# **`child_id`**                            | `bigint`           |
-# **`manifestation_relationship_type_id`**  | `bigint`           |
-# **`parent_id`**                           | `bigint`           |
+# Indexes
 #
-# ### Indexes
-#
-# * `index_manifestation_relationships_on_child_id`:
-#     * **`child_id`**
-# * `index_manifestation_relationships_on_parent_id`:
-#     * **`parent_id`**
+#  index_manifestation_relationships_on_child_id   (child_id)
+#  index_manifestation_relationships_on_parent_id  (parent_id)
 #

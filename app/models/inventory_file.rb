@@ -51,40 +51,32 @@ class InventoryFile < ApplicationRecord
   end
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `inventory_files`
+# Table name: inventory_files
 #
-# ### Columns
+#  id                     :bigint           not null, primary key
+#  content_type           :string
+#  filename               :string
+#  inventory_content_type :string
+#  inventory_file_name    :string
+#  inventory_file_size    :integer
+#  inventory_fingerprint  :string
+#  inventory_updated_at   :datetime
+#  note                   :text
+#  size                   :integer
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  shelf_id               :bigint
+#  user_id                :bigint           not null
 #
-# Name                          | Type               | Attributes
-# ----------------------------- | ------------------ | ---------------------------
-# **`id`**                      | `bigint`           | `not null, primary key`
-# **`content_type`**            | `string`           |
-# **`filename`**                | `string`           |
-# **`inventory_content_type`**  | `string`           |
-# **`inventory_file_name`**     | `string`           |
-# **`inventory_file_size`**     | `integer`          |
-# **`inventory_fingerprint`**   | `string`           |
-# **`inventory_updated_at`**    | `datetime`         |
-# **`note`**                    | `text`             |
-# **`size`**                    | `integer`          |
-# **`created_at`**              | `datetime`         | `not null`
-# **`updated_at`**              | `datetime`         | `not null`
-# **`shelf_id`**                | `bigint`           |
-# **`user_id`**                 | `bigint`           | `not null`
+# Indexes
 #
-# ### Indexes
+#  index_inventory_files_on_shelf_id  (shelf_id)
+#  index_inventory_files_on_user_id   (user_id)
 #
-# * `index_inventory_files_on_shelf_id`:
-#     * **`shelf_id`**
-# * `index_inventory_files_on_user_id`:
-#     * **`user_id`**
+# Foreign Keys
 #
-# ### Foreign Keys
-#
-# * `fk_rails_...`:
-#     * **`shelf_id => shelves.id`**
-# * `fk_rails_...`:
-#     * **`user_id => users.id`**
+#  fk_rails_...  (shelf_id => shelves.id)
+#  fk_rails_...  (user_id => users.id)
 #

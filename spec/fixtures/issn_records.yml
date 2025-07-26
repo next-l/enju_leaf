@@ -6,21 +6,16 @@ issn_record_00002:
   id: 2
   body: "09130000"
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `issn_records(ISSN)`
+# Table name: issn_records(ISSN)
 #
-# ### Columns
+#  id           :bigint           not null, primary key
+#  body(ISSN)   :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
-# Name                | Type               | Attributes
-# ------------------- | ------------------ | ---------------------------
-# **`id`**            | `bigint`           | `not null, primary key`
-# **`body(ISSN)`**    | `string`           | `not null`
-# **`created_at`**    | `datetime`         | `not null`
-# **`updated_at`**    | `datetime`         | `not null`
+# Indexes
 #
-# ### Indexes
-#
-# * `index_issn_records_on_body` (_unique_):
-#     * **`body`**
+#  index_issn_records_on_body  (body) UNIQUE
 #

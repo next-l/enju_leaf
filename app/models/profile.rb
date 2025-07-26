@@ -72,45 +72,36 @@ class Profile < ApplicationRecord
   end
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `profiles`
+# Table name: profiles
 #
-# ### Columns
+#  id                       :bigint           not null, primary key
+#  checkout_icalendar_token :string
+#  date_of_birth            :datetime
+#  expired_at               :datetime
+#  full_name                :text
+#  full_name_transcription  :text
+#  keyword_list             :text
+#  locale                   :string
+#  note                     :text
+#  save_checkout_history    :boolean          default(FALSE), not null
+#  share_bookmarks          :boolean
+#  user_number              :string
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  library_id               :bigint
+#  required_role_id         :bigint
+#  user_group_id            :bigint
 #
-# Name                            | Type               | Attributes
-# ------------------------------- | ------------------ | ---------------------------
-# **`id`**                        | `bigint`           | `not null, primary key`
-# **`checkout_icalendar_token`**  | `string`           |
-# **`date_of_birth`**             | `datetime`         |
-# **`expired_at`**                | `datetime`         |
-# **`full_name`**                 | `text`             |
-# **`full_name_transcription`**   | `text`             |
-# **`keyword_list`**              | `text`             |
-# **`locale`**                    | `string`           |
-# **`note`**                      | `text`             |
-# **`save_checkout_history`**     | `boolean`          | `default(FALSE), not null`
-# **`share_bookmarks`**           | `boolean`          |
-# **`user_number`**               | `string`           |
-# **`created_at`**                | `datetime`         | `not null`
-# **`updated_at`**                | `datetime`         | `not null`
-# **`library_id`**                | `bigint`           |
-# **`required_role_id`**          | `bigint`           |
-# **`user_group_id`**             | `bigint`           |
+# Indexes
 #
-# ### Indexes
+#  index_profiles_on_checkout_icalendar_token  (checkout_icalendar_token) UNIQUE
+#  index_profiles_on_library_id                (library_id)
+#  index_profiles_on_user_group_id             (user_group_id)
+#  index_profiles_on_user_number               (user_number) UNIQUE
 #
-# * `index_profiles_on_checkout_icalendar_token` (_unique_):
-#     * **`checkout_icalendar_token`**
-# * `index_profiles_on_library_id`:
-#     * **`library_id`**
-# * `index_profiles_on_user_group_id`:
-#     * **`user_group_id`**
-# * `index_profiles_on_user_number` (_unique_):
-#     * **`user_number`**
+# Foreign Keys
 #
-# ### Foreign Keys
-#
-# * `fk_rails_...`:
-#     * **`required_role_id => roles.id`**
+#  fk_rails_...  (required_role_id => roles.id)
 #

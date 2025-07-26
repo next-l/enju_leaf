@@ -3,24 +3,19 @@ class ContentType < ApplicationRecord
   has_many :manifestations, dependent: :restrict_with_exception
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `content_types`
+# Table name: content_types
 #
-# ### Columns
+#  id           :bigint           not null, primary key
+#  display_name :text
+#  name         :string           not null
+#  note         :text
+#  position     :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
-# Name                | Type               | Attributes
-# ------------------- | ------------------ | ---------------------------
-# **`id`**            | `bigint`           | `not null, primary key`
-# **`display_name`**  | `text`             |
-# **`name`**          | `string`           | `not null`
-# **`note`**          | `text`             |
-# **`position`**      | `integer`          |
-# **`created_at`**    | `datetime`         | `not null`
-# **`updated_at`**    | `datetime`         | `not null`
+# Indexes
 #
-# ### Indexes
-#
-# * `index_content_types_on_lower_name` (_unique_):
-#     * **`lower((name)::text)`**
+#  index_content_types_on_lower_name  (lower((name)::text)) UNIQUE
 #

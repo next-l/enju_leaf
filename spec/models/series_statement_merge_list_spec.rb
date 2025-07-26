@@ -8,16 +8,12 @@ describe SeriesStatementMergeList do
   end
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `series_statement_merge_lists`
+# Table name: series_statement_merge_lists
 #
-# ### Columns
-#
-# Name              | Type               | Attributes
-# ----------------- | ------------------ | ---------------------------
-# **`id`**          | `bigint`           | `not null, primary key`
-# **`title`**       | `string`           |
-# **`created_at`**  | `datetime`         | `not null`
-# **`updated_at`**  | `datetime`         | `not null`
+#  id         :bigint           not null, primary key
+#  title      :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #

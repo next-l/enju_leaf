@@ -7,18 +7,14 @@ class AgentImportResult < ApplicationRecord
   belongs_to :agent, optional: true
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `agent_import_results`
+# Table name: agent_import_results
 #
-# ### Columns
-#
-# Name                        | Type               | Attributes
-# --------------------------- | ------------------ | ---------------------------
-# **`id`**                    | `bigint`           | `not null, primary key`
-# **`body`**                  | `text`             |
-# **`created_at`**            | `datetime`         | `not null`
-# **`updated_at`**            | `datetime`         | `not null`
-# **`agent_id`**              | `bigint`           |
-# **`agent_import_file_id`**  | `bigint`           |
+#  id                   :bigint           not null, primary key
+#  body                 :text
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  agent_id             :bigint
+#  agent_import_file_id :bigint
 #

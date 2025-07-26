@@ -26,32 +26,24 @@ describe ImportRequest do
   end
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `import_requests`
+# Table name: import_requests
 #
-# ### Columns
+#  id               :bigint           not null, primary key
+#  isbn             :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  manifestation_id :bigint
+#  user_id          :bigint           not null
 #
-# Name                    | Type               | Attributes
-# ----------------------- | ------------------ | ---------------------------
-# **`id`**                | `bigint`           | `not null, primary key`
-# **`isbn`**              | `string`           |
-# **`created_at`**        | `datetime`         | `not null`
-# **`updated_at`**        | `datetime`         | `not null`
-# **`manifestation_id`**  | `bigint`           |
-# **`user_id`**           | `bigint`           | `not null`
+# Indexes
 #
-# ### Indexes
+#  index_import_requests_on_isbn              (isbn)
+#  index_import_requests_on_manifestation_id  (manifestation_id)
+#  index_import_requests_on_user_id           (user_id)
 #
-# * `index_import_requests_on_isbn`:
-#     * **`isbn`**
-# * `index_import_requests_on_manifestation_id`:
-#     * **`manifestation_id`**
-# * `index_import_requests_on_user_id`:
-#     * **`user_id`**
+# Foreign Keys
 #
-# ### Foreign Keys
-#
-# * `fk_rails_...`:
-#     * **`user_id => users.id`**
+#  fk_rails_...  (user_id => users.id)
 #

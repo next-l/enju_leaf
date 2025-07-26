@@ -5,18 +5,14 @@ describe EventImportResult do
 
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `event_import_results`
+# Table name: event_import_results
 #
-# ### Columns
-#
-# Name                        | Type               | Attributes
-# --------------------------- | ------------------ | ---------------------------
-# **`id`**                    | `bigint`           | `not null, primary key`
-# **`body`**                  | `text`             |
-# **`created_at`**            | `datetime`         | `not null`
-# **`updated_at`**            | `datetime`         | `not null`
-# **`event_id`**              | `bigint`           |
-# **`event_import_file_id`**  | `bigint`           |
+#  id                   :bigint           not null, primary key
+#  body                 :text
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  event_id             :bigint
+#  event_import_file_id :bigint
 #

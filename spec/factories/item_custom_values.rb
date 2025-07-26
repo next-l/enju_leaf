@@ -5,35 +5,25 @@ FactoryBot.define do
   end
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `item_custom_values`
+# Table name: item_custom_values
 #
-# ### Columns
+#  id                      :bigint           not null, primary key
+#  value                   :text
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  item_custom_property_id :bigint           not null
+#  item_id                 :bigint           not null
 #
-# Name                           | Type               | Attributes
-# ------------------------------ | ------------------ | ---------------------------
-# **`id`**                       | `bigint`           | `not null, primary key`
-# **`value`**                    | `text`             |
-# **`created_at`**               | `datetime`         | `not null`
-# **`updated_at`**               | `datetime`         | `not null`
-# **`item_custom_property_id`**  | `bigint`           | `not null`
-# **`item_id`**                  | `bigint`           | `not null`
+# Indexes
 #
-# ### Indexes
+#  index_item_custom_values_on_custom_item_property_and_item_id  (item_custom_property_id,item_id) UNIQUE
+#  index_item_custom_values_on_custom_property_id                (item_custom_property_id)
+#  index_item_custom_values_on_item_id                           (item_id)
 #
-# * `index_item_custom_values_on_custom_item_property_and_item_id` (_unique_):
-#     * **`item_custom_property_id`**
-#     * **`item_id`**
-# * `index_item_custom_values_on_custom_property_id`:
-#     * **`item_custom_property_id`**
-# * `index_item_custom_values_on_item_id`:
-#     * **`item_id`**
+# Foreign Keys
 #
-# ### Foreign Keys
-#
-# * `fk_rails_...`:
-#     * **`item_custom_property_id => item_custom_properties.id`**
-# * `fk_rails_...`:
-#     * **`item_id => items.id`**
+#  fk_rails_...  (item_custom_property_id => item_custom_properties.id)
+#  fk_rails_...  (item_id => items.id)
 #

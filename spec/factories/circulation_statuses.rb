@@ -4,24 +4,19 @@ FactoryBot.define do
   end
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `circulation_statuses`
+# Table name: circulation_statuses
 #
-# ### Columns
+#  id           :bigint           not null, primary key
+#  display_name :text
+#  name         :string           not null
+#  note         :text
+#  position     :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
-# Name                | Type               | Attributes
-# ------------------- | ------------------ | ---------------------------
-# **`id`**            | `bigint`           | `not null, primary key`
-# **`display_name`**  | `text`             |
-# **`name`**          | `string`           | `not null`
-# **`note`**          | `text`             |
-# **`position`**      | `integer`          |
-# **`created_at`**    | `datetime`         | `not null`
-# **`updated_at`**    | `datetime`         | `not null`
+# Indexes
 #
-# ### Indexes
-#
-# * `index_circulation_statuses_on_lower_name` (_unique_):
-#     * **`lower((name)::text)`**
+#  index_circulation_statuses_on_lower_name  (lower((name)::text)) UNIQUE
 #

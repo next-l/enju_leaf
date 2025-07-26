@@ -47,20 +47,16 @@ class BookmarkStat < ApplicationRecord
   end
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `bookmark_stats`
+# Table name: bookmark_stats
 #
-# ### Columns
-#
-# Name                | Type               | Attributes
-# ------------------- | ------------------ | ---------------------------
-# **`id`**            | `bigint`           | `not null, primary key`
-# **`completed_at`**  | `datetime`         |
-# **`end_date`**      | `datetime`         |
-# **`note`**          | `text`             |
-# **`start_date`**    | `datetime`         |
-# **`started_at`**    | `datetime`         |
-# **`created_at`**    | `datetime`         | `not null`
-# **`updated_at`**    | `datetime`         | `not null`
+#  id           :bigint           not null, primary key
+#  completed_at :datetime
+#  end_date     :datetime
+#  note         :text
+#  start_date   :datetime
+#  started_at   :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #

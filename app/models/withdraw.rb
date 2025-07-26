@@ -12,27 +12,20 @@ class Withdraw < ApplicationRecord
   paginates_per 10
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `withdraws`
+# Table name: withdraws
 #
-# ### Columns
+#  id           :bigint           not null, primary key
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  basket_id    :bigint
+#  item_id      :bigint
+#  librarian_id :bigint
 #
-# Name                | Type               | Attributes
-# ------------------- | ------------------ | ---------------------------
-# **`id`**            | `bigint`           | `not null, primary key`
-# **`created_at`**    | `datetime`         | `not null`
-# **`updated_at`**    | `datetime`         | `not null`
-# **`basket_id`**     | `bigint`           |
-# **`item_id`**       | `bigint`           |
-# **`librarian_id`**  | `bigint`           |
+# Indexes
 #
-# ### Indexes
-#
-# * `index_withdraws_on_basket_id`:
-#     * **`basket_id`**
-# * `index_withdraws_on_item_id` (_unique_):
-#     * **`item_id`**
-# * `index_withdraws_on_librarian_id`:
-#     * **`librarian_id`**
+#  index_withdraws_on_basket_id     (basket_id)
+#  index_withdraws_on_item_id       (item_id) UNIQUE
+#  index_withdraws_on_librarian_id  (librarian_id)
 #

@@ -4,28 +4,22 @@ FactoryBot.define do
   end
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `baskets`
+# Table name: baskets
 #
-# ### Columns
+#  id           :bigint           not null, primary key
+#  lock_version :integer          default(0), not null
+#  note         :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  user_id      :bigint
 #
-# Name                | Type               | Attributes
-# ------------------- | ------------------ | ---------------------------
-# **`id`**            | `bigint`           | `not null, primary key`
-# **`lock_version`**  | `integer`          | `default(0), not null`
-# **`note`**          | `text`             |
-# **`created_at`**    | `datetime`         | `not null`
-# **`updated_at`**    | `datetime`         | `not null`
-# **`user_id`**       | `bigint`           |
+# Indexes
 #
-# ### Indexes
+#  index_baskets_on_user_id  (user_id)
 #
-# * `index_baskets_on_user_id`:
-#     * **`user_id`**
+# Foreign Keys
 #
-# ### Foreign Keys
-#
-# * `fk_rails_...`:
-#     * **`user_id => users.id`**
+#  fk_rails_...  (user_id => users.id)
 #

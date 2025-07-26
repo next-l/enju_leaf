@@ -246,38 +246,32 @@ describe UserImportFile do
   end
 end
 
-# ## Schema Information
+# == Schema Information
 #
-# Table name: `user_import_files`
+# Table name: user_import_files
 #
-# ### Columns
+#  id                       :bigint           not null, primary key
+#  edit_mode                :string
+#  error_message            :text
+#  executed_at              :datetime
+#  note                     :text
+#  user_encoding            :string
+#  user_import_content_type :string
+#  user_import_file_name    :string
+#  user_import_file_size    :integer
+#  user_import_fingerprint  :string
+#  user_import_updated_at   :datetime
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  default_library_id       :bigint
+#  default_user_group_id    :bigint
+#  user_id                  :bigint           not null
 #
-# Name                            | Type               | Attributes
-# ------------------------------- | ------------------ | ---------------------------
-# **`id`**                        | `bigint`           | `not null, primary key`
-# **`edit_mode`**                 | `string`           |
-# **`error_message`**             | `text`             |
-# **`executed_at`**               | `datetime`         |
-# **`note`**                      | `text`             |
-# **`user_encoding`**             | `string`           |
-# **`user_import_content_type`**  | `string`           |
-# **`user_import_file_name`**     | `string`           |
-# **`user_import_file_size`**     | `integer`          |
-# **`user_import_fingerprint`**   | `string`           |
-# **`user_import_updated_at`**    | `datetime`         |
-# **`created_at`**                | `datetime`         | `not null`
-# **`updated_at`**                | `datetime`         | `not null`
-# **`default_library_id`**        | `bigint`           |
-# **`default_user_group_id`**     | `bigint`           |
-# **`user_id`**                   | `bigint`           | `not null`
+# Indexes
 #
-# ### Indexes
+#  index_user_import_files_on_user_id  (user_id)
 #
-# * `index_user_import_files_on_user_id`:
-#     * **`user_id`**
+# Foreign Keys
 #
-# ### Foreign Keys
-#
-# * `fk_rails_...`:
-#     * **`user_id => users.id`**
+#  fk_rails_...  (user_id => users.id)
 #
