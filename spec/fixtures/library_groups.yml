@@ -7,7 +7,6 @@ one:
   note: 
   my_networks: 0.0.0.0/0
   url: "http://localhost:3000/"
-  user_id: 1
   book_jacket_source: "google"
   screenshot_generator: "mozshot"
   settings: 
@@ -48,17 +47,11 @@ one:
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
 #  country_id                    :bigint
-#  user_id                       :bigint
 #
 # Indexes
 #
 #  index_library_groups_on_email       (email)
 #  index_library_groups_on_lower_name  (lower((name)::text)) UNIQUE
 #  index_library_groups_on_short_name  (short_name)
-#  index_library_groups_on_user_id     (user_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (user_id => users.id)
 #
 

@@ -13,7 +13,7 @@ end
 #  updated_at :datetime         not null
 #  item_id    :bigint
 #  message_id :bigint
-#  user_id    :bigint
+#  user_id    :bigint           not null
 #
 # Indexes
 #

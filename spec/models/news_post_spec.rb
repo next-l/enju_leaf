@@ -19,7 +19,7 @@ end
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  required_role_id :bigint           default(1), not null
-#  user_id          :bigint
+#  user_id          :bigint           not null
 #
 # Indexes
 #

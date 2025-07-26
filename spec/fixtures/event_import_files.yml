@@ -32,7 +32,7 @@ event_import_file_00003:
 #  default_event_category_id :bigint
 #  default_library_id        :bigint
 #  parent_id                 :bigint
-#  user_id                   :bigint
+#  user_id                   :bigint           not null
 #
 # Indexes
 #
