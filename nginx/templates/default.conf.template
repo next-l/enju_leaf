@@ -27,6 +27,14 @@ server {
     proxy_pass http://web:3000;
   }
 
+  # Mission Controlのアクセス元
+  # 既定ではDockerネットワーク内のみ許可
+  location /jobs {
+    allow 172.16.0.0/12;
+    deny all;
+    try_files $uri @web;
+  }
+
   location / {
     try_files $uri @web;
   }

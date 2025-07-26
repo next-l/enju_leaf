@@ -1,7 +1,7 @@
 class Basket < ApplicationRecord
   include EnjuCirculation::EnjuBasket
-  default_scope { order('baskets.id DESC') }
-  scope :will_expire, lambda {|date| where('created_at < ?', date)}
+  default_scope { order("baskets.id DESC") }
+  scope :will_expire, lambda { |date| where("created_at < ?", date) }
   belongs_to :user, optional: true
   has_many :accepts, dependent: :destroy
   has_many :withdraws, dependent: :destroy
@@ -14,9 +14,9 @@ class Basket < ApplicationRecord
 
   def check_suspended
     if user
-      errors.add(:base, I18n.t('basket.this_account_is_suspended')) if user.locked_at
+      errors.add(:base, I18n.t("basket.this_account_is_suspended")) if user.locked_at
     else
-      errors.add(:base, I18n.t('user.not_found'))
+      errors.add(:base, I18n.t("user.not_found"))
     end
   end
 
@@ -31,9 +31,17 @@ end
 # Table name: baskets
 #
 #  id           :bigint           not null, primary key
-#  user_id      :bigint
-#  note         :text
 #  lock_version :integer          default(0), not null
+#  note         :text
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  user_id      :bigint
+#
+# Indexes
+#
+#  index_baskets_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #

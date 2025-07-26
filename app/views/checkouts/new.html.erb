@@ -1,6 +1,6 @@
 <h1 class="title"><%= t('page.new', model: t('activerecord.models.checkouts')) -%></h1>
 
-<%= form_for(@checkout) do |f| -%>
+<%= form_with(model: @checkout) do |f| -%>
   <%= error_messages(@checkout) -%>
 
   <div class="field">

@@ -5,12 +5,12 @@ else
   class ActsAsTaggableOnMigration < ActiveRecord::Migration; end
 end
 ActsAsTaggableOnMigration.class_eval do
-  def self.up
-    create_table :tags do |t|
+  def up
+    create_table :tags, if_not_exists: true do |t|
       t.string :name
     end
 
-    create_table :taggings do |t|
+    create_table :taggings, if_not_exists: true do |t|
       t.references :tag
 
       # You should make sure that the column created is
@@ -25,11 +25,11 @@ ActsAsTaggableOnMigration.class_eval do
       t.datetime :created_at
     end
 
-    add_index :taggings, :tag_id
-    add_index :taggings, [:taggable_id, :taggable_type, :context]
+    add_index :taggings, :tag_id, if_not_exists: true
+    add_index :taggings, [:taggable_id, :taggable_type, :context], if_not_exists: true
   end
 
-  def self.down
+  def down
     drop_table :taggings
     drop_table :tags
   end

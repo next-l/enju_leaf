@@ -7,16 +7,17 @@ class IsbnRecord < ApplicationRecord
 
   def self.new_records(isbn_records_params)
     return [] unless isbn_records_params
+
     isbn_records = []
     IsbnRecord.transaction do
       isbn_records_params.each do |k, v|
-        next if v['_destroy'] == '1'
-        if v['body'].present?
-          isbn_record = IsbnRecord.where(body: Lisbn.new(v['body'].gsub(/[^0-9x]/i, '')).isbn13).first_or_create!
-        elsif v['id'].present?
-          isbn_record = IsbnRecord.find(v['id'])
+        next if v["_destroy"] == "1"
+        if v["body"].present?
+          isbn_record = IsbnRecord.where(body: Lisbn.new(v["body"].gsub(/[^0-9x]/i, "")).isbn13).first_or_create!
+        elsif v["id"].present?
+          isbn_record = IsbnRecord.find(v["id"])
         else
-          v.delete('_destroy')
+          v.delete("_destroy")
           isbn_record = IsbnRecord.create(v)
         end
         isbn_records << isbn_record
@@ -40,10 +41,14 @@ end
 
 # == Schema Information
 #
-# Table name: isbn_records
+# Table name: isbn_records(ISBN)
 #
-#  id         :bigint           not null, primary key
-#  body       :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :bigint           not null, primary key
+#  body(ISBN)   :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+# Indexes
+#
+#  index_isbn_records_on_body  (body)
 #

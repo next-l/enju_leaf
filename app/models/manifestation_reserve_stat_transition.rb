@@ -1,7 +1,4 @@
 class ManifestationReserveStatTransition < ApplicationRecord
-  include Statesman::Adapters::ActiveRecordTransition
-
-  
   belongs_to :manifestation_reserve_stat, inverse_of: :manifestation_reserve_stat_transitions
 end
 
@@ -10,11 +7,17 @@ end
 # Table name: manifestation_reserve_stat_transitions
 #
 #  id                            :bigint           not null, primary key
-#  to_state                      :string
-#  metadata                      :text             default({})
+#  metadata                      :jsonb            not null
+#  most_recent                   :boolean          not null
 #  sort_key                      :integer
-#  manifestation_reserve_stat_id :bigint
+#  to_state                      :string
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
-#  most_recent                   :boolean          not null
+#  manifestation_reserve_stat_id :bigint
+#
+# Indexes
+#
+#  index_manifestation_reserve_stat_transitions_on_stat_id         (manifestation_reserve_stat_id)
+#  index_manifestation_reserve_stat_transitions_on_transition      (sort_key,manifestation_reserve_stat_id) UNIQUE
+#  index_manifestation_reserve_stat_transitions_parent_most_recen  (manifestation_reserve_stat_id,most_recent) UNIQUE WHERE most_recent
 #

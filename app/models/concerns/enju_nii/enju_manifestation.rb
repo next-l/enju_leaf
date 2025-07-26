@@ -4,16 +4,22 @@ module EnjuNii
 
     module ClassMethods
       def import_from_cinii_books(options)
-        # if options[:isbn]
-        lisbn = Lisbn.new(options[:isbn])
-        raise EnjuNii::InvalidIsbn unless lisbn.valid?
+        lisbn = ncid = nil
 
-        # end
+        if options[:ncid]
+          ncid = options[:ncid]
+          manifestation = NcidRecord.find_by(body: ncid)&.manifestation
+        elsif options[:isbn]
+          lisbn = Lisbn.new(options[:isbn])
+          raise EnjuNii::InvalidIsbn unless lisbn.valid?
 
-        manifestation = Manifestation.find_by_isbn(lisbn.isbn)
+          manifestation = Manifestation.find_by_isbn(lisbn.isbn)
+        end
+
         return manifestation if manifestation.present?
 
-        doc = return_rdf(lisbn.isbn)
+        doc = return_rdf(isbn: lisbn&.isbn, ncid: ncid)
+
         raise EnjuNii::RecordNotFound unless doc
 
         # raise EnjuNii::RecordNotFound if doc.at('//openSearch:totalResults').content.to_i == 0
@@ -24,7 +30,7 @@ module EnjuNii
         # http://ci.nii.ac.jp/info/ja/api/api_outline.html#cib_od
         # return nil
 
-        ncid = doc.at('//cinii:ncid').try(:content)
+        ncid = doc.at("//cinii:ncid").try(:content)
         identifier = NcidRecord.find_by(body: ncid)
         return identifier.manifestation if identifier
 
@@ -36,9 +42,9 @@ module EnjuNii
         manifestation = Manifestation.new(title)
 
         # date of publication
-        pub_date = doc.at('//dc:date').try(:content)
+        pub_date = doc.at("//dc:date").try(:content)
         if pub_date
-          date = pub_date.split('-')
+          date = pub_date.split("-")
           if date[0] && date[1]
             date = sprintf("%04d-%02d", date[0], date[1])
           else
@@ -47,9 +53,9 @@ module EnjuNii
         end
         manifestation.pub_date = pub_date
 
-        manifestation.statement_of_responsibility = doc.at('//dc:creator').try(:content)
-        manifestation.extent = doc.at('//dcterms:extent').try(:content)
-        manifestation.dimensions = doc.at('//cinii:size').try(:content)
+        manifestation.statement_of_responsibility = doc.at("//dc:creator").try(:content)
+        manifestation.extent = doc.at("//dcterms:extent").try(:content)
+        manifestation.dimensions = doc.at("//cinii:size").try(:content)
 
         language = Language.find_by(iso_639_3: get_cinii_language(doc))
         if language
@@ -66,8 +72,8 @@ module EnjuNii
           end
         end
 
-        manifestation.carrier_type = CarrierType.find_by(name: 'volume')
-        manifestation.manifestation_content_type = ContentType.find_by(name: 'text')
+        manifestation.carrier_type = CarrierType.find_by(name: "volume")
+        manifestation.manifestation_content_type = ContentType.find_by(name: "text")
 
         if manifestation.valid?
           Agent.transaction do
@@ -81,13 +87,13 @@ module EnjuNii
             manifestation.creators = creator_patrons
             if defined?(EnjuSubject)
               subjects = get_cinii_subjects(doc)
-              subject_heading_type = SubjectHeadingType.find_or_create_by!(name: 'bsh')
+              subject_heading_type = SubjectHeadingType.find_or_create_by!(name: "bsh")
               subjects.each do |term|
                 subject = Subject.find_by(term: term[:term])
                 unless subject
                   subject = Subject.new(term)
                   subject.subject_heading_type = subject_heading_type
-                  subject_type = SubjectType.find_or_create_by!(name: 'concept')
+                  subject_type = SubjectType.find_or_create_by!(name: "concept")
                   subject.subject_type = subject_type
                 end
                 manifestation.subjects << subject
@@ -100,7 +106,7 @@ module EnjuNii
       end
 
       def search_cinii_book(query, options = {})
-        options = {p: 1, count: 10, raw: false}.merge(options)
+        options = { p: 1, count: 10, raw: false }.merge(options)
         doc = nil
         results = {}
         startrecord = options[:idx].to_i
@@ -117,22 +123,30 @@ module EnjuNii
         end
       end
 
-      def return_rdf(isbn)
-        rss = self.search_cinii_by_isbn(isbn)
-        if rss.channel.totalResults.to_i.zero?
-          rss = self.search_cinii_by_isbn(cinii_normalize_isbn(isbn))
+      def return_rdf(isbn: nil, ncid: nil)
+        if ncid
+          rss = self.search_cinii_opensearch(ncid: ncid)
+        elsif isbn
+          rss = self.search_cinii_opensearch(isbn: isbn)
+          if rss.channel.totalResults.to_i.zero?
+            rss = self.search_cinii_opensearch(isbn: cinii_normalize_isbn(isbn))
+          end
         end
+
         if rss.items.first
           conn = Faraday.new("#{rss.items.first.link}.rdf") do |faraday|
-            faraday.use FaradayMiddleware::FollowRedirects
             faraday.adapter :net_http
           end
-          conn.get.body
+          Nokogiri::XML(conn.get.body)
         end
       end
 
-      def search_cinii_by_isbn(isbn)
-        url = "https://ci.nii.ac.jp/books/opensearch/search?isbn=#{isbn}&format=rss"
+      def search_cinii_opensearch(ncid: nil, isbn: nil)
+        if ncid
+          url = "https://ci.nii.ac.jp/books/opensearch/search?ncid=#{ncid}&format=rss"
+        elsif isbn
+          url = "https://ci.nii.ac.jp/books/opensearch/search?isbn=#{isbn}&format=rss"
+        end
         RSS::RDF::Channel.install_text_element("opensearch:totalResults", "http://a9.com/-/spec/opensearch/1.1/", "?", "totalResults", :text, "opensearch:totalResults")
         RSS::BaseListener.install_get_text_element("http://a9.com/-/spec/opensearch/1.1/", "totalResults", "totalResults=")
         RSS::Parser.parse(url, false)
@@ -148,24 +162,24 @@ module EnjuNii
       end
 
       def get_cinii_creator(doc)
-        doc.xpath("//foaf:maker/foaf:Person").map{|e|
+        doc.xpath("//foaf:maker/foaf:Person").map { |e|
           {
-            full_name: e.at("./foaf:name").content,
-            full_name_transcription: e.xpath("./foaf:name[@xml:lang]").map{|n| n.content}.join("\n"),
+            full_name: e.at("./foaf:name").content&.strip,
+            full_name_transcription: e.xpath("./foaf:name[@xml:lang]").map { |n| n.content }.join("\n"),
             patron_identifier: e.attributes["about"].try(:content)
           }
         }
       end
 
       def get_cinii_publisher(doc)
-        doc.xpath("//dc:publisher").map{|e| {full_name: e.content}}
+        doc.xpath("//dc:publisher").map { |e| { full_name: e.content } }
       end
 
       def get_cinii_title(doc)
         {
           original_title: doc.at("//dc:title[not(@xml:lang)]").children.first.content,
-          title_transcription: doc.xpath("//dc:title[@xml:lang]", 'dc': 'http://purl.org/dc/elements/1.1/').map{|e| e.try(:content)}.join("\n"),
-          title_alternative: doc.xpath("//dcterms:alternative").map{|e| e.try(:content)}.join("\n")
+          title_transcription: doc.xpath("//dc:title[@xml:lang]", 'dc': "http://purl.org/dc/elements/1.1/").map { |e| e.try(:content) }.join("\n"),
+          title_alternative: doc.xpath("//dcterms:alternative").map { |e| e.try(:content) }.join("\n")
         }
       end
 
@@ -180,7 +194,7 @@ module EnjuNii
 
       def get_cinii_subjects(doc)
         subjects = []
-        doc.xpath('//foaf:topic').each do |s|
+        doc.xpath("//foaf:topic").each do |s|
           subjects << { term: s["dc:title"] }
         end
         subjects
@@ -192,7 +206,6 @@ module EnjuNii
           ptbl = series["dc:title"]
           rdf_url = "#{URI.parse(parent_url.gsub(/\#\w+\Z/, '')).to_s}"
           conn = Faraday.new("#{rdf_url}.rdf") do |faraday|
-            faraday.use FaradayMiddleware::FollowRedirects
             faraday.adapter :net_http
           end
           parent_doc = Nokogiri::XML(conn.get.body)

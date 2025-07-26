@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :carrier_type do |f|
-    f.sequence(:name){|n| "carrier_type_#{n}"}
+    f.sequence(:name) {|n| "carrier_type_#{n}"}
   end
 end
 
@@ -8,11 +8,19 @@ end
 #
 # Table name: carrier_types
 #
-#  id           :bigint           not null, primary key
-#  name         :string           not null
-#  display_name :text
-#  note         :text
-#  position     :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id                      :bigint           not null, primary key
+#  attachment_content_type :string
+#  attachment_file_name    :string
+#  attachment_file_size    :bigint
+#  attachment_updated_at   :datetime
+#  display_name            :text
+#  name                    :string           not null
+#  note                    :text
+#  position                :integer
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#
+# Indexes
+#
+#  index_carrier_types_on_lower_name  (lower((name)::text)) UNIQUE
 #

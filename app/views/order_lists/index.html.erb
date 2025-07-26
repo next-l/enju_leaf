@@ -1,0 +1,43 @@
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.order_list')) -%></h1>
+<div id="content_list">
+<p id="notice"><%= notice %></p>
+
+<table class="table table-striped index">
+  <tr>
+    <th><%= t('activerecord.models.user') -%></th>
+    <th><%= t('activerecord.attributes.order_list.title') -%></th>
+    <th><%= t('activerecord.attributes.order_list.state') -%></th>
+    <th><%= t('activerecord.attributes.order_list.ordered_at') -%></th>
+    <th></th>
+  </tr>
+
+<%- @order_lists.each do |order_list| -%>
+  <tr class="line<%= cycle("0", "1") -%>">
+    <td><%= link_to order_list.user.username, order_list.user.profile %></td>
+    <td>
+      <%= link_to order_list.title, order_list_path(order_list) %>
+      <br />
+      <%= link_to order_list.bookstore.name, order_list.bookstore %>
+      <br />
+      <%= order_list.note -%>
+    </td>
+    <td><%= order_list.state_machine.current_state %></td>
+    <td><%= l(order_list.ordered_at) if order_list.ordered_at %></td>
+    <td>
+      <%= link_to t('page.edit'), edit_order_list_path(order_list) -%>
+      <%= link_to t('page.destroy'), order_list_path(order_list), data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+  </tr>
+<%- end -%>
+</table>
+
+<%= paginate(@order_lists) -%>
+
+</div>
+</div>
+
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.new', model: t('activerecord.models.order_list')), new_order_list_path -%></li>
+  </ul>
+</div>

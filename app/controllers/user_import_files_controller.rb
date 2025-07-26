@@ -1,12 +1,12 @@
 class UserImportFilesController < ApplicationController
-  before_action :set_user_import_file, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :set_user_import_file, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :prepare_options, only: [ :new, :edit ]
 
   # GET /user_import_files
   # GET /user_import_files.json
   def index
-    @user_import_files = UserImportFile.order('id DESC').page(params[:page])
+    @user_import_files = UserImportFile.order("id DESC").page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -42,10 +42,10 @@ class UserImportFilesController < ApplicationController
 
     respond_to do |format|
       if @user_import_file.save
-        if @user_import_file.mode == 'import'
+        if @user_import_file.mode == "import"
           UserImportFileJob.perform_later(@user_import_file)
         end
-        format.html { redirect_to @user_import_file, notice: t('import.successfully_created', model: t('activerecord.models.user_import_file')) }
+        format.html { redirect_to @user_import_file, notice: t("import.successfully_created", model: t("activerecord.models.user_import_file")) }
         format.json { render json: @user_import_file, status: :created, location: @user_import_file }
       else
         prepare_options
@@ -60,10 +60,10 @@ class UserImportFilesController < ApplicationController
   def update
     respond_to do |format|
       if @user_import_file.update(user_import_file_params)
-        if @user_import_file.mode == 'import'
+        if @user_import_file.mode == "import"
           UserImportFileJob.perform_later(@user_import_file)
         end
-        format.html { redirect_to @user_import_file, notice: t('controller.successfully_updated', model: t('activerecord.models.user_import_file')) }
+        format.html { redirect_to @user_import_file, notice: t("controller.successfully_updated", model: t("activerecord.models.user_import_file")) }
         format.json { head :no_content }
       else
         prepare_options

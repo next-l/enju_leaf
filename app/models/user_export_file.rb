@@ -19,11 +19,11 @@ class UserExportFile < ApplicationRecord
   # エクスポートの処理を実行します。
   def export!
     transition_to!(:started)
-    tempfile = Tempfile.new(['user_export_file_', '.txt'])
+    tempfile = Tempfile.new([ "user_export_file_", ".txt" ])
     file = User.export(format: :text)
     tempfile.puts(file)
     tempfile.close
-    attachment.attach(io: File.new(tempfile.path, 'r'), filename: 'user_export.txt')
+    attachment.attach(io: File.new(tempfile.path, "r"), filename: "user_export.txt")
     save!
     transition_to!(:completed)
     mailer = UserExportMailer.completed(self)
@@ -41,9 +41,21 @@ end
 #
 # Table name: user_export_files
 #
-#  id          :bigint           not null, primary key
-#  user_id     :bigint
-#  executed_at :datetime
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id                       :bigint           not null, primary key
+#  executed_at              :datetime
+#  user_export_content_type :string
+#  user_export_file_name    :string
+#  user_export_file_size    :bigint
+#  user_export_updated_at   :datetime
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  user_id                  :bigint           not null
+#
+# Indexes
+#
+#  index_user_export_files_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #

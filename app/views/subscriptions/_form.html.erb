@@ -1,5 +1,5 @@
-<%= form_for(@subscription) do |f| -%>
-  <%= error_messages(@subscription) -%>
+<%= form_with(model: subscription) do |f| -%>
+  <%= error_messages(subscription) -%>
 
   <div class="field">
     <%= f.label :title -%><br />

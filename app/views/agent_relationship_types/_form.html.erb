@@ -1,5 +1,5 @@
-<%= form_for(@agent_relationship_type) do |f| %>
-  <%= error_messages(@agent_relationship_type) %>
+<%= form_with(model: agent_relationship_type) do |f| %>
+  <%= error_messages(agent_relationship_type) %>
 
   <div class="field">
     <%= f.label :name %><br />

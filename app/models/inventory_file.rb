@@ -16,7 +16,7 @@ class InventoryFile < ApplicationRecord
       identifier = row.to_s.strip
       item = Item.find_by(item_identifier: identifier)
       next unless item
-      next if self.items.where(id: item.id).select('items.id').first
+      next if self.items.where(id: item.id).select("items.id").first
 
       Inventory.create(
         inventory_file: self,
@@ -30,7 +30,7 @@ class InventoryFile < ApplicationRecord
   end
 
   def export(col_sep: "\t")
-    file = Tempfile.create('inventory_file') do |f|
+    file = Tempfile.create("inventory_file") do |f|
       inventories.each do |inventory|
         f.write inventory.to_hash.values.to_csv(col_sep)
       end
@@ -43,7 +43,7 @@ class InventoryFile < ApplicationRecord
   end
 
   def missing_items
-    Item.where(Inventory.where('items.id = inventories.item_id AND inventories.inventory_file_id = ?', id).exists.not)
+    Item.where(Inventory.where("items.id = inventories.item_id AND inventories.inventory_file_id = ?", id).exists.not)
   end
 
   def found_items
@@ -55,11 +55,28 @@ end
 #
 # Table name: inventory_files
 #
-#  id                    :bigint           not null, primary key
-#  user_id               :bigint
-#  note                  :text
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  inventory_fingerprint :string
-#  shelf_id              :bigint
+#  id                     :bigint           not null, primary key
+#  content_type           :string
+#  filename               :string
+#  inventory_content_type :string
+#  inventory_file_name    :string
+#  inventory_file_size    :integer
+#  inventory_fingerprint  :string
+#  inventory_updated_at   :datetime
+#  note                   :text
+#  size                   :integer
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  shelf_id               :bigint
+#  user_id                :bigint           not null
+#
+# Indexes
+#
+#  index_inventory_files_on_shelf_id  (shelf_id)
+#  index_inventory_files_on_user_id   (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (shelf_id => shelves.id)
+#  fk_rails_...  (user_id => users.id)
 #

@@ -22,7 +22,7 @@ describe EnjuManifestationViewer::BookJacketHelper do
   end
 
   it "should generate a link to Amazon" do
-    helper.amazon_link(manifestations(:manifestation_00001).identifier_contents(:isbn).first).should =~ /https:\/\/www.amazon.co.jp\/dp\/4798002062/
+    helper.amazon_link(manifestations(:manifestation_00001).isbn_records.first.body).should =~ /https:\/\/www.amazon.co.jp\/dp\/4798002062/
   end
 
   it "should get honmoto.com book jacket" do
