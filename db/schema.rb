@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_26_135437) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_26_140939) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -896,7 +896,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_135437) do
     t.boolean "family_name_first", default: true
     t.string "screenshot_generator"
     t.integer "pub_year_facet_range_interval", default: 10
-    t.bigint "user_id", null: false
     t.boolean "csv_charset_conversion", default: false, null: false
     t.string "header_logo_file_name"
     t.string "header_logo_content_type"
@@ -907,7 +906,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_135437) do
     t.index "lower((name)::text)", name: "index_library_groups_on_lower_name", unique: true
     t.index ["email"], name: "index_library_groups_on_email"
     t.index ["short_name"], name: "index_library_groups_on_short_name"
-    t.index ["user_id"], name: "index_library_groups_on_user_id"
   end
 
   create_table "licenses", force: :cascade do |t|
@@ -2061,7 +2059,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_135437) do
   add_foreign_key "jpno_records", "manifestations"
   add_foreign_key "lccn_records", "manifestations"
   add_foreign_key "libraries", "library_groups"
-  add_foreign_key "library_groups", "users"
   add_foreign_key "manifestation_checkout_stats", "users"
   add_foreign_key "manifestation_custom_values", "manifestation_custom_properties"
   add_foreign_key "manifestation_custom_values", "manifestations"

@@ -7,7 +7,6 @@ class AddNotNullToUserIdOnAgentImportFiles < ActiveRecord::Migration[7.1]
     change_column_null :event_import_files, :user_id, false
     change_column_null :import_requests, :user_id, false
     change_column_null :inventory_files, :user_id, false
-    change_column_null :library_groups, :user_id, false
     change_column_null :manifestation_checkout_stats, :user_id, false
     change_column_null :manifestation_reserve_stats, :user_id, false
     change_column_null :news_posts, :user_id, false
