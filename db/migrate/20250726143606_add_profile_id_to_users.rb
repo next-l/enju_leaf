@@ -9,5 +9,6 @@ class AddProfileIdToUsers < ActiveRecord::Migration[7.1]
     end
 
     change_column_null :users, :profile_id, false
+    remove_column :profiles, :user_id, :integer
   end
 end

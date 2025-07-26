@@ -1308,7 +1308,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_143606) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.bigint "user_id"
     t.bigint "user_group_id"
     t.bigint "library_id"
     t.string "locale"
@@ -1328,7 +1327,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_143606) do
     t.index ["checkout_icalendar_token"], name: "index_profiles_on_checkout_icalendar_token", unique: true
     t.index ["library_id"], name: "index_profiles_on_library_id"
     t.index ["user_group_id"], name: "index_profiles_on_user_group_id"
-    t.index ["user_id"], name: "index_profiles_on_user_id"
     t.index ["user_number"], name: "index_profiles_on_user_number", unique: true
   end
 
@@ -2081,7 +2079,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_143606) do
   add_foreign_key "periodicals", "frequencies"
   add_foreign_key "periodicals", "manifestations"
   add_foreign_key "profiles", "roles", column: "required_role_id"
-  add_foreign_key "profiles", "users"
   add_foreign_key "purchase_requests", "users"
   add_foreign_key "reserve_stat_has_manifestations", "manifestations"
   add_foreign_key "reserve_stat_has_users", "user_reserve_stats"
