@@ -1,18 +1,27 @@
 FactoryBot.define do
   factory :manifestation_relationship_type do
-    sequence(:name){|n| "manifestation_relationship_type_#{n}"}
+    sequence(:name) {|n| "manifestation_relationship_type_#{n}"}
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: manifestation_relationship_types
+# Table name: `manifestation_relationship_types`
 #
-#  id           :bigint           not null, primary key
-#  name         :string           not null
-#  display_name :text
-#  note         :text
-#  position     :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+# ### Columns
+#
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`display_name`**  | `text`             |
+# **`name`**          | `string`           | `not null`
+# **`note`**          | `text`             |
+# **`position`**      | `integer`          |
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
+#
+# ### Indexes
+#
+# * `index_manifestation_relationship_types_on_lower_name` (_unique_):
+#     * **`lower((name)::text)`**
 #

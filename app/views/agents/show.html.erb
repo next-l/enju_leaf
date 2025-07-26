@@ -4,7 +4,7 @@
   <p id="notice"><%= notice %></p>
 
   <h2 class="resource_title">
-    [P]
+    [A]
     <%= @agent.full_name -%>
   </h2>
 
@@ -50,6 +50,14 @@
       <tr>
         <td><strong><%= t('activerecord.attributes.agent.place') -%>:</strong></td>
         <td><%= @agent.place -%></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('activerecord.models.ndla_record') -%>:</strong></td>
+        <td>
+          <% if @agent.ndla_record %>
+            <%= link_to @agent.ndla_record.body, URI.parse(@agent.ndla_record.body).to_s -%>
+          <% end %>
+        </td>
       </tr>
       <tr>
         <td><strong><%= t('activerecord.models.language') -%>:</strong></td>
@@ -107,6 +115,10 @@
     <%- end -%>
   </ul>
   <ul>
-    <li><%= link_to t('page.listing', model: t('activerecord.models.manifestation')), manifestations_path(query: "\"#{@agent.full_name}\"") -%></li>
+    <% if @agent.ndla_record %>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.manifestation')), manifestations_path(query: "agent_id_sm:\"#{@agent.id}\"") -%></li>
+    <% else %>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.manifestation')), manifestations_path(query: "\"#{@agent.full_name}\"") -%></li>
+    <% end %>
   </ul>
 </div>

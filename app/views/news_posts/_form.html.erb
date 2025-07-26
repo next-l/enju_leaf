@@ -1,5 +1,5 @@
-<%= form_for(@news_post) do |f| -%>
-  <%= error_messages(@news_post) -%>
+<%= form_with(model: news_post) do |f| -%>
+  <%= error_messages(news_post) -%>
   <div class="field">
     <%= f.label t('activerecord.attributes.news_post.title') -%><br />
     <%= f.text_field :title, required: true, class: 'resource_title' -%>
@@ -15,7 +15,7 @@
   <!--
   <div class="field">
     <%= f.label t('activerecord.models.user') -%><br />
-    <%= link_to @news_post.user.username, @news_post.user.profile if @news_post.user.try(:profile) -%>
+    <%= link_to news_post.user.username, news_post.user.profile if news_post.user.try(:profile) -%>
   </div>
   <div class="field">
     <%= f.label t('role.required_role') -%>

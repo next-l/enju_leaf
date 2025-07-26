@@ -1,6 +1,6 @@
 class Realize < ApplicationRecord
   belongs_to :agent
-  belongs_to :expression, class_name: 'Manifestation', touch: true
+  belongs_to :expression, class_name: "Manifestation", touch: true
   belongs_to :realize_type, optional: true
 
   validates :expression_id, uniqueness: { scope: :agent_id }
@@ -15,15 +15,27 @@ class Realize < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: realizes
+# Table name: `realizes`
 #
-#  id              :bigint           not null, primary key
-#  agent_id        :bigint           not null
-#  expression_id   :bigint           not null
-#  position        :integer
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  realize_type_id :bigint
+# ### Columns
+#
+# Name                   | Type               | Attributes
+# ---------------------- | ------------------ | ---------------------------
+# **`id`**               | `bigint`           | `not null, primary key`
+# **`position`**         | `integer`          |
+# **`created_at`**       | `datetime`         | `not null`
+# **`updated_at`**       | `datetime`         | `not null`
+# **`agent_id`**         | `bigint`           | `not null`
+# **`expression_id`**    | `bigint`           | `not null`
+# **`realize_type_id`**  | `bigint`           |
+#
+# ### Indexes
+#
+# * `index_realizes_on_agent_id`:
+#     * **`agent_id`**
+# * `index_realizes_on_expression_id_and_agent_id` (_unique_):
+#     * **`expression_id`**
+#     * **`agent_id`**
 #

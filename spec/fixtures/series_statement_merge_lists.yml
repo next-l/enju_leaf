@@ -15,12 +15,16 @@ series_statement_merge_list_00003:
   id: 3
   created_at: 2008-02-18 16:13:14.963116 +09:00
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: series_statement_merge_lists
+# Table name: `series_statement_merge_lists`
 #
-#  id         :bigint           not null, primary key
-#  title      :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+# ### Columns
+#
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`id`**          | `bigint`           | `not null, primary key`
+# **`title`**       | `string`           |
+# **`created_at`**  | `datetime`         | `not null`
+# **`updated_at`**  | `datetime`         | `not null`
 #

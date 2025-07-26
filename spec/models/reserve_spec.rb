@@ -4,7 +4,11 @@ describe Reserve do
   fixtures :all
 
   it "should have next reservation" do
-    reserves(:reserve_00014).next_reservation.should be_truthy
+    expect(reserves(:reserve_00014).state_machine.current_state).to eq "retained"
+    expect(reserves(:reserve_00014).next_reservation).to eq reserves(:reserve_00015)
+    reserves(:reserve_00014).transition_to!(:canceled)
+    expect(reserves(:reserve_00015).state_machine.current_state).to eq "retained"
+    expect(reserves(:reserve_00015).next_reservation).to eq reserves(:reserve_00016)
   end
 
   it "should notify a next reservation" do
@@ -49,7 +53,6 @@ describe Reserve do
 
   it "should have reservations that will be expired" do
     reserve = FactoryBot.create(:reserve)
-    reserve.transition_to!(:requested)
     item = FactoryBot.create(:item, manifestation_id: reserve.manifestation.id)
     item.retain(reserve.user)
     reserve.reload
@@ -60,7 +63,6 @@ describe Reserve do
 
   it "should have completed reservation" do
     reserve = FactoryBot.create(:reserve)
-    reserve.transition_to!(:requested)
     item = FactoryBot.create(:item, manifestation_id: reserve.manifestation.id)
     item.checkout!(reserve.user)
     expect(Reserve.completed).to include reserve
@@ -115,37 +117,58 @@ describe Reserve do
 
   it "should not retain against reserves with already retained" do
     reserve = FactoryBot.create(:reserve)
-    reserve.transition_to!(:requested)
     manifestation = reserve.manifestation
     item = FactoryBot.create(:item, manifestation_id: manifestation.id)
-    expect{item.retain(reserve.user)}.not_to raise_error
+    expect {item.retain(reserve.user)}.not_to raise_error
     expect(reserve.retained?).to be true
     expect(item.retained?).to be true
     item = FactoryBot.create(:item, manifestation_id: manifestation.id)
-    expect{item.retain(reserve.user)}.not_to raise_error
+    expect {item.retain(reserve.user)}.not_to raise_error
     expect(reserve.retained?).to be true
     expect(item.retained?).to be false
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: reserves
+# Table name: `reserves`
 #
-#  id                           :bigint           not null, primary key
-#  user_id                      :bigint           not null
-#  manifestation_id             :bigint           not null
-#  item_id                      :bigint
-#  request_status_type_id       :bigint           not null
-#  checked_out_at               :datetime
-#  created_at                   :datetime         not null
-#  updated_at                   :datetime         not null
-#  canceled_at                  :datetime
-#  expired_at                   :datetime
-#  expiration_notice_to_patron  :boolean          default(FALSE)
-#  expiration_notice_to_library :boolean          default(FALSE)
-#  pickup_location_id           :bigint
-#  retained_at                  :datetime
-#  postponed_at                 :datetime
-#  lock_version                 :integer          default(0), not null
+# ### Columns
+#
+# Name                                | Type               | Attributes
+# ----------------------------------- | ------------------ | ---------------------------
+# **`id`**                            | `bigint`           | `not null, primary key`
+# **`canceled_at`**                   | `datetime`         |
+# **`checked_out_at`**                | `datetime`         |
+# **`expiration_notice_to_library`**  | `boolean`          | `default(FALSE)`
+# **`expiration_notice_to_patron`**   | `boolean`          | `default(FALSE)`
+# **`expired_at`**                    | `datetime`         |
+# **`lock_version`**                  | `integer`          | `default(0), not null`
+# **`postponed_at`**                  | `datetime`         |
+# **`retained_at`**                   | `datetime`         |
+# **`created_at`**                    | `datetime`         | `not null`
+# **`updated_at`**                    | `datetime`         | `not null`
+# **`item_id`**                       | `bigint`           |
+# **`manifestation_id`**              | `bigint`           | `not null`
+# **`pickup_location_id`**            | `bigint`           |
+# **`request_status_type_id`**        | `bigint`           | `not null`
+# **`user_id`**                       | `bigint`           | `not null`
+#
+# ### Indexes
+#
+# * `index_reserves_on_item_id`:
+#     * **`item_id`**
+# * `index_reserves_on_manifestation_id`:
+#     * **`manifestation_id`**
+# * `index_reserves_on_pickup_location_id`:
+#     * **`pickup_location_id`**
+# * `index_reserves_on_user_id`:
+#     * **`user_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`manifestation_id => manifestations.id`**
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

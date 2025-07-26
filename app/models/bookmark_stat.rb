@@ -4,8 +4,8 @@ class BookmarkStat < ApplicationRecord
     initial_state: UserCheckoutStatStateMachine.initial_state
   ]
   include CalculateStat
-  default_scope { order('bookmark_stats.id DESC') }
-  scope :not_calculated, -> {in_state(:pending)}
+  default_scope { order("bookmark_stats.id DESC") }
+  scope :not_calculated, -> { in_state(:pending) }
   has_many :bookmark_stat_has_manifestations, dependent: :destroy
   has_many :manifestations, through: :bookmark_stat_has_manifestations
 
@@ -27,7 +27,7 @@ class BookmarkStat < ApplicationRecord
       # manifestation.update_attributes({:daily_bookmarks_count => daily_count, :total_count => manifestation.total_count + daily_count})
       if daily_count > 0
         self.manifestations << manifestation
-        sql = ['UPDATE bookmark_stat_has_manifestations SET bookmarks_count = ? WHERE bookmark_stat_id = ? AND manifestation_id = ?', daily_count, self.id, manifestation.id]
+        sql = [ "UPDATE bookmark_stat_has_manifestations SET bookmarks_count = ? WHERE bookmark_stat_id = ? AND manifestation_id = ?", daily_count, self.id, manifestation.id ]
         ActiveRecord::Base.connection.execute(
           self.class.send(:sanitize_sql_array, sql)
         )
@@ -47,16 +47,20 @@ class BookmarkStat < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: bookmark_stats
+# Table name: `bookmark_stats`
 #
-#  id           :bigint           not null, primary key
-#  start_date   :datetime
-#  end_date     :datetime
-#  started_at   :datetime
-#  completed_at :datetime
-#  note         :text
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+# ### Columns
+#
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`completed_at`**  | `datetime`         |
+# **`end_date`**      | `datetime`         |
+# **`note`**          | `text`             |
+# **`start_date`**    | `datetime`         |
+# **`started_at`**    | `datetime`         |
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
 #

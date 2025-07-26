@@ -3,8 +3,8 @@ module EnjuSeed
     extend ActiveSupport::Concern
 
     included do
-      scope :administrators, -> { joins(:role).where('roles.name = ?', 'Administrator') }
-      scope :librarians, -> { joins(:role).where('roles.name = ? OR roles.name = ?', 'Administrator', 'Librarian') }
+      scope :administrators, -> { joins(:role).where("roles.name = ?", "Administrator") }
+      scope :librarians, -> { joins(:role).where("roles.name = ? OR roles.name = ?", "Administrator", "Librarian") }
       scope :suspended, -> { where.not(locked_at: nil) }
       has_one :profile, dependent: :nullify
       if defined?(EnjuBiblio)
@@ -40,7 +40,7 @@ module EnjuSeed
 
       attr_accessor :password_not_verified,
         :update_own_account, :auto_generated_password,
-        :locked, :current_password #, :agent_id
+        :locked, :current_password # , :agent_id
 
       paginates_per 10
 
@@ -57,8 +57,8 @@ module EnjuSeed
 
       # ユーザの情報をエクスポートします。
       # @param [Hash] options
-      def self.export(options = {format: :text})
-        header = %w(
+      def self.export(options = { format: :text })
+        header = %w[
           username
           full_name
           full_name_transcription
@@ -75,15 +75,15 @@ module EnjuSeed
           expired_at
           keyword_list
           note
-        )
-        header += %w(
+        ]
+        header += %w[
           checkout_icalendar_token
           save_checkout_history
-        ) if defined? EnjuCirculation
+        ] if defined? EnjuCirculation
         header << "save_search_history" if defined? EnjuSearchLog
         header << "share_bookmarks" if defined? EnjuBookmark
         lines = []
-        User.find_each.map{|u|
+        User.find_each.map { |u|
           line = []
           line << u.username
           line << u.try(:profile).try(:full_name)
@@ -114,7 +114,7 @@ module EnjuSeed
           lines << line
         }
         if options[:format] == :text
-          lines.map{|line| line.to_csv(col_sep: "\t")}.unshift(header.to_csv(col_sep: "\t")).join
+          lines.map { |line| line.to_csv(col_sep: "\t") }.unshift(header.to_csv(col_sep: "\t")).join
         else
           lines
         end
@@ -137,10 +137,10 @@ module EnjuSeed
       return true if role.name == role_in_question
 
       case role.name
-      when 'Administrator'
-        return true
-      when 'Librarian'
-        return true if role_in_question == 'User'
+      when "Administrator"
+        true
+      when "Librarian"
+        true if role_in_question == "User"
       else
         false
       end
@@ -148,9 +148,9 @@ module EnjuSeed
 
     # ユーザに使用不可の設定を反映させます。
     def set_lock_information
-      if locked == '1' && active_for_authentication?
+      if locked == "1" && active_for_authentication?
         lock_access!
-      elsif locked == '0' && !active_for_authentication?
+      elsif locked == "0" && !active_for_authentication?
         unlock_access!
       end
     end
@@ -165,7 +165,7 @@ module EnjuSeed
     # ユーザが有効期限切れかどうかをチェックし、期限切れであれば使用不可に設定します。
     # @return [Object]
     def check_expiration
-      return if has_role?('Administrator')
+      return if has_role?("Administrator")
 
       if expired_at
         if expired_at.beginning_of_day < Time.zone.now.beginning_of_day
@@ -177,9 +177,9 @@ module EnjuSeed
     # ユーザの削除前に、管理者ユーザが不在にならないかどうかをチェックします。
     # @return [Object]
     def check_role_before_destroy
-      if has_role?('Administrator')
-        if Role.find_by(name: 'Administrator').users.count == 1
-          raise username + 'This is the last administrator in this system.'
+      if has_role?("Administrator")
+        if Role.find_by(name: "Administrator").users.count == 1
+          raise username + "This is the last administrator in this system."
         end
       end
     end
@@ -203,7 +203,7 @@ module EnjuSeed
     # ユーザが管理者かどうかをチェックします。
     # @return [Boolean]
     def is_admin?
-      return true if has_role?('Administrator')
+      return true if has_role?("Administrator")
 
       false
     end
@@ -211,8 +211,8 @@ module EnjuSeed
     # ユーザがシステム上の最後のLibrarian権限ユーザかどうかをチェックします。
     # @return [Boolean]
     def last_librarian?
-      if has_role?('Librarian')
-        role = Role.find_by(name: 'Librarian')
+      if has_role?("Librarian")
+        role = Role.find_by(name: "Librarian")
         return true if role.users.count == 1
 
         false
@@ -232,25 +232,25 @@ module EnjuSeed
       if defined?(EnjuCirculation)
         # 未返却の資料のあるユーザを削除しようとした
         if checkouts.count.positive?
-          errors.add(:base, I18n.t('user.this_user_has_checked_out_item'))
+          errors.add(:base, I18n.t("user.this_user_has_checked_out_item"))
         end
       end
 
-      if has_role?('Librarian')
+      if has_role?("Librarian")
         # 管理者以外のユーザが図書館員を削除しようとした。図書館員の削除は管理者しかできない
-        unless current_user.has_role?('Administrator')
-          errors.add(:base, I18n.t('user.only_administrator_can_destroy'))
+        unless current_user.has_role?("Administrator")
+          errors.add(:base, I18n.t("user.only_administrator_can_destroy"))
         end
         # 最後の図書館員を削除しようとした
         if last_librarian?
-          errors.add(:base, I18n.t('user.last_librarian'))
+          errors.add(:base, I18n.t("user.last_librarian"))
         end
       end
 
       # 最後の管理者を削除しようとした
-      if has_role?('Administrator')
-        if Role.find_by(name: 'Administrator').users.count == 1
-          errors.add(:base, I18n.t('user.last_administrator'))
+      if has_role?("Administrator")
+        if Role.find_by(name: "Administrator").users.count == 1
+          errors.add(:base, I18n.t("user.last_administrator"))
         end
       end
 

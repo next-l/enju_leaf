@@ -1,22 +1,26 @@
 FactoryBot.define do
   factory :bookstore do |f|
-    f.sequence(:name){|n| "bookstore_#{n}"}
+    f.sequence(:name) {|n| "bookstore_#{n}"}
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: bookstores
+# Table name: `bookstores`
 #
-#  id               :bigint           not null, primary key
-#  name             :text             not null
-#  zip_code         :string
-#  address          :text
-#  note             :text
-#  telephone_number :string
-#  fax_number       :string
-#  url              :string
-#  position         :integer
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+# ### Columns
+#
+# Name                    | Type               | Attributes
+# ----------------------- | ------------------ | ---------------------------
+# **`id`**                | `bigint`           | `not null, primary key`
+# **`address`**           | `text`             |
+# **`fax_number`**        | `string`           |
+# **`name`**              | `text`             | `not null`
+# **`note`**              | `text`             |
+# **`position`**          | `integer`          |
+# **`telephone_number`**  | `string`           |
+# **`url`**               | `string`           |
+# **`zip_code`**          | `string`           |
+# **`created_at`**        | `datetime`         | `not null`
+# **`updated_at`**        | `datetime`         | `not null`
 #

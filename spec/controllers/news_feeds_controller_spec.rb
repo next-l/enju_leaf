@@ -172,7 +172,7 @@ describe NewsFeedsController do
   describe "POST create" do
     before(:each) do
       @attrs = valid_attributes
-      @invalid_attrs = {title: ''}
+      @invalid_attrs = { title: '' }
     end
 
     describe "When logged in as Administrator" do
@@ -290,7 +290,7 @@ describe NewsFeedsController do
     before(:each) do
       @news_feed = FactoryBot.create(:news_feed)
       @attrs = valid_attributes
-      @invalid_attrs = {title: ''}
+      @invalid_attrs = { title: '' }
     end
 
     describe "When logged in as Administrator" do

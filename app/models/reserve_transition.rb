@@ -1,20 +1,32 @@
 class ReserveTransition < ApplicationRecord
-  include Statesman::Adapters::ActiveRecordTransition
-
-  
   belongs_to :reserve, inverse_of: :reserve_transitions
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: reserve_transitions
+# Table name: `reserve_transitions`
 #
-#  id          :bigint           not null, primary key
-#  to_state    :string
-#  metadata    :text             default({})
-#  sort_key    :integer
-#  reserve_id  :bigint
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  most_recent :boolean          not null
+# ### Columns
+#
+# Name               | Type               | Attributes
+# ------------------ | ------------------ | ---------------------------
+# **`id`**           | `bigint`           | `not null, primary key`
+# **`metadata`**     | `jsonb`            | `not null`
+# **`most_recent`**  | `boolean`          | `not null`
+# **`sort_key`**     | `integer`          |
+# **`to_state`**     | `string`           |
+# **`created_at`**   | `datetime`         | `not null`
+# **`updated_at`**   | `datetime`         | `not null`
+# **`reserve_id`**   | `bigint`           |
+#
+# ### Indexes
+#
+# * `index_reserve_transitions_on_reserve_id`:
+#     * **`reserve_id`**
+# * `index_reserve_transitions_on_sort_key_and_reserve_id` (_unique_):
+#     * **`sort_key`**
+#     * **`reserve_id`**
+# * `index_reserve_transitions_parent_most_recent` (_unique_ _where_ most_recent):
+#     * **`reserve_id`**
+#     * **`most_recent`**
 #

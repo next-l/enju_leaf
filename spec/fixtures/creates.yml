@@ -51,15 +51,27 @@ create_00104:
   position: 2
   created_at: 2010-03-16 19:00:00.538796 +09:00
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: creates
+# Table name: `creates`
 #
-#  id             :bigint           not null, primary key
-#  agent_id       :bigint           not null
-#  work_id        :bigint           not null
-#  position       :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  create_type_id :bigint
+# ### Columns
+#
+# Name                  | Type               | Attributes
+# --------------------- | ------------------ | ---------------------------
+# **`id`**              | `bigint`           | `not null, primary key`
+# **`position`**        | `integer`          |
+# **`created_at`**      | `datetime`         | `not null`
+# **`updated_at`**      | `datetime`         | `not null`
+# **`agent_id`**        | `bigint`           | `not null`
+# **`create_type_id`**  | `bigint`           |
+# **`work_id`**         | `bigint`           | `not null`
+#
+# ### Indexes
+#
+# * `index_creates_on_agent_id`:
+#     * **`agent_id`**
+# * `index_creates_on_work_id_and_agent_id` (_unique_):
+#     * **`work_id`**
+#     * **`agent_id`**
 #

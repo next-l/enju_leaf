@@ -1,5 +1,5 @@
-<%= form_for(@user_group_has_checkout_type) do |f| -%>
-  <%= error_messages(@user_group_has_checkout_type) -%>
+<%= form_with(model: user_group_has_checkout_type) do |f| -%>
+  <%= error_messages(user_group_has_checkout_type) -%>
 
   <div class="field">
     <%= f.label t('activerecord.models.user_group') -%><br />

@@ -2,7 +2,7 @@
   <h1 class="title"><%= t('page.new', model: t('activerecord.models.accept')) -%></h1>
   <div id="content_list">
     <div id="accept_list">
-      <%= render 'list' -%>
+      <%= render 'list', accept: @accept -%>
     </div>
   </div>
 </div>

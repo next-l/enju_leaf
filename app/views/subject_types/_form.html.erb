@@ -1,5 +1,5 @@
-<%= form_for(@subject_type) do |f| %>
-  <%= error_messages(@subject_type) %>
+<%= form_with(model: subject_type) do |f| %>
+  <%= error_messages(subject_type) %>
 
   <div class="field">
     <%= f.label :name %><br />

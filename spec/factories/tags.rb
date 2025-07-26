@@ -1,16 +1,25 @@
 FactoryBot.define do
   factory :tag do |f|
-    f.sequence(:name){|n| "tag_#{n}"}
+    f.sequence(:name) {|n| "tag_#{n}"}
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: tags
+# Table name: `tags`
 #
-#  id             :bigint           not null, primary key
-#  name           :string           not null
-#  taggings_count :integer          default(0)
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
+# ### Columns
+#
+# Name                  | Type               | Attributes
+# --------------------- | ------------------ | ---------------------------
+# **`id`**              | `bigint`           | `not null, primary key`
+# **`name`**            | `string`           | `not null`
+# **`taggings_count`**  | `integer`          | `default(0)`
+# **`created_at`**      | `datetime`         | `not null`
+# **`updated_at`**      | `datetime`         | `not null`
+#
+# ### Indexes
+#
+# * `index_tags_on_name` (_unique_):
+#     * **`name`**
 #

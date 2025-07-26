@@ -4,8 +4,8 @@ class ManifestationCheckoutStat < ApplicationRecord
     initial_state: ManifestationCheckoutStatStateMachine.initial_state
   ]
   include CalculateStat
-  default_scope {order('manifestation_checkout_stats.id DESC')}
-  scope :not_calculated, -> {in_state(:pending)}
+  default_scope { order("manifestation_checkout_stats.id DESC") }
+  scope :not_calculated, -> { in_state(:pending) }
   has_many :checkout_stat_has_manifestations, dependent: :destroy
   has_many :manifestations, through: :checkout_stat_has_manifestations
   belongs_to :user
@@ -29,7 +29,7 @@ class ManifestationCheckoutStat < ApplicationRecord
       # manifestation.update_attributes({daily_checkouts_count: daily_count, total_count: manifestation.total_count + daily_count})
       if daily_count.positive?
         manifestations << manifestation
-        sql = ['UPDATE checkout_stat_has_manifestations SET checkouts_count = ? WHERE manifestation_checkout_stat_id = ? AND manifestation_id = ?', daily_count, id, manifestation.id]
+        sql = [ "UPDATE checkout_stat_has_manifestations SET checkouts_count = ? WHERE manifestation_checkout_stat_id = ? AND manifestation_id = ?", daily_count, id, manifestation.id ]
         ManifestationCheckoutStat.connection.execute(
           self.class.send(:sanitize_sql_array, sql)
         )
@@ -44,17 +44,31 @@ class ManifestationCheckoutStat < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: manifestation_checkout_stats
+# Table name: `manifestation_checkout_stats`
 #
-#  id           :bigint           not null, primary key
-#  start_date   :datetime
-#  end_date     :datetime
-#  note         :text
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  started_at   :datetime
-#  completed_at :datetime
-#  user_id      :bigint
+# ### Columns
+#
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`completed_at`**  | `datetime`         |
+# **`end_date`**      | `datetime`         |
+# **`note`**          | `text`             |
+# **`start_date`**    | `datetime`         |
+# **`started_at`**    | `datetime`         |
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
+# **`user_id`**       | `bigint`           | `not null`
+#
+# ### Indexes
+#
+# * `index_manifestation_checkout_stats_on_user_id`:
+#     * **`user_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

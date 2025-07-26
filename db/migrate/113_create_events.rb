@@ -1,5 +1,5 @@
 class CreateEvents < ActiveRecord::Migration[4.2]
-  def self.up
+  def up
     create_table :events do |t|
       t.references :library, index: true, null: false
       t.references :event_category, index: true, null: false
@@ -15,7 +15,7 @@ class CreateEvents < ActiveRecord::Migration[4.2]
     end
   end
 
-  def self.down
+  def down
     drop_table :events
   end
 end

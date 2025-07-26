@@ -15,17 +15,31 @@ describe UserCheckoutStat do
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: user_checkout_stats
+# Table name: `user_checkout_stats`
 #
-#  id           :bigint           not null, primary key
-#  start_date   :datetime
-#  end_date     :datetime
-#  note         :text
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  started_at   :datetime
-#  completed_at :datetime
-#  user_id      :bigint
+# ### Columns
+#
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`completed_at`**  | `datetime`         |
+# **`end_date`**      | `datetime`         |
+# **`note`**          | `text`             |
+# **`start_date`**    | `datetime`         |
+# **`started_at`**    | `datetime`         |
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
+# **`user_id`**       | `bigint`           | `not null`
+#
+# ### Indexes
+#
+# * `index_user_checkout_stats_on_user_id`:
+#     * **`user_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

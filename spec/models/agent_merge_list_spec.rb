@@ -5,12 +5,16 @@ describe AgentMergeList do
 
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: agent_merge_lists
+# Table name: `agent_merge_lists`
 #
-#  id         :bigint           not null, primary key
-#  title      :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+# ### Columns
+#
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`id`**          | `bigint`           | `not null, primary key`
+# **`title`**       | `string`           |
+# **`created_at`**  | `datetime`         | `not null`
+# **`updated_at`**  | `datetime`         | `not null`
 #

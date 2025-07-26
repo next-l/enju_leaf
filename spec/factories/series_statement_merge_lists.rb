@@ -1,15 +1,19 @@
 FactoryBot.define do
   factory :series_statement_merge_list do |f|
-    f.sequence(:title){|n| "series_statement_merge_list_#{n}"}
+    f.sequence(:title) {|n| "series_statement_merge_list_#{n}"}
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: series_statement_merge_lists
+# Table name: `series_statement_merge_lists`
 #
-#  id         :bigint           not null, primary key
-#  title      :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+# ### Columns
+#
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`id`**          | `bigint`           | `not null, primary key`
+# **`title`**       | `string`           |
+# **`created_at`**  | `datetime`         | `not null`
+# **`updated_at`**  | `datetime`         | `not null`
 #

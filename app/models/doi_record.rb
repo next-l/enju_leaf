@@ -3,13 +3,29 @@ class DoiRecord < ApplicationRecord
   validates :body, presence: true, uniqueness: true
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: doi_records
+# Table name: `doi_records`
 #
-#  id               :bigint           not null, primary key
-#  body             :string           not null
-#  manifestation_id :bigint           not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+# ### Columns
+#
+# Name                    | Type               | Attributes
+# ----------------------- | ------------------ | ---------------------------
+# **`id`**                | `bigint`           | `not null, primary key`
+# **`body`**              | `string`           | `not null`
+# **`created_at`**        | `datetime`         | `not null`
+# **`updated_at`**        | `datetime`         | `not null`
+# **`manifestation_id`**  | `bigint`           | `not null`
+#
+# ### Indexes
+#
+# * `index_doi_records_on_lower_body_manifestation_id` (_unique_):
+#     * **`lower((body)::text), manifestation_id`**
+# * `index_doi_records_on_manifestation_id`:
+#     * **`manifestation_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`manifestation_id => manifestations.id`**
 #

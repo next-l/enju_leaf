@@ -1,38 +1,38 @@
 FactoryBot.define do
   factory :admin, class: User do |f|
-    f.sequence(:username){|n| "admin_#{n}"}
-    f.sequence(:email){|n| "admin_#{n}@example.jp"}
+    f.sequence(:username) {|n| "admin_#{n}"}
+    f.sequence(:email) {|n| "admin_#{n}@example.jp"}
     f.password { 'adminpassword' }
     f.password_confirmation { 'adminpassword' }
     f.after(:create) do |user|
       user_has_role = UserHasRole.new
-      user_has_role.assign_attributes({user_id: user.id, role_id: Role.find_by(name: 'Administrator').id})
+      user_has_role.assign_attributes({ user_id: user.id, role_id: Role.find_by(name: 'Administrator').id })
       user_has_role.save
       user.reload
     end
   end
 
   factory :librarian, class: User do |f|
-    f.sequence(:username){|n| "librarian_#{n}"}
-    f.sequence(:email){|n| "librarian_#{n}@example.jp"}
+    f.sequence(:username) {|n| "librarian_#{n}"}
+    f.sequence(:email) {|n| "librarian_#{n}@example.jp"}
     f.password { 'librarianpassword' }
     f.password_confirmation { 'librarianpassword' }
     f.after(:create) do |user|
       user_has_role = UserHasRole.new
-      user_has_role.assign_attributes({user_id: user.id, role_id: Role.find_by(name: 'Librarian').id})
+      user_has_role.assign_attributes({ user_id: user.id, role_id: Role.find_by(name: 'Librarian').id })
       user_has_role.save
       user.reload
     end
   end
 
   factory :user, class: User do |f|
-    f.sequence(:username){|n| "user_#{n}"}
-    f.sequence(:email){|n| "user_#{n}@example.jp"}
+    f.sequence(:username) {|n| "user_#{n}"}
+    f.sequence(:email) {|n| "user_#{n}@example.jp"}
     f.password { 'userpassword' }
     f.password_confirmation { 'userpassword' }
     f.after(:create) do |user|
       user_has_role = UserHasRole.new
-      user_has_role.assign_attributes({user_id: user.id, role_id: Role.find_by(name: 'User').id})
+      user_has_role.assign_attributes({ user_id: user.id, role_id: Role.find_by(name: 'User').id })
       user_has_role.save
       user.reload
     end
@@ -42,22 +42,45 @@ FactoryBot.define do
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: users
+# Table name: `users`
 #
-#  id                     :bigint           not null, primary key
-#  email                  :string           default(""), not null
-#  encrypted_password     :string           default(""), not null
-#  reset_password_token   :string
-#  reset_password_sent_at :datetime
-#  remember_created_at    :datetime
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  username               :string
-#  expired_at             :datetime
-#  failed_attempts        :integer          default(0)
-#  unlock_token           :string
-#  locked_at              :datetime
-#  confirmed_at           :datetime
+# ### Columns
+#
+# Name                          | Type               | Attributes
+# ----------------------------- | ------------------ | ---------------------------
+# **`id`**                      | `bigint`           | `not null, primary key`
+# **`confirmed_at`**            | `datetime`         |
+# **`email`**                   | `string`           | `default(""), not null`
+# **`encrypted_password`**      | `string`           | `default(""), not null`
+# **`expired_at`**              | `datetime`         |
+# **`failed_attempts`**         | `integer`          | `default(0)`
+# **`locked_at`**               | `datetime`         |
+# **`remember_created_at`**     | `datetime`         |
+# **`reset_password_sent_at`**  | `datetime`         |
+# **`reset_password_token`**    | `string`           |
+# **`unlock_token`**            | `string`           |
+# **`username`**                | `string`           |
+# **`created_at`**              | `datetime`         | `not null`
+# **`updated_at`**              | `datetime`         | `not null`
+# **`profile_id`**              | `bigint`           | `not null`
+#
+# ### Indexes
+#
+# * `index_users_on_email`:
+#     * **`email`**
+# * `index_users_on_profile_id`:
+#     * **`profile_id`**
+# * `index_users_on_reset_password_token` (_unique_):
+#     * **`reset_password_token`**
+# * `index_users_on_unlock_token` (_unique_):
+#     * **`unlock_token`**
+# * `index_users_on_username` (_unique_):
+#     * **`username`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`profile_id => profiles.id`**
 #

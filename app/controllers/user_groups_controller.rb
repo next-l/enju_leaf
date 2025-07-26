@@ -1,7 +1,7 @@
 class UserGroupsController < ApplicationController
-  before_action :set_user_group, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :set_user_group, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :prepare_options, only: [ :new, :edit ]
 
   # GET /user_groups
   # GET /user_groups.json
@@ -37,7 +37,7 @@ class UserGroupsController < ApplicationController
 
     respond_to do |format|
       if @user_group.save
-        format.html { redirect_to @user_group, notice: t('controller.successfully_created', model: t('activerecord.models.user_group')) }
+        format.html { redirect_to @user_group, notice: t("controller.successfully_created", model: t("activerecord.models.user_group")) }
         format.json { render json: @user_group, status: :created, location: @user_group }
       else
         prepare_options
@@ -57,7 +57,7 @@ class UserGroupsController < ApplicationController
 
     respond_to do |format|
       if @user_group.update(user_group_params)
-        format.html { redirect_to @user_group, notice: t('controller.successfully_updated', model: t('activerecord.models.user_group')) }
+        format.html { redirect_to @user_group, notice: t("controller.successfully_updated", model: t("activerecord.models.user_group")) }
         format.json { head :no_content }
       else
         prepare_options
@@ -97,16 +97,16 @@ class UserGroupsController < ApplicationController
       :number_of_day_to_notify_due_date,
       :number_of_time_to_notify_overdue,
       # EnjuCirculation
-      {user_group_has_checkout_types_attributes: [
+      { user_group_has_checkout_types_attributes: [
         :id, :checkout_type_id, :checkout_limit, :checkout_period, :checkout_renewal_limit,
         :reservation_limit, :reservation_expired_period, :due_date_offset
-      ]}
+      ] }
     )
   end
 
   def prepare_options
     if defined?(EnjuCirculation)
-      @checkout_types = CheckoutType.select([:id, :display_name, :position])
+      @checkout_types = CheckoutType.select([ :id, :display_name, :position ])
     end
   end
 end

@@ -1,7 +1,7 @@
 class PictureFilesController < ApplicationController
-  before_action :set_picture_file, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
-  before_action :get_attachable, only: [:index, :new]
+  before_action :set_picture_file, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
+  before_action :get_attachable, only: [ :index, :new ]
   skip_before_action :store_current_location, only: :show
 
   # GET /picture_files
@@ -27,13 +27,19 @@ class PictureFilesController < ApplicationController
     end
   end
 
+  def download
+    picture_file = PictureFile.find(params[:picture_file_id])
+    authorize picture_file, policy_class: PictureFilePolicy
+    redirect_to rails_storage_proxy_url(picture_file.attachment)
+  end
+
   # GET /picture_files/new
   def new
     unless @attachable
       redirect_to picture_files_url
       return
     end
-    #raise unless @event or @manifestation or @shelf or @agent
+    # raise unless @event or @manifestation or @shelf or @agent
     @picture_file = PictureFile.new
     @picture_file.picture_attachable = @attachable
   end
@@ -49,7 +55,7 @@ class PictureFilesController < ApplicationController
 
     respond_to do |format|
       if @picture_file.save
-        format.html { redirect_to @picture_file, notice: t('controller.successfully_created', model: t('activerecord.models.picture_file')) }
+        format.html { redirect_to @picture_file, notice: t("controller.successfully_created", model: t("activerecord.models.picture_file")) }
         format.json { render json: @picture_file, status: :created, location: @picture_file }
       else
         format.html { render action: "new" }
@@ -85,7 +91,7 @@ class PictureFilesController < ApplicationController
 
     respond_to do |format|
       if @picture_file.update(picture_file_params)
-        format.html { redirect_to @picture_file, notice: t('controller.successfully_updated', model: t('activerecord.models.picture_file')) }
+        format.html { redirect_to @picture_file, notice: t("controller.successfully_updated", model: t("activerecord.models.picture_file")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -101,18 +107,18 @@ class PictureFilesController < ApplicationController
     @picture_file.destroy
 
     respond_to do |format|
-      flash[:notice] = t('controller.successfully_deleted', model: t('activerecord.models.picture_file'))
+      flash[:notice] = t("controller.successfully_deleted", model: t("activerecord.models.picture_file"))
       format.html {
         case attachable.class.name
-        when 'Manifestation'
+        when "Manifestation"
           redirect_to picture_files_url(manifestation_id: attachable.id)
-        when 'Agent'
+        when "Agent"
           redirect_to picture_files_url(agent_id: attachable.id)
-        when 'Shelf'
+        when "Shelf"
           redirect_to picture_files_url(shelf_id: attachable.id)
         else
           if defined?(EnjuEvent)
-            if attachable.class.name == 'Event'
+            if attachable.class.name == "Event"
               redirect_to picture_files_url(event_id: attachable.id)
             else
               redirect_to picture_files_url

@@ -1,48 +1,47 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('enju_loc.import_from_loc_search') %></h1>
-<div id="content_list">
-<p id="notice"><%= notice %></p>
-<%= form_for :loc_search, :url => loc_search_index_path, :html => {:method => 'get'} do -%>
-  <p>
-    <%= label_tag :search_form_top, t('page.search_term') -%>:
-    <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
-    <%= submit_tag t('page.search') -%>
-  </p>
-<%- end -%>
-<% if @query.present? %>
-<p><%= t('enju_loc.number_of_search_results', :count => @books.total_count) %></p>
-<table class="table table-striped index">
-  <tr>
-    <th></th>
-    <th><%= t('activerecord.attributes.manifestation.original_title') %></th>
-  </tr>
-<% @books.each do |book| -%>
-  <tr class="line<%= cycle("0", "1") -%>">
-    <td>
-      <%= link_to_import_from_loc(book.lccn) %>
-    </td>
-    <td>
-      <strong><%= link_to_unless( book.lccn.blank?, book.title, "http://lccn.loc.gov/#{ book.lccn }" ) do book.title end %></strong><br />
-      <%=h book.creator -%><br />
-      <% if book.publisher.present? %>
-      <%=h book.publisher -%>,
-      <% end %>
-      <%=h book.pubyear -%>
-      <% if book.isbn.present? %>
-      (ISBN: <%=h book.isbn -%>)
-      <% end %>
-    </td>
-  </tr>
-<% end -%>
-</table>
-<br />
-<%= paginate(@books) %>
+  <h1 class="title"><%= t('enju_loc.import_from_loc_search') %></h1>
+  <div id="content_list">
+    <p id="notice"><%= notice %></p>
+    <%= form_for :loc_search, :url => loc_search_index_path, :html => {:method => 'get'} do -%>
+      <p>
+        <%= label_tag :search_form_top, t('page.search_term') -%>:
+        <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form'} -%>
+        <%= submit_tag t('page.search') -%>
+      </p>
+    <%- end -%>
+    <% if @query.present? %>
+      <p><%= t('enju_loc.number_of_search_results', :count => @books.total_count) %></p>
+      <table class="table table-striped index">
+        <tr>
+          <th></th>
+          <th><%= t('activerecord.attributes.manifestation.original_title') %></th>
+        </tr>
+        <% @books.each do |book| -%>
+          <tr class="line<%= cycle("0", "1") -%>">
+            <td style="width: 15%">
+              <%= link_to_import_from_loc(book.lccn) %>
+            </td>
+            <td>
+              <strong><%= link_to_unless( book.lccn.blank?, book.title, "http://lccn.loc.gov/#{ book.lccn }" ) do book.title end %></strong><br />
+              <%= book.creator -%><br />
+              <% if book.publisher.present? %>
+              <%= book.publisher -%>,
+              <% end %>
+              <%= book.pubyear -%>
+              <% if book.isbn.present? %>
+              (ISBN: <%= book.isbn -%>)
+              <% end %>
+            </td>
+          </tr>
+        <% end -%>
+      </table>
 
-<% else %>
-  <%= javascript_tag("$(function(){$('#search_form_top').focus()})") -%>
-<% end %>
-
-</div>
+      <br />
+      <%= paginate(@books) %>
+    <% else %>
+      <%= javascript_tag("$(function(){$('#search_form_top').focus()})") -%>
+    <% end %>
+  </div>
 </div>
 
 <% if @query.present? %>

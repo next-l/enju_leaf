@@ -5,14 +5,30 @@ describe ReserveStatHasManifestation do
 
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: reserve_stat_has_manifestations
+# Table name: `reserve_stat_has_manifestations`
 #
-#  id                            :bigint           not null, primary key
-#  manifestation_reserve_stat_id :bigint           not null
-#  manifestation_id              :bigint           not null
-#  reserves_count                :integer
-#  created_at                    :datetime         not null
-#  updated_at                    :datetime         not null
+# ### Columns
+#
+# Name                                 | Type               | Attributes
+# ------------------------------------ | ------------------ | ---------------------------
+# **`id`**                             | `bigint`           | `not null, primary key`
+# **`reserves_count`**                 | `integer`          |
+# **`created_at`**                     | `datetime`         | `not null`
+# **`updated_at`**                     | `datetime`         | `not null`
+# **`manifestation_id`**               | `bigint`           | `not null`
+# **`manifestation_reserve_stat_id`**  | `bigint`           | `not null`
+#
+# ### Indexes
+#
+# * `index_reserve_stat_has_manifestations_on_m_reserve_stat_id`:
+#     * **`manifestation_reserve_stat_id`**
+# * `index_reserve_stat_has_manifestations_on_manifestation_id`:
+#     * **`manifestation_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`manifestation_id => manifestations.id`**
 #

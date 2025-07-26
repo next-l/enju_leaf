@@ -14,7 +14,7 @@ class NewsFeed < ApplicationRecord
 
   def fetch
     begin
-      feed = Faraday.get(url).body.force_encoding('UTF-8')
+      feed = Faraday.get(url).body.force_encoding("UTF-8")
       if RSS::Parser.parse(feed, false)
         self.body = feed
       end
@@ -25,11 +25,11 @@ class NewsFeed < ApplicationRecord
 
   def content
     if body
-    # tDiary の RSS をパースした際に to_s が空になる
-    # rss = RSS::Parser.parse(feed)
-    # rss.to_s
-    # => ""
-    # if rss.nil?
+      # tDiary の RSS をパースした際に to_s が空になる
+      # rss = RSS::Parser.parse(feed)
+      # rss.to_s
+      # => ""
+      # if rss.nil?
       begin
         rss = RSS::Parser.parse(body)
       rescue RSS::InvalidRSSError
@@ -37,7 +37,7 @@ class NewsFeed < ApplicationRecord
       rescue RSS::NotWellFormedError, TypeError
         nil
       end
-    # end
+      # end
     end
   end
 
@@ -52,16 +52,20 @@ class NewsFeed < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: news_feeds
+# Table name: `news_feeds`
 #
-#  id               :bigint           not null, primary key
-#  library_group_id :bigint           default(1), not null
-#  title            :string
-#  url              :string
-#  body             :text
-#  position         :integer
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+# ### Columns
+#
+# Name                    | Type               | Attributes
+# ----------------------- | ------------------ | ---------------------------
+# **`id`**                | `bigint`           | `not null, primary key`
+# **`body`**              | `text`             |
+# **`position`**          | `integer`          |
+# **`title`**             | `string`           |
+# **`url`**               | `string`           |
+# **`created_at`**        | `datetime`         | `not null`
+# **`updated_at`**        | `datetime`         | `not null`
+# **`library_group_id`**  | `bigint`           | `default(1), not null`
 #

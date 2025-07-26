@@ -1,6 +1,6 @@
 class CreatePurchaseRequests < ActiveRecord::Migration[6.1]
-  def change
-    create_table :purchase_requests do |t|
+  def up
+    create_table :purchase_requests, if_not_exists: true do |t|
       t.references :user, foreign_key: true, null: false
       t.text :title, null: false
       t.text :author
@@ -19,5 +19,9 @@ class CreatePurchaseRequests < ActiveRecord::Migration[6.1]
     end
 
     add_index :purchase_requests, :state
+  end
+
+  def down
+    drop_table :purchase_requests
   end
 end

@@ -16,15 +16,27 @@ class Produce < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: produces
+# Table name: `produces`
 #
-#  id               :bigint           not null, primary key
-#  agent_id         :bigint           not null
-#  manifestation_id :bigint           not null
-#  position         :integer
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  produce_type_id  :bigint
+# ### Columns
+#
+# Name                    | Type               | Attributes
+# ----------------------- | ------------------ | ---------------------------
+# **`id`**                | `bigint`           | `not null, primary key`
+# **`position`**          | `integer`          |
+# **`created_at`**        | `datetime`         | `not null`
+# **`updated_at`**        | `datetime`         | `not null`
+# **`agent_id`**          | `bigint`           | `not null`
+# **`manifestation_id`**  | `bigint`           | `not null`
+# **`produce_type_id`**   | `bigint`           |
+#
+# ### Indexes
+#
+# * `index_produces_on_agent_id`:
+#     * **`agent_id`**
+# * `index_produces_on_manifestation_id_and_agent_id` (_unique_):
+#     * **`manifestation_id`**
+#     * **`agent_id`**
 #

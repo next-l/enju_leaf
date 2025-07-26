@@ -35,7 +35,7 @@ describe Basket do
     checked_item_2.item = items(:item_00011)
     checked_item_2.save
     basket_1.basket_checkout(users(:librarian1))
-    lambda{basket_2.basket_checkout(users(:librarian1))}.should raise_exception ActiveRecord::RecordInvalid
+    lambda {basket_2.basket_checkout(users(:librarian1))}.should raise_exception ActiveRecord::RecordInvalid
     items(:item_00011).checkouts.order('id DESC').first.user.should eq users(:admin)
   end
 
@@ -50,16 +50,43 @@ describe Basket do
     basket.basket_checkout(users(:librarian1))
     checked_item.item.circulation_status.name.should eq 'On Loan'
   end
+
+  it "should checkout retained item" do
+    checkout = users(:user1).checkouts.order(:created_at).first
+    reserve = users(:user2).reserves.create!(manifestation: checkout.item.manifestation)
+    basket1 = Basket.new(user: users(:librarian1))
+    checkin = Checkin.create!(basket: basket1, librarian: users(:librarian1), item: checkout.item)
+    checkin.item_checkin(checkin.librarian)
+    basket2 = Basket.create!(user: users(:user2))
+    basket2.checked_items.create(item: checkout.item)
+    basket2.basket_checkout(basket2.user)
+    expect(checkout.item.circulation_status.name).to eq 'On Loan'
+    expect(checkout.item.manifestation.reserves.order(created_at: :desc).first.current_state).to eq 'completed'
+  end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: baskets
+# Table name: `baskets`
 #
-#  id           :bigint           not null, primary key
-#  user_id      :bigint
-#  note         :text
-#  lock_version :integer          default(0), not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+# ### Columns
+#
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`lock_version`**  | `integer`          | `default(0), not null`
+# **`note`**          | `text`             |
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
+# **`user_id`**       | `bigint`           |
+#
+# ### Indexes
+#
+# * `index_baskets_on_user_id`:
+#     * **`user_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

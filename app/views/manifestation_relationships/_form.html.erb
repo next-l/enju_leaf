@@ -1,10 +1,10 @@
-<%= form_for(@manifestation_relationship) do |f| %>
-  <%= error_messages(@manifestation_relationship) -%>
+<%= form_with(model: manifestation_relationship) do |f| %>
+  <%= error_messages(manifestation_relationship) -%>
 
   <div class="field">
-    <% if @manifestation_relationship.try(:parent) %>
+    <% if manifestation_relationship.try(:parent) %>
       <%= f.label :parent %><br />
-      <%= link_to @manifestation_relationship.parent.original_title, @manifestation_relationship.parent %>
+      <%= link_to manifestation_relationship.parent.original_title, manifestation_relationship.parent %>
       <%= f.hidden_field :parent_id %>
     <% else %>
       <%= f.label :parent %><br />
@@ -12,9 +12,9 @@
     <% end %>
   </div>
   <div class="field">
-    <% if @manifestation_relationship.child.try(:original_title) %>
+    <% if manifestation_relationship.child.try(:original_title) %>
       <%= f.label :child %><br />
-      <%= link_to @manifestation_relationship.child.original_title, @manifestation_relationship.child %>
+      <%= link_to manifestation_relationship.child.original_title, manifestation_relationship.child %>
       <%= f.hidden_field :child_id %>
     <% else %>
       <%= f.label :child %><br />

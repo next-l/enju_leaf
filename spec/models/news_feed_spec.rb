@@ -24,16 +24,20 @@ describe NewsFeed do
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: news_feeds
+# Table name: `news_feeds`
 #
-#  id               :bigint           not null, primary key
-#  library_group_id :bigint           default(1), not null
-#  title            :string
-#  url              :string
-#  body             :text
-#  position         :integer
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+# ### Columns
+#
+# Name                    | Type               | Attributes
+# ----------------------- | ------------------ | ---------------------------
+# **`id`**                | `bigint`           | `not null, primary key`
+# **`body`**              | `text`             |
+# **`position`**          | `integer`          |
+# **`title`**             | `string`           |
+# **`url`**               | `string`           |
+# **`created_at`**        | `datetime`         | `not null`
+# **`updated_at`**        | `datetime`         | `not null`
+# **`library_group_id`**  | `bigint`           | `default(1), not null`
 #

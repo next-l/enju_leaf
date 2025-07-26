@@ -1,6 +1,6 @@
 <%= render 'page/required_field' %>
-<%= form_for(@agent_type) do |f| %>
-  <%= error_messages(@agent_type) %>
+<%= form_with(model: agent_type) do |f| %>
+  <%= error_messages(agent_type) %>
 
   <div class="field">
     <%= f.label :name %><br />

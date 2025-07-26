@@ -9,15 +9,24 @@ class RequestType < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: request_types
+# Table name: `request_types`
 #
-#  id           :bigint           not null, primary key
-#  name         :string           not null
-#  display_name :text
-#  note         :text
-#  position     :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+# ### Columns
+#
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`display_name`**  | `text`             |
+# **`name`**          | `string`           | `not null`
+# **`note`**          | `text`             |
+# **`position`**      | `integer`          |
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
+#
+# ### Indexes
+#
+# * `index_request_types_on_lower_name` (_unique_):
+#     * **`lower((name)::text)`**
 #

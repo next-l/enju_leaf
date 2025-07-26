@@ -1,9 +1,9 @@
 class NewsPost < ApplicationRecord
   scope :published, -> { where(draft: false) }
-  scope :current, -> { where('start_date <= ? AND end_date >= ?', Time.zone.now, Time.zone.now) }
-  default_scope { order('news_posts.start_date DESC') }
+  scope :current, -> { where("start_date <= ? AND end_date >= ?", Time.zone.now, Time.zone.now) }
+  default_scope { order("news_posts.start_date DESC") }
   belongs_to :user
-  belongs_to :required_role, class_name: 'Role'
+  belongs_to :required_role, class_name: "Role"
 
   validates :title, :body, presence: true
   validate :check_date
@@ -30,21 +30,37 @@ class NewsPost < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: news_posts
+# Table name: `news_posts`
 #
-#  id               :bigint           not null, primary key
-#  title            :text
-#  body             :text
-#  user_id          :bigint
-#  start_date       :datetime
-#  end_date         :datetime
-#  required_role_id :bigint           default(1), not null
-#  note             :text
-#  position         :integer
-#  draft            :boolean          default(FALSE), not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  url              :string
+# ### Columns
+#
+# Name                    | Type               | Attributes
+# ----------------------- | ------------------ | ---------------------------
+# **`id`**                | `bigint`           | `not null, primary key`
+# **`body`**              | `text`             |
+# **`draft`**             | `boolean`          | `default(FALSE), not null`
+# **`end_date`**          | `datetime`         |
+# **`note`**              | `text`             |
+# **`position`**          | `integer`          |
+# **`start_date`**        | `datetime`         |
+# **`title`**             | `text`             |
+# **`url`**               | `string`           |
+# **`created_at`**        | `datetime`         | `not null`
+# **`updated_at`**        | `datetime`         | `not null`
+# **`required_role_id`**  | `bigint`           | `default(1), not null`
+# **`user_id`**           | `bigint`           | `not null`
+#
+# ### Indexes
+#
+# * `index_news_posts_on_user_id`:
+#     * **`user_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`required_role_id => roles.id`**
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

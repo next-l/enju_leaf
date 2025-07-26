@@ -1,5 +1,6 @@
 class ActiveStorage::Blobs::ProxyController < ActiveStorage::BaseController
   include ActiveStorage::SetBlob
+  include ActiveStorage::Streaming
   include Pundit::Authorization
 
   def show

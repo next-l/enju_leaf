@@ -20,8 +20,8 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch("POSTGRES_USER") %>
-  password: <%= ENV.fetch("POSTGRES_PASSWORD") %>
+  username: <%= ENV["POSTGRES_USER"] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
   host: <%= ENV.fetch("POSTGRES_HOST") { "localhost" } %>
 
 development:
@@ -83,7 +83,12 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: enju_leaf_production
-  username: enju_leaf
-  password: <%= ENV['ENJU_LEAF_DATABASE_PASSWORD'] %>
+  primary: &primary_production
+    <<: *default
+    database: enju_leaf_production
+    # username: enju_leaf
+    # password: <%= ENV['ENJU_LEAF_DATABASE_PASSWORD'] %>
+  queue:
+    <<: *primary_production
+    database: enju_leaf_production_queue
+    migrations_paths: db/queue_migrate

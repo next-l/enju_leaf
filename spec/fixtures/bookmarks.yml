@@ -40,17 +40,35 @@ bookmark_00005:
   note: ""
   created_at: 2007-11-21 21:40:28.457279 +09:00
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: bookmarks
+# Table name: `bookmarks`
 #
-#  id               :bigint           not null, primary key
-#  user_id          :bigint           not null
-#  manifestation_id :bigint
-#  title            :text
-#  url              :string
-#  note             :text
-#  shared           :boolean
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+# ### Columns
+#
+# Name                    | Type               | Attributes
+# ----------------------- | ------------------ | ---------------------------
+# **`id`**                | `bigint`           | `not null, primary key`
+# **`note`**              | `text`             |
+# **`shared`**            | `boolean`          |
+# **`title`**             | `text`             |
+# **`url`**               | `string`           |
+# **`created_at`**        | `datetime`         | `not null`
+# **`updated_at`**        | `datetime`         | `not null`
+# **`manifestation_id`**  | `bigint`           |
+# **`user_id`**           | `bigint`           | `not null`
+#
+# ### Indexes
+#
+# * `index_bookmarks_on_manifestation_id`:
+#     * **`manifestation_id`**
+# * `index_bookmarks_on_url`:
+#     * **`url`**
+# * `index_bookmarks_on_user_id`:
+#     * **`user_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

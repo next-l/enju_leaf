@@ -3,7 +3,7 @@ class Inventory < ApplicationRecord
   belongs_to :inventory_file
 
   validates :item_identifier, :current_shelf_name, presence: true
-  validates :item_id, :item_identifier, uniqueness: {scope: :inventory_file_id}
+  validates :item_id, :item_identifier, uniqueness: { scope: :inventory_file_id }
 
   paginates_per 10
 
@@ -22,28 +22,43 @@ class Inventory < ApplicationRecord
   end
 
   def lost
-    item.circulation_status = CirculationStatus.find_by(name: 'Missing')
+    item.circulation_status = CirculationStatus.find_by(name: "Missing")
   end
 
   def found
     if item.rended?
-      item.circulation_status = CirculationStatus.find_by(name: 'On Loan')
+      item.circulation_status = CirculationStatus.find_by(name: "On Loan")
     else
-      item.circulation_status = CirculationStatus.find_by(name: 'Available On Shelf')
+      item.circulation_status = CirculationStatus.find_by(name: "Available On Shelf")
     end
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: inventories
+# Table name: `inventories`
 #
-#  id                 :bigint           not null, primary key
-#  item_id            :bigint
-#  inventory_file_id  :bigint
-#  note               :text
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  item_identifier    :string
-#  current_shelf_name :string
+# ### Columns
+#
+# Name                      | Type               | Attributes
+# ------------------------- | ------------------ | ---------------------------
+# **`id`**                  | `bigint`           | `not null, primary key`
+# **`current_shelf_name`**  | `string`           |
+# **`item_identifier`**     | `string`           |
+# **`note`**                | `text`             |
+# **`created_at`**          | `datetime`         | `not null`
+# **`updated_at`**          | `datetime`         | `not null`
+# **`inventory_file_id`**   | `bigint`           |
+# **`item_id`**             | `bigint`           |
+#
+# ### Indexes
+#
+# * `index_inventories_on_current_shelf_name`:
+#     * **`current_shelf_name`**
+# * `index_inventories_on_inventory_file_id`:
+#     * **`inventory_file_id`**
+# * `index_inventories_on_item_id`:
+#     * **`item_id`**
+# * `index_inventories_on_item_identifier`:
+#     * **`item_identifier`**
 #
