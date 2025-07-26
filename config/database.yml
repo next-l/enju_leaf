@@ -83,7 +83,12 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: enju_leaf_production
-  username: enju_leaf
-  password: <%= ENV['ENJU_LEAF_DATABASE_PASSWORD'] %>
+  primary: &primary_production
+    <<: *default
+    database: enju_leaf_production
+    # username: enju_leaf
+    # password: <%= ENV['ENJU_LEAF_DATABASE_PASSWORD'] %>
+  queue:
+    <<: *primary_production
+    database: enju_leaf_production_queue
+    migrations_paths: db/queue_migrate

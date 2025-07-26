@@ -7,11 +7,17 @@ end
 # Table name: order_list_transitions
 #
 #  id            :bigint           not null, primary key
-#  to_state      :string
 #  metadata      :jsonb            not null
+#  most_recent   :boolean          not null
 #  sort_key      :integer
-#  order_list_id :integer
+#  to_state      :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  most_recent   :boolean          not null
+#  order_list_id :integer
+#
+# Indexes
+#
+#  index_order_list_transitions_on_order_list_id               (order_list_id)
+#  index_order_list_transitions_on_sort_key_and_order_list_id  (sort_key,order_list_id) UNIQUE
+#  index_order_list_transitions_parent_most_recent             (order_list_id,most_recent) UNIQUE WHERE most_recent
 #

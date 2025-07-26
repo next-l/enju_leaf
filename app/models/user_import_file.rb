@@ -312,15 +312,23 @@ end
 # Table name: user_import_files
 #
 #  id                      :bigint           not null, primary key
-#  user_id                 :bigint
-#  note                    :text
-#  executed_at             :datetime
-#  user_import_fingerprint :string
 #  edit_mode               :string
 #  error_message           :text
+#  executed_at             :datetime
+#  note                    :text
+#  user_encoding           :string
+#  user_import_fingerprint :string
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  user_encoding           :string
 #  default_library_id      :bigint
 #  default_user_group_id   :bigint
+#  user_id                 :bigint
+#
+# Indexes
+#
+#  index_user_import_files_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #

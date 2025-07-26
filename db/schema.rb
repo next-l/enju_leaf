@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_26_121509) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -286,10 +286,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "attachment_file_name"
-    t.string "attachment_content_type"
-    t.bigint "attachment_file_size"
-    t.datetime "attachment_updated_at", precision: nil
     t.index "lower((name)::text)", name: "index_carrier_types_on_lower_name", unique: true
   end
 
@@ -519,10 +515,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
 
   create_table "event_export_files", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "event_export_file_name"
-    t.string "event_export_content_type"
-    t.bigint "event_export_file_size"
-    t.datetime "event_export_updated_at", precision: nil
     t.datetime "executed_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -618,7 +610,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.string "body", null: false
     t.bigint "identifier_type_id", null: false
     t.bigint "manifestation_id"
-    t.boolean "primary"
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -678,14 +669,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
   end
 
   create_table "inventory_files", force: :cascade do |t|
+    t.string "filename"
     t.bigint "user_id"
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "inventory_file_name"
-    t.string "inventory_content_type"
-    t.integer "inventory_file_size"
-    t.datetime "inventory_updated_at", precision: nil
     t.string "inventory_fingerprint"
     t.bigint "shelf_id"
     t.index ["shelf_id"], name: "index_inventory_files_on_shelf_id"
@@ -885,10 +873,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.integer "pub_year_facet_range_interval", default: 10
     t.bigint "user_id"
     t.boolean "csv_charset_conversion", default: false, null: false
-    t.string "header_logo_file_name"
-    t.string "header_logo_content_type"
-    t.bigint "header_logo_file_size"
-    t.datetime "header_logo_updated_at", precision: nil
     t.string "email"
     t.index "lower((name)::text)", name: "index_library_groups_on_lower_name", unique: true
     t.index ["email"], name: "index_library_groups_on_email"
@@ -1029,10 +1013,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.integer "required_score", default: 0, null: false
     t.bigint "frequency_id", default: 1, null: false
     t.boolean "subscription_master", default: false, null: false
-    t.string "attachment_file_name"
-    t.string "attachment_content_type"
-    t.integer "attachment_file_size"
-    t.datetime "attachment_updated_at", precision: nil
     t.bigint "nii_type_id"
     t.text "title_alternative_transcription"
     t.text "description"
@@ -1250,13 +1230,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "picture_file_name"
-    t.string "picture_content_type"
-    t.integer "picture_file_size"
-    t.datetime "picture_updated_at", precision: nil
     t.string "picture_fingerprint"
     t.integer "picture_width"
-    t.integer "picture_height"
     t.index ["picture_attachable_id", "picture_attachable_type"], name: "index_picture_files_on_picture_attachable_id_and_type"
   end
 
@@ -1451,10 +1426,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
 
   create_table "resource_export_files", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "resource_export_file_name"
-    t.string "resource_export_content_type"
-    t.bigint "resource_export_file_size"
-    t.datetime "resource_export_updated_at", precision: nil
     t.datetime "executed_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -1847,10 +1818,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
 
   create_table "user_export_files", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "user_export_file_name"
-    t.string "user_export_content_type"
-    t.bigint "user_export_file_size"
-    t.datetime "user_export_updated_at", precision: nil
     t.datetime "executed_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

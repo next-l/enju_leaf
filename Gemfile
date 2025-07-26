@@ -116,7 +116,7 @@ gem 'webpacker', '~> 5.0'
 gem 'faraday-multipart'
 
 group :development, :test do
-  gem 'annotate'
+  gem 'annotaterb'
   gem 'database_consistency'
   gem 'rspec-rails'
   gem 'vcr'

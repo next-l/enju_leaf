@@ -10,11 +10,16 @@ end
 # Table name: creates
 #
 #  id             :bigint           not null, primary key
-#  agent_id       :bigint           not null
-#  work_id        :bigint           not null
 #  position       :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  agent_id       :bigint           not null
 #  create_type_id :bigint
 #  name           :text
+#  work_id        :bigint           not null
+#
+# Indexes
+#
+#  index_creates_on_agent_id              (agent_id)
+#  index_creates_on_work_id_and_agent_id  (work_id,agent_id) UNIQUE
 #

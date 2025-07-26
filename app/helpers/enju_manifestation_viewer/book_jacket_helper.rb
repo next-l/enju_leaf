@@ -8,11 +8,11 @@ module EnjuManifestationViewer
 
           link += if i == 0
                     link_to(show_image(picture_file, size: :thumb), rails_blob_url(picture_file.attachment), rel: "manifestation_#{manifestation.id}")
-                  else
+          else
                     content_tag :span, style: "display: none" do
                       link_to(show_image(picture_file, size: :thumb), rails_blob_url(picture_file.attachment), rel: "manifestation_#{manifestation.id}")
                     end
-                  end
+          end
         end
         return link.html_safe
       else
