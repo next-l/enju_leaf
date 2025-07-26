@@ -9,8 +9,8 @@ end
 # Table name: event_categories
 #
 #  id           :bigint           not null, primary key
-#  name         :string           not null
 #  display_name :text
+#  name         :string           not null
 #  note         :text
 #  position     :integer
 #  created_at   :datetime         not null

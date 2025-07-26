@@ -13,15 +13,15 @@ end
 # Table name: search_engines
 #
 #  id               :bigint           not null, primary key
-#  name             :string           not null
-#  display_name     :text
-#  url              :string           not null
-#  base_url         :text             not null
-#  http_method      :text             not null
-#  query_param      :text             not null
 #  additional_param :text
+#  base_url         :text             not null
+#  display_name     :text
+#  http_method      :text             not null
+#  name             :string           not null
 #  note             :text
 #  position         :integer
+#  query_param      :text             not null
+#  url              :string           not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
