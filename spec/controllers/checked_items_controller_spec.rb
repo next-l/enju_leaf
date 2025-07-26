@@ -232,7 +232,9 @@ describe CheckedItemsController do
         it 'assigns a newly created checked_item as @checked_item' do
           old_count = items(:item_00021).manifestation.reserves.waiting.count
           post :create, params: { checked_item: { item_identifier: '00021' }, basket_id: 11 }
-          assigns(:checked_item).should be_valid
+          expect(items(:item_00021).user_reservation(Basket.find(11).user)).to be_truthy
+          expect(assigns(:checked_item)).not_to be_valid
+          expect(assigns(:checked_item).errors[:base]).to include(I18n.t('activerecord.errors.messages.checked_item.reserved_item_included'))
           assigns(:checked_item).item.manifestation.reserves.waiting.count.should eq old_count
           assigns(:checked_item).librarian.should eq users(:admin)
         end

@@ -1,5 +1,5 @@
 class CreateSubjects < ActiveRecord::Migration[4.2]
-  def self.up
+  def up
     create_table :subjects do |t|
       t.references :parent, index: true
       t.integer :use_term_id
@@ -18,7 +18,7 @@ class CreateSubjects < ActiveRecord::Migration[4.2]
     add_index :subjects, :use_term_id
   end
 
-  def self.down
+  def down
     drop_table :subjects
   end
 end

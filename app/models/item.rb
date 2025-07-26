@@ -1,10 +1,10 @@
 class Item < ApplicationRecord
-  scope :available, -> { includes(:circulation_status).where.not('circulation_statuses.name' => 'Removed') }
-  scope :removed, -> { includes(:circulation_status).where('circulation_statuses.name' => 'Removed') }
-  scope :on_shelf, -> { available.includes(:shelf).references(:shelf).where.not(shelves: { name: 'web' }) }
-  scope :on_web, -> { available.includes(:shelf).references(:shelf).where('shelves.name = ?', 'web') }
-  scope :available_for, -> user {
-    unless user.try(:has_role?, 'Librarian')
+  scope :available, -> { includes(:circulation_status).where.not("circulation_statuses.name" => "Removed") }
+  scope :removed, -> { includes(:circulation_status).where("circulation_statuses.name" => "Removed") }
+  scope :on_shelf, -> { available.includes(:shelf).references(:shelf).where.not(shelves: { name: "web" }) }
+  scope :on_web, -> { available.includes(:shelf).references(:shelf).where("shelves.name = ?", "web") }
+  scope :available_for, ->(user) {
+    unless user.try(:has_role?, "Librarian")
       on_shelf
     end
   }
@@ -21,7 +21,7 @@ class Item < ApplicationRecord
   has_one :resource_import_result
   belongs_to :manifestation, touch: true
   belongs_to :bookstore, optional: true
-  belongs_to :required_role, class_name: 'Role'
+  belongs_to :required_role, class_name: "Role"
   belongs_to :budget_type, optional: true
   has_one :accept, dependent: :destroy
   has_one :withdraw, dependent: :destroy
@@ -30,22 +30,22 @@ class Item < ApplicationRecord
   belongs_to :shelf, counter_cache: true
   accepts_nested_attributes_for :item_custom_values, reject_if: :all_blank
 
-  scope :accepted_between, lambda{|from, to| includes(:accept).where('items.created_at BETWEEN ? AND ?', Time.zone.parse(from).beginning_of_day, Time.zone.parse(to).end_of_day)}
+  scope :accepted_between, lambda { |from, to| includes(:accept).where("items.created_at BETWEEN ? AND ?", Time.zone.parse(from).beginning_of_day, Time.zone.parse(to).end_of_day) }
   validates :item_identifier, allow_blank: true, uniqueness: true,
-    format: {with: /\A[0-9A-Za-z_]+\Z/}
+    format: { with: /\A[0-9A-Za-z_]+\Z/ }
   validates :binding_item_identifier, allow_blank: true,
-    format: {with: /\A[0-9A-Za-z_]+\Z/}
+    format: { with: /\A[0-9A-Za-z_]+\Z/ }
   validates :url, url: true, allow_blank: true, length: { maximum: 255 }
   validates :acquired_at, date: true, allow_blank: true
 
-  strip_attributes only: [:item_identifier, :binding_item_identifier,
-    :call_number, :binding_call_number, :url]
+  strip_attributes only: [ :item_identifier, :binding_item_identifier,
+    :call_number, :binding_call_number, :url ]
 
   searchable do
     text :item_identifier, :note, :title, :creator, :contributor, :publisher,
       :binding_item_identifier
     string :item_identifier, multiple: true do
-      [item_identifier, binding_item_identifier]
+      [ item_identifier, binding_item_identifier ]
     end
     integer :required_role_id
     integer :manifestation_id
@@ -95,7 +95,7 @@ class Item < ApplicationRecord
 
   def removable?
     if defined?(EnjuCirculation)
-      return false if circulation_status.name == 'Removed'
+      return false if circulation_status.name == "Removed"
       return false if checkouts.exists?
 
       true
@@ -104,11 +104,11 @@ class Item < ApplicationRecord
     end
   end
 
-  def self.csv_header(role: 'Guest')
+  def self.csv_header(role: "Guest")
     Item.new.to_hash(role: role).keys
   end
 
-  def to_hash(role: 'Guest')
+  def to_hash(role: "Guest")
     record = {
       item_id: id,
       item_identifier: item_identifier,
@@ -123,7 +123,7 @@ class Item < ApplicationRecord
       item_updated_at: updated_at
     }
 
-    if ['Administrator', 'Librarian'].include?(role)
+    if [ "Administrator", "Librarian" ].include?(role)
       record.merge!({
         bookstore: bookstore&.name,
         budget_type: budget_type&.name,
@@ -156,27 +156,43 @@ end
 # Table name: items
 #
 #  id                      :bigint           not null, primary key
-#  call_number             :string
-#  item_identifier         :string
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  shelf_id                :bigint           default(1), not null
-#  include_supplements     :boolean          default(FALSE), not null
-#  note                    :text
-#  url                     :string
-#  price                   :integer
-#  lock_version            :integer          default(0), not null
-#  required_role_id        :bigint           default(1), not null
-#  required_score          :integer          default(0), not null
 #  acquired_at             :datetime
-#  bookstore_id            :bigint
-#  budget_type_id          :bigint
-#  circulation_status_id   :bigint           default(5), not null
-#  checkout_type_id        :bigint           default(1), not null
-#  binding_item_identifier :string
-#  binding_call_number     :string
 #  binded_at               :datetime
-#  manifestation_id        :bigint           not null
+#  binding_call_number     :string
+#  binding_item_identifier :string
+#  call_number             :string
+#  include_supplements     :boolean          default(FALSE), not null
+#  item_identifier         :string
+#  lock_version            :integer          default(0), not null
 #  memo                    :text
 #  missing_since           :date
+#  note                    :text
+#  price                   :integer
+#  required_score          :integer          default(0), not null
+#  url                     :string
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  bookstore_id            :bigint
+#  budget_type_id          :bigint
+#  checkout_type_id        :bigint           default(1), not null
+#  circulation_status_id   :bigint           default(5), not null
+#  manifestation_id        :bigint           not null
+#  required_role_id        :bigint           default(1), not null
+#  shelf_id                :bigint           default(1), not null
+#
+# Indexes
+#
+#  index_items_on_binding_item_identifier  (binding_item_identifier)
+#  index_items_on_bookstore_id             (bookstore_id)
+#  index_items_on_checkout_type_id         (checkout_type_id)
+#  index_items_on_circulation_status_id    (circulation_status_id)
+#  index_items_on_item_identifier          (item_identifier) UNIQUE WHERE (((item_identifier)::text <> ''::text) AND (item_identifier IS NOT NULL))
+#  index_items_on_manifestation_id         (manifestation_id)
+#  index_items_on_required_role_id         (required_role_id)
+#  index_items_on_shelf_id                 (shelf_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (manifestation_id => manifestations.id)
+#  fk_rails_...  (required_role_id => roles.id)
 #

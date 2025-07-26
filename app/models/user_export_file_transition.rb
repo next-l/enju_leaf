@@ -1,7 +1,4 @@
 class UserExportFileTransition < ApplicationRecord
-  include Statesman::Adapters::ActiveRecordTransition
-
-  
   belongs_to :user_export_file, inverse_of: :user_export_file_transitions
 end
 
@@ -10,11 +7,18 @@ end
 # Table name: user_export_file_transitions
 #
 #  id                  :bigint           not null, primary key
-#  to_state            :string
-#  metadata            :text             default({})
+#  metadata            :jsonb            not null
+#  most_recent         :boolean          not null
 #  sort_key            :integer
-#  user_export_file_id :bigint
+#  to_state            :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
-#  most_recent         :boolean          not null
+#  user_export_file_id :bigint
+#
+# Indexes
+#
+#  index_user_export_file_transitions_on_file_id               (user_export_file_id)
+#  index_user_export_file_transitions_on_sort_key_and_file_id  (sort_key,user_export_file_id) UNIQUE
+#  index_user_export_file_transitions_on_user_export_file_id   (user_export_file_id)
+#  index_user_export_file_transitions_parent_most_recent       (user_export_file_id,most_recent) UNIQUE WHERE most_recent
 #

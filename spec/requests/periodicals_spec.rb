@@ -22,7 +22,7 @@ RSpec.describe "/periodicals", type: :request do
   }
 
   let(:invalid_attributes) {
-    {manifestation_id: nil}
+    { manifestation_id: nil }
   }
 
   fixtures :all

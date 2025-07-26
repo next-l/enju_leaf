@@ -1,5 +1,5 @@
 class Tag < ApplicationRecord
-  has_many :taggings, dependent: :destroy, class_name: 'ActsAsTaggableOn::Tagging'
+  has_many :taggings, dependent: :destroy, class_name: "ActsAsTaggableOn::Tagging"
   validates :name, presence: true
   after_destroy :save_taggings
   after_save :save_taggings
@@ -52,4 +52,8 @@ end
 #  taggings_count :integer          default(0)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#
+# Indexes
+#
+#  index_tags_on_name  (name) UNIQUE
 #

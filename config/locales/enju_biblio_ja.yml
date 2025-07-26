@@ -48,6 +48,7 @@ ja:
       manifestation_custom_value: 書誌カスタム項目の値
       item_custom_property: 所蔵カスタム項目
       item_custom_value: 所蔵カスタム項目の値
+      ndla_record: NDL典拠レコード
 
     attributes:
       manifestation:

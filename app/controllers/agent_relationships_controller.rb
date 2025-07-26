@@ -1,15 +1,15 @@
 class AgentRelationshipsController < ApplicationController
-  before_action :set_agent_relationship, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_agent_relationship, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
   before_action :get_agent
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :prepare_options, only: [ :new, :edit ]
 
   # GET /agent_relationships
   # GET /agent_relationships.json
   def index
     case
     when @agent
-      @agent_relationships = @agent.agent_relationships.order('agent_relationships.position').page(params[:page])
+      @agent_relationships = @agent.agent_relationships.order("agent_relationships.position").page(params[:page])
     else
       @agent_relationships = AgentRelationship.page(params[:page])
     end
@@ -49,7 +49,7 @@ class AgentRelationshipsController < ApplicationController
 
     respond_to do |format|
       if @agent_relationship.save
-        format.html { redirect_to @agent_relationship, notice: t('controller.successfully_created', model: t('activerecord.models.agent_relationship')) }
+        format.html { redirect_to @agent_relationship, notice: t("controller.successfully_created", model: t("activerecord.models.agent_relationship")) }
         format.json { render json: @agent_relationship, status: :created, location: @agent_relationship }
       else
         prepare_options
@@ -71,7 +71,7 @@ class AgentRelationshipsController < ApplicationController
 
     respond_to do |format|
       if @agent_relationship.update(agent_relationship_params)
-        format.html { redirect_to @agent_relationship, notice: t('controller.successfully_updated', model: t('activerecord.models.agent_relationship')) }
+        format.html { redirect_to @agent_relationship, notice: t("controller.successfully_updated", model: t("activerecord.models.agent_relationship")) }
         format.json { head :no_content }
       else
         prepare_options
@@ -88,7 +88,7 @@ class AgentRelationshipsController < ApplicationController
 
     respond_to do |format|
       format.html {
-        flash[:notice] = t('controller.successfully_deleted', model: t('activerecord.models.agent_relationship'))
+        flash[:notice] = t("controller.successfully_deleted", model: t("activerecord.models.agent_relationship"))
         if @agent
           redirect_to agents_url(agent_id: @agent.id)
         else

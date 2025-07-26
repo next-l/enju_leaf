@@ -8,8 +8,17 @@ end
 # Table name: ndla_records
 #
 #  id         :bigint           not null, primary key
-#  agent_id   :bigint
 #  body       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  agent_id   :bigint
+#
+# Indexes
+#
+#  index_ndla_records_on_agent_id  (agent_id)
+#  index_ndla_records_on_body      (body) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (agent_id => agents.id)
 #

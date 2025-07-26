@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
   authenticate :user, lambda {|u| u.role.try(:name) == 'Administrator' } do
-    mount Resque::Server.new, at: "/resque", as: :resque
+    mount MissionControl::Jobs::Engine, at: "/jobs"
   end
   resources :manifestations
   resources :items
-  resources :picture_files
+  resources :picture_files do
+    get :download
+  end
   resources :agents
   resources :manifestation_relationships
   resources :agent_relationships
@@ -165,6 +167,13 @@ Rails.application.routes.draw do
   get '/page/system_information' => 'page#system_information'
   get '/page/routing_error' => 'page#routing_error'
   match 'oai', to: "oai#index", via: [:get, :post]
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
+  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
+  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  get "up" => "rails/health#show", as: :rails_health_check
+
+  # Defines the root path route ("/")
   root :to => "page#index"
 end

@@ -72,8 +72,9 @@
         <tr>
           <td><%= t('page.identifier') -%>:</td>
           <td>
+            <%= render 'identifier', manifestation: manifestation %>
             <ul>
-              <% manifestation.identifiers.each do |identifier| %>
+              <% manifestation.identifiers.not_migrated.each do |identifier| %>
                 <li>
                   <%= identifier.identifier_type.display_name.localize %>:
                   <%= identifier_link(identifier) %>
@@ -145,6 +146,6 @@
     <%- if policy(Item).create? -%>
       <p><%= link_to t('page.new', model: t('activerecord.models.item')), new_item_path(manifestation_id: manifestation.id) -%></p>
     <%- end -%>
-    <%= render 'manifestations/tab_list', manifestation: manifestation %>
     </div>
+    <%= render 'manifestations/tab_list', manifestation: manifestation %>
   </div>

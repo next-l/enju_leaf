@@ -12,7 +12,7 @@ describe AgentImportFile do
       old_agents_count = Agent.count
       old_import_results_count = AgentImportResult.count
       @file.current_state.should eq 'pending'
-      @file.import_start.should eq({agent_imported: 3, user_imported: 0, failed: 0})
+      @file.import_start.should eq({ agent_imported: 3, user_imported: 0, failed: 0 })
       Agent.order('id DESC')[0].full_name.should eq '原田 ushi 隆史'
       Agent.order('id DESC')[1].full_name.should eq '田辺浩介'
       Agent.order('id DESC')[2].date_of_birth.should eq Time.zone.parse('1978-01-01')
@@ -36,7 +36,7 @@ describe AgentImportFile do
       old_agents_count = Agent.count
       old_import_results_count = AgentImportResult.count
       @file.current_state.should eq 'pending'
-      @file.import_start.should eq({agent_imported: 4, user_imported: 0, failed: 0})
+      @file.import_start.should eq({ agent_imported: 4, user_imported: 0, failed: 0 })
       Agent.count.should eq old_agents_count + 4
       Agent.order('id DESC')[0].full_name.should eq '原田 ushi 隆史'
       Agent.order('id DESC')[1].full_name.should eq '田辺浩介'
@@ -86,15 +86,30 @@ end
 #
 # Table name: agent_import_files
 #
-#  id                       :bigint           not null, primary key
-#  parent_id                :bigint
-#  user_id                  :bigint
-#  note                     :text
-#  executed_at              :datetime
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
-#  agent_import_fingerprint :string
-#  error_message            :text
-#  edit_mode                :string
-#  user_encoding            :string
+#  id                        :bigint           not null, primary key
+#  agent_import_content_type :string
+#  agent_import_file_name    :string
+#  agent_import_file_size    :integer
+#  agent_import_fingerprint  :string
+#  agent_import_updated_at   :datetime
+#  content_type              :string
+#  edit_mode                 :string
+#  error_message             :text
+#  executed_at               :datetime
+#  note                      :text
+#  size                      :integer
+#  user_encoding             :string
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  parent_id                 :bigint
+#  user_id                   :bigint
+#
+# Indexes
+#
+#  index_agent_import_files_on_parent_id  (parent_id)
+#  index_agent_import_files_on_user_id    (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #

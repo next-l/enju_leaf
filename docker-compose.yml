@@ -1,9 +1,6 @@
-version: '3.8'
-
 volumes:
   postgres:
   solr:
-  redis:
 
 networks:
   internal:
@@ -12,7 +9,7 @@ x-app: &app
   env_file:
     - .env
   environment:
-    - no_proxy: localhost,web,workers,tika
+    no_proxy: localhost,web,workers,tika
   build:
     context: .
     args:
@@ -27,7 +24,7 @@ x-app: &app
     - ./:/enju
   depends_on:
     - solr
-    - redis
+    - postgres
   restart: always
 
 services:
@@ -41,9 +38,18 @@ services:
 
   workers:
     <<: *app
+    command: bundle exec rake solid_queue:start
+
+  webpacker:
+    <<: *app
     environment:
-      - QUEUE=*
-    command: bundle exec rake resque:work
+      - NODE_ENV=development
+      - WEBPACKER_DEV_SERVER_HOST=127.0.0.1
+    command: ./bin/webpack-dev-server
+    ports:
+      - 127.0.0.1:3035:3035
+    profiles:
+      - develop
 
   solr:
     image: solr:8
@@ -81,44 +87,25 @@ services:
       timeout: 5s
       retries: 3
 
-  redis:
-    image: redis:6
-    volumes:
-      - redis:/data
-    command: redis-server --appendonly yes
-    networks:
-      internal:
-    expose:
-      - 6379
-    restart: always
-    healthcheck:
-      test: ["CMD-SHELL", "redis-cli ping"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-
   cantaloupe:
-    image: uclalibrary/cantaloupe:5.0.5-7
+    image: islandora/cantaloupe:4
     expose:
       - 8182
     restart: always
     environment:
-      no_proxy: localhost,web
-      SOURCE_STATIC: HttpSource
-      HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX: http://web:3000/picture_files/
-      HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_SUFFIX: '.download?size=original'
-      ENDPOINT_API_ENABLED: 'true'
-      BASE_URI: ${CANTALOUPE_BASE_URI}
+      - CANTALOUPE_HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX=http://web:3000/picture_files/
+      - CANTALOUPE_HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_SUFFIX=/download
+      - CANTALOUPE_ENDPOINT_API_ENABLED=true
     networks:
       internal:
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8182/health"]
+      test: ["CMD-SHELL", "curl -f http://cantaloupe:8182/health"]
       interval: 30s
       timeout: 20s
       retries: 3
 
   tika:
-    image: apache/tika:2.9.1.0
+    image: apache/tika:3.1.0.0
     expose:
       - 9998
     restart: always

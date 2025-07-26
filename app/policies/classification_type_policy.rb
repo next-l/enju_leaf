@@ -8,15 +8,15 @@ class ClassificationTypePolicy < ApplicationPolicy
   end
 
   def create?
-    true if user.try(:has_role?, 'Administrator')
+    true if user.try(:has_role?, "Administrator")
   end
 
   def update?
-    true if user.try(:has_role?, 'Administrator')
+    true if user.try(:has_role?, "Administrator")
   end
 
   def destroy?
-    if user.try(:has_role?, 'Administrator')
+    if user.try(:has_role?, "Administrator")
       true if record.classifications.empty?
     end
   end

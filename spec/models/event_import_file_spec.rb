@@ -18,7 +18,7 @@ describe EventImportFile do
       closing_days_size = Event.closing_days.size
       old_events_count = Event.count
       old_import_results_count = EventImportResult.count
-      expect(@file.import_start).to eq({imported: 2, failed: 2})
+      expect(@file.import_start).to eq({ imported: 2, failed: 2 })
       expect(Event.count).to eq old_events_count + 2
       expect(Event.closing_days.size).to eq closing_days_size + 1
       expect(EventImportResult.count).to eq old_import_results_count + 5
@@ -80,7 +80,7 @@ describe EventImportFile do
     it "should not be imported" do
       old_event_count = Event.count
       old_import_results_count = EventImportResult.count
-      lambda{@file.import_start}.should raise_error(RuntimeError)
+      lambda {@file.import_start}.should raise_error(RuntimeError)
       Event.count.should eq Event.count
       EventImportResult.count.should eq EventImportResult.count
     end
@@ -135,16 +135,27 @@ end
 # Table name: event_import_files
 #
 #  id                        :bigint           not null, primary key
-#  parent_id                 :bigint
-#  user_id                   :bigint
-#  note                      :text
-#  executed_at               :datetime
+#  content_type              :string
 #  edit_mode                 :string
+#  error_message             :text
+#  event_import_content_type :string
+#  event_import_file_name    :string
+#  event_import_file_size    :integer
+#  event_import_fingerprint  :string
+#  event_import_updated_at   :datetime
+#  executed_at               :datetime
+#  note                      :text
+#  size                      :integer
+#  user_encoding             :string
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
-#  event_import_fingerprint  :string
-#  error_message             :text
-#  user_encoding             :string
-#  default_library_id        :bigint
 #  default_event_category_id :bigint
+#  default_library_id        :bigint
+#  parent_id                 :bigint
+#  user_id                   :bigint
+#
+# Indexes
+#
+#  index_event_import_files_on_parent_id  (parent_id)
+#  index_event_import_files_on_user_id    (user_id)
 #

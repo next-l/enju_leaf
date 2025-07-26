@@ -9,8 +9,17 @@ end
 # Table name: ncid_records
 #
 #  id               :bigint           not null, primary key
-#  manifestation_id :bigint           not null
 #  body             :string           not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  manifestation_id :bigint           not null
+#
+# Indexes
+#
+#  index_ncid_records_on_body              (body) UNIQUE
+#  index_ncid_records_on_manifestation_id  (manifestation_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (manifestation_id => manifestations.id)
 #

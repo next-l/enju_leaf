@@ -1,7 +1,4 @@
 class UserReserveStatTransition < ApplicationRecord
-  include Statesman::Adapters::ActiveRecordTransition
-
-  
   belongs_to :user_reserve_stat, inverse_of: :user_reserve_stat_transitions
 end
 
@@ -10,11 +7,17 @@ end
 # Table name: user_reserve_stat_transitions
 #
 #  id                   :bigint           not null, primary key
-#  to_state             :string
-#  metadata             :text             default({})
+#  metadata             :jsonb            not null
+#  most_recent          :boolean          not null
 #  sort_key             :integer
-#  user_reserve_stat_id :bigint
+#  to_state             :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
-#  most_recent          :boolean          not null
+#  user_reserve_stat_id :bigint
+#
+# Indexes
+#
+#  index_user_reserve_stat_transitions_on_sort_key_and_stat_id  (sort_key,user_reserve_stat_id) UNIQUE
+#  index_user_reserve_stat_transitions_on_user_reserve_stat_id  (user_reserve_stat_id)
+#  index_user_reserve_stat_transitions_parent_most_recent       (user_reserve_stat_id,most_recent) UNIQUE WHERE most_recent
 #

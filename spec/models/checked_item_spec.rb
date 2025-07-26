@@ -20,7 +20,6 @@ describe CheckedItem do
   it "should checkout an item that its reservation is expired" do
     item = items(:item_00024)
     reserve = FactoryBot.create(:reserve, manifestation: item.manifestation)
-    reserve.transition_to!(:requested)
     reserve.transition_to!(:expired)
     checked_item = CheckedItem.new
     checked_item.item = item
@@ -34,11 +33,24 @@ end
 # Table name: checked_items
 #
 #  id           :bigint           not null, primary key
-#  item_id      :bigint           not null
-#  basket_id    :bigint           not null
-#  librarian_id :bigint
 #  due_date     :datetime         not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  basket_id    :bigint           not null
+#  item_id      :bigint           not null
+#  librarian_id :bigint
 #  user_id      :bigint
+#
+# Indexes
+#
+#  index_checked_items_on_basket_id              (basket_id)
+#  index_checked_items_on_item_id_and_basket_id  (item_id,basket_id) UNIQUE
+#  index_checked_items_on_librarian_id           (librarian_id)
+#  index_checked_items_on_user_id                (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (basket_id => baskets.id)
+#  fk_rails_...  (item_id => items.id)
+#  fk_rails_...  (user_id => users.id)
 #

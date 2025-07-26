@@ -1,6 +1,6 @@
 class Identity < ApplicationRecord
   belongs_to :profile
-  validates :name, presence: true, uniqueness: {scope: :provider}
+  validates :name, presence: true, uniqueness: { scope: :provider }
   validates :provider, presence: true
 
   def self.find_for_oauth(auth)
@@ -13,11 +13,17 @@ end
 # Table name: identities
 #
 #  id              :bigint           not null, primary key
-#  name            :string           not null
 #  email           :string
+#  name            :string           not null
 #  password_digest :string
-#  profile_id      :bigint
+#  provider        :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  provider        :string
+#  profile_id      :bigint
+#
+# Indexes
+#
+#  index_identities_on_email       (email)
+#  index_identities_on_name        (name)
+#  index_identities_on_profile_id  (profile_id)
 #
