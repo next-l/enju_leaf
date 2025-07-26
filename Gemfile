@@ -108,6 +108,7 @@ gem 'oai'
 gem 'active_storage_validations'
 gem 'webpacker', '~> 5.0'
 gem 'faraday-multipart'
+gem 'nkf'
 
 group :development, :test do
   gem 'annotaterb'

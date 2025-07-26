@@ -285,6 +285,7 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.4)
+    nkf (0.2.0)
     nokogiri (1.18.9-x86_64-linux-gnu)
       racc (~> 1.4)
     nori (2.7.1)
@@ -611,6 +612,7 @@ DEPENDENCIES
   library_stdnums
   lisbn
   mission_control-jobs (~> 0.5.0)
+  nkf
   oai
   parallel_tests
   pg (~> 1.1)
