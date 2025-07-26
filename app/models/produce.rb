@@ -27,6 +27,7 @@ end
 #  agent_id         :bigint           not null
 #  manifestation_id :bigint           not null
 #  produce_type_id  :bigint
+#  name             :text
 #
 # Indexes
 #

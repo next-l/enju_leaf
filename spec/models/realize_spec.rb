@@ -16,6 +16,7 @@ end
 #  agent_id        :bigint           not null
 #  expression_id   :bigint           not null
 #  realize_type_id :bigint
+#  name            :text
 #
 # Indexes
 #

@@ -42,11 +42,6 @@ end
 #  email                         :string
 #  family_name_first             :boolean          default(TRUE)
 #  footer_banner                 :text
-#  header_logo_content_type      :string
-#  header_logo_file_name         :string
-#  header_logo_file_size         :bigint
-#  header_logo_meta              :text
-#  header_logo_updated_at        :datetime
 #  html_snippet                  :text
 #  login_banner                  :text
 #  max_number_of_results         :integer          default(1000)
