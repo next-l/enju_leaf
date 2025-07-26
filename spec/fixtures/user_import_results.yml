@@ -17,10 +17,15 @@ two:
 # Table name: user_import_results
 #
 #  id                  :bigint           not null, primary key
-#  user_import_file_id :bigint
-#  user_id             :bigint
 #  body                :text
+#  error_message       :text
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
-#  error_message       :text
+#  user_id             :bigint
+#  user_import_file_id :bigint
+#
+# Indexes
+#
+#  index_user_import_results_on_user_id              (user_id)
+#  index_user_import_results_on_user_import_file_id  (user_import_file_id)
 #

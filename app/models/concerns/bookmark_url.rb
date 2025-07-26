@@ -5,7 +5,7 @@ module BookmarkUrl
       raise ::Addressable::URI::InvalidURIError
     end
     config_url = ::Addressable::URI.parse(LibraryGroup.site_config.url)
-    if url.host == config_url.host and url.port == config_url.port and ['http', 'https'].include?(url.scheme)
+    if url.host == config_url.host and url.port == config_url.port and [ "http", "https" ].include?(url.scheme)
       true
     else
       false

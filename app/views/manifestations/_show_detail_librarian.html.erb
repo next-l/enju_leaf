@@ -73,7 +73,7 @@
           <td>
             <%= render 'identifier', manifestation: manifestation %>
             <ul>
-              <% manifestation.identifiers.each do |identifier| %>
+              <% manifestation.identifiers.not_migrated.each do |identifier| %>
                 <li>
                   <%= identifier.identifier_type.display_name.localize %>:
                   <%= identifier_link(identifier) %>

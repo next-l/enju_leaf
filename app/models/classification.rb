@@ -7,7 +7,7 @@ class Classification < ApplicationRecord
     text :category, :note
     integer :classification_type_id
   end
-  strip_attributes only: [:category, :url]
+  strip_attributes only: [ :category, :url ]
 
   paginates_per 10
 end
@@ -17,15 +17,22 @@ end
 # Table name: classifications
 #
 #  id                     :bigint           not null, primary key
-#  parent_id              :bigint
 #  category               :string           not null
+#  label                  :string
+#  lft                    :integer
 #  note                   :text
-#  classification_type_id :bigint           not null
+#  rgt                    :integer
+#  url                    :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  lft                    :integer
-#  rgt                    :integer
+#  classification_type_id :bigint           not null
 #  manifestation_id       :bigint
-#  url                    :string
-#  label                  :string
+#  parent_id              :bigint
+#
+# Indexes
+#
+#  index_classifications_on_category                (category)
+#  index_classifications_on_classification_type_id  (classification_type_id)
+#  index_classifications_on_manifestation_id        (manifestation_id)
+#  index_classifications_on_parent_id               (parent_id)
 #

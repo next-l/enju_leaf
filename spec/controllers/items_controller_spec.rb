@@ -333,6 +333,12 @@ describe ItemsController do
         expect(assigns(:item)).to_not be_valid
         expect(response).to be_successful
       end
+
+      it 'should create item already reserved' do
+        post :create, params: { item: @attrs.merge(manifestation_id: 11) }
+        expect(assigns(:item)).to be_valid
+        expect(response).to redirect_to(item_url(assigns(:item)))
+      end
     end
 
     describe 'When logged in as Librarian' do
@@ -350,7 +356,7 @@ describe ItemsController do
         end
 
         it 'accepts custom values' do
-          post :create, params: { item: @attrs.merge(item_custom_values_attributes: Array.new(3){FactoryBot.attributes_for(:item_custom_value, item_custom_property_id: FactoryBot.create(:item_custom_property).id)}) }
+          post :create, params: { item: @attrs.merge(item_custom_values_attributes: Array.new(3) {FactoryBot.attributes_for(:item_custom_value, item_custom_property_id: FactoryBot.create(:item_custom_property).id)}) }
           expect(assigns(:item)).to be_valid
           expect(assigns(:item).item_custom_values.count).to eq 3
         end
@@ -473,7 +479,7 @@ describe ItemsController do
 
         it 'accepts custom values' do
           @item.item_custom_values << FactoryBot.build(:item_custom_value)
-          put :update, params: { id: @item.id, item: @attrs.merge(item_custom_values_attributes: [{id: @item.item_custom_values.first.id, value: 'test'}]) }
+          put :update, params: { id: @item.id, item: @attrs.merge(item_custom_values_attributes: [ { id: @item.item_custom_values.first.id, value: 'test' } ]) }
           expect(assigns(:item)).to be_valid
           expect(assigns(:item).item_custom_values.count).to eq 1
           expect(assigns(:item).item_custom_values.first.value).to eq 'test'
@@ -481,7 +487,7 @@ describe ItemsController do
 
         it 'accepts custom values when the value is empty' do
           @item.item_custom_values << FactoryBot.build(:item_custom_value)
-          put :update, params: { id: @item.id, item: @attrs.merge(item_custom_values_attributes: [{id: @item.item_custom_values.first.id, value: ''}]) }
+          put :update, params: { id: @item.id, item: @attrs.merge(item_custom_values_attributes: [ { id: @item.item_custom_values.first.id, value: '' } ]) }
           expect(assigns(:item)).to be_valid
           expect(assigns(:item).item_custom_values.count).to eq 1
           expect(assigns(:item).item_custom_values.first.value).to eq ''
