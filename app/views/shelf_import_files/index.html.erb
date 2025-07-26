@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Shelf import files</h1>
+
+<div id="shelf_import_files">
+  <% @shelf_import_files.each do |shelf_import_file| %>
+    <%= render shelf_import_file %>
+    <p>
+      <%= link_to "Show this shelf import file", shelf_import_file %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New shelf import file", new_shelf_import_file_path %>

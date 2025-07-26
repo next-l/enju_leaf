@@ -46,6 +46,16 @@ class Shelf < ApplicationRecord
 
     self.position = library.shelves.count.positive? ? library.shelves.last.position + 1 : 1
   end
+
+  def self.import_shelf(row)
+    shelf = Shelf.new(
+      name: row['name'],
+      display_name: row['display_name'],
+      library: Library.find_by(name: row['library']),
+      note: note,
+      closed: ActiveRecord::Type::Boolean.new.cast(row['closed'])
+    )
+  end
 end
 
 # == Schema Information
