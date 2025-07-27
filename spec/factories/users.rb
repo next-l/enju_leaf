@@ -4,6 +4,7 @@ FactoryBot.define do
     f.sequence(:email) {|n| "admin_#{n}@example.jp"}
     f.password { 'adminpassword' }
     f.password_confirmation { 'adminpassword' }
+    f.association :profile, required_role_id: 4
     f.after(:create) do |user|
       user_has_role = UserHasRole.new
       user_has_role.assign_attributes({ user_id: user.id, role_id: Role.find_by(name: 'Administrator').id })
@@ -17,6 +18,7 @@ FactoryBot.define do
     f.sequence(:email) {|n| "librarian_#{n}@example.jp"}
     f.password { 'librarianpassword' }
     f.password_confirmation { 'librarianpassword' }
+    f.association :profile, required_role_id: 3
     f.after(:create) do |user|
       user_has_role = UserHasRole.new
       user_has_role.assign_attributes({ user_id: user.id, role_id: Role.find_by(name: 'Librarian').id })
@@ -30,6 +32,7 @@ FactoryBot.define do
     f.sequence(:email) {|n| "user_#{n}@example.jp"}
     f.password { 'userpassword' }
     f.password_confirmation { 'userpassword' }
+    f.association :profile
     f.after(:create) do |user|
       user_has_role = UserHasRole.new
       user_has_role.assign_attributes({ user_id: user.id, role_id: Role.find_by(name: 'User').id })
@@ -39,6 +42,7 @@ FactoryBot.define do
   end
 
   factory :invalid_user, class: User do |f|
+    f.association :profile
   end
 end
 
@@ -60,11 +64,17 @@ end
 #  username               :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  profile_id             :bigint           not null
 #
 # Indexes
 #
 #  index_users_on_email                 (email)
+#  index_users_on_profile_id            (profile_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_unlock_token          (unlock_token) UNIQUE
 #  index_users_on_username              (username) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (profile_id => profiles.id)
 #

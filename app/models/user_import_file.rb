@@ -51,8 +51,10 @@ class UserImportFile < ApplicationRecord
         import_result.save
         num[:user_found] += 1
       else
-        new_user = User.new
-        new_user.role = Role.find_by(name: row["role"])
+        new_user = User.new(
+          username: username,
+          role: Role.find_by(name: row["role"])
+        )
         if new_user.role
           unless user.has_role?(new_user.role.name)
             num[:failed] += 1
@@ -61,7 +63,6 @@ class UserImportFile < ApplicationRecord
         else
           new_user.role = Role.find(2) # User
         end
-        new_user.username = username
         new_user.assign_attributes(set_user_params(row))
 
         if row["password"].to_s.strip.present?
@@ -72,10 +73,10 @@ class UserImportFile < ApplicationRecord
 
         profile = Profile.new
         profile.assign_attributes(set_profile_params(row))
+        new_user.profile = profile
 
         Profile.transaction do
           if new_user.valid? && profile.valid?
-            new_user.profile = profile
             import_result.user = new_user
             import_result.save!
             num[:user_imported] += 1
