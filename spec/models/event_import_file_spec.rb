@@ -146,7 +146,7 @@ end
 #  default_event_category_id :bigint
 #  default_library_id        :bigint
 #  parent_id                 :bigint
-#  user_id                   :bigint
+#  user_id                   :bigint           not null
 #
 # Indexes
 #

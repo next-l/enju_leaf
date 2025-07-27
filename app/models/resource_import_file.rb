@@ -187,6 +187,8 @@ class ResourceImportFile < ApplicationRecord
       import_result.manifestation = manifestation
 
       if manifestation
+        manifestation.reload
+
         ResourceImportFile.import_manifestation_custom_value(row, manifestation).each do |value|
           value.update!(manifestation: manifestation)
         end
@@ -913,7 +915,7 @@ end
 #  updated_at                  :datetime         not null
 #  default_shelf_id            :bigint
 #  parent_id                   :bigint
-#  user_id                     :bigint
+#  user_id                     :bigint           not null
 #
 # Indexes
 #

@@ -31,7 +31,7 @@ end
 #  executed_at :datetime
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  user_id     :bigint
+#  user_id     :bigint           not null
 #
 # Foreign Keys
 #

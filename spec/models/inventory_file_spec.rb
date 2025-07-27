@@ -22,13 +22,12 @@ end
 # Table name: inventory_files
 #
 #  id                    :bigint           not null, primary key
-#  filename              :string
 #  inventory_fingerprint :string
 #  note                  :text
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  shelf_id              :bigint
-#  user_id               :bigint
+#  user_id               :bigint           not null
 #
 # Indexes
 #

@@ -88,6 +88,10 @@ production:
     database: enju_leaf_production
     # username: enju_leaf
     # password: <%= ENV['ENJU_LEAF_DATABASE_PASSWORD'] %>
+  cache:
+    <<: *primary_production
+    database: enju_leaf_production_cache
+    migrations_paths: db/cache_migrate
   queue:
     <<: *primary_production
     database: enju_leaf_production_queue
