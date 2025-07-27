@@ -4,7 +4,7 @@ FactoryBot.define do
     f.sequence(:email) {|n| "admin_#{n}@example.jp"}
     f.password { 'adminpassword' }
     f.password_confirmation { 'adminpassword' }
-    f.association :profile
+    f.association :profile, required_role_id: Role.find_by(name: 'Administrator').id
     f.after(:create) do |user|
       user_has_role = UserHasRole.new
       user_has_role.assign_attributes({ user_id: user.id, role_id: Role.find_by(name: 'Administrator').id })
@@ -18,7 +18,7 @@ FactoryBot.define do
     f.sequence(:email) {|n| "librarian_#{n}@example.jp"}
     f.password { 'librarianpassword' }
     f.password_confirmation { 'librarianpassword' }
-    f.association :profile
+    f.association :profile, required_role_id: Role.find_by(name: 'Librarian').id
     f.after(:create) do |user|
       user_has_role = UserHasRole.new
       user_has_role.assign_attributes({ user_id: user.id, role_id: Role.find_by(name: 'Librarian').id })

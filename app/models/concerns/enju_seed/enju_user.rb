@@ -28,10 +28,10 @@ module EnjuSeed
           within: Devise::password_length
       end
 
-      before_validation :set_lock_information
       before_destroy :check_role_before_destroy
       before_save :check_expiration
       after_create :set_confirmation
+      after_save :set_lock_information
 
       extend FriendlyId
       friendly_id :username

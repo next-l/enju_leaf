@@ -128,14 +128,15 @@ describe UserImportFile do
 
     it "should not overwrite with null value" do
       user = User.where(username: 'user001').first
-      user.profile = FactoryBot.create(:profile,
+      user.profile.update!(
         user_number: '001',
         full_name: 'User 001',
         full_name_transcription: 'User 001',
         locale: 'ja',
         note: 'Note',
         keyword_list: 'keyword1 keyword2',
-        date_of_birth: 10.years.ago)
+        date_of_birth: 10.years.ago
+      )
       file = UserImportFile.create!(
         attachment: fixture_file_upload("user_update_file2.tsv"),
         user: users(:admin),
