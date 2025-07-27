@@ -178,8 +178,8 @@ module EnjuSeed
     # @return [Object]
     def check_role_before_destroy
       if has_role?("Administrator")
-        if Role.find_by(name: "Administrator").users.count == 1
-          raise username + "This is the last administrator in this system."
+        if Role.find_by(name: "Administrator").users.count == 0
+          raise "#{username} is the last administrator in this system."
         end
       end
     end
