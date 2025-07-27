@@ -70,7 +70,7 @@ ja:
         checkout_renewal_limit: 貸出更新回数の上限
         reservation_limit: 予約数の上限
         reservation_expired_period: 予約の期限切れまでの期間
-        set_due_date_before_closing_day: 返却日を閉館日の前日にする
+        due_date_offset: 返却期限日が閉館日の場合の設定
         fixed_due_date: 固定貸出期限
         note: 注記
         position: 位置
