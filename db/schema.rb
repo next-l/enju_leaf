@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_26_143606) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_27_021342) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1835,6 +1835,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_143606) do
     t.index ["librarian_id"], name: "index_withdraws_on_librarian_id"
   end
 
+  add_foreign_key "accepts", "users", column: "librarian_id"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "agent_import_files", "users"
@@ -1846,7 +1847,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_143606) do
   add_foreign_key "checked_items", "baskets"
   add_foreign_key "checked_items", "items"
   add_foreign_key "checked_items", "users"
+  add_foreign_key "checked_items", "users", column: "librarian_id"
   add_foreign_key "checkins", "items"
+  add_foreign_key "checkins", "users", column: "librarian_id"
   add_foreign_key "checkout_stat_has_manifestations", "manifestations"
   add_foreign_key "checkout_stat_has_users", "user_checkout_stats"
   add_foreign_key "checkout_stat_has_users", "users"
@@ -1855,11 +1858,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_143606) do
   add_foreign_key "checkouts", "libraries"
   add_foreign_key "checkouts", "shelves"
   add_foreign_key "checkouts", "users"
+  add_foreign_key "checkouts", "users", column: "librarian_id"
   add_foreign_key "demands", "items"
   add_foreign_key "demands", "messages"
   add_foreign_key "demands", "users"
   add_foreign_key "doi_records", "manifestations"
   add_foreign_key "event_export_files", "users"
+  add_foreign_key "event_import_files", "users"
   add_foreign_key "events", "event_categories"
   add_foreign_key "import_requests", "users"
   add_foreign_key "inventory_files", "shelves"
@@ -1916,4 +1921,5 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_143606) do
   add_foreign_key "user_import_files", "users"
   add_foreign_key "user_reserve_stats", "users"
   add_foreign_key "users", "profiles"
+  add_foreign_key "withdraws", "users", column: "librarian_id"
 end
