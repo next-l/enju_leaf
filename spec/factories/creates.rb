@@ -16,6 +16,7 @@ end
 #  updated_at     :datetime         not null
 #  agent_id       :bigint           not null
 #  create_type_id :bigint
+#  name           :text
 #  work_id        :bigint           not null
 #
 # Indexes
