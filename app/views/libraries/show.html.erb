@@ -133,6 +133,7 @@
       <li><%= link_to t('page.new', model: t('activerecord.models.event')), new_event_path(library_id: @library.id) -%></li>
     <%- end -%>
   <%- end -%>
+  <li><%= link_to "連番を作成する", new_library_barcode_path(library_id: @library.name) -%></li>
   <li><%= link_to t('page.listing', model: t('activerecord.models.library')), libraries_path -%></li>
   </ul>
 </div>
