@@ -450,7 +450,7 @@ class Manifestation < ApplicationRecord
     isbn_record = IsbnRecord.find_by(body: isbn)
     return unless isbn_record
 
-    isbn_record.manifestations.order(created_at: :first).first
+    isbn_record.manifestations.order(:created_at).first
   end
 
   def index_series_statement
