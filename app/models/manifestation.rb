@@ -442,8 +442,15 @@ class Manifestation < ApplicationRecord
     end
   end
 
+  # ISBNで検索する
+  # @param isbn [Strinng]
+  # @return [Manifestation]
   def self.find_by_isbn(isbn)
     IsbnRecord.find_by(body: isbn)&.manifestations
+    isbn_record = IsbnRecord.find_by(body: isbn)
+    return unless isbn_record
+
+    isbn_record.manifestations.first
   end
 
   def index_series_statement
