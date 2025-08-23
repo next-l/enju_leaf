@@ -1710,6 +1710,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_27_021342) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "current_checkout_count"
+    t.integer "due_date_offset", default: 1, null: false
     t.index ["checkout_type_id"], name: "index_user_group_has_checkout_types_on_checkout_type_id"
     t.index ["user_group_id", "checkout_type_id"], name: "index_user_group_has_checkout_types_on_user_group_id", unique: true
   end

@@ -81,15 +81,12 @@ class CheckedItem < ApplicationRecord
     return nil unless item_checkout_type
 
     if due_date_string.present?
+      # 返却期限日を明示的に指定した場合
       date = Time.zone.parse(due_date_string).try(:end_of_day)
     else
       # 返却期限日が閉館日の場合
       if item.shelf.library.closed?(item_checkout_type.checkout_period.days.from_now)
-        if item_checkout_type.set_due_date_before_closing_day
-          date = (item_checkout_type.checkout_period - 1).days.from_now.end_of_day
-        else
-          date = (item_checkout_type.checkout_period + 1).days.from_now.end_of_day
-        end
+        date = (item_checkout_type.checkout_period + item_checkout_type.due_date_offset + 1).days.from_now.end_of_day
       else
         date = (item_checkout_type.checkout_period + 1).days.from_now.end_of_day
       end

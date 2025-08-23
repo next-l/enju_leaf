@@ -72,7 +72,7 @@ en:
         checkout_renewal_limit: Checkout renewal limit
         reservation_limit: Reservation limit
         reservation_expired_period: Reservation expired period
-        set_due_date_before_closing_day: Set due date before the closing day
+        due_date_offset: Due date offset for closing day
         fixed_due_date: Fixed due date
         note: Note
         position: Position
