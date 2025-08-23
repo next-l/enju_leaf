@@ -278,6 +278,10 @@ describe Manifestation, solr: true do
     manifestation.attachment.attach(io: File.open("spec/fixtures/files/resource_import_file_sample1.tsv"), filename: 'sample.txt')
     expect(manifestation.extract_text).to match(/資料ID/)
   end
+
+  it 'should respond to find_by_isbn' do
+    expect(Manifestation.find_by_isbn('9784797340044').id).to eq 193
+  end
 end
 
 # == Schema Information
