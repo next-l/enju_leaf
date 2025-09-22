@@ -75,5 +75,5 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   config.active_job.queue_adapter     = :solid_queue
-  config.active_job.queue_name_prefix = "enju_rdm_development"
+  config.active_job.queue_name_prefix = "enju_leaf_development"
 end
