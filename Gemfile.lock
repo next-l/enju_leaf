@@ -524,7 +524,7 @@ GEM
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
-    statesman (12.1.0)
+    statesman (13.0.0)
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.1.7)
@@ -650,7 +650,7 @@ DEPENDENCIES
   sitemap_generator
   solid_queue (~> 1.0)
   sprockets-rails
-  statesman (~> 12.1)
+  statesman (~> 13.0)
   strip_attributes
   sunspot_rails (~> 2.7)
   tzinfo-data
@@ -660,7 +660,7 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 RUBY VERSION
-   ruby 3.2.9p265
+   ruby 3.3.9p170
 
 BUNDLED WITH
-   2.4.19
+   2.5.22
