@@ -25,8 +25,19 @@ default: &default
   host: <%= ENV.fetch("POSTGRES_HOST") { "localhost" } %>
 
 development:
-  <<: *default
-  database: enju_leaf_development
+  primary:
+    <<: *default
+    database: enju_leaf_development
+    # username: enju_leaf
+    # password: <%= ENV['ENJU_LEAF_DATABASE_PASSWORD'] %>
+  cache:
+    <<: *default
+    database: enju_leaf_development_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *default
+    database: enju_leaf_development_queue
+    migrations_paths: db/queue_migrate
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
