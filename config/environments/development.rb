@@ -76,4 +76,5 @@ Rails.application.configure do
 
   config.active_job.queue_adapter     = :solid_queue
   config.active_job.queue_name_prefix = "enju_leaf_development"
+  config.solid_queue.connects_to = { database: { writing: :queue } }
 end
