@@ -76,7 +76,6 @@ end
 gem 'devise'
 gem 'pundit'
 gem 'sunspot_rails', '~> 2.7'
-gem 'kt-paperclip'
 gem 'acts_as_list'
 gem 'kaminari'
 gem 'strip_attributes'
@@ -98,7 +97,7 @@ gem 'addressable'
 gem 'progress_bar'
 gem 'rails_autolink'
 gem 'kramdown'
-gem 'solid_queue', "~> 1.0"
+gem 'solid_queue'
 gem 'mission_control-jobs', "~> 0.5.0"
 gem 'acts-as-taggable-on'
 gem 'resync' # , github: 'nabeta/resync', branch: 'add-datetime'

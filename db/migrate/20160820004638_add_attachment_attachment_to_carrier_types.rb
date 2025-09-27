@@ -1,11 +1,10 @@
 class AddAttachmentAttachmentToCarrierTypes < ActiveRecord::Migration[4.2]
-  def up
+  def change
     change_table :carrier_types do |t|
-      t.attachment :attachment
+      t.string :attachment_content_type
+      t.string :attachment_file_name
+      t.bigint :attachment_file_size
+      t.datetime :attachment_updated_at
     end
-  end
-
-  def down
-    remove_attachment :carrier_types, :attachment
   end
 end
