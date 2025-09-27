@@ -12,7 +12,7 @@
     "@types/react": "*",
     "dnd-core": "^16.0.1",
     "i18next": "^25.4.1",
-    "mirador": "^4.0.0-rc.3",
+    "mirador": "^4.0.0-rc.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-i18next": "^15.0.0",
