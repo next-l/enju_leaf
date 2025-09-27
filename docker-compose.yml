@@ -71,7 +71,7 @@ services:
       retries: 3
 
   postgres:
-    image: postgres:13
+    image: postgres:17
     volumes:
       - postgres:/var/lib/postgresql/data
     networks:
