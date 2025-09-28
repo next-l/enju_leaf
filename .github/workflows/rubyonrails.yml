@@ -44,7 +44,7 @@ jobs:
         run: cp .env.test.ci .env.test && cp .env.test .env && cp docker-compose.ci.yml docker-compose.override.yml && docker compose up -d solr tika
       # Add or replace database setup steps here
       - name: Set up database schema
-        run: bin/rails db:prepare
+        run: bin/rails db:schema:load
       - name: Generate asset files
         run: bin/rake assets:precompile
       - name: Run tests
