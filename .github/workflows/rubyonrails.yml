@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:13-alpine
+        image: postgres:17
         ports:
           - "5432:5432"
         env:
@@ -27,7 +27,7 @@ jobs:
       NODE_OPTIONS: --openssl-legacy-provider
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup node
         uses: actions/setup-node@v4
         with:
@@ -38,13 +38,13 @@ jobs:
         with:
           bundler-cache: true
       - name: Install dependencies
-        run: yarn install && sudo apt-get install libvips42
+        run: yarn install && sudo apt-get update -qq && sudo apt-get install libvips42
       # Add or replace test runners here
       - name: Start containers
         run: cp .env.test.ci .env.test && cp .env.test .env && cp docker-compose.ci.yml docker-compose.override.yml && docker compose up -d solr tika
       # Add or replace database setup steps here
       - name: Set up database schema
-        run: bin/rails db:schema:load
+        run: bin/rails db:create && bin/rails db:schema:load
       - name: Generate asset files
         run: bin/rake assets:precompile
       - name: Run tests
@@ -60,7 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:

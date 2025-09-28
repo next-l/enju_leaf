@@ -58,7 +58,7 @@ services:
       retries: 3
 
   postgres:
-    image: postgres:13
+    image: postgres:17
     volumes:
       - postgres:/var/lib/postgresql/data
     networks:
@@ -75,7 +75,7 @@ services:
       retries: 3
 
   cantaloupe:
-    image: islandora/cantaloupe:4
+    image: islandora/cantaloupe:4.3
     expose:
       - 8182
     restart: always
@@ -92,7 +92,7 @@ services:
       retries: 3
 
   tika:
-    image: apache/tika:3.1.0.0
+    image: apache/tika:3.2.3.0
     expose:
       - 9998
     restart: always

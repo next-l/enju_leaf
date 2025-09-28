@@ -43,13 +43,6 @@ module EnjuManifestationViewer
       return nil unless manifestation
 
       case generator
-      when "amazon"
-        return nil unless LibraryGroup.site_config.amazon_hostname
-
-        book_jacket = manifestation.amazon_book_jacket
-        if book_jacket
-          link_to image_tag(book_jacket[:url], width: book_jacket[:width], height: book_jacket[:height], alt: manifestation.original_title, class: "book_jacket", itemprop: "image"), "https://#{LibraryGroup.site_config.amazon_hostname}/dp/#{book_jacket[:asin]}"
-        end
       when "google"
         render partial: "manifestations/google_book_thumbnail", locals: { manifestation: manifestation }
       when "hanmotocom"
@@ -59,18 +52,10 @@ module EnjuManifestationViewer
       end
     end
 
-    def amazon_link(asin, hostname = LibraryGroup.site_config.amazon_hostname)
-      return nil if asin.blank?
-
-      "https://#{hostname}/dp/#{asin}"
-    end
-
     def book_jacket_source_link(source = LibraryGroup.site_config.book_jacket_source)
       case source
       when "google"
         link_to "Google Books", "https://books.google.com/"
-      when "amazon"
-        link_to "Amazon Web Services", "https://aws.amazon.com/"
       end
     end
 

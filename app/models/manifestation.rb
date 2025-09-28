@@ -442,8 +442,15 @@ class Manifestation < ApplicationRecord
     end
   end
 
+  # ISBNで検索する
+  # @param isbn [Strinng]
+  # @return [Manifestation]
   def self.find_by_isbn(isbn)
     IsbnRecord.find_by(body: isbn)&.manifestations
+    isbn_record = IsbnRecord.find_by(body: isbn)
+    return unless isbn_record
+
+    isbn_record.manifestations.order(:created_at).first
   end
 
   def index_series_statement
@@ -724,11 +731,6 @@ end
 #  id                              :bigint           not null, primary key
 #  abstract                        :text
 #  access_address                  :string
-#  attachment_content_type         :string
-#  attachment_file_name            :string
-#  attachment_file_size            :integer
-#  attachment_meta                 :text
-#  attachment_updated_at           :datetime
 #  available_at                    :datetime
 #  classification_number           :string
 #  date_accepted                   :datetime

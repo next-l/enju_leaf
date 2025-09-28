@@ -1,10 +1,10 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.2.8"
+ruby "3.3.9"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1.5", ">= 7.1.5.1"
+gem "rails", "~> 7.2.2"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -29,12 +29,6 @@ gem "cssbundling-rails"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
-
-# Use Redis adapter to run Action Cable in production
-gem "redis", ">= 4.0.1"
-
-# Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
-# gem "kredis"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -76,7 +70,6 @@ end
 gem 'devise'
 gem 'pundit'
 gem 'sunspot_rails', '~> 2.7'
-gem 'kt-paperclip'
 gem 'acts_as_list'
 gem 'kaminari'
 gem 'strip_attributes'
@@ -98,6 +91,7 @@ gem 'addressable'
 gem 'progress_bar'
 gem 'rails_autolink'
 gem 'kramdown'
+gem 'solid_cache'
 gem 'solid_queue', "~> 1.0"
 gem 'mission_control-jobs', "~> 0.5.0"
 gem 'acts-as-taggable-on'
@@ -114,6 +108,7 @@ gem 'oai'
 gem 'active_storage_validations'
 gem 'faraday-multipart'
 gem "sass-embedded"
+gem 'nkf'
 
 group :development, :test do
   gem 'annotaterb'
@@ -121,7 +116,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'vcr'
   gem 'webmock'
-  gem 'factory_bot_rails', '~> 6.4.0'
+  gem 'factory_bot_rails'
   gem 'rails-controller-testing'
   gem 'simplecov'
   gem 'parallel_tests'

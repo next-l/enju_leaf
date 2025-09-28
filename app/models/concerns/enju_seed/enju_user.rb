@@ -6,7 +6,7 @@ module EnjuSeed
       scope :administrators, -> { joins(:role).where("roles.name = ?", "Administrator") }
       scope :librarians, -> { joins(:role).where("roles.name = ? OR roles.name = ?", "Administrator", "Librarian") }
       scope :suspended, -> { where.not(locked_at: nil) }
-      has_one :profile, dependent: :nullify
+      belongs_to :profile
       if defined?(EnjuBiblio)
         has_many :import_requests, dependent: :restrict_with_exception
         has_many :picture_files, as: :picture_attachable, dependent: :destroy
@@ -28,10 +28,10 @@ module EnjuSeed
           within: Devise::password_length
       end
 
-      before_validation :set_lock_information
       before_destroy :check_role_before_destroy
       before_save :check_expiration
       after_create :set_confirmation
+      after_save :set_lock_information
 
       extend FriendlyId
       friendly_id :username
@@ -178,8 +178,8 @@ module EnjuSeed
     # @return [Object]
     def check_role_before_destroy
       if has_role?("Administrator")
-        if Role.find_by(name: "Administrator").users.count == 1
-          raise username + "This is the last administrator in this system."
+        if Role.find_by(name: "Administrator").users.count == 0
+          raise "#{username} is the last administrator in this system."
         end
       end
     end
