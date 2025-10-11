@@ -402,9 +402,9 @@ GEM
       io-console (~> 0.5)
     request_store (1.7.0)
       rack (>= 1.4)
-    responders (3.1.1)
-      actionpack (>= 5.2)
-      railties (>= 5.2)
+    responders (3.2.0)
+      actionpack (>= 7.0)
+      railties (>= 7.0)
     resync (0.4.6)
       mime-types (~> 3.0)
       typesafe_enum (~> 0.1, >= 0.1.5)
@@ -638,7 +638,7 @@ DEPENDENCIES
   solid_cache
   solid_queue (~> 1.0)
   sprockets-rails
-  statesman (~> 13.0)
+  statesman (~> 13.1)
   strip_attributes
   sunspot_rails (~> 2.7)
   tzinfo-data
