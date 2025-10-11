@@ -9,7 +9,7 @@ class CheckedItem < ApplicationRecord
   validate :available_for_checkout?, on: :create
   validates :due_date_string, format: { with: /\A\[{0,1}\d+([\/-]\d{0,2}){0,2}\]{0,1}\z/ }, allow_blank: true
   validate :check_due_date
- 
+
   before_validation :set_item
   before_validation :set_due_date, on: :create
   strip_attributes only: :item_identifier
@@ -63,7 +63,7 @@ class CheckedItem < ApplicationRecord
     if checkout_count[:"#{checkout_type.name}"] >= item_checkout_type.checkout_limit
       errors.add(:base, I18n.t("activerecord.errors.messages.checked_item.excessed_checkout_limit"))
     end
-    
+
     if errors[:base].empty?
       true
     else
@@ -123,11 +123,24 @@ end
 # Table name: checked_items
 #
 #  id           :bigint           not null, primary key
-#  item_id      :bigint           not null
-#  basket_id    :bigint           not null
-#  librarian_id :bigint
 #  due_date     :datetime         not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  basket_id    :bigint           not null
+#  item_id      :bigint           not null
+#  librarian_id :bigint
 #  user_id      :bigint
+#
+# Indexes
+#
+#  index_checked_items_on_basket_id              (basket_id)
+#  index_checked_items_on_item_id_and_basket_id  (item_id,basket_id) UNIQUE
+#  index_checked_items_on_librarian_id           (librarian_id)
+#  index_checked_items_on_user_id                (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (basket_id => baskets.id)
+#  fk_rails_...  (item_id => items.id)
+#  fk_rails_...  (user_id => users.id)
 #

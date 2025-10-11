@@ -70,9 +70,17 @@ end
 # Table name: baskets
 #
 #  id           :bigint           not null, primary key
-#  user_id      :bigint
-#  note         :text
 #  lock_version :integer          default(0), not null
+#  note         :text
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  user_id      :bigint
+#
+# Indexes
+#
+#  index_baskets_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #

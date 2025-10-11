@@ -5,14 +5,6 @@ FactoryBot.define do
     f.sequence(:user_number) {|n| "user_number_#{n}"}
     f.library_id { 2 }
     f.locale { "ja" }
-    factory :librarian_profile, class: Profile do |profile|
-      profile.required_role_id {Role.where(name: 'Librarian').first.id}
-      profile.association :user, factory: :librarian
-    end
-    factory :admin_profile, class: Profile do |profile|
-      profile.required_role_id {Role.where(name: 'Administrator').first.id}
-      profile.association :user, factory: :admin
-    end
   end
 end
 
@@ -21,21 +13,31 @@ end
 # Table name: profiles
 #
 #  id                       :bigint           not null, primary key
-#  user_id                  :bigint
-#  user_group_id            :bigint
-#  library_id               :bigint
-#  locale                   :string
-#  user_number              :string
+#  checkout_icalendar_token :string
+#  date_of_birth            :datetime
+#  expired_at               :datetime
 #  full_name                :text
-#  note                     :text
+#  full_name_transcription  :text
 #  keyword_list             :text
-#  required_role_id         :bigint
+#  locale                   :string
+#  note                     :text
+#  save_checkout_history    :boolean          default(FALSE), not null
+#  share_bookmarks          :boolean
+#  user_number              :string
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
-#  checkout_icalendar_token :string
-#  save_checkout_history    :boolean          default(FALSE), not null
-#  expired_at               :datetime
-#  share_bookmarks          :boolean
-#  full_name_transcription  :text
-#  date_of_birth            :datetime
+#  library_id               :bigint
+#  required_role_id         :bigint
+#  user_group_id            :bigint
+#
+# Indexes
+#
+#  index_profiles_on_checkout_icalendar_token  (checkout_icalendar_token) UNIQUE
+#  index_profiles_on_library_id                (library_id)
+#  index_profiles_on_user_group_id             (user_group_id)
+#  index_profiles_on_user_number               (user_number) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (required_role_id => roles.id)
 #

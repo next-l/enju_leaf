@@ -25,8 +25,19 @@ default: &default
   host: <%= ENV.fetch("POSTGRES_HOST") { "localhost" } %>
 
 development:
-  <<: *default
-  database: enju_leaf_development
+  primary:
+    <<: *default
+    database: enju_leaf_development
+    # username: enju_leaf
+    # password: <%= ENV['ENJU_LEAF_DATABASE_PASSWORD'] %>
+  cache:
+    <<: *default
+    database: enju_leaf_development_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *default
+    database: enju_leaf_development_queue
+    migrations_paths: db/queue_migrate
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -59,8 +70,13 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: enju_leaf_test
+  primary:
+    <<: *default
+    database: enju_leaf_test
+  queue:
+    <<: *default
+    database: enju_leaf_test_queue
+    migrations_paths: db/queue_migrate
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -83,7 +99,16 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: enju_leaf_production
-  username: enju_leaf
-  password: <%= ENV['ENJU_LEAF_DATABASE_PASSWORD'] %>
+  primary: &primary_production
+    <<: *default
+    database: enju_leaf_production
+    # username: enju_leaf
+    # password: <%= ENV['ENJU_LEAF_DATABASE_PASSWORD'] %>
+  cache:
+    <<: *primary_production
+    database: enju_leaf_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: enju_leaf_production_queue
+    migrations_paths: db/queue_migrate

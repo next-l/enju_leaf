@@ -52,7 +52,7 @@ class ManifestationCustomPropertiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+  # Use callbacks to share common setup or constraints between actions.
   def set_manifestation_custom_property
     @manifestation_custom_property = ManifestationCustomProperty.find(params[:id])
     authorize @manifestation_custom_property
@@ -62,7 +62,7 @@ class ManifestationCustomPropertiesController < ApplicationController
     authorize ManifestationCustomProperty
   end
 
-    # Only allow a trusted parameter "white list" through.
+  # Only allow a trusted parameter "white list" through.
   def manifestation_custom_property_params
     params.require(:manifestation_custom_property).permit(:name, :display_name, :note)
   end

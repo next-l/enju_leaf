@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ main, 1.4 ]
+    branches: [ main, 1.5 ]
     tags:
     - 'v*'
 
@@ -13,17 +13,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - uses: docker/metadata-action@v5
       id: meta
       with:
         images: |
-          enju_leaf
+          ghcr.io/${{ github.repository }}
+          ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}
         tags: |
-          type=ref,event=branch
-          type=ref,event=pr
           type=semver,pattern={{version}}
           type=semver,pattern={{major}}.{{minor}}
+          type=raw,value=latest,enable={{is_default_branch}}
     - name: Login to Docker Hub
       uses: docker/login-action@v3
       with:
@@ -35,11 +35,17 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    - name: Build and push Docker images
+    - name: Build and push Docker images to Docker Hub
       uses: docker/build-push-action@v6
       with:
         push: true
         tags: |
-          projectnextl/${{ steps.meta.outputs.tags }}
-          ghcr.io/next-l/${{ steps.meta.outputs.tags }}
+          ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+    - name: Build and push Docker images to GitHub Container Registry
+      uses: docker/build-push-action@v6
+      with:
+        push: true
+        tags: |
+          ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}

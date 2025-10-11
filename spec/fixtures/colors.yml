@@ -29,10 +29,14 @@ color_00004:
 # Table name: colors
 #
 #  id               :bigint           not null, primary key
-#  library_group_id :bigint
-#  property         :string
 #  code             :string
 #  position         :integer
+#  property         :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  library_group_id :bigint
+#
+# Indexes
+#
+#  index_colors_on_library_group_id  (library_group_id)
 #

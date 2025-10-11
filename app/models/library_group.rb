@@ -13,8 +13,7 @@ class LibraryGroup < ApplicationRecord
   }
   accepts_nested_attributes_for :colors, update_only: true
   store_accessor :settings,
-    :book_jacket_unknown_resource,
-    :amazon_hostname
+    :book_jacket_unknown_resource
 
   translates :login_banner, :footer_banner
   globalize_accessors
@@ -64,33 +63,34 @@ end
 # Table name: library_groups
 #
 #  id                            :bigint           not null, primary key
-#  name                          :string           not null
-#  display_name                  :text
-#  short_name                    :string           not null
-#  my_networks                   :text
-#  old_login_banner              :text
-#  note                          :text
-#  country_id                    :bigint
-#  position                      :integer
-#  created_at                    :datetime         not null
-#  updated_at                    :datetime         not null
 #  admin_networks                :text
 #  allow_bookmark_external_url   :boolean          default(FALSE), not null
-#  url                           :string           default("http://localhost:3000/")
-#  settings                      :jsonb            not null
-#  html_snippet                  :text
 #  book_jacket_source            :string
-#  max_number_of_results         :integer          default(1000)
-#  family_name_first             :boolean          default(TRUE)
-#  screenshot_generator          :string
-#  pub_year_facet_range_interval :integer          default(10)
-#  user_id                       :bigint
 #  csv_charset_conversion        :boolean          default(FALSE), not null
-#  header_logo_file_name         :string
-#  header_logo_content_type      :string
-#  header_logo_file_size         :bigint
-#  header_logo_updated_at        :datetime
+#  display_name                  :text
 #  email                         :string
-#  login_banner                  :text
+#  family_name_first             :boolean          default(TRUE)
 #  footer_banner                 :text
+#  html_snippet                  :text
+#  login_banner                  :text
+#  max_number_of_results         :integer          default(1000)
+#  my_networks                   :text
+#  name                          :string           not null
+#  note                          :text
+#  old_login_banner              :text
+#  position                      :integer
+#  pub_year_facet_range_interval :integer          default(10)
+#  screenshot_generator          :string
+#  settings                      :jsonb            not null
+#  short_name                    :string           not null
+#  url                           :string           default("http://localhost:3000/")
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
+#  country_id                    :bigint
+#
+# Indexes
+#
+#  index_library_groups_on_email       (email)
+#  index_library_groups_on_lower_name  (lower((name)::text)) UNIQUE
+#  index_library_groups_on_short_name  (short_name)
 #
