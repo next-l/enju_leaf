@@ -9,7 +9,7 @@ x-app: &app
   env_file:
     - .env
   environment:
-    no_proxy: localhost,web,workers,tika
+    no_proxy: localhost,web,queue,tika
   build:
     context: .
     args:
@@ -36,9 +36,9 @@ services:
     expose:
       - 3000
 
-  workers:
+  queue:
     <<: *app
-    command: bundle exec rake solid_queue:start
+    command: bash -c "bin/jobs"
 
   webpacker:
     <<: *app
