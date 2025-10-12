@@ -5,20 +5,20 @@ class Reserve < ApplicationRecord
   ]
   scope :hold, -> { where.not(item_id: nil) }
   scope :not_hold, -> { where(item_id: nil) }
-  scope :waiting, -> {not_in_state(:completed, :canceled, :expired).where('canceled_at IS NULL AND (expired_at > ? OR expired_at IS NULL)', Time.zone.now).order('reserves.id')}
-  scope :retained, -> {in_state(:retained).where.not(retained_at: nil)}
-  scope :completed, -> {in_state(:completed).where.not(checked_out_at: nil)}
-  scope :canceled, -> {in_state(:canceled).where.not(canceled_at: nil)}
-  scope :postponed, -> {in_state(:postponed).where.not(postponed_at: nil)}
-  scope :will_expire_retained, lambda {|datetime| in_state(:retained).where('checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ?', datetime).order('expired_at')}
-  scope :will_expire_pending, lambda {|datetime| in_state(:pending).where('checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ?', datetime).order('expired_at')}
-  scope :created, lambda {|start_date, end_date| where('created_at >= ? AND created_at < ?', start_date, end_date)}
-  scope :not_sent_expiration_notice_to_patron, -> {in_state(:expired).where(expiration_notice_to_patron: false)}
-  scope :not_sent_expiration_notice_to_library, -> {in_state(:expired).where(expiration_notice_to_library: false)}
-  scope :sent_expiration_notice_to_patron, -> {in_state(:expired).where(expiration_notice_to_patron: true)}
-  scope :sent_expiration_notice_to_library, -> {in_state(:expired).where(expiration_notice_to_library: true)}
-  scope :not_sent_cancel_notice_to_patron, -> {in_state(:canceled).where(expiration_notice_to_patron: false)}
-  scope :not_sent_cancel_notice_to_library, -> {in_state(:canceled).where(expiration_notice_to_library: false)}
+  scope :waiting, -> { not_in_state(:completed, :canceled, :expired).where("canceled_at IS NULL AND (expired_at > ? OR expired_at IS NULL)", Time.zone.now).order("reserves.created_at") }
+  scope :retained, -> { in_state(:retained).where.not(retained_at: nil) }
+  scope :completed, -> { in_state(:completed).where.not(checked_out_at: nil) }
+  scope :canceled, -> { in_state(:canceled).where.not(canceled_at: nil) }
+  scope :postponed, -> { in_state(:postponed).where.not(postponed_at: nil) }
+  scope :will_expire_retained, lambda { |datetime| in_state(:retained).where("checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ?", datetime).order("expired_at") }
+  scope :will_expire_pending, lambda { |datetime| in_state(:pending).where("checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ?", datetime).order("expired_at") }
+  scope :created, lambda { |start_date, end_date| where("created_at >= ? AND created_at < ?", start_date, end_date) }
+  scope :not_sent_expiration_notice_to_patron, -> { in_state(:expired).where(expiration_notice_to_patron: false) }
+  scope :not_sent_expiration_notice_to_library, -> { in_state(:expired).where(expiration_notice_to_library: false) }
+  scope :sent_expiration_notice_to_patron, -> { in_state(:expired).where(expiration_notice_to_patron: true) }
+  scope :sent_expiration_notice_to_library, -> { in_state(:expired).where(expiration_notice_to_library: true) }
+  scope :not_sent_cancel_notice_to_patron, -> { in_state(:canceled).where(expiration_notice_to_patron: false) }
+  scope :not_sent_cancel_notice_to_library, -> { in_state(:canceled).where(expiration_notice_to_library: false) }
   belongs_to :user
   belongs_to :manifestation, touch: true
   belongs_to :librarian, class_name: "User", optional: true
