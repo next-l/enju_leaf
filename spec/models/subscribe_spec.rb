@@ -10,10 +10,15 @@ end
 # Table name: subscribes
 #
 #  id              :bigint           not null, primary key
-#  subscription_id :bigint           not null
-#  work_id         :bigint           not null
-#  start_at        :datetime         not null
 #  end_at          :datetime         not null
+#  start_at        :datetime         not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  subscription_id :bigint           not null
+#  work_id         :bigint           not null
+#
+# Indexes
+#
+#  index_subscribes_on_subscription_id  (subscription_id)
+#  index_subscribes_on_work_id          (work_id)
 #

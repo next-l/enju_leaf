@@ -58,17 +58,17 @@ module EnjuNdl
           date = pub_date.split("-")
           date = if date[0] && date[1]
                    format("%04d-%02d", date[0], date[1])
-                 else
+          else
                    pub_date
-                 end
+          end
         end
 
         language = Language.find_by(iso_639_2: get_language(doc))
         language_id = if language
                         language.id
-                      else
+        else
                         1
-                      end
+        end
 
         isbn = Lisbn.new(doc.at('//dcterms:identifier[@rdf:datatype="http://ndl.go.jp/dcndl/terms/ISBN"]').try(:content).to_s).try(:isbn)
         issn = StdNum::ISSN.normalize(doc.at('//dcterms:identifier[@rdf:datatype="http://ndl.go.jp/dcndl/terms/ISSN"]').try(:content))

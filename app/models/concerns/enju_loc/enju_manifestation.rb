@@ -190,7 +190,7 @@ module EnjuLoc
           end
         end
       end
-      
+
       def self.create_loc_series_master(doc, manifestation)
         titles = get_mods_titles(doc)
         series_statement = SeriesStatement.new(
@@ -307,7 +307,7 @@ module EnjuLoc
         dates.compact.first
       end
 
-  # derived from marcfrequency: http://www.loc.gov/standards/valuelist/marcfrequency.html
+      # derived from marcfrequency: http://www.loc.gov/standards/valuelist/marcfrequency.html
       MARCFREQUENCY = [
         "Continuously updated",
         "Daily",
@@ -351,7 +351,7 @@ module EnjuLoc
         creators.uniq
       end
 
-  # TODO:only LCSH-based parsing...
+      # TODO:only LCSH-based parsing...
       def self.get_mods_subjects(doc)
         subjects = []
         doc.xpath('//mods:subject[@authority="lcsh"]', NS).each do |s|
@@ -380,7 +380,7 @@ module EnjuLoc
         subjects
       end
 
-  # TODO:support only DDC.
+      # TODO:support only DDC.
       def self.get_mods_classifications(doc)
         classifications = []
         doc.xpath('//mods:classification[@authority="ddc"]', NS).each do |c|
@@ -425,7 +425,7 @@ module EnjuLoc
                 "microform"
                   content_type = ContentType.find_by(name: "other")
                 end
-                when "marcsmd" # cf.http://www.loc.gov/standards/valuelist/marcsmd.html
+              when "marcsmd" # cf.http://www.loc.gov/standards/valuelist/marcsmd.html
                   case e.content
                   when "text", "large print", "regular print", "text in looseleaf binder"
                     carrier_type = CarrierType.find_by(name: "volume")
@@ -481,7 +481,7 @@ module EnjuLoc
                   "moon"
                     content_type = ContentType.find_by(name: "other")
                   end
-                  when "marcform" # cf. http://www.loc.gov/standards/valuelist/marcform.html
+              when "marcform" # cf. http://www.loc.gov/standards/valuelist/marcform.html
                     case e.content
                     when "print", "large print"
                       carrier_type = CarrierType.find_by(name: "volume")
@@ -494,7 +494,7 @@ module EnjuLoc
                     when "microfiche", "microfilm"
                       content_type = ContentType.find_by(name: "other")
                     end
-                  end
+              end
             end
         doc.xpath("//mods:genre", NS).each do |e|
           authority = e.attributes["authority"].try(:content)

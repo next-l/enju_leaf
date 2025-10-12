@@ -10,6 +10,13 @@ class Identifier < ApplicationRecord
   scope :id_type, ->(type) {
     where(identifier_type: IdentifierType.find_by(name: type))
   }
+  scope :not_migrated, -> {
+    joins(:identifier_type).where.not(
+      "identifier_types.name": [
+        "isbn", "issn", "jpno", "ncid", "lccn", "doi", "iss_itemno"
+      ]
+    )
+  }
 
   acts_as_list scope: :manifestation_id
   strip_attributes only: :body
@@ -78,10 +85,14 @@ end
 #
 #  id                 :bigint           not null, primary key
 #  body               :string           not null
-#  identifier_type_id :bigint           not null
-#  manifestation_id   :bigint
-#  primary            :boolean
 #  position           :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  identifier_type_id :bigint           not null
+#  manifestation_id   :bigint
+#
+# Indexes
+#
+#  index_identifiers_on_body_and_identifier_type_id  (body,identifier_type_id)
+#  index_identifiers_on_manifestation_id             (manifestation_id)
 #

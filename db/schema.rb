@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_27_021342) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,7 +68,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
 
   create_table "agent_import_files", force: :cascade do |t|
     t.bigint "parent_id"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.text "note"
     t.datetime "executed_at", precision: nil
     t.datetime "created_at", null: false
@@ -286,10 +286,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "attachment_file_name"
-    t.string "attachment_content_type"
-    t.bigint "attachment_file_size"
-    t.datetime "attachment_updated_at", precision: nil
     t.index "lower((name)::text)", name: "index_carrier_types_on_lower_name", unique: true
   end
 
@@ -466,7 +462,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
   end
 
   create_table "demands", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.bigint "item_id"
     t.bigint "message_id"
     t.datetime "created_at", null: false
@@ -517,11 +513,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
   end
 
   create_table "event_export_files", force: :cascade do |t|
-    t.bigint "user_id"
-    t.string "event_export_file_name"
-    t.string "event_export_content_type"
-    t.bigint "event_export_file_size"
-    t.datetime "event_export_updated_at", precision: nil
+    t.bigint "user_id", null: false
     t.datetime "executed_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -543,7 +535,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
 
   create_table "event_import_files", force: :cascade do |t|
     t.bigint "parent_id"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.text "note"
     t.datetime "executed_at", precision: nil
     t.string "edit_mode"
@@ -617,7 +609,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.string "body", null: false
     t.bigint "identifier_type_id", null: false
     t.bigint "manifestation_id"
-    t.boolean "primary"
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -654,7 +645,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
   create_table "import_requests", force: :cascade do |t|
     t.string "isbn"
     t.bigint "manifestation_id"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["isbn"], name: "index_import_requests_on_isbn"
@@ -677,14 +668,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
   end
 
   create_table "inventory_files", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "inventory_file_name"
-    t.string "inventory_content_type"
-    t.integer "inventory_file_size"
-    t.datetime "inventory_updated_at", precision: nil
     t.string "inventory_fingerprint"
     t.bigint "shelf_id"
     t.index ["shelf_id"], name: "index_inventory_files_on_shelf_id"
@@ -882,17 +869,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.boolean "family_name_first", default: true
     t.string "screenshot_generator"
     t.integer "pub_year_facet_range_interval", default: 10
-    t.bigint "user_id"
     t.boolean "csv_charset_conversion", default: false, null: false
-    t.string "header_logo_file_name"
-    t.string "header_logo_content_type"
-    t.bigint "header_logo_file_size"
-    t.datetime "header_logo_updated_at", precision: nil
     t.string "email"
     t.index "lower((name)::text)", name: "index_library_groups_on_lower_name", unique: true
     t.index ["email"], name: "index_library_groups_on_email"
     t.index ["short_name"], name: "index_library_groups_on_short_name"
-    t.index ["user_id"], name: "index_library_groups_on_user_id"
   end
 
   create_table "licenses", force: :cascade do |t|
@@ -926,7 +907,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.datetime "updated_at", null: false
     t.datetime "started_at", precision: nil
     t.datetime "completed_at", precision: nil
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_manifestation_checkout_stats_on_user_id"
   end
 
@@ -993,7 +974,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.datetime "updated_at", null: false
     t.datetime "started_at", precision: nil
     t.datetime "completed_at", precision: nil
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_manifestation_reserve_stats_on_user_id"
   end
 
@@ -1028,10 +1009,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.integer "required_score", default: 0, null: false
     t.bigint "frequency_id", default: 1, null: false
     t.boolean "subscription_master", default: false, null: false
-    t.string "attachment_file_name"
-    t.string "attachment_content_type"
-    t.integer "attachment_file_size"
-    t.datetime "attachment_updated_at", precision: nil
     t.bigint "nii_type_id"
     t.text "title_alternative_transcription"
     t.text "description"
@@ -1145,7 +1122,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
   create_table "news_posts", force: :cascade do |t|
     t.text "title"
     t.text "body"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "start_date", precision: nil
     t.datetime "end_date", precision: nil
     t.bigint "required_role_id", default: 1, null: false
@@ -1249,13 +1226,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "picture_file_name"
-    t.string "picture_content_type"
-    t.integer "picture_file_size"
-    t.datetime "picture_updated_at", precision: nil
     t.string "picture_fingerprint"
     t.integer "picture_width"
-    t.integer "picture_height"
     t.index ["picture_attachable_id", "picture_attachable_type"], name: "index_picture_files_on_picture_attachable_id_and_type"
   end
 
@@ -1293,7 +1265,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.bigint "user_id"
     t.bigint "user_group_id"
     t.bigint "library_id"
     t.string "locale"
@@ -1313,7 +1284,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.index ["checkout_icalendar_token"], name: "index_profiles_on_checkout_icalendar_token", unique: true
     t.index ["library_id"], name: "index_profiles_on_library_id"
     t.index ["user_group_id"], name: "index_profiles_on_user_group_id"
-    t.index ["user_id"], name: "index_profiles_on_user_id"
     t.index ["user_number"], name: "index_profiles_on_user_number", unique: true
   end
 
@@ -1447,11 +1417,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
   end
 
   create_table "resource_export_files", force: :cascade do |t|
-    t.bigint "user_id"
-    t.string "resource_export_file_name"
-    t.string "resource_export_content_type"
-    t.bigint "resource_export_file_size"
-    t.datetime "resource_export_updated_at", precision: nil
+    t.bigint "user_id", null: false
     t.datetime "executed_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -1472,7 +1438,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
 
   create_table "resource_import_files", force: :cascade do |t|
     t.bigint "parent_id"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.text "note"
     t.datetime "executed_at", precision: nil
     t.datetime "created_at", null: false
@@ -1577,127 +1543,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.index ["library_id"], name: "index_shelves_on_library_id"
   end
 
-  create_table "solid_queue_blocked_executions", force: :cascade do |t|
-    t.bigint "job_id", null: false
-    t.string "queue_name", null: false
-    t.integer "priority", default: 0, null: false
-    t.string "concurrency_key", null: false
-    t.datetime "expires_at", null: false
-    t.datetime "created_at", null: false
-    t.index ["concurrency_key", "priority", "job_id"], name: "index_solid_queue_blocked_executions_for_release"
-    t.index ["expires_at", "concurrency_key"], name: "index_solid_queue_blocked_executions_for_maintenance"
-    t.index ["job_id"], name: "index_solid_queue_blocked_executions_on_job_id", unique: true
-  end
-
-  create_table "solid_queue_claimed_executions", force: :cascade do |t|
-    t.bigint "job_id", null: false
-    t.bigint "process_id"
-    t.datetime "created_at", null: false
-    t.index ["job_id"], name: "index_solid_queue_claimed_executions_on_job_id", unique: true
-    t.index ["process_id", "job_id"], name: "index_solid_queue_claimed_executions_on_process_id_and_job_id"
-  end
-
-  create_table "solid_queue_failed_executions", force: :cascade do |t|
-    t.bigint "job_id", null: false
-    t.text "error"
-    t.datetime "created_at", null: false
-    t.index ["job_id"], name: "index_solid_queue_failed_executions_on_job_id", unique: true
-  end
-
-  create_table "solid_queue_jobs", force: :cascade do |t|
-    t.string "queue_name", null: false
-    t.string "class_name", null: false
-    t.text "arguments"
-    t.integer "priority", default: 0, null: false
-    t.string "active_job_id"
-    t.datetime "scheduled_at"
-    t.datetime "finished_at"
-    t.string "concurrency_key"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["active_job_id"], name: "index_solid_queue_jobs_on_active_job_id"
-    t.index ["class_name"], name: "index_solid_queue_jobs_on_class_name"
-    t.index ["finished_at"], name: "index_solid_queue_jobs_on_finished_at"
-    t.index ["queue_name", "finished_at"], name: "index_solid_queue_jobs_for_filtering"
-    t.index ["scheduled_at", "finished_at"], name: "index_solid_queue_jobs_for_alerting"
-  end
-
-  create_table "solid_queue_pauses", force: :cascade do |t|
-    t.string "queue_name", null: false
-    t.datetime "created_at", null: false
-    t.index ["queue_name"], name: "index_solid_queue_pauses_on_queue_name", unique: true
-  end
-
-  create_table "solid_queue_processes", force: :cascade do |t|
-    t.string "kind", null: false
-    t.datetime "last_heartbeat_at", null: false
-    t.bigint "supervisor_id"
-    t.integer "pid", null: false
-    t.string "hostname"
-    t.text "metadata"
-    t.datetime "created_at", null: false
-    t.string "name", null: false
-    t.index ["last_heartbeat_at"], name: "index_solid_queue_processes_on_last_heartbeat_at"
-    t.index ["name", "supervisor_id"], name: "index_solid_queue_processes_on_name_and_supervisor_id", unique: true
-    t.index ["supervisor_id"], name: "index_solid_queue_processes_on_supervisor_id"
-  end
-
-  create_table "solid_queue_ready_executions", force: :cascade do |t|
-    t.bigint "job_id", null: false
-    t.string "queue_name", null: false
-    t.integer "priority", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.index ["job_id"], name: "index_solid_queue_ready_executions_on_job_id", unique: true
-    t.index ["priority", "job_id"], name: "index_solid_queue_poll_all"
-    t.index ["queue_name", "priority", "job_id"], name: "index_solid_queue_poll_by_queue"
-  end
-
-  create_table "solid_queue_recurring_executions", force: :cascade do |t|
-    t.bigint "job_id", null: false
-    t.string "task_key", null: false
-    t.datetime "run_at", null: false
-    t.datetime "created_at", null: false
-    t.index ["job_id"], name: "index_solid_queue_recurring_executions_on_job_id", unique: true
-    t.index ["task_key", "run_at"], name: "index_solid_queue_recurring_executions_on_task_key_and_run_at", unique: true
-  end
-
-  create_table "solid_queue_recurring_tasks", force: :cascade do |t|
-    t.string "key", null: false
-    t.string "schedule", null: false
-    t.string "command", limit: 2048
-    t.string "class_name"
-    t.text "arguments"
-    t.string "queue_name"
-    t.integer "priority", default: 0
-    t.boolean "static", default: true, null: false
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["key"], name: "index_solid_queue_recurring_tasks_on_key", unique: true
-    t.index ["static"], name: "index_solid_queue_recurring_tasks_on_static"
-  end
-
-  create_table "solid_queue_scheduled_executions", force: :cascade do |t|
-    t.bigint "job_id", null: false
-    t.string "queue_name", null: false
-    t.integer "priority", default: 0, null: false
-    t.datetime "scheduled_at", null: false
-    t.datetime "created_at", null: false
-    t.index ["job_id"], name: "index_solid_queue_scheduled_executions_on_job_id", unique: true
-    t.index ["scheduled_at", "priority", "job_id"], name: "index_solid_queue_dispatch_all"
-  end
-
-  create_table "solid_queue_semaphores", force: :cascade do |t|
-    t.string "key", null: false
-    t.integer "value", default: 1, null: false
-    t.datetime "expires_at", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["expires_at"], name: "index_solid_queue_semaphores_on_expires_at"
-    t.index ["key", "value"], name: "index_solid_queue_semaphores_on_key_and_value"
-    t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
-  end
-
   create_table "subject_heading_types", force: :cascade do |t|
     t.string "name", null: false
     t.text "display_name"
@@ -1755,7 +1600,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
   create_table "subscriptions", force: :cascade do |t|
     t.text "title", null: false
     t.text "note"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.bigint "order_list_id"
     t.integer "subscribes_count", default: 0, null: false
     t.datetime "created_at", null: false
@@ -1824,7 +1669,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.datetime "updated_at", null: false
     t.datetime "started_at", precision: nil
     t.datetime "completed_at", precision: nil
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_user_checkout_stats_on_user_id"
   end
 
@@ -1843,11 +1688,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
   end
 
   create_table "user_export_files", force: :cascade do |t|
-    t.bigint "user_id"
-    t.string "user_export_file_name"
-    t.string "user_export_content_type"
-    t.bigint "user_export_file_size"
-    t.datetime "user_export_updated_at", precision: nil
+    t.bigint "user_id", null: false
     t.datetime "executed_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -1911,7 +1752,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
   end
 
   create_table "user_import_files", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.text "note"
     t.datetime "executed_at", precision: nil
     t.string "user_import_fingerprint"
@@ -1957,7 +1798,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.datetime "updated_at", null: false
     t.datetime "started_at", precision: nil
     t.datetime "completed_at", precision: nil
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_user_reserve_stats_on_user_id"
   end
 
@@ -1975,7 +1816,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.string "unlock_token"
     t.datetime "locked_at", precision: nil
     t.datetime "confirmed_at", precision: nil
+    t.bigint "profile_id", null: false
     t.index ["email"], name: "index_users_on_email"
+    t.index ["profile_id"], name: "index_users_on_profile_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
@@ -1992,6 +1835,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
     t.index ["librarian_id"], name: "index_withdraws_on_librarian_id"
   end
 
+  add_foreign_key "accepts", "users", column: "librarian_id"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "agent_import_files", "users"
@@ -2003,7 +1847,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
   add_foreign_key "checked_items", "baskets"
   add_foreign_key "checked_items", "items"
   add_foreign_key "checked_items", "users"
+  add_foreign_key "checked_items", "users", column: "librarian_id"
   add_foreign_key "checkins", "items"
+  add_foreign_key "checkins", "users", column: "librarian_id"
   add_foreign_key "checkout_stat_has_manifestations", "manifestations"
   add_foreign_key "checkout_stat_has_users", "user_checkout_stats"
   add_foreign_key "checkout_stat_has_users", "users"
@@ -2012,11 +1858,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
   add_foreign_key "checkouts", "libraries"
   add_foreign_key "checkouts", "shelves"
   add_foreign_key "checkouts", "users"
+  add_foreign_key "checkouts", "users", column: "librarian_id"
   add_foreign_key "demands", "items"
   add_foreign_key "demands", "messages"
   add_foreign_key "demands", "users"
   add_foreign_key "doi_records", "manifestations"
   add_foreign_key "event_export_files", "users"
+  add_foreign_key "event_import_files", "users"
   add_foreign_key "events", "event_categories"
   add_foreign_key "import_requests", "users"
   add_foreign_key "inventory_files", "shelves"
@@ -2034,7 +1882,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
   add_foreign_key "jpno_records", "manifestations"
   add_foreign_key "lccn_records", "manifestations"
   add_foreign_key "libraries", "library_groups"
-  add_foreign_key "library_groups", "users"
   add_foreign_key "manifestation_checkout_stats", "users"
   add_foreign_key "manifestation_custom_values", "manifestation_custom_properties"
   add_foreign_key "manifestation_custom_values", "manifestations"
@@ -2055,7 +1902,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
   add_foreign_key "periodicals", "frequencies"
   add_foreign_key "periodicals", "manifestations"
   add_foreign_key "profiles", "roles", column: "required_role_id"
-  add_foreign_key "profiles", "users"
   add_foreign_key "purchase_requests", "users"
   add_foreign_key "reserve_stat_has_manifestations", "manifestations"
   add_foreign_key "reserve_stat_has_users", "user_reserve_stats"
@@ -2064,12 +1910,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
   add_foreign_key "reserves", "users"
   add_foreign_key "resource_export_files", "users"
   add_foreign_key "resource_import_files", "users"
-  add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
-  add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
-  add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
-  add_foreign_key "solid_queue_ready_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
-  add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
-  add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "subjects", "roles", column: "required_role_id"
   add_foreign_key "subscriptions", "users"
   add_foreign_key "user_checkout_stats", "users"
@@ -2080,4 +1920,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_070315) do
   add_foreign_key "user_has_roles", "users"
   add_foreign_key "user_import_files", "users"
   add_foreign_key "user_reserve_stats", "users"
+  add_foreign_key "users", "profiles"
+  add_foreign_key "withdraws", "users", column: "librarian_id"
 end

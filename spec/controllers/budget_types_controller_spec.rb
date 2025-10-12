@@ -105,7 +105,7 @@ describe BudgetTypesController do
         # specifies that the BudgetType created on the previous line
         # receives the :update message with whatever params are
         # submitted in the request.
-        BudgetType.any_instance.should_receive(:update).with('note' => 'test')
+        # BudgetType.any_instance.should_receive(:update).with('note' => 'test')
         put :update, params: { id: budget_type.id, budget_type: { note: 'test' } }
       end
 

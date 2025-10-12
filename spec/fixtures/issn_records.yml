@@ -8,10 +8,14 @@ issn_record_00002:
 
 # == Schema Information
 #
-# Table name: issn_records
+# Table name: issn_records(ISSN)
 #
-#  id         :bigint           not null, primary key
-#  body       :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :bigint           not null, primary key
+#  body(ISSN)   :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+# Indexes
+#
+#  index_issn_records_on_body  (body) UNIQUE
 #

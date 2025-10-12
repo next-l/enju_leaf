@@ -29,11 +29,15 @@ end
 # Table name: roles
 #
 #  id           :bigint           not null, primary key
-#  name         :string           not null
 #  display_name :string
+#  name         :string           not null
 #  note         :text
+#  position     :integer
+#  score        :integer          default(0), not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  score        :integer          default(0), not null
-#  position     :integer
+#
+# Indexes
+#
+#  index_roles_on_lower_name  (lower((name)::text)) UNIQUE
 #
