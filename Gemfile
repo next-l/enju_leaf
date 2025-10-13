@@ -19,10 +19,10 @@ gem "puma", ">= 5.0"
 gem "jsbundling-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-# gem "turbo-rails"
+gem "turbo-rails"
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-# gem "stimulus-rails"
+gem "stimulus-rails"
 
 # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
 gem "cssbundling-rails"
@@ -92,8 +92,8 @@ gem 'progress_bar'
 gem 'rails_autolink'
 gem 'kramdown'
 gem 'solid_cache'
-gem 'solid_queue', "~> 1.0"
-gem 'mission_control-jobs', "~> 0.5.0"
+gem 'solid_queue'
+gem 'mission_control-jobs'
 gem 'acts-as-taggable-on'
 gem 'resync' # , github: 'nabeta/resync', branch: 'add-datetime'
 gem 'pretender'

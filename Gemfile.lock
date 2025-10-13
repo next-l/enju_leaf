@@ -158,7 +158,7 @@ GEM
       scanf (~> 1.0)
       sxp (~> 2.0)
       unicode-types (~> 1.8)
-    erb (5.0.3)
+    erb (5.1.1)
     erubi (1.13.1)
     et-orbi (1.4.0)
       tzinfo
@@ -293,7 +293,7 @@ GEM
       logger
     mini_mime (1.1.5)
     minitest (5.26.0)
-    mission_control-jobs (0.5.0)
+    mission_control-jobs (1.1.0)
       actioncable (>= 7.1)
       actionpack (>= 7.1)
       activejob (>= 7.1)
@@ -676,7 +676,7 @@ DEPENDENCIES
   kramdown
   library_stdnums
   lisbn
-  mission_control-jobs (~> 0.5.0)
+  mission_control-jobs
   nkf
   oai
   parallel_tests
@@ -701,11 +701,13 @@ DEPENDENCIES
   simplecov
   sitemap_generator
   solid_cache
-  solid_queue (~> 1.0)
+  solid_queue
   sprockets-rails
   statesman (~> 13.1)
+  stimulus-rails
   strip_attributes
   sunspot_rails (~> 2.7)
+  turbo-rails
   tzinfo-data
   vcr
   web-console
