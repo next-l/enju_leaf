@@ -22,17 +22,17 @@
         <p>
           <%- case params[:mode]
             when 'upcoming' -%>
-            <%= link_to t('event.all'), url_for(filtered_params.merge(only_path: true, mode: nil, only_path: true)) -%>
+            <%= link_to t('event.all'), url_for(filtered_params.merge(only_path: true, mode: nil)) -%>
             <strong><%= t('event.upcoming') -%></strong>
-            <%= link_to t('event.past'), url_for(filtered_params.merge(only_path: true, mode: 'past', only_path: true)) -%>
+            <%= link_to t('event.past'), url_for(filtered_params.merge(only_path: true, mode: 'past')) -%>
           <%- when 'past' -%>
-            <%= link_to t('event.all'), url_for(filtered_params.merge(only_path: true, mode: nil, only_path: true)) -%>
-            <%= link_to t('event.upcoming'), url_for(filtered_params.merge(only_path: true, mode: 'upcoming', only_path: true)) -%>
+            <%= link_to t('event.all'), url_for(filtered_params.merge(only_path: true, mode: nil)) -%>
+            <%= link_to t('event.upcoming'), url_for(filtered_params.merge(only_path: true, mode: 'upcoming')) -%>
             <strong><%= t('event.past') -%></strong>
           <%- else -%>
             <strong><%= t('event.all') -%></strong>
-            <%= link_to t('event.upcoming'), url_for(filtered_params.merge(only_path: true, mode: 'upcoming', only_path: true)) -%>
-            <%= link_to t('event.past'), url_for(filtered_params.merge(only_path: true, mode: 'past', only_path: true)) -%>
+            <%= link_to t('event.upcoming'), url_for(filtered_params.merge(only_path: true, mode: 'upcoming')) -%>
+            <%= link_to t('event.past'), url_for(filtered_params.merge(only_path: true, mode: 'past')) -%>
           <%- end -%>
         </p>
 
