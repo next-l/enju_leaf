@@ -2,7 +2,7 @@
   "name": "enju_leaf",
   "private": true,
   "devDependencies": {
-    "esbuild": "^0.25.3"
+    "esbuild": "^0.25.10"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
@@ -13,16 +13,19 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@fortawesome/fontawesome-free": "^6.7.2",
+    "@hotwired/turbo-rails": "^8.0.18",
     "@mui/material": "^7.x",
     "@mui/system": "^7.x",
     "@oddcamp/cocoon-vanilla-js": "^1.1.3",
     "@popperjs/core": "^2.11.8",
     "@rails/actioncable": "~7.2.2",
     "@rails/activestorage": "~7.2.2",
+    "@rails/ujs": "^7.1.3-4",
     "@types/react": "*",
     "bootstrap": "^5.3.8",
     "dnd-core": "^16.0.1",
     "i18next": "^25.4.1",
+    "jquery": "^3.7.1",
     "mirador": "^4.0.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

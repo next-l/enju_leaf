@@ -7,3 +7,7 @@ import "bootstrap"
 import "@oddcamp/cocoon-vanilla-js"
 import tom_select from "tom-select"
 window.TomSelect = tom_select
+import jQuery from "jquery"
+window.$ = window.jQuery = jQuery
+import Rails from '@rails/ujs'
+Rails.start()
