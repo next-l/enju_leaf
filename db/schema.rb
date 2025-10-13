@@ -457,6 +457,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_27_021342) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "create_type_id"
+    t.text "name"
     t.index ["agent_id"], name: "index_creates_on_agent_id"
     t.index ["work_id", "agent_id"], name: "index_creates_on_work_id_and_agent_id", unique: true
   end
@@ -1260,6 +1261,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_27_021342) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "produce_type_id"
+    t.text "name"
     t.index ["agent_id"], name: "index_produces_on_agent_id"
     t.index ["manifestation_id", "agent_id"], name: "index_produces_on_manifestation_id_and_agent_id", unique: true
   end
@@ -1324,6 +1326,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_27_021342) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "realize_type_id"
+    t.text "name"
     t.index ["agent_id"], name: "index_realizes_on_agent_id"
     t.index ["expression_id", "agent_id"], name: "index_realizes_on_expression_id_and_agent_id", unique: true
   end
