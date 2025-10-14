@@ -17,4 +17,4 @@
   </div>
 <%- end -%>
 
-<%= link_to t('page.back'), checkouts_path(user_id: @user.username) -%>
+<%= link_to t('page.back'), checkouts_path(user_id: @checkout.user.username) -%>

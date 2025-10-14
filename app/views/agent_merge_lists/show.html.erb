@@ -24,7 +24,7 @@
 
 <div id="submenu" class="col">
   <ul>
-    <li><%= link_to t('page.listing', model: t('activerecord.models.agent')), agent_merge_list_agents_path(@agent_merge_list) -%></li>
+    <li><%= link_to t('page.listing', model: t('activerecord.models.agent')), agents_path(agent_merge_list_id: @agent_merge_list.id) -%></li>
     <li><%= link_to t('page.edit'), edit_agent_merge_list_path(@agent_merge_list) -%></li>
     <li><%= back_to_index(flash[:page_info]) -%></li>
   </ul>
