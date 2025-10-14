@@ -75,8 +75,8 @@ services:
 
   tika:
     image: apache/tika:3.2.3.0
-    expose:
-      - 9998
+    ports:
+      - 127.0.0.1:9998:9998
     restart: always
     networks:
       internal:
