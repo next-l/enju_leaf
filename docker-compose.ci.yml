@@ -57,29 +57,26 @@ services:
       retries: 3
 
   cantaloupe:
-    image: uclalibrary/cantaloupe:5.0.6-4
-    ports:
-      - 127.0.0.1:8182:8182
+    image: islandora/cantaloupe:5.1
+    expose:
+      - 8182
     restart: always
     environment:
-      no_proxy: localhost,web
-      SOURCE_STATIC: HttpSource
-      HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX: http://web:3000/picture_files/
-      HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_SUFFIX: '.download?size=original'
-      ENDPOINT_API_ENABLED: 'true'
-      BASE_URI: ${CANTALOUPE_BASE_URI}
+      - CANTALOUPE_HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX=http://web:3000/picture_files/
+      - CANTALOUPE_HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_SUFFIX=/download
+      - CANTALOUPE_ENDPOINT_API_ENABLED=true
     networks:
       internal:
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8182/health"]
+      test: ["CMD-SHELL", "curl -f http://cantaloupe:8182/health"]
       interval: 30s
       timeout: 20s
       retries: 3
 
   tika:
-    image: apache/tika:2.9.2.1
-    ports:
-      - 127.0.0.1:9998:9998
+    image: apache/tika:3.2.3.0
+    expose:
+      - 9998
     restart: always
     networks:
       internal:
