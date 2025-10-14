@@ -1,15 +1,15 @@
 <%= form_for(@checkin) do |f| %>
   <%= error_messages(@checkin) %>
 
-  <div class="form-number_fields">
+  <div class="field">
     <%= f.text_field :item_id %>
   </div>
 
-  <div class="form-number_fields">
+  <div class="field">
     <%= f.text_field :librarian_id %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.submit %>
   </div>
 <% end %>

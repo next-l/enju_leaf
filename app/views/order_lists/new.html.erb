@@ -3,7 +3,7 @@
   <div id="content_list">
 
   <%= form_with(model: @order_list) do |f| -%>
-    <%= f.error_messages -%>
+    <%= error_messages(@order_list) %>
 
     <div class="field">
       <%= f.label :title -%><br />
