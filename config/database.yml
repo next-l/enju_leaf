@@ -104,6 +104,10 @@ production:
     database: enju_leaf_production
     # username: enju_leaf
     # password: <%= ENV['ENJU_LEAF_DATABASE_PASSWORD'] %>
+  cable:
+    <<: *primary_production
+    database: enju_leaf_production_cable
+    migrations_paths: db/cable_migrate
   cache:
     <<: *primary_production
     database: enju_leaf_production_cache
