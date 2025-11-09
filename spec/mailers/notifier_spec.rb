@@ -10,6 +10,6 @@ RSpec.describe Notifier, type: :mailer do
 
   it "should send manifestation_info mail" do
     mailer = Notifier.manifestation_info(User.first.id, Manifestation.first.id)
-    expect(mailer.body.to_s).to match(/^Enju Library\r\n/)
+    expect(mailer.body.to_s).to match(/^Enju Library\n/)
   end
 end
