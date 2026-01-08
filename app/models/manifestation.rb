@@ -566,23 +566,23 @@ class Manifestation < ApplicationRecord
       manifestation_identifier: manifestation_identifier,
       creator: creates.map { |create|
         if create.create_type
-          "#{create.agent.full_name}||#{create.create_type.name}"
+          "#{create.agent&.full_name}||#{create.create_type.name}"
         else
-          "#{create.agent.full_name}"
+          "#{create.agent&.full_name}"
         end
       }.join("//"),
       contributor: realizes.map { |realize|
         if realize.realize_type
-          "#{realize.agent.full_name}||#{realize.realize_type.name}"
+          "#{realize.agent&.full_name}||#{realize.realize_type.name}"
         else
-          "#{realize.agent.full_name}"
+          "#{realize.agent&.full_name}"
         end
       }.join("//"),
       publisher: produces.map { |produce|
         if produce.produce_type
-          "#{produce.agent.full_name}||#{produce.produce_type.name}"
+          "#{produce.agent&.full_name}||#{produce.produce_type.name}"
         else
-          "#{produce.agent.full_name}"
+          "#{produce.agent&.full_name}"
         end
       }.join("//"),
       pub_date: pub_date,
