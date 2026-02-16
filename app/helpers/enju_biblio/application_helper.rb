@@ -40,18 +40,14 @@ module EnjuBiblio
       end
     end
 
-    def agents_list(agents = [], options = {})
-      return nil if agents.blank?
-
-      agents_list = []
+    def agents_list(authors, options = {})
+      list = []
       if options[:nolink]
-        agents_list = agents.map { |agent| agent.full_name }
+        return authors.pluck(:name)
       else
-        agents_list = agents.map { |agent|
-          link_to(agent.full_name, manifestations_path(query: "\"#{agent.full_name}\""), options) + " " + (link_to("[A]", agent_path(agent)) if agent.ndla_record)
-        }
+        list = authors.map{|author| link_to(author.name, manifestations_path(query: "\"#{author.name}\""), options)}
+        list.join(" ").html_safe
       end
-      agents_list.join(" ").html_safe
     end
 
     def ndl_bib_id_record_link(ndl_bib_id_record)
