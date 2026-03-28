@@ -9,14 +9,7 @@ x-app: &app
   env_file:
     - .env
   environment:
-    no_proxy: localhost,web,workers,solr,tika
-  build:
-    context: .
-    args:
-      - UID=${UID}
-      - GID=${GID}
-      - http_proxy=${http_proxy}
-      - https_proxy=${http_proxy}
+    no_proxy: localhost,web,workers,tika
   image: ghcr.io/next-l/enju_leaf:latest
   networks:
     internal:
@@ -30,6 +23,13 @@ x-app: &app
 services:
   web:
     <<: *app
+    build:
+      context: .
+      args:
+        - UID=${UID}
+        - GID=${GID}
+        - http_proxy=${http_proxy}
+        - https_proxy=${http_proxy}
     command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -b 0.0.0.0"
     environment:
       - WEBPACKER_DEV_SERVER_HOST=webpacker
