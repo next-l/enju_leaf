@@ -119,7 +119,9 @@
             <% if defined?(EnjuSearchLog) %>
               <li><%= link_to t('activerecord.models.search_history'), search_histories_path, class: "dropdown-item" %></li>
             <% end %>
-            <li><%= link_to t('page.configuration'), page_configuration_path, class: "dropdown-item" %></li>
+            <% if current_user.try(:has_role?, 'Librarian') %>
+              <li><%= link_to t('page.configuration'), page_configuration_path, class: "dropdown-item" %></li>
+            <% end %>
           </ul>
         </li>
         <li class="nav-item dropdown">
