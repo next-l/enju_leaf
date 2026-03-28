@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @locale.to_s -%>" lang="<%= @locale.to_s -%>">
-<head>
-  <meta charset="UTF-8" />
-  <%= render 'page/include' %>
-  <title><%= t('enju_nii.import_from_cinii_books') %></title>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= t('enju_nii.import_from_cinii_books') %></title>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+  </head>
+  <body itemscope itemtype="http://schema.org/WebPage">
 
-<div class="container">
-  <%= render 'page/header' %>
-  <%= render 'page/menu' %>
+    <div class="container">
+      <%= render 'page/header' %>
+      <%= render 'page/menu' %>
 
-  <div class="row" id="content">
+      <div class="row" id="content">
 
-    <%= yield %>
+        <%= yield %>
 
-  </div>
+      </div>
 
-  <%= render 'page/footer' %>
-</div>
+      <%= render 'page/footer' %>
+    </div>
 
-</body>
+  </body>
 </html>

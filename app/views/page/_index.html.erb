@@ -1,13 +1,15 @@
+<p style="color: green"><%= notice %></p>
+
 <div class="row">
   <div class="col-md-6" id="col1">
-    <div class="card" id="search">
-      <h2 class="title card-header">
+    <div class="card mb-3" id="search">
+      <h5 class="title card-header">
         <% if user_signed_in? %>
           <%= t('page.user_title', login_name: current_user.username) -%>
         <% else %>
           <%= t('page.catalog_search') -%>
         <% end %>
-      </h2>
+      </h5>
       <div id="user_search_form" class="card-body">
         <p id="notice"><%= notice %></p>
 
@@ -23,8 +25,8 @@
     </div>
 
     <% if defined?(EnjuNews) %>
-      <div class="card" id="news_feed">
-        <h3 class="title card-header"><%= t('page.news') -%></h3>
+      <div class="card mb-3" id="news_feed">
+        <h5 class="title card-header"><%= t('page.news') -%></h5>
         <div id="news_feed_box" class="card-body">
           <%= render partial: 'news_feeds/list', locals: {news_feeds: @news_feeds} -%>
         </div>
@@ -33,22 +35,22 @@
   </div>
 
   <div class="col-md-6" id="col2">
-    <div class="card" id="pickup">
-      <h3 class="title card-header"><%= t('manifestation.pickup') -%></h3>
+    <div class="card mb-3" id="pickup">
+      <h5 class="title card-header"><%= t('manifestation.pickup') -%></h5>
       <div id="picked_up_box" class="card-body">
         <%= render 'manifestations/pickup', manifestation: @manifestation -%>
       </div>
     </div>
 
     <% if defined?(EnjuBookmark) %>
-      <div class="card" id="tag_cloud">
-        <h3 class="title card-header">
+      <div class="card mb-3" id="tag_cloud">
+        <h5 class="title card-header">
           <% if user_signed_in? %>
             <%= t('tag.my_tag') -%>
           <% else %>
             <%= t('tag.popular_tag') -%>
           <% end %>
-        </h3>
+        </h5>
         <div id="tag_cloud_box" class="card-body">
           <%= render 'bookmarks/tag_cloud', tags: @tags -%>
           <p>(<%= link_to t('page.listing', model: t('activerecord.models.tag')), tags_path -%>)</p>

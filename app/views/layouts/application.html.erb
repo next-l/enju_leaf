@@ -1,33 +1,46 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @locale.to_s -%>" lang="<%= @locale.to_s -%>">
-<head>
-  <meta charset="UTF-8" />
-  <%= render 'page/include' %>
-  <title><%= title(controller.controller_name) %></title>
-  <%- if controller.controller_name == 'manifestations' and controller.action_name == 'index' -%>
-    <%= auto_discovery_link_tag(:rss, url_for(params.permit.merge(format: 'rss', page: nil, commit: nil, only_path: true)), title: (t('manifestation.library_group_manifestation', library_group_name: @library_group.display_name.localize) + " (RSS)")) %>
-    <%= auto_discovery_link_tag(:atom, url_for(params.permit.merge(format: 'atom', page: nil, commit: nil, only_path: true)), title: (t('manifestation.library_group_manifestation', library_group_name: @library_group.display_name.localize) + " (Atom)")) %>
-    <% if defined?(EnjuNews) %>
-      <%= auto_discovery_link_tag(:rss, news_posts_url(format: :rss, locale: @locale), title: (t('news_post.library_group_news_post', library_group_name: @library_group.display_name.localize) + " (RSS)")) %>
-      <%= auto_discovery_link_tag(:atom, news_posts_url(format: :atom, locale: @locale), title: (t('news_post.library_group_news_post', library_group_name: @library_group.display_name.localize) + " (Atom)")) %>
+<html>
+  <head>
+    <title><%= title(controller.controller_name) %></title>
+    <%- if controller.controller_name == 'manifestations' and controller.action_name == 'index' -%>
+      <%= auto_discovery_link_tag(:rss, url_for(params.permit.merge(format: 'rss', page: nil, commit: nil, only_path: true)), title: (t('manifestation.library_group_manifestation', library_group_name: @library_group.display_name.localize) + " (RSS)")) %>
+      <%= auto_discovery_link_tag(:atom, url_for(params.permit.merge(format: 'atom', page: nil, commit: nil, only_path: true)), title: (t('manifestation.library_group_manifestation', library_group_name: @library_group.display_name.localize) + " (Atom)")) %>
+      <% if defined?(EnjuNews) %>
+        <%= auto_discovery_link_tag(:rss, news_posts_url(format: :rss, locale: @locale), title: (t('news_post.library_group_news_post', library_group_name: @library_group.display_name.localize) + " (RSS)")) %>
+        <%= auto_discovery_link_tag(:atom, news_posts_url(format: :atom, locale: @locale), title: (t('news_post.library_group_news_post', library_group_name: @library_group.display_name.localize) + " (Atom)")) %>
+      <% end %>
     <% end %>
-  <% end %>
-  <%= book_jacket_header(@library_group.book_jacket_source) %>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage">
+    <%= book_jacket_header(@library_group.book_jacket_source) %>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Boot1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-<div class="container">
-  <%= render 'page/header' %>
-  <%= render 'page/menu' %>
+    <%= yield :head %>
 
-  <div class="row" id="content">
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-    <%= yield %>
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
 
-  </div>
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+  </head>
 
-  <%= render 'page/footer' %>
-</div>
+  <body itemscope itemtype="http://schema.org/WebPage">
+    <%= render "page/menu" %>
+    <div class="container">
+      <%= yield %>
 
-</body>
+      <footer>
+        <p class="small"><a href="https://github.com/next-l/enju_leaf">Next-L Enju Leaf 1.5.3</a>, オープンソース統合図書館システム | <a href="/page/about">このシステムについて</a> | <a href="https://github.com/next-l/enju_leaf/issues">不具合を報告する</a> | <a href="https://next-l.github.io/manual/1.4/">マニュアル</a><br />
+Developed by <a href="https://github.com/nabeta">Kosuke Tanabe</a> and <a href="https://www.next-l.jp">Project Next-L</a>.</p>
+      </footer>
+    </div>
+  </body>
 </html>
