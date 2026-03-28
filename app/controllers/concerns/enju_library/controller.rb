@@ -133,12 +133,12 @@ module EnjuLibrary
         # TODO: 他の言語
         if @locale.to_sym == :ja
           headers["Content-Type"] = "text/csv; charset=Shift_JIS"
-          response.body = NKF::nkf("-Ws", response.body)
+          response.body = NKF.nkf("-Ws", response.body)
         end
       when "xml"
         if @locale.to_sym == :ja
           headers["Content-Type"] = "application/xml; charset=Shift_JIS"
-          response.body = NKF::nkf("-Ws", response.body)
+          response.body = NKF.nkf("-Ws", response.body)
         end
       end
     end

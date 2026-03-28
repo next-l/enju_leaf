@@ -44,7 +44,7 @@ module EnjuLoc
         publishers = []
         doc.xpath("//mods:publisher", NS).each do |publisher|
           publishers << {
-            full_name: publisher.content,
+            full_name: publisher.content
             # :agent_identifier => publisher.attributes["about"].try(:content)
           }
         end
