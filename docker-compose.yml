@@ -9,14 +9,7 @@ x-app: &app
   env_file:
     - .env
   environment:
-    no_proxy: localhost,web,queue,solr,tika
-  build:
-    context: .
-    args:
-      - UID=${UID}
-      - GID=${GID}
-      - http_proxy=${http_proxy}
-      - https_proxy=${http_proxy}
+    no_proxy: localhost,web,queue,tika
   image: ghcr.io/next-l/enju_leaf:latest
   networks:
     internal:
@@ -30,6 +23,13 @@ x-app: &app
 services:
   web:
     <<: *app
+    build:
+      context: .
+      args:
+        - UID=${UID}
+        - GID=${GID}
+        - http_proxy=${http_proxy}
+        - https_proxy=${http_proxy}
     command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -b 0.0.0.0"
     ports:
       - 3000:3000
@@ -92,7 +92,7 @@ services:
       retries: 3
 
   tika:
-    image: apache/tika:3.2.3.0
+    image: apache/tika:3.3.0.0
     expose:
       - 9998
     restart: always
