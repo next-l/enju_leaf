@@ -100,7 +100,6 @@ gem 'rdf-vocab', require: 'rdf/vocab'
 gem 'oai'
 gem 'active_storage_validations'
 gem 'faraday-multipart'
-gem "sass-embedded"
 gem 'nkf'
 
 group :development, :test do

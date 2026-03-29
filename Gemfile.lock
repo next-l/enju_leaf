@@ -205,27 +205,6 @@ GEM
       request_store (~> 1.0)
     globalize-accessors (0.3.0)
       globalize (>= 5.0.0)
-    google-protobuf (4.34.1)
-      bigdecimal
-      rake (~> 13.3)
-    google-protobuf (4.34.1-aarch64-linux-gnu)
-      bigdecimal
-      rake (~> 13.3)
-    google-protobuf (4.34.1-aarch64-linux-musl)
-      bigdecimal
-      rake (~> 13.3)
-    google-protobuf (4.34.1-arm64-darwin)
-      bigdecimal
-      rake (~> 13.3)
-    google-protobuf (4.34.1-x86_64-darwin)
-      bigdecimal
-      rake (~> 13.3)
-    google-protobuf (4.34.1-x86_64-linux-gnu)
-      bigdecimal
-      rake (~> 13.3)
-    google-protobuf (4.34.1-x86_64-linux-musl)
-      bigdecimal
-      rake (~> 13.3)
     hashdiff (1.2.1)
     highline (3.1.2)
       reline
@@ -525,22 +504,6 @@ GEM
       ffi (~> 1.12)
       logger
     rubyzip (3.2.2)
-    sass-embedded (1.98.0-aarch64-linux-gnu)
-      google-protobuf (~> 4.31)
-    sass-embedded (1.98.0-aarch64-linux-musl)
-      google-protobuf (~> 4.31)
-    sass-embedded (1.98.0-arm-linux-gnueabihf)
-      google-protobuf (~> 4.31)
-    sass-embedded (1.98.0-arm-linux-musleabihf)
-      google-protobuf (~> 4.31)
-    sass-embedded (1.98.0-arm64-darwin)
-      google-protobuf (~> 4.31)
-    sass-embedded (1.98.0-x86_64-darwin)
-      google-protobuf (~> 4.31)
-    sass-embedded (1.98.0-x86_64-linux-gnu)
-      google-protobuf (~> 4.31)
-    sass-embedded (1.98.0-x86_64-linux-musl)
-      google-protobuf (~> 4.31)
     scanf (1.0.0)
     securerandom (0.4.1)
     selenium-webdriver (4.41.0)
@@ -696,7 +659,6 @@ DEPENDENCIES
   rspec_junit_formatter
   rss
   rubocop-rails-omakase
-  sass-embedded
   selenium-webdriver
   simplecov
   sitemap_generator
