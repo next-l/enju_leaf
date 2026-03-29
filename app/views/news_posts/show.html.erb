@@ -1,41 +1,40 @@
 <div class="row">
   <div id="content_detail" class="col-md-9">
-    <h1 class="title card-header"><%= t('page.showing', model: t('activerecord.models.news_post')) -%></h1>
+    <h1 class="title card-header"><%= t("page.showing", model: t("activerecord.models.news_post")) -%></h1>
     <div id="content_list" class="card-body">
       <p>
-        <strong><%= t('activerecord.attributes.news_post.title') -%>:</strong>
+        <strong><%= t("activerecord.attributes.news_post.title") -%>:</strong>
         <%= @news_post.title -%>
       </p>
 
       <p>
-        <strong><%= t('activerecord.attributes.news_post.body') -%>:</strong>
+        <strong><%= t("activerecord.attributes.news_post.body") -%>:</strong>
         <%= raw auto_link(simple_format(h(@news_post.body))) -%>
       </p>
 
       <p>
-        <strong><%= t('activerecord.models.user') -%>:</strong>
+        <strong><%= t("activerecord.models.user") -%>:</strong>
         <%= link_to @news_post.user.username, profile_path(@news_post.user.profile) -%>
       </p>
-
       <!--
       <p>
-        <strong><%= t('role.required_role') -%>:</strong>
+        <strong><%= t("role.required_role") -%>:</strong>
         <%= @news_post.required_role.display_name.localize -%>
       </p>
-      -->
 
+      -->
       <p>
-        <strong><%= t('activerecord.attributes.news_post.start_date') -%>:</strong>
+        <strong><%= t("activerecord.attributes.news_post.start_date") -%>:</strong>
         <%= l(@news_post.start_date) if @news_post.start_date -%>
       </p>
 
       <p>
-        <strong><%= t('activerecord.attributes.news_post.end_date') -%>:</strong>
+        <strong><%= t("activerecord.attributes.news_post.end_date") -%>:</strong>
         <%= l(@news_post.end_date) if @news_post.end_date -%>
       </p>
 
       <p>
-        <strong><%= t('activerecord.attributes.news_post.note') -%>:</strong>
+        <strong><%= t("activerecord.attributes.news_post.note") -%>:</strong>
         <%= @news_post.note -%>
       </p>
 
@@ -44,8 +43,8 @@
 
   <div id="submenu" class="col">
     <ul>
-      <li><%= link_to t('page.edit'), edit_news_post_path(@news_post) -%></li>
-      <li><%= link_to t('page.back'), news_posts_path -%></li>
+      <li><%= link_to t("page.edit"), edit_news_post_path(@news_post) -%></li>
+      <li><%= link_to t("page.back"), news_posts_path -%></li>
     </ul>
   </div>
 </div>

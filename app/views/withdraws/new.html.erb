@@ -1,15 +1,25 @@
 <div id="content_detail" class="col-md-9">
-  <h1 class="title card-header"><%= t('page.new', model: t('activerecord.models.withdraw')) -%></h1>
+  <h1 class="title card-header"><%= t("page.new", model: t("activerecord.models.withdraw")) -%></h1>
   <div id="content_list" class="card-body">
     <div id="withdraw_list">
-      <%= render 'list', withdraw: @withdraw -%>
+      <%= render "list", withdraw: @withdraw -%>
     </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
   <ul>
-    <li><%= link_to t('page.listing', model: t('activerecord.models.withdraw')), withdraws_path -%></li>
-    <li><%= link_to t('page.listing', model: t('activerecord.attributes.withdraw.removed_items', status: CirculationStatus.where(name: 'Removed').first.display_name.localize) + t('activerecord.models.item')), items_path(circulation_status: 'Removed')  -%></li>
+    <li><%= link_to t("page.listing", model: t("activerecord.models.withdraw")),
+      withdraws_path -%></li>
+    <li><%= link_to t(
+        "page.listing",
+        model:
+          t(
+            "activerecord.attributes.withdraw.removed_items",
+            status:
+              CirculationStatus.where(name: "Removed").first.display_name.localize,
+          ) + t("activerecord.models.item"),
+      ),
+      items_path(circulation_status: "Removed") -%></li>
   </ul>
 </div>

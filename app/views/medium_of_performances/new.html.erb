@@ -1,12 +1,12 @@
 <div id="content_detail" class="col-md-9">
-  <h1 class="title card-header"><%= t('page.new', model: t('activerecord.models.medium_of_performance')) -%></h1>
+  <h1 class="title card-header"><%= t("page.new", model: t("activerecord.models.medium_of_performance")) -%></h1>
   <div id="content_list" class="card-body">
-    <%= render 'form', medium_of_performance: @medium_of_performance %>
+    <%= render "form", medium_of_performance: @medium_of_performance %>
   </div>
 </div>
 
 <div id="submenu" class="col">
   <ul>
-    <li><%= link_to t('page.back'), medium_of_performances_path -%></li>
+    <li><%= link_to t("page.back"), medium_of_performances_path -%></li>
   </ul>
 </div>

@@ -1,16 +1,16 @@
 <div id="content_detail" class="col-md-9">
-  <h1 class="title card-header"><%= t('page.editing', model: t('activerecord.models.resource_import_file')) -%></h1>
+  <h1 class="title card-header"><%= t("page.editing", model: t("activerecord.models.resource_import_file")) -%></h1>
   <div id="content_list" class="card-body">
     <%= form_with(model: @resource_import_file) do |f| -%>
       <%= error_messages(@resource_import_file) -%>
 
       <div class="field">
-        <%= f.label :resource_import_file_name -%><br />
+        <%= f.label :resource_import_file_name -%><br/>
         <%= f.text_field :resource_import_file_name -%>
       </div>
 
       <div class="field">
-        <%= f.label :note -%><br />
+        <%= f.label :note -%><br/>
         <%= f.text_area :note -%>
       </div>
 
@@ -23,7 +23,7 @@
 
 <div id="submenu" class="col">
   <ul>
-    <li><%= link_to t('page.show'), @resource_import_file -%></li>
-    <li><%= link_to t('page.back'), resource_import_files_path -%></li>
+    <li><%= link_to t("page.show"), @resource_import_file -%></li>
+    <li><%= link_to t("page.back"), resource_import_files_path -%></li>
   </ul>
 </div>
