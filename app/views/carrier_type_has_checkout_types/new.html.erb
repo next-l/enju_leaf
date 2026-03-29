@@ -1,12 +1,16 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.carrier_type_has_checkout_type")) -%></h5>
-  <div id="content_list" class="card-body">
-    <%= render "form", carrier_type_has_checkout_type: @carrier_type_has_checkout_type %>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.carrier_type_has_checkout_type")) -%></h5>
+    <div id="content_list" class="card-body">
+      <%= render "form", carrier_type_has_checkout_type: @carrier_type_has_checkout_type %>
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= link_to t("page.back"), carrier_type_has_checkout_types_path -%></li>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.back"), carrier_type_has_checkout_types_path -%></li>
+    </ul>
+  </div>
 </div>

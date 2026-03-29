@@ -1,34 +1,38 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.order")) -%></h5>
-  <div id="content_list" class="card-body">
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.order")) -%></h5>
+    <div id="content_list" class="card-body">
 
-    <%= form_for(@order) do |f| -%>
-      <%= f.error_messages -%>
-      <div class="field">
-        <%= f.label t("activerecord.models.order_list") -%><br/>
-        <%= f.select(:order_list_id, @order_lists.collect { |l| [l.title, l.id] }) -%>
-      </div>
+      <%= form_for(@order) do |f| -%>
+        <%= f.error_messages -%>
+        <div class="field">
+          <%= f.label t("activerecord.models.order_list") -%><br/>
+          <%= f.select(:order_list_id, @order_lists.collect { |l| [l.title, l.id] }) -%>
+        </div>
 
-      <div class="field">
-        <%= f.label t("activerecord.models.purchase_request") -%><br/>
-        <%- if @purchase_request -%>
-          <%= link_to @purchase_request.title, @purchase_request -%>
-          <%= f.hidden_field :purchase_request_id, value: @purchase_request.id -%>
-        <%- else -%>
-          <%= f.text_field :purchase_request_id -%>
-        <%- end -%>
-      </div>
+        <div class="field">
+          <%= f.label t("activerecord.models.purchase_request") -%><br/>
+          <%- if @purchase_request -%>
+            <%= link_to @purchase_request.title, @purchase_request -%>
+            <%= f.hidden_field :purchase_request_id, value: @purchase_request.id -%>
+          <%- else -%>
+            <%= f.text_field :purchase_request_id -%>
+          <%- end -%>
+        </div>
 
-      <div class="actions">
-        <%= f.submit %>
-      </div>
-    <%- end -%>
+        <div class="actions">
+          <%= f.submit %>
+        </div>
+      <%- end -%>
 
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= link_to t("page.back"), orders_path -%></li>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.back"), orders_path -%></li>
+    </ul>
+  </div>
 </div>
