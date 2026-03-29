@@ -1,13 +1,13 @@
 <div id="content_detail" class="col-md-9">
-  <h1 class="title card-header"><%= t('page.editing', model: t('activerecord.models.bookmark_stat')) -%></h1>
+  <h1 class="title card-header"><%= t("page.editing", model: t("activerecord.models.bookmark_stat")) -%></h1>
   <div id="content_list" class="card-body">
-    <%= render 'form', bookmark_stat: @bookmark_stat %>
+    <%= render "form", bookmark_stat: @bookmark_stat %>
   </div>
 </div>
 
 <div id="submenu" class="col">
   <ul>
-    <li><%= link_to t('page.show'), @bookmark_stat -%></li>
-    <li><%= link_to t('page.back'), bookmark_stats_path -%></li>
+    <li><%= link_to t("page.show"), @bookmark_stat -%></li>
+    <li><%= link_to t("page.back"), bookmark_stats_path -%></li>
   </ul>
 </div>
