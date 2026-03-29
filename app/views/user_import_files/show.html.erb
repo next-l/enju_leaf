@@ -1,96 +1,100 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.user_import_file")) -%></h5>
-  <div id="content_list" class="card-body">
-    <p id="notice"><%= notice %></p>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.user_import_file")) -%></h5>
+    <div id="content_list" class="card-body">
+      <p id="notice"><%= notice %></p>
 
-    <p>
-      <strong>Id:</strong>
-      <%= @user_import_file.id -%>
-    </p>
-
-    <% if @user_import_file.attachment.attached? %>
       <p>
-        <strong><%= t("activerecord.attributes.user_import_file.user_import_file_name") -%>:</strong>
-        <%= if @user_import_file.attachment.attached?
-          link_to @user_import_file.attachment.filename,
-          rails_blob_path(@user_import_file.attachment)
-        end %>
-        (<%= @user_import_file.attachment.content_type -%>)
+        <strong>Id:</strong>
+        <%= @user_import_file.id -%>
+      </p>
+
+      <% if @user_import_file.attachment.attached? %>
+        <p>
+          <strong><%= t("activerecord.attributes.user_import_file.user_import_file_name") -%>:</strong>
+          <%= if @user_import_file.attachment.attached?
+            link_to @user_import_file.attachment.filename,
+            rails_blob_path(@user_import_file.attachment)
+          end %>
+          (<%= @user_import_file.attachment.content_type -%>)
+        </p>
+
+        <p>
+          <strong><%= t("activerecord.attributes.user_import_file.user_import_file_size") -%>:</strong>
+          <%= @user_import_file.attachment.byte_size -%>
+        </p>
+      <% end %>
+
+      <p>
+        <strong><%= t("page.created_at") -%>:</strong>
+        <%= l(@user_import_file.created_at) if @user_import_file.created_at -%>
       </p>
 
       <p>
-        <strong><%= t("activerecord.attributes.user_import_file.user_import_file_size") -%>:</strong>
-        <%= @user_import_file.attachment.byte_size -%>
+        <strong><%= t("activerecord.attributes.user_import_file.executed_at") -%>:</strong>
+        <%= l(@user_import_file.executed_at) if @user_import_file.executed_at -%>
       </p>
-    <% end %>
 
-    <p>
-      <strong><%= t("page.created_at") -%>:</strong>
-      <%= l(@user_import_file.created_at) if @user_import_file.created_at -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.user_import_file.edit_mode") -%>:</strong>
+        <%= @user_import_file.edit_mode -%>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.user_import_file.executed_at") -%>:</strong>
-      <%= l(@user_import_file.executed_at) if @user_import_file.executed_at -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.user_import_file.user_encoding") -%>:</strong>
+        <%= @user_import_file.user_encoding -%>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.user_import_file.edit_mode") -%>:</strong>
-      <%= @user_import_file.edit_mode -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.user_import_file.default_user_group_id") -%>:</strong>
+        <%= if @user_import_file.default_user_group.try(:display_name)
+          link_to @user_import_file.default_user_group.display_name.localize,
+          @user_import_file.default_user_group
+        end -%>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.user_import_file.user_encoding") -%>:</strong>
-      <%= @user_import_file.user_encoding -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.user_import_file.default_library_id") -%>:</strong>
+        <%= if @user_import_file.default_library.try(:display_name)
+          link_to @user_import_file.default_library.display_name.localize,
+          @user_import_file.default_library
+        end -%>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.user_import_file.default_user_group_id") -%>:</strong>
-      <%= if @user_import_file.default_user_group.try(:display_name)
-        link_to @user_import_file.default_user_group.display_name.localize,
-        @user_import_file.default_user_group
-      end -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.user_import_file.state") -%>:</strong>
+        <%= localized_state(@user_import_file.current_state) -%>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.user_import_file.default_library_id") -%>:</strong>
-      <%= if @user_import_file.default_library.try(:display_name)
-        link_to @user_import_file.default_library.display_name.localize,
-        @user_import_file.default_library
-      end -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.user_import_file.error_message") -%>:</strong>
+        <%= simple_format(@user_import_file.error_message) -%>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.user_import_file.state") -%>:</strong>
-      <%= localized_state(@user_import_file.current_state) -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.models.user") -%>:</strong>
+        <%= if @user_import_file.user.try(:profile)
+          link_to @user_import_file.user.username, @user_import_file.user.profile
+        end -%>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.user_import_file.error_message") -%>:</strong>
-      <%= simple_format(@user_import_file.error_message) -%>
-    </p>
+      <% if @user_import_results %>
+        <%= render "results" %>
+      <% end %>
 
-    <p>
-      <strong><%= t("activerecord.models.user") -%>:</strong>
-      <%= if @user_import_file.user.try(:profile)
-        link_to @user_import_file.user.username, @user_import_file.user.profile
-      end -%>
-    </p>
-
-    <% if @user_import_results %>
-      <%= render "results" %>
-    <% end %>
-
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <%= form_for(@user_import_file) do |f| %>
-    <ul>
-      <li><%= back_to_index(flash[:page_info]) -%></li>
-      <% if current_user.has_role?('Administrator') %>
-        <li><%= link_to t("page.background_job"), mission_control_jobs_path %></li>
-      <% end %>
-    </ul>
-  <% end %>
+  <div class="card">
+    <%= form_for(@user_import_file) do |f| %>
+      <ul>
+        <li><%= back_to_index(flash[:page_info]) -%></li>
+        <% if current_user.has_role?('Administrator') %>
+          <li><%= link_to t("page.background_job"), mission_control_jobs_path %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
 </div>

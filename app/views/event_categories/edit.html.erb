@@ -1,13 +1,17 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t('page.editing', model: t('activerecord.models.event_category')) -%></h5>
-  <div id="content_list" class="card-body">
-    <%= render 'form', event_category: @event_category %>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.editing", model: t("activerecord.models.event_category")) -%></h5>
+    <div id="content_list" class="card-body">
+      <%= render "form", event_category: @event_category %>
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= link_to t('page.show'), @event_category -%></li>
-    <li><%= link_to t('page.back'), event_categories_path -%></li>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.show"), @event_category -%></li>
+      <li><%= link_to t("page.back"), event_categories_path -%></li>
+    </ul>
+  </div>
 </div>

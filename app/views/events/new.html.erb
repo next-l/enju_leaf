@@ -1,17 +1,17 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t('page.new', model: t('activerecord.models.event')) -%></h5>
+  <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.event")) -%></h5>
   <div id="content_list" class="card-body">
-    <%= render 'form', event: @event %>
-    <%= render 'all_day' %>
+    <%= render "form", event: @event %>
+    <%= render "all_day" %>
   </div>
 </div>
 
 <div id="submenu" class="col">
   <ul>
     <%- if @library -%>
-      <li><%= link_to t('page.back'), events_path(library_id: @library.name) -%></li>
+      <li><%= link_to t("page.back"), events_path(library_id: @library.name) -%></li>
     <%- else -%>
-      <li><%= link_to t('page.back'), events_path -%></li>
+      <li><%= link_to t("page.back"), events_path -%></li>
     <%- end -%>
   </ul>
 </div>

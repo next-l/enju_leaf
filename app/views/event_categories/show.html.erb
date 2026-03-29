@@ -1,31 +1,35 @@
 <div id="content_detail" class="col-md-9">
-<h5 class="title card-header"><%= t('page.showing', model: t('activerecord.models.event_category')) -%></h5>
-<div id="content_list" class="card-body">
-<p id="notice"><%= notice %></p>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.event_category")) -%></h5>
+    <div id="content_list" class="card-body">
+      <p id="notice"><%= notice %></p>
 
-<p>
-  <strong><%= t('activerecord.attributes.event_category.name') -%>:</strong>
-  <%= @event_category.name -%>
-</p>
+      <p>
+        <strong><%= t("activerecord.attributes.event_category.name") -%>:</strong>
+        <%= @event_category.name -%>
+      </p>
 
-<p>
-  <strong><%= t('activerecord.attributes.event_category.display_name') -%>:</strong>
-  <%= @event_category.display_name.localize -%>
-</p>
+      <p>
+        <strong><%= t("activerecord.attributes.event_category.display_name") -%>:</strong>
+        <%= @event_category.display_name.localize -%>
+      </p>
 
-<p>
-  <strong><%= t('activerecord.attributes.event_category.note') -%>:</strong>
-  <%= @event_category.note -%>
-</p>
+      <p>
+        <strong><%= t("activerecord.attributes.event_category.note") -%>:</strong>
+        <%= @event_category.note -%>
+      </p>
 
-</div>
+    </div>
+  </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <%- if policy(@event_category).update? -%>
-      <li><%= link_to t('page.edit'), edit_event_category_path(@event_category) -%></li>
-    <%- end -%>
-    <li><%= back_to_index(flash[:page_info]) -%></li>
-  </ul>
+  <div class="card">
+    <ul>
+      <%- if policy(@event_category).update? -%>
+        <li><%= link_to t("page.edit"), edit_event_category_path(@event_category) -%></li>
+      <%- end -%>
+      <li><%= back_to_index(flash[:page_info]) -%></li>
+    </ul>
+  </div>
 </div>
