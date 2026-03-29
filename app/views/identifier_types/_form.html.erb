@@ -2,21 +2,21 @@
   <%= error_messages(identifier_type) -%>
 
   <div class="field">
-    <%= f.label :name -%><br />
-    <%= f.text_field :name, required: true, class: 'resource_title' -%>
+    <%= f.label :name -%><br/>
+    <%= f.text_field :name, required: true, class: "form-control resource_title" -%>
   </div>
 
   <div class="field">
-    <%= f.label :display_name -%><br />
-    <%= f.text_area :display_name, class: 'form-control' -%>
+    <%= f.label :display_name -%><br/>
+    <%= f.text_area :display_name, class: "form-control" -%>
   </div>
 
   <div class="field">
-    <%= f.label :note -%><br />
-    <%= f.text_area :note, class: 'form-control' -%>
+    <%= f.label :note -%><br/>
+    <%= f.text_area :note, class: "form-control" -%>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions mt-3">
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

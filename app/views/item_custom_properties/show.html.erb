@@ -1,28 +1,32 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.item_custom_property")) -%></h5>
-  <div id="content_list" class="card-body">
-    <p id="notice"><%= notice %></p>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.item_custom_property")) -%></h5>
+    <div id="content_list" class="card-body">
+      <p id="notice"><%= notice %></p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.item_custom_property.name") %>:</strong>
-      <%= @item_custom_property.name %>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.item_custom_property.name") %>:</strong>
+        <%= @item_custom_property.name %>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.item_custom_property.display_name") %>:</strong>
-      <%= @item_custom_property.display_name.localize %>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.item_custom_property.display_name") %>:</strong>
+        <%= @item_custom_property.display_name.localize %>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.item_custom_property.note") %>:</strong>
-      <%= @item_custom_property.note %>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.item_custom_property.note") %>:</strong>
+        <%= @item_custom_property.note %>
+      </p>
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= link_to t("page.edit"), edit_item_custom_property_path(@item_custom_property) %></li>
-    <li><%= link_to t("page.back"), item_custom_properties_path %></li>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.edit"), edit_item_custom_property_path(@item_custom_property) %></li>
+      <li><%= link_to t("page.back"), item_custom_properties_path %></li>
+    </ul>
+  </div>
 </div>

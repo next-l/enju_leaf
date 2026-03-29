@@ -1,31 +1,35 @@
 <div id="content_detail" class="col-md-9">
-<h5 class="title card-header"><%= t('page.showing', model: t('activerecord.models.country')) -%></h5>
-<div id="content_list" class="card-body">
-<p id="notice"><%= notice %></p>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.country")) -%></h5>
+    <div id="content_list" class="card-body">
+      <p id="notice"><%= notice %></p>
 
-<p>
-  <strong><%= t('activerecord.attributes.country.name') -%>:</strong>
-  <%= @country.name %>
-</p>
+      <p>
+        <strong><%= t("activerecord.attributes.country.name") -%>:</strong>
+        <%= @country.name %>
+      </p>
 
-<p>
-  <strong><%= t('activerecord.attributes.country.display_name') -%>:</strong>
-  <%= @country.display_name.localize %>
-</p>
+      <p>
+        <strong><%= t("activerecord.attributes.country.display_name") -%>:</strong>
+        <%= @country.display_name.localize %>
+      </p>
 
-<p>
-  <strong><%= t('activerecord.attributes.country.note') -%>:</strong>
-  <%= @country.note -%>
-</p>
+      <p>
+        <strong><%= t("activerecord.attributes.country.note") -%>:</strong>
+        <%= @country.note -%>
+      </p>
 
-</div>
+    </div>
+  </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <%- if policy(@country).update? %>
-      <li><%= link_to t('page.edit'), edit_country_path(@country) %></li>
-    <%- end -%>
-    <li><%= back_to_index(flash[:page_info]) -%></li>
-  </ul>
+  <div class="card">
+    <ul>
+      <%- if policy(@country).update? %>
+        <li><%= link_to t("page.edit"), edit_country_path(@country) %></li>
+      <%- end -%>
+      <li><%= back_to_index(flash[:page_info]) -%></li>
+    </ul>
+  </div>
 </div>

@@ -1,13 +1,17 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t('page.editing', model: t('activerecord.models.classification_type')) -%></h5>
-  <div id="content_list" class="card-body">
-    <%= render 'form', classification_type: @classification_type %>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.editing", model: t("activerecord.models.classification_type")) -%></h5>
+    <div id="content_list" class="card-body">
+      <%= render "form", classification_type: @classification_type %>
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= link_to t('page.show'), @classification_type -%></li>
-    <li><%= link_to t('page.back'), classification_types_path -%></li>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.show"), @classification_type -%></li>
+      <li><%= link_to t("page.back"), classification_types_path -%></li>
+    </ul>
+  </div>
 </div>

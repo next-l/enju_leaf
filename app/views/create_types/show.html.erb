@@ -1,29 +1,33 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.create_type")) -%></h5>
-  <div id="content_list" class="card-body">
-    <p id="notice"><%= notice %></p>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.create_type")) -%></h5>
+    <div id="content_list" class="card-body">
+      <p id="notice"><%= notice %></p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.create_type.name") -%>:</strong>
-      <%= @create_type.name -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.create_type.name") -%>:</strong>
+        <%= @create_type.name -%>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.create_type.display_name") -%>:</strong>
-      <%= @create_type.display_name.localize -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.create_type.display_name") -%>:</strong>
+        <%= @create_type.display_name.localize -%>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.create_type.note") -%>:</strong>
-      <%= @create_type.note -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.create_type.note") -%>:</strong>
+        <%= @create_type.note -%>
+      </p>
 
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= link_to t("page.edit"), edit_create_type_path(@create_type) -%></li>
-    <li><%= back_to_index(flash[:page_info]) -%></li>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.edit"), edit_create_type_path(@create_type) -%></li>
+      <li><%= back_to_index(flash[:page_info]) -%></li>
+    </ul>
+  </div>
 </div>

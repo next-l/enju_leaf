@@ -1,53 +1,68 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t('page.showing', :model => t('activerecord.models.inventory_file')) -%></h5>
-  <div id="content_list" class="card-body">
-    <p id="notice"><%= notice %></p>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.inventory_file")) -%></h5>
+    <div id="content_list" class="card-body">
+      <p id="notice"><%= notice %></p>
 
-    <p>
-      <strong><%= t('activerecord.attributes.inventory_file.shelf') -%> :</strong>
-      <%= link_to @inventory_file.shelf.display_name, @inventory_file.shelf -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.inventory_file.shelf") -%>
+          :</strong>
+        <%= link_to @inventory_file.shelf.display_name, @inventory_file.shelf -%>
+      </p>
 
-    <p>
-      <strong><%= t('activerecord.attributes.inventory_file.inventory_file_name') -%> :</strong>
-      <%= @inventory_file.attachment.filename -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.inventory_file.inventory_file_name") -%>
+          :</strong>
+        <%= @inventory_file.attachment.filename -%>
+      </p>
 
-    <p>
-      <strong><%= t('activerecord.attributes.inventory_file.inventory_content_type') -%> :</strong>
-      <%= @inventory_file.attachment.content_type -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.inventory_file.inventory_content_type") -%>
+          :</strong>
+        <%= @inventory_file.attachment.content_type -%>
+      </p>
 
-    <p>
-      <strong><%= t('activerecord.attributes.inventory_file.inventory_file_size') -%> :</strong>
-      <%= @inventory_file.attachment.byte_size -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.inventory_file.inventory_file_size") -%>
+          :</strong>
+        <%= @inventory_file.attachment.byte_size -%>
+      </p>
 
-    <p>
-      <strong><%= t('activerecord.attributes.inventory_file.inventory_fingerprint') -%> :</strong>
-      <%= @inventory_file.inventory_fingerprint -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.inventory_file.inventory_fingerprint") -%>
+          :</strong>
+        <%= @inventory_file.inventory_fingerprint -%>
+      </p>
 
-    <p>
-      <strong><%= t('activerecord.models.user') -%> :</strong>
-      <%= link_to @inventory_file.user.username, @inventory_file.user.profile if @inventory_file.user.try(:profile) -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.models.user") -%>
+          :</strong>
+        <%= if @inventory_file.user.try(:profile)
+          link_to @inventory_file.user.username, @inventory_file.user.profile
+        end -%>
+      </p>
 
-    <p>
-      <strong><%= t('activerecord.attributes.inventory_file.note') -%> :</strong>
-      <%= @inventory_file.note -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.inventory_file.note") -%>
+          :</strong>
+        <%= @inventory_file.note -%>
+      </p>
 
-    <% if @inventories %>
-      <%= render 'results' %>
-    <% end %>
+      <% if @inventories %>
+        <%= render "results" %>
+      <% end %>
 
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= link_to t('page.edit'), edit_inventory_file_path(@inventory_file) -%> </li>
-    <li><%= back_to_index(flash[:page_info]) -%> </li>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.edit"), edit_inventory_file_path(@inventory_file) -%>
+      </li>
+      <li><%= back_to_index(flash[:page_info]) -%>
+      </li>
+    </ul>
+  </div>
 </div>
