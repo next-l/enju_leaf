@@ -4,7 +4,7 @@
   <p id="notice"><%= notice %></p>
 
   <h2><%= link_to item.item_identifier, item %></h2>
-  <p>(<%= link_to item.manifestation.original_title, item.manifestation %>)
+  <p>(<%= link_to item.manifestation.original_title, item.manifestation %>)</p>
 
 <%= render 'list', checkouts: @checkouts -%>
 

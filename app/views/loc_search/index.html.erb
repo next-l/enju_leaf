@@ -53,8 +53,9 @@
   <div id="submenu" class="col">
     <ul>
       <li><%= link_to t('enju_loc.same_query_in_loc_search'), "https://catalog.loc.gov/vwebv/search?searchArg=#{u(@query)}&searchCode=GKEY%5E*&searchType=0" %></li>
-    <% if defined?(EnjuNdl) %>
-      <li><%= link_to t('enju_ndl.import_from_ndl_search'), ndl_books_path( :query => @query ) %></li>
-    <% end %>
+      <% if defined?(EnjuNdl) %>
+        <li><%= link_to t('enju_ndl.import_from_ndl_search'), ndl_books_path( :query => @query ) %></li>
+      <% end %>
+    </ul>
   </div>
 <% end %>
