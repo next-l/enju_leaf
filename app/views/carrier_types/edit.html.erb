@@ -1,13 +1,15 @@
-<div id="content_detail" class="col-md-9">
-  <h1 class="title card-header"><%= t('page.editing', model: t('activerecord.models.carrier_type')) -%></h1>
-  <div id="content_list" class="card-body">
-    <%= render 'form', carrier_type: @carrier_type %>
+<div class="row">
+  <div id="content_detail" class="col-md-9">
+    <h1 class="title card-header"><%= t('page.editing', model: t('activerecord.models.carrier_type')) -%></h1>
+    <div id="content_list" class="card-body">
+      <%= render 'form', carrier_type: @carrier_type %>
+    </div>
   </div>
-</div>
 
-<div id="submenu" class="col">
-  <ul>
-    <li><%= link_to t('page.show'), carrier_type_path(@carrier_type) -%></li>
-    <li><%= link_to t('page.back'), carrier_types_path -%></li>
-  </ul>
+  <div id="submenu" class="col">
+    <ul>
+      <li><%= link_to t('page.show'), carrier_type_path(@carrier_type) -%></li>
+      <li><%= link_to t('page.back'), carrier_types_path -%></li>
+    </ul>
+  </div>
 </div>

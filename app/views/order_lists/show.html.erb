@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
+<div id="content_detail" class="col-md-9">
 <h1 class="title"><%= t('page.showing', model: t('activerecord.models.order_list')) -%></h1>
 <div id="content_list">
 <p id="notice"><%= notice %></p>
@@ -36,7 +36,7 @@
 </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
   <ul>
     <li><%= link_to t('page.listing', model: t('activerecord.models.purchase_request')), purchase_requests_path(order_list_id: @order_list.id) -%></li>
     <li><%= link_to t('page.edit'), edit_order_list_path(@order_list) -%></li>

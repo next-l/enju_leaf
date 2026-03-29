@@ -1,5 +1,7 @@
-<%- if @user -%>
-  <%= render 'new_user' -%>
-<%- else -%>
-  <%= render 'new' -%>
-<%- end -%>
+<div class="row">
+  <%- if @user -%>
+    <%= render 'new_user' -%>
+  <%- else -%>
+    <%= render 'new' -%>
+  <%- end -%>
+</div>

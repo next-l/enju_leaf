@@ -1,22 +1,22 @@
 <div id="content_detail" class="col-md-9">
-<h1 class="title card-header"><%= t('checkout.listing_overdue_item') -%></h1>
-<div id="content_list" class="card-body">
+  <h1 class="title card-header"><%= t('checkout.listing_overdue_item') -%></h1>
+  <div id="content_list" class="card-body">
 
-  <%= form_for(:checkouts, url: checkouts_path, html: {method: 'get'}) do -%>
-    <p>
-      <%= t('checkout.number_of_day_overdue') -%>:
-      <%= text_field_tag 'days_overdue', h(@days_overdue), class: 'resource_integer' -%>
-      <%= submit_tag t('page.search') -%>
-    </p>
-  <%- end -%>
+    <%= form_for(:checkouts, url: checkouts_path, html: {method: 'get'}) do -%>
+      <p>
+        <%= t('checkout.number_of_day_overdue') -%>:
+        <%= text_field_tag 'days_overdue', h(@days_overdue), class: 'resource_integer' -%>
+        <%= submit_tag t('page.search') -%>
+      </p>
+    <%- end -%>
 
-<%= render 'list', checkouts: @checkouts -%>
+    <%= render 'list', checkouts: @checkouts -%>
 
-<%- if @checkouts.size == 0 -%>
-  <p><%= t('checkout.no_checkout') -%></p>
-<%- end -%>
+    <%- if @checkouts.size == 0 -%>
+      <p><%= t('checkout.no_checkout') -%></p>
+    <%- end -%>
 
-</div>
+  </div>
 </div>
 
 <div id="submenu" class="col">

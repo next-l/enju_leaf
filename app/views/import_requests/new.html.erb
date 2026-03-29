@@ -1,31 +1,33 @@
-<div id="content_detail" class="col-md-9">
-  <h1 class="title card-header"><%= t('page.new', model: t('activerecord.models.import_request')) -%></h1>
-  <div id="content_list" class="card-body">
-  <p id="notice"><%= notice %></p>
+<div class="row">
+  <div id="content_detail" class="col-md-9">
+    <h1 class="title card-header"><%= t('page.new', model: t('activerecord.models.import_request')) -%></h1>
+    <div id="content_list" class="card-body">
+      <p id="notice"><%= notice %></p>
 
-  <%= form_with(model: @import_request) do |f| -%>
-    <%= error_messages(@import_request) -%>
-    <div class="field">
-      <%= f.label :isbn -%><br />
-      <%= f.search_field :isbn, class: 'resource_isbn_issn' -%>
+      <%= form_with(model: @import_request) do |f| -%>
+        <%= error_messages(@import_request) -%>
+        <div class="field">
+          <%= f.label :isbn -%><br />
+          <%= f.search_field :isbn, class: 'resource_isbn_issn' -%>
 
-      <%= f.submit 'data-disable-with' => t('page.saving') %>
+          <%= f.submit 'data-disable-with' => t('page.saving') %>
+        </div>
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('import_request_isbn').focus();
+          });
+        </script>
+      <%- end -%>
+
     </div>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('import_request_isbn').focus();
-      });
-    </script>
-  <%- end -%>
-
   </div>
-</div>
 
-<div id="submenu" class="col">
-  <ul>
-    <li><%= link_to t('page.back'), :back -%></li>
-    <li><%= link_to t('page.listing', model: t('activerecord.models.import_request')), import_requests_path -%></li>
-    <li><%= link_to t('page.add_resource_manually'), new_manifestation_path -%></li>
-    <li><%= link_to t('page.import_from_file'), new_resource_import_file_path -%></li>
-  </ul>
+  <div id="submenu" class="col">
+    <ul>
+      <li><%= link_to t('page.back'), :back -%></li>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.import_request')), import_requests_path -%></li>
+      <li><%= link_to t('page.add_resource_manually'), new_manifestation_path -%></li>
+      <li><%= link_to t('page.import_from_file'), new_resource_import_file_path -%></li>
+    </ul>
+  </div>
 </div>

@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
+<div id="content_detail" class="col-md-9">
 <h1 class="title"><%= t('page.editing', model: t('activerecord.models.purchase_request')) -%></h1>
 <div id="content_list">
 
@@ -58,7 +58,7 @@
 </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
   <ul>
     <li><%= link_to t('page.show'), @purchase_request -%></li>
     <li><%= link_to t('page.back'), purchase_requests_path(user_id: @purchase_request.user.username, page: flash[:page] ||= nil) -%></li>

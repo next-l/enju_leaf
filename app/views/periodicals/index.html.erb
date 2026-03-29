@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
+<div id="content_detail" class="col-md-9">
   <h1 class="title"><%= t('page.listing', model: t('activerecord.models.periodical')) -%></h1>
   <div id="content_list">
     <p id="notice"><%= notice %></p>
@@ -29,7 +29,7 @@
   </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
   <ul>
     <%- if policy(ProduceType).create? -%>
       <li><%= link_to t('page.new', model: t('activerecord.models.periodical')), new_periodical_path -%></li>
