@@ -1,6 +1,6 @@
 <div id="content_detail" class="col-md-9">
   <h1 class="title"><%= t("page.editing", model: t("activerecord.models.order_list")) -%></h1>
-  <div id="content_list">
+  <div id="content_list" class="card-body">
 
     <%= form_with(model: @order_list) do |f| -%>
       <%= error_messages(@order_list) %>

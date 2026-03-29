@@ -1,3 +1,5 @@
+<p style="color: green"><%= notice %></p>
+
 <%- if current_user.has_role?('Librarian') -%>
   <%- if @user -%>
     <%= render "index_user", user: @user -%>

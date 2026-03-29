@@ -1,27 +1,36 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @locale.to_s -%>" lang="<%= @locale.to_s -%>">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xml:lang="<%= @locale.to_s -%>"
+  lang="<%= @locale.to_s -%>"
+>
   <head>
-    <meta charset="UTF-8" />
-    <title><%= t('message.user_message', login_name: current_user.username) -%></title>
-    <%= auto_discovery_link_tag(:rss, messages_url(format: :rss), title: (t('message.user_message', login_name: current_user.username) + " (RSS)")) %>
-    <%= auto_discovery_link_tag(:atom, messages_url(format: :atom), title: (t('message.user_message', login_name: current_user.username) + " (Atom)")) %>
+    <meta charset="UTF-8"/>
+    <title><%= t("message.user_message", login_name: current_user.username) -%></title>
+    <%= auto_discovery_link_tag(
+      :rss,
+      messages_url(format: :rss),
+      title:
+        (t("message.user_message", login_name: current_user.username) + " (RSS)"),
+    ) %>
+    <%= auto_discovery_link_tag(
+      :atom,
+      messages_url(format: :atom),
+      title:
+        (t("message.user_message", login_name: current_user.username) + " (Atom)"),
+    ) %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <%= javascript_include_tag "application",
+    "data-turbo-track": "reload",
+    type: "module" %>
   </head>
   <body>
-
+    <%= render "page/menu" %>
     <div class="container">
-      <%= render 'page/header' -%>
-      <%= render 'page/menu' -%>
-
       <div class="row" id="content">
-
-        <%= yield -%>
-
+        <%= yield %>
       </div>
-
-      <%= render 'page/footer' -%>
+      <%= render "page/footer" %>
     </div>
-
   </body>
 </html>

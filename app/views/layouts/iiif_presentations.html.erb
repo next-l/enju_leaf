@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @locale.to_s -%>" lang="<%= @locale.to_s -%>">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xml:lang="<%= @locale.to_s -%>"
+  lang="<%= @locale.to_s -%>"
+>
   <head>
-    <meta charset="UTF-8" />
-    <%= javascript_include_tag 'application' %>
+    <meta charset="UTF-8"/>
+    <%= javascript_include_tag "application" %>
     <title><%= @manifestation.original_title %></title>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <%= javascript_include_tag "application",
+    "data-turbo-track": "reload",
+    type: "module" %>
   </head>
   <body>
 
-  <%= yield %>
+    <%= yield %>
 
   </body>
 </html>
