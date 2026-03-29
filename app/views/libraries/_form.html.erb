@@ -1,96 +1,99 @@
-<%= render 'page/required_field' %>
+<%= render "page/required_field" %>
 <%= form_with(model: library) do |f| -%>
   <%= error_messages(library) %>
 
   <div class="field">
-    <%= f.label :name -%><br />
-    <%= f.text_field :name, class: 'short_name' -%>
+    <%= f.label :name -%><br/>
+    <%= f.text_field :name, class: "short_name" -%>
   </div>
 
   <div class="field">
-    <%= f.label :short_display_name -%><br />
-    <%= f.text_area :short_display_name, class: 'form-control' -%>
+    <%= f.label :short_display_name -%><br/>
+    <%= f.text_area :short_display_name, class: "form-control" -%>
   </div>
 
   <div class="field">
-    <%= f.label :display_name -%><br />
-    <%= f.text_area :display_name, class: 'form-control' -%>
+    <%= f.label :display_name -%><br/>
+    <%= f.text_area :display_name, class: "form-control" -%>
   </div>
 
   <% unless library.web? %>
     <div class="field">
-      <%= f.label :isil -%><br />
-      <%= f.text_field :isil, class: 'resource_identifier' -%>
+      <%= f.label :isil -%><br/>
+      <%= f.text_field :isil, class: "resource_identifier" -%>
     </div>
 
     <div class="field">
-      <%= f.label t('activerecord.models.country') -%><br />
-      <%= f.select(:country_id, @countries.collect{|c| [c.display_name.localize, c.id]}) -%>
+      <%= f.label t("activerecord.models.country") -%><br/>
+      <%= f.select(
+        :country_id,
+        @countries.collect { |c| [c.display_name.localize, c.id] },
+      ) -%>
     </div>
 
     <div class="field">
-      <%= f.label :zip_code -%><br />
+      <%= f.label :zip_code -%><br/>
       <%= f.text_field :zip_code -%>
     </div>
 
     <div class="field">
-      <%= f.label :region -%><br />
-      <%= f.text_area :region, class: 'form-control' -%>
+      <%= f.label :region -%><br/>
+      <%= f.text_area :region, class: "form-control" -%>
     </div>
 
     <div class="field">
-      <%= f.label :locality -%><br />
-      <%= f.text_area :locality, class: 'form-control' -%>
+      <%= f.label :locality -%><br/>
+      <%= f.text_area :locality, class: "form-control" -%>
     </div>
 
     <div class="field">
-      <%= f.label :street -%><br />
-      <%= f.text_area :street, class: 'form-control' -%>
+      <%= f.label :street -%><br/>
+      <%= f.text_area :street, class: "form-control" -%>
     </div>
 
     <div class="field">
-      <%= f.label :latitude -%><br />
+      <%= f.label :latitude -%><br/>
       <%= f.text_field :latitude -%>
     </div>
 
     <div class="field">
-      <%= f.label :longitude -%><br />
+      <%= f.label :longitude -%><br/>
       <%= f.text_field :longitude -%>
     </div>
 
     <div class="field">
-      <%= f.label :telephone_number_1 -%><br />
+      <%= f.label :telephone_number_1 -%><br/>
       <%= f.phone_field :telephone_number_1 -%>
     </div>
 
     <div class="field">
-      <%= f.label :telephone_number_2 -%><br />
+      <%= f.label :telephone_number_2 -%><br/>
       <%= f.phone_field :telephone_number_2 -%>
     </div>
 
     <div class="field">
-      <%= f.label :fax_number -%><br />
+      <%= f.label :fax_number -%><br/>
       <%= f.phone_field :fax_number -%>
     </div>
 
     <div class="field">
-      <%= f.label :call_number_rows -%><br />
-      <%= f.text_field :call_number_rows, class: 'resource_integer' -%>
+      <%= f.label :call_number_rows -%><br/>
+      <%= f.text_field :call_number_rows, class: "resource_integer" -%>
     </div>
 
     <div class="field">
-      <%= f.label :call_number_delimiter -%><br />
-      <%= f.text_field :call_number_delimiter, class: 'resource_integer' -%>
+      <%= f.label :call_number_delimiter -%><br/>
+      <%= f.text_field :call_number_delimiter, class: "resource_integer" -%>
     </div>
 
     <div class="field">
-      <%= f.label :opening_hour -%><br />
-      <%= f.text_area :opening_hour, class: 'form-control' -%>
+      <%= f.label :opening_hour -%><br/>
+      <%= f.text_area :opening_hour, class: "form-control" -%>
     </div>
 
     <div class="field">
-      <%= f.label :note -%><br />
-      <%= f.text_area :note, class: 'form-control' -%>
+      <%= f.label :note -%><br/>
+      <%= f.text_area :note, class: "form-control" -%>
     </div>
   <% end %>
 

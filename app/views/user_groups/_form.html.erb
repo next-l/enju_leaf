@@ -2,32 +2,32 @@
   <%= error_messages(user_group) -%>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %><br/>
     <%= f.text_field :name, required: true %>
   </div>
   <div class="field">
-    <%= f.label :display_name %><br />
+    <%= f.label :display_name %><br/>
     <%= f.text_area :display_name %>
   </div>
   <div class="field">
-    <%= f.label :valid_period_for_new_user %><br />
-    <%= f.text_field :valid_period_for_new_user, class: 'resource_integer' %>
+    <%= f.label :valid_period_for_new_user %><br/>
+    <%= f.text_field :valid_period_for_new_user, class: "resource_integer" %>
   </div>
   <div class="field">
-    <%= f.label :number_of_day_to_notify_due_date %><br />
-    <%= f.text_field :number_of_day_to_notify_due_date, class: 'resource_integer' %>
+    <%= f.label :number_of_day_to_notify_due_date %><br/>
+    <%= f.text_field :number_of_day_to_notify_due_date, class: "resource_integer" %>
   </div>
   <div class="field">
-    <%= f.label :number_of_day_to_notify_overdue %><br />
-    <%= f.text_field :number_of_day_to_notify_overdue, class: 'resource_integer' %>
+    <%= f.label :number_of_day_to_notify_overdue %><br/>
+    <%= f.text_field :number_of_day_to_notify_overdue, class: "resource_integer" %>
   </div>
   <div class="field">
-    <%= f.label :number_of_time_to_notify_overdue %><br />
-    <%= f.text_field :number_of_time_to_notify_overdue, class: 'resource_integer' %>
+    <%= f.label :number_of_time_to_notify_overdue %><br/>
+    <%= f.text_field :number_of_time_to_notify_overdue, class: "resource_integer" %>
   </div>
 
   <div class="field">
-    <%= f.label :note %><br />
+    <%= f.label :note %><br/>
     <%= f.text_area :note %>
   </div>
   <div class="actions">

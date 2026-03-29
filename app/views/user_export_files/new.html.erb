@@ -1,16 +1,17 @@
 <div id="content_detail" class="col-md-9">
-  <h1 class="title card-header"><%= t('page.new', model: t('activerecord.models.user_export_file')) -%></h1>
+  <h1 class="title card-header"><%= t("page.new", model: t("activerecord.models.user_export_file")) -%></h1>
   <div id="content_list" class="card-body">
 
-    <p><%= t('export.are_you_sure_to_export') %></p>
+    <p><%= t("export.are_you_sure_to_export") %></p>
 
-    <%= render 'form', user_export_file: @user_export_file %>
+    <%= render "form", user_export_file: @user_export_file %>
 
   </div>
 </div>
 
 <div id="submenu" class="col">
   <ul>
-    <li><%= link_to t('page.listing', model: t('activerecord.models.user_export_file')), user_export_files_path -%></li>
+    <li><%= link_to t("page.listing", model: t("activerecord.models.user_export_file")),
+      user_export_files_path -%></li>
   </ul>
 </div>

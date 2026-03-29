@@ -1,12 +1,12 @@
 <div id="content_detail" class="col-md-9">
-  <h1 class="title card-header"><%= t('page.new', model: t('activerecord.models.library')) -%></h1>
+  <h1 class="title card-header"><%= t("page.new", model: t("activerecord.models.library")) -%></h1>
   <div id="content_list" class="card-body">
-    <%= render 'form', library: @library %>
+    <%= render "form", library: @library %>
   </div>
 </div>
 
 <div id="submenu" class="col">
   <ul>
-    <li><%= link_to t('page.back'), libraries_path -%></li>
+    <li><%= link_to t("page.back"), libraries_path -%></li>
   </ul>
 </div>

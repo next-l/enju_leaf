@@ -1,24 +1,24 @@
 <div id="content_detail" class="col-md-9">
-<h1 class="title card-header"><%= t('page.editing', model: t('activerecord.models.tag')) -%></h1>
-<div id="content_list" class="card-body">
+  <h1 class="title card-header"><%= t("page.editing", model: t("activerecord.models.tag")) -%></h1>
+  <div id="content_list" class="card-body">
 
-<%= form_for(@tag, url: tag_path(@tag.name)) do |f| -%>
-  <%= error_messages(@tag) -%>
-  <div class="field">
-    <%= f.label :name -%><br />
-    <%= f.text_field :name, value: @tag.name -%>
-  </div>
+    <%= form_for(@tag, url: tag_path(@tag.name)) do |f| -%>
+      <%= error_messages(@tag) -%>
+      <div class="field">
+        <%= f.label :name -%><br/>
+        <%= f.text_field :name, value: @tag.name -%>
+      </div>
 
-  <div class="actions">
-    <%= f.submit %>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    <%- end -%>
   </div>
-<%- end -%>
-</div>
 </div>
 
 <div id="submenu" class="col">
   <ul>
-    <li><%= link_to t('page.show'), tag_path(@tag.name) -%></li>
-    <li><%= link_to t('page.back'), tags_path -%></li>
+    <li><%= link_to t("page.show"), tag_path(@tag.name) -%></li>
+    <li><%= link_to t("page.back"), tags_path -%></li>
   </ul>
 </div>

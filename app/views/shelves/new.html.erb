@@ -1,7 +1,7 @@
 <div id="content_detail" class="col-md-9">
-  <h1 class="title card-header"><%= t('page.new', model: t('activerecord.models.shelf')) -%></h1>
+  <h1 class="title card-header"><%= t("page.new", model: t("activerecord.models.shelf")) -%></h1>
   <div id="content_list" class="card-body">
-    <%= render 'form', shelf: @shelf %>
+    <%= render "form", shelf: @shelf %>
   </div>
 </div>
 
@@ -9,9 +9,9 @@
   <ul>
     <li>
       <%- if @shelf.library -%>
-        <%= link_to t('page.back'), shelves_path(library_id: @shelf.library_id) -%>
+        <%= link_to t("page.back"), shelves_path(library_id: @shelf.library_id) -%>
       <%- else -%>
-        <%= link_to t('page.back'), shelves_path -%>
+        <%= link_to t("page.back"), shelves_path -%>
       <%- end -%>
     </li>
   </ul>
