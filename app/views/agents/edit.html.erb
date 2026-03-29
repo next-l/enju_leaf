@@ -1,16 +1,21 @@
 <div id="content_detail" class="col-md-9">
-  <h1 class="title card-header"><%= t('page.editing', model: t('activerecord.models.agent')) -%></h1>
+  <h1 class="title card-header"><%= t("page.editing", model: t("activerecord.models.agent")) -%></h1>
   <div id="content_list" class="card-body">
-    <%= render 'form', agent: @agent %>
+    <%= render "form", agent: @agent %>
   </div>
 </div>
 
 <div id="submenu" class="col">
   <ul>
-    <li><%= link_to t('page.show'), @agent -%></li>
+    <li><%= link_to t("page.show"), @agent -%></li>
     <%- if policy(@agent).destroy? -%>
-      <li><%= link_to t('page.destroy'), @agent, data: {confirm: t('page.are_you_sure')}, method: :delete -%></li>
+      <li><%= link_to t("page.destroy"),
+        @agent,
+        data: {
+          confirm: t("page.are_you_sure"),
+        },
+        method: :delete -%></li>
     <%- end -%>
-    <li><%= link_to t('page.back'), agents_path -%></li>
+    <li><%= link_to t("page.back"), agents_path -%></li>
   </ul>
 </div>

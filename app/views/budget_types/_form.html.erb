@@ -2,16 +2,16 @@
   <%= error_messages(budget_type) %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %><br/>
     <%= f.text_field :name, required: true %>
   </div>
   <div class="field">
-    <%= f.label :display_name %><br />
-    <%= f.text_area :display_name, class: 'form-control' -%>
+    <%= f.label :display_name %><br/>
+    <%= f.text_area :display_name, class: "form-control" -%>
   </div>
   <div class="field">
-    <%= f.label :note %><br />
-    <%= f.text_area :note, class: 'form-control' -%>
+    <%= f.label :note %><br/>
+    <%= f.text_area :note, class: "form-control" -%>
   </div>
   <div class="actions">
     <%= f.submit %>

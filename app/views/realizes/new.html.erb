@@ -1,17 +1,19 @@
 <div id="content_detail" class="col-md-9">
-  <h1 class="title card-header"><%= t('page.new', model: t('activerecord.models.realize')) -%></h1>
+  <h1 class="title card-header"><%= t("page.new", model: t("activerecord.models.realize")) -%></h1>
   <div id="content_list" class="card-body">
-    <%= render 'form', realize: @realize %>
+    <%= render "form", realize: @realize %>
   </div>
 </div>
 
 <div id="submenu" class="col">
   <ul>
     <%- if @realize.agent -%>
-      <li><%= link_to t('page.listing', model: t('activerecord.models.manifestation')), manifestations_path(contributor_id: @realize.agent_id) -%></li>
+      <li><%= link_to t("page.listing", model: t("activerecord.models.manifestation")),
+        manifestations_path(contributor_id: @realize.agent_id) -%></li>
     <%- end -%>
     <%- if @realize.expression -%>
-      <li><%= link_to t('page.listing', model: t('activerecord.models.agent')), agents_path(expression_id: @realize.expression_id) -%></li>
+      <li><%= link_to t("page.listing", model: t("activerecord.models.agent")),
+        agents_path(expression_id: @realize.expression_id) -%></li>
     <%- end -%>
   </ul>
 </div>

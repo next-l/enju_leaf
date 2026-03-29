@@ -1,14 +1,14 @@
 <div class="row">
   <div id="content_detail" class="col-md-9">
-    <h1 class="title card-header"><%= t('page.new', model: t('activerecord.models.carrier_type')) -%></h1>
+    <h1 class="title card-header"><%= t("page.new", model: t("activerecord.models.carrier_type")) -%></h1>
     <div id="content_list" class="card-body">
-      <%= render 'form', carrier_type: @carrier_type %>
+      <%= render "form", carrier_type: @carrier_type %>
     </div>
   </div>
 
   <div id="submenu" class="col">
     <ul>
-      <li><%= link_to t('page.back'), carrier_types_path -%></li>
+      <li><%= link_to t("page.back"), carrier_types_path -%></li>
     </ul>
   </div>
 </div>

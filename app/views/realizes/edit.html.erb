@@ -1,13 +1,13 @@
 <div id="content_detail" class="col-md-9">
-  <h1 class="title card-header"><%= t('page.editing', model: t('activerecord.models.realize')) -%></h1>
+  <h1 class="title card-header"><%= t("page.editing", model: t("activerecord.models.realize")) -%></h1>
   <div id="content_list" class="card-body">
-    <%= render 'form', realize: @realize %>
+    <%= render "form", realize: @realize %>
   </div>
 </div>
 
 <div id="submenu" class="col">
   <ul>
-    <li><%= link_to t('page.show'), @realize -%></li>
-    <li><%= link_to t('page.back'), realizes_path -%></li>
+    <li><%= link_to t("page.show"), @realize -%></li>
+    <li><%= link_to t("page.back"), realizes_path -%></li>
   </ul>
 </div>
