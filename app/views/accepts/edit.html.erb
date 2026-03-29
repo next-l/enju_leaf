@@ -1,15 +1,13 @@
-<div class="row">
-  <div id="content_detail" class="col-md-9">
-    <h1 class="title card-header"><%= t("page.editing", model: t("activerecord.models.accept")) -%></h1>
-    <div id="content_list" class="card-body">
-      <%= render "form" %>
-    </div>
+<div id="content_detail" class="col-md-9">
+  <h1 class="title card-header"><%= t("page.editing", model: t("activerecord.models.accept")) -%></h1>
+  <div id="content_list" class="card-body">
+    <%= render "form" %>
   </div>
+</div>
 
-  <div id="submenu" class="col">
-    <ul>
-      <li><%= link_to t("page.show"), @accept -%></li>
-      <li><%= link_to t("page.back"), accepts_path -%></li>
-    </ul>
-  </div>
+<div id="submenu" class="col">
+  <ul>
+    <li><%= link_to t("page.show"), @accept -%></li>
+    <li><%= link_to t("page.back"), accepts_path -%></li>
+  </ul>
 </div>

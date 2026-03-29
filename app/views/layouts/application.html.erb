@@ -35,7 +35,9 @@
   <body itemscope itemtype="http://schema.org/WebPage">
     <%= render "page/menu" %>
     <div class="container">
-      <%= yield %>
+      <div class="row" id="content">
+        <%= yield %>
+      </div>
 
       <footer>
         <p class="small"><a href="https://github.com/next-l/enju_leaf">Next-L Enju Leaf 1.5.3</a>, オープンソース統合図書館システム | <a href="/page/about">このシステムについて</a> | <a href="https://github.com/next-l/enju_leaf/issues">不具合を報告する</a> | <a href="https://next-l.github.io/manual/1.4/">マニュアル</a><br />
