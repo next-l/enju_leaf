@@ -99,31 +99,27 @@
             <% end %>
           </ul>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <% if current_user.try(:has_role?, 'Librarian') %>
-              <%= t('page.management') %>
-            <% else %>
+        <% if current_user.try(:has_role?, 'Librarian') %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <%= t('page.configuration') %>
-            <% end %>
-          </a>
-          <ul class="dropdown-menu">
-            <li><%= link_to t('user.management'), profiles_path, class: "dropdown-item" %></li>
-            <li><%= link_to t('page.agent_management'), agents_path, class: "dropdown-item" %></li>
-            <li><%= link_to t('page.import'), page_import_path, class: "dropdown-item" %></li>
-            <li><%= link_to t('page.export'), page_export_path, class: "dropdown-item" %></li>
-            <% if defined?(EnjuPurchaseRequest) %>
-              <li><%= link_to t('activerecord.models.order_list'), order_lists_path, class: "dropdown-item" %></li>
-            <% end %>
-            <li><%= link_to t('page.statistics'), page_statistics_path, class: "dropdown-item" %></li>
-            <% if defined?(EnjuSearchLog) %>
-              <li><%= link_to t('activerecord.models.search_history'), search_histories_path, class: "dropdown-item" %></li>
-            <% end %>
-            <% if current_user.try(:has_role?, 'Librarian') %>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to t('user.management'), profiles_path, class: "dropdown-item" %></li>
+              <li><%= link_to t('page.agent_management'), agents_path, class: "dropdown-item" %></li>
+              <li><%= link_to t('page.import'), page_import_path, class: "dropdown-item" %></li>
+              <li><%= link_to t('page.export'), page_export_path, class: "dropdown-item" %></li>
+              <% if defined?(EnjuPurchaseRequest) %>
+                <li><%= link_to t('activerecord.models.order_list'), order_lists_path, class: "dropdown-item" %></li>
+              <% end %>
+              <li><%= link_to t('page.statistics'), page_statistics_path, class: "dropdown-item" %></li>
+              <% if defined?(EnjuSearchLog) %>
+                <li><%= link_to t('activerecord.models.search_history'), search_histories_path, class: "dropdown-item" %></li>
+              <% end %>
               <li><%= link_to t('page.configuration'), page_configuration_path, class: "dropdown-item" %></li>
-            <% end %>
-          </ul>
-        </li>
+            </ul>
+          </li>
+        <% end %>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Switch language
