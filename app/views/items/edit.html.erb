@@ -1,22 +1,26 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t("page.editing", model: t("activerecord.models.item")) -%></h5>
-  <div id="content_list" class="card-body">
-    <%= render "form", item: @item %>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.editing", model: t("activerecord.models.item")) -%></h5>
+    <div id="content_list" class="card-body">
+      <%= render "form", item: @item %>
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <%= render "manifestations/book_jacket", manifestation: @item.manifestation -%>
-  <ul>
-    <li><%= link_to t("page.show"), @item -%></li>
-    <% if policy(@item).destroy? %>
-      <li><%= link_to t("page.destroy"),
-        @item,
-        data: {
-          confirm: t("page.are_you_sure"),
-        },
-        method: :delete -%></li>
-    <% end %>
-    <li><%= link_to t("page.back"), :back -%></li>
-  </ul>
+  <div class="card">
+    <%= render "manifestations/book_jacket", manifestation: @item.manifestation -%>
+    <ul>
+      <li><%= link_to t("page.show"), @item -%></li>
+      <% if policy(@item).destroy? %>
+        <li><%= link_to t("page.destroy"),
+          @item,
+          data: {
+            confirm: t("page.are_you_sure"),
+          },
+          method: :delete -%></li>
+      <% end %>
+      <li><%= link_to t("page.back"), :back -%></li>
+    </ul>
+  </div>
 </div>
