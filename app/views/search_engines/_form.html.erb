@@ -25,7 +25,7 @@
   </div>
   <div class="field">
     <%= f.label :http_method %><br/>
-    <%= f.select :http_method, %w[get post] %>
+    <%= f.select :http_method, %w[get post], {}, class: "form-select" %>
   </div>
   <div class="field">
     <%= f.label :query_param %><br/>

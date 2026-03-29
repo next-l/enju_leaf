@@ -24,6 +24,8 @@
     <%= f.select(
       :required_role_id,
       @roles.collect { |r| [r.display_name.localize, r.id] },
+      {},
+      class: "form-control"
     ) -%>
   </div>
   -->

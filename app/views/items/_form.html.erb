@@ -20,8 +20,8 @@
 
   <div class="field">
     <%= f.label "#{t("activerecord.models.library")} / #{t("activerecord.models.shelf")}" %>
-    <%= f.select :library_id, @libraries.map { |l| [l.display_name.localize, l.id] } %>
-    <%= f.select :shelf_id, @shelves.map { |s| [s.display_name.localize, s.id] } %>
+    <%= f.select :library_id, @libraries.map { |l| [l.display_name.localize, l.id] }, {}, class: "form-select" %>
+    <%= f.select :shelf_id, @shelves.map { |s| [s.display_name.localize, s.id] }, {}, class: "form-select" %>
     <%= render "observe_field" %>
   </div>
 
@@ -31,6 +31,8 @@
       <%= f.select(
         :checkout_type_id,
         @checkout_types.collect { |c| [c.display_name.localize, c.id] },
+        {},
+        class: "form-select"
       ) %>
     </div>
 
@@ -39,6 +41,8 @@
       <%= f.select(
         :circulation_status_id,
         @circulation_statuses.collect { |c| [c.display_name.localize, c.id] },
+        {},
+        class: "form-select"
       ) %>
     </div>
 
@@ -46,7 +50,9 @@
       <%= f.label t("activerecord.models.use_restriction") %>
       <%= f.fields_for :item_has_use_restriction do |i| %>
         <%= i.select :use_restriction_id,
-                 @use_restrictions.collect { |r| [r.display_name.localize, r.id] } %>
+                 @use_restrictions.collect { |r| [r.display_name.localize, r.id] },
+                 {},
+                 class: "form-select" %>
       <% end %>
     </div>
   <% end %>
@@ -67,6 +73,7 @@
       :budget_type_id,
       @budget_types.collect { |b| [b.display_name.localize, b.id] },
       include_blank: true,
+      class: "form-select"
     ) %>
 
     <%= f.label t("activerecord.models.bookstore") %>
@@ -74,6 +81,7 @@
       :bookstore_id,
       @bookstores.collect { |b| [b.name, b.id] },
       include_blank: true,
+      class: "form-select"
     ) %>
   </div>
 
@@ -92,6 +100,8 @@
     <%= f.select(
       :required_role_id,
       @roles.collect { |r| [r.display_name.localize, r.id] },
+      {},
+      class: "form-select"
     ) %>
   </div>
 
