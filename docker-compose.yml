@@ -9,11 +9,7 @@ x-app: &app
   env_file:
     - .env
   environment:
-<<<<<<< HEAD
-    no_proxy: localhost,web,workers,tika
-=======
     no_proxy: localhost,web,queue,tika
->>>>>>> main
   image: ghcr.io/next-l/enju_leaf:latest
   networks:
     internal:
