@@ -1,15 +1,15 @@
-<%= form_with(model: subscription) do |f| -%>
-  <%= error_messages(subscription) -%>
+<%= form_with(model: subscription) do |f| %>
+  <%= error_messages(subscription) %>
 
   <div class="field">
-    <%= f.label :title -%><br/>
-    <%= f.text_field :title, required: true, class: "resource_title" -%>
+    <%= f.label :title %><br/>
+    <%= f.text_field :title, required: true, class: "form-control resource_title" %>
   </div>
   <div class="field">
-    <%= f.label :note -%><br/>
-    <%= f.text_area :note, class: "form-control" -%>
+    <%= f.label :note %><br/>
+    <%= f.text_area :note, class: "form-control" %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions mt-3">
+    <%= f.submit class: "btn btn-primary" %>
   </div>
-<%- end -%>
+<% end %>

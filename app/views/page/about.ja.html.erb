@@ -11,8 +11,10 @@
       <h2>連絡先</h2>
 
       <ul>
-        <li>田辺浩介: <%= mail_to 'nabeta@fastmail.fm', nil, replace_at: '_at_' -%></li>
-        <li>Project Next-L: <%= mail_to 'info@next-l.jp', nil, replace_at: '_at_' -%></li>
+        <li>田辺浩介:
+          <%= mail_to "nabeta@fastmail.fm", nil, replace_at: "_at_" -%></li>
+        <li>Project Next-L:
+          <%= mail_to "info@next-l.jp", nil, replace_at: "_at_" -%></li>
       </ul>
 
       <h2>謝辞</h2>
@@ -29,20 +31,20 @@
           </ul>
         </li>
         <li>このシステムは、以下のサービスやデータベースから得た書誌データを利用しています。
-        <ul>
-          <li><a href="https://ndlsearch.ndl.go.jp/">国立国会図書館サーチ (NDLサーチ)</a></li>
-          <li><a href="https://crd.ndl.go.jp/jp/public/">国立国会図書館レファレンス協同データベース</a></li>
-        </ul>
+          <ul>
+            <li><a href="https://ndlsearch.ndl.go.jp/">国立国会図書館サーチ (NDLサーチ)</a></li>
+            <li><a href="https://crd.ndl.go.jp/jp/public/">国立国会図書館レファレンス協同データベース</a></li>
+          </ul>
         </li>
         <li>このシステムは、以下のサービスから得た書影を利用しています。
-        <ul>
-          <li><%= book_jacket_source_link %></li>
-        </ul>
+          <ul>
+            <li><%= book_jacket_source_link %></li>
+          </ul>
         </li>
         <li>このシステムは、以下のサービスから得たWebサイトのスクリーンショットを利用しています。
-        <ul>
-          <li><%= screenshot_generator_link %></li>
-        </ul>
+          <ul>
+            <li><%= screenshot_generator_link %></li>
+          </ul>
         </li>
         <li>このシステムで利用しているアイコンは、<a href="http://www.famfamfam.com/lab/icons/silk/">famfamfam.com</a>によって製作されています。</li>
       </ul>
@@ -56,7 +58,9 @@
       <ul>
         <li><a href="https://www.next-l.jp/">Project Next-L</a></li>
         <li><a href="https://github.com/next-l/enju_leaf">GitHubでのプロジェクトのページ</a></li>
-        <li><a href="https://www.next-l.jp/?page=%A5%E1%A1%BC%A5%EA%A5%F3%A5%B0%A5%EA%A5%B9%A5%C8">メーリングリスト</a></li>
+        <li><a
+            href="https://www.next-l.jp/?page=%A5%E1%A1%BC%A5%EA%A5%F3%A5%B0%A5%EA%A5%B9%A5%C8"
+          >メーリングリスト</a></li>
       </ul>
     </div>
   </div>

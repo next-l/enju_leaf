@@ -78,7 +78,7 @@
 
     <div class="field">
       <%= f.label :call_number_rows -%><br/>
-      <%= f.number_field :call_number_rows, class: 'resource_integer' -%>
+      <%= f.number_field :call_number_rows, class: "resource_integer" -%>
     </div>
 
     <div class="field">
@@ -97,8 +97,8 @@
     </div>
   <% end %>
 
-  <div class="actions">
+  <div class="actions mt-3">
     <%= f.hidden_field :library_group_id %>
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <%- end -%>

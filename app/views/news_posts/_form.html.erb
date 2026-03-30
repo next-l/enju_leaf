@@ -1,51 +1,51 @@
-<%= form_with(model: news_post) do |f| -%>
-  <%= error_messages(news_post) -%>
+<%= form_with(model: news_post) do |f| %>
+  <%= error_messages(news_post) %>
   <div class="field">
-    <%= f.label t("activerecord.attributes.news_post.title") -%><br/>
-    <%= f.text_field :title, required: true, class: "resource_title" -%>
+    <%= f.label t("activerecord.attributes.news_post.title") %><br/>
+    <%= f.text_field :title, required: true, class: "form-control resource_title" %>
   </div>
   <div class="field">
-    <%= f.label t("activerecord.attributes.news_post.body") -%><br/>
-    <%= f.text_area :body, class: "form-control" -%>
+    <%= f.label t("activerecord.attributes.news_post.body") %><br/>
+    <%= f.text_area :body, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label t("activerecord.attributes.news_post.url") -%>
-    <%= f.url_field :url, class: "resource_url" -%>
+    <%= f.label t("activerecord.attributes.news_post.url") %>
+    <%= f.url_field :url, class: "resource_url" %>
   </div>
   <!--
   <div class="field">
-    <%= f.label t("activerecord.models.user") -%><br/>
+    <%= f.label t("activerecord.models.user") %><br/>
     <%= if news_post.user.try(:profile)
       link_to news_post.user.username, news_post.user.profile
-    end -%>
+    end %>
   </div>
   <div class="field">
-    <%= f.label t("role.required_role") -%>
+    <%= f.label t("role.required_role") %>
     <%= f.select(
       :required_role_id,
       @roles.collect { |r| [r.display_name.localize, r.id] },
       {},
       class: "form-control"
-    ) -%>
+    ) %>
   </div>
   -->
   <div class="field">
-    <%= f.label t("activerecord.attributes.news_post.start_date") -%>
-    <%= f.date_select :start_date -%>
+    <%= f.label t("activerecord.attributes.news_post.start_date") %>
+    <%= f.date_select :start_date %>
   </div>
   <div class="field">
-    <%= f.label t("activerecord.attributes.news_post.end_date") -%><br/>
-    <%= f.datetime_select :end_date -%>
+    <%= f.label t("activerecord.attributes.news_post.end_date") %><br/>
+    <%= f.datetime_select :end_date %>
   </div>
   <div class="field">
-    <%= f.label t("activerecord.attributes.news_post.note") -%><br/>
-    <%= f.text_area :note, class: "form-control" -%>
+    <%= f.label t("activerecord.attributes.news_post.note") %><br/>
+    <%= f.text_area :note, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label t("activerecord.attributes.news_post.draft") -%>
-    <%= f.check_box :draft -%>
+    <%= f.label t("activerecord.attributes.news_post.draft") %>
+    <%= f.check_box :draft %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions mt-3">
+    <%= f.submit class: "btn btn-primary" %>
   </div>
-<%- end -%>
+<% end %>

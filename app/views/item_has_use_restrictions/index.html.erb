@@ -33,10 +33,12 @@
 <%= paginate(@item_has_use_restrictions) -%>
 <br/>
 
-<%- if @item -%>
-  <%= link_to t("page.new", model: t("activerecord.models.item_has_use_restriction")),
-  new_item_item_has_use_restriction_path(@item) -%>
-<%- else -%>
-  <%= link_to t("page.new", model: t("activerecord.models.item_has_use_restriction")),
-  new_item_has_use_restriction_path -%>
-<%- end -%>
+<div id="submenu" class="col">
+  <%- if @item -%>
+    <%= link_to t("page.new", model: t("activerecord.models.item_has_use_restriction")),
+    new_item_item_has_use_restriction_path(@item) -%>
+  <%- else -%>
+    <%= link_to t("page.new", model: t("activerecord.models.item_has_use_restriction")),
+    new_item_has_use_restriction_path -%>
+  <%- end -%>
+</div>

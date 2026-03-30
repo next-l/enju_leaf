@@ -1,35 +1,42 @@
 <div id="content_detail" class="col-md-9">
   <div class="card">
-    <h5 class="title card-header"><%= t('page.system_information') %></h5>
+    <h5 class="title card-header"><%= t("page.system_information") %></h5>
     <div id="content_list" class="card-body">
 
       <ul>
-        <li>Next-L Enju Leaf: <%= EnjuLeaf::VERSION %></li>
-        <li>Ruby: <%= RUBY_DESCRIPTION %></li>
-        <li>Environment: <%= Rails.env %></li>
+        <li>Next-L Enju Leaf:
+          <%= EnjuLeaf::VERSION %></li>
+        <li>Ruby:
+          <%= RUBY_DESCRIPTION %></li>
+        <li>Environment:
+          <%= Rails.env %></li>
         <li>Gems:
-        <ul>
-          <% @specs.sort_by{|e| e.name }.each do |spec| %>
-            <li>
-              <%= spec.name %>: <%= spec.version.to_s %>
-              <% if spec.source.is_a? Bundler::Source::Git %>
-                from <%= spec.source.uri %>
-                (at <%= spec.source.options['revision'].slice(0..7) %>)
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
+          <ul>
+            <% @specs.sort_by{|e| e.name }.each do |spec| %>
+              <li>
+                <%= spec.name %>:
+                <%= spec.version.to_s %>
+                <% if spec.source.is_a? Bundler::Source::Git %>
+                  from
+                  <%= spec.source.uri %>
+                  (at
+                  <%= spec.source.options["revision"].slice(0..7) %>)
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
         </li>
         <li>Languages:
-        <ul>
-          <% @available_languages.each do |language| %>
-            <li><%= language.iso_639_1 %>: <%= language.native_name || language.name %>
-            <% if language.iso_639_1 == I18n.locale.to_s %>
-              (<%= t('page.default_locale') %>)
+          <ul>
+            <% @available_languages.each do |language| %>
+              <li><%= language.iso_639_1 %>:
+                <%= language.native_name || language.name %>
+                <% if language.iso_639_1 == I18n.locale.to_s %>
+                  (<%= t("page.default_locale") %>)
+                <% end %>
+              </li>
             <% end %>
-            </li>
-          <% end %>
-        </ul>
+          </ul>
         </li>
       </ul>
 
@@ -40,7 +47,7 @@
 <div id="submenu" class="col">
   <div class="card">
     <ul>
-      <li><%= link_to t('page.configuration'), page_configuration_path %></li>
+      <li><%= link_to t("page.configuration"), page_configuration_path %></li>
     </ul>
   </div>
 </div>

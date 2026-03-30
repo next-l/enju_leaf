@@ -1,8 +1,8 @@
 <div id="content_detail" class="col-md-9">
   <div class="card">
-    <h5 class="title card-header"><%= t('page.editing', model: t('activerecord.models.content_type')) -%></h5>
+    <h5 class="title card-header"><%= t("page.editing", model: t("activerecord.models.content_type")) -%></h5>
     <div id="content_list" class="card-body">
-      <%= render 'form', content_type: @content_type %>
+      <%= render "form", content_type: @content_type %>
     </div>
   </div>
 </div>
@@ -10,8 +10,8 @@
 <div id="submenu" class="col">
   <div class="card">
     <ul>
-      <li><%= link_to t('page.show'), content_type_path(@content_type) -%></li>
-      <li><%= link_to t('page.back'), content_types_path -%></li>
+      <li><%= link_to t("page.show"), content_type_path(@content_type) -%></li>
+      <li><%= link_to t("page.back"), content_types_path -%></li>
     </ul>
   </div>
 </div>

@@ -1,25 +1,29 @@
 <div id="content_detail" class="col-md-9">
-<h5 class="title card-header"><%= t('page.showing', model: t('activerecord.models.donate')) -%></h5>
-<div id="content_list" class="card-body">
-<p id="notice"><%= notice %></p>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.donate")) -%></h5>
+    <div id="content_list" class="card-body">
+      <p id="notice"><%= notice %></p>
 
-<p>
-  <strong><%= t('activerecord.models.agent') -%>:</strong>
-  <%= link_to @donate.agent.full_name, @donate.agent -%>
-</p>
+      <p>
+        <strong><%= t("activerecord.models.agent") -%>:</strong>
+        <%= link_to @donate.agent.full_name, @donate.agent -%>
+      </p>
 
-<p>
-  <strong><%= t('activerecord.models.item') -%>:</strong>
-  <%= link_to @donate.item.manifestation.original_title, @donate.item.manifestation -%>
-  (<%= link_to @donate.item.item_identifier, @donate.item -%>)
-</p>
+      <p>
+        <strong><%= t("activerecord.models.item") -%>:</strong>
+        <%= link_to @donate.item.manifestation.original_title, @donate.item.manifestation -%>
+        (<%= link_to @donate.item.item_identifier, @donate.item -%>)
+      </p>
 
-</div>
+    </div>
+  </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= link_to t('page.edit'), edit_donate_path(@donate) -%></li>
-    <li><%= back_to_index(flash[:page_info]) -%></li>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.edit"), edit_donate_path(@donate) -%></li>
+      <li><%= back_to_index(flash[:page_info]) -%></li>
+    </ul>
+  </div>
 </div>

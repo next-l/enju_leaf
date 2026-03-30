@@ -1,9 +1,9 @@
-<%= form_with(model: picture_file) do |f| -%>
-  <%= error_messages(picture_file) -%>
+<%= form_with(model: picture_file) do |f| %>
+  <%= error_messages(picture_file) %>
 
   <div class="field">
-    <%= f.label t("page.file") -%><br/>
-    <%= f.file_field :attachment, accept: "image/*", required: true -%>
+    <%= f.label t("page.file") %><br/>
+    <%= f.file_field :attachment, accept: "image/*", required: true %>
   </div>
 
   <% if picture_file.attachment.attached? %>
@@ -12,10 +12,10 @@
     </div>
   <% end %>
 
-  <%= f.hidden_field :picture_attachable_id -%>
-  <%= f.hidden_field :picture_attachable_type -%>
+  <%= f.hidden_field :picture_attachable_id %>
+  <%= f.hidden_field :picture_attachable_type %>
 
   <div class="actions mt-3">
     <%= f.submit class: "btn btn-primary" %>
   </div>
-<%- end -%>
+<% end %>

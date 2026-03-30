@@ -1,36 +1,43 @@
 <div id="content_detail" class="col-md-9">
-<h5 class="title card-header"><%= t('page.showing', model: t('activerecord.models.event_export_file')) -%></h5>
-<div id="content_list" class="card-body">
-<p id="notice"><%= notice %></p>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.event_export_file")) -%></h5>
+    <div id="content_list" class="card-body">
+      <p id="notice"><%= notice %></p>
 
-<p>
-  <strong><%= t('activerecord.models.user') %></strong>
-  <%= @event_export_file.user.try(:username) %>
-</p>
+      <p>
+        <strong><%= t("activerecord.models.user") %></strong>
+        <%= @event_export_file.user.try(:username) %>
+      </p>
 
-<p>
-  <strong><%= t('activerecord.attributes.event_export_file.event_export_file_name') -%></strong>
-  <%= link_to @event_export_file.attachment.filename, rails_blob_path(@event_export_file.attachment) if @event_export_file.attachment.attached? %>
-</p>
+      <p>
+        <strong><%= t("activerecord.attributes.event_export_file.event_export_file_name") -%></strong>
+        <%= if @event_export_file.attachment.attached?
+          link_to @event_export_file.attachment.filename,
+          rails_blob_path(@event_export_file.attachment)
+        end %>
+      </p>
 
-<p>
-  <strong><%= t('activerecord.attributes.event_export_file.state') -%>:</strong>
-  <%= localized_state(@event_export_file.current_state) -%>
-</p>
+      <p>
+        <strong><%= t("activerecord.attributes.event_export_file.state") -%>:</strong>
+        <%= localized_state(@event_export_file.current_state) -%>
+      </p>
 
-<p>
-  <strong><%= t('page.created_at') -%>:</strong>
-  <%= l(@event_export_file.created_at) if @event_export_file.created_at -%>
-</p>
+      <p>
+        <strong><%= t("page.created_at") -%>:</strong>
+        <%= l(@event_export_file.created_at) if @event_export_file.created_at -%>
+      </p>
 
-</div>
+    </div>
+  </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= back_to_index(flash[:page_info]) -%></li>
-    <% if current_user.has_role?('Administrator') %>
-      <li><%= link_to t('page.background_job'), mission_control_jobs_path %></li>
-    <% end %>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= back_to_index(flash[:page_info]) -%></li>
+      <% if current_user.has_role?('Administrator') %>
+        <li><%= link_to t("page.background_job"), mission_control_jobs_path %></li>
+      <% end %>
+    </ul>
+  </div>
 </div>

@@ -1,12 +1,12 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t('page.new', model: t('activerecord.models.role')) -%></h5>
+  <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.role")) -%></h5>
   <div id="content_list" class="card-body">
-    <%= render 'form', role: @role %>
+    <%= render "form", role: @role %>
   </div>
 </div>
 
 <div id="submenu" class="col">
   <ul>
-    <li><%= link_to t('page.back'), roles_path -%></li>
+    <li><%= link_to t("page.back"), roles_path -%></li>
   </ul>
 </div>

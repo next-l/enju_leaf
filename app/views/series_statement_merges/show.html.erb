@@ -1,25 +1,36 @@
 <div id="content_detail" class="col-md-9">
-<h5 class="title card-header"><%= t('page.showing', model: t('activerecord.models.series_statement_merge')) -%></h5>
-<div id="content_list" class="card-body">
-<p id="notice"><%= notice %></p>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.series_statement_merge")) -%></h5>
+    <div id="content_list" class="card-body">
+      <p id="notice"><%= notice %></p>
 
-<p>
-  <strong><%= t('activerecord.models.series_statement') -%>:</strong>
-  <%= link_to @series_statement_merge.series_statement.original_title, @series_statement_merge.series_statement -%>
-</p>
+      <p>
+        <strong><%= t("activerecord.models.series_statement") -%>:</strong>
+        <%= link_to @series_statement_merge.series_statement.original_title,
+        @series_statement_merge.series_statement -%>
+      </p>
 
-<p>
-  <strong><%= t('activerecord.models.series_statement_merge_list') -%>:</strong>
-  <%= link_to @series_statement_merge.series_statement_merge_list.title, @series_statement_merge.series_statement_merge_list -%>
-</p>
+      <p>
+        <strong><%= t("activerecord.models.series_statement_merge_list") -%>:</strong>
+        <%= link_to @series_statement_merge.series_statement_merge_list.title,
+        @series_statement_merge.series_statement_merge_list -%>
+      </p>
 
-</div>
+    </div>
+  </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= link_to t('page.add', model: t('activerecord.models.series_statement')), series_statements_path(series_statement_merge_list_id: @series_statement_merge.series_statement_merge_list.id) -%></li>
-    <li><%= link_to t('page.edit'), edit_series_statement_merge_path(@series_statement_merge) -%></li>
-    <li><%= back_to_index(flash[:page_info]) -%></li>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.add", model: t("activerecord.models.series_statement")),
+        series_statements_path(
+          series_statement_merge_list_id:
+            @series_statement_merge.series_statement_merge_list.id,
+        ) -%></li>
+      <li><%= link_to t("page.edit"),
+        edit_series_statement_merge_path(@series_statement_merge) -%></li>
+      <li><%= back_to_index(flash[:page_info]) -%></li>
+    </ul>
+  </div>
 </div>

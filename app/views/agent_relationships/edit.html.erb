@@ -1,13 +1,17 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t("page.editing", model: t("activerecord.models.agent_relationship")) -%></h5>
-  <div id="content_list" class="card-body">
-    <%= render "form", agent_relationship: @agent_relationship %>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.editing", model: t("activerecord.models.agent_relationship")) -%></h5>
+    <div id="content_list" class="card-body">
+      <%= render "form", agent_relationship: @agent_relationship %>
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= link_to t("page.show"), @agent_relationship -%></li>
-    <li><%= link_to t("page.back"), agent_relationships_path -%></li>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.show"), @agent_relationship -%></li>
+      <li><%= link_to t("page.back"), agent_relationships_path -%></li>
+    </ul>
+  </div>
 </div>

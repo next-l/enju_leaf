@@ -1,18 +1,18 @@
-<%= form_with(model: nii_type) do |f| -%>
-  <%= error_messages(nii_type) -%>
-  <p>
-    <%= f.label :name -%><br />
-    <%= f.text_field :name, required: true, class: 'short_name' -%>
-  </p>
-  <p>
-    <%= f.label :display_name -%><br />
-    <%= f.text_area :display_name, class: 'form-control' -%>
-  </p>
-  <p>
-    <%= f.label :note -%><br />
-    <%= f.text_area :note, class: 'form-control' -%>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
-<%- end -%>
+<%= form_with(model: nii_type) do |f| %>
+  <%= error_messages(nii_type) %>
+  <div>
+    <%= f.label :name %><br/>
+    <%= f.text_field :name, required: true, class: "form-control short_name" %>
+  </div>
+  <div class="field">
+    <%= f.label :display_name %><br/>
+    <%= f.text_area :display_name, class: "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :note %><br/>
+    <%= f.text_area :note, class: "form-control" %>
+  </div>
+  <div class="actions mt-3">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

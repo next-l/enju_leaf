@@ -2,44 +2,58 @@
   <div id="header_left" class="col-md-8">
     <div id="library_system_name">
       <h5 class="resource_title">
-        <%= link_to image_tag(@library_group.header_logo.representation(resize_to_limit: [nil, 80]),
-            style: 'margin-left: 20px; vertical-align: middle',
+        <%= if @library_group.header_logo.attached?
+          link_to image_tag(
+            @library_group.header_logo.representation(resize_to_limit: [nil, 80]),
+            style: "margin-left: 20px; vertical-align: middle",
             alt: LibraryGroup.system_name(@locale),
-            height: 80
-          ), root_path if @library_group.header_logo.attached? %>
-        <%= link_to LibraryGroup.system_name(@locale), root_path, title: LibraryGroup.system_name(@locale) %>
+            height: 80,
+          ),
+          root_path
+        end %>
+        <%= link_to LibraryGroup.system_name(@locale),
+        root_path,
+        title: LibraryGroup.system_name(@locale) %>
       </h5>
     </div>
   </div>
 
   <div class="col-md-2">
-    <%= render 'page/select_locale' -%>
+    <%= render "page/select_locale" -%>
   </div>
 
   <div id="header_right" class="col-md-2">
     <div id="user_account">
       <% if user_signed_in? %>
-        <%= t('page.logged_in_as', login_name: current_user.username) -%>
+        <%= t("page.logged_in_as", login_name: current_user.username) -%>
         <% if current_user != true_user %>
-          (<%= t('page.delegated') %>)
-          <br />
-          <%= link_to t('page.stop_impersonating', username: true_user.username), stop_impersonating_profiles_path, method: :post %>
+          (<%= t("page.delegated") %>)
+          <br/>
+          <%= link_to t("page.stop_impersonating", username: true_user.username),
+          stop_impersonating_profiles_path,
+          method: :post %>
         <% end %>
-        <br />
+        <br/>
         <% if defined?(EnjuMessage) %>
-          <%= link_to image_tag('icons/email.png', size: '16x16', class: 'enju_icon', alt: t('activerecord.models.message')), messages_path %>
+          <%= link_to image_tag(
+            "icons/email.png",
+            size: "16x16",
+            class: "enju_icon",
+            alt: t("activerecord.models.message"),
+          ),
+          messages_path %>
           <% if messages_count(current_user) > 0 %>
             <%= link_to "(#{messages_count(current_user)})", messages_path %>
           <% else %>
             (<%= messages_count(current_user) %>)
           <% end %>
         <% end %>
-        <%= link_to t('page.account'), my_account_path -%>
-        <%= link_to t('page.sign_out'), destroy_user_session_path, method: :delete -%>
-        <br />
+        <%= link_to t("page.account"), my_account_path -%>
+        <%= link_to t("page.sign_out"), destroy_user_session_path, method: :delete -%>
+        <br/>
       <% else %>
         <% unless controller_name == 'sessions' %>
-          <%= link_to t('page.sign_in'), new_user_session_path -%>
+          <%= link_to t("page.sign_in"), new_user_session_path -%>
         <% end %>
       <% end %>
     </div>

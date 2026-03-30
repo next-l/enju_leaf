@@ -1,15 +1,15 @@
 <div id="content_detail" class="col-md-9">
-<h5 class="title card-header"><%= t('page.listing', model: t('activerecord.models.resource_import_result')) -%></h5>
-<div id="content_list" class="card-body">
-  <% if @resource_import_file %>
-    <%= render "list_lines" %>
-  <% else %>
-    <%= render "list" %>
-  <% end %>
+  <h5 class="title card-header"><%= t("page.listing", model: t("activerecord.models.resource_import_result")) -%></h5>
+  <div id="content_list" class="card-body">
+    <% if @resource_import_file %>
+      <%= render "list_lines" %>
+    <% else %>
+      <%= render "list" %>
+    <% end %>
 
-<%= paginate(@resource_import_results) %>
+    <%= paginate(@resource_import_results) %>
 
-</div>
+  </div>
 </div>
 
 <div id="submenu" class="col">

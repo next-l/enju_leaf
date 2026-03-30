@@ -1,12 +1,12 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t('page.new', :model => t('activerecord.models.nii_type')) -%></h5>
+  <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.nii_type")) -%></h5>
   <div id="content_list" class="card-body">
-    <%= render 'form', nii_type: @nii_type %>
+    <%= render "form", nii_type: @nii_type %>
   </div>
 </div>
 
 <div id="submenu" class="col">
   <ul>
-    <li><%= link_to t('page.back'), nii_types_path -%></li>
+    <li><%= link_to t("page.back"), nii_types_path -%></li>
   </ul>
 </div>

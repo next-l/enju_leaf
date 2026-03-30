@@ -4,7 +4,7 @@
 
   <div class="field">
     <%= f.label :name -%><br />
-    <%= f.text_field :name, required: true, class: 'short_name' -%>
+    <%= f.text_field :name, required: true, class: 'form-control short_name' -%>
   </div>
 
   <div class="field">
@@ -31,7 +31,7 @@
     </select>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions mt-3">
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <%- end -%>

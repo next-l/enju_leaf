@@ -87,8 +87,8 @@
     ) -%>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions mt-3">
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 
   <div class="field">
@@ -96,11 +96,11 @@
     <%= f.text_area :note, class: "form-control" -%>
   </div>
 
-  <div class="actions">
+  <div class="actions mt-3">
     <%= hidden_field_tag "work_id", @work.id if @work -%>
     <%= hidden_field_tag "expression_id", @expression.id if @expression -%>
     <%= hidden_field_tag "manifestation_id", @manifestation.id if @manifestation -%>
     <%= hidden_field_tag "item_id", @item.id if @item -%>
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <%- end -%>

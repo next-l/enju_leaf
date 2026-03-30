@@ -1,30 +1,34 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.agent_relationship_type")) -%></h5>
-  <div id="content_list" class="card-body">
-    <p id="notice"><%= notice %></p>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.agent_relationship_type")) -%></h5>
+    <div id="content_list" class="card-body">
+      <p id="notice"><%= notice %></p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.agent_relationship_type.name") -%>:</strong>
-      <%= @agent_relationship_type.name -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.agent_relationship_type.name") -%>:</strong>
+        <%= @agent_relationship_type.name -%>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.agent_relationship_type.display_name") -%>:</strong>
-      <%= @agent_relationship_type.display_name.localize -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.agent_relationship_type.display_name") -%>:</strong>
+        <%= @agent_relationship_type.display_name.localize -%>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.agent_relationship_type.note") -%>:</strong>
-      <%= @agent_relationship_type.note -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.agent_relationship_type.note") -%>:</strong>
+        <%= @agent_relationship_type.note -%>
+      </p>
 
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= link_to t("page.edit"),
-      edit_agent_relationship_type_path(@agent_relationship_type) -%></li>
-    <li><%= back_to_index(flash[:page_info]) -%></li>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.edit"),
+        edit_agent_relationship_type_path(@agent_relationship_type) -%></li>
+      <li><%= back_to_index(flash[:page_info]) -%></li>
+    </ul>
+  </div>
 </div>

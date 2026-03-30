@@ -1,13 +1,17 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t('page.editing', model: t('activerecord.models.form_of_work')) -%></h5>
-  <div id="content_list" class="card-body">
-    <%= render 'form', form_of_work: @form_of_work %>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.editing", model: t("activerecord.models.form_of_work")) -%></h5>
+    <div id="content_list" class="card-body">
+      <%= render "form", form_of_work: @form_of_work %>
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= link_to t('page.show'), @form_of_work -%></li>
-    <li><%= link_to t('page.back'), form_of_works_path -%></li>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.show"), @form_of_work -%></li>
+      <li><%= link_to t("page.back"), form_of_works_path -%></li>
+    </ul>
+  </div>
 </div>

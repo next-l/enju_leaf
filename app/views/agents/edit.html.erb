@@ -1,21 +1,25 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t("page.editing", model: t("activerecord.models.agent")) -%></h5>
-  <div id="content_list" class="card-body">
-    <%= render "form", agent: @agent %>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.editing", model: t("activerecord.models.agent")) -%></h5>
+    <div id="content_list" class="card-body">
+      <%= render "form", agent: @agent %>
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= link_to t("page.show"), @agent -%></li>
-    <%- if policy(@agent).destroy? -%>
-      <li><%= link_to t("page.destroy"),
-        @agent,
-        data: {
-          confirm: t("page.are_you_sure"),
-        },
-        method: :delete -%></li>
-    <%- end -%>
-    <li><%= link_to t("page.back"), agents_path -%></li>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.show"), @agent -%></li>
+      <%- if policy(@agent).destroy? -%>
+        <li><%= link_to t("page.destroy"),
+          @agent,
+          data: {
+            confirm: t("page.are_you_sure"),
+          },
+          method: :delete -%></li>
+      <%- end -%>
+      <li><%= link_to t("page.back"), agents_path -%></li>
+    </ul>
+  </div>
 </div>

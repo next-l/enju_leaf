@@ -4,20 +4,25 @@
   <div class="card mb-3" id="search">
     <h5 class="title card-header">
       <% if user_signed_in? %>
-        <%= t('page.user_title', login_name: current_user.username) -%>
+        <%= t("page.user_title", login_name: current_user.username) -%>
       <% else %>
-        <%= t('page.catalog_search') -%>
+        <%= t("page.catalog_search") -%>
       <% end %>
     </h5>
     <div id="user_search_form" class="card-body">
       <p id="notice"><%= notice %></p>
 
-      <%= render 'page/search_form' -%>
-      <p><%= t('page.number_of_manifestations', numdocs: Manifestation.search.total, count: Manifestation.search.total) -%></p>
-      <h5 style="display: inline"><%= link_to t('page.new_resource'), manifestations_path(mode: 'recent') -%></h5>
+      <%= render "page/search_form" -%>
+      <p><%= t(
+          "page.number_of_manifestations",
+          numdocs: Manifestation.search.total,
+          count: Manifestation.search.total,
+        ) -%></p>
+      <h5 style="display: inline"><%= link_to t("page.new_resource"), manifestations_path(mode: "recent") -%></h5>
       <% if defined?(EnjuBookmark) %>
         <% if user_signed_in? %>
-         <h4 style="display: inline"><%= link_to t('activerecord.models.bookmark'), bookmarks_path(user_id: current_user.username) %></h4>
+          <h4 style="display: inline"><%= link_to t("activerecord.models.bookmark"),
+            bookmarks_path(user_id: current_user.username) %></h4>
         <% end %>
       <% end %>
     </div>
@@ -25,9 +30,9 @@
 
   <% if defined?(EnjuNews) %>
     <div class="card mb-3" id="news_feed">
-      <h5 class="title card-header"><%= t('page.news') -%></h5>
+      <h5 class="title card-header"><%= t("page.news") -%></h5>
       <div id="news_feed_box" class="card-body">
-        <%= render partial: 'news_feeds/list', locals: {news_feeds: @news_feeds} -%>
+        <%= render partial: "news_feeds/list", locals: { news_feeds: @news_feeds } -%>
       </div>
     </div>
   <% end %>
@@ -35,9 +40,9 @@
 
 <div class="col-md-6" id="col2">
   <div class="card mb-3" id="pickup">
-    <h5 class="title card-header"><%= t('manifestation.pickup') -%></h5>
+    <h5 class="title card-header"><%= t("manifestation.pickup") -%></h5>
     <div id="picked_up_box" class="card-body">
-      <%= render 'manifestations/pickup', manifestation: @manifestation -%>
+      <%= render "manifestations/pickup", manifestation: @manifestation -%>
     </div>
   </div>
 
@@ -45,14 +50,14 @@
     <div class="card mb-3" id="tag_cloud">
       <h5 class="title card-header">
         <% if user_signed_in? %>
-          <%= t('tag.my_tag') -%>
+          <%= t("tag.my_tag") -%>
         <% else %>
-          <%= t('tag.popular_tag') -%>
+          <%= t("tag.popular_tag") -%>
         <% end %>
       </h5>
       <div id="tag_cloud_box" class="card-body">
-        <%= render 'bookmarks/tag_cloud', tags: @tags -%>
-        <p>(<%= link_to t('page.listing', model: t('activerecord.models.tag')), tags_path -%>)</p>
+        <%= render "bookmarks/tag_cloud", tags: @tags -%>
+        <p>(<%= link_to t("page.listing", model: t("activerecord.models.tag")), tags_path -%>)</p>
       </div>
     </div>
   <% end %>

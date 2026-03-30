@@ -1,43 +1,47 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t("page.listing", model: t("activerecord.models.manifestation_reserve_stat")) -%></h5>
-  <div id="content_list" class="card-body">
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.listing", model: t("activerecord.models.manifestation_reserve_stat")) -%></h5>
+    <div id="content_list" class="card-body">
 
-    <table class="table table-striped index">
-      <tr>
-        <th><%= t("activerecord.attributes.manifestation_reserve_stat.start_date") -%></th>
-        <th><%= t("activerecord.attributes.manifestation_reserve_stat.end_date") -%></th>
-        <th><%= t("activerecord.attributes.manifestation_reserve_stat.state") -%></th>
-        <th></th>
-      </tr>
-
-      <%- @manifestation_reserve_stats.each do |manifestation_reserve_stat| -%>
-        <tr class="line<%= cycle("0", "1") -%>">
-          <td><%= l(manifestation_reserve_stat.start_date) -%></td>
-          <td><%= l(manifestation_reserve_stat.end_date) -%></td>
-          <td><%= localized_state(manifestation_reserve_stat.current_state) -%></td>
-          <td>
-            <%= link_to t("page.show"), manifestation_reserve_stat -%>
-            <%= link_to t("page.destroy"),
-            manifestation_reserve_stat,
-            data: {
-              confirm: t("page.are_you_sure"),
-            },
-            method: :delete -%>
-          </td>
+      <table class="table table-striped index">
+        <tr>
+          <th><%= t("activerecord.attributes.manifestation_reserve_stat.start_date") -%></th>
+          <th><%= t("activerecord.attributes.manifestation_reserve_stat.end_date") -%></th>
+          <th><%= t("activerecord.attributes.manifestation_reserve_stat.state") -%></th>
+          <th></th>
         </tr>
-      <%- end -%>
-    </table>
 
-    <%= paginate(@manifestation_reserve_stats) -%>
+        <%- @manifestation_reserve_stats.each do |manifestation_reserve_stat| -%>
+          <tr class="line<%= cycle("0", "1") -%>">
+            <td><%= l(manifestation_reserve_stat.start_date) -%></td>
+            <td><%= l(manifestation_reserve_stat.end_date) -%></td>
+            <td><%= localized_state(manifestation_reserve_stat.current_state) -%></td>
+            <td>
+              <%= link_to t("page.show"), manifestation_reserve_stat -%>
+              <%= link_to t("page.destroy"),
+              manifestation_reserve_stat,
+              data: {
+                confirm: t("page.are_you_sure"),
+              },
+              method: :delete -%>
+            </td>
+          </tr>
+        <%- end -%>
+      </table>
+
+      <%= paginate(@manifestation_reserve_stats) -%>
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= link_to t(
-        "page.new",
-        model: t("activerecord.models.manifestation_reserve_stat"),
-      ),
-      new_manifestation_reserve_stat_path -%></li>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= link_to t(
+          "page.new",
+          model: t("activerecord.models.manifestation_reserve_stat"),
+        ),
+        new_manifestation_reserve_stat_path -%></li>
+    </ul>
+  </div>
 </div>

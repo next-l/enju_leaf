@@ -8,7 +8,7 @@
       <%= f.hidden_field :parent_id %>
     <% else %>
       <%= f.label :parent %><br />
-      <%= f.text_field :parent_id %>
+      <%= f.text_field :parent_id, class: "form-control" %>
     <% end %>
   </div>
   <div class="field">
@@ -18,14 +18,14 @@
       <%= f.hidden_field :child_id %>
     <% else %>
       <%= f.label :child %><br />
-      <%= f.text_field :child_id %>
+      <%= f.text_field :child_id, class: "form-control" %>
     <% end %>
   </div>
   <div class="field">
     <%= f.label :manifestation_relationship_type_id %><br />
     <%= f.select(:manifestation_relationship_type_id, @manifestation_relationship_types.collect{|r| [r.display_name.localize, r.id]}) -%>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions mt-3">
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

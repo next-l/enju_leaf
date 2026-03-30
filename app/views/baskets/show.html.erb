@@ -1,23 +1,27 @@
 <div id="content_list" class="card-body">
-  <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.basket")) -%></h5>
-  <div id="content_detail" class="col-md-9">
-    <p id="notice"><%= notice %></p>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.basket")) -%></h5>
+    <div id="content_detail" class="col-md-9">
+      <p id="notice"><%= notice %></p>
 
-    <p>
-      <strong><%= t("activerecord.models.user") -%>:</strong>
-      <%= @basket.user.try(:username) -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.models.user") -%>:</strong>
+        <%= @basket.user.try(:username) -%>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.basket.note") -%>:</strong>
-      <%= @basket.note -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.basket.note") -%>:</strong>
+        <%= @basket.note -%>
+      </p>
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= link_to t("page.edit"), edit_basket_path(@basket) -%></li>
-    <li><%= link_to t("page.back"), baskets_path(user_id: @basket.user_id) -%></li>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.edit"), edit_basket_path(@basket) -%></li>
+      <li><%= link_to t("page.back"), baskets_path(user_id: @basket.user_id) -%></li>
+    </ul>
+  </div>
 </div>

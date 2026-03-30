@@ -1,39 +1,43 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.resource_export_file")) -%></h5>
-  <div id="content_list" class="card-body">
-    <p id="notice"><%= notice %></p>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.resource_export_file")) -%></h5>
+    <div id="content_list" class="card-body">
+      <p id="notice"><%= notice %></p>
 
-    <p>
-      <strong><%= t("activerecord.models.user") %></strong>
-      <%= @resource_export_file.user.try(:username) %>
-    </p>
+      <p>
+        <strong><%= t("activerecord.models.user") %></strong>
+        <%= @resource_export_file.user.try(:username) %>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.resource_export_file.resource_export_file_name") -%></strong>
-      <%= if @resource_export_file.attachment.attached?
-        link_to @resource_export_file.attachment.filename,
-        rails_blob_path(@resource_export_file.attachment)
-      end %>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.resource_export_file.resource_export_file_name") -%></strong>
+        <%= if @resource_export_file.attachment.attached?
+          link_to @resource_export_file.attachment.filename,
+          rails_blob_path(@resource_export_file.attachment)
+        end %>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.resource_export_file.state") -%>:</strong>
-      <%= localized_state(@resource_export_file.current_state) -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.resource_export_file.state") -%>:</strong>
+        <%= localized_state(@resource_export_file.current_state) -%>
+      </p>
 
-    <p>
-      <strong><%= t("page.created_at") -%>:</strong>
-      <%= l(@resource_export_file.created_at) if @resource_export_file.created_at -%>
-    </p>
+      <p>
+        <strong><%= t("page.created_at") -%>:</strong>
+        <%= l(@resource_export_file.created_at) if @resource_export_file.created_at -%>
+      </p>
 
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= back_to_index(flash[:page_info]) -%></li>
-    <% if current_user.has_role?('Administrator') %>
-      <li><%= link_to t("page.background_job"), mission_control_jobs_path %></li>
-    <% end %>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= back_to_index(flash[:page_info]) -%></li>
+      <% if current_user.has_role?('Administrator') %>
+        <li><%= link_to t("page.background_job"), mission_control_jobs_path %></li>
+      <% end %>
+    </ul>
+  </div>
 </div>

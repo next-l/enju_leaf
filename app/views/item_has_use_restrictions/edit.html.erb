@@ -25,6 +25,8 @@
   </div>
 <%- end -%>
 
-<%= link_to t("page.show"), @item_has_use_restriction -%>
-|
-<%= link_to t("page.back"), item_has_use_restrictions_path -%>
+<div id="submenu" class="col">
+  <%= link_to t("page.show"), @item_has_use_restriction -%>
+  |
+  <%= link_to t("page.back"), item_has_use_restrictions_path -%>
+</div>

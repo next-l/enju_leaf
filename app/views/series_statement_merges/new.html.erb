@@ -1,39 +1,44 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t('page.new', model: t('activerecord.models.series_statement_merge')) -%></h5>
-  <div id="content_list" class="card-body">
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.series_statement_merge")) -%></h5>
+    <div id="content_list" class="card-body">
 
-  <%= form_with(model: @series_statement_merge) do |f| -%>
-    <%= error_messages(@series_statement_merge) -%>
-    <div class="field">
-      <%= f.label t('activerecord.models.series_statement') -%><br />
-      <%- if @series_statement -%>
-        <%= link_to @series_statement.original_title, @series_statement -%>
-        <%= f.hidden_field :series_statement_id -%>
-      <%- else -%>
-        <%= f.text_field :series_statement_id -%>
+      <%= form_with(model: @series_statement_merge) do |f| -%>
+        <%= error_messages(@series_statement_merge) -%>
+        <div class="field">
+          <%= f.label t("activerecord.models.series_statement") -%><br/>
+          <%- if @series_statement -%>
+            <%= link_to @series_statement.original_title, @series_statement -%>
+            <%= f.hidden_field :series_statement_id -%>
+          <%- else -%>
+            <%= f.text_field :series_statement_id -%>
+          <%- end -%>
+        </div>
+
+        <div class="field">
+          <%= f.label t("activerecord.models.series_statement_merge_list") -%><br/>
+          <%- if @series_statement_merge_list -%>
+            <%= link_to @series_statement_merge_list.title,
+            series_statement_merge_list_path(@series_statement_merge_list) -%>
+            <%= f.hidden_field :series_statement_merge_list_id -%>
+          <%- else -%>
+            <%= f.text_field :series_statement_merge_list_id -%>
+          <%- end -%>
+        </div>
+
+        <div class="actions">
+          <%= f.submit %>
+        </div>
       <%- end -%>
-    </div>
 
-    <div class="field">
-      <%= f.label t('activerecord.models.series_statement_merge_list') -%><br />
-      <%- if @series_statement_merge_list -%>
-        <%= link_to @series_statement_merge_list.title, series_statement_merge_list_path(@series_statement_merge_list) -%>
-        <%= f.hidden_field :series_statement_merge_list_id -%>
-      <%- else -%>
-        <%= f.text_field :series_statement_merge_list_id -%>
-      <%- end -%>
     </div>
-
-    <div class="actions">
-      <%= f.submit %>
-    </div>
-  <%- end -%>
-
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= link_to t('page.back'), series_statement_merges_path -%></li>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.back"), series_statement_merges_path -%></li>
+    </ul>
+  </div>
 </div>

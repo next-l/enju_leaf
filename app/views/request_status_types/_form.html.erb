@@ -2,18 +2,18 @@
   <%= error_messages(request_status_type) %>
 
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, required: true %>
+    <%= f.label :name %><br/>
+    <%= f.text_field :name, required: true, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label :display_name %><br />
-    <%= f.text_area :display_name %>
+    <%= f.label :display_name %><br/>
+    <%= f.text_area :display_name, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label :note %><br />
-    <%= f.text_area :note %>
+    <%= f.label :note %><br/>
+    <%= f.text_area :note, class: "form-control" %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions mt-3">
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

@@ -7,7 +7,7 @@
       :subject_heading_type_id,
       @subject_heading_types.collect { |s| [s.display_name.localize, s.id] },
       {},
-      class: "form-select"
+      class: "form-select",
     ) %>
   </div>
   <div class="field">
@@ -16,7 +16,7 @@
       :subject_type_id,
       @subject_types.collect { |s| [s.display_name.localize, s.id] },
       {},
-      class: "form-select"
+      class: "form-select",
     ) %>
   </div>
 

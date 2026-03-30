@@ -20,16 +20,16 @@
       <%= render 'manifestations/title', manifestation: @reserve.manifestation -%>
       <%= f.hidden_field :manifestation_id %>
     <% else %>
-      <%= f.text_field :manifestation_id %>
+      <%= f.text_field :manifestation_id, class: "form-control" %>
     <% end %>
   </div>
   <div class="field">
     <%= f.label :item_id %><br />
-    <%= f.text_field :item_id %>
+    <%= f.text_field :item_id, class: "form-control" %>
   </div>
   <div class="field">
     <%= f.label :state %><br />
-    <%= f.text_field :state %>
+    <%= f.text_field :state, class: "form-control" %>
   </div>
   <div class="field">
     <%= f.label :checked_out_at %><br />
@@ -43,7 +43,7 @@
     <%= f.label :expired_at %><br />
     <%= f.datetime_select :expired_at %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions mt-3">
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

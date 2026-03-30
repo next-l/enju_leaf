@@ -1,9 +1,9 @@
 <%= render "page/required_field" %>
-<%= form_with(model: @manifestation) do |f| -%>
-  <%= error_messages(@manifestation) -%>
+<%= form_with(model: @manifestation) do |f| %>
+  <%= error_messages(@manifestation) %>
 
   <% if @manifestation.original_manifestations.exists? or @parent %>
-    <%= f.label :parent_id -%><br/>
+    <%= f.label :parent_id %><br/>
     <ul>
       <% if @parent %>
         <li><%= render "show_parent_form", manifestation: @parent %></li>
@@ -17,21 +17,21 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :original_title -%><br/>
-    <%= f.text_field :original_title, class: "form-control" -%>
+    <%= f.label :original_title %><br/>
+    <%= f.text_field :original_title, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label :title_transcription -%><br/>
-    <%= f.text_field :title_transcription, class: "form-control" -%>
+    <%= f.label :title_transcription %><br/>
+    <%= f.text_field :title_transcription, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label :title_alternative -%><br/>
-    <%= f.text_field :title_alternative, class: "form-control" -%>
+    <%= f.label :title_alternative %><br/>
+    <%= f.text_field :title_alternative, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :statement_of_responsibility %><br/>
-    <%= f.text_field :statement_of_responsibility, class: "form-control" -%>
+    <%= f.text_field :statement_of_responsibility, class: "form-control" %>
   </div>
 
   <div class="field">
@@ -40,27 +40,27 @@
   </div>
 
   <div class="field">
-    <%= f.label :edition_string -%>
+    <%= f.label :edition_string %>
     <%= f.text_field :edition_string %>
-    <%= f.label :edition -%>
-    <%= f.text_field :edition, class: "resource_integer" -%>
+    <%= f.label :edition %>
+    <%= f.text_field :edition, class: "resource_integer" %>
     <br/>
-    <%= f.label :volume_number_string -%>
+    <%= f.label :volume_number_string %>
     <%= f.text_field :volume_number_string %>
-    <%= f.label :volume_number -%>
-    <%= f.text_field :volume_number, class: "resource_integer" -%>
+    <%= f.label :volume_number %>
+    <%= f.text_field :volume_number, class: "resource_integer" %>
     <br/>
-    <%= f.label :issue_number_string -%>
+    <%= f.label :issue_number_string %>
     <%= f.text_field :issue_number_string %>
-    <%= f.label :issue_number -%>
-    <%= f.text_field :issue_number, class: "resource_integer" -%>
+    <%= f.label :issue_number %>
+    <%= f.text_field :issue_number, class: "resource_integer" %>
     <br/>
-    <%= f.label :serial_number -%>
-    <%= f.text_field :serial_number, class: "resource_integer" -%>
+    <%= f.label :serial_number %>
+    <%= f.text_field :serial_number, class: "resource_integer" %>
   </div>
 
   <div class="field">
-    <%= f.label :series_statement_string -%><br/>
+    <%= f.label :series_statement_string %><br/>
     <%= f.fields_for :series_statements do |series_form| %>
       <%= render "series_statement_fields", f: series_form %>
     <% end %>
@@ -70,7 +70,7 @@
   </div>
 
   <div class="field" id="creator_form">
-    <%= f.label :creator_string -%><br/>
+    <%= f.label :creator_string %><br/>
     <%= f.fields_for :creators, @manifestation.creators.order(Create.arel_table[:position].asc) do |creator_form| %>
       <%= render "creator_fields", f: creator_form %>
     <% end %>
@@ -80,7 +80,7 @@
   </div>
 
   <div class="field" id="contributor_form">
-    <%= f.label :contributor_string -%><br/>
+    <%= f.label :contributor_string %><br/>
     <%= f.fields_for :contributors, @manifestation.contributors.order(Realize.arel_table[:position].asc) do |contributor_form| %>
       <%= render "contributor_fields", f: contributor_form %>
     <% end %>
@@ -90,7 +90,7 @@
   </div>
 
   <div class="field" id="publisher_form">
-    <%= f.label :publisher_string -%><br/>
+    <%= f.label :publisher_string %><br/>
     <%= f.fields_for :publishers, @manifestation.publishers.order(Produce.arel_table[:position].asc) do |publisher_form| %>
       <%= render "publisher_fields", f: publisher_form %>
     <% end %>
@@ -100,51 +100,51 @@
   </div>
 
   <div class="field">
-    <%= f.label :publication_place -%>
+    <%= f.label :publication_place %>
     <%= f.text_field :publication_place, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :pub_date -%>
+    <%= f.label :pub_date %>
     <%= f.text_field :pub_date,
                  class: "date_field",
-                 placeholder: "#{t("page.example")}: 2011, 2011-04-12" -%>
+                 placeholder: "#{t("page.example")}: 2011, 2011-04-12" %>
   </div>
 
   <div class="field">
-    <%= f.label t("page.file") -%>
-    <%= f.file_field :attachment, class: "form-control" -%>
+    <%= f.label t("page.file") %>
+    <%= f.file_field :attachment, class: "form-control" %>
   </div>
 
   <% if f.object.attachment.present? %>
     <div class="field">
-      <%= f.label t("page.delete_file") -%>
-      <%= f.check_box :delete_attachment -%>
+      <%= f.label t("page.delete_file") %>
+      <%= f.check_box :delete_attachment %>
       <%= f.object.attachment.filename.to_s %>
     </div>
   <% end %>
 
   <div class="field">
-    <%= f.label t("activerecord.models.content_type") -%>
+    <%= f.label t("activerecord.models.content_type") %>
     <%= f.select(
       :content_type_id,
       @content_types.collect { |c| [c.display_name.localize, c.id] },
       {},
       class: "form-control",
-    ) -%>
+    ) %>
 
-    <%= f.label t("activerecord.models.carrier_type") -%>
+    <%= f.label t("activerecord.models.carrier_type") %>
     <%= f.select(
       :carrier_type_id,
       @carrier_types.collect { |c| [c.display_name.localize, c.id] },
       {},
       class: "form-control",
-    ) -%>
+    ) %>
     <!-- TODO: Formの切り替え時に入力項目をAjaxで書き換える -->
   </div>
 
   <div class="field">
-    <%= f.label t("activerecord.models.frequency") -%>
+    <%= f.label t("activerecord.models.frequency") %>
     <%= f.select(
       :frequency_id,
       @frequencies.collect do |frequency|
@@ -152,9 +152,9 @@
       end,
       {},
       class: "form-control",
-    ) -%>
+    ) %>
 
-    <%= f.label t("activerecord.models.language") -%>
+    <%= f.label t("activerecord.models.language") %>
     <%= f.select(
       :language_id,
       @languages.collect do |language|
@@ -162,11 +162,11 @@
       end,
       {},
       class: "form-control",
-    ) -%>
+    ) %>
   </div>
 
   <div class="field">
-    <%= f.label :isbn_records, "ISBN" -%><br/>
+    <%= f.label :isbn_records, "ISBN" %><br/>
     <%= f.fields_for :isbn_records do |isbn_record_form| %>
       <%= render "isbn_record_fields", f: isbn_record_form %>
     <% end %>
@@ -176,7 +176,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :issn_records, "ISSN" -%><br/>
+    <%= f.label :issn_records, "ISSN" %><br/>
     <%= f.fields_for :issn_records do |issn_record_form| %>
       <%= render "issn_record_fields", f: issn_record_form %>
     <% end %>
@@ -186,28 +186,28 @@
   </div>
 
   <div class="field">
-    <%= f.label :doi_record, "DOI" -%>
+    <%= f.label :doi_record, "DOI" %>
     <%= f.fields_for :doi_record do |doi_record_form| %>
       <%= doi_record_form.text_field :body %>
     <% end %>
   </div>
 
   <div class="field">
-    <%= f.label :ncid_record, "NCID" -%>
+    <%= f.label :ncid_record, "NCID" %>
     <%= f.fields_for :ncid_record do |ncid_record_form| %>
       <%= ncid_record_form.text_field :body %>
     <% end %>
   </div>
 
   <div class="field">
-    <%= f.label :jpno_record, "JPNO" -%>
+    <%= f.label :jpno_record, "JPNO" %>
     <%= f.fields_for :jpno_record do |jpno_record_form| %>
       <%= jpno_record_form.text_field :body %>
     <% end %>
   </div>
 
   <div class="field">
-    <%= f.label :identifier -%><br/>
+    <%= f.label :identifier %><br/>
     <%= f.fields_for :identifiers do |identifier_form| %>
       <%= render "identifier_fields", f: identifier_form %>
     <% end %>
@@ -217,10 +217,10 @@
   </div>
 
   <div class="field">
-    <%= f.label :manifestation_identifier -%><br/>
+    <%= f.label :manifestation_identifier %><br/>
     <%= f.text_field :manifestation_identifier,
                  class: "form-control",
-                 style: "ime-mode: disabled" -%>
+                 style: "ime-mode: disabled" %>
   </div>
 
   <% if defined?(EnjuSubject) %>
@@ -228,45 +228,45 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :extent -%>
-    <%= f.text_field :extent, class: "resource_subject" -%>
+    <%= f.label :extent %>
+    <%= f.text_field :extent, class: "resource_subject" %>
     <br/>
-    <%= f.label :start_page -%>
-    <%= f.text_field :start_page, class: "resource_integer" -%>
-    <%= f.label :end_page -%>
-    <%= f.text_field :end_page, class: "resource_integer" -%>
+    <%= f.label :start_page %>
+    <%= f.text_field :start_page, class: "resource_integer" %>
+    <%= f.label :end_page %>
+    <%= f.text_field :end_page, class: "resource_integer" %>
   </div>
 
   <div class="field">
-    <%= f.label :dimensions -%>
-    <%= f.text_field :dimensions, class: "resource_subject" -%>
+    <%= f.label :dimensions %>
+    <%= f.text_field :dimensions, class: "resource_subject" %>
     <br/>
-    <%= f.label :height -%>(cm)
-    <%= f.text_field :height, class: "resource_integer" -%>
-    <%= f.label :width -%>(cm)
-    <%= f.text_field :width, class: "resource_integer" -%>
-    <%= f.label :depth -%>(cm)
-    <%= f.text_field :depth, class: "resource_integer" -%>
+    <%= f.label :height %>(cm)
+    <%= f.text_field :height, class: "resource_integer" %>
+    <%= f.label :width %>(cm)
+    <%= f.text_field :width, class: "resource_integer" %>
+    <%= f.label :depth %>(cm)
+    <%= f.text_field :depth, class: "resource_integer" %>
   </div>
 
   <div class="field">
-    <%= f.label :price -%>
-    <%= f.text_field :price, class: "resource_integer" -%>
+    <%= f.label :price %>
+    <%= f.text_field :price, class: "resource_integer" %>
   </div>
 
   <div class="field">
-    <%= f.label :access_address -%><br/>
-    <%= f.url_field :access_address, class: "form-control" -%>
+    <%= f.label :access_address %><br/>
+    <%= f.url_field :access_address, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label t("role.required_role") -%>
+    <%= f.label t("role.required_role") %>
     <%= f.select(
       :required_role_id,
       @roles.collect { |r| [r.display_name.localize, r.id] },
       {},
       class: "form-control",
-    ) -%>
+    ) %>
   </div>
 
   <% if ManifestationCustomProperty.first %>
@@ -295,33 +295,33 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :abstract -%><br/>
-    <%= f.text_area :abstract, class: "form-control" -%>
+    <%= f.label :abstract %><br/>
+    <%= f.text_area :abstract, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :description -%><br/>
-    <%= f.text_area :description, class: "form-control" -%>
+    <%= f.label :description %><br/>
+    <%= f.text_area :description, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :note -%><br/>
-    <%= f.text_area :note, class: "form-control" -%>
+    <%= f.label :note %><br/>
+    <%= f.text_area :note, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :memo -%><br/>
-    <%= f.text_area :memo, class: "form-control" -%>
+    <%= f.label :memo %><br/>
+    <%= f.text_area :memo, class: "form-control" %>
   </div>
 
   <div class="actions">
     <%= f.hidden_field :parent_id %>
     <%= f.hidden_field :lock_version %>
-    <%= f.submit data: { disable_with: t("page.saving") } -%>
+    <%= f.submit data: { disable_with: t("page.saving") }, class: "btn btn-primary" %>
   </div>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('query').focus();
     });
   </script>
-<%- end -%>
+<% end %>

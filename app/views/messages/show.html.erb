@@ -1,50 +1,64 @@
 <div id="content_detail" class="col-md-9">
-<h5 class="title card-header"><%= t('activerecord.models.message') -%></h5>
-<div id="content_list" class="card-body">
-<p id="notice"><%= notice %></p>
+  <div class="card">
+    <h5 class="title card-header"><%= t("activerecord.models.message") -%></h5>
+    <div id="content_list" class="card-body">
+      <p id="notice"><%= notice %></p>
 
-  <fieldset>
-      <p>
-        <label for="message_receiver_name" ><strong><%= t('message.receiver') -%>:</strong></label>
-        <%= link_to @message.receiver.username, @message.receiver.profile if @message.receiver.try(:profile) -%>
-      </p>
-      <p>
-        <label for="message_sender_name" ><strong><%= t('message.sender') -%>:</strong></label>
-        <%= link_to @message.sender.username, @message.sender.profile if @message.sender.try(:profile) -%>
-      </p>
+      <fieldset>
+        <p>
+          <label for="message_receiver_name"><strong><%= t("message.receiver") -%>:</strong></label>
+          <%= if @message.receiver.try(:profile)
+            link_to @message.receiver.username, @message.receiver.profile
+          end -%>
+        </p>
+        <p>
+          <label for="message_sender_name"><strong><%= t("message.sender") -%>:</strong></label>
+          <%= if @message.sender.try(:profile)
+            link_to @message.sender.username, @message.sender.profile
+          end -%>
+        </p>
 
-      <p>
-        <label for="message_sent_at" ><strong><%= t('message.sent_at') -%>:</strong></label>
-        <%= l(@message.created_at) -%>
-      </p>
+        <p>
+          <label for="message_sent_at"><strong><%= t("message.sent_at") -%>:</strong></label>
+          <%= l(@message.created_at) -%>
+        </p>
 
-      <p>
-        <label for="message_subject" ><strong><%= t('activerecord.attributes.message.subject') -%>:</strong></label>
-        <%= @message.subject -%>
-      </p>
+        <p>
+          <label for="message_subject"><strong><%= t("activerecord.attributes.message.subject") -%>:</strong></label>
+          <%= @message.subject -%>
+        </p>
 
-      <p>
-        <label for="message_body" ><strong><%= t('activerecord.attributes.message.body') -%>:</strong></label>
-        <%= raw auto_link(simple_format(h(@message.body))) -%>
-      </p>
+        <p>
+          <label for="message_body"><strong><%= t("activerecord.attributes.message.body") -%>:</strong></label>
+          <%= raw auto_link(simple_format(h(@message.body))) -%>
+        </p>
 
-  </fieldset>
+      </fieldset>
 
-</div>
+    </div>
+  </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <% if request.referer %>
-      <li><%= link_to t('page.back'), :back -%></li>
-    <% else %>
-      <li><%= link_to t('page.listing', model: t('activerecord.models.message')), messages_path -%></li>
-    <% end %>
-    <% if policy(Message).create? %>
-      <li><%= link_to t('message.reply'), new_message_path(parent_id: @message.id) -%></li>
-    <% end %>
-    <% if policy(@message).destroy? %>
-      <li><%= link_to t('page.destroy'), @message, data: {confirm: t('page.are_you_sure')}, method: :delete -%></li>
-    <% end %>
-  </ul>
+  <div class="card">
+    <ul>
+      <% if request.referer %>
+        <li><%= link_to t("page.back"), :back -%></li>
+      <% else %>
+        <li><%= link_to t("page.listing", model: t("activerecord.models.message")),
+          messages_path -%></li>
+      <% end %>
+      <% if policy(Message).create? %>
+        <li><%= link_to t("message.reply"), new_message_path(parent_id: @message.id) -%></li>
+      <% end %>
+      <% if policy(@message).destroy? %>
+        <li><%= link_to t("page.destroy"),
+          @message,
+          data: {
+            confirm: t("page.are_you_sure"),
+          },
+          method: :delete -%></li>
+      <% end %>
+    </ul>
+  </div>
 </div>
