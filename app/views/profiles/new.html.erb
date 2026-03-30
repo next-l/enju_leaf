@@ -1,64 +1,70 @@
 <div id="content_detail" class="col-md-9">
   <div class="card">
-    <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.profile")) -%></h5>
+    <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.profile")) %></h5>
     <div id="content_list" class="card-body">
       <%= render "page/required_field" %>
-      <%= form_for(@profile) do |f| -%>
-        <%= error_messages(@profile) -%>
+      <%= form_for(@profile) do |f| %>
+        <%= error_messages(@profile) %>
 
         <%= f.fields_for :user do |user_form| %>
           <div class="field">
-            <%= user_form.label :username -%>
-            <%= user_form.text_field :username, class: "resource_user" -%>
+            <%= user_form.label :username %>
+            <%= user_form.text_field :username, class: "form-control resource_user" %>
           </div>
 
           <div class="field">
-            <%= user_form.label :email -%>
-            <%= user_form.email_field :email, class: "resource_email" -%>
+            <%= user_form.label :email %>
+            <%= user_form.email_field :email, class: "form-control resource_email" %>
           </div>
         <% end %>
 
         <div class="field">
-          <%= f.label :expired_at -%>
+          <%= f.label :expired_at %>
           <%= f.text_field :expired_at,
-                       class: "date_text_field",
-                       placeholder: "#{t("page.example")}: 2011-04-12" -%>
+                       class: "form-control date_text_field",
+                       placeholder: "#{t("page.example")}: 2011-04-12" %>
         </div>
 
         <div class="field">
-          <%= f.label :full_name -%><br/>
-          <%= f.text_field :full_name -%>
+          <%= f.label :full_name %><br/>
+          <%= f.text_field :full_name, class: "form-control" %>
         </div>
 
         <div class="field">
-          <%= f.label :full_name_transcription -%><br/>
-          <%= f.text_field :full_name_transcription -%>
+          <%= f.label :full_name_transcription %><br/>
+          <%= f.text_field :full_name_transcription, class: "form-control" %>
         </div>
 
         <div class="field">
-          <%= f.label :user_group_id -%>
+          <%= f.label :user_group_id %>
           <%= f.select(
             :user_group_id,
             @user_groups.collect { |u| [u.display_name.localize, u.id] },
-          ) -%>
+            {},
+            class: "form-select",
+          ) %>
         </div>
 
         <div class="field">
-          <%= f.label t("activerecord.models.library") -%>
+          <%= f.label t("activerecord.models.library") %>
           <%= f.select(
             :library_id,
             @libraries.collect { |l| [l.display_name.localize, l.id] },
-          ) -%>
+            {},
+            class: "form-select",
+          ) %>
         </div>
 
         <div class="field">
-          <%= f.label :locale -%>
+          <%= f.label :locale %>
           <%= f.select(
             :locale,
             @available_languages.collect do |language|
               [language.display_name.localize, language.iso_639_1]
             end,
-          ) -%>
+            {},
+            class: "form-select",
+          ) %>
         </div>
 
         <% if defined?(EnjuSearchLog) %>
@@ -77,20 +83,20 @@
 
         <% if current_user.has_role?('Librarian') %>
           <div class="field">
-            <%= f.label :note -%><br/>
-            <%= f.text_area :note, class: "resource_textarea" -%>
+            <%= f.label :note %><br/>
+            <%= f.text_area :note, class: "form-control resource_textarea" %>
           </div>
         <% end %>
 
         <div class="field">
-          <%= f.label :user_number -%>
-          <%= f.text_field :user_number, class: "resource_user" -%>
+          <%= f.label :user_number %>
+          <%= f.text_field :user_number, class: "form-control resource_user" %>
         </div>
 
-        <div class="actions">
-          <%= f.submit t("user.sign_up") -%>
+        <div class="actions mt-3">
+          <%= f.submit t("user.sign_up"), class: "btn btn-primary" %>
         </div>
-      <%- end -%>
+      <% end %>
     </div>
   </div>
 </div>
@@ -99,9 +105,9 @@
   <div class="card">
     <ul>
       <li><%= link_to t("page.listing", model: t("activerecord.models.profile")),
-        profiles_path -%></li>
+        profiles_path %></li>
       <li><%= link_to t("page.new", model: t("activerecord.models.user_import_file")),
-        new_user_import_file_path -%></li>
+        new_user_import_file_path %></li>
     </ul>
   </div>
 </div>

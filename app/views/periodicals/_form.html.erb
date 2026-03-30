@@ -14,20 +14,20 @@
 
   <div class="field">
     <%= form.label :original_title %>
-    <%= form.text_area :original_title %>
+    <%= form.text_area :original_title, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :manifestation_id %>
-    <%= form.text_field :manifestation_id %>
+    <%= form.text_field :manifestation_id, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :frequency_id %>
-    <%= form.text_field :frequency_id %>
+    <%= form.text_field :frequency_id, class: "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions mt-3">
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>

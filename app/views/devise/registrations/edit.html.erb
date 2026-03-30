@@ -1,39 +1,43 @@
 <div id="content_detail" class="col-md-9">
-  <h2 class="title"><%= t('activerecord.models.registration') %></h2>
-  <div id="content_list" class="card-body">
+  <div class="card">
+    <h2 class="title"><%= t('activerecord.models.registration') %></h2>
+    <div id="content_list" class="card-body">
 
-    <%= form_for(resource, as: resource_name, url: user_registration_path, html: { method: :put }) do |f| %>
-      <%= devise_error_messages! %>
+      <%= form_for(resource, as: resource_name, url: user_registration_path, html: { method: :put }) do |f| %>
+        <%= devise_error_messages! %>
 
-      <div class="field">
-        <%= f.label :current_password %><br />
-        <%= f.password_field :current_password, autocomplete: "off" %>
-      </div>
+        <div class="field">
+          <%= f.label :current_password %><br />
+          <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
+        </div>
 
-      <div class="field">
-        <%= f.label :password %><br />
-        <%= f.password_field :password, autocomplete: "off" %>
-        <% if @minimum_password_length %>
-          <br />
-          <em><%= @minimum_password_length %> <%= t('devise.registration.minimum_password_length', count: @minimum_password_length) %></em>
-        <% end %>
-      </div>
+        <div class="field">
+          <%= f.label :password %><br />
+          <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+          <% if @minimum_password_length %>
+            <br />
+            <em><%= @minimum_password_length %> <%= t('devise.registration.minimum_password_length', count: @minimum_password_length) %></em>
+          <% end %>
+        </div>
 
-      <div class="field">
-        <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "off" %>
-      </div>
+        <div class="field">
+          <%= f.label :password_confirmation %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+        </div>
 
-      <div class="actions">
-        <%= f.submit t('page.update') %>
-      </div>
-    <% end %>
+        <div class="actions mt-3">
+          <%= f.submit t('page.update'), class: "btn btn-primary" %>
+        </div>
+      <% end %>
 
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= link_to t('page.back'), :back %></li>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= link_to t('page.back'), :back %></li>
+    </ul>
+  </div>
 </div>

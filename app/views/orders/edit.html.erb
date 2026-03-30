@@ -1,24 +1,24 @@
 <div id="content_detail" class="col-md-9">
   <div class="card">
-    <h5 class="title card-header"><%= t("page.editing", model: t("activerecord.models.order")) -%></h5>
+    <h5 class="title card-header"><%= t("page.editing", model: t("activerecord.models.order")) %></h5>
     <div id="content_list" class="card-body">
 
-      <%= form_for(@order) do |f| -%>
-        <%= error_messages(@order) -%>
+      <%= form_for(@order) do |f| %>
+        <%= error_messages(@order) %>
         <div class="field">
-          <%= f.label t("activerecord.models.order_list") -%><br/>
-          <%= f.text_field :order_list_id -%>
+          <%= f.label t("activerecord.models.order_list") %><br/>
+          <%= f.text_field :order_list_id, required: true, class: "form-control" %>
         </div>
 
         <div class="field">
-          <%= f.label t("activerecord.models.purchase_request") -%><br/>
-          <%= f.text_field :purchase_request_id -%>
+          <%= f.label t("activerecord.models.purchase_request") %><br/>
+          <%= f.text_field :purchase_request_id, required: true, class: "form-control" %>
         </div>
 
-        <div class="actions">
-          <%= f.submit %>
+        <div class="actions mt-3">
+          <%= f.submit class: "btn btn-primary" %>
         </div>
-      <%- end -%>
+      <% end %>
 
     </div>
   </div>
@@ -27,7 +27,7 @@
 <div id="submenu" class="col">
   <div class="card">
     <ul>
-      <li><%= link_to t("page.show"), order_path(@order) -%></li>
-      <li><%= link_to t("page.back"), orders_path -%></li>
+      <li><%= link_to t("page.show"), order_path(@order) %></li>
+      <li><%= link_to t("page.back"), orders_path %></li>
     </ul>
   </div>

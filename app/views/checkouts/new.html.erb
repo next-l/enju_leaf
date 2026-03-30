@@ -1,20 +1,20 @@
-<h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.checkouts")) -%></h5>
+<h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.checkouts")) %></h5>
 
-<%= form_with(model: @checkout) do |f| -%>
-  <%= error_messages(@checkout) -%>
+<%= form_with(model: @checkout) do |f| %>
+  <%= error_messages(@checkout) %>
 
   <div class="field">
-    <%= f.label t("activerecord.models.user") -%><br/>
-    <%= f.text_field :user_id -%>
+    <%= f.label t("activerecord.models.user") %><br/>
+    <%= f.text_field :user_id, required: true, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label t("activerecord.models.item") -%><br/>
-    <%= f.text_field :item_id -%>
+    <%= f.label t("activerecord.models.item") %><br/>
+    <%= f.text_field :item_id, required: true, class: "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions mt-3">
+    <%= f.submit class: "btn btn-primary" %>
   </div>
-<%- end -%>
+<% end %>
 
-<%= link_to t("page.back"), checkouts_path(user_id: @checkout.user.username) -%>
+<%= link_to t("page.back"), checkouts_path(user_id: @checkout.user.username) %>

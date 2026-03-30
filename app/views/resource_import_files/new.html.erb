@@ -46,9 +46,9 @@
           <%= t("resource_import_file.default_shelf") %>
         </div>
 
-        <div class="actions">
+        <div class="actions mt-3">
           <%= f.hidden_field :mode, value: "import" %>
-          <%= f.submit t("page.start_import") %>
+          <%= f.submit t("page.start_import"), class: "btn btn-primary" %>
         </div>
       <%- end -%>
 

@@ -1,35 +1,35 @@
 <div id="content_detail" class="col-md-9">
   <div class="card">
-    <h5 class="title card-header"><%= t("page.editing", model: t("activerecord.models.subscribe")) -%></h5>
+    <h5 class="title card-header"><%= t("page.editing", model: t("activerecord.models.subscribe")) %></h5>
     <div id="content_list" class="card-body">
 
-      <%= form_with(model: @subscribe) do |f| -%>
-        <%= error_messages(@subscribe) -%>
+      <%= form_with(model: @subscribe) do |f| %>
+        <%= error_messages(@subscribe) %>
 
         <div class="field">
-          <%= f.label t("activerecord.models.subscription") -%><br/>
-          <%= f.text_field :subscription_id -%>
+          <%= f.label t("activerecord.models.subscription") %><br/>
+          <%= f.text_field :subscription_id %>
         </div>
         <div class="field">
-          <%= f.label t("activerecord.models.work") -%><br/>
-          <%= f.text_field :work_id -%>
+          <%= f.label t("activerecord.models.work") %><br/>
+          <%= f.text_field :work_id %>
         </div>
         <div class="field">
-          <%= f.label :start_at -%><br/>
+          <%= f.label :start_at %><br/>
           <%= f.text_field :start_at,
-                       value: @subscribe.start_at.try(:strftime, "%Y-%m-%d"),
-                       class: "date_field" -%>
+                       value: @subscribe.start_at.try(:strftime, "%Y%m%d"),
+                       class: "date_field" %>
         </div>
         <div class="field">
-          <%= f.label :end_at -%><br/>
+          <%= f.label :end_at %><br/>
           <%= f.text_field :end_at,
-                       value: @subscribe.end_at.try(:strftime, "%Y-%m-%d"),
-                       class: "date_field" -%>
+                       value: @subscribe.end_at.try(:strftime, "%Y%m%d"),
+                       class: "date_field" %>
         </div>
-        <div class="actions">
-          <%= f.submit %>
+        <div class="actions mt-3">
+          <%= f.submit class: "btn btn-primary" %>
         </div>
-      <%- end -%>
+      <% end %>
 
     </div>
   </div>
@@ -38,8 +38,8 @@
 <div id="submenu" class="col">
   <div class="card">
     <ul>
-      <li><%= link_to t("page.show"), @subscribe -%></li>
-      <li><%= link_to t("page.back"), subscribes_path -%></li>
+      <li><%= link_to t("page.show"), @subscribe %></li>
+      <li><%= link_to t("page.back"), subscribes_path %></li>
     </ul>
   </div>
 </div>

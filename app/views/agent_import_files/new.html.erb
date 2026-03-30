@@ -33,9 +33,9 @@
           <%= f.label :user_encoding, "EUC-JP", value: "euc-jp" %>
         </div>
 
-        <div class="actions">
+        <div class="actions mt-3">
           <%= f.hidden_field :mode, value: "import" %>
-          <%= f.submit t("page.start_import") %>
+          <%= f.submit t("page.start_import"), class: "btn btn-primary" %>
         </div>
       <%- end -%>
 

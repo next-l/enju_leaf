@@ -1,25 +1,29 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t('user.forgot_your_password') %></h5>
-  <div id="content_list" class="card-body">
+  <div class="card">
+    <h5 class="title card-header"><%= t('user.forgot_your_password') %></h5>
+    <div id="content_list" class="card-body">
 
-    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-      <%= devise_error_messages! %>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= devise_error_messages! %>
 
-      <div class="field">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true %>
-      </div>
+        <div class="field">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, class: "form-control" %>
+        </div>
 
-      <div class="actions">
-        <%= f.submit t('user.send_me_reset_password_instruction') %>
-      </div>
-    <% end %>
+        <div class="actions mt-3">
+          <%= f.submit t('user.send_me_reset_password_instruction'), class: "btn btn-primary" %>
+        </div>
+      <% end %>
 
+    </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
-  <ul>
-    <li><%= render "devise/shared/links" %></li>
-  </ul>
+  <div class="card">
+    <ul>
+      <li><%= render "devise/shared/links" %></li>
+    </ul>
+  </div>
 </div>

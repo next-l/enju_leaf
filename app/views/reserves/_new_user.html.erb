@@ -1,64 +1,66 @@
 <div id="content_detail" class="col-md-9">
   <div class="card">
-    <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.reserve")) -%></h5>
+    <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.reserve")) %></h5>
     <div id="content_list" class="card-body">
-      <%= form_with(model: @reserve, url: reserves_path(user_id: @user.username)) do |f| -%>
-        <%= error_messages(@reserve) -%>
+      <%= form_with(model: @reserve, url: reserves_path(user_id: @user.username)) do |f| %>
+        <%= error_messages(@reserve) %>
 
         <div class="field">
-          <%- if @item -%>
-            <%= render "manifestations/title", manifestation: @reserve.manifestation -%>
-            (<%= link_to @item.item_identifier, @item -%>)
-            <%= f.hidden_field :manifestation_id, value: @item.manifestation.id -%>
-            <%= f.hidden_field :item_id, value: @item.id -%>
-          <%- elsif @manifestation -%>
-            <%= render "manifestations/title", manifestation: @manifestation -%>
-            <%= f.hidden_field :manifestation_id -%>
-          <%- else -%>
-            <%= f.label t("activerecord.models.manifestation") -%><br/>
-            <%= f.text_field :manifestation_id -%>
-          <%- end -%>
+          <% if @item %>
+            <%= render "manifestations/title", manifestation: @reserve.manifestation %>
+            (<%= link_to @item.item_identifier, @item %>)
+            <%= f.hidden_field :manifestation_id, value: @item.manifestation.id %>
+            <%= f.hidden_field :item_id, value: @item.id %>
+          <% elsif @manifestation %>
+            <%= render "manifestations/title", manifestation: @manifestation %>
+            <%= f.hidden_field :manifestation_id %>
+          <% else %>
+            <%= f.label t("activerecord.models.manifestation") %><br/>
+            <%= f.text_field :manifestation_id, required: true, class: "form-control" %>
+          <% end %>
         </div>
 
         <div class="field">
-          <%= f.label t("activerecord.models.user") -%>
-          <%= link_to @reserve.user.username, profile_path(@reserve.user.profile) -%>
+          <%= f.label t("activerecord.models.user") %>
+          <%= link_to @reserve.user.username, profile_path(@reserve.user.profile) %>
           (<%= @reserve.user.profile.user_number %>)
-          <%= f.hidden_field :user_number, value: @user.profile.user_number -%>
+          <%= f.hidden_field :user_number, value: @user.profile.user_number %>
         </div>
 
         <div class="field">
-          <%= f.label :expired_at -%><br/>
+          <%= f.label :expired_at %><br/>
           <%= f.text_field :expired_at,
-                       value: @reserve.expired_at.try(:strftime, "%Y-%m-%d"),
-                       class: "date_field",
-                       placeholder: "#{t("page.example")}: 2011-04-12" -%>
+                       value: @reserve.expired_at.try(:strftime, "%Y%m%d"),
+                       class: "form-control date_field",
+                       placeholder: "#{t("page.example")}: 2011-04-12" %>
         </div>
 
         <div class="field">
           <%= f.label :pickup_location_id %>
           <%= f.select :pickup_location_id,
-                   @libraries.map { |l| [l.display_name.localize, l.id] } %>
+                   @libraries.map { |l| [l.display_name.localize, l.id] },
+                   {},
+                   class: "form-select" %>
         </div>
 
-        <div class="actions">
-          <%= f.submit %>
+        <div class="actions mt-3">
+          <%= f.submit class: "btn btn-primary" %>
         </div>
-      <%- end -%>
+      <% end %>
     </div>
   </div>
 </div>
 
 <div id="submenu" class="col">
   <div class="card">
-    <%= render "manifestations/book_jacket", manifestation: @reserve.manifestation -%>
+    <%= render "manifestations/book_jacket", manifestation: @reserve.manifestation %>
     <ul>
       <li><%= link_to t("page.listing", model: t("activerecord.models.reserve")),
-        reserves_path(user_id: @reserve.user.username) -%></li>
-      <%- if @manifestation -%>
+        reserves_path(user_id: @reserve.user.username) %></li>
+      <% if @manifestation %>
         <li><%= link_to t("page.showing", model: t("activerecord.models.manifestation")),
-          @manifestation -%></li>
-      <%- end -%>
+          @manifestation %></li>
+      <% end %>
     </ul>
   </div>
 </div>
