@@ -2,20 +2,12 @@
   "name": "enju_leaf",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
-    "@babel/runtime": "^7.26.3",
-=======
     "@babel/runtime": "^7.28.3",
->>>>>>> main
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^7.x",
     "@mui/system": "^7.x",
-<<<<<<< HEAD
-    "@rails/actioncable": "~7.1.5",
-=======
-    "@rails/actioncable": "~7.2.2",
->>>>>>> main
+    "@rails/actioncable": "~7.2.3",
     "@rails/webpacker": "5.4.4",
     "@types/react": "*",
     "dnd-core": "^16.0.1",
