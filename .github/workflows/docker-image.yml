@@ -2,11 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-<<<<<<< HEAD
     branches: [ main, 1.5, 1.6 ]
-=======
-    branches: [ main, 1.5 ]
->>>>>>> main
     tags:
     - 'v*'
 
@@ -25,10 +21,7 @@ jobs:
           ghcr.io/${{ github.repository }}
           ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}
         tags: |
-<<<<<<< HEAD
           type=ref,event=branch
-=======
->>>>>>> main
           type=semver,pattern={{version}}
           type=semver,pattern={{major}}.{{minor}}
           type=raw,value=latest,enable={{is_default_branch}}
