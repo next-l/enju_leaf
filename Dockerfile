@@ -2,11 +2,7 @@
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
 ARG RUBY_VERSION=3.3.11
-<<<<<<< HEAD
 FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim-trixie AS base
-=======
-FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim-trixie as base
->>>>>>> main
 
 # Rails app lives here
 WORKDIR /enju
