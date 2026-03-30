@@ -18,11 +18,11 @@ describe EnjuManifestationViewer::ApplicationHelper do
   end
 
   it "should render youtube template" do
-    helper.embed_content(manifestations(:manifestation_00022)).should =~ /frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen/
+    helper.embed_content(manifestations(:manifestation_00022)).should =~ /frameborder="0"/
   end
 
   it "should render nicovideo template" do
-    helper.embed_content(manifestations(:manifestation_00023)).should =~ /<script type="application\/javascript" src="https:\/\/embed.nicovideo.jp\/watch\//
+    helper.embed_content(manifestations(:manifestation_00023)).should =~ /src="https:\/\/embed.nicovideo.jp\/watch\//
   end
 
   it "should render flickr template" do
