@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.3.10"
+ruby "3.3.11"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.3"
@@ -32,6 +32,11 @@ gem "jbuilder"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
+
+# Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
+# gem "solid_cache"
+gem "solid_queue"
+# gem "solid_cable"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -73,7 +78,7 @@ gem 'sunspot_rails', '~> 2.7'
 gem 'acts_as_list'
 gem 'kaminari'
 gem 'strip_attributes'
-gem 'statesman', '~> 12.1'
+gem 'statesman', '~> 13.1'
 gem 'friendly_id'
 gem 'globalize'
 gem 'globalize-accessors'
@@ -91,9 +96,7 @@ gem 'addressable'
 gem 'progress_bar'
 gem 'rails_autolink'
 gem 'kramdown'
-gem 'solid_cache'
-gem 'solid_queue', "~> 1.0"
-gem 'mission_control-jobs', "~> 0.5.0"
+gem 'mission_control-jobs'
 gem 'acts-as-taggable-on'
 gem 'resync' # , github: 'nabeta/resync', branch: 'add-datetime'
 gem 'pretender'

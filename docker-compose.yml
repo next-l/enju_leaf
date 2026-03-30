@@ -9,14 +9,7 @@ x-app: &app
   env_file:
     - .env
   environment:
-    no_proxy: localhost,web,workers,tika
-  build:
-    context: .
-    args:
-      - UID=${UID}
-      - GID=${GID}
-      - http_proxy=${http_proxy}
-      - https_proxy=${http_proxy}
+    no_proxy: localhost,web,queue,tika
   image: ghcr.io/next-l/enju_leaf:latest
   networks:
     internal:
@@ -30,15 +23,22 @@ x-app: &app
 services:
   web:
     <<: *app
+    build:
+      context: .
+      args:
+        - UID=${UID}
+        - GID=${GID}
+        - http_proxy=${http_proxy}
+        - https_proxy=${http_proxy}
     command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -b 0.0.0.0"
     environment:
       - WEBPACKER_DEV_SERVER_HOST=webpacker
     expose:
       - 3000
 
-  workers:
+  queue:
     <<: *app
-    command: bundle exec rake solid_queue:start
+    command: bash -c "bin/jobs"
 
   webpacker:
     <<: *app
@@ -71,7 +71,7 @@ services:
       retries: 3
 
   postgres:
-    image: postgres:13
+    image: postgres:17
     volumes:
       - postgres:/var/lib/postgresql/data
     networks:
@@ -88,7 +88,7 @@ services:
       retries: 3
 
   cantaloupe:
-    image: islandora/cantaloupe:4
+    image: islandora/cantaloupe:6.3
     expose:
       - 8182
     restart: always
@@ -105,7 +105,7 @@ services:
       retries: 3
 
   tika:
-    image: apache/tika:3.1.0.0
+    image: apache/tika:3.3.0.0
     expose:
       - 9998
     restart: always
