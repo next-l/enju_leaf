@@ -42,7 +42,7 @@
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
-    <li><%= link_to t('activerecord.models.subscription'), subscription_path(@subscription) if @subscription -%>
-    <li><%= link_to t('page.listing', model: t('activerecord.models.work')), subscription_works_path(@subscription) if @subscription -%>
+    <li><%= link_to t('activerecord.models.subscription'), subscription_path(@subscription) if @subscription -%></li>
+    <li><%= link_to t('page.listing', model: t('activerecord.models.work')), subscription_works_path(@subscription) if @subscription -%></li>
   </ul>
 </div>

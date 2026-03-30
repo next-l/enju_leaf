@@ -18,7 +18,6 @@
     <td><%= @inventories.offset_value + idx + 1 %></td>
     <td><%= inventory.current_shelf_name %></td>
     <td><%= inventory.item_identifier %></td>
-    </td>
     <td>
       <% if inventory.item %>
         <%= link_to inventory.item.item_identifier, inventory.item %>
