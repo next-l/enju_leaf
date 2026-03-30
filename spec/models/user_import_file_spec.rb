@@ -128,14 +128,15 @@ describe UserImportFile do
 
     it "should not overwrite with null value" do
       user = User.where(username: 'user001').first
-      user.profile = FactoryBot.create(:profile,
+      user.profile.update!(
         user_number: '001',
         full_name: 'User 001',
         full_name_transcription: 'User 001',
         locale: 'ja',
         note: 'Note',
         keyword_list: 'keyword1 keyword2',
-        date_of_birth: 10.years.ago)
+        date_of_birth: 10.years.ago
+      )
       file = UserImportFile.create!(
         attachment: fixture_file_upload("user_update_file2.tsv"),
         user: users(:admin),
@@ -250,22 +251,18 @@ end
 #
 # Table name: user_import_files
 #
-#  id                       :bigint           not null, primary key
-#  edit_mode                :string
-#  error_message            :text
-#  executed_at              :datetime
-#  note                     :text
-#  user_encoding            :string
-#  user_import_content_type :string
-#  user_import_file_name    :string
-#  user_import_file_size    :integer
-#  user_import_fingerprint  :string
-#  user_import_updated_at   :datetime
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
-#  default_library_id       :bigint
-#  default_user_group_id    :bigint
-#  user_id                  :bigint           not null
+#  id                      :bigint           not null, primary key
+#  edit_mode               :string
+#  error_message           :text
+#  executed_at             :datetime
+#  note                    :text
+#  user_encoding           :string
+#  user_import_fingerprint :string
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  default_library_id      :bigint
+#  default_user_group_id   :bigint
+#  user_id                 :bigint           not null
 #
 # Indexes
 #

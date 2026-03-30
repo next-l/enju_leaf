@@ -4,8 +4,12 @@ class CreateResourceExportFiles < ActiveRecord::Migration[4.2]
       t.integer :user_id
       t.string :resource_export_content_type
       t.string :resource_export_file_name
+<<<<<<< HEAD
       t.bigint :resource_export_file_size
       t.datetime :resource_export_updated_at
+=======
+      t.integer :resource_export_file_size
+>>>>>>> main
       t.datetime :executed_at
 
       t.timestamps

@@ -187,6 +187,8 @@ class ResourceImportFile < ApplicationRecord
       import_result.manifestation = manifestation
 
       if manifestation
+        manifestation.reload
+
         ResourceImportFile.import_manifestation_custom_value(row, manifestation).each do |value|
           value.update!(manifestation: manifestation)
         end
@@ -590,7 +592,7 @@ class ResourceImportFile < ApplicationRecord
     ]
     item_columns.each do |column|
       if row[column].present?
-        item.assign_attributes(:"#{column}" => row[column])
+        item.assign_attributes("#{column}": row[column])
       end
     end
 
@@ -725,7 +727,7 @@ class ResourceImportFile < ApplicationRecord
         extent: row["extent"],
         dimensions: row["dimensions"],
         start_page: row["start_page"],
-        end_page: row["end_page"],
+        end_page: row["end_page"]
       }.delete_if { |_key, value| value.nil? }
 
       manifestation = self.class.import_manifestation(expression, publisher_agents, attributes,
@@ -902,24 +904,18 @@ end
 #
 # Table name: resource_import_files
 #
-#  id                           :bigint           not null, primary key
-#  content_type                 :string
-#  edit_mode                    :string
-#  error_message                :text
-#  executed_at                  :datetime
-#  note                         :text
-#  resource_import_content_type :string
-#  resource_import_file_name    :string
-#  resource_import_file_size    :integer
-#  resource_import_fingerprint  :string
-#  resource_import_updated_at   :datetime
-#  size                         :integer
-#  user_encoding                :string
-#  created_at                   :datetime         not null
-#  updated_at                   :datetime         not null
-#  default_shelf_id             :bigint
-#  parent_id                    :bigint
-#  user_id                      :bigint           not null
+#  id                          :bigint           not null, primary key
+#  edit_mode                   :string
+#  error_message               :text
+#  executed_at                 :datetime
+#  note                        :text
+#  resource_import_fingerprint :string
+#  user_encoding               :string
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#  default_shelf_id            :bigint
+#  parent_id                   :bigint
+#  user_id                     :bigint           not null
 #
 # Indexes
 #

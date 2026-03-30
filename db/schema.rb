@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[7.1].define(version: 2025_07_26_140939) do
+=======
+ActiveRecord::Schema[7.2].define(version: 2025_07_27_021342) do
+>>>>>>> main
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1265,7 +1269,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_140939) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.bigint "user_id"
     t.bigint "user_group_id"
     t.bigint "library_id"
     t.string "locale"
@@ -1285,7 +1288,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_140939) do
     t.index ["checkout_icalendar_token"], name: "index_profiles_on_checkout_icalendar_token", unique: true
     t.index ["library_id"], name: "index_profiles_on_library_id"
     t.index ["user_group_id"], name: "index_profiles_on_user_group_id"
-    t.index ["user_id"], name: "index_profiles_on_user_id"
     t.index ["user_number"], name: "index_profiles_on_user_number", unique: true
   end
 
@@ -1818,7 +1820,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_140939) do
     t.string "unlock_token"
     t.datetime "locked_at", precision: nil
     t.datetime "confirmed_at", precision: nil
+    t.bigint "profile_id", null: false
     t.index ["email"], name: "index_users_on_email"
+    t.index ["profile_id"], name: "index_users_on_profile_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
@@ -1835,6 +1839,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_140939) do
     t.index ["librarian_id"], name: "index_withdraws_on_librarian_id"
   end
 
+  add_foreign_key "accepts", "users", column: "librarian_id"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "agent_import_files", "users"
@@ -1846,7 +1851,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_140939) do
   add_foreign_key "checked_items", "baskets"
   add_foreign_key "checked_items", "items"
   add_foreign_key "checked_items", "users"
+  add_foreign_key "checked_items", "users", column: "librarian_id"
   add_foreign_key "checkins", "items"
+  add_foreign_key "checkins", "users", column: "librarian_id"
   add_foreign_key "checkout_stat_has_manifestations", "manifestations"
   add_foreign_key "checkout_stat_has_users", "user_checkout_stats"
   add_foreign_key "checkout_stat_has_users", "users"
@@ -1855,11 +1862,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_140939) do
   add_foreign_key "checkouts", "libraries"
   add_foreign_key "checkouts", "shelves"
   add_foreign_key "checkouts", "users"
+  add_foreign_key "checkouts", "users", column: "librarian_id"
   add_foreign_key "demands", "items"
   add_foreign_key "demands", "messages"
   add_foreign_key "demands", "users"
   add_foreign_key "doi_records", "manifestations"
   add_foreign_key "event_export_files", "users"
+  add_foreign_key "event_import_files", "users"
   add_foreign_key "events", "event_categories"
   add_foreign_key "import_requests", "users"
   add_foreign_key "inventory_files", "shelves"
@@ -1897,7 +1906,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_140939) do
   add_foreign_key "periodicals", "frequencies"
   add_foreign_key "periodicals", "manifestations"
   add_foreign_key "profiles", "roles", column: "required_role_id"
-  add_foreign_key "profiles", "users"
   add_foreign_key "purchase_requests", "users"
   add_foreign_key "reserve_stat_has_manifestations", "manifestations"
   add_foreign_key "reserve_stat_has_users", "user_reserve_stats"
@@ -1916,4 +1924,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_26_140939) do
   add_foreign_key "user_has_roles", "users"
   add_foreign_key "user_import_files", "users"
   add_foreign_key "user_reserve_stats", "users"
+  add_foreign_key "users", "profiles"
+  add_foreign_key "withdraws", "users", column: "librarian_id"
 end
