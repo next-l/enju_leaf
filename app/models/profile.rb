@@ -1,6 +1,6 @@
 class Profile < ApplicationRecord
   include EnjuCirculation::EnjuProfile
-  scope :administrators, -> { joins(user: :role).where("roles.name = ?", "Administrator") }
+  scope :administrators, -> { joins(user: :role).where(name: "Administrator") }
   scope :librarians, -> { joins(user: :role).where("roles.name = ? OR roles.name = ?", "Administrator", "Librarian") }
   has_one :user, dependent: :destroy, inverse_of: :profile
   belongs_to :library
