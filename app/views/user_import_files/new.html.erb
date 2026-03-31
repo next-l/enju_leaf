@@ -1,10 +1,10 @@
 <div id="content_detail" class="col-md-9">
   <div class="card">
-    <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.user_import_file")) -%></h5>
+    <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.user_import_file")) %></h5>
     <div id="content_list" class="card-body">
 
       <%= form_with(model: @user_import_file) do |f| %>
-        <%= error_messages(@user_import_file) -%>
+        <%= error_messages(@user_import_file) %>
 
         <div class="field">
           <%= f.label t("page.file") %><br/>
@@ -12,7 +12,7 @@
         </div>
 
         <div class="field">
-          <%= f.label :edit_mode -%><br/>
+          <%= f.label :edit_mode %><br/>
           <%= f.radio_button :edit_mode, "create", checked: "checked" %>
           <%= f.label :edit_mode, t("page.create"), value: "create" %>
           <%= f.radio_button :edit_mode, "update" %>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="field">
-          <%= f.label :user_encoding -%><br/>
+          <%= f.label :user_encoding %><br/>
           <%= f.radio_button :user_encoding, "auto_detect", checked: "checked" %>
           <%= f.label :user_encoding, t("import.auto_detect"), value: "auto_detect" %>
           <%= f.radio_button :user_encoding, "utf-8" %>
@@ -34,21 +34,25 @@
         </div>
 
         <div class="field">
-          <%= f.label :default_user_group_id -%>
+          <%= f.label :default_user_group_id %><br/>
+          <%= t("user_import_file.default_user_group") %>
           <%= f.select(
             :default_user_group_id,
             @user_groups.collect { |u| [u.display_name.localize, u.id] },
-          ) -%><br/>
-          <%= t("user_import_file.default_user_group") %>
+            {},
+            class: "form-select"
+          ) %>
         </div>
 
         <div class="field">
-          <%= f.label :default_library_id -%>
+          <%= f.label :default_library_id %><br/>
+          <%= t("user_import_file.default_library") %>
           <%= f.select(
             :default_library_id,
             @libraries.collect { |l| [l.display_name.localize, l.id] },
-          ) -%><br/>
-          <%= t("user_import_file.default_library") %>
+            {},
+            class: "form-select"
+          ) %>
         </div>
 
         <div class="actions mt-3">

@@ -10,14 +10,14 @@
     <%= f.text_area :display_name, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label t("page.file") -%>
-    <%= f.file_field :attachment, accept: "image/*" -%>
+    <%= f.label t("page.file") %>
+    <%= f.file_field :attachment, accept: "image/*" %>
   </div>
 
   <% if f.object.attachment.present? %>
     <div class="field">
-      <%= f.label t("page.delete_file") -%>
-      <%= f.check_box :delete_attachment -%>
+      <%= f.label t("page.delete_file") %>
+      <%= f.check_box :delete_attachment, class: "form-check-input" %>
       <%= f.object.attachment.filename.to_s %>
     </div>
   <% end %>

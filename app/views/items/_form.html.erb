@@ -38,7 +38,7 @@
         :checkout_type_id,
         @checkout_types.collect { |c| [c.display_name.localize, c.id] },
         {},
-        class: "form-select",
+        class: "form-select"
       ) %>
     </div>
 
@@ -48,7 +48,7 @@
         :circulation_status_id,
         @circulation_statuses.collect { |c| [c.display_name.localize, c.id] },
         {},
-        class: "form-select",
+        class: "form-select"
       ) %>
     </div>
 
@@ -65,12 +65,12 @@
 
   <div class="field">
     <%= f.label :include_supplements %>
-    <%= f.check_box :include_supplements %>
+    <%= f.check_box :include_supplements, class: "form-check-input" %>
   </div>
 
   <div class="field">
     <%= f.label :call_number %>
-    <%= f.text_field :call_number %>
+    <%= f.text_field :call_number, class: "form-control" %>
   </div>
 
   <div class="field">
@@ -78,22 +78,22 @@
     <%= f.select(
       :budget_type_id,
       @budget_types.collect { |b| [b.display_name.localize, b.id] },
-      include_blank: true,
-      class: "form-select",
+      { include_blank: true },
+      class: "form-select"
     ) %>
 
     <%= f.label t("activerecord.models.bookstore") %>
     <%= f.select(
       :bookstore_id,
       @bookstores.collect { |b| [b.name, b.id] },
-      include_blank: true,
-      class: "form-select",
+      { include_blank: true },
+      class: "form-select"
     ) %>
   </div>
 
   <div class="field">
     <%= f.label :price %>
-    <%= f.text_field :price %>
+    <%= f.text_field :price, class: "form-control" %>
   </div>
 
   <div class="field">
@@ -115,7 +115,7 @@
     <%= f.label :acquired_at %>
     <%= f.text_field :acquired_at,
                  value: item.acquired_at.try(:strftime, "%Y%m%d"),
-                 class: "date_text_field",
+                 class: "form-control date_text_field",
                  placeholder: "#{t("page.example")}: 2011-04-12" %>
   </div>
 
@@ -126,13 +126,13 @@
     <%= f.label :binded_at %>
     <%= f.text_field :binded_at,
                  value: item.binded_at.try(:strftime, "%Y%m%d"),
-                 class: "date_text_field",
+                 class: "form-control date_text_field",
                  placeholder: "#{t("page.example")}: 2014-07-20" %>
   </div>
 
   <div class="field">
     <%= f.label :binding_item_identifier %>
-    <%= f.text_field :binding_item_identifier, class: "resource_identifier" %>
+    <%= f.text_field :binding_item_identifier, class: "form-control resource_identifier" %>
   </div>
 
   <div class="field">

@@ -26,6 +26,8 @@
     <%= f.select(
       :agent_relationship_type_id,
       @agent_relationship_types.collect { |r| [r.display_name.localize, r.id] },
+      {},
+      class: "form-select"
     ) %>
   </div>
   <div class="actions mt-3">

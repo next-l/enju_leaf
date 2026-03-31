@@ -130,7 +130,7 @@
       :content_type_id,
       @content_types.collect { |c| [c.display_name.localize, c.id] },
       {},
-      class: "form-control",
+      class: "form-select"
     ) %>
 
     <%= f.label t("activerecord.models.carrier_type") %>
@@ -138,7 +138,7 @@
       :carrier_type_id,
       @carrier_types.collect { |c| [c.display_name.localize, c.id] },
       {},
-      class: "form-control",
+      class: "form-select"
     ) %>
     <!-- TODO: Formの切り替え時に入力項目をAjaxで書き換える -->
   </div>
@@ -151,7 +151,7 @@
         [frequency.display_name.localize, frequency.id]
       end,
       {},
-      class: "form-control",
+      class: "form-select"
     ) %>
 
     <%= f.label t("activerecord.models.language") %>
@@ -161,7 +161,7 @@
         [language.display_name.localize, language.id]
       end,
       {},
-      class: "form-control",
+      class: "form-select"
     ) %>
   </div>
 
@@ -229,29 +229,29 @@
 
   <div class="field">
     <%= f.label :extent %>
-    <%= f.text_field :extent, class: "resource_subject" %>
+    <%= f.text_field :extent, class: "form-control resource_subject" %>
     <br/>
     <%= f.label :start_page %>
-    <%= f.text_field :start_page, class: "resource_integer" %>
+    <%= f.text_field :start_page, class: "form-control resource_integer" %>
     <%= f.label :end_page %>
-    <%= f.text_field :end_page, class: "resource_integer" %>
+    <%= f.text_field :end_page, class: "form-control resource_integer" %>
   </div>
 
   <div class="field">
     <%= f.label :dimensions %>
-    <%= f.text_field :dimensions, class: "resource_subject" %>
+    <%= f.text_field :dimensions, class: "form-control resource_subject" %>
     <br/>
     <%= f.label :height %>(cm)
-    <%= f.text_field :height, class: "resource_integer" %>
+    <%= f.text_field :height, class: "form-control resource_integer" %>
     <%= f.label :width %>(cm)
-    <%= f.text_field :width, class: "resource_integer" %>
+    <%= f.text_field :width, class: "form-control resource_integer" %>
     <%= f.label :depth %>(cm)
-    <%= f.text_field :depth, class: "resource_integer" %>
+    <%= f.text_field :depth, class: "form-control resource_integer" %>
   </div>
 
   <div class="field">
     <%= f.label :price %>
-    <%= f.text_field :price, class: "resource_integer" %>
+    <%= f.text_field :price, class: "form-control resource_integer" %>
   </div>
 
   <div class="field">
@@ -265,7 +265,7 @@
       :required_role_id,
       @roles.collect { |r| [r.display_name.localize, r.id] },
       {},
-      class: "form-control",
+      class: "form-select"
     ) %>
   </div>
 

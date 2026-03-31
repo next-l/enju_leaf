@@ -6,7 +6,8 @@
     <%= f.select(
       :carrier_type_id,
       @carrier_types.collect { |m| [m.display_name.localize, m.id] },
-      include_blank: true,
+      { include_blank: true },
+      class: "form-select"
     ) %>
   </div>
   <div class="field">
@@ -14,7 +15,8 @@
     <%= f.select(
       :checkout_type_id,
       @checkout_types.collect { |c| [c.display_name.localize, c.id] },
-      include_blank: true,
+      { include_blank: true },
+      class: "form-select"
     ) %>
   </div>
   <div class="field">

@@ -23,7 +23,7 @@
   </div>
   <div class="field">
     <%= f.label :manifestation_relationship_type_id %><br />
-    <%= f.select(:manifestation_relationship_type_id, @manifestation_relationship_types.collect{|r| [r.display_name.localize, r.id]}) -%>
+    <%= f.select(:manifestation_relationship_type_id, @manifestation_relationship_types.collect{|r| [r.display_name.localize, r.id]}, {}, class: "form-select") -%>
   </div>
   <div class="actions mt-3">
     <%= f.submit class: "btn btn-primary" %>

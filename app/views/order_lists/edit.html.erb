@@ -22,7 +22,8 @@
             <%= f.select(
               :bookstore_id,
               @bookstores.collect { |b| [b.name, b.id] },
-              include_blank: true,
+              { include_blank: true },
+              class: "form-select"
             ) %>
           <% end %>
         </div>
