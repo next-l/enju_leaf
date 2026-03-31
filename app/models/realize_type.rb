@@ -3,19 +3,25 @@ class RealizeType < ApplicationRecord
   default_scope { order("realize_types.position") }
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: realize_types
+# Table name: `realize_types`
+# Database name: `primary`
 #
-#  id           :bigint           not null, primary key
-#  display_name :text
-#  name         :string           not null
-#  note         :text
-#  position     :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+# ### Columns
 #
-# Indexes
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`display_name`**  | `text`             |
+# **`name`**          | `string`           | `not null`
+# **`note`**          | `text`             |
+# **`position`**      | `integer`          |
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
 #
-#  index_realize_types_on_lower_name  (lower((name)::text)) UNIQUE
+# ### Indexes
+#
+# * `index_realize_types_on_lower_name` (_unique_):
+#     * **`lower((name)::text)`**
 #

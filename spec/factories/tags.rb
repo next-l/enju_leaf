@@ -4,17 +4,23 @@ FactoryBot.define do
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: tags
+# Table name: `tags`
+# Database name: `primary`
 #
-#  id             :bigint           not null, primary key
-#  name           :string           not null
-#  taggings_count :integer          default(0)
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
+# ### Columns
 #
-# Indexes
+# Name                  | Type               | Attributes
+# --------------------- | ------------------ | ---------------------------
+# **`id`**              | `bigint`           | `not null, primary key`
+# **`name`**            | `string`           | `not null`
+# **`taggings_count`**  | `integer`          | `default(0)`
+# **`created_at`**      | `datetime`         | `not null`
+# **`updated_at`**      | `datetime`         | `not null`
 #
-#  index_tags_on_name  (name) UNIQUE
+# ### Indexes
+#
+# * `index_tags_on_name` (_unique_):
+#     * **`name`**
 #

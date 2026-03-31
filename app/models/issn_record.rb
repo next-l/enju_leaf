@@ -35,16 +35,22 @@ class IssnRecord < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: issn_records(ISSN)
+# Table name: `issn_records(ISSN)`
+# Database name: `primary`
 #
-#  id           :bigint           not null, primary key
-#  body(ISSN)   :string           not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+# ### Columns
 #
-# Indexes
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`body(ISSN)`**    | `string`           | `not null`
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
 #
-#  index_issn_records_on_body  (body) UNIQUE
+# ### Indexes
+#
+# * `index_issn_records_on_body` (_unique_):
+#     * **`body`**
 #

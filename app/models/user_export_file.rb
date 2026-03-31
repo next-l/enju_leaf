@@ -37,21 +37,28 @@ class UserExportFile < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: user_export_files
+# Table name: `user_export_files`
+# Database name: `primary`
 #
-#  id          :bigint           not null, primary key
-#  executed_at :datetime
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  user_id     :bigint           not null
+# ### Columns
 #
-# Indexes
+# Name               | Type               | Attributes
+# ------------------ | ------------------ | ---------------------------
+# **`id`**           | `bigint`           | `not null, primary key`
+# **`executed_at`**  | `datetime`         |
+# **`created_at`**   | `datetime`         | `not null`
+# **`updated_at`**   | `datetime`         | `not null`
+# **`user_id`**      | `bigint`           | `not null`
 #
-#  index_user_export_files_on_user_id  (user_id)
+# ### Indexes
 #
-# Foreign Keys
+# * `index_user_export_files_on_user_id`:
+#     * **`user_id`**
 #
-#  fk_rails_...  (user_id => users.id)
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

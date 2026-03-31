@@ -182,26 +182,38 @@ class EventImportFile < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: event_import_files
+# Table name: `event_import_files`
+# Database name: `primary`
 #
-#  id                        :bigint           not null, primary key
-#  edit_mode                 :string
-#  error_message             :text
-#  event_import_fingerprint  :string
-#  executed_at               :datetime
-#  note                      :text
-#  user_encoding             :string
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  default_event_category_id :bigint
-#  default_library_id        :bigint
-#  parent_id                 :bigint
-#  user_id                   :bigint           not null
+# ### Columns
 #
-# Indexes
+# Name                             | Type               | Attributes
+# -------------------------------- | ------------------ | ---------------------------
+# **`id`**                         | `bigint`           | `not null, primary key`
+# **`edit_mode`**                  | `string`           |
+# **`error_message`**              | `text`             |
+# **`event_import_fingerprint`**   | `string`           |
+# **`executed_at`**                | `datetime`         |
+# **`note`**                       | `text`             |
+# **`user_encoding`**              | `string`           |
+# **`created_at`**                 | `datetime`         | `not null`
+# **`updated_at`**                 | `datetime`         | `not null`
+# **`default_event_category_id`**  | `bigint`           |
+# **`default_library_id`**         | `bigint`           |
+# **`parent_id`**                  | `bigint`           |
+# **`user_id`**                    | `bigint`           | `not null`
 #
-#  index_event_import_files_on_parent_id  (parent_id)
-#  index_event_import_files_on_user_id    (user_id)
+# ### Indexes
+#
+# * `index_event_import_files_on_parent_id`:
+#     * **`parent_id`**
+# * `index_event_import_files_on_user_id`:
+#     * **`user_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #
