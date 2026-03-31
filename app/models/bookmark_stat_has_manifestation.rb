@@ -2,7 +2,7 @@ class BookmarkStatHasManifestation < ApplicationRecord
   belongs_to :bookmark_stat
   belongs_to :manifestation
 
-  validates_uniqueness_of :manifestation_id, scope: :bookmark_stat_id
+  validates :manifestation_id, uniqueness: { scope: :bookmark_stat_id }
 
   paginates_per 10
 end

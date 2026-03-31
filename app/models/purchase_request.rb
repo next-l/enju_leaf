@@ -1,18 +1,17 @@
 class PurchaseRequest < ApplicationRecord
-  scope :not_ordered, -> { includes(:order_list).where("order_lists.ordered_at IS NULL") }
-  scope :ordered, -> { includes(:order_list).where("order_lists.ordered_at IS NOT NULL") }
+  scope :not_ordered, -> { includes(:order_list).where(ordered_at: nil) }
+  scope :ordered, -> { includes(:order_list).where.not(ordered_at: nil) }
 
-  belongs_to :user, validate: true
+  belongs_to :user
   has_one :order, dependent: :destroy
   has_one :order_list, through: :order
 
-  validates_associated :user
-  validates_presence_of :user, :title
+  validates :title, presence: true
   validate :check_price
   validates :url, url: true, allow_blank: true, length: { maximum: 255 }
-  after_destroy :index!
-  after_save :index!
   before_save :set_date_of_publication
+  after_save :index!
+  after_destroy :index!
 
   strip_attributes only: [ :url, :pub_date ]
 

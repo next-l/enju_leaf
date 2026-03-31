@@ -7,16 +7,15 @@ class OrderList < ApplicationRecord
 
   has_many :orders, dependent: :destroy
   has_many :purchase_requests, through: :orders
-  belongs_to :user, validate: true
-  belongs_to :bookstore, validate: true
+  belongs_to :user
+  belongs_to :bookstore
   has_many :subscriptions
 
   after_create do
     transition_to(:not_ordered)
   end
 
-  validates_presence_of :title, :user, :bookstore
-  validates_associated :user, :bookstore
+  validates :title, presence: true
 
   attr_accessor :edit_mode
 
