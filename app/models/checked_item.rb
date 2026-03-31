@@ -118,29 +118,44 @@ class CheckedItem < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: checked_items
+# Table name: `checked_items`
+# Database name: `primary`
 #
-#  id           :bigint           not null, primary key
-#  due_date     :datetime         not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  basket_id    :bigint           not null
-#  item_id      :bigint           not null
-#  librarian_id :bigint
-#  user_id      :bigint
+# ### Columns
 #
-# Indexes
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`due_date`**      | `datetime`         | `not null`
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
+# **`basket_id`**     | `bigint`           | `not null`
+# **`item_id`**       | `bigint`           | `not null`
+# **`librarian_id`**  | `bigint`           |
+# **`user_id`**       | `bigint`           |
 #
-#  index_checked_items_on_basket_id              (basket_id)
-#  index_checked_items_on_item_id_and_basket_id  (item_id,basket_id) UNIQUE
-#  index_checked_items_on_librarian_id           (librarian_id)
-#  index_checked_items_on_user_id                (user_id)
+# ### Indexes
 #
-# Foreign Keys
+# * `index_checked_items_on_basket_id`:
+#     * **`basket_id`**
+# * `index_checked_items_on_item_id_and_basket_id` (_unique_):
+#     * **`item_id`**
+#     * **`basket_id`**
+# * `index_checked_items_on_librarian_id`:
+#     * **`librarian_id`**
+# * `index_checked_items_on_user_id`:
+#     * **`user_id`**
 #
-#  fk_rails_...  (basket_id => baskets.id)
-#  fk_rails_...  (item_id => items.id)
-#  fk_rails_...  (user_id => users.id)
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`basket_id => baskets.id`**
+# * `fk_rails_...`:
+#     * **`item_id => items.id`**
+# * `fk_rails_...`:
+#     * **`librarian_id => users.id`**
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

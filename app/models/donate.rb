@@ -3,18 +3,25 @@ class Donate < ApplicationRecord
   belongs_to :item
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: donates
+# Table name: `donates`
+# Database name: `primary`
 #
-#  id         :bigint           not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  agent_id   :bigint           not null
-#  item_id    :bigint           not null
+# ### Columns
 #
-# Indexes
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`id`**          | `bigint`           | `not null, primary key`
+# **`created_at`**  | `datetime`         | `not null`
+# **`updated_at`**  | `datetime`         | `not null`
+# **`agent_id`**    | `bigint`           | `not null`
+# **`item_id`**     | `bigint`           | `not null`
 #
-#  index_donates_on_agent_id  (agent_id)
-#  index_donates_on_item_id   (item_id)
+# ### Indexes
+#
+# * `index_donates_on_agent_id`:
+#     * **`agent_id`**
+# * `index_donates_on_item_id`:
+#     * **`item_id`**
 #

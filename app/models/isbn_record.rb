@@ -39,16 +39,22 @@ class IsbnRecord < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: isbn_records(ISBN)
+# Table name: `isbn_records(ISBN)`
+# Database name: `primary`
 #
-#  id           :bigint           not null, primary key
-#  body(ISBN)   :string           not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+# ### Columns
 #
-# Indexes
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`body(ISBN)`**    | `string`           | `not null`
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
 #
-#  index_isbn_records_on_body  (body)
+# ### Indexes
+#
+# * `index_isbn_records_on_body`:
+#     * **`body`**
 #

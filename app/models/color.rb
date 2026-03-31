@@ -6,19 +6,25 @@ class Color < ApplicationRecord
   acts_as_list
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: colors
+# Table name: `colors`
+# Database name: `primary`
 #
-#  id               :bigint           not null, primary key
-#  code             :string
-#  position         :integer
-#  property         :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  library_group_id :bigint
+# ### Columns
 #
-# Indexes
+# Name                    | Type               | Attributes
+# ----------------------- | ------------------ | ---------------------------
+# **`id`**                | `bigint`           | `not null, primary key`
+# **`code`**              | `string`           |
+# **`position`**          | `integer`          |
+# **`property`**          | `string`           |
+# **`created_at`**        | `datetime`         | `not null`
+# **`updated_at`**        | `datetime`         | `not null`
+# **`library_group_id`**  | `bigint`           |
 #
-#  index_colors_on_library_group_id  (library_group_id)
+# ### Indexes
+#
+# * `index_colors_on_library_group_id`:
+#     * **`library_group_id`**
 #
