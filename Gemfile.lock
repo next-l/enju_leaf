@@ -529,6 +529,15 @@ GEM
     simplecov_json_formatter (0.1.4)
     sitemap_generator (6.3.0)
       builder (~> 3.0)
+    solid_cable (3.0.12)
+      actioncable (>= 7.2)
+      activejob (>= 7.2)
+      activerecord (>= 7.2)
+      railties (>= 7.2)
+    solid_cache (1.0.10)
+      activejob (>= 7.2)
+      activerecord (>= 7.2)
+      railties (>= 7.2)
     solid_queue (1.4.0)
       activejob (>= 7.1)
       activerecord (>= 7.1)
@@ -674,6 +683,8 @@ DEPENDENCIES
   selenium-webdriver
   simplecov
   sitemap_generator
+  solid_cable
+  solid_cache
   solid_queue
   sprockets-rails
   statesman (~> 13.1)
