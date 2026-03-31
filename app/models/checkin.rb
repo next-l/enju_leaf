@@ -77,25 +77,37 @@ class Checkin < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: checkins
+# Table name: `checkins`
+# Database name: `primary`
 #
-#  id           :bigint           not null, primary key
-#  lock_version :integer          default(0), not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  basket_id    :bigint
-#  item_id      :bigint           not null
-#  librarian_id :bigint
+# ### Columns
 #
-# Indexes
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`lock_version`**  | `integer`          | `default(0), not null`
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
+# **`basket_id`**     | `bigint`           |
+# **`item_id`**       | `bigint`           | `not null`
+# **`librarian_id`**  | `bigint`           |
 #
-#  index_checkins_on_basket_id              (basket_id)
-#  index_checkins_on_item_id_and_basket_id  (item_id,basket_id) UNIQUE
-#  index_checkins_on_librarian_id           (librarian_id)
+# ### Indexes
 #
-# Foreign Keys
+# * `index_checkins_on_basket_id`:
+#     * **`basket_id`**
+# * `index_checkins_on_item_id_and_basket_id` (_unique_):
+#     * **`item_id`**
+#     * **`basket_id`**
+# * `index_checkins_on_librarian_id`:
+#     * **`librarian_id`**
 #
-#  fk_rails_...  (item_id => items.id)
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`item_id => items.id`**
+# * `fk_rails_...`:
+#     * **`librarian_id => users.id`**
 #

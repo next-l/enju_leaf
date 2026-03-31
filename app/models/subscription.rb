@@ -22,25 +22,33 @@ class Subscription < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: subscriptions
+# Table name: `subscriptions`
+# Database name: `primary`
 #
-#  id               :bigint           not null, primary key
-#  note             :text
-#  subscribes_count :integer          default(0), not null
-#  title            :text             not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  order_list_id    :bigint
-#  user_id          :bigint           not null
+# ### Columns
 #
-# Indexes
+# Name                    | Type               | Attributes
+# ----------------------- | ------------------ | ---------------------------
+# **`id`**                | `bigint`           | `not null, primary key`
+# **`note`**              | `text`             |
+# **`subscribes_count`**  | `integer`          | `default(0), not null`
+# **`title`**             | `text`             | `not null`
+# **`created_at`**        | `datetime`         | `not null`
+# **`updated_at`**        | `datetime`         | `not null`
+# **`order_list_id`**     | `bigint`           |
+# **`user_id`**           | `bigint`           | `not null`
 #
-#  index_subscriptions_on_order_list_id  (order_list_id)
-#  index_subscriptions_on_user_id        (user_id)
+# ### Indexes
 #
-# Foreign Keys
+# * `index_subscriptions_on_order_list_id`:
+#     * **`order_list_id`**
+# * `index_subscriptions_on_user_id`:
+#     * **`user_id`**
 #
-#  fk_rails_...  (user_id => users.id)
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #
