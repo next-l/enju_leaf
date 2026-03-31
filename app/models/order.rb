@@ -1,10 +1,8 @@
 class Order < ApplicationRecord
-  belongs_to :order_list, validate: true
-  belongs_to :purchase_request, validate: true
+  belongs_to :order_list
+  belongs_to :purchase_request
 
-  validates_associated :order_list, :purchase_request
-  validates_presence_of :order_list, :purchase_request
-  validates_uniqueness_of :purchase_request_id, scope: :order_list_id
+  validates :purchase_request_id, uniqueness: { scope: :order_list_id }
 
   after_save :reindex
   after_destroy :reindex
