@@ -3,7 +3,7 @@ class ManifestationRelationship < ApplicationRecord
   belongs_to :child, class_name: "Manifestation"
   belongs_to :manifestation_relationship_type, optional: true
   validate :check_parent
-  acts_as_list scope: :parent_id
+  positioned on: :parent_id
 
   def check_parent
     if parent_id == child_id

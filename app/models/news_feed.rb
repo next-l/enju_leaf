@@ -6,7 +6,7 @@ class NewsFeed < ApplicationRecord
   validates :url, length: { maximum: 255 }
   before_save :fetch
 
-  acts_as_list
+  positioned
 
   def self.per_page
     10

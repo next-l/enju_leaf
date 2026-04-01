@@ -18,7 +18,7 @@ class Identifier < ApplicationRecord
     )
   }
 
-  acts_as_list scope: :manifestation_id
+  positioned on: :manifestation_id
   strip_attributes only: :body
 
   after_destroy do

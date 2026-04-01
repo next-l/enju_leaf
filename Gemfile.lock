@@ -83,9 +83,6 @@ GEM
     acts-as-taggable-on (13.0.0)
       activerecord (>= 7.1, < 8.2)
       zeitwerk (>= 2.4, < 3.0)
-    acts_as_list (1.2.6)
-      activerecord (>= 6.1)
-      activesupport (>= 6.1)
     addressable (2.8.9)
       public_suffix (>= 2.0.2, < 8.0)
     annotaterb (4.22.0)
@@ -268,11 +265,11 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2026.0317)
+    mime-types-data (3.2026.0331)
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
-    minitest (6.0.2)
+    minitest (6.0.3)
       drb (~> 2.0)
       prism (~> 1.5)
     mission_control-jobs (1.1.0)
@@ -339,6 +336,9 @@ GEM
     pg (1.6.3-x86_64-darwin)
     pg (1.6.3-x86_64-linux)
     pg (1.6.3-x86_64-linux-musl)
+    positioning (0.4.8)
+      activerecord (>= 6.1)
+      activesupport (>= 6.1)
     pp (0.6.3)
       prettyprint
     pr_geohash (1.0.0)
@@ -359,7 +359,7 @@ GEM
       activesupport (>= 3.0.0)
     raabro (1.4.0)
     racc (1.8.1)
-    rack (3.2.5)
+    rack (3.2.6)
     rack-proxy (0.7.7)
       rack
     rack-session (2.1.1)
@@ -630,7 +630,6 @@ PLATFORMS
 DEPENDENCIES
   active_storage_validations
   acts-as-taggable-on
-  acts_as_list
   addressable
   annotaterb
   awesome_nested_set
@@ -664,6 +663,7 @@ DEPENDENCIES
   oai
   parallel_tests
   pg (~> 1.1)
+  positioning
   pretender
   progress_bar
   puma (>= 5.0)

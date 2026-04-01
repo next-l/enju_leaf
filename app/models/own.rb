@@ -6,7 +6,7 @@ class Own < ApplicationRecord
   after_destroy :reindex
   after_save :reindex
 
-  acts_as_list scope: :item
+  positioned on: :item
 
   attr_accessor :item_identifier
 

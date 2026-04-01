@@ -196,13 +196,16 @@ module EnjuLibrary
     end
 
     def move_position(resource, direction, redirect = true)
-      if [ "higher", "lower" ].include?(direction)
-        resource.send("move_#{direction}")
-        if redirect
-          redirect_to url_for(controller: resource.class.to_s.pluralize.underscore)
-          nil
-        end
+      case direction
+      when "higher"
+        resource.update(position: resource.position - 1)
+      when "lower"
+        resource.update(position: resource.position + 1)
       end
+
+      return unless redirect
+
+      redirect_to url_for(controller: resource.class.to_s.pluralize.underscore)
     end
 
     def store_current_location

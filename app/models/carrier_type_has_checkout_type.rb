@@ -7,7 +7,7 @@ class CarrierTypeHasCheckoutType < ApplicationRecord
 
   validates :checkout_type_id, uniqueness: { scope: :carrier_type_id }
 
-  acts_as_list scope: :carrier_type_id
+  positioned on: :carrier_type_id
 end
 
 # ## Schema Information

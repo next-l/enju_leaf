@@ -73,7 +73,7 @@ end
 gem 'devise'
 gem 'pundit'
 gem 'sunspot_rails', '~> 2.7'
-gem 'acts_as_list'
+gem 'positioning'
 gem 'kaminari'
 gem 'strip_attributes'
 gem 'statesman', '~> 13.1'

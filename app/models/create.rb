@@ -7,7 +7,7 @@ class Create < ApplicationRecord
   after_destroy :reindex
   after_save :reindex
 
-  acts_as_list scope: :work
+  positioned on: :work
 
   def reindex
     agent.try(:index)

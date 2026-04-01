@@ -8,7 +8,7 @@ class Produce < ApplicationRecord
   after_destroy :reindex
   after_save :reindex
 
-  acts_as_list scope: :manifestation
+  positioned on: :manifestation
 
   def reindex
     agent.try(:index)

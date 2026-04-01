@@ -9,7 +9,7 @@ class SeriesStatement < ApplicationRecord
   after_destroy :reindex
   after_save :reindex
 
-  acts_as_list
+  positioned
   searchable do
     text :title do
       titles

@@ -8,7 +8,7 @@ class NewsPost < ApplicationRecord
   validates :title, :body, presence: true
   validate :check_date
 
-  acts_as_list
+  positioned
 
   searchable do
     text :title, :body

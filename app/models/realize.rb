@@ -7,7 +7,7 @@ class Realize < ApplicationRecord
   after_destroy :reindex
   after_save :reindex
 
-  acts_as_list scope: :expression
+  positioned on: :expression
 
   def reindex
     agent.try(:index)

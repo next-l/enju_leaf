@@ -8,7 +8,7 @@ class PictureFile < ApplicationRecord
   validates_associated :picture_attachable
   default_scope { order("picture_files.position") }
   # http://railsforum.com/viewtopic.php?id=11615
-  acts_as_list scope: :picture_attachable
+  positioned on: :picture_attachable
   strip_attributes only: :picture_attachable_type
 
   paginates_per 10

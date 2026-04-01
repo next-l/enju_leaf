@@ -2,7 +2,7 @@ module MasterModel
   extend ActiveSupport::Concern
 
   included do
-    acts_as_list
+    positioned
     validates :name, uniqueness: { case_sensitive: false }
     validates :name, presence: true
     validate :name do

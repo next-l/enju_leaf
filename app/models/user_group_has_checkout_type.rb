@@ -12,7 +12,7 @@ class UserGroupHasCheckoutType < ApplicationRecord
   validates :reservation_limit, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :reservation_expired_period, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
-  acts_as_list scope: :user_group_id
+  positioned on: :user_group_id
 
   def self.update_current_checkout_count
     sql = [

@@ -7,7 +7,7 @@ class Order < ApplicationRecord
   after_save :reindex
   after_destroy :reindex
 
-  acts_as_list scope: :order_list
+  positioned on: :order_list
 
   paginates_per 10
 

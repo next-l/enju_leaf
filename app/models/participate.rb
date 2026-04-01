@@ -3,7 +3,7 @@ class Participate < ApplicationRecord
   belongs_to :event
 
   validates :agent_id, uniqueness: { scope: :event_id }
-  acts_as_list scope: :event_id
+  positioned on: :event_id
 
   paginates_per 10
 end

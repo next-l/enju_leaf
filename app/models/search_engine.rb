@@ -1,5 +1,5 @@
 class SearchEngine < ApplicationRecord
-  acts_as_list
+  positioned
 
   validates :name, presence: true
   validates :query_param, presence: true

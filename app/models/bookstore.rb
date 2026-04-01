@@ -2,7 +2,7 @@ class Bookstore < ApplicationRecord
   default_scope { order("bookstores.position") }
   has_many :items, dependent: :restrict_with_exception
 
-  acts_as_list
+  positioned
   validates :name, presence: true
   validates :url, url: true, allow_blank: true, length: { maximum: 255 }
 
