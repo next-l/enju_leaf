@@ -20,18 +20,18 @@ class ManifestationPolicy < ApplicationPolicy
   end
 
   def show?
-    return false unless user&.role
-
-    case user.role.name
-    when "Administrator"
-      true
-    when "Librarian"
-      true if record.required_role_id <= 3
-    when "User"
-      true if record.required_role_id <= 2
-    else
-      true if record.required_role_id <= 1
+    if user&.role
+      case user.role.name
+      when "Administrator"
+        return true
+      when "Librarian"
+        return true if record.required_role_id <= 3
+      when "User"
+        return true if record.required_role_id <= 2
+      end
     end
+
+    true if record.required_role_id <= 1
   end
 
   def create?
