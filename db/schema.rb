@@ -171,7 +171,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_032237) do
     t.bigint "profile_id"
     t.text "region"
     t.bigint "required_role_id", default: 1, null: false
-    t.integer "required_score", default: 0, null: false
     t.text "street"
     t.string "telephone_number_1"
     t.string "telephone_number_2"
@@ -754,7 +753,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_032237) do
     t.text "note"
     t.integer "price"
     t.bigint "required_role_id", default: 1, null: false
-    t.integer "required_score", default: 0, null: false
     t.bigint "shelf_id", default: 1, null: false
     t.datetime "updated_at", null: false
     t.string "url"
@@ -1007,7 +1005,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_032237) do
     t.text "publication_place"
     t.boolean "repository_content", default: false, null: false
     t.bigint "required_role_id", default: 1, null: false
-    t.integer "required_score", default: 0, null: false
     t.boolean "serial", default: false, null: false
     t.integer "serial_number"
     t.string "serial_number_string"

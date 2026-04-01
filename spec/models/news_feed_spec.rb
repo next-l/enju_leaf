@@ -1,20 +1,3 @@
-# ## Schema Information
-#
-# Table name: `news_feeds`
-#
-# ### Columns
-#
-# Name                    | Type               | Attributes
-# ----------------------- | ------------------ | ---------------------------
-# **`id`**                | `bigint`           | `not null, primary key`
-# **`body`**              | `text`             |
-# **`position`**          | `integer`          |
-# **`title`**             | `string`           | `not null`
-# **`url`**               | `string`           | `not null`
-# **`created_at`**        | `datetime`         | `not null`
-# **`updated_at`**        | `datetime`         | `not null`
-# **`library_group_id`**  | `bigint`           | `default(1), not null`
-#
 require 'rails_helper'
 
 describe NewsFeed do
@@ -40,3 +23,21 @@ describe NewsFeed do
     expect(NewsFeed.fetch_feeds).to be_nil
   end
 end
+
+# ## Schema Information
+#
+# Table name: `news_feeds`
+#
+# ### Columns
+#
+# Name                    | Type               | Attributes
+# ----------------------- | ------------------ | ---------------------------
+# **`id`**                | `bigint`           | `not null, primary key`
+# **`body`**              | `text`             |
+# **`position`**          | `integer`          |
+# **`title`**             | `string`           | `not null`
+# **`url`**               | `string`           | `not null`
+# **`created_at`**        | `datetime`         | `not null`
+# **`updated_at`**        | `datetime`         | `not null`
+# **`library_group_id`**  | `bigint`           | `default(1), not null`
+#

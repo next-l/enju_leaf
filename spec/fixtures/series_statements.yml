@@ -1,3 +1,34 @@
+one:
+  id: 1
+  original_title: title1
+  position: 1
+
+two:
+  id: 2
+  original_title: title2
+  title_transcription: テスト
+  position: 2
+  manifestation_id: 202
+
+three:
+  id: 3
+  original_title: テスト雑誌
+  position: 3
+  root_manifestation_id: 201
+
+four:
+  id: 4
+  original_title: テスト雑誌
+  position: 4
+  root_manifestation_id: 203
+
+five:
+  id: 5
+  original_title: テスト雑誌
+  position: 5
+  manifestation_id: 204
+  root_manifestation_id: 204
+
 # ## Schema Information
 #
 # Table name: `series_statements`
@@ -35,33 +66,3 @@
 # * `index_series_statements_on_series_statement_identifier`:
 #     * **`series_statement_identifier`**
 #
-one:
-  id: 1
-  original_title: title1
-  position: 1
-
-two:
-  id: 2
-  original_title: title2
-  title_transcription: テスト
-  position: 2
-  manifestation_id: 202
-
-three:
-  id: 3
-  original_title: テスト雑誌
-  position: 3
-  root_manifestation_id: 201
-
-four:
-  id: 4
-  original_title: テスト雑誌
-  position: 4
-  root_manifestation_id: 203
-
-five:
-  id: 5
-  original_title: テスト雑誌
-  position: 5
-  manifestation_id: 204
-  root_manifestation_id: 204

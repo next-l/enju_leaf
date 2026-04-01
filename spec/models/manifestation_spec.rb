@@ -324,7 +324,6 @@ end
 # **`pub_date`**                         | `string`           |
 # **`publication_place`**                | `text`             |
 # **`repository_content`**               | `boolean`          | `default(FALSE), not null`
-# **`required_score`**                   | `integer`          | `default(0), not null`
 # **`serial`**                           | `boolean`          | `default(FALSE), not null`
 # **`serial_number`**                    | `integer`          |
 # **`serial_number_string`**             | `string`           |

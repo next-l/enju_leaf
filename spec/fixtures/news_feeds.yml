@@ -1,3 +1,15 @@
+news_feed_00001:
+  id: 1
+  title: NDL
+  url: https://iss.ndl.go.jp/information/feed/
+  position: 1
+
+news_feed_00002:
+  id: 2
+  title: invalid feed
+  url: http://example.com/invalid_feed
+  position: 2
+
 # ## Schema Information
 #
 # Table name: `news_feeds`
@@ -15,14 +27,3 @@
 # **`updated_at`**        | `datetime`         | `not null`
 # **`library_group_id`**  | `bigint`           | `default(1), not null`
 #
-news_feed_00001:
-  id: 1
-  title: NDL
-  url: https://iss.ndl.go.jp/information/feed/
-  position: 1
-
-news_feed_00002:
-  id: 2
-  title: invalid feed
-  url: http://example.com/invalid_feed
-  position: 2
