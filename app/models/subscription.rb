@@ -25,7 +25,6 @@ end
 # ## Schema Information
 #
 # Table name: `subscriptions`
-# Database name: `primary`
 #
 # ### Columns
 #

@@ -17,7 +17,6 @@ end
 # ## Schema Information
 #
 # Table name: `picture_files`
-# Database name: `primary`
 #
 # ### Columns
 #

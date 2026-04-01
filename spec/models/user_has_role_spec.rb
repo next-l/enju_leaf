@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `user_has_roles`
-# Database name: `primary`
 #
 # ### Columns
 #

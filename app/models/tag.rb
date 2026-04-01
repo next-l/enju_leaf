@@ -46,7 +46,6 @@ end
 # ## Schema Information
 #
 # Table name: `tags`
-# Database name: `primary`
 #
 # ### Columns
 #

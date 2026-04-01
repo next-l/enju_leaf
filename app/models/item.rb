@@ -154,7 +154,6 @@ end
 # ## Schema Information
 #
 # Table name: `items`
-# Database name: `primary`
 #
 # ### Columns
 #
@@ -173,7 +172,6 @@ end
 # **`missing_since`**            | `date`             |
 # **`note`**                     | `text`             |
 # **`price`**                    | `integer`          |
-# **`required_score`**           | `integer`          | `default(0), not null`
 # **`url`**                      | `string`           |
 # **`created_at`**               | `datetime`         | `not null`
 # **`updated_at`**               | `datetime`         | `not null`

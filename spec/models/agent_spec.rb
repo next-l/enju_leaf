@@ -72,7 +72,6 @@ end
 # ## Schema Information
 #
 # Table name: `agents`
-# Database name: `primary`
 #
 # ### Columns
 #
@@ -110,7 +109,6 @@ end
 # **`place`**                                | `text`             |
 # **`postal_code`**                          | `string`           |
 # **`region`**                               | `text`             |
-# **`required_score`**                       | `integer`          | `default(0), not null`
 # **`street`**                               | `text`             |
 # **`telephone_number_1`**                   | `string`           |
 # **`telephone_number_2`**                   | `string`           |

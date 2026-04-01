@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `creates`
-# Database name: `primary`
 #
 # ### Columns
 #

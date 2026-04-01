@@ -5,7 +5,6 @@ end
 # ## Schema Information
 #
 # Table name: `manifestation_checkout_stat_transitions`
-# Database name: `primary`
 #
 # ### Columns
 #

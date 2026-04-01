@@ -14,7 +14,6 @@ end
 # ## Schema Information
 #
 # Table name: `series_statements`
-# Database name: `primary`
 #
 # ### Columns
 #

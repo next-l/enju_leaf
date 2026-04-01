@@ -5,7 +5,6 @@ end
 # ## Schema Information
 #
 # Table name: `import_request_transitions`
-# Database name: `primary`
 #
 # ### Columns
 #

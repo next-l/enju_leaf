@@ -9,7 +9,6 @@ end
 # ## Schema Information
 #
 # Table name: `subjects`
-# Database name: `primary`
 #
 # ### Columns
 #

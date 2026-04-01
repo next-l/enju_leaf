@@ -121,7 +121,6 @@ end
 # ## Schema Information
 #
 # Table name: `checked_items`
-# Database name: `primary`
 #
 # ### Columns
 #

@@ -15,7 +15,6 @@ end
 # ## Schema Information
 #
 # Table name: `classifications`
-# Database name: `primary`
 #
 # ### Columns
 #

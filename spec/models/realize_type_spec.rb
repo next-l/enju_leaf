@@ -9,7 +9,6 @@ end
 # ## Schema Information
 #
 # Table name: `realize_types`
-# Database name: `primary`
 #
 # ### Columns
 #

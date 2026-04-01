@@ -38,7 +38,6 @@ end
 # ## Schema Information
 #
 # Table name: `issn_records(ISSN)`
-# Database name: `primary`
 #
 # ### Columns
 #

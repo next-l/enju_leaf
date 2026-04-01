@@ -33,7 +33,6 @@ end
 # ## Schema Information
 #
 # Table name: `news_posts`
-# Database name: `primary`
 #
 # ### Columns
 #

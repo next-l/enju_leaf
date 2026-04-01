@@ -27,7 +27,6 @@ end
 # ## Schema Information
 #
 # Table name: `roles`
-# Database name: `primary`
 #
 # ### Columns
 #

@@ -7,7 +7,6 @@ end
 # ## Schema Information
 #
 # Table name: `issn_record_and_manifestations(書誌とISSNの関係)`
-# Database name: `primary`
 #
 # ### Columns
 #

@@ -7,7 +7,6 @@ end
 # ## Schema Information
 #
 # Table name: `use_restrictions`
-# Database name: `primary`
 #
 # ### Columns
 #

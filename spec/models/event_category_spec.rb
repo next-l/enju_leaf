@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `event_categories`
-# Database name: `primary`
 #
 # ### Columns
 #

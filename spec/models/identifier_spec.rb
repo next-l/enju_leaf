@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `identifiers`
-# Database name: `primary`
 #
 # ### Columns
 #

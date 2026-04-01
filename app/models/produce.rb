@@ -19,7 +19,6 @@ end
 # ## Schema Information
 #
 # Table name: `produces`
-# Database name: `primary`
 #
 # ### Columns
 #

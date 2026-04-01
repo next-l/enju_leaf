@@ -80,7 +80,6 @@ end
 # ## Schema Information
 #
 # Table name: `libraries`
-# Database name: `primary`
 #
 # ### Columns
 #

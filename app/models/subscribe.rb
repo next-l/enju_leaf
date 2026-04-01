@@ -9,7 +9,6 @@ end
 # ## Schema Information
 #
 # Table name: `subscribes`
-# Database name: `primary`
 #
 # ### Columns
 #

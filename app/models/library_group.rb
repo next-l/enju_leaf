@@ -61,7 +61,6 @@ end
 # ## Schema Information
 #
 # Table name: `library_groups`
-# Database name: `primary`
 #
 # ### Columns
 #

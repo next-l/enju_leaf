@@ -130,7 +130,6 @@ end
 # ## Schema Information
 #
 # Table name: `users`
-# Database name: `primary`
 #
 # ### Columns
 #

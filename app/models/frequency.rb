@@ -6,7 +6,6 @@ end
 # ## Schema Information
 #
 # Table name: `frequencies`
-# Database name: `primary`
 #
 # ### Columns
 #
