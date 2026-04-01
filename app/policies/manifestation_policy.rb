@@ -30,6 +30,8 @@ class ManifestationPolicy < ApplicationPolicy
     else
       true if record.required_role_id <= 1
     end
+
+    true if record.required_role_id <= 1
   end
 
   def create?
