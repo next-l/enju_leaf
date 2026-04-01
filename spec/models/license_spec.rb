@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `licenses`
-# Database name: `primary`
 #
 # ### Columns
 #

@@ -5,7 +5,6 @@ end
 # ## Schema Information
 #
 # Table name: `message_transitions`
-# Database name: `primary`
 #
 # ### Columns
 #

@@ -60,7 +60,6 @@ end
 # ## Schema Information
 #
 # Table name: `checkouts`
-# Database name: `primary`
 #
 # ### Columns
 #

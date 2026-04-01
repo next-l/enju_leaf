@@ -46,7 +46,6 @@ end
 # ## Schema Information
 #
 # Table name: `user_reserve_stats`
-# Database name: `primary`
 #
 # ### Columns
 #

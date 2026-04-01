@@ -11,7 +11,6 @@ end
 # ## Schema Information
 #
 # Table name: `identities`
-# Database name: `primary`
 #
 # ### Columns
 #

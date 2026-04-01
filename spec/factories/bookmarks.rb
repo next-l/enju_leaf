@@ -10,7 +10,6 @@ end
 # ## Schema Information
 #
 # Table name: `bookmarks`
-# Database name: `primary`
 #
 # ### Columns
 #

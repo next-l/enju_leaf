@@ -9,7 +9,6 @@ end
 # ## Schema Information
 #
 # Table name: `demands`
-# Database name: `primary`
 #
 # ### Columns
 #

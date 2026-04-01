@@ -5,7 +5,6 @@ end
 # ## Schema Information
 #
 # Table name: `order_list_transitions`
-# Database name: `primary`
 #
 # ### Columns
 #

@@ -296,7 +296,6 @@ end
 # ## Schema Information
 #
 # Table name: `agents`
-# Database name: `primary`
 #
 # ### Columns
 #

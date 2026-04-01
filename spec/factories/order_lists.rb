@@ -9,7 +9,6 @@ end
 # ## Schema Information
 #
 # Table name: `order_lists`
-# Database name: `primary`
 #
 # ### Columns
 #

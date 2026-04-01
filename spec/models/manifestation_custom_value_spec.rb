@@ -7,7 +7,6 @@ end
 # ## Schema Information
 #
 # Table name: `manifestation_custom_values`
-# Database name: `primary`
 #
 # ### Columns
 #

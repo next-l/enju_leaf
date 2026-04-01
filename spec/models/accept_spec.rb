@@ -16,7 +16,6 @@ end
 # ## Schema Information
 #
 # Table name: `accepts`
-# Database name: `primary`
 #
 # ### Columns
 #

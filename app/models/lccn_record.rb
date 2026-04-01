@@ -6,7 +6,6 @@ end
 # ## Schema Information
 #
 # Table name: `lccn_records`
-# Database name: `primary`
 #
 # ### Columns
 #

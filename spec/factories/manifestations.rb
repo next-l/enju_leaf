@@ -16,7 +16,6 @@ end
 # ## Schema Information
 #
 # Table name: `manifestations`
-# Database name: `primary`
 #
 # ### Columns
 #
@@ -54,7 +53,6 @@ end
 # **`pub_date`**                         | `string`           |
 # **`publication_place`**                | `text`             |
 # **`repository_content`**               | `boolean`          | `default(FALSE), not null`
-# **`required_score`**                   | `integer`          | `default(0), not null`
 # **`serial`**                           | `boolean`          |
 # **`serial_number`**                    | `integer`          |
 # **`serial_number_string`**             | `string`           |

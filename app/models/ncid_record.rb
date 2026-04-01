@@ -7,7 +7,6 @@ end
 # ## Schema Information
 #
 # Table name: `ncid_records`
-# Database name: `primary`
 #
 # ### Columns
 #

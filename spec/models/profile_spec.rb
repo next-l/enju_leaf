@@ -54,7 +54,6 @@ end
 # ## Schema Information
 #
 # Table name: `profiles`
-# Database name: `primary`
 #
 # ### Columns
 #

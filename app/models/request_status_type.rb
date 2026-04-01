@@ -13,7 +13,6 @@ end
 # ## Schema Information
 #
 # Table name: `request_status_types`
-# Database name: `primary`
 #
 # ### Columns
 #

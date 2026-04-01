@@ -16,7 +16,6 @@ end
 # ## Schema Information
 #
 # Table name: `manifestation_relationships`
-# Database name: `primary`
 #
 # ### Columns
 #

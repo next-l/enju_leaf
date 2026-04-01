@@ -6,7 +6,6 @@ end
 # ## Schema Information
 #
 # Table name: `medium_of_performances`
-# Database name: `primary`
 #
 # ### Columns
 #

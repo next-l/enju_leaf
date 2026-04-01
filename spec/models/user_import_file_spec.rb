@@ -250,7 +250,6 @@ end
 # ## Schema Information
 #
 # Table name: `user_import_files`
-# Database name: `primary`
 #
 # ### Columns
 #

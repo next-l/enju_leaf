@@ -6,7 +6,6 @@ end
 # ## Schema Information
 #
 # Table name: `produce_types`
-# Database name: `primary`
 #
 # ### Columns
 #
