@@ -38,7 +38,6 @@ end
 # ## Schema Information
 #
 # Table name: `resource_export_files`
-# Database name: `primary`
 #
 # ### Columns
 #

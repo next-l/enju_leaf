@@ -133,7 +133,6 @@ end
 # ## Schema Information
 #
 # Table name: `event_import_files`
-# Database name: `primary`
 #
 # ### Columns
 #

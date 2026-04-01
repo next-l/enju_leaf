@@ -80,7 +80,6 @@ end
 # ## Schema Information
 #
 # Table name: `checkins`
-# Database name: `primary`
 #
 # ### Columns
 #

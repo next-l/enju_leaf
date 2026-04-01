@@ -6,7 +6,6 @@ end
 # ## Schema Information
 #
 # Table name: `periodical_and_manifestations`
-# Database name: `primary`
 #
 # ### Columns
 #

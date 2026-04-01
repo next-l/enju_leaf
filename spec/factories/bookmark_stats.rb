@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `bookmark_stats`
-# Database name: `primary`
 #
 # ### Columns
 #

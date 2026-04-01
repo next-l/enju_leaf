@@ -10,7 +10,6 @@ end
 # ## Schema Information
 #
 # Table name: `reserve_stat_has_manifestations`
-# Database name: `primary`
 #
 # ### Columns
 #

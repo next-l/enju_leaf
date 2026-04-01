@@ -37,7 +37,6 @@ end
 # ## Schema Information
 #
 # Table name: `inventories`
-# Database name: `primary`
 #
 # ### Columns
 #

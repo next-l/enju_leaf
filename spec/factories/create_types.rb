@@ -11,7 +11,6 @@ end
 # ## Schema Information
 #
 # Table name: `create_types`
-# Database name: `primary`
 #
 # ### Columns
 #

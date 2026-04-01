@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `content_types`
-# Database name: `primary`
 #
 # ### Columns
 #

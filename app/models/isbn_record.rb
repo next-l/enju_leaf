@@ -42,7 +42,6 @@ end
 # ## Schema Information
 #
 # Table name: `isbn_records(ISBN)`
-# Database name: `primary`
 #
 # ### Columns
 #

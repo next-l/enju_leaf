@@ -5,7 +5,6 @@ end
 # ## Schema Information
 #
 # Table name: `bookmark_stat_transitions`
-# Database name: `primary`
 #
 # ### Columns
 #

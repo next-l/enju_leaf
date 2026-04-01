@@ -40,7 +40,6 @@ end
 # ## Schema Information
 #
 # Table name: `user_export_files`
-# Database name: `primary`
 #
 # ### Columns
 #

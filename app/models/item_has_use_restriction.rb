@@ -11,7 +11,6 @@ end
 # ## Schema Information
 #
 # Table name: `item_has_use_restrictions`
-# Database name: `primary`
 #
 # ### Columns
 #

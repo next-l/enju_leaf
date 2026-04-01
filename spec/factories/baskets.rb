@@ -7,7 +7,6 @@ end
 # ## Schema Information
 #
 # Table name: `baskets`
-# Database name: `primary`
 #
 # ### Columns
 #

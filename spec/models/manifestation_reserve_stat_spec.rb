@@ -18,7 +18,6 @@ end
 # ## Schema Information
 #
 # Table name: `manifestation_reserve_stats`
-# Database name: `primary`
 #
 # ### Columns
 #

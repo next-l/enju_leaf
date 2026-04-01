@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `manifestation_relationship_types`
-# Database name: `primary`
 #
 # ### Columns
 #

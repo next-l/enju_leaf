@@ -107,7 +107,6 @@ end
 # ## Schema Information
 #
 # Table name: `events`
-# Database name: `primary`
 #
 # ### Columns
 #

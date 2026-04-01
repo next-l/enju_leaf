@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_27_021342) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_01_141522) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -173,7 +173,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_27_021342) do
     t.integer "lock_version", default: 0, null: false
     t.text "note"
     t.bigint "required_role_id", default: 1, null: false
-    t.integer "required_score", default: 0, null: false
     t.text "email"
     t.text "url"
     t.text "full_name_alternative_transcription"
@@ -752,7 +751,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_27_021342) do
     t.integer "price"
     t.integer "lock_version", default: 0, null: false
     t.bigint "required_role_id", default: 1, null: false
-    t.integer "required_score", default: 0, null: false
     t.datetime "acquired_at", precision: nil
     t.bigint "bookstore_id"
     t.bigint "budget_type_id"
@@ -1006,7 +1004,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_27_021342) do
     t.boolean "repository_content", default: false, null: false
     t.integer "lock_version", default: 0, null: false
     t.bigint "required_role_id", default: 1, null: false
-    t.integer "required_score", default: 0, null: false
     t.bigint "frequency_id", default: 1, null: false
     t.boolean "subscription_master", default: false, null: false
     t.bigint "nii_type_id"

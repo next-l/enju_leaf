@@ -39,7 +39,6 @@ end
 # ## Schema Information
 #
 # Table name: `event_export_files`
-# Database name: `primary`
 #
 # ### Columns
 #

@@ -13,7 +13,6 @@ end
 # ## Schema Information
 #
 # Table name: `carrier_type_has_checkout_types`
-# Database name: `primary`
 #
 # ### Columns
 #

@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `circulation_statuses`
-# Database name: `primary`
 #
 # ### Columns
 #

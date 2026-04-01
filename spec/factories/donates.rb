@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `donates`
-# Database name: `primary`
 #
 # ### Columns
 #

@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `resource_import_results`
-# Database name: `primary`
 #
 # ### Columns
 #

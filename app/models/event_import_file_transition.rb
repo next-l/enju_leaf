@@ -5,7 +5,6 @@ end
 # ## Schema Information
 #
 # Table name: `event_import_file_transitions`
-# Database name: `primary`
 #
 # ### Columns
 #

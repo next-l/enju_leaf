@@ -5,7 +5,6 @@ end
 # ## Schema Information
 #
 # Table name: `manifestation_reserve_stat_transitions`
-# Database name: `primary`
 #
 # ### Columns
 #

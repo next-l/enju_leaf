@@ -5,7 +5,6 @@ end
 # ## Schema Information
 #
 # Table name: `user_checkout_stat_transitions`
-# Database name: `primary`
 #
 # ### Columns
 #

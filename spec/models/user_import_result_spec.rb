@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `user_import_results`
-# Database name: `primary`
 #
 # ### Columns
 #

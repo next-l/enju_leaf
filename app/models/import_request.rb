@@ -69,7 +69,6 @@ end
 # ## Schema Information
 #
 # Table name: `import_requests`
-# Database name: `primary`
 #
 # ### Columns
 #

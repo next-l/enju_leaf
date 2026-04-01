@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `bookstores`
-# Database name: `primary`
 #
 # ### Columns
 #

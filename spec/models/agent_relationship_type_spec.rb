@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `agent_relationship_types`
-# Database name: `primary`
 #
 # ### Columns
 #
