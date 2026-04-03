@@ -133,8 +133,6 @@ class ResourceImportFile < ApplicationRecord
               if m.series_statements.exists?
                 manifestation = m
               end
-            else
-              import_result.error_message = "line #{row_num}: #{I18n.t('import.isbn_invalid')}"
             end
           end
         end
@@ -158,7 +156,11 @@ class ResourceImportFile < ApplicationRecord
 
             row["isbn"].to_s.split("//").each do |isbn|
               lisbn = Lisbn.new(isbn)
-              manifestation = Manifestation.import_from_ndl_search(isbn: lisbn.isbn13) if lisbn.isbn13
+              if lisbn.valid?
+                manifestation = Manifestation.import_from_ndl_search(isbn: lisbn.isbn13) if lisbn.isbn13
+              else
+                import_result.error_message = "line #{row_num}: #{I18n.t('import.isbn_invalid')}"
+              end
             end
 
             if manifestation
