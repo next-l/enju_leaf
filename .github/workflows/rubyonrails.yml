@@ -24,21 +24,32 @@ jobs:
       POSTGRES_USER: rails
       POSTGRES_PASSWORD: password
       CC_TEST_REPORTER_ID: c193cb8ea058a7d62fd62d6d05adaaf95f6bdf882c1039500b30b54494a36e52
-      NODE_OPTIONS: --openssl-legacy-provider
     steps:
+      - name: Install packages
+        run: sudo apt-get update -qq && sudo apt-get install libvips42
+
       - name: Checkout code
         uses: actions/checkout@v6
+
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
+          cache: "pnpm"
+
+      - uses: pnpm/action-setup@v5
+        with:
+          version: 10
+
       # Add or replace dependency steps here
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+
       - name: Install dependencies
-        run: yarn install && sudo apt-get update -qq && sudo apt-get install libvips42
+        run: pnpm install --frozen-lockfile
+
       # Add or replace test runners here
       - name: Start containers
         run: cp .env.test.ci .env.test && cp .env.test .env && cp docker-compose.ci.yml docker-compose.override.yml && docker compose up -d solr tika
