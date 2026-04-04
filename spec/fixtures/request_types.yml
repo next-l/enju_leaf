@@ -1,6 +1,6 @@
 --- 
 request_type_00005: 
-  name: Stack Retrieval  
+  name: Stack Retrieval
   display_name: Stack Retrieval
   updated_at: 2008-02-13 18:44:10.145739 +09:00
   id: 5
@@ -8,7 +8,7 @@ request_type_00005:
   note: ""
   created_at: 2008-02-13 18:44:10.145739 +09:00
 request_type_00001: 
-  name: Estimate  
+  name: Estimate
   display_name: Estimate
   updated_at: 2008-02-13 18:43:33.710810 +09:00
   id: 1
@@ -16,7 +16,7 @@ request_type_00001:
   note: ""
   created_at: 2008-02-13 18:43:33.710810 +09:00
 request_type_00002: 
-  name: Hold  
+  name: Hold
   display_name: Hold
   updated_at: 2008-02-13 18:43:42.151759 +09:00
   id: 2
@@ -24,7 +24,7 @@ request_type_00002:
   note: ""
   created_at: 2008-02-13 18:43:42.151759 +09:00
 request_type_00003: 
-  name: Loan  
+  name: Loan
   display_name: Loan
   updated_at: 2008-02-13 18:43:51.940315 +09:00
   id: 3
@@ -32,7 +32,7 @@ request_type_00003:
   note: ""
   created_at: 2008-02-13 18:43:51.940315 +09:00
 request_type_00004: 
-  name: Non-Returnable Copy  
+  name: Non-Returnable Copy
   display_name: Non-Returnable Copy
   updated_at: 2008-02-13 18:44:00.870893 +09:00
   id: 4
