@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_04_150324) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_04_154108) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,7 +67,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_150324) do
   end
 
   create_table "agent_import_files", force: :cascade do |t|
-    t.bigint "parent_id"
     t.bigint "user_id", null: false
     t.text "note"
     t.datetime "executed_at", precision: nil
@@ -77,7 +76,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_150324) do
     t.text "error_message"
     t.string "edit_mode"
     t.string "user_encoding"
-    t.index ["parent_id"], name: "index_agent_import_files_on_parent_id"
     t.index ["user_id"], name: "index_agent_import_files_on_user_id"
   end
 
@@ -533,7 +531,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_150324) do
   end
 
   create_table "event_import_files", force: :cascade do |t|
-    t.bigint "parent_id"
     t.bigint "user_id", null: false
     t.text "note"
     t.datetime "executed_at", precision: nil
@@ -545,7 +542,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_150324) do
     t.string "user_encoding"
     t.bigint "default_library_id"
     t.bigint "default_event_category_id"
-    t.index ["parent_id"], name: "index_event_import_files_on_parent_id"
     t.index ["user_id"], name: "index_event_import_files_on_user_id"
   end
 
@@ -1434,7 +1430,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_150324) do
   end
 
   create_table "resource_import_files", force: :cascade do |t|
-    t.bigint "parent_id"
     t.bigint "user_id", null: false
     t.text "note"
     t.datetime "executed_at", precision: nil
@@ -1445,7 +1440,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_150324) do
     t.text "error_message"
     t.string "user_encoding"
     t.bigint "default_shelf_id"
-    t.index ["parent_id"], name: "index_resource_import_files_on_parent_id"
     t.index ["user_id"], name: "index_resource_import_files_on_user_id"
   end
 
