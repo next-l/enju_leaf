@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe EventImportFile do
   fixtures :all
-  #pending "add some examples to (or delete) #{__FILE__}"
+  # pending "add some examples to (or delete) #{__FILE__}"
 
   describe "When it is written in utf-8" do
     before(:each) do
@@ -80,7 +80,7 @@ describe EventImportFile do
     it "should not be imported" do
       old_event_count = Event.count
       old_import_results_count = EventImportResult.count
-      lambda {@file.import_start}.should raise_error(RuntimeError)
+      lambda { @file.import_start }.should raise_error(RuntimeError)
       Event.count.should eq Event.count
       EventImportResult.count.should eq EventImportResult.count
     end

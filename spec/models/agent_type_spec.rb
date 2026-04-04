@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe AgentType do
   # pending "add some examples to (or delete) #{__FILE__}"
-
 end
 
 # ## Schema Information
