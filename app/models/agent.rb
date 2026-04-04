@@ -318,7 +318,7 @@ end
 # **`fax_number_2`**                         | `string`           |
 # **`first_name`**                           | `string`           |
 # **`first_name_transcription`**             | `string`           |
-# **`full_name`**                            | `string`           |
+# **`full_name`**                            | `string`           | `not null`
 # **`full_name_alternative`**                | `text`             |
 # **`full_name_alternative_transcription`**  | `text`             |
 # **`full_name_transcription`**              | `text`             |

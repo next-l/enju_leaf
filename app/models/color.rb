@@ -15,9 +15,9 @@ end
 # Name                    | Type               | Attributes
 # ----------------------- | ------------------ | ---------------------------
 # **`id`**                | `bigint`           | `not null, primary key`
-# **`code`**              | `string`           |
+# **`code`**              | `string`           | `not null`
 # **`position`**          | `integer`          |
-# **`property`**          | `string`           |
+# **`property`**          | `string`           | `not null`
 # **`created_at`**        | `datetime`         | `not null`
 # **`updated_at`**        | `datetime`         | `not null`
 # **`library_group_id`**  | `bigint`           |

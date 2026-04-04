@@ -22,7 +22,7 @@ end
 # **`note`**                                | `text`             |
 # **`numbering`**                           | `text`             |
 # **`numbering_subseries`**                 | `text`             |
-# **`original_title`**                      | `text`             |
+# **`original_title`**                      | `text`             | `not null`
 # **`position`**                            | `integer`          |
 # **`series_master`**                       | `boolean`          |
 # **`series_statement_identifier`**         | `string`           |

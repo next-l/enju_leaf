@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_01_141522) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_04_055639) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -90,7 +90,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_01_141522) do
   end
 
   create_table "agent_merge_lists", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -144,7 +144,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_01_141522) do
     t.string "first_name_transcription"
     t.string "corporate_name"
     t.string "corporate_name_transcription"
-    t.string "full_name"
+    t.string "full_name", null: false
     t.text "full_name_transcription"
     t.text "full_name_alternative"
     t.datetime "created_at", null: false
@@ -407,8 +407,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_01_141522) do
 
   create_table "colors", force: :cascade do |t|
     t.bigint "library_group_id"
-    t.string "property"
-    t.string "code"
+    t.string "property", null: false
+    t.string "code", null: false
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -859,7 +859,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_01_141522) do
     t.datetime "updated_at", null: false
     t.text "admin_networks"
     t.boolean "allow_bookmark_external_url", default: false, null: false
-    t.string "url", default: "http://localhost:3000/"
+    t.string "url", default: "http://localhost:3000/", null: false
     t.jsonb "settings", default: {}, null: false
     t.text "html_snippet"
     t.string "book_jacket_source"
@@ -1108,8 +1108,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_01_141522) do
 
   create_table "news_feeds", force: :cascade do |t|
     t.bigint "library_group_id", default: 1, null: false
-    t.string "title"
-    t.string "url"
+    t.string "title", null: false
+    t.string "url", null: false
     t.text "body"
     t.integer "position"
     t.datetime "created_at", null: false
@@ -1117,8 +1117,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_01_141522) do
   end
 
   create_table "news_posts", force: :cascade do |t|
-    t.text "title"
-    t.text "body"
+    t.text "title", null: false
+    t.text "body", null: false
     t.bigint "user_id", null: false
     t.datetime "start_date", precision: nil
     t.datetime "end_date", precision: nil
@@ -1229,7 +1229,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_01_141522) do
   end
 
   create_table "places", force: :cascade do |t|
-    t.string "term"
+    t.string "term", null: false
     t.text "city"
     t.bigint "country_id"
     t.float "latitude"
@@ -1488,7 +1488,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_01_141522) do
   end
 
   create_table "series_statement_merge_lists", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -1503,7 +1503,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_01_141522) do
   end
 
   create_table "series_statements", force: :cascade do |t|
-    t.text "original_title"
+    t.text "original_title", null: false
     t.text "numbering"
     t.text "title_subseries"
     t.text "numbering_subseries"
@@ -1563,7 +1563,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_01_141522) do
   create_table "subjects", force: :cascade do |t|
     t.bigint "parent_id"
     t.bigint "use_term_id"
-    t.string "term"
+    t.string "term", null: false
     t.text "term_transcription"
     t.bigint "subject_type_id", null: false
     t.text "scope_note"
@@ -1807,7 +1807,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_01_141522) do
     t.datetime "remember_created_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "username"
+    t.string "username", null: false
     t.datetime "expired_at", precision: nil
     t.integer "failed_attempts", default: 0
     t.string "unlock_token"

@@ -15,13 +15,13 @@ end
 # Name                    | Type               | Attributes
 # ----------------------- | ------------------ | ---------------------------
 # **`id`**                | `bigint`           | `not null, primary key`
-# **`body`**              | `text`             |
+# **`body`**              | `text`             | `not null`
 # **`draft`**             | `boolean`          | `default(FALSE), not null`
 # **`end_date`**          | `datetime`         |
 # **`note`**              | `text`             |
 # **`position`**          | `integer`          |
 # **`start_date`**        | `datetime`         |
-# **`title`**             | `text`             |
+# **`title`**             | `text`             | `not null`
 # **`url`**               | `string`           |
 # **`created_at`**        | `datetime`         | `not null`
 # **`updated_at`**        | `datetime`         | `not null`
