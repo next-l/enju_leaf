@@ -24,7 +24,7 @@ end
 # **`numbering_subseries`**                 | `text`             |
 # **`original_title`**                      | `text`             | `not null`
 # **`position`**                            | `integer`          |
-# **`series_master`**                       | `boolean`          |
+# **`series_master`**                       | `boolean`          | `default(FALSE), not null`
 # **`series_statement_identifier`**         | `string`           |
 # **`title_alternative`**                   | `text`             |
 # **`title_subseries`**                     | `text`             |

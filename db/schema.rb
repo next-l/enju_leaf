@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_04_154108) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_04_170331) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -860,7 +860,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_154108) do
     t.text "html_snippet"
     t.string "book_jacket_source"
     t.integer "max_number_of_results", default: 1000
-    t.boolean "family_name_first", default: true
+    t.boolean "family_name_first", default: false, null: false
     t.string "screenshot_generator"
     t.integer "pub_year_facet_range_interval", default: 10
     t.boolean "csv_charset_conversion", default: false, null: false
@@ -1019,8 +1019,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_154108) do
     t.bigint "content_type_id", default: 1
     t.integer "year_of_publication"
     t.integer "month_of_publication"
-    t.boolean "fulltext_content"
-    t.boolean "serial"
+    t.boolean "fulltext_content", default: false, null: false
+    t.boolean "serial", default: false, null: false
     t.text "statement_of_responsibility"
     t.text "publication_place"
     t.text "extent"
@@ -1271,7 +1271,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_154108) do
     t.string "checkout_icalendar_token"
     t.boolean "save_checkout_history", default: false, null: false
     t.datetime "expired_at", precision: nil
-    t.boolean "share_bookmarks"
+    t.boolean "share_bookmarks", default: false, null: false
     t.text "full_name_transcription"
     t.datetime "date_of_birth", precision: nil
     t.index ["checkout_icalendar_token"], name: "index_profiles_on_checkout_icalendar_token", unique: true
@@ -1384,8 +1384,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_154108) do
     t.datetime "updated_at", null: false
     t.datetime "canceled_at", precision: nil
     t.datetime "expired_at", precision: nil
-    t.boolean "expiration_notice_to_patron", default: false
-    t.boolean "expiration_notice_to_library", default: false
+    t.boolean "expiration_notice_to_patron", default: false, null: false
+    t.boolean "expiration_notice_to_library", default: false, null: false
     t.bigint "pickup_location_id"
     t.datetime "retained_at", precision: nil
     t.datetime "postponed_at", precision: nil
@@ -1513,7 +1513,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_154108) do
     t.text "creator_string"
     t.text "volume_number_string"
     t.text "volume_number_transcription_string"
-    t.boolean "series_master"
+    t.boolean "series_master", default: false, null: false
     t.bigint "root_manifestation_id"
     t.index ["manifestation_id"], name: "index_series_statements_on_manifestation_id"
     t.index ["root_manifestation_id"], name: "index_series_statements_on_root_manifestation_id"

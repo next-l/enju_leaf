@@ -140,8 +140,8 @@ end
 # **`id`**                            | `bigint`           | `not null, primary key`
 # **`canceled_at`**                   | `datetime`         |
 # **`checked_out_at`**                | `datetime`         |
-# **`expiration_notice_to_library`**  | `boolean`          | `default(FALSE)`
-# **`expiration_notice_to_patron`**   | `boolean`          | `default(FALSE)`
+# **`expiration_notice_to_library`**  | `boolean`          | `default(FALSE), not null`
+# **`expiration_notice_to_patron`**   | `boolean`          | `default(FALSE), not null`
 # **`expired_at`**                    | `datetime`         |
 # **`lock_version`**                  | `integer`          | `default(0), not null`
 # **`postponed_at`**                  | `datetime`         |

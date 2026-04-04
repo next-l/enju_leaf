@@ -44,7 +44,7 @@ end
 # **`csv_charset_conversion`**         | `boolean`          | `default(FALSE), not null`
 # **`display_name`**                   | `text`             |
 # **`email`**                          | `string`           |
-# **`family_name_first`**              | `boolean`          | `default(TRUE)`
+# **`family_name_first`**              | `boolean`          | `default(FALSE), not null`
 # **`footer_banner`**                  | `text`             |
 # **`html_snippet`**                   | `text`             |
 # **`login_banner`**                   | `text`             |
