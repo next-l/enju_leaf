@@ -1,8 +1,8 @@
 require 'rails_helper'
-  
+
 describe ResourceImportFile do
   fixtures :all
-  
+
   describe "when its mode is 'create'" do
     describe "when it is written in utf-8" do
       before(:each) do
@@ -125,8 +125,8 @@ describe ResourceImportFile do
         item_10104.manifestation.height.should be_nil
         item_10104.manifestation.width.should be_nil
         item_10104.manifestation.depth.should be_nil
-        item_10104.manifestation.subjects.order(:id).map {|s| { s.subject_heading_type.name => s.term }}.should eq [ { "ndlsh" => "コンピュータ" }, { "ndlsh" => "図書館" } ]
-        item_10104.manifestation.classifications.order(:id).map {|c| { c.classification_type.name => c.category }}.should eq [ { "ndc9" => "007" }, { "ddc" => "003" }, { "ddc" => "004" } ]
+        item_10104.manifestation.subjects.order(:id).map { |s| { s.subject_heading_type.name => s.term } }.should eq [ { "ndlsh" => "コンピュータ" }, { "ndlsh" => "図書館" } ]
+        item_10104.manifestation.classifications.order(:id).map { |c| { c.classification_type.name => c.category } }.should eq [ { "ndc9" => "007" }, { "ddc" => "003" }, { "ddc" => "004" } ]
         expect(item_10104.manifestation.required_role.name).to eq 'Guest'
         expect(item_10104.required_role.name).to eq 'Guest'
 
@@ -369,7 +369,7 @@ resource_import_file_test_edition	2	Revised Ed.
         old_manifestations_count = Manifestation.count
         result = file.import_start
         expect(Manifestation.count).to eq old_manifestations_count + 1
-        manifestation = Manifestation.all.find {|m| m.original_title == "resource_import_file_test_edition" }
+        manifestation = Manifestation.all.find { |m| m.original_title == "resource_import_file_test_edition" }
         expect(manifestation.edition).to eq 2
         expect(manifestation.edition_string).to eq "Revised Ed."
       end
@@ -387,7 +387,7 @@ resource_import_file_test_transcription	transcription
         old_manifestations_count = Manifestation.count
         result = file.import_start
         expect(Manifestation.count).to eq old_manifestations_count + 1
-        manifestation = Manifestation.all.find {|m| m.original_title == "resource_import_file_test_transcription" }
+        manifestation = Manifestation.all.find { |m| m.original_title == "resource_import_file_test_transcription" }
         expect(manifestation.title_transcription).to eq "transcription"
       end
     end
@@ -405,7 +405,7 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
         old_manifestations_count = Manifestation.count
         result = file.import_start
         expect(Manifestation.count).to eq old_manifestations_count + 1
-        manifestation = Manifestation.all.find {|m| m.original_title == "resource_import_file_test_description" }
+        manifestation = Manifestation.all.find { |m| m.original_title == "resource_import_file_test_description" }
         expect(manifestation.description).to eq "test\ntest"
         expect(manifestation.note).to eq "test\ntest"
         expect(manifestation.items.first.note).to eq "test\ntest"
@@ -436,7 +436,7 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
       item_00001.binding_item_identifier.should eq '900001'
       item_00001.binding_call_number.should eq '336|A'
       item_00001.binded_at.should eq Time.zone.parse('2014-08-16')
-      item_00001.manifestation.subjects.order(:id).map {|subject| { subject.subject_heading_type.name => subject.term }}.should eq [ { "ndlsh" => "test1" }, { "ndlsh" => "test2" } ]
+      item_00001.manifestation.subjects.order(:id).map { |subject| { subject.subject_heading_type.name => subject.term } }.should eq [ { "ndlsh" => "test1" }, { "ndlsh" => "test2" } ]
       expect(item_00001.manifestation.isbn_records.pluck(:body)).to eq [ "4798002062" ]
       expect(item_00001.manifestation.required_role.name).to eq 'Librarian'
       expect(item_00001.required_role.name).to eq 'Guest'

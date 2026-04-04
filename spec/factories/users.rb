@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :admin, class: User do |f|
-    f.sequence(:username) {|n| "admin_#{n}"}
-    f.sequence(:email) {|n| "admin_#{n}@example.jp"}
+    f.sequence(:username) { |n| "admin_#{n}" }
+    f.sequence(:email) { |n| "admin_#{n}@example.jp" }
     f.password { 'adminpassword' }
     f.password_confirmation { 'adminpassword' }
     f.association :profile, required_role_id: 4
@@ -14,8 +14,8 @@ FactoryBot.define do
   end
 
   factory :librarian, class: User do |f|
-    f.sequence(:username) {|n| "librarian_#{n}"}
-    f.sequence(:email) {|n| "librarian_#{n}@example.jp"}
+    f.sequence(:username) { |n| "librarian_#{n}" }
+    f.sequence(:email) { |n| "librarian_#{n}@example.jp" }
     f.password { 'librarianpassword' }
     f.password_confirmation { 'librarianpassword' }
     f.association :profile, required_role_id: 3
@@ -28,8 +28,8 @@ FactoryBot.define do
   end
 
   factory :user, class: User do |f|
-    f.sequence(:username) {|n| "user_#{n}"}
-    f.sequence(:email) {|n| "user_#{n}@example.jp"}
+    f.sequence(:username) { |n| "user_#{n}" }
+    f.sequence(:email) { |n| "user_#{n}@example.jp" }
     f.password { 'userpassword' }
     f.password_confirmation { 'userpassword' }
     f.association :profile

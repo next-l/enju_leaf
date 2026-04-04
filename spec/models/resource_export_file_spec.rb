@@ -1,8 +1,8 @@
 require 'rails_helper'
- 
+
 describe ResourceExportFile do
   fixtures :all
-  
+
   it "should export ncid" do
     manifestation = FactoryBot.create(:manifestation)
     type = IdentifierType.find_or_create_by(name: "ncid")
