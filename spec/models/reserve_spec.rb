@@ -87,8 +87,8 @@ describe Reserve do
     old_reservation.reload
     old_reservation.item.should be_nil
     reservation.retained_at.should be_truthy
-#    old_reservation.retained_at.should be_nil
-#    old_reservation.postponed_at.should be_truthy
+    #    old_reservation.retained_at.should be_nil
+    #    old_reservation.postponed_at.should be_truthy
     old_reservation.current_state.should eq 'postponed'
     Message.count.should eq old_count + 4
     reservation.item.retained?.should be_truthy
@@ -119,11 +119,11 @@ describe Reserve do
     reserve = FactoryBot.create(:reserve)
     manifestation = reserve.manifestation
     item = FactoryBot.create(:item, manifestation_id: manifestation.id)
-    expect {item.retain(reserve.user)}.not_to raise_error
+    expect { item.retain(reserve.user) }.not_to raise_error
     expect(reserve.retained?).to be true
     expect(item.retained?).to be true
     item = FactoryBot.create(:item, manifestation_id: manifestation.id)
-    expect {item.retain(reserve.user)}.not_to raise_error
+    expect { item.retain(reserve.user) }.not_to raise_error
     expect(reserve.retained?).to be true
     expect(item.retained?).to be false
   end

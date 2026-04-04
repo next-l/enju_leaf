@@ -190,7 +190,7 @@ describe CarrierTypesController do
         expect {
           get :show, params: { id: carrier_type.id, format: :download }
         }.to raise_error(ActionController::UnknownFormat)
-        #expect(assigns(:carrier_type)).to raise_error(ActionView::MissingTemplate)
+        # expect(assigns(:carrier_type)).to raise_error(ActionView::MissingTemplate)
       end
     end
   end

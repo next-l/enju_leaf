@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Profile do
-  #pending "add some examples to (or delete) #{__FILE__}"
+  # pending "add some examples to (or delete) #{__FILE__}"
   fixtures :all
 
   it 'should create a profile' do

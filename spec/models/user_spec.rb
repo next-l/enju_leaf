@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe User do
-  #pending "add some examples to (or delete) #{__FILE__}"
+  # pending "add some examples to (or delete) #{__FILE__}"
   fixtures :all
 
   it 'should create an user' do
@@ -153,4 +153,3 @@ end
 #  index_users_on_unlock_token          (unlock_token) UNIQUE
 #  index_users_on_username              (username) UNIQUE
 #
-

@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 describe EventImportResult do
-  #pending "add some examples to (or delete) #{__FILE__}"
-
+  # pending "add some examples to (or delete) #{__FILE__}"
 end
 
 # == Schema Information
