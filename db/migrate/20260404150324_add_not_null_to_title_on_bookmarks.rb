@@ -7,5 +7,6 @@ class AddNotNullToTitleOnBookmarks < ActiveRecord::Migration[7.2]
     change_column_null :bookmarks, :title, false
     change_column_null :bookmarks, :shared, false
     change_column_null :bookmarks, :url, false
+    change_column_default :bookmarks, :shared, false
   end
 end
