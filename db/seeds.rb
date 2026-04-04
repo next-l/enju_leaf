@@ -13,7 +13,8 @@ def new_profile
   Profile.new(
     user_group: UserGroup.first,
     library: Library.real.first,
-    locale: I18n.default_locale.to_s
+    locale: I18n.default_locale.to_s,
+    share_bookmarks: false
   )
 end
 
