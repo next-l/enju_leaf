@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_04_151901) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_04_154108) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -73,11 +73,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_04_151901) do
     t.text "error_message"
     t.datetime "executed_at", precision: nil
     t.text "note"
-    t.bigint "parent_id"
     t.datetime "updated_at", null: false
     t.string "user_encoding"
     t.bigint "user_id", null: false
-    t.index ["parent_id"], name: "index_agent_import_files_on_parent_id"
     t.index ["user_id"], name: "index_agent_import_files_on_user_id"
   end
 
@@ -542,11 +540,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_04_151901) do
     t.string "event_import_fingerprint"
     t.datetime "executed_at", precision: nil
     t.text "note"
-    t.bigint "parent_id"
     t.datetime "updated_at", null: false
     t.string "user_encoding"
     t.bigint "user_id", null: false
-    t.index ["parent_id"], name: "index_event_import_files_on_parent_id"
     t.index ["user_id"], name: "index_event_import_files_on_user_id"
   end
 
@@ -1443,12 +1439,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_04_151901) do
     t.text "error_message"
     t.datetime "executed_at", precision: nil
     t.text "note"
-    t.bigint "parent_id"
     t.string "resource_import_fingerprint"
     t.datetime "updated_at", null: false
     t.string "user_encoding"
     t.bigint "user_id", null: false
-    t.index ["parent_id"], name: "index_resource_import_files_on_parent_id"
     t.index ["user_id"], name: "index_resource_import_files_on_user_id"
   end
 
