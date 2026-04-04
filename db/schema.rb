@@ -236,7 +236,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_151901) do
     t.text "title", null: false
     t.string "url", null: false
     t.text "note"
-    t.boolean "shared", null: false
+    t.boolean "shared", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["manifestation_id"], name: "index_bookmarks_on_manifestation_id"
