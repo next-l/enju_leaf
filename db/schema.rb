@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_04_150324) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_04_151901) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -115,9 +115,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_150324) do
   end
 
   create_table "agent_relationships", force: :cascade do |t|
-    t.bigint "parent_id"
-    t.bigint "child_id"
-    t.bigint "agent_relationship_type_id"
+    t.bigint "parent_id", null: false
+    t.bigint "child_id", null: false
+    t.bigint "agent_relationship_type_id", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position"
@@ -941,9 +941,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_150324) do
   end
 
   create_table "manifestation_relationships", force: :cascade do |t|
-    t.bigint "parent_id"
-    t.bigint "child_id"
-    t.bigint "manifestation_relationship_type_id"
+    t.bigint "parent_id", null: false
+    t.bigint "child_id", null: false
+    t.bigint "manifestation_relationship_type_id", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position"
@@ -1836,6 +1836,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_150324) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "agent_import_files", "users"
+  add_foreign_key "agent_relationships", "agent_relationship_types"
+  add_foreign_key "agent_relationships", "agents", column: "child_id"
+  add_foreign_key "agent_relationships", "agents", column: "parent_id"
   add_foreign_key "agents", "roles", column: "required_role_id"
   add_foreign_key "baskets", "users"
   add_foreign_key "bookmarks", "users"
@@ -1882,6 +1885,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_150324) do
   add_foreign_key "manifestation_checkout_stats", "users"
   add_foreign_key "manifestation_custom_values", "manifestation_custom_properties"
   add_foreign_key "manifestation_custom_values", "manifestations"
+  add_foreign_key "manifestation_relationships", "manifestation_relationship_types"
+  add_foreign_key "manifestation_relationships", "manifestations", column: "child_id"
+  add_foreign_key "manifestation_relationships", "manifestations", column: "parent_id"
   add_foreign_key "manifestation_reserve_stats", "users"
   add_foreign_key "manifestations", "roles", column: "required_role_id"
   add_foreign_key "messages", "messages", column: "parent_id"
