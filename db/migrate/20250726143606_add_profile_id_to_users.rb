@@ -20,6 +20,14 @@ class AddProfileIdToUsers < ActiveRecord::Migration[7.1]
       )
     end
 
+    User.where(profile_id: nil).each do |user|
+      user.create_profile!(
+        full_name: user.username,
+        library: Library.real.order(:position).first,
+        user_group: UserGroup.order(:position).first
+      )
+    end
+
     change_column_null :users, :profile_id, false
   end
 end
