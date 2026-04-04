@@ -17,9 +17,9 @@ end
 # ----------------------- | ------------------ | ---------------------------
 # **`id`**                | `bigint`           | `not null, primary key`
 # **`note`**              | `text`             |
-# **`shared`**            | `boolean`          |
-# **`title`**             | `text`             |
-# **`url`**               | `string`           |
+# **`shared`**            | `boolean`          | `not null`
+# **`title`**             | `text`             | `not null`
+# **`url`**               | `string`           | `not null`
 # **`created_at`**        | `datetime`         | `not null`
 # **`updated_at`**        | `datetime`         | `not null`
 # **`manifestation_id`**  | `bigint`           |
