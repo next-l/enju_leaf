@@ -5,7 +5,7 @@ describe InventoryFile do
 
   before(:each) do
     @file = InventoryFile.create(user: users(:admin), shelf: Shelf.find_by(name: 'first_shelf'))
-    @file.attachment.attach(io: File.new("#{Rails.root.to_s}/spec/fixtures/files/inventory_file_sample.tsv"), filename: 'attachment.txt')
+    @file.attachment.attach(io: File.new("#{Rails.root}/spec/fixtures/files/inventory_file_sample.tsv"), filename: 'attachment.txt')
   end
 
   it "should be imported" do

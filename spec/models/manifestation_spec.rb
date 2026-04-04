@@ -94,9 +94,9 @@ describe Manifestation, solr: true do
     end
 
     it "shoulld get search_error in openurl" do
-      lambda {Openurl.new({ isbn: "12345678901234" })}.should raise_error(OpenurlQuerySyntaxError)
-      lambda {Openurl.new({ issn: "1234abcd" })}.should raise_error(OpenurlQuerySyntaxError)
-      lambda {Openurl.new({ aufirst: "テスト 名称" })}.should raise_error(OpenurlQuerySyntaxError)
+      lambda { Openurl.new({ isbn: "12345678901234" }) }.should raise_error(OpenurlQuerySyntaxError)
+      lambda { Openurl.new({ issn: "1234abcd" }) }.should raise_error(OpenurlQuerySyntaxError)
+      lambda { Openurl.new({ aufirst: "テスト 名称" }) }.should raise_error(OpenurlQuerySyntaxError)
     end
 
     it "should_get_number_of_pages" do
@@ -116,7 +116,7 @@ describe Manifestation, solr: true do
     end
 
     it "should respond to pickup" do
-      lambda {Manifestation.pickup}.should_not raise_error # (ActiveRecord::RecordNotFound)
+      lambda { Manifestation.pickup }.should_not raise_error # (ActiveRecord::RecordNotFound)
     end
 
     it "should be periodical if its series_statement is periodical" do
@@ -156,8 +156,8 @@ describe Manifestation, solr: true do
       csv["item_id"].compact.should_not be_empty
       csv["item_created_at"].compact.should_not be_empty
       csv["item_updated_at"].compact.should_not be_empty
-      csv["subject:unknown"].compact.inject(0) {|count, a| count += 1 if a == 'next-l'; count}.should eq manifestations(:manifestation_00001).items.count
-      csv["classification:ndc9"].compact.inject(0) {|count, a| count += 1 if a == '400'; count}.should eq manifestations(:manifestation_00001).items.count
+      csv["subject:unknown"].compact.inject(0) { |count, a| count += 1 if a == 'next-l'; count }.should eq manifestations(:manifestation_00001).items.count
+      csv["classification:ndc9"].compact.inject(0) { |count, a| count += 1 if a == '400'; count }.should eq manifestations(:manifestation_00001).items.count
       csv["extent"].compact.should_not be_empty
       csv["dimensions"].compact.should_not be_empty
       expect(csv["manifestation_memo"].compact).to be_empty
@@ -181,7 +181,7 @@ describe Manifestation, solr: true do
       csv = CSV.parse(lines, headers: true, col_sep: "\t")
       expect(csv["edition"].compact).not_to be_empty
       expect(csv["edition_string"].compact).not_to be_empty
-      m = csv.find {|row| row["manifestation_id"].to_i == manifestation.id }
+      m = csv.find { |row| row["manifestation_id"].to_i == manifestation.id }
       expect(m["edition"]).to eq "2"
       expect(m["edition_string"]).to eq "Revised Ed."
     end
@@ -191,7 +191,7 @@ describe Manifestation, solr: true do
       lines = Manifestation.export
       csv = CSV.parse(lines, headers: true, col_sep: "\t")
       expect(csv["title_transcription"].compact).not_to be_empty
-      m = csv.find {|row| row["manifestation_id"].to_i == manifestation.id }
+      m = csv.find { |row| row["manifestation_id"].to_i == manifestation.id }
       expect(m["title_transcription"]).to eq "Transcripted title"
     end
 
@@ -201,7 +201,7 @@ describe Manifestation, solr: true do
       csv = CSV.parse(lines, headers: true, col_sep: "\t")
       expect(csv["volume_number"].compact).not_to be_empty
       expect(csv["volume_number_string"].compact).not_to be_empty
-      m = csv.find {|row| row["manifestation_id"].to_i == manifestation.id }
+      m = csv.find { |row| row["manifestation_id"].to_i == manifestation.id }
       expect(m["volume_number"]).to eq "15"
       expect(m["volume_number_string"]).to eq "Vol.15"
     end
@@ -212,7 +212,7 @@ describe Manifestation, solr: true do
       manifestation.isbn_records.create(body: "978-4840239219")
       lines = Manifestation.export()
       csv = CSV.parse(lines, headers: true, col_sep: "\t")
-      m = csv.find {|row| row["manifestation_id"].to_i == manifestation.id }
+      m = csv.find { |row| row["manifestation_id"].to_i == manifestation.id }
       expect(m["isbn"].split('//').sort).to eq [ '9784043898039', '9784840239219' ]
       expect(m["identifier:isbn"]).to be_nil
     end
@@ -245,7 +245,7 @@ describe Manifestation, solr: true do
       expect(csv["description"].compact).not_to be_empty
       expect(csv["note"].compact).not_to be_empty
       expect(csv["item_note"].compact).not_to be_empty
-      m = csv.find {|row| row["manifestation_id"].to_i == manifestation.id }
+      m = csv.find { |row| row["manifestation_id"].to_i == manifestation.id }
       expect(m["description"]).to eq "test\ntest"
       expect(m["abstract"]).to eq "test\ntest"
       expect(m["note"]).to eq "test\ntest"
@@ -258,7 +258,7 @@ describe Manifestation, solr: true do
       item.manifestation.manifestation_custom_values << FactoryBot.build(:manifestation_custom_value)
       lines = Manifestation.export(role: 'Librarian')
       csv = CSV.parse(lines, headers: true, col_sep: "\t")
-      m = csv.find {|row| row["manifestation_id"].to_i == item.manifestation.id }
+      m = csv.find { |row| row["manifestation_id"].to_i == item.manifestation.id }
       item.item_custom_values.each do |custom_value|
         expect(m["item:#{custom_value.item_custom_property.name}"]).to eq custom_value.value
       end

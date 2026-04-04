@@ -13,7 +13,7 @@ RSpec.describe 'Baskets', type: :system do
 
       fill_in :checked_item_item_identifier, with: '00011'
       click_on '読み込み'
-     
+
       expect(page).to have_content 'よくわかる最新Webサービス技術の基本と仕組み : 標準Webシステム技術とeコマース基盤技術入門'
     end
   end

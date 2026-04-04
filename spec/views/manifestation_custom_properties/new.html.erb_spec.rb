@@ -12,7 +12,6 @@ RSpec.describe "manifestation_custom_properties/new", type: :view do
     render
 
     assert_select "form[action=?][method=?]", manifestation_custom_properties_path, "post" do
-
       assert_select "input[name=?]", "manifestation_custom_property[name]"
 
       assert_select "textarea[name=?]", "manifestation_custom_property[note]"
