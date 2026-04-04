@@ -4,19 +4,25 @@ describe License do
   # pending "add some examples to (or delete) #{__FILE__}"
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: licenses
+# Table name: `licenses`
+# Database name: `primary`
 #
-#  id           :bigint           not null, primary key
-#  display_name :string
-#  name         :string           not null
-#  note         :text
-#  position     :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+# ### Columns
 #
-# Indexes
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`display_name`**  | `string`           |
+# **`name`**          | `string`           | `not null`
+# **`note`**          | `text`             |
+# **`position`**      | `integer`          |
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
 #
-#  index_licenses_on_lower_name  (lower((name)::text)) UNIQUE
+# ### Indexes
+#
+# * `index_licenses_on_lower_name` (_unique_):
+#     * **`lower((name)::text)`**
 #

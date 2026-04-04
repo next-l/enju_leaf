@@ -1,3 +1,17 @@
+# ## Schema Information
+#
+# Table name: `agent_merge_lists`
+# Database name: `primary`
+#
+# ### Columns
+#
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`id`**          | `bigint`           | `not null, primary key`
+# **`title`**       | `string`           | `not null`
+# **`created_at`**  | `datetime`         | `not null`
+# **`updated_at`**  | `datetime`         | `not null`
+#
 class AgentMergeList < ApplicationRecord
   has_many :agent_merges, dependent: :destroy
   has_many :agents, through: :agent_merges

@@ -5,18 +5,25 @@ class SeriesStatementMerge < ApplicationRecord
   paginates_per 10
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: series_statement_merges
+# Table name: `series_statement_merges`
+# Database name: `primary`
 #
-#  id                             :bigint           not null, primary key
-#  created_at                     :datetime         not null
-#  updated_at                     :datetime         not null
-#  series_statement_id            :bigint           not null
-#  series_statement_merge_list_id :bigint           not null
+# ### Columns
 #
-# Indexes
+# Name                                  | Type               | Attributes
+# ------------------------------------- | ------------------ | ---------------------------
+# **`id`**                              | `bigint`           | `not null, primary key`
+# **`created_at`**                      | `datetime`         | `not null`
+# **`updated_at`**                      | `datetime`         | `not null`
+# **`series_statement_id`**             | `bigint`           | `not null`
+# **`series_statement_merge_list_id`**  | `bigint`           | `not null`
 #
-#  index_series_statement_merges_on_list_id              (series_statement_merge_list_id)
-#  index_series_statement_merges_on_series_statement_id  (series_statement_id)
+# ### Indexes
+#
+# * `index_series_statement_merges_on_list_id`:
+#     * **`series_statement_merge_list_id`**
+# * `index_series_statement_merges_on_series_statement_id`:
+#     * **`series_statement_id`**
 #

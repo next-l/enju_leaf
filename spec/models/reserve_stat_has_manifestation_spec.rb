@@ -4,23 +4,31 @@ describe ReserveStatHasManifestation do
   # pending "add some examples to (or delete) #{__FILE__}"
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: reserve_stat_has_manifestations
+# Table name: `reserve_stat_has_manifestations`
+# Database name: `primary`
 #
-#  id                            :bigint           not null, primary key
-#  reserves_count                :integer
-#  created_at                    :datetime         not null
-#  updated_at                    :datetime         not null
-#  manifestation_id              :bigint           not null
-#  manifestation_reserve_stat_id :bigint           not null
+# ### Columns
 #
-# Indexes
+# Name                                 | Type               | Attributes
+# ------------------------------------ | ------------------ | ---------------------------
+# **`id`**                             | `bigint`           | `not null, primary key`
+# **`reserves_count`**                 | `integer`          |
+# **`created_at`**                     | `datetime`         | `not null`
+# **`updated_at`**                     | `datetime`         | `not null`
+# **`manifestation_id`**               | `bigint`           | `not null`
+# **`manifestation_reserve_stat_id`**  | `bigint`           | `not null`
 #
-#  index_reserve_stat_has_manifestations_on_m_reserve_stat_id  (manifestation_reserve_stat_id)
-#  index_reserve_stat_has_manifestations_on_manifestation_id   (manifestation_id)
+# ### Indexes
 #
-# Foreign Keys
+# * `index_reserve_stat_has_manifestations_on_m_reserve_stat_id`:
+#     * **`manifestation_reserve_stat_id`**
+# * `index_reserve_stat_has_manifestations_on_manifestation_id`:
+#     * **`manifestation_id`**
 #
-#  fk_rails_...  (manifestation_id => manifestations.id)
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`manifestation_id => manifestations.id`**
 #

@@ -1,3 +1,36 @@
+# ## Schema Information
+#
+# Table name: `bookmarks`
+# Database name: `primary`
+#
+# ### Columns
+#
+# Name                    | Type               | Attributes
+# ----------------------- | ------------------ | ---------------------------
+# **`id`**                | `bigint`           | `not null, primary key`
+# **`note`**              | `text`             |
+# **`shared`**            | `boolean`          | `default(FALSE), not null`
+# **`title`**             | `text`             | `not null`
+# **`url`**               | `string`           | `not null`
+# **`created_at`**        | `datetime`         | `not null`
+# **`updated_at`**        | `datetime`         | `not null`
+# **`manifestation_id`**  | `bigint`           |
+# **`user_id`**           | `bigint`           | `not null`
+#
+# ### Indexes
+#
+# * `index_bookmarks_on_manifestation_id`:
+#     * **`manifestation_id`**
+# * `index_bookmarks_on_url`:
+#     * **`url`**
+# * `index_bookmarks_on_user_id`:
+#     * **`user_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
+#
 FactoryBot.define do
   factory :bookmark do
     sequence(:title) { |n| "bookmark_#{n}" }

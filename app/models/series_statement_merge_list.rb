@@ -1,3 +1,17 @@
+# ## Schema Information
+#
+# Table name: `series_statement_merge_lists`
+# Database name: `primary`
+#
+# ### Columns
+#
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`id`**          | `bigint`           | `not null, primary key`
+# **`title`**       | `string`           | `not null`
+# **`created_at`**  | `datetime`         | `not null`
+# **`updated_at`**  | `datetime`         | `not null`
+#
 class SeriesStatementMergeList < ApplicationRecord
   has_many :series_statement_merges, dependent: :destroy
   has_many :series_statements, through: :series_statement_merges

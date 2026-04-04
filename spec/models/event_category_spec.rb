@@ -4,15 +4,20 @@ describe EventCategory do
   # pending "add some examples to (or delete) #{__FILE__}"
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: event_categories
+# Table name: `event_categories`
+# Database name: `primary`
 #
-#  id           :bigint           not null, primary key
-#  name         :string           not null
-#  display_name :text
-#  note         :text
-#  position     :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+# ### Columns
+#
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`display_name`**  | `text`             |
+# **`name`**          | `string`           | `not null`
+# **`note`**          | `text`             |
+# **`position`**      | `integer`          |
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
 #

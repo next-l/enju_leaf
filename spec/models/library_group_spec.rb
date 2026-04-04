@@ -1,3 +1,47 @@
+# ## Schema Information
+#
+# Table name: `library_groups`
+# Database name: `primary`
+#
+# ### Columns
+#
+# Name                                 | Type               | Attributes
+# ------------------------------------ | ------------------ | ---------------------------
+# **`id`**                             | `bigint`           | `not null, primary key`
+# **`admin_networks`**                 | `text`             |
+# **`allow_bookmark_external_url`**    | `boolean`          | `default(FALSE), not null`
+# **`book_jacket_source`**             | `string`           |
+# **`csv_charset_conversion`**         | `boolean`          | `default(FALSE), not null`
+# **`display_name`**                   | `text`             |
+# **`email`**                          | `string`           |
+# **`family_name_first`**              | `boolean`          | `default(TRUE)`
+# **`footer_banner`**                  | `text`             |
+# **`html_snippet`**                   | `text`             |
+# **`login_banner`**                   | `text`             |
+# **`max_number_of_results`**          | `integer`          | `default(1000)`
+# **`my_networks`**                    | `text`             |
+# **`name`**                           | `string`           | `not null`
+# **`note`**                           | `text`             |
+# **`old_login_banner`**               | `text`             |
+# **`position`**                       | `integer`          |
+# **`pub_year_facet_range_interval`**  | `integer`          | `default(10)`
+# **`screenshot_generator`**           | `string`           |
+# **`settings`**                       | `jsonb`            | `not null`
+# **`short_name`**                     | `string`           | `not null`
+# **`url`**                            | `string`           | `default("http://localhost:3000/"), not null`
+# **`created_at`**                     | `datetime`         | `not null`
+# **`updated_at`**                     | `datetime`         | `not null`
+# **`country_id`**                     | `bigint`           |
+#
+# ### Indexes
+#
+# * `index_library_groups_on_email`:
+#     * **`email`**
+# * `index_library_groups_on_lower_name` (_unique_):
+#     * **`lower((name)::text)`**
+# * `index_library_groups_on_short_name`:
+#     * **`short_name`**
+#
 require 'rails_helper'
 
 describe LibraryGroup do

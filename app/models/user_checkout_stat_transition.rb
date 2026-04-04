@@ -2,22 +2,32 @@ class UserCheckoutStatTransition < ApplicationRecord
   belongs_to :user_checkout_stat, inverse_of: :user_checkout_stat_transitions
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: user_checkout_stat_transitions
+# Table name: `user_checkout_stat_transitions`
+# Database name: `primary`
 #
-#  id                    :bigint           not null, primary key
-#  metadata              :jsonb            not null
-#  most_recent           :boolean          not null
-#  sort_key              :integer
-#  to_state              :string
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  user_checkout_stat_id :bigint
+# ### Columns
 #
-# Indexes
+# Name                         | Type               | Attributes
+# ---------------------------- | ------------------ | ---------------------------
+# **`id`**                     | `bigint`           | `not null, primary key`
+# **`metadata`**               | `jsonb`            | `not null`
+# **`most_recent`**            | `boolean`          | `not null`
+# **`sort_key`**               | `integer`          |
+# **`to_state`**               | `string`           |
+# **`created_at`**             | `datetime`         | `not null`
+# **`updated_at`**             | `datetime`         | `not null`
+# **`user_checkout_stat_id`**  | `bigint`           |
 #
-#  index_user_checkout_stat_transitions_on_sort_key_and_stat_id   (sort_key,user_checkout_stat_id) UNIQUE
-#  index_user_checkout_stat_transitions_on_user_checkout_stat_id  (user_checkout_stat_id)
-#  index_user_checkout_stat_transitions_parent_most_recent        (user_checkout_stat_id,most_recent) UNIQUE WHERE most_recent
+# ### Indexes
+#
+# * `index_user_checkout_stat_transitions_on_sort_key_and_stat_id` (_unique_):
+#     * **`sort_key`**
+#     * **`user_checkout_stat_id`**
+# * `index_user_checkout_stat_transitions_on_user_checkout_stat_id`:
+#     * **`user_checkout_stat_id`**
+# * `index_user_checkout_stat_transitions_parent_most_recent` (_unique_ _where_ most_recent):
+#     * **`user_checkout_stat_id`**
+#     * **`most_recent`**
 #

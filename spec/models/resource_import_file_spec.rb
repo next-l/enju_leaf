@@ -513,29 +513,37 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: resource_import_files
+# Table name: `resource_import_files`
+# Database name: `primary`
 #
-#  id                          :bigint           not null, primary key
-#  edit_mode                   :string
-#  error_message               :text
-#  executed_at                 :datetime
-#  note                        :text
-#  resource_import_fingerprint :string
-#  user_encoding               :string
-#  created_at                  :datetime         not null
-#  updated_at                  :datetime         not null
-#  default_shelf_id            :bigint
-#  parent_id                   :bigint
-#  user_id                     :bigint           not null
+# ### Columns
 #
-# Indexes
+# Name                               | Type               | Attributes
+# ---------------------------------- | ------------------ | ---------------------------
+# **`id`**                           | `bigint`           | `not null, primary key`
+# **`edit_mode`**                    | `string`           |
+# **`error_message`**                | `text`             |
+# **`executed_at`**                  | `datetime`         |
+# **`note`**                         | `text`             |
+# **`resource_import_fingerprint`**  | `string`           |
+# **`user_encoding`**                | `string`           |
+# **`created_at`**                   | `datetime`         | `not null`
+# **`updated_at`**                   | `datetime`         | `not null`
+# **`default_shelf_id`**             | `bigint`           |
+# **`parent_id`**                    | `bigint`           |
+# **`user_id`**                      | `bigint`           | `not null`
 #
-#  index_resource_import_files_on_parent_id  (parent_id)
-#  index_resource_import_files_on_user_id    (user_id)
+# ### Indexes
 #
-# Foreign Keys
+# * `index_resource_import_files_on_parent_id`:
+#     * **`parent_id`**
+# * `index_resource_import_files_on_user_id`:
+#     * **`user_id`**
 #
-#  fk_rails_...  (user_id => users.id)
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

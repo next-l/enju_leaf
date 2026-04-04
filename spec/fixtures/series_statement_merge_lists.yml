@@ -1,3 +1,17 @@
+# ## Schema Information
+#
+# Table name: `series_statement_merge_lists`
+# Database name: `primary`
+#
+# ### Columns
+#
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`id`**          | `bigint`           | `not null, primary key`
+# **`title`**       | `string`           | `not null`
+# **`created_at`**  | `datetime`         | `not null`
+# **`updated_at`**  | `datetime`         | `not null`
+#
 --- 
 series_statement_merge_list_00001: 
   updated_at: 2008-02-18 13:36:49.835774 +09:00

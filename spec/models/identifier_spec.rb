@@ -4,20 +4,28 @@ describe Identifier do
   # pending "add some examples to (or delete) #{__FILE__}"
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: identifiers
+# Table name: `identifiers`
+# Database name: `primary`
 #
-#  id                 :bigint           not null, primary key
-#  body               :string           not null
-#  position           :integer
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  identifier_type_id :bigint           not null
-#  manifestation_id   :bigint
+# ### Columns
 #
-# Indexes
+# Name                      | Type               | Attributes
+# ------------------------- | ------------------ | ---------------------------
+# **`id`**                  | `bigint`           | `not null, primary key`
+# **`body`**                | `string`           | `not null`
+# **`position`**            | `integer`          |
+# **`created_at`**          | `datetime`         | `not null`
+# **`updated_at`**          | `datetime`         | `not null`
+# **`identifier_type_id`**  | `bigint`           | `not null`
+# **`manifestation_id`**    | `bigint`           |
 #
-#  index_identifiers_on_body_and_identifier_type_id  (body,identifier_type_id)
-#  index_identifiers_on_manifestation_id             (manifestation_id)
+# ### Indexes
+#
+# * `index_identifiers_on_body_and_identifier_type_id`:
+#     * **`body`**
+#     * **`identifier_type_id`**
+# * `index_identifiers_on_manifestation_id`:
+#     * **`manifestation_id`**
 #

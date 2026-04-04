@@ -6,24 +6,33 @@ FactoryBot.define do
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: periodicals
+# Table name: `periodicals`
+# Database name: `primary`
 #
-#  id               :bigint           not null, primary key
-#  original_title   :text             not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  frequency_id     :bigint           not null
-#  manifestation_id :bigint           not null
+# ### Columns
 #
-# Indexes
+# Name                    | Type               | Attributes
+# ----------------------- | ------------------ | ---------------------------
+# **`id`**                | `bigint`           | `not null, primary key`
+# **`original_title`**    | `text`             | `not null`
+# **`created_at`**        | `datetime`         | `not null`
+# **`updated_at`**        | `datetime`         | `not null`
+# **`frequency_id`**      | `bigint`           | `not null`
+# **`manifestation_id`**  | `bigint`           | `not null`
 #
-#  index_periodicals_on_frequency_id      (frequency_id)
-#  index_periodicals_on_manifestation_id  (manifestation_id)
+# ### Indexes
 #
-# Foreign Keys
+# * `index_periodicals_on_frequency_id`:
+#     * **`frequency_id`**
+# * `index_periodicals_on_manifestation_id`:
+#     * **`manifestation_id`**
 #
-#  fk_rails_...  (frequency_id => frequencies.id)
-#  fk_rails_...  (manifestation_id => manifestations.id)
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`frequency_id => frequencies.id`**
+# * `fk_rails_...`:
+#     * **`manifestation_id => manifestations.id`**
 #

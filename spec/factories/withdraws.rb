@@ -8,20 +8,33 @@ FactoryBot.define do
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: withdraws
+# Table name: `withdraws`
+# Database name: `primary`
 #
-#  id           :bigint           not null, primary key
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  basket_id    :bigint
-#  item_id      :bigint
-#  librarian_id :bigint
+# ### Columns
 #
-# Indexes
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
+# **`basket_id`**     | `bigint`           |
+# **`item_id`**       | `bigint`           |
+# **`librarian_id`**  | `bigint`           |
 #
-#  index_withdraws_on_basket_id     (basket_id)
-#  index_withdraws_on_item_id       (item_id) UNIQUE
-#  index_withdraws_on_librarian_id  (librarian_id)
+# ### Indexes
+#
+# * `index_withdraws_on_basket_id`:
+#     * **`basket_id`**
+# * `index_withdraws_on_item_id` (_unique_):
+#     * **`item_id`**
+# * `index_withdraws_on_librarian_id`:
+#     * **`librarian_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`librarian_id => users.id`**
 #

@@ -4,24 +4,33 @@ describe CheckoutStatHasUser do
   # pending "add some examples to (or delete) #{__FILE__}"
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: checkout_stat_has_users
+# Table name: `checkout_stat_has_users`
+# Database name: `primary`
 #
-#  id                    :bigint           not null, primary key
-#  checkouts_count       :integer          default(0), not null
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  user_checkout_stat_id :bigint           not null
-#  user_id               :bigint           not null
+# ### Columns
 #
-# Indexes
+# Name                         | Type               | Attributes
+# ---------------------------- | ------------------ | ---------------------------
+# **`id`**                     | `bigint`           | `not null, primary key`
+# **`checkouts_count`**        | `integer`          | `default(0), not null`
+# **`created_at`**             | `datetime`         | `not null`
+# **`updated_at`**             | `datetime`         | `not null`
+# **`user_checkout_stat_id`**  | `bigint`           | `not null`
+# **`user_id`**                | `bigint`           | `not null`
 #
-#  index_checkout_stat_has_users_on_user_checkout_stat_id  (user_checkout_stat_id)
-#  index_checkout_stat_has_users_on_user_id                (user_id)
+# ### Indexes
 #
-# Foreign Keys
+# * `index_checkout_stat_has_users_on_user_checkout_stat_id`:
+#     * **`user_checkout_stat_id`**
+# * `index_checkout_stat_has_users_on_user_id`:
+#     * **`user_id`**
 #
-#  fk_rails_...  (user_checkout_stat_id => user_checkout_stats.id)
-#  fk_rails_...  (user_id => users.id)
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_checkout_stat_id => user_checkout_stats.id`**
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #
