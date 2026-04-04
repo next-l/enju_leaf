@@ -10,11 +10,11 @@ Sunspot.session = Sunspot::Rails::StubSessionProxy.new(Sunspot.session)
 #end
 
 def new_profile
-  profile = Profile.new
-  profile.user_group = UserGroup.first
-  profile.library = Library.real.first
-  profile.locale = I18n.default_locale.to_s
-  profile
+  Profile.new(
+    user_group: UserGroup.first,
+    library: Library.real.first,
+    locale: I18n.default_locale.to_s
+  )
 end
 
 Rake::Task['enju_leaf:setup'].invoke
@@ -23,12 +23,10 @@ if User.count.zero?
   system_user = User.new(
     username: 'system',
     email: 'root@library.example.jp',
-    role: Role.find_by(name: 'Administrator')
+    role: Role.find_by(name: 'Administrator'),
+    profile: new_profile,
+    password: SecureRandom.urlsafe_base64(32)
   )
-  system_user.password = SecureRandom.urlsafe_base64(32)
-  profile = new_profile
-  profile.save!
-  system_user.profile = profile
   system_user.save!
   LibraryGroup.first.update!(
     email: system_user.email,
