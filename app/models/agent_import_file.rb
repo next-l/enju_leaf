@@ -219,13 +219,10 @@ end
 # **`user_encoding`**             | `string`           |
 # **`created_at`**                | `datetime`         | `not null`
 # **`updated_at`**                | `datetime`         | `not null`
-# **`parent_id`**                 | `bigint`           |
 # **`user_id`**                   | `bigint`           | `not null`
 #
 # ### Indexes
 #
-# * `index_agent_import_files_on_parent_id`:
-#     * **`parent_id`**
 # * `index_agent_import_files_on_user_id`:
 #     * **`user_id`**
 #
