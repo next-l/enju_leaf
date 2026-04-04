@@ -63,8 +63,8 @@ end
 # **`id`**                | `bigint`           | `not null, primary key`
 # **`body`**              | `text`             |
 # **`position`**          | `integer`          |
-# **`title`**             | `string`           |
-# **`url`**               | `string`           |
+# **`title`**             | `string`           | `not null`
+# **`url`**               | `string`           | `not null`
 # **`created_at`**        | `datetime`         | `not null`
 # **`updated_at`**        | `datetime`         | `not null`
 # **`library_group_id`**  | `bigint`           | `default(1), not null`

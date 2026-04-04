@@ -68,7 +68,7 @@ subject_00005:
 # **`lock_version`**             | `integer`          | `default(0), not null`
 # **`note`**                     | `text`             |
 # **`scope_note`**               | `text`             |
-# **`term`**                     | `string`           |
+# **`term`**                     | `string`           | `not null`
 # **`term_transcription`**       | `text`             |
 # **`url`**                      | `string`           |
 # **`created_at`**               | `datetime`         | `not null`

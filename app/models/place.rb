@@ -15,7 +15,7 @@ end
 # **`city`**        | `text`             |
 # **`latitude`**    | `float`            |
 # **`longitude`**   | `float`            |
-# **`term`**        | `string`           |
+# **`term`**        | `string`           | `not null`
 # **`created_at`**  | `datetime`         | `not null`
 # **`updated_at`**  | `datetime`         | `not null`
 # **`country_id`**  | `bigint`           |
