@@ -1,21 +1,21 @@
 --- 
 role_00001: 
-  name: Guest  
+  name: Guest
   display_name: Guest
   id: 1
   note: 
 role_00002: 
-  name: User  
+  name: User
   display_name: User
   id: 2
   note: 
 role_00003: 
-  name: Librarian  
+  name: Librarian
   display_name: Librarian
   id: 3
   note: 
 role_00004: 
-  name: Administrator  
+  name: Administrator
   display_name: Administrator
   id: 4
   note:
