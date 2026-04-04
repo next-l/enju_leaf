@@ -12,7 +12,7 @@ describe LocSearchController do
 
     it "should get index", vcr: true do
       get :index, params: { query: 'library' }
-      expect(assigns(:books)).not_to be_empty
+      expect(assigns(:books).size).to eq 10
     end
 
     it "should be empty if a query is not set", vcr: true do
