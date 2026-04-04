@@ -12,6 +12,7 @@ one:
   settings: 
     {"max_number_of_results":500,"book_jacket_unknown_resource":"unknown.png"}
   email: admin@library.example.jp
+  family_name_first: true
 
 # ## Schema Information
 #
