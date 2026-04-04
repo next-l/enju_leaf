@@ -58,7 +58,7 @@ end
 # **`screenshot_generator`**           | `string`           |
 # **`settings`**                       | `jsonb`            | `not null`
 # **`short_name`**                     | `string`           | `not null`
-# **`url`**                            | `string`           | `default("http://localhost:3000/")`
+# **`url`**                            | `string`           | `default("http://localhost:3000/"), not null`
 # **`created_at`**                     | `datetime`         | `not null`
 # **`updated_at`**                     | `datetime`         | `not null`
 # **`country_id`**                     | `bigint`           |
