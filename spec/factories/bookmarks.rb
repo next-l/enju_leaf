@@ -17,7 +17,7 @@ end
 # ----------------------- | ------------------ | ---------------------------
 # **`id`**                | `bigint`           | `not null, primary key`
 # **`note`**              | `text`             |
-# **`shared`**            | `boolean`          | `not null`
+# **`shared`**            | `boolean`          | `default(FALSE), not null`
 # **`title`**             | `text`             | `not null`
 # **`url`**               | `string`           | `not null`
 # **`created_at`**        | `datetime`         | `not null`

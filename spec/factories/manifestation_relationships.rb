@@ -19,7 +19,7 @@ end
 # **`created_at`**                          | `datetime`         | `not null`
 # **`updated_at`**                          | `datetime`         | `not null`
 # **`child_id`**                            | `bigint`           | `not null`
-# **`manifestation_relationship_type_id`**  | `bigint`           | `not null`
+# **`manifestation_relationship_type_id`**  | `bigint`           | `default(1), not null`
 # **`parent_id`**                           | `bigint`           | `not null`
 #
 # ### Indexes
