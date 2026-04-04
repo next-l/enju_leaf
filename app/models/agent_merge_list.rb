@@ -15,13 +15,3 @@ class AgentMergeList < ApplicationRecord
     end
   end
 end
-
-# == Schema Information
-#
-# Table name: agent_merge_lists
-#
-#  id         :bigint           not null, primary key
-#  title      :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
