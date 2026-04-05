@@ -1,5 +1,5 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t('page.showing', model: t('activerecord.models.event_import_file')) -%></h1>
+  <h1 class="title"><%= t("page.showing", model: t("activerecord.models.event_import_file")) -%></h1>
   <div id="content_list">
     <p id="notice"><%= notice %></p>
 
@@ -9,65 +9,74 @@
     </p>
 
     <% if @event_import_file.attachment.attached? %>
-    <p>
-      <strong><%= t('activerecord.attributes.event_import_file.event_import_file_name') -%>:</strong>
-      <%= link_to @event_import_file.attachment.filename, rails_blob_path(@event_import_file.attachment) %>
-      (<%= @event_import_file.attachment.content_type -%>)
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.event_import_file.event_import_file_name") -%>:</strong>
+        <%= link_to @event_import_file.attachment.filename,
+        rails_blob_path(@event_import_file.attachment) %>
+        (<%= @event_import_file.attachment.content_type -%>)
+      </p>
 
-    <p>
-      <strong><%= t('activerecord.attributes.event_import_file.event_import_file_size') -%>:</strong>
-      <%= @event_import_file.attachment.byte_size -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.event_import_file.event_import_file_size") -%>:</strong>
+        <%= @event_import_file.attachment.byte_size -%>
+      </p>
     <% end %>
 
     <p>
-      <strong><%= t('page.created_at') -%>:</strong>
+      <strong><%= t("page.created_at") -%>:</strong>
       <%= l(@event_import_file.created_at) if @event_import_file.created_at -%>
     </p>
 
     <p>
-      <strong><%= t('activerecord.attributes.event_import_file.executed_at') -%>:</strong>
+      <strong><%= t("activerecord.attributes.event_import_file.executed_at") -%>:</strong>
       <%= l(@event_import_file.executed_at) if @event_import_file.executed_at -%>
     </p>
 
     <p>
-      <strong><%= t('activerecord.attributes.event_import_file.edit_mode') -%>:</strong>
+      <strong><%= t("activerecord.attributes.event_import_file.edit_mode") -%>:</strong>
       <%= @event_import_file.edit_mode -%>
     </p>
 
     <p>
-      <strong><%= t('activerecord.attributes.event_import_file.user_encoding') -%>:</strong>
+      <strong><%= t("activerecord.attributes.event_import_file.user_encoding") -%>:</strong>
       <%= @event_import_file.user_encoding -%>
     </p>
 
     <p>
-      <strong><%= t('activerecord.attributes.event_import_file.default_event_category_id') -%>:</strong>
-      <%= link_to @event_import_file.default_event_category.display_name.localize, @event_import_file.default_event_category if @event_import_file.default_event_category.try(:display_name) -%>
+      <strong><%= t("activerecord.attributes.event_import_file.default_event_category_id") -%>:</strong>
+      <%= if @event_import_file.default_event_category.try(:display_name)
+        link_to @event_import_file.default_event_category.display_name.localize,
+        @event_import_file.default_event_category
+      end -%>
     </p>
 
     <p>
-      <strong><%= t('activerecord.attributes.event_import_file.default_library_id') -%>:</strong>
-      <%= link_to @event_import_file.default_library.display_name.localize, @event_import_file.default_library if @event_import_file.default_library.try(:display_name) -%>
+      <strong><%= t("activerecord.attributes.event_import_file.default_library_id") -%>:</strong>
+      <%= if @event_import_file.default_library.try(:display_name)
+        link_to @event_import_file.default_library.display_name.localize,
+        @event_import_file.default_library
+      end -%>
     </p>
 
     <p>
-      <strong><%= t('activerecord.attributes.event_import_file.state') -%>:</strong>
+      <strong><%= t("activerecord.attributes.event_import_file.state") -%>:</strong>
       <%= localized_state(@event_import_file.current_state) -%>
     </p>
 
     <p>
-      <strong><%= t('activerecord.attributes.event_import_file.error_message') -%>:</strong>
+      <strong><%= t("activerecord.attributes.event_import_file.error_message") -%>:</strong>
       <%= simple_format(@event_import_file.error_message) -%>
     </p>
 
     <p>
-      <strong><%= t('activerecord.models.user') -%>:</strong>
-      <%= link_to @event_import_file.user.username, @event_import_file.user.profile if @event_import_file.user.try(:profile) -%>
+      <strong><%= t("activerecord.models.user") -%>:</strong>
+      <%= if @event_import_file.user.try(:profile)
+        link_to @event_import_file.user.username, @event_import_file.user.profile
+      end -%>
     </p>
 
     <% if @event_import_results %>
-      <%= render 'results' %>
+      <%= render "results" %>
     <% end %>
 
   </div>
@@ -75,11 +84,11 @@
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <%= form_for(@event_import_file) do |f| %>
-  <ul>
-    <li><%= back_to_index(flash[:page_info]) -%></li>
-    <% if current_user.has_role?('Administrator') %>
-      <li><%= link_to t('page.background_job'), mission_control_jobs_path %></li>
-    <% end %>
-  </ul>
+    <ul>
+      <li><%= back_to_index(flash[:page_info]) -%></li>
+      <% if current_user.has_role?('Administrator') %>
+        <li><%= link_to t("page.background_job"), mission_control_jobs_path %></li>
+      <% end %>
+    </ul>
   <% end %>
 </div>
