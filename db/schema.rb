@@ -1253,7 +1253,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_161631) do
 
   create_table "profiles", force: :cascade do |t|
     t.bigint "user_group_id"
-    t.bigint "library_id"
+    t.bigint "library_id", null: false
     t.string "locale"
     t.string "user_number"
     t.text "full_name"

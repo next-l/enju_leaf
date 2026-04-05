@@ -30,7 +30,7 @@ end
 # **`user_number`**               | `string`           |
 # **`created_at`**                | `datetime`         | `not null`
 # **`updated_at`**                | `datetime`         | `not null`
-# **`library_id`**                | `bigint`           |
+# **`library_id`**                | `bigint`           | `not null`
 # **`required_role_id`**          | `bigint`           |
 # **`user_group_id`**             | `bigint`           |
 #
