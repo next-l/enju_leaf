@@ -34,7 +34,6 @@ class UserReserveStat < ApplicationRecord
         )
       end
     end
-    self.completed_at = Time.zone.now
     transition_to!(:completed)
 
     mailer = UserReserveStatMailer.completed(self)
@@ -49,17 +48,15 @@ end
 #
 # ### Columns
 #
-# Name                | Type               | Attributes
-# ------------------- | ------------------ | ---------------------------
-# **`id`**            | `bigint`           | `not null, primary key`
-# **`completed_at`**  | `datetime`         |
-# **`end_date`**      | `datetime`         |
-# **`note`**          | `text`             |
-# **`start_date`**    | `datetime`         |
-# **`started_at`**    | `datetime`         |
-# **`created_at`**    | `datetime`         | `not null`
-# **`updated_at`**    | `datetime`         | `not null`
-# **`user_id`**       | `bigint`           | `not null`
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`id`**          | `bigint`           | `not null, primary key`
+# **`end_date`**    | `datetime`         | `not null`
+# **`note`**        | `text`             |
+# **`start_date`**  | `datetime`         | `not null`
+# **`created_at`**  | `datetime`         | `not null`
+# **`updated_at`**  | `datetime`         | `not null`
+# **`user_id`**     | `bigint`           | `not null`
 #
 # ### Indexes
 #
