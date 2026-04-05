@@ -1514,6 +1514,13 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
     t.index ["series_statement_identifier"], name: "index_series_statements_on_series_statement_identifier"
   end
 
+  create_table "shelf_import_files", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_shelf_import_files_on_user_id"
+  end
+
   create_table "shelves", force: :cascade do |t|
     t.string "name", null: false
     t.text "display_name"
@@ -1908,6 +1915,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
   add_foreign_key "resource_export_files", "users"
   add_foreign_key "resource_import_files", "users"
   add_foreign_key "resource_import_results", "resource_import_files"
+  add_foreign_key "shelf_import_files", "users"
   add_foreign_key "subjects", "roles", column: "required_role_id"
   add_foreign_key "subscriptions", "users"
   add_foreign_key "user_checkout_stats", "users"
