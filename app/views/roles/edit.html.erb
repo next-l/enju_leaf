@@ -1,13 +1,13 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t('page.editing', model: t('activerecord.models.role')) -%></h1>
+  <h1 class="title"><%= t("page.editing", model: t("activerecord.models.role")) -%></h1>
   <div id="content_list">
-    <%= render 'form', role: @role %>
+    <%= render "form", role: @role %>
   </div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
-    <li><%= link_to t('page.show'), role_path(@role) -%></li>
-    <li><%= link_to t('page.back'), roles_path -%></li>
+    <li><%= link_to t("page.show"), role_path(@role) -%></li>
+    <li><%= link_to t("page.back"), roles_path -%></li>
   </ul>
 </div>
