@@ -10,7 +10,7 @@ class AddForeignKeyToCreatesOnWorkId < ActiveRecord::Migration[7.2]
     end
     Produce.find_each do |i|
       i.destroy unless i.agent
-      i.destroy unless i.expression
+      i.destroy unless i.manifestation
     end
     Own.find_each do |i|
       i.destroy unless i.agent
