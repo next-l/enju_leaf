@@ -19,11 +19,9 @@
           <%= render "manifestations/show_index", manifestation: checkout.item.manifestation -%>
           (<%= link_to checkout.item.item_identifier, checkout.item -%>)
         <% end %>
-        <% if checkout.shelf %>
-          <%= t("activerecord.models.shelf") %>:
-          <%= link_to checkout.shelf.display_name.localize, checkout.shelf %>
-          (<%= link_to checkout.shelf.library.display_name.localize, checkout.shelf.library %>)
-        <% end %>
+        <%= t("activerecord.models.shelf") %>:
+        <%= link_to checkout.item.shelf.display_name.localize, checkout.item.shelf %>
+        (<%= link_to checkout.item.shelf.library.display_name.localize, checkout.item.shelf.library %>)
         <% if checkout.item.manifestation.next_reservation %>
           <br/>
           (<%= link_to_if(
