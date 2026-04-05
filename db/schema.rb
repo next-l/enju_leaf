@@ -80,7 +80,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
   end
 
   create_table "agent_import_results", force: :cascade do |t|
-    t.bigint "agent_import_file_id"
+    t.bigint "agent_import_file_id", null: false
     t.bigint "agent_id"
     t.text "body"
     t.datetime "created_at", null: false
@@ -544,7 +544,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
   end
 
   create_table "event_import_results", force: :cascade do |t|
-    t.bigint "event_import_file_id"
+    t.bigint "event_import_file_id", null: false
     t.bigint "event_id"
     t.text "body"
     t.datetime "created_at", null: false
@@ -1438,7 +1438,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
   end
 
   create_table "resource_import_results", force: :cascade do |t|
-    t.bigint "resource_import_file_id"
+    t.bigint "resource_import_file_id", null: false
     t.bigint "manifestation_id"
     t.bigint "item_id"
     t.text "body"
@@ -1750,7 +1750,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
   end
 
   create_table "user_import_results", force: :cascade do |t|
-    t.bigint "user_import_file_id"
+    t.bigint "user_import_file_id", null: false
     t.bigint "user_id"
     t.text "body"
     t.datetime "created_at", null: false
