@@ -860,7 +860,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_193144) do
     t.text "html_snippet"
     t.string "book_jacket_source"
     t.integer "max_number_of_results", default: 1000
-    t.boolean "family_name_first", default: false, null: false
+    t.boolean "family_name_first", default: true, null: false
     t.string "screenshot_generator"
     t.integer "pub_year_facet_range_interval", default: 10
     t.boolean "csv_charset_conversion", default: false, null: false
