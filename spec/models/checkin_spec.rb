@@ -13,6 +13,7 @@ describe Checkin do
     user = users(:user1)
     checkouts_count = user.checkouts.count
     checkin = Checkin.new
+    checkin.checkout = user.checkouts.not_returned.first
     checkin.item = user.checkouts.not_returned.first.item
     checkin.basket = @basket
     checkin.librarian = users(:librarian1)
@@ -26,12 +27,13 @@ describe Checkin do
     user = users(:librarian1)
     checkouts_count = user.checkouts.count
     checkin = Checkin.new
+    checkin.checkout = user.checkouts.not_returned.first
     checkin.item = user.checkouts.not_returned.first.item
     checkin.basket = @basket
     checkin.librarian = users(:librarian1)
     checkin.save!
     checkin.item_checkin(user)
-    expect(user.checkouts.count).to eq checkouts_count - 1
+    expect(user.checkouts.not_returned.count).to eq checkouts_count - 1
   end
 end
 

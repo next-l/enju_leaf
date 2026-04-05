@@ -55,7 +55,7 @@ describe Basket do
     checkout = users(:user1).checkouts.order(:created_at).first
     reserve = users(:user2).reserves.create!(manifestation: checkout.item.manifestation)
     basket1 = Basket.new(user: users(:librarian1))
-    checkin = Checkin.create!(basket: basket1, librarian: users(:librarian1), item: checkout.item)
+    checkin = Checkin.create!(basket: basket1, librarian: users(:librarian1), item: checkout.item, checkout: checkout)
     checkin.item_checkin(checkin.librarian)
     basket2 = Basket.create!(user: users(:user2))
     basket2.checked_items.create(item: checkout.item)
