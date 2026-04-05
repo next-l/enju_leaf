@@ -27,3 +27,8 @@ end
 # **`event_id`**              | `bigint`           |
 # **`event_import_file_id`**  | `bigint`           |
 #
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`event_import_file_id => event_import_files.id`**
+#

@@ -4,6 +4,7 @@ bookmark_00001:
   manifestation_id: 1
   user_id: 1
   id: 1
+  title: "bookmark 1"
   url: "http://www.example.com"
   note: なんとかかんとか
   created_at: 2007-11-21 21:38:47.964470 +09:00
@@ -12,6 +13,7 @@ bookmark_00002:
   manifestation_id: 2
   user_id: 2
   id: 2
+  title: "bookmark 2"
   url: "http://www.example.jp"
   note: ""
   created_at: 2007-11-21 21:40:28.457279 +09:00
@@ -20,6 +22,7 @@ bookmark_00003:
   manifestation_id: 3
   user_id: 3
   id: 3
+  title: "bookmark 3"
   url: "http://www.example.org"
   note: ""
   created_at: 2007-11-21 21:40:28.457279 +09:00
@@ -28,6 +31,7 @@ bookmark_00004:
   manifestation_id: 1
   user_id: 4
   id: 4
+  title: "bookmark 4"
   url: "http://www.example.net"
   note: ""
   created_at: 2007-11-21 21:40:28.457279 +09:00
@@ -36,6 +40,7 @@ bookmark_00005:
   manifestation_id: 2
   user_id: 5
   id: 5
+  title: "bookmark 5"
   url: "http://www.example.co.jp"
   note: ""
   created_at: 2007-11-21 21:40:28.457279 +09:00
@@ -50,9 +55,9 @@ bookmark_00005:
 # ----------------------- | ------------------ | ---------------------------
 # **`id`**                | `bigint`           | `not null, primary key`
 # **`note`**              | `text`             |
-# **`shared`**            | `boolean`          |
-# **`title`**             | `text`             |
-# **`url`**               | `string`           |
+# **`shared`**            | `boolean`          | `default(FALSE), not null`
+# **`title`**             | `text`             | `not null`
+# **`url`**               | `string`           | `not null`
 # **`created_at`**        | `datetime`         | `not null`
 # **`updated_at`**        | `datetime`         | `not null`
 # **`manifestation_id`**  | `bigint`           |

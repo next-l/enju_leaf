@@ -8,6 +8,7 @@ class User < ApplicationRecord
   include EnjuMessage::EnjuUser
   include EnjuBookmark::EnjuUser
   include EnjuPurchaseRequest::EnjuUser
+  belongs_to :profile
   validates :profile, uniqueness: true
 end
 
@@ -39,7 +40,7 @@ end
 #
 # * `index_users_on_email`:
 #     * **`email`**
-# * `index_users_on_profile_id`:
+# * `index_users_on_profile_id` (_unique_):
 #     * **`profile_id`**
 # * `index_users_on_reset_password_token` (_unique_):
 #     * **`reset_password_token`**
