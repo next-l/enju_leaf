@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_05_024605) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_05_025836) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1830,6 +1830,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_024605) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "agent_import_files", "users"
+  add_foreign_key "agent_import_results", "agent_import_files"
   add_foreign_key "agent_relationships", "agent_relationship_types"
   add_foreign_key "agent_relationships", "agents", column: "child_id"
   add_foreign_key "agent_relationships", "agents", column: "parent_id"
@@ -1861,6 +1862,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_024605) do
   add_foreign_key "doi_records", "manifestations"
   add_foreign_key "event_export_files", "users"
   add_foreign_key "event_import_files", "users"
+  add_foreign_key "event_import_results", "event_import_files"
   add_foreign_key "events", "event_categories"
   add_foreign_key "import_requests", "users"
   add_foreign_key "inventory_files", "shelves"
@@ -1915,6 +1917,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_024605) do
   add_foreign_key "reserves", "users"
   add_foreign_key "resource_export_files", "users"
   add_foreign_key "resource_import_files", "users"
+  add_foreign_key "resource_import_results", "resource_import_files"
   add_foreign_key "subjects", "roles", column: "required_role_id"
   add_foreign_key "subscriptions", "users"
   add_foreign_key "user_checkout_stats", "users"
@@ -1924,6 +1927,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_024605) do
   add_foreign_key "user_has_roles", "roles"
   add_foreign_key "user_has_roles", "users"
   add_foreign_key "user_import_files", "users"
+  add_foreign_key "user_import_results", "user_import_files"
   add_foreign_key "user_reserve_stats", "users"
   add_foreign_key "users", "profiles"
   add_foreign_key "withdraws", "users", column: "librarian_id"
