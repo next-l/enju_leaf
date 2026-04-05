@@ -315,7 +315,7 @@ module EnjuNdl
         subjects = []
         doc.xpath("//dcterms:subject/rdf:Description").each do |subject|
           subjects << {
-            term: subject.at("./rdf:value").content,
+            term: subject.at("./rdf:value").content
             # :url => subject.attribute('about').try(:content)
           }
         end

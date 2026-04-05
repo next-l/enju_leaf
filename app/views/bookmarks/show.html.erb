@@ -20,9 +20,9 @@
 
 <p>
   <strong><%= t('page.tag') -%>:</strong>
-  <%- @bookmark.tag_counts.collect {|tag| -%>
-  <%= link_to tag.name, manifestations_path(tag: tag.name) -%>
-  <%- } -%>
+  <% @bookmark.tag_counts.each do |tag| %>
+    <%= link_to tag.name, manifestations_path(tag: tag.name) -%>
+  <% end %>
 </p>
 
 <p>

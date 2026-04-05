@@ -1,8 +1,8 @@
 # syntax = docker/dockerfile:1
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
-ARG RUBY_VERSION=3.3.9
-FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim-trixie as base
+ARG RUBY_VERSION=3.4.9
+FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim-trixie AS base
 
 # Rails app lives here
 WORKDIR /enju
@@ -15,15 +15,16 @@ ENV RAILS_ENV="production" \
 
 
 # Throw-away build stage to reduce size of final image
-FROM base as build
+FROM base AS build
 
 # Install packages needed to build gems
-RUN apt-get update -qq && apt-get install --no-install-recommends -y curl gnupg && \
-  mkdir -p /etc/apt/keyrings && \
-  curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /etc/apt/keyrings/yarnkey.gpg && \
-  echo "deb [signed-by=/etc/apt/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 libvips gnupg && \
+    mkdir -p /etc/apt/keyrings && \
+    curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /etc/apt/keyrings/yarnkey.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config nodejs yarn libyaml-dev
+    apt-get install --no-install-recommends -y build-essential git libpq-dev pkg-config nodejs yarn libyaml-dev
 
 # Install application gems
 COPY Gemfile Gemfile.lock package.json yarn.lock ./

@@ -10,8 +10,8 @@ class Reserve < ApplicationRecord
   scope :completed, -> { in_state(:completed).where.not(checked_out_at: nil) }
   scope :canceled, -> { in_state(:canceled).where.not(canceled_at: nil) }
   scope :postponed, -> { in_state(:postponed).where.not(postponed_at: nil) }
-  scope :will_expire_retained, lambda { |datetime| in_state(:retained).where("checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ?", datetime).order("expired_at") }
-  scope :will_expire_pending, lambda { |datetime| in_state(:pending).where("checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ?", datetime).order("expired_at") }
+  scope :will_expire_retained, lambda { |datetime| in_state(:retained).where("checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ?", datetime).order(:expired_at) }
+  scope :will_expire_pending, lambda { |datetime| in_state(:pending).where("checked_out_at IS NULL AND canceled_at IS NULL AND expired_at <= ?", datetime).order(:expired_at) }
   scope :created, lambda { |start_date, end_date| where("created_at >= ? AND created_at < ?", start_date, end_date) }
   scope :not_sent_expiration_notice_to_patron, -> { in_state(:expired).where(expiration_notice_to_patron: false) }
   scope :not_sent_expiration_notice_to_library, -> { in_state(:expired).where(expiration_notice_to_library: false) }
@@ -319,36 +319,46 @@ class Reserve < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: reserves
+# Table name: `reserves`
 #
-#  id                           :bigint           not null, primary key
-#  canceled_at                  :datetime
-#  checked_out_at               :datetime
-#  expiration_notice_to_library :boolean          default(FALSE)
-#  expiration_notice_to_patron  :boolean          default(FALSE)
-#  expired_at                   :datetime
-#  lock_version                 :integer          default(0), not null
-#  postponed_at                 :datetime
-#  retained_at                  :datetime
-#  created_at                   :datetime         not null
-#  updated_at                   :datetime         not null
-#  item_id                      :bigint
-#  manifestation_id             :bigint           not null
-#  pickup_location_id           :bigint
-#  request_status_type_id       :bigint           not null
-#  user_id                      :bigint           not null
+# ### Columns
 #
-# Indexes
+# Name                                | Type               | Attributes
+# ----------------------------------- | ------------------ | ---------------------------
+# **`id`**                            | `bigint`           | `not null, primary key`
+# **`canceled_at`**                   | `datetime`         |
+# **`checked_out_at`**                | `datetime`         |
+# **`expiration_notice_to_library`**  | `boolean`          | `default(FALSE), not null`
+# **`expiration_notice_to_patron`**   | `boolean`          | `default(FALSE), not null`
+# **`expired_at`**                    | `datetime`         |
+# **`lock_version`**                  | `integer`          | `default(0), not null`
+# **`postponed_at`**                  | `datetime`         |
+# **`retained_at`**                   | `datetime`         |
+# **`created_at`**                    | `datetime`         | `not null`
+# **`updated_at`**                    | `datetime`         | `not null`
+# **`item_id`**                       | `bigint`           |
+# **`manifestation_id`**              | `bigint`           | `not null`
+# **`pickup_location_id`**            | `bigint`           |
+# **`request_status_type_id`**        | `bigint`           | `not null`
+# **`user_id`**                       | `bigint`           | `not null`
 #
-#  index_reserves_on_item_id             (item_id)
-#  index_reserves_on_manifestation_id    (manifestation_id)
-#  index_reserves_on_pickup_location_id  (pickup_location_id)
-#  index_reserves_on_user_id             (user_id)
+# ### Indexes
 #
-# Foreign Keys
+# * `index_reserves_on_item_id`:
+#     * **`item_id`**
+# * `index_reserves_on_manifestation_id`:
+#     * **`manifestation_id`**
+# * `index_reserves_on_pickup_location_id`:
+#     * **`pickup_location_id`**
+# * `index_reserves_on_user_id`:
+#     * **`user_id`**
 #
-#  fk_rails_...  (manifestation_id => manifestations.id)
-#  fk_rails_...  (user_id => users.id)
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`manifestation_id => manifestations.id`**
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

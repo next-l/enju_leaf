@@ -32,7 +32,7 @@
         <% end %>
       <% end %>
       <tr>
-        <td colspan="2"><%= t('page.unknown') %></th>
+        <td colspan="2"><%= t('page.unknown') %></td>
         <% CheckoutType.order(:position).each do |checkout_type| %>
           <td>
             <%= @checkout_type_results[[nil, checkout_type.id]] %>

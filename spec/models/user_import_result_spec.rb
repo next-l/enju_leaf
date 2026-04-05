@@ -1,24 +1,34 @@
 require 'rails_helper'
 
 describe UserImportResult do
-  #pending "add some examples to (or delete) #{__FILE__}"
-
+  # pending "add some examples to (or delete) #{__FILE__}"
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: user_import_results
+# Table name: `user_import_results`
 #
-#  id                  :bigint           not null, primary key
-#  body                :text
-#  error_message       :text
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  user_id             :bigint
-#  user_import_file_id :bigint
+# ### Columns
 #
-# Indexes
+# Name                       | Type               | Attributes
+# -------------------------- | ------------------ | ---------------------------
+# **`id`**                   | `bigint`           | `not null, primary key`
+# **`body`**                 | `text`             |
+# **`error_message`**        | `text`             |
+# **`created_at`**           | `datetime`         | `not null`
+# **`updated_at`**           | `datetime`         | `not null`
+# **`user_id`**              | `bigint`           |
+# **`user_import_file_id`**  | `bigint`           |
 #
-#  index_user_import_results_on_user_id              (user_id)
-#  index_user_import_results_on_user_import_file_id  (user_import_file_id)
+# ### Indexes
+#
+# * `index_user_import_results_on_user_id`:
+#     * **`user_id`**
+# * `index_user_import_results_on_user_import_file_id`:
+#     * **`user_import_file_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_import_file_id => user_import_files.id`**
 #

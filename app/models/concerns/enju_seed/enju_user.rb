@@ -6,7 +6,6 @@ module EnjuSeed
       scope :administrators, -> { joins(:role).where("roles.name = ?", "Administrator") }
       scope :librarians, -> { joins(:role).where("roles.name = ? OR roles.name = ?", "Administrator", "Librarian") }
       scope :suspended, -> { where.not(locked_at: nil) }
-      belongs_to :profile
       if defined?(EnjuBiblio)
         has_many :import_requests, dependent: :restrict_with_exception
         has_many :picture_files, as: :picture_attachable, dependent: :destroy
@@ -18,14 +17,14 @@ module EnjuSeed
       validates :username, presence: true, uniqueness: true, format: {
         with: /\A[0-9A-Za-z][0-9A-Za-z_\-]*[0-9A-Za-z]\z/
       }
-      validates :email, format: Devise::email_regexp, allow_blank: true, uniqueness: true
+      validates :email, format: Devise.email_regexp, allow_blank: true, uniqueness: true
       validates :expired_at, date: true, allow_blank: true
 
       with_options if: :password_required? do |v|
         v.validates_presence_of     :password
         v.validates_confirmation_of :password
         v.validates_length_of       :password, allow_blank: true,
-          within: Devise::password_length
+          within: Devise.password_length
       end
 
       before_destroy :check_role_before_destroy
