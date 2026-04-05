@@ -31,3 +31,8 @@ end
 # * `index_resource_import_results_on_resource_import_file_id`:
 #     * **`resource_import_file_id`**
 #
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`resource_import_file_id => resource_import_files.id`**
+#

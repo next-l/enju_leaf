@@ -23,3 +23,8 @@ end
 # **`agent_id`**              | `bigint`           |
 # **`agent_import_file_id`**  | `bigint`           |
 #
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`agent_import_file_id => agent_import_files.id`**
+#

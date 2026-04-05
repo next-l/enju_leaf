@@ -30,3 +30,8 @@ end
 # * `index_user_import_results_on_user_import_file_id`:
 #     * **`user_import_file_id`**
 #
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_import_file_id => user_import_files.id`**
+#
