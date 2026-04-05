@@ -10,4 +10,3 @@ library_group_00001:
   admin_networks: "0.0.0.0/0\r\n\
     ::/0"
   settings: "{\"max_number_of_results\":500, \"family_name_first\":true, \"skip_mobile_agents\":\"ipad\"}"
-  family_name_first: true
