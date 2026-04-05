@@ -23,7 +23,7 @@ class UserGroupHasCheckoutType < ApplicationRecord
         ON (checkouts.item_id = items.id)
         LEFT OUTER JOIN users
         ON (users.id = checkouts.user_id)
-        LEFT OUTER JOIN checins
+        LEFT OUTER JOIN checkins
         ON (checkins.checkout_id = checkouts.id)
         WHERE checkins.id IS NULL
         GROUP BY user_group_id, checkout_type_id;'
