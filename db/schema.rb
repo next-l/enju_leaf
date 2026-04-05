@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema[8.1].define(version: 2026_04_04_154108) do
-=======
-ActiveRecord::Schema[7.2].define(version: 2026_04_04_170331) do
->>>>>>> cf7dcd1e3 (boolean型のカラムにNOT NULL制約を追加 (#2015))
+ActiveRecord::Schema[8.1].define(version: 2026_04_04_170331) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -852,19 +848,12 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_170331) do
     t.text "admin_networks"
     t.boolean "allow_bookmark_external_url", default: false, null: false
     t.string "book_jacket_source"
-<<<<<<< HEAD
     t.bigint "country_id"
     t.datetime "created_at", null: false
-=======
-    t.integer "max_number_of_results", default: 1000
-    t.boolean "family_name_first", default: false, null: false
-    t.string "screenshot_generator"
-    t.integer "pub_year_facet_range_interval", default: 10
->>>>>>> cf7dcd1e3 (boolean型のカラムにNOT NULL制約を追加 (#2015))
     t.boolean "csv_charset_conversion", default: false, null: false
     t.text "display_name"
     t.string "email"
-    t.boolean "family_name_first", default: true
+    t.boolean "family_name_first", default: false, null: false
     t.text "html_snippet"
     t.integer "max_number_of_results", default: 1000
     t.text "my_networks"
@@ -995,27 +984,11 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_170331) do
     t.datetime "created_at", null: false
     t.datetime "date_accepted", precision: nil
     t.datetime "date_captured", precision: nil
-<<<<<<< HEAD
     t.datetime "date_copyrighted", precision: nil
     t.datetime "date_of_publication", precision: nil
     t.datetime "date_submitted", precision: nil
     t.integer "depth"
     t.text "description"
-=======
-    t.string "pub_date"
-    t.string "edition_string"
-    t.integer "volume_number"
-    t.integer "issue_number"
-    t.integer "serial_number"
-    t.bigint "content_type_id", default: 1
-    t.integer "year_of_publication"
-    t.integer "month_of_publication"
-    t.boolean "fulltext_content", default: false, null: false
-    t.boolean "serial", default: false, null: false
-    t.text "statement_of_responsibility"
-    t.text "publication_place"
-    t.text "extent"
->>>>>>> cf7dcd1e3 (boolean型のカラムにNOT NULL制約を追加 (#2015))
     t.text "dimensions"
     t.integer "edition"
     t.string "edition_string"
@@ -1023,7 +996,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_170331) do
     t.text "extent"
     t.bigint "frequency_id", default: 1, null: false
     t.text "fulltext"
-    t.boolean "fulltext_content"
+    t.boolean "fulltext_content", default: false, null: false
     t.integer "height"
     t.integer "issue_number"
     t.string "issue_number_string"
@@ -1041,7 +1014,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_170331) do
     t.boolean "repository_content", default: false, null: false
     t.bigint "required_role_id", default: 1, null: false
     t.integer "required_score", default: 0, null: false
-    t.boolean "serial"
+    t.boolean "serial", default: false, null: false
     t.integer "serial_number"
     t.string "serial_number_string"
     t.integer "start_page"
@@ -1300,17 +1273,10 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_170331) do
     t.text "note"
     t.bigint "required_role_id"
     t.boolean "save_checkout_history", default: false, null: false
-<<<<<<< HEAD
-    t.boolean "share_bookmarks"
+    t.boolean "share_bookmarks", default: false, null: false
     t.datetime "updated_at", null: false
     t.bigint "user_group_id"
     t.string "user_number"
-=======
-    t.datetime "expired_at", precision: nil
-    t.boolean "share_bookmarks", default: false, null: false
-    t.text "full_name_transcription"
-    t.datetime "date_of_birth", precision: nil
->>>>>>> cf7dcd1e3 (boolean型のカラムにNOT NULL制約を追加 (#2015))
     t.index ["checkout_icalendar_token"], name: "index_profiles_on_checkout_icalendar_token", unique: true
     t.index ["library_id"], name: "index_profiles_on_library_id"
     t.index ["user_group_id"], name: "index_profiles_on_user_group_id"
@@ -1415,21 +1381,10 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_170331) do
     t.datetime "canceled_at", precision: nil
     t.datetime "checked_out_at", precision: nil
     t.datetime "created_at", null: false
-<<<<<<< HEAD
-    t.boolean "expiration_notice_to_library", default: false
-    t.boolean "expiration_notice_to_patron", default: false
+    t.boolean "expiration_notice_to_library", default: false, null: false
+    t.boolean "expiration_notice_to_patron", default: false, null: false
     t.datetime "expired_at", precision: nil
     t.bigint "item_id"
-=======
-    t.datetime "updated_at", null: false
-    t.datetime "canceled_at", precision: nil
-    t.datetime "expired_at", precision: nil
-    t.boolean "expiration_notice_to_patron", default: false, null: false
-    t.boolean "expiration_notice_to_library", default: false, null: false
-    t.bigint "pickup_location_id"
-    t.datetime "retained_at", precision: nil
-    t.datetime "postponed_at", precision: nil
->>>>>>> cf7dcd1e3 (boolean型のカラムにNOT NULL制約を追加 (#2015))
     t.integer "lock_version", default: 0, null: false
     t.bigint "manifestation_id", null: false
     t.bigint "pickup_location_id"
@@ -1554,7 +1509,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_170331) do
     t.text "original_title", null: false
     t.integer "position"
     t.bigint "root_manifestation_id"
-    t.boolean "series_master"
+    t.boolean "series_master", default: false, null: false
     t.string "series_statement_identifier"
     t.text "title_alternative"
     t.text "title_subseries"
@@ -1563,11 +1518,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_04_170331) do
     t.datetime "updated_at", null: false
     t.text "volume_number_string"
     t.text "volume_number_transcription_string"
-<<<<<<< HEAD
-=======
-    t.boolean "series_master", default: false, null: false
-    t.bigint "root_manifestation_id"
->>>>>>> cf7dcd1e3 (boolean型のカラムにNOT NULL制約を追加 (#2015))
     t.index ["manifestation_id"], name: "index_series_statements_on_manifestation_id"
     t.index ["root_manifestation_id"], name: "index_series_statements_on_root_manifestation_id"
     t.index ["series_statement_identifier"], name: "index_series_statements_on_series_statement_identifier"

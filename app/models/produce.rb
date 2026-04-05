@@ -41,3 +41,10 @@ end
 #     * **`manifestation_id`**
 #     * **`agent_id`**
 #
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`agent_id => agents.id`**
+# * `fk_rails_...`:
+#     * **`manifestation_id => manifestations.id`**
+#
