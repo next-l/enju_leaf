@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_04_170331) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_05_024605) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -1812,7 +1812,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_04_170331) do
     t.datetime "updated_at", null: false
     t.string "username", null: false
     t.index ["email"], name: "index_users_on_email"
-    t.index ["profile_id"], name: "index_users_on_profile_id"
+    t.index ["profile_id"], name: "index_users_on_profile_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
@@ -1856,6 +1856,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_04_170331) do
   add_foreign_key "checkouts", "shelves"
   add_foreign_key "checkouts", "users"
   add_foreign_key "checkouts", "users", column: "librarian_id"
+  add_foreign_key "creates", "agents"
+  add_foreign_key "creates", "manifestations", column: "work_id"
   add_foreign_key "demands", "items"
   add_foreign_key "demands", "messages"
   add_foreign_key "demands", "users"
@@ -1897,12 +1899,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_04_170331) do
   add_foreign_key "order_lists", "users"
   add_foreign_key "orders", "order_lists"
   add_foreign_key "orders", "purchase_requests"
+  add_foreign_key "owns", "agents"
+  add_foreign_key "owns", "items"
   add_foreign_key "periodical_and_manifestations", "manifestations"
   add_foreign_key "periodical_and_manifestations", "periodicals"
   add_foreign_key "periodicals", "frequencies"
   add_foreign_key "periodicals", "manifestations"
+  add_foreign_key "produces", "agents"
+  add_foreign_key "produces", "manifestations"
   add_foreign_key "profiles", "roles", column: "required_role_id"
   add_foreign_key "purchase_requests", "users"
+  add_foreign_key "realizes", "agents"
+  add_foreign_key "realizes", "manifestations", column: "expression_id"
   add_foreign_key "reserve_stat_has_manifestations", "manifestations"
   add_foreign_key "reserve_stat_has_users", "user_reserve_stats"
   add_foreign_key "reserve_stat_has_users", "users"
