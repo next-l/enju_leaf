@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ main, 1.5 ]
+    branches: [ main, 1.5, 1.6 ]
     tags:
     - 'v*'
 
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - uses: docker/metadata-action@v5
       id: meta
       with:

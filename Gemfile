@@ -1,10 +1,8 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.2.8"
-
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1.3", ">= 7.1.3.4"
+gem "rails", "~> 7.2.3"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -27,17 +25,16 @@ gem "puma", ">= 5.0"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
-# Use Redis adapter to run Action Cable in production
-gem "redis", ">= 4.0.1"
-
-# Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
-# gem "kredis"
-
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
+
+# Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
+gem "solid_cache"
+gem "solid_queue"
+gem "solid_cable"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -76,11 +73,10 @@ end
 gem 'devise'
 gem 'pundit'
 gem 'sunspot_rails', '~> 2.7'
-gem 'kt-paperclip'
 gem 'acts_as_list'
 gem 'kaminari'
 gem 'strip_attributes'
-gem 'statesman', '~> 12.1'
+gem 'statesman', '~> 13.1'
 gem 'friendly_id'
 gem 'globalize'
 gem 'globalize-accessors'
@@ -98,8 +94,7 @@ gem 'addressable'
 gem 'progress_bar'
 gem 'rails_autolink'
 gem 'kramdown'
-gem 'solid_queue', "~> 1.0"
-gem 'mission_control-jobs', "~> 0.5.0"
+gem 'mission_control-jobs'
 gem 'acts-as-taggable-on'
 gem 'resync' # , github: 'nabeta/resync', branch: 'add-datetime'
 gem 'pretender'
@@ -114,6 +109,8 @@ gem 'oai'
 gem 'active_storage_validations'
 gem 'webpacker', '~> 5.0'
 gem 'faraday-multipart'
+gem 'nkf'
+gem 'benchmark'
 
 group :development, :test do
   gem 'annotaterb'
@@ -121,7 +118,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'vcr'
   gem 'webmock'
-  gem 'factory_bot_rails', '~> 6.4.0'
+  gem 'factory_bot_rails'
   gem 'rails-controller-testing'
   gem 'simplecov'
   gem 'parallel_tests'

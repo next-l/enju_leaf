@@ -3,8 +3,8 @@ require "rails_helper.rb"
 describe "manifestations/index" do
   before(:each) do
     @manifestations = assign(:manifestations,
-      Kaminari.paginate_array( [
-        FactoryBot.create(:manifestation),
+      Kaminari.paginate_array([
+        FactoryBot.create(:manifestation)
       ], total_count: 1).page(1)
     )
     @index_agent = {}
@@ -23,4 +23,3 @@ describe "manifestations/index" do
     end
   end
 end
-

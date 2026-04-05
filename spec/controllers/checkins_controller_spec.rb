@@ -362,7 +362,7 @@ describe CheckinsController do
       it 'should not create checkin without item_id' do
         post :create, params: { checkin: { item_identifier: nil }, basket_id: 9 }
         assigns(:checkin).should_not be_valid
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         json = JSON.parse(response.body)
         expect(json['messages']['base']).to match_array([ I18n.t('checkin.item_not_found') ])
       end

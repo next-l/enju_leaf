@@ -202,34 +202,32 @@ class AgentImportFile < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: agent_import_files
+# Table name: `agent_import_files`
 #
-#  id                        :bigint           not null, primary key
-#  agent_import_content_type :string
-#  agent_import_file_name    :string
-#  agent_import_file_size    :integer
-#  agent_import_fingerprint  :string
-#  agent_import_updated_at   :datetime
-#  content_type              :string
-#  edit_mode                 :string
-#  error_message             :text
-#  executed_at               :datetime
-#  note                      :text
-#  size                      :integer
-#  user_encoding             :string
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  parent_id                 :bigint
-#  user_id                   :bigint           not null
+# ### Columns
 #
-# Indexes
+# Name                            | Type               | Attributes
+# ------------------------------- | ------------------ | ---------------------------
+# **`id`**                        | `bigint`           | `not null, primary key`
+# **`agent_import_fingerprint`**  | `string`           |
+# **`edit_mode`**                 | `string`           |
+# **`error_message`**             | `text`             |
+# **`executed_at`**               | `datetime`         |
+# **`note`**                      | `text`             |
+# **`user_encoding`**             | `string`           |
+# **`created_at`**                | `datetime`         | `not null`
+# **`updated_at`**                | `datetime`         | `not null`
+# **`user_id`**                   | `bigint`           | `not null`
 #
-#  index_agent_import_files_on_parent_id  (parent_id)
-#  index_agent_import_files_on_user_id    (user_id)
+# ### Indexes
 #
-# Foreign Keys
+# * `index_agent_import_files_on_user_id`:
+#     * **`user_id`**
 #
-#  fk_rails_...  (user_id => users.id)
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

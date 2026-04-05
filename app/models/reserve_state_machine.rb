@@ -47,6 +47,7 @@ class ReserveStateMachine
 
   after_transition(to: :expired) do |reserve|
     Reserve.transaction do
+      reserve.manifestation.reload
       reserve.update(request_status_type: RequestStatusType.find_by(name: "Expired"), canceled_at: Time.zone.now)
       next_reserve = reserve.next_reservation
       if next_reserve

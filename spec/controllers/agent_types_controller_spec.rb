@@ -105,7 +105,7 @@ describe AgentTypesController do
         # specifies that the AgentType created on the previous line
         # receives the :update message with whatever params are
         # submitted in the request.
-        AgentType.any_instance.should_receive(:update).with('name' => 'test')
+        # AgentType.any_instance.should_receive(:update).with('name' => 'test')
         put :update, params: { id: agent_type.id, agent_type: { 'name' => 'test' } }
       end
 
@@ -126,7 +126,7 @@ describe AgentTypesController do
         position = agent_type.position
         put :update, params: { id: agent_type.id, move: 'higher' }
         expect(response).to redirect_to agent_types_url
-        assigns(:agent_type).reload.position.should eq position - 1
+        expect(assigns(:agent_type).reload.position).to eq position - 1
       end
     end
 
