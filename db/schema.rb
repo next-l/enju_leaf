@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_05_161631) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1854,6 +1854,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
   add_foreign_key "event_import_files", "users"
   add_foreign_key "event_import_results", "event_import_files"
   add_foreign_key "events", "event_categories"
+  add_foreign_key "events", "libraries"
   add_foreign_key "import_requests", "users"
   add_foreign_key "inventory_files", "shelves"
   add_foreign_key "inventory_files", "users"
@@ -1896,6 +1897,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
   add_foreign_key "periodicals", "manifestations"
   add_foreign_key "produces", "agents"
   add_foreign_key "produces", "manifestations"
+  add_foreign_key "profiles", "libraries"
   add_foreign_key "profiles", "roles", column: "required_role_id"
   add_foreign_key "purchase_requests", "users"
   add_foreign_key "realizes", "agents"
@@ -1908,6 +1910,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
   add_foreign_key "resource_export_files", "users"
   add_foreign_key "resource_import_files", "users"
   add_foreign_key "resource_import_results", "resource_import_files"
+  add_foreign_key "shelves", "libraries"
   add_foreign_key "subjects", "roles", column: "required_role_id"
   add_foreign_key "subscriptions", "users"
   add_foreign_key "user_checkout_stats", "users"

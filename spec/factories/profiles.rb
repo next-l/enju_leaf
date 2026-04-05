@@ -48,5 +48,7 @@ end
 # ### Foreign Keys
 #
 # * `fk_rails_...`:
+#     * **`library_id => libraries.id`**
+# * `fk_rails_...`:
 #     * **`required_role_id => roles.id`**
 #
