@@ -18,7 +18,7 @@ end
 # **`created_at`**            | `datetime`         | `not null`
 # **`updated_at`**            | `datetime`         | `not null`
 # **`event_id`**              | `bigint`           |
-# **`event_import_file_id`**  | `bigint`           |
+# **`event_import_file_id`**  | `bigint`           | `not null`
 #
 # ### Foreign Keys
 #

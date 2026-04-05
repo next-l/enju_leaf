@@ -21,7 +21,7 @@ end
 # **`created_at`**            | `datetime`         | `not null`
 # **`updated_at`**            | `datetime`         | `not null`
 # **`agent_id`**              | `bigint`           |
-# **`agent_import_file_id`**  | `bigint`           |
+# **`agent_import_file_id`**  | `bigint`           | `not null`
 #
 # ### Foreign Keys
 #

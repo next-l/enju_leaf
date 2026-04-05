@@ -19,7 +19,7 @@ end
 # **`created_at`**           | `datetime`         | `not null`
 # **`updated_at`**           | `datetime`         | `not null`
 # **`user_id`**              | `bigint`           |
-# **`user_import_file_id`**  | `bigint`           |
+# **`user_import_file_id`**  | `bigint`           | `not null`
 #
 # ### Indexes
 #

@@ -81,7 +81,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_032237) do
 
   create_table "agent_import_results", force: :cascade do |t|
     t.bigint "agent_id"
-    t.bigint "agent_import_file_id"
+    t.bigint "agent_import_file_id", null: false
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -548,7 +548,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_032237) do
     t.text "body"
     t.datetime "created_at", null: false
     t.bigint "event_id"
-    t.bigint "event_import_file_id"
+    t.bigint "event_import_file_id", null: false
     t.datetime "updated_at", null: false
   end
 
@@ -1446,7 +1446,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_032237) do
     t.text "error_message"
     t.bigint "item_id"
     t.bigint "manifestation_id"
-    t.bigint "resource_import_file_id"
+    t.bigint "resource_import_file_id", null: false
     t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_resource_import_results_on_item_id"
     t.index ["manifestation_id"], name: "index_resource_import_results_on_manifestation_id"
@@ -1758,7 +1758,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_032237) do
     t.text "error_message"
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.bigint "user_import_file_id"
+    t.bigint "user_import_file_id", null: false
     t.index ["user_id"], name: "index_user_import_results_on_user_id"
     t.index ["user_import_file_id"], name: "index_user_import_results_on_user_import_file_id"
   end
