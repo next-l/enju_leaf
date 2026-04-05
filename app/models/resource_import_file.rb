@@ -133,8 +133,6 @@ class ResourceImportFile < ApplicationRecord
               if m.series_statements.exists?
                 manifestation = m
               end
-            else
-              import_result.error_message = "line #{row_num}: #{I18n.t('import.isbn_invalid')}"
             end
           end
         end
@@ -158,7 +156,11 @@ class ResourceImportFile < ApplicationRecord
 
             row["isbn"].to_s.split("//").each do |isbn|
               lisbn = Lisbn.new(isbn)
-              manifestation = Manifestation.import_from_ndl_search(isbn: lisbn.isbn13) if lisbn.isbn13
+              if lisbn.valid?
+                manifestation = Manifestation.import_from_ndl_search(isbn: lisbn.isbn13) if lisbn.isbn13
+              else
+                import_result.error_message = "line #{row_num}: #{I18n.t('import.isbn_invalid')}"
+              end
             end
 
             if manifestation
@@ -187,6 +189,8 @@ class ResourceImportFile < ApplicationRecord
       import_result.manifestation = manifestation
 
       if manifestation
+        manifestation.reload
+
         ResourceImportFile.import_manifestation_custom_value(row, manifestation).each do |value|
           value.update!(manifestation: manifestation)
         end
@@ -590,7 +594,7 @@ class ResourceImportFile < ApplicationRecord
     ]
     item_columns.each do |column|
       if row[column].present?
-        item.assign_attributes(:"#{column}" => row[column])
+        item.assign_attributes("#{column}": row[column])
       end
     end
 
@@ -725,7 +729,7 @@ class ResourceImportFile < ApplicationRecord
         extent: row["extent"],
         dimensions: row["dimensions"],
         start_page: row["start_page"],
-        end_page: row["end_page"],
+        end_page: row["end_page"]
       }.delete_if { |_key, value| value.nil? }
 
       manifestation = self.class.import_manifestation(expression, publisher_agents, attributes,
@@ -898,35 +902,33 @@ class ResourceImportFile < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: resource_import_files
+# Table name: `resource_import_files`
 #
-#  id                           :bigint           not null, primary key
-#  content_type                 :string
-#  edit_mode                    :string
-#  error_message                :text
-#  executed_at                  :datetime
-#  note                         :text
-#  resource_import_content_type :string
-#  resource_import_file_name    :string
-#  resource_import_file_size    :integer
-#  resource_import_fingerprint  :string
-#  resource_import_updated_at   :datetime
-#  size                         :integer
-#  user_encoding                :string
-#  created_at                   :datetime         not null
-#  updated_at                   :datetime         not null
-#  default_shelf_id             :bigint
-#  parent_id                    :bigint
-#  user_id                      :bigint
+# ### Columns
 #
-# Indexes
+# Name                               | Type               | Attributes
+# ---------------------------------- | ------------------ | ---------------------------
+# **`id`**                           | `bigint`           | `not null, primary key`
+# **`edit_mode`**                    | `string`           |
+# **`error_message`**                | `text`             |
+# **`executed_at`**                  | `datetime`         |
+# **`note`**                         | `text`             |
+# **`resource_import_fingerprint`**  | `string`           |
+# **`user_encoding`**                | `string`           |
+# **`created_at`**                   | `datetime`         | `not null`
+# **`updated_at`**                   | `datetime`         | `not null`
+# **`default_shelf_id`**             | `bigint`           |
+# **`user_id`**                      | `bigint`           | `not null`
 #
-#  index_resource_import_files_on_parent_id  (parent_id)
-#  index_resource_import_files_on_user_id    (user_id)
+# ### Indexes
 #
-# Foreign Keys
+# * `index_resource_import_files_on_user_id`:
+#     * **`user_id`**
 #
-#  fk_rails_...  (user_id => users.id)
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

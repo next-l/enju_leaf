@@ -15,25 +15,29 @@ describe ManifestationReserveStat do
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: manifestation_reserve_stats
+# Table name: `manifestation_reserve_stats`
 #
-#  id           :bigint           not null, primary key
-#  completed_at :datetime
-#  end_date     :datetime
-#  note         :text
-#  start_date   :datetime
-#  started_at   :datetime
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  user_id      :bigint
+# ### Columns
 #
-# Indexes
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`id`**          | `bigint`           | `not null, primary key`
+# **`end_date`**    | `datetime`         | `not null`
+# **`note`**        | `text`             |
+# **`start_date`**  | `datetime`         | `not null`
+# **`created_at`**  | `datetime`         | `not null`
+# **`updated_at`**  | `datetime`         | `not null`
+# **`user_id`**     | `bigint`           | `not null`
 #
-#  index_manifestation_reserve_stats_on_user_id  (user_id)
+# ### Indexes
 #
-# Foreign Keys
+# * `index_manifestation_reserve_stats_on_user_id`:
+#     * **`user_id`**
 #
-#  fk_rails_...  (user_id => users.id)
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

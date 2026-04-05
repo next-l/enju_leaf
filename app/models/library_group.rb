@@ -13,8 +13,7 @@ class LibraryGroup < ApplicationRecord
   }
   accepts_nested_attributes_for :colors, update_only: true
   store_accessor :settings,
-    :book_jacket_unknown_resource,
-    :amazon_hostname
+    :book_jacket_unknown_resource
 
   translates :login_banner, :footer_banner
   globalize_accessors
@@ -59,50 +58,46 @@ class LibraryGroup < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: library_groups
+# Table name: `library_groups`
 #
-#  id                            :bigint           not null, primary key
-#  admin_networks                :text
-#  allow_bookmark_external_url   :boolean          default(FALSE), not null
-#  book_jacket_source            :string
-#  csv_charset_conversion        :boolean          default(FALSE), not null
-#  display_name                  :text
-#  email                         :string
-#  family_name_first             :boolean          default(TRUE)
-#  footer_banner                 :text
-#  header_logo_content_type      :string
-#  header_logo_file_name         :string
-#  header_logo_file_size         :bigint
-#  header_logo_meta              :text
-#  header_logo_updated_at        :datetime
-#  html_snippet                  :text
-#  login_banner                  :text
-#  max_number_of_results         :integer          default(1000)
-#  my_networks                   :text
-#  name                          :string           not null
-#  note                          :text
-#  old_login_banner              :text
-#  position                      :integer
-#  pub_year_facet_range_interval :integer          default(10)
-#  screenshot_generator          :string
-#  settings                      :jsonb            not null
-#  short_name                    :string           not null
-#  url                           :string           default("http://localhost:3000/")
-#  created_at                    :datetime         not null
-#  updated_at                    :datetime         not null
-#  country_id                    :bigint
-#  user_id                       :bigint
+# ### Columns
 #
-# Indexes
+# Name                                 | Type               | Attributes
+# ------------------------------------ | ------------------ | ---------------------------
+# **`id`**                             | `bigint`           | `not null, primary key`
+# **`admin_networks`**                 | `text`             |
+# **`allow_bookmark_external_url`**    | `boolean`          | `default(FALSE), not null`
+# **`book_jacket_source`**             | `string`           |
+# **`csv_charset_conversion`**         | `boolean`          | `default(FALSE), not null`
+# **`display_name`**                   | `text`             |
+# **`email`**                          | `string`           |
+# **`family_name_first`**              | `boolean`          | `default(TRUE), not null`
+# **`footer_banner`**                  | `text`             |
+# **`html_snippet`**                   | `text`             |
+# **`login_banner`**                   | `text`             |
+# **`max_number_of_results`**          | `integer`          | `default(1000)`
+# **`my_networks`**                    | `text`             |
+# **`name`**                           | `string`           | `not null`
+# **`note`**                           | `text`             |
+# **`old_login_banner`**               | `text`             |
+# **`position`**                       | `integer`          |
+# **`pub_year_facet_range_interval`**  | `integer`          | `default(10)`
+# **`screenshot_generator`**           | `string`           |
+# **`settings`**                       | `jsonb`            | `not null`
+# **`short_name`**                     | `string`           | `not null`
+# **`url`**                            | `string`           | `default("http://localhost:3000/"), not null`
+# **`created_at`**                     | `datetime`         | `not null`
+# **`updated_at`**                     | `datetime`         | `not null`
+# **`country_id`**                     | `bigint`           |
 #
-#  index_library_groups_on_email       (email)
-#  index_library_groups_on_lower_name  (lower((name)::text)) UNIQUE
-#  index_library_groups_on_short_name  (short_name)
-#  index_library_groups_on_user_id     (user_id)
+# ### Indexes
 #
-# Foreign Keys
-#
-#  fk_rails_...  (user_id => users.id)
+# * `index_library_groups_on_email`:
+#     * **`email`**
+# * `index_library_groups_on_lower_name` (_unique_):
+#     * **`lower((name)::text)`**
+# * `index_library_groups_on_short_name`:
+#     * **`short_name`**
 #

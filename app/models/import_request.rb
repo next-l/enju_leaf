@@ -9,7 +9,7 @@ class ImportRequest < ApplicationRecord
   validates :isbn, presence: true
   validate :check_isbn
   # validate :check_imported, on: :create
-  # validates_uniqueness_of :isbn, if: Proc.new{|request| ImportRequest.where("created_at > ?", 1.day.ago).collect(&:isbn).include?(request.isbn)}
+  # validates :isbn, uniqueness: true, if: Proc.new{|request| ImportRequest.where("created_at > ?", 1.day.ago).collect(&:isbn).include?(request.isbn)}
 
   has_many :import_request_transitions, autosave: false, dependent: :destroy
 
@@ -66,24 +66,32 @@ class ImportRequest < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: import_requests
+# Table name: `import_requests`
 #
-#  id               :bigint           not null, primary key
-#  isbn             :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  manifestation_id :bigint
-#  user_id          :bigint
+# ### Columns
 #
-# Indexes
+# Name                    | Type               | Attributes
+# ----------------------- | ------------------ | ---------------------------
+# **`id`**                | `bigint`           | `not null, primary key`
+# **`isbn`**              | `string`           |
+# **`created_at`**        | `datetime`         | `not null`
+# **`updated_at`**        | `datetime`         | `not null`
+# **`manifestation_id`**  | `bigint`           |
+# **`user_id`**           | `bigint`           | `not null`
 #
-#  index_import_requests_on_isbn              (isbn)
-#  index_import_requests_on_manifestation_id  (manifestation_id)
-#  index_import_requests_on_user_id           (user_id)
+# ### Indexes
 #
-# Foreign Keys
+# * `index_import_requests_on_isbn`:
+#     * **`isbn`**
+# * `index_import_requests_on_manifestation_id`:
+#     * **`manifestation_id`**
+# * `index_import_requests_on_user_id`:
+#     * **`user_id`**
 #
-#  fk_rails_...  (user_id => users.id)
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

@@ -6,12 +6,26 @@ RSpec.describe ShelfImportFile, type: :model do
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: shelf_import_files
+# Table name: `shelf_import_files`
 #
-#  id         :bigint           not null, primary key
-#  user_id    :bigint           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+# ### Columns
+#
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`id`**          | `bigint`           | `not null, primary key`
+# **`created_at`**  | `datetime`         | `not null`
+# **`updated_at`**  | `datetime`         | `not null`
+# **`user_id`**     | `bigint`           | `not null`
+#
+# ### Indexes
+#
+# * `index_shelf_import_files_on_user_id`:
+#     * **`user_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

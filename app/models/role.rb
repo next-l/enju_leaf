@@ -22,20 +22,25 @@ class Role < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: roles
+# Table name: `roles`
 #
-#  id           :bigint           not null, primary key
-#  display_name :string
-#  name         :string           not null
-#  note         :text
-#  position     :integer
-#  score        :integer          default(0), not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+# ### Columns
 #
-# Indexes
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`display_name`**  | `string`           |
+# **`name`**          | `string`           | `not null`
+# **`note`**          | `text`             |
+# **`position`**      | `integer`          |
+# **`score`**         | `integer`          | `default(0), not null`
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
 #
-#  index_roles_on_lower_name  (lower((name)::text)) UNIQUE
+# ### Indexes
+#
+# * `index_roles_on_lower_name` (_unique_):
+#     * **`lower((name)::text)`**
 #

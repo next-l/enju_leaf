@@ -13,7 +13,6 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/periodicals", type: :request do
-  
   # This should return the minimal set of attributes required to create a valid
   # Periodical. As you add validations to Periodical, be sure to
   # adjust the attributes here as well.
@@ -83,12 +82,11 @@ RSpec.describe "/periodicals", type: :request do
         }.to change(Periodical, :count).by(0)
       end
 
-    
+
       it "renders a successful response (i.e. to display the 'new' template)" do
         post periodicals_url, params: { periodical: invalid_attributes }
         expect(response).not_to be_successful
       end
-    
     end
   end
 
@@ -114,13 +112,11 @@ RSpec.describe "/periodicals", type: :request do
     end
 
     context "with invalid parameters" do
-    
       it "renders a successful response (i.e. to display the 'edit' template)" do
         periodical = Periodical.create! valid_attributes
         patch periodical_url(periodical), params: { periodical: invalid_attributes }
         expect(response).not_to be_successful
       end
-    
     end
   end
 

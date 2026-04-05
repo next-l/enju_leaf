@@ -11,10 +11,9 @@ module EnjuLoc
         if startrecord == 0
           startrecord = 1
         end
-        url = LOC_SRU_BASEURL + "?operation=searchRetrieve&version=1.1&=query=#{URI.escape(query)}"
+        url = CGI.encode("#{LOC_SRU_BASEURL}?operation=searchRetrieve&version=1.1&=query=#{query}")
         cont = Faraday.get(url).body
-        parser = LibXML::XML::Parser.string(cont)
-        doc = parser.parse
+        doc = Nokogiri::XML.parse(cont)
       end
 
       def self.import_record_from_loc_isbn(options)
@@ -44,7 +43,7 @@ module EnjuLoc
         publishers = []
         doc.xpath("//mods:publisher", NS).each do |publisher|
           publishers << {
-            full_name: publisher.content,
+            full_name: publisher.content
             # :agent_identifier => publisher.attributes["about"].try(:content)
           }
         end
@@ -80,7 +79,11 @@ module EnjuLoc
         note = get_mods_note(doc)
         frequency = get_mods_frequency(doc)
         issuance = doc.at("//mods:issuance", NS).try(:content)
-        is_serial = true if issuance == "serial"
+        if issuance == "serial"
+          is_serial = true
+        else
+          is_serial = false
+        end
         statement_of_responsibility = get_mods_statement_of_responsibility(doc)
         access_address = get_mods_access_address(doc)
         publication_place = get_mods_publication_place(doc)

@@ -12,7 +12,6 @@ RSpec.describe "item_custom_properties/edit", type: :view do
     render
 
     assert_select "form[action=?][method=?]", item_custom_property_path(@item_custom_property), "post" do
-
       assert_select "input[name=?]", "item_custom_property[name]"
 
       assert_select "textarea[name=?]", "item_custom_property[note]"
