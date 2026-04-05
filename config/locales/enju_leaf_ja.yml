@@ -232,7 +232,7 @@ ja:
     add_on: "アドオン"
     asc: "昇順"
     desc: "降順"
-    error_occured: "エラーが発生しました。"
+    error_occurred: "エラーが発生しました。"
     did_you_mean: "もしかして"
     calendar: "カレンダー"
     related: "関連"

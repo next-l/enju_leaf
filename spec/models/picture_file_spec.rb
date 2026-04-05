@@ -11,21 +11,27 @@ describe PictureFile do
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: picture_files
+# Table name: `picture_files`
 #
-#  id                      :bigint           not null, primary key
-#  picture_attachable_type :string
-#  picture_fingerprint     :string
-#  picture_width           :integer
-#  position                :integer
-#  title                   :text
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  picture_attachable_id   :bigint
+# ### Columns
 #
-# Indexes
+# Name                           | Type               | Attributes
+# ------------------------------ | ------------------ | ---------------------------
+# **`id`**                       | `bigint`           | `not null, primary key`
+# **`picture_attachable_type`**  | `string`           |
+# **`picture_fingerprint`**      | `string`           |
+# **`picture_width`**            | `integer`          |
+# **`position`**                 | `integer`          |
+# **`title`**                    | `text`             |
+# **`created_at`**               | `datetime`         | `not null`
+# **`updated_at`**               | `datetime`         | `not null`
+# **`picture_attachable_id`**    | `bigint`           |
 #
-#  index_picture_files_on_picture_attachable_id_and_type  (picture_attachable_id,picture_attachable_type)
+# ### Indexes
+#
+# * `index_picture_files_on_picture_attachable_id_and_type`:
+#     * **`picture_attachable_id`**
+#     * **`picture_attachable_type`**
 #

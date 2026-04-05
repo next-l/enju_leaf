@@ -1,8 +1,8 @@
 class Profile < ApplicationRecord
   include EnjuCirculation::EnjuProfile
-  scope :administrators, -> { joins(user: :role).where("roles.name = ?", "Administrator") }
+  scope :administrators, -> { joins(user: :role).where(name: "Administrator") }
   scope :librarians, -> { joins(user: :role).where("roles.name = ? OR roles.name = ?", "Administrator", "Librarian") }
-  belongs_to :user, optional: true
+  has_one :user, dependent: :destroy, inverse_of: :profile
   belongs_to :library
   belongs_to :user_group
   belongs_to :required_role, class_name: "Role"
@@ -10,7 +10,6 @@ class Profile < ApplicationRecord
   has_many :agents, dependent: :nullify
   accepts_nested_attributes_for :identities, allow_destroy: true, reject_if: :all_blank
 
-  validates :user, uniqueness: true, associated: true, allow_blank: true
   validates :locale, presence: true
   validates :user_number, uniqueness: true, format: { with: /\A[0-9A-Za-z_]+\z/ }, allow_blank: true
   validates :birth_date, format: { with: /\A\d{4}-\d{1,2}-\d{1,2}\z/ }, allow_blank: true
@@ -72,39 +71,45 @@ class Profile < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: profiles
+# Table name: `profiles`
 #
-#  id                       :bigint           not null, primary key
-#  checkout_icalendar_token :string
-#  date_of_birth            :datetime
-#  expired_at               :datetime
-#  full_name                :text
-#  full_name_transcription  :text
-#  keyword_list             :text
-#  locale                   :string
-#  note                     :text
-#  save_checkout_history    :boolean          default(FALSE), not null
-#  share_bookmarks          :boolean
-#  user_number              :string
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
-#  library_id               :bigint
-#  required_role_id         :bigint
-#  user_group_id            :bigint
-#  user_id                  :bigint
+# ### Columns
 #
-# Indexes
+# Name                            | Type               | Attributes
+# ------------------------------- | ------------------ | ---------------------------
+# **`id`**                        | `bigint`           | `not null, primary key`
+# **`checkout_icalendar_token`**  | `string`           |
+# **`date_of_birth`**             | `datetime`         |
+# **`expired_at`**                | `datetime`         |
+# **`full_name`**                 | `text`             |
+# **`full_name_transcription`**   | `text`             |
+# **`keyword_list`**              | `text`             |
+# **`locale`**                    | `string`           |
+# **`note`**                      | `text`             |
+# **`save_checkout_history`**     | `boolean`          | `default(FALSE), not null`
+# **`share_bookmarks`**           | `boolean`          | `default(FALSE), not null`
+# **`user_number`**               | `string`           |
+# **`created_at`**                | `datetime`         | `not null`
+# **`updated_at`**                | `datetime`         | `not null`
+# **`library_id`**                | `bigint`           |
+# **`required_role_id`**          | `bigint`           |
+# **`user_group_id`**             | `bigint`           |
 #
-#  index_profiles_on_checkout_icalendar_token  (checkout_icalendar_token) UNIQUE
-#  index_profiles_on_library_id                (library_id)
-#  index_profiles_on_user_group_id             (user_group_id)
-#  index_profiles_on_user_id                   (user_id)
-#  index_profiles_on_user_number               (user_number) UNIQUE
+# ### Indexes
 #
-# Foreign Keys
+# * `index_profiles_on_checkout_icalendar_token` (_unique_):
+#     * **`checkout_icalendar_token`**
+# * `index_profiles_on_library_id`:
+#     * **`library_id`**
+# * `index_profiles_on_user_group_id`:
+#     * **`user_group_id`**
+# * `index_profiles_on_user_number` (_unique_):
+#     * **`user_number`**
 #
-#  fk_rails_...  (required_role_id => roles.id)
-#  fk_rails_...  (user_id => users.id)
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`required_role_id => roles.id`**
 #

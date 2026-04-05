@@ -315,7 +315,7 @@ class ManifestationsController < ApplicationController
       @manifestation.parent_id = @parent.id
       [ :original_title, :title_transcription,
         :serial, :title_alternative, :statement_of_responsibility, :publication_place,
-        :height, :width, :depth, :price, :access_address, :language, :frequency, :required_role,
+        :height, :width, :depth, :price, :access_address, :language, :frequency, :required_role
 ].each do |attribute|
         @manifestation.send("#{attribute}=", @parent.send(attribute))
       end

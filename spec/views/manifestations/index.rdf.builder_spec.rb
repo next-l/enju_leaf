@@ -3,7 +3,7 @@ require "rails_helper.rb"
 describe "manifestations/index.rdf.builder" do
   before(:each) do
     manifestation = FactoryBot.create(:manifestation)
-    @manifestations = assign(:manifestations, [ manifestation ] )
+    @manifestations = assign(:manifestations, [ manifestation ])
     @library_group = LibraryGroup.first
   end
 
@@ -19,4 +19,3 @@ describe "manifestations/index.rdf.builder" do
     end
   end
 end
-

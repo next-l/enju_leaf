@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,7 +67,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   end
 
   create_table "agent_import_files", force: :cascade do |t|
-    t.bigint "parent_id"
     t.bigint "user_id", null: false
     t.text "note"
     t.datetime "executed_at", precision: nil
@@ -77,12 +76,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
     t.text "error_message"
     t.string "edit_mode"
     t.string "user_encoding"
-    t.index ["parent_id"], name: "index_agent_import_files_on_parent_id"
     t.index ["user_id"], name: "index_agent_import_files_on_user_id"
   end
 
   create_table "agent_import_results", force: :cascade do |t|
-    t.bigint "agent_import_file_id"
+    t.bigint "agent_import_file_id", null: false
     t.bigint "agent_id"
     t.text "body"
     t.datetime "created_at", null: false
@@ -90,7 +88,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   end
 
   create_table "agent_merge_lists", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -115,9 +113,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   end
 
   create_table "agent_relationships", force: :cascade do |t|
-    t.bigint "parent_id"
-    t.bigint "child_id"
-    t.bigint "agent_relationship_type_id"
+    t.bigint "parent_id", null: false
+    t.bigint "child_id", null: false
+    t.bigint "agent_relationship_type_id", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position"
@@ -144,7 +142,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
     t.string "first_name_transcription"
     t.string "corporate_name"
     t.string "corporate_name_transcription"
-    t.string "full_name"
+    t.string "full_name", null: false
     t.text "full_name_transcription"
     t.text "full_name_alternative"
     t.datetime "created_at", null: false
@@ -173,7 +171,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
     t.integer "lock_version", default: 0, null: false
     t.text "note"
     t.bigint "required_role_id", default: 1, null: false
-    t.integer "required_score", default: 0, null: false
     t.text "email"
     t.text "url"
     t.text "full_name_alternative_transcription"
@@ -222,10 +219,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   end
 
   create_table "bookmark_stats", force: :cascade do |t|
-    t.datetime "start_date", precision: nil
-    t.datetime "end_date", precision: nil
-    t.datetime "started_at", precision: nil
-    t.datetime "completed_at", precision: nil
+    t.datetime "start_date", precision: nil, null: false
+    t.datetime "end_date", precision: nil, null: false
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -234,10 +229,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   create_table "bookmarks", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "manifestation_id"
-    t.text "title"
-    t.string "url"
+    t.text "title", null: false
+    t.string "url", null: false
     t.text "note"
-    t.boolean "shared"
+    t.boolean "shared", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["manifestation_id"], name: "index_bookmarks_on_manifestation_id"
@@ -408,8 +403,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
 
   create_table "colors", force: :cascade do |t|
     t.bigint "library_group_id"
-    t.string "property"
-    t.string "code"
+    t.string "property", null: false
+    t.string "code", null: false
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -535,7 +530,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   end
 
   create_table "event_import_files", force: :cascade do |t|
-    t.bigint "parent_id"
     t.bigint "user_id", null: false
     t.text "note"
     t.datetime "executed_at", precision: nil
@@ -547,12 +541,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
     t.string "user_encoding"
     t.bigint "default_library_id"
     t.bigint "default_event_category_id"
-    t.index ["parent_id"], name: "index_event_import_files_on_parent_id"
     t.index ["user_id"], name: "index_event_import_files_on_user_id"
   end
 
   create_table "event_import_results", force: :cascade do |t|
-    t.bigint "event_import_file_id"
+    t.bigint "event_import_file_id", null: false
     t.bigint "event_id"
     t.text "body"
     t.datetime "created_at", null: false
@@ -753,7 +746,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
     t.integer "price"
     t.integer "lock_version", default: 0, null: false
     t.bigint "required_role_id", default: 1, null: false
-    t.integer "required_score", default: 0, null: false
     t.datetime "acquired_at", precision: nil
     t.bigint "bookstore_id"
     t.bigint "budget_type_id"
@@ -862,12 +854,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
     t.datetime "updated_at", null: false
     t.text "admin_networks"
     t.boolean "allow_bookmark_external_url", default: false, null: false
-    t.string "url", default: "http://localhost:3000/"
+    t.string "url", default: "http://localhost:3000/", null: false
     t.jsonb "settings", default: {}, null: false
     t.text "html_snippet"
     t.string "book_jacket_source"
     t.integer "max_number_of_results", default: 1000
-    t.boolean "family_name_first", default: true
+    t.boolean "family_name_first", default: true, null: false
     t.string "screenshot_generator"
     t.integer "pub_year_facet_range_interval", default: 10
     t.boolean "csv_charset_conversion", default: false, null: false
@@ -901,13 +893,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   end
 
   create_table "manifestation_checkout_stats", force: :cascade do |t|
-    t.datetime "start_date", precision: nil
-    t.datetime "end_date", precision: nil
+    t.datetime "start_date", precision: nil, null: false
+    t.datetime "end_date", precision: nil, null: false
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "started_at", precision: nil
-    t.datetime "completed_at", precision: nil
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_manifestation_checkout_stats_on_user_id"
   end
@@ -944,9 +934,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   end
 
   create_table "manifestation_relationships", force: :cascade do |t|
-    t.bigint "parent_id"
-    t.bigint "child_id"
-    t.bigint "manifestation_relationship_type_id"
+    t.bigint "parent_id", null: false
+    t.bigint "child_id", null: false
+    t.bigint "manifestation_relationship_type_id", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position"
@@ -968,13 +958,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   end
 
   create_table "manifestation_reserve_stats", force: :cascade do |t|
-    t.datetime "start_date", precision: nil
-    t.datetime "end_date", precision: nil
+    t.datetime "start_date", precision: nil, null: false
+    t.datetime "end_date", precision: nil, null: false
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "started_at", precision: nil
-    t.datetime "completed_at", precision: nil
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_manifestation_reserve_stats_on_user_id"
   end
@@ -1007,7 +995,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
     t.boolean "repository_content", default: false, null: false
     t.integer "lock_version", default: 0, null: false
     t.bigint "required_role_id", default: 1, null: false
-    t.integer "required_score", default: 0, null: false
     t.bigint "frequency_id", default: 1, null: false
     t.boolean "subscription_master", default: false, null: false
     t.bigint "nii_type_id"
@@ -1027,8 +1014,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
     t.bigint "content_type_id", default: 1
     t.integer "year_of_publication"
     t.integer "month_of_publication"
-    t.boolean "fulltext_content"
-    t.boolean "serial"
+    t.boolean "fulltext_content", default: false, null: false
+    t.boolean "serial", default: false, null: false
     t.text "statement_of_responsibility"
     t.text "publication_place"
     t.text "extent"
@@ -1112,8 +1099,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
 
   create_table "news_feeds", force: :cascade do |t|
     t.bigint "library_group_id", default: 1, null: false
-    t.string "title"
-    t.string "url"
+    t.string "title", null: false
+    t.string "url", null: false
     t.text "body"
     t.integer "position"
     t.datetime "created_at", null: false
@@ -1121,8 +1108,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   end
 
   create_table "news_posts", force: :cascade do |t|
-    t.text "title"
-    t.text "body"
+    t.text "title", null: false
+    t.text "body", null: false
     t.bigint "user_id", null: false
     t.datetime "start_date", precision: nil
     t.datetime "end_date", precision: nil
@@ -1233,7 +1220,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   end
 
   create_table "places", force: :cascade do |t|
-    t.string "term"
+    t.string "term", null: false
     t.text "city"
     t.bigint "country_id"
     t.float "latitude"
@@ -1267,7 +1254,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.bigint "user_id"
     t.bigint "user_group_id"
     t.bigint "library_id"
     t.string "locale"
@@ -1281,13 +1267,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
     t.string "checkout_icalendar_token"
     t.boolean "save_checkout_history", default: false, null: false
     t.datetime "expired_at", precision: nil
-    t.boolean "share_bookmarks"
+    t.boolean "share_bookmarks", default: false, null: false
     t.text "full_name_transcription"
     t.datetime "date_of_birth", precision: nil
     t.index ["checkout_icalendar_token"], name: "index_profiles_on_checkout_icalendar_token", unique: true
     t.index ["library_id"], name: "index_profiles_on_library_id"
     t.index ["user_group_id"], name: "index_profiles_on_user_group_id"
-    t.index ["user_id"], name: "index_profiles_on_user_id"
     t.index ["user_number"], name: "index_profiles_on_user_number", unique: true
   end
 
@@ -1396,8 +1381,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
     t.datetime "updated_at", null: false
     t.datetime "canceled_at", precision: nil
     t.datetime "expired_at", precision: nil
-    t.boolean "expiration_notice_to_patron", default: false
-    t.boolean "expiration_notice_to_library", default: false
+    t.boolean "expiration_notice_to_patron", default: false, null: false
+    t.boolean "expiration_notice_to_library", default: false, null: false
     t.bigint "pickup_location_id"
     t.datetime "retained_at", precision: nil
     t.datetime "postponed_at", precision: nil
@@ -1442,7 +1427,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   end
 
   create_table "resource_import_files", force: :cascade do |t|
-    t.bigint "parent_id"
     t.bigint "user_id", null: false
     t.text "note"
     t.datetime "executed_at", precision: nil
@@ -1453,12 +1437,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
     t.text "error_message"
     t.string "user_encoding"
     t.bigint "default_shelf_id"
-    t.index ["parent_id"], name: "index_resource_import_files_on_parent_id"
     t.index ["user_id"], name: "index_resource_import_files_on_user_id"
   end
 
   create_table "resource_import_results", force: :cascade do |t|
-    t.bigint "resource_import_file_id"
+    t.bigint "resource_import_file_id", null: false
     t.bigint "manifestation_id"
     t.bigint "item_id"
     t.text "body"
@@ -1496,7 +1479,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   end
 
   create_table "series_statement_merge_lists", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -1511,7 +1494,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   end
 
   create_table "series_statements", force: :cascade do |t|
-    t.text "original_title"
+    t.text "original_title", null: false
     t.text "numbering"
     t.text "title_subseries"
     t.text "numbering_subseries"
@@ -1527,7 +1510,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
     t.text "creator_string"
     t.text "volume_number_string"
     t.text "volume_number_transcription_string"
-    t.boolean "series_master"
+    t.boolean "series_master", default: false, null: false
     t.bigint "root_manifestation_id"
     t.index ["manifestation_id"], name: "index_series_statements_on_manifestation_id"
     t.index ["root_manifestation_id"], name: "index_series_statements_on_root_manifestation_id"
@@ -1571,7 +1554,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   create_table "subjects", force: :cascade do |t|
     t.bigint "parent_id"
     t.bigint "use_term_id"
-    t.string "term"
+    t.string "term", null: false
     t.text "term_transcription"
     t.bigint "subject_type_id", null: false
     t.text "scope_note"
@@ -1667,13 +1650,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   end
 
   create_table "user_checkout_stats", force: :cascade do |t|
-    t.datetime "start_date", precision: nil
-    t.datetime "end_date", precision: nil
+    t.datetime "start_date", precision: nil, null: false
+    t.datetime "end_date", precision: nil, null: false
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "started_at", precision: nil
-    t.datetime "completed_at", precision: nil
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_user_checkout_stats_on_user_id"
   end
@@ -1772,7 +1753,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   end
 
   create_table "user_import_results", force: :cascade do |t|
-    t.bigint "user_import_file_id"
+    t.bigint "user_import_file_id", null: false
     t.bigint "user_id"
     t.text "body"
     t.datetime "created_at", null: false
@@ -1796,13 +1777,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   end
 
   create_table "user_reserve_stats", force: :cascade do |t|
-    t.datetime "start_date", precision: nil
-    t.datetime "end_date", precision: nil
+    t.datetime "start_date", precision: nil, null: false
+    t.datetime "end_date", precision: nil, null: false
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "started_at", precision: nil
-    t.datetime "completed_at", precision: nil
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_user_reserve_stats_on_user_id"
   end
@@ -1815,13 +1794,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
     t.datetime "remember_created_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "username"
+    t.string "username", null: false
     t.datetime "expired_at", precision: nil
     t.integer "failed_attempts", default: 0
     t.string "unlock_token"
     t.datetime "locked_at", precision: nil
     t.datetime "confirmed_at", precision: nil
+    t.bigint "profile_id", null: false
     t.index ["email"], name: "index_users_on_email"
+    t.index ["profile_id"], name: "index_users_on_profile_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
@@ -1838,9 +1819,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
     t.index ["librarian_id"], name: "index_withdraws_on_librarian_id"
   end
 
+  add_foreign_key "accepts", "users", column: "librarian_id"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "agent_import_files", "users"
+  add_foreign_key "agent_import_results", "agent_import_files"
+  add_foreign_key "agent_relationships", "agent_relationship_types"
+  add_foreign_key "agent_relationships", "agents", column: "child_id"
+  add_foreign_key "agent_relationships", "agents", column: "parent_id"
   add_foreign_key "agents", "roles", column: "required_role_id"
   add_foreign_key "baskets", "users"
   add_foreign_key "bookmarks", "users"
@@ -1849,7 +1835,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   add_foreign_key "checked_items", "baskets"
   add_foreign_key "checked_items", "items"
   add_foreign_key "checked_items", "users"
+  add_foreign_key "checked_items", "users", column: "librarian_id"
   add_foreign_key "checkins", "items"
+  add_foreign_key "checkins", "users", column: "librarian_id"
   add_foreign_key "checkout_stat_has_manifestations", "manifestations"
   add_foreign_key "checkout_stat_has_users", "user_checkout_stats"
   add_foreign_key "checkout_stat_has_users", "users"
@@ -1858,11 +1846,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   add_foreign_key "checkouts", "libraries"
   add_foreign_key "checkouts", "shelves"
   add_foreign_key "checkouts", "users"
+  add_foreign_key "checkouts", "users", column: "librarian_id"
+  add_foreign_key "creates", "agents"
+  add_foreign_key "creates", "manifestations", column: "work_id"
   add_foreign_key "demands", "items"
   add_foreign_key "demands", "messages"
   add_foreign_key "demands", "users"
   add_foreign_key "doi_records", "manifestations"
   add_foreign_key "event_export_files", "users"
+  add_foreign_key "event_import_files", "users"
+  add_foreign_key "event_import_results", "event_import_files"
   add_foreign_key "events", "event_categories"
   add_foreign_key "import_requests", "users"
   add_foreign_key "inventory_files", "shelves"
@@ -1883,6 +1876,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   add_foreign_key "manifestation_checkout_stats", "users"
   add_foreign_key "manifestation_custom_values", "manifestation_custom_properties"
   add_foreign_key "manifestation_custom_values", "manifestations"
+  add_foreign_key "manifestation_relationships", "manifestation_relationship_types"
+  add_foreign_key "manifestation_relationships", "manifestations", column: "child_id"
+  add_foreign_key "manifestation_relationships", "manifestations", column: "parent_id"
   add_foreign_key "manifestation_reserve_stats", "users"
   add_foreign_key "manifestations", "roles", column: "required_role_id"
   add_foreign_key "messages", "messages", column: "parent_id"
@@ -1895,13 +1891,18 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   add_foreign_key "order_lists", "users"
   add_foreign_key "orders", "order_lists"
   add_foreign_key "orders", "purchase_requests"
+  add_foreign_key "owns", "agents"
+  add_foreign_key "owns", "items"
   add_foreign_key "periodical_and_manifestations", "manifestations"
   add_foreign_key "periodical_and_manifestations", "periodicals"
   add_foreign_key "periodicals", "frequencies"
   add_foreign_key "periodicals", "manifestations"
+  add_foreign_key "produces", "agents"
+  add_foreign_key "produces", "manifestations"
   add_foreign_key "profiles", "roles", column: "required_role_id"
-  add_foreign_key "profiles", "users"
   add_foreign_key "purchase_requests", "users"
+  add_foreign_key "realizes", "agents"
+  add_foreign_key "realizes", "manifestations", column: "expression_id"
   add_foreign_key "reserve_stat_has_manifestations", "manifestations"
   add_foreign_key "reserve_stat_has_users", "user_reserve_stats"
   add_foreign_key "reserve_stat_has_users", "users"
@@ -1909,6 +1910,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   add_foreign_key "reserves", "users"
   add_foreign_key "resource_export_files", "users"
   add_foreign_key "resource_import_files", "users"
+  add_foreign_key "resource_import_results", "resource_import_files"
   add_foreign_key "subjects", "roles", column: "required_role_id"
   add_foreign_key "subscriptions", "users"
   add_foreign_key "user_checkout_stats", "users"
@@ -1918,5 +1920,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_26_140939) do
   add_foreign_key "user_has_roles", "roles"
   add_foreign_key "user_has_roles", "users"
   add_foreign_key "user_import_files", "users"
+  add_foreign_key "user_import_results", "user_import_files"
   add_foreign_key "user_reserve_stats", "users"
+  add_foreign_key "users", "profiles"
+  add_foreign_key "withdraws", "users", column: "librarian_id"
 end

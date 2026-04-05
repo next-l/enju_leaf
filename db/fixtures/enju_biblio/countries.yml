@@ -1,7 +1,7 @@
 --- 
 country_00001: 
   position: 1
-  name: unknown  
+  name: unknown
   display_name: unknown
   numeric_3: "000"
   id: 1
@@ -10,7 +10,7 @@ country_00001:
   alpha_3: "000"
 country_00171: 
   position: 171
-  name: Saint Helena  
+  name: Saint Helena
   display_name: Saint Helena
   numeric_3: "654"
   id: 171
@@ -19,7 +19,7 @@ country_00171:
   alpha_3: SHN
 country_00038: 
   position: 38
-  name: Cayman Islands  
+  name: Cayman Islands
   display_name: Cayman Islands
   numeric_3: "136"
   id: 38
@@ -28,7 +28,7 @@ country_00038:
   alpha_3: CYM
 country_00064: 
   position: 64
-  name: Ethiopia  
+  name: Ethiopia
   display_name: Ethiopia
   numeric_3: "231"
   id: 64
@@ -37,7 +37,7 @@ country_00064:
   alpha_3: ETH
 country_00091: 
   position: 91
-  name: Hungary  
+  name: Hungary
   display_name: Hungary
   numeric_3: "348"
   id: 91
@@ -46,7 +46,7 @@ country_00091:
   alpha_3: HUN
 country_00119: 
   position: 119
-  name: Macao  
+  name: Macao
   display_name: Macao
   numeric_3: "446"
   id: 119
@@ -55,7 +55,7 @@ country_00119:
   alpha_3: MAC
 country_00145: 
   position: 145
-  name: New Caledonia  
+  name: New Caledonia
   display_name: New Caledonia
   numeric_3: "540"
   id: 145
@@ -64,7 +64,7 @@ country_00145:
   alpha_3: NCL
 country_00226: 
   position: 226
-  name: Zambia  
+  name: Zambia
   display_name: Zambia
   numeric_3: "894"
   id: 226
@@ -73,7 +73,7 @@ country_00226:
   alpha_3: ZMB
 country_00039: 
   position: 39
-  name: Central African Republic  
+  name: Central African Republic
   display_name: Central African Republic
   numeric_3: "140"
   id: 39
@@ -82,7 +82,7 @@ country_00039:
   alpha_3: CAF
 country_00065: 
   position: 65
-  name: Falkland Islands (Malvinas)  
+  name: Falkland Islands (Malvinas)
   display_name: Falkland Islands (Malvinas)
   numeric_3: "238"
   id: 65
@@ -91,7 +91,7 @@ country_00065:
   alpha_3: FLK
 country_00146: 
   position: 146
-  name: New Zealand  
+  name: New Zealand
   display_name: New Zealand
   numeric_3: "554"
   id: 146
@@ -100,7 +100,7 @@ country_00146:
   alpha_3: NZL
 country_00172: 
   position: 172
-  name: Saint Kitts and Nevis  
+  name: Saint Kitts and Nevis
   display_name: Saint Kitts and Nevis
   numeric_3: "659"
   id: 172
@@ -109,7 +109,7 @@ country_00172:
   alpha_3: KNA
 country_00227: 
   position: 227
-  name: Zimbabwe  
+  name: Zimbabwe
   display_name: Zimbabwe
   numeric_3: "716"
   id: 227
@@ -118,7 +118,7 @@ country_00227:
   alpha_3: ZWE
 country_00066: 
   position: 66
-  name: Faroe Islands  
+  name: Faroe Islands
   display_name: Faroe Islands
   numeric_3: "234"
   id: 66
@@ -127,7 +127,7 @@ country_00066:
   alpha_3: FRO
 country_00092: 
   position: 92
-  name: Iceland  
+  name: Iceland
   display_name: Iceland
   numeric_3: "352"
   id: 92
@@ -136,7 +136,7 @@ country_00092:
   alpha_3: ISL
 country_00147: 
   position: 147
-  name: Nicaragua  
+  name: Nicaragua
   display_name: Nicaragua
   numeric_3: "558"
   id: 147
@@ -145,7 +145,7 @@ country_00147:
   alpha_3: NIC
 country_00173: 
   position: 173
-  name: Saint Lucia  
+  name: Saint Lucia
   display_name: Saint Lucia
   numeric_3: "662"
   id: 173
@@ -154,7 +154,7 @@ country_00173:
   alpha_3: LCA
 country_00067: 
   position: 67
-  name: Fiji  
+  name: Fiji
   display_name: Fiji
   numeric_3: "242"
   id: 67
@@ -163,7 +163,7 @@ country_00067:
   alpha_3: FJI
 country_00093: 
   position: 93
-  name: India  
+  name: India
   display_name: India
   numeric_3: "356"
   id: 93
@@ -172,7 +172,7 @@ country_00093:
   alpha_3: IND
 country_00148: 
   position: 148
-  name: Niger  
+  name: Niger
   display_name: Niger
   numeric_3: "562"
   id: 148
@@ -181,7 +181,7 @@ country_00148:
   alpha_3: NER
 country_00174: 
   position: 174
-  name: Saint Pierre and Miquelon  
+  name: Saint Pierre and Miquelon
   display_name: Saint Pierre and Miquelon
   numeric_3: "666"
   id: 174
@@ -190,7 +190,7 @@ country_00174:
   alpha_3: SPM
 country_00068: 
   position: 68
-  name: Finland  
+  name: Finland
   display_name: Finland
   numeric_3: "246"
   id: 68
@@ -199,7 +199,7 @@ country_00068:
   alpha_3: FIN
 country_00094: 
   position: 94
-  name: Indonesia  
+  name: Indonesia
   display_name: Indonesia
   numeric_3: "360"
   id: 94
@@ -208,7 +208,7 @@ country_00094:
   alpha_3: IDN
 country_00149: 
   position: 149
-  name: Nigeria  
+  name: Nigeria
   display_name: Nigeria
   numeric_3: "566"
   id: 149
@@ -217,7 +217,7 @@ country_00149:
   alpha_3: NGA
 country_00175: 
   position: 175
-  name: Saint Vincent and the Grenadines  
+  name: Saint Vincent and the Grenadines
   display_name: Saint Vincent and the Grenadines
   numeric_3: "670"
   id: 175
@@ -226,7 +226,7 @@ country_00175:
   alpha_3: VCT
 country_00069: 
   position: 69
-  name: France  
+  name: France
   display_name: France
   numeric_3: "250"
   id: 69
@@ -235,7 +235,7 @@ country_00069:
   alpha_3: FRA
 country_00095: 
   position: 95
-  name: Iran, Islamic Republic of  
+  name: Iran, Islamic Republic of
   display_name: Iran, Islamic Republic of
   numeric_3: "364"
   id: 95
@@ -244,7 +244,7 @@ country_00095:
   alpha_3: IRN
 country_00176: 
   position: 176
-  name: Samoa  
+  name: Samoa
   display_name: Samoa
   numeric_3: "882"
   id: 176
@@ -253,7 +253,7 @@ country_00176:
   alpha_3: WSM
 country_00096: 
   position: 96
-  name: Iraq  
+  name: Iraq
   display_name: Iraq
   numeric_3: "368"
   id: 96
@@ -262,7 +262,7 @@ country_00096:
   alpha_3: IRQ
 country_00177: 
   position: 177
-  name: San Marino  
+  name: San Marino
   display_name: San Marino
   numeric_3: "674"
   id: 177
@@ -271,7 +271,7 @@ country_00177:
   alpha_3: SMR
 country_00097: 
   position: 97
-  name: Ireland  
+  name: Ireland
   display_name: Ireland
   numeric_3: "372"
   id: 97
@@ -280,7 +280,7 @@ country_00097:
   alpha_3: IRL
 country_00178: 
   position: 178
-  name: Sao Tome and Principe  
+  name: Sao Tome and Principe
   display_name: Sao Tome and Principe
   numeric_3: "678"
   id: 178
@@ -289,7 +289,7 @@ country_00178:
   alpha_3: STP
 country_00098: 
   position: 98
-  name: Israel  
+  name: Israel
   display_name: Israel
   numeric_3: "376"
   id: 98
@@ -298,7 +298,7 @@ country_00098:
   alpha_3: ISR
 country_00179: 
   position: 179
-  name: Saudi Arabia  
+  name: Saudi Arabia
   display_name: Saudi Arabia
   numeric_3: "682"
   id: 179
@@ -307,7 +307,7 @@ country_00179:
   alpha_3: SAU
 country_00099: 
   position: 99
-  name: Italy  
+  name: Italy
   display_name: Italy
   numeric_3: "380"
   id: 99
@@ -316,7 +316,7 @@ country_00099:
   alpha_3: ITA
 country_00100: 
   position: 100
-  name: Jamaica  
+  name: Jamaica
   display_name: Jamaica
   numeric_3: "388"
   id: 100
@@ -325,7 +325,7 @@ country_00100:
   alpha_3: JAM
 country_00020: 
   position: 20
-  name: Belarus  
+  name: Belarus
   display_name: Belarus
   numeric_3: "112"
   id: 20
@@ -334,7 +334,7 @@ country_00020:
   alpha_3: BLR
 country_00101: 
   position: 101
-  name: Japan  
+  name: Japan
   display_name: Japan
   numeric_3: "392"
   id: 101
@@ -343,7 +343,7 @@ country_00101:
   alpha_3: JPN
 country_00021: 
   position: 21
-  name: Belgium  
+  name: Belgium
   display_name: Belgium
   numeric_3: "046"
   id: 21
@@ -352,7 +352,7 @@ country_00021:
   alpha_3: BEL
 country_00102: 
   position: 102
-  name: Jordan  
+  name: Jordan
   display_name: Jordan
   numeric_3: "400"
   id: 102
@@ -361,7 +361,7 @@ country_00102:
   alpha_3: JOR
 country_00022: 
   position: 22
-  name: Belize  
+  name: Belize
   display_name: Belize
   numeric_3: 084
   id: 22
@@ -370,7 +370,7 @@ country_00022:
   alpha_3: BLZ
 country_00103: 
   position: 103
-  name: Kazakhstan  
+  name: Kazakhstan
   display_name: Kazakhstan
   numeric_3: "398"
   id: 103
@@ -379,7 +379,7 @@ country_00103:
   alpha_3: KAZ
 country_00210: 
   position: 210
-  name: Tuvalu  
+  name: Tuvalu
   display_name: Tuvalu
   numeric_3: "798"
   id: 210
@@ -388,7 +388,7 @@ country_00210:
   alpha_3: TUV
 country_00104: 
   position: 104
-  name: Kenya  
+  name: Kenya
   display_name: Kenya
   numeric_3: "404"
   id: 104
@@ -397,7 +397,7 @@ country_00104:
   alpha_3: KEN
 country_00130: 
   position: 130
-  name: Mauritius  
+  name: Mauritius
   display_name: Mauritius
   numeric_3: "480"
   id: 130
@@ -406,7 +406,7 @@ country_00130:
   alpha_3: MUS
 country_00211: 
   position: 211
-  name: Uganda  
+  name: Uganda
   display_name: Uganda
   numeric_3: "800"
   id: 211
@@ -415,7 +415,7 @@ country_00211:
   alpha_3: UGA
 country_00023: 
   position: 23
-  name: Benin  
+  name: Benin
   display_name: Benin
   numeric_3: "204"
   id: 23
@@ -424,7 +424,7 @@ country_00023:
   alpha_3: BEN
 country_00050: 
   position: 50
-  name: Croatia  
+  name: Croatia
   display_name: Croatia
   numeric_3: "191"
   id: 50
@@ -433,7 +433,7 @@ country_00050:
   alpha_3: HRV
 country_00105: 
   position: 105
-  name: Kiribati  
+  name: Kiribati
   display_name: Kiribati
   numeric_3: "296"
   id: 105
@@ -442,7 +442,7 @@ country_00105:
   alpha_3: KIR
 country_00131: 
   position: 131
-  name: Mexico  
+  name: Mexico
   display_name: Mexico
   numeric_3: "484"
   id: 131
@@ -451,7 +451,7 @@ country_00131:
   alpha_3: MEX
 country_00212: 
   position: 212
-  name: Ukraine  
+  name: Ukraine
   display_name: Ukraine
   numeric_3: "804"
   id: 212
@@ -460,7 +460,7 @@ country_00212:
   alpha_3: UKR
 country_00024: 
   position: 24
-  name: Bermuda  
+  name: Bermuda
   display_name: Bermuda
   numeric_3: "048"
   id: 24
@@ -469,7 +469,7 @@ country_00024:
   alpha_3: BMU
 country_00106: 
   position: 106
-  name: Korea, Democratic People's Republic of  
+  name: Korea, Democratic People's Republic of
   display_name: Korea, Democratic People's Republic of
   numeric_3: "408"
   id: 106
@@ -478,7 +478,7 @@ country_00106:
   alpha_3: PRK
 country_00132: 
   position: 132
-  name: Micronesia, Federated States of  
+  name: Micronesia, Federated States of
   display_name: Micronesia, Federated States of
   numeric_3: "583"
   id: 132
@@ -487,7 +487,7 @@ country_00132:
   alpha_3: FSM
 country_00213: 
   position: 213
-  name: United Arab Emirates  
+  name: United Arab Emirates
   display_name: United Arab Emirates
   numeric_3: "784"
   id: 213
@@ -496,7 +496,7 @@ country_00213:
   alpha_3: ARE
 country_00025: 
   position: 25
-  name: Bhutan  
+  name: Bhutan
   display_name: Bhutan
   numeric_3: "052"
   id: 25
@@ -505,7 +505,7 @@ country_00025:
   alpha_3: BTN
 country_00051: 
   position: 51
-  name: Cuba  
+  name: Cuba
   display_name: Cuba
   numeric_3: "192"
   id: 51
@@ -514,7 +514,7 @@ country_00051:
   alpha_3: CUB
 country_00107: 
   position: 107
-  name: Korea, Republic of  
+  name: Korea, Republic of
   display_name: Korea, Republic of
   numeric_3: "410"
   id: 107
@@ -523,7 +523,7 @@ country_00107:
   alpha_3: KOR
 country_00133: 
   position: 133
-  name: Moldova, Republic of  
+  name: Moldova, Republic of
   display_name: Moldova, Republic of
   numeric_3: "498"
   id: 133
@@ -532,7 +532,7 @@ country_00133:
   alpha_3: MDA
 country_00214: 
   position: 214
-  name: United Kingdom  
+  name: United Kingdom
   display_name: United Kingdom
   numeric_3: "826"
   id: 214
@@ -541,7 +541,7 @@ country_00214:
   alpha_3: GBR
 country_00026: 
   position: 26
-  name: Bolivia  
+  name: Bolivia
   display_name: Bolivia
   numeric_3: 068
   id: 26
@@ -550,7 +550,7 @@ country_00026:
   alpha_3: BOL
 country_00052: 
   position: 52
-  name: Cyprus  
+  name: Cyprus
   display_name: Cyprus
   numeric_3: "196"
   id: 52
@@ -559,7 +559,7 @@ country_00052:
   alpha_3: CYP
 country_00108: 
   position: 108
-  name: Kuwait  
+  name: Kuwait
   display_name: Kuwait
   numeric_3: "414"
   id: 108
@@ -568,7 +568,7 @@ country_00108:
   alpha_3: KWT
 country_00134: 
   position: 134
-  name: Monaco  
+  name: Monaco
   display_name: Monaco
   numeric_3: "492"
   id: 134
@@ -577,7 +577,7 @@ country_00134:
   alpha_3: MCO
 country_00160: 
   position: 160
-  name: Peru  
+  name: Peru
   display_name: Peru
   numeric_3: "604"
   id: 160
@@ -586,7 +586,7 @@ country_00160:
   alpha_3: PER
 country_00215: 
   position: 215
-  name: United States  
+  name: United States
   display_name: United States
   numeric_3: "840"
   id: 215
@@ -595,7 +595,7 @@ country_00215:
   alpha_3: USA
 country_00027: 
   position: 27
-  name: Bosnia and Herzegovina  
+  name: Bosnia and Herzegovina
   display_name: Bosnia and Herzegovina
   numeric_3: "056"
   id: 27
@@ -604,7 +604,7 @@ country_00027:
   alpha_3: BIH
 country_00053: 
   position: 53
-  name: Czech Republic  
+  name: Czech Republic
   display_name: Czech Republic
   numeric_3: "203"
   id: 53
@@ -613,7 +613,7 @@ country_00053:
   alpha_3: CZE
 country_00080: 
   position: 80
-  name: Grenada  
+  name: Grenada
   display_name: Grenada
   numeric_3: "308"
   id: 80
@@ -622,7 +622,7 @@ country_00080:
   alpha_3: GRD
 country_00135: 
   position: 135
-  name: Mongolia  
+  name: Mongolia
   display_name: Mongolia
   numeric_3: "496"
   id: 135
@@ -631,7 +631,7 @@ country_00135:
   alpha_3: MNG
 country_00161: 
   position: 161
-  name: Philippines  
+  name: Philippines
   display_name: Philippines
   numeric_3: "608"
   id: 161
@@ -640,7 +640,7 @@ country_00161:
   alpha_3: PHL
 country_00216: 
   position: 216
-  name: Uruguay  
+  name: Uruguay
   display_name: Uruguay
   numeric_3: "858"
   id: 216
@@ -649,7 +649,7 @@ country_00216:
   alpha_3: URY
 country_00028: 
   position: 28
-  name: Botswana  
+  name: Botswana
   display_name: Botswana
   numeric_3: "058"
   id: 28
@@ -658,7 +658,7 @@ country_00028:
   alpha_3: BWA
 country_00054: 
   position: 54
-  name: Denmark  
+  name: Denmark
   display_name: Denmark
   numeric_3: "208"
   id: 54
@@ -667,7 +667,7 @@ country_00054:
   alpha_3: DNK
 country_00109: 
   position: 109
-  name: Kyrgyzstan  
+  name: Kyrgyzstan
   display_name: Kyrgyzstan
   numeric_3: "417"
   id: 109
@@ -676,7 +676,7 @@ country_00109:
   alpha_3: KGZ
 country_00136: 
   position: 136
-  name: Montserrat  
+  name: Montserrat
   display_name: Montserrat
   numeric_3: "500"
   id: 136
@@ -685,7 +685,7 @@ country_00136:
   alpha_3: MSR
 country_00162: 
   position: 162
-  name: Pitcairn  
+  name: Pitcairn
   display_name: Pitcairn
   numeric_3: "612"
   id: 162
@@ -694,7 +694,7 @@ country_00162:
   alpha_3: PCN
 country_00217: 
   position: 217
-  name: Uzbekistan  
+  name: Uzbekistan
   display_name: Uzbekistan
   numeric_3: "860"
   id: 217
@@ -703,7 +703,7 @@ country_00217:
   alpha_3: UZB
 country_00029: 
   position: 29
-  name: Brazil  
+  name: Brazil
   display_name: Brazil
   numeric_3: "062"
   id: 29
@@ -712,7 +712,7 @@ country_00029:
   alpha_3: BRA
 country_00055: 
   position: 55
-  name: Djibouti  
+  name: Djibouti
   display_name: Djibouti
   numeric_3: "262"
   id: 55
@@ -721,7 +721,7 @@ country_00055:
   alpha_3: DJI
 country_00081: 
   position: 81
-  name: Guadeloupe  
+  name: Guadeloupe
   display_name: Guadeloupe
   numeric_3: "312"
   id: 81
@@ -730,7 +730,7 @@ country_00081:
   alpha_3: GLP
 country_00163: 
   position: 163
-  name: Poland  
+  name: Poland
   display_name: Poland
   numeric_3: "616"
   id: 163
@@ -739,7 +739,7 @@ country_00163:
   alpha_3: POL
 country_00190: 
   position: 190
-  name: Sri Lanka  
+  name: Sri Lanka
   display_name: Sri Lanka
   numeric_3: "144"
   id: 190
@@ -748,7 +748,7 @@ country_00190:
   alpha_3: LKA
 country_00218: 
   position: 218
-  name: Vanuatu  
+  name: Vanuatu
   display_name: Vanuatu
   numeric_3: "548"
   id: 218
@@ -757,7 +757,7 @@ country_00218:
   alpha_3: VUT
 country_00056: 
   position: 56
-  name: Dominica  
+  name: Dominica
   display_name: Dominica
   numeric_3: "212"
   id: 56
@@ -766,7 +766,7 @@ country_00056:
   alpha_3: DMA
 country_00082: 
   position: 82
-  name: Guam  
+  name: Guam
   display_name: Guam
   numeric_3: "316"
   id: 82
@@ -775,7 +775,7 @@ country_00082:
   alpha_3: GUM
 country_00137: 
   position: 137
-  name: Morocco  
+  name: Morocco
   display_name: Morocco
   numeric_3: "504"
   id: 137
@@ -784,7 +784,7 @@ country_00137:
   alpha_3: MAR
 country_00164: 
   position: 164
-  name: Portugal  
+  name: Portugal
   display_name: Portugal
   numeric_3: "620"
   id: 164
@@ -793,7 +793,7 @@ country_00164:
   alpha_3: PRT
 country_00219: 
   position: 219
-  name: Venezuela  
+  name: Venezuela
   display_name: Venezuela
   numeric_3: "862"
   id: 219
@@ -802,7 +802,7 @@ country_00219:
   alpha_3: VEN
 country_00057: 
   position: 57
-  name: Dominican Republic  
+  name: Dominican Republic
   display_name: Dominican Republic
   numeric_3: "214"
   id: 57
@@ -811,7 +811,7 @@ country_00057:
   alpha_3: DOM
 country_00083: 
   position: 83
-  name: Guatemala  
+  name: Guatemala
   display_name: Guatemala
   numeric_3: "320"
   id: 83
@@ -820,7 +820,7 @@ country_00083:
   alpha_3: GTM
 country_00138: 
   position: 138
-  name: Mozambique  
+  name: Mozambique
   display_name: Mozambique
   numeric_3: "508"
   id: 138
@@ -829,7 +829,7 @@ country_00138:
   alpha_3: MOZ
 country_00191: 
   position: 191
-  name: Sudan  
+  name: Sudan
   display_name: Sudan
   numeric_3: "736"
   id: 191
@@ -838,7 +838,7 @@ country_00191:
   alpha_3: SDN
 country_00058: 
   position: 58
-  name: Ecuador  
+  name: Ecuador
   display_name: Ecuador
   numeric_3: "218"
   id: 58
@@ -847,7 +847,7 @@ country_00058:
   alpha_3: ECU
 country_00084: 
   position: 84
-  name: Guinea  
+  name: Guinea
   display_name: Guinea
   numeric_3: "324"
   id: 84
@@ -856,7 +856,7 @@ country_00084:
   alpha_3: GIN
 country_00139: 
   position: 139
-  name: Myanmar  
+  name: Myanmar
   display_name: Myanmar
   numeric_3: "104"
   id: 139
@@ -865,7 +865,7 @@ country_00139:
   alpha_3: MMR
 country_00165: 
   position: 165
-  name: Puerto Rico  
+  name: Puerto Rico
   display_name: Puerto Rico
   numeric_3: "630"
   id: 165
@@ -874,7 +874,7 @@ country_00165:
   alpha_3: PRI
 country_00192: 
   position: 192
-  name: Suriname  
+  name: Suriname
   display_name: Suriname
   numeric_3: "740"
   id: 192
@@ -883,7 +883,7 @@ country_00192:
   alpha_3: SUR
 country_00059: 
   position: 59
-  name: Egypt  
+  name: Egypt
   display_name: Egypt
   numeric_3: "818"
   id: 59
@@ -892,7 +892,7 @@ country_00059:
   alpha_3: EGY
 country_00085: 
   position: 85
-  name: Guinea-Bissau  
+  name: Guinea-Bissau
   display_name: Guinea-Bissau
   numeric_3: "624"
   id: 85
@@ -901,7 +901,7 @@ country_00085:
   alpha_3: GNB
 country_00166: 
   position: 166
-  name: Qatar  
+  name: Qatar
   display_name: Qatar
   numeric_3: "634"
   id: 166
@@ -910,7 +910,7 @@ country_00166:
   alpha_3: QAT
 country_00086: 
   position: 86
-  name: Guyana  
+  name: Guyana
   display_name: Guyana
   numeric_3: "328"
   id: 86
@@ -919,7 +919,7 @@ country_00086:
   alpha_3: GUY
 country_00167: 
   position: 167
-  name: Reunion  
+  name: Reunion
   display_name: Reunion
   numeric_3: "638"
   id: 167
@@ -928,7 +928,7 @@ country_00167:
   alpha_3: REU
 country_00193: 
   position: 193
-  name: Svalbard and Jan Mayen  
+  name: Svalbard and Jan Mayen
   display_name: Svalbard and Jan Mayen
   numeric_3: "744"
   id: 193
@@ -937,7 +937,7 @@ country_00193:
   alpha_3: SJM
 country_00087: 
   position: 87
-  name: Haiti  
+  name: Haiti
   display_name: Haiti
   numeric_3: "332"
   id: 87
@@ -946,7 +946,7 @@ country_00087:
   alpha_3: HTI
 country_00168: 
   position: 168
-  name: Romania  
+  name: Romania
   display_name: Romania
   numeric_3: "642"
   id: 168
@@ -955,7 +955,7 @@ country_00168:
   alpha_3: ROM
 country_00194: 
   position: 194
-  name: Swaziland  
+  name: Swaziland
   display_name: Swaziland
   numeric_3: "748"
   id: 194
@@ -964,7 +964,7 @@ country_00194:
   alpha_3: SWZ
 country_00088: 
   position: 88
-  name: Holy See (Vatican City State)  
+  name: Holy See (Vatican City State)
   display_name: Holy See (Vatican City State)
   numeric_3: "336"
   id: 88
@@ -973,7 +973,7 @@ country_00088:
   alpha_3: VAT
 country_00169: 
   position: 169
-  name: Russian Federation  
+  name: Russian Federation
   display_name: Russian Federation
   numeric_3: "643"
   id: 169
@@ -982,7 +982,7 @@ country_00169:
   alpha_3: RUS
 country_00195: 
   position: 195
-  name: Sweden  
+  name: Sweden
   display_name: Sweden
   numeric_3: "752"
   id: 195
@@ -991,7 +991,7 @@ country_00195:
   alpha_3: SWE
 country_00089: 
   position: 89
-  name: Honduras  
+  name: Honduras
   display_name: Honduras
   numeric_3: "340"
   id: 89
@@ -1000,7 +1000,7 @@ country_00089:
   alpha_3: HND
 country_00196: 
   position: 196
-  name: Switzerland  
+  name: Switzerland
   display_name: Switzerland
   numeric_3: "756"
   id: 196
@@ -1009,7 +1009,7 @@ country_00196:
   alpha_3: CHE
 country_00197: 
   position: 197
-  name: Syrian Arab Republic  
+  name: Syrian Arab Republic
   display_name: Syrian Arab Republic
   numeric_3: "760"
   id: 197
@@ -1018,7 +1018,7 @@ country_00197:
   alpha_3: SYR
 country_00198: 
   position: 198
-  name: Taiwan, Province of China  
+  name: Taiwan, Province of China
   display_name: Taiwan, Province of China
   numeric_3: "158"
   id: 198
@@ -1027,7 +1027,7 @@ country_00198:
   alpha_3: TWN
 country_00199: 
   position: 199
-  name: Tajikistan  
+  name: Tajikistan
   display_name: Tajikistan
   numeric_3: "762"
   id: 199
@@ -1036,7 +1036,7 @@ country_00199:
   alpha_3: TJK
 country_00010: 
   position: 10
-  name: Argentina  
+  name: Argentina
   display_name: Argentina
   numeric_3: "026"
   id: 10
@@ -1045,7 +1045,7 @@ country_00010:
   alpha_3: ARG
 country_00011: 
   position: 11
-  name: Armenia  
+  name: Armenia
   display_name: Armenia
   numeric_3: "041"
   id: 11
@@ -1054,7 +1054,7 @@ country_00011:
   alpha_3: ARM
 country_00012: 
   position: 12
-  name: Aruba  
+  name: Aruba
   display_name: Aruba
   numeric_3: "533"
   id: 12
@@ -1063,7 +1063,7 @@ country_00012:
   alpha_3: ABW
 country_00200: 
   position: 200
-  name: Tanzania, United Republic of  
+  name: Tanzania, United Republic of
   display_name: Tanzania, United Republic of
   numeric_3: "834"
   id: 200
@@ -1072,7 +1072,7 @@ country_00200:
   alpha_3: TZA
 country_00013: 
   position: 13
-  name: Australia  
+  name: Australia
   display_name: Australia
   numeric_3: "030"
   id: 13
@@ -1081,7 +1081,7 @@ country_00013:
   alpha_3: AUS
 country_00120: 
   position: 120
-  name: Macedonia, the Former Yugoslav Republic of  
+  name: Macedonia, the Former Yugoslav Republic of
   display_name: Macedonia, the Former Yugoslav Republic of
   numeric_3: "807"
   id: 120
@@ -1090,7 +1090,7 @@ country_00120:
   alpha_3: MKD
 country_00201: 
   position: 201
-  name: Thailand  
+  name: Thailand
   display_name: Thailand
   numeric_3: "764"
   id: 201
@@ -1099,7 +1099,7 @@ country_00201:
   alpha_3: THA
 country_00014: 
   position: 14
-  name: Austria  
+  name: Austria
   display_name: Austria
   numeric_3: "032"
   id: 14
@@ -1108,7 +1108,7 @@ country_00014:
   alpha_3: AUT
 country_00040: 
   position: 40
-  name: Chad  
+  name: Chad
   display_name: Chad
   numeric_3: "148"
   id: 40
@@ -1117,7 +1117,7 @@ country_00040:
   alpha_3: TCD
 country_00121: 
   position: 121
-  name: Madagascar  
+  name: Madagascar
   display_name: Madagascar
   numeric_3: "450"
   id: 121
@@ -1126,7 +1126,7 @@ country_00121:
   alpha_3: MDG
 country_00202: 
   position: 202
-  name: Togo  
+  name: Togo
   display_name: Togo
   numeric_3: "768"
   id: 202
@@ -1135,7 +1135,7 @@ country_00202:
   alpha_3: TGO
 country_00015: 
   position: 15
-  name: Azerbaijan  
+  name: Azerbaijan
   display_name: Azerbaijan
   numeric_3: "025"
   id: 15
@@ -1144,7 +1144,7 @@ country_00015:
   alpha_3: AZE
 country_00041: 
   position: 41
-  name: Chile  
+  name: Chile
   display_name: Chile
   numeric_3: "152"
   id: 41
@@ -1153,7 +1153,7 @@ country_00041:
   alpha_3: CHL
 country_00122: 
   position: 122
-  name: Malawi  
+  name: Malawi
   display_name: Malawi
   numeric_3: "454"
   id: 122
@@ -1162,7 +1162,7 @@ country_00122:
   alpha_3: MWI
 country_00203: 
   position: 203
-  name: Tokelau  
+  name: Tokelau
   display_name: Tokelau
   numeric_3: "772"
   id: 203
@@ -1171,7 +1171,7 @@ country_00203:
   alpha_3: TKL
 country_00016: 
   position: 16
-  name: Bahamas  
+  name: Bahamas
   display_name: Bahamas
   numeric_3: "036"
   id: 16
@@ -1180,7 +1180,7 @@ country_00016:
   alpha_3: BHS
 country_00042: 
   position: 42
-  name: China  
+  name: China
   display_name: China
   numeric_3: "156"
   id: 42
@@ -1189,7 +1189,7 @@ country_00042:
   alpha_3: CHN
 country_00123: 
   position: 123
-  name: Malaysia  
+  name: Malaysia
   display_name: Malaysia
   numeric_3: "458"
   id: 123
@@ -1198,7 +1198,7 @@ country_00123:
   alpha_3: MYS
 country_00204: 
   position: 204
-  name: Tonga  
+  name: Tonga
   display_name: Tonga
   numeric_3: "776"
   id: 204
@@ -1207,7 +1207,7 @@ country_00204:
   alpha_3: TON
 country_00017: 
   position: 17
-  name: Bahrain  
+  name: Bahrain
   display_name: Bahrain
   numeric_3: 048
   id: 17
@@ -1216,7 +1216,7 @@ country_00017:
   alpha_3: BHR
 country_00043: 
   position: 43
-  name: Colombia  
+  name: Colombia
   display_name: Colombia
   numeric_3: "170"
   id: 43
@@ -1225,7 +1225,7 @@ country_00043:
   alpha_3: COL
 country_00124: 
   position: 124
-  name: Maldives  
+  name: Maldives
   display_name: Maldives
   numeric_3: "462"
   id: 124
@@ -1234,7 +1234,7 @@ country_00124:
   alpha_3: MDV
 country_00150: 
   position: 150
-  name: Niue  
+  name: Niue
   display_name: Niue
   numeric_3: "570"
   id: 150
@@ -1243,7 +1243,7 @@ country_00150:
   alpha_3: NIU
 country_00205: 
   position: 205
-  name: Trinidad and Tobago  
+  name: Trinidad and Tobago
   display_name: Trinidad and Tobago
   numeric_3: "780"
   id: 205
@@ -1252,7 +1252,7 @@ country_00205:
   alpha_3: TTO
 country_00018: 
   position: 18
-  name: Bangladesh  
+  name: Bangladesh
   display_name: Bangladesh
   numeric_3: "040"
   id: 18
@@ -1261,7 +1261,7 @@ country_00018:
   alpha_3: BGD
 country_00044: 
   position: 44
-  name: Comoros  
+  name: Comoros
   display_name: Comoros
   numeric_3: "174"
   id: 44
@@ -1270,7 +1270,7 @@ country_00044:
   alpha_3: COM
 country_00070: 
   position: 70
-  name: French Guiana  
+  name: French Guiana
   display_name: French Guiana
   numeric_3: "254"
   id: 70
@@ -1279,7 +1279,7 @@ country_00070:
   alpha_3: GUF
 country_00125: 
   position: 125
-  name: Mali  
+  name: Mali
   display_name: Mali
   numeric_3: "466"
   id: 125
@@ -1288,7 +1288,7 @@ country_00125:
   alpha_3: MLI
 country_00151: 
   position: 151
-  name: Norfolk Island  
+  name: Norfolk Island
   display_name: Norfolk Island
   numeric_3: "574"
   id: 151
@@ -1297,7 +1297,7 @@ country_00151:
   alpha_3: NFK
 country_00206: 
   position: 206
-  name: Tunisia  
+  name: Tunisia
   display_name: Tunisia
   numeric_3: "788"
   id: 206
@@ -1306,7 +1306,7 @@ country_00206:
   alpha_3: TUN
 country_00019: 
   position: 19
-  name: Barbados  
+  name: Barbados
   display_name: Barbados
   numeric_3: "042"
   id: 19
@@ -1315,7 +1315,7 @@ country_00019:
   alpha_3: BRB
 country_00045: 
   position: 45
-  name: Congo  
+  name: Congo
   display_name: Congo
   numeric_3: "178"
   id: 45
@@ -1324,7 +1324,7 @@ country_00045:
   alpha_3: COG
 country_00071: 
   position: 71
-  name: French Polynesia  
+  name: French Polynesia
   display_name: French Polynesia
   numeric_3: "258"
   id: 71
@@ -1333,7 +1333,7 @@ country_00071:
   alpha_3: PYF
 country_00126: 
   position: 126
-  name: Malta  
+  name: Malta
   display_name: Malta
   numeric_3: "470"
   id: 126
@@ -1342,7 +1342,7 @@ country_00126:
   alpha_3: MLT
 country_00152: 
   position: 152
-  name: Northern Mariana Islands  
+  name: Northern Mariana Islands
   display_name: Northern Mariana Islands
   numeric_3: "580"
   id: 152
@@ -1351,7 +1351,7 @@ country_00152:
   alpha_3: MNP
 country_00207: 
   position: 207
-  name: Turkey  
+  name: Turkey
   display_name: Turkey
   numeric_3: "792"
   id: 207
@@ -1360,7 +1360,7 @@ country_00207:
   alpha_3: TUR
 country_00046: 
   position: 46
-  name: Congo, the Democratic Republic of the  
+  name: Congo, the Democratic Republic of the
   display_name: Congo, the Democratic Republic of the
   numeric_3: "180"
   id: 46
@@ -1369,7 +1369,7 @@ country_00046:
   alpha_3: COD
 country_00072: 
   position: 72
-  name: Gabon  
+  name: Gabon
   display_name: Gabon
   numeric_3: "266"
   id: 72
@@ -1378,7 +1378,7 @@ country_00072:
   alpha_3: GAB
 country_00127: 
   position: 127
-  name: Marshall Islands  
+  name: Marshall Islands
   display_name: Marshall Islands
   numeric_3: "584"
   id: 127
@@ -1387,7 +1387,7 @@ country_00127:
   alpha_3: MHL
 country_00153: 
   position: 153
-  name: Norway  
+  name: Norway
   display_name: Norway
   numeric_3: "578"
   id: 153
@@ -1396,7 +1396,7 @@ country_00153:
   alpha_3: NOR
 country_00208: 
   position: 208
-  name: Turkmenistan  
+  name: Turkmenistan
   display_name: Turkmenistan
   numeric_3: "795"
   id: 208
@@ -1405,7 +1405,7 @@ country_00208:
   alpha_3: TKM
 country_00047: 
   position: 47
-  name: Cook Islands  
+  name: Cook Islands
   display_name: Cook Islands
   numeric_3: "184"
   id: 47
@@ -1414,7 +1414,7 @@ country_00047:
   alpha_3: COK
 country_00073: 
   position: 73
-  name: Gambia  
+  name: Gambia
   display_name: Gambia
   numeric_3: "270"
   id: 73
@@ -1423,7 +1423,7 @@ country_00073:
   alpha_3: GMB
 country_00128: 
   position: 128
-  name: Martinique  
+  name: Martinique
   display_name: Martinique
   numeric_3: "474"
   id: 128
@@ -1432,7 +1432,7 @@ country_00128:
   alpha_3: MTQ
 country_00154: 
   position: 154
-  name: Oman  
+  name: Oman
   display_name: Oman
   numeric_3: "512"
   id: 154
@@ -1441,7 +1441,7 @@ country_00154:
   alpha_3: OMN
 country_00180: 
   position: 180
-  name: Senegal  
+  name: Senegal
   display_name: Senegal
   numeric_3: "686"
   id: 180
@@ -1450,7 +1450,7 @@ country_00180:
   alpha_3: SEN
 country_00209: 
   position: 209
-  name: Turks and Caicos Islands  
+  name: Turks and Caicos Islands
   display_name: Turks and Caicos Islands
   numeric_3: "796"
   id: 209
@@ -1459,7 +1459,7 @@ country_00209:
   alpha_3: TCA
 country_00048: 
   position: 48
-  name: Costa Rica  
+  name: Costa Rica
   display_name: Costa Rica
   numeric_3: "188"
   id: 48
@@ -1468,7 +1468,7 @@ country_00048:
   alpha_3: CRI
 country_00074: 
   position: 74
-  name: Georgia  
+  name: Georgia
   display_name: Georgia
   numeric_3: "268"
   id: 74
@@ -1477,7 +1477,7 @@ country_00074:
   alpha_3: GEO
 country_00129: 
   position: 129
-  name: Mauritania  
+  name: Mauritania
   display_name: Mauritania
   numeric_3: "478"
   id: 129
@@ -1486,7 +1486,7 @@ country_00129:
   alpha_3: MRT
 country_00155: 
   position: 155
-  name: Pakistan  
+  name: Pakistan
   display_name: Pakistan
   numeric_3: "586"
   id: 155
@@ -1495,7 +1495,7 @@ country_00155:
   alpha_3: PAK
 country_00181: 
   position: 181
-  name: Seychelles  
+  name: Seychelles
   display_name: Seychelles
   numeric_3: "690"
   id: 181
@@ -1504,7 +1504,7 @@ country_00181:
   alpha_3: SYC
 country_00049: 
   position: 49
-  name: Cote D'Ivoire  
+  name: Cote D'Ivoire
   display_name: Cote D'Ivoire
   numeric_3: "384"
   id: 49
@@ -1513,7 +1513,7 @@ country_00049:
   alpha_3: CIV
 country_00075: 
   position: 75
-  name: Germany  
+  name: Germany
   display_name: Germany
   numeric_3: "276"
   id: 75
@@ -1522,7 +1522,7 @@ country_00075:
   alpha_3: DEU
 country_00156: 
   position: 156
-  name: Palau  
+  name: Palau
   display_name: Palau
   numeric_3: "585"
   id: 156
@@ -1531,7 +1531,7 @@ country_00156:
   alpha_3: PLW
 country_00182: 
   position: 182
-  name: Sierra Leone  
+  name: Sierra Leone
   display_name: Sierra Leone
   numeric_3: "694"
   id: 182
@@ -1540,7 +1540,7 @@ country_00182:
   alpha_3: SLE
 country_00076: 
   position: 76
-  name: Ghana  
+  name: Ghana
   display_name: Ghana
   numeric_3: "288"
   id: 76
@@ -1549,7 +1549,7 @@ country_00076:
   alpha_3: GHA
 country_00157: 
   position: 157
-  name: Panama  
+  name: Panama
   display_name: Panama
   numeric_3: "591"
   id: 157
@@ -1558,7 +1558,7 @@ country_00157:
   alpha_3: PAN
 country_00183: 
   position: 183
-  name: Singapore  
+  name: Singapore
   display_name: Singapore
   numeric_3: "702"
   id: 183
@@ -1567,7 +1567,7 @@ country_00183:
   alpha_3: SGP
 country_00077: 
   position: 77
-  name: Gibraltar  
+  name: Gibraltar
   display_name: Gibraltar
   numeric_3: "292"
   id: 77
@@ -1576,7 +1576,7 @@ country_00077:
   alpha_3: GIB
 country_00158: 
   position: 158
-  name: Papua New Guinea  
+  name: Papua New Guinea
   display_name: Papua New Guinea
   numeric_3: "598"
   id: 158
@@ -1585,7 +1585,7 @@ country_00158:
   alpha_3: PNG
 country_00184: 
   position: 184
-  name: Slovakia  
+  name: Slovakia
   display_name: Slovakia
   numeric_3: "703"
   id: 184
@@ -1594,7 +1594,7 @@ country_00184:
   alpha_3: SVK
 country_00078: 
   position: 78
-  name: Greece  
+  name: Greece
   display_name: Greece
   numeric_3: "300"
   id: 78
@@ -1603,7 +1603,7 @@ country_00078:
   alpha_3: GRC
 country_00159: 
   position: 159
-  name: Paraguay  
+  name: Paraguay
   display_name: Paraguay
   numeric_3: "600"
   id: 159
@@ -1612,7 +1612,7 @@ country_00159:
   alpha_3: PRY
 country_00185: 
   position: 185
-  name: Slovenia  
+  name: Slovenia
   display_name: Slovenia
   numeric_3: "705"
   id: 185
@@ -1621,7 +1621,7 @@ country_00185:
   alpha_3: SVN
 country_00079: 
   position: 79
-  name: Greenland  
+  name: Greenland
   display_name: Greenland
   numeric_3: "304"
   id: 79
@@ -1630,7 +1630,7 @@ country_00079:
   alpha_3: GRL
 country_00186: 
   position: 186
-  name: Solomon Islands  
+  name: Solomon Islands
   display_name: Solomon Islands
   numeric_3: 090
   id: 186
@@ -1639,7 +1639,7 @@ country_00186:
   alpha_3: SLB
 country_00187: 
   position: 187
-  name: Somalia  
+  name: Somalia
   display_name: Somalia
   numeric_3: "706"
   id: 187
@@ -1648,7 +1648,7 @@ country_00187:
   alpha_3: SOM
 country_00188: 
   position: 188
-  name: South Africa  
+  name: South Africa
   display_name: South Africa
   numeric_3: "710"
   id: 188
@@ -1657,7 +1657,7 @@ country_00188:
   alpha_3: ZAF
 country_00189: 
   position: 189
-  name: Spain  
+  name: Spain
   display_name: Spain
   numeric_3: "724"
   id: 189
@@ -1666,7 +1666,7 @@ country_00189:
   alpha_3: ESP
 country_00002: 
   position: 2
-  name: Afghanistan  
+  name: Afghanistan
   display_name: Afghanistan
   numeric_3: "004"
   id: 2
@@ -1675,7 +1675,7 @@ country_00002:
   alpha_3: AFG
 country_00003: 
   position: 3
-  name: Albania  
+  name: Albania
   display_name: Albania
   numeric_3: 008
   id: 3
@@ -1684,7 +1684,7 @@ country_00003:
   alpha_3: ALB
 country_00110: 
   position: 110
-  name: Lao People's Democratic Republic  
+  name: Lao People's Democratic Republic
   display_name: Lao People's Democratic Republic
   numeric_3: "418"
   id: 110
@@ -1693,7 +1693,7 @@ country_00110:
   alpha_3: LAO
 country_00004: 
   position: 4
-  name: Algeria  
+  name: Algeria
   display_name: Algeria
   numeric_3: "010"
   id: 4
@@ -1702,7 +1702,7 @@ country_00004:
   alpha_3: DZA
 country_00030: 
   position: 30
-  name: Brunei Darussalam  
+  name: Brunei Darussalam
   display_name: Brunei Darussalam
   numeric_3: 096
   id: 30
@@ -1711,7 +1711,7 @@ country_00030:
   alpha_3: BRN
 country_00111: 
   position: 111
-  name: Latvia  
+  name: Latvia
   display_name: Latvia
   numeric_3: "428"
   id: 111
@@ -1720,7 +1720,7 @@ country_00111:
   alpha_3: LVA
 country_00005: 
   position: 5
-  name: American Samoa  
+  name: American Samoa
   display_name: American Samoa
   numeric_3: "014"
   id: 5
@@ -1729,7 +1729,7 @@ country_00005:
   alpha_3: ASM
 country_00031: 
   position: 31
-  name: Bulgaria  
+  name: Bulgaria
   display_name: Bulgaria
   numeric_3: "100"
   id: 31
@@ -1738,7 +1738,7 @@ country_00031:
   alpha_3: BGR
 country_00112: 
   position: 112
-  name: Lebanon  
+  name: Lebanon
   display_name: Lebanon
   numeric_3: "422"
   id: 112
@@ -1747,7 +1747,7 @@ country_00112:
   alpha_3: LBN
 country_00006: 
   position: 6
-  name: Andorra  
+  name: Andorra
   display_name: Andorra
   numeric_3: "016"
   id: 6
@@ -1756,7 +1756,7 @@ country_00006:
   alpha_3: AND
 country_00032: 
   position: 32
-  name: Burkina Faso  
+  name: Burkina Faso
   display_name: Burkina Faso
   numeric_3: "854"
   id: 32
@@ -1765,7 +1765,7 @@ country_00032:
   alpha_3: BFA
 country_00113: 
   position: 113
-  name: Lesotho  
+  name: Lesotho
   display_name: Lesotho
   numeric_3: "426"
   id: 113
@@ -1774,7 +1774,7 @@ country_00113:
   alpha_3: LSO
 country_00220: 
   position: 220
-  name: Viet Nam  
+  name: Viet Nam
   display_name: Viet Nam
   numeric_3: "704"
   id: 220
@@ -1783,7 +1783,7 @@ country_00220:
   alpha_3: VNM
 country_00007: 
   position: 7
-  name: Angola  
+  name: Angola
   display_name: Angola
   numeric_3: "020"
   id: 7
@@ -1792,7 +1792,7 @@ country_00007:
   alpha_3: AGO
 country_00033: 
   position: 33
-  name: Burundi  
+  name: Burundi
   display_name: Burundi
   numeric_3: "108"
   id: 33
@@ -1801,7 +1801,7 @@ country_00033:
   alpha_3: BDI
 country_00114: 
   position: 114
-  name: Liberia  
+  name: Liberia
   display_name: Liberia
   numeric_3: "430"
   id: 114
@@ -1810,7 +1810,7 @@ country_00114:
   alpha_3: LBR
 country_00140: 
   position: 140
-  name: Namibia  
+  name: Namibia
   display_name: Namibia
   numeric_3: "516"
   id: 140
@@ -1819,7 +1819,7 @@ country_00140:
   alpha_3: NAM
 country_00221: 
   position: 221
-  name: Virgin Islands, British  
+  name: Virgin Islands, British
   display_name: Virgin Islands, British
   numeric_3: 092
   id: 221
@@ -1828,7 +1828,7 @@ country_00221:
   alpha_3: VGB
 country_00008: 
   position: 8
-  name: Anguilla  
+  name: Anguilla
   display_name: Anguilla
   numeric_3: "660"
   id: 8
@@ -1837,7 +1837,7 @@ country_00008:
   alpha_3: AIA
 country_00034: 
   position: 34
-  name: Cambodia  
+  name: Cambodia
   display_name: Cambodia
   numeric_3: "116"
   id: 34
@@ -1846,7 +1846,7 @@ country_00034:
   alpha_3: KHM
 country_00060: 
   position: 60
-  name: El Salvador  
+  name: El Salvador
   display_name: El Salvador
   numeric_3: "222"
   id: 60
@@ -1855,7 +1855,7 @@ country_00060:
   alpha_3: SLV
 country_00115: 
   position: 115
-  name: Libyan Arab Jamahiriya  
+  name: Libyan Arab Jamahiriya
   display_name: Libyan Arab Jamahiriya
   numeric_3: "434"
   id: 115
@@ -1864,7 +1864,7 @@ country_00115:
   alpha_3: LBY
 country_00141: 
   position: 141
-  name: Nauru  
+  name: Nauru
   display_name: Nauru
   numeric_3: "520"
   id: 141
@@ -1873,7 +1873,7 @@ country_00141:
   alpha_3: NRU
 country_00222: 
   position: 222
-  name: Virgin Islands, U.S.  
+  name: Virgin Islands, U.S.
   display_name: Virgin Islands, U.S.
   numeric_3: "850"
   id: 222
@@ -1882,7 +1882,7 @@ country_00222:
   alpha_3: VIR
 country_00009: 
   position: 9
-  name: Antigua and Barbuda  
+  name: Antigua and Barbuda
   display_name: Antigua and Barbuda
   numeric_3: 028
   id: 9
@@ -1891,7 +1891,7 @@ country_00009:
   alpha_3: ATG
 country_00035: 
   position: 35
-  name: Cameroon  
+  name: Cameroon
   display_name: Cameroon
   numeric_3: "120"
   id: 35
@@ -1900,7 +1900,7 @@ country_00035:
   alpha_3: CMR
 country_00061: 
   position: 61
-  name: Equatorial Guinea  
+  name: Equatorial Guinea
   display_name: Equatorial Guinea
   numeric_3: "226"
   id: 61
@@ -1909,7 +1909,7 @@ country_00061:
   alpha_3: GNQ
 country_00116: 
   position: 116
-  name: Liechtenstein  
+  name: Liechtenstein
   display_name: Liechtenstein
   numeric_3: "438"
   id: 116
@@ -1918,7 +1918,7 @@ country_00116:
   alpha_3: LIE
 country_00142: 
   position: 142
-  name: Nepal  
+  name: Nepal
   display_name: Nepal
   numeric_3: "524"
   id: 142
@@ -1927,7 +1927,7 @@ country_00142:
   alpha_3: NPL
 country_00223: 
   position: 223
-  name: Wallis and Futuna  
+  name: Wallis and Futuna
   display_name: Wallis and Futuna
   numeric_3: "876"
   id: 223
@@ -1936,7 +1936,7 @@ country_00223:
   alpha_3: WLF
 country_00036: 
   position: 36
-  name: Canada  
+  name: Canada
   display_name: Canada
   numeric_3: "124"
   id: 36
@@ -1945,7 +1945,7 @@ country_00036:
   alpha_3: CAN
 country_00062: 
   position: 62
-  name: Eritrea  
+  name: Eritrea
   display_name: Eritrea
   numeric_3: "232"
   id: 62
@@ -1954,7 +1954,7 @@ country_00062:
   alpha_3: ERI
 country_00117: 
   position: 117
-  name: Lithuania  
+  name: Lithuania
   display_name: Lithuania
   numeric_3: "440"
   id: 117
@@ -1963,7 +1963,7 @@ country_00117:
   alpha_3: LTU
 country_00143: 
   position: 143
-  name: Netherlands  
+  name: Netherlands
   display_name: Netherlands
   numeric_3: "528"
   id: 143
@@ -1972,7 +1972,7 @@ country_00143:
   alpha_3: NLD
 country_00224: 
   position: 224
-  name: Western Sahara  
+  name: Western Sahara
   display_name: Western Sahara
   numeric_3: "732"
   id: 224
@@ -1981,7 +1981,7 @@ country_00224:
   alpha_3: ESH
 country_00225: 
   position: 225
-  name: Yemen  
+  name: Yemen
   display_name: Yemen
   numeric_3: "887"
   id: 225
@@ -1990,7 +1990,7 @@ country_00225:
   alpha_3: YEM
 country_00118: 
   position: 118
-  name: Luxembourg  
+  name: Luxembourg
   display_name: Luxembourg
   numeric_3: "442"
   id: 118
@@ -1999,7 +1999,7 @@ country_00118:
   alpha_3: LUX
 country_00090: 
   position: 90
-  name: Hong Kong  
+  name: Hong Kong
   display_name: Hong Kong
   numeric_3: "344"
   id: 90
@@ -2008,7 +2008,7 @@ country_00090:
   alpha_3: HKG
 country_00037: 
   position: 37
-  name: Cape Verde  
+  name: Cape Verde
   display_name: Cape Verde
   numeric_3: "132"
   id: 37
@@ -2017,7 +2017,7 @@ country_00037:
   alpha_3: CPV
 country_00063: 
   position: 63
-  name: Estonia  
+  name: Estonia
   display_name: Estonia
   numeric_3: "233"
   id: 63
@@ -2026,7 +2026,7 @@ country_00063:
   alpha_3: EST
 country_00144: 
   position: 144
-  name: Netherlands Antilles  
+  name: Netherlands Antilles
   display_name: Netherlands Antilles
   numeric_3: "530"
   id: 144
@@ -2035,7 +2035,7 @@ country_00144:
   alpha_3: ANT
 country_00170: 
   position: 170
-  name: Rwanda  
+  name: Rwanda
   display_name: Rwanda
   numeric_3: "646"
   id: 170

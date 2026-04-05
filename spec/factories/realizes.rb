@@ -1,25 +1,39 @@
 FactoryBot.define do
   factory :realize do |f|
-    f.expression_id {FactoryBot.create(:manifestation).id}
-    f.agent_id {FactoryBot.create(:agent).id}
+    f.expression_id { FactoryBot.create(:manifestation).id }
+    f.agent_id { FactoryBot.create(:agent).id }
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: realizes
+# Table name: `realizes`
 #
-#  id              :bigint           not null, primary key
-#  position        :integer
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  agent_id        :bigint           not null
-#  expression_id   :bigint           not null
-#  realize_type_id :bigint
-#  name            :text
+# ### Columns
 #
-# Indexes
+# Name                   | Type               | Attributes
+# ---------------------- | ------------------ | ---------------------------
+# **`id`**               | `bigint`           | `not null, primary key`
+# **`name`**             | `text`             |
+# **`position`**         | `integer`          |
+# **`created_at`**       | `datetime`         | `not null`
+# **`updated_at`**       | `datetime`         | `not null`
+# **`agent_id`**         | `bigint`           | `not null`
+# **`expression_id`**    | `bigint`           | `not null`
+# **`realize_type_id`**  | `bigint`           |
 #
-#  index_realizes_on_agent_id                    (agent_id)
-#  index_realizes_on_expression_id_and_agent_id  (expression_id,agent_id) UNIQUE
+# ### Indexes
+#
+# * `index_realizes_on_agent_id`:
+#     * **`agent_id`**
+# * `index_realizes_on_expression_id_and_agent_id` (_unique_):
+#     * **`expression_id`**
+#     * **`agent_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`agent_id => agents.id`**
+# * `fk_rails_...`:
+#     * **`expression_id => manifestations.id`**
 #

@@ -18,6 +18,7 @@ class MyAccountsController < ApplicationController
       @profile.assign_attributes(profile_update_params)
 
       if @profile.save
+        @profile.user.save!
         bypass_sign_in(current_user)
         format.html { redirect_to my_account_url, notice: t("controller.successfully_updated", model: t("activerecord.models.user")) }
         format.json { head :no_content }
@@ -68,7 +69,7 @@ class MyAccountsController < ApplicationController
       :full_name, :full_name_transcription,
       :keyword_list, :locale,
       :save_checkout_history, :checkout_icalendar_token, # EnjuCirculation
-      :save_search_history, # EnjuSearchLog
+      :save_search_history # EnjuSearchLog
     ]
     if current_user.has_role?("Librarian")
       attrs += [

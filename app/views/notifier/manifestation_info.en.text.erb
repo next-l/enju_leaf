@@ -3,7 +3,7 @@
 Title: <%= @manifestation.original_title %>
 Creator(s): <%= @manifestation.creates.pluck(:name).join("/") %>
 Contributor(s): <%= @manifestation.realizes.pluck(:name).join("/") %> 
-Publisher(s): <%= @manifestation.publishers.readable_by(@user).collect(&:full_name).join("/") %>
+Publisher(s): <%= @manifestation.produces.pluck(:name).join("/") %>
 ISBN: <%= @manifestation.isbn_records.pluck(:body).join(" ") %>
 URL: <%= @manifestation.access_address %>
 Holding:

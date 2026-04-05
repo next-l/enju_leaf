@@ -11,7 +11,7 @@ xml.rss("version" => "2.0",
     xml.tag! "atom:link", rel: "self", href: order_lists_url(format: :rss)
     xml.tag! "atom:link", rel: "alternate", href: order_lists_url
     # xml.tag! "atom:link", rel: 'search', :type => 'application/opensearchdescription+xml', href: "http://#{request.host_with_port}/page/opensearch"
-    unless params[:query].blank?
+    if params[:query].present?
       xml.tag! "opensearch:totalResults", @count[:query_result]
       xml.tag! "opensearch:startIndex", @order_lists.offset + 1
       xml.tag! "opensearch:itemsPerPage", @order_lists.per_page

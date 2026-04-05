@@ -1,12 +1,12 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t('page.new', model: t('activerecord.models.subscription')) -%></h1>
+  <h1 class="title"><%= t("page.new", model: t("activerecord.models.subscription")) -%></h1>
   <div id="content_list">
-    <%= render 'form', subscription: @subscription %>
+    <%= render "form", subscription: @subscription %>
   </div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
-    <li><%= link_to t('page.back'), subscriptions_path -%></li>
+    <li><%= link_to t("page.back"), subscriptions_path -%></li>
   </ul>
 </div>
