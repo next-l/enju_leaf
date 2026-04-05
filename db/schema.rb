@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_05_025836) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_05_032237) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -220,12 +220,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_025836) do
   end
 
   create_table "bookmark_stats", force: :cascade do |t|
-    t.datetime "completed_at", precision: nil
     t.datetime "created_at", null: false
-    t.datetime "end_date", precision: nil
+    t.datetime "end_date", precision: nil, null: false
     t.text "note"
-    t.datetime "start_date", precision: nil
-    t.datetime "started_at", precision: nil
+    t.datetime "start_date", precision: nil, null: false
     t.datetime "updated_at", null: false
   end
 
@@ -896,12 +894,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_025836) do
   end
 
   create_table "manifestation_checkout_stats", force: :cascade do |t|
-    t.datetime "completed_at", precision: nil
     t.datetime "created_at", null: false
-    t.datetime "end_date", precision: nil
+    t.datetime "end_date", precision: nil, null: false
     t.text "note"
-    t.datetime "start_date", precision: nil
-    t.datetime "started_at", precision: nil
+    t.datetime "start_date", precision: nil, null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_manifestation_checkout_stats_on_user_id"
@@ -963,12 +959,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_025836) do
   end
 
   create_table "manifestation_reserve_stats", force: :cascade do |t|
-    t.datetime "completed_at", precision: nil
     t.datetime "created_at", null: false
-    t.datetime "end_date", precision: nil
+    t.datetime "end_date", precision: nil, null: false
     t.text "note"
-    t.datetime "start_date", precision: nil
-    t.datetime "started_at", precision: nil
+    t.datetime "start_date", precision: nil, null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_manifestation_reserve_stats_on_user_id"
@@ -1656,12 +1650,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_025836) do
   end
 
   create_table "user_checkout_stats", force: :cascade do |t|
-    t.datetime "completed_at", precision: nil
     t.datetime "created_at", null: false
-    t.datetime "end_date", precision: nil
+    t.datetime "end_date", precision: nil, null: false
     t.text "note"
-    t.datetime "start_date", precision: nil
-    t.datetime "started_at", precision: nil
+    t.datetime "start_date", precision: nil, null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_user_checkout_stats_on_user_id"
@@ -1785,12 +1777,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_025836) do
   end
 
   create_table "user_reserve_stats", force: :cascade do |t|
-    t.datetime "completed_at", precision: nil
     t.datetime "created_at", null: false
-    t.datetime "end_date", precision: nil
+    t.datetime "end_date", precision: nil, null: false
     t.text "note"
-    t.datetime "start_date", precision: nil
-    t.datetime "started_at", precision: nil
+    t.datetime "start_date", precision: nil, null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_user_reserve_stats_on_user_id"

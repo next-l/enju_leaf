@@ -23,7 +23,6 @@ class ManifestationReserveStat < ApplicationRecord
            to: :state_machine
 
   def calculate_count!
-    self.started_at = Time.zone.now
     Manifestation.find_each do |manifestation|
       daily_count = manifestation.reserves.created(start_date.beginning_of_day, end_date.tomorrow.beginning_of_day).size
       # manifestation.update_attributes({daily_reserves_count: daily_count, total_count: manifestation.total_count + daily_count})
@@ -35,7 +34,6 @@ class ManifestationReserveStat < ApplicationRecord
         )
       end
     end
-    self.completed_at = Time.zone.now
     transition_to!(:completed)
 
     mailer = ManifestationReserveStatMailer.completed(self)
@@ -51,17 +49,15 @@ end
 #
 # ### Columns
 #
-# Name                | Type               | Attributes
-# ------------------- | ------------------ | ---------------------------
-# **`id`**            | `bigint`           | `not null, primary key`
-# **`completed_at`**  | `datetime`         |
-# **`end_date`**      | `datetime`         |
-# **`note`**          | `text`             |
-# **`start_date`**    | `datetime`         |
-# **`started_at`**    | `datetime`         |
-# **`created_at`**    | `datetime`         | `not null`
-# **`updated_at`**    | `datetime`         | `not null`
-# **`user_id`**       | `bigint`           | `not null`
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`id`**          | `bigint`           | `not null, primary key`
+# **`end_date`**    | `datetime`         | `not null`
+# **`note`**        | `text`             |
+# **`start_date`**  | `datetime`         | `not null`
+# **`created_at`**  | `datetime`         | `not null`
+# **`updated_at`**  | `datetime`         | `not null`
+# **`user_id`**     | `bigint`           | `not null`
 #
 # ### Indexes
 #
