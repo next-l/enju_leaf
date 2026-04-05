@@ -40,10 +40,3 @@ end
 #     * **`work_id`**
 #     * **`agent_id`**
 #
-# ### Foreign Keys
-#
-# * `fk_rails_...`:
-#     * **`agent_id => agents.id`**
-# * `fk_rails_...`:
-#     * **`work_id => manifestations.id`**
-#

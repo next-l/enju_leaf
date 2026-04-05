@@ -29,10 +29,3 @@ end
 #     * **`item_id`**
 #     * **`agent_id`**
 #
-# ### Foreign Keys
-#
-# * `fk_rails_...`:
-#     * **`agent_id => agents.id`**
-# * `fk_rails_...`:
-#     * **`item_id => items.id`**
-#

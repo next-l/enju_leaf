@@ -751,7 +751,7 @@ end
 # **`end_page`**                         | `integer`          |
 # **`extent`**                           | `text`             |
 # **`fulltext`**                         | `text`             |
-# **`fulltext_content`**                 | `boolean`          |
+# **`fulltext_content`**                 | `boolean`          | `default(FALSE), not null`
 # **`height`**                           | `integer`          |
 # **`issue_number`**                     | `integer`          |
 # **`issue_number_string`**              | `string`           |
@@ -766,7 +766,7 @@ end
 # **`publication_place`**                | `text`             |
 # **`repository_content`**               | `boolean`          | `default(FALSE), not null`
 # **`required_score`**                   | `integer`          | `default(0), not null`
-# **`serial`**                           | `boolean`          |
+# **`serial`**                           | `boolean`          | `default(FALSE), not null`
 # **`serial_number`**                    | `integer`          |
 # **`serial_number_string`**             | `string`           |
 # **`start_page`**                       | `integer`          |

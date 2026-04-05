@@ -90,7 +90,7 @@ end
 # **`locale`**                    | `string`           |
 # **`note`**                      | `text`             |
 # **`save_checkout_history`**     | `boolean`          | `default(FALSE), not null`
-# **`share_bookmarks`**           | `boolean`          |
+# **`share_bookmarks`**           | `boolean`          | `default(FALSE), not null`
 # **`user_number`**               | `string`           |
 # **`created_at`**                | `datetime`         | `not null`
 # **`updated_at`**                | `datetime`         | `not null`

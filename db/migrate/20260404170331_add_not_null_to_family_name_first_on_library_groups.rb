@@ -1,6 +1,5 @@
 class AddNotNullToFamilyNameFirstOnLibraryGroups < ActiveRecord::Migration[7.2]
   def change
-    change_column_default :library_groups, :family_name_first, false
     change_column_default :manifestations, :fulltext_content, false
     change_column_default :manifestations, :serial, false
     change_column_default :profiles, :share_bookmarks, false

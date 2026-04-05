@@ -853,7 +853,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_04_170331) do
     t.boolean "csv_charset_conversion", default: false, null: false
     t.text "display_name"
     t.string "email"
-    t.boolean "family_name_first", default: false, null: false
+    t.boolean "family_name_first", default: true, null: false
     t.text "html_snippet"
     t.integer "max_number_of_results", default: 1000
     t.text "my_networks"

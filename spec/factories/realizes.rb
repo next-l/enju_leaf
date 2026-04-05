@@ -30,10 +30,3 @@ end
 #     * **`expression_id`**
 #     * **`agent_id`**
 #
-# ### Foreign Keys
-#
-# * `fk_rails_...`:
-#     * **`agent_id => agents.id`**
-# * `fk_rails_...`:
-#     * **`expression_id => manifestations.id`**
-#
