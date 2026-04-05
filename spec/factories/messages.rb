@@ -10,7 +10,6 @@ end
 # ## Schema Information
 #
 # Table name: `messages`
-# Database name: `primary`
 #
 # ### Columns
 #

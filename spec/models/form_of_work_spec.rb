@@ -7,7 +7,6 @@ end
 # ## Schema Information
 #
 # Table name: `form_of_works`
-# Database name: `primary`
 #
 # ### Columns
 #

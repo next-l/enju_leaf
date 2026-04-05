@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `orders`
-# Database name: `primary`
 #
 # ### Columns
 #

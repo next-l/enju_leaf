@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `manifestation_custom_properties`
-# Database name: `primary`
 #
 # ### Columns
 #

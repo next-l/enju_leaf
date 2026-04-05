@@ -7,7 +7,6 @@ end
 # ## Schema Information
 #
 # Table name: `purchase_requests`
-# Database name: `primary`
 #
 # ### Columns
 #

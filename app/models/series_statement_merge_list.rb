@@ -1,7 +1,6 @@
 # ## Schema Information
 #
 # Table name: `series_statement_merge_lists`
-# Database name: `primary`
 #
 # ### Columns
 #

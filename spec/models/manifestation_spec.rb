@@ -287,7 +287,6 @@ end
 # ## Schema Information
 #
 # Table name: `manifestations`
-# Database name: `primary`
 #
 # ### Columns
 #

@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `shelves`
-# Database name: `primary`
 #
 # ### Columns
 #

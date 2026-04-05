@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `agent_merges`
-# Database name: `primary`
 #
 # ### Columns
 #

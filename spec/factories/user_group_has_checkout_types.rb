@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `user_group_has_checkout_types`
-# Database name: `primary`
 #
 # ### Columns
 #

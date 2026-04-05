@@ -24,7 +24,6 @@ end
 # ## Schema Information
 #
 # Table name: `carrier_types`
-# Database name: `primary`
 #
 # ### Columns
 #

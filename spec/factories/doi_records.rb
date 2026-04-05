@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `doi_records`
-# Database name: `primary`
 #
 # ### Columns
 #

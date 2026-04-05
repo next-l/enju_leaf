@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `series_statement_merges`
-# Database name: `primary`
 #
 # ### Columns
 #

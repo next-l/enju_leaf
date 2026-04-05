@@ -13,7 +13,6 @@ end
 # ## Schema Information
 #
 # Table name: `budget_types`
-# Database name: `primary`
 #
 # ### Columns
 #

@@ -5,7 +5,6 @@ end
 # ## Schema Information
 #
 # Table name: `reserve_transitions`
-# Database name: `primary`
 #
 # ### Columns
 #

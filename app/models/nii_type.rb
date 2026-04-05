@@ -6,7 +6,6 @@ end
 # ## Schema Information
 #
 # Table name: `nii_types`
-# Database name: `primary`
 #
 # ### Columns
 #

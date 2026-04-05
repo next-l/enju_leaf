@@ -10,7 +10,6 @@ end
 # ## Schema Information
 #
 # Table name: `periodicals`
-# Database name: `primary`
 #
 # ### Columns
 #

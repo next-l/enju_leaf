@@ -1,7 +1,6 @@
 # ## Schema Information
 #
 # Table name: `colors`
-# Database name: `primary`
 #
 # ### Columns
 #

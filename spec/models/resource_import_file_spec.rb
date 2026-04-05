@@ -516,7 +516,6 @@ end
 # ## Schema Information
 #
 # Table name: `resource_import_files`
-# Database name: `primary`
 #
 # ### Columns
 #

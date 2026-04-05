@@ -7,7 +7,6 @@ end
 # ## Schema Information
 #
 # Table name: `event_import_results`
-# Database name: `primary`
 #
 # ### Columns
 #

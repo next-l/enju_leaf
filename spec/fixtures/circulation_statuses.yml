@@ -108,7 +108,6 @@ circulation_status_00016:
 # ## Schema Information
 #
 # Table name: `circulation_statuses`
-# Database name: `primary`
 #
 # ### Columns
 #

@@ -7,7 +7,6 @@ end
 # ## Schema Information
 #
 # Table name: `agent_types`
-# Database name: `primary`
 #
 # ### Columns
 #

@@ -7,7 +7,6 @@ end
 # ## Schema Information
 #
 # Table name: `countries`
-# Database name: `primary`
 #
 # ### Columns
 #

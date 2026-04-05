@@ -10,7 +10,6 @@ end
 # ## Schema Information
 #
 # Table name: `checkout_stat_has_users`
-# Database name: `primary`
 #
 # ### Columns
 #

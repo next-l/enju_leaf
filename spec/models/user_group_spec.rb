@@ -19,7 +19,6 @@ end
 # ## Schema Information
 #
 # Table name: `user_groups`
-# Database name: `primary`
 #
 # ### Columns
 #

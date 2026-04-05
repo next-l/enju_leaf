@@ -18,7 +18,6 @@ end
 # ## Schema Information
 #
 # Table name: `realizes`
-# Database name: `primary`
 #
 # ### Columns
 #

@@ -8,7 +8,6 @@ end
 # ## Schema Information
 #
 # Table name: `item_custom_properties`
-# Database name: `primary`
 #
 # ### Columns
 #

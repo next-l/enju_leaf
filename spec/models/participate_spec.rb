@@ -7,7 +7,6 @@ end
 # ## Schema Information
 #
 # Table name: `participates`
-# Database name: `primary`
 #
 # ### Columns
 #

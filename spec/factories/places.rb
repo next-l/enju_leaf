@@ -1,7 +1,6 @@
 # ## Schema Information
 #
 # Table name: `places`
-# Database name: `primary`
 #
 # ### Columns
 #

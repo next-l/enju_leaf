@@ -132,7 +132,6 @@ end
 # ## Schema Information
 #
 # Table name: `reserves`
-# Database name: `primary`
 #
 # ### Columns
 #

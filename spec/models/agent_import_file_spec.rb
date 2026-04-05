@@ -85,7 +85,6 @@ end
 # ## Schema Information
 #
 # Table name: `agent_import_files`
-# Database name: `primary`
 #
 # ### Columns
 #

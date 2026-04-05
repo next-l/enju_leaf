@@ -7,7 +7,6 @@ end
 # ## Schema Information
 #
 # Table name: `owns`
-# Database name: `primary`
 #
 # ### Columns
 #

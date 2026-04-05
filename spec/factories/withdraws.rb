@@ -11,7 +11,6 @@ end
 # ## Schema Information
 #
 # Table name: `withdraws`
-# Database name: `primary`
 #
 # ### Columns
 #

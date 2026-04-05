@@ -45,7 +45,6 @@ end
 # ## Schema Information
 #
 # Table name: `manifestation_checkout_stats`
-# Database name: `primary`
 #
 # ### Columns
 #

@@ -1,7 +1,6 @@
 # ## Schema Information
 #
 # Table name: `news_feeds`
-# Database name: `primary`
 #
 # ### Columns
 #

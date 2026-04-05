@@ -54,7 +54,6 @@ end
 # ## Schema Information
 #
 # Table name: `inventory_files`
-# Database name: `primary`
 #
 # ### Columns
 #

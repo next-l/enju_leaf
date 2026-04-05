@@ -1,7 +1,6 @@
 # ## Schema Information
 #
 # Table name: `agent_merge_lists`
-# Database name: `primary`
 #
 # ### Columns
 #

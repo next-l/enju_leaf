@@ -44,7 +44,6 @@ end
 # ## Schema Information
 #
 # Table name: `user_checkout_stats`
-# Database name: `primary`
 #
 # ### Columns
 #

@@ -154,7 +154,6 @@ end
 # ## Schema Information
 #
 # Table name: `items`
-# Database name: `primary`
 #
 # ### Columns
 #

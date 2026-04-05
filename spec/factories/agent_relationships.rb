@@ -1,7 +1,6 @@
 # ## Schema Information
 #
 # Table name: `agent_relationships`
-# Database name: `primary`
 #
 # ### Columns
 #

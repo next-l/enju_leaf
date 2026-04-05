@@ -11,7 +11,6 @@ end
 # ## Schema Information
 #
 # Table name: `search_engines`
-# Database name: `primary`
 #
 # ### Columns
 #
