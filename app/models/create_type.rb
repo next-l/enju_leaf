@@ -3,19 +3,24 @@ class CreateType < ApplicationRecord
   default_scope { order("create_types.position") }
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: create_types
+# Table name: `create_types`
 #
-#  id           :bigint           not null, primary key
-#  display_name :text
-#  name         :string           not null
-#  note         :text
-#  position     :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+# ### Columns
 #
-# Indexes
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`display_name`**  | `text`             |
+# **`name`**          | `string`           | `not null`
+# **`note`**          | `text`             |
+# **`position`**      | `integer`          |
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
 #
-#  index_create_types_on_lower_name  (lower((name)::text)) UNIQUE
+# ### Indexes
+#
+# * `index_create_types_on_lower_name` (_unique_):
+#     * **`lower((name)::text)`**
 #

@@ -87,8 +87,8 @@ describe Reserve do
     old_reservation.reload
     old_reservation.item.should be_nil
     reservation.retained_at.should be_truthy
-#    old_reservation.retained_at.should be_nil
-#    old_reservation.postponed_at.should be_truthy
+    #    old_reservation.retained_at.should be_nil
+    #    old_reservation.postponed_at.should be_truthy
     old_reservation.current_state.should eq 'postponed'
     Message.count.should eq old_count + 4
     reservation.item.retained?.should be_truthy
@@ -119,46 +119,56 @@ describe Reserve do
     reserve = FactoryBot.create(:reserve)
     manifestation = reserve.manifestation
     item = FactoryBot.create(:item, manifestation_id: manifestation.id)
-    expect {item.retain(reserve.user)}.not_to raise_error
+    expect { item.retain(reserve.user) }.not_to raise_error
     expect(reserve.retained?).to be true
     expect(item.retained?).to be true
     item = FactoryBot.create(:item, manifestation_id: manifestation.id)
-    expect {item.retain(reserve.user)}.not_to raise_error
+    expect { item.retain(reserve.user) }.not_to raise_error
     expect(reserve.retained?).to be true
     expect(item.retained?).to be false
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: reserves
+# Table name: `reserves`
 #
-#  id                           :bigint           not null, primary key
-#  canceled_at                  :datetime
-#  checked_out_at               :datetime
-#  expiration_notice_to_library :boolean          default(FALSE)
-#  expiration_notice_to_patron  :boolean          default(FALSE)
-#  expired_at                   :datetime
-#  lock_version                 :integer          default(0), not null
-#  postponed_at                 :datetime
-#  retained_at                  :datetime
-#  created_at                   :datetime         not null
-#  updated_at                   :datetime         not null
-#  item_id                      :bigint
-#  manifestation_id             :bigint           not null
-#  pickup_location_id           :bigint
-#  request_status_type_id       :bigint           not null
-#  user_id                      :bigint           not null
+# ### Columns
 #
-# Indexes
+# Name                                | Type               | Attributes
+# ----------------------------------- | ------------------ | ---------------------------
+# **`id`**                            | `bigint`           | `not null, primary key`
+# **`canceled_at`**                   | `datetime`         |
+# **`checked_out_at`**                | `datetime`         |
+# **`expiration_notice_to_library`**  | `boolean`          | `default(FALSE), not null`
+# **`expiration_notice_to_patron`**   | `boolean`          | `default(FALSE), not null`
+# **`expired_at`**                    | `datetime`         |
+# **`lock_version`**                  | `integer`          | `default(0), not null`
+# **`postponed_at`**                  | `datetime`         |
+# **`retained_at`**                   | `datetime`         |
+# **`created_at`**                    | `datetime`         | `not null`
+# **`updated_at`**                    | `datetime`         | `not null`
+# **`item_id`**                       | `bigint`           |
+# **`manifestation_id`**              | `bigint`           | `not null`
+# **`pickup_location_id`**            | `bigint`           |
+# **`request_status_type_id`**        | `bigint`           | `not null`
+# **`user_id`**                       | `bigint`           | `not null`
 #
-#  index_reserves_on_item_id             (item_id)
-#  index_reserves_on_manifestation_id    (manifestation_id)
-#  index_reserves_on_pickup_location_id  (pickup_location_id)
-#  index_reserves_on_user_id             (user_id)
+# ### Indexes
 #
-# Foreign Keys
+# * `index_reserves_on_item_id`:
+#     * **`item_id`**
+# * `index_reserves_on_manifestation_id`:
+#     * **`manifestation_id`**
+# * `index_reserves_on_pickup_location_id`:
+#     * **`pickup_location_id`**
+# * `index_reserves_on_user_id`:
+#     * **`user_id`**
 #
-#  fk_rails_...  (manifestation_id => manifestations.id)
-#  fk_rails_...  (user_id => users.id)
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`manifestation_id => manifestations.id`**
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

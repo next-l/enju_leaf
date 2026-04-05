@@ -13,7 +13,7 @@
 
 <p>
   <strong><%= t('activerecord.models.user') -%>:</strong>
-  <%= link_to h(@news_post.user.username), user_path(@news_post.user.username) -%>
+  <%= link_to @news_post.user.username, profile_path(@news_post.user.profile) -%>
 </p>
 
 <!--
@@ -25,12 +25,12 @@
 
 <p>
   <strong><%= t('activerecord.attributes.news_post.start_date') -%>:</strong>
-  <%= l(@news_post.start_date) -%>
+  <%= l(@news_post.start_date) if @news_post.start_date -%>
 </p>
 
 <p>
   <strong><%= t('activerecord.attributes.news_post.end_date') -%>:</strong>
-  <%= l(@news_post.end_date) -%>
+  <%= l(@news_post.end_date) if @news_post.end_date -%>
 </p>
 
 <p>

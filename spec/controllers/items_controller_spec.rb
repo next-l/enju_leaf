@@ -356,7 +356,7 @@ describe ItemsController do
         end
 
         it 'accepts custom values' do
-          post :create, params: { item: @attrs.merge(item_custom_values_attributes: Array.new(3) {FactoryBot.attributes_for(:item_custom_value, item_custom_property_id: FactoryBot.create(:item_custom_property).id)}) }
+          post :create, params: { item: @attrs.merge(item_custom_values_attributes: Array.new(3) { FactoryBot.attributes_for(:item_custom_value, item_custom_property_id: FactoryBot.create(:item_custom_property).id) }) }
           expect(assigns(:item)).to be_valid
           expect(assigns(:item).item_custom_values.count).to eq 3
         end

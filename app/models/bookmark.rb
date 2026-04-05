@@ -6,7 +6,6 @@ class Bookmark < ApplicationRecord
   belongs_to :user
 
   validates :title, presence: :true
-  validates :url, presence: { on: :create }
   validates :manifestation_id, presence: { on: :update }
   validates :manifestation_id, uniqueness: { scope: :user_id }
   validates :url, url: true, presence: true, length: { maximum: 255 }
@@ -182,27 +181,35 @@ class Bookmark < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: bookmarks
+# Table name: `bookmarks`
 #
-#  id               :bigint           not null, primary key
-#  note             :text
-#  shared           :boolean
-#  title            :text
-#  url              :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  manifestation_id :bigint
-#  user_id          :bigint           not null
+# ### Columns
 #
-# Indexes
+# Name                    | Type               | Attributes
+# ----------------------- | ------------------ | ---------------------------
+# **`id`**                | `bigint`           | `not null, primary key`
+# **`note`**              | `text`             |
+# **`shared`**            | `boolean`          | `default(FALSE), not null`
+# **`title`**             | `text`             | `not null`
+# **`url`**               | `string`           | `not null`
+# **`created_at`**        | `datetime`         | `not null`
+# **`updated_at`**        | `datetime`         | `not null`
+# **`manifestation_id`**  | `bigint`           |
+# **`user_id`**           | `bigint`           | `not null`
 #
-#  index_bookmarks_on_manifestation_id  (manifestation_id)
-#  index_bookmarks_on_url               (url)
-#  index_bookmarks_on_user_id           (user_id)
+# ### Indexes
 #
-# Foreign Keys
+# * `index_bookmarks_on_manifestation_id`:
+#     * **`manifestation_id`**
+# * `index_bookmarks_on_url`:
+#     * **`url`**
+# * `index_bookmarks_on_user_id`:
+#     * **`user_id`**
 #
-#  fk_rails_...  (user_id => users.id)
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

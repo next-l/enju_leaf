@@ -18,28 +18,34 @@ two:
   edit_mode: MyString
   error_message: MyText
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: user_import_files
+# Table name: `user_import_files`
 #
-#  id                      :bigint           not null, primary key
-#  edit_mode               :string
-#  error_message           :text
-#  executed_at             :datetime
-#  note                    :text
-#  user_encoding           :string
-#  user_import_fingerprint :string
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  default_library_id      :bigint
-#  default_user_group_id   :bigint
-#  user_id                 :bigint           not null
+# ### Columns
 #
-# Indexes
+# Name                           | Type               | Attributes
+# ------------------------------ | ------------------ | ---------------------------
+# **`id`**                       | `bigint`           | `not null, primary key`
+# **`edit_mode`**                | `string`           |
+# **`error_message`**            | `text`             |
+# **`executed_at`**              | `datetime`         |
+# **`note`**                     | `text`             |
+# **`user_encoding`**            | `string`           |
+# **`user_import_fingerprint`**  | `string`           |
+# **`created_at`**               | `datetime`         | `not null`
+# **`updated_at`**               | `datetime`         | `not null`
+# **`default_library_id`**       | `bigint`           |
+# **`default_user_group_id`**    | `bigint`           |
+# **`user_id`**                  | `bigint`           | `not null`
 #
-#  index_user_import_files_on_user_id  (user_id)
+# ### Indexes
 #
-# Foreign Keys
+# * `index_user_import_files_on_user_id`:
+#     * **`user_id`**
 #
-#  fk_rails_...  (user_id => users.id)
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

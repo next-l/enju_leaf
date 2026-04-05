@@ -1,6 +1,6 @@
 --- 
 shelf_00001: 
-  name: web  
+  name: web
   display_name: Library bookmark
   id: 1
   note:
@@ -28,24 +28,30 @@ shelf_00004:
   library_id: 3
   position: 4
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: shelves
+# Table name: `shelves`
 #
-#  id           :bigint           not null, primary key
-#  closed       :boolean          default(FALSE), not null
-#  display_name :text
-#  items_count  :integer          default(0), not null
-#  name         :string           not null
-#  note         :text
-#  position     :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  library_id   :bigint           not null
+# ### Columns
 #
-# Indexes
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`closed`**        | `boolean`          | `default(FALSE), not null`
+# **`display_name`**  | `text`             |
+# **`items_count`**   | `integer`          | `default(0), not null`
+# **`name`**          | `string`           | `not null`
+# **`note`**          | `text`             |
+# **`position`**      | `integer`          |
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
+# **`library_id`**    | `bigint`           | `not null`
 #
-#  index_shelves_on_library_id  (library_id)
-#  index_shelves_on_lower_name  (lower((name)::text)) UNIQUE
+# ### Indexes
+#
+# * `index_shelves_on_library_id`:
+#     * **`library_id`**
+# * `index_shelves_on_lower_name` (_unique_):
+#     * **`lower((name)::text)`**
 #
 

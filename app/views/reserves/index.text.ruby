@@ -1,5 +1,5 @@
 CSV.generate(col_sep: "\t", row_sep: "\r\n") do |csv|
-  csv << %w(id state maniestation_id title creator publisher pub_date isbn item_identifier call_number user_number username library created_at expired_at)
+  csv << %w[id state maniestation_id title creator publisher pub_date isbn item_identifier call_number user_number username library created_at expired_at]
   @reserves.each do |reserve|
     csv << [
       reserve.id,

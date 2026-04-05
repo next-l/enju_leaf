@@ -204,7 +204,7 @@ module EnjuNii
         series = doc.at("//dcterms:isPartOf")
         if series && parent_url = series["rdf:resource"]
           ptbl = series["dc:title"]
-          rdf_url = "#{URI.parse(parent_url.gsub(/\#\w+\Z/, '')).to_s}"
+          rdf_url = "#{URI.parse(parent_url.gsub(/\#\w+\Z/, ''))}"
           conn = Faraday.new("#{rdf_url}.rdf") do |faraday|
             faraday.adapter :net_http
           end

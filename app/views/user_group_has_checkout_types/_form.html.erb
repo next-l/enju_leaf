@@ -11,27 +11,27 @@
   </div>
   <div class="field">
     <%= f.label :checkout_limit -%><br />
-    <%= f.text_field :checkout_limit, class: 'resource_integer' -%>
+    <%= f.number_field :checkout_limit, class: 'resource_integer' -%>
   </div>
 
   <div class="field">
     <%= f.label :checkout_period -%><br />
-    <%= f.text_field :checkout_period, class: 'resource_integer' -%>
+    <%= f.number_field :checkout_period, class: 'resource_integer' -%>
   </div>
 
   <div class="field">
     <%= f.label :checkout_renewal_limit -%><br />
-    <%= f.text_field :checkout_renewal_limit, class: 'resource_integer' -%>
+    <%= f.number_field :checkout_renewal_limit, class: 'resource_integer' -%>
   </div>
 
   <div class="field">
     <%= f.label :reservation_limit -%><br />
-    <%= f.text_field :reservation_limit, class: 'resource_integer' -%>
+    <%= f.number_field :reservation_limit, class: 'resource_integer' -%>
   </div>
 
   <div class="field">
     <%= f.label :due_date_offset -%>
-    <%= f.check_box :due_date_offset -%>
+    <%= f.number_field :due_date_offset -%>
   </div>
 
   <div class="field">
