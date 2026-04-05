@@ -4,7 +4,7 @@ describe Subscription do
   fixtures :subscriptions, :manifestations, :subscribes
 
   it "should_respond_to_subscribed" do
-    subscriptions(:subscription_00001).subscribed(manifestations(:manifestation_00001)).should be_truthy
+    expect(subscriptions(:subscription_00001).subscribed(manifestations(:manifestation_00001))).to be_truthy
   end
 end
 
