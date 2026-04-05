@@ -5,7 +5,5 @@ class AddForeignKeyToBookstoreIdOnItems < ActiveRecord::Migration[7.2]
     add_foreign_key :items, :checkout_types
     add_foreign_key :items, :circulation_statuses
     add_foreign_key :items, :shelves
-    change_column_null :items, :bookstore_id, false
-    change_column_null :items, :budget_type_id, false
   end
 end

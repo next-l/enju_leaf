@@ -746,8 +746,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_162830) do
     t.integer "lock_version", default: 0, null: false
     t.bigint "required_role_id", default: 1, null: false
     t.datetime "acquired_at", precision: nil
-    t.bigint "bookstore_id", null: false
-    t.bigint "budget_type_id", null: false
+    t.bigint "bookstore_id"
+    t.bigint "budget_type_id"
     t.bigint "circulation_status_id", default: 5, null: false
     t.bigint "checkout_type_id", default: 1, null: false
     t.string "binding_item_identifier"

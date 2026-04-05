@@ -175,8 +175,8 @@ end
 # **`url`**                      | `string`           |
 # **`created_at`**               | `datetime`         | `not null`
 # **`updated_at`**               | `datetime`         | `not null`
-# **`bookstore_id`**             | `bigint`           | `not null`
-# **`budget_type_id`**           | `bigint`           | `not null`
+# **`bookstore_id`**             | `bigint`           |
+# **`budget_type_id`**           | `bigint`           |
 # **`checkout_type_id`**         | `bigint`           | `default(1), not null`
 # **`circulation_status_id`**    | `bigint`           | `default(5), not null`
 # **`manifestation_id`**         | `bigint`           | `not null`
