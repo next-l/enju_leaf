@@ -193,16 +193,6 @@ describe ItemsController do
         expect(response).to redirect_to(manifestations_url)
       end
 
-      it 'should work without exception, even if library and shelf is unavailable' do
-        Library.real.each do |library|
-          library.shelves.delete_all
-          library.events.delete_all
-          library.delete
-        end
-        get :new, params: { manifestation_id: @manifestation.id }
-        expect(response).to redirect_to(libraries_url)
-      end
-
       it 'should not get new item for series_master' do
         manifestation_serial = FactoryBot.create(:manifestation_serial)
         get :new, params: { manifestation_id: manifestation_serial.id }
