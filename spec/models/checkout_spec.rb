@@ -74,6 +74,8 @@ end
 # **`basket_id`**               | `bigint`           |
 # **`item_id`**                 | `bigint`           | `not null`
 # **`librarian_id`**            | `bigint`           |
+# **`library_id`**              | `bigint`           |
+# **`shelf_id`**                | `bigint`           |
 # **`user_id`**                 | `bigint`           |
 #
 # ### Indexes
@@ -88,6 +90,10 @@ end
 #     * **`user_id`**
 # * `index_checkouts_on_librarian_id`:
 #     * **`librarian_id`**
+# * `index_checkouts_on_library_id`:
+#     * **`library_id`**
+# * `index_checkouts_on_shelf_id`:
+#     * **`shelf_id`**
 # * `index_checkouts_on_user_id`:
 #     * **`user_id`**
 #
@@ -97,6 +103,10 @@ end
 #     * **`item_id => items.id`**
 # * `fk_rails_...`:
 #     * **`librarian_id => users.id`**
+# * `fk_rails_...`:
+#     * **`library_id => libraries.id`**
+# * `fk_rails_...`:
+#     * **`shelf_id => shelves.id`**
 # * `fk_rails_...`:
 #     * **`user_id => users.id`**
 #
