@@ -19,7 +19,7 @@ end
 # **`updated_at`**               | `datetime`         | `not null`
 # **`item_id`**                  | `bigint`           |
 # **`manifestation_id`**         | `bigint`           |
-# **`resource_import_file_id`**  | `bigint`           |
+# **`resource_import_file_id`**  | `bigint`           | `not null`
 #
 # ### Indexes
 #

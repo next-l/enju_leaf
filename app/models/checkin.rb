@@ -90,6 +90,7 @@ end
 # **`created_at`**    | `datetime`         | `not null`
 # **`updated_at`**    | `datetime`         | `not null`
 # **`basket_id`**     | `bigint`           |
+# **`checkout_id`**   | `bigint`           | `not null`
 # **`item_id`**       | `bigint`           | `not null`
 # **`librarian_id`**  | `bigint`           |
 #
@@ -97,6 +98,8 @@ end
 #
 # * `index_checkins_on_basket_id`:
 #     * **`basket_id`**
+# * `index_checkins_on_checkout_id`:
+#     * **`checkout_id`**
 # * `index_checkins_on_item_id_and_basket_id` (_unique_):
 #     * **`item_id`**
 #     * **`basket_id`**
