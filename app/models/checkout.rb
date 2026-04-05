@@ -9,7 +9,7 @@ class Checkout < ApplicationRecord
   belongs_to :user, optional: true
   delegate :username, :user_number, to: :user, prefix: true
   belongs_to :item, touch: true
-  belongs_to :checkin, optional: true
+  has_one :checkin
   belongs_to :librarian, class_name: "User"
   belongs_to :basket
   belongs_to :shelf, optional: true

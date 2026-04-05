@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_05_080739) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -305,7 +305,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "lock_version", default: 0, null: false
+    t.bigint "checkout_id", null: false
     t.index ["basket_id"], name: "index_checkins_on_basket_id"
+    t.index ["checkout_id"], name: "index_checkins_on_checkout_id"
     t.index ["item_id", "basket_id"], name: "index_checkins_on_item_id_and_basket_id", unique: true
     t.index ["librarian_id"], name: "index_checkins_on_librarian_id"
   end
@@ -343,7 +345,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
   create_table "checkouts", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "item_id", null: false
-    t.bigint "checkin_id"
     t.bigint "librarian_id"
     t.bigint "basket_id"
     t.datetime "due_date", precision: nil
@@ -354,7 +355,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
     t.bigint "shelf_id"
     t.bigint "library_id"
     t.index ["basket_id"], name: "index_checkouts_on_basket_id"
-    t.index ["checkin_id"], name: "index_checkouts_on_checkin_id"
     t.index ["item_id", "basket_id", "user_id"], name: "index_checkouts_on_item_id_and_basket_id_and_user_id", unique: true
     t.index ["item_id"], name: "index_checkouts_on_item_id"
     t.index ["librarian_id"], name: "index_checkouts_on_librarian_id"
@@ -1838,7 +1838,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
   add_foreign_key "checkout_stat_has_manifestations", "manifestations"
   add_foreign_key "checkout_stat_has_users", "user_checkout_stats"
   add_foreign_key "checkout_stat_has_users", "users"
-  add_foreign_key "checkouts", "checkins"
   add_foreign_key "checkouts", "items"
   add_foreign_key "checkouts", "libraries"
   add_foreign_key "checkouts", "shelves"
