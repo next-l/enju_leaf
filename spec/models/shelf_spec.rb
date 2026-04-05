@@ -35,3 +35,8 @@ end
 # * `index_shelves_on_lower_name` (_unique_):
 #     * **`lower((name)::text)`**
 #
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`library_id => libraries.id`**
+#

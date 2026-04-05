@@ -59,4 +59,6 @@ end
 #
 # * `fk_rails_...`:
 #     * **`event_category_id => event_categories.id`**
+# * `fk_rails_...`:
+#     * **`library_id => libraries.id`**
 #
