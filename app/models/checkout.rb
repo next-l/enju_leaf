@@ -201,7 +201,6 @@ end
 # **`created_at`**              | `datetime`         | `not null`
 # **`updated_at`**              | `datetime`         | `not null`
 # **`basket_id`**               | `bigint`           |
-# **`checkin_id`**              | `bigint`           |
 # **`item_id`**                 | `bigint`           | `not null`
 # **`librarian_id`**            | `bigint`           |
 # **`library_id`**              | `bigint`           |
@@ -212,8 +211,6 @@ end
 #
 # * `index_checkouts_on_basket_id`:
 #     * **`basket_id`**
-# * `index_checkouts_on_checkin_id`:
-#     * **`checkin_id`**
 # * `index_checkouts_on_item_id`:
 #     * **`item_id`**
 # * `index_checkouts_on_item_id_and_basket_id_and_user_id` (_unique_):
@@ -231,8 +228,6 @@ end
 #
 # ### Foreign Keys
 #
-# * `fk_rails_...`:
-#     * **`checkin_id => checkins.id`**
 # * `fk_rails_...`:
 #     * **`item_id => items.id`**
 # * `fk_rails_...`:
