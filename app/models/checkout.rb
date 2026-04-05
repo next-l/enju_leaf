@@ -48,10 +48,9 @@ class Checkout < ApplicationRecord
   paginates_per 10
 
   def is_not_checked?
-    checkout = Checkout.not_returned.where(item_id: item_id)
-    unless checkout.empty?
-      errors.add(:base, I18n.t("activerecord.errors.messages.checkin.already_checked_out"))
-    end
+    return if Checkout.not_returned.where(item_id: item_id).empty?
+
+    errors.add(:base, I18n.t("activerecord.errors.messages.checkin.already_checked_out"))
   end
 
   def renewable?
@@ -67,14 +66,12 @@ class Checkout < ApplicationRecord
     if !operator && over_checkout_renewal_limit?
       messages << I18n.t("checkout.excessed_renewal_limit")
     end
-    if messages.empty?
-      true
-    else
-      messages.each do |message|
-        errors.add(:base, message)
-      end
-      false
+    return true if messages.empty?
+
+    messages.each do |message|
+      errors.add(:base, message)
     end
+    false
   end
 
   def reserved?
@@ -90,19 +87,15 @@ class Checkout < ApplicationRecord
 
   def overdue?
     return false unless due_date
-    if Time.zone.now > due_date.tomorrow.beginning_of_day
-      true
-    else
-      false
-    end
+    return true if Time.zone.now > due_date.tomorrow.beginning_of_day
+
+    false
   end
 
   def is_today_due_date?
-    if Time.zone.now.beginning_of_day == due_date.beginning_of_day
-      true
-    else
-      false
-    end
+    return true if Time.zone.now.beginning_of_day == due_date.beginning_of_day
+
+    false
   end
 
   def set_new_due_date
@@ -111,13 +104,12 @@ class Checkout < ApplicationRecord
 
   def get_new_due_date
     return nil unless user
+    return nil unless item
 
-    if item
-      if checkout_renewal_count <= item.checkout_status(user).checkout_renewal_limit
-        new_due_date = Time.zone.now.advance(days: item.checkout_status(user).checkout_period).beginning_of_day
-      else
-        new_due_date = due_date
-      end
+    if checkout_renewal_count <= item.checkout_status(user).checkout_renewal_limit
+      new_due_date = Time.zone.now.advance(days: item.checkout_status(user).checkout_period).beginning_of_day
+    else
+      new_due_date = due_date
     end
   end
 

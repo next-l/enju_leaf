@@ -28,11 +28,12 @@ module EnjuCirculation
         # 資料種別ごとの貸出中の冊数を計算
         checkout_count[:"#{checkout_type.name}"] = checkouts.count_by_sql([ "
           SELECT count(item_id) FROM checkouts
+            LEFT JOIN checkins ON checkins.checkout_id = checkouts.id
             WHERE item_id IN (
               SELECT id FROM items
                 WHERE checkout_type_id = ?
             )
-            AND user_id = ? AND checkin_id IS NULL", checkout_type.id, id ]
+            AND user_id = ? AND checkins.checkout_id IS NULL", checkout_type.id, id ]
         )
       end
       checkout_count
