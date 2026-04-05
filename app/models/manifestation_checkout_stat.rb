@@ -23,7 +23,6 @@ class ManifestationCheckoutStat < ApplicationRecord
            to: :state_machine
 
   def calculate_count!
-    self.started_at = Time.zone.now
     Manifestation.find_each do |manifestation|
       daily_count = Checkout.manifestations_count(start_date.beginning_of_day, end_date.tomorrow.beginning_of_day, manifestation)
       # manifestation.update_attributes({daily_checkouts_count: daily_count, total_count: manifestation.total_count + daily_count})

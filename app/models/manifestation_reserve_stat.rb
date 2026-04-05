@@ -23,7 +23,6 @@ class ManifestationReserveStat < ApplicationRecord
            to: :state_machine
 
   def calculate_count!
-    self.started_at = Time.zone.now
     Manifestation.find_each do |manifestation|
       daily_count = manifestation.reserves.created(start_date.beginning_of_day, end_date.tomorrow.beginning_of_day).size
       # manifestation.update_attributes({daily_reserves_count: daily_count, total_count: manifestation.total_count + daily_count})

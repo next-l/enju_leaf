@@ -23,7 +23,6 @@ class UserCheckoutStat < ApplicationRecord
            to: :state_machine
 
   def calculate_count!
-    self.started_at = Time.zone.now
     User.find_each do |user|
       daily_count = user.checkouts.completed(start_date.beginning_of_day, end_date.tomorrow.beginning_of_day).size
       if daily_count.positive?
@@ -34,7 +33,6 @@ class UserCheckoutStat < ApplicationRecord
         )
       end
     end
-    self.completed_at = Time.zone.now
     transition_to!(:completed)
 
     mailer = UserCheckoutStatMailer.completed(self)
