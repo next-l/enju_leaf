@@ -205,7 +205,17 @@ end
 # ### Foreign Keys
 #
 # * `fk_rails_...`:
+#     * **`bookstore_id => bookstores.id`**
+# * `fk_rails_...`:
+#     * **`budget_type_id => budget_types.id`**
+# * `fk_rails_...`:
+#     * **`checkout_type_id => checkout_types.id`**
+# * `fk_rails_...`:
+#     * **`circulation_status_id => circulation_statuses.id`**
+# * `fk_rails_...`:
 #     * **`manifestation_id => manifestations.id`**
 # * `fk_rails_...`:
 #     * **`required_role_id => roles.id`**
+# * `fk_rails_...`:
+#     * **`shelf_id => shelves.id`**
 #

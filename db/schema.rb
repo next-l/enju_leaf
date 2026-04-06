@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_05_170323) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1253,7 +1253,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
 
   create_table "profiles", force: :cascade do |t|
     t.bigint "user_group_id"
-    t.bigint "library_id"
+    t.bigint "library_id", null: false
     t.string "locale"
     t.string "user_number"
     t.text "full_name"
@@ -1854,6 +1854,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
   add_foreign_key "event_import_files", "users"
   add_foreign_key "event_import_results", "event_import_files"
   add_foreign_key "events", "event_categories"
+  add_foreign_key "events", "libraries"
   add_foreign_key "import_requests", "users"
   add_foreign_key "inventory_files", "shelves"
   add_foreign_key "inventory_files", "users"
@@ -1865,8 +1866,13 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
   add_foreign_key "item_custom_values", "items"
   add_foreign_key "item_has_use_restrictions", "items"
   add_foreign_key "item_has_use_restrictions", "use_restrictions"
+  add_foreign_key "items", "bookstores"
+  add_foreign_key "items", "budget_types"
+  add_foreign_key "items", "checkout_types"
+  add_foreign_key "items", "circulation_statuses"
   add_foreign_key "items", "manifestations"
   add_foreign_key "items", "roles", column: "required_role_id"
+  add_foreign_key "items", "shelves"
   add_foreign_key "jpno_records", "manifestations"
   add_foreign_key "lccn_records", "manifestations"
   add_foreign_key "libraries", "library_groups"
@@ -1877,6 +1883,11 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
   add_foreign_key "manifestation_relationships", "manifestations", column: "child_id"
   add_foreign_key "manifestation_relationships", "manifestations", column: "parent_id"
   add_foreign_key "manifestation_reserve_stats", "users"
+  add_foreign_key "manifestations", "carrier_types"
+  add_foreign_key "manifestations", "content_types"
+  add_foreign_key "manifestations", "frequencies"
+  add_foreign_key "manifestations", "languages"
+  add_foreign_key "manifestations", "nii_types"
   add_foreign_key "manifestations", "roles", column: "required_role_id"
   add_foreign_key "messages", "messages", column: "parent_id"
   add_foreign_key "ncid_records", "manifestations"
@@ -1896,6 +1907,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
   add_foreign_key "periodicals", "manifestations"
   add_foreign_key "produces", "agents"
   add_foreign_key "produces", "manifestations"
+  add_foreign_key "profiles", "libraries"
   add_foreign_key "profiles", "roles", column: "required_role_id"
   add_foreign_key "purchase_requests", "users"
   add_foreign_key "realizes", "agents"
@@ -1908,6 +1920,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_05_032237) do
   add_foreign_key "resource_export_files", "users"
   add_foreign_key "resource_import_files", "users"
   add_foreign_key "resource_import_results", "resource_import_files"
+  add_foreign_key "shelves", "libraries"
   add_foreign_key "subjects", "roles", column: "required_role_id"
   add_foreign_key "subscriptions", "users"
   add_foreign_key "user_checkout_stats", "users"
