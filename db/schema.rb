@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_05_162830) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_05_170323) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -1883,6 +1883,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_162830) do
   add_foreign_key "manifestation_relationships", "manifestations", column: "child_id"
   add_foreign_key "manifestation_relationships", "manifestations", column: "parent_id"
   add_foreign_key "manifestation_reserve_stats", "users"
+  add_foreign_key "manifestations", "carrier_types"
+  add_foreign_key "manifestations", "content_types"
+  add_foreign_key "manifestations", "frequencies"
+  add_foreign_key "manifestations", "languages"
+  add_foreign_key "manifestations", "nii_types"
   add_foreign_key "manifestations", "roles", column: "required_role_id"
   add_foreign_key "messages", "messages", column: "parent_id"
   add_foreign_key "ncid_records", "manifestations"
