@@ -86,7 +86,7 @@ GEM
     acts_as_list (1.2.6)
       activerecord (>= 6.1)
       activesupport (>= 6.1)
-    addressable (2.8.9)
+    addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
     annotaterb (4.22.0)
       activerecord (>= 6.0.0)
@@ -268,7 +268,7 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2026.0331)
+    mime-types-data (3.2026.0407)
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
@@ -326,8 +326,8 @@ GEM
     options (2.3.2)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
-    parallel (1.28.0)
-    parallel_tests (5.6.0)
+    parallel (2.0.1)
+    parallel_tests (5.7.0)
       parallel
     parser (3.3.11.1)
       ast (~> 2.4.1)
@@ -353,7 +353,7 @@ GEM
       date
       stringio
     public_suffix (7.0.5)
-    puma (7.2.0)
+    puma (8.0.0)
       nio4r (~> 2.0)
     pundit (2.5.2)
       activesupport (>= 3.0.0)
@@ -362,7 +362,7 @@ GEM
     rack (3.2.6)
     rack-proxy (0.7.7)
       rack
-    rack-session (2.1.1)
+    rack-session (2.1.2)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
     rack-test (2.2.0)
@@ -471,11 +471,11 @@ GEM
       rspec-core (>= 2, < 4, != 2.12.0)
     rss (0.3.2)
       rexml
-    rubocop (1.86.0)
+    rubocop (1.86.1)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
-      parallel (~> 1.10)
+      parallel (>= 1.10)
       parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 2.9.3, < 3.0)
@@ -514,7 +514,7 @@ GEM
       tilt
     scanf (1.0.0)
     securerandom (0.4.1)
-    selenium-webdriver (4.41.0)
+    selenium-webdriver (4.43.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
