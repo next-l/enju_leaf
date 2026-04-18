@@ -1,6 +1,5 @@
 //= require jquery.highlight
 //= require jquery.shortcut
-//= require jquery.cookie
 //= require select_locale
 //= require jquery.powertip
 //= require cocoon
