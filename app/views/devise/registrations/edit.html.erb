@@ -7,22 +7,21 @@
         <%= devise_error_messages! %>
 
         <div class="field">
-          <%= f.label :current_password %><br />
-          <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
+          <p><%= f.label :current_password %></p>
+          <p><%= f.password_field :current_password, autocomplete: "new-password", class: "form-control" %></p>
         </div>
 
         <div class="field">
-          <%= f.label :password %><br />
-          <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+          <p><%= f.label :password %></p>
+          <p><%= f.password_field :password, autocomplete: "new-password", class: "form-control" %></p>
           <% if @minimum_password_length %>
-            <br />
-            <em><%= @minimum_password_length %> <%= t('devise.registration.minimum_password_length', count: @minimum_password_length) %></em>
+            <p><em><%= @minimum_password_length %> <%= t('devise.registration.minimum_password_length', count: @minimum_password_length) %></em></p>
           <% end %>
         </div>
 
         <div class="field">
-          <%= f.label :password_confirmation %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+          <p><%= f.label :password_confirmation %></p>
+          <p><%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %></p>
         </div>
 
         <div class="actions mt-3">

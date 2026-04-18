@@ -1,41 +1,42 @@
-  <div id="content_detail" class="col col-md-9">
-    <div class="card">
-      <h5 class="title card-header"><%= t('page.sign_in') -%> : Next-L Enju</h5>
-      <div id="content_list" class="card-body">
-        <%= markdown_helper(@library_group.login_banner) %>
-      </div>
+<div id="content_detail" class="col col-md-9">
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.sign_in") -%>
+      : Next-L Enju</h5>
+    <div id="content_list" class="card-body">
+      <%= markdown_helper(@library_group.login_banner) %>
     </div>
   </div>
+</div>
 
-  <div id="submenu" class="col">
-    <div class="card">
-      <div class="card-body">
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<div id="submenu" class="col">
+  <div class="card">
+    <div class="card-body">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="field">
-          <%= f.label :username %><br />
-          <%= f.text_field :username, autofocus: true, class: "form-control" %>
+          <p><%= f.label :username %></p>
+          <p><%= f.text_field :username, autofocus: true, class: "form-control" %></p>
         </div>
 
         <div class="field">
-          <%= f.label :password %><br />
-          <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+          <p><%= f.label :password %></p>
+          <p><%= f.password_field :password, autocomplete: "new-password", class: "form-control" %></p>
         </div>
 
         <% if devise_mapping.rememberable? -%>
           <div class="field">
-            <%= f.check_box :remember_me %>
-            <%= f.label :remember_me %>
+            <p><%= f.check_box :remember_me %></p>
+            <p><%= f.label :remember_me %></p>
           </div>
         <% end -%>
 
         <div class="actions mt-3">
-          <%= f.submit t('page.sign_in'), class: "btn btn-primary" %>
+          <%= f.submit t("page.sign_in"), class: "btn btn-primary" %>
         </div>
 
         <p class="alert"><%= alert %></p>
 
         <%= render "devise/shared/links" %>
-<% end %>
-      </div>
+      <% end %>
     </div>
   </div>
+</div>
