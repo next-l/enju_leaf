@@ -1,6 +1,6 @@
 <div id="content_detail" class="col-md-9">
   <div class="card">
-    <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.item")) -%></h5>
+    <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.item")) %></h5>
     <div id="content_list" class="card-body">
       <%= render "form", item: @item %>
     </div>
@@ -9,9 +9,9 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <%- if @manifestation -%>
-      <%= render "manifestations/book_jacket", manifestation: @manifestation -%>
-    <%- end -%>
+    <% if @manifestation %>
+      <%= render "manifestations/book_jacket", manifestation: @manifestation %>
+    <% end %>
 
     <ul>
       <li><%= link_to t("page.back"), :back %></li>
