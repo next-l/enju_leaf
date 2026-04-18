@@ -17,9 +17,6 @@ importers:
       '@emotion/styled':
         specifier: ^11.14.1
         version: 11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5)
-      '@fortawesome/fontawesome-free':
-        specifier: ^6.7.2
-        version: 6.7.2
       '@hotwired/turbo-rails':
         specifier: ^8.0.23
         version: 8.0.23
@@ -36,10 +33,10 @@ importers:
         specifier: ^2.11.8
         version: 2.11.8
       '@rails/actioncable':
-        specifier: ~8.1.300
+        specifier: ^8.1.300
         version: 8.1.300
       '@rails/activestorage':
-        specifier: ~8.1.300
+        specifier: ^8.1.300
         version: 8.1.300
       '@rails/ujs':
         specifier: 7.1.3-4
@@ -361,10 +358,6 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
-
-  '@fortawesome/fontawesome-free@6.7.2':
-    resolution: {integrity: sha512-JUOtgFW6k9u4Y+xeIaEiLr3+cjoUPiAuLXoyKOJSia6Duzb7pq+A76P9ZdPDoAoxHdHzq6gE9/jKBGXlZT8FbA==}
-    engines: {node: '>=6'}
 
   '@hello-pangea/dnd@18.0.1':
     resolution: {integrity: sha512-xojVWG8s/TGrKT1fC8K2tIWeejJYTAeJuj36zM//yEm/ZrnZUSFGS15BpO+jGZT1ybWvyXmeDJwPYb4dhWlbZQ==}
@@ -1859,8 +1852,6 @@ snapshots:
 
   '@esbuild/win32-x64@0.28.0':
     optional: true
-
-  '@fortawesome/fontawesome-free@6.7.2': {}
 
   '@hello-pangea/dnd@18.0.1(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:
