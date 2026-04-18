@@ -1,0 +1,19 @@
+require 'rails_helper'
+
+RSpec.describe "devise/passwords/new", type: :view do
+  fixtures :all
+
+  before(:each) do
+    without_partial_double_verification do
+      allow(view).to receive(:resource).and_return(users(:user1))
+      allow(view).to receive(:resource_class).and_return(User)
+      allow(view).to receive(:resource_name).and_return(users(:user1))
+      allow(view).to receive(:devise_mapping).and_return(Devise.mappings[:user])
+    end
+  end
+
+  it "renders a password template" do
+    render
+    expect(rendered).to have_field("user[username]")
+  end
+end
