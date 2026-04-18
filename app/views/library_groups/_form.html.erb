@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :header_logo %><br/>
-    <%= f.file_field :header_logo, accept: "image/*" %>
+    <%= f.file_field :header_logo, accept: "image/*", class: "form-control" %>
     <br/>
     <%= f.check_box :delete_header_logo %>
     <%= t("page.destroy") %>

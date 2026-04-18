@@ -3,7 +3,7 @@
 
   <div class="field">
     <%= f.label t("page.file") %><br/>
-    <%= f.file_field :attachment, accept: "image/*", required: true %>
+    <%= f.file_field :attachment, accept: "image/*", required: true, class: "form-control" %>
   </div>
 
   <% if picture_file.attachment.attached? %>

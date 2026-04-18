@@ -11,7 +11,7 @@
   </div>
   <div class="field">
     <%= f.label t("page.file") %>
-    <%= f.file_field :attachment, accept: "image/*" %>
+    <%= f.file_field :attachment, accept: "image/*", class: "form-control" %>
   </div>
 
   <% if f.object.attachment.present? %>

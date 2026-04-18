@@ -1,18 +1,18 @@
 <div id="content_detail" class="col-md-9">
   <div class="card">
-    <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.agent_import_file")) -%></h5>
+    <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.agent_import_file")) %></h5>
     <div id="content_list" class="card-body">
 
-      <%= form_with(model: @agent_import_file) do |f| -%>
-        <%= error_messages(@agent_import_file) -%>
+      <%= form_with(model: @agent_import_file) do |f| %>
+        <%= error_messages(@agent_import_file) %>
 
         <div class="field">
-          <%= f.label t("page.file") -%><br/>
-          <%= f.file_field :attachment -%>
+          <%= f.label t("page.file") %><br/>
+          <%= f.file_field :attachment, required: true, class: "form-control" %>
         </div>
 
         <div class="field">
-          <%= f.label :edit_mode -%><br/>
+          <%= f.label :edit_mode %><br/>
           <%= f.radio_button :edit_mode, "create", checked: "checked" %>
           <%= f.label :edit_mode, t("page.create"), value: "create" %>
           <%= f.radio_button :edit_mode, "update" %>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="field">
-          <%= f.label :user_encoding -%><br/>
+          <%= f.label :user_encoding %><br/>
           <%= f.radio_button :user_encoding, "auto_detect", checked: "checked" %>
           <%= f.label :user_encoding, t("import.auto_detect"), value: "auto_detect" %>
           <%= f.radio_button :user_encoding, "utf-8" %>
@@ -37,7 +37,7 @@
           <%= f.hidden_field :mode, value: "import" %>
           <%= f.submit t("page.start_import"), class: "btn btn-primary" %>
         </div>
-      <%- end -%>
+      <% end %>
 
     </div>
   </div>

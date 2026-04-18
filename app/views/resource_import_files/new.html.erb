@@ -7,7 +7,7 @@
 
         <div class="field">
           <%= f.label t("page.file") %><br/>
-          <%= f.file_field :attachment %>
+          <%= f.file_field :attachment, required: true, class: "form-control" %>
         </div>
 
         <div class="field">

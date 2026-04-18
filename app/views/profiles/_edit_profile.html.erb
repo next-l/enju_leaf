@@ -28,15 +28,15 @@
 
 <% if defined?(EnjuSearchLog) %>
   <div class="field">
+    <%= f.check_box :save_search_history, class: "form-check-input" %>
     <%= f.label :save_search_history %>
-    <%= f.check_box :save_search_history %>
   </div>
 <% end %>
 
 <% if defined?(EnjuCirculation) %>
   <div class="field">
+    <%= f.check_box :save_checkout_history, class: "form-check-input" %>
     <%= f.label :save_checkout_history %>
-    <%= f.check_box :save_checkout_history %>
   </div>
 <% end %>
 
