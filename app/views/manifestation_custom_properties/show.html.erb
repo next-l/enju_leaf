@@ -1,22 +1,24 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.manifestation_custom_property")) -%></h5>
-  <div id="content_list" class="card-body">
-    <p id="notice"><%= notice %></p>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.manifestation_custom_property")) -%></h5>
+    <div id="content_list" class="card-body">
+      <p id="notice"><%= notice %></p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.manifestation_custom_property.name") %>:</strong>
-      <%= @manifestation_custom_property.name %>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.manifestation_custom_property.name") %>:</strong>
+        <%= @manifestation_custom_property.name %>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.manifestation_custom_property.display_name") %>:</strong>
-      <%= @manifestation_custom_property.display_name.localize %>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.manifestation_custom_property.display_name") %>:</strong>
+        <%= @manifestation_custom_property.display_name.localize %>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.manifestation_custom_property.note") %>:</strong>
-      <%= @manifestation_custom_property.note %>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.manifestation_custom_property.note") %>:</strong>
+        <%= @manifestation_custom_property.note %>
+      </p>
+    </div>
   </div>
 </div>
 

@@ -1,7 +1,9 @@
 <div id="content_detail" class="col-md-9">
-  <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.item_custom_property")) -%></h5>
-  <div id="content_list" class="card-body">
-    <%= render "form", manifestation_custom_property: @manifestation_custom_property %>
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.item_custom_property")) -%></h5>
+    <div id="content_list" class="card-body">
+      <%= render "form", manifestation_custom_property: @manifestation_custom_property %>
+    </div>
   </div>
 </div>
 

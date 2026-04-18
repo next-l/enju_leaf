@@ -2,6 +2,7 @@
   <div class="card">
     <h5 class="title card-header"><%= t("page.listing", model: t("activerecord.models.purchase_request")) -%></h5>
     <div id="content_list" class="card-body">
+      <p id="notice"><%= notice %></p>
 
       <div class="search_form">
         <%= form_for :purchase_requests, url: purchase_requests_path, :html => {method: 'get'} do -%>

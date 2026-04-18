@@ -2,6 +2,7 @@
   <div class="card">
     <h5 class="title card-header"><%= t("checkout.listing_overdue_item") -%></h5>
     <div id="content_list" class="card-body">
+      <p id="notice"><%= notice %></p>
 
       <%= form_for(:checkouts, url: checkouts_path, html: {method: 'get'}) do -%>
         <p>
