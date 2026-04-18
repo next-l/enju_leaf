@@ -4,7 +4,7 @@
     <div id="content_list" class="card-body">
 
       <%= form_for(resource, as: resource_name, url: user_registration_path, html: { method: :put }) do |f| %>
-        <%= devise_error_messages! %>
+        <%= render "devise/shared/error_messages", resource: resource %>
 
         <div class="field">
           <p><%= f.label :current_password %></p>
