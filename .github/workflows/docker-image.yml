@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ main, 1.5 ]
+    branches: [ main, 1.5, 1.6 ]
     tags:
     - 'v*'
 
