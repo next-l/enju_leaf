@@ -55,4 +55,3 @@ brakeman.html
 /db/*.sqlite3
 /db/*.sqlite3-journal
 /coverage/
-/private/
