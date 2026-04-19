@@ -35,28 +35,28 @@
   </div>
 
   <div class="field">
+    <%= f.check_box :serial, class: "form-check-input" %>
     <%= f.label :serial %>
-    <%= f.check_box :serial %>
   </div>
 
   <div class="field">
     <%= f.label :edition_string %>
-    <%= f.text_field :edition_string %>
+    <%= f.text_field :edition_string, class: "form-control" %>
     <%= f.label :edition %>
-    <%= f.text_field :edition, class: "resource_integer" %>
+    <%= f.text_field :edition, class: "resource_integer form-control" %>
     <br/>
     <%= f.label :volume_number_string %>
-    <%= f.text_field :volume_number_string %>
+    <%= f.text_field :volume_number_string, class: "form-control" %>
     <%= f.label :volume_number %>
-    <%= f.text_field :volume_number, class: "resource_integer" %>
+    <%= f.text_field :volume_number, class: "resource_integer form-control" %>
     <br/>
     <%= f.label :issue_number_string %>
-    <%= f.text_field :issue_number_string %>
+    <%= f.text_field :issue_number_string, class: "form-control" %>
     <%= f.label :issue_number %>
-    <%= f.text_field :issue_number, class: "resource_integer" %>
+    <%= f.text_field :issue_number, class: "resource_integer form-control" %>
     <br/>
     <%= f.label :serial_number %>
-    <%= f.text_field :serial_number, class: "resource_integer" %>
+    <%= f.text_field :serial_number, class: "resource_integer form-control" %>
   </div>
 
   <div class="field">
@@ -107,7 +107,7 @@
   <div class="field">
     <%= f.label :pub_date %>
     <%= f.text_field :pub_date,
-                 class: "date_field",
+                 class: "date_field form-control",
                  placeholder: "#{t("page.example")}: 2011, 2011-04-12" %>
   </div>
 
