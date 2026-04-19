@@ -16,7 +16,7 @@ describe AcceptsController do
       it 'assigns all accepts as @accepts' do
         get :index
         expect(assigns(:accepts)).to be_truthy
-        response.should be_successful
+        expect(response).to be_successful
       end
 
       describe 'When basket_id is specified' do

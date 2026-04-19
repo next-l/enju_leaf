@@ -1,19 +1,23 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t("page.new", model: t("activerecord.models.realize")) -%></h1>
-  <div id="content_list">
-    <%= render "form", realize: @realize %>
+<div id="content_detail" class="col-md-9">
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.realize")) -%></h5>
+    <div id="content_list" class="card-body">
+      <%= render "form", realize: @realize %>
+    </div>
   </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
-  <ul>
-    <%- if @realize.agent -%>
-      <li><%= link_to t("page.listing", model: t("activerecord.models.manifestation")),
-        manifestations_path(contributor_id: @realize.agent_id) -%></li>
-    <%- end -%>
-    <%- if @realize.expression -%>
-      <li><%= link_to t("page.listing", model: t("activerecord.models.agent")),
-        agents_path(expression_id: @realize.expression_id) -%></li>
-    <%- end -%>
-  </ul>
+<div id="submenu" class="col">
+  <div class="card">
+    <ul>
+      <%- if @realize.agent -%>
+        <li><%= link_to t("page.listing", model: t("activerecord.models.manifestation")),
+          manifestations_path(contributor_id: @realize.agent_id) -%></li>
+      <%- end -%>
+      <%- if @realize.expression -%>
+        <li><%= link_to t("page.listing", model: t("activerecord.models.agent")),
+          agents_path(expression_id: @realize.expression_id) -%></li>
+      <%- end -%>
+    </ul>
+  </div>
 </div>

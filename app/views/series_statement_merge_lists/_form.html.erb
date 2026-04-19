@@ -1,11 +1,11 @@
 <%= form_with(model: series_statement_merge_list) do |f| %>
   <%= error_messages(series_statement_merge_list) %>
   <div class="field">
-    <%= f.label :title -%><br/>
-    <%= f.text_field :title -%>
+    <%= f.label :title %><br/>
+    <%= f.text_field :title, required: true, class: "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions mt-3">
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

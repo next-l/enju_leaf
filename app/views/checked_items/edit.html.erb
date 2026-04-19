@@ -1,23 +1,23 @@
-<h1 class="title"><%= t("page.editing", model: t("activerecord.models.checked_item")) -%></h1>
+<h5 class="title card-header"><%= t("page.editing", model: t("activerecord.models.checked_item")) %></h5>
 
-<%= form_for(@checked_item) do |f| -%>
-  <%= error_messages(@checked_item) -%>
+<%= form_for(@checked_item) do |f| %>
+  <%= error_messages(@checked_item) %>
   <div class="field">
-    <%= f.label t("activerecord.models.item") -%><br/>
-    <%= f.text_field :item_id -%>
+    <%= f.label t("activerecord.models.item") %><br/>
+    <%= f.text_field :item_id, required: true, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label t("activerecord.models.basket") -%><br/>
-    <%= f.text_field :basket_id -%>
+    <%= f.label t("activerecord.models.basket") %><br/>
+    <%= f.text_field :basket_id, required: true, class: "form-control" %>
   </div>
 
-  <div class="actions">
+  <div class="actions mt-3">
     <%= f.hidden_field :lock_version %>
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-primary" %>
   </div>
-<%- end -%>
+<% end %>
 
-<%= link_to t("page.show"), checked_item_path(@checked_item) -%>
+<%= link_to t("page.show"), checked_item_path(@checked_item) %>
 |
-<%= link_to t("page.back"), checked_items_path(basket_id: @checked_item.basket_id) -%>
+<%= link_to t("page.back"), checked_items_path(basket_id: @checked_item.basket_id) %>

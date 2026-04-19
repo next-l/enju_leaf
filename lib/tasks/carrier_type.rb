@@ -4,7 +4,9 @@ def update_carrier_type
     when "volume"
       carrier_type = CarrierType.find_by(name: "volume")
       if carrier_type
-        unless carrier_type.attachment.attached?
+        begin
+          carrier_type.attachment.download
+        rescue ActiveStorage::FileNotFoundError
           carrier_type.attachment.attach(io: File.open("#{Rails.root}/app/assets/images/icons/book.png"), filename: "book.png")
           carrier_type.save!
         end
@@ -12,7 +14,9 @@ def update_carrier_type
     when "audio_disc"
       carrier_type = CarrierType.find_by(name: "audio_disc")
       if carrier_type
-        unless carrier_type.attachment.attached?
+        begin
+          carrier_type.attachment.download
+        rescue ActiveStorage::FileNotFoundError
           carrier_type.attachment.attach(io: File.open("#{Rails.root}/app/assets/images/icons/cd.png"), filename: "cd.png")
           carrier_type.save!
         end
@@ -20,7 +24,9 @@ def update_carrier_type
     when "videodisc"
       carrier_type = CarrierType.find_by(name: "videodisc")
       if carrier_type
-        unless carrier_type.attachment.attached?
+        begin
+          carrier_type.attachment.download
+        rescue ActiveStorage::FileNotFoundError
           carrier_type.attachment.attach(io: File.open("#{Rails.root}/app/assets/images/icons/dvd.png"), filename: "dvd.png")
           carrier_type.save!
         end
@@ -28,7 +34,9 @@ def update_carrier_type
     when "online_resource"
       carrier_type = CarrierType.find_by(name: "online_resource")
       if carrier_type
-        unless carrier_type.attachment.attached?
+        begin
+          carrier_type.attachment.download
+        rescue ActiveStorage::FileNotFoundError
           carrier_type.attachment.attach(io: File.open("#{Rails.root}/app/assets/images/icons/monitor.png"), filename: "monitor.png")
           carrier_type.save!
         end

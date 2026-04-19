@@ -1,26 +1,43 @@
 {
   "name": "enju_leaf",
   "private": true,
-  "dependencies": {
-    "@babel/runtime": "^7.28.3",
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
-    "@mui/material": "^7.x",
-    "@mui/system": "^7.x",
-    "@rails/actioncable": "~7.2.3",
-    "@rails/webpacker": "5.4.4",
-    "@types/react": "*",
-    "dnd-core": "^16.0.1",
-    "i18next": "^25.4.1",
-    "mirador": "^4.0.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-i18next": "^15.0.0",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12"
-  },
   "devDependencies": {
-    "webpack-dev-server": "^3"
+    "esbuild": "^0.28.0"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
+    "build:css:compile": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
+    "build:css:prefix": "postcss ./app/assets/builds/application.css --use=autoprefixer --output=./app/assets/builds/application.css",
+    "build:css": "pnpm build:css:compile && pnpm build:css:prefix",
+    "watch:css": "nodemon --watch ./app/assets/stylesheets/ --ext scss --exec \"pnpm build:css\""
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.29.2",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@hotwired/turbo-rails": "^8.0.23",
+    "@mui/material": "^7.3.10",
+    "@mui/system": "^7.3.10",
+    "@oddcamp/cocoon-vanilla-js": "^1.1.3",
+    "@popperjs/core": "^2.11.8",
+    "@rails/actioncable": "^8.1.300",
+    "@rails/activestorage": "^8.1.300",
+    "@rails/ujs": "7.1.3-4",
+    "@types/react": "^19.2.14",
+    "autoprefixer": "^10.5.0",
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
+    "dnd-core": "^16.0.1",
+    "i18next": "^25.10.10",
+    "jquery": "^3.7.1",
+    "mirador": "^4.0.0",
+    "nodemon": "^3.1.14",
+    "postcss": "^8.5.10",
+    "postcss-cli": "^11.0.1",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-i18next": "^15.7.4",
+    "sass": "^1.99.0",
+    "tom-select": "^2.5.2"
+  }
 }

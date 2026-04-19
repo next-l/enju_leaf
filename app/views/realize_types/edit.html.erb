@@ -1,13 +1,17 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t("page.editing", model: t("activerecord.models.realize_type")) -%></h1>
-  <div id="content_list">
-    <%= render "form", realize_type: @realize_type %>
+<div id="content_detail" class="col-md-9">
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.editing", model: t("activerecord.models.realize_type")) -%></h5>
+    <div id="content_list" class="card-body">
+      <%= render "form", realize_type: @realize_type %>
+    </div>
   </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
-  <ul>
-    <li><%= link_to t("page.show"), @realize_type -%></li>
-    <li><%= link_to t("page.back"), realize_types_path -%></li>
-  </ul>
+<div id="submenu" class="col">
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.show"), @realize_type -%></li>
+      <li><%= link_to t("page.back"), realize_types_path -%></li>
+    </ul>
+  </div>
 </div>
