@@ -40,5 +40,6 @@ module EnjuLeaf
       port: base_url.port
     }
     config.mission_control.jobs.base_controller_class = "MissionControlController"
+    config.mission_control.jobs.http_basic_auth_enabled = false
   end
 end
