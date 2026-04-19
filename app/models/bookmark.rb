@@ -6,8 +6,7 @@ class Bookmark < ApplicationRecord
   belongs_to :user
 
   validates :title, presence: :true
-  validates :manifestation_id, presence: { on: :update }
-  validates :manifestation_id, uniqueness: { scope: :user_id }
+  validates :manifestation_id, presence: { on: :update }, uniqueness: { scope: :user_id }
   validates :url, url: true, presence: true, length: { maximum: 255 }
   validate :bookmarkable_url?
   validate :already_bookmarked?, if: :url_changed?
@@ -34,6 +33,7 @@ class Bookmark < ApplicationRecord
 
   paginates_per 10
 
+  # @return [String]
   def replace_space_in_tags
     # タグに含まれている全角スペースを除去する
     self.tag_list = tag_list.map { |tag| tag.gsub("　", " ").gsub(" ", ", ") }
@@ -46,16 +46,22 @@ class Bookmark < ApplicationRecord
     end
   end
 
+  # @return [Boolean]
   def shelved?
-    true if manifestation.items.on_web.first
+    return true if manifestation.items.on_web.first
+
+    false
   end
 
+  # @return [String]
   def self.get_title(string)
     CGI.unescape(string).strip unless string.nil?
   end
 
+  # @return [String]
   def get_title
     return if url.blank?
+
     if url.my_host?
       my_host_resource.original_title
     else
@@ -63,29 +69,29 @@ class Bookmark < ApplicationRecord
     end
   end
 
+  # @return [String]
   def get_title_from_url(url)
     return if url.blank?
     return unless Addressable::URI.parse(url).host
 
-    if manifestation_id == url.bookmarkable_id
-      bookmark.manifestation = Manifestation.find(manifestation_id)
-      return manifestation.original_title
+    if url.bookmarkable_id
+      manifestation = Manifestation.find(url.bookmarkable_id)
     end
-    unless manifestation
-      normalized_url = Addressable::URI.parse(url).normalize.to_s
-      doc = Nokogiri::HTML(Faraday.get(normalized_url).body)
-        # TODO: 日本語以外
-        # charsets = ['iso-2022-jp', 'euc-jp', 'shift_jis', 'iso-8859-1']
-        # if charsets.include?(page.charset.downcase)
-        title = NKF.nkf("-w", CGI.unescapeHTML((doc.at("title").inner_text))).to_s.gsub(/\r\n|\r|\n/, "").gsub(/\s+/, " ").strip
-        if title.blank?
-          title = url
-        end
-      # else
-      #  title = (doc/"title").inner_text
-      # end
-      title
-    end
+    return manifestation.original_title if manifestation
+
+    normalized_url = Addressable::URI.parse(url).normalize.to_s
+    doc = Nokogiri::HTML(Faraday.get(normalized_url).body)
+      # TODO: 日本語以外
+      # charsets = ['iso-2022-jp', 'euc-jp', 'shift_jis', 'iso-8859-1']
+      # if charsets.include?(page.charset.downcase)
+      title = NKF.nkf("-w", CGI.unescapeHTML((doc.at("title").inner_text))).to_s.gsub(/\r\n|\r|\n/, "").gsub(/\s+/, " ").strip
+      if title.blank?
+        title = url
+      end
+    # else
+    #  title = (doc/"title").inner_text
+    # end
+    title
   rescue OpenURI::HTTPError
     # TODO: 404などの場合の処理
     raise "unable to access: #{url}"
@@ -101,48 +107,53 @@ class Bookmark < ApplicationRecord
     nil
   end
 
+  # @return [Manifestation]
   def my_host_resource
-    if url.bookmarkable_id
-      manifestation = Manifestation.find(url.bookmarkable_id)
-    end
+    return unless url.bookmarkable_id
+
+    manifestation = Manifestation.find(url.bookmarkable_id)
   end
 
   def bookmarkable_url?
-    if url.try(:my_host?)
-      unless url.try(:bookmarkable_id)
-        errors.add(:base, I18n.t("bookmark.not_our_holding"))
-      end
-      unless my_host_resource
-        errors.add(:base, I18n.t("bookmark.not_our_holding"))
-      end
+    return false unless url.try(:my_host?)
+
+    unless url.try(:bookmarkable_id)
+      errors.add(:base, I18n.t("bookmark.not_our_holding"))
+    end
+    unless my_host_resource
+      errors.add(:base, I18n.t("bookmark.not_our_holding"))
     end
   end
 
   def get_manifestation
     # 自館のページをブックマークする場合
     if url.try(:my_host?)
-      manifestation = self.my_host_resource
+      manifestation = my_host_resource
     else
-      manifestation = Manifestation.where(access_address: url).first if url.present?
+      manifestation = Manifestation.find_by(access_address: url) if url.present?
     end
   end
 
   def already_bookmarked?
-    if manifestation
-      if manifestation.bookmarked?(user)
-        errors.add(:base, "already_bookmarked")
-      end
+    return unless manifestation
+
+    if manifestation.bookmarked?(user)
+      errors.add(:base, "already_bookmarked")
     end
   end
 
+  # @return [Manifestation]
   def create_manifestation
     manifestation = get_manifestation
     if manifestation
       self.manifestation_id = manifestation.id
-      return
+      return manifestation
     end
-    manifestation = Manifestation.new(access_address: url)
-    manifestation.carrier_type = CarrierType.find_by(name: "online_resource")
+
+    manifestation = Manifestation.new(
+      access_address: url,
+      carrier_type: CarrierType.find_by(name: "online_resource")
+    )
     if title.present?
       manifestation.original_title = title
     else
@@ -151,26 +162,25 @@ class Bookmark < ApplicationRecord
     Manifestation.transaction do
       manifestation.save
       self.manifestation = manifestation
-      item = Item.new
-      item.shelf = Shelf.web
-      item.manifestation = manifestation
+      item = Item.new(shelf: Shelf.web, manifestation: manifestation)
       if defined?(EnjuCirculation)
         item.circulation_status = CirculationStatus.where(name: "Not Available").first
       end
 
       item.save!
       if defined?(EnjuCirculation)
-        item.use_restriction = UseRestriction.where(name: "Not For Loan").first
+        item.use_restriction = UseRestriction.find_by(name: "Not For Loan")
       end
     end
+
+    manifestation
   end
 
+  # @return [Integer]
   def self.manifestations_count(start_date, end_date, manifestation)
-    if manifestation
-      self.bookmarked(start_date, end_date).where(manifestation_id: manifestation.id).count
-    else
-      0
-    end
+    return 0 unless manifestation
+
+    self.bookmarked(start_date, end_date).where(manifestation_id: manifestation.id).count
   end
 
   def tag_index!
