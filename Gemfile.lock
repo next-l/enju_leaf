@@ -107,9 +107,6 @@ GEM
     brakeman (8.0.4)
       racc
     builder (3.3.0)
-    bundler-audit (0.9.3)
-      bundler (>= 1.2.0)
-      thor (~> 1.0)
     capybara (3.40.0)
       addressable
       matrix
@@ -235,7 +232,7 @@ GEM
       activesupport (>= 7.0.0)
     jsbundling-rails (1.3.1)
       railties (>= 6.0.0)
-    json (2.19.3)
+    json (2.19.4)
     kamal (2.11.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
@@ -648,7 +645,6 @@ DEPENDENCIES
   benchmark
   bootsnap
   brakeman
-  bundler-audit
   capybara
   caxlsx
   caxlsx_rails
