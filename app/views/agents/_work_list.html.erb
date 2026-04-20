@@ -5,7 +5,7 @@
       <li>
         [W]
         <%= link_to work.original_title, work -%>
-        <%= agents_list(work.creators.readable_by(current_user)) -%>
+        <%= agents_list(work.creates) -%>
       </li>
     <%- end -%>
   </ul>
