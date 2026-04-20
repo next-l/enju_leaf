@@ -1,17 +1,5 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  id: 1
-  event_import_file_id: 1
-  event_id: 1
-  body: MyText
-
-two:
-  id: 2
-  event_import_file_id: 1
-  event_id: 2
-  body: MyText
-
 # ## Schema Information
 #
 # Table name: `event_import_results`
@@ -32,3 +20,14 @@ two:
 # * `fk_rails_...`:
 #     * **`event_import_file_id => event_import_files.id`**
 #
+one:
+  id: 1
+  event_import_file_id: 1
+  event_id: 1
+  body: MyText
+
+two:
+  id: 2
+  event_import_file_id: 1
+  event_id: 2
+  body: MyText

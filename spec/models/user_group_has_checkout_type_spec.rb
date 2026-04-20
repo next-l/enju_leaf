@@ -1,13 +1,3 @@
-require 'rails_helper'
-
-describe UserGroupHasCheckoutType do
-  fixtures :all
-
-  it "should respond to update_current_checkout_count" do
-    UserGroupHasCheckoutType.update_current_checkout_count.should be_truthy
-  end
-end
-
 # ## Schema Information
 #
 # Table name: `user_group_has_checkout_types`
@@ -21,6 +11,7 @@ end
 # **`checkout_period`**                  | `integer`          | `default(0), not null`
 # **`checkout_renewal_limit`**           | `integer`          | `default(0), not null`
 # **`current_checkout_count`**           | `integer`          |
+# **`due_date_offset`**                  | `integer`          | `default(1), not null`
 # **`fixed_due_date`**                   | `datetime`         |
 # **`note`**                             | `text`             |
 # **`position`**                         | `integer`          |
@@ -47,3 +38,12 @@ end
 # * `fk_rails_...`:
 #     * **`user_group_id => user_groups.id`**
 #
+require 'rails_helper'
+
+describe UserGroupHasCheckoutType do
+  fixtures :all
+
+  it "should respond to update_current_checkout_count" do
+    UserGroupHasCheckoutType.update_current_checkout_count.should be_truthy
+  end
+end
