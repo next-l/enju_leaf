@@ -40,17 +40,35 @@ describe Bookmark do
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: bookmarks
+# Table name: `bookmarks`
 #
-#  id               :integer          not null, primary key
-#  user_id          :integer          not null
-#  manifestation_id :integer
-#  title            :text
-#  url              :string
-#  note             :text
-#  shared           :boolean
-#  created_at       :datetime
-#  updated_at       :datetime
+# ### Columns
+#
+# Name                    | Type               | Attributes
+# ----------------------- | ------------------ | ---------------------------
+# **`id`**                | `bigint`           | `not null, primary key`
+# **`note`**              | `text`             |
+# **`shared`**            | `boolean`          | `default(FALSE), not null`
+# **`title`**             | `text`             | `not null`
+# **`url`**               | `string`           | `not null`
+# **`created_at`**        | `datetime`         | `not null`
+# **`updated_at`**        | `datetime`         | `not null`
+# **`manifestation_id`**  | `bigint`           |
+# **`user_id`**           | `bigint`           | `not null`
+#
+# ### Indexes
+#
+# * `index_bookmarks_on_manifestation_id`:
+#     * **`manifestation_id`**
+# * `index_bookmarks_on_url`:
+#     * **`url`**
+# * `index_bookmarks_on_user_id`:
+#     * **`user_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #
