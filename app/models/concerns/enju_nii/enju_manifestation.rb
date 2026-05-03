@@ -4,7 +4,7 @@ module EnjuNii
 
     module ClassMethods
       def import_from_cinii_books(options)
-        lisbn = ncid = nil
+        lisbn = ncid = manifestation = nil
 
         if options[:ncid]
           ncid = options[:ncid]
@@ -13,10 +13,10 @@ module EnjuNii
           lisbn = Lisbn.new(options[:isbn])
           raise EnjuNii::InvalidIsbn unless lisbn.valid?
 
-          manifestation = Manifestation.find_by_isbn(lisbn.isbn)
+          manifestation = IsbnRecord.find_by(body: lisbn.isbn)&.manifestation
         end
 
-        return manifestation if manifestation.present?
+        return manifestation if manifestation
 
         doc = return_rdf(isbn: lisbn&.isbn, ncid: ncid)
 

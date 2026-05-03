@@ -32,10 +32,8 @@ class Manifestation < ApplicationRecord
   has_one :periodical_record, class_name: "Periodical", dependent: :destroy
   has_one :periodical_and_manifestation, dependent: :destroy
   has_one :periodical, through: :periodical_and_manifestation, dependent: :destroy
-  has_many :isbn_record_and_manifestations, dependent: :destroy
-  has_many :isbn_records, through: :isbn_record_and_manifestations
-  has_many :issn_record_and_manifestations, dependent: :destroy
-  has_many :issn_records, through: :issn_record_and_manifestations
+  has_many :isbn_records, dependent: :destroy
+  has_many :issn_records, dependent: :destroy
   has_one :doi_record, dependent: :destroy
   has_one :jpno_record, dependent: :destroy
   has_one :ncid_record, dependent: :destroy
@@ -440,17 +438,6 @@ class Manifestation < ApplicationRecord
     else
         original_title
     end
-  end
-
-  # ISBNで検索する
-  # @param isbn [Strinng]
-  # @return [Manifestation]
-  def self.find_by_isbn(isbn)
-    IsbnRecord.find_by(body: isbn)&.manifestations
-    isbn_record = IsbnRecord.find_by(body: isbn)
-    return unless isbn_record
-
-    isbn_record.manifestations.order(:created_at).first
   end
 
   def index_series_statement

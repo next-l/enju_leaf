@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_05_170323) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_03_165355) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -683,8 +683,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_170323) do
   create_table "isbn_records", comment: "ISBN", force: :cascade do |t|
     t.string "body", null: false, comment: "ISBN"
     t.datetime "created_at", null: false
+    t.bigint "manifestation_id", null: false
     t.datetime "updated_at", null: false
     t.index ["body"], name: "index_isbn_records_on_body"
+    t.index ["manifestation_id", "body"], name: "index_isbn_records_on_manifestation_id_and_body", unique: true
   end
 
   create_table "issn_record_and_manifestations", comment: "書誌とISSNの関係", force: :cascade do |t|
@@ -699,8 +701,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_170323) do
   create_table "issn_records", comment: "ISSN", force: :cascade do |t|
     t.string "body", null: false, comment: "ISSN"
     t.datetime "created_at", null: false
+    t.bigint "manifestation_id", null: false
     t.datetime "updated_at", null: false
     t.index ["body"], name: "index_issn_records_on_body", unique: true
+    t.index ["manifestation_id", "body"], name: "index_issn_records_on_manifestation_id_and_body", unique: true
   end
 
   create_table "item_custom_properties", force: :cascade do |t|
@@ -1860,8 +1864,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_170323) do
   add_foreign_key "inventory_files", "users"
   add_foreign_key "isbn_record_and_manifestations", "isbn_records"
   add_foreign_key "isbn_record_and_manifestations", "manifestations"
+  add_foreign_key "isbn_records", "manifestations"
   add_foreign_key "issn_record_and_manifestations", "issn_records"
   add_foreign_key "issn_record_and_manifestations", "manifestations"
+  add_foreign_key "issn_records", "manifestations"
   add_foreign_key "item_custom_values", "item_custom_properties"
   add_foreign_key "item_custom_values", "items"
   add_foreign_key "item_has_use_restrictions", "items"

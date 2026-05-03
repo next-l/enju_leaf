@@ -501,6 +501,12 @@ class ManifestationsController < ApplicationController
         :id, :body, :identifier_type_id,
         :_destroy
       ] },
+      { isbn_records_attributes: [
+        :id, :body, :_destroy
+      ] },
+      { issn_records_attributes: [
+        :id, :body, :_destroy
+      ] },
       { manifestation_custom_values_attributes: [
         :id, :manifestation_custom_property_id, :manifestation_id, :value, :_destroy
       ] }

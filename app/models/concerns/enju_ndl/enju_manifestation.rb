@@ -4,8 +4,7 @@ module EnjuNdl
 
     module ClassMethods
       def import_isbn(isbn)
-        manifestation = Manifestation.import_from_ndl_search(isbn: isbn)
-        manifestation
+        Manifestation.import_from_ndl_search(isbn: isbn)
       end
 
       def ndl_bib_doc(ndl_bib_id)
@@ -27,7 +26,7 @@ module EnjuNdl
           raise EnjuNdl::InvalidIsbn unless lisbn.valid?
 
           isbn = lisbn.isbn13
-          manifestation = Manifestation.find_by_isbn(isbn)
+          manifestation = IsbnRecord.find_by(body: lisbn.isbn)&.manifestation
         end
 
         return manifestation if manifestation
