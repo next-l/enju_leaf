@@ -3,7 +3,11 @@
     var link = '';
     var thumbnail = book.summary.cover;
     if (thumbnail) {
-      var link = '<img src="' + thumbnail + '" alt="' + book.summary.title + '" class="book_jacket" />';
+      var link = '<img
+    src="' + thumbnail + '"
+    alt="' + book.summary.title + '"
+    class="book_jacket"
+  />';
     }
     var thumb_element = document.getElementById( element_id );
     if (thumb_element) {

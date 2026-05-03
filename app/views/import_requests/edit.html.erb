@@ -1,22 +1,22 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t("page.editing", model: t("activerecord.models.import_request")) -%></h1>
-  <div id="content_list">
+<div id="content_detail" class="col-md-9">
+  <h5 class="title card-header"><%= t("page.editing", model: t("activerecord.models.import_request")) -%></h5>
+  <div id="content_list" class="card-body">
 
     <%= form_with(model: @import_request) do |f| -%>
       <%= error_messages(@import_request) -%>
       <div class="field">
         <%= f.label :isbn -%><br/>
-        <%= f.text_field :isbn, class: "resource_isbn_issn" -%>
+        <%= f.text_field :isbn, class: "form-control resource_isbn_issn" -%>
       </div>
-      <div class="actions">
-        <%= f.submit %>
+      <div class="actions mt-3">
+        <%= f.submit class: "btn btn-primary" %>
       </div>
     <%- end -%>
 
   </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
   <ul>
     <li><%= link_to t("page.show"), @import_request -%></li>
     <li><%= link_to t("page.back"), import_requests_path -%></li>

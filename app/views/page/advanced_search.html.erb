@@ -1,6 +1,6 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t("page.advanced_search") -%></h1>
-  <div id="content_list">
+<div id="content_detail" class="col-md-9">
+  <h5 class="title card-header"><%= t("page.advanced_search") -%></h5>
+  <div id="content_list" class="card-body">
 
     <%= form_tag({controller: 'manifestations'}, {method: 'get'}) do -%>
       <table style="width: 100%">
@@ -147,9 +147,13 @@
         </tr>
       </table>
     <%- end -%>
-    <%= javascript_tag("$(function(){$('#query').focus()})") %>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('query').focus();
+      });
+    </script>
   </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
 </div>

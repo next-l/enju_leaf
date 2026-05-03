@@ -1,4 +1,4 @@
-<%= form_with(model: search_engine) do |f| -%>
+<%= form_with(model: search_engine) do |f| %>
   <% if search_engine.errors.any? %>
     <div id="errorExplanation">
       <h2><%= pluralize(search_engine.errors.count, "error") %>
@@ -12,34 +12,34 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name -%><br/>
-    <%= f.text_field :name -%>
+    <%= f.label :name %><br/>
+    <%= f.text_field :name, required: true, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label :url -%><br/>
-    <%= f.url_field :url, class: "resource_url" -%>
+    <%= f.label :url %><br/>
+    <%= f.url_field :url, class: "form-control resource_url" %>
   </div>
   <div class="field">
-    <%= f.label :base_url -%><br/>
-    <%= f.text_area :base_url, class: "resource_textarea" -%>
+    <%= f.label :base_url %><br/>
+    <%= f.text_area :base_url, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label :http_method -%><br/>
-    <%= f.select :http_method, %w[get post] -%>
+    <%= f.label :http_method %><br/>
+    <%= f.select :http_method, %w[get post], {}, class: "form-select" %>
   </div>
   <div class="field">
-    <%= f.label :query_param -%><br/>
-    <%= f.text_field :query_param -%>
+    <%= f.label :query_param %><br/>
+    <%= f.text_field :query_param, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label :additional_param -%><br/>
-    <%= f.text_area :additional_param, class: "resource_textarea" -%>
+    <%= f.label :additional_param %><br/>
+    <%= f.text_area :additional_param, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label :note -%><br/>
-    <%= f.text_area :note, class: "resource_textarea" -%>
+    <%= f.label :note %><br/>
+    <%= f.text_area :note, class: "form-control" %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions mt-3">
+    <%= f.submit class: "btn btn-primary" %>
   </div>
-<%- end -%>
+<% end %>

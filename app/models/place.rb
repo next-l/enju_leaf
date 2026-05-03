@@ -1,8 +1,3 @@
-class Place < ApplicationRecord
-  has_many :events, dependent: :destroy
-  validates :term, presence: true
-end
-
 # ## Schema Information
 #
 # Table name: `places`
@@ -27,3 +22,7 @@ end
 # * `index_places_on_term`:
 #     * **`term`**
 #
+class Place < ApplicationRecord
+  has_many :events, dependent: :destroy
+  validates :term, presence: true
+end

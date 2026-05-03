@@ -3,21 +3,21 @@
 
   <div class="field">
     <%= f.label :name %><br/>
-    <%= f.text_field :name, required: true %>
+    <%= f.text_field :name, required: true, class: "form-control" %>
   </div>
   <div class="field">
     <%= f.label :display_name %><br/>
-    <%= f.text_area :display_name %>
+    <%= f.text_area :display_name, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label t("page.file") -%>
-    <%= f.file_field :attachment, accept: "image/*" -%>
+    <%= f.label t("page.file") %>
+    <%= f.file_field :attachment, accept: "image/*", class: "form-control" %>
   </div>
 
   <% if f.object.attachment.present? %>
     <div class="field">
-      <%= f.label t("page.delete_file") -%>
-      <%= f.check_box :delete_attachment -%>
+      <%= f.label t("page.delete_file") %>
+      <%= f.check_box :delete_attachment, class: "form-check-input" %>
       <%= f.object.attachment.filename.to_s %>
     </div>
   <% end %>
@@ -27,9 +27,9 @@
   <% end %>
   <div class="field">
     <%= f.label :note %><br/>
-    <%= f.text_area :note %>
+    <%= f.text_area :note, class: "form-control" %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions mt-3">
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

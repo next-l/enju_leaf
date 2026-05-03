@@ -1,15 +1,5 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  parent_id: 1
-  child_id: 2
-  agent_relationship_type_id: 1
-
-two:
-  parent_id: 2
-  child_id: 3
-  agent_relationship_type_id: 1
-
 # ## Schema Information
 #
 # Table name: `agent_relationships`
@@ -42,3 +32,12 @@ two:
 # * `fk_rails_...`:
 #     * **`parent_id => agents.id`**
 #
+one:
+  parent_id: 1
+  child_id: 2
+  agent_relationship_type_id: 1
+
+two:
+  parent_id: 2
+  child_id: 3
+  agent_relationship_type_id: 1

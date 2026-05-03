@@ -1,11 +1,3 @@
-FactoryBot.define do
-  factory :manifestation_relationship do
-    parent_id { FactoryBot.create(:manifestation).id }
-    child_id { FactoryBot.create(:manifestation).id }
-    association :manifestation_relationship_type
-  end
-end
-
 # ## Schema Information
 #
 # Table name: `manifestation_relationships`
@@ -38,3 +30,10 @@ end
 # * `fk_rails_...`:
 #     * **`parent_id => manifestations.id`**
 #
+FactoryBot.define do
+  factory :manifestation_relationship do
+    parent_id { FactoryBot.create(:manifestation).id }
+    child_id { FactoryBot.create(:manifestation).id }
+    association :manifestation_relationship_type
+  end
+end

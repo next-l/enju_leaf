@@ -1,33 +1,34 @@
 <%= form_with(model: message) do |f| %>
   <% if message.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(message.errors.count, "error") %> prohibited this message from being saved:</h2>
+      <h2><%= pluralize(message.errors.count, "error") %>
+        prohibited this message from being saved:</h2>
 
       <ul>
-      <% message.errors.map(&:full_message).each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% message.errors.map(&:full_message).each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
   <div class="field">
-    <%= f.label :sender_id %><br />
-    <%= f.text_field :sender_id %>
+    <%= f.label :sender_id %><br/>
+    <%= f.text_field :sender_id, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label :receiver_id %><br />
-    <%= f.text_field :receiver_id %>
+    <%= f.label :receiver_id %><br/>
+    <%= f.text_field :receiver_id, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label :subject %><br />
-    <%= f.text_field :subject %>
+    <%= f.label :subject %><br/>
+    <%= f.text_field :subject, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label :body %><br />
-    <%= f.text_area :body %>
+    <%= f.label :body %><br/>
+    <%= f.text_area :body, class: "form-control" %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions mt-3">
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>
