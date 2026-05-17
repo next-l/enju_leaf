@@ -15,8 +15,8 @@ namespace :enju_library do
     end
 
     if Shelf.count.zero?
-      Shelf.create!(name: "web", library: Library.find_by(name: "web"))
-      Shelf.create!(name: "first_shelf", library: Library.find_by(name: "yours"))
+      Shelf.create!(name: "web", display_name: "en: web\nja: web", library: Library.find_by(name: "web"))
+      Shelf.create!(name: "first_shelf", display_name: "en: first_shelf\nja: first_shelf", library: Library.find_by(name: "yours"))
     end
   end
 
