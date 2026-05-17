@@ -207,8 +207,14 @@
             Switch language
           </a>
           <ul class="dropdown-menu">
-            <li><%= link_to "日本語", url_for(locale: "ja"), class: "dropdown-item" %></li>
-            <li><%= link_to "English", url_for(locale: "en"), class: "dropdown-item" %></li>
+            <% @available_languages.each do |language| %>
+              <% if language.iso_639_1 == I18n.locale.to_s %>
+                <li><strong><a href="" class="dropdown-item"><%= language.native_name || language.name %></a></strong></li>
+              <% else %>
+                <li><%= link_to "#{language.native_name || language.name}",
+                  url_for(request.params.merge(locale: language.iso_639_1, only_path: true)), class: "dropdown-item" %></li>
+              <% end %>
+            <% end %>
           </ul>
         </li>
         <li class="nav-item dropdown">
