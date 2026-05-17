@@ -9,7 +9,7 @@
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
 ARG RUBY_VERSION=3.4.9
-ARG PNPM_VERSION=10.33.0
+ARG PNPM_VERSION=11.1.2
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
@@ -32,8 +32,13 @@ ENV RAILS_ENV="production" \
 FROM base AS build
 
 # Install packages needed to build gems
-RUN apt-get update -qq && apt-get install --no-install-recommends -y curl gnupg \
-    build-essential git libpq-dev libvips pkg-config npm cmake \
+RUN apt-get update -qq && apt-get install --no-install-recommends -y curl gnupg && \
+  mkdir -p /etc/apt/keyrings && \
+  curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
+  curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /etc/apt/keyrings/yarnkey.gpg && \
+  echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_24.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
+  apt-get update -qq && apt-get install --no-install-recommends -y \
+    build-essential git libpq-dev libvips pkg-config nodejs cmake \
     libzstd-dev libyaml-dev libcurl4-gnutls-dev && \
     npm install -g pnpm@${PNPM_VERSION}
 
@@ -46,7 +51,7 @@ RUN bundle install && gem install foreman && \
     bundle exec bootsnap precompile -j 1 --gemfile
 
 # Install node modules
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
 
 # Copy application code
@@ -68,8 +73,13 @@ ARG http_proxy
 ARG https_proxy
 
 # Install packages needed for deployment
-RUN apt-get update -qq && apt-get install --no-install-recommends -y curl gnupg \
-    libvips postgresql-client-17 npm && \
+RUN apt-get update -qq && apt-get install --no-install-recommends -y curl gnupg && \
+  mkdir -p /etc/apt/keyrings && \
+  curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
+  curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /etc/apt/keyrings/yarnkey.gpg && \
+  echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_24.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
+  apt-get update -qq && apt-get install --no-install-recommends -y \
+    libvips postgresql-client-17 nodejs && \
     npm install -g pnpm@${PNPM_VERSION} && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
