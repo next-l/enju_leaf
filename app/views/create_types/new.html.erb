@@ -1,12 +1,12 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t('page.new', model: t('activerecord.models.create_type')) -%></h1>
+  <h1 class="title"><%= t("page.new", model: t("activerecord.models.create_type")) -%></h1>
   <div id="content_list">
-    <%= render 'form', create_type: @create_type %>
+    <%= render "form", create_type: @create_type %>
   </div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
-    <li><%= link_to t('page.back'), create_types_path -%></li>
+    <li><%= link_to t("page.back"), create_types_path -%></li>
   </ul>
 </div>

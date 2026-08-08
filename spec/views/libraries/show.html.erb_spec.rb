@@ -3,7 +3,7 @@ require 'rails_helper'
 describe "libraries/show" do
   fixtures :all
   before(:each) do
-    @events = Kaminari::paginate_array([]).page(1)
+    @events = Kaminari.paginate_array([]).page(1)
     assign(:library, FactoryBot.create(:library, street: "\tStreet 1-2"))
   end
 

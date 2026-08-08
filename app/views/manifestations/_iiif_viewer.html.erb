@@ -1,5 +1,5 @@
-    <div id="app"></div>
-    <script>
+<div id="app"></div>
+<script>
       Mirador.viewer({
         id: "app",
         windows: [
@@ -12,5 +12,7 @@
           sideBarOpenByDefault: false
         }
       });
-    </script>
-    <p><%= link_to t('iiif.open_in_new_window'), iiif_presentation_path(manifestation), target: '_blank' %></p>
+</script>
+<p><%= link_to t("iiif.open_in_new_window"),
+  iiif_presentation_path(manifestation),
+  target: "_blank" %></p>

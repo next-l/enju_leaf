@@ -4,11 +4,13 @@
   <%= form_with(model: checked_item, html: {method: :post}, url: checked_items_path(basket_id: @basket.id), local: false) do |f| -%>
     <%= error_messages(checked_item) if checked_item -%>
     <p>
-      <%= f.label :item_identifier, t('activerecord.attributes.item.item_identifier') -%>: <%= f.search_field :item_identifier, class: 'resource_item_identifier' -%>
-      <%= f.submit t('page.read'), 'data-disable-with' => t('page.saving') -%><br />
+      <%= f.label :item_identifier, t("activerecord.attributes.item.item_identifier") -%>:
+      <%= f.search_field :item_identifier, class: "resource_item_identifier" -%>
+      <%= f.submit t("page.read"), "data-disable-with" => t("page.saving") -%><br/>
       <%= f.label :due_date %>
-      <%= f.text_field :due_date_string, class: 'datepicker' %>
-      <%= t('checked_item.ignore_restriction') -%>: <%= f.check_box :ignore_restriction -%>
+      <%= f.text_field :due_date_string, class: "datepicker" %>
+      <%= t("checked_item.ignore_restriction") -%>:
+      <%= f.check_box :ignore_restriction -%>
     </p>
   <%- end -%>
 
@@ -20,10 +22,10 @@
   </script>
 </div>
 
-<%= render 'checked_item' %>
+<%= render "checked_item" %>
 
 <%= form_for(:basket, url: basket_path(@basket), html: { method: :put }) do |f| -%>
   <div>
-    <%= f.submit t('checked_item.checkout'), 'data-disable-with' => t('page.saving') -%>
+    <%= f.submit t("checked_item.checkout"), "data-disable-with" => t("page.saving") -%>
   </div>
 <%- end -%>

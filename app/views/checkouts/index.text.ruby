@@ -1,5 +1,5 @@
 CSV.generate(col_sep: "\t", row_sep: "\r\n") do |csv|
-  csv << (%w(username user_number item_identifier title checked_out_at due_date checked_in_at) << "(created_at: #{Time.zone.now})").flatten
+  csv << (%w[username user_number item_identifier title checked_out_at due_date checked_in_at] << "(created_at: #{Time.zone.now})").flatten
   @checkouts.each do |checkout|
     csv << [
       checkout.user.try(:username),

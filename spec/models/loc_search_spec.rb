@@ -87,7 +87,7 @@ describe LocSearch do
       m = LocSearch.import_from_sru_response("2010526151")
       expect(m.note).not_to be_nil
       expect(m.note).not_to be_empty
-      expect(m.note).to eq %Q["This is a book about the design of user interfaces for search and discovery"--Pref.;\n"January 2010"--T.p. verso.;\nIncludes bibliographical references and index.]
+      expect(m.note).to eq %Q("This is a book about the design of user interfaces for search and discovery"--Pref.;\n"January 2010"--T.p. verso.;\nIncludes bibliographical references and index.)
     end
 
     it "should import publication year", vcr: true do
@@ -183,7 +183,7 @@ describe LocSearch do
   context "::ModsRecord" do
     it "should parse MODS metadata", vcr: true do
       results = LocSearch.search("bath.lccn=2007012024")
-      metadata = results[ :items ].first
+      metadata = results[:items].first
       expect(metadata.lccn).to eq "2007012024"
       expect(metadata.title).to eq "Everything is miscellaneous : the power of the new digital disorder"
       expect(metadata.creator).to eq "David Weinberger."
@@ -197,7 +197,7 @@ describe LocSearch do
     it "should construct a valid uri" do
       url = LocSearch.make_sru_request_uri("test")
       uri = URI.parse(url)
-      expect(Hash[uri.query.split(/\&/).collect {|e| e.split(/=/) }]).to eq({
+      expect(Hash[uri.query.split(/\&/).collect { |e| e.split(/=/) }]).to eq({
         "query" => "test",
         "version" => "1.1",
         "operation" => "searchRetrieve",
@@ -209,13 +209,13 @@ describe LocSearch do
     it "should support pagination" do
       url = LocSearch.make_sru_request_uri("test", page: 2)
       uri = URI.parse(url)
-      expect(Hash[uri.query.split(/\&/).collect {|e| e.split(/=/) }]).to eq({
+      expect(Hash[uri.query.split(/\&/).collect { |e| e.split(/=/) }]).to eq({
         "query" => "test",
         "version" => "1.1",
         "operation" => "searchRetrieve",
         "maximumRecords" => "10",
         "recordSchema" => "mods",
-        "startRecord" => "11",
+        "startRecord" => "11"
       })
     end
   end

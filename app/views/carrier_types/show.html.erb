@@ -1,29 +1,34 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t('page.showing', model: t('activerecord.models.carrier_type')) -%></h1>
+  <h1 class="title"><%= t("page.showing", model: t("activerecord.models.carrier_type")) -%></h1>
   <div id="content_list">
     <p id="notice"><%= notice %></p>
 
     <p>
-      <strong><%= t('activerecord.attributes.carrier_type.name') -%>:</strong>
+      <strong><%= t("activerecord.attributes.carrier_type.name") -%>:</strong>
       <%= @carrier_type.name -%>
     </p>
 
     <p>
-      <strong><%= t('activerecord.attributes.carrier_type.display_name') -%>:</strong>
+      <strong><%= t("activerecord.attributes.carrier_type.display_name") -%>:</strong>
       <%= @carrier_type.display_name.localize -%>
     </p>
 
     <p>
-      <strong><%= t('page.file') -%>:</strong>
+      <strong><%= t("page.file") -%>:</strong>
       <%= link_to rails_blob_path(@carrier_type.attachment) do -%>
-        <%= image_tag(@carrier_type.attachment.representation(resize_to_limit: [16, 16]), size: '16x16', class: 'enju_icon', alt: @carrier_type.display_name.localize) %>
+        <%= image_tag(
+          @carrier_type.attachment.representation(resize_to_limit: [16, 16]),
+          size: "16x16",
+          class: "enju_icon",
+          alt: @carrier_type.display_name.localize,
+        ) %>
         <%= @carrier_type.attachment.filename %>
       <% end %>
     </p>
 
     <% if defined?(EnjuCirculation) %>
       <p>
-        <strong><%= t('activerecord.models.checkout_type') -%>:</strong>
+        <strong><%= t("activerecord.models.checkout_type") -%>:</strong>
       </p>
       <ul>
         <% @carrier_type.checkout_types.each do |checkout_type| %>
@@ -33,7 +38,7 @@
     <% end %>
 
     <p>
-      <strong><%= t('activerecord.attributes.carrier_type.note') -%>:</strong>
+      <strong><%= t("activerecord.attributes.carrier_type.note") -%>:</strong>
       <%= @carrier_type.note -%>
     </p>
 
@@ -43,7 +48,7 @@
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
     <%- if policy(@carrier_type).update? -%>
-      <li><%= link_to t('page.edit'), edit_carrier_type_path(@carrier_type) -%></li>
+      <li><%= link_to t("page.edit"), edit_carrier_type_path(@carrier_type) -%></li>
     <%- end -%>
     <li><%= back_to_index(flash[:page_info]) -%></li>
   </ul>

@@ -11,4 +11,3 @@ describe "manifestations/index.ttl.ruby" do
     render
   end
 end
-

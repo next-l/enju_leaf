@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe EventImportFile do
   fixtures :all
-  #pending "add some examples to (or delete) #{__FILE__}"
+  # pending "add some examples to (or delete) #{__FILE__}"
 
   describe "When it is written in utf-8" do
     before(:each) do
@@ -80,7 +80,7 @@ describe EventImportFile do
     it "should not be imported" do
       old_event_count = Event.count
       old_import_results_count = EventImportResult.count
-      lambda {@file.import_start}.should raise_error(RuntimeError)
+      lambda { @file.import_start }.should raise_error(RuntimeError)
       Event.count.should eq Event.count
       EventImportResult.count.should eq EventImportResult.count
     end
@@ -130,26 +130,34 @@ describe EventImportFile do
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: event_import_files
+# Table name: `event_import_files`
 #
-#  id                        :bigint           not null, primary key
-#  edit_mode                 :string
-#  error_message             :text
-#  event_import_fingerprint  :string
-#  executed_at               :datetime
-#  note                      :text
-#  user_encoding             :string
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  default_event_category_id :bigint
-#  default_library_id        :bigint
-#  parent_id                 :bigint
-#  user_id                   :bigint           not null
+# ### Columns
 #
-# Indexes
+# Name                             | Type               | Attributes
+# -------------------------------- | ------------------ | ---------------------------
+# **`id`**                         | `bigint`           | `not null, primary key`
+# **`edit_mode`**                  | `string`           |
+# **`error_message`**              | `text`             |
+# **`event_import_fingerprint`**   | `string`           |
+# **`executed_at`**                | `datetime`         |
+# **`note`**                       | `text`             |
+# **`user_encoding`**              | `string`           |
+# **`created_at`**                 | `datetime`         | `not null`
+# **`updated_at`**                 | `datetime`         | `not null`
+# **`default_event_category_id`**  | `bigint`           |
+# **`default_library_id`**         | `bigint`           |
+# **`user_id`**                    | `bigint`           | `not null`
 #
-#  index_event_import_files_on_parent_id  (parent_id)
-#  index_event_import_files_on_user_id    (user_id)
+# ### Indexes
+#
+# * `index_event_import_files_on_user_id`:
+#     * **`user_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

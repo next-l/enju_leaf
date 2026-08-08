@@ -1,7 +1,8 @@
 <%= form_with(model: periodical) do |form| %>
   <% if periodical.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(periodical.errors.count, "error") %> prohibited this periodical from being saved:</h2>
+      <h2><%= pluralize(periodical.errors.count, "error") %>
+        prohibited this periodical from being saved:</h2>
 
       <ul>
         <% periodical.errors.each do |error| %>

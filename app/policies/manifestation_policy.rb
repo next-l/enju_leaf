@@ -20,16 +20,18 @@ class ManifestationPolicy < ApplicationPolicy
   end
 
   def show?
-    case user.try(:role).try(:name)
-    when "Administrator"
-      true
-    when "Librarian"
-      true if record.required_role_id <= 3
-    when "User"
-      true if record.required_role_id <= 2
-    else
-      true if record.required_role_id <= 1
+    if user&.role
+      case user.role.name
+      when "Administrator"
+        return true
+      when "Librarian"
+        return true if record.required_role_id <= 3
+      when "User"
+        return true if record.required_role_id <= 2
+      end
     end
+
+    true if record.required_role_id <= 1
   end
 
   def create?
@@ -37,7 +39,9 @@ class ManifestationPolicy < ApplicationPolicy
   end
 
   def edit?
-    case user.try(:role).try(:name)
+    return false unless user&.role
+
+    case user.role.name
     when "Administrator"
       true
     when "Librarian"
@@ -52,32 +56,21 @@ class ManifestationPolicy < ApplicationPolicy
   end
 
   def destroy?
-    if record.items.empty?
-      unless record.try(:is_reserved?)
-        if record.series_master?
-          if record.children.empty?
-            case user.try(:role).try(:name)
-            when "Administrator"
-              true
-            when "Librarian"
-              true if record.required_role_id <= 3
-            else
-              false
-            end
-          else
-            false
-          end
-        else
-          case user.try(:role).try(:name)
-          when "Administrator"
-            true
-          when "Librarian"
-            true if record.required_role_id <= 3
-          else
-            false
-          end
-        end
-      end
+    return false if record.items.exists?
+    return false if record.try(:is_reserved?)
+    return false unless user&.role
+
+    if record.series_master?
+      return false if record.children.exists?
+    end
+
+    case user.role.name
+    when "Administrator"
+      true
+    when "Librarian"
+      true if record.required_role_id <= 3
+    else
+      false
     end
   end
 end

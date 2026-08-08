@@ -25,9 +25,9 @@
   <div class="field">
     <%= f.label t('activerecord.models.library') -%><br />
     <select id="library_id" name="library_id">
-      <%- @libraries.each do |library| -%>
-        <option value="<%= library.name -%>"<%= " selected='selected'" if @shelf.library == library -%>><%= library.display_name.localize -%></option>
-      <%- end -%>
+      <% @libraries.each do |library| -%>
+        <option value="<%= library.name -%>"<%= " selected='selected'" if @shelf.library == library %>><%= library.display_name.localize %></option>
+      <% end %>
     </select>
   </div>
 

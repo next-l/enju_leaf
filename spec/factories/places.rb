@@ -1,24 +1,30 @@
 FactoryBot.define do
   factory :place do |f|
-    f.sequence(:term) {|n| "term_#{n}"}
+    f.sequence(:term) { |n| "term_#{n}" }
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: places
+# Table name: `places`
 #
-#  id         :bigint           not null, primary key
-#  city       :text
-#  latitude   :float
-#  longitude  :float
-#  term       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  country_id :bigint
+# ### Columns
 #
-# Indexes
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`id`**          | `bigint`           | `not null, primary key`
+# **`city`**        | `text`             |
+# **`latitude`**    | `float`            |
+# **`longitude`**   | `float`            |
+# **`term`**        | `string`           | `not null`
+# **`created_at`**  | `datetime`         | `not null`
+# **`updated_at`**  | `datetime`         | `not null`
+# **`country_id`**  | `bigint`           |
 #
-#  index_places_on_country_id  (country_id)
-#  index_places_on_term        (term)
+# ### Indexes
+#
+# * `index_places_on_country_id`:
+#     * **`country_id`**
+# * `index_places_on_term`:
+#     * **`term`**
 #

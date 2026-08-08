@@ -2,19 +2,19 @@
   <%= error_messages(user_checkout_stat) -%>
 
   <div class="field">
-    <%= f.label :start_date -%><br />
+    <%= f.label :start_date -%><br/>
     <%= f.datetime_select :start_date -%>
   </div>
   <div class="field">
-    <%= f.label :end_date -%><br />
+    <%= f.label :end_date -%><br/>
     <%= f.datetime_select :end_date -%>
   </div>
   <div class="field">
-    <%= f.label :note -%><br />
+    <%= f.label :note -%><br/>
     <%= f.text_area :note -%>
   </div>
   <div class="actions">
-    <%= f.hidden_field :mode, value: 'import' %>
-    <%= f.submit t('page.start_counting') %>
+    <%= f.hidden_field :mode, value: "import" %>
+    <%= f.submit t("page.start_counting") %>
   </div>
 <%- end -%>

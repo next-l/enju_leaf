@@ -67,6 +67,14 @@ namespace :enju_leaf do
       table_name = entry[2].gsub(/\.rb\z/, "")
       version = entry[0].to_i
 
+      if [
+          20240817052048, 20240817052049, 20240817052050, 20240817052051,
+          20240823175738, 20240823175739, 20240823175740
+      ].include?(version)
+        ActiveRecord::Base.connection.execute("INSERT INTO schema_migrations (version) VALUES ('#{version.to_i}')")
+        puts "Added #{entry[0]}"
+      end
+
       # このバージョンより新しいマイグレーションファイルは対象外
       next if version >= 20201025090703
 

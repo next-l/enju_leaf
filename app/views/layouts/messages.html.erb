@@ -1,24 +1,38 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @locale.to_s -%>" lang="<%= @locale.to_s -%>">
-<head>
-  <meta charset="UTF-8" />
-  <title><%= t('message.user_message', login_name: current_user.username) -%></title>
-  <%= render 'page/include' -%>
-  <%= auto_discovery_link_tag(:rss, messages_url(format: :rss), title: (t('message.user_message', login_name: current_user.username) + " (RSS)")) %>
-  <%= auto_discovery_link_tag(:atom, messages_url(format: :atom), title: (t('message.user_message', login_name: current_user.username) + " (Atom)")) %>
-</head>
-<body>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xml:lang="<%= @locale.to_s -%>"
+  lang="<%= @locale.to_s -%>"
+>
+  <head>
+    <meta charset="UTF-8"/>
+    <title><%= t("message.user_message", login_name: current_user.username) -%></title>
+    <%= render "page/include" -%>
+    <%= auto_discovery_link_tag(
+      :rss,
+      messages_url(format: :rss),
+      title:
+        (t("message.user_message", login_name: current_user.username) + " (RSS)"),
+    ) %>
+    <%= auto_discovery_link_tag(
+      :atom,
+      messages_url(format: :atom),
+      title:
+        (t("message.user_message", login_name: current_user.username) + " (Atom)"),
+    ) %>
+  </head>
+  <body>
 
-<%= render 'page/header' -%>
-<%= render 'page/menu' -%>
+    <%= render "page/header" -%>
+    <%= render "page/menu" -%>
 
-<div id="content">
+    <div id="content">
 
-<%= yield  -%>
+      <%= yield -%>
 
-</div>
+    </div>
 
-<%= render 'page/footer' -%>
+    <%= render "page/footer" -%>
 
-</body>
+  </body>
 </html>

@@ -16,19 +16,33 @@ class Own < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: owns
+# Table name: `owns`
 #
-#  id         :bigint           not null, primary key
-#  position   :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  agent_id   :bigint           not null
-#  item_id    :bigint           not null
+# ### Columns
 #
-# Indexes
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`id`**          | `bigint`           | `not null, primary key`
+# **`position`**    | `integer`          |
+# **`created_at`**  | `datetime`         | `not null`
+# **`updated_at`**  | `datetime`         | `not null`
+# **`agent_id`**    | `bigint`           | `not null`
+# **`item_id`**     | `bigint`           | `not null`
 #
-#  index_owns_on_agent_id              (agent_id)
-#  index_owns_on_item_id_and_agent_id  (item_id,agent_id) UNIQUE
+# ### Indexes
+#
+# * `index_owns_on_agent_id`:
+#     * **`agent_id`**
+# * `index_owns_on_item_id_and_agent_id` (_unique_):
+#     * **`item_id`**
+#     * **`agent_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`agent_id => agents.id`**
+# * `fk_rails_...`:
+#     * **`item_id => items.id`**
 #

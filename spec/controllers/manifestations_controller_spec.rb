@@ -163,7 +163,7 @@ describe ManifestationsController do
       end
 
       it 'should show manifestation with library 2 or 3', solr: true do
-        get :index, params: { library_adv: %w(hachioji kamata) }
+        get :index, params: { library_adv: %w[hachioji kamata] }
         expect(response).to be_successful
         expect(assigns(:manifestations).size).to eq 3
       end
@@ -172,7 +172,7 @@ describe ManifestationsController do
         shelf = FactoryBot.create(:shelf)
         library = shelf.library
         item = FactoryBot.create(:item, shelf: shelf)
-        get :index, params: { :"#{library.name}_shelf" => [ shelf.name ] }
+        get :index, params: { "#{library.name}_shelf": [ shelf.name ] }
         expect(response).to be_successful
         expect(assigns(:manifestations).size).to eq 1
         expect(assigns(:manifestations).first).to eq item.manifestation
@@ -242,7 +242,7 @@ describe ManifestationsController do
         get :index, params: { query: "foo" }
         manifestations = assigns(:manifestations)
         expect(manifestations).not_to be_blank
-        expect(manifestations.map {|e| e.id }).to include periodical.id
+        expect(manifestations.map { |e| e.id }).to include periodical.id
       end
 
       describe "with render_views" do
@@ -572,7 +572,7 @@ describe ManifestationsController do
         end
 
         it 'accepts custom values' do
-          post :create, params: { manifestation: @attrs.merge(manifestation_custom_values_attributes: Array.new(3) {FactoryBot.attributes_for(:manifestation_custom_value, manifestation_custom_property_id: FactoryBot.create(:manifestation_custom_property).id)}) }
+          post :create, params: { manifestation: @attrs.merge(manifestation_custom_values_attributes: Array.new(3) { FactoryBot.attributes_for(:manifestation_custom_value, manifestation_custom_property_id: FactoryBot.create(:manifestation_custom_property).id) }) }
           expect(assigns(:manifestation)).to be_valid
           expect(assigns(:manifestation).manifestation_custom_values.count).to eq 3
         end

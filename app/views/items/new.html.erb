@@ -1,16 +1,16 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t('page.new', model: t('activerecord.models.item')) -%></h1>
+  <h1 class="title"><%= t("page.new", model: t("activerecord.models.item")) -%></h1>
   <div id="content_list">
-    <%= render 'form', item: @item %>
+    <%= render "form", item: @item %>
   </div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <%- if @manifestation -%>
-    <%= render 'manifestations/book_jacket', manifestation: @manifestation -%>
+    <%= render "manifestations/book_jacket", manifestation: @manifestation -%>
   <%- end -%>
 
   <ul>
-    <li><%= link_to t('page.back'), :back %></li>
+    <li><%= link_to t("page.back"), :back %></li>
   </ul>
 </div>

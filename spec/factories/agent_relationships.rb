@@ -1,25 +1,40 @@
 FactoryBot.define do
   factory :agent_relationship do |f|
-    f.parent_id {FactoryBot.create(:agent).id}
-    f.child_id {FactoryBot.create(:agent).id}
+    f.parent_id { FactoryBot.create(:agent).id }
+    f.child_id { FactoryBot.create(:agent).id }
     f.association :agent_relationship_type
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: agent_relationships
+# Table name: `agent_relationships`
 #
-#  id                         :bigint           not null, primary key
-#  position                   :integer
-#  created_at                 :datetime         not null
-#  updated_at                 :datetime         not null
-#  agent_relationship_type_id :bigint
-#  child_id                   :bigint
-#  parent_id                  :bigint
+# ### Columns
 #
-# Indexes
+# Name                              | Type               | Attributes
+# --------------------------------- | ------------------ | ---------------------------
+# **`id`**                          | `bigint`           | `not null, primary key`
+# **`position`**                    | `integer`          |
+# **`created_at`**                  | `datetime`         | `not null`
+# **`updated_at`**                  | `datetime`         | `not null`
+# **`agent_relationship_type_id`**  | `bigint`           | `default(1), not null`
+# **`child_id`**                    | `bigint`           | `not null`
+# **`parent_id`**                   | `bigint`           | `not null`
 #
-#  index_agent_relationships_on_child_id   (child_id)
-#  index_agent_relationships_on_parent_id  (parent_id)
+# ### Indexes
+#
+# * `index_agent_relationships_on_child_id`:
+#     * **`child_id`**
+# * `index_agent_relationships_on_parent_id`:
+#     * **`parent_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`agent_relationship_type_id => agent_relationship_types.id`**
+# * `fk_rails_...`:
+#     * **`child_id => agents.id`**
+# * `fk_rails_...`:
+#     * **`parent_id => agents.id`**
 #

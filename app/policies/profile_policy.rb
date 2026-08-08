@@ -10,11 +10,11 @@ class ProfilePolicy < ApplicationPolicy
     when "Librarian"
       return true if record == user.profile
 
-      true if %w(Librarian User Guest).include?(record.required_role.name)
+      true if %w[Librarian User Guest].include?(record.required_role.name)
     when "User"
       return true if record == user.profile
 
-      true if %w(User Guest).include?(record.required_role.name)
+      true if %w[User Guest].include?(record.required_role.name)
     end
   end
 
@@ -28,7 +28,7 @@ class ProfilePolicy < ApplicationPolicy
       true
     when "Librarian"
       unless record.user.try(:has_role?, "Administrator")
-        true if %w(User Guest Librarian).include?(record.required_role.name)
+        true if %w[User Guest Librarian].include?(record.required_role.name)
       end
     when "User"
       true if record == user.profile

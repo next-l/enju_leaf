@@ -12,14 +12,23 @@ class EventImportResult < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: event_import_results
+# Table name: `event_import_results`
 #
-#  id                   :bigint           not null, primary key
-#  event_import_file_id :bigint
-#  event_id             :bigint
-#  body                 :text
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
+# ### Columns
+#
+# Name                        | Type               | Attributes
+# --------------------------- | ------------------ | ---------------------------
+# **`id`**                    | `bigint`           | `not null, primary key`
+# **`body`**                  | `text`             |
+# **`created_at`**            | `datetime`         | `not null`
+# **`updated_at`**            | `datetime`         | `not null`
+# **`event_id`**              | `bigint`           |
+# **`event_import_file_id`**  | `bigint`           | `not null`
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`event_import_file_id => event_import_files.id`**
 #

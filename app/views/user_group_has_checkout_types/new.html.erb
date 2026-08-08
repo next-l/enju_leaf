@@ -1,12 +1,12 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t('page.new', model: t('activerecord.models.user_group_has_checkout_type')) -%></h1>
+  <h1 class="title"><%= t("page.new", model: t("activerecord.models.user_group_has_checkout_type")) -%></h1>
   <div id="content_list">
-    <%= render 'form', user_group_has_checkout_type: @user_group_has_checkout_type %>
+    <%= render "form", user_group_has_checkout_type: @user_group_has_checkout_type %>
   </div>
 </div>
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
-    <li><%= link_to t('page.back'), user_group_has_checkout_types_path -%></li>
+    <li><%= link_to t("page.back"), user_group_has_checkout_types_path -%></li>
   </ul>
 </div>

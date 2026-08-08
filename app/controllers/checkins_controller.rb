@@ -40,7 +40,7 @@ class CheckinsController < ApplicationController
       @basket.save!
     end
     @checkin = Checkin.new
-    @checkins = Kaminari::paginate_array([]).page(1)
+    @checkins = Kaminari.paginate_array([]).page(1)
     flash[:checkin_basket_id] = @basket.id
   end
 

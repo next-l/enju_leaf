@@ -2,31 +2,31 @@
   <%= error_messages(carrier_type) %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %><br/>
     <%= f.text_field :name, required: true %>
   </div>
   <div class="field">
-    <%= f.label :display_name %><br />
+    <%= f.label :display_name %><br/>
     <%= f.text_area :display_name %>
   </div>
   <div class="field">
-    <%= f.label t('page.file') -%>
-    <%= f.file_field :attachment, accept: 'image/*' -%>
+    <%= f.label t("page.file") -%>
+    <%= f.file_field :attachment, accept: "image/*" -%>
   </div>
 
   <% if f.object.attachment.present? %>
     <div class="field">
-      <%= f.label t('page.delete_file') -%>
+      <%= f.label t("page.delete_file") -%>
       <%= f.check_box :delete_attachment -%>
       <%= f.object.attachment.filename.to_s %>
     </div>
   <% end %>
 
   <% if defined?(EnjuCirculation) and !@carrier_type.new_record? %>
-    <%= render 'carrier_types/checkout_form', f: f %>
+    <%= render "carrier_types/checkout_form", f: f %>
   <% end %>
   <div class="field">
-    <%= f.label :note %><br />
+    <%= f.label :note %><br/>
     <%= f.text_area :note %>
   </div>
   <div class="actions">

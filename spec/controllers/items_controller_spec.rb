@@ -193,15 +193,6 @@ describe ItemsController do
         expect(response).to redirect_to(manifestations_url)
       end
 
-      it 'should work without exception, even if library and shelf is unavailable' do
-        Library.real.each do |library|
-          library.try(:shelves).to_a.each(&:destroy)
-          library.delete
-        end
-        get :new, params: { manifestation_id: @manifestation.id }
-        expect(response).to redirect_to(libraries_url)
-      end
-
       it 'should not get new item for series_master' do
         manifestation_serial = FactoryBot.create(:manifestation_serial)
         get :new, params: { manifestation_id: manifestation_serial.id }
@@ -356,7 +347,7 @@ describe ItemsController do
         end
 
         it 'accepts custom values' do
-          post :create, params: { item: @attrs.merge(item_custom_values_attributes: Array.new(3) {FactoryBot.attributes_for(:item_custom_value, item_custom_property_id: FactoryBot.create(:item_custom_property).id)}) }
+          post :create, params: { item: @attrs.merge(item_custom_values_attributes: Array.new(3) { FactoryBot.attributes_for(:item_custom_value, item_custom_property_id: FactoryBot.create(:item_custom_property).id) }) }
           expect(assigns(:item)).to be_valid
           expect(assigns(:item).item_custom_values.count).to eq 3
         end

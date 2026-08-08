@@ -181,7 +181,7 @@ class ProfilesController < ApplicationController
       :full_name, :full_name_transcription,
       :keyword_list, :locale,
       :save_checkout_history, :checkout_icalendar_token, # EnjuCirculation
-      :save_search_history, # EnjuSearchLog
+      :save_search_history # EnjuSearchLog
     ]
     attrs += [
       :library_id, :expired_at, :birth_date,
@@ -200,7 +200,7 @@ class ProfilesController < ApplicationController
       :full_name, :full_name_transcription,
       :keyword_list, :locale,
       :save_checkout_history, :checkout_icalendar_token, # EnjuCirculation
-      :save_search_history, # EnjuSearchLog
+      :save_search_history # EnjuSearchLog
     ]
     attrs += [
       :library_id, :expired_at, :birth_date,

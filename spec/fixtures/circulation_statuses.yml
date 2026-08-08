@@ -26,34 +26,34 @@ circulation_status_00004:
   note: ""
   position: 4
 circulation_status_00005: 
-  name: In Process  
+  name: In Process
   display_name: "en: In Process\r\n\
     ja: 作業中"
   id: 5
   note: ""
   position: 5
 circulation_status_00006: 
-  name: In Transit Between Library Locations  
+  name: In Transit Between Library Locations
   display_name: In Transit Between Library Locations
   id: 6
   note: ""
   position: 6
 circulation_status_00007: 
-  name: Lost  
+  name: Lost
   display_name: "en: Lost\r\n\
     ja: 紛失"
   id: 7
   note: ""
   position: 7
 circulation_status_00008: 
-  name: Missing  
+  name: Missing
   display_name: "en: Missing\r\n\
     ja: 行方不明"
   id: 8
   note: ""
   position: 8
 circulation_status_00009: 
-  name: Not Available  
+  name: Not Available
   display_name: "en: Not Available\r\n\
     ja: 利用不可"
   id: 9
@@ -67,13 +67,13 @@ circulation_status_00010:
   note: ""
   position: 10
 circulation_status_00011: 
-  name: On Order  
+  name: On Order
   display_name: On Order
   id: 11
   note: ""
   position: 11
 circulation_status_00012: 
-  name: Pending Transfer  
+  name: Pending Transfer
   display_name: Pending Transfer
   id: 12
   note: ""
@@ -105,19 +105,24 @@ circulation_status_00016:
   note: ""
   position: 16
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: circulation_statuses
+# Table name: `circulation_statuses`
 #
-#  id           :bigint           not null, primary key
-#  display_name :text
-#  name         :string           not null
-#  note         :text
-#  position     :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+# ### Columns
 #
-# Indexes
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`display_name`**  | `text`             |
+# **`name`**          | `string`           | `not null`
+# **`note`**          | `text`             |
+# **`position`**      | `integer`          |
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
 #
-#  index_circulation_statuses_on_lower_name  (lower((name)::text)) UNIQUE
+# ### Indexes
+#
+# * `index_circulation_statuses_on_lower_name` (_unique_):
+#     * **`lower((name)::text)`**
 #

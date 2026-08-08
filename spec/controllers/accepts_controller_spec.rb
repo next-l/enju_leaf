@@ -15,7 +15,7 @@ describe AcceptsController do
 
       it 'assigns all accepts as @accepts' do
         get :index
-        assigns(:accepts).should_not be_nil
+        expect(assigns(:accepts)).to be_truthy
         response.should be_successful
       end
 

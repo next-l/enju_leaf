@@ -1,5 +1,14 @@
 <%- item.shelf.picture_files.each do |picture_file| -%>
-  <%= link_to image_tag('icons/picture.png', size: '16x16', class: 'enju_icon', alt: t('page.picture')), rails_blob_path(picture_file.attahcment), rel: "item_#{item.id}_manifestation_#{item.manifestation_id}" if picture_file.attachment.attached? -%>
+  <%= if picture_file.attachment.attached?
+    link_to image_tag(
+      "icons/picture.png",
+      size: "16x16",
+      class: "enju_icon",
+      alt: t("page.picture"),
+    ),
+    rails_blob_path(picture_file.attahcment),
+    rel: "item_#{item.id}_manifestation_#{item.manifestation_id}"
+  end -%>
 <%- end -%>
 <script type="text/javascript">
   $(document).ready(function(){

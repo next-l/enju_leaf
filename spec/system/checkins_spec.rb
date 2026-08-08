@@ -11,7 +11,7 @@ RSpec.describe 'Checkins', type: :system do
 
       fill_in :checkin_item_identifier, with: '00011'
       click_on '返却（取り消しはできません）'
-     
+
       expect(page).to have_content 'よくわかる最新Webサービス技術の基本と仕組み : 標準Webシステム技術とeコマース基盤技術入門'
     end
   end

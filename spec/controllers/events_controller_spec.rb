@@ -87,7 +87,7 @@ describe EventsController do
           end
           Event.reindex
           today = Time.zone.today
-          get :index, params: { format: "json", start: today.beginning_of_month.to_s, end: today.end_of_month.to_s }
+          get :index, params: { format: "json", start: 1.week.ago.to_s, end: 1.week.from_now.to_s }
           expect(response).to be_successful
           events = assigns(:events)
           expect(events).not_to be_nil

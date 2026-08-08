@@ -4,7 +4,7 @@ RSpec.describe "periodicals/index", type: :view do
   fixtures :all
 
   before(:each) do
-    assign(:periodicals, 
+    assign(:periodicals,
       Periodical.page(1)
     )
   end

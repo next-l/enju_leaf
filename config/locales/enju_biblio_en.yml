@@ -472,7 +472,7 @@ en:
     isbn_record_not_found: "ISBN import error: Bibliographic record is not found in the external service."
   import_request:
     record_not_found: Record not found.
-    error: An error occured during import.
+    error: An error occurred during import.
 
   resource_import_mailer:
     completed:

@@ -21,7 +21,6 @@ class BookmarkStat < ApplicationRecord
     to: :state_machine
 
   def calculate_count!
-    self.started_at = Time.zone.now
     Manifestation.find_each do |manifestation|
       daily_count = Bookmark.manifestations_count(start_date, end_date, manifestation)
       # manifestation.update_attributes({:daily_bookmarks_count => daily_count, :total_count => manifestation.total_count + daily_count})
@@ -33,7 +32,6 @@ class BookmarkStat < ApplicationRecord
         )
       end
     end
-    self.completed_at = Time.zone.now
     transition_to!(:completed)
   end
 
@@ -47,16 +45,18 @@ class BookmarkStat < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: bookmark_stats
+# Table name: `bookmark_stats`
 #
-#  id           :bigint           not null, primary key
-#  start_date   :datetime
-#  end_date     :datetime
-#  started_at   :datetime
-#  completed_at :datetime
-#  note         :text
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+# ### Columns
+#
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`id`**          | `bigint`           | `not null, primary key`
+# **`end_date`**    | `datetime`         | `not null`
+# **`note`**        | `text`             |
+# **`start_date`**  | `datetime`         | `not null`
+# **`created_at`**  | `datetime`         | `not null`
+# **`updated_at`**  | `datetime`         | `not null`
 #

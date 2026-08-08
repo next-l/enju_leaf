@@ -1,18 +1,17 @@
 class PurchaseRequest < ApplicationRecord
-  scope :not_ordered, -> { includes(:order_list).where("order_lists.ordered_at IS NULL") }
-  scope :ordered, -> { includes(:order_list).where("order_lists.ordered_at IS NOT NULL") }
+  scope :not_ordered, -> { includes(:order_list).where(ordered_at: nil) }
+  scope :ordered, -> { includes(:order_list).where.not(ordered_at: nil) }
 
-  belongs_to :user, validate: true
+  belongs_to :user
   has_one :order, dependent: :destroy
   has_one :order_list, through: :order
 
-  validates_associated :user
-  validates_presence_of :user, :title
+  validates :title, presence: true
   validate :check_price
   validates :url, url: true, allow_blank: true, length: { maximum: 255 }
-  after_destroy :index!
-  after_save :index!
   before_save :set_date_of_publication
+  after_save :index!
+  after_destroy :index!
 
   strip_attributes only: [ :url, :pub_date ]
 
@@ -65,33 +64,40 @@ class PurchaseRequest < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: purchase_requests
+# Table name: `purchase_requests`
 #
-#  id                  :bigint           not null, primary key
-#  accepted_at         :datetime
-#  author              :text
-#  date_of_publication :datetime
-#  denied_at           :datetime
-#  isbn                :string
-#  note                :text
-#  price               :integer
-#  pub_date            :string
-#  publisher           :text
-#  state               :string
-#  title               :text             not null
-#  url                 :string
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  user_id             :bigint           not null
+# ### Columns
 #
-# Indexes
+# Name                       | Type               | Attributes
+# -------------------------- | ------------------ | ---------------------------
+# **`id`**                   | `bigint`           | `not null, primary key`
+# **`accepted_at`**          | `datetime`         |
+# **`author`**               | `text`             |
+# **`date_of_publication`**  | `datetime`         |
+# **`denied_at`**            | `datetime`         |
+# **`isbn`**                 | `string`           |
+# **`note`**                 | `text`             |
+# **`price`**                | `integer`          |
+# **`pub_date`**             | `string`           |
+# **`publisher`**            | `text`             |
+# **`state`**                | `string`           |
+# **`title`**                | `text`             | `not null`
+# **`url`**                  | `string`           |
+# **`created_at`**           | `datetime`         | `not null`
+# **`updated_at`**           | `datetime`         | `not null`
+# **`user_id`**              | `bigint`           | `not null`
 #
-#  index_purchase_requests_on_state    (state)
-#  index_purchase_requests_on_user_id  (user_id)
+# ### Indexes
 #
-# Foreign Keys
+# * `index_purchase_requests_on_state`:
+#     * **`state`**
+# * `index_purchase_requests_on_user_id`:
+#     * **`user_id`**
 #
-#  fk_rails_...  (user_id => users.id)
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #
