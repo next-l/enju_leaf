@@ -34,13 +34,13 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: '24.x'
+          cache: "pnpm"
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v5
+        uses: pnpm/action-setup@v6
         with:
           version: 11
-          cache: true
 
       # Add or replace dependency steps here
       - name: Install Ruby and gems
