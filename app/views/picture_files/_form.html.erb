@@ -2,8 +2,8 @@
   <%= error_messages(picture_file) -%>
 
   <div class="field">
-    <%= f.label t('page.file') -%><br />
-    <%= f.file_field :attachment, accept: 'image/*', required: true -%>
+    <%= f.label :attachment, t("page.file") -%><br/>
+    <%= f.file_field :attachment, accept: "image/*", required: true -%>
   </div>
 
   <% if picture_file.attachment.attached? %>
