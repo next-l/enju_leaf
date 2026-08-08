@@ -201,45 +201,43 @@ module EnjuNdl
                             end
           manifestation.creators << creator_agents
 
-          if defined?(EnjuSubject)
-            subject_heading_type = SubjectHeadingType.find_or_create_by!(name: "ndlsh")
-            subjects.each do |term|
-              subject = Subject.find_by(term: term[:term])
-              unless subject
-                subject = Subject.new(term)
-                subject.subject_heading_type = subject_heading_type
-                subject.subject_type = SubjectType.find_or_create_by!(name: "concept")
-              end
-              # if subject.valid?
-              manifestation.subjects << subject
-              # end
-              # subject.save!
+          subject_heading_type = SubjectHeadingType.find_or_create_by!(name: "ndlsh")
+          subjects.each do |term|
+            subject = Subject.find_by(term: term[:term])
+            unless subject
+              subject = Subject.new(term)
+              subject.subject_heading_type = subject_heading_type
+              subject.subject_type = SubjectType.find_or_create_by!(name: "concept")
             end
-            if classification_urls
-              classification_urls.each do |url|
-                begin
-                  ndc_url = URI.parse(url)
-                rescue URI::InvalidURIError
-                end
-                next unless ndc_url
-
-                ndc_type = ndc_url.path.split("/").reverse[1]
-                next unless (ndc_type == "ndc9") || (ndc_type == "ndc10")
-
-                ndc = ndc_url.path.split("/").last
-                classification_type = ClassificationType.find_or_create_by!(name: ndc_type)
-                classification = Classification.new(category: ndc)
-                classification.classification_type = classification_type
-                manifestation.classifications << classification if classification.valid?
+            # if subject.valid?
+            manifestation.subjects << subject
+            # end
+            # subject.save!
+          end
+          if classification_urls
+            classification_urls.each do |url|
+              begin
+                ndc_url = URI.parse(url)
+              rescue URI::InvalidURIError
               end
-            end
-            ndc8 = doc.xpath('//dc:subject[@rdf:datatype="http://ndl.go.jp/dcndl/terms/NDC8"]').first
-            if ndc8
-              classification_type = ClassificationType.find_or_create_by!(name: "ndc8")
-              classification = Classification.new(category: ndc8.content)
+              next unless ndc_url
+
+              ndc_type = ndc_url.path.split("/").reverse[1]
+              next unless (ndc_type == "ndc9") || (ndc_type == "ndc10")
+
+              ndc = ndc_url.path.split("/").last
+              classification_type = ClassificationType.find_or_create_by!(name: ndc_type)
+              classification = Classification.new(category: ndc)
               classification.classification_type = classification_type
               manifestation.classifications << classification if classification.valid?
             end
+          end
+          ndc8 = doc.xpath('//dc:subject[@rdf:datatype="http://ndl.go.jp/dcndl/terms/NDC8"]').first
+          if ndc8
+            classification_type = ClassificationType.find_or_create_by!(name: "ndc8")
+            classification = Classification.new(category: ndc8.content)
+            classification.classification_type = classification_type
+            manifestation.classifications << classification if classification.valid?
           end
         end
       end

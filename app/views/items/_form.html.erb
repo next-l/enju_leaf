@@ -1,16 +1,16 @@
 <%= render "manifestations/title", manifestation: item.manifestation %>
-<% if defined?(EnjuSubject) %>
-  <p>
-    <%= t("activerecord.models.classification") %>:
-    <% item.manifestation.classifications.each do |classification| %>
-      <%= link_to "#{classification.classification_type.display_name}: #{classification.category}",
-      manifestations_path(
-        query:
-          "classification_sm:#{classification.classification_type.name}_#{classification.category}",
-      ) %>
-    <% end %>
-  </p>
-<% end %>
+
+<p>
+  <%= t("activerecord.models.classification") %>:
+  <% item.manifestation.classifications.each do |classification| %>
+    <%= link_to "#{classification.classification_type.display_name}: #{classification.category}",
+    manifestations_path(
+      query:
+        "classification_sm:#{classification.classification_type.name}_#{classification.category}",
+    ) %>
+  <% end %>
+</p>
+
 <%= render "page/required_field" %>
 <%= form_with(model: item) do |f| %>
   <%= error_messages(item) %>
