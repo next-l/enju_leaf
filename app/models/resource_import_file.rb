@@ -470,10 +470,8 @@ class ResourceImportFile < ApplicationRecord
     header_columns += ManifestationCustomProperty.order(:position).pluck(:name).map { |c| "manifestation:#{c}" }
     header_columns += ItemCustomProperty.order(:position).pluck(:name).map { |c| "item:#{c}" }
 
-    if defined?(EnjuSubject)
-      header_columns += ClassificationType.order(:position).pluck(:name).map { |c| "classification:#{c}" }
-      header_columns += SubjectHeadingType.order(:position).pluck(:name).map { |s| "subject:#{s}" }
-    end
+    header_columns += ClassificationType.order(:position).pluck(:name).map { |c| "classification:#{c}" }
+    header_columns += SubjectHeadingType.order(:position).pluck(:name).map { |s| "subject:#{s}" }
     header = file.first
     ignored_columns = header - header_columns
     unless ignored_columns.empty?
@@ -680,22 +678,18 @@ class ResourceImportFile < ApplicationRecord
       creator_agents = Agent.import_agents(creators_list)
       contributor_agents = Agent.import_agents(contributors_list)
       publisher_agents = Agent.import_agents(publishers_list)
-      subjects = import_subject(row) if defined?(EnjuSubject)
+      subjects = import_subject(row)
       case options[:edit_mode]
       when "create"
         work = self.class.import_work(title, creator_agents, options)
-        if defined?(EnjuSubject)
-          work.subjects = subjects.uniq unless subjects.empty?
-        end
+        work.subjects = subjects.uniq unless subjects.empty?
         expression = self.class.import_expression(work, contributor_agents)
       when "update"
         expression = manifestation
         work = expression
         work.creators = creator_agents.uniq unless creator_agents.empty?
         expression.contributors = contributor_agents.uniq unless contributor_agents.empty?
-        if defined?(EnjuSubject)
-          work.subjects = subjects.uniq unless subjects.empty?
-        end
+        work.subjects = subjects.uniq unless subjects.empty?
       end
 
       attributes = {
@@ -810,11 +804,9 @@ class ResourceImportFile < ApplicationRecord
           end
         end
 
-        if defined?(EnjuSubject)
-          classifications = import_classification(row)
-          if classifications.present?
-            manifestation.classifications = classifications
-          end
+        classifications = import_classification(row)
+        if classifications.present?
+          manifestation.classifications = classifications
         end
       end
 

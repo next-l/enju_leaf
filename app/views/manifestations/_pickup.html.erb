@@ -5,15 +5,14 @@
         <%= render "manifestations/book_jacket", manifestation: manifestation -%>
       </div>
       <div class="col-6">
-        <% if defined?(EnjuSubject) %>
-          <p>
-            <strong><%= t("activerecord.models.subject") -%>:</strong>
-            <%- manifestation.subjects.each do |subject| -%>
-              <%= link_to subject.term,
-              manifestations_path(query: "subject_sm:\"#{h(subject.term)}\"") -%>
-            <%- end -%>
-          </p>
-        <% end %>
+        <p>
+          <strong><%= t("activerecord.models.subject") -%>:</strong>
+          <%- manifestation.subjects.each do |subject| -%>
+            <%= link_to subject.term,
+            manifestations_path(query: "subject_sm:\"#{h(subject.term)}\"") -%>
+          <%- end -%>
+        </p>
+
         <% if defined?(EnjuBookmark) %>
           <p>
             <strong><%= t("page.tag") -%>:</strong>
