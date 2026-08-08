@@ -4,7 +4,7 @@ describe OaiController do
   fixtures :all
 
   before(:each) do
-    manifestatons(:manifestation_00001).attach(
+    manifestations(:manifestation_00001).attach(
       io: File.open(Rails.root.join('README.md')),
       filename: 'README.md'
     )
