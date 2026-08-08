@@ -87,21 +87,19 @@
 </div>
 
 <div class="col-md-6" id="col2">
-  <% if defined?(EnjuSubject) %>
-    <div class="card mb-3" id="subject_and_classification">
-      <h5 class="title card-header"><%= t("page.subject_and_classification") -%></h5>
-      <div class="config_box">
-        <ul>
-          <li><%= link_to t("activerecord.models.subject"), subjects_path -%></li>
-          <li><%= link_to t("activerecord.models.subject_type"), subject_types_path -%></li>
-          <li><%= link_to t("activerecord.models.subject_heading_type"),
-            subject_heading_types_path -%></li>
-          <li><%= link_to t("activerecord.models.classification"), classifications_path -%></li>
-          <li><%= link_to t("activerecord.models.classification_type"), classification_types_path -%></li>
-        </ul>
-      </div>
+  <div class="card mb-3" id="subject_and_classification">
+    <h5 class="title card-header"><%= t("page.subject_and_classification") -%></h5>
+    <div class="config_box">
+      <ul>
+        <li><%= link_to t("activerecord.models.subject"), subjects_path -%></li>
+        <li><%= link_to t("activerecord.models.subject_type"), subject_types_path -%></li>
+        <li><%= link_to t("activerecord.models.subject_heading_type"),
+          subject_heading_types_path -%></li>
+        <li><%= link_to t("activerecord.models.classification"), classifications_path -%></li>
+        <li><%= link_to t("activerecord.models.classification_type"), classification_types_path -%></li>
+      </ul>
     </div>
-  <% end %>
+  </div>
   <div class="card mb-3" id="form">
     <h5 class="title card-header"><%= t("page.form") -%></h5>
     <div class="config_box">

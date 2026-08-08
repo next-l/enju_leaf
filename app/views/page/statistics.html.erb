@@ -45,12 +45,10 @@
             <td><%= Tag.count -%></td>
           </tr>
         <% end %>
-        <% if defined?(EnjuSubject) %>
-          <tr>
-            <td><%= link_to t("activerecord.models.subject"), subjects_path -%></td>
-            <td><%= Subject.count -%></td>
-          </tr>
-        <% end %>
+        <tr>
+          <td><%= link_to t("activerecord.models.subject"), subjects_path -%></td>
+          <td><%= Subject.count -%></td>
+        </tr>
         <% if defined?(EnjuCirculation) %>
           <tr>
             <td><%= link_to t("activerecord.models.checkout"), checkouts_path -%></td>

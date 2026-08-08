@@ -223,9 +223,7 @@
                  style: "ime-mode: disabled" %>
   </div>
 
-  <% if defined?(EnjuSubject) %>
-    <%= render "manifestations/subject_form", f: f %>
-  <% end %>
+  <%= render "manifestations/subject_form", f: f %>
 
   <div class="field">
     <%= f.label :extent %>
