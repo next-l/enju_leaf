@@ -12,12 +12,12 @@ describe OaiController do
 
   describe "GET identify" do
     it "should get identify" do
-      get oai_path(verb: "Identify")
+      get :index, params: { verb: "Identify" }
       expect(response).to be_successful
     end
 
     it "should get list_records" do
-      get oai_path(verb: "ListRecords", metadataPrefix: "jpcoar_2.0")
+      get :index, params: { verb: "ListRecords", "metadataPrefix": "jpcoar" }
       expect(response).to be_successful
     end
   end
