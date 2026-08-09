@@ -3,7 +3,7 @@ module EnjuLibrary
     extend ActiveSupport::Concern
 
     included do
-      before_action :get_library_group, :set_locale, :set_available_languages, :set_mobile_request
+      before_action :get_library_group, :set_available_languages, :set_mobile_request
       before_action :store_current_location, unless: :devise_controller?
       rescue_from Pundit::NotAuthorizedError, with: :render_403
       # rescue_from ActiveRecord::RecordNotFound, with: :render_404
@@ -67,27 +67,6 @@ module EnjuLibrary
     def after_sign_in_path_for(resource)
       session[:locale] = nil
       super
-    end
-
-    def set_locale
-      if params[:locale]
-        unless I18n.available_locales.include?(params[:locale].to_s.intern)
-          raise InvalidLocaleError
-        end
-      end
-      if user_signed_in?
-        locale = params[:locale] || session[:locale] || current_user.profile.try(:locale).try(:to_sym)
-      else
-        locale = params[:locale] || session[:locale]
-      end
-      if locale
-        I18n.locale = @locale = session[:locale] = locale.to_sym
-      else
-        I18n.locale = @locale = session[:locale] = I18n.default_locale
-      end
-    rescue InvalidLocaleError
-      reset_session
-      @locale = I18n.default_locale
     end
 
     def default_url_options(options = {})
