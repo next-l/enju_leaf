@@ -20,7 +20,7 @@ RSpec.describe 'Checkouts', type: :system do
     it 'should edit checkout' do
       sign_in users(:librarian1)
       visit edit_checkout_path(checkouts(:checkout_00001))
-      expect(page).to have_content '貸出の表示'
+      expect(page).to have_content 'Showing Checkout'
     end
 
     it 'should get checkouts with item_id' do
