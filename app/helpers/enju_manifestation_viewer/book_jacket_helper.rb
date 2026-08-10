@@ -63,10 +63,10 @@ module EnjuManifestationViewer
       string = ""
       case source
       when "google"
-        string << javascript_tag(nil, src: "https://www.google.com/jsapi")
-        string << render("manifestations/google_book_thumbnail_header")
+        string += javascript_tag(nil, src: "https://www.google.com/jsapi")
+        string += render("manifestations/google_book_thumbnail_header")
       when "openbd"
-        string << render("manifestations/openbd_thumbnail_header")
+        string += render("manifestations/openbd_thumbnail_header")
       end
       string.html_safe
     end

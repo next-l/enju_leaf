@@ -11,7 +11,7 @@ xml.rss("version" => "2.0",
       xml.link reserves_url(format: :rss)
     end
     xml.description "Next-L Enju, an open source integrated library system developed by Project Next-L"
-    xml.language @locale.to_s
+    xml.language I18n.locale.to_s
     xml.ttl "60"
     if @user
       xml.tag! "atom:link", rel: "self", href: reserves_url(user_id: @user.username, format: :rss)

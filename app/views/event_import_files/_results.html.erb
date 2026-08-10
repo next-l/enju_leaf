@@ -10,14 +10,14 @@
     event_import_results_path(
       event_import_file_id: @event_import_file.id,
       format: :txt,
-      locale: @locale.to_s,
+      locale: I18n.locale.to_s,
     ),
   ) -%>
   (<%= link_to "TSV",
   event_import_results_path(
     event_import_file_id: @event_import_file.id,
     format: :txt,
-    locale: @locale.to_s,
+    locale: I18n.locale.to_s,
   ) -%>)
 </p>
 

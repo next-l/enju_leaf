@@ -1,6 +1,6 @@
       <tr class="line<%= cycle("0", "1") -%>">
         <td style="width: 30px"><%= @manifestations.offset_value + 1 + manifestation_counter -%></td>
-        <% cache([manifestation, fragment: 'manifestation_html', role: current_user_role_name, locale: @locale]) do %>
+        <% cache([manifestation, fragment: 'manifestation_html', role: current_user_role_name, locale: I18n.locale]) do %>
           <td style="480px">
             <% if manifestation.root_series_statement %>
               <%= render 'manifestations/show_series_index', manifestation: manifestation, series_statement: manifestation.root_series_statement -%>

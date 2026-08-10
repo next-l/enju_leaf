@@ -97,13 +97,13 @@
       purchase_requests_path(
         user_id: @user.username,
         format: :rss,
-        locale: @locale.to_s,
+        locale: I18n.locale.to_s,
       ) -%>
       (<%= link_to "RSS",
       purchase_requests_path(
         user_id: @user.username,
         format: :rss,
-        locale: @locale.to_s,
+        locale: I18n.locale.to_s,
       ) -%>)
       <%= link_to image_tag(
         "icons/page_white_excel.png",
@@ -120,8 +120,8 @@
         class: "enju_icon",
         alt: t("page.feed"),
       ),
-      purchase_requests_path(format: :rss, locale: @locale.to_s) -%>
-      (<%= link_to "RSS", purchase_requests_path(format: :rss, locale: @locale.to_s) -%>)
+      purchase_requests_path(format: :rss, locale: I18n.locale.to_s) -%>
+      (<%= link_to "RSS", purchase_requests_path(format: :rss, locale: I18n.locale.to_s) -%>)
       <%= link_to image_tag(
         "icons/page_white_excel.png",
         size: "16x16",

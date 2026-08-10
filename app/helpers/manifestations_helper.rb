@@ -99,7 +99,6 @@ module ManifestationsHelper
     string = ""
     carrier_type = CarrierType.where(name: facet.value).select([ :id, :name, :display_name ]).first
     if carrier_type
-      string << form_icon(carrier_type)
       current = true if params[:carrier_type] == carrier_type.name
       if current
         content_tag :strong do

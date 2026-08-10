@@ -166,7 +166,7 @@
           only_path: true,
           library_id: @library.name,
           format: :txt,
-          locale: @locale.to_s,
+          locale: I18n.locale.to_s,
         ),
       ) -%>
       (<%= link_to "TSV",
@@ -175,7 +175,7 @@
           only_path: true,
           library_id: @library.name,
           format: :txt,
-          locale: @locale.to_s,
+          locale: I18n.locale.to_s,
         ),
       ) -%>)
       <br/>
@@ -190,7 +190,7 @@
           only_path: true,
           library_id: @library.name,
           format: :ics,
-          locale: @locale.to_s,
+          locale: I18n.locale.to_s,
         ),
       ) -%>
       (<%= link_to "iCalendar",
@@ -199,7 +199,7 @@
           only_path: true,
           library_id: @library.name,
           format: :ics,
-          locale: @locale.to_s,
+          locale: I18n.locale.to_s,
         ),
       ) -%>)
     <%- else -%>
@@ -218,11 +218,11 @@
         alt: "TSV"
       ),
       url_for(
-        filtered_params.merge(only_path: true, format: :txt, locale: @locale.to_s),
+        filtered_params.merge(only_path: true, format: :txt, locale: I18n.locale.to_s),
       ) -%>
       (<%= link_to "TSV",
       url_for(
-        filtered_params.merge(only_path: true, format: :txt, locale: @locale.to_s),
+        filtered_params.merge(only_path: true, format: :txt, locale: I18n.locale.to_s),
       ) -%>)
       <br/>
       <%= link_to (
@@ -232,11 +232,11 @@
         alt: "iCalendar"
       ),
       url_for(
-        filtered_params.merge(only_path: true, format: :ics, locale: @locale.to_s),
+        filtered_params.merge(only_path: true, format: :ics, locale: I18n.locale.to_s),
       ) -%>
       (<%= link_to "iCalendar",
       url_for(
-        filtered_params.merge(only_path: true, format: :ics, locale: @locale.to_s),
+        filtered_params.merge(only_path: true, format: :ics, locale: I18n.locale.to_s),
       ) -%>)
     <%- end -%>
   </p>

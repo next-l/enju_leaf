@@ -1,7 +1,7 @@
   <div id="tabs">
     <%= render 'manifestations/tab_menu', manifestation: manifestation %>
     <div id="detail">
-    <% cache([manifestation, fragment: 'show_detail_user_html', role: current_user_role_name, locale: @locale]) do %>
+    <% cache([manifestation, fragment: 'show_detail_user_html', role: current_user_role_name, locale: I18n.locale]) do %>
       <table class="table table-striped" id="resource_detail">
         <%= embed_content(manifestation) if defined?(EnjuManifestationViewer) -%>
         <tr>

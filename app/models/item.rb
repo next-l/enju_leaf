@@ -1,8 +1,8 @@
 class Item < ApplicationRecord
   scope :available, -> { includes(:circulation_status).where.not("circulation_statuses.name" => "Removed") }
   scope :removed, -> { includes(:circulation_status).where("circulation_statuses.name" => "Removed") }
-  scope :on_shelf, -> { available.includes(:shelf).references(:shelf).where.not(shelves: { name: "web" }) }
-  scope :on_web, -> { available.includes(:shelf).references(:shelf).where(name: "web") }
+  scope :on_shelf, -> { available.includes(:shelf).references(:shelf).where.not("shelves.name": "web") }
+  scope :on_web, -> { available.includes(:shelf).references(:shelf).where("shelves.name": "web") }
   scope :available_for, ->(user) {
     unless user.try(:has_role?, "Librarian")
       on_shelf
@@ -205,7 +205,17 @@ end
 # ### Foreign Keys
 #
 # * `fk_rails_...`:
+#     * **`bookstore_id => bookstores.id`**
+# * `fk_rails_...`:
+#     * **`budget_type_id => budget_types.id`**
+# * `fk_rails_...`:
+#     * **`checkout_type_id => checkout_types.id`**
+# * `fk_rails_...`:
+#     * **`circulation_status_id => circulation_statuses.id`**
+# * `fk_rails_...`:
 #     * **`manifestation_id => manifestations.id`**
 # * `fk_rails_...`:
 #     * **`required_role_id => roles.id`**
+# * `fk_rails_...`:
+#     * **`shelf_id => shelves.id`**
 #
