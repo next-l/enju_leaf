@@ -162,7 +162,7 @@ module EnjuNii
       end
 
       def get_cinii_creator(doc)
-        doc.xpath("//foaf:maker/foaf:Person").map { |e|
+        doc.xpath("//xmlns:creator/xmlns:Researcher").map { |e|
           {
             full_name: e.at("./foaf:name").content&.strip,
             full_name_transcription: e.xpath("./foaf:name[@xml:lang]").map { |n| n.content }.join("\n"),
@@ -177,7 +177,7 @@ module EnjuNii
 
       def get_cinii_title(doc)
         {
-          original_title: doc.at("//dc:title[not(@xml:lang)]").children.first.content,
+          original_title: doc.at("//dc:title[not(@xml:lang)]")&.content || doc.at("//dc:title")&.content,
           title_transcription: doc.xpath("//dc:title[@xml:lang]", 'dc': "http://purl.org/dc/elements/1.1/").map { |e| e.try(:content) }.join("\n"),
           title_alternative: doc.xpath("//dcterms:alternative").map { |e| e.try(:content) }.join("\n")
         }
