@@ -4,9 +4,9 @@ class PictureFile < ApplicationRecord
 
   has_one_attached :attachment
 
-  validates :picture_attachable_type, presence: true, inclusion: { in: ['Event', 'Manifestation', 'Agent', 'Shelf'] }
+  validates :picture_attachable_type, presence: true, inclusion: { in: [ "Event", "Manifestation", "Agent", "Shelf" ] }
   validates_associated :picture_attachable
-  default_scope { order('picture_files.position') }
+  default_scope { order("picture_files.position") }
   # http://railsforum.com/viewtopic.php?id=11615
   acts_as_list scope: :picture_attachable
   strip_attributes only: :picture_attachable_type
@@ -14,18 +14,27 @@ class PictureFile < ApplicationRecord
   paginates_per 10
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: picture_files
+# Table name: `picture_files`
 #
-#  id                      :bigint           not null, primary key
-#  picture_attachable_id   :bigint
-#  picture_attachable_type :string
-#  title                   :text
-#  position                :integer
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  picture_fingerprint     :string
-#  picture_width           :integer
-#  picture_height          :integer
+# ### Columns
+#
+# Name                           | Type               | Attributes
+# ------------------------------ | ------------------ | ---------------------------
+# **`id`**                       | `bigint`           | `not null, primary key`
+# **`picture_attachable_type`**  | `string`           |
+# **`picture_fingerprint`**      | `string`           |
+# **`picture_width`**            | `integer`          |
+# **`position`**                 | `integer`          |
+# **`title`**                    | `text`             |
+# **`created_at`**               | `datetime`         | `not null`
+# **`updated_at`**               | `datetime`         | `not null`
+# **`picture_attachable_id`**    | `bigint`           |
+#
+# ### Indexes
+#
+# * `index_picture_files_on_picture_attachable_id_and_type`:
+#     * **`picture_attachable_id`**
+#     * **`picture_attachable_type`**
 #

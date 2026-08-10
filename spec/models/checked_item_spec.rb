@@ -4,7 +4,7 @@ describe CheckedItem do
   fixtures :all
 
   it "should respond to available_for_checkout?" do
-    checked_items(:checked_item_00001).available_for_checkout?.should_not be_truthy
+    expect(checked_items(:checked_item_00001).available_for_checkout?).not_to be_truthy
   end
 
   it "should change circulation_status when a missing item is found" do
@@ -14,13 +14,12 @@ describe CheckedItem do
     checked_item.item = items(:item_00024)
     checked_item.basket = basket
     checked_item.save!
-    items(:item_00024).circulation_status.name.should eq 'Available On Shelf'
+    expect(items(:item_00024).circulation_status.name).to eq 'Available On Shelf'
   end
 
   it "should checkout an item that its reservation is expired" do
     item = items(:item_00024)
     reserve = FactoryBot.create(:reserve, manifestation: item.manifestation)
-    reserve.transition_to!(:requested)
     reserve.transition_to!(:expired)
     checked_item = CheckedItem.new
     checked_item.item = item
@@ -29,16 +28,43 @@ describe CheckedItem do
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: checked_items
+# Table name: `checked_items`
 #
-#  id           :bigint           not null, primary key
-#  item_id      :bigint           not null
-#  basket_id    :bigint           not null
-#  librarian_id :bigint
-#  due_date     :datetime         not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  user_id      :bigint
+# ### Columns
+#
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`due_date`**      | `datetime`         | `not null`
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
+# **`basket_id`**     | `bigint`           | `not null`
+# **`item_id`**       | `bigint`           | `not null`
+# **`librarian_id`**  | `bigint`           |
+# **`user_id`**       | `bigint`           |
+#
+# ### Indexes
+#
+# * `index_checked_items_on_basket_id`:
+#     * **`basket_id`**
+# * `index_checked_items_on_item_id_and_basket_id` (_unique_):
+#     * **`item_id`**
+#     * **`basket_id`**
+# * `index_checked_items_on_librarian_id`:
+#     * **`librarian_id`**
+# * `index_checked_items_on_user_id`:
+#     * **`user_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`basket_id => baskets.id`**
+# * `fk_rails_...`:
+#     * **`item_id => items.id`**
+# * `fk_rails_...`:
+#     * **`librarian_id => users.id`**
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

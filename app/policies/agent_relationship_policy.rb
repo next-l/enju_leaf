@@ -8,14 +8,14 @@ class AgentRelationshipPolicy < ApplicationPolicy
   end
 
   def create?
-    true if user.try(:has_role?, 'Librarian')
+    true if user.try(:has_role?, "Librarian")
   end
 
   def update?
-    true if user.try(:has_role?, 'Librarian')
+    true if user.try(:has_role?, "Librarian")
   end
 
   def destroy?
-    true if user.try(:has_role?, 'Librarian')
+    true if user.try(:has_role?, "Librarian")
   end
 end

@@ -1,11 +1,10 @@
 class LibraryGroup < ApplicationRecord
-  #include Singleton
+  # include Singleton
   include MasterModel
 
   has_many :libraries, dependent: :destroy
   has_many :colors, dependent: :destroy
   belongs_to :country, optional: true
-  belongs_to :user, optional: true
 
   validates :url, presence: true, url: true
   validates :short_name, presence: true
@@ -13,11 +12,8 @@ class LibraryGroup < ApplicationRecord
     greater_than_or_equal_to: 0
   }
   accepts_nested_attributes_for :colors, update_only: true
-  accepts_nested_attributes_for :user, update_only: true
-  store :settings, accessors: [
-    :book_jacket_unknown_resource,
-    :erms_url
-  ], coder: JSON
+  store_accessor :settings,
+    :book_jacket_unknown_resource
 
   translates :login_banner, :footer_banner
   globalize_accessors
@@ -39,7 +35,7 @@ class LibraryGroup < ApplicationRecord
   end
 
   def real_libraries
-    libraries.where.not(name: 'web')
+    libraries.where.not(name: "web")
   end
 
   def network_access_allowed?(ip_address, options = {})
@@ -60,39 +56,48 @@ class LibraryGroup < ApplicationRecord
 
     false
   end
-
-  def email
-    user&.email
-  end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: library_groups
+# Table name: `library_groups`
 #
-#  id                            :bigint           not null, primary key
-#  name                          :string           not null
-#  display_name                  :text
-#  short_name                    :string           not null
-#  my_networks                   :text
-#  old_login_banner              :text
-#  note                          :text
-#  country_id                    :bigint
-#  position                      :integer
-#  created_at                    :datetime         not null
-#  updated_at                    :datetime         not null
-#  admin_networks                :text
-#  allow_bookmark_external_url   :boolean          default(FALSE), not null
-#  url                           :string           default("http://localhost:3000/")
-#  settings                      :text
-#  html_snippet                  :text
-#  book_jacket_source            :string
-#  max_number_of_results         :integer          default(1000)
-#  family_name_first             :boolean          default(TRUE)
-#  screenshot_generator          :string
-#  pub_year_facet_range_interval :integer          default(10)
-#  user_id                       :bigint
-#  csv_charset_conversion        :boolean          default(FALSE), not null
-#  login_banner                  :text
-#  footer_banner                 :text
+# ### Columns
+#
+# Name                                 | Type               | Attributes
+# ------------------------------------ | ------------------ | ---------------------------
+# **`id`**                             | `bigint`           | `not null, primary key`
+# **`admin_networks`**                 | `text`             |
+# **`allow_bookmark_external_url`**    | `boolean`          | `default(FALSE), not null`
+# **`book_jacket_source`**             | `string`           |
+# **`csv_charset_conversion`**         | `boolean`          | `default(FALSE), not null`
+# **`display_name`**                   | `text`             |
+# **`email`**                          | `string`           |
+# **`family_name_first`**              | `boolean`          | `default(TRUE), not null`
+# **`footer_banner`**                  | `text`             |
+# **`html_snippet`**                   | `text`             |
+# **`login_banner`**                   | `text`             |
+# **`max_number_of_results`**          | `integer`          | `default(1000)`
+# **`my_networks`**                    | `text`             |
+# **`name`**                           | `string`           | `not null`
+# **`note`**                           | `text`             |
+# **`old_login_banner`**               | `text`             |
+# **`position`**                       | `integer`          |
+# **`pub_year_facet_range_interval`**  | `integer`          | `default(10)`
+# **`screenshot_generator`**           | `string`           |
+# **`settings`**                       | `jsonb`            | `not null`
+# **`short_name`**                     | `string`           | `not null`
+# **`url`**                            | `string`           | `default("http://localhost:3000/"), not null`
+# **`created_at`**                     | `datetime`         | `not null`
+# **`updated_at`**                     | `datetime`         | `not null`
+# **`country_id`**                     | `bigint`           |
+#
+# ### Indexes
+#
+# * `index_library_groups_on_email`:
+#     * **`email`**
+# * `index_library_groups_on_lower_name` (_unique_):
+#     * **`lower((name)::text)`**
+# * `index_library_groups_on_short_name`:
+#     * **`short_name`**
 #

@@ -85,7 +85,7 @@ describe LanguagesController do
       it 'should not assign the requested language as @language' do
         get :new
         expect(assigns(:language)).to be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -107,7 +107,7 @@ describe LanguagesController do
     describe 'When not logged in' do
       it 'should not assign the requested language as @language' do
         get :edit, params: { id: @language.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -129,7 +129,7 @@ describe LanguagesController do
 
         it 'redirects to the created language' do
           post :create, params: { language: @attrs }
-          response.should redirect_to(assigns(:language))
+          expect(response).to redirect_to(assigns(:language))
         end
       end
 
@@ -141,7 +141,7 @@ describe LanguagesController do
 
         it "re-renders the 'new' template" do
           post :create, params: { language: @invalid_attrs }
-          response.should render_template('new')
+          expect(response).to render_template('new')
         end
       end
     end
@@ -157,7 +157,7 @@ describe LanguagesController do
 
         it 'should be forbidden' do
           post :create, params: { language: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
@@ -169,7 +169,7 @@ describe LanguagesController do
 
         it 'should be forbidden' do
           post :create, params: { language: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -185,7 +185,7 @@ describe LanguagesController do
 
         it 'should be forbidden' do
           post :create, params: { language: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
@@ -197,7 +197,7 @@ describe LanguagesController do
 
         it 'should be forbidden' do
           post :create, params: { language: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -211,7 +211,7 @@ describe LanguagesController do
 
         it 'should be forbidden' do
           post :create, params: { language: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
@@ -223,7 +223,7 @@ describe LanguagesController do
 
         it 'should be forbidden' do
           post :create, params: { language: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -251,14 +251,14 @@ describe LanguagesController do
 
         it 'moves its position when specified' do
           put :update, params: { id: @language.id, language: @attrs, move: 'lower' }
-          response.should redirect_to(languages_url)
+          expect(response).to redirect_to(languages_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested language as @language' do
           put :update, params: { id: @language.id, language: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -271,14 +271,14 @@ describe LanguagesController do
 
         it 'should be forbidden' do
           put :update, params: { id: @language.id, language: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested language as @language' do
           put :update, params: { id: @language.id, language: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -298,7 +298,7 @@ describe LanguagesController do
 
       it 'redirects to the languagees list' do
         delete :destroy, params: { id: @language.id }
-        response.should redirect_to(languages_url)
+        expect(response).to redirect_to(languages_url)
       end
     end
 
@@ -309,7 +309,7 @@ describe LanguagesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @language.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

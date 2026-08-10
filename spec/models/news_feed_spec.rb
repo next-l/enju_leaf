@@ -6,17 +6,17 @@ describe NewsFeed do
   it "should get content", vcr: true do
     feed = news_feeds(:news_feed_00001)
     feed.force_reload
-    feed.content.should be_truthy
+    expect(feed.content).to be_truthy
   end
 
   it "should not get content if the feed is invalid", vcr: true do
     feed = news_feeds(:news_feed_00002)
     feed.force_reload
-    feed.content.should be_nil
+    expect(feed.content).to be_nil
   end
 
   it "should reload content", vcr: true do
-    news_feeds(:news_feed_00001).force_reload.should be_truthy
+    expect(news_feeds(:news_feed_00001).force_reload).to be_truthy
   end
 
   it "should fetch feeds", vcr: true do
@@ -24,16 +24,20 @@ describe NewsFeed do
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: news_feeds
+# Table name: `news_feeds`
 #
-#  id               :bigint           not null, primary key
-#  library_group_id :bigint           default(1), not null
-#  title            :string
-#  url              :string
-#  body             :text
-#  position         :integer
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+# ### Columns
+#
+# Name                    | Type               | Attributes
+# ----------------------- | ------------------ | ---------------------------
+# **`id`**                | `bigint`           | `not null, primary key`
+# **`body`**              | `text`             |
+# **`position`**          | `integer`          |
+# **`title`**             | `string`           | `not null`
+# **`url`**               | `string`           | `not null`
+# **`created_at`**        | `datetime`         | `not null`
+# **`updated_at`**        | `datetime`         | `not null`
+# **`library_group_id`**  | `bigint`           | `default(1), not null`
 #

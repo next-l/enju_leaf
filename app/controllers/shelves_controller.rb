@@ -1,33 +1,33 @@
 class ShelvesController < ApplicationController
-  before_action :set_shelf, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_shelf, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
   before_action :get_library
-  before_action :get_libraries, only: [:new, :edit, :create, :update]
+  before_action :get_libraries, only: [ :new, :edit, :create, :update ]
 
   # GET /shelves
   # GET /shelves.json
   def index
-    if params[:mode] == 'select'
+    if params[:mode] == "select"
       if @library
         @shelves = @library.shelves
       else
         @shelves = Shelf.real.order(:position)
       end
-      render partial: 'select_form'
+      render partial: "select_form"
       return
     else
-      sort = {sort_by: 'shelf_name', order: 'asc'}
+      sort = { sort_by: "shelf_name", order: "asc" }
       # case params[:sort_by]
       # when 'name'
       #  sort[:sort_by] = 'name'
       # end
-      sort[:order] = 'desc' if params[:order] == 'desc'
+      sort[:order] = "desc" if params[:order] == "desc"
 
       query = @query = params[:query].to_s.strip
       page = params[:page] || 1
       library = @library if @library
 
-      search = Shelf.search(include: [:library]) do
+      search = Shelf.search(include: [ :library ]) do
         fulltext query if query.present?
         paginate page: page.to_i, per_page: Shelf.default_per_page
         if library
@@ -83,7 +83,7 @@ class ShelvesController < ApplicationController
 
     respond_to do |format|
       if @shelf.save
-        format.html { redirect_to @shelf, notice: t('controller.successfully_created', model: t('activerecord.models.shelf')) }
+        format.html { redirect_to @shelf, notice: t("controller.successfully_created", model: t("activerecord.models.shelf")) }
         format.json { render json: @shelf, status: :created, location: @shelf }
       else
         @library = Library.first if @shelf.library.nil?
@@ -106,7 +106,7 @@ class ShelvesController < ApplicationController
 
     respond_to do |format|
       if @shelf.update(shelf_params)
-        format.html { redirect_to @shelf, notice: t('controller.successfully_updated', model: t('activerecord.models.shelf')) }
+        format.html { redirect_to @shelf, notice: t("controller.successfully_updated", model: t("activerecord.models.shelf")) }
         format.json { head :no_content }
       else
         @library = Library.first if @library.nil?

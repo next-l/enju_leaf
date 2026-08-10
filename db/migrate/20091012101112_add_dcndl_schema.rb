@@ -1,5 +1,5 @@
 class AddDcndlSchema < ActiveRecord::Migration[4.2]
-  def self.up
+  def up
     add_column :manifestations, :title_alternative_transcription, :text
     add_column :agents, :full_name_alternative_transcription, :text
     add_column :manifestations, :description, :text
@@ -12,7 +12,7 @@ class AddDcndlSchema < ActiveRecord::Migration[4.2]
     rename_column :manifestations, :copyright_date, :date_copyrighted
   end
 
-  def self.down
+  def down
     remove_column :manifestations, :title_alternative_transcription
     remove_column :agents, :full_name_alternative_transcription
     remove_column :manifestations, :description

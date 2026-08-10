@@ -4,8 +4,8 @@ class UserReserveStat < ApplicationRecord
     initial_state: UserReserveStatStateMachine.initial_state
   ]
   include CalculateStat
-  default_scope {order('user_reserve_stats.id DESC')}
-  scope :not_calculated, -> {in_state(:pending)}
+  default_scope { order("user_reserve_stats.id DESC") }
+  scope :not_calculated, -> { in_state(:pending) }
   has_many :reserve_stat_has_users, dependent: :destroy
   has_many :users, through: :reserve_stat_has_users
   belongs_to :user
@@ -23,18 +23,16 @@ class UserReserveStat < ApplicationRecord
            to: :state_machine
 
   def calculate_count!
-    self.started_at = Time.zone.now
     User.find_each do |user|
       daily_count = user.reserves.created(start_date.beginning_of_day, end_date.tomorrow.beginning_of_day).size
       if daily_count.positive?
         users << user
-        sql = ['UPDATE reserve_stat_has_users SET reserves_count = ? WHERE user_reserve_stat_id = ? AND user_id = ?', daily_count, id, user.id]
+        sql = [ "UPDATE reserve_stat_has_users SET reserves_count = ? WHERE user_reserve_stat_id = ? AND user_id = ?", daily_count, id, user.id ]
         UserReserveStat.connection.execute(
           self.class.send(:sanitize_sql_array, sql)
         )
       end
     end
-    self.completed_at = Time.zone.now
     transition_to!(:completed)
 
     mailer = UserReserveStatMailer.completed(self)
@@ -43,17 +41,29 @@ class UserReserveStat < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: user_reserve_stats
+# Table name: `user_reserve_stats`
 #
-#  id           :bigint           not null, primary key
-#  start_date   :datetime
-#  end_date     :datetime
-#  note         :text
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  started_at   :datetime
-#  completed_at :datetime
-#  user_id      :bigint
+# ### Columns
+#
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`id`**          | `bigint`           | `not null, primary key`
+# **`end_date`**    | `datetime`         | `not null`
+# **`note`**        | `text`             |
+# **`start_date`**  | `datetime`         | `not null`
+# **`created_at`**  | `datetime`         | `not null`
+# **`updated_at`**  | `datetime`         | `not null`
+# **`user_id`**     | `bigint`           | `not null`
+#
+# ### Indexes
+#
+# * `index_user_reserve_stats_on_user_id`:
+#     * **`user_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

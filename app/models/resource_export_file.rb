@@ -22,7 +22,7 @@ class ResourceExportFile < ApplicationRecord
     tsv = Manifestation.export(role: role_name)
     file = StringIO.new(tsv)
     # file.class.class_eval { attr_accessor :original_filename, :content_type }
-    attachment.attach(io: file, filename: 'resource_export.txt')
+    attachment.attach(io: file, filename: "resource_export.txt")
     save!
     transition_to!(:completed)
     mailer = ResourceExportMailer.completed(self)
@@ -35,13 +35,22 @@ class ResourceExportFile < ApplicationRecord
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: resource_export_files
+# Table name: `resource_export_files`
 #
-#  id          :bigint           not null, primary key
-#  user_id     :bigint
-#  executed_at :datetime
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+# ### Columns
+#
+# Name               | Type               | Attributes
+# ------------------ | ------------------ | ---------------------------
+# **`id`**           | `bigint`           | `not null, primary key`
+# **`executed_at`**  | `datetime`         |
+# **`created_at`**   | `datetime`         | `not null`
+# **`updated_at`**   | `datetime`         | `not null`
+# **`user_id`**      | `bigint`           | `not null`
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

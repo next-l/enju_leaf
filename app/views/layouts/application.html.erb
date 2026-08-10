@@ -1,34 +1,95 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= @locale.to_s -%>" lang="<%= @locale.to_s -%>">
-<head>
-  <meta charset="UTF-8" />
-  <%= render 'page/include' %>
-  <title><%= title(controller.controller_name) %></title>
-  <%- if controller.controller_name == 'manifestations' and controller.action_name == 'index' -%>
-    <%= auto_discovery_link_tag(:rss, url_for(params.permit.merge(format: 'rss', page: nil, commit: nil, only_path: true)), title: (t('manifestation.library_group_manifestation', library_group_name: @library_group.display_name.localize) + " (RSS)")) %>
-    <%= auto_discovery_link_tag(:atom, url_for(params.permit.merge(format: 'atom', page: nil, commit: nil, only_path: true)), title: (t('manifestation.library_group_manifestation', library_group_name: @library_group.display_name.localize) + " (Atom)")) %>
-    <% if defined?(EnjuNews) %>
-      <%= auto_discovery_link_tag(:rss, news_posts_url(format: :rss, locale: @locale), title: (t('news_post.library_group_news_post', library_group_name: @library_group.display_name.localize) + " (RSS)")) %>
-      <%= auto_discovery_link_tag(:atom, news_posts_url(format: :atom, locale: @locale), title: (t('news_post.library_group_news_post', library_group_name: @library_group.display_name.localize) + " (Atom)")) %>
+<html>
+  <head>
+    <title><%= title(controller.controller_name) %></title>
+    <%- if controller.controller_name == 'manifestations' and controller.action_name == 'index' -%>
+      <%= auto_discovery_link_tag(
+        :rss,
+        url_for(
+          params.permit.merge(format: "rss", page: nil, commit: nil, only_path: true),
+        ),
+        title:
+          (
+            t(
+              "manifestation.library_group_manifestation",
+              library_group_name: @library_group.display_name.localize,
+            ) + " (RSS)"
+          ),
+      ) %>
+      <%= auto_discovery_link_tag(
+        :atom,
+        url_for(
+          params.permit.merge(
+            format: "atom",
+            page: nil,
+            commit: nil,
+            only_path: true,
+          ),
+        ),
+        title:
+          (
+            t(
+              "manifestation.library_group_manifestation",
+              library_group_name: @library_group.display_name.localize,
+            ) + " (Atom)"
+          ),
+      ) %>
+      <% if defined?(EnjuNews) %>
+        <%= auto_discovery_link_tag(
+          :rss,
+          news_posts_url(format: :rss, locale: I18n.locale.to_s),
+          title:
+            (
+              t(
+                "news_post.library_group_news_post",
+                library_group_name: @library_group.display_name.localize,
+              ) + " (RSS)"
+            ),
+        ) %>
+        <%= auto_discovery_link_tag(
+          :atom,
+          news_posts_url(format: :atom, locale: I18n.locale.to_s),
+          title:
+            (
+              t(
+                "news_post.library_group_news_post",
+                library_group_name: @library_group.display_name.localize,
+              ) + " (Atom)"
+            ),
+        ) %>
+      <% end %>
     <% end %>
-  <% end %>
-  <%= book_jacket_header(@library_group.book_jacket_source) %>
-  <% if controller.controller_name == 'page' %>
-    <%= render 'page/portlets' %>
-  <% end %>
-</head>
-<body itemscope itemtype="http://schema.org/WebPage">
+    <%= book_jacket_header(@library_group.book_jacket_source) %>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Next-L Enju Leaf">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-<%= render 'page/header' %>
-<%= render 'page/menu' %>
+    <%= yield :head %>
 
-<div id="content">
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-<%= yield %>
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
 
-</div>
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application",
+    "data-turbo-track": "reload",
+    type: "module" %>
+  </head>
 
-<%= render 'page/footer' %>
-
-</body>
+  <body itemscope itemtype="http://schema.org/WebPage">
+    <%= render "page/menu" %>
+    <div class="container">
+      <div class="row mt-3 mb-3" id="content">
+        <%= yield %>
+      </div>
+      <%= render "page/footer" %>
+    </div>
+  </body>
 </html>

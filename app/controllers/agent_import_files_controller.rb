@@ -1,6 +1,6 @@
 class AgentImportFilesController < ApplicationController
-  before_action :set_agent_import_file, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_agent_import_file, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /agent_import_files
   # GET /agent_import_files.json
@@ -37,10 +37,10 @@ class AgentImportFilesController < ApplicationController
 
     respond_to do |format|
       if @agent_import_file.save
-        if @agent_import_file.mode == 'import'
+        if @agent_import_file.mode == "import"
           AgentImportFileJob.perform_later(@agent_import_file)
         end
-        format.html { redirect_to @agent_import_file, notice: t('controller.successfully_created', model: t('activerecord.models.agent_import_file')) }
+        format.html { redirect_to @agent_import_file, notice: t("controller.successfully_created", model: t("activerecord.models.agent_import_file")) }
         format.json { render json: @agent_import_file, status: :created, location: @agent_import_file }
       else
         format.html { render action: "new" }
@@ -54,10 +54,10 @@ class AgentImportFilesController < ApplicationController
   def update
     respond_to do |format|
       if @agent_import_file.update(agent_import_file_params)
-        if @agent_import_file.mode == 'import'
+        if @agent_import_file.mode == "import"
           AgentImportFileJob.perform_later(@agent_import_file)
         end
-        format.html { redirect_to @agent_import_file, notice: t('controller.successfully_updated', model: t('activerecord.models.agent_import_file')) }
+        format.html { redirect_to @agent_import_file, notice: t("controller.successfully_updated", model: t("activerecord.models.agent_import_file")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -72,7 +72,7 @@ class AgentImportFilesController < ApplicationController
     @agent_import_file.destroy
 
     respond_to do |format|
-      format.html { redirect_to agent_import_files_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.agent_import_file')) }
+      format.html { redirect_to agent_import_files_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.agent_import_file")) }
       format.json { head :no_content }
     end
   end

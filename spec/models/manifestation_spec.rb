@@ -9,130 +9,130 @@ describe Manifestation, solr: true do
   context "search" do
     it "should set year_of_publication" do
       manifestation = FactoryBot.create(:manifestation, pub_date: '2000')
-      manifestation.year_of_publication.should eq 2000
-      manifestation.date_of_publication.should eq Time.zone.parse('2000-01-01')
+      expect(manifestation.year_of_publication).to eq 2000
+      expect(manifestation.date_of_publication).to eq Time.zone.parse('2000-01-01')
     end
 
     it "should set date_of_publication" do
       manifestation = FactoryBot.create(:manifestation, pub_date: '2000-01')
-      manifestation.year_of_publication.should eq 2000
-      manifestation.month_of_publication.should eq 1
-      manifestation.date_of_publication.should eq Time.zone.parse('2000-01-01')
+      expect(manifestation.year_of_publication).to eq 2000
+      expect(manifestation.month_of_publication).to eq 1
+      expect(manifestation.date_of_publication).to eq Time.zone.parse('2000-01-01')
     end
 
     it "should set volume_number" do
       manifestation = FactoryBot.create(:manifestation, volume_number_string: '第1巻', issue_number_string: '20号分冊1', edition_string: '第3版')
-      manifestation.volume_number.should eq 1
-      manifestation.issue_number.should eq 20
-      manifestation.edition.should eq 3
+      expect(manifestation.volume_number).to eq 1
+      expect(manifestation.issue_number).to eq 20
+      expect(manifestation.edition).to eq 3
     end
 
     it "should search title in openurl" do
-      openurl = Openurl.new({title: "プログラミング"})
+      openurl = Openurl.new({ title: "プログラミング" })
       results = openurl.search
-      openurl.query_text.should eq "btitle_text:プログラミング"
-      results.size.should eq 8
-      openurl = Openurl.new({jtitle: "テスト"})
+      expect(openurl.query_text).to eq "btitle_text:プログラミング"
+      expect(results.size).to eq 8
+      openurl = Openurl.new({ jtitle: "テスト" })
       results = openurl.search
-      results.size.should eq 3
-      openurl.query_text.should eq "jtitle_text:テスト"
-      openurl = Openurl.new({atitle: "2005"})
+      expect(results.size).to eq 3
+      expect(openurl.query_text).to eq "jtitle_text:テスト"
+      openurl = Openurl.new({ atitle: "2005" })
       results = openurl.search
-      results.size.should eq 1
-      openurl.query_text.should eq "atitle_text:2005"
-      openurl = Openurl.new({atitle: "テスト", jtitle: "テスト雑誌"})
+      expect(results.size).to eq 1
+      expect(openurl.query_text).to eq "atitle_text:2005"
+      openurl = Openurl.new({ atitle: "テスト", jtitle: "テスト雑誌" })
       results = openurl.search
-      results.size.should eq 2
+      expect(results.size).to eq 2
     end
 
     it "should search agent in openurl" do
-      openurl = Openurl.new({aulast: "Administrator"})
+      openurl = Openurl.new({ aulast: "Administrator" })
       results = openurl.search
-      openurl.query_text.should eq "au_text:Administrator"
-      results.size.should eq 2
-      openurl = Openurl.new({aufirst: "名称"})
+      expect(openurl.query_text).to eq "au_text:Administrator"
+      expect(results.size).to eq 2
+      openurl = Openurl.new({ aufirst: "名称" })
       results = openurl.search
-      openurl.query_text.should eq "au_text:名称"
-      results.size.should eq 1
-      openurl = Openurl.new({au: "テスト"})
+      expect(openurl.query_text).to eq "au_text:名称"
+      expect(results.size).to eq 1
+      openurl = Openurl.new({ au: "テスト" })
       results = openurl.search
-      openurl.query_text.should eq "au_text:テスト"
-      results.size.should eq 1
-      openurl = Openurl.new({pub: "Administrator"})
+      expect(openurl.query_text).to eq "au_text:テスト"
+      expect(results.size).to eq 1
+      openurl = Openurl.new({ pub: "Administrator" })
       results = openurl.search
-      openurl.query_text.should eq "publisher_text:Administrator"
-      results.size.should eq 4
+      expect(openurl.query_text).to eq "publisher_text:Administrator"
+      expect(results.size).to eq 4
     end
 
     it "should search isbn in openurl" do
-      openurl = Openurl.new({api: "openurl", isbn: "4798"})
+      openurl = Openurl.new({ api: "openurl", isbn: "4798" })
       results = openurl.search
-      openurl.query_text.should eq "isbn_sm:4798*"
-      results.size.should eq 2
+      expect(openurl.query_text).to eq "isbn_sm:4798*"
+      expect(results.size).to eq 2
     end
 
     it "should search issn in openurl" do
-      openurl = Openurl.new({api: "openurl", issn: "0913"})
+      openurl = Openurl.new({ api: "openurl", issn: "0913" })
       results = openurl.search
-      openurl.query_text.should eq "issn_sm:0913*"
-      results.size.should eq 1
+      expect(openurl.query_text).to eq "issn_sm:0913*"
+      expect(results.size).to eq 1
     end
 
     it "should search any in openurl" do
-      openurl = Openurl.new({any: "テスト"})
+      openurl = Openurl.new({ any: "テスト" })
       results = openurl.search
-      results.size.should eq 9
+      expect(results.size).to eq 9
     end
 
     it "should search multi in openurl" do
-      openurl = Openurl.new({btitle: "CGI Perl プログラミング"})
+      openurl = Openurl.new({ btitle: "CGI Perl プログラミング" })
       results = openurl.search
-      results.size.should eq 3
-      openurl = Openurl.new({jtitle: "テスト", pub: "テスト"})
+      expect(results.size).to eq 3
+      openurl = Openurl.new({ jtitle: "テスト", pub: "テスト" })
       results = openurl.search
-      results.size.should eq 2
+      expect(results.size).to eq 2
     end
 
     it "shoulld get search_error in openurl" do
-      lambda{Openurl.new({isbn: "12345678901234"})}.should raise_error(OpenurlQuerySyntaxError)
-      lambda{Openurl.new({issn: "1234abcd"})}.should raise_error(OpenurlQuerySyntaxError)
-      lambda{Openurl.new({aufirst: "テスト 名称"})}.should raise_error(OpenurlQuerySyntaxError)
+      expect { Openurl.new({ isbn: "12345678901234" }) }.to raise_error(OpenurlQuerySyntaxError)
+      expect { Openurl.new({ issn: "1234abcd" }) }.to raise_error(OpenurlQuerySyntaxError)
+      expect { Openurl.new({ aufirst: "テスト 名称" }) }.to raise_error(OpenurlQuerySyntaxError)
     end
 
     it "should_get_number_of_pages" do
-      manifestations(:manifestation_00001).number_of_pages.should eq 100
+      expect(manifestations(:manifestation_00001).number_of_pages).to eq 100
     end
 
     it "should have parent_of_series" do
-      manifestations(:manifestation_00001).parent_of_series.should be_truthy
+      expect(manifestations(:manifestation_00001).parent_of_series).to be_truthy
     end
 
     it "should respond to extract_text" do
-      manifestations(:manifestation_00001).extract_text.should be_nil
+      expect(manifestations(:manifestation_00001).extract_text).to be_nil
     end
 
     it "should respond to title" do
-      manifestations(:manifestation_00001).title.should be_truthy
+      expect(manifestations(:manifestation_00001).title).to be_truthy
     end
 
     it "should respond to pickup" do
-      lambda{Manifestation.pickup}.should_not raise_error # (ActiveRecord::RecordNotFound)
+      expect { Manifestation.pickup }.not_to raise_error # (ActiveRecord::RecordNotFound)
     end
 
     it "should be periodical if its series_statement is periodical" do
-      manifestations(:manifestation_00202).serial?.should be_truthy
+      expect(manifestations(:manifestation_00202).serial?).to be_truthy
     end
 
     it "should validate access_address" do
       manifestation = manifestations(:manifestation_00202)
       manifestation.access_address = 'http:/www.example.jp'
-      manifestation.should_not be_valid
+      expect(manifestation).not_to be_valid
     end
 
     it "should search custom identifiers" do
-      Manifestation.search do
+      expect(Manifestation.search do
         fulltext 'identifier_text:custom1111'
-      end.results.count.should eq 1
+      end.results.count).to eq 1
     end
 
     # it "should set series_statement if the manifestation is periodical" do
@@ -149,17 +149,17 @@ describe Manifestation, solr: true do
     it "should export a header line" do
       lines = Manifestation.export
       csv = CSV.parse(lines, headers: true, col_sep: "\t")
-      csv["manifestation_id"].compact.should_not be_empty
-      csv["manifestation_identifier"].compact.should_not be_empty
-      csv["manifestation_created_at"].compact.should_not be_empty
-      csv["manifestation_updated_at"].compact.should_not be_empty
-      csv["item_id"].compact.should_not be_empty
-      csv["item_created_at"].compact.should_not be_empty
-      csv["item_updated_at"].compact.should_not be_empty
-      csv["subject:unknown"].compact.inject(0){|count, a| count += 1 if a == 'next-l'; count}.should eq manifestations(:manifestation_00001).items.count
-      csv["classification:ndc9"].compact.inject(0){|count, a| count += 1 if a == '400'; count}.should eq manifestations(:manifestation_00001).items.count
-      csv["extent"].compact.should_not be_empty
-      csv["dimensions"].compact.should_not be_empty
+      expect(csv["manifestation_id"].compact).not_to be_empty
+      expect(csv["manifestation_identifier"].compact).not_to be_empty
+      expect(csv["manifestation_created_at"].compact).not_to be_empty
+      expect(csv["manifestation_updated_at"].compact).not_to be_empty
+      expect(csv["item_id"].compact).not_to be_empty
+      expect(csv["item_created_at"].compact).not_to be_empty
+      expect(csv["item_updated_at"].compact).not_to be_empty
+      expect(csv["subject:unknown"].compact.inject(0) { |count, a| count += 1 if a == 'next-l'; count }).to eq manifestations(:manifestation_00001).items.count
+      expect(csv["classification:ndc9"].compact.inject(0) { |count, a| count += 1 if a == '400'; count }).to eq manifestations(:manifestation_00001).items.count
+      expect(csv["extent"].compact).not_to be_empty
+      expect(csv["dimensions"].compact).not_to be_empty
       expect(csv["manifestation_memo"].compact).to be_empty
       expect(csv["item_memo"].compact).to be_empty
       expect(csv["manifestation_price"].compact.first).to eq "1980"
@@ -181,7 +181,7 @@ describe Manifestation, solr: true do
       csv = CSV.parse(lines, headers: true, col_sep: "\t")
       expect(csv["edition"].compact).not_to be_empty
       expect(csv["edition_string"].compact).not_to be_empty
-      m = csv.find{|row| row["manifestation_id"].to_i == manifestation.id }
+      m = csv.find { |row| row["manifestation_id"].to_i == manifestation.id }
       expect(m["edition"]).to eq "2"
       expect(m["edition_string"]).to eq "Revised Ed."
     end
@@ -191,7 +191,7 @@ describe Manifestation, solr: true do
       lines = Manifestation.export
       csv = CSV.parse(lines, headers: true, col_sep: "\t")
       expect(csv["title_transcription"].compact).not_to be_empty
-      m = csv.find{|row| row["manifestation_id"].to_i == manifestation.id }
+      m = csv.find { |row| row["manifestation_id"].to_i == manifestation.id }
       expect(m["title_transcription"]).to eq "Transcripted title"
     end
 
@@ -201,20 +201,19 @@ describe Manifestation, solr: true do
       csv = CSV.parse(lines, headers: true, col_sep: "\t")
       expect(csv["volume_number"].compact).not_to be_empty
       expect(csv["volume_number_string"].compact).not_to be_empty
-      m = csv.find{|row| row["manifestation_id"].to_i == manifestation.id }
+      m = csv.find { |row| row["manifestation_id"].to_i == manifestation.id }
       expect(m["volume_number"]).to eq "15"
       expect(m["volume_number_string"]).to eq "Vol.15"
     end
 
     it "should export multiple identifiers" do
       manifestation = FactoryBot.create(:manifestation)
-      isbn_type = IdentifierType.find_by(name: :isbn)
-      manifestation.identifiers << FactoryBot.create(:identifier, body: "978-4043898039", identifier_type: isbn_type)
-      manifestation.identifiers << FactoryBot.create(:identifier, body: "978-4840239219", identifier_type: isbn_type)
+      manifestation.isbn_records.create(body: "978-4043898039")
+      manifestation.isbn_records.create(body: "978-4840239219")
       lines = Manifestation.export()
       csv = CSV.parse(lines, headers: true, col_sep: "\t")
-      m = csv.find{|row| row["manifestation_id"].to_i == manifestation.id }
-      expect(m["isbn"].split('//').sort).to eq ['9784043898039', '9784840239219']
+      m = csv.find { |row| row["manifestation_id"].to_i == manifestation.id }
+      expect(m["isbn"].split('//').sort).to eq [ '9784043898039', '9784840239219' ]
       expect(m["identifier:isbn"]).to be_nil
     end
 
@@ -246,7 +245,7 @@ describe Manifestation, solr: true do
       expect(csv["description"].compact).not_to be_empty
       expect(csv["note"].compact).not_to be_empty
       expect(csv["item_note"].compact).not_to be_empty
-      m = csv.find{|row| row["manifestation_id"].to_i == manifestation.id }
+      m = csv.find { |row| row["manifestation_id"].to_i == manifestation.id }
       expect(m["description"]).to eq "test\ntest"
       expect(m["abstract"]).to eq "test\ntest"
       expect(m["note"]).to eq "test\ntest"
@@ -259,7 +258,7 @@ describe Manifestation, solr: true do
       item.manifestation.manifestation_custom_values << FactoryBot.build(:manifestation_custom_value)
       lines = Manifestation.export(role: 'Librarian')
       csv = CSV.parse(lines, headers: true, col_sep: "\t")
-      m = csv.find{|row| row["manifestation_id"].to_i == item.manifestation.id }
+      m = csv.find { |row| row["manifestation_id"].to_i == item.manifestation.id }
       item.item_custom_values.each do |custom_value|
         expect(m["item:#{custom_value.item_custom_property.name}"]).to eq custom_value.value
       end
@@ -279,65 +278,100 @@ describe Manifestation, solr: true do
     manifestation.attachment.attach(io: File.open("spec/fixtures/files/resource_import_file_sample1.tsv"), filename: 'sample.txt')
     expect(manifestation.extract_text).to match(/資料ID/)
   end
+
+  it 'should respond to find_by_isbn' do
+    expect(Manifestation.find_by_isbn('9784797340044').id).to eq 193
+  end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: manifestations
+# Table name: `manifestations`
 #
-#  id                              :bigint           not null, primary key
-#  original_title                  :text             not null
-#  title_alternative               :text
-#  title_transcription             :text
-#  classification_number           :string
-#  manifestation_identifier        :string
-#  date_of_publication             :datetime
-#  date_copyrighted                :datetime
-#  created_at                      :datetime         not null
-#  updated_at                      :datetime         not null
-#  access_address                  :string
-#  language_id                     :bigint           default(1), not null
-#  carrier_type_id                 :bigint           default(1), not null
-#  start_page                      :integer
-#  end_page                        :integer
-#  height                          :integer
-#  width                           :integer
-#  depth                           :integer
-#  price                           :integer
-#  fulltext                        :text
-#  volume_number_string            :string
-#  issue_number_string             :string
-#  serial_number_string            :string
-#  edition                         :integer
-#  note                            :text
-#  repository_content              :boolean          default(FALSE), not null
-#  lock_version                    :integer          default(0), not null
-#  required_role_id                :bigint           default(1), not null
-#  required_score                  :integer          default(0), not null
-#  frequency_id                    :bigint           default(1), not null
-#  subscription_master             :boolean          default(FALSE), not null
-#  nii_type_id                     :bigint
-#  title_alternative_transcription :text
-#  description                     :text
-#  abstract                        :text
-#  available_at                    :datetime
-#  valid_until                     :datetime
-#  date_submitted                  :datetime
-#  date_accepted                   :datetime
-#  date_captured                   :datetime
-#  pub_date                        :string
-#  edition_string                  :string
-#  volume_number                   :integer
-#  issue_number                    :integer
-#  serial_number                   :integer
-#  content_type_id                 :bigint           default(1)
-#  year_of_publication             :integer
-#  month_of_publication            :integer
-#  fulltext_content                :boolean
-#  serial                          :boolean
-#  statement_of_responsibility     :text
-#  publication_place               :text
-#  extent                          :text
-#  dimensions                      :text
-#  memo                            :text
+# ### Columns
+#
+# Name                                   | Type               | Attributes
+# -------------------------------------- | ------------------ | ---------------------------
+# **`id`**                               | `bigint`           | `not null, primary key`
+# **`abstract`**                         | `text`             |
+# **`access_address`**                   | `string`           |
+# **`available_at`**                     | `datetime`         |
+# **`classification_number`**            | `string`           |
+# **`date_accepted`**                    | `datetime`         |
+# **`date_captured`**                    | `datetime`         |
+# **`date_copyrighted`**                 | `datetime`         |
+# **`date_of_publication`**              | `datetime`         |
+# **`date_submitted`**                   | `datetime`         |
+# **`depth`**                            | `integer`          |
+# **`description`**                      | `text`             |
+# **`dimensions`**                       | `text`             |
+# **`edition`**                          | `integer`          |
+# **`edition_string`**                   | `string`           |
+# **`end_page`**                         | `integer`          |
+# **`extent`**                           | `text`             |
+# **`fulltext`**                         | `text`             |
+# **`fulltext_content`**                 | `boolean`          | `default(FALSE), not null`
+# **`height`**                           | `integer`          |
+# **`issue_number`**                     | `integer`          |
+# **`issue_number_string`**              | `string`           |
+# **`lock_version`**                     | `integer`          | `default(0), not null`
+# **`manifestation_identifier`**         | `string`           |
+# **`memo`**                             | `text`             |
+# **`month_of_publication`**             | `integer`          |
+# **`note`**                             | `text`             |
+# **`original_title`**                   | `text`             | `not null`
+# **`price`**                            | `integer`          |
+# **`pub_date`**                         | `string`           |
+# **`publication_place`**                | `text`             |
+# **`repository_content`**               | `boolean`          | `default(FALSE), not null`
+# **`serial`**                           | `boolean`          | `default(FALSE), not null`
+# **`serial_number`**                    | `integer`          |
+# **`serial_number_string`**             | `string`           |
+# **`start_page`**                       | `integer`          |
+# **`statement_of_responsibility`**      | `text`             |
+# **`subscription_master`**              | `boolean`          | `default(FALSE), not null`
+# **`title_alternative`**                | `text`             |
+# **`title_alternative_transcription`**  | `text`             |
+# **`title_transcription`**              | `text`             |
+# **`valid_until`**                      | `datetime`         |
+# **`volume_number`**                    | `integer`          |
+# **`volume_number_string`**             | `string`           |
+# **`width`**                            | `integer`          |
+# **`year_of_publication`**              | `integer`          |
+# **`created_at`**                       | `datetime`         | `not null`
+# **`updated_at`**                       | `datetime`         | `not null`
+# **`carrier_type_id`**                  | `bigint`           | `default(1), not null`
+# **`content_type_id`**                  | `bigint`           | `default(1)`
+# **`frequency_id`**                     | `bigint`           | `default(1), not null`
+# **`language_id`**                      | `bigint`           | `default(1), not null`
+# **`nii_type_id`**                      | `bigint`           |
+# **`required_role_id`**                 | `bigint`           | `default(1), not null`
+#
+# ### Indexes
+#
+# * `index_manifestations_on_access_address`:
+#     * **`access_address`**
+# * `index_manifestations_on_date_of_publication`:
+#     * **`date_of_publication`**
+# * `index_manifestations_on_manifestation_identifier`:
+#     * **`manifestation_identifier`**
+# * `index_manifestations_on_nii_type_id`:
+#     * **`nii_type_id`**
+# * `index_manifestations_on_updated_at`:
+#     * **`updated_at`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`carrier_type_id => carrier_types.id`**
+# * `fk_rails_...`:
+#     * **`content_type_id => content_types.id`**
+# * `fk_rails_...`:
+#     * **`frequency_id => frequencies.id`**
+# * `fk_rails_...`:
+#     * **`language_id => languages.id`**
+# * `fk_rails_...`:
+#     * **`nii_type_id => nii_types.id`**
+# * `fk_rails_...`:
+#     * **`required_role_id => roles.id`**
 #

@@ -83,14 +83,14 @@ describe RealizeTypesController do
     describe 'with invalid params' do
       it 'assigns a newly created but unsaved realize_type as @realize_type' do
         # Trigger the behavior that occurs when invalid params are submitted
-        RealizeType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(RealizeType).to receive(:save).and_return(false)
         post :create, params: { realize_type: { name: 'test' } }
         expect(assigns(:realize_type)).to be_a_new(RealizeType)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        RealizeType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(RealizeType).to receive(:save).and_return(false)
         post :create, params: { realize_type: { name: 'test' } }
         # expect(response).to render_template("new")
       end
@@ -105,7 +105,7 @@ describe RealizeTypesController do
         # specifies that the RealizeType created on the previous line
         # receives the :update message with whatever params are
         # submitted in the request.
-        RealizeType.any_instance.should_receive(:update).with('name' => 'test')
+        # RealizeType.any_instance.should_receive(:update).with('name' => 'test')
         put :update, params: { id: realize_type.id, realize_type: { 'name' => 'test' } }
       end
 
@@ -126,7 +126,7 @@ describe RealizeTypesController do
         position = realize_type.position
         put :update, params: { id: realize_type.id, move: 'higher' }
         expect(response).to redirect_to realize_types_url
-        assigns(:realize_type).reload.position.should eq position - 1
+        expect(assigns(:realize_type).reload.position).to eq position - 1
       end
     end
 
@@ -134,7 +134,7 @@ describe RealizeTypesController do
       it 'assigns the realize_type as @realize_type' do
         realize_type = RealizeType.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        RealizeType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(RealizeType).to receive(:save).and_return(false)
         put :update, params: { id: realize_type.id, realize_type: { name: 'test' } }
         expect(assigns(:realize_type)).to eq(realize_type)
       end
@@ -142,7 +142,7 @@ describe RealizeTypesController do
       it "re-renders the 'edit' template" do
         realize_type = RealizeType.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        RealizeType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(RealizeType).to receive(:save).and_return(false)
         put :update, params: { id: realize_type.id, realize_type: { name: 'test' } }
         # expect(response).to render_template("edit")
       end

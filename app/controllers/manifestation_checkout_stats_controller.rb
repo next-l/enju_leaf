@@ -1,6 +1,6 @@
 class ManifestationCheckoutStatsController < ApplicationController
-  before_action :set_manifestation_checkout_stat, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_manifestation_checkout_stat, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
   after_action :convert_charset, only: :show
 
   # GET /manifestation_checkout_stats
@@ -27,7 +27,7 @@ class ManifestationCheckoutStatsController < ApplicationController
     ).where(
       Checkout.arel_table[:created_at].lt @manifestation_checkout_stat.end_date
     ).joins(item: :manifestation).group(
-      'checkouts.shelf_id', :carrier_type_id
+      "checkouts.shelf_id", :carrier_type_id
     ).merge(
       Manifestation.where(carrier_type_id: CarrierType.pluck(:id))
     ).count(:id)
@@ -37,7 +37,7 @@ class ManifestationCheckoutStatsController < ApplicationController
     ).where(
       Checkout.arel_table[:created_at].lt @manifestation_checkout_stat.end_date
     ).joins(item: :manifestation).group(
-      'checkouts.shelf_id', :checkout_type_id
+      "checkouts.shelf_id", :checkout_type_id
     ).count(:id)
 
     @stats = Checkout.where(
@@ -46,7 +46,7 @@ class ManifestationCheckoutStatsController < ApplicationController
       Checkout.arel_table[:created_at].lt @manifestation_checkout_stat.end_date
     ).joins(item: :manifestation).group(:manifestation_id).merge(
       Manifestation.where(carrier_type_id: CarrierType.pluck(:id))
-    ).order('count_id DESC').page(params[:page]).per(per_page)
+    ).order("count_id DESC").page(params[:page]).per(per_page)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -75,7 +75,7 @@ class ManifestationCheckoutStatsController < ApplicationController
     respond_to do |format|
       if @manifestation_checkout_stat.save
         ManifestationCheckoutStatJob.perform_later(@manifestation_checkout_stat)
-        format.html { redirect_to @manifestation_checkout_stat, notice: t('controller.successfully_created', model: t('activerecord.models.manifestation_checkout_stat')) }
+        format.html { redirect_to @manifestation_checkout_stat, notice: t("controller.successfully_created", model: t("activerecord.models.manifestation_checkout_stat")) }
         format.json { render json: @manifestation_checkout_stat, status: :created, location: @manifestation_checkout_stat }
       else
         format.html { render action: "new" }
@@ -89,10 +89,10 @@ class ManifestationCheckoutStatsController < ApplicationController
   def update
     respond_to do |format|
       if @manifestation_checkout_stat.update(manifestation_checkout_stat_params)
-        if @manifestation_checkout_stat.mode == 'import'
+        if @manifestation_checkout_stat.mode == "import"
           ManifestationCheckoutStatJob.perform_later(@manifestation_checkout_stat)
         end
-        format.html { redirect_to @manifestation_checkout_stat, notice: t('controller.successfully_updated', model: t('activerecord.models.manifestation_checkout_stat')) }
+        format.html { redirect_to @manifestation_checkout_stat, notice: t("controller.successfully_updated", model: t("activerecord.models.manifestation_checkout_stat")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

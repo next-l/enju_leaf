@@ -9,7 +9,7 @@ module EnjuBookmark
       # tags = Tag.all(:limit => 100, :order => 'taggings_count DESC').sort_by(&:name)
 
       # TODO: add option to specify which classes you want and overide this if you want?
-      classes = %w(popular v-popular vv-popular vvv-popular vvvv-popular)
+      classes = %w[popular v-popular vv-popular vvv-popular vvvv-popular]
 
       max, min = 0, 0
       tags.each do |tag|

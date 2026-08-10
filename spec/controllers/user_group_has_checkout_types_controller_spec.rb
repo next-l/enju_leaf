@@ -9,7 +9,7 @@ describe UserGroupHasCheckoutTypesController do
 
       it 'assigns all user_group_has_checkout_types as @user_group_has_checkout_types' do
         get :index
-        assigns(:user_group_has_checkout_types).should eq(UserGroupHasCheckoutType.includes([:user_group, :checkout_type]).order('user_groups.position, checkout_types.position').page(1))
+        expect(assigns(:user_group_has_checkout_types)).to eq(UserGroupHasCheckoutType.includes([ :user_group, :checkout_type ]).order('user_groups.position, checkout_types.position').page(1))
       end
     end
 
@@ -18,7 +18,7 @@ describe UserGroupHasCheckoutTypesController do
 
       it 'assigns all user_group_has_checkout_types as @user_group_has_checkout_types' do
         get :index
-        assigns(:user_group_has_checkout_types).should eq(UserGroupHasCheckoutType.includes([:user_group, :checkout_type]).order('user_groups.position, checkout_types.position').page(1))
+        expect(assigns(:user_group_has_checkout_types)).to eq(UserGroupHasCheckoutType.includes([ :user_group, :checkout_type ]).order('user_groups.position, checkout_types.position').page(1))
       end
     end
 
@@ -27,16 +27,16 @@ describe UserGroupHasCheckoutTypesController do
 
       it 'assigns all user_group_has_checkout_types as @user_group_has_checkout_types' do
         get :index
-        assigns(:user_group_has_checkout_types).should be_nil
-        response.should be_forbidden
+        expect(assigns(:user_group_has_checkout_types)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'assigns all user_group_has_checkout_types as @user_group_has_checkout_types' do
         get :index
-        assigns(:user_group_has_checkout_types).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:user_group_has_checkout_types)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -48,7 +48,7 @@ describe UserGroupHasCheckoutTypesController do
       it 'assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type' do
         user_group_has_checkout_type = FactoryBot.create(:user_group_has_checkout_type)
         get :show, params: { id: user_group_has_checkout_type.id }
-        assigns(:user_group_has_checkout_type).should eq(user_group_has_checkout_type)
+        expect(assigns(:user_group_has_checkout_type)).to eq(user_group_has_checkout_type)
       end
     end
 
@@ -58,7 +58,7 @@ describe UserGroupHasCheckoutTypesController do
       it 'assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type' do
         user_group_has_checkout_type = FactoryBot.create(:user_group_has_checkout_type)
         get :show, params: { id: user_group_has_checkout_type.id }
-        assigns(:user_group_has_checkout_type).should eq(user_group_has_checkout_type)
+        expect(assigns(:user_group_has_checkout_type)).to eq(user_group_has_checkout_type)
       end
     end
 
@@ -68,7 +68,7 @@ describe UserGroupHasCheckoutTypesController do
       it 'assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type' do
         user_group_has_checkout_type = FactoryBot.create(:user_group_has_checkout_type)
         get :show, params: { id: user_group_has_checkout_type.id }
-        assigns(:user_group_has_checkout_type).should eq(user_group_has_checkout_type)
+        expect(assigns(:user_group_has_checkout_type)).to eq(user_group_has_checkout_type)
       end
     end
 
@@ -76,7 +76,7 @@ describe UserGroupHasCheckoutTypesController do
       it 'assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type' do
         user_group_has_checkout_type = FactoryBot.create(:user_group_has_checkout_type)
         get :show, params: { id: user_group_has_checkout_type.id }
-        assigns(:user_group_has_checkout_type).should eq(user_group_has_checkout_type)
+        expect(assigns(:user_group_has_checkout_type)).to eq(user_group_has_checkout_type)
       end
     end
   end
@@ -87,8 +87,8 @@ describe UserGroupHasCheckoutTypesController do
 
       it 'assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type' do
         get :new
-        assigns(:user_group_has_checkout_type).should_not be_valid
-        response.should be_successful
+        expect(assigns(:user_group_has_checkout_type)).not_to be_valid
+        expect(response).to be_successful
       end
     end
 
@@ -97,8 +97,8 @@ describe UserGroupHasCheckoutTypesController do
 
       it 'should not assign the requested user_group_has_checkout_type as @user_group_has_checkout_type' do
         get :new
-        assigns(:user_group_has_checkout_type).should be_nil
-        response.should be_forbidden
+        expect(assigns(:user_group_has_checkout_type)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
@@ -107,16 +107,16 @@ describe UserGroupHasCheckoutTypesController do
 
       it 'should not assign the requested user_group_has_checkout_type as @user_group_has_checkout_type' do
         get :new
-        assigns(:user_group_has_checkout_type).should be_nil
-        response.should be_forbidden
+        expect(assigns(:user_group_has_checkout_type)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should not assign the requested user_group_has_checkout_type as @user_group_has_checkout_type' do
         get :new
-        assigns(:user_group_has_checkout_type).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:user_group_has_checkout_type)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -128,7 +128,7 @@ describe UserGroupHasCheckoutTypesController do
       it 'assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type' do
         user_group_has_checkout_type = FactoryBot.create(:user_group_has_checkout_type)
         get :edit, params: { id: user_group_has_checkout_type.id }
-        assigns(:user_group_has_checkout_type).should eq(user_group_has_checkout_type)
+        expect(assigns(:user_group_has_checkout_type)).to eq(user_group_has_checkout_type)
       end
     end
 
@@ -138,7 +138,7 @@ describe UserGroupHasCheckoutTypesController do
       it 'assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type' do
         user_group_has_checkout_type = FactoryBot.create(:user_group_has_checkout_type)
         get :edit, params: { id: user_group_has_checkout_type.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -148,7 +148,7 @@ describe UserGroupHasCheckoutTypesController do
       it 'assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type' do
         user_group_has_checkout_type = FactoryBot.create(:user_group_has_checkout_type)
         get :edit, params: { id: user_group_has_checkout_type.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -156,7 +156,7 @@ describe UserGroupHasCheckoutTypesController do
       it 'should not assign the requested user_group_has_checkout_type as @user_group_has_checkout_type' do
         user_group_has_checkout_type = FactoryBot.create(:user_group_has_checkout_type)
         get :edit, params: { id: user_group_has_checkout_type.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -173,24 +173,24 @@ describe UserGroupHasCheckoutTypesController do
       describe 'with valid params' do
         it 'assigns a newly created user_group_has_checkout_type as @user_group_has_checkout_type' do
           post :create, params: { user_group_has_checkout_type: @attrs }
-          assigns(:user_group_has_checkout_type).should be_valid
+          expect(assigns(:user_group_has_checkout_type)).to be_valid
         end
 
         it 'redirects to the created patron' do
           post :create, params: { user_group_has_checkout_type: @attrs }
-          response.should redirect_to(assigns(:user_group_has_checkout_type))
+          expect(response).to redirect_to(assigns(:user_group_has_checkout_type))
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved user_group_has_checkout_type as @user_group_has_checkout_type' do
           post :create, params: { user_group_has_checkout_type: @invalid_attrs }
-          assigns(:user_group_has_checkout_type).should_not be_valid
+          expect(assigns(:user_group_has_checkout_type)).not_to be_valid
         end
 
         it 'should be successful' do
           post :create, params: { user_group_has_checkout_type: @invalid_attrs }
-          response.should be_successful
+          expect(response).to be_successful
         end
       end
     end
@@ -201,24 +201,24 @@ describe UserGroupHasCheckoutTypesController do
       describe 'with valid params' do
         it 'assigns a newly created user_group_has_checkout_type as @user_group_has_checkout_type' do
           post :create, params: { user_group_has_checkout_type: @attrs }
-          assigns(:user_group_has_checkout_type).should be_nil
+          expect(assigns(:user_group_has_checkout_type)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { user_group_has_checkout_type: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved user_group_has_checkout_type as @user_group_has_checkout_type' do
           post :create, params: { user_group_has_checkout_type: @invalid_attrs }
-          assigns(:user_group_has_checkout_type).should be_nil
+          expect(assigns(:user_group_has_checkout_type)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { user_group_has_checkout_type: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -229,24 +229,24 @@ describe UserGroupHasCheckoutTypesController do
       describe 'with valid params' do
         it 'assigns a newly created user_group_has_checkout_type as @user_group_has_checkout_type' do
           post :create, params: { user_group_has_checkout_type: @attrs }
-          assigns(:user_group_has_checkout_type).should be_nil
+          expect(assigns(:user_group_has_checkout_type)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { user_group_has_checkout_type: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved user_group_has_checkout_type as @user_group_has_checkout_type' do
           post :create, params: { user_group_has_checkout_type: @invalid_attrs }
-          assigns(:user_group_has_checkout_type).should be_nil
+          expect(assigns(:user_group_has_checkout_type)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { user_group_has_checkout_type: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -255,24 +255,24 @@ describe UserGroupHasCheckoutTypesController do
       describe 'with valid params' do
         it 'assigns a newly created user_group_has_checkout_type as @user_group_has_checkout_type' do
           post :create, params: { user_group_has_checkout_type: @attrs }
-          assigns(:user_group_has_checkout_type).should be_nil
+          expect(assigns(:user_group_has_checkout_type)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { user_group_has_checkout_type: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved user_group_has_checkout_type as @user_group_has_checkout_type' do
           post :create, params: { user_group_has_checkout_type: @invalid_attrs }
-          assigns(:user_group_has_checkout_type).should be_nil
+          expect(assigns(:user_group_has_checkout_type)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { user_group_has_checkout_type: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -295,14 +295,14 @@ describe UserGroupHasCheckoutTypesController do
 
         it 'assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type' do
           put :update, params: { id: @user_group_has_checkout_type.id, user_group_has_checkout_type: @attrs }
-          assigns(:user_group_has_checkout_type).should eq(@user_group_has_checkout_type)
+          expect(assigns(:user_group_has_checkout_type)).to eq(@user_group_has_checkout_type)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type' do
           put :update, params: { id: @user_group_has_checkout_type.id, user_group_has_checkout_type: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -317,15 +317,15 @@ describe UserGroupHasCheckoutTypesController do
 
         it 'assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type' do
           put :update, params: { id: @user_group_has_checkout_type.id, user_group_has_checkout_type: @attrs }
-          assigns(:user_group_has_checkout_type).should eq(@user_group_has_checkout_type)
-          response.should be_forbidden
+          expect(assigns(:user_group_has_checkout_type)).to eq(@user_group_has_checkout_type)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type' do
           put :update, params: { id: @user_group_has_checkout_type.id, user_group_has_checkout_type: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -340,15 +340,15 @@ describe UserGroupHasCheckoutTypesController do
 
         it 'assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type' do
           put :update, params: { id: @user_group_has_checkout_type.id, user_group_has_checkout_type: @attrs }
-          assigns(:user_group_has_checkout_type).should eq(@user_group_has_checkout_type)
-          response.should be_forbidden
+          expect(assigns(:user_group_has_checkout_type)).to eq(@user_group_has_checkout_type)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type' do
           put :update, params: { id: @user_group_has_checkout_type.id, user_group_has_checkout_type: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -361,14 +361,14 @@ describe UserGroupHasCheckoutTypesController do
 
         it 'should be forbidden' do
           put :update, params: { id: @user_group_has_checkout_type.id, user_group_has_checkout_type: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested user_group_has_checkout_type as @user_group_has_checkout_type' do
           put :update, params: { id: @user_group_has_checkout_type.id, user_group_has_checkout_type: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -388,7 +388,7 @@ describe UserGroupHasCheckoutTypesController do
 
       it 'redirects to the user_group_has_checkout_types list' do
         delete :destroy, params: { id: @user_group_has_checkout_type.id }
-        response.should redirect_to(user_group_has_checkout_types_url)
+        expect(response).to redirect_to(user_group_has_checkout_types_url)
       end
     end
 
@@ -401,7 +401,7 @@ describe UserGroupHasCheckoutTypesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @user_group_has_checkout_type.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -414,7 +414,7 @@ describe UserGroupHasCheckoutTypesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @user_group_has_checkout_type.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -425,7 +425,7 @@ describe UserGroupHasCheckoutTypesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @user_group_has_checkout_type.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

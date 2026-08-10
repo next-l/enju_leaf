@@ -1,0 +1,49 @@
+en:
+  activerecord:
+    models:
+      purchase_request: Purchase request
+      order: Order
+      order_list: Order list
+
+    attributes:
+      purchase_request:
+        title: Title
+        author: Author
+        publisher: Publisher
+        isbn: ISBN
+        date_of_publication: Date of publication
+        price: Price
+        url: URL
+        note: Note
+        accepted_at: Accepted at
+        denied_at: Denied at
+        deleted_at: Deleted at
+        pub_date: Publication date
+      order:
+        position: Position
+        state: State
+      order_list:
+        title: Title
+        note: Note
+        ordered_at: Ordered at
+        deleted_at: Deleted at
+        state: State
+
+  purchase_request:
+    user_purchase_request: "%{login_name} 's purchase requests"
+    library_group_purchase_request: "Purchase requests in %{library_group_name}"
+    add_to_purchase_request: "Add to purchase request"
+    all_request: "All requests"
+    ordered: "Ordered"
+    not_ordered: "Not ordered"
+    add_to_order_list: "Add to order list"
+    remove_from_order_list: "Remove from order list"
+  order:
+    create_order_list: "You should create an order list."
+    specify_purchase_request: "You should specify the purchase request."
+  order_list:
+    library_group_order_list: "Order lists in %{library_group_name}"
+    total_price: "Total price"
+    create_order_sheet: "Create an order sheet"
+    requested: "Not ordered"
+    ordered: "Ordered"

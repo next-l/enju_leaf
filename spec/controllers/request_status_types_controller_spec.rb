@@ -19,7 +19,7 @@ describe RequestStatusTypesController do
 
       it 'assigns all request_status_types as @request_status_types' do
         get :index
-        assigns(:request_status_types).should eq(RequestStatusType.order(:position))
+        expect(assigns(:request_status_types)).to eq(RequestStatusType.order(:position))
       end
     end
 
@@ -28,7 +28,7 @@ describe RequestStatusTypesController do
 
       it 'assigns all request_status_types as @request_status_types' do
         get :index
-        assigns(:request_status_types).should eq(RequestStatusType.order(:position))
+        expect(assigns(:request_status_types)).to eq(RequestStatusType.order(:position))
       end
     end
 
@@ -37,16 +37,16 @@ describe RequestStatusTypesController do
 
       it 'should not assign request_status_types as @request_status_types' do
         get :index
-        assigns(:request_status_types).should be_nil
-        response.should be_forbidden
+        expect(assigns(:request_status_types)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should not assign request_status_types as @request_status_types' do
         get :index
-        assigns(:request_status_types).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:request_status_types)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -61,7 +61,7 @@ describe RequestStatusTypesController do
 
       it 'assigns the requested request_status_type as @request_status_type' do
         get :show, params: { id: @request_status_type.id }
-        assigns(:request_status_type).should eq(@request_status_type)
+        expect(assigns(:request_status_type)).to eq(@request_status_type)
       end
     end
 
@@ -70,7 +70,7 @@ describe RequestStatusTypesController do
 
       it 'assigns the requested request_status_type as @request_status_type' do
         get :show, params: { id: @request_status_type.id }
-        assigns(:request_status_type).should eq(@request_status_type)
+        expect(assigns(:request_status_type)).to eq(@request_status_type)
       end
     end
 
@@ -79,14 +79,14 @@ describe RequestStatusTypesController do
 
       it 'assigns the requested request_status_type as @request_status_type' do
         get :show, params: { id: @request_status_type.id }
-        assigns(:request_status_type).should eq(@request_status_type)
+        expect(assigns(:request_status_type)).to eq(@request_status_type)
       end
     end
 
     describe 'When not logged in' do
       it 'assigns the requested request_status_type as @request_status_type' do
         get :show, params: { id: @request_status_type.id }
-        assigns(:request_status_type).should eq(@request_status_type)
+        expect(assigns(:request_status_type)).to eq(@request_status_type)
       end
     end
   end
@@ -101,7 +101,7 @@ describe RequestStatusTypesController do
 
       it 'assigns the requested request_status_type as @request_status_type' do
         get :edit, params: { id: @request_status_type.id }
-        assigns(:request_status_type).should eq(@request_status_type)
+        expect(assigns(:request_status_type)).to eq(@request_status_type)
       end
     end
 
@@ -110,7 +110,7 @@ describe RequestStatusTypesController do
 
       it 'assigns the requested request_status_type as @request_status_type' do
         get :edit, params: { id: @request_status_type.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -119,14 +119,14 @@ describe RequestStatusTypesController do
 
       it 'assigns the requested request_status_type as @request_status_type' do
         get :edit, params: { id: @request_status_type.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should not assign the requested request_status_type as @request_status_type' do
         get :edit, params: { id: @request_status_type.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -148,19 +148,19 @@ describe RequestStatusTypesController do
 
         it 'assigns the requested request_status_type as @request_status_type' do
           put :update, params: { id: @request_status_type.id, request_status_type: @attrs }
-          assigns(:request_status_type).should eq(@request_status_type)
+          expect(assigns(:request_status_type)).to eq(@request_status_type)
         end
 
         it 'moves its position when specified' do
           put :update, params: { id: @request_status_type.id, request_status_type: @attrs, move: 'lower' }
-          response.should redirect_to(request_status_types_url)
+          expect(response).to redirect_to(request_status_types_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested request_status_type as @request_status_type' do
           put :update, params: { id: @request_status_type.id, request_status_type: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -175,15 +175,15 @@ describe RequestStatusTypesController do
 
         it 'assigns the requested request_status_type as @request_status_type' do
           put :update, params: { id: @request_status_type.id, request_status_type: @attrs }
-          assigns(:request_status_type).should eq(@request_status_type)
-          response.should be_forbidden
+          expect(assigns(:request_status_type)).to eq(@request_status_type)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested request_status_type as @request_status_type' do
           put :update, params: { id: @request_status_type.id, request_status_type: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -198,15 +198,15 @@ describe RequestStatusTypesController do
 
         it 'assigns the requested request_status_type as @request_status_type' do
           put :update, params: { id: @request_status_type.id, request_status_type: @attrs }
-          assigns(:request_status_type).should eq(@request_status_type)
-          response.should be_forbidden
+          expect(assigns(:request_status_type)).to eq(@request_status_type)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested request_status_type as @request_status_type' do
           put :update, params: { id: @request_status_type.id, request_status_type: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -219,14 +219,14 @@ describe RequestStatusTypesController do
 
         it 'should be forbidden' do
           put :update, params: { id: @request_status_type.id, request_status_type: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested request_status_type as @request_status_type' do
           put :update, params: { id: @request_status_type.id, request_status_type: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end

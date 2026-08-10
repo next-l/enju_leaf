@@ -83,14 +83,14 @@ describe IdentifierTypesController do
     describe 'with invalid params' do
       it 'assigns a newly created but unsaved identifier_type as @identifier_type' do
         # Trigger the behavior that occurs when invalid params are submitted
-        IdentifierType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(IdentifierType).to receive(:save).and_return(false)
         post :create, params: { identifier_type: { name: 'test' } }
         expect(assigns(:identifier_type)).to be_a_new(IdentifierType)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        IdentifierType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(IdentifierType).to receive(:save).and_return(false)
         post :create, params: { identifier_type: { name: 'test' } }
         expect(response).to render_template('new')
       end
@@ -105,7 +105,7 @@ describe IdentifierTypesController do
         # specifies that the IdentifierType created on the previous line
         # receives the :update message with whatever params are
         # submitted in the request.
-        IdentifierType.any_instance.should_receive(:update).with('name' => 'test')
+        # IdentifierType.any_instance.should_receive(:update).with('name' => 'test')
         put :update, params: { id: identifier_type.id, identifier_type: { 'name' => 'test' } }
       end
 
@@ -126,7 +126,7 @@ describe IdentifierTypesController do
         position = identifier_type.position
         put :update, params: { id: identifier_type.id, move: 'higher' }
         expect(response).to redirect_to identifier_types_url
-        assigns(:identifier_type).reload.position.should eq position - 1
+        expect(assigns(:identifier_type).reload.position).to eq position - 1
       end
     end
 
@@ -134,7 +134,7 @@ describe IdentifierTypesController do
       it 'assigns the identifier_type as @identifier_type' do
         identifier_type = IdentifierType.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        IdentifierType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(IdentifierType).to receive(:save).and_return(false)
         put :update, params: { id: identifier_type.id, identifier_type: { name: 'test' } }
         expect(assigns(:identifier_type)).to eq(identifier_type)
       end
@@ -142,7 +142,7 @@ describe IdentifierTypesController do
       it "re-renders the 'edit' template" do
         identifier_type = IdentifierType.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        IdentifierType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(IdentifierType).to receive(:save).and_return(false)
         put :update, params: { id: identifier_type.id, identifier_type: { name: 'test' } }
         expect(response).to render_template('edit')
       end

@@ -1,6 +1,6 @@
 class SeriesStatementMergeListsController < ApplicationController
-  before_action :set_series_statement_merge_list, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_series_statement_merge_list, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /series_statement_merge_lists
   # GET /series_statement_merge_lists.json
@@ -36,7 +36,7 @@ class SeriesStatementMergeListsController < ApplicationController
 
     respond_to do |format|
       if @series_statement_merge_list.save
-        flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.series_statement_merge_list'))
+        flash[:notice] = t("controller.successfully_created", model: t("activerecord.models.series_statement_merge_list"))
         format.html { redirect_to(@series_statement_merge_list) }
         format.json { render json: @series_statement_merge_list, status: :created, location: @series_statement_merge_list }
       else
@@ -51,17 +51,17 @@ class SeriesStatementMergeListsController < ApplicationController
   def update
     respond_to do |format|
       if @series_statement_merge_list.update(series_statement_merge_list_params)
-        if params[:mode] == 'merge'
+        if params[:mode] == "merge"
           selected_series_statement = SeriesStatement.find(params[:selected_series_statement_id]) rescue nil
           if selected_series_statement
-            flash[:notice] = t('merge_list.successfully_merged', model: t('activerecord.models.series_statement'))
+            flash[:notice] = t("merge_list.successfully_merged", model: t("activerecord.models.series_statement"))
           else
-            flash[:notice] = t('merge_list.specify_id', model: t('activerecord.models.series_statement'))
+            flash[:notice] = t("merge_list.specify_id", model: t("activerecord.models.series_statement"))
             redirect_to series_statement_merge_list_url(@series_statement_merge_list)
             return
           end
         else
-          flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.series_statement_merge_list'))
+          flash[:notice] = t("controller.successfully_updated", model: t("activerecord.models.series_statement_merge_list"))
         end
         format.html { redirect_to(@series_statement_merge_list) }
         format.json { head :no_content }

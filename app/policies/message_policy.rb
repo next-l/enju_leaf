@@ -1,28 +1,28 @@
 class MessagePolicy < ApplicationPolicy
   def index?
-    true if user.try(:has_role?, 'User')
+    true if user.try(:has_role?, "User")
   end
 
   def show?
     case user.try(:role).try(:name)
-    when 'Administrator'
+    when "Administrator"
       true
-    when 'Librarian'
+    when "Librarian"
       true if record.try(:receiver) == user
-    when 'User'
+    when "User"
       true if record.try(:receiver) == user
     end
   end
 
   def create?
-    true if user.try(:has_role?, 'Librarian')
+    true if user.try(:has_role?, "Librarian")
   end
 
   def update?
     case user.try(:role).try(:name)
-    when 'Administrator'
+    when "Administrator"
       true if record.try(:receiver) == user
-    when 'Librarian'
+    when "Librarian"
       true if record.try(:receiver) == user
     end
   end
@@ -32,6 +32,6 @@ class MessagePolicy < ApplicationPolicy
   end
 
   def destroy_selected?
-    true if user.try(:has_role?, 'User')
+    true if user.try(:has_role?, "User")
   end
 end

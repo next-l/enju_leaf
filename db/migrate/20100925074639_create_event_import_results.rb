@@ -1,5 +1,5 @@
 class CreateEventImportResults < ActiveRecord::Migration[4.2]
-  def self.up
+  def up
     create_table :event_import_results do |t|
       t.references :event_import_file
       t.references :event
@@ -9,7 +9,7 @@ class CreateEventImportResults < ActiveRecord::Migration[4.2]
     end
   end
 
-  def self.down
+  def down
     drop_table :event_import_results
   end
 end

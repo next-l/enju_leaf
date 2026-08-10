@@ -5,11 +5,11 @@ else
   class AddMissingTaggableIndex < ActiveRecord::Migration; end
 end
 AddMissingTaggableIndex.class_eval do
-  def self.up
+  def up
     add_index :taggings, [:taggable_id, :taggable_type, :context]
   end
 
-  def self.down
+  def down
     remove_index :taggings, [:taggable_id, :taggable_type, :context]
   end
 end

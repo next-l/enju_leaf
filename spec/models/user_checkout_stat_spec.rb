@@ -5,27 +5,39 @@ describe UserCheckoutStat do
 
   it "calculates user count" do
     old_message_count = Message.count
-    user_checkout_stats(:one).transition_to!(:started).should be_truthy
-    Message.count.should eq old_message_count + 1
-    Message.order(:id).last.subject.should eq '[Enju Library] 集計が完了しました'
+    expect(user_checkout_stats(:one).transition_to!(:started)).to be_truthy
+    expect(Message.count).to eq old_message_count + 1
+    expect(Message.order(:id).last.subject).to eq '[Enju Library] 集計が完了しました'
   end
 
   it "should calculate in background" do
-    UserCheckoutStatJob.perform_later(user_checkout_stats(:one)).should be_truthy
+    expect(UserCheckoutStatJob.perform_later(user_checkout_stats(:one))).to be_truthy
   end
 end
 
-# == Schema Information
+# ## Schema Information
 #
-# Table name: user_checkout_stats
+# Table name: `user_checkout_stats`
 #
-#  id           :bigint           not null, primary key
-#  start_date   :datetime
-#  end_date     :datetime
-#  note         :text
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  started_at   :datetime
-#  completed_at :datetime
-#  user_id      :bigint
+# ### Columns
+#
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`id`**          | `bigint`           | `not null, primary key`
+# **`end_date`**    | `datetime`         | `not null`
+# **`note`**        | `text`             |
+# **`start_date`**  | `datetime`         | `not null`
+# **`created_at`**  | `datetime`         | `not null`
+# **`updated_at`**  | `datetime`         | `not null`
+# **`user_id`**     | `bigint`           | `not null`
+#
+# ### Indexes
+#
+# * `index_user_checkout_stats_on_user_id`:
+#     * **`user_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
 #

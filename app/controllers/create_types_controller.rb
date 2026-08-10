@@ -1,6 +1,6 @@
 class CreateTypesController < ApplicationController
-  before_action :set_create_type, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_create_type, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /create_types
   # GET /create_types.json
@@ -36,7 +36,7 @@ class CreateTypesController < ApplicationController
 
     respond_to do |format|
       if @create_type.save
-        format.html { redirect_to @create_type, notice: t('controller.successfully_created', model: t('activerecord.models.create_type')) }
+        format.html { redirect_to @create_type, notice: t("controller.successfully_created", model: t("activerecord.models.create_type")) }
         format.json { render json: @create_type, status: :created, location: @create_type }
       else
         format.html { render action: "new" }
@@ -55,7 +55,7 @@ class CreateTypesController < ApplicationController
 
     respond_to do |format|
       if @create_type.update(create_type_params)
-        format.html { redirect_to @create_type, notice: t('controller.successfully_updated', model: t('activerecord.models.create_type')) }
+        format.html { redirect_to @create_type, notice: t("controller.successfully_updated", model: t("activerecord.models.create_type")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -70,7 +70,7 @@ class CreateTypesController < ApplicationController
     @create_type.destroy
 
     respond_to do |format|
-      format.html { redirect_to create_types_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.create_type')) }
+      format.html { redirect_to create_types_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.create_type")) }
       format.json { head :no_content }
     end
   end

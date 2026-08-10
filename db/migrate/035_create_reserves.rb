@@ -1,5 +1,5 @@
 class CreateReserves < ActiveRecord::Migration[4.2]
-  def self.up
+  def up
     create_table :reserves do |t|
       t.references :user, index: true, foreign_key: true, null: false
       t.references :manifestation, index: true, null: false
@@ -15,7 +15,7 @@ class CreateReserves < ActiveRecord::Migration[4.2]
     end
   end
 
-  def self.down
+  def down
     drop_table :reserves
   end
 end

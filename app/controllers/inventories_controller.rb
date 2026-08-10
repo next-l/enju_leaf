@@ -1,6 +1,6 @@
 class InventoriesController < ApplicationController
-  before_action :set_inventory, only: [:show]
-  before_action :check_policy, only: [:index]
+  before_action :set_inventory, only: [ :show ]
+  before_action :check_policy, only: [ :index ]
 
   # GET /inventories
   # GET /inventories.json

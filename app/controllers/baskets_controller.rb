@@ -1,11 +1,11 @@
 class BasketsController < ApplicationController
-  before_action :set_basket, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_basket, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /baskets
   # GET /baskets.json
   def index
-    if current_user.has_role?('Librarian')
+    if current_user.has_role?("Librarian")
       @baskets = Basket.page(params[:page])
     else
       redirect_to new_basket_url
@@ -46,7 +46,7 @@ class BasketsController < ApplicationController
 
     respond_to do |format|
       if @basket.save
-        format.html { redirect_to new_checked_item_url(basket_id: @basket.id), notice: t('controller.successfully_created', model: t('activerecord.models.basket')) }
+        format.html { redirect_to new_checked_item_url(basket_id: @basket.id), notice: t("controller.successfully_created", model: t("activerecord.models.basket")) }
         format.json { render json: @basket, status: :created, location: @basket }
       else
         format.html { render action: "new" }
@@ -65,7 +65,7 @@ class BasketsController < ApplicationController
         return
       end
     rescue ActiveRecord::RecordInvalid
-      flash[:message] = t('checked_item.already_checked_out_try_again')
+      flash[:message] = t("checked_item.already_checked_out_try_again")
       @basket.checked_items.delete_all
       redirect_to new_checked_item_url(basket_id: @basket.id)
       return
@@ -75,14 +75,13 @@ class BasketsController < ApplicationController
       # if @basket.update_attributes({})
       if @basket.save(validate: false)
         # 貸出完了時
-        format.html { redirect_to checkouts_url(user_id: @basket.user.username), notice: t('basket.checkout_completed') }
+        format.html { redirect_to checkouts_url(user_id: @basket.user.username), notice: t("basket.checkout_completed") }
         format.json { head :no_content }
       else
         format.html { redirect_to checked_items_url(basket_id: @basket.id) }
         format.json { render json: @basket.errors, status: :unprocessable_entity }
       end
     end
-
   end
 
   # DELETE /baskets/1

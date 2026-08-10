@@ -7,7 +7,7 @@ class ManifestationPolicy < ApplicationPolicy
 
     def resolve
       role_id = user&.role&.id || 1
-      scope.where('manifestations.required_role_id <= ?', role_id)
+      scope.where("manifestations.required_role_id <= ?", role_id)
     end
 
     private
@@ -20,12 +20,12 @@ class ManifestationPolicy < ApplicationPolicy
   end
 
   def show?
-    case user.try(:role).try(:name)
-    when 'Administrator'
+    case user&.role&.name
+    when "Administrator"
       true
-    when 'Librarian'
+    when "Librarian"
       true if record.required_role_id <= 3
-    when 'User'
+    when "User"
       true if record.required_role_id <= 2
     else
       true if record.required_role_id <= 1
@@ -33,51 +33,42 @@ class ManifestationPolicy < ApplicationPolicy
   end
 
   def create?
-    true if user.try(:has_role?, 'Librarian')
+    true if user.try(:has_role?, "Librarian")
   end
 
   def edit?
-    case user.try(:role).try(:name)
-    when 'Administrator'
+    return false unless user&.role
+
+    case user.role.name
+    when "Administrator"
       true
-    when 'Librarian'
+    when "Librarian"
       true if record.required_role_id <= 3
-    when 'User'
+    when "User"
       true if record.required_role_id <= 2
     end
   end
 
   def update?
-    true if user.try(:has_role?, 'Librarian')
+    true if user.try(:has_role?, "Librarian")
   end
 
   def destroy?
-    if record.items.empty?
-      unless record.try(:is_reserved?)
-        if record.series_master?
-          if record.children.empty?
-            case user.try(:role).try(:name)
-            when 'Administrator'
-              true
-            when 'Librarian'
-              true if record.required_role_id <= 3
-            else
-              false
-            end
-          else
-            false
-          end
-        else
-          case user.try(:role).try(:name)
-          when 'Administrator'
-            true
-          when 'Librarian'
-            true if record.required_role_id <= 3
-          else
-            false
-          end
-        end
-      end
+    return false if record.items.exists?
+    return false if record.try(:is_reserved?)
+    return false unless user&.role
+
+    if record.series_master?
+      return false if record.children.exists?
+    end
+
+    case user.role.name
+    when "Administrator"
+      true
+    when "Librarian"
+      true if record.required_role_id <= 3
+    else
+      false
     end
   end
 end

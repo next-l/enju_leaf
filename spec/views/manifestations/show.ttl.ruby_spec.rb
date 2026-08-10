@@ -10,4 +10,3 @@ describe "manifestations/show.ttl.ruby" do
     render
   end
 end
-

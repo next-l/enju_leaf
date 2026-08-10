@@ -48,6 +48,7 @@ en:
       manifestation_custom_value: Manifestation custom value
       item_custom_property: Item custom property
       item_custom_value: Item custom value
+      ndla_record: NDL authority record
 
     attributes:
       manifestation:
@@ -225,7 +226,7 @@ en:
         position: Position
       medium_of_performance:
         name: Name
-        display_name: Displayname
+        display_name: Display name
         note: Note
         position: Position
       content_type:
@@ -355,6 +356,10 @@ en:
         note: Note
       item_custom_value:
         value: Value
+      periodical:
+        original_title: Title
+        manifestation_id: Manifestation
+        frequency_id: Frequency
 
   resource_import_file:
     update_relationship: Update relationship
@@ -467,7 +472,7 @@ en:
     isbn_record_not_found: "ISBN import error: Bibliographic record is not found in the external service."
   import_request:
     record_not_found: Record not found.
-    error: An error occured during import.
+    error: An error occurred during import.
 
   resource_import_mailer:
     completed:

@@ -1,0 +1,18 @@
+x-app: &app
+  env_file:
+    - .env
+  build:
+    context: .
+    args:
+      - UID=${UID}
+      - GID=${GID}
+      - http_proxy=${http_proxy}
+      - https_proxy=${http_proxy}
+  networks:
+    internal:
+  volumes:
+    - ./:/enju
+  depends_on:
+    - postgres
+    - solr
+  restart: always

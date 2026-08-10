@@ -1,6 +1,6 @@
 class IdentifierTypesController < ApplicationController
-  before_action :set_identifier_type, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_identifier_type, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /identifier_types
   # GET /identifier_types.json
@@ -36,7 +36,7 @@ class IdentifierTypesController < ApplicationController
 
     respond_to do |format|
       if @identifier_type.save
-        format.html { redirect_to @identifier_type, notice: t('controller.successfully_created', model: t('activerecord.models.identifier_type')) }
+        format.html { redirect_to @identifier_type, notice: t("controller.successfully_created", model: t("activerecord.models.identifier_type")) }
         format.json { render json: @identifier_type, status: :created, location: @identifier_type }
       else
         format.html { render action: "new" }
@@ -55,7 +55,7 @@ class IdentifierTypesController < ApplicationController
 
     respond_to do |format|
       if @identifier_type.update(identifier_type_params)
-        format.html { redirect_to @identifier_type, notice: t('controller.successfully_updated', model: t('activerecord.models.identifier_type')) }
+        format.html { redirect_to @identifier_type, notice: t("controller.successfully_updated", model: t("activerecord.models.identifier_type")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -70,7 +70,7 @@ class IdentifierTypesController < ApplicationController
     @identifier_type.destroy
 
     respond_to do |format|
-      format.html { redirect_to identifier_types_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.identifier_type')) }
+      format.html { redirect_to identifier_types_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.identifier_type")) }
       format.json { head :no_content }
     end
   end

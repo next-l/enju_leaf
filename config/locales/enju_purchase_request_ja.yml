@@ -1,0 +1,49 @@
+ja:
+  activerecord:
+    models:
+      purchase_request: 購入リクエスト
+      order: 発注
+      order_list: 発注リスト
+
+    attributes:
+      purchase_request:
+        title: タイトル
+        author: 著者
+        publisher: 出版社
+        isbn: ISBN
+        date_of_publication: 出版日
+        price: 価格
+        url: URL
+        note: 注記
+        accepted_at: 受理時刻
+        denied_at: 拒絶時刻
+        deleted_at: 削除時刻
+        pub_date: 出版日
+      order:
+        position: 位置
+        state: 状態
+      order_list:
+        title: 発注リスト名
+        note: 注記
+        ordered_at: 発注時刻
+        deleted_at: 削除時刻
+        state: 状態
+
+  purchase_request:
+    user_purchase_request: "%{login_name} さんの購入依頼資料"
+    library_group_purchase_request: "%{library_group_name} での購入依頼資料"
+    add_to_purchase_request: "図書館の購入依頼に追加"
+    all_request: "全ての購入依頼"
+    ordered: "発注済み"
+    not_ordered: "未発注"
+    add_to_order_list: "発注リストに追加する"
+    remove_from_order_list: "発注リストから削除する"
+  order:
+    create_order_list: "発注リストを作成してください。"
+    specify_purchase_request: "購入依頼を指定してください。"
+  order_list:
+    library_group_order_list: "%{library_group_name} の発注リスト"
+    total_price: "合計価格"
+    create_order_sheet: "発注票を作成する"
+    requested: "未発注"
+    ordered: "発注済み"

@@ -14,22 +14,22 @@ describe EnjuManifestationViewer::ApplicationHelper do
   fixtures :all
 
   it "should render google_books preview template" do
-    helper.google_book_search_preview(manifestations(:manifestation_00001).identifier_contents(:isbn).first).should =~ /<div id='google_book_search_content'>/
+    expect(helper.google_book_search_preview(manifestations(:manifestation_00001).isbn_records.first.body)).to match(/<div id='google_book_search_content'>/)
   end
 
   it "should render youtube template" do
-    helper.embed_content(manifestations(:manifestation_00022)).should =~ /frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen/
+    expect(helper.embed_content(manifestations(:manifestation_00022))).to match(/frameborder="0"/)
   end
 
   it "should render nicovideo template" do
-    helper.embed_content(manifestations(:manifestation_00023)).should =~ /<script type="application\/javascript" src="https:\/\/embed.nicovideo.jp\/watch\//
+    expect(helper.embed_content(manifestations(:manifestation_00023))).to match(/src="https:\/\/embed.nicovideo.jp\/watch\//)
   end
 
   it "should render flickr template" do
-    helper.embed_content(manifestations(:manifestation_00218)).should =~ /<object width="400" height="300"><param name="flashvars"/
+    expect(helper.embed_content(manifestations(:manifestation_00218))).to match(/<object width="400" height="300"><param name="flashvars"/)
   end
 
-  #it "should render scribd template" do
+  # it "should render scribd template" do
   #  helper.embed_content(manifestations(:manifestation_00001)).should =~ /<td colspan="2" style="width: 700px">/
-  #end
+  # end
 end

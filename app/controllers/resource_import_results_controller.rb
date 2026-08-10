@@ -1,6 +1,6 @@
 class ResourceImportResultsController < ApplicationController
-  before_action :set_resource_import_result, only: [:show, :destroy]
-  before_action :check_policy, only: [:index]
+  before_action :set_resource_import_result, only: [ :show, :destroy ]
+  before_action :check_policy, only: [ :index ]
 
   # GET /resource_import_results
   # GET /resource_import_results.json
@@ -36,7 +36,7 @@ class ResourceImportResultsController < ApplicationController
     @resource_import_result.destroy
 
     respond_to do |format|
-      format.html { redirect_to resource_import_results_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.resource_import_result')) }
+      format.html { redirect_to resource_import_results_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.resource_import_result")) }
       format.json { head :no_content }
     end
   end

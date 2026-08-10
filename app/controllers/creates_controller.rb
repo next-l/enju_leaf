@@ -1,17 +1,17 @@
 class CreatesController < ApplicationController
-  before_action :set_create, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_create, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
   before_action :get_agent, :get_work
-  before_action :prepare_options, only: [:new, :edit]
+  before_action :prepare_options, only: [ :new, :edit ]
 
   # GET /creates
   # GET /creates.json
   def index
     case
     when @agent
-      @creates = @agent.creates.order('creates.position').page(params[:page])
+      @creates = @agent.creates.order("creates.position").page(params[:page])
     when @work
-      @creates = @work.creates.order('creates.position').page(params[:page])
+      @creates = @work.creates.order("creates.position").page(params[:page])
     else
       @creates = Create.page(params[:page])
     end
@@ -53,7 +53,7 @@ class CreatesController < ApplicationController
 
     respond_to do |format|
       if @create.save
-        format.html { redirect_to @create, notice: t('controller.successfully_created', model: t('activerecord.models.create')) }
+        format.html { redirect_to @create, notice: t("controller.successfully_created", model: t("activerecord.models.create")) }
         format.json { render json: @create, status: :created, location: @create }
       else
         prepare_options
@@ -75,7 +75,7 @@ class CreatesController < ApplicationController
 
     respond_to do |format|
       if @create.update(create_params)
-        format.html { redirect_to @create, notice: t('controller.successfully_updated', model: t('activerecord.models.create')) }
+        format.html { redirect_to @create, notice: t("controller.successfully_updated", model: t("activerecord.models.create")) }
         format.json { head :no_content }
       else
         prepare_options
@@ -91,7 +91,7 @@ class CreatesController < ApplicationController
     @create.destroy
 
     respond_to do |format|
-      flash[:notice] = t('controller.successfully_deleted', model: t('activerecord.models.create'))
+      flash[:notice] = t("controller.successfully_deleted", model: t("activerecord.models.create"))
       case
       when @agent
         format.html { redirect_to agent_works_url(@agent) }

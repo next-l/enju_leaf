@@ -1,7 +1,7 @@
 <% if @agent %>
-  <%= render 'index_agent', agent: @agent %>
+  <%= render "index_agent", agent: @agent %>
 <% elsif @work %>
-  <%= render 'index_work', work: @work %>
+  <%= render "index_work", work: @work %>
 <% else %>
-  <%= render 'index' %>
+  <%= render "index" %>
 <% end %>

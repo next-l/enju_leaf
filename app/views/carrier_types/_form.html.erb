@@ -2,34 +2,34 @@
   <%= error_messages(carrier_type) %>
 
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, required: true %>
+    <%= f.label :name %><br/>
+    <%= f.text_field :name, required: true, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label :display_name %><br />
-    <%= f.text_area :display_name %>
+    <%= f.label :display_name %><br/>
+    <%= f.text_area :display_name, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label t('page.file') -%>
-    <%= f.file_field :attachment -%>
+    <%= f.label :attachment, t("page.file") %>
+    <%= f.file_field :attachment, accept: "image/*", class: "form-control" %>
   </div>
 
   <% if f.object.attachment.present? %>
     <div class="field">
-      <%= f.label t('page.delete_file') -%>
-      <%= f.check_box :delete_attachment -%>
+      <%= f.label :delete_attachment, t("page.delete_file") %>
+      <%= f.check_box :delete_attachment, class: "form-check-input" %>
       <%= f.object.attachment.filename.to_s %>
     </div>
   <% end %>
 
   <% if defined?(EnjuCirculation) and !@carrier_type.new_record? %>
-    <%= render 'carrier_types/checkout_form', f: f %>
+    <%= render "carrier_types/checkout_form", f: f %>
   <% end %>
   <div class="field">
-    <%= f.label :note %><br />
-    <%= f.text_area :note %>
+    <%= f.label :note %><br/>
+    <%= f.text_area :note, class: "form-control" %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions mt-3">
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

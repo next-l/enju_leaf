@@ -14,15 +14,17 @@ module EnjuCirculation
 
       Item.transaction do
         checked_items.each do |checked_item|
-          checkout = user.checkouts.new
-          checkout.librarian = librarian
-          checkout.item = checked_item.item
-          checkout.basket = self
-          checkout.library = librarian.profile.library
-          checkout.shelf = checked_item.item.shelf
-          checkout.due_date = checked_item.due_date
+          checked_item.item.reload
+
+          checkout = user.checkouts.create!(
+            librarian: librarian,
+            item: checked_item.item,
+            basket: self,
+            library: librarian.profile.library,
+            shelf: checked_item.item.shelf,
+            due_date: checked_item.due_date
+          )
           checked_item.item.checkout!(user)
-          checkout.save!
         end
         CheckedItem.where(basket_id: id).destroy_all
       end

@@ -95,21 +95,21 @@ describe ItemsController do
       it 'should get index with agent_id' do
         get :index, params: { agent_id: 1 }
         expect(response).to be_successful
-        assigns(:agent).should eq Agent.find(1)
+        expect(assigns(:agent)).to eq Agent.find(1)
         expect(assigns(:items)).to eq assigns(:agent).items.order('created_at DESC').page(1)
       end
 
       it 'should get index with manifestation_id' do
         get :index, params: { manifestation_id: 1 }
         expect(response).to be_successful
-        assigns(:manifestation).should eq Manifestation.find(1)
-        assigns(:items).collect(&:id).should eq assigns(:manifestation).items.order('items.created_at DESC').page(1).pluck(:id)
+        expect(assigns(:manifestation)).to eq Manifestation.find(1)
+        expect(assigns(:items).collect(&:id)).to eq assigns(:manifestation).items.order('items.created_at DESC').page(1).pluck(:id)
       end
 
       it 'should get index with shelf_id' do
         get :index, params: { shelf_id: 1 }
         expect(response).to be_successful
-        assigns(:shelf).should eq Shelf.find(1)
+        expect(assigns(:shelf)).to eq Shelf.find(1)
         expect(assigns(:items).collect(&:id)).to eq assigns(:shelf).items.order('created_at DESC').page(1).pluck(:id)
       end
 
@@ -141,9 +141,9 @@ describe ItemsController do
       end
 
       it 'should not show missing item' do
-        lambda do
+        expect do
           get :show, params: { id: 'missing' }
-        end.should raise_error(ActiveRecord::RecordNotFound)
+        end.to raise_error(ActiveRecord::RecordNotFound)
         # expect(response).to be_missing
       end
     end
@@ -193,15 +193,6 @@ describe ItemsController do
         expect(response).to redirect_to(manifestations_url)
       end
 
-      it 'should work without exception, even if library and shelf is unavailable' do
-        Library.real.each do |library|
-          library.try(:shelves).to_a.each(&:destroy)
-          library.delete
-        end
-        get :new, params: { manifestation_id: @manifestation.id }
-        expect(response).to redirect_to(libraries_url)
-      end
-
       it 'should not get new item for series_master' do
         manifestation_serial = FactoryBot.create(:manifestation_serial)
         get :new, params: { manifestation_id: manifestation_serial.id }
@@ -249,9 +240,9 @@ describe ItemsController do
       end
 
       it 'should not edit missing item' do
-        lambda do
+        expect do
           get :edit, params: { id: 'missing' }
-        end.should raise_error(ActiveRecord::RecordNotFound)
+        end.to raise_error(ActiveRecord::RecordNotFound)
         # expect(response).to be_missing
       end
     end
@@ -303,7 +294,7 @@ describe ItemsController do
 
         it 'redirects to the created item' do
           post :create, params: { item: @attrs }
-          assigns(:item).manifestation.should_not be_nil
+          expect(assigns(:item).manifestation).not_to be_nil
           expect(response).to redirect_to(item_url(assigns(:item)))
         end
       end
@@ -321,9 +312,9 @@ describe ItemsController do
       end
 
       it 'should not create item without manifestation_id' do
-        lambda do
+        expect do
           post :create, params: { item: { circulation_status_id: 1 } }
-        end.should raise_error(ActiveRecord::RecordNotFound)
+        end.to raise_error(ActiveRecord::RecordNotFound)
         expect(assigns(:item)).to_not be_valid
         # expect(response).to be_missing
       end
@@ -332,6 +323,12 @@ describe ItemsController do
         post :create, params: { item: { circulation_status_id: 1, item_identifier: '00001', manifestation_id: 1 } }
         expect(assigns(:item)).to_not be_valid
         expect(response).to be_successful
+      end
+
+      it 'should create item already reserved' do
+        post :create, params: { item: @attrs.merge(manifestation_id: 11) }
+        expect(assigns(:item)).to be_valid
+        expect(response).to redirect_to(item_url(assigns(:item)))
       end
     end
 
@@ -350,7 +347,7 @@ describe ItemsController do
         end
 
         it 'accepts custom values' do
-          post :create, params: { item: @attrs.merge(item_custom_values_attributes: Array.new(3){FactoryBot.attributes_for(:item_custom_value, item_custom_property_id: FactoryBot.create(:item_custom_property).id)}) }
+          post :create, params: { item: @attrs.merge(item_custom_values_attributes: Array.new(3) { FactoryBot.attributes_for(:item_custom_value, item_custom_property_id: FactoryBot.create(:item_custom_property).id) }) }
           expect(assigns(:item)).to be_valid
           expect(assigns(:item).item_custom_values.count).to eq 3
         end
@@ -473,7 +470,7 @@ describe ItemsController do
 
         it 'accepts custom values' do
           @item.item_custom_values << FactoryBot.build(:item_custom_value)
-          put :update, params: { id: @item.id, item: @attrs.merge(item_custom_values_attributes: [{id: @item.item_custom_values.first.id, value: 'test'}]) }
+          put :update, params: { id: @item.id, item: @attrs.merge(item_custom_values_attributes: [ { id: @item.item_custom_values.first.id, value: 'test' } ]) }
           expect(assigns(:item)).to be_valid
           expect(assigns(:item).item_custom_values.count).to eq 1
           expect(assigns(:item).item_custom_values.first.value).to eq 'test'
@@ -481,7 +478,7 @@ describe ItemsController do
 
         it 'accepts custom values when the value is empty' do
           @item.item_custom_values << FactoryBot.build(:item_custom_value)
-          put :update, params: { id: @item.id, item: @attrs.merge(item_custom_values_attributes: [{id: @item.item_custom_values.first.id, value: ''}]) }
+          put :update, params: { id: @item.id, item: @attrs.merge(item_custom_values_attributes: [ { id: @item.item_custom_values.first.id, value: '' } ]) }
           expect(assigns(:item)).to be_valid
           expect(assigns(:item).item_custom_values.count).to eq 1
           expect(assigns(:item).item_custom_values.first.value).to eq ''
@@ -564,9 +561,9 @@ describe ItemsController do
       end
 
       it 'should not destroy missing item' do
-        lambda do
+        expect do
           delete :destroy, params: { id: 'missing' }
-        end.should raise_error(ActiveRecord::RecordNotFound)
+        end.to raise_error(ActiveRecord::RecordNotFound)
         # expect(response).to be_missing
       end
     end

@@ -1,11 +1,11 @@
 class DonatesController < ApplicationController
-  before_action :set_donate, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_donate, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /donates
   # GET /donates.json
   def index
-    @donates = Donate.order('id DESC').page(params[:page])
+    @donates = Donate.order("id DESC").page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -36,7 +36,7 @@ class DonatesController < ApplicationController
 
     respond_to do |format|
       if @donate.save
-        format.html { redirect_to @donate, notice: t('controller.successfully_created', model: t('activerecord.models.donate')) }
+        format.html { redirect_to @donate, notice: t("controller.successfully_created", model: t("activerecord.models.donate")) }
         format.json { render json: @donate, status: :created, location: @donate }
       else
         format.html { render action: "new" }
@@ -50,7 +50,7 @@ class DonatesController < ApplicationController
   def update
     respond_to do |format|
       if @donate.update(donate_params)
-        format.html { redirect_to @donate, notice: t('controller.successfully_updated', model: t('activerecord.models.donate')) }
+        format.html { redirect_to @donate, notice: t("controller.successfully_updated", model: t("activerecord.models.donate")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

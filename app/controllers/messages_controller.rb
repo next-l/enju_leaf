@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create, :destroy_selected]
+  before_action :set_message, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create, :destroy_selected ]
   before_action :get_user, only: :index
 
   # GET /messages
@@ -10,9 +10,9 @@ class MessagesController < ApplicationController
     search = Sunspot.new_search(Message)
     user = current_user
     case params[:mode]
-    when 'read'
+    when "read"
       is_read = true
-    when 'unread'
+    when "unread"
       is_read = false
     else
       is_read = nil
@@ -23,7 +23,7 @@ class MessagesController < ApplicationController
       with(:receiver_id).equal_to user.id
       facet(:is_read)
     end
-    @message_facet = Hash[*search.execute!.facet_response['facet_fields']['is_read_b']]
+    @message_facet = Hash[*search.execute!.facet_response["facet_fields"]["is_read_b"]]
     search.build do
       with(:is_read).equal_to is_read unless is_read.nil?
     end
@@ -52,7 +52,7 @@ class MessagesController < ApplicationController
   def new
     parent = get_parent(params[:parent_id])
     @message = current_user.sent_messages.new
-    if params[:recipient] && current_user.has_role?('Librarian')
+    if params[:recipient] && current_user.has_role?("Librarian")
       @message.recipient = params[:recipient]
     elsif parent
       @message.recipient = parent.sender.username
@@ -76,7 +76,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-        format.html { redirect_to messages_url, notice: t('controller.successfully_created', model: t('activerecord.models.message')) }
+        format.html { redirect_to messages_url, notice: t("controller.successfully_created", model: t("activerecord.models.message")) }
         format.json { render json: @message, status: :created, location: @message }
       else
         format.html { render action: "new" }
@@ -91,7 +91,7 @@ class MessagesController < ApplicationController
     @message = current_user.received_messages.find(params[:id])
 
     if @message.update(message_params)
-      format.html { redirect_to @message, notice: t('controller.successfully_updated', model: t('activerecord.models.message')) }
+      format.html { redirect_to @message, notice: t("controller.successfully_updated", model: t("activerecord.models.message")) }
       format.json { head :no_content }
     else
       format.html { render action: "edit" }
@@ -118,16 +118,16 @@ class MessagesController < ApplicationController
     end
     respond_to do |format|
       if params[:delete].present?
-        messages = params[:delete].map{|m| Message.find_by(id: m)}
+        messages = params[:delete].map { |m| Message.find_by(id: m) }
       end
       if messages.present?
         messages.each do |message|
           message.destroy if message.receiver == current_user
         end
-        flash[:notice] = t('message.messages_were_deleted')
+        flash[:notice] = t("message.messages_were_deleted")
         format.html { redirect_to messages_url }
       else
-        flash[:notice] = t('message.select_messages')
+        flash[:notice] = t("message.select_messages")
         format.html { redirect_to messages_url }
       end
     end
@@ -141,7 +141,7 @@ class MessagesController < ApplicationController
       authorize @message
     else
       access_denied
-      return
+      nil
     end
   end
 
@@ -157,19 +157,13 @@ class MessagesController < ApplicationController
 
   def get_parent(id)
     parent = Message.find_by(id: id)
-    if current_user.has_role?('Librarian')
+    if current_user.has_role?("Librarian")
       parent
     else
       unless parent.try(:receiver) == current_user
         access_denied
-        return
+        nil
       end
     end
   end
-
-  def filtered_params
-    params.permit([:view, :format, :page, :mode, :sort_by, :per_page])
-  end
-
-  helper_method :filtered_params
 end

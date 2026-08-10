@@ -72,25 +72,25 @@ describe ManifestationsController do
 
       it 'assigns all manifestations as @manifestations when pub_date_from and pub_date_until are specified' do
         get :index, params: { pub_date_from: '2000', pub_date_until: '2007' }
-        assigns(:query).should eq "date_of_publication_d:[#{Time.zone.parse('2000-01-01').beginning_of_day.utc.iso8601} TO #{Time.zone.parse('2007-12-31').end_of_year.utc.iso8601}]"
+        expect(assigns(:query)).to eq "date_of_publication_d:[#{Time.zone.parse('2000-01-01').beginning_of_day.utc.iso8601} TO #{Time.zone.parse('2007-12-31').end_of_year.utc.iso8601}]"
         expect(assigns(:manifestations)).to_not be_nil
       end
 
       it 'assigns all manifestations as @manifestations when old pub_date_from and pub_date_until are specified' do
         get :index, params: { pub_date_from: '200', pub_date_until: '207' }
-        assigns(:query).should eq "date_of_publication_d:[#{Time.zone.parse('200-01-01').utc.iso8601} TO #{Time.zone.parse('207-12-31').end_of_year.utc.iso8601}]"
+        expect(assigns(:query)).to eq "date_of_publication_d:[#{Time.zone.parse('200-01-01').utc.iso8601} TO #{Time.zone.parse('207-12-31').end_of_year.utc.iso8601}]"
         expect(assigns(:manifestations)).to_not be_nil
       end
 
       it 'assigns all manifestations as @manifestations when acquired_from and pub_date_until are specified' do
         get :index, params: { acquired_from: '2000', acquired_until: '2007' }
-        assigns(:query).should eq "acquired_at_d:[#{Time.zone.parse('2000-01-01').beginning_of_day.utc.iso8601} TO #{Time.zone.parse('2007-12-31').end_of_year.utc.iso8601}]"
+        expect(assigns(:query)).to eq "acquired_at_d:[#{Time.zone.parse('2000-01-01').beginning_of_day.utc.iso8601} TO #{Time.zone.parse('2007-12-31').end_of_year.utc.iso8601}]"
         expect(assigns(:manifestations)).to_not be_nil
       end
 
       it 'assigns all manifestations as @manifestations when old acquired_from and pub_date_until are specified' do
         get :index, params: { acquired_from: '200', acquired_until: '207' }
-        assigns(:query).should eq "acquired_at_d:[#{Time.zone.parse('200-01-01').utc.iso8601} TO #{Time.zone.parse('207-12-31').end_of_day.utc.iso8601}]"
+        expect(assigns(:query)).to eq "acquired_at_d:[#{Time.zone.parse('200-01-01').utc.iso8601} TO #{Time.zone.parse('207-12-31').end_of_day.utc.iso8601}]"
         expect(assigns(:manifestations)).to_not be_nil
       end
 
@@ -115,7 +115,7 @@ describe ManifestationsController do
         get :index, params: { manifestation_id: 1 }
         expect(response).to be_successful
         expect(assigns(:manifestation)).to eq Manifestation.find(1)
-        assigns(:manifestations).collect(&:id).should eq assigns(:manifestation).derived_manifestations.collect(&:id)
+        expect(assigns(:manifestations).collect(&:id)).to eq assigns(:manifestation).derived_manifestations.collect(&:id)
       end
 
       it 'should get index with query' do
@@ -127,21 +127,21 @@ describe ManifestationsController do
       it 'should get index with page number' do
         get :index, params: { query: '2005', number_of_pages_at_least: 1, number_of_pages_at_most: 100 }
         expect(response).to be_successful
-        assigns(:query).should eq '2005 number_of_pages_i:[1 TO 100]'
+        expect(assigns(:query)).to eq '2005 number_of_pages_i:[1 TO 100]'
       end
 
       it 'should get index with pub_date_from' do
         get :index, params: { query: '2005', pub_date_from: '2000' }
         expect(response).to be_successful
         expect(assigns(:manifestations)).to be_truthy
-        assigns(:query).should eq '2005 date_of_publication_d:[2000-01-01T00:00:00Z TO *]'
+        expect(assigns(:query)).to eq '2005 date_of_publication_d:[1999-12-31T15:00:00Z TO *]'
       end
 
       it 'should get index with pub_date_until' do
         get :index, params: { query: '2005', pub_date_until: '2000' }
         expect(response).to be_successful
         expect(assigns(:manifestations)).to be_truthy
-        assigns(:query).should eq '2005 date_of_publication_d:[* TO 2000-12-31T23:59:59Z]'
+        expect(assigns(:query)).to eq '2005 date_of_publication_d:[* TO 2000-12-31T14:59:59Z]'
       end
 
       it 'should show manifestation with isbn', solr: true do
@@ -157,13 +157,13 @@ describe ManifestationsController do
       end
 
       it 'should show manifestation with library 3', solr: true do
-        get :index, params: { library_adv: ['hachioji'] }
+        get :index, params: { library_adv: [ 'hachioji' ] }
         expect(response).to be_successful
         expect(assigns(:manifestations).size).to eq 1
       end
 
       it 'should show manifestation with library 2 or 3', solr: true do
-        get :index, params: { library_adv: %w(hachioji kamata) }
+        get :index, params: { library_adv: %w[hachioji kamata] }
         expect(response).to be_successful
         expect(assigns(:manifestations).size).to eq 3
       end
@@ -172,7 +172,7 @@ describe ManifestationsController do
         shelf = FactoryBot.create(:shelf)
         library = shelf.library
         item = FactoryBot.create(:item, shelf: shelf)
-        get :index, params: { :"#{library.name}_shelf" => [shelf.name] }
+        get :index, params: { "#{library.name}_shelf": [ shelf.name ] }
         expect(response).to be_successful
         expect(assigns(:manifestations).size).to eq 1
         expect(assigns(:manifestations).first).to eq item.manifestation
@@ -242,7 +242,7 @@ describe ManifestationsController do
         get :index, params: { query: "foo" }
         manifestations = assigns(:manifestations)
         expect(manifestations).not_to be_blank
-        expect(manifestations.map{|e| e.id }).to include periodical.id
+        expect(manifestations.map { |e| e.id }).to include periodical.id
       end
 
       describe "with render_views" do
@@ -530,7 +530,7 @@ describe ManifestationsController do
         it 'assigns a series_statement' do
           post :create, params: { manifestation: @attrs.merge(series_statements_attributes: { '0' => { original_title: SeriesStatement.find(1).original_title } }) }
           assigns(:manifestation).reload
-          assigns(:manifestation).series_statements.pluck(:original_title).include?(series_statements(:one).original_title).should be_truthy
+          expect(assigns(:manifestation).series_statements.pluck(:original_title).include?(series_statements(:one).original_title)).to be_truthy
         end
 
         it 'redirects to the created manifestation' do
@@ -572,7 +572,7 @@ describe ManifestationsController do
         end
 
         it 'accepts custom values' do
-          post :create, params: { manifestation: @attrs.merge(manifestation_custom_values_attributes: Array.new(3){FactoryBot.attributes_for(:manifestation_custom_value, manifestation_custom_property_id: FactoryBot.create(:manifestation_custom_property).id)}) }
+          post :create, params: { manifestation: @attrs.merge(manifestation_custom_values_attributes: Array.new(3) { FactoryBot.attributes_for(:manifestation_custom_value, manifestation_custom_property_id: FactoryBot.create(:manifestation_custom_property).id) }) }
           expect(assigns(:manifestation)).to be_valid
           expect(assigns(:manifestation).manifestation_custom_values.count).to eq 3
         end
@@ -649,7 +649,7 @@ describe ManifestationsController do
   describe 'PUT update' do
     before(:each) do
       @manifestation = FactoryBot.create(:manifestation)
-      @manifestation.series_statements = [SeriesStatement.find(1)]
+      @manifestation.series_statements = [ SeriesStatement.find(1) ]
       @manifestation.publishers << FactoryBot.create(:agent)
       @attrs = valid_attributes
       @invalid_attrs = { original_title: '' }
@@ -666,7 +666,7 @@ describe ManifestationsController do
         it 'assigns a series_statement' do
           put :update, params: { id: @manifestation.id, manifestation: @attrs.merge(series_statements_attributes: { '0' => { :original_title => series_statements(:two).original_title, '_destroy' => 'false' } }) }
           assigns(:manifestation).reload
-          assigns(:manifestation).series_statements.pluck(:original_title).include?(series_statements(:two).original_title).should be_truthy
+          expect(assigns(:manifestation).series_statements.pluck(:original_title).include?(series_statements(:two).original_title)).to be_truthy
         end
 
         it 'assigns the requested manifestation as @manifestation' do
@@ -699,7 +699,7 @@ describe ManifestationsController do
 
         it 'assigns identifiers to @manifestation' do
           identifiers_attrs = {
-            identifier_attributes: [FactoryBot.create(:identifier)]
+            identifier_attributes: [ FactoryBot.create(:identifier) ]
           }
           put :update, params: { id: @manifestation.id, manifestation: @attrs.merge(identifiers_attrs) }
           expect(assigns(:manifestation)).to eq @manifestation
@@ -707,10 +707,10 @@ describe ManifestationsController do
 
         it 'assigns identifiers and publishers to @manifestation' do
           identifiers_attrs = {
-            identifier_attributes: [FactoryBot.create(:identifier)]
+            identifier_attributes: [ FactoryBot.create(:identifier) ]
           }
           publishers_attrs = {
-            publisher_attributes: [FactoryBot.create(:agent)]
+            publisher_attributes: [ FactoryBot.create(:agent) ]
           }
           put :update, params: {
             id: @manifestation.id, manifestation: @attrs.merge(identifiers_attrs).merge(publishers_attrs)
@@ -720,7 +720,7 @@ describe ManifestationsController do
 
         it 'accepts custom values' do
           @manifestation.manifestation_custom_values << FactoryBot.build(:manifestation_custom_value)
-          put :update, params: { id: @manifestation.id, manifestation: @attrs.merge(manifestation_custom_values_attributes: [{id: @manifestation.manifestation_custom_values.first.id, value: 'test'}]) }
+          put :update, params: { id: @manifestation.id, manifestation: @attrs.merge(manifestation_custom_values_attributes: [ { id: @manifestation.manifestation_custom_values.first.id, value: 'test' } ]) }
           expect(assigns(:manifestation)).to be_valid
           expect(assigns(:manifestation).manifestation_custom_values.count).to eq 1
           expect(assigns(:manifestation).manifestation_custom_values.first.value).to eq 'test'
@@ -728,7 +728,7 @@ describe ManifestationsController do
 
         it 'accepts custom values when the value is empty' do
           @manifestation.manifestation_custom_values << FactoryBot.build(:manifestation_custom_value)
-          put :update, params: { id: @manifestation.id, manifestation: @attrs.merge(manifestation_custom_values_attributes: [{id: @manifestation.manifestation_custom_values.first.id, value: ''}]) }
+          put :update, params: { id: @manifestation.id, manifestation: @attrs.merge(manifestation_custom_values_attributes: [ { id: @manifestation.manifestation_custom_values.first.id, value: '' } ]) }
           expect(assigns(:manifestation)).to be_valid
           expect(assigns(:manifestation).manifestation_custom_values.count).to eq 1
           expect(assigns(:manifestation).manifestation_custom_values.first.value).to eq ''
@@ -757,10 +757,10 @@ describe ManifestationsController do
 
         it 'assigns identifiers and publishers to @manifestation' do
           identifiers_attrs = {
-            identifier_attributes: [FactoryBot.create(:identifier)]
+            identifier_attributes: [ FactoryBot.create(:identifier) ]
           }
           publishers_attrs = {
-            publisher_attributes: [FactoryBot.create(:agent)]
+            publisher_attributes: [ FactoryBot.create(:agent) ]
           }
           put :update, params: {
             id: @manifestation.id, manifestation: @invalid_attrs.merge(identifiers_attrs).merge(publishers_attrs)

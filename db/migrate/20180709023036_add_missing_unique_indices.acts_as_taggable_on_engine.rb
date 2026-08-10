@@ -5,17 +5,18 @@ else
   class AddMissingUniqueIndices < ActiveRecord::Migration; end
 end
 AddMissingUniqueIndices.class_eval do
-  def self.up
-    add_index :tags, :name, unique: true
+  def up
+    add_index :tags, :name, unique: true, if_not_exists: true
 
     remove_index :taggings, :tag_id if index_exists?(:taggings, :tag_id)
     remove_index :taggings, [:taggable_id, :taggable_type, :context]
     add_index :taggings,
               [:tag_id, :taggable_id, :taggable_type, :context, :tagger_id, :tagger_type],
-              unique: true, name: 'taggings_idx'
+              unique: true, name: 'taggings_idx',
+              if_not_exists: true
   end
 
-  def self.down
+  def down
     remove_index :tags, :name
 
     remove_index :taggings, name: 'taggings_idx'

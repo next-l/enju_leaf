@@ -2,7 +2,7 @@ class AddConstraintsToMostRecentForBookmarkStatTransitions < ActiveRecord::Migra
   disable_ddl_transaction!
 
   def up
-    add_index :bookmark_stat_transitions, [:bookmark_stat_id, :most_recent], unique: true, where: "most_recent", name: "index_bookmark_stat_transitions_parent_most_recent" #, algorithm: :concurrently
+    add_index :bookmark_stat_transitions, [:bookmark_stat_id, :most_recent], unique: true, where: "most_recent", name: "index_bookmark_stat_transitions_parent_most_recent", if_not_exists: true #, algorithm: :concurrently
     change_column_null :bookmark_stat_transitions, :most_recent, false
   end
 

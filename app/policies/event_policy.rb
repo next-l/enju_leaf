@@ -8,14 +8,14 @@ class EventPolicy < ApplicationPolicy
   end
 
   def create?
-    user.try(:has_role?, 'Librarian')
+    user.try(:has_role?, "Librarian")
   end
 
   def update?
-    user.try(:has_role?, 'Librarian')
+    user.try(:has_role?, "Librarian")
   end
 
   def destroy?
-    user.try(:has_role?, 'Librarian')
+    user.try(:has_role?, "Librarian")
   end
 end

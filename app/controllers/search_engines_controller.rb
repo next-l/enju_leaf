@@ -1,6 +1,6 @@
 class SearchEnginesController < ApplicationController
-  before_action :set_search_engine, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_search_engine, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /search_engines
   # GET /search_engines.json
@@ -36,7 +36,7 @@ class SearchEnginesController < ApplicationController
 
     respond_to do |format|
       if @search_engine.save
-        format.html { redirect_to @search_engine, notice: t('controller.successfully_created', model: t('activerecord.models.search_engine')) }
+        format.html { redirect_to @search_engine, notice: t("controller.successfully_created", model: t("activerecord.models.search_engine")) }
         format.json { render json: @search_engine, status: :created, location: @search_engine }
       else
         format.html { render action: "new" }
@@ -55,7 +55,7 @@ class SearchEnginesController < ApplicationController
 
     respond_to do |format|
       if @search_engine.update(search_engine_params)
-        format.html { redirect_to @search_engine, notice: t('controller.successfully_updated', model: t('activerecord.models.search_engine')) }
+        format.html { redirect_to @search_engine, notice: t("controller.successfully_updated", model: t("activerecord.models.search_engine")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -70,7 +70,7 @@ class SearchEnginesController < ApplicationController
     @search_engine.destroy
 
     respond_to do |format|
-      format.html { redirect_to search_engines_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.search_engine')) }
+      format.html { redirect_to search_engines_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.search_engine")) }
       format.json { head :no_content }
     end
   end

@@ -1,0 +1,4 @@
+ncid	library_short_name
+invalid
+BB02488158
+BB05012110

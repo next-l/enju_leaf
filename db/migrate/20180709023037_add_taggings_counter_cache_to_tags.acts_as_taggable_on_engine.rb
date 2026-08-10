@@ -5,8 +5,8 @@ else
   class AddTaggingsCounterCacheToTags < ActiveRecord::Migration; end
 end
 AddTaggingsCounterCacheToTags.class_eval do
-  def self.up
-    add_column :tags, :taggings_count, :integer, default: 0
+  def up
+    add_column :tags, :taggings_count, :integer, default: 0, if_not_exists: true
 
     ActsAsTaggableOn::Tag.reset_column_information
     ActsAsTaggableOn::Tag.find_each do |tag|
@@ -14,7 +14,7 @@ AddTaggingsCounterCacheToTags.class_eval do
     end
   end
 
-  def self.down
+  def down
     remove_column :tags, :taggings_count
   end
 end

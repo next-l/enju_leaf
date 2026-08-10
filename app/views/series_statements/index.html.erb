@@ -1,5 +1,11 @@
 <%- if @series_statement_merge_list -%>
-  <%= render 'index_series_statement_merge_list' -%>
+  <%= render "index_series_statement_merge_list" -%>
 <%- else -%>
-  <%= render 'index' -%>
+  <%= render "index" -%>
 <%- end -%>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('search_form_top').focus();
+  });
+</script>

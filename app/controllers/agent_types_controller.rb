@@ -1,6 +1,6 @@
 class AgentTypesController < ApplicationController
-  before_action :set_agent_type, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_agent_type, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /agent_types
   # GET /agent_types.json
@@ -36,7 +36,7 @@ class AgentTypesController < ApplicationController
 
     respond_to do |format|
       if @agent_type.save
-        format.html { redirect_to @agent_type, notice: t('controller.successfully_created', model: t('activerecord.models.agent_type')) }
+        format.html { redirect_to @agent_type, notice: t("controller.successfully_created", model: t("activerecord.models.agent_type")) }
         format.json { render json: @agent_type, status: :created, location: @agent_type }
       else
         format.html { render action: "new" }
@@ -55,7 +55,7 @@ class AgentTypesController < ApplicationController
 
     respond_to do |format|
       if @agent_type.update(agent_type_params)
-        format.html { redirect_to @agent_type, notice: t('controller.successfully_updated', model: t('activerecord.models.agent_type')) }
+        format.html { redirect_to @agent_type, notice: t("controller.successfully_updated", model: t("activerecord.models.agent_type")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -70,7 +70,7 @@ class AgentTypesController < ApplicationController
     @agent_type.destroy
 
     respond_to do |format|
-      format.html { redirect_to agent_types_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.agent_type')) }
+      format.html { redirect_to agent_types_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.agent_type")) }
       format.json { head :no_content }
     end
   end

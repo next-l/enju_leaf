@@ -1,6 +1,6 @@
 class NiiTypesController < ApplicationController
-  before_action :set_nii_type, only: [:show, :edit, :update, :destroy]
-  before_action :check_policy, only: [:index, :new, :create]
+  before_action :set_nii_type, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_policy, only: [ :index, :new, :create ]
 
   # GET /nii_types
   # GET /nii_types.json
@@ -36,7 +36,7 @@ class NiiTypesController < ApplicationController
 
     respond_to do |format|
       if @nii_type.save
-        format.html { redirect_to @nii_type, notice:  t('controller.successfully_created', model: t('activerecord.models.nii_type')) }
+        format.html { redirect_to @nii_type, notice:  t("controller.successfully_created", model: t("activerecord.models.nii_type")) }
         format.json { render json: @nii_type, status: :created, location: @nii_type }
       else
         format.html { render action: "new" }
@@ -55,7 +55,7 @@ class NiiTypesController < ApplicationController
 
     respond_to do |format|
       if @nii_type.update(nii_type_params)
-        format.html { redirect_to @nii_type, notice:  t('controller.successfully_updated', model: t('activerecord.models.nii_type')) }
+        format.html { redirect_to @nii_type, notice:  t("controller.successfully_updated", model: t("activerecord.models.nii_type")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -70,7 +70,7 @@ class NiiTypesController < ApplicationController
     @nii_type.destroy
 
     respond_to do |format|
-      format.html { redirect_to nii_types_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.nii_type')) }
+      format.html { redirect_to nii_types_url, notice: t("controller.successfully_deleted", model: t("activerecord.models.nii_type")) }
       format.json { head :no_content }
     end
   end

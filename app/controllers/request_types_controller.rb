@@ -1,6 +1,6 @@
 class RequestTypesController < ApplicationController
-  before_action :set_request_type, only: [:show, :edit, :update]
-  before_action :check_policy, only: [:index]
+  before_action :set_request_type, only: [ :show, :edit, :update ]
+  before_action :check_policy, only: [ :index ]
 
   # GET /request_types
   # GET /request_types.json
@@ -34,7 +34,7 @@ class RequestTypesController < ApplicationController
 
     respond_to do |format|
       if @request_type.update(request_type_params)
-        format.html { redirect_to @request_type, notice: t('controller.successfully_updated', model: t('activerecord.models.request_type')) }
+        format.html { redirect_to @request_type, notice: t("controller.successfully_updated", model: t("activerecord.models.request_type")) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

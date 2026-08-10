@@ -1,9 +1,9 @@
 class AddUrlToNewsPost < ActiveRecord::Migration[4.2]
-  def self.up
-    add_column :news_posts, :url, :string
+  def up
+    add_column :news_posts, :url, :string, if_not_exists: true
   end
 
-  def self.down
+  def down
     remove_column :news_posts, :url
   end
 end

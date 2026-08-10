@@ -25,7 +25,7 @@ module CalculateStat
 
   # 利用統計の集計完了メッセージを送信します。
   def send_message(mailer)
-    sender = User.find(1) #system
+    sender = User.find(1) # system
     message = Message.create!(
       recipient: user.username,
       sender: sender,

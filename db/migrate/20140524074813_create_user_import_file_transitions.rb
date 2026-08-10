@@ -2,7 +2,7 @@ class CreateUserImportFileTransitions < ActiveRecord::Migration[4.2]
   def change
     create_table :user_import_file_transitions do |t|
       t.string :to_state
-      if ActiveRecord::Base.configurations[Rails.env]["adapter"].try(:match, /mysql/)
+      if ActiveRecord::Base.configurations.configs_for(env_name: Rails.env).first.adapter.try(:match, /mysql/)
         t.text :metadata
       else
         t.text :metadata, default: "{}"

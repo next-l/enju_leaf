@@ -1,5 +1,5 @@
 class CreateUserGroupHasCheckoutTypes < ActiveRecord::Migration[4.2]
-  def self.up
+  def up
     create_table :user_group_has_checkout_types do |t|
       t.references :user_group, index: true, foreign_key: true, null: false
       t.references :checkout_type, index: true, foreign_key: true, null: false
@@ -17,7 +17,7 @@ class CreateUserGroupHasCheckoutTypes < ActiveRecord::Migration[4.2]
     end
   end
 
-  def self.down
+  def down
     drop_table :user_group_has_checkout_types
   end
 end

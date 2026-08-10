@@ -9,4 +9,3 @@ module EnjuNdl
     end
   end
 end
-

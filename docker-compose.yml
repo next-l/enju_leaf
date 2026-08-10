@@ -1,9 +1,6 @@
-version: '3.8'
-
 volumes:
   postgres:
   solr:
-  redis:
 
 networks:
   internal:
@@ -12,55 +9,39 @@ x-app: &app
   env_file:
     - .env
   environment:
-    - no_proxy: localhost,web,workers,tika
-  build:
-    context: .
-    args:
-      - UID=${UID}
-      - GID=${GID}
-      - http_proxy=${http_proxy}
-      - https_proxy=${http_proxy}
+    no_proxy: localhost,web,queue,solr,tika
   image: ghcr.io/next-l/enju_leaf:latest
   networks:
     internal:
   volumes:
     - ./:/enju
   depends_on:
-    - postgres
     - solr
-    - redis
+    - postgres
   restart: always
 
 services:
   web:
     <<: *app
-    command: bash -c "rm -f tmp/pids/server.pid && rails s -b 0.0.0.0"
-    environment:
-      - WEBPACKER_DEV_SERVER_HOST=webpacker
-    expose:
-      - 3000
-
-  workers:
-    <<: *app
-    environment:
-      - QUEUE=*
-    command: bundle exec rake resque:work
-
-  webpacker:
-    <<: *app
-    environment:
-      - NODE_ENV=development
-      - WEBPACKER_DEV_SERVER_HOST=127.0.0.1
-    profiles:
-      - develop
-    command: ./bin/webpack-dev-server
+    build:
+      context: .
+      args:
+        - UID=${UID}
+        - GID=${GID}
+        - http_proxy=${http_proxy}
+        - https_proxy=${http_proxy}
+    command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -b 0.0.0.0"
     ports:
-      - 127.0.0.1:3035:3035
+      - 3000:3000
+
+  queue:
+    <<: *app
+    command: bash -c "bin/jobs"
 
   solr:
     image: solr:8
-    ports:
-      - 127.0.0.1:8983:8983
+    expose:
+      - 8983
     env_file:
       - .env
     networks:
@@ -77,15 +58,15 @@ services:
       retries: 3
 
   postgres:
-    image: postgres:13
+    image: postgres:17
     volumes:
       - postgres:/var/lib/postgresql/data
     networks:
       internal:
     env_file:
       - .env
-    ports:
-      - 127.0.0.1:5432:5432
+    expose:
+      - 5432
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "POSTGRES_PASSWORD=${POSTGRES_PASSWORD} pg_isready -U ${POSTGRES_USER} -h localhost -d template1"]
@@ -93,38 +74,30 @@ services:
       timeout: 5s
       retries: 3
 
-  redis:
-    image: redis:6
-    command: redis-server --appendonly yes
-    networks:
-      internal:
-    expose:
-      - 6379
-    healthcheck:
-      test: ["CMD-SHELL", "redis-cli ping"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-
   cantaloupe:
-    image: uclalibrary/cantaloupe:5.0.5-4
+    image: islandora/cantaloupe:6.4
     expose:
       - 8182
     restart: always
     environment:
-      no_proxy: localhost,web
-      SOURCE_STATIC: HttpSource
-      HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX: http://web:3000/picture_files/
-      HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_SUFFIX: '.download?size=original'
-      ENDPOINT_API_ENABLED: 'true'
-      BASE_URI: ${CANTALOUPE_BASE_URI}
+      - CANTALOUPE_HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX=http://web:3000/picture_files/
+      - CANTALOUPE_HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_SUFFIX=/download
+      - CANTALOUPE_ENDPOINT_API_ENABLED=true
     networks:
       internal:
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8182/health"]
+      test: ["CMD-SHELL", "curl -f http://cantaloupe:8182/health"]
       interval: 30s
       timeout: 20s
       retries: 3
+
+  tika:
+    image: apache/tika:3.3.1.0
+    expose:
+      - 9998
+    restart: always
+    networks:
+      internal:
 
   nginx:
     image: nginx:stable
@@ -146,11 +119,3 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
-
-  tika:
-    image: apache/tika:2.8.0.0
-    ports:
-      - 127.0.0.1:9998:9998
-    restart: always
-    networks:
-      internal:
