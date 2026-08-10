@@ -15,6 +15,6 @@
 </tr>
 </table>
 <%- if policy_scope(@manifestation.items).for_checkout.on_shelf.exists? -%>
-  <%= render 'manifestations/show_holding', manifestation: @manifestation, items: policy_scope(@manifestation.items).for_checkout.on_shelf %>
+  <%= render 'manifestations/show_holding', manifestation: @manifestation, items: policy_scope(@manifestation.items).for_checkout.on_shelf.includes(:circulation_status, :checkouts, :use_restriction, shelf: :library) %>
 <%- end -%>
 </div>

@@ -123,7 +123,7 @@
       </table>
     <% end %>
     <%- if Pundit.policy_scope!(current_user, manifestation.items).on_shelf.exists? -%>
-      <%= render 'manifestations/show_holding', manifestation: manifestation, items: Pundit.policy_scope!(current_user, manifestation.items).on_shelf %>
+      <%= render 'manifestations/show_holding', manifestation: manifestation, items: Pundit.policy_scope!(current_user, manifestation.items).on_shelf.includes(:circulation_status, :checkouts, :use_restriction, shelf: :library) %>
     <%- end -%>
     </div>
     <%= render 'manifestations/tab_list', manifestation: manifestation %>
