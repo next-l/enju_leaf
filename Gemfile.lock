@@ -125,6 +125,11 @@ GEM
       actionpack (>= 6.1)
       caxlsx (>= 4.0)
     cocoon (1.2.15)
+    commonmarker (2.9.0-aarch64-linux)
+    commonmarker (2.9.0-aarch64-linux-musl)
+    commonmarker (2.9.0-arm-linux)
+    commonmarker (2.9.0-x86_64-linux)
+    commonmarker (2.9.0-x86_64-linux-musl)
     concurrent-ruby (1.3.8)
     connection_pool (3.0.2)
     crack (1.0.1)
@@ -259,8 +264,6 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
-    kramdown (2.5.2)
-      rexml (>= 3.4.4)
     language_server-protocol (3.17.0.6)
     library_stdnums (1.6.0)
     link_header (0.0.8)
@@ -638,6 +641,7 @@ DEPENDENCIES
   caxlsx
   caxlsx_rails
   cocoon
+  commonmarker
   cssbundling-rails
   database_consistency
   date_validator
@@ -656,7 +660,6 @@ DEPENDENCIES
   jsbundling-rails
   kamal
   kaminari
-  kramdown
   library_stdnums
   lisbn
   mission_control-jobs
