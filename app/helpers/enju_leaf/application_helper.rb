@@ -82,12 +82,12 @@ module EnjuLeaf
     def title(controller_name, model_name = controller_name.singularize)
       string = ""
       unless [ "page", "routing_error", "my_accounts" ].include?(controller_name)
-        string << t("activerecord.models.#{model_name}") + " - "
+        string += t("activerecord.models.#{model_name}") + " - "
       end
       if controller_name == "routing_error"
-        string << t("page.routing_error") + " - "
+        string += t("page.routing_error") + " - "
       end
-      string << LibraryGroup.system_name + " - Next-L Enju Leaf"
+      string += LibraryGroup.system_name + " - Next-L Enju Leaf"
       string.html_safe
     end
 

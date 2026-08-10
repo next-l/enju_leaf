@@ -104,6 +104,7 @@ gem 'active_storage_validations'
 gem 'faraday-multipart'
 gem 'nkf'
 gem 'benchmark'
+gem 'icalendar'
 
 group :development, :test do
   gem 'annotaterb'

@@ -127,7 +127,7 @@
             filtered_params.merge(
               library_id: @library.name,
               format: :txt,
-              locale: @locale.to_s,
+              locale: I18n.locale.to_s,
             ),
           ) -%>
           (<%= link_to "TSV",
@@ -135,7 +135,7 @@
             filtered_params.merge(
               library_id: @library.name,
               format: :txt,
-              locale: @locale.to_s,
+              locale: I18n.locale.to_s,
             ),
           ) -%>)
           <br/>
@@ -149,7 +149,7 @@
             filtered_params.merge(
               library_id: @library.name,
               format: :ics,
-              locale: @locale.to_s,
+              locale: I18n.locale.to_s,
             ),
           ) -%>
           (<%= link_to "iCalendar",
@@ -157,7 +157,7 @@
             filtered_params.merge(
               library_id: @library.name,
               format: :ics,
-              locale: @locale.to_s,
+              locale: I18n.locale.to_s,
             ),
           ) -%>)
         <%- else -%>
@@ -175,9 +175,9 @@
             class: "enju_icon",
             alt: "TSV"
           ),
-          url_for(filtered_params.merge(format: :txt, locale: @locale.to_s)) -%>
+          url_for(filtered_params.merge(format: :txt, locale: I18n.locale.to_s)) -%>
           (<%= link_to "TSV",
-          url_for(filtered_params.merge(format: :txt, locale: @locale.to_s)) -%>)
+          url_for(filtered_params.merge(format: :txt, locale: I18n.locale.to_s)) -%>)
           <br/>
           <%= link_to (
             image_tag "icons/calendar.png",
@@ -185,9 +185,9 @@
             class: "enju_icon",
             alt: "iCalendar"
           ),
-          url_for(filtered_params.merge(format: :ics, locale: @locale.to_s)) -%>
+          url_for(filtered_params.merge(format: :ics, locale: I18n.locale.to_s)) -%>
           (<%= link_to "iCalendar",
-          url_for(filtered_params.merge(format: :ics, locale: @locale.to_s)) -%>)
+          url_for(filtered_params.merge(format: :ics, locale: I18n.locale.to_s)) -%>)
         <%- end -%>
       </p>
     </div>

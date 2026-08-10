@@ -1,5 +1,5 @@
 <% if manifestation %>
-  <% cache([manifestation, fragment: 'pickup_html', role: current_user_role_name, locale: @locale]) do %>
+  <% cache([manifestation, fragment: 'pickup_html', role: current_user_role_name, locale: I18n.locale]) do %>
     <div class="row">
       <div id="pickup_book_jacket" class="col-6">
         <%= render "manifestations/book_jacket", manifestation: manifestation -%>

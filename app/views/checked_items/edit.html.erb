@@ -11,11 +11,6 @@
     <%= f.label t("activerecord.models.basket") %><br/>
     <%= f.text_field :basket_id, required: true, class: "form-control" %>
   </div>
-
-  <div class="actions mt-3">
-    <%= f.hidden_field :lock_version %>
-    <%= f.submit class: "btn btn-primary" %>
-  </div>
 <% end %>
 
 <%= link_to t("page.show"), checked_item_path(@checked_item) %>
