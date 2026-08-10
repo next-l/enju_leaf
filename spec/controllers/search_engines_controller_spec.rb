@@ -19,7 +19,7 @@ describe SearchEnginesController do
 
       it 'assigns all search_engines as @search_engines' do
         get :index
-        assigns(:search_engines).should eq(SearchEngine.order(:position))
+        expect(assigns(:search_engines)).to eq(SearchEngine.order(:position))
       end
     end
 
@@ -28,7 +28,7 @@ describe SearchEnginesController do
 
       it 'assigns all search_engines as @search_engines' do
         get :index
-        assigns(:search_engines).should eq(SearchEngine.order(:position))
+        expect(assigns(:search_engines)).to eq(SearchEngine.order(:position))
       end
     end
 
@@ -37,16 +37,16 @@ describe SearchEnginesController do
 
       it 'assigns all search_engines as @search_engines' do
         get :index
-        assigns(:search_engines).should be_nil
-        response.should be_forbidden
+        expect(assigns(:search_engines)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'assigns all search_engines as @search_engines' do
         get :index
-        assigns(:search_engines).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:search_engines)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -58,7 +58,7 @@ describe SearchEnginesController do
       it 'assigns the requested search_engine as @search_engine' do
         search_engine = FactoryBot.create(:search_engine)
         get :show, params: { id: search_engine.id }
-        assigns(:search_engine).should eq(search_engine)
+        expect(assigns(:search_engine)).to eq(search_engine)
       end
     end
 
@@ -68,7 +68,7 @@ describe SearchEnginesController do
       it 'assigns the requested search_engine as @search_engine' do
         search_engine = FactoryBot.create(:search_engine)
         get :show, params: { id: search_engine.id }
-        assigns(:search_engine).should eq(search_engine)
+        expect(assigns(:search_engine)).to eq(search_engine)
       end
     end
 
@@ -78,7 +78,7 @@ describe SearchEnginesController do
       it 'assigns the requested search_engine as @search_engine' do
         search_engine = FactoryBot.create(:search_engine)
         get :show, params: { id: search_engine.id }
-        assigns(:search_engine).should eq(search_engine)
+        expect(assigns(:search_engine)).to eq(search_engine)
       end
     end
 
@@ -86,7 +86,7 @@ describe SearchEnginesController do
       it 'assigns the requested search_engine as @search_engine' do
         search_engine = FactoryBot.create(:search_engine)
         get :show, params: { id: search_engine.id }
-        assigns(:search_engine).should eq(search_engine)
+        expect(assigns(:search_engine)).to eq(search_engine)
       end
     end
   end
@@ -97,8 +97,8 @@ describe SearchEnginesController do
 
       it 'assigns the requested search_engine as @search_engine' do
         get :new
-        assigns(:search_engine).should_not be_valid
-        response.should be_successful
+        expect(assigns(:search_engine)).not_to be_valid
+        expect(response).to be_successful
       end
     end
 
@@ -107,8 +107,8 @@ describe SearchEnginesController do
 
       it 'should not assign the requested search_engine as @search_engine' do
         get :new
-        assigns(:search_engine).should be_nil
-        response.should be_forbidden
+        expect(assigns(:search_engine)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
@@ -117,16 +117,16 @@ describe SearchEnginesController do
 
       it 'should not assign the requested search_engine as @search_engine' do
         get :new
-        assigns(:search_engine).should be_nil
-        response.should be_forbidden
+        expect(assigns(:search_engine)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should not assign the requested search_engine as @search_engine' do
         get :new
-        assigns(:search_engine).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:search_engine)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -138,7 +138,7 @@ describe SearchEnginesController do
       it 'assigns the requested search_engine as @search_engine' do
         search_engine = FactoryBot.create(:search_engine)
         get :edit, params: { id: search_engine.id }
-        assigns(:search_engine).should eq(search_engine)
+        expect(assigns(:search_engine)).to eq(search_engine)
       end
     end
 
@@ -148,7 +148,7 @@ describe SearchEnginesController do
       it 'assigns the requested search_engine as @search_engine' do
         search_engine = FactoryBot.create(:search_engine)
         get :edit, params: { id: search_engine.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -158,7 +158,7 @@ describe SearchEnginesController do
       it 'assigns the requested search_engine as @search_engine' do
         search_engine = FactoryBot.create(:search_engine)
         get :edit, params: { id: search_engine.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -166,7 +166,7 @@ describe SearchEnginesController do
       it 'should not assign the requested search_engine as @search_engine' do
         search_engine = FactoryBot.create(:search_engine)
         get :edit, params: { id: search_engine.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -183,24 +183,24 @@ describe SearchEnginesController do
       describe 'with valid params' do
         it 'assigns a newly created search_engine as @search_engine' do
           post :create, params: { search_engine: @attrs }
-          assigns(:search_engine).should be_valid
+          expect(assigns(:search_engine)).to be_valid
         end
 
         it 'redirects to the created patron' do
           post :create, params: { search_engine: @attrs }
-          response.should redirect_to(assigns(:search_engine))
+          expect(response).to redirect_to(assigns(:search_engine))
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved search_engine as @search_engine' do
           post :create, params: { search_engine: @invalid_attrs }
-          assigns(:search_engine).should_not be_valid
+          expect(assigns(:search_engine)).not_to be_valid
         end
 
         it 'should be successful' do
           post :create, params: { search_engine: @invalid_attrs }
-          response.should be_successful
+          expect(response).to be_successful
         end
       end
     end
@@ -211,24 +211,24 @@ describe SearchEnginesController do
       describe 'with valid params' do
         it 'assigns a newly created search_engine as @search_engine' do
           post :create, params: { search_engine: @attrs }
-          assigns(:search_engine).should be_nil
+          expect(assigns(:search_engine)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { search_engine: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved search_engine as @search_engine' do
           post :create, params: { search_engine: @invalid_attrs }
-          assigns(:search_engine).should be_nil
+          expect(assigns(:search_engine)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { search_engine: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -239,24 +239,24 @@ describe SearchEnginesController do
       describe 'with valid params' do
         it 'assigns a newly created search_engine as @search_engine' do
           post :create, params: { search_engine: @attrs }
-          assigns(:search_engine).should be_nil
+          expect(assigns(:search_engine)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { search_engine: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved search_engine as @search_engine' do
           post :create, params: { search_engine: @invalid_attrs }
-          assigns(:search_engine).should be_nil
+          expect(assigns(:search_engine)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { search_engine: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -265,24 +265,24 @@ describe SearchEnginesController do
       describe 'with valid params' do
         it 'assigns a newly created search_engine as @search_engine' do
           post :create, params: { search_engine: @attrs }
-          assigns(:search_engine).should be_nil
+          expect(assigns(:search_engine)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { search_engine: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved search_engine as @search_engine' do
           post :create, params: { search_engine: @invalid_attrs }
-          assigns(:search_engine).should be_nil
+          expect(assigns(:search_engine)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { search_engine: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -305,19 +305,19 @@ describe SearchEnginesController do
 
         it 'assigns the requested search_engine as @search_engine' do
           put :update, params: { id: @search_engine.id, search_engine: @attrs }
-          assigns(:search_engine).should eq(@search_engine)
+          expect(assigns(:search_engine)).to eq(@search_engine)
         end
 
         it 'moves its position when specified' do
           put :update, params: { id: @search_engine.id, search_engine: @attrs, move: 'lower' }
-          response.should redirect_to(search_engines_url)
+          expect(response).to redirect_to(search_engines_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested search_engine as @search_engine' do
           put :update, params: { id: @search_engine.id, search_engine: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -332,15 +332,15 @@ describe SearchEnginesController do
 
         it 'assigns the requested search_engine as @search_engine' do
           put :update, params: { id: @search_engine.id, search_engine: @attrs }
-          assigns(:search_engine).should eq(@search_engine)
-          response.should be_forbidden
+          expect(assigns(:search_engine)).to eq(@search_engine)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested search_engine as @search_engine' do
           put :update, params: { id: @search_engine.id, search_engine: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -355,15 +355,15 @@ describe SearchEnginesController do
 
         it 'assigns the requested search_engine as @search_engine' do
           put :update, params: { id: @search_engine.id, search_engine: @attrs }
-          assigns(:search_engine).should eq(@search_engine)
-          response.should be_forbidden
+          expect(assigns(:search_engine)).to eq(@search_engine)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested search_engine as @search_engine' do
           put :update, params: { id: @search_engine.id, search_engine: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -376,14 +376,14 @@ describe SearchEnginesController do
 
         it 'should be forbidden' do
           put :update, params: { id: @search_engine.id, search_engine: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested search_engine as @search_engine' do
           put :update, params: { id: @search_engine.id, search_engine: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -403,7 +403,7 @@ describe SearchEnginesController do
 
       it 'redirects to the search_engines list' do
         delete :destroy, params: { id: @search_engine.id }
-        response.should redirect_to(search_engines_url)
+        expect(response).to redirect_to(search_engines_url)
       end
     end
 
@@ -416,7 +416,7 @@ describe SearchEnginesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @search_engine.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -429,7 +429,7 @@ describe SearchEnginesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @search_engine.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -440,7 +440,7 @@ describe SearchEnginesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @search_engine.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

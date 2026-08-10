@@ -72,25 +72,25 @@ describe ManifestationsController do
 
       it 'assigns all manifestations as @manifestations when pub_date_from and pub_date_until are specified' do
         get :index, params: { pub_date_from: '2000', pub_date_until: '2007' }
-        assigns(:query).should eq "date_of_publication_d:[#{Time.zone.parse('2000-01-01').beginning_of_day.utc.iso8601} TO #{Time.zone.parse('2007-12-31').end_of_year.utc.iso8601}]"
+        expect(assigns(:query)).to eq "date_of_publication_d:[#{Time.zone.parse('2000-01-01').beginning_of_day.utc.iso8601} TO #{Time.zone.parse('2007-12-31').end_of_year.utc.iso8601}]"
         expect(assigns(:manifestations)).to_not be_nil
       end
 
       it 'assigns all manifestations as @manifestations when old pub_date_from and pub_date_until are specified' do
         get :index, params: { pub_date_from: '200', pub_date_until: '207' }
-        assigns(:query).should eq "date_of_publication_d:[#{Time.zone.parse('200-01-01').utc.iso8601} TO #{Time.zone.parse('207-12-31').end_of_year.utc.iso8601}]"
+        expect(assigns(:query)).to eq "date_of_publication_d:[#{Time.zone.parse('200-01-01').utc.iso8601} TO #{Time.zone.parse('207-12-31').end_of_year.utc.iso8601}]"
         expect(assigns(:manifestations)).to_not be_nil
       end
 
       it 'assigns all manifestations as @manifestations when acquired_from and pub_date_until are specified' do
         get :index, params: { acquired_from: '2000', acquired_until: '2007' }
-        assigns(:query).should eq "acquired_at_d:[#{Time.zone.parse('2000-01-01').beginning_of_day.utc.iso8601} TO #{Time.zone.parse('2007-12-31').end_of_year.utc.iso8601}]"
+        expect(assigns(:query)).to eq "acquired_at_d:[#{Time.zone.parse('2000-01-01').beginning_of_day.utc.iso8601} TO #{Time.zone.parse('2007-12-31').end_of_year.utc.iso8601}]"
         expect(assigns(:manifestations)).to_not be_nil
       end
 
       it 'assigns all manifestations as @manifestations when old acquired_from and pub_date_until are specified' do
         get :index, params: { acquired_from: '200', acquired_until: '207' }
-        assigns(:query).should eq "acquired_at_d:[#{Time.zone.parse('200-01-01').utc.iso8601} TO #{Time.zone.parse('207-12-31').end_of_day.utc.iso8601}]"
+        expect(assigns(:query)).to eq "acquired_at_d:[#{Time.zone.parse('200-01-01').utc.iso8601} TO #{Time.zone.parse('207-12-31').end_of_day.utc.iso8601}]"
         expect(assigns(:manifestations)).to_not be_nil
       end
 
@@ -115,7 +115,7 @@ describe ManifestationsController do
         get :index, params: { manifestation_id: 1 }
         expect(response).to be_successful
         expect(assigns(:manifestation)).to eq Manifestation.find(1)
-        assigns(:manifestations).collect(&:id).should eq assigns(:manifestation).derived_manifestations.collect(&:id)
+        expect(assigns(:manifestations).collect(&:id)).to eq assigns(:manifestation).derived_manifestations.collect(&:id)
       end
 
       it 'should get index with query' do
@@ -127,21 +127,21 @@ describe ManifestationsController do
       it 'should get index with page number' do
         get :index, params: { query: '2005', number_of_pages_at_least: 1, number_of_pages_at_most: 100 }
         expect(response).to be_successful
-        assigns(:query).should eq '2005 number_of_pages_i:[1 TO 100]'
+        expect(assigns(:query)).to eq '2005 number_of_pages_i:[1 TO 100]'
       end
 
       it 'should get index with pub_date_from' do
         get :index, params: { query: '2005', pub_date_from: '2000' }
         expect(response).to be_successful
         expect(assigns(:manifestations)).to be_truthy
-        assigns(:query).should eq '2005 date_of_publication_d:[1999-12-31T15:00:00Z TO *]'
+        expect(assigns(:query)).to eq '2005 date_of_publication_d:[1999-12-31T15:00:00Z TO *]'
       end
 
       it 'should get index with pub_date_until' do
         get :index, params: { query: '2005', pub_date_until: '2000' }
         expect(response).to be_successful
         expect(assigns(:manifestations)).to be_truthy
-        assigns(:query).should eq '2005 date_of_publication_d:[* TO 2000-12-31T14:59:59Z]'
+        expect(assigns(:query)).to eq '2005 date_of_publication_d:[* TO 2000-12-31T14:59:59Z]'
       end
 
       it 'should show manifestation with isbn', solr: true do
@@ -530,7 +530,7 @@ describe ManifestationsController do
         it 'assigns a series_statement' do
           post :create, params: { manifestation: @attrs.merge(series_statements_attributes: { '0' => { original_title: SeriesStatement.find(1).original_title } }) }
           assigns(:manifestation).reload
-          assigns(:manifestation).series_statements.pluck(:original_title).include?(series_statements(:one).original_title).should be_truthy
+          expect(assigns(:manifestation).series_statements.pluck(:original_title).include?(series_statements(:one).original_title)).to be_truthy
         end
 
         it 'redirects to the created manifestation' do
@@ -666,7 +666,7 @@ describe ManifestationsController do
         it 'assigns a series_statement' do
           put :update, params: { id: @manifestation.id, manifestation: @attrs.merge(series_statements_attributes: { '0' => { :original_title => series_statements(:two).original_title, '_destroy' => 'false' } }) }
           assigns(:manifestation).reload
-          assigns(:manifestation).series_statements.pluck(:original_title).include?(series_statements(:two).original_title).should be_truthy
+          expect(assigns(:manifestation).series_statements.pluck(:original_title).include?(series_statements(:two).original_title)).to be_truthy
         end
 
         it 'assigns the requested manifestation as @manifestation' do

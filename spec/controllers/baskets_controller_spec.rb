@@ -9,13 +9,13 @@ describe BasketsController do
 
       it 'assigns all baskets as @baskets' do
         get :index, params: { user_id: users(:user1).username }
-        assigns(:baskets).should_not be_empty
-        response.should be_successful
+        expect(assigns(:baskets)).not_to be_empty
+        expect(response).to be_successful
       end
 
       it 'should get index without user_id' do
         get :index
-        response.should be_successful
+        expect(response).to be_successful
       end
     end
 
@@ -24,8 +24,8 @@ describe BasketsController do
 
       it 'assigns all baskets as @baskets' do
         get :index, params: { user_id: users(:user1).username }
-        assigns(:baskets).should_not be_empty
-        response.should be_successful
+        expect(assigns(:baskets)).not_to be_empty
+        expect(response).to be_successful
       end
     end
 
@@ -34,16 +34,16 @@ describe BasketsController do
 
       it 'assigns all baskets as @baskets' do
         get :index, params: { user_id: users(:user1).username }
-        assigns(:baskets).should be_nil
-        response.should be_forbidden
+        expect(assigns(:baskets)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'assigns all baskets as @baskets' do
         get :index, params: { user_id: users(:user1).username }
-        assigns(:baskets).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:baskets)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -54,7 +54,7 @@ describe BasketsController do
 
       it 'assigns the requested basket as @basket' do
         get :show, params: { id: 1, user_id: users(:admin).username }
-        assigns(:basket).should eq(Basket.find(1))
+        expect(assigns(:basket)).to eq(Basket.find(1))
       end
     end
 
@@ -63,7 +63,7 @@ describe BasketsController do
 
       it 'assigns the requested basket as @basket' do
         get :show, params: { id: 1, user_id: users(:admin).username }
-        assigns(:basket).should eq(Basket.find(1))
+        expect(assigns(:basket)).to eq(Basket.find(1))
       end
     end
 
@@ -72,16 +72,16 @@ describe BasketsController do
 
       it 'assigns the requested basket as @basket' do
         get :show, params: { id: 1, user_id: users(:admin).username }
-        assigns(:basket).should eq(Basket.find(1))
-        response.should be_forbidden
+        expect(assigns(:basket)).to eq(Basket.find(1))
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'assigns the requested basket as @basket' do
         get :show, params: { id: 1, user_id: users(:admin).username }
-        assigns(:basket).should eq(Basket.find(1))
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:basket)).to eq(Basket.find(1))
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -92,7 +92,7 @@ describe BasketsController do
 
       it 'assigns the requested basket as @basket' do
         get :new
-        assigns(:basket).should_not be_valid
+        expect(assigns(:basket)).not_to be_valid
       end
     end
 
@@ -101,7 +101,7 @@ describe BasketsController do
 
       it 'assigns the requested basket as @basket' do
         get :new
-        assigns(:basket).should_not be_valid
+        expect(assigns(:basket)).not_to be_valid
       end
     end
 
@@ -110,16 +110,16 @@ describe BasketsController do
 
       it 'should not assign the requested basket as @basket' do
         get :new
-        assigns(:basket).should be_nil
-        response.should be_forbidden
+        expect(assigns(:basket)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should not assign the requested basket as @basket' do
         get :new
-        assigns(:basket).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:basket)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -133,7 +133,7 @@ describe BasketsController do
 
       it 'assigns the requested basket as @basket' do
         get :edit, params: { id: @basket.id }
-        assigns(:basket).should eq(@basket)
+        expect(assigns(:basket)).to eq(@basket)
       end
     end
 
@@ -145,7 +145,7 @@ describe BasketsController do
 
       it 'assigns the requested basket as @basket' do
         get :edit, params: { id: @basket.id }
-        assigns(:basket).should eq(@basket)
+        expect(assigns(:basket)).to eq(@basket)
       end
     end
 
@@ -157,8 +157,8 @@ describe BasketsController do
 
       it 'should not assign the requested basket as @basket' do
         get :edit, params: { id: @basket.id }
-        assigns(:basket).should eq(@basket)
-        response.should be_forbidden
+        expect(assigns(:basket)).to eq(@basket)
+        expect(response).to be_forbidden
       end
     end
 
@@ -169,8 +169,8 @@ describe BasketsController do
 
       it 'should not assign the requested basket as @basket' do
         get :edit, params: { id: @basket.id }
-        assigns(:basket).should eq(@basket)
-        response.should redirect_to new_user_session_url
+        expect(assigns(:basket)).to eq(@basket)
+        expect(response).to redirect_to new_user_session_url
       end
     end
   end
@@ -187,21 +187,21 @@ describe BasketsController do
       describe 'with valid params' do
         it 'assigns a newly created basket as @basket' do
           post :create, params: { basket: { user_number: users(:user1).profile.user_number } }
-          assigns(:basket).should be_valid
+          expect(assigns(:basket)).to be_valid
         end
       end
 
       describe 'with blank params' do
         it 'assigns a newly created basket as @basket' do
           post :create, params: { basket: { note: 'test' } }
-          assigns(:basket).should_not be_valid
+          expect(assigns(:basket)).not_to be_valid
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created basket as @basket' do
           post :create, params: { basket: @invalid_attrs }
-          assigns(:basket).should_not be_valid
+          expect(assigns(:basket)).not_to be_valid
         end
       end
     end
@@ -212,54 +212,54 @@ describe BasketsController do
       describe 'with valid params' do
         it 'assigns a newly created basket as @basket' do
           post :create, params: { basket: { user_number: users(:user1).profile.user_number } }
-          assigns(:basket).should be_valid
+          expect(assigns(:basket)).to be_valid
         end
       end
 
       describe 'with blank params' do
         it 'assigns a newly created basket as @basket' do
           post :create, params: { basket: { note: 'test' } }
-          assigns(:basket).should_not be_valid
+          expect(assigns(:basket)).not_to be_valid
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created basket as @basket' do
           post :create, params: { basket: @invalid_attrs }
-          assigns(:basket).should_not be_valid
+          expect(assigns(:basket)).not_to be_valid
         end
       end
 
       it 'should not create basket when user is suspended' do
         post :create, params: { basket: { user_number: users(:user4).profile.user_number } }
-        assigns(:basket).should_not be_valid
-        assigns(:basket).errors['base'].include?(I18n.t('basket.this_account_is_suspended')).should be_truthy
-        response.should be_successful
+        expect(assigns(:basket)).not_to be_valid
+        expect(assigns(:basket).errors['base'].include?(I18n.t('basket.this_account_is_suspended'))).to be_truthy
+        expect(response).to be_successful
       end
 
       it 'should not create basket when user is not found' do
         post :create, params: { basket: { user_number: 'not found' } }
-        assigns(:basket).should_not be_valid
-        assigns(:basket).errors['base'].include?(I18n.t('user.not_found')).should be_truthy
-        response.should be_successful
+        expect(assigns(:basket)).not_to be_valid
+        expect(assigns(:basket).errors['base'].include?(I18n.t('user.not_found'))).to be_truthy
+        expect(response).to be_successful
       end
 
       it 'should not create basket without user_number' do
         post :create, params: { basket: { note: 'test' } }
-        assigns(:basket).should_not be_valid
-        response.should be_successful
+        expect(assigns(:basket)).not_to be_valid
+        expect(response).to be_successful
       end
 
       it 'should create basket' do
         post :create, params: { basket: { user_number: users(:user1).profile.user_number } }
-        assigns(:basket).should be_valid
-        response.should redirect_to new_checked_item_url(basket_id: assigns(:basket).id)
+        expect(assigns(:basket)).to be_valid
+        expect(response).to redirect_to new_checked_item_url(basket_id: assigns(:basket).id)
       end
 
       it 'should not create basket without user_number' do
         post :create, params: { basket: { note: 'test' } }
-        assigns(:basket).should_not be_valid
-        response.should be_successful
+        expect(assigns(:basket)).not_to be_valid
+        expect(response).to be_successful
       end
     end
 
@@ -269,18 +269,18 @@ describe BasketsController do
       describe 'with valid params' do
         it 'assigns a newly created basket as @basket' do
           post :create, params: { basket: { user_number: users(:user1).profile.user_number } }
-          assigns(:basket).should be_nil
+          expect(assigns(:basket)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { basket: { user_number: users(:user1).profile.user_number } }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       it 'should not create basket' do
         post :create, params: { basket: { user_number: users(:user1).profile.user_number } }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -288,14 +288,14 @@ describe BasketsController do
       describe 'with blank params' do
         it 'assigns a newly created basket as @basket' do
           post :create, params: { basket: { note: 'test' } }
-          assigns(:basket).should be_nil
+          expect(assigns(:basket)).to be_nil
         end
 
         it 'should be redirected to new_user_session_url' do
           post :create, params: { basket: { note: 'test' } }
-          assigns(:basket).should be_nil
+          expect(assigns(:basket)).to be_nil
           assert_response :redirect
-          response.should redirect_to new_user_session_url
+          expect(response).to redirect_to new_user_session_url
         end
       end
     end
@@ -316,8 +316,8 @@ describe BasketsController do
 
         it 'assigns the requested basket as @basket' do
           put :update, params: { id: 8, basket: @attrs }
-          assigns(:basket).checkouts.order('created_at DESC').first.item.circulation_status.name.should eq 'On Loan'
-          response.should redirect_to(checkouts_url(user_id: assigns(:basket).user.username))
+          expect(assigns(:basket).checkouts.order('created_at DESC').first.item.circulation_status.name).to eq 'On Loan'
+          expect(response).to redirect_to(checkouts_url(user_id: assigns(:basket).user.username))
         end
       end
     end
@@ -333,12 +333,12 @@ describe BasketsController do
 
       it 'should destroy basket without user_id' do
         delete :destroy, params: { id: @basket.id, basket: { user_id: nil }, user_id: users(:user1).username }
-        response.should redirect_to(checkouts_url(user_id: assigns(:basket).user.username))
+        expect(response).to redirect_to(checkouts_url(user_id: assigns(:basket).user.username))
       end
 
       it 'should destroy basket' do
         delete :destroy, params: { id: @basket.id, basket: {}, user_id: users(:user1).username }
-        response.should redirect_to(checkouts_url(user_id: assigns(:basket).user.username))
+        expect(response).to redirect_to(checkouts_url(user_id: assigns(:basket).user.username))
       end
     end
 
@@ -347,12 +347,12 @@ describe BasketsController do
 
       it 'should destroy basket without user_id' do
         delete :destroy, params: { id: @basket.id, basket: { user_id: nil }, user_id: users(:user1).username }
-        response.should redirect_to(checkouts_url(user_id: assigns(:basket).user.username))
+        expect(response).to redirect_to(checkouts_url(user_id: assigns(:basket).user.username))
       end
 
       it 'should destroy basket' do
         delete :destroy, params: { id: @basket.id, basket: {}, user_id: users(:user1).username }
-        response.should redirect_to(checkouts_url(user_id: assigns(:basket).user.username))
+        expect(response).to redirect_to(checkouts_url(user_id: assigns(:basket).user.username))
       end
     end
 
@@ -361,7 +361,7 @@ describe BasketsController do
 
       it 'should not destroy basket' do
         delete :destroy, params: { id: 3, user_id: users(:user1).username }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -372,7 +372,7 @@ describe BasketsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @basket.id }
-        response.should redirect_to new_user_session_url
+        expect(response).to redirect_to new_user_session_url
       end
     end
   end

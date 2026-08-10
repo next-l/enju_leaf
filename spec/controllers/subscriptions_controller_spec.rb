@@ -18,7 +18,7 @@ describe SubscriptionsController do
 
       it 'assigns all subscriptions as @subscriptions' do
         get :index
-        assigns(:subscriptions).should eq(Subscription.page(1))
+        expect(assigns(:subscriptions)).to eq(Subscription.page(1))
       end
     end
 
@@ -27,7 +27,7 @@ describe SubscriptionsController do
 
       it 'assigns all subscriptions as @subscriptions' do
         get :index
-        assigns(:subscriptions).should eq(Subscription.page(1))
+        expect(assigns(:subscriptions)).to eq(Subscription.page(1))
       end
     end
 
@@ -36,14 +36,14 @@ describe SubscriptionsController do
 
       it 'assigns all subscriptions as @subscriptions' do
         get :index
-        assigns(:subscriptions).should be_nil
+        expect(assigns(:subscriptions)).to be_nil
       end
     end
 
     describe 'When not logged in' do
       it 'assigns all subscriptions as @subscriptions' do
         get :index
-        assigns(:subscriptions).should be_nil
+        expect(assigns(:subscriptions)).to be_nil
       end
     end
   end
@@ -55,7 +55,7 @@ describe SubscriptionsController do
       it 'assigns the requested subscription as @subscription' do
         subscription = FactoryBot.create(:subscription)
         get :show, params: { id: subscription.id }
-        assigns(:subscription).should eq(subscription)
+        expect(assigns(:subscription)).to eq(subscription)
       end
     end
 
@@ -65,7 +65,7 @@ describe SubscriptionsController do
       it 'assigns the requested subscription as @subscription' do
         subscription = FactoryBot.create(:subscription)
         get :show, params: { id: subscription.id }
-        assigns(:subscription).should eq(subscription)
+        expect(assigns(:subscription)).to eq(subscription)
       end
     end
 
@@ -75,7 +75,7 @@ describe SubscriptionsController do
       it 'assigns the requested subscription as @subscription' do
         subscription = FactoryBot.create(:subscription)
         get :show, params: { id: subscription.id }
-        assigns(:subscription).should eq(subscription)
+        expect(assigns(:subscription)).to eq(subscription)
       end
     end
 
@@ -83,7 +83,7 @@ describe SubscriptionsController do
       it 'assigns the requested subscription as @subscription' do
         subscription = FactoryBot.create(:subscription)
         get :show, params: { id: subscription.id }
-        assigns(:subscription).should eq(subscription)
+        expect(assigns(:subscription)).to eq(subscription)
       end
     end
   end
@@ -94,7 +94,7 @@ describe SubscriptionsController do
 
       it 'assigns the requested subscription as @subscription' do
         get :new
-        assigns(:subscription).should_not be_valid
+        expect(assigns(:subscription)).not_to be_valid
       end
     end
 
@@ -103,7 +103,7 @@ describe SubscriptionsController do
 
       it 'assigns the requested subscription as @subscription' do
         get :new
-        assigns(:subscription).should_not be_valid
+        expect(assigns(:subscription)).not_to be_valid
       end
     end
 
@@ -112,16 +112,16 @@ describe SubscriptionsController do
 
       it 'should not assign the requested subscription as @subscription' do
         get :new
-        assigns(:subscription).should be_nil
-        response.should be_forbidden
+        expect(assigns(:subscription)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should not assign the requested subscription as @subscription' do
         get :new
-        assigns(:subscription).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:subscription)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -133,7 +133,7 @@ describe SubscriptionsController do
       it 'assigns the requested subscription as @subscription' do
         subscription = FactoryBot.create(:subscription)
         get :edit, params: { id: subscription.id }
-        assigns(:subscription).should eq(subscription)
+        expect(assigns(:subscription)).to eq(subscription)
       end
     end
 
@@ -143,7 +143,7 @@ describe SubscriptionsController do
       it 'assigns the requested subscription as @subscription' do
         subscription = FactoryBot.create(:subscription)
         get :edit, params: { id: subscription.id }
-        assigns(:subscription).should eq(subscription)
+        expect(assigns(:subscription)).to eq(subscription)
       end
     end
 
@@ -153,7 +153,7 @@ describe SubscriptionsController do
       it 'assigns the requested subscription as @subscription' do
         subscription = FactoryBot.create(:subscription)
         get :edit, params: { id: subscription.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -161,7 +161,7 @@ describe SubscriptionsController do
       it 'should not assign the requested subscription as @subscription' do
         subscription = FactoryBot.create(:subscription)
         get :edit, params: { id: subscription.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -178,24 +178,24 @@ describe SubscriptionsController do
       describe 'with valid params' do
         it 'assigns a newly created subscription as @subscription' do
           post :create, params: { subscription: @attrs }
-          assigns(:subscription).should be_valid
+          expect(assigns(:subscription)).to be_valid
         end
 
         it 'redirects to the created subscription' do
           post :create, params: { subscription: @attrs }
-          response.should redirect_to(subscription_url(assigns(:subscription)))
+          expect(response).to redirect_to(subscription_url(assigns(:subscription)))
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved subscription as @subscription' do
           post :create, params: { subscription: @invalid_attrs }
-          assigns(:subscription).should_not be_valid
+          expect(assigns(:subscription)).not_to be_valid
         end
 
         it "re-renders the 'new' template" do
           post :create, params: { subscription: @invalid_attrs }
-          response.should render_template('new')
+          expect(response).to render_template('new')
         end
       end
     end
@@ -206,24 +206,24 @@ describe SubscriptionsController do
       describe 'with valid params' do
         it 'assigns a newly created subscription as @subscription' do
           post :create, params: { subscription: @attrs }
-          assigns(:subscription).should be_valid
+          expect(assigns(:subscription)).to be_valid
         end
 
         it 'redirects to the created subscription' do
           post :create, params: { subscription: @attrs }
-          response.should redirect_to(subscription_url(assigns(:subscription)))
+          expect(response).to redirect_to(subscription_url(assigns(:subscription)))
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved subscription as @subscription' do
           post :create, params: { subscription: @invalid_attrs }
-          assigns(:subscription).should_not be_valid
+          expect(assigns(:subscription)).not_to be_valid
         end
 
         it "re-renders the 'new' template" do
           post :create, params: { subscription: @invalid_attrs }
-          response.should render_template('new')
+          expect(response).to render_template('new')
         end
       end
     end
@@ -234,24 +234,24 @@ describe SubscriptionsController do
       describe 'with valid params' do
         it 'assigns a newly created subscription as @subscription' do
           post :create, params: { subscription: @attrs }
-          assigns(:subscription).should be_nil
+          expect(assigns(:subscription)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { subscription: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved subscription as @subscription' do
           post :create, params: { subscription: @invalid_attrs }
-          assigns(:subscription).should be_nil
+          expect(assigns(:subscription)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { subscription: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -260,24 +260,24 @@ describe SubscriptionsController do
       describe 'with valid params' do
         it 'assigns a newly created subscription as @subscription' do
           post :create, params: { subscription: @attrs }
-          assigns(:subscription).should be_nil
+          expect(assigns(:subscription)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { subscription: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved subscription as @subscription' do
           post :create, params: { subscription: @invalid_attrs }
-          assigns(:subscription).should be_nil
+          expect(assigns(:subscription)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { subscription: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -300,14 +300,14 @@ describe SubscriptionsController do
 
         it 'assigns the requested subscription as @subscription' do
           put :update, params: { id: @subscription.id, subscription: @attrs }
-          assigns(:subscription).should eq(@subscription)
+          expect(assigns(:subscription)).to eq(@subscription)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested subscription as @subscription' do
           put :update, params: { id: @subscription.id, subscription: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -322,20 +322,20 @@ describe SubscriptionsController do
 
         it 'assigns the requested subscription as @subscription' do
           put :update, params: { id: @subscription.id, subscription: @attrs }
-          assigns(:subscription).should eq(@subscription)
-          response.should redirect_to(@subscription)
+          expect(assigns(:subscription)).to eq(@subscription)
+          expect(response).to redirect_to(@subscription)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the subscription as @subscription' do
           put :update, params: { id: @subscription, subscription: @invalid_attrs }
-          assigns(:subscription).should_not be_valid
+          expect(assigns(:subscription)).not_to be_valid
         end
 
         it "re-renders the 'edit' template" do
           put :update, params: { id: @subscription, subscription: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -350,15 +350,15 @@ describe SubscriptionsController do
 
         it 'assigns the requested subscription as @subscription' do
           put :update, params: { id: @subscription.id, subscription: @attrs }
-          assigns(:subscription).should eq(@subscription)
-          response.should be_forbidden
+          expect(assigns(:subscription)).to eq(@subscription)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested subscription as @subscription' do
           put :update, params: { id: @subscription.id, subscription: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -371,14 +371,14 @@ describe SubscriptionsController do
 
         it 'should be forbidden' do
           put :update, params: { id: @subscription.id, subscription: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested subscription as @subscription' do
           put :update, params: { id: @subscription.id, subscription: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -398,7 +398,7 @@ describe SubscriptionsController do
 
       it 'redirects to the subscriptions list' do
         delete :destroy, params: { id: @subscription.id }
-        response.should redirect_to(subscriptions_url)
+        expect(response).to redirect_to(subscriptions_url)
       end
     end
 
@@ -411,7 +411,7 @@ describe SubscriptionsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @subscription.id }
-        response.should redirect_to(subscriptions_url)
+        expect(response).to redirect_to(subscriptions_url)
       end
     end
 
@@ -424,7 +424,7 @@ describe SubscriptionsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @subscription.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -435,7 +435,7 @@ describe SubscriptionsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @subscription.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

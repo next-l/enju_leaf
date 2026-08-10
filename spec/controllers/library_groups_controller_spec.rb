@@ -9,15 +9,15 @@ describe LibraryGroupsController do
 
       it 'assigns all library_groups as @library_groups' do
         get :index
-        assigns(:library_groups).should_not be_empty
+        expect(assigns(:library_groups)).not_to be_empty
       end
     end
 
     describe 'When not logged in' do
       it 'assigns all library_groups as @library_groups' do
         get :index
-        assigns(:library_groups).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:library_groups)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -28,15 +28,15 @@ describe LibraryGroupsController do
 
       it 'assigns the requested library_group as @library_group' do
         get :show, params: { id: 1 }
-        assigns(:library_group).should eq(LibraryGroup.find(1))
+        expect(assigns(:library_group)).to eq(LibraryGroup.find(1))
       end
     end
 
     describe 'When not logged in' do
       it 'assigns the requested library_group as @library_group' do
         get :show, params: { id: 1 }
-        assigns(:library_group).should eq(LibraryGroup.find(1))
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:library_group)).to eq(LibraryGroup.find(1))
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -48,7 +48,7 @@ describe LibraryGroupsController do
       it 'assigns the requested library_group as @library_group' do
         library_group = LibraryGroup.find(1)
         get :edit, params: { id: library_group.id }
-        assigns(:library_group).should eq(library_group)
+        expect(assigns(:library_group)).to eq(library_group)
       end
     end
 
@@ -58,7 +58,7 @@ describe LibraryGroupsController do
       it 'should not assign the requested library_group as @library_group' do
         library_group = LibraryGroup.find(1)
         get :edit, params: { id: library_group.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -68,7 +68,7 @@ describe LibraryGroupsController do
       it 'should not assign the requested library_group as @library_group' do
         library_group = LibraryGroup.find(1)
         get :edit, params: { id: library_group.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -76,7 +76,7 @@ describe LibraryGroupsController do
       it 'should not assign the requested library_group as @library_group' do
         library_group = LibraryGroup.find(1)
         get :edit, params: { id: library_group.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -98,14 +98,14 @@ describe LibraryGroupsController do
 
         it 'assigns the requested library_group as @library_group' do
           put :update, params: { id: @library_group.id, library_group: @attrs }
-          assigns(:library_group).should eq(@library_group)
+          expect(assigns(:library_group)).to eq(@library_group)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested library_group as @library_group' do
           put :update, params: { id: @library_group.id, library_group: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -118,14 +118,14 @@ describe LibraryGroupsController do
 
         it 'should be forbidden' do
           put :update, params: { id: @library_group.id, library_group: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested library_group as @library_group' do
           put :update, params: { id: @library_group.id, library_group: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end

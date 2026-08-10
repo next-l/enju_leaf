@@ -4,7 +4,7 @@ describe CheckedItem do
   fixtures :all
 
   it "should respond to available_for_checkout?" do
-    checked_items(:checked_item_00001).available_for_checkout?.should_not be_truthy
+    expect(checked_items(:checked_item_00001).available_for_checkout?).not_to be_truthy
   end
 
   it "should change circulation_status when a missing item is found" do
@@ -14,7 +14,7 @@ describe CheckedItem do
     checked_item.item = items(:item_00024)
     checked_item.basket = basket
     checked_item.save!
-    items(:item_00024).circulation_status.name.should eq 'Available On Shelf'
+    expect(items(:item_00024).circulation_status.name).to eq 'Available On Shelf'
   end
 
   it "should checkout an item that its reservation is expired" do
