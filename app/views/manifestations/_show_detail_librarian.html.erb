@@ -149,7 +149,7 @@
     <%- end -%>
     <%= render "manifestations/show_holding",
     manifestation: manifestation,
-    items: Pundit.policy_scope!(current_user, manifestation.items) %>
+    items: Pundit.policy_scope!(current_user, manifestation.items).includes(:circulation_status, :checkouts, :use_restriction, shelf: :library) %>
     <%- if policy(Item).create? -%>
       <p><%= link_to t("page.new", model: t("activerecord.models.item")),
         new_item_path(manifestation_id: manifestation.id) -%></p>
