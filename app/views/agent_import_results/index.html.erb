@@ -73,9 +73,9 @@
             class: "enju_icon",
             alt: "TSV"
           ),
-          agent_import_results_path(format: :txt, locale: @locale.to_s),
+          agent_import_results_path(format: :txt, locale: I18n.locale.to_s),
         ) -%>
-        (<%= link_to "TSV", agent_import_results_path(format: :txt, locale: @locale.to_s) -%>)
+        (<%= link_to "TSV", agent_import_results_path(format: :txt, locale: I18n.locale.to_s) -%>)
       <% end %>
     </li>
   </ul>

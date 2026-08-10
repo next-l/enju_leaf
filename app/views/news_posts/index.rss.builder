@@ -7,7 +7,7 @@ xml.rss("version" => "2.0",
     xml.title t("news_post.library_group_news_post", library_group_name: @library_group.display_name.localize)
     xml.link news_posts_url
     xml.description "Next-L Enju, an open source integrated library system developed by Project Next-L"
-    xml.language @locale.to_s
+    xml.language I18n.locale.to_s
     xml.ttl "60"
     xml.tag! "atom:link", rel: "self", href: news_posts_url(format: :rss)
     xml.tag! "atom:link", rel: "alternate", href: root_url

@@ -12,7 +12,7 @@ RSpec.describe 'Checkouts', type: :system do
     it 'should contain query params in the facet' do
       sign_in users(:librarian1)
       visit checkout_path(checkouts(:checkout_00001))
-      expect(page).to have_content '利用者番号'
+      expect(page).to have_content 'User number'
       expect(page).to have_content checkouts(:checkout_00001).user.username
       expect(page).to have_content checkouts(:checkout_00001).user.profile.user_number
     end
@@ -20,7 +20,7 @@ RSpec.describe 'Checkouts', type: :system do
     it 'should edit checkout' do
       sign_in users(:librarian1)
       visit edit_checkout_path(checkouts(:checkout_00001))
-      expect(page).to have_content '貸出の表示'
+      expect(page).to have_content 'Showing Checkout'
     end
 
     it 'should get checkouts with item_id' do
@@ -34,7 +34,7 @@ RSpec.describe 'Checkouts', type: :system do
       sign_in users(:librarian1)
       visit checkouts_path(days_overdue: 10)
       expect(page).to have_link 'RSS', href: checkouts_path(format: :rss, days_overdue: 10)
-      expect(page).to have_link 'TSV', href: checkouts_path(format: :txt, days_overdue: 10, locale: 'ja')
+      expect(page).to have_link 'TSV', href: checkouts_path(format: :txt, days_overdue: 10, locale: 'en')
     end
 
     it 'should export checkouts to TSV' do
