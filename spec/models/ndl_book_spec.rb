@@ -235,5 +235,10 @@ describe NdlBook do
       ndl_book = NdlBook.new(doc)
       ndl_book.authors[0].should eq({ id: "http://id.ndl.go.jp/auth/entity/00730574", name: "山田, 祥寛", transcription: "ヤマダ, ヨシヒロ" })
     end
+
+    it "should respond to issued", vcr: true do
+      books = NdlBook.search("Ruby")
+      expect(books[:items][0].issued).to eq "2022.2"
+    end
   end
 end
