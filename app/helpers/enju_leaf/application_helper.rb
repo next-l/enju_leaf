@@ -118,7 +118,15 @@ module EnjuLeaf
     def markdown_helper(string)
       return unless string
 
-      Kramdown::Document.new(string.to_s).to_html.html_safe
+      html = Commonmarker.to_html(string)
+      fragment = Nokogiri::HTML5.fragment(html)
+
+      fragment.css("a").each do |a|
+        a["target"] = "_blank"
+        a["rel"] = "noopener noreferrer"
+      end
+
+      fragment.to_html.html_safe
     end
 
     # ユーザの未読メッセージ数を表示します。
