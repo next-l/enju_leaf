@@ -51,7 +51,7 @@ module EnjuOai
 
         if attachment.attached?
           xml.tag! "jpcoar:file" do
-            xml.tag! "jpcoar:URI", Rails.application.routes.url_helpers.rails_storage_proxy_url(fileset.attachment, host: ENV["ENJU_LEAF_BASE_URL"])
+            xml.tag! "jpcoar:URI", Rails.application.routes.url_helpers.rails_storage_proxy_url(attachment, host: ENV["ENJU_LEAF_BASE_URL"])
           end
         end
       end

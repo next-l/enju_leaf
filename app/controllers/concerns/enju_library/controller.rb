@@ -3,7 +3,7 @@ module EnjuLibrary
     extend ActiveSupport::Concern
 
     included do
-      before_action :get_library_group, :set_locale, :set_available_languages, :set_mobile_request
+      before_action :get_library_group, :set_available_languages, :set_mobile_request
       before_action :store_current_location, unless: :devise_controller?
       rescue_from Pundit::NotAuthorizedError, with: :render_403
       # rescue_from ActiveRecord::RecordNotFound, with: :render_404
@@ -69,27 +69,6 @@ module EnjuLibrary
       super
     end
 
-    def set_locale
-      if params[:locale]
-        unless I18n.available_locales.include?(params[:locale].to_s.intern)
-          raise InvalidLocaleError
-        end
-      end
-      if user_signed_in?
-        locale = params[:locale] || session[:locale] || current_user.profile.try(:locale).try(:to_sym)
-      else
-        locale = params[:locale] || session[:locale]
-      end
-      if locale
-        I18n.locale = @locale = session[:locale] = locale.to_sym
-      else
-        I18n.locale = @locale = session[:locale] = I18n.default_locale
-      end
-    rescue InvalidLocaleError
-      reset_session
-      @locale = I18n.default_locale
-    end
-
     def default_url_options(options = {})
       { locale: nil }
     end
@@ -131,12 +110,12 @@ module EnjuLibrary
         return unless LibraryGroup.site_config.csv_charset_conversion
 
         # TODO: 他の言語
-        if @locale.to_sym == :ja
+        if I18n.locale == :ja
           headers["Content-Type"] = "text/csv; charset=Shift_JIS"
           response.body = NKF.nkf("-Ws", response.body)
         end
       when "xml"
-        if @locale.to_sym == :ja
+        if I18n.locale == :ja
           headers["Content-Type"] = "application/xml; charset=Shift_JIS"
           response.body = NKF.nkf("-Ws", response.body)
         end

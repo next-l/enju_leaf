@@ -10,14 +10,14 @@
     user_import_results_path(
       user_import_file_id: @user_import_file.id,
       format: :txt,
-      locale: @locale.to_s,
+      locale: I18n.locale.to_s,
     ),
   ) -%>
   (<%= link_to "TSV",
   user_import_results_path(
     user_import_file_id: @user_import_file.id,
     format: :txt,
-    locale: @locale.to_s,
+    locale: I18n.locale.to_s,
   ) -%>)
 </p>
 

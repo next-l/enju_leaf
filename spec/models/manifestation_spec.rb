@@ -363,5 +363,15 @@ end
 # ### Foreign Keys
 #
 # * `fk_rails_...`:
+#     * **`carrier_type_id => carrier_types.id`**
+# * `fk_rails_...`:
+#     * **`content_type_id => content_types.id`**
+# * `fk_rails_...`:
+#     * **`frequency_id => frequencies.id`**
+# * `fk_rails_...`:
+#     * **`language_id => languages.id`**
+# * `fk_rails_...`:
+#     * **`nii_type_id => nii_types.id`**
+# * `fk_rails_...`:
 #     * **`required_role_id => roles.id`**
 #
