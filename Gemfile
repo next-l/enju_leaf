@@ -111,6 +111,7 @@ gem 'webpacker', '~> 5.0'
 gem 'faraday-multipart'
 gem 'nkf'
 gem 'benchmark'
+gem 'icalendar'
 
 group :development, :test do
   gem 'annotaterb'
