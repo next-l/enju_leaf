@@ -13,7 +13,7 @@ class Notifier < ApplicationMailer
       @sender_name = LibraryGroup.system_name(message.receiver.profile.locale)
     end
     @message = message
-    @locale = message.receiver.profile.locale
+    I18n.locale = message.receiver.profile.locale
     mail(from: from, to: message.receiver.email, subject: subject)
   end
 
