@@ -30,7 +30,7 @@ module EnjuNii
         # http://ci.nii.ac.jp/info/ja/api/api_outline.html#cib_od
         # return nil
 
-        ncid = doc.at("//cinii:ncid").try(:content)
+        ncid = doc.at("//dc:identifier[@rdf:datatype='cir:NCID']").try(:content)
         identifier = NcidRecord.find_by(body: ncid)
         return identifier.manifestation if identifier
 
