@@ -2,11 +2,11 @@
   <%= error_messages(event_export_file) %>
 
   <%= f.hidden_field :mode, value: "export" if event_export_file.new_record? %>
-  <div class="actions">
+  <div class="actions mt-3">
     <% if event_export_file.new_record? %>
-      <%= f.submit t("page.export") %>
+      <%= f.submit t("page.export"), class: "btn btn-primary" %>
     <% else %>
-      <%= f.submit %>
+      <%= f.submit class: "btn btn-primary" %>
     <% end %>
   </div>
 <% end %>

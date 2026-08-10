@@ -61,11 +61,9 @@ module EnjuBiblio
         carrier_type = params[:carrier_type]
         library = params[:library]
         language = params[:language]
-        if defined?(EnjuSubject)
-          subject = params[:subject]
-          subject_by_term = Subject.find_by(term: params[:subject])
-          @subject_by_term = subject_by_term
-        end
+        subject = params[:subject]
+        subject_by_term = Subject.find_by(term: params[:subject])
+        @subject_by_term = subject_by_term
 
         search.build do
           with(:publisher_ids).equal_to agent.id if agent
@@ -86,10 +84,8 @@ module EnjuBiblio
               with(:language).equal_to language
             end
           end
-          if defined?(EnjuSubject)
-            if subject.present?
-              with(:subject).equal_to subject_by_term.term
-            end
+          if subject.present?
+            with(:subject).equal_to subject_by_term.term
           end
         end
       end

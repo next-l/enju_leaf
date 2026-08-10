@@ -11,7 +11,7 @@ RSpec.describe 'Libraries', type: :system do
 
     xit 'should show library config' do
       visit library_path(libraries(:library_00002).id, locale: :ja)
-      expect(page).to have_content '設定'
+      expect(page).to have_content 'システムの設定'
     end
   end
 
@@ -22,7 +22,7 @@ RSpec.describe 'Libraries', type: :system do
 
     xit 'should not show library config' do
       visit library_path(libraries(:library_00002).id, locale: :ja)
-      expect(page).not_to have_link '設定'
+      expect(page).not_to have_link 'システムの設定'
     end
 
     it 'should show shelves' do
@@ -38,14 +38,14 @@ RSpec.describe 'Libraries', type: :system do
 
     it 'should not show library config' do
       visit library_path(libraries(:library_00002).id, locale: :ja)
-      expect(page).not_to have_link '設定'
+      expect(page).not_to have_link 'システムの設定'
     end
   end
 
   describe 'When not logged in' do
     it 'should not show library config' do
       visit library_path(libraries(:library_00002).id, locale: :ja)
-      expect(page).not_to have_link '設定'
+      expect(page).not_to have_link 'システムの設定'
     end
   end
 end

@@ -1,33 +1,36 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t("user.change_my_password") %></h1>
-  <div id="content_list">
+<div id="content_detail" class="col-md-9">
+  <div class="card">
+    <h5 class="title card-header"><%= t('user.change_my_password') %></h5>
+    <div id="content_list" class="card-body">
 
-    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
-      <%= f.hidden_field :reset_password_token %>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <%= f.hidden_field :reset_password_token %>
 
-      <div class="field">
-        <p><%= f.label :password, "New password" %></p>
-        <% if @minimum_password_length %>
-          <p><em>(<%= @minimum_password_length %>
-              characters minimum)</em></p>
-        <% end %>
-        <p><%= f.password_field :password, autofocus: true, autocomplete: "new-password" %></p>
-      </div>
+        <div class="field">
+          <p><%= f.label :password, "New password" %></p>
+          <% if @minimum_password_length %>
+            <p><em>(<%= @minimum_password_length %> characters minimum)</em></p>
+          <% end %>
+          <p><%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-control" %></p>
+        </div>
 
-      <div class="field">
-        <p><%= f.label :password_confirmation, "Confirm new password" %></p>
-        <p><%= f.password_field :password_confirmation, autocomplete: "new-password" %></p>
-      </div>
+        <div class="field">
+          <p><%= f.label :password_confirmation, "Confirm new password" %></p>
+          <p><%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %></p>
+        </div>
 
-      <div class="actions">
-        <%= f.submit t("user.change_my_password") %>
-      </div>
-    <% end %>
+        <div class="actions mt-3">
+          <%= f.submit t('user.change_my_password'), class: "btn btn-primary" %>
+        </div>
+      <% end %>
 
+    </div>
   </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
-  <%= render "devise/shared/links" %>
+<div id="submenu" class="col">
+  <div class="card">
+    <%= render "devise/shared/links" %>
+  </div>
 </div>

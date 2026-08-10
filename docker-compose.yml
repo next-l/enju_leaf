@@ -9,7 +9,7 @@ x-app: &app
   env_file:
     - .env
   environment:
-    no_proxy: localhost,web,queue,tika
+    no_proxy: localhost,web,queue,solr,tika
   image: ghcr.io/next-l/enju_leaf:latest
   networks:
     internal:
@@ -31,25 +31,12 @@ services:
         - http_proxy=${http_proxy}
         - https_proxy=${http_proxy}
     command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -b 0.0.0.0"
-    environment:
-      - WEBPACKER_DEV_SERVER_HOST=webpacker
-    expose:
-      - 3000
+    ports:
+      - 3000:3000
 
   queue:
     <<: *app
     command: bash -c "bin/jobs"
-
-  webpacker:
-    <<: *app
-    environment:
-      - NODE_ENV=development
-      - WEBPACKER_DEV_SERVER_HOST=127.0.0.1
-    command: ./bin/webpack-dev-server
-    ports:
-      - 127.0.0.1:3035:3035
-    profiles:
-      - develop
 
   solr:
     image: solr:8

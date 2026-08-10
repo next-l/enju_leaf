@@ -6,24 +6,22 @@
 >
   <head>
     <meta charset="UTF-8"/>
-    <%= render "page/include" %>
     <title><%= title(controller.controller_name) %></title>
     <% if %w(show edit index).include?(controller.action_name) && defined?(EnjuManifestationViewer) %>
       <%= book_jacket_header(@library_group.book_jacket_source) %>
     <% end %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application",
+    "data-turbo-track": "reload",
+    type: "module" %>
   </head>
   <body itemscope itemtype="http://schema.org/WebPage">
-
-    <%= render "page/header" %>
     <%= render "page/menu" %>
-
-    <div id="content">
-
-      <%= yield %>
-
+    <div class="container">
+      <div class="row mt-3 mb-3" id="content">
+        <%= yield %>
+      </div>
+      <%= render "page/footer" %>
     </div>
-
-    <%= render "page/footer" %>
-
   </body>
 </html>

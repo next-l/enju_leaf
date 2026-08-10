@@ -5,11 +5,11 @@
 
   <div class="field">
     <p><%= f.label :email %></p>
-    <p><%= f.email_field :email, autofocus: true %></p>
+    <p><%= f.email_field :email, autofocus: true, class: "form-control" %></p>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Resend unlock instructions" %>
+  <div class="actions mt-3">
+    <%= f.submit "Resend unlock instructions", class: "btn btn-primary" %>
   </div>
 <% end %>
 

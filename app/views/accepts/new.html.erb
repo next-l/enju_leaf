@@ -1,14 +1,18 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t("page.new", model: t("activerecord.models.accept")) -%></h1>
-  <div id="content_list">
-    <div id="accept_list">
-      <%= render "list", accept: @accept -%>
+<div id="content_detail" class="col-md-9">
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.accept")) -%></h5>
+    <div id="content_list" class="card-body">
+      <div id="accept_list">
+        <%= render "list", accept: @accept -%>
+      </div>
     </div>
   </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
-  <ul>
-    <li><%= link_to t("page.listing", model: t("activerecord.models.accept")), accepts_path -%></li>
-  </ul>
+<div id="submenu" class="col">
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.listing", model: t("activerecord.models.accept")), accepts_path -%></li>
+    </ul>
+  </div>
 </div>

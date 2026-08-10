@@ -1,9 +1,3 @@
-FactoryBot.define do
-  factory :place do |f|
-    f.sequence(:term) { |n| "term_#{n}" }
-  end
-end
-
 # ## Schema Information
 #
 # Table name: `places`
@@ -28,3 +22,8 @@ end
 # * `index_places_on_term`:
 #     * **`term`**
 #
+FactoryBot.define do
+  factory :place do |f|
+    f.sequence(:term) { |n| "term_#{n}" }
+  end
+end

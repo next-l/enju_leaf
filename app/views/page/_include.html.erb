@@ -1,8 +1,9 @@
 <%= stylesheet_link_tag "application" %>
 <%= stylesheet_link_tag "print", media: :print %>
-<%= javascript_include_tag "application" %>
-<%= javascript_pack_tag "application" %>
+<%= javascript_include_tag "application", defer: true %>
 <%= csrf_meta_tag %>
+
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
 <style>
 <% @library_group.colors.each do |color| %>
@@ -22,24 +23,3 @@
   }
 <% end %>
 </style>
-
-<script>
-  $(function(){
-    <% @library_group.colors.each do |color|
-    case color.property
-    when 'header_title' %>
-      $('.title').addClass('enju_<%= color.property %>');
-      $('div.digg_pagination>span.current').addClass('enju_<%= color.property %>');
-    <% when 'table_line0' %>
-      $('tr.line0').addClass('enju_<%= color.property %>');
-    <% when 'table_line1' %>
-      $('tr.line1').addClass('enju_<%= color.property %>');
-    <% when 'table_border' %>
-      $('tr>th').addClass('enju_<%= color.property %>');
-      $('tr>td').addClass('enju_<%= color.property %>');
-      $('div.digg_pagination>span.current').addClass('enju_<%= color.property %>');
-      $('div.digg_pagination>a').addClass('enju_<%= color.property %>');
-    <% end %>
-  <% end %>
-});
-</script>

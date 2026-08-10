@@ -1,85 +1,89 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t("page.showing", model: t("activerecord.models.picture_file")) -%></h1>
-  <div id="content_list">
-    <p id="notice"><%= notice %></p>
+<div id="content_detail" class="col-md-9">
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.showing", model: t("activerecord.models.picture_file")) -%></h5>
+    <div id="content_list" class="card-body">
+      <p id="notice"><%= notice %></p>
 
-    <p>
-      <strong><%= t("page.attachable") -%>:</strong>
-      <%= if @picture_file.picture_attachable_type?
-        link_to h(
-          "#{(@picture_file.picture_attachable_type)}/#{(@picture_file.picture_attachable_id)}",
-        ),
-        @picture_file.picture_attachable
-      end -%>
-    </p>
+      <p>
+        <strong><%= t("page.attachable") -%>:</strong>
+        <%= if @picture_file.picture_attachable_type?
+          link_to h(
+            "#{(@picture_file.picture_attachable_type)}/#{(@picture_file.picture_attachable_id)}",
+          ),
+          @picture_file.picture_attachable
+        end -%>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.picture_file.picture_file_size") -%>:</strong>
-      <%= @picture_file.attachment.byte_size -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.picture_file.picture_file_size") -%>:</strong>
+        <%= @picture_file.attachment.byte_size -%>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.picture_file.picture_content_type") -%>:</strong>
-      <%= @picture_file.attachment.content_type -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.picture_file.picture_content_type") -%>:</strong>
+        <%= @picture_file.attachment.content_type -%>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.picture_file.picture_file_name") -%>:</strong>
-      <%- if @picture_file.attachment.attached? -%><br/>
-        <%= link_to @picture_file.attachment.filename,
-        rails_blob_path(@picture_file.attachment) -%><br/>
-        <%= render "picture_files/link", picture_file: @picture_file %>
-      <% end %>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.picture_file.picture_file_name") -%>:</strong>
+        <%- if @picture_file.attachment.attached? -%><br/>
+          <%= link_to @picture_file.attachment.filename,
+          rails_blob_path(@picture_file.attachment) -%><br/>
+          <%= render "picture_files/link", picture_file: @picture_file %>
+        <% end %>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.picture_file.width") -%>:</strong>
-      <%= @picture_file.attachment.metadata["width"] -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.picture_file.width") -%>:</strong>
+        <%= @picture_file.attachment.metadata["width"] -%>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.picture_file.height") -%>:</strong>
-      <%= @picture_file.attachment.metadata["height"] -%>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.picture_file.height") -%>:</strong>
+        <%= @picture_file.attachment.metadata["height"] -%>
+      </p>
 
-    <p>
-      <strong><%= t("activerecord.attributes.picture_file.picture_fingerprint") -%>:</strong>
-      <%= Base64.decode64(@picture_file.attachment.checksum).unpack("H*").first %>
-    </p>
+      <p>
+        <strong><%= t("activerecord.attributes.picture_file.picture_fingerprint") -%>:</strong>
+        <%= Base64.decode64(@picture_file.attachment.checksum).unpack("H*").first %>
+      </p>
 
+    </div>
   </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
-  <ul>
-    <li><%= link_to t("page.edit"), edit_picture_file_path(@picture_file) -%></li>
-    <% if @picture_file.picture_attachable_type? %>
-      <%- case @picture_file.picture_attachable.class.name when "Shelf" -%>
-        <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
-          picture_files_path(shelf_id: @picture_file.picture_attachable_id) -%></li>
-      <%- when "Manifestation" -%>
-        <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
-          picture_files_path(manifestation_id: @picture_file.picture_attachable_id) -%></li>
-      <%- when "Agent" -%>
-        <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
-          picture_files_path(agent_id: @picture_file.picture_attachable_id) -%></li>
-      <%- else -%>
-        <%- if defined?(EnjuEvent) %>
-          <% if @picture_file.picture_attachable.class.name == 'Event' %>
-            <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
-              picture_files_path(event_id: @picture_file.picture_attachable_id) -%></li>
+<div id="submenu" class="col">
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.edit"), edit_picture_file_path(@picture_file) -%></li>
+      <% if @picture_file.picture_attachable_type? %>
+        <%- case @picture_file.picture_attachable.class.name when "Shelf" -%>
+          <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
+            picture_files_path(shelf_id: @picture_file.picture_attachable_id) -%></li>
+        <%- when "Manifestation" -%>
+          <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
+            picture_files_path(manifestation_id: @picture_file.picture_attachable_id) -%></li>
+        <%- when "Agent" -%>
+          <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
+            picture_files_path(agent_id: @picture_file.picture_attachable_id) -%></li>
+        <%- else -%>
+          <%- if defined?(EnjuEvent) %>
+            <% if @picture_file.picture_attachable.class.name == 'Event' %>
+              <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
+                picture_files_path(event_id: @picture_file.picture_attachable_id) -%></li>
+            <% else %>
+              <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
+                picture_files_path -%></li>
+            <% end %>
           <% else %>
             <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
               picture_files_path -%></li>
           <% end %>
-        <% else %>
-          <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
-            picture_files_path -%></li>
-        <% end %>
-      <%- end -%>
-    <% else %>
-      <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
-        picture_files_path -%></li>
-    <% end %>
-  </ul>
+        <%- end -%>
+      <% else %>
+        <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
+          picture_files_path -%></li>
+      <% end %>
+    </ul>
+  </div>
 </div>

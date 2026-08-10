@@ -1,11 +1,11 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t("page.editing", model: t("activerecord.models.medium_of_performance")) -%></h1>
-  <div id="content_list">
+<div id="content_detail" class="col-md-9">
+  <h5 class="title card-header"><%= t("page.editing", model: t("activerecord.models.medium_of_performance")) -%></h5>
+  <div id="content_list" class="card-body">
     <%= render "form", medium_of_performance: @medium_of_performance %>
   </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
   <ul>
     <li><%= link_to t("page.show"), @medium_of_performance -%></li>
     <li><%= link_to t("page.back"), medium_of_performances_path -%></li>

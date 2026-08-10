@@ -1,25 +1,29 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t("user.forgot_your_password") %></h1>
-  <div id="content_list">
+<div id="content_detail" class="col-md-9">
+  <div class="card">
+    <h5 class="title card-header"><%= t('user.forgot_your_password') %></h5>
+    <div id="content_list" class="card-body">
 
-    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
 
-      <div class="field">
-        <p><%= f.label :username %></p>
-        <p><%= f.text_field :username, autofocus: true %></p>
-      </div>
+        <div class="field">
+          <p><%= f.label :email %></p>
+          <p><%= f.email_field :email, autofocus: true, class: "form-control" %></p>
+        </div>
 
-      <div class="actions">
-        <%= f.submit t("user.send_me_reset_password_instruction") %>
-      </div>
-    <% end %>
+        <div class="actions mt-3">
+          <%= f.submit t('user.send_me_reset_password_instruction'), class: "btn btn-primary" %>
+        </div>
+      <% end %>
 
+    </div>
   </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
-  <ul>
-    <li><%= render "devise/shared/links" %></li>
-  </ul>
+<div id="submenu" class="col">
+  <div class="card">
+    <ul>
+      <li><%= render "devise/shared/links" %></li>
+    </ul>
+  </div>
 </div>

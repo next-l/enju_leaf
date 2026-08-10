@@ -1,16 +1,20 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t("page.new", model: t("activerecord.models.item")) -%></h1>
-  <div id="content_list">
-    <%= render "form", item: @item %>
+<div id="content_detail" class="col-md-9">
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.item")) %></h5>
+    <div id="content_list" class="card-body">
+      <%= render "form", item: @item %>
+    </div>
   </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
-  <%- if @manifestation -%>
-    <%= render "manifestations/book_jacket", manifestation: @manifestation -%>
-  <%- end -%>
+<div id="submenu" class="col">
+  <div class="card">
+    <% if @manifestation %>
+      <%= render "manifestations/book_jacket", manifestation: @manifestation %>
+    <% end %>
 
-  <ul>
-    <li><%= link_to t("page.back"), :back %></li>
-  </ul>
+    <ul>
+      <li><%= link_to t("page.back"), :back %></li>
+    </ul>
+  </div>
 </div>

@@ -85,19 +85,17 @@ module EnjuNii
             creator_patrons = Agent.import_agents(creators)
             manifestation.publishers = publisher_patrons
             manifestation.creators = creator_patrons
-            if defined?(EnjuSubject)
-              subjects = get_cinii_subjects(doc)
-              subject_heading_type = SubjectHeadingType.find_or_create_by!(name: "bsh")
-              subjects.each do |term|
-                subject = Subject.find_by(term: term[:term])
-                unless subject
-                  subject = Subject.new(term)
-                  subject.subject_heading_type = subject_heading_type
-                  subject_type = SubjectType.find_or_create_by!(name: "concept")
-                  subject.subject_type = subject_type
-                end
-                manifestation.subjects << subject
+            subjects = get_cinii_subjects(doc)
+            subject_heading_type = SubjectHeadingType.find_or_create_by!(name: "bsh")
+            subjects.each do |term|
+              subject = Subject.find_by(term: term[:term])
+              unless subject
+                subject = Subject.new(term)
+                subject.subject_heading_type = subject_heading_type
+                subject_type = SubjectType.find_or_create_by!(name: "concept")
+                subject.subject_type = subject_type
               end
+              manifestation.subjects << subject
             end
           end
         end

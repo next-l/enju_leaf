@@ -1,13 +1,17 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t("page.listing", model: t("activerecord.models.checked_item")) -%></h1>
-  <div id="content_list">
-    <%= render "checked_item" %>
-    <%= paginate @checked_items %>
+<div id="content_detail" class="col-md-9">
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.listing", model: t("activerecord.models.checked_item")) -%></h5>
+    <div id="content_list" class="card-body">
+      <%= render "checked_item" %>
+      <%= paginate @checked_items %>
+    </div>
   </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
-  <ul>
-    <li><%= link_to t("activerecord.models.checkin"), new_checkin_path -%></li>
-  </ul>
+<div id="submenu" class="col">
+  <div class="card">
+    <ul>
+      <li><%= link_to t("activerecord.models.checkin"), new_checkin_path -%></li>
+    </ul>
+  </div>
 </div>

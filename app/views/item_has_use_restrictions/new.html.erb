@@ -1,26 +1,41 @@
-<h1 class="title"><%= t("page.new", model: t("activerecord.models.item_has_use_restriction")) -%></h1>
+<div id="content_detail" class="col-md-9">
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.new", model: t("activerecord.models.item_has_use_restriction")) %></h5>
 
-<%= form_for(@item_has_use_restriction) do |f| -%>
-  <%= error_messages(@item_has_use_restriction) -%>
-  <div class="field">
-    <%= f.label t("activerecord.models.item") -%><br/>
-    <%- if @item -%>
-      <%= link_to @item.item_identifier, @item -%>
-      (<%= link_to @item.manifestation.original_title, @item.manifestation -%>)
-      <%= f.hidden_field :item_id, value: @item.id -%>
-    <%- else -%>
-      <%= f.text_field :item_id -%>
-    <%- end -%>
+    <%= form_for(@item_has_use_restriction) do |f| %>
+      <%= error_messages(@item_has_use_restriction) %>
+      <div class="field">
+        <%= f.label t("activerecord.models.item") %><br/>
+        <% if @item %>
+          <%= link_to @item.item_identifier, @item %>
+          (<%= link_to @item.manifestation.original_title, @item.manifestation %>)
+          <%= f.hidden_field :item_id, value: @item.id %>
+        <% else %>
+          <%= f.text_field :item_id, required: true, class: "form-control" %>
+        <% end %>
+      </div>
+
+      <div class="field">
+        <%= f.label t("activerecord.models.use_restriction") %><br/>
+        <%= f.select(
+          :use_restriction_id,
+          @use_restrictions.collect { |u| [u.name, u.id] },
+          {},
+          class: "form-select",
+        ) %>
+      </div>
+
+      <div class="actions mt-3">
+        <%= f.submit class: "btn btn-primary" %>
+      </div>
+    <% end %>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label t("activerecord.models.use_restriction") -%><br/>
-    <%= f.select(:use_restriction_id, @use_restrictions.collect { |u| [u.name, u.id] }) -%>
+<div id="submenu" class="col">
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.back"), item_has_use_restrictions_path %></li>
+    </ul>
   </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<%- end -%>
-
-<%= link_to t("page.back"), item_has_use_restrictions_path -%>
+</div>

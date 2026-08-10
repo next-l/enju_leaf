@@ -1,5 +1,9 @@
 <tr>
   <td colspan="2" style="width: 700px">
-    <%= raw manifestation.display_ipaper rescue nil -%>
+    <%= begin
+      raw manifestation.display_ipaper
+    rescue StandardError
+      nil
+    end -%>
   </td>
 </tr>

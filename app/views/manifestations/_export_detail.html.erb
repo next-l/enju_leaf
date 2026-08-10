@@ -1,12 +1,12 @@
-<h4><%= t('page.other_format') %></h4>
+<h4><%= t("page.other_format") %></h4>
 
 <ul>
-  <li><%= link_to 'RDF/XML', manifestation_url(@manifestation, format: :rdf) %></li>
-  <li><%= link_to 'MODS', manifestation_url(@manifestation, format: :mods) %></li>
-  <li><%= link_to 'XLSX', manifestation_url(@manifestation, format: :xlsx) %></li>
-  <li><%= link_to 'TSV', manifestation_url(@manifestation, format: :txt) %></li>
-  <li><%= link_to 'JSON', manifestation_url(@manifestation, format: :json) %></li>
+  <li><%= link_to "RDF/XML", manifestation_url(@manifestation, format: :rdf) %></li>
+  <li><%= link_to "MODS", manifestation_url(@manifestation, format: :mods) %></li>
+  <li><%= link_to "XLSX", manifestation_url(@manifestation, format: :xlsx) %></li>
+  <li><%= link_to "TSV", manifestation_url(@manifestation, format: :txt) %></li>
+  <li><%= link_to "JSON", manifestation_url(@manifestation, format: :json) %></li>
   <% if @manifestation.picture_files.exists? %>
-    <li><%= link_to 'IIIF Manifest', iiif_presentation_url(@manifestation, format: :json) %></li>
+    <li><%= link_to "IIIF Manifest", iiif_presentation_url(@manifestation, format: :json) %></li>
   <% end %>
 </ul>

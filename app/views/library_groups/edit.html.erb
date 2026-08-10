@@ -1,12 +1,16 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t("page.editing", model: t("activerecord.models.library_group")) -%></h1>
-  <div id="content_list">
-    <%= render "form", library_group: @library_group %>
+<div id="content_detail" class="col-md-9">
+  <div class="card">
+    <h5 class="title card-header"><%= t("page.editing", model: t("activerecord.models.library_group")) -%></h5>
+    <div id="content_list" class="card-body">
+      <%= render "form", library_group: @library_group %>
+    </div>
   </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
-  <ul>
-    <li><%= link_to t("page.show"), @library_group -%></li>
-  </ul>
+<div id="submenu" class="col">
+  <div class="card">
+    <ul>
+      <li><%= link_to t("page.show"), @library_group -%></li>
+    </ul>
+  </div>
 </div>

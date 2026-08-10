@@ -1,9 +1,3 @@
-require 'rails_helper'
-
-describe AgentRelationship do
-  # pending "add some examples to (or delete) #{__FILE__}"
-end
-
 # ## Schema Information
 #
 # Table name: `agent_relationships`
@@ -36,3 +30,8 @@ end
 # * `fk_rails_...`:
 #     * **`parent_id => agents.id`**
 #
+require 'rails_helper'
+
+describe AgentRelationship do
+  # pending "add some examples to (or delete) #{__FILE__}"
+end

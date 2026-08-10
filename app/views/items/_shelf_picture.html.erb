@@ -1,4 +1,4 @@
-<%- item.shelf.picture_files.each do |picture_file| -%>
+<% item.shelf.picture_files.each do |picture_file| %>
   <%= if picture_file.attachment.attached?
     link_to image_tag(
       "icons/picture.png",
@@ -8,10 +8,5 @@
     ),
     rails_blob_path(picture_file.attahcment),
     rel: "item_#{item.id}_manifestation_#{item.manifestation_id}"
-  end -%>
-<%- end -%>
-<script type="text/javascript">
-  $(document).ready(function(){
-      $("a[rel='item_<%= item.id -%>_manifestation_<%= item.manifestation_id -%>']").colorbox({transition:"none", photo:true});
-  })
-</script>
+  end %>
+<% end %>

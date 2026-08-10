@@ -1,111 +1,117 @@
-<%= form_with(model: library_group) do |f| -%>
+<%= form_with(model: library_group) do |f| %>
   <%= error_messages(library_group) %>
 
   <div class="field">
-    <%= f.label :name -%><br/>
-    <%= f.text_field :name, class: "short_name" -%>
+    <%= f.label :name %><br/>
+    <%= f.text_field :name, class: "form-control short_name" %>
   </div>
 
   <div class="field">
-    <%= f.label :display_name -%><br/>
-    <%= f.text_area :display_name, class: "resource_textarea" -%>
+    <%= f.label :display_name %><br/>
+    <%= f.text_area :display_name, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :header_logo -%><br/>
-    <%= f.file_field :header_logo, accept: "image/*" -%>
+    <%= f.label :header_logo %><br/>
+    <%= f.file_field :header_logo, accept: "image/*", class: "form-control" %>
     <br/>
-    <%= f.check_box :delete_header_logo -%>
+    <%= f.check_box :delete_header_logo %>
     <%= t("page.destroy") %>
   </div>
 
   <div class="field">
-    <%= f.label :email -%><br/>
-    <%= f.email_field :email, class: "resource_email" -%>
+    <%= f.label :email %><br/>
+    <%= f.email_field :email, class: "form-control resource_email" %>
   </div>
 
   <div class="field">
-    <%= f.label :url -%><br/>
-    <%= f.url_field :url, class: "resource_url" -%>
+    <%= f.label :url %><br/>
+    <%= f.url_field :url, class: "form-control resource_url" %>
   </div>
 
-  <% @available_languages.each do |language| -%>
+  <% @available_languages.each do |language| %>
     <div class="field">
-      <%= f.label :login_banner -%>
-      (<%= language.display_name.localize -%>)<br/>
+      <%= f.label :login_banner %>
+      (<%= language.display_name.localize %>)<br/>
       <%= f.text_area LibraryGroup.localized_attr_name_for(
                     :login_banner,
                     language.iso_639_1,
-                  ) -%>
+                  ),
+                  class: "form-control" %>
     </div>
-  <% end -%>
+  <% end %>
 
-  <% @available_languages.each do |language| -%>
+  <% @available_languages.each do |language| %>
     <div>
-      <%= f.label :footer_banner -%>
-      (<%= language.display_name.localize -%>)<br/>
+      <%= f.label :footer_banner %>
+      (<%= language.display_name.localize %>)<br/>
       <%= f.text_area LibraryGroup.localized_attr_name_for(
                     :footer_banner,
                     language.iso_639_1,
-                  ) -%>
+                  ),
+                  class: "form-control" %>
     </div>
-  <% end -%>
+  <% end %>
 
   <div class="field">
-    <%= f.label :max_number_of_results -%><br/>
-    <%= f.number_field :max_number_of_results -%>
+    <%= f.label :max_number_of_results %><br/>
+    <%= f.number_field :max_number_of_results, class: "form-control" %>
   </div>
 
   <% if defined?(EnjuManifestationViewer) %>
     <div class="field">
-      <%= f.label :book_jacket_source -%>
+      <%= f.label :book_jacket_source %>
       <%= f.select :book_jacket_source,
                [
                  [t("book_jacket.google"), "google"],
                  [t("book_jacket.openbd"), "openbd"],
                  [t("book_jacket.hanmotocom"), "hanmotocom"],
-               ] -%><br/>
+               ],
+               {},
+               class: "form-select" %>
     </div>
   <% end %>
 
   <div class="field">
-    <%= f.label :color -%><br/>
+    <%= f.label :color %><br/>
     <%= f.fields_for :colors do |color_form| %>
       <%= render "color_fields", f: color_form %>
     <% end %>
   </div>
 
   <div class="field">
-    <%= f.label t("activerecord.models.country") -%><br/>
+    <%= f.label t("activerecord.models.country") %><br/>
     <%= f.select(
       :country_id,
       @countries.collect { |c| [c.display_name.localize, c.id] },
-    ) -%>
+      {},
+      class: "form-select"
+    ) %>
   </div>
 
   <% if defined?(EnjuBookmark) %>
     <div class="field">
-      <%= f.label :allow_bookmark_external_url -%>
-      <%= f.check_box :allow_bookmark_external_url -%>
+      <%= f.label :allow_bookmark_external_url %>
+      <%= f.check_box :allow_bookmark_external_url %>
     </div>
   <% end %>
 
   <div class="field">
-    <%= f.label :my_networks -%><br/>
-    <%= f.text_area :my_networks -%>
+    <%= f.label :my_networks %><br/>
+    <%= f.text_area :my_networks, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :admin_networks -%><br/>
-    <%= f.text_area :admin_networks -%>
+    <%= f.label :admin_networks %><br/>
+    <%= f.text_area :admin_networks, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :note -%><br/>
-    <%= f.text_area :note -%>
+    <%= f.label :note %><br/>
+    <%= f.text_area :note, class: "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions mt-3">
+    <%= f.submit class: "btn btn-primary" %>
   </div>
-<%- end -%>
+<%- end %>
