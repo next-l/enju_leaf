@@ -110,12 +110,12 @@ module EnjuLibrary
         return unless LibraryGroup.site_config.csv_charset_conversion
 
         # TODO: 他の言語
-        if @locale.to_sym == :ja
+        if I18n.locale == :ja
           headers["Content-Type"] = "text/csv; charset=Shift_JIS"
           response.body = NKF.nkf("-Ws", response.body)
         end
       when "xml"
-        if @locale.to_sym == :ja
+        if I18n.locale == :ja
           headers["Content-Type"] = "application/xml; charset=Shift_JIS"
           response.body = NKF.nkf("-Ws", response.body)
         end

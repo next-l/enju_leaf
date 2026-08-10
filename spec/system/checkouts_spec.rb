@@ -12,7 +12,7 @@ RSpec.describe 'Checkouts', type: :system do
     it 'should contain query params in the facet' do
       sign_in users(:librarian1)
       visit checkout_path(checkouts(:checkout_00001))
-      expect(page).to have_content '利用者番号'
+      expect(page).to have_content 'User number'
       expect(page).to have_content checkouts(:checkout_00001).user.username
       expect(page).to have_content checkouts(:checkout_00001).user.profile.user_number
     end
