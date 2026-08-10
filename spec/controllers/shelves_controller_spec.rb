@@ -17,7 +17,7 @@ describe ShelvesController do
 
       it 'assigns all shelves as @shelves' do
         get :index
-        assigns(:shelves).should_not be_empty
+        expect(assigns(:shelves)).not_to be_empty
       end
     end
 
@@ -26,7 +26,7 @@ describe ShelvesController do
 
       it 'assigns all shelves as @shelves' do
         get :index
-        assigns(:shelves).should_not be_empty
+        expect(assigns(:shelves)).not_to be_empty
       end
     end
 
@@ -35,27 +35,27 @@ describe ShelvesController do
 
       it 'assigns all shelves as @shelves' do
         get :index
-        assigns(:shelves).should_not be_empty
+        expect(assigns(:shelves)).not_to be_empty
       end
     end
 
     describe 'When not logged in' do
       it 'assigns all shelves as @shelves' do
         get :index
-        assigns(:shelves).should_not be_empty
-        response.should be_successful
+        expect(assigns(:shelves)).not_to be_empty
+        expect(response).to be_successful
       end
 
       it 'assigns all shelves as @shelves with library_id' do
         get :index, params: { library_id: 'kamata' }
-        assigns(:shelves).map(&:id).should eq(Library.friendly.find('kamata').shelves.order(:position).page(1).pluck(:id))
-        response.should be_successful
+        expect(assigns(:shelves).map(&:id)).to eq(Library.friendly.find('kamata').shelves.order(:position).page(1).pluck(:id))
+        expect(response).to be_successful
       end
 
       it 'assigns all shelves as @shelves with select mode' do
         get :index, params: { mode: 'select' }
-        assigns(:shelves).should eq(Shelf.real.order(:position))
-        response.should be_successful
+        expect(assigns(:shelves)).to eq(Shelf.real.order(:position))
+        expect(response).to be_successful
       end
     end
   end
@@ -66,14 +66,14 @@ describe ShelvesController do
 
       it 'assigns the requested shelf as @shelf' do
         get :show, params: { id: 1 }
-        assigns(:shelf).should eq(Shelf.find(1))
+        expect(assigns(:shelf)).to eq(Shelf.find(1))
       end
     end
 
     describe 'When not logged in' do
       it 'assigns the requested shelf as @shelf' do
         get :show, params: { id: 1 }
-        assigns(:shelf).should eq(Shelf.find(1))
+        expect(assigns(:shelf)).to eq(Shelf.find(1))
       end
     end
   end
@@ -84,7 +84,7 @@ describe ShelvesController do
 
       it 'assigns the requested shelf as @shelf' do
         get :new
-        assigns(:shelf).should_not be_valid
+        expect(assigns(:shelf)).not_to be_valid
       end
     end
 
@@ -93,8 +93,8 @@ describe ShelvesController do
 
       it 'assigns the requested shelf as @shelf' do
         get :new
-        assigns(:shelf).should be_nil
-        response.should be_forbidden
+        expect(assigns(:shelf)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
@@ -103,16 +103,16 @@ describe ShelvesController do
 
       it 'should not assign the requested shelf as @shelf' do
         get :new
-        assigns(:shelf).should be_nil
-        response.should be_forbidden
+        expect(assigns(:shelf)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should not assign the requested shelf as @shelf' do
         get :new
-        assigns(:shelf).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:shelf)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -124,7 +124,7 @@ describe ShelvesController do
       it 'assigns the requested shelf as @shelf' do
         shelf = FactoryBot.create(:shelf)
         get :edit, params: { id: shelf.id }
-        assigns(:shelf).should eq(shelf)
+        expect(assigns(:shelf)).to eq(shelf)
       end
     end
 
@@ -134,7 +134,7 @@ describe ShelvesController do
       it 'assigns the requested shelf as @shelf' do
         shelf = FactoryBot.create(:shelf)
         get :edit, params: { id: shelf.id }
-        assigns(:shelf).should eq(shelf)
+        expect(assigns(:shelf)).to eq(shelf)
       end
     end
 
@@ -144,7 +144,7 @@ describe ShelvesController do
       it 'assigns the requested shelf as @shelf' do
         shelf = FactoryBot.create(:shelf)
         get :edit, params: { id: shelf.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -152,7 +152,7 @@ describe ShelvesController do
       it 'should not assign the requested shelf as @shelf' do
         shelf = FactoryBot.create(:shelf)
         get :edit, params: { id: shelf.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -169,24 +169,24 @@ describe ShelvesController do
       describe 'with valid params' do
         it 'assigns a newly created shelf as @shelf' do
           post :create, params: { shelf: @attrs }
-          assigns(:shelf).should be_valid
+          expect(assigns(:shelf)).to be_valid
         end
 
         it 'redirects to the created patron' do
           post :create, params: { shelf: @attrs }
-          response.should redirect_to(assigns(:shelf))
+          expect(response).to redirect_to(assigns(:shelf))
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved shelf as @shelf' do
           post :create, params: { shelf: @invalid_attrs }
-          assigns(:shelf).should_not be_valid
+          expect(assigns(:shelf)).not_to be_valid
         end
 
         it 'should be successful' do
           post :create, params: { shelf: @invalid_attrs }
-          response.should be_successful
+          expect(response).to be_successful
         end
       end
     end
@@ -197,24 +197,24 @@ describe ShelvesController do
       describe 'with valid params' do
         it 'assigns a newly created shelf as @shelf' do
           post :create, params: { shelf: @attrs }
-          assigns(:shelf).should be_nil
+          expect(assigns(:shelf)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { shelf: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved shelf as @shelf' do
           post :create, params: { shelf: @invalid_attrs }
-          assigns(:shelf).should be_nil
+          expect(assigns(:shelf)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { shelf: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -225,24 +225,24 @@ describe ShelvesController do
       describe 'with valid params' do
         it 'assigns a newly created shelf as @shelf' do
           post :create, params: { shelf: @attrs }
-          assigns(:shelf).should be_nil
+          expect(assigns(:shelf)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { shelf: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved shelf as @shelf' do
           post :create, params: { shelf: @invalid_attrs }
-          assigns(:shelf).should be_nil
+          expect(assigns(:shelf)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { shelf: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -251,24 +251,24 @@ describe ShelvesController do
       describe 'with valid params' do
         it 'assigns a newly created shelf as @shelf' do
           post :create, params: { shelf: @attrs }
-          assigns(:shelf).should be_nil
+          expect(assigns(:shelf)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { shelf: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved shelf as @shelf' do
           post :create, params: { shelf: @invalid_attrs }
-          assigns(:shelf).should be_nil
+          expect(assigns(:shelf)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { shelf: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -291,19 +291,19 @@ describe ShelvesController do
 
         it 'assigns the requested shelf as @shelf' do
           put :update, params: { id: @shelf.id, shelf: @attrs }
-          assigns(:shelf).should eq(@shelf)
+          expect(assigns(:shelf)).to eq(@shelf)
         end
 
         it 'moves its position when specified' do
           put :update, params: { id: @shelf.id, shelf: @attrs, move: 'lower' }
-          response.should redirect_to(shelves_url(library_id: @shelf.library_id))
+          expect(response).to redirect_to(shelves_url(library_id: @shelf.library_id))
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested shelf as @shelf' do
           put :update, params: { id: @shelf.id, shelf: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -318,15 +318,15 @@ describe ShelvesController do
 
         it 'assigns the requested shelf as @shelf' do
           put :update, params: { id: @shelf.id, shelf: @attrs }
-          assigns(:shelf).should eq(@shelf)
-          response.should be_forbidden
+          expect(assigns(:shelf)).to eq(@shelf)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested shelf as @shelf' do
           put :update, params: { id: @shelf.id, shelf: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -341,15 +341,15 @@ describe ShelvesController do
 
         it 'assigns the requested shelf as @shelf' do
           put :update, params: { id: @shelf.id, shelf: @attrs }
-          assigns(:shelf).should eq(@shelf)
-          response.should be_forbidden
+          expect(assigns(:shelf)).to eq(@shelf)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested shelf as @shelf' do
           put :update, params: { id: @shelf.id, shelf: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -362,14 +362,14 @@ describe ShelvesController do
 
         it 'should be forbidden' do
           put :update, params: { id: @shelf.id, shelf: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested shelf as @shelf' do
           put :update, params: { id: @shelf.id, shelf: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -389,12 +389,12 @@ describe ShelvesController do
 
       it 'redirects to the shelves list' do
         delete :destroy, params: { id: @shelf.id }
-        response.should redirect_to(shelves_url)
+        expect(response).to redirect_to(shelves_url)
       end
 
       it 'should not destroy a shelf that has id 1' do
         delete :destroy, params: { id: 1 }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -407,7 +407,7 @@ describe ShelvesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @shelf.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -420,7 +420,7 @@ describe ShelvesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @shelf.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -431,7 +431,7 @@ describe ShelvesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @shelf.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

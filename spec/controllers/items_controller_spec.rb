@@ -95,21 +95,21 @@ describe ItemsController do
       it 'should get index with agent_id' do
         get :index, params: { agent_id: 1 }
         expect(response).to be_successful
-        assigns(:agent).should eq Agent.find(1)
+        expect(assigns(:agent)).to eq Agent.find(1)
         expect(assigns(:items)).to eq assigns(:agent).items.order('created_at DESC').page(1)
       end
 
       it 'should get index with manifestation_id' do
         get :index, params: { manifestation_id: 1 }
         expect(response).to be_successful
-        assigns(:manifestation).should eq Manifestation.find(1)
-        assigns(:items).collect(&:id).should eq assigns(:manifestation).items.order('items.created_at DESC').page(1).pluck(:id)
+        expect(assigns(:manifestation)).to eq Manifestation.find(1)
+        expect(assigns(:items).collect(&:id)).to eq assigns(:manifestation).items.order('items.created_at DESC').page(1).pluck(:id)
       end
 
       it 'should get index with shelf_id' do
         get :index, params: { shelf_id: 1 }
         expect(response).to be_successful
-        assigns(:shelf).should eq Shelf.find(1)
+        expect(assigns(:shelf)).to eq Shelf.find(1)
         expect(assigns(:items).collect(&:id)).to eq assigns(:shelf).items.order('created_at DESC').page(1).pluck(:id)
       end
 
@@ -141,9 +141,9 @@ describe ItemsController do
       end
 
       it 'should not show missing item' do
-        lambda do
+        expect do
           get :show, params: { id: 'missing' }
-        end.should raise_error(ActiveRecord::RecordNotFound)
+        end.to raise_error(ActiveRecord::RecordNotFound)
         # expect(response).to be_missing
       end
     end
@@ -240,9 +240,9 @@ describe ItemsController do
       end
 
       it 'should not edit missing item' do
-        lambda do
+        expect do
           get :edit, params: { id: 'missing' }
-        end.should raise_error(ActiveRecord::RecordNotFound)
+        end.to raise_error(ActiveRecord::RecordNotFound)
         # expect(response).to be_missing
       end
     end
@@ -294,7 +294,7 @@ describe ItemsController do
 
         it 'redirects to the created item' do
           post :create, params: { item: @attrs }
-          assigns(:item).manifestation.should_not be_nil
+          expect(assigns(:item).manifestation).not_to be_nil
           expect(response).to redirect_to(item_url(assigns(:item)))
         end
       end
@@ -312,9 +312,9 @@ describe ItemsController do
       end
 
       it 'should not create item without manifestation_id' do
-        lambda do
+        expect do
           post :create, params: { item: { circulation_status_id: 1 } }
-        end.should raise_error(ActiveRecord::RecordNotFound)
+        end.to raise_error(ActiveRecord::RecordNotFound)
         expect(assigns(:item)).to_not be_valid
         # expect(response).to be_missing
       end
@@ -561,9 +561,9 @@ describe ItemsController do
       end
 
       it 'should not destroy missing item' do
-        lambda do
+        expect do
           delete :destroy, params: { id: 'missing' }
-        end.should raise_error(ActiveRecord::RecordNotFound)
+        end.to raise_error(ActiveRecord::RecordNotFound)
         # expect(response).to be_missing
       end
     end

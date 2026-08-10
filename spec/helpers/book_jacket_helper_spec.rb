@@ -14,11 +14,11 @@ describe EnjuManifestationViewer::BookJacketHelper do
   fixtures :all
 
   it "should get screenshot", vcr: true do
-    helper.screenshot_tag(manifestations(:manifestation_00003)).should =~ /<a href=\"http:\/\/www.slis.keio.ac.jp\/\">/
+    expect(helper.screenshot_tag(manifestations(:manifestation_00003))).to match(/<a href=\"http:\/\/www.slis.keio.ac.jp\/\">/)
   end
 
   it "should get book jacket" do
-    helper.book_jacket_tag(manifestations(:manifestation_00001)).should =~ /<div id=\"gbsthumbnail1\" class=\"book_jacket\"><\/div>/
+    expect(helper.book_jacket_tag(manifestations(:manifestation_00001))).to match(/<div id=\"gbsthumbnail1\" class=\"book_jacket\"><\/div>/)
   end
 
   it "should get honmoto.com book jacket" do
@@ -27,6 +27,6 @@ describe EnjuManifestationViewer::BookJacketHelper do
   end
 
   it "should get openbd book jacket" do
-    helper.book_jacket_tag(manifestations(:manifestation_00001), "openbd").should =~ /<div id=\"openbd_thumbnail1\" class=\"book_jacket\"><\/div>/
+    expect(helper.book_jacket_tag(manifestations(:manifestation_00001), "openbd")).to match(/<div id=\"openbd_thumbnail1\" class=\"book_jacket\"><\/div>/)
   end
 end

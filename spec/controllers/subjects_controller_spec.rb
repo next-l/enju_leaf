@@ -42,7 +42,7 @@ describe SubjectsController do
     describe 'When not logged in' do
       it 'assigns all subjects as @subjects' do
         get :index
-        response.should be_successful
+        expect(response).to be_successful
         expect(assigns(:subjects)).not_to be_nil
       end
     end
@@ -113,7 +113,7 @@ describe SubjectsController do
       it 'should not assign the requested subject as @subject' do
         get :new
         expect(assigns(:subject)).to be_nil
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -121,7 +121,7 @@ describe SubjectsController do
       it 'should not assign the requested subject as @subject' do
         get :new
         expect(assigns(:subject)).to be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -153,7 +153,7 @@ describe SubjectsController do
       it 'assigns the requested subject as @subject' do
         subject = FactoryBot.create(:subject)
         get :edit, params: { id: subject.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -161,7 +161,7 @@ describe SubjectsController do
       it 'should not assign the requested subject as @subject' do
         subject = FactoryBot.create(:subject)
         get :edit, params: { id: subject.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -183,7 +183,7 @@ describe SubjectsController do
 
         it 'redirects to the created subject' do
           post :create, params: { subject: @attrs }
-          response.should redirect_to(subject_url(assigns(:subject)))
+          expect(response).to redirect_to(subject_url(assigns(:subject)))
         end
       end
 
@@ -195,7 +195,7 @@ describe SubjectsController do
 
         it "re-renders the 'new' template" do
           post :create, params: { subject: @invalid_attrs }
-          response.should render_template('new')
+          expect(response).to render_template('new')
         end
       end
     end
@@ -211,7 +211,7 @@ describe SubjectsController do
 
         it 'should be forbidden' do
           post :create, params: { subject: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
@@ -223,7 +223,7 @@ describe SubjectsController do
 
         it 'should be forbidden' do
           post :create, params: { subject: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -239,7 +239,7 @@ describe SubjectsController do
 
         it 'should be forbidden' do
           post :create, params: { subject: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
@@ -251,7 +251,7 @@ describe SubjectsController do
 
         it 'should be forbidden' do
           post :create, params: { subject: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -265,7 +265,7 @@ describe SubjectsController do
 
         it 'should be forbidden' do
           post :create, params: { subject: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
@@ -277,7 +277,7 @@ describe SubjectsController do
 
         it 'should be forbidden' do
           post :create, params: { subject: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -307,7 +307,7 @@ describe SubjectsController do
       describe 'with invalid params' do
         it 'assigns the requested subject as @subject' do
           put :update, params: { id: @subject.id, subject: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -323,14 +323,14 @@ describe SubjectsController do
         it 'should be forbidden' do
           put :update, params: { id: @subject.id, subject: @attrs }
           expect(assigns(:subject)).to eq(@subject)
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'should be forbidden' do
           put :update, params: { id: @subject, subject: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -346,14 +346,14 @@ describe SubjectsController do
         it 'assigns the requested subject as @subject' do
           put :update, params: { id: @subject.id, subject: @attrs }
           expect(assigns(:subject)).to eq(@subject)
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested subject as @subject' do
           put :update, params: { id: @subject.id, subject: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -366,14 +366,14 @@ describe SubjectsController do
 
         it 'should be forbidden' do
           put :update, params: { id: @subject.id, subject: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested subject as @subject' do
           put :update, params: { id: @subject.id, subject: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -393,7 +393,7 @@ describe SubjectsController do
 
       it 'redirects to the subjects list' do
         delete :destroy, params: { id: @subject.id }
-        response.should redirect_to(subjects_url)
+        expect(response).to redirect_to(subjects_url)
       end
     end
 
@@ -406,7 +406,7 @@ describe SubjectsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @subject.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -419,7 +419,7 @@ describe SubjectsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @subject.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -430,7 +430,7 @@ describe SubjectsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @subject.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

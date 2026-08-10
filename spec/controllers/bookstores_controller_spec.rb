@@ -19,7 +19,7 @@ describe BookstoresController do
 
       it 'assigns all bookstores as @bookstores' do
         get :index
-        assigns(:bookstores).should eq(Bookstore.page(1))
+        expect(assigns(:bookstores)).to eq(Bookstore.page(1))
       end
     end
 
@@ -28,7 +28,7 @@ describe BookstoresController do
 
       it 'assigns all bookstores as @bookstores' do
         get :index
-        assigns(:bookstores).should eq(Bookstore.page(1))
+        expect(assigns(:bookstores)).to eq(Bookstore.page(1))
       end
     end
 
@@ -37,16 +37,16 @@ describe BookstoresController do
 
       it 'assigns all bookstores as @bookstores' do
         get :index
-        assigns(:bookstores).should be_nil
-        response.should be_forbidden
+        expect(assigns(:bookstores)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'assigns all bookstores as @bookstores' do
         get :index
-        assigns(:bookstores).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:bookstores)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -61,7 +61,7 @@ describe BookstoresController do
 
       it 'assigns the requested bookstore as @bookstore' do
         get :show, params: { id: @bookstore.id }
-        assigns(:bookstore).should eq(@bookstore)
+        expect(assigns(:bookstore)).to eq(@bookstore)
       end
     end
 
@@ -70,7 +70,7 @@ describe BookstoresController do
 
       it 'assigns the requested bookstore as @bookstore' do
         get :show, params: { id: @bookstore.id }
-        assigns(:bookstore).should eq(@bookstore)
+        expect(assigns(:bookstore)).to eq(@bookstore)
       end
     end
 
@@ -79,14 +79,14 @@ describe BookstoresController do
 
       it 'assigns the requested bookstore as @bookstore' do
         get :show, params: { id: @bookstore.id }
-        assigns(:bookstore).should eq(@bookstore)
+        expect(assigns(:bookstore)).to eq(@bookstore)
       end
     end
 
     describe 'When not logged in' do
       it 'assigns the requested bookstore as @bookstore' do
         get :show, params: { id: @bookstore.id }
-        assigns(:bookstore).should eq(@bookstore)
+        expect(assigns(:bookstore)).to eq(@bookstore)
       end
     end
   end
@@ -97,8 +97,8 @@ describe BookstoresController do
 
       it 'assigns the requested bookstore as @bookstore' do
         get :new
-        assigns(:bookstore).should_not be_valid
-        response.should be_successful
+        expect(assigns(:bookstore)).not_to be_valid
+        expect(response).to be_successful
       end
     end
 
@@ -107,8 +107,8 @@ describe BookstoresController do
 
       it 'should not assign the requested bookstore as @bookstore' do
         get :new
-        assigns(:bookstore).should be_nil
-        response.should be_forbidden
+        expect(assigns(:bookstore)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
@@ -117,16 +117,16 @@ describe BookstoresController do
 
       it 'should not assign the requested bookstore as @bookstore' do
         get :new
-        assigns(:bookstore).should be_nil
-        response.should be_forbidden
+        expect(assigns(:bookstore)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should not assign the requested bookstore as @bookstore' do
         get :new
-        assigns(:bookstore).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:bookstore)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -141,7 +141,7 @@ describe BookstoresController do
 
       it 'assigns the requested bookstore as @bookstore' do
         get :edit, params: { id: @bookstore.id }
-        assigns(:bookstore).should eq(@bookstore)
+        expect(assigns(:bookstore)).to eq(@bookstore)
       end
     end
 
@@ -150,7 +150,7 @@ describe BookstoresController do
 
       it 'assigns the requested bookstore as @bookstore' do
         get :edit, params: { id: @bookstore.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -159,14 +159,14 @@ describe BookstoresController do
 
       it 'assigns the requested bookstore as @bookstore' do
         get :edit, params: { id: @bookstore.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should not assign the requested bookstore as @bookstore' do
         get :edit, params: { id: @bookstore.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -183,24 +183,24 @@ describe BookstoresController do
       describe 'with valid params' do
         it 'assigns a newly created bookstore as @bookstore' do
           post :create, params: { bookstore: @attrs }
-          assigns(:bookstore).should be_valid
+          expect(assigns(:bookstore)).to be_valid
         end
 
         it 'redirects to the created bookstore' do
           post :create, params: { bookstore: @attrs }
-          response.should redirect_to(assigns(:bookstore))
+          expect(response).to redirect_to(assigns(:bookstore))
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved bookstore as @bookstore' do
           post :create, params: { bookstore: @invalid_attrs }
-          assigns(:bookstore).should_not be_valid
+          expect(assigns(:bookstore)).not_to be_valid
         end
 
         it 'should be successful' do
           post :create, params: { bookstore: @invalid_attrs }
-          response.should be_successful
+          expect(response).to be_successful
         end
       end
     end
@@ -211,24 +211,24 @@ describe BookstoresController do
       describe 'with valid params' do
         it 'assigns a newly created bookstore as @bookstore' do
           post :create, params: { bookstore: @attrs }
-          assigns(:bookstore).should be_nil
+          expect(assigns(:bookstore)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { bookstore: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved bookstore as @bookstore' do
           post :create, params: { bookstore: @invalid_attrs }
-          assigns(:bookstore).should be_nil
+          expect(assigns(:bookstore)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { bookstore: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -239,24 +239,24 @@ describe BookstoresController do
       describe 'with valid params' do
         it 'assigns a newly created bookstore as @bookstore' do
           post :create, params: { bookstore: @attrs }
-          assigns(:bookstore).should be_nil
+          expect(assigns(:bookstore)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { bookstore: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved bookstore as @bookstore' do
           post :create, params: { bookstore: @invalid_attrs }
-          assigns(:bookstore).should be_nil
+          expect(assigns(:bookstore)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { bookstore: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -265,24 +265,24 @@ describe BookstoresController do
       describe 'with valid params' do
         it 'assigns a newly created bookstore as @bookstore' do
           post :create, params: { bookstore: @attrs }
-          assigns(:bookstore).should be_nil
+          expect(assigns(:bookstore)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { bookstore: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved bookstore as @bookstore' do
           post :create, params: { bookstore: @invalid_attrs }
-          assigns(:bookstore).should be_nil
+          expect(assigns(:bookstore)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { bookstore: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -305,19 +305,19 @@ describe BookstoresController do
 
         it 'assigns the requested bookstore as @bookstore' do
           put :update, params: { id: @bookstore.id, bookstore: @attrs }
-          assigns(:bookstore).should eq(@bookstore)
+          expect(assigns(:bookstore)).to eq(@bookstore)
         end
 
         it 'moves its position when specified' do
           put :update, params: { id: @bookstore.id, bookstore: @attrs, move: 'lower' }
-          response.should redirect_to(bookstores_url)
+          expect(response).to redirect_to(bookstores_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested bookstore as @bookstore' do
           put :update, params: { id: @bookstore.id, bookstore: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -332,15 +332,15 @@ describe BookstoresController do
 
         it 'assigns the requested bookstore as @bookstore' do
           put :update, params: { id: @bookstore.id, bookstore: @attrs }
-          assigns(:bookstore).should eq(@bookstore)
-          response.should be_forbidden
+          expect(assigns(:bookstore)).to eq(@bookstore)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested bookstore as @bookstore' do
           put :update, params: { id: @bookstore.id, bookstore: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -355,15 +355,15 @@ describe BookstoresController do
 
         it 'assigns the requested bookstore as @bookstore' do
           put :update, params: { id: @bookstore.id, bookstore: @attrs }
-          assigns(:bookstore).should eq(@bookstore)
-          response.should be_forbidden
+          expect(assigns(:bookstore)).to eq(@bookstore)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested bookstore as @bookstore' do
           put :update, params: { id: @bookstore.id, bookstore: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -376,14 +376,14 @@ describe BookstoresController do
 
         it 'should be forbidden' do
           put :update, params: { id: @bookstore.id, bookstore: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested bookstore as @bookstore' do
           put :update, params: { id: @bookstore.id, bookstore: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -403,7 +403,7 @@ describe BookstoresController do
 
       it 'redirects to the bookstores list' do
         delete :destroy, params: { id: @bookstore.id }
-        response.should redirect_to(bookstores_url)
+        expect(response).to redirect_to(bookstores_url)
       end
     end
 
@@ -416,7 +416,7 @@ describe BookstoresController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @bookstore.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -429,7 +429,7 @@ describe BookstoresController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @bookstore.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -440,7 +440,7 @@ describe BookstoresController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @bookstore.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

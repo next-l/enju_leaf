@@ -7,20 +7,20 @@ describe Role do
   it "should not be saved if name is blank" do
     role = Role.first
     role.name = ''
-    lambda { role.save! }.should raise_error(ActiveRecord::RecordInvalid)
+    expect { role.save! }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it "should not be saved if name is not unique" do
     role = Role.first
-    lambda { Role.create!(name: role.name) }.should raise_error(ActiveRecord::RecordInvalid)
+    expect { Role.create!(name: role.name) }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it "should respond to localized_name" do
-    roles(:role_00001).display_name.should eq 'Guest'
+    expect(roles(:role_00001).display_name).to eq 'Guest'
   end
 
   it "should respond to default" do
-    Role.default.should eq roles(:role_00001)
+    expect(Role.default).to eq roles(:role_00001)
   end
 end
 

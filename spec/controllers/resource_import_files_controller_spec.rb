@@ -131,14 +131,14 @@ describe ResourceImportFilesController do
       it 'should create resource_import_file' do
         post :create, params: { resource_import_file: { resource_import: fixture_file_upload('resource_import_file_sample1.tsv', 'text/csv'), edit_mode: 'create', default_shelf_id: 1 } }
         expect(assigns(:resource_import_file)).to be_valid
-        assigns(:resource_import_file).user.username.should eq @user.username
+        expect(assigns(:resource_import_file).user.username).to eq @user.username
         expect(response).to redirect_to resource_import_file_url(assigns(:resource_import_file))
       end
 
       it 'should not create resource_import_file without default_shelf_id' do
         post :create, params: { resource_import_file: { resource_import: fixture_file_upload('resource_import_file_sample1.tsv', 'text/csv'), edit_mode: 'create' } }
         expect(assigns(:resource_import_file)).not_to be_valid
-        assigns(:resource_import_file).user.username.should eq @user.username
+        expect(assigns(:resource_import_file).user.username).to eq @user.username
         expect(response).to be_successful
       end
     end
@@ -151,7 +151,7 @@ describe ResourceImportFilesController do
 
       it 'should be forbidden' do
         post :create, params: { resource_import_file: { resource_import: fixture_file_upload('resource_import_file_sample1.tsv', 'text/csv') } }
-        assigns(:resource_import_file).should be_nil
+        expect(assigns(:resource_import_file)).to be_nil
         expect(response).to be_forbidden
       end
     end
@@ -159,7 +159,7 @@ describe ResourceImportFilesController do
     describe 'When not logged in' do
       it 'should be redirected to new session url' do
         post :create, params: { resource_import_file: { resource_import: fixture_file_upload('resource_import_file_sample1.tsv', 'text/csv') } }
-        assigns(:resource_import_file).should be_nil
+        expect(assigns(:resource_import_file)).to be_nil
         expect(response).to redirect_to new_user_session_url
       end
     end

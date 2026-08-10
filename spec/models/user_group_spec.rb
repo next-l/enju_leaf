@@ -6,13 +6,13 @@ describe UserGroup do
   it "should contain string in its display_name" do
     user_group = user_groups(:user_group_00001)
     user_group.display_name = "en:test"
-    user_group.valid?.should be_truthy
+    expect(user_group.valid?).to be_truthy
   end
 
   it "should not contain invalid yaml in its display_name" do
     user_group = user_groups(:user_group_00001)
     user_group.display_name = "en:test\r\nja: テスト"
-    user_group.valid?.should be_falsy
+    expect(user_group.valid?).to be_falsy
   end
 end
 

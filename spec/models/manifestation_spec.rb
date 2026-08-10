@@ -9,130 +9,130 @@ describe Manifestation, solr: true do
   context "search" do
     it "should set year_of_publication" do
       manifestation = FactoryBot.create(:manifestation, pub_date: '2000')
-      manifestation.year_of_publication.should eq 2000
-      manifestation.date_of_publication.should eq Time.zone.parse('2000-01-01')
+      expect(manifestation.year_of_publication).to eq 2000
+      expect(manifestation.date_of_publication).to eq Time.zone.parse('2000-01-01')
     end
 
     it "should set date_of_publication" do
       manifestation = FactoryBot.create(:manifestation, pub_date: '2000-01')
-      manifestation.year_of_publication.should eq 2000
-      manifestation.month_of_publication.should eq 1
-      manifestation.date_of_publication.should eq Time.zone.parse('2000-01-01')
+      expect(manifestation.year_of_publication).to eq 2000
+      expect(manifestation.month_of_publication).to eq 1
+      expect(manifestation.date_of_publication).to eq Time.zone.parse('2000-01-01')
     end
 
     it "should set volume_number" do
       manifestation = FactoryBot.create(:manifestation, volume_number_string: '第1巻', issue_number_string: '20号分冊1', edition_string: '第3版')
-      manifestation.volume_number.should eq 1
-      manifestation.issue_number.should eq 20
-      manifestation.edition.should eq 3
+      expect(manifestation.volume_number).to eq 1
+      expect(manifestation.issue_number).to eq 20
+      expect(manifestation.edition).to eq 3
     end
 
     it "should search title in openurl" do
       openurl = Openurl.new({ title: "プログラミング" })
       results = openurl.search
-      openurl.query_text.should eq "btitle_text:プログラミング"
-      results.size.should eq 8
+      expect(openurl.query_text).to eq "btitle_text:プログラミング"
+      expect(results.size).to eq 8
       openurl = Openurl.new({ jtitle: "テスト" })
       results = openurl.search
-      results.size.should eq 3
-      openurl.query_text.should eq "jtitle_text:テスト"
+      expect(results.size).to eq 3
+      expect(openurl.query_text).to eq "jtitle_text:テスト"
       openurl = Openurl.new({ atitle: "2005" })
       results = openurl.search
-      results.size.should eq 1
-      openurl.query_text.should eq "atitle_text:2005"
+      expect(results.size).to eq 1
+      expect(openurl.query_text).to eq "atitle_text:2005"
       openurl = Openurl.new({ atitle: "テスト", jtitle: "テスト雑誌" })
       results = openurl.search
-      results.size.should eq 2
+      expect(results.size).to eq 2
     end
 
     it "should search agent in openurl" do
       openurl = Openurl.new({ aulast: "Administrator" })
       results = openurl.search
-      openurl.query_text.should eq "au_text:Administrator"
-      results.size.should eq 2
+      expect(openurl.query_text).to eq "au_text:Administrator"
+      expect(results.size).to eq 2
       openurl = Openurl.new({ aufirst: "名称" })
       results = openurl.search
-      openurl.query_text.should eq "au_text:名称"
-      results.size.should eq 1
+      expect(openurl.query_text).to eq "au_text:名称"
+      expect(results.size).to eq 1
       openurl = Openurl.new({ au: "テスト" })
       results = openurl.search
-      openurl.query_text.should eq "au_text:テスト"
-      results.size.should eq 1
+      expect(openurl.query_text).to eq "au_text:テスト"
+      expect(results.size).to eq 1
       openurl = Openurl.new({ pub: "Administrator" })
       results = openurl.search
-      openurl.query_text.should eq "publisher_text:Administrator"
-      results.size.should eq 4
+      expect(openurl.query_text).to eq "publisher_text:Administrator"
+      expect(results.size).to eq 4
     end
 
     it "should search isbn in openurl" do
       openurl = Openurl.new({ api: "openurl", isbn: "4798" })
       results = openurl.search
-      openurl.query_text.should eq "isbn_sm:4798*"
-      results.size.should eq 2
+      expect(openurl.query_text).to eq "isbn_sm:4798*"
+      expect(results.size).to eq 2
     end
 
     it "should search issn in openurl" do
       openurl = Openurl.new({ api: "openurl", issn: "0913" })
       results = openurl.search
-      openurl.query_text.should eq "issn_sm:0913*"
-      results.size.should eq 1
+      expect(openurl.query_text).to eq "issn_sm:0913*"
+      expect(results.size).to eq 1
     end
 
     it "should search any in openurl" do
       openurl = Openurl.new({ any: "テスト" })
       results = openurl.search
-      results.size.should eq 9
+      expect(results.size).to eq 9
     end
 
     it "should search multi in openurl" do
       openurl = Openurl.new({ btitle: "CGI Perl プログラミング" })
       results = openurl.search
-      results.size.should eq 3
+      expect(results.size).to eq 3
       openurl = Openurl.new({ jtitle: "テスト", pub: "テスト" })
       results = openurl.search
-      results.size.should eq 2
+      expect(results.size).to eq 2
     end
 
     it "shoulld get search_error in openurl" do
-      lambda { Openurl.new({ isbn: "12345678901234" }) }.should raise_error(OpenurlQuerySyntaxError)
-      lambda { Openurl.new({ issn: "1234abcd" }) }.should raise_error(OpenurlQuerySyntaxError)
-      lambda { Openurl.new({ aufirst: "テスト 名称" }) }.should raise_error(OpenurlQuerySyntaxError)
+      expect { Openurl.new({ isbn: "12345678901234" }) }.to raise_error(OpenurlQuerySyntaxError)
+      expect { Openurl.new({ issn: "1234abcd" }) }.to raise_error(OpenurlQuerySyntaxError)
+      expect { Openurl.new({ aufirst: "テスト 名称" }) }.to raise_error(OpenurlQuerySyntaxError)
     end
 
     it "should_get_number_of_pages" do
-      manifestations(:manifestation_00001).number_of_pages.should eq 100
+      expect(manifestations(:manifestation_00001).number_of_pages).to eq 100
     end
 
     it "should have parent_of_series" do
-      manifestations(:manifestation_00001).parent_of_series.should be_truthy
+      expect(manifestations(:manifestation_00001).parent_of_series).to be_truthy
     end
 
     it "should respond to extract_text" do
-      manifestations(:manifestation_00001).extract_text.should be_nil
+      expect(manifestations(:manifestation_00001).extract_text).to be_nil
     end
 
     it "should respond to title" do
-      manifestations(:manifestation_00001).title.should be_truthy
+      expect(manifestations(:manifestation_00001).title).to be_truthy
     end
 
     it "should respond to pickup" do
-      lambda { Manifestation.pickup }.should_not raise_error # (ActiveRecord::RecordNotFound)
+      expect { Manifestation.pickup }.not_to raise_error # (ActiveRecord::RecordNotFound)
     end
 
     it "should be periodical if its series_statement is periodical" do
-      manifestations(:manifestation_00202).serial?.should be_truthy
+      expect(manifestations(:manifestation_00202).serial?).to be_truthy
     end
 
     it "should validate access_address" do
       manifestation = manifestations(:manifestation_00202)
       manifestation.access_address = 'http:/www.example.jp'
-      manifestation.should_not be_valid
+      expect(manifestation).not_to be_valid
     end
 
     it "should search custom identifiers" do
-      Manifestation.search do
+      expect(Manifestation.search do
         fulltext 'identifier_text:custom1111'
-      end.results.count.should eq 1
+      end.results.count).to eq 1
     end
 
     # it "should set series_statement if the manifestation is periodical" do
@@ -149,17 +149,17 @@ describe Manifestation, solr: true do
     it "should export a header line" do
       lines = Manifestation.export
       csv = CSV.parse(lines, headers: true, col_sep: "\t")
-      csv["manifestation_id"].compact.should_not be_empty
-      csv["manifestation_identifier"].compact.should_not be_empty
-      csv["manifestation_created_at"].compact.should_not be_empty
-      csv["manifestation_updated_at"].compact.should_not be_empty
-      csv["item_id"].compact.should_not be_empty
-      csv["item_created_at"].compact.should_not be_empty
-      csv["item_updated_at"].compact.should_not be_empty
-      csv["subject:unknown"].compact.inject(0) { |count, a| count += 1 if a == 'next-l'; count }.should eq manifestations(:manifestation_00001).items.count
-      csv["classification:ndc9"].compact.inject(0) { |count, a| count += 1 if a == '400'; count }.should eq manifestations(:manifestation_00001).items.count
-      csv["extent"].compact.should_not be_empty
-      csv["dimensions"].compact.should_not be_empty
+      expect(csv["manifestation_id"].compact).not_to be_empty
+      expect(csv["manifestation_identifier"].compact).not_to be_empty
+      expect(csv["manifestation_created_at"].compact).not_to be_empty
+      expect(csv["manifestation_updated_at"].compact).not_to be_empty
+      expect(csv["item_id"].compact).not_to be_empty
+      expect(csv["item_created_at"].compact).not_to be_empty
+      expect(csv["item_updated_at"].compact).not_to be_empty
+      expect(csv["subject:unknown"].compact.inject(0) { |count, a| count += 1 if a == 'next-l'; count }).to eq manifestations(:manifestation_00001).items.count
+      expect(csv["classification:ndc9"].compact.inject(0) { |count, a| count += 1 if a == '400'; count }).to eq manifestations(:manifestation_00001).items.count
+      expect(csv["extent"].compact).not_to be_empty
+      expect(csv["dimensions"].compact).not_to be_empty
       expect(csv["manifestation_memo"].compact).to be_empty
       expect(csv["item_memo"].compact).to be_empty
       expect(csv["manifestation_price"].compact.first).to eq "1980"

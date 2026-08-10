@@ -17,7 +17,7 @@ describe UserGroupsController do
 
       it 'assigns all user_groups as @user_groups' do
         get :index
-        assigns(:user_groups).should eq(UserGroup.order(:position))
+        expect(assigns(:user_groups)).to eq(UserGroup.order(:position))
       end
     end
 
@@ -26,7 +26,7 @@ describe UserGroupsController do
 
       it 'assigns all user_groups as @user_groups' do
         get :index
-        assigns(:user_groups).should eq(UserGroup.order(:position))
+        expect(assigns(:user_groups)).to eq(UserGroup.order(:position))
       end
     end
 
@@ -35,14 +35,14 @@ describe UserGroupsController do
 
       it 'assigns all user_groups as @user_groups' do
         get :index
-        assigns(:user_groups).should eq(UserGroup.order(:position))
+        expect(assigns(:user_groups)).to eq(UserGroup.order(:position))
       end
     end
 
     describe 'When not logged in' do
       it 'assigns all user_groups as @user_groups' do
         get :index
-        assigns(:user_groups).should eq(UserGroup.order(:position))
+        expect(assigns(:user_groups)).to eq(UserGroup.order(:position))
       end
     end
   end
@@ -54,7 +54,7 @@ describe UserGroupsController do
       it 'assigns the requested user_group as @user_group' do
         user_group = FactoryBot.create(:user_group)
         get :show, params: { id: user_group.id }
-        assigns(:user_group).should eq(user_group)
+        expect(assigns(:user_group)).to eq(user_group)
       end
     end
 
@@ -64,7 +64,7 @@ describe UserGroupsController do
       it 'assigns the requested user_group as @user_group' do
         user_group = FactoryBot.create(:user_group)
         get :show, params: { id: user_group.id }
-        assigns(:user_group).should eq(user_group)
+        expect(assigns(:user_group)).to eq(user_group)
       end
     end
 
@@ -74,7 +74,7 @@ describe UserGroupsController do
       it 'assigns the requested user_group as @user_group' do
         user_group = FactoryBot.create(:user_group)
         get :show, params: { id: user_group.id }
-        assigns(:user_group).should eq(user_group)
+        expect(assigns(:user_group)).to eq(user_group)
       end
     end
 
@@ -82,7 +82,7 @@ describe UserGroupsController do
       it 'assigns the requested user_group as @user_group' do
         user_group = FactoryBot.create(:user_group)
         get :show, params: { id: user_group.id }
-        assigns(:user_group).should eq(user_group)
+        expect(assigns(:user_group)).to eq(user_group)
       end
     end
   end
@@ -93,7 +93,7 @@ describe UserGroupsController do
 
       it 'assigns the requested user_group as @user_group' do
         get :new
-        assigns(:user_group).should_not be_valid
+        expect(assigns(:user_group)).not_to be_valid
         expect(response).to be_successful
       end
     end
@@ -103,7 +103,7 @@ describe UserGroupsController do
 
       it 'should not assign the requested user_group as @user_group' do
         get :new
-        assigns(:user_group).should be_nil
+        expect(assigns(:user_group)).to be_nil
         expect(response).to be_forbidden
       end
     end
@@ -113,7 +113,7 @@ describe UserGroupsController do
 
       it 'should not assign the requested user_group as @user_group' do
         get :new
-        assigns(:user_group).should be_nil
+        expect(assigns(:user_group)).to be_nil
         expect(response).to be_forbidden
       end
     end
@@ -121,7 +121,7 @@ describe UserGroupsController do
     describe 'When not logged in' do
       it 'should not assign the requested user_group as @user_group' do
         get :new
-        assigns(:user_group).should be_nil
+        expect(assigns(:user_group)).to be_nil
         expect(response).to redirect_to(new_user_session_url)
       end
     end
@@ -134,7 +134,7 @@ describe UserGroupsController do
       it 'assigns the requested user_group as @user_group' do
         user_group = FactoryBot.create(:user_group)
         get :edit, params: { id: user_group.id }
-        assigns(:user_group).should eq(user_group)
+        expect(assigns(:user_group)).to eq(user_group)
       end
     end
 
@@ -179,7 +179,7 @@ describe UserGroupsController do
       describe 'with valid params' do
         it 'assigns a newly created user_group as @user_group' do
           post :create, params: { user_group: @attrs }
-          assigns(:user_group).should be_valid
+          expect(assigns(:user_group)).to be_valid
         end
 
         it 'redirects to the created patron' do
@@ -191,7 +191,7 @@ describe UserGroupsController do
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved user_group as @user_group' do
           post :create, params: { user_group: @invalid_attrs }
-          assigns(:user_group).should_not be_valid
+          expect(assigns(:user_group)).not_to be_valid
         end
 
         it "re-renders the 'new' template" do
@@ -207,7 +207,7 @@ describe UserGroupsController do
       describe 'with valid params' do
         it 'assigns a newly created user_group as @user_group' do
           post :create, params: { user_group: @attrs }
-          assigns(:user_group).should be_nil
+          expect(assigns(:user_group)).to be_nil
         end
 
         it 'should be forbidden' do
@@ -219,7 +219,7 @@ describe UserGroupsController do
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved user_group as @user_group' do
           post :create, params: { user_group: @invalid_attrs }
-          assigns(:user_group).should be_nil
+          expect(assigns(:user_group)).to be_nil
         end
 
         it 'should be forbidden' do
@@ -235,7 +235,7 @@ describe UserGroupsController do
       describe 'with valid params' do
         it 'assigns a newly created user_group as @user_group' do
           post :create, params: { user_group: @attrs }
-          assigns(:user_group).should be_nil
+          expect(assigns(:user_group)).to be_nil
         end
 
         it 'should be forbidden' do
@@ -247,7 +247,7 @@ describe UserGroupsController do
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved user_group as @user_group' do
           post :create, params: { user_group: @invalid_attrs }
-          assigns(:user_group).should be_nil
+          expect(assigns(:user_group)).to be_nil
         end
 
         it 'should be forbidden' do
@@ -261,7 +261,7 @@ describe UserGroupsController do
       describe 'with valid params' do
         it 'assigns a newly created user_group as @user_group' do
           post :create, params: { user_group: @attrs }
-          assigns(:user_group).should be_nil
+          expect(assigns(:user_group)).to be_nil
         end
 
         it 'should be forbidden' do
@@ -273,7 +273,7 @@ describe UserGroupsController do
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved user_group as @user_group' do
           post :create, params: { user_group: @invalid_attrs }
-          assigns(:user_group).should be_nil
+          expect(assigns(:user_group)).to be_nil
         end
 
         it 'should be forbidden' do
@@ -301,7 +301,7 @@ describe UserGroupsController do
 
         it 'assigns the requested user_group as @user_group' do
           put :update, params: { id: @user_group.id, user_group: @attrs }
-          assigns(:user_group).should eq(@user_group)
+          expect(assigns(:user_group)).to eq(@user_group)
         end
 
         it 'moves its position when specified' do
@@ -328,7 +328,7 @@ describe UserGroupsController do
 
         it 'assigns the requested user_group as @user_group' do
           put :update, params: { id: @user_group.id, user_group: @attrs }
-          assigns(:user_group).should eq(@user_group)
+          expect(assigns(:user_group)).to eq(@user_group)
           expect(response).to be_forbidden
         end
       end
@@ -351,7 +351,7 @@ describe UserGroupsController do
 
         it 'assigns the requested user_group as @user_group' do
           put :update, params: { id: @user_group.id, user_group: @attrs }
-          assigns(:user_group).should eq(@user_group)
+          expect(assigns(:user_group)).to eq(@user_group)
           expect(response).to be_forbidden
         end
       end

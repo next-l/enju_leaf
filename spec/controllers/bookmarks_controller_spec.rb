@@ -248,16 +248,16 @@ describe BookmarksController do
       it "should create bookmark with tag_list" do
         old_tag_count = Tag.count
         post :create, params: { bookmark: { tag_list: 'search', title: 'example', url: 'http://example.com/' } }
-        assigns(:bookmark).tag_list.should eq [ 'search' ]
-        assigns(:bookmark).taggings.size.should eq 1
-        Tag.count.should eq old_tag_count + 1
+        expect(assigns(:bookmark).tag_list).to eq [ 'search' ]
+        expect(assigns(:bookmark).taggings.size).to eq 1
+        expect(Tag.count).to eq old_tag_count + 1
         expect(response).to redirect_to bookmark_url(assigns(:bookmark))
       end
 
       it "should create bookmark with tag_list include wide space" do
         old_tag_count = Tag.count
         post :create, params: { bookmark: { tag_list: 'タグの　テスト', title: 'example', url: 'http://example.com/' } }
-        Tag.count.should eq old_tag_count + 2
+        expect(Tag.count).to eq old_tag_count + 2
         expect(response).to redirect_to bookmark_url(assigns(:bookmark))
       end
 
@@ -276,8 +276,8 @@ describe BookmarksController do
       it "should not create other user's bookmark" do
         old_bookmark_counts = users(:user2).bookmarks.count
         post :create, params: { bookmark: { user_id: users(:user2).id, title: 'example', url: 'http://example.com/' } }
-        users(:user2).bookmarks.count.should eq old_bookmark_counts
-        assigns(:bookmark).user.should eq users(:user1)
+        expect(users(:user2).bookmarks.count).to eq old_bookmark_counts
+        expect(assigns(:bookmark).user).to eq users(:user1)
         expect(response).to redirect_to bookmark_url(assigns(:bookmark))
       end
     end
@@ -401,13 +401,13 @@ describe BookmarksController do
       it "should add tags to bookmark" do
         put :update, params: { id: 3, bookmark: { user_id: users(:user1).id, tag_list: 'search', title: 'test' } }
         expect(response).to redirect_to bookmark_url(assigns(:bookmark))
-        assigns(:bookmark).tag_list.should eq [ 'search' ]
+        expect(assigns(:bookmark).tag_list).to eq [ 'search' ]
       end
 
       it "should remove tags from bookmark" do
         put :update, params: { id: 3, bookmark: { user_id: users(:user1).id, tag_list: nil, title: 'test' } }
         expect(response).to redirect_to bookmark_url(assigns(:bookmark))
-        assigns(:bookmark).tag_list.should be_empty
+        expect(assigns(:bookmark).tag_list).to be_empty
       end
 
       it "should not update other user's bookmark" do
@@ -416,9 +416,9 @@ describe BookmarksController do
       end
 
       it "should not update missing bookmark" do
-        lambda {
+        expect {
           put :update, params: { id: 'missing', bookmark: {} }
-        }.should raise_error(ActiveRecord::RecordNotFound)
+        }.to raise_error(ActiveRecord::RecordNotFound)
         # expect(response).to be_missing
       end
 
@@ -426,7 +426,7 @@ describe BookmarksController do
         put :update, params: { id: 3, bookmark: { manifestation_id: nil } }
         expect(assigns(:bookmark)).to be_valid
         expect(response).to redirect_to bookmark_url(assigns(:bookmark))
-        assigns(:bookmark).manifestation.should_not be_nil
+        expect(assigns(:bookmark).manifestation).not_to be_nil
       end
     end
 

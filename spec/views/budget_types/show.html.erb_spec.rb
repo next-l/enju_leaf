@@ -14,12 +14,12 @@ describe "budget_types/show" do
     allow(view).to receive(:policy).and_return double(update?: true)
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/Name/)
+    expect(rendered).to match(/Name/)
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/MyText/)
+    expect(rendered).to match(/MyText/)
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/MyText/)
+    expect(rendered).to match(/MyText/)
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/1/)
+    expect(rendered).to match(/1/)
   end
 end
