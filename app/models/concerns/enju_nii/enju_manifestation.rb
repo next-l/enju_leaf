@@ -113,7 +113,7 @@ module EnjuNii
         if startrecord == 0
           startrecord = 1
         end
-        url = "https://ci.nii.ac.jp/books/opensearch/search?q=#{CGI.escape(query)}&p=#{options[:p]}&count=#{options[:count]}&format=rss"
+        url = "https://cir.nii.ac.jp/opensearch/v2/books?q=#{CGI.escape(query)}&p=#{options[:p]}&count=#{options[:count]}&format=rss"
         if options[:raw] == true
           URI.parse(url).open.read
         else
@@ -143,9 +143,9 @@ module EnjuNii
 
       def search_cinii_opensearch(ncid: nil, isbn: nil)
         if ncid
-          url = "https://ci.nii.ac.jp/books/opensearch/search?ncid=#{ncid}&format=rss"
+          url = "https://cir.nii.ac.jp/opensearch/v2/books?ncid=#{ncid}&format=rss"
         elsif isbn
-          url = "https://ci.nii.ac.jp/books/opensearch/search?isbn=#{isbn}&format=rss"
+          url = "https://cir.nii.ac.jp/opensearch/v2/books?isbn=#{isbn}&format=rss"
         end
         RSS::RDF::Channel.install_text_element("opensearch:totalResults", "http://a9.com/-/spec/opensearch/1.1/", "?", "totalResults", :text, "opensearch:totalResults")
         RSS::BaseListener.install_get_text_element("http://a9.com/-/spec/opensearch/1.1/", "totalResults", "totalResults=")
