@@ -3,11 +3,7 @@ module EnjuLibrary
     extend ActiveSupport::Concern
 
     included do
-<<<<<<< HEAD
-      before_action :get_library_group, :set_locale, :set_available_languages
-=======
-      before_action :get_library_group, :set_available_languages, :set_mobile_request
->>>>>>> main
+      before_action :get_library_group, :set_available_languages
       before_action :store_current_location, unless: :devise_controller?
       rescue_from Pundit::NotAuthorizedError, with: :render_403
       # rescue_from ActiveRecord::RecordNotFound, with: :render_404
