@@ -262,7 +262,7 @@ en:
     last_updated: "Last updated"
     unknown: "Unknown"
     more: "More"
-    connection_faild: "Connection failed."
+    connection_failed: "Connection failed."
     timed_out: "Operation timed out."
     example: "Example"
     saving: "Saving..."
