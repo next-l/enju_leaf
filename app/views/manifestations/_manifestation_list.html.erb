@@ -6,9 +6,9 @@
           <%= link_to manifestation.original_title, manifestation -%>
           <%= form_icon(manifestation.carrier_type) -%>
           <%= link_to image_tag('icons/world_go.png', size: '16x16', class: 'enju_icon', alt: t('manifestation.web')), manifestation.access_address if manifestation.access_address? -%>
-          <%= agents_list(manifestation.creators.readable_by(current_user)) -%>
-          <%= agents_list(manifestation.contributors.readable_by(current_user)) -%>
-          <%= agents_list(manifestation.publishers.readable_by(current_user)) -%>
+          <%= agents_list(manifestation.creates) -%>
+          <%= agents_list(manifestation.realizes) -%>
+          <%= agents_list(manifestation.produces) -%>
           <%- if manifestation.pub_date? -%>
             (<%= manifestation.pub_date -%>)
           <%- end -%>
@@ -20,9 +20,9 @@
           <%= link_to manifestation.original_title, manifestation -%>
           <%= form_icon(manifestation.carrier_type) -%>
           <%= link_to image_tag('icons/world_go.png', size: '16x16', class: 'enju_icon', alt: t('manifestation.web')), manifestation.access_address if manifestation.access_address? -%>
-          <%= agents_list(manifestation.creators.readable_by(current_user)) -%>
-          <%= agents_list(manifestation.contributors.readable_by(current_user)) -%>
-          <%= agents_list(manifestation.publishers.readable_by(current_user)) -%>
+          <%= agents_list(manifestation.creates) -%>
+          <%= agents_list(manifestation.realizes) -%>
+          <%= agents_list(manifestation.produces) -%>
           <%- if manifestation.pub_date? -%>
             (<%= manifestation.pub_date -%>)
           <%- end -%>
