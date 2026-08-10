@@ -34,7 +34,7 @@ RSpec.describe 'Checkouts', type: :system do
       sign_in users(:librarian1)
       visit checkouts_path(days_overdue: 10)
       expect(page).to have_link 'RSS', href: checkouts_path(format: :rss, days_overdue: 10)
-      expect(page).to have_link 'TSV', href: checkouts_path(format: :txt, days_overdue: 10, locale: 'ja')
+      expect(page).to have_link 'TSV', href: checkouts_path(format: :txt, days_overdue: 10, locale: 'en')
     end
 
     it 'should export checkouts to TSV' do
