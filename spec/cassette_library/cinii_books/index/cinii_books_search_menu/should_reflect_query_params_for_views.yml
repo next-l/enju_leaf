@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://ci.nii.ac.jp/books/opensearch/search?count=10&format=rss&p=1&q=test
+    uri: https://cir.nii.ac.jp/opensearch/v2/books?count=10&format=rss&p=1&q=test
     body:
       encoding: US-ASCII
       string: ''
@@ -16,161 +16,58 @@ http_interactions:
   response:
     status:
       code: 200
-      message: '200'
+      message: ''
     headers:
-      Date:
-      - Sat, 05 Feb 2022 08:15:22 GMT
       Content-Type:
       - application/rss+xml;charset=UTF-8
-      Connection:
-      - keep-alive
-      Access-Control-Allow-Origin:
-      - "*"
-      X-Frame-Options:
-      - SAMEORIGIN
-      Set-Cookie:
-      - TS01b7c0b3=01bdee84565e54e411b557666d0715b18df48e733574147464e33a273ca71c9b1fbe7225e425900a61012c18da15d081d1a523ae49;
-        Path=/
       Transfer-Encoding:
       - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Mon, 10 Aug 2026 12:32:43 GMT
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      Set-Cookie:
+      - AWSALB=ltvKgzxleiMJQp1SrIsI8EkOacsB+tEcsFIz/YrjHIiyHLKcoEerD2vvZ//qmWiPE1KMZJ8qrq7vSy+3k9qroPzUdQQ2VWXvKAt3z/Pv/z8VT+K9JaMGwYXPEcDK;
+        Expires=Mon, 17 Aug 2026 12:32:43 GMT; Path=/
+      - AWSALBCORS=ltvKgzxleiMJQp1SrIsI8EkOacsB+tEcsFIz/YrjHIiyHLKcoEerD2vvZ//qmWiPE1KMZJ8qrq7vSy+3k9qroPzUdQQ2VWXvKAt3z/Pv/z8VT+K9JaMGwYXPEcDK;
+        Expires=Mon, 17 Aug 2026 12:32:43 GMT; Path=/; SameSite=None; Secure
+      - CIR_LANGUAGE=ja; Path=/
+      - SESSION=ZTI4YjNkNTQtZjE5NC00NGY4LTkxODUtNGJmNzgxNTM0MDQz; Path=/; Secure;
+        HttpOnly; SameSite=Lax
+      Server:
+      - nginx
+      X-Frame-Options:
+      - SAMEORIGIN
+      Vary:
+      - Accept-Encoding
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 0df55f6329aae05fb3cdab13491b3708.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - NRT20-P3
+      X-Amz-Cf-Id:
+      - 6q7VktOI3TcDz9LuOl83AqFmGG-IDs1f0mYh0mkYDIlyUY6f15TT0w==
     body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8"?><rdf:RDF xml:lang="ja" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:cinii="http://ci.nii.ac.jp/ns/1.0/" xmlns="http://purl.org/rss/1.0/">
-        <channel rdf:about="https://ci.nii.ac.jp/books/opensearch/search?p=1&amp;q=test&amp;count=10&amp;format=rss">
-        <title>CiNii Books OpenSearch - 1 test 10</title>
-        <description>CiNii Books OpenSearch - 1 test 10</description>
-        <link>https://ci.nii.ac.jp/books/opensearch/search?p=1&amp;q=test&amp;count=10&amp;format=rss</link>
-        <dc:date>2022-02-05T17:15:22+09:00</dc:date>
-        <opensearch:totalResults>31923</opensearch:totalResults>
-        <opensearch:startIndex>0</opensearch:startIndex>
-        <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
-        <items>
-        <rdf:Seq>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA73037253"/>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA25648121"/>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA14163018"/>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA04846659"/>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/AA00203637"/>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA02976245"/>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/AA11170085"/>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA76205081"/>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA06846219"/>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA41795240"/>
-        </rdf:Seq>
-        </items>
-        </channel>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/BA73037253">
-        <title>Catalog of cooperative tests</title>
-        <link>https://ci.nii.ac.jp/ncid/BA73037253</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA73037253.rdf"/>
-        <dc:creator/>
-        <dc:publisher>Cooperative Test Division, Educational Testing Service</dc:publisher>
-        <prism:publicationDate>1953</prism:publicationDate>
-        <dc:date>1953</dc:date>
-        <cinii:ownerCount>1</cinii:ownerCount>
-        </item>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/BA25648121">
-        <title>Achievement tests and measurement devices</title>
-        <link>https://ci.nii.ac.jp/ncid/BA25648121</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA25648121.rdf"/>
-        <dc:creator>compiled by Test Collection, Educational Testing Service</dc:creator>
-        <dc:publisher>Oryx Press</dc:publisher>
-        <prism:publicationDate>1986</prism:publicationDate>
-        <dc:date>1986</dc:date>
-        <dcterms:isPartOf rdf:resource="https://ci.nii.ac.jp/ncid/BA14163266" dc:title="The ETS Test Collection catalog, v.1"/>
-        <dcterms:hasPart rdf:resource="urn:isbn:0897742486"/>
-        <cinii:ownerCount>2</cinii:ownerCount>
-        </item>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/BA14163018">
-        <title>Affective measures and personality tests</title>
-        <link>https://ci.nii.ac.jp/ncid/BA14163018</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA14163018.rdf"/>
-        <dc:creator>compiled by Test Collection, Educational Testing Service</dc:creator>
-        <dc:publisher>Oryx Press</dc:publisher>
-        <prism:publicationDate>1992</prism:publicationDate>
-        <dc:date>1992</dc:date>
-        <dcterms:isPartOf rdf:resource="https://ci.nii.ac.jp/ncid/BA14163266" dc:title="The ETS Test Collection catalog, v.6"/>
-        <dcterms:hasPart rdf:resource="urn:isbn:0897746929"/>
-        <cinii:ownerCount>1</cinii:ownerCount>
-        </item>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/BA04846659">
-        <title>Computer automation of materials testing : a symposium sponsored by ASTM Committee E-24 on Fracture Testing and Committee E-28 on Mechanical Testing, American Society for Testing and Materials, Philadelphia, Pa., 5-11 Nov. 1978</title>
-        <link>https://ci.nii.ac.jp/ncid/BA04846659</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA04846659.rdf"/>
-        <dc:creator>B.C. Wonsiewicz, editor</dc:creator>
-        <dc:publisher>ASTM</dc:publisher>
-        <prism:publicationDate>1980</prism:publicationDate>
-        <dc:date>1980</dc:date>
-        <dcterms:isPartOf rdf:resource="https://ci.nii.ac.jp/ncid/BA00068096" dc:title="ASTM special technical publication, 710"/>
-        <cinii:ownerCount>12</cinii:ownerCount>
-        </item>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/AA00203637">
-        <title>Geotechnical testing journal</title>
-        <link>https://ci.nii.ac.jp/ncid/AA00203637</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/AA00203637.rdf"/>
-        <dc:creator>American Society for Testing and Materials</dc:creator>
-        <dc:publisher>American Society for Testing and Materials</dc:publisher>
-        <prism:publicationDate>1978</prism:publicationDate>
-        <dc:date>1978</dc:date>
-        <dcterms:hasPart rdf:resource="urn:issn:01496115"/>
-        <cinii:ownerCount>48</cinii:ownerCount>
-        </item>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/BA02976245">
-        <title>Impact testing of metals</title>
-        <link>https://ci.nii.ac.jp/ncid/BA02976245</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA02976245.rdf"/>
-        <dc:creator/>
-        <dc:publisher>American Society for Testing and Materials</dc:publisher>
-        <prism:publicationDate>1970</prism:publicationDate>
-        <dc:date>1970</dc:date>
-        <dcterms:isPartOf rdf:resource="https://ci.nii.ac.jp/ncid/BA00068096" dc:title="ASTM special technical publication, 466"/>
-        <dcterms:hasPart rdf:resource="urn:isbn:0803100523"/>
-        <cinii:ownerCount>32</cinii:ownerCount>
-        </item>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/AA11170085">
-        <title>Directory of testing laboratories</title>
-        <link>https://ci.nii.ac.jp/ncid/AA11170085</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/AA11170085.rdf"/>
-        <dc:creator>compiled by ASTM</dc:creator>
-        <dc:publisher>American Society for Testing and Materials</dc:publisher>
-        <prism:publicationDate>198-</prism:publicationDate>
-        <dc:date>198-</dc:date>
-        <dcterms:hasPart rdf:resource="urn:issn:08957886"/>
-        <cinii:ownerCount>1</cinii:ownerCount>
-        </item>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/BA76205081">
-        <title>Specimen set of Durrell-Sullivan reading capacity and achievement tests</title>
-        <link>https://ci.nii.ac.jp/ncid/BA76205081</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA76205081.rdf"/>
-        <dc:creator/>
-        <dc:publisher>World Book</dc:publisher>
-        <prism:publicationDate>1937</prism:publicationDate>
-        <dc:date>1937</dc:date>
-        <cinii:ownerCount>4</cinii:ownerCount>
-        </item>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/BA06846219">
-        <title>Directory of selected national testing programs</title>
-        <link>https://ci.nii.ac.jp/ncid/BA06846219</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA06846219.rdf"/>
-        <dc:creator>compiled by Test Collection, Educational Testing Service</dc:creator>
-        <dc:publisher>Oryx Press</dc:publisher>
-        <prism:publicationDate>1987</prism:publicationDate>
-        <dc:date>1987</dc:date>
-        <dcterms:hasPart rdf:resource="urn:isbn:0897743865"/>
-        <cinii:ownerCount>2</cinii:ownerCount>
-        </item>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/BA41795240">
-        <title>Nondestructive testing of nuclear graphite : a symposium presented at the Seventieth Annual Meeting American Society for Testing and Materials, Boston, Mass., 25-30 June, 1967</title>
-        <link>https://ci.nii.ac.jp/ncid/BA41795240</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA41795240.rdf"/>
-        <dc:creator/>
-        <dc:publisher>American Society for Testing and Materials</dc:publisher>
-        <prism:publicationDate>1968</prism:publicationDate>
-        <dc:date>1968</dc:date>
-        <dcterms:isPartOf rdf:resource="https://ci.nii.ac.jp/ncid/BA00068096" dc:title="ASTM special technical publication, 439"/>
-        <cinii:ownerCount>3</cinii:ownerCount>
-        </item>
-        </rdf:RDF>
-  recorded_at: Sat, 05 Feb 2022 08:15:22 GMT
-recorded_with: VCR 6.0.0
+      encoding: ASCII-8BIT
+      string: !binary |-
+        PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiID8+CjxyZGY6UkRGIHhtbG5zPSJodHRwOi8vcHVybC5vcmcvcnNzLzEuMC8iIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIgeG1sbnM6cmRmcz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wMS9yZGYtc2NoZW1hIyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczpwcmlzbT0iaHR0cDovL3ByaXNtc3RhbmRhcmQub3JnL25hbWVzcGFjZXMvYmFzaWMvMi4wLyIgeG1sbnM6bmRsPSJodHRwOi8vbmRsLmdvLmpwL2RjbmRsL3Rlcm1zIiB4bWxuczpvcGVuc2VhcmNoPSJodHRwOi8vYTkuY29tLy0vc3BlYy9vcGVuc2VhcmNoLzEuMS8iIHhtbG5zOmNpcj0iaHR0cHM6Ly9jaXIubmlpLmFjLmpwL3NjaGVtYS8xLjAvIiB4bWw6bGFuZz0iamEiPgo8Y2hhbm5lbCByZGY6YWJvdXQ9Imh0dHBzOi8vY2lyLm5paS5hYy5qcC9vcGVuc2VhcmNoL3YyL2Jvb2tzP3E9dGVzdCZhbXA7cD0xJmFtcDtjb3VudD0xMCZhbXA7Zm9ybWF0PXJzcyI+Cjx0aXRsZT5DaU5paSBSZXNlYXJjaCBib29rcyAtIHRlc3QgMTAgcnNzPC90aXRsZT4KPGRlc2NyaXB0aW9uPkNpTmlpIFJlc2VhcmNoIGJvb2tzIC0gdGVzdCAxMCByc3M8L2Rlc2NyaXB0aW9uPgo8bGluaz5odHRwczovL2Npci5uaWkuYWMuanAvb3BlbnNlYXJjaC92Mi9ib29rcz9xPXRlc3QmYW1wO3A9MSZhbXA7Y291bnQ9MTAmYW1wO2Zvcm1hdD1yc3M8L2xpbms+CjxkYzpkYXRlPjIwMjYtMDgtMTBUMjE6MzI6NDMuNTcyKzA5OjAwPC9kYzpkYXRlPgo8b3BlbnNlYXJjaDp0b3RhbFJlc3VsdHM+MzM5OTA8L29wZW5zZWFyY2g6dG90YWxSZXN1bHRzPgo8b3BlbnNlYXJjaDpzdGFydEluZGV4PjE8L29wZW5zZWFyY2g6c3RhcnRJbmRleD4KPG9wZW5zZWFyY2g6aXRlbXNQZXJQYWdlPjEwPC9vcGVuc2VhcmNoOml0ZW1zUGVyUGFnZT4KPGl0ZW1zPgo8cmRmOlNlcT4KPHJkZjpsaSByZGY6cmVzb3VyY2U9Imh0dHBzOi8vY2lyLm5paS5hYy5qcC9jcmlkLzE5NzExNDkzODQ3NjAxODcwMjAiLz4KPHJkZjpsaSByZGY6cmVzb3VyY2U9Imh0dHBzOi8vY2lyLm5paS5hYy5qcC9jcmlkLzE5NzA4Njc5MDk3OTE1OTUwODMiLz4KPHJkZjpsaSByZGY6cmVzb3VyY2U9Imh0dHBzOi8vY2lyLm5paS5hYy5qcC9jcmlkLzE5NzA1ODY0MzQ5MjIxMTA3ODUiLz4KPHJkZjpsaSByZGY6cmVzb3VyY2U9Imh0dHBzOi8vY2lyLm5paS5hYy5qcC9jcmlkLzE5NzA4Njc5MDk3Mzg1MjA2MjgiLz4KPHJkZjpsaSByZGY6cmVzb3VyY2U9Imh0dHBzOi8vY2lyLm5paS5hYy5qcC9jcmlkLzE5NzExNDkzODQ4MzY1MjYwOTQiLz4KPHJkZjpsaSByZGY6cmVzb3VyY2U9Imh0dHBzOi8vY2lyLm5paS5hYy5qcC9jcmlkLzE5NzE3MTIzMzQ3NDQ1MTAzNjYiLz4KPHJkZjpsaSByZGY6cmVzb3VyY2U9Imh0dHBzOi8vY2lyLm5paS5hYy5qcC9jcmlkLzE5NzE3MTIzMzQ4MjMxMzg1NzciLz4KPHJkZjpsaSByZGY6cmVzb3VyY2U9Imh0dHBzOi8vY2lyLm5paS5hYy5qcC9jcmlkLzE5NzAwMjM0ODQ5NDQ3OTk4OTMiLz4KPHJkZjpsaSByZGY6cmVzb3VyY2U9Imh0dHBzOi8vY2lyLm5paS5hYy5qcC9jcmlkLzE5NzAzMDQ5NTk4MjIzMzk2MjYiLz4KPHJkZjpsaSByZGY6cmVzb3VyY2U9Imh0dHBzOi8vY2lyLm5paS5hYy5qcC9jcmlkLzE5NzExNDkzODQ4MTA5NzE5MzAiLz4KPC9yZGY6U2VxPgo8L2l0ZW1zPgo8L2NoYW5uZWw+CjxpdGVtIHJkZjphYm91dD0iaHR0cHM6Ly9jaXIubmlpLmFjLmpwL2NyaWQvMTk3MTE0OTM4NDc2MDE4NzAyMCI+Cjx0aXRsZT5BY2hpZXZlbWVudCB0ZXN0cyBhbmQgbWVhc3VyZW1lbnQgZGV2aWNlczwvdGl0bGU+CjxsaW5rPmh0dHBzOi8vY2lyLm5paS5hYy5qcC9jcmlkLzE5NzExNDkzODQ3NjAxODcwMjA8L2xpbms+CjxyZGZzOnNlZUFsc28gcmRmOnJlc291cmNlPSJodHRwczovL2Npci5uaWkuYWMuanAvY3JpZC8xOTcxMTQ5Mzg0NzYwMTg3MDIwLnJkZiIvPgo8ZGM6Y3JlYXRvcj5FZHVjYXRpb25hbCBUZXN0aW5nIFNlcnZpY2UuIFRlc3QgQ29sbGVjdGlvbjwvZGM6Y3JlYXRvcj4KPGRjOnB1Ymxpc2hlcj5Pcnl4IFByZXNzPC9kYzpwdWJsaXNoZXI+CjxkYzp0eXBlPkJvb2s8L2RjOnR5cGU+CjxwcmlzbTpwdWJsaWNhdGlvbkRhdGU+MTk4NjwvcHJpc206cHVibGljYXRpb25EYXRlPgo8ZGVzY3JpcHRpb24+VGhlIEVUUyBUZXN0IENvbGxlY3Rpb24gY2F0YWxvZywgdi4xPC9kZXNjcmlwdGlvbj4KPGRjOmlkZW50aWZpZXIgcmRmOmRhdGF0eXBlPSJjaXI6TkNJRCI+QkEyNTY0ODEyMTwvZGM6aWRlbnRpZmllcj4KPGRjOmlkZW50aWZpZXIgcmRmOmRhdGF0eXBlPSJjaXI6SVNCTiI+MDg5Nzc0MjQ4NjwvZGM6aWRlbnRpZmllcj4KPGRjOmlkZW50aWZpZXIgcmRmOmRhdGF0eXBlPSJjaXI6VVJJIj5odHRwczovL2NpLm5paS5hYy5qcC9uY2lkL0JBMjU2NDgxMjEjZW50aXR5PC9kYzppZGVudGlmaWVyPgo8ZGM6c291cmNlIHJkZjpyZXNvdXJjZT0iaHR0cHM6Ly9jaS5uaWkuYWMuanAvbmNpZC9CQTI1NjQ4MTIxI2VudGl0eSIvPgo8L2l0ZW0+CjxpdGVtIHJkZjphYm91dD0iaHR0cHM6Ly9jaXIubmlpLmFjLmpwL2NyaWQvMTk3MDg2NzkwOTc5MTU5NTA4MyI+Cjx0aXRsZT5BZmZlY3RpdmUgbWVhc3VyZXMgYW5kIHBlcnNvbmFsaXR5IHRlc3RzPC90aXRsZT4KPGxpbms+aHR0cHM6Ly9jaXIubmlpLmFjLmpwL2NyaWQvMTk3MDg2NzkwOTc5MTU5NTA4MzwvbGluaz4KPHJkZnM6c2VlQWxzbyByZGY6cmVzb3VyY2U9Imh0dHBzOi8vY2lyLm5paS5hYy5qcC9jcmlkLzE5NzA4Njc5MDk3OTE1OTUwODMucmRmIi8+CjxkYzpjcmVhdG9yPkVkdWNhdGlvbmFsIFRlc3RpbmcgU2VydmljZS4gVGVzdCBDb2xsZWN0aW9uPC9kYzpjcmVhdG9yPgo8ZGM6cHVibGlzaGVyPk9yeXggUHJlc3M8L2RjOnB1Ymxpc2hlcj4KPGRjOnR5cGU+Qm9vazwvZGM6dHlwZT4KPHByaXNtOnB1YmxpY2F0aW9uRGF0ZT4xOTkyPC9wcmlzbTpwdWJsaWNhdGlvbkRhdGU+CjxkZXNjcmlwdGlvbj5UaGUgRVRTIFRlc3QgQ29sbGVjdGlvbiBjYXRhbG9nLCB2LjY8L2Rlc2NyaXB0aW9uPgo8ZGM6aWRlbnRpZmllciByZGY6ZGF0YXR5cGU9ImNpcjpOQ0lEIj5CQTE0MTYzMDE4PC9kYzppZGVudGlmaWVyPgo8ZGM6aWRlbnRpZmllciByZGY6ZGF0YXR5cGU9ImNpcjpJU0JOIj4wODk3NzQ2OTI5PC9kYzppZGVudGlmaWVyPgo8ZGM6aWRlbnRpZmllciByZGY6ZGF0YXR5cGU9ImNpcjpMQ0NOIj44NjAwMDY3ODwvZGM6aWRlbnRpZmllcj4KPGRjOmlkZW50aWZpZXIgcmRmOmRhdGF0eXBlPSJjaXI6VVJJIj5odHRwczovL2NpLm5paS5hYy5qcC9uY2lkL0JBMTQxNjMwMTgjZW50aXR5PC9kYzppZGVudGlmaWVyPgo8ZGM6aWRlbnRpZmllciByZGY6ZGF0YXR5cGU9ImNpcjpVUkkiPmh0dHBzOi8vbGNjbi5sb2MuZ292Lzg2MDAwNjc4PC9kYzppZGVudGlmaWVyPgo8ZGM6c291cmNlIHJkZjpyZXNvdXJjZT0iaHR0cHM6Ly9jaS5uaWkuYWMuanAvbmNpZC9CQTE0MTYzMDE4I2VudGl0eSIvPgo8ZGM6c291cmNlIHJkZjpyZXNvdXJjZT0iaHR0cHM6Ly9sY2NuLmxvYy5nb3YvODYwMDA2NzgiLz4KPC9pdGVtPgo8aXRlbSByZGY6YWJvdXQ9Imh0dHBzOi8vY2lyLm5paS5hYy5qcC9jcmlkLzE5NzA1ODY0MzQ5MjIxMTA3ODUiPgo8dGl0bGU+Q2F0YWxvZyBvZiBjb29wZXJhdGl2ZSB0ZXN0czwvdGl0bGU+CjxsaW5rPmh0dHBzOi8vY2lyLm5paS5hYy5qcC9jcmlkLzE5NzA1ODY0MzQ5MjIxMTA3ODU8L2xpbms+CjxyZGZzOnNlZUFsc28gcmRmOnJlc291cmNlPSJodHRwczovL2Npci5uaWkuYWMuanAvY3JpZC8xOTcwNTg2NDM0OTIyMTEwNzg1LnJkZiIvPgo8ZGM6Y3JlYXRvcj5FZHVjYXRpb25hbCBUZXN0aW5nIFNlcnZpY2UuIENvb3BlcmF0aXZlIFRlc3QgRGl2aXNpb248L2RjOmNyZWF0b3I+CjxkYzpwdWJsaXNoZXI+Q29vcGVyYXRpdmUgVGVzdCBEaXZpc2lvbiwgRWR1Y2F0aW9uYWwgVGVzdGluZyBTZXJ2aWNlPC9kYzpwdWJsaXNoZXI+CjxkYzp0eXBlPkJvb2s8L2RjOnR5cGU+CjxwcmlzbTpwdWJsaWNhdGlvbkRhdGU+MTk1MzwvcHJpc206cHVibGljYXRpb25EYXRlPgo8ZGM6aWRlbnRpZmllciByZGY6ZGF0YXR5cGU9ImNpcjpOQ0lEIj5CQTczMDM3MjUzPC9kYzppZGVudGlmaWVyPgo8ZGM6aWRlbnRpZmllciByZGY6ZGF0YXR5cGU9ImNpcjpVUkkiPmh0dHBzOi8vY2kubmlpLmFjLmpwL25jaWQvQkE3MzAzNzI1MyNlbnRpdHk8L2RjOmlkZW50aWZpZXI+CjxkYzpzb3VyY2UgcmRmOnJlc291cmNlPSJodHRwczovL2NpLm5paS5hYy5qcC9uY2lkL0JBNzMwMzcyNTMjZW50aXR5Ii8+CjwvaXRlbT4KPGl0ZW0gcmRmOmFib3V0PSJodHRwczovL2Npci5uaWkuYWMuanAvY3JpZC8xOTcwODY3OTA5NzM4NTIwNjI4Ij4KPHRpdGxlPkdlb3RlY2huaWNhbCB0ZXN0aW5nIGpvdXJuYWw8L3RpdGxlPgo8bGluaz5odHRwczovL2Npci5uaWkuYWMuanAvY3JpZC8xOTcwODY3OTA5NzM4NTIwNjI4PC9saW5rPgo8cmRmczpzZWVBbHNvIHJkZjpyZXNvdXJjZT0iaHR0cHM6Ly9jaXIubmlpLmFjLmpwL2NyaWQvMTk3MDg2NzkwOTczODUyMDYyOC5yZGYiLz4KPGRjOmNyZWF0b3I+QW1lcmljYW4gU29jaWV0eSBmb3IgVGVzdGluZyBhbmQgTWF0ZXJpYWxzPC9kYzpjcmVhdG9yPgo8ZGM6cHVibGlzaGVyPkFtZXJpY2FuIFNvY2lldHkgZm9yIFRlc3RpbmcgYW5kIE1hdGVyaWFsczwvZGM6cHVibGlzaGVyPgo8ZGM6dHlwZT5Cb29rPC9kYzp0eXBlPgo8cHJpc206cHVibGljYXRpb25EYXRlPjE5Nzg8L3ByaXNtOnB1YmxpY2F0aW9uRGF0ZT4KPGRjOmlkZW50aWZpZXIgcmRmOmRhdGF0eXBlPSJjaXI6TkNJRCI+QUEwMDIwMzYzNzwvZGM6aWRlbnRpZmllcj4KPGRjOmlkZW50aWZpZXIgcmRmOmRhdGF0eXBlPSJjaXI6SVNTTiI+MDE0OTYxMTU8L2RjOmlkZW50aWZpZXI+CjxkYzppZGVudGlmaWVyIHJkZjpkYXRhdHlwZT0iY2lyOkxDQ04iPjc5NjQzMzQ5PC9kYzppZGVudGlmaWVyPgo8ZGM6aWRlbnRpZmllciByZGY6ZGF0YXR5cGU9ImNpcjpDT0RFTiI+R1RKT0RKPC9kYzppZGVudGlmaWVyPgo8ZGM6aWRlbnRpZmllciByZGY6ZGF0YXR5cGU9ImNpcjpVUkkiPmh0dHBzOi8vY2kubmlpLmFjLmpwL25jaWQvQUEwMDIwMzYzNyNlbnRpdHk8L2RjOmlkZW50aWZpZXI+CjxkYzppZGVudGlmaWVyIHJkZjpkYXRhdHlwZT0iY2lyOlVSSSI+aHR0cHM6Ly9sY2NuLmxvYy5nb3YvNzk2NDMzNDk8L2RjOmlkZW50aWZpZXI+CjxkYzpzb3VyY2UgcmRmOnJlc291cmNlPSJodHRwczovL2NpLm5paS5hYy5qcC9uY2lkL0FBMDAyMDM2MzcjZW50aXR5Ii8+CjxkYzpzb3VyY2UgcmRmOnJlc291cmNlPSJodHRwczovL2xjY24ubG9jLmdvdi83OTY0MzM0OSIvPgo8L2l0ZW0+CjxpdGVtIHJkZjphYm91dD0iaHR0cHM6Ly9jaXIubmlpLmFjLmpwL2NyaWQvMTk3MTE0OTM4NDgzNjUyNjA5NCI+Cjx0aXRsZT5UZWNobmlxdWVzIGR1IHRlc3QgSUkgPSB0ZXN0IHRlY2huaXF1ZXMgSUk8L3RpdGxlPgo8bGluaz5odHRwczovL2Npci5uaWkuYWMuanAvY3JpZC8xOTcxMTQ5Mzg0ODM2NTI2MDk0PC9saW5rPgo8cmRmczpzZWVBbHNvIHJkZjpyZXNvdXJjZT0iaHR0cHM6Ly9jaXIubmlpLmFjLmpwL2NyaWQvMTk3MTE0OTM4NDgzNjUyNjA5NC5yZGYiLz4KPGRjOmNyZWF0b3I+QXV0b21hdGljIFRlc3RpbmcgYW5kIFRlc3QgSW5zdHJ1bWVudGF0aW9uIChDb25mZXJlbmNlKTwvZGM6Y3JlYXRvcj4KPGRjOnB1Ymxpc2hlcj5OZXR3b3JrIEV2ZW50czwvZGM6cHVibGlzaGVyPgo8ZGM6dHlwZT5Cb29rPC9kYzp0eXBlPgo8cHJpc206cHVibGljYXRpb25EYXRlPjE5ODQ8L3ByaXNtOnB1YmxpY2F0aW9uRGF0ZT4KPGRlc2NyaXB0aW9uPkFURSA4NCA6IGF1dG9tYXRpYyB0ZXN0aW5nIGFuZCBhIHRlc3QgaW5zdHJ1bWVudGF0aW9uIDogY29uZmVyZW5jZSBwcm9jZWVkaW5ncyA9IHRleHRlIGRlcyBjb25mZXJlbmNlIDogUGFsYWlzIGRlcyBDb25ncsOocywgQ0lQLCBQYXJpcywgRnJhbmNlIDIsIDMsIDQgT2N0b2JlciAxOTg0LCBzZXNzaW9uIDQ8L2Rlc2NyaXB0aW9uPgo8ZGM6aWRlbnRpZmllciByZGY6ZGF0YXR5cGU9ImNpcjpOQ0lEIj5CQzA3MjA4ODhYPC9kYzppZGVudGlmaWVyPgo8ZGM6aWRlbnRpZmllciByZGY6ZGF0YXR5cGU9ImNpcjpJU0JOIj4wOTA3NjM0NDM1PC9kYzppZGVudGlmaWVyPgo8ZGM6aWRlbnRpZmllciByZGY6ZGF0YXR5cGU9ImNpcjpVUkkiPmh0dHBzOi8vY2kubmlpLmFjLmpwL25jaWQvQkMwNzIwODg4WCNlbnRpdHk8L2RjOmlkZW50aWZpZXI+CjxkYzpzb3VyY2UgcmRmOnJlc291cmNlPSJodHRwczovL2NpLm5paS5hYy5qcC9uY2lkL0JDMDcyMDg4OFgjZW50aXR5Ii8+CjwvaXRlbT4KPGl0ZW0gcmRmOmFib3V0PSJodHRwczovL2Npci5uaWkuYWMuanAvY3JpZC8xOTcxNzEyMzM0NzQ0NTEwMzY2Ij4KPHRpdGxlPkRpcmVjdG9yeSBvZiBzZWxlY3RlZCBuYXRpb25hbCB0ZXN0aW5nIHByb2dyYW1zPC90aXRsZT4KPGxpbms+aHR0cHM6Ly9jaXIubmlpLmFjLmpwL2NyaWQvMTk3MTcxMjMzNDc0NDUxMDM2NjwvbGluaz4KPHJkZnM6c2VlQWxzbyByZGY6cmVzb3VyY2U9Imh0dHBzOi8vY2lyLm5paS5hYy5qcC9jcmlkLzE5NzE3MTIzMzQ3NDQ1MTAzNjYucmRmIi8+CjxkYzpjcmVhdG9yPkVkdWNhdGlvbmFsIFRlc3RpbmcgU2VydmljZS4gVGVzdCBDb2xsZWN0aW9uPC9kYzpjcmVhdG9yPgo8ZGM6cHVibGlzaGVyPk9yeXggUHJlc3M8L2RjOnB1Ymxpc2hlcj4KPGRjOnR5cGU+Qm9vazwvZGM6dHlwZT4KPHByaXNtOnB1YmxpY2F0aW9uRGF0ZT4xOTg3PC9wcmlzbTpwdWJsaWNhdGlvbkRhdGU+CjxkYzppZGVudGlmaWVyIHJkZjpkYXRhdHlwZT0iY2lyOk5DSUQiPkJBMDY4NDYyMTk8L2RjOmlkZW50aWZpZXI+CjxkYzppZGVudGlmaWVyIHJkZjpkYXRhdHlwZT0iY2lyOklTQk4iPjA4OTc3NDM4NjU8L2RjOmlkZW50aWZpZXI+CjxkYzppZGVudGlmaWVyIHJkZjpkYXRhdHlwZT0iY2lyOkxDQ04iPjg2MDQzMTEyPC9kYzppZGVudGlmaWVyPgo8ZGM6aWRlbnRpZmllciByZGY6ZGF0YXR5cGU9ImNpcjpVUkkiPmh0dHBzOi8vY2kubmlpLmFjLmpwL25jaWQvQkEwNjg0NjIxOSNlbnRpdHk8L2RjOmlkZW50aWZpZXI+CjxkYzppZGVudGlmaWVyIHJkZjpkYXRhdHlwZT0iY2lyOlVSSSI+aHR0cHM6Ly9sY2NuLmxvYy5nb3YvODYwNDMxMTI8L2RjOmlkZW50aWZpZXI+CjxkYzpzb3VyY2UgcmRmOnJlc291cmNlPSJodHRwczovL2NpLm5paS5hYy5qcC9uY2lkL0JBMDY4NDYyMTkjZW50aXR5Ii8+CjxkYzpzb3VyY2UgcmRmOnJlc291cmNlPSJodHRwczovL2xjY24ubG9jLmdvdi84NjA0MzExMiIvPgo8L2l0ZW0+CjxpdGVtIHJkZjphYm91dD0iaHR0cHM6Ly9jaXIubmlpLmFjLmpwL2NyaWQvMTk3MTcxMjMzNDgyMzEzODU3NyI+Cjx0aXRsZT5UZWNobmlxdWVzIGR1IHRlc3QgSSA9IHRlc3QgdGVjaG5pcXVlcyBJPC90aXRsZT4KPGxpbms+aHR0cHM6Ly9jaXIubmlpLmFjLmpwL2NyaWQvMTk3MTcxMjMzNDgyMzEzODU3NzwvbGluaz4KPHJkZnM6c2VlQWxzbyByZGY6cmVzb3VyY2U9Imh0dHBzOi8vY2lyLm5paS5hYy5qcC9jcmlkLzE5NzE3MTIzMzQ4MjMxMzg1NzcucmRmIi8+CjxkYzpjcmVhdG9yPkF1dG9tYXRpYyBUZXN0aW5nIGFuZCBUZXN0IEluc3RydW1lbnRhdGlvbiAoQ29uZmVyZW5jZSk8L2RjOmNyZWF0b3I+CjxkYzpwdWJsaXNoZXI+TmV0d29yayBFdmVudHM8L2RjOnB1Ymxpc2hlcj4KPGRjOnR5cGU+Qm9vazwvZGM6dHlwZT4KPHByaXNtOnB1YmxpY2F0aW9uRGF0ZT4xOTg0PC9wcmlzbTpwdWJsaWNhdGlvbkRhdGU+CjxkZXNjcmlwdGlvbj5BVEUgODQgOiBhdXRvbWF0aWMgdGVzdGluZyBhbmQgYSB0ZXN0IGluc3RydW1lbnRhdGlvbiA6IGNvbmZlcmVuY2UgcHJvY2VlZGluZ3MgPSB0ZXh0ZSBkZXMgY29uZmVyZW5jZSA6IFBhbGFpcyBkZXMgQ29uZ3LDqHMsIENJUCwgUGFyaXMsIEZyYW5jZSAyLCAzLCA0IE9jdG9iZXIgMTk4NCwgc2Vzc2lvbiAzPC9kZXNjcmlwdGlvbj4KPGRjOmlkZW50aWZpZXIgcmRmOmRhdGF0eXBlPSJjaXI6TkNJRCI+QkMwNzIwODg0NjwvZGM6aWRlbnRpZmllcj4KPGRjOmlkZW50aWZpZXIgcmRmOmRhdGF0eXBlPSJjaXI6SVNCTiI+MDkwNzYzNDQyNzwvZGM6aWRlbnRpZmllcj4KPGRjOmlkZW50aWZpZXIgcmRmOmRhdGF0eXBlPSJjaXI6VVJJIj5odHRwczovL2NpLm5paS5hYy5qcC9uY2lkL0JDMDcyMDg4NDYjZW50aXR5PC9kYzppZGVudGlmaWVyPgo8ZGM6c291cmNlIHJkZjpyZXNvdXJjZT0iaHR0cHM6Ly9jaS5uaWkuYWMuanAvbmNpZC9CQzA3MjA4ODQ2I2VudGl0eSIvPgo8L2l0ZW0+CjxpdGVtIHJkZjphYm91dD0iaHR0cHM6Ly9jaXIubmlpLmFjLmpwL2NyaWQvMTk3MDAyMzQ4NDk0NDc5OTg5MyI+Cjx0aXRsZT5JbXBhY3QgdGVzdGluZyBvZiBtZXRhbHM8L3RpdGxlPgo8bGluaz5odHRwczovL2Npci5uaWkuYWMuanAvY3JpZC8xOTcwMDIzNDg0OTQ0Nzk5ODkzPC9saW5rPgo8cmRmczpzZWVBbHNvIHJkZjpyZXNvdXJjZT0iaHR0cHM6Ly9jaXIubmlpLmFjLmpwL2NyaWQvMTk3MDAyMzQ4NDk0NDc5OTg5My5yZGYiLz4KPGRjOmNyZWF0b3I+U3ltcG9zaXVtIG9uIEltcGFjdCBUZXN0aW5nIG9mIE1ldGFscyAoMTk2OSA6IEF0bGFudGljIENpdHkpPC9kYzpjcmVhdG9yPgo8ZGM6Y3JlYXRvcj5BbWVyaWNhbiBTb2NpZXR5IGZvciBUZXN0aW5nIGFuZCBNYXRlcmlhbHMuIFN1YmNvbW1pdHRlZSA3IG9uIEltcGFjdCBUZXN0aW5nPC9kYzpjcmVhdG9yPgo8ZGM6Y3JlYXRvcj5BbWVyaWNhbiBTb2NpZXR5IGZvciBUZXN0aW5nIGFuZCBNYXRlcmlhbHMuIENvbW1pdHRlZSBFLTI0IG9uIEZyYWN0dXJlIFRlc3Rpbmcgb2YgTWV0YWxzPC9kYzpjcmVhdG9yPgo8ZGM6cHVibGlzaGVyPkFtZXJpY2FuIFNvY2lldHkgZm9yIFRlc3RpbmcgYW5kIE1hdGVyaWFsczwvZGM6cHVibGlzaGVyPgo8ZGM6dHlwZT5Cb29rPC9kYzp0eXBlPgo8cHJpc206cHVibGljYXRpb25EYXRlPjE5NzA8L3ByaXNtOnB1YmxpY2F0aW9uRGF0ZT4KPGRlc2NyaXB0aW9uPkFTVE0gc3BlY2lhbCB0ZWNobmljYWwgcHVibGljYXRpb24sIDQ2NjwvZGVzY3JpcHRpb24+CjxkYzppZGVudGlmaWVyIHJkZjpkYXRhdHlwZT0iY2lyOk5DSUQiPkJBMDI5NzYyNDU8L2RjOmlkZW50aWZpZXI+CjxkYzppZGVudGlmaWVyIHJkZjpkYXRhdHlwZT0iY2lyOklTQk4iPjA4MDMxMDA1MjM8L2RjOmlkZW50aWZpZXI+CjxkYzppZGVudGlmaWVyIHJkZjpkYXRhdHlwZT0iY2lyOkxDQ04iPjc0MDk3NzMxPC9kYzppZGVudGlmaWVyPgo8ZGM6aWRlbnRpZmllciByZGY6ZGF0YXR5cGU9ImNpcjpVUkkiPmh0dHBzOi8vY2kubmlpLmFjLmpwL25jaWQvQkEwMjk3NjI0NSNlbnRpdHk8L2RjOmlkZW50aWZpZXI+CjxkYzppZGVudGlmaWVyIHJkZjpkYXRhdHlwZT0iY2lyOlVSSSI+aHR0cHM6Ly9sY2NuLmxvYy5nb3YvNzQwOTc3MzE8L2RjOmlkZW50aWZpZXI+CjxkYzpzb3VyY2UgcmRmOnJlc291cmNlPSJodHRwczovL2NpLm5paS5hYy5qcC9uY2lkL0JBMDI5NzYyNDUjZW50aXR5Ii8+CjxkYzpzb3VyY2UgcmRmOnJlc291cmNlPSJodHRwczovL2xjY24ubG9jLmdvdi83NDA5NzczMSIvPgo8L2l0ZW0+CjxpdGVtIHJkZjphYm91dD0iaHR0cHM6Ly9jaXIubmlpLmFjLmpwL2NyaWQvMTk3MDMwNDk1OTgyMjMzOTYyNiI+Cjx0aXRsZT5TcGVjaW1lbiBzZXQgb2YgRHVycmVsbC1TdWxsaXZhbiByZWFkaW5nIGNhcGFjaXR5IGFuZCBhY2hpZXZlbWVudCB0ZXN0czwvdGl0bGU+CjxsaW5rPmh0dHBzOi8vY2lyLm5paS5hYy5qcC9jcmlkLzE5NzAzMDQ5NTk4MjIzMzk2MjY8L2xpbms+CjxyZGZzOnNlZUFsc28gcmRmOnJlc291cmNlPSJodHRwczovL2Npci5uaWkuYWMuanAvY3JpZC8xOTcwMzA0OTU5ODIyMzM5NjI2LnJkZiIvPgo8ZGM6Y3JlYXRvcj5EdXJyZWxsLCBEb25hbGQ8L2RjOmNyZWF0b3I+CjxkYzpjcmVhdG9yPlN1bGxpdmFuLCBIZWxlbiBCbGFpcjwvZGM6Y3JlYXRvcj4KPGRjOnB1Ymxpc2hlcj5Xb3JsZCBCb29rPC9kYzpwdWJsaXNoZXI+CjxkYzp0eXBlPkJvb2s8L2RjOnR5cGU+CjxwcmlzbTpwdWJsaWNhdGlvbkRhdGU+MTkzNzwvcHJpc206cHVibGljYXRpb25EYXRlPgo8ZGVzY3JpcHRpb24+WzFdOiBSZWFkaW5nIGNhcGFjaXR5IHRlc3QgOiBmb3JtIEEsIFJlYWRpbmcgYWNoaWV2ZW1lbnQgdGVzdCA6IGZvcm0gQSwgYnkgRG9uYWxkIER1cnJlbGwgYW5kIEhlbGVuIEJsYWlyIFN1bGxpdmFuPC9kZXNjcmlwdGlvbj4KPGRjOmlkZW50aWZpZXIgcmRmOmRhdGF0eXBlPSJjaXI6TkNJRCI+QkE3NjIwNTA4MTwvZGM6aWRlbnRpZmllcj4KPGRjOmlkZW50aWZpZXIgcmRmOmRhdGF0eXBlPSJjaXI6VVJJIj5odHRwczovL2NpLm5paS5hYy5qcC9uY2lkL0JBNzYyMDUwODEjZW50aXR5PC9kYzppZGVudGlmaWVyPgo8ZGM6c291cmNlIHJkZjpyZXNvdXJjZT0iaHR0cHM6Ly9jaS5uaWkuYWMuanAvbmNpZC9CQTc2MjA1MDgxI2VudGl0eSIvPgo8L2l0ZW0+CjxpdGVtIHJkZjphYm91dD0iaHR0cHM6Ly9jaXIubmlpLmFjLmpwL2NyaWQvMTk3MTE0OTM4NDgxMDk3MTkzMCI+Cjx0aXRsZT5UaGUgRVRTIFRlc3QgQ29sbGVjdGlvbiBjYXRhbG9nPC90aXRsZT4KPGxpbms+aHR0cHM6Ly9jaXIubmlpLmFjLmpwL2NyaWQvMTk3MTE0OTM4NDgxMDk3MTkzMDwvbGluaz4KPHJkZnM6c2VlQWxzbyByZGY6cmVzb3VyY2U9Imh0dHBzOi8vY2lyLm5paS5hYy5qcC9jcmlkLzE5NzExNDkzODQ4MTA5NzE5MzAucmRmIi8+CjxkYzpjcmVhdG9yPkVkdWNhdGlvbmFsIFRlc3RpbmcgU2VydmljZS4gVGVzdCBDb2xsZWN0aW9uPC9kYzpjcmVhdG9yPgo8ZGM6cHVibGlzaGVyPk9yeXggUHJlc3M8L2RjOnB1Ymxpc2hlcj4KPGRjOnR5cGU+Qm9vazwvZGM6dHlwZT4KPGRjOmlkZW50aWZpZXIgcmRmOmRhdGF0eXBlPSJjaXI6TkNJRCI+QkExNDE2MzI2NjwvZGM6aWRlbnRpZmllcj4KPGRjOmlkZW50aWZpZXIgcmRmOmRhdGF0eXBlPSJjaXI6VVJJIj5odHRwczovL2NpLm5paS5hYy5qcC9uY2lkL0JBMTQxNjMyNjYjZW50aXR5PC9kYzppZGVudGlmaWVyPgo8ZGM6c291cmNlIHJkZjpyZXNvdXJjZT0iaHR0cHM6Ly9jaS5uaWkuYWMuanAvbmNpZC9CQTE0MTYzMjY2I2VudGl0eSIvPgo8L2l0ZW0+CjwvcmRmOlJERj4=
+  recorded_at: Mon, 10 Aug 2026 12:32:43 GMT
+recorded_with: VCR 6.4.0

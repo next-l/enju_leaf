@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://ci.nii.ac.jp/books/opensearch/search?count=10&format=rss&p=1&q=library
+    uri: https://cir.nii.ac.jp/opensearch/v2/books?count=10&format=rss&p=1&q=library
     body:
       encoding: US-ASCII
       string: ''
@@ -16,157 +16,258 @@ http_interactions:
   response:
     status:
       code: 200
-      message: '200'
+      message: ''
     headers:
-      Date:
-      - Sat, 05 Feb 2022 08:06:54 GMT
       Content-Type:
       - application/rss+xml;charset=UTF-8
-      Connection:
-      - keep-alive
-      Access-Control-Allow-Origin:
-      - "*"
-      X-Frame-Options:
-      - SAMEORIGIN
-      Set-Cookie:
-      - TS01b7c0b3=01bdee8456e14a386f8052855a56c041ee03c282a0a7df33cd2fc6cbfdb0519ba7ce732d9a455a9ec9e91070688ac99c5c9279f305;
-        Path=/
       Transfer-Encoding:
       - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Mon, 10 Aug 2026 11:38:25 GMT
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      Set-Cookie:
+      - AWSALB=6dAZAZJwAMknVvzBYTqPBXZidsL+qC10/4vgSNIVpXGbWfla9qpGcpJYrRa5wAWufbojQrTC5glOVTUooN+ZIKdmQ994mONnIzTkFIUjtpJD9SZHyr4sMw/U1zL7;
+        Expires=Mon, 17 Aug 2026 11:38:25 GMT; Path=/
+      - AWSALBCORS=6dAZAZJwAMknVvzBYTqPBXZidsL+qC10/4vgSNIVpXGbWfla9qpGcpJYrRa5wAWufbojQrTC5glOVTUooN+ZIKdmQ994mONnIzTkFIUjtpJD9SZHyr4sMw/U1zL7;
+        Expires=Mon, 17 Aug 2026 11:38:25 GMT; Path=/; SameSite=None; Secure
+      - CIR_LANGUAGE=ja; Path=/
+      - SESSION=NTQzNGVmMTItOGVjOC00NzY3LTgwNzQtNDg0MTBlMTVhMGQw; Path=/; Secure;
+        HttpOnly; SameSite=Lax
+      Server:
+      - nginx
+      X-Frame-Options:
+      - SAMEORIGIN
+      Vary:
+      - Accept-Encoding
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 2d99ffcf22d7464f56850a4024710a04.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - NRT20-P3
+      X-Amz-Cf-Id:
+      - sB5FsokQZnu3bAc9Bso7yFblnLQ9M_GWtPoksUCF80jUhrQPEKLqdQ==
     body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8"?><rdf:RDF xml:lang="ja" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:cinii="http://ci.nii.ac.jp/ns/1.0/" xmlns="http://purl.org/rss/1.0/">
-        <channel rdf:about="https://ci.nii.ac.jp/books/opensearch/search?p=1&amp;q=library&amp;count=10&amp;format=rss">
-        <title>CiNii Books OpenSearch - 1 library 10</title>
-        <description>CiNii Books OpenSearch - 1 library 10</description>
-        <link>https://ci.nii.ac.jp/books/opensearch/search?p=1&amp;q=library&amp;count=10&amp;format=rss</link>
-        <dc:date>2022-02-05T17:06:54+09:00</dc:date>
-        <opensearch:totalResults>185060</opensearch:totalResults>
-        <opensearch:startIndex>0</opensearch:startIndex>
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="utf-8" ?>
+        <rdf:RDF xmlns="http://purl.org/rss/1.0/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:ndl="http://ndl.go.jp/dcndl/terms" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:cir="https://cir.nii.ac.jp/schema/1.0/" xml:lang="ja">
+        <channel rdf:about="https://cir.nii.ac.jp/opensearch/v2/books?q=library&amp;p=1&amp;count=10&amp;format=rss">
+        <title>CiNii Research books - library 10 rss</title>
+        <description>CiNii Research books - library 10 rss</description>
+        <link>https://cir.nii.ac.jp/opensearch/v2/books?q=library&amp;p=1&amp;count=10&amp;format=rss</link>
+        <dc:date>2026-08-10T20:38:25.465+09:00</dc:date>
+        <opensearch:totalResults>182625</opensearch:totalResults>
+        <opensearch:startIndex>1</opensearch:startIndex>
         <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
         <items>
         <rdf:Seq>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BB11041135"/>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA21367696"/>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA8523466X"/>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA85231592"/>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BB23724204"/>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BB08423246"/>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA71932023"/>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BA71931122"/>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/AA00039103"/>
-        <rdf:li rdf:resource="https://ci.nii.ac.jp/ncid/BB26309402"/>
+        <rdf:li rdf:resource="https://cir.nii.ac.jp/crid/1970586434850742563"/>
+        <rdf:li rdf:resource="https://cir.nii.ac.jp/crid/1970304959814525512"/>
+        <rdf:li rdf:resource="https://cir.nii.ac.jp/crid/1971149384758652697"/>
+        <rdf:li rdf:resource="https://cir.nii.ac.jp/crid/1970867909913381305"/>
+        <rdf:li rdf:resource="https://cir.nii.ac.jp/crid/1971430859779921961"/>
+        <rdf:li rdf:resource="https://cir.nii.ac.jp/crid/1971712334785304092"/>
+        <rdf:li rdf:resource="https://cir.nii.ac.jp/crid/1970586434890527391"/>
+        <rdf:li rdf:resource="https://cir.nii.ac.jp/crid/1970304959850556545"/>
+        <rdf:li rdf:resource="https://cir.nii.ac.jp/crid/1971430859845922743"/>
+        <rdf:li rdf:resource="https://cir.nii.ac.jp/crid/1971430859692042636"/>
         </rdf:Seq>
         </items>
         </channel>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/BB11041135">
-        <title>A journey around the world mind : Cambridge University Library</title>
-        <link>https://ci.nii.ac.jp/ncid/BB11041135</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BB11041135.rdf"/>
-        <dc:creator/>
-        <dc:publisher>Cambridge University Library</dc:publisher>
+        <item rdf:about="https://cir.nii.ac.jp/crid/1970586434850742563">
+        <title>National treasures from Australia&apos;s great libraries</title>
+        <link>https://cir.nii.ac.jp/crid/1970586434850742563</link>
+        <rdfs:seeAlso rdf:resource="https://cir.nii.ac.jp/crid/1970586434850742563.rdf"/>
+        <dc:creator>National Library of Australia</dc:creator>
+        <dc:creator>Williams, Nat</dc:creator>
+        <dc:creator>Dent, Margaret</dc:creator>
+        <dc:creator>ACT Heritage Library</dc:creator>
+        <dc:creator>Northern Territory Library</dc:creator>
+        <dc:creator>State Library of New South Wales</dc:creator>
+        <dc:creator>State Library of Queensland</dc:creator>
+        <dc:creator>State Library of South Australia</dc:creator>
+        <dc:creator>State Library of Tasmania</dc:creator>
+        <dc:creator>State Library of Victoria</dc:creator>
+        <dc:creator>State Library of Western Australia</dc:creator>
+        <dc:publisher>National Library of Australia</dc:publisher>
+        <dc:type>Book</dc:type>
         <prism:publicationDate>2005</prism:publicationDate>
-        <dc:date>2005</dc:date>
-        <dcterms:hasPart rdf:resource="urn:isbn:0902205609"/>
-        <cinii:ownerCount>1</cinii:ownerCount>
+        <dc:identifier rdf:datatype="cir:NCID">BB08033139</dc:identifier>
+        <dc:identifier rdf:datatype="cir:ISBN">064227620X</dc:identifier>
+        <dc:identifier rdf:datatype="cir:LCCN">2006445627</dc:identifier>
+        <dc:identifier rdf:datatype="cir:URI">https://ci.nii.ac.jp/ncid/BB08033139#entity</dc:identifier>
+        <dc:identifier rdf:datatype="cir:URI">https://lccn.loc.gov/2006445627</dc:identifier>
+        <dc:source rdf:resource="https://ci.nii.ac.jp/ncid/BB08033139#entity"/>
+        <dc:source rdf:resource="https://lccn.loc.gov/2006445627"/>
         </item>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/BA21367696">
-        <title>Cambridge University Library Genizah series</title>
-        <link>https://ci.nii.ac.jp/ncid/BA21367696</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA21367696.rdf"/>
-        <dc:creator/>
+        <item rdf:about="https://cir.nii.ac.jp/crid/1970304959814525512">
+        <title>Descriptive catalogues of the manuscripts in the libraries of some Cambridge colleges</title>
+        <link>https://cir.nii.ac.jp/crid/1970304959814525512</link>
+        <rdfs:seeAlso rdf:resource="https://cir.nii.ac.jp/crid/1970304959814525512.rdf"/>
+        <dc:creator>James, M. R. (Montague Rhodes)</dc:creator>
+        <dc:creator>Clare College (University of Cambridge). Library</dc:creator>
+        <dc:creator>Trinity Hall (University of Cambridge). Library</dc:creator>
+        <dc:creator>King&apos;s College (University of Cambridge). Library</dc:creator>
+        <dc:creator>Magdalene College (University of Cambridge) Library</dc:creator>
+        <dc:creator>Queens&apos; College (University of Cambridge). Library</dc:creator>
+        <dc:creator>St. Catharine&apos;s College (University of Cambridge). Library</dc:creator>
+        <dc:creator>Christ&apos;s College (University of Cambridge). Library</dc:creator>
+        <dc:creator>Sidney Sussex College (University of Cambridge). Library</dc:creator>
         <dc:publisher>Cambridge University Press</dc:publisher>
-        <cinii:ownerCount>0</cinii:ownerCount>
+        <dc:type>Book</dc:type>
+        <prism:publicationDate>2009</prism:publicationDate>
+        <description>A descriptive catalogue of the Western manuscripts in the library of Clare College, Cambridge</description>
+        <dc:identifier rdf:datatype="cir:NCID">BB03163782</dc:identifier>
+        <dc:identifier rdf:datatype="cir:ISBN">9781108002585</dc:identifier>
+        <dc:identifier rdf:datatype="cir:URI">https://ci.nii.ac.jp/ncid/BB03163782#entity</dc:identifier>
+        <dc:source rdf:resource="https://ci.nii.ac.jp/ncid/BB03163782#entity"/>
         </item>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/BA8523466X">
-        <title>Russian printing to 1917 : a catalogue of an exhibition in the University Library, Cambridge, 22 April to 29 June 1974</title>
-        <link>https://ci.nii.ac.jp/ncid/BA8523466X</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA8523466X.rdf"/>
-        <dc:creator/>
-        <dc:publisher>[The Library]</dc:publisher>
-        <prism:publicationDate>1974</prism:publicationDate>
-        <dc:date>1974</dc:date>
-        <cinii:ownerCount>1</cinii:ownerCount>
+        <item rdf:about="https://cir.nii.ac.jp/crid/1971149384758652697">
+        <title>Children and young people : Library Association guidelines for public library services</title>
+        <link>https://cir.nii.ac.jp/crid/1971149384758652697</link>
+        <rdfs:seeAlso rdf:resource="https://cir.nii.ac.jp/crid/1971149384758652697.rdf"/>
+        <dc:creator>Library Association. Youth Libraries Committee</dc:creator>
+        <dc:creator>Blanshard, Catherine</dc:creator>
+        <dc:creator>Library Association</dc:creator>
+        <dc:publisher>Library Association</dc:publisher>
+        <dc:type>Book</dc:type>
+        <prism:publicationDate>1997</prism:publicationDate>
+        <dc:identifier rdf:datatype="cir:NCID">BA38826051</dc:identifier>
+        <dc:identifier rdf:datatype="cir:ISBN">185604209X</dc:identifier>
+        <dc:identifier rdf:datatype="cir:URI">https://ci.nii.ac.jp/ncid/BA38826051#entity</dc:identifier>
+        <dc:source rdf:resource="https://ci.nii.ac.jp/ncid/BA38826051#entity"/>
         </item>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/BA85231592">
-        <title>Guide to faculty and departmental libraries in the University of Cambridge</title>
-        <link>https://ci.nii.ac.jp/ncid/BA85231592</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA85231592.rdf"/>
-        <dc:creator>with an appendix containing the libraries of certain institutes, etc., that offer facilities to members of the University</dc:creator>
-        <dc:publisher>Cambridge University Library</dc:publisher>
+        <item rdf:about="https://cir.nii.ac.jp/crid/1970867909913381305">
+        <title>Library manpower: needs and utilization</title>
+        <link>https://cir.nii.ac.jp/crid/1970867909913381305</link>
+        <rdfs:seeAlso rdf:resource="https://cir.nii.ac.jp/crid/1970867909913381305.rdf"/>
+        <dc:creator>Conference on Library Manpower, Washington, D.C., 1967</dc:creator>
+        <dc:creator>Asheim, Lester Eugene</dc:creator>
+        <dc:creator>American Library Association. Office for Library Education</dc:creator>
+        <dc:creator>American Library Association. Library Administration Division</dc:creator>
+        <dc:publisher>American Library Association</dc:publisher>
+        <dc:type>Book</dc:type>
         <prism:publicationDate>1967</prism:publicationDate>
-        <dc:date>1967</dc:date>
-        <cinii:ownerCount>1</cinii:ownerCount>
+        <dc:identifier rdf:datatype="cir:NCID">BA73148527</dc:identifier>
+        <dc:identifier rdf:datatype="cir:LCCN">72003089</dc:identifier>
+        <dc:identifier rdf:datatype="cir:URI">https://ci.nii.ac.jp/ncid/BA73148527#entity</dc:identifier>
+        <dc:identifier rdf:datatype="cir:URI">https://lccn.loc.gov/72003089</dc:identifier>
+        <dc:source rdf:resource="https://ci.nii.ac.jp/ncid/BA73148527#entity"/>
+        <dc:source rdf:resource="https://lccn.loc.gov/72003089"/>
         </item>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/BB23724204">
-        <title>A journey around the world mind</title>
-        <link>https://ci.nii.ac.jp/ncid/BB23724204</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BB23724204.rdf"/>
-        <dc:creator>[text: Josephine Warrior ... et al.]</dc:creator>
-        <dc:publisher>Cambridge University Library</dc:publisher>
-        <prism:publicationDate>2010</prism:publicationDate>
-        <dc:date>2010</dc:date>
-        <dcterms:hasPart rdf:resource="urn:isbn:9780902205666"/>
-        <cinii:ownerCount>2</cinii:ownerCount>
+        <item rdf:about="https://cir.nii.ac.jp/crid/1971430859779921961">
+        <title>Anglo-American cataloguing rules : British text</title>
+        <link>https://cir.nii.ac.jp/crid/1971430859779921961</link>
+        <rdfs:seeAlso rdf:resource="https://cir.nii.ac.jp/crid/1971430859779921961.rdf"/>
+        <dc:creator>American Library Association</dc:creator>
+        <dc:creator>Library of Congress</dc:creator>
+        <dc:creator>Library Association</dc:creator>
+        <dc:creator>Canadian Library Association</dc:creator>
+        <dc:publisher>Library Association</dc:publisher>
+        <dc:type>Book</dc:type>
+        <prism:publicationDate>1967</prism:publicationDate>
+        <dc:identifier rdf:datatype="cir:NCID">BA13204051</dc:identifier>
+        <dc:identifier rdf:datatype="cir:ISBN">0853651701</dc:identifier>
+        <dc:identifier rdf:datatype="cir:XISBN">853651701</dc:identifier>
+        <dc:identifier rdf:datatype="cir:ISBN">0853653100</dc:identifier>
+        <dc:identifier rdf:datatype="cir:XISBN">853653100</dc:identifier>
+        <dc:identifier rdf:datatype="cir:LCCN">68081060</dc:identifier>
+        <dc:identifier rdf:datatype="cir:URI">https://ci.nii.ac.jp/ncid/BA13204051#entity</dc:identifier>
+        <dc:identifier rdf:datatype="cir:URI">https://lccn.loc.gov/68081060</dc:identifier>
+        <dc:source rdf:resource="https://ci.nii.ac.jp/ncid/BA13204051#entity"/>
+        <dc:source rdf:resource="https://lccn.loc.gov/68081060"/>
         </item>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/BB08423246">
-        <title>The University library Cambridge</title>
-        <link>https://ci.nii.ac.jp/ncid/BB08423246</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BB08423246.rdf"/>
-        <dc:creator/>
-        <dc:publisher>Printed with the sanction of the Syndics</dc:publisher>
-        <prism:publicationDate>1905</prism:publicationDate>
-        <dc:date>1905</dc:date>
-        <cinii:ownerCount>1</cinii:ownerCount>
+        <item rdf:about="https://cir.nii.ac.jp/crid/1971712334785304092">
+        <title>Library 2035 : imagining the next generation of libraries</title>
+        <link>https://cir.nii.ac.jp/crid/1971712334785304092</link>
+        <rdfs:seeAlso rdf:resource="https://cir.nii.ac.jp/crid/1971712334785304092.rdf"/>
+        <dc:creator>Hirsh, Sandra</dc:creator>
+        <dc:publisher>Rowman &amp; Littlefield</dc:publisher>
+        <dc:type>Book</dc:type>
+        <prism:publicationDate>2024</prism:publicationDate>
+        <dc:identifier rdf:datatype="cir:NCID">BD0913115X</dc:identifier>
+        <dc:identifier rdf:datatype="cir:ISBN">9781538180402</dc:identifier>
+        <dc:identifier rdf:datatype="cir:URI">https://ci.nii.ac.jp/ncid/BD0913115X#entity</dc:identifier>
+        <dc:source rdf:resource="https://ci.nii.ac.jp/ncid/BD0913115X#entity"/>
         </item>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/BA71932023">
-        <title>Catalog of the Avery Memorial Architectural Library  Columbia University : First supplement</title>
-        <link>https://ci.nii.ac.jp/ncid/BA71932023</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA71932023.rdf"/>
-        <dc:creator/>
-        <dc:publisher>G. K. Hall</dc:publisher>
-        <prism:publicationDate>1972</prism:publicationDate>
-        <dc:date>1972</dc:date>
-        <dcterms:hasPart rdf:resource="urn:isbn:0816107807"/>
-        <dcterms:hasPart rdf:resource="urn:isbn:0816107807"/>
-        <dcterms:hasPart rdf:resource="urn:isbn:0816107807"/>
-        <dcterms:hasPart rdf:resource="urn:isbn:0816107807"/>
-        <cinii:ownerCount>1</cinii:ownerCount>
+        <item rdf:about="https://cir.nii.ac.jp/crid/1970586434890527391">
+        <title>Approaches to library history : proceedings</title>
+        <link>https://cir.nii.ac.jp/crid/1970586434890527391</link>
+        <rdfs:seeAlso rdf:resource="https://cir.nii.ac.jp/crid/1970586434890527391.rdf"/>
+        <dc:creator>Library History Seminar</dc:creator>
+        <dc:creator>Marshall, John David</dc:creator>
+        <dc:creator>American Library Association. American Library History Round Table</dc:creator>
+        <dc:creator>Florida State University. Library School</dc:creator>
+        <dc:publisher>Journal of library history</dc:publisher>
+        <dc:type>Book</dc:type>
+        <prism:publicationDate>1966</prism:publicationDate>
+        <dc:identifier rdf:datatype="cir:NCID">BA13639837</dc:identifier>
+        <dc:identifier rdf:datatype="cir:LCCN">68001748</dc:identifier>
+        <dc:identifier rdf:datatype="cir:URI">https://ci.nii.ac.jp/ncid/BA13639837#entity</dc:identifier>
+        <dc:identifier rdf:datatype="cir:URI">https://lccn.loc.gov/68001748</dc:identifier>
+        <dc:source rdf:resource="https://ci.nii.ac.jp/ncid/BA13639837#entity"/>
+        <dc:source rdf:resource="https://lccn.loc.gov/68001748"/>
         </item>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/BA71931122">
-        <title>Catalog of the Avery Memorial Architectural Library  Columbia University : Fifth supplement</title>
-        <link>https://ci.nii.ac.jp/ncid/BA71931122</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BA71931122.rdf"/>
-        <dc:creator/>
-        <dc:publisher>G. K. Hall</dc:publisher>
-        <prism:publicationDate>1982</prism:publicationDate>
-        <dc:date>1982</dc:date>
-        <dcterms:hasPart rdf:resource="urn:isbn:0816103976"/>
-        <dcterms:hasPart rdf:resource="urn:isbn:0816103976"/>
-        <dcterms:hasPart rdf:resource="urn:isbn:0816103976"/>
-        <dcterms:hasPart rdf:resource="urn:isbn:0816103976"/>
-        <cinii:ownerCount>1</cinii:ownerCount>
+        <item rdf:about="https://cir.nii.ac.jp/crid/1970304959850556545">
+        <title>School libraries to-day</title>
+        <link>https://cir.nii.ac.jp/crid/1970304959850556545</link>
+        <rdfs:seeAlso rdf:resource="https://cir.nii.ac.jp/crid/1970304959850556545.rdf"/>
+        <dc:creator>School Library Association</dc:creator>
+        <dc:creator>Library Association. School Libraries Section</dc:creator>
+        <dc:publisher>School Library Association</dc:publisher>
+        <dc:type>Book</dc:type>
+        <prism:publicationDate>1961</prism:publicationDate>
+        <dc:identifier rdf:datatype="cir:NCID">BA68014678</dc:identifier>
+        <dc:identifier rdf:datatype="cir:URI">https://ci.nii.ac.jp/ncid/BA68014678#entity</dc:identifier>
+        <dc:source rdf:resource="https://ci.nii.ac.jp/ncid/BA68014678#entity"/>
         </item>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/AA00039103">
-        <title>Asian bibliography</title>
-        <link>https://ci.nii.ac.jp/ncid/AA00039103</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/AA00039103.rdf"/>
-        <dc:creator/>
-        <dc:publisher>Economic Commission for Asia and the Far East Library</dc:publisher>
-        <prism:publicationDate>1952</prism:publicationDate>
-        <dc:date>1952</dc:date>
-        <dcterms:hasPart rdf:resource="urn:issn:04979400"/>
-        <cinii:ownerCount>12</cinii:ownerCount>
+        <item rdf:about="https://cir.nii.ac.jp/crid/1971430859845922743">
+        <title>Scientific library services : report of the Association&apos;s Committee on Scientific Library Services</title>
+        <link>https://cir.nii.ac.jp/crid/1971430859845922743</link>
+        <rdfs:seeAlso rdf:resource="https://cir.nii.ac.jp/crid/1971430859845922743.rdf"/>
+        <dc:creator>Library Association. Committee on Scientific Library Services</dc:creator>
+        <dc:publisher>Library Association</dc:publisher>
+        <dc:type>Book</dc:type>
+        <prism:publicationDate>1968</prism:publicationDate>
+        <dc:identifier rdf:datatype="cir:NCID">BA1475709X</dc:identifier>
+        <dc:identifier rdf:datatype="cir:LCCN">68084090</dc:identifier>
+        <dc:identifier rdf:datatype="cir:URI">https://ci.nii.ac.jp/ncid/BA1475709X#entity</dc:identifier>
+        <dc:identifier rdf:datatype="cir:URI">https://lccn.loc.gov/68084090</dc:identifier>
+        <dc:source rdf:resource="https://ci.nii.ac.jp/ncid/BA1475709X#entity"/>
+        <dc:source rdf:resource="https://lccn.loc.gov/68084090"/>
         </item>
-        <item rdf:about="https://ci.nii.ac.jp/ncid/BB26309402">
-        <title>Buddhist Sanskrit manuscripts as fimed [i.e. filmed] by Cambridge University Library</title>
-        <link>https://ci.nii.ac.jp/ncid/BB26309402</link>
-        <rdfs:seeAlso rdf:resource="https://ci.nii.ac.jp/ncid/BB26309402.rdf"/>
-        <dc:creator/>
-        <dc:publisher>[s.n.]</dc:publisher>
-        <cinii:ownerCount>0</cinii:ownerCount>
+        <item rdf:about="https://cir.nii.ac.jp/crid/1971430859692042636">
+        <title>Library history</title>
+        <link>https://cir.nii.ac.jp/crid/1971430859692042636</link>
+        <rdfs:seeAlso rdf:resource="https://cir.nii.ac.jp/crid/1971430859692042636.rdf"/>
+        <dc:creator>Library Association. Library History Group</dc:creator>
+        <dc:publisher>Library History Group of the Library Association</dc:publisher>
+        <dc:type>Book</dc:type>
+        <prism:publicationDate>1967</prism:publicationDate>
+        <dc:identifier rdf:datatype="cir:NCID">AA00274872</dc:identifier>
+        <dc:identifier rdf:datatype="cir:ISSN">00242306</dc:identifier>
+        <dc:identifier rdf:datatype="cir:URI">https://ci.nii.ac.jp/ncid/AA00274872#entity</dc:identifier>
+        <dc:source rdf:resource="https://ci.nii.ac.jp/ncid/AA00274872#entity"/>
         </item>
         </rdf:RDF>
-  recorded_at: Sat, 05 Feb 2022 08:06:54 GMT
-recorded_with: VCR 6.0.0
+  recorded_at: Mon, 10 Aug 2026 11:38:25 GMT
+recorded_with: VCR 6.4.0

@@ -30,7 +30,7 @@ module EnjuNii
         # http://ci.nii.ac.jp/info/ja/api/api_outline.html#cib_od
         # return nil
 
-        ncid = doc.at("//cinii:ncid").try(:content)
+        ncid = doc.at("//dc:identifier[@rdf:datatype='cir:NCID']").try(:content)
         identifier = NcidRecord.find_by(body: ncid)
         return identifier.manifestation if identifier
 
@@ -113,7 +113,7 @@ module EnjuNii
         if startrecord == 0
           startrecord = 1
         end
-        url = "https://ci.nii.ac.jp/books/opensearch/search?q=#{CGI.escape(query)}&p=#{options[:p]}&count=#{options[:count]}&format=rss"
+        url = "https://cir.nii.ac.jp/opensearch/v2/books?q=#{CGI.escape(query)}&p=#{options[:p]}&count=#{options[:count]}&format=rss"
         if options[:raw] == true
           URI.parse(url).open.read
         else
@@ -143,9 +143,9 @@ module EnjuNii
 
       def search_cinii_opensearch(ncid: nil, isbn: nil)
         if ncid
-          url = "https://ci.nii.ac.jp/books/opensearch/search?ncid=#{ncid}&format=rss"
+          url = "https://cir.nii.ac.jp/opensearch/v2/books?ncid=#{ncid}&format=rss"
         elsif isbn
-          url = "https://ci.nii.ac.jp/books/opensearch/search?isbn=#{isbn}&format=rss"
+          url = "https://cir.nii.ac.jp/opensearch/v2/books?isbn=#{isbn}&format=rss"
         end
         RSS::RDF::Channel.install_text_element("opensearch:totalResults", "http://a9.com/-/spec/opensearch/1.1/", "?", "totalResults", :text, "opensearch:totalResults")
         RSS::BaseListener.install_get_text_element("http://a9.com/-/spec/opensearch/1.1/", "totalResults", "totalResults=")
@@ -162,7 +162,7 @@ module EnjuNii
       end
 
       def get_cinii_creator(doc)
-        doc.xpath("//foaf:maker/foaf:Person").map { |e|
+        doc.xpath("//xmlns:creator/xmlns:Researcher").map { |e|
           {
             full_name: e.at("./foaf:name").content&.strip,
             full_name_transcription: e.xpath("./foaf:name[@xml:lang]").map { |n| n.content }.join("\n"),
@@ -177,7 +177,7 @@ module EnjuNii
 
       def get_cinii_title(doc)
         {
-          original_title: doc.at("//dc:title[not(@xml:lang)]").children.first.content,
+          original_title: doc.at("//dc:title[not(@xml:lang)]")&.content || doc.at("//dc:title")&.content,
           title_transcription: doc.xpath("//dc:title[@xml:lang]", 'dc': "http://purl.org/dc/elements/1.1/").map { |e| e.try(:content) }.join("\n"),
           title_alternative: doc.xpath("//dcterms:alternative").map { |e| e.try(:content) }.join("\n")
         }
