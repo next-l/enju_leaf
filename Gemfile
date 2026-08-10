@@ -105,6 +105,7 @@ gem 'faraday-multipart'
 gem 'nkf'
 gem 'benchmark'
 gem 'icalendar'
+gem "ruby-vips"
 
 group :development, :test do
   gem 'annotaterb'

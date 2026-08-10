@@ -680,6 +680,7 @@ DEPENDENCIES
   rspec_junit_formatter
   rss
   rubocop-rails-omakase
+  ruby-vips
   selenium-webdriver
   simplecov
   sitemap_generator
