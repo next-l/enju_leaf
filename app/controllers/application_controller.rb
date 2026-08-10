@@ -4,7 +4,10 @@ class ApplicationController < ActionController::Base
   include EnjuEvent::Controller
   include Pundit::Authorization
   after_action :verify_authorized, unless: :devise_controller?
+  around_action :switch_locale
   impersonates :user
+
+  private
 
   def get_subject_heading_type
     if params[:subject_heading_type_id]
@@ -25,5 +28,10 @@ class ApplicationController < ActionController::Base
       @classification = Classification.find(params[:classification_id])
       authorize @classification, :show?
     end
+  end
+
+  def switch_locale(&action)
+    locale = params[:locale] || I18n.locale
+    I18n.with_locale(locale, &action)
   end
 end

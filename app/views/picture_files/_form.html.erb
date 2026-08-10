@@ -2,7 +2,7 @@
   <%= error_messages(picture_file) %>
 
   <div class="field">
-    <%= f.label t("page.file") %><br/>
+    <%= f.label :attachment, t("page.file") %><br/>
     <%= f.file_field :attachment, accept: "image/*", required: true, class: "form-control" %>
   </div>
 

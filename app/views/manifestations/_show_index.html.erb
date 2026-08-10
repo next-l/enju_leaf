@@ -1,4 +1,4 @@
-<% cache([manifestation, fragment: 'show_index_html', role: current_user_role_name, locale: @locale]) do %>
+<% cache([manifestation, fragment: 'show_index_html', role: current_user_role_name, locale: I18n.locale]) do %>
   <strong>
     <% if manifestation.root_series_statement %>
       <%= link_to manifestation.original_title,

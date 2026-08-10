@@ -1,6 +1,6 @@
 <div id="tabs">
   <div id="detail">
-    <% cache([manifestation, fragment: 'show_detail_librarian_html', role: current_user_role_name, locale: @locale]) do %>
+    <% cache([manifestation, fragment: 'show_detail_librarian_html', role: current_user_role_name, locale: I18n.locale]) do %>
       <table class="table table-striped" id="resource_detail">
         <%= embed_content(manifestation) if defined?(EnjuManifestationViewer) -%>
         <tr>
@@ -149,7 +149,7 @@
     <%- end -%>
     <%= render "manifestations/show_holding",
     manifestation: manifestation,
-    items: Pundit.policy_scope!(current_user, manifestation.items) %>
+    items: Pundit.policy_scope!(current_user, manifestation.items).includes(:circulation_status, :checkouts, :use_restriction, shelf: :library) %>
     <%- if policy(Item).create? -%>
       <p><%= link_to t("page.new", model: t("activerecord.models.item")),
         new_item_path(manifestation_id: manifestation.id) -%></p>

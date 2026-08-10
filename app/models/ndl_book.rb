@@ -36,7 +36,7 @@ class NdlBook
   end
 
   def issued
-    @node.at('./dcterms:issued[@xsi:type="dcterms:W3CDTF"]').try(:content).to_s
+    @node.at('./dcterms:issued')&.content
   end
 
   def isbn

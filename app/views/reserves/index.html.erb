@@ -165,7 +165,7 @@
             only_path: true,
             user_id: @user.username,
             format: :txt,
-            locale: @locale.to_s,
+            locale: I18n.locale.to_s,
           ),
         ) -%>
         (<%= link_to "TSV",
@@ -174,7 +174,7 @@
             only_path: true,
             user_id: @user.username,
             format: :txt,
-            locale: @locale.to_s,
+            locale: I18n.locale.to_s,
           ),
         ) -%>)
       <%- else -%>
@@ -193,11 +193,11 @@
           alt: "TSV",
         ),
         url_for(
-          filtered_params.merge(only_path: true, format: :txt, locale: @locale.to_s),
+          filtered_params.merge(only_path: true, format: :txt, locale: I18n.locale.to_s),
         ) -%>
         (<%= link_to "TSV",
         url_for(
-          filtered_params.merge(only_path: true, format: :txt, locale: @locale.to_s),
+          filtered_params.merge(only_path: true, format: :txt, locale: I18n.locale.to_s),
         ) -%>)
       <%- end -%>
     </p>

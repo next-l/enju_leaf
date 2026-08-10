@@ -12,9 +12,11 @@ class Notifier < ApplicationMailer
     else
       @sender_name = LibraryGroup.system_name(message.receiver.profile.locale)
     end
+
     @message = message
-    @locale = message.receiver.profile.locale
-    mail(from: from, to: message.receiver.email, subject: subject)
+    I18n.with_locale(message.receiver.profile.locale) do
+      mail(from: from, to: message.receiver.email, subject: subject)
+    end
   end
 
   def manifestation_info(user_id, manifestation_id)

@@ -302,7 +302,7 @@ class ManifestationsController < ApplicationController
   # GET /manifestations/new
   def new
     @manifestation = Manifestation.new
-    @manifestation.language = Language.find_by(iso_639_1: @locale)
+    @manifestation.language = Language.find_by(iso_639_1: I18n.locale.to_s)
     @parent = Manifestation.find_by(id: params[:parent_id]) if params[:parent_id].present?
     if @parent
       @manifestation.parent_id = @parent.id

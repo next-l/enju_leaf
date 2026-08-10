@@ -1,4 +1,4 @@
-<% cache([manifestation, fragment: 'title_html', role: current_user_role_name, locale: @locale]) do %>
+<% cache([manifestation, fragment: 'title_html', role: current_user_role_name, locale: I18n.locale]) do %>
   <h4 class="resource_title mt-3">
     [M]
     <%= link_to title_with_volume_number(manifestation), manifestation, itemprop: "name" -%>
