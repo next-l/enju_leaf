@@ -57,7 +57,7 @@
           only_path: true,
           format: :txt,
           days_overdue: params[:days_overdue],
-          locale: @locale.to_s,
+          locale: I18n.locale.to_s,
         ),
       ) -%>
       <%= link_to image_tag(
@@ -71,7 +71,7 @@
           only_path: true,
           format: :txt,
           days_overdue: params[:days_overdue],
-          locale: @locale.to_s,
+          locale: I18n.locale.to_s,
         ),
       ) -%>
     </li>
