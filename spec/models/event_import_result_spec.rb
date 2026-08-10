@@ -1,9 +1,3 @@
-require 'rails_helper'
-
-describe EventImportResult do
-  # pending "add some examples to (or delete) #{__FILE__}"
-end
-
 # ## Schema Information
 #
 # Table name: `event_import_results`
@@ -24,3 +18,8 @@ end
 # * `fk_rails_...`:
 #     * **`event_import_file_id => event_import_files.id`**
 #
+require 'rails_helper'
+
+describe EventImportResult do
+  # pending "add some examples to (or delete) #{__FILE__}"
+end

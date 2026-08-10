@@ -1,10 +1,3 @@
-FactoryBot.define do
-  factory :user_group_has_checkout_type do |f|
-    f.user_group_id { FactoryBot.create(:user_group).id }
-    f.checkout_type_id { FactoryBot.create(:checkout_type).id }
-  end
-end
-
 # ## Schema Information
 #
 # Table name: `user_group_has_checkout_types`
@@ -18,6 +11,7 @@ end
 # **`checkout_period`**                  | `integer`          | `default(0), not null`
 # **`checkout_renewal_limit`**           | `integer`          | `default(0), not null`
 # **`current_checkout_count`**           | `integer`          |
+# **`due_date_offset`**                  | `integer`          | `default(1), not null`
 # **`fixed_due_date`**                   | `datetime`         |
 # **`note`**                             | `text`             |
 # **`position`**                         | `integer`          |
@@ -44,3 +38,9 @@ end
 # * `fk_rails_...`:
 #     * **`user_group_id => user_groups.id`**
 #
+FactoryBot.define do
+  factory :user_group_has_checkout_type do |f|
+    f.user_group_id { FactoryBot.create(:user_group).id }
+    f.checkout_type_id { FactoryBot.create(:checkout_type).id }
+  end
+end

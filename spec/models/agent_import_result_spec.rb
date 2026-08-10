@@ -1,9 +1,3 @@
-require 'rails_helper'
-
-describe AgentImportResult do
-  # pending "add some examples to (or delete) #{__FILE__}"
-end
-
 # ## Schema Information
 #
 # Table name: `agent_import_results`
@@ -24,3 +18,8 @@ end
 # * `fk_rails_...`:
 #     * **`agent_import_file_id => agent_import_files.id`**
 #
+require 'rails_helper'
+
+describe AgentImportResult do
+  # pending "add some examples to (or delete) #{__FILE__}"
+end

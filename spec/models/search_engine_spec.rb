@@ -1,13 +1,3 @@
-require 'rails_helper'
-
-describe SearchEngine do
-  fixtures :search_engines
-
-  it "should respond to search_params" do
-    search_engines(:search_engine_00001).search_params('test').should eq({ submit: 'Search', locale: 'ja', keyword: 'test' })
-  end
-end
-
 # ## Schema Information
 #
 # Table name: `search_engines`
@@ -29,3 +19,12 @@ end
 # **`created_at`**        | `datetime`         | `not null`
 # **`updated_at`**        | `datetime`         | `not null`
 #
+require 'rails_helper'
+
+describe SearchEngine do
+  fixtures :search_engines
+
+  it "should respond to search_params" do
+    search_engines(:search_engine_00001).search_params('test').should eq({ submit: 'Search', locale: 'ja', keyword: 'test' })
+  end
+end
