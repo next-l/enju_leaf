@@ -4,7 +4,7 @@ describe UserGroupHasCheckoutType do
   fixtures :all
 
   it "should respond to update_current_checkout_count" do
-    UserGroupHasCheckoutType.update_current_checkout_count.should be_truthy
+    expect(UserGroupHasCheckoutType.update_current_checkout_count).to be_truthy
   end
 end
 

@@ -19,7 +19,7 @@ describe CountriesController do
 
       it 'assigns all countries as @countries' do
         get :index
-        assigns(:countries).should eq(Country.page(1))
+        expect(assigns(:countries)).to eq(Country.page(1))
       end
     end
 
@@ -28,7 +28,7 @@ describe CountriesController do
 
       it 'assigns all countries as @countries' do
         get :index
-        assigns(:countries).should eq(Country.page(1))
+        expect(assigns(:countries)).to eq(Country.page(1))
       end
     end
 
@@ -37,14 +37,14 @@ describe CountriesController do
 
       it 'assigns all countries as @countries' do
         get :index
-        assigns(:countries).should eq(Country.page(1))
+        expect(assigns(:countries)).to eq(Country.page(1))
       end
     end
 
     describe 'When not logged in' do
       it 'assigns all countries as @countries' do
         get :index
-        assigns(:countries).should eq(Country.page(1))
+        expect(assigns(:countries)).to eq(Country.page(1))
       end
     end
   end
@@ -59,7 +59,7 @@ describe CountriesController do
 
       it 'assigns the requested country as @country' do
         get :show, params: { id: @country.id }
-        assigns(:country).should eq(@country)
+        expect(assigns(:country)).to eq(@country)
       end
     end
 
@@ -68,7 +68,7 @@ describe CountriesController do
 
       it 'assigns the requested country as @country' do
         get :show, params: { id: @country.id }
-        assigns(:country).should eq(@country)
+        expect(assigns(:country)).to eq(@country)
       end
     end
 
@@ -77,14 +77,14 @@ describe CountriesController do
 
       it 'assigns the requested country as @country' do
         get :show, params: { id: @country.id }
-        assigns(:country).should eq(@country)
+        expect(assigns(:country)).to eq(@country)
       end
     end
 
     describe 'When not logged in' do
       it 'assigns the requested country as @country' do
         get :show, params: { id: @country.id }
-        assigns(:country).should eq(@country)
+        expect(assigns(:country)).to eq(@country)
       end
     end
   end
@@ -95,7 +95,7 @@ describe CountriesController do
 
       it 'assigns the requested country as @country' do
         get :new
-        assigns(:country).should_not be_valid
+        expect(assigns(:country)).not_to be_valid
         expect(response).to be_successful
       end
     end
@@ -105,7 +105,7 @@ describe CountriesController do
 
       it 'assigns the requested country as @country' do
         get :new
-        assigns(:country).should be_nil
+        expect(assigns(:country)).to be_nil
         expect(response).to be_forbidden
       end
     end
@@ -115,7 +115,7 @@ describe CountriesController do
 
       it 'assigns the requested country as @country' do
         get :new
-        assigns(:country).should be_nil
+        expect(assigns(:country)).to be_nil
         expect(response).to be_forbidden
       end
     end
@@ -123,7 +123,7 @@ describe CountriesController do
     describe 'When not logged in' do
       it 'should not assign the requested country as @country' do
         get :new
-        assigns(:country).should be_nil
+        expect(assigns(:country)).to be_nil
         expect(response).to redirect_to(new_user_session_url)
       end
     end
@@ -136,7 +136,7 @@ describe CountriesController do
       it 'assigns the requested country as @country' do
         country = FactoryBot.create(:country)
         get :edit, params: { id: country.id }
-        assigns(:country).should eq(country)
+        expect(assigns(:country)).to eq(country)
       end
     end
 
@@ -146,7 +146,7 @@ describe CountriesController do
       it 'assigns the requested country as @country' do
         country = FactoryBot.create(:country)
         get :edit, params: { id: country.id }
-        assigns(:country).should eq(country)
+        expect(assigns(:country)).to eq(country)
       end
     end
 
@@ -156,7 +156,7 @@ describe CountriesController do
       it 'assigns the requested country as @country' do
         country = FactoryBot.create(:country)
         get :edit, params: { id: country.id }
-        assigns(:country).should eq(country)
+        expect(assigns(:country)).to eq(country)
       end
     end
 
@@ -181,7 +181,7 @@ describe CountriesController do
       describe 'with valid params' do
         it 'assigns a newly created country as @country' do
           post :create, params: { country: @attrs }
-          assigns(:country).should be_valid
+          expect(assigns(:country)).to be_valid
         end
 
         it 'redirects to the created country' do
@@ -193,7 +193,7 @@ describe CountriesController do
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved country as @country' do
           post :create, params: { country: @invalid_attrs }
-          assigns(:country).should_not be_valid
+          expect(assigns(:country)).not_to be_valid
         end
 
         it "re-renders the 'new' template" do
@@ -209,7 +209,7 @@ describe CountriesController do
       describe 'with valid params' do
         it 'assigns a newly created country as @country' do
           post :create, params: { country: @attrs }
-          assigns(:country).should be_nil
+          expect(assigns(:country)).to be_nil
         end
 
         it 'should be forbidden' do
@@ -221,7 +221,7 @@ describe CountriesController do
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved country as @country' do
           post :create, params: { country: @invalid_attrs }
-          assigns(:country).should be_nil
+          expect(assigns(:country)).to be_nil
         end
 
         it 'should be forbidden' do
@@ -237,7 +237,7 @@ describe CountriesController do
       describe 'with valid params' do
         it 'assigns a newly created country as @country' do
           post :create, params: { country: @attrs }
-          assigns(:country).should be_nil
+          expect(assigns(:country)).to be_nil
         end
 
         it 'should be forbidden' do
@@ -249,7 +249,7 @@ describe CountriesController do
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved country as @country' do
           post :create, params: { country: @invalid_attrs }
-          assigns(:country).should be_nil
+          expect(assigns(:country)).to be_nil
         end
 
         it 'should be forbidden' do
@@ -263,7 +263,7 @@ describe CountriesController do
       describe 'with valid params' do
         it 'assigns a newly created country as @country' do
           post :create, params: { country: @attrs }
-          assigns(:country).should be_nil
+          expect(assigns(:country)).to be_nil
         end
 
         it 'should be forbidden' do
@@ -275,7 +275,7 @@ describe CountriesController do
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved country as @country' do
           post :create, params: { country: @invalid_attrs }
-          assigns(:country).should be_nil
+          expect(assigns(:country)).to be_nil
         end
 
         it 'should be forbidden' do
@@ -303,7 +303,7 @@ describe CountriesController do
 
         it 'assigns the requested country as @country' do
           put :update, params: { id: @country.id, country: @attrs }
-          assigns(:country).should eq(@country)
+          expect(assigns(:country)).to eq(@country)
         end
 
         it 'moves its position when specified' do
@@ -330,7 +330,7 @@ describe CountriesController do
 
         it 'assigns the requested country as @country' do
           put :update, params: { id: @country.id, country: @attrs }
-          assigns(:country).should eq(@country)
+          expect(assigns(:country)).to eq(@country)
         end
 
         it 'moves its position when specified' do
@@ -357,7 +357,7 @@ describe CountriesController do
 
         it 'assigns the requested country as @country' do
           put :update, params: { id: @country.id, country: @attrs }
-          assigns(:country).should eq(@country)
+          expect(assigns(:country)).to eq(@country)
         end
 
         it 'moves its position when specified' do

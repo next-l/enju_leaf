@@ -4,7 +4,7 @@ describe Frequency do
   fixtures :frequencies
 
   it "should should have display_name" do
-    frequencies(:frequency_00001).display_name.should_not be_nil
+    expect(frequencies(:frequency_00001).display_name).not_to be_nil
   end
 end
 

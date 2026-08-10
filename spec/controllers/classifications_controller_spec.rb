@@ -47,7 +47,7 @@ describe ClassificationsController do
 
       it 'should get index with query' do
         get :index, params: { query: '500' }
-        response.should be_successful
+        expect(response).to be_successful
         expect(assigns(:classifications)).not_to be_empty
       end
     end
@@ -125,7 +125,7 @@ describe ClassificationsController do
       it 'should not assign the requested classification as @classification' do
         get :new
         expect(assigns(:classification)).to be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -157,7 +157,7 @@ describe ClassificationsController do
       it 'assigns the requested classification as @classification' do
         classification = FactoryBot.create(:classification)
         get :edit, params: { id: classification.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -165,7 +165,7 @@ describe ClassificationsController do
       it 'should not assign the requested classification as @classification' do
         classification = FactoryBot.create(:classification)
         get :edit, params: { id: classification.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -187,7 +187,7 @@ describe ClassificationsController do
 
         it 'redirects to the created classification' do
           post :create, params: { classification: @attrs }
-          response.should redirect_to(classification_url(assigns(:classification)))
+          expect(response).to redirect_to(classification_url(assigns(:classification)))
         end
       end
 
@@ -199,7 +199,7 @@ describe ClassificationsController do
 
         it "re-renders the 'new' template" do
           post :create, params: { classification: @invalid_attrs }
-          response.should render_template('new')
+          expect(response).to render_template('new')
         end
       end
     end
@@ -215,7 +215,7 @@ describe ClassificationsController do
 
         it 'should be forbidden' do
           post :create, params: { classification: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
@@ -227,7 +227,7 @@ describe ClassificationsController do
 
         it 'should be forbidden' do
           post :create, params: { classification: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -243,7 +243,7 @@ describe ClassificationsController do
 
         it 'should be forbidden' do
           post :create, params: { classification: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
@@ -255,7 +255,7 @@ describe ClassificationsController do
 
         it 'should be forbidden' do
           post :create, params: { classification: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -269,7 +269,7 @@ describe ClassificationsController do
 
         it 'should be forbidden' do
           post :create, params: { classification: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
@@ -281,7 +281,7 @@ describe ClassificationsController do
 
         it 'should be forbidden' do
           post :create, params: { classification: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -311,7 +311,7 @@ describe ClassificationsController do
       describe 'with invalid params' do
         it 'assigns the requested classification as @classification' do
           put :update, params: { id: @classification.id, classification: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -327,14 +327,14 @@ describe ClassificationsController do
         it 'should be forbidden' do
           put :update, params: { id: @classification.id, classification: @attrs }
           expect(assigns(:classification)).to eq(@classification)
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'should be forbidden' do
           put :update, params: { id: @classification, classification: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -350,14 +350,14 @@ describe ClassificationsController do
         it 'assigns the requested classification as @classification' do
           put :update, params: { id: @classification.id, classification: @attrs }
           expect(assigns(:classification)).to eq(@classification)
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested classification as @classification' do
           put :update, params: { id: @classification.id, classification: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -370,14 +370,14 @@ describe ClassificationsController do
 
         it 'should be forbidden' do
           put :update, params: { id: @classification.id, classification: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested classification as @classification' do
           put :update, params: { id: @classification.id, classification: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -397,7 +397,7 @@ describe ClassificationsController do
 
       it 'redirects to the classifications list' do
         delete :destroy, params: { id: @classification.id }
-        response.should redirect_to(classifications_url)
+        expect(response).to redirect_to(classifications_url)
       end
     end
 
@@ -410,7 +410,7 @@ describe ClassificationsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @classification.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -423,7 +423,7 @@ describe ClassificationsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @classification.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -434,7 +434,7 @@ describe ClassificationsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @classification.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

@@ -1,3 +1,14 @@
+require 'rails_helper'
+
+describe SeriesStatement do
+  fixtures :all
+
+  it "should create manifestation" do
+    series_statement = FactoryBot.create(:series_statement)
+    expect(series_statement.root_manifestation).to be_nil
+  end
+end
+
 # ## Schema Information
 #
 # Table name: `series_statements`

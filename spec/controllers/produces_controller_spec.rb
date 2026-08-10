@@ -327,7 +327,7 @@ describe ProducesController do
           position = @produce.position
           put :update, params: { id: @produce.id, manifestation_id: @produce.manifestation.id, move: 'lower' }
           expect(response).to redirect_to produces_url(manifestation_id: @produce.manifestation_id)
-          assigns(:produce).reload.position.should eq position + 1
+          expect(assigns(:produce).reload.position).to eq position + 1
         end
       end
 

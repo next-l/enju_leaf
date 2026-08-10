@@ -10,33 +10,33 @@ describe User do
 
   it 'should destroy an user' do
     user = FactoryBot.create(:user)
-    user.destroy.should be_truthy
+    expect(user.destroy).to be_truthy
   end
 
   it 'should respond to has_role(Administrator)' do
     admin = FactoryBot.create(:admin)
-    admin.has_role?('Administrator').should be_truthy
+    expect(admin.has_role?('Administrator')).to be_truthy
   end
 
   it 'should respond to has_role(Librarian)' do
     librarian = FactoryBot.create(:librarian)
-    librarian.has_role?('Administrator').should be_falsy
-    librarian.has_role?('Librarian').should be_truthy
-    librarian.has_role?('User').should be_truthy
+    expect(librarian.has_role?('Administrator')).to be_falsy
+    expect(librarian.has_role?('Librarian')).to be_truthy
+    expect(librarian.has_role?('User')).to be_truthy
   end
 
   it 'should respond to has_role(User)' do
     user = FactoryBot.create(:user)
-    user.has_role?('Administrator').should be_falsy
-    user.has_role?('Librarian').should be_falsy
-    user.has_role?('User').should be_truthy
+    expect(user.has_role?('Administrator')).to be_falsy
+    expect(user.has_role?('Librarian')).to be_falsy
+    expect(user.has_role?('User')).to be_truthy
   end
 
   it 'should lock an user' do
     user = FactoryBot.create(:user)
     user.locked = '1'
     user.save
-    user.active_for_authentication?.should be_falsy
+    expect(user.active_for_authentication?).to be_falsy
   end
 
   it 'should unlock an user' do
@@ -44,7 +44,7 @@ describe User do
     user.lock_access!
     user.locked = '0'
     user.save
-    user.active_for_authentication?.should be_truthy
+    expect(user.active_for_authentication?).to be_truthy
   end
 
   it "should create user" do
@@ -56,27 +56,27 @@ describe User do
     old_count = User.count
     user = FactoryBot.build(:user, username: nil)
     user.save
-    user.errors[:username].should be_truthy
-    User.count.should eq old_count
+    expect(user.errors[:username]).to be_truthy
+    expect(User.count).to eq old_count
   end
 
   it "should require password" do
     user = FactoryBot.build(:user, password: nil)
     user.save
-    user.errors[:password].should be_truthy
+    expect(user.errors[:password]).to be_truthy
   end
 
   it "should not require password_confirmation on create" do
     user = FactoryBot.build(:user, password: 'new_password', password_confirmation: nil)
     user.save
-    user.errors[:email].should be_empty
+    expect(user.errors[:email]).to be_empty
   end
 
   it "should reset password" do
     users(:user1).password = 'new password'
     users(:user1).password_confirmation = 'new password'
     users(:user1).save
-    users(:user1).valid_password?('new password').should be_truthy
+    expect(users(:user1).valid_password?('new password')).to be_truthy
   end
 
   it "should set temporary_password" do
@@ -84,36 +84,36 @@ describe User do
     old_password = user.encrypted_password
     user.set_auto_generated_password
     user.save
-    old_password.should_not eq user.encrypted_password
-    user.valid_password?('user1password').should be_falsy
+    expect(old_password).not_to eq user.encrypted_password
+    expect(user.valid_password?('user1password')).to be_falsy
   end
 
   it "should get highest_role" do
-    users(:admin).role.name.should eq 'Administrator'
+    expect(users(:admin).role.name).to eq 'Administrator'
   end
 
   it "should lock all expired users" do
     User.lock_expired_users
-    users(:user4).active_for_authentication?.should be_falsy
+    expect(users(:user4).active_for_authentication?).to be_falsy
   end
 
   it "should lock_expired users" do
     user = users(:user1)
-    users(:user1).active_for_authentication?.should be_truthy
+    expect(users(:user1).active_for_authentication?).to be_truthy
     user.expired_at = 1.day.ago
     user.save
-    users(:user1).active_for_authentication?.should be_falsy
+    expect(users(:user1).active_for_authentication?).to be_falsy
   end
 
   if defined?(EnjuQuestion)
     it "should reset answer_feed_token" do
       users(:user1).reset_answer_feed_token
-      users(:user1).answer_feed_token.should be_truthy
+      expect(users(:user1).answer_feed_token).to be_truthy
     end
 
     it "should delete answer_feed_token" do
       users(:user1).delete_answer_feed_token
-      users(:user1).answer_feed_token.should be_nil
+      expect(users(:user1).answer_feed_token).to be_nil
     end
   end
 

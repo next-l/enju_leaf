@@ -5,13 +5,13 @@ describe UserCheckoutStat do
 
   it "calculates user count" do
     old_message_count = Message.count
-    user_checkout_stats(:one).transition_to!(:started).should be_truthy
-    Message.count.should eq old_message_count + 1
-    Message.order(:id).last.subject.should eq '[Enju Library] 集計が完了しました'
+    expect(user_checkout_stats(:one).transition_to!(:started)).to be_truthy
+    expect(Message.count).to eq old_message_count + 1
+    expect(Message.order(:id).last.subject).to eq '[Enju Library] 集計が完了しました'
   end
 
   it "should calculate in background" do
-    UserCheckoutStatJob.perform_later(user_checkout_stats(:one)).should be_truthy
+    expect(UserCheckoutStatJob.perform_later(user_checkout_stats(:one))).to be_truthy
   end
 end
 

@@ -320,7 +320,7 @@ describe ManifestationCustomPropertiesController do
         position = manifestation_custom_property.position
         put :update, params: { id: manifestation_custom_property.id, move: 'higher' }
         expect(response).to redirect_to manifestation_custom_properties_url
-        assigns(:manifestation_custom_property).reload.position.should eq position - 1
+        expect(assigns(:manifestation_custom_property).reload.position).to eq position - 1
       end
     end
 

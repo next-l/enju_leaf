@@ -19,7 +19,7 @@ describe CirculationStatusesController do
 
       it 'assigns all circulation_statuses as @circulation_statuses' do
         get :index
-        assigns(:circulation_statuses).should eq(CirculationStatus.order(:position))
+        expect(assigns(:circulation_statuses)).to eq(CirculationStatus.order(:position))
       end
     end
 
@@ -28,7 +28,7 @@ describe CirculationStatusesController do
 
       it 'assigns all circulation_statuses as @circulation_statuses' do
         get :index
-        assigns(:circulation_statuses).should eq(CirculationStatus.order(:position))
+        expect(assigns(:circulation_statuses)).to eq(CirculationStatus.order(:position))
       end
     end
 
@@ -37,14 +37,14 @@ describe CirculationStatusesController do
 
       it 'assigns all circulation_statuses as @circulation_statuses' do
         get :index
-        assigns(:circulation_statuses).should eq(CirculationStatus.order(:position))
+        expect(assigns(:circulation_statuses)).to eq(CirculationStatus.order(:position))
       end
     end
 
     describe 'When not logged in' do
       it 'assigns all circulation_statuses as @circulation_statuses' do
         get :index
-        assigns(:circulation_statuses).should eq(CirculationStatus.order(:position))
+        expect(assigns(:circulation_statuses)).to eq(CirculationStatus.order(:position))
       end
     end
   end
@@ -56,7 +56,7 @@ describe CirculationStatusesController do
       it 'assigns the requested circulation_status as @circulation_status' do
         circulation_status = FactoryBot.create(:circulation_status)
         get :show, params: { id: circulation_status.id }
-        assigns(:circulation_status).should eq(circulation_status)
+        expect(assigns(:circulation_status)).to eq(circulation_status)
       end
     end
 
@@ -66,7 +66,7 @@ describe CirculationStatusesController do
       it 'assigns the requested circulation_status as @circulation_status' do
         circulation_status = FactoryBot.create(:circulation_status)
         get :show, params: { id: circulation_status.id }
-        assigns(:circulation_status).should eq(circulation_status)
+        expect(assigns(:circulation_status)).to eq(circulation_status)
       end
     end
 
@@ -76,7 +76,7 @@ describe CirculationStatusesController do
       it 'assigns the requested circulation_status as @circulation_status' do
         circulation_status = FactoryBot.create(:circulation_status)
         get :show, params: { id: circulation_status.id }
-        assigns(:circulation_status).should eq(circulation_status)
+        expect(assigns(:circulation_status)).to eq(circulation_status)
       end
     end
 
@@ -84,7 +84,7 @@ describe CirculationStatusesController do
       it 'assigns the requested circulation_status as @circulation_status' do
         circulation_status = FactoryBot.create(:circulation_status)
         get :show, params: { id: circulation_status.id }
-        assigns(:circulation_status).should eq(circulation_status)
+        expect(assigns(:circulation_status)).to eq(circulation_status)
       end
     end
   end
@@ -95,8 +95,8 @@ describe CirculationStatusesController do
 
       it 'should be forbidden' do
         get :new
-        assigns(:circulation_status).should be_nil
-        response.should be_forbidden
+        expect(assigns(:circulation_status)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
@@ -105,8 +105,8 @@ describe CirculationStatusesController do
 
       it 'should be forbidden' do
         get :new
-        assigns(:circulation_status).should be_nil
-        response.should be_forbidden
+        expect(assigns(:circulation_status)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
@@ -115,16 +115,16 @@ describe CirculationStatusesController do
 
       it 'should be forbidden' do
         get :new
-        assigns(:circulation_status).should be_nil
-        response.should be_forbidden
+        expect(assigns(:circulation_status)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should be redirected' do
         get :new
-        assigns(:circulation_status).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:circulation_status)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -136,7 +136,7 @@ describe CirculationStatusesController do
       it 'assigns the requested circulation_status as @circulation_status' do
         circulation_status = FactoryBot.create(:circulation_status)
         get :edit, params: { id: circulation_status.id }
-        assigns(:circulation_status).should eq(circulation_status)
+        expect(assigns(:circulation_status)).to eq(circulation_status)
       end
     end
 
@@ -146,7 +146,7 @@ describe CirculationStatusesController do
       it 'assigns the requested circulation_status as @circulation_status' do
         circulation_status = FactoryBot.create(:circulation_status)
         get :edit, params: { id: circulation_status.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -156,7 +156,7 @@ describe CirculationStatusesController do
       it 'assigns the requested circulation_status as @circulation_status' do
         circulation_status = FactoryBot.create(:circulation_status)
         get :edit, params: { id: circulation_status.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -164,7 +164,7 @@ describe CirculationStatusesController do
       it 'should not assign the requested circulation_status as @circulation_status' do
         circulation_status = FactoryBot.create(:circulation_status)
         get :edit, params: { id: circulation_status.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -181,24 +181,24 @@ describe CirculationStatusesController do
       describe 'with valid params' do
         it 'assigns a newly created circulation_status as @circulation_status' do
           post :create, params: { circulation_status: @attrs }
-          assigns(:circulation_status).should be_nil
+          expect(assigns(:circulation_status)).to be_nil
         end
 
         it 'redirects to the created patron' do
           post :create, params: { circulation_status: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved circulation_status as @circulation_status' do
           post :create, params: { circulation_status: @invalid_attrs }
-          assigns(:circulation_status).should be_nil
+          expect(assigns(:circulation_status)).to be_nil
         end
 
         it 'should be successful' do
           post :create, params: { circulation_status: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -209,24 +209,24 @@ describe CirculationStatusesController do
       describe 'with valid params' do
         it 'assigns a newly created circulation_status as @circulation_status' do
           post :create, params: { circulation_status: @attrs }
-          assigns(:circulation_status).should be_nil
+          expect(assigns(:circulation_status)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { circulation_status: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved circulation_status as @circulation_status' do
           post :create, params: { circulation_status: @invalid_attrs }
-          assigns(:circulation_status).should be_nil
+          expect(assigns(:circulation_status)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { circulation_status: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -237,24 +237,24 @@ describe CirculationStatusesController do
       describe 'with valid params' do
         it 'assigns a newly created circulation_status as @circulation_status' do
           post :create, params: { circulation_status: @attrs }
-          assigns(:circulation_status).should be_nil
+          expect(assigns(:circulation_status)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { circulation_status: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved circulation_status as @circulation_status' do
           post :create, params: { circulation_status: @invalid_attrs }
-          assigns(:circulation_status).should be_nil
+          expect(assigns(:circulation_status)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { circulation_status: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -263,24 +263,24 @@ describe CirculationStatusesController do
       describe 'with valid params' do
         it 'assigns a newly created circulation_status as @circulation_status' do
           post :create, params: { circulation_status: @attrs }
-          assigns(:circulation_status).should be_nil
+          expect(assigns(:circulation_status)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { circulation_status: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved circulation_status as @circulation_status' do
           post :create, params: { circulation_status: @invalid_attrs }
-          assigns(:circulation_status).should be_nil
+          expect(assigns(:circulation_status)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { circulation_status: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -303,19 +303,19 @@ describe CirculationStatusesController do
 
         it 'assigns the requested circulation_status as @circulation_status' do
           put :update, params: { id: @circulation_status.id, circulation_status: @attrs }
-          assigns(:circulation_status).should eq(@circulation_status)
+          expect(assigns(:circulation_status)).to eq(@circulation_status)
         end
 
         it 'moves its position when specified' do
           put :update, params: { id: @circulation_status.id, circulation_status: @attrs, move: 'lower' }
-          response.should redirect_to(circulation_statuses_url)
+          expect(response).to redirect_to(circulation_statuses_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested circulation_status as @circulation_status' do
           put :update, params: { id: @circulation_status.id, circulation_status: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -330,15 +330,15 @@ describe CirculationStatusesController do
 
         it 'assigns the requested circulation_status as @circulation_status' do
           put :update, params: { id: @circulation_status.id, circulation_status: @attrs }
-          assigns(:circulation_status).should eq(@circulation_status)
-          response.should be_forbidden
+          expect(assigns(:circulation_status)).to eq(@circulation_status)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested circulation_status as @circulation_status' do
           put :update, params: { id: @circulation_status.id, circulation_status: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -353,15 +353,15 @@ describe CirculationStatusesController do
 
         it 'assigns the requested circulation_status as @circulation_status' do
           put :update, params: { id: @circulation_status.id, circulation_status: @attrs }
-          assigns(:circulation_status).should eq(@circulation_status)
-          response.should be_forbidden
+          expect(assigns(:circulation_status)).to eq(@circulation_status)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested circulation_status as @circulation_status' do
           put :update, params: { id: @circulation_status.id, circulation_status: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -374,14 +374,14 @@ describe CirculationStatusesController do
 
         it 'should be forbidden' do
           put :update, params: { id: @circulation_status.id, circulation_status: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested circulation_status as @circulation_status' do
           put :update, params: { id: @circulation_status.id, circulation_status: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -401,7 +401,7 @@ describe CirculationStatusesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @circulation_status.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -414,7 +414,7 @@ describe CirculationStatusesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @circulation_status.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -427,7 +427,7 @@ describe CirculationStatusesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @circulation_status.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -438,7 +438,7 @@ describe CirculationStatusesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @circulation_status.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

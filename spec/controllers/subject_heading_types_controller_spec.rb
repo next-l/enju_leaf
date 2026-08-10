@@ -96,7 +96,7 @@ describe SubjectHeadingTypesController do
       it 'assigns the requested subject_heading_type as @subject_heading_type' do
         get :new
         expect(assigns(:subject_heading_type)).not_to be_valid
-        response.should be_successful
+        expect(response).to be_successful
       end
     end
 
@@ -106,7 +106,7 @@ describe SubjectHeadingTypesController do
       it 'should not assign the requested subject_heading_type as @subject_heading_type' do
         get :new
         expect(assigns(:subject_heading_type)).to be_nil
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -116,7 +116,7 @@ describe SubjectHeadingTypesController do
       it 'should not assign the requested subject_heading_type as @subject_heading_type' do
         get :new
         expect(assigns(:subject_heading_type)).to be_nil
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -124,7 +124,7 @@ describe SubjectHeadingTypesController do
       it 'should not assign the requested subject_heading_type as @subject_heading_type' do
         get :new
         expect(assigns(:subject_heading_type)).to be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -146,7 +146,7 @@ describe SubjectHeadingTypesController do
       it 'assigns the requested subject_heading_type as @subject_heading_type' do
         subject_heading_type = FactoryBot.create(:subject_heading_type)
         get :edit, params: { id: subject_heading_type.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -156,7 +156,7 @@ describe SubjectHeadingTypesController do
       it 'assigns the requested subject_heading_type as @subject_heading_type' do
         subject_heading_type = FactoryBot.create(:subject_heading_type)
         get :edit, params: { id: subject_heading_type.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -164,7 +164,7 @@ describe SubjectHeadingTypesController do
       it 'should not assign the requested subject_heading_type as @subject_heading_type' do
         subject_heading_type = FactoryBot.create(:subject_heading_type)
         get :edit, params: { id: subject_heading_type.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -186,7 +186,7 @@ describe SubjectHeadingTypesController do
 
         it 'redirects to the created agent' do
           post :create, params: { subject_heading_type: @attrs }
-          response.should redirect_to(assigns(:subject_heading_type))
+          expect(response).to redirect_to(assigns(:subject_heading_type))
         end
       end
 
@@ -198,7 +198,7 @@ describe SubjectHeadingTypesController do
 
         it 'should be successful' do
           post :create, params: { subject_heading_type: @invalid_attrs }
-          response.should be_successful
+          expect(response).to be_successful
         end
       end
     end
@@ -214,7 +214,7 @@ describe SubjectHeadingTypesController do
 
         it 'should be forbidden' do
           post :create, params: { subject_heading_type: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
@@ -226,7 +226,7 @@ describe SubjectHeadingTypesController do
 
         it 'should be forbidden' do
           post :create, params: { subject_heading_type: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -242,7 +242,7 @@ describe SubjectHeadingTypesController do
 
         it 'should be forbidden' do
           post :create, params: { subject_heading_type: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
@@ -254,7 +254,7 @@ describe SubjectHeadingTypesController do
 
         it 'should be forbidden' do
           post :create, params: { subject_heading_type: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -268,7 +268,7 @@ describe SubjectHeadingTypesController do
 
         it 'should be forbidden' do
           post :create, params: { subject_heading_type: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
@@ -280,7 +280,7 @@ describe SubjectHeadingTypesController do
 
         it 'should be forbidden' do
           post :create, params: { subject_heading_type: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -308,14 +308,14 @@ describe SubjectHeadingTypesController do
 
         it 'moves its position when specified' do
           put :update, params: { id: @subject_heading_type.id, subject_heading_type: @attrs, move: 'lower' }
-          response.should redirect_to(subject_heading_types_url)
+          expect(response).to redirect_to(subject_heading_types_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested subject_heading_type as @subject_heading_type' do
           put :update, params: { id: @subject_heading_type.id, subject_heading_type: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -331,14 +331,14 @@ describe SubjectHeadingTypesController do
         it 'assigns the requested subject_heading_type as @subject_heading_type' do
           put :update, params: { id: @subject_heading_type.id, subject_heading_type: @attrs }
           expect(assigns(:subject_heading_type)).to eq(@subject_heading_type)
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested subject_heading_type as @subject_heading_type' do
           put :update, params: { id: @subject_heading_type.id, subject_heading_type: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -354,14 +354,14 @@ describe SubjectHeadingTypesController do
         it 'assigns the requested subject_heading_type as @subject_heading_type' do
           put :update, params: { id: @subject_heading_type.id, subject_heading_type: @attrs }
           expect(assigns(:subject_heading_type)).to eq(@subject_heading_type)
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested subject_heading_type as @subject_heading_type' do
           put :update, params: { id: @subject_heading_type.id, subject_heading_type: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -374,14 +374,14 @@ describe SubjectHeadingTypesController do
 
         it 'should be forbidden' do
           put :update, params: { id: @subject_heading_type.id, subject_heading_type: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested subject_heading_type as @subject_heading_type' do
           put :update, params: { id: @subject_heading_type.id, subject_heading_type: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -401,7 +401,7 @@ describe SubjectHeadingTypesController do
 
       it 'redirects to the subject_heading_types list' do
         delete :destroy, params: { id: @subject_heading_type.id }
-        response.should redirect_to(subject_heading_types_url)
+        expect(response).to redirect_to(subject_heading_types_url)
       end
     end
 
@@ -414,7 +414,7 @@ describe SubjectHeadingTypesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @subject_heading_type.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -427,7 +427,7 @@ describe SubjectHeadingTypesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @subject_heading_type.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -438,7 +438,7 @@ describe SubjectHeadingTypesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @subject_heading_type.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
