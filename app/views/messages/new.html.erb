@@ -7,7 +7,7 @@
       <%= error_messages(@message) -%>
 
       <div class="field">
-        <label for="message_recepient"><%= t('message.recipient') -%>:</label>
+        <label for="message_recipient"><%= t('message.recipient') -%>:</label>
         <%- if @message.receiver -%>
           <%= link_to @message.receiver.username, profile_path(@message.receiver) -%>
           <%= f.hidden_field :recipient, value: @message.recipient -%>
