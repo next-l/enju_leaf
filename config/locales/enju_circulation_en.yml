@@ -201,14 +201,14 @@ en:
     completed: "Completed"
     reserved_from: "From"
     reserved_until: "Until"
-    attempt_to_update_retained_reservation: "You are attemping to update a retained reservation."
+    attempt_to_update_retained_reservation: "You are attempting to update a retained reservation."
     bibliographic_detail: "Bibliographic details"
   page:
     saving: "Saving..."
     start_counting: "Start counting"
   statistic:
     successfully_created: "%{model} task was created successfully. When the task is completed, its status on the list will be updated to 'completed' and you can check the results by following the 'show' link."
-    breakdown: Brakedown
+    breakdown: Breakdown
     by_carrier_type: By carrier type
     by_checkout_type: By checkout type
     by_manifestation: By manifestation
