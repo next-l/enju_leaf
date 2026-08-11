@@ -1,11 +1,8 @@
 <!DOCTYPE html>
-<html
-  xmlns="http://www.w3.org/1999/xhtml"
-  xml:lang="<%= I18n.locale.to_s -%>"
-  lang="<%= I18n.locale.to_s -%>"
->
+<html>
   <head>
     <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title><%= title(controller.controller_name) %></title>
     <%- if controller.action_name == 'index' -%>
       <%= auto_discovery_link_tag(
