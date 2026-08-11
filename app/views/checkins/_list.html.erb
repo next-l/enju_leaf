@@ -6,7 +6,7 @@
     <p>
       <%= label_tag :item_identifier, t("activerecord.attributes.item.item_identifier") -%>:
       <%= f.search_field :item_identifier, class: "resource_item_identifier" -%>
-      <%= f.submit t("checkin.checkin"), "data-disable-with" => t("page.saving") -%>
+      <%= f.submit t("checkin.checkin"), "data-disable-with" => t("page.saving"), class: "btn btn-primary" -%>
     </p>
   <%- end -%>
   <%= javascript_tag("$(function(){$('#checkin_item_identifier').focus().select()})") %>

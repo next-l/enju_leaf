@@ -16,7 +16,7 @@
       class: "search_form_short",
       placeholder: t("page.search_term"),
     } -%>
-    <%= submit_tag t("page.search") -%>
+    <%= submit_tag t("page.search"), class: "btn btn-primary" -%>
     <%= link_to t("page.advanced_search"), page_advanced_search_path -%>
   </div>
 <%- end -%>

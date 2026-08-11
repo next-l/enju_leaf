@@ -6,7 +6,7 @@
     <p>
       <%= f.label :item_identifier, t("activerecord.attributes.item.item_identifier") -%>:
       <%= f.search_field :item_identifier, class: "resource_item_identifier" -%>
-      <%= f.submit t("page.read"), "data-disable-with" => t("page.saving") -%><br/>
+      <%= f.submit t("page.read"), "data-disable-with" => t("page.saving"), class: "btn btn-primary" -%><br/>
       <%= f.label :due_date %>
       <%= f.text_field :due_date_string, class: "datepicker" %>
       <%= t("checked_item.ignore_restriction") -%>:
@@ -26,6 +26,6 @@
 
 <%= form_for(:basket, url: basket_path(@basket), html: { method: :put }) do |f| -%>
   <div>
-    <%= f.submit t("checked_item.checkout"), "data-disable-with" => t("page.saving") -%>
+    <%= f.submit t("checked_item.checkout"), "data-disable-with" => t("page.saving"), class: "btn btn-primary" -%>
   </div>
 <%- end -%>
