@@ -251,53 +251,6 @@ class Reserve < ApplicationRecord
 
   private
 
-  def do_request
-    assign_attributes(request_status_type: RequestStatusType.find_by(name: "In Process"), item_id: nil, retained_at: nil)
-    save!
-  end
-
-  def retain
-    # TODO: 「取り置き中」の状態を正しく表す
-    assign_attributes(request_status_type: RequestStatusType.find_by(name: "In Process"), retained_at: Time.zone.now)
-    Reserve.transaction do
-      item.next_reservation.try(:transition_to!, :postponed)
-      save!
-    end
-  end
-
-  def expire
-    Reserve.transaction do
-      assign_attributes(request_status_type: RequestStatusType.find_by(name: "Expired"), canceled_at: Time.zone.now)
-      reserve = next_reservation
-      if reserve
-        reserve.item = item
-        self.item = nil
-        save!
-        reserve.transition_to!(:retained)
-      end
-    end
-    logger.info "#{Time.zone.now} reserve_id #{id} expired!"
-  end
-
-  def cancel
-    Reserve.transaction do
-      assign_attributes(request_status_type: RequestStatusType.find_by(name: "Cannot Fulfill Request"), canceled_at: Time.zone.now)
-      save!
-      reserve = next_reservation
-      if reserve
-        reserve.item = item
-        self.item = nil
-        save!
-        reserve.transition_to!(:retained)
-      end
-    end
-  end
-
-  def checkout
-    assign_attributes(request_status_type: RequestStatusType.find_by(name: "Available For Pickup"), checked_out_at: Time.zone.now)
-    save!
-  end
-
   def postpone
     assign_attributes(
       request_status_type: RequestStatusType.find_by(name: "In Process"),
