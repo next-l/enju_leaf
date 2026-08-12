@@ -7,7 +7,7 @@ class ManifestationsController < ApplicationController
   before_action :get_subject, except: [ :create, :update, :destroy ]
   before_action :get_series_statement, only: [ :index, :new, :edit ]
   before_action :get_item, :get_libraries, only: :index
-  before_action :prepare_options, only: [ :new, :edit ]
+  before_action :prepare_options, only: [ :edit ]
   after_action :convert_charset, only: :index
 
   # GET /manifestations
@@ -123,7 +123,7 @@ class ManifestationsController < ApplicationController
         :edition,
         :serial,
         :statement_of_responsibility
-      ] if params[:format] == "html" || params[:format].nil?
+      ] if request.format.html?
       all_result = search.execute
       @count[:query_result] = all_result.total
       @reservable_facet = all_result.facet(:reservable).rows if defined?(EnjuCirculation)
@@ -134,7 +134,7 @@ class ManifestationsController < ApplicationController
         @max_number_of_results = max_number_of_results
       end
 
-      if params[:format] == "html" || params[:format].nil?
+      if request.format.html?
         @search_query = Digest::SHA1.hexdigest(Marshal.dump(search.query.to_params).force_encoding("UTF-8"))
         if flash[:search_query] == @search_query
           flash.keep(:search_query)
@@ -210,7 +210,7 @@ class ManifestationsController < ApplicationController
         search_result.results, total_count: max_count
       ).page(page).per(per_page)
 
-      if params[:format].blank? || params[:format] == "html"
+      if request.format.html?
         @carrier_type_facet = search_result.facet(:carrier_type).rows
         @language_facet = search_result.facet(:language).rows
         @library_facet = search_result.facet(:library).rows
@@ -317,9 +317,7 @@ class ManifestationsController < ApplicationController
       end
     end
 
-    @manifestation.build_doi_record
-    @manifestation.build_ncid_record
-    @manifestation.build_jpno_record
+    prepare_options
   end
 
   # GET /manifestations/1/edit
@@ -496,6 +494,21 @@ class ManifestationsController < ApplicationController
       ] },
       { manifestation_custom_values_attributes: [
         :id, :manifestation_custom_property_id, :manifestation_id, :value, :_destroy
+      ] },
+      { isbn_records_attributes: [
+        :id, :body, :_destroy
+      ] },
+      { issn_records_attributes: [
+        :id, :body, :_destroy
+      ] },
+      { doi_record_attributes: [
+        :id, :body, :_destroy
+      ] },
+      { ncid_record_attributes: [
+        :id, :body, :_destroy
+      ] },
+      { jpno_record_attributes: [
+        :id, :body, :_destroy
       ] }
     )
   end
@@ -686,6 +699,9 @@ class ManifestationsController < ApplicationController
     @subject_types = SubjectType.select([ :id, :display_name, :position ])
     @subject_heading_types = SubjectHeadingType.select([ :id, :display_name, :position ])
     @classification_types = ClassificationType.select([ :id, :display_name, :position ])
+    @manifestation.build_doi_record unless @manifestation.doi_record
+    @manifestation.build_ncid_record unless @manifestation.ncid_record
+    @manifestation.build_jpno_record unless @manifestation.jpno_record
   end
 
   def get_index_agent

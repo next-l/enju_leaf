@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_05_170323) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_12_084630) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -683,8 +683,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_170323) do
   create_table "isbn_records", comment: "ISBN", force: :cascade do |t|
     t.string "body", null: false, comment: "ISBN"
     t.datetime "created_at", null: false
+    t.bigint "resource_id", null: false
+    t.string "resource_type", null: false
     t.datetime "updated_at", null: false
     t.index ["body"], name: "index_isbn_records_on_body"
+    t.index ["resource_id", "resource_type", "body"], name: "index_isbn_records_on_resource_id_and_resource_type_and_body", unique: true
   end
 
   create_table "issn_record_and_manifestations", comment: "書誌とISSNの関係", force: :cascade do |t|
@@ -699,8 +702,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_170323) do
   create_table "issn_records", comment: "ISSN", force: :cascade do |t|
     t.string "body", null: false, comment: "ISSN"
     t.datetime "created_at", null: false
+    t.bigint "resource_id", null: false
+    t.string "resource_type", null: false
     t.datetime "updated_at", null: false
     t.index ["body"], name: "index_issn_records_on_body", unique: true
+    t.index ["resource_id", "resource_type", "body"], name: "index_issn_records_on_resource_id_and_resource_type_and_body", unique: true
   end
 
   create_table "item_custom_properties", force: :cascade do |t|

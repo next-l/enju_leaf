@@ -13,7 +13,7 @@ module EnjuNii
           lisbn = Lisbn.new(options[:isbn])
           raise EnjuNii::InvalidIsbn unless lisbn.valid?
 
-          manifestation = Manifestation.find_by_isbn(lisbn.isbn)
+          manifestation = IsbnRecord.find_by(body: lisbn.isbn, resource_type: "Manifestation")&.resource
         end
 
         return manifestation if manifestation.present?

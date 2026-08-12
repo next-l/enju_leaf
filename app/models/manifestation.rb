@@ -31,10 +31,8 @@ class Manifestation < ApplicationRecord
   has_one :periodical_record, class_name: "Periodical", dependent: :destroy
   has_one :periodical_and_manifestation, dependent: :destroy
   has_one :periodical, through: :periodical_and_manifestation, dependent: :destroy
-  has_many :isbn_record_and_manifestations, dependent: :destroy
-  has_many :isbn_records, through: :isbn_record_and_manifestations
-  has_many :issn_record_and_manifestations, dependent: :destroy
-  has_many :issn_records, through: :issn_record_and_manifestations
+  has_many :isbn_records, dependent: :destroy, as: :resource
+  has_many :issn_records, dependent: :destroy, as: :resource
   has_one :doi_record, dependent: :destroy
   has_one :jpno_record, dependent: :destroy
   has_one :ncid_record, dependent: :destroy
@@ -49,9 +47,9 @@ class Manifestation < ApplicationRecord
   accepts_nested_attributes_for :series_statements, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :identifiers, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :manifestation_custom_values, reject_if: :all_blank
-  accepts_nested_attributes_for :doi_record, reject_if: :all_blank
-  accepts_nested_attributes_for :jpno_record, reject_if: :all_blank
-  accepts_nested_attributes_for :ncid_record, reject_if: :all_blank
+  accepts_nested_attributes_for :doi_record, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :jpno_record, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :ncid_record, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :lccn_record, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :isbn_records, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :issn_records, allow_destroy: true, reject_if: :all_blank
@@ -459,17 +457,6 @@ class Manifestation < ApplicationRecord
     end
   end
 
-  # ISBNで検索する
-  # @param isbn [Strinng]
-  # @return [Manifestation]
-  def self.find_by_isbn(isbn)
-    IsbnRecord.find_by(body: isbn)&.manifestations
-    isbn_record = IsbnRecord.find_by(body: isbn)
-    return unless isbn_record
-
-    isbn_record.manifestations.order(:created_at).first
-  end
-
   def index_series_statement
     series_statements.map { |s| s.index
                               s.root_manifestation&.index}
@@ -736,6 +723,30 @@ class Manifestation < ApplicationRecord
         )
       end
     end
+  end
+
+  def doi_record_attributes=(attributes)
+    attributes = attributes.to_h if attributes.respond_to?(:permitted?)
+    attributes = attributes.with_indifferent_access
+    attributes[:_destroy] = "1" if attributes[:body].blank?
+
+    super(attributes)
+  end
+
+  def ncid_record_attributes=(attributes)
+    attributes = attributes.to_h if attributes.respond_to?(:permitted?)
+    attributes = attributes.with_indifferent_access
+    attributes[:_destroy] = "1" if attributes[:body].blank?
+
+    super(attributes)
+  end
+
+  def jpno_record_attributes=(attributes)
+    attributes = attributes.to_h if attributes.respond_to?(:permitted?)
+    attributes = attributes.with_indifferent_access
+    attributes[:_destroy] = "1" if attributes[:body].blank?
+
+    super(attributes)
   end
 
   private

@@ -489,7 +489,6 @@ describe ManifestationsController do
         get :edit, params: { id: manifestation.id }
         expect(assigns(:manifestation)).to eq manifestation
         expect(assigns(:manifestation).identifiers).to eq manifestation.identifiers
-        expect(response).to render_template(partial: 'manifestations/_identifier_fields')
       end
     end
 

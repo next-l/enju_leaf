@@ -1,9 +1,13 @@
 issn_record_00001:
   id: 1
+  resource_id: 2
+  resource_type: Manifestation
   body: 99999999
 
 issn_record_00002:
   id: 2
+  resource_id: 201
+  resource_type: Manifestation
   body: "09130000"
 
 # ## Schema Information
@@ -12,15 +16,21 @@ issn_record_00002:
 #
 # ### Columns
 #
-# Name                | Type               | Attributes
-# ------------------- | ------------------ | ---------------------------
-# **`id`**            | `bigint`           | `not null, primary key`
-# **`body(ISSN)`**    | `string`           | `not null`
-# **`created_at`**    | `datetime`         | `not null`
-# **`updated_at`**    | `datetime`         | `not null`
+# Name                   | Type               | Attributes
+# ---------------------- | ------------------ | ---------------------------
+# **`id`**               | `bigint`           | `not null, primary key`
+# **`body(ISSN)`**       | `string`           | `not null`
+# **`resource_type`**    | `string`           | `not null`
+# **`created_at`**       | `datetime`         | `not null`
+# **`updated_at`**       | `datetime`         | `not null`
+# **`resource_id`**      | `bigint`           | `not null`
 #
 # ### Indexes
 #
 # * `index_issn_records_on_body` (_unique_):
+#     * **`body`**
+# * `index_issn_records_on_resource_id_and_resource_type_and_body` (_unique_):
+#     * **`resource_id`**
+#     * **`resource_type`**
 #     * **`body`**
 #

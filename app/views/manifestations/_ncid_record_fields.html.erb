@@ -1,6 +1,5 @@
 <div class="nested-fields">
-  <%#= f.hidden_field :manifestation_id %>
-  <%= f.text_field :body %>
+  <%= f.text_field :body, class: "form-control" %>
   <%= link_to_remove_association t("page.remove"),
   f,
   data: {

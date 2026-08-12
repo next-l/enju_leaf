@@ -23,7 +23,7 @@ module EnjuLoc
 
         # end
 
-        manifestation = Manifestation.find_by_isbn(lisbn.isbn)
+        manifestation = IsbnRecord.find_by(body: lisbn.isbn, resource_type: "Manifestation")&.resource
         return manifestation.first if manifestation.present?
 
         doc = return_xml(lisbn.isbn)
