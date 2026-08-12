@@ -1,2 +1,2 @@
 (<%= link_to "#",
-{ onclick: "$('#holding_#{manifestation.id}').toggle(); return false;" } %>)
+{ onclick: "var el = document.getElementById('holding_#{manifestation.id}'); el.style.display = el.style.display === 'none' ? '' : 'none'; return false;" } %>)

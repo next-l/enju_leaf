@@ -1,7 +1,7 @@
 <% if defined?(EnjuBookmark) %>
   <%- if manifestation.tags.first -%>
     (<%= link_to "#",
-    { onclick: "$('#tag_#{manifestation.id}').toggle(); return false;" } %>)
+    { onclick: "var el = document.getElementById('tag_#{manifestation.id}'); el.style.display = el.style.display === 'none' ? '' : 'none'; return false;" } %>)
   <%- end -%>
   <%= render "manifestations/show_tag", manifestation: manifestation -%>
 <% end %>

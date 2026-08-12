@@ -44,7 +44,7 @@
           <%= f.submit class: "btn btn-primary" %>
         </div>
       <% end %>
-      <%= javascript_tag("$(function(){$('#reserve_user_number').focus().select()})") %>
+      <%= javascript_tag("var el = document.getElementById('reserve_user_number'); el.focus(); el.select();") %>
     </div>
   </div>
 </div>
