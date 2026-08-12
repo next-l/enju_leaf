@@ -50,15 +50,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # Add or replace dependency steps here
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
       # Add or replace test runners here
       - name: Start containers
         run: cp .env.test.ci .env.test && cp .env.test .env && cp docker-compose.ci.yml docker-compose.override.yml && docker compose up -d solr tika
