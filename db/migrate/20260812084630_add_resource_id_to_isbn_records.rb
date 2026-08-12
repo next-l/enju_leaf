@@ -3,6 +3,8 @@ class AddResourceIdToIsbnRecords < ActiveRecord::Migration[8.1]
     add_reference :isbn_records, :resource, null: true, polymorphic: true, index: false
     add_reference :issn_records, :resource, null: true, polymorphic: true, index: false
 
+    remove_index :issn_records, :body, unique: true
+    add_index :issn_records, :body
     add_index :isbn_records, [ :resource_id, :resource_type, :body ], unique: true
     add_index :issn_records, [ :resource_id, :resource_type, :body ], unique: true
 
@@ -29,5 +31,7 @@ class AddResourceIdToIsbnRecords < ActiveRecord::Migration[8.1]
   def down
     remove_reference :isbn_records, :resource, polymorphic: true
     remove_reference :issn_records, :resource, polymorphic: true
+    remove_index :issn_records, :body
+    add_index :issn_records, :body, unique: true
   end
 end

@@ -705,7 +705,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_12_084630) do
     t.bigint "resource_id", null: false
     t.string "resource_type", null: false
     t.datetime "updated_at", null: false
-    t.index ["body"], name: "index_issn_records_on_body", unique: true
+    t.index ["body"], name: "index_issn_records_on_body"
     t.index ["resource_id", "resource_type", "body"], name: "index_issn_records_on_resource_id_and_resource_type_and_body", unique: true
   end
 
