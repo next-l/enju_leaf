@@ -83,40 +83,42 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- unless @order_list.ordered? -%>
-        <li><%= link_to t("order_list.create_order_sheet"),
-          edit_order_list_path(@order_list, mode: "order") -%></li>
-      <%- end -%>
-      <li><%= link_to t("purchase_request.all_request"), purchase_requests_path -%></li>
-    </ul>
-    <% if @order_list.ordered? %>
-      <p>
-        <%= link_to image_tag(
-          "icons/feed.png",
-          size: "16x16",
-          class: "enju_icon",
-          alt: t("page.feed"),
-        ),
-        purchase_requests_path(order_list_id: @order_list.id, format: :rss) -%>
-        (<%= link_to "RSS",
-        purchase_requests_path(order_list_id: @order_list.id, format: :rss) -%>)
-        <%= link_to image_tag(
-          "icons/page_white_excel.png",
-          size: "16x16",
-          class: "enju_icon",
-          alt: "TSV",
-        ),
-        purchase_requests_path(order_list_id: @order_list.id, format: :txt) -%>
-        (<%= link_to "TSV",
-        purchase_requests_path(order_list_id: @order_list.id, format: :txt) -%>)
-      </p>
-    <% end %>
-    <h4><%= t("page.bookmarklet") -%></h4>
-    <ul>
-      <li><a
-          href="javascript:window.location.href='<%= new_purchase_request_url -%>?purchase_request[url]='+encodeURIComponent(location.href)+'&purchase_request[title]='+encodeURIComponent(document.title);"
-        ><%= t("purchase_request.add_to_purchase_request") -%></a></li>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- unless @order_list.ordered? -%>
+          <li><%= link_to t("order_list.create_order_sheet"),
+            edit_order_list_path(@order_list, mode: "order") -%></li>
+        <%- end -%>
+        <li><%= link_to t("purchase_request.all_request"), purchase_requests_path -%></li>
+      </ul>
+      <% if @order_list.ordered? %>
+        <p>
+          <%= link_to image_tag(
+            "icons/feed.png",
+            size: "16x16",
+            class: "enju_icon",
+            alt: t("page.feed"),
+          ),
+          purchase_requests_path(order_list_id: @order_list.id, format: :rss) -%>
+          (<%= link_to "RSS",
+          purchase_requests_path(order_list_id: @order_list.id, format: :rss) -%>)
+          <%= link_to image_tag(
+            "icons/page_white_excel.png",
+            size: "16x16",
+            class: "enju_icon",
+            alt: "TSV",
+          ),
+          purchase_requests_path(order_list_id: @order_list.id, format: :txt) -%>
+          (<%= link_to "TSV",
+          purchase_requests_path(order_list_id: @order_list.id, format: :txt) -%>)
+        </p>
+      <% end %>
+      <h4><%= t("page.bookmarklet") -%></h4>
+      <ul>
+        <li><a
+            href="javascript:window.location.href='<%= new_purchase_request_url -%>?purchase_request[url]='+encodeURIComponent(location.href)+'&purchase_request[title]='+encodeURIComponent(document.title);"
+          ><%= t("purchase_request.add_to_purchase_request") -%></a></li>
+      </ul>
+    </div>
   </div>
 </div>

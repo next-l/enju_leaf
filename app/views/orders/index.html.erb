@@ -43,10 +43,12 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if policy(Order).create? -%>
-        <li><%= link_to t("page.new", model: t("activerecord.models.order")), new_order_path -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- if policy(Order).create? -%>
+          <li><%= link_to t("page.new", model: t("activerecord.models.order")), new_order_path -%></li>
+        <%- end -%>
+      </ul>
+    </div>
   </div>
 </div>

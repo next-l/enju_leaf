@@ -54,36 +54,38 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <li><%= link_to t("page.edit"), edit_picture_file_path(@picture_file) -%></li>
-      <% if @picture_file.picture_attachable_type? %>
-        <%- case @picture_file.picture_attachable.class.name when "Shelf" -%>
-          <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
-            picture_files_path(shelf_id: @picture_file.picture_attachable_id) -%></li>
-        <%- when "Manifestation" -%>
-          <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
-            picture_files_path(manifestation_id: @picture_file.picture_attachable_id) -%></li>
-        <%- when "Agent" -%>
-          <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
-            picture_files_path(agent_id: @picture_file.picture_attachable_id) -%></li>
-        <%- else -%>
-          <%- if defined?(EnjuEvent) %>
-            <% if @picture_file.picture_attachable.class.name == 'Event' %>
-              <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
-                picture_files_path(event_id: @picture_file.picture_attachable_id) -%></li>
+    <div class="card-body">
+      <ul>
+        <li><%= link_to t("page.edit"), edit_picture_file_path(@picture_file) -%></li>
+        <% if @picture_file.picture_attachable_type? %>
+          <%- case @picture_file.picture_attachable.class.name when "Shelf" -%>
+            <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
+              picture_files_path(shelf_id: @picture_file.picture_attachable_id) -%></li>
+          <%- when "Manifestation" -%>
+            <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
+              picture_files_path(manifestation_id: @picture_file.picture_attachable_id) -%></li>
+          <%- when "Agent" -%>
+            <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
+              picture_files_path(agent_id: @picture_file.picture_attachable_id) -%></li>
+          <%- else -%>
+            <%- if defined?(EnjuEvent) %>
+              <% if @picture_file.picture_attachable.class.name == 'Event' %>
+                <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
+                  picture_files_path(event_id: @picture_file.picture_attachable_id) -%></li>
+              <% else %>
+                <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
+                  picture_files_path -%></li>
+              <% end %>
             <% else %>
               <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
                 picture_files_path -%></li>
             <% end %>
-          <% else %>
-            <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
-              picture_files_path -%></li>
-          <% end %>
-        <%- end -%>
-      <% else %>
-        <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
-          picture_files_path -%></li>
-      <% end %>
-    </ul>
+          <%- end -%>
+        <% else %>
+          <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
+            picture_files_path -%></li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>

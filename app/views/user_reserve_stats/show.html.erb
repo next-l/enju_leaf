@@ -46,15 +46,17 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <%= form_for(@user_reserve_stat) do |f| %>
+    <div class="card-body">
+      <%= form_for(@user_reserve_stat) do |f| %>
+        <ul>
+          <li><%= back_to_index(flash[:page_info]) -%></li>
+        </ul>
+      <% end %>
+      <h4><%= t("page.export") -%></h4>
       <ul>
-        <li><%= back_to_index(flash[:page_info]) -%></li>
+        <li><%= link_to "TSV",
+          user_reserve_stat_path(@user_reserve_stat, format: :txt, locale: I18n.locale.to_s) -%></li>
       </ul>
-    <% end %>
-    <h4><%= t("page.export") -%></h4>
-    <ul>
-      <li><%= link_to "TSV",
-        user_reserve_stat_path(@user_reserve_stat, format: :txt, locale: I18n.locale.to_s) -%></li>
-    </ul>
+    </div>
   </div>
 </div>

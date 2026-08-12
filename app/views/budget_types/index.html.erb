@@ -45,11 +45,13 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if policy(BudgetType).create? -%>
-        <li><%= link_to t("page.new", model: t("activerecord.models.budget_type")),
-          new_budget_type_path -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- if policy(BudgetType).create? -%>
+          <li><%= link_to t("page.new", model: t("activerecord.models.budget_type")),
+            new_budget_type_path -%></li>
+        <%- end -%>
+      </ul>
+    </div>
   </div>
 </div>

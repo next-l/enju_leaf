@@ -36,12 +36,14 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <li><%= link_to t(
-          "page.new",
-          model: t("activerecord.models.manifestation_checkout_stat"),
-        ),
-        new_manifestation_checkout_stat_path -%></li>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <li><%= link_to t(
+            "page.new",
+            model: t("activerecord.models.manifestation_checkout_stat"),
+          ),
+          new_manifestation_checkout_stat_path -%></li>
+      </ul>
+    </div>
   </div>
 </div>

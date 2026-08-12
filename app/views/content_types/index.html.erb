@@ -52,11 +52,13 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if policy(ContentType).create? -%>
-        <li><%= link_to t("page.new", model: t("activerecord.models.content_type")),
-          new_content_type_path -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- if policy(ContentType).create? -%>
+          <li><%= link_to t("page.new", model: t("activerecord.models.content_type")),
+            new_content_type_path -%></li>
+        <%- end -%>
+      </ul>
+    </div>
   </div>
 </div>

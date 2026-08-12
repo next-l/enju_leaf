@@ -119,87 +119,89 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <li>
-        <%= link_to t("page.new", model: t("activerecord.models.reserve")),
-        manifestations_path(reservable: true) -%>
-        <br/>
-        (<%= t("page.search_resource", model: t("page.resource")) -%>)
-      </li>
-      <%- if current_user.has_role?('Librarian') -%>
-        <li><%= link_to t("reserve.all_reservation"), reserves_path -%></li>
-        <li><%= link_to t("reserve.my_reservation"),
-          reserves_path(user_id: current_user.username) -%></li>
-      <%- end -%>
-      <%- if @user -%>
-        <li><%= link_to t("page.listing", model: t("activerecord.models.checkout")),
-          checkouts_path(user_id: @user.username) -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <li>
+          <%= link_to t("page.new", model: t("activerecord.models.reserve")),
+          manifestations_path(reservable: true) -%>
+          <br/>
+          (<%= t("page.search_resource", model: t("page.resource")) -%>)
+        </li>
+        <%- if current_user.has_role?('Librarian') -%>
+          <li><%= link_to t("reserve.all_reservation"), reserves_path -%></li>
+          <li><%= link_to t("reserve.my_reservation"),
+            reserves_path(user_id: current_user.username) -%></li>
+        <%- end -%>
+        <%- if @user -%>
+          <li><%= link_to t("page.listing", model: t("activerecord.models.checkout")),
+            checkouts_path(user_id: @user.username) -%></li>
+        <%- end -%>
+      </ul>
 
-    <%= render "state_facet" %>
+      <%= render "state_facet" %>
 
-    <p>
-      <%- if @user -%>
-        <%= link_to image_tag(
-          "icons/feed.png",
-          size: "16x16",
-          class: "enju_icon",
-          alt: t("page.feed"),
-        ),
-        url_for(
-          filtered_params.merge(only_path: true, user_id: @user.username, format: :rss),
-        ) -%>
-        (<%= link_to "RSS",
-        url_for(
-          filtered_params.merge(only_path: true, user_id: @user.username, format: :rss),
-        ) -%>)
-        <%= link_to image_tag(
-          "icons/page_white_excel.png",
-          size: "16x16",
-          class: "enju_icon",
-          alt: "TSV",
-        ),
-        url_for(
-          filtered_params.merge(
-            only_path: true,
-            user_id: @user.username,
-            format: :txt,
-            locale: I18n.locale.to_s,
+      <p>
+        <%- if @user -%>
+          <%= link_to image_tag(
+            "icons/feed.png",
+            size: "16x16",
+            class: "enju_icon",
+            alt: t("page.feed"),
           ),
-        ) -%>
-        (<%= link_to "TSV",
-        url_for(
-          filtered_params.merge(
-            only_path: true,
-            user_id: @user.username,
-            format: :txt,
-            locale: I18n.locale.to_s,
+          url_for(
+            filtered_params.merge(only_path: true, user_id: @user.username, format: :rss),
+          ) -%>
+          (<%= link_to "RSS",
+          url_for(
+            filtered_params.merge(only_path: true, user_id: @user.username, format: :rss),
+          ) -%>)
+          <%= link_to image_tag(
+            "icons/page_white_excel.png",
+            size: "16x16",
+            class: "enju_icon",
+            alt: "TSV",
           ),
-        ) -%>)
-      <%- else -%>
-        <%= link_to image_tag(
-          "icons/feed.png",
-          size: "16x16",
-          class: "enju_icon",
-          alt: t("page.feed"),
-        ),
-        url_for(filtered_params.merge(only_path: true, format: :rss)) -%>
-        (<%= link_to "RSS", url_for(filtered_params.merge(only_path: true, format: :rss)) -%>)
-        <%= link_to image_tag(
-          "icons/page_white_excel.png",
-          size: "16x16",
-          class: "enju_icon",
-          alt: "TSV",
-        ),
-        url_for(
-          filtered_params.merge(only_path: true, format: :txt, locale: I18n.locale.to_s),
-        ) -%>
-        (<%= link_to "TSV",
-        url_for(
-          filtered_params.merge(only_path: true, format: :txt, locale: I18n.locale.to_s),
-        ) -%>)
-      <%- end -%>
-    </p>
+          url_for(
+            filtered_params.merge(
+              only_path: true,
+              user_id: @user.username,
+              format: :txt,
+              locale: I18n.locale.to_s,
+            ),
+          ) -%>
+          (<%= link_to "TSV",
+          url_for(
+            filtered_params.merge(
+              only_path: true,
+              user_id: @user.username,
+              format: :txt,
+              locale: I18n.locale.to_s,
+            ),
+          ) -%>)
+        <%- else -%>
+          <%= link_to image_tag(
+            "icons/feed.png",
+            size: "16x16",
+            class: "enju_icon",
+            alt: t("page.feed"),
+          ),
+          url_for(filtered_params.merge(only_path: true, format: :rss)) -%>
+          (<%= link_to "RSS", url_for(filtered_params.merge(only_path: true, format: :rss)) -%>)
+          <%= link_to image_tag(
+            "icons/page_white_excel.png",
+            size: "16x16",
+            class: "enju_icon",
+            alt: "TSV",
+          ),
+          url_for(
+            filtered_params.merge(only_path: true, format: :txt, locale: I18n.locale.to_s),
+          ) -%>
+          (<%= link_to "TSV",
+          url_for(
+            filtered_params.merge(only_path: true, format: :txt, locale: I18n.locale.to_s),
+          ) -%>)
+        <%- end -%>
+      </p>
+    </div>
   </div>
 </div>

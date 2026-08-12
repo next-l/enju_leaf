@@ -56,16 +56,18 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <%- if policy(PictureFile).create? -%>
-      <ul>
-        <li><%= link_to t("page.listing", model: t("activerecord.models.manifestation")),
-          manifestations_path -%></li>
-        <li><%= link_to t("page.listing", model: t("activerecord.models.shelf")), shelves_path -%></li>
-        <% if defined?(EnjuEvent) %>
-          <li><%= link_to t("page.listing", model: t("activerecord.models.event")), events_path -%></li>
-        <% end %>
-        <li><%= link_to t("page.listing", model: t("activerecord.models.agent")), agents_path -%></li>
-      </ul>
-    <%- end -%>
+    <div class="card-body">
+      <%- if policy(PictureFile).create? -%>
+        <ul>
+          <li><%= link_to t("page.listing", model: t("activerecord.models.manifestation")),
+            manifestations_path -%></li>
+          <li><%= link_to t("page.listing", model: t("activerecord.models.shelf")), shelves_path -%></li>
+          <% if defined?(EnjuEvent) %>
+            <li><%= link_to t("page.listing", model: t("activerecord.models.event")), events_path -%></li>
+          <% end %>
+          <li><%= link_to t("page.listing", model: t("activerecord.models.agent")), agents_path -%></li>
+        </ul>
+      <%- end -%>
+    </div>
   </div>
 </div>

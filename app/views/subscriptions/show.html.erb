@@ -35,10 +35,12 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <li><%= link_to t("page.edit"), edit_subscription_path(@subscription) -%></li>
-      <li><%= link_to t("work.add"), manifestations_path(subscription_id: @subscription.id) -%></li>
-      <li><%= link_to t("page.back"), :back -%></li>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <li><%= link_to t("page.edit"), edit_subscription_path(@subscription) -%></li>
+        <li><%= link_to t("work.add"), manifestations_path(subscription_id: @subscription.id) -%></li>
+        <li><%= link_to t("page.back"), :back -%></li>
+      </ul>
+    </div>
   </div>
 </div>

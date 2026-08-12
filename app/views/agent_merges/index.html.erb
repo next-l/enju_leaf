@@ -32,10 +32,12 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if @agent_merge_list -%>
-        <li><%= link_to t("page.add", model: t("activerecord.models.agent")),
-          agent_merge_list_agents_path(@agent_merge_list) -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- if @agent_merge_list -%>
+          <li><%= link_to t("page.add", model: t("activerecord.models.agent")),
+            agent_merge_list_agents_path(@agent_merge_list) -%></li>
+        <%- end -%>
+      </ul>
+    </div>
   </div>

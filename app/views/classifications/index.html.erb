@@ -57,16 +57,18 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if policy(Classification).create? -%>
-        <%- if @classification_type -%>
-          <li><%= link_to t("page.new", model: t("activerecord.models.classification")),
-            new_classification_type_classification_path(@classification_type) -%></li>
-        <%- else -%>
-          <li><%= link_to t("page.new", model: t("activerecord.models.classification")),
-            new_classification_path -%></li>
+    <div class="card-body">
+      <ul>
+        <%- if policy(Classification).create? -%>
+          <%- if @classification_type -%>
+            <li><%= link_to t("page.new", model: t("activerecord.models.classification")),
+              new_classification_type_classification_path(@classification_type) -%></li>
+          <%- else -%>
+            <li><%= link_to t("page.new", model: t("activerecord.models.classification")),
+              new_classification_path -%></li>
+          <%- end -%>
         <%- end -%>
-      <%- end -%>
-    </ul>
+      </ul>
+    </div>
   </div>
 </div>

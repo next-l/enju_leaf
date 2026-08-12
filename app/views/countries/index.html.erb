@@ -45,10 +45,12 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if policy(Country).create? -%>
-        <li><%= link_to t("page.new", model: t("activerecord.models.country")), new_country_path -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- if policy(Country).create? -%>
+          <li><%= link_to t("page.new", model: t("activerecord.models.country")), new_country_path -%></li>
+        <%- end -%>
+      </ul>
+    </div>
   </div>
 </div>

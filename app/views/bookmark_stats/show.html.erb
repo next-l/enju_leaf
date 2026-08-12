@@ -49,13 +49,15 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <li><%= link_to t("page.edit"), edit_bookmark_stat_path(@bookmark_stat) -%></li>
-      <li><%= back_to_index(flash[:page_info]) -%></li>
-    </ul>
-    <h4><%= t("page.export") -%></h4>
-    <ul>
-      <li><%= link_to "TSV", bookmark_stat_path(@bookmark_stat, format: :txt) -%></li>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <li><%= link_to t("page.edit"), edit_bookmark_stat_path(@bookmark_stat) -%></li>
+        <li><%= back_to_index(flash[:page_info]) -%></li>
+      </ul>
+      <h4><%= t("page.export") -%></h4>
+      <ul>
+        <li><%= link_to "TSV", bookmark_stat_path(@bookmark_stat, format: :txt) -%></li>
+      </ul>
+    </div>
   </div>
 </div>

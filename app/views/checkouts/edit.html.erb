@@ -60,15 +60,17 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <%= if @checkout.item
-      render "manifestations/book_jacket",
-      manifestation: @checkout.item.manifestation
-    end -%>
-    <ul>
-      <li><%= link_to t("page.showing", model: t("activerecord.models.checkout")), @checkout -%></li>
-      <% if @checkout.user %>
-        <li><%= link_to t("page.back"), :back -%></li>
-      <% end %>
-    </ul>
+    <div class="card-body">
+      <%= if @checkout.item
+        render "manifestations/book_jacket",
+        manifestation: @checkout.item.manifestation
+      end -%>
+      <ul>
+        <li><%= link_to t("page.showing", model: t("activerecord.models.checkout")), @checkout -%></li>
+        <% if @checkout.user %>
+          <li><%= link_to t("page.back"), :back -%></li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>

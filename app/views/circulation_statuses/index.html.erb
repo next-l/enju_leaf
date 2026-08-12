@@ -51,11 +51,13 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if policy(CirculationStatus).create? -%>
-        <li><%= link_to t("page.new", model: t("activerecord.models.circulation_status")),
-          new_circulation_status_path -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- if policy(CirculationStatus).create? -%>
+          <li><%= link_to t("page.new", model: t("activerecord.models.circulation_status")),
+            new_circulation_status_path -%></li>
+        <%- end -%>
+      </ul>
+    </div>
   </div>
 </div>

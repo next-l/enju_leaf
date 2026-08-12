@@ -9,17 +9,19 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <li><%= link_to t("page.show"), @agent -%></li>
-      <%- if policy(@agent).destroy? -%>
-        <li><%= link_to t("page.destroy"),
-          @agent,
-          data: {
-            confirm: t("page.are_you_sure"),
-          },
-          method: :delete -%></li>
-      <%- end -%>
-      <li><%= link_to t("page.back"), agents_path -%></li>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <li><%= link_to t("page.show"), @agent -%></li>
+        <%- if policy(@agent).destroy? -%>
+          <li><%= link_to t("page.destroy"),
+            @agent,
+            data: {
+              confirm: t("page.are_you_sure"),
+            },
+            method: :delete -%></li>
+        <%- end -%>
+        <li><%= link_to t("page.back"), agents_path -%></li>
+      </ul>
+    </div>
   </div>
 </div>

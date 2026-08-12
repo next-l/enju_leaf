@@ -35,12 +35,14 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if policy(Agent).create? -%>
-        <li><%= link_to t("agent.add"), new_agent_path -%></li>
-        <li><%= link_to t("page.merge", model: t("activerecord.models.agent")),
-          agent_merge_lists_path -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- if policy(Agent).create? -%>
+          <li><%= link_to t("agent.add"), new_agent_path -%></li>
+          <li><%= link_to t("page.merge", model: t("activerecord.models.agent")),
+            agent_merge_lists_path -%></li>
+        <%- end -%>
+      </ul>
+    </div>
   </div>
 </div>

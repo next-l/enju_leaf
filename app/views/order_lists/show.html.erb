@@ -40,11 +40,13 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <li><%= link_to t("page.listing", model: t("activerecord.models.purchase_request")),
-        purchase_requests_path(order_list_id: @order_list.id) -%></li>
-      <li><%= link_to t("page.edit"), edit_order_list_path(@order_list) -%></li>
-      <li><%= back_to_index(flash[:page_info]) -%></li>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <li><%= link_to t("page.listing", model: t("activerecord.models.purchase_request")),
+          purchase_requests_path(order_list_id: @order_list.id) -%></li>
+        <li><%= link_to t("page.edit"), edit_order_list_path(@order_list) -%></li>
+        <li><%= back_to_index(flash[:page_info]) -%></li>
+      </ul>
+    </div>
   </div>
 </div>

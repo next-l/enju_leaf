@@ -64,15 +64,17 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if policy(@user_group).update? -%>
-        <li><%= link_to t("page.edit"), edit_user_group_path(@user_group) -%></li>
-      <%- end -%>
-      <li><%= back_to_index(flash[:page_info]) -%></li>
-      <%- if policy(UserGroupHasCheckoutType).create? -%>
-        <li><%= link_to t("page.new", model: t("activerecord.models.checkout_type")),
-          new_user_group_has_checkout_type_path(user_group_id: @user_group.id) -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- if policy(@user_group).update? -%>
+          <li><%= link_to t("page.edit"), edit_user_group_path(@user_group) -%></li>
+        <%- end -%>
+        <li><%= back_to_index(flash[:page_info]) -%></li>
+        <%- if policy(UserGroupHasCheckoutType).create? -%>
+          <li><%= link_to t("page.new", model: t("activerecord.models.checkout_type")),
+            new_user_group_has_checkout_type_path(user_group_id: @user_group.id) -%></li>
+        <%- end -%>
+      </ul>
+    </div>
   </div>
 </div>

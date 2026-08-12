@@ -53,14 +53,16 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <%= render "manifestations/book_jacket", manifestation: @reserve.manifestation %>
-    <ul>
-      <li><%= link_to t("page.listing", model: t("activerecord.models.reserve")),
-        reserves_path(user_id: @reserve.user.username) %></li>
-      <% if @manifestation %>
-        <li><%= link_to t("page.showing", model: t("activerecord.models.manifestation")),
-          @manifestation %></li>
-      <% end %>
-    </ul>
+    <div class="card-body">
+      <%= render "manifestations/book_jacket", manifestation: @reserve.manifestation %>
+      <ul>
+        <li><%= link_to t("page.listing", model: t("activerecord.models.reserve")),
+          reserves_path(user_id: @reserve.user.username) %></li>
+        <% if @manifestation %>
+          <li><%= link_to t("page.showing", model: t("activerecord.models.manifestation")),
+            @manifestation %></li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>

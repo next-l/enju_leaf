@@ -124,10 +124,12 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if policy(Library).create? -%>
-        <li><%= link_to t("page.new", model: t("activerecord.models.library")), new_library_path -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- if policy(Library).create? -%>
+          <li><%= link_to t("page.new", model: t("activerecord.models.library")), new_library_path -%></li>
+        <%- end -%>
+      </ul>
+    </div>
   </div>
 </div>

@@ -38,12 +38,14 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if policy(@classification).update? -%>
+    <div class="card-body">
+      <ul>
+        <%- if policy(@classification).update? -%>
 
-        <li><%= link_to t("page.edit"), edit_classification_path(@classification) %></li>
-      <%- end -%>
-      <li><%= link_to t("page.back"), :back -%></li>
-    </ul>
+          <li><%= link_to t("page.edit"), edit_classification_path(@classification) %></li>
+        <%- end -%>
+        <li><%= link_to t("page.back"), :back -%></li>
+      </ul>
+    </div>
   </div>
 </div>

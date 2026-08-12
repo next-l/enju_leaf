@@ -9,9 +9,11 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <li><%= link_to t("page.show"), @produce_type -%></li>
-      <li><%= link_to t("page.back"), produce_types_path -%></li>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <li><%= link_to t("page.show"), @produce_type -%></li>
+        <li><%= link_to t("page.back"), produce_types_path -%></li>
+      </ul>
+    </div>
   </div>
 </div>

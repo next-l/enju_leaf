@@ -46,10 +46,12 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if policy(Own).create? -%>
-        <li><%= link_to t("page.new", model: t("activerecord.models.own")), new_own_path -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- if policy(Own).create? -%>
+          <li><%= link_to t("page.new", model: t("activerecord.models.own")), new_own_path -%></li>
+        <%- end -%>
+      </ul>
+    </div>
   </div>
 </div>

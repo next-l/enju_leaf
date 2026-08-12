@@ -49,11 +49,13 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <%- if policy(Bookstore).create? -%>
-      <ul>
-        <li><%= link_to t("page.new", model: t("activerecord.models.bookstore")),
-          new_bookstore_path -%></li>
-      </ul>
-    <%- end -%>
+    <div class="card-body">
+      <%- if policy(Bookstore).create? -%>
+        <ul>
+          <li><%= link_to t("page.new", model: t("activerecord.models.bookstore")),
+            new_bookstore_path -%></li>
+        </ul>
+      <%- end -%>
+    </div>
   </div>
 </div>

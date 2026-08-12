@@ -45,11 +45,13 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if policy(@search_engine).update? -%>
-        <li><%= link_to t("page.edit"), edit_search_engine_path(@search_engine) -%></li>
-      <%- end -%>
-      <li><%= link_to t("page.back"), :back -%></li>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- if policy(@search_engine).update? -%>
+          <li><%= link_to t("page.edit"), edit_search_engine_path(@search_engine) -%></li>
+        <%- end -%>
+        <li><%= link_to t("page.back"), :back -%></li>
+      </ul>
+    </div>
   </div>
 </div>

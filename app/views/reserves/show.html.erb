@@ -75,31 +75,33 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <%= if @reserve.manifestation
-      render "manifestations/book_jacket", manifestation: @reserve.manifestation
-    end -%>
-    <ul>
-      <li><%= link_to t("page.edit"), edit_reserve_path(@reserve) -%></li>
-      <%- if @reserve.user.reserves.waiting.include?(@reserve) -%>
-        <li><%= link_to t("page.cancel"),
-          reserve_path(@reserve, mode: "cancel"),
-          data: {
-            confirm: t("page.are_you_sure"),
-          },
-          method: :put -%></li>
-      <%- else -%>
-        <li><%= link_to t("page.destroy"),
-          @reserve,
-          data: {
-            confirm: t("page.are_you_sure"),
-          },
-          method: :delete -%></li>
-      <%- end -%>
-      <li><%= link_to t("page.listing", model: t("activerecord.models.reserve")),
-        reserves_path %></li>
-    </ul>
-    <!--
-    <p>TODO: 予約取り消し時に、次の予約者に連絡する</p>
-    -->
+    <div class="card-body">
+      <%= if @reserve.manifestation
+        render "manifestations/book_jacket", manifestation: @reserve.manifestation
+      end -%>
+      <ul>
+        <li><%= link_to t("page.edit"), edit_reserve_path(@reserve) -%></li>
+        <%- if @reserve.user.reserves.waiting.include?(@reserve) -%>
+          <li><%= link_to t("page.cancel"),
+            reserve_path(@reserve, mode: "cancel"),
+            data: {
+              confirm: t("page.are_you_sure"),
+            },
+            method: :put -%></li>
+        <%- else -%>
+          <li><%= link_to t("page.destroy"),
+            @reserve,
+            data: {
+              confirm: t("page.are_you_sure"),
+            },
+            method: :delete -%></li>
+        <%- end -%>
+        <li><%= link_to t("page.listing", model: t("activerecord.models.reserve")),
+          reserves_path %></li>
+      </ul>
+      <!--
+      <p>TODO: 予約取り消し時に、次の予約者に連絡する</p>
+      -->
+    </div>
   </div>
 </div>
