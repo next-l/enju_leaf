@@ -128,7 +128,7 @@ class ResourceImportFile < ApplicationRecord
       unless manifestation
         if row["isbn"].present?
           row["isbn"].to_s.split("//").each do |isbn|
-            m = IsbnRecord.find_by(body: Lisbn.new(isbn).isbn13)&.rsource
+            m = IsbnRecord.find_by(body: Lisbn.new(isbn).isbn13, resource_type: "Manifestation")&.resource
             if m
               if m.series_statements.exists?
                 manifestation = m
