@@ -51,11 +51,13 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if policy(CheckoutType).create? -%>
-        <li><%= link_to t("page.new", model: t("activerecord.models.checkout_type")),
-          new_checkout_type_path -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- if policy(CheckoutType).create? -%>
+          <li><%= link_to t("page.new", model: t("activerecord.models.checkout_type")),
+            new_checkout_type_path -%></li>
+        <%- end -%>
+      </ul>
+    </div>
   </div>
 </div>

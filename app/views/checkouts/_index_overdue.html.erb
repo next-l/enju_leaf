@@ -24,61 +24,63 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <li><%= link_to t("page.back_to", model: t("activerecord.models.checkout")),
-        checkouts_path -%></li>
-    </ul>
-    <%= render "reserved_facet" %>
-    <h4><%= t("page.other_format") %></h4>
-    <ul>
-      <li>
-        <%= link_to "RSS",
-        url_for(
-          filtered_params.merge(
-            only_path: true,
-            format: :rss,
-            days_overdue: params[:days_overdue],
+    <div class="card-body">
+      <ul>
+        <li><%= link_to t("page.back_to", model: t("activerecord.models.checkout")),
+          checkouts_path -%></li>
+      </ul>
+      <%= render "reserved_facet" %>
+      <h4><%= t("page.other_format") %></h4>
+      <ul>
+        <li>
+          <%= link_to "RSS",
+          url_for(
+            filtered_params.merge(
+              only_path: true,
+              format: :rss,
+              days_overdue: params[:days_overdue],
+            ),
+          ) -%>
+          <%= link_to image_tag(
+            "icons/feed.png",
+            size: "16x16",
+            class: "enju_icon",
+            alt: "RSS",
           ),
-        ) -%>
-        <%= link_to image_tag(
-          "icons/feed.png",
-          size: "16x16",
-          class: "enju_icon",
-          alt: "RSS",
-        ),
-        url_for(
-          filtered_params.merge(
-            only_path: true,
-            format: :rss,
-            days_overdue: params[:days_overdue],
+          url_for(
+            filtered_params.merge(
+              only_path: true,
+              format: :rss,
+              days_overdue: params[:days_overdue],
+            ),
+          ) -%>
+        </li>
+        <li>
+          <%= link_to "TSV",
+          url_for(
+            filtered_params.merge(
+              only_path: true,
+              format: :txt,
+              days_overdue: params[:days_overdue],
+              locale: I18n.locale.to_s,
+            ),
+          ) -%>
+          <%= link_to image_tag(
+            "icons/page_white_excel.png",
+            size: "16x16",
+            class: "enju_icon",
+            alt: "TSV",
           ),
-        ) -%>
-      </li>
-      <li>
-        <%= link_to "TSV",
-        url_for(
-          filtered_params.merge(
-            only_path: true,
-            format: :txt,
-            days_overdue: params[:days_overdue],
-            locale: I18n.locale.to_s,
-          ),
-        ) -%>
-        <%= link_to image_tag(
-          "icons/page_white_excel.png",
-          size: "16x16",
-          class: "enju_icon",
-          alt: "TSV",
-        ),
-        url_for(
-          filtered_params.merge(
-            only_path: true,
-            format: :txt,
-            days_overdue: params[:days_overdue],
-            locale: I18n.locale.to_s,
-          ),
-        ) -%>
-      </li>
-    </ul>
+          url_for(
+            filtered_params.merge(
+              only_path: true,
+              format: :txt,
+              days_overdue: params[:days_overdue],
+              locale: I18n.locale.to_s,
+            ),
+          ) -%>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

@@ -25,12 +25,14 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <% if defined?(EnjuCirculation) %>
-        <li><%= link_to t("page.new", model: t("activerecord.models.checkin")), new_checkin_path -%></li>
-      <% end %>
-      <li><%= link_to t("page.search_resource", model: t("activerecord.models.profile")),
-        profiles_path -%></li>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <% if defined?(EnjuCirculation) %>
+          <li><%= link_to t("page.new", model: t("activerecord.models.checkin")), new_checkin_path -%></li>
+        <% end %>
+        <li><%= link_to t("page.search_resource", model: t("activerecord.models.profile")),
+          profiles_path -%></li>
+      </ul>
+    </div>
   </div>
 </div>

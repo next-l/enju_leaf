@@ -49,23 +49,25 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <% if policy(Shelf).create? %>
-        <%- if @library -%>
-          <li><%= link_to t("page.new", model: t("activerecord.models.shelf")),
-            new_shelf_path(library_id: @library.id) -%></li>
-        <%- else -%>
-          <li><%= link_to t("page.new", model: t("activerecord.models.shelf")), new_shelf_path -%></li>
-        <%- end -%>
-      <% end %>
-      <% if policy(@shelf).update? %>
-        <li><%= link_to t("page.edit"), edit_shelf_path(@shelf) -%></li>
-        <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
-          picture_files_path(shelf_id: @shelf.id) -%></li>
-      <% end %>
-      <li>
-        <%= link_to t("page.back"), :back -%>
-      </li>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <% if policy(Shelf).create? %>
+          <%- if @library -%>
+            <li><%= link_to t("page.new", model: t("activerecord.models.shelf")),
+              new_shelf_path(library_id: @library.id) -%></li>
+          <%- else -%>
+            <li><%= link_to t("page.new", model: t("activerecord.models.shelf")), new_shelf_path -%></li>
+          <%- end -%>
+        <% end %>
+        <% if policy(@shelf).update? %>
+          <li><%= link_to t("page.edit"), edit_shelf_path(@shelf) -%></li>
+          <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
+            picture_files_path(shelf_id: @shelf.id) -%></li>
+        <% end %>
+        <li>
+          <%= link_to t("page.back"), :back -%>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

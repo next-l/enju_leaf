@@ -137,23 +137,25 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <% if policy(@library).update? %>
-        <li><%= link_to t("page.edit"), edit_library_path(@library) %></li>
-      <% end %>
-
-      <% if policy(Shelf).create? and !@library.web? %>
-        <li><%= link_to t("page.new", model: t("activerecord.models.shelf")),
-          new_shelf_path(library_id: @library.id) %></li>
-      <% end %>
-      <% if defined?(EnjuEvent) %>
-        <% if policy(Event).create? and !@library.web? %>
-          <li><%= link_to t("page.new", model: t("activerecord.models.event")),
-            new_event_path(library_id: @library.id) %></li>
+    <div class="card-body">
+      <ul>
+        <% if policy(@library).update? %>
+          <li><%= link_to t("page.edit"), edit_library_path(@library) %></li>
         <% end %>
-      <% end %>
-      <li><%= link_to t("page.listing", model: t("activerecord.models.library")),
-        libraries_path %></li>
-    </ul>
+
+        <% if policy(Shelf).create? and !@library.web? %>
+          <li><%= link_to t("page.new", model: t("activerecord.models.shelf")),
+            new_shelf_path(library_id: @library.id) %></li>
+        <% end %>
+        <% if defined?(EnjuEvent) %>
+          <% if policy(Event).create? and !@library.web? %>
+            <li><%= link_to t("page.new", model: t("activerecord.models.event")),
+              new_event_path(library_id: @library.id) %></li>
+          <% end %>
+        <% end %>
+        <li><%= link_to t("page.listing", model: t("activerecord.models.library")),
+          libraries_path %></li>
+      </ul>
+    </div>
   </div>
 </div>

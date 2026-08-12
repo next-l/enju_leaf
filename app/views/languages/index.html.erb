@@ -45,11 +45,13 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <%- if policy(Language).create? -%>
-      <ul>
-        <li><%= link_to t("page.new", model: t("activerecord.models.language")),
-          new_language_path -%></li>
-      </ul>
-    <%- end -%>
+    <div class="card-body">
+      <%- if policy(Language).create? -%>
+        <ul>
+          <li><%= link_to t("page.new", model: t("activerecord.models.language")),
+            new_language_path -%></li>
+        </ul>
+      <%- end -%>
+    </div>
   </div>
 </div>

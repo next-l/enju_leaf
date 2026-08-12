@@ -57,13 +57,15 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <%- if user_signed_in? -%>
-      <h4><%= t("page.bookmarklet") -%></h4>
-      <ul>
-        <li><a
-            href="javascript:window.location.href='<%= new_bookmark_url -%>?bookmark[url]='+encodeURIComponent(location.href)+'&bookmark[title]='+encodeURIComponent(document.title);"
-          ><%= t("bookmark.add_to_library_bookmark") -%></a></li>
-      </ul>
-    <%- end -%>
+    <div class="card-body">
+      <%- if user_signed_in? -%>
+        <h4><%= t("page.bookmarklet") -%></h4>
+        <ul>
+          <li><a
+              href="javascript:window.location.href='<%= new_bookmark_url -%>?bookmark[url]='+encodeURIComponent(location.href)+'&bookmark[title]='+encodeURIComponent(document.title);"
+            ><%= t("bookmark.add_to_library_bookmark") -%></a></li>
+        </ul>
+      <%- end -%>
+    </div>
   </div>
 </div>

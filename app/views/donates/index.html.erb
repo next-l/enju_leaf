@@ -45,10 +45,12 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if policy(Donate).create? -%>
-        <li><%= link_to t("page.new", model: t("activerecord.models.donate")), new_donate_path -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- if policy(Donate).create? -%>
+          <li><%= link_to t("page.new", model: t("activerecord.models.donate")), new_donate_path -%></li>
+        <%- end -%>
+      </ul>
+    </div>
   </div>
 </div>

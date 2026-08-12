@@ -9,9 +9,11 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <li><%= link_to t("page.show"), user_group_path(@user_group) -%></li>
-      <li><%= link_to t("page.back"), user_groups_path -%></li>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <li><%= link_to t("page.show"), user_group_path(@user_group) -%></li>
+        <li><%= link_to t("page.back"), user_groups_path -%></li>
+      </ul>
+    </div>
   </div>
 </div>

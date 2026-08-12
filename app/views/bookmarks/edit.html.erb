@@ -41,11 +41,13 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <li><%= link_to t("page.showing", model: t("activerecord.models.manifestation")),
-        @bookmark.manifestation %></li>
-      <li><%= link_to t("page.show"), @bookmark %></li>
-      <li><%= link_to t("page.back"), bookmarks_path(user_id: @bookmark.user.username) %></li>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <li><%= link_to t("page.showing", model: t("activerecord.models.manifestation")),
+          @bookmark.manifestation %></li>
+        <li><%= link_to t("page.show"), @bookmark %></li>
+        <li><%= link_to t("page.back"), bookmarks_path(user_id: @bookmark.user.username) %></li>
+      </ul>
+    </div>
   </div>
 </div>

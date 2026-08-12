@@ -153,36 +153,38 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <%= render "manifestations/book_jacket", manifestation: @item.manifestation -%>
-    <ul>
-      <li><%= link_to t("page.back"), :back -%></li>
-      <% if policy(@item).update? %>
-        <li><%= link_to t("page.edit"), edit_item_path(@item) -%></li>
-      <% end %>
-      <% if defined?(EnjuInterLibraryLoan) %>
-        <li><%= link_to t("page.listing", model: t("activerecord.models.inter_library_loan")),
-          item_inter_library_loans_path(@item) -%></li>
-      <% end %>
-      <% if policy(@item).destroy? %>
-        <li><%= link_to t("page.destroy"),
-          @item,
-          data: {
-            confirm: t("page.are_you_sure"),
-          },
-          method: :delete -%></li>
-      <% end %>
-      <% if defined?(EnjuInterLibraryLoan) %>
-        <%- if @item.inter_library_loans.empty? -%>
-          <li><%= link_to t("item.add_new_copy"),
-            new_item_path(manifestation_id: @item.manifestation.id) -%></li>
-        <%- end -%>
-      <% end %>
-      <% if defined?(EnjuCirculation) %>
-        <% if policy(Checkout).index? %>
-          <li><%= link_to t("page.checkout_history"), checkouts_path(item_id: @item.id) -%></li>
+    <div class="card-body">
+      <%= render "manifestations/book_jacket", manifestation: @item.manifestation -%>
+      <ul>
+        <li><%= link_to t("page.back"), :back -%></li>
+        <% if policy(@item).update? %>
+          <li><%= link_to t("page.edit"), edit_item_path(@item) -%></li>
         <% end %>
-      <% end %>
-    </ul>
+        <% if defined?(EnjuInterLibraryLoan) %>
+          <li><%= link_to t("page.listing", model: t("activerecord.models.inter_library_loan")),
+            item_inter_library_loans_path(@item) -%></li>
+        <% end %>
+        <% if policy(@item).destroy? %>
+          <li><%= link_to t("page.destroy"),
+            @item,
+            data: {
+              confirm: t("page.are_you_sure"),
+            },
+            method: :delete -%></li>
+        <% end %>
+        <% if defined?(EnjuInterLibraryLoan) %>
+          <%- if @item.inter_library_loans.empty? -%>
+            <li><%= link_to t("item.add_new_copy"),
+              new_item_path(manifestation_id: @item.manifestation.id) -%></li>
+          <%- end -%>
+        <% end %>
+        <% if defined?(EnjuCirculation) %>
+          <% if policy(Checkout).index? %>
+            <li><%= link_to t("page.checkout_history"), checkouts_path(item_id: @item.id) -%></li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>
 

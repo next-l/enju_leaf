@@ -22,15 +22,17 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <li><%= link_to t("page.add", model: t("activerecord.models.series_statement")),
-        series_statements_path(
-          series_statement_merge_list_id:
-            @series_statement_merge.series_statement_merge_list.id,
-        ) -%></li>
-      <li><%= link_to t("page.edit"),
-        edit_series_statement_merge_path(@series_statement_merge) -%></li>
-      <li><%= back_to_index(flash[:page_info]) -%></li>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <li><%= link_to t("page.add", model: t("activerecord.models.series_statement")),
+          series_statements_path(
+            series_statement_merge_list_id:
+              @series_statement_merge.series_statement_merge_list.id,
+          ) -%></li>
+        <li><%= link_to t("page.edit"),
+          edit_series_statement_merge_path(@series_statement_merge) -%></li>
+        <li><%= back_to_index(flash[:page_info]) -%></li>
+      </ul>
+    </div>
   </div>
 </div>

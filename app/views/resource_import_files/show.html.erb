@@ -88,13 +88,15 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <%= form_for(@resource_import_file) do |f| %>
-      <ul>
-        <li><%= back_to_index(flash[:page_info]) -%></li>
-        <% if current_user.has_role?('Administrator') %>
-          <li><%= link_to t("page.background_job"), mission_control_jobs_path %></li>
-        <% end %>
-      </ul>
-    <% end %>
+    <div class="card-body">
+      <%= form_for(@resource_import_file) do |f| %>
+        <ul>
+          <li><%= back_to_index(flash[:page_info]) -%></li>
+          <% if current_user.has_role?('Administrator') %>
+            <li><%= link_to t("page.background_job"), mission_control_jobs_path %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
   </div>
 </div>

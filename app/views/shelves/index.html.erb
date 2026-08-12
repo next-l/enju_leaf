@@ -79,11 +79,13 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <%= render "library_facet" %>
-    <ul>
-      <%- if policy(Shelf).create? -%>
-        <li><%= link_to t("page.new", model: t("activerecord.models.shelf")), new_shelf_path -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <%= render "library_facet" %>
+      <ul>
+        <%- if policy(Shelf).create? -%>
+          <li><%= link_to t("page.new", model: t("activerecord.models.shelf")), new_shelf_path -%></li>
+        <%- end -%>
+      </ul>
+    </div>
   </div>
 </div>

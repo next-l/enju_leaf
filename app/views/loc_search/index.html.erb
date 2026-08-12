@@ -55,12 +55,14 @@
 <% if @query.present? %>
   <div id="submenu" class="col">
     <div class="card">
-      <ul>
-        <li><%= link_to t('enju_loc.same_query_in_loc_search'), "https://catalog.loc.gov/vwebv/search?searchArg=#{u(@query)}&searchCode=GKEY%5E*&searchType=0" %></li>
-        <% if defined?(EnjuNdl) %>
-          <li><%= link_to t('enju_ndl.import_from_ndl_search'), ndl_books_path( :query => @query ) %></li>
-        <% end %>
-      </ul>
+      <div class="card-body">
+        <ul>
+          <li><%= link_to t('enju_loc.same_query_in_loc_search'), "https://catalog.loc.gov/vwebv/search?searchArg=#{u(@query)}&searchCode=GKEY%5E*&searchType=0" %></li>
+          <% if defined?(EnjuNdl) %>
+            <li><%= link_to t('enju_ndl.import_from_ndl_search'), ndl_books_path( :query => @query ) %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </div>
 <% end %>

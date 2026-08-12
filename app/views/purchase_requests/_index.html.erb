@@ -70,77 +70,79 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <li><%= link_to t("page.new", model: t("activerecord.models.purchase_request")),
-        new_purchase_request_path %></li>
-      <% if current_user.try(:has_role?, 'Librarian') %>
-        <%- case params[:mode] when 'not_ordered' -%>
-          <li><%= link_to t("purchase_request.ordered"), purchase_requests_path(mode: "ordered") -%></li>
-          <li><%= link_to t("purchase_request.all_request"), purchase_requests_path -%></li>
-        <%- when 'ordered' -%>
-          <li><%= link_to t("purchase_request.not_ordered"),
-            purchase_requests_path(mode: "not_ordered") -%></li>
-          <li><%= link_to t("purchase_request.all_request"), purchase_requests_path -%></li>
-        <%- else -%>
-          <li><%= link_to t("purchase_request.all_request"), purchase_requests_path -%></li>
-          <li><%= link_to t("purchase_request.ordered"), purchase_requests_path(mode: "ordered") -%></li>
-          <li><%= link_to t("purchase_request.not_ordered"),
-            purchase_requests_path(mode: "not_ordered") -%></li>
+    <div class="card-body">
+      <ul>
+        <li><%= link_to t("page.new", model: t("activerecord.models.purchase_request")),
+          new_purchase_request_path %></li>
+        <% if current_user.try(:has_role?, 'Librarian') %>
+          <%- case params[:mode] when 'not_ordered' -%>
+            <li><%= link_to t("purchase_request.ordered"), purchase_requests_path(mode: "ordered") -%></li>
+            <li><%= link_to t("purchase_request.all_request"), purchase_requests_path -%></li>
+          <%- when 'ordered' -%>
+            <li><%= link_to t("purchase_request.not_ordered"),
+              purchase_requests_path(mode: "not_ordered") -%></li>
+            <li><%= link_to t("purchase_request.all_request"), purchase_requests_path -%></li>
+          <%- else -%>
+            <li><%= link_to t("purchase_request.all_request"), purchase_requests_path -%></li>
+            <li><%= link_to t("purchase_request.ordered"), purchase_requests_path(mode: "ordered") -%></li>
+            <li><%= link_to t("purchase_request.not_ordered"),
+              purchase_requests_path(mode: "not_ordered") -%></li>
+          <%- end -%>
         <%- end -%>
-      <%- end -%>
-    </ul>
-    <p>
-      <%- if @user -%>
-        <%= link_to image_tag(
-          "icons/feed.png",
-          size: "16x16",
-          class: "enju_icon",
-          alt: t("page.feed"),
-        ),
-        purchase_requests_path(
-          user_id: @user.username,
-          format: :rss,
-          locale: I18n.locale.to_s,
-        ) -%>
-        (<%= link_to "RSS",
-        purchase_requests_path(
-          user_id: @user.username,
-          format: :rss,
-          locale: I18n.locale.to_s,
-        ) -%>)
-        <%= link_to image_tag(
-          "icons/page_white_excel.png",
-          size: "16x16",
-          class: "enju_icon",
-          alt: "TSV",
-        ),
-        purchase_requests_path(user_id: @user.username, format: :txt) -%>
-        (<%= link_to "TSV", purchase_requests_path(user_id: @user.username, format: :txt) -%>)
-      <%- else -%>
-        <%= link_to image_tag(
-          "icons/feed.png",
-          size: "16x16",
-          class: "enju_icon",
-          alt: t("page.feed"),
-        ),
-        purchase_requests_path(format: :rss, locale: I18n.locale.to_s) -%>
-        (<%= link_to "RSS", purchase_requests_path(format: :rss, locale: I18n.locale.to_s) -%>)
-        <%= link_to image_tag(
-          "icons/page_white_excel.png",
-          size: "16x16",
-          class: "enju_icon",
-          alt: "TSV",
-        ),
-        purchase_requests_path(format: :txt) -%>
-        (<%= link_to "TSV", purchase_requests_path(format: :txt) -%>)
-      <%- end -%>
-    </p>
+      </ul>
+      <p>
+        <%- if @user -%>
+          <%= link_to image_tag(
+            "icons/feed.png",
+            size: "16x16",
+            class: "enju_icon",
+            alt: t("page.feed"),
+          ),
+          purchase_requests_path(
+            user_id: @user.username,
+            format: :rss,
+            locale: I18n.locale.to_s,
+          ) -%>
+          (<%= link_to "RSS",
+          purchase_requests_path(
+            user_id: @user.username,
+            format: :rss,
+            locale: I18n.locale.to_s,
+          ) -%>)
+          <%= link_to image_tag(
+            "icons/page_white_excel.png",
+            size: "16x16",
+            class: "enju_icon",
+            alt: "TSV",
+          ),
+          purchase_requests_path(user_id: @user.username, format: :txt) -%>
+          (<%= link_to "TSV", purchase_requests_path(user_id: @user.username, format: :txt) -%>)
+        <%- else -%>
+          <%= link_to image_tag(
+            "icons/feed.png",
+            size: "16x16",
+            class: "enju_icon",
+            alt: t("page.feed"),
+          ),
+          purchase_requests_path(format: :rss, locale: I18n.locale.to_s) -%>
+          (<%= link_to "RSS", purchase_requests_path(format: :rss, locale: I18n.locale.to_s) -%>)
+          <%= link_to image_tag(
+            "icons/page_white_excel.png",
+            size: "16x16",
+            class: "enju_icon",
+            alt: "TSV",
+          ),
+          purchase_requests_path(format: :txt) -%>
+          (<%= link_to "TSV", purchase_requests_path(format: :txt) -%>)
+        <%- end -%>
+      </p>
 
-    <h4><%= t("page.bookmarklet") -%></h4>
-    <ul>
-      <li><a
-          href="javascript:window.location.href='<%= new_purchase_request_url -%>?purchase_request[url]='+encodeURIComponent(location.href)+'&purchase_request[title]='+encodeURIComponent(document.title);"
-        ><%= t("purchase_request.add_to_purchase_request") -%></a></li>
-    </ul>
+      <h4><%= t("page.bookmarklet") -%></h4>
+      <ul>
+        <li><a
+            href="javascript:window.location.href='<%= new_purchase_request_url -%>?purchase_request[url]='+encodeURIComponent(location.href)+'&purchase_request[title]='+encodeURIComponent(document.title);"
+          ><%= t("purchase_request.add_to_purchase_request") -%></a></li>
+      </ul>
+    </div>
   </div>
 </div>

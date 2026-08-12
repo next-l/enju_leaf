@@ -34,11 +34,13 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if @series_statement_merge_list -%>
-        <li><%= link_to t("page.add", model: t("activerecord.models.series_statement")),
-          series_statement_merge_list_series_statements_path(@series_statement_merge_list) -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- if @series_statement_merge_list -%>
+          <li><%= link_to t("page.add", model: t("activerecord.models.series_statement")),
+            series_statement_merge_list_series_statements_path(@series_statement_merge_list) -%></li>
+        <%- end -%>
+      </ul>
+    </div>
   </div>
 </div>

@@ -88,46 +88,48 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <div id="manifestation_book_jacket">
-      <%= agent_custom_book_jacket(@agent) %>
+    <div class="card-body">
+      <div id="manifestation_book_jacket">
+        <%= agent_custom_book_jacket(@agent) %>
+      </div>
+      <ul>
+        <% if @agent.picture_files.exists? %>
+          <li><%= t("page.total") %>:
+            <%= @agent.picture_files.count %>
+            <%= t("page.number_of_pictures", count: @agent.picture_files.count) %></li>
+          <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
+            picture_files_path(agent_id: @agent.id) %></li>
+        <% end %>
+        <% if policy(PictureFile).create? %>
+          <li><%= link_to t("page.new", model: t("activerecord.models.picture_file")),
+            new_picture_file_path(agent_id: @agent.id) %></li>
+        <% end %>
+      </ul>
+      <ul>
+        <li><%= back_to_index(flash[:page_info]) %></li>
+        <% if policy(Agent).create? %>
+          <li><%= link_to t("page.edit"), edit_agent_path(@agent) %></li>
+          <li><%= link_to t("agent.add_derivation"), agents_path(agent_id: @agent.id, mode: "add") %></li>
+        <% end %>
+        <% if policy(@agent).destroy? %>
+          <li><%= link_to t("page.new", model: t("activerecord.models.agent")), new_agent_path %></li>
+          <li><%= link_to t("page.destroy"),
+            @agent,
+            data: {
+              confirm: t("page.are_you_sure"),
+            },
+            method: :delete %></li>
+        <% end %>
+      </ul>
+      <ul>
+        <% if @agent.ndla_record %>
+          <li><%= link_to t("page.listing", model: t("activerecord.models.manifestation")),
+            manifestations_path(query: "agent_id_sm:\"#{@agent.id}\"") %></li>
+        <% else %>
+          <li><%= link_to t("page.listing", model: t("activerecord.models.manifestation")),
+            manifestations_path(query: "\"#{@agent.full_name}\"") %></li>
+        <% end %>
+      </ul>
     </div>
-    <ul>
-      <% if @agent.picture_files.exists? %>
-        <li><%= t("page.total") %>:
-          <%= @agent.picture_files.count %>
-          <%= t("page.number_of_pictures", count: @agent.picture_files.count) %></li>
-        <li><%= link_to t("page.listing", model: t("activerecord.models.picture_file")),
-          picture_files_path(agent_id: @agent.id) %></li>
-      <% end %>
-      <% if policy(PictureFile).create? %>
-        <li><%= link_to t("page.new", model: t("activerecord.models.picture_file")),
-          new_picture_file_path(agent_id: @agent.id) %></li>
-      <% end %>
-    </ul>
-    <ul>
-      <li><%= back_to_index(flash[:page_info]) %></li>
-      <% if policy(Agent).create? %>
-        <li><%= link_to t("page.edit"), edit_agent_path(@agent) %></li>
-        <li><%= link_to t("agent.add_derivation"), agents_path(agent_id: @agent.id, mode: "add") %></li>
-      <% end %>
-      <% if policy(@agent).destroy? %>
-        <li><%= link_to t("page.new", model: t("activerecord.models.agent")), new_agent_path %></li>
-        <li><%= link_to t("page.destroy"),
-          @agent,
-          data: {
-            confirm: t("page.are_you_sure"),
-          },
-          method: :delete %></li>
-      <% end %>
-    </ul>
-    <ul>
-      <% if @agent.ndla_record %>
-        <li><%= link_to t("page.listing", model: t("activerecord.models.manifestation")),
-          manifestations_path(query: "agent_id_sm:\"#{@agent.id}\"") %></li>
-      <% else %>
-        <li><%= link_to t("page.listing", model: t("activerecord.models.manifestation")),
-          manifestations_path(query: "\"#{@agent.full_name}\"") %></li>
-      <% end %>
-    </ul>
   </div>
 </div>

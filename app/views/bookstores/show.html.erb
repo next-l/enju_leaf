@@ -45,15 +45,17 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if policy(@bookstore).update? -%>
-        <li><%= link_to t("page.edit"), edit_bookstore_path(@bookstore) -%></li>
-      <%- end -%>
-      <li><%= link_to t("page.back"), :back -%></li>
-      <% if defined?(EnjuPurchaseRequest) %>
-        <li><%= link_to t("activerecord.models.order_list"),
-          bookstore_order_lists_path(@bookstore) -%></li>
-      <% end %>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- if policy(@bookstore).update? -%>
+          <li><%= link_to t("page.edit"), edit_bookstore_path(@bookstore) -%></li>
+        <%- end -%>
+        <li><%= link_to t("page.back"), :back -%></li>
+        <% if defined?(EnjuPurchaseRequest) %>
+          <li><%= link_to t("activerecord.models.order_list"),
+            bookstore_order_lists_path(@bookstore) -%></li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>

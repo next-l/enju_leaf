@@ -62,12 +62,14 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <%- if policy(PictureFile).create? -%>
-      <ul>
-        <li><%= link_to t("page.new", model: t("activerecord.models.picture_file")),
-          new_picture_file_path(manifestation_id: manifestation) -%></li>
-        <li><%= link_to t("picture_file.all_picture"), picture_files_path -%></li>
-      </ul>
-    <%- end -%>
+    <div class="card-body">
+      <%- if policy(PictureFile).create? -%>
+        <ul>
+          <li><%= link_to t("page.new", model: t("activerecord.models.picture_file")),
+            new_picture_file_path(manifestation_id: manifestation) -%></li>
+          <li><%= link_to t("picture_file.all_picture"), picture_files_path -%></li>
+        </ul>
+      <%- end -%>
+    </div>
   </div>
 </div>

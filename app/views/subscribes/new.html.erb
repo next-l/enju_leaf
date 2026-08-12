@@ -44,15 +44,17 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <li><%= if @subscription
-          link_to t("activerecord.models.subscription"),
-          subscription_path(@subscription)
-        end %></li>
-      <li><%= if @subscription
-          link_to t("page.listing", model: t("activerecord.models.work")),
-          subscription_works_path(@subscription)
-        end %></li>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <li><%= if @subscription
+            link_to t("activerecord.models.subscription"),
+            subscription_path(@subscription)
+          end %></li>
+        <li><%= if @subscription
+            link_to t("page.listing", model: t("activerecord.models.work")),
+            subscription_works_path(@subscription)
+          end %></li>
+      </ul>
+    </div>
   </div>
 </div>

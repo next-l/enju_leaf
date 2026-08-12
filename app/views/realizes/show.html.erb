@@ -20,11 +20,13 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <li><%= link_to t("page.back_to", model: t("activerecord.models.agent")),
-        agents_path(expression_id: @realize.expression_id) -%></li>
-      <li><%= link_to t("page.back_to", model: t("activerecord.models.manifestation")),
-        manifestations_path(contributor_id: @realize.agent_id) -%></li>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <li><%= link_to t("page.back_to", model: t("activerecord.models.agent")),
+          agents_path(expression_id: @realize.expression_id) -%></li>
+        <li><%= link_to t("page.back_to", model: t("activerecord.models.manifestation")),
+          manifestations_path(contributor_id: @realize.agent_id) -%></li>
+      </ul>
+    </div>
   </div>
 </div>

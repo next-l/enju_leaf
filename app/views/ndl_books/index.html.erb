@@ -56,10 +56,12 @@
 <% if @query.present? %>
   <div id="submenu" class="col">
     <div class="card">
-      <ul>
-        <li><%= link_to t("enju_ndl.same_query_in_ndl_search"),
-          "https://ndlsearch.ndl.go.jp/search?keyword=#{u(@query)}&cs=bib&f-ht=ndl&display=panel" -%></li>
-      </ul>
+      <div class="card-body">
+        <ul>
+          <li><%= link_to t("enju_ndl.same_query_in_ndl_search"),
+            "https://ndlsearch.ndl.go.jp/search?keyword=#{u(@query)}&cs=bib&f-ht=ndl&display=panel" -%></li>
+        </ul>
+      </div>
     </div>
   </div>
 <% end %>

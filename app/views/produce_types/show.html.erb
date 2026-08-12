@@ -25,9 +25,11 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <li><%= link_to t("page.edit"), edit_produce_type_path(@produce_type) -%></li>
-      <li><%= back_to_index(flash[:page_info]) -%></li>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <li><%= link_to t("page.edit"), edit_produce_type_path(@produce_type) -%></li>
+        <li><%= back_to_index(flash[:page_info]) -%></li>
+      </ul>
+    </div>
   </div>
 </div>

@@ -111,10 +111,12 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if policy(@library_group).update? -%>
-        <li><%= link_to t("page.edit"), edit_library_group_path(@library_group) -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- if policy(@library_group).update? -%>
+          <li><%= link_to t("page.edit"), edit_library_group_path(@library_group) -%></li>
+        <%- end -%>
+      </ul>
+    </div>
   </div>
 </div>

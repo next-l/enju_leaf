@@ -103,11 +103,13 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <li><%= link_to t("page.listing", model: t("activerecord.models.profile")),
-        profiles_path %></li>
-      <li><%= link_to t("page.new", model: t("activerecord.models.user_import_file")),
-        new_user_import_file_path %></li>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <li><%= link_to t("page.listing", model: t("activerecord.models.profile")),
+          profiles_path %></li>
+        <li><%= link_to t("page.new", model: t("activerecord.models.user_import_file")),
+          new_user_import_file_path %></li>
+      </ul>
+    </div>
   </div>
 </div>

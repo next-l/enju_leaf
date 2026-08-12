@@ -52,10 +52,12 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if policy(License).create? -%>
-        <li><%= link_to t("page.new", model: t("activerecord.models.license")), new_license_path -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- if policy(License).create? -%>
+          <li><%= link_to t("page.new", model: t("activerecord.models.license")), new_license_path -%></li>
+        <%- end -%>
+      </ul>
+    </div>
   </div>
 </div>

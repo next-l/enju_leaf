@@ -39,13 +39,15 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if @work -%>
-        <li><%= link_to t("page.add", model: t("activerecord.models.work")), subscriptions_path -%></li>
-      <%- else -%>
-        <li><%= link_to t("page.new", model: t("activerecord.models.subscription")),
-          new_subscription_path -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- if @work -%>
+          <li><%= link_to t("page.add", model: t("activerecord.models.work")), subscriptions_path -%></li>
+        <%- else -%>
+          <li><%= link_to t("page.new", model: t("activerecord.models.subscription")),
+            new_subscription_path -%></li>
+        <%- end -%>
+      </ul>
+    </div>
   </div>
 </div>

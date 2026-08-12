@@ -84,18 +84,20 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <%= if @manifestation
-      render "manifestations/book_jacket", manifestation: @manifestation
-    end -%>
-    <ul>
-      <%- if policy(Item).create? and @manifestation -%>
-        <li><%= link_to t("page.new", model: t("activerecord.models.item")),
-          new_item_path(manifestation_id: @manifestation.id) -%></li>
-      <%- end -%>
-    </ul>
-    <% if defined?(EnjuCirculation) %>
-      <%= render "items/circulation_status_facet" %>
-    <% end %>
+    <div class="card-body">
+      <%= if @manifestation
+        render "manifestations/book_jacket", manifestation: @manifestation
+      end -%>
+      <ul>
+        <%- if policy(Item).create? and @manifestation -%>
+          <li><%= link_to t("page.new", model: t("activerecord.models.item")),
+            new_item_path(manifestation_id: @manifestation.id) -%></li>
+        <%- end -%>
+      </ul>
+      <% if defined?(EnjuCirculation) %>
+        <%= render "items/circulation_status_facet" %>
+      <% end %>
+    </div>
   </div>
 </div>
 

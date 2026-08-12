@@ -9,12 +9,14 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <%- if @agent -%>
-        <li><%= link_to t("page.back"), publisher_manifestations_path(@agent) -%></li>
-      <%- else -%>
-        <li><%= link_to t("page.back"), manifestations_path -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <%- if @agent -%>
+          <li><%= link_to t("page.back"), publisher_manifestations_path(@agent) -%></li>
+        <%- else -%>
+          <li><%= link_to t("page.back"), manifestations_path -%></li>
+        <%- end -%>
+      </ul>
+    </div>
   </div>
 </div>

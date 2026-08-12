@@ -55,10 +55,12 @@
 <% if @query.present? %>
   <div id="submenu" class="col">
     <div class="card">
-      <ul>
-        <li><%= link_to t("enju_nii.same_query_in_cinii_books"),
-          "https://ci.nii.ac.jp/books/search?q=#{u(@query)}" -%></li>
-      </ul>
+      <div class="card-body">
+        <ul>
+          <li><%= link_to t("enju_nii.same_query_in_cinii_books"),
+            "https://ci.nii.ac.jp/books/search?q=#{u(@query)}" -%></li>
+        </ul>
+      </div>
     </div>
   </div>
 <% end %>
