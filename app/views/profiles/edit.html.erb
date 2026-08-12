@@ -26,18 +26,20 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <li><%= link_to t("page.show"), @profile -%></li>
-      <li><%= link_to t("page.listing", model: t("activerecord.models.profile")),
-        profiles_path -%></li>
-      <%- if policy(@profile).destroy? -%>
-        <li><%= link_to t("page.destroy"),
-          @profile,
-          data: {
-            confirm: t("page.are_you_sure"),
-          },
-          method: :delete -%></li>
-      <%- end -%>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <li><%= link_to t("page.show"), @profile -%></li>
+        <li><%= link_to t("page.listing", model: t("activerecord.models.profile")),
+          profiles_path -%></li>
+        <%- if policy(@profile).destroy? -%>
+          <li><%= link_to t("page.destroy"),
+            @profile,
+            data: {
+              confirm: t("page.are_you_sure"),
+            },
+            method: :delete -%></li>
+        <%- end -%>
+      </ul>
+    </div>
   </div>
 </div>

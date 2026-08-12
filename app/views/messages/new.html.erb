@@ -13,21 +13,21 @@
               <%= link_to @message.receiver.username, profile_path(@message.receiver) -%>
               <%= f.hidden_field :recipient, value: @message.recipient -%>
             <%- else -%>
-              <%= f.text_field :recipient, class: "resource_title", value: @message.recipient -%>
+              <%= f.text_field :recipient, class: "form-control", value: @message.recipient -%>
             <%- end -%>
           </div>
 
           <div class="field">
             <%= f.label :subject -%>:
-            <%= f.text_field :subject, class: "resource_title" -%>
+            <%= f.text_field :subject, class: "form-control" -%>
           </div>
 
           <div class="field">
             <%= f.label :body -%>:<br/>
-            <%= f.text_area :body, id: "message_body" -%>
+            <%= f.text_area :body, class: "form-control" -%>
           </div>
 
-          <div class="field">
+          <div class="field mt-3">
             <%= f.hidden_field :parent_id -%>
             <%= f.submit t("message.send"), class: "btn btn-primary" -%>
           </div>
@@ -40,9 +40,11 @@
 
 <div id="submenu" class="col">
   <div class="card">
-    <ul>
-      <li><%= link_to t("page.listing", model: t("activerecord.models.message")),
-        messages_path -%></li>
-    </ul>
+    <div class="card-body">
+      <ul>
+        <li><%= link_to t("page.listing", model: t("activerecord.models.message")),
+          messages_path -%></li>
+      </ul>
+    </div>
   </div>
 </div>
