@@ -533,7 +533,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
-    simplecov (1.1.0)
+    simplecov (1.1.1)
     sitemap_generator (7.1.1)
       builder (~> 3.0)
     solid_cable (4.0.2)
