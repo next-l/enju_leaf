@@ -1,9 +1,10 @@
+# OAI-PMHでJPCOARスキーマ2.0を扱うためのモジュール
 module EnjuOai
-  class Jpcoar < OAI::Provider::Metadata::Format
+  class Jpcoar20 < OAI::Provider::Metadata::Format
     def initialize
-      @prefix = "jpcoar"
-      @schema = "https://github.com/JPCOAR/schema/blob/master/1.0/jpcoar_scm.xsd"
-      @namespace = "https://github.com/JPCOAR/schema/blob/master/1.0/"
+      @prefix = "jpcoar_20"
+      @schema = "https://github.com/JPCOAR/schema/blob/master/2.0/jpcoar_scm.xsd"
+      @namespace = "https://github.com/JPCOAR/schema/blob/master/2.0/"
       @element_namespace = "dc"
       @fields = [ :title, :creator, :subject, :description, :publisher,
                   :contributor, :date, :type, :format, :identifier,
@@ -12,11 +13,11 @@ module EnjuOai
 
     def header_specification
       {
-        "xmlns:jpcoar" => "https://github.com/JPCOAR/schema/blob/master/1.0/",
+        "xmlns:jpcoar" => "https://github.com/JPCOAR/schema/blob/master/2.0/",
         "xmlns:dc" => "http://purl.org/dc/elements/1.1/",
         "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
         "xsi:schemaLocation" =>
-          %(https://github.com/JPCOAR/schema/blob/master/1.0/
+          %(https://github.com/JPCOAR/schema/blob/master/2.0/
             jpcoar_scm.xsd).gsub(/\s+/, " ")
       }
     end

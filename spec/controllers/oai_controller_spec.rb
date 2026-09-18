@@ -17,7 +17,7 @@ describe OaiController do
     end
 
     it "should get list_records" do
-      get :index, params: { verb: "ListRecords", "metadataPrefix": "jpcoar" }
+      get :index, params: { verb: "ListRecords", "metadataPrefix": "jpcoar2.0" }
       expect(response).to be_successful
     end
   end
