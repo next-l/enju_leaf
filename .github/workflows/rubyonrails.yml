@@ -37,15 +37,10 @@ jobs:
           bundler-cache: true
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/setup@v1
         with:
-          version: 11.21.0
-
-      - name: Use Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version: '24.x'
-          cache: "pnpm"
+          version: 12.4.2
+          runtime: node@24
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
