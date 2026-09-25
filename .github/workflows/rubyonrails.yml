@@ -37,7 +37,7 @@ jobs:
           bundler-cache: true
 
       - name: Install pnpm
-        uses: pnpm/setup@v1
+        uses: pnpm/setup@v3
         with:
           version: 12.6.0
           runtime: node@24
