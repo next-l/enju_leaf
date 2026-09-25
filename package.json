@@ -1,7 +1,7 @@
 {
   "name": "enju_leaf",
   "private": true,
-  "packageManager": "pnpm@12.4.2",
+  "packageManager": "pnpm@12.6.0",
   "devDependencies": {
     "esbuild": "^0.28.2"
   },
@@ -38,7 +38,7 @@
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-i18next": "^15.7.4",
-    "sass": "^1.104.1",
+    "sass": "^1.105.0",
     "tom-select": "^2.6.2"
   }
 }
