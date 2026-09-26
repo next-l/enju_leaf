@@ -112,6 +112,7 @@ gem 'faraday-multipart'
 gem 'nkf'
 gem 'benchmark'
 gem 'icalendar'
+gem "json", "~> 2.21"
 
 group :development, :test do
   gem 'annotaterb'
