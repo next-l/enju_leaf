@@ -71,6 +71,7 @@ ARG UID=1000
 ARG GID=1000
 ARG http_proxy
 ARG https_proxy
+ARG PNPM_VERSION
 
 # Install packages needed for deployment
 RUN apt-get update -qq && apt-get install --no-install-recommends -y curl gnupg && \
