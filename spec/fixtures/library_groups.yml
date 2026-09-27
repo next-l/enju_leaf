@@ -29,9 +29,9 @@ one:
 # **`display_name`**                   | `text`             |
 # **`email`**                          | `string`           |
 # **`family_name_first`**              | `boolean`          | `default(TRUE), not null`
-# **`footer_banner`**                  | `text`             |
+# **`footer_banner_translations`**     | `jsonb`            | `not null`
 # **`html_snippet`**                   | `text`             |
-# **`login_banner`**                   | `text`             |
+# **`login_banner_translations`**      | `jsonb`            | `not null`
 # **`max_number_of_results`**          | `integer`          | `default(1000)`
 # **`my_networks`**                    | `text`             |
 # **`name`**                           | `string`           | `not null`

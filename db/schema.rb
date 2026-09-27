@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_05_170323) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_27_101333) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -829,17 +829,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_170323) do
     t.index ["name"], name: "index_libraries_on_name", unique: true
   end
 
-  create_table "library_group_translations", force: :cascade do |t|
-    t.bigint "library_group_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "login_banner"
-    t.text "footer_banner"
-    t.index ["library_group_id"], name: "index_library_group_translations_on_library_group_id"
-    t.index ["locale"], name: "index_library_group_translations_on_locale"
-  end
-
   create_table "library_groups", force: :cascade do |t|
     t.string "name", null: false
     t.text "display_name"
@@ -863,6 +852,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_170323) do
     t.integer "pub_year_facet_range_interval", default: 10
     t.boolean "csv_charset_conversion", default: false, null: false
     t.string "email"
+    t.jsonb "login_banner_translations", default: {}, null: false
+    t.jsonb "footer_banner_translations", default: {}, null: false
     t.index "lower((name)::text)", name: "index_library_groups_on_lower_name", unique: true
     t.index ["email"], name: "index_library_groups_on_email"
     t.index ["short_name"], name: "index_library_groups_on_short_name"
