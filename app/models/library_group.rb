@@ -1,6 +1,6 @@
 class LibraryGroup < ApplicationRecord
-  # include Singleton
   include MasterModel
+  extend Mobility
 
   has_many :libraries, dependent: :destroy
   has_many :colors, dependent: :destroy
@@ -16,7 +16,6 @@ class LibraryGroup < ApplicationRecord
     :book_jacket_unknown_resource
 
   translates :login_banner, :footer_banner
-  globalize_accessors
 
   has_one_attached :header_logo
 
