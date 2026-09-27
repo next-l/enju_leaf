@@ -75,7 +75,7 @@ services:
       retries: 3
 
   cantaloupe:
-    image: islandora/cantaloupe:6.4
+    image: islandora/cantaloupe:7.0
     expose:
       - 8182
     restart: always
