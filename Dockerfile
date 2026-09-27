@@ -36,7 +36,6 @@ ARG PNPM_VERSION
 RUN apt-get update -qq && apt-get install --no-install-recommends -y curl gnupg && \
   mkdir -p /etc/apt/keyrings && \
   curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
-  curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /etc/apt/keyrings/yarnkey.gpg && \
   echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_24.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
   apt-get update -qq && apt-get install --no-install-recommends -y \
     build-essential git libpq-dev libvips pkg-config nodejs cmake \
@@ -77,7 +76,6 @@ ARG https_proxy
 RUN apt-get update -qq && apt-get install --no-install-recommends -y curl gnupg && \
   mkdir -p /etc/apt/keyrings && \
   curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
-  curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /etc/apt/keyrings/yarnkey.gpg && \
   echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_24.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
   apt-get update -qq && apt-get install --no-install-recommends -y \
     libvips postgresql-client-17 nodejs && \
