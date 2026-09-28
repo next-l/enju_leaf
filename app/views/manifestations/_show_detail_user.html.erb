@@ -36,17 +36,17 @@
           <td><%= t("page.form") -%>:</td>
           <td>
             <%= form_icon(manifestation.carrier_type) -%>
-            <%= manifestation.carrier_type.display_name.localize -%>
+            <%= manifestation.carrier_type.display_name -%>
             /
             <%= content_type_icon(manifestation.manifestation_content_type) -%>
             <%= if manifestation.manifestation_content_type
-              manifestation.manifestation_content_type.display_name.localize
+              manifestation.manifestation_content_type.display_name
             end -%>
           </td>
         </tr>
         <tr>
           <td><%= t("activerecord.models.language") -%>:</td>
-          <td><span itemprop="inLanguage"><%= manifestation.language.display_name.localize -%></span></td>
+          <td><span itemprop="inLanguage"><%= manifestation.language.display_name -%></span></td>
         </tr>
         <tr>
           <td><%= t("activerecord.attributes.manifestation.publication_place") -%>:</td>
@@ -83,7 +83,7 @@
             <ul>
               <% manifestation.identifiers.not_migrated.each do |identifier| %>
                 <li>
-                  <%= identifier.identifier_type.display_name.localize %>:
+                  <%= identifier.identifier_type.display_name %>:
                   <%= identifier_link(identifier) %>
                 </li>
               <% end %>

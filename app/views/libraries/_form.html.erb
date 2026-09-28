@@ -27,7 +27,7 @@
       <%= f.label t("activerecord.models.country") -%><br/>
       <%= f.select(
         :country_id,
-        @countries.collect { |c| [c.display_name.localize, c.id] },
+        @countries.collect { |c| [c.display_name, c.id] },
         {},
         class: "form-select"
       ) -%>

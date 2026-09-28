@@ -39,7 +39,7 @@
           <%= f.label :user_group_id %>
           <%= f.select(
             :user_group_id,
-            @user_groups.collect { |u| [u.display_name.localize, u.id] },
+            @user_groups.collect { |u| [u.display_name, u.id] },
             {},
             class: "form-select",
           ) %>
@@ -49,7 +49,7 @@
           <%= f.label t("activerecord.models.library") %>
           <%= f.select(
             :library_id,
-            @libraries.collect { |l| [l.display_name.localize, l.id] },
+            @libraries.collect { |l| [l.display_name, l.id] },
             {},
             class: "form-select",
           ) %>
@@ -60,7 +60,7 @@
           <%= f.select(
             :locale,
             @available_languages.collect do |language|
-              [language.display_name.localize, language.iso_639_1]
+              [language.display_name, language.iso_639_1]
             end,
             {},
             class: "form-select",

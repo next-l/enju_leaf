@@ -28,12 +28,12 @@
                 carrier_type.attachment.representation(resize_to_limit: [16, 16]),
                 size: "16x16",
                 class: "enju_icon",
-                alt: carrier_type.display_name.localize,
+                alt: carrier_type.display_name,
               ) %>
               <%= carrier_type.name -%>
             </td>
             <td>
-              <%= link_to carrier_type.display_name.localize, carrier_type -%>
+              <%= link_to carrier_type.display_name, carrier_type -%>
               <br/>
               <%= carrier_type.note %>
             </td>

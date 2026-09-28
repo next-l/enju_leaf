@@ -1,12 +1,12 @@
 <div class="nested-fields">
   <%= f.select(
     :subject_heading_type_id,
-    @subject_heading_types.collect { |s| [s.display_name.localize, s.id] },
+    @subject_heading_types.collect { |s| [s.display_name, s.id] },
   ) %>
   <%= f.text_field :term, class: "resource_subject" %>
   <%= f.select(
     :subject_type_id,
-    @subject_types.collect { |s| [s.display_name.localize, s.id] },
+    @subject_types.collect { |s| [s.display_name, s.id] },
   ) %>
   <%= link_to_remove_association t("page.remove"),
   f,

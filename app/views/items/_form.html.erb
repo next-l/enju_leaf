@@ -21,11 +21,11 @@
   <div class="field">
     <%= f.label "#{t("activerecord.models.library")} / #{t("activerecord.models.shelf")}" %>
     <%= f.select :library_id,
-             @libraries.map { |l| [l.display_name.localize, l.id] },
+             @libraries.map { |l| [l.display_name, l.id] },
              {},
              class: "form-select" %>
     <%= f.select :shelf_id,
-             @shelves.map { |s| [s.display_name.localize, s.id] },
+             @shelves.map { |s| [s.display_name, s.id] },
              {},
              class: "form-select" %>
     <%= render "observe_field" %>
@@ -36,7 +36,7 @@
       <%= f.label t("activerecord.models.checkout_type") %>
       <%= f.select(
         :checkout_type_id,
-        @checkout_types.collect { |c| [c.display_name.localize, c.id] },
+        @checkout_types.collect { |c| [c.display_name, c.id] },
         {},
         class: "form-select"
       ) %>
@@ -46,7 +46,7 @@
       <%= f.label t("activerecord.models.circulation_status") %>
       <%= f.select(
         :circulation_status_id,
-        @circulation_statuses.collect { |c| [c.display_name.localize, c.id] },
+        @circulation_statuses.collect { |c| [c.display_name, c.id] },
         {},
         class: "form-select"
       ) %>
@@ -56,7 +56,7 @@
       <%= f.label t("activerecord.models.use_restriction") %>
       <%= f.fields_for :item_has_use_restriction do |i| %>
         <%= i.select :use_restriction_id,
-                 @use_restrictions.collect { |r| [r.display_name.localize, r.id] },
+                 @use_restrictions.collect { |r| [r.display_name, r.id] },
                  {},
                  class: "form-select" %>
       <% end %>
@@ -77,7 +77,7 @@
     <%= f.label t("activerecord.models.budget_type") %>
     <%= f.select(
       :budget_type_id,
-      @budget_types.collect { |b| [b.display_name.localize, b.id] },
+      @budget_types.collect { |b| [b.display_name, b.id] },
       { include_blank: true },
       class: "form-select"
     ) %>
@@ -105,7 +105,7 @@
     <%= f.label t("role.required_role") %>
     <%= f.select(
       :required_role_id,
-      @roles.collect { |r| [r.display_name.localize, r.id] },
+      @roles.collect { |r| [r.display_name, r.id] },
       {},
       class: "form-select",
     ) %>
@@ -152,7 +152,7 @@
       <% end %>
       <%= f.fields_for :item_custom_values do |custom_form| %>
         <%= custom_form.label custom_form.object.item_custom_property.name.to_sym,
-                          custom_form.object.item_custom_property.display_name.localize %>
+                          custom_form.object.item_custom_property.display_name %>
         <%= custom_form.hidden_field :item_custom_property_id %>
         <%= custom_form.text_field :value, class: "form-control" %>
       <% end %>

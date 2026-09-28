@@ -1,5 +1,5 @@
 json.extract! @event, :id
-json.title @event.display_name.localize
+json.title @event.display_name
 json.start @event.start_at.iso8601
 if @event.all_day
   json.end @event.end_at.tomorrow.beginning_of_day.iso8601

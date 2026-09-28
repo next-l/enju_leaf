@@ -40,9 +40,9 @@
           <tr class="line<%= cycle("0", "1") -%>">
             <td><%= link_to agent.full_name, agent -%></td>
             <td><%= if params[:mode] != "add" and expression.realized(agent).try(:realize_type)
-                expression.realized(agent).realize_type.display_name.localize
+                expression.realized(agent).realize_type.display_name
               end -%></td>
-            <td><%= agent.agent_type.display_name.localize -%></td>
+            <td><%= agent.agent_type.display_name -%></td>
             <td>
               <%- if policy(agent).destroy? -%>
                 <%- if params[:mode] == 'add' -%>

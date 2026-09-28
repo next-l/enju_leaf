@@ -11,7 +11,7 @@
 
       <p>
         <strong><%= t("activerecord.attributes.library_group.display_name") -%>:</strong>
-        <%= @library_group.display_name.localize -%>
+        <%= @library_group.display_name -%>
       </p>
 
       <p>
@@ -101,7 +101,7 @@
 
       <ul>
         <%- @library_group.real_libraries.each do |library| -%>
-          <li><%= link_to library.display_name.localize, library -%></li>
+          <li><%= link_to library.display_name, library -%></li>
         <%- end -%>
       </ul>
 

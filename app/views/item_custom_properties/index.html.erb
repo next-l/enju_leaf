@@ -24,7 +24,7 @@
                 <%- end -%>
               </td>
               <td><%= link_to item_custom_property.name, item_custom_property %></td>
-              <td><%= item_custom_property.display_name.localize %></td>
+              <td><%= item_custom_property.display_name %></td>
               <td><%= item_custom_property.note %></td>
               <td><%= link_to t("page.edit"), edit_item_custom_property_path(item_custom_property) %></td>
               <td><%= link_to t("page.destroy"),

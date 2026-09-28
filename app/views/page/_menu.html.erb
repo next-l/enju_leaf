@@ -155,7 +155,7 @@
                 class: "dropdown-item" %></li>
               <li><%= link_to t("event.all"), events_path, class: "dropdown-item" %></li>
               <% @library_group.real_libraries.each do |library| %>
-                <li><%= link_to library.display_name.localize,
+                <li><%= link_to library.display_name,
                   events_path(library_id: library.name),
                   class: "dropdown-item" %></li>
               <% end %>

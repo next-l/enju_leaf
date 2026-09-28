@@ -1,12 +1,12 @@
 <table class="call_number_table">
   <tr>
     <td class="call_number_table">
-      <%= item.shelf.library.display_name.localize -%>
+      <%= item.shelf.library.display_name -%>
       <br />
-      <%= link_to item.shelf.display_name.localize, item.shelf -%>
+      <%= link_to item.shelf.display_name, item.shelf -%>
       <br />
       <% if defined?(EnjuCirculation) %>
-        <%= item.circulation_status.display_name.localize if item.circulation_status -%>
+        <%= item.circulation_status.display_name if item.circulation_status -%>
       <% end %>
 
     </td>

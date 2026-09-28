@@ -21,7 +21,7 @@
               t(
                 "activerecord.attributes.withdraw.removed_items",
                 status:
-                  CirculationStatus.where(name: "Removed").first.display_name.localize,
+                  CirculationStatus.where(name: "Removed").first.display_name,
               ) + t("activerecord.models.item"),
           ),
           items_path(circulation_status: "Removed") -%></li>

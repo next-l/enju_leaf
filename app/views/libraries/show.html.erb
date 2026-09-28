@@ -1,6 +1,6 @@
 <div id="content_detail" class="col-md-9">
   <div class="card">
-    <h5 class="title card-header"><%= @library.display_name.localize %></h5>
+    <h5 class="title card-header"><%= @library.display_name %></h5>
     <div id="content_list" class="card-body">
       <p id="notice"><%= notice %></p>
 
@@ -83,7 +83,7 @@
               <% @library.shelves.each do |shelf| %>
                 <tr class="line<%= cycle("0", "1") %>">
                   <td>
-                    <%= link_to shelf.display_name.localize,
+                    <%= link_to shelf.display_name,
                     shelf_path(shelf, library_id: @library.name) %>
                     <% shelf.picture_files.each do |picture_file| %>
                       <%= if picture_file.attachment.attached?

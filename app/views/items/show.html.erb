@@ -23,13 +23,13 @@
       <p>
         <strong><%= t("activerecord.models.shelf") -%>:</strong>
         <%= link_to(
-          @item.shelf_display_name.localize,
+          @item.shelf_display_name,
           @item.shelf,
           id: "shelf_item_#{@item.id}",
         ) -%>
         <%= render "items/shelf_picture", item: @item -%>
         (<%= link_to(
-          @item.shelf.library.display_name.localize,
+          @item.shelf.library.display_name,
           @item.shelf.library,
           id: "library_item_#{@item.id}",
         ) -%>)
@@ -38,12 +38,12 @@
       <% if defined?(EnjuCirculation) %>
         <p>
           <strong><%= t("activerecord.attributes.item.checkout_type") -%>:</strong>
-          <%= link_to @item.checkout_type.display_name.localize, @item.checkout_type -%>
+          <%= link_to @item.checkout_type.display_name, @item.checkout_type -%>
         </p>
 
         <p>
           <strong><%= t("activerecord.models.circulation_status") -%>:</strong>
-          <%= link_to @item.circulation_status.display_name.localize, @item.circulation_status -%>
+          <%= link_to @item.circulation_status.display_name, @item.circulation_status -%>
           <%- if current_user.try(:has_role?, 'Librarian') -%>
             <%- unless @item.checkouts.not_returned.blank? -%>
               (<%= link_to t("item.current_checkout"), @item.checkouts.not_returned.first -%>)
@@ -68,7 +68,7 @@
             <strong><%= t("activerecord.models.use_restriction") -%>:</strong>
             <% if @item.use_restriction %>
               <ul>
-                <li><%= @item.use_restriction.display_name.localize %></li>
+                <li><%= @item.use_restriction.display_name %></li>
               </ul>
             <% end %>
           </p>
@@ -81,7 +81,7 @@
 
         <p>
           <strong><%= t("activerecord.models.budget_type") -%>:</strong>
-          <%= @item.budget_type.try(:display_name).try(:localize) -%>
+          <%= @item.budget_type.try(:display_name) -%>
         </p>
 
         <p>
@@ -123,7 +123,7 @@
       <% if current_user.try(:has_role?, 'Librarian') %>
         <% @item.item_custom_values.each do |value| %>
           <p>
-            <strong><%= value.item_custom_property.display_name.localize -%>:</strong>
+            <strong><%= value.item_custom_property.display_name -%>:</strong>
             <%= value.value -%>
           </p>
         <% end %>

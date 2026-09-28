@@ -8,7 +8,7 @@ ISBN: <%= @manifestation.isbn_records.pluck(:body).join(" ") %>
 URL: <%= @manifestation.access_address %>
 Holding:
 <% @items.on_shelf.each do |item| -%>
- <%= item.shelf_display_name.localize %> <%= item.call_number %> <%= item.item_identifier %>
+ <%= item.shelf_display_name %> <%= item.call_number %> <%= item.item_identifier %>
 <% end -%>
 
 <%= "#{LibraryGroup.site_config.url}manifestations/#{@manifestation.id}" %>

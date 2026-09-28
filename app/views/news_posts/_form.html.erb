@@ -23,7 +23,7 @@
     <%= f.label t("role.required_role") %>
     <%= f.select(
       :required_role_id,
-      @roles.collect { |r| [r.display_name.localize, r.id] },
+      @roles.collect { |r| [r.display_name, r.id] },
       {},
       class: "form-control"
     ) %>

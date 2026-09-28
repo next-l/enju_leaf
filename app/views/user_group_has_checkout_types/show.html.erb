@@ -5,13 +5,13 @@
 
     <p>
       <strong><%= t("activerecord.models.user_group") -%>:</strong>
-      <%= link_to @user_group_has_checkout_type.user_group.display_name.localize,
+      <%= link_to @user_group_has_checkout_type.user_group.display_name,
       @user_group_has_checkout_type.user_group -%>
     </p>
 
     <p>
       <strong><%= t("activerecord.models.checkout_type") -%>:</strong>
-      <%= link_to @user_group_has_checkout_type.checkout_type.display_name.localize,
+      <%= link_to @user_group_has_checkout_type.checkout_type.display_name,
       @user_group_has_checkout_type.checkout_type -%>
     </p>
 

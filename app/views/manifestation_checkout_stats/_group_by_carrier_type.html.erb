@@ -7,7 +7,7 @@
       <%= t("activerecord.models.shelf") %>
     </th>
     <% CarrierType.order(:position).each do |carrier_type| %>
-      <th><%= carrier_type.display_name.localize %></th>
+      <th><%= carrier_type.display_name %></th>
     <% end %>
     <th><%= t("page.total") %></th>
   </tr>
@@ -15,10 +15,10 @@
     <% library.shelves.order(:position).each do |shelf| %>
       <tr>
         <td>
-          <%= library.display_name.localize %>
+          <%= library.display_name %>
         </td>
         <td>
-          <%= shelf.display_name.localize %>
+          <%= shelf.display_name %>
         </td>
         <% CarrierType.order(:position).each do |carrier_type| %>
           <td>

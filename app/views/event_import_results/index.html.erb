@@ -24,7 +24,7 @@
             <%= l event_import_result.created_at %>
           </td>
           <td><%= if event_import_result.event
-              link_to event_import_result.event.display_name.localize,
+              link_to event_import_result.event.display_name,
               event_import_result.event
             end %></td>
           <td>

@@ -20,7 +20,7 @@
               <%- end -%>
             </td>
             <td><%= link_to budget_type.name, budget_type -%></td>
-            <td><%= link_to budget_type.display_name.localize, budget_type -%></td>
+            <td><%= link_to budget_type.display_name, budget_type -%></td>
             <td><%= budget_type.note -%></td>
             <td>
               <%- if policy(budget_type).update? -%>

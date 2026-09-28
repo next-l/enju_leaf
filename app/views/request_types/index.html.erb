@@ -18,7 +18,7 @@
             <%- end -%>
           </td>
           <td><%= link_to request_type.name, request_type -%></td>
-          <td><%= link_to request_type.display_name.localize, request_type -%></td>
+          <td><%= link_to request_type.display_name, request_type -%></td>
           <td>
             <%- if policy(request_type).update? -%>
               <%= link_to t("page.edit"), edit_request_type_path(request_type) -%>

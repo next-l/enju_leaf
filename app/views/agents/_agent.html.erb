@@ -3,7 +3,7 @@
     <%= link_to agent.full_name, agent -%><br/>
     <%= agent.full_name_transcription -%>
   </td>
-  <td><%= agent.agent_type.display_name.localize -%></td>
+  <td><%= agent.agent_type.display_name -%></td>
   <td>
     <%- if policy(agent).destroy? -%>
       <%= link_to t("page.edit"), edit_agent_path(agent) -%>

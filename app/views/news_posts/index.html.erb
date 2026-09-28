@@ -21,7 +21,7 @@
               -
               <%= l(news_post.end_date) if news_post.end_date -%>
             </td>
-            <td><%= news_post.required_role.display_name.localize -%></td>
+            <td><%= news_post.required_role.display_name -%></td>
             <td>
               <% if policy(news_post).update? %>
                 <%= link_to t("page.edit"), edit_news_post_path(news_post) -%>

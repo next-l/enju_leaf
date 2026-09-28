@@ -6,7 +6,7 @@ checkouts.each do |checkout|
     e.description = checkout.item.manifestation.original_title
     e.dtstart     = Icalendar::Values::Date.new(checkout.due_date.to_date)
     e.dtend       = Icalendar::Values::Date.new(checkout.due_date.to_date)
-    e.location    = checkout.item.shelf.library.display_name.localize
+    e.location    = checkout.item.shelf.library.display_name
   end
 end
 cal.publish

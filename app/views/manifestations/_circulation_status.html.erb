@@ -1,8 +1,8 @@
 <td>
-  <%= item.circulation_status.display_name.localize if item.circulation_status -%>
+  <%= item.circulation_status.display_name if item.circulation_status -%>
   <% if item.use_restriction.name == 'Not For Loan' %>
     <br/>
-    <%= item.use_restriction.display_name.localize %>
+    <%= item.use_restriction.display_name %>
   <% else %>
     <% if item.retained? %>
       <br/>

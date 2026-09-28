@@ -11,7 +11,7 @@
 
       <p>
         <strong><%= t("activerecord.attributes.carrier_type.display_name") -%>:</strong>
-        <%= @carrier_type.display_name.localize -%>
+        <%= @carrier_type.display_name -%>
       </p>
 
       <p>
@@ -21,7 +21,7 @@
             @carrier_type.attachment.representation(resize_to_limit: [16, 16]),
             size: "16x16",
             class: "enju_icon",
-            alt: @carrier_type.display_name.localize,
+            alt: @carrier_type.display_name,
           ) %>
           <%= @carrier_type.attachment.filename %>
         <% end %>
@@ -33,7 +33,7 @@
         </p>
         <ul>
           <% @carrier_type.checkout_types.each do |checkout_type| %>
-            <li><%= link_to checkout_type.display_name.localize, checkout_type_path(checkout_type) %></li>
+            <li><%= link_to checkout_type.display_name, checkout_type_path(checkout_type) %></li>
           <% end %>
         </ul>
       <% end %>

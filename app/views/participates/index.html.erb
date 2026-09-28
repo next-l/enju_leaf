@@ -12,7 +12,7 @@
         <%- @participates.each do |participate| %>
           <tr class="line<%= cycle("0", "1") -%>">
             <td><%= link_to participate.agent.full_name, participate.agent %></td>
-            <td><%= link_to participate.event.display_name.localize, participate.event %></td>
+            <td><%= link_to participate.event.display_name, participate.event %></td>
             <td><%= link_to t("page.show"), participate %></td>
             <td><%= link_to t("page.edit"), edit_participate_path(participate) %></td>
             <td><%= link_to t("page.destroy"),

@@ -32,7 +32,7 @@
           <tr class="line<%= cycle("0", "1") -%>">
             <td><%= link_to classification.category, classification -%></td>
             <td><%= classification.label -%></td>
-            <td><%= link_to classification.classification_type.display_name.localize,
+            <td><%= link_to classification.classification_type.display_name,
               classification.classification_type -%></td>
             <td>
               <%- if policy(classification).destroy? -%>

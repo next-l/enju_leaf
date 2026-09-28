@@ -9,7 +9,7 @@ xml.rss("version" => "2.0",
       xml.tag! "atom:link", rel: "self", href: "#{request.protocol}#{request.host_with_port}#{url_for(params.permit.merge(format: :rss, only_path: true))}"
       xml.tag! "atom:link", rel: "alternate", href: checkouts_url(user_id: @user.username)
     else
-      xml.title t("checkout.library_group_checkout", library_group_name: @library_group.display_name.localize)
+      xml.title t("checkout.library_group_checkout", library_group_name: @library_group.display_name)
       xml.link checkouts_url
       xml.tag! "atom:link", rel: "self", href: "#{request.protocol}#{request.host_with_port}#{url_for(params.permit.merge(format: :rss, only_path: true))}"
       xml.tag! "atom:link", rel: "alternate", href: checkouts_url

@@ -14,7 +14,7 @@
           (
             t(
               "manifestation.library_group_manifestation",
-              library_group_name: @library_group.display_name.localize,
+              library_group_name: @library_group.display_name,
             ) + " (RSS)"
           ),
       ) %>
@@ -32,7 +32,7 @@
           (
             t(
               "manifestation.library_group_manifestation",
-              library_group_name: @library_group.display_name.localize,
+              library_group_name: @library_group.display_name,
             ) + " (Atom)"
           ),
       ) %>
@@ -43,7 +43,7 @@
     <link
       rel="search"
       type="application/opensearchdescription+xml"
-      title="<%= LibraryGroup.site_config.display_name.localize %>"
+      title="<%= LibraryGroup.site_config.display_name %>"
       href="<%= page_opensearch_url(format: :xml) %>"
     />
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>

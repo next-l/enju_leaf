@@ -34,7 +34,7 @@
         <%- @agents.each do |agent| -%>
           <tr class="line<%= cycle("0", "1") -%>">
             <td><%= link_to agent.full_name, agent_merge_list_agent_path(@agent_merge_list, agent) -%></td>
-            <td><%= agent.agent_type.display_name.localize -%></td>
+            <td><%= agent.agent_type.display_name -%></td>
             <td><%= l agent.date_of_birth if agent.date_of_birth -%></td>
             <td>
               <%- if policy(agent).destroy? -%>

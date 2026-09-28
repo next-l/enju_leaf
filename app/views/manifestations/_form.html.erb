@@ -128,7 +128,7 @@
     <%= f.label t("activerecord.models.content_type") %>
     <%= f.select(
       :content_type_id,
-      @content_types.collect { |c| [c.display_name.localize, c.id] },
+      @content_types.collect { |c| [c.display_name, c.id] },
       {},
       class: "form-select"
     ) %>
@@ -136,7 +136,7 @@
     <%= f.label t("activerecord.models.carrier_type") %>
     <%= f.select(
       :carrier_type_id,
-      @carrier_types.collect { |c| [c.display_name.localize, c.id] },
+      @carrier_types.collect { |c| [c.display_name, c.id] },
       {},
       class: "form-select"
     ) %>
@@ -148,7 +148,7 @@
     <%= f.select(
       :frequency_id,
       @frequencies.collect do |frequency|
-        [frequency.display_name.localize, frequency.id]
+        [frequency.display_name, frequency.id]
       end,
       {},
       class: "form-select"
@@ -158,7 +158,7 @@
     <%= f.select(
       :language_id,
       @languages.collect do |language|
-        [language.display_name.localize, language.id]
+        [language.display_name, language.id]
       end,
       {},
       class: "form-select"
@@ -261,7 +261,7 @@
     <%= f.label t("role.required_role") %>
     <%= f.select(
       :required_role_id,
-      @roles.collect { |r| [r.display_name.localize, r.id] },
+      @roles.collect { |r| [r.display_name, r.id] },
       {},
       class: "form-select"
     ) %>
@@ -284,8 +284,7 @@
                           custom_form
                             .object
                             .manifestation_custom_property
-                            .display_name
-                            .localize %>
+                            .display_name %>
         <%= custom_form.hidden_field :manifestation_custom_property_id %>
         <%= custom_form.text_field :value, class: "form-control" %>
       </div>

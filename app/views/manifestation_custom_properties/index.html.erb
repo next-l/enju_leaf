@@ -24,7 +24,7 @@
                 <%- end -%>
               </td>
               <td><%= link_to manifestation_custom_property.name, manifestation_custom_property %></td>
-              <td><%= manifestation_custom_property.display_name.localize %></td>
+              <td><%= manifestation_custom_property.display_name %></td>
               <td><%= manifestation_custom_property.note %></td>
               <td><%= link_to t("page.edit"),
                 edit_manifestation_custom_property_path(manifestation_custom_property) %></td>

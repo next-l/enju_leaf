@@ -2,7 +2,7 @@ atom_feed(url: manifestations_url(format: :atom),
   "xmlns:opds" => "http://opds-spec.org/2010/catalog",
   "xmlns:jepa" => "http://www.jepa.or.jp/xmlns/atomPhonetics/1.1"
 ) do |feed|
-  feed.title t("manifestation.query_search_result", query: @query, library_group_name: @library_group.display_name.localize)
+  feed.title t("manifestation.query_search_result", query: @query, library_group_name: @library_group.display_name)
   feed.updated(@manifestations.first ? @manifestations.first.created_at : Time.zone.now)
   feed.link rel: "start", href: manifestations_url(format: :opds), type: "application/atom+xml;profile=opds-catalog;kind=navigation"
 

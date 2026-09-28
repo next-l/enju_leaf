@@ -8,7 +8,7 @@
   <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18
 }).addTo(mymap);
-  L.marker([<%= @library.latitude %>, <%= @library.longitude %>]).addTo(mymap).bindPopup('<%= @library.display_name.localize %>').openPopup();
+  L.marker([<%= @library.latitude %>, <%= @library.longitude %>]).addTo(mymap).bindPopup('<%= @library.display_name %>').openPopup();
   document.addEventListener('DOMContentLoaded', function() {
     mymap.invalidateSize();
   });

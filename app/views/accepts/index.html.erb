@@ -26,10 +26,10 @@
               <%= link_to accept.item.item_identifier, accept.item -%>
               /
               <%= accept.item.call_number %>
-              (<%= link_to accept.item.shelf.library.display_name.localize,
+              (<%= link_to accept.item.shelf.library.display_name,
               accept.item.shelf.library %>
               /
-              <%= link_to accept.item.shelf.display_name.localize, accept.item.shelf %>)<br/>
+              <%= link_to accept.item.shelf.display_name, accept.item.shelf %>)<br/>
               <%= l accept.created_at %>
             <% end %>
           </td>

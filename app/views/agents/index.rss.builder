@@ -3,7 +3,7 @@ xml.rss("version" => "2.0",
         "xmlns:opensearch" => "http://a9.com/-/spec/opensearch/1.1/",
         "xmlns:atom" => "http://www.w3.org/2005/Atom") {
   xml.channel {
-    xml.title t("agent.library_group_agent", library_group_name: @library_group.display_name.localize)
+    xml.title t("agent.library_group_agent", library_group_name: @library_group.display_name)
     xml.link "#{request.protocol}#{request.host_with_port}#{url_for(request.params.merge(format: nil, only_path: true))}"
     xml.description "Next-L Enju, an open source integrated library system developed by Project Next-L"
     xml.language I18n.locale.to_s

@@ -5,7 +5,7 @@
       <ul>
         <%- manifestation.classifications.each do |classification| -%>
           <li>
-            <%= link_to "#{classification.classification_type.display_name.localize}: #{classification.category}",
+            <%= link_to "#{classification.classification_type.display_name}: #{classification.category}",
             manifestations_path(
               query:
                 "classification_sm:#{classification.classification_type.name}_#{classification.category}",

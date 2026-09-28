@@ -5,7 +5,7 @@
       <p id="notice"><%= notice %></p>
 
       <h2 class="resource_title">
-        <%= @event.display_name.localize -%>
+        <%= @event.display_name -%>
       </h2>
 
       <p>
@@ -15,12 +15,12 @@
 
       <p>
         <strong><%= t("activerecord.models.event_category") -%>:</strong>
-        <%= @event.event_category.display_name.localize -%>
+        <%= @event.event_category.display_name -%>
       </p>
 
       <p>
         <strong><%= t("activerecord.models.library") -%>:</strong>
-        <%= link_to @event.library.display_name.localize, @event.library -%>
+        <%= link_to @event.library.display_name, @event.library -%>
       </p>
 
       <p>

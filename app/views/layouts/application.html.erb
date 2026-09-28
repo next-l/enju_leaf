@@ -12,7 +12,7 @@
           (
             t(
               "manifestation.library_group_manifestation",
-              library_group_name: @library_group.display_name.localize,
+              library_group_name: @library_group.display_name,
             ) + " (RSS)"
           ),
       ) %>
@@ -30,7 +30,7 @@
           (
             t(
               "manifestation.library_group_manifestation",
-              library_group_name: @library_group.display_name.localize,
+              library_group_name: @library_group.display_name,
             ) + " (Atom)"
           ),
       ) %>
@@ -42,7 +42,7 @@
             (
               t(
                 "news_post.library_group_news_post",
-                library_group_name: @library_group.display_name.localize,
+                library_group_name: @library_group.display_name,
               ) + " (RSS)"
             ),
         ) %>
@@ -53,7 +53,7 @@
             (
               t(
                 "news_post.library_group_news_post",
-                library_group_name: @library_group.display_name.localize,
+                library_group_name: @library_group.display_name,
               ) + " (Atom)"
             ),
         ) %>

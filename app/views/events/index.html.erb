@@ -37,12 +37,12 @@
         <%- @events.each_with_index do |event, i| -%>
           <tr class="line<%= cycle("0", "1") -%>">
             <td>
-              <%= link_to event.library.display_name.localize, event.library -%>
+              <%= link_to event.library.display_name, event.library -%>
               <br/>
-              <%= event.event_category.display_name.localize -%>
+              <%= event.event_category.display_name -%>
             </td>
             <td>
-              <%= link_to event.display_name.localize, event -%>
+              <%= link_to event.display_name, event -%>
               <br/>
               <%= l(event.start_at, format: :short) -%>
               -
@@ -98,7 +98,7 @@
         <li><%= link_to t("event.all_libraries"),
           url_for(filtered_params.merge(library_id: nil, page: nil)) -%></li>
         <%- @libraries.each do |library| -%>
-          <li><%= link_to library.display_name.localize,
+          <li><%= link_to library.display_name,
             url_for(filtered_params.merge(library_id: library.name, mode: params[:mode])) -%></li>
         <%- end -%>
       </ul>

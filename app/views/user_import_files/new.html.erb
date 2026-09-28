@@ -38,7 +38,7 @@
           <%= t("user_import_file.default_user_group") %>
           <%= f.select(
             :default_user_group_id,
-            @user_groups.collect { |u| [u.display_name.localize, u.id] },
+            @user_groups.collect { |u| [u.display_name, u.id] },
             {},
             class: "form-select"
           ) %>
@@ -49,7 +49,7 @@
           <%= t("user_import_file.default_library") %>
           <%= f.select(
             :default_library_id,
-            @libraries.collect { |l| [l.display_name.localize, l.id] },
+            @libraries.collect { |l| [l.display_name, l.id] },
             {},
             class: "form-select"
           ) %>

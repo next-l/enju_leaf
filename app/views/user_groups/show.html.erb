@@ -11,7 +11,7 @@
 
       <p>
         <strong><%= t("activerecord.attributes.user_group.display_name") -%>:</strong>
-        <%= @user_group.display_name.localize -%>
+        <%= @user_group.display_name -%>
       </p>
 
       <p>
@@ -41,7 +41,7 @@
         <ul>
           <%- @user_group.user_group_has_checkout_types.each do |available_checkout_type| -%>
             <li>
-              <%= link_to available_checkout_type.checkout_type.display_name.localize,
+              <%= link_to available_checkout_type.checkout_type.display_name,
               available_checkout_type.checkout_type -%>
               (<%= link_to t(
                 "page.number_of_days",

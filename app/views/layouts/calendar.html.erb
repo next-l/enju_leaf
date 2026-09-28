@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%- if @library -%>
-      <title><%= t("calendar.library_calendar", library_name: @library.display_name.localize) -%>
+      <title><%= t("calendar.library_calendar", library_name: @library.display_name) -%>
         -
         <%= LibraryGroup.system_name(I18n.locale.to_s) -%></title>
     <%- else -%>
@@ -19,7 +19,7 @@
         (
           t(
             "event.library_group_event",
-            library_group_name: @library_group.display_name.localize,
+            library_group_name: @library_group.display_name,
           ) + " (RSS)"
         ),
     ) %>
@@ -30,7 +30,7 @@
         (
           t(
             "event.library_group_event",
-            library_group_name: @library_group.display_name.localize,
+            library_group_name: @library_group.display_name,
           ) + " (Atom)"
         ),
     ) %>
@@ -38,7 +38,7 @@
       rel="search"
       type="application/opensearchdescription+xml"
       href="<%= page_opensearch_url -%>"
-      title="<%= @library_group.display_name.localize -%>"
+      title="<%= @library_group.display_name -%>"
     />
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application",

@@ -22,10 +22,10 @@
         <%= link_to withdraw.item.item_identifier, withdraw.item -%>
         /
         <%= withdraw.item.call_number %>
-        (<%= link_to withdraw.item.shelf.library.display_name.localize,
+        (<%= link_to withdraw.item.shelf.library.display_name,
         withdraw.item.shelf.library %>
         /
-        <%= link_to withdraw.item.shelf.display_name.localize, withdraw.item.shelf %>)<br/>
+        <%= link_to withdraw.item.shelf.display_name, withdraw.item.shelf %>)<br/>
         <%= l withdraw.created_at %>
       </td>
     </tr>

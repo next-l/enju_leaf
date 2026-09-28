@@ -21,14 +21,14 @@
           </td>
           <td>
             <%= link_to(
-              item.shelf.library.display_name.localize,
+              item.shelf.library.display_name,
               item.shelf.library,
               id: "library_item_#{item.id}",
             ) %>
           </td>
           <td>
             <%= link_to(
-              item.shelf_display_name.localize,
+              item.shelf_display_name,
               item.shelf,
               id: "shelf_item_#{item.id}",
             ) %>
