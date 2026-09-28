@@ -34,8 +34,7 @@
       <%= f.label :login_banner %>
       (<%= language.display_name %>)<br/>
       <%= f.text_area :"login_banner_#{language}",
-                    language.iso_639_1,
-                  ),
+                  language.iso_639_1,
                   class: "form-control" %>
     </div>
   <% end %>
@@ -45,9 +44,7 @@
       <%= f.label :footer_banner %>
       (<%= language.display_name %>)<br/>
       <%= f.text_area :"footer_banner_#{language}",
-                    :footer_banner,
-                    language.iso_639_1,
-                  ),
+                  language.iso_639_1,
                   class: "form-control" %>
     </div>
   <% end %>
