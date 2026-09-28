@@ -15,7 +15,7 @@ class LibraryGroup < ApplicationRecord
   store_accessor :settings,
     :book_jacket_unknown_resource
 
-  translates :login_banner, :footer_banner
+  translates :login_banner, :footer_banner, column_suffix: "_translations", backend: :jsonb
 
   has_one_attached :header_logo
 

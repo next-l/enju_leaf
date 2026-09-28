@@ -74,7 +74,12 @@ class LibraryGroupsController < ApplicationController
       {
         user_attributes: [ :email ]
       },
-      *LibraryGroup.globalize_attribute_names
+      I18n.available_locales.map do |locale|
+        [
+          :"login_banner_#{locale}",
+          :"footer_banner_#{locale}"
+        ]
+      end
     )
   end
 end
