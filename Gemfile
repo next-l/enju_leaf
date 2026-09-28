@@ -106,7 +106,7 @@ gem 'nkf'
 gem 'benchmark'
 gem 'icalendar'
 gem "ruby-vips"
-gem "json", "~> 2.21"
+gem "json", "~> 3.0"
 
 group :development, :test do
   gem 'annotaterb'
