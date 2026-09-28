@@ -36,10 +36,6 @@ class Shelf < ApplicationRecord
     Shelf.find(1)
   end
 
-  def localized_display_name
-    display_name.localize
-  end
-
   # http://stackoverflow.com/a/12437606
   def reset_position
     return unless library_id_changed?

@@ -7,10 +7,6 @@ class Role < ApplicationRecord
   extend FriendlyId
   friendly_id :name
 
-  def localized_name
-    display_name.localize
-  end
-
   def self.default
     Role.find_by(name: "Guest")
   end

@@ -7,10 +7,10 @@ module ShelvesHelper
     content_tag :li do
       if current
         content_tag :strong do
-          link_to("#{library.display_name.localize} (" + facet.count.to_s + ")", url_for(filtered_params.merge(page: nil, library_id: library.name, only_path: true)))
+          link_to("#{library.display_name} (" + facet.count.to_s + ")", url_for(filtered_params.merge(page: nil, library_id: library.name, only_path: true)))
         end
       else
-        link_to("#{library.display_name.localize} (" + facet.count.to_s + ")", url_for(filtered_params.merge(page: nil, library_id: library.name, only_path: true)))
+        link_to("#{library.display_name} (" + facet.count.to_s + ")", url_for(filtered_params.merge(page: nil, library_id: library.name, only_path: true)))
       end
     end
   end

@@ -26,7 +26,9 @@ class LibraryGroup < ApplicationRecord
   end
 
   def self.system_name(locale = I18n.locale)
-    LibraryGroup.site_config.display_name.localize(locale)
+    I18n.with_locale(locale) do
+      LibraryGroup.site_config.display_name
+    end
   end
 
   def config?

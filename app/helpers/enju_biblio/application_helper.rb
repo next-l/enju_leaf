@@ -6,7 +6,7 @@ module EnjuBiblio
       end
 
       if carrier_type.attachment.attached?
-        image_tag(carrier_type.attachment.representation(resize_to_limit: [ 16, 16 ]), size: "16x16", class: "enju_icon", alt: carrier_type.display_name.localize)
+        image_tag(carrier_type.attachment.representation(resize_to_limit: [ 16, 16 ]), size: "16x16", class: "enju_icon", alt: carrier_type.display_name)
       else
         image_tag("icons/help.png", size: "16x16", class: "enju_icon", alt: t("page.unknown"))
       end
@@ -15,13 +15,13 @@ module EnjuBiblio
     def content_type_icon(content_type)
       case content_type.name
       when "text"
-        image_tag("icons/page_white_text.png", size: "16x16", class: "enju_icon", alt: content_type.display_name.localize)
+        image_tag("icons/page_white_text.png", size: "16x16", class: "enju_icon", alt: content_type.display_name)
       when "still_image"
-        image_tag("icons/picture.png", size: "16x16", class: "enju_icon", alt: content_type.display_name.localize)
+        image_tag("icons/picture.png", size: "16x16", class: "enju_icon", alt: content_type.display_name)
       when "sounds"
-        image_tag("icons/sound.png", size: "16x16", class: "enju_icon", alt: content_type.display_name.localize)
+        image_tag("icons/sound.png", size: "16x16", class: "enju_icon", alt: content_type.display_name)
       when "two_dimensional_moving_image"
-        image_tag("icons/film.png", size: "16x16", class: "enju_icon", alt: content_type.display_name.localize)
+        image_tag("icons/film.png", size: "16x16", class: "enju_icon", alt: content_type.display_name)
       else
         image_tag("icons/help.png", size: "16x16", class: "enju_icon", alt: t("page.unknown"))
       end
