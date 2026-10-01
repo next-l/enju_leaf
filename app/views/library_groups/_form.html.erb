@@ -29,22 +29,22 @@
     <%= f.url_field :url, class: "form-control resource_url" %>
   </div>
 
-  <% @available_languages.each do |language| %>
+  <% I18n.available_locales.each do |locale| %>
     <div class="field">
       <%= f.label :login_banner %>
-      (<%= language.display_name %>)<br/>
-      <%= f.text_area :"login_banner_#{language}",
-                  language.iso_639_1,
+      (<%= locale %>)<br/>
+      <%= f.text_area :"login_banner_#{locale}",
+                  value: f.object.login_banner(locale: locale),
                   class: "form-control" %>
     </div>
   <% end %>
 
-  <% @available_languages.each do |language| %>
+  <% I18n.available_locales.each do |locale| %>
     <div>
       <%= f.label :footer_banner %>
-      (<%= language.display_name %>)<br/>
-      <%= f.text_area :"footer_banner_#{language}",
-                  language.iso_639_1,
+      (<%= locale %>)<br/>
+      <%= f.text_area :"footer_banner_#{locale}",
+                  value: f.object.footer_banner(locale: locale),
                   class: "form-control" %>
     </div>
   <% end %>
