@@ -39,7 +39,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/setup@v3
         with:
-          version: 12.6.0
+          version: 12.15.0
           runtime: node@24
 
       - name: Install dependencies
