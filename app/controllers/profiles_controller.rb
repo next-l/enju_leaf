@@ -154,9 +154,9 @@ class ProfilesController < ApplicationController
   end
 
   def impersonate
-    skip_authorization
-    user = Profile.find(params[:id]).user
-    impersonate_user(user)
+    profile = Profile.find(params[:id])
+    authorize profile, :impersonate?
+    impersonate_user(profile.user)
     redirect_to root_path
   end
 
