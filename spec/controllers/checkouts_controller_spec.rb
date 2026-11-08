@@ -390,6 +390,14 @@ describe CheckoutsController do
         expect(response).to redirect_to checkout_url(assigns(:checkout))
       end
 
+      it 'should ignore due_date submitted by the user' do
+        checkout = checkouts(:checkout_00003)
+        expected = checkout.get_new_due_date.end_of_day
+        put :update, params: { id: checkout.id, checkout: { due_date: '2026-12-31' } }
+        expect(response).to redirect_to checkout_url(assigns(:checkout))
+        expect(checkout.reload.due_date.to_s).to eq expected.to_s
+      end
+
       it 'should not update checkout without item_id' do
         put :update, params: { id: 3, checkout: { item_id: nil } }
         expect(assigns(:checkout)).to be_valid
