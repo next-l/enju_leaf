@@ -347,7 +347,7 @@ resource_import_file_test1	007.6	note for the item.
         file.attachment.attach(io: StringIO.new(import_file), filename: 'test.txt')
         old_manifestations_count = Manifestation.count
         old_items_count = Item.count
-        result = file.import_start
+        file.import_start
         expect(Manifestation.count).to eq old_manifestations_count + 1
         expect(Item.count).to eq old_items_count + 1
         expect(file.resource_import_results.last.item).to be_valid
@@ -367,7 +367,7 @@ resource_import_file_test_edition	2	Revised Ed.
         )
         file.attachment.attach(io: StringIO.new(import_file), filename: 'test.txt')
         old_manifestations_count = Manifestation.count
-        result = file.import_start
+        file.import_start
         expect(Manifestation.count).to eq old_manifestations_count + 1
         manifestation = Manifestation.all.find { |m| m.original_title == "resource_import_file_test_edition" }
         expect(manifestation.edition).to eq 2
@@ -385,7 +385,7 @@ resource_import_file_test_transcription	transcription
         )
         file.attachment.attach(io: StringIO.new(import_file), filename: 'test.txt')
         old_manifestations_count = Manifestation.count
-        result = file.import_start
+        file.import_start
         expect(Manifestation.count).to eq old_manifestations_count + 1
         manifestation = Manifestation.all.find { |m| m.original_title == "resource_import_file_test_transcription" }
         expect(manifestation.title_transcription).to eq "transcription"
@@ -403,7 +403,7 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
         )
         file.attachment.attach(io: StringIO.new(import_file), filename: 'test.txt')
         old_manifestations_count = Manifestation.count
-        result = file.import_start
+        file.import_start
         expect(Manifestation.count).to eq old_manifestations_count + 1
         manifestation = Manifestation.all.find { |m| m.original_title == "resource_import_file_test_description" }
         expect(manifestation.description).to eq "test\ntest"
@@ -479,7 +479,7 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
       it "should import ncid value" do
         file = ResourceImportFile.create(user: users(:admin), edit_mode: 'update')
         file.attachment.attach(io: StringIO.new("manifestation_id\tncid\n1\tBA67656964\n"), filename: 'test.txt')
-        result = file.import_start
+        file.import_start
         # expect(result[:manifestation_found]).to eq 1
         expect(file.error_message).to be_nil
         resource_import_result = file.resource_import_results.last

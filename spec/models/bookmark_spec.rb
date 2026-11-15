@@ -23,7 +23,7 @@ describe Bookmark do
     old_manifestation_count = Manifestation.count
     old_item_count = Item.count
     expect {
-      bookmark = FactoryBot.create(:user).bookmarks.create(url: "#{LibraryGroup.site_config.url}manifestations/1", title: 'test')
+      FactoryBot.create(:user).bookmarks.create(url: "#{LibraryGroup.site_config.url}manifestations/1", title: 'test')
     }.to change(Bookmark, :count)
     assert_equal old_manifestation_count, Manifestation.count
     assert_equal old_item_count, Item.count
@@ -33,7 +33,7 @@ describe Bookmark do
     old_manifestation_count = Manifestation.count
     old_item_count = Item.count
     expect {
-      bookmark = FactoryBot.create(:user).bookmarks.create(url: "#{LibraryGroup.site_config.url}libraries/1", title: 'test')
+      FactoryBot.create(:user).bookmarks.create(url: "#{LibraryGroup.site_config.url}libraries/1", title: 'test')
     }.not_to change(Bookmark, :count)
     assert_equal old_manifestation_count, Manifestation.count
     assert_equal old_item_count, Item.count
