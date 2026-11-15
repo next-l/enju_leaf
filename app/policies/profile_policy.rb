@@ -55,4 +55,18 @@ class ProfilePolicy < ApplicationPolicy
       true
     end
   end
+
+  def impersonate?
+    return false unless user && record.user
+    return false if record.user == user
+
+    case user.role&.name
+    when "Administrator"
+      true
+    when "Librarian"
+      %w[User Guest].include?(record.user.role&.name)
+    else
+      false
+    end
+  end
 end

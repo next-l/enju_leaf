@@ -108,8 +108,13 @@ describe BookmarksController do
       end
 
       it "should not show other user's bookmark" do
-        get :show, params: { id: 1 }
+        get :show, params: { id: 2 }
         expect(response).to be_forbidden
+      end
+
+      it "should show other user's bookmark if the owner shares bookmarks" do
+        get :show, params: { id: 1 }
+        expect(response).to be_successful
       end
 
       it "should show my bookmark" do

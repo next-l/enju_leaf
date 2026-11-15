@@ -12,7 +12,7 @@ class BookmarkPolicy < ApplicationPolicy
     when "User"
       if record.user == user
         true
-      elsif user.profile.try(:share_bookmarks)
+      elsif record.user&.profile&.share_bookmarks
         true
       else
         false

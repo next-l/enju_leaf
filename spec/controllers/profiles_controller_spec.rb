@@ -584,4 +584,66 @@ describe ProfilesController do
       end
     end
   end
+
+  describe "POST impersonate" do
+    describe "When logged in as Administrator" do
+      login_fixture_admin
+
+      it "should impersonate a librarian" do
+        post :impersonate, params: { id: users(:librarian2).profile.id }
+        expect(response).to redirect_to root_path
+        expect(session[:impersonated_user_id]).to eq users(:librarian2).id
+      end
+
+      it "should not impersonate itself" do
+        post :impersonate, params: { id: users(:admin).profile.id }
+        expect(response).to be_forbidden
+      end
+    end
+
+    describe "When logged in as Librarian" do
+      login_fixture_librarian
+
+      it "should impersonate a user" do
+        post :impersonate, params: { id: users(:user1).profile.id }
+        expect(response).to redirect_to root_path
+        expect(session[:impersonated_user_id]).to eq users(:user1).id
+      end
+
+      it "should not impersonate another librarian" do
+        post :impersonate, params: { id: users(:librarian2).profile.id }
+        expect(response).to be_forbidden
+        expect(session[:impersonated_user_id]).to be_nil
+      end
+
+      it "should not impersonate an administrator" do
+        post :impersonate, params: { id: users(:admin).profile.id }
+        expect(response).to be_forbidden
+        expect(session[:impersonated_user_id]).to be_nil
+      end
+    end
+
+    describe "When logged in as User" do
+      login_fixture_user
+
+      it "should not impersonate an administrator" do
+        post :impersonate, params: { id: users(:admin).profile.id }
+        expect(response).to be_forbidden
+        expect(session[:impersonated_user_id]).to be_nil
+      end
+
+      it "should not impersonate another user" do
+        post :impersonate, params: { id: users(:user2).profile.id }
+        expect(response).to be_forbidden
+        expect(session[:impersonated_user_id]).to be_nil
+      end
+    end
+
+    describe "When not logged in" do
+      it "should redirect to the login page" do
+        post :impersonate, params: { id: users(:user1).profile.id }
+        expect(response).to redirect_to(new_user_session_url)
+      end
+    end
+  end
 end
