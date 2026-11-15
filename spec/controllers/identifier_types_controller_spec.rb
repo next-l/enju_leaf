@@ -31,7 +31,7 @@ describe IdentifierTypesController do
 
   describe 'GET index' do
     it 'assigns all identifier_types as @identifier_types' do
-      identifier_type = IdentifierType.create! valid_attributes
+      IdentifierType.create! valid_attributes
       get :index
       expect(assigns(:identifier_types)).to eq(IdentifierType.order(:position))
     end

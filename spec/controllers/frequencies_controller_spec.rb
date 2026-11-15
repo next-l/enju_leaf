@@ -60,7 +60,7 @@ describe FrequenciesController do
     end
     it 'assigns the frequency even if it associates manifestation(s)' do
       frequency = FactoryBot.create(:frequency)
-      manifestation = FactoryBot.create(:manifestation, frequency_id: frequency.id)
+      FactoryBot.create(:manifestation, frequency_id: frequency.id)
       get :edit, params: { id: frequency.id }
       expect(assigns(:frequency)).to eq frequency
       expect(response).to be_successful

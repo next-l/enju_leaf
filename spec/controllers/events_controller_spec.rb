@@ -86,7 +86,6 @@ describe EventsController do
             FactoryBot.create(:event)
           end
           Event.reindex
-          today = Time.zone.today
           get :index, params: { format: "json", start: 1.week.ago.to_s, end: 1.week.from_now.to_s }
           expect(response).to be_successful
           events = assigns(:events)

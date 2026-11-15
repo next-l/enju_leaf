@@ -31,7 +31,7 @@ describe FormOfWorksController do
 
   describe 'GET index' do
     it 'assigns all form_of_works as @form_of_works' do
-      form_of_work = FormOfWork.create! valid_attributes
+      FormOfWork.create! valid_attributes
       get :index
       expect(assigns(:form_of_works)).to eq(FormOfWork.order(:position))
     end

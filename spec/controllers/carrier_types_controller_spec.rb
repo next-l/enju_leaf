@@ -32,7 +32,7 @@ describe CarrierTypesController do
     login_fixture_admin
     describe 'GET index' do
       it 'assigns all carrier_types as @carrier_types' do
-        carrier_type = CarrierType.create! valid_attributes
+        CarrierType.create! valid_attributes
         get :index
         expect(assigns(:carrier_types)).to eq(CarrierType.order(:position).page(1))
       end
