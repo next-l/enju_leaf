@@ -395,19 +395,21 @@ module EnjuLoc
 
       def self.get_mods_carrier_and_content_types(doc)
         carrier_type = content_type = nil
+        carrier_types = CarrierType.all.index_by(&:name)
+        content_types = ContentType.all.index_by(&:name)
         doc.xpath("//mods:form", NS).each do |e|
               authority = e.attributes["authority"].try(:content)
               case authority
               when "gmd"
                 case e.content
                 when "electronic resource"
-                  carrier_type = CarrierType.find_by(name: "online_resource")
+                  carrier_type = carrier_types["online_resource"]
                 when "videorecording", "motion picture", "game"
-                  content_type = ContentType.find_by(name: "two_dimensional_moving_image")
+                  content_type = content_types["two_dimensional_moving_image"]
                 when "sound recording"
-                  content_type = ContentType.find_by(name: "performed_music")
+                  content_type = content_types["performed_music"]
                 when "graphic", "picture"
-                  content_type = ContentType.find_by(name: "still_image")
+                  content_type = content_types["still_image"]
                 # TODO: Enju needs more specific mappings...
                 when "art original",
                 "microscope slides",
@@ -424,37 +426,37 @@ module EnjuLoc
                 "kit",
                 "transparency",
                 "microform"
-                  content_type = ContentType.find_by(name: "other")
+                  content_type = content_types["other"]
                 end
               when "marcsmd" # cf.http://www.loc.gov/standards/valuelist/marcsmd.html
                   case e.content
                   when "text", "large print", "regular print", "text in looseleaf binder"
-                    carrier_type = CarrierType.find_by(name: "volume")
-                    content_type = ContentType.find_by(name: "text")
+                    carrier_type = carrier_types["volume"]
+                    content_type = content_types["text"]
                   when "braille"
-                    carrier_type = CarrierType.find_by(name: "volume")
-                    content_type = ContentType.find_by(name: "tactile_text")
+                    carrier_type = carrier_types["volume"]
+                    content_type = content_types["tactile_text"]
                   when "videodisc"
-                    carrier_type = CarrierType.find_by(name: "videodisc")
-                    content_type = ContentType.find_by(name: "two_dimensional_moving_image")
+                    carrier_type = carrier_types["videodisc"]
+                    content_type = content_types["two_dimensional_moving_image"]
                   when "videorecording", "videocartridge", "videocassette", "videoreel"
-                    carrier_type = CarrierType.find_by(name: "other")
-                    content_type = ContentType.find_by(name: "two_dimensional_moving_image")
+                    carrier_type = carrier_types["other"]
+                    content_type = content_types["two_dimensional_moving_image"]
                   when "electronic resource"
-                    carrier_type = CarrierType.find_by(name: "online_resource")
+                    carrier_type = carrier_types["online_resource"]
                   when "chip cartridge", "computer optical disc cartridge", "magnetic disk", "magneto-optical disc", "optical disc", "remote", "tape cartridge", "tape cassette", "tape reel"
                     # carrier_type = CarrierType.find_by(name: 'other')
                   when "motion picture", "film cartridge", "film cassette", "film reel"
-                    content_type = ContentType.find_by(name: "two_dimensional_moving_image")
+                    content_type = content_types["two_dimensional_moving_image"]
                   when "sound recording", "cylinder", "roll", "sound cartridge", "sound cassette", "sound-tape reel", "sound-track film", "wire recording"
-                    content_type = ContentType.find_by(name: "performed_music")
+                    content_type = content_types["performed_music"]
                   when "sound disc"
-                    content_type = ContentType.find_by(name: "performed_music")
-                    carrier_type = CarrierType.find_by(name: "audio_disc")
+                    content_type = content_types["performed_music"]
+                    carrier_type = carrier_types["audio_disc"]
                   when "nonprojected graphic", "chart", "collage", "drawing", "flash card", "painting", "photomechanical print", "photonegative", "photoprint", "picture", "print", "technical drawing", "projected graphic", "filmslip", "filmstrip cartridge", "filmstrip roll", "other filmstrip type ", "slide", "transparency"
-                    content_type = ContentType.find_by(name: "still_image")
+                    content_type = content_types["still_image"]
                   when "tactile material", "braille", "tactile, with no writing system"
-                    content_type = ContentType.find_by(name: "tactile_text")
+                    content_type = content_types["tactile_text"]
                   # TODO: Enju needs more specific mappings...
                   when "globe",
                   "celestial globe",
@@ -480,20 +482,20 @@ module EnjuLoc
                   "microopaque",
                   "combination",
                   "moon"
-                    content_type = ContentType.find_by(name: "other")
+                    content_type = content_types["other"]
                   end
               when "marcform" # cf. http://www.loc.gov/standards/valuelist/marcform.html
                     case e.content
                     when "print", "large print"
-                      carrier_type = CarrierType.find_by(name: "volume")
-                      content_type = ContentType.find_by(name: "text")
+                      carrier_type = carrier_types["volume"]
+                      content_type = content_types["text"]
                     when "electronic"
-                      carrier_type = CarrierType.find_by(name: "online_resource")
+                      carrier_type = carrier_types["online_resource"]
                     when "braille"
-                      content_type = ContentType.find_by(name: "tactile_text")
+                      content_type = content_types["tactile_text"]
                     # TODO: Enju needs more specific mappings...
                     when "microfiche", "microfilm"
-                      content_type = ContentType.find_by(name: "other")
+                      content_type = content_types["other"]
                     end
               end
             end
@@ -501,8 +503,8 @@ module EnjuLoc
           authority = e.attributes["authority"].try(:content)
           case authority
           when "rdacontent"
-            content_type = ContentType.find_by(name: e.content.gsub(/\W+/, "_"))
-            content_type ||= ContentType.find_by(name: "other")
+            content_type = content_types[e.content.gsub(/\W+/, "_")]
+            content_type ||= content_types["other"]
           end
         end
         type = doc.at("//mods:typeOfResource", NS).try(:content)

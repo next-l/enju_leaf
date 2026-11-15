@@ -215,6 +215,10 @@ module EnjuNdl
             # subject.save!
           end
           if classification_urls
+            classification_types = {
+              "ndc9" => ClassificationType.find_or_create_by!(name: "ndc9"),
+              "ndc10" => ClassificationType.find_or_create_by!(name: "ndc10")
+            }
             classification_urls.each do |url|
               begin
                 ndc_url = URI.parse(url)
@@ -226,7 +230,7 @@ module EnjuNdl
               next unless (ndc_type == "ndc9") || (ndc_type == "ndc10")
 
               ndc = ndc_url.path.split("/").last
-              classification_type = ClassificationType.find_or_create_by!(name: ndc_type)
+              classification_type = classification_types[ndc_type]
               classification = Classification.new(category: ndc)
               classification.classification_type = classification_type
               manifestation.classifications << classification if classification.valid?
