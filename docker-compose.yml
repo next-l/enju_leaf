@@ -31,6 +31,7 @@ services:
         - http_proxy=${http_proxy}
         - https_proxy=${http_proxy}
     command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -b 0.0.0.0"
+    init: true
     ports:
       - 3000:3000
 
