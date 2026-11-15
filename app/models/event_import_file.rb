@@ -83,16 +83,21 @@ class EventImportFile < ApplicationRecord
     transition_to!(:started)
     rows = open_import_file(create_import_temp_file(attachment))
     check_field(rows.first)
+    rows = rows.to_a
     row_num = 1
+
+    events_by_id = Event.where(id: rows.map { |row| row["id"].to_s.strip }).index_by { |event| event.id.to_s }
+    event_categories_by_name = EventCategory.where(name: rows.map { |row| row["event_category"].to_s.strip }.reject(&:blank?).uniq).index_by(&:name)
+    libraries_by_name = Library.where(name: rows.map { |row| row["library"].to_s.strip }.reject(&:blank?).uniq).index_by(&:name)
 
     rows.each do |row|
       row_num += 1
       next if row["dummy"].to_s.strip.present?
 
-      event = Event.find(row["id"].to_s.strip)
-      event_category = EventCategory.find_by(name: row["event_category"].to_s.strip)
+      event = events_by_id.fetch(row["id"].to_s.strip) { Event.find(row["id"].to_s.strip) }
+      event_category = event_categories_by_name[row["event_category"].to_s.strip]
       event.event_category = event_category if event_category
-      library = Library.find_by(name: row["library"].to_s.strip)
+      library = libraries_by_name[row["library"].to_s.strip]
       event.library = library if library
       event.name = row["name"] if row["name"].to_s.strip.present?
       event.start_at = Time.zone.parse(row["start_at"]) if row["start_at"].present?
@@ -121,13 +126,16 @@ class EventImportFile < ApplicationRecord
     transition_to!(:started)
     rows = open_import_file(create_import_temp_file(attachment))
     rows.shift
+    rows = rows.to_a
     row_num = 1
+
+    events_by_id = Event.where(id: rows.map { |row| row["id"].to_s.strip }).index_by { |event| event.id.to_s }
 
     rows.each do |row|
       row_num += 1
       next if row["dummy"].to_s.strip.present?
 
-      event = Event.find(row["id"].to_s.strip)
+      event = events_by_id.fetch(row["id"].to_s.strip) { Event.find(row["id"].to_s.strip) }
       event.picture_files.destroy_all # workaround
       event.reload
       event.destroy
