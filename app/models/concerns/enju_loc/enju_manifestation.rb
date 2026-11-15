@@ -155,22 +155,27 @@ module EnjuLoc
         subjects = get_mods_subjects(doc)
         classifications = get_mods_classifications(doc)
         subject_heading_type = SubjectHeadingType.find_by(name: "lcsh") || SubjectHeadingType.create!(name: "lcsh")
+        existing_subjects = Subject.where(term: subjects.map { |term| term[:term] }).index_by(&:term)
+        concept_subject_type = SubjectType.find_by(name: "concept") || SubjectType.create!(name: "concept")
         subjects.each do |term|
-          subject = Subject.find_by(term: term[:term])
+          subject = existing_subjects[term[:term]]
           unless subject
             subject = Subject.new(term)
             subject.subject_heading_type = subject_heading_type
-            subject.subject_type = SubjectType.find_by(name: "concept") || SubjectType.create!(name: "concept")
+            subject.subject_type = concept_subject_type
+            existing_subjects[term[:term]] = subject
           end
           manifestation.subjects << subject
         end
         if classifications
           classification_type = ClassificationType.find_by(name: "ddc") || ClassificationType.create!(name: "ddc")
+          existing_classifications = Classification.where(category: classifications).index_by(&:category)
           classifications.each do |ddc|
-            classification = Classification.find_by(category: ddc)
+            classification = existing_classifications[ddc]
             unless classification
               classification = Classification.new(category: ddc)
               classification.classification_type = classification_type
+              existing_classifications[ddc] = classification
             end
             manifestation.classifications << classification
           end
@@ -178,14 +183,13 @@ module EnjuLoc
       end
 
       def self.create_loc_series_statement(doc, manifestation)
-        doc.xpath('//mods:relatedItem[@type="series"]/mods:titleInfo/mods:title', NS).each do |series|
-          series_title = title = series.try(:content)
-          if title
-            series_title = title.split(";")[0].strip
-          end
-          next unless series_title
-
-          series_statement = SeriesStatement.find_by(original_title: series_title) || SeriesStatement.create!(original_title: series_title)
+        series_titles = doc.xpath('//mods:relatedItem[@type="series"]/mods:titleInfo/mods:title', NS).filter_map do |series|
+          title = series.try(:content)
+          title.split(";")[0].strip if title
+        end
+        existing_series_statements = SeriesStatement.where(original_title: series_titles).index_by(&:original_title)
+        series_titles.each do |series_title|
+          series_statement = existing_series_statements[series_title] ||= SeriesStatement.create!(original_title: series_title)
           if series_statement.try(:save)
             manifestation.series_statements << series_statement
           end
@@ -330,12 +334,13 @@ module EnjuLoc
       ]
       def self.get_mods_frequency(doc)
         frequencies = []
+        frequency_records = Frequency.where(name: MARCFREQUENCY.map { |freq_regex| freq_regex.downcase.gsub(/\s+/, "_") }).index_by(&:name)
         doc.xpath("//mods:frequency", NS).each do |freq|
           frequency = freq.try(:content)
           MARCFREQUENCY.each do |freq_regex|
             if /\A(#{freq_regex})/ =~ frequency
               frequency_name = freq_regex.downcase.gsub(/\s+/, "_")
-              frequencies << Frequency.find_by(name: frequency_name)
+              frequencies << frequency_records[frequency_name]
             end
           end
         end

@@ -76,37 +76,39 @@ module EnjuNdl
 
         carrier_type = content_type = nil
         is_serial = nil
+        carrier_types = CarrierType.where(name: %w[print file]).index_by(&:name)
+        content_types = ContentType.where(name: %w[text tactile_text cartographic_image performed_music notated_music still_image two_dimensional_moving_image sounds]).index_by(&:name)
         doc.xpath("//dcndl:materialType[@rdf:resource]").each do |d|
           case d.attributes["resource"].try(:content)
           when "http://ndl.go.jp/ndltype/Book"
-            carrier_type = CarrierType.find_by(name: "print")
-            content_type = ContentType.find_by(name: "text")
+            carrier_type = carrier_types["print"]
+            content_type = content_types["text"]
           when "http://ndl.go.jp/ndltype/Braille"
-            content_type = ContentType.find_by(name: "tactile_text")
+            content_type = content_types["tactile_text"]
           # when 'http://ndl.go.jp/ndltype/ComputerProgram'
           #  content_type = ContentType.find_by(name: 'computer_program')
           when "http://ndl.go.jp/ndltype/ElectronicResource"
-            carrier_type = CarrierType.find_by(name: "file")
+            carrier_type = carrier_types["file"]
           when "http://ndl.go.jp/ndltype/Journal"
             is_serial = true
           when "http://ndl.go.jp/ndltype/Map"
-            content_type = ContentType.find_by(name: "cartographic_image")
+            content_type = content_types["cartographic_image"]
           when "http://ndl.go.jp/ndltype/Music"
-            content_type = ContentType.find_by(name: "performed_music")
+            content_type = content_types["performed_music"]
           when "http://ndl.go.jp/ndltype/MusicScore"
-            content_type = ContentType.find_by(name: "notated_music")
+            content_type = content_types["notated_music"]
           when "http://ndl.go.jp/ndltype/Painting"
-            content_type = ContentType.find_by(name: "still_image")
+            content_type = content_types["still_image"]
           when "http://ndl.go.jp/ndltype/Photograph"
-            content_type = ContentType.find_by(name: "still_image")
+            content_type = content_types["still_image"]
           when "http://ndl.go.jp/ndltype/PicturePostcard"
-            content_type = ContentType.find_by(name: "still_image")
+            content_type = content_types["still_image"]
           when "http://purl.org/dc/dcmitype/MovingImage"
-            content_type = ContentType.find_by(name: "two_dimensional_moving_image")
+            content_type = content_types["two_dimensional_moving_image"]
           when "http://purl.org/dc/dcmitype/Sound"
-            content_type = ContentType.find_by(name: "sounds")
+            content_type = content_types["sounds"]
           when "http://purl.org/dc/dcmitype/StillImage"
-            content_type = ContentType.find_by(name: "still_image")
+            content_type = content_types["still_image"]
           end
 
           # NDLサーチのmaterialTypeは複数設定されているが、
@@ -202,12 +204,15 @@ module EnjuNdl
           manifestation.creators << creator_agents
 
           subject_heading_type = SubjectHeadingType.find_or_create_by!(name: "ndlsh")
+          existing_subjects = Subject.where(term: subjects.map { |term| term[:term] }).index_by(&:term)
+          concept_subject_type = SubjectType.find_or_create_by!(name: "concept")
           subjects.each do |term|
-            subject = Subject.find_by(term: term[:term])
+            subject = existing_subjects[term[:term]]
             unless subject
               subject = Subject.new(term)
               subject.subject_heading_type = subject_heading_type
-              subject.subject_type = SubjectType.find_or_create_by!(name: "concept")
+              subject.subject_type = concept_subject_type
+              existing_subjects[term[:term]] = subject
             end
             # if subject.valid?
             manifestation.subjects << subject
