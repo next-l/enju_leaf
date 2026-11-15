@@ -31,7 +31,7 @@ describe NiiTypesController do
 
   describe "GET index" do
     it "assigns all nii_types as @nii_types" do
-      nii_type = NiiType.create! valid_attributes
+      NiiType.create! valid_attributes
       get :index
       expect(assigns(:nii_types)).to eq(NiiType.order(:position))
     end

@@ -13,7 +13,7 @@ describe Bookmark do
     old_manifestation_count = Manifestation.count
     old_item_count = Item.count
     expect {
-      bookmark = FactoryBot.create(:user).bookmarks.create(url: 'http://www.example.com/', title: 'test')
+      FactoryBot.create(:user).bookmarks.create(url: 'http://www.example.com/', title: 'test')
     }.to change(Bookmark, :count)
     expect(Manifestation.count).to eq old_manifestation_count + 1
     expect(Item.count).to eq old_item_count + 1

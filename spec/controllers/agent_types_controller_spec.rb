@@ -31,7 +31,7 @@ describe AgentTypesController do
 
   describe 'GET index' do
     it 'assigns all agent_types as @agent_types' do
-      agent_type = AgentType.create! valid_attributes
+      AgentType.create! valid_attributes
       get :index
       expect(assigns(:agent_types)).to eq(AgentType.order(:position))
     end

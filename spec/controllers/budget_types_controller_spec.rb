@@ -31,7 +31,7 @@ describe BudgetTypesController do
 
   describe 'GET index' do
     it 'assigns all budget_types as @budget_types' do
-      budget_type = BudgetType.create! valid_attributes
+      BudgetType.create! valid_attributes
       get :index
       expect(assigns(:budget_types)).to eq(BudgetType.order(:position))
     end

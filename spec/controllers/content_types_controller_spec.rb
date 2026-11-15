@@ -31,7 +31,7 @@ describe ContentTypesController do
 
   describe 'GET index' do
     it 'assigns all content_types as @content_types' do
-      content_type = ContentType.create! valid_attributes
+      ContentType.create! valid_attributes
       get :index
       expect(assigns(:content_types)).to eq(ContentType.order(:position))
     end

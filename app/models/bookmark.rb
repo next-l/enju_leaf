@@ -111,7 +111,7 @@ class Bookmark < ApplicationRecord
   def my_host_resource
     return unless url.bookmarkable_id
 
-    manifestation = Manifestation.find(url.bookmarkable_id)
+    Manifestation.find(url.bookmarkable_id)
   end
 
   def bookmarkable_url?

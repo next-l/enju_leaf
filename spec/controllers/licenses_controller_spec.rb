@@ -31,7 +31,7 @@ describe LicensesController do
 
   describe 'GET index' do
     it 'assigns all licenses as @licenses' do
-      license = License.create! valid_attributes
+      License.create! valid_attributes
       get :index
       expect(assigns(:licenses)).to eq(License.order(:position))
     end

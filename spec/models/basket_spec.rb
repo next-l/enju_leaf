@@ -53,7 +53,7 @@ describe Basket do
 
   it "should checkout retained item" do
     checkout = users(:user1).checkouts.order(:created_at).first
-    reserve = users(:user2).reserves.create!(manifestation: checkout.item.manifestation)
+    users(:user2).reserves.create!(manifestation: checkout.item.manifestation)
     basket1 = Basket.new(user: users(:librarian1))
     checkin = Checkin.create!(basket: basket1, librarian: users(:librarian1), item: checkout.item)
     checkin.item_checkin(checkin.librarian)

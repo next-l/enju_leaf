@@ -728,13 +728,13 @@ class Manifestation < ApplicationRecord
 
   def set_custom_property(row)
     ManifestationCustomProperty.find_each do |property|
-      if row[property]
-        custom_value = ManifestationCustomValue.new(
-          manifestation: self,
-          manifestation_custom_property: property,
-          value: row[property]
-        )
-      end
+      next unless row[property]
+
+      ManifestationCustomValue.new(
+        manifestation: self,
+        manifestation_custom_property: property,
+        value: row[property]
+      )
     end
   end
 

@@ -31,7 +31,7 @@ describe RealizeTypesController do
 
   describe 'GET index' do
     it 'assigns all realize_types as @realize_types' do
-      realize_type = RealizeType.create! valid_attributes
+      RealizeType.create! valid_attributes
       get :index
       expect(assigns(:realize_types)).to eq(RealizeType.order(:position))
     end

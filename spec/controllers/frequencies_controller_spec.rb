@@ -31,7 +31,7 @@ describe FrequenciesController do
 
   describe 'GET index' do
     it 'assigns all frequencies as @frequencies' do
-      frequency = Frequency.create! valid_attributes
+      Frequency.create! valid_attributes
       get :index
       expect(assigns(:frequencies)).to eq(Frequency.order(:position))
     end

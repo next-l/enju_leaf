@@ -16,7 +16,7 @@ module EnjuCirculation
         checked_items.each do |checked_item|
           checked_item.item.reload
 
-          checkout = user.checkouts.create!(
+          user.checkouts.create!(
             librarian: librarian,
             item: checked_item.item,
             basket: self,
