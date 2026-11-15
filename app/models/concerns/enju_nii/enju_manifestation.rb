@@ -4,7 +4,7 @@ module EnjuNii
 
     module ClassMethods
       def import_from_cinii_books(options)
-        lisbn = ncid = nil
+        lisbn = ncid = manifestation = nil
 
         if options[:ncid]
           ncid = options[:ncid]

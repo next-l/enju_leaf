@@ -377,6 +377,8 @@ module EnjuNdl
 
       def create_series_statement(doc, manifestation)
         series = series_title = {}
+        series_statement = nil
+
         series[:title] = doc.at("//dcndl:seriesTitle/rdf:Description/rdf:value").try(:content)
         series[:title_transcription] = doc.at("//dcndl:seriesTitle/rdf:Description/dcndl:transcription").try(:content)
         series[:creator] = doc.at("//dcndl:seriesCreator").try(:content)

@@ -116,10 +116,14 @@ class MessagesController < ApplicationController
       redirect_to new_user_session_url
       return
     end
+
     respond_to do |format|
+      messages = []
+
       if params[:delete].present?
         messages = params[:delete].map { |m| Message.find_by(id: m) }
       end
+
       if messages.present?
         messages.each do |message|
           message.destroy if message.receiver == current_user
