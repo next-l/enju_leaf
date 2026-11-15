@@ -122,6 +122,8 @@ module EnjuNii
       end
 
       def return_rdf(isbn: nil, ncid: nil)
+        rss = nil
+
         if ncid
           rss = self.search_cinii_opensearch(ncid: ncid)
         elsif isbn
@@ -130,6 +132,8 @@ module EnjuNii
             rss = self.search_cinii_opensearch(isbn: cinii_normalize_isbn(isbn))
           end
         end
+
+        return unless rss
 
         if rss.items.first
           conn = Faraday.new("#{rss.items.first.link}.rdf") do |faraday|
