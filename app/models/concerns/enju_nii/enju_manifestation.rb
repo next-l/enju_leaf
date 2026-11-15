@@ -87,13 +87,15 @@ module EnjuNii
             manifestation.creators = creator_patrons
             subjects = get_cinii_subjects(doc)
             subject_heading_type = SubjectHeadingType.find_or_create_by!(name: "bsh")
+            existing_subjects = Subject.where(term: subjects.map { |term| term[:term] }).index_by(&:term)
+            concept_subject_type = SubjectType.find_or_create_by!(name: "concept")
             subjects.each do |term|
-              subject = Subject.find_by(term: term[:term])
+              subject = existing_subjects[term[:term]]
               unless subject
                 subject = Subject.new(term)
                 subject.subject_heading_type = subject_heading_type
-                subject_type = SubjectType.find_or_create_by!(name: "concept")
-                subject.subject_type = subject_type
+                subject.subject_type = concept_subject_type
+                existing_subjects[term[:term]] = subject
               end
               manifestation.subjects << subject
             end
