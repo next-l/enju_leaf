@@ -48,6 +48,7 @@ class ResourceImportFile < ApplicationRecord
       item_found: 0,
       failed: 0
     }
+    available_on_shelf = CirculationStatus.find_by(name: "Available On Shelf")
     rows = open_import_file(create_import_temp_file(attachment))
     rows.shift
     # if [field['manifestation_id'], field['manifestation_identifier'], field['isbn'], field['original_title']].reject{|f|
@@ -201,7 +202,7 @@ class ResourceImportFile < ApplicationRecord
         else
           if manifestation.fulltext_content?
             item = create_item(row, manifestation)
-            item.circulation_status = CirculationStatus.find_by(name: "Available On Shelf")
+            item.circulation_status = available_on_shelf
             begin
               item.acquired_at = Time.zone.parse(row["acquired_at"].to_s.strip)
             rescue ArgumentError
@@ -283,11 +284,14 @@ class ResourceImportFile < ApplicationRecord
     # end
 
     # TODO
+    default_carrier_type = CarrierType.find(1)
+    default_frequency = Frequency.find(1)
+    default_language = Language.find(1)
     reader.each do |record|
       manifestation = Manifestation.new(original_title: expression.original_title)
-      manifestation.carrier_type = CarrierType.find(1)
-      manifestation.frequency = Frequency.find(1)
-      manifestation.language = Language.find(1)
+      manifestation.carrier_type = default_carrier_type
+      manifestation.frequency = default_frequency
+      manifestation.language = default_language
       manifestation.save
 
       full_name = record["700"]["a"]
