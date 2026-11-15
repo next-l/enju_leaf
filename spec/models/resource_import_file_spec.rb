@@ -504,6 +504,35 @@ resource_import_file_test_description	test\\ntest	test\\ntest	test_description	t
     end
   end
 
+  describe "when its mode is 'update_relationship'" do
+    it "should update the relationship between items and manifestations" do
+      item_by_identifier = Item.find_by(item_identifier: '00002')
+      item_by_id = Item.find_by(item_identifier: '00003')
+      manifestation_by_identifier = Manifestation.find_by(manifestation_identifier: '1')
+      manifestation_by_id = Manifestation.find(2)
+      expect(item_by_identifier.manifestation_id).not_to eq manifestation_by_identifier.id
+      expect(item_by_id.manifestation_id).not_to eq manifestation_by_id.id
+
+      file = ResourceImportFile.create!(
+        user: users(:admin),
+        edit_mode: 'update_relationship'
+      )
+      file.attachment.attach(
+        io: StringIO.new(
+          "item_identifier\titem_id\tmanifestation_identifier\tmanifestation_id\n" \
+          "00002\t\t1\t\n" \
+          "\t#{item_by_id.id}\t\t2\n"
+        ),
+        filename: 'test.tsv'
+      )
+      file.update_relationship
+      item_by_identifier.reload
+      item_by_id.reload
+      expect(item_by_identifier.manifestation_id).to eq manifestation_by_identifier.id
+      expect(item_by_id.manifestation_id).to eq manifestation_by_id.id
+    end
+  end
+
   it "should import in background", vcr: true do
     file = ResourceImportFile.create!(
       user: users(:admin)

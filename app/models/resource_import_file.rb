@@ -321,12 +321,18 @@ class ResourceImportFile < ApplicationRecord
     row_num = 1
 
     ResourceImportResult.create!(resource_import_file_id: id, body: rows.headers.join("\t"))
+    rows = rows.to_a
+    items_by_identifier, items_by_id = preload_items_for_rows(rows)
+    manifestations_by_identifier, manifestations_by_id = preload_manifestations_for_rows(rows)
+
     rows.each do |row|
       row_num += 1
       import_result = ResourceImportResult.create!(resource_import_file_id: id, body: row.fields.join("\t"))
-      item = Item.find_by(item_identifier: row["item_identifier"].to_s.strip) if row["item_identifier"].to_s.strip.present?
+      item_identifier = row["item_identifier"].to_s.strip
+      item = items_by_identifier[item_identifier] if item_identifier.present?
       unless item
-        item = Item.find_by(id: row["item_id"].to_s.strip) if row["item_id"].to_s.strip.present?
+        item_id = row["item_id"].to_s.strip
+        item = items_by_id[item_id] if item_id.present?
       end
 
       if item
@@ -347,8 +353,8 @@ class ResourceImportFile < ApplicationRecord
         import_result.item = item
       else
         manifestation_identifier = row["manifestation_identifier"].to_s.strip
-        manifestation = Manifestation.find_by(manifestation_identifier: manifestation_identifier) if manifestation_identifier.present?
-        manifestation ||= Manifestation.find_by(id: row["manifestation_id"])
+        manifestation = manifestations_by_identifier[manifestation_identifier] if manifestation_identifier.present?
+        manifestation ||= manifestations_by_id[row["manifestation_id"].to_s.strip]
         if manifestation
           fetch(row, edit_mode: "update")
           ResourceImportFile.import_manifestation_custom_value(row, manifestation).each do |value|
@@ -376,16 +382,24 @@ class ResourceImportFile < ApplicationRecord
     rows = open_import_file(create_import_temp_file(attachment))
     rows.shift
     row_num = 1
+    rows = rows.to_a
+    items_by_identifier, items_by_id = preload_items_for_rows(rows)
 
     rows.each do |row|
       row_num += 1
-      item = Item.find_by(item_identifier: row["item_identifier"].to_s.strip) if row["item_identifier"].to_s.strip.present?
+      item_identifier = row["item_identifier"].to_s.strip
+      item = items_by_identifier[item_identifier] if item_identifier.present?
       unless item
-        item = Item.find_by(id: row["item_id"].to_s.strip) if row["item_id"].to_s.strip.present?
+        item_id = row["item_id"].to_s.strip
+        item = items_by_id[item_id] if item_id.present?
       end
 
       if item
-        item.destroy if item.removable?
+        if item.removable?
+          item.destroy
+          items_by_identifier.delete(item_identifier)
+          items_by_id.delete(item.id.to_s)
+        end
       end
     end
     transition_to!(:completed)
@@ -405,19 +419,24 @@ class ResourceImportFile < ApplicationRecord
     rows = open_import_file(create_import_temp_file(attachment))
     rows.shift
     row_num = 1
+    rows = rows.to_a
+    items_by_identifier, items_by_id = preload_items_for_rows(rows)
+    manifestations_by_identifier, manifestations_by_id = preload_manifestations_for_rows(rows)
 
     rows.each do |row|
-      item = Item.find_by(item_identifier: row["item_identifier"].to_s.strip) if row["item_identifier"].to_s.strip.present?
+      item_identifier = row["item_identifier"].to_s.strip
+      item = items_by_identifier[item_identifier] if item_identifier.present?
       unless item
-        item = Item.find_by(id: row["item_id"].to_s.strip) if row["item_id"].to_s.strip.present?
+        item_id = row["item_id"].to_s.strip
+        item = items_by_id[item_id] if item_id.present?
       end
 
       manifestation_identifier = row["manifestation_identifier"].to_s.strip
-      manifestation = Manifestation.find_by(manifestation_identifier: manifestation_identifier)
-      manifestation ||= Manifestation.find_by(id: row["manifestation_id"].to_s.strip)
+      manifestation = manifestations_by_identifier[manifestation_identifier]
+      manifestation ||= manifestations_by_id[row["manifestation_id"].to_s.strip]
 
       if item && manifestation
-        item.manifestation = manifestation
+        item.manifestation_id = manifestation.id
         item.save!
       end
 
@@ -440,6 +459,22 @@ class ResourceImportFile < ApplicationRecord
   end
 
   private
+
+  def preload_items_for_rows(rows)
+    item_identifiers = rows.filter_map { |row| row["item_identifier"].to_s.strip.presence }
+    item_ids = rows.filter_map { |row| row["item_id"].to_s.strip.presence }
+    items_by_identifier = Item.where(item_identifier: item_identifiers).index_by(&:item_identifier)
+    items_by_id = Item.where(id: item_ids).index_by { |item| item.id.to_s }
+    [ items_by_identifier, items_by_id ]
+  end
+
+  def preload_manifestations_for_rows(rows)
+    manifestation_identifiers = rows.filter_map { |row| row["manifestation_identifier"].to_s.strip.presence }
+    manifestation_ids = rows.filter_map { |row| row["manifestation_id"].to_s.strip.presence }
+    manifestations_by_identifier = Manifestation.where(manifestation_identifier: manifestation_identifiers).index_by(&:manifestation_identifier)
+    manifestations_by_id = Manifestation.where(id: manifestation_ids).index_by { |manifestation| manifestation.id.to_s }
+    [ manifestations_by_identifier, manifestations_by_id ]
+  end
 
   def open_import_file(tempfile)
     file = CSV.open(tempfile, col_sep: "\t")
@@ -487,6 +522,7 @@ class ResourceImportFile < ApplicationRecord
 
   def import_subject(row)
     subjects = []
+    concept_subject_type = SubjectType.find_by(name: "concept")
     SubjectHeadingType.order(:position).pluck(:name).map { |s| "subject:#{s}" }.each do |column_name|
       type = column_name.split(":").last
       subject_list = row[column_name].to_s.split("//")
@@ -497,7 +533,7 @@ class ResourceImportFile < ApplicationRecord
         subject = Subject.new(term: value)
         subject.subject_heading_type = subject_heading_type
         # TODO: Subject typeの設定
-        subject.subject_type = SubjectType.find_by(name: "concept")
+        subject.subject_type = concept_subject_type
         subject.save!
         subjects << subject
       }
@@ -827,9 +863,9 @@ class ResourceImportFile < ApplicationRecord
     %w[isbn issn jpno ncid lccn iss_itemno].each do |id_type|
       next unless row[id_type.to_s].present?
 
+      identifier_type = IdentifierType.find_or_create_by!(name: id_type)
       row[id_type].split(/\/\//).each do |identifier_s|
         import_id = Identifier.new(body: identifier_s)
-        identifier_type = IdentifierType.find_or_create_by!(name: id_type)
         import_id.identifier_type = identifier_type
         identifiers << import_id if import_id.valid?
       end
@@ -849,7 +885,9 @@ class ResourceImportFile < ApplicationRecord
 
   def self.import_manifestation_custom_value(row, manifestation)
     values = []
-    ManifestationCustomProperty.order(:position).pluck(:name).map { |c| "manifestation:#{c}" }.each do |column_name|
+    manifestation_custom_properties = ManifestationCustomProperty.order(:position)
+    manifestation_custom_properties_by_name = manifestation_custom_properties.index_by(&:name)
+    manifestation_custom_properties.map { |c| "manifestation:#{c.name}" }.each do |column_name|
       value = nil
       property = column_name.split(":").last
       next if row[column_name].blank?
@@ -862,7 +900,7 @@ class ResourceImportFile < ApplicationRecord
         value.value = row[column_name]
       else
         value = ManifestationCustomValue.new(
-          manifestation_custom_property: ManifestationCustomProperty.find_by(name: property),
+          manifestation_custom_property: manifestation_custom_properties_by_name[property],
           value: row[column_name]
         )
       end
@@ -873,7 +911,9 @@ class ResourceImportFile < ApplicationRecord
 
   def self.import_item_custom_value(row, item)
     values = []
-    ItemCustomProperty.order(:position).pluck(:name).map { |c| "item:#{c}" }.each do |column_name|
+    item_custom_properties = ItemCustomProperty.order(:position)
+    item_custom_properties_by_name = item_custom_properties.index_by(&:name)
+    item_custom_properties.map { |c| "item:#{c.name}" }.each do |column_name|
       value = nil
       property = column_name.split(":").last
       next if row[column_name].blank?
@@ -884,7 +924,7 @@ class ResourceImportFile < ApplicationRecord
         value.value = row[column_name]
       else
         value = ItemCustomValue.new(
-          item_custom_property: ItemCustomProperty.find_by(name: property),
+          item_custom_property: item_custom_properties_by_name[property],
           value: row[column_name]
         )
       end
