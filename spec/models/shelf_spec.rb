@@ -4,8 +4,8 @@ describe Shelf do
   fixtures :all
 
   it "should respond to web_shelf" do
-    shelves(:shelf_00001).web_shelf?.should be_truthy
-    shelves(:shelf_00002).web_shelf?.should_not be_truthy
+    expect(shelves(:shelf_00001).web_shelf?).to be_truthy
+    expect(shelves(:shelf_00002).web_shelf?).not_to be_truthy
   end
 end
 

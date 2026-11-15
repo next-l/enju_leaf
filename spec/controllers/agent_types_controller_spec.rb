@@ -83,14 +83,14 @@ describe AgentTypesController do
     describe 'with invalid params' do
       it 'assigns a newly created but unsaved agent_type as @agent_type' do
         # Trigger the behavior that occurs when invalid params are submitted
-        AgentType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(AgentType).to receive(:save).and_return(false)
         post :create, params: { agent_type: { name: 'test' } }
         expect(assigns(:agent_type)).to be_a_new(AgentType)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        AgentType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(AgentType).to receive(:save).and_return(false)
         post :create, params: { agent_type: { name: 'test' } }
         expect(response).to render_template('new')
       end
@@ -134,7 +134,7 @@ describe AgentTypesController do
       it 'assigns the agent_type as @agent_type' do
         agent_type = AgentType.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        AgentType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(AgentType).to receive(:save).and_return(false)
         put :update, params: { id: agent_type.id, agent_type: { name: 'test' } }
         expect(assigns(:agent_type)).to eq(agent_type)
       end
@@ -142,7 +142,7 @@ describe AgentTypesController do
       it "re-renders the 'edit' template" do
         agent_type = AgentType.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        AgentType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(AgentType).to receive(:save).and_return(false)
         put :update, params: { id: agent_type.id, agent_type: { name: 'test' } }
         expect(response).to render_template('edit')
       end

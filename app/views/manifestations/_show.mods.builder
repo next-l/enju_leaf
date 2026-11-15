@@ -62,15 +62,13 @@ xml.physicalDescription {
   xml.form manifestation.carrier_type.name, "authority" => "marcform"
   xml.extent manifestation.extent
 }
-if defined?(EnjuSubject)
-  xml.subject {
-    manifestation.subjects.each do |subject|
-      xml.topic subject.term
-    end
-  }
-  manifestation.classifications.each do |classification|
-    xml.classification classification.category, "authority" => classification.classification_type.name
+xml.subject {
+  manifestation.subjects.each do |subject|
+    xml.topic subject.term
   end
+}
+manifestation.classifications.each do |classification|
+  xml.classification classification.category, "authority" => classification.classification_type.name
 end
 xml.abstract manifestation.description
 xml.note manifestation.note

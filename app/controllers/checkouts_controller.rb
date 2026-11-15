@@ -119,7 +119,13 @@ class CheckoutsController < ApplicationController
   # PUT /checkouts/1
   # PUT /checkouts/1.json
   def update
-    @checkout.assign_attributes(checkout_params)
+    if current_user.has_role?("Librarian")
+      @checkout.assign_attributes(checkout_params)
+    else
+      # 一般ユーザは貸出期限日を自分で指定できない
+      new_due_date = @checkout.get_new_due_date
+      @checkout.due_date = new_due_date if new_due_date
+    end
     @checkout.checkout_renewal_count += 1
 
     respond_to do |format|

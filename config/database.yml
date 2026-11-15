@@ -1,28 +1,27 @@
-# PostgreSQL. Versions 9.3 and up are supported.
+# PostgreSQL. Versions 9.5 and up are supported.
 #
 # Install the pg driver:
 #   gem install pg
 # On macOS with Homebrew:
-#   gem install pg -- --with-pg-config=/usr/local/bin/pg_config
-# On macOS with MacPorts:
-#   gem install pg -- --with-pg-config=/opt/local/lib/postgresql84/bin/pg_config
+#   gem install pg -- --with-pg-config=/opt/homebrew/bin/pg_config
 # On Windows:
 #   gem install pg
 #       Choose the win32 build.
 #       Install PostgreSQL and put its /bin directory on your path.
 #
 # Configure Using Gemfile
-# gem 'pg'
+# gem "pg"
 #
 default: &default
   adapter: postgresql
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: <%= ENV["POSTGRES_USER"] %>
   password: <%= ENV["POSTGRES_PASSWORD"] %>
   host: <%= ENV.fetch("POSTGRES_HOST") { "localhost" } %>
+
 
 development:
   primary:
@@ -39,13 +38,13 @@ development:
     database: enju_leaf_development_queue
     migrations_paths: db/queue_migrate
 
-  # The specified database role being used to connect to postgres.
-  # To create additional roles in postgres see `$ createuser --help`.
-  # When left blank, postgres will use the default role. This is
+  # The specified database role being used to connect to PostgreSQL.
+  # To create additional roles in PostgreSQL see `$ createuser --help`.
+  # When left blank, PostgreSQL will use the default role. This is
   # the same name as the operating system user running Rails.
   #username: enju_leaf
 
-  # The password associated with the postgres role (username).
+  # The password associated with the PostgreSQL role (username).
   #password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -70,9 +69,8 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  primary:
-    <<: *default
-    database: enju_leaf_test
+  <<: *default
+  database: enju_leaf_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -89,7 +87,13 @@ test:
 # URL environment variable explicitly:
 #
 #   production:
-#     url: <%= ENV['MY_APP_DATABASE_URL'] %>
+#     url: <%= ENV["MY_APP_DATABASE_URL"] %>
+#
+# Connection URLs for non-primary databases can also be configured using
+# environment variables. The variable name is formed by concatenating the
+# connection name with `_DATABASE_URL`. For example:
+#
+#   CACHE_DATABASE_URL="postgres://cacheuser:cachepass@localhost/cachedatabase"
 #
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.

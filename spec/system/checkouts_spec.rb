@@ -33,13 +33,13 @@ RSpec.describe 'Checkouts', type: :system do
     it 'should contain query params in the facet' do
       sign_in users(:librarian1)
       visit checkouts_path(days_overdue: 10)
-      expect(page).to have_link 'RSS', href: checkouts_path(format: :rss, days_overdue: 10)
+      expect(page).to have_link 'RSS', href: checkouts_path(format: :rss, days_overdue: 10, locale: 'en')
       expect(page).to have_link 'TSV', href: checkouts_path(format: :txt, days_overdue: 10, locale: 'en')
     end
 
     it 'should export checkouts to TSV' do
       sign_in users(:librarian1)
-      visit checkouts_path(format: :txt)
+      visit checkouts_path(format: :txt, locale: 'en')
     end
   end
 end

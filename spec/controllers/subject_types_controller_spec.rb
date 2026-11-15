@@ -38,7 +38,7 @@ describe SubjectTypesController do
       it 'assigns all subject_types as @subject_types' do
         get :index
         expect(assigns(:subject_types)).to be_nil
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -46,7 +46,7 @@ describe SubjectTypesController do
       it 'assigns all subject_types as @subject_types' do
         get :index
         expect(assigns(:subject_types)).to be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -98,7 +98,7 @@ describe SubjectTypesController do
       it 'assigns the requested subject_type as @subject_type' do
         get :new
         expect(assigns(:subject_type)).not_to be_valid
-        response.should be_successful
+        expect(response).to be_successful
       end
     end
 
@@ -108,7 +108,7 @@ describe SubjectTypesController do
       it 'should not assign the requested subject_type as @subject_type' do
         get :new
         expect(assigns(:subject_type)).to be_nil
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -118,7 +118,7 @@ describe SubjectTypesController do
       it 'should not assign the requested subject_type as @subject_type' do
         get :new
         expect(assigns(:subject_type)).to be_nil
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -126,7 +126,7 @@ describe SubjectTypesController do
       it 'should not assign the requested subject_type as @subject_type' do
         get :new
         expect(assigns(:subject_type)).to be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -148,7 +148,7 @@ describe SubjectTypesController do
       it 'assigns the requested subject_type as @subject_type' do
         subject_type = FactoryBot.create(:subject_type)
         get :edit, params: { id: subject_type.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -158,7 +158,7 @@ describe SubjectTypesController do
       it 'assigns the requested subject_type as @subject_type' do
         subject_type = FactoryBot.create(:subject_type)
         get :edit, params: { id: subject_type.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -166,7 +166,7 @@ describe SubjectTypesController do
       it 'should not assign the requested subject_type as @subject_type' do
         subject_type = FactoryBot.create(:subject_type)
         get :edit, params: { id: subject_type.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -188,7 +188,7 @@ describe SubjectTypesController do
 
         it 'redirects to the created agent' do
           post :create, params: { subject_type: @attrs }
-          response.should redirect_to(assigns(:subject_type))
+          expect(response).to redirect_to(assigns(:subject_type))
         end
       end
 
@@ -200,7 +200,7 @@ describe SubjectTypesController do
 
         it 'should be successful' do
           post :create, params: { subject_type: @invalid_attrs }
-          response.should be_successful
+          expect(response).to be_successful
         end
       end
     end
@@ -216,7 +216,7 @@ describe SubjectTypesController do
 
         it 'should be forbidden' do
           post :create, params: { subject_type: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
@@ -228,7 +228,7 @@ describe SubjectTypesController do
 
         it 'should be forbidden' do
           post :create, params: { subject_type: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -244,7 +244,7 @@ describe SubjectTypesController do
 
         it 'should be forbidden' do
           post :create, params: { subject_type: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
@@ -256,7 +256,7 @@ describe SubjectTypesController do
 
         it 'should be forbidden' do
           post :create, params: { subject_type: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -270,7 +270,7 @@ describe SubjectTypesController do
 
         it 'should be forbidden' do
           post :create, params: { subject_type: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
@@ -282,7 +282,7 @@ describe SubjectTypesController do
 
         it 'should be forbidden' do
           post :create, params: { subject_type: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -310,14 +310,14 @@ describe SubjectTypesController do
 
         it 'moves its position when specified' do
           put :update, params: { id: @subject_type.id, subject_type: @attrs, move: 'lower' }
-          response.should redirect_to(subject_types_url)
+          expect(response).to redirect_to(subject_types_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested subject_type as @subject_type' do
           put :update, params: { id: @subject_type.id, subject_type: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -333,14 +333,14 @@ describe SubjectTypesController do
         it 'assigns the requested subject_type as @subject_type' do
           put :update, params: { id: @subject_type.id, subject_type: @attrs }
           expect(assigns(:subject_type)).to eq(@subject_type)
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested subject_type as @subject_type' do
           put :update, params: { id: @subject_type.id, subject_type: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -356,14 +356,14 @@ describe SubjectTypesController do
         it 'assigns the requested subject_type as @subject_type' do
           put :update, params: { id: @subject_type.id, subject_type: @attrs }
           expect(assigns(:subject_type)).to eq(@subject_type)
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested subject_type as @subject_type' do
           put :update, params: { id: @subject_type.id, subject_type: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -376,14 +376,14 @@ describe SubjectTypesController do
 
         it 'should be forbidden' do
           put :update, params: { id: @subject_type.id, subject_type: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested subject_type as @subject_type' do
           put :update, params: { id: @subject_type.id, subject_type: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -403,7 +403,7 @@ describe SubjectTypesController do
 
       it 'redirects to the subject_types list' do
         delete :destroy, params: { id: @subject_type.id }
-        response.should redirect_to(subject_types_url)
+        expect(response).to redirect_to(subject_types_url)
       end
     end
 
@@ -416,7 +416,7 @@ describe SubjectTypesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @subject_type.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -429,7 +429,7 @@ describe SubjectTypesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @subject_type.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -440,7 +440,7 @@ describe SubjectTypesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @subject_type.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

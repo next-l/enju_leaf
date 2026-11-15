@@ -13,7 +13,7 @@ describe CheckoutTypesController do
 
       it 'assigns all checkout_types as @checkout_types' do
         get :index
-        assigns(:checkout_types).should eq(CheckoutType.order(:position))
+        expect(assigns(:checkout_types)).to eq(CheckoutType.order(:position))
       end
     end
 
@@ -22,7 +22,7 @@ describe CheckoutTypesController do
 
       it 'assigns all checkout_types as @checkout_types' do
         get :index
-        assigns(:checkout_types).should eq(CheckoutType.order(:position))
+        expect(assigns(:checkout_types)).to eq(CheckoutType.order(:position))
       end
     end
 
@@ -31,16 +31,16 @@ describe CheckoutTypesController do
 
       it 'assigns all checkout_types as @checkout_types' do
         get :index
-        assigns(:checkout_types).should be_nil
-        response.should be_forbidden
+        expect(assigns(:checkout_types)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'assigns all checkout_types as @checkout_types' do
         get :index
-        assigns(:checkout_types).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:checkout_types)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -52,7 +52,7 @@ describe CheckoutTypesController do
       it 'assigns the requested checkout_type as @checkout_type' do
         checkout_type = FactoryBot.create(:checkout_type)
         get :show, params: { id: checkout_type.id }
-        assigns(:checkout_type).should eq(checkout_type)
+        expect(assigns(:checkout_type)).to eq(checkout_type)
       end
     end
 
@@ -62,7 +62,7 @@ describe CheckoutTypesController do
       it 'assigns the requested checkout_type as @checkout_type' do
         checkout_type = FactoryBot.create(:checkout_type)
         get :show, params: { id: checkout_type.id }
-        assigns(:checkout_type).should eq(checkout_type)
+        expect(assigns(:checkout_type)).to eq(checkout_type)
       end
     end
 
@@ -72,7 +72,7 @@ describe CheckoutTypesController do
       it 'assigns the requested checkout_type as @checkout_type' do
         checkout_type = FactoryBot.create(:checkout_type)
         get :show, params: { id: checkout_type.id }
-        assigns(:checkout_type).should eq(checkout_type)
+        expect(assigns(:checkout_type)).to eq(checkout_type)
       end
     end
 
@@ -80,7 +80,7 @@ describe CheckoutTypesController do
       it 'assigns the requested checkout_type as @checkout_type' do
         checkout_type = FactoryBot.create(:checkout_type)
         get :show, params: { id: checkout_type.id }
-        assigns(:checkout_type).should eq(checkout_type)
+        expect(assigns(:checkout_type)).to eq(checkout_type)
       end
     end
   end
@@ -91,8 +91,8 @@ describe CheckoutTypesController do
 
       it 'assigns the requested checkout_type as @checkout_type' do
         get :new
-        assigns(:checkout_type).should_not be_valid
-        response.should be_successful
+        expect(assigns(:checkout_type)).not_to be_valid
+        expect(response).to be_successful
       end
     end
 
@@ -101,8 +101,8 @@ describe CheckoutTypesController do
 
       it 'should not assign the requested checkout_type as @checkout_type' do
         get :new
-        assigns(:checkout_type).should be_nil
-        response.should be_forbidden
+        expect(assigns(:checkout_type)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
@@ -111,16 +111,16 @@ describe CheckoutTypesController do
 
       it 'should not assign the requested checkout_type as @checkout_type' do
         get :new
-        assigns(:checkout_type).should be_nil
-        response.should be_forbidden
+        expect(assigns(:checkout_type)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should not assign the requested checkout_type as @checkout_type' do
         get :new
-        assigns(:checkout_type).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:checkout_type)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -132,7 +132,7 @@ describe CheckoutTypesController do
       it 'assigns the requested checkout_type as @checkout_type' do
         checkout_type = FactoryBot.create(:checkout_type)
         get :edit, params: { id: checkout_type.id }
-        assigns(:checkout_type).should eq(checkout_type)
+        expect(assigns(:checkout_type)).to eq(checkout_type)
       end
     end
 
@@ -142,7 +142,7 @@ describe CheckoutTypesController do
       it 'assigns the requested checkout_type as @checkout_type' do
         checkout_type = FactoryBot.create(:checkout_type)
         get :edit, params: { id: checkout_type.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -152,7 +152,7 @@ describe CheckoutTypesController do
       it 'assigns the requested checkout_type as @checkout_type' do
         checkout_type = FactoryBot.create(:checkout_type)
         get :edit, params: { id: checkout_type.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -160,7 +160,7 @@ describe CheckoutTypesController do
       it 'should not assign the requested checkout_type as @checkout_type' do
         checkout_type = FactoryBot.create(:checkout_type)
         get :edit, params: { id: checkout_type.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -177,24 +177,24 @@ describe CheckoutTypesController do
       describe 'with valid params' do
         it 'assigns a newly created checkout_type as @checkout_type' do
           post :create, params: { checkout_type: @attrs }
-          assigns(:checkout_type).should be_valid
+          expect(assigns(:checkout_type)).to be_valid
         end
 
         it 'redirects to the created patron' do
           post :create, params: { checkout_type: @attrs }
-          response.should redirect_to(assigns(:checkout_type))
+          expect(response).to redirect_to(assigns(:checkout_type))
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved checkout_type as @checkout_type' do
           post :create, params: { checkout_type: @invalid_attrs }
-          assigns(:checkout_type).should_not be_valid
+          expect(assigns(:checkout_type)).not_to be_valid
         end
 
         it 'should be successful' do
           post :create, params: { checkout_type: @invalid_attrs }
-          response.should be_successful
+          expect(response).to be_successful
         end
       end
     end
@@ -205,24 +205,24 @@ describe CheckoutTypesController do
       describe 'with valid params' do
         it 'assigns a newly created checkout_type as @checkout_type' do
           post :create, params: { checkout_type: @attrs }
-          assigns(:checkout_type).should be_nil
+          expect(assigns(:checkout_type)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { checkout_type: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved checkout_type as @checkout_type' do
           post :create, params: { checkout_type: @invalid_attrs }
-          assigns(:checkout_type).should be_nil
+          expect(assigns(:checkout_type)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { checkout_type: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -233,24 +233,24 @@ describe CheckoutTypesController do
       describe 'with valid params' do
         it 'assigns a newly created checkout_type as @checkout_type' do
           post :create, params: { checkout_type: @attrs }
-          assigns(:checkout_type).should be_nil
+          expect(assigns(:checkout_type)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { checkout_type: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved checkout_type as @checkout_type' do
           post :create, params: { checkout_type: @invalid_attrs }
-          assigns(:checkout_type).should be_nil
+          expect(assigns(:checkout_type)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { checkout_type: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -259,24 +259,24 @@ describe CheckoutTypesController do
       describe 'with valid params' do
         it 'assigns a newly created checkout_type as @checkout_type' do
           post :create, params: { checkout_type: @attrs }
-          assigns(:checkout_type).should be_nil
+          expect(assigns(:checkout_type)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { checkout_type: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved checkout_type as @checkout_type' do
           post :create, params: { checkout_type: @invalid_attrs }
-          assigns(:checkout_type).should be_nil
+          expect(assigns(:checkout_type)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { checkout_type: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -299,19 +299,19 @@ describe CheckoutTypesController do
 
         it 'assigns the requested checkout_type as @checkout_type' do
           put :update, params: { id: @checkout_type.id, checkout_type: @attrs }
-          assigns(:checkout_type).should eq(@checkout_type)
+          expect(assigns(:checkout_type)).to eq(@checkout_type)
         end
 
         it 'moves its position when specified' do
           put :update, params: { id: @checkout_type.id, checkout_type: @attrs, move: 'lower' }
-          response.should redirect_to(checkout_types_url)
+          expect(response).to redirect_to(checkout_types_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested checkout_type as @checkout_type' do
           put :update, params: { id: @checkout_type.id, checkout_type: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -326,15 +326,15 @@ describe CheckoutTypesController do
 
         it 'assigns the requested checkout_type as @checkout_type' do
           put :update, params: { id: @checkout_type.id, checkout_type: @attrs }
-          assigns(:checkout_type).should eq(@checkout_type)
-          response.should be_forbidden
+          expect(assigns(:checkout_type)).to eq(@checkout_type)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested checkout_type as @checkout_type' do
           put :update, params: { id: @checkout_type.id, checkout_type: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -349,15 +349,15 @@ describe CheckoutTypesController do
 
         it 'assigns the requested checkout_type as @checkout_type' do
           put :update, params: { id: @checkout_type.id, checkout_type: @attrs }
-          assigns(:checkout_type).should eq(@checkout_type)
-          response.should be_forbidden
+          expect(assigns(:checkout_type)).to eq(@checkout_type)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested checkout_type as @checkout_type' do
           put :update, params: { id: @checkout_type.id, checkout_type: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -370,14 +370,14 @@ describe CheckoutTypesController do
 
         it 'should be forbidden' do
           put :update, params: { id: @checkout_type.id, checkout_type: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested checkout_type as @checkout_type' do
           put :update, params: { id: @checkout_type.id, checkout_type: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -397,7 +397,7 @@ describe CheckoutTypesController do
 
       it 'redirects to the checkout_types list' do
         delete :destroy, params: { id: @checkout_type.id }
-        response.should redirect_to(checkout_types_url)
+        expect(response).to redirect_to(checkout_types_url)
       end
     end
 
@@ -410,7 +410,7 @@ describe CheckoutTypesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @checkout_type.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -423,7 +423,7 @@ describe CheckoutTypesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @checkout_type.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -434,7 +434,7 @@ describe CheckoutTypesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @checkout_type.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

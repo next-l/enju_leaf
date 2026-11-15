@@ -112,7 +112,7 @@ ja:
         category: 分類
       manifestation/identifiers:
         body: 識別子
-      manifestation/manifesetation_custom_properties:
+      manifestation/manifestation_custom_properties:
         name: 項目名
         value: 値
       item:
@@ -253,12 +253,12 @@ ja:
         isbn: ISBN
         state: 状態
       agent_relationship:
-        parent: 派生元の人物・団体
-        child: 派生先の人物・団体
+        parent_id: 派生元の人物・団体
+        child_id: 派生先の人物・団体
         agent_relationship_type_id: 人物・団体の関係の種類
       manifestation_relationship:
-        parent: 派生元の資料
-        child: 派生先の資料
+        parent_id: 派生元の資料
+        child_id: 派生先の資料
         manifestation_relationship_type_id: 資料の関係の種類
       carrier_type:
         name: 名前

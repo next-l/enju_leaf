@@ -6,17 +6,17 @@ describe NewsFeed do
   it "should get content", vcr: true do
     feed = news_feeds(:news_feed_00001)
     feed.force_reload
-    feed.content.should be_truthy
+    expect(feed.content).to be_truthy
   end
 
   it "should not get content if the feed is invalid", vcr: true do
     feed = news_feeds(:news_feed_00002)
     feed.force_reload
-    feed.content.should be_nil
+    expect(feed.content).to be_nil
   end
 
   it "should reload content", vcr: true do
-    news_feeds(:news_feed_00001).force_reload.should be_truthy
+    expect(news_feeds(:news_feed_00001).force_reload).to be_truthy
   end
 
   it "should fetch feeds", vcr: true do

@@ -1,15 +1,15 @@
-<%= form_with(model: news_feed) do |f| -%>
-  <%= error_messages(news_feed) -%>
+<%= form_with(model: news_feed) do |f| %>
+  <%= error_messages(news_feed) %>
 
   <div class="field">
-    <%= f.label t("activerecord.attributes.news_feed.title") -%><br/>
-    <%= f.text_field :title, class: "resource_title" -%>
+    <%= f.label t("activerecord.attributes.news_feed.title") %><br/>
+    <%= f.text_field :title, class: "form-control resource_title" %>
   </div>
   <div class="field">
-    <%= f.label t("activerecord.attributes.news_feed.url") -%><br/>
-    <%= f.text_field :url, class: "resource_url" -%>
+    <%= f.label t("activerecord.attributes.news_feed.url") %><br/>
+    <%= f.text_field :url, class: "form-control resource_url" %>
   </div>
-  <div class="actions">
-    <%= f.submit -%>
+  <div class="actions mt-3">
+    <%= f.submit class: "btn btn-primary" %>
   </div>
-<%- end -%>
+<% end %>

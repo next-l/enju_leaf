@@ -125,7 +125,7 @@ describe AgentImportFilesController do
       it 'should create agent_import_file' do
         post :create, params: { agent_import_file: { attachment: fixture_file_upload('agent_import_file_sample1.tsv', 'text/csv') } }
         expect(assigns(:agent_import_file)).to be_valid
-        assigns(:agent_import_file).user.username.should eq @user.username
+        expect(assigns(:agent_import_file).user.username).to eq @user.username
         expect(response).to redirect_to agent_import_file_url(assigns(:agent_import_file))
       end
 
@@ -133,7 +133,7 @@ describe AgentImportFilesController do
         old_agents_count = Agent.count
         post :create, params: { agent_import_file: { attachment: fixture_file_upload('agent_import_file_sample2.tsv', 'text/csv') } }
         assigns(:agent_import_file).import_start
-        Agent.count.should eq old_agents_count + 3
+        expect(Agent.count).to eq old_agents_count + 3
         expect(response).to redirect_to agent_import_file_url(assigns(:agent_import_file))
       end
     end

@@ -8,8 +8,8 @@ describe Library do
   end
 
   it "should should create default shelf" do
-    @library.shelves.first.should be_truthy
-    @library.shelves.first.name.should eq "#{@library.name}_default"
+    expect(@library.shelves.first).to be_truthy
+    expect(@library.shelves.first.name).to eq "#{@library.name}_default"
   end
 end
 

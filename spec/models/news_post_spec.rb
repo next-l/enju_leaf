@@ -1,8 +1,3 @@
-require 'rails_helper'
-
-describe NewsPost do
-end
-
 # ## Schema Information
 #
 # Table name: `news_posts`
@@ -37,3 +32,7 @@ end
 # * `fk_rails_...`:
 #     * **`user_id => users.id`**
 #
+require 'rails_helper'
+
+describe NewsPost do
+end

@@ -6,15 +6,15 @@ describe "checkouts/show" do
   before(:each) do
     @checkout = assign(:checkout, checkouts(:checkout_00001))
     assign(:library_group, LibraryGroup.site_config)
-    view.stub(:current_user).and_return(User.find_by(username: 'enjuadmin'))
+    allow(view).to receive(:current_user).and_return(User.find_by(username: 'enjuadmin'))
   end
 
   it "renders attributes in <p>" do
     allow(view).to receive(:policy).and_return double(update?: true, destroy?: true)
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/Due date/)
+    expect(rendered).to match(/Due date/)
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/Item identifier/)
+    expect(rendered).to match(/Item identifier/)
   end
 end

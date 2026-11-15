@@ -10,7 +10,7 @@ describe SeriesStatementMergeListsController do
 
       it 'assigns all series_statement_merge_lists as @series_statement_merge_lists' do
         get :index
-        assigns(:series_statement_merge_lists).should eq(SeriesStatementMergeList.page(1))
+        expect(assigns(:series_statement_merge_lists)).to eq(SeriesStatementMergeList.page(1))
       end
     end
 
@@ -19,7 +19,7 @@ describe SeriesStatementMergeListsController do
 
       it 'assigns all series_statement_merge_lists as @series_statement_merge_lists' do
         get :index
-        assigns(:series_statement_merge_lists).should eq(SeriesStatementMergeList.page(1))
+        expect(assigns(:series_statement_merge_lists)).to eq(SeriesStatementMergeList.page(1))
       end
     end
 
@@ -28,14 +28,14 @@ describe SeriesStatementMergeListsController do
 
       it 'assigns empty as @series_statement_merge_lists' do
         get :index
-        assigns(:series_statement_merge_lists).should be_nil
+        expect(assigns(:series_statement_merge_lists)).to be_nil
       end
     end
 
     describe 'When not logged in' do
       it 'assigns empty as @series_statement_merge_lists' do
         get :index
-        assigns(:series_statement_merge_lists).should be_nil
+        expect(assigns(:series_statement_merge_lists)).to be_nil
       end
     end
   end
@@ -47,7 +47,7 @@ describe SeriesStatementMergeListsController do
       it 'assigns the requested series_statement_merge_list as @series_statement_merge_list' do
         series_statement_merge_list = FactoryBot.create(:series_statement_merge_list)
         get :show, params: { id: series_statement_merge_list.id }
-        assigns(:series_statement_merge_list).should eq(series_statement_merge_list)
+        expect(assigns(:series_statement_merge_list)).to eq(series_statement_merge_list)
       end
     end
 
@@ -57,7 +57,7 @@ describe SeriesStatementMergeListsController do
       it 'assigns the requested series_statement_merge_list as @series_statement_merge_list' do
         series_statement_merge_list = FactoryBot.create(:series_statement_merge_list)
         get :show, params: { id: series_statement_merge_list.id }
-        assigns(:series_statement_merge_list).should eq(series_statement_merge_list)
+        expect(assigns(:series_statement_merge_list)).to eq(series_statement_merge_list)
       end
     end
 
@@ -67,7 +67,7 @@ describe SeriesStatementMergeListsController do
       it 'assigns the requested series_statement_merge_list as @series_statement_merge_list' do
         series_statement_merge_list = FactoryBot.create(:series_statement_merge_list)
         get :show, params: { id: series_statement_merge_list.id }
-        assigns(:series_statement_merge_list).should eq(series_statement_merge_list)
+        expect(assigns(:series_statement_merge_list)).to eq(series_statement_merge_list)
       end
     end
 
@@ -75,7 +75,7 @@ describe SeriesStatementMergeListsController do
       it 'assigns the requested series_statement_merge_list as @series_statement_merge_list' do
         series_statement_merge_list = FactoryBot.create(:series_statement_merge_list)
         get :show, params: { id: series_statement_merge_list.id }
-        assigns(:series_statement_merge_list).should eq(series_statement_merge_list)
+        expect(assigns(:series_statement_merge_list)).to eq(series_statement_merge_list)
       end
     end
   end
@@ -86,7 +86,7 @@ describe SeriesStatementMergeListsController do
 
       it 'assigns the requested series_statement_merge_list as @series_statement_merge_list' do
         get :new
-        assigns(:series_statement_merge_list).should_not be_valid
+        expect(assigns(:series_statement_merge_list)).not_to be_valid
       end
     end
 
@@ -95,7 +95,7 @@ describe SeriesStatementMergeListsController do
 
       it 'assigns the requested series_statement_merge_list as @series_statement_merge_list' do
         get :new
-        assigns(:series_statement_merge_list).should_not be_valid
+        expect(assigns(:series_statement_merge_list)).not_to be_valid
       end
     end
 
@@ -104,16 +104,16 @@ describe SeriesStatementMergeListsController do
 
       it 'should not assign the requested series_statement_merge_list as @series_statement_merge_list' do
         get :new
-        assigns(:series_statement_merge_list).should be_nil
-        response.should be_forbidden
+        expect(assigns(:series_statement_merge_list)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should not assign the requested series_statement_merge_list as @series_statement_merge_list' do
         get :new
-        assigns(:series_statement_merge_list).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:series_statement_merge_list)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -125,7 +125,7 @@ describe SeriesStatementMergeListsController do
       it 'assigns the requested series_statement_merge_list as @series_statement_merge_list' do
         series_statement_merge_list = FactoryBot.create(:series_statement_merge_list)
         get :edit, params: { id: series_statement_merge_list.id }
-        assigns(:series_statement_merge_list).should eq(series_statement_merge_list)
+        expect(assigns(:series_statement_merge_list)).to eq(series_statement_merge_list)
       end
     end
 
@@ -135,7 +135,7 @@ describe SeriesStatementMergeListsController do
       it 'assigns the requested series_statement_merge_list as @series_statement_merge_list' do
         series_statement_merge_list = FactoryBot.create(:series_statement_merge_list)
         get :edit, params: { id: series_statement_merge_list.id }
-        assigns(:series_statement_merge_list).should eq(series_statement_merge_list)
+        expect(assigns(:series_statement_merge_list)).to eq(series_statement_merge_list)
       end
     end
 
@@ -145,7 +145,7 @@ describe SeriesStatementMergeListsController do
       it 'assigns the requested series_statement_merge_list as @series_statement_merge_list' do
         series_statement_merge_list = FactoryBot.create(:series_statement_merge_list)
         get :edit, params: { id: series_statement_merge_list.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -153,7 +153,7 @@ describe SeriesStatementMergeListsController do
       it 'should not assign the requested series_statement_merge_list as @series_statement_merge_list' do
         series_statement_merge_list = FactoryBot.create(:series_statement_merge_list)
         get :edit, params: { id: series_statement_merge_list.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -170,24 +170,24 @@ describe SeriesStatementMergeListsController do
       describe 'with valid params' do
         it 'assigns a newly created series_statement_merge_list as @series_statement_merge_list' do
           post :create, params: { series_statement_merge_list: @attrs }
-          assigns(:series_statement_merge_list).should be_valid
+          expect(assigns(:series_statement_merge_list)).to be_valid
         end
 
         it 'redirects to the created series_statement_merge_list' do
           post :create, params: { series_statement_merge_list: @attrs }
-          response.should redirect_to(series_statement_merge_list_url(assigns(:series_statement_merge_list)))
+          expect(response).to redirect_to(series_statement_merge_list_url(assigns(:series_statement_merge_list)))
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved series_statement_merge_list as @series_statement_merge_list' do
           post :create, params: { series_statement_merge_list: @invalid_attrs }
-          assigns(:series_statement_merge_list).should_not be_valid
+          expect(assigns(:series_statement_merge_list)).not_to be_valid
         end
 
         it "re-renders the 'new' template" do
           post :create, params: { series_statement_merge_list: @invalid_attrs }
-          response.should render_template('new')
+          expect(response).to render_template('new')
         end
       end
     end
@@ -198,24 +198,24 @@ describe SeriesStatementMergeListsController do
       describe 'with valid params' do
         it 'assigns a newly created series_statement_merge_list as @series_statement_merge_list' do
           post :create, params: { series_statement_merge_list: @attrs }
-          assigns(:series_statement_merge_list).should be_valid
+          expect(assigns(:series_statement_merge_list)).to be_valid
         end
 
         it 'redirects to the created series_statement_merge_list' do
           post :create, params: { series_statement_merge_list: @attrs }
-          response.should redirect_to(series_statement_merge_list_url(assigns(:series_statement_merge_list)))
+          expect(response).to redirect_to(series_statement_merge_list_url(assigns(:series_statement_merge_list)))
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved series_statement_merge_list as @series_statement_merge_list' do
           post :create, params: { series_statement_merge_list: @invalid_attrs }
-          assigns(:series_statement_merge_list).should_not be_valid
+          expect(assigns(:series_statement_merge_list)).not_to be_valid
         end
 
         it "re-renders the 'new' template" do
           post :create, params: { series_statement_merge_list: @invalid_attrs }
-          response.should render_template('new')
+          expect(response).to render_template('new')
         end
       end
     end
@@ -226,24 +226,24 @@ describe SeriesStatementMergeListsController do
       describe 'with valid params' do
         it 'assigns a newly created series_statement_merge_list as @series_statement_merge_list' do
           post :create, params: { series_statement_merge_list: @attrs }
-          assigns(:series_statement_merge_list).should be_nil
+          expect(assigns(:series_statement_merge_list)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { series_statement_merge_list: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved series_statement_merge_list as @series_statement_merge_list' do
           post :create, params: { series_statement_merge_list: @invalid_attrs }
-          assigns(:series_statement_merge_list).should be_nil
+          expect(assigns(:series_statement_merge_list)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { series_statement_merge_list: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -252,24 +252,24 @@ describe SeriesStatementMergeListsController do
       describe 'with valid params' do
         it 'assigns a newly created series_statement_merge_list as @series_statement_merge_list' do
           post :create, params: { series_statement_merge_list: @attrs }
-          assigns(:series_statement_merge_list).should be_nil
+          expect(assigns(:series_statement_merge_list)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { series_statement_merge_list: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved series_statement_merge_list as @series_statement_merge_list' do
           post :create, params: { series_statement_merge_list: @invalid_attrs }
-          assigns(:series_statement_merge_list).should be_nil
+          expect(assigns(:series_statement_merge_list)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { series_statement_merge_list: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -292,8 +292,8 @@ describe SeriesStatementMergeListsController do
 
         it 'assigns the requested series_statement_merge_list as @series_statement_merge_list' do
           put :update, params: { id: @series_statement_merge_list.id, series_statement_merge_list: @attrs }
-          assigns(:series_statement_merge_list).should eq(@series_statement_merge_list)
-          response.should redirect_to(@series_statement_merge_list)
+          expect(assigns(:series_statement_merge_list)).to eq(@series_statement_merge_list)
+          expect(response).to redirect_to(@series_statement_merge_list)
         end
       end
 
@@ -304,7 +304,7 @@ describe SeriesStatementMergeListsController do
 
         it "re-renders the 'edit' template" do
           put :update, params: { id: @series_statement_merge_list.id, series_statement_merge_list: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -319,20 +319,20 @@ describe SeriesStatementMergeListsController do
 
         it 'assigns the requested series_statement_merge_list as @series_statement_merge_list' do
           put :update, params: { id: @series_statement_merge_list.id, series_statement_merge_list: @attrs }
-          assigns(:series_statement_merge_list).should eq(@series_statement_merge_list)
-          response.should redirect_to(@series_statement_merge_list)
+          expect(assigns(:series_statement_merge_list)).to eq(@series_statement_merge_list)
+          expect(response).to redirect_to(@series_statement_merge_list)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the series_statement_merge_list as @series_statement_merge_list' do
           put :update, params: { id: @series_statement_merge_list.id, series_statement_merge_list: @invalid_attrs }
-          assigns(:series_statement_merge_list).should_not be_valid
+          expect(assigns(:series_statement_merge_list)).not_to be_valid
         end
 
         it "re-renders the 'edit' template" do
           put :update, params: { id: @series_statement_merge_list.id, series_statement_merge_list: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -347,15 +347,15 @@ describe SeriesStatementMergeListsController do
 
         it 'assigns the requested series_statement_merge_list as @series_statement_merge_list' do
           put :update, params: { id: @series_statement_merge_list.id, series_statement_merge_list: @attrs }
-          assigns(:series_statement_merge_list).should eq(@series_statement_merge_list)
-          response.should be_forbidden
+          expect(assigns(:series_statement_merge_list)).to eq(@series_statement_merge_list)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested series_statement_merge_list as @series_statement_merge_list' do
           put :update, params: { id: @series_statement_merge_list.id, series_statement_merge_list: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -368,14 +368,14 @@ describe SeriesStatementMergeListsController do
 
         it 'should be forbidden' do
           put :update, params: { id: @series_statement_merge_list.id, series_statement_merge_list: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested series_statement_merge_list as @series_statement_merge_list' do
           put :update, params: { id: @series_statement_merge_list.id, series_statement_merge_list: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -395,7 +395,7 @@ describe SeriesStatementMergeListsController do
 
       it 'redirects to the series_statement_merge_lists list' do
         delete :destroy, params: { id: @series_statement_merge_list.id }
-        response.should redirect_to(series_statement_merge_lists_url)
+        expect(response).to redirect_to(series_statement_merge_lists_url)
       end
     end
 
@@ -408,7 +408,7 @@ describe SeriesStatementMergeListsController do
 
       it 'redirects to the series_statement_merge_lists list' do
         delete :destroy, params: { id: @series_statement_merge_list.id }
-        response.should redirect_to(series_statement_merge_lists_url)
+        expect(response).to redirect_to(series_statement_merge_lists_url)
       end
     end
 
@@ -421,7 +421,7 @@ describe SeriesStatementMergeListsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @series_statement_merge_list.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -432,7 +432,7 @@ describe SeriesStatementMergeListsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @series_statement_merge_list.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

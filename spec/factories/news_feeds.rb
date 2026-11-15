@@ -1,10 +1,3 @@
-FactoryBot.define do
-  factory :news_feed do |f|
-    f.sequence(:title) { |n| "news_feed_#{n}" }
-    f.sequence(:url) { |n| "http://www.example.com/feed/#{n}" }
-  end
-end
-
 # ## Schema Information
 #
 # Table name: `news_feeds`
@@ -22,3 +15,9 @@ end
 # **`updated_at`**        | `datetime`         | `not null`
 # **`library_group_id`**  | `bigint`           | `default(1), not null`
 #
+FactoryBot.define do
+  factory :news_feed do |f|
+    f.sequence(:title) { |n| "news_feed_#{n}" }
+    f.sequence(:url) { |n| "http://www.example.com/feed/#{n}" }
+  end
+end

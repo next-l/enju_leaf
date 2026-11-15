@@ -1,6 +1,6 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t("page.advanced_search") -%></h1>
-  <div id="content_list">
+<div id="content_detail" class="col-md-9">
+  <h5 class="title card-header"><%= t("page.advanced_search") -%></h5>
+  <div id="content_list" class="card-body">
 
     <%= form_tag({controller: 'manifestations'}, {method: 'get'}) do -%>
       <table style="width: 100%">
@@ -73,25 +73,23 @@
           <td><label><%= t("activerecord.attributes.item.item_identifier") -%>:</label></td>
           <td><%= text_field_tag "item_identifier" -%></td>
         </tr>
-        <% if defined?(EnjuSubject) %>
-          <tr>
-            <td><label><%= t("activerecord.models.classification") %>:</label></td>
-            <td>
-              <%- types = ClassificationType.all.select { |t| !t.classifications.empty? } -%>
-              <%= select_tag "classification_type",
-              options_from_collection_for_select(
-                types,
-                :id,
-                Proc.new { |e| e.display_name.localize },
-              ) -%>
-              <%= text_field_tag "classification" -%>
-            </td>
-          </tr>
-          <tr>
-            <td><label><%= t("activerecord.models.subject") %>:</label></td>
-            <td><%= text_field_tag "subject_text" -%></td>
-          </tr>
-        <% end %>
+        <tr>
+          <td><label><%= t("activerecord.models.classification") %>:</label></td>
+          <td>
+            <%- types = ClassificationType.all.select { |t| !t.classifications.empty? } -%>
+            <%= select_tag "classification_type",
+            options_from_collection_for_select(
+              types,
+              :id,
+              Proc.new { |e| e.display_name.localize },
+            ) -%>
+            <%= text_field_tag "classification" -%>
+          </td>
+        </tr>
+        <tr>
+          <td><label><%= t("activerecord.models.subject") %>:</label></td>
+          <td><%= text_field_tag "subject_text" -%></td>
+        </tr>
         <tr>
           <td><label><%= t("activerecord.attributes.manifestation.date_of_publication") -%>:</label></td>
           <td><%= t("advanced_search.from") -%>
@@ -147,9 +145,13 @@
         </tr>
       </table>
     <%- end -%>
-    <%= javascript_tag("$(function(){$('#query').focus()})") %>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('query').focus();
+      });
+    </script>
   </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
 </div>

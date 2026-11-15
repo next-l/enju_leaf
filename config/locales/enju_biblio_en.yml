@@ -226,7 +226,7 @@ en:
         position: Position
       medium_of_performance:
         name: Name
-        display_name: Displayname
+        display_name: Display name
         note: Note
         position: Position
       content_type:

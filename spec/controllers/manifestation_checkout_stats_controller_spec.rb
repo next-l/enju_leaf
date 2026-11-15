@@ -13,7 +13,7 @@ describe ManifestationCheckoutStatsController do
 
       it 'assigns all manifestation_checkout_stats as @manifestation_checkout_stats' do
         get :index
-        assigns(:manifestation_checkout_stats).should eq(ManifestationCheckoutStat.page(1))
+        expect(assigns(:manifestation_checkout_stats)).to eq(ManifestationCheckoutStat.page(1))
       end
     end
 
@@ -22,7 +22,7 @@ describe ManifestationCheckoutStatsController do
 
       it 'assigns all manifestation_checkout_stats as @manifestation_checkout_stats' do
         get :index
-        assigns(:manifestation_checkout_stats).should eq(ManifestationCheckoutStat.page(1))
+        expect(assigns(:manifestation_checkout_stats)).to eq(ManifestationCheckoutStat.page(1))
       end
     end
 
@@ -31,14 +31,14 @@ describe ManifestationCheckoutStatsController do
 
       it 'assigns all manifestation_checkout_stats as @manifestation_checkout_stats' do
         get :index
-        assigns(:manifestation_checkout_stats).should eq(ManifestationCheckoutStat.page(1))
+        expect(assigns(:manifestation_checkout_stats)).to eq(ManifestationCheckoutStat.page(1))
       end
     end
 
     describe 'When not logged in' do
       it 'should not assign manifestation_checkout_stats as @manifestation_checkout_stats' do
         get :index
-        assigns(:manifestation_checkout_stats).should eq(ManifestationCheckoutStat.page(1))
+        expect(assigns(:manifestation_checkout_stats)).to eq(ManifestationCheckoutStat.page(1))
       end
     end
   end
@@ -50,7 +50,7 @@ describe ManifestationCheckoutStatsController do
       it 'assigns the requested manifestation_checkout_stat as @manifestation_checkout_stat' do
         manifestation_checkout_stat = FactoryBot.create(:manifestation_checkout_stat)
         get :show, params: { id: manifestation_checkout_stat.id }
-        assigns(:manifestation_checkout_stat).should eq(manifestation_checkout_stat)
+        expect(assigns(:manifestation_checkout_stat)).to eq(manifestation_checkout_stat)
       end
     end
 
@@ -60,7 +60,7 @@ describe ManifestationCheckoutStatsController do
       it 'assigns the requested manifestation_checkout_stat as @manifestation_checkout_stat' do
         manifestation_checkout_stat = FactoryBot.create(:manifestation_checkout_stat)
         get :show, params: { id: manifestation_checkout_stat.id }
-        assigns(:manifestation_checkout_stat).should eq(manifestation_checkout_stat)
+        expect(assigns(:manifestation_checkout_stat)).to eq(manifestation_checkout_stat)
       end
     end
 
@@ -70,7 +70,7 @@ describe ManifestationCheckoutStatsController do
       it 'assigns the requested manifestation_checkout_stat as @manifestation_checkout_stat' do
         manifestation_checkout_stat = FactoryBot.create(:manifestation_checkout_stat)
         get :show, params: { id: manifestation_checkout_stat.id }
-        assigns(:manifestation_checkout_stat).should eq(manifestation_checkout_stat)
+        expect(assigns(:manifestation_checkout_stat)).to eq(manifestation_checkout_stat)
       end
     end
 
@@ -78,7 +78,7 @@ describe ManifestationCheckoutStatsController do
       it 'assigns the requested manifestation_checkout_stat as @manifestation_checkout_stat' do
         manifestation_checkout_stat = FactoryBot.create(:manifestation_checkout_stat)
         get :show, params: { id: manifestation_checkout_stat.id }
-        assigns(:manifestation_checkout_stat).should eq(manifestation_checkout_stat)
+        expect(assigns(:manifestation_checkout_stat)).to eq(manifestation_checkout_stat)
       end
     end
   end
@@ -89,7 +89,7 @@ describe ManifestationCheckoutStatsController do
 
       it 'assigns the requested manifestation_checkout_stat as @manifestation_checkout_stat' do
         get :new
-        assigns(:manifestation_checkout_stat).should_not be_valid
+        expect(assigns(:manifestation_checkout_stat)).not_to be_valid
       end
     end
 
@@ -98,7 +98,7 @@ describe ManifestationCheckoutStatsController do
 
       it 'assigns the requested manifestation_checkout_stat as @manifestation_checkout_stat' do
         get :new
-        assigns(:manifestation_checkout_stat).should_not be_valid
+        expect(assigns(:manifestation_checkout_stat)).not_to be_valid
       end
     end
 
@@ -107,16 +107,16 @@ describe ManifestationCheckoutStatsController do
 
       it 'should not assign the requested manifestation_checkout_stat as @manifestation_checkout_stat' do
         get :new
-        assigns(:manifestation_checkout_stat).should be_nil
-        response.should be_forbidden
+        expect(assigns(:manifestation_checkout_stat)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should not assign the requested manifestation_checkout_stat as @manifestation_checkout_stat' do
         get :new
-        assigns(:manifestation_checkout_stat).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:manifestation_checkout_stat)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -128,7 +128,7 @@ describe ManifestationCheckoutStatsController do
       it 'assigns the requested manifestation_checkout_stat as @manifestation_checkout_stat' do
         manifestation_checkout_stat = FactoryBot.create(:manifestation_checkout_stat)
         get :edit, params: { id: manifestation_checkout_stat.id }
-        assigns(:manifestation_checkout_stat).should eq(manifestation_checkout_stat)
+        expect(assigns(:manifestation_checkout_stat)).to eq(manifestation_checkout_stat)
       end
     end
 
@@ -138,7 +138,7 @@ describe ManifestationCheckoutStatsController do
       it 'assigns the requested manifestation_checkout_stat as @manifestation_checkout_stat' do
         manifestation_checkout_stat = FactoryBot.create(:manifestation_checkout_stat)
         get :edit, params: { id: manifestation_checkout_stat.id }
-        assigns(:manifestation_checkout_stat).should eq(manifestation_checkout_stat)
+        expect(assigns(:manifestation_checkout_stat)).to eq(manifestation_checkout_stat)
       end
     end
 
@@ -148,7 +148,7 @@ describe ManifestationCheckoutStatsController do
       it 'assigns the requested manifestation_checkout_stat as @manifestation_checkout_stat' do
         manifestation_checkout_stat = FactoryBot.create(:manifestation_checkout_stat)
         get :edit, params: { id: manifestation_checkout_stat.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -156,7 +156,7 @@ describe ManifestationCheckoutStatsController do
       it 'should not assign the requested manifestation_checkout_stat as @manifestation_checkout_stat' do
         manifestation_checkout_stat = FactoryBot.create(:manifestation_checkout_stat)
         get :edit, params: { id: manifestation_checkout_stat.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -173,26 +173,26 @@ describe ManifestationCheckoutStatsController do
       describe 'with valid params' do
         it 'assigns a newly created manifestation_checkout_stat as @manifestation_checkout_stat' do
           post :create, params: { manifestation_checkout_stat: @attrs }
-          assigns(:manifestation_checkout_stat).should be_valid
+          expect(assigns(:manifestation_checkout_stat)).to be_valid
           # assigns(:manifestation_checkout_stat).current_state.should eq 'completed'
         end
 
         it 'redirects to the created manifestation_checkout_stat' do
           post :create, params: { manifestation_checkout_stat: @attrs }
-          response.should redirect_to(manifestation_checkout_stat_url(assigns(:manifestation_checkout_stat)))
+          expect(response).to redirect_to(manifestation_checkout_stat_url(assigns(:manifestation_checkout_stat)))
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved manifestation_checkout_stat as @manifestation_checkout_stat' do
           post :create, params: { manifestation_checkout_stat: @invalid_attrs }
-          assigns(:manifestation_checkout_stat).should_not be_valid
-          assigns(:manifestation_checkout_stat).current_state.should eq 'pending'
+          expect(assigns(:manifestation_checkout_stat)).not_to be_valid
+          expect(assigns(:manifestation_checkout_stat).current_state).to eq 'pending'
         end
 
         it "re-renders the 'new' template" do
           post :create, params: { manifestation_checkout_stat: @invalid_attrs }
-          response.should render_template('new')
+          expect(response).to render_template('new')
         end
       end
     end
@@ -203,24 +203,24 @@ describe ManifestationCheckoutStatsController do
       describe 'with valid params' do
         it 'assigns a newly created manifestation_checkout_stat as @manifestation_checkout_stat' do
           post :create, params: { manifestation_checkout_stat: @attrs }
-          assigns(:manifestation_checkout_stat).should be_valid
+          expect(assigns(:manifestation_checkout_stat)).to be_valid
         end
 
         it 'redirects to the created manifestation_checkout_stat' do
           post :create, params: { manifestation_checkout_stat: @attrs }
-          response.should redirect_to(manifestation_checkout_stat_url(assigns(:manifestation_checkout_stat)))
+          expect(response).to redirect_to(manifestation_checkout_stat_url(assigns(:manifestation_checkout_stat)))
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved manifestation_checkout_stat as @manifestation_checkout_stat' do
           post :create, params: { manifestation_checkout_stat: @invalid_attrs }
-          assigns(:manifestation_checkout_stat).should_not be_valid
+          expect(assigns(:manifestation_checkout_stat)).not_to be_valid
         end
 
         it "re-renders the 'new' template" do
           post :create, params: { manifestation_checkout_stat: @invalid_attrs }
-          response.should render_template('new')
+          expect(response).to render_template('new')
         end
       end
     end
@@ -231,24 +231,24 @@ describe ManifestationCheckoutStatsController do
       describe 'with valid params' do
         it 'assigns a newly created manifestation_checkout_stat as @manifestation_checkout_stat' do
           post :create, params: { manifestation_checkout_stat: @attrs }
-          assigns(:manifestation_checkout_stat).should be_nil
+          expect(assigns(:manifestation_checkout_stat)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { manifestation_checkout_stat: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved manifestation_checkout_stat as @manifestation_checkout_stat' do
           post :create, params: { manifestation_checkout_stat: @invalid_attrs }
-          assigns(:manifestation_checkout_stat).should be_nil
+          expect(assigns(:manifestation_checkout_stat)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { manifestation_checkout_stat: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -257,24 +257,24 @@ describe ManifestationCheckoutStatsController do
       describe 'with valid params' do
         it 'assigns a newly created manifestation_checkout_stat as @manifestation_checkout_stat' do
           post :create, params: { manifestation_checkout_stat: @attrs }
-          assigns(:manifestation_checkout_stat).should be_nil
+          expect(assigns(:manifestation_checkout_stat)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { manifestation_checkout_stat: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved manifestation_checkout_stat as @manifestation_checkout_stat' do
           post :create, params: { manifestation_checkout_stat: @invalid_attrs }
-          assigns(:manifestation_checkout_stat).should be_nil
+          expect(assigns(:manifestation_checkout_stat)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { manifestation_checkout_stat: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -297,14 +297,14 @@ describe ManifestationCheckoutStatsController do
 
         it 'assigns the requested manifestation_checkout_stat as @manifestation_checkout_stat' do
           put :update, params: { id: @manifestation_checkout_stat.id, manifestation_checkout_stat: @attrs }
-          assigns(:manifestation_checkout_stat).should eq(@manifestation_checkout_stat)
+          expect(assigns(:manifestation_checkout_stat)).to eq(@manifestation_checkout_stat)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested manifestation_checkout_stat as @manifestation_checkout_stat' do
           put :update, params: { id: @manifestation_checkout_stat.id, manifestation_checkout_stat: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -319,20 +319,20 @@ describe ManifestationCheckoutStatsController do
 
         it 'assigns the requested manifestation_checkout_stat as @manifestation_checkout_stat' do
           put :update, params: { id: @manifestation_checkout_stat.id, manifestation_checkout_stat: @attrs }
-          assigns(:manifestation_checkout_stat).should eq(@manifestation_checkout_stat)
-          response.should redirect_to(@manifestation_checkout_stat)
+          expect(assigns(:manifestation_checkout_stat)).to eq(@manifestation_checkout_stat)
+          expect(response).to redirect_to(@manifestation_checkout_stat)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the manifestation_checkout_stat as @manifestation_checkout_stat' do
           put :update, params: { id: @manifestation_checkout_stat, manifestation_checkout_stat: @invalid_attrs }
-          assigns(:manifestation_checkout_stat).should_not be_valid
+          expect(assigns(:manifestation_checkout_stat)).not_to be_valid
         end
 
         it "re-renders the 'edit' template" do
           put :update, params: { id: @manifestation_checkout_stat, manifestation_checkout_stat: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -347,15 +347,15 @@ describe ManifestationCheckoutStatsController do
 
         it 'assigns the requested manifestation_checkout_stat as @manifestation_checkout_stat' do
           put :update, params: { id: @manifestation_checkout_stat.id, manifestation_checkout_stat: @attrs }
-          assigns(:manifestation_checkout_stat).should eq(@manifestation_checkout_stat)
-          response.should be_forbidden
+          expect(assigns(:manifestation_checkout_stat)).to eq(@manifestation_checkout_stat)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested manifestation_checkout_stat as @manifestation_checkout_stat' do
           put :update, params: { id: @manifestation_checkout_stat.id, manifestation_checkout_stat: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -368,14 +368,14 @@ describe ManifestationCheckoutStatsController do
 
         it 'should be forbidden' do
           put :update, params: { id: @manifestation_checkout_stat.id, manifestation_checkout_stat: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested manifestation_checkout_stat as @manifestation_checkout_stat' do
           put :update, params: { id: @manifestation_checkout_stat.id, manifestation_checkout_stat: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -395,7 +395,7 @@ describe ManifestationCheckoutStatsController do
 
       it 'redirects to the manifestation_checkout_stats list' do
         delete :destroy, params: { id: @manifestation_checkout_stat.id }
-        response.should redirect_to(manifestation_checkout_stats_url)
+        expect(response).to redirect_to(manifestation_checkout_stats_url)
       end
     end
 
@@ -408,7 +408,7 @@ describe ManifestationCheckoutStatsController do
 
       it 'redirects to the manifestation_checkout_stats list' do
         delete :destroy, params: { id: @manifestation_checkout_stat.id }
-        response.should redirect_to(manifestation_checkout_stats_url)
+        expect(response).to redirect_to(manifestation_checkout_stats_url)
       end
     end
 
@@ -421,7 +421,7 @@ describe ManifestationCheckoutStatsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @manifestation_checkout_stat.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -432,7 +432,7 @@ describe ManifestationCheckoutStatsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @manifestation_checkout_stat.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

@@ -1,6 +1,6 @@
-<div id="content_detail" class="ui-corner-all ui-widget-content">
-  <h1 class="title"><%= t("page.listing", model: t("activerecord.models.accept")) -%></h1>
-  <div id="content_list">
+<div id="content_detail" class="col-md-9">
+  <h5 class="title card-header"><%= t("page.listing", model: t("activerecord.models.accept")) -%></h5>
+  <div id="content_list" class="card-body">
     <div class="search_form">
       <%= form_for(:accept, html: {method: :get}) do |f| %>
         <p>
@@ -46,13 +46,17 @@
         </tr>
       <%- end -%>
     </table>
-    <%= javascript_tag("$(function(){$('#accept_item_identifier').focus()})") %>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('accept_item_identifier').focus();
+      });
+    </script>
 
     <%= paginate(@accepts) %>
   </div>
 </div>
 
-<div id="submenu" class="ui-corner-all ui-widget-content">
+<div id="submenu" class="col">
   <ul>
     <li><%= link_to t("page.new", model: t("activerecord.models.accept")), new_accept_path -%></li>
   </ul>

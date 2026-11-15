@@ -2,14 +2,14 @@
   <%= error_messages(participate) %>
 
   <div class="field">
-    <%= f.label t("activerecord.models.agent") -%><br/>
-    <%= f.text_field :agent_id %>
+    <%= f.label t("activerecord.models.agent") %><br/>
+    <%= f.text_field :agent_id, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label t("activerecord.models.event") -%><br/>
-    <%= f.text_field :event_id %>
+    <%= f.label t("activerecord.models.event") %><br/>
+    <%= f.text_field :event_id, class: "form-control" %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions mt-3">
+    <%= f.submit class: "btn btn-primary" %>
   </div>
-<%- end %>
+<% end %>

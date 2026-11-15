@@ -83,14 +83,14 @@ describe ProduceTypesController do
     describe 'with invalid params' do
       it 'assigns a newly created but unsaved produce_type as @produce_type' do
         # Trigger the behavior that occurs when invalid params are submitted
-        ProduceType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(ProduceType).to receive(:save).and_return(false)
         post :create, params: { produce_type: { name: 'test' } }
         expect(assigns(:produce_type)).to be_a_new(ProduceType)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        ProduceType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(ProduceType).to receive(:save).and_return(false)
         post :create, params: { produce_type: { name: 'test' } }
         # expect(response).to render_template("new")
       end
@@ -126,7 +126,7 @@ describe ProduceTypesController do
         position = produce_type.position
         put :update, params: { id: produce_type.id, move: 'higher' }
         expect(response).to redirect_to produce_types_url
-        assigns(:produce_type).reload.position.should eq position - 1
+        expect(assigns(:produce_type).reload.position).to eq position - 1
       end
     end
 
@@ -134,7 +134,7 @@ describe ProduceTypesController do
       it 'assigns the produce_type as @produce_type' do
         produce_type = ProduceType.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        ProduceType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(ProduceType).to receive(:save).and_return(false)
         put :update, params: { id: produce_type.id, produce_type: { name: 'test' } }
         expect(assigns(:produce_type)).to eq(produce_type)
       end
@@ -142,7 +142,7 @@ describe ProduceTypesController do
       it "re-renders the 'edit' template" do
         produce_type = ProduceType.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        ProduceType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(ProduceType).to receive(:save).and_return(false)
         put :update, params: { id: produce_type.id, produce_type: { name: 'test' } }
         # expect(response).to render_template("edit")
       end

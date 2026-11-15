@@ -1,6 +1,5 @@
 class Manifestation < ApplicationRecord
   include EnjuCirculation::EnjuManifestation
-  include EnjuSubject::EnjuManifestation
   include EnjuNdl::EnjuManifestation
   include EnjuNii::EnjuManifestation
   include EnjuLoc::EnjuManifestation
@@ -41,6 +40,8 @@ class Manifestation < ApplicationRecord
   has_one :ncid_record, dependent: :destroy
   has_one :lccn_record, dependent: :destroy
   has_one :ndl_bib_id_record, dependent: :destroy
+  has_many :subjects, dependent: :destroy
+  has_many :classifications, dependent: :destroy
 
   accepts_nested_attributes_for :creators, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :contributors, allow_destroy: true, reject_if: :all_blank
@@ -54,6 +55,8 @@ class Manifestation < ApplicationRecord
   accepts_nested_attributes_for :lccn_record, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :isbn_records, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :issn_records, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :subjects, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :classifications, allow_destroy: true, reject_if: :all_blank
 
   searchable do
     text :title, default_boost: 2 do
@@ -231,8 +234,19 @@ class Manifestation < ApplicationRecord
     end
     time :acquired_at
     string :agent_id, multiple: true do
-      creators.map { |a| a.id }
+      creators.pluck(:id)
     end
+
+    text :subject do
+      subjects.map { |s| [ s.term, s.term_transcription ] }.flatten.compact
+    end
+    string :subject, multiple: true do
+      subjects.map { |s| [ s.term, s.term_transcription ] }.flatten.compact
+    end
+    string :classification, multiple: true do
+      classifications.map { |c| "#{c.classification_type.name}_#{c.category}" }
+    end
+    integer :subject_ids, multiple: true
   end
 
   has_one_attached :attachment
@@ -255,8 +269,11 @@ class Manifestation < ApplicationRecord
     attachment.purge if delete_attachment == "1"
   end
   after_create :clear_cached_numdocs
-  after_destroy :index_series_statement
   after_save :index_series_statement
+  after_save :subject_index!
+  after_destroy :index_series_statement
+  after_destroy :subject_index!
+
   after_touch do |manifestation|
     manifestation.index
     manifestation.index_series_statement
@@ -653,13 +670,11 @@ class Manifestation < ApplicationRecord
       end
     end
 
-    if defined?(EnjuSubject)
-      SubjectHeadingType.find_each do |type|
-        record[:"subject:#{type.name}"] = subjects.where(subject_heading_type: type).pluck(:term).join("//")
-      end
-      ClassificationType.find_each do |type|
-        record[:"classification:#{type.name}"] = classifications.where(classification_type: type).pluck(:category).map(&:to_s).join("//")
-      end
+    SubjectHeadingType.find_each do |type|
+      record[:"subject:#{type.name}"] = subjects.where(subject_heading_type: type).pluck(:term).join("//")
+    end
+    ClassificationType.find_each do |type|
+      record[:"classification:#{type.name}"] = classifications.where(classification_type: type).pluck(:category).map(&:to_s).join("//")
     end
 
     record["doi"] = doi_record&.body
@@ -721,6 +736,14 @@ class Manifestation < ApplicationRecord
         )
       end
     end
+  end
+
+  private
+
+  def subject_index!
+    subjects.map(&:index)
+    classifications.map(&:index)
+    Sunspot.commit
   end
 end
 

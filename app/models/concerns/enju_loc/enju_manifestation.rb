@@ -154,27 +154,25 @@ module EnjuLoc
       def self.create_loc_subject_related_elements(doc, manifestation)
         subjects = get_mods_subjects(doc)
         classifications = get_mods_classifications(doc)
-        if defined?(EnjuSubject)
-          subject_heading_type = SubjectHeadingType.find_by(name: "lcsh") || SubjectHeadingType.create!(name: "lcsh")
-          subjects.each do |term|
-            subject = Subject.find_by(term: term[:term])
-            unless subject
-              subject = Subject.new(term)
-              subject.subject_heading_type = subject_heading_type
-              subject.subject_type = SubjectType.find_by(name: "concept") || SubjectType.create!(name: "concept")
-            end
-            manifestation.subjects << subject
+        subject_heading_type = SubjectHeadingType.find_by(name: "lcsh") || SubjectHeadingType.create!(name: "lcsh")
+        subjects.each do |term|
+          subject = Subject.find_by(term: term[:term])
+          unless subject
+            subject = Subject.new(term)
+            subject.subject_heading_type = subject_heading_type
+            subject.subject_type = SubjectType.find_by(name: "concept") || SubjectType.create!(name: "concept")
           end
-          if classifications
-            classification_type = ClassificationType.find_by(name: "ddc") || ClassificationType.create!(name: "ddc")
-            classifications.each do |ddc|
-              classification = Classification.find_by(category: ddc)
-              unless classification
-                classification = Classification.new(category: ddc)
-                classification.classification_type = classification_type
-              end
-              manifestation.classifications << classification
+          manifestation.subjects << subject
+        end
+        if classifications
+          classification_type = ClassificationType.find_by(name: "ddc") || ClassificationType.create!(name: "ddc")
+          classifications.each do |ddc|
+            classification = Classification.find_by(category: ddc)
+            unless classification
+              classification = Classification.new(category: ddc)
+              classification.classification_type = classification_type
             end
+            manifestation.classifications << classification
           end
         end
       end

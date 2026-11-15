@@ -7,7 +7,7 @@ describe "checkouts/edit" do
     @checkout = assign(:checkout, checkouts(:checkout_00001))
     assign(:new_due_date, 1.day.from_now)
     assign(:library_group, LibraryGroup.site_config)
-    view.stub(:current_user).and_return(User.find_by(username: 'enjuadmin'))
+    allow(view).to receive(:current_user).and_return(User.find_by(username: 'enjuadmin'))
   end
 
   it "renders the edit checkout form" do

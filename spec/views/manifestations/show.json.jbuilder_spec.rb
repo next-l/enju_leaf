@@ -11,6 +11,6 @@ describe "manifestations/show.json.jbuilder" do
   it "renders a template" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/original_title/)
+    expect(rendered).to match(/original_title/)
   end
 end

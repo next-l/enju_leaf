@@ -1,8 +1,8 @@
 <%- if Pundit.policy_scope!(current_user, manifestation.original_manifestations).exists? || Pundit.policy_scope!(current_user, manifestation.derived_manifestations).exists? -%>
-  <%= render 'manifestations/manifestation_list', manifestation: manifestation -%>
+  <%= render "manifestations/manifestation_list", manifestation: manifestation -%>
 <%- end -%>
-<%-if defined?(EnjuQuestion) -%>
+<%- if defined?(EnjuQuestion) -%>
   <%- unless manifestation.questions(user: current_user).empty? -%>
-    <%= render 'manifestations/question_list', manifestation: manifestation -%>
+    <%= render "manifestations/question_list", manifestation: manifestation -%>
   <%- end -%>
 <%- end -%>

@@ -1,5 +1,3 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
 one:
   parent_id: 1
   child_id: 2

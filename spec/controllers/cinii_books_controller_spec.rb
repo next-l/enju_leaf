@@ -12,12 +12,12 @@ describe CiniiBooksController do
 
     it "should get index", vcr: true do
       get :index, params: { query: 'library' }
-      assigns(:books).should_not be_empty
+      expect(assigns(:books)).not_to be_empty
     end
 
     it "should be empty if a query is not set", vcr: true do
       get :index, params: { query: '' }
-      assigns(:books).should be_empty
+      expect(assigns(:books)).to be_empty
     end
   end
 end

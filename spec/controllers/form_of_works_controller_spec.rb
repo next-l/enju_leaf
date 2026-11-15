@@ -83,14 +83,14 @@ describe FormOfWorksController do
     describe 'with invalid params' do
       it 'assigns a newly created but unsaved form_of_work as @form_of_work' do
         # Trigger the behavior that occurs when invalid params are submitted
-        FormOfWork.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(FormOfWork).to receive(:save).and_return(false)
         post :create, params: { form_of_work: { name: 'test' } }
         expect(assigns(:form_of_work)).to be_a_new(FormOfWork)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        FormOfWork.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(FormOfWork).to receive(:save).and_return(false)
         post :create, params: { form_of_work: { name: 'test' } }
         # expect(response).to render_template("new")
       end
@@ -127,7 +127,7 @@ describe FormOfWorksController do
         put :update, params: { id: form_of_work.id, move: 'higher' }
         expect(response).to redirect_to form_of_works_url
         form_of_work.reload
-        form_of_work.position.should eq position - 1
+        expect(form_of_work.position).to eq position - 1
       end
     end
 
@@ -135,7 +135,7 @@ describe FormOfWorksController do
       it 'assigns the form_of_work as @form_of_work' do
         form_of_work = FormOfWork.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        FormOfWork.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(FormOfWork).to receive(:save).and_return(false)
         put :update, params: { id: form_of_work.id, form_of_work: { name: 'test' } }
         expect(assigns(:form_of_work)).to eq(form_of_work)
       end
@@ -143,7 +143,7 @@ describe FormOfWorksController do
       it "re-renders the 'edit' template" do
         form_of_work = FormOfWork.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        FormOfWork.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(FormOfWork).to receive(:save).and_return(false)
         put :update, params: { id: form_of_work.id, form_of_work: { name: 'test' } }
         # expect(response).to render_template("edit")
       end

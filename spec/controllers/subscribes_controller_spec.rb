@@ -17,7 +17,7 @@ describe SubscribesController do
 
       it 'assigns all subscribes as @subscribes' do
         get :index
-        assigns(:subscribes).should eq(Subscribe.page(1))
+        expect(assigns(:subscribes)).to eq(Subscribe.page(1))
       end
     end
 
@@ -26,7 +26,7 @@ describe SubscribesController do
 
       it 'assigns all subscribes as @subscribes' do
         get :index
-        assigns(:subscribes).should eq(Subscribe.page(1))
+        expect(assigns(:subscribes)).to eq(Subscribe.page(1))
       end
     end
 
@@ -35,16 +35,16 @@ describe SubscribesController do
 
       it 'should be forbidden' do
         get :index
-        assigns(:subscribes).should be_nil
-        response.should be_forbidden
+        expect(assigns(:subscribes)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'assigns all subscribes as @subscribes' do
         get :index
-        assigns(:subscribes).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:subscribes)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -56,7 +56,7 @@ describe SubscribesController do
       it 'assigns the requested subscribe as @subscribe' do
         subscribe = FactoryBot.create(:subscribe)
         get :show, params: { id: subscribe.id }
-        assigns(:subscribe).should eq(subscribe)
+        expect(assigns(:subscribe)).to eq(subscribe)
       end
     end
 
@@ -66,7 +66,7 @@ describe SubscribesController do
       it 'assigns the requested subscribe as @subscribe' do
         subscribe = FactoryBot.create(:subscribe)
         get :show, params: { id: subscribe.id }
-        assigns(:subscribe).should eq(subscribe)
+        expect(assigns(:subscribe)).to eq(subscribe)
       end
     end
 
@@ -76,7 +76,7 @@ describe SubscribesController do
       it 'assigns the requested subscribe as @subscribe' do
         subscribe = FactoryBot.create(:subscribe)
         get :show, params: { id: subscribe.id }
-        assigns(:subscribe).should eq(subscribe)
+        expect(assigns(:subscribe)).to eq(subscribe)
       end
     end
 
@@ -84,7 +84,7 @@ describe SubscribesController do
       it 'assigns the requested subscribe as @subscribe' do
         subscribe = FactoryBot.create(:subscribe)
         get :show, params: { id: subscribe.id }
-        assigns(:subscribe).should eq(subscribe)
+        expect(assigns(:subscribe)).to eq(subscribe)
       end
     end
   end
@@ -95,8 +95,8 @@ describe SubscribesController do
 
       it 'assigns the requested subscribe as @subscribe' do
         get :new
-        assigns(:subscribe).should_not be_valid
-        response.should be_successful
+        expect(assigns(:subscribe)).not_to be_valid
+        expect(response).to be_successful
       end
     end
 
@@ -105,8 +105,8 @@ describe SubscribesController do
 
       it 'assigns the requested subscribe as @subscribe' do
         get :new
-        assigns(:subscribe).should_not be_valid
-        response.should be_successful
+        expect(assigns(:subscribe)).not_to be_valid
+        expect(response).to be_successful
       end
     end
 
@@ -115,16 +115,16 @@ describe SubscribesController do
 
       it 'should not assign the requested subscribe as @subscribe' do
         get :new
-        assigns(:subscribe).should be_nil
-        response.should be_forbidden
+        expect(assigns(:subscribe)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should not assign the requested subscribe as @subscribe' do
         get :new
-        assigns(:subscribe).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:subscribe)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -136,7 +136,7 @@ describe SubscribesController do
       it 'assigns the requested subscribe as @subscribe' do
         subscribe = FactoryBot.create(:subscribe)
         get :edit, params: { id: subscribe.id }
-        assigns(:subscribe).should eq(subscribe)
+        expect(assigns(:subscribe)).to eq(subscribe)
       end
     end
 
@@ -146,7 +146,7 @@ describe SubscribesController do
       it 'assigns the requested subscribe as @subscribe' do
         subscribe = FactoryBot.create(:subscribe)
         get :edit, params: { id: subscribe.id }
-        assigns(:subscribe).should eq(subscribe)
+        expect(assigns(:subscribe)).to eq(subscribe)
       end
     end
 
@@ -156,7 +156,7 @@ describe SubscribesController do
       it 'assigns the requested subscribe as @subscribe' do
         subscribe = FactoryBot.create(:subscribe)
         get :edit, params: { id: subscribe.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -164,7 +164,7 @@ describe SubscribesController do
       it 'should not assign the requested subscribe as @subscribe' do
         subscribe = FactoryBot.create(:subscribe)
         get :edit, params: { id: subscribe.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -181,24 +181,24 @@ describe SubscribesController do
       describe 'with valid params' do
         it 'assigns a newly created subscribe as @subscribe' do
           post :create, params: { subscribe: @attrs }
-          assigns(:subscribe).should be_valid
+          expect(assigns(:subscribe)).to be_valid
         end
 
         it 'redirects to the created agent' do
           post :create, params: { subscribe: @attrs }
-          response.should redirect_to(assigns(:subscribe))
+          expect(response).to redirect_to(assigns(:subscribe))
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved subscribe as @subscribe' do
           post :create, params: { subscribe: @invalid_attrs }
-          assigns(:subscribe).should_not be_valid
+          expect(assigns(:subscribe)).not_to be_valid
         end
 
         it "re-renders the 'new' template" do
           post :create, params: { subscribe: @invalid_attrs }
-          response.should render_template('new')
+          expect(response).to render_template('new')
         end
       end
     end
@@ -209,24 +209,24 @@ describe SubscribesController do
       describe 'with valid params' do
         it 'assigns a newly created subscribe as @subscribe' do
           post :create, params: { subscribe: @attrs }
-          assigns(:subscribe).should be_valid
+          expect(assigns(:subscribe)).to be_valid
         end
 
         it 'redirects to the created agent' do
           post :create, params: { subscribe: @attrs }
-          response.should redirect_to(assigns(:subscribe))
+          expect(response).to redirect_to(assigns(:subscribe))
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved subscribe as @subscribe' do
           post :create, params: { subscribe: @invalid_attrs }
-          assigns(:subscribe).should_not be_valid
+          expect(assigns(:subscribe)).not_to be_valid
         end
 
         it "re-renders the 'new' template" do
           post :create, params: { subscribe: @invalid_attrs }
-          response.should render_template('new')
+          expect(response).to render_template('new')
         end
       end
     end
@@ -237,24 +237,24 @@ describe SubscribesController do
       describe 'with valid params' do
         it 'assigns a newly created subscribe as @subscribe' do
           post :create, params: { subscribe: @attrs }
-          assigns(:subscribe).should be_nil
+          expect(assigns(:subscribe)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { subscribe: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved subscribe as @subscribe' do
           post :create, params: { subscribe: @invalid_attrs }
-          assigns(:subscribe).should be_nil
+          expect(assigns(:subscribe)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { subscribe: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -263,24 +263,24 @@ describe SubscribesController do
       describe 'with valid params' do
         it 'assigns a newly created subscribe as @subscribe' do
           post :create, params: { subscribe: @attrs }
-          assigns(:subscribe).should be_nil
+          expect(assigns(:subscribe)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { subscribe: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved subscribe as @subscribe' do
           post :create, params: { subscribe: @invalid_attrs }
-          assigns(:subscribe).should be_nil
+          expect(assigns(:subscribe)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { subscribe: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -303,15 +303,15 @@ describe SubscribesController do
 
         it 'assigns the requested subscribe as @subscribe' do
           put :update, params: { id: @subscribe.id, subscribe: @attrs }
-          assigns(:subscribe).should eq(@subscribe)
-          response.should redirect_to(@subscribe)
+          expect(assigns(:subscribe)).to eq(@subscribe)
+          expect(response).to redirect_to(@subscribe)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested subscribe as @subscribe' do
           put :update, params: { id: @subscribe.id, subscribe: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -326,15 +326,15 @@ describe SubscribesController do
 
         it 'assigns the requested subscribe as @subscribe' do
           put :update, params: { id: @subscribe.id, subscribe: @attrs }
-          assigns(:subscribe).should eq(@subscribe)
-          response.should redirect_to(@subscribe)
+          expect(assigns(:subscribe)).to eq(@subscribe)
+          expect(response).to redirect_to(@subscribe)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested subscribe as @subscribe' do
           put :update, params: { id: @subscribe.id, subscribe: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -349,15 +349,15 @@ describe SubscribesController do
 
         it 'assigns the requested subscribe as @subscribe' do
           put :update, params: { id: @subscribe.id, subscribe: @attrs }
-          assigns(:subscribe).should eq(@subscribe)
-          response.should be_forbidden
+          expect(assigns(:subscribe)).to eq(@subscribe)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested subscribe as @subscribe' do
           put :update, params: { id: @subscribe.id, subscribe: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -370,14 +370,14 @@ describe SubscribesController do
 
         it 'should be forbidden' do
           put :update, params: { id: @subscribe.id, subscribe: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested subscribe as @subscribe' do
           put :update, params: { id: @subscribe.id, subscribe: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -397,7 +397,7 @@ describe SubscribesController do
 
       it 'redirects to the subscribes list' do
         delete :destroy, params: { id: @subscribe.id }
-        response.should redirect_to(subscribes_url)
+        expect(response).to redirect_to(subscribes_url)
       end
     end
 
@@ -410,7 +410,7 @@ describe SubscribesController do
 
       it 'redirects to the subscribes list' do
         delete :destroy, params: { id: @subscribe.id }
-        response.should redirect_to(subscribes_url)
+        expect(response).to redirect_to(subscribes_url)
       end
     end
 
@@ -423,7 +423,7 @@ describe SubscribesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @subscribe.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -434,7 +434,7 @@ describe SubscribesController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @subscribe.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

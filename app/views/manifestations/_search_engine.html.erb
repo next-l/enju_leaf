@@ -2,7 +2,7 @@
   <p>
     <%= form_tag search_engine.base_url, method: search_engine.http_method do -%>
       <%= link_to search_engine.name, search_engine.url -%>
-      <%= submit_tag t('page.search') -%>
+      <%= submit_tag t('page.search'), class: "btn btn-primary" -%>
       <br />
       <%= search_engine.note -%>
       <%= hidden_field_tag search_engine.query_param, h(@query) -%>

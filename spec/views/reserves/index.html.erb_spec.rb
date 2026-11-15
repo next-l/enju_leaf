@@ -7,7 +7,7 @@ describe "reserves/index" do
     view.extend EnjuLeaf::ApplicationHelper
 
     assign(:reserves, Reserve.page(1))
-    view.stub(:current_user).and_return(User.find_by(username: 'enjuadmin'))
+    allow(view).to receive(:current_user).and_return(User.find_by(username: 'enjuadmin'))
   end
 
   it "renders a list of reserves" do
@@ -24,6 +24,6 @@ describe "reserves/index" do
     assign(:reserves, Reserve.page(2))
     allow(view).to receive(:policy).and_return double(create?: true, update?: true, destroy?: true)
     render
-    rendered.should match /<td/
+    expect(rendered).to match /<td/
   end
 end

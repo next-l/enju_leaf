@@ -61,11 +61,11 @@ describe EventImportFile do
       old_event_count = Event.count
       old_import_results_count = EventImportResult.count
       @file.import_start
-      Event.order('id DESC').first.name.should eq 'event3'
-      Event.count.should eq old_event_count + 2
-      EventImportResult.count.should eq old_import_results_count + 5
-      Event.order('id DESC').first.start_at.should eq Time.zone.parse('2014-07-01').beginning_of_day
-      Event.order('id DESC').first.end_at.should eq Time.zone.parse('2014-07-31 14:00')
+      expect(Event.order('id DESC').first.name).to eq 'event3'
+      expect(Event.count).to eq old_event_count + 2
+      expect(EventImportResult.count).to eq old_import_results_count + 5
+      expect(Event.order('id DESC').first.start_at).to eq Time.zone.parse('2014-07-01').beginning_of_day
+      expect(Event.order('id DESC').first.end_at).to eq Time.zone.parse('2014-07-31 14:00')
     end
   end
 
@@ -80,9 +80,9 @@ describe EventImportFile do
     it "should not be imported" do
       old_event_count = Event.count
       old_import_results_count = EventImportResult.count
-      lambda { @file.import_start }.should raise_error(RuntimeError)
-      Event.count.should eq Event.count
-      EventImportResult.count.should eq EventImportResult.count
+      expect { @file.import_start }.to raise_error(RuntimeError)
+      expect(Event.count).to eq Event.count
+      expect(EventImportResult.count).to eq EventImportResult.count
     end
   end
 
@@ -94,17 +94,17 @@ describe EventImportFile do
       file.attachment.attach(io: File.new("#{Rails.root}/spec/fixtures/files/event_update_file.tsv"), filename: 'attachment.txt')
       file.modify
       event1 = Event.find(1)
-      event1.name.should eq '変更後のイベント名'
-      event1.start_at.should eq Time.zone.parse('2012-04-01').beginning_of_day
-      event1.end_at.should eq Time.zone.parse('2012-04-02')
+      expect(event1.name).to eq '変更後のイベント名'
+      expect(event1.start_at).to eq Time.zone.parse('2012-04-01').beginning_of_day
+      expect(event1.end_at).to eq Time.zone.parse('2012-04-02')
 
       event2 = Event.find(2)
-      event2.end_at.should eq Time.zone.parse('2012-04-03')
-      event2.all_day.should be_falsy
-      event2.library.name.should eq 'mita'
+      expect(event2.end_at).to eq Time.zone.parse('2012-04-03')
+      expect(event2.all_day).to be_falsy
+      expect(event2.library.name).to eq 'mita'
 
       event3 = Event.find(3)
-      event3.name.should eq 'ミーティング'
+      expect(event3.name).to eq 'ミーティング'
     end
   end
 
@@ -117,7 +117,7 @@ describe EventImportFile do
       )
       file.attachment.attach(io: File.new("#{Rails.root}/spec/fixtures/files/event_destroy_file.tsv"), filename: 'attachment.txt')
       file.remove
-      Event.count.should eq old_event_count - 2
+      expect(Event.count).to eq old_event_count - 2
     end
   end
 
@@ -126,7 +126,7 @@ describe EventImportFile do
       user: users(:admin)
     )
     file.attachment.attach(io: File.new("#{Rails.root}/spec/fixtures/files/event_import_file_sample1.tsv"), filename: 'attachment.txt')
-    EventImportFileJob.perform_later(file).should be_truthy
+    expect(EventImportFileJob.perform_later(file)).to be_truthy
   end
 end
 

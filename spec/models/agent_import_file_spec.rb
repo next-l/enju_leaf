@@ -11,16 +11,16 @@ describe AgentImportFile do
     it "should be imported" do
       old_agents_count = Agent.count
       old_import_results_count = AgentImportResult.count
-      @file.current_state.should eq 'pending'
-      @file.import_start.should eq({ agent_imported: 3, user_imported: 0, failed: 0 })
-      Agent.order('id DESC')[0].full_name.should eq '原田 ushi 隆史'
-      Agent.order('id DESC')[1].full_name.should eq '田辺浩介'
-      Agent.order('id DESC')[2].date_of_birth.should eq Time.zone.parse('1978-01-01')
-      Agent.count.should eq old_agents_count + 3
-      @file.agent_import_results.order(:id).first.body.split("\t").first.should eq 'full_name'
-      AgentImportResult.count.should eq old_import_results_count + 5
+      expect(@file.current_state).to eq 'pending'
+      expect(@file.import_start).to eq({ agent_imported: 3, user_imported: 0, failed: 0 })
+      expect(Agent.order('id DESC')[0].full_name).to eq '原田 ushi 隆史'
+      expect(Agent.order('id DESC')[1].full_name).to eq '田辺浩介'
+      expect(Agent.order('id DESC')[2].date_of_birth).to eq Time.zone.parse('1978-01-01')
+      expect(Agent.count).to eq old_agents_count + 3
+      expect(@file.agent_import_results.order(:id).first.body.split("\t").first).to eq 'full_name'
+      expect(AgentImportResult.count).to eq old_import_results_count + 5
 
-      @file.executed_at.should be_truthy
+      expect(@file.executed_at).to be_truthy
     end
   end
 
@@ -35,14 +35,14 @@ describe AgentImportFile do
     it "should be imported" do
       old_agents_count = Agent.count
       old_import_results_count = AgentImportResult.count
-      @file.current_state.should eq 'pending'
-      @file.import_start.should eq({ agent_imported: 4, user_imported: 0, failed: 0 })
-      Agent.count.should eq old_agents_count + 4
-      Agent.order('id DESC')[0].full_name.should eq '原田 ushi 隆史'
-      Agent.order('id DESC')[1].full_name.should eq '田辺浩介'
-      AgentImportResult.count.should eq old_import_results_count + 5
+      expect(@file.current_state).to eq 'pending'
+      expect(@file.import_start).to eq({ agent_imported: 4, user_imported: 0, failed: 0 })
+      expect(Agent.count).to eq old_agents_count + 4
+      expect(Agent.order('id DESC')[0].full_name).to eq '原田 ushi 隆史'
+      expect(Agent.order('id DESC')[1].full_name).to eq '田辺浩介'
+      expect(AgentImportResult.count).to eq old_import_results_count + 5
 
-      @file.executed_at.should be_truthy
+      expect(@file.executed_at).to be_truthy
     end
   end
 
@@ -54,11 +54,11 @@ describe AgentImportFile do
       )
       file.modify
       agent_1 = Agent.find(1)
-      agent_1.full_name.should eq 'たなべこうすけ'
-      agent_1.address_1.should eq '東京都'
+      expect(agent_1.full_name).to eq 'たなべこうすけ'
+      expect(agent_1.address_1).to eq '東京都'
       agent_2 = Agent.find(2)
-      agent_2.full_name.should eq '田辺浩介'
-      agent_2.address_1.should eq '岡山県'
+      expect(agent_2.full_name).to eq '田辺浩介'
+      expect(agent_2.address_1).to eq '岡山県'
     end
   end
 
@@ -70,7 +70,7 @@ describe AgentImportFile do
         user: users(:admin)
       )
       file.remove
-      Agent.count.should eq old_count - 7
+      expect(Agent.count).to eq old_count - 7
     end
   end
 
@@ -78,7 +78,7 @@ describe AgentImportFile do
     file = AgentImportFile.create attachment: fixture_file_upload("agent_import_file_sample1.tsv")
     file.user = users(:admin)
     file.save
-    AgentImportFileJob.perform_later(file).should be_truthy
+    expect(AgentImportFileJob.perform_later(file)).to be_truthy
   end
 end
 

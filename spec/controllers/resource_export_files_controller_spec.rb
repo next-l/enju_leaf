@@ -128,7 +128,7 @@ describe ResourceExportFilesController do
       it 'should create agent_export_file' do
         post :create, params: { resource_export_file: { mode: 'export' } }
         expect(assigns(:resource_export_file)).to be_valid
-        assigns(:resource_export_file).user.username.should eq @user.username
+        expect(assigns(:resource_export_file).user.username).to eq @user.username
         expect(response).to redirect_to resource_export_file_url(assigns(:resource_export_file))
       end
     end
@@ -138,7 +138,7 @@ describe ResourceExportFilesController do
 
       it 'should be forbidden' do
         post :create, params: { resource_export_file: { mode: 'export' } }
-        assigns(:resource_export_file).should be_nil
+        expect(assigns(:resource_export_file)).to be_nil
         expect(response).to be_forbidden
       end
     end
@@ -146,7 +146,7 @@ describe ResourceExportFilesController do
     describe 'When not logged in' do
       it 'should be redirected to new session url' do
         post :create, params: { resource_export_file: { mode: 'export' } }
-        assigns(:resource_export_file).should be_nil
+        expect(assigns(:resource_export_file)).to be_nil
         expect(response).to redirect_to new_user_session_url
       end
     end

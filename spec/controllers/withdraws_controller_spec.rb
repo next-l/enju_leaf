@@ -58,7 +58,7 @@ RSpec.describe WithdrawsController, type: :controller do
         withdraw = Withdraw.create! valid_attributes
         get :show, params: { id: withdraw.to_param }
         expect(assigns(:withdraw)).to eq(withdraw)
-        response.should be_successful
+        expect(response).to be_successful
       end
     end
   end

@@ -33,7 +33,7 @@ describe FrequenciesController do
     it 'assigns all frequencies as @frequencies' do
       frequency = Frequency.create! valid_attributes
       get :index
-      assigns(:frequencies).should eq(Frequency.order(:position))
+      expect(assigns(:frequencies)).to eq(Frequency.order(:position))
     end
   end
 
@@ -41,14 +41,14 @@ describe FrequenciesController do
     it 'assigns the requested frequency as @frequency' do
       frequency = Frequency.create! valid_attributes
       get :show, params: { id: frequency.id }
-      assigns(:frequency).should eq(frequency)
+      expect(assigns(:frequency)).to eq(frequency)
     end
   end
 
   describe 'GET new' do
     it 'assigns a new frequency as @frequency' do
       get :new
-      assigns(:frequency).should be_a_new(Frequency)
+      expect(assigns(:frequency)).to be_a_new(Frequency)
     end
   end
 
@@ -56,7 +56,7 @@ describe FrequenciesController do
     it 'assigns the requested frequency as @frequency' do
       frequency = Frequency.create! valid_attributes
       get :edit, params: { id: frequency.id }
-      assigns(:frequency).should eq(frequency)
+      expect(assigns(:frequency)).to eq(frequency)
     end
     it 'assigns the frequency even if it associates manifestation(s)' do
       frequency = FactoryBot.create(:frequency)
@@ -77,8 +77,8 @@ describe FrequenciesController do
 
       it 'assigns a newly created frequency as @frequency' do
         post :create, params: { frequency: valid_attributes }
-        assigns(:frequency).should be_a(Frequency)
-        assigns(:frequency).should be_persisted
+        expect(assigns(:frequency)).to be_a(Frequency)
+        expect(assigns(:frequency)).to be_persisted
       end
 
       it 'redirects to the created frequency' do
@@ -90,14 +90,14 @@ describe FrequenciesController do
     describe 'with invalid params' do
       it 'assigns a newly created but unsaved frequency as @frequency' do
         # Trigger the behavior that occurs when invalid params are submitted
-        Frequency.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(Frequency).to receive(:save).and_return(false)
         post :create, params: { frequency: { name: 'test' } }
-        assigns(:frequency).should be_a_new(Frequency)
+        expect(assigns(:frequency)).to be_a_new(Frequency)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Frequency.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(Frequency).to receive(:save).and_return(false)
         post :create, params: { frequency: { name: 'test' } }
         expect(response).to render_template('new')
       end
@@ -119,7 +119,7 @@ describe FrequenciesController do
       it 'assigns the requested frequency as @frequency' do
         frequency = Frequency.create! valid_attributes
         put :update, params: { id: frequency.id, frequency: valid_attributes }
-        assigns(:frequency).should eq(frequency)
+        expect(assigns(:frequency)).to eq(frequency)
       end
 
       it 'redirects to the frequency' do
@@ -133,7 +133,7 @@ describe FrequenciesController do
         position = frequency.position
         put :update, params: { id: frequency.id, move: 'higher' }
         expect(response).to redirect_to frequencies_url
-        assigns(:frequency).reload.position.should eq position - 1
+        expect(assigns(:frequency).reload.position).to eq position - 1
       end
     end
 
@@ -141,15 +141,15 @@ describe FrequenciesController do
       it 'assigns the frequency as @frequency' do
         frequency = Frequency.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Frequency.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(Frequency).to receive(:save).and_return(false)
         put :update, params: { id: frequency.id, frequency: { name: 'test' } }
-        assigns(:frequency).should eq(frequency)
+        expect(assigns(:frequency)).to eq(frequency)
       end
 
       it "re-renders the 'edit' template" do
         frequency = Frequency.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Frequency.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(Frequency).to receive(:save).and_return(false)
         put :update, params: { id: frequency.id, frequency: { name: 'test' } }
         expect(response).to render_template('edit')
       end

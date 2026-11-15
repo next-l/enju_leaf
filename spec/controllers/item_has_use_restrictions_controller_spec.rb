@@ -19,7 +19,7 @@ describe ItemHasUseRestrictionsController do
 
       it 'assigns all item_has_use_restrictions as @item_has_use_restrictions' do
         get :index
-        assigns(:item_has_use_restrictions).should eq(ItemHasUseRestriction.order('id DESC').page(1))
+        expect(assigns(:item_has_use_restrictions)).to eq(ItemHasUseRestriction.order('id DESC').page(1))
       end
     end
 
@@ -28,7 +28,7 @@ describe ItemHasUseRestrictionsController do
 
       it 'assigns all item_has_use_restrictions as @item_has_use_restrictions' do
         get :index
-        assigns(:item_has_use_restrictions).should eq(ItemHasUseRestriction.order('id DESC').page(1))
+        expect(assigns(:item_has_use_restrictions)).to eq(ItemHasUseRestriction.order('id DESC').page(1))
       end
     end
 
@@ -37,16 +37,16 @@ describe ItemHasUseRestrictionsController do
 
       it 'assigns all item_has_use_restrictions as @item_has_use_restrictions' do
         get :index
-        assigns(:item_has_use_restrictions).should be_nil
-        response.should be_forbidden
+        expect(assigns(:item_has_use_restrictions)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'assigns all item_has_use_restrictions as @item_has_use_restrictions' do
         get :index
-        assigns(:item_has_use_restrictions).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:item_has_use_restrictions)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -58,7 +58,7 @@ describe ItemHasUseRestrictionsController do
       it 'assigns the requested item_has_use_restriction as @item_has_use_restriction' do
         item_has_use_restriction = FactoryBot.create(:item_has_use_restriction)
         get :show, params: { id: item_has_use_restriction.id }
-        assigns(:item_has_use_restriction).should eq(item_has_use_restriction)
+        expect(assigns(:item_has_use_restriction)).to eq(item_has_use_restriction)
       end
     end
 
@@ -68,7 +68,7 @@ describe ItemHasUseRestrictionsController do
       it 'assigns the requested item_has_use_restriction as @item_has_use_restriction' do
         item_has_use_restriction = FactoryBot.create(:item_has_use_restriction)
         get :show, params: { id: item_has_use_restriction.id }
-        assigns(:item_has_use_restriction).should eq(item_has_use_restriction)
+        expect(assigns(:item_has_use_restriction)).to eq(item_has_use_restriction)
       end
     end
 
@@ -78,7 +78,7 @@ describe ItemHasUseRestrictionsController do
       it 'assigns the requested item_has_use_restriction as @item_has_use_restriction' do
         item_has_use_restriction = FactoryBot.create(:item_has_use_restriction)
         get :show, params: { id: item_has_use_restriction.id }
-        assigns(:item_has_use_restriction).should eq(item_has_use_restriction)
+        expect(assigns(:item_has_use_restriction)).to eq(item_has_use_restriction)
       end
     end
 
@@ -86,7 +86,7 @@ describe ItemHasUseRestrictionsController do
       it 'assigns the requested item_has_use_restriction as @item_has_use_restriction' do
         item_has_use_restriction = FactoryBot.create(:item_has_use_restriction)
         get :show, params: { id: item_has_use_restriction.id }
-        assigns(:item_has_use_restriction).should eq(item_has_use_restriction)
+        expect(assigns(:item_has_use_restriction)).to eq(item_has_use_restriction)
       end
     end
   end
@@ -97,8 +97,8 @@ describe ItemHasUseRestrictionsController do
 
       it 'assigns the requested item_has_use_restriction as @item_has_use_restriction' do
         get :new
-        assigns(:item_has_use_restriction).should_not be_valid
-        response.should be_successful
+        expect(assigns(:item_has_use_restriction)).not_to be_valid
+        expect(response).to be_successful
       end
     end
 
@@ -107,8 +107,8 @@ describe ItemHasUseRestrictionsController do
 
       it 'should not assign the requested item_has_use_restriction as @item_has_use_restriction' do
         get :new
-        assigns(:item_has_use_restriction).should be_nil
-        response.should be_forbidden
+        expect(assigns(:item_has_use_restriction)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
@@ -117,16 +117,16 @@ describe ItemHasUseRestrictionsController do
 
       it 'should not assign the requested item_has_use_restriction as @item_has_use_restriction' do
         get :new
-        assigns(:item_has_use_restriction).should be_nil
-        response.should be_forbidden
+        expect(assigns(:item_has_use_restriction)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should not assign the requested item_has_use_restriction as @item_has_use_restriction' do
         get :new
-        assigns(:item_has_use_restriction).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:item_has_use_restriction)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -138,7 +138,7 @@ describe ItemHasUseRestrictionsController do
       it 'assigns the requested item_has_use_restriction as @item_has_use_restriction' do
         item_has_use_restriction = FactoryBot.create(:item_has_use_restriction)
         get :edit, params: { id: item_has_use_restriction.id }
-        assigns(:item_has_use_restriction).should eq(item_has_use_restriction)
+        expect(assigns(:item_has_use_restriction)).to eq(item_has_use_restriction)
       end
     end
 
@@ -148,7 +148,7 @@ describe ItemHasUseRestrictionsController do
       it 'assigns the requested item_has_use_restriction as @item_has_use_restriction' do
         item_has_use_restriction = FactoryBot.create(:item_has_use_restriction)
         get :edit, params: { id: item_has_use_restriction.id }
-        assigns(:item_has_use_restriction).should eq(item_has_use_restriction)
+        expect(assigns(:item_has_use_restriction)).to eq(item_has_use_restriction)
       end
     end
 
@@ -158,7 +158,7 @@ describe ItemHasUseRestrictionsController do
       it 'assigns the requested item_has_use_restriction as @item_has_use_restriction' do
         item_has_use_restriction = FactoryBot.create(:item_has_use_restriction)
         get :edit, params: { id: item_has_use_restriction.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -166,7 +166,7 @@ describe ItemHasUseRestrictionsController do
       it 'should not assign the requested item_has_use_restriction as @item_has_use_restriction' do
         item_has_use_restriction = FactoryBot.create(:item_has_use_restriction)
         get :edit, params: { id: item_has_use_restriction.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -183,24 +183,24 @@ describe ItemHasUseRestrictionsController do
       describe 'with valid params' do
         it 'assigns a newly created item_has_use_restriction as @item_has_use_restriction' do
           post :create, params: { item_has_use_restriction: @attrs }
-          assigns(:item_has_use_restriction).should be_valid
+          expect(assigns(:item_has_use_restriction)).to be_valid
         end
 
         it 'redirects to the created patron' do
           post :create, params: { item_has_use_restriction: @attrs }
-          response.should redirect_to(assigns(:item_has_use_restriction))
+          expect(response).to redirect_to(assigns(:item_has_use_restriction))
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved item_has_use_restriction as @item_has_use_restriction' do
           post :create, params: { item_has_use_restriction: @invalid_attrs }
-          assigns(:item_has_use_restriction).should_not be_valid
+          expect(assigns(:item_has_use_restriction)).not_to be_valid
         end
 
         it "re-renders the 'new' template" do
           post :create, params: { item_has_use_restriction: @invalid_attrs }
-          response.should render_template('new')
+          expect(response).to render_template('new')
         end
       end
     end
@@ -211,24 +211,24 @@ describe ItemHasUseRestrictionsController do
       describe 'with valid params' do
         it 'assigns a newly created item_has_use_restriction as @item_has_use_restriction' do
           post :create, params: { item_has_use_restriction: @attrs }
-          assigns(:item_has_use_restriction).should be_nil
+          expect(assigns(:item_has_use_restriction)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { item_has_use_restriction: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved item_has_use_restriction as @item_has_use_restriction' do
           post :create, params: { item_has_use_restriction: @invalid_attrs }
-          assigns(:item_has_use_restriction).should be_nil
+          expect(assigns(:item_has_use_restriction)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { item_has_use_restriction: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -239,24 +239,24 @@ describe ItemHasUseRestrictionsController do
       describe 'with valid params' do
         it 'assigns a newly created item_has_use_restriction as @item_has_use_restriction' do
           post :create, params: { item_has_use_restriction: @attrs }
-          assigns(:item_has_use_restriction).should be_nil
+          expect(assigns(:item_has_use_restriction)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { item_has_use_restriction: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved item_has_use_restriction as @item_has_use_restriction' do
           post :create, params: { item_has_use_restriction: @invalid_attrs }
-          assigns(:item_has_use_restriction).should be_nil
+          expect(assigns(:item_has_use_restriction)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { item_has_use_restriction: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -265,24 +265,24 @@ describe ItemHasUseRestrictionsController do
       describe 'with valid params' do
         it 'assigns a newly created item_has_use_restriction as @item_has_use_restriction' do
           post :create, params: { item_has_use_restriction: @attrs }
-          assigns(:item_has_use_restriction).should be_nil
+          expect(assigns(:item_has_use_restriction)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { item_has_use_restriction: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved item_has_use_restriction as @item_has_use_restriction' do
           post :create, params: { item_has_use_restriction: @invalid_attrs }
-          assigns(:item_has_use_restriction).should be_nil
+          expect(assigns(:item_has_use_restriction)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { item_has_use_restriction: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -305,15 +305,15 @@ describe ItemHasUseRestrictionsController do
 
         it 'assigns the requested item_has_use_restriction as @item_has_use_restriction' do
           put :update, params: { id: @item_has_use_restriction.id, item_has_use_restriction: @attrs }
-          assigns(:item_has_use_restriction).should eq(@item_has_use_restriction)
-          response.should redirect_to(@item_has_use_restriction)
+          expect(assigns(:item_has_use_restriction)).to eq(@item_has_use_restriction)
+          expect(response).to redirect_to(@item_has_use_restriction)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested item_has_use_restriction as @item_has_use_restriction' do
           put :update, params: { id: @item_has_use_restriction.id, item_has_use_restriction: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -328,19 +328,19 @@ describe ItemHasUseRestrictionsController do
 
         it 'should be forbidden' do
           put :update, params: { id: @item_has_use_restriction.id, item_has_use_restriction: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested item_has_use_restriction as @item_has_use_restriction' do
           put :update, params: { id: @item_has_use_restriction.id, item_has_use_restriction: @invalid_attrs }
-          assigns(:item_has_use_restriction).should eq(@item_has_use_restriction)
+          expect(assigns(:item_has_use_restriction)).to eq(@item_has_use_restriction)
         end
 
         it 'should be forbidden' do
           put :update, params: { id: @item_has_use_restriction.id, item_has_use_restriction: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -355,15 +355,15 @@ describe ItemHasUseRestrictionsController do
 
         it 'should be forbidden' do
           put :update, params: { id: @item_has_use_restriction.id, item_has_use_restriction: @attrs }
-          assigns(:item_has_use_restriction).should eq(@item_has_use_restriction)
-          response.should be_forbidden
+          expect(assigns(:item_has_use_restriction)).to eq(@item_has_use_restriction)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested item_has_use_restriction as @item_has_use_restriction' do
           put :update, params: { id: @item_has_use_restriction.id, item_has_use_restriction: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -376,14 +376,14 @@ describe ItemHasUseRestrictionsController do
 
         it 'should be forbidden' do
           put :update, params: { id: @item_has_use_restriction.id, item_has_use_restriction: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested item_has_use_restriction as @item_has_use_restriction' do
           put :update, params: { id: @item_has_use_restriction.id, item_has_use_restriction: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -403,7 +403,7 @@ describe ItemHasUseRestrictionsController do
 
       it 'redirects to the item_has_use_restrictions list' do
         delete :destroy, params: { id: @item_has_use_restriction.id }
-        response.should redirect_to(item_has_use_restrictions_url)
+        expect(response).to redirect_to(item_has_use_restrictions_url)
       end
     end
 
@@ -416,7 +416,7 @@ describe ItemHasUseRestrictionsController do
 
       it 'redirects to the item_has_use_restrictions list' do
         delete :destroy, params: { id: @item_has_use_restriction.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -429,7 +429,7 @@ describe ItemHasUseRestrictionsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @item_has_use_restriction.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -440,7 +440,7 @@ describe ItemHasUseRestrictionsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @item_has_use_restriction.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

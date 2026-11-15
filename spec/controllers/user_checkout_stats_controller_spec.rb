@@ -13,7 +13,7 @@ describe UserCheckoutStatsController do
 
       it 'assigns all user_checkout_stats as @user_checkout_stats' do
         get :index
-        assigns(:user_checkout_stats).should eq(UserCheckoutStat.order('id DESC').page(1))
+        expect(assigns(:user_checkout_stats)).to eq(UserCheckoutStat.order('id DESC').page(1))
       end
     end
 
@@ -22,7 +22,7 @@ describe UserCheckoutStatsController do
 
       it 'assigns all user_checkout_stats as @user_checkout_stats' do
         get :index
-        assigns(:user_checkout_stats).should eq(UserCheckoutStat.order('id DESC').page(1))
+        expect(assigns(:user_checkout_stats)).to eq(UserCheckoutStat.order('id DESC').page(1))
       end
     end
 
@@ -31,16 +31,16 @@ describe UserCheckoutStatsController do
 
       it 'assigns all user_checkout_stats as @user_checkout_stats' do
         get :index
-        assigns(:user_checkout_stats).should be_nil
-        response.should be_forbidden
+        expect(assigns(:user_checkout_stats)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should not assign user_checkout_stats as @user_checkout_stats' do
         get :index
-        assigns(:user_checkout_stats).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:user_checkout_stats)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -52,7 +52,7 @@ describe UserCheckoutStatsController do
       it 'assigns the requested user_checkout_stat as @user_checkout_stat' do
         user_checkout_stat = FactoryBot.create(:user_checkout_stat)
         get :show, params: { id: user_checkout_stat.id }
-        assigns(:user_checkout_stat).should eq(user_checkout_stat)
+        expect(assigns(:user_checkout_stat)).to eq(user_checkout_stat)
       end
     end
 
@@ -62,7 +62,7 @@ describe UserCheckoutStatsController do
       it 'assigns the requested user_checkout_stat as @user_checkout_stat' do
         user_checkout_stat = FactoryBot.create(:user_checkout_stat)
         get :show, params: { id: user_checkout_stat.id }
-        assigns(:user_checkout_stat).should eq(user_checkout_stat)
+        expect(assigns(:user_checkout_stat)).to eq(user_checkout_stat)
       end
     end
 
@@ -72,8 +72,8 @@ describe UserCheckoutStatsController do
       it 'assigns the requested user_checkout_stat as @user_checkout_stat' do
         user_checkout_stat = FactoryBot.create(:user_checkout_stat)
         get :show, params: { id: user_checkout_stat.id }
-        assigns(:user_checkout_stat).should eq(user_checkout_stat)
-        response.should be_forbidden
+        expect(assigns(:user_checkout_stat)).to eq(user_checkout_stat)
+        expect(response).to be_forbidden
       end
     end
 
@@ -81,8 +81,8 @@ describe UserCheckoutStatsController do
       it 'assigns the requested user_checkout_stat as @user_checkout_stat' do
         user_checkout_stat = FactoryBot.create(:user_checkout_stat)
         get :show, params: { id: user_checkout_stat.id }
-        assigns(:user_checkout_stat).should eq(user_checkout_stat)
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:user_checkout_stat)).to eq(user_checkout_stat)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -93,7 +93,7 @@ describe UserCheckoutStatsController do
 
       it 'assigns the requested user_checkout_stat as @user_checkout_stat' do
         get :new
-        assigns(:user_checkout_stat).should_not be_valid
+        expect(assigns(:user_checkout_stat)).not_to be_valid
       end
     end
 
@@ -102,7 +102,7 @@ describe UserCheckoutStatsController do
 
       it 'assigns the requested user_checkout_stat as @user_checkout_stat' do
         get :new
-        assigns(:user_checkout_stat).should_not be_valid
+        expect(assigns(:user_checkout_stat)).not_to be_valid
       end
     end
 
@@ -111,16 +111,16 @@ describe UserCheckoutStatsController do
 
       it 'should not assign the requested user_checkout_stat as @user_checkout_stat' do
         get :new
-        assigns(:user_checkout_stat).should be_nil
-        response.should be_forbidden
+        expect(assigns(:user_checkout_stat)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should not assign the requested user_checkout_stat as @user_checkout_stat' do
         get :new
-        assigns(:user_checkout_stat).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:user_checkout_stat)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -132,7 +132,7 @@ describe UserCheckoutStatsController do
       it 'assigns the requested user_checkout_stat as @user_checkout_stat' do
         user_checkout_stat = FactoryBot.create(:user_checkout_stat)
         get :edit, params: { id: user_checkout_stat.id }
-        assigns(:user_checkout_stat).should eq(user_checkout_stat)
+        expect(assigns(:user_checkout_stat)).to eq(user_checkout_stat)
       end
     end
 
@@ -142,7 +142,7 @@ describe UserCheckoutStatsController do
       it 'assigns the requested user_checkout_stat as @user_checkout_stat' do
         user_checkout_stat = FactoryBot.create(:user_checkout_stat)
         get :edit, params: { id: user_checkout_stat.id }
-        assigns(:user_checkout_stat).should eq(user_checkout_stat)
+        expect(assigns(:user_checkout_stat)).to eq(user_checkout_stat)
       end
     end
 
@@ -152,7 +152,7 @@ describe UserCheckoutStatsController do
       it 'assigns the requested user_checkout_stat as @user_checkout_stat' do
         user_checkout_stat = FactoryBot.create(:user_checkout_stat)
         get :edit, params: { id: user_checkout_stat.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -160,7 +160,7 @@ describe UserCheckoutStatsController do
       it 'should not assign the requested user_checkout_stat as @user_checkout_stat' do
         user_checkout_stat = FactoryBot.create(:user_checkout_stat)
         get :edit, params: { id: user_checkout_stat.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -177,24 +177,24 @@ describe UserCheckoutStatsController do
       describe 'with valid params' do
         it 'assigns a newly created user_checkout_stat as @user_checkout_stat' do
           post :create, params: { user_checkout_stat: @attrs }
-          assigns(:user_checkout_stat).should be_valid
+          expect(assigns(:user_checkout_stat)).to be_valid
         end
 
         it 'redirects to the created user_checkout_stat' do
           post :create, params: { user_checkout_stat: @attrs }
-          response.should redirect_to(user_checkout_stat_url(assigns(:user_checkout_stat)))
+          expect(response).to redirect_to(user_checkout_stat_url(assigns(:user_checkout_stat)))
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved user_checkout_stat as @user_checkout_stat' do
           post :create, params: { user_checkout_stat: @invalid_attrs }
-          assigns(:user_checkout_stat).should_not be_valid
+          expect(assigns(:user_checkout_stat)).not_to be_valid
         end
 
         it "re-renders the 'new' template" do
           post :create, params: { user_checkout_stat: @invalid_attrs }
-          response.should render_template('new')
+          expect(response).to render_template('new')
         end
       end
     end
@@ -205,24 +205,24 @@ describe UserCheckoutStatsController do
       describe 'with valid params' do
         it 'assigns a newly created user_checkout_stat as @user_checkout_stat' do
           post :create, params: { user_checkout_stat: @attrs }
-          assigns(:user_checkout_stat).should be_valid
+          expect(assigns(:user_checkout_stat)).to be_valid
         end
 
         it 'redirects to the created user_checkout_stat' do
           post :create, params: { user_checkout_stat: @attrs }
-          response.should redirect_to(user_checkout_stat_url(assigns(:user_checkout_stat)))
+          expect(response).to redirect_to(user_checkout_stat_url(assigns(:user_checkout_stat)))
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved user_checkout_stat as @user_checkout_stat' do
           post :create, params: { user_checkout_stat: @invalid_attrs }
-          assigns(:user_checkout_stat).should_not be_valid
+          expect(assigns(:user_checkout_stat)).not_to be_valid
         end
 
         it "re-renders the 'new' template" do
           post :create, params: { user_checkout_stat: @invalid_attrs }
-          response.should render_template('new')
+          expect(response).to render_template('new')
         end
       end
     end
@@ -233,24 +233,24 @@ describe UserCheckoutStatsController do
       describe 'with valid params' do
         it 'assigns a newly created user_checkout_stat as @user_checkout_stat' do
           post :create, params: { user_checkout_stat: @attrs }
-          assigns(:user_checkout_stat).should be_nil
+          expect(assigns(:user_checkout_stat)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { user_checkout_stat: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved user_checkout_stat as @user_checkout_stat' do
           post :create, params: { user_checkout_stat: @invalid_attrs }
-          assigns(:user_checkout_stat).should be_nil
+          expect(assigns(:user_checkout_stat)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { user_checkout_stat: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -259,24 +259,24 @@ describe UserCheckoutStatsController do
       describe 'with valid params' do
         it 'assigns a newly created user_checkout_stat as @user_checkout_stat' do
           post :create, params: { user_checkout_stat: @attrs }
-          assigns(:user_checkout_stat).should be_nil
+          expect(assigns(:user_checkout_stat)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { user_checkout_stat: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved user_checkout_stat as @user_checkout_stat' do
           post :create, params: { user_checkout_stat: @invalid_attrs }
-          assigns(:user_checkout_stat).should be_nil
+          expect(assigns(:user_checkout_stat)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { user_checkout_stat: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -299,14 +299,14 @@ describe UserCheckoutStatsController do
 
         it 'assigns the requested user_checkout_stat as @user_checkout_stat' do
           put :update, params: { id: @user_checkout_stat.id, user_checkout_stat: @attrs }
-          assigns(:user_checkout_stat).should eq(@user_checkout_stat)
+          expect(assigns(:user_checkout_stat)).to eq(@user_checkout_stat)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested user_checkout_stat as @user_checkout_stat' do
           put :update, params: { id: @user_checkout_stat.id, user_checkout_stat: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -321,20 +321,20 @@ describe UserCheckoutStatsController do
 
         it 'assigns the requested user_checkout_stat as @user_checkout_stat' do
           put :update, params: { id: @user_checkout_stat.id, user_checkout_stat: @attrs }
-          assigns(:user_checkout_stat).should eq(@user_checkout_stat)
-          response.should redirect_to(@user_checkout_stat)
+          expect(assigns(:user_checkout_stat)).to eq(@user_checkout_stat)
+          expect(response).to redirect_to(@user_checkout_stat)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the user_checkout_stat as @user_checkout_stat' do
           put :update, params: { id: @user_checkout_stat, user_checkout_stat: @invalid_attrs }
-          assigns(:user_checkout_stat).should_not be_valid
+          expect(assigns(:user_checkout_stat)).not_to be_valid
         end
 
         it "re-renders the 'edit' template" do
           put :update, params: { id: @user_checkout_stat, user_checkout_stat: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -349,15 +349,15 @@ describe UserCheckoutStatsController do
 
         it 'assigns the requested user_checkout_stat as @user_checkout_stat' do
           put :update, params: { id: @user_checkout_stat.id, user_checkout_stat: @attrs }
-          assigns(:user_checkout_stat).should eq(@user_checkout_stat)
-          response.should be_forbidden
+          expect(assigns(:user_checkout_stat)).to eq(@user_checkout_stat)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested user_checkout_stat as @user_checkout_stat' do
           put :update, params: { id: @user_checkout_stat.id, user_checkout_stat: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -370,14 +370,14 @@ describe UserCheckoutStatsController do
 
         it 'should be forbidden' do
           put :update, params: { id: @user_checkout_stat.id, user_checkout_stat: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested user_checkout_stat as @user_checkout_stat' do
           put :update, params: { id: @user_checkout_stat.id, user_checkout_stat: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -397,7 +397,7 @@ describe UserCheckoutStatsController do
 
       it 'redirects to the user_checkout_stats list' do
         delete :destroy, params: { id: @user_checkout_stat.id }
-        response.should redirect_to(user_checkout_stats_url)
+        expect(response).to redirect_to(user_checkout_stats_url)
       end
     end
 
@@ -410,7 +410,7 @@ describe UserCheckoutStatsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @user_checkout_stat.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -423,7 +423,7 @@ describe UserCheckoutStatsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @user_checkout_stat.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -434,7 +434,7 @@ describe UserCheckoutStatsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @user_checkout_stat.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

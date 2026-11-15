@@ -83,14 +83,14 @@ describe CreateTypesController do
     describe 'with invalid params' do
       it 'assigns a newly created but unsaved create_type as @create_type' do
         # Trigger the behavior that occurs when invalid params are submitted
-        CreateType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(CreateType).to receive(:save).and_return(false)
         post :create, params: { create_type: { name: 'test' } }
         expect(assigns(:create_type)).to be_a_new(CreateType)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        CreateType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(CreateType).to receive(:save).and_return(false)
         post :create, params: { create_type: { name: 'test' } }
         # expect(response).to render_template("new")
       end
@@ -126,7 +126,7 @@ describe CreateTypesController do
         position = create_type.position
         put :update, params: { id: create_type.id, move: 'higher' }
         expect(response).to redirect_to create_types_url
-        assigns(:create_type).reload.position.should eq position - 1
+        expect(assigns(:create_type).reload.position).to eq position - 1
       end
     end
 
@@ -134,7 +134,7 @@ describe CreateTypesController do
       it 'assigns the create_type as @create_type' do
         create_type = CreateType.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        CreateType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(CreateType).to receive(:save).and_return(false)
         put :update, params: { id: create_type.id, create_type: { name: 'test' } }
         expect(assigns(:create_type)).to eq(create_type)
       end
@@ -142,7 +142,7 @@ describe CreateTypesController do
       it "re-renders the 'edit' template" do
         create_type = CreateType.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        CreateType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(CreateType).to receive(:save).and_return(false)
         put :update, params: { id: create_type.id, create_type: { name: 'test' } }
         # expect(response).to render_template("edit")
       end

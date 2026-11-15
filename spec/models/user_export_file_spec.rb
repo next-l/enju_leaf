@@ -8,8 +8,8 @@ describe UserExportFile do
     file = UserExportFile.create(user: users(:admin))
     file.export!
     # UserExportFileJob.perform_later(file).should be_truthy
-    Message.count.should eq message_count + 1
-    Message.order(:created_at).last.subject.should eq "Export completed: #{file.id}"
+    expect(Message.count).to eq message_count + 1
+    expect(Message.order(:created_at).last.subject).to eq "Export completed: #{file.id}"
   end
 end
 

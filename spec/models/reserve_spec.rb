@@ -18,37 +18,37 @@ describe Reserve do
     reserve.transition_to!(:expired)
     expect(reserve.current_state).to eq 'expired'
     expect(item).to eq reserve.next_reservation.item
-    Message.count.should eq old_count + 4
+    expect(Message.count).to eq old_count + 4
   end
 
   it "should expire reservation" do
     reserves(:reserve_00001).transition_to!(:expired)
-    reserves(:reserve_00001).request_status_type.name.should eq 'Expired'
+    expect(reserves(:reserve_00001).request_status_type.name).to eq 'Expired'
   end
 
   it "should cancel reservation" do
     reserves(:reserve_00001).transition_to!(:canceled)
-    reserves(:reserve_00001).canceled_at.should be_truthy
-    reserves(:reserve_00001).request_status_type.name.should eq 'Cannot Fulfill Request'
+    expect(reserves(:reserve_00001).canceled_at).to be_truthy
+    expect(reserves(:reserve_00001).request_status_type.name).to eq 'Cannot Fulfill Request'
   end
 
   it "should not have next reservation" do
-    reserves(:reserve_00002).next_reservation.should be_nil
+    expect(reserves(:reserve_00002).next_reservation).to be_nil
   end
 
   it "should send accepted message" do
     old_admin_count = User.where(username: 'enjuadmin').first.received_messages.count
     old_user_count = reserves(:reserve_00002).user.received_messages.count
-    reserves(:reserve_00002).send_message.should be_truthy
+    expect(reserves(:reserve_00002).send_message).to be_truthy
     # 予約者と図書館の両方に送られる
-    User.where(username: 'enjuadmin').first.received_messages.count.should eq old_admin_count + 1
-    reserves(:reserve_00002).user.received_messages.count.should eq old_user_count + 1
+    expect(User.where(username: 'enjuadmin').first.received_messages.count).to eq old_admin_count + 1
+    expect(reserves(:reserve_00002).user.received_messages.count).to eq old_user_count + 1
   end
 
   it "should send expired message" do
     old_count = Message.count
-    reserves(:reserve_00006).send_message.should be_truthy
-    Message.count.should eq old_count + 2
+    expect(reserves(:reserve_00006).send_message).to be_truthy
+    expect(Message.count).to eq old_count + 2
   end
 
   it "should have reservations that will be expired" do
@@ -69,11 +69,11 @@ describe Reserve do
   end
 
   it "should expire all reservations" do
-    assert Reserve.expire.should be_truthy
+    expect(Reserve.expire).to be_truthy
   end
 
   it "should send accepted notification" do
-    assert Reserve.expire.should be_truthy
+    expect(Reserve.expire).to be_truthy
   end
 
   it "should nullify the first reservation's item_id if the second reservation is retained" do
@@ -85,27 +85,27 @@ describe Reserve do
     expect(reservation).not_to be_retained
     reservation.transition_to!(:retained)
     old_reservation.reload
-    old_reservation.item.should be_nil
-    reservation.retained_at.should be_truthy
+    expect(old_reservation.item).to be_nil
+    expect(reservation.retained_at).to be_truthy
     #    old_reservation.retained_at.should be_nil
     #    old_reservation.postponed_at.should be_truthy
-    old_reservation.current_state.should eq 'postponed'
-    Message.count.should eq old_count + 4
-    reservation.item.retained?.should be_truthy
+    expect(old_reservation.current_state).to eq 'postponed'
+    expect(Message.count).to eq old_count + 4
+    expect(reservation.item.retained?).to be_truthy
   end
 
   it "should not be valid if item_identifier is invalid" do
     reservation = reserves(:reserve_00014)
     reservation.item_identifier = 'invalid'
     reservation.save
-    assert reservation.valid?.should eq false
+    expect(reservation.valid?).to eq false
   end
 
   it "should be valid if the reservation is completed and its item is destroyed" do
     reservation = reserves(:reserve_00010)
     reservation.item.destroy
     reservation.reload
-    assert reservation.should be_valid
+    expect(reservation).to be_valid
   end
 
   it "should be treated as Waiting" do

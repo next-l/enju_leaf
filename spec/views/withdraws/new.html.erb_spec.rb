@@ -9,7 +9,7 @@ RSpec.describe "withdraws/new", type: :view do
     ))
     assign(:basket, baskets(:basket_00001))
     assign(:withdraws, Withdraw.page(1))
-    view.stub(:current_user).and_return(User.find_by(username: 'enjuadmin'))
+    allow(view).to receive(:current_user).and_return(User.find_by(username: 'enjuadmin'))
   end
 
   it "renders new withdraw form" do

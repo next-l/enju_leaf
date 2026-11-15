@@ -84,14 +84,14 @@ describe CarrierTypesController do
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved carrier_type as @carrier_type' do
           # Trigger the behavior that occurs when invalid params are submitted
-          CarrierType.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(CarrierType).to receive(:save).and_return(false)
           post :create, params: { carrier_type: { name: 'test' } }
           expect(assigns(:carrier_type)).to be_a_new(CarrierType)
         end
 
         it "re-renders the 'new' template" do
           # Trigger the behavior that occurs when invalid params are submitted
-          CarrierType.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(CarrierType).to receive(:save).and_return(false)
           post :create, params: { carrier_type: { name: 'test' } }
           expect(response).to render_template('new')
         end
@@ -127,7 +127,7 @@ describe CarrierTypesController do
           position = carrier_type.position
           put :update, params: { id: carrier_type.id, move: 'higher' }
           expect(response).to redirect_to carrier_types_url
-          assigns(:carrier_type).reload.position.should eq position - 1
+          expect(assigns(:carrier_type).reload.position).to eq position - 1
         end
 
         it 'deletes an attachment file' do
@@ -145,7 +145,7 @@ describe CarrierTypesController do
         it 'assigns the carrier_type as @carrier_type' do
           carrier_type = CarrierType.create! valid_attributes
           # Trigger the behavior that occurs when invalid params are submitted
-          CarrierType.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(CarrierType).to receive(:save).and_return(false)
           put :update, params: { id: carrier_type.id, carrier_type: { name: 'test' } }
           expect(assigns(:carrier_type)).to eq(carrier_type)
         end
@@ -153,7 +153,7 @@ describe CarrierTypesController do
         it "re-renders the 'edit' template" do
           carrier_type = CarrierType.create! valid_attributes
           # Trigger the behavior that occurs when invalid params are submitted
-          CarrierType.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(CarrierType).to receive(:save).and_return(false)
           put :update, params: { id: carrier_type.id, carrier_type: { name: 'test' } }
           expect(response).to render_template('edit')
         end

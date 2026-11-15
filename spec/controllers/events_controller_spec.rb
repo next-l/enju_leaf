@@ -17,7 +17,7 @@ describe EventsController do
 
       it "assigns all events as @events" do
         get :index
-        assigns(:events).should_not be_nil
+        expect(assigns(:events)).not_to be_nil
       end
     end
 
@@ -26,7 +26,7 @@ describe EventsController do
 
       it "assigns all events as @events" do
         get :index
-        assigns(:events).should_not be_nil
+        expect(assigns(:events)).not_to be_nil
       end
     end
 
@@ -35,48 +35,48 @@ describe EventsController do
 
       it "assigns all events as @events" do
         get :index
-        assigns(:events).should_not be_nil
+        expect(assigns(:events)).not_to be_nil
       end
     end
 
     describe "When not logged in" do
       it "assigns all events as @events" do
         get :index
-        assigns(:events).should_not be_nil
+        expect(assigns(:events)).not_to be_nil
       end
 
       it "assigns all events as @events in rss format" do
         get :index, format: 'rss'
-        assigns(:events).should_not be_nil
+        expect(assigns(:events)).not_to be_nil
       end
 
       it "assigns all events as @events in ics format" do
         get :index, format: 'ics'
-        assigns(:events).should_not be_nil
+        expect(assigns(:events)).not_to be_nil
       end
 
       it "assigns all events as @events in text format" do
         get :index, format: :text
-        assigns(:events).should_not be_nil
+        expect(assigns(:events)).not_to be_nil
       end
 
       it "should get index with library_id" do
         get :index, params: { library_id: 'kamata' }
-        response.should be_successful
-        assigns(:library).should eq libraries(:library_00002)
-        assigns(:events).should_not be_nil
+        expect(response).to be_successful
+        expect(assigns(:library)).to eq libraries(:library_00002)
+        expect(assigns(:events)).not_to be_nil
       end
 
       it "should get upcoming event index" do
         get :index, params: { mode: 'upcoming' }
-        response.should be_successful
-        assigns(:events).should_not be_nil
+        expect(response).to be_successful
+        expect(assigns(:events)).not_to be_nil
       end
 
       it "should get past event index" do
         get :index, params: { mode: 'past' }
-        response.should be_successful
-        assigns(:events).should_not be_nil
+        expect(response).to be_successful
+        expect(assigns(:events)).not_to be_nil
       end
 
       describe "with json data (calendar feed)" do
@@ -109,7 +109,7 @@ describe EventsController do
       it "assigns the requested event as @event" do
         event = FactoryBot.create(:event)
         get :show, params: { id: event.id }
-        assigns(:event).should eq(event)
+        expect(assigns(:event)).to eq(event)
       end
     end
 
@@ -119,7 +119,7 @@ describe EventsController do
       it "assigns the requested event as @event" do
         event = FactoryBot.create(:event)
         get :show, params: { id: event.id }
-        assigns(:event).should eq(event)
+        expect(assigns(:event)).to eq(event)
       end
     end
 
@@ -129,7 +129,7 @@ describe EventsController do
       it "assigns the requested event as @event" do
         event = FactoryBot.create(:event)
         get :show, params: { id: event.id }
-        assigns(:event).should eq(event)
+        expect(assigns(:event)).to eq(event)
       end
     end
 
@@ -137,7 +137,7 @@ describe EventsController do
       it "assigns the requested event as @event" do
         event = FactoryBot.create(:event)
         get :show, params: { id: event.id }
-        assigns(:event).should eq(event)
+        expect(assigns(:event)).to eq(event)
       end
     end
   end
@@ -148,7 +148,7 @@ describe EventsController do
 
       it "assigns the requested event as @event" do
         get :new
-        assigns(:event).should_not be_valid
+        expect(assigns(:event)).not_to be_valid
       end
     end
 
@@ -157,7 +157,7 @@ describe EventsController do
 
       it "should not assign the requested event as @event" do
         get :new
-        assigns(:event).should_not be_valid
+        expect(assigns(:event)).not_to be_valid
       end
     end
 
@@ -166,16 +166,16 @@ describe EventsController do
 
       it "should not assign the requested event as @event" do
         get :new
-        assigns(:event).should be_nil
-        response.should be_forbidden
+        expect(assigns(:event)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe "When not logged in" do
       it "should not assign the requested event as @event" do
         get :new
-        assigns(:event).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:event)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -187,7 +187,7 @@ describe EventsController do
       it "assigns the requested event as @event" do
         event = FactoryBot.create(:event)
         get :edit, params: { id: event.id }
-        assigns(:event).should eq(event)
+        expect(assigns(:event)).to eq(event)
       end
     end
 
@@ -206,7 +206,7 @@ describe EventsController do
       it "assigns the requested event as @event" do
         event = FactoryBot.create(:event)
         get :edit, params: { id: event.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -214,7 +214,7 @@ describe EventsController do
       it "should not assign the requested event as @event" do
         event = FactoryBot.create(:event)
         get :edit, params: { id: event.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -231,24 +231,24 @@ describe EventsController do
       describe "with valid params" do
         it "assigns a newly created event as @event" do
           post :create, params: { event: @attrs }
-          assigns(:event).should be_valid
+          expect(assigns(:event)).to be_valid
         end
 
         it "redirects to the created event" do
           post :create, params: { event: @attrs }
-          response.should redirect_to(assigns(:event))
+          expect(response).to redirect_to(assigns(:event))
         end
       end
 
       describe "with invalid params" do
         it "assigns a newly created but unsaved event as @event" do
           post :create, params: { event: @invalid_attrs }
-          assigns(:event).should_not be_valid
+          expect(assigns(:event)).not_to be_valid
         end
 
         it "should be forbidden" do
           post :create, params: { event: @invalid_attrs }
-          response.should render_template("new")
+          expect(response).to render_template("new")
         end
       end
     end
@@ -259,24 +259,24 @@ describe EventsController do
       describe "with valid params" do
         it "assigns a newly created event as @event" do
           post :create, params: { event: @attrs }
-          assigns(:event).should be_valid
+          expect(assigns(:event)).to be_valid
         end
 
         it "redirects to the created event" do
           post :create, params: { event: @attrs }
-          response.should redirect_to(assigns(:event))
+          expect(response).to redirect_to(assigns(:event))
         end
       end
 
       describe "with invalid params" do
         it "assigns a newly created but unsaved event as @event" do
           post :create, params: { event: @invalid_attrs }
-          assigns(:event).should_not be_valid
+          expect(assigns(:event)).not_to be_valid
         end
 
         it "should be forbidden" do
           post :create, params: { event: @invalid_attrs }
-          response.should render_template("new")
+          expect(response).to render_template("new")
         end
       end
     end
@@ -287,24 +287,24 @@ describe EventsController do
       describe "with valid params" do
         it "assigns a newly created event as @event" do
           post :create, params: { event: @attrs }
-          assigns(:event).should be_nil
+          expect(assigns(:event)).to be_nil
         end
 
         it "should be forbidden" do
           post :create, params: { event: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe "with invalid params" do
         it "assigns a newly created but unsaved event as @event" do
           post :create, params: { event: @invalid_attrs }
-          assigns(:event).should be_nil
+          expect(assigns(:event)).to be_nil
         end
 
         it "should be forbidden" do
           post :create, params: { event: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -313,24 +313,24 @@ describe EventsController do
       describe "with valid params" do
         it "assigns a newly created event as @event" do
           post :create, params: { event: @attrs }
-          assigns(:event).should be_nil
+          expect(assigns(:event)).to be_nil
         end
 
         it "should be forbidden" do
           post :create, params: { event: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe "with invalid params" do
         it "assigns a newly created but unsaved event as @event" do
           post :create, params: { event: @invalid_attrs }
-          assigns(:event).should be_nil
+          expect(assigns(:event)).to be_nil
         end
 
         it "should be forbidden" do
           post :create, params: { event: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -353,14 +353,14 @@ describe EventsController do
 
         it "assigns the requested event as @event" do
           put :update, params: { id: @event.id, event: @attrs }
-          assigns(:event).should eq(@event)
+          expect(assigns(:event)).to eq(@event)
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested event as @event" do
           put :update, params: { id: @event.id, event: @invalid_attrs }
-          response.should render_template("edit")
+          expect(response).to render_template("edit")
         end
       end
     end
@@ -375,14 +375,14 @@ describe EventsController do
 
         it "assigns the requested event as @event" do
           put :update, params: { id: @event.id, event: @attrs }
-          assigns(:event).should eq(@event)
+          expect(assigns(:event)).to eq(@event)
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested event as @event" do
           put :update, params: { id: @event.id, event: @invalid_attrs }
-          response.should render_template("edit")
+          expect(response).to render_template("edit")
         end
       end
     end
@@ -397,15 +397,15 @@ describe EventsController do
 
         it "assigns the requested event as @event" do
           put :update, params: { id: @event.id, event: @attrs }
-          assigns(:event).should eq(@event)
-          response.should be_forbidden
+          expect(assigns(:event)).to eq(@event)
+          expect(response).to be_forbidden
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested event as @event" do
           put :update, params: { id: @event.id, event: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -418,14 +418,14 @@ describe EventsController do
 
         it "should be forbidden" do
           put :update, params: { id: @event.id, event: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe "with invalid params" do
         it "assigns the requested event as @event" do
           put :update, params: { id: @event.id, event: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -445,7 +445,7 @@ describe EventsController do
 
       it "redirects to the events list" do
         delete :destroy, params: { id: @event.id }
-        response.should redirect_to(events_url)
+        expect(response).to redirect_to(events_url)
       end
     end
 
@@ -458,7 +458,7 @@ describe EventsController do
 
       it "redirects to the events list" do
         delete :destroy, params: { id: @event.id }
-        response.should redirect_to(events_url)
+        expect(response).to redirect_to(events_url)
       end
     end
 
@@ -471,7 +471,7 @@ describe EventsController do
 
       it "should be forbidden" do
         delete :destroy, params: { id: @event.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -482,7 +482,7 @@ describe EventsController do
 
       it "should be forbidden" do
         delete :destroy, params: { id: @event.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

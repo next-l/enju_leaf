@@ -107,7 +107,10 @@ module EnjuLeaf
 
     # 検索フォームにフォーカスを移動するJavaScriptを表示します。
     def set_focus_on_search_form
-      javascript_tag("$(function(){$('#search_form').focus()})") if @query.blank?
+      javascript_tag("
+        document.addEventListener('DOMContentLoaded', function() {
+          document.getElementById('search_form_top').focus();
+      });") if @query.blank?
     end
 
     # Markdownの文字列をパースして表示します。
@@ -115,7 +118,15 @@ module EnjuLeaf
     def markdown_helper(string)
       return unless string
 
-      Kramdown::Document.new(string.to_s).to_html.html_safe
+      html = Commonmarker.to_html(string)
+      fragment = Nokogiri::HTML5.fragment(html)
+
+      fragment.css("a").each do |a|
+        a["target"] = "_blank"
+        a["rel"] = "noopener noreferrer"
+      end
+
+      fragment.to_html.html_safe
     end
 
     # ユーザの未読メッセージ数を表示します。

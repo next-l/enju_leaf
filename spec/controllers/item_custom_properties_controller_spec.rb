@@ -320,7 +320,7 @@ describe ItemCustomPropertiesController do
         position = item_custom_property.position
         put :update, params: { id: item_custom_property.id, move: 'higher' }
         expect(response).to redirect_to item_custom_properties_url
-        assigns(:item_custom_property).reload.position.should eq position - 1
+        expect(assigns(:item_custom_property).reload.position).to eq position - 1
       end
     end
 

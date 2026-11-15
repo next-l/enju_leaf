@@ -1,9 +1,3 @@
-require 'rails_helper'
-
-describe ManifestationRelationship do
-  # pending "add some examples to (or delete) #{__FILE__}"
-end
-
 # ## Schema Information
 #
 # Table name: `manifestation_relationships`
@@ -36,3 +30,8 @@ end
 # * `fk_rails_...`:
 #     * **`parent_id => manifestations.id`**
 #
+require 'rails_helper'
+
+describe ManifestationRelationship do
+  # pending "add some examples to (or delete) #{__FILE__}"
+end

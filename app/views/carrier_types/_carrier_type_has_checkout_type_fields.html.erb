@@ -3,6 +3,8 @@
   <%= f.select(
     :checkout_type_id,
     @checkout_types.collect { |c| [c.display_name.localize, c.id] },
+    {},
+    class: "form-select"
   ) %>
   <%= link_to_remove_association t("page.remove"),
   f,

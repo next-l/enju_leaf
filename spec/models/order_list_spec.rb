@@ -5,9 +5,9 @@ describe OrderList do
 
   it "should calculate total price" do
     order_list = order_lists(:order_list_00001)
-    order_list.total_price.should eq 0
+    expect(order_list.total_price).to eq 0
     order_list.purchase_requests << purchase_requests(:purchase_request_00006)
-    order_list.total_price.should eq purchase_requests(:purchase_request_00006).price
+    expect(order_list.total_price).to eq purchase_requests(:purchase_request_00006).price
   end
 end
 

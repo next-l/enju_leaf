@@ -17,7 +17,7 @@ describe OrdersController do
 
       it 'assigns all orders as @orders' do
         get :index
-        assigns(:orders).should eq(Order.page(1))
+        expect(assigns(:orders)).to eq(Order.page(1))
       end
     end
 
@@ -28,7 +28,7 @@ describe OrdersController do
 
       it 'assigns all orders as @orders' do
         get :index
-        assigns(:orders).should eq(Order.page(1))
+        expect(assigns(:orders)).to eq(Order.page(1))
       end
     end
 
@@ -39,16 +39,16 @@ describe OrdersController do
 
       it 'should be forbidden' do
         get :index
-        assigns(:orders).should be_nil
-        response.should be_forbidden
+        expect(assigns(:orders)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'assigns all orders as @orders' do
         get :index
-        assigns(:orders).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:orders)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -62,7 +62,7 @@ describe OrdersController do
       it 'assigns the requested order as @order' do
         order = FactoryBot.create(:order)
         get :show, params: { id: order.id }
-        assigns(:order).should eq(order)
+        expect(assigns(:order)).to eq(order)
       end
     end
 
@@ -74,7 +74,7 @@ describe OrdersController do
       it 'assigns the requested order as @order' do
         order = FactoryBot.create(:order)
         get :show, params: { id: order.id }
-        assigns(:order).should eq(order)
+        expect(assigns(:order)).to eq(order)
       end
     end
 
@@ -86,7 +86,7 @@ describe OrdersController do
       it 'assigns the requested order as @order' do
         order = FactoryBot.create(:order)
         get :show, params: { id: order.id }
-        assigns(:order).should eq(order)
+        expect(assigns(:order)).to eq(order)
       end
     end
 
@@ -94,7 +94,7 @@ describe OrdersController do
       it 'assigns the requested order as @order' do
         order = FactoryBot.create(:order)
         get :show, params: { id: order.id }
-        assigns(:order).should eq(order)
+        expect(assigns(:order)).to eq(order)
       end
     end
   end
@@ -107,20 +107,20 @@ describe OrdersController do
 
       it 'assigns the requested order as @order' do
         get :new, params: { order_list_id: 1, purchase_request_id: 1 }
-        assigns(:order).should_not be_valid
-        response.should be_successful
+        expect(assigns(:order)).not_to be_valid
+        expect(response).to be_successful
       end
 
       it 'should redirect to assigns the requested order as @order' do
         get :new, params: { order_list_id: 1, purchase_request_id: 1 }
-        assigns(:order).should_not be_valid
-        response.should be_successful
+        expect(assigns(:order)).not_to be_valid
+        expect(response).to be_successful
       end
 
       it 'assigns the requested order as @order' do
         get :new, params: { order_list_id: 1, purchase_request_id: 1 }
-        assigns(:order).should_not be_valid
-        response.should be_successful
+        expect(assigns(:order)).not_to be_valid
+        expect(response).to be_successful
       end
     end
 
@@ -131,8 +131,8 @@ describe OrdersController do
 
       it 'assigns the requested order as @order' do
         get :new, params: { order_list_id: 1, purchase_request_id: 1 }
-        assigns(:order).should_not be_valid
-        response.should be_successful
+        expect(assigns(:order)).not_to be_valid
+        expect(response).to be_successful
       end
     end
 
@@ -143,16 +143,16 @@ describe OrdersController do
 
       it 'should not assign the requested order as @order' do
         get :new, params: { order_list_id: 1, purchase_request_id: 1 }
-        assigns(:order).should be_nil
-        response.should be_forbidden
+        expect(assigns(:order)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should not assign the requested order as @order' do
         get :new, params: { order_list_id: 1, purchase_request_id: 1 }
-        assigns(:order).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:order)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -166,7 +166,7 @@ describe OrdersController do
       it 'assigns the requested order as @order' do
         order = FactoryBot.create(:order)
         get :edit, params: { id: order.id }
-        assigns(:order).should eq(order)
+        expect(assigns(:order)).to eq(order)
       end
     end
 
@@ -178,7 +178,7 @@ describe OrdersController do
       it 'assigns the requested order as @order' do
         order = FactoryBot.create(:order)
         get :edit, params: { id: order.id }
-        assigns(:order).should eq(order)
+        expect(assigns(:order)).to eq(order)
       end
     end
 
@@ -190,7 +190,7 @@ describe OrdersController do
       it 'assigns the requested order as @order' do
         order = FactoryBot.create(:order)
         get :edit, params: { id: order.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -198,7 +198,7 @@ describe OrdersController do
       it 'should not assign the requested order as @order' do
         order = FactoryBot.create(:order)
         get :edit, params: { id: order.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -217,24 +217,24 @@ describe OrdersController do
       describe 'with valid params' do
         it 'assigns a newly created order as @order' do
           post :create, params: { order: @attrs }
-          assigns(:order).should be_valid
+          expect(assigns(:order)).to be_valid
         end
 
         it 'redirects to the created agent' do
           post :create, params: { order: @attrs }
-          response.should redirect_to(assigns(:order))
+          expect(response).to redirect_to(assigns(:order))
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved order as @order' do
           post :create, params: { order: @invalid_attrs }
-          assigns(:order).should_not be_valid
+          expect(assigns(:order)).not_to be_valid
         end
 
         it "re-renders the 'new' template" do
           post :create, params: { order: @invalid_attrs }
-          response.should render_template('new')
+          expect(response).to render_template('new')
         end
       end
     end
@@ -247,24 +247,24 @@ describe OrdersController do
       describe 'with valid params' do
         it 'assigns a newly created order as @order' do
           post :create, params: { order: @attrs }
-          assigns(:order).should be_valid
+          expect(assigns(:order)).to be_valid
         end
 
         it 'redirects to the created agent' do
           post :create, params: { order: @attrs }
-          response.should redirect_to(assigns(:order))
+          expect(response).to redirect_to(assigns(:order))
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved order as @order' do
           post :create, params: { order: @invalid_attrs }
-          assigns(:order).should_not be_valid
+          expect(assigns(:order)).not_to be_valid
         end
 
         it "re-renders the 'new' template" do
           post :create, params: { order: @invalid_attrs }
-          response.should render_template('new')
+          expect(response).to render_template('new')
         end
       end
     end
@@ -277,24 +277,24 @@ describe OrdersController do
       describe 'with valid params' do
         it 'assigns a newly created order as @order' do
           post :create, params: { order: @attrs }
-          assigns(:order).should be_nil
+          expect(assigns(:order)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { order: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved order as @order' do
           post :create, params: { order: @invalid_attrs }
-          assigns(:order).should be_nil
+          expect(assigns(:order)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { order: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -303,24 +303,24 @@ describe OrdersController do
       describe 'with valid params' do
         it 'assigns a newly created order as @order' do
           post :create, params: { order: @attrs }
-          assigns(:order).should be_nil
+          expect(assigns(:order)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { order: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved order as @order' do
           post :create, params: { order: @invalid_attrs }
-          assigns(:order).should be_nil
+          expect(assigns(:order)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { order: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -345,15 +345,15 @@ describe OrdersController do
 
         it 'assigns the requested order as @order' do
           put :update, params: { id: @order.id, order: @attrs }
-          assigns(:order).should eq(@order)
-          response.should redirect_to(@order)
+          expect(assigns(:order)).to eq(@order)
+          expect(response).to redirect_to(@order)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested order as @order' do
           put :update, params: { id: @order.id, order: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -370,15 +370,15 @@ describe OrdersController do
 
         it 'assigns the requested order as @order' do
           put :update, params: { id: @order.id, order: @attrs }
-          assigns(:order).should eq(@order)
-          response.should redirect_to(@order)
+          expect(assigns(:order)).to eq(@order)
+          expect(response).to redirect_to(@order)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested order as @order' do
           put :update, params: { id: @order.id, order: @invalid_attrs }
-          response.should render_template('edit')
+          expect(response).to render_template('edit')
         end
       end
     end
@@ -395,15 +395,15 @@ describe OrdersController do
 
         it 'assigns the requested order as @order' do
           put :update, params: { id: @order.id, order: @attrs }
-          assigns(:order).should eq(@order)
-          response.should be_forbidden
+          expect(assigns(:order)).to eq(@order)
+          expect(response).to be_forbidden
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested order as @order' do
           put :update, params: { id: @order.id, order: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -416,14 +416,14 @@ describe OrdersController do
 
         it 'should be forbidden' do
           put :update, params: { id: @order.id, order: @attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
 
       describe 'with invalid params' do
         it 'assigns the requested order as @order' do
           put :update, params: { id: @order.id, order: @invalid_attrs }
-          response.should redirect_to(new_user_session_url)
+          expect(response).to redirect_to(new_user_session_url)
         end
       end
     end
@@ -445,7 +445,7 @@ describe OrdersController do
 
       it 'redirects to the orders list' do
         delete :destroy, params: { id: @order.id }
-        response.should redirect_to(orders_url)
+        expect(response).to redirect_to(orders_url)
       end
     end
 
@@ -460,7 +460,7 @@ describe OrdersController do
 
       it 'redirects to the orders list' do
         delete :destroy, params: { id: @order.id }
-        response.should redirect_to(orders_url)
+        expect(response).to redirect_to(orders_url)
       end
     end
 
@@ -475,7 +475,7 @@ describe OrdersController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @order.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -486,7 +486,7 @@ describe OrdersController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @order.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

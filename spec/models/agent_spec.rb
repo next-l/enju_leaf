@@ -6,38 +6,38 @@ describe Agent do
 
   it "should set a default required_role to Guest" do
     agent = FactoryBot.create(:agent)
-    agent.required_role.should eq Role.find_by(name: 'Guest')
+    expect(agent.required_role).to eq Role.find_by(name: 'Guest')
   end
 
   it "should set birth_date" do
     agent = FactoryBot.create(:agent, birth_date: '2000')
-    agent.date_of_birth.should eq Time.zone.parse('2000-01-01')
+    expect(agent.date_of_birth).to eq Time.zone.parse('2000-01-01')
   end
 
   it "should set death_date" do
     agent = FactoryBot.create(:agent, death_date: '2000')
-    agent.date_of_death.should eq Time.zone.parse('2000-01-01')
+    expect(agent.date_of_death).to eq Time.zone.parse('2000-01-01')
   end
 
   it "should not set death_date earlier than birth_date" do
     agent = FactoryBot.create(:agent, birth_date: '2010', death_date: '2000')
-    agent.should_not be_valid
+    expect(agent).not_to be_valid
   end
 
   it "should be creator" do
-    agents(:agent_00001).creator?(manifestations(:manifestation_00001)).should be_truthy
+    expect(agents(:agent_00001).creator?(manifestations(:manifestation_00001))).to be_truthy
   end
 
   it "should not be creator" do
-    agents(:agent_00010).creator?(manifestations(:manifestation_00001)).should be_falsy
+    expect(agents(:agent_00010).creator?(manifestations(:manifestation_00001))).to be_falsy
   end
 
   it "should be publisher" do
-    agents(:agent_00001).publisher?(manifestations(:manifestation_00001)).should be_truthy
+    expect(agents(:agent_00001).publisher?(manifestations(:manifestation_00001))).to be_truthy
   end
 
   it "should not be publisher" do
-    agents(:agent_00010).publisher?(manifestations(:manifestation_00001)).should be_falsy
+    expect(agents(:agent_00010).publisher?(manifestations(:manifestation_00001))).to be_falsy
   end
 
   describe ".import_agents" do

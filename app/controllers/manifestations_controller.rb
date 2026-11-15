@@ -4,9 +4,7 @@ class ManifestationsController < ApplicationController
   before_action :authenticate_user!, only: :edit
   before_action :get_agent, :get_manifestation, except: [ :create, :update, :destroy ]
   before_action :get_expression, only: :new
-  if defined?(EnjuSubject)
-    before_action :get_subject, except: [ :create, :update, :destroy ]
-  end
+  before_action :get_subject, except: [ :create, :update, :destroy ]
   before_action :get_series_statement, only: [ :index, :new, :edit ]
   before_action :get_item, :get_libraries, only: :index
   before_action :prepare_options, only: [ :new, :edit ]
@@ -48,7 +46,7 @@ class ManifestationsController < ApplicationController
       query = query.gsub("　", " ")
 
       includes = [ :series_statements ]
-      includes << :classifications if defined?(EnjuSubject)
+      includes << :classifications
       includes << :bookmarks if defined?(EnjuBookmark)
       search = Manifestation.search(include: includes)
       case @reservable
@@ -65,10 +63,7 @@ class ManifestationsController < ApplicationController
       manifestation = @manifestation if @manifestation
       series_statement = @series_statement if @series_statement
       parent = @parent = Manifestation.find_by(id: params[:parent_id]) if params[:parent_id].present?
-
-      if defined?(EnjuSubject)
-        subject = @subject if @subject
-      end
+      subject = @subject if @subject
 
       unless mode == "add"
         search.build do
@@ -83,9 +78,7 @@ class ManifestationsController < ApplicationController
       search.build do
         fulltext query if query.present?
         order_by sort[:sort_by], sort[:order]
-        if defined?(EnjuSubject)
-          with(:subject_ids).equal_to subject.id if subject
-        end
+        with(:subject_ids).equal_to subject.id if subject
         unless parent
           if params[:serial].to_s.downcase == "true"
             with(:series_master).equal_to true unless parent
@@ -203,7 +196,7 @@ class ManifestationsController < ApplicationController
         facet :library
         facet :language
         facet :pub_year, range: pub_date_range[:from]..pub_date_range[:until], range_interval: pub_year_range_interval
-        facet :subject_ids if defined?(EnjuSubject)
+        facet :subject_ids
         paginate page: page.to_i, per_page: per_page
       end
 
@@ -690,11 +683,9 @@ class ManifestationsController < ApplicationController
     @frequencies = Frequency.order(:position).select([ :id, :display_name, :position ])
     @identifier_types = IdentifierType.order(:position).select([ :id, :display_name, :position ])
     @nii_types = NiiType.select([ :id, :display_name, :position ]) if defined?(EnjuNii)
-    if defined?(EnjuSubject)
-      @subject_types = SubjectType.select([ :id, :display_name, :position ])
-      @subject_heading_types = SubjectHeadingType.select([ :id, :display_name, :position ])
-      @classification_types = ClassificationType.select([ :id, :display_name, :position ])
-    end
+    @subject_types = SubjectType.select([ :id, :display_name, :position ])
+    @subject_heading_types = SubjectHeadingType.select([ :id, :display_name, :position ])
+    @classification_types = ClassificationType.select([ :id, :display_name, :position ])
   end
 
   def get_index_agent

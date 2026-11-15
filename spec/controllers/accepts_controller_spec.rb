@@ -5,7 +5,7 @@ describe AcceptsController do
 
   def mock_user(stubs = {})
     (@mock_user ||= mock_model(Accept).as_null_object).tap do |user|
-      user.stub(stubs) unless stubs.empty?
+      allow(user).to receive(stubs) unless stubs.empty?
     end
   end
 
@@ -16,14 +16,14 @@ describe AcceptsController do
       it 'assigns all accepts as @accepts' do
         get :index
         expect(assigns(:accepts)).to be_truthy
-        response.should be_successful
+        expect(response).to be_successful
       end
 
       describe 'When basket_id is specified' do
         it 'assigns all accepts as @accepts' do
           get :index, params: { basket_id: 10 }
-          assigns(:accepts).should eq baskets(:basket_00010).accepts.order('accepts.created_at DESC').page(1)
-          response.should be_successful
+          expect(assigns(:accepts)).to eq baskets(:basket_00010).accepts.order('accepts.created_at DESC').page(1)
+          expect(response).to be_successful
         end
       end
     end
@@ -33,15 +33,15 @@ describe AcceptsController do
 
       it 'assigns all accepts as @accepts' do
         get :index
-        assigns(:accepts).should_not be_nil
-        response.should be_successful
+        expect(assigns(:accepts)).not_to be_nil
+        expect(response).to be_successful
       end
 
       describe 'When basket_id is specified' do
         it 'assigns all accepts as @accepts' do
           get :index, params: { basket_id: 9 }
-          assigns(:accepts).should eq baskets(:basket_00009).accepts.order('accepts.created_at DESC').page(1)
-          response.should be_successful
+          expect(assigns(:accepts)).to eq baskets(:basket_00009).accepts.order('accepts.created_at DESC').page(1)
+          expect(response).to be_successful
         end
       end
     end
@@ -51,8 +51,8 @@ describe AcceptsController do
 
       it 'should not assign all accepts as @accepts' do
         get :index
-        assigns(:accepts).should be_nil
-        response.should be_forbidden
+        expect(assigns(:accepts)).to be_nil
+        expect(response).to be_forbidden
       end
     end
   end
@@ -64,7 +64,7 @@ describe AcceptsController do
       it 'assigns the requested accept as @accept' do
         accept = FactoryBot.create(:accept)
         get :show, params: { id: accept.id }
-        assigns(:accept).should eq(accept)
+        expect(assigns(:accept)).to eq(accept)
       end
     end
 
@@ -74,7 +74,7 @@ describe AcceptsController do
       it 'assigns the requested accept as @accept' do
         accept = FactoryBot.create(:accept)
         get :show, params: { id: accept.id }
-        assigns(:accept).should eq(accept)
+        expect(assigns(:accept)).to eq(accept)
       end
     end
 
@@ -84,8 +84,8 @@ describe AcceptsController do
       it 'assigns the requested accept as @accept' do
         accept = FactoryBot.create(:accept)
         get :show, params: { id: accept.id }
-        assigns(:accept).should eq(accept)
-        response.should be_forbidden
+        expect(assigns(:accept)).to eq(accept)
+        expect(response).to be_forbidden
       end
     end
 
@@ -93,8 +93,8 @@ describe AcceptsController do
       it 'assigns the requested accept as @accept' do
         accept = FactoryBot.create(:accept)
         get :show, params: { id: accept.id }
-        assigns(:accept).should eq(accept)
-        response.should redirect_to new_user_session_url
+        expect(assigns(:accept)).to eq(accept)
+        expect(response).to redirect_to new_user_session_url
       end
     end
   end
@@ -105,7 +105,7 @@ describe AcceptsController do
 
       it 'assigns the requested accept as @accept' do
         get :new
-        assigns(:accept).should_not be_valid
+        expect(assigns(:accept)).not_to be_valid
       end
     end
 
@@ -114,7 +114,7 @@ describe AcceptsController do
 
       it 'assigns the requested accept as @accept' do
         get :new
-        assigns(:accept).should_not be_valid
+        expect(assigns(:accept)).not_to be_valid
       end
     end
 
@@ -123,16 +123,16 @@ describe AcceptsController do
 
       it 'should not assign the requested accept as @accept' do
         get :new
-        assigns(:accept).should be_nil
-        response.should be_forbidden
+        expect(assigns(:accept)).to be_nil
+        expect(response).to be_forbidden
       end
     end
 
     describe 'When not logged in' do
       it 'should not assign the requested accept as @accept' do
         get :new
-        assigns(:accept).should be_nil
-        response.should redirect_to(new_user_session_url)
+        expect(assigns(:accept)).to be_nil
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -149,19 +149,19 @@ describe AcceptsController do
       describe 'with valid params' do
         it 'assigns a newly created accept as @accept' do
           post :create, params: { accept: @attrs }
-          assigns(:accept).should be_nil
+          expect(assigns(:accept)).to be_nil
         end
 
         it 'should not create a new accept without basket_id' do
           post :create, params: { accept: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
 
         describe 'When basket_id is specified' do
           it 'redirects to the created accept' do
             post :create, params: { accept: @attrs, basket_id: 9 }
-            response.should redirect_to(accepts_url(basket_id: assigns(:accept).basket.id))
-            assigns(:accept).item.circulation_status.name.should eq 'Available On Shelf'
+            expect(response).to redirect_to(accepts_url(basket_id: assigns(:accept).basket.id))
+            expect(assigns(:accept).item.circulation_status.name).to eq 'Available On Shelf'
           end
         end
       end
@@ -169,19 +169,19 @@ describe AcceptsController do
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved accept as @accept' do
           post :create, params: { accept: @invalid_attrs }
-          assigns(:accept).should be_nil
+          expect(assigns(:accept)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { accept: @invalid_attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
 
       it 'should not create accept without item_id' do
         post :create, params: { accept: { item_identifier: nil }, basket_id: 9 }
-        assigns(:accept).should_not be_valid
-        response.should be_successful
+        expect(assigns(:accept)).not_to be_valid
+        expect(response).to be_successful
       end
     end
 
@@ -191,12 +191,12 @@ describe AcceptsController do
       describe 'with valid params' do
         it 'assigns a newly created accept as @accept' do
           post :create, params: { accept: @attrs }
-          assigns(:accept).should be_nil
+          expect(assigns(:accept)).to be_nil
         end
 
         it 'should not create a new accept without basket_id' do
           post :create, params: { accept: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -207,12 +207,12 @@ describe AcceptsController do
       describe 'with valid params' do
         it 'assigns a newly created accept as @accept' do
           post :create, params: { accept: @attrs }
-          assigns(:accept).should be_nil
+          expect(assigns(:accept)).to be_nil
         end
 
         it 'should be forbidden' do
           post :create, params: { accept: @attrs }
-          response.should be_forbidden
+          expect(response).to be_forbidden
         end
       end
     end
@@ -230,7 +230,7 @@ describe AcceptsController do
 
         it 'should redirect to new session url' do
           post :create, params: { accept: @attrs }
-          response.should redirect_to new_user_session_url
+          expect(response).to redirect_to new_user_session_url
         end
       end
     end
@@ -250,7 +250,7 @@ describe AcceptsController do
 
       it 'redirects to the accepts list' do
         delete :destroy, params: { id: @accept.id }
-        response.should redirect_to(accepts_url)
+        expect(response).to redirect_to(accepts_url)
       end
     end
 
@@ -263,7 +263,7 @@ describe AcceptsController do
 
       it 'redirects to the accepts list' do
         delete :destroy, params: { id: @accept.id }
-        response.should redirect_to(accepts_url)
+        expect(response).to redirect_to(accepts_url)
       end
     end
 
@@ -276,7 +276,7 @@ describe AcceptsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @accept.id }
-        response.should be_forbidden
+        expect(response).to be_forbidden
       end
     end
 
@@ -287,7 +287,7 @@ describe AcceptsController do
 
       it 'should be forbidden' do
         delete :destroy, params: { id: @accept.id }
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end

@@ -91,14 +91,14 @@ describe ContentTypesController do
     describe 'with invalid params' do
       it 'assigns a newly created but unsaved content_type as @content_type' do
         # Trigger the behavior that occurs when invalid params are submitted
-        ContentType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(ContentType).to receive(:save).and_return(false)
         post :create, params: { content_type: { name: 'test' } }
         expect(assigns(:content_type)).to be_a_new(ContentType)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        ContentType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(ContentType).to receive(:save).and_return(false)
         post :create, params: { content_type: { name: 'test' } }
         expect(response).to render_template('new')
       end
@@ -134,7 +134,7 @@ describe ContentTypesController do
         position = content_type.position
         put :update, params: { id: content_type.id, move: 'higher' }
         expect(response).to redirect_to content_types_url
-        assigns(:content_type).reload.position.should eq position - 1
+        expect(assigns(:content_type).reload.position).to eq position - 1
       end
     end
 
@@ -142,7 +142,7 @@ describe ContentTypesController do
       it 'assigns the content_type as @content_type' do
         content_type = ContentType.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        ContentType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(ContentType).to receive(:save).and_return(false)
         put :update, params: { id: content_type.id, content_type: { name: 'test' } }
         expect(assigns(:content_type)).to eq(content_type)
       end
@@ -150,7 +150,7 @@ describe ContentTypesController do
       it "re-renders the 'edit' template" do
         content_type = ContentType.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        ContentType.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(ContentType).to receive(:save).and_return(false)
         put :update, params: { id: content_type.id, content_type: { name: 'test' } }
         expect(response).to render_template('edit')
       end

@@ -12,32 +12,32 @@ describe Checkout do
   end
 
   it "should respond to reserved?" do
-    checkouts(:checkout_00001).reserved?.should be_falsy
-    checkouts(:checkout_00002).reserved?.should be_truthy
+    expect(checkouts(:checkout_00001).reserved?).to be_falsy
+    expect(checkouts(:checkout_00002).reserved?).to be_truthy
   end
 
   it "should respond to overdue?" do
-    checkouts(:checkout_00001).overdue?.should be_falsy
-    checkouts(:checkout_00006).overdue?.should be_truthy
+    expect(checkouts(:checkout_00001).overdue?).to be_falsy
+    expect(checkouts(:checkout_00006).overdue?).to be_truthy
   end
 
   it "should respond to is_today_due_date?" do
-    checkouts(:checkout_00001).is_today_due_date?.should be_falsy
+    expect(checkouts(:checkout_00001).is_today_due_date?).to be_falsy
   end
 
   it "should get new due_date" do
     old_due_date = checkouts(:checkout_00001).due_date
     new_due_date = checkouts(:checkout_00001).get_new_due_date
-    new_due_date.should eq Time.zone.now.advance(days: UserGroupHasCheckoutType.find(3).checkout_period).beginning_of_day
+    expect(new_due_date).to eq Time.zone.now.advance(days: UserGroupHasCheckoutType.find(3).checkout_period).beginning_of_day
   end
 
   it "should respond to not_returned" do
-    Checkout.not_returned.size.should > 0
+    expect(Checkout.not_returned.size).to be > 0
   end
 
   it "should respond to overdue" do
-    Checkout.overdue(Time.zone.now).size.should > 0
-    Checkout.not_returned.size.should > Checkout.overdue(Time.zone.now).size
+    expect(Checkout.overdue(Time.zone.now).size).to be > 0
+    expect(Checkout.not_returned.size).to be > Checkout.overdue(Time.zone.now).size
   end
 
   it "should respond to send_due_date_notification" do
