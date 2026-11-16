@@ -24,7 +24,7 @@ class NewsFeed < ApplicationRecord
   end
 
   def content
-    next unless body
+    return unless body
 
     # tDiary の RSS をパースした際に to_s が空になる
     # rss = RSS::Parser.parse(feed)
