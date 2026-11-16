@@ -5,15 +5,13 @@ module EnjuLoc
     included do
       def self.loc_search(query, options = {})
         options = {}.merge(options)
-        doc = nil
-        results = {}
         startrecord = options[:idx].to_i
         if startrecord == 0
           startrecord = 1
         end
         url = CGI.encode("#{LOC_SRU_BASEURL}?operation=searchRetrieve&version=1.1&=query=#{query}")
         cont = Faraday.get(url).body
-        doc = Nokogiri::XML.parse(cont)
+        Nokogiri::XML.parse(cont)
       end
 
       def self.import_record_from_loc_isbn(options)
@@ -249,7 +247,7 @@ module EnjuLoc
       end
 
       def self.get_mods_publication_place(doc)
-        place = doc.at('//mods:originInfo/mods:place/mods:placeTerm[@type="text"]', NS).try(:content)
+        doc.at('//mods:originInfo/mods:place/mods:placeTerm[@type="text"]', NS).try(:content)
       end
 
       def self.get_mods_extent(doc)

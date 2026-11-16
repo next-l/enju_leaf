@@ -82,7 +82,6 @@ module ManifestationsHelper
     library = Library.where(name: facet.value).select([ :name, :display_name ]).first
     return nil unless library
 
-    string = ""
     current = true if current_libraries.include?(library.name)
     content_tag :li do
       if current
@@ -96,7 +95,6 @@ module ManifestationsHelper
   end
 
   def carrier_type_facet(facet)
-    string = ""
     carrier_type = CarrierType.where(name: facet.value).select([ :id, :name, :display_name ]).first
     if carrier_type
       current = true if params[:carrier_type] == carrier_type.name

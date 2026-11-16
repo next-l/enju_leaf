@@ -128,9 +128,9 @@ class Bookmark < ApplicationRecord
   def get_manifestation
     # 自館のページをブックマークする場合
     if url.try(:my_host?)
-      manifestation = my_host_resource
+      my_host_resource
     else
-      manifestation = Manifestation.find_by(access_address: url) if url.present?
+      Manifestation.find_by(access_address: url) if url.present?
     end
   end
 

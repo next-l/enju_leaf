@@ -238,7 +238,7 @@ describe Manifestation, solr: true do
         description: "test\ntest",
         note: "test\ntest"
       )
-      item = FactoryBot.create(:item, manifestation: manifestation, note: "test\ntest")
+      FactoryBot.create(:item, manifestation: manifestation, note: "test\ntest")
       lines = Manifestation.export
       csv = CSV.parse(lines, headers: true, col_sep: "\t")
       expect(csv["abstract"].compact).not_to be_empty
