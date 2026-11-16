@@ -1,7 +1,7 @@
 {
   "name": "enju_leaf",
   "private": true,
-  "packageManager": "pnpm@12.18.0",
+  "packageManager": "pnpm@12.21.0",
   "devDependencies": {
     "esbuild": "^0.28.2"
   },
