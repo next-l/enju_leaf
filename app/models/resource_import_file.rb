@@ -49,7 +49,8 @@ class ResourceImportFile < ApplicationRecord
       failed: 0
     }
     available_on_shelf = CirculationStatus.find_by(name: "Available On Shelf")
-    rows = open_import_file(create_import_temp_file(attachment))
+    csv = open_import_file(create_import_temp_file(attachment))
+    rows = csv
     rows.shift
     # if [field['manifestation_id'], field['manifestation_identifier'], field['isbn'], field['original_title']].reject{|f|
     #  f.to_s.strip == ''
@@ -59,6 +60,16 @@ class ResourceImportFile < ApplicationRecord
     row_num = 1
 
     ResourceImportResult.create!(resource_import_file_id: id, body: (%w[ imported_manifestation_id imported_item_id ] + rows.headers).join("\t"))
+    rows = rows.to_a
+    items_by_identifier, = preload_items_for_rows(rows)
+    manifestations_by_identifier, manifestations_by_id = preload_manifestations_for_rows(rows)
+    ndl_bib_id_records_by_body = preload_ndl_bib_id_records_for_rows(rows)
+    doi_records_by_body = preload_doi_records_for_rows(rows)
+    jpno_records_by_body = preload_jpno_records_for_rows(rows)
+    ncid_records_by_body = preload_ncid_records_for_rows(rows)
+    lccn_records_by_body = preload_lccn_records_for_rows(rows)
+    isbn_records_by_body = preload_isbn_records_for_rows(rows)
+
     rows.each do |row|
       manifestation = item = nil
       row_num += 1
@@ -71,7 +82,7 @@ class ResourceImportFile < ApplicationRecord
       end
 
       item_identifier = row["item_identifier"].to_s.strip
-      item = Item.find_by(item_identifier: item_identifier)
+      item = items_by_identifier[item_identifier] if item_identifier.present?
       if item
         import_result.item = item
         import_result.manifestation = item.manifestation
@@ -83,54 +94,54 @@ class ResourceImportFile < ApplicationRecord
       end
 
       if row["manifestation_identifier"].present?
-        manifestation = Manifestation.find_by(manifestation_identifier: row["manifestation_identifier"].to_s.strip)
+        manifestation = manifestations_by_identifier[row["manifestation_identifier"].to_s.strip]
       end
 
       unless manifestation
         if row["manifestation_id"].present?
-          manifestation = Manifestation.find_by(id: row["manifestation_id"].to_s.strip)
+          manifestation = manifestations_by_id[row["manifestation_id"].to_s.strip]
         end
       end
 
       unless manifestation
         if row["iss_itemno"].present?
           iss_itemno = URI.parse(row["iss_itemno"]).path.gsub(/^\//, "")
-          manifestation = NdlBibIdRecord.find_by(body: iss_itemno).manifestation
+          manifestation = ndl_bib_id_records_by_body[iss_itemno].manifestation
         end
       end
 
       unless manifestation
         if row["doi"].present?
           doi = URI.parse(row["doi"].downcase).path.gsub(/^\//, "")
-          manifestation = DoiRecord.find_by(body: doi)&.manifestation
+          manifestation = doi_records_by_body[doi]&.manifestation
         end
       end
 
       unless manifestation
         if row["jpno"].present?
           jpno = row["jpno"].to_s.strip
-          manifestation = JpnoRecord.find_by(body: jpno)&.manifestation
+          manifestation = jpno_records_by_body[jpno]&.manifestation
         end
       end
 
       unless manifestation
         if row["ncid"].present?
           ncid = row["ncid"].to_s.strip
-          manifestation = NcidRecord.find_by(body: ncid)&.manifestation
+          manifestation = ncid_records_by_body[ncid]&.manifestation
         end
       end
 
       unless manifestation
         if row["lccn"].present?
           lccn = row["lccn"].to_s.strip
-          manifestation = LccnRecord.find_by(body: lccn).manifestation
+          manifestation = lccn_records_by_body[lccn].manifestation
         end
       end
 
       unless manifestation
         if row["isbn"].present?
           row["isbn"].to_s.split("//").each do |isbn|
-            m = IsbnRecord.find_by(body: Lisbn.new(isbn).isbn13)&.manifestations&.first
+            m = isbn_records_by_body[Lisbn.new(isbn).isbn13]&.manifestations&.first
             if m
               if m.series_statements.exists?
                 manifestation = m
@@ -191,6 +202,17 @@ class ResourceImportFile < ApplicationRecord
       import_result.manifestation = manifestation
 
       if manifestation
+        manifestations_by_id[manifestation.id.to_s] = manifestation
+        manifestations_by_identifier[manifestation.manifestation_identifier] = manifestation if manifestation.manifestation_identifier.present?
+        ndl_bib_id_records_by_body[manifestation.ndl_bib_id_record.body] = manifestation.ndl_bib_id_record if manifestation.ndl_bib_id_record
+        doi_records_by_body[manifestation.doi_record.body] = manifestation.doi_record if manifestation.doi_record
+        jpno_records_by_body[manifestation.jpno_record.body] = manifestation.jpno_record if manifestation.jpno_record
+        ncid_records_by_body[manifestation.ncid_record.body] = manifestation.ncid_record if manifestation.ncid_record
+        lccn_records_by_body[manifestation.lccn_record.body] = manifestation.lccn_record if manifestation.lccn_record
+        manifestation.isbn_records.each { |isbn_record| isbn_records_by_body[isbn_record.body] = isbn_record }
+      end
+
+      if manifestation
         manifestation.reload
 
         ResourceImportFile.import_manifestation_custom_value(row, manifestation).each do |value|
@@ -212,6 +234,8 @@ class ResourceImportFile < ApplicationRecord
         end
 
         if item
+          items_by_identifier[item_identifier] = item if item_identifier.present?
+
           ResourceImportFile.import_item_custom_value(row, item).each do |value|
             value.update!(item: item)
           end
@@ -228,7 +252,7 @@ class ResourceImportFile < ApplicationRecord
     end
 
     Sunspot.commit
-    rows.close
+    csv.close
     transition_to!(:completed)
     mailer = ResourceImportMailer.completed(self)
     send_message(mailer)
@@ -287,7 +311,10 @@ class ResourceImportFile < ApplicationRecord
     default_carrier_type = CarrierType.find(1)
     default_frequency = Frequency.find(1)
     default_language = Language.find(1)
-    reader.each do |record|
+    records = reader.to_a
+    full_names = records.filter_map { |record| record["700"]&.[]("a") }.uniq
+    agents_by_full_name = Agent.where(full_name: full_names).index_by(&:full_name)
+    records.each do |record|
       manifestation = Manifestation.new(original_title: expression.original_title)
       manifestation.carrier_type = default_carrier_type
       manifestation.frequency = default_frequency
@@ -295,10 +322,11 @@ class ResourceImportFile < ApplicationRecord
       manifestation.save
 
       full_name = record["700"]["a"]
-      publisher = Agent.find_by(full_name: record["700"]["a"])
+      publisher = agents_by_full_name[full_name]
       unless publisher
         publisher = Agent.new(full_name: full_name)
         publisher.save
+        agents_by_full_name[full_name] = publisher
       end
       manifestation.publishers << publisher
     end
@@ -478,6 +506,53 @@ class ResourceImportFile < ApplicationRecord
     manifestations_by_identifier = Manifestation.where(manifestation_identifier: manifestation_identifiers).index_by(&:manifestation_identifier)
     manifestations_by_id = Manifestation.where(id: manifestation_ids).index_by { |manifestation| manifestation.id.to_s }
     [ manifestations_by_identifier, manifestations_by_id ]
+  end
+
+  def preload_ndl_bib_id_records_for_rows(rows)
+    bodies = rows.filter_map do |row|
+      next if row["iss_itemno"].blank?
+      begin
+        URI.parse(row["iss_itemno"]).path.gsub(/^\//, "")
+      rescue URI::InvalidURIError
+        nil
+      end
+    end
+    NdlBibIdRecord.where(body: bodies).index_by(&:body)
+  end
+
+  def preload_doi_records_for_rows(rows)
+    bodies = rows.filter_map do |row|
+      next if row["doi"].blank?
+      begin
+        URI.parse(row["doi"].downcase).path.gsub(/^\//, "")
+      rescue URI::InvalidURIError
+        nil
+      end
+    end
+    DoiRecord.where(body: bodies).index_by(&:body)
+  end
+
+  def preload_jpno_records_for_rows(rows)
+    bodies = rows.filter_map { |row| row["jpno"].to_s.strip.presence }
+    JpnoRecord.where(body: bodies).index_by(&:body)
+  end
+
+  def preload_ncid_records_for_rows(rows)
+    bodies = rows.filter_map { |row| row["ncid"].to_s.strip.presence }
+    NcidRecord.where(body: bodies).index_by(&:body)
+  end
+
+  def preload_lccn_records_for_rows(rows)
+    bodies = rows.filter_map { |row| row["lccn"].to_s.strip.presence }
+    LccnRecord.where(body: bodies).index_by(&:body)
+  end
+
+  def preload_isbn_records_for_rows(rows)
+    bodies = rows.flat_map do |row|
+      next [] if row["isbn"].blank?
+      row["isbn"].to_s.split("//").map { |isbn| Lisbn.new(isbn).isbn13 }
+    end.compact
+    IsbnRecord.where(body: bodies).index_by(&:body)
   end
 
   def open_import_file(tempfile)
