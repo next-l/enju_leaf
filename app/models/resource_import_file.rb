@@ -60,6 +60,7 @@ class ResourceImportFile < ApplicationRecord
 
     ResourceImportResult.create!(resource_import_file_id: id, body: (%w[ imported_manifestation_id imported_item_id ] + rows.headers).join("\t"))
     rows.each do |row|
+      manifestation = item = nil
       row_num += 1
       import_result = ResourceImportResult.new(resource_import_file_id: id)
       if row["dummy"].to_s.strip.present?
@@ -196,7 +197,6 @@ class ResourceImportFile < ApplicationRecord
           value.update!(manifestation: manifestation)
         end
 
-        item = nil
         if item_identifier.present? || row["shelf"].present? || row["call_number"].present?
           item = create_item(row, manifestation)
         else
@@ -222,7 +222,7 @@ class ResourceImportFile < ApplicationRecord
         num[:failed] += 1
       end
 
-      import_result.body = ([ manifestation.try(:id), item.try(:id) ] + row.fields).join("\t")
+      import_result.body = ([ manifestation&.id, item&.id ] + row.fields).join("\t")
       import_result.save!
       num[:item_imported] += 1 if import_result.item
     end
