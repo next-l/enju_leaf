@@ -107,8 +107,6 @@ module EnjuNii
 
       def search_cinii_book(query, options = {})
         options = { p: 1, count: 10, raw: false }.merge(options)
-        doc = nil
-        results = {}
         startrecord = options[:idx].to_i
         if startrecord == 0
           startrecord = 1

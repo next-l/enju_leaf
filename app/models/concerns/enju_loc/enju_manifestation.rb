@@ -232,7 +232,7 @@ module EnjuLoc
       end
 
       def self.get_mods_language(doc)
-        language = doc.at('//mods:language/mods:languageTerm[@authority="iso639-2b"]', NS).try(:content)
+        doc.at('//mods:language/mods:languageTerm[@authority="iso639-2b"]', NS).try(:content)
       end
 
       def self.get_mods_access_address(doc)

@@ -253,8 +253,6 @@ module EnjuNdl
 
       def search_ndl(query, options = {})
         options = { dpid: "iss-ndl-opac", item: "any", idx: 1, per_page: 10, raw: false, mediatype: "books periodicals video audio scores" }.merge(options)
-        doc = nil
-        results = {}
         startrecord = options[:idx].to_i
         startrecord = 1 if startrecord.zero?
         url = "https://ndlsearch.ndl.go.jp/api/opensearch?dpid=#{options[:dpid]}&#{options[:item]}=#{format_query(query)}&cnt=#{options[:per_page]}&idx=#{startrecord}&mediatype=#{options[:mediatype]}"

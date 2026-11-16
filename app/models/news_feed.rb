@@ -24,21 +24,21 @@ class NewsFeed < ApplicationRecord
   end
 
   def content
-    if body
-      # tDiary の RSS をパースした際に to_s が空になる
-      # rss = RSS::Parser.parse(feed)
-      # rss.to_s
-      # => ""
-      # if rss.nil?
-      begin
-        rss = RSS::Parser.parse(body)
-      rescue RSS::InvalidRSSError
-        rss = RSS::Parser.parse(body, false)
-      rescue RSS::NotWellFormedError, TypeError
-        nil
-      end
-      # end
+    next unless body
+
+    # tDiary の RSS をパースした際に to_s が空になる
+    # rss = RSS::Parser.parse(feed)
+    # rss.to_s
+    # => ""
+    # if rss.nil?
+    begin
+      RSS::Parser.parse(body)
+    rescue RSS::InvalidRSSError
+      RSS::Parser.parse(body, false)
+    rescue RSS::NotWellFormedError, TypeError
+      nil
     end
+    # end
   end
 
   def force_reload
