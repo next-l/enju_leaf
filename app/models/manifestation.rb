@@ -510,7 +510,7 @@ class Manifestation < ApplicationRecord
           create.save(validate: false)
         end
       when :publisher
-        type = "publisher" if role_type.blank?
+        type = "publisher" if type.blank?
         produce = Produce.find_by(manifestation_id: id, agent_id: agent.id)
         if produce
           produce.produce_type = ProduceType.find_by(name: type)
