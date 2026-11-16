@@ -67,6 +67,7 @@ RUN SECRET_KEY_BASE_DUMMY=1 CI=1 ./bin/rails assets:precompile
 
 # Final stage for app image
 FROM base
+ARG PNPM_VERSION
 ARG UID=1000
 ARG GID=1000
 ARG http_proxy
