@@ -224,12 +224,18 @@ class Agent < ApplicationRecord
 
   def self.import_agents(agent_lists)
     agents = []
+    ndla_identifiers = agent_lists.map { |agent_list| agent_list[:ndla_identifier] }.compact
+    ndla_records_by_body = NdlaRecord.where(body: ndla_identifiers).index_by(&:body)
+    agent_identifiers = agent_lists.map { |agent_list| agent_list[:agent_identifier] }.compact
+    agents_by_identifier = Agent.where(agent_identifier: agent_identifiers).index_by(&:agent_identifier)
+    guest_role = Role.find_by(name: "Guest")
+
     agent_lists.each do |agent_list|
       name_and_role = agent_list[:full_name].split("||")
       if agent_list[:ndla_identifier].present?
-        agent = NdlaRecord.find_by(body: agent_list[:ndla_identifier])&.agent
+        agent = ndla_records_by_body[agent_list[:ndla_identifier]]&.agent
       elsif agent_list[:agent_identifier].present?
-        agent = Agent.find_by(agent_identifier: agent_list[:agent_identifier])
+        agent = agents_by_identifier[agent_list[:agent_identifier]]
       else
         agents_matched = Agent.where(full_name: name_and_role[0])
         agents_matched = agents_matched.where(place: agent_list[:place]) if agent_list[:place]
@@ -245,7 +251,7 @@ class Agent < ApplicationRecord
           place: agent_list[:place],
           language_id: 1
         )
-        agent.required_role = Role.find_by(name: "Guest")
+        agent.required_role = guest_role
         agent.save
 
         if agent_list[:ndla_identifier].present?
@@ -267,15 +273,18 @@ class Agent < ApplicationRecord
 
     agents = []
     Agent.transaction do
+      ids = agents_params.values.flat_map { |v| [v["agent_id"], v["id"]] }.select(&:present?)
+      agents_by_id = ids.present? ? Agent.find(ids).index_by { |agent| agent.id.to_s } : {}
+
       agents_params.each do |k, v|
         next if v["_destroy"] == "1"
 
         agent = nil
 
         if v["agent_id"].present?
-          agent = Agent.find(v["agent_id"])
+          agent = agents_by_id[v["agent_id"].to_s]
         elsif v["id"].present?
-          agent = Agent.find(v["id"])
+          agent = agents_by_id[v["id"].to_s]
         end
 
         if !agent or agent.full_name != v["full_name"]

@@ -67,6 +67,49 @@ describe Agent do
       expect(agents.size).to be 2
     end
   end
+
+  describe ".new_agents" do
+    it "should return an empty array when agents_params is blank" do
+      expect(Agent.new_agents(nil)).to eq []
+    end
+
+    it "should create new agents" do
+      agents_params = { "0" => { "full_name" => "New Agent 1" }, "1" => { "full_name" => "New Agent 2" } }
+      agents = Agent.new_agents(agents_params)
+      expect(agents.size).to eq 2
+      expect(agents.map(&:full_name)).to eq ["New Agent 1", "New Agent 2"]
+      expect(agents).to all(be_persisted)
+    end
+
+    it "should reuse an existing agent found by agent_id" do
+      existing_agent = FactoryBot.create(:agent, full_name: "Existing Agent")
+      agents_params = { "0" => { "agent_id" => existing_agent.id.to_s, "full_name" => "Existing Agent" } }
+      agents = Agent.new_agents(agents_params)
+      expect(agents).to eq [existing_agent]
+    end
+
+    it "should reuse an existing agent found by id" do
+      existing_agent = FactoryBot.create(:agent, full_name: "Existing Agent")
+      agents_params = { "0" => { "id" => existing_agent.id.to_s, "full_name" => "Existing Agent" } }
+      agents = Agent.new_agents(agents_params)
+      expect(agents).to eq [existing_agent]
+    end
+
+    it "should create a new agent when the full_name changed" do
+      existing_agent = FactoryBot.create(:agent, full_name: "Existing Agent")
+      agents_params = { "0" => { "agent_id" => existing_agent.id.to_s, "full_name" => "Renamed Agent" } }
+      agents = Agent.new_agents(agents_params)
+      expect(agents.size).to eq 1
+      expect(agents.first).not_to eq existing_agent
+      expect(agents.first.full_name).to eq "Renamed Agent"
+    end
+
+    it "should skip entries marked for destruction" do
+      agents_params = { "0" => { "full_name" => "Agent", "_destroy" => "1" } }
+      agents = Agent.new_agents(agents_params)
+      expect(agents).to eq []
+    end
+  end
 end
 
 # ## Schema Information
