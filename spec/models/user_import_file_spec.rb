@@ -194,6 +194,42 @@ describe UserImportFile do
       user002 = User.find_by(username: 'librarian1')
       expect(user002.valid_password?('librarian1password')).to be_truthy
     end
+
+    it "should not allow a librarian to update librarians or administrators" do
+      admin = users(:admin)
+      librarian2 = users(:librarian2)
+      admin_email = admin.email
+      librarian2_email = librarian2.email
+      file = UserImportFile.create!(
+        attachment: fixture_file_upload("user_update_file_privileged.tsv"),
+        user: users(:librarian1),
+        default_user_group: UserGroup.find(2),
+        default_library: Library.find(3)
+      )
+      result = file.modify
+      expect(result[:user_updated]).to eq 1
+      expect(result[:failed]).to eq 2
+      admin.reload
+      expect(admin.email).to eq admin_email
+      expect(admin.valid_password?('pwned_password')).to be_falsy
+      librarian2.reload
+      expect(librarian2.email).to eq librarian2_email
+      expect(librarian2.valid_password?('pwned_password')).to be_falsy
+      expect(User.find_by(username: 'user001').email).to eq 'user001_new@example.jp'
+    end
+
+    it "should allow an administrator to update librarians" do
+      file = UserImportFile.create!(
+        attachment: fixture_file_upload("user_update_file_privileged.tsv"),
+        user: users(:admin),
+        default_user_group: UserGroup.find(2),
+        default_library: Library.find(3)
+      )
+      result = file.modify
+      expect(result[:failed]).to eq 0
+      expect(result[:user_updated]).to eq 3
+      expect(users(:librarian2).reload.email).to eq 'attacker2@example.jp'
+    end
   end
 
   describe "when its mode is 'destroy'" do
