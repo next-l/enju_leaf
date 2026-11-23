@@ -61,7 +61,7 @@ class BookmarksController < ApplicationController
       end
       @bookmark.title = manifestation.original_title
     else
-      @bookmark.title = Bookmark.get_title_from_url(@bookmark.url) unless @bookmark.title?
+      @bookmark.title = @bookmark.get_title_from_url(@bookmark.url) unless @bookmark.title?
     end
   end
 
