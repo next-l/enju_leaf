@@ -139,6 +139,11 @@ class UserImportFile < ApplicationRecord
       username = row["username"]
       new_user = User.find_by(username: username)
       if new_user.try(:profile)
+        unless modifiable_by_importer?(new_user)
+          num[:failed] += 1
+          next
+        end
+
         new_user.assign_attributes(set_user_params(row))
         new_user.password = row["password"] if row["password"].to_s.strip.present?
         new_user.profile.assign_attributes(set_profile_params(row))
@@ -249,6 +254,16 @@ class UserImportFile < ApplicationRecord
   end
 
   private
+
+  # インポートを実行したユーザが対象ユーザを更新できるかを返します。
+  # 図書館員・管理者の更新は管理者のみ可能です。
+  # @param [User] target 更新対象のユーザ
+  def modifiable_by_importer?(target)
+    return false unless user
+    return true if user.has_role?("Administrator")
+
+    !target.has_role?("Librarian")
+  end
 
   # ユーザ情報のパラメータを設定します。
   # @param [Hash] row 利用者情報のハッシュ
