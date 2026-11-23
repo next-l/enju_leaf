@@ -27,9 +27,13 @@ class EventImportFile < ApplicationRecord
   def import
     transition_to!(:started)
     num = { imported: 0, failed: 0 }
-    rows = open_import_file(create_import_temp_file(attachment))
-    check_field(rows.first)
+    csv = open_import_file(create_import_temp_file(attachment))
+    check_field(csv.first)
+    rows = csv.to_a
     row_num = 1
+
+    libraries_by_name = Library.where(name: rows.map { |row| row["library"].to_s.strip }.reject(&:blank?).uniq).index_by(&:name)
+    event_categories_by_name = EventCategory.where(name: rows.map { |row| row["event_category"].to_s.strip }.reject(&:blank?).uniq).index_by(&:name)
 
     rows.each do |row|
       row_num += 1
@@ -49,10 +53,10 @@ class EventImportFile < ApplicationRecord
       else
         event.all_day = false
       end
-      library = Library.find_by(name: row["library"])
+      library = libraries_by_name[row["library"].to_s.strip]
       library = default_library || Library.web if library.blank?
       event.library = library
-      event_category = EventCategory.find_by(name: row["event_category"])
+      event_category = event_categories_by_name[row["event_category"].to_s.strip]
       event_category = default_event_category if event_category.blank?
       event.event_category = event_category
 
@@ -65,7 +69,7 @@ class EventImportFile < ApplicationRecord
       event_import_result.save!
     end
     Sunspot.commit
-    rows.close
+    csv.close
     transition_to!(:completed)
     mailer = EventImportMailer.completed(self)
     send_message(mailer)
