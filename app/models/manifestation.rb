@@ -490,7 +490,7 @@ class Manifestation < ApplicationRecord
   end
 
   def set_agent_role_type(agent_lists, options = { scope: :creator })
-    agent_lists.each do |agent_list|
+    agent_types = agent_lists.filter_map do |agent_list|
       name_and_role = agent_list[:full_name].split("||")
       if agent_list[:agent_identifier].present?
         agent = Agent.find_by(agent_identifier: agent_list[:agent_identifier])
@@ -503,21 +503,36 @@ class Manifestation < ApplicationRecord
       case options[:scope]
       when :creator
         type = "author" if type.blank?
-        role_type = CreateType.find_by(name: type)
-        create = Create.find_by(work_id: id, agent_id: agent.id)
-        if create
-          create.create_type = role_type
-          create.save(validate: false)
-        end
       when :publisher
         type = "publisher" if type.blank?
-        produce = Produce.find_by(manifestation_id: id, agent_id: agent.id)
-        if produce
-          produce.produce_type = ProduceType.find_by(name: type)
-          produce.save(validate: false)
-        end
       else
         raise "#{options[:scope]} is not supported!"
+      end
+
+      [ agent, type ]
+    end
+    return if agent_types.empty?
+
+    case options[:scope]
+    when :creator
+      role_types = CreateType.where(name: agent_types.map(&:last).uniq).index_by(&:name)
+      creates = Create.where(work_id: id, agent_id: agent_types.map { |agent, _type| agent.id }).index_by(&:agent_id)
+      agent_types.each do |agent, type|
+        create = creates[agent.id]
+        next unless create
+
+        create.create_type = role_types[type]
+        create.save(validate: false)
+      end
+    when :publisher
+      produce_types = ProduceType.where(name: agent_types.map(&:last).uniq).index_by(&:name)
+      produces = Produce.where(manifestation_id: id, agent_id: agent_types.map { |agent, _type| agent.id }).index_by(&:agent_id)
+      agent_types.each do |agent, type|
+        produce = produces[agent.id]
+        next unless produce
+
+        produce.produce_type = produce_types[type]
+        produce.save(validate: false)
       end
     end
   end
