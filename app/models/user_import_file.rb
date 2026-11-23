@@ -37,7 +37,11 @@ class UserImportFile < ApplicationRecord
       raise "username column is not found"
     end
 
-    rows.each do |row|
+    data_rows = rows.to_a
+    default_role = Role.find(2) # User
+    roles_by_name = Role.where(name: data_rows.filter_map { |row| row["role"] }.uniq).index_by(&:name)
+
+    data_rows.each do |row|
       row_num += 1
       import_result = UserImportResult.create!(
         user_import_file_id: id, body: row.fields.join("\t")
@@ -53,7 +57,7 @@ class UserImportFile < ApplicationRecord
       else
         new_user = User.new(
           username: username,
-          role: Role.find_by(name: row["role"])
+          role: roles_by_name[row["role"]]
         )
         if new_user.role
           unless user.has_role?(new_user.role.name)
@@ -61,7 +65,7 @@ class UserImportFile < ApplicationRecord
             next
           end
         else
-          new_user.role = Role.find(2) # User
+          new_user.role = default_role
         end
         new_user.assign_attributes(set_user_params(row))
 
