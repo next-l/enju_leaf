@@ -63,7 +63,7 @@ class Bookmark < ApplicationRecord
     return if url.blank?
 
     if url.my_host?
-      my_host_resource.original_title
+      my_host_resource&.original_title
     else
       get_title_from_url(url)
     end
