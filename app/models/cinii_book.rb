@@ -20,10 +20,7 @@ class CiniiBook
   end
 
   def ncid
-    url = @node.attributes["about"].try(:content)
-    if url
-      URI.parse(url).path.split("/").reverse.first
-    end
+    @node.at("//dc:identifier[@rdf:datatype='cir:NCID']").content
   end
 
   def issued
