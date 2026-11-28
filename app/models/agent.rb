@@ -300,6 +300,11 @@ class Agent < ApplicationRecord
 
     agents
   end
+
+  def to_jpcoar
+    xml = ::Builder::XmlMarkup.new
+    xml.tag! 'jpcoar:creatorName', full_name
+  end
 end
 
 # ## Schema Information
